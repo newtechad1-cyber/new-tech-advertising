@@ -23,6 +23,10 @@ export default function Header({ onCTAClick }) {
 
           <div className="flex items-center gap-6">
             <div className="hidden md:flex items-center gap-6 text-sm">
+              <a href="tel:641-420-8816" className="flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors">
+                <Phone className="w-4 h-4" />
+                <span className="font-semibold">641-420-8816</span>
+              </a>
               <a href="mailto:rick@newtechadvertising.com" className="flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors">
                 <Mail className="w-4 h-4" />
                 <span>rick@newtechadvertising.com</span>
