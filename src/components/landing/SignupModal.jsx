@@ -4,14 +4,17 @@ import { X, ArrowRight, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
+import { base44 } from '@/api/base44Client';
 
 export default function SignupModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    businessName: ''
+    businessName: '',
+    message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -19,13 +22,32 @@ export default function SignupModal({ isOpen, onClose }) {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      await base44.integrations.Core.SendEmail({
+        to: 'rick@newtechadvertising.com',
+        subject: `New Lead: ${formData.businessName || formData.name}`,
+        body: `
+New Lead Submission
 
-    toast.success('Application received! We\'ll contact you within 24 hours.');
-    setIsSubmitting(false);
-    onClose();
-    setFormData({ name: '', email: '', phone: '', businessName: '' });
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Business Name: ${formData.businessName}
+Message: ${formData.message || 'N/A'}
+
+---
+Submitted from AI Marketing Landing Page
+        `
+      });
+
+      toast.success('Thank you! We\'ll contact you within 24 hours.');
+      setFormData({ name: '', email: '', phone: '', businessName: '', message: '' });
+      onClose();
+    } catch (error) {
+      toast.error('Something went wrong. Please try again or email us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -46,7 +68,7 @@ export default function SignupModal({ isOpen, onClose }) {
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
           >
             <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
-              <div className="bg-gradient-to-r from-orange-500 to-orange-600 p-8 relative">
+              <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-8 relative">
                 <button
                   onClick={onClose}
                   className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors"
@@ -54,10 +76,10 @@ export default function SignupModal({ isOpen, onClose }) {
                   <X className="w-6 h-6" />
                 </button>
                 <h3 className="text-2xl font-bold text-white mb-2">
-                  Start Your 30-Day Trial
+                  Get Started Today
                 </h3>
                 <p className="text-white/90 text-sm">
-                  No payment required today. We'll contact you to get started.
+                  Tell us about your business and we'll contact you within 24 hours
                 </p>
               </div>
 
@@ -122,27 +144,41 @@ export default function SignupModal({ isOpen, onClose }) {
                   />
                 </div>
 
-                <div className="bg-green-50 border border-green-200 rounded-xl p-4">
-                  <p className="text-sm text-green-800">
-                    ✓ 30-day money-back guarantee<br />
-                    ✓ No payment required today<br />
-                    ✓ Cancel anytime, no questions asked
+                <div>
+                  <Label htmlFor="message" className="text-slate-700 font-medium">
+                    Tell us about your business (optional)
+                  </Label>
+                  <Textarea
+                    id="message"
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="mt-2"
+                    placeholder="What services do you offer? What are your marketing goals?"
+                    rows={3}
+                  />
+                </div>
+
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                  <p className="text-sm text-blue-800">
+                    ✓ No contracts required<br />
+                    ✓ Cancel anytime, no questions asked<br />
+                    ✓ You're never locked in
                   </p>
                 </div>
 
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-6 text-lg rounded-xl shadow-lg group"
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-6 text-lg rounded-xl shadow-lg group"
                 >
                   {isSubmitting ? (
                     <>
                       <Loader2 className="mr-2 w-5 h-5 animate-spin" />
-                      Submitting...
+                      Sending...
                     </>
                   ) : (
                     <>
-                      Submit Application
+                      Send My Information
                       <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </>
                   )}

@@ -5,11 +5,11 @@ import { Button } from '@/components/ui/button';
 
 export default function HeroSection({ onCTAClick }) {
   return (
-    <section className="relative min-h-[85vh] flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 overflow-hidden">
+    <section className="relative min-h-[85vh] flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 overflow-hidden pt-20">
       {/* Animated background elements */}
       <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-orange-500 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500 rounded-full blur-3xl animate-pulse delay-700" />
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500 rounded-full blur-3xl animate-pulse delay-700" />
       </div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 py-16 text-center">
@@ -19,9 +19,9 @@ export default function HeroSection({ onCTAClick }) {
           transition={{ duration: 0.8 }}
           className="mb-6"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-500/10 border border-orange-500/20 rounded-full mb-8">
-            <Sparkles className="w-4 h-4 text-orange-400" />
-            <span className="text-sm font-medium text-orange-300">AI-Powered Marketing That Actually Works</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full mb-8">
+            <Sparkles className="w-4 h-4 text-blue-400" />
+            <span className="text-sm font-medium text-blue-300">AI-Powered Marketing That Actually Works</span>
           </div>
         </motion.div>
 
@@ -32,7 +32,7 @@ export default function HeroSection({ onCTAClick }) {
           className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-8"
         >
           How Smart Local Business Owners Are Using AI to Finally{' '}
-          <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
             Get Results
           </span>{' '}
           From Their Ads
@@ -56,12 +56,12 @@ export default function HeroSection({ onCTAClick }) {
           <Button
             size="lg"
             onClick={onCTAClick}
-            className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-8 py-6 text-lg rounded-xl shadow-2xl shadow-orange-500/30 transition-all duration-300 hover:scale-105 group"
+            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg rounded-xl shadow-2xl shadow-blue-500/30 transition-all duration-300 hover:scale-105 group"
           >
             Get Started Risk-Free
             <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Button>
-          <p className="text-sm text-slate-400">30-day money-back guarantee</p>
+          <p className="text-sm text-slate-400">No contracts • Cancel anytime</p>
         </motion.div>
 
         <motion.div

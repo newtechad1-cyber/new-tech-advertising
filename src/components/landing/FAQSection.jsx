@@ -24,7 +24,7 @@ export default function FAQSection() {
     },
     {
       question: "What if I'm not satisfied?",
-      answer: "We offer a full 30-day money-back guarantee. If you're not completely satisfied within the first 30 days, just let us know and we'll refund every penny. No questions asked, no hoops to jump through. We want you to feel 100% confident trying our service risk-free."
+      answer: "You're never locked into a contract with us. If you're not satisfied, simply cancel anytime—no penalties, no fees, no questions asked. We believe in earning your business every month by delivering real results, not by trapping you in a long-term commitment."
     },
     {
       question: "How long does it take to get set up?",
@@ -62,8 +62,8 @@ export default function FAQSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-100 rounded-full mb-6">
-            <HelpCircle className="w-8 h-8 text-orange-600" />
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-6">
+            <HelpCircle className="w-8 h-8 text-blue-600" />
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
             Frequently Asked Questions
@@ -86,7 +86,7 @@ export default function FAQSection() {
                 value={`item-${index}`}
                 className="bg-white border border-slate-200 rounded-xl px-6 shadow-sm hover:shadow-md transition-shadow"
               >
-                <AccordionTrigger className="text-left text-slate-900 font-semibold hover:text-orange-600 transition-colors py-5">
+                <AccordionTrigger className="text-left text-slate-900 font-semibold hover:text-blue-600 transition-colors py-5">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-slate-600 leading-relaxed pb-5">
@@ -104,16 +104,15 @@ export default function FAQSection() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-12 text-center"
         >
-          <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-2xl p-8 border border-orange-200">
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 border border-blue-200">
             <p className="text-slate-700 text-lg mb-2">
               Still have questions?
             </p>
             <p className="text-slate-600">
               We're here to help. Reach out to us at{' '}
-              <a href="mailto:support@example.com" className="text-orange-600 font-semibold hover:text-orange-700">
-                support@example.com
+              <a href="mailto:rick@newtechadvertising.com" className="text-blue-600 font-semibold hover:text-blue-700">
+                rick@newtechadvertising.com
               </a>
-              {' '}or give us a call during business hours.
             </p>
           </div>
         </motion.div>

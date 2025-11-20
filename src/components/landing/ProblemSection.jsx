@@ -65,13 +65,13 @@ export default function ProblemSection() {
           <p className="text-2xl md:text-3xl text-white font-light mb-4">
             The problem isn't you.
           </p>
-          <p className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent mb-6">
+          <p className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-6">
             It's the setup.
           </p>
           <p className="text-lg text-slate-300 max-w-2xl mx-auto">
             Your website isn't built to convert. Your SEO doesn't show up. Your message is invisible.
             <br />
-            <span className="text-orange-400 font-semibold mt-2 inline-block">
+            <span className="text-blue-400 font-semibold mt-2 inline-block">
               But that changes now.
             </span>
           </p>

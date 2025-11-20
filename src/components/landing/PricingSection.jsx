@@ -48,7 +48,7 @@ export default function PricingSection({ onCTAClick }) {
           className="max-w-4xl mx-auto"
         >
           <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-            <div className="bg-gradient-to-r from-orange-500 to-orange-600 p-8 text-center">
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-8 text-center">
               <p className="text-white/90 text-lg mb-2">Complete Marketing Solution</p>
               <div className="flex items-end justify-center gap-2 mb-2">
                 <span className="text-6xl md:text-7xl font-bold text-white">$297</span>
@@ -94,7 +94,7 @@ export default function PricingSection({ onCTAClick }) {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-8 mb-8">
+              <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 mb-8">
                 <p className="text-center text-slate-700 text-lg mb-2">
                   <span className="font-bold text-slate-900">You get everything done for you</span>, so you can get back to running your business.
                 </p>
@@ -106,9 +106,9 @@ export default function PricingSection({ onCTAClick }) {
               <Button
                 size="lg"
                 onClick={onCTAClick}
-                className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
               >
-                Start Your 30-Day Risk-Free Trial
+                Get Started Today
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </div>

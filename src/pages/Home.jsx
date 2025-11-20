@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Header from '../components/landing/Header';
 import HeroSection from '../components/landing/HeroSection';
 import ProblemSection from '../components/landing/ProblemSection';
 import FeaturesGrid from '../components/landing/FeaturesGrid';
@@ -17,6 +18,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Header onCTAClick={handleCTAClick} />
       <HeroSection onCTAClick={handleCTAClick} />
       <ProblemSection />
       <FeaturesGrid />

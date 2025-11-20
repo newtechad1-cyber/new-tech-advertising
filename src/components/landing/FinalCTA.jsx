@@ -7,8 +7,8 @@ export default function FinalCTA({ onCTAClick }) {
   return (
     <section className="py-24 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 relative overflow-hidden">
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-orange-500 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500 rounded-full blur-3xl" />
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
@@ -18,14 +18,14 @@ export default function FinalCTA({ onCTAClick }) {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-500/10 border border-orange-500/20 rounded-full mb-8">
-            <Clock className="w-4 h-4 text-orange-400" />
-            <span className="text-sm font-medium text-orange-300">Your next customer is looking right now</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full mb-8">
+            <Clock className="w-4 h-4 text-blue-400" />
+            <span className="text-sm font-medium text-blue-300">Your next customer is looking right now</span>
           </div>
 
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
             Don't Wait.{' '}
-            <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
               Are You Showing Up?
             </span>
           </h2>
@@ -41,15 +41,15 @@ export default function FinalCTA({ onCTAClick }) {
               Most agencies charge <span className="line-through text-slate-500">$2,000+</span> for less
             </p>
             <p className="text-5xl font-bold text-white mb-2">$297/month</p>
-            <p className="text-slate-400">Everything included • No contracts • 30-day guarantee</p>
+            <p className="text-slate-400">Everything included • No contracts • Cancel anytime</p>
           </div>
 
           <Button
             size="lg"
             onClick={onCTAClick}
-            className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-12 py-7 text-xl rounded-xl shadow-2xl shadow-orange-500/30 transition-all duration-300 hover:scale-105 group"
+            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-12 py-7 text-xl rounded-xl shadow-2xl shadow-blue-500/30 transition-all duration-300 hover:scale-105 group"
           >
-            Start Your Risk-Free Trial Now
+            Get Started Today
             <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
           </Button>
 
