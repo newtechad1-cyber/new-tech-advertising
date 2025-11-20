@@ -17,7 +17,7 @@ export default function GuaranteeSection() {
             <Shield className="w-10 h-10 text-blue-600" />
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-            No Contracts. No Lock-In.
+            Not Locked-In
           </h2>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
             You're never locked into a contract. Cancel anytime with no penalties or fees. We earn your business every single month.
