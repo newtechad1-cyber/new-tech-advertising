@@ -11,6 +11,10 @@ import { HelpCircle } from 'lucide-react';
 export default function FAQSection() {
   const faqs = [
     {
+      question: "What about your money-back guarantee?",
+      answer: "We do not offer a Money Back Guarantee because like you, we need to get paid for our labours. But if you're not happy, no problem, let's just part ways."
+    },
+    {
       question: "What exactly do I get for $297/month?",
       answer: "You get a complete, done-for-you marketing system: a professional website built to convert visitors into customers, local SEO optimization so you actually show up in searches, AI-powered content that posts automatically on your behalf, high-converting videos that tell your story, dedicated support from a team that cares, and monthly strategy calls. Everything is included—no hidden fees, no upsells."
     },
