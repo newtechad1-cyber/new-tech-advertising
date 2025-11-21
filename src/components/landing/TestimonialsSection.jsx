@@ -9,7 +9,7 @@ export default function TestimonialsSection() {
       business: "Ladybug Restaurant & The Ladybug Travels",
       quote: "I am a long-time client of New Tech Advertising and couldn't be more thrilled with the exceptional work of Rick Hesse. For the past 10 years, Rick has been an invaluable asset, helping me achieve tremendous success with my Ladybug Restaurant and now my new website, theladybugtravels.com. I could speak volumes about the expertise and dedication of the New Tech Advertising team, who have consistently delivered innovative solutions that have propelled my businesses to new heights.",
       rating: 5,
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop"
+      image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/9dad16b6d_WendyLadybugpersona1.png"
     },
     {
       name: "Michael Stevens",
@@ -97,7 +97,7 @@ export default function TestimonialsSection() {
                 <img
                   src={testimonial.image}
                   alt={testimonial.name}
-                  className="w-14 h-14 rounded-full object-cover ring-2 ring-blue-100"
+                  className="w-14 h-14 rounded-full object-cover object-top ring-2 ring-blue-100"
                 />
                 <div>
                   <p className="font-bold text-slate-900">{testimonial.name}</p>

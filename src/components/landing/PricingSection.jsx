@@ -50,6 +50,10 @@ export default function PricingSection({ onCTAClick }) {
           <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-8 text-center">
               <p className="text-white/90 text-lg mb-2">Complete Marketing Solution</p>
+              <p className="text-white/60 text-sm line-through mb-1">Regular Price $497.00/month</p>
+              <div className="bg-yellow-400 text-slate-900 px-4 py-1 rounded-full inline-block mb-3 text-sm font-bold">
+                For a Limited Time Save $200/month
+              </div>
               <div className="flex items-end justify-center gap-2 mb-2">
                 <span className="text-6xl md:text-7xl font-bold text-white">$297</span>
                 <span className="text-2xl text-white/90 mb-3">/month</span>

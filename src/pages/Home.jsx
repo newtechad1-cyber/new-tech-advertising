@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import Header from '../components/landing/Header';
 import HeroSection from '../components/landing/HeroSection';
 import ProblemSection from '../components/landing/ProblemSection';
@@ -9,6 +10,7 @@ import GuaranteeSection from '../components/landing/GuaranteeSection';
 import FAQSection from '../components/landing/FAQSection';
 import FinalCTA from '../components/landing/FinalCTA';
 import SignupModal from '../components/landing/SignupModal';
+import Footer from '../components/landing/Footer';
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
