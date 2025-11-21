@@ -10,6 +10,7 @@ import FAQSection from '../components/landing/FAQSection';
 import FinalCTA from '../components/landing/FinalCTA';
 import SignupModal from '../components/landing/SignupModal';
 import Footer from '../components/landing/Footer';
+import Chatbot from '../components/Chatbot';
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,6 +34,7 @@ export default function Home() {
         </main>
         <Footer />
         <SignupModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+        <Chatbot />
       </div>
   );
 }
