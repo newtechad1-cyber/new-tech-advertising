@@ -9,7 +9,7 @@ export default function Header({ onCTAClick }) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img 
-              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/a4c4d2cc2_Srmqbm4SnnrC-STABLE-generate.png" 
+              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/bd570a4a6_NTAlogo2.png" 
               alt="New Tech Advertising" 
               className="h-12 w-auto"
             />
