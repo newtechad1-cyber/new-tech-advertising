@@ -6,6 +6,7 @@ import Chatbot from '../components/Chatbot';
 import AnalyticsView from '../components/dashboard/AnalyticsView';
 import SubscriptionView from '../components/dashboard/SubscriptionView';
 import ResourcesView from '../components/dashboard/ResourcesView';
+import OnboardingFlow from '../components/dashboard/OnboardingFlow';
 import { createPageUrl } from '../utils';
 
 export default function Dashboard() {
@@ -13,30 +14,47 @@ export default function Dashboard() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [clientProfile, setClientProfile] = useState(null);
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const isAuthenticated = await base44.auth.isAuthenticated();
         if (!isAuthenticated) {
-           // In a real app we would redirect, but for preview we'll show a demo state
-           // base44.auth.redirectToLogin(createPageUrl('Dashboard'));
-           // For demo purposes, simulate a user
            setUser({ full_name: "Demo User", email: "demo@example.com" });
+           // Demo mode: simulate no profile initially, or check local storage if we wanted persistence in demo
+           setShowOnboarding(true);
         } else {
            const userData = await base44.auth.me();
            setUser(userData);
+           
+           // Check for client profile
+           const profiles = await base44.entities.ClientProfile.list({ created_by: userData.email }, { created_date: -1 }, 1);
+           if (profiles && profiles.length > 0) {
+             setClientProfile(profiles[0]);
+             if (!profiles[0].onboarding_completed) {
+               setShowOnboarding(true);
+             }
+           } else {
+             setShowOnboarding(true);
+           }
         }
       } catch (e) {
         console.error("Auth check failed", e);
-        // Fallback for demo
         setUser({ full_name: "Demo User", email: "demo@example.com" });
+        setShowOnboarding(true);
       } finally {
         setLoading(false);
       }
     };
     checkAuth();
   }, []);
+
+  const handleOnboardingComplete = (profileData) => {
+    setClientProfile(profileData);
+    setShowOnboarding(false);
+  };
 
   const handleLogout = async () => {
     try {
@@ -66,6 +84,26 @@ export default function Dashboard() {
   ];
 
   if (loading) return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+
+  if (showOnboarding) {
+    return (
+      <div className="min-h-screen bg-slate-50">
+        <header className="bg-white border-b p-4 sticky top-0 z-10">
+          <div className="max-w-6xl mx-auto flex items-center gap-2">
+            <img 
+              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/bd570a4a6_NTAlogo2.png" 
+              alt="New Tech Advertising" 
+              className="h-8 w-auto"
+            />
+          </div>
+        </header>
+        <OnboardingFlow 
+          onComplete={handleOnboardingComplete} 
+          initialData={clientProfile}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col md:flex-row">
