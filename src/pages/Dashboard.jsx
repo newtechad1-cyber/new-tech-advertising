@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { LayoutDashboard, PieChart, CreditCard, BookOpen, LogOut, Menu, X } from 'lucide-react';
+import { LayoutDashboard, PieChart, CreditCard, BookOpen, LogOut, Menu, X, FolderKanban } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Chatbot from '../components/Chatbot';
 import AnalyticsView from '../components/dashboard/AnalyticsView';
 import SubscriptionView from '../components/dashboard/SubscriptionView';
 import ResourcesView from '../components/dashboard/ResourcesView';
 import OnboardingFlow from '../components/dashboard/OnboardingFlow';
+import ProjectsView from '../components/dashboard/ProjectsView';
 import { createPageUrl } from '../utils';
 
 export default function Dashboard() {
@@ -72,16 +73,19 @@ export default function Dashboard() {
         return <SubscriptionView />;
       case 'resources':
         return <ResourcesView />;
+      case 'projects':
+        return <ProjectsView />;
       default:
         return <AnalyticsView />;
-    }
-  };
+      }
+      };
 
-  const navItems = [
-    { id: 'analytics', label: 'Overview & Analytics', icon: PieChart },
-    { id: 'subscription', label: 'Subscription & Billing', icon: CreditCard },
-    { id: 'resources', label: 'Training & Resources', icon: BookOpen },
-  ];
+      const navItems = [
+      { id: 'analytics', label: 'Overview & Analytics', icon: PieChart },
+      { id: 'projects', label: 'Projects', icon: FolderKanban },
+      { id: 'subscription', label: 'Subscription & Billing', icon: CreditCard },
+      { id: 'resources', label: 'Training & Resources', icon: BookOpen },
+      ];
 
   if (loading) return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
 
