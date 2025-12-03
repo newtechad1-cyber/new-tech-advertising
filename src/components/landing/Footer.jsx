@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '../../utils';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Mail, Phone } from 'lucide-react';
 
@@ -10,13 +12,33 @@ export default function Footer() {
     <>
       <footer className="bg-slate-900 text-white py-12">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-8 mb-8">
-            <div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
+            <div className="lg:col-span-1">
               <h3 className="font-bold text-xl mb-4">New Tech Advertising</h3>
               <p className="text-slate-400 text-sm">
                 AI-powered marketing solutions for local businesses
               </p>
             </div>
+
+            <div>
+              <h4 className="font-semibold mb-4">Services</h4>
+              <ul className="space-y-2 text-sm text-slate-400">
+                <li><Link to={createPageUrl('AiWebsites')} className="hover:text-blue-400 transition-colors">AI Websites</Link></li>
+                <li><Link to={createPageUrl('AiVideos')} className="hover:text-blue-400 transition-colors">AI Videos</Link></li>
+                <li><Link to={createPageUrl('AiSeo')} className="hover:text-blue-400 transition-colors">AI SEO</Link></li>
+                <li><Link to={createPageUrl('AiAdvertising')} className="hover:text-blue-400 transition-colors">AI Advertising</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4">Company</h4>
+              <ul className="space-y-2 text-sm text-slate-400">
+                <li><Link to={createPageUrl('About')} className="hover:text-blue-400 transition-colors">About Us</Link></li>
+                <li><Link to={createPageUrl('Home')} className="hover:text-blue-400 transition-colors">Home</Link></li>
+                <li><Link to={createPageUrl('Dashboard')} className="hover:text-blue-400 transition-colors">Client Login</Link></li>
+              </ul>
+            </div>
+
             <div>
               <h4 className="font-semibold mb-4">Contact</h4>
               <div className="space-y-2 text-sm text-slate-400">
