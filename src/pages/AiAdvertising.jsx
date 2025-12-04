@@ -28,9 +28,19 @@ export default function AiAdvertising() {
               <p className="text-xl text-slate-300 mb-10">
                 Stop wasting budget on the wrong people. Our AI manages your ads across Google, Facebook, and Instagram to maximize ROI automatically.
               </p>
-              <Button onClick={() => setIsModalOpen(true)} size="lg" className="bg-white text-purple-900 hover:bg-slate-100 px-8 py-6 text-lg rounded-xl font-bold">
-                Start Your Campaign
-              </Button>
+              <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-10">
+                <Button onClick={() => setIsModalOpen(true)} size="lg" className="bg-white text-purple-900 hover:bg-slate-100 px-8 py-6 text-lg rounded-xl font-bold">
+                  Start Your Campaign
+                </Button>
+              </div>
+              <div className="relative rounded-xl overflow-hidden shadow-2xl border border-white/10 aspect-[21/9] max-w-3xl mx-auto">
+                <img 
+                  src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=1000&auto=format&fit=crop" 
+                  alt="AI Advertising Dashboard" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-purple-900/50 to-transparent" />
+              </div>
             </motion.div>
           </div>
         </section>

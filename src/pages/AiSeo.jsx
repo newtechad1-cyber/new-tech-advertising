@@ -70,7 +70,8 @@ export default function AiSeo() {
                 </div>
               </div>
               
-              <div className="bg-slate-900 rounded-xl p-8 text-white">
+              <div className="space-y-8">
+                <div className="bg-slate-900 rounded-xl p-8 text-white">
                 <h3 className="text-2xl font-bold mb-6">The AI Advantage</h3>
                 <div className="space-y-6">
                   <div>
@@ -100,6 +101,13 @@ export default function AiSeo() {
                       <div className="bg-green-500 h-2 rounded-full w-full"></div>
                     </div>
                   </div>
+                </div>
+                <div className="rounded-xl overflow-hidden shadow-2xl h-64">
+                  <img 
+                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop" 
+                    alt="AI SEO Analytics" 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
             </div>

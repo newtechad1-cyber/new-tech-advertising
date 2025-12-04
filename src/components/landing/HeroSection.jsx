@@ -44,7 +44,7 @@ export default function HeroSection({ onCTAClick }) {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-xl md:text-2xl text-slate-300 font-light mb-4"
         >
-          Without Wasting Another Dollar
+          A 5-Part Blueprint to Turn Your Website into a Customer-Getting Machine
         </motion.p>
 
         <motion.div

@@ -55,12 +55,12 @@ export default function AiWebsites() {
                 ))}
               </ul>
             </div>
-            <div className="bg-slate-100 rounded-xl p-8 aspect-square flex items-center justify-center">
-              {/* Visual placeholder */}
-              <div className="text-slate-400 text-center">
-                <Layout className="w-32 h-32 mx-auto mb-4 opacity-50" />
-                <p>AI Page Structure Visualization</p>
-              </div>
+            <div className="rounded-xl overflow-hidden aspect-square shadow-2xl">
+              <img 
+                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop" 
+                alt="AI Website Building" 
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </section>

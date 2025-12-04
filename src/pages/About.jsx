@@ -47,9 +47,12 @@ export default function About() {
                 The result? Enterprise-level marketing results at a price point that makes sense for Main Street.
               </p>
             </div>
-            <div className="bg-slate-100 rounded-2xl p-8 h-80 flex items-center justify-center">
-              {/* Placeholder for Team/Office Image */}
-              <Users className="w-32 h-32 text-slate-300" />
+            <div className="rounded-2xl overflow-hidden h-80 shadow-xl">
+              <img 
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop" 
+                alt="Our Team" 
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </section>

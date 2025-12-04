@@ -27,6 +27,7 @@ export default function Footer() {
                 <li><Link to={createPageUrl('AiVideos')} className="hover:text-blue-400 transition-colors">AI Videos</Link></li>
                 <li><Link to={createPageUrl('AiSeo')} className="hover:text-blue-400 transition-colors">AI SEO</Link></li>
                 <li><Link to={createPageUrl('AiAdvertising')} className="hover:text-blue-400 transition-colors">AI Advertising</Link></li>
+                <li><Link to={createPageUrl('SocialMediaManagement')} className="hover:text-blue-400 transition-colors">Social Media</Link></li>
               </ul>
             </div>
 
