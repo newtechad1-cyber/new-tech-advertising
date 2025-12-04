@@ -112,6 +112,7 @@ export default function AiSeo() {
               </div>
             </div>
           </div>
+          </div>
         </section>
       </main>
 
