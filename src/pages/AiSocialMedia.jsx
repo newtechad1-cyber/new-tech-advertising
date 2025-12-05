@@ -1,0 +1,129 @@
+import React, { useState } from 'react';
+import Header from '../components/landing/Header';
+import Footer from '../components/landing/Footer';
+import SignupModal from '../components/landing/SignupModal';
+import Chatbot from '../components/Chatbot';
+import { motion } from 'framer-motion';
+import { Share2, Users, MessageCircle, TrendingUp, Check } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
+export default function AiSocialMedia() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  return (
+    <div className="bg-white min-h-screen flex flex-col">
+      <Header onCTAClick={() => setIsModalOpen(true)} />
+      
+      <main className="flex-grow pt-20">
+        {/* Hero Section */}
+        <section className="py-20 bg-gradient-to-br from-indigo-900 to-purple-900 text-white">
+          <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+            >
+              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                AI Social Media <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">On Autopilot</span>
+              </h1>
+              <p className="text-xl text-indigo-100 mb-8">
+                Consistent, high-quality content posted to all your channels automatically. Engage your audience without lifting a finger.
+              </p>
+              <Button onClick={() => setIsModalOpen(true)} size="lg" className="bg-pink-600 hover:bg-pink-700 text-white px-8 py-6 text-lg rounded-xl">
+                Automate My Socials
+              </Button>
+            </motion.div>
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10"
+            >
+              <img 
+                src="https://images.unsplash.com/photo-1683721003111-070bcc053d8b?q=80&w=1000&auto=format&fit=crop" 
+                alt="Social Media Platforms - Facebook, Instagram, TikTok, YouTube, LinkedIn, X" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/80 to-transparent" />
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section className="py-20">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="p-8 bg-white rounded-2xl shadow-lg border border-slate-100">
+                <Share2 className="w-12 h-12 text-pink-600 mb-6" />
+                <h3 className="text-2xl font-bold text-slate-900 mb-4">Multi-Channel Posting</h3>
+                <p className="text-slate-600">One click publishes your content to Facebook, Instagram, LinkedIn, Twitter, and TikTok simultaneously.</p>
+              </div>
+              <div className="p-8 bg-white rounded-2xl shadow-lg border border-slate-100">
+                <MessageCircle className="w-12 h-12 text-purple-600 mb-6" />
+                <h3 className="text-2xl font-bold text-slate-900 mb-4">Smart Engagement</h3>
+                <p className="text-slate-600">Our AI monitors comments and messages, drafting suggested replies to keep your community active.</p>
+              </div>
+              <div className="p-8 bg-white rounded-2xl shadow-lg border border-slate-100">
+                <TrendingUp className="w-12 h-12 text-indigo-600 mb-6" />
+                <h3 className="text-2xl font-bold text-slate-900 mb-4">Growth Analytics</h3>
+                <p className="text-slate-600">Understand exactly what content drives followers and sales with our simplified weekly reports.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Pricing Section */}
+        <section className="py-20 bg-slate-50">
+          <div className="max-w-6xl mx-auto px-6">
+            <h2 className="text-4xl font-bold text-center text-slate-900 mb-16">Simple, Transparent Pricing</h2>
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {/* DIY Plan */}
+              <div className="bg-white p-8 rounded-3xl shadow-lg border border-slate-200 flex flex-col hover:shadow-xl transition-shadow duration-300">
+                <h3 className="text-2xl font-bold text-slate-900 mb-2">DIY</h3>
+                <p className="text-slate-500 mb-6 text-lg">Do It Yourself</p>
+                <div className="text-5xl font-bold text-slate-900 mb-8">$97<span className="text-lg text-slate-400 font-normal">/month</span></div>
+                <ul className="space-y-4 mb-10 flex-grow">
+                  <li className="flex items-start gap-3 text-slate-600"><Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" /> Access to AI Content Tools</li>
+                  <li className="flex items-start gap-3 text-slate-600"><Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" /> You Manage Scheduling</li>
+                  <li className="flex items-start gap-3 text-slate-600"><Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" /> Weekly Trending Ideas</li>
+                  <li className="flex items-start gap-3 text-slate-600"><Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" /> Basic Performance Analytics</li>
+                </ul>
+                <Button 
+                  onClick={() => window.open('https://stripe.com', '_blank')} 
+                  variant="outline"
+                  className="w-full py-6 border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white transition-colors text-lg rounded-xl"
+                >
+                  Select DIY Plan
+                </Button>
+                {/* Developer Note: Replace 'https://stripe.com' with your actual DIY Stripe checkout link */}
+              </div>
+
+              {/* DFY Plan */}
+              <div className="bg-white p-8 rounded-3xl shadow-xl border-2 border-indigo-600 flex flex-col relative overflow-hidden transform md:-translate-y-4 hover:shadow-2xl transition-all duration-300">
+                <div className="absolute top-0 right-0 bg-indigo-600 text-white px-4 py-1 rounded-bl-xl text-sm font-bold uppercase tracking-wider">Most Popular</div>
+                <h3 className="text-2xl font-bold text-indigo-600 mb-2">DFY</h3>
+                <p className="text-slate-500 mb-6 text-lg">Done For You</p>
+                <div className="text-5xl font-bold text-slate-900 mb-8">$197<span className="text-lg text-slate-400 font-normal">/month</span></div>
+                <ul className="space-y-4 mb-10 flex-grow">
+                   <li className="flex items-start gap-3 text-slate-600"><Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" /> Full Content Creation</li>
+                   <li className="flex items-start gap-3 text-slate-600"><Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" /> We Handle Posting & Scheduling</li>
+                   <li className="flex items-start gap-3 text-slate-600"><Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" /> Community Engagement & Reply Drafting</li>
+                   <li className="flex items-start gap-3 text-slate-600"><Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" /> Advanced Growth Reports & Strategy</li>
+                </ul>
+                <Button 
+                  onClick={() => window.open('https://stripe.com', '_blank')} 
+                  className="w-full py-6 bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-200 text-lg rounded-xl"
+                >
+                  Select DFY Plan
+                </Button>
+                {/* Developer Note: Replace 'https://stripe.com' with your actual DFY Stripe checkout link */}
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+      <SignupModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <Chatbot />
+    </div>
+  );
+}
