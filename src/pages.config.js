@@ -7,6 +7,7 @@ import AiVideos from './pages/AiVideos';
 import AiSeo from './pages/AiSeo';
 import AiAdvertising from './pages/AiAdvertising';
 import AiSocialMedia from './pages/AiSocialMedia';
+import Blog from './pages/Blog';
 
 
 export const PAGES = {
@@ -19,6 +20,7 @@ export const PAGES = {
     "AiSeo": AiSeo,
     "AiAdvertising": AiAdvertising,
     "AiSocialMedia": AiSocialMedia,
+    "Blog": Blog,
 }
 
 export const pagesConfig = {
