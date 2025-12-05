@@ -10,6 +10,7 @@ import AiSocialMedia from './pages/AiSocialMedia';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import SocialMediaManagement from './pages/SocialMediaManagement';
+import AdminBlog from './pages/AdminBlog';
 
 
 export const PAGES = {
@@ -25,6 +26,7 @@ export const PAGES = {
     "Blog": Blog,
     "BlogPost": BlogPost,
     "SocialMediaManagement": SocialMediaManagement,
+    "AdminBlog": AdminBlog,
 }
 
 export const pagesConfig = {

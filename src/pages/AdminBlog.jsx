@@ -1,0 +1,485 @@
+import React, { useState, useEffect } from 'react';
+import { base44 } from '@/api/base44Client';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Loader2, Wand2, Save, Plus, RefreshCw, Trash2, Edit, Tag } from 'lucide-react';
+import { toast } from 'sonner';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+
+export default function AdminBlog() {
+    const queryClient = useQueryClient();
+    const [selectedPost, setSelectedPost] = useState(null);
+    const [isGenerating, setIsGenerating] = useState(false);
+    const [activeTab, setActiveTab] = useState('list'); // list, edit
+
+    // Form State
+    const [formData, setFormData] = useState({
+        title: '',
+        slug: '',
+        excerpt: '',
+        content: '',
+        image_url: '',
+        category: '',
+        author: 'Rick',
+        tags: [],
+        meta_description: ''
+    });
+
+    const [generationPrompt, setGenerationPrompt] = useState({
+        keywords: '',
+        tone: 'professional yet accessible'
+    });
+
+    const { data: posts, isLoading } = useQuery({
+        queryKey: ['admin-posts'],
+        queryFn: () => base44.entities.BlogPost.list('-published_date'),
+        initialData: []
+    });
+
+    const createPostMutation = useMutation({
+        mutationFn: (data) => base44.entities.BlogPost.create({
+            ...data,
+            published_date: new Date().toISOString().split('T')[0]
+        }),
+        onSuccess: () => {
+            queryClient.invalidateQueries(['admin-posts']);
+            toast.success('Post created successfully');
+            setActiveTab('list');
+        }
+    });
+
+    const updatePostMutation = useMutation({
+        mutationFn: ({ id, data }) => base44.entities.BlogPost.update(id, data),
+        onSuccess: () => {
+            queryClient.invalidateQueries(['admin-posts']);
+            toast.success('Post updated successfully');
+        }
+    });
+
+    const deletePostMutation = useMutation({
+        mutationFn: (id) => base44.entities.BlogPost.delete(id),
+        onSuccess: () => {
+            queryClient.invalidateQueries(['admin-posts']);
+            toast.success('Post deleted');
+            if (selectedPost?.id === deletePostMutation.variables) {
+                setSelectedPost(null);
+                setActiveTab('list');
+            }
+        }
+    });
+
+    const handleEdit = (post) => {
+        setSelectedPost(post);
+        setFormData({
+            title: post.title || '',
+            slug: post.slug || '',
+            excerpt: post.excerpt || '',
+            content: post.content || '',
+            image_url: post.image_url || '',
+            category: post.category || '',
+            author: post.author || 'Rick',
+            tags: post.tags || [],
+            meta_description: post.meta_description || ''
+        });
+        setActiveTab('edit');
+    };
+
+    const handleCreateNew = () => {
+        setSelectedPost(null);
+        setFormData({
+            title: '',
+            slug: '',
+            excerpt: '',
+            content: '',
+            image_url: '',
+            category: '',
+            author: 'Rick',
+            tags: [],
+            meta_description: ''
+        });
+        setActiveTab('edit');
+    };
+
+    const handleSave = () => {
+        if (!formData.title || !formData.content) {
+            toast.error('Title and Content are required');
+            return;
+        }
+
+        if (selectedPost) {
+            updatePostMutation.mutate({ id: selectedPost.id, data: formData });
+        } else {
+            createPostMutation.mutate(formData);
+        }
+    };
+
+    // AI Functions
+    const generateFullPost = async () => {
+        if (!formData.title || !generationPrompt.keywords) {
+            toast.error('Please provide a title and keywords');
+            return;
+        }
+        setIsGenerating(true);
+        try {
+            const prompt = `
+                Write a comprehensive, SEO-optimized blog post in markdown format.
+                Title: ${formData.title}
+                Keywords to include: ${generationPrompt.keywords}
+                Tone: ${generationPrompt.tone}
+                Target Audience: Small business owners interested in AI marketing.
+                
+                Structure:
+                - Engaging Introduction
+                - Clear Headings (H2, H3)
+                - Bullet points for readability
+                - Actionable Conclusion
+                
+                Also provide a short excerpt (max 160 chars) and a suggested slug.
+                
+                Return JSON format:
+                {
+                    "content": "markdown string...",
+                    "excerpt": "string...",
+                    "slug": "string-slug-format"
+                }
+            `;
+            
+            const res = await base44.integrations.Core.InvokeLLM({
+                prompt,
+                response_json_schema: {
+                    type: "object",
+                    properties: {
+                        content: { type: "string" },
+                        excerpt: { type: "string" },
+                        slug: { type: "string" }
+                    }
+                }
+            });
+            
+            // The integration returns a parsed object if schema is provided
+            const result = typeof res === 'string' ? JSON.parse(res) : res;
+            
+            setFormData(prev => ({
+                ...prev,
+                content: result.content,
+                excerpt: result.excerpt,
+                slug: result.slug || prev.slug
+            }));
+            toast.success('Content generated!');
+        } catch (err) {
+            console.error(err);
+            toast.error('Generation failed');
+        } finally {
+            setIsGenerating(false);
+        }
+    };
+
+    const rewriteContent = async () => {
+        if (!formData.content) return;
+        setIsGenerating(true);
+        try {
+            const prompt = `
+                Rewrite the following blog post content to improve SEO, readability, and engagement.
+                Maintain a ${generationPrompt.tone} tone.
+                Fix any grammar issues.
+                Use markdown formatting.
+                
+                Content:
+                ${formData.content}
+            `;
+            
+            const res = await base44.integrations.Core.InvokeLLM({ prompt });
+            setFormData(prev => ({ ...prev, content: res }));
+            toast.success('Content rewritten!');
+        } catch (err) {
+            toast.error('Rewrite failed');
+        } finally {
+            setIsGenerating(false);
+        }
+    };
+
+    const generateMetaAndTags = async () => {
+        if (!formData.content && !formData.title) return;
+        setIsGenerating(true);
+        try {
+            const prompt = `
+                Analyze this blog post and generate SEO meta data.
+                Title: ${formData.title}
+                Content sample: ${formData.content.substring(0, 1000)}...
+                
+                Return JSON:
+                {
+                    "tags": ["tag1", "tag2", "tag3", "tag4", "tag5"],
+                    "meta_description": "SEO optimized description under 160 chars"
+                }
+            `;
+            
+            const res = await base44.integrations.Core.InvokeLLM({
+                prompt,
+                response_json_schema: {
+                    type: "object",
+                    properties: {
+                        tags: { type: "array", items: { type: "string" } },
+                        meta_description: { type: "string" }
+                    }
+                }
+            });
+
+            const result = typeof res === 'string' ? JSON.parse(res) : res;
+            
+            setFormData(prev => ({
+                ...prev,
+                tags: result.tags,
+                meta_description: result.meta_description
+            }));
+            toast.success('Meta data generated!');
+        } catch (err) {
+            toast.error('Meta generation failed');
+        } finally {
+            setIsGenerating(false);
+        }
+    };
+
+    return (
+        <div className="min-h-screen bg-slate-50 p-6">
+            <div className="max-w-7xl mx-auto">
+                <header className="flex justify-between items-center mb-8">
+                    <div>
+                        <h1 className="text-3xl font-bold text-slate-900">Blog Manager</h1>
+                        <p className="text-slate-500">Create and manage content with AI</p>
+                    </div>
+                    <div className="flex gap-2">
+                        {activeTab === 'edit' && (
+                            <Button variant="outline" onClick={() => setActiveTab('list')}>
+                                Cancel
+                            </Button>
+                        )}
+                        <Button onClick={handleCreateNew} className="bg-blue-600 hover:bg-blue-700">
+                            <Plus className="w-4 h-4 mr-2" />
+                            New Post
+                        </Button>
+                    </div>
+                </header>
+
+                {activeTab === 'list' ? (
+                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                        {isLoading ? (
+                            <div className="col-span-full flex justify-center py-12">
+                                <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+                            </div>
+                        ) : posts.map(post => (
+                            <Card key={post.id} className="group hover:shadow-lg transition-shadow">
+                                <CardHeader>
+                                    <CardTitle className="line-clamp-1">{post.title}</CardTitle>
+                                    <div className="text-sm text-slate-500">{post.published_date}</div>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-sm text-slate-600 line-clamp-3 mb-4">
+                                        {post.excerpt || post.content?.substring(0, 100)}...
+                                    </p>
+                                    <div className="flex justify-end gap-2">
+                                        <Button variant="outline" size="sm" onClick={() => handleEdit(post)}>
+                                            <Edit className="w-4 h-4 mr-1" /> Edit
+                                        </Button>
+                                        <Button 
+                                            variant="destructive" 
+                                            size="sm" 
+                                            onClick={() => {
+                                                if(window.confirm('Are you sure?')) deletePostMutation.mutate(post.id)
+                                            }}
+                                        >
+                                            <Trash2 className="w-4 h-4" />
+                                        </Button>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="grid lg:grid-cols-3 gap-8">
+                        {/* Editor Column */}
+                        <div className="lg:col-span-2 space-y-6">
+                            <Card>
+                                <CardContent className="p-6 space-y-4">
+                                    <div>
+                                        <Label>Title</Label>
+                                        <Input 
+                                            value={formData.title} 
+                                            onChange={e => setFormData({...formData, title: e.target.value})}
+                                            placeholder="Enter post title"
+                                            className="text-lg font-medium"
+                                        />
+                                    </div>
+                                    
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <Label>Slug</Label>
+                                            <Input 
+                                                value={formData.slug} 
+                                                onChange={e => setFormData({...formData, slug: e.target.value})}
+                                                placeholder="post-url-slug"
+                                            />
+                                        </div>
+                                        <div>
+                                            <Label>Category</Label>
+                                            <Input 
+                                                value={formData.category} 
+                                                onChange={e => setFormData({...formData, category: e.target.value})}
+                                                placeholder="e.g., Marketing"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <Label>Content</Label>
+                                        <div className="prose-editor mt-2">
+                                            <ReactQuill 
+                                                theme="snow"
+                                                value={formData.content}
+                                                onChange={content => setFormData({...formData, content})}
+                                                className="h-96 mb-12"
+                                            />
+                                        </div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </div>
+
+                        {/* Sidebar / AI Tools */}
+                        <div className="space-y-6">
+                            <Card className="bg-blue-50 border-blue-100">
+                                <CardHeader>
+                                    <CardTitle className="flex items-center gap-2 text-blue-800">
+                                        <Wand2 className="w-5 h-5" />
+                                        AI Assistant
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                    <div>
+                                        <Label>Target Keywords</Label>
+                                        <Input 
+                                            value={generationPrompt.keywords}
+                                            onChange={e => setGenerationPrompt({...generationPrompt, keywords: e.target.value})}
+                                            placeholder="e.g., small business ai, seo"
+                                            className="bg-white"
+                                        />
+                                    </div>
+                                    
+                                    <Button 
+                                        onClick={generateFullPost} 
+                                        disabled={isGenerating}
+                                        className="w-full bg-blue-600 hover:bg-blue-700"
+                                    >
+                                        {isGenerating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Wand2 className="w-4 h-4 mr-2" />}
+                                        Generate Full Post
+                                    </Button>
+
+                                    <div className="relative">
+                                        <div className="absolute inset-0 flex items-center">
+                                            <span className="w-full border-t border-blue-200" />
+                                        </div>
+                                        <div className="relative flex justify-center text-xs uppercase">
+                                            <span className="bg-blue-50 px-2 text-blue-500">Or Optimize</span>
+                                        </div>
+                                    </div>
+
+                                    <Button 
+                                        onClick={rewriteContent}
+                                        disabled={isGenerating || !formData.content}
+                                        variant="outline"
+                                        className="w-full border-blue-200 hover:bg-blue-100 text-blue-700"
+                                    >
+                                        <RefreshCw className="w-4 h-4 mr-2" />
+                                        Rewrite for SEO & Tone
+                                    </Button>
+
+                                    <Button 
+                                        onClick={generateMetaAndTags}
+                                        disabled={isGenerating || (!formData.content && !formData.title)}
+                                        variant="outline"
+                                        className="w-full border-blue-200 hover:bg-blue-100 text-blue-700"
+                                    >
+                                        <Tag className="w-4 h-4 mr-2" />
+                                        Generate Tags & Meta
+                                    </Button>
+                                </CardContent>
+                            </Card>
+
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Meta Data</CardTitle>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                    <div>
+                                        <Label>Excerpt</Label>
+                                        <Textarea 
+                                            value={formData.excerpt}
+                                            onChange={e => setFormData({...formData, excerpt: e.target.value})}
+                                            rows={3}
+                                        />
+                                    </div>
+                                    <div>
+                                        <Label>Meta Description</Label>
+                                        <Textarea 
+                                            value={formData.meta_description}
+                                            onChange={e => setFormData({...formData, meta_description: e.target.value})}
+                                            rows={3}
+                                        />
+                                    </div>
+                                    <div>
+                                        <Label>Tags</Label>
+                                        <div className="flex flex-wrap gap-2 mt-2">
+                                            {formData.tags.map((tag, i) => (
+                                                <Badge key={i} variant="secondary" className="flex items-center gap-1">
+                                                    {tag}
+                                                    <button 
+                                                        onClick={() => setFormData({
+                                                            ...formData, 
+                                                            tags: formData.tags.filter((_, idx) => idx !== i)
+                                                        })}
+                                                        className="hover:text-red-500"
+                                                    >
+                                                        <X className="w-3 h-3" />
+                                                    </button>
+                                                </Badge>
+                                            ))}
+                                        </div>
+                                        <Input 
+                                            placeholder="Add tag and press Enter"
+                                            className="mt-2"
+                                            onKeyDown={e => {
+                                                if (e.key === 'Enter') {
+                                                    e.preventDefault();
+                                                    const val = e.target.value.trim();
+                                                    if (val && !formData.tags.includes(val)) {
+                                                        setFormData({...formData, tags: [...formData.tags, val]});
+                                                        e.target.value = '';
+                                                    }
+                                                }
+                                            }}
+                                        />
+                                    </div>
+                                    
+                                    <div className="pt-4 border-t">
+                                        <Button onClick={handleSave} className="w-full bg-green-600 hover:bg-green-700">
+                                            <Save className="w-4 h-4 mr-2" />
+                                            Save Post
+                                        </Button>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+}
