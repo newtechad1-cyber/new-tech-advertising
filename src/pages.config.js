@@ -9,6 +9,7 @@ import AiAdvertising from './pages/AiAdvertising';
 import AiSocialMedia from './pages/AiSocialMedia';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
+import SocialMediaManagement from './pages/SocialMediaManagement';
 
 
 export const PAGES = {
@@ -23,6 +24,7 @@ export const PAGES = {
     "AiSocialMedia": AiSocialMedia,
     "Blog": Blog,
     "BlogPost": BlogPost,
+    "SocialMediaManagement": SocialMediaManagement,
 }
 
 export const pagesConfig = {
