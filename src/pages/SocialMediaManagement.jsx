@@ -37,8 +37,8 @@ export default function SocialMediaManagement() {
               className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10"
             >
               <img 
-                src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop" 
-                alt="Social Media Management AI Dashboard" 
+                src="https://images.unsplash.com/photo-1683721003111-070bcc053d8b?q=80&w=1000&auto=format&fit=crop" 
+                alt="Social Media Platforms - Facebook, Instagram, TikTok, YouTube, LinkedIn, X" 
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/80 to-transparent" />
