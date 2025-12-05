@@ -31,18 +31,17 @@ export default function AiVideos() {
                 Start Video Marketing
               </Button>
             </motion.div>
-            <div className="relative bg-slate-800 rounded-2xl aspect-video flex items-center justify-center overflow-hidden group cursor-pointer shadow-2xl border border-white/10">
-              <img 
-                src="https://images.unsplash.com/photo-1574717436558-4d96eb5a1756?q=80&w=1000&auto=format&fit=crop" 
-                alt="AI Video Production" 
-                className="w-full h-full object-cover opacity-80"
-              />
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
-              <div className="absolute inset-0 flex items-center justify-center z-10">
-                <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Play className="w-8 h-8 text-slate-900 ml-1" />
-                </div>
-              </div>
+            <div className="relative rounded-2xl aspect-video overflow-hidden shadow-2xl border border-white/10">
+              <iframe 
+                width="100%" 
+                height="100%" 
+                src="https://www.youtube.com/embed/FRVnWkBvZCM" 
+                title="AI Video Demo" 
+                frameBorder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowFullScreen
+                className="w-full h-full"
+              ></iframe>
             </div>
           </div>
         </section>
