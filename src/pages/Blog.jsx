@@ -14,7 +14,7 @@ export default function Blog() {
 
   const { data: posts, isLoading } = useQuery({
     queryKey: ['blogPosts'],
-    queryFn: () => base44.entities.BlogPost.list({ sort: { published_date: -1 } }),
+    queryFn: () => base44.entities.BlogPost.list('-published_date'),
     initialData: []
   });
 
