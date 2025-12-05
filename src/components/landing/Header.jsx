@@ -32,7 +32,8 @@ export default function Header({ onCTAClick }) {
               <Link to={createPageUrl('AiVideos')} className="hover:text-blue-600 transition-colors">AI Videos</Link>
               <Link to={createPageUrl('AiSeo')} className="hover:text-blue-600 transition-colors">AI SEO</Link>
               <Link to={createPageUrl('AiAdvertising')} className="hover:text-blue-600 transition-colors">AI Ads</Link>
-              <Link to={createPageUrl('SocialMediaManagement')} className="hover:text-blue-600 transition-colors">Social Media</Link>
+              <Link to={createPageUrl('AiSocialMedia')} className="hover:text-blue-600 transition-colors">AI Social Media</Link>
+              <Link to={createPageUrl('Blog')} className="hover:text-blue-600 transition-colors">Blog</Link>
               </nav>
               </div>
 

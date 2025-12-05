@@ -8,6 +8,7 @@ import AiSeo from './pages/AiSeo';
 import AiAdvertising from './pages/AiAdvertising';
 import AiSocialMedia from './pages/AiSocialMedia';
 import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
 
 
 export const PAGES = {
@@ -21,6 +22,7 @@ export const PAGES = {
     "AiAdvertising": AiAdvertising,
     "AiSocialMedia": AiSocialMedia,
     "Blog": Blog,
+    "BlogPost": BlogPost,
 }
 
 export const pagesConfig = {
