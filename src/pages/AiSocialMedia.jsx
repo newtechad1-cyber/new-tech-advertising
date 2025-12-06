@@ -70,6 +70,55 @@ export default function AiSocialMedia() {
           </div>
         </section>
 
+        {/* AI Technology Deep Dive */}
+        <section className="py-20 bg-white">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">How AI Supercharges Your Socials</h2>
+              <p className="text-slate-600 max-w-2xl mx-auto">
+                It's not just about posting—it's about posting the right thing, at the right time, to the right people in Iowa and Minnesota.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-12">
+              <div className="space-y-8">
+                <div className="bg-pink-50 p-6 rounded-xl border border-pink-100">
+                  <h3 className="text-xl font-bold text-pink-700 mb-2">Generative Content AI</h3>
+                  <p className="text-slate-700">
+                    Our AI doesn't just copy-paste. It writes unique, engaging captions tailored to your brand voice. It generates custom graphics and selects trending hashtags relevant to Mason City and your industry.
+                  </p>
+                </div>
+                <div className="bg-indigo-50 p-6 rounded-xl border border-indigo-100">
+                  <h3 className="text-xl font-bold text-indigo-700 mb-2">Sentiment Analysis</h3>
+                  <p className="text-slate-700">
+                    The system "reads" the emotions in comments and messages, allowing us to prioritize urgent customer service issues and engage positively with happy customers automatically.
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-col justify-center">
+                <h3 className="text-2xl font-bold text-slate-900 mb-6">Local Engagement Strategy</h3>
+                <p className="text-slate-600 mb-6">
+                  For businesses in Iowa and Minnesota, community is everything. Our AI identifies local events, holidays, and trending topics in your specific area to keep your content relevant and locally grounded.
+                </p>
+                <ul className="space-y-4">
+                  <li className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-slate-700">Auto-posts during peak local activity hours</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-slate-700">Geo-tagged content to boost local discoverability</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-slate-700">Cross-promotion with other local businesses</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Pricing Section */}
         <section className="py-20 bg-slate-50">
           <div className="max-w-6xl mx-auto px-6">

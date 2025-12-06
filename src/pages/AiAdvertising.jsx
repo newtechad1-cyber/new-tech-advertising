@@ -72,6 +72,79 @@ export default function AiAdvertising() {
           </div>
         </section>
 
+        {/* Deep Dive Section */}
+        <section className="py-20">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="grid md:grid-cols-2 gap-16 items-center">
+              <div>
+                <h2 className="text-3xl font-bold text-slate-900 mb-6">How AI Maximizes Your Budget</h2>
+                <p className="text-slate-600 text-lg mb-6">
+                  Traditional advertising involves a lot of guesswork. Our AI platform replaces guessing with data-driven precision.
+                </p>
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                      <span className="font-bold text-purple-600">1</span>
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg">Predictive Bidding</h4>
+                      <p className="text-slate-600">Our algorithms analyze historical data to predict the best time and price to bid for a click, ensuring you get the most quality leads for the lowest cost.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                      <span className="font-bold text-purple-600">2</span>
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg">Dynamic Creative Optimization</h4>
+                      <p className="text-slate-600">The system automatically tests hundreds of headlines and image combinations to find the winning ad for each specific viewer.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                      <span className="font-bold text-purple-600">3</span>
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg">Geo-Fencing Iowa & MN</h4>
+                      <p className="text-slate-600">We can draw a virtual perimeter around your service area—whether it's Mason City, Clear Lake, or the Twin Cities—showing ads only to people physically located near you.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl transform rotate-3 opacity-20"></div>
+                <div className="bg-white p-8 rounded-2xl shadow-xl border border-slate-100 relative">
+                  <h3 className="text-xl font-bold mb-6">Campaign Performance Example</h3>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-100">
+                      <div>
+                        <p className="text-sm text-slate-500">Cost Per Lead (Before AI)</p>
+                        <p className="font-bold text-slate-900">$45.00</p>
+                      </div>
+                      <span className="text-red-500 text-sm font-medium">High</span>
+                    </div>
+                    <div className="flex justify-center">
+                      <div className="w-0.5 h-8 bg-slate-200"></div>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg border border-purple-100">
+                      <div>
+                        <p className="text-sm text-slate-500">Cost Per Lead (With AI)</p>
+                        <p className="font-bold text-slate-900">$12.50</p>
+                      </div>
+                      <span className="text-green-500 text-sm font-medium">-72% Cost</span>
+                    </div>
+                  </div>
+                  <div className="mt-6 pt-6 border-t border-slate-100">
+                    <p className="text-sm text-slate-500 italic">
+                      *Average results based on local service business campaigns in the Midwest.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="py-20 bg-slate-50">
           <div className="max-w-4xl mx-auto px-6 text-center">
             <h2 className="text-3xl font-bold text-slate-900 mb-8">Ready to Scale?</h2>

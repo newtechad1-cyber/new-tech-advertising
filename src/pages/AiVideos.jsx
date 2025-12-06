@@ -53,7 +53,7 @@ export default function AiVideos() {
               <p className="text-slate-600 max-w-2xl mx-auto">Traditional video production is slow and expensive. Our AI approach changes the game.</p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-3 gap-8 mb-20">
               {[
                 {
                   icon: Video,
@@ -77,6 +77,52 @@ export default function AiVideos() {
                   <p className="text-slate-600">{item.desc}</p>
                 </div>
               ))}
+            </div>
+
+            {/* Tech Deep Dive */}
+            <div className="bg-slate-900 text-white rounded-3xl p-10 md:p-16">
+              <div className="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                  <h2 className="text-3xl font-bold mb-6">State-of-the-Art Video Tech</h2>
+                  <p className="text-slate-300 mb-6">
+                    We use the same technology that Hollywood studios use, but scaled for Mason City business owners.
+                  </p>
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-xl font-bold text-blue-400 mb-2">AI Avatars</h4>
+                      <p className="text-sm text-slate-400">
+                        Professional presenters that can speak 60+ languages perfectly, available 24/7 to present your products.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-blue-400 mb-2">Script-to-Scene</h4>
+                      <p className="text-sm text-slate-400">
+                        Our AI reads your website and automatically generates video scripts, selects relevant B-roll footage, and edits it to the beat of the music.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-blue-400 mb-2">Voice Cloning</h4>
+                      <p className="text-sm text-slate-400">
+                        We can even clone your own voice so you can "narrate" videos without ever stepping into a recording booth.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mt-8">
+                    <Button onClick={() => setIsModalOpen(true)} className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl">
+                      Create My First Video
+                    </Button>
+                  </div>
+                </div>
+                <div className="relative aspect-video bg-slate-800 rounded-xl border border-slate-700 flex items-center justify-center overflow-hidden">
+                  <Play className="w-20 h-20 text-blue-500 opacity-50" />
+                  <div className="absolute bottom-4 left-4 right-4 bg-slate-900/80 p-4 rounded-lg backdrop-blur-sm">
+                    <div className="flex items-center gap-3">
+                      <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                      <span className="text-xs font-mono text-green-400">RENDERING: Mason_City_Promo_v2.mp4</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>

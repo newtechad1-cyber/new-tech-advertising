@@ -67,7 +67,7 @@ export default function AiWebsites() {
 
         <section className="py-20 bg-slate-50">
           <div className="max-w-6xl mx-auto px-6">
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-3 gap-8 mb-20">
               <div className="bg-white p-8 rounded-xl shadow-sm">
                 <Smartphone className="w-10 h-10 text-purple-600 mb-4" />
                 <h3 className="text-xl font-bold mb-3">Mobile Perfection</h3>
@@ -82,6 +82,43 @@ export default function AiWebsites() {
                 <MousePointerClick className="w-10 h-10 text-red-600 mb-4" />
                 <h3 className="text-xl font-bold mb-3">Conversion Focused</h3>
                 <p className="text-slate-600">Every pixel is placed with one goal: getting the customer to click "Buy" or "Call".</p>
+              </div>
+            </div>
+
+            {/* Local Focus Section */}
+            <div className="grid md:grid-cols-2 gap-12 items-center border-t border-slate-200 pt-20">
+              <div>
+                <h2 className="text-3xl font-bold text-slate-900 mb-6">Built for the Midwest Market</h2>
+                <p className="text-slate-600 mb-4">
+                  In Mason City, Clear Lake, and across Iowa and Minnesota, trust is everything. Your website needs to reflect the hard work and integrity of your business.
+                </p>
+                <p className="text-slate-600 mb-6">
+                  We don't just use generic templates. Our AI analyzes successful local competitors in Des Moines, Rochester, and Minneapolis to understand what drives local customers to take action. We build sites that feel local but perform like global brands.
+                </p>
+                <Button onClick={() => setIsModalOpen(true)} variant="outline" className="text-blue-600 border-blue-600 hover:bg-blue-50">
+                  Schedule a Local Demo
+                </Button>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow-lg border border-slate-100">
+                <h3 className="font-bold text-lg mb-4">The "New Tech" Process</h3>
+                <ol className="space-y-4">
+                  <li className="flex gap-3">
+                    <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-sm">1</span>
+                    <span className="text-slate-600">AI Analysis of your local market & competitors</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-sm">2</span>
+                    <span className="text-slate-600">Generation of conversion-optimized copy & layout</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-sm">3</span>
+                    <span className="text-slate-600">Mobile-first development & speed optimization</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-sm">4</span>
+                    <span className="text-slate-600">Launch & continuous AI A/B testing</span>
+                  </li>
+                </ol>
               </div>
             </div>
           </div>
