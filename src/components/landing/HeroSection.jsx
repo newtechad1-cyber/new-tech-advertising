@@ -31,7 +31,7 @@ export default function HeroSection({ onCTAClick }) {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-8"
         >
-          How Smart Local Business Owners Are Using AI to Finally{' '}
+          How Smart Business Owners in Mason City, Iowa & Minnesota Are Using AI to Finally{' '}
           <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
             Get Results
           </span>{' '}

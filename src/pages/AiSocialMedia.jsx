@@ -23,7 +23,7 @@ export default function AiSocialMedia() {
               animate={{ opacity: 1, x: 0 }}
             >
               <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                AI Social Media <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">On Autopilot</span>
+                AI Social Media for Iowa & MN Businesses <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">On Autopilot</span>
               </h1>
               <p className="text-xl text-indigo-100 mb-8">
                 Consistent, high-quality content posted to all your channels automatically. Engage your audience without lifting a finger.

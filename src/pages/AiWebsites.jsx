@@ -25,7 +25,7 @@ export default function AiWebsites() {
                 Intelligent Websites That <br/><span className="text-blue-600">Actually Convert</span>
               </h1>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-10">
-                Stop settling for digital brochures. Our AI-optimized websites are built to turn visitors into paying customers from day one.
+                Stop settling for digital brochures. Our AI-optimized websites are built to turn visitors from Mason City, IA, and across MN into paying customers from day one.
               </p>
               <Button onClick={() => setIsModalOpen(true)} size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg rounded-xl">
                 Get Your AI Website

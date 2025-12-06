@@ -23,10 +23,10 @@ export default function AiAdvertising() {
               className="text-center max-w-4xl mx-auto"
             >
               <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                Precision Advertising <br/>Powered by <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Machine Learning</span>
+                Precision Advertising for Mason City Businesses <br/>Powered by <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Machine Learning</span>
               </h1>
               <p className="text-xl text-slate-300 mb-10">
-                Stop wasting budget on the wrong people. Our AI manages your ads across Google, Facebook, and Instagram to maximize ROI automatically.
+                Stop wasting budget on the wrong people. Our AI manages your ads across Google, Facebook, and Instagram to maximize ROI for your Iowa or Minnesota business automatically.
               </p>
               <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-10">
                 <Button onClick={() => setIsModalOpen(true)} size="lg" className="bg-white text-purple-900 hover:bg-slate-100 px-8 py-6 text-lg rounded-xl font-bold">

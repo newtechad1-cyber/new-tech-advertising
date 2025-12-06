@@ -38,7 +38,7 @@ export default function About() {
             <div>
               <h2 className="text-3xl font-bold text-slate-900 mb-6">Our Mission</h2>
               <p className="text-slate-600 mb-4 leading-relaxed">
-                At New Tech Advertising, we are driven by a single purpose: to help local businesses thrive in the digital age without breaking the bank.
+                At New Tech Advertising, we are driven by a single purpose: to help local businesses in Mason City, IA, and throughout Minnesota thrive in the digital age without breaking the bank.
               </p>
               <p className="text-slate-600 mb-4 leading-relaxed">
                 We witnessed too many great small businesses struggling because they couldn't afford high-end agencies or didn't have the time to master complex marketing tools. We decided to change that by combining human creativity with the efficiency of Artificial Intelligence.

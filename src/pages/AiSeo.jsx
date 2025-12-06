@@ -25,10 +25,10 @@ export default function AiSeo() {
                 <Search className="w-8 h-8 text-green-600" />
               </div>
               <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
-                Dominate Local Search with <br/><span className="text-green-600">AI-Powered SEO</span>
+                Dominate Local Search in Iowa & Minnesota with <br/><span className="text-green-600">AI-Powered SEO</span>
               </h1>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-10">
-                Get found by customers exactly when they are looking for your services. Our AI analyzes thousands of ranking factors to push you to the top.
+                Get found by customers exactly when they are looking for your services in Mason City and beyond. Our AI analyzes thousands of ranking factors to push you to the top.
               </p>
               <Button onClick={() => setIsModalOpen(true)} size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8 py-6 text-lg rounded-xl">
                 Boost My Rankings

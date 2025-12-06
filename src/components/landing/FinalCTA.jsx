@@ -54,7 +54,7 @@ export default function FinalCTA({ onCTAClick }) {
           </Button>
 
           <p className="text-slate-400 mt-6 text-sm">
-            Setup begins within 48 hours • Cancel anytime • No questions asked
+            Serving Mason City, Iowa, and Minnesota • Setup begins within 48 hours • Cancel anytime
           </p>
         </motion.div>
       </div>

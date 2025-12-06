@@ -22,7 +22,7 @@ export default function AiVideos() {
               animate={{ opacity: 1, x: 0 }}
             >
               <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                High-Converting Videos <span className="text-blue-400">Created by AI</span>
+                High-Converting Videos for Mason City Businesses <span className="text-blue-400">Created by AI</span>
               </h1>
               <p className="text-xl text-slate-300 mb-8">
                 Video content is king. We use advanced AI to script, edit, and produce professional marketing videos for your business at scale.
