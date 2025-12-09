@@ -32,6 +32,25 @@ export default function SignupModal({ isOpen, onClose }) {
         message: formData.message,
         status: 'new'
       });
+
+      try {
+        await base44.integrations.Core.SendEmail({
+          to: 'newtechad1@gmail.com',
+          subject: `New Lead: ${formData.businessName || formData.name}`,
+          body: `New Lead Submission
+
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Business Name: ${formData.businessName}
+Message: ${formData.message || 'N/A'}
+
+---
+Submitted from AI Marketing Landing Page`
+        });
+      } catch (emailError) {
+        console.log('Email notification failed (lead saved):', emailError);
+      }
       
       setShowSuccess(true);
       setFormData({ name: '', email: '', phone: '', businessName: '', message: '' });
