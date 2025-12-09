@@ -24,27 +24,6 @@ export default function TestimonialsSection() {
       quote: "Rick and his team completely transformed our online presence. We went from invisible on Google to the top of local search results. The automated content and videos they create for us save me hours every week, and our customer base has doubled.",
       rating: 5,
       image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop"
-    },
-    {
-      name: "David Martinez",
-      business: "Martinez Law Firm",
-      quote: "I was skeptical about AI marketing at first, but the results speak for themselves. Our website now converts visitors into clients, and the SEO work has brought us more quality leads than we've ever had. Worth every penny.",
-      rating: 5,
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop"
-    },
-    {
-      name: "Jennifer Thompson",
-      business: "Bella's Boutique",
-      quote: "New Tech Advertising gave my small retail shop the kind of professional marketing I thought only big companies could afford. The AI content they create is spot-on for my brand, and I'm finally seeing real ROI from my marketing budget.",
-      rating: 5,
-      image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop"
-    },
-    {
-      name: "Robert Johnson",
-      business: "Johnson's HVAC",
-      quote: "After struggling with marketing for years, New Tech Advertising made it simple. They handle everything—website, SEO, videos, social media—and it actually works. My business has grown 40% in just 6 months.",
-      rating: 5,
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop"
     }
   ];
 
