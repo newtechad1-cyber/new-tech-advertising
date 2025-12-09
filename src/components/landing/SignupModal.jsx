@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ArrowRight, Loader2 } from 'lucide-react';
+import { X, ArrowRight, Loader2, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -17,6 +17,7 @@ export default function SignupModal({ isOpen, onClose }) {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,14 +41,19 @@ Submitted from AI Marketing Landing Page
         `
       });
 
-      toast.success('Thank you! We\'ll contact you within 24 hours.');
+      setShowSuccess(true);
       setFormData({ name: '', email: '', phone: '', businessName: '', message: '' });
-      onClose();
     } catch (error) {
-      toast.error('Something went wrong. Please try again or email us directly.');
+      console.error('Email send error:', error);
+      toast.error('Something went wrong. Please call us at 641-420-8816 or email rick@newtechadvertising.com');
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleClose = () => {
+    setShowSuccess(false);
+    onClose();
   };
 
   return (
@@ -59,7 +65,7 @@ Submitted from AI Marketing Landing Page
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
-            onClick={onClose}
+            onClick={handleClose}
           />
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -67,7 +73,24 @@ Submitted from AI Marketing Landing Page
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
           >
-            <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+            {showSuccess ? (
+              <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-12 text-center">
+                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <CheckCircle className="w-12 h-12 text-green-600" />
+                </div>
+                <h3 className="text-3xl font-bold text-slate-900 mb-4">Thank You!</h3>
+                <p className="text-xl text-slate-700 mb-8">
+                  We will call you within 24 hours to welcome you to New Tech Advertising
+                </p>
+                <Button
+                  onClick={handleClose}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg rounded-xl"
+                >
+                  Close
+                </Button>
+              </div>
+            ) : (
+              <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
               <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-8 relative">
                 <button
                   onClick={onClose}
@@ -189,6 +212,7 @@ Submitted from AI Marketing Landing Page
                 </p>
               </form>
             </div>
+            )}
           </motion.div>
         </>
       )}
