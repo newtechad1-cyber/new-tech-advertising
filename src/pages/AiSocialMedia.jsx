@@ -10,6 +10,14 @@ import { Button } from '@/components/ui/button';
 export default function AiSocialMedia() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  React.useEffect(() => {
+    document.title = 'AI Social Media Management | Iowa & Minnesota Businesses | New Tech Advertising';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Automated social media management for Iowa and Minnesota businesses. AI-powered content creation, multi-platform posting, and engagement tracking. DIY $97/mo or DFY $197/mo.');
+    }
+  }, []);
+
   return (
     <div className="bg-white min-h-screen flex flex-col">
       <Header onCTAClick={() => setIsModalOpen(true)} />
@@ -39,7 +47,7 @@ export default function AiSocialMedia() {
             >
               <img 
                 src="https://images.unsplash.com/photo-1683721003111-070bcc053d8b?q=80&w=1000&auto=format&fit=crop" 
-                alt="Social Media Platforms - Facebook, Instagram, TikTok, YouTube, LinkedIn, X" 
+                alt="AI social media management showing automated posts across Facebook, Instagram, TikTok, and LinkedIn for Iowa businesses" 
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/80 to-transparent" />

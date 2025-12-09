@@ -7,7 +7,7 @@ export default function HeroSection({ onCTAClick }) {
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 overflow-hidden pt-20">
       {/* Animated background elements */}
-      <div className="absolute inset-0 opacity-20">
+      <div className="absolute inset-0 opacity-20" role="presentation" aria-hidden="true">
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500 rounded-full blur-3xl animate-pulse delay-700" />
       </div>

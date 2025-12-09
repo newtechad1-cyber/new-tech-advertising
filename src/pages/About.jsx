@@ -9,6 +9,14 @@ import { Users, Target, Zap, Heart } from 'lucide-react';
 export default function About() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  React.useEffect(() => {
+    document.title = 'About New Tech Advertising | AI Marketing Agency in Mason City, Iowa';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Learn about New Tech Advertising, the AI-powered marketing agency helping small businesses in Mason City, Iowa and Minnesota compete with enterprise-level tools at affordable prices.');
+    }
+  }, []);
+
   return (
     <div className="bg-white min-h-screen flex flex-col">
       <Header onCTAClick={() => setIsModalOpen(true)} />
@@ -50,7 +58,7 @@ export default function About() {
             <div className="rounded-2xl overflow-hidden h-80 shadow-xl">
               <img 
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop" 
-                alt="Our Team" 
+                alt="New Tech Advertising team collaborating on AI marketing solutions for Iowa and Minnesota businesses" 
                 className="w-full h-full object-cover"
               />
             </div>

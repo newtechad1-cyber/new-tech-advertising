@@ -10,6 +10,14 @@ import { Button } from '@/components/ui/button';
 export default function AiSeo() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  React.useEffect(() => {
+    document.title = 'Local SEO Services Iowa & Minnesota | AI-Powered SEO | New Tech Advertising';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Dominate local search in Iowa and Minnesota with AI-powered SEO. Get found by customers in Mason City, Des Moines, Rochester, and across the Midwest. Automated content, smart keywords, review management.');
+    }
+  }, []);
+
   return (
     <div className="bg-white min-h-screen flex flex-col">
       <Header onCTAClick={() => setIsModalOpen(true)} />

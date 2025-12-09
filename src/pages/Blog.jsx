@@ -12,6 +12,14 @@ import { createPageUrl } from '../utils';
 export default function Blog() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  React.useEffect(() => {
+    document.title = 'Marketing Blog | AI Advertising Tips for Iowa & Minnesota Businesses';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Expert marketing tips and AI advertising insights for Iowa and Minnesota business owners. Learn about local SEO, social media, video marketing, and AI tools from New Tech Advertising.');
+    }
+  }, []);
+
   const { data: posts, isLoading } = useQuery({
     queryKey: ['blogPosts'],
     queryFn: () => base44.entities.BlogPost.list('-published_date'),

@@ -10,6 +10,14 @@ import { Button } from '@/components/ui/button';
 export default function AiWebsites() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  React.useEffect(() => {
+    document.title = 'AI Website Design | Mason City Iowa & Minnesota | New Tech Advertising';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Professional AI-powered website design for Iowa and Minnesota businesses. Mobile-responsive, conversion-optimized websites built in 48 hours. Serving Mason City, Clear Lake, Rochester, and beyond.');
+    }
+  }, []);
+
   return (
     <div className="bg-white min-h-screen flex flex-col">
       <Header onCTAClick={() => setIsModalOpen(true)} />
@@ -58,7 +66,7 @@ export default function AiWebsites() {
             <div className="rounded-xl overflow-hidden aspect-square shadow-2xl">
               <img 
                 src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop" 
-                alt="AI Website Building" 
+                alt="AI-powered website design analytics dashboard showing conversion optimization for Iowa businesses" 
                 className="w-full h-full object-cover"
               />
             </div>

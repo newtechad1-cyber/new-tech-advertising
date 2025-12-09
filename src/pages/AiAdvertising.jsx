@@ -10,6 +10,14 @@ import { Button } from '@/components/ui/button';
 export default function AiAdvertising() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  React.useEffect(() => {
+    document.title = 'AI Advertising Services | Google Ads & Facebook Ads | Iowa & Minnesota';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'AI-powered advertising management for Iowa and Minnesota businesses. Precision targeting, budget optimization, and 72% lower cost per lead. Serving Mason City, Rochester, Des Moines, Minneapolis.');
+    }
+  }, []);
+
   return (
     <div className="bg-white min-h-screen flex flex-col">
       <Header onCTAClick={() => setIsModalOpen(true)} />
@@ -36,7 +44,7 @@ export default function AiAdvertising() {
               <div className="relative rounded-xl overflow-hidden shadow-2xl border border-white/10 aspect-[21/9] max-w-3xl mx-auto">
                 <img 
                   src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=1000&auto=format&fit=crop" 
-                  alt="AI Advertising Dashboard" 
+                  alt="AI advertising dashboard showing Google and Facebook ad performance for Minnesota business campaigns" 
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-purple-900/50 to-transparent" />

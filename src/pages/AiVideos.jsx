@@ -10,6 +10,14 @@ import { Button } from '@/components/ui/button';
 export default function AiVideos() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  React.useEffect(() => {
+    document.title = 'AI Video Marketing | Professional Videos for Iowa & Minnesota Businesses';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'AI-generated professional marketing videos for Mason City and Midwest businesses. Automated production, social-ready content, voice cloning, and AI avatars. 3x more engagement than image ads.');
+    }
+  }, []);
+
   return (
     <div className="bg-white min-h-screen flex flex-col">
       <Header onCTAClick={() => setIsModalOpen(true)} />
