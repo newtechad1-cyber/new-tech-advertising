@@ -24,29 +24,19 @@ export default function SignupModal({ isOpen, onClose }) {
     setIsSubmitting(true);
 
     try {
-      console.log('Attempting to send email...');
-      const result = await base44.integrations.Core.SendEmail({
-        to: 'rick@newtechadvertising.com',
-        subject: `New Lead: ${formData.businessName || formData.name}`,
-        body: `New Lead Submission
-
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Business Name: ${formData.businessName}
-Message: ${formData.message || 'N/A'}
-
----
-Submitted from AI Marketing Landing Page`
+      await base44.entities.Lead.create({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        business_name: formData.businessName,
+        message: formData.message,
+        status: 'new'
       });
       
-      console.log('Email sent successfully:', result);
       setShowSuccess(true);
       setFormData({ name: '', email: '', phone: '', businessName: '', message: '' });
     } catch (error) {
-      console.error('Email send error details:', error);
-      console.error('Error message:', error?.message);
-      console.error('Error response:', error?.response?.data);
+      console.error('Lead submission error:', error);
       toast.error('Something went wrong. Please call us at 641-420-8816 or email rick@newtechadvertising.com');
     } finally {
       setIsSubmitting(false);
