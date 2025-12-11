@@ -16,7 +16,7 @@ export default function TestimonialsSection() {
       business: "Psalmist Ministries",
       quote: "I have worked with Rick for many years now and have come to depend on his expertise in the field of social media marketing and web site development. Rick is a very unselfish person and has also taught me a lot about how to manage my own web site. I enjoy working with him because he cares first about the client and helping them understand how things work. I would recommend Rick for anyone wanting to grow their social media footprint and develop an effective web site.",
       rating: 5,
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop"
+      image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/2c85b69ee_PeteGardner.jpeg"
     },
     {
       name: "Tony Johnson",
