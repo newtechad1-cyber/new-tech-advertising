@@ -53,7 +53,7 @@ export default function FinalCTA({ onCTAClick }) {
               size="lg"
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-12 py-7 text-xl rounded-xl shadow-2xl shadow-blue-500/30 transition-all duration-300 hover:scale-105 group"
             >
-              Get Started Today
+              Get Started Today for Only $297/month
               <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
             </Button>
           </a>
