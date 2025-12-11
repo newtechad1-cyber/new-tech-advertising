@@ -117,7 +117,7 @@ export default function PricingSection({ onCTAClick }) {
                   size="lg"
                   className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
                 >
-                  Get Started Today
+                  Get Started Today for Only $297/month
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </a>
