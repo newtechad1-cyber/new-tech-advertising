@@ -44,14 +44,19 @@ export default function FinalCTA({ onCTAClick }) {
             <p className="text-slate-400">Everything included • No contracts • Cancel anytime</p>
           </div>
 
-          <Button
-            size="lg"
-            onClick={onCTAClick}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-12 py-7 text-xl rounded-xl shadow-2xl shadow-blue-500/30 transition-all duration-300 hover:scale-105 group"
+          <a 
+            href="https://buy.stripe.com/28E6oI3fA4KI17j5T1fMA01" 
+            target="_blank" 
+            rel="noopener noreferrer"
           >
-            Get Started Today
-            <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
-          </Button>
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-12 py-7 text-xl rounded-xl shadow-2xl shadow-blue-500/30 transition-all duration-300 hover:scale-105 group"
+            >
+              Get Started Today
+              <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </a>
 
           <p className="text-slate-400 mt-6 text-sm">
             Serving Mason City, Iowa, and Minnesota • Setup begins within 48 hours • Cancel anytime
