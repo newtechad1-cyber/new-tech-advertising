@@ -12,16 +12,16 @@ export default function TestimonialsSection() {
       image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/9dad16b6d_WendyLadybugpersona1.png"
     },
     {
-      name: "Michael Stevens",
-      business: "Stevens Plumbing Services",
-      quote: "Before working with New Tech Advertising, I was spending thousands on ads with no results. Within 3 months of using their AI-powered marketing system, my phone started ringing off the hook. Best investment I've made in my business.",
+      name: "Peter Gardner",
+      business: "Psalmist Ministries",
+      quote: "I have worked with Rick for many years now and have come to depend on his expertise in the field of social media marketing and web site development. Rick is a very unselfish person and has also taught me a lot about how to manage my own web site. I enjoy working with him because he cares first about the client and helping them understand how things work. I would recommend Rick for anyone wanting to grow their social media footprint and develop an effective web site.",
       rating: 5,
       image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop"
     },
     {
-      name: "Sarah Chen",
-      business: "Chen's Auto Repair",
-      quote: "Rick and his team completely transformed our online presence. We went from invisible on Google to the top of local search results. The automated content and videos they create for us save me hours every week, and our customer base has doubled.",
+      name: "Tony Johnson",
+      business: "Johnson Heating and Air Conditioning, LLC",
+      quote: "Rick has been great to work with. I know nothing really about Social Media and he has our company heading in the right direction. Thanks for your hard work!",
       rating: 5,
       image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop"
     }
