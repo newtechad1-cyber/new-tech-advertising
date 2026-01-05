@@ -23,7 +23,7 @@ export default function TestimonialsSection() {
       business: "Johnson Heating and Air Conditioning, LLC",
       quote: "Rick has been great to work with. I know nothing really about Social Media and he has our company heading in the right direction. Thanks for your hard work!",
       rating: 5,
-      image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/7ea1b420b_tONYWITHOUTBACKGROUND.png"
+      image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/4a78877a1_12.jpg"
     }
   ];
 
