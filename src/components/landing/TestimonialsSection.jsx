@@ -9,7 +9,7 @@ export default function TestimonialsSection() {
       business: "Ladybug Restaurant & The Ladybug Travels",
       quote: "I am a long-time client of New Tech Advertising and couldn't be more thrilled with the exceptional work of Rick Hesse. For the past 10 years, Rick has been an invaluable asset, helping me achieve tremendous success with my Ladybug Restaurant and now my new website, theladybugtravels.com. I could speak volumes about the expertise and dedication of the New Tech Advertising team, who have consistently delivered innovative solutions that have propelled my businesses to new heights.",
       rating: 5,
-      image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/9dad16b6d_WendyLadybugpersona1.png"
+      image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/4b13bf08e_WendyLadybugLogo1.png"
     },
     {
       name: "Peter Gardner",
