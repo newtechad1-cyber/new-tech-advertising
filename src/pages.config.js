@@ -1,32 +1,34 @@
-import Home from './pages/Home';
-import Onboarding from './pages/Onboarding';
-import Dashboard from './pages/Dashboard';
 import About from './pages/About';
-import AiWebsites from './pages/AiWebsites';
-import AiVideos from './pages/AiVideos';
-import AiSeo from './pages/AiSeo';
+import AdminBlog from './pages/AdminBlog';
 import AiAdvertising from './pages/AiAdvertising';
+import AiSeo from './pages/AiSeo';
 import AiSocialMedia from './pages/AiSocialMedia';
+import AiVideos from './pages/AiVideos';
+import AiWebsites from './pages/AiWebsites';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
+import Dashboard from './pages/Dashboard';
+import Home from './pages/Home';
+import Onboarding from './pages/Onboarding';
 import SocialMediaManagement from './pages/SocialMediaManagement';
-import AdminBlog from './pages/AdminBlog';
+import AdaAccessibility from './pages/AdaAccessibility';
 
 
 export const PAGES = {
-    "Home": Home,
-    "Onboarding": Onboarding,
-    "Dashboard": Dashboard,
     "About": About,
-    "AiWebsites": AiWebsites,
-    "AiVideos": AiVideos,
-    "AiSeo": AiSeo,
+    "AdminBlog": AdminBlog,
     "AiAdvertising": AiAdvertising,
+    "AiSeo": AiSeo,
     "AiSocialMedia": AiSocialMedia,
+    "AiVideos": AiVideos,
+    "AiWebsites": AiWebsites,
     "Blog": Blog,
     "BlogPost": BlogPost,
+    "Dashboard": Dashboard,
+    "Home": Home,
+    "Onboarding": Onboarding,
     "SocialMediaManagement": SocialMediaManagement,
-    "AdminBlog": AdminBlog,
+    "AdaAccessibility": AdaAccessibility,
 }
 
 export const pagesConfig = {
