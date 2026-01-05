@@ -58,9 +58,9 @@ export default function Home() {
         <Header onCTAClick={handleCTAClick} />
         <main>
           <HeroSection onCTAClick={handleCTAClick} />
+          <AdaComplianceSection />
           <ProblemSection />
           <FeaturesGrid />
-          <AdaComplianceSection />
           <TestimonialsSection />
           <PricingSection onCTAClick={handleCTAClick} />
           <GuaranteeSection />

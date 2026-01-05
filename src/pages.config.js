@@ -1,4 +1,5 @@
 import About from './pages/About';
+import AdaAccessibility from './pages/AdaAccessibility';
 import AdminBlog from './pages/AdminBlog';
 import AiAdvertising from './pages/AiAdvertising';
 import AiSeo from './pages/AiSeo';
@@ -11,11 +12,11 @@ import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import Onboarding from './pages/Onboarding';
 import SocialMediaManagement from './pages/SocialMediaManagement';
-import AdaAccessibility from './pages/AdaAccessibility';
 
 
 export const PAGES = {
     "About": About,
+    "AdaAccessibility": AdaAccessibility,
     "AdminBlog": AdminBlog,
     "AiAdvertising": AiAdvertising,
     "AiSeo": AiSeo,
@@ -28,7 +29,6 @@ export const PAGES = {
     "Home": Home,
     "Onboarding": Onboarding,
     "SocialMediaManagement": SocialMediaManagement,
-    "AdaAccessibility": AdaAccessibility,
 }
 
 export const pagesConfig = {
