@@ -3,6 +3,7 @@ import Header from '../components/landing/Header';
 import HeroSection from '../components/landing/HeroSection';
 import ProblemSection from '../components/landing/ProblemSection';
 import FeaturesGrid from '../components/landing/FeaturesGrid';
+import AdaComplianceSection from '../components/landing/AdaComplianceSection';
 import TestimonialsSection from '../components/landing/TestimonialsSection';
 import PricingSection from '../components/landing/PricingSection';
 import GuaranteeSection from '../components/landing/GuaranteeSection';
@@ -59,6 +60,7 @@ export default function Home() {
           <HeroSection onCTAClick={handleCTAClick} />
           <ProblemSection />
           <FeaturesGrid />
+          <AdaComplianceSection />
           <TestimonialsSection />
           <PricingSection onCTAClick={handleCTAClick} />
           <GuaranteeSection />
