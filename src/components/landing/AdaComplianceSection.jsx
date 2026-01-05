@@ -33,7 +33,7 @@ export default function AdaComplianceSection() {
             </h2>
 
             <p className="text-xl text-slate-300 mb-8 leading-relaxed">
-              Most websites weren't built with accessibility in mind. We help Mason City and North Iowa businesses 
+              Most websites weren't built with accessibility in mind. We help businesses across the U.S. 
               understand their website accessibility, fix issues that matter, and stay compliant — without legal jargon or pressure.
             </p>
 
