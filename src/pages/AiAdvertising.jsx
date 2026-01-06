@@ -11,10 +11,10 @@ export default function AiAdvertising() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   React.useEffect(() => {
-    document.title = 'AI Advertising Services | Google Ads & Facebook Ads | Iowa & Minnesota';
+    document.title = 'AI Advertising Services | Google Ads & Facebook Ads Nationwide';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'AI-powered advertising management for Iowa and Minnesota businesses. Precision targeting, budget optimization, and 72% lower cost per lead. Serving Mason City, Rochester, Des Moines, Minneapolis.');
+      metaDescription.setAttribute('content', 'AI-powered advertising management for businesses nationwide. Precision targeting, budget optimization, and 72% lower cost per lead.');
     }
   }, []);
 
@@ -31,10 +31,10 @@ export default function AiAdvertising() {
               className="text-center max-w-4xl mx-auto"
             >
               <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                Precision Advertising for Mason City Businesses <br/>Powered by <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Machine Learning</span>
+                Precision Advertising <br/>Powered by <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Machine Learning</span>
               </h1>
               <p className="text-xl text-slate-300 mb-10">
-                Stop wasting budget on the wrong people. Our AI manages your ads across Google, Facebook, and Instagram to maximize ROI for your Iowa or Minnesota business automatically.
+                Stop wasting budget on the wrong people. Our AI manages your ads across Google, Facebook, and Instagram to maximize ROI automatically.
               </p>
               <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-10">
                 <Button onClick={() => setIsModalOpen(true)} size="lg" className="bg-white text-purple-900 hover:bg-slate-100 px-8 py-6 text-lg rounded-xl font-bold">
@@ -44,7 +44,7 @@ export default function AiAdvertising() {
               <div className="relative rounded-xl overflow-hidden shadow-2xl border border-white/10 aspect-[21/9] max-w-3xl mx-auto">
                 <img 
                   src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=1000&auto=format&fit=crop" 
-                  alt="AI advertising dashboard showing Google and Facebook ad performance for Minnesota business campaigns" 
+                  alt="AI advertising dashboard showing Google and Facebook ad performance" 
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-purple-900/50 to-transparent" />
@@ -113,8 +113,8 @@ export default function AiAdvertising() {
                       <span className="font-bold text-purple-600">3</span>
                     </div>
                     <div>
-                      <h4 className="font-bold text-lg">Geo-Fencing Iowa & MN</h4>
-                      <p className="text-slate-600">We can draw a virtual perimeter around your service area—whether it's Mason City, Clear Lake, or the Twin Cities—showing ads only to people physically located near you.</p>
+                      <h4 className="font-bold text-lg">Geo-Fencing</h4>
+                      <p className="text-slate-600">We can draw a virtual perimeter around your service area—showing ads only to people physically located near you.</p>
                     </div>
                   </div>
                 </div>
@@ -144,7 +144,7 @@ export default function AiAdvertising() {
                   </div>
                   <div className="mt-6 pt-6 border-t border-slate-100">
                     <p className="text-sm text-slate-500 italic">
-                      *Average results based on local service business campaigns in the Midwest.
+                      *Average results based on local service business campaigns.
                     </p>
                   </div>
                 </div>

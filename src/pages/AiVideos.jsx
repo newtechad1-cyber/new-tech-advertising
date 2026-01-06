@@ -11,10 +11,10 @@ export default function AiVideos() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   React.useEffect(() => {
-    document.title = 'AI Video Marketing | Professional Videos for Iowa & Minnesota Businesses';
+    document.title = 'AI Video Marketing | Professional Videos for Businesses Nationwide';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'AI-generated professional marketing videos for Mason City and Midwest businesses. Automated production, social-ready content, voice cloning, and AI avatars. 3x more engagement than image ads.');
+      metaDescription.setAttribute('content', 'AI-generated professional marketing videos for businesses nationwide. Automated production, social-ready content, voice cloning, and AI avatars. 3x more engagement than image ads.');
     }
   }, []);
 
@@ -30,7 +30,7 @@ export default function AiVideos() {
               animate={{ opacity: 1, x: 0 }}
             >
               <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                High-Converting Videos for Mason City Businesses <span className="text-blue-400">Created by AI</span>
+                High-Converting Videos <span className="text-blue-400">Created by AI</span>
               </h1>
               <p className="text-xl text-slate-300 mb-8">
                 Video content is king. We use advanced AI to script, edit, and produce professional marketing videos for your business at scale.
@@ -93,7 +93,7 @@ export default function AiVideos() {
                 <div>
                   <h2 className="text-3xl font-bold mb-6">State-of-the-Art Video Tech</h2>
                   <p className="text-slate-300 mb-6">
-                    We use the same technology that Hollywood studios use, but scaled for Mason City business owners.
+                    We use the same technology that Hollywood studios use, but scaled for small business owners nationwide.
                   </p>
                   <div className="space-y-6">
                     <div>
@@ -126,7 +126,7 @@ export default function AiVideos() {
                   <div className="absolute bottom-4 left-4 right-4 bg-slate-900/80 p-4 rounded-lg backdrop-blur-sm">
                     <div className="flex items-center gap-3">
                       <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-                      <span className="text-xs font-mono text-green-400">RENDERING: Mason_City_Promo_v2.mp4</span>
+                      <span className="text-xs font-mono text-green-400">RENDERING: Business_Promo_v2.mp4</span>
                     </div>
                   </div>
                 </div>

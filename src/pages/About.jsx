@@ -10,10 +10,10 @@ export default function About() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   React.useEffect(() => {
-    document.title = 'About New Tech Advertising | AI Marketing Agency in Mason City, Iowa';
+    document.title = 'About New Tech Advertising | AI Marketing Agency';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Learn about New Tech Advertising, the AI-powered marketing agency helping small businesses in Mason City, Iowa and Minnesota compete with enterprise-level tools at affordable prices.');
+      metaDescription.setAttribute('content', 'Learn about New Tech Advertising, the AI-powered marketing agency helping small businesses across the U.S. compete with enterprise-level tools at affordable prices.');
     }
   }, []);
 
@@ -46,7 +46,7 @@ export default function About() {
             <div>
               <h2 className="text-3xl font-bold text-slate-900 mb-6">Our Mission</h2>
               <p className="text-slate-600 mb-4 leading-relaxed">
-                At New Tech Advertising, we are driven by a single purpose: to help local businesses in Mason City, IA, and throughout Minnesota thrive in the digital age without breaking the bank.
+                At New Tech Advertising, we are driven by a single purpose: to help businesses across the U.S. thrive in the digital age without breaking the bank.
               </p>
               <p className="text-slate-600 mb-4 leading-relaxed">
                 We witnessed too many great small businesses struggling because they couldn't afford high-end agencies or didn't have the time to master complex marketing tools. We decided to change that by combining human creativity with the efficiency of Artificial Intelligence.
@@ -58,7 +58,7 @@ export default function About() {
             <div className="rounded-2xl overflow-hidden h-80 shadow-xl">
               <img 
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop" 
-                alt="New Tech Advertising team collaborating on AI marketing solutions for Iowa and Minnesota businesses" 
+                alt="New Tech Advertising team collaborating on AI marketing solutions for businesses" 
                 className="w-full h-full object-cover"
               />
             </div>

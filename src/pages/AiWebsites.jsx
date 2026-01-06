@@ -11,10 +11,10 @@ export default function AiWebsites() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   React.useEffect(() => {
-    document.title = 'AI Website Design | Mason City Iowa & Minnesota | New Tech Advertising';
+    document.title = 'AI Website Design | New Tech Advertising';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Professional AI-powered website design for Iowa and Minnesota businesses. Mobile-responsive, conversion-optimized websites built in 48 hours. Serving Mason City, Clear Lake, Rochester, and beyond.');
+      metaDescription.setAttribute('content', 'Professional AI-powered website design for businesses nationwide. Mobile-responsive, conversion-optimized websites built in 48 hours.');
     }
   }, []);
 
@@ -33,7 +33,7 @@ export default function AiWebsites() {
                 Intelligent Websites That <br/><span className="text-blue-600">Actually Convert</span>
               </h1>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-10">
-                Stop settling for digital brochures. Our AI-optimized websites are built to turn visitors from Mason City, IA, and across MN into paying customers from day one.
+                Stop settling for digital brochures. Our AI-optimized websites are built to turn visitors into paying customers from day one.
               </p>
               <Button onClick={() => setIsModalOpen(true)} size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg rounded-xl">
                 Get Your AI Website
@@ -66,7 +66,7 @@ export default function AiWebsites() {
             <div className="rounded-xl overflow-hidden aspect-square shadow-2xl">
               <img 
                 src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop" 
-                alt="AI-powered website design analytics dashboard showing conversion optimization for Iowa businesses" 
+                alt="AI-powered website design analytics dashboard showing conversion optimization" 
                 className="w-full h-full object-cover"
               />
             </div>
@@ -96,15 +96,15 @@ export default function AiWebsites() {
             {/* Local Focus Section */}
             <div className="grid md:grid-cols-2 gap-12 items-center border-t border-slate-200 pt-20">
               <div>
-                <h2 className="text-3xl font-bold text-slate-900 mb-6">Built for the Midwest Market</h2>
+                <h2 className="text-3xl font-bold text-slate-900 mb-6">Built for Your Market</h2>
                 <p className="text-slate-600 mb-4">
-                  In Mason City, Clear Lake, and across Iowa and Minnesota, trust is everything. Your website needs to reflect the hard work and integrity of your business.
+                  Trust is everything. Your website needs to reflect the hard work and integrity of your business.
                 </p>
                 <p className="text-slate-600 mb-6">
-                  We don't just use generic templates. Our AI analyzes successful local competitors in Des Moines, Rochester, and Minneapolis to understand what drives local customers to take action. We build sites that feel local but perform like global brands.
+                  We don't just use generic templates. Our AI analyzes successful local competitors in your market to understand what drives customers to take action. We build sites that feel local but perform like global brands.
                 </p>
                 <Button onClick={() => setIsModalOpen(true)} variant="outline" className="text-blue-600 border-blue-600 hover:bg-blue-50">
-                  Schedule a Local Demo
+                  Schedule a Demo
                 </Button>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-lg border border-slate-100">
