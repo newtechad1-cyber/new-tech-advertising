@@ -28,7 +28,7 @@ export default function TestimonialsSection() {
     {
       name: "Jay Monson",
       business: "Monson Plumbing, Heating & Excavation",
-      quote: "New Tech Advertising has been an absolute game-changer for my business. They helped me not only understand modern advertising technology, but use it strategically — turning complexity into clarity and effort into measurable results. Rick Hessee is — in one word — ACES.",
+      quote: "New Tech Advertising has been an absolute game-changer for my business. They helped me not only understand modern advertising technology, but use it strategically — turning complexity into clarity and effort into measurable results. Rick Hesse is — in one word — ACES.",
       rating: 5,
       image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/4ce419d8f_JayMonson.jpg"
     }
