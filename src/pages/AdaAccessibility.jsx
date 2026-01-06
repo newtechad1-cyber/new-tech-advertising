@@ -20,7 +20,7 @@ export default function AdaAccessibility() {
     document.title = 'ADA Website Accessibility Services | New Tech Advertising';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'ADA website accessibility audits, remediation, and monitoring for Mason City and North Iowa businesses. Clear options. No legal jargon.');
+      metaDescription.setAttribute('content', 'ADA website accessibility audits, remediation, and monitoring for businesses nationwide. Clear options. No legal jargon.');
     }
   }, []);
 
@@ -87,12 +87,11 @@ export default function AdaAccessibility() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-              ADA Website Accessibility for Mason City & North Iowa Businesses
+              ADA Website Accessibility for Businesses Nationwide
             </h2>
             <p className="text-lg text-slate-600 max-w-4xl mx-auto mb-8">
-              Many websites across North Iowa were built years ago and were never reviewed for accessibility. 
-              That doesn't make them bad — just outdated. We help businesses in Mason City, Clear Lake, Charles City, 
-              Forest City, and surrounding North Iowa communities identify accessibility issues early and fix them before they become problems.
+              Many websites were built years ago and were never reviewed for accessibility. 
+              That doesn't make them bad — just outdated. We help businesses across the U.S. identify accessibility issues early and fix them before they become problems.
             </p>
           </motion.div>
 
@@ -122,7 +121,7 @@ export default function AdaAccessibility() {
               onClick={() => setShowModal(true)}
               className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg"
             >
-              Request a Local ADA Website Audit
+              Request an ADA Website Audit
             </Button>
           </div>
         </div>
