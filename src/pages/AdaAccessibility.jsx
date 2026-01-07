@@ -5,6 +5,8 @@ import { Shield, CheckCircle, Building2, Wrench, Briefcase, Heart, ArrowRight, F
 import Header from '../components/landing/Header';
 import Footer from '../components/landing/Footer';
 import SignupModal from '../components/landing/SignupModal';
+import { useNavigate } from 'react-router-dom';
+import { createPageUrl } from '../utils';
 import Chatbot from '../components/Chatbot';
 import {
   Accordion,
@@ -14,7 +16,14 @@ import {
 } from "@/components/ui/accordion";
 
 export default function AdaAccessibility() {
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
+
+  const goToIntake = (packageName, nonprofit = false) => {
+    const params = new URLSearchParams({ package: packageName });
+    if (nonprofit) params.append('nonprofit', 'true');
+    navigate(createPageUrl('AdaIntake') + '?' + params.toString());
+  };
 
   useEffect(() => {
     document.title = 'ADA Website Accessibility Services | New Tech Advertising';
@@ -56,7 +65,7 @@ export default function AdaAccessibility() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-4">
               <Button
-                onClick={() => setShowModal(true)}
+                onClick={() => goToIntake('Growth')}
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg"
               >
                 Request an ADA Website Audit
@@ -118,7 +127,7 @@ export default function AdaAccessibility() {
 
           <div className="text-center">
             <Button
-              onClick={() => setShowModal(true)}
+              onClick={() => goToIntake('Growth')}
               className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg"
             >
               Request an ADA Website Audit
@@ -170,7 +179,7 @@ export default function AdaAccessibility() {
 
           <div className="text-center">
             <Button
-              onClick={() => setShowModal(true)}
+              onClick={() => goToIntake('Growth')}
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg"
             >
               Request an ADA Website Audit
@@ -227,7 +236,7 @@ export default function AdaAccessibility() {
                 <p className="text-slate-600">one-time</p>
               </div>
               <Button
-                onClick={() => setShowModal(true)}
+                onClick={() => goToIntake('Starter')}
                 className="w-full bg-green-600 hover:bg-green-700 text-white"
               >
                 Start with Starter
@@ -273,7 +282,7 @@ export default function AdaAccessibility() {
                 <p className="text-2xl font-bold text-blue-600">$99 – $149/mo</p>
               </div>
               <Button
-                onClick={() => setShowModal(true)}
+                onClick={() => goToIntake('Growth')}
                 className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
               >
                 Choose Growth (Most Popular)
@@ -316,7 +325,7 @@ export default function AdaAccessibility() {
                 <p className="text-2xl font-bold text-purple-600">$199 – $299/mo</p>
               </div>
               <Button
-                onClick={() => setShowModal(true)}
+                onClick={() => goToIntake('Authority')}
                 className="w-full bg-purple-600 hover:bg-purple-700 text-white"
               >
                 Talk About Authority
@@ -362,7 +371,7 @@ export default function AdaAccessibility() {
 
           <div className="text-center">
             <Button
-              onClick={() => setShowModal(true)}
+              onClick={() => goToIntake('Growth', true)}
               className="bg-green-600 hover:bg-green-700 text-white px-8 py-6 text-lg"
             >
               View Nonprofit Accessibility Options
@@ -401,7 +410,7 @@ export default function AdaAccessibility() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                onClick={() => setShowModal(true)}
+                onClick={() => goToIntake('Growth')}
                 className="flex items-center gap-4 p-6 bg-gradient-to-br from-slate-50 to-white border-2 border-slate-200 rounded-xl hover:border-blue-600 hover:shadow-lg transition-all group text-left"
               >
                 <item.icon className="w-12 h-12 text-blue-600 group-hover:scale-110 transition-transform" />
@@ -512,7 +521,7 @@ export default function AdaAccessibility() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
-                onClick={() => setShowModal(true)}
+                onClick={() => goToIntake('Growth')}
                 className="bg-white text-blue-600 hover:bg-slate-100 px-8 py-6 text-lg"
               >
                 Request an ADA Website Audit
