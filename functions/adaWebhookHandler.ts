@@ -25,12 +25,23 @@ Deno.serve(async (req) => {
 
     // Forward to Agent
     const agentWebhook = Deno.env.get('AGENT_WEBHOOK_URL');
-    if (agentWebhook) {
+    const agentKey = Deno.env.get('AGENT_WEBHOOK_KEY');
+    if (agentWebhook && agentKey) {
       try {
         await fetch(agentWebhook, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-AGENT-KEY': agentKey
+          },
+          body: JSON.stringify({
+            source: 'base44',
+            site: 'newtechadvertising.com',
+            event: payload.event,
+            ts: new Date().toISOString(),
+            data: payload
+          })
         });
         console.log('Event forwarded to Agent');
       } catch (agentError) {
