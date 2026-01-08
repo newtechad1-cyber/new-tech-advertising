@@ -14,10 +14,12 @@ export default function SignupModal({ isOpen, onClose }) {
     email: '',
     phone: '',
     businessName: '',
-    message: ''
+    message: '',
+    selectedService: 'complete-marketing'
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [checkoutUrl, setCheckoutUrl] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,9 +53,15 @@ Submitted from AI Marketing Landing Page`
       } catch (emailError) {
         console.log('Email notification failed (lead saved):', emailError);
       }
-      
+
+      // Set checkout URL based on selected service
+      const checkoutUrls = {
+        'complete-marketing': 'https://buy.stripe.com/28E6oI3fA4KI17j5T1fMA01',
+        'dfy-social': 'https://buy.stripe.com/7sY5kE5nIgtqbLXbdlfMA02',
+        'diy-social': 'https://buy.stripe.com/eVq5kEaI27WU17j819fMA06'
+      };
+      setCheckoutUrl(checkoutUrls[formData.selectedService]);
       setShowSuccess(true);
-      setFormData({ name: '', email: '', phone: '', businessName: '', message: '' });
     } catch (error) {
       console.error('Lead submission error:', error);
       toast.error('Something went wrong. Please call us at 641-420-8816 or email rick@newtechadvertising.com');
@@ -90,15 +98,28 @@ Submitted from AI Marketing Landing Page`
                   <CheckCircle className="w-12 h-12 text-green-600" />
                 </div>
                 <h3 className="text-3xl font-bold text-slate-900 mb-4">Thank You!</h3>
-                <p className="text-xl text-slate-700 mb-8">
-                  We will call you within 24 hours to welcome you to New Tech Advertising
+                <p className="text-xl text-slate-700 mb-6">
+                  Your information has been submitted successfully.
                 </p>
-                <Button
-                  onClick={handleClose}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg rounded-xl"
-                >
-                  Close
-                </Button>
+                <p className="text-slate-600 mb-8">
+                  Click below to complete your payment and get started!
+                </p>
+                <div className="space-y-4">
+                  <Button
+                    onClick={() => window.open(checkoutUrl, '_blank')}
+                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg rounded-xl"
+                  >
+                    Complete Payment
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                  <Button
+                    onClick={handleClose}
+                    variant="outline"
+                    className="w-full"
+                  >
+                    I'll Pay Later
+                  </Button>
+                </div>
               </div>
             ) : (
               <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
@@ -118,6 +139,23 @@ Submitted from AI Marketing Landing Page`
               </div>
 
               <form onSubmit={handleSubmit} className="p-8 space-y-6">
+                <div>
+                  <Label htmlFor="service" className="text-slate-700 font-medium">
+                    Select Service *
+                  </Label>
+                  <select
+                    id="service"
+                    required
+                    value={formData.selectedService}
+                    onChange={(e) => setFormData({ ...formData, selectedService: e.target.value })}
+                    className="mt-2 w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="complete-marketing">Complete Marketing Solution - $297/mo</option>
+                    <option value="dfy-social">Done For You Social Media - $197/mo</option>
+                    <option value="diy-social">Do It Yourself Social Media - $97/mo</option>
+                  </select>
+                </div>
+
                 <div>
                   <Label htmlFor="name" className="text-slate-700 font-medium">
                     Your Name *

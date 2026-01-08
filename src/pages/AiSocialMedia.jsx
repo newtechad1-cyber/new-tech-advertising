@@ -144,7 +144,7 @@ export default function AiSocialMedia() {
                   <li className="flex items-start gap-3 text-slate-600"><Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" /> Basic Performance Analytics</li>
                 </ul>
                 <Button 
-                  onClick={() => window.open('https://buy.stripe.com/4gM28sdUe90Y4jvgxFfMA03', '_blank')} 
+                  onClick={() => setIsModalOpen(true)}
                   variant="outline"
                   className="w-full py-6 border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white transition-colors text-lg rounded-xl"
                 >
@@ -165,7 +165,7 @@ export default function AiSocialMedia() {
                    <li className="flex items-start gap-3 text-slate-600"><Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" /> Advanced Growth Reports & Strategy</li>
                 </ul>
                 <Button 
-                  onClick={() => window.open('https://buy.stripe.com/7sY5kE5nIgtqbLXbdlfMA02', '_blank')} 
+                  onClick={() => setIsModalOpen(true)}
                   className="w-full py-6 bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-200 text-lg rounded-xl"
                 >
                   Select DFY Plan

@@ -107,20 +107,14 @@ export default function PricingSection({ onCTAClick }) {
                 </p>
               </div>
 
-              <a 
-                href="https://buy.stripe.com/28E6oI3fA4KI17j5T1fMA01" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="block w-full"
+              <Button
+                onClick={onCTAClick}
+                size="lg"
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
               >
-                <Button
-                  size="lg"
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
-                >
-                  Get Started Today for Only $297/month
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </a>
+                Get Started Today for Only $297/month
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
             </div>
           </div>
         </motion.div>
