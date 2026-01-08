@@ -60,6 +60,22 @@ export default function AdaIntake() {
         multiplier: 1.0
       });
 
+      // Track form submission activity
+      try {
+        await base44.entities.LeadActivity.create({
+          lead_id: lead.id,
+          activity_type: 'form_submission',
+          page_url: window.location.href,
+          details: `Submitted intake form for ${formData.package} package`,
+          metadata: {
+            package: formData.package,
+            nonprofit: formData.nonprofit
+          }
+        });
+      } catch (e) {
+        console.log('Activity tracking failed:', e);
+      }
+
       await base44.functions.invoke('adaIntakeWebhook', {
         event: 'ada_intake_submitted',
         lead_id: lead.id,

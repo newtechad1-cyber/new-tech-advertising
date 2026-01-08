@@ -32,6 +32,18 @@ export default function AdaQuote() {
         const leadData = leads[0];
         setLead(leadData);
         calculatePricing(leadData);
+        
+        // Track quote view activity
+        try {
+          await base44.entities.LeadActivity.create({
+            lead_id: leadId,
+            activity_type: 'quote_viewed',
+            page_url: window.location.href,
+            details: 'Viewed personalized quote page'
+          });
+        } catch (e) {
+          console.log('Activity tracking failed:', e);
+        }
       }
     } catch (error) {
       console.error('Error loading lead:', error);
