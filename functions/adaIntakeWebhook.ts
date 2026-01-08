@@ -107,7 +107,9 @@ View in Dashboard: https://newtechadvertising.com${payload.lead_id ? '?lead=' + 
     }
 
     if (webhookPromises.length > 0) {
-      await Promise.all(webhookPromises);
+      await Promise.all(webhookPromises.map(p => 
+        p.catch(err => console.error('Webhook failed:', err))
+      ));
     }
 
     return Response.json({ 
