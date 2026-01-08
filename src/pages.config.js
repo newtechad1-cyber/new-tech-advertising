@@ -14,6 +14,8 @@ import Onboarding from './pages/Onboarding';
 import SocialMediaManagement from './pages/SocialMediaManagement';
 import AdaIntake from './pages/AdaIntake';
 import AdaQuote from './pages/AdaQuote';
+import AdaOnboarding from './pages/AdaOnboarding';
+import AdaThankYou from './pages/AdaThankYou';
 
 
 export const PAGES = {
@@ -33,6 +35,8 @@ export const PAGES = {
     "SocialMediaManagement": SocialMediaManagement,
     "AdaIntake": AdaIntake,
     "AdaQuote": AdaQuote,
+    "AdaOnboarding": AdaOnboarding,
+    "AdaThankYou": AdaThankYou,
 }
 
 export const pagesConfig = {

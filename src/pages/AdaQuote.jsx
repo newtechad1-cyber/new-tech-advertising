@@ -128,6 +128,16 @@ export default function AdaQuote() {
       multiplier,
       status: 'quoted'
     });
+
+    // Send quote ready notification
+    try {
+      await base44.functions.invoke('sendAdaQuoteReady', {
+        lead_id: leadData.id,
+        stripe_link: getStripeLink()
+      });
+    } catch (emailError) {
+      console.error('Quote notification failed:', emailError);
+    }
   };
 
   const getStripeLink = () => {

@@ -36,6 +36,15 @@ Deno.serve(async (req) => {
       }
     };
 
+    // Send confirmation email/SMS to customer
+    try {
+      await base44.asServiceRole.functions.invoke('sendAdaIntakeConfirmation', {
+        lead_id: payload.lead_id
+      });
+    } catch (confirmError) {
+      console.error('Confirmation send failed:', confirmError);
+    }
+
     // Send email notification to Rick
     try {
       await base44.asServiceRole.integrations.Core.SendEmail({
