@@ -19,6 +19,54 @@ Deno.serve(async (req) => {
       status: 'paid'
     });
 
+    // Send webhook to CRM and Agent
+    const webhookPayload = {
+      event: 'payment_success',
+      timestamp: new Date().toISOString(),
+      source: 'newtechadvertising.com',
+      page: 'AdaPayment',
+      lead_id: lead_id,
+      package: lead.package,
+      setup_price: lead.setup_price,
+      monthly_price: lead.monthly_price,
+      contact: {
+        name: lead.full_name,
+        business: lead.business_name,
+        email: lead.email,
+        phone: lead.phone,
+        website: lead.website_url
+      }
+    };
+
+    const crmWebhookUrl = Deno.env.get('CRM_WEBHOOK_URL');
+    const agentWebhookUrl = Deno.env.get('AGENT_WEBHOOK_URL');
+
+    const webhookPromises = [];
+    
+    if (crmWebhookUrl) {
+      webhookPromises.push(
+        fetch(crmWebhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(webhookPayload)
+        }).catch(err => console.error('CRM webhook failed:', err))
+      );
+    }
+
+    if (agentWebhookUrl) {
+      webhookPromises.push(
+        fetch(agentWebhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(webhookPayload)
+        }).catch(err => console.error('Agent webhook failed:', err))
+      );
+    }
+
+    if (webhookPromises.length > 0) {
+      await Promise.all(webhookPromises);
+    }
+
     // Send email
     await base44.asServiceRole.integrations.Core.SendEmail({
       from_name: 'Rick - New Tech Advertising',
