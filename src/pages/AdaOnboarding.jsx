@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { CheckCircle, Loader2 } from 'lucide-react';
-import { base44 } from '@/api/base44Client';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Loader2, CheckCircle } from 'lucide-react';
 import { toast } from 'sonner';
-import { createPageUrl } from '../utils';
 import Header from '../components/landing/Header';
 import Footer from '../components/landing/Footer';
 
 export default function AdaOnboarding() {
   const navigate = useNavigate();
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [lead, setLead] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [formData, setFormData] = useState({
     best_contact_method: 'email',
     preferred_contact_name: '',
@@ -29,43 +30,32 @@ export default function AdaOnboarding() {
   });
 
   useEffect(() => {
+    loadLead();
+  }, []);
+
+  const loadLead = async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const leadId = urlParams.get('lead_id');
-    
+
     if (!leadId) {
-      navigate(createPageUrl('AdaAccessibility'));
+      toast.error('Invalid onboarding link');
+      setIsLoading(false);
       return;
     }
 
-    loadLead(leadId);
-  }, []);
-
-  const loadLead = async (leadId) => {
     try {
       const leads = await base44.entities.AdaLead.filter({ id: leadId });
-      if (leads.length > 0) {
-        const leadData = leads[0];
-        setLead(leadData);
-        setFormData(prev => ({
-          ...prev,
-          preferred_contact_name: leadData.full_name
-        }));
+      if (leads.length === 0) {
+        toast.error('Lead not found');
+        return;
       }
+      setLead(leads[0]);
+      setFormData({ ...formData, preferred_contact_name: leads[0].full_name });
     } catch (error) {
-      console.error('Error loading lead:', error);
-    }
-  };
-
-  const handleFileUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    try {
-      const { file_url } = await base44.integrations.Core.UploadFile({ file });
-      setFormData({ ...formData, brand_assets_url: file_url });
-      toast.success('File uploaded successfully');
-    } catch (error) {
-      toast.error('File upload failed');
+      toast.error('Failed to load data');
+      console.error('Load error:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -74,178 +64,213 @@ export default function AdaOnboarding() {
     setIsSubmitting(true);
 
     try {
+      // Save onboarding data
       await base44.entities.AdaOnboarding.create({
-        ...formData,
-        lead_id: lead.id
+        lead_id: lead.id,
+        ...formData
       });
 
+      // Update lead status
       await base44.entities.AdaLead.update(lead.id, {
         status: 'onboarded'
       });
 
-      await base44.functions.invoke('adaOnboardingComplete', {
-        lead_id: lead.id
+      // Track activity
+      await base44.entities.LeadActivity.create({
+        lead_id: lead.id,
+        activity_type: 'form_submission',
+        page_url: '/ada/onboarding',
+        details: 'Onboarding form completed'
       });
 
-      navigate(createPageUrl('AdaThankYou'));
+      // Emit webhook event
+      await base44.functions.invoke('adaWebhookHandler', {
+        event: 'onboarding_completed',
+        lead_id: lead.id,
+        contact: {
+          name: lead.full_name,
+          email: lead.email,
+          phone: lead.phone,
+          business: lead.business_name
+        },
+        onboarding: formData,
+        package: lead.package
+      });
+
+      setShowSuccess(true);
     } catch (error) {
-      console.error('Onboarding submission error:', error);
-      toast.error('Something went wrong. Please try again or call 641-420-8816');
+      toast.error('Submission failed. Please try again.');
+      console.error('Onboarding error:', error);
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <Loader2 className="w-12 h-12 text-blue-600 animate-spin" />
+      </div>
+    );
+  }
+
   if (!lead) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-slate-600">Loading...</p>
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <p className="text-slate-600">Onboarding not found</p>
+      </div>
+    );
+  }
+
+  if (showSuccess) {
+    return (
+      <div className="min-h-screen bg-slate-50">
+        <Header />
+        <div className="pt-24 pb-16 px-6">
+          <div className="max-w-2xl mx-auto text-center">
+            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <CheckCircle className="w-12 h-12 text-green-600" />
+            </div>
+            <h1 className="text-4xl font-bold text-slate-900 mb-4">
+              Onboarding Complete!
+            </h1>
+            <p className="text-xl text-slate-600 mb-8">
+              Thank you for providing your information. Our team will begin work on your ADA compliance project right away.
+            </p>
+            <Button
+              onClick={() => navigate('/')}
+              className="bg-gradient-to-r from-blue-600 to-purple-600"
+            >
+              Return to Homepage
+            </Button>
+          </div>
         </div>
+        <Footer />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <Header onCTAClick={() => {}} />
+    <div className="min-h-screen bg-slate-50">
+      <Header />
       
-      <section className="pt-32 pb-20 bg-gradient-to-br from-green-50 to-white">
-        <div className="max-w-3xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-12"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 rounded-full mb-6">
-              <CheckCircle className="w-4 h-4 text-green-600" />
-              <span className="text-sm font-semibold text-green-900">Payment Received</span>
-            </div>
+      <div className="pt-24 pb-16 px-6">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-slate-900 mb-4">
-              Complete Your Onboarding
+              Onboarding Information
             </h1>
-            <p className="text-lg text-slate-600">
-              {lead.business_name} — {lead.package} Package
+            <p className="text-xl text-slate-600">
+              Help us get started on your ADA compliance project
             </p>
-          </motion.div>
+          </div>
 
-          <form onSubmit={handleSubmit} className="bg-white rounded-2xl border-2 border-slate-200 p-8 space-y-6">
-            <div>
-              <Label htmlFor="best_contact_method">Preferred Contact Method *</Label>
-              <Select value={formData.best_contact_method} onValueChange={(value) => setFormData({ ...formData, best_contact_method: value })}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="email">Email</SelectItem>
-                  <SelectItem value="sms">Text / SMS</SelectItem>
-                  <SelectItem value="phone">Phone Call</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+          <Card>
+            <CardHeader>
+              <CardTitle>Project Details</CardTitle>
+              <CardDescription>
+                Business: {lead.business_name}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="best_contact_method">Preferred Contact Method *</Label>
+                    <Select value={formData.best_contact_method} onValueChange={(value) => setFormData({ ...formData, best_contact_method: value })}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="email">Email</SelectItem>
+                        <SelectItem value="phone">Phone</SelectItem>
+                        <SelectItem value="sms">SMS/Text</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label htmlFor="preferred_contact_name">Preferred Name *</Label>
+                    <Input
+                      id="preferred_contact_name"
+                      required
+                      value={formData.preferred_contact_name}
+                      onChange={(e) => setFormData({ ...formData, preferred_contact_name: e.target.value })}
+                    />
+                  </div>
+                </div>
 
-            <div>
-              <Label htmlFor="preferred_contact_name">Preferred Contact Name</Label>
-              <Input
-                id="preferred_contact_name"
-                value={formData.preferred_contact_name}
-                onChange={(e) => setFormData({ ...formData, preferred_contact_name: e.target.value })}
-                placeholder="What should we call you?"
-              />
-            </div>
+                <div>
+                  <Label htmlFor="hosting_provider">Hosting Provider</Label>
+                  <Input
+                    id="hosting_provider"
+                    placeholder="e.g., GoDaddy, Bluehost, AWS"
+                    value={formData.hosting_provider}
+                    onChange={(e) => setFormData({ ...formData, hosting_provider: e.target.value })}
+                  />
+                </div>
 
-            <div>
-              <Label htmlFor="login_access_notes">Website Login Access</Label>
-              <Textarea
-                id="login_access_notes"
-                value={formData.login_access_notes}
-                onChange={(e) => setFormData({ ...formData, login_access_notes: e.target.value })}
-                placeholder="WordPress admin, hosting panel, etc. (We'll send you a secure form for credentials)"
-                rows={3}
-              />
-            </div>
+                <div>
+                  <Label htmlFor="cms_platform">CMS Platform</Label>
+                  <Input
+                    id="cms_platform"
+                    placeholder="e.g., WordPress, Wix, Squarespace, Custom"
+                    value={formData.cms_platform}
+                    onChange={(e) => setFormData({ ...formData, cms_platform: e.target.value })}
+                  />
+                </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <Label htmlFor="hosting_provider">Hosting Provider</Label>
-                <Input
-                  id="hosting_provider"
-                  value={formData.hosting_provider}
-                  onChange={(e) => setFormData({ ...formData, hosting_provider: e.target.value })}
-                  placeholder="GoDaddy, Bluehost, etc."
-                />
-              </div>
-              <div>
-                <Label htmlFor="cms_platform">CMS Platform</Label>
-                <Input
-                  id="cms_platform"
-                  value={formData.cms_platform}
-                  onChange={(e) => setFormData({ ...formData, cms_platform: e.target.value })}
-                  placeholder="WordPress, Wix, Squarespace, etc."
-                />
-              </div>
-            </div>
+                <div>
+                  <Label htmlFor="login_access_notes">Website Access Information</Label>
+                  <Textarea
+                    id="login_access_notes"
+                    rows={3}
+                    placeholder="How can we access your website for updates? (admin login, FTP, etc.)"
+                    value={formData.login_access_notes}
+                    onChange={(e) => setFormData({ ...formData, login_access_notes: e.target.value })}
+                  />
+                </div>
 
-            <div>
-              <Label htmlFor="brand_assets">Brand Assets (Optional)</Label>
-              <Input
-                id="brand_assets"
-                type="file"
-                onChange={handleFileUpload}
-                accept=".pdf,.zip,.jpg,.png"
-              />
-              <p className="text-sm text-slate-500 mt-1">
-                Logo, brand guidelines, style documents
-              </p>
-              {formData.brand_assets_url && (
-                <p className="text-sm text-green-600 mt-2">✓ File uploaded</p>
-              )}
-            </div>
+                <div>
+                  <Label htmlFor="priority_pages">Priority Pages</Label>
+                  <Textarea
+                    id="priority_pages"
+                    rows={3}
+                    placeholder="Which pages are most important to fix first?"
+                    value={formData.priority_pages}
+                    onChange={(e) => setFormData({ ...formData, priority_pages: e.target.value })}
+                  />
+                </div>
 
-            <div>
-              <Label htmlFor="priority_pages">Priority Pages to Fix</Label>
-              <Textarea
-                id="priority_pages"
-                value={formData.priority_pages}
-                onChange={(e) => setFormData({ ...formData, priority_pages: e.target.value })}
-                placeholder="Homepage, Contact page, Services page..."
-                rows={3}
-              />
-            </div>
+                <div>
+                  <Label htmlFor="deadlines">Deadlines or Time Constraints</Label>
+                  <Textarea
+                    id="deadlines"
+                    rows={2}
+                    placeholder="Any specific dates or urgency we should know about?"
+                    value={formData.deadlines}
+                    onChange={(e) => setFormData({ ...formData, deadlines: e.target.value })}
+                  />
+                </div>
 
-            <div>
-              <Label htmlFor="deadlines">Deadlines or Time Constraints</Label>
-              <Textarea
-                id="deadlines"
-                value={formData.deadlines}
-                onChange={(e) => setFormData({ ...formData, deadlines: e.target.value })}
-                placeholder="Any specific dates we should know about?"
-                rows={2}
-              />
-            </div>
-
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white py-6 text-lg"
-            >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="mr-2 w-5 h-5 animate-spin" />
-                  Submitting...
-                </>
-              ) : (
-                'Complete Onboarding'
-              )}
-            </Button>
-
-            <p className="text-sm text-slate-500 text-center">
-              After submission, we'll start your accessibility remediation within 24 hours.
-            </p>
-          </form>
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-lg py-6"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 w-5 h-5 animate-spin" />
+                      Submitting...
+                    </>
+                  ) : (
+                    'Complete Onboarding'
+                  )}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
         </div>
-      </section>
+      </div>
 
       <Footer />
     </div>
