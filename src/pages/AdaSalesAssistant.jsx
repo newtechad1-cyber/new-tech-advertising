@@ -64,7 +64,14 @@ export default function AdaSalesAssistant() {
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(result);
+    let textToCopy = result;
+    
+    // If result has subject_line and email_body, format them together
+    if (result.subject_line && result.email_body) {
+      textToCopy = `Subject: ${result.subject_line}\n\n${result.email_body}`;
+    }
+    
+    navigator.clipboard.writeText(typeof textToCopy === 'string' ? textToCopy : JSON.stringify(textToCopy, null, 2));
     setCopied(true);
     toast.success('Copied to clipboard');
     setTimeout(() => setCopied(false), 2000);
@@ -134,13 +141,16 @@ export default function AdaSalesAssistant() {
                   )}
 
                   <div>
-                    <Label>Additional Context (Optional)</Label>
+                    <Label>Previous Interaction History (Optional)</Label>
                     <Textarea
                       value={emailContext}
                       onChange={(e) => setEmailContext(e.target.value)}
-                      placeholder="e.g., They mentioned budget concerns on our call..."
-                      rows={3}
+                      placeholder="e.g., We spoke on 1/5 and they mentioned budget concerns. They were interested in Growth but wanted to think about it. They asked about the monitoring frequency..."
+                      rows={4}
                     />
+                    <p className="text-xs text-slate-500 mt-1">
+                      Include any previous calls, emails, or conversations to make the follow-up more contextual
+                    </p>
                   </div>
 
                   <Button
@@ -164,34 +174,47 @@ export default function AdaSalesAssistant() {
               </Card>
 
               <Card>
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle>Generated Email</CardTitle>
-                    {result && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={handleCopy}
-                        className="gap-2"
-                      >
-                        {copied ? <CheckCircle className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                        {copied ? 'Copied!' : 'Copy'}
-                      </Button>
-                    )}
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  {result ? (
-                    <div className="bg-white border border-slate-200 rounded-lg p-4 whitespace-pre-wrap text-sm">
-                      {result}
-                    </div>
-                  ) : (
-                    <div className="text-center py-12 text-slate-400">
-                      <Mail className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                      <p>Your generated email will appear here</p>
-                    </div>
-                  )}
-                </CardContent>
+               <CardHeader>
+                 <div className="flex items-center justify-between">
+                   <CardTitle>Generated Email</CardTitle>
+                   {result && (
+                     <Button
+                       variant="outline"
+                       size="sm"
+                       onClick={handleCopy}
+                       className="gap-2"
+                     >
+                       {copied ? <CheckCircle className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                       {copied ? 'Copied!' : 'Copy'}
+                     </Button>
+                   )}
+                 </div>
+               </CardHeader>
+               <CardContent>
+                 {result ? (
+                   <div className="space-y-4">
+                     {result.subject_line && (
+                       <div>
+                         <Label className="text-slate-500 text-xs mb-1">Subject Line</Label>
+                         <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                           <p className="font-semibold text-slate-900">{result.subject_line}</p>
+                         </div>
+                       </div>
+                     )}
+                     <div>
+                       <Label className="text-slate-500 text-xs mb-1">Email Body</Label>
+                       <div className="bg-white border border-slate-200 rounded-lg p-4 whitespace-pre-wrap text-sm">
+                         {result.email_body || result}
+                       </div>
+                     </div>
+                   </div>
+                 ) : (
+                   <div className="text-center py-12 text-slate-400">
+                     <Mail className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                     <p>Your generated email will appear here</p>
+                   </div>
+                 )}
+               </CardContent>
               </Card>
             </div>
           </TabsContent>

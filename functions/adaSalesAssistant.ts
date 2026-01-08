@@ -37,6 +37,10 @@ Deno.serve(async (req) => {
     // Build prompt based on task type
     if (task_type === 'draft_email') {
       const firstName = lead.full_name.split(' ')[0];
+      
+      // Calculate days since last update for context
+      const daysSinceUpdate = Math.floor((Date.now() - new Date(lead.updated_date || lead.created_date).getTime()) / (1000 * 60 * 60 * 24));
+      
       prompt = `You are Rick from New Tech Advertising, a friendly and professional ADA compliance expert.
 
 Lead Details:
@@ -50,17 +54,37 @@ Lead Details:
 - Location: ${lead.city}, ${lead.state}
 - Industry: ${lead.industry}
 - Nonprofit: ${lead.nonprofit ? 'Yes' : 'No'}
+- Days Since Last Contact: ${daysSinceUpdate}
+- Notes: ${lead.notes || 'None'}
 
-${context ? `Additional Context: ${context}` : ''}
+${context ? `Previous Interaction Context/History: ${context}` : ''}
 
-Draft a personalized follow-up email to ${firstName} based on their current status (${lead.status}). The email should:
+Draft a personalized follow-up email to ${firstName} based on their current status (${lead.status}). 
+
+CRITICAL INSTRUCTIONS:
+1. If "Previous Interaction Context/History" is provided, reference it naturally in the email (e.g., "Following up on our conversation about...", "As we discussed...", "Thanks for mentioning...")
+2. Return response as JSON with TWO fields: "subject_line" and "email_body"
+3. Subject line should be:
+   - Short (4-8 words max)
+   - Personalized with business/industry if possible
+   - Action-oriented or curiosity-inducing
+   - Professional but conversational
+   - Examples: "Quick question about [Business Name]", "ADA update for [Industry] businesses", "[FirstName], following up on our chat"
+
+Email Requirements:
 - Be friendly, conversational, and brief (3-4 short paragraphs max)
 - Address their specific situation and package
 - Include a clear next step or call to action
 - Use Rick's contact info: 641-420-8816 / rick@newtechadvertising.com
 - Sign it as "— Rick" at the end
+- If they've been waiting a while, acknowledge the timing
+- Rick's tone: helpful, not pushy; knowledgeable, not preachy
 
-Write the email in plain text format with a subject line.`;
+Return ONLY valid JSON:
+{
+  "subject_line": "Your subject line here",
+  "email_body": "Email content here"
+}`;
 
     } else if (task_type === 'analyze_lead') {
       prompt = `You are an AI sales analyst for New Tech Advertising's ADA compliance services.
@@ -119,10 +143,29 @@ Provide a clear, concise answer (2-3 paragraphs max) that Rick can use in conver
     }
 
     // Call LLM
-    const response = await base44.asServiceRole.integrations.Core.InvokeLLM({
-      prompt,
-      add_context_from_internet: false
-    });
+    let response;
+    
+    if (task_type === 'draft_email') {
+      // Use JSON schema for email drafting
+      response = await base44.asServiceRole.integrations.Core.InvokeLLM({
+        prompt,
+        add_context_from_internet: false,
+        response_json_schema: {
+          type: "object",
+          properties: {
+            subject_line: { type: "string" },
+            email_body: { type: "string" }
+          },
+          required: ["subject_line", "email_body"]
+        }
+      });
+    } else {
+      // For other tasks, use plain text response
+      response = await base44.asServiceRole.integrations.Core.InvokeLLM({
+        prompt,
+        add_context_from_internet: false
+      });
+    }
 
     return Response.json({ 
       success: true, 
