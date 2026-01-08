@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
+import AdminLayout from '../components/admin/AdminLayout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -80,8 +81,9 @@ export default function AdaSalesAssistant() {
   const selectedLeadData = leads.find(l => l.id === selectedLead);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
-      <div className="max-w-7xl mx-auto">
+    <AdminLayout>
+      <div className="p-6 lg:p-8">
+        <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">
             <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
@@ -388,6 +390,7 @@ export default function AdaSalesAssistant() {
           </TabsContent>
         </Tabs>
       </div>
-    </div>
+      </div>
+    </AdminLayout>
   );
 }

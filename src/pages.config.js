@@ -1,5 +1,10 @@
 import About from './pages/About';
 import AdaAccessibility from './pages/AdaAccessibility';
+import AdaIntake from './pages/AdaIntake';
+import AdaOnboarding from './pages/AdaOnboarding';
+import AdaQuote from './pages/AdaQuote';
+import AdaSalesAssistant from './pages/AdaSalesAssistant';
+import AdaThankYou from './pages/AdaThankYou';
 import AdminBlog from './pages/AdminBlog';
 import AiAdvertising from './pages/AiAdvertising';
 import AiSeo from './pages/AiSeo';
@@ -10,20 +15,21 @@ import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
+import LeadDetail from './pages/LeadDetail';
+import LeadsDashboard from './pages/LeadsDashboard';
 import Onboarding from './pages/Onboarding';
 import SocialMediaManagement from './pages/SocialMediaManagement';
-import AdaIntake from './pages/AdaIntake';
-import AdaQuote from './pages/AdaQuote';
-import AdaOnboarding from './pages/AdaOnboarding';
-import AdaThankYou from './pages/AdaThankYou';
-import AdaSalesAssistant from './pages/AdaSalesAssistant';
-import LeadsDashboard from './pages/LeadsDashboard';
-import LeadDetail from './pages/LeadDetail';
+import AdminDashboard from './pages/AdminDashboard';
 
 
 export const PAGES = {
     "About": About,
     "AdaAccessibility": AdaAccessibility,
+    "AdaIntake": AdaIntake,
+    "AdaOnboarding": AdaOnboarding,
+    "AdaQuote": AdaQuote,
+    "AdaSalesAssistant": AdaSalesAssistant,
+    "AdaThankYou": AdaThankYou,
     "AdminBlog": AdminBlog,
     "AiAdvertising": AiAdvertising,
     "AiSeo": AiSeo,
@@ -34,15 +40,11 @@ export const PAGES = {
     "BlogPost": BlogPost,
     "Dashboard": Dashboard,
     "Home": Home,
+    "LeadDetail": LeadDetail,
+    "LeadsDashboard": LeadsDashboard,
     "Onboarding": Onboarding,
     "SocialMediaManagement": SocialMediaManagement,
-    "AdaIntake": AdaIntake,
-    "AdaQuote": AdaQuote,
-    "AdaOnboarding": AdaOnboarding,
-    "AdaThankYou": AdaThankYou,
-    "AdaSalesAssistant": AdaSalesAssistant,
-    "LeadsDashboard": LeadsDashboard,
-    "LeadDetail": LeadDetail,
+    "AdminDashboard": AdminDashboard,
 }
 
 export const pagesConfig = {
