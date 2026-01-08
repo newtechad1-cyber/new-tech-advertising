@@ -38,7 +38,7 @@ export default function AdaQuote() {
     }
   };
 
-  const calculatePricing = (leadData) => {
+  const calculatePricing = async (leadData) => {
     let baseSetup = 0;
     let baseMonthly = 0;
     let multiplier = 1.0;
