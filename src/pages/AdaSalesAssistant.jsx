@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Bot, Mail, TrendingUp, HelpCircle, Loader2, Copy, CheckCircle, Send, Clock, AlertCircle } from 'lucide-react';
+import { Bot, Mail, TrendingUp, HelpCircle, Loader2, Copy, CheckCircle, Send, Clock, AlertCircle, FileText, Target, Lightbulb, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function AdaSalesAssistant() {
@@ -21,6 +21,9 @@ export default function AdaSalesAssistant() {
   const [copied, setCopied] = useState(false);
   const [recommendations, setRecommendations] = useState([]);
   const [isLoadingRecommendations, setIsLoadingRecommendations] = useState(false);
+  const [crmAnalysis, setCrmAnalysis] = useState(null);
+  const [isLoadingCrm, setIsLoadingCrm] = useState(false);
+  const [selectedLeadForCrm, setSelectedLeadForCrm] = useState('');
 
   useEffect(() => {
     loadLeads();
@@ -119,6 +122,43 @@ export default function AdaSalesAssistant() {
     }
   };
 
+  const handleCrmAnalysis = async () => {
+    if (!selectedLeadForCrm) {
+      toast.error('Please select a lead');
+      return;
+    }
+
+    setIsLoadingCrm(true);
+    setCrmAnalysis(null);
+
+    try {
+      const response = await base44.functions.invoke('adaSalesAssistant', {
+        task_type: 'crm_intelligence',
+        lead_id: selectedLeadForCrm
+      });
+      setCrmAnalysis(response.data.analysis);
+      toast.success('CRM analysis complete');
+    } catch (error) {
+      toast.error('Failed to analyze lead');
+      console.error('CRM analysis error:', error);
+    } finally {
+      setIsLoadingCrm(false);
+    }
+  };
+
+  const handleApplyStatusUpdate = async (newStatus) => {
+    if (!selectedLeadForCrm) return;
+
+    try {
+      await base44.entities.AdaLead.update(selectedLeadForCrm, { status: newStatus });
+      toast.success(`Lead status updated to ${newStatus}`);
+      loadLeads(); // Refresh leads
+    } catch (error) {
+      toast.error('Failed to update status');
+      console.error('Status update error:', error);
+    }
+  };
+
   const selectedLeadData = leads.find(l => l.id === selectedLead);
 
   return (
@@ -136,7 +176,7 @@ export default function AdaSalesAssistant() {
         </div>
 
         <Tabs defaultValue="email" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4 max-w-3xl">
+          <TabsList className="grid w-full grid-cols-5 max-w-4xl">
             <TabsTrigger value="email" className="gap-2">
               <Mail className="w-4 h-4" />
               Draft Email
@@ -144,6 +184,10 @@ export default function AdaSalesAssistant() {
             <TabsTrigger value="automation" className="gap-2">
               <Bot className="w-4 h-4" />
               Automation
+            </TabsTrigger>
+            <TabsTrigger value="crm" className="gap-2">
+              <TrendingUp className="w-4 h-4" />
+              CRM Intelligence
             </TabsTrigger>
             <TabsTrigger value="analyze" className="gap-2">
               <TrendingUp className="w-4 h-4" />
@@ -373,6 +417,206 @@ export default function AdaSalesAssistant() {
                     <CheckCircle className="w-12 h-12 text-green-600 mx-auto mb-3" />
                     <p className="text-slate-600">All leads are up to date!</p>
                     <p className="text-sm text-slate-500 mt-2">No follow-ups needed at this time</p>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="crm">
+            <div className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Bot className="w-5 h-5 text-blue-600" />
+                    AI-Powered CRM Intelligence
+                  </CardTitle>
+                  <CardDescription>
+                    Comprehensive lead analysis with interaction summaries, conversion predictions, and proactive strategies
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <Label>Select Lead</Label>
+                    <Select value={selectedLeadForCrm} onValueChange={setSelectedLeadForCrm}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Choose a lead to analyze" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {leads.map(lead => (
+                          <SelectItem key={lead.id} value={lead.id}>
+                            {lead.business_name} - {lead.full_name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <Button
+                    onClick={handleCrmAnalysis}
+                    disabled={!selectedLeadForCrm || isLoadingCrm}
+                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600"
+                  >
+                    {isLoadingCrm ? (
+                      <>
+                        <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+                        Analyzing Lead...
+                      </>
+                    ) : (
+                      <>
+                        <Target className="mr-2 w-4 h-4" />
+                        Run CRM Intelligence Analysis
+                      </>
+                    )}
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {crmAnalysis && (
+                <>
+                  <Card className="border-2 border-blue-200">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-blue-900">
+                        <FileText className="w-5 h-5" />
+                        Interaction Summary
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-slate-700 whitespace-pre-line">{crmAnalysis.interaction_summary}</p>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="border-2 border-green-200">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-green-900">
+                        <TrendingUp className="w-5 h-5" />
+                        Conversion Probability Analysis
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium text-slate-700">Conversion Score</span>
+                        <span className={`text-2xl font-bold ${
+                          crmAnalysis.conversion_probability.score >= 70 ? 'text-green-600' :
+                          crmAnalysis.conversion_probability.score >= 40 ? 'text-yellow-600' :
+                          'text-red-600'
+                        }`}>
+                          {crmAnalysis.conversion_probability.score}%
+                        </span>
+                      </div>
+                      <div className="w-full bg-slate-200 rounded-full h-3">
+                        <div
+                          className={`h-3 rounded-full transition-all ${
+                            crmAnalysis.conversion_probability.score >= 70 ? 'bg-green-500' :
+                            crmAnalysis.conversion_probability.score >= 40 ? 'bg-yellow-500' :
+                            'bg-red-500'
+                          }`}
+                          style={{ width: `${crmAnalysis.conversion_probability.score}%` }}
+                        />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-slate-700 mb-2">Confidence Level</p>
+                        <p className="text-slate-600">{crmAnalysis.conversion_probability.confidence}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-slate-700 mb-2">Key Indicators</p>
+                        <ul className="space-y-1">
+                          {crmAnalysis.conversion_probability.key_indicators.map((indicator, idx) => (
+                            <li key={idx} className="text-sm text-slate-600">• {indicator}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-slate-700 mb-2">Risk Factors</p>
+                        <ul className="space-y-1">
+                          {crmAnalysis.conversion_probability.risk_factors.map((risk, idx) => (
+                            <li key={idx} className="text-sm text-slate-600">• {risk}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="border-2 border-purple-200">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-purple-900">
+                        <Lightbulb className="w-5 h-5" />
+                        Proactive Outreach Strategy
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div>
+                        <p className="text-sm font-semibold text-slate-700 mb-2">Recommended Approach</p>
+                        <p className="text-slate-700">{crmAnalysis.outreach_strategy.recommended_approach}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-slate-700 mb-2">Best Time to Contact</p>
+                        <p className="text-slate-600">{crmAnalysis.outreach_strategy.best_time}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-slate-700 mb-2">Talking Points</p>
+                        <ul className="space-y-1">
+                          {crmAnalysis.outreach_strategy.talking_points.map((point, idx) => (
+                            <li key={idx} className="text-sm text-slate-600">• {point}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-slate-700 mb-2">Market Trends</p>
+                        <p className="text-slate-600">{crmAnalysis.outreach_strategy.market_context}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="border-2 border-orange-200">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-orange-900">
+                        <RefreshCw className="w-5 h-5" />
+                        Recommended Status Update
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="bg-orange-50 border border-orange-300 rounded-lg p-4">
+                        <p className="text-sm font-semibold text-orange-900 mb-2">AI Recommendation</p>
+                        <p className="text-sm text-orange-800 mb-3">{crmAnalysis.status_recommendation.reasoning}</p>
+                        <div className="flex items-center gap-3">
+                          <span className="text-sm text-slate-700">
+                            Suggested Status: <strong className="text-orange-900">{crmAnalysis.status_recommendation.suggested_status}</strong>
+                          </span>
+                          {crmAnalysis.status_recommendation.suggested_status !== leads.find(l => l.id === selectedLeadForCrm)?.status && (
+                            <Button
+                              size="sm"
+                              onClick={() => handleApplyStatusUpdate(crmAnalysis.status_recommendation.suggested_status)}
+                              className="ml-auto"
+                            >
+                              Apply Update
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-slate-700 mb-2">Next Steps</p>
+                        <ul className="space-y-1">
+                          {crmAnalysis.status_recommendation.next_steps.map((step, idx) => (
+                            <li key={idx} className="text-sm text-slate-600">
+                              {idx + 1}. {step}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </>
+              )}
+
+              {!crmAnalysis && !isLoadingCrm && (
+                <Card>
+                  <CardContent className="py-12 text-center">
+                    <Bot className="w-16 h-16 text-slate-300 mx-auto mb-4" />
+                    <p className="text-slate-600 mb-2">Select a lead and run analysis</p>
+                    <p className="text-sm text-slate-500">
+                      Get AI-powered insights on lead behavior, conversion probability, and recommended actions
+                    </p>
                   </CardContent>
                 </Card>
               )}
