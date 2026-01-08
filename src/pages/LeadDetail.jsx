@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
+import AdminLayout from '../components/admin/AdminLayout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -9,14 +10,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Save, Loader2, Mail, Phone, Globe, MapPin, Building, FileText, CheckCircle, TrendingUp, RefreshCw } from 'lucide-react';
+import { ArrowLeft, Save, Loader2, Mail, Phone, Globe, MapPin, Building, FileText, CheckCircle, TrendingUp, RefreshCw, Activity } from 'lucide-react';
 import { createPageUrl } from '../utils';
 import { toast } from 'sonner';
+import { format } from 'date-fns';
 
 export default function LeadDetail() {
   const navigate = useNavigate();
   const [lead, setLead] = useState(null);
   const [onboarding, setOnboarding] = useState(null);
+  const [activities, setActivities] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [isCalculatingScore, setIsCalculatingScore] = useState(false);
@@ -55,6 +58,14 @@ export default function LeadDetail() {
           }
         } catch (e) {
           console.log('No onboarding data found');
+        }
+
+        // Load activity history
+        try {
+          const activityHistory = await base44.entities.LeadActivity.filter({ lead_id: leadId }, '-created_date', 50);
+          setActivities(activityHistory);
+        } catch (e) {
+          console.log('No activity data found');
         }
       }
     } catch (error) {
@@ -116,9 +127,10 @@ export default function LeadDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 p-6">
-      <div className="max-w-6xl mx-auto">
-        <Button
+    <AdminLayout>
+      <div className="p-6 lg:p-8">
+        <div className="max-w-6xl mx-auto">
+          <Button
           variant="ghost"
           onClick={() => navigate(createPageUrl('LeadsDashboard'))}
           className="mb-4"
@@ -230,6 +242,10 @@ export default function LeadDetail() {
           <TabsList>
             <TabsTrigger value="details">Lead Details</TabsTrigger>
             <TabsTrigger value="onboarding">Onboarding</TabsTrigger>
+            <TabsTrigger value="activity">
+              <Activity className="w-4 h-4 mr-2" />
+              Activity ({activities.length})
+            </TabsTrigger>
             <TabsTrigger value="notes">Notes & History</TabsTrigger>
           </TabsList>
 
@@ -523,6 +539,75 @@ export default function LeadDetail() {
             )}
           </TabsContent>
 
+          <TabsContent value="activity">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Activity className="w-5 h-5" />
+                  Activity History
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {activities.length > 0 ? (
+                  <div className="space-y-4">
+                    {activities.map((activity, index) => (
+                      <div key={activity.id} className="flex gap-4 pb-4 border-b border-slate-200 last:border-0">
+                        <div className="flex flex-col items-center">
+                          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                            activity.activity_type === 'form_submission' ? 'bg-blue-100' :
+                            activity.activity_type === 'quote_viewed' ? 'bg-green-100' :
+                            activity.activity_type === 'email_opened' ? 'bg-purple-100' :
+                            activity.activity_type === 'payment_attempted' ? 'bg-yellow-100' :
+                            'bg-slate-100'
+                          }`}>
+                            {activity.activity_type === 'form_submission' && <FileText className="w-5 h-5 text-blue-600" />}
+                            {activity.activity_type === 'quote_viewed' && <CheckCircle className="w-5 h-5 text-green-600" />}
+                            {activity.activity_type === 'page_view' && <Globe className="w-5 h-5 text-slate-600" />}
+                            {activity.activity_type === 'email_opened' && <Mail className="w-5 h-5 text-purple-600" />}
+                            {activity.activity_type === 'payment_attempted' && <TrendingUp className="w-5 h-5 text-yellow-600" />}
+                          </div>
+                          {index < activities.length - 1 && (
+                            <div className="w-0.5 h-full bg-slate-200 mt-2" />
+                          )}
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-start justify-between mb-1">
+                            <p className="font-semibold text-slate-900 capitalize">
+                              {activity.activity_type.replace('_', ' ')}
+                            </p>
+                            <span className="text-xs text-slate-500">
+                              {format(new Date(activity.created_date), 'MMM d, yyyy h:mm a')}
+                            </span>
+                          </div>
+                          {activity.details && (
+                            <p className="text-sm text-slate-600 mb-1">{activity.details}</p>
+                          )}
+                          {activity.page_url && (
+                            <p className="text-xs text-slate-400 truncate">{activity.page_url}</p>
+                          )}
+                          {activity.metadata && Object.keys(activity.metadata).length > 0 && (
+                            <div className="mt-2 flex flex-wrap gap-2">
+                              {Object.entries(activity.metadata).map(([key, value]) => (
+                                <Badge key={key} variant="outline" className="text-xs">
+                                  {key}: {String(value)}
+                                </Badge>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-12 text-slate-400">
+                    <Activity className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                    <p>No activity recorded yet</p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
           <TabsContent value="notes">
             <Card>
               <CardHeader>
@@ -551,7 +636,8 @@ export default function LeadDetail() {
             </Card>
           </TabsContent>
         </Tabs>
+        </div>
       </div>
-    </div>
+    </AdminLayout>
   );
 }
