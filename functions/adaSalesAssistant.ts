@@ -15,6 +15,7 @@ Deno.serve(async (req) => {
     let prompt = '';
     let lead = null;
     let onboarding = null;
+    let activities = [];
 
     // Fetch lead data if needed
     if (lead_id) {
@@ -31,6 +32,13 @@ Deno.serve(async (req) => {
         } catch (e) {
           console.log('No onboarding data found');
         }
+
+        // Fetch activity history
+        try {
+          activities = await base44.asServiceRole.entities.LeadActivity.filter({ lead_id }, '-created_date', 10);
+        } catch (e) {
+          console.log('No activity data found');
+        }
       }
     }
 
@@ -40,6 +48,15 @@ Deno.serve(async (req) => {
       
       // Calculate days since last update for context
       const daysSinceUpdate = Math.floor((Date.now() - new Date(lead.updated_date || lead.created_date).getTime()) / (1000 * 60 * 60 * 24));
+      
+      // Format activity history
+      let activitySummary = 'None';
+      if (activities.length > 0) {
+        activitySummary = activities.map(a => {
+          const date = new Date(a.created_date).toLocaleDateString();
+          return `- ${date}: ${a.activity_type.replace('_', ' ')} ${a.details ? '(' + a.details + ')' : ''}`;
+        }).join('\n');
+      }
       
       prompt = `You are Rick from New Tech Advertising, a friendly and professional ADA compliance expert.
 
@@ -56,6 +73,9 @@ Lead Details:
 - Nonprofit: ${lead.nonprofit ? 'Yes' : 'No'}
 - Days Since Last Contact: ${daysSinceUpdate}
 - Notes: ${lead.notes || 'None'}
+
+Recent Activity History:
+${activitySummary}
 
 ${context ? `Previous Interaction Context/History: ${context}` : ''}
 
