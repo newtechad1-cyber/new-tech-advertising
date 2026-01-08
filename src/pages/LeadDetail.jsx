@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Save, Loader2, Mail, Phone, Globe, MapPin, Building, FileText, CheckCircle } from 'lucide-react';
+import { ArrowLeft, Save, Loader2, Mail, Phone, Globe, MapPin, Building, FileText, CheckCircle, TrendingUp, RefreshCw } from 'lucide-react';
 import { createPageUrl } from '../utils';
 import { toast } from 'sonner';
 
@@ -19,6 +19,8 @@ export default function LeadDetail() {
   const [onboarding, setOnboarding] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isCalculatingScore, setIsCalculatingScore] = useState(false);
+  const [scoreDetails, setScoreDetails] = useState(null);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -35,6 +37,15 @@ export default function LeadDetail() {
       const leads = await base44.entities.AdaLead.filter({ id: leadId });
       if (leads.length > 0) {
         setLead(leads[0]);
+        
+        // Parse score factors if available
+        if (leads[0].score_factors) {
+          try {
+            setScoreDetails(JSON.parse(leads[0].score_factors));
+          } catch (e) {
+            console.log('Could not parse score factors');
+          }
+        }
         
         // Try to load onboarding data
         try {
@@ -66,6 +77,25 @@ export default function LeadDetail() {
       console.error('Update error:', error);
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleCalculateScore = async () => {
+    setIsCalculatingScore(true);
+
+    try {
+      const response = await base44.functions.invoke('calculateLeadScore', {
+        lead_id: lead.id
+      });
+      
+      setLead({ ...lead, lead_score: response.data.score });
+      setScoreDetails(response.data.details);
+      toast.success('Lead score calculated');
+    } catch (error) {
+      toast.error('Failed to calculate score');
+      console.error('Score calculation error:', error);
+    } finally {
+      setIsCalculatingScore(false);
     }
   };
 
@@ -110,10 +140,91 @@ export default function LeadDetail() {
                   'bg-yellow-100 text-yellow-800'
                 }>{lead.status}</Badge>
                 {lead.nonprofit && <Badge variant="outline">Nonprofit</Badge>}
+                {lead.lead_score && (
+                  <Badge className={
+                    lead.lead_score >= 61 ? 'bg-green-100 text-green-800' :
+                    lead.lead_score >= 31 ? 'bg-yellow-100 text-yellow-800' :
+                    'bg-red-100 text-red-800'
+                  }>
+                    <TrendingUp className="w-3 h-3 mr-1" />
+                    Score: {lead.lead_score}
+                  </Badge>
+                )}
               </div>
             </div>
           </div>
         </div>
+
+        {scoreDetails && (
+          <Card className="mb-6 border-2 border-blue-200 bg-blue-50">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle className="flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5 text-blue-600" />
+                  AI Lead Score Analysis
+                </CardTitle>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleCalculateScore}
+                  disabled={isCalculatingScore}
+                >
+                  {isCalculatingScore ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <RefreshCw className="w-4 h-4" />
+                  )}
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div>
+                  <p className="text-sm font-semibold text-slate-700 mb-1">Conversion Likelihood</p>
+                  <p className="text-slate-900">{scoreDetails.conversion_likelihood}</p>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-slate-700 mb-2">Key Factors</p>
+                  <ul className="space-y-1">
+                    {scoreDetails.key_factors.map((factor, idx) => (
+                      <li key={idx} className="text-sm text-slate-900">• {factor}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="bg-blue-100 border border-blue-300 rounded-lg p-3">
+                  <p className="text-sm font-semibold text-blue-900 mb-1">Recommended Action</p>
+                  <p className="text-sm text-blue-800">{scoreDetails.recommended_action}</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {!lead.lead_score && (
+          <Card className="mb-6 border-2 border-dashed">
+            <CardContent className="py-8 text-center">
+              <TrendingUp className="w-12 h-12 text-slate-300 mx-auto mb-3" />
+              <p className="text-slate-600 mb-4">No lead score calculated yet</p>
+              <Button
+                onClick={handleCalculateScore}
+                disabled={isCalculatingScore}
+                className="bg-gradient-to-r from-blue-600 to-purple-600"
+              >
+                {isCalculatingScore ? (
+                  <>
+                    <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+                    Calculating...
+                  </>
+                ) : (
+                  <>
+                    <TrendingUp className="mr-2 w-4 h-4" />
+                    Calculate Lead Score
+                  </>
+                )}
+              </Button>
+            </CardContent>
+          </Card>
+        )}
 
         <Tabs defaultValue="details" className="space-y-6">
           <TabsList>

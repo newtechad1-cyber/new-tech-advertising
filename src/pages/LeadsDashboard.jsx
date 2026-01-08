@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Eye, Search, Filter, ArrowUpDown, Loader2, Users } from 'lucide-react';
+import { Eye, Search, Filter, ArrowUpDown, Loader2, Users, TrendingUp } from 'lucide-react';
 import { createPageUrl } from '../utils';
 import { toast } from 'sonner';
 
@@ -109,6 +109,30 @@ export default function LeadsDashboard() {
       active: 'bg-emerald-100 text-emerald-800'
     };
     return <Badge className={colors[status] || 'bg-slate-100 text-slate-800'}>{status}</Badge>;
+  };
+
+  const getScoreBadge = (score) => {
+    if (!score) return <span className="text-slate-400 text-sm">—</span>;
+    
+    let color = 'bg-slate-100 text-slate-800';
+    let label = 'Low';
+    
+    if (score >= 61) {
+      color = 'bg-green-100 text-green-800';
+      label = 'High';
+    } else if (score >= 31) {
+      color = 'bg-yellow-100 text-yellow-800';
+      label = 'Med';
+    } else {
+      color = 'bg-red-100 text-red-800';
+      label = 'Low';
+    }
+    
+    return (
+      <Badge className={color}>
+        {score} {label}
+      </Badge>
+    );
   };
 
   if (isLoading) {
@@ -236,6 +260,12 @@ export default function LeadsDashboard() {
                         <ArrowUpDown className="w-4 h-4" />
                       </Button>
                     </TableHead>
+                    <TableHead>
+                      <Button variant="ghost" onClick={() => handleSort('lead_score')} className="gap-2">
+                        Score
+                        <ArrowUpDown className="w-4 h-4" />
+                      </Button>
+                    </TableHead>
                     <TableHead>Pricing</TableHead>
                     <TableHead>
                       <Button variant="ghost" onClick={() => handleSort('created_date')} className="gap-2">
@@ -278,6 +308,9 @@ export default function LeadsDashboard() {
                             <p>{lead.city}</p>
                             <p className="text-slate-500">{lead.state}</p>
                           </div>
+                        </TableCell>
+                        <TableCell>
+                          {getScoreBadge(lead.lead_score)}
                         </TableCell>
                         <TableCell>
                           <div className="text-sm">
