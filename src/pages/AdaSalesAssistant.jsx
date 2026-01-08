@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Bot, Mail, TrendingUp, HelpCircle, Loader2, Copy, CheckCircle } from 'lucide-react';
+import { Bot, Mail, TrendingUp, HelpCircle, Loader2, Copy, CheckCircle, Send, Clock, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function AdaSalesAssistant() {
@@ -19,6 +19,8 @@ export default function AdaSalesAssistant() {
   const [result, setResult] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [recommendations, setRecommendations] = useState([]);
+  const [isLoadingRecommendations, setIsLoadingRecommendations] = useState(false);
 
   useEffect(() => {
     loadLeads();
@@ -78,6 +80,45 @@ export default function AdaSalesAssistant() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const loadRecommendations = async () => {
+    setIsLoadingRecommendations(true);
+    try {
+      const response = await base44.functions.invoke('automatedEmailFollowUp', {
+        action: 'check_all_leads'
+      });
+      setRecommendations(response.data.recommendations || []);
+    } catch (error) {
+      toast.error('Failed to load recommendations');
+      console.error('Recommendations error:', error);
+    } finally {
+      setIsLoadingRecommendations(false);
+    }
+  };
+
+  const handleAutomatedFollowUp = async (leadId, sendNow = false) => {
+    setIsLoading(true);
+    try {
+      const response = await base44.functions.invoke('automatedEmailFollowUp', {
+        action: 'generate_sequence',
+        lead_id: leadId,
+        send_immediately: sendNow
+      });
+      
+      if (sendNow && response.data.sent) {
+        toast.success('Email sent successfully!');
+        loadRecommendations(); // Refresh recommendations
+      } else {
+        setResult(response.data.email);
+        toast.success('Email drafted - review before sending');
+      }
+    } catch (error) {
+      toast.error('Failed to generate follow-up');
+      console.error('Automation error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const selectedLeadData = leads.find(l => l.id === selectedLead);
 
   return (
@@ -95,10 +136,14 @@ export default function AdaSalesAssistant() {
         </div>
 
         <Tabs defaultValue="email" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3 max-w-2xl">
+          <TabsList className="grid w-full grid-cols-4 max-w-3xl">
             <TabsTrigger value="email" className="gap-2">
               <Mail className="w-4 h-4" />
               Draft Email
+            </TabsTrigger>
+            <TabsTrigger value="automation" className="gap-2">
+              <Bot className="w-4 h-4" />
+              Automation
             </TabsTrigger>
             <TabsTrigger value="analyze" className="gap-2">
               <TrendingUp className="w-4 h-4" />
@@ -218,6 +263,119 @@ export default function AdaSalesAssistant() {
                  )}
                </CardContent>
               </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="automation">
+            <div className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Bot className="w-5 h-5" />
+                    Automated Follow-up System
+                  </CardTitle>
+                  <CardDescription>
+                    AI-powered email sequences based on lead status and activity
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-blue-900 mb-2">How it works:</h4>
+                      <ul className="text-sm text-blue-800 space-y-1">
+                        <li>• New leads (2+ days): Welcome & introduction email</li>
+                        <li>• Quoted leads (3+ days): Gentle follow-up on quote</li>
+                        <li>• Quoted leads (7+ days): Re-engagement with fresh angle</li>
+                        <li>• Cold leads (7+ days): Check-in with helpful resources</li>
+                      </ul>
+                    </div>
+
+                    <Button
+                      onClick={loadRecommendations}
+                      disabled={isLoadingRecommendations}
+                      className="w-full"
+                    >
+                      {isLoadingRecommendations ? (
+                        <>
+                          <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+                          Scanning Leads...
+                        </>
+                      ) : (
+                        <>
+                          <Clock className="mr-2 w-4 h-4" />
+                          Check for Leads Needing Follow-up
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {recommendations.length > 0 && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle>
+                      <AlertCircle className="w-5 h-5 inline mr-2 text-orange-600" />
+                      {recommendations.length} Lead{recommendations.length > 1 ? 's' : ''} Need Follow-up
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {recommendations.map((rec) => (
+                        <div key={rec.lead_id} className="border border-slate-200 rounded-lg p-4 space-y-3">
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <p className="font-semibold text-slate-900">{rec.business_name}</p>
+                              <p className="text-sm text-slate-600">{rec.full_name} • {rec.email}</p>
+                              <p className="text-xs text-slate-500 mt-1">{rec.reason}</p>
+                            </div>
+                            <div className="text-right">
+                              <span className="text-xs font-medium text-orange-600 bg-orange-50 px-2 py-1 rounded">
+                                {rec.status}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="flex gap-2">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handleAutomatedFollowUp(rec.lead_id, false)}
+                              disabled={isLoading}
+                              className="flex-1"
+                            >
+                              <Mail className="w-4 h-4 mr-2" />
+                              Draft Email
+                            </Button>
+                            <Button
+                              size="sm"
+                              onClick={() => {
+                                if (confirm(`Send automated follow-up to ${rec.full_name}?`)) {
+                                  handleAutomatedFollowUp(rec.lead_id, true);
+                                }
+                              }}
+                              disabled={isLoading}
+                              className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600"
+                            >
+                              <Send className="w-4 h-4 mr-2" />
+                              Send Now
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+              {recommendations.length === 0 && !isLoadingRecommendations && (
+                <Card>
+                  <CardContent className="py-12 text-center">
+                    <CheckCircle className="w-12 h-12 text-green-600 mx-auto mb-3" />
+                    <p className="text-slate-600">All leads are up to date!</p>
+                    <p className="text-sm text-slate-500 mt-2">No follow-ups needed at this time</p>
+                  </CardContent>
+                </Card>
+              )}
             </div>
           </TabsContent>
 
