@@ -16,6 +16,7 @@ import AdaIntake from './pages/AdaIntake';
 import AdaQuote from './pages/AdaQuote';
 import AdaOnboarding from './pages/AdaOnboarding';
 import AdaThankYou from './pages/AdaThankYou';
+import AdaSalesAssistant from './pages/AdaSalesAssistant';
 
 
 export const PAGES = {
@@ -37,6 +38,7 @@ export const PAGES = {
     "AdaQuote": AdaQuote,
     "AdaOnboarding": AdaOnboarding,
     "AdaThankYou": AdaThankYou,
+    "AdaSalesAssistant": AdaSalesAssistant,
 }
 
 export const pagesConfig = {
