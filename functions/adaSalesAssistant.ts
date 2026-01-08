@@ -10,7 +10,7 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Forbidden: Admin access required' }, { status: 403 });
     }
 
-    const { task_type, lead_id, question, context } = await req.json();
+    const { task_type, lead_id, question, context, email_content } = await req.json();
 
     let prompt = '';
     let lead = null;
@@ -158,6 +158,92 @@ Question: ${question}
 
 Provide a clear, concise answer (2-3 paragraphs max) that Rick can use in conversation with a client. Be specific about pricing, timelines, and process when relevant.`;
 
+    } else if (task_type === 'crm_intelligence') {
+      // Format activity history with details
+      const activityDetails = activities.length > 0 ? 
+        activities.map(a => {
+          const date = new Date(a.created_date).toLocaleString();
+          return `[${date}] ${a.activity_type.replace('_', ' ')}: ${a.details || 'No additional details'}`;
+        }).join('\n') : 'No activity recorded yet';
+
+      const daysSinceCreated = Math.floor((Date.now() - new Date(lead.created_date).getTime()) / (1000 * 60 * 60 * 24));
+      const daysSinceUpdate = Math.floor((Date.now() - new Date(lead.updated_date || lead.created_date).getTime()) / (1000 * 60 * 60 * 24));
+
+      prompt = `You are an AI CRM analyst for New Tech Advertising's ADA compliance sales team.
+
+Lead Profile:
+- Name: ${lead.full_name}
+- Business: ${lead.business_name}
+- Industry: ${lead.industry}
+- Location: ${lead.city}, ${lead.state}
+- Website: ${lead.website_url}
+- Package: ${lead.package}
+- Current Status: ${lead.status}
+- Setup Price: $${lead.setup_price || 'TBD'}
+- Monthly Price: $${lead.monthly_price || 'TBD'}
+- Nonprofit: ${lead.nonprofit ? 'Yes' : 'No'}
+- Number of Locations: ${lead.number_of_locations}
+- Site Type: ${lead.site_type}
+- Approximate Pages: ${lead.approximate_pages}
+- Lead Score: ${lead.lead_score || 'Not calculated'}
+- Days Since Created: ${daysSinceCreated}
+- Days Since Last Update: ${daysSinceUpdate}
+- Notes: ${lead.notes || 'None'}
+
+Complete Activity History (${activities.length} events):
+${activityDetails}
+
+Onboarding Status: ${onboarding ? 'Completed' : 'Not completed'}
+${onboarding ? `Preferred Contact: ${onboarding.best_contact_method}
+Preferred Name: ${onboarding.preferred_contact_name}
+Hosting: ${onboarding.hosting_provider || 'Not provided'}
+CMS: ${onboarding.cms_platform || 'Not provided'}` : ''}
+
+Market Context (2026):
+- ADA lawsuits up 15% year-over-year
+- Average settlement: $15,000-$25,000
+- High-risk sectors: Healthcare, Retail, Food Service, Professional Services
+- Midwest markets (Iowa) seeing increased legal activity
+- Businesses with outdated websites (pre-2020) at highest risk
+
+TASK: Provide comprehensive CRM intelligence analysis. Return ONLY valid JSON with this exact structure:
+
+{
+  "interaction_summary": "2-3 paragraph narrative summary of all lead interactions, current engagement level, and communication patterns. Include specific dates and activity types.",
+  
+  "conversion_probability": {
+    "score": <number 0-100>,
+    "confidence": "High/Medium/Low confidence explanation",
+    "key_indicators": [
+      "List 3-4 positive signals supporting conversion",
+      "Examples: engaged with quote, responsive to emails, high-value package, urgent need"
+    ],
+    "risk_factors": [
+      "List 2-3 concerns that might prevent conversion",
+      "Examples: slow response time, price sensitivity, competitive offers"
+    ]
+  },
+  
+  "outreach_strategy": {
+    "recommended_approach": "Detailed paragraph on the best outreach strategy based on lead behavior, status, and market trends",
+    "best_time": "Specific timing recommendation (e.g., 'Within next 48 hours', 'End of business week', 'After 7 days')",
+    "talking_points": [
+      "4-5 specific discussion topics tailored to this lead",
+      "Should address industry, location, package, concerns"
+    ],
+    "market_context": "How current ADA trends/risks apply specifically to this business and location"
+  },
+  
+  "status_recommendation": {
+    "suggested_status": "new/quoted/paid/onboarded/active - recommend most appropriate status",
+    "reasoning": "2-3 sentence explanation of why this status is recommended based on activity and engagement",
+    "next_steps": [
+      "3-4 specific action items in priority order",
+      "Should be concrete and time-bound"
+    ]
+  }
+}`;
+
     } else {
       return Response.json({ error: 'Invalid task_type' }, { status: 400 });
     }
@@ -179,6 +265,45 @@ Provide a clear, concise answer (2-3 paragraphs max) that Rick can use in conver
           required: ["subject_line", "email_body"]
         }
       });
+    } else if (task_type === 'crm_intelligence') {
+      // Use structured JSON for CRM analysis
+      response = await base44.asServiceRole.integrations.Core.InvokeLLM({
+        prompt,
+        add_context_from_internet: true, // Use web context for market trends
+        response_json_schema: {
+          type: "object",
+          properties: {
+            interaction_summary: { type: "string" },
+            conversion_probability: {
+              type: "object",
+              properties: {
+                score: { type: "number" },
+                confidence: { type: "string" },
+                key_indicators: { type: "array", items: { type: "string" } },
+                risk_factors: { type: "array", items: { type: "string" } }
+              }
+            },
+            outreach_strategy: {
+              type: "object",
+              properties: {
+                recommended_approach: { type: "string" },
+                best_time: { type: "string" },
+                talking_points: { type: "array", items: { type: "string" } },
+                market_context: { type: "string" }
+              }
+            },
+            status_recommendation: {
+              type: "object",
+              properties: {
+                suggested_status: { type: "string" },
+                reasoning: { type: "string" },
+                next_steps: { type: "array", items: { type: "string" } }
+              }
+            }
+          },
+          required: ["interaction_summary", "conversion_probability", "outreach_strategy", "status_recommendation"]
+        }
+      });
     } else {
       // For other tasks, use plain text response
       response = await base44.asServiceRole.integrations.Core.InvokeLLM({
@@ -190,6 +315,7 @@ Provide a clear, concise answer (2-3 paragraphs max) that Rick can use in conver
     return Response.json({ 
       success: true, 
       result: response,
+      analysis: task_type === 'crm_intelligence' ? response : null,
       lead: lead ? {
         id: lead.id,
         name: lead.full_name,
