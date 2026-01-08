@@ -55,14 +55,27 @@ Lead Data:
 - Notes: ${lead.notes || 'None'}
 
 Scoring Factors to Consider:
-1. Industry Risk Level (Healthcare, Finance, Government, Education = High Risk = Higher Score)
+1. Industry Risk Level (Healthcare, Finance, Government, Education, Legal = High Risk = Higher Score)
 2. Business Size Indicators (Multiple locations, many pages = Higher Score)
 3. Package Tier (Authority > Growth > Starter shows commitment)
 4. Current Status (paid/onboarded = Very High, quoted = High, new = Medium)
 5. Engagement Speed (Fast response/onboarding = Higher Score)
 6. Nonprofit Status (May have budget constraints but also legal obligations)
 7. Website Complexity (More pages = More urgent need)
-8. Notes/Specific Needs Mentioned (Urgency, legal concerns = Higher Score)
+8. Notes Analysis - CRITICAL: Scan for urgency and legal concern keywords:
+   - HIGH URGENCY (+15-25 points): "lawsuit", "demand letter", "legal notice", "sued", "court", "attorney", "lawyer demand", "ADA lawsuit", "ASAP", "urgent", "immediately", "deadline", "compliance deadline"
+   - MEDIUM URGENCY (+10-15 points): "concerned", "worried", "need help", "risk", "vulnerable", "compliance", "accessibility issues", "complaints", "threatened"
+   - TIMELINE INDICATORS: Specific dates or deadlines mentioned = Higher urgency
+   - AWARENESS LEVEL: Mentions of WCAG, Section 508, DOJ = More educated buyer = Higher score
+
+Status-Specific Recommended Actions:
+- NEW leads with high score (61+): "Contact within 4 hours - High conversion potential, strike while hot"
+- NEW leads with medium score (31-60): "Follow up within 24 hours with tailored package comparison"
+- NEW leads with low score (0-30): "Add to nurture sequence, follow up in 3-5 days"
+- QUOTED leads with high score: "Urgent follow-up to address objections and close within 48 hours"
+- QUOTED leads waiting 3+ days: "Send case studies and testimonials, offer consultation call"
+- PAID leads: "Expedite onboarding process, send welcome package within 2 hours"
+- ONBOARDED leads: "Begin remediation immediately, schedule kickoff call"
 
 Return ONLY a valid JSON object with this exact structure:
 {
