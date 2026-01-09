@@ -321,29 +321,48 @@ export default function AdaQuote() {
                 </div>
 
                 <div className="bg-slate-50 rounded-lg p-4 mt-6">
-                  <p className="text-sm text-slate-600 text-center mb-4">
-                    Ready to protect your business and make your website accessible?
-                  </p>
-                  <Button
-                    onClick={handlePayNow}
-                    disabled={isCheckingOut}
-                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-lg py-6"
-                  >
-                    {isCheckingOut ? (
-                      <>
-                        <Loader2 className="mr-2 w-5 h-5 animate-spin" />
-                        Loading Checkout...
-                      </>
-                    ) : (
-                      <>
-                        Pay ${lead.setupPrice} Now
-                      </>
-                    )}
-                  </Button>
-                  <p className="text-xs text-slate-500 text-center mt-2">
-                    Secure payment powered by Stripe
-                  </p>
-                </div>
+  <p className="text-sm text-slate-600 text-center mb-4">
+    Choose how you'd like to pay:
+  </p>
+
+  <div className="grid gap-3">
+    <Button
+      onClick={() => handlePayNow('full')}
+      disabled={isCheckingOut}
+      className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-lg py-6"
+    >
+      {isCheckingOut ? (
+        <>
+          <Loader2 className="mr-2 w-5 h-5 animate-spin" />
+          Loading Checkout...
+        </>
+      ) : (
+        <>Pay Full Amount: ${lead.setupPrice}</>
+      )}
+    </Button>
+
+    <Button
+      onClick={() => handlePayNow('split')}
+      disabled={isCheckingOut}
+      variant="outline"
+      className="w-full text-lg py-6"
+    >
+      {isCheckingOut ? (
+        <>
+          <Loader2 className="mr-2 w-5 h-5 animate-spin" />
+          Loading Checkout...
+        </>
+      ) : (
+        <>Split Payment: ${Math.round(lead.setupPrice / 2)} Now</>
+      )}
+    </Button>
+  </div>
+
+  <p className="text-xs text-slate-500 text-center mt-3">
+    Secure payment powered by Stripe
+  </p>
+</div>
+
               </div>
             </CardContent>
           </Card>
