@@ -341,12 +341,13 @@ export default function AdaQuote() {
       )}
     </Button>
 
-    <Button
-      onClick={() => handlePayNow('split')}
-      disabled={isCheckingOut}
-      variant="outline"
-      className="w-full text-lg py-6"
-    >
+   <Button
+  type="button"
+  onClick={() => { console.log("FULL BUTTON CLICKED"); handlePayNow('full'); }}
+  disabled={isCheckingOut}
+  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-lg py-6"
+>
+
       {isCheckingOut ? (
         <>
           <Loader2 className="mr-2 w-5 h-5 animate-spin" />
