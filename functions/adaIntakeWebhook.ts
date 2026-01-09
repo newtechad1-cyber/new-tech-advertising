@@ -117,6 +117,13 @@ if (agentWebhookUrl) {
   );
 }
 
+if (webhookPromises.length > 0) {
+  await Promise.all(
+    webhookPromises.map(p =>
+      p.catch(err => console.error('Webhook failed:', err))
+    )
+  );
+}
 
     return Response.json({ 
       success: true,
