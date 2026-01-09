@@ -79,38 +79,44 @@ View in Dashboard: https://newtechadvertising.com${payload.lead_id ? '?lead=' + 
       console.error('Email notification failed:', emailError);
     }
 
-    // Note: CRM and Agent webhook URLs should be configured as environment variables
-    // For now, we'll return success
-    const crmWebhookUrl = Deno.env.get('CRM_WEBHOOK_URL');
-    const agentWebhookUrl = Deno.env.get('AGENT_WEBHOOK_URL');
+  // Note: CRM and Agent webhook URLs should be configured as environment variables
+const crmWebhookUrl = Deno.env.get('CRM_WEBHOOK_URL');
 
-    const webhookPromises = [];
-    
-    if (crmWebhookUrl) {
-      webhookPromises.push(
-        fetch(crmWebhookUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(webhookPayload)
-        })
-      );
-    }
+const agentWebhookUrl = Deno.env.get('AGENT_WEBHOOK_URL');
+const agentWebhookKey = Deno.env.get('AGENT_WEBHOOK_KEY');
 
-    if (agentWebhookUrl) {
-      webhookPromises.push(
-        fetch(agentWebhookUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(webhookPayload)
-        })
-      );
-    }
+const webhookPromises = [];
 
-    if (webhookPromises.length > 0) {
-      await Promise.all(webhookPromises.map(p => 
-        p.catch(err => console.error('Webhook failed:', err))
-      ));
-    }
+if (crmWebhookUrl) {
+  webhookPromises.push(
+    fetch(crmWebhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(webhookPayload),
+    })
+  );
+}
+
+if (agentWebhookUrl) {
+  const urlWithKey =
+    agentWebhookKey && agentWebhookUrl.includes('?')
+      ? `${agentWebhookUrl}&key=${encodeURIComponent(agentWebhookKey)}`
+      : agentWebhookKey
+        ? `${agentWebhookUrl}?key=${encodeURIComponent(agentWebhookKey)}`
+        : agentWebhookUrl;
+
+  webhookPromises.push(
+    fetch(urlWithKey, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(agentWebhookKey ? { 'X-AGENT-KEY': agentWebhookKey } : {}),
+      },
+      body: JSON.stringify(webhookPayload),
+    })
+  );
+}
+
 
     return Response.json({ 
       success: true,
