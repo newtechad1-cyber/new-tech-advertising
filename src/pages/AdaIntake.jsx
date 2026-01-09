@@ -283,6 +283,23 @@ export default function AdaIntake() {
                 rows={4}
               />
             </div>
+            <div>
+  <Label htmlFor="package">ADA Package</Label>
+  <Select
+    value={formData.package}
+    onValueChange={(value) => setFormData({ ...formData, package: value })}
+  >
+    <SelectTrigger>
+      <SelectValue placeholder="Select ADA package" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectItem value="Starter">Starter</SelectItem>
+      <SelectItem value="Growth">Growth</SelectItem>
+      <SelectItem value="Authority">Authority</SelectItem>
+    </SelectContent>
+  </Select>
+</div>
+
 
             <Button
               type="submit"
