@@ -12,6 +12,7 @@ export default function AdaQuote() {
   const [lead, setLead] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
+const [checkoutPlan, setCheckoutPlan] = useState(null);
 
   useEffect(() => {
     loadQuote();
