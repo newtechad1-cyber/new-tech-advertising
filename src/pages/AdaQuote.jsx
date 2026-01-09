@@ -143,21 +143,37 @@ export default function AdaQuote() {
     return { setupPrice, monthlyPrice, multiplier };
   };
 
-  const handlePayNow = async () => {
+  const handlePayNow = async (paymentPlan = 'full') => {
+  try {
     setIsCheckingOut(true);
-    try {
-      const response = await base44.functions.invoke('adaCreateCheckout', {
-        lead_id: lead.id
-      });
-      
-      // Redirect to Stripe Checkout
-      window.location.href = response.data.checkout_url;
-    } catch (error) {
-      toast.error('Failed to create checkout session');
-      console.error('Checkout error:', error);
-      setIsCheckingOut(false);
+
+    const response = await base44.functions.invoke('adaCreateCheckout', {
+      lead_id: lead?.id,
+      payment_plan: paymentPlan,
+      amount: lead?.setupPrice,
+    });
+
+    const url =
+      response?.url ||
+      response?.data?.url ||
+      response?.checkout_url ||
+      response?.data?.checkout_url;
+
+    if (!url) {
+      console.error('Checkout response:', response);
+      toast.error('Payment link could not be created. Please call 641-420-8816.');
+      return;
     }
-  };
+
+    window.location.href = url;
+  } catch (error) {
+    console.error('Stripe checkout failed:', error);
+    toast.error('Payment could not be started. Please call 641-420-8816.');
+  } finally {
+    setIsCheckingOut(false);
+  }
+};
+
 
   if (isLoading) {
     return (
