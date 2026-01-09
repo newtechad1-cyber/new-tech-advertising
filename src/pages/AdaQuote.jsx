@@ -325,39 +325,41 @@ export default function AdaQuote() {
     Choose how you'd like to pay:
   </p>
 
-  <div className="grid gap-3">
-    <Button
-      onClick={() => handlePayNow('full')}
-      disabled={isCheckingOut}
-      className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-lg py-6"
-    >
-      {isCheckingOut ? (
-        <>
-          <Loader2 className="mr-2 w-5 h-5 animate-spin" />
-          Loading Checkout...
-        </>
-      ) : (
-        <>Pay Full Amount: ${lead.setupPrice}</>
-      )}
-    </Button>
+<div className="grid gap-3">
+  <Button
+    type="button"
+    onClick={(e) => { e.preventDefault(); e.stopPropagation(); handlePayNow('full'); }}
+    disabled={isCheckingOut}
+    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-lg py-6"
+  >
+    {isCheckingOut ? (
+      <>
+        <Loader2 className="mr-2 w-5 h-5 animate-spin" />
+        Loading Checkout...
+      </>
+    ) : (
+      <>Pay Full Amount: ${lead.setupPrice}</>
+    )}
+  </Button>
 
-   <Button
-  type="button"
-  onClick={() => { console.log("FULL BUTTON CLICKED"); handlePayNow('full'); }}
-  disabled={isCheckingOut}
-  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-lg py-6"
->
+  <Button
+    type="button"
+    onClick={(e) => { e.preventDefault(); e.stopPropagation(); handlePayNow('split'); }}
+    disabled={isCheckingOut}
+    variant="outline"
+    className="w-full text-lg py-6"
+  >
+    {isCheckingOut ? (
+      <>
+        <Loader2 className="mr-2 w-5 h-5 animate-spin" />
+        Loading Checkout...
+      </>
+    ) : (
+      <>Split Payment: ${Math.round(lead.setupPrice / 2)} Now</>
+    )}
+  </Button>
+</div>
 
-      {isCheckingOut ? (
-        <>
-          <Loader2 className="mr-2 w-5 h-5 animate-spin" />
-          Loading Checkout...
-        </>
-      ) : (
-        <>Split Payment: ${Math.round(lead.setupPrice / 2)} Now</>
-      )}
-    </Button>
-  </div>
 
   <p className="text-xs text-slate-500 text-center mt-3">
     Secure payment powered by Stripe
