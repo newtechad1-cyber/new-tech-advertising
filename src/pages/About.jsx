@@ -10,10 +10,17 @@ export default function About() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   React.useEffect(() => {
-    document.title = 'About New Tech Advertising | AI Marketing Agency';
+    document.title = 'About Us | AI Marketing Agency Mason City Iowa & Minnesota | New Tech Advertising';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Learn about New Tech Advertising, the AI-powered marketing agency helping small businesses across the U.S. compete with enterprise-level tools at affordable prices.');
+      metaDescription.setAttribute('content', 'New Tech Advertising - AI-powered marketing agency serving Mason City IA, Clear Lake, Rochester MN & Des Moines. Affordable AI marketing solutions: websites, SEO, videos, social media & ads for small businesses.');
+    }
+    const metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (!metaKeywords) {
+      const meta = document.createElement('meta');
+      meta.name = 'keywords';
+      meta.content = 'AI marketing Mason City Iowa, digital marketing agency Minnesota, AI websites Mason City, local SEO Iowa, social media management Minnesota, AI advertising Rochester, affordable marketing Clear Lake IA';
+      document.head.appendChild(meta);
     }
   }, []);
 
@@ -31,7 +38,7 @@ export default function About() {
               className="text-center max-w-3xl mx-auto"
             >
               <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-                Empowering Small Businesses with <span className="text-blue-600">AI Technology</span>
+                Empowering Iowa & Minnesota Small Businesses with <span className="text-blue-600">AI Marketing Technology</span>
               </h1>
               <p className="text-xl text-slate-600 mb-8">
                 We believe that advanced marketing technology shouldn't be reserved for big corporations. Our mission is to level the playing field.
@@ -44,9 +51,9 @@ export default function About() {
         <section className="py-20">
           <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-6">Our Mission</h2>
+              <h2 className="text-3xl font-bold text-slate-900 mb-6">Our Mission: Serving Mason City, Iowa & Minnesota</h2>
               <p className="text-slate-600 mb-4 leading-relaxed">
-                At New Tech Advertising, we are driven by a single purpose: to help businesses across the U.S. thrive in the digital age without breaking the bank.
+                At New Tech Advertising, we are driven by a single purpose: to help small businesses in Mason City, Clear Lake, Rochester, Des Moines, Minneapolis, and across Iowa and Minnesota thrive in the digital age without breaking the bank.
               </p>
               <p className="text-slate-600 mb-4 leading-relaxed">
                 We witnessed too many great small businesses struggling because they couldn't afford high-end agencies or didn't have the time to master complex marketing tools. We decided to change that by combining human creativity with the efficiency of Artificial Intelligence.

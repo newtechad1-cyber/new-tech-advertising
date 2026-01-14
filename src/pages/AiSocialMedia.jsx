@@ -11,10 +11,17 @@ export default function AiSocialMedia() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   React.useEffect(() => {
-    document.title = 'AI Social Media Management | Iowa & Minnesota Businesses | New Tech Advertising';
+    document.title = 'AI Social Media Management Mason City Iowa & Minnesota | Facebook Instagram TikTok | New Tech';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Automated social media management for Iowa and Minnesota businesses. AI-powered content creation, multi-platform posting, and engagement tracking. DIY $97/mo or DFY $197/mo.');
+      metaDescription.setAttribute('content', 'AI social media management Mason City IA, Clear Lake, Rochester MN & Des Moines. Automated Facebook, Instagram, TikTok, LinkedIn posting. AI content creation & engagement. DIY $97/mo or DFY $197/mo.');
+    }
+    const metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (!metaKeywords) {
+      const meta = document.createElement('meta');
+      meta.name = 'keywords';
+      meta.content = 'social media management Mason City Iowa, Facebook marketing Minnesota, Instagram management Iowa, TikTok marketing Clear Lake, LinkedIn marketing Rochester MN, AI social media Des Moines';
+      document.head.appendChild(meta);
     }
   }, []);
 

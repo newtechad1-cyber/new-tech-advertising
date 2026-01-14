@@ -11,10 +11,17 @@ export default function AiSeo() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   React.useEffect(() => {
-    document.title = 'Local SEO Services | AI-Powered SEO | New Tech Advertising';
+    document.title = 'Local SEO Mason City Iowa & Minnesota | AI SEO Services | Rank #1 on Google | New Tech';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Dominate local search nationwide with AI-powered SEO. Get found by customers in your area. Automated content, smart keywords, review management.');
+      metaDescription.setAttribute('content', 'Local SEO services Mason City IA, Clear Lake, Rochester MN, Des Moines, Minneapolis. AI-powered SEO gets you ranked #1 on Google. Automated content, smart keywords, review management. $297/month.');
+    }
+    const metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (!metaKeywords) {
+      const meta = document.createElement('meta');
+      meta.name = 'keywords';
+      meta.content = 'SEO Mason City Iowa, local SEO Clear Lake IA, Google ranking Minnesota, SEO services Rochester MN, Iowa SEO agency, search engine optimization Des Moines, rank on Google Mason City';
+      document.head.appendChild(meta);
     }
   }, []);
 
@@ -33,10 +40,10 @@ export default function AiSeo() {
                 <Search className="w-8 h-8 text-green-600" />
               </div>
               <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
-                Dominate Local Search with <br/><span className="text-green-600">AI-Powered SEO</span>
+                Dominate Local Search in Iowa & Minnesota with <br/><span className="text-green-600">AI-Powered SEO</span>
               </h1>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-10">
-                Get found by customers exactly when they are looking for your services. Our AI analyzes thousands of ranking factors to push you to the top.
+                Get found by Mason City, Clear Lake, Rochester, Des Moines & Minneapolis customers exactly when they're searching for your services. Our AI analyzes thousands of local ranking factors to push you to the top of Google.
               </p>
               <Button onClick={() => setIsModalOpen(true)} size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8 py-6 text-lg rounded-xl">
                 Boost My Rankings

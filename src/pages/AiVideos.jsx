@@ -11,10 +11,17 @@ export default function AiVideos() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   React.useEffect(() => {
-    document.title = 'AI Video Marketing | Professional Videos for Businesses Nationwide';
+    document.title = 'AI Video Marketing Mason City Iowa & Minnesota | Professional Business Videos | New Tech';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'AI-generated professional marketing videos for businesses nationwide. Automated production, social-ready content, voice cloning, and AI avatars. 3x more engagement than image ads.');
+      metaDescription.setAttribute('content', 'AI video marketing for Mason City IA, Clear Lake, Rochester MN & Des Moines businesses. Automated professional video production for social media, TikTok, Instagram, YouTube. 3x more engagement. $297/month.');
+    }
+    const metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (!metaKeywords) {
+      const meta = document.createElement('meta');
+      meta.name = 'keywords';
+      meta.content = 'video marketing Mason City Iowa, AI video production Minnesota, business videos Iowa, TikTok marketing Clear Lake, Instagram Reels Rochester MN, YouTube marketing Des Moines';
+      document.head.appendChild(meta);
     }
   }, []);
 
@@ -30,10 +37,10 @@ export default function AiVideos() {
               animate={{ opacity: 1, x: 0 }}
             >
               <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                High-Converting Videos <span className="text-blue-400">Created by AI</span>
+                High-Converting Videos for Iowa & Minnesota Businesses <span className="text-blue-400">Created by AI</span>
               </h1>
               <p className="text-xl text-slate-300 mb-8">
-                Video content is king. We use advanced AI to script, edit, and produce professional marketing videos for your business at scale.
+                Video content is king in Mason City, Clear Lake, Rochester, Des Moines & Minneapolis. We use advanced AI to script, edit, and produce professional marketing videos for your local business at scale.
               </p>
               <Button onClick={() => setIsModalOpen(true)} size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg rounded-xl">
                 Start Video Marketing

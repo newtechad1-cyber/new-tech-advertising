@@ -11,10 +11,17 @@ export default function AiAdvertising() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   React.useEffect(() => {
-    document.title = 'AI Advertising Services | Google Ads & Facebook Ads Nationwide';
+    document.title = 'AI Advertising Mason City Iowa & Minnesota | Google Ads | Facebook Ads | New Tech Advertising';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'AI-powered advertising management for businesses nationwide. Precision targeting, budget optimization, and 72% lower cost per lead.');
+      metaDescription.setAttribute('content', 'AI advertising management Mason City IA, Clear Lake, Rochester MN & Des Moines. Google Ads, Facebook Ads, Instagram Ads optimized by AI. 72% lower cost per lead. Precision local targeting. $297/month.');
+    }
+    const metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (!metaKeywords) {
+      const meta = document.createElement('meta');
+      meta.name = 'keywords';
+      meta.content = 'Google Ads Mason City Iowa, Facebook Ads Minnesota, AI advertising Iowa, digital advertising Clear Lake, PPC management Rochester MN, Instagram ads Des Moines, local advertising Iowa';
+      document.head.appendChild(meta);
     }
   }, []);
 
@@ -31,10 +38,10 @@ export default function AiAdvertising() {
               className="text-center max-w-4xl mx-auto"
             >
               <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                Precision Advertising <br/>Powered by <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Machine Learning</span>
+                Iowa & Minnesota Precision Advertising <br/>Powered by <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Machine Learning</span>
               </h1>
               <p className="text-xl text-slate-300 mb-10">
-                Stop wasting budget on the wrong people. Our AI manages your ads across Google, Facebook, and Instagram to maximize ROI automatically.
+                Stop wasting ad budget in Mason City, Clear Lake, Rochester, Des Moines & Minneapolis. Our AI manages your Google Ads, Facebook Ads, and Instagram Ads to maximize local ROI automatically.
               </p>
               <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-10">
                 <Button onClick={() => setIsModalOpen(true)} size="lg" className="bg-white text-purple-900 hover:bg-slate-100 px-8 py-6 text-lg rounded-xl font-bold">

@@ -11,10 +11,17 @@ export default function AiWebsites() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   React.useEffect(() => {
-    document.title = 'AI Website Design | New Tech Advertising';
+    document.title = 'AI Website Design Mason City Iowa & Minnesota | Professional Websites | New Tech Advertising';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Professional AI-powered website design for businesses nationwide. Mobile-responsive, conversion-optimized websites built in 48 hours.');
+      metaDescription.setAttribute('content', 'AI-powered website design for Mason City IA, Clear Lake, Rochester MN & Des Moines businesses. Mobile-responsive, SEO-optimized, conversion-focused websites built in 48 hours. $297/month, no contracts.');
+    }
+    const metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (!metaKeywords) {
+      const meta = document.createElement('meta');
+      meta.name = 'keywords';
+      meta.content = 'website design Mason City Iowa, web design Clear Lake IA, AI website builder Minnesota, website development Rochester MN, small business websites Iowa, mobile responsive design Mason City';
+      document.head.appendChild(meta);
     }
   }, []);
 
@@ -30,10 +37,10 @@ export default function AiWebsites() {
               animate={{ opacity: 1, y: 0 }}
             >
               <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
-                Intelligent Websites That <br/><span className="text-blue-600">Actually Convert</span>
+                AI Website Design for Iowa & Minnesota Businesses That <br/><span className="text-blue-600">Actually Convert</span>
               </h1>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-10">
-                Stop settling for digital brochures. Our AI-optimized websites are built to turn visitors into paying customers from day one.
+                Serving Mason City, Clear Lake, Rochester, Des Moines & Minneapolis. Stop settling for digital brochures. Our AI-optimized websites are built to turn local visitors into paying customers from day one.
               </p>
               <Button onClick={() => setIsModalOpen(true)} size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg rounded-xl">
                 Get Your AI Website
