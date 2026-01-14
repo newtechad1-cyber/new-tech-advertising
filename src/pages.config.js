@@ -1,9 +1,11 @@
 import About from './pages/About';
+import Ada from './pages/Ada';
 import AdaAccessibility from './pages/AdaAccessibility';
 import AdaIntake from './pages/AdaIntake';
 import AdaOnboarding from './pages/AdaOnboarding';
 import AdaQuote from './pages/AdaQuote';
 import AdaSalesAssistant from './pages/AdaSalesAssistant';
+import AdaSuccess from './pages/AdaSuccess';
 import AdaThankYou from './pages/AdaThankYou';
 import AdminBlog from './pages/AdminBlog';
 import AdminDashboard from './pages/AdminDashboard';
@@ -20,17 +22,17 @@ import LeadDetail from './pages/LeadDetail';
 import LeadsDashboard from './pages/LeadsDashboard';
 import Onboarding from './pages/Onboarding';
 import SocialMediaManagement from './pages/SocialMediaManagement';
-import Ada from './pages/Ada';
-import AdaSuccess from './pages/AdaSuccess';
 
 
 export const PAGES = {
     "About": About,
+    "Ada": Ada,
     "AdaAccessibility": AdaAccessibility,
     "AdaIntake": AdaIntake,
     "AdaOnboarding": AdaOnboarding,
     "AdaQuote": AdaQuote,
     "AdaSalesAssistant": AdaSalesAssistant,
+    "AdaSuccess": AdaSuccess,
     "AdaThankYou": AdaThankYou,
     "AdminBlog": AdminBlog,
     "AdminDashboard": AdminDashboard,
@@ -47,8 +49,6 @@ export const PAGES = {
     "LeadsDashboard": LeadsDashboard,
     "Onboarding": Onboarding,
     "SocialMediaManagement": SocialMediaManagement,
-    "Ada": Ada,
-    "AdaSuccess": AdaSuccess,
 }
 
 export const pagesConfig = {

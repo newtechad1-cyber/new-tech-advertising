@@ -36,8 +36,8 @@ export default function AiSocialMedia() {
               <p className="text-xl text-indigo-100 mb-8">
                 Consistent, high-quality content posted to all your channels automatically. Engage your audience without lifting a finger.
               </p>
-              <Button onClick={() => setIsModalOpen(true)} size="lg" className="bg-pink-600 hover:bg-pink-700 text-white px-8 py-6 text-lg rounded-xl">
-                Automate My Socials
+              <Button onClick={() => window.location.href = 'https://ntaaffiliates.com'} size="lg" className="bg-pink-600 hover:bg-pink-700 text-white px-8 py-6 text-lg rounded-xl">
+                Start Your 7 day Free Trial
               </Button>
             </motion.div>
             <motion.div 
@@ -144,11 +144,11 @@ export default function AiSocialMedia() {
                   <li className="flex items-start gap-3 text-slate-600"><Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" /> Basic Performance Analytics</li>
                 </ul>
                 <Button 
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={() => window.location.href = 'https://ntaaffiliates.com'}
                   variant="outline"
                   className="w-full py-6 border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white transition-colors text-lg rounded-xl"
                 >
-                  Select DIY Plan
+                  Start Your 7 day Free Trial
                 </Button>
               </div>
 
@@ -165,10 +165,10 @@ export default function AiSocialMedia() {
                    <li className="flex items-start gap-3 text-slate-600"><Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" /> Advanced Growth Reports & Strategy</li>
                 </ul>
                 <Button 
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={() => window.location.href = 'https://ntaaffiliates.com'}
                   className="w-full py-6 bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-200 text-lg rounded-xl"
                 >
-                  Select DFY Plan
+                  Start Your 7 day Free Trial
                 </Button>
               </div>
             </div>
