@@ -60,9 +60,11 @@ export default function OnboardingStart() {
       navigate(createPageUrl('Dashboard') + (paramString ? `?${paramString}` : ''));
       
     } catch (error) {
-      console.error('Error checking auth/onboarding:', error);
-      // Fallback - redirect to dashboard
-      navigate(createPageUrl('Dashboard'));
+      console.error('[OnboardingStart] Error checking auth:', error);
+      // Fallback - redirect to login if error
+      base44.auth.redirectToLogin();
+    } finally {
+      setChecking(false);
     }
   };
 

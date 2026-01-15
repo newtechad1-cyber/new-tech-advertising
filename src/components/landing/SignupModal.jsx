@@ -25,8 +25,10 @@ export default function SignupModal({ isOpen, onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    console.log('SIGNUP_CLICK', { email: formData.email });
 
     try {
+      // Create lead record
       const lead = await base44.entities.Lead.create({
         name: formData.name,
         email: formData.email,
@@ -38,6 +40,7 @@ export default function SignupModal({ isOpen, onClose }) {
 
       // Track lead submission with analytics
       trackLeadSubmit(formData);
+      console.log('SIGNUP_SUCCESS', { leadId: lead.id });
 
       try {
         await base44.integrations.Core.SendEmail({
@@ -73,8 +76,8 @@ Submitted from AI Marketing Landing Page`
       setCheckoutUrl(onboardingUrl);
       setShowSuccess(true);
     } catch (error) {
-      console.error('Lead submission error:', error);
-      toast.error('Something went wrong. Please call us at 641-420-8816 or email rick@newtechadvertising.com');
+      console.error('SIGNUP_FAIL', error);
+      toast.error(error.message || 'Something went wrong. Please call us at 641-420-8816 or email rick@newtechadvertising.com');
     } finally {
       setIsSubmitting(false);
     }
