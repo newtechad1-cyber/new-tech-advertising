@@ -39,7 +39,7 @@ export default function OnboardingStart() {
 
       // User is authenticated - check onboarding status
       const user = await base44.auth.me();
-      const profiles = await base44.entities.ClientProfile.list({ created_by: user.email }, { created_date: -1 }, 1);
+      const profiles = await base44.entities.ClientProfile.filter({ created_by: user.email });
       
       if (!profiles || profiles.length === 0) {
         // No profile - go to dashboard which will show onboarding
@@ -49,13 +49,14 @@ export default function OnboardingStart() {
 
       const profile = profiles[0];
       
-      if (!profile.onboarding_completed) {
-        // Onboarding incomplete - go to dashboard which will show onboarding
+      if (profile.onboarding_completed) {
+        // Onboarding complete - go to main dashboard with success message
+        sessionStorage.setItem('show_onboarding_complete', 'true');
         navigate(createPageUrl('Dashboard') + (paramString ? `?${paramString}` : ''));
         return;
       }
 
-      // Onboarding complete - go to main dashboard
+      // Onboarding incomplete - go to dashboard which will show onboarding at the correct step
       navigate(createPageUrl('Dashboard') + (paramString ? `?${paramString}` : ''));
       
     } catch (error) {

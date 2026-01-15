@@ -246,17 +246,18 @@ export default function OnboardingFlow({ onComplete, initialData }) {
         </CardContent>
 
         <CardFooter className="flex flex-col items-end gap-3 border-t p-6 bg-slate-50 rounded-b-xl">
-          {step === 1 && !formData.business_name && (
-            <p className="text-sm text-amber-600 bg-amber-50 border border-amber-200 rounded px-3 py-2 w-full">
-              ⚠️ Please enter your business name to continue
-            </p>
+          {validationError && (
+            <div className="w-full bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 flex items-start gap-2">
+              <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+              <p className="text-sm text-amber-800 font-medium">{validationError}</p>
+            </div>
           )}
           
           <div className="flex justify-between w-full">
             <Button 
               variant="ghost" 
               onClick={handleBack} 
-              disabled={step === 1}
+              disabled={step === 1 || loading}
             >
               Back
             </Button>
@@ -265,9 +266,18 @@ export default function OnboardingFlow({ onComplete, initialData }) {
               <Button 
                 onClick={handleNext}
                 className="bg-blue-600 hover:bg-blue-700"
-                disabled={step === 1 && !formData.business_name}
+                disabled={loading}
               >
-                Next <ArrowRight className="ml-2 h-4 w-4" />
+                {loading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Saving...
+                  </>
+                ) : (
+                  <>
+                    Next <ArrowRight className="ml-2 h-4 w-4" />
+                  </>
+                )}
               </Button>
             ) : (
               <Button 
@@ -275,7 +285,14 @@ export default function OnboardingFlow({ onComplete, initialData }) {
                 disabled={loading}
                 className="bg-green-600 hover:bg-green-700"
               >
-                {loading ? 'Setting up...' : 'Complete Setup'}
+                {loading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Completing...
+                  </>
+                ) : (
+                  'Complete Setup'
+                )}
               </Button>
             )}
           </div>
