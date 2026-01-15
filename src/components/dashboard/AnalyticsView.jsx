@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, AreaChart, Area } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowUpRight, ArrowDownRight, Users, MousePointerClick, PhoneCall } from 'lucide-react';
+import { base44 } from '@/api/base44Client';
+import ActionCards from './ActionCards';
 
 const trafficData = [
   { name: 'Mon', visitors: 420 },
@@ -21,9 +23,40 @@ const leadData = [
 ];
 
 export default function AnalyticsView() {
+  const [user, setUser] = useState(null);
+  const [subscriptionPackage, setSubscriptionPackage] = useState('297'); // Default to Done-For-You
+
+  useEffect(() => {
+    loadUserData();
+  }, []);
+
+  const loadUserData = async () => {
+    try {
+      const userData = await base44.auth.me();
+      setUser(userData);
+      
+      // TODO: Load actual subscription package from user profile or subscription entity
+      // For now, defaulting to '297' - replace with actual logic
+      setSubscriptionPackage('297');
+    } catch (error) {
+      console.error('[AnalyticsView] Error loading user:', error);
+    }
+  };
+
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 md:grid-cols-3">
+      {/* Action Cards - Displayed prominently at top */}
+      <div>
+        <h2 className="text-xl font-bold text-slate-900 mb-4">Quick Actions</h2>
+        <ActionCards 
+          userRole={user?.role} 
+          subscriptionPackage={subscriptionPackage}
+        />
+      </div>
+
+      <div>
+        <h2 className="text-xl font-bold text-slate-900 mb-4 mt-8">Performance Overview</h2>
+        <div className="grid gap-4 md:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Visitors</CardTitle>
@@ -63,6 +96,7 @@ export default function AnalyticsView() {
             </p>
           </CardContent>
         </Card>
+        </div>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
