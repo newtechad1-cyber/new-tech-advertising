@@ -19,38 +19,45 @@ export default function Dashboard() {
   const [showOnboarding, setShowOnboarding] = useState(false);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const isAuthenticated = await base44.auth.isAuthenticated();
-        if (!isAuthenticated) {
-           setUser({ full_name: "Demo User", email: "demo@example.com" });
-           // Demo mode: simulate no profile initially, or check local storage if we wanted persistence in demo
-           setShowOnboarding(true);
-        } else {
-           const userData = await base44.auth.me();
-           setUser(userData);
-           
-           // Check for client profile
-           const profiles = await base44.entities.ClientProfile.list({ created_by: userData.email }, { created_date: -1 }, 1);
-           if (profiles && profiles.length > 0) {
-             setClientProfile(profiles[0]);
-             if (!profiles[0].onboarding_completed) {
-               setShowOnboarding(true);
-             }
-           } else {
+    checkAuth();
+    
+    // Show completion message if coming from onboarding
+    const showComplete = sessionStorage.getItem('show_onboarding_complete');
+    if (showComplete) {
+      sessionStorage.removeItem('show_onboarding_complete');
+    }
+  }, []);
+
+  const checkAuth = async () => {
+    try {
+      const isAuthenticated = await base44.auth.isAuthenticated();
+      if (!isAuthenticated) {
+         setUser({ full_name: "Demo User", email: "demo@example.com" });
+         setShowOnboarding(true);
+      } else {
+         const userData = await base44.auth.me();
+         setUser(userData);
+         console.log('[Dashboard] User loaded:', userData?.email, 'Role:', userData?.role);
+         
+         // Check for client profile
+         const profiles = await base44.entities.ClientProfile.filter({ created_by: userData.email });
+         if (profiles && profiles.length > 0) {
+           setClientProfile(profiles[0]);
+           if (!profiles[0].onboarding_completed) {
              setShowOnboarding(true);
            }
-        }
-      } catch (e) {
-        console.error("Auth check failed", e);
-        setUser({ full_name: "Demo User", email: "demo@example.com" });
-        setShowOnboarding(true);
-      } finally {
-        setLoading(false);
+         } else {
+           setShowOnboarding(true);
+         }
       }
-    };
-    checkAuth();
-  }, []);
+    } catch (e) {
+      console.error("[Dashboard] Auth check failed:", e);
+      setUser({ full_name: "Demo User", email: "demo@example.com" });
+      setShowOnboarding(true);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleOnboardingComplete = (profileData) => {
     setClientProfile(profileData);
@@ -59,9 +66,11 @@ export default function Dashboard() {
 
   const handleLogout = async () => {
     try {
+      console.log('[Dashboard] Logging out...');
       await base44.auth.logout();
     } catch (e) {
-      console.error("Logout failed", e);
+      console.error("[Dashboard] Logout failed:", e);
+      window.location.href = '/';
     }
   };
 
@@ -103,7 +112,7 @@ export default function Dashboard() {
         </header>
         <OnboardingFlow 
           onComplete={handleOnboardingComplete} 
-          initialData={clientProfile}
+          initialProfile={clientProfile}
         />
       </div>
     );
