@@ -30,16 +30,40 @@ export default function OnboardingFlow({ onComplete, initialProfile }) {
     marketing_goals: initialProfile?.marketing_goals || []
   });
 
+  // Dev logging helper
+  const devLog = (message, data) => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`[OnboardingFlow] ${message}`, data || '');
+    }
+  };
+
   useEffect(() => {
+    devLog('Component mounted, loading profile...');
     loadProfile();
   }, []);
 
   useEffect(() => {
-    // Redirect to correct step based on completion state
+    // Sync step with persisted onboarding state to prevent out-of-sync navigation
     if (profile) {
       const nextStep = getNextIncompleteStep(profile);
-      if (nextStep && nextStep !== step) {
+      devLog('Profile loaded, determining current step', { 
+        currentStep: step, 
+        calculatedStep: nextStep,
+        completionFlags: {
+          step1: profile.step1_completed,
+          step2: profile.step2_completed,
+          step3: profile.step3_completed
+        }
+      });
+      
+      // Only update step if we have a valid calculated step and it differs
+      if (nextStep && nextStep !== step && nextStep >= 1 && nextStep <= 3) {
+        devLog('Redirecting to correct step', { from: step, to: nextStep });
         setStep(nextStep);
+      } else if (!nextStep || nextStep < 1 || nextStep > 3) {
+        // Guard: invalid step calculation, reset to step 1
+        devLog('Invalid step calculated, resetting to step 1', { invalidStep: nextStep });
+        setStep(1);
       }
     }
   }, [profile]);
@@ -48,8 +72,13 @@ export default function OnboardingFlow({ onComplete, initialProfile }) {
     try {
       setLoadingProfile(true);
       setLoadError(null);
+      devLog('Fetching authenticated user...');
+      
       const user = await base44.auth.me();
+      devLog('User authenticated', { email: user.email });
+      
       const profiles = await base44.entities.ClientProfile.filter({ created_by: user.email });
+      devLog('Profile query complete', { count: profiles?.length || 0 });
       
       if (profiles && profiles.length > 0) {
         const userProfile = profiles[0];
@@ -61,25 +90,39 @@ export default function OnboardingFlow({ onComplete, initialProfile }) {
           unique_selling_propositions: userProfile.unique_selling_propositions || '',
           marketing_goals: userProfile.marketing_goals || []
         });
+        devLog('Profile loaded successfully', { profileId: userProfile.id });
+      } else {
+        devLog('No existing profile found, user will create one');
       }
     } catch (error) {
-      console.error('Failed to load profile:', error);
-      setLoadError('Failed to load your profile. Please try again.');
+      console.error('[OnboardingFlow] Failed to load profile:', error);
+      setLoadError(error.message || 'Failed to load your profile. Please try again.');
     } finally {
       setLoadingProfile(false);
     }
   };
 
   const handleNext = async () => {
-    // Validate current step
+    // Guard: validate step bounds
+    if (step < 1 || step > 3) {
+      devLog('Invalid step in handleNext', { step });
+      toast.error('Invalid step. Refreshing...');
+      setStep(1);
+      return;
+    }
+
+    // Validate current step data
     const validation = validateStepData(step, formData);
     if (!validation.isValid) {
-      setValidationError(`Please fill in: ${validation.missingFields.join(', ').replace('_', ' ')}`);
+      const message = `Please fill in: ${validation.missingFields.join(', ').replace(/_/g, ' ')}`;
+      setValidationError(message);
+      devLog('Validation failed', { step, missingFields: validation.missingFields });
       return;
     }
     
     setValidationError(null);
     setLoading(true);
+    devLog('Saving step data...', { step });
     
     try {
       const user = await base44.auth.me();
@@ -98,17 +141,21 @@ export default function OnboardingFlow({ onComplete, initialProfile }) {
         };
         
         if (profileId) {
+          devLog('Updating existing profile', { profileId });
           await base44.entities.ClientProfile.update(profileId, updateData);
         } else {
+          devLog('Creating new profile');
           const newProfile = await base44.entities.ClientProfile.create({
             ...updateData,
             marketing_goals: []
           });
           profileId = newProfile.id;
           setProfile(newProfile);
+          devLog('Profile created', { profileId });
         }
       } else if (step === 2) {
         if (profileId) {
+          devLog('Updating marketing goals', { profileId, goalsCount: formData.marketing_goals?.length });
           await base44.entities.ClientProfile.update(profileId, {
             marketing_goals: formData.marketing_goals,
             [currentStep.completionFlag]: true
@@ -120,64 +167,84 @@ export default function OnboardingFlow({ onComplete, initialProfile }) {
       const updatedProfiles = await base44.entities.ClientProfile.filter({ created_by: user.email });
       if (updatedProfiles && updatedProfiles.length > 0) {
         setProfile(updatedProfiles[0]);
+        devLog('Profile reloaded after save');
       }
       
       // Track step completion
       trackOnboardingStep(step, currentStep.name);
       
-      setStep(step + 1);
+      const nextStep = step + 1;
+      devLog('Advancing to next step', { from: step, to: nextStep });
+      setStep(nextStep);
       toast.success('Progress saved!');
     } catch (error) {
-      console.error('Failed to save:', error);
-      toast.error('Failed to save. Please try again.');
+      console.error('[OnboardingFlow] Failed to save step:', error);
+      toast.error(error.message || 'Failed to save. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
   const handleBack = () => {
+    // Guard: prevent going below step 1
+    if (step <= 1) {
+      devLog('Cannot go back from step 1');
+      return;
+    }
+    
     setValidationError(null);
-    setStep(step - 1);
+    const prevStep = step - 1;
+    devLog('Going back', { from: step, to: prevStep });
+    setStep(prevStep);
   };
 
   const handleComplete = async () => {
     setLoading(true);
+    devLog('Completing onboarding...');
+    
     try {
       const user = await base44.auth.me();
       const profiles = await base44.entities.ClientProfile.filter({ created_by: user.email });
       
-      if (profiles && profiles.length > 0) {
-        const profileId = profiles[0].id;
-        
-        // Update profile with completion status
-        await base44.entities.ClientProfile.update(profileId, {
-          onboarding_completed: true,
-          step3_completed: true,
-          completed_checklist_items: []
+      if (!profiles || profiles.length === 0) {
+        throw new Error('No profile found. Please contact support.');
+      }
+      
+      const profileId = profiles[0].id;
+      devLog('Marking onboarding complete', { profileId });
+      
+      // Update profile with completion status
+      await base44.entities.ClientProfile.update(profileId, {
+        onboarding_completed: true,
+        step3_completed: true,
+        completed_checklist_items: []
+      });
+      
+      // Save UTM parameters to profile
+      await saveUTMsToRecord('ClientProfile', profileId);
+      devLog('UTM data saved');
+      
+      // Track completion
+      trackOnboardingComplete(profiles[0]);
+      
+      // Send notifications (non-blocking)
+      try {
+        devLog('Sending completion notifications...');
+        await base44.functions.invoke('notifyOnboardingComplete', {
+          profileId: profileId,
+          userEmail: user.email
         });
-        
-        // Save UTM parameters to profile
-        await saveUTMsToRecord('ClientProfile', profileId);
-        
-        // Track completion
-        trackOnboardingComplete(profiles[0]);
-        
-        // Send notifications
-        try {
-          await base44.functions.invoke('notifyOnboardingComplete', {
-            profileId: profileId,
-            userEmail: user.email
-          });
-        } catch (notifyError) {
-          console.error('Notification failed (non-critical):', notifyError);
-        }
+        devLog('Notifications sent successfully');
+      } catch (notifyError) {
+        console.error('[OnboardingFlow] Notification failed (non-critical):', notifyError);
       }
       
       // Redirect to setup complete page
+      devLog('Redirecting to SetupComplete page');
       navigate(createPageUrl('SetupComplete'));
     } catch (error) {
-      console.error('Failed to complete onboarding:', error);
-      toast.error('Failed to complete setup. Please try again.');
+      console.error('[OnboardingFlow] Failed to complete onboarding:', error);
+      toast.error(error.message || 'Failed to complete setup. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -231,9 +298,15 @@ export default function OnboardingFlow({ onComplete, initialProfile }) {
           </CardHeader>
           <CardContent>
             <p className="text-slate-600 mb-4">{loadError}</p>
-            <Button onClick={loadProfile} className="w-full">
-              <Loader2 className="w-4 h-4 mr-2" />
-              Retry
+            <Button onClick={loadProfile} className="w-full" disabled={loadingProfile}>
+              {loadingProfile ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Retrying...
+                </>
+              ) : (
+                'Retry'
+              )}
             </Button>
           </CardContent>
         </Card>
@@ -425,6 +498,8 @@ export default function OnboardingFlow({ onComplete, initialProfile }) {
                 variant="ghost" 
                 onClick={handleBack} 
                 disabled={step === 1 || loading}
+                className="min-h-[44px]"
+                title={step === 1 ? "You're on the first step" : "Go back to previous step"}
               >
                 Back
               </Button>
@@ -432,8 +507,9 @@ export default function OnboardingFlow({ onComplete, initialProfile }) {
               {step < 3 ? (
                 <Button 
                   onClick={handleNext}
-                  className="bg-blue-600 hover:bg-blue-700"
+                  className="bg-blue-600 hover:bg-blue-700 min-h-[44px] min-w-[120px]"
                   disabled={loading}
+                  title={loading ? "Saving your progress..." : "Continue to next step"}
                 >
                   {loading ? (
                     <>
@@ -450,7 +526,8 @@ export default function OnboardingFlow({ onComplete, initialProfile }) {
                 <Button 
                   onClick={handleComplete} 
                   disabled={loading}
-                  className="bg-green-600 hover:bg-green-700"
+                  className="bg-green-600 hover:bg-green-700 min-h-[44px] min-w-[160px]"
+                  title={loading ? "Completing your setup..." : "Finish onboarding and access your dashboard"}
                 >
                   {loading ? (
                     <>

@@ -36,6 +36,9 @@ export default function Layout({ children, currentPageName }) {
   }, []);
 
   useEffect(() => {
+    // Auto-switch to client view for non-admin users
+    // This prevents non-admin users from accessing admin-only features
+    // Admin users can toggle between views manually
     if (user && !isAdmin && viewMode !== 'client') {
       console.log('[Layout] Auto-setting viewMode to client for non-admin user');
       setViewMode('client');
