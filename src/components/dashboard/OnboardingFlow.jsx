@@ -123,7 +123,6 @@ export default function OnboardingFlow({ onComplete, initialProfile }) {
       }
       
       // Track step completion
-      const currentStep = ONBOARDING_STEPS[step - 1];
       trackOnboardingStep(step, currentStep.name);
       
       setStep(step + 1);
