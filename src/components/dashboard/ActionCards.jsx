@@ -21,6 +21,21 @@ import { toast } from 'sonner';
 
 export default function ActionCards({ userRole, subscriptionPackage, onSubmitContent }) {
   const isAdmin = userRole === 'admin';
+  const [packageInfo, setPackageInfo] = useState(null);
+
+  useEffect(() => {
+    loadPackageInfo();
+  }, [subscriptionPackage]);
+
+  const loadPackageInfo = async () => {
+    try {
+      const user = await base44.auth.me();
+      const config = getPackageConfig(user.subscription_package || subscriptionPackage || 'collaborative');
+      setPackageInfo(config);
+    } catch (error) {
+      console.error('Error loading package info:', error);
+    }
+  };
 
   // Admin always sees admin controls
   if (isAdmin) {
@@ -106,10 +121,20 @@ export default function ActionCards({ userRole, subscriptionPackage, onSubmitCon
     return (
       <>
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-          <p className="text-sm text-blue-900 font-medium">
-            📋 <strong>Collaborative Package:</strong> You provide the text content and exact images/video. 
-            We'll schedule it for you. No editing or content creation is included in this package.
-          </p>
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <p className="text-sm text-blue-900 font-medium mb-2">
+                📋 <strong>Collaborative Package:</strong> You provide the text content and exact images/video. 
+                We'll schedule it for you. No editing or content creation is included in this package.
+              </p>
+              {packageInfo && (
+                <div className="text-xs text-blue-700 space-y-1">
+                  <p>• Up to {packageInfo.postsPerWeek} posts per week</p>
+                  <p>• Scheduling turnaround: {packageInfo.sla}</p>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
           <ActionCard

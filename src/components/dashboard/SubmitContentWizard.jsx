@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -8,6 +8,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Input } from '@/components/ui/input';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
+import { getPackageConfig, checkWeeklyLimit, getWeekStart } from '../config/packageRules';
 import { 
   Image, 
   Video, 
@@ -18,7 +19,8 @@ import {
   Calendar,
   CheckCircle,
   AlertCircle,
-  Loader2
+  Loader2,
+  Clock
 } from 'lucide-react';
 
 const SOCIAL_CHANNELS = [
@@ -43,6 +45,39 @@ export default function SubmitContentWizard({ onClose, onSubmitSuccess }) {
   const [uploadingFiles, setUploadingFiles] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [submittedId, setSubmittedId] = useState(null);
+  const [packageConfig, setPackageConfig] = useState(null);
+  const [weeklyLimit, setWeeklyLimit] = useState(null);
+
+  useEffect(() => {
+    loadPackageInfo();
+  }, []);
+
+  const loadPackageInfo = async () => {
+    try {
+      const user = await base44.auth.me();
+      const config = getPackageConfig(user.subscription_package || 'collaborative');
+      setPackageConfig(config);
+
+      // Check weekly submissions
+      const weekStart = getWeekStart();
+      const submissions = await base44.entities.ContentSubmission.filter({
+        created_by: user.email
+      });
+      
+      const thisWeekSubmissions = submissions.filter(s => 
+        new Date(s.created_date) >= weekStart
+      );
+      
+      const limitCheck = checkWeeklyLimit(config.id, thisWeekSubmissions.length);
+      setWeeklyLimit(limitCheck);
+
+      if (!limitCheck.canSubmit) {
+        toast.error(`Weekly limit reached (${limitCheck.limit} posts per week)`);
+      }
+    } catch (error) {
+      console.error('Error loading package info:', error);
+    }
+  };
 
   const handleFileUpload = async (files) => {
     setUploadingFiles(true);
@@ -63,12 +98,21 @@ export default function SubmitContentWizard({ onClose, onSubmitSuccess }) {
   };
 
   const handleSubmit = async () => {
+    if (weeklyLimit && !weeklyLimit.canSubmit) {
+      toast.error('Weekly submission limit reached. Please try again next week.');
+      return;
+    }
+
     setLoading(true);
     try {
+      const user = await base44.auth.me();
+      const config = getPackageConfig(user.subscription_package || 'collaborative');
+      
       const submission = await base44.entities.ContentSubmission.create({
         ...formData,
         status: 'pending',
-        upgrade_status: 'none'
+        upgrade_status: 'none',
+        priority: config.priority
       });
       setSubmittedId(submission.id);
       setShowSuccess(true);
@@ -135,7 +179,23 @@ export default function SubmitContentWizard({ onClose, onSubmitSuccess }) {
                 <CheckCircle className="w-10 h-10 text-green-600" />
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-2">Content Submitted!</h3>
-              <p className="text-slate-600 mb-6">Our team will schedule your post soon.</p>
+              <p className="text-slate-600 mb-2">Our team will schedule your post soon.</p>
+              
+              {/* SLA EXPECTATION */}
+              {packageConfig && (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 max-w-md mx-auto mb-6">
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <Clock className="w-4 h-4 text-blue-600" />
+                    <span className="font-semibold text-blue-900">Expected Scheduling</span>
+                  </div>
+                  <p className="text-blue-800 text-sm">{packageConfig.sla}</p>
+                  {weeklyLimit && weeklyLimit.remaining !== null && (
+                    <p className="text-xs text-blue-700 mt-2">
+                      {weeklyLimit.remaining} of {weeklyLimit.limit} submissions remaining this week
+                    </p>
+                  )}
+                </div>
+              )}
               
               {/* PASSIVE UPSELL */}
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-md mx-auto mb-6">
@@ -173,6 +233,31 @@ export default function SubmitContentWizard({ onClose, onSubmitSuccess }) {
             </div>
           ) : (
             <>
+              {/* PACKAGE INFO & LIMITS */}
+              {packageConfig && (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <p className="font-semibold text-blue-900">{packageConfig.name}</p>
+                      <p className="text-sm text-blue-800">Expected turnaround: {packageConfig.sla}</p>
+                    </div>
+                    {weeklyLimit && weeklyLimit.remaining !== null && (
+                      <div className="text-right">
+                        <p className="text-2xl font-bold text-blue-900">{weeklyLimit.remaining}</p>
+                        <p className="text-xs text-blue-700">submissions left this week</p>
+                      </div>
+                    )}
+                  </div>
+                  {!weeklyLimit?.canSubmit && (
+                    <div className="bg-red-50 border border-red-200 rounded p-2 mt-2">
+                      <p className="text-sm text-red-800 font-medium">
+                        ⚠️ Weekly limit reached. Your submission will be queued for next week.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+
               {/* DISCLAIMER */}
               <div className="bg-amber-50 border-2 border-amber-300 rounded-lg p-4 mb-6">
                 <div className="flex gap-3">

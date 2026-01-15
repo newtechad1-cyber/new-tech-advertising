@@ -7,7 +7,8 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
-import { Calendar, Filter, CheckCircle, AlertCircle, Sparkles, MessageSquare, Clock } from 'lucide-react';
+import { Calendar, Filter, CheckCircle, AlertCircle, Sparkles, MessageSquare, Clock, Zap } from 'lucide-react';
+import { getPackageConfig } from '../config/packageRules';
 
 export default function SchedulingQueue() {
   const [submissions, setSubmissions] = useState([]);
@@ -30,7 +31,15 @@ export default function SchedulingQueue() {
       if (filters.status !== 'all') query.status = filters.status;
       
       const data = await base44.entities.ContentSubmission.filter(query);
-      setSubmissions(data.sort((a, b) => new Date(a.created_date) - new Date(b.created_date)));
+      
+      // Sort by priority (1=highest) then by creation date
+      const sorted = data.sort((a, b) => {
+        const priorityDiff = (a.priority || 2) - (b.priority || 2);
+        if (priorityDiff !== 0) return priorityDiff;
+        return new Date(a.created_date) - new Date(b.created_date);
+      });
+      
+      setSubmissions(sorted);
     } catch (error) {
       console.error('Error loading queue:', error);
       toast.error('Failed to load queue');
@@ -79,8 +88,27 @@ export default function SchedulingQueue() {
   });
 
   const getPackageBadge = (submission) => {
-    // Logic to determine package - for now showing as Collaborative
-    return <Badge className="bg-blue-100 text-blue-800">$197 Collaborative</Badge>;
+    const priority = submission.priority || 2;
+    if (priority === 1) {
+      return <Badge className="bg-purple-100 text-purple-800 flex items-center gap-1">
+        <Zap className="w-3 h-3" />
+        $297 DFY - Priority
+      </Badge>;
+    }
+    if (priority === 2) {
+      return <Badge className="bg-blue-100 text-blue-800">$197 Collaborative</Badge>;
+    }
+    return <Badge className="bg-slate-100 text-slate-800">DIY</Badge>;
+  };
+
+  const getPriorityIndicator = (priority) => {
+    if (priority === 1) {
+      return <div className="w-2 h-2 bg-purple-600 rounded-full" title="Priority" />;
+    }
+    if (priority === 2) {
+      return <div className="w-2 h-2 bg-blue-600 rounded-full" title="Standard" />;
+    }
+    return <div className="w-2 h-2 bg-slate-400 rounded-full" title="Low priority" />;
   };
 
   if (loading) return <div className="text-center py-8">Loading queue...</div>;
@@ -138,21 +166,24 @@ export default function SchedulingQueue() {
             <Card key={submission.id}>
               <CardHeader>
                 <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      {getPackageBadge(submission)}
-                      <Badge variant={submission.status === 'pending' ? 'default' : 'outline'}>
-                        {submission.status}
-                      </Badge>
-                      {submission.upgrade_status !== 'none' && (
-                        <Badge className="bg-purple-100 text-purple-800">
-                          Upgrade: {submission.upgrade_status}
+                  <div className="flex items-center gap-2 flex-1">
+                    {getPriorityIndicator(submission.priority)}
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        {getPackageBadge(submission)}
+                        <Badge variant={submission.status === 'pending' ? 'default' : 'outline'}>
+                          {submission.status}
                         </Badge>
-                      )}
+                        {submission.upgrade_status !== 'none' && (
+                          <Badge className="bg-purple-100 text-purple-800">
+                            Upgrade: {submission.upgrade_status}
+                          </Badge>
+                        )}
+                      </div>
+                      <CardTitle className="text-sm font-normal text-slate-600">
+                        {submission.created_by} • {new Date(submission.created_date).toLocaleString()}
+                      </CardTitle>
                     </div>
-                    <CardTitle className="text-sm font-normal text-slate-600">
-                      {submission.created_by} • {new Date(submission.created_date).toLocaleString()}
-                    </CardTitle>
                   </div>
                 </div>
               </CardHeader>
