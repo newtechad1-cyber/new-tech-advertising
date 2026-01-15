@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { 
@@ -18,6 +18,8 @@ import {
   ArrowUpCircle
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { getPackageConfig } from '../config/packageRules';
+import { base44 } from '@/api/base44Client';
 
 export default function ActionCards({ userRole, subscriptionPackage, onSubmitContent }) {
   const isAdmin = userRole === 'admin';
