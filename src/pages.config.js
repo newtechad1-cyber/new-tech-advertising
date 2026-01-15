@@ -22,6 +22,7 @@ import LeadDetail from './pages/LeadDetail';
 import LeadsDashboard from './pages/LeadsDashboard';
 import Onboarding from './pages/Onboarding';
 import SocialMediaManagement from './pages/SocialMediaManagement';
+import OnboardingStart from './pages/OnboardingStart';
 import __Layout from './Layout.jsx';
 
 
@@ -50,6 +51,7 @@ export const PAGES = {
     "LeadsDashboard": LeadsDashboard,
     "Onboarding": Onboarding,
     "SocialMediaManagement": SocialMediaManagement,
+    "OnboardingStart": OnboardingStart,
 }
 
 export const pagesConfig = {

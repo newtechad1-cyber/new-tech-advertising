@@ -54,13 +54,19 @@ Submitted from AI Marketing Landing Page`
         console.log('Email notification failed (lead saved):', emailError);
       }
 
-      // Set checkout URL based on selected service
-      const checkoutUrls = {
-        'complete-marketing': 'https://buy.stripe.com/28E6oI3fA4KI17j5T1fMA01',
-        'dfy-social': 'https://buy.stripe.com/7sY5kE5nIgtqbLXbdlfMA02',
-        'diy-social': 'https://buy.stripe.com/eVq5kEaI27WU17j819fMA06'
-      };
-      setCheckoutUrl(checkoutUrls[formData.selectedService]);
+      // Preserve UTM parameters
+      const currentParams = new URLSearchParams(window.location.search);
+      const utmParams = new URLSearchParams();
+      for (const [key, value] of currentParams.entries()) {
+        if (key.startsWith('utm_') || key === 'source' || key === 'campaign') {
+          utmParams.append(key, value);
+        }
+      }
+
+      // Set onboarding URL with UTM params
+      const onboardingUrl = window.location.origin + '/onboarding-start' + 
+        (utmParams.toString() ? `?${utmParams.toString()}` : '');
+      setCheckoutUrl(onboardingUrl);
       setShowSuccess(true);
     } catch (error) {
       console.error('Lead submission error:', error);
@@ -102,14 +108,14 @@ Submitted from AI Marketing Landing Page`
                   Your information has been submitted successfully.
                 </p>
                 <p className="text-slate-600 mb-8">
-                  Click below to complete your payment and get started!
+                  Click below to continue to your onboarding dashboard!
                 </p>
                 <div className="space-y-4">
                   <Button
-                    onClick={() => window.open(checkoutUrl, '_blank')}
+                    onClick={() => window.location.href = checkoutUrl}
                     className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg rounded-xl"
                   >
-                    Complete Payment
+                    Continue to Onboarding
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
                   <Button
@@ -117,7 +123,7 @@ Submitted from AI Marketing Landing Page`
                     variant="outline"
                     className="w-full"
                   >
-                    I'll Pay Later
+                    I'll Do This Later
                   </Button>
                 </div>
               </div>
