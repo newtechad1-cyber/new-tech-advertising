@@ -250,6 +250,7 @@ export default function AdminBlog() {
     };
 
     return (
+        <AdminGuard>
         <div className="min-h-screen bg-slate-50 p-6">
             <div className="max-w-7xl mx-auto">
                 <header className="flex justify-between items-center mb-8">
@@ -482,5 +483,6 @@ export default function AdminBlog() {
                 )}
             </div>
         </div>
+        </AdminGuard>
     );
 }

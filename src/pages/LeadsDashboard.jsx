@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AdminLayout from '../components/admin/AdminLayout';
+import AdminGuard from '../components/auth/AdminGuard';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -148,6 +149,7 @@ export default function LeadsDashboard() {
   }
 
   return (
+    <AdminGuard>
     <AdminLayout>
       <div className="p-6 lg:p-8">
         <div className="max-w-7xl mx-auto">
@@ -348,5 +350,6 @@ export default function LeadsDashboard() {
         </div>
       </div>
     </AdminLayout>
+    </AdminGuard>
   );
 }
