@@ -29,6 +29,9 @@ export default function OnboardingFlow({ onComplete, initialProfile }) {
     unique_selling_propositions: initialProfile?.unique_selling_propositions || '',
     marketing_goals: initialProfile?.marketing_goals || []
   });
+  
+  // Track when we're manually navigating to prevent profile sync from interfering
+  const isManuallyNavigatingRef = React.useRef(false);
 
   // Dev logging helper
   const devLog = (message, data) => {
@@ -44,7 +47,9 @@ export default function OnboardingFlow({ onComplete, initialProfile }) {
 
   useEffect(() => {
     // Sync step with persisted onboarding state to prevent out-of-sync navigation
-    if (profile) {
+    // CRITICAL: Don't run this during manual navigation (handleNext/handleBack)
+    // to prevent fighting with the manual step changes
+    if (profile && !isManuallyNavigatingRef.current) {
       const nextStep = getNextIncompleteStep(profile);
       devLog('Profile loaded, determining current step', { 
         currentStep: step, 
@@ -65,6 +70,13 @@ export default function OnboardingFlow({ onComplete, initialProfile }) {
         devLog('Invalid step calculated, resetting to step 1', { invalidStep: nextStep });
         setStep(1);
       }
+    }
+    
+    // Reset flag after profile sync attempt
+    if (isManuallyNavigatingRef.current) {
+      setTimeout(() => {
+        isManuallyNavigatingRef.current = false;
+      }, 100);
     }
   }, [profile]);
 
@@ -103,6 +115,8 @@ export default function OnboardingFlow({ onComplete, initialProfile }) {
   };
 
   const handleNext = async () => {
+    devLog('>>> Next button clicked', { currentStep: step });
+    
     // Guard: validate step bounds
     if (step < 1 || step > 3) {
       devLog('Invalid step in handleNext', { step });
@@ -122,7 +136,10 @@ export default function OnboardingFlow({ onComplete, initialProfile }) {
     
     setValidationError(null);
     setLoading(true);
-    devLog('Saving step data...', { step });
+    devLog('>>> Starting save operation...', { step });
+    
+    // Prevent profile sync useEffect from interfering during manual navigation
+    isManuallyNavigatingRef.current = true;
     
     try {
       const user = await base44.auth.me();
@@ -141,25 +158,27 @@ export default function OnboardingFlow({ onComplete, initialProfile }) {
         };
         
         if (profileId) {
-          devLog('Updating existing profile', { profileId });
+          devLog('>>> Updating existing profile', { profileId });
           await base44.entities.ClientProfile.update(profileId, updateData);
+          devLog('>>> Profile updated successfully');
         } else {
-          devLog('Creating new profile');
+          devLog('>>> Creating new profile');
           const newProfile = await base44.entities.ClientProfile.create({
             ...updateData,
             marketing_goals: []
           });
           profileId = newProfile.id;
           setProfile(newProfile);
-          devLog('Profile created', { profileId });
+          devLog('>>> Profile created successfully', { profileId });
         }
       } else if (step === 2) {
         if (profileId) {
-          devLog('Updating marketing goals', { profileId, goalsCount: formData.marketing_goals?.length });
+          devLog('>>> Updating marketing goals', { profileId, goalsCount: formData.marketing_goals?.length });
           await base44.entities.ClientProfile.update(profileId, {
             marketing_goals: formData.marketing_goals,
             [currentStep.completionFlag]: true
           });
+          devLog('>>> Marketing goals updated successfully');
         }
       }
       
@@ -167,19 +186,24 @@ export default function OnboardingFlow({ onComplete, initialProfile }) {
       const updatedProfiles = await base44.entities.ClientProfile.filter({ created_by: user.email });
       if (updatedProfiles && updatedProfiles.length > 0) {
         setProfile(updatedProfiles[0]);
-        devLog('Profile reloaded after save');
+        devLog('>>> Profile reloaded after save', {
+          step1_completed: updatedProfiles[0].step1_completed,
+          step2_completed: updatedProfiles[0].step2_completed
+        });
       }
       
       // Track step completion
       trackOnboardingStep(step, currentStep.name);
       
       const nextStep = step + 1;
-      devLog('Advancing to next step', { from: step, to: nextStep });
+      devLog('>>> ADVANCING TO NEXT STEP', { from: step, to: nextStep });
       setStep(nextStep);
+      devLog('>>> Step state updated to:', nextStep);
       toast.success('Progress saved!');
     } catch (error) {
       console.error('[OnboardingFlow] Failed to save step:', error);
       toast.error(error.message || 'Failed to save. Please try again.');
+      isManuallyNavigatingRef.current = false;
     } finally {
       setLoading(false);
     }
@@ -193,6 +217,7 @@ export default function OnboardingFlow({ onComplete, initialProfile }) {
     }
     
     setValidationError(null);
+    isManuallyNavigatingRef.current = true;
     const prevStep = step - 1;
     devLog('Going back', { from: step, to: prevStep });
     setStep(prevStep);
