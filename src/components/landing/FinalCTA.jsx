@@ -45,9 +45,18 @@ export default function FinalCTA({ onCTAClick }) {
           </div>
 
           <a 
-            href="https://ntaaffiliates.com" 
-            target="_blank" 
-            rel="noopener noreferrer"
+            href="/onboarding-start"
+            onClick={(e) => {
+              e.preventDefault();
+              const currentParams = new URLSearchParams(window.location.search);
+              const utmParams = new URLSearchParams();
+              for (const [key, value] of currentParams.entries()) {
+                if (key.startsWith('utm_') || key === 'source' || key === 'campaign') {
+                  utmParams.append(key, value);
+                }
+              }
+              window.location.href = '/onboarding-start' + (utmParams.toString() ? `?${utmParams.toString()}` : '');
+            }}
           >
             <Button
               size="lg"
