@@ -23,8 +23,9 @@ export default function Layout({ children, currentPageName }) {
       try {
         const authenticatedUser = await base44.auth.me();
         setUser(authenticatedUser);
+        console.log('[Layout] User loaded:', authenticatedUser?.email, 'Role:', authenticatedUser?.role);
       } catch (error) {
-        console.log('User not authenticated');
+        console.log('[Layout] User not authenticated:', error.message);
         setUser(null);
       } finally {
         setIsLoading(false);
@@ -36,6 +37,7 @@ export default function Layout({ children, currentPageName }) {
 
   useEffect(() => {
     if (user && !isAdmin && viewMode !== 'client') {
+      console.log('[Layout] Auto-setting viewMode to client for non-admin user');
       setViewMode('client');
     }
   }, [user, isAdmin, viewMode]);
