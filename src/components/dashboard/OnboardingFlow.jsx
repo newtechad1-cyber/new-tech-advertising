@@ -245,32 +245,40 @@ export default function OnboardingFlow({ onComplete, initialData }) {
           {step === 3 && renderStep3()}
         </CardContent>
 
-        <CardFooter className="flex justify-between border-t p-6 bg-slate-50 rounded-b-xl">
-          <Button 
-            variant="ghost" 
-            onClick={handleBack} 
-            disabled={step === 1}
-          >
-            Back
-          </Button>
-          
-          {step < 3 ? (
-            <Button 
-              onClick={handleNext}
-              className="bg-blue-600 hover:bg-blue-700"
-              disabled={step === 1 && !formData.business_name}
-            >
-              Next <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          ) : (
-            <Button 
-              onClick={handleComplete} 
-              disabled={loading}
-              className="bg-green-600 hover:bg-green-700"
-            >
-              {loading ? 'Setting up...' : 'Complete Setup'}
-            </Button>
+        <CardFooter className="flex flex-col items-end gap-3 border-t p-6 bg-slate-50 rounded-b-xl">
+          {step === 1 && !formData.business_name && (
+            <p className="text-sm text-amber-600 bg-amber-50 border border-amber-200 rounded px-3 py-2 w-full">
+              ⚠️ Please enter your business name to continue
+            </p>
           )}
+          
+          <div className="flex justify-between w-full">
+            <Button 
+              variant="ghost" 
+              onClick={handleBack} 
+              disabled={step === 1}
+            >
+              Back
+            </Button>
+            
+            {step < 3 ? (
+              <Button 
+                onClick={handleNext}
+                className="bg-blue-600 hover:bg-blue-700"
+                disabled={step === 1 && !formData.business_name}
+              >
+                Next <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            ) : (
+              <Button 
+                onClick={handleComplete} 
+                disabled={loading}
+                className="bg-green-600 hover:bg-green-700"
+              >
+                {loading ? 'Setting up...' : 'Complete Setup'}
+              </Button>
+            )}
+          </div>
         </CardFooter>
       </Card>
     </div>
