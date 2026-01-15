@@ -2,7 +2,8 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, CreditCard, Calendar } from 'lucide-react';
+import { CheckCircle2, CreditCard, Calendar, ArrowDownRight } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function SubscriptionView() {
   return (
@@ -54,8 +55,18 @@ export default function SubscriptionView() {
           </div>
         </CardContent>
         <CardFooter className="flex justify-between border-t px-6 py-4">
-          <Button variant="outline">Cancel Subscription</Button>
-          <Button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">Upgrade Plan</Button>
+          <Button 
+            variant="outline"
+            onClick={() => toast.info('To cancel or modify your subscription, please contact rick@newtechadvertising.com or call 641-420-8816')}
+          >
+            Cancel Subscription
+          </Button>
+          <Button 
+            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white"
+            onClick={() => toast.info('To upgrade your plan, please contact rick@newtechadvertising.com or call 641-420-8816')}
+          >
+            Upgrade Plan
+          </Button>
         </CardFooter>
       </Card>
 
@@ -75,7 +86,13 @@ export default function SubscriptionView() {
                 <p className="text-sm text-slate-500">Expires 12/2028</p>
               </div>
             </div>
-            <Button variant="ghost" className="text-blue-600">Edit</Button>
+            <Button 
+              variant="ghost" 
+              className="text-blue-600"
+              onClick={() => toast.info('To update payment method, please contact rick@newtechadvertising.com or call 641-420-8816')}
+            >
+              Edit
+            </Button>
           </div>
         </CardContent>
       </Card>
@@ -99,7 +116,14 @@ export default function SubscriptionView() {
                 <div className="flex items-center gap-4">
                   <span className="text-sm font-medium">{invoice.amount}</span>
                   <Badge variant="outline" className="text-green-600 border-green-200 bg-green-50">{invoice.status}</Badge>
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0"><ArrowDownRight className="h-4 w-4" /></Button>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="h-8 w-8 p-0"
+                    onClick={() => toast.info('For invoice copies, please contact rick@newtechadvertising.com')}
+                  >
+                    <ArrowDownRight className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
             ))}

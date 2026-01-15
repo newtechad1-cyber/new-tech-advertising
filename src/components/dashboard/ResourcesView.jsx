@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { PlayCircle, FileText, Download, ExternalLink } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function ResourcesView() {
   const resources = [
@@ -31,10 +32,18 @@ export default function ResourcesView() {
           Access exclusive training materials, guides, and templates to help you get the most out of your marketing services.
         </p>
         <div className="flex gap-4">
-          <Button variant="secondary" className="bg-white text-purple-600 hover:bg-purple-50">
+          <Button 
+            variant="secondary" 
+            className="bg-white text-purple-600 hover:bg-purple-50"
+            onClick={() => toast.info('Video tutorials coming soon! Contact rick@newtechadvertising.com for personalized training.')}
+          >
             <PlayCircle className="mr-2 h-4 w-4" /> Watch Tutorials
           </Button>
-          <Button variant="outline" className="bg-transparent text-white border-white hover:bg-white/10">
+          <Button 
+            variant="outline" 
+            className="bg-transparent text-white border-white hover:bg-white/10"
+            onClick={() => toast.info('Guides coming soon! Contact rick@newtechadvertising.com for support materials.')}
+          >
             <FileText className="mr-2 h-4 w-4" /> Read Guides
           </Button>
         </div>
@@ -61,7 +70,12 @@ export default function ResourcesView() {
                         <p className="text-xs text-slate-500 capitalize">{item.type} • {item.duration || item.format}</p>
                       </div>
                     </div>
-                    <Button variant="ghost" size="sm" className="opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="opacity-0 group-hover:opacity-100 transition-opacity"
+                      onClick={() => toast.info('Resource coming soon! Contact rick@newtechadvertising.com for assistance.')}
+                    >
                       {item.type === 'template' ? 'Download' : 'View'} <ExternalLink className="ml-2 h-3 w-3" />
                     </Button>
                   </div>
