@@ -30,23 +30,40 @@ export default function Dashboard() {
 
   const checkAuth = async () => {
     try {
+      console.log('[Dashboard] Checking authentication...');
       const isAuthenticated = await base44.auth.isAuthenticated();
+      
       if (!isAuthenticated) {
+         console.log('[Dashboard] User not authenticated, showing demo state');
          setUser({ full_name: "Demo User", email: "demo@example.com" });
          setShowOnboarding(true);
       } else {
          const userData = await base44.auth.me();
          setUser(userData);
-         console.log('[Dashboard] User loaded:', userData?.email, 'Role:', userData?.role);
+         console.log('[Dashboard] User authenticated:', {
+           email: userData?.email,
+           role: userData?.role
+         });
          
-         // Check for client profile
+         // Check for client profile to determine onboarding state
          const profiles = await base44.entities.ClientProfile.filter({ created_by: userData.email });
+         console.log('[Dashboard] Profile query returned:', profiles?.length || 0, 'profiles');
+         
          if (profiles && profiles.length > 0) {
            setClientProfile(profiles[0]);
-           if (!profiles[0].onboarding_completed) {
+           const isComplete = profiles[0].onboarding_completed || false;
+           console.log('[Dashboard] Profile loaded:', {
+             profileId: profiles[0].id,
+             businessName: profiles[0].business_name,
+             onboardingComplete: isComplete
+           });
+           
+           if (!isComplete) {
+             console.log('[Dashboard] Onboarding incomplete, showing onboarding flow');
              setShowOnboarding(true);
            }
          } else {
+           console.log('[Dashboard] No profile found - user needs onboarding');
            setShowOnboarding(true);
          }
       }
