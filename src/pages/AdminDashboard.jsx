@@ -17,6 +17,7 @@ import { createPageUrl } from '../utils';
 import SchedulingQueue from '../components/admin/SchedulingQueue';
 import UpsellQueue from '../components/admin/UpsellQueue';
 import ClientsList from '../components/admin/ClientsList';
+import AdminGuard from '../components/auth/AdminGuard';
 
 export default function AdminDashboard() {
   const [user, setUser] = useState(null);
@@ -125,7 +126,8 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <AdminGuard>
+      <div className="min-h-screen bg-slate-50">
       <header className="bg-white border-b sticky top-0 z-20">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
@@ -240,5 +242,6 @@ export default function AdminDashboard() {
         )}
       </main>
     </div>
+    </AdminGuard>
   );
 }
