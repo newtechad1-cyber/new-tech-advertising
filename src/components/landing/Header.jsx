@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Mail, Phone, UserCircle, Menu, X } from 'lucide-react';
 import { createPageUrl } from '../../utils';
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { trackCTAClick } from '../analytics/trackingUtils';
 
 export default function Header({ onCTAClick }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -89,7 +90,10 @@ export default function Header({ onCTAClick }) {
               </Button>
             </Link>
             <Button
-              onClick={onCTAClick}
+              onClick={() => {
+                trackCTAClick('Header - Get Started');
+                onCTAClick();
+              }}
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
             >
               Get Started

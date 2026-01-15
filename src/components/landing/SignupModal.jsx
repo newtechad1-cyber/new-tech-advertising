@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import { base44 } from '@/api/base44Client';
+import { trackLeadSubmit } from '../analytics/trackingUtils';
 
 export default function SignupModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
@@ -26,7 +27,7 @@ export default function SignupModal({ isOpen, onClose }) {
     setIsSubmitting(true);
 
     try {
-      await base44.entities.Lead.create({
+      const lead = await base44.entities.Lead.create({
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
@@ -34,6 +35,9 @@ export default function SignupModal({ isOpen, onClose }) {
         message: formData.message,
         status: 'new'
       });
+
+      // Track lead submission with analytics
+      trackLeadSubmit(formData);
 
       try {
         await base44.integrations.Core.SendEmail({

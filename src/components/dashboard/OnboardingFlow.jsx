@@ -10,8 +10,12 @@ import { CheckCircle2, ArrowRight, Target, Building2, BookOpen, Loader2, AlertCi
 import { Checkbox } from '@/components/ui/checkbox';
 import { ONBOARDING_STEPS, getNextIncompleteStep, validateStepData } from '../onboarding/onboardingConfig';
 import { toast } from 'sonner';
+import { trackOnboardingStep, trackOnboardingComplete, saveUTMsToRecord } from '../analytics/trackingUtils';
+import { useNavigate } from 'react-router-dom';
+import { createPageUrl } from '../../utils';
 
 export default function OnboardingFlow({ onComplete, initialProfile }) {
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [loadingProfile, setLoadingProfile] = useState(true);
@@ -118,6 +122,10 @@ export default function OnboardingFlow({ onComplete, initialProfile }) {
         setProfile(updatedProfiles[0]);
       }
       
+      // Track step completion
+      const currentStep = ONBOARDING_STEPS[step - 1];
+      trackOnboardingStep(step, currentStep.name);
+      
       setStep(step + 1);
       toast.success('Progress saved!');
     } catch (error) {
@@ -140,15 +148,34 @@ export default function OnboardingFlow({ onComplete, initialProfile }) {
       const profiles = await base44.entities.ClientProfile.filter({ created_by: user.email });
       
       if (profiles && profiles.length > 0) {
-        await base44.entities.ClientProfile.update(profiles[0].id, {
+        const profileId = profiles[0].id;
+        
+        // Update profile with completion status
+        await base44.entities.ClientProfile.update(profileId, {
           onboarding_completed: true,
           step3_completed: true,
           completed_checklist_items: []
         });
+        
+        // Save UTM parameters to profile
+        await saveUTMsToRecord('ClientProfile', profileId);
+        
+        // Track completion
+        trackOnboardingComplete(profiles[0]);
+        
+        // Send notifications
+        try {
+          await base44.functions.invoke('notifyOnboardingComplete', {
+            profileId: profileId,
+            userEmail: user.email
+          });
+        } catch (notifyError) {
+          console.error('Notification failed (non-critical):', notifyError);
+        }
       }
       
-      toast.success('Onboarding complete! Welcome aboard! 🎉');
-      onComplete?.();
+      // Redirect to setup complete page
+      navigate(createPageUrl('SetupComplete'));
     } catch (error) {
       console.error('Failed to complete onboarding:', error);
       toast.error('Failed to complete setup. Please try again.');

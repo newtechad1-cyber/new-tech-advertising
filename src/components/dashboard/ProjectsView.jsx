@@ -5,6 +5,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Plus, FolderKanban, Calendar, MoreVertical, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
 import ProjectDetail from './ProjectDetail';
+import EmptyState from './EmptyState';
+import { toast } from 'sonner';
 
 export default function ProjectsView() {
   const [projects, setProjects] = useState([]);
@@ -80,18 +82,13 @@ export default function ProjectsView() {
       </div>
 
       {projects.length === 0 ? (
-        <div className="text-center py-16 bg-white rounded-xl border border-dashed border-slate-200">
-          <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4">
-            <FolderKanban className="w-8 h-8 text-slate-400" />
-          </div>
-          <h3 className="text-lg font-medium text-slate-900 mb-2">No Active Projects</h3>
-          <p className="text-slate-500 max-w-sm mx-auto mb-6">
-            You don't have any active projects yet. Request a new project or contact your account manager to get started.
-          </p>
-          <Button onClick={handleCreateDemoProject}>
-            Create Demo Project
-          </Button>
-        </div>
+        <EmptyState
+          icon={FolderKanban}
+          title="No Active Projects Yet"
+          description="Your projects and campaigns will appear here once your account manager sets them up. This typically happens within 48 hours of onboarding."
+          actionLabel="Contact Support"
+          onAction={() => toast.info('Call us at 641-420-8816 or email rick@newtechadvertising.com')}
+        />
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (

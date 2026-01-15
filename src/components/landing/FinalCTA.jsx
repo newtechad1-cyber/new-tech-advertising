@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { trackCTAClick } from '../analytics/trackingUtils';
 
 export default function FinalCTA({ onCTAClick }) {
   return (
@@ -48,6 +49,7 @@ export default function FinalCTA({ onCTAClick }) {
             href="/onboarding-start"
             onClick={(e) => {
               e.preventDefault();
+              trackCTAClick('Final CTA - Start Free Trial');
               const currentParams = new URLSearchParams(window.location.search);
               const utmParams = new URLSearchParams();
               for (const [key, value] of currentParams.entries()) {
