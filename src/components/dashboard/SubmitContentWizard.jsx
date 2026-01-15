@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 import { getPackageConfig, checkWeeklyLimit, getWeekStart } from '../config/packageRules';
+import { POST_TEMPLATES, getRecommendedRatio } from '../config/contentTemplates';
 import { 
   Image, 
   Video, 
@@ -20,7 +21,8 @@ import {
   CheckCircle,
   AlertCircle,
   Loader2,
-  Clock
+  Clock,
+  Lightbulb
 } from 'lucide-react';
 
 const SOCIAL_CHANNELS = [
@@ -47,6 +49,8 @@ export default function SubmitContentWizard({ onClose, onSubmitSuccess }) {
   const [submittedId, setSubmittedId] = useState(null);
   const [packageConfig, setPackageConfig] = useState(null);
   const [weeklyLimit, setWeeklyLimit] = useState(null);
+  const [showTemplates, setShowTemplates] = useState(false);
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
 
   useEffect(() => {
     loadPackageInfo();
@@ -328,10 +332,53 @@ export default function SubmitContentWizard({ onClose, onSubmitSuccess }) {
           {/* STEP 3: Post Text */}
           {step === 3 && (
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-slate-900 mb-2">Paste your final post text</h3>
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-lg font-semibold text-slate-900">Paste your final post text</h3>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowTemplates(!showTemplates)}
+                  type="button"
+                >
+                  <Lightbulb className="w-4 h-4 mr-1" />
+                  {showTemplates ? 'Hide' : 'Show'} Templates
+                </Button>
+              </div>
               <p className="text-sm text-slate-600 mb-4">
                 ⚠️ This text will be posted exactly as written. We do not edit or rewrite content.
               </p>
+
+              {/* OPTIONAL TEMPLATES */}
+              {showTemplates && (
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
+                  <p className="text-sm font-semibold text-slate-900 mb-3">Choose a template (optional):</p>
+                  <div className="grid grid-cols-2 gap-2 mb-3">
+                    {Object.entries(POST_TEMPLATES).map(([key, template]) => (
+                      <Button
+                        key={key}
+                        variant={selectedTemplate === key ? 'default' : 'outline'}
+                        size="sm"
+                        onClick={() => {
+                          setSelectedTemplate(key);
+                          setFormData({ ...formData, post_text: template.placeholder, template_used: key });
+                        }}
+                        type="button"
+                      >
+                        {template.name}
+                      </Button>
+                    ))}
+                  </div>
+                  {selectedTemplate && (
+                    <div className="bg-white rounded p-3 text-xs text-slate-600">
+                      <p className="font-semibold mb-1">Tips:</p>
+                      {POST_TEMPLATES[selectedTemplate].tips.map((tip, idx) => (
+                        <p key={idx}>• {tip}</p>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
               <Textarea
                 value={formData.post_text}
                 onChange={(e) => setFormData({ ...formData, post_text: e.target.value })}
@@ -403,6 +450,16 @@ export default function SubmitContentWizard({ onClose, onSubmitSuccess }) {
                 </p>
               )}
               
+              {/* IMAGE FORMAT GUIDANCE */}
+              {formData.submission_type === 'image_post' && formData.social_channels.length > 0 && (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-4">
+                  <p className="text-xs font-semibold text-blue-900 mb-1">Recommended image format:</p>
+                  <p className="text-xs text-blue-800">
+                    {getRecommendedRatio(formData.social_channels)?.label || 'Square (1:1) works best for multiple channels'}
+                  </p>
+                </div>
+              )}
+
               {/* PASSIVE HELP NOTICE */}
               {formData.submission_type === 'image_post' && formData.media_urls.length > 0 && (
                 <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 mt-4">

@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
-import { Calendar, Filter, CheckCircle, AlertCircle, Sparkles, MessageSquare, Clock, Zap } from 'lucide-react';
+import { Calendar, Filter, CheckCircle, AlertCircle, Sparkles, MessageSquare, Clock, Zap, HelpCircle } from 'lucide-react';
 import { getPackageConfig } from '../config/packageRules';
 
 export default function SchedulingQueue() {
@@ -55,6 +55,16 @@ export default function SchedulingQueue() {
       loadQueue();
     } catch (error) {
       toast.error('Failed to update status');
+    }
+  };
+
+  const handleQualityStatusUpdate = async (id, qualityStatus) => {
+    try {
+      await base44.entities.ContentSubmission.update(id, { quality_status: qualityStatus });
+      toast.success('Quality status updated');
+      loadQueue();
+    } catch (error) {
+      toast.error('Failed to update quality status');
     }
   };
 
@@ -109,6 +119,22 @@ export default function SchedulingQueue() {
       return <div className="w-2 h-2 bg-blue-600 rounded-full" title="Standard" />;
     }
     return <div className="w-2 h-2 bg-slate-400 rounded-full" title="Low priority" />;
+  };
+
+  const getQualityBadge = (qualityStatus) => {
+    const variants = {
+      ready: { label: 'Ready', color: 'bg-green-100 text-green-800', icon: CheckCircle },
+      needs_clarification: { label: 'Needs Clarification', color: 'bg-yellow-100 text-yellow-800', icon: HelpCircle },
+      recommend_upgrade: { label: 'Recommend Upgrade', color: 'bg-purple-100 text-purple-800', icon: Sparkles }
+    };
+    const variant = variants[qualityStatus] || variants.ready;
+    const Icon = variant.icon;
+    return (
+      <Badge className={variant.color}>
+        <Icon className="w-3 h-3 mr-1" />
+        {variant.label}
+      </Badge>
+    );
   };
 
   if (loading) return <div className="text-center py-8">Loading queue...</div>;
@@ -169,11 +195,12 @@ export default function SchedulingQueue() {
                   <div className="flex items-center gap-2 flex-1">
                     {getPriorityIndicator(submission.priority)}
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
+                      <div className="flex items-center gap-2 mb-2 flex-wrap">
                         {getPackageBadge(submission)}
                         <Badge variant={submission.status === 'pending' ? 'default' : 'outline'}>
                           {submission.status}
                         </Badge>
+                        {getQualityBadge(submission.quality_status || 'ready')}
                         {submission.upgrade_status !== 'none' && (
                           <Badge className="bg-purple-100 text-purple-800">
                             Upgrade: {submission.upgrade_status}
@@ -212,6 +239,37 @@ export default function SchedulingQueue() {
                     )}
                   </div>
                   
+                  {/* Quality Status Controls */}
+                  <div className="border-t pt-4 mb-3">
+                    <p className="text-xs text-slate-500 mb-2">Quality Control:</p>
+                    <div className="flex flex-wrap gap-2">
+                      <Button 
+                        size="sm" 
+                        variant={submission.quality_status === 'ready' ? 'default' : 'outline'}
+                        onClick={() => handleQualityStatusUpdate(submission.id, 'ready')}
+                      >
+                        <CheckCircle className="w-4 h-4 mr-1" />
+                        Ready
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant={submission.quality_status === 'needs_clarification' ? 'default' : 'outline'}
+                        onClick={() => handleQualityStatusUpdate(submission.id, 'needs_clarification')}
+                      >
+                        <HelpCircle className="w-4 h-4 mr-1" />
+                        Needs Clarification
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant={submission.quality_status === 'recommend_upgrade' ? 'default' : 'outline'}
+                        onClick={() => handleQualityStatusUpdate(submission.id, 'recommend_upgrade')}
+                      >
+                        <Sparkles className="w-4 h-4 mr-1" />
+                        Recommend Upgrade
+                      </Button>
+                    </div>
+                  </div>
+
                   {/* Admin Actions */}
                   <div className="border-t pt-4 flex flex-wrap gap-2">
                     {submission.status === 'pending' && (
