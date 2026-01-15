@@ -23,6 +23,7 @@ import LeadsDashboard from './pages/LeadsDashboard';
 import Onboarding from './pages/Onboarding';
 import SocialMediaManagement from './pages/SocialMediaManagement';
 import OnboardingStart from './pages/OnboardingStart';
+import SetupComplete from './pages/SetupComplete';
 import __Layout from './Layout.jsx';
 
 
@@ -52,6 +53,7 @@ export const PAGES = {
     "Onboarding": Onboarding,
     "SocialMediaManagement": SocialMediaManagement,
     "OnboardingStart": OnboardingStart,
+    "SetupComplete": SetupComplete,
 }
 
 export const pagesConfig = {
