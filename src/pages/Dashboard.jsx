@@ -34,9 +34,9 @@ export default function Dashboard() {
       const isAuthenticated = await base44.auth.isAuthenticated();
       
       if (!isAuthenticated) {
-         console.log('[Dashboard] User not authenticated, showing demo state');
-         setUser({ full_name: "Demo User", email: "demo@example.com" });
-         setShowOnboarding(true);
+         console.log('[Dashboard] Not authenticated, redirecting to login');
+         base44.auth.redirectToLogin(window.location.pathname);
+         return;
       } else {
          const userData = await base44.auth.me();
          setUser(userData);
@@ -69,8 +69,7 @@ export default function Dashboard() {
       }
     } catch (e) {
       console.error("[Dashboard] Auth check failed:", e);
-      setUser({ full_name: "Demo User", email: "demo@example.com" });
-      setShowOnboarding(true);
+      base44.auth.redirectToLogin(window.location.pathname);
     } finally {
       setLoading(false);
     }
