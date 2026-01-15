@@ -42,9 +42,18 @@ export default function HeroSection({ onCTAClick }) {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-xl md:text-2xl text-slate-300 font-light mb-4"
+          className="text-xl md:text-2xl text-slate-300 font-light mb-2"
         >
-          A 5-Part Blueprint to Turn Your Website into a Customer-Getting Machine
+          We Make Your Life Easier
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.25 }}
+          className="text-lg md:text-xl text-slate-400 font-light mb-4"
+        >
+          By being a small-business enablement platform
         </motion.p>
 
         <motion.div
