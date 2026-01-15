@@ -41,6 +41,8 @@ export default function SubmitContentWizard({ onClose, onSubmitSuccess }) {
     preferred_date: ''
   });
   const [uploadingFiles, setUploadingFiles] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [submittedId, setSubmittedId] = useState(null);
 
   const handleFileUpload = async (files) => {
     setUploadingFiles(true);
@@ -63,18 +65,33 @@ export default function SubmitContentWizard({ onClose, onSubmitSuccess }) {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      await base44.entities.ContentSubmission.create({
+      const submission = await base44.entities.ContentSubmission.create({
         ...formData,
-        status: 'pending'
+        status: 'pending',
+        upgrade_status: 'none'
       });
-      toast.success('Content submitted successfully! Our team will schedule it for you.');
-      if (onSubmitSuccess) onSubmitSuccess();
-      if (onClose) onClose();
+      setSubmittedId(submission.id);
+      setShowSuccess(true);
     } catch (error) {
       console.error('Submit error:', error);
       toast.error(error.message || 'Failed to submit content');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleRequestUpgrade = async (upgradeType) => {
+    try {
+      await base44.entities.ContentSubmission.update(submittedId, {
+        upgrade_requested: true,
+        upgrade_type: upgradeType,
+        upgrade_status: 'client_requested'
+      });
+      toast.success('Upgrade request added! Our team will provide a quote.');
+      if (onSubmitSuccess) onSubmitSuccess();
+      if (onClose) onClose();
+    } catch (error) {
+      toast.error('Failed to request upgrade');
     }
   };
 
@@ -111,18 +128,63 @@ export default function SubmitContentWizard({ onClose, onSubmitSuccess }) {
         </CardHeader>
 
         <CardContent className="p-6">
-          {/* DISCLAIMER */}
-          <div className="bg-amber-50 border-2 border-amber-300 rounded-lg p-4 mb-6">
-            <div className="flex gap-3">
-              <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-              <div className="text-sm text-amber-900">
-                <p className="font-semibold mb-1">Important: Collaborative Package Guidelines</p>
-                <p>✓ You provide final text and exact images/video</p>
-                <p>✓ We schedule and post for you</p>
-                <p>✗ No editing, rewriting, or video creation included</p>
+          {/* SUCCESS VIEW */}
+          {showSuccess ? (
+            <div className="text-center py-8">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle className="w-10 h-10 text-green-600" />
               </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-2">Content Submitted!</h3>
+              <p className="text-slate-600 mb-6">Our team will schedule your post soon.</p>
+              
+              {/* PASSIVE UPSELL */}
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-md mx-auto mb-6">
+                <h4 className="font-semibold text-slate-900 mb-3">Need help improving this post?</h4>
+                <p className="text-sm text-slate-600 mb-4">Optional one-time upgrades available:</p>
+                <div className="space-y-2">
+                  <Button
+                    onClick={() => handleRequestUpgrade('rewrite_text')}
+                    variant="outline"
+                    className="w-full justify-start text-left"
+                  >
+                    ✍️ Professional Rewrite - $25
+                  </Button>
+                  <Button
+                    onClick={() => handleRequestUpgrade('edit_image')}
+                    variant="outline"
+                    className="w-full justify-start text-left"
+                  >
+                    🎨 Image Enhancement - $35
+                  </Button>
+                  <Button
+                    onClick={() => handleRequestUpgrade('create_video')}
+                    variant="outline"
+                    className="w-full justify-start text-left"
+                  >
+                    🎬 Create Video Version - $75
+                  </Button>
+                </div>
+                <p className="text-xs text-slate-500 mt-3">No obligation - our team will confirm pricing</p>
+              </div>
+
+              <Button onClick={() => { if (onClose) onClose(); }} className="mr-2">
+                Done
+              </Button>
             </div>
-          </div>
+          ) : (
+            <>
+              {/* DISCLAIMER */}
+              <div className="bg-amber-50 border-2 border-amber-300 rounded-lg p-4 mb-6">
+                <div className="flex gap-3">
+                  <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <div className="text-sm text-amber-900">
+                    <p className="font-semibold mb-1">Important: Collaborative Package Guidelines</p>
+                    <p>✓ You provide final text and exact images/video</p>
+                    <p>✓ We schedule and post for you</p>
+                    <p>✗ No editing, rewriting, or video creation included</p>
+                  </div>
+                </div>
+              </div>
 
           {/* STEP 1: Submission Type */}
           {step === 1 && (
@@ -194,6 +256,13 @@ export default function SubmitContentWizard({ onClose, onSubmitSuccess }) {
               <p className="text-xs text-slate-500">
                 Character count: {formData.post_text.length}
               </p>
+              
+              {/* PASSIVE HELP NOTICE */}
+              <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
+                <p className="text-xs text-slate-600">
+                  💡 <strong>Need help?</strong> Professional rewriting available as an optional add-on after submission.
+                </p>
+              </div>
             </div>
           )}
 
@@ -248,6 +317,15 @@ export default function SubmitContentWizard({ onClose, onSubmitSuccess }) {
                   No media upload needed for text-only posts.
                 </p>
               )}
+              
+              {/* PASSIVE HELP NOTICE */}
+              {formData.submission_type === 'image_post' && formData.media_urls.length > 0 && (
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 mt-4">
+                  <p className="text-xs text-slate-600">
+                    💡 <strong>Need help?</strong> Image enhancement & editing available as optional add-ons after submission.
+                  </p>
+                </div>
+              )}
             </div>
           )}
 
@@ -290,44 +368,48 @@ export default function SubmitContentWizard({ onClose, onSubmitSuccess }) {
               </RadioGroup>
             </div>
           )}
+            </>
+          )}
         </CardContent>
 
-        <div className="border-t p-4 bg-slate-50 flex justify-between">
-          <Button
-            variant="outline"
-            onClick={() => step > 1 ? setStep(step - 1) : onClose()}
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            {step > 1 ? 'Back' : 'Cancel'}
-          </Button>
-          {step < 5 ? (
+        {!showSuccess && (
+          <div className="border-t p-4 bg-slate-50 flex justify-between">
             <Button
-              onClick={() => setStep(step + 1)}
-              disabled={!canGoNext()}
+              variant="outline"
+              onClick={() => step > 1 ? setStep(step - 1) : onClose()}
             >
-              Next
-              <ArrowRight className="w-4 h-4 ml-2" />
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              {step > 1 ? 'Back' : 'Cancel'}
             </Button>
-          ) : (
-            <Button
-              onClick={handleSubmit}
-              disabled={!canGoNext() || loading}
-              className="bg-green-600 hover:bg-green-700"
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Submitting...
-                </>
-              ) : (
-                <>
-                  <CheckCircle className="w-4 h-4 mr-2" />
-                  Submit for Scheduling
-                </>
-              )}
-            </Button>
-          )}
-        </div>
+            {step < 5 ? (
+              <Button
+                onClick={() => setStep(step + 1)}
+                disabled={!canGoNext()}
+              >
+                Next
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            ) : (
+              <Button
+                onClick={handleSubmit}
+                disabled={!canGoNext() || loading}
+                className="bg-green-600 hover:bg-green-700"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Submitting...
+                  </>
+                ) : (
+                  <>
+                    <CheckCircle className="w-4 h-4 mr-2" />
+                    Submit for Scheduling
+                  </>
+                )}
+              </Button>
+            )}
+          </div>
+        )}
       </Card>
     </div>
   );

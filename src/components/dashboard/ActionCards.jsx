@@ -128,9 +128,9 @@ export default function ActionCards({ userRole, subscriptionPackage, onSubmitCon
           />
           <ActionCard
             icon={Eye}
-            title="View Scheduled Posts"
-            description="See what's coming up on your calendar"
-            onClick={() => toast.info('Navigate to Schedule')}
+            title="View My Submissions"
+            description="See your submitted content and upgrade requests"
+            onClick={() => toast.info('Navigate to Submissions')}
             variant="default"
           />
           <ActionCard

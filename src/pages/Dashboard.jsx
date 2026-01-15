@@ -8,6 +8,7 @@ import SubscriptionView from '../components/dashboard/SubscriptionView';
 import ResourcesView from '../components/dashboard/ResourcesView';
 import OnboardingFlow from '../components/dashboard/OnboardingFlow';
 import ProjectsView from '../components/dashboard/ProjectsView';
+import ContentSubmissionsView from '../components/dashboard/ContentSubmissionsView';
 import { createPageUrl } from '../utils';
 
 export default function Dashboard() {
@@ -94,12 +95,12 @@ export default function Dashboard() {
     switch (activeTab) {
       case 'analytics':
         return <AnalyticsView />;
+      case 'submissions':
+        return <ContentSubmissionsView />;
       case 'subscription':
         return <SubscriptionView />;
       case 'resources':
         return <ResourcesView />;
-      case 'projects':
-        return <ProjectsView />;
       default:
         return <AnalyticsView />;
       }
@@ -107,7 +108,7 @@ export default function Dashboard() {
 
       const navItems = [
       { id: 'analytics', label: 'Overview & Analytics', icon: PieChart },
-      { id: 'projects', label: 'Projects', icon: FolderKanban },
+      { id: 'submissions', label: 'My Content', icon: FolderKanban },
       { id: 'subscription', label: 'Subscription & Billing', icon: CreditCard },
       { id: 'resources', label: 'Training & Resources', icon: BookOpen },
       ];
