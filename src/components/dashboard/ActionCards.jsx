@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 
-export default function ActionCards({ userRole, subscriptionPackage }) {
+export default function ActionCards({ userRole, subscriptionPackage, onSubmitContent }) {
   const isAdmin = userRole === 'admin';
 
   // Admin always sees admin controls
@@ -116,7 +116,7 @@ export default function ActionCards({ userRole, subscriptionPackage }) {
             icon={Upload}
             title="Submit Content for Scheduling"
             description="Provide your text, images, and video for us to schedule"
-            onClick={() => toast.info('Navigate to Content Submission')}
+            onClick={onSubmitContent || (() => toast.info('Submit content flow'))}
             variant="primary"
           />
           <ActionCard

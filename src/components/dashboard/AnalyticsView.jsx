@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowUpRight, ArrowDownRight, Users, MousePointerClick, PhoneCall } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import ActionCards from './ActionCards';
+import SubmitContentWizard from './SubmitContentWizard';
 
 const trafficData = [
   { name: 'Mon', visitors: 420 },
@@ -25,6 +26,7 @@ const leadData = [
 export default function AnalyticsView() {
   const [user, setUser] = useState(null);
   const [subscriptionPackage, setSubscriptionPackage] = useState('297'); // Default to Done-For-You
+  const [showSubmitWizard, setShowSubmitWizard] = useState(false);
 
   useEffect(() => {
     loadUserData();
@@ -45,12 +47,23 @@ export default function AnalyticsView() {
 
   return (
     <div className="space-y-6">
+      {/* Submit Content Wizard Modal */}
+      {showSubmitWizard && (
+        <SubmitContentWizard 
+          onClose={() => setShowSubmitWizard(false)}
+          onSubmitSuccess={() => {
+            setShowSubmitWizard(false);
+          }}
+        />
+      )}
+
       {/* Action Cards - Displayed prominently at top */}
       <div>
         <h2 className="text-xl font-bold text-slate-900 mb-4">Quick Actions</h2>
         <ActionCards 
           userRole={user?.role} 
           subscriptionPackage={subscriptionPackage}
+          onSubmitContent={() => setShowSubmitWizard(true)}
         />
       </div>
 
