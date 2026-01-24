@@ -24,6 +24,7 @@ import Onboarding from './pages/Onboarding';
 import OnboardingStart from './pages/OnboardingStart';
 import SetupComplete from './pages/SetupComplete';
 import SocialMediaManagement from './pages/SocialMediaManagement';
+import RebuildProposal from './pages/RebuildProposal';
 import __Layout from './Layout.jsx';
 
 
@@ -54,6 +55,7 @@ export const PAGES = {
     "OnboardingStart": OnboardingStart,
     "SetupComplete": SetupComplete,
     "SocialMediaManagement": SocialMediaManagement,
+    "RebuildProposal": RebuildProposal,
 }
 
 export const pagesConfig = {
