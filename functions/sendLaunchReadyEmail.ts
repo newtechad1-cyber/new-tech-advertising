@@ -26,22 +26,15 @@ Deno.serve(async (req) => {
     await base44.asServiceRole.integrations.Core.SendEmail({
       to: proposal.client_email,
       subject: 'Your website is ready to launch',
-      body: `
-Hello ${proposal.client_name},
+      body: `Your new website is complete and ready to go live.
 
-Your new website is complete and ready to go live.
+To launch, please complete the final payment using the secure link below.
 
-To launch, please complete the final payment using the secure link below:
+https://buy.stripe.com/14A28sbM64KI9DPdltfMA09
 
-${proposal.final_payment_link || 'https://buy.stripe.com/14A28sbM64KI9DPdltfMA09'}
+Once payment is received, we'll publish the site immediately.
 
-Final Payment Amount: $${proposal.final_amount || 500}
-
-If you have any questions, please don't hesitate to reach out.
-
-Best regards,
-New Tech Advertising Team
-      `
+— New Tech Advertising`
     });
 
     return Response.json({ 
