@@ -3,7 +3,7 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const { entity_id } = await req.json();
+    const { entity_id, old_data, data } = await req.json();
 
     // Fetch the proposal
     const proposal = await base44.asServiceRole.entities.RebuildProposal.get(entity_id);
@@ -12,9 +12,13 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Proposal not found' }, { status: 404 });
     }
 
-    // Only send email if status is ready_for_launch
+    // Only send email if status is ready_for_launch and wasn't already ready_for_launch
     if (proposal.status !== 'ready_for_launch') {
       return Response.json({ message: 'Status not ready_for_launch, skipping email' });
+    }
+
+    if (old_data && old_data.status === 'ready_for_launch') {
+      return Response.json({ message: 'Status was already ready_for_launch, skipping email' });
     }
 
     // Check if client email exists
