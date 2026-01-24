@@ -22,9 +22,9 @@ import LeadDetail from './pages/LeadDetail';
 import LeadsDashboard from './pages/LeadsDashboard';
 import Onboarding from './pages/Onboarding';
 import OnboardingStart from './pages/OnboardingStart';
+import RebuildProposal from './pages/RebuildProposal';
 import SetupComplete from './pages/SetupComplete';
 import SocialMediaManagement from './pages/SocialMediaManagement';
-import RebuildProposal from './pages/RebuildProposal';
 import __Layout from './Layout.jsx';
 
 
@@ -53,9 +53,9 @@ export const PAGES = {
     "LeadsDashboard": LeadsDashboard,
     "Onboarding": Onboarding,
     "OnboardingStart": OnboardingStart,
+    "RebuildProposal": RebuildProposal,
     "SetupComplete": SetupComplete,
     "SocialMediaManagement": SocialMediaManagement,
-    "RebuildProposal": RebuildProposal,
 }
 
 export const pagesConfig = {

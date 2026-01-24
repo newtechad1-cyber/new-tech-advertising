@@ -33,8 +33,10 @@ export default function RebuildProposal() {
 
   const handleApprove = () => {
     if (!isApprovalValid) return;
-    alert('Proceeding to payment...');
-    // TODO: Wire up to payment processing
+    alert('Approval captured. Redirecting to secure payment…');
+    setTimeout(() => {
+      window.location.href = 'https://buy.stripe.com/14A3cweYia52dU55T1fMA08';
+    }, 1000);
   };
 
   const handleDownload = () => {
