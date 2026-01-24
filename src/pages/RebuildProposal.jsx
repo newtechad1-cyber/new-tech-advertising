@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { base44 } from '@/api/base44Client';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -31,12 +32,31 @@ export default function RebuildProposal() {
 
   const isApprovalValid = approval.signerName.trim() && approval.signDate && approval.disclaimerAccepted;
 
-  const handleApprove = () => {
+  const handleApprove = async () => {
     if (!isApprovalValid) return;
-    alert('Approval captured. Redirecting to secure payment…');
-    setTimeout(() => {
-      window.location.href = 'https://buy.stripe.com/14A3cweYia52dU55T1fMA08';
-    }, 1000);
+    
+    try {
+      await base44.entities.RebuildProposal.create({
+        client_name: proposalData.clientName,
+        website_url: proposalData.websiteUrl,
+        total_price: 995,
+        deposit_amount: 495,
+        final_amount: 500,
+        signer_name: approval.signerName,
+        sign_date: approval.signDate,
+        status: 'deposit_link_sent',
+        deposit_payment_link: 'https://buy.stripe.com/14A3cweYia52dU55T1fMA08',
+        final_payment_link: 'https://buy.stripe.com/14A28sbM64KI9DPdltfMA09'
+      });
+      
+      alert('Approval captured. Redirecting to secure payment…');
+      setTimeout(() => {
+        window.location.href = 'https://buy.stripe.com/14A3cweYia52dU55T1fMA08';
+      }, 1000);
+    } catch (error) {
+      alert('Error saving proposal. Please try again.');
+      console.error('Proposal save error:', error);
+    }
   };
 
   const handleDownload = () => {
