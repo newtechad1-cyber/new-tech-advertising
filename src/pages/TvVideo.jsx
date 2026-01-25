@@ -88,7 +88,7 @@ export default function TvVideo() {
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {[
               'You paid for broad audiences, not ideal customers',
-              'You couldn't follow viewers across screens',
+              'You couldn\'t follow viewers across screens',
               'Measurement stopped at estimates and ratings',
               'Many businesses were priced out or locked into rigid schedules'
             ].map((problem, idx) => (
