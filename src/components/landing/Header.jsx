@@ -1,26 +1,95 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Mail, Phone, UserCircle, Menu, X } from 'lucide-react';
+import { Mail, Phone, UserCircle, Menu, X, ChevronDown } from 'lucide-react';
 import { createPageUrl } from '../../utils';
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { trackCTAClick } from '../analytics/trackingUtils';
 
 export default function Header({ onCTAClick }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const NavLinks = ({ mobile = false }) => (
-    <nav className={`flex ${mobile ? 'flex-col space-y-4' : 'items-center gap-6'} text-sm font-medium text-slate-600`}>
-      <Link to={createPageUrl('About')} className="hover:text-blue-600 transition-colors" onClick={() => mobile && setIsOpen(false)}>About</Link>
-      <Link to={createPageUrl('AiWebsites')} className="hover:text-blue-600 transition-colors" onClick={() => mobile && setIsOpen(false)}>AI Websites</Link>
-      <Link to={createPageUrl('AiVideos')} className="hover:text-blue-600 transition-colors" onClick={() => mobile && setIsOpen(false)}>AI Videos</Link>
-      <Link to={createPageUrl('AiSeo')} className="hover:text-blue-600 transition-colors" onClick={() => mobile && setIsOpen(false)}>AI SEO</Link>
-      <Link to={createPageUrl('AiAdvertising')} className="hover:text-blue-600 transition-colors" onClick={() => mobile && setIsOpen(false)}>AI Ads</Link>
-      <Link to={createPageUrl('AiSocialMedia')} className="hover:text-blue-600 transition-colors" onClick={() => mobile && setIsOpen(false)}>AI Social Media</Link>
-      <Link to={createPageUrl('AdaAccessibility')} className="hover:text-blue-600 transition-colors" onClick={() => mobile && setIsOpen(false)}>ADA Accessibility</Link>
-      <Link to={createPageUrl('Blog')} className="hover:text-blue-600 transition-colors" onClick={() => mobile && setIsOpen(false)}>Blog</Link>
-    </nav>
-  );
+  const NavLinks = ({ mobile = false }) => {
+    if (mobile) {
+      return (
+        <nav className="flex flex-col space-y-4 text-sm font-medium text-slate-600">
+          <div className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-2">Solutions</div>
+          <Link to={createPageUrl('AdaAccessibility')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>ADA Accessibility</Link>
+          <Link to={createPageUrl('Ada')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Website Rebuild</Link>
+          <Link to={createPageUrl('StreamingTV')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Local Visibility</Link>
+          <Link to={createPageUrl('SocialMediaManagement')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Social Media</Link>
+          
+          <div className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-2 mt-4">Industries</div>
+          <Link to={createPageUrl('AiWebsites')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>AI Websites</Link>
+          <Link to={createPageUrl('AiVideos')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>AI Videos</Link>
+          <Link to={createPageUrl('AiSeo')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>AI SEO</Link>
+          <Link to={createPageUrl('AiAdvertising')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>AI Ads</Link>
+          <Link to={createPageUrl('AiSocialMedia')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>AI Social Media</Link>
+          
+          <Link to={createPageUrl('Blog')} className="hover:text-blue-600 transition-colors mt-4" onClick={() => setIsOpen(false)}>Resources</Link>
+          <Link to={createPageUrl('About')} className="hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>About</Link>
+          <a href="tel:641-420-8816" className="hover:text-blue-600 transition-colors">Contact</a>
+        </nav>
+      );
+    }
+
+    return (
+      <nav className="flex items-center gap-6 text-sm font-medium text-slate-600">
+        <DropdownMenu>
+          <DropdownMenuTrigger className="flex items-center gap-1 hover:text-blue-600 transition-colors">
+            Solutions <ChevronDown className="w-4 h-4" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem asChild>
+              <Link to={createPageUrl('AdaAccessibility')} className="cursor-pointer">ADA Accessibility</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link to={createPageUrl('Ada')} className="cursor-pointer">Website Rebuild</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link to={createPageUrl('StreamingTV')} className="cursor-pointer">Local Visibility</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link to={createPageUrl('SocialMediaManagement')} className="cursor-pointer">Social Media</Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger className="flex items-center gap-1 hover:text-blue-600 transition-colors">
+            Industries <ChevronDown className="w-4 h-4" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem asChild>
+              <Link to={createPageUrl('AiWebsites')} className="cursor-pointer">AI Websites</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link to={createPageUrl('AiVideos')} className="cursor-pointer">AI Videos</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link to={createPageUrl('AiSeo')} className="cursor-pointer">AI SEO</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link to={createPageUrl('AiAdvertising')} className="cursor-pointer">AI Ads</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link to={createPageUrl('AiSocialMedia')} className="cursor-pointer">AI Social Media</Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        <Link to={createPageUrl('Blog')} className="hover:text-blue-600 transition-colors">Resources</Link>
+        <Link to={createPageUrl('About')} className="hover:text-blue-600 transition-colors">About</Link>
+        <a href="tel:641-420-8816" className="hover:text-blue-600 transition-colors">Contact</a>
+      </nav>
+    );
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm">
@@ -66,7 +135,7 @@ export default function Header({ onCTAClick }) {
                     <Link to={createPageUrl('Dashboard')} onClick={() => setIsOpen(false)}>
                       <Button variant="outline" className="w-full justify-start gap-2">
                         <UserCircle className="w-4 h-4" />
-                        Login
+                        Client Login
                       </Button>
                     </Link>
                     <Button 
@@ -86,7 +155,7 @@ export default function Header({ onCTAClick }) {
             <Link to={createPageUrl('Dashboard')}>
               <Button variant="ghost" className="text-slate-600 font-medium hidden sm:flex items-center gap-2">
                 <UserCircle className="w-4 h-4" />
-                Login
+                Client Login
               </Button>
             </Link>
             <Button
