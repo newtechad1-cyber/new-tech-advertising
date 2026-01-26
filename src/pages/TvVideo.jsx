@@ -146,28 +146,29 @@ export default function TvVideo() {
           </h2>
           
           <div className="space-y-12">
-            {[
-              {
-                step: '1',
-                title: 'Audience-First Planning',
-                description: 'Identify who matters most and where they spend attention across streaming, video, and digital environments.'
-              },
-              {
-                step: '2',
-                title: 'TV & Video Visibility That Follows the Viewer',
-                description: 'Your message appears across streaming TV platforms, premium video placements, and high-quality digital properties.'
-              },
-              {
-                step: '3',
-                title: 'AI-Assisted Optimization',
-                description: "Campaigns automatically shift budget toward what performing best while reducing waste.",
-              },
-              {
-                step: '4',
-                title: 'Clear, Unified Reporting',
-                description: 'Reporting connects awareness, engagement, and conversions so results make sense.'
-              }
-            ].map((item, idx) => (
+           {[
+  {
+    step: '1',
+    title: 'Audience-First Planning',
+    description: 'Identify who matters most and where they spend attention across streaming, video, and digital environments.',
+  },
+  {
+    step: '2',
+    title: 'TV & Video Visibility That Follows the Viewer',
+    description: 'Your message appears across streaming TV platforms, premium video placements, and high-quality digital properties.',
+  },
+  {
+    step: '3',
+    title: 'AI-Assisted Optimization',
+    description: "Campaigns automatically shift budget toward what performing best while reducing waste.",
+  },
+  {
+    step: '4',
+    title: 'Clear, Unified Reporting',
+    description: 'Reporting connects awareness, engagement, and conversions so results make sense.',
+  }
+].map((item, idx) => (
+
               <div key={idx} className="flex gap-6 items-start">
                 <div className="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold flex-shrink-0">
                   {item.step}
