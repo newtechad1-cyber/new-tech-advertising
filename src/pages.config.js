@@ -24,6 +24,8 @@ import LeadDetail from './pages/LeadDetail';
 import LeadsDashboard from './pages/LeadsDashboard';
 import Onboarding from './pages/Onboarding';
 import OnboardingStart from './pages/OnboardingStart';
+import OnboardThankYou from './pages/OnboardThankYou';
+import RebuildIntake from './pages/RebuildIntake';
 import RebuildProposal from './pages/RebuildProposal';
 import SetupComplete from './pages/SetupComplete';
 import SocialMediaManagement from './pages/SocialMediaManagement';
@@ -65,7 +67,9 @@ export const PAGES = {
     "LeadDetail": LeadDetail,
     "LeadsDashboard": LeadsDashboard,
     "Onboarding": Onboarding,
-    "OnboardingStart": OnboardingStart,
+    "Onboard": OnboardingStart,
+    "OnboardThankYou": OnboardThankYou,
+    "RebuildIntake": RebuildIntake,
     "RebuildProposal": RebuildProposal,
     "SetupComplete": SetupComplete,
     "SocialMediaManagement": SocialMediaManagement,
