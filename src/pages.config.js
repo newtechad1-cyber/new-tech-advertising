@@ -26,6 +26,7 @@ import RebuildProposal from './pages/RebuildProposal';
 import SetupComplete from './pages/SetupComplete';
 import SocialMediaManagement from './pages/SocialMediaManagement';
 import TvVideo from './pages/TvVideo';
+import StreamingTV from './pages/StreamingTV';
 import __Layout from './Layout.jsx';
 
 
@@ -58,6 +59,7 @@ export const PAGES = {
     "SetupComplete": SetupComplete,
     "SocialMediaManagement": SocialMediaManagement,
     "TvVideo": TvVideo,
+    "StreamingTV": StreamingTV,
 }
 
 export const pagesConfig = {
