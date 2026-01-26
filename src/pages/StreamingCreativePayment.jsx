@@ -10,8 +10,11 @@ export default function StreamingCreativePayment() {
   const [proposal, setProposal] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [user, setUser] = useState(null);
+  const [proposalId, setProposalId] = useState(null);
 
   useEffect(() => {
+    loadUser();
     loadProposal();
   }, []);
 
@@ -19,18 +22,28 @@ export default function StreamingCreativePayment() {
     handleReturnFromStripe();
   }, [proposal]);
 
+  const loadUser = async () => {
+    try {
+      const userData = await base44.auth.me();
+      setUser(userData);
+    } catch (error) {
+      console.log('User not authenticated');
+    }
+  };
+
   const loadProposal = async () => {
     try {
       const urlParams = new URLSearchParams(window.location.search);
-      const proposalId = urlParams.get('proposal_id') || urlParams.get('id');
+      const resolvedProposalId = urlParams.get('proposal_id') || urlParams.get('id');
+      setProposalId(resolvedProposalId);
 
-      if (!proposalId) {
+      if (!resolvedProposalId) {
         setProposal('missing');
         setLoading(false);
         return;
       }
 
-      const proposals = await base44.entities.Proposal.filter({ id: proposalId });
+      const proposals = await base44.entities.Proposal.filter({ id: resolvedProposalId });
       
       if (proposals.length > 0) {
         const loadedProposal = proposals[0];
@@ -39,14 +52,14 @@ export default function StreamingCreativePayment() {
         // Redirect if payment already done or not required
         if (loadedProposal.creative_payment_status === 'paid' || 
             loadedProposal.creative_payment_status === 'not_required') {
-          window.location.href = `${createPageUrl('StreamingOnboarding')}?proposal_id=${proposalId}`;
+          window.location.href = `${createPageUrl('StreamingOnboarding')}?proposal_id=${resolvedProposalId}`;
         }
       } else {
         await base44.asServiceRole.entities.ActivityLog.create({
           event_type: 'error',
           summary: 'Proposal not found',
           metadata: {
-            proposalId,
+            proposalId: resolvedProposalId,
             page: '/streaming/creative-payment'
           }
         });
@@ -150,9 +163,28 @@ export default function StreamingCreativePayment() {
   const isPaidOrNotRequired = proposal.creative_payment_status === 'paid' || 
                               proposal.creative_payment_status === 'not_required';
 
+  const isAdmin = user?.role === 'admin';
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white py-12 px-6">
       <div className="max-w-2xl mx-auto">
+        {isAdmin && (
+          <div className="mb-6 p-4 bg-slate-900 text-slate-100 rounded-lg border border-slate-700 font-mono text-xs">
+            <div className="font-bold mb-2 text-yellow-400">🔧 Admin Debug Panel</div>
+            <div className="space-y-1">
+              <div><span className="text-slate-400">proposalId:</span> {proposalId || 'null'}</div>
+              <div><span className="text-slate-400">proposal loaded:</span> {proposal && typeof proposal === 'object' ? 'true' : 'false'}</div>
+              {proposal && typeof proposal === 'object' && (
+                <>
+                  <div><span className="text-slate-400">status:</span> {proposal.status || 'null'}</div>
+                  <div><span className="text-slate-400">creative_option:</span> {proposal.creative_option || 'null'}</div>
+                  <div><span className="text-slate-400">creative_payment_status:</span> {proposal.creative_payment_status || 'null'}</div>
+                </>
+              )}
+            </div>
+          </div>
+        )}
+
         {showConfirmation && (
           <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3">
             <CheckCircle2 className="w-6 h-6 text-green-600" />
