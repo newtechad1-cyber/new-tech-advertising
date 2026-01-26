@@ -1,7 +1,4 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
-import Stripe from 'npm:stripe@17.5.0';
-
-const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY'));
 
 Deno.serve(async (req) => {
   try {
@@ -22,55 +19,39 @@ Deno.serve(async (req) => {
 
     const proposal = proposals[0];
 
-    // Check if already paid
-    if (proposal.creative_payment_status === 'paid') {
+    // If existing_video, set status to not_required
+    if (proposal.creative_option === 'existing_video') {
+      await base44.asServiceRole.entities.Proposal.update(proposal_id, {
+        creative_payment_status: 'not_required'
+      });
+
       return Response.json({ 
         confirmed: true,
-        message: 'Payment already confirmed'
+        message: 'Payment not required for existing video'
       });
     }
 
-    // Check if payment is not required
-    if (proposal.creative_payment_status === 'not_required') {
-      return Response.json({ 
-        confirmed: true,
-        message: 'Payment not required'
-      });
-    }
+    // Otherwise, mark as paid
+    await base44.asServiceRole.entities.Proposal.update(proposal_id, {
+      creative_payment_status: 'paid',
+      creative_paid_at: new Date().toISOString()
+    });
 
-    // Verify payment with Stripe if we have a payment link
-    if (proposal.creative_payment_link) {
-      // Extract checkout session ID from the payment link
-      const sessionIdMatch = proposal.creative_payment_link.match(/checkout\/([^/?]+)/);
-      
-      if (sessionIdMatch) {
-        const sessionId = sessionIdMatch[1];
-        
-        try {
-          const session = await stripe.checkout.sessions.retrieve(sessionId);
-          
-          if (session.payment_status === 'paid') {
-            // Update proposal to paid status
-            await base44.asServiceRole.entities.Proposal.update(proposal_id, {
-              creative_payment_status: 'paid',
-              creative_paid_at: new Date().toISOString()
-            });
+    // Log activity
+    await base44.asServiceRole.entities.ActivityLog.create({
+      event_type: 'creative_paid',
+      summary: 'Creative payment confirmed',
+      metadata: {
+        proposal_id: proposal_id,
+        creative_option: proposal.creative_option,
+        creative_fee: proposal.creative_fee
+      },
+      user_email: proposal.created_by || 'system'
+    });
 
-            return Response.json({ 
-              confirmed: true,
-              message: 'Payment confirmed successfully'
-            });
-          }
-        } catch (stripeError) {
-          console.error('Stripe verification error:', stripeError);
-        }
-      }
-    }
-
-    // Payment not confirmed yet
     return Response.json({ 
-      confirmed: false,
-      message: 'Payment not yet confirmed'
+      confirmed: true,
+      message: 'Payment confirmed successfully'
     });
 
   } catch (error) {
