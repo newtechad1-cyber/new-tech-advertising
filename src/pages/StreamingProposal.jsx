@@ -76,6 +76,24 @@ export default function StreamingProposal() {
     }
   };
 
+  const handleApproveProposal = async () => {
+    try {
+      await base44.entities.Proposal.update(proposal.id, {
+        status: 'accepted',
+        response_date: new Date().toISOString()
+      });
+
+      // Redirect based on payment status
+      if (proposal.creative_payment_status === 'pending') {
+        window.location.href = `/streaming/creative-payment?proposal_id=${proposal.id}`;
+      } else if (proposal.creative_payment_status === 'not_required' || proposal.creative_payment_status === 'paid') {
+        window.location.href = `/streaming-onboarding?proposal_id=${proposal.id}`;
+      }
+    } catch (error) {
+      console.error('Error approving proposal:', error);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
@@ -215,6 +233,22 @@ export default function StreamingProposal() {
             )}
           </CardContent>
         </Card>
+
+        {/* Approval Button */}
+        {selectedOption && proposal.status !== 'accepted' && (
+          <Card>
+            <CardContent className="py-6">
+              <Button 
+                onClick={handleApproveProposal}
+                className="w-full bg-green-600 hover:bg-green-700 text-white"
+                size="lg"
+              >
+                <CheckCircle2 className="w-5 h-5 mr-2" />
+                Approve Proposal & Continue
+              </Button>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
   );
