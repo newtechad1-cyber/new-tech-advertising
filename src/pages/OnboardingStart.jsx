@@ -72,7 +72,7 @@ export default function OnboardingStart() {
       });
 
       toast.success('Your information has been submitted!');
-      navigate('/onboard/thank-you');
+      window.location.href = '/onboard/thank-you';
     } catch (error) {
       console.error('Submission error:', error);
       toast.error('Failed to submit. Please try again.');
