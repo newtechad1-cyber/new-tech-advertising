@@ -14,45 +14,46 @@ export default function StreamingThankYou() {
         </div>
         
         <h1 className="text-4xl font-bold text-slate-900 mb-4">
-          Thank You for Your Interest!
+          Thanks — we received your request
         </h1>
         
         <p className="text-xl text-slate-600 mb-8">
-          We have received your information and will review it carefully.
+          We will review your information and confirm whether streaming TV is a good fit for your business.
         </p>
         
-        <div className="bg-blue-50 rounded-lg p-6 mb-8">
-          <h2 className="text-lg font-semibold text-slate-900 mb-2">What Happens Next?</h2>
+        <div className="bg-blue-50 rounded-lg p-6 mb-6">
+          <h2 className="text-lg font-semibold text-slate-900 mb-3">What happens next:</h2>
           <ul className="text-left space-y-2 text-slate-700">
             <li className="flex items-start gap-2">
-              <span className="text-blue-600 font-bold">1.</span>
-              <span>We will review your business information and goals</span>
+              <span className="text-blue-600">•</span>
+              <span>We review your goals and budget</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-blue-600 font-bold">2.</span>
-              <span>A member of our team will contact you within 1-2 business days</span>
+              <span className="text-blue-600">•</span>
+              <span>If it makes sense, we prepare a simple proposal</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-blue-600 font-bold">3.</span>
-              <span>We will discuss whether streaming TV makes sense for your business</span>
+              <span className="text-blue-600">•</span>
+              <span>If not, we will tell you honestly</span>
             </li>
           </ul>
         </div>
         
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link to={createPageUrl("Home")}>
-            <Button size="lg" variant="outline" className="text-lg px-8 py-6 h-auto">
-              Return to Home
-            </Button>
-          </Link>
-          
-          <Link to={createPageUrl("StreamingTV")}>
-            <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-6 h-auto">
-              Learn More About Streaming TV
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </Link>
+        <div className="bg-slate-50 rounded-lg p-6 mb-8">
+          <p className="text-slate-700">
+            <strong>Questions?</strong> Reply to your confirmation email or call{" "}
+            <a href="tel:641-420-8816" className="text-blue-600 hover:text-blue-700 font-semibold">
+              641-420-8816
+            </a>
+            .
+          </p>
         </div>
+        
+        <Link to={createPageUrl("Home")}>
+          <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-6 h-auto">
+            Return to Home
+          </Button>
+        </Link>
       </Card>
     </div>
   );
