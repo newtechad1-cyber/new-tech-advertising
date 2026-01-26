@@ -25,13 +25,13 @@ import OnboardingStart from './pages/OnboardingStart';
 import RebuildProposal from './pages/RebuildProposal';
 import SetupComplete from './pages/SetupComplete';
 import SocialMediaManagement from './pages/SocialMediaManagement';
-import TvVideo from './pages/TvVideo';
-import StreamingTV from './pages/StreamingTV';
-import StreamingIntake from './pages/StreamingIntake';
-import StreamingThankYou from './pages/StreamingThankYou';
-import StreamingProposal from './pages/StreamingProposal';
 import StreamingCreativePayment from './pages/StreamingCreativePayment';
+import StreamingIntake from './pages/StreamingIntake';
 import StreamingOnboarding from './pages/StreamingOnboarding';
+import StreamingProposal from './pages/StreamingProposal';
+import StreamingTV from './pages/StreamingTV';
+import StreamingThankYou from './pages/StreamingThankYou';
+import TvVideo from './pages/TvVideo';
 import __Layout from './Layout.jsx';
 
 
@@ -63,13 +63,13 @@ export const PAGES = {
     "RebuildProposal": RebuildProposal,
     "SetupComplete": SetupComplete,
     "SocialMediaManagement": SocialMediaManagement,
-    "TvVideo": TvVideo,
-    "StreamingTV": StreamingTV,
-    "StreamingIntake": StreamingIntake,
-    "StreamingThankYou": StreamingThankYou,
-    "StreamingProposal": StreamingProposal,
     "StreamingCreativePayment": StreamingCreativePayment,
+    "StreamingIntake": StreamingIntake,
     "StreamingOnboarding": StreamingOnboarding,
+    "StreamingProposal": StreamingProposal,
+    "StreamingTV": StreamingTV,
+    "StreamingThankYou": StreamingThankYou,
+    "TvVideo": TvVideo,
 }
 
 export const pagesConfig = {

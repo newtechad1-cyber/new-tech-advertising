@@ -22,10 +22,11 @@ export default function StreamingCreativePayment() {
   const loadProposal = async () => {
     try {
       const urlParams = new URLSearchParams(window.location.search);
-      const proposalId = urlParams.get('proposal_id');
+      const proposalId = urlParams.get('proposal_id') || urlParams.get('id');
 
       if (!proposalId) {
-        console.error('No proposal_id provided');
+        setProposal('missing');
+        setLoading(false);
         return;
       }
 
@@ -40,9 +41,20 @@ export default function StreamingCreativePayment() {
             loadedProposal.creative_payment_status === 'not_required') {
           window.location.href = `${createPageUrl('StreamingOnboarding')}?proposal_id=${proposalId}`;
         }
+      } else {
+        await base44.asServiceRole.entities.ActivityLog.create({
+          event_type: 'error',
+          summary: 'Proposal not found',
+          metadata: {
+            proposalId,
+            page: '/streaming/creative-payment'
+          }
+        });
+        setProposal(null);
       }
     } catch (error) {
       console.error('Error loading proposal:', error);
+      setProposal(null);
     } finally {
       setLoading(false);
     }
@@ -111,12 +123,24 @@ export default function StreamingCreativePayment() {
     );
   }
 
-  if (!proposal) {
+  if (proposal === 'missing') {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
         <Card className="max-w-md">
           <CardContent className="py-12 text-center">
-            <p className="text-slate-600">Proposal not found</p>
+            <p className="text-slate-600">Missing proposal_id. Please use the link from your confirmation email.</p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  if (!proposal) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
+        <Card className="max-w-md">
+          <CardContent className="py-12 text-center space-y-2">
+            <p className="text-slate-600">Proposal not found. Please contact 641-420-8816.</p>
           </CardContent>
         </Card>
       </div>
