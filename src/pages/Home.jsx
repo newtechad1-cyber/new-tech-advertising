@@ -21,30 +21,30 @@ export default function Home() {
     {
       icon: CheckCircle,
       title: 'ADA Website Accessibility',
-      description: 'Free accessibility scan + clear next steps.',
+      description: 'Free scan + clear next steps.',
       cta: 'Start Free ADA Scan',
-      route: createPageUrl('AdaAccessibility')
+      route: '/adaaccessibility'
     },
     {
       icon: HomeIcon,
-      title: 'Website Rebuild (ADA-friendly)',
-      description: 'A modern rebuild designed to be accessible and conversion-ready.',
+      title: 'ADA-Friendly Website Rebuild',
+      description: 'Modern rebuild designed to be accessible and conversion-ready.',
       cta: 'Request a Rebuild Review',
-      route: `${createPageUrl('AdaIntake')}?package=Rebuild`
+      route: '/rebuild-intake'
     },
     {
       icon: Tv,
-      title: 'Local Visibility (Streaming TV + Social)',
-      description: 'Be seen and remembered across today\'s screens.',
+      title: 'Local Visibility',
+      description: 'Streaming TV + social presence, coordinated.',
       cta: 'Get Visibility Guidance',
-      route: createPageUrl('StreamingTV')
+      route: '/local-visibility'
     },
     {
-      icon: Share2,
-      title: 'Social Media Management (Hybrid)',
-      description: 'Done-for-you content with optional DIY support.',
-      cta: 'See Social Options',
-      route: createPageUrl('SocialMediaManagement')
+      icon: HelpCircle,
+      title: 'Not Sure / Full Onboarding',
+      description: 'We\'ll route you to the right path.',
+      cta: 'Tell Us What You Need',
+      route: '/get-started'
     }
   ];
 
@@ -84,9 +84,12 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Service Cards */}
+        {/* Choose Your Starting Point */}
         <section className="py-16 px-6 bg-white">
           <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl font-bold text-slate-900 text-center mb-12">
+              Choose Your Starting Point
+            </h2>
             <div className="grid md:grid-cols-2 gap-6">
               {services.map((service, index) => {
                 const Icon = service.icon;
@@ -102,31 +105,16 @@ export default function Home() {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <Link to={service.route}>
+                      <a href={service.route}>
                         <Button className="w-full bg-blue-600 hover:bg-blue-700">
                           {service.cta}
                         </Button>
-                      </Link>
+                      </a>
                     </CardContent>
                   </Card>
                 );
               })}
             </div>
-          </div>
-        </section>
-
-        {/* Not Sure Section */}
-        <section className="py-16 px-6 bg-slate-50">
-          <div className="max-w-2xl mx-auto text-center">
-            <HelpCircle className="w-12 h-12 text-slate-400 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">
-              Not sure where to start?
-            </h2>
-            <Link to={createPageUrl('Onboarding')}>
-              <Button size="lg" variant="outline" className="text-lg px-8">
-                Tell us what you need
-              </Button>
-            </Link>
           </div>
         </section>
       </main>
