@@ -34,11 +34,11 @@ export default function Header({ onCTAClick }) {
           <Link to={createPageUrl('SocialMediaManagement')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Social Media</Link>
           
           <div className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-2 mt-4">Industries</div>
-          <Link to={createPageUrl('AiWebsites')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>AI Websites</Link>
-          <Link to={createPageUrl('AiVideos')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>AI Videos</Link>
-          <Link to={createPageUrl('AiSeo')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>AI SEO</Link>
-          <Link to={createPageUrl('AiAdvertising')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>AI Ads</Link>
-          <Link to={createPageUrl('AiSocialMedia')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>AI Social Media</Link>
+          <Link to="/industries" className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>All Industries</Link>
+          <Link to="/industries/small-local" className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Small Local Businesses</Link>
+          <Link to="/industries/service-trades" className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Service Trades</Link>
+          <Link to="/industries/professionals" className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Professional Offices</Link>
+          <Link to="/industries/nonprofits" className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Nonprofits & Community</Link>
           
           <Link to={createPageUrl('Blog')} className="hover:text-blue-600 transition-colors mt-4" onClick={() => setIsOpen(false)}>Resources</Link>
           <Link to={createPageUrl('About')} className="hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>About</Link>
@@ -75,19 +75,19 @@ export default function Header({ onCTAClick }) {
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem asChild>
-              <Link to={createPageUrl('AiWebsites')} className="cursor-pointer">AI Websites</Link>
+              <Link to="/industries" className="cursor-pointer">All Industries</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to={createPageUrl('AiVideos')} className="cursor-pointer">AI Videos</Link>
+              <Link to="/industries/small-local" className="cursor-pointer">Small Local Businesses</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to={createPageUrl('AiSeo')} className="cursor-pointer">AI SEO</Link>
+              <Link to="/industries/service-trades" className="cursor-pointer">Service Trades</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to={createPageUrl('AiAdvertising')} className="cursor-pointer">AI Ads</Link>
+              <Link to="/industries/professionals" className="cursor-pointer">Professional Offices</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to={createPageUrl('AiSocialMedia')} className="cursor-pointer">AI Social Media</Link>
+              <Link to="/industries/nonprofits" className="cursor-pointer">Nonprofits & Community</Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
