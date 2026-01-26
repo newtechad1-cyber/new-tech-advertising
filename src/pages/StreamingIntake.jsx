@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -7,10 +7,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
+import TestModeBanner from "../components/TestModeBanner";
 
 export default function StreamingIntake() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [isTestMode, setIsTestMode] = useState(false);
   const [formData, setFormData] = useState({
     full_name: "",
     business_name: "",
@@ -23,6 +25,21 @@ export default function StreamingIntake() {
     monthly_budget_range: "",
     notes: ""
   });
+
+  useEffect(() => {
+    checkTestMode();
+  }, []);
+
+  const checkTestMode = async () => {
+    try {
+      const settings = await base44.entities.AppSettings.list();
+      if (settings.length > 0 && settings[0].test_mode_enabled) {
+        setIsTestMode(true);
+      }
+    } catch (error) {
+      console.log('Error checking test mode:', error);
+    }
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -59,7 +76,8 @@ export default function StreamingIntake() {
           city: formData.city,
           state: formData.state,
           primary_goal: formData.primary_goal,
-          monthly_budget_range: formData.monthly_budget_range
+          monthly_budget_range: formData.monthly_budget_range,
+          test_mode: isTestMode
         }
       });
 
@@ -72,8 +90,9 @@ export default function StreamingIntake() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white py-16">
-      <div className="max-w-3xl mx-auto px-6">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      <TestModeBanner />
+      <div className="max-w-3xl mx-auto px-6 py-16">
         <div className="text-center mb-12">
           <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
             Get Started with Streaming TV Advertising

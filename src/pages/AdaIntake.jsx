@@ -13,10 +13,12 @@ import { toast } from 'sonner';
 import { createPageUrl } from '../utils';
 import Header from '../components/landing/Header';
 import Footer from '../components/landing/Footer';
+import TestModeBanner from '../components/TestModeBanner';
 
 export default function AdaIntake() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isTestMode, setIsTestMode] = useState(false);
   const [formData, setFormData] = useState({
     full_name: '',
     business_name: '',
@@ -45,7 +47,20 @@ export default function AdaIntake() {
     if (nonprofitParam === 'true') {
       setFormData(prev => ({ ...prev, nonprofit: true }));
     }
+
+    checkTestMode();
   }, []);
+
+  const checkTestMode = async () => {
+    try {
+      const settings = await base44.entities.AppSettings.list();
+      if (settings.length > 0 && settings[0].test_mode_enabled) {
+        setIsTestMode(true);
+      }
+    } catch (error) {
+      console.log('Error checking test mode:', error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -69,7 +84,8 @@ export default function AdaIntake() {
           details: `Submitted intake form for ${formData.package} package`,
           metadata: {
             package: formData.package,
-            nonprofit: formData.nonprofit
+            nonprofit: formData.nonprofit,
+            test_mode: isTestMode
           }
         });
       } catch (e) {
@@ -93,6 +109,7 @@ export default function AdaIntake() {
 
   return (
     <div className="min-h-screen bg-white">
+      <TestModeBanner />
       <Header onCTAClick={() => {}} />
       
       <section className="pt-32 pb-20 bg-gradient-to-br from-slate-50 to-white">

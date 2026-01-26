@@ -4,10 +4,13 @@ import { Card } from "@/components/ui/card";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
+import TestModeBanner from "../components/TestModeBanner";
 
 export default function StreamingThankYou() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white flex items-center justify-center py-16 px-6">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      <TestModeBanner />
+      <div className="flex items-center justify-center py-16 px-6">
       <Card className="max-w-2xl w-full p-12 bg-white shadow-xl text-center">
         <div className="bg-green-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
           <CheckCircle2 className="h-12 w-12 text-green-600" />
@@ -53,8 +56,9 @@ export default function StreamingThankYou() {
           <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-6 h-auto">
             Return to Home
           </Button>
-        </Link>
-      </Card>
-    </div>
+          </Link>
+          </Card>
+          </div>
+          </div>
   );
 }
