@@ -24,8 +24,6 @@ import LeadDetail from './pages/LeadDetail';
 import LeadsDashboard from './pages/LeadsDashboard';
 import Onboarding from './pages/Onboarding';
 import OnboardingStart from './pages/OnboardingStart';
-import OnboardThankYou from './pages/OnboardThankYou';
-import RebuildIntake from './pages/RebuildIntake';
 import RebuildProposal from './pages/RebuildProposal';
 import SetupComplete from './pages/SetupComplete';
 import SocialMediaManagement from './pages/SocialMediaManagement';
@@ -36,6 +34,8 @@ import StreamingProposal from './pages/StreamingProposal';
 import StreamingTV from './pages/StreamingTV';
 import StreamingThankYou from './pages/StreamingThankYou';
 import TvVideo from './pages/TvVideo';
+import RebuildIntake from './pages/RebuildIntake';
+import OnboardThankYou from './pages/OnboardThankYou';
 import __Layout from './Layout.jsx';
 
 
@@ -65,9 +65,7 @@ export const PAGES = {
     "LeadDetail": LeadDetail,
     "LeadsDashboard": LeadsDashboard,
     "Onboarding": Onboarding,
-    "Onboard": OnboardingStart,
-    "OnboardThankYou": OnboardThankYou,
-    "RebuildIntake": RebuildIntake,
+    "OnboardingStart": OnboardingStart,
     "RebuildProposal": RebuildProposal,
     "SetupComplete": SetupComplete,
     "SocialMediaManagement": SocialMediaManagement,
@@ -78,6 +76,8 @@ export const PAGES = {
     "StreamingTV": StreamingTV,
     "StreamingThankYou": StreamingThankYou,
     "TvVideo": TvVideo,
+    "RebuildIntake": RebuildIntake,
+    "OnboardThankYou": OnboardThankYou,
 }
 
 export const pagesConfig = {
