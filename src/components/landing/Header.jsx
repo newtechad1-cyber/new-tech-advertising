@@ -184,80 +184,50 @@ export default function Header({ onCTAClick }) {
       </div>
 
       <Dialog open={showGetStarted} onOpenChange={setShowGetStarted}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-xl">
           <DialogHeader>
-            <DialogTitle className="text-2xl">Choose Your Path</DialogTitle>
+            <DialogTitle className="text-2xl">Get Started</DialogTitle>
             <DialogDescription>
-              Select the service that best fits your needs
+              Choose the option that fits your needs
             </DialogDescription>
           </DialogHeader>
           
-          <div className="grid gap-4 py-4">
-            <Link
-              to={createPageUrl('AdaAccessibility')}
+          <div className="grid gap-3 py-4">
+            <a
+              href="/adaaccessibility"
               onClick={() => setShowGetStarted(false)}
-              className="flex items-start gap-4 p-4 rounded-lg border-2 border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition-all group"
+              className="flex items-center gap-3 p-4 rounded-lg border-2 border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition-all"
             >
-              <div className="bg-blue-100 p-3 rounded-lg group-hover:bg-blue-200">
-                <Shield className="w-6 h-6 text-blue-600" />
-              </div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-lg text-slate-900 mb-1">Free ADA Scan</h3>
-                <p className="text-sm text-slate-600">
-                  Get a free accessibility compliance scan of your website
-                </p>
-              </div>
-            </Link>
+              <Shield className="w-5 h-5 text-blue-600" />
+              <span className="font-semibold text-slate-900">Free ADA Scan</span>
+            </a>
 
-            <Link
-              to={createPageUrl('RebuildIntake')}
+            <a
+              href="/rebuild-intake"
               onClick={() => setShowGetStarted(false)}
-              className="flex items-start gap-4 p-4 rounded-lg border-2 border-slate-200 hover:border-purple-500 hover:bg-purple-50 transition-all group"
+              className="flex items-center gap-3 p-4 rounded-lg border-2 border-slate-200 hover:border-purple-500 hover:bg-purple-50 transition-all"
             >
-              <div className="bg-purple-100 p-3 rounded-lg group-hover:bg-purple-200">
-                <Globe className="w-6 h-6 text-purple-600" />
-              </div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-lg text-slate-900 mb-1">Website Rebuild (ADA-Friendly)</h3>
-                <p className="text-sm text-slate-600">
-                  Complete website rebuild with full ADA compliance
-                </p>
-              </div>
-            </Link>
+              <Globe className="w-5 h-5 text-purple-600" />
+              <span className="font-semibold text-slate-900">Website Rebuild</span>
+            </a>
 
-            <Link
-              to={createPageUrl('StreamingTV')}
+            <a
+              href="/local-visibility"
               onClick={() => setShowGetStarted(false)}
-              className="flex items-start gap-4 p-4 rounded-lg border-2 border-slate-200 hover:border-green-500 hover:bg-green-50 transition-all group"
+              className="flex items-center gap-3 p-4 rounded-lg border-2 border-slate-200 hover:border-green-500 hover:bg-green-50 transition-all"
             >
-              <div className="bg-green-100 p-3 rounded-lg group-hover:bg-green-200">
-                <Tv className="w-6 h-6 text-green-600" />
-              </div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-lg text-slate-900 mb-1">Local Visibility (Streaming + Social)</h3>
-                <p className="text-sm text-slate-600">
-                  Comprehensive local marketing with streaming TV and social media
-                </p>
-              </div>
-            </Link>
+              <Tv className="w-5 h-5 text-green-600" />
+              <span className="font-semibold text-slate-900">Local Visibility</span>
+            </a>
 
-            <button
-              onClick={() => {
-                setShowGetStarted(false);
-                window.location.href = '/onboard';
-              }}
-              className="flex items-start gap-4 p-4 rounded-lg border-2 border-slate-200 hover:border-orange-500 hover:bg-orange-50 transition-all group cursor-pointer w-full text-left"
+            <a
+              href="/get-started"
+              onClick={() => setShowGetStarted(false)}
+              className="flex items-center gap-3 p-4 rounded-lg border-2 border-slate-200 hover:border-orange-500 hover:bg-orange-50 transition-all"
             >
-              <div className="bg-orange-100 p-3 rounded-lg group-hover:bg-orange-200">
-                <HelpCircle className="w-6 h-6 text-orange-600" />
-              </div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-lg text-slate-900 mb-1">Not Sure / Full Onboarding</h3>
-                <p className="text-sm text-slate-600">
-                  Let us help you find the right solution for your business
-                </p>
-              </div>
-            </button>
+              <HelpCircle className="w-5 h-5 text-orange-600" />
+              <span className="font-semibold text-slate-900">Full Onboarding</span>
+            </a>
           </div>
         </DialogContent>
       </Dialog>
