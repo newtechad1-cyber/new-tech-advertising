@@ -9,6 +9,7 @@ import AdaSuccess from './pages/AdaSuccess';
 import AdaThankYou from './pages/AdaThankYou';
 import AdminBlog from './pages/AdminBlog';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminSettings from './pages/AdminSettings';
 import AiAdvertising from './pages/AiAdvertising';
 import AiSeo from './pages/AiSeo';
 import AiSocialMedia from './pages/AiSocialMedia';
@@ -16,6 +17,7 @@ import AiVideos from './pages/AiVideos';
 import AiWebsites from './pages/AiWebsites';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
+import Contact from './pages/Contact';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import LeadDetail from './pages/LeadDetail';
@@ -32,8 +34,8 @@ import StreamingProposal from './pages/StreamingProposal';
 import StreamingTV from './pages/StreamingTV';
 import StreamingThankYou from './pages/StreamingThankYou';
 import TvVideo from './pages/TvVideo';
-import AdminSettings from './pages/AdminSettings';
-import Contact from './pages/Contact';
+import RebuildIntake from './pages/RebuildIntake';
+import OnboardThankYou from './pages/OnboardThankYou';
 import __Layout from './Layout.jsx';
 
 
@@ -49,6 +51,7 @@ export const PAGES = {
     "AdaThankYou": AdaThankYou,
     "AdminBlog": AdminBlog,
     "AdminDashboard": AdminDashboard,
+    "AdminSettings": AdminSettings,
     "AiAdvertising": AiAdvertising,
     "AiSeo": AiSeo,
     "AiSocialMedia": AiSocialMedia,
@@ -56,6 +59,7 @@ export const PAGES = {
     "AiWebsites": AiWebsites,
     "Blog": Blog,
     "BlogPost": BlogPost,
+    "Contact": Contact,
     "Dashboard": Dashboard,
     "Home": Home,
     "LeadDetail": LeadDetail,
@@ -72,8 +76,8 @@ export const PAGES = {
     "StreamingTV": StreamingTV,
     "StreamingThankYou": StreamingThankYou,
     "TvVideo": TvVideo,
-    "AdminSettings": AdminSettings,
-    "Contact": Contact,
+    "RebuildIntake": RebuildIntake,
+    "OnboardThankYou": OnboardThankYou,
 }
 
 export const pagesConfig = {
