@@ -79,19 +79,19 @@ export default function Header({ onCTAClick }) {
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem asChild>
-              <Link to="/industries" className="cursor-pointer">All Industries</Link>
+              <a href="/industries" className="cursor-pointer">All Industries</a>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to="/industries/small-local" className="cursor-pointer">Small Local Businesses</Link>
+              <a href="/industries/small-local" className="cursor-pointer">Small Local Businesses</a>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to="/industries/service-trades" className="cursor-pointer">Service Trades</Link>
+              <a href="/industries/service-trades" className="cursor-pointer">Service Trades</a>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to="/industries/professionals" className="cursor-pointer">Professional Offices</Link>
+              <a href="/industries/professionals" className="cursor-pointer">Professional Offices</a>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to="/industries/nonprofits" className="cursor-pointer">Nonprofits & Community</Link>
+              <a href="/industries/nonprofits" className="cursor-pointer">Nonprofits & Community</a>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
