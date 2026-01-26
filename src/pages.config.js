@@ -36,6 +36,11 @@ import StreamingProposal from './pages/StreamingProposal';
 import StreamingTV from './pages/StreamingTV';
 import StreamingThankYou from './pages/StreamingThankYou';
 import TvVideo from './pages/TvVideo';
+import IndustriesHub from './pages/IndustriesHub';
+import IndustriesSmallLocal from './pages/IndustriesSmallLocal';
+import IndustriesServiceTrades from './pages/IndustriesServiceTrades';
+import IndustriesProfessionals from './pages/IndustriesProfessionals';
+import IndustriesNonprofits from './pages/IndustriesNonprofits';
 import __Layout from './Layout.jsx';
 
 
@@ -78,6 +83,11 @@ export const PAGES = {
     "StreamingTV": StreamingTV,
     "StreamingThankYou": StreamingThankYou,
     "TvVideo": TvVideo,
+    "IndustriesHub": IndustriesHub,
+    "IndustriesSmallLocal": IndustriesSmallLocal,
+    "IndustriesServiceTrades": IndustriesServiceTrades,
+    "IndustriesProfessionals": IndustriesProfessionals,
+    "IndustriesNonprofits": IndustriesNonprofits,
 }
 
 export const pagesConfig = {
