@@ -9,13 +9,15 @@ import { createPageUrl } from '@/utils';
 export default function StreamingCreativePayment() {
   const [proposal, setProposal] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [checking, setChecking] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [showHelper, setShowHelper] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   useEffect(() => {
     loadProposal();
   }, []);
+
+  useEffect(() => {
+    handleReturnFromStripe();
+  }, [proposal]);
 
   const loadProposal = async () => {
     try {
@@ -46,34 +48,50 @@ export default function StreamingCreativePayment() {
     }
   };
 
-  const handlePaymentClick = () => {
-    if (proposal?.creative_payment_link) {
-      window.open(proposal.creative_payment_link, '_blank');
-      setShowHelper(true);
+  const handleReturnFromStripe = async () => {
+    if (!proposal) return;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const paid = urlParams.get('paid');
+
+    if (paid === '1' && proposal.creative_payment_status !== 'paid') {
+      try {
+        await base44.entities.Proposal.update(proposal.id, {
+          creative_payment_status: 'paid',
+          creative_paid_at: new Date().toISOString()
+        });
+
+        await base44.asServiceRole.entities.ActivityLog.create({
+          event_type: 'creative_paid',
+          summary: 'Creative payment completed via Stripe link',
+          metadata: {
+            proposal_id: proposal.id,
+            creative_option: proposal.creative_option,
+            creative_fee: proposal.creative_fee
+          },
+          user_email: proposal.created_by || 'system'
+        });
+
+        setShowConfirmation(true);
+        setProposal({
+          ...proposal,
+          creative_payment_status: 'paid',
+          creative_paid_at: new Date().toISOString()
+        });
+      } catch (error) {
+        console.error('Error updating payment status:', error);
+      }
     }
   };
 
-  const handleConfirmPayment = async () => {
-    setChecking(true);
-    setErrorMessage('');
-
-    try {
-      const response = await base44.functions.invoke('confirmCreativePayment', {
-        proposal_id: proposal.id
-      });
-
-      if (response.data.confirmed) {
-        // Payment confirmed, redirect to onboarding
-        window.location.href = `${createPageUrl('StreamingOnboarding')}?proposal_id=${proposal.id}`;
-      } else {
-        setErrorMessage('Payment not confirmed yet. Please try again in a moment.');
-      }
-    } catch (error) {
-      console.error('Error confirming payment:', error);
-      setErrorMessage('Unable to verify payment. Please try again.');
-    } finally {
-      setChecking(false);
+  const handlePaymentClick = () => {
+    if (proposal?.creative_payment_link) {
+      window.open(proposal.creative_payment_link, '_blank');
     }
+  };
+
+  const handleContinueToOnboarding = () => {
+    window.location.href = `${createPageUrl('StreamingOnboarding')}?proposal_id=${proposal.id}`;
   };
 
   const getCreativeOptionLabel = (option) => {
@@ -105,9 +123,19 @@ export default function StreamingCreativePayment() {
     );
   }
 
+  const isPaidOrNotRequired = proposal.creative_payment_status === 'paid' || 
+                              proposal.creative_payment_status === 'not_required';
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white py-12 px-6">
       <div className="max-w-2xl mx-auto">
+        {showConfirmation && (
+          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3">
+            <CheckCircle2 className="w-6 h-6 text-green-600" />
+            <p className="text-green-800 font-medium">Payment received</p>
+          </div>
+        )}
+
         <Card>
           <CardHeader>
             <CardTitle className="text-2xl">Next Step: Commercial Creation</CardTitle>
@@ -134,53 +162,31 @@ export default function StreamingCreativePayment() {
               </div>
             </div>
 
-            {proposal.creative_payment_link && (
-              <div className="space-y-4">
-                <Button 
-                  onClick={handlePaymentClick}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-lg py-6"
-                  size="lg"
-                >
-                  Complete Creative Payment
-                  <ExternalLink className="w-5 h-5 ml-2" />
-                </Button>
-
-                {showHelper && (
-                  <div className="p-4 bg-slate-50 border border-slate-200 rounded-lg">
-                    <p className="text-sm text-slate-700 text-center">
-                      After payment, return here and click "I've Paid"
-                    </p>
-                  </div>
-                )}
-
-                <Button
-                  onClick={handleConfirmPayment}
-                  disabled={checking}
-                  variant="outline"
-                  className="w-full"
-                  size="lg"
-                >
-                  {checking ? (
-                    'Checking payment...'
-                  ) : (
-                    <>
-                      <CheckCircle2 className="w-5 h-5 mr-2" />
-                      I've Paid
-                    </>
-                  )}
-                </Button>
-
-                {errorMessage && (
-                  <div className="p-4 bg-orange-50 border border-orange-200 rounded-lg">
-                    <p className="text-sm text-orange-700 text-center">
-                      {errorMessage}
-                    </p>
-                  </div>
-                )}
-              </div>
+            {!isPaidOrNotRequired && proposal.creative_payment_link && (
+              <Button 
+                onClick={handlePaymentClick}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-lg py-6"
+                size="lg"
+              >
+                {proposal.creative_fee === 195 ? 'Pay $195 (Secure)' : 
+                 proposal.creative_fee === 495 ? 'Pay $495 (Secure)' : 
+                 'Complete Payment (Secure)'}
+                <ExternalLink className="w-5 h-5 ml-2" />
+              </Button>
             )}
 
-            {!proposal.creative_payment_link && (
+            {isPaidOrNotRequired && (
+              <Button 
+                onClick={handleContinueToOnboarding}
+                className="w-full bg-green-600 hover:bg-green-700 text-lg py-6"
+                size="lg"
+              >
+                Continue to Onboarding
+                <CheckCircle2 className="w-5 h-5 ml-2" />
+              </Button>
+            )}
+
+            {!proposal.creative_payment_link && !isPaidOrNotRequired && (
               <div className="p-4 bg-slate-50 border border-slate-200 rounded-lg">
                 <p className="text-sm text-slate-600 text-center">
                   Payment link not yet available. Please contact support.
