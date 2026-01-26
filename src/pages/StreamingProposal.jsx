@@ -90,16 +90,46 @@ export default function StreamingProposal() {
 
   const handleApproveProposal = async () => {
     try {
+      // Update proposal status
       await base44.entities.Proposal.update(proposal.id, {
         status: 'approved',
         response_date: new Date().toISOString()
       });
 
+      // Check if proposal exists for creative payment routing
+      const urlParams = new URLSearchParams(window.location.search);
+      const leadId = proposal.lead_id;
+
+      if (!leadId) {
+        console.error('No lead_id on proposal, cannot verify/create proposal');
+      }
+
+      // Verify proposal exists - if not, create one
+      let activeProposal = proposal;
+      const existingProposals = await base44.entities.Proposal.filter({
+        lead_id: leadId,
+        service: 'streaming_tv'
+      });
+
+      if (!existingProposals || existingProposals.length === 0) {
+        // Create a proposal if none exists
+        const newProposal = await base44.entities.Proposal.create({
+          lead_id: leadId,
+          service: 'streaming_tv',
+          status: 'sent',
+          budget_range: proposal.budget_range || '',
+          creative_option: proposal.creative_option || '',
+          creative_fee: proposal.creative_fee || 0,
+          creative_payment_status: proposal.creative_payment_status || 'pending'
+        });
+        activeProposal = newProposal;
+      }
+
       // Redirect based on payment status
-      if (proposal.creative_payment_status === 'pending') {
-        window.location.href = `/streaming/creative-payment?proposal_id=${proposal.id}`;
-      } else if (proposal.creative_payment_status === 'not_required' || proposal.creative_payment_status === 'paid') {
-        window.location.href = `/streaming-onboarding?proposal_id=${proposal.id}`;
+      if (activeProposal.creative_payment_status === 'pending') {
+        window.location.href = `/streaming/creative-payment?proposal_id=${activeProposal.id}`;
+      } else if (activeProposal.creative_payment_status === 'not_required' || activeProposal.creative_payment_status === 'paid') {
+        window.location.href = `/streaming-onboarding?proposal_id=${activeProposal.id}`;
       }
     } catch (error) {
       console.error('Error approving proposal:', error);
