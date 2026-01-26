@@ -1,13 +1,18 @@
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Check, X, ArrowRight, Play, BarChart3, Target, Zap } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { createPageUrl } from './utils';
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Check, X, ArrowRight, Play, BarChart3, Target, Zap } from "lucide-react";
+import { toast } from "sonner";
 
 export default function TvVideo() {
   const scrollToContact = () => {
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    toast.success("Thank you! We will be in touch soon.");
+    e.target.reset();
   };
 
   return (
@@ -87,10 +92,10 @@ export default function TvVideo() {
           
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {[
-              'You paid for broad audiences, not ideal customers',
-              'You couldn\'t follow viewers across screens',
-              'Measurement stopped at estimates and ratings',
-              'Many businesses were priced out or locked into rigid schedules'
+              "You paid for broad audiences, not ideal customers",
+              "You couldn't follow viewers across screens",
+              "Measurement stopped at estimates and ratings",
+              "Many businesses were priced out or locked into rigid schedules"
             ].map((problem, idx) => (
               <Card key={idx} className="p-6 bg-white border-2 border-slate-200">
                 <div className="flex items-start gap-4">
@@ -122,10 +127,10 @@ export default function TvVideo() {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: Play, title: 'The credibility and impact of TV' },
-              { icon: Target, title: 'The precision of digital targeting' },
-              { icon: Zap, title: 'AI-assisted optimization' },
-              { icon: BarChart3, title: 'Human-led strategy and accountability' }
+              { icon: Play, title: "The credibility and impact of TV" },
+              { icon: Target, title: "The precision of digital targeting" },
+              { icon: Zap, title: "AI-assisted optimization" },
+              { icon: BarChart3, title: "Human-led strategy and accountability" }
             ].map((item, idx) => (
               <Card key={idx} className="p-6 text-center bg-gradient-to-br from-blue-50 to-white border-2 border-blue-100 hover:border-blue-300 transition-all">
                 <div className="bg-blue-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
@@ -138,56 +143,49 @@ export default function TvVideo() {
         </div>
       </section>
 
-     {/* How It Works Section */}
-<section className="py-20 lg:py-28 bg-gradient-to-br from-slate-900 to-slate-800 text-white">
-  <div className="max-w-5xl mx-auto px-6">
-    <h2 className="text-4xl lg:text-5xl font-bold mb-16 text-center">
-      How It Works
-    </h2>
-
-    <div className="space-y-12">
-      {[
-        {
-          step: "1",
-          title: "Audience-First Planning",
-          description:
-            "Identify who matters most and where they spend attention across streaming, video, and digital environments.",
-        },
-        {
-          step: "2",
-          title: "TV & Video Visibility That Follows the Viewer",
-          description:
-            "Your message appears across streaming TV platforms, premium video placements, and high-quality digital properties.",
-        },
-        {
-          step: "3",
-          title: "AI-Assisted Optimization",
-          description:
-            "Campaigns automatically shift budget toward top performers while reducing waste.",
-        },
-        {
-          step: "4",
-          title: "Clear, Unified Reporting",
-          description:
-            "Reporting connects awareness, engagement, and conversions so results make sense.",
-        },
-      ].map((item, idx) => (
-        <div key={idx} className="flex gap-6 items-start">
-          <div className="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold flex-shrink-0">
-            {item.step}
-          </div>
-          <div>
-            <h3 className="text-2xl font-bold mb-3">{item.title}</h3>
-            <p className="text-lg text-slate-300 leading-relaxed">
-              {item.description}
-            </p>
+      {/* How It Works Section */}
+      <section className="py-20 lg:py-28 bg-gradient-to-br from-slate-900 to-slate-800 text-white">
+        <div className="max-w-5xl mx-auto px-6">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-16 text-center">
+            How It Works
+          </h2>
+          
+          <div className="space-y-12">
+            {[
+              {
+                step: "1",
+                title: "Audience-First Planning",
+                description: "Identify who matters most and where they spend attention across streaming, video, and digital environments."
+              },
+              {
+                step: "2",
+                title: "TV & Video Visibility That Follows the Viewer",
+                description: "Your message appears across streaming TV platforms, premium video placements, and high-quality digital properties."
+              },
+              {
+                step: "3",
+                title: "AI-Assisted Optimization",
+                description: "Campaigns automatically shift budget toward top performers while reducing waste."
+              },
+              {
+                step: "4",
+                title: "Clear, Unified Reporting",
+                description: "Reporting connects awareness, engagement, and conversions so results make sense."
+              }
+            ].map((item, idx) => (
+              <div key={idx} className="flex gap-6 items-start">
+                <div className="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold flex-shrink-0">
+                  {item.step}
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold mb-3">{item.title}</h3>
+                  <p className="text-lg text-slate-300 leading-relaxed">{item.description}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
-
+      </section>
 
       {/* Education Section */}
       <section className="py-20 lg:py-28 bg-white">
@@ -229,10 +227,10 @@ export default function TvVideo() {
               </h3>
               <ul className="space-y-4">
                 {[
-                  'Businesses that value brand presence and credibility',
-                  'Competitive or regional markets',
-                  'Longer decision cycles',
-                  'Businesses ready to invest in scalable growth'
+                  "Businesses that value brand presence and credibility",
+                  "Competitive or regional markets",
+                  "Longer decision cycles",
+                  "Businesses ready to invest in scalable growth"
                 ].map((item, idx) => (
                   <li key={idx} className="flex items-start gap-3">
                     <Check className="h-5 w-5 text-green-600 flex-shrink-0 mt-1" />
@@ -250,9 +248,9 @@ export default function TvVideo() {
               </h3>
               <ul className="space-y-4">
                 {[
-                  'Short-term, urgent lead needs only',
-                  'Very small or experimental budgets',
-                  'Clients who want control over every placement'
+                  "Short-term, urgent lead needs only",
+                  "Very small or experimental budgets",
+                  "Clients who want control over every placement"
                 ].map((item, idx) => (
                   <li key={idx} className="flex items-start gap-3">
                     <X className="h-5 w-5 text-red-600 flex-shrink-0 mt-1" />
@@ -278,10 +276,10 @@ export default function TvVideo() {
           
           <div className="grid sm:grid-cols-2 gap-6">
             {[
-              'Built on real broadcast TV experience',
-              'Designed for today's streaming-first world',
-              'Strategy-led, not automation-only',
-              'Focused on outcomes, not hype'
+              "Built on real broadcast TV experience",
+              "Designed for today's streaming-first world",
+              "Strategy-led, not automation-only",
+              "Focused on outcomes, not hype"
             ].map((item, idx) => (
               <Card key={idx} className="p-6 bg-slate-50 border-2 border-slate-200">
                 <div className="flex items-start gap-4">
@@ -327,11 +325,7 @@ export default function TvVideo() {
             <h3 className="text-3xl font-bold text-slate-900 mb-6 text-center">
               Request Your Strategy Review
             </h3>
-            <form className="space-y-6" onSubmit={(e) => {
-              e.preventDefault();
-              // Form submission logic here
-              alert('Thank you! We will be in touch soon.');
-            }}>
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">Name</label>
                 <input type="text" required className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent" />
