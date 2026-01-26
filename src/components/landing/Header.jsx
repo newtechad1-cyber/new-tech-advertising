@@ -28,10 +28,11 @@ export default function Header({ onCTAClick }) {
       return (
         <nav className="flex flex-col space-y-4 text-sm font-medium text-slate-600">
           <div className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-2">Solutions</div>
-          <Link to={createPageUrl('AdaAccessibility')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>ADA Accessibility</Link>
-          <Link to={createPageUrl('Ada')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Website Rebuild</Link>
-          <Link to={createPageUrl('StreamingTV')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Local Visibility</Link>
-          <Link to={createPageUrl('SocialMediaManagement')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Social Media</Link>
+          <Link to={createPageUrl('AdaAccessibility')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>ADA Website Accessibility</Link>
+          <Link to={createPageUrl('RebuildIntake')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Website Rebuild (ADA-Friendly)</Link>
+          <Link to={createPageUrl('StreamingTV')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Local Visibility (Streaming + Social)</Link>
+          <Link to={createPageUrl('StreamingTV')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Streaming TV & Video Advertising</Link>
+          <Link to={createPageUrl('SocialMediaManagement')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Social Media Management</Link>
           
           <div className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-2 mt-4">Industries</div>
           <Link to="/industries" className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>All Industries</Link>
@@ -55,16 +56,19 @@ export default function Header({ onCTAClick }) {
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem asChild>
-              <Link to={createPageUrl('AdaAccessibility')} className="cursor-pointer">ADA Accessibility</Link>
+              <Link to={createPageUrl('AdaAccessibility')} className="cursor-pointer">ADA Website Accessibility</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to={createPageUrl('Ada')} className="cursor-pointer">Website Rebuild</Link>
+              <Link to={createPageUrl('RebuildIntake')} className="cursor-pointer">Website Rebuild (ADA-Friendly)</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to={createPageUrl('StreamingTV')} className="cursor-pointer">Local Visibility</Link>
+              <Link to={createPageUrl('StreamingTV')} className="cursor-pointer">Local Visibility (Streaming + Social)</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to={createPageUrl('SocialMediaManagement')} className="cursor-pointer">Social Media</Link>
+              <Link to={createPageUrl('StreamingTV')} className="cursor-pointer">Streaming TV & Video Advertising</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link to={createPageUrl('SocialMediaManagement')} className="cursor-pointer">Social Media Management</Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
