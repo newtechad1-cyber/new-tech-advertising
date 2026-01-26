@@ -110,8 +110,22 @@ export const PAGES = {
     "TvVideo": TvVideo,
 }
 
+export const routes = {
+    "/industries": "IndustriesHub",
+    "/industries/small-local": "IndustriesSmallLocal",
+    "/industries/service-trades": "IndustriesServiceTrades",
+    "/industries/professionals": "IndustriesProfessionals",
+    "/industries/nonprofits": "IndustriesNonprofits",
+    "/industry": "IndustriesHub",
+    "/industry/small-local": "IndustriesSmallLocal",
+    "/industry/service-trades": "IndustriesServiceTrades",
+    "/industry/professionals": "IndustriesProfessionals",
+    "/industry/nonprofits": "IndustriesNonprofits",
+};
+
 export const pagesConfig = {
     mainPage: "Home",
     Pages: PAGES,
     Layout: __Layout,
+    routes: routes,
 };
