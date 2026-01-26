@@ -65,7 +65,8 @@ export const PAGES = {
     "LeadDetail": LeadDetail,
     "LeadsDashboard": LeadsDashboard,
     "Onboarding": Onboarding,
-    "OnboardingStart": OnboardingStart,
+    "Onboard": OnboardingStart,
+    "OnboardThankYou": OnboardThankYou,
     "RebuildProposal": RebuildProposal,
     "SetupComplete": SetupComplete,
     "SocialMediaManagement": SocialMediaManagement,
@@ -77,7 +78,6 @@ export const PAGES = {
     "StreamingThankYou": StreamingThankYou,
     "TvVideo": TvVideo,
     "RebuildIntake": RebuildIntake,
-    "OnboardThankYou": OnboardThankYou,
 }
 
 export const pagesConfig = {
