@@ -25,8 +25,8 @@ import OnboardingStart from './pages/OnboardingStart';
 import RebuildProposal from './pages/RebuildProposal';
 import SetupComplete from './pages/SetupComplete';
 import SocialMediaManagement from './pages/SocialMediaManagement';
-import TvVideo from './pages/TvVideo';
 import StreamingTV from './pages/StreamingTV';
+import TvVideo from './pages/TvVideo';
 import __Layout from './Layout.jsx';
 
 
@@ -58,8 +58,8 @@ export const PAGES = {
     "RebuildProposal": RebuildProposal,
     "SetupComplete": SetupComplete,
     "SocialMediaManagement": SocialMediaManagement,
-    "TvVideo": TvVideo,
     "StreamingTV": StreamingTV,
+    "TvVideo": TvVideo,
 }
 
 export const pagesConfig = {
