@@ -36,8 +36,6 @@ import StreamingProposal from './pages/StreamingProposal';
 import StreamingTV from './pages/StreamingTV';
 import StreamingThankYou from './pages/StreamingThankYou';
 import TvVideo from './pages/TvVideo';
-import RebuildIntake from './pages/RebuildIntake';
-import OnboardThankYou from './pages/OnboardThankYou';
 import __Layout from './Layout.jsx';
 
 
@@ -80,8 +78,6 @@ export const PAGES = {
     "StreamingTV": StreamingTV,
     "StreamingThankYou": StreamingThankYou,
     "TvVideo": TvVideo,
-    "RebuildIntake": RebuildIntake,
-    "OnboardThankYou": OnboardThankYou,
 }
 
 export const pagesConfig = {
