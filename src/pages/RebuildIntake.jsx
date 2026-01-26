@@ -25,6 +25,7 @@ export default function RebuildIntake() {
     state: '',
     goals: '',
     must_keep: '',
+    brand_assets: '',
     notes: ''
   });
 
@@ -58,6 +59,8 @@ export default function RebuildIntake() {
       const intake = await base44.entities.ClientIntake.create({
         ...formData,
         service_type: 'website_rebuild',
+        services_requested: ['website_rebuild'],
+        delivery_preference: 'HYBRID',
         status: 'submitted'
       });
 
@@ -137,7 +140,7 @@ export default function RebuildIntake() {
               Request an ADA-Friendly Website Rebuild
             </h1>
             <p className="text-xl text-slate-600">
-              For businesses that want a modern rebuild designed to be accessible, fast, and conversion-ready.
+              This is different from an accessibility audit. A rebuild is a new website built with accessibility best practices baked in.
             </p>
           </div>
 
@@ -270,6 +273,19 @@ export default function RebuildIntake() {
                   onChange={handleChange}
                   rows={4}
                   placeholder="E.g., booking system, blog, product catalog..."
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Links to logo/photos/brand kit (if available)
+                </label>
+                <Textarea
+                  name="brand_assets"
+                  value={formData.brand_assets}
+                  onChange={handleChange}
+                  rows={3}
+                  placeholder="Google Drive link, Dropbox, or any URL where we can access your brand assets"
                 />
               </div>
 
