@@ -76,9 +76,9 @@ export default function Home() {
       
       <main>
         {/* Hero Section */}
-        <section className="bg-gradient-to-b from-slate-50 to-white py-20 px-6">
+        <section className="bg-gradient-to-b from-slate-50 to-white min-h-[70vh] flex items-center justify-center px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-slate-900">
               Clear marketing and compliance solutions for local businesses — guided, not overwhelming.
             </h1>
           </div>
