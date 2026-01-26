@@ -20,11 +20,26 @@ import BlogPost from './pages/BlogPost';
 import Contact from './pages/Contact';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
+import IndustriesHub from './pages/IndustriesHub';
+import IndustriesNonprofits from './pages/IndustriesNonprofits';
+import IndustriesProfessionals from './pages/IndustriesProfessionals';
+import IndustriesServiceTrades from './pages/IndustriesServiceTrades';
+import IndustriesSmallLocal from './pages/IndustriesSmallLocal';
+import Industry from './pages/Industry';
+import IndustryNonprofit from './pages/IndustryNonprofit';
+import IndustryNonprofits from './pages/IndustryNonprofits';
+import IndustryProfessional from './pages/IndustryProfessional';
+import IndustryProfessionals from './pages/IndustryProfessionals';
+import IndustryServiceTrades from './pages/IndustryServiceTrades';
+import IndustrySmall from './pages/IndustrySmall';
+import IndustrySmallLocal from './pages/IndustrySmallLocal';
+import IndustryTrades from './pages/IndustryTrades';
 import LeadDetail from './pages/LeadDetail';
 import LeadsDashboard from './pages/LeadsDashboard';
 import OnboardThankYou from './pages/OnboardThankYou';
 import Onboarding from './pages/Onboarding';
 import OnboardingStart from './pages/OnboardingStart';
+import Rebuild from './pages/Rebuild';
 import RebuildIntake from './pages/RebuildIntake';
 import RebuildProposal from './pages/RebuildProposal';
 import SetupComplete from './pages/SetupComplete';
@@ -36,21 +51,6 @@ import StreamingProposal from './pages/StreamingProposal';
 import StreamingTV from './pages/StreamingTV';
 import StreamingThankYou from './pages/StreamingThankYou';
 import TvVideo from './pages/TvVideo';
-import IndustriesHub from './pages/IndustriesHub';
-import IndustriesSmallLocal from './pages/IndustriesSmallLocal';
-import IndustriesServiceTrades from './pages/IndustriesServiceTrades';
-import IndustriesProfessionals from './pages/IndustriesProfessionals';
-import IndustriesNonprofits from './pages/IndustriesNonprofits';
-import Rebuild from './pages/Rebuild';
-import IndustrySmallLocal from './pages/IndustrySmallLocal';
-import IndustryServiceTrades from './pages/IndustryServiceTrades';
-import IndustryProfessionals from './pages/IndustryProfessionals';
-import IndustryNonprofits from './pages/IndustryNonprofits';
-import Industry from './pages/Industry';
-import IndustrySmall from './pages/IndustrySmall';
-import IndustryTrades from './pages/IndustryTrades';
-import IndustryProfessional from './pages/IndustryProfessional';
-import IndustryNonprofit from './pages/IndustryNonprofit';
 import __Layout from './Layout.jsx';
 
 
@@ -77,11 +77,26 @@ export const PAGES = {
     "Contact": Contact,
     "Dashboard": Dashboard,
     "Home": Home,
+    "IndustriesHub": IndustriesHub,
+    "IndustriesNonprofits": IndustriesNonprofits,
+    "IndustriesProfessionals": IndustriesProfessionals,
+    "IndustriesServiceTrades": IndustriesServiceTrades,
+    "IndustriesSmallLocal": IndustriesSmallLocal,
+    "Industry": Industry,
+    "IndustryNonprofit": IndustryNonprofit,
+    "IndustryNonprofits": IndustryNonprofits,
+    "IndustryProfessional": IndustryProfessional,
+    "IndustryProfessionals": IndustryProfessionals,
+    "IndustryServiceTrades": IndustryServiceTrades,
+    "IndustrySmall": IndustrySmall,
+    "IndustrySmallLocal": IndustrySmallLocal,
+    "IndustryTrades": IndustryTrades,
     "LeadDetail": LeadDetail,
     "LeadsDashboard": LeadsDashboard,
     "OnboardThankYou": OnboardThankYou,
     "Onboarding": Onboarding,
     "OnboardingStart": OnboardingStart,
+    "Rebuild": Rebuild,
     "RebuildIntake": RebuildIntake,
     "RebuildProposal": RebuildProposal,
     "SetupComplete": SetupComplete,
@@ -93,34 +108,10 @@ export const PAGES = {
     "StreamingTV": StreamingTV,
     "StreamingThankYou": StreamingThankYou,
     "TvVideo": TvVideo,
-    "IndustriesHub": IndustriesHub,
-    "IndustriesSmallLocal": IndustriesSmallLocal,
-    "IndustriesServiceTrades": IndustriesServiceTrades,
-    "IndustriesProfessionals": IndustriesProfessionals,
-    "IndustriesNonprofits": IndustriesNonprofits,
-    "Rebuild": Rebuild,
-    "IndustrySmallLocal": IndustrySmallLocal,
-    "IndustryServiceTrades": IndustryServiceTrades,
-    "IndustryProfessionals": IndustryProfessionals,
-    "IndustryNonprofits": IndustryNonprofits,
-    "Industry": Industry,
-    "IndustrySmall": IndustrySmall,
-    "IndustryTrades": IndustryTrades,
-    "IndustryProfessional": IndustryProfessional,
-    "IndustryNonprofit": IndustryNonprofit,
 }
-
-export const routes = {
-    "/industries": "IndustriesHub",
-    "/industries/small-local": "IndustriesSmallLocal",
-    "/industries/service-trades": "IndustriesServiceTrades",
-    "/industries/professionals": "IndustriesProfessionals",
-    "/industries/nonprofits": "IndustriesNonprofits",
-};
 
 export const pagesConfig = {
     mainPage: "Home",
     Pages: PAGES,
     Layout: __Layout,
-    routes: routes,
 };
