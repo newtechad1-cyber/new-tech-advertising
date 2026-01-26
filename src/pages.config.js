@@ -112,10 +112,10 @@ export const PAGES = {
 
 export const routes = {
     "/industries": "IndustriesHub",
-    "/industries/small-local": "IndustrySmallLocal",
-    "/industries/service-trades": "IndustryServiceTrades",
-    "/industries/professionals": "IndustryProfessionals",
-    "/industries/nonprofits": "IndustryNonprofits",
+    "/industries/small-local": "IndustriesSmallLocal",
+    "/industries/service-trades": "IndustriesServiceTrades",
+    "/industries/professionals": "IndustriesProfessionals",
+    "/industries/nonprofits": "IndustriesNonprofits",
 };
 
 export const pagesConfig = {
