@@ -136,7 +136,7 @@ export default function ProposalsView() {
                 </div>
               )}
 
-              {proposal.service === 'streaming_tv' && proposal.status === 'sent' && (
+              {proposal.service === 'streaming_tv' && (
                 <div className="mt-4">
                   <Button
                     onClick={() => window.location.href = `${createPageUrl('StreamingProposal')}?id=${proposal.id}`}
