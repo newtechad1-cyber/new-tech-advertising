@@ -25,8 +25,10 @@ import OnboardingStart from './pages/OnboardingStart';
 import RebuildProposal from './pages/RebuildProposal';
 import SetupComplete from './pages/SetupComplete';
 import SocialMediaManagement from './pages/SocialMediaManagement';
-import StreamingTV from './pages/StreamingTV';
 import TvVideo from './pages/TvVideo';
+import StreamingTV from './pages/StreamingTV';
+import StreamingIntake from './pages/StreamingIntake';
+import StreamingThankYou from './pages/StreamingThankYou';
 import __Layout from './Layout.jsx';
 
 
@@ -58,8 +60,10 @@ export const PAGES = {
     "RebuildProposal": RebuildProposal,
     "SetupComplete": SetupComplete,
     "SocialMediaManagement": SocialMediaManagement,
-    "StreamingTV": StreamingTV,
     "TvVideo": TvVideo,
+    "StreamingTV": StreamingTV,
+    "StreamingIntake": StreamingIntake,
+    "StreamingThankYou": StreamingThankYou,
 }
 
 export const pagesConfig = {
