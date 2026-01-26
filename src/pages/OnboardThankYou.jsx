@@ -21,7 +21,7 @@ export default function OnboardThankYou() {
           </div>
 
           <h1 className="text-4xl font-bold text-slate-900 mb-4">
-            Request Received!
+            You're all set — we received your info
           </h1>
 
           <p className="text-lg text-slate-600 mb-6">
@@ -29,25 +29,15 @@ export default function OnboardThankYou() {
           </p>
 
           <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 mb-8 text-left">
-            <h3 className="font-semibold text-slate-900 mb-3">What happens next:</h3>
-            <ol className="space-y-2 text-slate-700">
-              <li className="flex items-start gap-2">
-                <span className="font-bold text-blue-600 mt-0.5">1.</span>
-                <span>Our team will review your request within 1 business day</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="font-bold text-blue-600 mt-0.5">2.</span>
-                <span>We'll reach out to discuss your goals and timeline</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="font-bold text-blue-600 mt-0.5">3.</span>
-                <span>You'll receive a custom proposal with pricing</span>
-              </li>
-            </ol>
+            <ul className="space-y-2 text-slate-700 list-disc list-inside">
+              <li>We'll review your onboarding details</li>
+              <li>If we need anything, we'll email you</li>
+              <li>You'll receive next steps within 1 business day</li>
+            </ul>
           </div>
 
           <p className="text-slate-600 mb-6">
-            Questions? Call us at <strong>641-420-8816</strong>
+            Questions? Reply to your confirmation email or call <strong>641-420-8816</strong>
           </p>
 
           <Link to={createPageUrl('Home')}>
