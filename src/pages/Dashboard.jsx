@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { LayoutDashboard, PieChart, CreditCard, BookOpen, LogOut, Menu, X, FolderKanban } from 'lucide-react';
+import { LayoutDashboard, PieChart, CreditCard, BookOpen, LogOut, Menu, X, FolderKanban, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Chatbot from '../components/Chatbot';
 import AnalyticsView from '../components/dashboard/AnalyticsView';
@@ -9,6 +9,7 @@ import ResourcesView from '../components/dashboard/ResourcesView';
 import OnboardingFlow from '../components/dashboard/OnboardingFlow';
 import ProjectsView from '../components/dashboard/ProjectsView';
 import ContentSubmissionsView from '../components/dashboard/ContentSubmissionsView';
+import ProposalsView from '../components/dashboard/ProposalsView';
 import { createPageUrl } from '../utils';
 
 export default function Dashboard() {
@@ -97,6 +98,8 @@ export default function Dashboard() {
         return <AnalyticsView />;
       case 'submissions':
         return <ContentSubmissionsView />;
+      case 'proposals':
+        return <ProposalsView />;
       case 'subscription':
         return <SubscriptionView />;
       case 'resources':
@@ -109,6 +112,7 @@ export default function Dashboard() {
       const navItems = [
       { id: 'analytics', label: 'Overview & Analytics', icon: PieChart },
       { id: 'submissions', label: 'My Content', icon: FolderKanban },
+      { id: 'proposals', label: 'Proposals', icon: FileText },
       { id: 'subscription', label: 'Subscription & Billing', icon: CreditCard },
       { id: 'resources', label: 'Training & Resources', icon: BookOpen },
       ];
