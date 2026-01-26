@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Mail, Phone, UserCircle, Menu, X, ChevronDown } from 'lucide-react';
+import { Mail, Phone, UserCircle, Menu, X, ChevronDown, Shield, Globe, Tv, HelpCircle } from 'lucide-react';
 import { createPageUrl } from '../../utils';
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
@@ -10,10 +10,18 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { trackCTAClick } from '../analytics/trackingUtils';
 
 export default function Header({ onCTAClick }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [showGetStarted, setShowGetStarted] = useState(false);
 
   const NavLinks = ({ mobile = false }) => {
     if (mobile) {
@@ -141,7 +149,7 @@ export default function Header({ onCTAClick }) {
                     <Button 
                       onClick={() => {
                         setIsOpen(false);
-                        onCTAClick();
+                        setShowGetStarted(true);
                       }}
                       className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white"
                     >
@@ -161,7 +169,7 @@ export default function Header({ onCTAClick }) {
             <Button
               onClick={() => {
                 trackCTAClick('Header - Get Started');
-                onCTAClick();
+                setShowGetStarted(true);
               }}
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
             >
@@ -170,6 +178,83 @@ export default function Header({ onCTAClick }) {
           </div>
         </div>
       </div>
+
+      <Dialog open={showGetStarted} onOpenChange={setShowGetStarted}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="text-2xl">Choose Your Path</DialogTitle>
+            <DialogDescription>
+              Select the service that best fits your needs
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="grid gap-4 py-4">
+            <Link
+              to={createPageUrl('AdaAccessibility')}
+              onClick={() => setShowGetStarted(false)}
+              className="flex items-start gap-4 p-4 rounded-lg border-2 border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition-all group"
+            >
+              <div className="bg-blue-100 p-3 rounded-lg group-hover:bg-blue-200">
+                <Shield className="w-6 h-6 text-blue-600" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold text-lg text-slate-900 mb-1">Free ADA Scan</h3>
+                <p className="text-sm text-slate-600">
+                  Get a free accessibility compliance scan of your website
+                </p>
+              </div>
+            </Link>
+
+            <Link
+              to={createPageUrl('AdaIntake') + '?package=Rebuild'}
+              onClick={() => setShowGetStarted(false)}
+              className="flex items-start gap-4 p-4 rounded-lg border-2 border-slate-200 hover:border-purple-500 hover:bg-purple-50 transition-all group"
+            >
+              <div className="bg-purple-100 p-3 rounded-lg group-hover:bg-purple-200">
+                <Globe className="w-6 h-6 text-purple-600" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold text-lg text-slate-900 mb-1">Website Rebuild (ADA-Friendly)</h3>
+                <p className="text-sm text-slate-600">
+                  Complete website rebuild with full ADA compliance
+                </p>
+              </div>
+            </Link>
+
+            <Link
+              to={createPageUrl('StreamingTV')}
+              onClick={() => setShowGetStarted(false)}
+              className="flex items-start gap-4 p-4 rounded-lg border-2 border-slate-200 hover:border-green-500 hover:bg-green-50 transition-all group"
+            >
+              <div className="bg-green-100 p-3 rounded-lg group-hover:bg-green-200">
+                <Tv className="w-6 h-6 text-green-600" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold text-lg text-slate-900 mb-1">Local Visibility (Streaming + Social)</h3>
+                <p className="text-sm text-slate-600">
+                  Comprehensive local marketing with streaming TV and social media
+                </p>
+              </div>
+            </Link>
+
+            <Link
+              to={createPageUrl('OnboardingStart')}
+              onClick={() => setShowGetStarted(false)}
+              className="flex items-start gap-4 p-4 rounded-lg border-2 border-slate-200 hover:border-orange-500 hover:bg-orange-50 transition-all group"
+            >
+              <div className="bg-orange-100 p-3 rounded-lg group-hover:bg-orange-200">
+                <HelpCircle className="w-6 h-6 text-orange-600" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold text-lg text-slate-900 mb-1">Not Sure / Full Onboarding</h3>
+                <p className="text-sm text-slate-600">
+                  Let us help you find the right solution for your business
+                </p>
+              </div>
+            </Link>
+          </div>
+        </DialogContent>
+      </Dialog>
     </header>
   );
 }
