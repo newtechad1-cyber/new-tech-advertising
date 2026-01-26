@@ -35,7 +35,7 @@ export default function Home() {
     {
       icon: Tv,
       title: 'Local Visibility (Streaming TV + Social)',
-      description: 'Be seen and remembered across today's screens.',
+      description: 'Be seen and remembered across today\'s screens.',
       cta: 'Get Visibility Guidance',
       route: createPageUrl('StreamingTV')
     },
