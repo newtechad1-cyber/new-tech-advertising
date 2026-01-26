@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { FileText, Calendar, DollarSign } from 'lucide-react';
+import { FileText, Calendar, DollarSign, ExternalLink } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { createPageUrl } from '@/utils';
 
 export default function ProposalsView() {
   const [proposals, setProposals] = useState([]);
@@ -131,6 +133,18 @@ export default function ProposalsView() {
                   <p className="text-sm text-slate-700 whitespace-pre-wrap">
                     {proposal.proposal_details}
                   </p>
+                </div>
+              )}
+
+              {proposal.service === 'streaming_tv' && proposal.status === 'sent' && (
+                <div className="mt-4">
+                  <Button
+                    onClick={() => window.location.href = `${createPageUrl('StreamingProposal')}?id=${proposal.id}`}
+                    className="w-full sm:w-auto"
+                  >
+                    View & Accept Proposal
+                    <ExternalLink className="w-4 h-4 ml-2" />
+                  </Button>
                 </div>
               )}
             </div>

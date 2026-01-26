@@ -29,6 +29,7 @@ import TvVideo from './pages/TvVideo';
 import StreamingTV from './pages/StreamingTV';
 import StreamingIntake from './pages/StreamingIntake';
 import StreamingThankYou from './pages/StreamingThankYou';
+import StreamingProposal from './pages/StreamingProposal';
 import __Layout from './Layout.jsx';
 
 
@@ -64,6 +65,7 @@ export const PAGES = {
     "StreamingTV": StreamingTV,
     "StreamingIntake": StreamingIntake,
     "StreamingThankYou": StreamingThankYou,
+    "StreamingProposal": StreamingProposal,
 }
 
 export const pagesConfig = {
