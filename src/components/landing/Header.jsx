@@ -34,7 +34,7 @@ export default function Header({ onCTAClick }) {
           
           <Link to={createPageUrl('Blog')} className="hover:text-blue-600 transition-colors mt-4" onClick={() => setIsOpen(false)}>Resources</Link>
           <Link to={createPageUrl('About')} className="hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>About</Link>
-          <a href="tel:641-420-8816" className="hover:text-blue-600 transition-colors">Contact</a>
+          <Link to={createPageUrl('Contact')} className="hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>Contact</Link>
         </nav>
       );
     }
@@ -86,7 +86,7 @@ export default function Header({ onCTAClick }) {
 
         <Link to={createPageUrl('Blog')} className="hover:text-blue-600 transition-colors">Resources</Link>
         <Link to={createPageUrl('About')} className="hover:text-blue-600 transition-colors">About</Link>
-        <a href="tel:641-420-8816" className="hover:text-blue-600 transition-colors">Contact</a>
+        <Link to={createPageUrl('Contact')} className="hover:text-blue-600 transition-colors">Contact</Link>
       </nav>
     );
   };

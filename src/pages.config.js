@@ -33,6 +33,7 @@ import StreamingTV from './pages/StreamingTV';
 import StreamingThankYou from './pages/StreamingThankYou';
 import TvVideo from './pages/TvVideo';
 import AdminSettings from './pages/AdminSettings';
+import Contact from './pages/Contact';
 import __Layout from './Layout.jsx';
 
 
@@ -72,6 +73,7 @@ export const PAGES = {
     "StreamingThankYou": StreamingThankYou,
     "TvVideo": TvVideo,
     "AdminSettings": AdminSettings,
+    "Contact": Contact,
 }
 
 export const pagesConfig = {
