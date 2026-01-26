@@ -160,7 +160,7 @@ export default function TvVideo() {
               {
                 step: '3',
                 title: 'AI-Assisted Optimization',
-                description: 'Campaigns automatically shift budget toward what's performing best while reducing waste.'
+                description: "Campaigns automatically shift budget toward whats performing best while reducing waste.",
               },
               {
                 step: '4',
