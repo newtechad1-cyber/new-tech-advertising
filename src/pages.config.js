@@ -110,8 +110,17 @@ export const PAGES = {
     "IndustryNonprofit": IndustryNonprofit,
 }
 
+export const routes = {
+    "/industries": "IndustriesHub",
+    "/industries/small-local": "IndustrySmallLocal",
+    "/industries/service-trades": "IndustryServiceTrades",
+    "/industries/professionals": "IndustryProfessionals",
+    "/industries/nonprofits": "IndustryNonprofits",
+};
+
 export const pagesConfig = {
     mainPage: "Home",
     Pages: PAGES,
     Layout: __Layout,
+    routes: routes,
 };
