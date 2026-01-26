@@ -2,17 +2,14 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Check, ArrowRight, Tv, Target, DollarSign, Video } from "lucide-react";
-import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { createPageUrl } from "@/utils";
 
 export default function StreamingTV() {
-  const scrollToContact = () => {
-    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-  };
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    toast.success("Thank you! We will be in touch soon to discuss your streaming TV options.");
-    e.target.reset();
+  const goToIntake = () => {
+    navigate(createPageUrl("StreamingIntake"));
   };
 
   return (
@@ -35,7 +32,7 @@ export default function StreamingTV() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button 
                 size="lg" 
-                onClick={scrollToContact}
+                onClick={goToIntake}
                 className="bg-blue-600 hover:bg-blue-700 text-white text-lg px-8 py-6 h-auto"
               >
                 Request a Streaming TV Review
@@ -45,7 +42,7 @@ export default function StreamingTV() {
               <Button 
                 size="lg" 
                 variant="outline"
-                onClick={scrollToContact}
+                onClick={goToIntake}
                 className="border-2 border-slate-300 text-slate-300 hover:bg-slate-800 hover:text-white text-lg px-8 py-6 h-auto"
               >
                 See If Streaming TV Is Right for You
@@ -262,7 +259,7 @@ export default function StreamingTV() {
           
           <Button 
             size="lg" 
-            onClick={scrollToContact}
+            onClick={goToIntake}
             className="bg-blue-600 hover:bg-blue-700 text-white text-xl px-10 py-7 h-auto font-bold"
           >
             Request a Streaming TV Review
@@ -271,46 +268,7 @@ export default function StreamingTV() {
         </div>
       </section>
 
-      {/* Contact Form Section */}
-      <section id="contact" className="py-20 bg-slate-50">
-        <div className="max-w-2xl mx-auto px-6">
-          <Card className="p-8 bg-white shadow-xl">
-            <h3 className="text-3xl font-bold text-slate-900 mb-6 text-center">
-              Request Your Streaming TV Review
-            </h3>
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Name</label>
-                <input type="text" required className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent" />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Business Name</label>
-                <input type="text" required className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent" />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Email</label>
-                <input type="email" required className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent" />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Phone</label>
-                <input type="tel" required className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent" />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Tell us about your business and your goals</label>
-                <textarea rows="4" className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"></textarea>
-              </div>
-              
-              <Button type="submit" size="lg" className="w-full bg-blue-600 hover:bg-blue-700 text-lg py-6 h-auto">
-                Submit Request
-              </Button>
-            </form>
-          </Card>
-        </div>
-      </section>
+
     </div>
   );
 }
