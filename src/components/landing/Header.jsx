@@ -206,7 +206,7 @@ export default function Header({ onCTAClick }) {
             </Link>
 
             <Link
-              to={createPageUrl('AdaIntake') + '?package=Rebuild'}
+              to={createPageUrl('RebuildIntake')}
               onClick={() => setShowGetStarted(false)}
               className="flex items-start gap-4 p-4 rounded-lg border-2 border-slate-200 hover:border-purple-500 hover:bg-purple-50 transition-all group"
             >
