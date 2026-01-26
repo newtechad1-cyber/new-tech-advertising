@@ -30,7 +30,7 @@ export default function Home() {
       title: 'ADA-Friendly Website Rebuild',
       description: 'Modern rebuild designed to be accessible and conversion-ready.',
       cta: 'Request a Rebuild Review',
-      route: '/rebuild-intake'
+      route: '/rebuild'
     },
     {
       icon: Tv,

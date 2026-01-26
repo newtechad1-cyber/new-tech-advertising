@@ -41,6 +41,7 @@ import IndustriesSmallLocal from './pages/IndustriesSmallLocal';
 import IndustriesServiceTrades from './pages/IndustriesServiceTrades';
 import IndustriesProfessionals from './pages/IndustriesProfessionals';
 import IndustriesNonprofits from './pages/IndustriesNonprofits';
+import Rebuild from './pages/Rebuild';
 import __Layout from './Layout.jsx';
 
 
@@ -88,6 +89,7 @@ export const PAGES = {
     "IndustriesServiceTrades": IndustriesServiceTrades,
     "IndustriesProfessionals": IndustriesProfessionals,
     "IndustriesNonprofits": IndustriesNonprofits,
+    "Rebuild": Rebuild,
 }
 
 export const pagesConfig = {
