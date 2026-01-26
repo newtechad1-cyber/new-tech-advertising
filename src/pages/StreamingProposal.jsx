@@ -79,7 +79,7 @@ export default function StreamingProposal() {
   const handleApproveProposal = async () => {
     try {
       await base44.entities.Proposal.update(proposal.id, {
-        status: 'accepted',
+        status: 'approved',
         response_date: new Date().toISOString()
       });
 
@@ -235,7 +235,7 @@ export default function StreamingProposal() {
         </Card>
 
         {/* Approval Button */}
-        {selectedOption && proposal.status !== 'accepted' && (
+        {selectedOption && proposal.status !== 'approved' && proposal.status !== 'accepted' && (
           <Card>
             <CardContent className="py-6">
               <Button 
@@ -244,7 +244,7 @@ export default function StreamingProposal() {
                 size="lg"
               >
                 <CheckCircle2 className="w-5 h-5 mr-2" />
-                Approve Proposal & Continue
+                Approve & Begin Setup
               </Button>
             </CardContent>
           </Card>
