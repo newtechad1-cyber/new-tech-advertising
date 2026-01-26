@@ -138,50 +138,56 @@ export default function TvVideo() {
         </div>
       </section>
 
-      {/* How It Works Section */}
-      <section className="py-20 lg:py-28 bg-gradient-to-br from-slate-900 to-slate-800 text-white">
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-16 text-center">
-            How It Works
-          </h2>
-          
-          <div className="space-y-12">
-           {[
-  {
-    step: '1',
-    title: 'Audience-First Planning',
-    description: 'Identify who matters most and where they spend attention across streaming, video, and digital environments.',
-  },
-  {
-    step: '2',
-    title: 'TV & Video Visibility That Follows the Viewer',
-    description: 'Your message appears across streaming TV platforms, premium video placements, and high-quality digital properties.',
-  },
-  {
-    step: '3',
-    title: 'AI-Assisted Optimization',
-    description: "Campaigns automatically shift budget toward what performing best while reducing waste.",
-  },
-  {
-    step: '4',
-    title: 'Clear, Unified Reporting',
-    description: 'Reporting connects awareness, engagement, and conversions so results make sense.',
-  }
-].map((item, idx) => (
+     {/* How It Works Section */}
+<section className="py-20 lg:py-28 bg-gradient-to-br from-slate-900 to-slate-800 text-white">
+  <div className="max-w-5xl mx-auto px-6">
+    <h2 className="text-4xl lg:text-5xl font-bold mb-16 text-center">
+      How It Works
+    </h2>
 
-              <div key={idx} className="flex gap-6 items-start">
-                <div className="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold flex-shrink-0">
-                  {item.step}
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-3">{item.title}</h3>
-                  <p className="text-lg text-slate-300 leading-relaxed">{item.description}</p>
-                </div>
-              </div>
-            ))}
+    <div className="space-y-12">
+      {[
+        {
+          step: "1",
+          title: "Audience-First Planning",
+          description:
+            "Identify who matters most and where they spend attention across streaming, video, and digital environments.",
+        },
+        {
+          step: "2",
+          title: "TV & Video Visibility That Follows the Viewer",
+          description:
+            "Your message appears across streaming TV platforms, premium video placements, and high-quality digital properties.",
+        },
+        {
+          step: "3",
+          title: "AI-Assisted Optimization",
+          description:
+            "Campaigns automatically shift budget toward top performers while reducing waste.",
+        },
+        {
+          step: "4",
+          title: "Clear, Unified Reporting",
+          description:
+            "Reporting connects awareness, engagement, and conversions so results make sense.",
+        },
+      ].map((item, idx) => (
+        <div key={idx} className="flex gap-6 items-start">
+          <div className="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold flex-shrink-0">
+            {item.step}
+          </div>
+          <div>
+            <h3 className="text-2xl font-bold mb-3">{item.title}</h3>
+            <p className="text-lg text-slate-300 leading-relaxed">
+              {item.description}
+            </p>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* Education Section */}
       <section className="py-20 lg:py-28 bg-white">
