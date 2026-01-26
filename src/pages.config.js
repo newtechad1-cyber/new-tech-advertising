@@ -46,6 +46,11 @@ import IndustrySmallLocal from './pages/IndustrySmallLocal';
 import IndustryServiceTrades from './pages/IndustryServiceTrades';
 import IndustryProfessionals from './pages/IndustryProfessionals';
 import IndustryNonprofits from './pages/IndustryNonprofits';
+import Industry from './pages/Industry';
+import IndustrySmall from './pages/IndustrySmall';
+import IndustryTrades from './pages/IndustryTrades';
+import IndustryProfessional from './pages/IndustryProfessional';
+import IndustryNonprofit from './pages/IndustryNonprofit';
 import __Layout from './Layout.jsx';
 
 
@@ -98,6 +103,11 @@ export const PAGES = {
     "IndustryServiceTrades": IndustryServiceTrades,
     "IndustryProfessionals": IndustryProfessionals,
     "IndustryNonprofits": IndustryNonprofits,
+    "Industry": Industry,
+    "IndustrySmall": IndustrySmall,
+    "IndustryTrades": IndustryTrades,
+    "IndustryProfessional": IndustryProfessional,
+    "IndustryNonprofit": IndustryNonprofit,
 }
 
 export const pagesConfig = {
