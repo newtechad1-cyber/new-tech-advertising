@@ -237,10 +237,12 @@ export default function Header({ onCTAClick }) {
               </div>
             </Link>
 
-            <Link
-              to={createPageUrl('OnboardingStart')}
-              onClick={() => setShowGetStarted(false)}
-              className="flex items-start gap-4 p-4 rounded-lg border-2 border-slate-200 hover:border-orange-500 hover:bg-orange-50 transition-all group"
+            <button
+              onClick={() => {
+                setShowGetStarted(false);
+                window.location.href = '/onboard';
+              }}
+              className="flex items-start gap-4 p-4 rounded-lg border-2 border-slate-200 hover:border-orange-500 hover:bg-orange-50 transition-all group cursor-pointer w-full text-left"
             >
               <div className="bg-orange-100 p-3 rounded-lg group-hover:bg-orange-200">
                 <HelpCircle className="w-6 h-6 text-orange-600" />
@@ -251,7 +253,7 @@ export default function Header({ onCTAClick }) {
                   Let us help you find the right solution for your business
                 </p>
               </div>
-            </Link>
+            </button>
           </div>
         </DialogContent>
       </Dialog>
