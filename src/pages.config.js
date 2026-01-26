@@ -20,6 +20,11 @@ import BlogPost from './pages/BlogPost';
 import Contact from './pages/Contact';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
+import IndustriesHub from './pages/IndustriesHub';
+import IndustriesNonprofits from './pages/IndustriesNonprofits';
+import IndustriesProfessionals from './pages/IndustriesProfessionals';
+import IndustriesServiceTrades from './pages/IndustriesServiceTrades';
+import IndustriesSmallLocal from './pages/IndustriesSmallLocal';
 import LeadDetail from './pages/LeadDetail';
 import LeadsDashboard from './pages/LeadsDashboard';
 import OnboardThankYou from './pages/OnboardThankYou';
@@ -36,11 +41,6 @@ import StreamingProposal from './pages/StreamingProposal';
 import StreamingTV from './pages/StreamingTV';
 import StreamingThankYou from './pages/StreamingThankYou';
 import TvVideo from './pages/TvVideo';
-import IndustriesHub from './pages/IndustriesHub';
-import IndustriesSmallLocal from './pages/IndustriesSmallLocal';
-import IndustriesServiceTrades from './pages/IndustriesServiceTrades';
-import IndustriesProfessionals from './pages/IndustriesProfessionals';
-import IndustriesNonprofits from './pages/IndustriesNonprofits';
 import __Layout from './Layout.jsx';
 
 
@@ -67,6 +67,11 @@ export const PAGES = {
     "Contact": Contact,
     "Dashboard": Dashboard,
     "Home": Home,
+    "IndustriesHub": IndustriesHub,
+    "IndustriesNonprofits": IndustriesNonprofits,
+    "IndustriesProfessionals": IndustriesProfessionals,
+    "IndustriesServiceTrades": IndustriesServiceTrades,
+    "IndustriesSmallLocal": IndustriesSmallLocal,
     "LeadDetail": LeadDetail,
     "LeadsDashboard": LeadsDashboard,
     "OnboardThankYou": OnboardThankYou,
@@ -83,11 +88,6 @@ export const PAGES = {
     "StreamingTV": StreamingTV,
     "StreamingThankYou": StreamingThankYou,
     "TvVideo": TvVideo,
-    "IndustriesHub": IndustriesHub,
-    "IndustriesSmallLocal": IndustriesSmallLocal,
-    "IndustriesServiceTrades": IndustriesServiceTrades,
-    "IndustriesProfessionals": IndustriesProfessionals,
-    "IndustriesNonprofits": IndustriesNonprofits,
 }
 
 export const pagesConfig = {
