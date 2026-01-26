@@ -1,80 +1,108 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '../utils';
-import { Loader2 } from 'lucide-react';
+import Header from '../components/landing/Header';
+import Footer from '../components/landing/Footer';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export default function OnboardingStart() {
   const navigate = useNavigate();
-  const [checking, setChecking] = useState(true);
 
   useEffect(() => {
-    checkAuthAndRedirect();
+    // Preserve UTM parameters
+    const currentParams = new URLSearchParams(window.location.search);
+    const utmParams = {};
+    for (const [key, value] of currentParams.entries()) {
+      if (key.startsWith('utm_') || key === 'source' || key === 'campaign') {
+        utmParams[key] = value;
+      }
+    }
+    if (Object.keys(utmParams).length > 0) {
+      sessionStorage.setItem('onboarding_utm', JSON.stringify(utmParams));
+    }
   }, []);
 
-  const checkAuthAndRedirect = async () => {
+  const handleGetStarted = async () => {
     try {
-      // Preserve UTM parameters and other query strings
-      const currentParams = new URLSearchParams(window.location.search);
-      const utmParams = {};
-      for (const [key, value] of currentParams.entries()) {
-        if (key.startsWith('utm_') || key === 'source' || key === 'campaign') {
-          utmParams[key] = value;
-        }
-      }
-      const paramString = new URLSearchParams(utmParams).toString();
-
-      // Check if user is authenticated
       const isAuthenticated = await base44.auth.isAuthenticated();
       
       if (!isAuthenticated) {
-        // Store intended destination with UTM params
-        const intendedDestination = createPageUrl('OnboardingStart') + (paramString ? `?${paramString}` : '');
-        sessionStorage.setItem('post_login_redirect', intendedDestination);
-        
-        // Redirect to login
-        base44.auth.redirectToLogin(intendedDestination);
+        // Not logged in - redirect to login, then to dashboard
+        base44.auth.redirectToLogin(createPageUrl('Dashboard'));
         return;
       }
 
-      // User is authenticated - check onboarding status
-      const user = await base44.auth.me();
-      const profiles = await base44.entities.ClientProfile.filter({ created_by: user.email });
-      
-      if (!profiles || profiles.length === 0) {
-        // No profile - go to dashboard which will show onboarding
-        navigate(createPageUrl('Dashboard') + (paramString ? `?${paramString}` : ''));
-        return;
-      }
-
-      const profile = profiles[0];
-      
-      if (profile.onboarding_completed) {
-        // Onboarding complete - go to main dashboard with success message
-        sessionStorage.setItem('show_onboarding_complete', 'true');
-        navigate(createPageUrl('Dashboard') + (paramString ? `?${paramString}` : ''));
-        return;
-      }
-
-      // Onboarding incomplete - go to dashboard which will show onboarding at the correct step
-      navigate(createPageUrl('Dashboard') + (paramString ? `?${paramString}` : ''));
-      
+      // Already logged in - go to dashboard
+      navigate(createPageUrl('Dashboard'));
     } catch (error) {
-      console.error('[OnboardingStart] Error checking auth:', error);
-      // Fallback - redirect to login if error
-      base44.auth.redirectToLogin();
-    } finally {
-      setChecking(false);
+      console.error('[OnboardingStart] Error:', error);
+      // On error, still try to redirect to login
+      base44.auth.redirectToLogin(createPageUrl('Dashboard'));
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-      <div className="text-center">
-        <Loader2 className="w-12 h-12 text-blue-600 animate-spin mx-auto mb-4" />
-        <h2 className="text-xl font-semibold text-slate-900 mb-2">Setting up your account...</h2>
-        <p className="text-slate-600">Please wait while we prepare your dashboard.</p>
-      </div>
+    <div className="min-h-screen bg-white">
+      <Header onCTAClick={() => {}} />
+
+      <section className="pt-32 pb-20 bg-gradient-to-b from-slate-50 to-white">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h1 className="text-5xl font-bold text-slate-900 mb-6">
+            Let's Build Your Marketing Strategy
+          </h1>
+          <p className="text-xl text-slate-600 mb-12">
+            Answer a few questions and we'll recommend the perfect solution for your business
+          </p>
+
+          <Card className="p-8 bg-white shadow-xl mb-8">
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">What You'll Get:</h2>
+            
+            <div className="grid md:grid-cols-3 gap-6 text-left">
+              <div className="flex items-start gap-3">
+                <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-semibold text-slate-900 mb-1">Personalized Recommendations</h3>
+                  <p className="text-sm text-slate-600">Solutions tailored to your industry and goals</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-semibold text-slate-900 mb-1">Clear Next Steps</h3>
+                  <p className="text-sm text-slate-600">Know exactly what to do to grow your business</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-semibold text-slate-900 mb-1">Expert Guidance</h3>
+                  <p className="text-sm text-slate-600">Get matched with the right tools and services</p>
+                </div>
+              </div>
+            </div>
+          </Card>
+
+          <Button
+            onClick={handleGetStarted}
+            size="lg"
+            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-lg px-8 py-6 h-auto"
+          >
+            Get Started - It's Free
+            <ArrowRight className="ml-2 w-5 h-5" />
+          </Button>
+
+          <p className="text-sm text-slate-500 mt-4">
+            Takes less than 2 minutes • No credit card required
+          </p>
+        </div>
+      </section>
+
+      <Footer />
     </div>
   );
 }
