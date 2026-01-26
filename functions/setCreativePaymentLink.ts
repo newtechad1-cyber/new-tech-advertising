@@ -22,10 +22,15 @@ Deno.serve(async (req) => {
     let updateData = {};
 
     if (creativeOption === 'ai_assisted') {
-      updateData.creative_payment_link = 'PASTE_AI_ASSISTED_STRIPE_LINK_HERE';
+      updateData.creative_fee = 195;
+      updateData.creative_payment_link = 'https://buy.stripe.com/aFa5kEbM61yw4jv95dfMA0a';
+      updateData.creative_payment_status = 'pending';
     } else if (creativeOption === 'hybrid') {
-      updateData.creative_payment_link = 'PASTE_HYBRID_STRIPE_LINK_HERE';
+      updateData.creative_fee = 495;
+      updateData.creative_payment_link = 'https://buy.stripe.com/9B66oIdUe1yw03f819fMA0b';
+      updateData.creative_payment_status = 'pending';
     } else if (creativeOption === 'existing_video') {
+      updateData.creative_fee = 0;
       updateData.creative_payment_link = '';
       updateData.creative_payment_status = 'not_required';
     }

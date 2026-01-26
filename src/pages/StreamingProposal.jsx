@@ -49,9 +49,9 @@ export default function StreamingProposal() {
       let creative_payment_status = 'pending';
 
       if (option === 'ai_assisted') {
-        creative_fee = 395;
+        creative_fee = 195;
       } else if (option === 'hybrid') {
-        creative_fee = 795;
+        creative_fee = 495;
       } else if (option === 'existing_video') {
         creative_fee = 0;
         creative_payment_status = 'not_required';
@@ -118,13 +118,13 @@ export default function StreamingProposal() {
     {
       value: 'ai_assisted',
       title: 'AI-Assisted Commercial (Most Common)',
-      price: 395,
+      price: 195,
       description: 'Quick turnaround using AI-powered video creation'
     },
     {
       value: 'hybrid',
       title: 'Hybrid Commercial',
-      price: 795,
+      price: 495,
       description: 'Combination of AI and professional editing'
     },
     {
