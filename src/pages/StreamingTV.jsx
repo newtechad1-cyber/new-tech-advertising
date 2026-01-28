@@ -21,12 +21,26 @@ export default function StreamingTV() {
         <div className="relative max-w-6xl mx-auto px-6 py-24 lg:py-32">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-              Streaming TV Advertising<br />
-              <span className="text-blue-400">for Local Businesses</span>
+              Local Streaming TV Advertising —<br />
+              <span className="text-blue-400">Made Clear</span>
             </h1>
             
-            <p className="text-xl lg:text-2xl text-slate-300 mb-12 leading-relaxed max-w-3xl mx-auto">
-              Show up on streaming TV, premium video, and connected devices — without traditional TV costs or contracts.
+            <p className="text-xl lg:text-2xl text-slate-300 mb-8 leading-relaxed max-w-3xl mx-auto">
+              We help local businesses reach the right audience through streaming TV and coordinated digital visibility.
+            </p>
+            
+            <p className="text-lg text-slate-300 mb-6 max-w-2xl mx-auto">
+              Instead of confusing platforms and disconnected campaigns, we focus on:
+            </p>
+            
+            <div className="flex flex-col gap-2 items-center mb-8">
+              <p className="text-lg text-slate-200">Clear messaging</p>
+              <p className="text-lg text-slate-200">Local audience targeting</p>
+              <p className="text-lg text-slate-200">Simple next steps</p>
+            </div>
+            
+            <p className="text-xl text-slate-200 mb-12 font-semibold">
+              Streaming TV doesn't have to be complicated. We'll guide you.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
