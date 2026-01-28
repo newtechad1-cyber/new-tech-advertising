@@ -106,6 +106,7 @@ import rebuildIntake from './pages/Rebuild-Intake';
 import getStarted from './pages/Get-Started';
 import bookCall from './pages/Book-Call';
 import freeAudit from './pages/Free-Audit';
+import websiteRebuild from './pages/Website-Rebuild';
 import __Layout from './Layout.jsx';
 
 
@@ -169,6 +170,7 @@ export const PAGES = {
     "Get-Started": getStarted,
     "Book-Call": bookCall,
     "Free-Audit": freeAudit,
+    "Website-Rebuild": websiteRebuild,
 }
 
 export const pagesConfig = {
