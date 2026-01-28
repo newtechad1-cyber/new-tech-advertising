@@ -354,6 +354,57 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Testimonials Section */}
+        <section className="py-20 bg-white">
+          <div className="max-w-4xl mx-auto px-6">
+            <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">
+              What our clients say about working with us
+            </h2>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-slate-50 rounded-xl p-8 border border-slate-200">
+                <p className="text-lg text-slate-700 mb-4 italic">
+                  "Everything was explained clearly, without pressure."
+                </p>
+                <p className="text-slate-600 mb-4">
+                  I always knew what the next step was, and nothing felt overwhelming.
+                </p>
+                <p className="text-slate-900 font-semibold">— Wendy Ruby</p>
+              </div>
+
+              <div className="bg-slate-50 rounded-xl p-8 border border-slate-200">
+                <p className="text-lg text-slate-700 mb-4 italic">
+                  "They focused on what actually mattered."
+                </p>
+                <p className="text-slate-600 mb-4">
+                  No upsells, no fluff — just smart guidance and honest recommendations.
+                </p>
+                <p className="text-slate-900 font-semibold">— Pete Gardner</p>
+              </div>
+
+              <div className="bg-slate-50 rounded-xl p-8 border border-slate-200">
+                <p className="text-lg text-slate-700 mb-4 italic">
+                  "Straightforward and professional from day one."
+                </p>
+                <p className="text-slate-600 mb-4">
+                  Clear communication and follow-through the whole way.
+                </p>
+                <p className="text-slate-900 font-semibold">— Tony Johnson</p>
+              </div>
+
+              <div className="bg-slate-50 rounded-xl p-8 border border-slate-200">
+                <p className="text-lg text-slate-700 mb-4 italic">
+                  "A calm, organized approach that made things simple."
+                </p>
+                <p className="text-slate-600 mb-4">
+                  They cut through the noise and kept everything practical.
+                </p>
+                <p className="text-slate-900 font-semibold">— Jay Monson</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Pre-CTA Message */}
         <section className="py-12 bg-white">
           <div className="max-w-4xl mx-auto px-6 text-center">
