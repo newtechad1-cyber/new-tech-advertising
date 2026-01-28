@@ -51,14 +51,8 @@ export default function Home() {
             <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
               Clear marketing and compliance solutions for local businesses
             </h1>
-            <p className="text-2xl text-slate-600 mb-4 font-medium">
-              Guided. Practical. Never overwhelming.
-            </p>
-            <p className="text-lg text-slate-600 mb-8 max-w-3xl mx-auto">
-              We help local businesses grow visibility, stay compliant, and convert more customers — without jargon, pressure, or bloated packages.
-            </p>
-            <p className="text-lg text-slate-600 mb-12">
-              Whether you need ADA accessibility, a modern website rebuild, or better local visibility through streaming TV and social, we'll guide you to the right next step.
+            <p className="text-2xl text-slate-600 mb-8 font-medium">
+              ADA accessibility, modern website rebuilds, and local visibility — guided, not overwhelming.
             </p>
             <div className="inline-block">
               <a href="#final-cta" className="text-blue-600 font-semibold text-lg mb-4 hover:text-blue-700 transition-colors cursor-pointer">
@@ -123,8 +117,11 @@ export default function Home() {
                     <p className="text-sm text-slate-500 mb-3">Free scan + clear next steps</p>
                   </div>
                 </div>
+                <p className="text-slate-600 mb-4">
+                  We help identify accessibility issues and guide you toward practical improvements based on widely recognized accessibility standards.
+                </p>
                 <p className="text-slate-600 mb-6">
-                  If you're concerned about ADA compliance, accessibility lawsuits, or whether your website meets current standards, start here. We'll scan your site and explain what matters — clearly and calmly.
+                  Our goal is to help you reduce risk, improve usability, and make your website more accessible to all users — without confusion or panic.
                 </p>
                 <Link to={createPageUrl('AdaAccessibility')}>
                   <Button className="w-full bg-blue-600 hover:bg-blue-700">
@@ -141,8 +138,11 @@ export default function Home() {
                     <p className="text-sm text-slate-500 mb-3">Modern, accessible, conversion-ready</p>
                   </div>
                 </div>
+                <p className="text-slate-600 mb-4">
+                  If your website is outdated or difficult to use, we'll review it and recommend a rebuild designed with accessibility, clarity, and conversions in mind.
+                </p>
                 <p className="text-slate-600 mb-6">
-                  If your website is outdated, hard to use, or risky from a compliance standpoint, we'll review it and recommend a rebuild that's accessible, modern, and built to convert visitors into leads.
+                  Our rebuilds focus on clean structure, clear messaging, accessibility-aware design, and better user experience for real customers. No templates dumped on you. No bloated features.
                 </p>
                 <Link to={createPageUrl('Rebuild')}>
                   <Button className="w-full bg-purple-600 hover:bg-purple-700">
@@ -159,8 +159,11 @@ export default function Home() {
                     <p className="text-sm text-slate-500 mb-3">Streaming TV + social presence, coordinated</p>
                   </div>
                 </div>
+                <p className="text-slate-600 mb-4">
+                  We help local businesses increase awareness using streaming TV advertising and coordinated digital visibility strategies.
+                </p>
                 <p className="text-slate-600 mb-6">
-                  For businesses that want more awareness in their local market. We combine streaming TV, social media, and digital visibility into one clear, coordinated strategy.
+                  Instead of disconnected campaigns, we focus on reaching the right local audience, consistent messaging, clear next steps for viewers, and visibility without confusion.
                 </p>
                 <Link to={createPageUrl('StreamingTV')}>
                   <Button className="w-full bg-green-600 hover:bg-green-700">
@@ -285,6 +288,18 @@ export default function Home() {
                 </Button>
               </Link>
             </div>
+          </div>
+        </section>
+
+        {/* Accessibility Statement */}
+        <section className="py-12 bg-slate-50 border-t border-slate-200">
+          <div className="max-w-4xl mx-auto px-6">
+            <h2 className="text-2xl font-bold text-slate-900 mb-4 text-center">Accessibility Statement</h2>
+            <p className="text-slate-600 text-center max-w-3xl mx-auto">
+              New Tech Advertising is committed to improving website accessibility and usability for all users. 
+              We strive to follow recognized accessibility standards and best practices and continually evaluate ways to improve the user experience. 
+              If you experience difficulty accessing content on this site, please contact us and we will work to assist you.
+            </p>
           </div>
         </section>
       </main>
