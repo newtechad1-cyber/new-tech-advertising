@@ -109,6 +109,7 @@ import StreamingTV from './pages/StreamingTV';
 import StreamingThankYou from './pages/StreamingThankYou';
 import TvVideo from './pages/TvVideo';
 import websiteRebuild from './pages/Website-Rebuild';
+import SocialMediaMarketing from './pages/SocialMediaMarketing';
 import __Layout from './Layout.jsx';
 
 
@@ -175,6 +176,7 @@ export const PAGES = {
     "StreamingThankYou": StreamingThankYou,
     "TvVideo": TvVideo,
     "Website-Rebuild": websiteRebuild,
+    "SocialMediaMarketing": SocialMediaMarketing,
 }
 
 export const pagesConfig = {
