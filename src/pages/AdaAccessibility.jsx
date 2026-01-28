@@ -432,6 +432,20 @@ export default function AdaAccessibility() {
         </div>
       </section>
 
+      {/* Integration Note */}
+      <section className="py-20 bg-blue-50">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <div className="bg-white rounded-xl p-8 border-2 border-blue-200">
+            <p className="text-xl font-semibold text-slate-900 mb-3">
+              Manage ADA projects alongside your social media clients
+            </p>
+            <p className="text-lg text-slate-700">
+              All in one unified platform — coordinate accessibility, social media, and visibility strategies seamlessly.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Legal Referral Section */}
       <section className="py-20 bg-slate-50">
         <div className="max-w-4xl mx-auto px-6">

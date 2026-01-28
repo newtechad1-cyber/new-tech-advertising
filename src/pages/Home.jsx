@@ -109,50 +109,65 @@ export default function Home() {
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                <div className="mb-4">
-                  <h3 className="text-2xl font-bold text-slate-900 mb-2">🛡️ ADA Website Accessibility</h3>
-                  <p className="text-sm text-slate-500 mb-3">Free scan + clear next steps</p>
-                </div>
-                <p className="text-slate-600 mb-6">
-                  If you're concerned about ADA compliance, accessibility complaints, or usability issues, start here. We'll scan your site and explain what matters — clearly and calmly.
-                </p>
-                <Link to={createPageUrl('AdaAccessibility')}>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                    Start Free ADA Scan
-                  </Button>
-                </Link>
-              </div>
+                <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                    <div className="mb-4">
+                      <h3 className="text-2xl font-bold text-slate-900 mb-2">📱 Social Media Management</h3>
+                      <p className="text-sm text-slate-500 mb-3">DIY tools or Done For You</p>
+                    </div>
+                    <p className="text-slate-600 mb-6">
+                      Content creation, scheduling, and strategy — choose to manage it yourself or let us handle everything. Consistent presence across Facebook, Instagram, LinkedIn, and more.
+                    </p>
+                    <Link to={createPageUrl('SocialMediaMarketing')}>
+                      <Button className="w-full bg-purple-600 hover:bg-purple-700">
+                        Explore Social Media
+                      </Button>
+                    </Link>
+                  </div>
 
-              <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                <div className="mb-4">
-                  <h3 className="text-2xl font-bold text-slate-900 mb-2">🧱 ADA-Friendly Website Rebuild</h3>
-                  <p className="text-sm text-slate-500 mb-3">Modern, accessible, conversion-ready</p>
-                </div>
-                <p className="text-slate-600 mb-6">
-                  If your website is outdated or difficult to use, we'll review it and recommend a rebuild designed for accessibility, clarity, and real conversions.
-                </p>
-                <Link to={createPageUrl('Rebuild')}>
-                  <Button className="w-full bg-purple-600 hover:bg-purple-700">
-                    Request a Rebuild Review
-                  </Button>
-                </Link>
-              </div>
+                  <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                    <div className="mb-4">
+                      <h3 className="text-2xl font-bold text-slate-900 mb-2">📺 Local Visibility</h3>
+                      <p className="text-sm text-slate-500 mb-3">Streaming TV + social presence, coordinated</p>
+                    </div>
+                    <p className="text-slate-600 mb-6">
+                      Increase awareness in your local market using streaming TV and digital visibility — aligned, consistent, and easy to understand.
+                    </p>
+                    <Link to={createPageUrl('StreamingTV')}>
+                      <Button className="w-full bg-green-600 hover:bg-green-700">
+                        Get Visibility Guidance
+                      </Button>
+                    </Link>
+                  </div>
 
-              <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                <div className="mb-4">
-                  <h3 className="text-2xl font-bold text-slate-900 mb-2">📺 Local Visibility</h3>
-                  <p className="text-sm text-slate-500 mb-3">Streaming TV + social presence, coordinated</p>
-                </div>
-                <p className="text-slate-600 mb-6">
-                  Increase awareness in your local market using streaming TV and digital visibility — aligned, consistent, and easy to understand.
-                </p>
-                <Link to={createPageUrl('StreamingTV')}>
-                  <Button className="w-full bg-green-600 hover:bg-green-700">
-                    Get Visibility Guidance
-                  </Button>
-                </Link>
-              </div>
+                  <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                    <div className="mb-4">
+                      <h3 className="text-2xl font-bold text-slate-900 mb-2">🛡️ ADA Website Accessibility</h3>
+                      <p className="text-sm text-slate-500 mb-3">Free scan + clear next steps</p>
+                    </div>
+                    <p className="text-slate-600 mb-6">
+                      If you're concerned about ADA compliance, accessibility complaints, or usability issues, start here. We'll scan your site and explain what matters — clearly and calmly.
+                    </p>
+                    <Link to={createPageUrl('AdaAccessibility')}>
+                      <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                        Start Free ADA Scan
+                      </Button>
+                    </Link>
+                  </div>
+
+                  <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                    <div className="mb-4">
+                      <h3 className="text-2xl font-bold text-slate-900 mb-2">🧱 ADA-Friendly Website Rebuild</h3>
+                      <p className="text-sm text-slate-500 mb-3">Modern, accessible, conversion-ready</p>
+                    </div>
+                    <p className="text-slate-600 mb-6">
+                      If your website is outdated or difficult to use, we'll review it and recommend a rebuild designed for accessibility, clarity, and real conversions.
+                    </p>
+                    <Link to={createPageUrl('Rebuild')}>
+                      <Button className="w-full bg-orange-600 hover:bg-orange-700">
+                        Request a Rebuild Review
+                      </Button>
+                    </Link>
+                  </div>
 
               <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
                 <div className="mb-4">

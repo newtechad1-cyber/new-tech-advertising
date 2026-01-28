@@ -233,6 +233,20 @@ export default function StreamingTV() {
         </div>
       </section>
 
+      {/* Integration Note */}
+      <section className="py-20 lg:py-28 bg-purple-600 text-white">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <div className="bg-white/10 rounded-xl p-8 border border-white/20">
+            <p className="text-xl font-semibold mb-3">
+              Works seamlessly with our social media management platform
+            </p>
+            <p className="text-lg text-white/90">
+              Repurpose your social media videos into local visibility campaigns — streaming TV and social, coordinated.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* How It Works Section */}
       <section className="py-20 lg:py-28 bg-gradient-to-br from-slate-900 to-slate-800 text-white">
         <div className="max-w-4xl mx-auto px-6">
