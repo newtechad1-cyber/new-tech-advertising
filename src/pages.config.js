@@ -105,6 +105,7 @@ import TvVideo from './pages/TvVideo';
 import rebuildIntake from './pages/Rebuild-Intake';
 import getStarted from './pages/Get-Started';
 import bookCall from './pages/Book-Call';
+import freeAudit from './pages/Free-Audit';
 import __Layout from './Layout.jsx';
 
 
@@ -167,6 +168,7 @@ export const PAGES = {
     "Rebuild-Intake": rebuildIntake,
     "Get-Started": getStarted,
     "Book-Call": bookCall,
+    "Free-Audit": freeAudit,
 }
 
 export const pagesConfig = {
