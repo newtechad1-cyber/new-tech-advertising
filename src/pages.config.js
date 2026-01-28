@@ -103,6 +103,7 @@ import StreamingTV from './pages/StreamingTV';
 import StreamingThankYou from './pages/StreamingThankYou';
 import TvVideo from './pages/TvVideo';
 import rebuildIntake from './pages/Rebuild-Intake';
+import getStarted from './pages/Get-Started';
 import __Layout from './Layout.jsx';
 
 
@@ -163,6 +164,7 @@ export const PAGES = {
     "StreamingThankYou": StreamingThankYou,
     "TvVideo": TvVideo,
     "Rebuild-Intake": rebuildIntake,
+    "Get-Started": getStarted,
 }
 
 export const pagesConfig = {
