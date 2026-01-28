@@ -70,6 +70,7 @@ import Contact from './pages/Contact';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import IndustriesHub from './pages/IndustriesHub';
+import LocalVisibility from './pages/LocalVisibility';
 import IndustriesNonprofits from './pages/IndustriesNonprofits';
 import IndustriesProfessionals from './pages/IndustriesProfessionals';
 import IndustriesServiceTrades from './pages/IndustriesServiceTrades';
@@ -101,7 +102,6 @@ import StreamingTV from './pages/StreamingTV';
 import StreamingThankYou from './pages/StreamingThankYou';
 import TvVideo from './pages/TvVideo';
 import RebuildIntakePretty from './pages/RebuildIntakePretty';
-import LocalVisibility from './pages/LocalVisibility';
 import __Layout from './Layout.jsx';
 
 
@@ -129,6 +129,7 @@ export const PAGES = {
     "Dashboard": Dashboard,
     "Home": Home,
     "IndustriesHub": IndustriesHub,
+    "LocalVisibility": LocalVisibility,
     "IndustriesNonprofits": IndustriesNonprofits,
     "IndustriesProfessionals": IndustriesProfessionals,
     "IndustriesServiceTrades": IndustriesServiceTrades,
@@ -160,7 +161,15 @@ export const PAGES = {
     "StreamingThankYou": StreamingThankYou,
     "TvVideo": TvVideo,
     "RebuildIntakePretty": RebuildIntakePretty,
-    "LocalVisibility": LocalVisibility,
+    // Route aliases for prettier URLs
+    "local-visibility": LocalVisibility,
+    "rebuild-intake": RebuildIntakePretty,
+    "get-started": OnboardingStart,
+    "industries": IndustriesHub,
+    "industries/small-local": IndustriesSmallLocal,
+    "industries/service-trades": IndustriesServiceTrades,
+    "industries/professionals": IndustriesProfessionals,
+    "industries/nonprofits": IndustriesNonprofits,
 }
 
 export const pagesConfig = {
