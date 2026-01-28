@@ -108,6 +108,7 @@ import bookCall from './pages/Book-Call';
 import freeAudit from './pages/Free-Audit';
 import websiteRebuild from './pages/Website-Rebuild';
 import streamingTv from './pages/Streaming-TV';
+import adaCompliance from './pages/Ada-Compliance';
 import __Layout from './Layout.jsx';
 
 
@@ -173,6 +174,7 @@ export const PAGES = {
     "Free-Audit": freeAudit,
     "Website-Rebuild": websiteRebuild,
     "Streaming-TV": streamingTv,
+    "Ada-Compliance": adaCompliance,
 }
 
 export const pagesConfig = {
