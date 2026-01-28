@@ -108,6 +108,15 @@ export const PAGES = {
     "StreamingTV": StreamingTV,
     "StreamingThankYou": StreamingThankYou,
     "TvVideo": TvVideo,
+    // Route aliases for prettier URLs
+    "local-visibility": StreamingTV,
+    "rebuild-intake": RebuildIntake,
+    "get-started": OnboardingStart,
+    "industries": IndustriesHub,
+    "industries/small-local": IndustriesSmallLocal,
+    "industries/service-trades": IndustriesServiceTrades,
+    "industries/professionals": IndustriesProfessionals,
+    "industries/nonprofits": IndustriesNonprofits,
 }
 
 export const pagesConfig = {
