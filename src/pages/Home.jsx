@@ -110,82 +110,61 @@ export default function Home() {
 
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                <div className="flex items-start gap-4 mb-4">
-                  <Shield className="w-8 h-8 text-blue-600 flex-shrink-0" />
-                  <div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">ADA Website Accessibility</h3>
-                    <p className="text-sm text-slate-500 mb-3">Free scan + clear next steps</p>
-                  </div>
+                <div className="mb-4">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-2">🛡️ ADA Website Accessibility</h3>
+                  <p className="text-sm text-slate-500 mb-3">Free scan + clear next steps</p>
                 </div>
-                <p className="text-slate-600 mb-4">
-                  We help identify accessibility issues and guide you toward practical improvements based on widely recognized accessibility standards.
-                </p>
                 <p className="text-slate-600 mb-6">
-                  Our goal is to help you reduce risk, improve usability, and make your website more accessible to all users — without confusion or panic.
+                  If you're concerned about ADA compliance, accessibility complaints, or usability issues, start here. We'll scan your site and explain what matters — clearly and calmly.
                 </p>
                 <Link to={createPageUrl('AdaAccessibility')}>
                   <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                    👉 Start Free ADA Scan
+                    Start Free ADA Scan
                   </Button>
                 </Link>
               </div>
 
               <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                <div className="flex items-start gap-4 mb-4">
-                  <Globe className="w-8 h-8 text-purple-600 flex-shrink-0" />
-                  <div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">ADA-Friendly Website Rebuild</h3>
-                    <p className="text-sm text-slate-500 mb-3">Modern, accessible, conversion-ready</p>
-                  </div>
+                <div className="mb-4">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-2">🧱 ADA-Friendly Website Rebuild</h3>
+                  <p className="text-sm text-slate-500 mb-3">Modern, accessible, conversion-ready</p>
                 </div>
-                <p className="text-slate-600 mb-4">
-                  If your website is outdated or difficult to use, we'll review it and recommend a rebuild designed with accessibility, clarity, and conversions in mind.
-                </p>
                 <p className="text-slate-600 mb-6">
-                  Our rebuilds focus on clean structure, clear messaging, accessibility-aware design, and better user experience for real customers. No templates dumped on you. No bloated features.
+                  If your website is outdated or difficult to use, we'll review it and recommend a rebuild designed for accessibility, clarity, and real conversions.
                 </p>
                 <Link to={createPageUrl('Rebuild')}>
                   <Button className="w-full bg-purple-600 hover:bg-purple-700">
-                    👉 Request a Rebuild Review
+                    Request a Rebuild Review
                   </Button>
                 </Link>
               </div>
 
               <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                <div className="flex items-start gap-4 mb-4">
-                  <Tv className="w-8 h-8 text-green-600 flex-shrink-0" />
-                  <div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">Local Visibility</h3>
-                    <p className="text-sm text-slate-500 mb-3">Streaming TV + social presence, coordinated</p>
-                  </div>
+                <div className="mb-4">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-2">📺 Local Visibility</h3>
+                  <p className="text-sm text-slate-500 mb-3">Streaming TV + social presence, coordinated</p>
                 </div>
-                <p className="text-slate-600 mb-4">
-                  We help local businesses increase awareness using streaming TV advertising and coordinated digital visibility strategies.
-                </p>
                 <p className="text-slate-600 mb-6">
-                  Instead of disconnected campaigns, we focus on reaching the right local audience, consistent messaging, clear next steps for viewers, and visibility without confusion.
+                  Increase awareness in your local market using streaming TV and digital visibility — aligned, consistent, and easy to understand.
                 </p>
                 <Link to={createPageUrl('StreamingTV')}>
                   <Button className="w-full bg-green-600 hover:bg-green-700">
-                    👉 Get Visibility Guidance
+                    Get Visibility Guidance
                   </Button>
                 </Link>
               </div>
 
               <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                <div className="flex items-start gap-4 mb-4">
-                  <HelpCircle className="w-8 h-8 text-orange-600 flex-shrink-0" />
-                  <div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">Not Sure Where to Start?</h3>
-                    <p className="text-sm text-slate-500 mb-3">We'll help you choose</p>
-                  </div>
+                <div className="mb-4">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-2">🧭 Not Sure Where to Start?</h3>
+                  <p className="text-sm text-slate-500 mb-3">We'll guide you</p>
                 </div>
                 <p className="text-slate-600 mb-6">
-                  If you're unsure which option is right, that's okay. Answer a few simple questions and we'll guide you to the best next step — no pressure.
+                  Answer a few questions and we'll point you in the right direction — no pressure, no guessing.
                 </p>
                 <Link to={createPageUrl('OnboardingStart')}>
                   <Button className="w-full bg-orange-600 hover:bg-orange-700">
-                    👉 Tell Us What You Need
+                    Tell Us What You Need
                   </Button>
                 </Link>
               </div>
@@ -217,6 +196,35 @@ export default function Home() {
             <p className="text-center text-lg text-slate-600 font-medium">
               No long contracts. No confusion. No sales pressure.
             </p>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="py-20 bg-white">
+          <div className="max-w-4xl mx-auto px-6">
+            <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Frequently Asked Questions</h2>
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Do I have to know what I need before starting?</h3>
+                <p className="text-slate-600">No. Many clients don't. That's why we offer guided starting points and full onboarding if you're unsure.</p>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Is ADA compliance guaranteed?</h3>
+                <p className="text-slate-600">No one can guarantee compliance. Accessibility is an ongoing process. We help identify issues and guide you toward practical improvements based on recognized standards.</p>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Do you work only with local businesses?</h3>
+                <p className="text-slate-600">Yes. Everything we do is designed specifically for local and regional businesses — not enterprise platforms or one-size-fits-all solutions.</p>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Is there a long-term contract?</h3>
+                <p className="text-slate-600">No. We focus on clarity first. You move forward only if it makes sense for your business.</p>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">What if I just want advice?</h3>
+                <p className="text-slate-600">That's fine. Many people start with a scan or review and decide later. No pressure.</p>
+              </div>
+            </div>
           </div>
         </section>
 

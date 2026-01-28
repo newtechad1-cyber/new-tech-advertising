@@ -51,16 +51,22 @@ export default function AdaAccessibility() {
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
-              ADA Website Accessibility — <br />
+              Website Accessibility — <br />
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Clear Options, No Guesswork
+                Clear Guidance for Local Businesses
               </span>
             </h1>
-            
-            <p className="text-xl text-slate-600 max-w-4xl mx-auto mb-8 leading-relaxed">
-              Most websites were not built with accessibility in mind. That's normal. 
-              We help you understand where your site stands, fix issues that matter, and choose the right path — 
-              without legal jargon or scare tactics.
+
+            <p className="text-xl text-slate-600 max-w-4xl mx-auto mb-6 leading-relaxed">
+              Website accessibility can feel confusing and intimidating. We make it practical.
+            </p>
+
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto mb-8">
+              Our approach focuses on identifying accessibility issues, explaining what matters, and guiding you toward improvements that reduce risk and improve usability.
+            </p>
+
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-8 font-medium">
+              No scare tactics. Just clear next steps.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-4">
