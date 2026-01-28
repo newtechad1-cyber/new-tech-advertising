@@ -61,7 +61,9 @@ export default function Home() {
               Whether you need ADA accessibility, a modern website rebuild, or better local visibility through streaming TV and social, we'll guide you to the right next step.
             </p>
             <div className="inline-block">
-              <p className="text-blue-600 font-semibold text-lg mb-4">Choose Your Starting Point ↓</p>
+              <a href="#final-cta" className="text-blue-600 font-semibold text-lg mb-4 hover:text-blue-700 transition-colors cursor-pointer">
+                Choose Your Starting Point ↓
+              </a>
             </div>
           </div>
         </section>
@@ -245,7 +247,7 @@ export default function Home() {
         </section>
 
         {/* Final CTA */}
-        <section className="py-20 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
+        <section id="final-cta" className="py-20 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
           <div className="max-w-4xl mx-auto px-6 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Ready to take the next step — without the overwhelm?
