@@ -104,6 +104,7 @@ import StreamingThankYou from './pages/StreamingThankYou';
 import TvVideo from './pages/TvVideo';
 import rebuildIntake from './pages/Rebuild-Intake';
 import getStarted from './pages/Get-Started';
+import bookCall from './pages/Book-Call';
 import __Layout from './Layout.jsx';
 
 
@@ -165,6 +166,7 @@ export const PAGES = {
     "TvVideo": TvVideo,
     "Rebuild-Intake": rebuildIntake,
     "Get-Started": getStarted,
+    "Book-Call": bookCall,
 }
 
 export const pagesConfig = {
