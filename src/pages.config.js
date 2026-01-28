@@ -85,11 +85,13 @@ import IndustrySmallLocal from './pages/IndustrySmallLocal';
 import IndustryTrades from './pages/IndustryTrades';
 import LeadDetail from './pages/LeadDetail';
 import LeadsDashboard from './pages/LeadsDashboard';
+import LocalVisibility from './pages/LocalVisibility';
 import OnboardThankYou from './pages/OnboardThankYou';
 import Onboarding from './pages/Onboarding';
 import OnboardingStart from './pages/OnboardingStart';
 import Rebuild from './pages/Rebuild';
 import RebuildIntake from './pages/RebuildIntake';
+import RebuildIntakePretty from './pages/RebuildIntakePretty';
 import RebuildProposal from './pages/RebuildProposal';
 import SetupComplete from './pages/SetupComplete';
 import SocialMediaManagement from './pages/SocialMediaManagement';
@@ -100,8 +102,6 @@ import StreamingProposal from './pages/StreamingProposal';
 import StreamingTV from './pages/StreamingTV';
 import StreamingThankYou from './pages/StreamingThankYou';
 import TvVideo from './pages/TvVideo';
-import RebuildIntakePretty from './pages/RebuildIntakePretty';
-import LocalVisibility from './pages/LocalVisibility';
 import __Layout from './Layout.jsx';
 
 
@@ -144,11 +144,13 @@ export const PAGES = {
     "IndustryTrades": IndustryTrades,
     "LeadDetail": LeadDetail,
     "LeadsDashboard": LeadsDashboard,
+    "LocalVisibility": LocalVisibility,
     "OnboardThankYou": OnboardThankYou,
     "Onboarding": Onboarding,
     "OnboardingStart": OnboardingStart,
     "Rebuild": Rebuild,
     "RebuildIntake": RebuildIntake,
+    "RebuildIntakePretty": RebuildIntakePretty,
     "RebuildProposal": RebuildProposal,
     "SetupComplete": SetupComplete,
     "SocialMediaManagement": SocialMediaManagement,
@@ -159,8 +161,6 @@ export const PAGES = {
     "StreamingTV": StreamingTV,
     "StreamingThankYou": StreamingThankYou,
     "TvVideo": TvVideo,
-    "RebuildIntakePretty": RebuildIntakePretty,
-    "LocalVisibility": LocalVisibility,
 }
 
 export const pagesConfig = {
