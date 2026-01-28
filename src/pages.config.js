@@ -101,6 +101,7 @@ import StreamingTV from './pages/StreamingTV';
 import StreamingThankYou from './pages/StreamingThankYou';
 import TvVideo from './pages/TvVideo';
 import RebuildIntakePretty from './pages/RebuildIntakePretty';
+import LocalVisibility from './pages/LocalVisibility';
 import __Layout from './Layout.jsx';
 
 
@@ -159,6 +160,7 @@ export const PAGES = {
     "StreamingThankYou": StreamingThankYou,
     "TvVideo": TvVideo,
     "RebuildIntakePretty": RebuildIntakePretty,
+    "LocalVisibility": LocalVisibility,
 }
 
 export const pagesConfig = {
