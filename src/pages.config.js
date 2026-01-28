@@ -48,6 +48,7 @@
  * The mainPage value must match a key in the PAGES object exactly.
  */
 import About from './pages/About';
+import adaCompliance from './pages/Ada-Compliance';
 import Ada from './pages/Ada';
 import AdaAccessibility from './pages/AdaAccessibility';
 import AdaIntake from './pages/AdaIntake';
@@ -66,8 +67,11 @@ import AiVideos from './pages/AiVideos';
 import AiWebsites from './pages/AiWebsites';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
+import bookCall from './pages/Book-Call';
 import Contact from './pages/Contact';
 import Dashboard from './pages/Dashboard';
+import freeAudit from './pages/Free-Audit';
+import getStarted from './pages/Get-Started';
 import Home from './pages/Home';
 import IndustriesHub from './pages/IndustriesHub';
 import IndustriesNonprofits from './pages/IndustriesNonprofits';
@@ -89,12 +93,14 @@ import LocalVisibility from './pages/LocalVisibility';
 import OnboardThankYou from './pages/OnboardThankYou';
 import Onboarding from './pages/Onboarding';
 import OnboardingStart from './pages/OnboardingStart';
+import rebuildIntake from './pages/Rebuild-Intake';
 import Rebuild from './pages/Rebuild';
 import RebuildIntake from './pages/RebuildIntake';
 import RebuildIntakePretty from './pages/RebuildIntakePretty';
 import RebuildProposal from './pages/RebuildProposal';
 import SetupComplete from './pages/SetupComplete';
 import SocialMediaManagement from './pages/SocialMediaManagement';
+import streamingTv from './pages/Streaming-TV';
 import StreamingCreativePayment from './pages/StreamingCreativePayment';
 import StreamingIntake from './pages/StreamingIntake';
 import StreamingOnboarding from './pages/StreamingOnboarding';
@@ -102,18 +108,13 @@ import StreamingProposal from './pages/StreamingProposal';
 import StreamingTV from './pages/StreamingTV';
 import StreamingThankYou from './pages/StreamingThankYou';
 import TvVideo from './pages/TvVideo';
-import rebuildIntake from './pages/Rebuild-Intake';
-import getStarted from './pages/Get-Started';
-import bookCall from './pages/Book-Call';
-import freeAudit from './pages/Free-Audit';
 import websiteRebuild from './pages/Website-Rebuild';
-import streamingTv from './pages/Streaming-TV';
-import adaCompliance from './pages/Ada-Compliance';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
     "About": About,
+    "Ada-Compliance": adaCompliance,
     "Ada": Ada,
     "AdaAccessibility": AdaAccessibility,
     "AdaIntake": AdaIntake,
@@ -132,8 +133,11 @@ export const PAGES = {
     "AiWebsites": AiWebsites,
     "Blog": Blog,
     "BlogPost": BlogPost,
+    "Book-Call": bookCall,
     "Contact": Contact,
     "Dashboard": Dashboard,
+    "Free-Audit": freeAudit,
+    "Get-Started": getStarted,
     "Home": Home,
     "IndustriesHub": IndustriesHub,
     "IndustriesNonprofits": IndustriesNonprofits,
@@ -155,12 +159,14 @@ export const PAGES = {
     "OnboardThankYou": OnboardThankYou,
     "Onboarding": Onboarding,
     "OnboardingStart": OnboardingStart,
+    "Rebuild-Intake": rebuildIntake,
     "Rebuild": Rebuild,
     "RebuildIntake": RebuildIntake,
     "RebuildIntakePretty": RebuildIntakePretty,
     "RebuildProposal": RebuildProposal,
     "SetupComplete": SetupComplete,
     "SocialMediaManagement": SocialMediaManagement,
+    "Streaming-TV": streamingTv,
     "StreamingCreativePayment": StreamingCreativePayment,
     "StreamingIntake": StreamingIntake,
     "StreamingOnboarding": StreamingOnboarding,
@@ -168,13 +174,7 @@ export const PAGES = {
     "StreamingTV": StreamingTV,
     "StreamingThankYou": StreamingThankYou,
     "TvVideo": TvVideo,
-    "Rebuild-Intake": rebuildIntake,
-    "Get-Started": getStarted,
-    "Book-Call": bookCall,
-    "Free-Audit": freeAudit,
     "Website-Rebuild": websiteRebuild,
-    "Streaming-TV": streamingTv,
-    "Ada-Compliance": adaCompliance,
 }
 
 export const pagesConfig = {
