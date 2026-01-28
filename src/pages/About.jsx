@@ -84,8 +84,7 @@ export default function About() {
           <div className="max-w-5xl mx-auto px-6">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-slate-900 mb-4">Choose Your Starting Point</h2>
-              <p className="text-lg text-slate-600 mb-2">Pick the option that best matches where you are right now.</p>
-              <p className="text-slate-500">If you're unsure, we'll help you decide — no wrong choice.</p>
+              <p className="text-lg text-slate-600">Not sure where to begin? Pick the option that best fits your situation — we'll guide you from there.</p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
@@ -94,15 +93,15 @@ export default function About() {
                   <Shield className="w-8 h-8 text-blue-600 flex-shrink-0" />
                   <div>
                     <h3 className="text-xl font-bold text-slate-900 mb-2">ADA Website Accessibility</h3>
-                    <p className="text-sm text-slate-500 mb-3">Free scan + clear next steps.</p>
+                    <p className="text-sm text-slate-500 mb-3">Free scan + clear next steps</p>
                   </div>
                 </div>
                 <p className="text-slate-600 mb-6">
-                  If you're worried about ADA compliance, lawsuits, or accessibility complaints, start here. We'll scan your site, explain what matters (and what doesn't), and outline a practical plan.
+                  If you're concerned about ADA compliance, accessibility lawsuits, or whether your website meets current standards, start here. We'll scan your site and explain what matters — clearly and calmly.
                 </p>
                 <Link to={createPageUrl('AdaAccessibility')}>
                   <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                    Start Free ADA Scan
+                    👉 Start Free ADA Scan
                   </Button>
                 </Link>
               </div>
@@ -112,15 +111,15 @@ export default function About() {
                   <Globe className="w-8 h-8 text-purple-600 flex-shrink-0" />
                   <div>
                     <h3 className="text-xl font-bold text-slate-900 mb-2">ADA-Friendly Website Rebuild</h3>
-                    <p className="text-sm text-slate-500 mb-3">Modern rebuild designed to be accessible and conversion-ready.</p>
+                    <p className="text-sm text-slate-500 mb-3">Modern, accessible, conversion-ready</p>
                   </div>
                 </div>
                 <p className="text-slate-600 mb-6">
-                  If your website is outdated, hard to use, or risky from a compliance standpoint, we'll review it and recommend a rebuild that's clean, accessible, and built to generate leads.
+                  If your website is outdated, hard to use, or risky from a compliance standpoint, we'll review it and recommend a rebuild that's accessible, modern, and built to convert visitors into leads.
                 </p>
                 <Link to={createPageUrl('Rebuild')}>
                   <Button className="w-full bg-purple-600 hover:bg-purple-700">
-                    Request a Rebuild Review
+                    👉 Request a Rebuild Review
                   </Button>
                 </Link>
               </div>
@@ -130,15 +129,15 @@ export default function About() {
                   <Tv className="w-8 h-8 text-green-600 flex-shrink-0" />
                   <div>
                     <h3 className="text-xl font-bold text-slate-900 mb-2">Local Visibility</h3>
-                    <p className="text-sm text-slate-500 mb-3">Streaming TV + social presence, coordinated.</p>
+                    <p className="text-sm text-slate-500 mb-3">Streaming TV + social presence, coordinated</p>
                   </div>
                 </div>
                 <p className="text-slate-600 mb-6">
-                  Perfect for businesses that want more awareness in their local market. We combine streaming TV, social media, and digital visibility into a clear, coordinated strategy.
+                  For businesses that want more awareness in their local market. We combine streaming TV, social media, and digital visibility into one clear, coordinated strategy.
                 </p>
                 <Link to={createPageUrl('StreamingTV')}>
                   <Button className="w-full bg-green-600 hover:bg-green-700">
-                    Get Visibility Guidance
+                    👉 Get Visibility Guidance
                   </Button>
                 </Link>
               </div>
@@ -147,16 +146,16 @@ export default function About() {
                 <div className="flex items-start gap-4 mb-4">
                   <HelpCircle className="w-8 h-8 text-orange-600 flex-shrink-0" />
                   <div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">Not Sure / Full Onboarding</h3>
-                    <p className="text-sm text-slate-500 mb-3">We'll route you to the right path.</p>
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">Not Sure Where to Start?</h3>
+                    <p className="text-sm text-slate-500 mb-3">We'll help you choose</p>
                   </div>
                 </div>
                 <p className="text-slate-600 mb-6">
-                  If you're not sure what you need, that's okay. Answer a few questions and we'll guide you to the right solution — no pressure.
+                  If you're unsure which option is right, that's okay. Answer a few simple questions and we'll guide you to the best next step — no pressure.
                 </p>
                 <Link to={createPageUrl('OnboardingStart')}>
                   <Button className="w-full bg-orange-600 hover:bg-orange-700">
-                    Tell Us What You Need
+                    👉 Tell Us What You Need
                   </Button>
                 </Link>
               </div>
