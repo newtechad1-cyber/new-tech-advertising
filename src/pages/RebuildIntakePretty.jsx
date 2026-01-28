@@ -1,6 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
 export default function RebuildIntakePretty() {
-  useEffect(() => { window.location.href = "/rebuildintake"; }, []);
-  return <div>Loading…</div>;
+  useEffect(() => {
+    window.location.href = '/rebuildintake';
+  }, []);
+
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <p className="text-slate-600">Loading…</p>
+    </div>
+  );
 }
