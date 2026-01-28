@@ -1,12 +1,9 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export default function RebuildIntakePretty() {
-  const navigate = useNavigate();
-
   useEffect(() => {
-    navigate('/rebuildintake', { replace: true });
-  }, [navigate]);
+    window.location.href = '/rebuildintake';
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center">
