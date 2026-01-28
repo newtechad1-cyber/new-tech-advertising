@@ -228,6 +228,104 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Who This Is For / Not For */}
+        <section className="py-20 bg-slate-50">
+          <div className="max-w-4xl mx-auto px-6">
+            <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Who This Is For</h2>
+            
+            <div className="bg-white rounded-xl p-8 shadow-sm border border-slate-200 mb-8">
+              <p className="text-lg text-slate-600 mb-6">
+                New Tech Advertising is a good fit if you:
+              </p>
+              <div className="space-y-4">
+                {[
+                  'Run a local or regional business',
+                  'Want clear guidance, not marketing jargon',
+                  'Care about accessibility, usability, and real results',
+                  'Prefer practical next steps over pressure or hype',
+                  'Want to understand why something is recommended'
+                ].map((item, index) => (
+                  <div key={index} className="flex items-start gap-3">
+                    <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
+                    <p className="text-slate-700 text-lg">{item}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-slate-600 mt-6 font-medium">
+                We work best with business owners who value clarity, trust, and long-term results.
+              </p>
+            </div>
+
+            <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Who This Is Not For</h2>
+            
+            <div className="bg-white rounded-xl p-8 shadow-sm border border-slate-200 mb-8">
+              <p className="text-lg text-slate-600 mb-6">
+                We may not be the right fit if you:
+              </p>
+              <div className="space-y-4">
+                {[
+                  'Are looking for the cheapest option',
+                  'Want a "set it and forget it" solution with no involvement',
+                  'Expect guaranteed rankings, instant results, or legal promises',
+                  'Want aggressive sales tactics or buzzwords',
+                  'Aren\'t open to guidance or collaboration'
+                ].map((item, index) => (
+                  <div key={index} className="flex items-start gap-3">
+                    <div className="w-6 h-6 flex-shrink-0 mt-1">
+                      <span className="text-red-600 text-xl">✖️</span>
+                    </div>
+                    <p className="text-slate-700 text-lg">{item}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-slate-600 mt-6 font-medium">
+                That's okay — not every solution fits every business.
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-8 border-2 border-blue-200 text-center">
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Why This Matters</h3>
+              <p className="text-lg text-slate-700 mb-2">
+                We believe the best results come from clear communication and shared expectations.
+              </p>
+              <p className="text-lg text-slate-900 font-semibold">
+                If that sounds like how you like to work, you're in the right place.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Ready to Get Started */}
+        <section className="py-20 bg-white">
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">
+              Ready to get started — without the overwhelm?
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+              <Link to={createPageUrl('AdaAccessibility')}>
+                <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                  Start Free ADA Scan
+                </Button>
+              </Link>
+              <Link to={createPageUrl('Rebuild')}>
+                <Button className="w-full bg-purple-600 hover:bg-purple-700">
+                  Request a Rebuild Review
+                </Button>
+              </Link>
+              <Link to={createPageUrl('StreamingTV')}>
+                <Button className="w-full bg-green-600 hover:bg-green-700">
+                  Get Visibility Guidance
+                </Button>
+              </Link>
+              <Link to={createPageUrl('OnboardingStart')}>
+                <Button className="w-full bg-orange-600 hover:bg-orange-700">
+                  Tell Us What You Need
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* Why New Tech Advertising */}
         <section className="py-20 bg-slate-900 text-white">
           <div className="max-w-4xl mx-auto px-6">
