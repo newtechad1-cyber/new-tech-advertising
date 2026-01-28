@@ -24,20 +24,19 @@ export default function About() {
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
           <div className="max-w-4xl mx-auto px-6 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              Clear marketing and compliance solutions for local businesses
+            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-8">
+              About New Tech Advertising
             </h1>
-            <p className="text-2xl text-slate-600 mb-4 font-medium">
-              Guided. Practical. Never overwhelming.
-            </p>
-            <p className="text-lg text-slate-600 mb-8 max-w-3xl mx-auto">
-              We help local businesses grow visibility, stay compliant, and convert more customers — without jargon, pressure, or bloated packages.
-            </p>
-            <p className="text-lg text-slate-600 mb-12">
-              Whether you need ADA accessibility, a modern website rebuild, or better local visibility through streaming TV and social, we'll guide you to the right next step.
-            </p>
-            <div className="inline-block">
-              <p className="text-blue-600 font-semibold text-lg mb-4">Choose Your Starting Point ↓</p>
+            <div className="text-lg text-slate-700 space-y-6 max-w-3xl mx-auto">
+              <p>
+                New Tech Advertising helps local businesses grow with clarity — not confusion.
+              </p>
+              <p>
+                We specialize in ADA accessibility, modern website rebuilds, and local visibility through streaming TV and digital marketing. Our approach is simple: explain what matters, guide clients through the right next steps, and never overwhelm clients with jargon or pressure.
+              </p>
+              <p>
+                If you're not sure where to start, that's okay — we'll help you figure it out.
+              </p>
             </div>
           </div>
         </section>
