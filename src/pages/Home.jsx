@@ -245,6 +245,15 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Pre-CTA Message */}
+        <section className="py-12 bg-white">
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            <p className="text-xl text-slate-600">
+              Not sure what you need yet? That's more common than you think. We'll help you figure it out.
+            </p>
+          </div>
+        </section>
+
         {/* Final CTA */}
         <section id="final-cta" className="py-20 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
           <div className="max-w-4xl mx-auto px-6 text-center">
