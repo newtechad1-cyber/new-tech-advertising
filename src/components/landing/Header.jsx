@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Mail, Phone, UserCircle, Menu, X, ChevronDown, Shield, Globe, Tv, HelpCircle } from 'lucide-react';
+import { Mail, Phone, UserCircle, Menu, X, ChevronDown } from 'lucide-react';
 import { createPageUrl } from '../../utils';
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
@@ -10,39 +10,25 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
+
 import { trackCTAClick } from '../analytics/trackingUtils';
 
 export default function Header({ onCTAClick }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [showGetStarted, setShowGetStarted] = useState(false);
+
 
   const NavLinks = ({ mobile = false }) => {
     if (mobile) {
       return (
         <nav className="flex flex-col space-y-4 text-sm font-medium text-slate-600">
-          <div className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-2">Solutions</div>
-          <Link to={createPageUrl('AdaAccessibility')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>ADA Website Accessibility</Link>
-          <Link to={createPageUrl('Rebuild')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Website Rebuild (ADA-Friendly)</Link>
-          <Link to={createPageUrl('StreamingTV')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Local Visibility (Streaming + Social)</Link>
-          <Link to={createPageUrl('StreamingTV')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Streaming TV & Video Advertising</Link>
-          <Link to={createPageUrl('SocialMediaManagement')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Social Media Management</Link>
-          
-          <div className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-2 mt-4">Industries</div>
-          <Link to={createPageUrl('IndustriesHub')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>All Industries</Link>
-          <Link to={createPageUrl('IndustriesSmallLocal')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Small Local Businesses</Link>
-          <Link to={createPageUrl('IndustriesServiceTrades')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Service Trades</Link>
-          <Link to={createPageUrl('IndustriesProfessionals')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Professional Offices</Link>
-          <Link to={createPageUrl('IndustriesNonprofits')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Nonprofits & Community</Link>
-          
-          <Link to={createPageUrl('Blog')} className="hover:text-blue-600 transition-colors mt-4" onClick={() => setIsOpen(false)}>Resources</Link>
-          <Link to={createPageUrl('About')} className="hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>About</Link>
+          <div className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-2">What We Help With</div>
+          <Link to={createPageUrl('SocialMediaManagement')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Social Media Help</Link>
+          <Link to={createPageUrl('Rebuild')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Website Help</Link>
+          <Link to={createPageUrl('StreamingTV')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>TV Ads</Link>
+          <Link to={createPageUrl('AdaAccessibility')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Website Accessibility</Link>
+
+          <Link to={createPageUrl('Blog')} className="hover:text-blue-600 transition-colors mt-4" onClick={() => setIsOpen(false)}>Articles</Link>
+          <Link to={createPageUrl('About')} className="hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>About Us</Link>
           <Link to={createPageUrl('Contact')} className="hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>Contact</Link>
         </nav>
       );
@@ -52,52 +38,26 @@ export default function Header({ onCTAClick }) {
       <nav className="flex items-center gap-6 text-sm font-medium text-slate-600">
         <DropdownMenu>
           <DropdownMenuTrigger className="flex items-center gap-1 hover:text-blue-600 transition-colors">
-            Solutions <ChevronDown className="w-4 h-4" />
+            What We Help With <ChevronDown className="w-4 h-4" />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem asChild>
-              <Link to={createPageUrl('AdaAccessibility')} className="cursor-pointer">ADA Website Accessibility</Link>
+              <Link to={createPageUrl('SocialMediaManagement')} className="cursor-pointer">Social Media Help</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to={createPageUrl('Rebuild')} className="cursor-pointer">Website Rebuild (ADA-Friendly)</Link>
+              <Link to={createPageUrl('Rebuild')} className="cursor-pointer">Website Help</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to={createPageUrl('StreamingTV')} className="cursor-pointer">Local Visibility (Streaming + Social)</Link>
+              <Link to={createPageUrl('StreamingTV')} className="cursor-pointer">TV Ads</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to={createPageUrl('StreamingTV')} className="cursor-pointer">Streaming TV & Video Advertising</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link to={createPageUrl('SocialMediaManagement')} className="cursor-pointer">Social Media Management</Link>
+              <Link to={createPageUrl('AdaAccessibility')} className="cursor-pointer">Website Accessibility</Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger className="flex items-center gap-1 hover:text-blue-600 transition-colors">
-            Industries <ChevronDown className="w-4 h-4" />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem asChild>
-              <Link to={createPageUrl('IndustriesHub')} className="cursor-pointer">All Industries</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link to={createPageUrl('IndustriesSmallLocal')} className="cursor-pointer">Small Local Businesses</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link to={createPageUrl('IndustriesServiceTrades')} className="cursor-pointer">Service Trades</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link to={createPageUrl('IndustriesProfessionals')} className="cursor-pointer">Professional Offices</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link to={createPageUrl('IndustriesNonprofits')} className="cursor-pointer">Nonprofits & Community</Link>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        <Link to={createPageUrl('Blog')} className="hover:text-blue-600 transition-colors">Resources</Link>
-        <Link to={createPageUrl('About')} className="hover:text-blue-600 transition-colors">About</Link>
+        <Link to={createPageUrl('Blog')} className="hover:text-blue-600 transition-colors">Articles</Link>
+        <Link to={createPageUrl('About')} className="hover:text-blue-600 transition-colors">About Us</Link>
         <Link to={createPageUrl('Contact')} className="hover:text-blue-600 transition-colors">Contact</Link>
       </nav>
     );
@@ -172,65 +132,18 @@ export default function Header({ onCTAClick }) {
             </Link>
             <Button
               onClick={() => {
-                trackCTAClick('Header - Get Started');
-                setShowGetStarted(true);
+                trackCTAClick('Header - Start Free Trial');
+                window.location.href = createPageUrl('SocialMediaManagement');
               }}
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
             >
-              Get Started
+              Start Free Trial
             </Button>
           </div>
         </div>
       </div>
 
-      <Dialog open={showGetStarted} onOpenChange={setShowGetStarted}>
-        <DialogContent className="max-w-xl">
-          <DialogHeader>
-            <DialogTitle className="text-2xl">Get Started</DialogTitle>
-            <DialogDescription>
-              Choose the option that fits your needs
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="grid gap-3 py-4">
-            <a
-              href="/adaaccessibility"
-              onClick={() => setShowGetStarted(false)}
-              className="flex items-center gap-3 p-4 rounded-lg border-2 border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition-all"
-            >
-              <Shield className="w-5 h-5 text-blue-600" />
-              <span className="font-semibold text-slate-900">Free ADA Scan</span>
-            </a>
 
-            <a
-              href="/rebuild"
-              onClick={() => setShowGetStarted(false)}
-              className="flex items-center gap-3 p-4 rounded-lg border-2 border-slate-200 hover:border-purple-500 hover:bg-purple-50 transition-all"
-            >
-              <Globe className="w-5 h-5 text-purple-600" />
-              <span className="font-semibold text-slate-900">Website Rebuild</span>
-            </a>
-
-            <a
-              href="/local-visibility"
-              onClick={() => setShowGetStarted(false)}
-              className="flex items-center gap-3 p-4 rounded-lg border-2 border-slate-200 hover:border-green-500 hover:bg-green-50 transition-all"
-            >
-              <Tv className="w-5 h-5 text-green-600" />
-              <span className="font-semibold text-slate-900">Local Visibility</span>
-            </a>
-
-            <a
-              href="/get-started"
-              onClick={() => setShowGetStarted(false)}
-              className="flex items-center gap-3 p-4 rounded-lg border-2 border-slate-200 hover:border-orange-500 hover:bg-orange-50 transition-all"
-            >
-              <HelpCircle className="w-5 h-5 text-orange-600" />
-              <span className="font-semibold text-slate-900">Full Onboarding</span>
-            </a>
-          </div>
-        </DialogContent>
-      </Dialog>
     </header>
   );
 }
