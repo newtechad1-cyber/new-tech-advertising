@@ -1,22 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/landing/Header';
 import Footer from '../components/landing/Footer';
 import Chatbot from '../components/Chatbot';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils';
-import { Shield, Globe, Tv, HelpCircle, CheckCircle } from 'lucide-react';
+import { CheckCircle, X } from 'lucide-react';
 
 export default function Home() {
+  const [showModal, setShowModal] = useState(false);
+
   useEffect(() => {
-    document.title = 'New Tech Advertising | Clear Marketing & Compliance Solutions';
+    document.title = 'New Tech Advertising | Help for Local Business Owners';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Clear marketing and compliance solutions for local businesses — guided, not overwhelming.');
+      metaDescription.setAttribute('content', 'Get more customers without getting overwhelmed. Simple tools or done-for-you help for local businesses.');
     }
   }, []);
-
-
 
   return (
     <div className="bg-white">
@@ -25,7 +25,7 @@ export default function Home() {
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
           "name": "New Tech Advertising",
-          "description": "Clear marketing and compliance solutions for local businesses",
+          "description": "Marketing help for local businesses",
           "url": "https://newtechadvertising.com",
           "telephone": "641-420-8816",
           "email": "rick@newtechadvertising.com",
@@ -49,139 +49,251 @@ export default function Home() {
         <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
           <div className="max-w-4xl mx-auto px-6 text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              Clear marketing and compliance solutions for local businesses
+              Get More Customers Without Getting Overwhelmed
             </h1>
-            <p className="text-2xl text-slate-600 mb-8 font-medium">
-              ADA accessibility, modern website rebuilds, and local visibility — guided, not overwhelming.
+            <p className="text-xl text-slate-700 mb-4 leading-relaxed">
+              You're busy running your business. You don't have time to figure out marketing on your own.
+            </p>
+            <p className="text-lg text-slate-600 mb-8 leading-relaxed max-w-3xl mx-auto">
+              We help local business owners like you show up online, look trustworthy, and reach more customers — without confusing jargon or wasted money.
             </p>
             <div className="inline-block">
-              <a href="#final-cta" className="text-blue-600 font-semibold text-lg mb-4 hover:text-blue-700 transition-colors cursor-pointer">
-                Choose Your Starting Point ↓
+              <a href="#choose-path" className="text-blue-600 font-semibold text-lg hover:text-blue-700 transition-colors cursor-pointer">
+                See How We Can Help ↓
               </a>
             </div>
           </div>
         </section>
 
-        {/* Trust / Positioning Strip */}
+        {/* Who This Is For */}
         <section className="py-16 bg-white border-y border-slate-200">
-          <div className="max-w-6xl mx-auto px-6">
+          <div className="max-w-5xl mx-auto px-6">
             <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">
-              Built for local businesses that want clarity, not chaos
+              This is for you if:
             </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid md:grid-cols-2 gap-6">
               <div className="flex items-start gap-3">
                 <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
-                <div>
-                  <p className="text-slate-700 font-medium">ADA compliance explained in plain English</p>
-                </div>
+                <p className="text-slate-700">You're a local business owner who needs more customers</p>
               </div>
               <div className="flex items-start gap-3">
                 <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
-                <div>
-                  <p className="text-slate-700 font-medium">Websites designed to convert — not just look nice</p>
-                </div>
+                <p className="text-slate-700">You don't have time to learn marketing</p>
               </div>
               <div className="flex items-start gap-3">
                 <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
-                <div>
-                  <p className="text-slate-700 font-medium">Local visibility strategies that actually get seen</p>
-                </div>
+                <p className="text-slate-700">Your website feels outdated or isn't working</p>
               </div>
               <div className="flex items-start gap-3">
                 <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
-                <div>
-                  <p className="text-slate-700 font-medium">Real guidance, not a maze of upsells</p>
-                </div>
+                <p className="text-slate-700">You want to be found online but don't know where to start</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
+                <p className="text-slate-700">You've been told your website has problems you don't understand</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
+                <p className="text-slate-700">You're tired of wasting money on things that don't work</p>
               </div>
             </div>
-            <p className="text-center text-slate-600 mt-8 font-medium">
-              No guesswork. No overwhelm. Just smart next steps.
-            </p>
+            <div className="mt-10 text-center">
+              <p className="text-lg text-slate-700 font-semibold">
+                You don't need to understand marketing.<br />
+                We explain everything in plain language.
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* Choose Your Starting Point */}
-        <section className="py-20 bg-slate-50">
+        {/* Two Paths */}
+        <section id="choose-path" className="py-20 bg-slate-50">
           <div className="max-w-5xl mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">Choose Your Starting Point</h2>
-              <p className="text-lg text-slate-600">Not sure where to begin? Pick the option that best fits your situation — we'll guide you from there.</p>
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">Choose How You Want to Work</h2>
+              <p className="text-lg text-slate-600">Two paths. You decide what fits.</p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                    <div className="mb-4">
-                      <h3 className="text-2xl font-bold text-slate-900 mb-2">📱 Social Media Management</h3>
-                      <p className="text-sm text-slate-500 mb-3">DIY tools or Done For You</p>
-                    </div>
-                    <p className="text-slate-600 mb-6">
-                      Content creation, scheduling, and strategy — choose to manage it yourself or let us handle everything. Consistent presence across Facebook, Instagram, LinkedIn, and more.
-                    </p>
-                    <Link to={createPageUrl('SocialMediaMarketing')}>
-                      <Button className="w-full bg-purple-600 hover:bg-purple-700">
-                        Explore Social Media
-                      </Button>
-                    </Link>
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+              <div className="bg-white p-8 rounded-xl shadow-sm border-2 border-blue-200">
+                <div className="text-center mb-6">
+                  <div className="inline-block px-4 py-2 bg-blue-100 rounded-full mb-4">
+                    <span className="text-sm font-bold text-blue-900">Do It Yourself</span>
                   </div>
-
-                  <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                    <div className="mb-4">
-                      <h3 className="text-2xl font-bold text-slate-900 mb-2">📺 Local Visibility</h3>
-                      <p className="text-sm text-slate-500 mb-3">Streaming TV + social presence, coordinated</p>
-                    </div>
-                    <p className="text-slate-600 mb-6">
-                      Increase awareness in your local market using streaming TV and digital visibility — aligned, consistent, and easy to understand.
-                    </p>
-                    <Link to={createPageUrl('StreamingTV')}>
-                      <Button className="w-full bg-green-600 hover:bg-green-700">
-                        Get Visibility Guidance
-                      </Button>
-                    </Link>
-                  </div>
-
-                  <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                    <div className="mb-4">
-                      <h3 className="text-2xl font-bold text-slate-900 mb-2">🛡️ ADA Website Accessibility</h3>
-                      <p className="text-sm text-slate-500 mb-3">Free scan + clear next steps</p>
-                    </div>
-                    <p className="text-slate-600 mb-6">
-                      If you're concerned about ADA compliance, accessibility complaints, or usability issues, start here. We'll scan your site and explain what matters — clearly and calmly.
-                    </p>
-                    <Link to={createPageUrl('AdaAccessibility')}>
-                      <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                        Start Free ADA Scan
-                      </Button>
-                    </Link>
-                  </div>
-
-                  <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                    <div className="mb-4">
-                      <h3 className="text-2xl font-bold text-slate-900 mb-2">🧱 ADA-Friendly Website Rebuild</h3>
-                      <p className="text-sm text-slate-500 mb-3">Modern, accessible, conversion-ready</p>
-                    </div>
-                    <p className="text-slate-600 mb-6">
-                      If your website is outdated or difficult to use, we'll review it and recommend a rebuild designed for accessibility, clarity, and real conversions.
-                    </p>
-                    <Link to={createPageUrl('Rebuild')}>
-                      <Button className="w-full bg-orange-600 hover:bg-orange-700">
-                        Request a Rebuild Review
-                      </Button>
-                    </Link>
-                  </div>
-
-              <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                <div className="mb-4">
-                  <h3 className="text-2xl font-bold text-slate-900 mb-2">🧭 Not Sure Where to Start?</h3>
-                  <p className="text-sm text-slate-500 mb-3">We'll guide you</p>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3">
+                    Simple Tools You Control
+                  </h3>
                 </div>
-                <p className="text-slate-600 mb-6">
-                  Answer a few questions and we'll point you in the right direction — no pressure, no guessing.
-                </p>
-                <Link to={createPageUrl('OnboardingStart')}>
-                  <Button className="w-full bg-orange-600 hover:bg-orange-700">
-                    Tell Us What You Need
+                
+                <div className="space-y-4 mb-6">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <p className="text-slate-700">Easy-to-use tools for social media</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <p className="text-slate-700">Schedule posts ahead of time</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <p className="text-slate-700">Templates to make it faster</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <p className="text-slate-700">You set it up when you have time</p>
+                  </div>
+                </div>
+
+                <div className="bg-blue-50 rounded-lg p-4 mb-6 text-center">
+                  <p className="text-2xl font-bold text-blue-900 mb-1">Free Trial</p>
+                  <p className="text-sm text-slate-600">Try it out, no credit card needed</p>
+                </div>
+
+                <Link to={createPageUrl('SocialMediaMarketing')}>
+                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-lg py-6">
+                    Start Free Trial
                   </Button>
                 </Link>
+              </div>
+
+              <div className="bg-white p-8 rounded-xl shadow-sm border-2 border-purple-200">
+                <div className="text-center mb-6">
+                  <div className="inline-block px-4 py-2 bg-purple-100 rounded-full mb-4">
+                    <span className="text-sm font-bold text-purple-900">Done For You</span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3">
+                    We Handle Everything
+                  </h3>
+                </div>
+                
+                <div className="space-y-4 mb-6">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                    <p className="text-slate-700">Website fixes or rebuilds</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                    <p className="text-slate-700">Social media posts created and scheduled</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                    <p className="text-slate-700">Local TV and video ads</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                    <p className="text-slate-700">You review and approve, we do the work</p>
+                  </div>
+                </div>
+
+                <div className="bg-purple-50 rounded-lg p-4 mb-6 text-center">
+                  <p className="text-lg font-semibold text-purple-900 mb-1">We'll explain pricing</p>
+                  <p className="text-sm text-slate-600">After we understand what you need</p>
+                </div>
+
+                <Button 
+                  onClick={() => setShowModal(true)}
+                  className="w-full bg-purple-600 hover:bg-purple-700 text-lg py-6"
+                >
+                  See How We Can Help
+                </Button>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-xl p-8 border-2 border-slate-200 text-center">
+              <p className="text-lg text-slate-700 mb-2">
+                <strong>Not sure which path to choose?</strong>
+              </p>
+              <p className="text-slate-600">
+                That's okay. Tell us what you need and we'll point you in the right direction.
+              </p>
+              <Link to={createPageUrl('OnboardingStart')}>
+                <Button className="mt-6 bg-orange-600 hover:bg-orange-700">
+                  Tell Us What You Need
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* What We Help With */}
+        <section className="py-20 bg-white">
+          <div className="max-w-5xl mx-auto px-6">
+            <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">What We Help With</h2>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                <h3 className="text-xl font-bold text-slate-900 mb-3">🌐 Being Found Online</h3>
+                <p className="text-slate-700">
+                  Fix your website so people can find you on Google. Make it work on phones. Show up when people search for what you do.
+                </p>
+              </div>
+
+              <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                <h3 className="text-xl font-bold text-slate-900 mb-3">✅ Looking Trustworthy</h3>
+                <p className="text-slate-700">
+                  Make sure your website looks professional and loads fast. Fix problems that make you look outdated or unreliable.
+                </p>
+              </div>
+
+              <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                <h3 className="text-xl font-bold text-slate-900 mb-3">💬 Social Media Posts</h3>
+                <p className="text-slate-700">
+                  Keep your Facebook, Instagram, or LinkedIn active without spending hours on it. Either use simple tools or let us handle it.
+                </p>
+              </div>
+
+              <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                <h3 className="text-xl font-bold text-slate-900 mb-3">📺 Local TV Ads</h3>
+                <p className="text-slate-700">
+                  Get your business in front of people watching streaming TV. Costs less than you think, and you don't need a big production.
+                </p>
+              </div>
+
+              <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                <h3 className="text-xl font-bold text-slate-900 mb-3">🛡️ Website Problems</h3>
+                <p className="text-slate-700">
+                  Fix issues with your website that could cause legal trouble or make customers leave. We explain what's wrong and how to fix it.
+                </p>
+              </div>
+
+              <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                <h3 className="text-xl font-bold text-slate-900 mb-3">⏰ Saving Time</h3>
+                <p className="text-slate-700">
+                  Stop wasting time on marketing you don't understand. Use simple tools or hand it off completely.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Reassurance */}
+        <section className="py-20 bg-blue-50">
+          <div className="max-w-4xl mx-auto px-6">
+            <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">Here's What You Should Know</h2>
+            
+            <div className="space-y-6">
+              <div className="bg-white rounded-xl p-6 border border-blue-200">
+                <p className="text-lg text-slate-700">
+                  <strong>You don't need to understand marketing.</strong> We explain things in plain English, not jargon.
+                </p>
+              </div>
+
+              <div className="bg-white rounded-xl p-6 border border-blue-200">
+                <p className="text-lg text-slate-700">
+                  <strong>You're not locked into anything.</strong> Try the free tools with no credit card. If you hire us, there are no long-term contracts.
+                </p>
+              </div>
+
+              <div className="bg-white rounded-xl p-6 border border-blue-200">
+                <p className="text-lg text-slate-700">
+                  <strong>We won't waste your money.</strong> If something doesn't make sense for your business, we'll tell you.
+                </p>
+              </div>
+
+              <div className="bg-white rounded-xl p-6 border border-blue-200">
+                <p className="text-lg text-slate-700">
+                  <strong>We don't push you into things.</strong> You decide what makes sense. We just help you understand your options.
+                </p>
               </div>
             </div>
           </div>
@@ -190,229 +302,85 @@ export default function Home() {
         {/* How It Works */}
         <section className="py-20 bg-white">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">How it works</h2>
-            <div className="grid md:grid-cols-3 gap-8 mb-12">
-              <div className="text-center">
-                <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">1</div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Choose a starting point</h3>
-                <p className="text-slate-600">Pick the option that feels closest to your situation.</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">2</div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Get clarity</h3>
-                <p className="text-slate-600">We review, scan, or assess — then explain everything in plain language.</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">3</div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Move forward confidently</h3>
-                <p className="text-slate-600">Only proceed if it makes sense for your business.</p>
-              </div>
-            </div>
-            <p className="text-center text-lg text-slate-600 font-medium">
-              No long contracts. No confusion. No sales pressure.
-            </p>
-          </div>
-        </section>
-
-        {/* FAQ Section */}
-        <section className="py-20 bg-white">
-          <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Frequently Asked Questions</h2>
+            <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">How It Works</h2>
             <div className="space-y-8">
-              <div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Do I have to know what I need before starting?</h3>
-                <p className="text-slate-600">No. Many clients don't. That's why we offer guided starting points and full onboarding if you're unsure.</p>
+              <div className="flex gap-6 items-start">
+                <div className="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                  1
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">Pick Your Path</h3>
+                  <p className="text-slate-700">Try the free tools yourself, or tell us what you need help with.</p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Is ADA compliance guaranteed?</h3>
-                <p className="text-slate-600">No one can guarantee compliance. Accessibility is an ongoing process. We help identify issues and guide you toward practical improvements based on recognized standards.</p>
+
+              <div className="flex gap-6 items-start">
+                <div className="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                  2
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">We Explain Everything</h3>
+                  <p className="text-slate-700">No confusing terms. We tell you what's wrong, what it will cost, and why it matters.</p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Do you work only with local businesses?</h3>
-                <p className="text-slate-600">Yes. Everything we do is designed specifically for local and regional businesses — not enterprise platforms or one-size-fits-all solutions.</p>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Is there a long-term contract?</h3>
-                <p className="text-slate-600">No. We focus on clarity first. You move forward only if it makes sense for your business.</p>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">What if I just want advice?</h3>
-                <p className="text-slate-600">That's fine. Many people start with a scan or review and decide later. No pressure.</p>
+
+              <div className="flex gap-6 items-start">
+                <div className="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                  3
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">You Decide</h3>
+                  <p className="text-slate-700">Only move forward if it makes sense for you. No pressure.</p>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Who This Is For / Not For */}
+        {/* Testimonials */}
         <section className="py-20 bg-slate-50">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Who This Is For</h2>
-            
-            <div className="bg-white rounded-xl p-8 shadow-sm border border-slate-200 mb-8">
-              <p className="text-lg text-slate-600 mb-6">
-                New Tech Advertising is a good fit if you:
-              </p>
-              <div className="space-y-4">
-                {[
-                  'Run a local or regional business',
-                  'Want clear guidance, not marketing jargon',
-                  'Care about accessibility, usability, and real results',
-                  'Prefer practical next steps over pressure or hype',
-                  'Want to understand why something is recommended'
-                ].map((item, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
-                    <p className="text-slate-700 text-lg">{item}</p>
-                  </div>
-                ))}
-              </div>
-              <p className="text-slate-600 mt-6 font-medium">
-                We work best with business owners who value clarity, trust, and long-term results.
-              </p>
-            </div>
-
-            <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Who This Is Not For</h2>
-            
-            <div className="bg-white rounded-xl p-8 shadow-sm border border-slate-200 mb-8">
-              <p className="text-lg text-slate-600 mb-6">
-                We may not be the right fit if you:
-              </p>
-              <div className="space-y-4">
-                {[
-                  'Are looking for the cheapest option',
-                  'Want a "set it and forget it" solution with no involvement',
-                  'Expect guaranteed rankings, instant results, or legal promises',
-                  'Want aggressive sales tactics or buzzwords',
-                  'Aren\'t open to guidance or collaboration'
-                ].map((item, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <div className="w-6 h-6 flex-shrink-0 mt-1">
-                      <span className="text-red-600 text-xl">✖️</span>
-                    </div>
-                    <p className="text-slate-700 text-lg">{item}</p>
-                  </div>
-                ))}
-              </div>
-              <p className="text-slate-600 mt-6 font-medium">
-                That's okay — not every solution fits every business.
-              </p>
-            </div>
-
-            <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-8 border-2 border-blue-200 text-center">
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">Why This Matters</h3>
-              <p className="text-lg text-slate-700 mb-2">
-                We believe the best results come from clear communication and shared expectations.
-              </p>
-              <p className="text-lg text-slate-900 font-semibold">
-                If that sounds like how you like to work, you're in the right place.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Ready to Get Started */}
-        <section className="py-20 bg-white">
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">
-              Ready to get started — without the overwhelm?
-            </h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
-              <Link to={createPageUrl('AdaAccessibility')}>
-                <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                  Start Free ADA Scan
-                </Button>
-              </Link>
-              <Link to={createPageUrl('Rebuild')}>
-                <Button className="w-full bg-purple-600 hover:bg-purple-700">
-                  Request a Rebuild Review
-                </Button>
-              </Link>
-              <Link to={createPageUrl('StreamingTV')}>
-                <Button className="w-full bg-green-600 hover:bg-green-700">
-                  Get Visibility Guidance
-                </Button>
-              </Link>
-              <Link to={createPageUrl('OnboardingStart')}>
-                <Button className="w-full bg-orange-600 hover:bg-orange-700">
-                  Tell Us What You Need
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Why New Tech Advertising */}
-        <section className="py-20 bg-slate-900 text-white">
-          <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl font-bold mb-12 text-center">Why local businesses choose New Tech Advertising</h2>
-            <div className="space-y-6 mb-12">
-              <div className="flex items-start gap-4">
-                <CheckCircle className="w-6 h-6 text-green-400 flex-shrink-0 mt-1" />
-                <p className="text-lg text-slate-200">We specialize in local businesses — not generic enterprise fluff</p>
-              </div>
-              <div className="flex items-start gap-4">
-                <CheckCircle className="w-6 h-6 text-green-400 flex-shrink-0 mt-1" />
-                <p className="text-lg text-slate-200">We care about compliance, conversions, and clarity</p>
-              </div>
-              <div className="flex items-start gap-4">
-                <CheckCircle className="w-6 h-6 text-green-400 flex-shrink-0 mt-1" />
-                <p className="text-lg text-slate-200">We guide you instead of overwhelming you</p>
-              </div>
-              <div className="flex items-start gap-4">
-                <CheckCircle className="w-6 h-6 text-green-400 flex-shrink-0 mt-1" />
-                <p className="text-lg text-slate-200">We explain the "why," not just the "what"</p>
-              </div>
-            </div>
-            <p className="text-center text-xl text-slate-300 font-medium">
-              You'll always know what we're doing and why it matters.
-            </p>
-          </div>
-        </section>
-
-        {/* Testimonials Section */}
-        <section className="py-20 bg-white">
-          <div className="max-w-4xl mx-auto px-6">
             <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">
-              What our clients say about working with us
+              What Business Owners Say
             </h2>
 
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-slate-50 rounded-xl p-8 border border-slate-200">
-                <p className="text-lg text-slate-700 mb-4 italic">
-                  "Everything was explained clearly, without pressure."
+              <div className="bg-white rounded-xl p-6 border border-slate-200">
+                <p className="text-lg text-slate-700 mb-3 italic">
+                  "They explained everything so I could understand it."
                 </p>
-                <p className="text-slate-600 mb-4">
-                  I always knew what the next step was, and nothing felt overwhelming.
+                <p className="text-slate-600 mb-3">
+                  No pressure, no confusing terms. Just clear answers.
                 </p>
                 <p className="text-slate-900 font-semibold">— Wendy Ruby</p>
               </div>
 
-              <div className="bg-slate-50 rounded-xl p-8 border border-slate-200">
-                <p className="text-lg text-slate-700 mb-4 italic">
-                  "They focused on what actually mattered."
+              <div className="bg-white rounded-xl p-6 border border-slate-200">
+                <p className="text-lg text-slate-700 mb-3 italic">
+                  "They didn't try to sell me things I didn't need."
                 </p>
-                <p className="text-slate-600 mb-4">
-                  No upsells, no fluff — just smart guidance and honest recommendations.
+                <p className="text-slate-600 mb-3">
+                  They told me what would work and what wouldn't.
                 </p>
                 <p className="text-slate-900 font-semibold">— Pete Gardner</p>
               </div>
 
-              <div className="bg-slate-50 rounded-xl p-8 border border-slate-200">
-                <p className="text-lg text-slate-700 mb-4 italic">
-                  "Straightforward and professional from day one."
+              <div className="bg-white rounded-xl p-6 border border-slate-200">
+                <p className="text-lg text-slate-700 mb-3 italic">
+                  "Finally, someone who speaks plain English."
                 </p>
-                <p className="text-slate-600 mb-4">
-                  Clear communication and follow-through the whole way.
+                <p className="text-slate-600 mb-3">
+                  I never felt lost or confused about what was happening.
                 </p>
                 <p className="text-slate-900 font-semibold">— Tony Johnson</p>
               </div>
 
-              <div className="bg-slate-50 rounded-xl p-8 border border-slate-200">
-                <p className="text-lg text-slate-700 mb-4 italic">
-                  "A calm, organized approach that made things simple."
+              <div className="bg-white rounded-xl p-6 border border-slate-200">
+                <p className="text-lg text-slate-700 mb-3 italic">
+                  "They made it simple and saved me time."
                 </p>
-                <p className="text-slate-600 mb-4">
-                  They cut through the noise and kept everything practical.
+                <p className="text-slate-600 mb-3">
+                  I can focus on my business now instead of worrying about marketing.
                 </p>
                 <p className="text-slate-900 font-semibold">— Jay Monson</p>
               </div>
@@ -420,46 +388,64 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Pre-CTA Message */}
-        <section className="py-12 bg-white">
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <p className="text-xl text-slate-600">
-              Not sure what you need yet? That's more common than you think. We'll help you figure it out.
-            </p>
+        {/* FAQ */}
+        <section className="py-20 bg-white">
+          <div className="max-w-4xl mx-auto px-6">
+            <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Common Questions</h2>
+            <div className="space-y-6">
+              <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                <h3 className="text-xl font-bold text-slate-900 mb-3">What if I don't know what I need?</h3>
+                <p className="text-slate-700">That's okay. Most people don't. We'll ask you a few questions and help you figure it out.</p>
+              </div>
+
+              <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                <h3 className="text-xl font-bold text-slate-900 mb-3">How much does it cost?</h3>
+                <p className="text-slate-700">It depends on what you need. The DIY tools have a free trial. Done-for-you services vary based on what we're doing. We'll always explain the cost before you commit.</p>
+              </div>
+
+              <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Do I have to sign a long contract?</h3>
+                <p className="text-slate-700">No. We don't believe in locking people in. You can stop anytime if it's not working for you.</p>
+              </div>
+
+              <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Will this actually help me get more customers?</h3>
+                <p className="text-slate-700">We focus on things that work: being found online, looking trustworthy, and showing up consistently. These things take time, but they do work.</p>
+              </div>
+
+              <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                <h3 className="text-xl font-bold text-slate-900 mb-3">What if I've tried marketing before and it didn't work?</h3>
+                <p className="text-slate-700">That happens a lot. Usually it's because things weren't explained clearly or the approach didn't fit the business. We'll help you figure out what makes sense for you.</p>
+              </div>
+            </div>
           </div>
         </section>
 
         {/* Final CTA */}
-        <section id="final-cta" className="py-20 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
+        <section className="py-20 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
           <div className="max-w-4xl mx-auto px-6 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Ready to take the next step — without the overwhelm?
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Ready to Get Started?
             </h2>
-            <p className="text-xl mb-8 text-blue-100">
-              Start where you're comfortable. We'll take care of the rest.
+            <p className="text-xl mb-10 text-blue-100 leading-relaxed">
+              Pick the option that feels right. No pressure. No confusion.
             </p>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
-              <Link to={createPageUrl('AdaAccessibility')}>
-                <Button className="w-full bg-white text-blue-600 hover:bg-blue-50">
-                  Start Free ADA Scan
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Link to={createPageUrl('SocialMediaMarketing')}>
+                <Button className="bg-white text-blue-600 hover:bg-blue-50 px-10 py-7 text-xl font-bold">
+                  Start Free Trial
                 </Button>
               </Link>
-              <Link to={createPageUrl('Rebuild')}>
-                <Button className="w-full bg-white text-purple-600 hover:bg-purple-50">
-                  Request a Rebuild Review
-                </Button>
-              </Link>
-              <Link to={createPageUrl('StreamingTV')}>
-                <Button className="w-full bg-white text-green-600 hover:bg-green-50">
-                  Get Visibility Guidance
-                </Button>
-              </Link>
-              <Link to={createPageUrl('OnboardingStart')}>
-                <Button className="w-full bg-white text-orange-600 hover:bg-orange-50">
-                  Tell Us What You Need
-                </Button>
-              </Link>
+              <Button 
+                onClick={() => setShowModal(true)}
+                className="bg-white text-purple-600 hover:bg-purple-50 px-10 py-7 text-xl font-bold"
+              >
+                See How We Can Help
+              </Button>
             </div>
+            <p className="text-white/90 mt-8 text-lg">
+              You're not locked into anything. Just see if it's a good fit.
+            </p>
           </div>
         </section>
 
@@ -468,9 +454,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto px-6">
             <h2 className="text-2xl font-bold text-slate-900 mb-4 text-center">Accessibility Statement</h2>
             <p className="text-slate-600 text-center max-w-3xl mx-auto">
-              New Tech Advertising is committed to improving website accessibility and usability for all users. 
-              We strive to follow recognized accessibility standards and best practices and continually evaluate ways to improve the user experience. 
-              If you experience difficulty accessing content on this site, please contact us and we will work to assist you.
+              We're committed to making our website work for everyone. We follow accessibility standards and are always looking for ways to improve. If you have trouble using this site, please contact us and we'll help you out.
             </p>
           </div>
         </section>
@@ -478,6 +462,50 @@ export default function Home() {
       
       <Footer />
       <Chatbot />
+
+      {/* Simple Contact Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-6" onClick={() => setShowModal(false)}>
+          <div className="bg-white rounded-xl max-w-2xl w-full p-8" onClick={(e) => e.stopPropagation()}>
+            <div className="flex justify-between items-start mb-6">
+              <h3 className="text-2xl font-bold text-slate-900">How Can We Help?</h3>
+              <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-slate-600">
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            <p className="text-lg text-slate-700 mb-6">
+              Choose what you need help with:
+            </p>
+            <div className="space-y-3">
+              <Link to={createPageUrl('AdaAccessibility')} onClick={() => setShowModal(false)}>
+                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-left justify-start text-base py-6">
+                  Fix website problems or check for issues
+                </Button>
+              </Link>
+              <Link to={createPageUrl('Rebuild')} onClick={() => setShowModal(false)}>
+                <Button className="w-full bg-purple-600 hover:bg-purple-700 text-left justify-start text-base py-6">
+                  Get a new or rebuilt website
+                </Button>
+              </Link>
+              <Link to={createPageUrl('StreamingTV')} onClick={() => setShowModal(false)}>
+                <Button className="w-full bg-green-600 hover:bg-green-700 text-left justify-start text-base py-6">
+                  Run TV or video ads locally
+                </Button>
+              </Link>
+              <Link to={createPageUrl('SocialMediaMarketing')} onClick={() => setShowModal(false)}>
+                <Button className="w-full bg-orange-600 hover:bg-orange-700 text-left justify-start text-base py-6">
+                  Manage social media posts
+                </Button>
+              </Link>
+              <Link to={createPageUrl('OnboardingStart')} onClick={() => setShowModal(false)}>
+                <Button className="w-full bg-slate-600 hover:bg-slate-700 text-left justify-start text-base py-6">
+                  I'm not sure what I need
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
