@@ -113,11 +113,11 @@ export default function Header({ onCTAClick }) {
                     <Button 
                       onClick={() => {
                         setIsOpen(false);
-                        setShowGetStarted(true);
+                        window.location.href = createPageUrl('SocialMediaManagement');
                       }}
                       className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white"
                     >
-                      Get Started
+                      Start Free Trial
                     </Button>
                   </div>
                 </div>
