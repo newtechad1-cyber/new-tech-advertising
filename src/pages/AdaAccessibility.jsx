@@ -45,28 +45,23 @@ export default function AdaAccessibility() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 rounded-full mb-6">
-              <Shield className="w-4 h-4 text-blue-600" />
-              <span className="text-sm font-semibold text-blue-900">ADA Website Accessibility</span>
-            </div>
-            
             <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
-              Website Accessibility — <br />
+              Website Accessibility & Risk Protection —<br />
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Clear Guidance for Local Businesses
+                Helping Your Business Stay Safe
               </span>
             </h1>
 
-            <p className="text-xl text-slate-600 max-w-4xl mx-auto mb-6 leading-relaxed">
-              Website accessibility can feel confusing and intimidating. We make it practical.
+            <p className="text-xl text-slate-700 max-w-4xl mx-auto mb-6 leading-relaxed">
+              Many business owners don't realize their website can cause legal problems. If certain people can't use your site, you could face complaints or lawsuits.
             </p>
 
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto mb-8">
-              Our approach focuses on identifying accessibility issues, explaining what matters, and guiding you toward improvements that reduce risk and improve usability.
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto mb-8 leading-relaxed">
+              This happens to good businesses with perfectly fine websites. It's not about doing something wrong — it's about websites not being built for everyone.
             </p>
 
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-8 font-medium">
-              No scare tactics. Just clear next steps.
+            <p className="text-xl text-slate-700 max-w-3xl mx-auto mb-8 font-semibold">
+              The good news: It's fixable. We'll help you understand what needs attention and get it handled.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-4">
@@ -74,25 +69,25 @@ export default function AdaAccessibility() {
                 onClick={() => goToIntake('Growth')}
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg"
               >
-                Request an ADA Website Audit
+                Check My Website
               </Button>
               <Button
                 onClick={() => setShowModal(true)}
                 variant="outline"
                 className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-6 text-lg"
               >
-                Talk to an ADA Compliance Advisor
+                Questions? Let's Talk
               </Button>
             </div>
             
             <p className="text-sm text-slate-500">
-              Informational accessibility services. Not legal advice or certification.
+              We provide guidance and support. This is not legal advice.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Local Trust Section */}
+      {/* Who This Affects */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
@@ -102,20 +97,22 @@ export default function AdaAccessibility() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-              ADA Website Accessibility for Businesses Nationwide
+              This Affects More Businesses Than You Think
             </h2>
-            <p className="text-lg text-slate-600 max-w-4xl mx-auto mb-8">
-              Many websites were built years ago and were never reviewed for accessibility. 
-              That doesn't make them bad — just outdated. We help businesses across the U.S. identify accessibility issues early and fix them before they become problems.
+            <p className="text-lg text-slate-700 max-w-4xl mx-auto mb-8 leading-relaxed">
+              Most websites were built years ago and were never checked to see if everyone could use them. That's normal — but it can create risk.
+            </p>
+            <p className="text-lg text-slate-700 max-w-4xl mx-auto mb-8 leading-relaxed">
+              We work with businesses nationwide to identify problems early and fix them quietly before anything happens.
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             {[
               { icon: Building2, label: 'Small local businesses' },
-              { icon: Wrench, label: 'HVAC, plumbing, electrical & service trades' },
-              { icon: Briefcase, label: 'Professional offices (law, accounting, medical)' },
-              { icon: Heart, label: 'Nonprofits, churches & community organizations' }
+              { icon: Wrench, label: 'Service businesses (HVAC, plumbing, electrical)' },
+              { icon: Briefcase, label: 'Professional offices (law firms, accountants, doctors)' },
+              { icon: Heart, label: 'Nonprofits and community organizations' }
             ].map((item, index) => (
               <motion.div
                 key={index}
@@ -136,13 +133,13 @@ export default function AdaAccessibility() {
               onClick={() => goToIntake('Growth')}
               className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg"
             >
-              Request an ADA Website Audit
+              Check My Website
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Audit Offer Section */}
+      {/* How It Works */}
       <section className="py-20 bg-gradient-to-br from-slate-50 to-white">
         <div className="max-w-4xl mx-auto px-6">
           <motion.div
@@ -152,25 +149,25 @@ export default function AdaAccessibility() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-              Start With an ADA Website Accessibility Audit
+              Start With a Website Check
             </h2>
-            <p className="text-xl text-slate-600 mb-8">
-              The audit gives you clarity — not pressure.
+            <p className="text-xl text-slate-700 mb-8 leading-relaxed">
+              We'll review your website and explain what needs attention. No pressure, no confusing reports.
             </p>
           </motion.div>
 
           <div className="bg-white border-2 border-blue-200 rounded-2xl p-8 mb-8">
             <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
               <FileCheck className="w-8 h-8 text-blue-600" />
-              What the audit includes:
+              What you get:
             </h3>
             <ul className="space-y-4">
               {[
-                'Accessibility scan of key pages',
-                'Identification of high-risk accessibility barriers',
-                'Plain-English findings (no technical jargon)',
-                'Prioritized recommendations',
-                'Downloadable report'
+                'We check your website for common problems',
+                'We explain what could cause risk',
+                'You get a simple report in plain English',
+                'We tell you what to fix first',
+                'You decide what makes sense for your business'
               ].map((item, index) => (
                 <li key={index} className="flex items-start gap-3">
                   <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" />
@@ -178,9 +175,11 @@ export default function AdaAccessibility() {
                 </li>
               ))}
             </ul>
-            <p className="text-slate-600 mt-6 p-4 bg-blue-50 rounded-lg">
-              This audit is informational and designed to help you make informed decisions about your website.
-            </p>
+            <div className="mt-8 p-6 bg-blue-50 rounded-lg border border-blue-200">
+              <p className="text-slate-700 text-lg leading-relaxed">
+                This covers what's known as "ADA website accessibility" — rules about making sure all people, including those with disabilities, can use your site. You don't need to understand the rules. We handle that.
+              </p>
+            </div>
           </div>
 
           <div className="text-center">
@@ -188,7 +187,7 @@ export default function AdaAccessibility() {
               onClick={() => goToIntake('Growth')}
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg"
             >
-              Request an ADA Website Audit
+              Check My Website
             </Button>
           </div>
         </div>
@@ -204,8 +203,11 @@ export default function AdaAccessibility() {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-              Accessibility Remediation & Support Options
+              Options for Fixing Your Website
             </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Choose the level of support that makes sense for your business.
+            </p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8 mb-16">
@@ -220,16 +222,16 @@ export default function AdaAccessibility() {
                 <span className="text-2xl">🟢</span>
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-4">
-                Starter — One-Time Remediation
+                Starter — One-Time Fix
               </h3>
-              <p className="text-slate-600 mb-6">
-                Best for simple websites that need core issues fixed.
+              <p className="text-slate-700 mb-6 text-lg leading-relaxed">
+                We fix the main problems on your site. Good for small websites that need a simple cleanup.
               </p>
               <ul className="space-y-3 mb-8">
                 {[
-                  'Fix high-risk issues identified in the audit',
-                  'Remediation for core pages',
-                  'Verification review after completion'
+                  'We fix the biggest risks',
+                  'We handle the important pages',
+                  'You get a follow-up review when we're done'
                 ].map((item, index) => (
                   <li key={index} className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
@@ -245,7 +247,7 @@ export default function AdaAccessibility() {
                 onClick={() => goToIntake('Starter')}
                 className="w-full bg-green-600 hover:bg-green-700 text-white"
               >
-                Start with Starter
+                Learn About One-Time Fix
               </Button>
             </motion.div>
 
@@ -264,17 +266,17 @@ export default function AdaAccessibility() {
                 <span className="text-2xl">⭐</span>
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-4">
-                Growth — Fix + Monitoring
+                Growth — Fix + Protection
               </h3>
-              <p className="text-slate-600 mb-6">
-                Best for businesses that want peace of mind long-term.
+              <p className="text-slate-700 mb-6 text-lg leading-relaxed">
+                We fix your site and keep checking it over time. Best for businesses that want ongoing peace of mind.
               </p>
               <ul className="space-y-3 mb-8">
                 {[
-                  'Everything in Starter',
-                  'Ongoing accessibility monitoring',
-                  'Quarterly reviews & updates',
-                  'Predictable monthly support'
+                  'Everything from the one-time fix',
+                  'We keep checking your site regularly',
+                  'We update things every few months',
+                  'Predictable monthly cost'
                 ].map((item, index) => (
                   <li key={index} className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
@@ -291,7 +293,7 @@ export default function AdaAccessibility() {
                 onClick={() => goToIntake('Growth')}
                 className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
               >
-                Choose Growth (Most Popular)
+                Get Ongoing Protection (Most Popular)
               </Button>
             </motion.div>
 
@@ -307,17 +309,17 @@ export default function AdaAccessibility() {
                 <span className="text-2xl">🔵</span>
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-4">
-                Authority — Full Oversight & Reporting
+                Authority — Complete Coverage
               </h3>
-              <p className="text-slate-600 mb-6">
-                Best for larger or frequently updated websites.
+              <p className="text-slate-700 mb-6 text-lg leading-relaxed">
+                For bigger websites or businesses that update their site often. We handle everything and keep you updated monthly.
               </p>
               <ul className="space-y-3 mb-8">
                 {[
-                  'Full-site accessibility remediation',
-                  'Monthly monitoring & reporting',
-                  'Priority support',
-                  'Documentation assistance'
+                  'We fix the entire site',
+                  'Monthly checks and reports',
+                  'You get priority support',
+                  'We help with documentation'
                 ].map((item, index) => (
                   <li key={index} className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
@@ -334,7 +336,7 @@ export default function AdaAccessibility() {
                 onClick={() => goToIntake('Authority')}
                 className="w-full bg-purple-600 hover:bg-purple-700 text-white"
               >
-                Talk About Authority
+                Learn About Complete Coverage
               </Button>
             </motion.div>
           </div>
@@ -352,20 +354,20 @@ export default function AdaAccessibility() {
           >
             <Heart className="w-16 h-16 text-green-600 mx-auto mb-6" />
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-              Accessibility & Inclusion for Nonprofits
+              Special Pricing for Nonprofits
             </h2>
-            <p className="text-xl text-slate-600 mb-8">
-              We offer mission-aligned, budget-conscious accessibility options for nonprofits, churches, and community organizations.
+            <p className="text-xl text-slate-700 mb-8 leading-relaxed">
+              Lower pricing for nonprofits, churches, and community organizations.
             </p>
           </motion.div>
 
           <div className="bg-white border-2 border-green-200 rounded-2xl p-8 mb-8">
-            <h3 className="text-2xl font-bold text-slate-900 mb-6">Nonprofit Pricing:</h3>
+            <h3 className="text-2xl font-bold text-slate-900 mb-6">Nonprofit Options:</h3>
             <ul className="space-y-4">
               {[
-                { tier: 'Starter', price: '$500 – $1,000' },
-                { tier: 'Growth (Most Chosen)', price: '$900 setup + $79 / month' },
-                { tier: 'Authority', price: '$1,750 setup + $149 / month' }
+                { tier: 'One-Time Fix', price: '$500 – $1,000' },
+                { tier: 'Ongoing Protection (Most Chosen)', price: '$900 setup + $79 / month' },
+                { tier: 'Complete Coverage', price: '$1,750 setup + $149 / month' }
               ].map((item, index) => (
                 <li key={index} className="flex items-center justify-between p-4 bg-green-50 rounded-lg">
                   <span className="text-slate-900 font-semibold">{item.tier}</span>
@@ -380,7 +382,7 @@ export default function AdaAccessibility() {
               onClick={() => goToIntake('Growth', true)}
               className="bg-green-600 hover:bg-green-700 text-white px-8 py-6 text-lg"
             >
-              View Nonprofit Accessibility Options
+              See Nonprofit Pricing
             </Button>
           </div>
         </div>
@@ -396,19 +398,19 @@ export default function AdaAccessibility() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-              Find Your Industry
+              See How This Applies to Your Business
             </h2>
-            <p className="text-xl text-slate-600 mb-8">
-              Learn how accessibility applies specifically to your organization.
+            <p className="text-xl text-slate-700 mb-8 leading-relaxed">
+              Different types of businesses face different risks. Find yours.
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             {[
-              { icon: Building2, label: 'ADA for Small Local Businesses' },
-              { icon: Wrench, label: 'ADA for Service Trades (HVAC, Plumbing, Electrical)' },
-              { icon: Briefcase, label: 'ADA for Professionals (Law, Accounting, Medical)' },
-              { icon: Heart, label: 'ADA for Nonprofits & Community Organizations' }
+              { icon: Building2, label: 'Small Local Businesses' },
+              { icon: Wrench, label: 'Service Trades (HVAC, Plumbing, Electrical)' },
+              { icon: Briefcase, label: 'Professionals (Law Firms, Accountants, Doctors)' },
+              { icon: Heart, label: 'Nonprofits & Community Groups' }
             ].map((item, index) => (
               <motion.button
                 key={index}
@@ -426,8 +428,8 @@ export default function AdaAccessibility() {
             ))}
           </div>
 
-          <p className="text-center text-slate-600 text-lg">
-            Not sure? Start with the audit and we'll guide you.
+          <p className="text-center text-slate-700 text-lg">
+            Not sure where you fit? We'll help you figure it out.
           </p>
         </div>
       </section>
@@ -446,7 +448,7 @@ export default function AdaAccessibility() {
         </div>
       </section>
 
-      {/* Legal Referral Section */}
+      {/* What We Don't Do */}
       <section className="py-20 bg-slate-50">
         <div className="max-w-4xl mx-auto px-6">
           <motion.div
@@ -456,16 +458,17 @@ export default function AdaAccessibility() {
             className="bg-white border-2 border-slate-200 rounded-2xl p-8"
           >
             <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
-              Optional Legal Compliance Services
+              Important: What We Do and Don't Do
             </h2>
-            <p className="text-lg text-slate-600 mb-6">
-              Some organizations prefer formal legal compliance services through specialized providers. 
-              If requested, we can refer you to vetted third-party ADA legal and compliance partners. 
-              These services are optional and typically higher cost than website remediation.
+            <p className="text-lg text-slate-700 mb-6 leading-relaxed">
+              We help you fix your website and reduce risk. We explain things clearly and help you make good decisions.
             </p>
-            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
-              <p className="text-sm text-amber-900 font-medium">
-                New Tech Advertising does not provide legal advice or legal certification.
+            <p className="text-lg text-slate-700 mb-6 leading-relaxed">
+              We do not provide legal advice. We are not lawyers. If you want formal legal protection or have received a lawsuit, we can refer you to attorneys who specialize in this area.
+            </p>
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
+              <p className="text-slate-700 font-medium leading-relaxed">
+                Most businesses just need their website fixed. Legal services are optional and cost more. We'll help you decide what makes sense.
               </p>
             </div>
             <Button
@@ -473,7 +476,7 @@ export default function AdaAccessibility() {
               variant="outline"
               className="border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white"
             >
-              Request a Legal Compliance Referral
+              Questions About This?
             </Button>
           </motion.div>
         </div>
@@ -496,28 +499,37 @@ export default function AdaAccessibility() {
           <Accordion type="single" collapsible className="space-y-4">
             <AccordionItem value="item-1" className="bg-slate-50 border border-slate-200 rounded-lg px-6">
               <AccordionTrigger className="text-lg font-semibold text-slate-900 hover:no-underline">
-                Is ADA accessibility required for websites?
+                Why does this matter for my business?
               </AccordionTrigger>
-              <AccordionContent className="text-slate-600 text-base">
-                Accessibility applies to public-facing websites. Most organizations benefit from understanding their risk and addressing issues early.
+              <AccordionContent className="text-slate-700 text-base leading-relaxed">
+                If someone with a disability can't use your website, they could file a complaint or lawsuit. This happens more often than most people realize. Fixing your site reduces that risk.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-2" className="bg-slate-50 border border-slate-200 rounded-lg px-6">
               <AccordionTrigger className="text-lg font-semibold text-slate-900 hover:no-underline">
-                Do you provide legal certification?
+                Do I need a lawyer for this?
               </AccordionTrigger>
-              <AccordionContent className="text-slate-600 text-base">
-                No. We provide technical audits, remediation, and monitoring. Legal compliance services are handled by independent providers if requested.
+              <AccordionContent className="text-slate-700 text-base leading-relaxed">
+                Usually no. Most businesses just need their website fixed. We handle that. If you've already received a legal notice or want formal legal protection, we can refer you to attorneys.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-3" className="bg-slate-50 border border-slate-200 rounded-lg px-6">
               <AccordionTrigger className="text-lg font-semibold text-slate-900 hover:no-underline">
-                Do I have to choose ongoing monitoring?
+                Do I have to pay for ongoing monitoring?
               </AccordionTrigger>
-              <AccordionContent className="text-slate-600 text-base">
-                No. Many clients choose a one-time fix. Monitoring is optional.
+              <AccordionContent className="text-slate-700 text-base leading-relaxed">
+                No. Many businesses just want a one-time fix. Ongoing monitoring is optional and gives you peace of mind over time.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-4" className="bg-slate-50 border border-slate-200 rounded-lg px-6">
+              <AccordionTrigger className="text-lg font-semibold text-slate-900 hover:no-underline">
+                How long does it take to fix a website?
+              </AccordionTrigger>
+              <AccordionContent className="text-slate-700 text-base leading-relaxed">
+                Depends on the size of your site and what needs fixing. Small sites can be done in a few weeks. We'll give you a clear timeline after reviewing your website.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -533,25 +545,24 @@ export default function AdaAccessibility() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-              Get Clarity in One Step
+              Protect Your Business — No Stress
             </h2>
-            <p className="text-xl text-white/90 mb-8">
-              Start with an ADA Website Accessibility Audit and we'll help you choose the right path 
-              for your website, your goals, and your budget.
+            <p className="text-xl text-white/90 mb-8 leading-relaxed">
+              Let us check your website and explain what needs attention. Simple, clear, no pressure.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 onClick={() => goToIntake('Growth')}
                 className="bg-white text-blue-600 hover:bg-slate-100 px-8 py-6 text-lg"
               >
-                Request an ADA Website Audit
+                Check My Website
               </Button>
               <Button
                 onClick={() => setShowModal(true)}
                 variant="outline"
                 className="border-2 border-white text-white hover:bg-white/10 px-8 py-6 text-lg"
               >
-                Schedule a Call
+                Questions? Let's Talk
               </Button>
             </div>
           </motion.div>
