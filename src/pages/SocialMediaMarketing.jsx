@@ -36,24 +36,19 @@ export default function SocialMediaMarketing() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 rounded-full mb-6">
-              <Share2 className="w-4 h-4 text-purple-600" />
-              <span className="text-sm font-semibold text-purple-900">Social Media Management</span>
-            </div>
-
             <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
-              Social Media Management —<br />
+              Stay Visible on Social Media —<br />
               <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                Without the Overwhelm
+                Without It Taking Over Your Life
               </span>
             </h1>
 
-            <p className="text-xl text-slate-600 max-w-4xl mx-auto mb-6 leading-relaxed">
-              Content creation, scheduling, and strategy — handled your way. Whether you want to manage it yourself or hand it off completely.
+            <p className="text-xl text-slate-700 max-w-4xl mx-auto mb-6 leading-relaxed">
+              Your customers are on Facebook, Instagram, and LinkedIn. You need to show up there regularly — but you're busy running your business.
             </p>
 
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto mb-8 font-medium">
-              Consistent, professional presence on Facebook, Instagram, LinkedIn, and more.
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto mb-8">
+              We help you stay visible and professional on social media. You can do it yourself with simple tools, or have us handle everything.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -62,7 +57,7 @@ export default function SocialMediaMarketing() {
                 target="_blank"
                 className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-6 text-lg"
               >
-                Get Started on ntaaffiliates.com
+                Start Free Trial
               </Button>
               <Button
                 onClick={() => setShowModal(true)}
@@ -76,7 +71,7 @@ export default function SocialMediaMarketing() {
         </div>
       </section>
 
-      {/* What Is Social Media Management */}
+      {/* Why This Matters */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-6">
           <motion.div
@@ -86,81 +81,46 @@ export default function SocialMediaMarketing() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-              What Social Media Management Includes
+              Why Social Media Matters for Your Business
             </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              People check Facebook, Instagram, and LinkedIn before they choose who to call. If you're not showing up, you're missing out.
+            </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-8 mb-12">
             <div className="bg-purple-50 rounded-xl p-8 border border-purple-200">
-              <h3 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-3">
-                <Share2 className="w-8 h-8 text-purple-600" />
-                Content Creation
-              </h3>
-              <ul className="space-y-3">
-                {['Post writing and copywriting', 'Image selection and design', 'Video creation', 'Hashtag strategy'].map((item, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-700">{item}</span>
-                  </li>
-                ))}
-              </ul>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Helps People Find You</h3>
+              <p className="text-slate-700 text-lg leading-relaxed">
+                When people see you posting regularly, they remember your business. When they need what you offer, you're top of mind.
+              </p>
             </div>
 
             <div className="bg-purple-50 rounded-xl p-8 border border-purple-200">
-              <h3 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-3">
-                <Clock className="w-8 h-8 text-purple-600" />
-                Scheduling & Posting
-              </h3>
-              <ul className="space-y-3">
-                {['Calendar-based scheduling', 'Optimal posting times', 'Multi-platform posting', 'Consistent frequency'].map((item, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-700">{item}</span>
-                  </li>
-                ))}
-              </ul>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Builds Trust</h3>
+              <p className="text-slate-700 text-lg leading-relaxed">
+                A business with an active social media presence looks professional and trustworthy. An inactive page makes people wonder if you're still open.
+              </p>
             </div>
 
             <div className="bg-purple-50 rounded-xl p-8 border border-purple-200">
-              <h3 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-3">
-                <Users className="w-8 h-8 text-purple-600" />
-                Engagement & Community
-              </h3>
-              <ul className="space-y-3">
-                {['Responding to comments and DMs', 'Community management', 'Audience building', 'Relationship nurturing'].map((item, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-700">{item}</span>
-                  </li>
-                ))}
-              </ul>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Saves You Time</h3>
+              <p className="text-slate-700 text-lg leading-relaxed">
+                Instead of scrambling to post every day, you can schedule posts ahead of time or hand it off completely. Either way, it gets done.
+              </p>
             </div>
 
             <div className="bg-purple-50 rounded-xl p-8 border border-purple-200">
-              <h3 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-3">
-                <BarChart3 className="w-8 h-8 text-purple-600" />
-                Analytics & Reporting
-              </h3>
-              <ul className="space-y-3">
-                {['Performance tracking', 'Growth metrics', 'Engagement analysis', 'Monthly reports'].map((item, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-700">{item}</span>
-                  </li>
-                ))}
-              </ul>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Works With Everything Else</h3>
+              <p className="text-slate-700 text-lg leading-relaxed">
+                Your social media, website, and local advertising can work together. One message, multiple places.
+              </p>
             </div>
-          </div>
-
-          <div className="bg-purple-100 rounded-xl p-8 border-2 border-purple-300 text-center">
-            <p className="text-lg text-slate-900 font-semibold">
-              Seamlessly connects with all your other services — streaming TV campaigns, website rebuild, ADA accessibility projects.
-            </p>
           </div>
         </div>
       </section>
 
-      {/* DIY vs DFY */}
+      {/* Two Ways to Do This */}
       <section className="py-20 bg-slate-50">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
@@ -170,51 +130,61 @@ export default function SocialMediaMarketing() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-              Choose Your Approach
+              Two Ways to Do This
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Want to create content yourself but use our tools? Or prefer us to handle everything? Both options available.
+              You can use our simple tools and do it yourself. Or we can handle everything for you. Your choice.
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {/* DIY */}
+            {/* Do It Yourself */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="bg-white border-2 border-slate-200 rounded-2xl p-8"
             >
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">DIY — You Create, We Schedule</h3>
-              <p className="text-slate-600 mb-6">
-                You write the posts. We handle scheduling, analytics, and platform management.
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Do It Yourself</h3>
+              <p className="text-slate-700 text-lg mb-6 leading-relaxed">
+                You write the posts. We give you simple tools to schedule them, track what's working, and manage your accounts.
               </p>
-              <ul className="space-y-3 mb-8">
-                {[
-                  'OAuth-connected social platforms',
-                  'Content scheduling tools',
-                  'Analytics dashboard',
-                  'Account management'
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-700">{item}</span>
-                  </li>
-                ))}
+              <ul className="space-y-4 mb-8">
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-slate-900 font-semibold mb-1">Schedule posts ahead of time</p>
+                    <p className="text-slate-600">Write once, post across Facebook, Instagram, and LinkedIn</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-slate-900 font-semibold mb-1">See what's working</p>
+                    <p className="text-slate-600">Simple reports that make sense</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-slate-900 font-semibold mb-1">Easy to use</p>
+                    <p className="text-slate-600">No tech skills needed</p>
+                  </div>
+                </li>
               </ul>
-              <p className="text-slate-600 font-medium mb-4">
-                Best for: Businesses that want control over their voice
+              <p className="text-slate-700 font-semibold mb-4 text-lg">
+                Good for: Owners who want control over what gets posted
               </p>
               <Button
                 onClick={() => window.location.href = 'https://ntaaffiliates.com'}
                 target="_blank"
-                className="w-full bg-green-600 hover:bg-green-700"
+                className="w-full bg-green-600 hover:bg-green-700 py-6 text-lg"
               >
-                Get Started with DIY
+                Start Free Trial
               </Button>
             </motion.div>
 
-            {/* DFY */}
+            {/* We Do It For You */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -225,40 +195,49 @@ export default function SocialMediaMarketing() {
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-purple-600 text-white px-4 py-1 rounded-full text-sm font-bold">
                 MOST POPULAR
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">DFY — We Handle Everything</h3>
-              <p className="text-slate-600 mb-6">
-                We create, schedule, post, and manage your entire social media presence.
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">We Do It For You</h3>
+              <p className="text-slate-700 text-lg mb-6 leading-relaxed">
+                You run your business. We handle your social media — writing, posting, responding, and reporting.
               </p>
-              <ul className="space-y-3 mb-8">
-                {[
-                  'Full content creation',
-                  'Strategic scheduling',
-                  'Community management',
-                  'Monthly reporting',
-                  'Account oversight'
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-700">{item}</span>
-                  </li>
-                ))}
+              <ul className="space-y-4 mb-8">
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-purple-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-slate-900 font-semibold mb-1">We create all the posts</p>
+                    <p className="text-slate-600">Writing, images, and scheduling — handled</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-purple-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-slate-900 font-semibold mb-1">We respond to comments</p>
+                    <p className="text-slate-600">Keep your pages active and professional</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-purple-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-slate-900 font-semibold mb-1">You get monthly updates</p>
+                    <p className="text-slate-600">Simple reports on what's happening</p>
+                  </div>
+                </li>
               </ul>
-              <p className="text-slate-600 font-medium mb-4">
-                Best for: Busy businesses that want results without the effort
+              <p className="text-slate-700 font-semibold mb-4 text-lg">
+                Good for: Busy owners who want it handled professionally
               </p>
               <Button
                 onClick={() => window.location.href = 'https://ntaaffiliates.com'}
                 target="_blank"
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 py-6 text-lg"
               >
-                Get Started with Done For You
+                Have Us Do It For You
               </Button>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Supported Platforms */}
+      {/* What You Can Post */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-6">
           <motion.div
@@ -268,25 +247,50 @@ export default function SocialMediaMarketing() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-              Manage All Your Platforms in One Place
+              Post to All Your Accounts at Once
             </h2>
+            <p className="text-xl text-slate-600">
+              Facebook, Instagram, LinkedIn — write once, post everywhere.
+            </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {['Facebook', 'Instagram', 'LinkedIn', 'Twitter/X'].map((platform, i) => (
-              <div key={i} className="bg-slate-50 rounded-lg p-6 text-center border border-slate-200">
-                <p className="text-lg font-semibold text-slate-900">{platform}</p>
+          <div className="bg-slate-50 rounded-xl p-8 border border-slate-200 mb-8">
+            <h3 className="text-2xl font-bold text-slate-900 mb-6 text-center">What you can post:</h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-700 text-lg">Photos and images</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-700 text-lg">Videos</span>
+                  </li>
+                </ul>
               </div>
-            ))}
+              <div>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-700 text-lg">Updates and announcements</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-700 text-lg">Tips and advice</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
 
           <p className="text-center text-slate-600 text-lg">
-            OAuth-connected for secure, seamless access and posting.
+            Your accounts connect securely. No passwords shared.
           </p>
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* Common Questions */}
       <section className="py-20 bg-slate-50">
         <div className="max-w-4xl mx-auto px-6">
           <motion.div
@@ -296,51 +300,60 @@ export default function SocialMediaMarketing() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-              Frequently Asked Questions
+              Common Questions
             </h2>
           </motion.div>
 
           <Accordion type="single" collapsible className="space-y-4">
             <AccordionItem value="item-1" className="bg-white border border-slate-200 rounded-lg px-6">
               <AccordionTrigger className="text-lg font-semibold text-slate-900 hover:no-underline">
-                Can I use social media management without other services?
+                Do I need to be good with computers?
               </AccordionTrigger>
-              <AccordionContent className="text-slate-600 text-base">
-                Yes. Social media management works as a standalone service. It also integrates seamlessly with streaming TV, website rebuilds, and ADA projects if you want a coordinated approach.
+              <AccordionContent className="text-slate-700 text-base leading-relaxed">
+                No. Everything is easy to use. If you can send an email, you can use this.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-2" className="bg-white border border-slate-200 rounded-lg px-6">
               <AccordionTrigger className="text-lg font-semibold text-slate-900 hover:no-underline">
-                How does DIY differ from DFY?
+                What if I change my mind about doing it myself?
               </AccordionTrigger>
-              <AccordionContent className="text-slate-600 text-base">
-                DIY: You write posts, we schedule and manage the accounts. DFY: We handle everything from content creation to posting to community engagement. Choose based on your time and comfort level.
+              <AccordionContent className="text-slate-700 text-base leading-relaxed">
+                That's fine. You can start doing it yourself and switch to having us handle it later. Or the other way around. Your choice.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-3" className="bg-white border border-slate-200 rounded-lg px-6">
               <AccordionTrigger className="text-lg font-semibold text-slate-900 hover:no-underline">
-                What about analytics and reporting?
+                How often should I post?
               </AccordionTrigger>
-              <AccordionContent className="text-slate-600 text-base">
-                Both options include dashboard access and monthly reporting. You'll always know how your social media is performing.
+              <AccordionContent className="text-slate-700 text-base leading-relaxed">
+                Typically 3-5 times a week keeps you visible. We'll help you figure out what makes sense for your business.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-4" className="bg-white border border-slate-200 rounded-lg px-6">
               <AccordionTrigger className="text-lg font-semibold text-slate-900 hover:no-underline">
-                Can I switch between DIY and DFY?
+                Can I see how it's going?
               </AccordionTrigger>
-              <AccordionContent className="text-slate-600 text-base">
-                Yes. Your situation may change, and so can your approach. Flexibility is built in.
+              <AccordionContent className="text-slate-700 text-base leading-relaxed">
+                Yes. You get simple reports that show how many people are seeing your posts and interacting with your business.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-5" className="bg-white border border-slate-200 rounded-lg px-6">
+              <AccordionTrigger className="text-lg font-semibold text-slate-900 hover:no-underline">
+                Is there a free trial?
+              </AccordionTrigger>
+              <AccordionContent className="text-slate-700 text-base leading-relaxed">
+                Yes. Try the do-it-yourself tools free for 30 days. See if it works for you before committing.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
         </div>
       </section>
 
-      {/* Integration Note */}
+      {/* Works With Everything */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-6">
           <motion.div
@@ -349,12 +362,12 @@ export default function SocialMediaMarketing() {
             viewport={{ once: true }}
             className="bg-purple-100 rounded-2xl p-8 border-2 border-purple-300 text-center"
           >
-            <h3 className="text-2xl font-bold text-slate-900 mb-4">Works Seamlessly With All Our Services</h3>
-            <p className="text-lg text-slate-700 mb-4">
-              Social media management coordinates with streaming TV campaigns, website rebuilds, and ADA accessibility projects for a unified marketing strategy.
+            <h3 className="text-2xl font-bold text-slate-900 mb-4">Works With Everything Else We Do</h3>
+            <p className="text-lg text-slate-700 mb-4 leading-relaxed">
+              Your social media can work together with your website and local advertising. Same message, more places.
             </p>
-            <p className="text-slate-600 font-medium">
-              One unified platform. One source of truth. All your digital marketing in one place.
+            <p className="text-slate-700">
+              If you're doing streaming TV ads or updating your website, we can coordinate it all.
             </p>
           </motion.div>
         </div>
@@ -369,19 +382,28 @@ export default function SocialMediaMarketing() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-              Ready to Get Started?
+              Ready to Get Your Social Media Handled?
             </h2>
-            <p className="text-xl text-white/90 mb-8">
-              Choose DIY or Done For You. Either way, we've got you covered.
+            <p className="text-xl text-white/90 mb-12 leading-relaxed">
+              Do it yourself with simple tools, or have us handle everything. Either way, you'll stay visible without the stress.
             </p>
-            <Button
-              onClick={() => window.location.href = 'https://ntaaffiliates.com'}
-              target="_blank"
-              className="bg-white text-purple-600 hover:bg-slate-100 px-8 py-6 text-lg"
-            >
-              Get Started on ntaaffiliates.com
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Button
+                onClick={() => window.location.href = 'https://ntaaffiliates.com'}
+                target="_blank"
+                className="bg-white text-purple-600 hover:bg-slate-100 px-10 py-7 text-xl font-bold"
+              >
+                Start Free Trial
+              </Button>
+              <Button
+                onClick={() => window.location.href = 'https://ntaaffiliates.com'}
+                target="_blank"
+                variant="outline"
+                className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-10 py-7 text-xl font-bold"
+              >
+                Have Us Do It For You
+              </Button>
+            </div>
           </motion.div>
         </div>
       </section>
