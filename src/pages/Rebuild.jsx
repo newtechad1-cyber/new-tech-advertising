@@ -1,5 +1,5 @@
-import RebuildIntake from './RebuildIntake';
+import WebsiteRebuild from './WebsiteRebuild';
 
 export default function Rebuild() {
-  return <RebuildIntake />;
+  return <WebsiteRebuild />;
 }
