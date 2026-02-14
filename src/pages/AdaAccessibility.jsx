@@ -66,21 +66,25 @@ export default function AdaAccessibility() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-4">
               <Button
-                onClick={() => goToIntake('Growth')}
+                onClick={() => window.location.href = 'https://ntaaffiliates.com/start/ada-accessibility'}
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg"
               >
-                Check My Website
+                Start Now
               </Button>
               <Button
-                onClick={() => setShowModal(true)}
+                onClick={() => window.location.href = 'https://ntaaffiliates.com/start/ada-accessibility?proposal=1'}
                 variant="outline"
                 className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-6 text-lg"
               >
-                Questions? Let's Talk
+                Request Proposal
               </Button>
             </div>
             
-            <p className="text-sm text-slate-500">
+            <p className="text-slate-600 text-sm mt-2 max-w-2xl mx-auto">
+              After you get started, you'll receive access to your private client portal where you can track progress, approvals, billing, and reporting in real time.
+            </p>
+            
+            <p className="text-sm text-slate-500 mt-2">
               We provide guidance and support. This is not legal advice.
             </p>
           </motion.div>
@@ -149,32 +153,53 @@ export default function AdaAccessibility() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-              Start With a Website Check
+              Simple. Structured. Results.
             </h2>
-            <p className="text-xl text-slate-700 mb-8 leading-relaxed">
-              We'll review your website and explain what needs attention. No pressure, no confusing reports.
-            </p>
           </motion.div>
 
+          <div className="space-y-8 mb-12">
+            <div className="flex gap-6 items-start">
+              <div className="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                1
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">Tell Us What You Need</h3>
+                <p className="text-slate-700">Complete a quick intake form so we understand your goals.</p>
+              </div>
+            </div>
+
+            <div className="flex gap-6 items-start">
+              <div className="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                2
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">We Send a Plan + Pricing</h3>
+                <p className="text-slate-700">You'll receive a clear proposal with scope and pricing options.</p>
+              </div>
+            </div>
+
+            <div className="flex gap-6 items-start">
+              <div className="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                3
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">Approve & Pay Securely</h3>
+                <p className="text-slate-700">Approve online and pay via secure Stripe checkout.</p>
+              </div>
+            </div>
+
+            <div className="flex gap-6 items-start">
+              <div className="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                4
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">We Deliver Inside Your Client Portal</h3>
+                <p className="text-slate-700">Track progress, approvals, assets, and reporting in your private dashboard.</p>
+              </div>
+            </div>
+          </div>
+
           <div className="bg-white border-2 border-blue-200 rounded-2xl p-8 mb-8">
-            <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
-              <FileCheck className="w-8 h-8 text-blue-600" />
-              What you get:
-            </h3>
-            <ul className="space-y-4">
-              {[
-                'We check your website for common problems',
-                'We explain what could cause risk',
-                'You get a simple report in plain English',
-                'We tell you what to fix first',
-                'You decide what makes sense for your business'
-              ].map((item, index) => (
-                <li key={index} className="flex items-start gap-3">
-                  <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-slate-700 text-lg">{item}</span>
-                </li>
-              ))}
-            </ul>
             <div className="mt-8 p-6 bg-blue-50 rounded-lg border border-blue-200">
               <p className="text-slate-700 text-lg leading-relaxed">
                 This covers what's known as "ADA website accessibility" — rules about making sure all people, including those with disabilities, can use your site. You don't need to understand the rules. We handle that.
@@ -184,10 +209,10 @@ export default function AdaAccessibility() {
 
           <div className="text-center">
             <Button
-              onClick={() => goToIntake('Growth')}
+              onClick={() => window.location.href = 'https://ntaaffiliates.com/start/ada-accessibility'}
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg"
             >
-              Check My Website
+              Start Now
             </Button>
           </div>
         </div>
@@ -241,7 +266,8 @@ export default function AdaAccessibility() {
               </ul>
               <div className="mb-6">
                 <p className="text-3xl font-bold text-slate-900 mb-2">$750 – $1,500</p>
-                <p className="text-slate-600">one-time</p>
+                <p className="text-slate-600 mb-2">one-time</p>
+                <p className="text-xs text-slate-500">50% deposit to begin. Balance due upon completion.</p>
               </div>
               <Button
                 onClick={() => goToIntake('Starter')}
@@ -287,7 +313,8 @@ export default function AdaAccessibility() {
               <div className="mb-6">
                 <p className="text-3xl font-bold text-slate-900 mb-2">$1,250 – $2,500</p>
                 <p className="text-slate-600 mb-2">setup</p>
-                <p className="text-2xl font-bold text-blue-600">$99 – $149/mo</p>
+                <p className="text-2xl font-bold text-blue-600 mb-1">$99 – $149/mo</p>
+                <p className="text-xs text-slate-500">50% deposit to begin. Balance due upon completion.</p>
               </div>
               <Button
                 onClick={() => goToIntake('Growth')}
@@ -330,7 +357,8 @@ export default function AdaAccessibility() {
               <div className="mb-6">
                 <p className="text-3xl font-bold text-slate-900 mb-2">$2,500 – $5,000</p>
                 <p className="text-slate-600 mb-2">setup</p>
-                <p className="text-2xl font-bold text-purple-600">$199 – $299/mo</p>
+                <p className="text-2xl font-bold text-purple-600 mb-1">$199 – $299/mo</p>
+                <p className="text-xs text-slate-500">50% deposit to begin. Balance due upon completion.</p>
               </div>
               <Button
                 onClick={() => goToIntake('Authority')}
@@ -552,17 +580,17 @@ export default function AdaAccessibility() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
-                onClick={() => goToIntake('Growth')}
+                onClick={() => window.location.href = 'https://ntaaffiliates.com/start/ada-accessibility'}
                 className="bg-white text-blue-600 hover:bg-slate-100 px-8 py-6 text-lg"
               >
-                Check My Website
+                Start Now
               </Button>
               <Button
-                onClick={() => setShowModal(true)}
+                onClick={() => window.location.href = 'https://ntaaffiliates.com/start/ada-accessibility?proposal=1'}
                 variant="outline"
                 className="border-2 border-white text-white hover:bg-white/10 px-8 py-6 text-lg"
               >
-                Questions? Let's Talk
+                Request Proposal
               </Button>
             </div>
           </motion.div>
