@@ -47,12 +47,74 @@ export default function StreamingTV() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 size="lg" 
-                onClick={goToIntake}
+                onClick={() => window.location.href = 'https://ntaaffiliates.com/start/streaming-tv'}
                 className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-6 text-lg"
               >
-                See If TV Ads Make Sense for My Business
+                Start Now
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
+              <Button 
+                size="lg" 
+                onClick={() => window.location.href = 'https://ntaaffiliates.com/start/streaming-tv?proposal=1'}
+                variant="outline"
+                className="border-2 border-purple-600 text-purple-600 hover:bg-purple-50 px-8 py-6 text-lg"
+              >
+                Request Proposal
+              </Button>
+            </div>
+            <p className="text-slate-600 text-sm mt-4 max-w-2xl mx-auto">
+              After you get started, you'll receive access to your private client portal where you can track progress, approvals, billing, and reporting in real time.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="py-20 bg-gradient-to-br from-purple-50 to-blue-50">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Simple. Structured. Results.</h2>
+          </div>
+          
+          <div className="space-y-8">
+            <div className="flex gap-6 items-start">
+              <div className="bg-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                1
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">Tell Us What You Need</h3>
+                <p className="text-slate-700">Complete a quick intake form so we understand your goals.</p>
+              </div>
+            </div>
+
+            <div className="flex gap-6 items-start">
+              <div className="bg-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                2
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">We Send a Plan + Pricing</h3>
+                <p className="text-slate-700">You'll receive a clear proposal with scope and pricing options.</p>
+              </div>
+            </div>
+
+            <div className="flex gap-6 items-start">
+              <div className="bg-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                3
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">Approve & Pay Securely</h3>
+                <p className="text-slate-700">Approve online and pay via secure Stripe checkout.</p>
+              </div>
+            </div>
+
+            <div className="flex gap-6 items-start">
+              <div className="bg-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                4
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">We Deliver Inside Your Client Portal</h3>
+                <p className="text-slate-700">Track progress, approvals, assets, and reporting in your private dashboard.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -218,7 +280,8 @@ export default function StreamingTV() {
                 15–30 seconds with stock photos, text, and voiceover
               </p>
               <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
-                <p className="text-xl font-bold text-purple-600">One-time: $250–$500</p>
+                <p className="text-xl font-bold text-purple-600 mb-1">One-time: $250–$500</p>
+                <p className="text-xs text-slate-600">50% deposit to begin. Balance due upon completion.</p>
               </div>
             </Card>
             
@@ -232,7 +295,8 @@ export default function StreamingTV() {
                 Uses your existing photos or video footage
               </p>
               <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
-                <p className="text-xl font-bold text-purple-600">One-time: $500–$1,000</p>
+                <p className="text-xl font-bold text-purple-600 mb-1">One-time: $500–$1,000</p>
+                <p className="text-xs text-slate-600">50% deposit to begin. Balance due upon completion.</p>
               </div>
             </Card>
           </div>
@@ -333,11 +397,19 @@ export default function StreamingTV() {
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Button 
                 size="lg" 
-                onClick={goToIntake}
+                onClick={() => window.location.href = 'https://ntaaffiliates.com/start/streaming-tv'}
                 className="bg-white text-purple-600 hover:bg-slate-100 px-10 py-7 text-xl font-bold"
               >
-                See If TV Ads Make Sense for My Business
+                Start Now
                 <ArrowRight className="ml-2 h-6 w-6" />
+              </Button>
+              <Button 
+                size="lg" 
+                onClick={() => window.location.href = 'https://ntaaffiliates.com/start/streaming-tv?proposal=1'}
+                variant="outline"
+                className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-10 py-7 text-xl font-bold"
+              >
+                Request Proposal
               </Button>
             </div>
             
