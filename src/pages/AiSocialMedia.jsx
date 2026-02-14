@@ -43,9 +43,26 @@ export default function AiSocialMedia() {
               <p className="text-xl text-indigo-100 mb-8">
                 Consistent, high-quality content posted to all your channels automatically. Engage your audience without lifting a finger.
               </p>
-              <Button onClick={() => window.location.href = 'https://ntaaffiliates.com'} size="lg" className="bg-pink-600 hover:bg-pink-700 text-white px-8 py-6 text-lg rounded-xl">
-                Start Your 7 day Free Trial
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button 
+                  onClick={() => window.location.href = 'https://ntaaffiliates.com/start/social-media'} 
+                  size="lg" 
+                  className="bg-pink-600 hover:bg-pink-700 text-white px-8 py-6 text-lg rounded-xl"
+                >
+                  Start Now
+                </Button>
+                <Button 
+                  onClick={() => window.location.href = 'https://ntaaffiliates.com/start/social-media?proposal=1'} 
+                  size="lg" 
+                  variant="outline"
+                  className="border-2 border-white text-white hover:bg-white/10 px-8 py-6 text-lg rounded-xl"
+                >
+                  Request Proposal
+                </Button>
+              </div>
+              <p className="text-indigo-100 text-sm mt-4">
+                After you get started, you'll receive access to your private client portal where you can track progress, approvals, billing, and reporting in real time.
+              </p>
             </motion.div>
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
@@ -134,6 +151,57 @@ export default function AiSocialMedia() {
           </div>
         </section>
 
+        {/* How It Works Section */}
+        <section className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
+          <div className="max-w-4xl mx-auto px-6">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Simple. Structured. Results.</h2>
+            </div>
+            
+            <div className="space-y-8">
+              <div className="flex gap-6 items-start">
+                <div className="bg-pink-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                  1
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">Tell Us What You Need</h3>
+                  <p className="text-slate-700">Complete a quick intake form so we understand your goals.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-6 items-start">
+                <div className="bg-pink-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                  2
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">We Send a Plan + Pricing</h3>
+                  <p className="text-slate-700">You'll receive a clear proposal with scope and pricing options.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-6 items-start">
+                <div className="bg-pink-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                  3
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">Approve & Pay Securely</h3>
+                  <p className="text-slate-700">Approve online and pay via secure Stripe checkout.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-6 items-start">
+                <div className="bg-pink-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                  4
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">We Deliver Inside Your Client Portal</h3>
+                  <p className="text-slate-700">Track progress, approvals, assets, and reporting in your private dashboard.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Pricing Section */}
         <section className="py-20 bg-slate-50">
           <div className="max-w-6xl mx-auto px-6">
@@ -142,41 +210,61 @@ export default function AiSocialMedia() {
               {/* DIY Plan */}
               <div className="bg-white p-8 rounded-3xl shadow-lg border border-slate-200 flex flex-col hover:shadow-xl transition-shadow duration-300">
                 <h3 className="text-2xl font-bold text-slate-900 mb-2">DIY</h3>
-                <p className="text-slate-500 mb-6 text-lg">Do It Yourself</p>
-                <div className="text-5xl font-bold text-slate-900 mb-8">$97<span className="text-lg text-slate-400 font-normal">/month</span></div>
+                <p className="text-slate-500 mb-2 text-lg">Do It Yourself</p>
+                <div className="text-5xl font-bold text-slate-900 mb-2">$97<span className="text-lg text-slate-400 font-normal">/month</span></div>
+                <p className="text-sm text-slate-500 mb-6">Month-to-month. Cancel anytime.</p>
                 <ul className="space-y-4 mb-10 flex-grow">
                   <li className="flex items-start gap-3 text-slate-600"><Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" /> Access to AI Content Tools</li>
                   <li className="flex items-start gap-3 text-slate-600"><Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" /> You Manage Scheduling</li>
                   <li className="flex items-start gap-3 text-slate-600"><Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" /> Weekly Trending Ideas</li>
                   <li className="flex items-start gap-3 text-slate-600"><Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" /> Basic Performance Analytics</li>
                 </ul>
-                <Button 
-                  onClick={() => window.location.href = 'https://ntaaffiliates.com'}
-                  variant="outline"
-                  className="w-full py-6 border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white transition-colors text-lg rounded-xl"
-                >
-                  Start Your 7 day Free Trial
-                </Button>
+                <div className="flex flex-col gap-3">
+                  <Button 
+                    onClick={() => window.location.href = 'https://ntaaffiliates.com/start/social-media'}
+                    variant="outline"
+                    className="w-full py-6 border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white transition-colors text-lg rounded-xl"
+                  >
+                    Start Now
+                  </Button>
+                  <Button 
+                    onClick={() => window.location.href = 'https://ntaaffiliates.com/start/social-media?proposal=1'}
+                    variant="ghost"
+                    className="w-full py-6 text-slate-600 hover:text-slate-900 text-lg"
+                  >
+                    Request Proposal
+                  </Button>
+                </div>
               </div>
 
               {/* DFY Plan */}
               <div className="bg-white p-8 rounded-3xl shadow-xl border-2 border-indigo-600 flex flex-col relative overflow-hidden transform md:-translate-y-4 hover:shadow-2xl transition-all duration-300">
                 <div className="absolute top-0 right-0 bg-indigo-600 text-white px-4 py-1 rounded-bl-xl text-sm font-bold uppercase tracking-wider">Most Popular</div>
                 <h3 className="text-2xl font-bold text-indigo-600 mb-2">DFY</h3>
-                <p className="text-slate-500 mb-6 text-lg">Done For You</p>
-                <div className="text-5xl font-bold text-slate-900 mb-8">$197<span className="text-lg text-slate-400 font-normal">/month</span></div>
+                <p className="text-slate-500 mb-2 text-lg">Done For You</p>
+                <div className="text-5xl font-bold text-slate-900 mb-2">$197<span className="text-lg text-slate-400 font-normal">/month</span></div>
+                <p className="text-sm text-slate-500 mb-6">Month-to-month. Cancel anytime.</p>
                 <ul className="space-y-4 mb-10 flex-grow">
                    <li className="flex items-start gap-3 text-slate-600"><Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" /> Full Content Creation</li>
                    <li className="flex items-start gap-3 text-slate-600"><Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" /> We Handle Posting & Scheduling</li>
                    <li className="flex items-start gap-3 text-slate-600"><Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" /> Community Engagement & Reply Drafting</li>
                    <li className="flex items-start gap-3 text-slate-600"><Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" /> Advanced Growth Reports & Strategy</li>
                 </ul>
-                <Button 
-                  onClick={() => window.location.href = 'https://ntaaffiliates.com'}
-                  className="w-full py-6 bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-200 text-lg rounded-xl"
-                >
-                  Start Your 7 day Free Trial
-                </Button>
+                <div className="flex flex-col gap-3">
+                  <Button 
+                    onClick={() => window.location.href = 'https://ntaaffiliates.com/start/social-media'}
+                    className="w-full py-6 bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-200 text-lg rounded-xl"
+                  >
+                    Start Now
+                  </Button>
+                  <Button 
+                    onClick={() => window.location.href = 'https://ntaaffiliates.com/start/social-media?proposal=1'}
+                    variant="ghost"
+                    className="w-full py-6 text-slate-600 hover:text-slate-900 text-lg"
+                  >
+                    Request Proposal
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
