@@ -60,19 +60,22 @@ export default function WebsiteRebuild() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
-                onClick={goToIntake}
+                onClick={() => window.location.href = 'https://ntaaffiliates.com/start/website-rebuild'}
                 className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white px-8 py-6 text-lg"
               >
-                Request a Website Review
+                Start Now
               </Button>
               <Button
-                onClick={() => setShowModal(true)}
+                onClick={() => window.location.href = 'https://ntaaffiliates.com/start/website-rebuild?proposal=1'}
                 variant="outline"
                 className="border-2 border-orange-600 text-orange-600 hover:bg-orange-50 px-8 py-6 text-lg"
               >
-                Questions? Let's Talk
+                Request Proposal
               </Button>
             </div>
+            <p className="text-slate-600 text-sm mt-4 max-w-2xl mx-auto">
+              After you get started, you'll receive access to your private client portal where you can track progress, approvals, billing, and reporting in real time.
+            </p>
           </motion.div>
         </div>
       </section>
@@ -192,11 +195,8 @@ export default function WebsiteRebuild() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-              How the Rebuild Works
+              Simple. Structured. Results.
             </h2>
-            <p className="text-xl text-slate-700 leading-relaxed">
-              We keep it simple. No confusing jargon. Just clear steps.
-            </p>
           </motion.div>
 
           <div className="space-y-8">
@@ -205,9 +205,9 @@ export default function WebsiteRebuild() {
                 1
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">We Review Your Current Site</h3>
+                <h3 className="text-2xl font-bold text-slate-900 mb-3">Tell Us What You Need</h3>
                 <p className="text-slate-700 text-lg leading-relaxed">
-                  We look at what's working and what's not. We talk to you about what your business needs.
+                  Complete a quick intake form so we understand your goals.
                 </p>
               </div>
             </div>
@@ -217,9 +217,9 @@ export default function WebsiteRebuild() {
                 2
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">We Build a Clear Plan</h3>
+                <h3 className="text-2xl font-bold text-slate-900 mb-3">We Send a Plan + Pricing</h3>
                 <p className="text-slate-700 text-lg leading-relaxed">
-                  You'll know exactly what pages you're getting, what they'll say, and what they'll cost. No surprises.
+                  You'll receive a clear proposal with scope and pricing options.
                 </p>
               </div>
             </div>
@@ -229,9 +229,9 @@ export default function WebsiteRebuild() {
                 3
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">We Build Your New Site</h3>
+                <h3 className="text-2xl font-bold text-slate-900 mb-3">Approve & Pay Securely</h3>
                 <p className="text-slate-700 text-lg leading-relaxed">
-                  We handle the design, writing, and setup. You review and give feedback along the way.
+                  Approve online and pay via secure Stripe checkout.
                 </p>
               </div>
             </div>
@@ -241,9 +241,9 @@ export default function WebsiteRebuild() {
                 4
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">We Launch It</h3>
+                <h3 className="text-2xl font-bold text-slate-900 mb-3">We Deliver Inside Your Client Portal</h3>
                 <p className="text-slate-700 text-lg leading-relaxed">
-                  Your new website goes live. We make sure everything works. You start getting better results.
+                  Track progress, approvals, assets, and reporting in your private dashboard.
                 </p>
               </div>
             </div>
@@ -253,8 +253,11 @@ export default function WebsiteRebuild() {
             <p className="text-lg text-slate-700 leading-relaxed mb-4">
               <strong>Built for everyone to use:</strong> We build websites that work for all visitors, including people with disabilities. This protects you and helps more people reach you.
             </p>
-            <p className="text-slate-600">
+            <p className="text-slate-600 mb-4">
               This is sometimes called "accessible" or "ADA-friendly" — you don't need to understand the rules. We handle that.
+            </p>
+            <p className="text-sm text-slate-600 border-t border-blue-300 pt-4 mt-4">
+              <strong>Pricing:</strong> 50% deposit to begin. Balance due upon completion.
             </p>
           </div>
         </div>
@@ -356,17 +359,17 @@ export default function WebsiteRebuild() {
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Button
-                onClick={goToIntake}
+                onClick={() => window.location.href = 'https://ntaaffiliates.com/start/website-rebuild'}
                 className="bg-white text-orange-600 hover:bg-slate-100 px-10 py-7 text-xl font-bold"
               >
-                Request a Website Review
+                Start Now
               </Button>
               <Button
-                onClick={() => setShowModal(true)}
+                onClick={() => window.location.href = 'https://ntaaffiliates.com/start/website-rebuild?proposal=1'}
                 variant="outline"
                 className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-10 py-7 text-xl font-bold"
               >
-                Questions? Let's Talk
+                Request Proposal
               </Button>
             </div>
           </motion.div>
