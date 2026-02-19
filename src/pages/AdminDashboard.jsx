@@ -115,6 +115,12 @@ export default function AdminDashboard() {
       description: 'Create & edit blog posts',
       icon: FileText,
       path: 'AdminBlog'
+    },
+    {
+      title: 'Help & Tutorials',
+      description: 'Step-by-step admin guide',
+      icon: BookOpen,
+      path: 'AdminHelp'
     }
   ];
 
