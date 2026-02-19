@@ -11,7 +11,8 @@ import {
   Settings,
   ChevronRight,
   TrendingUp,
-  Clock
+  Clock,
+  BookOpen
 } from 'lucide-react';
 import { createPageUrl } from '../utils';
 import SchedulingQueue from '../components/admin/SchedulingQueue';
