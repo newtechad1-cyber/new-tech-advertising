@@ -441,11 +441,11 @@ export default function Home() {
               Pick the option that feels right. No pressure. No confusion.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Link to={createPageUrl('OnboardingStart')}>
+              <a href="https://ntaafilliates.com" target="_blank" rel="noopener noreferrer">
                 <Button className="bg-white text-blue-600 hover:bg-blue-50 px-10 py-7 text-xl font-bold">
                   Start My 7-Day Free Trial
                 </Button>
-              </Link>
+              </a>
               <Button 
                 onClick={() => setShowModal(true)}
                 className="bg-white text-purple-600 hover:bg-purple-50 px-10 py-7 text-xl font-bold"
