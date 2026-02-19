@@ -21,11 +21,11 @@ export default function Header({ onCTAClick }) {
     if (mobile) {
       return (
         <nav className="flex flex-col space-y-4 text-sm font-medium text-slate-600">
-          <div className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-2">What We Help With</div>
-          <Link to={createPageUrl('SocialMediaManagement')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Social Media Help</Link>
-          <Link to={createPageUrl('Rebuild')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Website Help</Link>
-          <Link to={createPageUrl('StreamingTV')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>TV Ads</Link>
-          <Link to={createPageUrl('AdaAccessibility')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Website Accessibility</Link>
+          <div className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-2">What We Do For You</div>
+          <Link to={createPageUrl('SocialMediaManagement')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Social Media Support</Link>
+          <Link to={createPageUrl('Rebuild')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Website Support</Link>
+          <Link to={createPageUrl('StreamingTV')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Video Creation & TV Ads</Link>
+          <Link to={createPageUrl('AdaAccessibility')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Website Accessibility & Rebuild</Link>
 
           <Link to={createPageUrl('Blog')} className="hover:text-blue-600 transition-colors mt-4" onClick={() => setIsOpen(false)}>Articles</Link>
           <Link to={createPageUrl('About')} className="hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>About Us</Link>
@@ -38,20 +38,20 @@ export default function Header({ onCTAClick }) {
       <nav className="flex items-center gap-6 text-sm font-medium text-slate-600">
         <DropdownMenu>
           <DropdownMenuTrigger className="flex items-center gap-1 hover:text-blue-600 transition-colors">
-            What We Help With <ChevronDown className="w-4 h-4" />
+            What We Do For You <ChevronDown className="w-4 h-4" />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem asChild>
-              <Link to={createPageUrl('SocialMediaManagement')} className="cursor-pointer">Social Media Help</Link>
+              <Link to={createPageUrl('SocialMediaManagement')} className="cursor-pointer">Social Media Support</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to={createPageUrl('Rebuild')} className="cursor-pointer">Website Help</Link>
+              <Link to={createPageUrl('Rebuild')} className="cursor-pointer">Website Support</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to={createPageUrl('StreamingTV')} className="cursor-pointer">TV Ads</Link>
+              <Link to={createPageUrl('StreamingTV')} className="cursor-pointer">Video Creation & TV Ads</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to={createPageUrl('AdaAccessibility')} className="cursor-pointer">Website Accessibility</Link>
+              <Link to={createPageUrl('AdaAccessibility')} className="cursor-pointer">Website Accessibility & Rebuild</Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
