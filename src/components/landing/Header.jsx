@@ -70,7 +70,7 @@ export default function Header({ onCTAClick }) {
           <div className="flex items-center gap-3">
             <Link to={createPageUrl('Home')} className="flex items-center gap-3">
               <img 
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/4c8d9fbb5_ntalogonewtech.png" 
+                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/0dd1c22d0_NTALogotechy.png" 
                 alt="New Tech Advertising" 
                 className="h-14 w-auto"
               />
@@ -93,7 +93,7 @@ export default function Header({ onCTAClick }) {
                 <div className="flex flex-col gap-8 mt-8">
                   <Link to={createPageUrl('Home')} onClick={() => setIsOpen(false)} className="flex items-center gap-3">
                     <img 
-                      src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/4c8d9fbb5_ntalogonewtech.png" 
+                      src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/0dd1c22d0_NTALogotechy.png" 
                       alt="New Tech Advertising" 
                       className="h-10 w-auto"
                     />
