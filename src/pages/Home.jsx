@@ -59,7 +59,7 @@ export default function Home() {
             </p>
             <div className="inline-block">
               <a href="#choose-path" className="text-blue-600 font-semibold text-lg hover:text-blue-700 transition-colors cursor-pointer">
-                See How We Can Help ↓
+                What We Do For You ↓
               </a>
             </div>
           </div>
@@ -194,7 +194,7 @@ export default function Home() {
                   onClick={() => setShowModal(true)}
                   className="w-full bg-purple-600 hover:bg-purple-700 text-lg py-6"
                 >
-                  See How We Can Help
+                  How We Support Your Business
                 </Button>
               </div>
             </div>
@@ -440,7 +440,7 @@ export default function Home() {
                 onClick={() => setShowModal(true)}
                 className="bg-white text-purple-600 hover:bg-purple-50 px-10 py-7 text-xl font-bold"
               >
-                See How We Can Help
+                How We Support Your Business
               </Button>
             </div>
             <p className="text-white/90 mt-8 text-lg">
