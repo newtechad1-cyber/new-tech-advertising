@@ -502,16 +502,16 @@ export default function Home() {
                   Run TV or video ads locally
                 </Button>
               </Link>
-              <Link to={createPageUrl('OnboardingStart')} onClick={() => setShowModal(false)}>
+              <a href="https://ntaafilliates.com" target="_blank" rel="noopener noreferrer" className="w-full" onClick={() => setShowModal(false)}>
                 <Button className="w-full bg-orange-600 hover:bg-orange-700 text-left justify-start text-base py-6">
                   Manage social media posts
                 </Button>
-              </Link>
-              <Link to={createPageUrl('OnboardingStart')} onClick={() => setShowModal(false)}>
+              </a>
+              <a href="https://ntaafilliates.com" target="_blank" rel="noopener noreferrer" className="w-full" onClick={() => setShowModal(false)}>
                 <Button className="w-full bg-slate-600 hover:bg-slate-700 text-left justify-start text-base py-6">
                   I'm not sure what I need
                 </Button>
-              </Link>
+              </a>
             </div>
           </div>
         </div>
