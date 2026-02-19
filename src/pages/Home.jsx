@@ -216,11 +216,11 @@ export default function Home() {
               <p className="text-slate-600">
                 That's okay. Tell us what you need and we'll point you in the right direction.
               </p>
-              <Link to={createPageUrl('OnboardingStart')}>
+              <a href="https://ntaafilliates.com" target="_blank" rel="noopener noreferrer">
                 <Button className="mt-6 bg-orange-600 hover:bg-orange-700">
                   Tell Us What You Need
                 </Button>
-              </Link>
+              </a>
             </div>
           </div>
         </section>
