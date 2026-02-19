@@ -48,7 +48,7 @@ export default function Home() {
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
           <div className="max-w-4xl mx-auto px-6 text-center">
-            <div className="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-4 py-1.5 rounded-full mb-5 tracking-wide">
+            <div className="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-4 py-1.5 rounded-full mb-5 mt-6 tracking-wide">
               Homegrown Values. Nationwide Reach.
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
