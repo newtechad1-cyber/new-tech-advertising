@@ -50,28 +50,36 @@ export default function Home() {
           <div className="max-w-6xl mx-auto px-6">
             <div className="flex flex-col md:flex-row items-center gap-10">
               <div className="flex-1 text-center md:text-left">
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <div className="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-4 py-1.5 rounded-full mb-5 mt-6 tracking-wide">
-              Homegrown Values. Nationwide Reach.
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              Get More Prospects, Clients or Customers Without Getting Overwhelmed
-            </h1>
-            <p className="text-xl text-slate-700 mb-4 leading-relaxed">
-              You're busy running your business. You don't have time to figure out marketing on your own — and even if you did, AI has completely changed the rules. What worked even a year ago is already outdated.
-            </p>
-            <p className="text-lg text-slate-600 mb-8 leading-relaxed max-w-3xl mx-auto">
-              We help local business owners like you show up online, look trustworthy, and reach more customers — without confusing jargon or wasted money.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-2">
-              <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer">
-                <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-8 py-6 font-bold shadow-lg">
-                  Start My 7-Day Free Trial
-                </Button>
-              </a>
-              <a href="#choose-path" className="inline-flex items-center justify-center text-blue-600 font-semibold text-lg hover:text-blue-700 transition-colors cursor-pointer">
-                See What We Do ↓
-              </a>
+                <div className="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-4 py-1.5 rounded-full mb-5 mt-6 tracking-wide">
+                  Homegrown Values. Nationwide Reach.
+                </div>
+                <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+                  Get More Prospects, Clients or Customers Without Getting Overwhelmed
+                </h1>
+                <p className="text-xl text-slate-700 mb-4 leading-relaxed">
+                  You're busy running your business. You don't have time to figure out marketing on your own — and even if you did, AI has completely changed the rules. What worked even a year ago is already outdated.
+                </p>
+                <p className="text-lg text-slate-600 mb-8 leading-relaxed">
+                  We help local business owners like you show up online, look trustworthy, and reach more customers — without confusing jargon or wasted money.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mt-2">
+                  <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer">
+                    <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-8 py-6 font-bold shadow-lg">
+                      Start My 7-Day Free Trial
+                    </Button>
+                  </a>
+                  <a href="#choose-path" className="inline-flex items-center justify-center text-blue-600 font-semibold text-lg hover:text-blue-700 transition-colors cursor-pointer">
+                    See What We Do ↓
+                  </a>
+                </div>
+              </div>
+              <div className="flex-shrink-0 w-full md:w-auto md:max-w-sm lg:max-w-md">
+                <img
+                  src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/c246249af_HeroImage.png"
+                  alt="New Tech Advertising"
+                  className="w-full rounded-xl shadow-lg"
+                />
+              </div>
             </div>
           </div>
         </section>
