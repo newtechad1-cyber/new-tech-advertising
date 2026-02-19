@@ -107,15 +107,11 @@ export default function Header({ onCTAClick }) {
                         Client Login
                       </Button>
                     </Link>
-                    <Button 
-                      onClick={() => {
-                        setIsOpen(false);
-                        window.location.href = createPageUrl('SocialMediaManagement');
-                      }}
-                      className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white"
-                    >
-                      Start Free Trial
-                    </Button>
+                    <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer" className="w-full">
+                      <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                        Start Free Trial
+                      </Button>
+                    </a>
                   </div>
                 </div>
               </SheetContent>

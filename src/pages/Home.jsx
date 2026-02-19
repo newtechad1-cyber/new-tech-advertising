@@ -58,7 +58,7 @@ export default function Home() {
               We help local business owners like you show up online, look trustworthy, and reach more customers — without confusing jargon or wasted money.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-2">
-              <a href="https://ntaafilliates.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer">
                 <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-8 py-6 font-bold shadow-lg">
                   Start My 7-Day Free Trial
                 </Button>
@@ -107,7 +107,7 @@ export default function Home() {
                 You don't need to understand marketing.<br />
                 We explain everything in plain language.
               </p>
-              <a href="https://ntaafilliates.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer">
                 <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-8 py-6 font-bold shadow-md">
                   Start My 7-Day Free Trial
                 </Button>
@@ -159,7 +159,7 @@ export default function Home() {
                   <p className="text-sm text-slate-600">No credit card needed</p>
                 </div>
 
-                <a href="https://ntaafilliates.com" target="_blank" rel="noopener noreferrer" className="w-full">
+                <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer" className="w-full">
                   <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg py-6 font-bold">
                     Start My 7-Day Free Trial
                   </Button>
@@ -216,7 +216,7 @@ export default function Home() {
               <p className="text-slate-600">
                 That's okay. Tell us what you need and we'll point you in the right direction.
               </p>
-              <a href="https://ntaafilliates.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer">
                 <Button className="mt-6 bg-orange-600 hover:bg-orange-700">
                   Tell Us What You Need
                 </Button>
@@ -441,7 +441,7 @@ export default function Home() {
               Pick the option that feels right. No pressure. No confusion.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <a href="https://ntaafilliates.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer">
                 <Button className="bg-white text-blue-600 hover:bg-blue-50 px-10 py-7 text-xl font-bold">
                   Start My 7-Day Free Trial
                 </Button>
@@ -502,12 +502,12 @@ export default function Home() {
                   Run TV or video ads locally
                 </Button>
               </Link>
-              <a href="https://ntaafilliates.com" target="_blank" rel="noopener noreferrer" className="w-full" onClick={() => setShowModal(false)}>
+              <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer" className="w-full" onClick={() => setShowModal(false)}>
                 <Button className="w-full bg-orange-600 hover:bg-orange-700 text-left justify-start text-base py-6">
                   Manage social media posts
                 </Button>
               </a>
-              <a href="https://ntaafilliates.com" target="_blank" rel="noopener noreferrer" className="w-full" onClick={() => setShowModal(false)}>
+              <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer" className="w-full" onClick={() => setShowModal(false)}>
                 <Button className="w-full bg-slate-600 hover:bg-slate-700 text-left justify-start text-base py-6">
                   I'm not sure what I need
                 </Button>
