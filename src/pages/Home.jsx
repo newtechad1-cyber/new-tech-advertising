@@ -46,16 +46,11 @@ export default function Home() {
       
       <main>
         {/* Hero Section */}
-        <section 
-          className="py-20 relative"
-          style={{
-            backgroundImage: 'url(https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/c246249af_HeroImage.png)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        >
-          <div className="absolute inset-0 bg-white/70" />
-          <div className="relative max-w-4xl mx-auto px-6 text-center">
+        <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="flex flex-col md:flex-row items-center gap-10">
+              <div className="flex-1 text-center md:text-left">
+          <div className="max-w-4xl mx-auto px-6 text-center">
             <div className="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-4 py-1.5 rounded-full mb-5 mt-6 tracking-wide">
               Homegrown Values. Nationwide Reach.
             </div>
