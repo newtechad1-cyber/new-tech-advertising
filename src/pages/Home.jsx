@@ -48,8 +48,11 @@ export default function Home() {
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
           <div className="max-w-4xl mx-auto px-6 text-center">
+            <div className="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-4 py-1.5 rounded-full mb-5 tracking-wide">
+              Homegrown Values. Nationwide Reach.
+            </div>
             <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              Get More Customers Without Getting Overwhelmed
+              Get More Prospects, Clients or Customers Without Getting Overwhelmed
             </h1>
             <p className="text-xl text-slate-700 mb-4 leading-relaxed">
               You're busy running your business. You don't have time to figure out marketing on your own — and even if you did, AI has completely changed the rules. What worked even a year ago is already outdated.
