@@ -57,9 +57,14 @@ export default function Home() {
             <p className="text-lg text-slate-600 mb-8 leading-relaxed max-w-3xl mx-auto">
               We help local business owners like you show up online, look trustworthy, and reach more customers — without confusing jargon or wasted money.
             </p>
-            <div className="inline-block">
-              <a href="#choose-path" className="text-blue-600 font-semibold text-lg hover:text-blue-700 transition-colors cursor-pointer">
-                What We Do For You ↓
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-2">
+              <Link to={createPageUrl('OnboardingStart')}>
+                <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-8 py-6 font-bold shadow-lg">
+                  Start My 7-Day Free Trial
+                </Button>
+              </Link>
+              <a href="#choose-path" className="inline-flex items-center justify-center text-blue-600 font-semibold text-lg hover:text-blue-700 transition-colors cursor-pointer">
+                See What We Do ↓
               </a>
             </div>
           </div>
@@ -98,10 +103,15 @@ export default function Home() {
               </div>
             </div>
             <div className="mt-10 text-center">
-              <p className="text-lg text-slate-700 font-semibold">
+              <p className="text-lg text-slate-700 font-semibold mb-6">
                 You don't need to understand marketing.<br />
                 We explain everything in plain language.
               </p>
+              <Link to={createPageUrl('OnboardingStart')}>
+                <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-8 py-6 font-bold shadow-md">
+                  Start My 7-Day Free Trial
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
@@ -145,13 +155,13 @@ export default function Home() {
                 </div>
 
                 <div className="bg-blue-50 rounded-lg p-4 mb-6 text-center">
-                  <p className="text-2xl font-bold text-blue-900 mb-1">Free Trial</p>
-                  <p className="text-sm text-slate-600">Try it out, no credit card needed</p>
+                  <p className="text-2xl font-bold text-blue-900 mb-1">7-Day Free Trial</p>
+                  <p className="text-sm text-slate-600">No credit card needed</p>
                 </div>
 
-                <Link to={createPageUrl('SocialMediaMarketing')}>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-lg py-6">
-                    Start Free Trial
+                <Link to={createPageUrl('OnboardingStart')}>
+                  <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg py-6 font-bold">
+                    Start My 7-Day Free Trial
                   </Button>
                 </Link>
               </div>
@@ -431,9 +441,9 @@ export default function Home() {
               Pick the option that feels right. No pressure. No confusion.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Link to={createPageUrl('SocialMediaMarketing')}>
+              <Link to={createPageUrl('OnboardingStart')}>
                 <Button className="bg-white text-blue-600 hover:bg-blue-50 px-10 py-7 text-xl font-bold">
-                  Start Free Trial
+                  Start My 7-Day Free Trial
                 </Button>
               </Link>
               <Button 
@@ -492,7 +502,7 @@ export default function Home() {
                   Run TV or video ads locally
                 </Button>
               </Link>
-              <Link to={createPageUrl('SocialMediaMarketing')} onClick={() => setShowModal(false)}>
+              <Link to={createPageUrl('OnboardingStart')} onClick={() => setShowModal(false)}>
                 <Button className="w-full bg-orange-600 hover:bg-orange-700 text-left justify-start text-base py-6">
                   Manage social media posts
                 </Button>
