@@ -85,6 +85,8 @@ export default function Home() {
         </section>
 
         {/* Who This Is For */}
+
+        {/* Who This Is For */}
         <section className="py-16 bg-white border-y border-slate-200">
           <div className="max-w-5xl mx-auto px-6">
             <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">
