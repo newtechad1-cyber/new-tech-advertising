@@ -70,7 +70,7 @@ export default function Header({ onCTAClick }) {
           <div className="flex items-center">
             <Link to={createPageUrl('Home')} className="flex items-center">
               <img 
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/80c5e113e_NTALogotechy.png" 
+                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/0dd278f28_NTALogotechy_edited.png" 
                 alt="New Tech Advertising" 
                 className="h-16 w-auto block md:h-16 sm:h-11"
                 style={{ height: '64px', width: 'auto', display: 'block', maxHeight: 'none' }}
@@ -94,7 +94,7 @@ export default function Header({ onCTAClick }) {
                 <div className="flex flex-col gap-8 mt-8">
                   <Link to={createPageUrl('Home')} onClick={() => setIsOpen(false)} className="flex items-center gap-3">
                     <img 
-                      src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/80c5e113e_NTALogotechy.png" 
+                      src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/0dd278f28_NTALogotechy_edited.png" 
                       alt="New Tech Advertising" 
                       style={{ height: '44px', width: 'auto', display: 'block' }}
                     />
