@@ -52,7 +52,7 @@ export default function Home() {
               Get More Customers Without Getting Overwhelmed
             </h1>
             <p className="text-xl text-slate-700 mb-4 leading-relaxed">
-              You're busy running your business. You don't have time to figure out marketing on your own.
+              You're busy running your business. You don't have time to figure out marketing on your own — and even if you did, AI has completely changed the rules. What worked even a year ago is already outdated.
             </p>
             <p className="text-lg text-slate-600 mb-8 leading-relaxed max-w-3xl mx-auto">
               We help local business owners like you show up online, look trustworthy, and reach more customers — without confusing jargon or wasted money.
