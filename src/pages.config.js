@@ -111,6 +111,7 @@ import StreamingThankYou from './pages/StreamingThankYou';
 import TvVideo from './pages/TvVideo';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
+import AdminHelp from './pages/AdminHelp';
 import __Layout from './Layout.jsx';
 
 
@@ -179,6 +180,7 @@ export const PAGES = {
     "TvVideo": TvVideo,
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
+    "AdminHelp": AdminHelp,
 }
 
 export const pagesConfig = {
