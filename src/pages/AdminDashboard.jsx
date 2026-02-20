@@ -42,8 +42,9 @@ export default function AdminDashboard() {
         window.location.href = createPageUrl('Dashboard');
         return;
       }
-      setUser(userData);
-      await loadStats();
+      // Redirect to ContentStudio as the main admin landing page
+      window.location.href = createPageUrl('ContentStudio');
+      return;
     } catch (error) {
       console.error('Auth error:', error);
       base44.auth.redirectToLogin();
