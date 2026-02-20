@@ -70,6 +70,7 @@ import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import bookCall from './pages/Book-Call';
 import Contact from './pages/Contact';
+import ContentStudio from './pages/ContentStudio';
 import Dashboard from './pages/Dashboard';
 import freeAudit from './pages/Free-Audit';
 import getStarted from './pages/Get-Started';
@@ -112,7 +113,6 @@ import StreamingThankYou from './pages/StreamingThankYou';
 import TvVideo from './pages/TvVideo';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
-import ContentStudio from './pages/ContentStudio';
 import __Layout from './Layout.jsx';
 
 
@@ -140,6 +140,7 @@ export const PAGES = {
     "BlogPost": BlogPost,
     "Book-Call": bookCall,
     "Contact": Contact,
+    "ContentStudio": ContentStudio,
     "Dashboard": Dashboard,
     "Free-Audit": freeAudit,
     "Get-Started": getStarted,
@@ -182,7 +183,6 @@ export const PAGES = {
     "TvVideo": TvVideo,
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
-    "ContentStudio": ContentStudio,
 }
 
 export const pagesConfig = {

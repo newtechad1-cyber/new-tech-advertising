@@ -46,6 +46,12 @@ export default function Dashboard() {
            email: userData?.email,
            role: userData?.role
          });
+
+         // Redirect admin users to the admin dashboard
+         if (userData?.role === 'admin') {
+           window.location.href = createPageUrl('AdminDashboard');
+           return;
+         }
          
          // Check for client profile to determine onboarding state
          const profiles = await base44.entities.ClientProfile.filter({ created_by: userData.email });
