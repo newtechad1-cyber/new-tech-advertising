@@ -117,6 +117,12 @@ export default function AdminDashboard() {
       path: 'AdminBlog'
     },
     {
+      title: 'Content Studio',
+      description: 'Ebooks, products, email, media & notes',
+      icon: BookOpen,
+      path: 'ContentStudio'
+    },
+    {
       title: 'Help & Tutorials',
       description: 'Step-by-step admin guide',
       icon: BookOpen,
