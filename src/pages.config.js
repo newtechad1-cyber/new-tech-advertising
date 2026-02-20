@@ -59,6 +59,7 @@ import AdaSuccess from './pages/AdaSuccess';
 import AdaThankYou from './pages/AdaThankYou';
 import AdminBlog from './pages/AdminBlog';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminHelp from './pages/AdminHelp';
 import AdminSettings from './pages/AdminSettings';
 import AiAdvertising from './pages/AiAdvertising';
 import AiSeo from './pages/AiSeo';
@@ -111,7 +112,7 @@ import StreamingThankYou from './pages/StreamingThankYou';
 import TvVideo from './pages/TvVideo';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
-import AdminHelp from './pages/AdminHelp';
+import ContentStudio from './pages/ContentStudio';
 import __Layout from './Layout.jsx';
 
 
@@ -128,6 +129,7 @@ export const PAGES = {
     "AdaThankYou": AdaThankYou,
     "AdminBlog": AdminBlog,
     "AdminDashboard": AdminDashboard,
+    "AdminHelp": AdminHelp,
     "AdminSettings": AdminSettings,
     "AiAdvertising": AiAdvertising,
     "AiSeo": AiSeo,
@@ -180,7 +182,7 @@ export const PAGES = {
     "TvVideo": TvVideo,
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
-    "AdminHelp": AdminHelp,
+    "ContentStudio": ContentStudio,
 }
 
 export const pagesConfig = {
