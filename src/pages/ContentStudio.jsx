@@ -8,14 +8,14 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-import EbookWriter from '../components/studio/EbookWriter.js';
-import ProductsStore from '../components/studio/ProductsStore.js';
-import EmailMarketing from '../components/studio/EmailMarketing.js';
-import Autoresponder from '../components/studio/Autoresponder.js';
-import SubscribersList from '../components/studio/SubscribersList.js';
-import MediaImages from '../components/studio/MediaImages.js';
-import MediaVideos from '../components/studio/MediaVideos.js';
-import StudioNotes from '../components/studio/StudioNotes.js';
+import EbookWriter from '../components/studio/EbookWriter';
+import ProductsStore from '../components/studio/ProductsStore';
+import EmailMarketing from '../components/studio/EmailMarketing';
+import Autoresponder from '../components/studio/Autoresponder';
+import SubscribersList from '../components/studio/SubscribersList';
+import MediaImages from '../components/studio/MediaImages';
+import MediaVideos from '../components/studio/MediaVideos';
+import StudioNotes from '../components/studio/StudioNotes';
 
 const SECTIONS = [
   { id: 'ebook', label: 'Ebook Writer', icon: BookOpen, color: 'bg-violet-500', description: 'Write & organize chapters' },
