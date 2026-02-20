@@ -47,9 +47,9 @@ export default function Dashboard() {
            role: userData?.role
          });
 
-         // Redirect admin users to the Content Studio
+         // Redirect admin users to the admin dashboard
          if (userData?.role === 'admin') {
-           window.location.href = createPageUrl('ContentStudio');
+           window.location.href = createPageUrl('AdminDashboard');
            return;
          }
          
