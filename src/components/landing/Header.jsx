@@ -22,7 +22,7 @@ export default function Header({ onCTAClick }) {
       return (
         <nav className="flex flex-col space-y-4 text-sm font-medium text-slate-600">
           <div className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-2">What We Do For You</div>
-          <Link to={createPageUrl('SocialMediaManagement')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Social Media Support</Link>
+          <Link to={createPageUrl('AiSocialMedia')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Social Media Support</Link>
           <Link to={createPageUrl('Rebuild')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Website Support</Link>
           <Link to={createPageUrl('StreamingTV')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Video Creation & TV Ads</Link>
           <Link to={createPageUrl('AdaAccessibility')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Website Accessibility & Rebuild</Link>
