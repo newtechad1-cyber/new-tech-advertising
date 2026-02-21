@@ -42,7 +42,7 @@ export default function Header({ onCTAClick }) {
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem asChild>
-              <Link to={createPageUrl('AiSocialMedia')} className="cursor-pointer">Social Media Support</Link>
+              <a href="https://newtechadvertising.com/socialmediamarketing" target="_blank" rel="noopener noreferrer" className="cursor-pointer">Social Media Support</a>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link to={createPageUrl('Rebuild')} className="cursor-pointer">Website Support</Link>
