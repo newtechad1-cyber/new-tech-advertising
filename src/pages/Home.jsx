@@ -287,6 +287,63 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Brand Awareness vs Short-Term Marketing */}
+        <section className="py-20 bg-slate-900 text-white">
+          <div className="max-w-5xl mx-auto px-6">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4">How This Kind of Marketing Actually Works</h2>
+              <p className="text-lg text-slate-300 max-w-3xl mx-auto">
+                Before we talk about strategy, it helps to understand the difference between two types of marketing — because they work very differently.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 mb-10">
+              {/* Brand Awareness */}
+              <div className="bg-white/10 rounded-xl p-8 border border-white/20">
+                <div className="inline-block bg-blue-500/30 text-blue-200 text-xs font-bold px-3 py-1 rounded-full mb-4 border border-blue-400/40 uppercase tracking-wide">
+                  What We Specialize In
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4">Brand Awareness &amp; Top-of-Mind Growth</h3>
+                <p className="text-slate-300 mb-4 leading-relaxed">
+                  Most people aren't ready to buy the moment they see your ad. But when they <em>are</em> ready — you want to be the first name that comes to mind.
+                </p>
+                <p className="text-slate-300 mb-4 leading-relaxed">
+                  That's what brand awareness does. We help you show up consistently — on social media, streaming TV, and in local search — so that over time, your business becomes the obvious choice in your community.
+                </p>
+                <p className="text-slate-300 leading-relaxed">
+                  This is a long-term strategy. It builds real recognition and trust that compounds over months and years.
+                </p>
+              </div>
+
+              {/* Short-Term Promotions */}
+              <div className="bg-white/10 rounded-xl p-8 border border-white/20">
+                <div className="inline-block bg-orange-400/30 text-orange-200 text-xs font-bold px-3 py-1 rounded-full mb-4 border border-orange-400/40 uppercase tracking-wide">
+                  We Can Help With This Too
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4">Short-Term Promotions &amp; Sales</h3>
+                <p className="text-slate-300 mb-4 leading-relaxed">
+                  Running a special offer, seasonal sale, or time-limited promotion works differently. These campaigns are designed to drive immediate action — and they can work well when done right.
+                </p>
+                <p className="text-slate-300 mb-4 leading-relaxed">
+                  The key difference: a promotion tells people to act now. Brand awareness reminds people you exist. Both have a place — but they require different approaches, different messaging, and different expectations.
+                </p>
+                <p className="text-slate-300 leading-relaxed">
+                  If you have a promotion coming up, we can help with that too — just handled as its own campaign.
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-blue-600/30 border border-blue-400/40 rounded-xl p-6 text-center">
+              <p className="text-lg text-white font-semibold mb-2">
+                Not sure which one you need?
+              </p>
+              <p className="text-slate-300">
+                Tell us what you're trying to accomplish and we'll help you figure out the right approach — no guessing, no jargon.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Reassurance */}
         <section className="py-20 bg-blue-50">
           <div className="max-w-4xl mx-auto px-6">
