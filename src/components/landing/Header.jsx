@@ -117,12 +117,6 @@ export default function Header({ onCTAClick }) {
               </SheetContent>
             </Sheet>
 
-            <Link to={createPageUrl('Dashboard')}>
-              <Button variant="ghost" className="text-slate-600 font-medium hidden sm:flex items-center gap-2">
-                <UserCircle className="w-4 h-4" />
-                Client Login
-              </Button>
-            </Link>
             <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer">
               <Button
                 onClick={() => trackCTAClick('Header - Start Free Trial')}
