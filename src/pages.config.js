@@ -113,6 +113,10 @@ import StreamingThankYou from './pages/StreamingThankYou';
 import TvVideo from './pages/TvVideo';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
+import VideoIndex from './pages/VideoIndex';
+import VideoDetail from './pages/VideoDetail';
+import AdminVideoQueue from './pages/AdminVideoQueue';
+import AdminVideoDetail from './pages/AdminVideoDetail';
 import __Layout from './Layout.jsx';
 
 
@@ -183,6 +187,10 @@ export const PAGES = {
     "TvVideo": TvVideo,
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
+    "VideoIndex": VideoIndex,
+    "VideoDetail": VideoDetail,
+    "AdminVideoQueue": AdminVideoQueue,
+    "AdminVideoDetail": AdminVideoDetail,
 }
 
 export const pagesConfig = {
