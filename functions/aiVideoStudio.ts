@@ -124,23 +124,27 @@ async function createAvatarSlidesVideo({ slides, voiceId, script, avatarId, form
          url: slide.image_url
        } : { type: "color", value: "#ffffff" },
        voice: { type: "text", input_text: slide.caption || "", voice_id: voiceId },
-       text: captionText ? [{
-         text: captionText,
-         position: "bottom",
-         font_size: 24,
-         color: "#FFFFFF"
-       }] : []
+       ...(captionText ? {
+         text: {
+           text: captionText,
+           position: "bottom",
+           font_size: 24,
+           color: "#FFFFFF"
+         }
+       } : {})
      };
    }) : [{
      character: { type: "avatar", avatar_id: avatarId, avatar_style: "normal" },
      background: { type: "color", value: "#ffffff" },
      voice: { type: "text", input_text: script, voice_id: voiceId },
-     text: captions[0] ? [{
-       text: captions[0],
-       position: "bottom",
-       font_size: 24,
-       color: "#FFFFFF"
-     }] : []
+     ...(captions[0] ? {
+       text: {
+         text: captions[0],
+         position: "bottom",
+         font_size: 24,
+         color: "#FFFFFF"
+       }
+     } : {})
    }];
 
    const body = {
