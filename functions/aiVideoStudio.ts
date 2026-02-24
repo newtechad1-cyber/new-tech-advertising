@@ -11,11 +11,21 @@ async function getAvatars() {
 }
 
 async function getVoices() {
-  const res = await fetch("https://api.heygen.com/v2/voices", {
-    headers: { "x-api-key": HEYGEN_API_KEY }
-  });
-  const data = await res.json();
-  return data.data?.voices || [];
+   const res = await fetch("https://api.heygen.com/v2/voices", {
+     headers: { "x-api-key": HEYGEN_API_KEY }
+   });
+   const data = await res.json();
+   const voices = data.data?.voices || [];
+   console.log("[HeyGen Voices Response]", JSON.stringify(voices.slice(0, 2), null, 2));
+   // Map HeyGen voice structure to expected format
+   return voices.map(v => ({
+     voice_id: v.voice_id,
+     display_name: v.name || v.display_name,
+     gender: v.gender,
+     accent: v.accent,
+     language: v.language,
+     preview_url: v.preview_url || v.sample_url
+   }));
 }
 
 async function createAvatarVideo({ script, avatarId, voiceId, format = "16:9" }) {
