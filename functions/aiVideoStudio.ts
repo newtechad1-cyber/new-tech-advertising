@@ -176,20 +176,26 @@ Return ONLY a valid JSON array, no markdown, no explanation.`,
     if (action === "check_status") {
       const { heygenVideoId, recordId } = params;
       const status = await getVideoStatus(heygenVideoId);
-      if (status.status === "completed" && status.video_url) {
+      const heygenStatus = status.status; // "pending", "processing", "completed", "failed"
+
+      if (heygenStatus === "completed" && status.video_url) {
         await base44.entities.VideoRequests.update(recordId, {
           render_status: "done",
           render_output_url: status.video_url,
           status: "Needs Review"
         });
-      } else if (status.status === "failed") {
+      } else if (heygenStatus === "failed") {
         await base44.entities.VideoRequests.update(recordId, {
           render_status: "failed",
           status: "Draft",
           render_error: status.error || "Rendering failed"
         });
+      } else if (heygenStatus === "processing" || heygenStatus === "pending") {
+        await base44.entities.VideoRequests.update(recordId, {
+          render_status: "rendering"
+        });
       }
-      return Response.json({ status: status.status, video_url: status.video_url });
+      return Response.json({ status: heygenStatus, video_url: status.video_url });
     }
 
     return Response.json({ error: "Unknown action" }, { status: 400 });
