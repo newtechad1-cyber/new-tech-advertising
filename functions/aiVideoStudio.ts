@@ -47,7 +47,7 @@ async function createSlideVideo({ slides, voiceId, script, format = "16:9" }) {
                                         { width: 1280, height: 720 };
   const body = {
     video_inputs: [{
-      character: { type: "text_only" },
+      character: { type: "talking_photo", talking_photo_id: "default" },
       voice: { type: "text", input_text: script, voice_id: voiceId },
       background: slides[0]?.image_url ? {
         type: "image",
