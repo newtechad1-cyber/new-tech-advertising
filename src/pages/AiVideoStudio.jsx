@@ -275,6 +275,7 @@ export default function AiVideoStudio() {
                               <a href={v.render_output_url} download>
                                 <Button size="sm" variant="outline" className="gap-1"><Download className="w-3 h-3" /> Download</Button>
                               </a>
+                              <Button size="sm" variant="outline" className="gap-1 text-red-600 hover:text-red-700" onClick={() => handleDeleteVideo(v.id)}><Trash2 className="w-3 h-3" /></Button>
                             </div>
                           )}
                         </div>
