@@ -169,28 +169,28 @@ export default function AiVideoStudio() {
   };
 
   const getStep3Component = () => {
-    if (formState.videoType === "slides") {
-      return (
-        <Step3Slides
-          state={formState}
-          setState={setFormState}
-          voices={voices}
-          onBack={() => setCurrentStep(1)}
-          onNext={() => setCurrentStep(3)}
-        />
-      );
-    }
-    return (
-      <Step3Avatar
-        state={formState}
-        setState={setFormState}
-        avatars={avatars}
-        voices={voices}
-        onBack={() => setCurrentStep(1)}
-        onNext={() => setCurrentStep(3)}
-      />
-    );
-  };
+     if (formState.videoType === "slides" || formState.videoType === "avatar-slides") {
+       return (
+         <Step3Slides
+           state={formState}
+           setState={setFormState}
+           voices={voices}
+           onBack={() => setCurrentStep(1)}
+           onNext={() => setCurrentStep(3)}
+         />
+       );
+     }
+     return (
+       <Step3Avatar
+         state={formState}
+         setState={setFormState}
+         avatars={avatars}
+         voices={voices}
+         onBack={() => setCurrentStep(1)}
+         onNext={() => setCurrentStep(3)}
+       />
+     );
+   };
 
   if (loading) return (
     <div className="flex items-center justify-center min-h-screen">
