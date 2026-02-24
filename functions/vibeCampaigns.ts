@@ -21,7 +21,7 @@ Deno.serve(async (req) => {
 
     if (action === 'get_advertisers') {
       // List advertisers associated with this API key
-      const res = await fetch(`${VIBE_API_BASE}/advertisers`, { headers: vibeHeaders });
+      const res = await fetch(`${VIBE_API_BASE}/get_advertiser_ids`, { headers: vibeHeaders });
       const data = await res.json();
       return Response.json(data);
     }
