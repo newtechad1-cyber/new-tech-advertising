@@ -13,7 +13,7 @@ export const useViewMode = () => {
 
 export default function Layout({ children, currentPageName }) {
   const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [viewMode, setViewMode] = useState('admin');
   
   const isAdmin = user?.role === 'admin';
