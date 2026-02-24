@@ -21,241 +21,123 @@ import SchedulingQueue from '../components/admin/SchedulingQueue';
 import UpsellQueue from '../components/admin/UpsellQueue';
 import ClientsList from '../components/admin/ClientsList';
 
+const SECTIONS = [
+  { id: 'scheduling', label: 'Scheduling Queue', icon: Calendar, color: 'bg-blue-500', description: 'Content needing scheduling' },
+  { id: 'upsells', label: 'Upsell Queue', icon: DollarSign, color: 'bg-purple-500', description: 'Per-post upgrade requests' },
+  { id: 'clients', label: 'Client Management', icon: Users, color: 'bg-green-500', description: 'View all clients' },
+  { id: 'leads', label: 'Leads Dashboard', icon: TrendingUp, color: 'bg-amber-500', description: 'Manage incoming leads', link: 'LeadsDashboard' },
+  { id: 'blog', label: 'Blog Management', icon: FileText, color: 'bg-rose-500', description: 'Create & edit blog posts', link: 'AdminBlog' },
+  { id: 'ebook', label: 'Ebook Writer', icon: BookOpen, color: 'bg-violet-500', description: 'Write & organize chapters' },
+  { id: 'products', label: 'Products', icon: ShoppingBag, color: 'bg-emerald-500', description: 'Manage your store items' },
+  { id: 'email', label: 'Email Marketing', icon: Mail, color: 'bg-blue-400', description: 'Broadcasts & campaigns' },
+  { id: 'autoresponder', label: 'Autoresponder', icon: RefreshCw, color: 'bg-cyan-500', description: 'Automated email sequences' },
+  { id: 'subscribers', label: 'Subscribers', icon: Users, color: 'bg-orange-500', description: 'Manage your list' },
+  { id: 'images', label: 'Images', icon: Image, color: 'bg-pink-500', description: 'Media library for social & video' },
+  { id: 'videos', label: 'Videos', icon: Video, color: 'bg-red-500', description: 'Video assets & links' },
+  { id: 'ai-video-studio', label: 'AI Video Studio', icon: MonitorPlay, color: 'bg-indigo-500', description: 'Generate AI videos from script', link: 'AiVideoStudio' },
+  { id: 'notes', label: 'Notes', icon: StickyNote, color: 'bg-yellow-500', description: 'Ideas & reminders' },
+];
+
+const SECTION_COMPONENTS = {
+  scheduling: SchedulingQueue,
+  upsells: UpsellQueue,
+  clients: ClientsList,
+  ebook: EbookWriter,
+  products: ProductsStore,
+  email: EmailMarketing,
+  autoresponder: Autoresponder,
+  subscribers: SubscribersList,
+  images: MediaImages,
+  videos: MediaVideos,
+  notes: StudioNotes,
+};
+
 export default function AdminDashboard() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [activeView, setActiveView] = useState('hub');
-  const [stats, setStats] = useState({
-    pendingScheduling: 0,
-    activeUpsells: 0,
-    totalClients: 0,
-    pendingLeads: 0
-  });
+  const [activeSection, setActiveSection] = useState(null);
 
-  useEffect(() => {
-    checkAdminAccess();
-  }, []);
-
-  const checkAdminAccess = async () => {
-    try {
-      const userData = await base44.auth.me();
-      if (userData.role !== 'admin') {
-        window.location.href = createPageUrl('Dashboard');
-        return;
-      }
-      setUser(userData);
-      await loadStats();
-    } catch (error) {
-      console.error('Auth error:', error);
-      base44.auth.redirectToLogin();
-    } finally {
-      setLoading(false);
+  const handleSectionClick = (section) => {
+    if (section.link) {
+      window.location.href = createPageUrl(section.link);
+    } else {
+      setActiveSection(section.id);
     }
   };
 
-  const loadStats = async () => {
-    try {
-      const [submissions, users] = await Promise.all([
-        base44.entities.ContentSubmission.list(),
-        base44.entities.User.list()
-      ]);
-
-      setStats({
-        pendingScheduling: submissions.filter(s => s.status === 'pending').length,
-        activeUpsells: submissions.filter(s => 
-          s.upgrade_status === 'client_requested' || 
-          s.upgrade_status === 'approved'
-        ).length,
-        totalClients: users.filter(u => u.role !== 'admin').length,
-        pendingLeads: 0 // Can wire up to Lead entity if needed
-      });
-    } catch (error) {
-      console.error('Error loading stats:', error);
-    }
-  };
-
-  const quickActions = [
-    {
-      id: 'scheduling',
-      title: 'Scheduling Queue',
-      description: 'Content needing scheduling',
-      icon: Calendar,
-      count: stats.pendingScheduling,
-      color: 'bg-blue-50 text-blue-600 border-blue-200',
-      view: 'scheduling'
-    },
-    {
-      id: 'upsells',
-      title: 'Upsell Queue',
-      description: 'Per-post upgrade requests',
-      icon: DollarSign,
-      count: stats.activeUpsells,
-      color: 'bg-purple-50 text-purple-600 border-purple-200',
-      view: 'upsells'
-    },
-    {
-      id: 'clients',
-      title: 'Client Management',
-      description: 'View all clients',
-      icon: Users,
-      count: stats.totalClients,
-      color: 'bg-green-50 text-green-600 border-green-200',
-      view: 'clients'
-    }
-  ];
-
-  const externalLinks = [
-    {
-      title: 'Leads Dashboard',
-      description: 'Manage incoming leads',
-      icon: TrendingUp,
-      path: 'LeadsDashboard'
-    },
-    {
-      title: 'Blog Management',
-      description: 'Create & edit blog posts',
-      icon: FileText,
-      path: 'AdminBlog'
-    },
-    {
-      title: 'Content Studio',
-      description: 'Ebooks, products, email, media & notes',
-      icon: BookOpen,
-      path: 'ContentStudio'
-    },
-    {
-      title: 'Help & Tutorials',
-      description: 'Step-by-step admin guide',
-      icon: BookOpen,
-      path: 'AdminHelp'
-    }
-  ];
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <p className="text-slate-600">Loading admin dashboard...</p>
-      </div>
-    );
-  }
+  const ActiveComponent = activeSection ? SECTION_COMPONENTS[activeSection] : null;
+  const activeData = activeSection ? SECTIONS.find(s => s.id === activeSection) : null;
 
   return (
     <AdminGuard>
-      <div className="min-h-screen bg-slate-50">
-      <header className="bg-white border-b sticky top-0 z-20">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-slate-900">Admin Hub</h1>
-              <p className="text-sm text-slate-600 mt-1">
-                {activeView === 'hub' ? 'Operations & Management Center' : 
-                 activeView === 'scheduling' ? 'Scheduling Queue' :
-                 activeView === 'upsells' ? 'Upsell Queue' :
-                 'Client Management'}
-              </p>
-            </div>
-            <div className="flex items-center gap-3">
-              {activeView !== 'hub' && (
-                <Button variant="outline" onClick={() => setActiveView('hub')}>
-                  ← Back to Hub
+      <div className="min-h-screen bg-slate-950 text-white">
+        {/* Header */}
+        <div className="bg-slate-900 border-b border-slate-800 px-6 py-4">
+          <div className="max-w-7xl mx-auto flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              {activeSection && (
+                <Button variant="ghost" size="sm" onClick={() => setActiveSection(null)} className="text-slate-400 hover:text-white">
+                  <ArrowLeft className="w-4 h-4 mr-2" /> Back
                 </Button>
               )}
-              <Button variant="outline" onClick={() => window.location.href = createPageUrl('Dashboard')}>
-                Client View
-              </Button>
+              <div>
+                <div className="flex items-center gap-2">
+                  <Zap className="w-5 h-5 text-yellow-400" />
+                  <h1 className="text-xl font-bold">
+                    {activeData ? activeData.label : 'Admin Hub'}
+                  </h1>
+                </div>
+                <p className="text-slate-400 text-sm">
+                  {activeData ? activeData.description : 'Operations & management center'}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <Link to={createPageUrl('Dashboard')}>
+                <Button variant="outline" size="sm" className="border-slate-700 text-slate-300 hover:bg-slate-800">
+                  Client View
+                </Button>
+              </Link>
+              <Link to={createPageUrl('AdminHelp')}>
+                <Button variant="outline" size="sm" className="border-slate-700 text-slate-300 hover:bg-slate-800">
+                  <HelpCircle className="w-4 h-4 mr-2" /> Help
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
-      </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-8">
-        {activeView === 'hub' ? (
-          <div className="space-y-8">
-            {/* Quick Stats */}
-            <div className="grid gap-6 md:grid-cols-3">
-              {quickActions.map((action) => {
-                const Icon = action.icon;
-                return (
-                  <Card 
-                    key={action.id} 
-                    className="cursor-pointer hover:shadow-lg transition-shadow border-2"
-                    onClick={() => setActiveView(action.view)}
-                  >
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <div className={`w-12 h-12 rounded-lg ${action.color} flex items-center justify-center mb-4 border-2`}>
-                            <Icon className="w-6 h-6" />
-                          </div>
-                          <h3 className="font-semibold text-slate-900 mb-1">{action.title}</h3>
-                          <p className="text-sm text-slate-600 mb-3">{action.description}</p>
-                          <div className="flex items-center gap-2">
-                            <span className="text-2xl font-bold text-slate-900">{action.count}</span>
-                            <span className="text-sm text-slate-500">pending</span>
-                          </div>
-                        </div>
-                        <ChevronRight className="w-5 h-5 text-slate-400" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-
-            {/* External Pages */}
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          {!activeSection ? (
             <div>
-              <h2 className="text-lg font-semibold text-slate-900 mb-4">Management Pages</h2>
-              <div className="grid gap-4 md:grid-cols-2">
-                {externalLinks.map((link) => {
-                  const Icon = link.icon;
+              <div className="mb-8">
+                <h2 className="text-2xl font-bold text-white mb-2">What would you like to work on?</h2>
+                <p className="text-slate-400">Pick a section to get started.</p>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {SECTIONS.map((section) => {
+                  const Icon = section.icon;
                   return (
-                    <Card 
-                      key={link.path}
-                      className="cursor-pointer hover:shadow-md transition-shadow"
-                      onClick={() => window.location.href = createPageUrl(link.path)}
+                    <button
+                      key={section.id}
+                      onClick={() => handleSectionClick(section)}
+                      className="group bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-600 rounded-xl p-6 text-left transition-all duration-200 hover:scale-105 hover:shadow-xl"
                     >
-                      <CardContent className="p-4">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center">
-                              <Icon className="w-5 h-5 text-slate-600" />
-                            </div>
-                            <div>
-                              <h3 className="font-semibold text-slate-900">{link.title}</h3>
-                              <p className="text-xs text-slate-500">{link.description}</p>
-                            </div>
-                          </div>
-                          <ChevronRight className="w-5 h-5 text-slate-400" />
-                        </div>
-                      </CardContent>
-                    </Card>
+                      <div className={`${section.color} w-12 h-12 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                        <Icon className="w-6 h-6 text-white" />
+                      </div>
+                      <h3 className="font-bold text-white text-base mb-1">{section.label}</h3>
+                      <p className="text-slate-500 text-xs">{section.description}</p>
+                    </button>
                   );
                 })}
               </div>
             </div>
-
-            {/* Recent Activity (placeholder) */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Clock className="w-5 h-5" />
-                  Recent Activity
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-slate-600">Activity feed coming soon...</p>
-              </CardContent>
-            </Card>
-          </div>
-        ) : activeView === 'scheduling' ? (
-          <SchedulingQueue />
-        ) : activeView === 'upsells' ? (
-          <UpsellQueue />
-        ) : (
-          <ClientsList />
-        )}
-      </main>
-    </div>
+          ) : (
+            <div>
+              {ActiveComponent && <ActiveComponent />}
+            </div>
+          )}
+        </div>
+      </div>
     </AdminGuard>
   );
 }
