@@ -77,6 +77,9 @@ export default function Dashboard() {
            setShowOnboarding(true);
          }
       }
+      } else {
+        base44.auth.redirectToLogin(window.location.pathname);
+      }
     } catch (e) {
       console.error("[Dashboard] Auth check failed:", e);
       base44.auth.redirectToLogin(window.location.pathname);
