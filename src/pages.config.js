@@ -120,6 +120,7 @@ import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
 import ChatbotManagement from './pages/ChatbotManagement';
 import ChatWidget from './pages/ChatWidget';
+import AiVideoStudio from './pages/AiVideoStudio';
 import __Layout from './Layout.jsx';
 
 
@@ -197,6 +198,7 @@ export const PAGES = {
     "WebsiteRebuild": WebsiteRebuild,
     "ChatbotManagement": ChatbotManagement,
     "ChatWidget": ChatWidget,
+    "AiVideoStudio": AiVideoStudio,
 }
 
 export const pagesConfig = {
