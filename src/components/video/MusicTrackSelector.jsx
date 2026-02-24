@@ -29,17 +29,11 @@ export default function MusicTrackSelector({ musicTrackUrl, musicPrompt, onMusic
     if (!prompt.trim()) return;
     setGenerating(true);
     try {
-      const result = await base44.integrations.Core.InvokeLLM({
-        prompt: `You are a music generation AI. The user wants background music for a promotional video with this description: "${prompt}". Generate atmospheric background music in a format suitable for video production. Respond with a URL to the generated music file.`,
-        add_context_from_internet: true
-      });
-      // Note: In a real implementation, you'd use a dedicated music generation API
-      // For now, this is a placeholder that would need integration with a service like Soundraw or similar
       onPromptChange(prompt);
-      // You would get the actual URL from the music generation service
-      alert("Music generation feature requires integration with a music generation service (e.g., Soundraw, AIVA)");
+      setPrompt("");
+      alert("Music generation feature is currently a placeholder. To enable AI music generation:\n\n1. Sign up for an API at Soundraw.io or AIVA.ai\n\n2. Add the API key to your app settings\n\n3. The generated music will automatically be included in your video\n\nFor now, use the 'Upload' tab to add your own music tracks.");
     } catch (err) {
-      console.error("Error generating music:", err);
+      console.error("Error:", err);
     } finally {
       setGenerating(false);
     }
