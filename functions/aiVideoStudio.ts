@@ -45,7 +45,7 @@ Return ONLY valid JSON array, no markdown.`
 }
 
 async function generateSlideImage({ prompt }) {
-  const response = await openai.images.generate({
+  const response = await getOpenAI().images.generate({
     model: "dall-e-3",
     prompt: `Professional promotional photo for business video: ${prompt}. High quality, vibrant, suitable for marketing.`,
     n: 1,
