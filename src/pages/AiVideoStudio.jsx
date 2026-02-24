@@ -112,7 +112,7 @@ export default function AiVideoStudio() {
     const res = await invoke("check_status", { heygenVideoId, recordId });
     const status = res.data?.status;
     await loadMyVideos(user);
-    if (status !== "completed" && status !== "failed") {
+    if (status !== "completed" && status !== "failed" && status !== "error") {
       pollStatus(recordId, heygenVideoId, attempts + 1);
     } else {
       setPollingIds(prev => { const n = { ...prev }; delete n[recordId]; return n; });
