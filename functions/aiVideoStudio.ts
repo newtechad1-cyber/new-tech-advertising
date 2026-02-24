@@ -50,37 +50,52 @@ async function createAvatarVideo({ script, avatarId, voiceId, format = "16:9" })
   return data.data.video_id;
 }
 
-async function createProductVideo({ slides, voiceId, script, format = "16:9" }) {
-  const dimension = format === "9:16" ? { width: 720, height: 1280 } :
-                    format === "1:1"  ? { width: 720, height: 720 } :
-                                        { width: 1280, height: 720 };
-  
-  const video_inputs = slides?.length > 0 ? slides.map(slide => ({
-    background: slide.image_url ? {
-      type: "image",
-      url: slide.image_url
-    } : { type: "color", value: "#ffffff" },
-    voice: { type: "text", input_text: slide.caption || "", voice_id: voiceId }
-  })) : [{
-    background: { type: "color", value: "#ffffff" },
-    voice: { type: "text", input_text: script, voice_id: voiceId }
-  }];
+async function createProductVideo({ slides, voiceId, script, format = "16:9", captions = {} }) {
+   const dimension = format === "9:16" ? { width: 720, height: 1280 } :
+                     format === "1:1"  ? { width: 720, height: 720 } :
+                                         { width: 1280, height: 720 };
 
-  const body = {
-    video_inputs,
-    dimension,
-    test: false
-  };
-  
-  const res = await fetch("https://api.heygen.com/v2/video/generate", {
-    method: "POST",
-    headers: { "x-api-key": HEYGEN_API_KEY, "Content-Type": "application/json" },
-    body: JSON.stringify(body)
-  });
-  const data = await res.json();
-  console.log("[HeyGen Product Video Response]", JSON.stringify(data, null, 2));
-  if (!data.data?.video_id) throw new Error(`HeyGen error: ${data.message || JSON.stringify(data)}`);
-  return data.data.video_id;
+   const video_inputs = slides?.length > 0 ? slides.map((slide, idx) => {
+     const captionText = captions[idx] || slide.caption || "";
+     return {
+       background: slide.image_url ? {
+         type: "image",
+         url: slide.image_url
+       } : { type: "color", value: "#ffffff" },
+       voice: { type: "text", input_text: slide.caption || "", voice_id: voiceId },
+       text: captionText ? [{
+         text: captionText,
+         position: "bottom",
+         font_size: 24,
+         color: "#FFFFFF"
+       }] : []
+     };
+   }) : [{
+     background: { type: "color", value: "#ffffff" },
+     voice: { type: "text", input_text: script, voice_id: voiceId },
+     text: captions[0] ? [{
+       text: captions[0],
+       position: "bottom",
+       font_size: 24,
+       color: "#FFFFFF"
+     }] : []
+   }];
+
+   const body = {
+     video_inputs,
+     dimension,
+     test: false
+   };
+
+   const res = await fetch("https://api.heygen.com/v2/video/generate", {
+     method: "POST",
+     headers: { "x-api-key": HEYGEN_API_KEY, "Content-Type": "application/json" },
+     body: JSON.stringify(body)
+   });
+   const data = await res.json();
+   console.log("[HeyGen Product Video Response]", JSON.stringify(data, null, 2));
+   if (!data.data?.video_id) throw new Error(`HeyGen error: ${data.message || JSON.stringify(data)}`);
+   return data.data.video_id;
 }
 
 async function createAvatarSlidesVideo({ slides, voiceId, script, avatarId, format = "16:9" }) {
