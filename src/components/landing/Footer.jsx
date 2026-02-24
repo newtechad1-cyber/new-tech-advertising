@@ -39,7 +39,7 @@ export default function Footer() {
                 <li><Link to={createPageUrl('Home')} className="hover:text-blue-400 transition-colors">Home</Link></li>
                 <li><Link to={createPageUrl('Blog')} className="hover:text-blue-400 transition-colors">Blog</Link></li>
                 <li><Link to={createPageUrl('Dashboard')} className="hover:text-blue-400 transition-colors">Client Login</Link></li>
-                      <li><Link to={createPageUrl('AdminBlog')} className="hover:text-blue-400 transition-colors">Blog Admin</Link></li>
+                <li><Link to={createPageUrl('AdminDashboard')} className="hover:text-blue-400 transition-colors">Admin Login</Link></li>
               </ul>
             </div>
 
