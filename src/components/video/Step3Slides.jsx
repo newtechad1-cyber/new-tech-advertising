@@ -198,7 +198,7 @@ export default function Step3Slides({ state, setState, voices, onBack, onNext })
           disabled={!voiceId || !slides?.length}
           className="bg-blue-600 hover:bg-blue-700"
         >
-          Next: Review & Create →
+          Next: Captions & Overlays →
         </Button>
       </div>
     </div>

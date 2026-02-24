@@ -3,12 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Play, Loader2 } from "lucide-react";
 
 export default function Step4Review({ state, onBack, onSubmit, creating }) {
-  const { title, script, videoType, format, duration, avatarId, voiceId, slides, musicTrackUrl } = state;
+  const { title, script, videoType, format, duration, avatarId, voiceId, slides, musicTrackUrl, captions, overlays } = state;
 
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold text-gray-800 mb-1">Step 4: Review & Create</h2>
+        <h2 className="text-lg font-semibold text-gray-800 mb-1">Step 5: Review & Create</h2>
         <p className="text-sm text-gray-500">Confirm your settings and launch your video to HeyGen for rendering.</p>
       </div>
 
@@ -22,6 +22,12 @@ export default function Step4Review({ state, onBack, onSubmit, creating }) {
         )}
         {musicTrackUrl && (
           <Row label="Music" value="✓ Background music included" />
+        )}
+        {captions && Object.keys(captions).length > 0 && (
+          <Row label="Captions" value={`✓ ${Object.keys(captions).length} captions added`} />
+        )}
+        {overlays && Object.keys(overlays).length > 0 && (
+          <Row label="Overlays" value={`✓ ${Object.keys(overlays).length} overlays added`} />
         )}
       </div>
 

@@ -13,11 +13,12 @@ import Step1Script from "@/components/video/Step1Script";
 import Step2VideoType from "@/components/video/Step2VideoType";
 import Step3Avatar from "@/components/video/Step3Avatar";
 import Step3Slides from "@/components/video/Step3Slides";
+import Step4CaptionsOverlays from "@/components/video/Step4CaptionsOverlays";
 import Step4Review from "@/components/video/Step4Review";
 
 const invoke = (action, params) => base44.functions.invoke("aiVideoStudio", { action, ...params });
 
-const WIZARD_STEPS = ["Script", "Video Type", "Style / Media", "Review"];
+const WIZARD_STEPS = ["Script", "Video Type", "Style / Media", "Captions & Overlays", "Review"];
 
 const statusConfig = {
   queued:    { label: "Queued", color: "bg-gray-100 text-gray-600", icon: Clock },
@@ -38,7 +39,9 @@ const defaultState = {
   title: "",
   slides: [],
   musicTrackUrl: "",
-  musicGenerationPrompt: ""
+  musicGenerationPrompt: "",
+  captions: {},
+  overlays: {}
 };
 
 export default function AiVideoStudio() {
@@ -94,8 +97,8 @@ export default function AiVideoStudio() {
 
   const handleCreateVideo = async () => {
     setCreating(true);
-    const { script, avatarId, voiceId, format, duration, title, videoType, slides, musicTrackUrl, musicGenerationPrompt } = formState;
-    const res = await invoke("create_video", { script, avatarId, voiceId, format, duration, title: title || "AI Video", videoType, slides, musicTrackUrl, musicGenerationPrompt });
+    const { script, avatarId, voiceId, format, duration, title, videoType, slides, musicTrackUrl, musicGenerationPrompt, captions, overlays } = formState;
+    const res = await invoke("create_video", { script, avatarId, voiceId, format, duration, title: title || "AI Video", videoType, slides, musicTrackUrl, musicGenerationPrompt, captions, overlays });
     setCreating(false);
     if (res.data?.record_id) {
       setPollingIds(prev => ({ ...prev, [res.data.record_id]: res.data.video_id }));
@@ -195,9 +198,17 @@ export default function AiVideoStudio() {
               )}
               {currentStep === 2 && getStep3Component()}
               {currentStep === 3 && (
+                <Step4CaptionsOverlays
+                  state={formState}
+                  setState={setFormState}
+                  onBack={() => setCurrentStep(2)}
+                  onNext={() => setCurrentStep(4)}
+                />
+              )}
+              {currentStep === 4 && (
                 <Step4Review
                   state={formState}
-                  onBack={() => setCurrentStep(2)}
+                  onBack={() => setCurrentStep(3)}
                   onSubmit={handleCreateVideo}
                   creating={creating}
                 />
