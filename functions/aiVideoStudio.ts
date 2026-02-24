@@ -16,7 +16,7 @@ Write compelling, conversational scripts that work for AI avatar presenters.
 Keep it under ${wordCount} words. No stage directions. Just the spoken words.
 Style: ${orientation}.`;
   const userPrompt = prompt || `Write a promotional video script about: ${topic || content || "our business"}`;
-  const completion = await openai.chat.completions.create({
+  const completion = await getOpenAI().chat.completions.create({
     model: "gpt-4o",
     messages: [{ role: "system", content: systemPrompt }, { role: "user", content: userPrompt }]
   });
