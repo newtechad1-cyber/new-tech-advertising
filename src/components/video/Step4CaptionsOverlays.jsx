@@ -5,9 +5,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { base44 } from "@/api/base44Client";
 import { Upload, X, Loader2, Type, Image as ImageIcon } from "lucide-react";
 
+const invoke = (action, params) => base44.functions.invoke("aiVideoStudio", { action, ...params });
+
 export default function Step4CaptionsOverlays({ state, setState, onBack, onNext }) {
-  const { slides, captions = {}, overlays = {}, videoType } = state;
+  const { slides, script, captions = {}, overlays = {}, videoType } = state;
   const [uploadingIdx, setUploadingIdx] = useState(null);
+  const [generatingIdx, setGeneratingIdx] = useState(null);
 
   // Only show if slides exist (for slide videos) or for avatar videos
   const shouldShowCaptions = videoType === "slides" ? slides?.length > 0 : true;
@@ -62,6 +65,50 @@ export default function Step4CaptionsOverlays({ state, setState, onBack, onNext 
     });
   };
 
+  const generateCaption = async (slideIdx) => {
+    setGeneratingIdx(`caption-${slideIdx}`);
+    try {
+      const slide = slides[slideIdx];
+      const res = await invoke("generate_caption", {
+        slideTitle: slide.title,
+        slideContent: slide.content,
+        videoScript: script
+      });
+      if (res.data?.caption) {
+        updateCaption(slideIdx, res.data.caption);
+      }
+    } catch (err) {
+      console.error("Error generating caption:", err);
+    } finally {
+      setGeneratingIdx(null);
+    }
+  };
+
+  const generateOverlayImage = async (slideIdx) => {
+    setGeneratingIdx(`overlay-${slideIdx}`);
+    try {
+      const slide = slides[slideIdx];
+      const res = await invoke("generate_overlay_image", {
+        slideTitle: slide.title,
+        slideContent: slide.content,
+        videoScript: script
+      });
+      if (res.data?.image_url) {
+        setState(s => ({
+          ...s,
+          overlays: {
+            ...s.overlays,
+            [slideIdx]: { image_url: res.data.image_url, x: "10", y: "10" }
+          }
+        }));
+      }
+    } catch (err) {
+      console.error("Error generating overlay:", err);
+    } finally {
+      setGeneratingIdx(null);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -93,15 +140,29 @@ export default function Step4CaptionsOverlays({ state, setState, onBack, onNext 
                   </TabsTrigger>
                 </TabsList>
 
-                <TabsContent value="captions" className="space-y-2">
-                  <Input
-                    placeholder="Add text caption for this slide (e.g., pricing info, call-to-action)"
-                    value={captions?.[idx] || ""}
-                    onChange={e => updateCaption(idx, e.target.value)}
-                    className="text-sm"
-                  />
-                  <p className="text-xs text-gray-400">Caption will appear at the bottom of the slide</p>
-                </TabsContent>
+                <TabsContent value="captions" className="space-y-3">
+                   <Input
+                     placeholder="Add text caption for this slide (e.g., pricing info, call-to-action)"
+                     value={captions?.[idx] || ""}
+                     onChange={e => updateCaption(idx, e.target.value)}
+                     className="text-sm"
+                   />
+                   <Button
+                     size="sm"
+                     variant="outline"
+                     onClick={() => generateCaption(idx)}
+                     disabled={generatingIdx === `caption-${idx}`}
+                     className="w-full gap-2"
+                   >
+                     {generatingIdx === `caption-${idx}` ? (
+                       <Loader2 className="w-4 h-4 animate-spin" />
+                     ) : (
+                       <Type className="w-4 h-4" />
+                     )}
+                     {generatingIdx === `caption-${idx}` ? "Generating..." : "AI Generate Caption"}
+                   </Button>
+                   <p className="text-xs text-gray-400">Caption will appear at the bottom of the slide</p>
+                 </TabsContent>
 
                 <TabsContent value="overlay" className="space-y-3">
                   {overlays?.[idx]?.image_url ? (
@@ -143,32 +204,48 @@ export default function Step4CaptionsOverlays({ state, setState, onBack, onNext 
                       </div>
                     </div>
                   ) : (
-                    <label>
+                    <div className="space-y-2">
+                      <label>
+                        <Button
+                          variant="outline"
+                          className="w-full gap-2"
+                          disabled={uploadingIdx === idx}
+                          asChild
+                        >
+                          <span>
+                            {uploadingIdx === idx ? (
+                              <Loader2 className="w-4 h-4 animate-spin" />
+                            ) : (
+                              <Upload className="w-4 h-4" />
+                            )}
+                            {uploadingIdx === idx ? "Uploading..." : "Upload Overlay (Logo/Image)"}
+                          </span>
+                        </Button>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={e => e.target.files[0] && handleUploadOverlay(idx, e.target.files[0])}
+                        />
+                      </label>
                       <Button
+                        size="sm"
                         variant="outline"
+                        onClick={() => generateOverlayImage(idx)}
+                        disabled={generatingIdx === `overlay-${idx}`}
                         className="w-full gap-2"
-                        disabled={uploadingIdx === idx}
-                        asChild
                       >
-                        <span>
-                          {uploadingIdx === idx ? (
-                            <Loader2 className="w-4 h-4 animate-spin" />
-                          ) : (
-                            <Upload className="w-4 h-4" />
-                          )}
-                          {uploadingIdx === idx ? "Uploading..." : "Upload Overlay (Logo/Image)"}
-                        </span>
+                        {generatingIdx === `overlay-${idx}` ? (
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                        ) : (
+                          <ImageIcon className="w-4 h-4" />
+                        )}
+                        {generatingIdx === `overlay-${idx}` ? "Generating..." : "AI Generate Overlay"}
                       </Button>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={e => e.target.files[0] && handleUploadOverlay(idx, e.target.files[0])}
-                      />
-                    </label>
+                    </div>
                   )}
                   <p className="text-xs text-gray-400">Position (%) = where on slide it appears. 0,0 = top-left, 100,100 = bottom-right</p>
-                </TabsContent>
+                  </TabsContent>
               </Tabs>
             </div>
           ))}
