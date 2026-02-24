@@ -32,49 +32,52 @@ export default function VoiceSelector({ voices, selectedVoiceId, onVoiceChange }
 
   return (
     <div className="space-y-3">
-      <label className="text-sm font-medium text-gray-700 block">Voice (English)</label>
+      <div>
+        <label className="text-sm font-medium text-gray-700 block">Voice (English)</label>
+        <p className="text-xs text-gray-500 mt-1">Click preview button to listen, click name to select</p>
+      </div>
       
-      <div className="space-y-2">
-        {voices.slice(0, 40).map(v => (
-          <div key={v.voice_id} className="space-y-1">
-            <button
-              onClick={() => {
-                onVoiceChange(v.voice_id);
-                setExpandedId(v.voice_id);
-              }}
-              className={`w-full text-left p-3 rounded-lg border transition-all flex items-center justify-between ${
-                selectedVoiceId === v.voice_id
-                  ? "bg-blue-50 border-blue-300 ring-2 ring-blue-200"
-                  : "bg-white border-gray-200 hover:border-gray-300"
-              }`}
-            >
-              <div className="flex-1">
-                <p className="font-medium text-gray-800">{v.display_name}</p>
-                <p className="text-xs text-gray-500">
-                  {v.gender} {v.accent ? `• ${v.accent} Accent` : ""}
-                </p>
-              </div>
-              {v.preview_url && (
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    playVoicePreview(v.voice_id);
-                  }}
-                  disabled={playingId === v.voice_id}
-                  className="ml-2"
-                >
-                  {playingId === v.voice_id ? (
-                    <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
-                  ) : (
-                    <Volume2 className="w-4 h-4 text-gray-600 hover:text-blue-600" />
-                  )}
-                </Button>
-              )}
-            </button>
+      <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
+        <div className="max-h-80 overflow-y-auto">
+          <div className="space-y-0">
+            {voices.slice(0, 40).map(v => (
+              <button
+                key={v.voice_id}
+                onClick={() => onVoiceChange(v.voice_id)}
+                className={`w-full text-left p-3 border-b transition-all flex items-center justify-between hover:bg-gray-50 ${
+                  selectedVoiceId === v.voice_id ? "bg-blue-50" : ""
+                }`}
+              >
+                <div className="flex-1">
+                  <p className={`font-medium ${selectedVoiceId === v.voice_id ? "text-blue-700" : "text-gray-800"}`}>
+                    {v.display_name}
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    {v.gender} {v.accent ? `• ${v.accent} Accent` : ""}
+                  </p>
+                </div>
+                {v.preview_url && (
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      playVoicePreview(v.voice_id);
+                    }}
+                    disabled={playingId === v.voice_id}
+                    className="ml-2"
+                  >
+                    {playingId === v.voice_id ? (
+                      <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
+                    ) : (
+                      <Volume2 className="w-4 h-4 text-gray-600" />
+                    )}
+                  </Button>
+                )}
+              </button>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
 
       {selectedVoice && (
