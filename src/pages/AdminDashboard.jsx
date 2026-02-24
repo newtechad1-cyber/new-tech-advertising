@@ -1,24 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { base44 } from '@/api/base44Client';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { 
-  LayoutDashboard, 
-  Calendar, 
-  DollarSign, 
-  Users, 
-  FileText, 
-  Settings,
-  ChevronRight,
-  TrendingUp,
-  Clock,
-  BookOpen
+import React, { useState } from 'react';
+import AdminGuard from '../components/auth/AdminGuard';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
+import {
+  BookOpen, ShoppingBag, Mail, Users, Image, Video,
+  StickyNote, HelpCircle, ArrowLeft, Zap, RefreshCw,
+  Calendar, DollarSign, FileText, TrendingUp, MonitorPlay
 } from 'lucide-react';
-import { createPageUrl } from '../utils';
+import { Button } from '@/components/ui/button';
+
+import EbookWriter from '../components/studio/EbookWriter';
+import ProductsStore from '../components/studio/ProductsStore';
+import EmailMarketing from '../components/studio/EmailMarketing';
+import Autoresponder from '../components/studio/Autoresponder';
+import SubscribersList from '../components/studio/SubscribersList';
+import MediaImages from '../components/studio/MediaImages';
+import MediaVideos from '../components/studio/MediaVideos';
+import StudioNotes from '../components/studio/StudioNotes';
 import SchedulingQueue from '../components/admin/SchedulingQueue';
 import UpsellQueue from '../components/admin/UpsellQueue';
 import ClientsList from '../components/admin/ClientsList';
-import AdminGuard from '../components/auth/AdminGuard';
 
 export default function AdminDashboard() {
   const [user, setUser] = useState(null);
