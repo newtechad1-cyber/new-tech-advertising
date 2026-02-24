@@ -258,12 +258,20 @@ export default function AiVideoStudio() {
         </TabsContent>
 
         <TabsContent value="library">
-          {successMsg && (
-            <div className="mb-4 bg-green-50 border border-green-200 text-green-800 text-sm rounded-lg px-4 py-3">
-              ✅ {successMsg}
-            </div>
-          )}
-          {myVideos.length === 0 ? (
+           {successMsg && (
+             <div className="mb-4 bg-green-50 border border-green-200 text-green-800 text-sm rounded-lg px-4 py-3">
+               ✅ {successMsg}
+             </div>
+           )}
+           {myVideos.some(v => v.render_status === "queued") && (
+             <div className="mb-4 flex justify-between items-center bg-yellow-50 border border-yellow-200 rounded-lg px-4 py-3">
+               <p className="text-sm text-yellow-800">You have {myVideos.filter(v => v.render_status === "queued").length} queued video(s)</p>
+               <Button size="sm" variant="outline" className="text-red-600 hover:text-red-700 gap-1" onClick={handleDeleteQueuedVideos}>
+                 <Trash2 className="w-3 h-3" /> Delete All Queued
+               </Button>
+             </div>
+           )}
+           {myVideos.length === 0 ? (
             <div className="text-center py-20 text-gray-400">
               <Video className="w-12 h-12 mx-auto mb-3 opacity-30" />
               <p>No AI videos yet. Create your first one!</p>
