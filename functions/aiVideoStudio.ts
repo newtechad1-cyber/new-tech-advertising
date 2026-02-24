@@ -81,6 +81,10 @@ Deno.serve(async (req) => {
     const base44 = createClientFromRequest(req);
     const user = await base44.auth.me();
     if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
+    
+    if (!HEYGEN_API_KEY) {
+      return Response.json({ error: "HeyGen API key not configured" }, { status: 400 });
+    }
 
     const { action, ...params } = await req.json();
 
