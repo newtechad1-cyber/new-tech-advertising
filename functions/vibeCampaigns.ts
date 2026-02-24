@@ -1,5 +1,7 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 
+// Vibe.co reporting API base URL - confirm exact URL from your Vibe account's Developer Tools page
+// Common patterns: https://api.vibe.co/v1 or https://app.vibe.co/api/v1
 const VIBE_API_BASE = 'https://api.vibe.co/v1';
 const VIBE_API_KEY = Deno.env.get('VIBE_CO_API_KEY');
 
