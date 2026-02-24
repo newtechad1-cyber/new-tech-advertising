@@ -28,7 +28,7 @@ Deno.serve(async (req) => {
 
     if (action === 'get_campaigns') {
       // Get campaign details for an advertiser
-      const res = await fetch(`${VIBE_API_BASE}/campaigns?advertiser_id=${advertiser_id}`, {
+      const res = await fetch(`${VIBE_API_BASE}/get_campaign_details?advertiser_id=${advertiser_id}`, {
         method: 'GET',
         headers: vibeHeaders,
       });
