@@ -16,15 +16,14 @@ async function getVoices() {
    });
    const data = await res.json();
    const voices = data.data?.voices || [];
-   console.log("[HeyGen Voices Response]", JSON.stringify(voices.slice(0, 2), null, 2));
    // Map HeyGen voice structure to expected format
    return voices.map(v => ({
      voice_id: v.voice_id,
-     display_name: v.name || v.display_name,
+     display_name: (v.name || "").trim(),
      gender: v.gender,
      accent: v.accent,
      language: v.language,
-     preview_url: v.preview_url || v.sample_url
+     preview_url: v.preview_audio
    }));
 }
 
