@@ -84,6 +84,18 @@ export default function AiVideoStudio() {
     setMyVideos(data.filter(v => v.render_job_id));
   };
 
+  const handleDeleteVideo = async (videoId) => {
+    if (!confirm("Are you sure you want to delete this video? This cannot be undone.")) return;
+    try {
+      await base44.entities.VideoRequests.delete(videoId);
+      setMyVideos(prev => prev.filter(v => v.id !== videoId));
+      setSuccessMsg("Video deleted successfully.");
+      setTimeout(() => setSuccessMsg(""), 3000);
+    } catch (err) {
+      alert("Error deleting video: " + err.message);
+    }
+  };
+
   const handleGenerateScript = async () => {
     setGenerating(true);
     const { inputMode, userInput, duration, format } = formState;
