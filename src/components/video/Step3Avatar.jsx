@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import AvatarSelector from "@/components/video/AvatarSelector";
 import VoiceSelector from "@/components/video/VoiceSelector";
 import MusicTrackSelector from "@/components/video/MusicTrackSelector";
 
@@ -15,18 +15,12 @@ export default function Step3Avatar({ state, setState, avatars, voices, onBack, 
         <p className="text-sm text-gray-500">Choose an AI presenter and voice for your video.</p>
       </div>
 
-      <div className="space-y-4">
-        <div>
-          <label className="text-sm font-medium text-gray-700 mb-1 block">Avatar</label>
-          <Select value={avatarId} onValueChange={v => setState(s => ({ ...s, avatarId: v }))}>
-            <SelectTrigger><SelectValue placeholder="Select an avatar..." /></SelectTrigger>
-            <SelectContent>
-              {avatars.slice(0, 40).map(a => (
-                <SelectItem key={a.avatar_id} value={a.avatar_id}>{a.avatar_name}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+      <div className="space-y-6">
+        <AvatarSelector
+          avatars={avatars}
+          selectedAvatarId={avatarId}
+          onAvatarChange={v => setState(s => ({ ...s, avatarId: v }))}
+        />
 
         <VoiceSelector
           voices={voices}
