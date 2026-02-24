@@ -33,53 +33,33 @@ export default function Dashboard() {
   const checkAuth = async () => {
     try {
       console.log('[Dashboard] Checking authentication...');
-      let userData;
-      try {
-        userData = await base44.auth.me();
-      } catch (e) {
-        console.log('[Dashboard] Not authenticated, redirecting to login');
+      const userData = await base44.auth.me();
+
+      if (!userData) {
         base44.auth.redirectToLogin(window.location.pathname);
         return;
       }
-      
-      if (userData) {
-         setUser(userData);
-         console.log('[Dashboard] User authenticated:', {
-           email: userData?.email,
-           role: userData?.role
-         });
 
-         // Redirect admin users to the admin dashboard
-         if (userData?.role === 'admin') {
-           window.location.href = createPageUrl('AdminDashboard');
-           return;
-         }
-         
-         // Check for client profile to determine onboarding state - run in parallel with user already loaded
-         const profiles = await base44.entities.ClientProfile.filter({ created_by: userData.email });
-         console.log('[Dashboard] Profile query returned:', profiles?.length || 0, 'profiles');
-         
-         if (profiles && profiles.length > 0) {
-           setClientProfile(profiles[0]);
-           const isComplete = profiles[0].onboarding_completed || false;
-           console.log('[Dashboard] Profile loaded:', {
-             profileId: profiles[0].id,
-             businessName: profiles[0].business_name,
-             onboardingComplete: isComplete
-           });
-           
-           if (!isComplete) {
-             console.log('[Dashboard] Onboarding incomplete, showing onboarding flow');
-             setShowOnboarding(true);
-           }
-         } else {
-           console.log('[Dashboard] No profile found - user needs onboarding');
-           setShowOnboarding(true);
-           }
-           } else {
-           base44.auth.redirectToLogin(window.location.pathname);
-           }
-           } catch (e) {
+      setUser(userData);
+      console.log('[Dashboard] User authenticated:', { email: userData?.email, role: userData?.role });
+
+      if (userData?.role === 'admin') {
+        window.location.href = createPageUrl('AdminDashboard');
+        return;
+      }
+
+      const profiles = await base44.entities.ClientProfile.filter({ created_by: userData.email });
+      console.log('[Dashboard] Profile query returned:', profiles?.length || 0, 'profiles');
+
+      if (profiles && profiles.length > 0) {
+        setClientProfile(profiles[0]);
+        if (!profiles[0].onboarding_completed) {
+          setShowOnboarding(true);
+        }
+      } else {
+        setShowOnboarding(true);
+      }
+    } catch (e) {
       console.error("[Dashboard] Auth check failed:", e);
       base44.auth.redirectToLogin(window.location.pathname);
     } finally {
