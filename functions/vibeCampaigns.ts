@@ -1,6 +1,6 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 
-const VIBE_API_BASE = 'https://reporting.vibe.co/api/v1';
+const VIBE_API_BASE = 'https://clear-platform.vibe.co/rest/reporting/v1';
 const VIBE_API_KEY = Deno.env.get('VIBE_CO_API_KEY');
 
 const vibeHeaders = {
