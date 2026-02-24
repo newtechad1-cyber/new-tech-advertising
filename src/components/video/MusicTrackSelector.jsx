@@ -120,7 +120,10 @@ export default function MusicTrackSelector({ musicTrackUrl, musicPrompt, onMusic
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-2 flex-1 min-w-0">
               <Music className="w-4 h-4 text-green-600 flex-shrink-0" />
-              <span className="text-sm font-medium text-gray-800 truncate">Music added</span>
+              <div className="flex-1 min-w-0">
+                <span className="text-sm font-medium text-gray-800 block truncate">Music added</span>
+                <span className="text-xs text-gray-600 truncate block">{musicTrackUrl.split('/').pop()}</span>
+              </div>
             </div>
             <div className="flex gap-2 flex-shrink-0">
               <Button
