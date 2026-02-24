@@ -156,6 +156,7 @@ Deno.serve(async (req) => {
 
   const { action, ...params } = await req.json();
 
+  try {
   if (action === "generate_script") {
     const script = await generateScript(params);
     return Response.json({ script });
