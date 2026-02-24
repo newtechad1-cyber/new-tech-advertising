@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Play, Loader2 } from "lucide-react";
+import { Play, Loader2, Volume2 } from "lucide-react";
 
 export default function VoiceSelector({ voices, selectedVoiceId, onVoiceChange }) {
   const [playingId, setPlayingId] = useState(null);
   const [audio, setAudio] = useState(null);
+  const [expandedId, setExpandedId] = useState(null);
 
   const selectedVoice = voices.find(v => v.voice_id === selectedVoiceId);
 
   const playVoicePreview = async (voiceId) => {
     setPlayingId(voiceId);
     try {
-      // Stop current audio if playing
       if (audio) {
         audio.pause();
         audio.src = '';
@@ -32,48 +31,60 @@ export default function VoiceSelector({ voices, selectedVoiceId, onVoiceChange }
   };
 
   return (
-    <div className="space-y-4">
-      <div>
-        <label className="text-sm font-medium text-gray-700 mb-2 block">Voice (English)</label>
-        <Select value={selectedVoiceId} onValueChange={onVoiceChange}>
-          <SelectTrigger>
-            <SelectValue placeholder="Select a voice..." />
-          </SelectTrigger>
-          <SelectContent>
-            {voices.slice(0, 40).map(v => (
-              <SelectItem key={v.voice_id} value={v.voice_id}>
-                {v.display_name} — {v.gender}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+    <div className="space-y-3">
+      <label className="text-sm font-medium text-gray-700 block">Voice (English)</label>
+      
+      <div className="space-y-2">
+        {voices.slice(0, 40).map(v => (
+          <div key={v.voice_id} className="space-y-1">
+            <button
+              onClick={() => {
+                onVoiceChange(v.voice_id);
+                setExpandedId(v.voice_id);
+              }}
+              className={`w-full text-left p-3 rounded-lg border transition-all flex items-center justify-between ${
+                selectedVoiceId === v.voice_id
+                  ? "bg-blue-50 border-blue-300 ring-2 ring-blue-200"
+                  : "bg-white border-gray-200 hover:border-gray-300"
+              }`}
+            >
+              <div className="flex-1">
+                <p className="font-medium text-gray-800">{v.display_name}</p>
+                <p className="text-xs text-gray-500">
+                  {v.gender} {v.accent ? `• ${v.accent} Accent` : ""}
+                </p>
+              </div>
+              {v.preview_url && (
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    playVoicePreview(v.voice_id);
+                  }}
+                  disabled={playingId === v.voice_id}
+                  className="ml-2"
+                >
+                  {playingId === v.voice_id ? (
+                    <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
+                  ) : (
+                    <Volume2 className="w-4 h-4 text-gray-600 hover:text-blue-600" />
+                  )}
+                </Button>
+              )}
+            </button>
+          </div>
+        ))}
       </div>
 
       {selectedVoice && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <div className="space-y-2">
-            <p className="font-medium text-gray-800">{selectedVoice.display_name}</p>
-            <div className="flex gap-2 text-sm text-gray-600">
-              <span className="bg-blue-100 px-2 py-1 rounded">{selectedVoice.gender}</span>
-              {selectedVoice.accent && (
-                <span className="bg-blue-100 px-2 py-1 rounded">{selectedVoice.accent} Accent</span>
-              )}
-            </div>
-            {selectedVoice.preview_url && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => playVoicePreview(selectedVoice.voice_id)}
-                className="gap-2"
-                disabled={playingId === selectedVoice.voice_id}
-              >
-                {playingId === selectedVoice.voice_id ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  <Play className="w-4 h-4" />
-                )}
-                {playingId === selectedVoice.voice_id ? "Playing..." : "Preview Voice"}
-              </Button>
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4">
+          <p className="text-xs text-gray-500 mb-2">Selected Voice</p>
+          <p className="font-semibold text-gray-800">{selectedVoice.display_name}</p>
+          <div className="flex gap-2 mt-2">
+            <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">{selectedVoice.gender}</span>
+            {selectedVoice.accent && (
+              <span className="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded">{selectedVoice.accent} Accent</span>
             )}
           </div>
         </div>
