@@ -55,7 +55,7 @@ export default function Dashboard() {
            return;
          }
          
-         // Check for client profile to determine onboarding state
+         // Check for client profile to determine onboarding state - run in parallel with user already loaded
          const profiles = await base44.entities.ClientProfile.filter({ created_by: userData.email });
          console.log('[Dashboard] Profile query returned:', profiles?.length || 0, 'profiles');
          
