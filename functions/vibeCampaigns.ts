@@ -51,7 +51,7 @@ Deno.serve(async (req) => {
         reportPayload.filters = [{ field: 'campaign_id', operator: 'eq', value: campaign_id }];
       }
 
-      const res = await fetch(`${VIBE_API_BASE}/reports/async`, {
+      const res = await fetch(`${VIBE_API_BASE}/create_async_report`, {
         method: 'POST',
         headers: vibeHeaders,
         body: JSON.stringify(reportPayload),
