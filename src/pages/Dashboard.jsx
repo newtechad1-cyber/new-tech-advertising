@@ -75,12 +75,11 @@ export default function Dashboard() {
          } else {
            console.log('[Dashboard] No profile found - user needs onboarding');
            setShowOnboarding(true);
-         }
-      }
-      } else {
-        base44.auth.redirectToLogin(window.location.pathname);
-      }
-    } catch (e) {
+           }
+           } else {
+           base44.auth.redirectToLogin(window.location.pathname);
+           }
+           } catch (e) {
       console.error("[Dashboard] Auth check failed:", e);
       base44.auth.redirectToLogin(window.location.pathname);
     } finally {
