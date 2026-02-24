@@ -152,7 +152,7 @@ Return ONLY a valid JSON array, no markdown, no explanation.`,
     }
 
     if (action === "create_video") {
-      const { script, avatarId, voiceId, format, duration, title, videoType, slides } = params;
+      const { script, avatarId, voiceId, format, duration, title, videoType, slides, musicTrackUrl, musicGenerationPrompt } = params;
       let heygenVideoId;
       if (videoType === "slides") {
         heygenVideoId = await createSlideVideo({ slides, voiceId, script, format });
@@ -168,7 +168,9 @@ Return ONLY a valid JSON array, no markdown, no explanation.`,
         shotlist: slides ? JSON.stringify(slides) : null,
         render_job_id: heygenVideoId,
         render_status: "queued",
-        status: "Rendering"
+        status: "Rendering",
+        music_track_url: musicTrackUrl || null,
+        music_generation_prompt: musicGenerationPrompt || null
       });
       return Response.json({ video_id: heygenVideoId, record_id: record.id });
     }
