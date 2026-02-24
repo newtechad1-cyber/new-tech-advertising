@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { createPageUrl } from '../../utils';
-import { LayoutDashboard, Users, Bot, FileText, LogOut, Menu, X } from 'lucide-react';
+import { LayoutDashboard, Users, Bot, FileText, LogOut, Menu, X, Share2, MessageSquare } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
