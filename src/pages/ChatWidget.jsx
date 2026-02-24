@@ -54,7 +54,7 @@ export default function ChatWidget() {
     if (res.data?.reply) {
       setMessages(m => [...m, { role: 'assistant', content: res.data.reply }]);
       if (res.data?.lead_captured) {
-        setMessages(m => [...m, { role: 'system', content: '✅ Thank you! Your information has been submitted. We'll be in touch soon!' }]);
+        setMessages(m => [...m, { role: 'system', content: "✅ Thank you! Your information has been submitted. We'll be in touch soon!" }]);
       }
     }
     setLoading(false);
@@ -69,7 +69,7 @@ export default function ChatWidget() {
       lead_data: leadForm,
     });
     setShowLeadForm(false);
-    setMessages(m => [...m, { role: 'system', content: '✅ Thank you! Your information has been submitted. We'll be in touch soon!' }]);
+    setMessages(m => [...m, { role: 'system', content: "✅ Thank you! Your information has been submitted. We'll be in touch soon!" }]);
     setLoading(false);
   };
 
