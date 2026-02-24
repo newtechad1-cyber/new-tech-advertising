@@ -190,7 +190,8 @@ Return ONLY the image description (1-2 sentences), no markdown.`
     }
 
     if (action === "create_video") {
-      let { script, avatarId, voiceId, format, duration, title, videoType, slides, musicTrackUrl, musicGenerationPrompt, captions, overlays } = params;
+      const { script, voiceId, format, duration, title, videoType, slides, musicTrackUrl, musicGenerationPrompt, captions, overlays } = params;
+      let finalAvatarId = params.avatarId || "Abigail_expressive";
 
       if (!script || !script.trim()) {
         return Response.json({ error: "Script is required" }, { status: 400 });
@@ -201,12 +202,7 @@ Return ONLY the image description (1-2 sentences), no markdown.`
 
       let heygenVideoId;
       try {
-        // HeyGen slide videos require specific avatar looks that may not exist
-        // Use avatar video instead with script
-        if (!avatarId) {
-          avatarId = "Abigail_expressive";
-        }
-        heygenVideoId = await createAvatarVideo({ script, avatarId, voiceId, format });
+        heygenVideoId = await createAvatarVideo({ script, avatarId: finalAvatarId, voiceId, format });
       } catch (err) {
         console.error("[Create Video Error]", err.message);
         return Response.json({ error: err.message }, { status: 400 });
