@@ -61,6 +61,8 @@ import AdminBlog from './pages/AdminBlog';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminHelp from './pages/AdminHelp';
 import AdminSettings from './pages/AdminSettings';
+import AdminVideoDetail from './pages/AdminVideoDetail';
+import AdminVideoQueue from './pages/AdminVideoQueue';
 import AiAdvertising from './pages/AiAdvertising';
 import AiSeo from './pages/AiSeo';
 import AiSocialMedia from './pages/AiSocialMedia';
@@ -111,12 +113,10 @@ import StreamingProposal from './pages/StreamingProposal';
 import StreamingTV from './pages/StreamingTV';
 import StreamingThankYou from './pages/StreamingThankYou';
 import TvVideo from './pages/TvVideo';
+import VideoDetail from './pages/VideoDetail';
+import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
-import VideoIndex from './pages/VideoIndex';
-import VideoDetail from './pages/VideoDetail';
-import AdminVideoQueue from './pages/AdminVideoQueue';
-import AdminVideoDetail from './pages/AdminVideoDetail';
 import __Layout from './Layout.jsx';
 
 
@@ -135,6 +135,8 @@ export const PAGES = {
     "AdminDashboard": AdminDashboard,
     "AdminHelp": AdminHelp,
     "AdminSettings": AdminSettings,
+    "AdminVideoDetail": AdminVideoDetail,
+    "AdminVideoQueue": AdminVideoQueue,
     "AiAdvertising": AiAdvertising,
     "AiSeo": AiSeo,
     "AiSocialMedia": AiSocialMedia,
@@ -185,12 +187,10 @@ export const PAGES = {
     "StreamingTV": StreamingTV,
     "StreamingThankYou": StreamingThankYou,
     "TvVideo": TvVideo,
+    "VideoDetail": VideoDetail,
+    "VideoIndex": VideoIndex,
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
-    "VideoIndex": VideoIndex,
-    "VideoDetail": VideoDetail,
-    "AdminVideoQueue": AdminVideoQueue,
-    "AdminVideoDetail": AdminVideoDetail,
 }
 
 export const pagesConfig = {

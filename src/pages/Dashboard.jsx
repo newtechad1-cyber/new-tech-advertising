@@ -33,14 +33,16 @@ export default function Dashboard() {
   const checkAuth = async () => {
     try {
       console.log('[Dashboard] Checking authentication...');
-      const isAuthenticated = await base44.auth.isAuthenticated();
+      let userData;
+      try {
+        userData = await base44.auth.me();
+      } catch (e) {
+        console.log('[Dashboard] Not authenticated, redirecting to login');
+        base44.auth.redirectToLogin(window.location.pathname);
+        return;
+      }
       
-      if (!isAuthenticated) {
-         console.log('[Dashboard] Not authenticated, redirecting to login');
-         base44.auth.redirectToLogin(window.location.pathname);
-         return;
-      } else {
-         const userData = await base44.auth.me();
+      if (userData) {
          setUser(userData);
          console.log('[Dashboard] User authenticated:', {
            email: userData?.email,
