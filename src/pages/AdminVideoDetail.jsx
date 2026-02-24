@@ -51,7 +51,11 @@ export default function AdminVideoDetail() {
       setRevisions(revs);
       setLoading(false);
     };
-    if (id) load();
+    if (id) {
+      load();
+    } else {
+      setLoading(false);
+    }
   }, [id]);
 
   const handleSave = async () => {
