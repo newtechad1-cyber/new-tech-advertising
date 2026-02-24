@@ -159,12 +159,29 @@ Return ONLY a valid JSON array, no markdown, no explanation.`,
 
     if (action === "create_video") {
       const { script, avatarId, voiceId, format, duration, title, videoType, slides, musicTrackUrl, musicGenerationPrompt, captions, overlays } = params;
-      let heygenVideoId;
-      if (videoType === "slides") {
-        heygenVideoId = await createSlideVideo({ slides, voiceId, script, format });
-      } else {
-        heygenVideoId = await createAvatarVideo({ script, avatarId, voiceId, format });
+      
+      if (!script || !script.trim()) {
+        return Response.json({ error: "Script is required" }, { status: 400 });
       }
+      if (videoType === "avatar" && !avatarId) {
+        return Response.json({ error: "Avatar ID is required for avatar videos" }, { status: 400 });
+      }
+      if (!voiceId) {
+        return Response.json({ error: "Voice ID is required" }, { status: 400 });
+      }
+      
+      let heygenVideoId;
+      try {
+        if (videoType === "slides") {
+          heygenVideoId = await createSlideVideo({ slides, voiceId, script, format });
+        } else {
+          heygenVideoId = await createAvatarVideo({ script, avatarId, voiceId, format });
+        }
+      } catch (err) {
+        console.error("[Create Video Error]", err.message);
+        return Response.json({ error: err.message }, { status: 400 });
+      }
+      
       const record = await base44.entities.VideoRequests.create({
         title: title || "AI Generated Video",
         requested_by: user.email,
