@@ -147,6 +147,38 @@ Return ONLY a valid JSON array, no markdown, no explanation.`,
       return Response.json({ url: result.url });
     }
 
+    if (action === "generate_caption") {
+      const { slideTitle, slideContent, videoScript } = params;
+      const result = await base44.integrations.Core.InvokeLLM({
+        prompt: `You are a video caption writer creating engaging, concise captions for promotional video slides.
+Slide Title: ${slideTitle}
+Slide Content: ${slideContent}
+Video Script: ${videoScript}
+
+Write a single, compelling caption (max 20 words) that complements the slide and keeps viewers engaged.
+Return ONLY the caption text, no quotes or markdown.`
+      });
+      return Response.json({ caption: result.trim() });
+    }
+
+    if (action === "generate_overlay_image") {
+      const { slideTitle, slideContent, videoScript } = params;
+      const descriptionResult = await base44.integrations.Core.InvokeLLM({
+        prompt: `You are a visual design expert. Based on this slide:
+Title: ${slideTitle}
+Content: ${slideContent}
+Script context: ${videoScript}
+
+Generate a detailed description for a professional overlay graphic/image that complements this slide.
+The image should be suitable as a branded overlay or accent image.
+Return ONLY the image description (1-2 sentences), no markdown.`
+      });
+      const imageResult = await base44.integrations.Core.GenerateImage({
+        prompt: `Professional branded overlay graphic for promotional video: ${descriptionResult}. Clean, modern design suitable for business marketing.`
+      });
+      return Response.json({ image_url: imageResult.url });
+    }
+
     if (action === "get_avatars") {
       const avatars = await getAvatars();
       return Response.json({ avatars });
