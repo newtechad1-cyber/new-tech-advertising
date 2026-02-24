@@ -15,6 +15,8 @@ export default function AdminLayout({ children }) {
     { name: 'Leads', href: createPageUrl('LeadsDashboard'), icon: Users },
     { name: 'AI Assistant', href: createPageUrl('AdaSalesAssistant'), icon: Bot },
     { name: 'Blog Manager', href: createPageUrl('AdminBlog'), icon: FileText },
+    { name: 'Social Accounts', href: createPageUrl('SocialAccounts'), icon: Share2 },
+    { name: 'Chatbots', href: createPageUrl('ChatbotManagement'), icon: MessageSquare },
   ];
 
   const isActive = (path) => location.pathname === path || location.pathname === path + '.html';
