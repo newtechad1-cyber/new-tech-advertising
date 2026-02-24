@@ -62,7 +62,7 @@ Deno.serve(async (req) => {
 
     if (action === 'get_report_status') {
       const { report_id } = body;
-      const res = await fetch(`${VIBE_API_BASE}/reports/async?report_id=${report_id}`, {
+      const res = await fetch(`${VIBE_API_BASE}/get_report_status?report_id=${report_id}`, {
         headers: vibeHeaders,
       });
       const data = await res.json();
