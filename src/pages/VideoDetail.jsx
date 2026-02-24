@@ -31,17 +31,21 @@ export default function VideoDetail() {
 
   useEffect(() => {
     const load = async () => {
-      const u = await base44.auth.me();
-      setUser(u);
-      const [v, revs] = await Promise.all([
+      const [u, v, revs] = await Promise.all([
+        base44.auth.me(),
         base44.entities.VideoRequests.get(id),
         base44.entities.VideoRevision.filter({ video_request_id: id }, "-created_date"),
       ]);
+      setUser(u);
       setVideo(v);
       setRevisions(revs);
       setLoading(false);
     };
-    if (id) load();
+    if (id) {
+      load();
+    } else {
+      setLoading(false);
+    }
   }, [id]);
 
   const handleApprove = async () => {
