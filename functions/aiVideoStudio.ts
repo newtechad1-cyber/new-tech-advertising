@@ -204,11 +204,12 @@ Return ONLY the image description (1-2 sentences), no markdown.`
       
       let heygenVideoId;
       try {
-        if (videoType === "slides") {
-          heygenVideoId = await createSlideVideo({ slides, voiceId, script, format });
-        } else {
-          heygenVideoId = await createAvatarVideo({ script, avatarId, voiceId, format });
-        }
+        // HeyGen slide videos require specific avatar looks that may not exist
+      // Use avatar video instead with script
+      if (!avatarId) {
+        avatarId = "Abigail_expressive";
+      }
+      heygenVideoId = await createAvatarVideo({ script, avatarId, voiceId, format });
       } catch (err) {
         console.error("[Create Video Error]", err.message);
         return Response.json({ error: err.message }, { status: 400 });
