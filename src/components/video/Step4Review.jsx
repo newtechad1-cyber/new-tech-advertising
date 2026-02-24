@@ -58,7 +58,26 @@ export default function Step4Review({ state, onBack, onSubmit, creating }) {
 
       <div className="flex justify-between">
         <Button variant="outline" onClick={onBack}>← Back</Button>
-        <Button onClick={onSubmit} disabled={creating} size="lg" className="bg-green-600 hover:bg-green-700 text-white gap-2">
+        <Button 
+          onClick={() => {
+            if (!state.script?.trim()) {
+              alert("Script is required");
+              return;
+            }
+            if (state.videoType === "avatar" && !state.avatarId) {
+              alert("Please select an avatar");
+              return;
+            }
+            if (!state.voiceId) {
+              alert("Please select a voice");
+              return;
+            }
+            onSubmit();
+          }} 
+          disabled={creating} 
+          size="lg" 
+          className="bg-green-600 hover:bg-green-700 text-white gap-2"
+        >
           {creating ? <><Loader2 className="w-4 h-4 animate-spin" /> Sending to HeyGen...</> : <><Play className="w-4 h-4" /> Create Video</>}
         </Button>
       </div>
