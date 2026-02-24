@@ -33,7 +33,7 @@ export default function Step2VideoType({ state, setState, onBack, onNext }) {
         <p className="text-sm text-gray-500">Choose how your video will look.</p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-3 gap-4">
         {types.map(t => (
           <button
             key={t.id}
