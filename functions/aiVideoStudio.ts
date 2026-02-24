@@ -191,7 +191,7 @@ Return ONLY the image description (1-2 sentences), no markdown.`
 
     if (action === "create_video") {
       const { script, voiceId, format, duration, title, videoType, slides, musicTrackUrl, musicGenerationPrompt, captions, overlays } = params;
-      let finalAvatarId = params.avatarId || "Abigail_expressive";
+      let finalAvatarId = params.avatarId || "Abigail_expressive_2024112501";
 
       if (!script || !script.trim()) {
         return Response.json({ error: "Script is required" }, { status: 400 });
