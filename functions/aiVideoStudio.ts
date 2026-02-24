@@ -1,8 +1,8 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 import OpenAI from 'npm:openai';
 
-const HEYGEN_API_KEY = Deno.env.get("Heygen");
-const openai = new OpenAI({ apiKey: Deno.env.get("OpenAI") || Deno.env.get("OPENAI_API_KEY") });
+const HEYGEN_API_KEY = Deno.env.get("Heygen") || Deno.env.get("HEYGEN_API_KEY");
+const openai = new OpenAI({ apiKey: Deno.env.get("OpenAI") || Deno.env.get("OPENAI_API_KEY") || Deno.env.get("openai") });
 
 // Generate script from various inputs using OpenAI
 async function generateScript({ prompt, content, topic, duration = "30s", format = "16:9" }) {
