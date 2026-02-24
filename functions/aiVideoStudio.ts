@@ -3,6 +3,11 @@ import OpenAI from 'npm:openai';
 
 const HEYGEN_API_KEY = Deno.env.get("Heygen") || Deno.env.get("HEYGEN_API_KEY");
 
+function getOpenAI() {
+  const key = Deno.env.get("OPENAI_API_KEY") || Deno.env.get("OpenAI");
+  return new OpenAI({ apiKey: key });
+}
+
 async function generateScript({ prompt, content, topic, duration = "30s", format = "16:9" }) {
   const wordCount = duration === "15s" ? 40 : duration === "30s" ? 75 : 150;
   const orientation = format === "9:16" ? "vertical short-form (TikTok/Reels style)" : "horizontal promotional";
