@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { User, Images } from "lucide-react";
+import { User, Images, Users } from "lucide-react";
 
 export default function Step2VideoType({ state, setState, onBack, onNext }) {
   const { videoType } = state;
@@ -9,14 +9,20 @@ export default function Step2VideoType({ state, setState, onBack, onNext }) {
     {
       id: "avatar",
       icon: User,
-      label: "AI Avatar Presenter",
-      desc: "A realistic AI human reads your script on camera. Best for spokesperson-style videos."
+      label: "Avatar Only",
+      desc: "A realistic AI human reads your script. Best for spokesperson-style videos."
     },
     {
       id: "slides",
       icon: Images,
-      label: "Image Slideshow + Voiceover",
-      desc: "AI generates background images for each scene. Upload your own or let AI create them. Great for promotional highlight reels."
+      label: "Slides + Voiceover",
+      desc: "Images with AI narration. Upload or generate images. No avatar visible."
+    },
+    {
+      id: "avatar-slides",
+      icon: Users,
+      label: "Avatar + Slides",
+      desc: "Avatar talks while slides/images appear alongside. Best for product demos and tutorials."
     }
   ];
 
