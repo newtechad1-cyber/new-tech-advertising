@@ -103,6 +103,7 @@ import RebuildIntake from './pages/RebuildIntake';
 import RebuildIntakePretty from './pages/RebuildIntakePretty';
 import RebuildProposal from './pages/RebuildProposal';
 import SetupComplete from './pages/SetupComplete';
+import SocialAccounts from './pages/SocialAccounts';
 import SocialMediaManagement from './pages/SocialMediaManagement';
 import SocialMediaMarketing from './pages/SocialMediaMarketing';
 import streamingTv from './pages/Streaming-TV';
@@ -117,7 +118,7 @@ import VideoDetail from './pages/VideoDetail';
 import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
-import SocialAccounts from './pages/SocialAccounts';
+import ChatbotManagement from './pages/ChatbotManagement';
 import __Layout from './Layout.jsx';
 
 
@@ -178,6 +179,7 @@ export const PAGES = {
     "RebuildIntakePretty": RebuildIntakePretty,
     "RebuildProposal": RebuildProposal,
     "SetupComplete": SetupComplete,
+    "SocialAccounts": SocialAccounts,
     "SocialMediaManagement": SocialMediaManagement,
     "SocialMediaMarketing": SocialMediaMarketing,
     "Streaming-TV": streamingTv,
@@ -192,7 +194,7 @@ export const PAGES = {
     "VideoIndex": VideoIndex,
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
-    "SocialAccounts": SocialAccounts,
+    "ChatbotManagement": ChatbotManagement,
 }
 
 export const pagesConfig = {
