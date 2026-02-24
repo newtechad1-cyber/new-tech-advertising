@@ -68,8 +68,12 @@ export default function AiVideoStudio() {
           invoke("get_voices", {})
         ]);
         setAvatars(avatarRes.data?.avatars || []);
-        setVoices((voiceRes.data?.voices || []).filter(v => v.language === "English"));
+        const voiceList = voiceRes.data?.voices || [];
+        console.log("[AiVideoStudio] Loaded voices:", voiceList.length, voiceList.slice(0, 2));
+        setVoices(voiceList.filter(v => !v.language || v.language === "English"));
         loadMyVideos(u);
+      } catch (err) {
+        console.error("[AiVideoStudio Init Error]", err);
       } finally {
         setLoading(false);
       }
