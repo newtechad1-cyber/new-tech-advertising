@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Play, Loader2 } from "lucide-react";
 
 export default function Step4Review({ state, onBack, onSubmit, creating }) {
-  const { title, script, videoType, format, duration, avatarId, voiceId, slides } = state;
+  const { title, script, videoType, format, duration, avatarId, voiceId, slides, musicTrackUrl } = state;
 
   return (
     <div className="space-y-6">
@@ -19,6 +19,9 @@ export default function Step4Review({ state, onBack, onSubmit, creating }) {
         <Row label="Duration" value={duration} />
         {videoType === "slides" && slides?.length > 0 && (
           <Row label="Slides" value={`${slides.length} slides`} />
+        )}
+        {musicTrackUrl && (
+          <Row label="Music" value="✓ Background music included" />
         )}
       </div>
 

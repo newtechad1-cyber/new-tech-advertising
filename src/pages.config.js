@@ -111,6 +111,7 @@ import SocialMediaManagement from './pages/SocialMediaManagement';
 import SocialMediaMarketing from './pages/SocialMediaMarketing';
 import streamingTv from './pages/Streaming-TV';
 import StreamingCreativePayment from './pages/StreamingCreativePayment';
+import StreamingDashboard from './pages/StreamingDashboard';
 import StreamingIntake from './pages/StreamingIntake';
 import StreamingOnboarding from './pages/StreamingOnboarding';
 import StreamingProposal from './pages/StreamingProposal';
@@ -121,7 +122,6 @@ import VideoDetail from './pages/VideoDetail';
 import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
-import StreamingDashboard from './pages/StreamingDashboard';
 import __Layout from './Layout.jsx';
 
 
@@ -190,6 +190,7 @@ export const PAGES = {
     "SocialMediaMarketing": SocialMediaMarketing,
     "Streaming-TV": streamingTv,
     "StreamingCreativePayment": StreamingCreativePayment,
+    "StreamingDashboard": StreamingDashboard,
     "StreamingIntake": StreamingIntake,
     "StreamingOnboarding": StreamingOnboarding,
     "StreamingProposal": StreamingProposal,
@@ -200,7 +201,6 @@ export const PAGES = {
     "VideoIndex": VideoIndex,
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
-    "StreamingDashboard": StreamingDashboard,
 }
 
 export const pagesConfig = {

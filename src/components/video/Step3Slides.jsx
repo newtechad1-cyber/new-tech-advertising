@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { base44 } from "@/api/base44Client";
 import { Wand2, Upload, RefreshCw, Loader2, ImagePlus, X } from "lucide-react";
+import VoiceSelector from "@/components/video/VoiceSelector";
+import MusicTrackSelector from "@/components/video/MusicTrackSelector";
 
 const invoke = (action, params) => base44.functions.invoke("aiVideoStudio", { action, ...params });
 
 export default function Step3Slides({ state, setState, voices, onBack, onNext }) {
-  const { slides, voiceId, title, script } = state;
+  const { slides, voiceId, title, script, musicTrackUrl, musicGenerationPrompt } = state;
   const [generatingIdeas, setGeneratingIdeas] = useState(false);
   const [generatingImageIdx, setGeneratingImageIdx] = useState(null);
   const [uploadingIdx, setUploadingIdx] = useState(null);
@@ -173,21 +174,21 @@ export default function Step3Slides({ state, setState, voices, onBack, onNext })
       )}
 
       <div className="space-y-4 border-t pt-4">
-        <div>
-          <label className="text-sm font-medium text-gray-700 mb-1 block">Voice (English)</label>
-          <Select value={voiceId} onValueChange={v => setState(s => ({ ...s, voiceId: v }))}>
-            <SelectTrigger><SelectValue placeholder="Select a voice..." /></SelectTrigger>
-            <SelectContent>
-              {voices.slice(0, 40).map(v => (
-                <SelectItem key={v.voice_id} value={v.voice_id}>{v.display_name} — {v.gender}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+        <VoiceSelector
+          voices={voices}
+          selectedVoiceId={voiceId}
+          onVoiceChange={v => setState(s => ({ ...s, voiceId: v }))}
+        />
         <div>
           <label className="text-sm font-medium text-gray-700 mb-1 block">Video Title</label>
           <Input value={title} onChange={e => setState(s => ({ ...s, title: e.target.value }))} placeholder="e.g. Summer HVAC Promo" />
         </div>
+        <MusicTrackSelector
+          musicTrackUrl={musicTrackUrl || ""}
+          musicPrompt={musicGenerationPrompt || ""}
+          onMusicChange={url => setState(s => ({ ...s, musicTrackUrl: url }))}
+          onPromptChange={prompt => setState(s => ({ ...s, musicGenerationPrompt: prompt }))}
+        />
       </div>
 
       <div className="flex justify-between">

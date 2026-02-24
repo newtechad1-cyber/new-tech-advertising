@@ -36,7 +36,9 @@ const defaultState = {
   avatarId: "",
   voiceId: "",
   title: "",
-  slides: []
+  slides: [],
+  musicTrackUrl: "",
+  musicGenerationPrompt: ""
 };
 
 export default function AiVideoStudio() {
@@ -92,8 +94,8 @@ export default function AiVideoStudio() {
 
   const handleCreateVideo = async () => {
     setCreating(true);
-    const { script, avatarId, voiceId, format, duration, title, videoType, slides } = formState;
-    const res = await invoke("create_video", { script, avatarId, voiceId, format, duration, title: title || "AI Video", videoType, slides });
+    const { script, avatarId, voiceId, format, duration, title, videoType, slides, musicTrackUrl, musicGenerationPrompt } = formState;
+    const res = await invoke("create_video", { script, avatarId, voiceId, format, duration, title: title || "AI Video", videoType, slides, musicTrackUrl, musicGenerationPrompt });
     setCreating(false);
     if (res.data?.record_id) {
       setPollingIds(prev => ({ ...prev, [res.data.record_id]: res.data.video_id }));
