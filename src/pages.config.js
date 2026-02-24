@@ -66,11 +66,14 @@ import AdminVideoQueue from './pages/AdminVideoQueue';
 import AiAdvertising from './pages/AiAdvertising';
 import AiSeo from './pages/AiSeo';
 import AiSocialMedia from './pages/AiSocialMedia';
+import AiVideoStudio from './pages/AiVideoStudio';
 import AiVideos from './pages/AiVideos';
 import AiWebsites from './pages/AiWebsites';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import bookCall from './pages/Book-Call';
+import ChatWidget from './pages/ChatWidget';
+import ChatbotManagement from './pages/ChatbotManagement';
 import Contact from './pages/Contact';
 import ContentStudio from './pages/ContentStudio';
 import Dashboard from './pages/Dashboard';
@@ -118,9 +121,6 @@ import VideoDetail from './pages/VideoDetail';
 import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
-import ChatbotManagement from './pages/ChatbotManagement';
-import ChatWidget from './pages/ChatWidget';
-import AiVideoStudio from './pages/AiVideoStudio';
 import __Layout from './Layout.jsx';
 
 
@@ -144,11 +144,14 @@ export const PAGES = {
     "AiAdvertising": AiAdvertising,
     "AiSeo": AiSeo,
     "AiSocialMedia": AiSocialMedia,
+    "AiVideoStudio": AiVideoStudio,
     "AiVideos": AiVideos,
     "AiWebsites": AiWebsites,
     "Blog": Blog,
     "BlogPost": BlogPost,
     "Book-Call": bookCall,
+    "ChatWidget": ChatWidget,
+    "ChatbotManagement": ChatbotManagement,
     "Contact": Contact,
     "ContentStudio": ContentStudio,
     "Dashboard": Dashboard,
@@ -196,9 +199,6 @@ export const PAGES = {
     "VideoIndex": VideoIndex,
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
-    "ChatbotManagement": ChatbotManagement,
-    "ChatWidget": ChatWidget,
-    "AiVideoStudio": AiVideoStudio,
 }
 
 export const pagesConfig = {
