@@ -96,18 +96,26 @@ export default function AiVideoStudio() {
   };
 
   const handleCreateVideo = async () => {
-    setCreating(true);
-    const { script, avatarId, voiceId, format, duration, title, videoType, slides, musicTrackUrl, musicGenerationPrompt, captions, overlays } = formState;
-    const res = await invoke("create_video", { script, avatarId, voiceId, format, duration, title: title || "AI Video", videoType, slides, musicTrackUrl, musicGenerationPrompt, captions, overlays });
-    setCreating(false);
-    if (res.data?.record_id) {
-      setPollingIds(prev => ({ ...prev, [res.data.record_id]: res.data.video_id }));
-      await loadMyVideos(user);
-      setSuccessMsg("Video sent to HeyGen! Rendering usually takes 2–5 minutes. Check the library below.");
-      setActiveTab("library");
-      setCurrentStep(0);
-      setFormState(defaultState);
-      pollStatus(res.data.record_id, res.data.video_id);
+    try {
+      setCreating(true);
+      const { script, avatarId, voiceId, format, duration, title, videoType, slides, musicTrackUrl, musicGenerationPrompt, captions, overlays } = formState;
+      const res = await invoke("create_video", { script, avatarId, voiceId, format, duration, title: title || "AI Video", videoType, slides, musicTrackUrl, musicGenerationPrompt, captions, overlays });
+      if (res.data?.record_id) {
+        setPollingIds(prev => ({ ...prev, [res.data.record_id]: res.data.video_id }));
+        await loadMyVideos(user);
+        setSuccessMsg("Video sent to HeyGen! Rendering usually takes 2–5 minutes. Check the library below.");
+        setActiveTab("library");
+        setCurrentStep(0);
+        setFormState(defaultState);
+        pollStatus(res.data.record_id, res.data.video_id);
+      } else {
+        alert("Error: Could not create video. " + (res.data?.error || ""));
+      }
+    } catch (err) {
+      console.error("Error creating video:", err);
+      alert("Error creating video: " + err.message);
+    } finally {
+      setCreating(false);
     }
   };
 
