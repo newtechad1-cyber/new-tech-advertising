@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Play, Loader2, Volume2 } from "lucide-react";
+import { Play, Loader2, Square } from "lucide-react";
 
 export default function VoiceSelector({ voices, selectedVoiceId, onVoiceChange }) {
   const [playingId, setPlayingId] = useState(null);
@@ -57,23 +57,28 @@ export default function VoiceSelector({ voices, selectedVoiceId, onVoiceChange }
                   </p>
                 </div>
                 {v.preview_url && (
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      playVoicePreview(v.voice_id);
-                    }}
-                    disabled={playingId === v.voice_id}
-                    className="ml-2"
-                  >
-                    {playingId === v.voice_id ? (
-                      <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
-                    ) : (
-                      <Volume2 className="w-4 h-4 text-gray-600" />
-                    )}
-                  </Button>
-                )}
+                   <Button
+                     size="sm"
+                     onClick={(e) => {
+                       e.stopPropagation();
+                       playVoicePreview(v.voice_id);
+                     }}
+                     disabled={playingId === v.voice_id}
+                     className="ml-2 gap-2"
+                   >
+                     {playingId === v.voice_id ? (
+                       <>
+                         <Square className="w-4 h-4 fill-current" />
+                         <span className="text-xs">Stop</span>
+                       </>
+                     ) : (
+                       <>
+                         <Play className="w-4 h-4" />
+                         <span className="text-xs">Preview</span>
+                       </>
+                     )}
+                   </Button>
+                 )}
               </button>
             ))}
           </div>
