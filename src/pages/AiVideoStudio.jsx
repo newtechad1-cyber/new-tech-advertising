@@ -96,6 +96,26 @@ export default function AiVideoStudio() {
     }
   };
 
+  const handleDeleteQueuedVideos = async () => {
+    const queuedVideos = myVideos.filter(v => v.render_status === "queued");
+    if (queuedVideos.length === 0) {
+      setSuccessMsg("No queued videos to delete.");
+      setTimeout(() => setSuccessMsg(""), 3000);
+      return;
+    }
+    if (!confirm(`Delete all ${queuedVideos.length} queued video(s)? This cannot be undone.`)) return;
+    try {
+      for (const video of queuedVideos) {
+        await base44.entities.VideoRequests.delete(video.id);
+      }
+      setMyVideos(prev => prev.filter(v => v.render_status !== "queued"));
+      setSuccessMsg(`Deleted ${queuedVideos.length} queued video(s).`);
+      setTimeout(() => setSuccessMsg(""), 3000);
+    } catch (err) {
+      alert("Error deleting videos: " + err.message);
+    }
+  };
+
   const handleGenerateScript = async () => {
     setGenerating(true);
     const { inputMode, userInput, duration, format } = formState;
