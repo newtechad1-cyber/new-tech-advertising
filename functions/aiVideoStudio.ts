@@ -24,7 +24,7 @@ Style: ${orientation}.`;
 }
 
 async function generateSlideIdeas({ script, slideCount = 5 }) {
-  const completion = await openai.chat.completions.create({
+  const completion = await getOpenAI().chat.completions.create({
     model: "gpt-4o",
     messages: [
       {
