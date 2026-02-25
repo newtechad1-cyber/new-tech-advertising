@@ -63,34 +63,17 @@ async function createProductVideo({ slides, voiceId, script, format = "16:9", ca
                      format === "1:1"  ? { width: 720, height: 720 } :
                                          { width: 1280, height: 720 };
 
-   const video_inputs = slides?.length > 0 ? slides.map((slide, idx) => {
-     const captionText = captions[idx] || slide.caption || "";
+   const video_inputs = slides?.length > 0 ? slides.map((slide) => {
      return {
        background: slide.image_url ? {
          type: "image",
          url: slide.image_url
        } : { type: "color", value: "#ffffff" },
-       voice: { type: "text", input_text: slide.caption || "", voice_id: voiceId },
-       ...(captionText ? {
-         text: {
-           text: captionText,
-           position: "bottom",
-           font_size: 24,
-           color: "#FFFFFF"
-         }
-       } : {})
+       voice: { type: "text", input_text: slide.caption || slide.title || script, voice_id: voiceId }
      };
    }) : [{
      background: { type: "color", value: "#ffffff" },
-     voice: { type: "text", input_text: script, voice_id: voiceId },
-     ...(captions[0] ? {
-       text: {
-         text: captions[0],
-         position: "bottom",
-         font_size: 24,
-         color: "#FFFFFF"
-       }
-     } : {})
+     voice: { type: "text", input_text: script, voice_id: voiceId }
    }];
 
    const body = {
@@ -106,7 +89,7 @@ async function createProductVideo({ slides, voiceId, script, format = "16:9", ca
    });
    const data = await res.json();
    console.log("[HeyGen Product Video Response]", JSON.stringify(data, null, 2));
-   if (!data.data?.video_id) throw new Error(`HeyGen error: ${data.message || JSON.stringify(data)}`);
+   if (!data.data?.video_id) throw new Error(`HeyGen error: ${JSON.stringify(data)}`);
    return data.data.video_id;
 }
 
