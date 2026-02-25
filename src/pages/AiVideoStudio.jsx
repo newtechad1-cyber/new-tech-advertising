@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Video, CheckCircle, Clock, AlertCircle, Play, Loader2, Download, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -69,7 +68,6 @@ export default function AiVideoStudio() {
         ]);
         setAvatars(avatarRes.data?.avatars || []);
         const voiceList = voiceRes.data?.voices || [];
-        console.log("[AiVideoStudio] Loaded voices:", voiceList.length, voiceList.slice(0, 2));
         setVoices(voiceList.filter(v => !v.language || v.language === "English"));
         loadMyVideos(u);
       } catch (err) {
@@ -287,6 +285,7 @@ export default function AiVideoStudio() {
               {myVideos.map(v => {
                 const s = statusConfig[v.render_status] || statusConfig.queued;
                 const isPolling = !!pollingIds[v.id];
+                const isStuck = (v.render_status === "rendering" || v.render_status === "queued") && !isPolling;
                 return (
                   <Card key={v.id} className="border border-gray-200">
                     <CardContent className="pt-4">
@@ -311,6 +310,12 @@ export default function AiVideoStudio() {
                               </a>
                               <Button size="sm" variant="outline" className="gap-1 text-red-600 hover:text-red-700" onClick={() => handleDeleteVideo(v.id)}><Trash2 className="w-3 h-3" /></Button>
                             </div>
+                          )}
+                          {/* Show delete for stuck/stale rendering or queued videos */}
+                          {(v.render_status === "failed" || isStuck) && (
+                            <Button size="sm" variant="outline" className="gap-1 text-red-600 hover:text-red-700" onClick={() => handleDeleteVideo(v.id)}>
+                              <Trash2 className="w-3 h-3" /> Delete
+                            </Button>
                           )}
                         </div>
                       </div>
