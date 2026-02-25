@@ -64,60 +64,64 @@ export default function Header({ onCTAClick }) {
   };
 
   return (
-    <header className="site-header fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm">
-      <div className="max-w-7xl mx-auto px-6 py-1 flex items-center justify-between">
-        <div className="flex items-center">
-          <Link to={createPageUrl('Home')}>
-            <img 
-              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/6e3c5001c_builtforsmallbusinessespng2.png" 
-              alt="New Tech Advertising" 
-              className="logo-img"
-            />
-          </Link>
-        </div>
+    <>
+      {/* Top nav bar - fixed */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between">
+          <div className="hidden lg:flex items-center gap-5 text-sm">
+            <NavLinks />
+          </div>
 
-        <div className="hidden lg:flex items-center gap-5 text-sm">
-          <NavLinks />
-        </div>
-
-        <div className="flex items-center gap-4">
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild className="lg:hidden">
-              <Button variant="ghost" size="icon">
-                <Menu className="w-6 h-6" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="w-[300px] sm:w-[400px]">
-              <div className="flex flex-col gap-8 mt-8">
-                <Link to={createPageUrl('Home')} onClick={() => setIsOpen(false)} className="flex items-center">
-                  <img 
-                    src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/6e3c5001c_builtforsmallbusinessespng2.png" 
-                    alt="New Tech Advertising" 
-                    style={{ maxHeight: '72px', width: 'auto', objectFit: 'contain', display: 'block' }}
-                  />
-                </Link>
-                <NavLinks mobile />
-                <div className="border-t pt-6 flex flex-col gap-4">
-                  <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer" className="w-full">
-                    <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-                      Start Free Trial
-                    </Button>
-                  </a>
+          <div className="flex items-center gap-4 ml-auto">
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger asChild className="lg:hidden">
+                <Button variant="ghost" size="icon">
+                  <Menu className="w-6 h-6" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+                <div className="flex flex-col gap-8 mt-8">
+                  <Link to={createPageUrl('Home')} onClick={() => setIsOpen(false)} className="flex items-center">
+                    <img 
+                      src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/6e3c5001c_builtforsmallbusinessespng2.png" 
+                      alt="New Tech Advertising" 
+                      style={{ maxHeight: '72px', width: 'auto', objectFit: 'contain', display: 'block' }}
+                    />
+                  </Link>
+                  <NavLinks mobile />
+                  <div className="border-t pt-6 flex flex-col gap-4">
+                    <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer" className="w-full">
+                      <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                        Start Free Trial
+                      </Button>
+                    </a>
+                  </div>
                 </div>
-              </div>
-            </SheetContent>
-          </Sheet>
+              </SheetContent>
+            </Sheet>
 
-          <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer">
-            <Button
-              onClick={() => trackCTAClick('Header - Start Free Trial')}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-            >
-              Start Free Trial
-            </Button>
-          </a>
+            <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer">
+              <Button
+                onClick={() => trackCTAClick('Header - Start Free Trial')}
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+              >
+                Start Free Trial
+              </Button>
+            </a>
+          </div>
         </div>
       </div>
-    </header>
+
+      {/* Logo banner - sits below fixed nav, above hero */}
+      <div className="bg-white flex justify-center items-center" style={{ marginTop: '53px', paddingTop: '8px', paddingBottom: '8px' }}>
+        <Link to={createPageUrl('Home')}>
+          <img 
+            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/6e3c5001c_builtforsmallbusinessespng2.png" 
+            alt="New Tech Advertising" 
+            className="logo-img"
+          />
+        </Link>
+      </div>
+    </>
   );
 }
