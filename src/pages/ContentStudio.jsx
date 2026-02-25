@@ -37,6 +37,7 @@ const SECTION_COMPONENTS = {
   autoresponder: Autoresponder,
   subscribers: SubscribersList,
   images: MediaImages,
+  social_post: SocialImagePost,
   videos: MediaVideos,
   notes: StudioNotes,
 };
