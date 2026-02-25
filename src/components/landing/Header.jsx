@@ -71,7 +71,7 @@ export default function Header({ onCTAClick }) {
           {/* Logo in nav */}
           <Link to={createPageUrl('Home')} className="flex-shrink-0 mr-6">
             <img
-              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/6e3c5001c_builtforsmallbusinessespng2.png"
+              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png"
               alt="New Tech Advertising"
               style={{ height: '36px', width: 'auto', objectFit: 'contain', display: 'block' }}
             />
