@@ -65,15 +65,14 @@ export default function Header({ onCTAClick }) {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm">
-      <div className="max-w-7xl mx-auto px-6 py-1.5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center">
-            <Link to={createPageUrl('Home')} className="flex items-center">
+      <div className="max-w-7xl mx-auto px-6" style={{ height: '110px', display: 'flex', alignItems: 'center' }}>
+        <div className="flex items-center justify-between w-full">
+          <div className="flex items-center h-full">
+            <Link to={createPageUrl('Home')} className="flex items-center h-full">
               <img 
                 src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/6e3c5001c_builtforsmallbusinessespng2.png" 
                 alt="New Tech Advertising" 
-                className="h-16 w-auto block md:h-16 sm:h-11"
-                style={{ height: '64px', width: 'auto', display: 'block', maxHeight: 'none' }}
+                style={{ maxHeight: '90px', width: 'auto', objectFit: 'contain', display: 'block' }}
               />
             </Link>
           </div>
