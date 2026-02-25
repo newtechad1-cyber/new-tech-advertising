@@ -5,7 +5,4 @@ html, body {
 }
 
 .site-header { padding: 0; }
-.site-header .logo-img { max-height: 105px; width: auto; object-fit: contain; display: block; }
-@media (max-width: 1023px) {
-  .site-header .logo-img { max-height: 72px; }
-}
+.logo-img { max-height: 64px; width: auto; object-fit: contain; display: block; }
