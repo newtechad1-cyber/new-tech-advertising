@@ -24,7 +24,7 @@ export default function Step4CaptionsOverlays({ state, setState, onBack, onNext 
       </div>
 
       <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 flex items-start gap-4">
-        <Captions className="w-6 h-6 text-blue-500 mt-0.5 shrink-0" />
+        <Subtitles className="w-6 h-6 text-blue-500 mt-0.5 shrink-0" />
         <div className="flex-1">
           <p className="font-medium text-gray-800 mb-1">Auto-Captions</p>
           <p className="text-sm text-gray-500 mb-4">
