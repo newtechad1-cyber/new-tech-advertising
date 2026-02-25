@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { Subtitles } from "lucide-react";
+import { Captions } from "lucide-react";
 
 export default function Step4CaptionsOverlays({ state, setState, onBack, onNext }) {
   const enableCaptions = Object.values(state.captions || {}).some(c => c === true || c === "true" || c === "enabled");
