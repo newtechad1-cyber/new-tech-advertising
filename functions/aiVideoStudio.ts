@@ -247,20 +247,12 @@ Return ONLY the image description (1-2 sentences), no markdown.`
     }
 
     if (action === "create_video") {
-      console.log("[create_video] RAW params keys:", Object.keys(params));
-      const { script, voiceId, format, duration, title, videoType, slides, musicTrackUrl, musicGenerationPrompt, captions = {}, overlays = {} } = params;
+      const { script, voiceId, format, duration, title, videoType, slides, musicTrackUrl, musicGenerationPrompt, overlays = {} } = params;
+      // captions is a simple boolean at top level — true = enable HeyGen auto-captions
+      const enableCaptions = params.enableCaptions === true || params.enableCaptions === "true";
+      const captions = params.captions || {};
       let finalAvatarId = params.avatarId || "Abigail_expressive_2024112501";
-      console.log("[create_video] captions value:", JSON.stringify(captions), typeof captions);
-
-      if (!script || !script.trim()) {
-        return Response.json({ error: "Script is required" }, { status: 400 });
-      }
-      if (!voiceId) {
-        return Response.json({ error: "Voice ID is required" }, { status: 400 });
-      }
-
-      const enableCaptions = Object.values(captions).some(c => c === true || (typeof c === "string" && c.trim().length > 0));
-      console.log("[create_video] captions received:", JSON.stringify(captions), "enableCaptions:", enableCaptions);
+      console.log("[create_video] enableCaptions:", enableCaptions, "raw params.enableCaptions:", params.enableCaptions);
 
       let heygenVideoId;
       try {
