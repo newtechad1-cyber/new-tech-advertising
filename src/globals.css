@@ -5,4 +5,4 @@ html, body {
 }
 
 .site-header { padding: 0; }
-.logo-img { max-height: 64px; width: auto; object-fit: contain; display: block; }
+.logo-img { max-height: 40px; width: auto; object-fit: contain; display: block; }
