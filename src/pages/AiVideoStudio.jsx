@@ -175,6 +175,7 @@ export default function AiVideoStudio() {
          <Step3Slides
            state={formState}
            setState={setFormState}
+           avatars={avatars}
            voices={voices}
            onBack={() => setCurrentStep(1)}
            onNext={() => setCurrentStep(3)}

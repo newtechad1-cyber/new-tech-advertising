@@ -203,7 +203,7 @@ export default function Step3Slides({ state, setState, avatars, voices, onBack, 
         <Button variant="outline" onClick={onBack}>← Back</Button>
         <Button
           onClick={onNext}
-          disabled={!voiceId || !slides?.length}
+          disabled={!voiceId || !slides?.length || (state.videoType === "avatar-slides" && !avatarId)}
           className="bg-blue-600 hover:bg-blue-700"
         >
           Next: Captions & Overlays →
