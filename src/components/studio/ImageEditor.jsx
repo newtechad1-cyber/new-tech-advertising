@@ -18,79 +18,54 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
 
   useEffect(() => {
     setImg(null);
+    setOverlays([]);
+    setSelected(null);
     setLoadError(false);
     loadImage(imageUrl);
   }, [imageUrl]);
 
   const loadImage = async (url) => {
-    // First try direct load with crossOrigin
-    const tryDirect = () => new Promise((resolve, reject) => {
-      const image = new Image();
-      image.crossOrigin = 'anonymous';
-      image.onload = () => resolve(image);
-      image.onerror = reject;
-      image.src = url + (url.includes('?') ? '&' : '?') + '_cb=' + Date.now();
-    });
-
-    // Fallback: proxy through backend to avoid CORS taint
-    const tryProxy = async () => {
+    // Try proxy first (always safe from CORS taint)
+    try {
       const res = await base44.functions.invoke('proxyImage', { url });
       const blob = new Blob([res.data], { type: 'image/png' });
       const objectUrl = URL.createObjectURL(blob);
-      return new Promise((resolve, reject) => {
-        const image = new Image();
-        image.onload = () => resolve(image);
-        image.onerror = reject;
-        image.src = objectUrl;
+      const image = await new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = objectUrl;
       });
-    };
-
-    let image;
-    try {
-      image = await tryDirect();
-      // Test if canvas will be tainted by drawing a small test
-      const testCanvas = document.createElement('canvas');
-      testCanvas.width = 1;
-      testCanvas.height = 1;
-      const testCtx = testCanvas.getContext('2d');
-      testCtx.drawImage(image, 0, 0);
-      testCanvas.toDataURL(); // throws if tainted
+      const maxW = 800;
+      const scale = Math.min(1, maxW / image.width);
+      setCanvasSize({ w: Math.round(image.width * scale), h: Math.round(image.height * scale) });
+      setImg(image);
     } catch (e) {
-      try {
-        image = await tryProxy();
-      } catch (e2) {
+      // Fallback: direct load (may taint canvas for external URLs)
+      const image = await new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = url;
+      }).catch(() => null);
+
+      if (image) {
+        const maxW = 800;
+        const scale = Math.min(1, maxW / image.width);
+        setCanvasSize({ w: Math.round(image.width * scale), h: Math.round(image.height * scale) });
+        setImg(image);
+      } else {
         setLoadError(true);
-        return;
       }
     }
-
-    const maxW = 800;
-    const scale = Math.min(1, maxW / image.width);
-    const w = Math.round(image.width * scale);
-    const h = Math.round(image.height * scale);
-    setCanvasSize({ w, h });
-    setImg(image);
   };
 
-  const newOverlay = (w, h) => ({
-    id: Date.now(),
-    text: 'Your Text Here',
-    x: Math.round(w / 2),
-    y: Math.round(h / 2),
-    fontSize: 36,
-    color: '#ffffff',
-    font: 'Impact',
-    align: 'center',
-    bold: false,
-    shadow: true,
-  });
+  const drawCanvas = (ctx, w, h, currentImg, currentOverlays, includeSelection = true) => {
+    ctx.clearRect(0, 0, w, h);
+    ctx.drawImage(currentImg, 0, 0, w, h);
 
-  const drawCanvas = (ctx, includeSelection = true) => {
-    if (!img) return;
-    ctx.clearRect(0, 0, canvasSize.w, canvasSize.h);
-    ctx.drawImage(img, 0, 0, canvasSize.w, canvasSize.h);
-
-    overlays.forEach(o => {
+    currentOverlays.forEach(o => {
       ctx.save();
       ctx.font = `${o.bold ? 'bold ' : ''}${o.fontSize}px ${o.font}`;
       ctx.textAlign = o.align;
@@ -111,13 +86,13 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
         ctx.font = `${o.bold ? 'bold ' : ''}${o.fontSize}px ${o.font}`;
         const lines = o.text.split('\n');
         const lineH = o.fontSize + 4;
-        const h = lines.length * lineH;
-        const w = Math.max(...lines.map(l => ctx.measureText(l).width));
-        const ox = o.align === 'center' ? o.x - w / 2 : o.align === 'right' ? o.x - w : o.x;
+        const totalH = lines.length * lineH;
+        const textW = Math.max(...lines.map(l => ctx.measureText(l).width));
+        const ox = o.align === 'center' ? o.x - textW / 2 : o.align === 'right' ? o.x - textW : o.x;
         ctx.strokeStyle = '#3b82f6';
         ctx.lineWidth = 2;
         ctx.setLineDash([6, 3]);
-        ctx.strokeRect(ox - 4, o.y - o.fontSize - 4, w + 8, h + 8);
+        ctx.strokeRect(ox - 4, o.y - o.fontSize - 4, textW + 8, totalH + 8);
         ctx.restore();
       }
     });
@@ -126,24 +101,25 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
   useEffect(() => {
     if (!img || !canvasRef.current) return;
     const ctx = canvasRef.current.getContext('2d');
-    drawCanvas(ctx, true);
+    drawCanvas(ctx, canvasSize.w, canvasSize.h, img, overlays, true);
   }, [img, overlays, selected, canvasSize]);
 
   const handleMouseDown = (e) => {
+    if (!canvasRef.current) return;
     const rect = canvasRef.current.getBoundingClientRect();
     const scaleX = canvasSize.w / rect.width;
     const scaleY = canvasSize.h / rect.height;
     const mx = (e.clientX - rect.left) * scaleX;
     const my = (e.clientY - rect.top) * scaleY;
-
     const ctx = canvasRef.current.getContext('2d');
+
     const hit = [...overlays].reverse().find(o => {
       ctx.font = `${o.bold ? 'bold ' : ''}${o.fontSize}px ${o.font}`;
       const lines = o.text.split('\n');
-      const w = Math.max(...lines.map(l => ctx.measureText(l).width));
-      const h = lines.length * (o.fontSize + 4);
-      const ox = o.align === 'center' ? o.x - w / 2 : o.align === 'right' ? o.x - w : o.x;
-      return mx >= ox - 8 && mx <= ox + w + 8 && my >= o.y - o.fontSize - 8 && my <= o.y + h + 8;
+      const textW = Math.max(...lines.map(l => ctx.measureText(l).width));
+      const textH = lines.length * (o.fontSize + 4);
+      const ox = o.align === 'center' ? o.x - textW / 2 : o.align === 'right' ? o.x - textW : o.x;
+      return mx >= ox - 8 && mx <= ox + textW + 8 && my >= o.y - o.fontSize - 8 && my <= o.y + textH + 8;
     });
 
     if (hit) {
@@ -155,12 +131,10 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
   };
 
   const handleMouseMove = (e) => {
-    if (!dragging) return;
+    if (!dragging || !canvasRef.current) return;
     const rect = canvasRef.current.getBoundingClientRect();
-    const scaleX = canvasSize.w / rect.width;
-    const scaleY = canvasSize.h / rect.height;
-    const mx = (e.clientX - rect.left) * scaleX;
-    const my = (e.clientY - rect.top) * scaleY;
+    const mx = (e.clientX - rect.left) * (canvasSize.w / rect.width);
+    const my = (e.clientY - rect.top) * (canvasSize.h / rect.height);
     setOverlays(prev => prev.map(o =>
       o.id === dragging.id ? { ...o, x: Math.round(mx - dragging.startX), y: Math.round(my - dragging.startY) } : o
     ));
@@ -174,33 +148,54 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
   const selectedOverlay = overlays.find(o => o.id === selected);
 
   const handleSave = () => {
-    if (!canvasRef.current || !img) return;
+    if (!canvasRef.current || !img || saving) return;
     setSaving(true);
 
-    // Draw clean version (no selection boxes)
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-    drawCanvas(ctx, false);
+    // Create a fresh offscreen canvas to avoid taint issues from selection UI
+    const offscreen = document.createElement('canvas');
+    offscreen.width = canvasSize.w;
+    offscreen.height = canvasSize.h;
+    const ctx = offscreen.getContext('2d');
+    drawCanvas(ctx, canvasSize.w, canvasSize.h, img, overlays, false);
 
-    canvas.toBlob(blob => {
+    offscreen.toBlob(blob => {
       if (blob) {
-        onSave(blob);
+        onSave(blob).finally(() => setSaving(false));
       } else {
-        alert('Could not export image. Please try again.');
+        alert('Could not export image. The image may be CORS-restricted.');
         setSaving(false);
       }
     }, 'image/png');
   };
 
   const handleDownload = () => {
-    if (!canvasRef.current) return;
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-    drawCanvas(ctx, false);
+    if (!canvasRef.current || !img) return;
+    const offscreen = document.createElement('canvas');
+    offscreen.width = canvasSize.w;
+    offscreen.height = canvasSize.h;
+    const ctx = offscreen.getContext('2d');
+    drawCanvas(ctx, canvasSize.w, canvasSize.h, img, overlays, false);
     const link = document.createElement('a');
     link.download = 'edited-image.png';
-    link.href = canvas.toDataURL('image/png');
+    link.href = offscreen.toDataURL('image/png');
     link.click();
+  };
+
+  const addTextOverlay = () => {
+    const o = {
+      id: Date.now(),
+      text: 'Your Text Here',
+      x: Math.round(canvasSize.w / 2),
+      y: Math.round(canvasSize.h / 2),
+      fontSize: 36,
+      color: '#ffffff',
+      font: 'Impact',
+      align: 'center',
+      bold: false,
+      shadow: true,
+    };
+    setOverlays(p => [...p, o]);
+    setSelected(o.id);
   };
 
   return (
@@ -221,7 +216,7 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
       </div>
 
       <div className="flex flex-1 overflow-hidden">
-        {/* Canvas */}
+        {/* Canvas area */}
         <div className="flex-1 flex items-center justify-center p-6 overflow-auto bg-slate-950">
           {!img && !loadError && (
             <div className="flex flex-col items-center gap-3 text-slate-400">
@@ -229,9 +224,7 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
               <p>Loading image...</p>
             </div>
           )}
-          {loadError && (
-            <p className="text-red-400">Failed to load image. Please close and try again.</p>
-          )}
+          {loadError && <p className="text-red-400">Failed to load image. Please close and try again.</p>}
           <canvas
             ref={canvasRef}
             width={canvasSize.w}
@@ -248,22 +241,14 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
         {/* Sidebar */}
         <div className="w-72 bg-slate-900 border-l border-slate-700 flex flex-col overflow-y-auto">
           <div className="p-4 border-b border-slate-700">
-            <Button
-              onClick={() => {
-                const o = newOverlay(canvasSize.w, canvasSize.h);
-                setOverlays(p => [...p, o]);
-                setSelected(o.id);
-              }}
-              disabled={!img}
-              className="w-full bg-pink-600 hover:bg-pink-700"
-            >
+            <Button onClick={addTextOverlay} disabled={!img} className="w-full bg-pink-600 hover:bg-pink-700">
               <Plus className="w-4 h-4 mr-2" />Add Text
             </Button>
           </div>
 
           <div className="p-4 border-b border-slate-700 space-y-2">
             <p className="text-slate-400 text-xs uppercase tracking-wider mb-2">Text Layers</p>
-            {overlays.length === 0 && <p className="text-slate-500 text-sm">No text added yet. Click "Add Text" to start.</p>}
+            {overlays.length === 0 && <p className="text-slate-500 text-sm">No text added yet.</p>}
             {overlays.map(o => (
               <div
                 key={o.id}
@@ -271,16 +256,8 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
                 className={`flex items-center justify-between p-2 rounded-lg cursor-pointer text-sm ${selected === o.id ? 'bg-pink-900/50 border border-pink-600' : 'bg-slate-800 hover:bg-slate-700'}`}
               >
                 <span className="text-white truncate flex-1">{o.text.split('\n')[0]}</span>
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  className="h-6 w-6 text-red-400 shrink-0"
-                  onClick={e => {
-                    e.stopPropagation();
-                    setOverlays(p => p.filter(x => x.id !== o.id));
-                    setSelected(null);
-                  }}
-                >
+                <Button size="icon" variant="ghost" className="h-6 w-6 text-red-400 shrink-0"
+                  onClick={e => { e.stopPropagation(); setOverlays(p => p.filter(x => x.id !== o.id)); setSelected(null); }}>
                   <Trash2 className="w-3 h-3" />
                 </Button>
               </div>
@@ -297,29 +274,19 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
               />
               <div>
                 <label className="text-slate-400 text-xs mb-1 block">Font Size: {selectedOverlay.fontSize}px</label>
-                <input
-                  type="range" min="12" max="120"
-                  value={selectedOverlay.fontSize}
-                  onChange={e => updateSelected('fontSize', +e.target.value)}
-                  className="w-full accent-pink-500"
-                />
+                <input type="range" min="12" max="120" value={selectedOverlay.fontSize}
+                  onChange={e => updateSelected('fontSize', +e.target.value)} className="w-full accent-pink-500" />
               </div>
               <div>
                 <label className="text-slate-400 text-xs mb-1 block">Color</label>
-                <input
-                  type="color"
-                  value={selectedOverlay.color}
+                <input type="color" value={selectedOverlay.color}
                   onChange={e => updateSelected('color', e.target.value)}
-                  className="w-full h-9 rounded cursor-pointer bg-slate-800 border border-slate-600"
-                />
+                  className="w-full h-9 rounded cursor-pointer bg-slate-800 border border-slate-600" />
               </div>
               <div>
                 <label className="text-slate-400 text-xs mb-1 block">Font</label>
-                <select
-                  value={selectedOverlay.font}
-                  onChange={e => updateSelected('font', e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-600 text-white rounded-lg p-2 text-sm"
-                >
+                <select value={selectedOverlay.font} onChange={e => updateSelected('font', e.target.value)}
+                  className="w-full bg-slate-800 border border-slate-600 text-white rounded-lg p-2 text-sm">
                   {FONTS.map(f => <option key={f} value={f}>{f}</option>)}
                 </select>
               </div>
@@ -327,11 +294,8 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
                 <label className="text-slate-400 text-xs mb-1 block">Alignment</label>
                 <div className="flex gap-2">
                   {ALIGNS.map(a => (
-                    <button
-                      key={a}
-                      onClick={() => updateSelected('align', a)}
-                      className={`flex-1 py-1 rounded text-xs border transition-colors ${selectedOverlay.align === a ? 'bg-pink-600 border-pink-600 text-white' : 'border-slate-600 text-slate-400 hover:border-pink-500'}`}
-                    >
+                    <button key={a} onClick={() => updateSelected('align', a)}
+                      className={`flex-1 py-1 rounded text-xs border transition-colors ${selectedOverlay.align === a ? 'bg-pink-600 border-pink-600 text-white' : 'border-slate-600 text-slate-400 hover:border-pink-500'}`}>
                       {a}
                     </button>
                   ))}
@@ -339,12 +303,10 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
               </div>
               <div className="flex gap-4">
                 <label className="flex items-center gap-2 text-slate-300 text-sm cursor-pointer">
-                  <input type="checkbox" checked={selectedOverlay.bold} onChange={e => updateSelected('bold', e.target.checked)} className="accent-pink-500" />
-                  Bold
+                  <input type="checkbox" checked={selectedOverlay.bold} onChange={e => updateSelected('bold', e.target.checked)} className="accent-pink-500" />Bold
                 </label>
                 <label className="flex items-center gap-2 text-slate-300 text-sm cursor-pointer">
-                  <input type="checkbox" checked={selectedOverlay.shadow} onChange={e => updateSelected('shadow', e.target.checked)} className="accent-pink-500" />
-                  Shadow
+                  <input type="checkbox" checked={selectedOverlay.shadow} onChange={e => updateSelected('shadow', e.target.checked)} className="accent-pink-500" />Shadow
                 </label>
               </div>
               <p className="text-slate-500 text-xs">Drag text on the canvas to reposition</p>

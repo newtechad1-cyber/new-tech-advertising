@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Plus, Trash2, Upload, Search, Copy, Sparkles, Pencil, Loader2 } from 'lucide-react';
 import ImageEditor from './ImageEditor';
+import { toast } from 'sonner';
 
 const USE_FOR = ['social', 'video', 'blog', 'email', 'website'];
 
@@ -28,7 +29,6 @@ export default function MediaImages() {
   const [aiName, setAiName] = useState('');
   const [aiTags, setAiTags] = useState('');
   const [aiUsedFor, setAiUsedFor] = useState([]);
-  const [savingAi, setSavingAi] = useState(false);
 
   useEffect(() => { load(); }, []);
 
@@ -59,6 +59,7 @@ export default function MediaImages() {
       tags: form.tags ? form.tags.split(',').map(t => t.trim()) : [],
       used_for: form.used_for
     });
+    toast.success('Image saved to library!');
     setForm({ name: '', description: '', tags: '', used_for: [] });
     setPendingFile(null);
     setShowUploadForm(false);
@@ -77,12 +78,10 @@ export default function MediaImages() {
     setGenerating(false);
   };
 
-  // Called both from "Save to Library" button and from ImageEditor's onSave
+  // Save AI image (with or without edits). Returns a promise so ImageEditor can await it.
   const saveAiImage = async (blobOrNull) => {
-    setSavingAi(true);
     let url = generatedUrl;
     if (blobOrNull) {
-      // blob = edited canvas export — upload it to get a permanent URL
       const { file_url } = await base44.integrations.Core.UploadFile({ file: blobOrNull });
       url = file_url;
     }
@@ -94,19 +93,18 @@ export default function MediaImages() {
       tags: aiTags ? aiTags.split(',').map(t => t.trim()) : ['ai-generated'],
       used_for: aiUsedFor
     });
+    toast.success('AI image saved to library!');
     setGeneratedUrl(null);
     setAiPrompt('');
     setAiName('');
     setAiTags('');
     setAiUsedFor([]);
-    setSavingAi(false);
     setEditingImage(null);
     load();
   };
 
-  // Called from library image edit — save edited version as a new asset
+  // Save edited library image as new asset. Returns a promise.
   const saveEditedLibraryImage = async (blob) => {
-    setSavingAi(true);
     const { file_url } = await base44.integrations.Core.UploadFile({ file: blob });
     await base44.entities.MediaAsset.create({
       name: 'Edited Image',
@@ -115,7 +113,7 @@ export default function MediaImages() {
       tags: ['edited'],
       used_for: []
     });
-    setSavingAi(false);
+    toast.success('Edited image saved to library!');
     setEditingImage(null);
     load();
   };
@@ -129,16 +127,14 @@ export default function MediaImages() {
     setTimeout(() => setCopied(null), 2000);
   };
 
-  const toggleUsedFor = (val, setter, current) => {
+  const toggleUsedFor = (val, setter, current) =>
     setter(current.includes(val) ? current.filter(v => v !== val) : [...current, val]);
-  };
 
   const filtered = assets.filter(a =>
     a.name?.toLowerCase().includes(search.toLowerCase()) ||
     a.tags?.some(t => t.toLowerCase().includes(search.toLowerCase()))
   );
 
-  // Determine if editing from AI flow or library
   const isEditingAiImage = editingImage === generatedUrl;
 
   return (
@@ -208,8 +204,8 @@ export default function MediaImages() {
                   </div>
                 </div>
                 <div className="flex gap-3">
-                  <Button onClick={() => saveAiImage(null)} disabled={savingAi} className="bg-pink-600 hover:bg-pink-700">
-                    {savingAi ? 'Saving...' : 'Save to Library'}
+                  <Button onClick={() => saveAiImage(null)} className="bg-pink-600 hover:bg-pink-700">
+                    Save to Library
                   </Button>
                   <Button variant="outline" onClick={() => setEditingImage(generatedUrl)} className="border-slate-600 text-slate-300">
                     <Pencil className="w-4 h-4 mr-2" />Edit & Add Text
@@ -312,13 +308,7 @@ export default function MediaImages() {
       {editingImage && (
         <ImageEditor
           imageUrl={editingImage}
-          onSave={(blob) => {
-            if (isEditingAiImage) {
-              saveAiImage(blob);
-            } else {
-              saveEditedLibraryImage(blob);
-            }
-          }}
+          onSave={(blob) => isEditingAiImage ? saveAiImage(blob) : saveEditedLibraryImage(blob)}
           onClose={() => setEditingImage(null)}
         />
       )}
