@@ -64,31 +64,42 @@ export default function Header({ onCTAClick }) {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm">
-      <div className="max-w-7xl mx-auto px-6" style={{ height: '110px', display: 'flex', alignItems: 'center' }}>
-        <div className="flex items-center justify-between w-full">
-          <div className="flex items-center h-full">
-            <Link to={createPageUrl('Home')} className="flex items-center h-full">
-              <img 
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/6e3c5001c_builtforsmallbusinessespng2.png" 
-                alt="New Tech Advertising" 
-                style={{ maxHeight: '90px', width: 'auto', objectFit: 'contain', display: 'block' }}
-              />
-            </Link>
-          </div>
+    <>
+      <style>{`
+        .site-header { height: 120px; padding: 0; }
+        .site-header .header-inner { height: 120px; display: flex; align-items: center; padding: 0 24px; }
+        .site-header .logo-img { max-height: 105px; width: auto; object-fit: contain; display: block; }
+        @media (max-width: 1023px) {
+          .site-header { height: 88px; }
+          .site-header .header-inner { height: 88px; }
+          .site-header .logo-img { max-height: 72px; }
+        }
+      `}</style>
+      <header className="site-header fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm">
+        <div className="header-inner max-w-7xl mx-auto">
+          <div className="flex items-center justify-between w-full">
+            <div className="flex items-center">
+              <Link to={createPageUrl('Home')} className="flex items-center">
+                <img 
+                  src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/6e3c5001c_builtforsmallbusinessespng2.png" 
+                  alt="New Tech Advertising" 
+                  className="logo-img"
+                />
+              </Link>
+            </div>
 
-          <div className="hidden lg:flex items-center gap-6" style={{ height: '110px', alignItems: 'center' }}>
-            <NavLinks />
-          </div>
+            <div className="hidden lg:flex items-center gap-5 text-sm">
+              <NavLinks />
+            </div>
 
-          <div className="flex items-center gap-4">
-            {/* Mobile Menu Trigger */}
-            <Sheet open={isOpen} onOpenChange={setIsOpen}>
-              <SheetTrigger asChild className="lg:hidden">
-                <Button variant="ghost" size="icon">
-                  <Menu className="w-6 h-6" />
-                </Button>
-              </SheetTrigger>
+            <div className="flex items-center gap-4">
+              {/* Mobile Menu Trigger */}
+              <Sheet open={isOpen} onOpenChange={setIsOpen}>
+                <SheetTrigger asChild className="lg:hidden">
+                  <Button variant="ghost" size="icon">
+                    <Menu className="w-6 h-6" />
+                  </Button>
+                </SheetTrigger>
               <SheetContent side="left" className="w-[300px] sm:w-[400px]">
                 <div className="flex flex-col gap-8 mt-8">
                   <Link to={createPageUrl('Home')} onClick={() => setIsOpen(false)} className="flex items-center gap-3">
