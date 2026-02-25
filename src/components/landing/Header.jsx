@@ -95,7 +95,7 @@ export default function Header({ onCTAClick }) {
                     <img 
                       src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/6e3c5001c_builtforsmallbusinessespng2.png" 
                       alt="New Tech Advertising" 
-                      style={{ height: '44px', width: 'auto', display: 'block' }}
+                      style={{ maxHeight: '65px', width: 'auto', objectFit: 'contain', display: 'block' }}
                     />
                   </Link>
                   <NavLinks mobile />
