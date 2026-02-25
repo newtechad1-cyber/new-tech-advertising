@@ -77,10 +77,12 @@ export default function MediaImages() {
     setGenerating(false);
   };
 
+  // Called both from "Save to Library" button and from ImageEditor's onSave
   const saveAiImage = async (blobOrNull) => {
     setSavingAi(true);
     let url = generatedUrl;
     if (blobOrNull) {
+      // blob = edited canvas export — upload it to get a permanent URL
       const { file_url } = await base44.integrations.Core.UploadFile({ file: blobOrNull });
       url = file_url;
     }
@@ -97,6 +99,22 @@ export default function MediaImages() {
     setAiName('');
     setAiTags('');
     setAiUsedFor([]);
+    setSavingAi(false);
+    setEditingImage(null);
+    load();
+  };
+
+  // Called from library image edit — save edited version as a new asset
+  const saveEditedLibraryImage = async (blob) => {
+    setSavingAi(true);
+    const { file_url } = await base44.integrations.Core.UploadFile({ file: blob });
+    await base44.entities.MediaAsset.create({
+      name: 'Edited Image',
+      url: file_url,
+      asset_type: 'image',
+      tags: ['edited'],
+      used_for: []
+    });
     setSavingAi(false);
     setEditingImage(null);
     load();
@@ -119,6 +137,9 @@ export default function MediaImages() {
     a.name?.toLowerCase().includes(search.toLowerCase()) ||
     a.tags?.some(t => t.toLowerCase().includes(search.toLowerCase()))
   );
+
+  // Determine if editing from AI flow or library
+  const isEditingAiImage = editingImage === generatedUrl;
 
   return (
     <div className="space-y-6">
@@ -291,7 +312,13 @@ export default function MediaImages() {
       {editingImage && (
         <ImageEditor
           imageUrl={editingImage}
-          onSave={(blob) => { saveAiImage(blob); }}
+          onSave={(blob) => {
+            if (isEditingAiImage) {
+              saveAiImage(blob);
+            } else {
+              saveEditedLibraryImage(blob);
+            }
+          }}
           onClose={() => setEditingImage(null)}
         />
       )}
