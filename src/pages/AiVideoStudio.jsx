@@ -135,7 +135,8 @@ export default function AiVideoStudio() {
     try {
       setCreating(true);
       const { script, avatarId, voiceId, format, duration, title, videoType, slides, musicTrackUrl, musicGenerationPrompt, captions, overlays } = formState;
-      const res = await invoke("create_video", { script, avatarId, voiceId, format, duration, title: title || "AI Video", videoType, slides, musicTrackUrl, musicGenerationPrompt, captions, overlays });
+      const enableCaptions = Object.values(captions || {}).some(c => c === true);
+      const res = await invoke("create_video", { script, avatarId, voiceId, format, duration, title: title || "AI Video", videoType, slides, musicTrackUrl, musicGenerationPrompt, enableCaptions, overlays });
       if (res.data?.record_id) {
         setPollingIds(prev => ({ ...prev, [res.data.record_id]: res.data.video_id }));
         await loadMyVideos(user);
