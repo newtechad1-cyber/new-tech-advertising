@@ -41,6 +41,7 @@ async function createAvatarVideo({ script, avatarId, voiceId, format = "16:9", c
            text: captions[0] ?? captions["0"],
            position: { x: 0, y: 0.85 },
            font_size: 24,
+           line_height: 1.5,
            color: "#FFFFFF"
          }
        } : {})
