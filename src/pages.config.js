@@ -100,6 +100,7 @@ import LocalVisibility from './pages/LocalVisibility';
 import OnboardThankYou from './pages/OnboardThankYou';
 import Onboarding from './pages/Onboarding';
 import OnboardingStart from './pages/OnboardingStart';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import rebuildIntake from './pages/Rebuild-Intake';
 import Rebuild from './pages/Rebuild';
 import RebuildIntake from './pages/RebuildIntake';
@@ -117,13 +118,12 @@ import StreamingOnboarding from './pages/StreamingOnboarding';
 import StreamingProposal from './pages/StreamingProposal';
 import StreamingTV from './pages/StreamingTV';
 import StreamingThankYou from './pages/StreamingThankYou';
+import TermsOfService from './pages/TermsOfService';
 import TvVideo from './pages/TvVideo';
 import VideoDetail from './pages/VideoDetail';
 import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
-import TermsOfService from './pages/TermsOfService';
-import PrivacyPolicy from './pages/PrivacyPolicy';
 import __Layout from './Layout.jsx';
 
 
@@ -181,6 +181,7 @@ export const PAGES = {
     "OnboardThankYou": OnboardThankYou,
     "Onboarding": Onboarding,
     "OnboardingStart": OnboardingStart,
+    "PrivacyPolicy": PrivacyPolicy,
     "Rebuild-Intake": rebuildIntake,
     "Rebuild": Rebuild,
     "RebuildIntake": RebuildIntake,
@@ -198,13 +199,12 @@ export const PAGES = {
     "StreamingProposal": StreamingProposal,
     "StreamingTV": StreamingTV,
     "StreamingThankYou": StreamingThankYou,
+    "TermsOfService": TermsOfService,
     "TvVideo": TvVideo,
     "VideoDetail": VideoDetail,
     "VideoIndex": VideoIndex,
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
-    "TermsOfService": TermsOfService,
-    "PrivacyPolicy": PrivacyPolicy,
 }
 
 export const pagesConfig = {

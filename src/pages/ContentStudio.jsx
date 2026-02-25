@@ -16,6 +16,7 @@ import SubscribersList from '../components/studio/SubscribersList';
 import MediaImages from '../components/studio/MediaImages';
 import MediaVideos from '../components/studio/MediaVideos';
 import StudioNotes from '../components/studio/StudioNotes';
+import SocialImagePost from '../components/studio/SocialImagePost';
 
 const SECTIONS = [
   { id: 'ebook', label: 'Ebook Writer', icon: BookOpen, color: 'bg-violet-500', description: 'Write & organize chapters' },
