@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import {
   BookOpen, ShoppingBag, Mail, Users, Image, Video,
-  StickyNote, HelpCircle, ArrowLeft, Zap, RefreshCw
+  StickyNote, HelpCircle, ArrowLeft, Zap, RefreshCw, Share2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
