@@ -9,8 +9,8 @@ import AvatarSelector from "@/components/video/AvatarSelector";
 
 const invoke = (action, params) => base44.functions.invoke("aiVideoStudio", { action, ...params });
 
-export default function Step3Slides({ state, setState, voices, onBack, onNext }) {
-  const { slides, voiceId, title, script, musicTrackUrl, musicGenerationPrompt } = state;
+export default function Step3Slides({ state, setState, avatars, voices, onBack, onNext }) {
+  const { slides, voiceId, avatarId, title, script, musicTrackUrl, musicGenerationPrompt } = state;
   const [generatingIdeas, setGeneratingIdeas] = useState(false);
   const [generatingImageIdx, setGeneratingImageIdx] = useState(null);
   const [uploadingIdx, setUploadingIdx] = useState(null);
