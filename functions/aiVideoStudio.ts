@@ -39,6 +39,7 @@ async function createAvatarVideo({ script, avatarId, voiceId, format = "16:9", e
      dimension,
      test: false
    };
+   console.log("[HeyGen Avatar Request body]", JSON.stringify(body, null, 2));
    const res = await fetch("https://api.heygen.com/v2/video/generate", {
      method: "POST",
      headers: { "x-api-key": HEYGEN_API_KEY, "Content-Type": "application/json" },
