@@ -16,7 +16,6 @@ async function getVoices() {
    });
    const data = await res.json();
    const voices = data.data?.voices || [];
-   // Map HeyGen voice structure to expected format
    return voices.map(v => ({
      voice_id: v.voice_id,
      display_name: (v.name || "").trim(),
@@ -27,25 +26,16 @@ async function getVoices() {
    }));
 }
 
-async function createAvatarVideo({ script, avatarId, voiceId, format = "16:9", captions = {} }) {
+async function createAvatarVideo({ script, avatarId, voiceId, format = "16:9", enableCaptions = false }) {
    const dimension = format === "9:16" ? { width: 720, height: 1280 } :
                      format === "1:1"  ? { width: 720, height: 720 } :
                                          { width: 1280, height: 720 };
    const body = {
      video_inputs: [{
        character: { type: "avatar", avatar_id: avatarId, avatar_style: "normal" },
-       voice: { type: "text", input_text: script, voice_id: voiceId },
-       ...((captions[0] ?? captions["0"]) ? {
-         text: {
-           type: "text",
-           text: captions[0] ?? captions["0"],
-           position: { x: 0, y: 0.85 },
-           font_size: 24,
-           line_height: 1.5,
-           color: "#FFFFFF"
-         }
-       } : {})
+       voice: { type: "text", input_text: script, voice_id: voiceId }
      }],
+     caption: enableCaptions,
      dimension,
      test: false
    };
@@ -60,29 +50,27 @@ async function createAvatarVideo({ script, avatarId, voiceId, format = "16:9", c
    return data.data.video_id;
 }
 
-async function createProductVideo({ slides, voiceId, script, format = "16:9", captions = {} }) {
+async function createProductVideo({ slides, voiceId, script, format = "16:9", enableCaptions = false }) {
    const dimension = format === "9:16" ? { width: 720, height: 1280 } :
                      format === "1:1"  ? { width: 720, height: 720 } :
                                          { width: 1280, height: 720 };
 
-   const video_inputs = slides?.length > 0 ? slides.map((slide, idx) => {
-     const captionText = captions[idx] ?? captions[String(idx)] ?? "";
+   const video_inputs = slides?.length > 0 ? slides.map((slide) => {
      return {
        background: slide.image_url ? {
          type: "image",
          url: slide.image_url
        } : { type: "color", value: "#ffffff" },
-       voice: { type: "text", input_text: slide.caption || slide.title || script, voice_id: voiceId },
-       ...(captionText ? { text: { type: "text", text: captionText, position: { x: 0, y: 0.85 }, font_size: 24, line_height: 1.5, color: "#FFFFFF" } } : {})
+       voice: { type: "text", input_text: slide.caption || slide.title || script, voice_id: voiceId }
      };
    }) : [{
      background: { type: "color", value: "#ffffff" },
-     voice: { type: "text", input_text: script, voice_id: voiceId },
-     ...((captions[0] ?? captions["0"]) ? { text: { type: "text", text: captions[0] ?? captions["0"], position: { x: 0, y: 0.85 }, font_size: 24, line_height: 1.5, color: "#FFFFFF" } } : {})
+     voice: { type: "text", input_text: script, voice_id: voiceId }
    }];
 
    const body = {
      video_inputs,
+     caption: enableCaptions,
      dimension,
      test: false
    };
@@ -98,31 +86,29 @@ async function createProductVideo({ slides, voiceId, script, format = "16:9", ca
    return data.data.video_id;
 }
 
-async function createAvatarSlidesVideo({ slides, voiceId, script, avatarId, format = "16:9", captions = {} }) {
+async function createAvatarSlidesVideo({ slides, voiceId, script, avatarId, format = "16:9", enableCaptions = false }) {
    const dimension = format === "9:16" ? { width: 720, height: 1280 } :
                      format === "1:1"  ? { width: 720, height: 720 } :
                                          { width: 1280, height: 720 };
 
-   const video_inputs = slides?.length > 0 ? slides.map((slide, idx) => {
-     const captionText = captions[idx] ?? captions[String(idx)] ?? "";
+   const video_inputs = slides?.length > 0 ? slides.map((slide) => {
      return {
        character: { type: "avatar", avatar_id: avatarId, avatar_style: "normal" },
        background: slide.image_url ? {
          type: "image",
          url: slide.image_url
        } : { type: "color", value: "#ffffff" },
-       voice: { type: "text", input_text: slide.caption || slide.title || script, voice_id: voiceId },
-       ...(captionText ? { text: { type: "text", text: captionText, position: { x: 0, y: 0.85 }, font_size: 24, line_height: 1.5, color: "#FFFFFF" } } : {})
+       voice: { type: "text", input_text: slide.caption || slide.title || script, voice_id: voiceId }
      };
    }) : [{
      character: { type: "avatar", avatar_id: avatarId, avatar_style: "normal" },
      background: { type: "color", value: "#ffffff" },
-     voice: { type: "text", input_text: script, voice_id: voiceId },
-     ...((captions[0] ?? captions["0"]) ? { text: { type: "text", text: captions[0] ?? captions["0"], position: { x: 0, y: 0.85 }, font_size: 24, line_height: 1.5, color: "#FFFFFF" } } : {})
+     voice: { type: "text", input_text: script, voice_id: voiceId }
    }];
 
    const body = {
      video_inputs,
+     caption: enableCaptions,
      dimension,
      test: false
    };
@@ -270,14 +256,17 @@ Return ONLY the image description (1-2 sentences), no markdown.`
         return Response.json({ error: "Voice ID is required" }, { status: 400 });
       }
 
+      // enableCaptions is true if any caption text was provided
+      const enableCaptions = Object.values(captions).some(c => c && c.trim().length > 0);
+
       let heygenVideoId;
       try {
         if (videoType === "avatar") {
-          heygenVideoId = await createAvatarVideo({ script, avatarId: finalAvatarId, voiceId, format, captions });
+          heygenVideoId = await createAvatarVideo({ script, avatarId: finalAvatarId, voiceId, format, enableCaptions });
         } else if (videoType === "slides") {
-          heygenVideoId = await createProductVideo({ slides, voiceId, script, format, captions });
+          heygenVideoId = await createProductVideo({ slides, voiceId, script, format, enableCaptions });
         } else if (videoType === "avatar-slides") {
-          heygenVideoId = await createAvatarSlidesVideo({ slides, voiceId, script, avatarId: finalAvatarId, format, captions });
+          heygenVideoId = await createAvatarSlidesVideo({ slides, voiceId, script, avatarId: finalAvatarId, format, enableCaptions });
         } else {
           return Response.json({ error: "Invalid video type" }, { status: 400 });
         }
