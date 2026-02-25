@@ -47,7 +47,7 @@ export default function Home() {
       <main>
         {/* Hero Section */}
         <section
-          className="pt-48 pb-28 relative"
+          className="py-28 relative"
           style={{
             backgroundImage: 'url(https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/e6414dd7d_backgroundimage.png)',
             backgroundSize: 'cover',
