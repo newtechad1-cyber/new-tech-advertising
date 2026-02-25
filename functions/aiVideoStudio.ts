@@ -257,7 +257,7 @@ Return ONLY the image description (1-2 sentences), no markdown.`
       }
 
       // enableCaptions is true if any caption text was provided
-      const enableCaptions = Object.values(captions).some(c => c && c.trim().length > 0);
+      const enableCaptions = Object.values(captions).some(c => c === true || (typeof c === "string" && c.trim().length > 0));
 
       let heygenVideoId;
       try {
