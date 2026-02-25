@@ -5,6 +5,7 @@ import { base44 } from "@/api/base44Client";
 import { Wand2, Upload, RefreshCw, Loader2, ImagePlus, X } from "lucide-react";
 import VoiceSelector from "@/components/video/VoiceSelector";
 import MusicTrackSelector from "@/components/video/MusicTrackSelector";
+import AvatarSelector from "@/components/video/AvatarSelector";
 
 const invoke = (action, params) => base44.functions.invoke("aiVideoStudio", { action, ...params });
 
