@@ -175,6 +175,13 @@ export default function Step3Slides({ state, setState, avatars, voices, onBack, 
       )}
 
       <div className="space-y-4 border-t pt-4">
+        {state.videoType === "avatar-slides" && (
+          <AvatarSelector
+            avatars={avatars}
+            selectedAvatarId={avatarId}
+            onAvatarChange={v => setState(s => ({ ...s, avatarId: v }))}
+          />
+        )}
         <VoiceSelector
           voices={voices}
           selectedVoiceId={voiceId}
