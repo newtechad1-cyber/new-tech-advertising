@@ -72,12 +72,12 @@ async function createProductVideo({ slides, voiceId, script, format = "16:9", ca
          url: slide.image_url
        } : { type: "color", value: "#ffffff" },
        voice: { type: "text", input_text: slide.caption || slide.title || script, voice_id: voiceId },
-       ...(captionText ? { text: { type: "text", text: captionText, position: "bottom", font_size: 24, color: "#FFFFFF" } } : {})
+       ...(captionText ? { text: { type: "text", text: captionText, position: { x: 0, y: 0.85 }, font_size: 24, color: "#FFFFFF" } } : {})
      };
    }) : [{
      background: { type: "color", value: "#ffffff" },
      voice: { type: "text", input_text: script, voice_id: voiceId },
-     ...((captions[0] ?? captions["0"]) ? { text: { type: "text", text: captions[0] ?? captions["0"], position: "bottom", font_size: 24, color: "#FFFFFF" } } : {})
+     ...((captions[0] ?? captions["0"]) ? { text: { type: "text", text: captions[0] ?? captions["0"], position: { x: 0, y: 0.85 }, font_size: 24, color: "#FFFFFF" } } : {})
    }];
 
    const body = {
