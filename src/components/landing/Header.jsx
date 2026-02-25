@@ -121,16 +121,6 @@ export default function Header({ onCTAClick }) {
         </div>
       </div>
 
-      {/* Logo banner - sits below fixed nav, above hero */}
-      <div className="bg-white flex justify-center items-center" style={{ marginTop: '40px', paddingTop: '2px', paddingBottom: '2px' }}>
-        <Link to={createPageUrl('Home')}>
-          <img 
-            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/6e3c5001c_builtforsmallbusinessespng2.png" 
-            alt="New Tech Advertising" 
-            className="logo-img"
-          />
-        </Link>
-      </div>
     </>
   );
 }
