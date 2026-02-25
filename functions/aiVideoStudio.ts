@@ -246,8 +246,10 @@ Return ONLY the image description (1-2 sentences), no markdown.`
     }
 
     if (action === "create_video") {
+      console.log("[create_video] RAW params keys:", Object.keys(params));
       const { script, voiceId, format, duration, title, videoType, slides, musicTrackUrl, musicGenerationPrompt, captions = {}, overlays = {} } = params;
       let finalAvatarId = params.avatarId || "Abigail_expressive_2024112501";
+      console.log("[create_video] captions value:", JSON.stringify(captions), typeof captions);
 
       if (!script || !script.trim()) {
         return Response.json({ error: "Script is required" }, { status: 400 });
