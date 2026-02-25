@@ -25,6 +25,7 @@ const SECTIONS = [
   { id: 'autoresponder', label: 'Autoresponder', icon: RefreshCw, color: 'bg-cyan-500', description: 'Automated email sequences' },
   { id: 'subscribers', label: 'Subscribers', icon: Users, color: 'bg-orange-500', description: 'Manage your list' },
   { id: 'images', label: 'Images', icon: Image, color: 'bg-pink-500', description: 'Media library for social & video' },
+  { id: 'social_post', label: 'Post to Social', icon: Share2, color: 'bg-blue-500', description: 'Post images to Facebook & Instagram' },
   { id: 'videos', label: 'Videos', icon: Video, color: 'bg-red-500', description: 'Video assets & links' },
   { id: 'notes', label: 'Notes', icon: StickyNote, color: 'bg-yellow-500', description: 'Ideas & reminders' },
 ];
