@@ -5,7 +5,7 @@ import { createPageUrl } from '@/utils';
 import {
   BookOpen, ShoppingBag, Mail, Users, Image, Video,
   StickyNote, HelpCircle, ArrowLeft, Zap, RefreshCw,
-  Calendar, DollarSign, FileText, TrendingUp, MonitorPlay
+  Calendar, DollarSign, FileText, TrendingUp, MonitorPlay, Briefcase
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -20,6 +20,7 @@ import StudioNotes from '../components/studio/StudioNotes';
 import SchedulingQueue from '../components/admin/SchedulingQueue';
 import UpsellQueue from '../components/admin/UpsellQueue';
 import ClientsList from '../components/admin/ClientsList';
+import PortfolioManagement from '../components/admin/PortfolioManagement';
 
 const SECTIONS = [
   { id: 'scheduling', label: 'Scheduling Queue', icon: Calendar, color: 'bg-blue-500', description: 'Content needing scheduling' },
@@ -36,6 +37,7 @@ const SECTIONS = [
   { id: 'videos', label: 'Videos', icon: Video, color: 'bg-red-500', description: 'Video assets & links' },
   { id: 'ai-video-studio', label: 'AI Video Studio', icon: MonitorPlay, color: 'bg-indigo-500', description: 'Generate AI videos from script', link: 'AiVideoStudio' },
   { id: 'notes', label: 'Notes', icon: StickyNote, color: 'bg-yellow-500', description: 'Ideas & reminders' },
+  { id: 'portfolio', label: 'Portfolio', icon: Briefcase, color: 'bg-teal-500', description: 'Manage showcase work' },
 ];
 
 const SECTION_COMPONENTS = {
@@ -50,6 +52,7 @@ const SECTION_COMPONENTS = {
   images: MediaImages,
   videos: MediaVideos,
   notes: StudioNotes,
+  portfolio: PortfolioManagement,
 };
 
 export default function AdminDashboard() {
