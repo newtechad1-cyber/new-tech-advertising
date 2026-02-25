@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { X, Plus, Trash2, Download, Save } from 'lucide-react';
+import { X, Plus, Trash2, Download, Save, Loader2 } from 'lucide-react';
+import { base44 } from '@/api/base44Client';
 
 const FONTS = ['Arial', 'Georgia', 'Impact', 'Courier New', 'Verdana'];
 const ALIGNS = ['left', 'center', 'right'];
@@ -13,33 +14,63 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
   const [img, setImg] = useState(null);
   const [canvasSize, setCanvasSize] = useState({ w: 800, h: 600 });
   const [saving, setSaving] = useState(false);
+  const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
-    const image = new Image();
-    image.crossOrigin = 'anonymous';
-    image.onload = () => {
-      const maxW = 800;
-      const scale = Math.min(1, maxW / image.width);
-      const w = Math.round(image.width * scale);
-      const h = Math.round(image.height * scale);
-      setCanvasSize({ w, h });
-      setImg(image);
-    };
-    image.onerror = () => {
-      // If crossOrigin fails, try without it
-      const image2 = new Image();
-      image2.onload = () => {
-        const maxW = 800;
-        const scale = Math.min(1, maxW / image2.width);
-        const w = Math.round(image2.width * scale);
-        const h = Math.round(image2.height * scale);
-        setCanvasSize({ w, h });
-        setImg(image2);
-      };
-      image2.src = imageUrl;
-    };
-    image.src = imageUrl;
+    setImg(null);
+    setLoadError(false);
+    loadImage(imageUrl);
   }, [imageUrl]);
+
+  const loadImage = async (url) => {
+    // First try direct load with crossOrigin
+    const tryDirect = () => new Promise((resolve, reject) => {
+      const image = new Image();
+      image.crossOrigin = 'anonymous';
+      image.onload = () => resolve(image);
+      image.onerror = reject;
+      image.src = url + (url.includes('?') ? '&' : '?') + '_cb=' + Date.now();
+    });
+
+    // Fallback: proxy through backend to avoid CORS taint
+    const tryProxy = async () => {
+      const res = await base44.functions.invoke('proxyImage', { url });
+      const blob = new Blob([res.data], { type: 'image/png' });
+      const objectUrl = URL.createObjectURL(blob);
+      return new Promise((resolve, reject) => {
+        const image = new Image();
+        image.onload = () => resolve(image);
+        image.onerror = reject;
+        image.src = objectUrl;
+      });
+    };
+
+    let image;
+    try {
+      image = await tryDirect();
+      // Test if canvas will be tainted by drawing a small test
+      const testCanvas = document.createElement('canvas');
+      testCanvas.width = 1;
+      testCanvas.height = 1;
+      const testCtx = testCanvas.getContext('2d');
+      testCtx.drawImage(image, 0, 0);
+      testCanvas.toDataURL(); // throws if tainted
+    } catch (e) {
+      try {
+        image = await tryProxy();
+      } catch (e2) {
+        setLoadError(true);
+        return;
+      }
+    }
+
+    const maxW = 800;
+    const scale = Math.min(1, maxW / image.width);
+    const w = Math.round(image.width * scale);
+    const h = Math.round(image.height * scale);
+    setCanvasSize({ w, h });
+    setImg(image);
+  };
 
   const newOverlay = (w, h) => ({
     id: Date.now(),
@@ -54,11 +85,8 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
     shadow: true,
   });
 
-  // Redraw canvas whenever img, overlays, selected, or canvasSize changes
-  useEffect(() => {
-    if (!img || !canvasRef.current) return;
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+  const drawCanvas = (ctx, includeSelection = true) => {
+    if (!img) return;
     ctx.clearRect(0, 0, canvasSize.w, canvasSize.h);
     ctx.drawImage(img, 0, 0, canvasSize.w, canvasSize.h);
 
@@ -73,21 +101,18 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
         ctx.shadowOffsetX = 2;
         ctx.shadowOffsetY = 2;
       }
-      const lines = o.text.split('\n');
-      lines.forEach((line, i) => {
+      o.text.split('\n').forEach((line, i) => {
         ctx.fillText(line, o.x, o.y + i * (o.fontSize + 4));
       });
       ctx.restore();
 
-      // Draw selection box
-      if (selected === o.id) {
+      if (includeSelection && selected === o.id) {
         ctx.save();
         ctx.font = `${o.bold ? 'bold ' : ''}${o.fontSize}px ${o.font}`;
-        ctx.textAlign = o.align;
-        const lines2 = o.text.split('\n');
+        const lines = o.text.split('\n');
         const lineH = o.fontSize + 4;
-        const h = lines2.length * lineH;
-        const w = Math.max(...lines2.map(l => ctx.measureText(l).width));
+        const h = lines.length * lineH;
+        const w = Math.max(...lines.map(l => ctx.measureText(l).width));
         const ox = o.align === 'center' ? o.x - w / 2 : o.align === 'right' ? o.x - w : o.x;
         ctx.strokeStyle = '#3b82f6';
         ctx.lineWidth = 2;
@@ -96,6 +121,12 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
         ctx.restore();
       }
     });
+  };
+
+  useEffect(() => {
+    if (!img || !canvasRef.current) return;
+    const ctx = canvasRef.current.getContext('2d');
+    drawCanvas(ctx, true);
   }, [img, overlays, selected, canvasSize]);
 
   const handleMouseDown = (e) => {
@@ -142,43 +173,33 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
 
   const selectedOverlay = overlays.find(o => o.id === selected);
 
-  const handleSave = async () => {
-    if (!canvasRef.current) return;
+  const handleSave = () => {
+    if (!canvasRef.current || !img) return;
     setSaving(true);
-    // Redraw without selection boxes before saving
+
+    // Draw clean version (no selection boxes)
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvasSize.w, canvasSize.h);
-    ctx.drawImage(img, 0, 0, canvasSize.w, canvasSize.h);
-    overlays.forEach(o => {
-      ctx.save();
-      ctx.font = `${o.bold ? 'bold ' : ''}${o.fontSize}px ${o.font}`;
-      ctx.textAlign = o.align;
-      ctx.fillStyle = o.color;
-      if (o.shadow) {
-        ctx.shadowColor = 'rgba(0,0,0,0.8)';
-        ctx.shadowBlur = 8;
-        ctx.shadowOffsetX = 2;
-        ctx.shadowOffsetY = 2;
-      }
-      o.text.split('\n').forEach((line, i) => {
-        ctx.fillText(line, o.x, o.y + i * (o.fontSize + 4));
-      });
-      ctx.restore();
-    });
+    drawCanvas(ctx, false);
 
     canvas.toBlob(blob => {
       if (blob) {
         onSave(blob);
+      } else {
+        alert('Could not export image. Please try again.');
+        setSaving(false);
       }
-      setSaving(false);
     }, 'image/png');
   };
 
   const handleDownload = () => {
+    if (!canvasRef.current) return;
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    drawCanvas(ctx, false);
     const link = document.createElement('a');
     link.download = 'edited-image.png';
-    link.href = canvasRef.current.toDataURL('image/png');
+    link.href = canvas.toDataURL('image/png');
     link.click();
   };
 
@@ -187,11 +208,11 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
       <div className="flex items-center justify-between px-6 py-3 border-b border-slate-700 bg-slate-900">
         <h3 className="text-white font-semibold">Image Editor</h3>
         <div className="flex gap-2">
-          <Button size="sm" variant="outline" onClick={handleDownload} className="border-slate-600 text-slate-300">
+          <Button size="sm" variant="outline" onClick={handleDownload} disabled={!img} className="border-slate-600 text-slate-300">
             <Download className="w-4 h-4 mr-1" />Download
           </Button>
-          <Button size="sm" onClick={handleSave} disabled={saving} className="bg-pink-600 hover:bg-pink-700">
-            <Save className="w-4 h-4 mr-1" />{saving ? 'Saving...' : 'Save to Library'}
+          <Button size="sm" onClick={handleSave} disabled={saving || !img} className="bg-pink-600 hover:bg-pink-700">
+            {saving ? <><Loader2 className="w-4 h-4 mr-1 animate-spin" />Saving...</> : <><Save className="w-4 h-4 mr-1" />Save to Library</>}
           </Button>
           <Button size="icon" variant="ghost" onClick={onClose} className="text-slate-400 hover:text-white">
             <X className="w-5 h-5" />
@@ -202,8 +223,14 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
       <div className="flex flex-1 overflow-hidden">
         {/* Canvas */}
         <div className="flex-1 flex items-center justify-center p-6 overflow-auto bg-slate-950">
-          {!img && (
-            <p className="text-slate-400">Loading image...</p>
+          {!img && !loadError && (
+            <div className="flex flex-col items-center gap-3 text-slate-400">
+              <Loader2 className="w-8 h-8 animate-spin" />
+              <p>Loading image...</p>
+            </div>
+          )}
+          {loadError && (
+            <p className="text-red-400">Failed to load image. Please close and try again.</p>
           )}
           <canvas
             ref={canvasRef}
@@ -227,13 +254,13 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
                 setOverlays(p => [...p, o]);
                 setSelected(o.id);
               }}
+              disabled={!img}
               className="w-full bg-pink-600 hover:bg-pink-700"
             >
               <Plus className="w-4 h-4 mr-2" />Add Text
             </Button>
           </div>
 
-          {/* Layer list */}
           <div className="p-4 border-b border-slate-700 space-y-2">
             <p className="text-slate-400 text-xs uppercase tracking-wider mb-2">Text Layers</p>
             {overlays.length === 0 && <p className="text-slate-500 text-sm">No text added yet. Click "Add Text" to start.</p>}
@@ -260,7 +287,6 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
             ))}
           </div>
 
-          {/* Edit selected overlay */}
           {selectedOverlay && (
             <div className="p-4 space-y-4">
               <p className="text-slate-400 text-xs uppercase tracking-wider">Edit Text</p>
