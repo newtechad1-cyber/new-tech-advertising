@@ -100,40 +100,39 @@ export default function Header({ onCTAClick }) {
                     <Menu className="w-6 h-6" />
                   </Button>
                 </SheetTrigger>
-              <SheetContent side="left" className="w-[300px] sm:w-[400px]">
-                <div className="flex flex-col gap-8 mt-8">
-                  <Link to={createPageUrl('Home')} onClick={() => setIsOpen(false)} className="flex items-center gap-3">
-                    <img 
-                      src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/6e3c5001c_builtforsmallbusinessespng2.png" 
-                      alt="New Tech Advertising" 
-                      style={{ maxHeight: '65px', width: 'auto', objectFit: 'contain', display: 'block' }}
-                    />
-                  </Link>
-                  <NavLinks mobile />
-                  <div className="border-t pt-6 flex flex-col gap-4">
-                    <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer" className="w-full">
-                      <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-                        Start Free Trial
-                      </Button>
-                    </a>
+                <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+                  <div className="flex flex-col gap-8 mt-8">
+                    <Link to={createPageUrl('Home')} onClick={() => setIsOpen(false)} className="flex items-center">
+                      <img 
+                        src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/6e3c5001c_builtforsmallbusinessespng2.png" 
+                        alt="New Tech Advertising" 
+                        style={{ maxHeight: '72px', width: 'auto', objectFit: 'contain', display: 'block' }}
+                      />
+                    </Link>
+                    <NavLinks mobile />
+                    <div className="border-t pt-6 flex flex-col gap-4">
+                      <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer" className="w-full">
+                        <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                          Start Free Trial
+                        </Button>
+                      </a>
+                    </div>
                   </div>
-                </div>
-              </SheetContent>
-            </Sheet>
+                </SheetContent>
+              </Sheet>
 
-            <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer">
-              <Button
-                onClick={() => trackCTAClick('Header - Start Free Trial')}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-              >
-                Start Free Trial
-              </Button>
-            </a>
+              <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer">
+                <Button
+                  onClick={() => trackCTAClick('Header - Start Free Trial')}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+                >
+                  Start Free Trial
+                </Button>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-
-
-    </header>
+      </header>
+    </>
   );
 }
