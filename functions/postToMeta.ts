@@ -8,16 +8,31 @@ Deno.serve(async (req) => {
 
     const { platform, message, image_url } = await req.json();
 
-    const PAGE_ACCESS_TOKEN = Deno.env.get('META_PAGE_ACCESS_TOKEN');
+    const USER_ACCESS_TOKEN = Deno.env.get('META_USER_ACCESS_TOKEN');
     const PAGE_ID = Deno.env.get('META_PAGE_ID');
-    const INSTAGRAM_ACCOUNT_ID = Deno.env.get('META_INSTAGRAM_ACCOUNT_ID');
+
+    if (!USER_ACCESS_TOKEN) return Response.json({ error: 'META_USER_ACCESS_TOKEN is not set' }, { status: 500 });
+    if (!PAGE_ID) return Response.json({ error: 'META_PAGE_ID is not set' }, { status: 500 });
+
+    // Exchange user token for the page token of the specific page
+    const pagesRes = await fetch(
+      `https://graph.facebook.com/v19.0/${PAGE_ID}?fields=access_token,name&access_token=${USER_ACCESS_TOKEN}`
+    );
+    const pageData = await pagesRes.json();
+
+    if (pageData.error) {
+      return Response.json({ error: `Could not get page token: ${pageData.error.message}` }, { status: 400 });
+    }
+
+    const PAGE_ACCESS_TOKEN = pageData.access_token;
+    if (!PAGE_ACCESS_TOKEN) {
+      return Response.json({ error: 'Could not retrieve page access token. Make sure your user token has manage_pages or pages_manage_posts permission and you manage this page.' }, { status: 400 });
+    }
 
     if (platform === 'facebook') {
-      // Post to Facebook Page
       let endpoint, body;
 
       if (image_url) {
-        // Photo post
         endpoint = `https://graph.facebook.com/v19.0/${PAGE_ID}/photos`;
         body = new URLSearchParams({
           url: image_url,
@@ -25,7 +40,6 @@ Deno.serve(async (req) => {
           access_token: PAGE_ACCESS_TOKEN,
         });
       } else {
-        // Text/link post
         endpoint = `https://graph.facebook.com/v19.0/${PAGE_ID}/feed`;
         body = new URLSearchParams({
           message,
@@ -36,13 +50,13 @@ Deno.serve(async (req) => {
       const res = await fetch(endpoint, { method: 'POST', body });
       const data = await res.json();
       if (data.error) return Response.json({ error: data.error.message }, { status: 400 });
-      return Response.json({ success: true, post_id: data.id || data.post_id });
+      return Response.json({ success: true, post_id: data.id || data.post_id, page_name: pageData.name });
     }
 
     if (platform === 'instagram') {
+      const INSTAGRAM_ACCOUNT_ID = Deno.env.get('META_INSTAGRAM_ACCOUNT_ID');
       if (!image_url) return Response.json({ error: 'Instagram requires an image URL' }, { status: 400 });
 
-      // Step 1: Create media container
       const containerRes = await fetch(
         `https://graph.facebook.com/v19.0/${INSTAGRAM_ACCOUNT_ID}/media`,
         {
@@ -57,7 +71,6 @@ Deno.serve(async (req) => {
       const container = await containerRes.json();
       if (container.error) return Response.json({ error: container.error.message }, { status: 400 });
 
-      // Step 2: Publish the container
       const publishRes = await fetch(
         `https://graph.facebook.com/v19.0/${INSTAGRAM_ACCOUNT_ID}/media_publish`,
         {
