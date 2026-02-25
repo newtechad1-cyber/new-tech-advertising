@@ -122,12 +122,12 @@ export default function Header({ onCTAClick }) {
       </div>
 
       {/* Logo banner - sits below fixed nav, above hero */}
-      <div className="bg-white flex justify-center items-center border-b border-slate-100" style={{ marginTop: '53px', paddingTop: '6px', paddingBottom: '6px' }}>
+      <div className="flex justify-center items-center" style={{ marginTop: '53px', background: 'linear-gradient(135deg, #1d4ed8, #2563eb)', padding: '0' }}>
         <Link to={createPageUrl('Home')}>
           <img
             src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png"
             alt="New Tech Advertising"
-            style={{ height: '60px', width: 'auto', objectFit: 'contain', display: 'block' }}
+            style={{ height: '100px', width: 'auto', objectFit: 'contain', display: 'block' }}
           />
         </Link>
       </div>
