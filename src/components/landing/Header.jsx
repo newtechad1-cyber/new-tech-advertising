@@ -64,18 +64,7 @@ export default function Header({ onCTAClick }) {
   };
 
   return (
-    <>
-      <style>{`
-        .site-header { height: 120px; padding: 0; }
-        .site-header .header-inner { height: 120px; display: flex; align-items: center; padding: 0 24px; }
-        .site-header .logo-img { max-height: 105px; width: auto; object-fit: contain; display: block; }
-        @media (max-width: 1023px) {
-          .site-header { height: 88px; }
-          .site-header .header-inner { height: 88px; }
-          .site-header .logo-img { max-height: 72px; }
-        }
-      `}</style>
-      <header className="site-header fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm">
+    <header className="site-header fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm">
         <div className="header-inner max-w-7xl mx-auto">
           <div className="flex items-center justify-between w-full">
             <div className="flex items-center">
@@ -132,7 +121,6 @@ export default function Header({ onCTAClick }) {
             </div>
           </div>
         </div>
-      </header>
-    </>
+    </header>
   );
 }

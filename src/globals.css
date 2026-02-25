@@ -1,4 +1,14 @@
+
 html, body {
   overflow-x: hidden;
   max-width: 100%;
+}
+
+.site-header { height: 120px; padding: 0; }
+.site-header .header-inner { height: 120px; display: flex; align-items: center; padding: 0 24px; }
+.site-header .logo-img { max-height: 105px; width: auto; object-fit: contain; display: block; }
+@media (max-width: 1023px) {
+  .site-header { height: 88px; }
+  .site-header .header-inner { height: 88px; }
+  .site-header .logo-img { max-height: 72px; }
 }
