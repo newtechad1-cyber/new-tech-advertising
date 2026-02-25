@@ -77,7 +77,7 @@ export default function Header({ onCTAClick }) {
             </Link>
           </div>
 
-          <div className="hidden lg:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-6" style={{ height: '110px', alignItems: 'center' }}>
             <NavLinks />
           </div>
 
