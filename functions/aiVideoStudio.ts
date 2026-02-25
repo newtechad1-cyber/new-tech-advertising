@@ -126,7 +126,7 @@ async function createAvatarSlidesVideo({ slides, voiceId, script, avatarId, form
    });
    const data = await res.json();
    console.log("[HeyGen Avatar Slides Response]", JSON.stringify(data, null, 2));
-   if (!data.data?.video_id) throw new Error(`HeyGen error: ${data.message || JSON.stringify(data)}`);
+   if (!data.data?.video_id) throw new Error(`HeyGen error: ${JSON.stringify(data)}`);
    return data.data.video_id;
 }
 
