@@ -256,8 +256,8 @@ Return ONLY the image description (1-2 sentences), no markdown.`
         return Response.json({ error: "Voice ID is required" }, { status: 400 });
       }
 
-      // enableCaptions is true if any caption text was provided
       const enableCaptions = Object.values(captions).some(c => c === true || (typeof c === "string" && c.trim().length > 0));
+      console.log("[create_video] captions received:", JSON.stringify(captions), "enableCaptions:", enableCaptions);
 
       let heygenVideoId;
       try {
