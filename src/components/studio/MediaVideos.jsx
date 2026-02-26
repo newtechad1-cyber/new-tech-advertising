@@ -188,7 +188,6 @@ export default function MediaVideos() {
           </div>
         )
       )}
-    </div>
 
       {postingVideo && (
         <PostToSocialModal
