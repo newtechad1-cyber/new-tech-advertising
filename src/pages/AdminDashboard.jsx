@@ -64,11 +64,11 @@ const CATEGORIES = [
   },
   {
     id: 'customers',
-    label: 'Customer Management',
+    label: 'CRM & Marketing',
     icon: Users,
     color: 'text-green-400',
     tiles: [
-      { id: 'crm', label: 'Client Management', icon: Users, color: 'bg-green-500', description: 'Leads CRM & active clients' },
+      { id: 'crm-hub', label: 'CRM & Marketing Hub', icon: Users, color: 'bg-green-500', description: 'Leads, clients, email & subscribers', link: 'CRMHub' },
     ]
   },
 ];
