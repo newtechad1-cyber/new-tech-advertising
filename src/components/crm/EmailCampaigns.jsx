@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
 import { Plus, Pencil, Trash2, Send, Users, Mail, Loader2, RefreshCw } from 'lucide-react';
-import ReactQuill from 'react-quill';
+import EmailBodyEditor from './EmailBodyEditor';
 
 export default function EmailCampaigns() {
   const [tab, setTab] = useState('broadcasts');
