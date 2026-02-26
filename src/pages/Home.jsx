@@ -531,19 +531,19 @@ export default function Home() {
         <section className="py-20 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white">
           <div className="max-w-5xl mx-auto px-6 text-center">
             <div className="inline-flex items-center gap-2 bg-indigo-500/20 border border-indigo-400/40 text-indigo-300 text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
-              🚀 New Add-On Service
+              🛠️ Built Into Your Website
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Add a Powerful Marketing Hub to Any Website
+              Manage Your Website, Social Media & Customers — All From One Simple Dashboard
             </h2>
             <p className="text-lg text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Give your clients a full-featured dashboard — CRM, email marketing, social media studio, AI tools, project tracking, and more. All managed from one place.
+              No extra apps. No tech headaches. Post updates, send emails, track leads, and see how your website is doing — right from your own dashboard. Built for HVAC companies, restaurants, retail stores, and local businesses like yours.
             </p>
             <div className="grid sm:grid-cols-3 gap-6 mb-10 text-left">
               {[
-                { icon: '📋', title: 'Client & Lead CRM', desc: 'Track leads, manage clients, log activity.' },
-                { icon: '📧', title: 'Email Marketing', desc: 'Broadcasts, autoresponders, subscriber lists.' },
-                { icon: '🎬', title: 'AI Video & Social Studio', desc: 'Create content, schedule posts, manage media.' },
+                { icon: '📲', title: 'Update Your Website Yourself', desc: 'Post specials, news, photos & more without calling anyone.' },
+                { icon: '📣', title: 'Stay Active on Social Media', desc: 'AI helps you write posts. Schedule them in minutes.' },
+                { icon: '📬', title: 'Email Your Customers', desc: 'Send promos, follow-ups, and announcements easily.' },
               ].map((f) => (
                 <div key={f.title} className="bg-white/10 border border-white/20 rounded-xl p-5">
                   <div className="text-2xl mb-2">{f.icon}</div>
@@ -557,6 +557,7 @@ export default function Home() {
                 See How It Works →
               </Button>
             </Link>
+            <p className="text-slate-500 text-sm mt-4">$100/month · Free with any new or rebuilt website</p>
           </div>
         </section>
 
