@@ -68,8 +68,7 @@ const CATEGORIES = [
     icon: Users,
     color: 'text-green-400',
     tiles: [
-      { id: 'clients', label: 'Client Management', icon: Users, color: 'bg-green-500', description: 'View all clients' },
-      { id: 'leads', label: 'Leads Dashboard', icon: TrendingUp, color: 'bg-amber-500', description: 'Manage incoming leads', link: 'LeadsDashboard' },
+      { id: 'crm', label: 'Client Management', icon: Users, color: 'bg-green-500', description: 'Leads CRM & active clients' },
     ]
   },
 ];
