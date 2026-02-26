@@ -55,6 +55,7 @@ const SECTION_COMPONENTS = {
   videos: MediaVideos,
   notes: StudioNotes,
   portfolio: PortfolioManagement,
+  analytics: GoogleAnalyticsView,
 };
 
 export default function AdminDashboard() {
