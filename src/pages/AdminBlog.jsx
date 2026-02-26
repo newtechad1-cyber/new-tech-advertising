@@ -554,6 +554,7 @@ export default function AdminBlog() {
                 )}
             </div>
         </div>
+        </div>
         </AdminGuard>
     );
 }
