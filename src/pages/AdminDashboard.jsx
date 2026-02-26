@@ -77,6 +77,7 @@ const CATEGORIES = [
 const ALL_TILES = CATEGORIES.flatMap(c => c.tiles);
 
 const SECTION_COMPONENTS = {
+  crm: ClientManagement,
   clients: ClientsList,
   ebook: EbookWriter,
   products: ProductsStore,
