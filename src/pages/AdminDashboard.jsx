@@ -21,6 +21,7 @@ import SchedulingQueue from '../components/admin/SchedulingQueue';
 import UpsellQueue from '../components/admin/UpsellQueue';
 import ClientsList from '../components/admin/ClientsList';
 import PortfolioManagement from '../components/admin/PortfolioManagement';
+import GoogleAnalyticsView from '../components/admin/GoogleAnalyticsView';
 
 const SECTIONS = [
   { id: 'scheduling', label: 'Scheduling Queue', icon: Calendar, color: 'bg-blue-500', description: 'Content needing scheduling' },
