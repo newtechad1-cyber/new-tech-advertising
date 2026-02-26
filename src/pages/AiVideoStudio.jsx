@@ -63,14 +63,16 @@ export default function AiVideoStudio() {
       try {
         const u = await base44.auth.me();
         setUser(u);
-        const [avatarRes, voiceRes] = await Promise.all([
-          invoke("get_avatars", {}),
-          invoke("get_voices", {})
-        ]);
-        setAvatars(avatarRes.data?.avatars || []);
-        const voiceList = voiceRes.data?.voices || [];
-        setVoices(voiceList.filter(v => !v.language || v.language === "English"));
+        // Load videos immediately, load avatars/voices lazily in background
         loadMyVideos(u);
+        invoke("get_avatars", {}).then(avatarRes => {
+          setAvatars(avatarRes.data?.avatars || []);
+          setAvatarsLoaded(true);
+        });
+        invoke("get_voices", {}).then(voiceRes => {
+          const voiceList = voiceRes.data?.voices || [];
+          setVoices(voiceList.filter(v => !v.language || v.language === "English"));
+        });
       } catch (err) {
         console.error("[AiVideoStudio Init Error]", err);
       } finally {
