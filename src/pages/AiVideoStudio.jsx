@@ -307,13 +307,16 @@ export default function AiVideoStudio() {
                             {isPolling && v.render_status !== "done" && v.render_status !== "failed" ? "Rendering..." : s.label}
                           </span>
                           {v.render_status === "done" && v.render_output_url && (
-                            <div className="flex gap-2">
+                            <div className="flex gap-2 flex-wrap justify-end">
                               <a href={v.render_output_url} target="_blank" rel="noopener noreferrer">
                                 <Button size="sm" variant="outline" className="gap-1"><Play className="w-3 h-3" /> Watch</Button>
                               </a>
                               <a href={v.render_output_url} download>
                                 <Button size="sm" variant="outline" className="gap-1"><Download className="w-3 h-3" /> Download</Button>
                               </a>
+                              <Button size="sm" variant="outline" className="gap-1 text-green-600 hover:text-green-700" onClick={() => setPostingVideo(v)}>
+                                <Share2 className="w-3 h-3" /> Post to Social
+                              </Button>
                               <Button size="sm" variant="outline" className="gap-1 text-red-600 hover:text-red-700" onClick={() => handleDeleteVideo(v.id)}><Trash2 className="w-3 h-3" /></Button>
                             </div>
                           )}
