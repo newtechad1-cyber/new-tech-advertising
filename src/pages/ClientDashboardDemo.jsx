@@ -3,48 +3,83 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Button } from '@/components/ui/button';
 import {
-  Globe, Share2, Mail, Users, BarChart2, BookOpen,
-  ShoppingBag, Image, Video, RefreshCw, StickyNote,
-  Briefcase, MonitorPlay, ArrowRight, CheckCircle,
-  Zap, Star, ChevronDown
+  Globe, Share2, Mail, Users, BarChart2,
+  MonitorPlay, ArrowRight, CheckCircle,
+  Zap, Star, ChevronDown, Phone
 } from 'lucide-react';
 
 const FEATURES = [
   {
     icon: Globe,
     color: 'bg-sky-500',
-    title: 'Website Management',
-    items: ['Blog creation & management', 'Portfolio showcase', 'Product/store management', 'Ebook writing tools', 'Notes & ideas workspace'],
+    title: 'Keep Your Website Fresh',
+    items: [
+      'Post news, specials & updates yourself',
+      'Add photos and showcase your work',
+      'Update your services or menu anytime',
+      'No tech skills needed',
+      'Changes go live instantly',
+    ],
   },
   {
     icon: Share2,
     color: 'bg-pink-500',
-    title: 'Social Media Studio',
-    items: ['AI Video Studio', 'Image & media library', 'Video asset management', 'Content scheduling queue', 'Social post creation'],
+    title: 'Social Media Made Simple',
+    items: [
+      'Create posts without a designer',
+      'Upload photos & videos easily',
+      'Schedule posts in advance',
+      'AI helps write your captions',
+      'Works with Facebook, Instagram & more',
+    ],
   },
   {
     icon: Mail,
     color: 'bg-blue-500',
-    title: 'Email Marketing',
-    items: ['Email broadcast campaigns', 'Automated autoresponders', 'Subscriber list management', 'Campaign analytics', 'Template library'],
+    title: 'Email Your Customers',
+    items: [
+      'Send promotions & announcements',
+      'Automatic follow-up emails',
+      'Grow your email list from your website',
+      'Simple newsletter templates',
+      'See who opened your emails',
+    ],
   },
   {
     icon: Users,
     color: 'bg-green-500',
-    title: 'Client & Lead CRM',
-    items: ['Lead pipeline management', 'Client profile tracking', 'Activity & interaction logs', 'Status-based workflows', 'Notes per client'],
+    title: 'Track Leads & Customers',
+    items: [
+      'See every new inquiry in one place',
+      'Know who\'s interested and follow up',
+      'Keep notes on each customer',
+      'Never lose track of a hot lead',
+      'Simple pipeline — no complicated CRM',
+    ],
   },
   {
     icon: BarChart2,
     color: 'bg-purple-500',
-    title: 'Analytics & Reporting',
-    items: ['Google Analytics integration', 'Website traffic overview', 'Top pages & sources', 'Client-facing reports', 'Performance snapshots'],
+    title: 'See How Your Website Is Doing',
+    items: [
+      'How many people visited your site',
+      'Where your visitors are coming from',
+      'Which pages they looked at most',
+      'Easy-to-read reports — no guesswork',
+      'Connected to Google Analytics',
+    ],
   },
   {
     icon: MonitorPlay,
     color: 'bg-indigo-500',
-    title: 'AI-Powered Tools',
-    items: ['AI video generation from scripts', 'AI ebook chapter writing', 'AI image creation', 'AI content suggestions', 'Lead scoring'],
+    title: 'AI Tools Built Right In',
+    items: [
+      'AI writes social posts for you',
+      'Generate promo images in seconds',
+      'Create short videos from a script',
+      'AI suggests content ideas',
+      'Saves you hours every week',
+    ],
   },
 ];
 
@@ -52,10 +87,30 @@ export default function ClientDashboardDemo() {
   const [openFaq, setOpenFaq] = useState(null);
 
   const faqs = [
-    { q: 'Is this white-labeled for my clients?', a: 'Yes. The dashboard can be branded for your agency and offered as an add-on to your clients\' website packages.' },
-    { q: 'What does the client actually see?', a: 'Clients get a clean portal where they can submit content, view projects, track proposals, manage their marketing, and communicate with your team.' },
-    { q: 'How does the admin dashboard work?', a: 'You get a full backend hub to manage all clients, leads, content, social media, email campaigns, and analytics from one place.' },
-    { q: 'Can I add this to existing client websites?', a: 'Absolutely. This is designed as an add-on service you offer to your existing or new clients as part of a monthly retainer.' },
+    {
+      q: 'Do I need to be tech-savvy to use this?',
+      a: 'Not at all. Everything is point-and-click simple. If you can send a text message or post on Facebook, you can use this dashboard. We also set everything up for you — you just log in and go.'
+    },
+    {
+      q: 'What does the dashboard actually look like for me?',
+      a: 'You get a clean, simple portal where you can post updates to your website, submit social media content, send emails to your customers, and see how your website is performing — all from one screen.'
+    },
+    {
+      q: 'What\'s included for $100/month?',
+      a: 'Everything you see on this page — website updates, social media tools, email marketing, customer lead tracking, and analytics. It\'s like having a full marketing team in your pocket for less than you\'d spend on one Facebook ad boost.'
+    },
+    {
+      q: 'What if I just got a new website built — does this come with it?',
+      a: 'Yes! If you had your website built or rebuilt by us, the dashboard install is included free. The $100/month covers your ongoing access and tools.'
+    },
+    {
+      q: 'What if I already have a website and want to add this?',
+      a: 'No problem. We can install the dashboard onto your existing website for a one-time setup fee of $500. After that, it\'s just $100/month to keep everything running.'
+    },
+    {
+      q: 'Do I have to do everything myself?',
+      a: 'No. The dashboard gives you the option to do it yourself when you have time, or you can hand things off to us. You decide how much or how little you want to be involved.'
+    },
   ];
 
   return (
@@ -64,27 +119,41 @@ export default function ClientDashboardDemo() {
       <section className="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white py-24 px-6">
         <div className="max-w-5xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-indigo-500/20 border border-indigo-400/40 text-indigo-300 text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
-            <Zap className="w-4 h-4" /> Website Add-On Service
+            <Zap className="w-4 h-4" /> Built for Local Business Owners
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
-            Give Every Client a<br />
-            <span className="text-indigo-400">Powerful Marketing Hub</span>
+            Your Website. Your Customers.<br />
+            <span className="text-indigo-400">Finally, One Simple Place to Manage It All.</span>
           </h1>
-          <p className="text-xl text-slate-300 mb-10 max-w-3xl mx-auto leading-relaxed">
-            A fully-loaded client dashboard you can offer as an add-on to any website. Includes CRM, email marketing, social media studio, AI tools, and more — all in one place.
+          <p className="text-xl text-slate-300 mb-4 max-w-3xl mx-auto leading-relaxed">
+            Whether you run an HVAC company, a restaurant, or a retail shop — keeping up with your website and social media shouldn't feel like a second job.
+          </p>
+          <p className="text-lg text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed">
+            This dashboard is built into your website. Post updates, send emails, manage your leads, and track your results — without ever touching code or hiring a designer.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to={createPageUrl('AdminDashboard')}>
               <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white text-lg px-8 py-6 font-bold shadow-xl">
-                See the Admin Hub <ArrowRight className="w-5 h-5 ml-2" />
+                See It Live <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </Link>
-            <Link to={createPageUrl('Dashboard')}>
+            <Link to={createPageUrl('Contact')}>
               <Button size="lg" variant="outline" className="border-slate-500 text-white hover:bg-white/10 text-lg px-8 py-6 font-bold">
-                See the Client View
+                <Phone className="w-5 h-5 mr-2" /> Talk to Us First
               </Button>
             </Link>
           </div>
+          <p className="text-slate-500 text-sm mt-6">$100/month · Free with any new or rebuilt website</p>
+        </div>
+      </section>
+
+      {/* Problem/Solution Banner */}
+      <section className="py-10 bg-amber-50 border-y border-amber-200">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <p className="text-xl text-slate-800 font-semibold mb-2">
+            "I got a new website — now what? I don't know how to update it, I can't keep up with social media, and I have no idea if it's even working."
+          </p>
+          <p className="text-slate-600">Sound familiar? That's exactly what this dashboard solves.</p>
         </div>
       </section>
 
@@ -92,8 +161,8 @@ export default function ClientDashboardDemo() {
       <section className="py-20 bg-slate-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Everything Included</h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">Six powerful modules, all managed from a single dashboard — for you and your clients.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">What You Can Do From Your Dashboard</h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">Six tools, all in one place. No extra apps, no monthly subscriptions stacking up, no tech headaches.</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {FEATURES.map((feature) => {
@@ -119,27 +188,36 @@ export default function ClientDashboardDemo() {
         </div>
       </section>
 
-      {/* How It Works */}
+      {/* Pricing */}
       <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-slate-900 text-center mb-14">How It Works as an Add-On</h2>
-          <div className="space-y-8">
-            {[
-              { n: '1', title: 'You offer it as a monthly add-on', desc: 'Bundle the dashboard with any website package you deliver. Set your own price — we recommend positioning it as a $99–$299/mo management hub.' },
-              { n: '2', title: 'We set it up for your client', desc: 'The dashboard is configured for your client\'s business — branding, CRM, email, and content tools ready to go.' },
-              { n: '3', title: 'Clients log in and get to work', desc: 'They submit content, view project status, communicate with your team, and track their marketing — all without needing to call you for every update.' },
-              { n: '4', title: 'You manage everything from the Admin Hub', desc: 'Monitor all clients, manage leads, schedule content, run email campaigns, and generate reports from your central admin dashboard.' },
-            ].map((step) => (
-              <div key={step.n} className="flex gap-6 items-start">
-                <div className="bg-indigo-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold flex-shrink-0">
-                  {step.n}
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">{step.title}</h3>
-                  <p className="text-slate-600">{step.desc}</p>
-                </div>
-              </div>
-            ))}
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-3xl font-bold text-slate-900 mb-4">Simple, Honest Pricing</h2>
+          <p className="text-lg text-slate-600 mb-12">No surprises. No long contracts. Cancel anytime.</p>
+          <div className="grid sm:grid-cols-2 gap-8 max-w-3xl mx-auto">
+            <div className="bg-slate-50 border-2 border-slate-200 rounded-2xl p-8 text-left">
+              <p className="text-sm font-bold text-slate-500 uppercase tracking-wide mb-2">New or Rebuilt Website</p>
+              <p className="text-4xl font-extrabold text-slate-900 mb-1">Free Install</p>
+              <p className="text-slate-500 text-sm mb-6">+ $100/month for tools & access</p>
+              <ul className="space-y-2">
+                {['Dashboard installed for you', 'All 6 tools included', 'We walk you through it', 'Ongoing support available'].map(i => (
+                  <li key={i} className="flex items-center gap-2 text-slate-700 text-sm">
+                    <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" /> {i}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="bg-indigo-600 border-2 border-indigo-600 rounded-2xl p-8 text-left text-white">
+              <p className="text-sm font-bold text-indigo-200 uppercase tracking-wide mb-2">Add to Your Existing Website</p>
+              <p className="text-4xl font-extrabold text-white mb-1">$500 Setup</p>
+              <p className="text-indigo-200 text-sm mb-6">+ $100/month for tools & access</p>
+              <ul className="space-y-2">
+                {['We install it on your current site', 'All 6 tools included', 'We walk you through it', 'Ongoing support available'].map(i => (
+                  <li key={i} className="flex items-center gap-2 text-indigo-100 text-sm">
+                    <CheckCircle className="w-4 h-4 text-indigo-300 flex-shrink-0" /> {i}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -150,15 +228,15 @@ export default function ClientDashboardDemo() {
           <div className="flex justify-center gap-1 mb-4">
             {[...Array(5)].map((_, i) => <Star key={i} className="w-6 h-6 text-yellow-400 fill-yellow-400" />)}
           </div>
-          <p className="text-2xl font-bold text-slate-800 mb-2">"Our clients love having everything in one place."</p>
-          <p className="text-slate-600">The dashboard pays for itself in the first month by reducing back-and-forth emails and support calls.</p>
+          <p className="text-2xl font-bold text-slate-800 mb-2">"I can finally update my own website without calling anyone."</p>
+          <p className="text-slate-600">— Local business owner, HVAC company</p>
         </div>
       </section>
 
       {/* FAQ */}
       <section className="py-20 bg-white">
         <div className="max-w-3xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-slate-900 text-center mb-10">Common Questions</h2>
+          <h2 className="text-3xl font-bold text-slate-900 text-center mb-10">Questions We Hear All the Time</h2>
           <div className="space-y-4">
             {faqs.map((faq, i) => (
               <div key={i} className="border border-slate-200 rounded-xl overflow-hidden">
@@ -167,7 +245,7 @@ export default function ClientDashboardDemo() {
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                 >
                   {faq.q}
-                  <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform ${openFaq === i ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-5 h-5 text-slate-400 flex-shrink-0 transition-transform ${openFaq === i ? 'rotate-180' : ''}`} />
                 </button>
                 {openFaq === i && (
                   <div className="px-5 pb-5 text-slate-600">{faq.a}</div>
@@ -181,20 +259,21 @@ export default function ClientDashboardDemo() {
       {/* CTA */}
       <section className="py-20 bg-gradient-to-br from-indigo-600 to-purple-700 text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to See It In Action?</h2>
-          <p className="text-xl text-indigo-200 mb-10">Explore both the Admin Hub and the Client View — live demos, no login required.</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Stop Struggling with Your Website?</h2>
+          <p className="text-xl text-indigo-200 mb-10">See the dashboard live, or reach out and we'll walk you through it personally.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to={createPageUrl('AdminDashboard')}>
               <Button size="lg" className="bg-white text-indigo-700 hover:bg-indigo-50 text-lg px-8 py-6 font-bold">
-                Explore Admin Hub
+                See It Live
               </Button>
             </Link>
-            <Link to={createPageUrl('Dashboard')}>
+            <Link to={createPageUrl('Contact')}>
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 text-lg px-8 py-6 font-bold">
-                Explore Client View
+                <Phone className="w-5 h-5 mr-2" /> Let's Talk
               </Button>
             </Link>
           </div>
+          <p className="text-indigo-300 text-sm mt-6">No pressure. No jargon. Just a simple conversation.</p>
         </div>
       </section>
     </div>
