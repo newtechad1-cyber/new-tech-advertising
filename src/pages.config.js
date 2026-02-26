@@ -72,6 +72,7 @@ import AiWebsites from './pages/AiWebsites';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import bookCall from './pages/Book-Call';
+import CRMHub from './pages/CRMHub';
 import ChatWidget from './pages/ChatWidget';
 import ChatbotManagement from './pages/ChatbotManagement';
 import ClientDashboardDemo from './pages/ClientDashboardDemo';
@@ -127,7 +128,6 @@ import VideoDetail from './pages/VideoDetail';
 import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
-import CRMHub from './pages/CRMHub';
 import __Layout from './Layout.jsx';
 
 
@@ -157,6 +157,7 @@ export const PAGES = {
     "Blog": Blog,
     "BlogPost": BlogPost,
     "Book-Call": bookCall,
+    "CRMHub": CRMHub,
     "ChatWidget": ChatWidget,
     "ChatbotManagement": ChatbotManagement,
     "ClientDashboardDemo": ClientDashboardDemo,
@@ -212,7 +213,6 @@ export const PAGES = {
     "VideoIndex": VideoIndex,
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
-    "CRMHub": CRMHub,
 }
 
 export const pagesConfig = {
