@@ -291,6 +291,11 @@ export default function AdminBlog() {
                                         {post.excerpt || post.content?.substring(0, 100)}...
                                     </p>
                                     <div className="flex justify-end gap-2">
+                                        <Link to={createPageUrl(`BlogPost?slug=${post.slug}`)} target="_blank">
+                                            <Button variant="ghost" size="sm">
+                                                <ExternalLink className="w-4 h-4 mr-1" /> View
+                                            </Button>
+                                        </Link>
                                         <Button variant="outline" size="sm" onClick={() => handleEdit(post)}>
                                             <Edit className="w-4 h-4 mr-1" /> Edit
                                         </Button>
