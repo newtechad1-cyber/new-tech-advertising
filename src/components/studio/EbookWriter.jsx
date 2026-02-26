@@ -47,6 +47,22 @@ export default function EbookWriter() {
     setShowForm(true);
   };
 
+  const generateWithAI = async () => {
+    if (!form.chapter_title) return;
+    setAiGenerating(true);
+    const result = await base44.integrations.Core.InvokeLLM({
+      prompt: `Write a detailed, well-structured chapter for an ebook.
+Ebook title: "${form.ebook_title || 'Untitled Ebook'}"
+Chapter number: ${form.chapter_number}
+Chapter title: "${form.chapter_title}"
+${form.notes ? `Additional notes/context: ${form.notes}` : ''}
+
+Write a comprehensive chapter with an introduction, several sections with subheadings, practical tips or examples, and a conclusion. Format it in HTML using <h2>, <h3>, <p>, <ul>, <li> tags. Make it engaging and informative.`,
+    });
+    setForm(f => ({ ...f, content: result }));
+    setAiGenerating(false);
+  };
+
   const grouped = chapters.reduce((acc, ch) => {
     if (!acc[ch.ebook_title]) acc[ch.ebook_title] = [];
     acc[ch.ebook_title].push(ch);
