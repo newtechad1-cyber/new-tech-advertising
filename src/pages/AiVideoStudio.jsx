@@ -46,6 +46,7 @@ const defaultState = {
 export default function AiVideoStudio() {
   const [avatars, setAvatars] = useState([]);
   const [voices, setVoices] = useState([]);
+  const [avatarsLoaded, setAvatarsLoaded] = useState(false);
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
   const [creating, setCreating] = useState(false);
