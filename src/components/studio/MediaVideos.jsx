@@ -3,7 +3,8 @@ import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Plus, Trash2, Upload, Search, Play, Copy } from 'lucide-react';
+import { Plus, Trash2, Upload, Search, Play, Copy, Share2 } from 'lucide-react';
+import SubmitContentWizard from '@/components/dashboard/SubmitContentWizard';
 
 const USE_FOR = ['social', 'video', 'blog', 'email', 'website'];
 
