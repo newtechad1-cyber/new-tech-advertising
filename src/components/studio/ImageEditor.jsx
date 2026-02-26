@@ -25,30 +25,36 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
   }, [imageUrl]);
 
   const loadImage = async (url) => {
-    // Try proxy first (always safe from CORS taint)
+    // Load image via a proxied fetch to avoid CORS taint on the canvas
+    const loadFromUrl = (src) => new Promise((resolve, reject) => {
+      const image = new Image();
+      image.crossOrigin = 'anonymous';
+      image.onload = () => resolve(image);
+      image.onerror = reject;
+      image.src = src;
+    });
+
     try {
-      const res = await base44.functions.invoke('proxyImage', { url });
-      const blob = new Blob([res.data], { type: 'image/png' });
-      const objectUrl = URL.createObjectURL(blob);
-      const image = await new Promise((resolve, reject) => {
-        const img = new Image();
-        img.onload = () => resolve(img);
-        img.onerror = reject;
-        img.src = objectUrl;
-      });
-      const maxW = 800;
-      const scale = Math.min(1, maxW / image.width);
-      setCanvasSize({ w: Math.round(image.width * scale), h: Math.round(image.height * scale) });
-      setImg(image);
-    } catch (e) {
-      // Fallback: direct load (may taint canvas for external URLs)
-      const image = await new Promise((resolve, reject) => {
-        const img = new Image();
-        img.crossOrigin = 'anonymous';
-        img.onload = () => resolve(img);
-        img.onerror = reject;
-        img.src = url;
+      // Fetch via proxy to get an untainted blob URL
+      const proxyUrl = `/api/proxy-image?url=${encodeURIComponent(url)}`;
+      const response = await fetch(`/functions/proxyImage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url }),
+        credentials: 'include',
       }).catch(() => null);
+
+      let image = null;
+      if (response && response.ok) {
+        const blob = await response.blob();
+        const objectUrl = URL.createObjectURL(blob);
+        image = await loadFromUrl(objectUrl).catch(() => null);
+      }
+
+      if (!image) {
+        // Fallback: direct load
+        image = await loadFromUrl(url).catch(() => null);
+      }
 
       if (image) {
         const maxW = 800;
@@ -58,6 +64,8 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
       } else {
         setLoadError(true);
       }
+    } catch (e) {
+      setLoadError(true);
     }
   };
 
