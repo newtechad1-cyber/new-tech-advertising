@@ -17,6 +17,7 @@ export default function MediaVideos() {
   const [form, setForm] = useState({ name: '', url: '', description: '', tags: '', used_for: [], is_link: false });
   const [pendingFile, setPendingFile] = useState(null);
   const [copied, setCopied] = useState(null);
+  const [postingVideo, setPostingVideo] = useState(null);
 
   useEffect(() => { load(); }, []);
 
