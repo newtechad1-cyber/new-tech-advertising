@@ -20,6 +20,7 @@ export default function EmailCampaigns() {
   const [sending, setSending] = useState(null);
   const [sendResult, setSendResult] = useState(null);
   const [tagFilter, setTagFilter] = useState('all');
+  const [bodyKey, setBodyKey] = useState(0);
 
   useEffect(() => { load(); }, [tab]);
 
