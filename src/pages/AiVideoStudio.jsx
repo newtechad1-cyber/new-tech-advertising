@@ -205,6 +205,16 @@ export default function AiVideoStudio() {
   );
 
   return (
+    <div className="min-h-screen bg-white">
+      <div className="bg-white border-b border-gray-200 px-4 py-3 flex items-center gap-3 sticky top-0 z-10">
+        <Link to={createPageUrl("AdminDashboard")}>
+          <Button variant="ghost" size="sm" className="gap-1 text-gray-500 hover:text-gray-900">
+            <Video className="w-4 h-4" /> ← Admin Hub
+          </Button>
+        </Link>
+        <span className="text-gray-300">|</span>
+        <span className="text-sm font-medium text-gray-700">AI Video Studio</span>
+      </div>
     <div className="max-w-3xl mx-auto px-4 py-10">
       <div className="flex items-center justify-between mb-8">
         <div>
