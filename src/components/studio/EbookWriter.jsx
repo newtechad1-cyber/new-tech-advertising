@@ -13,6 +13,7 @@ export default function EbookWriter() {
   const [form, setForm] = useState({ ebook_title: '', chapter_number: 1, chapter_title: '', content: '', status: 'draft', notes: '' });
   const [showForm, setShowForm] = useState(false);
   const [expandedId, setExpandedId] = useState(null);
+  const [aiGenerating, setAiGenerating] = useState(false);
 
   useEffect(() => { load(); }, []);
 
