@@ -12,6 +12,8 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Loader2, Wand2, Save, Plus, RefreshCw, Trash2, Edit, Tag, X, Image, ExternalLink, Upload } from 'lucide-react';
 import { toast } from 'sonner';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
