@@ -126,6 +126,7 @@ import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
 import Store from './pages/Store';
+import ClientDashboardDemo from './pages/ClientDashboardDemo';
 import __Layout from './Layout.jsx';
 
 
@@ -209,6 +210,7 @@ export const PAGES = {
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
     "Store": Store,
+    "ClientDashboardDemo": ClientDashboardDemo,
 }
 
 export const pagesConfig = {
