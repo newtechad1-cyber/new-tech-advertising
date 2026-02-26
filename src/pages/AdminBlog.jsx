@@ -211,10 +211,11 @@ export default function AdminBlog() {
         if (!formData.content && !formData.title) return;
         setIsGenerating(true);
         try {
+            const contentSample = (formData.content || '').substring(0, 1000);
             const prompt = `
                 Analyze this blog post and generate SEO meta data.
                 Title: ${formData.title}
-                Content sample: ${formData.content.substring(0, 1000)}...
+                Content sample: ${contentSample}
                 
                 Return JSON:
                 {
