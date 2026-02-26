@@ -143,5 +143,6 @@ export default function AdminVideoQueue() {
         </div>
       )}
     </div>
+    </div>
   );
 }
