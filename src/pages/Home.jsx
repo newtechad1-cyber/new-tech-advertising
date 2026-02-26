@@ -557,7 +557,7 @@ export default function Home() {
                 See How It Works →
               </Button>
             </Link>
-            <p className="text-slate-500 text-sm mt-4">$100/month · Free with any new or rebuilt website</p>
+            <p className="text-slate-500 text-sm mt-4">$100/month · $500 setup fee waived with any new or rebuilt website</p>
           </div>
         </section>
 
