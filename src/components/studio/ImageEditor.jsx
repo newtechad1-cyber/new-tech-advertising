@@ -158,9 +158,13 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
     const ctx = offscreen.getContext('2d');
     drawCanvas(ctx, canvasSize.w, canvasSize.h, img, overlays, false);
 
-    offscreen.toBlob(blob => {
+    offscreen.toBlob(async blob => {
       if (blob) {
-        onSave(blob).finally(() => setSaving(false));
+        try {
+          await onSave(blob);
+        } finally {
+          setSaving(false);
+        }
       } else {
         alert('Could not export image. The image may be CORS-restricted.');
         setSaving(false);
