@@ -93,16 +93,16 @@ const SECTION_COMPONENTS = {
 export default function AdminDashboard() {
   const [activeSection, setActiveSection] = useState(null);
 
-  const handleSectionClick = (section) => {
-    if (section.link) {
-      window.location.href = createPageUrl(section.link);
+  const handleTileClick = (tile) => {
+    if (tile.link) {
+      window.location.href = createPageUrl(tile.link);
     } else {
-      setActiveSection(section.id);
+      setActiveSection(tile.id);
     }
   };
 
   const ActiveComponent = activeSection ? SECTION_COMPONENTS[activeSection] : null;
-  const activeData = activeSection ? SECTIONS.find(s => s.id === activeSection) : null;
+  const activeData = activeSection ? ALL_TILES.find(t => t.id === activeSection) : null;
 
   return (
     <AdminGuard>
@@ -145,29 +145,40 @@ export default function AdminDashboard() {
 
         <div className="max-w-7xl mx-auto px-6 py-8">
           {!activeSection ? (
-            <div>
-              <div className="mb-8">
+            <div className="space-y-10">
+              <div>
                 <h2 className="text-2xl font-bold text-white mb-2">What would you like to work on?</h2>
                 <p className="text-slate-400">Pick a section to get started.</p>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {SECTIONS.map((section) => {
-                  const Icon = section.icon;
-                  return (
-                    <button
-                      key={section.id}
-                      onClick={() => handleSectionClick(section)}
-                      className="group bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-600 rounded-xl p-6 text-left transition-all duration-200 hover:scale-105 hover:shadow-xl"
-                    >
-                      <div className={`${section.color} w-12 h-12 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                        <Icon className="w-6 h-6 text-white" />
-                      </div>
-                      <h3 className="font-bold text-white text-base mb-1">{section.label}</h3>
-                      <p className="text-slate-500 text-xs">{section.description}</p>
-                    </button>
-                  );
-                })}
-              </div>
+              {CATEGORIES.map((category) => {
+                const CatIcon = category.icon;
+                return (
+                  <div key={category.id}>
+                    <div className="flex items-center gap-2 mb-4">
+                      <CatIcon className={`w-5 h-5 ${category.color}`} />
+                      <h3 className={`text-lg font-semibold ${category.color}`}>{category.label}</h3>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                      {category.tiles.map((tile) => {
+                        const Icon = tile.icon;
+                        return (
+                          <button
+                            key={tile.id}
+                            onClick={() => handleTileClick(tile)}
+                            className="group bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-600 rounded-xl p-6 text-left transition-all duration-200 hover:scale-105 hover:shadow-xl"
+                          >
+                            <div className={`${tile.color} w-12 h-12 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                              <Icon className="w-6 h-6 text-white" />
+                            </div>
+                            <h3 className="font-bold text-white text-base mb-1">{tile.label}</h3>
+                            <p className="text-slate-500 text-xs">{tile.description}</p>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           ) : (
             <div>
