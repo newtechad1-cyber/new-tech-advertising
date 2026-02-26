@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Loader2, Wand2, Save, Plus, RefreshCw, Trash2, Edit, Tag } from 'lucide-react';
+import { Loader2, Wand2, Save, Plus, RefreshCw, Trash2, Edit, Tag, X, Image, ExternalLink, Upload } from 'lucide-react';
 import { toast } from 'sonner';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
