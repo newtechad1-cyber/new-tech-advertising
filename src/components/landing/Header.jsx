@@ -104,6 +104,16 @@ export default function Header({ onCTAClick }) {
                         Start Free Trial
                       </Button>
                     </a>
+                    <Link to={createPageUrl('Dashboard')} onClick={() => setIsOpen(false)} className="w-full">
+                      <Button variant="outline" className="w-full flex items-center gap-2">
+                        <UserCircle className="w-4 h-4" /> Client Login
+                      </Button>
+                    </Link>
+                    <Link to={createPageUrl('AdminDashboard')} onClick={() => setIsOpen(false)} className="w-full">
+                      <Button variant="outline" className="w-full flex items-center gap-2">
+                        <Lock className="w-4 h-4" /> Admin Login
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </SheetContent>
