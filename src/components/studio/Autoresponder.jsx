@@ -64,7 +64,7 @@ export default function Autoresponder() {
           <div>
             <label className="text-slate-400 text-sm mb-1 block">Email Body</label>
             <div className="bg-white rounded-lg">
-              <ReactQuill value={form.body} onChange={val => setForm({...form, body: val})} style={{ minHeight: '180px' }} />
+              <ReactQuill theme="snow" value={form.body} onChange={val => setForm(f => ({...f, body: val}))} style={{ minHeight: '180px' }} />
             </div>
           </div>
           <div className="flex gap-3">
