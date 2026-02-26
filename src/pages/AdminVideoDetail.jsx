@@ -245,5 +245,6 @@ export default function AdminVideoDetail() {
         </div>
       )}
     </div>
+    </div>
   );
 }
