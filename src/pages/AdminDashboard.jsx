@@ -77,12 +77,10 @@ const CATEGORIES = [
 const ALL_TILES = CATEGORIES.flatMap(c => c.tiles);
 
 const SECTION_COMPONENTS = {
-  scheduling: SchedulingQueue,
-  upsells: UpsellQueue,
   clients: ClientsList,
   ebook: EbookWriter,
   products: ProductsStore,
-  email: EmailMarketing,
+  'email-marketing': EmailMarketing,
   autoresponder: Autoresponder,
   subscribers: SubscribersList,
   images: MediaImages,
