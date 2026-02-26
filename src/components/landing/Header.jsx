@@ -117,6 +117,28 @@ export default function Header({ onCTAClick }) {
                 Start Free Trial
               </Button>
             </a>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" title="Login">
+                  <UserCircle className="w-5 h-5 text-slate-600" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link to={createPageUrl('Dashboard')} className="cursor-pointer flex items-center gap-2">
+                    <UserCircle className="w-4 h-4" />
+                    Client Login
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to={createPageUrl('AdminDashboard')} className="cursor-pointer flex items-center gap-2">
+                    <Lock className="w-4 h-4" />
+                    Admin Login
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </div>
