@@ -106,7 +106,8 @@ export default function MediaImages() {
 
   // Save edited library image as new asset. Returns a promise.
   const saveEditedLibraryImage = async (blob) => {
-    const { file_url } = await base44.integrations.Core.UploadFile({ file: blob });
+    const file = new File([blob], 'edited-image.png', { type: 'image/png' });
+    const { file_url } = await base44.integrations.Core.UploadFile({ file });
     await base44.entities.MediaAsset.create({
       name: 'Edited Image',
       url: file_url,
