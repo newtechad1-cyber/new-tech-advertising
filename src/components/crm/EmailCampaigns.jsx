@@ -41,6 +41,7 @@ export default function EmailCampaigns() {
   const resetForm = () => {
     setEditing(null);
     setForm({ name: '', subject: '', body: '', send_day: 1, status: 'draft' });
+    setBodyKey(k => k + 1);
     setShowForm(false);
     setSendResult(null);
   };
