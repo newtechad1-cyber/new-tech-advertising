@@ -6,7 +6,6 @@ import Chatbot from '../components/Chatbot';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils';
 import { CheckCircle, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
