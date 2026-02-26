@@ -82,7 +82,8 @@ export default function MediaImages() {
   const saveAiImage = async (blobOrNull) => {
     let url = generatedUrl;
     if (blobOrNull) {
-      const { file_url } = await base44.integrations.Core.UploadFile({ file: blobOrNull });
+      const file = new File([blobOrNull], 'ai-image.png', { type: 'image/png' });
+      const { file_url } = await base44.integrations.Core.UploadFile({ file });
       url = file_url;
     }
     await base44.entities.MediaAsset.create({
