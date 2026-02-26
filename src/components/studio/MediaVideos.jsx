@@ -190,13 +190,13 @@ export default function MediaVideos() {
       )}
     </div>
 
-    {postingVideo && (
-      <PostToSocialModal
-        video={postingVideo}
-        onClose={() => setPostingVideo(null)}
-      />
-    )}
-  </div>
+      {postingVideo && (
+        <PostToSocialModal
+          video={postingVideo}
+          onClose={() => setPostingVideo(null)}
+        />
+      )}
+    </div>
   );
 }
 
