@@ -33,14 +33,14 @@ const SOCIAL_CHANNELS = [
   { id: 'tiktok', label: 'TikTok', color: 'bg-black' }
 ];
 
-export default function SubmitContentWizard({ onClose, onSubmitSuccess }) {
-  const [step, setStep] = useState(1);
+export default function SubmitContentWizard({ onClose, onSubmitSuccess, prefill }) {
+  const [step, setStep] = useState(prefill?.submission_type ? 2 : 1);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    submission_type: '',
+    submission_type: prefill?.submission_type || '',
     social_channels: [],
     post_text: '',
-    media_urls: [],
+    media_urls: prefill?.media_urls || [],
     scheduling_preference: '',
     preferred_date: ''
   });
