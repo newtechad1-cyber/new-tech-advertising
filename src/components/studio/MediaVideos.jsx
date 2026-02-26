@@ -189,5 +189,23 @@ export default function MediaVideos() {
         )
       )}
     </div>
+
+    {postingVideo && (
+      <PostToSocialModal
+        video={postingVideo}
+        onClose={() => setPostingVideo(null)}
+      />
+    )}
+  </div>
+  );
+}
+
+function PostToSocialModal({ video, onClose }) {
+  return (
+    <SubmitContentWizard
+      onClose={onClose}
+      onSubmitSuccess={onClose}
+      prefill={{ submission_type: 'video_post', media_urls: [video.url] }}
+    />
   );
 }
