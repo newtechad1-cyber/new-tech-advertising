@@ -58,6 +58,7 @@ export default function AiVideoStudio() {
   const [user, setUser] = useState(null);
   const [activeTab, setActiveTab] = useState("create");
   const [successMsg, setSuccessMsg] = useState("");
+  const [postingVideo, setPostingVideo] = useState(null);
 
   useEffect(() => {
     const init = async () => {
