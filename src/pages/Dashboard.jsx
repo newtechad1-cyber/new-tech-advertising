@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { LayoutDashboard, PieChart, CreditCard, BookOpen, LogOut, Menu, X, FolderKanban, FileText } from 'lucide-react';
+import { LayoutDashboard, PieChart, CreditCard, BookOpen, LogOut, Menu, X, FolderKanban, FileText, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Chatbot from '../components/Chatbot';
 import AnalyticsView from '../components/dashboard/AnalyticsView';
@@ -10,6 +10,7 @@ import OnboardingFlow from '../components/dashboard/OnboardingFlow';
 import ProjectsView from '../components/dashboard/ProjectsView';
 import ContentSubmissionsView from '../components/dashboard/ContentSubmissionsView';
 import ProposalsView from '../components/dashboard/ProposalsView';
+import SocialAccounts from '../pages/SocialAccounts';
 import { createPageUrl } from '../utils';
 
 export default function Dashboard() {
