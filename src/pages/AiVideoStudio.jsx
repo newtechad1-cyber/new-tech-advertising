@@ -339,14 +339,7 @@ export default function AiVideoStudio() {
           )}
         </TabsContent>
       </Tabs>
-
-      {postingVideo && (
-        <SubmitContentWizard
-          onClose={() => setPostingVideo(null)}
-          onSubmitSuccess={() => setPostingVideo(null)}
-          prefill={{ submission_type: 'video_post', media_urls: [postingVideo.render_output_url] }}
-        />
-      )}
+      {postingVideo && <SubmitContentWizard onClose={() => setPostingVideo(null)} onSubmitSuccess={() => setPostingVideo(null)} prefill={{ submission_type: 'video_post', media_urls: [postingVideo.render_output_url] }} />}
     </div>
   );
 }
