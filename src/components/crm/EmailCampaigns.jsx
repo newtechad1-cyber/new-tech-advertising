@@ -171,9 +171,11 @@ export default function EmailCampaigns() {
           )}
           <div>
             <label className="text-slate-400 text-xs mb-1 block">Email Body</label>
-            <div className="bg-white rounded-lg">
-              <ReactQuill theme="snow" value={form.body} onChange={val => setForm(f => ({...f, body: val}))} style={{ minHeight: '200px' }} />
-            </div>
+            <EmailBodyEditor
+              key={bodyKey}
+              value={form.body}
+              onChange={val => setForm(f => ({...f, body: val}))}
+            />
           </div>
           <div className="flex gap-3">
             <Button onClick={save} className={tab === 'broadcasts' ? 'bg-blue-600 hover:bg-blue-700' : 'bg-cyan-600 hover:bg-cyan-700'}>
