@@ -525,11 +525,19 @@ export default function AdminBlog() {
                                         />
                                     </div>
                                     
-                                    <div className="pt-4 border-t">
+                                    <div className="pt-4 border-t space-y-2">
                                         <Button onClick={handleSave} className="w-full bg-green-600 hover:bg-green-700">
                                             <Save className="w-4 h-4 mr-2" />
                                             Save Post
                                         </Button>
+                                        {selectedPost?.slug && (
+                                            <Link to={createPageUrl(`BlogPost?slug=${selectedPost.slug}`)} target="_blank">
+                                                <Button variant="outline" className="w-full">
+                                                    <ExternalLink className="w-4 h-4 mr-2" />
+                                                    View on Blog
+                                                </Button>
+                                            </Link>
+                                        )}
                                     </div>
                                 </CardContent>
                             </Card>
