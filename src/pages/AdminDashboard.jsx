@@ -5,7 +5,8 @@ import { createPageUrl } from '@/utils';
 import {
   BookOpen, ShoppingBag, Mail, Users, Image, Video,
   StickyNote, HelpCircle, ArrowLeft, Zap, RefreshCw,
-  Calendar, DollarSign, FileText, TrendingUp, MonitorPlay, Briefcase
+  Calendar, DollarSign, FileText, TrendingUp, MonitorPlay, Briefcase,
+  Globe, Share2, BarChart2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -23,24 +24,57 @@ import ClientsList from '../components/admin/ClientsList';
 import PortfolioManagement from '../components/admin/PortfolioManagement';
 import GoogleAnalyticsView from '../components/admin/GoogleAnalyticsView';
 
-const SECTIONS = [
-  { id: 'scheduling', label: 'Scheduling Queue', icon: Calendar, color: 'bg-blue-500', description: 'Content needing scheduling' },
-  { id: 'upsells', label: 'Upsell Queue', icon: DollarSign, color: 'bg-purple-500', description: 'Per-post upgrade requests' },
-  { id: 'clients', label: 'Client Management', icon: Users, color: 'bg-green-500', description: 'View all clients' },
-  { id: 'leads', label: 'Leads Dashboard', icon: TrendingUp, color: 'bg-amber-500', description: 'Manage incoming leads', link: 'LeadsDashboard' },
-  { id: 'blog', label: 'Blog Management', icon: FileText, color: 'bg-rose-500', description: 'Create & edit blog posts', link: 'AdminBlog' },
-  { id: 'ebook', label: 'Ebook Writer', icon: BookOpen, color: 'bg-violet-500', description: 'Write & organize chapters' },
-  { id: 'products', label: 'Products', icon: ShoppingBag, color: 'bg-emerald-500', description: 'Manage your store items' },
-  { id: 'email', label: 'Email Marketing', icon: Mail, color: 'bg-blue-400', description: 'Broadcasts & campaigns' },
-  { id: 'autoresponder', label: 'Autoresponder', icon: RefreshCw, color: 'bg-cyan-500', description: 'Automated email sequences' },
-  { id: 'subscribers', label: 'Subscribers', icon: Users, color: 'bg-orange-500', description: 'Manage your list' },
-  { id: 'images', label: 'Images', icon: Image, color: 'bg-pink-500', description: 'Media library for social & video' },
-  { id: 'videos', label: 'Videos', icon: Video, color: 'bg-red-500', description: 'Video assets & links' },
-  { id: 'ai-video-studio', label: 'AI Video Studio', icon: MonitorPlay, color: 'bg-indigo-500', description: 'Generate AI videos from script', link: 'AiVideoStudio' },
-  { id: 'notes', label: 'Notes', icon: StickyNote, color: 'bg-yellow-500', description: 'Ideas & reminders' },
-  { id: 'portfolio', label: 'Portfolio', icon: Briefcase, color: 'bg-teal-500', description: 'Manage showcase work' },
-  { id: 'analytics', label: 'Analytics', icon: TrendingUp, color: 'bg-sky-500', description: 'Google Analytics data' },
+const CATEGORIES = [
+  {
+    id: 'website',
+    label: 'Website Management',
+    icon: Globe,
+    color: 'text-sky-400',
+    tiles: [
+      { id: 'blog', label: 'Blog Management', icon: FileText, color: 'bg-rose-500', description: 'Create & edit blog posts', link: 'AdminBlog' },
+      { id: 'products', label: 'Products', icon: ShoppingBag, color: 'bg-emerald-500', description: 'Manage your store items' },
+      { id: 'ebook', label: 'Ebook Writer', icon: BookOpen, color: 'bg-violet-500', description: 'Write & organize chapters' },
+      { id: 'analytics', label: 'Analytics', icon: BarChart2, color: 'bg-sky-500', description: 'Google Analytics data' },
+      { id: 'portfolio', label: 'Portfolio', icon: Briefcase, color: 'bg-teal-500', description: 'Manage showcase work' },
+      { id: 'notes', label: 'Notes', icon: StickyNote, color: 'bg-yellow-500', description: 'Ideas & reminders' },
+    ]
+  },
+  {
+    id: 'social',
+    label: 'Social Media Management',
+    icon: Share2,
+    color: 'text-pink-400',
+    tiles: [
+      { id: 'ai-video-studio', label: 'AI Video Studio', icon: MonitorPlay, color: 'bg-indigo-500', description: 'Generate AI videos from script', link: 'AiVideoStudio' },
+      { id: 'images', label: 'Images', icon: Image, color: 'bg-pink-500', description: 'Media library for social & video' },
+      { id: 'videos', label: 'Videos', icon: Video, color: 'bg-red-500', description: 'Video assets & links' },
+    ]
+  },
+  {
+    id: 'email',
+    label: 'Email Marketing',
+    icon: Mail,
+    color: 'text-blue-400',
+    tiles: [
+      { id: 'email-marketing', label: 'Email Marketing', icon: Mail, color: 'bg-blue-400', description: 'Broadcasts & campaigns' },
+      { id: 'autoresponder', label: 'Autoresponder', icon: RefreshCw, color: 'bg-cyan-500', description: 'Automated email sequences' },
+      { id: 'subscribers', label: 'Subscribers', icon: Users, color: 'bg-orange-500', description: 'Manage your list' },
+    ]
+  },
+  {
+    id: 'customers',
+    label: 'Customer Management',
+    icon: Users,
+    color: 'text-green-400',
+    tiles: [
+      { id: 'clients', label: 'Client Management', icon: Users, color: 'bg-green-500', description: 'View all clients' },
+      { id: 'leads', label: 'Leads Dashboard', icon: TrendingUp, color: 'bg-amber-500', description: 'Manage incoming leads', link: 'LeadsDashboard' },
+    ]
+  },
 ];
+
+// Flat list of all tiles for lookup
+const ALL_TILES = CATEGORIES.flatMap(c => c.tiles);
 
 const SECTION_COMPONENTS = {
   scheduling: SchedulingQueue,
