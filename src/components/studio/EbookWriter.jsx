@@ -95,9 +95,26 @@ Write a comprehensive chapter with an introduction, several sections with subhea
             <Input value={form.chapter_title} onChange={e => setForm({...form, chapter_title: e.target.value})} placeholder="Chapter title..." className="bg-slate-800 border-slate-700 text-white" />
           </div>
           <div>
-            <label className="text-slate-400 text-sm mb-1 block">Content</label>
-            <div className="bg-white rounded-lg">
-              <ReactQuill value={form.content} onChange={val => setForm({...form, content: val})} style={{ minHeight: '200px' }} />
+            <div className="flex items-center justify-between mb-1">
+              <label className="text-slate-400 text-sm">Content</label>
+              <Button
+                type="button"
+                size="sm"
+                onClick={generateWithAI}
+                disabled={aiGenerating || !form.chapter_title}
+                className="bg-violet-600 hover:bg-violet-700 text-xs h-7"
+              >
+                {aiGenerating ? <Loader2 className="w-3 h-3 mr-1 animate-spin" /> : <Sparkles className="w-3 h-3 mr-1" />}
+                {aiGenerating ? 'Generating...' : 'Write with AI'}
+              </Button>
+            </div>
+            <div className="bg-white rounded-lg min-h-[250px]">
+              <ReactQuill
+                value={form.content}
+                onChange={val => setForm(f => ({ ...f, content: val }))}
+                style={{ minHeight: '250px' }}
+                theme="snow"
+              />
             </div>
           </div>
           <div>
