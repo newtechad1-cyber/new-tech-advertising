@@ -105,7 +105,7 @@ export default function Dashboard() {
       const navItems = [
       { id: 'analytics', label: 'Overview & Analytics', icon: PieChart },
       { id: 'submissions', label: 'My Content', icon: FolderKanban },
-      { id: 'social', label: 'Social Accounts', icon: LayoutDashboard },
+      { id: 'social', label: 'Social Accounts', icon: Share2 },
       { id: 'proposals', label: 'Proposals', icon: FileText },
       { id: 'subscription', label: 'Subscription & Billing', icon: CreditCard },
       { id: 'resources', label: 'Training & Resources', icon: BookOpen },
