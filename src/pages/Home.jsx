@@ -527,6 +527,39 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Website Add-On Promo Section */}
+        <section className="py-20 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white">
+          <div className="max-w-5xl mx-auto px-6 text-center">
+            <div className="inline-flex items-center gap-2 bg-indigo-500/20 border border-indigo-400/40 text-indigo-300 text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
+              🚀 New Add-On Service
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Add a Powerful Marketing Hub to Any Website
+            </h2>
+            <p className="text-lg text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+              Give your clients a full-featured dashboard — CRM, email marketing, social media studio, AI tools, project tracking, and more. All managed from one place.
+            </p>
+            <div className="grid sm:grid-cols-3 gap-6 mb-10 text-left">
+              {[
+                { icon: '📋', title: 'Client & Lead CRM', desc: 'Track leads, manage clients, log activity.' },
+                { icon: '📧', title: 'Email Marketing', desc: 'Broadcasts, autoresponders, subscriber lists.' },
+                { icon: '🎬', title: 'AI Video & Social Studio', desc: 'Create content, schedule posts, manage media.' },
+              ].map((f) => (
+                <div key={f.title} className="bg-white/10 border border-white/20 rounded-xl p-5">
+                  <div className="text-2xl mb-2">{f.icon}</div>
+                  <h3 className="font-bold text-white mb-1">{f.title}</h3>
+                  <p className="text-slate-400 text-sm">{f.desc}</p>
+                </div>
+              ))}
+            </div>
+            <Link to={createPageUrl('ClientDashboardDemo')}>
+              <Button size="lg" className="bg-indigo-500 hover:bg-indigo-600 text-white text-lg px-10 py-6 font-bold shadow-xl">
+                See How It Works →
+              </Button>
+            </Link>
+          </div>
+        </section>
+
         {/* Accessibility Statement */}
         <section className="py-12 bg-slate-50 border-t border-slate-200">
           <div className="max-w-4xl mx-auto px-6">

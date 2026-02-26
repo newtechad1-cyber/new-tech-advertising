@@ -130,6 +130,11 @@ export default function AdminDashboard() {
               </div>
             </div>
             <div className="flex items-center gap-2">
+              <Link to={createPageUrl('ClientDashboardDemo')}>
+                <Button variant="outline" size="sm" className="border-slate-700 text-slate-300 hover:bg-slate-800">
+                  See How It Works
+                </Button>
+              </Link>
               <Link to={createPageUrl('Dashboard')}>
                 <Button variant="outline" size="sm" className="border-slate-700 text-slate-300 hover:bg-slate-800">
                   Client View
