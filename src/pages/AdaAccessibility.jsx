@@ -564,6 +564,20 @@ export default function AdaAccessibility() {
         </div>
       </section>
 
+      {/* Our Work */}
+      <section className="py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-3xl font-bold text-slate-900 mb-4">See What We've Built</h2>
+          <p className="text-lg text-slate-600 mb-8">Real websites we've created and made accessible for local businesses.</p>
+          <a
+            href={createPageUrl('OurWork')}
+            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-lg text-lg transition-colors"
+          >
+            View Our Work →
+          </a>
+        </div>
+      </section>
+
       {/* Final CTA */}
       <section className="py-20 bg-gradient-to-br from-blue-600 to-purple-600">
         <div className="max-w-4xl mx-auto px-6 text-center">
