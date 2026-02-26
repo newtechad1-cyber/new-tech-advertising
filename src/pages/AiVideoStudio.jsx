@@ -3,9 +3,10 @@ import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Video, CheckCircle, Clock, AlertCircle, Play, Loader2, Download, Trash2 } from "lucide-react";
+import { Video, CheckCircle, Clock, AlertCircle, Play, Loader2, Download, Trash2, Share2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
+import SubmitContentWizard from "@/components/dashboard/SubmitContentWizard";
 
 import WizardStep from "@/components/video/WizardStep";
 import Step1Script from "@/components/video/Step1Script";
