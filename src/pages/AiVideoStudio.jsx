@@ -90,12 +90,13 @@ export default function AiVideoStudio() {
     if (!confirm("Are you sure you want to delete this video? This cannot be undone.")) return;
     try {
       await base44.entities.VideoRequests.delete(videoId);
-      setMyVideos(prev => prev.filter(v => v.id !== videoId));
-      setSuccessMsg("Video deleted successfully.");
-      setTimeout(() => setSuccessMsg(""), 3000);
     } catch (err) {
-      alert("Error deleting video: " + err.message);
+      // If not found, it's already gone — treat as success
+      if (!err.message?.includes("not found")) throw err;
     }
+    setMyVideos(prev => prev.filter(v => v.id !== videoId));
+    setSuccessMsg("Video deleted successfully.");
+    setTimeout(() => setSuccessMsg(""), 3000);
   };
 
   const handleDeleteQueuedVideos = async () => {
@@ -106,16 +107,16 @@ export default function AiVideoStudio() {
       return;
     }
     if (!confirm(`Delete all ${queuedVideos.length} queued video(s)? This cannot be undone.`)) return;
-    try {
-      for (const video of queuedVideos) {
+    for (const video of queuedVideos) {
+      try {
         await base44.entities.VideoRequests.delete(video.id);
+      } catch (err) {
+        if (!err.message?.includes("not found")) throw err;
       }
-      setMyVideos(prev => prev.filter(v => v.render_status !== "queued"));
-      setSuccessMsg(`Deleted ${queuedVideos.length} queued video(s).`);
-      setTimeout(() => setSuccessMsg(""), 3000);
-    } catch (err) {
-      alert("Error deleting videos: " + err.message);
     }
+    setMyVideos(prev => prev.filter(v => v.render_status !== "queued"));
+    setSuccessMsg(`Deleted ${queuedVideos.length} queued video(s).`);
+    setTimeout(() => setSuccessMsg(""), 3000);
   };
 
   const handleGenerateScript = async () => {
