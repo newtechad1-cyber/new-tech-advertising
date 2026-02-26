@@ -74,6 +74,7 @@ import BlogPost from './pages/BlogPost';
 import bookCall from './pages/Book-Call';
 import ChatWidget from './pages/ChatWidget';
 import ChatbotManagement from './pages/ChatbotManagement';
+import ClientDashboardDemo from './pages/ClientDashboardDemo';
 import Contact from './pages/Contact';
 import ContentStudio from './pages/ContentStudio';
 import Dashboard from './pages/Dashboard';
@@ -111,6 +112,7 @@ import SetupComplete from './pages/SetupComplete';
 import SocialAccounts from './pages/SocialAccounts';
 import SocialMediaManagement from './pages/SocialMediaManagement';
 import SocialMediaMarketing from './pages/SocialMediaMarketing';
+import Store from './pages/Store';
 import streamingTv from './pages/Streaming-TV';
 import StreamingCreativePayment from './pages/StreamingCreativePayment';
 import StreamingDashboard from './pages/StreamingDashboard';
@@ -125,8 +127,7 @@ import VideoDetail from './pages/VideoDetail';
 import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
-import Store from './pages/Store';
-import ClientDashboardDemo from './pages/ClientDashboardDemo';
+import CRMHub from './pages/CRMHub';
 import __Layout from './Layout.jsx';
 
 
@@ -158,6 +159,7 @@ export const PAGES = {
     "Book-Call": bookCall,
     "ChatWidget": ChatWidget,
     "ChatbotManagement": ChatbotManagement,
+    "ClientDashboardDemo": ClientDashboardDemo,
     "Contact": Contact,
     "ContentStudio": ContentStudio,
     "Dashboard": Dashboard,
@@ -195,6 +197,7 @@ export const PAGES = {
     "SocialAccounts": SocialAccounts,
     "SocialMediaManagement": SocialMediaManagement,
     "SocialMediaMarketing": SocialMediaMarketing,
+    "Store": Store,
     "Streaming-TV": streamingTv,
     "StreamingCreativePayment": StreamingCreativePayment,
     "StreamingDashboard": StreamingDashboard,
@@ -209,8 +212,7 @@ export const PAGES = {
     "VideoIndex": VideoIndex,
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
-    "Store": Store,
-    "ClientDashboardDemo": ClientDashboardDemo,
+    "CRMHub": CRMHub,
 }
 
 export const pagesConfig = {
