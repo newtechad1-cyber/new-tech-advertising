@@ -39,6 +39,7 @@ const SECTIONS = [
   { id: 'ai-video-studio', label: 'AI Video Studio', icon: MonitorPlay, color: 'bg-indigo-500', description: 'Generate AI videos from script', link: 'AiVideoStudio' },
   { id: 'notes', label: 'Notes', icon: StickyNote, color: 'bg-yellow-500', description: 'Ideas & reminders' },
   { id: 'portfolio', label: 'Portfolio', icon: Briefcase, color: 'bg-teal-500', description: 'Manage showcase work' },
+  { id: 'analytics', label: 'Analytics', icon: TrendingUp, color: 'bg-sky-500', description: 'Google Analytics data' },
 ];
 
 const SECTION_COMPONENTS = {
