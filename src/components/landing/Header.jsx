@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Mail, Phone, UserCircle, Menu, X, ChevronDown } from 'lucide-react';
+import { UserCircle, Menu, X, ChevronDown, Lock } from 'lucide-react';
 import { createPageUrl } from '../../utils';
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
