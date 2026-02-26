@@ -94,10 +94,19 @@ export default function AdminVideoDetail() {
   }
 
   return (
+    <div className="min-h-screen bg-white">
+      <div className="bg-white border-b border-gray-200 px-4 py-3 flex items-center gap-3 sticky top-0 z-10">
+        <Link to={createPageUrl("AdminDashboard")}>
+          <Button variant="ghost" size="sm" className="gap-1 text-gray-500 hover:text-gray-900">← Admin Hub</Button>
+        </Link>
+        <span className="text-gray-300">|</span>
+        <Link to={createPageUrl("AdminVideoQueue")}>
+          <Button variant="ghost" size="sm" className="gap-1 text-gray-500 hover:text-gray-900">Video Queue</Button>
+        </Link>
+        <span className="text-gray-300">|</span>
+        <span className="text-sm font-medium text-gray-700">Video Detail</span>
+      </div>
     <div className="max-w-4xl mx-auto px-4 py-10">
-      <Link to={createPageUrl("AdminVideoQueue")} className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-800 mb-6">
-        <ArrowLeft className="w-4 h-4" /> Back to Queue
-      </Link>
 
       <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
         <div>
