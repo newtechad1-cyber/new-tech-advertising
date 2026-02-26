@@ -170,6 +170,7 @@ export default function MediaVideos() {
                       <Button size="icon" variant="ghost" onClick={() => copy(a.url, a.id)} className="text-white h-8 w-8 bg-white/20">
                         {copied === a.id ? <span className="text-xs">✓</span> : <Copy className="w-4 h-4" />}
                       </Button>
+                      <Button size="icon" variant="ghost" onClick={() => setPostingVideo(a)} className="text-green-400 h-8 w-8 bg-white/20" title="Post to social"><Share2 className="w-4 h-4" /></Button>
                       <Button size="icon" variant="ghost" onClick={() => remove(a.id)} className="text-red-400 h-8 w-8 bg-white/20"><Trash2 className="w-4 h-4" /></Button>
                     </div>
                   </div>
