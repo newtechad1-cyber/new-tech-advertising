@@ -89,6 +89,8 @@ export default function Dashboard() {
         return <AnalyticsView />;
       case 'submissions':
         return <ContentSubmissionsView />;
+      case 'social':
+        return <SocialAccounts />;
       case 'proposals':
         return <ProposalsView />;
       case 'subscription':
