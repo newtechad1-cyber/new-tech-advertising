@@ -25,8 +25,7 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
   }, [imageUrl]);
 
   const loadImage = async (url) => {
-    // Load image via a proxied fetch to avoid CORS taint on the canvas
-    const loadFromUrl = (src) => new Promise((resolve, reject) => {
+    const loadFromSrc = (src) => new Promise((resolve, reject) => {
       const image = new Image();
       image.crossOrigin = 'anonymous';
       image.onload = () => resolve(image);
@@ -34,37 +33,40 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
       image.src = src;
     });
 
+    const setImageFromElement = (image) => {
+      const maxW = 800;
+      const scale = Math.min(1, maxW / image.width);
+      setCanvasSize({ w: Math.round(image.width * scale), h: Math.round(image.height * scale) });
+      setImg(image);
+    };
+
     try {
-      // Fetch via proxy to get an untainted blob URL
-      const proxyUrl = `/api/proxy-image?url=${encodeURIComponent(url)}`;
-      const response = await fetch(`/functions/proxyImage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url }),
-        credentials: 'include',
-      }).catch(() => null);
-
-      let image = null;
-      if (response && response.ok) {
-        const blob = await response.blob();
-        const objectUrl = URL.createObjectURL(blob);
-        image = await loadFromUrl(objectUrl).catch(() => null);
+      // Use the SDK proxy to fetch image bytes — avoids CORS canvas taint
+      const res = await base44.functions.invoke('proxyImage', { url });
+      // res.data may be arraybuffer or string depending on axios responseType
+      let blobData = res.data;
+      if (typeof blobData === 'string') {
+        // Convert base64 or raw string to blob via fetch
+        const dataRes = await fetch(`data:image/png;base64,${btoa(blobData)}`).catch(() => null);
+        blobData = dataRes ? await dataRes.blob() : null;
+      } else if (blobData instanceof ArrayBuffer || ArrayBuffer.isView(blobData)) {
+        blobData = new Blob([blobData], { type: 'image/png' });
       }
 
-      if (!image) {
-        // Fallback: direct load
-        image = await loadFromUrl(url).catch(() => null);
-      }
-
-      if (image) {
-        const maxW = 800;
-        const scale = Math.min(1, maxW / image.width);
-        setCanvasSize({ w: Math.round(image.width * scale), h: Math.round(image.height * scale) });
-        setImg(image);
-      } else {
-        setLoadError(true);
+      if (blobData) {
+        const objectUrl = URL.createObjectURL(blobData instanceof Blob ? blobData : new Blob([blobData]));
+        const image = await loadFromSrc(objectUrl).catch(() => null);
+        if (image) return setImageFromElement(image);
       }
     } catch (e) {
+      // proxy failed, fall through
+    }
+
+    // Fallback: direct load with crossOrigin
+    const image = await loadFromSrc(url).catch(() => null);
+    if (image) {
+      setImageFromElement(image);
+    } else {
       setLoadError(true);
     }
   };
