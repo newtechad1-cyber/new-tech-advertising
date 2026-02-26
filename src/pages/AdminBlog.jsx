@@ -342,15 +342,62 @@ export default function AdminBlog() {
                                     </div>
 
                                     <div>
-                                        <Label>Content</Label>
-                                        <div className="prose-editor mt-2">
-                                            <ReactQuill 
-                                                theme="snow"
-                                                value={formData.content}
-                                                onChange={content => setFormData({...formData, content})}
-                                                className="h-96 mb-12"
-                                            />
-                                        </div>
+                                       <Label>Featured Image</Label>
+                                       <div className="flex gap-2 mt-1">
+                                           <Input
+                                               value={formData.image_url}
+                                               onChange={e => setFormData({...formData, image_url: e.target.value})}
+                                               placeholder="Paste image URL or upload below"
+                                           />
+                                           <label className="cursor-pointer shrink-0">
+                                               <input
+                                                   type="file"
+                                                   accept="image/*,video/*"
+                                                   className="hidden"
+                                                   onChange={async (e) => {
+                                                       const file = e.target.files[0];
+                                                       if (!file) return;
+                                                       toast.info('Uploading...');
+                                                       const res = await base44.integrations.Core.UploadFile({ file });
+                                                       if (file.type.startsWith('image/')) {
+                                                           setFormData(prev => ({ ...prev, image_url: res.file_url }));
+                                                       } else {
+                                                           // Insert video URL into content
+                                                           const tag = `\n<video src="${res.file_url}" controls style="max-width:100%"></video>\n`;
+                                                           setFormData(prev => ({ ...prev, content: (prev.content || '') + tag }));
+                                                       }
+                                                       toast.success('File uploaded!');
+                                                   }}
+                                               />
+                                               <Button type="button" variant="outline" size="icon" asChild>
+                                                   <span><Upload className="w-4 h-4" /></span>
+                                               </Button>
+                                           </label>
+                                       </div>
+                                       {formData.image_url && (
+                                           <img src={formData.image_url} alt="Preview" className="mt-2 h-32 object-cover rounded-lg" />
+                                       )}
+                                    </div>
+
+                                    <div>
+                                       <Label>Content</Label>
+                                       <div className="prose-editor mt-2">
+                                           <ReactQuill 
+                                               theme="snow"
+                                               value={formData.content}
+                                               onChange={content => setFormData({...formData, content})}
+                                               className="h-96 mb-12"
+                                               modules={{
+                                                   toolbar: [
+                                                       [{ header: [1, 2, 3, false] }],
+                                                       ['bold', 'italic', 'underline', 'strike'],
+                                                       [{ list: 'ordered' }, { list: 'bullet' }],
+                                                       ['link', 'image', 'video'],
+                                                       ['clean']
+                                                   ]
+                                               }}
+                                           />
+                                       </div>
                                     </div>
                                 </CardContent>
                             </Card>
