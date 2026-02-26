@@ -88,7 +88,7 @@ export default function MediaVideos() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 relative">
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-lg font-bold text-white">Video Library</h2>
