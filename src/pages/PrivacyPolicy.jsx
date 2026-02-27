@@ -57,7 +57,7 @@ export default function PrivacyPolicy() {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold mb-3">9. Contact Us</h2>
+          <h2 className="text-xl font-semibold mb-3">10. Contact Us</h2>
           <p>If you have questions about this privacy policy, please contact us at <a href="mailto:rick@newtechadvertising.com" className="text-blue-600 hover:underline">rick@newtechadvertising.com</a> or call <a href="tel:641-420-8816" className="text-blue-600 hover:underline">641-420-8816</a>.</p>
         </section>
       </div>
