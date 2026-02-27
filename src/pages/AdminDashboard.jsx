@@ -48,6 +48,7 @@ const CATEGORIES = [
     color: 'text-pink-400',
     tiles: [
       { id: 'ai-video-studio', label: 'AI Video Studio', icon: MonitorPlay, color: 'bg-indigo-500', description: 'Generate AI videos from script', link: 'AiVideoStudio' },
+      { id: 'social-accounts', label: 'Connected Channels', icon: Share2, color: 'bg-violet-600', description: 'Connect & manage social accounts' },
       { id: 'images', label: 'Images', icon: Image, color: 'bg-pink-500', description: 'Media library for social & video' },
       { id: 'videos', label: 'Videos', icon: Video, color: 'bg-red-500', description: 'Video assets & links' },
     ]
