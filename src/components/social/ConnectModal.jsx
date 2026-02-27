@@ -1,106 +1,140 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { base44 } from '@/api/base44Client';
+import { ExternalLink, Loader2, CheckCircle } from 'lucide-react';
 
 const platformMeta = {
-  facebook: { name: 'Facebook', emoji: '📘', note: 'Enter your Facebook Page ID and profile URL.' },
-  instagram: { name: 'Instagram', emoji: '📷', note: 'Enter your Instagram Business account username.' },
-  youtube: { name: 'YouTube', emoji: '▶️', note: 'Enter your YouTube Channel ID (found in YouTube Studio settings).' },
-  google_my_business: { name: 'Google My Business', emoji: '🗺️', note: 'Enter your Business Profile ID or location URL.' },
-  tiktok: { name: 'TikTok', emoji: '🎵', note: 'Enter your TikTok @username.' },
-  linkedin: { name: 'LinkedIn', emoji: '💼', note: 'Enter your LinkedIn Company Page ID or vanity URL.' },
+  facebook:           { name: 'Facebook',           emoji: '📘', desc: 'Connect your Facebook Page to enable posting and analytics.' },
+  instagram:          { name: 'Instagram',           emoji: '📷', desc: 'Connect your Instagram Business account.' },
+  youtube:            { name: 'YouTube',             emoji: '▶️', desc: 'Connect your YouTube Channel to sync analytics.' },
+  google_my_business: { name: 'Google My Business',  emoji: '🗺️', desc: 'Connect your Google Business Profile.' },
+  tiktok:             { name: 'TikTok',              emoji: '🎵', desc: 'Connect your TikTok account.' },
+  linkedin:           { name: 'LinkedIn',            emoji: '💼', desc: 'Connect your LinkedIn Company Page.' },
 };
 
 export default function ConnectModal({ account, open, onClose, onSaved }) {
-  const [form, setForm] = useState({
-    account_name: account?.account_name || '',
-    platform_user_id: account?.platform_user_id || '',
-    profile_url: account?.profile_url || '',
-    profile_image_url: account?.profile_image_url || '',
-  });
-  const [saving, setSaving] = useState(false);
+  const [status, setStatus] = useState('idle'); // idle | loading | success | error
+  const [errorMsg, setErrorMsg] = useState('');
+
+  useEffect(() => {
+    if (open) {
+      setStatus('idle');
+      setErrorMsg('');
+    }
+  }, [open, account?.platform]);
 
   if (!account) return null;
   const meta = platformMeta[account.platform];
 
-  const handleSave = async () => {
-    setSaving(true);
-    const data = {
-      ...form,
-      status: 'connected',
-      last_synced_at: new Date().toISOString(),
-    };
-    if (account.id) {
-      await base44.entities.SocialAccount.update(account.id, data);
-    } else {
-      await base44.entities.SocialAccount.create({ platform: account.platform, ...data });
+  const handleConnect = async () => {
+    setStatus('loading');
+    setErrorMsg('');
+
+    if (account.platform === 'linkedin') {
+      // LinkedIn uses Base44 App Connector — just save the record directly
+      // The connector is already authorized at the app level
+      try {
+        const data = {
+          platform: 'linkedin',
+          account_name: 'LinkedIn (App Connector)',
+          platform_user_id: 'app_connector',
+          status: 'connected',
+          last_synced_at: new Date().toISOString(),
+        };
+        if (account.id) {
+          await base44.entities.SocialAccount.update(account.id, data);
+        } else {
+          await base44.entities.SocialAccount.create(data);
+        }
+        setStatus('success');
+        setTimeout(() => { onSaved(); }, 1200);
+      } catch (err) {
+        setStatus('error');
+        setErrorMsg(err.message);
+      }
+      return;
     }
-    setSaving(false);
-    onSaved();
+
+    // All other platforms: open OAuth popup
+    try {
+      const res = await base44.functions.invoke('socialOAuth', { platform: account.platform });
+      const { authUrl } = res.data;
+
+      const popup = window.open(authUrl, 'oauth_popup', 'width=600,height=700,scrollbars=yes');
+
+      const listener = (event) => {
+        if (event.data?.type === 'oauth_success' && event.data.platform === account.platform) {
+          window.removeEventListener('message', listener);
+          setStatus('success');
+          setTimeout(() => { onSaved(); }, 1200);
+        } else if (event.data?.type === 'oauth_error' && event.data.platform === account.platform) {
+          window.removeEventListener('message', listener);
+          setStatus('error');
+          setErrorMsg(event.data.error || 'Authorization failed');
+        }
+      };
+      window.addEventListener('message', listener);
+
+      // Fallback: if popup closed without message
+      const timer = setInterval(() => {
+        if (popup?.closed) {
+          clearInterval(timer);
+          window.removeEventListener('message', listener);
+          if (status === 'loading') setStatus('idle');
+        }
+      }, 1000);
+    } catch (err) {
+      setStatus('error');
+      setErrorMsg(err.message);
+    }
   };
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <span className="text-xl">{meta.emoji}</span>
+          <DialogTitle className="flex items-center gap-2 text-lg">
+            <span className="text-2xl">{meta.emoji}</span>
             Connect {meta.name}
           </DialogTitle>
-          <DialogDescription>{meta.note}</DialogDescription>
+          <DialogDescription>{meta.desc}</DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-4 mt-2">
-          <div>
-            <Label>Account / Page Name</Label>
-            <Input
-              placeholder={`e.g. My Business on ${meta.name}`}
-              value={form.account_name}
-              onChange={e => setForm({ ...form, account_name: e.target.value })}
-              className="mt-1"
-            />
-          </div>
-          <div>
-            <Label>Platform User / Page ID</Label>
-            <Input
-              placeholder="Unique ID from the platform"
-              value={form.platform_user_id}
-              onChange={e => setForm({ ...form, platform_user_id: e.target.value })}
-              className="mt-1"
-            />
-          </div>
-          <div>
-            <Label>Profile URL</Label>
-            <Input
-              placeholder="https://..."
-              value={form.profile_url}
-              onChange={e => setForm({ ...form, profile_url: e.target.value })}
-              className="mt-1"
-            />
-          </div>
-          <div>
-            <Label>Profile Image URL <span className="text-slate-400 text-xs">(optional)</span></Label>
-            <Input
-              placeholder="https://..."
-              value={form.profile_image_url}
-              onChange={e => setForm({ ...form, profile_image_url: e.target.value })}
-              className="mt-1"
-            />
-          </div>
-        </div>
+        <div className="mt-4">
+          {status === 'success' ? (
+            <div className="flex flex-col items-center gap-3 py-6 text-green-600">
+              <CheckCircle className="w-12 h-12" />
+              <p className="font-semibold text-lg">{meta.name} Connected!</p>
+            </div>
+          ) : (
+            <>
+              {status === 'error' && (
+                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+                  {errorMsg || 'Something went wrong. Please try again.'}
+                </div>
+              )}
 
-        <div className="flex gap-2 mt-4">
-          <Button variant="outline" className="flex-1" onClick={onClose}>Cancel</Button>
-          <Button
-            className="flex-1"
-            onClick={handleSave}
-            disabled={saving || !form.account_name || !form.platform_user_id}
-          >
-            {saving ? 'Saving...' : 'Save Connection'}
-          </Button>
+              <p className="text-sm text-slate-500 mb-6">
+                {account.platform === 'linkedin'
+                  ? 'LinkedIn is connected via Base44\'s built-in connector. Click below to mark it as connected.'
+                  : `You'll be redirected to ${meta.name} to authorize access. A popup window will open.`}
+              </p>
+
+              <div className="flex gap-2">
+                <Button variant="outline" className="flex-1" onClick={onClose} disabled={status === 'loading'}>
+                  Cancel
+                </Button>
+                <Button className="flex-1 gap-2" onClick={handleConnect} disabled={status === 'loading'}>
+                  {status === 'loading' ? (
+                    <><Loader2 className="w-4 h-4 animate-spin" /> Connecting...</>
+                  ) : (
+                    <><ExternalLink className="w-4 h-4" /> Connect {meta.name}</>
+                  )}
+                </Button>
+              </div>
+            </>
+          )}
         </div>
       </DialogContent>
     </Dialog>
