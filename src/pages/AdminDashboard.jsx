@@ -91,6 +91,7 @@ const SECTION_COMPONENTS = {
   notes: StudioNotes,
   portfolio: PortfolioManagement,
   analytics: GoogleAnalyticsView,
+  'social-accounts': SocialAccounts,
 };
 
 export default function AdminDashboard() {
