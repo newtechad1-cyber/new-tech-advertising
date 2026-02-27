@@ -35,14 +35,18 @@ function getMetaAuthUrl(platform) {
 }
 
 function getTikTokAuthUrl() {
+  const clientKey = Deno.env.get('TIKTOK_CLIENT_KEY');
+  const redirectUri = `${BASE_URL}/api/functions/socialOAuth`;
+  
+  // TikTok v2 requires specific parameter format
   const params = new URLSearchParams({
-    client_key: Deno.env.get('TIKTOK_CLIENT_KEY'),
-    redirect_uri: `${BASE_URL}/api/functions/socialOAuth`,
+    client_key: clientKey,
+    redirect_uri: redirectUri,
     response_type: 'code',
-    scope: 'user.info.basic,user.info.profile,user.info.stats',
+    scope: 'user.info.basic',
     state: 'tiktok',
   });
-  return `https://www.tiktok.com/v2/auth/authorize?${params}`;
+  return `https://www.tiktok.com/v2/auth/authorize/?${params}`;
 }
 
 async function exchangeGoogleCode(code, platform) {
@@ -77,7 +81,10 @@ async function exchangeMetaCode(code) {
 async function exchangeTikTokCode(code) {
   const res = await fetch('https://open.tiktokapis.com/v2/oauth/token/', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    headers: { 
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Cache-Control': 'no-cache',
+    },
     body: new URLSearchParams({
       code,
       client_key: Deno.env.get('TIKTOK_CLIENT_KEY'),
@@ -98,7 +105,6 @@ async function getGoogleProfile(accessToken) {
 
 async function getMetaProfile(accessToken, platform) {
   if (platform === 'instagram') {
-    // Get FB pages first, then IG account
     const pagesRes = await fetch(`https://graph.facebook.com/v19.0/me/accounts?access_token=${accessToken}`);
     const pagesData = await pagesRes.json();
     const page = pagesData.data?.[0];
@@ -128,11 +134,11 @@ Deno.serve(async (req) => {
   // Handle OAuth callback (GET with ?code=...)
   if (req.method === 'GET') {
     const code = url.searchParams.get('code');
-    const state = url.searchParams.get('state'); // platform name
+    const state = url.searchParams.get('state');
     const error = url.searchParams.get('error');
 
     if (error) {
-      return new Response(`<script>window.opener?.postMessage({type:'oauth_error',platform:'${state}',error:'${error}'},'*');window.close();</script>`, {
+      return new Response(`<html><body><script>window.opener?.postMessage({type:'oauth_error',platform:'${state}',error:'${error}'},'*');window.close();</script></body></html>`, {
         headers: { 'Content-Type': 'text/html' },
       });
     }
@@ -201,14 +207,26 @@ Deno.serve(async (req) => {
           }
         }
 
-        return new Response(`<script>window.opener?.postMessage({type:'oauth_success',platform:'${state}'},'*');window.close();</script>`, {
+        return new Response(`<html><body><script>window.opener?.postMessage({type:'oauth_success',platform:'${state}'},'*');window.close();</script></body></html>`, {
           headers: { 'Content-Type': 'text/html' },
         });
       } catch (err) {
-        return new Response(`<script>window.opener?.postMessage({type:'oauth_error',platform:'${state}',error:'${err.message}'},'*');window.close();</script>`, {
+        return new Response(`<html><body><script>window.opener?.postMessage({type:'oauth_error',platform:'${state}',error:${JSON.stringify(err.message)}},'*');window.close();</script></body></html>`, {
           headers: { 'Content-Type': 'text/html' },
         });
       }
+    }
+
+    // Debug endpoint: GET with ?debug=1 shows current env var status
+    if (url.searchParams.get('debug') === '1') {
+      return Response.json({
+        tiktok_client_key_set: !!Deno.env.get('TIKTOK_CLIENT_KEY'),
+        tiktok_client_key_prefix: Deno.env.get('TIKTOK_CLIENT_KEY')?.substring(0, 6) + '...',
+        meta_app_id_set: !!Deno.env.get('META_APP_ID'),
+        google_client_id_set: !!Deno.env.get('GOOGLE_CLIENT_ID'),
+        base_url: BASE_URL,
+        tiktok_auth_url: getTikTokAuthUrl(),
+      });
     }
   }
 
