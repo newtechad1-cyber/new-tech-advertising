@@ -301,10 +301,14 @@ Return ONLY the image description (1-2 sentences), no markdown.`
           status: "Needs Review"
         });
       } else if (heygenStatus === "failed") {
+        const errObj = status.error;
+        const errStr = typeof errObj === "object" && errObj !== null
+          ? (errObj.message || errObj.detail || JSON.stringify(errObj))
+          : (errObj || "Rendering failed");
         await base44.entities.VideoRequests.update(recordId, {
           render_status: "failed",
           status: "Draft",
-          render_error: status.error || "Rendering failed"
+          render_error: errStr
         });
       } else if (heygenStatus === "processing" || heygenStatus === "pending") {
         await base44.entities.VideoRequests.update(recordId, {
