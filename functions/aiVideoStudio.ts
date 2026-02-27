@@ -39,14 +39,15 @@ async function createAvatarVideo({ script, avatarId, voiceId, format = "16:9", e
      dimension,
      test: false
    };
-   console.log("[HeyGen Avatar Request] caption flag:", enableCaptions);
+   console.log("[HeyGen Avatar Request] FULL BODY:", JSON.stringify(body, null, 2));
    const res = await fetch("https://api.heygen.com/v2/video/generate", {
      method: "POST",
      headers: { "x-api-key": HEYGEN_API_KEY, "Content-Type": "application/json" },
      body: JSON.stringify(body)
    });
-   const data = await res.json();
-   console.log("[HeyGen Avatar Response]", JSON.stringify(data, null, 2));
+   const rawText = await res.text();
+   console.log("[HeyGen Avatar Response RAW]", rawText);
+   const data = JSON.parse(rawText);
    if (!data.data?.video_id) throw new Error(`HeyGen error: ${data.message || JSON.stringify(data)}`);
    return data.data.video_id;
 }
