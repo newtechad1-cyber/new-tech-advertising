@@ -43,7 +43,16 @@ export default function PrivacyPolicy() {
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold mb-3">8. Changes to This Policy</h2>
+          <h2 className="text-xl font-semibold mb-3">8. Third-Party Platform Integrations (TikTok, Meta, Google, LinkedIn)</h2>
+          <p className="mb-3">Our platform allows users to connect their social media accounts — including TikTok, Facebook, Instagram, YouTube, Google My Business, and LinkedIn — to manage content, view analytics, and oversee advertising performance from a single dashboard.</p>
+          <p className="mb-3"><strong>TikTok:</strong> When you connect your TikTok account, we access your basic account information (display name, profile image, account ID) to identify the linked account within our platform. We may also access your video list and performance data to display analytics, and publish video content on your behalf if you use our scheduling features. We request only the minimum permissions necessary. TikTok data is used solely to provide services back to you and is never sold or shared with third parties. You may disconnect your TikTok account at any time from your dashboard, which will revoke our access. For more information on how TikTok handles your data, see <a href="https://www.tiktok.com/legal/privacy-policy" target="_blank" className="text-blue-600 hover:underline">TikTok's Privacy Policy</a>.</p>
+          <p className="mb-3"><strong>Meta (Facebook & Instagram):</strong> When you connect your Facebook or Instagram account, we access your pages and business account data to display analytics and post content on your behalf. Meta data is used solely to deliver our services to you.</p>
+          <p className="mb-3"><strong>Google (YouTube & Google My Business):</strong> When you connect your Google account, we access your YouTube channel or Google Business Profile to display performance metrics and manage your presence. Google data is used solely to deliver our services to you.</p>
+          <p><strong>LinkedIn:</strong> When you connect your LinkedIn account, we access your profile and organization data to publish content and view engagement metrics. LinkedIn data is used solely to deliver our services to you.</p>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-semibold mb-3">9. Changes to This Policy</h2>
           <p>We may update this privacy policy from time to time. We will notify you of significant changes by posting the new policy on our website.</p>
         </section>
 
