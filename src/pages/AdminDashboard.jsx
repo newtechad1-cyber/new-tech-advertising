@@ -24,6 +24,7 @@ import ClientsList from '../components/admin/ClientsList';
 import ClientManagement from '../components/admin/ClientManagement';
 import PortfolioManagement from '../components/admin/PortfolioManagement';
 import GoogleAnalyticsView from '../components/admin/GoogleAnalyticsView';
+import SocialAccounts from './SocialAccounts';
 
 const CATEGORIES = [
   {
