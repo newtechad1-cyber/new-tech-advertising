@@ -196,20 +196,22 @@ export default function MediaVideos() {
       )}
 
       {previewVideo && (
-        <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4" onClick={() => setPreviewVideo(null)}>
-          <div className="relative w-full max-w-4xl" onClick={e => e.stopPropagation()}>
-            <Button size="icon" variant="ghost" onClick={() => setPreviewVideo(null)} className="absolute -top-10 right-0 text-white hover:bg-white/20">
-              <X className="w-5 h-5" />
-            </Button>
-            <p className="text-white text-sm mb-2 font-medium">{previewVideo.name}</p>
+        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-8" onClick={() => setPreviewVideo(null)}>
+          <div className="relative w-3/4 max-w-3xl bg-slate-900 rounded-2xl overflow-hidden shadow-2xl" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between px-4 py-3 bg-slate-800">
+              <p className="text-white text-sm font-medium truncate">{previewVideo.name}</p>
+              <Button size="icon" variant="ghost" onClick={() => setPreviewVideo(null)} className="text-white hover:bg-slate-700 h-8 w-8 flex-shrink-0">
+                <X className="w-5 h-5" />
+              </Button>
+            </div>
             {isYoutube(previewVideo.url) ? (
               <iframe
                 src={previewVideo.url.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/')}
-                className="w-full aspect-video rounded-lg"
+                className="w-full aspect-video"
                 allowFullScreen
               />
             ) : (
-              <video src={previewVideo.url} controls autoPlay className="w-full aspect-video rounded-lg bg-black" />
+              <video src={previewVideo.url} controls autoPlay className="w-full aspect-video bg-black" />
             )}
           </div>
         </div>
