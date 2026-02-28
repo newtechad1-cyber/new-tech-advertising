@@ -6,7 +6,7 @@ import {
   BookOpen, ShoppingBag, Mail, Users, Image, Video,
   StickyNote, HelpCircle, ArrowLeft, Zap, RefreshCw,
   Calendar, DollarSign, FileText, TrendingUp, MonitorPlay, Briefcase,
-  Globe, Share2, BarChart2
+  Globe, Share2, BarChart2, Lock, X
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -25,6 +25,12 @@ import ClientManagement from '../components/admin/ClientManagement';
 import PortfolioManagement from '../components/admin/PortfolioManagement';
 import GoogleAnalyticsView from '../components/admin/GoogleAnalyticsView';
 import SocialAccounts from './SocialAccounts';
+
+// Module IDs that are locked behind an upgrade
+const LOCKED_MODULE_IDS = new Set([
+  // Add module IDs here to lock them, e.g. 'ebook', 'autoresponder'
+  // Leave empty to have no locked modules
+]);
 
 const CATEGORIES = [
   {
@@ -94,10 +100,91 @@ const SECTION_COMPONENTS = {
   'social-accounts': SocialAccounts,
 };
 
+function UpgradeModal({ tile, onClose }) {
+  return (
+    <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4" onClick={onClose}>
+      <div
+        className="bg-slate-900 border border-slate-700 rounded-2xl p-8 max-w-md w-full shadow-2xl"
+        onClick={e => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <div className={`${tile.color} w-10 h-10 rounded-lg flex items-center justify-center opacity-60`}>
+              <tile.icon className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h2 className="text-white font-bold text-lg">{tile.label}</h2>
+              <p className="text-slate-400 text-sm">Upgrade required</p>
+            </div>
+          </div>
+          <button onClick={onClose} className="text-slate-500 hover:text-white transition-colors">
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <div className="bg-slate-800 rounded-xl p-4 mb-6 flex items-start gap-3">
+          <Lock className="w-5 h-5 text-yellow-400 mt-0.5 flex-shrink-0" />
+          <div>
+            <p className="text-white text-sm font-medium mb-1">This module requires an upgrade</p>
+            <p className="text-slate-400 text-sm">
+              {tile.description} is available on a higher plan. Upgrade your account to unlock access to <strong className="text-white">{tile.label}</strong> and more.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex gap-3">
+          <Button
+            className="flex-1 bg-yellow-500 hover:bg-yellow-400 text-black font-semibold"
+            onClick={() => window.location.href = createPageUrl('AdminSettings')}
+          >
+            Upgrade Plan
+          </Button>
+          <Button variant="outline" className="border-slate-700 text-slate-300 hover:bg-slate-800" onClick={onClose}>
+            Cancel
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ModuleTile({ tile, onOpen }) {
+  const isLocked = LOCKED_MODULE_IDS.has(tile.id);
+  const Icon = tile.icon;
+
+  return (
+    <button
+      onClick={() => onOpen(tile)}
+      className={`group relative border rounded-xl p-6 text-left transition-all duration-200 ${
+        isLocked
+          ? 'bg-slate-900/50 border-slate-800 opacity-60 cursor-pointer hover:opacity-80'
+          : 'bg-slate-900 hover:bg-slate-800 border-slate-800 hover:border-slate-600 hover:scale-105 hover:shadow-xl'
+      }`}
+    >
+      {isLocked && (
+        <div className="absolute top-3 right-3 bg-yellow-500/20 border border-yellow-500/40 rounded-full px-2 py-0.5 flex items-center gap-1">
+          <Lock className="w-3 h-3 text-yellow-400" />
+          <span className="text-yellow-400 text-xs font-medium">Upgrade</span>
+        </div>
+      )}
+      <div className={`${tile.color} w-12 h-12 rounded-lg flex items-center justify-center mb-4 ${!isLocked && 'group-hover:scale-110'} transition-transform ${isLocked ? 'grayscale' : ''}`}>
+        <Icon className="w-6 h-6 text-white" />
+      </div>
+      <h3 className={`font-bold text-base mb-1 ${isLocked ? 'text-slate-500' : 'text-white'}`}>{tile.label}</h3>
+      <p className="text-slate-500 text-xs">{tile.description}</p>
+    </button>
+  );
+}
+
 export default function AdminDashboard() {
   const [activeSection, setActiveSection] = useState(null);
+  const [upgradeModal, setUpgradeModal] = useState(null);
 
-  const handleTileClick = (tile) => {
+  const handleTileOpen = (tile) => {
+    if (LOCKED_MODULE_IDS.has(tile.id)) {
+      setUpgradeModal(tile);
+      return;
+    }
     if (tile.link) {
       window.location.href = createPageUrl(tile.link);
     } else {
@@ -168,22 +255,9 @@ export default function AdminDashboard() {
                       <h3 className={`text-lg font-semibold ${category.color}`}>{category.label}</h3>
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                      {category.tiles.map((tile) => {
-                        const Icon = tile.icon;
-                        return (
-                          <button
-                            key={tile.id}
-                            onClick={() => handleTileClick(tile)}
-                            className="group bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-600 rounded-xl p-6 text-left transition-all duration-200 hover:scale-105 hover:shadow-xl"
-                          >
-                            <div className={`${tile.color} w-12 h-12 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                              <Icon className="w-6 h-6 text-white" />
-                            </div>
-                            <h3 className="font-bold text-white text-base mb-1">{tile.label}</h3>
-                            <p className="text-slate-500 text-xs">{tile.description}</p>
-                          </button>
-                        );
-                      })}
+                      {category.tiles.map((tile) => (
+                        <ModuleTile key={tile.id} tile={tile} onOpen={handleTileOpen} />
+                      ))}
                     </div>
                   </div>
                 );
@@ -196,6 +270,10 @@ export default function AdminDashboard() {
           )}
         </div>
       </div>
+
+      {upgradeModal && (
+        <UpgradeModal tile={upgradeModal} onClose={() => setUpgradeModal(null)} />
+      )}
     </AdminGuard>
   );
 }
