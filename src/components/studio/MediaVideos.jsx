@@ -194,6 +194,26 @@ export default function MediaVideos() {
           onClose={() => setPostingVideo(null)}
         />
       )}
+
+      {previewVideo && (
+        <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4" onClick={() => setPreviewVideo(null)}>
+          <div className="relative w-full max-w-4xl" onClick={e => e.stopPropagation()}>
+            <Button size="icon" variant="ghost" onClick={() => setPreviewVideo(null)} className="absolute -top-10 right-0 text-white hover:bg-white/20">
+              <X className="w-5 h-5" />
+            </Button>
+            <p className="text-white text-sm mb-2 font-medium">{previewVideo.name}</p>
+            {isYoutube(previewVideo.url) ? (
+              <iframe
+                src={previewVideo.url.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/')}
+                className="w-full aspect-video rounded-lg"
+                allowFullScreen
+              />
+            ) : (
+              <video src={previewVideo.url} controls autoPlay className="w-full aspect-video rounded-lg bg-black" />
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
