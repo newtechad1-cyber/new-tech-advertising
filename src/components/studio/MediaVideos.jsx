@@ -181,8 +181,8 @@ export default function MediaVideos() {
               return (
                 <div key={a.id} className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden group">
                   <div className="relative h-40 bg-slate-800 flex items-center justify-center">
-                    {thumb ? (
-                      <img src={thumb} alt={a.name} className="w-full h-full object-cover" />
+                    {thumb || thumbnails[a.id] ? (
+                      <img src={thumb || thumbnails[a.id]} alt={a.name} className="w-full h-full object-cover" />
                     ) : (
                       <Play className="w-12 h-12 text-slate-600" />
                     )}
