@@ -1,0 +1,50 @@
+import React, { useMemo, useState } from "react";
+import UpgradeModal from "./UpgradeModal";
+import { MODULES } from "./registry";
+
+export default function ModuleTile({
+  moduleId,
+  isEnabled,
+  account,
+  to,          // where to go when enabled
+  onNavigate,  // optional: pass your existing navigation function
+  children,
+}) {
+  const enabled = useMemo(() => isEnabled?.(moduleId), [isEnabled, moduleId]);
+  const [open, setOpen] = useState(false);
+
+  const label = MODULES[moduleId]?.label || "Feature";
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (enabled) {
+      if (onNavigate) return onNavigate(to);
+      if (to) window.location.href = to; // Base44-simple navigation
+      return;
+    }
+
+    setOpen(true);
+  };
+
+  return (
+    <div className="relative">
+      {!enabled && (
+        <div className="absolute right-2 top-2 z-10 rounded-full px-2 py-1 text-xs border bg-background/80">
+          🔒 Upgrade
+        </div>
+      )}
+
+      <div
+        onClick={handleClick}
+        className={!enabled ? "opacity-55 hover:opacity-70 cursor-pointer" : "cursor-pointer"}
+        aria-label={!enabled ? `Locked: ${label}` : label}
+      >
+        {children}
+      </div>
+
+      <UpgradeModal open={open} onOpenChange={setOpen} moduleId={moduleId} account={account} />
+    </div>
+  );
+}

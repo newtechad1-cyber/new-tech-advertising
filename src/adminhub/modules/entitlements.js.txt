@@ -1,0 +1,25 @@
+import { MODULES } from "./registry";
+
+export function buildEntitlements(account) {
+  const enabled = account?.modules_enabled || {};
+  const plan = account?.plan || "starter";
+
+  const defaultsByPlan = {
+    starter: {},
+    growth: { crm: true, social: true, content: true },
+    pro: { crm: true, social: true, content: true, email: true, analytics: true, automations: true, mediaPro: true },
+    premium: { crm: true, social: true, content: true, email: true, analytics: true, automations: true, mediaPro: true, video: true },
+  };
+
+  const isEnabled = (moduleId) => {
+    if (!moduleId) return true;
+    if (MODULES[moduleId]?.alwaysOn) return true;
+
+    if (enabled[moduleId] === true) return true;
+    if (enabled[moduleId] === false) return false;
+
+    return !!defaultsByPlan[plan]?.[moduleId];
+  };
+
+  return { plan, isEnabled };
+}

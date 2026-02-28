@@ -1,0 +1,14 @@
+export const MODULES = {
+  // Core (always on)
+  blog: { label: "Blog", alwaysOn: true },
+
+  // Upgrades
+  crm: { label: "CRM", planHint: "Growth" },
+  social: { label: "Social", planHint: "Growth" },
+  email: { label: "Email Marketing", planHint: "Pro" },
+  content: { label: "Content Studio", planHint: "Growth" },
+  video: { label: "Video Studio", planHint: "Premium" },
+  analytics: { label: "Analytics", planHint: "Pro" },
+  automations: { label: "Automations", planHint: "Pro" },
+  mediaPro: { label: "Media Library Pro", planHint: "Pro" },
+};

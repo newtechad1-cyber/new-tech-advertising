@@ -1,0 +1,47 @@
+import React from "react";
+import { MODULES } from "./registry";
+
+// Use your existing UI components if you have them.
+// If your project doesn't have these, tell me what modal/dialog component you use
+// and I'll match it exactly.
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "../../components/ui/dialog";
+import { Button } from "../../components/ui/button";
+
+export default function UpgradeModal({ open, onOpenChange, moduleId, account }) {
+  if (!moduleId) return null;
+
+  const m = MODULES[moduleId];
+  const label = m?.label || "This feature";
+
+  const subject = encodeURIComponent(`Upgrade Request: ${label}`);
+  const body = encodeURIComponent(
+    `Please enable "${label}" for account: ${account?.name || account?.id || "(unknown)"}\n\nModule: ${moduleId}\nPlan hint: ${m?.planHint || "N/A"}\n`
+  );
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Unlock {label}</DialogTitle>
+          <DialogDescription>
+            This module is not included in your current plan.
+            {m?.planHint ? ` Recommended plan: ${m.planHint}.` : ""}
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="mt-4 flex gap-2 justify-end">
+          <Button variant="secondary" onClick={() => onOpenChange(false)}>
+            Not now
+          </Button>
+          <Button
+            onClick={() => {
+              window.location.href = `mailto:support@newtechadvertising.com?subject=${subject}&body=${body}`;
+            }}
+          >
+            Request upgrade
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
