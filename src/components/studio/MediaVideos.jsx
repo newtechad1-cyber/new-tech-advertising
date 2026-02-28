@@ -165,9 +165,7 @@ export default function MediaVideos() {
                       <Play className="w-12 h-12 text-slate-600" />
                     )}
                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                      <a href={a.url} target="_blank" rel="noopener noreferrer">
-                        <Button size="icon" variant="ghost" className="text-white h-8 w-8 bg-white/20"><Play className="w-4 h-4" /></Button>
-                      </a>
+                      <Button size="icon" variant="ghost" onClick={() => setPreviewVideo(a)} className="text-white h-8 w-8 bg-white/20"><Play className="w-4 h-4" /></Button>
                       <Button size="icon" variant="ghost" onClick={() => copy(a.url, a.id)} className="text-white h-8 w-8 bg-white/20">
                         {copied === a.id ? <span className="text-xs">✓</span> : <Copy className="w-4 h-4" />}
                       </Button>
