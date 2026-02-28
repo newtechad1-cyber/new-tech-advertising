@@ -80,6 +80,8 @@ export default function MediaVideos() {
     a.tags?.some(t => t.toLowerCase().includes(search.toLowerCase()))
   );
 
+  const [thumbnails, setThumbnails] = useState({});
+
   const isYoutube = (url) => url?.includes('youtube') || url?.includes('youtu.be') || url?.includes('vimeo');
   const getThumbnail = (url) => {
     if (!url) return null;
@@ -87,6 +89,26 @@ export default function MediaVideos() {
     if (ytMatch) return `https://img.youtube.com/vi/${ytMatch[1]}/mqdefault.jpg`;
     return null;
   };
+
+  const generateThumbnail = (asset) => {
+    if (thumbnails[asset.id] || isYoutube(asset.url) || !asset.url) return;
+    const video = document.createElement('video');
+    video.crossOrigin = 'anonymous';
+    video.src = asset.url;
+    video.currentTime = 2;
+    video.addEventListener('seeked', () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth || 320;
+      canvas.height = video.videoHeight || 180;
+      canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+      setThumbnails(prev => ({ ...prev, [asset.id]: canvas.toDataURL('image/jpeg') }));
+    }, { once: true });
+    video.load();
+  };
+
+  useEffect(() => {
+    assets.forEach(a => { if (!isYoutube(a.url)) generateThumbnail(a); });
+  }, [assets]);
 
   return (
     <div className="space-y-6">
