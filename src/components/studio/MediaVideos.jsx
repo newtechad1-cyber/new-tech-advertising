@@ -18,6 +18,7 @@ export default function MediaVideos() {
   const [pendingFile, setPendingFile] = useState(null);
   const [copied, setCopied] = useState(null);
   const [postingVideo, setPostingVideo] = useState(null);
+  const [previewVideo, setPreviewVideo] = useState(null);
 
   useEffect(() => { load(); }, []);
 
