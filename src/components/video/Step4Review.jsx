@@ -64,7 +64,7 @@ export default function Step4Review({ state, onBack, onSubmit, creating }) {
               alert("Script is required");
               return;
             }
-            if (state.videoType === "avatar" && !state.avatarId) {
+            if ((state.videoType === "avatar" || state.videoType === "avatar-slides") && !state.avatarId) {
               alert("Please select an avatar");
               return;
             }
