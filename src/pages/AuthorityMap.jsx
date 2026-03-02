@@ -211,9 +211,17 @@ export default function AuthorityMap() {
           <CardContent><p className="text-sm text-slate-700 whitespace-pre-wrap">{selected.authority_positioning_summary}</p></CardContent>
         </Card>
       )}
-      {selected.internal_link_strategy && (
-        <Card><CardHeader><CardTitle className="text-base">Internal Link Strategy</CardTitle></CardHeader>
-          <CardContent><p className="text-sm text-slate-700 whitespace-pre-wrap">{selected.internal_link_strategy}</p></CardContent>
+      {selected.internal_link_strategy && typeof selected.internal_link_strategy === 'object' && (
+        <Card>
+          <CardHeader><CardTitle className="text-base">Internal Link Strategy</CardTitle></CardHeader>
+          <CardContent className="space-y-2">
+            {Object.entries(selected.internal_link_strategy).map(([key, val]) => (
+              <div key={key}>
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">{key.replace(/_/g, ' ')}</p>
+                <p className="text-sm text-slate-700">{String(val)}</p>
+              </div>
+            ))}
+          </CardContent>
         </Card>
       )}
       <Card>
