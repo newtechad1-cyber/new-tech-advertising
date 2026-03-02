@@ -135,9 +135,10 @@ FIRST PARAGRAPH:
 - Weave in DIY vs DFY naturally within the first 2-3 paragraphs — frame it as a real choice with tradeoffs, not a sales pitch.
 
 META TITLE:
-- Must include a clear benefit OR a specific mistake/mistake-avoidance angle.
+- Must include tension, a mistake angle, or a clear benefit.
 - Must be commercially aligned with search intent.
-- No vague phrasing. No generic labels like "A Guide to..." or "Understanding...".
+- FORBIDDEN title patterns: "A Must for Your Business", "A Complete Guide", "Overview of", "Understanding...", "Introduction to...", "Everything You Need to Know".
+- No soft neutral phrasing. If it could describe any article on any blog, rewrite it.
 - ≤60 characters.
 
 META DESCRIPTION:
