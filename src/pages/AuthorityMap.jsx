@@ -39,17 +39,51 @@ export default function AuthorityMap() {
   };
 
   const handleSave = async () => {
-    if (!form.niche || !form.location || form.pillars.length === 0) {
-      toast.error('Niche, location, and at least one pillar are required');
+    setSaveError('');
+    setSaved(false);
+
+    if (!form.niche || !form.location) {
+      toast.error('Niche and location are required');
       return;
     }
+    if (form.pillars.length !== 5) {
+      const msg = `You must have exactly 5 pillars (currently ${form.pillars.length}).`;
+      setSaveError(msg);
+      toast.error(msg);
+      return;
+    }
+    for (const p of form.pillars) {
+      const count = p.cluster_topics.length;
+      if (count < 8 || count > 10) {
+        const msg = `Pillar "${p.pillar_title}" has ${count} topics. Each pillar must have 8–10 cluster topics.`;
+        setSaveError(msg);
+        toast.error(msg);
+        return;
+      }
+    }
+
+    // Serialize pillars safely
+    const pillars = form.pillars.map(p => ({
+      pillar_title: String(p.pillar_title),
+      cluster_topics: p.cluster_topics.map(t => String(t))
+    }));
+
     try {
-      await base44.entities.AuthorityMap.create(form);
-      toast.success('Authority map saved');
-      setView('list');
-      setForm({ niche: 'NTA AI marketing for small businesses', location: 'Midwest', pillars: [], internal_link_strategy: '', authority_positioning_summary: '' });
-      loadPlans();
-    } catch { toast.error('Failed to save'); }
+      await base44.entities.AuthorityMap.create({ ...form, pillars });
+      setSaved(true);
+      toast.success('Authority map saved successfully!');
+      setTimeout(() => {
+        setView('list');
+        setForm({ niche: 'NTA AI marketing for small businesses', location: 'Midwest', pillars: [], internal_link_strategy: '', authority_positioning_summary: '' });
+        setSaved(false);
+        loadPlans();
+      }, 1200);
+    } catch (err) {
+      const msg = err?.message || 'Unknown error saving authority map';
+      console.error('[AuthorityMap] Save failed:', err);
+      setSaveError(msg);
+      toast.error('Save failed: ' + msg);
+    }
   };
 
   const handleArchive = async (id) => {
