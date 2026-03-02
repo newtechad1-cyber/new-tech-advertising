@@ -52,13 +52,13 @@ Deno.serve(async (req) => {
   console.log(`[DailyGenerator] Generating content for: ${item.topic} (${item.id})`);
 
   const prompt = `
-You are a senior content strategist and SEO copywriter for a digital marketing company serving Midwest small businesses.
+You are the content voice for ${business_name}, a digital marketing company that helps Midwest small businesses build AI-powered marketing systems — not just run one-off campaigns.
 
 Business: ${business_name}
 Website: ${site_url}
 Service Areas: ${(service_areas || []).join(', ') || 'Midwest'}
 Offers: ${(offers || []).join(', ') || ''}
-Brand Voice: ${brand_voice || 'Friendly, practical, no-nonsense'}
+Brand Voice: ${brand_voice || 'Confident, direct, no-nonsense. Strategic operator, not a marketer.'}
 CTA: ${cta || 'Contact us today'}
 
 Today's Content Assignment:
@@ -66,35 +66,56 @@ Today's Content Assignment:
 - Pillar: ${item.pillar || ''}
 - Target Keyword: ${item.keyword || item.topic}
 - Publish Date: ${item.publish_date}
-${authorityMap ? `- Internal Link Strategy: ${authorityMap.internal_link_strategy || ''}` : ''}
+${authorityMap ? `- Internal Link Strategy: ${JSON.stringify(authorityMap.internal_link_strategy || '')}` : ''}
 ${authorityMap ? `- Authority Positioning: ${authorityMap.authority_positioning_summary || ''}` : ''}
 
-Write a complete blog post and all supporting content. Return STRICT JSON only — no markdown wrapper, no explanation, no code blocks.
+WRITING RULES — follow these exactly:
 
-Content rules:
-- Blog must be 1200–1600 words, written in markdown with H2 and H3 headings.
-- Make it practical for Midwest small business owners.
-- Match the brand voice exactly.
-- No fluff. No buzzword stuffing.
+TONE & VOICE:
+- Write like a strategic operator, not a marketing consultant.
+- Confident and direct. No hedging, no filler, no buzzwords.
+- The reader already knows what AI is. Skip definitions entirely unless a concept is niche or technical.
+- No corporate intros. Never open with phrases like "In today's fast-paced digital landscape", "AI has emerged as a powerful tool", or any variation of those patterns.
+- Midwest small business owners are practical people. They want to know what works, what doesn't, and what to do next — not theory.
+
+FIRST PARAGRAPH:
+- Must open with a strong opinion, a specific mistake business owners make, or a tension they'll immediately recognize.
+- Speak directly to the reader (use "you" and "your business").
+- Establish the systems-first mindset early: this is about building something that runs, not chasing trends.
+- Weave in DIY vs DFY naturally within the first 2-3 paragraphs — frame it as a real choice with tradeoffs, not a sales pitch.
+
+META TITLE:
+- Must include a clear benefit OR a specific mistake/mistake-avoidance angle.
+- Must be commercially aligned with search intent.
+- No vague phrasing. No generic labels like "A Guide to..." or "Understanding...".
+- ≤60 characters.
+
+META DESCRIPTION:
+- Must reinforce the hook from the title.
+- Include a direct benefit or a reason to click.
+- ≤155 characters.
+
+BODY CONTENT:
+- 1200–1600 words, markdown with H2 and H3 headings.
+- Each section should move the reader forward — no padding, no restating the intro.
 - Include 1 clear CTA near the end using this exact text: "${cta || 'Contact us today'}"
-- Mention DIY vs DFY options naturally (not salesy).
-- Add a short "Next Steps" section near the end with exactly 3 bullet points.
-- meta_title must be ≤60 characters.
-- meta_description must be ≤155 characters.
+- Add a "Next Steps" section near the end with exactly 3 bullet points. Each bullet must be actionable and specific — not generic advice.
+
+Return STRICT JSON only — no markdown wrapper, no explanation, no code blocks.
 
 JSON schema (return exactly this structure):
 {
-  "meta_title": "string (<=60 chars)",
-  "meta_description": "string (<=155 chars)",
-  "blog_content": "string (1200-1600 words, markdown with H2/H3)",
+  "meta_title": "string (<=60 chars, benefit or mistake angle, no vague phrasing)",
+  "meta_description": "string (<=155 chars, reinforces title hook)",
+  "blog_content": "string (1200-1600 words, markdown with H2/H3, strong opening, no generic intros)",
   "faq_schema": "string (3-5 Q&A pairs as clean JSON-LD or plain Q/A list)",
   "internal_link_suggestions": [
     { "anchor_text": "string", "target_slug_hint": "string" }
   ],
   "image_prompts": ["string", "string", "string"],
-  "linkedin_post": "string (professional tone, 150-200 words, include relevant hashtags)",
-  "facebook_post": "string (conversational tone, 100-150 words)",
-  "video_script_60s": "string (spoken word script, ~150 words, hook + value + CTA)"
+  "linkedin_post": "string (professional, direct tone, 150-200 words, relevant hashtags)",
+  "facebook_post": "string (conversational but confident, 100-150 words)",
+  "video_script_60s": "string (spoken word, ~150 words, strong hook + clear value + CTA)"
 }
 `;
 
