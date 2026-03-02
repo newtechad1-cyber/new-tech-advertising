@@ -159,10 +159,54 @@ export default function AuthorityMap() {
           <Label>Location *</Label>
           <Input value={form.location} onChange={e => setForm({ ...form, location: e.target.value })} />
         </div>
-        <div className="space-y-1">
-          <Label>Internal Link Strategy</Label>
-          <Textarea rows={3} value={form.internal_link_strategy} onChange={e => setForm({ ...form, internal_link_strategy: e.target.value })} className="resize-none" />
-        </div>
+      </CardContent></Card>
+
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-base">Internal Link Strategy</CardTitle>
+            <Button variant="outline" size="sm" onClick={() => setForm(prev => ({ ...prev, internal_link_strategy: DEFAULT_LINK_STRATEGY }))}>
+              <Wand2 className="w-3.5 h-3.5 mr-1.5" />
+              Fill Recommended Linking Strategy
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {[
+            { field: 'pillar_linking_rule', label: 'Pillar Linking Rule' },
+            { field: 'cluster_to_pillar_rule', label: 'Cluster → Pillar Rule' },
+            { field: 'service_page_linking_rule', label: 'Service Page Linking Rule' },
+            { field: 'cta_linking_rule', label: 'CTA Linking Rule' },
+            { field: 'horizontal_linking_rule', label: 'Horizontal Linking Rule' },
+            { field: 'anchor_style_guidelines', label: 'Anchor Style Guidelines' },
+          ].map(({ field, label }) => (
+            <div key={field} className="space-y-1">
+              <Label className="text-sm">{label}</Label>
+              <Textarea
+                rows={2}
+                className="resize-none text-sm"
+                value={form.internal_link_strategy?.[field] || ''}
+                onChange={e => updateLinkStrategy(field, e.target.value)}
+              />
+            </div>
+          ))}
+          <div className="space-y-1">
+            <Label className="text-sm">Max Links Per Post</Label>
+            <Input
+              type="number"
+              min={1}
+              max={20}
+              className="w-24"
+              value={form.internal_link_strategy?.max_links_per_post ?? 5}
+              onChange={e => updateLinkStrategy('max_links_per_post', e.target.value)}
+            />
+          </div>
+          <p className="text-xs text-slate-400 italic">This strategy guides the Daily Generator's internal_link_suggestions.</p>
+        </CardContent>
+      </Card>
+
+      <Card><CardContent className="pt-6 space-y-4">
+        <div className="hidden">
         <div className="space-y-1">
           <Label>Authority Positioning Summary</Label>
           <Textarea rows={3} value={form.authority_positioning_summary} onChange={e => setForm({ ...form, authority_positioning_summary: e.target.value })} className="resize-none" />
