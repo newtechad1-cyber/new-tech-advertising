@@ -129,6 +129,8 @@ import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
 import GlobalSettings from './pages/GlobalSettings';
+import AuthorityMap from './pages/AuthorityMap';
+import ContentQueue from './pages/ContentQueue';
 import __Layout from './Layout.jsx';
 
 
@@ -215,6 +217,8 @@ export const PAGES = {
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
     "GlobalSettings": GlobalSettings,
+    "AuthorityMap": AuthorityMap,
+    "ContentQueue": ContentQueue,
 }
 
 export const pagesConfig = {
