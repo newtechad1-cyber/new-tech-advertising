@@ -165,14 +165,40 @@ JSON schema to follow exactly:
       if (flatTopics.length === 7) break;
     }
 
-    const today = new Date();
-    const created = [];
-    for (let i = 0; i < flatTopics.length; i++) {
-      const publishDate = new Date(today);
-      publishDate.setDate(today.getDate() + i + 1);
-      const dateStr = publishDate.toISOString().split('T')[0];
+    // Compute dates in America/Chicago timezone, tomorrow through +7 days
+    const getChicagoDateStr = (daysFromNow) => {
+      const d = new Date();
+      d.setDate(d.getDate() + daysFromNow);
+      // Format as YYYY-MM-DD in America/Chicago
+      return d.toLocaleDateString('en-CA', { timeZone: 'America/Chicago' }); // en-CA gives YYYY-MM-DD
+    };
 
-      try {
+    const todayStr = getChicagoDateStr(0);
+
+    console.log('[AuthorityPlanner] queue_create_start — topics to schedule:',
+      flatTopics.map((t, i) => ({ date: getChicagoDateStr(i + 1), topic: t.topic, pillar: t.pillar_title }))
+    );
+
+    // Fetch existing planned blog items to deduplicate by publish_date
+    let existingPlanned = [];
+    try {
+      existingPlanned = await base44.asServiceRole.entities.ContentQueue.filter({ format: 'blog', status: 'planned' });
+    } catch (fetchErr) {
+      console.warn('[AuthorityPlanner] Could not fetch existing planned items for dedup:', fetchErr.message);
+    }
+    const existingDates = new Set(existingPlanned.map(item => item.publish_date));
+    console.log('[AuthorityPlanner] Existing planned blog dates:', [...existingDates]);
+
+    const created = [];
+    try {
+      for (let i = 0; i < flatTopics.length; i++) {
+        const dateStr = getChicagoDateStr(i + 1);
+
+        if (existingDates.has(dateStr)) {
+          console.log(`[AuthorityPlanner] skipped_existing — ${dateStr} already has a planned blog item`);
+          continue;
+        }
+
         const item = await base44.asServiceRole.entities.ContentQueue.create({
           publish_date: dateStr,
           topic: flatTopics[i].topic,
@@ -182,9 +208,20 @@ JSON schema to follow exactly:
         });
         created.push(item.id);
         console.log(`[AuthorityPlanner] ContentQueue item created for ${dateStr}: ${flatTopics[i].topic}`);
-      } catch (qErr) {
-        console.error(`[AuthorityPlanner] Failed to create ContentQueue item for ${dateStr}:`, qErr.message);
       }
+      console.log(`[AuthorityPlanner] queue_create_success — ${created.length} items created`);
+    } catch (qErr) {
+      const qMsg = 'ContentQueue creation failed: ' + qErr.message + ' | stack: ' + (qErr.stack || '');
+      console.error('[AuthorityPlanner]', qMsg);
+      try {
+        await base44.asServiceRole.entities.ContentQueue.create({
+          publish_date: todayStr,
+          topic: 'Authority Planner queue creation failed',
+          format: 'blog',
+          status: 'failed',
+          last_error: qMsg
+        });
+      } catch (_) {}
     }
 
     await logRun('success', `Created AuthorityMap (${pillars.length} pillars, ${created.length} queue items)`, {
