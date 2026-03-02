@@ -7,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { Plus, X, ChevronDown, ChevronRight, Archive, ArrowLeft, AlertCircle } from 'lucide-react';
+import { Plus, X, ChevronDown, ChevronRight, Archive, ArrowLeft, AlertCircle, Wand2 } from 'lucide-react';
 import AutomationLogs from '../components/authoritymap/AutomationLogs';
 
 export default function AuthorityMap() {
