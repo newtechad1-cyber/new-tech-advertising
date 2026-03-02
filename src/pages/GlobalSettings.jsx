@@ -20,6 +20,7 @@ export default function GlobalSettings() {
     offers: []
   });
   const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(true);
   const [newArea, setNewArea] = useState('');
   const [newOffer, setNewOffer] = useState('');
