@@ -83,7 +83,18 @@ JSON schema to follow exactly:
               }
             }
           },
-          internal_link_strategy: { type: 'string' },
+          internal_link_strategy: {
+          type: 'object',
+          properties: {
+            pillar_linking_rule: { type: 'string' },
+            cluster_to_pillar_rule: { type: 'string' },
+            service_page_linking_rule: { type: 'string' },
+            cta_linking_rule: { type: 'string' },
+            horizontal_linking_rule: { type: 'string' },
+            anchor_style_guidelines: { type: 'string' },
+            max_links_per_post: { type: 'number' }
+          }
+        },
           authority_positioning_summary: { type: 'string' }
         }
       }
