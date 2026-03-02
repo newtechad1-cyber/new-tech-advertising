@@ -149,16 +149,43 @@ export default function ContentQueue() {
 
   if (selected) return (
     <div className="max-w-3xl mx-auto p-8 space-y-6">
-      <div className="flex items-center gap-3">
-        <Button variant="ghost" size="icon" onClick={() => { setSelected(null); setEditing(false); setSaveSuccess(false); setSaveError(null); }}><ArrowLeft className="w-4 h-4" /></Button>
-        <div className="flex-1">
-          <h1 className="text-xl font-bold text-slate-900">{selected.topic}</h1>
-          <p className="text-sm text-slate-500">{selected.publish_date} · {selected.pillar}</p>
+      <div className="flex items-start gap-3">
+        <Button variant="ghost" size="icon" onClick={() => { setSelected(null); setEditing(false); setSaveSuccess(false); setSaveError(null); setFailPrompt(false); }}><ArrowLeft className="w-4 h-4" /></Button>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap mb-1">
+            <Badge className={STATUS_COLORS[selected.status]}>{selected.status}</Badge>
+            {selected.updated_date && (
+              <span className="text-xs text-slate-400">Updated {new Date(selected.updated_date).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}</span>
+            )}
+          </div>
+          <h1 className="text-xl font-bold text-slate-900 leading-tight">{selected.topic}</h1>
+          <p className="text-sm text-slate-500">{selected.publish_date}{selected.pillar ? ` · ${selected.pillar}` : ''}</p>
         </div>
         {isAdmin && !editing && (
-          <Button size="sm" variant="outline" onClick={startEdit}><Pencil className="w-3.5 h-3.5 mr-1.5" />Edit</Button>
+          <div className="flex gap-2 shrink-0">
+            <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white" onClick={handleApprove} disabled={selected.status === 'approved'}>
+              <ThumbsUp className="w-3.5 h-3.5 mr-1.5" />Approve
+            </Button>
+            <Button size="sm" variant="outline" className="border-red-300 text-red-600 hover:bg-red-50" onClick={() => { setFailPrompt(true); setSaveSuccess(false); }}>
+              <XCircle className="w-3.5 h-3.5 mr-1.5" />Mark Failed
+            </Button>
+            <Button size="sm" variant="outline" onClick={startEdit}><Pencil className="w-3.5 h-3.5 mr-1.5" />Edit</Button>
+          </div>
         )}
       </div>
+
+      {failPrompt && (
+        <Card className="border-red-200 bg-red-50">
+          <CardContent className="pt-4 space-y-3">
+            <Label className="text-red-700 font-medium">Reason for failure (optional)</Label>
+            <Textarea rows={3} placeholder="Describe what went wrong..." value={failReason} onChange={e => setFailReason(e.target.value)} className="bg-white" />
+            <div className="flex gap-2">
+              <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white" onClick={handleMarkFailed}>Confirm Mark Failed</Button>
+              <Button size="sm" variant="outline" onClick={() => { setFailPrompt(false); setFailReason(''); }}>Cancel</Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {saveSuccess && (
         <div className="flex items-center gap-2 bg-green-50 border border-green-200 text-green-800 rounded-lg px-4 py-3 text-sm font-medium">
