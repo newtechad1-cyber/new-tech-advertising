@@ -69,6 +69,7 @@ import AiSocialMedia from './pages/AiSocialMedia';
 import AiVideoStudio from './pages/AiVideoStudio';
 import AiVideos from './pages/AiVideos';
 import AiWebsites from './pages/AiWebsites';
+import AuthorityMap from './pages/AuthorityMap';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import bookCall from './pages/Book-Call';
@@ -77,10 +78,12 @@ import ChatWidget from './pages/ChatWidget';
 import ChatbotManagement from './pages/ChatbotManagement';
 import ClientDashboardDemo from './pages/ClientDashboardDemo';
 import Contact from './pages/Contact';
+import ContentQueue from './pages/ContentQueue';
 import ContentStudio from './pages/ContentStudio';
 import Dashboard from './pages/Dashboard';
 import freeAudit from './pages/Free-Audit';
 import getStarted from './pages/Get-Started';
+import GlobalSettings from './pages/GlobalSettings';
 import Home from './pages/Home';
 import IndustriesHub from './pages/IndustriesHub';
 import IndustriesNonprofits from './pages/IndustriesNonprofits';
@@ -128,9 +131,6 @@ import VideoDetail from './pages/VideoDetail';
 import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
-import GlobalSettings from './pages/GlobalSettings';
-import AuthorityMap from './pages/AuthorityMap';
-import ContentQueue from './pages/ContentQueue';
 import __Layout from './Layout.jsx';
 
 
@@ -157,6 +157,7 @@ export const PAGES = {
     "AiVideoStudio": AiVideoStudio,
     "AiVideos": AiVideos,
     "AiWebsites": AiWebsites,
+    "AuthorityMap": AuthorityMap,
     "Blog": Blog,
     "BlogPost": BlogPost,
     "Book-Call": bookCall,
@@ -165,10 +166,12 @@ export const PAGES = {
     "ChatbotManagement": ChatbotManagement,
     "ClientDashboardDemo": ClientDashboardDemo,
     "Contact": Contact,
+    "ContentQueue": ContentQueue,
     "ContentStudio": ContentStudio,
     "Dashboard": Dashboard,
     "Free-Audit": freeAudit,
     "Get-Started": getStarted,
+    "GlobalSettings": GlobalSettings,
     "Home": Home,
     "IndustriesHub": IndustriesHub,
     "IndustriesNonprofits": IndustriesNonprofits,
@@ -216,9 +219,6 @@ export const PAGES = {
     "VideoIndex": VideoIndex,
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
-    "GlobalSettings": GlobalSettings,
-    "AuthorityMap": AuthorityMap,
-    "ContentQueue": ContentQueue,
 }
 
 export const pagesConfig = {
