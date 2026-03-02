@@ -7,7 +7,8 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
-import { Calendar, Filter, CheckCircle, AlertCircle, Sparkles, MessageSquare, Clock, Zap, HelpCircle } from 'lucide-react';
+import { Calendar, Filter, CheckCircle, AlertCircle, Sparkles, MessageSquare, Clock, Zap, HelpCircle, CalendarPlus } from 'lucide-react';
+import { base44 } from '@/api/base44Client';
 import { getPackageConfig } from '../config/packageRules';
 
 export default function SchedulingQueue() {
