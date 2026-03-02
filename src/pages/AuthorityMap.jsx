@@ -245,6 +245,8 @@ export default function AuthorityMap() {
         <Button onClick={() => setView('create')} className="bg-slate-900 hover:bg-slate-700"><Plus className="w-4 h-4 mr-2" />New Plan</Button>
       </div>
 
+      <AutomationLogs />
+
       {active.length === 0 && <div className="text-center py-12 bg-slate-50 rounded-lg text-slate-500">No authority maps yet. Create your first plan.</div>}
 
       <div className="space-y-3">
