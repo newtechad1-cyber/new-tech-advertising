@@ -257,6 +257,7 @@ export default function AuthorityMap() {
       <Button onClick={handleSave} className="w-full bg-slate-900 hover:bg-slate-700">Save Authority Map</Button>
     </div>
   );
+  }
 
   if (view === 'detail' && selected) return (
     <div className="max-w-2xl mx-auto p-8 space-y-6">
