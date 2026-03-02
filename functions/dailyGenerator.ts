@@ -27,12 +27,28 @@ Deno.serve(async (req) => {
     publish_date: todayStr
   });
 
+  let item;
+
   if (!candidates || candidates.length === 0) {
-    console.log(`[DailyGenerator] No planned blog found for ${todayStr}. Exiting gracefully.`);
-    return Response.json({ skipped: true, reason: 'No planned blog item for today.' });
+    console.log(`[DailyGenerator] No planned blog found for ${todayStr}. Falling back to earliest planned blog in queue.`);
+
+    const fallbackCandidates = await base44.asServiceRole.entities.ContentQueue.filter(
+      { status: 'planned', format: 'blog' },
+      'publish_date',
+      1
+    );
+
+    if (!fallbackCandidates || fallbackCandidates.length === 0) {
+      console.log('[DailyGenerator] No planned blog items found in queue at all. Exiting gracefully.');
+      return Response.json({ skipped: true, reason: 'No planned blog items found in queue.' });
+    }
+
+    item = fallbackCandidates[0];
+    console.log(`[DailyGenerator] Fallback selected — id: ${item.id}, publish_date: ${item.publish_date}, topic: ${item.topic}`);
+  } else {
+    item = candidates[0];
   }
 
-  const item = candidates[0];
   console.log(`[DailyGenerator] Generating content for: ${item.topic} (${item.id})`);
 
   const prompt = `
