@@ -47,7 +47,7 @@ Requirements:
 - Topics must be practical, small-business focused, Midwest-leaning, and search-intent driven
 - Include: how-to, mistakes, cost, comparison, templates, checklists, case-study angles
 - No vague titles — every topic must be specific and actionable
-- internal_link_strategy: describe how these pillars interconnect with internal links
+- internal_link_strategy: fill the structured JSON object below (no plain text)
 - authority_positioning_summary: 2-3 sentence summary of how this plan builds topical authority
 
 JSON schema to follow exactly:
@@ -55,7 +55,15 @@ JSON schema to follow exactly:
   "pillars": [
     { "pillar_title": "string", "cluster_topics": ["string", "string", ...] }
   ],
-  "internal_link_strategy": "string",
+  "internal_link_strategy": {
+    "pillar_linking_rule": "string",
+    "cluster_to_pillar_rule": "string",
+    "service_page_linking_rule": "string",
+    "cta_linking_rule": "string",
+    "horizontal_linking_rule": "string",
+    "anchor_style_guidelines": "string",
+    "max_links_per_post": 3
+  },
   "authority_positioning_summary": "string"
 }
 `;
