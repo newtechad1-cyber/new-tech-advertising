@@ -47,6 +47,13 @@ export default function ContentQueue() {
   const [filters, setFilters] = useState({ status: 'all', format: 'all' });
   const [selected, setSelected] = useState(null);
   const [expandedDates, setExpandedDates] = useState({});
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [editForm, setEditForm] = useState({});
+  const [saving, setSaving] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
+  const [saveError, setSaveError] = useState(null);
+  const [metaExpanded, setMetaExpanded] = useState(false);
 
   useEffect(() => { loadItems(); }, []);
 
