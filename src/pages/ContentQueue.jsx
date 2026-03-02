@@ -4,8 +4,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import { Copy, ArrowLeft, Calendar, ChevronDown, ChevronRight } from 'lucide-react';
+import { Copy, ArrowLeft, Calendar, ChevronDown, ChevronRight, Pencil, CheckCircle } from 'lucide-react';
 
 const STATUS_COLORS = {
   planned: 'bg-slate-100 text-slate-700',
