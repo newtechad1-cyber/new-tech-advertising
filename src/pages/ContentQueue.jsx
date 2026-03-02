@@ -91,6 +91,27 @@ export default function ContentQueue() {
     setEditing(true);
   };
 
+  const handleApprove = async () => {
+    try {
+      await base44.entities.ContentQueue.update(selected.id, { status: 'approved' });
+      setSelected(prev => ({ ...prev, status: 'approved', updated_date: new Date().toISOString() }));
+      setItems(prev => prev.map(it => it.id === selected.id ? { ...it, status: 'approved' } : it));
+      setSaveSuccess(true);
+      toast.success('Approved!');
+    } catch { toast.error('Failed to approve'); }
+  };
+
+  const handleMarkFailed = async () => {
+    try {
+      await base44.entities.ContentQueue.update(selected.id, { status: 'failed', last_error: failReason });
+      setSelected(prev => ({ ...prev, status: 'failed', last_error: failReason, updated_date: new Date().toISOString() }));
+      setItems(prev => prev.map(it => it.id === selected.id ? { ...it, status: 'failed' } : it));
+      setFailPrompt(false);
+      setFailReason('');
+      toast.success('Marked as failed');
+    } catch { toast.error('Failed to update'); }
+  };
+
   const handleSave = async () => {
     setSaving(true);
     setSaveSuccess(false);
