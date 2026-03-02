@@ -305,7 +305,19 @@ export default function SchedulingQueue() {
                   <div className="border-t pt-4 flex flex-wrap gap-2">
                     {submission.status === 'pending' && (
                       <>
-                        <Button size="sm" onClick={() => handleStatusUpdate(submission.id, 'scheduled')}>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="text-blue-700 border-blue-300 hover:bg-blue-50"
+                          onClick={() => setCalendarForm(prev => ({
+                            ...prev,
+                            [submission.id]: prev[submission.id] ? undefined : { start: '', end: '' }
+                          }))}
+                        >
+                          <CalendarPlus className="w-4 h-4 mr-1" />
+                          Schedule on Google Calendar
+                        </Button>
+                        <Button size="sm" variant="outline" onClick={() => handleStatusUpdate(submission.id, 'scheduled')}>
                           <Calendar className="w-4 h-4 mr-1" />
                           Mark Scheduled
                         </Button>
@@ -318,6 +330,44 @@ export default function SchedulingQueue() {
                           Recommend Upgrade
                         </Button>
                       </>
+                    )}
+                    {calendarForm[submission.id] && (
+                      <div className="w-full mt-3 bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-3">
+                        <h4 className="text-sm font-semibold text-blue-800">Add to Google Calendar</h4>
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <label className="text-xs text-blue-700 mb-1 block">Start Date & Time</label>
+                            <Input
+                              type="datetime-local"
+                              value={calendarForm[submission.id]?.start || ''}
+                              onChange={e => setCalendarForm(prev => ({ ...prev, [submission.id]: { ...prev[submission.id], start: e.target.value } }))}
+                              className="text-sm"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-xs text-blue-700 mb-1 block">End Date & Time (optional)</label>
+                            <Input
+                              type="datetime-local"
+                              value={calendarForm[submission.id]?.end || ''}
+                              onChange={e => setCalendarForm(prev => ({ ...prev, [submission.id]: { ...prev[submission.id], end: e.target.value } }))}
+                              className="text-sm"
+                            />
+                          </div>
+                        </div>
+                        <div className="flex gap-2">
+                          <Button
+                            size="sm"
+                            className="bg-blue-600 hover:bg-blue-700 text-white"
+                            onClick={() => handleAddToCalendar(submission)}
+                            disabled={calendarLoading[submission.id]}
+                          >
+                            {calendarLoading[submission.id] ? 'Adding...' : 'Add to Calendar'}
+                          </Button>
+                          <Button size="sm" variant="ghost" onClick={() => setCalendarForm(prev => { const n = {...prev}; delete n[submission.id]; return n; })}>
+                            Cancel
+                          </Button>
+                        </div>
+                      </div>
                     )}
                     {submission.status === 'scheduled' && (
                       <Button size="sm" onClick={() => handleStatusUpdate(submission.id, 'posted')} className="bg-green-600">
