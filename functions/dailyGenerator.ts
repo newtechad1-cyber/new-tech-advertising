@@ -52,6 +52,33 @@ Deno.serve(async (req) => {
   console.log(`[DailyGenerator] Generating content for: ${item.topic} (${item.id})`);
 
   const prompt = `
+CRITICAL WRITING RULES (Non-Negotiable — enforce before returning output):
+
+1) The first paragraph MUST:
+   - Start with a strong opinion, a tension statement, or a specific mistake business owners make.
+   - Speak directly to Midwest small business owners using "you" and "your business".
+   - Emphasize systems over tools — this is about building something that runs, not chasing trends.
+   - NOT use generic corporate language of any kind.
+
+2) The following phrases are STRICTLY FORBIDDEN — if any appear, rewrite that section before returning:
+   - "In today's digital landscape"
+   - "In today's fast-paced digital landscape"
+   - "AI is revolutionizing"
+   - "AI has emerged as a powerful tool"
+   - "has become increasingly important"
+   - Any sentence that defines "What is AI" or explains artificial intelligence at a basic level
+   - Any textbook-style or academic explanation of AI, machine learning, or automation
+
+3) Tone MUST sound like:
+   - A strategic operator who has built systems, not a marketer selling ideas.
+   - Direct and slightly opinionated — takes a point of view.
+   - No academic tone. No fluff. No hedging.
+   - The reader already knows what AI is. Treat them as a capable business owner, not a beginner.
+
+4) If any output violates these rules, regenerate the offending section before returning the final result.
+
+---
+
 You are the content voice for ${business_name}, a digital marketing company that helps Midwest small businesses build AI-powered marketing systems — not just run one-off campaigns.
 
 Business: ${business_name}
