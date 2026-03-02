@@ -86,6 +86,7 @@ export default function AuthorityMap() {
         setView('list');
         setForm({ niche: 'NTA AI marketing for small businesses', location: 'Midwest', pillars: [], internal_link_strategy: '', authority_positioning_summary: '' });
         setSaved(false);
+        setForm({ niche: 'NTA AI marketing for small businesses', location: 'Midwest', pillars: [], internal_link_strategy: DEFAULT_LINK_STRATEGY, authority_positioning_summary: '' });
         loadPlans();
       }, 1200);
     } catch (err) {
@@ -94,6 +95,13 @@ export default function AuthorityMap() {
       setSaveError(msg);
       toast.error('Save failed: ' + msg);
     }
+  };
+
+  const updateLinkStrategy = (field, value) => {
+    setForm(prev => ({
+      ...prev,
+      internal_link_strategy: { ...prev.internal_link_strategy, [field]: field === 'max_links_per_post' ? Number(value) : value }
+    }));
   };
 
   const handleArchive = async (id) => {
