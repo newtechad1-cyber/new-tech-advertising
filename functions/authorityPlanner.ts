@@ -133,7 +133,7 @@ JSON schema to follow exactly:
         niche,
         location,
         pillars,
-        internal_link_strategy: String(aiResult.internal_link_strategy || ''),
+        internal_link_strategy: aiResult.internal_link_strategy || {},
         authority_positioning_summary: String(aiResult.authority_positioning_summary || ''),
         is_archived: false
       });
