@@ -57,16 +57,27 @@ export default function GlobalSettings() {
       return;
     }
     setSaving(true);
+    setSaved(false);
     try {
-      if (record) {
-        await base44.entities.Settings.update(record.id, form);
+      // Enforce single-record: re-fetch to get latest ID before saving
+      const latest = await base44.entities.Settings.list();
+      if (latest.length > 0) {
+        await base44.entities.Settings.update(latest[0].id, form);
+        setRecord(latest[0]);
+        // Delete any duplicate records beyond the first
+        for (let i = 1; i < latest.length; i++) {
+          await base44.entities.Settings.delete(latest[i].id);
+        }
       } else {
         const created = await base44.entities.Settings.create(form);
         setRecord(created);
       }
-      toast.success('Settings saved');
+      setSaved(true);
+      toast.success('Settings saved successfully!');
+      setTimeout(() => setSaved(false), 4000);
     } catch (err) {
-      toast.error('Failed to save settings');
+      console.error('[GlobalSettings] Save failed:', err);
+      toast.error('Failed to save settings: ' + err.message);
     } finally {
       setSaving(false);
     }
