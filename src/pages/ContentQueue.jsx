@@ -54,6 +54,8 @@ export default function ContentQueue() {
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [saveError, setSaveError] = useState(null);
   const [metaExpanded, setMetaExpanded] = useState(false);
+  const [failPrompt, setFailPrompt] = useState(false);
+  const [failReason, setFailReason] = useState('');
 
   useEffect(() => {
     loadItems();
