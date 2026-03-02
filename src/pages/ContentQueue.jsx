@@ -127,64 +127,109 @@ export default function ContentQueue() {
   if (selected) return (
     <div className="max-w-3xl mx-auto p-8 space-y-6">
       <div className="flex items-center gap-3">
-        <Button variant="ghost" size="icon" onClick={() => setSelected(null)}><ArrowLeft className="w-4 h-4" /></Button>
+        <Button variant="ghost" size="icon" onClick={() => { setSelected(null); setEditing(false); setSaveSuccess(false); setSaveError(null); }}><ArrowLeft className="w-4 h-4" /></Button>
         <div className="flex-1">
           <h1 className="text-xl font-bold text-slate-900">{selected.topic}</h1>
           <p className="text-sm text-slate-500">{selected.publish_date} · {selected.pillar}</p>
         </div>
-        <Select value={selected.status} onValueChange={v => handleStatusChange(selected.id, v)}>
-          <SelectTrigger className="w-36">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {['planned','generated','approved','published','failed'].map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
-          </SelectContent>
-        </Select>
+        {isAdmin && !editing && (
+          <Button size="sm" variant="outline" onClick={startEdit}><Pencil className="w-3.5 h-3.5 mr-1.5" />Edit</Button>
+        )}
       </div>
 
-      <div className="flex flex-wrap gap-2">
-        <Badge className={STATUS_COLORS[selected.status]}>{selected.status}</Badge>
-        <Badge className={FORMAT_COLORS[selected.format]}>{selected.format}</Badge>
-        {selected.keyword && <Badge variant="outline">🔑 {selected.keyword}</Badge>}
-        {selected.publish_url && <a href={selected.publish_url} target="_blank" rel="noreferrer" className="text-xs text-blue-600 underline">{selected.publish_url}</a>}
-      </div>
-
-      {selected.last_error && (
-        <Card className="border-red-200 bg-red-50">
-          <CardContent className="pt-4 text-sm text-red-700 whitespace-pre-wrap">{selected.last_error}</CardContent>
-        </Card>
+      {saveSuccess && (
+        <div className="flex items-center gap-2 bg-green-50 border border-green-200 text-green-800 rounded-lg px-4 py-3 text-sm font-medium">
+          <CheckCircle className="w-4 h-4 text-green-600" />
+          Changes saved successfully.
+        </div>
       )}
 
-      {selected.content && (
+      {editing ? (
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-base">Content</CardTitle>
-            <Button size="sm" variant="outline" onClick={() => copyText(selected.content)}><Copy className="w-3 h-3 mr-1" />Copy</Button>
-          </CardHeader>
-          <CardContent><p className="text-sm text-slate-700 whitespace-pre-wrap max-h-96 overflow-y-auto">{selected.content}</p></CardContent>
-        </Card>
-      )}
-
-      {selected.meta && Object.keys(selected.meta).length > 0 && (
-        <Card>
-          <CardHeader><CardTitle className="text-base">Meta & Assets</CardTitle></CardHeader>
+          <CardHeader><CardTitle className="text-base">Edit Item</CardTitle></CardHeader>
           <CardContent className="space-y-4">
-            {META_FIELDS.map(({ key, label }) => {
-              const val = selected.meta[key];
-              if (!val || (Array.isArray(val) && val.length === 0)) return null;
-              const display = typeof val === 'object' ? JSON.stringify(val, null, 2) : val;
-              return (
-                <div key={key} className="space-y-1">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide">{label}</span>
-                    <Button size="sm" variant="ghost" className="h-6 px-2 text-xs" onClick={() => copyText(val)}><Copy className="w-3 h-3 mr-1" />Copy</Button>
-                  </div>
-                  <pre className="bg-slate-50 border rounded p-3 text-xs text-slate-700 whitespace-pre-wrap max-h-48 overflow-auto">{display}</pre>
-                </div>
-              );
-            })}
+            <div className="space-y-1">
+              <Label>Publish Date</Label>
+              <Input type="date" value={editForm.publish_date} onChange={e => setEditForm(f => ({ ...f, publish_date: e.target.value }))} />
+            </div>
+            <div className="space-y-1">
+              <Label>Status</Label>
+              <Select value={editForm.status} onValueChange={v => setEditForm(f => ({ ...f, status: v }))}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {['planned','generated','approved','published','failed'].map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1">
+              <Label>Topic</Label>
+              <Input value={editForm.topic} onChange={e => setEditForm(f => ({ ...f, topic: e.target.value }))} />
+            </div>
+            <div className="space-y-1">
+              <Label>Content</Label>
+              <Textarea rows={10} className="resize-y font-mono text-sm" value={editForm.content} onChange={e => setEditForm(f => ({ ...f, content: e.target.value }))} />
+            </div>
+            {saveError && <p className="text-sm text-red-600">{saveError}</p>}
+            <div className="flex gap-2">
+              <Button onClick={handleSave} disabled={saving} className="bg-slate-900 hover:bg-slate-700">{saving ? 'Saving...' : 'Save Changes'}</Button>
+              <Button variant="outline" onClick={() => { setEditing(false); setSaveError(null); }}>Cancel</Button>
+            </div>
           </CardContent>
         </Card>
+      ) : (
+        <>
+          <div className="flex flex-wrap gap-2">
+            <Badge className={STATUS_COLORS[selected.status]}>{selected.status}</Badge>
+            <Badge className={FORMAT_COLORS[selected.format]}>{selected.format}</Badge>
+            {selected.keyword && <Badge variant="outline">🔑 {selected.keyword}</Badge>}
+            {selected.publish_url && <a href={selected.publish_url} target="_blank" rel="noreferrer" className="text-xs text-blue-600 underline">{selected.publish_url}</a>}
+          </div>
+
+          {selected.last_error && (
+            <Card className="border-red-200 bg-red-50">
+              <CardContent className="pt-4 text-sm text-red-700 whitespace-pre-wrap">{selected.last_error}</CardContent>
+            </Card>
+          )}
+
+          {selected.content && (
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between pb-2">
+                <CardTitle className="text-base">Content</CardTitle>
+                <Button size="sm" variant="outline" onClick={() => copyText(selected.content)}><Copy className="w-3 h-3 mr-1" />Copy</Button>
+              </CardHeader>
+              <CardContent><p className="text-sm text-slate-700 whitespace-pre-wrap max-h-96 overflow-y-auto">{selected.content}</p></CardContent>
+            </Card>
+          )}
+
+          {selected.meta && Object.keys(selected.meta).length > 0 && (
+            <Card>
+              <CardHeader>
+                <button className="w-full flex items-center justify-between text-left" onClick={() => setMetaExpanded(v => !v)}>
+                  <CardTitle className="text-base">Meta & Assets</CardTitle>
+                  {metaExpanded ? <ChevronDown className="w-4 h-4 text-slate-400" /> : <ChevronRight className="w-4 h-4 text-slate-400" />}
+                </button>
+              </CardHeader>
+              {metaExpanded && (
+                <CardContent className="space-y-4">
+                  {META_FIELDS.map(({ key, label }) => {
+                    const val = selected.meta[key];
+                    if (!val || (Array.isArray(val) && val.length === 0)) return null;
+                    const display = typeof val === 'object' ? JSON.stringify(val, null, 2) : val;
+                    return (
+                      <div key={key} className="space-y-1">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide">{label}</span>
+                          <Button size="sm" variant="ghost" className="h-6 px-2 text-xs" onClick={() => copyText(val)}><Copy className="w-3 h-3 mr-1" />Copy</Button>
+                        </div>
+                        <pre className="bg-slate-50 border rounded p-3 text-xs text-slate-700 whitespace-pre-wrap max-h-48 overflow-auto">{display}</pre>
+                      </div>
+                    );
+                  })}
+                </CardContent>
+              )}
+            </Card>
+          )}
+        </>
       )}
     </div>
   );
