@@ -77,6 +77,35 @@ export default function ContentQueue() {
     } catch { toast.error('Failed to update status'); }
   };
 
+  const startEdit = () => {
+    setEditForm({
+      publish_date: selected.publish_date || '',
+      status: selected.status || 'planned',
+      topic: selected.topic || '',
+      content: selected.content || ''
+    });
+    setSaveSuccess(false);
+    setSaveError(null);
+    setEditing(true);
+  };
+
+  const handleSave = async () => {
+    setSaving(true);
+    setSaveSuccess(false);
+    setSaveError(null);
+    try {
+      const updated = await base44.entities.ContentQueue.update(selected.id, editForm);
+      setSelected(prev => ({ ...prev, ...editForm }));
+      setItems(prev => prev.map(it => it.id === selected.id ? { ...it, ...editForm } : it));
+      setSaveSuccess(true);
+      setEditing(false);
+    } catch (err) {
+      setSaveError(err.message || 'Save failed');
+    } finally {
+      setSaving(false);
+    }
+  };
+
   const filtered = items.filter(item => {
     if (filters.status !== 'all' && item.status !== filters.status) return false;
     if (filters.format !== 'all' && item.format !== filters.format) return false;
