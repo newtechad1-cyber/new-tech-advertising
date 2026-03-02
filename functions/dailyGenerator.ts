@@ -149,8 +149,22 @@ META DESCRIPTION:
 BODY CONTENT:
 - 1200–1600 words, markdown with H2 and H3 headings.
 - Each section should move the reader forward — no padding, no restating the intro.
-- Include 1 clear CTA near the end using this exact text: "${cta || 'Contact us today'}"
-- Add a "Next Steps" section near the end with exactly 3 bullet points. Each bullet must be actionable and specific — not generic advice.
+
+TOOL/PLATFORM MENTIONS (apply whenever a tool or software is discussed):
+- Do NOT write a neutral software review. Every tool mention must be framed around:
+  1. When it works (specific use case)
+  2. When it fails (be honest about limitations)
+  3. Who should NOT use it (not every tool is for every business)
+- Always tie tool discussion back to system design — the tool serves the system, not the other way around.
+
+CORE THEMES (must reinforce at least once, naturally — not as a list):
+- Systems over tools: a bad system with great tools still fails.
+- Strategy before software: know what you're building before you pick the tools.
+- DIY vs DFY tradeoffs: frame this as a real business decision with honest pros/cons.
+
+CLOSING STRUCTURE (required, in this order):
+1. A "Next Moves" section with exactly 3 numbered steps — each must be specific and immediately actionable. No vague advice like "start using AI" or "assess your needs".
+2. Immediately after "Next Moves", include the primary CTA: "${cta || 'Contact us today'}"
 
 Return STRICT JSON only — no markdown wrapper, no explanation, no code blocks.
 
