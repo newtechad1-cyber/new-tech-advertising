@@ -21,6 +21,8 @@ export default function SchedulingQueue() {
   });
   const [expandedId, setExpandedId] = useState(null);
   const [upgradeForm, setUpgradeForm] = useState({});
+  const [calendarForm, setCalendarForm] = useState({});
+  const [calendarLoading, setCalendarLoading] = useState({});
 
   useEffect(() => {
     loadQueue();
