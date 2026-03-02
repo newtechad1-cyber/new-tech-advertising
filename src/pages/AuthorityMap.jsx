@@ -145,7 +145,7 @@ export default function AuthorityMap() {
   if (loading) return <div className="p-8 text-center text-slate-500">Loading...</div>;
 
   if (view === 'create') return (
-    <div className="max-w-2xl mx-auto p-8 space-y-6">
+    <div className="max-w-2xl mx-auto p-8 space-y-6" key="create-view">
       <div className="flex items-center gap-3">
         <Button variant="ghost" size="icon" onClick={() => setView('list')}><ArrowLeft className="w-4 h-4" /></Button>
         <h1 className="text-2xl font-bold text-slate-900">New Authority Map</h1>
