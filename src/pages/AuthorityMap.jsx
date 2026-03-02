@@ -25,6 +25,8 @@ export default function AuthorityMap() {
   });
   const [newPillarTitle, setNewPillarTitle] = useState('');
   const [newTopics, setNewTopics] = useState({});
+  const [saveError, setSaveError] = useState('');
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => { loadPlans(); }, []);
 
