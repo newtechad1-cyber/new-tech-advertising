@@ -94,6 +94,34 @@ export default function SchedulingQueue() {
     }
   };
 
+  const handleAddToCalendar = async (submission) => {
+    const form = calendarForm[submission.id];
+    if (!form?.start) {
+      toast.error('Please select a start date/time');
+      return;
+    }
+    setCalendarLoading(prev => ({ ...prev, [submission.id]: true }));
+    try {
+      const start = new Date(form.start).toISOString();
+      const end = form.end ? new Date(form.end).toISOString() : new Date(new Date(form.start).getTime() + 60 * 60 * 1000).toISOString();
+      await base44.functions.invoke('googleCalendar', {
+        action: 'create_event',
+        title: `Post: ${submission.submission_type.replace('_', ' ')} — ${submission.social_channels?.join(', ')}`,
+        description: submission.post_text,
+        start,
+        end,
+      });
+      await base44.entities.ContentSubmission.update(submission.id, { status: 'scheduled', preferred_date: form.start });
+      toast.success('Event added to Google Calendar & marked scheduled!');
+      setCalendarForm(prev => { const n = {...prev}; delete n[submission.id]; return n; });
+      loadQueue();
+    } catch (err) {
+      toast.error('Failed to add to calendar: ' + err.message);
+    } finally {
+      setCalendarLoading(prev => ({ ...prev, [submission.id]: false }));
+    }
+  };
+
   const filteredSubmissions = submissions.filter(sub => {
     if (filters.package === '197' && !sub.created_by) return false;
     if (filters.channel !== 'all' && !sub.social_channels?.includes(filters.channel)) return false;
