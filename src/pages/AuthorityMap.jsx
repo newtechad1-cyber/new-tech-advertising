@@ -206,7 +206,6 @@ export default function AuthorityMap() {
       </Card>
 
       <Card><CardContent className="pt-6 space-y-4">
-        <div className="hidden">
         <div className="space-y-1">
           <Label>Authority Positioning Summary</Label>
           <Textarea rows={3} value={form.authority_positioning_summary} onChange={e => setForm({ ...form, authority_positioning_summary: e.target.value })} className="resize-none" />
