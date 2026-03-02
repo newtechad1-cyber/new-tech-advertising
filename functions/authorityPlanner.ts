@@ -56,13 +56,13 @@ JSON schema to follow exactly:
     { "pillar_title": "string", "cluster_topics": ["string", "string", ...] }
   ],
   "internal_link_strategy": {
-    "pillar_linking_rule": "string",
-    "cluster_to_pillar_rule": "string",
-    "service_page_linking_rule": "string",
-    "cta_linking_rule": "string",
-    "horizontal_linking_rule": "string",
-    "anchor_style_guidelines": "string",
-    "max_links_per_post": 3
+    "pillar_linking_rule": "How pillar pages should link to cluster pages",
+    "cluster_to_pillar_rule": "How cluster posts link back to pillar",
+    "service_page_linking_rule": "How blogs link to DIY/DFY service pages",
+    "cta_linking_rule": "Where and how to insert primary CTA",
+    "horizontal_linking_rule": "How related blogs cross-link",
+    "anchor_style_guidelines": "Rules for anchor text tone and format",
+    "max_links_per_post": 5
   },
   "authority_positioning_summary": "string"
 }
