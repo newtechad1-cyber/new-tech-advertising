@@ -55,7 +55,10 @@ export default function ContentQueue() {
   const [saveError, setSaveError] = useState(null);
   const [metaExpanded, setMetaExpanded] = useState(false);
 
-  useEffect(() => { loadItems(); }, []);
+  useEffect(() => {
+    loadItems();
+    base44.auth.me().then(u => setIsAdmin(u?.role === 'admin')).catch(() => {});
+  }, []);
 
   const loadItems = async () => {
     try {
