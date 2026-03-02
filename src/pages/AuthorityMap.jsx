@@ -16,11 +16,21 @@ export default function AuthorityMap() {
   const [view, setView] = useState('list'); // 'list' | 'create' | 'detail'
   const [selected, setSelected] = useState(null);
   const [expandedPillars, setExpandedPillars] = useState({});
+  const DEFAULT_LINK_STRATEGY = {
+    pillar_linking_rule: "Create 1–2 pillar hub pages per month. Each pillar hub lists and links to all cluster articles in a Resources section, grouped by intent (Learn / Implement / Buy).",
+    cluster_to_pillar_rule: "In every cluster post, link back to the pillar once near the top (within the first 2 sections) using a descriptive anchor. Add another link back in the conclusion if it fits naturally.",
+    service_page_linking_rule: "If the post includes implementation steps, tools, templates, or 'done for you' considerations, link to the most relevant offer page (DIY system or DFY management). Prefer 1 service link max per post.",
+    cta_linking_rule: "Include the primary CTA twice: once after the first actionable section (mid-article) and once in a closing 'Next Steps' section. CTA should be one sentence + button/link.",
+    horizontal_linking_rule: "Add 1–2 cross-links to related posts from the same pillar cluster: one for a prerequisite topic and one for a next-step topic. Avoid linking to unrelated pillars.",
+    anchor_style_guidelines: "Anchors must be specific and intent-based (e.g., 'AI social media content calendar template' or 'DFY social media management for small businesses'). Avoid generic anchors like 'click here'. Keep anchors 3–8 words when possible.",
+    max_links_per_post: 5
+  };
+
   const [form, setForm] = useState({
     niche: 'NTA AI marketing for small businesses',
     location: 'Midwest',
     pillars: [],
-    internal_link_strategy: '',
+    internal_link_strategy: DEFAULT_LINK_STRATEGY,
     authority_positioning_summary: ''
   });
   const [newPillarTitle, setNewPillarTitle] = useState('');
