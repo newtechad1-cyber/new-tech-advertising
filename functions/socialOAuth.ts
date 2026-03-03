@@ -144,32 +144,61 @@ Deno.serve(async (req) => {
     }
 
     if (code && state) {
+      const requestId = crypto.randomUUID();
+      console.log(`[socialOAuth] GET callback — state=${state} request_id=${requestId}`);
+
+      // Determine provider label
+      let provider;
+      if (state === 'google_my_business') provider = 'google_business';
+      else if (state === 'youtube') provider = 'youtube';
+      else if (state === 'facebook' || state === 'instagram' || state === 'tiktok') provider = state;
+      else provider = 'google_generic';
+
+      const isGoogle = provider === 'google_business' || provider === 'youtube' || provider === 'google_generic';
+
       try {
         const base44 = createClientFromRequest(req);
         let profile = null;
         let tokenData = null;
 
-        if (state === 'youtube' || state === 'google_my_business') {
+        if (isGoogle) {
           tokenData = await exchangeGoogleCode(code, state);
+          console.log(`[socialOAuth] Google token exchange — has_access_token=${!!tokenData.access_token} has_refresh_token=${!!tokenData.refresh_token} error=${tokenData.error || 'none'}`);
+
+          if (tokenData.error) {
+            throw new Error(`Google token error: ${tokenData.error} — ${tokenData.error_description}`);
+          }
+
           profile = await getGoogleProfile(tokenData.access_token);
-          const existing = await base44.asServiceRole.entities.SocialAccount.filter({ platform: state });
+          const scope = url.searchParams.get('scope') || '';
+          const expiresAt = tokenData.expires_in ? new Date(Date.now() + tokenData.expires_in * 1000).toISOString() : null;
+
+          const existing = await base44.asServiceRole.entities.SocialAccount.filter({ platform: provider });
           const payload = {
-            platform: state,
+            platform: provider,
             account_name: profile.name || profile.email,
             platform_user_id: profile.id,
             profile_url: profile.link || '',
             profile_image_url: profile.picture || '',
             status: 'connected',
             last_synced_at: new Date().toISOString(),
-            metadata: { access_token: tokenData.access_token, refresh_token: tokenData.refresh_token },
+            metadata: {
+              access_token: tokenData.access_token,
+              refresh_token: tokenData.refresh_token || null,
+              scope,
+              expires_at: expiresAt,
+              updated_at: new Date().toISOString(),
+            },
           };
           if (existing.length > 0) {
             await base44.asServiceRole.entities.SocialAccount.update(existing[0].id, payload);
           } else {
             await base44.asServiceRole.entities.SocialAccount.create(payload);
           }
+
         } else if (state === 'facebook' || state === 'instagram') {
           tokenData = await exchangeMetaCode(code);
+          if (tokenData.error) throw new Error(`Meta token error: ${JSON.stringify(tokenData.error)}`);
           profile = await getMetaProfile(tokenData.access_token, state);
           const existing = await base44.asServiceRole.entities.SocialAccount.filter({ platform: state });
           const payload = {
@@ -179,15 +208,17 @@ Deno.serve(async (req) => {
             profile_url: profile?.profile_url || '',
             status: 'connected',
             last_synced_at: new Date().toISOString(),
-            metadata: { access_token: tokenData.access_token },
+            metadata: { access_token: tokenData.access_token, updated_at: new Date().toISOString() },
           };
           if (existing.length > 0) {
             await base44.asServiceRole.entities.SocialAccount.update(existing[0].id, payload);
           } else {
             await base44.asServiceRole.entities.SocialAccount.create(payload);
           }
+
         } else if (state === 'tiktok') {
           tokenData = await exchangeTikTokCode(code);
+          if (tokenData.error) throw new Error(`TikTok token error: ${JSON.stringify(tokenData.error)}`);
           profile = await getTikTokProfile(tokenData.access_token);
           const existing = await base44.asServiceRole.entities.SocialAccount.filter({ platform: 'tiktok' });
           const payload = {
@@ -198,7 +229,7 @@ Deno.serve(async (req) => {
             profile_image_url: profile?.avatar_url || '',
             status: 'connected',
             last_synced_at: new Date().toISOString(),
-            metadata: { access_token: tokenData.access_token },
+            metadata: { access_token: tokenData.access_token, updated_at: new Date().toISOString() },
           };
           if (existing.length > 0) {
             await base44.asServiceRole.entities.SocialAccount.update(existing[0].id, payload);
@@ -207,13 +238,23 @@ Deno.serve(async (req) => {
           }
         }
 
-        return new Response(`<html><body><script>window.opener?.postMessage({type:'oauth_success',platform:'${state}'},'*');window.close();</script></body></html>`, {
-          headers: { 'Content-Type': 'text/html' },
+        console.log(`[socialOAuth] Success — provider=${provider} redirecting to /admindashboard`);
+        return new Response(null, {
+          status: 302,
+          headers: { Location: `/admindashboard?connected=${provider}` },
         });
+
       } catch (err) {
-        return new Response(`<html><body><script>window.opener?.postMessage({type:'oauth_error',platform:'${state}',error:${JSON.stringify(err.message)}},'*');window.close();</script></body></html>`, {
-          headers: { 'Content-Type': 'text/html' },
-        });
+        console.error(`[socialOAuth] Error — provider=${provider} request_id=${requestId} error=${err.message}`);
+        return new Response(`
+          <html><body style="font-family:sans-serif;padding:2rem;">
+            <h2>OAuth Connection Error</h2>
+            <p><strong>Provider:</strong> ${provider} (state: ${state})</p>
+            <p><strong>Error:</strong> ${err.message}</p>
+            <p><strong>Request ID:</strong> ${requestId}</p>
+            <p><a href="/admindashboard">← Back to Dashboard</a></p>
+          </body></html>
+        `, { status: 500, headers: { 'Content-Type': 'text/html' } });
       }
     }
 
