@@ -57,7 +57,7 @@ async function exchangeGoogleCode(code, platform) {
       code,
       client_id: Deno.env.get('GOOGLE_CLIENT_ID'),
       client_secret: Deno.env.get('GOOGLE_CLIENT_SECRET'),
-      redirect_uri: `${BASE_URL}/api/functions/socialOAuth`,
+      redirect_uri: REDIRECT_URI,
       grant_type: 'authorization_code',
     }),
   });
