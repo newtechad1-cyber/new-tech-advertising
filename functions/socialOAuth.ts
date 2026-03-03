@@ -26,7 +26,7 @@ function getMetaAuthUrl(platform) {
 
   const params = new URLSearchParams({
     client_id: Deno.env.get('META_APP_ID'),
-    redirect_uri: `${BASE_URL}/api/functions/socialOAuth`,
+    redirect_uri: REDIRECT_URI,
     scope: scopes,
     response_type: 'code',
     state: platform,
