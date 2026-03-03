@@ -89,7 +89,7 @@ async function exchangeTikTokCode(code) {
       code,
       client_key: Deno.env.get('TIKTOK_CLIENT_KEY'),
       client_secret: Deno.env.get('TIKTOK_CLIENT_SECRET'),
-      redirect_uri: `${BASE_URL}/api/functions/socialOAuth`,
+      redirect_uri: REDIRECT_URI,
       grant_type: 'authorization_code',
     }),
   });
