@@ -131,6 +131,7 @@ import VideoDetail from './pages/VideoDetail';
 import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
+import OauthCallback from './pages/OauthCallback';
 import __Layout from './Layout.jsx';
 
 
@@ -219,6 +220,7 @@ export const PAGES = {
     "VideoIndex": VideoIndex,
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
+    "OauthCallback": OauthCallback,
 }
 
 export const pagesConfig = {
