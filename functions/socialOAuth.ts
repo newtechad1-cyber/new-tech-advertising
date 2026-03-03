@@ -224,7 +224,7 @@ Deno.serve(async (req) => {
         tiktok_client_key_prefix: Deno.env.get('TIKTOK_CLIENT_KEY')?.substring(0, 6) + '...',
         meta_app_id_set: !!Deno.env.get('META_APP_ID'),
         google_client_id_set: !!Deno.env.get('GOOGLE_CLIENT_ID'),
-        base_url: BASE_URL,
+        redirect_uri: REDIRECT_URI,
         tiktok_auth_url: getTikTokAuthUrl(),
       });
     }
