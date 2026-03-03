@@ -4,7 +4,7 @@ const REDIRECT_URI = 'https://new-tech-advertising.base44.app/api/functions/soci
 
 function getGoogleAuthUrl(platform) {
   const scopes = platform === 'youtube'
-    ? 'https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/userinfo.profile'
+    ? 'https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.readonly openid email profile'
     : 'https://www.googleapis.com/auth/business.manage https://www.googleapis.com/auth/userinfo.profile';
 
   const params = new URLSearchParams({
