@@ -271,13 +271,61 @@ Deno.serve(async (req) => {
     }
   }
 
-  // Handle POST: get auth URL for a platform
+  // Handle POST: get auth URL for a platform, OR exchange code from callback page
   if (req.method === 'POST') {
     const base44 = createClientFromRequest(req);
     const user = await base44.auth.me();
     if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
 
-    const { platform } = await req.json();
+    const body = await req.json();
+    const { platform, provider, state: bodyState, code: bodyCode, scope: bodyScope } = body;
+
+    // Handle token exchange from /oauth/callback page
+    if (provider === 'google' && bodyCode) {
+      const requestId = crypto.randomUUID();
+      console.log(`[socialOAuth] POST code exchange — state=${bodyState} request_id=${requestId}`);
+      let providerLabel;
+      if (bodyState === 'google_my_business') providerLabel = 'google_business';
+      else if (bodyState === 'youtube') providerLabel = 'youtube';
+      else providerLabel = 'google_generic';
+
+      const tokenData = await exchangeGoogleCode(bodyCode, bodyState);
+      console.log(`[socialOAuth] Token exchange result — has_access_token=${!!tokenData.access_token} error=${tokenData.error || 'none'}`);
+
+      if (tokenData.error) {
+        return Response.json({ error: `${tokenData.error}: ${tokenData.error_description}` }, { status: 400 });
+      }
+
+      const profile = await getGoogleProfile(tokenData.access_token);
+      const expiresAt = tokenData.expires_in ? new Date(Date.now() + tokenData.expires_in * 1000).toISOString() : null;
+
+      const existing = await base44.asServiceRole.entities.SocialAccount.filter({ platform: providerLabel });
+      const payload = {
+        platform: providerLabel,
+        account_name: profile.name || profile.email,
+        platform_user_id: profile.id,
+        profile_url: profile.link || '',
+        profile_image_url: profile.picture || '',
+        status: 'connected',
+        last_synced_at: new Date().toISOString(),
+        metadata: {
+          access_token: tokenData.access_token,
+          refresh_token: tokenData.refresh_token || null,
+          scope: bodyScope || '',
+          expires_at: expiresAt,
+          updated_at: new Date().toISOString(),
+        },
+      };
+      if (existing.length > 0) {
+        await base44.asServiceRole.entities.SocialAccount.update(existing[0].id, payload);
+      } else {
+        await base44.asServiceRole.entities.SocialAccount.create(payload);
+      }
+
+      console.log(`[socialOAuth] POST exchange success — provider=${providerLabel}`);
+      return Response.json({ success: true, provider: providerLabel });
+    }
+
     let authUrl = '';
 
     let debugInfo = {};
