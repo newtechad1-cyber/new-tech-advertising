@@ -39,12 +39,11 @@ function getTikTokAuthUrl() {
   const clientKey = Deno.env.get('TIKTOK_CLIENT_KEY');
   const redirectUri = REDIRECT_URI;
   
-  // TikTok v2 requires specific parameter format
   const params = new URLSearchParams({
     client_key: clientKey,
     redirect_uri: redirectUri,
     response_type: 'code',
-    scope: 'user.info.basic',
+    scope: 'user.info.basic,video.upload,video.publish',
     state: 'tiktok',
   });
   return `https://www.tiktok.com/v2/auth/authorize/?${params}`;
