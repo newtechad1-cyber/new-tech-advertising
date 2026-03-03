@@ -246,7 +246,12 @@ Deno.serve(async (req) => {
             profile_image_url: profile?.avatar_url || '',
             status: 'connected',
             last_synced_at: new Date().toISOString(),
-            metadata: { access_token: tokenData.access_token, updated_at: new Date().toISOString() },
+            metadata: {
+              access_token: tokenData.access_token,
+              refresh_token: tokenData.refresh_token || null,
+              open_id: profile?.open_id || null,
+              updated_at: new Date().toISOString(),
+            },
           };
           if (existing.length > 0) {
             await base44.asServiceRole.entities.SocialAccount.update(existing[0].id, payload);
