@@ -103,20 +103,32 @@ async function getGoogleProfile(accessToken) {
 }
 
 async function getMetaProfile(accessToken, platform) {
+  const pagesRes = await fetch(`https://graph.facebook.com/v19.0/me/accounts?fields=id,name,access_token,link&access_token=${accessToken}`);
+  const pagesData = await pagesRes.json();
+  const page = pagesData.data?.[0];
+  if (!page) return null;
+
   if (platform === 'instagram') {
-    const pagesRes = await fetch(`https://graph.facebook.com/v19.0/me/accounts?access_token=${accessToken}`);
-    const pagesData = await pagesRes.json();
-    const page = pagesData.data?.[0];
-    if (page) {
-      const igRes = await fetch(`https://graph.facebook.com/v19.0/${page.id}?fields=instagram_business_account&access_token=${page.access_token}`);
-      const igData = await igRes.json();
-      return { name: page.name, id: igData.instagram_business_account?.id || page.id, profile_url: `https://facebook.com/${page.id}` };
-    }
+    const igRes = await fetch(`https://graph.facebook.com/v19.0/${page.id}?fields=instagram_business_account&access_token=${page.access_token}`);
+    const igData = await igRes.json();
+    const igAccountId = igData.instagram_business_account?.id;
+    return {
+      name: page.name,
+      id: igAccountId || page.id,
+      page_id: page.id,
+      page_access_token: page.access_token,
+      ig_account_id: igAccountId || null,
+      profile_url: `https://facebook.com/${page.id}`,
+    };
   }
-  const res = await fetch(`https://graph.facebook.com/v19.0/me/accounts?fields=id,name,link&access_token=${accessToken}`);
-  const data = await res.json();
-  const page = data.data?.[0];
-  return page ? { name: page.name, id: page.id, profile_url: page.link || `https://facebook.com/${page.id}` } : null;
+
+  return {
+    name: page.name,
+    id: page.id,
+    page_id: page.id,
+    page_access_token: page.access_token,
+    profile_url: page.link || `https://facebook.com/${page.id}`,
+  };
 }
 
 async function getTikTokProfile(accessToken) {
