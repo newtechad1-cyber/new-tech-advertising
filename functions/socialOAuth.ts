@@ -333,7 +333,7 @@ Deno.serve(async (req) => {
 
     if (platform === 'youtube' || platform === 'google_my_business') {
       authUrl = getGoogleAuthUrl(platform);
-      debugInfo = { client_id: Deno.env.get('GOOGLE_CLIENT_ID'), redirect_uri: REDIRECT_URI };
+      debugInfo = { client_id: Deno.env.get('GOOGLE_CLIENT_ID'), redirect_uri: GOOGLE_REDIRECT_URI };
     } else if (platform === 'facebook' || platform === 'instagram') {
       authUrl = getMetaAuthUrl(platform);
       debugInfo = { client_id: Deno.env.get('META_APP_ID'), redirect_uri: REDIRECT_URI };
