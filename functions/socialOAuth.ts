@@ -1,6 +1,6 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 
-const REDIRECT_URI = `https://${Deno.env.get('BASE44_APP_ID')}.base44.app/api/functions/socialOAuth`;
+const REDIRECT_URI = 'https://new-tech-advertising.base44.app/api/functions/socialOAuth';
 
 function getGoogleAuthUrl(platform) {
   const scopes = platform === 'youtube'
