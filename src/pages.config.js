@@ -102,6 +102,7 @@ import IndustryTrades from './pages/IndustryTrades';
 import LeadDetail from './pages/LeadDetail';
 import LeadsDashboard from './pages/LeadsDashboard';
 import LocalVisibility from './pages/LocalVisibility';
+import OauthCallback from './pages/OauthCallback';
 import OnboardThankYou from './pages/OnboardThankYou';
 import Onboarding from './pages/Onboarding';
 import OnboardingStart from './pages/OnboardingStart';
@@ -131,7 +132,7 @@ import VideoDetail from './pages/VideoDetail';
 import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
-import OauthCallback from './pages/OauthCallback';
+import DebugOAuthConnections from './pages/DebugOAuthConnections';
 import __Layout from './Layout.jsx';
 
 
@@ -191,6 +192,7 @@ export const PAGES = {
     "LeadDetail": LeadDetail,
     "LeadsDashboard": LeadsDashboard,
     "LocalVisibility": LocalVisibility,
+    "OauthCallback": OauthCallback,
     "OnboardThankYou": OnboardThankYou,
     "Onboarding": Onboarding,
     "OnboardingStart": OnboardingStart,
@@ -220,7 +222,7 @@ export const PAGES = {
     "VideoIndex": VideoIndex,
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
-    "OauthCallback": OauthCallback,
+    "DebugOAuthConnections": DebugOAuthConnections,
 }
 
 export const pagesConfig = {
