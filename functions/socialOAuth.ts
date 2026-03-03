@@ -36,7 +36,7 @@ function getMetaAuthUrl(platform) {
 
 function getTikTokAuthUrl() {
   const clientKey = Deno.env.get('TIKTOK_CLIENT_KEY');
-  const redirectUri = `${BASE_URL}/api/functions/socialOAuth`;
+  const redirectUri = REDIRECT_URI;
   
   // TikTok v2 requires specific parameter format
   const params = new URLSearchParams({
