@@ -239,17 +239,24 @@ Deno.serve(async (req) => {
     const { platform } = await req.json();
     let authUrl = '';
 
+    let debugInfo = {};
+
     if (platform === 'youtube' || platform === 'google_my_business') {
       authUrl = getGoogleAuthUrl(platform);
+      debugInfo = { client_id: Deno.env.get('GOOGLE_CLIENT_ID'), redirect_uri: REDIRECT_URI };
     } else if (platform === 'facebook' || platform === 'instagram') {
       authUrl = getMetaAuthUrl(platform);
+      debugInfo = { client_id: Deno.env.get('META_APP_ID'), redirect_uri: REDIRECT_URI };
     } else if (platform === 'tiktok') {
       authUrl = getTikTokAuthUrl();
+      debugInfo = { client_id: Deno.env.get('TIKTOK_CLIENT_KEY'), redirect_uri: REDIRECT_URI };
     } else {
       return Response.json({ error: 'Unsupported platform' }, { status: 400 });
     }
 
-    return Response.json({ authUrl });
+    console.log(`[socialOAuth] platform=${platform} client_id=${debugInfo.client_id} redirect_uri=${debugInfo.redirect_uri}`);
+
+    return Response.json({ authUrl, debug: debugInfo });
   }
 
   return Response.json({ error: 'Method not allowed' }, { status: 405 });
