@@ -72,7 +72,7 @@ async function exchangeMetaCode(code) {
       code,
       client_id: Deno.env.get('META_APP_ID'),
       client_secret: Deno.env.get('META_APP_SECRET'),
-      redirect_uri: `${BASE_URL}/api/functions/socialOAuth`,
+      redirect_uri: REDIRECT_URI,
     }),
   });
   return res.json();
