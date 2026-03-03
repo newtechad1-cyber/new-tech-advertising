@@ -56,34 +56,42 @@ export default function ConnectModal({ account, open, onClose, onSaved }) {
       return;
     }
 
-    // All other platforms: open OAuth popup
+    // All other platforms: open OAuth popup, then poll for the account to appear/update
     try {
       const res = await base44.functions.invoke('socialOAuth', { platform: account.platform });
       const { authUrl } = res.data;
 
       const popup = window.open(authUrl, 'oauth_popup', 'width=600,height=700,scrollbars=yes');
 
-      const listener = (event) => {
-        if (event.data?.type === 'oauth_success' && event.data.platform === account.platform) {
-          window.removeEventListener('message', listener);
-          setStatus('success');
-          setTimeout(() => { onSaved(); }, 1200);
-        } else if (event.data?.type === 'oauth_error' && event.data.platform === account.platform) {
-          window.removeEventListener('message', listener);
-          setStatus('error');
-          setErrorMsg(event.data.error || 'Authorization failed');
-        }
-      };
-      window.addEventListener('message', listener);
-
-      // Fallback: if popup closed without message
-      const timer = setInterval(() => {
-        if (popup?.closed) {
-          clearInterval(timer);
-          window.removeEventListener('message', listener);
+      // Poll every 2s to detect when the SocialAccount record is saved
+      const startTime = Date.now();
+      const poll = setInterval(async () => {
+        // Stop polling if popup closed after 2+ seconds (user cancelled)
+        if (popup?.closed && Date.now() - startTime > 2000) {
+          clearInterval(poll);
           if (status === 'loading') setStatus('idle');
+          return;
         }
-      }, 1000);
+
+        try {
+          const accounts = await base44.entities.SocialAccount.list();
+          const found = accounts.find(a => a.platform === account.platform && a.status === 'connected');
+          if (found) {
+            clearInterval(poll);
+            setStatus('success');
+            setTimeout(() => { onSaved(); }, 1200);
+          }
+        } catch (_) {
+          // ignore poll errors
+        }
+      }, 2000);
+
+      // Safety timeout after 3 minutes
+      setTimeout(() => {
+        clearInterval(poll);
+        if (status === 'loading') setStatus('idle');
+      }, 180000);
+
     } catch (err) {
       setStatus('error');
       setErrorMsg(err.message);
