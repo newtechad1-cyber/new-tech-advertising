@@ -219,7 +219,13 @@ Deno.serve(async (req) => {
             profile_url: profile?.profile_url || '',
             status: 'connected',
             last_synced_at: new Date().toISOString(),
-            metadata: { access_token: tokenData.access_token, updated_at: new Date().toISOString() },
+            metadata: {
+              access_token: tokenData.access_token,
+              page_access_token: profile?.page_access_token || null,
+              page_id: profile?.page_id || null,
+              ig_account_id: profile?.ig_account_id || null,
+              updated_at: new Date().toISOString(),
+            },
           };
           if (existing.length > 0) {
             await base44.asServiceRole.entities.SocialAccount.update(existing[0].id, payload);
