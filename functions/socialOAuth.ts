@@ -10,7 +10,7 @@ function getGoogleAuthUrl(platform) {
 
   const params = new URLSearchParams({
     client_id: Deno.env.get('GOOGLE_CLIENT_ID'),
-    redirect_uri: REDIRECT_URI,
+    redirect_uri: GOOGLE_REDIRECT_URI,
     response_type: 'code',
     scope: scopes,
     access_type: 'offline',
