@@ -118,11 +118,9 @@ export default function Home() {
                 You don't need to understand marketing.<br />
                 We explain everything in plain language.
               </p>
-              <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer">
-                <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-8 py-6 font-bold shadow-md">
-                  Start My 7-Day Free Trial
-                </Button>
-              </a>
+              <Button onClick={() => setShowTrialModal(true)} className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-8 py-6 font-bold shadow-md">
+                Start My 7-Day Free Trial
+              </Button>
             </div>
           </div>
         </section>
