@@ -362,6 +362,8 @@ export default function ContentDrafts() {
   const [goalFilter, setGoalFilter] = useState('all');
   const [page, setPage] = useState(0);
   const [selectedDraft, setSelectedDraft] = useState(null);
+  const [bulkGenerating, setBulkGenerating] = useState(false);
+  const [bulkProgress, setBulkProgress] = useState({ done: 0, total: 0 });
 
   const accountId = new URLSearchParams(window.location.search).get('account_id');
 
