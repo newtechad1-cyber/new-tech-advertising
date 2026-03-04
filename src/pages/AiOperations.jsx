@@ -203,6 +203,42 @@ function TasksTab() {
                   <p className="text-red-300 text-xs">{viewTask.error}</p>
                 </div>
               )}
+
+              {/* Task Run History */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-slate-400 text-xs font-medium uppercase tracking-wide">Run History</p>
+                  <a
+                    href="#"
+                    onClick={e => { e.preventDefault(); setViewTask(null); document.querySelector('[data-tab="ledger"]')?.click(); }}
+                    className="text-violet-400 text-xs hover:underline"
+                  >View in Cost Ledger →</a>
+                </div>
+                {ledgerLoading ? (
+                  <div className="flex items-center gap-2 text-slate-500 text-xs py-3"><Loader2 className="w-3 h-3 animate-spin" />Loading…</div>
+                ) : taskLedger.length === 0 ? (
+                  <p className="text-slate-600 text-xs py-3">No run history for this task.</p>
+                ) : (
+                  <div className="space-y-1.5">
+                    {taskLedger.map(entry => (
+                      <div key={entry.id} className="bg-slate-800 rounded-lg px-3 py-2 flex items-center justify-between gap-3 text-xs">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="text-slate-300 font-medium truncate">{entry.agent_key?.split(':')[0]}</span>
+                          {entry.agent_key?.includes(':') && (
+                            <Badge className="bg-yellow-900 text-yellow-300 border-0 text-xs shrink-0">{entry.agent_key.split(':')[1]}</Badge>
+                          )}
+                          <span className="text-slate-500 truncate">{entry.model}</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-slate-400 shrink-0">
+                          <span>↑{(entry.input_tokens||0).toLocaleString()} ↓{(entry.output_tokens||0).toLocaleString()}</span>
+                          <span className="text-emerald-400 font-semibold">${(entry.cost_cents/100).toFixed(4)}</span>
+                          <span className="text-slate-600">{new Date(entry.created_date).toLocaleString()}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           )}
         </DialogContent>
