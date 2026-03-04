@@ -35,30 +35,14 @@ export default function Header({ onCTAClick }) {
     }
 
     return (
-      <nav className="flex items-center gap-6 text-sm font-medium text-slate-600">
-        <DropdownMenu>
-          <DropdownMenuTrigger className="flex items-center gap-1 hover:text-blue-600 transition-colors">
-            What We Do For You <ChevronDown className="w-4 h-4" />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem asChild>
-              <a href="https://newtechadvertising.com/socialmediamarketing" target="_blank" rel="noopener noreferrer" className="cursor-pointer">Social Media Support</a>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link to={createPageUrl('Rebuild')} className="cursor-pointer">Website Support</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link to={createPageUrl('StreamingTV')} className="cursor-pointer">Video Creation & TV Ads</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link to={createPageUrl('AdaAccessibility')} className="cursor-pointer">Website Accessibility & Rebuild</Link>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        <Link to={createPageUrl('Blog')} className="hover:text-blue-600 transition-colors">Articles</Link>
-        <Link to={createPageUrl('About')} className="hover:text-blue-600 transition-colors">About Us</Link>
-        <Link to={createPageUrl('Contact')} className="hover:text-blue-600 transition-colors">Contact</Link>
+      <nav className="flex items-center gap-5 text-sm font-medium text-slate-600 flex-wrap">
+        <a href="https://newtechadvertising.com/socialmediamarketing" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors whitespace-nowrap">Social Media</a>
+        <Link to={createPageUrl('Rebuild')} className="hover:text-blue-600 transition-colors whitespace-nowrap">Website Support</Link>
+        <Link to={createPageUrl('StreamingTV')} className="hover:text-blue-600 transition-colors whitespace-nowrap">TV & Video Ads</Link>
+        <Link to={createPageUrl('AdaAccessibility')} className="hover:text-blue-600 transition-colors whitespace-nowrap">Accessibility</Link>
+        <Link to={createPageUrl('Blog')} className="hover:text-blue-600 transition-colors whitespace-nowrap">Articles</Link>
+        <Link to={createPageUrl('About')} className="hover:text-blue-600 transition-colors whitespace-nowrap">About Us</Link>
+        <Link to={createPageUrl('Contact')} className="hover:text-blue-600 transition-colors whitespace-nowrap">Contact</Link>
       </nav>
     );
   };
