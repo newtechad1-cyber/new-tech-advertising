@@ -25,7 +25,7 @@ const STEP_STATUS_CONFIG = {
 
 const PAGE_SIZE = 25;
 
-function TasksTab() {
+function TasksTab({ onNavigateToLedger }) {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [running, setRunning] = useState({});
