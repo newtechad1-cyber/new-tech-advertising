@@ -71,11 +71,9 @@ export default function Home() {
               We help local business owners like you show up online, look trustworthy, and reach more customers — without confusing jargon or wasted money.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-2">
-              <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer">
-                <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-8 py-6 font-bold shadow-lg">
-                  Start My 7-Day Free Trial
-                </Button>
-              </a>
+              <Button onClick={() => setShowTrialModal(true)} className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-8 py-6 font-bold shadow-lg">
+                Start My 7-Day Free Trial
+              </Button>
               <a href="#choose-path" className="inline-flex items-center justify-center text-white font-semibold text-lg hover:text-blue-300 transition-colors cursor-pointer">
                 See What We Do ↓
               </a>
