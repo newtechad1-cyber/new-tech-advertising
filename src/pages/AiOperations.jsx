@@ -579,11 +579,189 @@ function MemoryTab() {
   );
 }
 
+function ArtifactsTab() {
+  const [artifacts, setArtifacts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [viewArtifact, setViewArtifact] = useState(null);
+  const [typeFilter, setTypeFilter] = useState('all');
+  const [page, setPage] = useState(0);
+  const [creating, setCreating] = useState({});
+
+  const load = async () => {
+    setLoading(true);
+    const data = await base44.entities.AiArtifact.list('-created_date', 200);
+    setArtifacts(data);
+    setLoading(false);
+  };
+  useEffect(() => { load(); }, []);
+
+  const types = [...new Set(artifacts.map(a => a.artifact_type).filter(Boolean))];
+  const filtered = typeFilter === 'all' ? artifacts : artifacts.filter(a => a.artifact_type === typeFilter);
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+  const paginated = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
+
+  const createDrafts = async (artifact) => {
+    setCreating(c => ({...c, [artifact.id]: true}));
+    const res = await base44.functions.invoke('createDraftsFromArtifact', { artifactId: artifact.id });
+    setCreating(c => ({...c, [artifact.id]: false}));
+    if (res.data?.success) {
+      const msg = res.data.skippedCount > 0
+        ? `Created ${res.data.createdCount} drafts · Skipped ${res.data.skippedCount} duplicates`
+        : `Created ${res.data.createdCount} drafts`;
+      toast.success(msg);
+    } else {
+      toast.error(res.data?.error || 'Failed to create drafts');
+    }
+  };
+
+  if (loading) return <div className="text-center py-12"><Loader2 className="w-6 h-6 animate-spin mx-auto text-slate-400" /></div>;
+
+  return (
+    <div className="space-y-4">
+      <div className="flex flex-wrap gap-3 items-center justify-between">
+        <div className="flex gap-2">
+          <Select value={typeFilter} onValueChange={v => { setTypeFilter(v); setPage(0); }}>
+            <SelectTrigger className="bg-slate-800 border-slate-700 text-white h-8 text-xs w-44"><SelectValue placeholder="All Types" /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Types</SelectItem>
+              {types.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-slate-500 text-xs">{filtered.length} artifacts</span>
+          <Button size="sm" onClick={load} variant="outline" className="border-slate-700 text-slate-300 h-8 text-xs"><RefreshCw className="w-3 h-3 mr-1.5" />Refresh</Button>
+        </div>
+      </div>
+
+      {filtered.length === 0 && <div className="text-center py-16 text-slate-500">No artifacts yet.</div>}
+
+      <div className="space-y-3">
+        {paginated.map(artifact => (
+          <div key={artifact.id} className="bg-slate-800 border border-slate-700 rounded-xl p-4">
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 flex-wrap mb-1">
+                  <p className="font-semibold text-white text-sm">{artifact.label || artifact.agent_key}</p>
+                  <Badge className="bg-violet-900 text-violet-300 border-0 text-xs">{artifact.artifact_type}</Badge>
+                </div>
+                <div className="flex gap-3 text-xs text-slate-500 flex-wrap">
+                  <span>Agent: <span className="text-slate-400">{artifact.agent_key}</span></span>
+                  {artifact.account_id && <span>Account: <span className="text-slate-400">{artifact.account_id.slice(0,10)}…</span></span>}
+                  <span>{new Date(artifact.created_date).toLocaleString()}</span>
+                </div>
+                {artifact.content?.posts && (
+                  <p className="text-slate-500 text-xs mt-1">{artifact.content.posts.length} posts · {artifact.content.brand?.businessName || ''}</p>
+                )}
+              </div>
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <Button size="sm" variant="ghost" onClick={() => setViewArtifact(artifact)} className="h-8 text-xs text-slate-400 hover:text-white">
+                  <Eye className="w-3 h-3 mr-1" />View
+                </Button>
+                {artifact.artifact_type === 'content_pack' && (
+                  <Button
+                    size="sm"
+                    onClick={() => createDrafts(artifact)}
+                    disabled={creating[artifact.id]}
+                    className="bg-emerald-800 hover:bg-emerald-700 h-8 text-xs"
+                  >
+                    {creating[artifact.id] ? <Loader2 className="w-3 h-3 animate-spin mr-1" /> : <Sparkles className="w-3 h-3 mr-1" />}
+                    Create Draft Posts
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-3 pt-2">
+          <Button size="sm" variant="outline" disabled={page === 0} onClick={() => setPage(p => p-1)} className="border-slate-700 text-slate-300 h-7 text-xs">Prev</Button>
+          <span className="text-slate-500 text-xs">{page+1} / {totalPages}</span>
+          <Button size="sm" variant="outline" disabled={page >= totalPages-1} onClick={() => setPage(p => p+1)} className="border-slate-700 text-slate-300 h-7 text-xs">Next</Button>
+        </div>
+      )}
+
+      {/* Artifact detail modal */}
+      <Dialog open={!!viewArtifact} onOpenChange={() => setViewArtifact(null)}>
+        <DialogContent className="bg-slate-900 border-slate-700 text-white max-w-2xl max-h-[85vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              {viewArtifact?.label || viewArtifact?.agent_key}
+              <Badge className="bg-violet-900 text-violet-300 border-0 text-xs">{viewArtifact?.artifact_type}</Badge>
+            </DialogTitle>
+          </DialogHeader>
+          {viewArtifact && (
+            <div className="space-y-4 text-sm">
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  ['Agent', viewArtifact.agent_key],
+                  ['Account', viewArtifact.account_id?.slice(0,12) + '…'],
+                  ['Workflow', viewArtifact.workflow_key || '—'],
+                  ['Created', new Date(viewArtifact.created_date).toLocaleString()],
+                ].map(([k, v]) => (
+                  <div key={k} className="bg-slate-800 rounded-lg p-3">
+                    <p className="text-slate-500 text-xs">{k}</p>
+                    <p className="text-white mt-0.5 text-xs">{v}</p>
+                  </div>
+                ))}
+              </div>
+
+              {viewArtifact.artifact_type === 'content_pack' && viewArtifact.content?.posts?.length > 0 && (
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <p className="text-slate-400 text-xs font-medium uppercase tracking-wide">{viewArtifact.content.posts.length} Posts</p>
+                    <div className="flex items-center gap-2">
+                      <Button size="sm" onClick={() => { createDrafts(viewArtifact); setViewArtifact(null); }}
+                        disabled={creating[viewArtifact.id]}
+                        className="bg-emerald-800 hover:bg-emerald-700 h-7 text-xs">
+                        {creating[viewArtifact.id] ? <Loader2 className="w-3 h-3 animate-spin mr-1" /> : <Sparkles className="w-3 h-3 mr-1" />}
+                        Create Draft Posts
+                      </Button>
+                      <Link to={createPageUrl('ContentDrafts')} className="text-violet-400 text-xs hover:underline flex items-center gap-1">
+                        View Drafts <ExternalLink className="w-3 h-3" />
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    {viewArtifact.content.posts.map((p, i) => (
+                      <div key={i} className="bg-slate-800 rounded-lg p-3 text-xs">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Badge className="bg-blue-900 text-blue-300 border-0 text-xs">{p.platform}</Badge>
+                          {p.pillar && <Badge className="bg-violet-900 text-violet-300 border-0 text-xs">{p.pillar}</Badge>}
+                          {p.goal && <Badge className="bg-emerald-900 text-emerald-300 border-0 text-xs">{p.goal}</Badge>}
+                        </div>
+                        <p className="font-medium text-white">{p.hook}</p>
+                        <p className="text-slate-400 mt-0.5 line-clamp-2">{p.caption}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {viewArtifact.artifact_type !== 'content_pack' && (
+                <div>
+                  <p className="text-slate-400 text-xs font-medium mb-2 uppercase tracking-wide">Content</p>
+                  <pre className="bg-slate-800 rounded-lg p-3 text-xs text-slate-300 whitespace-pre-wrap overflow-auto max-h-64">
+                    {JSON.stringify(viewArtifact.content, null, 2)}
+                  </pre>
+                </div>
+              )}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
+
 const TABS = [
-  { id: 'tasks',   label: 'AI Tasks',    icon: Cpu },
-  { id: 'budgets', label: 'Budgets',     icon: DollarSign },
-  { id: 'ledger',  label: 'Cost Ledger', icon: BarChart2 },
-  { id: 'memory',  label: 'Memory',      icon: Database },
+  { id: 'tasks',     label: 'AI Tasks',    icon: Cpu },
+  { id: 'artifacts', label: 'Artifacts',   icon: Archive },
+  { id: 'budgets',   label: 'Budgets',     icon: DollarSign },
+  { id: 'ledger',    label: 'Cost Ledger', icon: BarChart2 },
+  { id: 'memory',    label: 'Memory',      icon: Database },
 ];
 
 export default function AiOperations() {
