@@ -400,6 +400,12 @@ function CostLedgerTab({ taskFilter, onClearTaskFilter }) {
 
   return (
     <div className="space-y-4">
+      {taskFilter && (
+        <div className="bg-violet-900/30 border border-violet-700 rounded-lg p-2.5 flex items-center justify-between">
+          <p className="text-violet-300 text-xs">Filtered by task: <span className="font-mono">{taskFilter.slice(0,16)}…</span></p>
+          <button onClick={onClearTaskFilter} className="text-violet-400 text-xs hover:underline">Clear filter</button>
+        </div>
+      )}
       <div className="flex flex-wrap gap-3 items-center justify-between">
         <div className="flex gap-3">
           <Select value={agentFilter} onValueChange={v => { setAgentFilter(v); setPage(0); }}>
