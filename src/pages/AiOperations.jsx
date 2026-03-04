@@ -367,7 +367,7 @@ function BudgetsTab() {
   );
 }
 
-function CostLedgerTab() {
+function CostLedgerTab({ taskFilter, onClearTaskFilter }) {
   const [ledger, setLedger] = useState([]);
   const [loading, setLoading] = useState(true);
   const [agentFilter, setAgentFilter] = useState('all');
@@ -380,6 +380,7 @@ function CostLedgerTab() {
     setLoading(false);
   };
   useEffect(() => { load(); }, []);
+  useEffect(() => { setPage(0); }, [taskFilter]);
 
   // Normalize agent key for filter (strip :attempt1/:repair suffix)
   const baseAgentKey = (key) => key?.split(':')[0] || key;
