@@ -576,6 +576,7 @@ const TABS = [
 
 export default function AiOperations() {
   const [activeTab, setActiveTab] = useState('tasks');
+  const [ledgerTaskFilter, setLedgerTaskFilter] = useState(null);
 
   return (
     <AdminGuard>
