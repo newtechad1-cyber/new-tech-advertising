@@ -45,6 +45,15 @@ function TasksTab() {
 
   useEffect(() => { load(); }, []);
 
+  const openTask = async (task) => {
+    setViewTask(task);
+    setTaskLedger([]);
+    setLedgerLoading(true);
+    const entries = await base44.entities.AiCostLedger.filter({ task_id: task.id }, '-created_date', 10);
+    setTaskLedger(entries);
+    setLedgerLoading(false);
+  };
+
   const runStep = async (task) => {
     setRunning(r => ({ ...r, [task.id]: true }));
     const res = await base44.functions.invoke('runAiStep', { task_id: task.id });
