@@ -74,8 +74,8 @@ function PanelOverview({ accountName }) {
 function PanelApprovals({ accountName }) {
   const cards = [
     { platform: 'Facebook', text: 'Spring is here! Our team is ready to help you get ahead of the season. Call us today for a free estimate.', status: 'pending' },
-    { platform: 'Instagram', text: 'Hard work, clean results. Here's a look at what we do behind the scenes every single day.', status: 'pending' },
-    { platform: 'LinkedIn', text: 'We've been serving this community for over 15 years. Here's what that means for your business.', status: 'pending' },
+    { platform: 'Instagram', text: "Hard work, clean results. Here's a look at what we do behind the scenes every single day.", status: 'pending' },
+    { platform: 'LinkedIn', text: "We've been serving this community for over 15 years. Here's what that means for your business.", status: 'pending' },
   ];
   return (
     <div className="p-4 space-y-3">
