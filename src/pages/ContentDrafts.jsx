@@ -315,7 +315,7 @@ function DraftDrawer({ draft, onClose, onSaved, onMediaUpdated }) {
           </div>
 
           {/* Media Generation */}
-          <MediaSection draft={draft} onMediaUpdated={onSaved} />
+          <MediaSection draft={draft} onMediaUpdated={onMediaUpdated || onSaved} />
 
           {/* Status + Schedule placeholder */}
           <div className="flex gap-3 items-center">
