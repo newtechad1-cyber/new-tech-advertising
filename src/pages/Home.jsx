@@ -10,6 +10,7 @@ import { CheckCircle, X } from 'lucide-react';
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
+  const [showTrialModal, setShowTrialModal] = useState(false);
 
   useEffect(() => {
     document.title = 'New Tech Advertising | Help for Local Business Owners';
