@@ -182,6 +182,120 @@ function MediaSection({ draft, onMediaUpdated }) {
   );
 }
 
+function ScheduleSection({ draft, onScheduled }) {
+  const [scheduledPost, setScheduledPost] = useState(null);
+  const [loadingPost, setLoadingPost] = useState(true);
+  const [scheduledFor, setScheduledFor] = useState('');
+  const [acting, setActing] = useState(false);
+
+  const load = async () => {
+    setLoadingPost(true);
+    const rows = await base44.entities.ScheduledPost.filter({ draft_id: draft.id, platform: draft.platform });
+    setScheduledPost(rows?.[0] || null);
+    setLoadingPost(false);
+  };
+
+  useEffect(() => { load(); }, [draft.id, draft.platform]);
+
+  const handleSchedule = async () => {
+    if (!scheduledFor) { toast.error('Pick a date/time first'); return; }
+    setActing(true);
+    const res = await base44.functions.invoke('scheduleDraft', { draftId: draft.id, platform: draft.platform, scheduledFor });
+    setActing(false);
+    if (res.data?.success) {
+      toast.success(res.data.action === 'rescheduled' ? 'Rescheduled!' : 'Scheduled!');
+      await load();
+      onScheduled && onScheduled();
+    } else {
+      toast.error(res.data?.error || 'Failed');
+    }
+  };
+
+  const handleCancel = async () => {
+    setActing(true);
+    const res = await base44.functions.invoke('scheduleDraft', { draftId: draft.id, platform: draft.platform, action: 'cancel' });
+    setActing(false);
+    if (res.data?.success) {
+      toast.success('Schedule canceled');
+      await load();
+      onScheduled && onScheduled();
+    } else {
+      toast.error(res.data?.error || 'Failed');
+    }
+  };
+
+  const STATUS_BADGE = {
+    scheduled: 'bg-yellow-900 text-yellow-300',
+    published: 'bg-green-900 text-green-300',
+    canceled:  'bg-zinc-800 text-zinc-400',
+    failed:    'bg-red-900 text-red-300',
+  };
+
+  if (loadingPost) return (
+    <div className="border border-slate-700 rounded-xl p-4 flex items-center gap-2 text-slate-500 text-xs">
+      <Loader2 className="w-3 h-3 animate-spin" /> Loading schedule…
+    </div>
+  );
+
+  return (
+    <div className="border border-slate-700 rounded-xl overflow-hidden">
+      <div className="bg-slate-800/80 px-4 py-2.5 flex items-center gap-2">
+        <CalendarClock className="w-4 h-4 text-yellow-400" />
+        <p className="text-white text-xs font-semibold uppercase tracking-wide">Schedule</p>
+        {scheduledPost && (
+          <Badge className={`${STATUS_BADGE[scheduledPost.status] || 'bg-slate-700 text-slate-300'} border-0 text-xs ml-1`}>
+            {scheduledPost.status}
+          </Badge>
+        )}
+      </div>
+      <div className="p-4 space-y-3">
+        {scheduledPost && (
+          <div className="bg-slate-800 rounded-lg p-3 text-xs text-slate-300">
+            <span className="text-slate-500 mr-2">Current:</span>
+            {new Date(scheduledPost.scheduled_for).toLocaleString()}
+            {scheduledPost.publish_count > 0 && (
+              <span className="ml-3 text-slate-500">· Published {scheduledPost.publish_count}×</span>
+            )}
+          </div>
+        )}
+        <div className="flex gap-2 items-end flex-wrap">
+          <div className="flex-1 min-w-[180px]">
+            <label className="text-slate-400 text-xs uppercase tracking-wide block mb-1">
+              {scheduledPost ? 'New Date/Time' : 'Schedule For'}
+            </label>
+            <input
+              type="datetime-local"
+              value={scheduledFor}
+              onChange={e => setScheduledFor(e.target.value)}
+              className="w-full bg-slate-800 border border-slate-700 text-white rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-violet-500"
+            />
+          </div>
+          <Button
+            size="sm"
+            onClick={handleSchedule}
+            disabled={acting || !scheduledFor}
+            className="bg-yellow-700 hover:bg-yellow-600 h-9 text-xs"
+          >
+            {acting ? <Loader2 className="w-3 h-3 animate-spin mr-1.5" /> : <CalendarClock className="w-3 h-3 mr-1.5" />}
+            {scheduledPost && scheduledPost.status !== 'canceled' ? 'Reschedule' : 'Schedule'}
+          </Button>
+          {scheduledPost && scheduledPost.status === 'scheduled' && (
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={handleCancel}
+              disabled={acting}
+              className="border-slate-600 text-slate-400 hover:text-red-400 hover:border-red-800 h-9 text-xs"
+            >
+              <X className="w-3 h-3 mr-1.5" />Cancel
+            </Button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function DraftDrawer({ draft, onClose, onSaved, onMediaUpdated }) {
   const [form, setForm] = useState(null);
   const [saving, setSaving] = useState(false);
