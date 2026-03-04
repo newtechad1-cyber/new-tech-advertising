@@ -208,11 +208,10 @@ function TasksTab({ onNavigateToLedger }) {
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <p className="text-slate-400 text-xs font-medium uppercase tracking-wide">Run History</p>
-                  <a
-                    href="#"
-                    onClick={e => { e.preventDefault(); setViewTask(null); document.querySelector('[data-tab="ledger"]')?.click(); }}
+                  <button
+                    onClick={() => { setViewTask(null); onNavigateToLedger && onNavigateToLedger(viewTask.id); }}
                     className="text-violet-400 text-xs hover:underline"
-                  >View in Cost Ledger →</a>
+                  >View in Cost Ledger →</button>
                 </div>
                 {ledgerLoading ? (
                   <div className="flex items-center gap-2 text-slate-500 text-xs py-3"><Loader2 className="w-3 h-3 animate-spin" />Loading…</div>
