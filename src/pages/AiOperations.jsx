@@ -30,6 +30,8 @@ function TasksTab() {
   const [loading, setLoading] = useState(true);
   const [running, setRunning] = useState({});
   const [viewTask, setViewTask] = useState(null);
+  const [taskLedger, setTaskLedger] = useState([]);
+  const [ledgerLoading, setLedgerLoading] = useState(false);
   const [statusFilter, setStatusFilter] = useState('all');
   const [agentFilter, setAgentFilter] = useState('all');
   const [page, setPage] = useState(0);
