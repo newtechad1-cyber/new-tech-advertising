@@ -274,6 +274,10 @@ Deno.serve(async (req) => {
 
     auditOutputs.finalOutput = finalParsed;
 
+    // Determine artifact type — honor explicit override; fallback to content_pack for content agents
+    const resolvedArtifactType = task.inputs?.artifact_type ||
+      (task.agent_key?.toLowerCase().includes('content') ? 'content_pack' : 'other');
+
     // Store artifact
     const artifact = await base44.asServiceRole.entities.AiArtifact.create({
       account_id: task.account_id,
@@ -281,7 +285,7 @@ Deno.serve(async (req) => {
       workflow_key: task.workflow_key || '',
       step_key: task.step_key || '',
       agent_key: task.agent_key,
-      artifact_type: task.inputs?.artifact_type || 'other',
+      artifact_type: resolvedArtifactType,
       label: agent.name + ' output',
       content: finalParsed,
       raw_content: attempt1.text,
