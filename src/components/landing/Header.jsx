@@ -99,11 +99,9 @@ export default function Header({ onCTAClick }) {
                   </Link>
                   <NavLinks mobile />
                   <div className="border-t pt-6 flex flex-col gap-4">
-                    <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer" className="w-full">
-                      <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-                        Start Free Trial
-                      </Button>
-                    </a>
+                    <Button onClick={() => { setIsOpen(false); onCTAClick?.(); }} className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                      Start Free Trial
+                    </Button>
                     <Link to={createPageUrl('Dashboard')} onClick={() => setIsOpen(false)} className="w-full">
                       <Button variant="outline" className="w-full flex items-center gap-2">
                         <UserCircle className="w-4 h-4" /> Client Login
