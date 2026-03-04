@@ -77,6 +77,7 @@ const CATEGORIES = [
     color: 'text-green-400',
     tiles: [
       { id: 'crm-hub', label: 'CRM & Marketing Hub', icon: Users, color: 'bg-green-500', description: 'Leads, clients, email & subscribers', link: 'CRMHub' },
+      { id: 'operations-hub', label: 'Operations Hub', icon: Briefcase, color: 'bg-amber-600', description: 'Prospect → Proposal → Fulfillment workflows', link: 'OperationsHub' },
     ]
   },
   {
