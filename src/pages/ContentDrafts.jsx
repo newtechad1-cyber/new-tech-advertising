@@ -292,7 +292,7 @@ function DraftDrawer({ draft, onClose, onSaved }) {
               rows={3}
               className="w-full bg-slate-800 border border-slate-700 text-white rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-violet-500 resize-y"
             />
-            <p className="text-slate-600 text-xs mt-1">Image generation coming in Phase 1.5</p>
+            <p className="text-slate-600 text-xs mt-1">Used as the generation prompt below.</p>
           </div>
 
           {/* Video Script */}
