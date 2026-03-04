@@ -36,41 +36,56 @@ export default function TrialStart() {
     <div className="bg-white">
       <TrialHeader onCTAClick={() => setShowModal(true)} />
       <TrialSignupModal open={showModal} onClose={() => setShowModal(false)} />
+      <MobileStickyBar onCTAClick={() => setShowModal(true)} />
 
-      {/* Hero */}
-      <section className="pt-36 pb-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
+      {/* Hero — two-column on desktop */}
+      <section className="pt-36 pb-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 to-purple-900/30" />
-        <div className="relative max-w-4xl mx-auto px-6 text-center">
-          <div className="inline-block bg-blue-500/20 text-blue-300 text-sm font-semibold px-4 py-1.5 rounded-full mb-6 border border-blue-400/30">
-            7-Day Free Trial — No Credit Card Required
+        <div className="relative max-w-6xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left: copy + CTA */}
+            <div className="text-center lg:text-left">
+              <div className="inline-block bg-blue-500/20 text-blue-300 text-sm font-semibold px-4 py-1.5 rounded-full mb-6 border border-blue-400/30">
+                7-Day Free Trial — No Credit Card Required
+              </div>
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+                This Is Where the Work Gets Done
+              </h1>
+              <p className="text-xl text-slate-300 mb-3 leading-relaxed">
+                You're one step away from your client portal.
+              </p>
+              <p className="text-lg text-slate-400 mb-8 leading-relaxed">
+                You've seen what New Tech Advertising offers. This is the platform that powers it — where your content is managed, your brand is built, and your marketing actually runs.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-2">
+                <Button
+                  onClick={() => setShowModal(true)}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-10 py-6 font-bold shadow-xl"
+                >
+                  Start My 7-Day Free Trial
+                </Button>
+                <Link to={createPageUrl('Dashboard')}>
+                  <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 text-lg px-8 py-6 gap-2 bg-transparent">
+                    <UserCircle className="w-5 h-5" />
+                    Existing Client Sign In
+                  </Button>
+                </Link>
+              </div>
+              <p className="text-sm text-slate-500 text-center lg:text-left mb-6">Takes 5 minutes. No credit card.</p>
+              <div className="flex flex-wrap justify-center lg:justify-start gap-5 text-sm text-slate-400">
+                {['No credit card required', 'Full platform access', 'Cancel anytime'].map(t => (
+                  <span key={t} className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" />{t}</span>
+                ))}
+              </div>
+            </div>
+            {/* Right: dashboard preview */}
+            <div className="hidden lg:block">
+              <LiveDashboardPreview />
+            </div>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            This Is Where the Work Gets Done
-          </h1>
-          <p className="text-xl text-slate-300 mb-3 leading-relaxed max-w-3xl mx-auto">
-            You're one step away from your client portal.
-          </p>
-          <p className="text-lg text-slate-400 mb-10 leading-relaxed max-w-3xl mx-auto">
-            You've seen what New Tech Advertising offers. This is the platform that powers it — where your content is managed, your brand is built, and your marketing actually runs. Start your free trial, tell us about your business, and we'll have your account configured and ready within one business day.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <Button
-              onClick={() => setShowModal(true)}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-10 py-6 font-bold shadow-xl"
-            >
-              Start My 7-Day Free Trial
-            </Button>
-            <Link to={createPageUrl('Dashboard')}>
-              <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 text-lg px-8 py-6 gap-2 bg-transparent">
-                <UserCircle className="w-5 h-5" />
-                Existing Client Sign In
-              </Button>
-            </Link>
-          </div>
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-400">
-            {['No credit card required', 'Full platform access', 'Cancel anytime'].map(t => (
-              <span key={t} className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" />{t}</span>
-            ))}
+          {/* Mobile: preview below hero text */}
+          <div className="mt-10 lg:hidden">
+            <LiveDashboardPreview />
           </div>
         </div>
       </section>
