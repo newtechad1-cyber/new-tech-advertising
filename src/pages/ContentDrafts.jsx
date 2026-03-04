@@ -538,6 +538,21 @@ export default function ContentDrafts() {
                     {draft.hashtags?.length > 0 && (
                       <p className="text-slate-600 text-xs mt-1 truncate">{draft.hashtags.slice(0,5).join(' ')}{draft.hashtags.length > 5 ? ` +${draft.hashtags.length - 5}` : ''}</p>
                     )}
+                    {draft.media_status === 'ready' && draft.media_url && (
+                      <div className="mt-2 flex items-center gap-1.5">
+                        <Badge className="bg-emerald-900 text-emerald-300 border-0 text-xs flex items-center gap-1">
+                          <ImagePlus className="w-2.5 h-2.5" />
+                          {draft.media_type === 'template_image' ? 'Brand Graphic' : 'AI Image'}
+                        </Badge>
+                      </div>
+                    )}
+                    {draft.media_status === 'generating' && (
+                      <div className="mt-2 flex items-center gap-1.5">
+                        <Badge className="bg-slate-700 text-slate-400 border-0 text-xs flex items-center gap-1">
+                          <Loader2 className="w-2.5 h-2.5 animate-spin" />Generating…
+                        </Badge>
+                      </div>
+                    )}
                   </div>
                   <div className="text-slate-600 text-xs shrink-0">{new Date(draft.updated_date || draft.created_date).toLocaleDateString()}</div>
                 </div>
