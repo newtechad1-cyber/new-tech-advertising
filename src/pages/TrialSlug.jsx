@@ -24,7 +24,10 @@ function FAQItem({ q, a }) {
 }
 
 export default function TrialSlug() {
-  const { slug } = useParams();
+  // Support both ?slug=xxx (query param) and :slug (route param)
+  const params = useParams();
+  const urlParams = new URLSearchParams(window.location.search);
+  const slug = params.slug || urlParams.get('slug');
   const [account, setAccount] = useState(null);
   const [landing, setLanding] = useState(null);
   const [loading, setLoading] = useState(true);
