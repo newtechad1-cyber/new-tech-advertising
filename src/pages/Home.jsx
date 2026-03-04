@@ -568,6 +568,7 @@ export default function Home() {
       
       <Footer />
       <Chatbot />
+      <TrialSignupModal open={showTrialModal} onClose={() => setShowTrialModal(false)} />
 
       {/* Simple Contact Modal */}
       {showModal && (
