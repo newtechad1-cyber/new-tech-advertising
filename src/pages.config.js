@@ -140,6 +140,7 @@ import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AiOperations from './pages/AiOperations';
+import ContentDrafts from './pages/ContentDrafts';
 import __Layout from './Layout.jsx';
 
 
@@ -237,6 +238,7 @@ export const PAGES = {
     "WebsiteRebuild": WebsiteRebuild,
     "YouTubeUploadTest": YouTubeUploadTest,
     "AiOperations": AiOperations,
+    "ContentDrafts": ContentDrafts,
 }
 
 export const pagesConfig = {
