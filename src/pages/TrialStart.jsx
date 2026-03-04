@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, ChevronDown, ChevronUp, UserCircle } from 'lucide-react';
+import { CheckCircle, ChevronDown, ChevronUp, UserCircle, Loader2 } from 'lucide-react';
 import TrialHeader from '../components/trial/TrialHeader';
 import TrialSignupModal from '../components/trial/TrialSignupModal';
 import LiveDashboardPreview from '../components/marketing/LiveDashboardPreview';
 import MobileStickyBar from '../components/marketing/MobileStickyBar';
+import PersonalizedWelcome from '../components/marketing/PersonalizedWelcome';
+import TrialStatusBar from '../components/marketing/TrialStatusBar';
+import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 
 const FAQS = [
