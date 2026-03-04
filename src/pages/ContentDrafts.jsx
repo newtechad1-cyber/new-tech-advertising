@@ -431,7 +431,20 @@ export default function ContentDrafts() {
               {accountId && <span className="ml-2 text-violet-400">Account: {accountId.slice(0,12)}…</span>}
             </p>
           </div>
-          <div className="ml-auto">
+          <div className="ml-auto flex items-center gap-2">
+            {bulkGenerating && (
+              <span className="text-slate-400 text-xs flex items-center gap-1.5">
+                <Loader2 className="w-3 h-3 animate-spin" />{bulkProgress.done}/{bulkProgress.total}
+              </span>
+            )}
+            <Button
+              size="sm"
+              onClick={bulkGenerateMedia}
+              disabled={bulkGenerating}
+              className="bg-violet-800 hover:bg-violet-700 h-8 text-xs"
+            >
+              <Sparkles className="w-3 h-3 mr-1.5" />Generate Media (10)
+            </Button>
             <Button size="sm" onClick={load} variant="outline" className="border-slate-700 text-slate-300 h-8 text-xs">
               <RefreshCw className="w-3 h-3 mr-1.5" />Refresh
             </Button>
