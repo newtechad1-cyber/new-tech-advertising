@@ -60,6 +60,7 @@ import AdaThankYou from './pages/AdaThankYou';
 import AdminBlog from './pages/AdminBlog';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminHelp from './pages/AdminHelp';
+import AdminOnboardingQueue from './pages/AdminOnboardingQueue';
 import AdminSettings from './pages/AdminSettings';
 import AdminVideoDetail from './pages/AdminVideoDetail';
 import AdminVideoQueue from './pages/AdminVideoQueue';
@@ -128,16 +129,15 @@ import StreamingProposal from './pages/StreamingProposal';
 import StreamingTV from './pages/StreamingTV';
 import StreamingThankYou from './pages/StreamingThankYou';
 import TermsOfService from './pages/TermsOfService';
+import TrialOnboarding from './pages/TrialOnboarding';
+import TrialSlug from './pages/TrialSlug';
+import TrialStart from './pages/TrialStart';
 import TvVideo from './pages/TvVideo';
 import VideoDetail from './pages/VideoDetail';
 import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import TrialStart from './pages/TrialStart';
-import TrialSlug from './pages/TrialSlug';
-import TrialOnboarding from './pages/TrialOnboarding';
-import AdminOnboardingQueue from './pages/AdminOnboardingQueue';
 import __Layout from './Layout.jsx';
 
 
@@ -155,6 +155,7 @@ export const PAGES = {
     "AdminBlog": AdminBlog,
     "AdminDashboard": AdminDashboard,
     "AdminHelp": AdminHelp,
+    "AdminOnboardingQueue": AdminOnboardingQueue,
     "AdminSettings": AdminSettings,
     "AdminVideoDetail": AdminVideoDetail,
     "AdminVideoQueue": AdminVideoQueue,
@@ -223,16 +224,15 @@ export const PAGES = {
     "StreamingTV": StreamingTV,
     "StreamingThankYou": StreamingThankYou,
     "TermsOfService": TermsOfService,
+    "TrialOnboarding": TrialOnboarding,
+    "TrialSlug": TrialSlug,
+    "TrialStart": TrialStart,
     "TvVideo": TvVideo,
     "VideoDetail": VideoDetail,
     "VideoIndex": VideoIndex,
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "TrialStart": TrialStart,
-    "TrialSlug": TrialSlug,
-    "TrialOnboarding": TrialOnboarding,
-    "AdminOnboardingQueue": AdminOnboardingQueue,
 }
 
 export const pagesConfig = {
