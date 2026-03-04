@@ -10,7 +10,8 @@ import { toast } from 'sonner';
 import {
   ArrowLeft, BrainCircuit, Zap, Loader2, Play, RefreshCw,
   DollarSign, BarChart2, Lock, CheckCircle2, XCircle, Clock,
-  AlertTriangle, Pencil, Database, Cpu, Eye, ChevronDown, Plus
+  AlertTriangle, Pencil, Database, Cpu, Eye, ChevronDown, Plus,
+  Archive, FileText, Sparkles, ExternalLink
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
