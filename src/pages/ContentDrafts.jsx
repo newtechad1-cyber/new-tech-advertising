@@ -541,6 +541,11 @@ export default function ContentDrafts() {
             </p>
           </div>
           <div className="ml-auto flex items-center gap-2">
+            <Link to={createPageUrl('ScheduledQueue') + (accountId ? `?account_id=${accountId}` : '')}>
+              <Button size="sm" variant="outline" className="border-slate-700 text-slate-300 h-8 text-xs">
+                <CalendarClock className="w-3 h-3 mr-1.5" />Queue
+              </Button>
+            </Link>
             {bulkGenerating && (
               <span className="text-slate-400 text-xs flex items-center gap-1.5">
                 <Loader2 className="w-3 h-3 animate-spin" />{bulkProgress.done}/{bulkProgress.total}
