@@ -168,11 +168,9 @@ export default function Home() {
                   <p className="text-sm text-slate-600">No credit card needed</p>
                 </div>
 
-                <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer" className="w-full">
-                  <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg py-6 font-bold">
-                    Start My 7-Day Free Trial
-                  </Button>
-                </a>
+                <Button onClick={() => setShowTrialModal(true)} className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg py-6 font-bold">
+                  Start My 7-Day Free Trial
+                </Button>
               </div>
 
               <div className="bg-white p-8 rounded-xl shadow-sm border-2 border-purple-200">
