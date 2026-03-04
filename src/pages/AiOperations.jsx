@@ -245,6 +245,12 @@ function BudgetsTab() {
           <Plus className="w-3 h-3 mr-1.5" />Add Budget
         </Button>
       </div>
+      {budgets.some(b => b.spent_cents >= b.soft_limit_cents && b.spent_cents < b.hard_limit_cents) && (
+        <div className="bg-yellow-900/30 border border-yellow-700 rounded-xl p-3 flex items-center gap-2">
+          <AlertTriangle className="w-4 h-4 text-yellow-400 flex-shrink-0" />
+          <p className="text-yellow-300 text-sm">One or more accounts have reached their soft budget limit this month.</p>
+        </div>
+      )}
       {budgets.length === 0 && <div className="text-center py-16 text-slate-500">No budgets yet.</div>}
       <div className="space-y-3">
         {budgets.map(b => {
