@@ -81,6 +81,7 @@ import Contact from './pages/Contact';
 import ContentQueue from './pages/ContentQueue';
 import ContentStudio from './pages/ContentStudio';
 import Dashboard from './pages/Dashboard';
+import DebugOAuthConnections from './pages/DebugOAuthConnections';
 import freeAudit from './pages/Free-Audit';
 import getStarted from './pages/Get-Started';
 import GlobalSettings from './pages/GlobalSettings';
@@ -132,8 +133,11 @@ import VideoDetail from './pages/VideoDetail';
 import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
-import DebugOAuthConnections from './pages/DebugOAuthConnections';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
+import TrialStart from './pages/TrialStart';
+import TrialSlug from './pages/TrialSlug';
+import TrialOnboarding from './pages/TrialOnboarding';
+import AdminOnboardingQueue from './pages/AdminOnboardingQueue';
 import __Layout from './Layout.jsx';
 
 
@@ -172,6 +176,7 @@ export const PAGES = {
     "ContentQueue": ContentQueue,
     "ContentStudio": ContentStudio,
     "Dashboard": Dashboard,
+    "DebugOAuthConnections": DebugOAuthConnections,
     "Free-Audit": freeAudit,
     "Get-Started": getStarted,
     "GlobalSettings": GlobalSettings,
@@ -223,8 +228,11 @@ export const PAGES = {
     "VideoIndex": VideoIndex,
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
-    "DebugOAuthConnections": DebugOAuthConnections,
     "YouTubeUploadTest": YouTubeUploadTest,
+    "TrialStart": TrialStart,
+    "TrialSlug": TrialSlug,
+    "TrialOnboarding": TrialOnboarding,
+    "AdminOnboardingQueue": AdminOnboardingQueue,
 }
 
 export const pagesConfig = {
