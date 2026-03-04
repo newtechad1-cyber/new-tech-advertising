@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from 'sonner';
-import { Copy, Check, Loader2, RefreshCw, FileText, Instagram, Facebook, Linkedin, ChevronLeft, ChevronRight, ArrowLeft, ImagePlus, Palette, Download, ExternalLink, AlertCircle, Sparkles } from 'lucide-react';
+import { Copy, Check, Loader2, RefreshCw, FileText, Instagram, Facebook, Linkedin, ChevronLeft, ChevronRight, ArrowLeft, ImagePlus, Palette, Download, ExternalLink, AlertCircle, Sparkles, CalendarClock, X, RotateCcw } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 
