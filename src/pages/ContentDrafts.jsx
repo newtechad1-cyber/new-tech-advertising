@@ -182,7 +182,7 @@ function MediaSection({ draft, onMediaUpdated }) {
   );
 }
 
-function DraftDrawer({ draft, onClose, onSaved }) {
+function DraftDrawer({ draft, onClose, onSaved, onMediaUpdated }) {
   const [form, setForm] = useState(null);
   const [saving, setSaving] = useState(false);
 
