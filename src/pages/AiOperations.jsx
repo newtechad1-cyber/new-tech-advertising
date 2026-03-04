@@ -613,7 +613,7 @@ export default function AiOperations() {
 
           {activeTab === 'tasks'   && <TasksTab onNavigateToLedger={id => { setLedgerTaskFilter(id); setActiveTab('ledger'); }} />}
           {activeTab === 'budgets' && <BudgetsTab />}
-          {activeTab === 'ledger'  && <CostLedgerTab />}
+          {activeTab === 'ledger'  && <CostLedgerTab taskFilter={ledgerTaskFilter} onClearTaskFilter={() => setLedgerTaskFilter(null)} />}
           {activeTab === 'memory'  && <MemoryTab />}
         </div>
       </div>
