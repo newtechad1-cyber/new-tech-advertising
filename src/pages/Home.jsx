@@ -44,7 +44,7 @@ export default function Home() {
         })}
       </script>
       
-      <Header />
+      <Header onCTAClick={() => setShowTrialModal(true)} />
       
       <main>
         {/* Hero Section */}
