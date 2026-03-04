@@ -223,11 +223,9 @@ export default function Home() {
               <p className="text-slate-600">
                 That's okay. Tell us what you need and we'll point you in the right direction.
               </p>
-              <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer">
-                <Button className="mt-6 bg-orange-600 hover:bg-orange-700">
-                  Tell Us What You Need
-                </Button>
-              </a>
+              <Button onClick={() => setShowTrialModal(true)} className="mt-6 bg-orange-600 hover:bg-orange-700">
+                Tell Us What You Need
+              </Button>
             </div>
           </div>
         </section>
