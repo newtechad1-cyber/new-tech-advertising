@@ -88,65 +88,85 @@ export default function TrialSlug() {
 
   return (
     <div className="bg-white">
-      <TrialHeader slug={slug} ctaLabel={showOnboarding ? "Complete Your Onboarding" : "Start My 7-Day Free Trial"} />
+      <TrialHeader slug={slug} ctaLabel={showOnboarding ? "Complete Your Onboarding" : "Go to Your Dashboard"} />
+      <MobileStickyBar
+        ctaLabel={showOnboarding ? "Complete Your Onboarding" : "Go to Your Dashboard"}
+        onCTAClick={() => showOnboarding ? window.location.href = onboardingPath : window.location.href = createPageUrl('Dashboard')}
+      />
 
-      {/* Hero */}
-      <section className="pt-36 pb-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
+      {/* Hero — two-column */}
+      <section className="pt-36 pb-16 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 to-purple-900/30" />
-        <div className="relative max-w-4xl mx-auto px-6 text-center">
-          <div className="inline-block bg-blue-500/20 text-blue-300 text-sm font-semibold px-4 py-1.5 rounded-full mb-6 border border-blue-400/30">
-            Welcome, {businessName}
+        <div className="relative max-w-6xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left: personalized copy + CTA */}
+            <div className="text-center lg:text-left">
+              <PersonalizedWelcome
+                name={businessName}
+                city={account.location_city}
+                state={account.location_state}
+                industry={account.industry}
+              />
+              <h1 className="text-4xl md:text-5xl font-bold mb-5 leading-tight">
+                {landing?.headline || "This Is Where the Work Gets Done"}
+              </h1>
+              <p className="text-lg text-slate-300 mb-8 leading-relaxed">
+                Your trial account has been created. Complete your onboarding and we'll have everything configured within one business day.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-2">
+                {showOnboarding ? (
+                  <Link to={onboardingPath}>
+                    <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-10 py-6 font-bold shadow-xl">
+                      Complete Your Onboarding →
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link to={createPageUrl('Dashboard')}>
+                    <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-10 py-6 font-bold shadow-xl">
+                      Go to Your Dashboard →
+                    </Button>
+                  </Link>
+                )}
+                <Link to={createPageUrl('Dashboard')}>
+                  <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 text-lg px-8 py-6 gap-2 bg-transparent">
+                    <UserCircle className="w-5 h-5" /> Existing Client Sign In
+                  </Button>
+                </Link>
+              </div>
+              <p className="text-sm text-slate-500 text-center lg:text-left mb-6">Takes 5 minutes. No credit card.</p>
+              <div className="flex flex-wrap justify-center lg:justify-start gap-5 text-sm text-slate-400">
+                {(landing?.hero_bullets || ['No credit card required', 'Full platform access', 'Cancel anytime']).map(b => (
+                  <span key={b} className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" />{b}</span>
+                ))}
+              </div>
+            </div>
+            {/* Right: personalized preview + status */}
+            <div className="hidden lg:flex flex-col gap-5">
+              <TrialStatusBar status={account.trial_status} />
+              <LiveDashboardPreview accountName={businessName} />
+            </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-            {landing?.headline || "This Is Where the Work Gets Done"}
-          </h1>
-          <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Your trial account has been created. Complete your onboarding and we'll have everything configured within one business day.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            {showOnboarding ? (
-              <Link to={onboardingPath}>
-                <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-10 py-6 font-bold shadow-xl">
-                  Complete Your Onboarding →
-                </Button>
-              </Link>
-            ) : (
-              <Link to={createPageUrl('Dashboard')}>
-                <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-10 py-6 font-bold shadow-xl">
-                  Go to Your Dashboard →
-                </Button>
-              </Link>
-            )}
-            <Link to={createPageUrl('Dashboard')}>
-              <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 text-lg px-8 py-6 gap-2 bg-transparent">
-                <UserCircle className="w-5 h-5" /> Existing Client Sign In
+          {/* Mobile: status + preview below */}
+          <div className="mt-10 lg:hidden flex flex-col gap-5">
+            <TrialStatusBar status={account.trial_status} />
+            <LiveDashboardPreview accountName={businessName} />
+          </div>
+        </div>
+      </section>
+
+      {/* Status + onboarding CTA (below hero on mobile/desktop) */}
+      {showOnboarding && (
+        <section className="py-8 bg-blue-50 border-b border-blue-100">
+          <div className="max-w-xl mx-auto px-6 text-center">
+            <Link to={onboardingPath}>
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 text-base font-semibold">
+                Complete Your Brand Info →
               </Button>
             </Link>
+            <p className="text-xs text-slate-400 mt-2">Takes about 5 minutes. We'll handle the rest.</p>
           </div>
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-400">
-            {(landing?.hero_bullets || ['No credit card required', 'Full platform access', 'Cancel anytime']).map(b => (
-              <span key={b} className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" />{b}</span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Status Bar */}
-      <section className="py-10 bg-blue-50 border-b border-blue-100">
-        <div className="max-w-2xl mx-auto px-6">
-          <TrialStatusBar status={account.trial_status} />
-          {showOnboarding && (
-            <div className="mt-5 text-center">
-              <Link to={onboardingPath}>
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4">
-                  Complete Your Brand Info →
-                </Button>
-              </Link>
-              <p className="text-xs text-slate-400 mt-2">Takes about 5 minutes. We'll handle the rest.</p>
-            </div>
-          )}
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* What Makes This Different */}
       {s.what_makes_different && (
