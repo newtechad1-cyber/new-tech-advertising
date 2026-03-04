@@ -46,6 +46,142 @@ function CopyButton({ text, label }) {
   );
 }
 
+function MediaSection({ draft, onMediaUpdated }) {
+  const [generating, setGenerating] = useState(false);
+
+  // Use local media state so it updates without full reload
+  const [mediaStatus, setMediaStatus] = useState(draft.media_status || 'none');
+  const [mediaUrl, setMediaUrl] = useState(draft.media_url || null);
+  const [mediaType, setMediaType] = useState(draft.media_type || 'none');
+  const [mediaError, setMediaError] = useState(draft.media_generation_error || null);
+
+  useEffect(() => {
+    setMediaStatus(draft.media_status || 'none');
+    setMediaUrl(draft.media_url || null);
+    setMediaType(draft.media_type || 'none');
+    setMediaError(draft.media_generation_error || null);
+  }, [draft]);
+
+  const generate = async (fnName, label) => {
+    setGenerating(true);
+    setMediaStatus('generating');
+    setMediaError(null);
+    const res = await base44.functions.invoke(fnName, { draftId: draft.id });
+    setGenerating(false);
+    if (res.data?.success) {
+      setMediaStatus('ready');
+      setMediaUrl(res.data.media_url);
+      setMediaType(res.data.media_type);
+      toast.success(`${label} generated!`);
+      onMediaUpdated && onMediaUpdated();
+    } else {
+      const errMsg = res.data?.error || 'Generation failed';
+      setMediaStatus('failed');
+      setMediaError(errMsg);
+      toast.error(errMsg);
+    }
+  };
+
+  return (
+    <div className="border border-slate-700 rounded-xl overflow-hidden">
+      <div className="bg-slate-800/80 px-4 py-2.5 flex items-center gap-2">
+        <ImagePlus className="w-4 h-4 text-violet-400" />
+        <p className="text-white text-xs font-semibold uppercase tracking-wide">Media Generation</p>
+      </div>
+
+      <div className="p-4 space-y-3">
+        {/* Idle */}
+        {(mediaStatus === 'none' || mediaStatus === 'failed') && (
+          <>
+            {mediaStatus === 'failed' && mediaError && (
+              <div className="bg-red-900/30 border border-red-800 rounded-lg p-3 flex items-start gap-2 text-xs">
+                <AlertCircle className="w-3.5 h-3.5 text-red-400 flex-shrink-0 mt-0.5" />
+                <span className="text-red-300">{mediaError}</span>
+              </div>
+            )}
+            <div className="flex gap-2 flex-wrap">
+              <Button
+                size="sm"
+                onClick={() => generate('generateDraftMedia', 'AI Image')}
+                disabled={generating}
+                className="bg-violet-700 hover:bg-violet-600 h-8 text-xs"
+              >
+                <Sparkles className="w-3 h-3 mr-1.5" />Generate AI Image
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => generate('generateTemplateImage', 'Brand Graphic')}
+                disabled={generating}
+                className="bg-slate-700 hover:bg-slate-600 h-8 text-xs"
+              >
+                <Palette className="w-3 h-3 mr-1.5" />Generate Brand Graphic
+              </Button>
+            </div>
+          </>
+        )}
+
+        {/* Generating */}
+        {mediaStatus === 'generating' && (
+          <div className="flex items-center gap-3 py-3 text-slate-400 text-sm">
+            <Loader2 className="w-5 h-5 animate-spin text-violet-400" />
+            <span>Generating image… this may take 10–20 seconds</span>
+          </div>
+        )}
+
+        {/* Ready */}
+        {mediaStatus === 'ready' && mediaUrl && (
+          <div className="space-y-3">
+            <div className="relative rounded-lg overflow-hidden border border-slate-700">
+              <img
+                src={mediaUrl}
+                alt="Generated media"
+                className="w-full object-cover max-h-64"
+                onError={(e) => { e.target.style.display = 'none'; }}
+              />
+              <div className="absolute top-2 right-2">
+                <Badge className="bg-emerald-900/80 text-emerald-300 border-0 text-xs backdrop-blur-sm">
+                  {mediaType === 'template_image' ? 'Brand Graphic' : mediaType === 'ai_image' ? 'AI Image' : mediaType}
+                </Badge>
+              </div>
+            </div>
+            <div className="flex gap-2 flex-wrap">
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-slate-600 text-slate-300 h-8 text-xs"
+                onClick={() => { navigator.clipboard.writeText(mediaUrl); toast.success('URL copied'); }}
+              >
+                <Copy className="w-3 h-3 mr-1.5" />Copy URL
+              </Button>
+              <a href={mediaUrl} target="_blank" rel="noopener noreferrer">
+                <Button size="sm" variant="outline" className="border-slate-600 text-slate-300 h-8 text-xs">
+                  <ExternalLink className="w-3 h-3 mr-1.5" />Open Full Size
+                </Button>
+              </a>
+              <Button
+                size="sm"
+                onClick={() => generate('generateDraftMedia', 'AI Image')}
+                disabled={generating}
+                className="bg-violet-700 hover:bg-violet-600 h-8 text-xs ml-auto"
+              >
+                <RefreshCw className="w-3 h-3 mr-1.5" />Regenerate
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => generate('generateTemplateImage', 'Brand Graphic')}
+                disabled={generating}
+                className="bg-slate-700 hover:bg-slate-600 h-8 text-xs"
+              >
+                <Palette className="w-3 h-3 mr-1.5" />Brand Graphic
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function DraftDrawer({ draft, onClose, onSaved }) {
   const [form, setForm] = useState(null);
   const [saving, setSaving] = useState(false);
