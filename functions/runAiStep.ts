@@ -288,14 +288,20 @@ Deno.serve(async (req) => {
     });
 
     // Success
-    await base44.asServiceRole.entities.AiTask.update(task.id, {
+    const successUpdate = {
       step_status: 'succeeded',
       status: 'succeeded',
       locked_by: null,
       step_finished_at: new Date().toISOString(),
       last_artifact_id: artifact.id,
       outputs: auditOutputs,
-    });
+    };
+    if (budgetCheck.softLimitWarning) {
+      successUpdate.last_soft_limit_warning = true;
+      successUpdate.last_soft_limit_message = budgetCheck.message;
+      successUpdate.last_soft_limit_at = new Date().toISOString();
+    }
+    await base44.asServiceRole.entities.AiTask.update(task.id, successUpdate);
 
     return Response.json({
       success: true,
