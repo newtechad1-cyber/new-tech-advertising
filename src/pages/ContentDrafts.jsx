@@ -388,9 +388,27 @@ export default function ContentDrafts() {
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const paginated = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
 
-  const onSaved = () => {
-    load();
+  const onSaved = async () => {
+    await load();
     setSelectedDraft(null);
+  };
+
+  const onMediaUpdated = () => {
+    load();
+  };
+
+  const bulkGenerateMedia = async () => {
+    const needsMedia = filtered.filter(d => !d.media_url && d.media_status !== 'generating').slice(0, 10);
+    if (!needsMedia.length) { toast.info('No drafts need media generation.'); return; }
+    setBulkGenerating(true);
+    setBulkProgress({ done: 0, total: needsMedia.length });
+    for (const d of needsMedia) {
+      await base44.functions.invoke('generateDraftMedia', { draftId: d.id });
+      setBulkProgress(p => ({ ...p, done: p.done + 1 }));
+    }
+    setBulkGenerating(false);
+    toast.success(`Generated media for ${needsMedia.length} drafts`);
+    load();
   };
 
   return (
