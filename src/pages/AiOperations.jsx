@@ -23,15 +23,20 @@ const STEP_STATUS_CONFIG = {
   waiting_input: { label: 'Waiting Input', color: 'bg-yellow-900 text-yellow-300', icon: AlertTriangle },
 };
 
+const PAGE_SIZE = 25;
+
 function TasksTab() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [running, setRunning] = useState({});
   const [viewTask, setViewTask] = useState(null);
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [agentFilter, setAgentFilter] = useState('all');
+  const [page, setPage] = useState(0);
 
   const load = async () => {
     setLoading(true);
-    const data = await base44.entities.AiTask.list('-created_date', 100);
+    const data = await base44.entities.AiTask.list('-created_date', 200);
     setTasks(data);
     setLoading(false);
   };
@@ -43,26 +48,59 @@ function TasksTab() {
     const res = await base44.functions.invoke('runAiStep', { task_id: task.id });
     setRunning(r => ({ ...r, [task.id]: false }));
     if (res.data?.success) {
-      toast.success(res.data.budget_warning ? `✓ Done — ${res.data.budget_warning}` : 'Step completed!');
+      if (res.data.softLimitWarning) {
+        toast.warning(`Step completed — ⚠️ ${res.data.softLimitMessage}`);
+      } else {
+        toast.success('Step completed!');
+      }
+    } else if (res.data?.error === 'TaskLocked') {
+      toast.error(`Task is locked by ${res.data.locked_by}. Try again in 10 min.`);
     } else {
       toast.error(res.data?.error || 'Step failed');
     }
     load();
   };
 
+  const allAgents = [...new Set(tasks.map(t => t.agent_key).filter(Boolean))];
+  const filtered = tasks.filter(t => {
+    const matchStatus = statusFilter === 'all' || (t.step_status || 'idle') === statusFilter;
+    const matchAgent  = agentFilter === 'all' || t.agent_key === agentFilter;
+    return matchStatus && matchAgent;
+  });
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+  const paginated = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
+
   if (loading) return <div className="text-center py-12"><Loader2 className="w-6 h-6 animate-spin mx-auto text-slate-400" /></div>;
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-between items-center">
-        <p className="text-slate-400 text-sm">{tasks.length} tasks total</p>
-        <Button size="sm" onClick={load} variant="outline" className="border-slate-700 text-slate-300 h-8">
-          <RefreshCw className="w-3 h-3 mr-1.5" />Refresh
-        </Button>
+      <div className="flex flex-wrap gap-3 items-center justify-between">
+        <div className="flex gap-2 flex-wrap">
+          <Select value={statusFilter} onValueChange={v => { setStatusFilter(v); setPage(0); }}>
+            <SelectTrigger className="bg-slate-800 border-slate-700 text-white h-8 text-xs w-36"><SelectValue placeholder="All Status" /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Status</SelectItem>
+              {Object.entries(STEP_STATUS_CONFIG).map(([k,v]) => <SelectItem key={k} value={k}>{v.label}</SelectItem>)}
+            </SelectContent>
+          </Select>
+          <Select value={agentFilter} onValueChange={v => { setAgentFilter(v); setPage(0); }}>
+            <SelectTrigger className="bg-slate-800 border-slate-700 text-white h-8 text-xs w-44"><SelectValue placeholder="All Agents" /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Agents</SelectItem>
+              {allAgents.map(a => <SelectItem key={a} value={a}>{a}</SelectItem>)}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-slate-500 text-xs">{filtered.length} tasks</span>
+          <Button size="sm" onClick={load} variant="outline" className="border-slate-700 text-slate-300 h-8 text-xs">
+            <RefreshCw className="w-3 h-3 mr-1.5" />Refresh
+          </Button>
+        </div>
       </div>
-      {tasks.length === 0 && <div className="text-center py-16 text-slate-500">No AI tasks yet.</div>}
+      {filtered.length === 0 && <div className="text-center py-16 text-slate-500">No tasks match filters.</div>}
       <div className="space-y-2">
-        {tasks.map(task => {
+        {paginated.map(task => {
           const sc = STEP_STATUS_CONFIG[task.step_status || 'idle'];
           const Icon = sc.icon;
           const isLocked = !!task.locked_by && task.step_status === 'running';
@@ -85,7 +123,7 @@ function TasksTab() {
                     {task.account_id && <span>Account: <span className="text-slate-400">{task.account_id.slice(0,8)}…</span></span>}
                     {task.step_started_at && <span>Started: <span className="text-slate-400">{new Date(task.step_started_at).toLocaleTimeString()}</span></span>}
                   </div>
-                  {task.error && <p className="text-red-400 text-xs mt-1">{task.error}</p>}
+                  {task.error && <p className="text-red-400 text-xs mt-1 truncate max-w-md">{task.error}</p>}
                 </div>
                 <div className="flex items-center gap-2 flex-shrink-0">
                   <Button size="sm" variant="ghost" onClick={() => setViewTask(task)} className="h-8 text-xs text-slate-400 hover:text-white">
@@ -102,6 +140,13 @@ function TasksTab() {
           );
         })}
       </div>
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-3 pt-2">
+          <Button size="sm" variant="outline" disabled={page === 0} onClick={() => setPage(p => p-1)} className="border-slate-700 text-slate-300 h-7 text-xs">Prev</Button>
+          <span className="text-slate-500 text-xs">{page+1} / {totalPages}</span>
+          <Button size="sm" variant="outline" disabled={page >= totalPages-1} onClick={() => setPage(p => p+1)} className="border-slate-700 text-slate-300 h-7 text-xs">Next</Button>
+        </div>
+      )}
 
       <Dialog open={!!viewTask} onOpenChange={() => setViewTask(null)}>
         <DialogContent className="bg-slate-900 border-slate-700 text-white max-w-2xl max-h-[85vh] overflow-y-auto">
@@ -264,20 +309,25 @@ function CostLedgerTab() {
   const [ledger, setLedger] = useState([]);
   const [loading, setLoading] = useState(true);
   const [agentFilter, setAgentFilter] = useState('all');
+  const [page, setPage] = useState(0);
 
   const load = async () => {
     setLoading(true);
-    const data = await base44.entities.AiCostLedger.list('-created_date', 200);
+    const data = await base44.entities.AiCostLedger.list('-created_date', 500);
     setLedger(data);
     setLoading(false);
   };
   useEffect(() => { load(); }, []);
 
-  const agents = [...new Set(ledger.map(l => l.agent_key))];
-  const filtered = agentFilter === 'all' ? ledger : ledger.filter(l => l.agent_key === agentFilter);
+  // Normalize agent key for filter (strip :attempt1/:repair suffix)
+  const baseAgentKey = (key) => key?.split(':')[0] || key;
+  const agents = [...new Set(ledger.map(l => baseAgentKey(l.agent_key)))];
+  const filtered = agentFilter === 'all' ? ledger : ledger.filter(l => baseAgentKey(l.agent_key) === agentFilter);
   const totalCents = filtered.reduce((s, l) => s + (l.cost_cents || 0), 0);
   const totalInputTokens = filtered.reduce((s, l) => s + (l.input_tokens || 0), 0);
   const totalOutputTokens = filtered.reduce((s, l) => s + (l.output_tokens || 0), 0);
+  const ledgerPages = Math.ceil(filtered.length / PAGE_SIZE);
+  const paginatedLedger = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
 
   if (loading) return <div className="text-center py-12"><Loader2 className="w-6 h-6 animate-spin mx-auto text-slate-400" /></div>;
 
@@ -285,7 +335,7 @@ function CostLedgerTab() {
     <div className="space-y-4">
       <div className="flex flex-wrap gap-3 items-center justify-between">
         <div className="flex gap-3">
-          <Select value={agentFilter} onValueChange={setAgentFilter}>
+          <Select value={agentFilter} onValueChange={v => { setAgentFilter(v); setPage(0); }}>
             <SelectTrigger className="bg-slate-800 border-slate-700 text-white w-44 h-8 text-xs"><SelectValue placeholder="All Agents" /></SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Agents</SelectItem>
@@ -313,11 +363,12 @@ function CostLedgerTab() {
 
       {filtered.length === 0 && <div className="text-center py-16 text-slate-500">No cost records yet.</div>}
       <div className="space-y-2">
-        {filtered.map(l => (
+        {paginatedLedger.map(l => (
           <div key={l.id} className="bg-slate-800 border border-slate-700 rounded-xl p-3 flex items-center justify-between gap-3">
             <div>
               <div className="flex items-center gap-2">
-                <p className="text-white text-sm font-medium">{l.agent_key}</p>
+                <p className="text-white text-sm font-medium">{baseAgentKey(l.agent_key)}</p>
+                {l.agent_key?.includes(':') && <Badge className="bg-yellow-900 text-yellow-300 border-0 text-xs">{l.agent_key.split(':')[1]}</Badge>}
                 <span className="text-slate-500 text-xs">{l.model}</span>
               </div>
               <div className="flex gap-3 text-xs text-slate-500 mt-0.5">
@@ -330,6 +381,13 @@ function CostLedgerTab() {
           </div>
         ))}
       </div>
+      {ledgerPages > 1 && (
+        <div className="flex items-center justify-center gap-3 pt-2">
+          <Button size="sm" variant="outline" disabled={page === 0} onClick={() => setPage(p => p-1)} className="border-slate-700 text-slate-300 h-7 text-xs">Prev</Button>
+          <span className="text-slate-500 text-xs">{page+1} / {ledgerPages}</span>
+          <Button size="sm" variant="outline" disabled={page >= ledgerPages-1} onClick={() => setPage(p => p+1)} className="border-slate-700 text-slate-300 h-7 text-xs">Next</Button>
+        </div>
+      )}
     </div>
   );
 }
