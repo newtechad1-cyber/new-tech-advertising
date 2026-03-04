@@ -117,14 +117,12 @@ export default function Header({ onCTAClick }) {
               </SheetContent>
             </Sheet>
 
-            <a href="https://ntaaffiliates.com" target="_blank" rel="noopener noreferrer">
-              <Button
-                onClick={() => trackCTAClick('Header - Start Free Trial')}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-              >
-                Start Free Trial
-              </Button>
-            </a>
+            <Button
+              onClick={() => { trackCTAClick('Header - Start Free Trial'); onCTAClick?.(); }}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+            >
+              Start Free Trial
+            </Button>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
