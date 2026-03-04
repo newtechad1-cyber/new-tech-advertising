@@ -574,7 +574,7 @@ export default function ContentDrafts() {
         )}
       </div>
 
-      <DraftDrawer draft={selectedDraft} onClose={() => setSelectedDraft(null)} onSaved={onSaved} />
+      <DraftDrawer draft={selectedDraft} onClose={() => setSelectedDraft(null)} onSaved={onSaved} onMediaUpdated={onMediaUpdated} />
     </div>
   );
 }
