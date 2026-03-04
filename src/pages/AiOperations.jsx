@@ -137,7 +137,7 @@ function TasksTab() {
                   {task.error && <p className="text-red-400 text-xs mt-1 truncate max-w-md">{task.error}</p>}
                 </div>
                 <div className="flex items-center gap-2 flex-shrink-0">
-                  <Button size="sm" variant="ghost" onClick={() => setViewTask(task)} className="h-8 text-xs text-slate-400 hover:text-white">
+                  <Button size="sm" variant="ghost" onClick={() => openTask(task)} className="h-8 text-xs text-slate-400 hover:text-white">
                     <Eye className="w-3 h-3 mr-1" />View
                   </Button>
                   <Button size="sm" onClick={() => runStep(task)} disabled={running[task.id] || isLocked}
