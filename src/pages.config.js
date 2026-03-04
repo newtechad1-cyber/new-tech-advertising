@@ -108,6 +108,7 @@ import OauthCallback from './pages/OauthCallback';
 import OnboardThankYou from './pages/OnboardThankYou';
 import Onboarding from './pages/Onboarding';
 import OnboardingStart from './pages/OnboardingStart';
+import OperationsHub from './pages/OperationsHub';
 import OurWork from './pages/OurWork';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import rebuildIntake from './pages/Rebuild-Intake';
@@ -138,7 +139,7 @@ import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import OperationsHub from './pages/OperationsHub';
+import AiOperations from './pages/AiOperations';
 import __Layout from './Layout.jsx';
 
 
@@ -204,6 +205,7 @@ export const PAGES = {
     "OnboardThankYou": OnboardThankYou,
     "Onboarding": Onboarding,
     "OnboardingStart": OnboardingStart,
+    "OperationsHub": OperationsHub,
     "OurWork": OurWork,
     "PrivacyPolicy": PrivacyPolicy,
     "Rebuild-Intake": rebuildIntake,
@@ -234,7 +236,7 @@ export const PAGES = {
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "OperationsHub": OperationsHub,
+    "AiOperations": AiOperations,
 }
 
 export const pagesConfig = {
