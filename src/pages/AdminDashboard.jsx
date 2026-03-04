@@ -6,7 +6,7 @@ import {
   BookOpen, ShoppingBag, Mail, Users, Image, Video,
   StickyNote, HelpCircle, ArrowLeft, Zap, RefreshCw,
   Calendar, DollarSign, FileText, TrendingUp, MonitorPlay, Briefcase,
-  Globe, Share2, BarChart2, Lock, X, BrainCircuit, Settings, CalendarDays, Wrench
+  Globe, Share2, BarChart2, Lock, X, BrainCircuit, Settings, CalendarDays, Wrench, Cpu
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -90,6 +90,7 @@ const CATEGORIES = [
       { id: 'authority-map', label: 'Weekly Authority Plans', icon: BrainCircuit, color: 'bg-violet-600', description: 'Topical authority maps & pillars', link: 'AuthorityMap' },
       { id: 'content-queue', label: 'Content Calendar & Queue', icon: CalendarDays, color: 'bg-fuchsia-600', description: 'Planned, generated & published content', link: 'ContentQueue' },
       { id: 'onboarding-queue', label: 'Trial Onboarding Queue', icon: Users, color: 'bg-green-600', description: 'Review & configure new trial accounts', link: 'AdminOnboardingQueue' },
+      { id: 'ai-operations', label: 'AI Operations', icon: Cpu, color: 'bg-violet-800', description: 'Tasks, budgets, cost ledger & memory', link: 'AiOperations' },
     ]
   },
 ];
