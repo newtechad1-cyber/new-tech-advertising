@@ -801,10 +801,11 @@ export default function AiOperations() {
             })}
           </div>
 
-          {activeTab === 'tasks'   && <TasksTab onNavigateToLedger={id => { setLedgerTaskFilter(id); setActiveTab('ledger'); }} />}
-          {activeTab === 'budgets' && <BudgetsTab />}
-          {activeTab === 'ledger'  && <CostLedgerTab taskFilter={ledgerTaskFilter} onClearTaskFilter={() => setLedgerTaskFilter(null)} />}
-          {activeTab === 'memory'  && <MemoryTab />}
+          {activeTab === 'tasks'     && <TasksTab onNavigateToLedger={id => { setLedgerTaskFilter(id); setActiveTab('ledger'); }} />}
+          {activeTab === 'artifacts' && <ArtifactsTab />}
+          {activeTab === 'budgets'   && <BudgetsTab />}
+          {activeTab === 'ledger'    && <CostLedgerTab taskFilter={ledgerTaskFilter} onClearTaskFilter={() => setLedgerTaskFilter(null)} />}
+          {activeTab === 'memory'    && <MemoryTab />}
         </div>
       </div>
     </AdminGuard>
