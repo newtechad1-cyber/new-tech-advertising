@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/landing/Header';
 import Footer from '../components/landing/Footer';
 import Chatbot from '../components/Chatbot';
+import TrialSignupModal from '../components/trial/TrialSignupModal';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils';
 import { CheckCircle, X } from 'lucide-react';
