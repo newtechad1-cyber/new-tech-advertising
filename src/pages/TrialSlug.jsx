@@ -55,12 +55,22 @@ export default function TrialSlug() {
   );
 
   if (notFound) return (
-    <div className="min-h-screen flex items-center justify-center text-center px-6">
-      <div>
-        <h1 className="text-2xl font-bold text-slate-800 mb-3">Page not found</h1>
-        <p className="text-slate-500 mb-6">This trial link doesn't exist or has expired.</p>
-        <Link to="/start"><Button className="bg-blue-600 hover:bg-blue-700">Start a New Trial</Button></Link>
-      </div>
+    <div className="bg-white">
+      <TrialHeader onCTAClick={() => {}} />
+      <section className="pt-40 pb-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <div className="inline-block bg-yellow-500/20 text-yellow-300 text-sm font-semibold px-4 py-1.5 rounded-full mb-6 border border-yellow-400/30">
+            Portal Not Found
+          </div>
+          <h1 className="text-3xl md:text-4xl font-bold mb-4">We couldn't find that portal link.</h1>
+          <p className="text-xl text-slate-300 mb-8">Start a new trial below — it only takes 5 minutes.</p>
+          <Link to="/start">
+            <Button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white text-lg px-10 py-6 font-bold shadow-xl">
+              Start a New Trial
+            </Button>
+          </Link>
+        </div>
+      </section>
     </div>
   );
 
