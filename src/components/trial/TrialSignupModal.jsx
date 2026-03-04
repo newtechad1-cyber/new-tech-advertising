@@ -36,7 +36,7 @@ export default function TrialSignupModal({ open, onClose }) {
       const res = await base44.functions.invoke('createTrialAccount', form);
       const { slug } = res.data;
       onClose();
-      navigate(`/start/${slug}`);
+      navigate(`/TrialSlug?slug=${slug}`);
     } catch (err) {
       setError(err?.response?.data?.error || err.message || 'Something went wrong.');
     } finally {
