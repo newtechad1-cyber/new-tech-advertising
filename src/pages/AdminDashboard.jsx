@@ -88,6 +88,7 @@ const CATEGORIES = [
       { id: 'global-settings', label: 'System Settings', icon: Settings, color: 'bg-slate-600', description: 'Business info & AI configuration', link: 'GlobalSettings' },
       { id: 'authority-map', label: 'Weekly Authority Plans', icon: BrainCircuit, color: 'bg-violet-600', description: 'Topical authority maps & pillars', link: 'AuthorityMap' },
       { id: 'content-queue', label: 'Content Calendar & Queue', icon: CalendarDays, color: 'bg-fuchsia-600', description: 'Planned, generated & published content', link: 'ContentQueue' },
+      { id: 'onboarding-queue', label: 'Trial Onboarding Queue', icon: Users, color: 'bg-green-600', description: 'Review & configure new trial accounts', link: 'AdminOnboardingQueue' },
     ]
   },
 ];
