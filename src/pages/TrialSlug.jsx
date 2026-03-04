@@ -4,7 +4,10 @@ import { Button } from '@/components/ui/button';
 import { CheckCircle, ChevronDown, ChevronUp, UserCircle, Loader2 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import TrialHeader from '../components/trial/TrialHeader';
-import TrialStatusBar from '../components/trial/TrialStatusBar';
+import TrialStatusBar from '../components/marketing/TrialStatusBar';
+import LiveDashboardPreview from '../components/marketing/LiveDashboardPreview';
+import PersonalizedWelcome from '../components/marketing/PersonalizedWelcome';
+import MobileStickyBar from '../components/marketing/MobileStickyBar';
 import { createPageUrl } from '@/utils';
 
 function FAQItem({ q, a }) {

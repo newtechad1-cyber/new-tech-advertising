@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { CheckCircle, ChevronDown, ChevronUp, UserCircle } from 'lucide-react';
 import TrialHeader from '../components/trial/TrialHeader';
 import TrialSignupModal from '../components/trial/TrialSignupModal';
+import LiveDashboardPreview from '../components/marketing/LiveDashboardPreview';
+import MobileStickyBar from '../components/marketing/MobileStickyBar';
 import { createPageUrl } from '@/utils';
 
 const FAQS = [
