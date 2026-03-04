@@ -176,6 +176,16 @@ function TasksTab() {
                   </pre>
                 </div>
               )}
+              {viewTask.last_soft_limit_warning && (
+                <div className="bg-yellow-900/30 border border-yellow-700 rounded-lg p-3 flex items-start gap-2">
+                  <AlertTriangle className="w-4 h-4 text-yellow-400 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-yellow-300 text-xs font-medium">Soft Budget Limit Warning</p>
+                    <p className="text-yellow-400/80 text-xs mt-0.5">{viewTask.last_soft_limit_message}</p>
+                    {viewTask.last_soft_limit_at && <p className="text-slate-500 text-xs mt-1">Triggered: {new Date(viewTask.last_soft_limit_at).toLocaleString()}</p>}
+                  </div>
+                </div>
+              )}
               {viewTask.error && (
                 <div className="bg-red-900/30 border border-red-800 rounded-lg p-3">
                   <p className="text-red-400 text-xs font-medium mb-1">ERROR</p>
