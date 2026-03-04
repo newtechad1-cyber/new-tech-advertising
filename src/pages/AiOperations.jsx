@@ -385,7 +385,11 @@ function CostLedgerTab({ taskFilter, onClearTaskFilter }) {
   // Normalize agent key for filter (strip :attempt1/:repair suffix)
   const baseAgentKey = (key) => key?.split(':')[0] || key;
   const agents = [...new Set(ledger.map(l => baseAgentKey(l.agent_key)))];
-  const filtered = agentFilter === 'all' ? ledger : ledger.filter(l => baseAgentKey(l.agent_key) === agentFilter);
+  const filtered = ledger.filter(l => {
+    const matchAgent = agentFilter === 'all' || baseAgentKey(l.agent_key) === agentFilter;
+    const matchTask = !taskFilter || l.task_id === taskFilter;
+    return matchAgent && matchTask;
+  });
   const totalCents = filtered.reduce((s, l) => s + (l.cost_cents || 0), 0);
   const totalInputTokens = filtered.reduce((s, l) => s + (l.input_tokens || 0), 0);
   const totalOutputTokens = filtered.reduce((s, l) => s + (l.output_tokens || 0), 0);
