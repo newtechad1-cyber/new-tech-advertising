@@ -431,27 +431,22 @@ function DraftDrawer({ draft, onClose, onSaved, onMediaUpdated }) {
           {/* Media Generation */}
           <MediaSection draft={draft} onMediaUpdated={onMediaUpdated || onSaved} />
 
-          {/* Status + Schedule placeholder */}
-          <div className="flex gap-3 items-center">
-            <div className="flex-1">
-              <label className="text-slate-400 text-xs uppercase tracking-wide block mb-1">Status</label>
-              <Select value={form.status} onValueChange={v => setForm(f => ({...f, status: v}))}>
-                <SelectTrigger className="bg-slate-800 border-slate-700 text-white h-9 text-sm"><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="draft">Draft</SelectItem>
-                  <SelectItem value="scheduled">Scheduled</SelectItem>
-                  <SelectItem value="published">Published</SelectItem>
-                  <SelectItem value="archived">Archived</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="flex-1">
-              <label className="text-slate-400 text-xs uppercase tracking-wide block mb-1">Schedule</label>
-              <div className="h-9 bg-slate-800/40 border border-slate-700 rounded-md flex items-center px-3 text-slate-600 text-sm">
-                Coming Phase 1.75
-              </div>
-            </div>
+          {/* Status */}
+          <div>
+            <label className="text-slate-400 text-xs uppercase tracking-wide block mb-1">Status</label>
+            <Select value={form.status} onValueChange={v => setForm(f => ({...f, status: v}))}>
+              <SelectTrigger className="bg-slate-800 border-slate-700 text-white h-9 text-sm"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="draft">Draft</SelectItem>
+                <SelectItem value="scheduled">Scheduled</SelectItem>
+                <SelectItem value="published">Published</SelectItem>
+                <SelectItem value="archived">Archived</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
+
+          {/* Schedule */}
+          <ScheduleSection draft={draft} onScheduled={onMediaUpdated} />
 
           {/* Actions */}
           <div className="flex gap-3 pt-2">
