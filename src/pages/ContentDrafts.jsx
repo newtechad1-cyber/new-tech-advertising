@@ -314,6 +314,9 @@ function DraftDrawer({ draft, onClose, onSaved }) {
             <CopyButton text={fullPost} label="Copy Full Post" />
           </div>
 
+          {/* Media Generation */}
+          <MediaSection draft={draft} onMediaUpdated={onSaved} />
+
           {/* Status + Schedule placeholder */}
           <div className="flex gap-3 items-center">
             <div className="flex-1">
