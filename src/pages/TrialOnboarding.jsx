@@ -140,7 +140,7 @@ export default function TrialOnboarding() {
             </div>
           ))}
         </div>
-        <Button onClick={() => navigate(`/start/${slug}`)} variant="outline" className="mx-auto">
+        <Button onClick={() => navigate(`/TrialSlug?slug=${slug}`)} variant="outline" className="mx-auto">
           Back to Your Portal
         </Button>
       </div>
