@@ -138,6 +138,7 @@ import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
+import OperationsHub from './pages/OperationsHub';
 import __Layout from './Layout.jsx';
 
 
@@ -233,6 +234,7 @@ export const PAGES = {
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
     "YouTubeUploadTest": YouTubeUploadTest,
+    "OperationsHub": OperationsHub,
 }
 
 export const pagesConfig = {
