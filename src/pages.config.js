@@ -65,6 +65,7 @@ import AdminSettings from './pages/AdminSettings';
 import AdminVideoDetail from './pages/AdminVideoDetail';
 import AdminVideoQueue from './pages/AdminVideoQueue';
 import AiAdvertising from './pages/AiAdvertising';
+import AiOperations from './pages/AiOperations';
 import AiSeo from './pages/AiSeo';
 import AiSocialMedia from './pages/AiSocialMedia';
 import AiVideoStudio from './pages/AiVideoStudio';
@@ -79,6 +80,7 @@ import ChatWidget from './pages/ChatWidget';
 import ChatbotManagement from './pages/ChatbotManagement';
 import ClientDashboardDemo from './pages/ClientDashboardDemo';
 import Contact from './pages/Contact';
+import ContentDrafts from './pages/ContentDrafts';
 import ContentQueue from './pages/ContentQueue';
 import ContentStudio from './pages/ContentStudio';
 import Dashboard from './pages/Dashboard';
@@ -139,8 +141,6 @@ import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AiOperations from './pages/AiOperations';
-import ContentDrafts from './pages/ContentDrafts';
 import __Layout from './Layout.jsx';
 
 
@@ -163,6 +163,7 @@ export const PAGES = {
     "AdminVideoDetail": AdminVideoDetail,
     "AdminVideoQueue": AdminVideoQueue,
     "AiAdvertising": AiAdvertising,
+    "AiOperations": AiOperations,
     "AiSeo": AiSeo,
     "AiSocialMedia": AiSocialMedia,
     "AiVideoStudio": AiVideoStudio,
@@ -177,6 +178,7 @@ export const PAGES = {
     "ChatbotManagement": ChatbotManagement,
     "ClientDashboardDemo": ClientDashboardDemo,
     "Contact": Contact,
+    "ContentDrafts": ContentDrafts,
     "ContentQueue": ContentQueue,
     "ContentStudio": ContentStudio,
     "Dashboard": Dashboard,
@@ -237,8 +239,6 @@ export const PAGES = {
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AiOperations": AiOperations,
-    "ContentDrafts": ContentDrafts,
 }
 
 export const pagesConfig = {
