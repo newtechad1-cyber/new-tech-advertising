@@ -39,7 +39,9 @@ function TagInput({ label, values, onChange, placeholder }) {
 }
 
 export default function TrialOnboarding() {
-  const { slug } = useParams();
+  const params = useParams();
+  const urlParams = new URLSearchParams(window.location.search);
+  const slug = params.slug || urlParams.get('slug');
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [account, setAccount] = useState(null);

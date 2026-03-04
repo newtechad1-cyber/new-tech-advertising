@@ -85,7 +85,7 @@ export default function TrialSlug() {
   const whatToExpect = s.what_to_expect?.items || [];
   const finalCTA = s.final_cta || {};
   const businessName = account.name;
-  const onboardingPath = `/start/${slug}/onboarding`;
+  const onboardingPath = `/TrialOnboarding?slug=${slug}`;
 
   const showOnboarding = ['submitted', 'draft'].includes(account.trial_status);
 
