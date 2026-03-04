@@ -35,12 +35,16 @@ function FAQItem({ q, a }) {
 export default function TrialStart() {
   const [showModal, setShowModal] = useState(false);
 
-  // Detect if there's a slug in the URL path: /start/johnson-hvac
+  // Detect if there's a slug in the URL path: /start/johnson-hvac or /start/johnson-hvac/onboarding
   const pathParts = window.location.pathname.replace(/^\//, '').split('/');
-  // pathParts[0] = "start", pathParts[1] = slug (if any)
+  // pathParts[0] = "start", pathParts[1] = slug (if any), pathParts[2] = "onboarding" (if any)
   const urlSlug = pathParts.length >= 2 && pathParts[1] ? pathParts[1] : null;
+  const isOnboardingPath = pathParts[2] === 'onboarding';
 
-  // If there's a slug in the URL, render the personalized portal view
+  // If there's a slug, render the personalized portal (or onboarding) inline
+  if (urlSlug && isOnboardingPath) {
+    return <TrialOnboardingInline slug={urlSlug} />;
+  }
   if (urlSlug) {
     return <PersonalizedPortal slug={urlSlug} />;
   }
