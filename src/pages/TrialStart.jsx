@@ -11,6 +11,377 @@ import TrialStatusBar from '../components/marketing/TrialStatusBar';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 
+// ─── PersonalizedPortal ─────────────────────────────────────────────────────
+function PersonalizedPortal({ slug }) {
+  const [account, setAccount] = useState(null);
+  const [landing, setLanding] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const accounts = await base44.entities.TrialAccount.filter({ slug });
+        if (!accounts.length) { setNotFound(true); setLoading(false); return; }
+        const acct = accounts[0];
+        setAccount(acct);
+        const landings = await base44.entities.PortalLanding.filter({ account_id: acct.id });
+        if (landings.length) setLanding(landings[0]);
+      } catch (e) {
+        setNotFound(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, [slug]);
+
+  if (loading) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+    </div>
+  );
+
+  if (notFound) return (
+    <div className="bg-white">
+      <TrialHeader onCTAClick={() => {}} />
+      <section className="pt-40 pb-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <div className="inline-block bg-yellow-500/20 text-yellow-300 text-sm font-semibold px-4 py-1.5 rounded-full mb-6 border border-yellow-400/30">Portal Not Found</div>
+          <h1 className="text-3xl md:text-4xl font-bold mb-4">We couldn't find that portal link.</h1>
+          <p className="text-xl text-slate-300 mb-8">Start a new trial below — it only takes 5 minutes.</p>
+          <Link to="/start"><Button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white text-lg px-10 py-6 font-bold shadow-xl">Start a New Trial</Button></Link>
+        </div>
+      </section>
+    </div>
+  );
+
+  const s = landing?.sections_json || {};
+  const features = s.features?.items || [];
+  const testimonials = s.testimonials?.items || [];
+  const faq = s.faq?.items || [];
+  const steps = s.how_it_works?.steps || [];
+  const whatToExpect = s.what_to_expect?.items || [];
+  const finalCTA = s.final_cta || {};
+  const businessName = account.name;
+  const onboardingPath = `/start/${slug}/onboarding`;
+  const showOnboarding = ['submitted', 'draft'].includes(account.trial_status);
+
+  return (
+    <div className="bg-white">
+      <TrialHeader slug={slug} ctaLabel={showOnboarding ? "Complete Your Onboarding" : "Go to Your Dashboard"} />
+      <MobileStickyBar
+        ctaLabel={showOnboarding ? "Complete Your Onboarding" : "Go to Your Dashboard"}
+        onCTAClick={() => { window.location.href = showOnboarding ? onboardingPath : createPageUrl('Dashboard'); }}
+      />
+      <section className="pt-36 pb-16 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 to-purple-900/30" />
+        <div className="relative max-w-6xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="text-center lg:text-left">
+              <PersonalizedWelcome name={businessName} city={account.location_city} state={account.location_state} industry={account.industry} />
+              <h1 className="text-4xl md:text-5xl font-bold mb-5 leading-tight">{landing?.headline || "This Is Where the Work Gets Done"}</h1>
+              <p className="text-lg text-slate-300 mb-8 leading-relaxed">Your trial account has been created. Complete your onboarding and we'll have everything configured within one business day.</p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-2">
+                {showOnboarding ? (
+                  <Link to={onboardingPath}><Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-10 py-6 font-bold shadow-xl">Complete Your Onboarding →</Button></Link>
+                ) : (
+                  <Link to={createPageUrl('Dashboard')}><Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-10 py-6 font-bold shadow-xl">Go to Your Dashboard →</Button></Link>
+                )}
+                <Link to={createPageUrl('Dashboard')}><Button variant="outline" className="border-white/30 text-white hover:bg-white/10 text-lg px-8 py-6 gap-2 bg-transparent"><UserCircle className="w-5 h-5" /> Existing Client Sign In</Button></Link>
+              </div>
+              <p className="text-sm text-slate-500 text-center lg:text-left mb-6">Takes 5 minutes. No credit card.</p>
+              <div className="flex flex-wrap justify-center lg:justify-start gap-5 text-sm text-slate-400">
+                {(landing?.hero_bullets || ['No credit card required', 'Full platform access', 'Cancel anytime']).map(b => (
+                  <span key={b} className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" />{b}</span>
+                ))}
+              </div>
+            </div>
+            <div className="hidden lg:flex flex-col gap-5">
+              <TrialStatusBar status={account.trial_status} />
+              <LiveDashboardPreview accountName={businessName} />
+            </div>
+          </div>
+          <div className="mt-10 lg:hidden flex flex-col gap-5">
+            <TrialStatusBar status={account.trial_status} />
+            <LiveDashboardPreview accountName={businessName} />
+          </div>
+        </div>
+      </section>
+      {showOnboarding && (
+        <section className="py-8 bg-blue-50 border-b border-blue-100">
+          <div className="max-w-xl mx-auto px-6 text-center">
+            <Link to={onboardingPath}><Button className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 text-base font-semibold">Complete Your Brand Info →</Button></Link>
+            <p className="text-xs text-slate-400 mt-2">Takes about 5 minutes. We'll handle the rest.</p>
+          </div>
+        </section>
+      )}
+      {features.length > 0 && (
+        <section className="py-20 bg-slate-50">
+          <div className="max-w-5xl mx-auto px-6">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-slate-900 mb-3">{s.features.heading}</h2>
+              <p className="text-lg text-slate-500">{s.features.subheading}</p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {features.map(f => (
+                <div key={f.title} className="bg-white rounded-xl p-6 border border-slate-200 hover:shadow-md transition-shadow">
+                  <h3 className="font-bold text-slate-900 mb-2">{f.title}</h3>
+                  <p className="text-sm text-slate-600 leading-relaxed">{f.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+      {whatToExpect.length > 0 && (
+        <section className="py-20 bg-slate-900 text-white">
+          <div className="max-w-4xl mx-auto px-6">
+            <h2 className="text-3xl font-bold mb-12 text-center">{s.what_to_expect?.heading}</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              {whatToExpect.map(item => (
+                <div key={item.heading} className="bg-white/10 border border-white/20 rounded-xl p-6">
+                  <h3 className="font-bold text-white mb-2">{item.heading}</h3>
+                  <p className="text-slate-300 text-sm leading-relaxed">{item.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+      {steps.length > 0 && (
+        <section className="py-20 bg-white">
+          <div className="max-w-4xl mx-auto px-6">
+            <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">{s.how_it_works?.heading}</h2>
+            <div className="space-y-8">
+              {steps.map(step => (
+                <div key={step.number} className="flex gap-6 items-start">
+                  <div className="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold flex-shrink-0">{step.number}</div>
+                  <div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-1">Step {step.number} — {step.title}</h3>
+                    <p className="text-slate-600 mb-1">{step.body}</p>
+                    <p className="text-sm text-blue-600 font-medium">{step.note}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+      {testimonials.length > 0 && (
+        <section className="py-20 bg-slate-50">
+          <div className="max-w-5xl mx-auto px-6">
+            <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">{s.testimonials?.heading}</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              {testimonials.map(t => (
+                <div key={t.author} className="bg-white rounded-xl p-6 border border-slate-200">
+                  <p className="text-lg text-slate-800 italic mb-3">"{t.quote}"</p>
+                  <p className="text-slate-500 text-sm mb-4">{t.detail}</p>
+                  <p className="font-semibold text-slate-900">— {t.author}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+      {faq.length > 0 && (
+        <section className="py-20 bg-white">
+          <div className="max-w-3xl mx-auto px-6">
+            <h2 className="text-3xl font-bold text-slate-900 mb-10 text-center">{s.faq?.heading}</h2>
+            <div className="space-y-3">
+              {faq.map(f => <FAQItem key={f.q} q={f.q} a={f.a} />)}
+            </div>
+          </div>
+        </section>
+      )}
+      <section className="py-20 bg-gradient-to-br from-blue-600 to-purple-700 text-white">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{finalCTA.heading || "Your account will be ready tomorrow."}</h2>
+          <p className="text-xl text-blue-100 mb-6 max-w-2xl mx-auto leading-relaxed">{finalCTA.body || ''}</p>
+          {(finalCTA.bullets || []).length > 0 && (
+            <div className="flex flex-wrap justify-center gap-5 mb-10 text-sm text-blue-100">
+              {finalCTA.bullets.map(b => <span key={b} className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-300" />{b}</span>)}
+            </div>
+          )}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            {showOnboarding ? (
+              <Link to={onboardingPath}><Button className="bg-white text-blue-700 hover:bg-blue-50 text-lg px-10 py-6 font-bold">Complete Your Onboarding →</Button></Link>
+            ) : (
+              <Link to={createPageUrl('Dashboard')}><Button className="bg-white text-blue-700 hover:bg-blue-50 text-lg px-10 py-6 font-bold">Go to Your Dashboard →</Button></Link>
+            )}
+          </div>
+        </div>
+      </section>
+      <footer className="bg-slate-900 text-white py-10">
+        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8 mb-6">
+          <div><h3 className="font-bold text-lg mb-3">New Tech Advertising</h3><p className="text-slate-400 text-sm leading-relaxed">{s.footer?.tagline || ''}</p></div>
+          <div><h4 className="font-semibold mb-4">Platform</h4><ul className="space-y-2 text-sm text-slate-400"><li><Link to="/start" className="hover:text-blue-400">Start Free Trial</Link></li><li><Link to={createPageUrl('Dashboard')} className="hover:text-blue-400">Client Sign In</Link></li></ul></div>
+          <div><h4 className="font-semibold mb-4">Company</h4><ul className="space-y-2 text-sm text-slate-400"><li><Link to={createPageUrl('Contact')} className="hover:text-blue-400">Contact Support</Link></li><li><Link to={createPageUrl('PrivacyPolicy')} className="hover:text-blue-400">Privacy Policy</Link></li></ul></div>
+        </div>
+        <div className="border-t border-slate-800 pt-6 text-center text-sm text-slate-500">&copy; {new Date().getFullYear()} New Tech Advertising. All rights reserved.</div>
+      </footer>
+    </div>
+  );
+}
+
+// ─── TrialOnboardingInline ───────────────────────────────────────────────────
+const TONE_OPTIONS_INLINE = ['Professional', 'Friendly', 'Authoritative', 'Conversational', 'Inspiring', 'Educational', 'Bold', 'Warm'];
+const CTA_STYLES_INLINE = ['Call Us Today', 'Get a Free Quote', 'Book a Consultation', 'Learn More', 'Contact Us', 'Schedule Now', 'See Our Work', 'Custom'];
+
+function TagInputInline({ label, values, onChange, placeholder }) {
+  const [input, setInput] = useState('');
+  const add = () => { const v = input.trim(); if (v && !values.includes(v)) onChange([...values, v]); setInput(''); };
+  return (
+    <div>
+      <label className="block text-sm font-medium text-slate-700 mb-1">{label}</label>
+      <div className="flex gap-2">
+        <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), add())} placeholder={placeholder} className="flex-1 border border-slate-300 rounded-md px-3 py-2 text-sm" />
+        <button type="button" onClick={add} className="px-3 py-2 border border-slate-300 rounded-md text-slate-600 hover:bg-slate-50 text-sm">+</button>
+      </div>
+      {values.length > 0 && (
+        <div className="flex flex-wrap gap-2 mt-2">
+          {values.map(v => (
+            <span key={v} className="inline-flex items-center gap-1 bg-blue-50 text-blue-800 text-xs px-3 py-1 rounded-full border border-blue-200">
+              {v}<button type="button" onClick={() => onChange(values.filter(x => x !== v))} className="ml-1">×</button>
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function TrialOnboardingInline({ slug }) {
+  const [step, setStep] = useState(1);
+  const [account, setAccount] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [done, setDone] = useState(false);
+  const [form, setForm] = useState({
+    goals: [], offers: [], differentiators: [], audience: '',
+    voice_tone: '', tone_words: [], do_not_use: [], content_pillars: [], cta_style: '',
+    facebook_url: '', instagram_url: '', linkedin_url: '', tiktok_url: '', notes: '',
+  });
+  const set = (field, val) => setForm(prev => ({ ...prev, [field]: val }));
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const accounts = await base44.entities.TrialAccount.filter({ slug });
+        if (accounts.length) setAccount(accounts[0]);
+      } finally { setLoading(false); }
+    };
+    load();
+  }, [slug]);
+
+  const handleSubmit = async () => {
+    setSaving(true);
+    try {
+      const existing = await base44.entities.BrandDNA.filter({ account_id: account.id });
+      const dnaPayload = {
+        account_id: account.id,
+        voice_tone: [form.voice_tone, ...form.tone_words].filter(Boolean).join(', '),
+        audience: form.audience, goals: form.goals, offers: form.offers,
+        differentiators: form.differentiators, content_pillars: form.content_pillars,
+        do_not_use: form.do_not_use, cta_style: form.cta_style,
+        facebook_url: form.facebook_url, instagram_url: form.instagram_url,
+        linkedin_url: form.linkedin_url, tiktok_url: form.tiktok_url, notes: form.notes,
+      };
+      if (existing.length) { await base44.entities.BrandDNA.update(existing[0].id, dnaPayload); }
+      else { await base44.entities.BrandDNA.create(dnaPayload); }
+      await base44.entities.TrialAccount.update(account.id, { trial_status: 'in_review' });
+      setDone(true);
+    } finally { setSaving(false); }
+  };
+
+  if (loading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-blue-600" /></div>;
+
+  if (done) return (
+    <div className="bg-white min-h-screen">
+      <TrialHeader slug={slug} />
+      <div className="pt-28 pb-20 max-w-2xl mx-auto px-6 text-center">
+        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"><CheckCircle className="w-9 h-9 text-green-600" /></div>
+        <h1 className="text-3xl font-bold text-slate-900 mb-4">You're all set.</h1>
+        <p className="text-xl text-slate-600 mb-6 leading-relaxed">Your account will be ready within 1 business day.</p>
+        <div className="bg-slate-50 border border-slate-200 rounded-xl p-6 mb-8 text-left space-y-3">
+          <h3 className="font-bold text-slate-800 mb-3">Here's what happens next:</h3>
+          {["Our team reviews your Brand DNA submission","We configure your dashboard and content pipeline","We connect your social platforms if you provided links","We generate your first week of content drafts","You'll receive an email when your account is ready to log in"].map(item => (
+            <div key={item} className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" /><p className="text-slate-700 text-sm">{item}</p></div>
+          ))}
+        </div>
+        <Link to={`/start/${slug}`}><button className="px-6 py-2 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-50 text-sm">Back to Your Portal</button></Link>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="bg-white min-h-screen">
+      <TrialHeader slug={slug} />
+      <div className="pt-28 pb-20 max-w-2xl mx-auto px-6">
+        <div className="mb-8">
+          <div className="flex justify-between text-xs text-slate-500 mb-2"><span>Step {step} of 3</span><span>{Math.round((step/3)*100)}% complete</span></div>
+          <div className="h-2 bg-slate-100 rounded-full overflow-hidden"><div className="h-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full transition-all" style={{ width: `${(step/3)*100}%` }} /></div>
+        </div>
+        {account && <div className="mb-6 text-center"><p className="text-sm text-slate-500">Setting up account for <strong className="text-slate-800">{account.name}</strong></p></div>}
+
+        {step === 1 && (
+          <div className="space-y-6">
+            <div><h2 className="text-2xl font-bold text-slate-900 mb-1">Tell us about your business</h2><p className="text-slate-500 text-sm">This is how we build your Brand DNA.</p></div>
+            <div><label className="block text-sm font-medium text-slate-700 mb-1">Who is your ideal customer? *</label><textarea value={form.audience} onChange={e => set('audience', e.target.value)} placeholder="e.g. Homeowners in the Midwest, ages 35–65..." className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm h-24 resize-none" /></div>
+            <TagInputInline label="Main marketing goals" values={form.goals} onChange={v => set('goals', v)} placeholder="e.g. Get more phone calls, press Enter" />
+            <TagInputInline label="Services or products you offer" values={form.offers} onChange={v => set('offers', v)} placeholder="e.g. AC installation, press Enter" />
+            <TagInputInline label="What makes your business different?" values={form.differentiators} onChange={v => set('differentiators', v)} placeholder="e.g. Family-owned since 1990, press Enter" />
+            <button disabled={!form.audience} onClick={() => setStep(2)} className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 px-6 rounded-md font-semibold disabled:opacity-50">Continue to Brand Voice →</button>
+          </div>
+        )}
+
+        {step === 2 && (
+          <div className="space-y-6">
+            <div><h2 className="text-2xl font-bold text-slate-900 mb-1">Your brand voice</h2><p className="text-slate-500 text-sm">This tells our team how to write content that sounds like you.</p></div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-2">Overall tone (pick one)</label>
+              <div className="flex flex-wrap gap-2">
+                {TONE_OPTIONS_INLINE.map(t => <button key={t} type="button" onClick={() => set('voice_tone', t)} className={`px-4 py-2 rounded-full text-sm border transition-all ${form.voice_tone === t ? 'bg-blue-600 text-white border-blue-600' : 'border-slate-300 text-slate-700 hover:border-blue-400'}`}>{t}</button>)}
+              </div>
+            </div>
+            <TagInputInline label="Words or phrases that describe your brand" values={form.tone_words} onChange={v => set('tone_words', v)} placeholder="e.g. Trustworthy, no-nonsense, press Enter" />
+            <TagInputInline label="Words or phrases to avoid" values={form.do_not_use} onChange={v => set('do_not_use', v)} placeholder="e.g. Cheap, discount, press Enter" />
+            <TagInputInline label="Content pillars (topics to post about)" values={form.content_pillars} onChange={v => set('content_pillars', v)} placeholder="e.g. Home comfort tips, press Enter" />
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-2">Preferred call-to-action style</label>
+              <div className="flex flex-wrap gap-2">
+                {CTA_STYLES_INLINE.map(c => <button key={c} type="button" onClick={() => set('cta_style', c)} className={`px-4 py-2 rounded-full text-sm border transition-all ${form.cta_style === c ? 'bg-blue-600 text-white border-blue-600' : 'border-slate-300 text-slate-700 hover:border-blue-400'}`}>{c}</button>)}
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <button onClick={() => setStep(1)} className="flex-1 py-3 border border-slate-300 rounded-md text-slate-700 hover:bg-slate-50 text-sm">Back</button>
+              <button onClick={() => setStep(3)} className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-md font-semibold">Continue →</button>
+            </div>
+          </div>
+        )}
+
+        {step === 3 && (
+          <div className="space-y-6">
+            <div><h2 className="text-2xl font-bold text-slate-900 mb-1">Connect your platforms</h2><p className="text-slate-500 text-sm">All optional — add what you have.</p></div>
+            {[{field:'facebook_url',label:'Facebook Page URL',ph:'https://facebook.com/yourbusiness'},{field:'instagram_url',label:'Instagram Profile URL',ph:'https://instagram.com/yourbusiness'},{field:'linkedin_url',label:'LinkedIn Page URL',ph:'https://linkedin.com/company/yourbusiness'},{field:'tiktok_url',label:'TikTok Profile URL',ph:'https://tiktok.com/@yourbusiness'}].map(({field,label,ph}) => (
+              <div key={field}><label className="block text-sm font-medium text-slate-700 mb-1">{label}</label><input value={form[field]} onChange={e => set(field, e.target.value)} placeholder={ph} className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm" /></div>
+            ))}
+            <div><label className="block text-sm font-medium text-slate-700 mb-1">Anything else we should know?</label><textarea value={form.notes} onChange={e => set('notes', e.target.value)} placeholder="Upcoming promotions, deadlines..." className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm h-24 resize-none" /></div>
+            <div className="flex gap-3">
+              <button onClick={() => setStep(2)} disabled={saving} className="flex-1 py-3 border border-slate-300 rounded-md text-slate-700 hover:bg-slate-50 text-sm">Back</button>
+              <button onClick={handleSubmit} disabled={saving} className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-md font-semibold disabled:opacity-50">
+                {saving ? 'Submitting...' : 'Submit My Brand Info →'}
+              </button>
+            </div>
+            <p className="text-xs text-center text-slate-400">Your account will be ready within 1 business day. No credit card required.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─── FAQItem ─────────────────────────────────────────────────────────────────
 const FAQS = [
   { q: "What exactly is included in the 7-day free trial?", a: "Full platform access — your configured dashboard, Brand DNA profile, connected social platforms, content approval queue, and a first batch of ready-to-approve content. Everything is set up for you before you log in." },
   { q: "Do I need to know how to use the software?", a: "No. We configure everything during the trial. You just log in, review your content, and approve what you want to go live. We're available if you have questions." },
