@@ -115,6 +115,7 @@ Deno.serve(async (req) => {
           record_id: record?.id || null,
           render_status: record?.render_status || null,
           render_output_url: record?.render_output_url || null,
+          render_job_id: record?.render_job_id || null,
           script: record?.script || null,
           created_date: record?.created_date || null,
         };
