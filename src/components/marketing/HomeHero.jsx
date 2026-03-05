@@ -52,28 +52,15 @@ export default function HomeHero() {
             </div>
           </div>
 
-          {/* Right: Video demo placeholder */}
+          {/* Right: Video demo */}
           <div className="relative">
-            <div className="relative bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden shadow-2xl aspect-video flex items-center justify-center group cursor-pointer">
-              {/* Fake screenshot BG */}
-              <div className="absolute inset-0 bg-gradient-to-br from-slate-700 to-slate-900">
-                <div className="absolute top-4 left-4 right-4 h-7 bg-slate-600/50 rounded-md flex items-center gap-2 px-3">
-                  <div className="flex gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-red-400/60" /><span className="w-2.5 h-2.5 rounded-full bg-yellow-400/60" /><span className="w-2.5 h-2.5 rounded-full bg-green-400/60" /></div>
-                  <span className="text-slate-400 text-xs ml-2">NTA Platform — Content Studio</span>
-                </div>
-                <div className="absolute bottom-4 left-4 right-4 flex gap-3">
-                  <div className="h-20 flex-1 bg-blue-600/20 border border-blue-500/20 rounded-lg" />
-                  <div className="h-20 flex-1 bg-purple-600/20 border border-purple-500/20 rounded-lg" />
-                  <div className="h-20 flex-1 bg-emerald-600/20 border border-emerald-500/20 rounded-lg" />
-                </div>
-              </div>
-              {/* Play button */}
-              <div className="relative z-10 w-20 h-20 rounded-full bg-white/10 border-2 border-white/40 flex items-center justify-center group-hover:bg-white/20 group-hover:scale-105 transition-all duration-300 backdrop-blur-sm">
-                <Play className="w-8 h-8 text-white fill-white ml-1" />
-              </div>
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-sm text-white text-xs px-4 py-1.5 rounded-full font-medium">
-                See how it works — 90 sec
-              </div>
+            <div className="relative bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden shadow-2xl">
+              <video
+                src="https://files2.heygen.ai/aws_pacific/avatar_tmp/2b9c0382ad664e3990529d134833aa24/1903f8c848224e64a8493445ae0d1ca2.mp4?Expires=1773342252&Signature=AwFGpVxq0Br0PLziLA7oIVHdo0~c39jFDotG67-3iPlQZUgBeFB9LoRVTMPG~ki3wt5S7OR2Yu-ofOsT2nkJu5gh8D4L4rZNclsH6~VDr~td16j-CcfgXRnH0mBCHcf9rNbjuhfhlRt1DbcumUbyMk9olEcYUJdc0qRbkwEsnm-U2WnrCy5Deau6bfsGkBY9woOsW0ZSRfQwq4IFJe~hiixOvYJkWEY9ZGMELhHzOiKxJLGME5I3O~kmUg2wF9lhmRA7j5Ya3SMy6BJ15kmzLj2Gnm1tFYT3ugyVBBwh9mIzQAA8wi6f2qAhtbcenCMraRt1AndTMQfC8Yd7RmVCpg__&Key-Pair-Id=K38HBHX5LX3X2H"
+                controls
+                className="w-full rounded-2xl"
+                poster=""
+              />
             </div>
 
             {/* Floating badge */}
