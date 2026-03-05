@@ -568,6 +568,9 @@ export default function ContentDrafts() {
       </div>
 
       <div className="max-w-5xl mx-auto px-6 py-6 space-y-5">
+        {/* Today's Posts Widget */}
+        <TodayPostsWidget accountId={accountId} />
+
         {/* Filters */}
         <div className="flex flex-wrap gap-2">
           <Select value={statusFilter} onValueChange={v => { setStatusFilter(v); setPage(0); }}>
