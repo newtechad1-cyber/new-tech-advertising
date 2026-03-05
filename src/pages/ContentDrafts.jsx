@@ -489,6 +489,15 @@ export default function ContentDrafts() {
 
   useEffect(() => { load(); }, []);
 
+  // Auto-poll when coming from onboarding so generating spinners update
+  useEffect(() => {
+    if (!onboardingComplete) return;
+    const interval = setInterval(() => {
+      load();
+    }, 8000);
+    return () => clearInterval(interval);
+  }, [onboardingComplete]);
+
   const filtered = drafts.filter(d => {
     if (statusFilter !== 'all' && d.status !== statusFilter) return false;
     if (platformFilter !== 'all' && d.platform !== platformFilter) return false;
