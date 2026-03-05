@@ -144,6 +144,7 @@ import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
+import AiSocialMediaSmallBusiness from './pages/AiSocialMediaSmallBusiness';
 import __Layout from './Layout.jsx';
 
 
@@ -245,6 +246,7 @@ export const PAGES = {
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
     "YouTubeUploadTest": YouTubeUploadTest,
+    "AiSocialMediaSmallBusiness": AiSocialMediaSmallBusiness,
 }
 
 export const pagesConfig = {
