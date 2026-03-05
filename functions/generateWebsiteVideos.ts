@@ -89,6 +89,7 @@ async function getVideoStatus(videoId) {
     headers: { "x-api-key": HEYGEN_API_KEY }
   });
   const data = await res.json();
+  console.log("[HeyGen status raw]", JSON.stringify(data));
   return data.data || {};
 }
 
