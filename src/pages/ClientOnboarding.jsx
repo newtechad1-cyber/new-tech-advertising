@@ -119,17 +119,13 @@ export default function ClientOnboarding() {
   };
 
   if (done) {
+    // Redirect immediately to ContentDrafts with banner param
+    window.location.href = createPageUrl('ContentDrafts') + '?onboarding_complete=1';
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-slate-100 flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl shadow-lg max-w-md w-full p-10 text-center space-y-4">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-            <CheckCircle className="w-9 h-9 text-green-500" />
-          </div>
-          <h2 className="text-2xl font-bold text-slate-800">You're all set! 🎉</h2>
-          <p className="text-slate-500 text-sm">Your profile is complete. Your first month of content is being generated now.</p>
-          <a href={createPageUrl('Dashboard')}>
-            <Button className="w-full mt-2 bg-blue-600 hover:bg-blue-700 text-white">Go to My Dashboard →</Button>
-          </a>
+        <div className="flex flex-col items-center gap-3 text-slate-500">
+          <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+          <p className="text-sm">Redirecting to your content…</p>
         </div>
       </div>
     );
