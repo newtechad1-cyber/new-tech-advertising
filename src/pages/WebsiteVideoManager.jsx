@@ -2,7 +2,8 @@ import React, { useState, useEffect, useCallback } from "react";
 import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Loader2, Play, RefreshCw, Wand2, CheckCircle, AlertCircle, Clock, ArrowLeft, Video, Copy } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Loader2, Play, RefreshCw, Wand2, CheckCircle, AlertCircle, Clock, ArrowLeft, Video, Copy, Youtube, Upload } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 
