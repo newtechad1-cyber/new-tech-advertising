@@ -8,7 +8,12 @@ export default function SiteFooter() {
     <footer className="bg-slate-900 text-slate-400 py-12 px-6">
       <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-8 mb-10">
         <div>
-          <p className="text-white font-extrabold text-base mb-2">New Tech<span className="text-blue-400"> Advertising</span></p>
+          <img
+            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png"
+            alt="New Tech Advertising"
+            style={{ height: '40px', width: 'auto', objectFit: 'contain', display: 'block' }}
+            className="mb-3 brightness-0 invert"
+          />
           <p className="text-sm leading-relaxed">AI marketing tools built for small and mid-sized businesses. Create videos, images, and social posts in minutes.</p>
         </div>
         <div>
