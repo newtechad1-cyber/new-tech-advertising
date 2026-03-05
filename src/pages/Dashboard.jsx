@@ -233,6 +233,31 @@ export default function Dashboard() {
             </p>
           </header>
 
+          {/* Onboarding Banner */}
+          {onboardingProfile?.status !== 'complete' && (
+            <div className="mb-6 rounded-xl border-2 border-amber-200 bg-amber-50 px-5 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div className="flex items-start gap-3">
+                <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-semibold text-amber-800">Finish onboarding to generate your first month of content.</p>
+                  <p className="text-sm text-amber-600 mt-0.5">Takes about 2 minutes — unlock AI-powered posting.</p>
+                </div>
+              </div>
+              <a href={createPageUrl('ClientOnboarding')}>
+                <Button size="sm" className="bg-amber-500 hover:bg-amber-600 text-white whitespace-nowrap shrink-0">
+                  Continue Setup <ExternalLink className="w-3.5 h-3.5 ml-1" />
+                </Button>
+              </a>
+            </div>
+          )}
+
+          {onboardingProfile?.status === 'complete' && (
+            <div className="mb-6 rounded-xl border-2 border-green-200 bg-green-50 px-5 py-4 flex items-center gap-3">
+              <CheckCircle className="w-5 h-5 text-green-500 shrink-0" />
+              <p className="font-semibold text-green-800">Your first content pack is being generated. Check "My Content" soon!</p>
+            </div>
+          )}
+
           {renderContent()}
         </div>
       </main>
