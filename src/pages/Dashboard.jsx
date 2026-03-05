@@ -61,6 +61,15 @@ export default function Dashboard() {
       } else {
         setShowOnboarding(true);
       }
+
+      // Load new onboarding profile for banner
+      try {
+        let accountRows = await base44.entities.TrialAccount.filter({ email: userData.email });
+        if (accountRows?.[0]) {
+          const ob = await base44.entities.OnboardingProfile.filter({ account_id: accountRows[0].id });
+          setOnboardingProfile(ob?.[0] || null);
+        }
+      } catch (_) { /* non-critical */ }
     } catch (e) {
       console.error("[Dashboard] Auth check failed:", e);
       base44.auth.redirectToLogin(window.location.pathname);
