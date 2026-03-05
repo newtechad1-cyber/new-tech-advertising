@@ -365,6 +365,8 @@ export default function WebsiteVideoManager() {
             </p>
           </div>
         )}
+
+        <ManualYouTubeUpload />
       </div>
     </div>
   );
