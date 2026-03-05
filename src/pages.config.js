@@ -147,6 +147,7 @@ import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AiSocialMediaSmallBusiness from './pages/AiSocialMediaSmallBusiness';
 import HvacMarketing from './pages/HvacMarketing';
 import RestaurantSocialMedia from './pages/RestaurantSocialMedia';
+import AdaWebsiteLawsuitPrevention from './pages/AdaWebsiteLawsuitPrevention';
 import __Layout from './Layout.jsx';
 
 
@@ -251,6 +252,7 @@ export const PAGES = {
     "AiSocialMediaSmallBusiness": AiSocialMediaSmallBusiness,
     "HvacMarketing": HvacMarketing,
     "RestaurantSocialMedia": RestaurantSocialMedia,
+    "AdaWebsiteLawsuitPrevention": AdaWebsiteLawsuitPrevention,
 }
 
 export const pagesConfig = {
