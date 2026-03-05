@@ -84,6 +84,16 @@ export default function SocialAccounts() {
           />
         </div>
 
+        {/* Meta OAuth Card (per-account) */}
+        {accountId && (
+          <div className="mb-6">
+            <h2 className="text-sm font-semibold text-slate-600 uppercase tracking-wide mb-3">Meta (OAuth Auto-Posting)</h2>
+            <div className="max-w-sm">
+              <MetaConnectCard accountId={accountId} />
+            </div>
+          </div>
+        )}
+
         {/* Platform Grid */}
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
