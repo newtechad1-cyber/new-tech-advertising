@@ -63,7 +63,7 @@ export default function AiVideoStudio() {
   const [generating, setGenerating] = useState(false);
   const [creating, setCreating] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
-  const [formState, setFormState] = useState(defaultState);
+  const [formState, setFormState] = useState(getInitialState);
   const [myVideos, setMyVideos] = useState([]);
   const [pollingIds, setPollingIds] = useState({});
   const [user, setUser] = useState(null);
