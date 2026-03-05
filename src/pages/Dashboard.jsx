@@ -12,6 +12,7 @@ import ContentSubmissionsView from '../components/dashboard/ContentSubmissionsVi
 import ProposalsView from '../components/dashboard/ProposalsView';
 import SocialAccounts from '../pages/SocialAccounts';
 import { createPageUrl } from '../utils';
+import { AlertTriangle, CheckCircle, ExternalLink } from 'lucide-react';
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('analytics');
