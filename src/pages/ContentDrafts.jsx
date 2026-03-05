@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import { Copy, Check, Loader2, RefreshCw, FileText, Instagram, Facebook, Linkedin, ChevronLeft, ChevronRight, ArrowLeft, ImagePlus, Palette, ExternalLink, AlertCircle, Sparkles, CalendarClock, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import TodayPostsWidget from '@/components/content/TodayPostsWidget';
 
 const PAGE_SIZE = 25;
 

@@ -118,6 +118,7 @@ import Rebuild from './pages/Rebuild';
 import RebuildIntake from './pages/RebuildIntake';
 import RebuildIntakePretty from './pages/RebuildIntakePretty';
 import RebuildProposal from './pages/RebuildProposal';
+import ScheduledQueue from './pages/ScheduledQueue';
 import SetupComplete from './pages/SetupComplete';
 import SocialAccounts from './pages/SocialAccounts';
 import SocialMediaManagement from './pages/SocialMediaManagement';
@@ -141,7 +142,6 @@ import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import ScheduledQueue from './pages/ScheduledQueue';
 import __Layout from './Layout.jsx';
 
 
@@ -217,6 +217,7 @@ export const PAGES = {
     "RebuildIntake": RebuildIntake,
     "RebuildIntakePretty": RebuildIntakePretty,
     "RebuildProposal": RebuildProposal,
+    "ScheduledQueue": ScheduledQueue,
     "SetupComplete": SetupComplete,
     "SocialAccounts": SocialAccounts,
     "SocialMediaManagement": SocialMediaManagement,
@@ -240,7 +241,6 @@ export const PAGES = {
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "ScheduledQueue": ScheduledQueue,
 }
 
 export const pagesConfig = {
