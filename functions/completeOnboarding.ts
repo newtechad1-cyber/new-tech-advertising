@@ -65,42 +65,8 @@ Deno.serve(async (req) => {
   // Default to facebook if nothing connected yet
   if (platforms.length === 0) platforms.push('facebook', 'instagram');
 
-  // 4. Verify agent exists
-  const agentKey = 'social_content_pack_agent';
-  const agents = await base44.asServiceRole.entities.AiAgent.filter({ key: agentKey });
-  if (!agents.length) {
-    return Response.json({
-      success: true,
-      task_id: null,
-      memory_saved: true,
-      warning: `Agent '${agentKey}' not found — content pack not triggered.`,
-    });
-  }
+  // 4. Trigger Fast Gratification Mode (non-blocking — client polls for drafts)
+  base44.asServiceRole.functions.invoke('runFirstContentPack', { accountId, profileId }).catch(() => {});
 
-  // 5. Create AiTask for first content pack
-  const task = await base44.asServiceRole.entities.AiTask.create({
-    account_id: accountId,
-    workflow_key: 'social_monthly_content_pack_v1',
-    step_key: 'generate_content_pack',
-    agent_key: agentKey,
-    label: 'First Content Pack',
-    status: 'pending',
-    step_status: 'idle',
-    inputs: {
-      businessName:  profile.business_name,
-      businessType:  profile.business_type,
-      tone:          profile.brand_voice,
-      platforms,
-      pillarFocus:   'mixed',
-      goal:          profile.primary_goal,
-      quantity:      parseInt(profile.posting_frequency || '10'),
-      mediaMix:      'include_image_prompts',
-      artifact_type: 'content_pack',
-    },
-  });
-
-  // 6. Trigger runAiStep (non-blocking fire-and-forget via invoke)
-  base44.asServiceRole.functions.invoke('runAiStep', { taskId: task.id }).catch(() => {});
-
-  return Response.json({ success: true, task_id: task.id, memory_saved: true, platforms });
+  return Response.json({ success: true, memory_saved: true, platforms, generating: true });
 });
