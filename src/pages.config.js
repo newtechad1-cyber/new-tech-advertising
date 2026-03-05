@@ -79,6 +79,7 @@ import CRMHub from './pages/CRMHub';
 import ChatWidget from './pages/ChatWidget';
 import ChatbotManagement from './pages/ChatbotManagement';
 import ClientDashboardDemo from './pages/ClientDashboardDemo';
+import ClientOnboarding from './pages/ClientOnboarding';
 import Contact from './pages/Contact';
 import ContentDrafts from './pages/ContentDrafts';
 import ContentQueue from './pages/ContentQueue';
@@ -143,7 +144,6 @@ import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import ClientOnboarding from './pages/ClientOnboarding';
 import __Layout from './Layout.jsx';
 
 
@@ -180,6 +180,7 @@ export const PAGES = {
     "ChatWidget": ChatWidget,
     "ChatbotManagement": ChatbotManagement,
     "ClientDashboardDemo": ClientDashboardDemo,
+    "ClientOnboarding": ClientOnboarding,
     "Contact": Contact,
     "ContentDrafts": ContentDrafts,
     "ContentQueue": ContentQueue,
@@ -244,7 +245,6 @@ export const PAGES = {
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "ClientOnboarding": ClientOnboarding,
 }
 
 export const pagesConfig = {
