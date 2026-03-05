@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import PlatformCard from '@/components/social/PlatformCard';
 import ConnectModal from '@/components/social/ConnectModal';
+import MetaConnectCard from '@/components/social/MetaConnectCard';
 import { RefreshCw } from 'lucide-react';
 
 const PLATFORMS = ['facebook', 'instagram', 'youtube', 'google_my_business', 'tiktok', 'linkedin'];
