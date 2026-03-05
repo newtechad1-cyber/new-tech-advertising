@@ -20,6 +20,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [clientProfile, setClientProfile] = useState(null);
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [onboardingProfile, setOnboardingProfile] = useState(null);
 
   useEffect(() => {
     checkAuth();
