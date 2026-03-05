@@ -20,6 +20,8 @@ const STATUS_CONFIG = {
 
 function SlotCard({ slot, onGenerate, onRegenerate, polling }) {
   const [copied, setCopied] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [ytResult, setYtResult] = useState(null);
   const status = STATUS_CONFIG[slot.render_status] || STATUS_CONFIG[null];
   const Icon = status.icon;
   const isRendering = slot.render_status === "rendering" || slot.render_status === "queued" || polling;
@@ -31,6 +33,23 @@ function SlotCard({ slot, onGenerate, onRegenerate, polling }) {
     navigator.clipboard.writeText(slot.render_output_url);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const uploadToYouTube = async () => {
+    setUploading(true);
+    setYtResult(null);
+    try {
+      const res = await base44.functions.invoke("youtubeUploadTest", { video_url: slot.render_output_url });
+      if (res.data?.success) {
+        setYtResult({ success: true, url: res.data.video_url });
+      } else {
+        setYtResult({ success: false, error: res.data?.error || "Upload failed" });
+      }
+    } catch (err) {
+      setYtResult({ success: false, error: err.message });
+    } finally {
+      setUploading(false);
+    }
   };
 
   return (
@@ -56,7 +75,7 @@ function SlotCard({ slot, onGenerate, onRegenerate, polling }) {
         {hasVideo && (
           <div className="mb-4">
             <video src={slot.render_output_url} controls className="w-full rounded-lg bg-black max-h-48" />
-            <div className="flex gap-2 mt-2">
+            <div className="flex gap-2 mt-2 flex-wrap">
               <a href={slot.render_output_url} target="_blank" rel="noopener noreferrer" className="flex-1">
                 <Button size="sm" variant="outline" className="w-full border-slate-700 text-slate-300 gap-1">
                   <Play className="w-3 h-3" /> Watch
@@ -65,7 +84,34 @@ function SlotCard({ slot, onGenerate, onRegenerate, polling }) {
               <Button size="sm" variant="outline" className="border-slate-700 text-slate-300 gap-1" onClick={copyUrl}>
                 <Copy className="w-3 h-3" /> {copied ? "Copied!" : "Copy URL"}
               </Button>
+              <Button
+                size="sm"
+                className="bg-red-600 hover:bg-red-500 text-white gap-1"
+                onClick={uploadToYouTube}
+                disabled={uploading}
+              >
+                {uploading ? <Loader2 className="w-3 h-3 animate-spin" /> : <Youtube className="w-3 h-3" />}
+                {uploading ? "Uploading…" : "Post to YouTube"}
+              </Button>
             </div>
+            {ytResult && (
+              <div className={`mt-2 rounded-lg px-3 py-2 text-sm flex items-center gap-2 ${ytResult.success ? "bg-green-900/30 text-green-300 border border-green-700/30" : "bg-red-900/30 text-red-300 border border-red-700/30"}`}>
+                {ytResult.success ? (
+                  <>
+                    <CheckCircle className="w-4 h-4 flex-shrink-0" />
+                    Uploaded!{" "}
+                    <a href={ytResult.url} target="_blank" rel="noopener noreferrer" className="underline">
+                      View on YouTube
+                    </a>
+                  </>
+                ) : (
+                  <>
+                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                    {ytResult.error}
+                  </>
+                )}
+              </div>
+            )}
           </div>
         )}
 
@@ -99,6 +145,73 @@ function SlotCard({ slot, onGenerate, onRegenerate, polling }) {
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+function ManualYouTubeUpload() {
+  const [url, setUrl] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [result, setResult] = useState(null);
+
+  const handleUpload = async () => {
+    if (!url.trim()) return;
+    setUploading(true);
+    setResult(null);
+    try {
+      const res = await base44.functions.invoke("youtubeUploadTest", { video_url: url.trim() });
+      if (res.data?.success) {
+        setResult({ success: true, url: res.data.video_url });
+      } else {
+        setResult({ success: false, error: res.data?.error || "Upload failed" });
+      }
+    } catch (err) {
+      setResult({ success: false, error: err.message });
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  return (
+    <div className="mt-8 bg-slate-900 border border-slate-800 rounded-xl p-5">
+      <h3 className="text-white font-semibold mb-1 flex items-center gap-2">
+        <Youtube className="w-4 h-4 text-red-400" /> Upload Any Video to YouTube
+      </h3>
+      <p className="text-slate-400 text-sm mb-4">Paste any video URL (HeyGen, direct MP4, etc.) to post it to your connected YouTube channel.</p>
+      <div className="flex gap-2">
+        <Input
+          value={url}
+          onChange={e => setUrl(e.target.value)}
+          placeholder="https://... (video URL)"
+          className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 flex-1"
+        />
+        <Button
+          className="bg-red-600 hover:bg-red-500 text-white gap-1.5"
+          onClick={handleUpload}
+          disabled={uploading || !url.trim()}
+        >
+          {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+          {uploading ? "Uploading…" : "Upload"}
+        </Button>
+      </div>
+      {result && (
+        <div className={`mt-3 rounded-lg px-3 py-2 text-sm flex items-center gap-2 ${result.success ? "bg-green-900/30 text-green-300 border border-green-700/30" : "bg-red-900/30 text-red-300 border border-red-700/30"}`}>
+          {result.success ? (
+            <>
+              <CheckCircle className="w-4 h-4 flex-shrink-0" />
+              Uploaded!{" "}
+              <a href={result.url} target="_blank" rel="noopener noreferrer" className="underline">
+                View on YouTube
+              </a>
+            </>
+          ) : (
+            <>
+              <AlertCircle className="w-4 h-4 flex-shrink-0" />
+              {result.error}
+            </>
+          )}
+        </div>
+      )}
+    </div>
   );
 }
 
