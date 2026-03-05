@@ -1,0 +1,63 @@
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
+import { Menu, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
+const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
+
+const navLinks = [
+  { label: 'Platform', href: createPageUrl('Home') },
+  { label: 'Social Media', href: '/ai-social-media-small-business' },
+  { label: 'HVAC Marketing', href: '/hvac-marketing' },
+  { label: 'Restaurants', href: '/restaurant-social-media' },
+  { label: 'ADA Compliance', href: '/ada-website-lawsuit-prevention' },
+];
+
+export default function SiteHeader() {
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  return (
+    <header className={`sticky top-0 z-50 transition-all duration-200 ${scrolled ? 'bg-slate-900/95 backdrop-blur shadow-lg' : 'bg-slate-900'}`}>
+      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <Link to={createPageUrl('Home')} className="flex items-center gap-2">
+          <span className="text-white font-extrabold text-lg tracking-tight">New Tech<span className="text-blue-400"> Advertising</span></span>
+        </Link>
+
+        <nav className="hidden md:flex items-center gap-6">
+          {navLinks.map(l => (
+            <a key={l.label} href={l.href} className="text-slate-300 hover:text-white text-sm font-medium transition-colors">{l.label}</a>
+          ))}
+        </nav>
+
+        <div className="hidden md:flex items-center gap-3">
+          <a href={TRIAL_URL}>
+            <Button className="bg-blue-500 hover:bg-blue-600 text-white font-bold px-5 h-9">Start Free Trial</Button>
+          </a>
+        </div>
+
+        <button className="md:hidden text-white" onClick={() => setOpen(!open)}>
+          {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
+      </div>
+
+      {open && (
+        <div className="md:hidden bg-slate-900 border-t border-slate-700 px-6 py-4 space-y-3">
+          {navLinks.map(l => (
+            <a key={l.label} href={l.href} className="block text-slate-300 hover:text-white py-1.5 text-sm font-medium" onClick={() => setOpen(false)}>{l.label}</a>
+          ))}
+          <a href={TRIAL_URL} className="block">
+            <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold mt-2">Start Free Trial</Button>
+          </a>
+        </div>
+      )}
+    </header>
+  );
+}
