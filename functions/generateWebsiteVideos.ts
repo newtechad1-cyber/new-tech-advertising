@@ -166,6 +166,16 @@ Deno.serve(async (req) => {
       return Response.json({ record_id: record.id, heygen_video_id: heygenVideoId });
     }
 
+    // Raw HeyGen status debug
+    if (action === "raw_status") {
+      const { heygen_video_id } = params;
+      const res = await fetch(`https://api.heygen.com/v1/video_status.get?video_id=${heygen_video_id}`, {
+        headers: { "x-api-key": HEYGEN_API_KEY }
+      });
+      const data = await res.json();
+      return Response.json(data);
+    }
+
     // Poll status for a record
     if (action === "check_status") {
       const { record_id, heygen_video_id } = params;
