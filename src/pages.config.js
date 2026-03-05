@@ -146,6 +146,7 @@ import WebsiteRebuild from './pages/WebsiteRebuild';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AiSocialMediaSmallBusiness from './pages/AiSocialMediaSmallBusiness';
 import HvacMarketing from './pages/HvacMarketing';
+import RestaurantSocialMedia from './pages/RestaurantSocialMedia';
 import __Layout from './Layout.jsx';
 
 
@@ -249,6 +250,7 @@ export const PAGES = {
     "YouTubeUploadTest": YouTubeUploadTest,
     "AiSocialMediaSmallBusiness": AiSocialMediaSmallBusiness,
     "HvacMarketing": HvacMarketing,
+    "RestaurantSocialMedia": RestaurantSocialMedia,
 }
 
 export const pagesConfig = {
