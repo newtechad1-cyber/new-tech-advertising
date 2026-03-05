@@ -25,10 +25,15 @@ export default function SiteHeader() {
   }, []);
 
   return (
+    <>
     <header className={`sticky top-0 z-50 transition-all duration-200 ${scrolled ? 'bg-slate-900/95 backdrop-blur shadow-lg' : 'bg-slate-900'}`}>
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link to={createPageUrl('Home')} className="flex items-center gap-2">
-          <span className="text-white font-extrabold text-lg tracking-tight">New Tech<span className="text-blue-400"> Advertising</span></span>
+          <img
+            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png"
+            alt="New Tech Advertising"
+            style={{ height: '36px', width: 'auto', objectFit: 'contain', display: 'block' }}
+          />
         </Link>
 
         <nav className="hidden md:flex items-center gap-6">
