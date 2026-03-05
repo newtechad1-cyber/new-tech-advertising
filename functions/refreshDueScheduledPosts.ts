@@ -9,13 +9,10 @@ Deno.serve(async (req) => {
     const { accountId } = await req.json();
     const now = new Date().toISOString();
 
-    // Fetch scheduled posts that are due and in manual mode
-    const query = accountId
-      ? { account_id: accountId, status: 'scheduled', publish_mode: 'manual' }
-      : { status: 'scheduled', publish_mode: 'manual' };
+    const query = { status: 'scheduled', publish_mode: 'manual' };
+    if (accountId) query.account_id = accountId;
 
     const posts = await base44.asServiceRole.entities.ScheduledPost.filter(query);
-
     const due = posts.filter(p => p.scheduled_for && p.scheduled_for <= now);
 
     let updated = 0;
@@ -24,6 +21,13 @@ Deno.serve(async (req) => {
         status: 'manual_required',
       });
       updated++;
+
+      // Send post-ready email if not already notified
+      if (!post.notified_ready && post.account_id) {
+        await base44.asServiceRole.functions.invoke('sendPostReadyNotification', {
+          scheduledPostId: post.id,
+        });
+      }
     }
 
     return Response.json({ success: true, checked: posts.length, updated });
