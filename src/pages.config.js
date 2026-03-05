@@ -106,6 +106,7 @@ import IndustryTrades from './pages/IndustryTrades';
 import LeadDetail from './pages/LeadDetail';
 import LeadsDashboard from './pages/LeadsDashboard';
 import LocalVisibility from './pages/LocalVisibility';
+import MetaConnect from './pages/MetaConnect';
 import OauthCallback from './pages/OauthCallback';
 import OnboardThankYou from './pages/OnboardThankYou';
 import Onboarding from './pages/Onboarding';
@@ -142,7 +143,7 @@ import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import MetaConnect from './pages/MetaConnect';
+import ClientOnboarding from './pages/ClientOnboarding';
 import __Layout from './Layout.jsx';
 
 
@@ -206,6 +207,7 @@ export const PAGES = {
     "LeadDetail": LeadDetail,
     "LeadsDashboard": LeadsDashboard,
     "LocalVisibility": LocalVisibility,
+    "MetaConnect": MetaConnect,
     "OauthCallback": OauthCallback,
     "OnboardThankYou": OnboardThankYou,
     "Onboarding": Onboarding,
@@ -242,7 +244,7 @@ export const PAGES = {
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "MetaConnect": MetaConnect,
+    "ClientOnboarding": ClientOnboarding,
 }
 
 export const pagesConfig = {
