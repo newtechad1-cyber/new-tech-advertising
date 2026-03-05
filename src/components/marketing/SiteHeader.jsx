@@ -75,6 +75,6 @@ export default function SiteHeader() {
         />
       </Link>
     </div>
-    </>
+    </div>
   );
 }
