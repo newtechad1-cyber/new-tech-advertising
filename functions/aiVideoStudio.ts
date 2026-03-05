@@ -88,23 +88,24 @@ async function createAvatarVideo({ script, avatarId, voiceId, format = "16:9", e
    return data.data.video_id;
 }
 
-async function createProductVideo({ slides, voiceId, script, format = "16:9", enableCaptions = false }) {
+async function createProductVideo({ slides, voiceId, script, format = "16:9", enableCaptions = false, overlays = {} }) {
    const dimension = format === "9:16" ? { width: 720, height: 1280 } :
                      format === "1:1"  ? { width: 720, height: 720 } :
                                          { width: 1280, height: 720 };
+   const elements = buildElements(overlays);
 
-   const video_inputs = slides?.length > 0 ? slides.map((slide) => {
-     return {
-       background: slide.image_url ? {
-         type: "image",
-         url: slide.image_url
-       } : { type: "color", value: "#ffffff" },
-       voice: { type: "text", input_text: slide.caption || slide.title || script, voice_id: voiceId }
-     };
-   }) : [{
+   const slideInputs = slides?.length > 0 ? slides.map((slide) => ({
+     background: slide.image_url ? { type: "image", url: slide.image_url } : { type: "color", value: "#ffffff" },
+     voice: { type: "text", input_text: slide.caption || slide.title || script, voice_id: voiceId },
+     ...(elements.length > 0 ? { elements } : {})
+   })) : [{
      background: { type: "color", value: "#ffffff" },
-     voice: { type: "text", input_text: script, voice_id: voiceId }
+     voice: { type: "text", input_text: script, voice_id: voiceId },
+     ...(elements.length > 0 ? { elements } : {})
    }];
+
+   const outroSlide = buildOutroSlide(overlays, voiceId, dimension);
+   const video_inputs = outroSlide ? [...slideInputs, outroSlide] : slideInputs;
 
    const body = {
      video_inputs,
