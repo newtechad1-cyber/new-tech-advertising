@@ -44,6 +44,17 @@ const defaultState = {
   overlays: {}
 };
 
+function getInitialState() {
+  const prefillScript = sessionStorage.getItem('prefill_script');
+  const prefillTitle = sessionStorage.getItem('prefill_title');
+  if (prefillScript) {
+    sessionStorage.removeItem('prefill_script');
+    sessionStorage.removeItem('prefill_title');
+    return { ...defaultState, script: prefillScript, title: prefillTitle || "", inputMode: "paste" };
+  }
+  return defaultState;
+}
+
 export default function AiVideoStudio() {
   const [avatars, setAvatars] = useState([]);
   const [voices, setVoices] = useState([]);
