@@ -296,11 +296,11 @@ Return ONLY the image description (1-2 sentences), no markdown.`
       let heygenVideoId;
       try {
         if (videoType === "avatar") {
-          heygenVideoId = await createAvatarVideo({ script, avatarId: finalAvatarId, voiceId, format, enableCaptions });
+          heygenVideoId = await createAvatarVideo({ script, avatarId: finalAvatarId, voiceId, format, enableCaptions, overlays });
         } else if (videoType === "slides") {
-          heygenVideoId = await createProductVideo({ slides, voiceId, script, format, enableCaptions });
+          heygenVideoId = await createProductVideo({ slides, voiceId, script, format, enableCaptions, overlays });
         } else if (videoType === "avatar-slides") {
-          heygenVideoId = await createAvatarSlidesVideo({ slides, voiceId, script, avatarId: finalAvatarId, format, enableCaptions });
+          heygenVideoId = await createAvatarSlidesVideo({ slides, voiceId, script, avatarId: finalAvatarId, format, enableCaptions, overlays });
         } else {
           return Response.json({ error: "Invalid video type" }, { status: 400 });
         }
