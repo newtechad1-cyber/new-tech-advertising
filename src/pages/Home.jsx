@@ -4,7 +4,7 @@ import SiteFooter from '../components/marketing/SiteFooter';
 import HomeHero from '../components/marketing/HomeHero';
 import HomeProblem from '../components/marketing/HomeProblem';
 import HomePlatform from '../components/marketing/HomePlatform';
-import HomeVideoAdvantage from '../components/marketing/HomeVideoAdvantage';
+import HomeVideoAdvantage from '../components/marketing/HomeVideoAdvantage.jsx';
 import HomeIndustries from '../components/marketing/HomeIndustries';
 import HomeHowItWorks from '../components/marketing/HomeHowItWorks';
 import HomePricing from '../components/marketing/HomePricing';
