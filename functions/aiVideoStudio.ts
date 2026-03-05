@@ -26,15 +26,51 @@ async function getVoices() {
    }));
 }
 
-async function createAvatarVideo({ script, avatarId, voiceId, format = "16:9", enableCaptions = false }) {
+function buildElements(overlays = {}) {
+  const elements = [];
+  if (overlays.logo_url) {
+    elements.push({
+      type: "image",
+      url: overlays.logo_url,
+      width: 0.15,
+      height: 0.15,
+      x: 0.82,
+      y: 0.82
+    });
+  }
+  return elements;
+}
+
+function buildOutroSlide(overlays = {}, voiceId, dimension) {
+  if (!overlays.outro_logo_url) return null;
+  return {
+    background: { type: "color", value: "#000000" },
+    voice: { type: "silence", duration: 3 },
+    elements: [{
+      type: "image",
+      url: overlays.outro_logo_url,
+      width: 0.6,
+      height: 0.6,
+      x: 0.2,
+      y: 0.2
+    }]
+  };
+}
+
+async function createAvatarVideo({ script, avatarId, voiceId, format = "16:9", enableCaptions = false, overlays = {} }) {
    const dimension = format === "9:16" ? { width: 720, height: 1280 } :
                      format === "1:1"  ? { width: 720, height: 720 } :
                                          { width: 1280, height: 720 };
+   const elements = buildElements(overlays);
+   const mainSlide = {
+     character: { type: "avatar", avatar_id: avatarId, avatar_style: "normal" },
+     voice: { type: "text", input_text: script, voice_id: voiceId },
+     ...(elements.length > 0 ? { elements } : {})
+   };
+   const outroSlide = buildOutroSlide(overlays, voiceId, dimension);
+   const video_inputs = outroSlide ? [mainSlide, outroSlide] : [mainSlide];
    const body = {
-     video_inputs: [{
-       character: { type: "avatar", avatar_id: avatarId, avatar_style: "normal" },
-       voice: { type: "text", input_text: script, voice_id: voiceId }
-     }],
+     video_inputs,
      caption: enableCaptions,
      dimension,
      test: false
