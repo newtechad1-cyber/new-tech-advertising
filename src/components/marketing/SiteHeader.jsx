@@ -25,8 +25,8 @@ export default function SiteHeader() {
   }, []);
 
   return (
-    <>
-    <header className={`sticky top-0 z-50 transition-all duration-200 ${scrolled ? 'bg-slate-900/95 backdrop-blur shadow-lg' : 'bg-slate-900'}`}>
+    <div className="sticky top-0 z-50">
+    <header className={`transition-all duration-200 ${scrolled ? 'bg-slate-900/95 backdrop-blur shadow-lg' : 'bg-slate-900'}`}>
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link to={createPageUrl('Home')} className="flex items-center gap-2">
           <img
