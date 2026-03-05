@@ -148,6 +148,7 @@ import AiSocialMediaSmallBusiness from './pages/AiSocialMediaSmallBusiness';
 import HvacMarketing from './pages/HvacMarketing';
 import RestaurantSocialMedia from './pages/RestaurantSocialMedia';
 import AdaWebsiteLawsuitPrevention from './pages/AdaWebsiteLawsuitPrevention';
+import AdaWebsiteRebuild from './pages/AdaWebsiteRebuild';
 import __Layout from './Layout.jsx';
 
 
@@ -253,6 +254,7 @@ export const PAGES = {
     "HvacMarketing": HvacMarketing,
     "RestaurantSocialMedia": RestaurantSocialMedia,
     "AdaWebsiteLawsuitPrevention": AdaWebsiteLawsuitPrevention,
+    "AdaWebsiteRebuild": AdaWebsiteRebuild,
 }
 
 export const pagesConfig = {
