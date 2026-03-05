@@ -579,6 +579,27 @@ export default function ContentDrafts() {
       </div>
 
       <div className="max-w-5xl mx-auto px-6 py-6 space-y-5">
+        {/* Onboarding complete banner */}
+        {onboardingComplete && (() => {
+          const generating = drafts.some(d => d.media_status === 'generating');
+          const limitHit = !generating && drafts.filter(d => d.image_prompt && !d.media_url && d.media_status !== 'generating').length > 0;
+          return (
+            <div className={`rounded-xl border px-5 py-4 flex items-start gap-3 ${generating ? 'bg-violet-900/30 border-violet-700' : 'bg-emerald-900/30 border-emerald-700'}`}>
+              {generating
+                ? <Loader2 className="w-5 h-5 text-violet-400 animate-spin shrink-0 mt-0.5" />
+                : <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />}
+              <div>
+                <p className="font-semibold text-white text-sm">
+                  {generating ? 'Your first posts are ready. Generating the rest now…' : 'Your content pack is ready! 🎉'}
+                </p>
+                {limitHit && (
+                  <p className="text-slate-400 text-xs mt-0.5">More images will generate tomorrow (daily limit reached).</p>
+                )}
+              </div>
+            </div>
+          );
+        })()}
+
         {/* Today's Posts Widget */}
         <TodayPostsWidget accountId={accountId} />
 
