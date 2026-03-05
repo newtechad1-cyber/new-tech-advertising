@@ -475,7 +475,9 @@ export default function ContentDrafts() {
   const [bulkGenerating, setBulkGenerating] = useState(false);
   const [bulkProgress, setBulkProgress] = useState({ done: 0, total: 0 });
 
-  const accountId = new URLSearchParams(window.location.search).get('account_id');
+  const params = new URLSearchParams(window.location.search);
+  const accountId = params.get('account_id');
+  const onboardingComplete = params.get('onboarding_complete') === '1';
 
   const load = async () => {
     setLoading(true);
