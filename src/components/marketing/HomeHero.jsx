@@ -1,5 +1,7 @@
 import React from 'react';
 import { Play, ArrowRight, CheckCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 
 const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
 
