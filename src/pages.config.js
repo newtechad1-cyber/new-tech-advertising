@@ -65,6 +65,7 @@ import AdminHelp from './pages/AdminHelp';
 import AdminOnboardingQueue from './pages/AdminOnboardingQueue';
 import AdminSettings from './pages/AdminSettings';
 import AdminVideoDetail from './pages/AdminVideoDetail';
+import AdminVideoGenerator from './pages/AdminVideoGenerator';
 import AdminVideoQueue from './pages/AdminVideoQueue';
 import AiAdvertising from './pages/AiAdvertising';
 import AiOperations from './pages/AiOperations';
@@ -149,9 +150,8 @@ import VideoDetail from './pages/VideoDetail';
 import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
-import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdminVideoGenerator from './pages/AdminVideoGenerator';
 import WebsiteVideoManager from './pages/WebsiteVideoManager';
+import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import __Layout from './Layout.jsx';
 
 
@@ -174,6 +174,7 @@ export const PAGES = {
     "AdminOnboardingQueue": AdminOnboardingQueue,
     "AdminSettings": AdminSettings,
     "AdminVideoDetail": AdminVideoDetail,
+    "AdminVideoGenerator": AdminVideoGenerator,
     "AdminVideoQueue": AdminVideoQueue,
     "AiAdvertising": AiAdvertising,
     "AiOperations": AiOperations,
@@ -258,9 +259,8 @@ export const PAGES = {
     "VideoIndex": VideoIndex,
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
-    "YouTubeUploadTest": YouTubeUploadTest,
-    "AdminVideoGenerator": AdminVideoGenerator,
     "WebsiteVideoManager": WebsiteVideoManager,
+    "YouTubeUploadTest": YouTubeUploadTest,
 }
 
 export const pagesConfig = {

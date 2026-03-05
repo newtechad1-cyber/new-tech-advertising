@@ -111,6 +111,10 @@ This ad will be used on the NTA platform website at placement: ${form.placement}
   };
 
   const openVideoStudio = () => {
+    if (result?.script) {
+      sessionStorage.setItem('prefill_script', result.script);
+      sessionStorage.setItem('prefill_title', result.title || '');
+    }
     window.location.href = createPageUrl('AiVideoStudio');
   };
 
