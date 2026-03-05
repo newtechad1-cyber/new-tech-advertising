@@ -21,6 +21,8 @@ export default function SocialAccounts() {
   const [loading, setLoading] = useState(true);
   const [connectingAccount, setConnectingAccount] = useState(null);
 
+  const accountId = new URLSearchParams(window.location.search).get('account_id');
+
   const load = async () => {
     setLoading(true);
     const data = await base44.entities.SocialAccount.list();
