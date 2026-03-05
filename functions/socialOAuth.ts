@@ -1,7 +1,7 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 
 const REDIRECT_URI = 'https://new-tech-advertising.base44.app/api/functions/socialOAuth';
-const GOOGLE_REDIRECT_URI = 'https://new-tech-advertising.base44.app/oauth/callback';
+const GOOGLE_REDIRECT_URI = 'https://new-tech-advertising.base44.app/OauthCallback';
 
 function getGoogleAuthUrl(platform) {
   const scopes = platform === 'youtube'
