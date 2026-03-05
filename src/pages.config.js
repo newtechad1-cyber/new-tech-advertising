@@ -151,6 +151,7 @@ import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AdminVideoGenerator from './pages/AdminVideoGenerator';
+import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import __Layout from './Layout.jsx';
 
 
@@ -259,6 +260,7 @@ export const PAGES = {
     "WebsiteRebuild": WebsiteRebuild,
     "YouTubeUploadTest": YouTubeUploadTest,
     "AdminVideoGenerator": AdminVideoGenerator,
+    "WebsiteVideoManager": WebsiteVideoManager,
 }
 
 export const pagesConfig = {
