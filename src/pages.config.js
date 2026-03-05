@@ -57,6 +57,8 @@ import AdaQuote from './pages/AdaQuote';
 import AdaSalesAssistant from './pages/AdaSalesAssistant';
 import AdaSuccess from './pages/AdaSuccess';
 import AdaThankYou from './pages/AdaThankYou';
+import AdaWebsiteLawsuitPrevention from './pages/AdaWebsiteLawsuitPrevention';
+import AdaWebsiteRebuild from './pages/AdaWebsiteRebuild';
 import AdminBlog from './pages/AdminBlog';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminHelp from './pages/AdminHelp';
@@ -68,6 +70,7 @@ import AiAdvertising from './pages/AiAdvertising';
 import AiOperations from './pages/AiOperations';
 import AiSeo from './pages/AiSeo';
 import AiSocialMedia from './pages/AiSocialMedia';
+import AiSocialMediaSmallBusiness from './pages/AiSocialMediaSmallBusiness';
 import AiVideoStudio from './pages/AiVideoStudio';
 import AiVideos from './pages/AiVideos';
 import AiWebsites from './pages/AiWebsites';
@@ -90,6 +93,7 @@ import freeAudit from './pages/Free-Audit';
 import getStarted from './pages/Get-Started';
 import GlobalSettings from './pages/GlobalSettings';
 import Home from './pages/Home';
+import HvacMarketing from './pages/HvacMarketing';
 import IndustriesHub from './pages/IndustriesHub';
 import IndustriesNonprofits from './pages/IndustriesNonprofits';
 import IndustriesProfessionals from './pages/IndustriesProfessionals';
@@ -106,6 +110,7 @@ import IndustrySmallLocal from './pages/IndustrySmallLocal';
 import IndustryTrades from './pages/IndustryTrades';
 import LeadDetail from './pages/LeadDetail';
 import LeadsDashboard from './pages/LeadsDashboard';
+import LocalBusinessMarketing from './pages/LocalBusinessMarketing';
 import LocalVisibility from './pages/LocalVisibility';
 import MetaConnect from './pages/MetaConnect';
 import OauthCallback from './pages/OauthCallback';
@@ -120,6 +125,7 @@ import Rebuild from './pages/Rebuild';
 import RebuildIntake from './pages/RebuildIntake';
 import RebuildIntakePretty from './pages/RebuildIntakePretty';
 import RebuildProposal from './pages/RebuildProposal';
+import RestaurantSocialMedia from './pages/RestaurantSocialMedia';
 import ScheduledQueue from './pages/ScheduledQueue';
 import SetupComplete from './pages/SetupComplete';
 import SocialAccounts from './pages/SocialAccounts';
@@ -144,12 +150,7 @@ import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AiSocialMediaSmallBusiness from './pages/AiSocialMediaSmallBusiness';
-import HvacMarketing from './pages/HvacMarketing';
-import RestaurantSocialMedia from './pages/RestaurantSocialMedia';
-import AdaWebsiteLawsuitPrevention from './pages/AdaWebsiteLawsuitPrevention';
-import AdaWebsiteRebuild from './pages/AdaWebsiteRebuild';
-import LocalBusinessMarketing from './pages/LocalBusinessMarketing';
+import AdminVideoGenerator from './pages/AdminVideoGenerator';
 import __Layout from './Layout.jsx';
 
 
@@ -164,6 +165,8 @@ export const PAGES = {
     "AdaSalesAssistant": AdaSalesAssistant,
     "AdaSuccess": AdaSuccess,
     "AdaThankYou": AdaThankYou,
+    "AdaWebsiteLawsuitPrevention": AdaWebsiteLawsuitPrevention,
+    "AdaWebsiteRebuild": AdaWebsiteRebuild,
     "AdminBlog": AdminBlog,
     "AdminDashboard": AdminDashboard,
     "AdminHelp": AdminHelp,
@@ -175,6 +178,7 @@ export const PAGES = {
     "AiOperations": AiOperations,
     "AiSeo": AiSeo,
     "AiSocialMedia": AiSocialMedia,
+    "AiSocialMediaSmallBusiness": AiSocialMediaSmallBusiness,
     "AiVideoStudio": AiVideoStudio,
     "AiVideos": AiVideos,
     "AiWebsites": AiWebsites,
@@ -197,6 +201,7 @@ export const PAGES = {
     "Get-Started": getStarted,
     "GlobalSettings": GlobalSettings,
     "Home": Home,
+    "HvacMarketing": HvacMarketing,
     "IndustriesHub": IndustriesHub,
     "IndustriesNonprofits": IndustriesNonprofits,
     "IndustriesProfessionals": IndustriesProfessionals,
@@ -213,6 +218,7 @@ export const PAGES = {
     "IndustryTrades": IndustryTrades,
     "LeadDetail": LeadDetail,
     "LeadsDashboard": LeadsDashboard,
+    "LocalBusinessMarketing": LocalBusinessMarketing,
     "LocalVisibility": LocalVisibility,
     "MetaConnect": MetaConnect,
     "OauthCallback": OauthCallback,
@@ -227,6 +233,7 @@ export const PAGES = {
     "RebuildIntake": RebuildIntake,
     "RebuildIntakePretty": RebuildIntakePretty,
     "RebuildProposal": RebuildProposal,
+    "RestaurantSocialMedia": RestaurantSocialMedia,
     "ScheduledQueue": ScheduledQueue,
     "SetupComplete": SetupComplete,
     "SocialAccounts": SocialAccounts,
@@ -251,12 +258,7 @@ export const PAGES = {
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AiSocialMediaSmallBusiness": AiSocialMediaSmallBusiness,
-    "HvacMarketing": HvacMarketing,
-    "RestaurantSocialMedia": RestaurantSocialMedia,
-    "AdaWebsiteLawsuitPrevention": AdaWebsiteLawsuitPrevention,
-    "AdaWebsiteRebuild": AdaWebsiteRebuild,
-    "LocalBusinessMarketing": LocalBusinessMarketing,
+    "AdminVideoGenerator": AdminVideoGenerator,
 }
 
 export const pagesConfig = {
