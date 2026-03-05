@@ -38,30 +38,38 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'scheduledFor is required for scheduling' }, { status: 400 });
     }
 
+    // Determine publish_mode based on MetaConnection status
+    const draft = await base44.asServiceRole.entities.ContentDraft.get(draftId);
+    if (!draft) return Response.json({ error: 'Draft not found' }, { status: 404 });
+
+    let publishMode = 'manual';
+    if (platform === 'facebook' || platform === 'instagram') {
+      const connections = await base44.asServiceRole.entities.MetaConnection.filter({ account_id: draft.account_id });
+      if (connections?.[0]?.status === 'connected') {
+        publishMode = 'api';
+      }
+    }
+
     if (record) {
-      // Upsert: overwrite scheduled_for, reset status to scheduled
       await base44.asServiceRole.entities.ScheduledPost.update(record.id, {
         scheduled_for: scheduledFor,
         status: 'scheduled',
+        publish_mode: publishMode,
         last_error: null,
         publish_result: null,
       });
-      return Response.json({ success: true, action: 'rescheduled', id: record.id });
+      return Response.json({ success: true, action: 'rescheduled', id: record.id, publish_mode: publishMode });
     } else {
-      // Fetch draft to get account_id
-      const draft = await base44.asServiceRole.entities.ContentDraft.get(draftId);
-      if (!draft) {
-        return Response.json({ error: 'Draft not found' }, { status: 404 });
-      }
       const created = await base44.asServiceRole.entities.ScheduledPost.create({
         draft_id: draftId,
         account_id: draft.account_id,
         platform,
         scheduled_for: scheduledFor,
         status: 'scheduled',
+        publish_mode: publishMode,
         publish_count: 0,
       });
-      return Response.json({ success: true, action: 'scheduled', id: created.id });
+      return Response.json({ success: true, action: 'scheduled', id: created.id, publish_mode: publishMode });
     }
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
