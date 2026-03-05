@@ -8,10 +8,10 @@ const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
 
 const navLinks = [
   { label: 'Platform', href: createPageUrl('Home') },
-  { label: 'Social Media', href: '/ai-social-media-small-business' },
-  { label: 'HVAC Marketing', href: '/hvac-marketing' },
-  { label: 'Restaurants', href: '/restaurant-social-media' },
-  { label: 'ADA Compliance', href: '/ada-website-lawsuit-prevention' },
+  { label: 'Social Media', href: createPageUrl('AiSocialMediaSmallBusiness') },
+  { label: 'HVAC Marketing', href: createPageUrl('HvacMarketing') },
+  { label: 'Restaurants', href: createPageUrl('RestaurantSocialMedia') },
+  { label: 'ADA Compliance', href: createPageUrl('AdaWebsiteLawsuitPrevention') },
 ];
 
 export default function SiteHeader() {
