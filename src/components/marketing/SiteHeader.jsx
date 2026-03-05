@@ -55,7 +55,7 @@ export default function SiteHeader() {
       </div>
 
       {open && (
-        <div className="md:hidden bg-slate-900 border-t border-slate-700 px-6 py-4 space-y-3">
+        <div className="lg:hidden bg-slate-900 border-t border-slate-700 px-6 py-4 space-y-3">
           {navLinks.map(l => (
             <a key={l.label} href={l.href} className="block text-slate-300 hover:text-white py-1.5 text-sm font-medium" onClick={() => setOpen(false)}>{l.label}</a>
           ))}
