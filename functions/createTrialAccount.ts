@@ -169,7 +169,27 @@ Deno.serve(async (req) => {
       last_generated_at: now.toISOString(),
     });
 
-    return Response.json({ success: true, slug, account_id: account.id });
+    // Idempotently create OnboardingProfile
+    const existingProfiles = await base44.asServiceRole.entities.OnboardingProfile.filter({ account_id: account.id });
+    if (!existingProfiles.length) {
+      await base44.asServiceRole.entities.OnboardingProfile.create({
+        account_id: account.id,
+        business_name: name,
+        email: email,
+        phone: phone || '',
+        website_url: website_url || '',
+        city: location_city,
+        state: location_state,
+        status: 'not_started',
+      });
+    }
+
+    return Response.json({
+      success: true,
+      slug,
+      account_id: account.id,
+      onboarding_url: '/ClientOnboarding',
+    });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
   }
