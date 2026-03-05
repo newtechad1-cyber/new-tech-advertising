@@ -15,17 +15,17 @@ export default function SiteFooter() {
           <p className="text-white font-semibold mb-3 text-sm">Platform</p>
           <ul className="space-y-2 text-sm">
             <li><a href={TRIAL_URL} className="hover:text-white transition-colors">Start Free Trial</a></li>
-            <li><a href="/ai-social-media-small-business" className="hover:text-white transition-colors">Social Media Tools</a></li>
-            <li><a href="/local-business-marketing" className="hover:text-white transition-colors">Local Business</a></li>
+            <li><a href={createPageUrl('AiSocialMediaSmallBusiness')} className="hover:text-white transition-colors">Social Media Tools</a></li>
+            <li><a href={createPageUrl('LocalBusinessMarketing')} className="hover:text-white transition-colors">Local Business</a></li>
           </ul>
         </div>
         <div>
           <p className="text-white font-semibold mb-3 text-sm">Industries</p>
           <ul className="space-y-2 text-sm">
-            <li><a href="/hvac-marketing" className="hover:text-white transition-colors">HVAC Marketing</a></li>
-            <li><a href="/restaurant-social-media" className="hover:text-white transition-colors">Restaurant Marketing</a></li>
-            <li><a href="/ada-website-lawsuit-prevention" className="hover:text-white transition-colors">ADA Compliance</a></li>
-            <li><a href="/ada-website-rebuild" className="hover:text-white transition-colors">ADA Website Rebuild</a></li>
+            <li><a href={createPageUrl('HvacMarketing')} className="hover:text-white transition-colors">HVAC Marketing</a></li>
+            <li><a href={createPageUrl('RestaurantSocialMedia')} className="hover:text-white transition-colors">Restaurant Marketing</a></li>
+            <li><a href={createPageUrl('AdaWebsiteLawsuitPrevention')} className="hover:text-white transition-colors">ADA Compliance</a></li>
+            <li><a href={createPageUrl('AdaWebsiteRebuild')} className="hover:text-white transition-colors">ADA Website Rebuild</a></li>
           </ul>
         </div>
         <div>
