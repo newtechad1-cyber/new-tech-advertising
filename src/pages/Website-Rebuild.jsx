@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
+import { createPageUrl } from '@/utils';
 
-export default function WebsiteRebuild() {
+export default function WebsiteRebuildLegacy() {
   useEffect(() => {
-    window.location.href = '/rebuildintake';
+    window.location.replace(createPageUrl('WebsiteRebuild'));
   }, []);
-
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <p className="text-slate-600">Loading…</p>
+      <p className="text-slate-600">Redirecting…</p>
     </div>
   );
 }
