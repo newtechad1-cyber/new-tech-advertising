@@ -71,20 +71,6 @@ Deno.serve(async (req) => {
     return Response.json({ error: 'company_id required' }, { status: 400 });
   }
 
-  // --- 1. Create AuthorityPlan record (status: generating) ---
-  const authorityPlan = await base44.asServiceRole.entities.AuthorityPlan.create({
-    company_id,
-    onboarding_profile_id: onboarding_profile_id || null,
-    plan_name: `90-Day Authority Plan — ${business_name || company_id}`,
-    status: 'generating',
-    content_pillars: CONTENT_PILLARS,
-    total_posts_planned: 36,
-    total_video_scripts_planned: 12,
-    total_promo_posts_planned: 12,
-  });
-
-  console.log('[buildAuthorityPlan] AuthorityPlan created:', authorityPlan.id);
-
   const channels = active_channels?.length ? active_channels : ['facebook', 'instagram'];
 
   try {
