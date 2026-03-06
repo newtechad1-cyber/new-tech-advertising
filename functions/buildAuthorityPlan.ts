@@ -311,12 +311,6 @@ JSON schema:
   } catch (error) {
     console.error('[buildAuthorityPlan] FAILED:', error.message);
 
-    // Mark AuthorityPlan as failed
-    await base44.asServiceRole.entities.AuthorityPlan.update(authorityPlan.id, {
-      status: 'draft',
-      error_message: error.message,
-    });
-
     if (agent_job_id) {
       await base44.asServiceRole.entities.AgentJob.update(agent_job_id, {
         status: 'failed',
