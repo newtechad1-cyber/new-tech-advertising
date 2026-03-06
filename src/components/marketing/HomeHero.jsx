@@ -30,7 +30,7 @@ export default function HomeHero() {
               Marketing tools built for small and mid-sized businesses. No agency. No freelancer. No technical skills required.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-10">
+            <div className="flex flex-col sm:flex-row gap-4 mb-4">
               <a
                 href={TRIAL_URL}
                 className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl text-base transition-all duration-200 shadow-lg shadow-blue-600/30 hover:shadow-blue-500/40 hover:-translate-y-0.5"
@@ -40,6 +40,13 @@ export default function HomeHero() {
               <button className="inline-flex items-center justify-center gap-2 border border-slate-600 hover:border-slate-400 text-slate-300 hover:text-white font-semibold px-6 py-4 rounded-xl text-base transition-all duration-200">
                 <Play className="w-4 h-4 fill-current" /> Watch Demo
               </button>
+            </div>
+
+            <div className="mb-10">
+              <Link to={createPageUrl('Contact')} className="inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-8 py-4 rounded-xl text-base transition-all duration-200 shadow-lg shadow-indigo-600/30 hover:shadow-indigo-500/40 hover:-translate-y-0.5">
+                Tell Us About Your Business <ArrowRight className="w-4 h-4" />
+              </Link>
+              <p className="mt-2 text-slate-400 text-sm">Receive a custom Proposal and Scope of Work. We do the work and you approve the message.</p>
             </div>
 
             <div className="flex flex-wrap gap-x-6 gap-y-2">
