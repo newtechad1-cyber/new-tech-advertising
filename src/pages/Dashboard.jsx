@@ -17,7 +17,6 @@ import { AlertTriangle, CheckCircle, ExternalLink } from 'lucide-react';
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('analytics');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [clientProfile, setClientProfile] = useState(null);
