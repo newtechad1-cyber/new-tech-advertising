@@ -70,16 +70,7 @@ export default function HomeHero() {
               />
             </div>
 
-            {/* Floating badge */}
-            <Link to={createPageUrl('ScheduledQueue')} className="absolute -bottom-4 -left-4 bg-white rounded-xl px-4 py-3 shadow-xl border border-slate-100 flex items-center gap-3 hover:shadow-2xl hover:-translate-y-0.5 transition-all duration-200 cursor-pointer">
-              <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
-                <CheckCircle className="w-5 h-5 text-blue-600" />
-              </div>
-              <div>
-                <p className="font-bold text-slate-900 text-sm">View Your Queue</p>
-                <p className="text-slate-500 text-xs">Manage scheduled posts</p>
-              </div>
-            </Link>
+
           </div>
         </div>
       </div>
