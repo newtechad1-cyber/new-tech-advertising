@@ -152,6 +152,7 @@ import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
 import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
+import AiMarketingPlatform from './pages/AiMarketingPlatform';
 import __Layout from './Layout.jsx';
 
 
@@ -261,6 +262,7 @@ export const PAGES = {
     "WebsiteRebuild": WebsiteRebuild,
     "WebsiteVideoManager": WebsiteVideoManager,
     "YouTubeUploadTest": YouTubeUploadTest,
+    "AiMarketingPlatform": AiMarketingPlatform,
 }
 
 export const pagesConfig = {
