@@ -292,7 +292,6 @@ JSON schema:
     });
 
     console.log('[buildAuthorityPlan] DONE —', {
-      authority_plan_id: authorityPlan.id,
       campaign_id: campaign.id,
       content_items: contentItemIds.length,
       scheduled_posts: scheduledPostIds.length,
