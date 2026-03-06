@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { LayoutDashboard, PieChart, CreditCard, BookOpen, LogOut, Menu, X, FolderKanban, FileText, Share2 } from 'lucide-react';
+import { PieChart, CreditCard, BookOpen, LogOut, FolderKanban, FileText, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Chatbot from '../components/Chatbot';
+import AppNav from '../components/nav/AppNav';
 import AnalyticsView from '../components/dashboard/AnalyticsView';
 import SubscriptionView from '../components/dashboard/SubscriptionView';
 import ResourcesView from '../components/dashboard/ResourcesView';

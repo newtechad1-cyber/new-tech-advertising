@@ -1,5 +1,5 @@
 import React from 'react';
-import SiteHeader from '../components/marketing/SiteHeader';
+import SiteHeader from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import HomeHero from '../components/marketing/HomeHero';
 import HomeProblem from '../components/marketing/HomeProblem';

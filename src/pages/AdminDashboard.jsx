@@ -8,6 +8,7 @@ import {
   Calendar, DollarSign, FileText, TrendingUp, MonitorPlay, Briefcase,
   Globe, Share2, BarChart2, Lock, X, BrainCircuit, Settings, CalendarDays, Wrench, Cpu, Tv
 } from 'lucide-react';
+import AdminNav from '../components/nav/AdminNav';
 import { Button } from '@/components/ui/button';
 
 import EbookWriter from '../components/studio/EbookWriter';
