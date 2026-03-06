@@ -276,15 +276,14 @@ JSON schema:
       });
     }
 
-    // --- 8. Log activity ---
+    // --- 7. Log activity ---
     await base44.asServiceRole.entities.ActivityLog.create({
       company_id,
       event_type: 'agent_job_completed',
       summary: `90-Day Authority Plan generated: ${socialCount} social posts, ${videoCount} video scripts, ${promoCount} promo posts — all scheduled and ready.`,
-      entity_type: 'AuthorityPlan',
-      entity_id: authorityPlan.id,
+      entity_type: 'ContentCampaign',
+      entity_id: campaign.id,
       metadata: JSON.stringify({
-        authority_plan_id: authorityPlan.id,
         campaign_id: campaign.id,
         marketing_plan_id: marketingPlan.id,
         content_items: contentItemIds.length,
