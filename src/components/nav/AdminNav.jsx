@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import {
   LayoutDashboard, Users, FileText, Video, Settings,
-  Globe, LogOut, Menu, X, Zap, Link2
+  Globe, LogOut, Menu, X, Zap, Link2, BrainCircuit
 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
@@ -15,6 +15,7 @@ const NAV_ITEMS = [
   { label: 'Blog', href: createPageUrl('AdminBlog'), icon: FileText },
   { label: 'Video Queue', href: createPageUrl('AdminVideoQueue'), icon: Video },
   { label: 'Integrations', href: createPageUrl('SocialAccounts'), icon: Link2 },
+  { label: 'Agent Architecture', href: createPageUrl('AgentArchitecture'), icon: BrainCircuit },
   { label: 'Global Settings', href: createPageUrl('GlobalSettings'), icon: Settings },
 ];
 
