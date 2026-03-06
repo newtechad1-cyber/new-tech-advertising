@@ -266,17 +266,7 @@ JSON schema:
       console.log(`[buildAuthorityPlan] Week ${weekIdx + 1}/12 complete — ${contentItemIds.length} items so far`);
     }
 
-    // --- 6. Update AuthorityPlan to active with results ---
-    await base44.asServiceRole.entities.AuthorityPlan.update(authorityPlan.id, {
-      status: 'active',
-      plan_summary: plan.plan_summary || '',
-      weekly_themes: JSON.stringify(plan.weeks.map(w => ({ week: w.week_number, theme: w.theme, pillar: w.pillar }))),
-      content_campaign_id: campaign.id,
-      marketing_plan_id: marketingPlan.id,
-      generated_at: new Date().toISOString(),
-    });
-
-    // --- 7. Update AgentJob status if provided ---
+    // --- 6. Update AgentJob status if provided ---
     if (agent_job_id) {
       await base44.asServiceRole.entities.AgentJob.update(agent_job_id, {
         status: 'completed',
