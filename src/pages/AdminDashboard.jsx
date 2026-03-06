@@ -214,7 +214,9 @@ export default function AdminDashboard() {
 
   return (
     <AdminGuard>
-      <div className="min-h-screen bg-slate-950 text-white">
+      <div className="min-h-screen bg-slate-950 text-white flex">
+        <AdminNav />
+        <div className="flex-1 lg:pl-60">
         {/* Header */}
         <div className="bg-slate-900 border-b border-slate-800 px-6 py-4">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
