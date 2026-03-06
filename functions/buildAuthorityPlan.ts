@@ -6,7 +6,7 @@
  * Triggered by: onOnboardingSubmitted (entity automation on OnboardingProfile)
  * 
  * Output pipeline:
- *   AuthorityPlan → ContentCampaign → ContentItem (x60) → ScheduledPost (x60)
+ *   ContentCampaign → ContentItem (x60) → ScheduledPost (x60)
  * 
  * Plan structure:
  *   - 4 content pillars: education, trust, promotions, community
