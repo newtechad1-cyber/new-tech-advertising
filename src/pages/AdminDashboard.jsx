@@ -293,8 +293,6 @@ export default function AdminDashboard() {
       {upgradeModal && (
         <UpgradeModal tile={upgradeModal} onClose={() => setUpgradeModal(null)} />
       )}
-        </div>
-      </div>
     </AdminGuard>
   );
 }
