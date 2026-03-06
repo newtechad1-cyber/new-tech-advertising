@@ -319,6 +319,6 @@ JSON schema:
       });
     }
 
-    return Response.json({ error: error.message, authority_plan_id: authorityPlan.id }, { status: 500 });
+    return Response.json({ error: error.message }, { status: 500 });
   }
 });
