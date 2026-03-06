@@ -94,6 +94,7 @@ const CATEGORIES = [
       { id: 'content-queue', label: 'Content Calendar & Queue', icon: CalendarDays, color: 'bg-fuchsia-600', description: 'Planned, generated & published content', link: 'ContentQueue' },
       { id: 'onboarding-queue', label: 'Trial Onboarding Queue', icon: Users, color: 'bg-green-600', description: 'Review & configure new trial accounts', link: 'AdminOnboardingQueue' },
       { id: 'ai-operations', label: 'AI Operations', icon: Cpu, color: 'bg-violet-800', description: 'Tasks, budgets, cost ledger & memory', link: 'AiOperations' },
+      { id: 'agent-architecture', label: 'Agent Architecture', icon: BrainCircuit, color: 'bg-fuchsia-700', description: '22-agent event-driven business system', link: 'AgentArchitecture' },
     ]
   },
 ];
