@@ -347,6 +347,21 @@ export default function AiVideoStudio() {
                               <Trash2 className="w-3 h-3" /> Delete
                             </Button>
                           )}
+                          {/* Manual refresh for any in-progress video */}
+                          {(v.render_status === "rendering" || v.render_status === "queued") && (
+                            <Button size="sm" variant="outline" className="gap-1 text-blue-600 hover:text-blue-700" onClick={async () => {
+                              const res = await invoke("check_status", { heygenVideoId: v.render_job_id, recordId: v.id });
+                              await loadMyVideos(user);
+                              if (res.data?.status === "completed") {
+                                setSuccessMsg("Video is ready!");
+                              } else {
+                                setSuccessMsg(`HeyGen status: ${res.data?.status || "still processing"}`);
+                              }
+                              setTimeout(() => setSuccessMsg(""), 5000);
+                            }}>
+                              <RefreshCw className="w-3 h-3" /> Check Status
+                            </Button>
+                          )}
                         </div>
                       </div>
                       {v.render_status === "done" && v.render_output_url && (
