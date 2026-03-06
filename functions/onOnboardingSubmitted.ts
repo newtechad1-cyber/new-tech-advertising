@@ -1,7 +1,8 @@
 /**
  * Automation: OnboardingProfile → Completed
  * Trigger:    EntityAutomation on OnboardingProfile (update)
- * Action:     content_agent.build_authority_plan
+ * Action:     buildAuthorityPlan — generates 90-day strategy
+ *             → AuthorityPlan → ContentCampaign → ContentItem (x60) → ScheduledPost (x60)
  */
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 
@@ -22,47 +23,59 @@ Deno.serve(async (req) => {
 
   const companyId = profile.company_id;
 
-  // Pull BrandProfile for context
-  const brandProfiles = companyId
-    ? await base44.asServiceRole.entities.BrandProfile.filter({ company_id: companyId })
-    : [];
-  const brand = brandProfiles[0] || {};
+  // --- Pull full context: BrandProfile + Company ---
+  const [brandProfiles, companies] = await Promise.all([
+    companyId
+      ? base44.asServiceRole.entities.BrandProfile.filter({ company_id: companyId })
+      : Promise.resolve([]),
+    companyId
+      ? base44.asServiceRole.entities.Company.filter({ id: companyId })
+      : Promise.resolve([]),
+  ]);
 
-  const task = await base44.asServiceRole.entities.AiTask.create({
-    agent_key: 'content_agent',
-    step_key: 'build_authority_plan',
-    status: 'pending',
-    step_status: 'pending',
-    inputs: {
-      onboarding_profile_id: profile.id,
-      company_id: companyId,
-      cms_platform: profile.cms_platform,
-      hosting_provider: profile.hosting_provider,
-      priority_pages: profile.priority_pages,
-      brand_voice: brand.brand_voice,
-      target_audience: brand.target_audience,
-      content_pillars: brand.content_pillars,
-      unique_selling_propositions: brand.unique_selling_propositions,
-      artifact_type: 'brand_profile',
-    },
-  });
+  const brand   = brandProfiles[0] || {};
+  const company = companies[0] || {};
 
-  await base44.asServiceRole.functions.invoke('agentJobHelper', {
+  // --- Queue AgentJob + invoke buildAuthorityPlan ---
+  const job = await base44.asServiceRole.entities.AgentJob.create({
+    company_id: companyId || null,
     job_type: 'onboarding_setup',
     trigger: 'entity_event',
-    company_id: companyId,
-    input_params: { task_id: task.id, onboarding_profile_id: profile.id },
-    function_to_invoke: 'runAiStep',
-    function_payload: { task_id: task.id },
+    status: 'queued',
+    input_params: JSON.stringify({
+      onboarding_profile_id: profile.id,
+      company_id: companyId,
+    }),
+    started_at: new Date().toISOString(),
   });
 
+  // Fire buildAuthorityPlan asynchronously (don't await — let it run in background)
+  base44.asServiceRole.functions.invoke('buildAuthorityPlan', {
+    company_id:                  companyId,
+    onboarding_profile_id:       profile.id,
+    business_name:               company.business_name || '',
+    industry:                    company.industry || '',
+    brand_voice:                 brand.brand_voice || '',
+    target_audience:             brand.target_audience || '',
+    content_pillars:             brand.content_pillars || [],
+    unique_selling_propositions: brand.unique_selling_propositions || '',
+    active_channels:             brand.approved_hashtags
+                                   ? ['facebook', 'instagram']
+                                   : ['facebook', 'instagram'],
+    agent_job_id:                job.id,
+  }).catch((err) => {
+    console.error('[onOnboardingSubmitted] buildAuthorityPlan invoke failed:', err.message);
+  });
+
+  // Log the trigger event
   await base44.asServiceRole.entities.ActivityLog.create({
     company_id: companyId || null,
     event_type: 'onboarding_completed',
-    summary: `Onboarding completed → content_agent.build_authority_plan triggered`,
+    summary: `Onboarding completed → 90-day Authority Plan generation queued (AgentJob: ${job.id})`,
     entity_type: 'OnboardingProfile',
     entity_id: profile.id,
+    metadata: JSON.stringify({ agent_job_id: job.id }),
   });
 
-  return Response.json({ success: true, task_id: task.id });
+  return Response.json({ success: true, agent_job_id: job.id });
 });
