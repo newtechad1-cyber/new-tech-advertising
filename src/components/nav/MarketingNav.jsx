@@ -12,64 +12,147 @@ const NAV_SECTIONS = [
   {
     label: 'Platform',
     links: [
-      { label: 'AI Marketing Platform', href: createPageUrl('Home') },
-      { label: 'Social Media Tools', href: createPageUrl('AiSocialMediaSmallBusiness') },
-      { label: 'AI Video Studio', href: createPageUrl('AiVideoStudio') },
-      { label: 'Content Automation', href: createPageUrl('ContentQueue') },
-      { label: 'Analytics Dashboard', href: createPageUrl('Dashboard') },
+      {
+        label: 'AI Marketing Platform',
+        icon: '⚙️',
+        desc: 'Your marketing command center. Create content, schedule posts, generate videos, and manage campaigns from one dashboard.',
+        href: createPageUrl('Home'),
+      },
+      {
+        label: 'Social Media Tools',
+        icon: '📱',
+        desc: 'Create and schedule posts in minutes. Generate content with AI and publish across multiple platforms automatically.',
+        href: createPageUrl('AiSocialMediaSmallBusiness'),
+      },
+      {
+        label: 'AI Video Studio',
+        icon: '🎬',
+        desc: 'Turn ideas into marketing videos. Create short-form videos, ads, and promotional clips with AI scripts, images, and voice tracks.',
+        href: createPageUrl('AiVideoStudio'),
+      },
+      {
+        label: 'Content Automation',
+        icon: '🤖',
+        desc: 'Never run out of content. Generate weekly marketing plans and social media posts automatically.',
+        href: createPageUrl('ContentQueue'),
+      },
+      {
+        label: 'Analytics Dashboard',
+        icon: '📊',
+        desc: 'See what\'s working. Track engagement, leads, and campaign performance in one place.',
+        href: createPageUrl('Dashboard'),
+      },
     ],
   },
   {
     label: 'Services',
     links: [
-      { label: 'Social Media Management', href: createPageUrl('SocialMediaManagement') },
-      { label: 'Website Rebuilds', href: createPageUrl('WebsiteRebuild') },
-      { label: 'ADA Compliance', href: createPageUrl('AdaWebsiteLawsuitPrevention') },
-      { label: 'Streaming TV Advertising', href: createPageUrl('StreamingTV') },
-      { label: 'Local Visibility', href: createPageUrl('LocalVisibility') },
+      {
+        label: 'Social Media Management',
+        icon: '📱',
+        desc: 'DIY tools or full management. Create and schedule posts yourself or let our team run your social media for you.',
+        href: createPageUrl('SocialMediaManagement'),
+      },
+      {
+        label: 'Website Rebuilds',
+        icon: '🌐',
+        desc: 'Modern websites built to perform. Fast, mobile-friendly websites designed to convert visitors into customers.',
+        href: createPageUrl('WebsiteRebuild'),
+      },
+      {
+        label: 'ADA Compliance',
+        icon: '♿',
+        desc: 'Protect your business online. Make your website accessible and compliant with ADA accessibility standards.',
+        href: createPageUrl('AdaWebsiteLawsuitPrevention'),
+      },
+      {
+        label: 'Streaming TV Advertising',
+        icon: '📺',
+        desc: 'Reach customers where they watch. Run targeted ads across Roku, Hulu, Fire TV, and other streaming platforms.',
+        href: createPageUrl('StreamingTV'),
+      },
+      {
+        label: 'Local Visibility',
+        icon: '📍',
+        desc: 'Get found in local searches. Improve rankings on Google Maps and local search results.',
+        href: createPageUrl('LocalVisibility'),
+      },
     ],
   },
   {
     label: 'Industries',
     links: [
-      { label: 'HVAC', href: createPageUrl('HvacMarketing') },
-      { label: 'Restaurants', href: createPageUrl('RestaurantSocialMedia') },
-      { label: 'Service Trades', href: createPageUrl('IndustriesServiceTrades') },
-      { label: 'Professionals', href: createPageUrl('IndustriesProfessionals') },
-      { label: 'Nonprofits', href: createPageUrl('IndustriesNonprofits') },
+      {
+        label: 'HVAC Marketing',
+        icon: '🔧',
+        desc: 'Grow service calls and installs. Marketing tools designed for HVAC companies and home service businesses.',
+        href: createPageUrl('HvacMarketing'),
+      },
+      {
+        label: 'Restaurant Marketing',
+        icon: '🍽️',
+        desc: 'Keep tables full. Promotions, social media content, and video marketing designed for restaurants.',
+        href: createPageUrl('RestaurantSocialMedia'),
+      },
+      {
+        label: 'Service Trades',
+        icon: '🛠️',
+        desc: 'Marketing for skilled trades. Perfect for plumbers, electricians, landscapers, and contractors.',
+        href: createPageUrl('IndustriesServiceTrades'),
+      },
+      {
+        label: 'Professional Services',
+        icon: '💼',
+        desc: 'Build credibility and trust. Marketing tools for consultants, accountants, and service professionals.',
+        href: createPageUrl('IndustriesProfessionals'),
+      },
+      {
+        label: 'Nonprofits',
+        icon: '❤️',
+        desc: 'Increase awareness and donations. Content and campaigns designed for nonprofit organizations.',
+        href: createPageUrl('IndustriesNonprofits'),
+      },
     ],
   },
   {
     label: 'Pricing',
-    href: createPageUrl('Home') + '#pricing',
+    pricing: true,
+    plans: [
+      { name: 'DIY Starter', price: '$99' },
+      { name: 'DIY Pro', price: '$199' },
+      { name: 'DFY Social', price: '$399' },
+      { name: 'Total Reach Campaign', price: '$899' },
+    ],
   },
   {
     label: 'Resources',
     links: [
-      { label: 'Our Work', href: createPageUrl('OurWork') },
-      { label: 'Blog', href: createPageUrl('Blog') },
-      { label: 'Contact', href: createPageUrl('Contact') },
+      {
+        label: 'Our Work',
+        icon: '🖼️',
+        desc: 'See how businesses use NTA. Examples of campaigns, websites, and marketing projects.',
+        href: createPageUrl('OurWork'),
+      },
+      {
+        label: 'Blog',
+        icon: '📝',
+        desc: 'Marketing tips for small businesses. Strategies, insights, and tools to help your business grow.',
+        href: createPageUrl('Blog'),
+      },
+      {
+        label: 'Contact',
+        icon: '💬',
+        desc: 'Talk with our team. Questions about the platform or services? We\'re here to help.',
+        href: createPageUrl('Contact'),
+      },
     ],
   },
 ];
 
-function NavSection({ section, mobile = false }) {
+function MobileNavSection({ section }) {
   const [open, setOpen] = useState(false);
 
-  if (section.href) {
-    return (
-      <a
-        href={section.href}
-        className={mobile
-          ? "block px-4 py-3 text-base font-semibold text-white hover:bg-blue-700 rounded-lg"
-          : "hidden"}
-      >
-        {section.label}
-      </a>
-    );
-  }
-
-  if (mobile) {
+  if (section.pricing) {
     return (
       <div>
         <button
@@ -80,19 +163,47 @@ function NavSection({ section, mobile = false }) {
           {open ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
         </button>
         {open && (
-          <div className="ml-4 border-l border-blue-500 pl-3 mb-1 space-y-0.5">
-            {section.links.map(link => (
-              <a key={link.label} href={link.href} className="block px-3 py-2 text-sm text-blue-100 hover:text-white hover:bg-blue-700 rounded-md">
-                {link.label}
-              </a>
+          <div className="ml-4 border-l border-blue-500 pl-3 mb-1 space-y-1">
+            <p className="text-blue-200 text-xs px-3 py-1">Start simple and grow when you're ready.</p>
+            {section.plans.map(plan => (
+              <div key={plan.name} className="flex items-center justify-between px-3 py-2 text-sm text-blue-100 rounded-md">
+                <span>{plan.name}</span>
+                <span className="font-bold text-white">{plan.price}</span>
+              </div>
             ))}
+            <a href={TRIAL_URL} className="block px-3 py-2 text-sm font-semibold text-yellow-300 hover:text-yellow-100">
+              → Start Free Trial
+            </a>
           </div>
         )}
       </div>
     );
   }
 
-  return null;
+  return (
+    <div>
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between px-4 py-3 text-base font-semibold text-white hover:bg-blue-700 rounded-lg"
+      >
+        {section.label}
+        {open ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+      </button>
+      {open && (
+        <div className="ml-4 border-l border-blue-500 pl-3 mb-1 space-y-0.5">
+          {section.links.map(link => (
+            <a key={link.label} href={link.href} className="flex items-start gap-2 px-3 py-2.5 rounded-md hover:bg-blue-700 group">
+              <span className="text-base mt-0.5 shrink-0">{link.icon}</span>
+              <div>
+                <div className="text-sm font-semibold text-white group-hover:text-yellow-200">{link.label}</div>
+                <div className="text-xs text-blue-200 leading-snug mt-0.5">{link.desc}</div>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default function MarketingNav() {
@@ -133,8 +244,9 @@ export default function MarketingNav() {
 
           {/* Right: Login + CTA */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <a href={LOGIN_URL} className="hidden sm:block text-blue-100 hover:text-white text-sm font-medium transition-colors">
-              Login
+            <a href={LOGIN_URL} className="hidden sm:flex flex-col items-end text-right leading-none">
+              <span className="text-blue-100 hover:text-white text-sm font-medium transition-colors">Client Login</span>
+              <span className="text-blue-300 text-xs mt-0.5">Access your marketing dashboard.</span>
             </a>
             <a href={TRIAL_URL}>
               <Button className="bg-white hover:bg-blue-50 text-blue-700 font-bold px-3 sm:px-5 h-9 text-xs sm:text-sm whitespace-nowrap shadow">
@@ -169,22 +281,27 @@ export default function MarketingNav() {
           {/* Nav sections */}
           <nav className="px-4 py-4 space-y-1">
             {NAV_SECTIONS.map(section => (
-              <NavSection key={section.label} section={section} mobile />
+              <MobileNavSection key={section.label} section={section} />
             ))}
           </nav>
 
-          {/* Bottom persistent buttons */}
-          <div className="px-4 py-6 border-t border-blue-600 space-y-3 mt-4">
-            <a href={TRIAL_URL} className="block" onClick={() => setOpen(false)}>
-              <Button className="w-full bg-white text-blue-700 hover:bg-blue-50 font-bold py-6 text-base shadow">
-                Start 7-Day Free Trial
-              </Button>
-            </a>
+          {/* Bottom CTA */}
+          <div className="px-4 py-6 border-t border-blue-600 mt-4">
+            <div className="bg-blue-900/60 rounded-xl p-5 mb-4">
+              <p className="text-white font-bold text-base mb-1">Start Your 7-Day Free Trial</p>
+              <p className="text-blue-200 text-sm mb-4">Create content, schedule posts, and see how the NTA platform works for your business.</p>
+              <a href={TRIAL_URL} className="block" onClick={() => setOpen(false)}>
+                <Button className="w-full bg-white text-blue-700 hover:bg-blue-50 font-bold py-5 text-base shadow">
+                  Start Free Trial
+                </Button>
+              </a>
+            </div>
             <a href={LOGIN_URL} className="block" onClick={() => setOpen(false)}>
-              <Button variant="outline" className="w-full border-white text-white hover:bg-blue-700 font-semibold py-6 text-base">
-                Login
+              <Button variant="outline" className="w-full border-white text-white hover:bg-blue-700 font-semibold py-5 text-base">
+                Client Login
               </Button>
             </a>
+            <p className="text-blue-300 text-xs text-center mt-2">Access your marketing dashboard.</p>
           </div>
         </div>
       )}
