@@ -271,7 +271,7 @@ JSON schema:
       await base44.asServiceRole.entities.AgentJob.update(agent_job_id, {
         status: 'completed',
         output_summary: `90-day authority plan generated: 12 weeks, ${socialCount} social posts, ${videoCount} video scripts, ${promoCount} promo posts. Campaign ID: ${campaign.id}`,
-        output_refs: [authorityPlan.id, campaign.id],
+        output_refs: [campaign.id],
         completed_at: new Date().toISOString(),
       });
     }
