@@ -299,7 +299,6 @@ JSON schema:
 
     return Response.json({
       success: true,
-      authority_plan_id: authorityPlan.id,
       campaign_id: campaign.id,
       marketing_plan_id: marketingPlan.id,
       social_posts: socialCount,
