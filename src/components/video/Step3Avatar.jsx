@@ -43,7 +43,7 @@ export default function Step3Avatar({ state, setState, avatars, voices, onBack, 
 
       <div className="flex justify-between">
         <Button variant="outline" onClick={onBack}>← Back</Button>
-        <Button onClick={onNext} disabled={!avatarId || !voiceId} className="bg-blue-600 hover:bg-blue-700">
+        <Button onClick={onNext} disabled={!voiceId} className="bg-blue-600 hover:bg-blue-700">
           Next: Captions & Overlays →
         </Button>
       </div>
