@@ -101,6 +101,15 @@ const CATEGORIES = [
       { id: 'workflow-map', label: 'Workflow Map', icon: Wrench, color: 'bg-teal-700', description: 'Master page → entity → agent architecture map', link: 'WorkflowMap' },
     ]
   },
+  {
+    id: 'support',
+    label: 'Help & Support',
+    icon: HelpCircle,
+    color: 'text-amber-400',
+    tiles: [
+      { id: 'help', label: 'Help & Support', icon: HelpCircle, color: 'bg-amber-600', description: 'Tools guide, FAQs, and campaign wizard' },
+    ]
+  },
 ];
 
 // Flat list of all tiles for lookup
