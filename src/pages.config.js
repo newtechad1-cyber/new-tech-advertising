@@ -95,6 +95,7 @@ import ContentQueue from './pages/ContentQueue';
 import ContentStudio from './pages/ContentStudio';
 import Dashboard from './pages/Dashboard';
 import DebugOAuthConnections from './pages/DebugOAuthConnections';
+import Demo from './pages/Demo';
 import freeAudit from './pages/Free-Audit';
 import getStarted from './pages/Get-Started';
 import GlobalSettings from './pages/GlobalSettings';
@@ -162,6 +163,7 @@ import StreamingTV from './pages/StreamingTV';
 import StreamingThankYou from './pages/StreamingThankYou';
 import StreamingTvAdvertising from './pages/StreamingTvAdvertising';
 import TermsOfService from './pages/TermsOfService';
+import TrialDashboard from './pages/TrialDashboard';
 import TrialOnboarding from './pages/TrialOnboarding';
 import TrialSlug from './pages/TrialSlug';
 import TrialStart from './pages/TrialStart';
@@ -175,8 +177,8 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import Demo from './pages/Demo';
-import TrialDashboard from './pages/TrialDashboard';
+import AdaWebsiteCompliance from './pages/AdaWebsiteCompliance';
+import AiAccessibilityChecker from './pages/AiAccessibilityChecker';
 import __Layout from './Layout.jsx';
 
 
@@ -229,6 +231,7 @@ export const PAGES = {
     "ContentStudio": ContentStudio,
     "Dashboard": Dashboard,
     "DebugOAuthConnections": DebugOAuthConnections,
+    "Demo": Demo,
     "Free-Audit": freeAudit,
     "Get-Started": getStarted,
     "GlobalSettings": GlobalSettings,
@@ -296,6 +299,7 @@ export const PAGES = {
     "StreamingThankYou": StreamingThankYou,
     "StreamingTvAdvertising": StreamingTvAdvertising,
     "TermsOfService": TermsOfService,
+    "TrialDashboard": TrialDashboard,
     "TrialOnboarding": TrialOnboarding,
     "TrialSlug": TrialSlug,
     "TrialStart": TrialStart,
@@ -309,8 +313,8 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "Demo": Demo,
-    "TrialDashboard": TrialDashboard,
+    "AdaWebsiteCompliance": AdaWebsiteCompliance,
+    "AiAccessibilityChecker": AiAccessibilityChecker,
 }
 
 export const pagesConfig = {

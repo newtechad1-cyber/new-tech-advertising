@@ -1,102 +1,166 @@
 import React from 'react';
-import SiteHeader from '../components/marketing/SiteHeader';
-import SiteFooter from '../components/marketing/SiteFooter';
-import { CheckCircle, AlertTriangle, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
+import { AlertTriangle, TrendingUp, DollarSign, Scale } from 'lucide-react';
 
 export default function AdaWebsiteLawsuitPrevention() {
   return (
-    <div className="bg-white">
-      <SiteHeader />
-      <main>
-        {/* Hero */}
-        <section className="bg-slate-900 py-20">
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <div className="inline-flex items-center gap-2 bg-red-500/20 border border-red-400/40 text-red-300 text-xs font-bold px-3 py-1.5 rounded-full mb-5 uppercase tracking-wider">
-                  <AlertTriangle className="w-3.5 h-3.5" /> ADA Website Compliance
-                </div>
-                <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-5 leading-tight">
-                  Is Your Website a Lawsuit Risk?
-                </h1>
-                <p className="text-slate-300 mb-6 leading-relaxed text-lg">
-                  Thousands of small business websites receive ADA accessibility demand letters and lawsuits every year. Most business owners don't even know their site has a problem — until they get the letter.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Link to={createPageUrl('AdaAccessibility')}>
-                    <button className="inline-flex items-center justify-center bg-red-500 hover:bg-red-600 text-white font-bold px-8 py-4 rounded-lg text-base transition-colors shadow-lg">
-                      Request a Free Website Review
-                    </button>
-                  </Link>
+    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+      <MarketingNav />
+
+      <section className="py-20 px-6 max-w-4xl mx-auto">
+        <div className="mb-12">
+          <Link to={createPageUrl('AdaWebsiteCompliance')} className="text-violet-400 hover:text-violet-300 text-sm font-semibold mb-6 inline-block">
+            ← Back to ADA Compliance
+          </Link>
+          <h1 className="text-4xl font-bold text-white mb-6">ADA Website Lawsuits: What You Need to Know</h1>
+          <p className="text-slate-300 text-lg">Understanding the risks and how to protect your small business.</p>
+        </div>
+
+        <article className="prose prose-invert max-w-none space-y-8">
+          <section>
+            <h2 className="text-2xl font-bold text-white mb-4">The Rise of ADA Website Lawsuits</h2>
+            <p className="text-slate-300">
+              Over 2,000 ADA website accessibility lawsuits are filed every year in the United States. Unlike traditional ADA lawsuits that focus on physical accessibility, web-based claims are growing exponentially.
+            </p>
+            <p className="text-slate-300">
+              According to recent data, over 70% of ADA Title III lawsuits now target websites and digital platforms—a trend that shows no signs of slowing down.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold text-white mb-4">Why Small Businesses Are Targeted</h2>
+            <div className="bg-slate-900 border border-slate-700 rounded-lg p-6 mb-4">
+              <div className="flex gap-4">
+                <AlertTriangle className="w-6 h-6 text-amber-400 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="text-white font-semibold mb-2">Accessible Targets</h3>
+                  <p className="text-slate-300 text-sm">
+                    Plaintiff attorneys can easily automate lawsuits, scanning thousands of small business websites for accessibility violations.
+                  </p>
                 </div>
               </div>
-              <div className="bg-red-900/20 border border-red-700/40 rounded-2xl p-8">
-                <p className="text-red-300 font-bold text-sm uppercase tracking-wide mb-4 flex items-center gap-2"><AlertTriangle className="w-4 h-4" />Common ADA Violations</p>
-                <ul className="space-y-3">
-                  {['Images missing alt text', 'Poor color contrast', 'No keyboard navigation support', 'Forms without proper labels', 'Videos without captions', 'Missing skip navigation links'].map(v => (
-                    <li key={v} className="flex items-center gap-3 text-slate-300 text-sm">
-                      <span className="w-2 h-2 rounded-full bg-red-400 shrink-0" />{v}
-                    </li>
-                  ))}
+            </div>
+            <div className="bg-slate-900 border border-slate-700 rounded-lg p-6 mb-4">
+              <div className="flex gap-4">
+                <DollarSign className="w-6 h-6 text-green-400 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="text-white font-semibold mb-2">Settlement Incentive</h3>
+                  <p className="text-slate-300 text-sm">
+                    Small business owners often settle quickly ($3,000-$50,000+) to avoid legal costs, making these cases profitable for plaintiffs' attorneys.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold text-white mb-4">What Makes a Website ADA Non-Compliant?</h2>
+            <div className="space-y-3">
+              <p className="text-slate-300 font-semibold">Common violations include:</p>
+              <ul className="space-y-2">
+                {[
+                  'Missing alt text on images',
+                  'Poor color contrast (text vs. background)',
+                  'No keyboard navigation support',
+                  'Missing form labels',
+                  'Unstructured headings (multiple H1s, missing hierarchy)',
+                  'Auto-playing videos or audio',
+                  'No captions on videos',
+                  'Images used as text without alt descriptions',
+                  'Missing ARIA landmarks',
+                  'Broken skip-to-content links',
+                ].map((item, i) => (
+                  <li key={i} className="text-slate-300 flex gap-3">
+                    <span className="text-violet-400 font-semibold">•</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold text-white mb-4">The Legal Standard: WCAG 2.1 AA</h2>
+            <p className="text-slate-300 mb-4">
+              Courts have adopted the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA as the accessibility standard for website compliance.
+            </p>
+            <p className="text-slate-300">
+              WCAG AA compliance is achievable for most websites. It requires following accessibility best practices in design, development, and content creation.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold text-white mb-4">Cost of Litigation vs. Remediation</h2>
+            <div className="grid sm:grid-cols-2 gap-6 my-6">
+              <div className="bg-rose-900/20 border border-rose-700/50 rounded-lg p-6">
+                <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
+                  <Scale className="w-5 h-5" />
+                  Lawsuit Costs
+                </h3>
+                <ul className="text-slate-300 text-sm space-y-2">
+                  <li>• Attorney fees: $50,000+</li>
+                  <li>• Settlement: $5,000-$50,000+</li>
+                  <li>• Time & distraction: Incalculable</li>
+                  <li>• Reputation damage: Significant</li>
+                </ul>
+              </div>
+              <div className="bg-emerald-900/20 border border-emerald-700/50 rounded-lg p-6">
+                <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5" />
+                  Remediation Costs
+                </h3>
+                <ul className="text-slate-300 text-sm space-y-2">
+                  <li>• Audit: $500-$2,000</li>
+                  <li>• Remediation: $5,000-$25,000</li>
+                  <li>• Ongoing monitoring: $500/month</li>
+                  <li>• Peace of mind: Priceless</li>
                 </ul>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Risk section */}
-        <section className="py-20 bg-white">
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-extrabold text-slate-900 mb-3">Why ADA Compliance Matters for Your Business</h2>
-              <p className="text-slate-600 max-w-2xl mx-auto">The ADA (Americans with Disabilities Act) applies to websites, not just physical locations. Lawsuits targeting small business websites have been rising every year.</p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-6 mb-12">
+          <section>
+            <h2 className="text-2xl font-bold text-white mb-4">Steps to Protect Your Business</h2>
+            <ol className="space-y-4">
               {[
-                { emoji: '⚖️', title: 'Legal Risk', desc: 'Small businesses receive ADA demand letters and can face lawsuits and settlement costs even without knowing their site has issues.' },
-                { emoji: '♿', title: 'Accessibility Risk', desc: 'People with visual, hearing, or motor disabilities may not be able to use your website, cutting you off from customers.' },
-                { emoji: '📉', title: 'Reputation Risk', desc: 'An inaccessible website can damage your reputation and signal to customers that your business doesn\'t value everyone.' },
-              ].map(c => (
-                <div key={c.title} className="bg-red-50 rounded-xl p-6 border border-red-100 text-center">
-                  <div className="text-3xl mb-3">{c.emoji}</div>
-                  <h3 className="font-bold text-slate-900 mb-2">{c.title}</h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">{c.desc}</p>
-                </div>
+                { step: 'Conduct an Accessibility Audit', desc: 'Get a professional assessment of your website.' },
+                { step: 'Develop a Remediation Plan', desc: 'Fix the most critical issues first.' },
+                { step: 'Implement Fixes', desc: 'Work with experienced developers to ensure proper implementation.' },
+                { step: 'Test for Compliance', desc: 'Verify fixes with both automated tools and accessibility experts.' },
+                { step: 'Document Your Efforts', desc: 'Keep records of your remediation efforts for legal protection.' },
+                { step: 'Monitor Ongoing', desc: 'Continuously monitor and fix new accessibility issues.' },
+              ].map((item, i) => (
+                <li key={i} className="flex gap-4">
+                  <span className="w-8 h-8 rounded-full bg-violet-600 text-white flex items-center justify-center flex-shrink-0 font-semibold text-sm">
+                    {i + 1}
+                  </span>
+                  <div>
+                    <p className="text-white font-semibold">{item.step}</p>
+                    <p className="text-slate-400 text-sm">{item.desc}</p>
+                  </div>
+                </li>
               ))}
-            </div>
+            </ol>
+          </section>
 
-            <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-8">
-              <div className="flex items-start gap-4">
-                <ShieldCheck className="w-10 h-10 text-emerald-600 shrink-0 mt-1" />
-                <div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">The Good News: It's Fixable</h3>
-                  <p className="text-slate-600 mb-4">Most ADA website issues can be identified and fixed. We offer a free website review to identify problems, and a website rebuild service that brings your site into compliance.</p>
-                  <Link to={createPageUrl('AdaAccessibility')}>
-                    <button className="inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-3 rounded-lg transition-colors">
-                      Request Your Free Website Review
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Rebuild service CTA */}
-        <section className="py-16 bg-slate-900 text-white">
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <h2 className="text-2xl font-extrabold mb-4">Need a Full ADA-Compliant Website Rebuild?</h2>
-            <p className="text-slate-300 mb-6">Our website rebuild service delivers a fully accessible, modern website built to ADA standards. Pricing from $1,500–$3,000.</p>
-            <Link to={createPageUrl('AdaWebsiteRebuild')}>
-              <button className="inline-flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-bold px-8 py-4 rounded-lg transition-colors">
-                Learn About Website Rebuilds →
-              </button>
+          <section className="bg-slate-900 border border-violet-600/30 rounded-lg p-8">
+            <h2 className="text-2xl font-bold text-white mb-4">Get Your Free Accessibility Audit</h2>
+            <p className="text-slate-300 mb-6">
+              Don't wait for a lawsuit. Find out if your website is at risk and what you can do about it.
+            </p>
+            <Link
+              to={createPageUrl('Tools')}
+              className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+            >
+              Check Your Website Now
             </Link>
-          </div>
-        </section>
-      </main>
+          </section>
+        </article>
+      </section>
+
       <SiteFooter />
     </div>
   );
