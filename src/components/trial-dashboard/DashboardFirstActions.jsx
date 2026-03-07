@@ -10,17 +10,17 @@ const actionsByState = {
     { label: "Confirm Your Details", description: "Check your business profile", icon: CheckSquare, link: null },
   ],
   profile_ready: [
-    { label: 'Review Your Business Profile', description: 'Check your information', icon: CheckSquare, link: null },
-    { label: 'Watch the Demo', description: 'Learn the platform', icon: Play, link: 'Demo' },
+    { label: "Review Your Business Profile", description: "Check your information", icon: CheckSquare, link: null },
+    { label: "Watch the Demo", description: "Learn the platform", icon: Play, link: "Demo" },
   ],
   intelligence_ready: [
-    { label: 'Review Your Opportunities', description: 'See what we found', icon: CheckSquare, link: null },
-    { label: 'View Your Plan', description: 'See your week ahead', icon: FileText, link: 'GrowthSystem' },
+    { label: "Review Your Opportunities", description: "See what we found", icon: CheckSquare, link: null },
+    { label: "View Your Plan", description: "See your week ahead", icon: FileText, link: "GrowthSystem" },
   ],
   plan_ready: [
-    { label: 'Review Your Weekly Plan', description: 'See this week's tasks', icon: CheckSquare, link: 'GrowthSystem' },
-    { label: 'Generate Your First Content', description: 'Start creating', icon: FileText, link: 'AiSocialMedia' },
-    { label: 'Create Your First Video', description: 'Use the video studio', icon: Video, link: 'AiVideos' },
+    { label: "Review Your Weekly Plan", description: "See this week's tasks", icon: CheckSquare, link: "GrowthSystem" },
+    { label: "Generate Your First Content", description: "Start creating", icon: FileText, link: "AiSocialMedia" },
+    { label: "Create Your First Video", description: "Use the video studio", icon: Video, link: "AiVideos" },
   ],
 };
 
