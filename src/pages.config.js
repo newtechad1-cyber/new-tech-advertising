@@ -57,6 +57,7 @@ import AdaQuote from './pages/AdaQuote';
 import AdaSalesAssistant from './pages/AdaSalesAssistant';
 import AdaSuccess from './pages/AdaSuccess';
 import AdaThankYou from './pages/AdaThankYou';
+import AdaWebsiteCompliance from './pages/AdaWebsiteCompliance';
 import AdaWebsiteLawsuitPrevention from './pages/AdaWebsiteLawsuitPrevention';
 import AdaWebsiteRebuild from './pages/AdaWebsiteRebuild';
 import Admin from './pages/Admin';
@@ -69,6 +70,7 @@ import AdminVideoDetail from './pages/AdminVideoDetail';
 import AdminVideoGenerator from './pages/AdminVideoGenerator';
 import AdminVideoQueue from './pages/AdminVideoQueue';
 import AgentArchitecture from './pages/AgentArchitecture';
+import AiAccessibilityChecker from './pages/AiAccessibilityChecker';
 import AiAdvertising from './pages/AiAdvertising';
 import AiMarketingPlatform from './pages/AiMarketingPlatform';
 import AiOperations from './pages/AiOperations';
@@ -124,6 +126,7 @@ import LeadsDashboard from './pages/LeadsDashboard';
 import LocalBusinessMarketing from './pages/LocalBusinessMarketing';
 import LocalMarketIntelAdmin from './pages/LocalMarketIntelAdmin';
 import LocalVisibility from './pages/LocalVisibility';
+import LocationPageAdmin from './pages/LocationPageAdmin';
 import MarketingPlanGenerator from './pages/MarketingPlanGenerator';
 import MetaConnect from './pages/MetaConnect';
 import OauthCallback from './pages/OauthCallback';
@@ -137,6 +140,7 @@ import PerformanceSignalAdmin from './pages/PerformanceSignalAdmin';
 import Platform from './pages/Platform';
 import Pricing from './pages/Pricing';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import ProgrammaticSEODashboard from './pages/ProgrammaticSEODashboard';
 import Proposal from './pages/Proposal';
 import rebuildIntake from './pages/Rebuild-Intake';
 import Rebuild from './pages/Rebuild';
@@ -145,6 +149,7 @@ import RebuildIntakePretty from './pages/RebuildIntakePretty';
 import RebuildProposal from './pages/RebuildProposal';
 import RestaurantSocialMedia from './pages/RestaurantSocialMedia';
 import ScheduledQueue from './pages/ScheduledQueue';
+import ServiceLocation from './pages/ServiceLocation';
 import Services from './pages/Services';
 import SetupComplete from './pages/SetupComplete';
 import SiteMap from './pages/SiteMap';
@@ -177,11 +182,7 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdaWebsiteCompliance from './pages/AdaWebsiteCompliance';
-import AiAccessibilityChecker from './pages/AiAccessibilityChecker';
-import ServiceLocation from './pages/ServiceLocation';
-import LocationPageAdmin from './pages/LocationPageAdmin';
-import ProgrammaticSEODashboard from './pages/ProgrammaticSEODashboard';
+import HelpAndSupport from './pages/HelpAndSupport';
 import __Layout from './Layout.jsx';
 
 
@@ -196,6 +197,7 @@ export const PAGES = {
     "AdaSalesAssistant": AdaSalesAssistant,
     "AdaSuccess": AdaSuccess,
     "AdaThankYou": AdaThankYou,
+    "AdaWebsiteCompliance": AdaWebsiteCompliance,
     "AdaWebsiteLawsuitPrevention": AdaWebsiteLawsuitPrevention,
     "AdaWebsiteRebuild": AdaWebsiteRebuild,
     "Admin": Admin,
@@ -208,6 +210,7 @@ export const PAGES = {
     "AdminVideoGenerator": AdminVideoGenerator,
     "AdminVideoQueue": AdminVideoQueue,
     "AgentArchitecture": AgentArchitecture,
+    "AiAccessibilityChecker": AiAccessibilityChecker,
     "AiAdvertising": AiAdvertising,
     "AiMarketingPlatform": AiMarketingPlatform,
     "AiOperations": AiOperations,
@@ -263,6 +266,7 @@ export const PAGES = {
     "LocalBusinessMarketing": LocalBusinessMarketing,
     "LocalMarketIntelAdmin": LocalMarketIntelAdmin,
     "LocalVisibility": LocalVisibility,
+    "LocationPageAdmin": LocationPageAdmin,
     "MarketingPlanGenerator": MarketingPlanGenerator,
     "MetaConnect": MetaConnect,
     "OauthCallback": OauthCallback,
@@ -276,6 +280,7 @@ export const PAGES = {
     "Platform": Platform,
     "Pricing": Pricing,
     "PrivacyPolicy": PrivacyPolicy,
+    "ProgrammaticSEODashboard": ProgrammaticSEODashboard,
     "Proposal": Proposal,
     "Rebuild-Intake": rebuildIntake,
     "Rebuild": Rebuild,
@@ -284,6 +289,7 @@ export const PAGES = {
     "RebuildProposal": RebuildProposal,
     "RestaurantSocialMedia": RestaurantSocialMedia,
     "ScheduledQueue": ScheduledQueue,
+    "ServiceLocation": ServiceLocation,
     "Services": Services,
     "SetupComplete": SetupComplete,
     "SiteMap": SiteMap,
@@ -316,11 +322,7 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AdaWebsiteCompliance": AdaWebsiteCompliance,
-    "AiAccessibilityChecker": AiAccessibilityChecker,
-    "ServiceLocation": ServiceLocation,
-    "LocationPageAdmin": LocationPageAdmin,
-    "ProgrammaticSEODashboard": ProgrammaticSEODashboard,
+    "HelpAndSupport": HelpAndSupport,
 }
 
 export const pagesConfig = {
