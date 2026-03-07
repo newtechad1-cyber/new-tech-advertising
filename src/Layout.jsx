@@ -11,6 +11,8 @@ export const useViewMode = () => {
   return context;
 };
 
+import ADAComplianceBanner from '@/components/marketing/ADAComplianceBanner';
+
 export default function Layout({ children, currentPageName }) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -56,6 +58,7 @@ export default function Layout({ children, currentPageName }) {
   return (
     <ViewModeContext.Provider value={contextValue}>
       {children}
+      <ADAComplianceBanner />
     </ViewModeContext.Provider>
   );
 }
