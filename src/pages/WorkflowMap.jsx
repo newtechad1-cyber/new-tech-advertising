@@ -768,11 +768,12 @@ export default function WorkflowMap() {
                   <p className="text-slate-400 text-sm">Every page, entity, agent, and workflow step — the full NTA system architecture</p>
                 </div>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-wrap">
                 {[
                   { id: 'pages', label: 'Page Map', icon: BookOpen },
                   { id: 'pipeline', label: 'Pipeline', icon: ArrowRight },
                   { id: 'entities', label: 'Entity Index', icon: Database },
+                  { id: 'routes', label: 'Route Map', icon: GitBranch },
                 ].map(v => {
                   const Icon = v.icon;
                   return (
