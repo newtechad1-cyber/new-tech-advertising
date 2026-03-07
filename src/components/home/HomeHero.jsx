@@ -54,7 +54,7 @@ export default function HomeHero() {
               Start Free Trial <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
-              to={createPageUrl('AiMarketingPlatform')}
+              to={createPageUrl('Demo')}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold text-lg px-8 py-4 rounded-xl transition-all backdrop-blur-sm"
             >
               <Play className="w-4 h-4 fill-white" /> Watch Demo

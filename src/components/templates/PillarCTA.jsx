@@ -18,7 +18,7 @@ export default function PillarCTA({
         <p className="text-slate-400 text-lg mb-8">{subheading}</p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
-            to={primaryHref || createPageUrl('Get-Started')}
+            to={primaryHref || createPageUrl('Start')}
             className="bg-violet-600 hover:bg-violet-500 text-white font-bold px-8 py-3.5 rounded-xl transition-all shadow-lg shadow-violet-600/25 flex items-center justify-center gap-2"
           >
             {primaryText} <ArrowRight className="w-4 h-4" />

@@ -39,7 +39,7 @@ export default function StartSuccess() {
             <LayoutDashboard className="w-5 h-5" /> Go to Dashboard
           </Link>
           <Link
-            to={createPageUrl('AiMarketingPlatform')}
+            to={createPageUrl('Demo')}
             className="flex items-center justify-center gap-2 w-full bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold py-3 rounded-xl transition-all text-sm"
           >
             <Play className="w-4 h-4" /> Watch Demo
