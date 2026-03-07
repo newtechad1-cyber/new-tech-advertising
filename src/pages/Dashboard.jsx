@@ -13,7 +13,23 @@ import ContentSubmissionsView from '../components/dashboard/ContentSubmissionsVi
 import ProposalsView from '../components/dashboard/ProposalsView';
 import SocialAccounts from '../pages/SocialAccounts';
 import { createPageUrl } from '../utils';
-import { AlertTriangle, CheckCircle, ExternalLink } from 'lucide-react';
+import { AlertTriangle, CheckCircle, ExternalLink, CalendarDays, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+function ContentCalendarLink() {
+  return (
+    <div className="flex flex-col items-center justify-center py-20 gap-4">
+      <CalendarDays className="w-12 h-12 text-violet-400" />
+      <h2 className="text-xl font-bold text-slate-900">Content Calendar</h2>
+      <p className="text-slate-500 text-center max-w-sm">View and manage your scheduled social media posts, see what's going out today and this week.</p>
+      <Link to={createPageUrl('ScheduledQueue')}>
+        <Button className="bg-violet-600 hover:bg-violet-700 gap-2">
+          Open Content Calendar <ArrowRight className="w-4 h-4" />
+        </Button>
+      </Link>
+    </div>
+  );
+}
 
 // Tab mapping: URL ?tab= param → internal tab ids
 // /dashboard           → analytics (default)
@@ -123,7 +139,7 @@ export default function Dashboard() {
       case 'subscription':
         return <SubscriptionView />;
       case 'calendar':
-        return <ContentCalendarEmbed />;
+        return <ContentCalendarLink />;
       case 'resources':
         return <ResourcesView />;
       default:
