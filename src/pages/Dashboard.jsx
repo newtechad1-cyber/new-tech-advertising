@@ -15,8 +15,24 @@ import SocialAccounts from '../pages/SocialAccounts';
 import { createPageUrl } from '../utils';
 import { AlertTriangle, CheckCircle, ExternalLink } from 'lucide-react';
 
+// Tab mapping: URL ?tab= param → internal tab ids
+// /dashboard           → analytics (default)
+// /dashboard/content   → link with ?tab=content (ContentStudio redirect)
+// /dashboard/calendar  → link with ?tab=calendar (ScheduledQueue redirect)
+const TAB_MAP = {
+  content: 'submissions',
+  calendar: 'calendar',
+  analytics: 'analytics',
+  social: 'social',
+  proposals: 'proposals',
+  billing: 'subscription',
+  resources: 'resources',
+};
+
 export default function Dashboard() {
-  const [activeTab, setActiveTab] = useState('analytics');
+  const urlParams = new URLSearchParams(window.location.search);
+  const tabParam = urlParams.get('tab');
+  const [activeTab, setActiveTab] = useState(TAB_MAP[tabParam] || 'analytics');
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [clientProfile, setClientProfile] = useState(null);
