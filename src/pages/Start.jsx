@@ -10,6 +10,7 @@ import StartSuccess from '@/components/start/StartSuccess';
 
 export default function Start() {
   const [submitted, setSubmitted] = useState(false);
+  const [trialId, setTrialId] = useState(null);
   const formRef = useRef(null);
 
   // Read optional source attribution from URL params
@@ -24,7 +25,8 @@ export default function Start() {
     formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const handleSuccess = () => {
+  const handleSuccess = ({ trialId: id }) => {
+    setTrialId(id);
     setSubmitted(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -51,7 +53,7 @@ export default function Start() {
 
       {submitted ? (
         <div className="flex-1 bg-slate-950">
-          <StartSuccess />
+          <StartSuccess trialId={trialId} />
         </div>
       ) : (
         <div className="flex-1">
