@@ -179,6 +179,7 @@ import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AdaWebsiteCompliance from './pages/AdaWebsiteCompliance';
 import AiAccessibilityChecker from './pages/AiAccessibilityChecker';
+import ServiceLocation from './pages/ServiceLocation';
 import __Layout from './Layout.jsx';
 
 
@@ -315,6 +316,7 @@ export const PAGES = {
     "YouTubeUploadTest": YouTubeUploadTest,
     "AdaWebsiteCompliance": AdaWebsiteCompliance,
     "AiAccessibilityChecker": AiAccessibilityChecker,
+    "ServiceLocation": ServiceLocation,
 }
 
 export const pagesConfig = {
