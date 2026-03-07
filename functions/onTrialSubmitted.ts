@@ -38,7 +38,7 @@ Deno.serve(async (req) => {
 
     const log = (step, detail = '') => console.log(`[onTrialSubmitted] ${step}${detail ? ': ' + detail : ''}`);
     const industrySlug = (trial.industry || 'general').toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    const updates = {};
+    let updates = {};
 
     // ── STEP 1: Confirm BusinessProfile ─────────────────────────────────────
     log('Step 1', 'Linking BusinessProfile');
