@@ -29,7 +29,7 @@ const SERVICES = [
     title: 'ADA Compliance',
     desc: 'Protect your business from accessibility lawsuits. We audit, fix, and certify your website for WCAG compliance.',
     link: 'AdaAccessibility',
-    cta: 'Free ADA Check',
+    cta: 'Learn More',
   },
   {
     icon: Tv,

@@ -9,7 +9,7 @@ const INDUSTRIES = [
   { label: 'Service Trades', emoji: '⚡', page: 'IndustriesServiceTrades', desc: 'Plumbing, electrical, roofing — built for tradespeople.' },
   { label: 'Professionals', emoji: '💼', page: 'IndustriesProfessionals', desc: 'Attorneys, accountants, consultants — authority content.' },
   { label: 'Nonprofits', emoji: '❤️', page: 'IndustriesNonprofits', desc: 'Mission-driven storytelling and donor engagement.' },
-  { label: 'Local Retail', emoji: '🏪', page: 'IndustriesHub', desc: 'Drive foot traffic and online sales for brick-and-mortar.' },
+  { label: 'Local Retail', emoji: '🏪', page: 'IndustriesSmallLocal', desc: 'Drive foot traffic and online sales for brick-and-mortar.' },
 ];
 
 export default function HomeIndustries() {
@@ -43,6 +43,7 @@ export default function HomeIndustries() {
         <div className="mt-8 text-center">
           <Link
             to={createPageUrl('IndustriesHub')}
+
             className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-semibold text-sm transition-colors"
           >
             See all industries <ArrowRight className="w-4 h-4" />
