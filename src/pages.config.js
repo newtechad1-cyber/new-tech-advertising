@@ -156,6 +156,9 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import Proposal from './pages/Proposal';
+import Platform from './pages/Platform';
+import Services from './pages/Services';
+import Pricing from './pages/Pricing';
 import __Layout from './Layout.jsx';
 
 
@@ -269,6 +272,9 @@ export const PAGES = {
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
     "Proposal": Proposal,
+    "Platform": Platform,
+    "Services": Services,
+    "Pricing": Pricing,
 }
 
 export const pagesConfig = {
