@@ -4,6 +4,7 @@ import SiteFooter from '../components/marketing/SiteFooter';
 import HomeHero from '../components/home/HomeHero';
 import HomeProblem from '../components/home/HomeProblem';
 import HomeGrowthSystem from '../components/home/HomeGrowthSystem';
+import HomeAdaCompliance from '../components/home/HomeAdaCompliance';
 import HomeStreamingTV from '../components/home/HomeStreamingTV';
 import HomeTools from '../components/home/HomeTools';
 import HomeIndustries from '../components/home/HomeIndustries';
@@ -20,6 +21,7 @@ export default function Home() {
         <HomeHero />
         <HomeProblem />
         <HomeGrowthSystem />
+        <HomeAdaCompliance />
         <HomeStreamingTV />
         <HomeTools />
         <HomeIndustries />

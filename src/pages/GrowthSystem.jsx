@@ -6,7 +6,7 @@ import PillarHero from '@/components/templates/PillarHero';
 import PillarSection from '@/components/templates/PillarSection';
 import PillarCTA from '@/components/templates/PillarCTA';
 import InternalLinks from '@/components/templates/InternalLinks';
-import { BrainCircuit, Video, Tv, BarChart2, Globe, Zap, CheckCircle } from 'lucide-react';
+import { BrainCircuit, Video, Tv, BarChart2, Globe, Zap, CheckCircle, Shield } from 'lucide-react';
 
 const SYSTEM_LAYERS = [
   { icon: BrainCircuit, color: 'text-violet-400', bg: 'bg-violet-500/10', label: 'AI Content Engine', desc: 'Automatically generate brand-aligned social posts, captions, and campaign content from your business profile — every week.' },
@@ -14,6 +14,7 @@ const SYSTEM_LAYERS = [
   { icon: Tv, color: 'text-sky-400', bg: 'bg-sky-500/10', label: 'Streaming TV Ads', desc: 'Run local TV commercials on Hulu, Roku, Paramount+, and 30+ streaming platforms — targeted to your exact service area.' },
   { icon: Globe, color: 'text-cyan-400', bg: 'bg-cyan-500/10', label: 'Local SEO & Visibility', desc: 'Dominate Google Maps, local search, and voice search with consistent citations, reviews, and optimized profiles.' },
   { icon: BarChart2, color: 'text-amber-400', bg: 'bg-amber-500/10', label: 'Performance Reporting', desc: 'AI-generated monthly reports with plain-English insights on reach, engagement, top posts, and strategic recommendations.' },
+  { icon: Shield, color: 'text-amber-400', bg: 'bg-amber-500/10', label: 'ADA Website Compliance', desc: 'Make sure your website is accessible and compliant with modern accessibility standards. Protect against lawsuits.' },
   { icon: Zap, color: 'text-green-400', bg: 'bg-green-500/10', label: 'Done-For-You Option', desc: 'Not a DIY person? Our team runs everything — content creation, approvals, scheduling, and optimization. Zero effort from you.' },
 ];
 
