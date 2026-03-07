@@ -1,214 +1,85 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Menu, X, ChevronDown, ChevronRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Menu, X, ChevronDown } from 'lucide-react';
 
 const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png';
-const TRIAL_URL = createPageUrl('TrialStart');
-const LOGIN_URL = createPageUrl('Dashboard');
 
-const NAV_SECTIONS = [
+// ── Canonical route map ────────────────────────────────────────────────────────
+// /              → Home
+// /platform      → AiMarketingPlatform
+// /services      → SocialMediaManagement (hub)
+// /industries    → IndustriesHub
+// /pricing       → Home#pricing
+// /start         → Get-Started
+// /book-call     → Book-Call
+// /free-audit    → Free-Audit
+// /onboarding    → ClientOnboarding
+// /dashboard     → Dashboard
+// /admin         → AdminDashboard
+
+const NAV_LINKS = [
   {
     label: 'Platform',
-    links: [
-      {
-        label: 'AI Marketing Platform',
-        icon: '⚙️',
-        desc: 'Your marketing command center. Create content, schedule posts, generate videos, and manage campaigns from one dashboard.',
-        href: createPageUrl('AiMarketingPlatform'),
-      },
-      {
-        label: 'Social Media Tools',
-        icon: '📱',
-        desc: 'Create and schedule posts in minutes. Generate content with AI and publish across multiple platforms automatically.',
-        href: createPageUrl('AiSocialMedia'),
-      },
-      {
-        label: 'AI Video Studio',
-        icon: '🎬',
-        desc: 'Turn ideas into marketing videos. Create short-form videos, ads, and promotional clips with AI scripts, images, and voice tracks.',
-        href: createPageUrl('AiVideos'),
-      },
-      {
-        label: 'Content Automation',
-        icon: '🤖',
-        desc: 'Never run out of content. Generate weekly marketing plans and social media posts automatically.',
-        href: createPageUrl('AiMarketingPlatform'),
-      },
-      {
-        label: 'Analytics Dashboard',
-        icon: '📊',
-        desc: 'See what\'s working. Track engagement, leads, and campaign performance in one place.',
-        href: createPageUrl('Dashboard'),
-      },
+    href: createPageUrl('AiMarketingPlatform'),
+    children: [
+      { label: 'AI Marketing Platform', href: createPageUrl('AiMarketingPlatform'), desc: 'Your marketing command center' },
+      { label: 'Social Media Tools', href: createPageUrl('AiSocialMedia'), desc: 'Create, schedule, and publish automatically' },
+      { label: 'AI Video Studio', href: createPageUrl('AiVideos'), desc: 'Turn ideas into marketing videos' },
+      { label: 'Analytics Dashboard', href: createPageUrl('Dashboard'), desc: 'Track reach, engagement, and performance' },
     ],
   },
   {
     label: 'Services',
-    links: [
-      {
-        label: 'Social Media Management',
-        icon: '📱',
-        desc: 'DIY tools or full management. Create and schedule posts yourself or let our team run your social media for you.',
-        href: createPageUrl('SocialMediaManagement'),
-      },
-      {
-        label: 'Website Rebuilds',
-        icon: '🌐',
-        desc: 'Modern websites built to perform. Fast, mobile-friendly websites designed to convert visitors into customers.',
-        href: createPageUrl('WebsiteRebuild'),
-      },
-      {
-        label: 'ADA Compliance',
-        icon: '♿',
-        desc: 'Protect your business online. Make your website accessible and compliant with ADA accessibility standards.',
-        href: createPageUrl('AdaAccessibility'),
-      },
-      {
-        label: 'Streaming TV Advertising',
-        icon: '📺',
-        desc: 'Reach customers where they watch. Run targeted ads across Roku, Hulu, Fire TV, and other streaming platforms.',
-        href: createPageUrl('StreamingTV'),
-      },
-      {
-        label: 'Local Visibility',
-        icon: '📍',
-        desc: 'Get found in local searches. Improve rankings on Google Maps and local search results.',
-        href: createPageUrl('LocalVisibility'),
-      },
+    href: createPageUrl('SocialMediaManagement'),
+    children: [
+      { label: 'Social Media Management', href: createPageUrl('SocialMediaManagement'), desc: 'DIY or fully managed social posting' },
+      { label: 'Website Rebuild', href: createPageUrl('WebsiteRebuild'), desc: 'Fast, modern, conversion-focused websites' },
+      { label: 'ADA Compliance', href: createPageUrl('AdaAccessibility'), desc: 'Protect your business from lawsuits' },
+      { label: 'Streaming TV Ads', href: createPageUrl('StreamingTV'), desc: 'Local ads on Hulu, Roku, Paramount+' },
+      { label: 'Local Visibility', href: createPageUrl('LocalVisibility'), desc: 'Dominate Google Maps and local search' },
     ],
   },
   {
     label: 'Industries',
-    links: [
-      {
-        label: 'HVAC Marketing',
-        icon: '🔧',
-        desc: 'Grow service calls and installs. Marketing tools designed for HVAC companies and home service businesses.',
-        href: createPageUrl('HvacMarketing'),
-      },
-      {
-        label: 'Restaurant Marketing',
-        icon: '🍽️',
-        desc: 'Keep tables full. Promotions, social media content, and video marketing designed for restaurants.',
-        href: createPageUrl('RestaurantSocialMedia'),
-      },
-      {
-        label: 'Service Trades',
-        icon: '🛠️',
-        desc: 'Marketing for skilled trades. Perfect for plumbers, electricians, landscapers, and contractors.',
-        href: createPageUrl('IndustriesServiceTrades'),
-      },
-      {
-        label: 'Professional Services',
-        icon: '💼',
-        desc: 'Build credibility and trust. Marketing tools for consultants, accountants, and service professionals.',
-        href: createPageUrl('IndustriesProfessionals'),
-      },
-      {
-        label: 'Nonprofits',
-        icon: '❤️',
-        desc: 'Increase awareness and donations. Content and campaigns designed for nonprofit organizations.',
-        href: createPageUrl('IndustriesNonprofits'),
-      },
+    href: createPageUrl('IndustriesHub'),
+    children: [
+      { label: 'HVAC & Home Services', href: createPageUrl('HvacMarketing'), desc: 'Grow service calls and installs' },
+      { label: 'Restaurants', href: createPageUrl('RestaurantSocialMedia'), desc: 'Keep tables full year-round' },
+      { label: 'Service Trades', href: createPageUrl('IndustriesServiceTrades'), desc: 'Plumbers, electricians, contractors' },
+      { label: 'Professional Services', href: createPageUrl('IndustriesProfessionals'), desc: 'Consultants, legal, accounting' },
+      { label: 'Nonprofits', href: createPageUrl('IndustriesNonprofits'), desc: 'Awareness and donor campaigns' },
     ],
   },
   {
     label: 'Pricing',
-    pricing: true,
-    plans: [
-      { name: 'DIY Starter', price: '$99' },
-      { name: 'DIY Pro', price: '$199' },
-      { name: 'DFY Social', price: '$399' },
-      { name: 'Total Reach Campaign', price: '$899' },
-    ],
-  },
-  {
-    label: 'Resources',
-    links: [
-      {
-        label: 'Our Work',
-        icon: '🖼️',
-        desc: 'See how businesses use NTA. Examples of campaigns, websites, and marketing projects.',
-        href: createPageUrl('OurWork'),
-      },
-      {
-        label: 'Blog',
-        icon: '📝',
-        desc: 'Marketing tips for small businesses. Strategies, insights, and tools to help your business grow.',
-        href: createPageUrl('Blog'),
-      },
-      {
-        label: 'Contact',
-        icon: '💬',
-        desc: 'Talk with our team. Questions about the platform or services? We\'re here to help.',
-        href: createPageUrl('Contact'),
-      },
-    ],
+    href: createPageUrl('Home') + '#pricing',
   },
 ];
 
-function MobileNavSection({ section }) {
-  const [open, setOpen] = useState(false);
-
-  if (section.pricing) {
-    return (
-      <div>
-        <button
-          onClick={() => setOpen(!open)}
-          className="w-full flex items-center justify-between px-4 py-3 text-base font-semibold text-white hover:bg-blue-700 rounded-lg"
-        >
-          {section.label}
-          {open ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
-        </button>
-        {open && (
-          <div className="ml-4 border-l border-blue-500 pl-3 mb-1 space-y-1">
-            <p className="text-blue-200 text-xs px-3 py-1">Start simple and grow when you're ready.</p>
-            {section.plans.map(plan => (
-              <div key={plan.name} className="flex items-center justify-between px-3 py-2 text-sm text-blue-100 rounded-md">
-                <span>{plan.name}</span>
-                <span className="font-bold text-white">{plan.price}</span>
-              </div>
-            ))}
-            <Link to={createPageUrl('Get-Started')} className="block px-3 py-2 text-sm font-semibold text-yellow-300 hover:text-yellow-100" onClick={() => {}}>
-              → Start Free Trial
-            </Link>
-          </div>
-        )}
-      </div>
-    );
-  }
-
+function DropdownMenu({ items, onClose }) {
   return (
-    <div>
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-4 py-3 text-base font-semibold text-white hover:bg-blue-700 rounded-lg"
-      >
-        {section.label}
-        {open ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
-      </button>
-      {open && (
-        <div className="ml-4 border-l border-blue-500 pl-3 mb-1 space-y-0.5">
-          {section.links.map(link => (
-            <a key={link.label} href={link.href} className="flex items-start gap-2 px-3 py-2.5 rounded-md hover:bg-blue-700 group">
-              <span className="text-base mt-0.5 shrink-0">{link.icon}</span>
-              <div>
-                <div className="text-sm font-semibold text-white group-hover:text-yellow-200">{link.label}</div>
-                <div className="text-xs text-blue-200 leading-snug mt-0.5">{link.desc}</div>
-              </div>
-            </a>
-          ))}
-        </div>
-      )}
+    <div className="absolute top-full left-0 mt-1 w-72 bg-white rounded-xl shadow-xl border border-slate-100 py-2 z-50">
+      {items.map(item => (
+        <a
+          key={item.label}
+          href={item.href}
+          onClick={onClose}
+          className="flex flex-col px-4 py-3 hover:bg-slate-50 transition-colors"
+        >
+          <span className="text-sm font-semibold text-slate-900">{item.label}</span>
+          {item.desc && <span className="text-xs text-slate-500 mt-0.5">{item.desc}</span>}
+        </a>
+      ))}
     </div>
   );
 }
 
 export default function MarketingNav() {
-  const [open, setOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
   const [scrolled, setScrolled] = useState(false);
+  const [mobileExpanded, setMobileExpanded] = useState(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -216,95 +87,144 @@ export default function MarketingNav() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handler = () => setActiveDropdown(null);
+    document.addEventListener('click', handler);
+    return () => document.removeEventListener('click', handler);
+  }, []);
+
   return (
-    <div className="sticky top-0 z-50">
-      <div
-        className={`transition-all duration-200 ${scrolled ? 'bg-blue-700/98 backdrop-blur shadow-lg' : ''}`}
-        style={{ background: scrolled ? undefined : 'linear-gradient(135deg, #1d4ed8, #2563eb)' }}
-      >
-        {/* Main header row */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          {/* Left: Hamburger */}
-          <button
-            className="text-white p-2 -ml-2 hover:bg-blue-600/50 rounded-lg transition-colors"
-            onClick={() => setOpen(!open)}
-            aria-label="Open menu"
-          >
-            <Menu className="w-6 h-6" />
-          </button>
+    <nav className={`sticky top-0 z-50 transition-all duration-200 ${scrolled ? 'bg-slate-950/98 backdrop-blur shadow-lg' : 'bg-slate-950'}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-6">
 
-          {/* Center: Logo */}
-          <Link to={createPageUrl('Home')} className="absolute left-1/2 -translate-x-1/2">
-            <img
-              src={LOGO_URL}
-              alt="New Tech Advertising"
-              style={{ height: '52px', width: 'auto', objectFit: 'contain', display: 'block' }}
-            />
-          </Link>
+        {/* Logo */}
+        <Link to={createPageUrl('Home')} className="flex-shrink-0">
+          <img src={LOGO_URL} alt="New Tech Advertising" className="h-10 w-auto" />
+        </Link>
 
-          {/* Right: Login + CTA */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            <a href={LOGIN_URL} className="hidden sm:flex flex-col items-end text-right leading-none">
-              <span className="text-blue-100 hover:text-white text-sm font-medium transition-colors">Client Login</span>
-              <span className="text-blue-300 text-xs mt-0.5">Access your marketing dashboard.</span>
-            </a>
-            <a href={TRIAL_URL}>
-              <Button className="bg-white hover:bg-blue-50 text-blue-700 font-bold px-3 sm:px-5 h-9 text-xs sm:text-sm whitespace-nowrap shadow">
-                Start Free Trial
-              </Button>
-            </a>
-          </div>
+        {/* Desktop nav links */}
+        <div className="hidden lg:flex items-center gap-1 flex-1">
+          {NAV_LINKS.map(link => (
+            <div key={link.label} className="relative">
+              {link.children ? (
+                <button
+                  onClick={e => { e.stopPropagation(); setActiveDropdown(activeDropdown === link.label ? null : link.label); }}
+                  className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-lg transition-colors"
+                >
+                  {link.label}
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeDropdown === link.label ? 'rotate-180' : ''}`} />
+                </button>
+              ) : (
+                <a href={link.href} className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-lg transition-colors">
+                  {link.label}
+                </a>
+              )}
+              {link.children && activeDropdown === link.label && (
+                <DropdownMenu items={link.children} onClose={() => setActiveDropdown(null)} />
+              )}
+            </div>
+          ))}
         </div>
+
+        {/* Desktop CTAs */}
+        <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
+          <Link to={createPageUrl('Dashboard')} className="text-sm text-slate-400 hover:text-white transition-colors font-medium">
+            Client Login
+          </Link>
+          <Link
+            to={createPageUrl('Book-Call')}
+            className="text-sm font-semibold text-slate-300 hover:text-white border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg transition-colors"
+          >
+            Book a Call
+          </Link>
+          <Link
+            to={createPageUrl('Get-Started')}
+            className="bg-violet-600 hover:bg-violet-500 text-white font-bold text-sm px-5 py-2 rounded-lg transition-all shadow-lg shadow-violet-600/20"
+          >
+            Start Free Trial
+          </Link>
+        </div>
+
+        {/* Mobile: hamburger */}
+        <button
+          className="lg:hidden p-2 text-slate-300 hover:text-white"
+          onClick={() => setMobileOpen(!mobileOpen)}
+        >
+          {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
       </div>
 
-      {/* Full-screen slide-out menu */}
-      {open && (
-        <div className="fixed inset-0 z-[100] bg-blue-800 overflow-y-auto">
-          {/* Menu header */}
-          <div className="flex items-center justify-between px-4 py-4 border-b border-blue-600">
-            <Link to={createPageUrl('Home')} onClick={() => setOpen(false)}>
-              <img
-                src={LOGO_URL}
-                alt="New Tech Advertising"
-                style={{ height: '44px', width: 'auto', objectFit: 'contain' }}
-              />
-            </Link>
-            <button
-              onClick={() => setOpen(false)}
-              className="text-white p-2 hover:bg-blue-700 rounded-lg"
-              aria-label="Close menu"
-            >
-              <X className="w-6 h-6" />
-            </button>
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div className="lg:hidden fixed inset-0 top-16 z-40 bg-slate-950 overflow-y-auto">
+          <div className="px-4 py-4 space-y-1">
+            {NAV_LINKS.map(link => (
+              <div key={link.label}>
+                {link.children ? (
+                  <>
+                    <button
+                      onClick={() => setMobileExpanded(mobileExpanded === link.label ? null : link.label)}
+                      className="w-full flex items-center justify-between px-4 py-3 text-base font-semibold text-white rounded-lg hover:bg-slate-800"
+                    >
+                      {link.label}
+                      <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${mobileExpanded === link.label ? 'rotate-180' : ''}`} />
+                    </button>
+                    {mobileExpanded === link.label && (
+                      <div className="ml-4 border-l border-slate-800 pl-3 space-y-0.5 mb-1">
+                        {link.children.map(child => (
+                          <a
+                            key={child.label}
+                            href={child.href}
+                            onClick={() => setMobileOpen(false)}
+                            className="block px-3 py-2.5 rounded-lg hover:bg-slate-800"
+                          >
+                            <div className="text-sm font-medium text-white">{child.label}</div>
+                            {child.desc && <div className="text-xs text-slate-500 mt-0.5">{child.desc}</div>}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <a
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="block px-4 py-3 text-base font-semibold text-white rounded-lg hover:bg-slate-800"
+                  >
+                    {link.label}
+                  </a>
+                )}
+              </div>
+            ))}
           </div>
 
-          {/* Nav sections */}
-          <nav className="px-4 py-4 space-y-1">
-            {NAV_SECTIONS.map(section => (
-              <MobileNavSection key={section.label} section={section} />
-            ))}
-          </nav>
-
-          {/* Bottom CTA */}
-          <div className="px-4 py-6 border-t border-blue-600 mt-4">
-            <div className="bg-blue-900/60 rounded-xl p-5 mb-4">
-              <p className="text-white font-bold text-base mb-1">Start Your 7-Day Free Trial</p>
-              <p className="text-blue-200 text-sm mb-4">Create content, schedule posts, and see how the NTA platform works for your business.</p>
-              <a href={TRIAL_URL} className="block" onClick={() => setOpen(false)}>
-                <Button className="w-full bg-white text-blue-700 hover:bg-blue-50 font-bold py-5 text-base shadow">
-                  Start Free Trial
-                </Button>
-              </a>
-            </div>
-            <a href={LOGIN_URL} className="block" onClick={() => setOpen(false)}>
-              <Button variant="outline" className="w-full border-white text-white hover:bg-blue-700 font-semibold py-5 text-base">
-                Client Login
-              </Button>
-            </a>
-            <p className="text-blue-300 text-xs text-center mt-2">Access your marketing dashboard.</p>
+          {/* Mobile CTAs */}
+          <div className="px-4 py-6 border-t border-slate-800 space-y-3">
+            <Link
+              to={createPageUrl('Get-Started')}
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center justify-center w-full bg-violet-600 hover:bg-violet-500 text-white font-bold py-3 rounded-xl transition-all"
+            >
+              Start Free Trial
+            </Link>
+            <Link
+              to={createPageUrl('Book-Call')}
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center justify-center w-full bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold py-3 rounded-xl transition-all"
+            >
+              Book a Strategy Call
+            </Link>
+            <Link
+              to={createPageUrl('Dashboard')}
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center justify-center w-full text-slate-400 hover:text-white text-sm py-2 transition-colors"
+            >
+              Client Login →
+            </Link>
           </div>
         </div>
       )}
-    </div>
+    </nav>
   );
 }
