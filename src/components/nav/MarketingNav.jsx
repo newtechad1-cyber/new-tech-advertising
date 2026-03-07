@@ -16,25 +16,25 @@ const NAV_SECTIONS = [
         label: 'AI Marketing Platform',
         icon: '⚙️',
         desc: 'Your marketing command center. Create content, schedule posts, generate videos, and manage campaigns from one dashboard.',
-        href: createPageUrl('Home'),
+        href: createPageUrl('AiMarketingPlatform'),
       },
       {
         label: 'Social Media Tools',
         icon: '📱',
         desc: 'Create and schedule posts in minutes. Generate content with AI and publish across multiple platforms automatically.',
-        href: createPageUrl('AiSocialMediaSmallBusiness'),
+        href: createPageUrl('AiSocialMedia'),
       },
       {
         label: 'AI Video Studio',
         icon: '🎬',
         desc: 'Turn ideas into marketing videos. Create short-form videos, ads, and promotional clips with AI scripts, images, and voice tracks.',
-        href: createPageUrl('AiVideoStudio'),
+        href: createPageUrl('AiVideos'),
       },
       {
         label: 'Content Automation',
         icon: '🤖',
         desc: 'Never run out of content. Generate weekly marketing plans and social media posts automatically.',
-        href: createPageUrl('ContentQueue'),
+        href: createPageUrl('AiMarketingPlatform'),
       },
       {
         label: 'Analytics Dashboard',
@@ -63,7 +63,7 @@ const NAV_SECTIONS = [
         label: 'ADA Compliance',
         icon: '♿',
         desc: 'Protect your business online. Make your website accessible and compliant with ADA accessibility standards.',
-        href: createPageUrl('AdaWebsiteLawsuitPrevention'),
+        href: createPageUrl('AdaAccessibility'),
       },
       {
         label: 'Streaming TV Advertising',

@@ -27,7 +27,7 @@ export default function HomeAuthorityPlan() {
               No strategy consultant. No agency kickoff. Just answer a few questions and your entire marketing engine fires up automatically.
             </p>
             <Link
-              to={createPageUrl('TrialStart')}
+              to={createPageUrl('Get-Started')}
               className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-bold px-6 py-3 rounded-xl transition-all shadow-lg shadow-violet-600/30"
             >
               Generate My Authority Plan <ArrowRight className="w-4 h-4" />

@@ -11,7 +11,7 @@ const PLANS = [
     desc: 'Great for solopreneurs and small teams who want AI-powered content without agency costs.',
     features: ['20 AI posts/month', 'Content scheduling', '3 social channels', 'Basic analytics', 'Authority Plan'],
     cta: 'Start Free Trial',
-    link: 'TrialStart',
+    link: 'Get-Started',
     highlight: false,
   },
   {
@@ -21,7 +21,7 @@ const PLANS = [
     desc: 'For growing businesses that need more content, more channels, and AI video capability.',
     features: ['50 AI posts/month', 'Unlimited scheduling', '7 social channels', 'AI Video Studio', 'Advanced analytics', 'Priority support'],
     cta: 'Start Free Trial',
-    link: 'TrialStart',
+    link: 'Get-Started',
     highlight: false,
   },
   {

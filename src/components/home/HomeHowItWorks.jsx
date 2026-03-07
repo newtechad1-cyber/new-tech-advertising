@@ -76,7 +76,7 @@ export default function HomeHowItWorks() {
 
         <div className="mt-10 text-center">
           <Link
-            to={createPageUrl('TrialStart')}
+            to={createPageUrl('Get-Started')}
             className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-violet-600/30 text-lg"
           >
             Start Your Free Trial <ArrowRight className="w-5 h-5" />

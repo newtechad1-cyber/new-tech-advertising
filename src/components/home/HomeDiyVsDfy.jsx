@@ -56,7 +56,7 @@ export default function HomeDiyVsDfy() {
               ))}
             </ul>
             <Link
-              to={createPageUrl('TrialStart')}
+              to={createPageUrl('Get-Started')}
               className="w-full text-center bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2"
             >
               Start Free Trial <ArrowRight className="w-4 h-4" />
