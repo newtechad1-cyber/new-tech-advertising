@@ -47,13 +47,13 @@ export default function GrowthSystem() {
       <MarketingNav />
 
       <PillarHero
-        badge="The NTA Growth System"
+        badge="The Small Business Marketing System"
         heading="Marketing that actually works for small businesses"
-        subheading="New Tech Advertising is not just a tool or an agency. It's a complete small business growth system — combining AI content, video marketing, streaming TV, local SEO, and done-for-you workflows into one platform."
+        subheading="New Tech Advertising is not an agency. It's not just another tool. It's a complete marketing system built specifically for local service businesses — AI content, video, streaming TV, social media, and local SEO in one connected platform."
         primaryCta="Start Free Trial"
         primaryHref={createPageUrl('Get-Started')}
-        secondaryCta="See the Platform"
-        secondaryHref={createPageUrl('AiMarketingPlatform')}
+        secondaryCta="Generate My Free Plan"
+        secondaryHref={createPageUrl('MarketingPlanGenerator')}
       />
 
       {/* What is the Growth System */}
