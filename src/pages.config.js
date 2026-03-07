@@ -161,6 +161,7 @@ import Services from './pages/Services';
 import Pricing from './pages/Pricing';
 import Start from './pages/Start';
 import Admin from './pages/Admin';
+import SiteMap from './pages/SiteMap';
 import __Layout from './Layout.jsx';
 
 
@@ -279,6 +280,7 @@ export const PAGES = {
     "Pricing": Pricing,
     "Start": Start,
     "Admin": Admin,
+    "SiteMap": SiteMap,
 }
 
 export const pagesConfig = {
