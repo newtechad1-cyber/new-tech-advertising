@@ -48,7 +48,7 @@ export default function HomeHero() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
             <Link
-              to={createPageUrl('Get-Started')}
+              to={createPageUrl('Start')}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-bold text-lg px-8 py-4 rounded-xl transition-all shadow-lg shadow-violet-600/30 hover:shadow-violet-500/40 hover:scale-105"
             >
               Start Free Trial <ArrowRight className="w-5 h-5" />

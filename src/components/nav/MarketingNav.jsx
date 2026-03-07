@@ -140,7 +140,7 @@ export default function MarketingNav() {
             Book a Call
           </Link>
           <Link
-            to={createPageUrl('Get-Started')}
+            to={createPageUrl('Start')}
             className="bg-violet-600 hover:bg-violet-500 text-white font-bold text-sm px-5 py-2 rounded-lg transition-all shadow-lg shadow-violet-600/20"
           >
             Start Free Trial
@@ -203,7 +203,7 @@ export default function MarketingNav() {
           {/* Mobile CTAs */}
           <div className="px-4 py-6 border-t border-slate-800 space-y-3">
             <Link
-              to={createPageUrl('Get-Started')}
+              to={createPageUrl('Start')}
               onClick={() => setMobileOpen(false)}
               className="flex items-center justify-center w-full bg-violet-600 hover:bg-violet-500 text-white font-bold py-3 rounded-xl transition-all"
             >
