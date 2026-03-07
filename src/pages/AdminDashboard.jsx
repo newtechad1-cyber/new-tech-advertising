@@ -322,7 +322,11 @@ export default function AdminDashboard() {
             </div>
           ) : (
             <div>
-              {ActiveComponent && <ActiveComponent />}
+              {activeSection === 'help' ? (
+                <AdminHelpSupport onStartWizard={() => setShowWizard(true)} />
+              ) : ActiveComponent ? (
+                <ActiveComponent />
+              ) : null}
             </div>
           )}
         </div>
@@ -331,6 +335,10 @@ export default function AdminDashboard() {
 
       {upgradeModal && (
         <UpgradeModal tile={upgradeModal} onClose={() => setUpgradeModal(null)} />
+      )}
+
+      {showWizard && (
+        <CampaignCreationWizard onClose={() => setShowWizard(false)} />
       )}
     </AdminGuard>
   );
