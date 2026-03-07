@@ -10,6 +10,7 @@ import HomeServices from '../components/home/HomeServices';
 import HomeIndustries from '../components/home/HomeIndustries';
 import HomeHowItWorks from '../components/home/HomeHowItWorks';
 import HomePricing from '../components/home/HomePricing';
+import FeatureMatrix from '../components/marketing/FeatureMatrix';
 import HomeFinalCta from '../components/home/HomeFinalCta';
 
 export default function Home() {
@@ -26,6 +27,7 @@ export default function Home() {
         <HomeIndustries />
         <HomeHowItWorks />
         <HomePricing />
+        <FeatureMatrix />
         <HomeFinalCta />
       </main>
       <SiteFooter />
