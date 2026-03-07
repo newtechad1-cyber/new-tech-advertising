@@ -1,10 +1,18 @@
-import React, { useEffect } from 'react';
-import { createPageUrl } from '@/utils';
+import React from 'react';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
+import HomePricing from '@/components/home/HomePricing';
+import FeatureMatrix from '@/components/marketing/FeatureMatrix';
+import HomeFinalCta from '@/components/home/HomeFinalCta';
 
-// Canonical: /pricing → Home (pricing section on homepage)
 export default function Pricing() {
-  useEffect(() => {
-    window.location.replace(createPageUrl('Home') + '#pricing');
-  }, []);
-  return null;
+  return (
+    <div className="bg-slate-950 min-h-screen">
+      <MarketingNav />
+      <HomePricing />
+      <FeatureMatrix />
+      <HomeFinalCta />
+      <SiteFooter />
+    </div>
+  );
 }
