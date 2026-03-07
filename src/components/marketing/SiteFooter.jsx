@@ -34,9 +34,9 @@ export default function SiteFooter() {
           </ul>
         </div>
         <div>
-          <p className="text-white font-semibold mb-3 text-sm">Contact</p>
+          <p className="text-white font-semibold mb-3 text-sm">Support</p>
           <ul className="space-y-2 text-sm">
-            <li>Mason City, IA</li>
+            <li><a href={createPageUrl('HelpAndSupport')} className="hover:text-white transition-colors">Help & Support</a></li>
             <li><a href="tel:6414208816" className="hover:text-white transition-colors">641-420-8816</a></li>
             <li><a href="mailto:rick@newtechadvertising.com" className="hover:text-white transition-colors">rick@newtechadvertising.com</a></li>
           </ul>
