@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronRight, ChevronLeft, CheckCircle2, ArrowRight, Zap, Share2, Mail, BarChart2, Video, FileText, Users, X } from 'lucide-react';
+import { ChevronRight, ChevronLeft, CheckCircle2, ArrowRight, Zap, Share2, Mail, BarChart2, Video, FileText, Users, X, Crosshair } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils';
 
@@ -14,7 +14,7 @@ const STEPS = [
     id: 'define-goal',
     title: 'Step 1: Define Your Campaign Goal',
     subtitle: 'Choose what you want to achieve',
-    icon: Target
+    icon: Crosshair
   },
   {
     id: 'create-content',
