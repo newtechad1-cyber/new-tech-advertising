@@ -255,6 +255,15 @@ export default function AdminDashboard() {
               </div>
             </div>
             <div className="flex items-center gap-2">
+              <Button 
+                onClick={handleInitializeQueue}
+                disabled={initializeLoading}
+                className="bg-green-600 hover:bg-green-700 text-white"
+                size="sm"
+              >
+                <RefreshCw className={`w-4 h-4 mr-2 ${initializeLoading ? 'animate-spin' : ''}`} />
+                {initializeLoading ? 'Initializing...' : 'Initialize Queue'}
+              </Button>
               <Link to={createPageUrl('ClientDashboardDemo')}>
                 <Button variant="outline" size="sm" className="border-slate-700 text-slate-300 hover:bg-slate-800">
                   See How It Works
