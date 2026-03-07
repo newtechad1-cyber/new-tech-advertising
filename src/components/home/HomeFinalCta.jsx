@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { ArrowRight, Zap } from 'lucide-react';
+import { ArrowRight, Zap, Play } from 'lucide-react';
 
 export default function HomeFinalCta() {
   return (

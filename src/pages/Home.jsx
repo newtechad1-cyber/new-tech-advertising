@@ -3,14 +3,13 @@ import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import HomeHero from '../components/home/HomeHero';
 import HomeProblem from '../components/home/HomeProblem';
-import HomeSolution from '../components/home/HomeSolution';
-import HomeDiyVsDfy from '../components/home/HomeDiyVsDfy';
-import HomeAuthorityPlan from '../components/home/HomeAuthorityPlan';
-import HomeServices from '../components/home/HomeServices';
+import HomeGrowthSystem from '../components/home/HomeGrowthSystem';
+import HomeStreamingTV from '../components/home/HomeStreamingTV';
+import HomeTools from '../components/home/HomeTools';
 import HomeIndustries from '../components/home/HomeIndustries';
 import HomeHowItWorks from '../components/home/HomeHowItWorks';
+import HomeDemoSection from '../components/home/HomeDemoSection';
 import HomePricing from '../components/home/HomePricing';
-import FeatureMatrix from '../components/marketing/FeatureMatrix';
 import HomeFinalCta from '../components/home/HomeFinalCta';
 
 export default function Home() {
@@ -20,14 +19,13 @@ export default function Home() {
       <main>
         <HomeHero />
         <HomeProblem />
-        <HomeSolution />
-        <HomeDiyVsDfy />
-        <HomeAuthorityPlan />
-        <HomeServices />
+        <HomeGrowthSystem />
+        <HomeStreamingTV />
+        <HomeTools />
         <HomeIndustries />
         <HomeHowItWorks />
+        <HomeDemoSection />
         <HomePricing />
-        <FeatureMatrix />
         <HomeFinalCta />
       </main>
       <SiteFooter />
