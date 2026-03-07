@@ -202,6 +202,7 @@ export default function AdminDashboard() {
   const [activeSection, setActiveSection] = useState(null);
   const [upgradeModal, setUpgradeModal] = useState(null);
   const [initializeLoading, setInitializeLoading] = useState(false);
+  const [showWizard, setShowWizard] = useState(false);
 
   const handleInitializeQueue = async () => {
     setInitializeLoading(true);
