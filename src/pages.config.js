@@ -155,6 +155,7 @@ import WebsiteRebuild from './pages/WebsiteRebuild';
 import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
+import Proposal from './pages/Proposal';
 import __Layout from './Layout.jsx';
 
 
@@ -267,6 +268,7 @@ export const PAGES = {
     "WebsiteVideoManager": WebsiteVideoManager,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
+    "Proposal": Proposal,
 }
 
 export const pagesConfig = {

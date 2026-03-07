@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
+import { createPageUrl } from '@/utils';
 
 export default function RebuildIntakePretty() {
   useEffect(() => {
-    window.location.href = '/rebuildintake';
+    window.location.href = createPageUrl('Rebuild-Intake');
   }, []);
 
   return (
