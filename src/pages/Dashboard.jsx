@@ -122,6 +122,8 @@ export default function Dashboard() {
         return <ProposalsView />;
       case 'subscription':
         return <SubscriptionView />;
+      case 'calendar':
+        return <ScheduledQueueEmbed />;
       case 'resources':
         return <ResourcesView />;
       default:
@@ -132,6 +134,7 @@ export default function Dashboard() {
       const navItems = [
       { id: 'analytics', label: 'Overview & Analytics', icon: PieChart },
       { id: 'submissions', label: 'My Content', icon: FolderKanban },
+      { id: 'calendar', label: 'Content Calendar', icon: Share2 },
       { id: 'social', label: 'Social Accounts', icon: Share2 },
       { id: 'proposals', label: 'Proposals', icon: FileText },
       { id: 'subscription', label: 'Subscription & Billing', icon: CreditCard },
