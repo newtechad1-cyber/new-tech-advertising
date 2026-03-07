@@ -8,6 +8,7 @@ import DemoHowItWorks from '@/components/demo/DemoHowItWorks';
 import DemoFeatures from '@/components/demo/DemoFeatures';
 import DemoWeekInTheLife from '@/components/demo/DemoWeekInTheLife';
 import DemoCta from '@/components/demo/DemoCta';
+import DemoScriptSummary from '@/components/demo/DemoScriptSummary';
 
 const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png';
 
