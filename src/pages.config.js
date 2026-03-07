@@ -82,6 +82,8 @@ import AuthorityMap from './pages/AuthorityMap';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import bookCall from './pages/Book-Call';
+import BusinessIntelProfileAdmin from './pages/BusinessIntelProfileAdmin';
+import BusinessProfileAdmin from './pages/BusinessProfileAdmin';
 import CRMHub from './pages/CRMHub';
 import ChatWidget from './pages/ChatWidget';
 import ChatbotManagement from './pages/ChatbotManagement';
@@ -106,6 +108,7 @@ import IndustriesProfessionals from './pages/IndustriesProfessionals';
 import IndustriesServiceTrades from './pages/IndustriesServiceTrades';
 import IndustriesSmallLocal from './pages/IndustriesSmallLocal';
 import Industry from './pages/Industry';
+import IndustryIntelAdmin from './pages/IndustryIntelAdmin';
 import IndustryNonprofit from './pages/IndustryNonprofit';
 import IndustryNonprofits from './pages/IndustryNonprofits';
 import IndustryProfessional from './pages/IndustryProfessional';
@@ -114,9 +117,11 @@ import IndustryServiceTrades from './pages/IndustryServiceTrades';
 import IndustrySmall from './pages/IndustrySmall';
 import IndustrySmallLocal from './pages/IndustrySmallLocal';
 import IndustryTrades from './pages/IndustryTrades';
+import IntelAdmin from './pages/IntelAdmin';
 import LeadDetail from './pages/LeadDetail';
 import LeadsDashboard from './pages/LeadsDashboard';
 import LocalBusinessMarketing from './pages/LocalBusinessMarketing';
+import LocalMarketIntelAdmin from './pages/LocalMarketIntelAdmin';
 import LocalVisibility from './pages/LocalVisibility';
 import MarketingPlanGenerator from './pages/MarketingPlanGenerator';
 import MetaConnect from './pages/MetaConnect';
@@ -125,7 +130,9 @@ import OnboardThankYou from './pages/OnboardThankYou';
 import Onboarding from './pages/Onboarding';
 import OnboardingStart from './pages/OnboardingStart';
 import OperationsHub from './pages/OperationsHub';
+import OpportunitySignalAdmin from './pages/OpportunitySignalAdmin';
 import OurWork from './pages/OurWork';
+import PerformanceSignalAdmin from './pages/PerformanceSignalAdmin';
 import Platform from './pages/Platform';
 import Pricing from './pages/Pricing';
 import PrivacyPolicy from './pages/PrivacyPolicy';
@@ -165,16 +172,9 @@ import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
 import WebsiteVideoManager from './pages/WebsiteVideoManager';
+import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import IntelAdmin from './pages/IntelAdmin';
-import IndustryIntelAdmin from './pages/IndustryIntelAdmin';
-import LocalMarketIntelAdmin from './pages/LocalMarketIntelAdmin';
-import BusinessProfileAdmin from './pages/BusinessProfileAdmin';
-import BusinessIntelProfileAdmin from './pages/BusinessIntelProfileAdmin';
-import OpportunitySignalAdmin from './pages/OpportunitySignalAdmin';
-import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
-import PerformanceSignalAdmin from './pages/PerformanceSignalAdmin';
 import __Layout from './Layout.jsx';
 
 
@@ -214,6 +214,8 @@ export const PAGES = {
     "Blog": Blog,
     "BlogPost": BlogPost,
     "Book-Call": bookCall,
+    "BusinessIntelProfileAdmin": BusinessIntelProfileAdmin,
+    "BusinessProfileAdmin": BusinessProfileAdmin,
     "CRMHub": CRMHub,
     "ChatWidget": ChatWidget,
     "ChatbotManagement": ChatbotManagement,
@@ -238,6 +240,7 @@ export const PAGES = {
     "IndustriesServiceTrades": IndustriesServiceTrades,
     "IndustriesSmallLocal": IndustriesSmallLocal,
     "Industry": Industry,
+    "IndustryIntelAdmin": IndustryIntelAdmin,
     "IndustryNonprofit": IndustryNonprofit,
     "IndustryNonprofits": IndustryNonprofits,
     "IndustryProfessional": IndustryProfessional,
@@ -246,9 +249,11 @@ export const PAGES = {
     "IndustrySmall": IndustrySmall,
     "IndustrySmallLocal": IndustrySmallLocal,
     "IndustryTrades": IndustryTrades,
+    "IntelAdmin": IntelAdmin,
     "LeadDetail": LeadDetail,
     "LeadsDashboard": LeadsDashboard,
     "LocalBusinessMarketing": LocalBusinessMarketing,
+    "LocalMarketIntelAdmin": LocalMarketIntelAdmin,
     "LocalVisibility": LocalVisibility,
     "MarketingPlanGenerator": MarketingPlanGenerator,
     "MetaConnect": MetaConnect,
@@ -257,7 +262,9 @@ export const PAGES = {
     "Onboarding": Onboarding,
     "OnboardingStart": OnboardingStart,
     "OperationsHub": OperationsHub,
+    "OpportunitySignalAdmin": OpportunitySignalAdmin,
     "OurWork": OurWork,
+    "PerformanceSignalAdmin": PerformanceSignalAdmin,
     "Platform": Platform,
     "Pricing": Pricing,
     "PrivacyPolicy": PrivacyPolicy,
@@ -297,16 +304,9 @@ export const PAGES = {
     "Website-Rebuild": websiteRebuild,
     "WebsiteRebuild": WebsiteRebuild,
     "WebsiteVideoManager": WebsiteVideoManager,
+    "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "IntelAdmin": IntelAdmin,
-    "IndustryIntelAdmin": IndustryIntelAdmin,
-    "LocalMarketIntelAdmin": LocalMarketIntelAdmin,
-    "BusinessProfileAdmin": BusinessProfileAdmin,
-    "BusinessIntelProfileAdmin": BusinessIntelProfileAdmin,
-    "OpportunitySignalAdmin": OpportunitySignalAdmin,
-    "WeeklyPlanAdmin": WeeklyPlanAdmin,
-    "PerformanceSignalAdmin": PerformanceSignalAdmin,
 }
 
 export const pagesConfig = {
