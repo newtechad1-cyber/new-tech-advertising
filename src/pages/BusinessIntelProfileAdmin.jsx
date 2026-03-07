@@ -25,12 +25,12 @@ function ScoreBar({ label, value, color = 'bg-violet-500' }) {
   );
 }
 
-function TagSection({ icon: Icon, color, title, items }) {
+function TagSection({ icon: IconComp, color, title, items }) {
   if (!items?.length) return null;
   return (
     <div>
       <div className="flex items-center gap-2 mb-2">
-        <Icon className={`w-4 h-4 ${color}`} />
+        <IconComp className={`w-4 h-4 ${color}`} />
         <h4 className="text-white font-semibold text-sm">{title}</h4>
       </div>
       <div className="flex flex-wrap gap-2">
