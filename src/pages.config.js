@@ -67,6 +67,7 @@ import AdminSettings from './pages/AdminSettings';
 import AdminVideoDetail from './pages/AdminVideoDetail';
 import AdminVideoGenerator from './pages/AdminVideoGenerator';
 import AdminVideoQueue from './pages/AdminVideoQueue';
+import AgentArchitecture from './pages/AgentArchitecture';
 import AiAdvertising from './pages/AiAdvertising';
 import AiMarketingPlatform from './pages/AiMarketingPlatform';
 import AiOperations from './pages/AiOperations';
@@ -153,7 +154,7 @@ import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
 import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AgentArchitecture from './pages/AgentArchitecture';
+import WorkflowMap from './pages/WorkflowMap';
 import __Layout from './Layout.jsx';
 
 
@@ -178,6 +179,7 @@ export const PAGES = {
     "AdminVideoDetail": AdminVideoDetail,
     "AdminVideoGenerator": AdminVideoGenerator,
     "AdminVideoQueue": AdminVideoQueue,
+    "AgentArchitecture": AgentArchitecture,
     "AiAdvertising": AiAdvertising,
     "AiMarketingPlatform": AiMarketingPlatform,
     "AiOperations": AiOperations,
@@ -264,7 +266,7 @@ export const PAGES = {
     "WebsiteRebuild": WebsiteRebuild,
     "WebsiteVideoManager": WebsiteVideoManager,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AgentArchitecture": AgentArchitecture,
+    "WorkflowMap": WorkflowMap,
 }
 
 export const pagesConfig = {

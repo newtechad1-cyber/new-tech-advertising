@@ -95,6 +95,7 @@ const CATEGORIES = [
       { id: 'onboarding-queue', label: 'Trial Onboarding Queue', icon: Users, color: 'bg-green-600', description: 'Review & configure new trial accounts', link: 'AdminOnboardingQueue' },
       { id: 'ai-operations', label: 'AI Operations', icon: Cpu, color: 'bg-violet-800', description: 'Tasks, budgets, cost ledger & memory', link: 'AiOperations' },
       { id: 'agent-architecture', label: 'Agent Architecture', icon: BrainCircuit, color: 'bg-fuchsia-700', description: '22-agent event-driven business system', link: 'AgentArchitecture' },
+      { id: 'workflow-map', label: 'Workflow Map', icon: Wrench, color: 'bg-teal-700', description: 'Master page → entity → agent architecture map', link: 'WorkflowMap' },
     ]
   },
 ];
