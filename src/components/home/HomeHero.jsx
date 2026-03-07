@@ -89,35 +89,11 @@ export default function HomeHero() {
                 app.newtechadvertising.com/dashboard
               </div>
             </div>
-            <div className="p-5 grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-950">
-              {[
-                { label: 'Posts Scheduled', value: '24', sub: 'This month', color: 'text-violet-400' },
-                { label: 'Avg. Reach', value: '4,820', sub: '+18% vs last month', color: 'text-cyan-400' },
-                { label: 'Content Items', value: '96', sub: 'AI-generated', color: 'text-green-400' },
-              ].map(stat => (
-                <div key={stat.label} className="bg-slate-900 border border-slate-800 rounded-xl p-4">
-                  <p className="text-slate-500 text-xs uppercase tracking-wide mb-1">{stat.label}</p>
-                  <p className={`text-3xl font-bold ${stat.color}`}>{stat.value}</p>
-                  <p className="text-slate-500 text-xs mt-1">{stat.sub}</p>
-                </div>
-              ))}
-              <div className="md:col-span-3 bg-slate-900 border border-slate-800 rounded-xl p-4">
-                <p className="text-slate-400 text-xs font-semibold mb-3 uppercase tracking-wide">Upcoming Posts This Week</p>
-                <div className="space-y-2">
-                  {[
-                    { platform: 'Facebook', caption: '🔥 Don\'t miss our spring sale — 20% off all services this week only!', status: 'Scheduled', color: 'bg-blue-600' },
-                    { platform: 'Instagram', caption: '✨ Behind the scenes at our team meetup. Real people, real results.', status: 'Approved', color: 'bg-pink-600' },
-                    { platform: 'LinkedIn', caption: '📈 How we helped a local HVAC company grow their social reach by 340%...', status: 'Draft', color: 'bg-sky-600' },
-                  ].map((post, i) => (
-                    <div key={i} className="flex items-center gap-3 text-xs">
-                      <span className={`${post.color} text-white px-2 py-0.5 rounded font-medium text-[10px] w-20 text-center flex-shrink-0`}>{post.platform}</span>
-                      <span className="text-slate-400 truncate flex-1">{post.caption}</span>
-                      <span className={`text-[10px] px-2 py-0.5 rounded-full flex-shrink-0 ${post.status === 'Scheduled' ? 'bg-green-900 text-green-300' : post.status === 'Approved' ? 'bg-violet-900 text-violet-300' : 'bg-slate-800 text-slate-400'}`}>{post.status}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            <img
+              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/c74887154_generated_image.png"
+              alt="NTA Dashboard — Website Management, Social Media, CRM, AI Content Engine"
+              className="w-full block"
+            />
           </div>
           <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-slate-950" />
         </div>
