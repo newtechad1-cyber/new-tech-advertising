@@ -96,7 +96,9 @@ import DebugOAuthConnections from './pages/DebugOAuthConnections';
 import freeAudit from './pages/Free-Audit';
 import getStarted from './pages/Get-Started';
 import GlobalSettings from './pages/GlobalSettings';
+import GrowthSystem from './pages/GrowthSystem';
 import Home from './pages/Home';
+import HvacIndustry from './pages/HvacIndustry';
 import HvacMarketing from './pages/HvacMarketing';
 import IndustriesHub from './pages/IndustriesHub';
 import IndustriesNonprofits from './pages/IndustriesNonprofits';
@@ -116,6 +118,7 @@ import LeadDetail from './pages/LeadDetail';
 import LeadsDashboard from './pages/LeadsDashboard';
 import LocalBusinessMarketing from './pages/LocalBusinessMarketing';
 import LocalVisibility from './pages/LocalVisibility';
+import MarketingPlanGenerator from './pages/MarketingPlanGenerator';
 import MetaConnect from './pages/MetaConnect';
 import OauthCallback from './pages/OauthCallback';
 import OnboardThankYou from './pages/OnboardThankYou';
@@ -150,10 +153,12 @@ import StreamingOnboarding from './pages/StreamingOnboarding';
 import StreamingProposal from './pages/StreamingProposal';
 import StreamingTV from './pages/StreamingTV';
 import StreamingThankYou from './pages/StreamingThankYou';
+import StreamingTvAdvertising from './pages/StreamingTvAdvertising';
 import TermsOfService from './pages/TermsOfService';
 import TrialOnboarding from './pages/TrialOnboarding';
 import TrialSlug from './pages/TrialSlug';
 import TrialStart from './pages/TrialStart';
+import TvCommercialScriptGenerator from './pages/TvCommercialScriptGenerator';
 import TvVideo from './pages/TvVideo';
 import VideoDetail from './pages/VideoDetail';
 import VideoIndex from './pages/VideoIndex';
@@ -162,11 +167,14 @@ import WebsiteRebuild from './pages/WebsiteRebuild';
 import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import GrowthSystem from './pages/GrowthSystem';
-import StreamingTvAdvertising from './pages/StreamingTvAdvertising';
-import HvacIndustry from './pages/HvacIndustry';
-import TvCommercialScriptGenerator from './pages/TvCommercialScriptGenerator';
-import MarketingPlanGenerator from './pages/MarketingPlanGenerator';
+import IntelAdmin from './pages/IntelAdmin';
+import IndustryIntelAdmin from './pages/IndustryIntelAdmin';
+import LocalMarketIntelAdmin from './pages/LocalMarketIntelAdmin';
+import BusinessProfileAdmin from './pages/BusinessProfileAdmin';
+import BusinessIntelProfileAdmin from './pages/BusinessIntelProfileAdmin';
+import OpportunitySignalAdmin from './pages/OpportunitySignalAdmin';
+import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
+import PerformanceSignalAdmin from './pages/PerformanceSignalAdmin';
 import __Layout from './Layout.jsx';
 
 
@@ -220,7 +228,9 @@ export const PAGES = {
     "Free-Audit": freeAudit,
     "Get-Started": getStarted,
     "GlobalSettings": GlobalSettings,
+    "GrowthSystem": GrowthSystem,
     "Home": Home,
+    "HvacIndustry": HvacIndustry,
     "HvacMarketing": HvacMarketing,
     "IndustriesHub": IndustriesHub,
     "IndustriesNonprofits": IndustriesNonprofits,
@@ -240,6 +250,7 @@ export const PAGES = {
     "LeadsDashboard": LeadsDashboard,
     "LocalBusinessMarketing": LocalBusinessMarketing,
     "LocalVisibility": LocalVisibility,
+    "MarketingPlanGenerator": MarketingPlanGenerator,
     "MetaConnect": MetaConnect,
     "OauthCallback": OauthCallback,
     "OnboardThankYou": OnboardThankYou,
@@ -274,10 +285,12 @@ export const PAGES = {
     "StreamingProposal": StreamingProposal,
     "StreamingTV": StreamingTV,
     "StreamingThankYou": StreamingThankYou,
+    "StreamingTvAdvertising": StreamingTvAdvertising,
     "TermsOfService": TermsOfService,
     "TrialOnboarding": TrialOnboarding,
     "TrialSlug": TrialSlug,
     "TrialStart": TrialStart,
+    "TvCommercialScriptGenerator": TvCommercialScriptGenerator,
     "TvVideo": TvVideo,
     "VideoDetail": VideoDetail,
     "VideoIndex": VideoIndex,
@@ -286,11 +299,14 @@ export const PAGES = {
     "WebsiteVideoManager": WebsiteVideoManager,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "GrowthSystem": GrowthSystem,
-    "StreamingTvAdvertising": StreamingTvAdvertising,
-    "HvacIndustry": HvacIndustry,
-    "TvCommercialScriptGenerator": TvCommercialScriptGenerator,
-    "MarketingPlanGenerator": MarketingPlanGenerator,
+    "IntelAdmin": IntelAdmin,
+    "IndustryIntelAdmin": IndustryIntelAdmin,
+    "LocalMarketIntelAdmin": LocalMarketIntelAdmin,
+    "BusinessProfileAdmin": BusinessProfileAdmin,
+    "BusinessIntelProfileAdmin": BusinessIntelProfileAdmin,
+    "OpportunitySignalAdmin": OpportunitySignalAdmin,
+    "WeeklyPlanAdmin": WeeklyPlanAdmin,
+    "PerformanceSignalAdmin": PerformanceSignalAdmin,
 }
 
 export const pagesConfig = {
