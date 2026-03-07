@@ -32,6 +32,19 @@ const NAV_GROUPS = [
     ],
   },
   {
+    label: 'Intelligence',
+    items: [
+      { label: 'Intel Hub', icon: Bot, page: 'IntelAdmin' },
+      { label: 'Industry Intel', icon: Bot, page: 'IndustryIntelAdmin' },
+      { label: 'Local Market Intel', icon: Globe, page: 'LocalMarketIntelAdmin' },
+      { label: 'Business Profiles', icon: Users, page: 'BusinessProfileAdmin' },
+      { label: 'Marketing Brain', icon: TrendingUp, page: 'BusinessIntelProfileAdmin' },
+      { label: 'Opportunities', icon: TrendingUp, page: 'OpportunitySignalAdmin' },
+      { label: 'Weekly Plans', icon: LayoutDashboard, page: 'WeeklyPlanAdmin' },
+      { label: 'Performance Signals', icon: Share2, page: 'PerformanceSignalAdmin' },
+    ],
+  },
+  {
     label: 'Platform',
     items: [
       { label: 'Blog', icon: FileText, page: 'AdminBlog' },
