@@ -48,14 +48,7 @@ const STEPS = [
   }
 ];
 
-// Simple Target icon since it may not be in lucide
-const Target = ({ className }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <circle cx="12" cy="12" r="1" fill="currentColor" />
-    <circle cx="12" cy="12" r="5" fill="none" strokeWidth="2" />
-    <circle cx="12" cy="12" r="9" fill="none" strokeWidth="2" />
-  </svg>
-);
+
 
 const CAMPAIGN_GOALS = [
   { id: 'traffic', label: 'Drive Website Traffic', description: 'Create content to boost SEO and visitor numbers' },
