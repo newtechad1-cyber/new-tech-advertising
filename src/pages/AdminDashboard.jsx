@@ -199,6 +199,19 @@ function ModuleTile({ tile, onOpen }) {
 export default function AdminDashboard() {
   const [activeSection, setActiveSection] = useState(null);
   const [upgradeModal, setUpgradeModal] = useState(null);
+  const [initializeLoading, setInitializeLoading] = useState(false);
+
+  const handleInitializeQueue = async () => {
+    setInitializeLoading(true);
+    try {
+      const { data } = await base44.functions.invoke('initializeProgrammaticSEOQueue', { reset: true });
+      alert('Queue initialized! ' + data.message);
+    } catch (error) {
+      alert('Error: ' + error.message);
+    } finally {
+      setInitializeLoading(false);
+    }
+  };
 
   const handleTileOpen = (tile) => {
     if (LOCKED_MODULE_IDS.has(tile.id)) {
