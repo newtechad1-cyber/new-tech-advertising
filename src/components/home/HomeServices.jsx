@@ -80,12 +80,20 @@ export default function HomeServices() {
                 </div>
                 <h3 className="text-white font-bold text-base mb-2">{service.title}</h3>
                 <p className="text-slate-400 text-sm leading-relaxed flex-1 mb-5">{service.desc}</p>
-                <Link
-                  to={createPageUrl(service.link)}
-                  className="inline-flex items-center gap-1 text-sm font-semibold text-violet-400 hover:text-violet-300 transition-colors"
-                >
-                  {service.cta} <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
+                <div className="flex items-center gap-4">
+                  <Link
+                    to={createPageUrl(service.link)}
+                    className="inline-flex items-center gap-1 text-sm font-semibold text-violet-400 hover:text-violet-300 transition-colors"
+                  >
+                    {service.cta} <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                  <Link
+                    to={createPageUrl(service.intakeLink)}
+                    className="inline-flex items-center gap-1 text-sm font-semibold text-slate-400 hover:text-white transition-colors"
+                  >
+                    Get Started →
+                  </Link>
+                </div>
               </div>
             );
           })}
