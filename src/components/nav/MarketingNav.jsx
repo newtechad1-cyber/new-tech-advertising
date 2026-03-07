@@ -130,8 +130,8 @@ export default function MarketingNav() {
           <Link to={createPageUrl('Dashboard')} className="text-sm text-slate-400 hover:text-white transition-colors font-medium">
             Client Login
           </Link>
-          <Link to={createPageUrl('Admin')} className="text-xs text-slate-600 hover:text-slate-400 transition-colors font-medium">
-            Admin
+          <Link to={createPageUrl('AdminDashboard')} className="text-sm text-slate-400 hover:text-white transition-colors font-medium border border-slate-700 hover:border-slate-500 px-3 py-1.5 rounded-lg">
+            Admin Login
           </Link>
           <Link
             to={createPageUrl('Book-Call')}
