@@ -184,7 +184,7 @@ Keep it tight to the ${form.duration} duration. Write conversational, spoken-wor
                   <p className="text-slate-400 text-xs mb-4">Our team will produce your commercial and launch it on Hulu, Roku, and 30+ streaming platforms.</p>
                   <div className="flex flex-col sm:flex-row gap-2 justify-center">
                     <a href={createPageUrl('Book-Call')} className="bg-violet-600 hover:bg-violet-500 text-white font-bold text-sm px-5 py-2.5 rounded-xl transition-all">Book a Call to Launch This Ad</a>
-                    <a href={createPageUrl('Get-Started')} className="border border-slate-700 hover:border-slate-500 text-slate-300 font-semibold text-sm px-5 py-2.5 rounded-xl transition-all">Start Free Trial</a>
+                    <a href={`${createPageUrl('Start')}?source=tv-script-generator&tool=tv-commercial-script-generator`} className="border border-slate-700 hover:border-slate-500 text-slate-300 font-semibold text-sm px-5 py-2.5 rounded-xl transition-all">Start Free Trial</a>
                   </div>
                 </div>
               </div>
