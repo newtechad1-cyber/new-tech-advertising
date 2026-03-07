@@ -120,6 +120,7 @@ const SECTION_COMPONENTS = {
   portfolio: PortfolioManagement,
   analytics: GoogleAnalyticsView,
   'social-accounts': SocialAccounts,
+  help: AdminHelpSupport,
 };
 
 function UpgradeModal({ tile, onClose }) {
