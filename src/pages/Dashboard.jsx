@@ -123,7 +123,7 @@ export default function Dashboard() {
       case 'subscription':
         return <SubscriptionView />;
       case 'calendar':
-        return <ScheduledQueueEmbed />;
+        return <ContentCalendarEmbed />;
       case 'resources':
         return <ResourcesView />;
       default:
