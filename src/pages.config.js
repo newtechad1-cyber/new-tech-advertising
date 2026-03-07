@@ -159,6 +159,8 @@ import Proposal from './pages/Proposal';
 import Platform from './pages/Platform';
 import Services from './pages/Services';
 import Pricing from './pages/Pricing';
+import Start from './pages/Start';
+import Admin from './pages/Admin';
 import __Layout from './Layout.jsx';
 
 
@@ -275,6 +277,8 @@ export const PAGES = {
     "Platform": Platform,
     "Services": Services,
     "Pricing": Pricing,
+    "Start": Start,
+    "Admin": Admin,
 }
 
 export const pagesConfig = {
