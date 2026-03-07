@@ -17,6 +17,13 @@ const SYSTEM_LAYERS = [
   { icon: Zap, color: 'text-green-400', bg: 'bg-green-500/10', label: 'Done-For-You Option', desc: 'Not a DIY person? Our team runs everything — content creation, approvals, scheduling, and optimization. Zero effort from you.' },
 ];
 
+const PROBLEMS = [
+  { label: 'No time', desc: 'You\'re running your business — marketing falls off every week.' },
+  { label: 'No team', desc: 'Hiring a marketer or agency costs more than most small businesses can afford.' },
+  { label: 'No system', desc: 'You\'re using 5–10 tools that don\'t talk to each other and still get inconsistent results.' },
+  { label: 'No clarity', desc: 'You don\'t know what\'s working, what to prioritize, or what to do next.' },
+];
+
 const OUTCOMES = [
   'More leads from social, search, and streaming TV',
   'A consistent online presence — even when you\'re busy',
