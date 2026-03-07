@@ -36,13 +36,14 @@ export default function Demo() {
       </header>
 
       <div className="flex-1">
-        <DemoHero onPlayVideo={scrollToVideo} />
-        <DemoVideo videoRef={videoRef} />
-        <DemoHowItWorks />
-        <DemoFeatures />
-        <DemoWeekInTheLife />
-        <DemoCta />
-      </div>
+         <DemoHero onPlayVideo={scrollToVideo} />
+         <DemoVideo videoRef={videoRef} />
+         <DemoHowItWorks />
+         <DemoFeatures />
+         <DemoWeekInTheLife />
+         <DemoScriptSummary />
+         <DemoCta />
+       </div>
 
       <SiteFooter />
     </div>
