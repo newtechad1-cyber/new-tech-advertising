@@ -910,6 +910,146 @@ export default function WorkflowMap() {
               </div>
             )}
 
+            {/* ── View: Route Map ── */}
+            {activeView === 'routes' && (
+              <div className="space-y-6">
+                <div className="flex items-start justify-between gap-4 flex-wrap">
+                  <div>
+                    <h2 className="text-white font-bold text-lg">Canonical Route Map</h2>
+                    <p className="text-slate-400 text-sm">The locked-down URL structure for the entire NTA system.</p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const tree = `/ (Home)\n├ platform\n│  ├ ai-marketing-platform\n│  ├ social-media-tools\n│  ├ video-studio\n│  ├ content-automation\n│  └ analytics\n├ services\n│  ├ social-media-management\n│  ├ website-rebuild\n│  ├ ada-compliance\n│  ├ streaming-tv\n│  └ local-visibility\n├ industries\n│  ├ hvac\n│  ├ restaurants\n│  ├ service-trades\n│  ├ professionals\n│  └ nonprofits\n├ pricing\n├ about\n├ contact\n├ blog\n├ start\n├ free-audit\n├ book-call\n├ onboarding\n│  ├ start\n│  ├ profile\n│  └ complete\n├ dashboard\n│  ├ content\n│  ├ calendar\n│  ├ video\n│  ├ social\n│  ├ analytics\n│  ├ reports\n│  ├ settings\n│  └ billing\n├ funnels\n│  ├ rebuild-intake\n│  ├ ada-intake\n│  └ streaming-intake\n├ proposal/:id\n└ admin\n   ├ leads\n   ├ opportunities\n   ├ onboarding\n   ├ projects\n   ├ video-queue\n   ├ agent-jobs\n   ├ invoices\n   └ settings`;
+                      navigator.clipboard.writeText(tree);
+                    }}
+                    className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm px-3 py-2 rounded-lg transition-colors"
+                  >
+                    <Copy className="w-3.5 h-3.5" /> Copy Route Tree
+                  </button>
+                </div>
+
+                {/* Route tree visual */}
+                <div className="bg-slate-900 border border-slate-700 rounded-2xl p-5">
+                  <pre className="text-sm font-mono text-slate-300 leading-relaxed overflow-x-auto whitespace-pre">{`/
+├── platform/
+│   ├── ai-marketing-platform
+│   ├── social-media-tools
+│   ├── video-studio
+│   ├── content-automation
+│   └── analytics
+├── services/
+│   ├── social-media-management
+│   ├── website-rebuild
+│   ├── ada-compliance
+│   ├── streaming-tv
+│   └── local-visibility
+├── industries/
+│   ├── hvac
+│   ├── restaurants
+│   ├── service-trades
+│   ├── professionals
+│   └── nonprofits
+├── pricing
+├── about
+├── contact
+├── blog/  (:slug)
+├── our-work
+├── start               ← trial signup
+├── free-audit
+├── book-call
+├── onboarding/
+│   ├── start
+│   ├── profile
+│   └── complete
+├── dashboard/          ← auth required
+│   ├── content
+│   ├── calendar
+│   ├── video
+│   ├── social
+│   ├── analytics
+│   ├── reports
+│   ├── settings
+│   └── billing
+├── funnels/
+│   ├── rebuild-intake
+│   ├── ada-intake
+│   └── streaming-intake
+├── proposal/:id
+└── admin/              ← admin only
+    ├── leads
+    ├── opportunities
+    ├── onboarding
+    ├── projects
+    ├── video-queue
+    ├── agent-jobs
+    ├── invoices
+    └── settings`}</pre>
+                </div>
+
+                {/* Canonical route groups */}
+                {CANONICAL_ROUTES.map(group => (
+                  <div key={group.group} className={`border rounded-2xl overflow-hidden ${group.border}`}>
+                    <div className={`px-5 py-3 ${group.bg}`}>
+                      <h3 className={`font-bold text-sm ${group.color}`}>{group.group}</h3>
+                    </div>
+                    <div className="divide-y divide-slate-800">
+                      {group.routes.map(r => (
+                        <div key={r.path} className="px-5 py-3 grid grid-cols-1 md:grid-cols-4 gap-2 text-sm hover:bg-slate-900/50">
+                          <div>
+                            <code className="text-violet-300 font-mono text-xs bg-slate-800 px-2 py-0.5 rounded">{r.path}</code>
+                          </div>
+                          <div>
+                            <span className="text-white text-xs">{r.label}</span>
+                          </div>
+                          <div>
+                            <span className="text-slate-500 text-xs">Page: </span>
+                            <span className="text-slate-400 text-xs font-mono">{r.page}</span>
+                          </div>
+                          <div className="text-xs text-slate-500">
+                            {r.writes && <span className="text-violet-400">writes: {r.writes}</span>}
+                            {r.reads && <span className="text-blue-400">reads: {r.reads}</span>}
+                            {r.triggers && <div className="text-amber-400">triggers: {r.triggers}</div>}
+                            {r.next && <div className="text-green-400">→ {r.next}</div>}
+                            {r.cta && <div className="text-slate-500">cta: {r.cta}</div>}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+
+                {/* Redirect rules */}
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <AlertTriangle className="w-4 h-4 text-amber-400" />
+                    <h3 className="text-white font-bold text-base">Redirect Rules — Duplicate Pages to Deprecate</h3>
+                  </div>
+                  <p className="text-slate-400 text-sm mb-4">{REDIRECT_RULES.length} pages that should redirect to canonical routes.</p>
+                  <div className="bg-slate-900 border border-slate-700 rounded-2xl overflow-hidden">
+                    <div className="grid grid-cols-3 px-5 py-2 bg-slate-800 text-slate-400 text-xs font-semibold uppercase tracking-wide">
+                      <span>Old Page</span>
+                      <span>→ Canonical Route</span>
+                      <span>Reason</span>
+                    </div>
+                    <div className="divide-y divide-slate-800 max-h-[500px] overflow-y-auto">
+                      {REDIRECT_RULES.map(r => (
+                        <div key={r.from} className="grid grid-cols-3 px-5 py-2.5 text-xs hover:bg-slate-800/40">
+                          <code className="text-rose-300 font-mono">{r.from}</code>
+                          <code className="text-green-300 font-mono">{r.to}</code>
+                          <span className="text-slate-500">{r.reason}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="mt-3 flex items-center gap-2 text-xs text-slate-500">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-green-400" />
+                    {REDIRECT_RULES.length} redirect rules defined — implement these as 301 redirects in your hosting config or as redirect components in Base44.
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* ── View: Page Map ── */}
             {activeView === 'pages' && (
               <div className="space-y-4">
