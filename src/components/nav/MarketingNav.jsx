@@ -20,31 +20,21 @@ const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/pub
 
 const NAV_LINKS = [
   {
-    label: 'Platform',
-    href: createPageUrl('AiMarketingPlatform'),
+    label: 'Growth System',
+    href: createPageUrl('GrowthSystem'),
     children: [
-      { label: 'AI Marketing Platform', href: createPageUrl('AiMarketingPlatform'), desc: 'Your marketing command center' },
+      { label: 'The NTA Growth System', href: createPageUrl('GrowthSystem'), desc: 'Our complete small business marketing system' },
+      { label: 'AI Marketing Platform', href: createPageUrl('AiMarketingPlatform'), desc: 'Every tool in one place' },
       { label: 'Social Media Tools', href: createPageUrl('AiSocialMedia'), desc: 'Create, schedule, and publish automatically' },
       { label: 'AI Video Studio', href: createPageUrl('AiVideos'), desc: 'Turn ideas into marketing videos' },
-      { label: 'Analytics Dashboard', href: createPageUrl('Dashboard'), desc: 'Track reach, engagement, and performance' },
-    ],
-  },
-  {
-    label: 'Services',
-    href: createPageUrl('SocialMediaManagement'),
-    children: [
-      { label: 'Social Media Management', href: createPageUrl('SocialMediaManagement'), desc: 'DIY or fully managed social posting' },
-      { label: 'Website Rebuild', href: createPageUrl('WebsiteRebuild'), desc: 'Fast, modern, conversion-focused websites' },
-      { label: 'ADA Compliance', href: createPageUrl('AdaAccessibility'), desc: 'Protect your business from lawsuits' },
-      { label: 'Streaming TV Ads', href: createPageUrl('StreamingTV'), desc: 'Local ads on Hulu, Roku, Paramount+' },
-      { label: 'Local Visibility', href: createPageUrl('LocalVisibility'), desc: 'Dominate Google Maps and local search' },
+      { label: 'Streaming TV Ads', href: createPageUrl('StreamingTvAdvertising'), desc: 'Local ads on Hulu, Roku, Paramount+' },
     ],
   },
   {
     label: 'Industries',
     href: createPageUrl('IndustriesHub'),
     children: [
-      { label: 'HVAC & Home Services', href: createPageUrl('HvacMarketing'), desc: 'Grow service calls and installs' },
+      { label: 'HVAC & Home Services', href: createPageUrl('HvacIndustry'), desc: 'Grow service calls and installs' },
       { label: 'Restaurants', href: createPageUrl('RestaurantSocialMedia'), desc: 'Keep tables full year-round' },
       { label: 'Service Trades', href: createPageUrl('IndustriesServiceTrades'), desc: 'Plumbers, electricians, contractors' },
       { label: 'Professional Services', href: createPageUrl('IndustriesProfessionals'), desc: 'Consultants, legal, accounting' },
@@ -52,8 +42,16 @@ const NAV_LINKS = [
     ],
   },
   {
+    label: 'Tools',
+    href: createPageUrl('TvCommercialScriptGenerator'),
+    children: [
+      { label: 'TV Commercial Script Generator', href: createPageUrl('TvCommercialScriptGenerator'), desc: 'Generate a streaming TV ad script free' },
+      { label: 'Marketing Plan Generator', href: createPageUrl('MarketingPlanGenerator'), desc: 'Build your 90-day marketing plan free' },
+    ],
+  },
+  {
     label: 'Pricing',
-    href: createPageUrl('Home') + '#pricing',
+    href: createPageUrl('Pricing'),
   },
 ];
 
