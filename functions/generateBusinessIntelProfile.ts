@@ -48,8 +48,7 @@ Deno.serve(async (req) => {
     if (!business_profile_id) return Response.json({ error: 'business_profile_id required' }, { status: 400 });
 
     // Load business profile
-    const bpList = await base44.asServiceRole.entities.BusinessProfile.filter({ id: business_profile_id });
-    const bp = bpList[0];
+    const bp = await base44.asServiceRole.entities.BusinessProfile.get(business_profile_id);
     if (!bp) return Response.json({ error: 'BusinessProfile not found' }, { status: 404 });
 
     // Load IndustryIntel
