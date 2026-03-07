@@ -11,6 +11,7 @@ const SERVICES = [
     title: 'Social Media Management',
     desc: 'AI-generated posts, scheduling, and publishing across Facebook, Instagram, LinkedIn, TikTok, and more.',
     link: 'SocialMediaManagement',
+    intakeLink: 'Get-Started',
     cta: 'Learn More',
   },
   {
@@ -20,6 +21,7 @@ const SERVICES = [
     title: 'Website Rebuild',
     desc: 'Modern, conversion-focused websites built for local businesses. ADA compliant, mobile-first, and SEO-ready.',
     link: 'WebsiteRebuild',
+    intakeLink: 'Rebuild-Intake',
     cta: 'Learn More',
   },
   {
@@ -29,6 +31,7 @@ const SERVICES = [
     title: 'ADA Compliance',
     desc: 'Protect your business from accessibility lawsuits. We audit, fix, and certify your website for WCAG compliance.',
     link: 'AdaAccessibility',
+    intakeLink: 'AdaIntake',
     cta: 'Learn More',
   },
   {
@@ -38,6 +41,7 @@ const SERVICES = [
     title: 'Streaming TV Ads',
     desc: 'Reach your local market on Hulu, Peacock, and Paramount+ with professionally produced streaming TV campaigns.',
     link: 'StreamingTV',
+    intakeLink: 'StreamingIntake',
     cta: 'Learn More',
   },
   {
@@ -47,6 +51,7 @@ const SERVICES = [
     title: 'Local Visibility',
     desc: 'Dominate local search results, Google Business Profile, and map listings to drive foot traffic and calls.',
     link: 'LocalVisibility',
+    intakeLink: 'Free-Audit',
     cta: 'Learn More',
   },
 ];
