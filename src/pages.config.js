@@ -59,6 +59,7 @@ import AdaSuccess from './pages/AdaSuccess';
 import AdaThankYou from './pages/AdaThankYou';
 import AdaWebsiteLawsuitPrevention from './pages/AdaWebsiteLawsuitPrevention';
 import AdaWebsiteRebuild from './pages/AdaWebsiteRebuild';
+import Admin from './pages/Admin';
 import AdminBlog from './pages/AdminBlog';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminHelp from './pages/AdminHelp';
@@ -122,7 +123,10 @@ import Onboarding from './pages/Onboarding';
 import OnboardingStart from './pages/OnboardingStart';
 import OperationsHub from './pages/OperationsHub';
 import OurWork from './pages/OurWork';
+import Platform from './pages/Platform';
+import Pricing from './pages/Pricing';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import Proposal from './pages/Proposal';
 import rebuildIntake from './pages/Rebuild-Intake';
 import Rebuild from './pages/Rebuild';
 import RebuildIntake from './pages/RebuildIntake';
@@ -130,10 +134,13 @@ import RebuildIntakePretty from './pages/RebuildIntakePretty';
 import RebuildProposal from './pages/RebuildProposal';
 import RestaurantSocialMedia from './pages/RestaurantSocialMedia';
 import ScheduledQueue from './pages/ScheduledQueue';
+import Services from './pages/Services';
 import SetupComplete from './pages/SetupComplete';
+import SiteMap from './pages/SiteMap';
 import SocialAccounts from './pages/SocialAccounts';
 import SocialMediaManagement from './pages/SocialMediaManagement';
 import SocialMediaMarketing from './pages/SocialMediaMarketing';
+import Start from './pages/Start';
 import Store from './pages/Store';
 import streamingTv from './pages/Streaming-TV';
 import StreamingCreativePayment from './pages/StreamingCreativePayment';
@@ -155,13 +162,11 @@ import WebsiteRebuild from './pages/WebsiteRebuild';
 import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import Proposal from './pages/Proposal';
-import Platform from './pages/Platform';
-import Services from './pages/Services';
-import Pricing from './pages/Pricing';
-import Start from './pages/Start';
-import Admin from './pages/Admin';
-import SiteMap from './pages/SiteMap';
+import GrowthSystem from './pages/GrowthSystem';
+import StreamingTvAdvertising from './pages/StreamingTvAdvertising';
+import HvacIndustry from './pages/HvacIndustry';
+import TvCommercialScriptGenerator from './pages/TvCommercialScriptGenerator';
+import MarketingPlanGenerator from './pages/MarketingPlanGenerator';
 import __Layout from './Layout.jsx';
 
 
@@ -178,6 +183,7 @@ export const PAGES = {
     "AdaThankYou": AdaThankYou,
     "AdaWebsiteLawsuitPrevention": AdaWebsiteLawsuitPrevention,
     "AdaWebsiteRebuild": AdaWebsiteRebuild,
+    "Admin": Admin,
     "AdminBlog": AdminBlog,
     "AdminDashboard": AdminDashboard,
     "AdminHelp": AdminHelp,
@@ -241,7 +247,10 @@ export const PAGES = {
     "OnboardingStart": OnboardingStart,
     "OperationsHub": OperationsHub,
     "OurWork": OurWork,
+    "Platform": Platform,
+    "Pricing": Pricing,
     "PrivacyPolicy": PrivacyPolicy,
+    "Proposal": Proposal,
     "Rebuild-Intake": rebuildIntake,
     "Rebuild": Rebuild,
     "RebuildIntake": RebuildIntake,
@@ -249,10 +258,13 @@ export const PAGES = {
     "RebuildProposal": RebuildProposal,
     "RestaurantSocialMedia": RestaurantSocialMedia,
     "ScheduledQueue": ScheduledQueue,
+    "Services": Services,
     "SetupComplete": SetupComplete,
+    "SiteMap": SiteMap,
     "SocialAccounts": SocialAccounts,
     "SocialMediaManagement": SocialMediaManagement,
     "SocialMediaMarketing": SocialMediaMarketing,
+    "Start": Start,
     "Store": Store,
     "Streaming-TV": streamingTv,
     "StreamingCreativePayment": StreamingCreativePayment,
@@ -274,13 +286,11 @@ export const PAGES = {
     "WebsiteVideoManager": WebsiteVideoManager,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "Proposal": Proposal,
-    "Platform": Platform,
-    "Services": Services,
-    "Pricing": Pricing,
-    "Start": Start,
-    "Admin": Admin,
-    "SiteMap": SiteMap,
+    "GrowthSystem": GrowthSystem,
+    "StreamingTvAdvertising": StreamingTvAdvertising,
+    "HvacIndustry": HvacIndustry,
+    "TvCommercialScriptGenerator": TvCommercialScriptGenerator,
+    "MarketingPlanGenerator": MarketingPlanGenerator,
 }
 
 export const pagesConfig = {
