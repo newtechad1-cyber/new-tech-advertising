@@ -12,10 +12,10 @@ export default function HomeFinalCta() {
           Start in 5 minutes
         </div>
         <h2 className="text-3xl sm:text-5xl font-extrabold text-white mb-6 leading-tight">
-          Stop losing customers to competitors who show up online
+          Start building your marketing system
         </h2>
         <p className="text-slate-400 text-lg mb-10 max-w-xl mx-auto">
-          Join hundreds of small businesses using NTA to automate their marketing, build authority, and grow consistently — without the agency price tag.
+          Create content, videos, and campaigns from one system built for small businesses. 14-day free trial — no credit card required.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
           <Link
@@ -25,17 +25,17 @@ export default function HomeFinalCta() {
             Start Free Trial <ArrowRight className="w-5 h-5" />
           </Link>
           <Link
-            to={createPageUrl('Book-Call')}
+            to={createPageUrl('AiMarketingPlatform')}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold text-lg px-8 py-4 rounded-xl transition-all"
           >
-            Book Strategy Call
+            <Play className="w-4 h-4" /> Watch Demo
           </Link>
         </div>
         <Link
-          to={createPageUrl('Free-Audit')}
+          to={createPageUrl('MarketingPlanGenerator')}
           className="text-slate-500 hover:text-violet-300 text-sm underline underline-offset-4 transition-colors"
         >
-          Or get your free marketing audit →
+          Or generate your free 90-day marketing plan →
         </Link>
       </div>
     </section>

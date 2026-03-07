@@ -8,36 +8,29 @@ const STEPS = [
     number: '01',
     color: 'text-violet-400',
     border: 'border-violet-500/30',
-    title: 'Sign up & answer a few questions',
-    desc: 'Tell us about your business, your audience, and your goals. Takes about 5 minutes.',
+    title: 'Generate a plan',
+    desc: 'Use our free Marketing Plan Generator or start your trial — tell us about your business and we build a custom 90-day strategy automatically.',
   },
   {
     number: '02',
     color: 'text-cyan-400',
     border: 'border-cyan-500/30',
-    title: 'AI builds your Authority Plan',
-    desc: 'Your brand profile, content pillars, 90-day calendar, and campaign themes are generated automatically.',
+    title: 'Create content and videos',
+    desc: 'The AI engine generates social posts, captions, video scripts, and campaign ideas built around your business profile — every week.',
   },
   {
     number: '03',
     color: 'text-fuchsia-400',
     border: 'border-fuchsia-500/30',
-    title: 'Review and approve content',
-    desc: 'AI generates posts, captions, and video scripts. You approve, edit, or let us handle it entirely.',
+    title: 'Launch campaigns',
+    desc: 'Publish social content automatically, launch streaming TV ads, run email campaigns — all from one dashboard. DIY or we handle it.',
   },
   {
     number: '04',
     color: 'text-green-400',
     border: 'border-green-500/30',
-    title: 'Content publishes automatically',
-    desc: 'Approved content goes live at the best times across all your connected social channels.',
-  },
-  {
-    number: '05',
-    color: 'text-amber-400',
-    border: 'border-amber-500/30',
-    title: 'Get monthly performance reports',
-    desc: 'AI-generated insights show what worked, what to improve, and recommendations for next month.',
+    title: 'Stay visible and get more customers',
+    desc: 'Your business shows up consistently on social, search, and TV. Monthly AI reports tell you what\'s working and what to do next.',
   },
 ];
 
@@ -48,10 +41,10 @@ export default function HomeHowItWorks() {
         <div className="text-center mb-14">
           <span className="text-fuchsia-400 text-sm font-semibold uppercase tracking-widest">How It Works</span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-3 mb-4">
-            From signup to published — in 48 hours
+            How the system works
           </h2>
           <p className="text-slate-400 text-lg max-w-xl mx-auto">
-            No agency meetings. No strategy decks. Just a fast, automated path from setup to results.
+            Four simple steps from setup to a consistent, visible marketing presence.
           </p>
         </div>
 
