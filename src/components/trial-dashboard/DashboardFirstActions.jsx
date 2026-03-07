@@ -5,9 +5,9 @@ import { CheckSquare, ArrowRight, Play, FileText, Video } from 'lucide-react';
 
 const actionsByState = {
   provisioning_queued: [
-    { label: 'Watch the Demo', description: 'See the platform in action', icon: Play, link: 'Demo' },
-    { label: 'Review How It Works', description: 'Understand the system', icon: FileText, link: 'Demo' },
-    { label: 'Confirm Your Details', description: 'Check your business profile', icon: CheckSquare, link: null },
+    { label: "Watch the Demo", description: "See the platform in action", icon: Play, link: "Demo" },
+    { label: "Review How It Works", description: "Understand the system", icon: FileText, link: "Demo" },
+    { label: "Confirm Your Details", description: "Check your business profile", icon: CheckSquare, link: null },
   ],
   profile_ready: [
     { label: 'Review Your Business Profile', description: 'Check your information', icon: CheckSquare, link: null },

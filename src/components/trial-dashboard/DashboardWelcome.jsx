@@ -3,23 +3,23 @@ import { CheckCircle, Clock, Zap } from 'lucide-react';
 
 const stateMessages = {
   provisioning_queued: {
-    headline: 'Welcome! Your Setup Is Starting',
-    subheading: 'We've received your details and are building your marketing system.',
+    headline: "Welcome! Your Setup Is Starting",
+    subheading: "We've received your details and are building your marketing system.",
     icon: Clock,
   },
   profile_ready: {
-    headline: 'Welcome! Your Profile Is Ready',
-    subheading: 'Your business profile is complete. We're generating your marketing direction.',
+    headline: "Welcome! Your Profile Is Ready",
+    subheading: "Your business profile is complete. We're generating your marketing direction.",
     icon: CheckCircle,
   },
   intelligence_ready: {
-    headline: 'Welcome! Your Marketing Profile Is Ready',
-    subheading: 'We've identified your best opportunities. Your weekly plan is being prepared.',
+    headline: "Welcome! Your Marketing Profile Is Ready",
+    subheading: "We've identified your best opportunities. Your weekly plan is being prepared.",
     icon: CheckCircle,
   },
   plan_ready: {
-    headline: 'Your Marketing System Is Ready',
-    subheading: 'Your first weekly marketing plan is ready. Let's start building.',
+    headline: "Your Marketing System Is Ready",
+    subheading: "Your first weekly marketing plan is ready. Let's start building.",
     icon: Zap,
   },
 };
