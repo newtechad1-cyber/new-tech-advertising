@@ -181,6 +181,7 @@ import AdaWebsiteCompliance from './pages/AdaWebsiteCompliance';
 import AiAccessibilityChecker from './pages/AiAccessibilityChecker';
 import ServiceLocation from './pages/ServiceLocation';
 import LocationPageAdmin from './pages/LocationPageAdmin';
+import ProgrammaticSEODashboard from './pages/ProgrammaticSEODashboard';
 import __Layout from './Layout.jsx';
 
 
@@ -319,6 +320,7 @@ export const PAGES = {
     "AiAccessibilityChecker": AiAccessibilityChecker,
     "ServiceLocation": ServiceLocation,
     "LocationPageAdmin": LocationPageAdmin,
+    "ProgrammaticSEODashboard": ProgrammaticSEODashboard,
 }
 
 export const pagesConfig = {
