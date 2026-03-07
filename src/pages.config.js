@@ -180,6 +180,7 @@ import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AdaWebsiteCompliance from './pages/AdaWebsiteCompliance';
 import AiAccessibilityChecker from './pages/AiAccessibilityChecker';
 import ServiceLocation from './pages/ServiceLocation';
+import LocationPageAdmin from './pages/LocationPageAdmin';
 import __Layout from './Layout.jsx';
 
 
@@ -317,6 +318,7 @@ export const PAGES = {
     "AdaWebsiteCompliance": AdaWebsiteCompliance,
     "AiAccessibilityChecker": AiAccessibilityChecker,
     "ServiceLocation": ServiceLocation,
+    "LocationPageAdmin": LocationPageAdmin,
 }
 
 export const pagesConfig = {
