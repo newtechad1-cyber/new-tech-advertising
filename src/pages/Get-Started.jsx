@@ -87,10 +87,10 @@ export default function GetStarted() {
           </p>
           <div className="space-y-3">
             <Link
-              to={createPageUrl('Dashboard')}
+              to={createPageUrl('ClientOnboarding')}
               className="w-full flex items-center justify-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-bold py-3 rounded-xl transition-all"
             >
-              Go to Dashboard <ArrowRight className="w-4 h-4" />
+              Set Up My Account <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               to={createPageUrl('Book-Call')}
