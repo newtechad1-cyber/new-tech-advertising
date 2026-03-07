@@ -34,6 +34,12 @@ export default function SiteFooter() {
           </ul>
         </div>
         <div>
+          <p className="text-white font-semibold mb-3 text-sm">Showcase</p>
+          <ul className="space-y-2 text-sm">
+            <li><a href={createPageUrl('OurWork')} className="hover:text-white transition-colors">Our Work</a></li>
+          </ul>
+        </div>
+        <div>
           <p className="text-white font-semibold mb-3 text-sm">Support</p>
           <ul className="space-y-2 text-sm">
             <li><a href={createPageUrl('HelpAndSupport')} className="hover:text-white transition-colors">Help & Support</a></li>
