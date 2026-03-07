@@ -18,6 +18,12 @@ export default function HomeHero() {
   return (
     <section className="relative bg-slate-950 overflow-hidden pt-20 pb-0">
       <div className="absolute inset-0 pointer-events-none">
+        <img
+          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/b24330cf3_backgroundimage.png"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover opacity-20"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-slate-950/40 to-slate-950" />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-violet-600/20 rounded-full blur-[120px]" />
       </div>
 
