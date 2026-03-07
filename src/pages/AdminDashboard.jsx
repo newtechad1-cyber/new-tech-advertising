@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AdminGuard from '../components/auth/AdminGuard';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import { base44 } from '@/api/base44Client';
 import {
   BookOpen, ShoppingBag, Mail, Users, Image, Video,
   StickyNote, HelpCircle, ArrowLeft, Zap, RefreshCw,
