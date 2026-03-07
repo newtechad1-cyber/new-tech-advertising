@@ -369,7 +369,13 @@ export default function Onboarding() {
               </ul>
             </div>
 
-            <div className="text-sm text-slate-600">
+            <Link
+              to={createPageUrl('Dashboard')}
+              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3 rounded-xl transition-all mt-2"
+            >
+              Go to My Dashboard <ArrowRight className="w-4 h-4" />
+            </Link>
+            <div className="text-sm text-slate-600 mt-4">
               <p>Questions? Call us at <a href="tel:641-420-8816" className="text-blue-600 font-semibold">641-420-8816</a></p>
               <p>or email <a href="mailto:rick@newtechadvertising.com" className="text-blue-600 font-semibold">rick@newtechadvertising.com</a></p>
             </div>
