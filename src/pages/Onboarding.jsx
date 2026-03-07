@@ -53,47 +53,39 @@ export default function Onboarding() {
     setIsSubmitting(true);
 
     try {
-      // Format social channels
+      // 1. Create Company
+      const company = await base44.entities.Company.create({
+        business_name: formData.businessName,
+        website: formData.currentWebsite,
+        industry: formData.businessType,
+        email: formData.email,
+        phone: formData.phone,
+        status: 'client',
+        source: 'website',
+      });
+
+      // 2. Create OnboardingProfile
+      await base44.entities.OnboardingProfile.create({
+        company_id: company.id,
+        status: 'completed',
+        preferred_contact_name: formData.fullName,
+        best_contact_method: 'email',
+        website_login_notes: formData.websiteNeeds,
+        social_accounts_connected: false,
+        completed_at: new Date().toISOString(),
+      });
+
+      // 3. Send notification email
       const activeSocials = Object.entries(formData.socialChannels)
         .filter(([_, url]) => url)
-        .map(([platform, url]) => `${platform.charAt(0).toUpperCase() + platform.slice(1)}: ${url}`)
+        .map(([platform, url]) => `${platform}: ${url}`)
         .join('\n');
-
-      // Create email body
-      const emailBody = `
-New Client Onboarding Information
-================================
-
-CONTACT INFORMATION
--------------------
-Name: ${formData.fullName}
-Email: ${formData.email}
-Phone: ${formData.phone}
-
-BUSINESS INFORMATION
---------------------
-Business Name: ${formData.businessName}
-Business Type: ${formData.businessType}
-Current Website: ${formData.currentWebsite || 'None'}
-Website Needs: ${formData.websiteNeeds}
-
-SOCIAL MEDIA CHANNELS
----------------------
-${activeSocials || 'No social channels provided'}
-
-ADDITIONAL INFORMATION
-----------------------
-${formData.additionalInfo || 'None provided'}
-
----
-Submitted: ${new Date().toLocaleString()}
-      `;
 
       await base44.integrations.Core.SendEmail({
         from_name: 'New Tech Advertising Onboarding',
         to: 'rick@newtechadvertising.com',
         subject: `New Client Onboarding: ${formData.businessName}`,
-        body: emailBody
+        body: `Name: ${formData.fullName}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nBusiness: ${formData.businessName}\nType: ${formData.businessType}\nWebsite: ${formData.currentWebsite || 'None'}\nNeeds: ${formData.websiteNeeds}\nSocials:\n${activeSocials || 'None'}\nNotes: ${formData.additionalInfo || 'None'}`,
       });
 
       setStep(3);
