@@ -171,9 +171,9 @@ function MobileNavSection({ section }) {
                 <span className="font-bold text-white">{plan.price}</span>
               </div>
             ))}
-            <a href={TRIAL_URL} className="block px-3 py-2 text-sm font-semibold text-yellow-300 hover:text-yellow-100">
+            <Link to={createPageUrl('Get-Started')} className="block px-3 py-2 text-sm font-semibold text-yellow-300 hover:text-yellow-100" onClick={() => {}}>
               → Start Free Trial
-            </a>
+            </Link>
           </div>
         )}
       </div>
