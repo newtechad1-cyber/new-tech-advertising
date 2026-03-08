@@ -193,6 +193,7 @@ import AdminCommandCenter from './pages/AdminCommandCenter';
 import ClientDashboard from './pages/ClientDashboard';
 import AdminUsers from './pages/AdminUsers';
 import AdminClients from './pages/AdminClients';
+import AdminAlerts from './pages/AdminAlerts';
 import __Layout from './Layout.jsx';
 
 
@@ -343,6 +344,7 @@ export const PAGES = {
     "ClientDashboard": ClientDashboard,
     "AdminUsers": AdminUsers,
     "AdminClients": AdminClients,
+    "AdminAlerts": AdminAlerts,
 }
 
 export const pagesConfig = {
