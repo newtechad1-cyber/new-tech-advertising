@@ -73,6 +73,8 @@ import AdminHelp from './pages/AdminHelp';
 import AdminOnboarding from './pages/AdminOnboarding';
 import AdminOnboardingDetail from './pages/AdminOnboardingDetail';
 import AdminOnboardingQueue from './pages/AdminOnboardingQueue';
+import AdminOperations from './pages/AdminOperations';
+import AdminOperationsCompany from './pages/AdminOperationsCompany';
 import AdminSales from './pages/AdminSales';
 import AdminSettings from './pages/AdminSettings';
 import AdminTasks from './pages/AdminTasks';
@@ -206,8 +208,7 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdminOperations from './pages/AdminOperations';
-import AdminOperationsCompany from './pages/AdminOperationsCompany';
+import AdminExecutive from './pages/AdminExecutive';
 import __Layout from './Layout.jsx';
 
 
@@ -238,6 +239,8 @@ export const PAGES = {
     "AdminOnboarding": AdminOnboarding,
     "AdminOnboardingDetail": AdminOnboardingDetail,
     "AdminOnboardingQueue": AdminOnboardingQueue,
+    "AdminOperations": AdminOperations,
+    "AdminOperationsCompany": AdminOperationsCompany,
     "AdminSales": AdminSales,
     "AdminSettings": AdminSettings,
     "AdminTasks": AdminTasks,
@@ -371,8 +374,7 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AdminOperations": AdminOperations,
-    "AdminOperationsCompany": AdminOperationsCompany,
+    "AdminExecutive": AdminExecutive,
 }
 
 export const pagesConfig = {
