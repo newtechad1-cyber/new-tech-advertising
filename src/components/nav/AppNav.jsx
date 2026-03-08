@@ -9,6 +9,7 @@ const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/pub
 
 const TABS = [
   { id: 'analytics', label: 'Dashboard' },
+  { id: 'fulfillment', label: 'Fulfillment', path: 'ClientFulfillment' },
   { id: 'submissions', label: 'Content' },
   { id: 'social', label: 'Social' },
   { id: 'videos', label: 'Video' },
