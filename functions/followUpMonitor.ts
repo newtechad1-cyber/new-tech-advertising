@@ -314,6 +314,53 @@ Deno.serve(async (req) => {
       }
     }
 
+    // ─── 12. PROPOSALS: expiring soon, not opened, accepted without onboarding ───
+    const allProposalsForMonitor = await base44.asServiceRole.entities.Proposal.list('-updated_date', 500);
+    
+    // Proposals expiring in 3 days
+    const threeDaysFromNow = new Date(now.getTime() + 3 * 86400000).toISOString();
+    for (const p of allProposalsForMonitor) {
+      if (p.expires_at && p.expires_at < threeDaysFromNow && p.status !== 'expired' && p.status !== 'won') {
+        const already = await hasUnresolved({ related_proposal_id: p.id, notification_type: 'proposal_followup' });
+        if (!already) {
+          await base44.asServiceRole.entities.SalesNotification.create({
+            title: `⏰ Proposal Expiring Soon — ${p.business_name || p.title}`,
+            message: `"${p.title}" expires on ${new Date(p.expires_at).toLocaleDateString()}. Follow up now to keep the deal moving.`,
+            priority: 'urgent',
+            notification_type: 'proposal_followup',
+            related_proposal_id: p.id,
+            company_name: p.business_name || '',
+            status: 'unread',
+          });
+          created.push(`proposal-expiring: ${p.title}`);
+        }
+      }
+    }
+
+    // Proposals accepted online without onboarding task
+    for (const p of allProposalsForMonitor) {
+      if (p.accepted_online && p.status === 'accepted') {
+        const hasTask = await base44.asServiceRole.entities.SalesTasks.filter({
+          proposal_id: p.id,
+          task_type: 'check_in',
+          status: 'pending',
+        });
+        if (hasTask.length === 0) {
+          await base44.asServiceRole.entities.SalesTasks.create({
+            task_title: `Begin onboarding — ${p.business_name || p.title}`,
+            task_type: 'check_in',
+            proposal_id: p.id,
+            company_name: p.business_name || '',
+            priority: 'urgent',
+            due_date: today,
+            status: 'pending',
+            notes: `Proposal accepted online. Start onboarding immediately.`,
+          });
+          created.push(`auto-onboarding-task: ${p.title}`);
+        }
+      }
+    }
+
     return Response.json({
       success: true,
       notifications_created: created.length,
