@@ -162,7 +162,6 @@ Deno.serve(async (req) => {
 
     // ─── 5. OVERDUE TASKS — create alert if not already created ─────────────
     const pendingTasks = await base44.asServiceRole.entities.SalesTasks.filter({ status: 'pending' });
-    const today = now.toISOString().split('T')[0];
     for (const task of pendingTasks) {
       if (task.due_date && task.due_date < today && !task.alert_created) {
         await base44.asServiceRole.entities.SalesNotification.create({
