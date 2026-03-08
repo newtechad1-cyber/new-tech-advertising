@@ -131,7 +131,51 @@ Deno.serve(async (req) => {
       }
     }
 
-    // ─── 5. HOT LEADS in CRM with no next_follow_up date set ─────────────────
+    // ─── 5. OVERDUE TASKS — create alert if not already created ─────────────
+    const pendingTasks = await base44.asServiceRole.entities.SalesTasks.filter({ status: 'pending' });
+    const today = now.toISOString().split('T')[0];
+    for (const task of pendingTasks) {
+      if (task.due_date && task.due_date < today && !task.alert_created) {
+        await base44.asServiceRole.entities.SalesNotification.create({
+          title: '📋 Overdue Follow-Up Task',
+          message: `Task "${task.task_title}" was due on ${task.due_date} and has not been completed.${task.company_name ? `\nCompany: ${task.company_name}` : ''}`,
+          priority: 'high',
+          notification_type: 'followup_needed',
+          related_lead_id: task.lead_id || '',
+          related_proposal_id: task.proposal_id || '',
+          company_name: task.company_name || '',
+          status: 'unread',
+        });
+        await base44.asServiceRole.entities.SalesTasks.update(task.id, { alert_created: true });
+        created.push(`overdue-task: ${task.task_title}`);
+      }
+    }
+
+    // ─── 6. STALLED PIPELINE — proposals inactive for 5+ days ────────────────
+    const fiveDaysAgo = new Date(now.getTime() - 5 * 24 * 60 * 60 * 1000).toISOString();
+    const activeProposals = await base44.asServiceRole.entities.Proposal.list('-updated_date', 300);
+    for (const p of activeProposals) {
+      if (['won', 'lost', 'accepted', 'rejected', 'draft'].includes(p.pipeline_stage || p.status)) continue;
+      const lastActivity = p.last_contact_date || p.last_viewed_date || p.sent_at || p.created_date;
+      if (lastActivity && lastActivity < fiveDaysAgo) {
+        const already = await hasUnresolved({ related_proposal_id: p.id, notification_type: 'proposal_no_response' });
+        if (!already) {
+          await base44.asServiceRole.entities.SalesNotification.create({
+            title: '🔴 Proposal Stalled — No Activity in 5+ Days',
+            message: `"${p.title}" has been in "${(p.pipeline_stage || 'unknown').replace(/_/g, ' ')}" stage with no activity for 5+ days.\n\nBusiness: ${p.business_name || 'N/A'}\nLast activity: ${new Date(lastActivity).toLocaleDateString()}\n\nTake action to keep this deal moving.`,
+            priority: 'high',
+            notification_type: 'proposal_no_response',
+            related_proposal_id: p.id,
+            company_name: p.business_name || '',
+            service_interest: p.service_type || '',
+            status: 'unread',
+          });
+          created.push(`stalled-pipeline: ${p.title}`);
+        }
+      }
+    }
+
+    // ─── 7. HOT LEADS in CRM with no next_follow_up date set ─────────────────
     const hotLeads = await base44.asServiceRole.entities.Lead.filter({ status: 'qualified' });
     for (const lead of hotLeads) {
       if (!lead.next_follow_up) {

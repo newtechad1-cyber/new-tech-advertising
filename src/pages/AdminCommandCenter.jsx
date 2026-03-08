@@ -18,6 +18,7 @@ import LeadFunnelMetrics from '@/components/command/LeadFunnelMetrics';
 import ActivityFeed from '@/components/command/ActivityFeed';
 import SalesAlertsPanel from '@/components/sales/SalesAlertsPanel';
 import AlertsSummaryPanel from '@/components/command/AlertsSummaryPanel';
+import PipelineSummaryPanel from '@/components/pipeline/PipelineSummaryPanel';
 
 const QUICK_ACTIONS = [
   { label: 'Generate Blog', icon: FileText, page: 'AdminBlog', color: 'bg-rose-600 hover:bg-rose-700' },
@@ -25,7 +26,8 @@ const QUICK_ACTIONS = [
   { label: 'Content Engine', icon: Zap, page: 'ContentEngine', color: 'bg-violet-600 hover:bg-violet-700' },
   { label: 'Video Generator', icon: Clapperboard, page: 'AiVideoStudio', color: 'bg-purple-600 hover:bg-purple-700' },
   { label: 'Alert Center', icon: Bell, page: 'AdminAlerts', color: 'bg-red-600 hover:bg-red-700' },
-  { label: 'View Sales Leads', icon: Users, page: 'AdminSales', color: 'bg-orange-600 hover:bg-orange-700' },
+  { label: 'Pipeline', icon: Users, page: 'ProposalPipeline', color: 'bg-indigo-600 hover:bg-indigo-700' },
+  { label: 'Tasks', icon: Cpu, page: 'AdminTasks', color: 'bg-green-600 hover:bg-green-700' },
   { label: 'Autopilot', icon: Cpu, page: 'AdminAutopilot', color: 'bg-teal-600 hover:bg-teal-700' },
 ];
 
@@ -97,6 +99,7 @@ export default function AdminCommandCenter() {
               <div className="space-y-4">
                 <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-widest">Action Required</h2>
                 <AlertsSummaryPanel />
+                <PipelineSummaryPanel />
                 <div className="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
                   <SalesAlertsPanel />
                 </div>
