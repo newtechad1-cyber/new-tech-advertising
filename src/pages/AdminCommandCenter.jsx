@@ -4,7 +4,7 @@ import AdminNav from '@/components/nav/AdminNav';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Button } from '@/components/ui/button';
-import { Cpu, FileText, Clapperboard, Zap, Users, Target } from 'lucide-react';
+import { Cpu, FileText, Clapperboard, Zap, Users, Target, Bell } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 import { useState } from 'react';
@@ -24,7 +24,7 @@ const QUICK_ACTIONS = [
   { label: 'Create Case Study', icon: Target, page: 'AdminDashboard', color: 'bg-amber-600 hover:bg-amber-700' },
   { label: 'Content Engine', icon: Zap, page: 'ContentEngine', color: 'bg-violet-600 hover:bg-violet-700' },
   { label: 'Video Generator', icon: Clapperboard, page: 'AiVideoStudio', color: 'bg-purple-600 hover:bg-purple-700' },
-  { label: 'Alert Center', icon: Users, page: 'AdminAlerts', color: 'bg-red-600 hover:bg-red-700' },
+  { label: 'Alert Center', icon: Bell, page: 'AdminAlerts', color: 'bg-red-600 hover:bg-red-700' },
   { label: 'View Sales Leads', icon: Users, page: 'AdminSales', color: 'bg-orange-600 hover:bg-orange-700' },
   { label: 'Autopilot', icon: Cpu, page: 'AdminAutopilot', color: 'bg-teal-600 hover:bg-teal-700' },
 ];
