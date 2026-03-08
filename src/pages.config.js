@@ -200,6 +200,7 @@ import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import ProposalBuilder from './pages/ProposalBuilder';
 import ProposalPreview from './pages/ProposalPreview';
 import PublicProposal from './pages/PublicProposal';
+import ProposalsList from './pages/ProposalsList';
 import __Layout from './Layout.jsx';
 
 
@@ -357,6 +358,7 @@ export const PAGES = {
     "ProposalBuilder": ProposalBuilder,
     "ProposalPreview": ProposalPreview,
     "PublicProposal": PublicProposal,
+    "ProposalsList": ProposalsList,
 }
 
 export const pagesConfig = {
