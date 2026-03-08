@@ -66,7 +66,10 @@ import AdminAutopilot from './pages/AdminAutopilot';
 import AdminBlog from './pages/AdminBlog';
 import AdminClients from './pages/AdminClients';
 import AdminCommandCenter from './pages/AdminCommandCenter';
+import AdminCopilot from './pages/AdminCopilot';
+import AdminCopilotAccount from './pages/AdminCopilotAccount';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminExecutive from './pages/AdminExecutive';
 import AdminFulfillment from './pages/AdminFulfillment';
 import AdminFulfillmentDetail from './pages/AdminFulfillmentDetail';
 import AdminHelp from './pages/AdminHelp';
@@ -75,6 +78,10 @@ import AdminOnboardingDetail from './pages/AdminOnboardingDetail';
 import AdminOnboardingQueue from './pages/AdminOnboardingQueue';
 import AdminOperations from './pages/AdminOperations';
 import AdminOperationsCompany from './pages/AdminOperationsCompany';
+import AdminOptimizer from './pages/AdminOptimizer';
+import AdminOptimizerDetail from './pages/AdminOptimizerDetail';
+import AdminOrchestrator from './pages/AdminOrchestrator';
+import AdminOrchestratorDetail from './pages/AdminOrchestratorDetail';
 import AdminSales from './pages/AdminSales';
 import AdminSettings from './pages/AdminSettings';
 import AdminTasks from './pages/AdminTasks';
@@ -208,13 +215,7 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdminExecutive from './pages/AdminExecutive';
-import AdminCopilot from './pages/AdminCopilot';
-import AdminCopilotAccount from './pages/AdminCopilotAccount';
-import AdminOrchestrator from './pages/AdminOrchestrator';
-import AdminOrchestratorDetail from './pages/AdminOrchestratorDetail';
-import AdminOptimizer from './pages/AdminOptimizer';
-import AdminOptimizerDetail from './pages/AdminOptimizerDetail';
+import AdminRecommendations from './pages/AdminRecommendations';
 import __Layout from './Layout.jsx';
 
 
@@ -238,7 +239,10 @@ export const PAGES = {
     "AdminBlog": AdminBlog,
     "AdminClients": AdminClients,
     "AdminCommandCenter": AdminCommandCenter,
+    "AdminCopilot": AdminCopilot,
+    "AdminCopilotAccount": AdminCopilotAccount,
     "AdminDashboard": AdminDashboard,
+    "AdminExecutive": AdminExecutive,
     "AdminFulfillment": AdminFulfillment,
     "AdminFulfillmentDetail": AdminFulfillmentDetail,
     "AdminHelp": AdminHelp,
@@ -247,6 +251,10 @@ export const PAGES = {
     "AdminOnboardingQueue": AdminOnboardingQueue,
     "AdminOperations": AdminOperations,
     "AdminOperationsCompany": AdminOperationsCompany,
+    "AdminOptimizer": AdminOptimizer,
+    "AdminOptimizerDetail": AdminOptimizerDetail,
+    "AdminOrchestrator": AdminOrchestrator,
+    "AdminOrchestratorDetail": AdminOrchestratorDetail,
     "AdminSales": AdminSales,
     "AdminSettings": AdminSettings,
     "AdminTasks": AdminTasks,
@@ -380,13 +388,7 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AdminExecutive": AdminExecutive,
-    "AdminCopilot": AdminCopilot,
-    "AdminCopilotAccount": AdminCopilotAccount,
-    "AdminOrchestrator": AdminOrchestrator,
-    "AdminOrchestratorDetail": AdminOrchestratorDetail,
-    "AdminOptimizer": AdminOptimizer,
-    "AdminOptimizerDetail": AdminOptimizerDetail,
+    "AdminRecommendations": AdminRecommendations,
 }
 
 export const pagesConfig = {
