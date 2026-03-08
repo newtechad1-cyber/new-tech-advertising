@@ -211,6 +211,7 @@ import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AdminExecutive from './pages/AdminExecutive';
 import AdminCopilot from './pages/AdminCopilot';
 import AdminCopilotAccount from './pages/AdminCopilotAccount';
+import AdminOrchestrator from './pages/AdminOrchestrator';
 import __Layout from './Layout.jsx';
 
 
@@ -379,6 +380,7 @@ export const PAGES = {
     "AdminExecutive": AdminExecutive,
     "AdminCopilot": AdminCopilot,
     "AdminCopilotAccount": AdminCopilotAccount,
+    "AdminOrchestrator": AdminOrchestrator,
 }
 
 export const pagesConfig = {
