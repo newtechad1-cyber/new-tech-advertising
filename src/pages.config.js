@@ -209,6 +209,7 @@ import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AdminExecutive from './pages/AdminExecutive';
+import AdminCopilot from './pages/AdminCopilot';
 import __Layout from './Layout.jsx';
 
 
@@ -375,6 +376,7 @@ export const PAGES = {
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
     "AdminExecutive": AdminExecutive,
+    "AdminCopilot": AdminCopilot,
 }
 
 export const pagesConfig = {
