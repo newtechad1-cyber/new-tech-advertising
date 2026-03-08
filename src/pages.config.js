@@ -213,6 +213,7 @@ import AdminCopilot from './pages/AdminCopilot';
 import AdminCopilotAccount from './pages/AdminCopilotAccount';
 import AdminOrchestrator from './pages/AdminOrchestrator';
 import AdminOrchestratorDetail from './pages/AdminOrchestratorDetail';
+import AdminOptimizer from './pages/AdminOptimizer';
 import __Layout from './Layout.jsx';
 
 
@@ -383,6 +384,7 @@ export const PAGES = {
     "AdminCopilotAccount": AdminCopilotAccount,
     "AdminOrchestrator": AdminOrchestrator,
     "AdminOrchestratorDetail": AdminOrchestratorDetail,
+    "AdminOptimizer": AdminOptimizer,
 }
 
 export const pagesConfig = {
