@@ -1,355 +1,294 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import AdminLayout from '../components/admin/AdminLayout';
 import AdminGuard from '../components/auth/AdminGuard';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Eye, Search, Filter, ArrowUpDown, Loader2, Users, TrendingUp } from 'lucide-react';
-import { createPageUrl } from '../utils';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
+import { Search, Users, TrendingUp, Download, BookOpen, Loader2, Mail, ExternalLink, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 
+const STATUS_COLORS = {
+  new: 'bg-blue-100 text-blue-700',
+  contacted: 'bg-yellow-100 text-yellow-700',
+  qualified: 'bg-purple-100 text-purple-700',
+  consultation_scheduled: 'bg-orange-100 text-orange-700',
+  proposal_sent: 'bg-indigo-100 text-indigo-700',
+  won: 'bg-green-100 text-green-700',
+  lost: 'bg-slate-100 text-slate-500',
+};
+
+const STATUS_OPTIONS = [
+  { value: 'new', label: 'New Lead' },
+  { value: 'contacted', label: 'Contacted' },
+  { value: 'qualified', label: 'Qualified' },
+  { value: 'consultation_scheduled', label: 'Consultation Scheduled' },
+  { value: 'proposal_sent', label: 'Proposal Sent' },
+  { value: 'won', label: 'Converted Client' },
+  { value: 'lost', label: 'Lost' },
+];
+
+const SOURCE_OPTIONS = [
+  'funnel_page', 'blog_article', 'case_study', 'authority_guide', 'video_page', 'seo_page', 'website', 'referral', 'social_media', 'other'
+];
+
 export default function LeadsDashboard() {
-  const navigate = useNavigate();
   const [leads, setLeads] = useState([]);
-  const [filteredLeads, setFilteredLeads] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
-  const [packageFilter, setPackageFilter] = useState('all');
-  const [cityFilter, setCityFilter] = useState('');
-  const [sortField, setSortField] = useState('created_date');
-  const [sortDirection, setSortDirection] = useState('desc');
+  const [sourceFilter, setSourceFilter] = useState('all');
+  const [selectedLead, setSelectedLead] = useState(null);
+  const [sendingEmail, setSendingEmail] = useState(null);
 
-  useEffect(() => {
-    loadLeads();
-  }, []);
-
-  useEffect(() => {
-    applyFiltersAndSort();
-  }, [leads, searchTerm, statusFilter, packageFilter, cityFilter, sortField, sortDirection]);
-
-  const loadLeads = async () => {
+  const load = async () => {
+    setLoading(true);
     try {
-      const allLeads = await base44.entities.AdaLead.list('-created_date', 500);
-      setLeads(allLeads);
-    } catch (error) {
+      const data = await base44.entities.Lead.list('-created_date', 200);
+      setLeads(data);
+    } catch (err) {
       toast.error('Failed to load leads');
-      console.error('Error loading leads:', error);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
-  const applyFiltersAndSort = () => {
-    let filtered = [...leads];
+  useEffect(() => { load(); }, []);
 
-    // Search filter
-    if (searchTerm) {
-      filtered = filtered.filter(lead =>
-        lead.full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        lead.business_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        lead.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        lead.phone?.includes(searchTerm)
-      );
-    }
+  const updateStatus = async (lead, newStatus) => {
+    await base44.entities.Lead.update(lead.id, { status: newStatus });
+    setLeads(prev => prev.map(l => l.id === lead.id ? { ...l, status: newStatus } : l));
+    if (selectedLead?.id === lead.id) setSelectedLead(l => ({ ...l, status: newStatus }));
+    toast.success('Status updated');
+  };
 
-    // Status filter
-    if (statusFilter !== 'all') {
-      filtered = filtered.filter(lead => lead.status === statusFilter);
-    }
-
-    // Package filter
-    if (packageFilter !== 'all') {
-      filtered = filtered.filter(lead => lead.package === packageFilter);
-    }
-
-    // City filter
-    if (cityFilter) {
-      filtered = filtered.filter(lead =>
-        lead.city?.toLowerCase().includes(cityFilter.toLowerCase())
-      );
-    }
-
-    // Sort
-    filtered.sort((a, b) => {
-      let aVal = a[sortField];
-      let bVal = b[sortField];
-
-      if (sortField === 'created_date') {
-        aVal = new Date(aVal);
-        bVal = new Date(bVal);
+  const sendFollowUp = async (lead, step) => {
+    setSendingEmail(lead.id + '-' + step);
+    try {
+      const res = await base44.functions.invoke('sendLeadFollowUpEmail', { lead_id: lead.id, step });
+      if (res.data?.success) {
+        toast.success(`Email #${step} sent to ${lead.email}`);
+        await load();
+      } else {
+        toast.error('Failed to send email');
       }
-
-      if (aVal < bVal) return sortDirection === 'asc' ? -1 : 1;
-      if (aVal > bVal) return sortDirection === 'asc' ? 1 : -1;
-      return 0;
-    });
-
-    setFilteredLeads(filtered);
-  };
-
-  const handleSort = (field) => {
-    if (sortField === field) {
-      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortField(field);
-      setSortDirection('asc');
+    } catch (err) {
+      toast.error('Error: ' + err.message);
+    } finally {
+      setSendingEmail(null);
     }
   };
 
-  const getStatusBadge = (status) => {
-    const colors = {
-      new: 'bg-blue-100 text-blue-800',
-      quoted: 'bg-yellow-100 text-yellow-800',
-      paid: 'bg-green-100 text-green-800',
-      onboarded: 'bg-purple-100 text-purple-800',
-      active: 'bg-emerald-100 text-emerald-800'
-    };
-    return <Badge className={colors[status] || 'bg-slate-100 text-slate-800'}>{status}</Badge>;
+  const exportCSV = () => {
+    const rows = [
+      ['Name', 'Business', 'Email', 'Phone', 'City', 'Source', 'Service', 'Status', 'Guide Downloaded', 'Trial Started', 'Date'],
+      ...filteredLeads.map(l => [
+        l.name, l.business_name, l.email, l.phone, l.city,
+        l.source, l.funnel_service || l.service_interest, l.status,
+        l.guide_downloaded ? 'Yes' : 'No',
+        l.trial_started ? 'Yes' : 'No',
+        new Date(l.created_date).toLocaleDateString()
+      ])
+    ];
+    const csv = rows.map(r => r.map(v => `"${v || ''}"`).join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'nta-leads.csv'; a.click();
+    URL.revokeObjectURL(url);
   };
 
-  const getScoreBadge = (score) => {
-    if (!score) return <span className="text-slate-400 text-sm">—</span>;
-    
-    let color = 'bg-slate-100 text-slate-800';
-    let label = 'Low';
-    
-    if (score >= 61) {
-      color = 'bg-green-100 text-green-800';
-      label = 'High';
-    } else if (score >= 31) {
-      color = 'bg-yellow-100 text-yellow-800';
-      label = 'Med';
-    } else {
-      color = 'bg-red-100 text-red-800';
-      label = 'Low';
-    }
-    
-    return (
-      <Badge className={color}>
-        {score} {label}
-      </Badge>
-    );
-  };
+  const filteredLeads = leads.filter(l => {
+    const matchSearch = !search || [l.name, l.business_name, l.email, l.city].some(v => v?.toLowerCase().includes(search.toLowerCase()));
+    const matchStatus = statusFilter === 'all' || l.status === statusFilter;
+    const matchSource = sourceFilter === 'all' || l.source === sourceFilter;
+    return matchSearch && matchStatus && matchSource;
+  });
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="w-12 h-12 text-blue-600 animate-spin mx-auto mb-4" />
-          <p className="text-slate-600">Loading leads...</p>
-        </div>
-      </div>
-    );
-  }
+  // Stats
+  const totalLeads = leads.length;
+  const guidesDownloaded = leads.filter(l => l.guide_downloaded).length;
+  const trialsStarted = leads.filter(l => l.trial_started).length;
+  const consultationsBooked = leads.filter(l => l.status === 'consultation_scheduled').length;
+  const converted = leads.filter(l => l.status === 'won').length;
 
   return (
     <AdminGuard>
-    <AdminLayout>
-      <div className="p-6 lg:p-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
-              <Users className="w-6 h-6 text-white" />
-            </div>
-            <h1 className="text-3xl font-bold text-slate-900">ADA Leads Dashboard</h1>
+      <div className="min-h-screen bg-slate-50 pt-14 lg:pt-0">
+        {/* Top Bar */}
+        <div className="bg-white border-b border-slate-200 px-6 py-3 flex items-center gap-3 sticky top-14 lg:top-0 z-10">
+          <Link to={createPageUrl('AdminDashboard')}>
+            <Button variant="ghost" size="sm" className="gap-1 text-slate-500">← Admin Hub</Button>
+          </Link>
+          <span className="text-slate-300">|</span>
+          <span className="text-sm font-medium text-slate-700">Leads Dashboard</span>
+          <div className="ml-auto flex gap-2">
+            <Button variant="outline" size="sm" onClick={load}><RefreshCw className="w-3.5 h-3.5 mr-1.5" />Refresh</Button>
+            <Button variant="outline" size="sm" onClick={exportCSV}><Download className="w-3.5 h-3.5 mr-1.5" />Export CSV</Button>
+            <Button size="sm" className="bg-orange-500 hover:bg-orange-600" onClick={() => window.open(createPageUrl('FunnelPage?service=streaming-tv-advertising'), '_blank')}>
+              <ExternalLink className="w-3.5 h-3.5 mr-1.5" />View Funnel
+            </Button>
           </div>
-          <p className="text-slate-600">Manage and track all ADA compliance leads</p>
         </div>
 
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle>Filters</CardTitle>
-            <CardDescription>Search and filter leads</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                <Input
-                  placeholder="Search name, business, email..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
-                />
+        <div className="max-w-7xl mx-auto px-6 py-6">
+          {/* Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+            {[
+              { label: 'Total Leads', value: totalLeads, icon: Users, color: 'text-blue-600' },
+              { label: 'Guides Downloaded', value: guidesDownloaded, icon: BookOpen, color: 'text-purple-600' },
+              { label: 'Trials Started', value: trialsStarted, icon: TrendingUp, color: 'text-green-600' },
+              { label: 'Consultations', value: consultationsBooked, icon: Mail, color: 'text-orange-600' },
+              { label: 'Converted', value: converted, icon: TrendingUp, color: 'text-emerald-600' },
+            ].map(stat => (
+              <Card key={stat.label}>
+                <CardContent className="pt-4 pb-3 text-center">
+                  <stat.icon className={`w-6 h-6 mx-auto mb-1 ${stat.color}`} />
+                  <p className="text-2xl font-bold">{stat.value}</p>
+                  <p className="text-xs text-slate-500">{stat.label}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="flex flex-col lg:flex-row gap-6">
+            {/* List */}
+            <div className="flex-1 min-w-0">
+              {/* Filters */}
+              <div className="flex flex-wrap gap-3 mb-4">
+                <div className="relative flex-1 min-w-48">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <Input
+                    placeholder="Search leads..."
+                    value={search}
+                    onChange={e => setSearch(e.target.value)}
+                    className="pl-9"
+                  />
+                </div>
+                <Select value={statusFilter} onValueChange={setStatusFilter}>
+                  <SelectTrigger className="w-44"><SelectValue placeholder="All Status" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Status</SelectItem>
+                    {STATUS_OPTIONS.map(o => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+                <Select value={sourceFilter} onValueChange={setSourceFilter}>
+                  <SelectTrigger className="w-44"><SelectValue placeholder="All Sources" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Sources</SelectItem>
+                    {SOURCE_OPTIONS.map(s => <SelectItem key={s} value={s}>{s.replace(/_/g, ' ')}</SelectItem>)}
+                  </SelectContent>
+                </Select>
               </div>
 
-              <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Status</SelectItem>
-                  <SelectItem value="new">New</SelectItem>
-                  <SelectItem value="quoted">Quoted</SelectItem>
-                  <SelectItem value="paid">Paid</SelectItem>
-                  <SelectItem value="onboarded">Onboarded</SelectItem>
-                  <SelectItem value="active">Active</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Select value={packageFilter} onValueChange={setPackageFilter}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Package" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Packages</SelectItem>
-                  <SelectItem value="Starter">Starter</SelectItem>
-                  <SelectItem value="Growth">Growth</SelectItem>
-                  <SelectItem value="Authority">Authority</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Input
-                placeholder="Filter by city..."
-                value={cityFilter}
-                onChange={(e) => setCityFilter(e.target.value)}
-              />
-
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setSearchTerm('');
-                  setStatusFilter('all');
-                  setPackageFilter('all');
-                  setCityFilter('');
-                }}
-              >
-                <Filter className="w-4 h-4 mr-2" />
-                Clear Filters
-              </Button>
+              {loading ? (
+                <div className="flex items-center justify-center py-16">
+                  <Loader2 className="w-8 h-8 animate-spin text-slate-400" />
+                </div>
+              ) : filteredLeads.length === 0 ? (
+                <div className="text-center py-16 bg-white rounded-xl border border-dashed border-slate-300">
+                  <Users className="w-10 h-10 text-slate-300 mx-auto mb-3" />
+                  <p className="text-slate-500">No leads found</p>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {filteredLeads.map(lead => (
+                    <button
+                      key={lead.id}
+                      onClick={() => setSelectedLead(lead)}
+                      className={`w-full text-left bg-white border rounded-xl p-4 hover:border-blue-300 transition-all ${selectedLead?.id === lead.id ? 'border-blue-400 shadow-sm' : 'border-slate-200'}`}
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap mb-1">
+                            <Badge className={`text-xs ${STATUS_COLORS[lead.status] || 'bg-slate-100 text-slate-600'}`}>
+                              {STATUS_OPTIONS.find(s => s.value === lead.status)?.label || lead.status}
+                            </Badge>
+                            {lead.guide_downloaded && <span className="text-xs text-purple-600 font-medium">📖 Guide</span>}
+                            {lead.trial_started && <span className="text-xs text-green-600 font-medium">✅ Trial</span>}
+                          </div>
+                          <p className="font-semibold text-slate-900 truncate">{lead.business_name} — {lead.name}</p>
+                          <p className="text-xs text-slate-400">{lead.email} {lead.city ? `· ${lead.city}` : ''} · {new Date(lead.created_date).toLocaleDateString()}</p>
+                        </div>
+                        <Badge variant="outline" className="text-xs shrink-0">{(lead.source || 'website').replace(/_/g, ' ')}</Badge>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
-          </CardContent>
-        </Card>
 
-        <Card>
-          <CardHeader>
-            <div className="flex justify-between items-center">
-              <CardTitle>Leads ({filteredLeads.length})</CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>
-                      <Button variant="ghost" onClick={() => handleSort('business_name')} className="gap-2">
-                        Business
-                        <ArrowUpDown className="w-4 h-4" />
-                      </Button>
-                    </TableHead>
-                    <TableHead>Contact</TableHead>
-                    <TableHead>
-                      <Button variant="ghost" onClick={() => handleSort('package')} className="gap-2">
-                        Package
-                        <ArrowUpDown className="w-4 h-4" />
-                      </Button>
-                    </TableHead>
-                    <TableHead>
-                      <Button variant="ghost" onClick={() => handleSort('status')} className="gap-2">
-                        Status
-                        <ArrowUpDown className="w-4 h-4" />
-                      </Button>
-                    </TableHead>
-                    <TableHead>
-                      <Button variant="ghost" onClick={() => handleSort('city')} className="gap-2">
-                        Location
-                        <ArrowUpDown className="w-4 h-4" />
-                      </Button>
-                    </TableHead>
-                    <TableHead>
-                      <Button variant="ghost" onClick={() => handleSort('lead_score')} className="gap-2">
-                        Score
-                        <ArrowUpDown className="w-4 h-4" />
-                      </Button>
-                    </TableHead>
-                    <TableHead>Pricing</TableHead>
-                    <TableHead>
-                      <Button variant="ghost" onClick={() => handleSort('created_date')} className="gap-2">
-                        Created
-                        <ArrowUpDown className="w-4 h-4" />
-                      </Button>
-                    </TableHead>
-                    <TableHead>Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredLeads.length === 0 ? (
-                    <TableRow>
-                      <TableCell colSpan={8} className="text-center py-12 text-slate-500">
-                        No leads found
-                      </TableCell>
-                    </TableRow>
-                  ) : (
-                    filteredLeads.map((lead) => (
-                      <TableRow key={lead.id}>
-                        <TableCell className="font-medium">
-                          <div>
-                            <p className="font-semibold">{lead.business_name}</p>
-                            {lead.nonprofit && (
-                              <Badge variant="outline" className="text-xs mt-1">Nonprofit</Badge>
-                            )}
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <div className="text-sm">
-                            <p>{lead.full_name}</p>
-                            <p className="text-slate-500">{lead.email}</p>
-                            <p className="text-slate-500">{lead.phone}</p>
-                          </div>
-                        </TableCell>
-                        <TableCell>{lead.package}</TableCell>
-                        <TableCell>{getStatusBadge(lead.status)}</TableCell>
-                        <TableCell>
-                          <div className="text-sm">
-                            <p>{lead.city}</p>
-                            <p className="text-slate-500">{lead.state}</p>
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          {getScoreBadge(lead.lead_score)}
-                        </TableCell>
-                        <TableCell>
-                          <div className="text-sm">
-                            {lead.setup_price && (
-                              <p className="font-semibold">${lead.setup_price} setup</p>
-                            )}
-                            {lead.monthly_price > 0 && (
-                              <p className="text-slate-600">${lead.monthly_price}/mo</p>
-                            )}
-                          </div>
-                        </TableCell>
-                        <TableCell className="text-sm text-slate-600">
-                          {new Date(lead.created_date).toLocaleDateString()}
-                        </TableCell>
-                        <TableCell>
+            {/* Detail Panel */}
+            {selectedLead && (
+              <div className="w-full lg:w-80 shrink-0">
+                <Card className="sticky top-24">
+                  <CardHeader className="pb-3">
+                    <div className="flex items-start justify-between">
+                      <CardTitle className="text-base">{selectedLead.business_name}</CardTitle>
+                      <button onClick={() => setSelectedLead(null)} className="text-slate-400 hover:text-slate-700 text-xs">✕</button>
+                    </div>
+                    <p className="text-sm text-slate-500">{selectedLead.name}</p>
+                  </CardHeader>
+                  <CardContent className="space-y-4 text-sm">
+                    <div className="space-y-1.5">
+                      {selectedLead.email && <p>✉️ <a href={`mailto:${selectedLead.email}`} className="text-blue-600 hover:underline">{selectedLead.email}</a></p>}
+                      {selectedLead.phone && <p>📞 {selectedLead.phone}</p>}
+                      {selectedLead.city && <p>📍 {selectedLead.city}</p>}
+                      {selectedLead.industry && <p>🏢 {selectedLead.industry}</p>}
+                      {selectedLead.funnel_service && <p>🎯 Funnel: {selectedLead.funnel_service.replace(/-/g, ' ')}</p>}
+                    </div>
+
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 uppercase mb-2">Update Status</p>
+                      <Select value={selectedLead.status} onValueChange={v => updateStatus(selectedLead, v)}>
+                        <SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                          {STATUS_OPTIONS.map(o => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 uppercase mb-2">Send Follow-Up Email</p>
+                      <div className="space-y-1.5">
+                        {[1, 2, 3, 4].map(step => (
                           <Button
-                            variant="outline"
+                            key={step}
                             size="sm"
-                            onClick={() => navigate(createPageUrl('LeadDetail') + '?id=' + lead.id)}
+                            variant={selectedLead.follow_up_sequence_step >= step ? 'outline' : 'default'}
+                            className={`w-full text-xs justify-start ${selectedLead.follow_up_sequence_step >= step ? 'border-green-300 text-green-700' : ''}`}
+                            onClick={() => sendFollowUp(selectedLead, step)}
+                            disabled={!!sendingEmail}
                           >
-                            <Eye className="w-4 h-4 mr-2" />
-                            View
+                            {sendingEmail === selectedLead.id + '-' + step ? (
+                              <Loader2 className="w-3 h-3 animate-spin mr-1.5" />
+                            ) : selectedLead.follow_up_sequence_step >= step ? (
+                              '✓ '
+                            ) : (
+                              `Email #${step}: `
+                            )}
+                            {['Welcome + Guide', 'Case Study', '3 Mistakes', 'Free Consultation'][step - 1]}
                           </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))
-                  )}
-                </TableBody>
-              </Table>
-            </div>
-          </CardContent>
-        </Card>
+                        ))}
+                      </div>
+                    </div>
+
+                    {selectedLead.message && (
+                      <div>
+                        <p className="text-xs font-semibold text-slate-500 uppercase mb-1">Message</p>
+                        <p className="text-xs text-slate-600 bg-slate-50 rounded p-2">{selectedLead.message}</p>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </AdminLayout>
     </AdminGuard>
   );
 }

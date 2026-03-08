@@ -186,6 +186,7 @@ import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import CaseStudies from './pages/CaseStudies';
 import CaseStudyDetail from './pages/CaseStudyDetail';
 import ContentEngine from './pages/ContentEngine';
+import FunnelPage from './pages/FunnelPage';
 import __Layout from './Layout.jsx';
 
 
@@ -329,6 +330,7 @@ export const PAGES = {
     "CaseStudies": CaseStudies,
     "CaseStudyDetail": CaseStudyDetail,
     "ContentEngine": ContentEngine,
+    "FunnelPage": FunnelPage,
 }
 
 export const pagesConfig = {
