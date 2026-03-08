@@ -19,6 +19,7 @@ import ActivityFeed from '@/components/command/ActivityFeed';
 import SalesAlertsPanel from '@/components/sales/SalesAlertsPanel';
 import AlertsSummaryPanel from '@/components/command/AlertsSummaryPanel';
 import PipelineSummaryPanel from '@/components/pipeline/PipelineSummaryPanel';
+import ProposalsMetricsPanel from '@/components/proposals/ProposalsMetricsPanel';
 
 const QUICK_ACTIONS = [
   { label: 'Generate Blog', icon: FileText, page: 'AdminBlog', color: 'bg-rose-600 hover:bg-rose-700' },
@@ -99,6 +100,9 @@ export default function AdminCommandCenter() {
               <div className="space-y-4">
                 <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-widest">Action Required</h2>
                 <AlertsSummaryPanel />
+                <div className="bg-slate-800 rounded-xl border border-slate-700 p-4">
+                  <ProposalsMetricsPanel />
+                </div>
                 <PipelineSummaryPanel />
                 <div className="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
                   <SalesAlertsPanel />
