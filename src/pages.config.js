@@ -67,7 +67,11 @@ import AdminBlog from './pages/AdminBlog';
 import AdminClients from './pages/AdminClients';
 import AdminCommandCenter from './pages/AdminCommandCenter';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminFulfillment from './pages/AdminFulfillment';
+import AdminFulfillmentDetail from './pages/AdminFulfillmentDetail';
 import AdminHelp from './pages/AdminHelp';
+import AdminOnboarding from './pages/AdminOnboarding';
+import AdminOnboardingDetail from './pages/AdminOnboardingDetail';
 import AdminOnboardingQueue from './pages/AdminOnboardingQueue';
 import AdminSales from './pages/AdminSales';
 import AdminSettings from './pages/AdminSettings';
@@ -100,6 +104,7 @@ import ChatWidget from './pages/ChatWidget';
 import ChatbotManagement from './pages/ChatbotManagement';
 import ClientDashboard from './pages/ClientDashboard';
 import ClientDashboardDemo from './pages/ClientDashboardDemo';
+import ClientFulfillment from './pages/ClientFulfillment';
 import ClientOnboarding from './pages/ClientOnboarding';
 import Contact from './pages/Contact';
 import ContentDrafts from './pages/ContentDrafts';
@@ -155,8 +160,12 @@ import Pricing from './pages/Pricing';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import ProgrammaticSEODashboard from './pages/ProgrammaticSEODashboard';
 import Proposal from './pages/Proposal';
+import ProposalBuilder from './pages/ProposalBuilder';
 import ProposalDetail from './pages/ProposalDetail';
 import ProposalPipeline from './pages/ProposalPipeline';
+import ProposalPreview from './pages/ProposalPreview';
+import ProposalsList from './pages/ProposalsList';
+import PublicProposal from './pages/PublicProposal';
 import rebuildIntake from './pages/Rebuild-Intake';
 import Rebuild from './pages/Rebuild';
 import RebuildIntake from './pages/RebuildIntake';
@@ -197,15 +206,7 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import ProposalBuilder from './pages/ProposalBuilder';
-import ProposalPreview from './pages/ProposalPreview';
-import PublicProposal from './pages/PublicProposal';
-import ProposalsList from './pages/ProposalsList';
-import AdminOnboarding from './pages/AdminOnboarding';
-import AdminOnboardingDetail from './pages/AdminOnboardingDetail';
-import AdminFulfillment from './pages/AdminFulfillment';
-import AdminFulfillmentDetail from './pages/AdminFulfillmentDetail';
-import ClientFulfillment from './pages/ClientFulfillment';
+import AdminOperations from './pages/AdminOperations';
 import __Layout from './Layout.jsx';
 
 
@@ -230,7 +231,11 @@ export const PAGES = {
     "AdminClients": AdminClients,
     "AdminCommandCenter": AdminCommandCenter,
     "AdminDashboard": AdminDashboard,
+    "AdminFulfillment": AdminFulfillment,
+    "AdminFulfillmentDetail": AdminFulfillmentDetail,
     "AdminHelp": AdminHelp,
+    "AdminOnboarding": AdminOnboarding,
+    "AdminOnboardingDetail": AdminOnboardingDetail,
     "AdminOnboardingQueue": AdminOnboardingQueue,
     "AdminSales": AdminSales,
     "AdminSettings": AdminSettings,
@@ -263,6 +268,7 @@ export const PAGES = {
     "ChatbotManagement": ChatbotManagement,
     "ClientDashboard": ClientDashboard,
     "ClientDashboardDemo": ClientDashboardDemo,
+    "ClientFulfillment": ClientFulfillment,
     "ClientOnboarding": ClientOnboarding,
     "Contact": Contact,
     "ContentDrafts": ContentDrafts,
@@ -318,8 +324,12 @@ export const PAGES = {
     "PrivacyPolicy": PrivacyPolicy,
     "ProgrammaticSEODashboard": ProgrammaticSEODashboard,
     "Proposal": Proposal,
+    "ProposalBuilder": ProposalBuilder,
     "ProposalDetail": ProposalDetail,
     "ProposalPipeline": ProposalPipeline,
+    "ProposalPreview": ProposalPreview,
+    "ProposalsList": ProposalsList,
+    "PublicProposal": PublicProposal,
     "Rebuild-Intake": rebuildIntake,
     "Rebuild": Rebuild,
     "RebuildIntake": RebuildIntake,
@@ -360,15 +370,7 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "ProposalBuilder": ProposalBuilder,
-    "ProposalPreview": ProposalPreview,
-    "PublicProposal": PublicProposal,
-    "ProposalsList": ProposalsList,
-    "AdminOnboarding": AdminOnboarding,
-    "AdminOnboardingDetail": AdminOnboardingDetail,
-    "AdminFulfillment": AdminFulfillment,
-    "AdminFulfillmentDetail": AdminFulfillmentDetail,
-    "ClientFulfillment": ClientFulfillment,
+    "AdminOperations": AdminOperations,
 }
 
 export const pagesConfig = {
