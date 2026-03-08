@@ -13,6 +13,12 @@ const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/pub
 // ── Admin navigation — canonical /admin route ──────────────────────────────────
 const NAV_GROUPS = [
   {
+    label: 'Executive',
+    items: [
+      { label: '👔 Executive Dashboard', icon: TrendingUp, page: 'AdminExecutive' },
+    ],
+  },
+  {
     label: 'Operations',
     items: [
       { label: 'Command Center', icon: Cpu, page: 'AdminCommandCenter' },
