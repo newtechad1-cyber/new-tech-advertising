@@ -13,17 +13,18 @@ import { createPageUrl } from '../utils';
 export default function BlogPost() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   
-  // Get ID from URL
+  // Get ID or slug from URL
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
+  const slug = urlParams.get('slug');
 
   const { data: posts, isLoading } = useQuery({
-    queryKey: ['blogPost', id],
-    queryFn: () => base44.entities.BlogPost.list(), // Fetch all and filter client side since we don't have a direct get or it might be safer
-    enabled: !!id
+    queryKey: ['blogPost', id, slug],
+    queryFn: () => base44.entities.BlogPost.list(),
+    enabled: !!(id || slug)
   });
 
-  const post = posts ? posts.find(p => p.id === id) : null;
+  const post = posts ? posts.find(p => (id && p.id === id) || (slug && p.slug === slug)) : null;
 
   return (
     <div className="bg-white min-h-screen flex flex-col">
