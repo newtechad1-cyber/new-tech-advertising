@@ -8,13 +8,31 @@ Deno.serve(async (req) => {
     const twoDaysAgo = new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000).toISOString();
     const threeDaysAgo = new Date(now.getTime() - 3 * 24 * 60 * 60 * 1000).toISOString();
 
-    // Helper: check if a notification of a given type/lead already exists unresolved
+    // Helper: check if a notification of a given type already exists and is unread OR snoozed
+    // Prevents re-creation for alerts the admin has snoozed or not yet actioned
     const hasUnresolved = async (filters) => {
-      const found = await base44.asServiceRole.entities.SalesNotification.filter({
-        ...filters,
-        status: 'unread',
-      });
-      return found.length > 0;
+      const [unread, snoozed] = await Promise.all([
+        base44.asServiceRole.entities.SalesNotification.filter({ ...filters, status: 'unread' }),
+        base44.asServiceRole.entities.SalesNotification.filter({ ...filters, status: 'snoozed' }),
+      ]);
+      return unread.length > 0 || snoozed.length > 0;
+    };
+
+    // Helper: resolve all active alerts matching filters
+    const autoResolve = async (filters, reason) => {
+      const [unread, snoozed] = await Promise.all([
+        base44.asServiceRole.entities.SalesNotification.filter({ ...filters, status: 'unread' }),
+        base44.asServiceRole.entities.SalesNotification.filter({ ...filters, status: 'snoozed' }),
+      ]);
+      const toResolve = [...unread, ...snoozed];
+      for (const alert of toResolve) {
+        await base44.asServiceRole.entities.SalesNotification.update(alert.id, {
+          status: 'resolved',
+          resolved_date: new Date().toISOString(),
+          message: alert.message + `\n\n✅ Auto-resolved: ${reason}`,
+        });
+      }
+      return toResolve.length;
     };
 
     // ─── 1. HOT LEADS inactive for 3+ days ───────────────────────────────────
