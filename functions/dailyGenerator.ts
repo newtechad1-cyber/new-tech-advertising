@@ -239,6 +239,26 @@ JSON schema (return exactly this structure):
     status: 'generated'
   });
 
-  console.log(`[DailyGenerator] Done. Item ${item.id} updated to generated.`);
-  return Response.json({ success: true, item_id: item.id, topic: item.topic });
+  // Publish to BlogPost entity so it shows up on the public blog
+  const slug = item.topic
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .substring(0, 80);
+
+  const blogPost = await base44.asServiceRole.entities.BlogPost.create({
+    title: metaFields.meta_title || item.topic,
+    slug,
+    excerpt: metaFields.meta_description || '',
+    content: blog_content,
+    category: item.pillar || 'Marketing',
+    author: settings.business_name || 'NTA Team',
+    published_date: todayStr,
+    meta_description: metaFields.meta_description || '',
+    tags: (metaFields.internal_link_suggestions || []).map(l => l.anchor_text).filter(Boolean).slice(0, 5),
+    status: 'published',
+  });
+
+  console.log(`[DailyGenerator] Done. Item ${item.id} generated. BlogPost created: ${blogPost.id}`);
+  return Response.json({ success: true, item_id: item.id, topic: item.topic, blog_post_id: blogPost.id });
 });

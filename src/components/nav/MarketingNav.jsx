@@ -50,6 +50,10 @@ const NAV_LINKS = [
     ],
   },
   {
+    label: 'Blog',
+    href: createPageUrl('Blog'),
+  },
+  {
     label: 'Pricing',
     href: createPageUrl('Pricing'),
   },
