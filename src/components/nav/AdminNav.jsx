@@ -4,7 +4,7 @@ import { createPageUrl } from '@/utils';
 import {
   LayoutDashboard, Users, TrendingUp, FileText, FolderKanban,
   Share2, MessageSquare, Settings, LogOut, Menu, X,
-  Bot, Globe, CreditCard, Bell
+  Bot, Globe, CreditCard, Bell, Cpu, Target
 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
