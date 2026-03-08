@@ -154,21 +154,45 @@ Deno.serve(async (req) => {
       }
     }
 
-    // ─── 6. Auto-resolve trial alerts for completed onboarding ───────────────
+    // ─── 6. Auto-resolve: trials that completed onboarding ───────────────────
     const completedTrials = await base44.asServiceRole.entities.TrialAccount.filter({
       onboarding_status: 'ready_for_dashboard',
     });
     for (const trial of completedTrials) {
-      const unresolvedAlerts = await base44.asServiceRole.entities.SalesNotification.filter({
-        related_trial_id: trial.id,
-        notification_type: 'trial_incomplete',
-        status: 'unread',
-      });
-      for (const alert of unresolvedAlerts) {
-        await base44.asServiceRole.entities.SalesNotification.update(alert.id, {
-          status: 'resolved',
-          resolved_date: new Date().toISOString(),
-        });
+      await autoResolve(
+        { related_trial_id: trial.id, notification_type: 'trial_incomplete' },
+        `${trial.name} completed onboarding`
+      );
+    }
+
+    // ─── 7. Auto-resolve: proposals that are won or lost ─────────────────────
+    const closedStatuses = ['won', 'lost', 'accepted', 'rejected'];
+    const allProposals = await base44.asServiceRole.entities.Proposal.list('-updated_date', 200);
+    for (const p of allProposals) {
+      if (closedStatuses.includes(p.status)) {
+        const reason = p.status === 'won' || p.status === 'accepted'
+          ? `Proposal "${p.title}" was won/accepted`
+          : `Proposal "${p.title}" was closed (${p.status})`;
+        await autoResolve({ related_proposal_id: p.id, notification_type: 'proposal_followup' }, reason);
+        await autoResolve({ related_proposal_id: p.id, notification_type: 'proposal_no_response' }, reason);
+        await autoResolve({ related_proposal_id: p.id, notification_type: 'proposal_viewed_multiple' }, reason);
+        await autoResolve({ related_proposal_id: p.id, notification_type: 'proposal_viewed' }, reason);
+      }
+    }
+
+    // ─── 8. Auto-resolve: hot lead alerts when lead is contacted/converted ────
+    const progressedLeads = await base44.asServiceRole.entities.Lead.filter({});
+    const resolvedLeadStatuses = ['contacted', 'consultation_scheduled', 'proposal_sent', 'won', 'lost'];
+    for (const lead of progressedLeads) {
+      if (resolvedLeadStatuses.includes(lead.status)) {
+        await autoResolve(
+          { related_lead_id: lead.id, notification_type: 'hot_lead' },
+          `Lead status updated to "${lead.status}"`
+        );
+        await autoResolve(
+          { related_lead_id: lead.id, notification_type: 'followup_needed' },
+          `Lead status updated to "${lead.status}"`
+        );
       }
     }
 
