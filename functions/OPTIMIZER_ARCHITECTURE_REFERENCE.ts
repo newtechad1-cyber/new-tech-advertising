@@ -684,16 +684,18 @@ const TASK_PROPOSAL_REVIEW_RULES = {
       'recommended_service_area IS NOT NULL',
       'confidence_score >= 70'
     ],
-    template: {
-      company_id: 'opportunity.company_id',
-      proposal_type: 'optimization_service',
-      title: 'Proposal: ' + recommended_service_area,
-      summary: 'Service expansion to address: ' + opportunity.title,
-      description: 'Root Cause: + root_cause_summary + Recommendation: + recommendation_summary',
-      recommended_value: 'calculateServiceValue(optimization_type, company.size)',
-      status: 'draft',
-      linked_opportunity_id: 'opportunity_id'
-    },
+    template: `
+      {
+        company_id: opportunity.company_id,
+        proposal_type: 'optimization_service',
+        title: 'Proposal: ' + recommended_service_area,
+        summary: 'Service expansion to address: ' + opportunity.title,
+        description: 'Root Cause: ' + root_cause_summary + '\\n\\nRecommendation: ' + recommendation_summary,
+        recommended_value: 'calculateServiceValue(optimization_type, company.size)',
+        status: 'draft',
+        linked_opportunity_id: opportunity_id
+      }
+    `,
     prevent_duplicates: `
       DO NOT create IF (
         Proposal exists for same (company_id + recommended_service_area)
