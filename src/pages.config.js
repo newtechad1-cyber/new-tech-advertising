@@ -210,6 +210,7 @@ import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AdminExecutive from './pages/AdminExecutive';
 import AdminCopilot from './pages/AdminCopilot';
+import AdminCopilotAccount from './pages/AdminCopilotAccount';
 import __Layout from './Layout.jsx';
 
 
@@ -377,6 +378,7 @@ export const PAGES = {
     "YouTubeUploadTest": YouTubeUploadTest,
     "AdminExecutive": AdminExecutive,
     "AdminCopilot": AdminCopilot,
+    "AdminCopilotAccount": AdminCopilotAccount,
 }
 
 export const pagesConfig = {
