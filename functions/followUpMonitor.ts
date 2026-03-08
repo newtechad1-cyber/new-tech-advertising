@@ -175,7 +175,7 @@ Deno.serve(async (req) => {
       }
     }
 
-    // ─── 7. HOT LEADS in CRM with no next_follow_up date set ─────────────────
+    // ─── 8. HOT LEADS in CRM with no next_follow_up date set ─────────────────
     const hotLeads = await base44.asServiceRole.entities.Lead.filter({ status: 'qualified' });
     for (const lead of hotLeads) {
       if (!lead.next_follow_up) {
@@ -198,7 +198,7 @@ Deno.serve(async (req) => {
       }
     }
 
-    // ─── 6. Auto-resolve: trials that completed onboarding ───────────────────
+    // ─── 9. Auto-resolve: trials that completed onboarding ───────────────────
     const completedTrials = await base44.asServiceRole.entities.TrialAccount.filter({
       onboarding_status: 'ready_for_dashboard',
     });
@@ -209,7 +209,7 @@ Deno.serve(async (req) => {
       );
     }
 
-    // ─── 7. Auto-resolve: proposals that are won or lost ─────────────────────
+    // ─── 10. Auto-resolve: proposals that are won or lost ────────────────────
     const closedStatuses = ['won', 'lost', 'accepted', 'rejected'];
     const allProposals = await base44.asServiceRole.entities.Proposal.list('-updated_date', 200);
     for (const p of allProposals) {
@@ -224,7 +224,7 @@ Deno.serve(async (req) => {
       }
     }
 
-    // ─── 8. Auto-resolve: hot lead alerts when lead is contacted/converted ────
+    // ─── 11. Auto-resolve: hot lead alerts when lead is contacted/converted ───
     const progressedLeads = await base44.asServiceRole.entities.Lead.filter({});
     const resolvedLeadStatuses = ['contacted', 'consultation_scheduled', 'proposal_sent', 'won', 'lost'];
     for (const lead of progressedLeads) {
