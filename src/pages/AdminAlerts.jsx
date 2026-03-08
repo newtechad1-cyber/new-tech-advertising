@@ -33,6 +33,7 @@ const PRIORITY_BADGE = {
 const TYPE_SECTIONS = [
   { id: 'hot_lead', label: '🔥 Hot Leads', types: ['hot_lead', 'followup_needed'] },
   { id: 'proposals', label: '📄 Proposal Activity', types: ['proposal_viewed', 'proposal_viewed_multiple', 'proposal_followup', 'proposal_no_response'] },
+  { id: 'tasks', label: '📋 Overdue Tasks', types: ['task_overdue'] },
   { id: 'trials', label: '🚀 Trial Follow-Up', types: ['trial_started', 'trial_incomplete'] },
   { id: 'client_requests', label: '💬 Client Requests', types: ['client_request'] },
 ];
@@ -47,6 +48,7 @@ const TYPE_TRIGGER = {
   trial_started: 'Trial account created',
   trial_incomplete: 'Trial started 2+ days ago but onboarding not complete',
   client_request: 'Client submitted a support or revision request',
+  task_overdue: 'A follow-up task passed its due date without being completed',
 };
 
 function AuditRow({ icon: Icon, label, value }) {
@@ -131,7 +133,7 @@ function AlertCard({ n, onAction }) {
             </Link>
           )}
           {n.related_proposal_id && (
-            <Link to={`${createPageUrl('AdminSales')}?proposal_id=${n.related_proposal_id}&tab=proposals`}>
+            <Link to={`${createPageUrl('ProposalDetail')}?id=${n.related_proposal_id}`}>
               <Button size="sm" variant="outline" className="h-7 text-xs border-slate-600 text-slate-300 hover:bg-slate-700 gap-1">
                 <FileText className="w-3 h-3" /> View Proposal
               </Button>
