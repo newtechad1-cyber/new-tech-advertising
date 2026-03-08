@@ -36,7 +36,7 @@ export default function HomeHero() {
         </div>
 
         <div className="text-center max-w-4xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight mb-6">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.2] tracking-tight mb-6">
             The Small Business
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">
               Marketing System
