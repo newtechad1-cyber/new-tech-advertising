@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
-import { ArrowRight, CheckCircle, Building2, Mail, Phone, User, Calendar } from 'lucide-react';
+import { ArrowRight, CheckCircle, Building2, Mail, Phone, User, Calendar, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -26,7 +26,7 @@ export default function BookCall() {
   const [step, setStep] = useState(1); // 1=form, 2=success
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
-    name: '', email: '', phone: '', business_name: '',
+    name: '', email: '', phone: '', business_name: '', website_url: '',
     service_interest: 'not_sure', best_time: '', message: '',
   });
 
@@ -41,6 +41,7 @@ export default function BookCall() {
         business_name: form.business_name,
         email: form.email,
         phone: form.phone,
+        website_url: form.website_url,
         status: 'lead',
         source: 'website',
       });
@@ -52,6 +53,7 @@ export default function BookCall() {
         email: form.email,
         phone: form.phone,
         business_name: form.business_name,
+        website_url: form.website_url,
         service_interest: form.service_interest,
         message: `Best time to call: ${form.best_time}\n\n${form.message}`,
         status: 'new',
@@ -63,7 +65,7 @@ export default function BookCall() {
         from_name: 'NTA — Strategy Call Request',
         to: 'rick@newtechadvertising.com',
         subject: `Strategy Call Request: ${form.business_name}`,
-        body: `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nBusiness: ${form.business_name}\nService: ${form.service_interest}\nBest Time: ${form.best_time}\nMessage: ${form.message}`,
+        body: `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nBusiness: ${form.business_name}\nWebsite: ${form.website_url || 'Not provided'}\nService: ${form.service_interest}\nBest Time: ${form.best_time}\nMessage: ${form.message}`,
       });
 
       setStep(2);
@@ -170,6 +172,12 @@ export default function BookCall() {
                 <Label className="text-slate-300 mb-1.5 flex items-center gap-1.5"><Phone className="w-3.5 h-3.5" /> Phone *</Label>
                 <Input required type="tel" value={form.phone} onChange={e => set('phone', e.target.value)} placeholder="(555) 123-4567" className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500" />
               </div>
+            </div>
+
+            <div>
+              <Label className="text-slate-300 mb-1.5 flex items-center gap-1.5"><Globe className="w-3.5 h-3.5" /> Business Website *</Label>
+              <Input required type="url" value={form.website_url} onChange={e => set('website_url', e.target.value)} placeholder="https://yourbusiness.com" className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500" />
+              <p className="text-slate-500 text-xs mt-1">We'll scan your site before the call so we can give you specific recommendations.</p>
             </div>
 
             <div>
