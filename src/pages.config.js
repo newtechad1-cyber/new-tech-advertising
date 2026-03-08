@@ -61,11 +61,17 @@ import AdaWebsiteCompliance from './pages/AdaWebsiteCompliance';
 import AdaWebsiteLawsuitPrevention from './pages/AdaWebsiteLawsuitPrevention';
 import AdaWebsiteRebuild from './pages/AdaWebsiteRebuild';
 import Admin from './pages/Admin';
+import AdminAlerts from './pages/AdminAlerts';
+import AdminAutopilot from './pages/AdminAutopilot';
 import AdminBlog from './pages/AdminBlog';
+import AdminClients from './pages/AdminClients';
+import AdminCommandCenter from './pages/AdminCommandCenter';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminHelp from './pages/AdminHelp';
 import AdminOnboardingQueue from './pages/AdminOnboardingQueue';
+import AdminSales from './pages/AdminSales';
 import AdminSettings from './pages/AdminSettings';
+import AdminUsers from './pages/AdminUsers';
 import AdminVideoDetail from './pages/AdminVideoDetail';
 import AdminVideoGenerator from './pages/AdminVideoGenerator';
 import AdminVideoQueue from './pages/AdminVideoQueue';
@@ -91,6 +97,7 @@ import CaseStudies from './pages/CaseStudies';
 import CaseStudyDetail from './pages/CaseStudyDetail';
 import ChatWidget from './pages/ChatWidget';
 import ChatbotManagement from './pages/ChatbotManagement';
+import ClientDashboard from './pages/ClientDashboard';
 import ClientDashboardDemo from './pages/ClientDashboardDemo';
 import ClientOnboarding from './pages/ClientOnboarding';
 import Contact from './pages/Contact';
@@ -187,13 +194,9 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdminAutopilot from './pages/AdminAutopilot';
-import AdminSales from './pages/AdminSales';
-import AdminCommandCenter from './pages/AdminCommandCenter';
-import ClientDashboard from './pages/ClientDashboard';
-import AdminUsers from './pages/AdminUsers';
-import AdminClients from './pages/AdminClients';
-import AdminAlerts from './pages/AdminAlerts';
+import ProposalPipeline from './pages/ProposalPipeline';
+import ProposalDetail from './pages/ProposalDetail';
+import AdminTasks from './pages/AdminTasks';
 import __Layout from './Layout.jsx';
 
 
@@ -212,11 +215,17 @@ export const PAGES = {
     "AdaWebsiteLawsuitPrevention": AdaWebsiteLawsuitPrevention,
     "AdaWebsiteRebuild": AdaWebsiteRebuild,
     "Admin": Admin,
+    "AdminAlerts": AdminAlerts,
+    "AdminAutopilot": AdminAutopilot,
     "AdminBlog": AdminBlog,
+    "AdminClients": AdminClients,
+    "AdminCommandCenter": AdminCommandCenter,
     "AdminDashboard": AdminDashboard,
     "AdminHelp": AdminHelp,
     "AdminOnboardingQueue": AdminOnboardingQueue,
+    "AdminSales": AdminSales,
     "AdminSettings": AdminSettings,
+    "AdminUsers": AdminUsers,
     "AdminVideoDetail": AdminVideoDetail,
     "AdminVideoGenerator": AdminVideoGenerator,
     "AdminVideoQueue": AdminVideoQueue,
@@ -242,6 +251,7 @@ export const PAGES = {
     "CaseStudyDetail": CaseStudyDetail,
     "ChatWidget": ChatWidget,
     "ChatbotManagement": ChatbotManagement,
+    "ClientDashboard": ClientDashboard,
     "ClientDashboardDemo": ClientDashboardDemo,
     "ClientOnboarding": ClientOnboarding,
     "Contact": Contact,
@@ -338,13 +348,9 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AdminAutopilot": AdminAutopilot,
-    "AdminSales": AdminSales,
-    "AdminCommandCenter": AdminCommandCenter,
-    "ClientDashboard": ClientDashboard,
-    "AdminUsers": AdminUsers,
-    "AdminClients": AdminClients,
-    "AdminAlerts": AdminAlerts,
+    "ProposalPipeline": ProposalPipeline,
+    "ProposalDetail": ProposalDetail,
+    "AdminTasks": AdminTasks,
 }
 
 export const pagesConfig = {
