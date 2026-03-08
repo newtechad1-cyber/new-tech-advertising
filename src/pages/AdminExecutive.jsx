@@ -73,6 +73,9 @@ export default function AdminExecutive() {
             </div>
           </div>
 
+          {/* AI Copilot Summary */}
+          <CopilotSummary />
+
           {/* Summary Cards - Top Row */}
           <ExecutiveSummaryCards data={summary} />
 
