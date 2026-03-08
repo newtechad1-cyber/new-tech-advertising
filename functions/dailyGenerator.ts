@@ -256,7 +256,6 @@ JSON schema (return exactly this structure):
     published_date: todayStr,
     meta_description: metaFields.meta_description || '',
     tags: (metaFields.internal_link_suggestions || []).map(l => l.anchor_text).filter(Boolean).slice(0, 5),
-    status: 'published',
   });
 
   console.log(`[DailyGenerator] Done. Item ${item.id} generated. BlogPost created: ${blogPost.id}`);
