@@ -21,6 +21,7 @@ const NAV_GROUPS = [
       { label: 'Leads & CRM', icon: Users, page: 'LeadsDashboard' },
       { label: 'Clients', icon: Briefcase, page: 'AdminClients' },
       { label: 'Users', icon: UserCog, page: 'AdminUsers' },
+      { label: 'Proposals', icon: FileText, page: 'ProposalsList' },
       { label: 'Pipeline', icon: FolderKanban, page: 'ProposalPipeline' },
       { label: 'Tasks', icon: CheckSquare, page: 'AdminTasks' },
       { label: 'Opportunities', icon: TrendingUp, page: 'OperationsHub' },
