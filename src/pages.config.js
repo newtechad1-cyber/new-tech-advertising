@@ -87,18 +87,22 @@ import bookCall from './pages/Book-Call';
 import BusinessIntelProfileAdmin from './pages/BusinessIntelProfileAdmin';
 import BusinessProfileAdmin from './pages/BusinessProfileAdmin';
 import CRMHub from './pages/CRMHub';
+import CaseStudies from './pages/CaseStudies';
+import CaseStudyDetail from './pages/CaseStudyDetail';
 import ChatWidget from './pages/ChatWidget';
 import ChatbotManagement from './pages/ChatbotManagement';
 import ClientDashboardDemo from './pages/ClientDashboardDemo';
 import ClientOnboarding from './pages/ClientOnboarding';
 import Contact from './pages/Contact';
 import ContentDrafts from './pages/ContentDrafts';
+import ContentEngine from './pages/ContentEngine';
 import ContentQueue from './pages/ContentQueue';
 import ContentStudio from './pages/ContentStudio';
 import Dashboard from './pages/Dashboard';
 import DebugOAuthConnections from './pages/DebugOAuthConnections';
 import Demo from './pages/Demo';
 import freeAudit from './pages/Free-Audit';
+import FunnelPage from './pages/FunnelPage';
 import getStarted from './pages/Get-Started';
 import GlobalSettings from './pages/GlobalSettings';
 import GrowthSystem from './pages/GrowthSystem';
@@ -183,10 +187,6 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import CaseStudies from './pages/CaseStudies';
-import CaseStudyDetail from './pages/CaseStudyDetail';
-import ContentEngine from './pages/ContentEngine';
-import FunnelPage from './pages/FunnelPage';
 import __Layout from './Layout.jsx';
 
 
@@ -231,18 +231,22 @@ export const PAGES = {
     "BusinessIntelProfileAdmin": BusinessIntelProfileAdmin,
     "BusinessProfileAdmin": BusinessProfileAdmin,
     "CRMHub": CRMHub,
+    "CaseStudies": CaseStudies,
+    "CaseStudyDetail": CaseStudyDetail,
     "ChatWidget": ChatWidget,
     "ChatbotManagement": ChatbotManagement,
     "ClientDashboardDemo": ClientDashboardDemo,
     "ClientOnboarding": ClientOnboarding,
     "Contact": Contact,
     "ContentDrafts": ContentDrafts,
+    "ContentEngine": ContentEngine,
     "ContentQueue": ContentQueue,
     "ContentStudio": ContentStudio,
     "Dashboard": Dashboard,
     "DebugOAuthConnections": DebugOAuthConnections,
     "Demo": Demo,
     "Free-Audit": freeAudit,
+    "FunnelPage": FunnelPage,
     "Get-Started": getStarted,
     "GlobalSettings": GlobalSettings,
     "GrowthSystem": GrowthSystem,
@@ -327,10 +331,6 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "CaseStudies": CaseStudies,
-    "CaseStudyDetail": CaseStudyDetail,
-    "ContentEngine": ContentEngine,
-    "FunnelPage": FunnelPage,
 }
 
 export const pagesConfig = {
