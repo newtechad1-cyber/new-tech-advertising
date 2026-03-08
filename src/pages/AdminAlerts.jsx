@@ -9,10 +9,12 @@ import { toast } from 'sonner';
 import { formatDistanceToNow } from 'date-fns';
 import {
   Bell, CheckCheck, X, Clock, RefreshCw, Loader2,
-  Flame, FileText, Rocket, MessageSquare, AlertCircle, ChevronRight, Mail, Phone
+  Flame, FileText, Rocket, AlertCircle, ChevronRight, Mail,
+  Building2, User, Wrench, Calendar, Info, Tag
 } from 'lucide-react';
 import { createPageUrl } from '@/utils';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
 
 const PRIORITY_ROW = {
   urgent: 'border-l-4 border-l-red-500 bg-red-950/30',
