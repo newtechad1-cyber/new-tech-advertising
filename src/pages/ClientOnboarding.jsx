@@ -1,198 +1,237 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { createPageUrl } from '@/utils';
+import ClientGuard from '@/components/auth/ClientGuard';
 import { Button } from '@/components/ui/button';
-import { ChevronRight, ChevronLeft, CheckCircle, Loader2 } from 'lucide-react';
-import OnboardingStep1 from '@/components/onboarding/OnboardingStep1';
-import OnboardingStep2 from '@/components/onboarding/OnboardingStep2';
-import OnboardingStep3 from '@/components/onboarding/OnboardingStep3';
-import OnboardingStep4 from '@/components/onboarding/OnboardingStep4';
-import OnboardingStep5 from '@/components/onboarding/OnboardingStep5';
-import OnboardingStep6 from '@/components/onboarding/OnboardingStep6';
-
-const STEPS = [
-  { label: 'Business Basics' },
-  { label: 'Service Area' },
-  { label: 'Marketing Goals' },
-  { label: 'Brand Voice' },
-  { label: 'Social Platforms' },
-  { label: 'Posting Plan' },
-];
-
-const REQUIRED_BY_STEP = {
-  0: ['business_name', 'email'],
-  1: ['city', 'state'],
-  2: ['primary_goal', 'target_audience'],
-  3: ['brand_voice'],
-  4: [],
-  5: ['posting_frequency'],
-};
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Loader2, CheckCircle2, AlertCircle, FileText, Upload, Calendar, MessageCircle } from 'lucide-react';
+import { format, formatDistanceToNow } from 'date-fns';
+import { toast } from 'sonner';
 
 export default function ClientOnboarding() {
-  const [step, setStep] = useState(0);
-  const [profile, setProfile] = useState({ posting_frequency: '10', status: 'in_progress' });
-  const [profileId, setProfileId] = useState(null);
-  const [accountId, setAccountId] = useState(null);
-  const [metaConnected, setMetaConnected] = useState(false);
-  const [saving, setSaving] = useState(false);
-  const [completing, setCompleting] = useState(false);
-  const [done, setDone] = useState(false);
-  const [error, setError] = useState('');
+  const [user, setUser] = useState(null);
+  const [workroom, setWorkroom] = useState(null);
+  const [tasks, setTasks] = useState([]);
+  const [assets, setAssets] = useState([]);
+  const [forms, setForms] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const init = async () => {
-      const user = await base44.auth.me();
-      if (!user) { base44.auth.redirectToLogin(window.location.pathname); return; }
+  useEffect(() => { load(); }, []);
 
-      // Get or create TrialAccount
-      let accounts = await base44.entities.TrialAccount.filter({ email: user.email });
-      let acct = accounts?.[0];
-      if (!acct) {
-        acct = await base44.entities.TrialAccount.create({
-          name: user.full_name || user.email,
-          slug: user.email.split('@')[0].replace(/[^a-z0-9]/g, '-'),
-          email: user.email,
-          industry: '',
-          location_city: '',
-          location_state: '',
-        });
+  const load = async () => {
+    try {
+      const currentUser = await base44.auth.me();
+      setUser(currentUser);
+
+      // Find workroom for this user's company
+      const workrooms = await base44.entities.OnboardingWorkrooms.filter({
+        company_id: currentUser.company_id,
+        status: { $nin: ['launched', 'paused'] },
+      });
+
+      if (workrooms.length > 0) {
+        const w = workrooms[0];
+        setWorkroom(w);
+
+        // Load workroom content
+        const [t, a, f] = await Promise.all([
+          base44.entities.OnboardingTasks.filter({ workroom_id: w.id, visible_to_client: true }),
+          base44.entities.OnboardingAssets.filter({ workroom_id: w.id, visible_to_client: true }),
+          base44.entities.OnboardingForms.filter({ workroom_id: w.id, visible_to_client: true }),
+        ]);
+        setTasks(t || []);
+        setAssets(a || []);
+        setForms(f || []);
       }
-      setAccountId(acct.id);
-
-      // Load existing onboarding profile
-      let profs = await base44.entities.OnboardingProfile.filter({ account_id: acct.id });
-      if (profs?.[0]) {
-        const p = profs[0];
-        setProfileId(p.id);
-        setProfile({ ...p });
-        if (p.status === 'complete') { setDone(true); return; }
-      } else {
-        // Pre-fill from account
-        setProfile(prev => ({ ...prev, email: acct.email, business_name: acct.name }));
-      }
-
-      // Check MetaConnection
-      const metaConns = await base44.entities.MetaConnection.filter({ account_id: acct.id });
-      setMetaConnected(metaConns?.[0]?.status === 'connected');
-    };
-    init();
-  }, []);
-
-  const validate = () => {
-    const required = REQUIRED_BY_STEP[step] || [];
-    return required.every(k => profile[k]);
-  };
-
-  const saveProgress = async (data) => {
-    const payload = { ...data, account_id: accountId, status: data.status || 'in_progress' };
-    if (profileId) {
-      await base44.entities.OnboardingProfile.update(profileId, payload);
-    } else {
-      const created = await base44.entities.OnboardingProfile.create(payload);
-      setProfileId(created.id);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleNext = async () => {
-    if (!validate()) { setError('Please fill in all required fields.'); return; }
-    setError('');
-    setSaving(true);
-    await saveProgress(profile);
-    setSaving(false);
-    setStep(s => s + 1);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleBack = () => { setError(''); setStep(s => s - 1); };
-
-  const handleComplete = async () => {
-    setError('');
-    setCompleting(true);
-    await saveProgress({ ...profile, status: 'complete' });
-    const res = await base44.functions.invoke('completeOnboarding', { profileId, accountId });
-    setCompleting(false);
-    if (res.data?.success) {
-      setDone(true);
-    } else {
-      setError(res.data?.error || 'Something went wrong. Please try again.');
-    }
-  };
-
-  if (done) {
-    // Redirect immediately to ContentDrafts with banner param
-    window.location.href = createPageUrl('ContentDrafts') + '?onboarding_complete=1';
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-slate-100 flex items-center justify-center p-4">
-        <div className="flex flex-col items-center gap-3 text-slate-500">
-          <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
-          <p className="text-sm">Redirecting to your content…</p>
-        </div>
+  if (loading) return (
+    <ClientGuard>
+      <div className="flex items-center justify-center h-screen">
+        <Loader2 className="w-8 h-8 animate-spin text-slate-400" />
       </div>
-    );
-  }
+    </ClientGuard>
+  );
 
-  const progress = ((step) / STEPS.length) * 100;
+  if (!workroom) return (
+    <ClientGuard>
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+        <Card className="max-w-md w-full p-8 text-center">
+          <p className="text-slate-500 font-medium">No active onboarding workroom yet.</p>
+          <p className="text-sm text-slate-400 mt-2">Once your proposal is accepted, your onboarding will appear here.</p>
+        </Card>
+      </div>
+    </ClientGuard>
+  );
+
+  const pendingTasks = tasks.filter(t => t.status === 'pending');
+  const completedTasks = tasks.filter(t => t.status === 'completed');
+  const nextStep = pendingTasks[0];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-slate-100 flex flex-col">
-      {/* Header */}
-      <header className="bg-white border-b px-6 py-4 flex items-center gap-3">
-        <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/6e3c5001c_builtforsmallbusinessespng2.png" alt="NTA" className="h-8 w-auto" />
-        <span className="font-semibold text-slate-700">Account Setup</span>
-        <span className="ml-auto text-sm text-slate-400">Step {step + 1} of {STEPS.length}</span>
-      </header>
-
-      {/* Progress Bar */}
-      <div className="h-1.5 bg-slate-100">
-        <div className="h-full bg-blue-500 transition-all duration-500" style={{ width: `${progress}%` }} />
-      </div>
-
-      {/* Step dots */}
-      <div className="flex justify-center gap-2 py-4">
-        {STEPS.map((s, i) => (
-          <div key={i} className={`flex flex-col items-center`}>
-            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold border-2 transition-all ${i < step ? 'bg-blue-600 border-blue-600 text-white' : i === step ? 'border-blue-600 text-blue-600 bg-white' : 'border-slate-200 text-slate-400 bg-white'}`}>
-              {i < step ? '✓' : i + 1}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Card */}
-      <div className="flex-1 flex items-start justify-center p-4 pt-0">
-        <div className="bg-white rounded-2xl shadow-lg w-full max-w-lg p-8 mt-2">
-          <h2 className="text-xl font-bold text-slate-800 mb-1">{STEPS[step].label}</h2>
-          <p className="text-slate-400 text-sm mb-6">Step {step + 1} of {STEPS.length}</p>
-
-          {step === 0 && <OnboardingStep1 data={profile} onChange={setProfile} />}
-          {step === 1 && <OnboardingStep2 data={profile} onChange={setProfile} />}
-          {step === 2 && <OnboardingStep3 data={profile} onChange={setProfile} />}
-          {step === 3 && <OnboardingStep4 data={profile} onChange={setProfile} />}
-          {step === 4 && <OnboardingStep5 data={profile} accountId={accountId} metaConnected={metaConnected} />}
-          {step === 5 && <OnboardingStep6 data={profile} onChange={setProfile} />}
-
-          {error && <p className="text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2 mt-4 border border-red-200">{error}</p>}
-
-          <div className="flex gap-3 mt-8">
-            {step > 0 && (
-              <Button variant="outline" onClick={handleBack} disabled={saving || completing} className="flex-1 sm:flex-none">
-                <ChevronLeft className="w-4 h-4 mr-1" /> Back
-              </Button>
-            )}
-            {step < STEPS.length - 1 ? (
-              <Button onClick={handleNext} disabled={saving} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white">
-                {saving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-                Next <ChevronRight className="w-4 h-4 ml-1" />
-              </Button>
-            ) : (
-              <Button onClick={handleComplete} disabled={completing} className="flex-1 bg-green-600 hover:bg-green-700 text-white">
-                {completing ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-                Complete Setup 🚀
-              </Button>
-            )}
+    <ClientGuard>
+      <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+        {/* Hero */}
+        <div className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white px-6 py-12">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-3xl font-bold mb-2">Welcome to Onboarding! 🚀</h1>
+            <p className="text-indigo-100">Here's what we need to get your project moving</p>
           </div>
         </div>
+
+        <div className="max-w-4xl mx-auto px-6 py-8 space-y-8">
+          {/* Progress */}
+          <Card className="p-6 bg-gradient-to-r from-violet-50 to-indigo-50 border-violet-200">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-bold text-slate-900">Your Progress</h2>
+              <span className="text-2xl font-bold text-violet-600">{workroom.progress_percent || 0}%</span>
+            </div>
+            <div className="w-full bg-white rounded-full h-3">
+              <div
+                className="bg-gradient-to-r from-violet-500 to-indigo-500 h-3 rounded-full transition-all duration-300"
+                style={{ width: `${workroom.progress_percent || 0}%` }}
+              />
+            </div>
+            <p className="text-sm text-slate-600 mt-3">
+              {completedTasks.length} of {tasks.length} tasks complete
+            </p>
+          </Card>
+
+          {/* Next Step */}
+          {nextStep && (
+            <Card className="p-6 border-2 border-violet-200 bg-violet-50">
+              <h3 className="font-bold text-slate-900 mb-3">Your Next Step</h3>
+              <div className="flex items-start gap-4">
+                <div className="flex-1">
+                  <h4 className="font-semibold text-slate-900 text-lg">{nextStep.task_title}</h4>
+                  {nextStep.due_date && (
+                    <p className="text-sm text-slate-600 mt-2">
+                      Due {formatDistanceToNow(new Date(nextStep.due_date), { addSuffix: true })}
+                    </p>
+                  )}
+                  {nextStep.description && (
+                    <p className="text-sm text-slate-600 mt-3 leading-relaxed">{nextStep.description}</p>
+                  )}
+                </div>
+                <Button className="bg-violet-600 hover:bg-violet-700 px-6">Start</Button>
+              </div>
+            </Card>
+          )}
+
+          {/* Tasks */}
+          <Card className="p-6">
+            <h3 className="font-bold text-slate-900 mb-4">Your Tasks ({tasks.length})</h3>
+            <div className="space-y-3">
+              {tasks.map(task => (
+                <div key={task.id} className="flex items-start gap-4 p-4 bg-slate-50 rounded-lg border border-slate-200">
+                  <div className="flex-shrink-0 mt-1">
+                    {task.status === 'completed' ? (
+                      <CheckCircle2 className="w-5 h-5 text-green-600" />
+                    ) : (
+                      <div className="w-5 h-5 rounded-full border-2 border-slate-300" />
+                    )}
+                  </div>
+                  <div className="flex-1">
+                    <h4 className={`font-medium ${task.status === 'completed' ? 'line-through text-slate-400' : 'text-slate-900'}`}>
+                      {task.task_title}
+                    </h4>
+                    {task.due_date && (
+                      <p className="text-xs text-slate-500 mt-1">Due {format(new Date(task.due_date), 'PPP')}</p>
+                    )}
+                  </div>
+                  <Badge className={task.status === 'completed' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}>
+                    {task.status}
+                  </Badge>
+                </div>
+              ))}
+            </div>
+          </Card>
+
+          {/* Assets */}
+          {assets.length > 0 && (
+            <Card className="p-6">
+              <h3 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
+                <Upload className="w-5 h-5" />
+                Files & Assets ({assets.length})
+              </h3>
+              <p className="text-sm text-slate-600 mb-4">Upload or provide the following:</p>
+              <div className="grid gap-3">
+                {assets.map(asset => (
+                  <div key={asset.id} className="p-4 border-2 border-dashed border-slate-300 rounded-lg hover:border-violet-400 transition-colors">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="font-medium text-slate-900">{asset.asset_name}</h4>
+                        <p className="text-xs text-slate-500 mt-1">
+                          {asset.status === 'missing' ? '✓ Upload required' : '✓ Approved'}
+                        </p>
+                      </div>
+                      {asset.status === 'missing' && (
+                        <Button variant="outline" size="sm">Upload</Button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          )}
+
+          {/* Forms */}
+          {forms.length > 0 && (
+            <Card className="p-6">
+              <h3 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
+                <FileText className="w-5 h-5" />
+                Forms to Complete ({forms.length})
+              </h3>
+              <div className="space-y-3">
+                {forms.map(form => (
+                  <div key={form.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border border-slate-200">
+                    <div>
+                      <h4 className="font-medium text-slate-900">{form.form_title}</h4>
+                      <p className="text-xs text-slate-500 mt-1">{form.status}</p>
+                    </div>
+                    {form.status === 'submitted' || form.status === 'approved' ? (
+                      <Badge className="bg-green-100 text-green-700">✓ Complete</Badge>
+                    ) : (
+                      <Button>Start Form</Button>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </Card>
+          )}
+
+          {/* Kickoff Section */}
+          {workroom.kickoff_call_date && (
+            <Card className="p-6 border-l-4 border-l-indigo-600">
+              <h3 className="font-bold text-slate-900 mb-3 flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-indigo-600" />
+                Kickoff Call Scheduled
+              </h3>
+              <p className="text-lg font-semibold text-indigo-600">
+                {format(new Date(workroom.kickoff_call_date), 'PPPP p')}
+              </p>
+            </Card>
+          )}
+
+          {/* Support */}
+          <Card className="p-6 bg-slate-50">
+            <h3 className="font-bold text-slate-900 mb-4">Questions?</h3>
+            <div className="grid grid-cols-2 gap-3">
+              <Button variant="outline" className="gap-2">
+                <MessageCircle className="w-4 h-4" />
+                Message Us
+              </Button>
+              <Button variant="outline" className="gap-2">
+                <Calendar className="w-4 h-4" />
+                Request Call
+              </Button>
+            </div>
+          </Card>
+        </div>
       </div>
-    </div>
+    </ClientGuard>
   );
 }
