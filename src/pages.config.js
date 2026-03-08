@@ -71,6 +71,7 @@ import AdminHelp from './pages/AdminHelp';
 import AdminOnboardingQueue from './pages/AdminOnboardingQueue';
 import AdminSales from './pages/AdminSales';
 import AdminSettings from './pages/AdminSettings';
+import AdminTasks from './pages/AdminTasks';
 import AdminUsers from './pages/AdminUsers';
 import AdminVideoDetail from './pages/AdminVideoDetail';
 import AdminVideoGenerator from './pages/AdminVideoGenerator';
@@ -154,6 +155,8 @@ import Pricing from './pages/Pricing';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import ProgrammaticSEODashboard from './pages/ProgrammaticSEODashboard';
 import Proposal from './pages/Proposal';
+import ProposalDetail from './pages/ProposalDetail';
+import ProposalPipeline from './pages/ProposalPipeline';
 import rebuildIntake from './pages/Rebuild-Intake';
 import Rebuild from './pages/Rebuild';
 import RebuildIntake from './pages/RebuildIntake';
@@ -194,9 +197,9 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import ProposalPipeline from './pages/ProposalPipeline';
-import ProposalDetail from './pages/ProposalDetail';
-import AdminTasks from './pages/AdminTasks';
+import ProposalBuilder from './pages/ProposalBuilder';
+import ProposalPreview from './pages/ProposalPreview';
+import PublicProposal from './pages/PublicProposal';
 import __Layout from './Layout.jsx';
 
 
@@ -225,6 +228,7 @@ export const PAGES = {
     "AdminOnboardingQueue": AdminOnboardingQueue,
     "AdminSales": AdminSales,
     "AdminSettings": AdminSettings,
+    "AdminTasks": AdminTasks,
     "AdminUsers": AdminUsers,
     "AdminVideoDetail": AdminVideoDetail,
     "AdminVideoGenerator": AdminVideoGenerator,
@@ -308,6 +312,8 @@ export const PAGES = {
     "PrivacyPolicy": PrivacyPolicy,
     "ProgrammaticSEODashboard": ProgrammaticSEODashboard,
     "Proposal": Proposal,
+    "ProposalDetail": ProposalDetail,
+    "ProposalPipeline": ProposalPipeline,
     "Rebuild-Intake": rebuildIntake,
     "Rebuild": Rebuild,
     "RebuildIntake": RebuildIntake,
@@ -348,9 +354,9 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "ProposalPipeline": ProposalPipeline,
-    "ProposalDetail": ProposalDetail,
-    "AdminTasks": AdminTasks,
+    "ProposalBuilder": ProposalBuilder,
+    "ProposalPreview": ProposalPreview,
+    "PublicProposal": PublicProposal,
 }
 
 export const pagesConfig = {
