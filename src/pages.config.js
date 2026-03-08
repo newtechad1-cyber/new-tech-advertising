@@ -203,6 +203,8 @@ import PublicProposal from './pages/PublicProposal';
 import ProposalsList from './pages/ProposalsList';
 import AdminOnboarding from './pages/AdminOnboarding';
 import AdminOnboardingDetail from './pages/AdminOnboardingDetail';
+import AdminFulfillment from './pages/AdminFulfillment';
+import AdminFulfillmentDetail from './pages/AdminFulfillmentDetail';
 import __Layout from './Layout.jsx';
 
 
@@ -363,6 +365,8 @@ export const PAGES = {
     "ProposalsList": ProposalsList,
     "AdminOnboarding": AdminOnboarding,
     "AdminOnboardingDetail": AdminOnboardingDetail,
+    "AdminFulfillment": AdminFulfillment,
+    "AdminFulfillmentDetail": AdminFulfillmentDetail,
 }
 
 export const pagesConfig = {
