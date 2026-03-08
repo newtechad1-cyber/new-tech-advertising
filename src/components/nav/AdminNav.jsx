@@ -57,6 +57,7 @@ const NAV_GROUPS = [
       { label: 'Weekly Plans', icon: LayoutDashboard, page: 'WeeklyPlanAdmin' },
       { label: 'Performance Signals', icon: Share2, page: 'PerformanceSignalAdmin' },
       { label: 'Workflow Orchestrator', icon: Zap, page: 'AdminOrchestrator' },
+      { label: 'Optimizer', icon: TrendingUp, page: 'AdminOptimizer' },
     ],
   },
   {
