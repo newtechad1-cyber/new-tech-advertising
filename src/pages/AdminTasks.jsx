@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
-import { CheckCircle, Circle, Plus, Calendar, AlertCircle, Search, Loader2, RefreshCw } from 'lucide-react';
+import { CheckCircle, Circle, Plus, Calendar, AlertCircle, Search, Loader2, RefreshCw, X } from 'lucide-react';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
 import AddTaskModal from '@/components/pipeline/AddTaskModal';
@@ -20,12 +20,19 @@ const PRIORITY_COLORS = {
   urgent: 'bg-red-100 text-red-700',
 };
 
+const TYPE_ICONS = {
+  call: '📞', email_followup: '✉️', demo: '🖥️',
+  proposal_revision: '✏️', check_in: '👋', internal_review: '🔍', other: '📌',
+};
+
 export default function AdminTasks() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('pending');
   const [search, setSearch] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
+  const [reschedulingId, setReschedulingId] = useState(null);
+  const [rescheduleDate, setRescheduleDate] = useState('');
 
   useEffect(() => { load(); }, []);
 
@@ -37,8 +44,9 @@ export default function AdminTasks() {
   };
 
   const completeTask = async (task) => {
-    await base44.entities.SalesTasks.update(task.id, { status: 'completed' });
-    setTasks(prev => prev.map(t => t.id === task.id ? { ...t, status: 'completed' } : t));
+    const today = new Date().toISOString().split('T')[0];
+    await base44.entities.SalesTasks.update(task.id, { status: 'completed', completed_date: today });
+    setTasks(prev => prev.map(t => t.id === task.id ? { ...t, status: 'completed', completed_date: today } : t));
     toast.success('Task completed ✓');
   };
 
@@ -48,14 +56,24 @@ export default function AdminTasks() {
     toast.success('Task cancelled');
   };
 
-  const now = new Date();
+  const reschedule = async (taskId) => {
+    if (!rescheduleDate) { toast.error('Select a date'); return; }
+    await base44.entities.SalesTasks.update(taskId, { due_date: rescheduleDate });
+    setTasks(prev => prev.map(t => t.id === taskId ? { ...t, due_date: rescheduleDate } : t));
+    setReschedulingId(null);
+    setRescheduleDate('');
+    toast.success('Rescheduled');
+  };
 
+  const now = new Date();
   const isOverdue = (t) => t.status === 'pending' && t.due_date && new Date(t.due_date) < now;
 
   const filtered = tasks.filter(t => {
     if (filter === 'pending') return t.status === 'pending' && !isOverdue(t);
     if (filter === 'overdue') return isOverdue(t);
     if (filter === 'completed') return t.status === 'completed';
+    if (filter === 'proposal_tasks') return !!t.proposal_id && t.status !== 'cancelled';
+    if (filter === 'lead_tasks') return !!t.lead_id && !t.proposal_id && t.status !== 'cancelled';
     if (filter === 'all') return t.status !== 'cancelled';
     return true;
   }).filter(t =>
@@ -72,7 +90,9 @@ export default function AdminTasks() {
 
   const FILTERS = [
     { value: 'pending', label: 'Pending' },
-    { value: 'overdue', label: overdueCnt > 0 ? `Overdue (${overdueCnt})` : 'Overdue' },
+    { value: 'overdue', label: overdueCnt > 0 ? `Overdue (${overdueCnt})` : 'Overdue', danger: true },
+    { value: 'proposal_tasks', label: 'Proposal Tasks' },
+    { value: 'lead_tasks', label: 'Lead Tasks' },
     { value: 'completed', label: 'Completed' },
     { value: 'all', label: 'All' },
   ];
@@ -86,7 +106,9 @@ export default function AdminTasks() {
             <div>
               <h1 className="text-xl font-bold text-slate-900">Follow-Up Tasks</h1>
               <p className="text-sm text-slate-500">
-                {pendingCnt} pending · <span className={overdueCnt > 0 ? 'text-red-600 font-semibold' : ''}>{overdueCnt} overdue</span> · {todayCnt} due today
+                {pendingCnt} pending ·{' '}
+                <span className={overdueCnt > 0 ? 'text-red-600 font-semibold' : ''}>{overdueCnt} overdue</span>
+                {' '}· {todayCnt} due today
               </p>
             </div>
             <div className="flex gap-2">
@@ -104,11 +126,11 @@ export default function AdminTasks() {
 
           <div className="max-w-5xl mx-auto px-6 py-6">
             {/* Stats row */}
-            <div className="grid grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
               {[
                 { label: 'Pending', value: pendingCnt, color: 'text-blue-600', bg: 'bg-blue-50' },
                 { label: 'Due Today', value: todayCnt, color: 'text-amber-600', bg: 'bg-amber-50' },
-                { label: 'Overdue', value: overdueCnt, color: 'text-red-600', bg: 'bg-red-50' },
+                { label: 'Overdue', value: overdueCnt, color: overdueCnt > 0 ? 'text-red-600' : 'text-slate-400', bg: overdueCnt > 0 ? 'bg-red-50' : 'bg-slate-50' },
                 { label: 'Completed', value: completedCnt, color: 'text-green-600', bg: 'bg-green-50' },
               ].map(s => (
                 <Card key={s.label} className={`p-4 text-center ${s.bg} border-0`}>
@@ -120,14 +142,14 @@ export default function AdminTasks() {
 
             {/* Filters + Search */}
             <div className="flex flex-wrap gap-3 mb-4">
-              <div className="flex gap-1 bg-white border rounded-lg p-1 shadow-sm">
+              <div className="flex flex-wrap gap-1 bg-white border rounded-lg p-1 shadow-sm">
                 {FILTERS.map(f => (
                   <button
                     key={f.value}
                     onClick={() => setFilter(f.value)}
-                    className={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${
+                    className={`px-3 py-1.5 rounded text-sm font-medium transition-colors whitespace-nowrap ${
                       filter === f.value
-                        ? f.value === 'overdue' ? 'bg-red-600 text-white' : 'bg-violet-600 text-white'
+                        ? f.danger ? 'bg-red-600 text-white' : 'bg-violet-600 text-white'
                         : 'text-slate-500 hover:bg-slate-100'
                     }`}
                   >
@@ -159,63 +181,89 @@ export default function AdminTasks() {
               <div className="space-y-2">
                 {filtered.map(task => {
                   const overdueTask = isOverdue(task);
+                  const isRescheduling = reschedulingId === task.id;
                   return (
                     <div
                       key={task.id}
-                      className={`bg-white border rounded-xl p-4 flex items-start gap-4 transition-shadow hover:shadow-sm ${overdueTask ? 'border-red-200' : 'border-slate-200'}`}
+                      className={`bg-white border rounded-xl p-4 transition-shadow hover:shadow-sm ${overdueTask ? 'border-red-200' : 'border-slate-200'}`}
                     >
-                      {task.status === 'completed' ? (
-                        <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 shrink-0" />
-                      ) : (
-                        <button onClick={() => completeTask(task)} className="shrink-0 mt-0.5 hover:scale-110 transition-transform">
-                          <Circle className="w-5 h-5 text-slate-300 hover:text-green-500" />
-                        </button>
-                      )}
-                      <div className="flex-1 min-w-0">
-                        <p className={`font-medium text-sm ${task.status === 'completed' ? 'line-through text-slate-400' : 'text-slate-900'}`}>
-                          {task.task_title}
-                        </p>
-                        <div className="flex flex-wrap items-center gap-2 mt-1.5">
-                          <Badge className={`text-xs ${PRIORITY_COLORS[task.priority]}`}>{task.priority}</Badge>
-                          {task.company_name && (
-                            <span className="text-xs text-slate-500">🏢 {task.company_name}</span>
-                          )}
-                          {task.due_date && (
-                            <span className={`text-xs flex items-center gap-1 ${overdueTask ? 'text-red-600 font-semibold' : 'text-slate-500'}`}>
-                              {overdueTask && <AlertCircle className="w-3 h-3" />}
-                              <Calendar className="w-3 h-3" />
-                              {format(new Date(task.due_date), 'MMM d, yyyy')}
-                              {overdueTask && ' — OVERDUE'}
-                            </span>
+                      <div className="flex items-start gap-4">
+                        {task.status === 'completed' ? (
+                          <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 shrink-0" />
+                        ) : (
+                          <button onClick={() => completeTask(task)} className="shrink-0 mt-0.5 hover:scale-110 transition-transform">
+                            <Circle className="w-5 h-5 text-slate-300 hover:text-green-500" />
+                          </button>
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="text-xs">{TYPE_ICONS[task.task_type] || '📌'}</span>
+                            <p className={`font-medium text-sm ${task.status === 'completed' ? 'line-through text-slate-400' : 'text-slate-900'}`}>
+                              {task.task_title}
+                            </p>
+                          </div>
+                          <div className="flex flex-wrap items-center gap-2 mt-1.5">
+                            <Badge className={`text-xs ${PRIORITY_COLORS[task.priority]}`}>{task.priority}</Badge>
+                            {task.company_name && (
+                              <span className="text-xs text-slate-500">🏢 {task.company_name}</span>
+                            )}
+                            {task.due_date && (
+                              <span className={`text-xs flex items-center gap-1 ${overdueTask ? 'text-red-600 font-semibold' : 'text-slate-500'}`}>
+                                {overdueTask && <AlertCircle className="w-3 h-3" />}
+                                <Calendar className="w-3 h-3" />
+                                {format(new Date(task.due_date), 'MMM d, yyyy')}
+                                {overdueTask && ' — OVERDUE'}
+                              </span>
+                            )}
+                            {task.completed_date && (
+                              <span className="text-xs text-green-600">✓ {format(new Date(task.completed_date), 'MMM d')}</span>
+                            )}
+                          </div>
+                          {task.notes && <p className="text-xs text-slate-500 mt-1.5 line-clamp-2">{task.notes}</p>}
+
+                          {/* Reschedule inline */}
+                          {isRescheduling && (
+                            <div className="flex items-center gap-2 mt-2">
+                              <Input
+                                type="date"
+                                value={rescheduleDate}
+                                onChange={e => setRescheduleDate(e.target.value)}
+                                className="h-7 text-xs w-40"
+                              />
+                              <Button size="sm" className="h-7 text-xs" onClick={() => reschedule(task.id)}>Save</Button>
+                              <button onClick={() => setReschedulingId(null)} className="text-slate-400 hover:text-slate-600">
+                                <X className="w-4 h-4" />
+                              </button>
+                            </div>
                           )}
                         </div>
-                        {task.notes && <p className="text-xs text-slate-500 mt-1.5 truncate">{task.notes}</p>}
-                      </div>
-                      <div className="flex gap-2 shrink-0">
-                        {task.proposal_id && (
-                          <Link to={createPageUrl(`ProposalDetail?id=${task.proposal_id}`)}>
-                            <Button size="sm" variant="outline" className="text-xs">Proposal →</Button>
-                          </Link>
-                        )}
-                        {task.status === 'pending' && (
-                          <>
-                            <Button
-                              size="sm"
-                              className="text-xs bg-green-600 hover:bg-green-700"
-                              onClick={() => completeTask(task)}
-                            >
-                              Done ✓
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="text-xs text-red-500 border-red-200 hover:bg-red-50"
-                              onClick={() => cancelTask(task)}
-                            >
-                              Cancel
-                            </Button>
-                          </>
-                        )}
+
+                        <div className="flex gap-2 shrink-0 flex-wrap justify-end">
+                          {task.proposal_id && (
+                            <Link to={createPageUrl(`ProposalDetail?id=${task.proposal_id}`)}>
+                              <Button size="sm" variant="outline" className="text-xs h-7">Proposal →</Button>
+                            </Link>
+                          )}
+                          {task.lead_id && !task.proposal_id && (
+                            <Link to={createPageUrl(`LeadsDashboard?lead_id=${task.lead_id}`)}>
+                              <Button size="sm" variant="outline" className="text-xs h-7">Lead →</Button>
+                            </Link>
+                          )}
+                          {task.status === 'pending' && (
+                            <>
+                              <Button size="sm" className="text-xs h-7 bg-green-600 hover:bg-green-700" onClick={() => completeTask(task)}>Done ✓</Button>
+                              <Button
+                                size="sm" variant="outline" className="text-xs h-7 text-blue-600 border-blue-200 hover:bg-blue-50"
+                                onClick={() => { setReschedulingId(task.id); setRescheduleDate(task.due_date || ''); }}
+                              >
+                                Reschedule
+                              </Button>
+                              <Button size="sm" variant="outline" className="text-xs h-7 text-red-500 border-red-200 hover:bg-red-50" onClick={() => cancelTask(task)}>
+                                Cancel
+                              </Button>
+                            </>
+                          )}
+                        </div>
                       </div>
                     </div>
                   );

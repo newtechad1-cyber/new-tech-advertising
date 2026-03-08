@@ -91,8 +91,34 @@ Deno.serve(async (req) => {
       }
     }
 
-    // ─── 2. PROPOSALS sent 2+ days ago, never viewed ─────────────────────────
+    // ─── 2. PROPOSALS sent but no follow-up task yet — auto-create task ──────
     const sentProposals = await base44.asServiceRole.entities.Proposal.filter({ status: 'sent' });
+    for (const p of sentProposals) {
+      // Auto-create follow-up task 2 days after sending if none exists
+      const sentDate = p.sent_at || p.created_date;
+      if (sentDate && sentDate < twoDaysAgo) {
+        const existingFollowUpTasks = await base44.asServiceRole.entities.SalesTasks.filter({
+          proposal_id: p.id,
+          task_type: 'email_followup',
+          status: 'pending',
+        });
+        if (existingFollowUpTasks.length === 0) {
+          const dueDate = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+          await base44.asServiceRole.entities.SalesTasks.create({
+            task_title: `Follow up on proposal — ${p.business_name || p.title}`,
+            task_type: 'email_followup',
+            proposal_id: p.id,
+            company_name: p.business_name || '',
+            priority: 'medium',
+            due_date: dueDate,
+            status: 'pending',
+            notes: `Proposal "${p.title}" was sent ${Math.floor((now - new Date(sentDate)) / 86400000)} days ago with no response.`,
+            alert_created: false,
+          });
+          created.push(`auto-task-proposal-sent: ${p.title}`);
+        }
+      }
+    }
     for (const p of sentProposals) {
       const sentDate = p.sent_at || p.created_date;
       if (sentDate && sentDate < twoDaysAgo && !(p.views > 0)) {
@@ -142,6 +168,26 @@ Deno.serve(async (req) => {
                          trial.onboarding_status !== 'failed' &&
                          trial.trial_status !== 'draft';
       if (incomplete && trial.created_date && trial.created_date < twoDaysAgo) {
+        // Auto-create check-in task if none exists
+        const existingCheckIn = await base44.asServiceRole.entities.SalesTasks.filter({
+          lead_id: trial.crm_lead_id || '',
+          task_type: 'check_in',
+          status: 'pending',
+        });
+        if (existingCheckIn.length === 0 && trial.crm_lead_id) {
+          await base44.asServiceRole.entities.SalesTasks.create({
+            task_title: `Reach out about incomplete onboarding — ${trial.name}`,
+            task_type: 'check_in',
+            lead_id: trial.crm_lead_id,
+            company_name: trial.name,
+            priority: 'high',
+            due_date: today,
+            status: 'pending',
+            notes: `Trial for ${trial.name} stalled at "${trial.onboarding_status}". Contact: ${trial.email}`,
+            alert_created: false,
+          });
+          created.push(`auto-task-trial-stalled: ${trial.name}`);
+        }
         const already = await hasUnresolved({ related_trial_id: trial.id, notification_type: 'trial_incomplete' });
         if (!already) {
           await base44.asServiceRole.entities.SalesNotification.create({
@@ -158,6 +204,7 @@ Deno.serve(async (req) => {
           created.push(`trial-stalled: ${trial.name}`);
         }
       }
+    }
     }
 
     // ─── 5. OVERDUE TASKS — create alert if not already created ─────────────
