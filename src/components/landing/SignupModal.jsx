@@ -15,6 +15,7 @@ export default function SignupModal({ isOpen, onClose }) {
     email: '',
     phone: '',
     businessName: '',
+    websiteUrl: '',
     message: '',
     selectedService: 'complete-marketing'
   });
@@ -34,6 +35,7 @@ export default function SignupModal({ isOpen, onClose }) {
         email: formData.email,
         phone: formData.phone,
         business_name: formData.businessName,
+        website_url: formData.websiteUrl,
         message: formData.message,
         status: 'new'
       });
@@ -52,6 +54,7 @@ Name: ${formData.name}
 Email: ${formData.email}
 Phone: ${formData.phone}
 Business Name: ${formData.businessName}
+Website: ${formData.websiteUrl || 'Not provided'}
 Message: ${formData.message || 'N/A'}
 
 ---
@@ -227,6 +230,22 @@ Submitted from AI Marketing Landing Page`
                     className="mt-2"
                     placeholder="Your Business LLC"
                   />
+                </div>
+
+                <div>
+                  <Label htmlFor="websiteUrl" className="text-slate-700 font-medium">
+                    Business Website *
+                  </Label>
+                  <Input
+                    id="websiteUrl"
+                    type="url"
+                    required
+                    value={formData.websiteUrl}
+                    onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })}
+                    className="mt-2"
+                    placeholder="https://yourbusiness.com"
+                  />
+                  <p className="text-xs text-slate-500 mt-1">We'll scan your site so we can give you specific recommendations.</p>
                 </div>
 
                 <div>
