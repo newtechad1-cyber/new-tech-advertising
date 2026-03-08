@@ -201,6 +201,8 @@ import ProposalBuilder from './pages/ProposalBuilder';
 import ProposalPreview from './pages/ProposalPreview';
 import PublicProposal from './pages/PublicProposal';
 import ProposalsList from './pages/ProposalsList';
+import AdminOnboarding from './pages/AdminOnboarding';
+import AdminOnboardingDetail from './pages/AdminOnboardingDetail';
 import __Layout from './Layout.jsx';
 
 
@@ -359,6 +361,8 @@ export const PAGES = {
     "ProposalPreview": ProposalPreview,
     "PublicProposal": PublicProposal,
     "ProposalsList": ProposalsList,
+    "AdminOnboarding": AdminOnboarding,
+    "AdminOnboardingDetail": AdminOnboardingDetail,
 }
 
 export const pagesConfig = {
