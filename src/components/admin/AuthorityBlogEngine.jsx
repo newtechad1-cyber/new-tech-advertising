@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { Zap, Loader2, Plus, RefreshCw, FileText, Video, ExternalLink, Trash2, CheckCircle } from 'lucide-react';
+import { Zap, Loader2, RefreshCw, FileText, Video, ExternalLink, Trash2, CheckCircle } from 'lucide-react';
 
 const SERVICES = [
   { value: 'streaming-tv', label: 'Streaming TV Advertising' },
