@@ -16,6 +16,7 @@ const NAV_GROUPS = [
     label: 'Executive',
     items: [
       { label: '👔 Executive Dashboard', icon: TrendingUp, page: 'AdminExecutive' },
+      { label: '🧠 AI Copilot', icon: Brain, page: 'AdminCopilot' },
     ],
   },
   {
