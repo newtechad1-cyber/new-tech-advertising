@@ -44,6 +44,9 @@ export default function LeadsDashboard() {
   const [selectedLead, setSelectedLead] = useState(null);
   const [sendingEmail, setSendingEmail] = useState(null);
 
+  // Support deep-link from Alert Center: ?lead_id=xxx
+  const highlightLeadId = new URLSearchParams(window.location.search).get('lead_id');
+
   const load = async () => {
     setLoading(true);
     try {
@@ -56,7 +59,18 @@ export default function LeadsDashboard() {
     }
   };
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => {
+    load().then(() => {
+      // If deep-linked from alert center, auto-select the lead
+      if (highlightLeadId) {
+        setLeads(prev => {
+          const found = prev.find(l => l.id === highlightLeadId);
+          if (found) setSelectedLead(found);
+          return prev;
+        });
+      }
+    });
+  }, []);
 
   const updateStatus = async (lead, newStatus) => {
     await base44.entities.Lead.update(lead.id, { status: newStatus });
