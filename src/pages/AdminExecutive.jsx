@@ -19,6 +19,7 @@ import CommunicationWatchlist from '@/components/executive/CommunicationWatchlis
 import StrategyReadiness from '@/components/executive/StrategyReadiness.jsx';
 import OwnerActionQueue from '@/components/executive/OwnerActionQueue.jsx';
 import AccountSpotlights from '@/components/executive/AccountSpotlights.jsx';
+import CopilotSummary from '@/components/executive/CopilotSummary.jsx';
 
 export default function AdminExecutive() {
   const [timePeriod, setTimePeriod] = useState('30d');
