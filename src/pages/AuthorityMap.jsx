@@ -142,10 +142,10 @@ export default function AuthorityMap() {
   const active = plans.filter(p => !p.is_archived);
   const archived = plans.filter(p => p.is_archived);
 
-  if (loading) return <div className="p-8 text-center text-slate-500">Loading...</div>;
+  if (loading) return <div className="p-8 pt-20 lg:pt-8 text-center text-slate-500">Loading...</div>;
 
   if (view === 'create') return (
-    <div className="max-w-2xl mx-auto p-8 space-y-6" key="create-view">
+    <div className="max-w-2xl mx-auto p-8 pt-20 lg:pt-8 space-y-6" key="create-view">
       <div className="flex items-center gap-3">
         <Button variant="ghost" size="icon" onClick={() => setView('list')}><ArrowLeft className="w-4 h-4" /></Button>
         <h1 className="text-2xl font-bold text-slate-900">New Authority Map</h1>
@@ -259,7 +259,7 @@ export default function AuthorityMap() {
   );
 
   if (view === 'detail' && selected) return (
-    <div className="max-w-2xl mx-auto p-8 space-y-6">
+    <div className="max-w-2xl mx-auto p-8 pt-20 lg:pt-8 space-y-6">
       <div className="flex items-center gap-3">
         <Button variant="ghost" size="icon" onClick={() => setView('list')}><ArrowLeft className="w-4 h-4" /></Button>
         <div>
@@ -308,7 +308,7 @@ export default function AuthorityMap() {
   );
 
   return (
-    <div className="max-w-3xl mx-auto p-8 space-y-6">
+    <div className="max-w-3xl mx-auto p-8 pt-20 lg:pt-8 space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-slate-900">Authority Maps</h1>
         <Button onClick={() => setView('create')} className="bg-slate-900 hover:bg-slate-700"><Plus className="w-4 h-4 mr-2" />New Plan</Button>

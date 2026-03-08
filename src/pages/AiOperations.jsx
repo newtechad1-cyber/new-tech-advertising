@@ -770,7 +770,7 @@ export default function AiOperations() {
 
   return (
     <AdminGuard>
-      <div className="min-h-screen bg-slate-950 text-white">
+      <div className="min-h-screen bg-slate-950 text-white pt-14 lg:pt-0">
         <div className="bg-slate-900 border-b border-slate-800 px-6 py-4">
           <div className="max-w-5xl mx-auto flex items-center gap-4">
             <Link to={createPageUrl('AdminDashboard')}>

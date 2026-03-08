@@ -64,8 +64,8 @@ export default function AdminVideoQueue() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="bg-white border-b border-gray-200 px-4 py-3 flex items-center gap-3 sticky top-0 z-10">
+    <div className="min-h-screen bg-white pt-14 lg:pt-0">
+      <div className="bg-white border-b border-gray-200 px-4 py-3 flex items-center gap-3 sticky top-14 lg:top-0 z-10">
         <Link to={createPageUrl("AdminDashboard")}>
           <Button variant="ghost" size="sm" className="gap-1 text-gray-500 hover:text-gray-900">← Admin Hub</Button>
         </Link>
