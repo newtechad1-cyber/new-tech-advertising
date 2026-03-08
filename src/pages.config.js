@@ -223,6 +223,7 @@ import AdminGovernance from './pages/AdminGovernance';
 import AdminApproval from './pages/AdminApproval';
 import AdminGovernancePolicy from './pages/AdminGovernancePolicy';
 import AdminBilling from './pages/AdminBilling';
+import AdminBillingContract from './pages/AdminBillingContract';
 import __Layout from './Layout.jsx';
 
 
@@ -403,6 +404,7 @@ export const PAGES = {
     "AdminApproval": AdminApproval,
     "AdminGovernancePolicy": AdminGovernancePolicy,
     "AdminBilling": AdminBilling,
+    "AdminBillingContract": AdminBillingContract,
 }
 
 export const pagesConfig = {
