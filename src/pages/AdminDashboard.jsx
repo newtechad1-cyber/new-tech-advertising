@@ -84,6 +84,7 @@ const CATEGORIES = [
     color: 'text-green-400',
     tiles: [
       { id: 'crm-hub', label: 'CRM & Marketing Hub', icon: Users, color: 'bg-green-500', description: 'Leads, clients, email & subscribers', link: 'CRMHub' },
+      { id: 'lead-intel', label: 'Lead Intel Dashboard', icon: TrendingUp, color: 'bg-emerald-600', description: 'CRM leads: status, source & location page tracking' },
       { id: 'operations-hub', label: 'Operations Hub', icon: Briefcase, color: 'bg-amber-600', description: 'Prospect → Proposal → Fulfillment workflows', link: 'OperationsHub' },
     ]
   },
