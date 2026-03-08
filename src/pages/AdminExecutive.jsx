@@ -9,16 +9,16 @@ import {
   AlertTriangle, Zap, ArrowUpRight, ArrowDownRight, Filter, Download
 } from 'lucide-react';
 import AdminNav from '@/components/nav/AdminNav';
-import ExecutiveSummaryCards from '@/components/executive/ExecutiveSummaryCards';
-import RevenueOverview from '@/components/executive/RevenueOverview';
-import ClientHealthPortfolio from '@/components/executive/ClientHealthPortfolio';
-import RenewalsRadar from '@/components/executive/RenewalsRadar';
-import FulfillmentLoad from '@/components/executive/FulfillmentLoad';
-import OperationsRisk from '@/components/executive/OperationsRisk';
-import CommunicationWatchlist from '@/components/executive/CommunicationWatchlist';
-import StrategyReadiness from '@/components/executive/StrategyReadiness';
-import OwnerActionQueue from '@/components/executive/OwnerActionQueue';
-import AccountSpotlights from '@/components/executive/AccountSpotlights';
+import ExecutiveSummaryCards from '@/components/executive/ExecutiveSummaryCards.jsx';
+import RevenueOverview from '@/components/executive/RevenueOverview.jsx';
+import ClientHealthPortfolio from '@/components/executive/ClientHealthPortfolio.jsx';
+import RenewalsRadar from '@/components/executive/RenewalsRadar.jsx';
+import FulfillmentLoad from '@/components/executive/FulfillmentLoad.jsx';
+import OperationsRisk from '@/components/executive/OperationsRisk.jsx';
+import CommunicationWatchlist from '@/components/executive/CommunicationWatchlist.jsx';
+import StrategyReadiness from '@/components/executive/StrategyReadiness.jsx';
+import OwnerActionQueue from '@/components/executive/OwnerActionQueue.jsx';
+import AccountSpotlights from '@/components/executive/AccountSpotlights.jsx';
 
 export default function AdminExecutive() {
   const [timePeriod, setTimePeriod] = useState('30d');
