@@ -5,7 +5,6 @@ import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import {
   BookOpen, ShoppingBag, Mail, Users, Image, Video,
-
   StickyNote, HelpCircle, ArrowLeft, Zap, RefreshCw,
   Calendar, DollarSign, FileText, TrendingUp, MonitorPlay, Briefcase,
   Globe, Share2, BarChart2, Lock, X, BrainCircuit, Settings, CalendarDays, Wrench, Cpu, Tv, MapPin
@@ -144,6 +143,7 @@ const SECTION_COMPONENTS = {
   'authority-packs': AuthorityPackDashboard,
   'city-page-generator': CityPageGenerator,
   'case-studies': CaseStudyManager,
+  'blog-engine': AuthorityBlogEngine,
   help: AdminHelpSupport,
 };
 
