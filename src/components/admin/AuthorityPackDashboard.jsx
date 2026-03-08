@@ -135,10 +135,10 @@ function PackCard({ pack }) {
               { label: 'Lead Magnet Guide', data: assets.guide, icon: FileText },
               { label: 'Service Page', data: assets.service, icon: ExternalLink },
               { label: 'Tool', data: assets.tool, icon: Wrench },
-            ].map(({ label, data, icon: Icon }) => data && (
+            ].map(({ label, data, icon: AssetIcon }) => data && (
               <div key={label} className="flex items-center justify-between bg-slate-800/50 rounded-lg px-3 py-2">
                 <div className="flex items-center gap-2">
-                  <Icon className="w-3.5 h-3.5 text-slate-500" />
+                    <AssetIcon className="w-3.5 h-3.5 text-slate-500" />
                   <span className="text-xs text-slate-400">{label}</span>
                 </div>
                 <span className="text-xs text-white truncate max-w-[200px]">{data.title || data.name || data.slug}</span>

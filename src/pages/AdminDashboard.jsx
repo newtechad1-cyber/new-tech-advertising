@@ -30,6 +30,7 @@ import SocialAccounts from './SocialAccounts';
 import AdminHelpSupport from '../components/admin/AdminHelpSupport';
 import CampaignCreationWizard from '../components/admin/CampaignCreationWizard';
 import LeadIntelDashboard from '../components/admin/LeadIntelDashboard';
+import AuthorityPackDashboard from '../components/admin/AuthorityPackDashboard';
 
 // Module IDs that are locked behind an upgrade
 const LOCKED_MODULE_IDS = new Set([
@@ -99,6 +100,7 @@ const CATEGORIES = [
       { id: 'content-queue', label: 'Content Calendar & Queue', icon: CalendarDays, color: 'bg-fuchsia-600', description: 'Planned, generated & published content', link: 'ContentQueue' },
       { id: 'onboarding-queue', label: 'Trial Onboarding Queue', icon: Users, color: 'bg-green-600', description: 'Review & configure new trial accounts', link: 'AdminOnboardingQueue' },
       { id: 'ai-operations', label: 'AI Operations', icon: Cpu, color: 'bg-violet-800', description: 'Tasks, budgets, cost ledger & memory', link: 'AiOperations' },
+      { id: 'authority-packs', label: 'Authority Packs', icon: Tv, color: 'bg-violet-700', description: 'View all authority packs and linked assets' },
       { id: 'agent-architecture', label: 'Agent Architecture', icon: BrainCircuit, color: 'bg-fuchsia-700', description: '22-agent event-driven business system', link: 'AgentArchitecture' },
       { id: 'workflow-map', label: 'Workflow Map', icon: Wrench, color: 'bg-teal-700', description: 'Master page → entity → agent architecture map', link: 'WorkflowMap' },
     ]
@@ -132,6 +134,7 @@ const SECTION_COMPONENTS = {
   analytics: GoogleAnalyticsView,
   'social-accounts': SocialAccounts,
   'lead-intel': LeadIntelDashboard,
+  'authority-packs': AuthorityPackDashboard,
   help: AdminHelpSupport,
 };
 
