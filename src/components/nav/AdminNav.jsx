@@ -4,7 +4,7 @@ import { createPageUrl } from '@/utils';
 import {
   LayoutDashboard, Users, TrendingUp, FileText, FolderKanban,
   Share2, MessageSquare, Settings, LogOut, Menu, X,
-  Bot, Globe, CreditCard, Bell, Cpu, Target
+  Bot, Globe, CreditCard, Bell, Cpu, Target, Briefcase, UserCog
 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
@@ -16,12 +16,12 @@ const NAV_GROUPS = [
     label: 'Operations',
     items: [
       { label: 'Command Center', icon: Cpu, page: 'AdminCommandCenter' },
-      { label: 'Dashboard', icon: LayoutDashboard, page: 'AdminDashboard' },
       { label: 'Sales Alerts', icon: Target, page: 'AdminSales' },
       { label: 'Leads & CRM', icon: Users, page: 'LeadsDashboard' },
+      { label: 'Clients', icon: Briefcase, page: 'AdminClients' },
+      { label: 'Users', icon: UserCog, page: 'AdminUsers' },
       { label: 'Opportunities', icon: TrendingUp, page: 'OperationsHub' },
       { label: 'Proposals', icon: FileText, page: 'OperationsHub' },
-      { label: 'Projects', icon: FolderKanban, page: 'OperationsHub' },
     ],
   },
   {

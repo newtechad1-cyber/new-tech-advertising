@@ -53,7 +53,7 @@ export default function AdminGuard({ children }) {
               This page is only accessible to administrators. If you believe you should have access, please contact support.
             </p>
             <Button 
-              onClick={() => window.location.href = createPageUrl('Dashboard')} 
+              onClick={() => window.location.href = createPageUrl('ClientDashboard')} 
               className="w-full"
             >
               Return to Dashboard

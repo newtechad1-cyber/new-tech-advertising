@@ -79,7 +79,7 @@ export default function Dashboard() {
       console.log('[Dashboard] User authenticated:', { email: userData?.email, role: userData?.role });
 
       if (userData?.role === 'admin') {
-        window.location.href = createPageUrl('AdminDashboard');
+        window.location.href = createPageUrl('AdminCommandCenter');
         return;
       }
 
