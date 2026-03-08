@@ -145,10 +145,10 @@ export default function ContentQueue() {
 
   const sortedDates = Object.keys(grouped).sort((a, b) => new Date(b) - new Date(a));
 
-  if (loading) return <div className="p-8 text-center text-slate-500">Loading...</div>;
+  if (loading) return <div className="p-8 pt-20 lg:pt-8 text-center text-slate-500">Loading...</div>;
 
   if (selected) return (
-    <div className="max-w-3xl mx-auto p-8 space-y-6">
+    <div className="max-w-3xl mx-auto p-8 pt-20 lg:pt-8 space-y-6">
       <div className="flex items-start gap-3">
         <Button variant="ghost" size="icon" onClick={() => { setSelected(null); setEditing(false); setSaveSuccess(false); setSaveError(null); setFailPrompt(false); }}><ArrowLeft className="w-4 h-4" /></Button>
         <div className="flex-1 min-w-0">
@@ -285,7 +285,7 @@ export default function ContentQueue() {
   );
 
   return (
-    <div className="max-w-4xl mx-auto p-8 space-y-6">
+    <div className="max-w-4xl mx-auto p-8 pt-20 lg:pt-8 space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
           <Calendar className="w-6 h-6" /> Content Queue

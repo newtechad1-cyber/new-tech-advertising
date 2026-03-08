@@ -254,7 +254,7 @@ export default function AdminBlog() {
 
     return (
         <AdminGuard>
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-slate-50 pt-14 lg:pt-0">
             <div className="bg-white border-b border-slate-200 px-6 py-3 flex items-center gap-3 sticky top-0 z-10">
               <Link to={createPageUrl("AdminDashboard")}>
                 <Button variant="ghost" size="sm" className="gap-1 text-slate-500 hover:text-slate-900">← Admin Hub</Button>
