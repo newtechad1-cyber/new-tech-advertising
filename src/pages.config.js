@@ -220,6 +220,7 @@ import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AdminRevenueEngine from './pages/AdminRevenueEngine';
 import AdminRevenueDetail from './pages/AdminRevenueDetail';
 import AdminGovernance from './pages/AdminGovernance';
+import AdminApproval from './pages/AdminApproval';
 import __Layout from './Layout.jsx';
 
 
@@ -397,6 +398,7 @@ export const PAGES = {
     "AdminRevenueEngine": AdminRevenueEngine,
     "AdminRevenueDetail": AdminRevenueDetail,
     "AdminGovernance": AdminGovernance,
+    "AdminApproval": AdminApproval,
 }
 
 export const pagesConfig = {
