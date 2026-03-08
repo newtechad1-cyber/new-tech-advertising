@@ -29,6 +29,7 @@ import GoogleAnalyticsView from '../components/admin/GoogleAnalyticsView';
 import SocialAccounts from './SocialAccounts';
 import AdminHelpSupport from '../components/admin/AdminHelpSupport';
 import CampaignCreationWizard from '../components/admin/CampaignCreationWizard';
+import LeadIntelDashboard from '../components/admin/LeadIntelDashboard';
 
 // Module IDs that are locked behind an upgrade
 const LOCKED_MODULE_IDS = new Set([

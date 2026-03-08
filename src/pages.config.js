@@ -102,6 +102,7 @@ import freeAudit from './pages/Free-Audit';
 import getStarted from './pages/Get-Started';
 import GlobalSettings from './pages/GlobalSettings';
 import GrowthSystem from './pages/GrowthSystem';
+import HelpAndSupport from './pages/HelpAndSupport';
 import Home from './pages/Home';
 import HvacIndustry from './pages/HvacIndustry';
 import HvacMarketing from './pages/HvacMarketing';
@@ -182,7 +183,6 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import HelpAndSupport from './pages/HelpAndSupport';
 import __Layout from './Layout.jsx';
 
 
@@ -242,6 +242,7 @@ export const PAGES = {
     "Get-Started": getStarted,
     "GlobalSettings": GlobalSettings,
     "GrowthSystem": GrowthSystem,
+    "HelpAndSupport": HelpAndSupport,
     "Home": Home,
     "HvacIndustry": HvacIndustry,
     "HvacMarketing": HvacMarketing,
@@ -322,7 +323,6 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "HelpAndSupport": HelpAndSupport,
 }
 
 export const pagesConfig = {
