@@ -59,18 +59,15 @@ export default function LeadsDashboard() {
     }
   };
 
+  useEffect(() => { load(); }, []);
+
+  // Auto-select highlighted lead once leads are loaded
   useEffect(() => {
-    load().then(() => {
-      // If deep-linked from alert center, auto-select the lead
-      if (highlightLeadId) {
-        setLeads(prev => {
-          const found = prev.find(l => l.id === highlightLeadId);
-          if (found) setSelectedLead(found);
-          return prev;
-        });
-      }
-    });
-  }, []);
+    if (highlightLeadId && leads.length > 0 && !selectedLead) {
+      const found = leads.find(l => l.id === highlightLeadId);
+      if (found) setSelectedLead(found);
+    }
+  }, [leads, highlightLeadId]);
 
   const updateStatus = async (lead, newStatus) => {
     await base44.entities.Lead.update(lead.id, { status: newStatus });
