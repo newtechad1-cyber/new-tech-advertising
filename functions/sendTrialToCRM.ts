@@ -22,61 +22,41 @@ Deno.serve(async (req) => {
     const dnaList = await base44.asServiceRole.entities.BrandDNA.filter({ account_id });
     const dna = dnaList[0] || null;
 
-    const crmWebhookUrl = Deno.env.get('CRM_WEBHOOK_URL');
-    if (!crmWebhookUrl) {
-      console.warn('CRM_WEBHOOK_URL not set — skipping CRM push');
-      return Response.json({ success: true, skipped: true, reason: 'CRM_WEBHOOK_URL not configured' });
-    }
-
-    const payload = {
-      event: 'trial_onboarding_submitted',
-      timestamp: new Date().toISOString(),
-      account: {
-        id: account.id,
-        name: account.name,
-        slug: account.slug,
+    // Upsert Lead record into the internal CRM (Base44 Lead entity)
+    // Check if a lead with this email already exists to avoid duplicates
+    const existingLeads = await base44.asServiceRole.entities.Lead.filter({ email: account.email });
+    if (!existingLeads.length) {
+      await base44.asServiceRole.entities.Lead.create({
+        name: account.full_name || account.name,
         email: account.email,
         phone: account.phone || '',
+        business_name: account.name,
+        website: account.website_url || '',
         industry: account.industry,
-        location_city: account.location_city,
-        location_state: account.location_state,
-        website_url: account.website_url || '',
-        involvement_preference: account.involvement_preference,
-        trial_status: account.trial_status,
-        trial_start_at: account.trial_start_at,
-        trial_end_at: account.trial_end_at,
-      },
-      brand_dna: dna ? {
-        audience: dna.audience,
-        goals: dna.goals || [],
-        offers: dna.offers || [],
-        differentiators: dna.differentiators || [],
-        voice_tone: dna.voice_tone,
-        content_pillars: dna.content_pillars || [],
-        do_not_use: dna.do_not_use || [],
-        cta_style: dna.cta_style,
-        facebook_url: dna.facebook_url || '',
-        instagram_url: dna.instagram_url || '',
-        linkedin_url: dna.linkedin_url || '',
-        tiktok_url: dna.tiktok_url || '',
-        notes: dna.notes || '',
-      } : null,
-    };
+        city: account.location_city,
+        state: account.location_state,
+        service_interest: 'diy_saas',
+        message: `Trial signup. Involvement: ${account.involvement_preference || 'undecided'}. Notes: ${dna?.notes || ''}`,
+        status: 'new',
+        source: 'website',
+      });
+      console.log(`[sendTrialToCRM] Lead created in internal CRM for ${account.email}`);
+    } else {
+      console.log(`[sendTrialToCRM] Lead already exists for ${account.email}, skipping duplicate`);
+    }
 
-    const response = await fetch(crmWebhookUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Webhook-Source': 'newtechadvertising-trial-onboarding',
-      },
-      body: JSON.stringify(payload),
-    });
-
-    const responseText = await response.text();
-    console.log(`CRM webhook response: ${response.status} — ${responseText}`);
-
-    if (!response.ok) {
-      return Response.json({ error: 'CRM webhook returned error', status: response.status, body: responseText }, { status: 502 });
+    // Also fire external CRM webhook if configured (best-effort, non-blocking)
+    const crmWebhookUrl = Deno.env.get('CRM_WEBHOOK_URL');
+    if (crmWebhookUrl) {
+      try {
+        await fetch(crmWebhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Webhook-Source': 'newtechadvertising-trial-onboarding' },
+          body: JSON.stringify({ event: 'trial_onboarding_submitted', timestamp: new Date().toISOString(), account: { id: account.id, name: account.name, email: account.email, phone: account.phone || '', industry: account.industry, location_city: account.location_city, location_state: account.location_state } }),
+        });
+      } catch (webhookErr) {
+        console.warn('[sendTrialToCRM] External CRM webhook failed (non-critical):', webhookErr.message);
+      }
     }
 
     // Send internal notification email
