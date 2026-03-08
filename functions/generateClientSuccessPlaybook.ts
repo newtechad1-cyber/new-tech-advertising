@@ -447,7 +447,7 @@ function generatePlaybookContent(analysis, report, opportunities, recommendation
     primaryGoal = 'Maintain strong relationship and engagement';
     summary = 'Account is stable. Focus on consistent delivery, proactive communication, and keeping ahead of needs.';
     actionsOverview = '1. Monthly results review\n2. Proactive opportunity identification\n3. Consistent delivery and quality\n4. Regular strategic check-ins\n5. Testimonial / case study request';
-    talkingPoints = 'How are results tracking against your goals? / What's working best for you? / Where should we focus next? / I want to make sure we\'re delivering maximum value.';
+    talkingPoints = 'How are results tracking against your goals? What is working best for you? Where should we focus next? I want to make sure we are delivering maximum value.';
   }
 
   return {
