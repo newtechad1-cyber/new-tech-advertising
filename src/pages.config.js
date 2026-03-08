@@ -82,6 +82,8 @@ import AdminOptimizer from './pages/AdminOptimizer';
 import AdminOptimizerDetail from './pages/AdminOptimizerDetail';
 import AdminOrchestrator from './pages/AdminOrchestrator';
 import AdminOrchestratorDetail from './pages/AdminOrchestratorDetail';
+import AdminRecommendationDetail from './pages/AdminRecommendationDetail';
+import AdminRecommendations from './pages/AdminRecommendations';
 import AdminSales from './pages/AdminSales';
 import AdminSettings from './pages/AdminSettings';
 import AdminTasks from './pages/AdminTasks';
@@ -161,8 +163,8 @@ import OnboardThankYou from './pages/OnboardThankYou';
 import Onboarding from './pages/Onboarding';
 import OnboardingStart from './pages/OnboardingStart';
 import OperationsHub from './pages/OperationsHub';
-import OpportunitySignalAdmin from './pages/OpportunitySignalAdmin';
 import OurWork from './pages/OurWork';
+import OpportunitySignalAdmin from './pages/OpportunitySignalAdmin';
 import PerformanceSignalAdmin from './pages/PerformanceSignalAdmin';
 import Platform from './pages/Platform';
 import Pricing from './pages/Pricing';
@@ -215,8 +217,7 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdminRecommendations from './pages/AdminRecommendations';
-import AdminRecommendationDetail from './pages/AdminRecommendationDetail';
+import AdminRevenueEngine from './pages/AdminRevenueEngine';
 import __Layout from './Layout.jsx';
 
 
@@ -256,6 +257,8 @@ export const PAGES = {
     "AdminOptimizerDetail": AdminOptimizerDetail,
     "AdminOrchestrator": AdminOrchestrator,
     "AdminOrchestratorDetail": AdminOrchestratorDetail,
+    "AdminRecommendationDetail": AdminRecommendationDetail,
+    "AdminRecommendations": AdminRecommendations,
     "AdminSales": AdminSales,
     "AdminSettings": AdminSettings,
     "AdminTasks": AdminTasks,
@@ -335,8 +338,8 @@ export const PAGES = {
     "Onboarding": Onboarding,
     "OnboardingStart": OnboardingStart,
     "OperationsHub": OperationsHub,
-    "OpportunitySignalAdmin": OpportunitySignalAdmin,
     "OurWork": OurWork,
+    "OpportunitySignalAdmin": OpportunitySignalAdmin,
     "PerformanceSignalAdmin": PerformanceSignalAdmin,
     "Platform": Platform,
     "Pricing": Pricing,
@@ -389,8 +392,7 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AdminRecommendations": AdminRecommendations,
-    "AdminRecommendationDetail": AdminRecommendationDetail,
+    "AdminRevenueEngine": AdminRevenueEngine,
 }
 
 export const pagesConfig = {
