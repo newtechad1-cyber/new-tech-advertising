@@ -205,6 +205,7 @@ import AdminOnboarding from './pages/AdminOnboarding';
 import AdminOnboardingDetail from './pages/AdminOnboardingDetail';
 import AdminFulfillment from './pages/AdminFulfillment';
 import AdminFulfillmentDetail from './pages/AdminFulfillmentDetail';
+import ClientFulfillment from './pages/ClientFulfillment';
 import __Layout from './Layout.jsx';
 
 
@@ -367,6 +368,7 @@ export const PAGES = {
     "AdminOnboardingDetail": AdminOnboardingDetail,
     "AdminFulfillment": AdminFulfillment,
     "AdminFulfillmentDetail": AdminFulfillmentDetail,
+    "ClientFulfillment": ClientFulfillment,
 }
 
 export const pagesConfig = {
