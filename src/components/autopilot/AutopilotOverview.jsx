@@ -47,7 +47,7 @@ export default function AutopilotOverview() {
         <Card key={label}>
           <CardContent className="p-4 flex items-center gap-3">
             <div className={`p-2 rounded-lg ${bg}`}>
-              <Icon className={`w-5 h-5 ${color}`} />
+              <Icon className={`w-5 h-5 ${color}`} aria-hidden="true" />
             </div>
             <div>
               <p className="text-2xl font-bold text-gray-900">{value}</p>
