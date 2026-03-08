@@ -75,13 +75,14 @@ export default function PortfolioManagement() {
   const handleEdit = (item) => {
     setEditingItem(item);
     setFormData({
-      title: item.title,
-      website_url: item.website_url,
-      screenshot_url: item.screenshot_url,
+      title: item.title || '',
+      website_url: item.website_url || '',
+      screenshot_url: item.screenshot_url || '',
       description: item.description || '',
       industry: item.industry || ''
     });
     setShowForm(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const resetForm = () => {
