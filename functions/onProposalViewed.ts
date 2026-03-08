@@ -19,11 +19,16 @@ Deno.serve(async (req) => {
     const now = new Date().toISOString();
     const isRepeatView = newViews >= 2;
 
-    // Update proposal
+    // Update proposal — also advance pipeline stage if needed
+    const pipelineUpdate = {};
+    if (isRepeatView && proposal.pipeline_stage === 'proposal_sent') {
+      pipelineUpdate.pipeline_stage = 'proposal_viewed';
+    }
     await base44.asServiceRole.entities.Proposal.update(proposal_id, {
       views: newViews,
       last_viewed_date: now,
       status: 'viewed',
+      ...pipelineUpdate,
     });
 
     // Determine notification type and priority
@@ -67,6 +72,32 @@ Deno.serve(async (req) => {
             proposal_id,
             company_name: proposal.business_name || '',
             details: `View #${newViews}`,
+          });
+        }
+      } catch (_) { /* non-critical */ }
+    }
+
+    // Auto-create urgent task when viewed 2+ times
+    if (isRepeatView) {
+      try {
+        const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+        // Check if an urgent call task already exists for this proposal
+        const existingTasks = await base44.asServiceRole.entities.SalesTasks.filter({
+          proposal_id,
+          status: 'pending',
+          task_type: 'call_client',
+        });
+        if (existingTasks.length === 0) {
+          await base44.asServiceRole.entities.SalesTasks.create({
+            task_title: `Call client about proposal — viewed ${newViews}x`,
+            task_type: 'call_client',
+            proposal_id,
+            company_name: proposal.business_name || '',
+            priority: 'urgent',
+            due_date: tomorrow,
+            status: 'pending',
+            notes: `Proposal "${proposal.title}" has been viewed ${newViews} times. High intent — call today.`,
+            alert_created: false,
           });
         }
       } catch (_) { /* non-critical */ }
