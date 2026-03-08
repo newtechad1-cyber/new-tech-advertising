@@ -5,6 +5,7 @@ import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import {
   BookOpen, ShoppingBag, Mail, Users, Image, Video,
+
   StickyNote, HelpCircle, ArrowLeft, Zap, RefreshCw,
   Calendar, DollarSign, FileText, TrendingUp, MonitorPlay, Briefcase,
   Globe, Share2, BarChart2, Lock, X, BrainCircuit, Settings, CalendarDays, Wrench, Cpu, Tv, MapPin
@@ -33,6 +34,7 @@ import LeadIntelDashboard from '../components/admin/LeadIntelDashboard';
 import AuthorityPackDashboard from '../components/admin/AuthorityPackDashboard';
 import CityPageGenerator from '../components/admin/CityPageGenerator';
 import CaseStudyManager from '../components/admin/CaseStudyManager';
+import AuthorityBlogEngine from '../components/admin/AuthorityBlogEngine';
 
 // Module IDs that are locked behind an upgrade
 const LOCKED_MODULE_IDS = new Set([
@@ -105,6 +107,7 @@ const CATEGORIES = [
       { id: 'authority-packs', label: 'Authority Packs', icon: Tv, color: 'bg-violet-700', description: 'View all authority packs and linked assets' },
       { id: 'city-page-generator', label: 'City Page Generator', icon: Globe, color: 'bg-emerald-700', description: 'Generate {service}-in-{city} SEO landing pages with AI' },
       { id: 'case-studies', label: 'Case Studies', icon: TrendingUp, color: 'bg-amber-600', description: 'Create case studies + auto-generate blog, video & social content' },
+      { id: 'blog-engine', label: 'Authority Blog Engine', icon: BookOpen, color: 'bg-rose-700', description: 'Auto-generate SEO articles + video scripts from service × industry × city' },
       { id: 'agent-architecture', label: 'Agent Architecture', icon: BrainCircuit, color: 'bg-fuchsia-700', description: '22-agent event-driven business system', link: 'AgentArchitecture' },
       { id: 'workflow-map', label: 'Workflow Map', icon: Wrench, color: 'bg-teal-700', description: 'Master page → entity → agent architecture map', link: 'WorkflowMap' },
     ]
