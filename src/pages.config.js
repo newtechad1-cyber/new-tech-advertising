@@ -185,6 +185,7 @@ import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import CaseStudies from './pages/CaseStudies';
 import CaseStudyDetail from './pages/CaseStudyDetail';
+import ContentEngine from './pages/ContentEngine';
 import __Layout from './Layout.jsx';
 
 
@@ -327,6 +328,7 @@ export const PAGES = {
     "YouTubeUploadTest": YouTubeUploadTest,
     "CaseStudies": CaseStudies,
     "CaseStudyDetail": CaseStudyDetail,
+    "ContentEngine": ContentEngine,
 }
 
 export const pagesConfig = {

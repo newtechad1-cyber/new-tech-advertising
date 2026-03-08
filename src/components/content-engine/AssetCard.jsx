@@ -5,7 +5,8 @@ import { Badge } from '@/components/ui/badge';
 import { Copy, ChevronDown, ChevronRight } from 'lucide-react';
 import { toast } from 'sonner';
 
-export default function AssetCard({ title, icon: Icon, content, badgeLabel, badgeColor = 'bg-blue-100 text-blue-700' }) {
+export default function AssetCard({ title, icon: IconComponent, content, badgeLabel, badgeColor = 'bg-blue-100 text-blue-700' }) {
+  const Icon = IconComponent;
   const [expanded, setExpanded] = useState(false);
 
   if (!content) return null;
