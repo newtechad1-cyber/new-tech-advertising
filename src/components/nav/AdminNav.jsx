@@ -15,7 +15,9 @@ const NAV_GROUPS = [
   {
     label: 'Operations',
     items: [
+      { label: 'Command Center', icon: Cpu, page: 'AdminCommandCenter' },
       { label: 'Dashboard', icon: LayoutDashboard, page: 'AdminDashboard' },
+      { label: 'Sales Alerts', icon: Target, page: 'AdminSales' },
       { label: 'Leads & CRM', icon: Users, page: 'LeadsDashboard' },
       { label: 'Opportunities', icon: TrendingUp, page: 'OperationsHub' },
       { label: 'Proposals', icon: FileText, page: 'OperationsHub' },
