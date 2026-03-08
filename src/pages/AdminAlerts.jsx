@@ -13,7 +13,7 @@ import {
   Building2, User, Wrench, Calendar, Info, Tag
 } from 'lucide-react';
 import { createPageUrl } from '@/utils';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 
 const PRIORITY_ROW = {
@@ -182,11 +182,23 @@ export default function AdminAlerts() {
   const [activeSection, setActiveSection] = useState('hot_lead');
   const [runningMonitor, setRunningMonitor] = useState(false);
 
-  const { data: allNotifications = [], isLoading } = useQuery({
+  // Load both unread AND snoozed alerts (snoozed re-appear after snooze_until passes)
+  const { data: rawNotifications = [], isLoading } = useQuery({
     queryKey: ['admin-alerts'],
-    queryFn: () => base44.entities.SalesNotification.filter({ status: 'unread' }, '-created_date', 200),
+    queryFn: async () => {
+      const [unread, snoozed] = await Promise.all([
+        base44.entities.SalesNotification.filter({ status: 'unread' }, '-created_date', 200),
+        base44.entities.SalesNotification.filter({ status: 'snoozed' }, '-created_date', 100),
+      ]);
+      const now = new Date();
+      const expiredSnooze = snoozed.filter(n => n.snooze_until && new Date(n.snooze_until) <= now);
+      return [...unread, ...expiredSnooze].sort((a, b) =>
+        new Date(b.created_date) - new Date(a.created_date)
+      );
+    },
     refetchInterval: 60000,
   });
+  const allNotifications = rawNotifications;
 
   const updateMutation = useMutation({
     mutationFn: ({ id, status, snooze_until }) =>
