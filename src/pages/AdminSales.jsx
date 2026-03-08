@@ -25,6 +25,10 @@ function SalesStat({ label, value, color }) {
 
 export default function AdminSales() {
   const [runningMonitor, setRunningMonitor] = useState(false);
+  // Support deep-link from Alert Center: ?tab=proposals&proposal_id=xxx
+  const urlParams = new URLSearchParams(window.location.search);
+  const tabFromUrl = urlParams.get('tab');
+  const highlightProposalId = urlParams.get('proposal_id');
 
   const { data: notifications = [] } = useQuery({
     queryKey: ['sales-notifications'],
@@ -66,6 +70,11 @@ export default function AdminSales() {
     <AdminGuard>
       <div className="min-h-screen bg-gray-50 p-6">
         <div className="max-w-7xl mx-auto">
+          {highlightProposalId && (
+            <div className="mb-4 bg-blue-50 border border-blue-200 text-blue-800 text-sm px-4 py-2 rounded-lg flex items-center gap-2">
+              📄 Viewing proposal context from Alert Center. Proposal ID: <code className="font-mono text-xs">{highlightProposalId}</code>
+            </div>
+          )}
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
@@ -99,7 +108,7 @@ export default function AdminSales() {
           </div>
 
           {/* Tabs */}
-          <Tabs defaultValue="alerts">
+          <Tabs defaultValue={tabFromUrl || 'alerts'}>
             <TabsList className="mb-4">
               <TabsTrigger value="alerts">
                 🔔 Alerts {notifications.length > 0 && `(${notifications.length})`}
