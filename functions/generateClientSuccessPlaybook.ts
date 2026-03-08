@@ -425,7 +425,7 @@ function generatePlaybookContent(analysis, report, opportunities, recommendation
     mainRisk = analysis.churnRiskLevel === 'critical' ? 'Immediate churn risk' : 'Declining performance and engagement';
     summary = `This account needs immediate intervention. ${analysis.churnRiskLevel === 'critical' ? 'Churn risk is critical.' : 'Performance is declining.'} Focus on understanding challenges, fixing delivery issues, and rebuilding confidence.`;
     actionsOverview = '1. Schedule emergency check-in call\n2. Review and resolve open issues\n3. Commit to specific wins in next 30 days\n4. Daily delivery monitoring\n5. Weekly check-ins until stable';
-    talkingPoints = 'What are the biggest challenges right now? / How can we improve? / Let\'s commit to specific wins and I\'ll personally ensure delivery.';
+    talkingPoints = 'What are the biggest challenges right now? How can we improve? Let us commit to specific wins and I will personally ensure delivery.';
   } else if (analysis.playbookType === 'renewal') {
     title = 'Renewal Playbook';
     primaryGoal = 'Secure renewal and expand service scope';
@@ -433,7 +433,7 @@ function generatePlaybookContent(analysis, report, opportunities, recommendation
     mainOpportunity = upsellOpps.length > 0 ? `Expand into ${upsellOpps[0].recommended_service}` : 'Expand current services';
     summary = 'Results support renewal. Focus on summarizing wins, addressing any concerns, and presenting expansion options.';
     actionsOverview = '1. Schedule renewal strategy call\n2. Prepare wins summary and trends\n3. Present expansion options\n4. Create renewal proposal\n5. Send recap and next steps';
-    talkingPoints = `Your results this period show solid progress in ${report?.report_period_label || 'this period'}. / Here's what we accomplished together. / Here are opportunities to expand and improve further. / Let's talk about renewal and next-level growth.`;
+    talkingPoints = `Your results this period show solid progress. Here is what we accomplished together. Here are opportunities to expand and improve further. Let's talk about renewal and next-level growth.`;
   } else if (analysis.playbookType === 'expansion') {
     title = 'Expansion Playbook';
     primaryGoal = 'Upsell complementary services';
@@ -441,7 +441,7 @@ function generatePlaybookContent(analysis, report, opportunities, recommendation
     mainRisk = 'Expansion may not be received without proper positioning';
     summary = 'Account is healthy and ready for growth. Best time to introduce complementary services.';
     actionsOverview = '1. Review expansion opportunities\n2. Prepare recommendation with ROI\n3. Create upsell proposal\n4. Schedule expansion discussion\n5. Support decision process';
-    talkingPoints = `Your recent wins in ${recommendations[0]?.recommended_service || 'current service'} show strong momentum. / Here's how we can accelerate results further. / Adding [service] would help you achieve [goal]. / Let's discuss timing and approach.`;
+    talkingPoints = `Your recent wins show strong momentum. Here's how we can accelerate results further. Adding complementary services would help achieve goals faster. Let's discuss timing and approach.`;
   } else {
     title = 'Retention Playbook';
     primaryGoal = 'Maintain strong relationship and engagement';
