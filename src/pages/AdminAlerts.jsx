@@ -37,80 +37,140 @@ const TYPE_SECTIONS = [
   { id: 'client_requests', label: '💬 Client Requests', types: ['client_request'] },
 ];
 
+const TYPE_TRIGGER = {
+  hot_lead: 'Lead score reached hot threshold (≥20 points)',
+  followup_needed: 'Hot lead inactive 3+ days or qualified lead has no follow-up date',
+  proposal_viewed: 'Proposal opened for the first time',
+  proposal_viewed_multiple: 'Proposal opened 2+ times — strong buying signal',
+  proposal_followup: 'Proposal viewed but no reply after 3 days',
+  proposal_no_response: 'Proposal sent 2+ days ago and never opened',
+  trial_started: 'Trial account created',
+  trial_incomplete: 'Trial started 2+ days ago but onboarding not complete',
+  client_request: 'Client submitted a support or revision request',
+};
+
+function AuditRow({ icon: Icon, label, value }) {
+  if (!value) return null;
+  return (
+    <div className="flex items-center gap-2 text-xs text-slate-500">
+      <Icon className="w-3 h-3 shrink-0" />
+      <span className="text-slate-600">{label}:</span>
+      <span className="text-slate-400">{value}</span>
+    </div>
+  );
+}
+
 function AlertCard({ n, onAction }) {
+  const [showAudit, setShowAudit] = React.useState(false);
+
   return (
     <div className={`rounded-xl p-4 mb-2 ${PRIORITY_ROW[n.priority] || PRIORITY_ROW.medium}`}>
-      <div className="flex items-start gap-3">
-        <div className="flex-1 min-w-0">
-          <div className="flex flex-wrap items-center gap-2 mb-1">
-            <span className="font-semibold text-white text-sm">{n.title}</span>
-            <Badge className={`text-xs ${PRIORITY_BADGE[n.priority]}`}>{n.priority}</Badge>
-            <span className="text-xs text-slate-500">
-              {n.created_date ? formatDistanceToNow(new Date(n.created_date), { addSuffix: true }) : ''}
-            </span>
-          </div>
+      <div className="flex-1 min-w-0">
+        {/* Header row */}
+        <div className="flex flex-wrap items-center gap-2 mb-1">
+          <span className="font-semibold text-white text-sm">{n.title}</span>
+          <Badge className={`text-xs ${PRIORITY_BADGE[n.priority]}`}>{n.priority}</Badge>
+          <span className="text-xs text-slate-500">
+            {n.created_date ? formatDistanceToNow(new Date(n.created_date), { addSuffix: true }) : ''}
+          </span>
+          <Badge className="text-xs bg-slate-700 text-slate-400 capitalize">
+            {n.notification_type?.replace(/_/g, ' ')}
+          </Badge>
+        </div>
 
-          {/* Company / contact quick-view */}
-          {(n.company_name || n.contact_email) && (
-            <div className="flex flex-wrap gap-3 mb-2 text-xs text-slate-400">
-              {n.company_name && <span>🏢 {n.company_name}</span>}
-              {n.contact_name && <span>👤 {n.contact_name}</span>}
-              {n.service_interest && <span>🛠 {n.service_interest.replace(/_/g, ' ')}</span>}
-            </div>
+        {/* Context chips */}
+        <div className="flex flex-wrap gap-3 mb-2 text-xs text-slate-400">
+          {n.company_name && <span className="flex items-center gap-1"><Building2 className="w-3 h-3" />{n.company_name}</span>}
+          {n.contact_name && <span className="flex items-center gap-1"><User className="w-3 h-3" />{n.contact_name}</span>}
+          {n.service_interest && <span className="flex items-center gap-1"><Wrench className="w-3 h-3" />{n.service_interest.replace(/_/g, ' ')}</span>}
+        </div>
+
+        {/* Message body */}
+        <p className="text-xs text-slate-300 whitespace-pre-line leading-relaxed mb-3">{n.message}</p>
+
+        {/* Audit trail toggle */}
+        <button
+          onClick={() => setShowAudit(v => !v)}
+          className="flex items-center gap-1 text-xs text-slate-600 hover:text-slate-400 mb-2"
+        >
+          <Info className="w-3 h-3" />
+          {showAudit ? 'Hide' : 'Show'} audit details
+        </button>
+
+        {showAudit && (
+          <div className="bg-slate-900/60 rounded-lg p-3 mb-3 space-y-1.5 border border-slate-700">
+            <AuditRow icon={Calendar} label="Created" value={n.created_date ? format(new Date(n.created_date), 'MMM d, yyyy h:mm a') : null} />
+            <AuditRow icon={Calendar} label="Updated" value={n.updated_date ? format(new Date(n.updated_date), 'MMM d, yyyy h:mm a') : null} />
+            <AuditRow icon={Building2} label="Company" value={n.company_name} />
+            <AuditRow icon={User} label="Contact" value={n.contact_name} />
+            <AuditRow icon={Mail} label="Email" value={n.contact_email} />
+            <AuditRow icon={Wrench} label="Service" value={n.service_interest?.replace(/_/g, ' ')} />
+            <AuditRow icon={Tag} label="Type" value={n.notification_type?.replace(/_/g, ' ')} />
+            <AuditRow icon={AlertCircle} label="Trigger" value={TYPE_TRIGGER[n.notification_type]} />
+            {n.related_lead_id && <AuditRow icon={User} label="Lead ID" value={n.related_lead_id} />}
+            {n.related_proposal_id && <AuditRow icon={FileText} label="Proposal ID" value={n.related_proposal_id} />}
+            {n.related_trial_id && <AuditRow icon={Rocket} label="Trial ID" value={n.related_trial_id} />}
+            {n.snooze_until && <AuditRow icon={Clock} label="Snoozed until" value={format(new Date(n.snooze_until), 'MMM d, yyyy h:mm a')} />}
+          </div>
+        )}
+
+        {/* Action buttons */}
+        <div className="flex flex-wrap gap-2">
+          {n.contact_email && (
+            <a href={`mailto:${n.contact_email}?subject=Following up — ${n.company_name || 'your inquiry'}`}>
+              <Button size="sm" variant="outline" className="h-7 text-xs border-slate-600 text-slate-300 hover:bg-slate-700 gap-1">
+                <Mail className="w-3 h-3" /> Send Email
+              </Button>
+            </a>
           )}
-
-          <p className="text-xs text-slate-300 whitespace-pre-line leading-relaxed">{n.message}</p>
-
-          {/* Quick Action Buttons */}
-          <div className="flex flex-wrap gap-2 mt-3">
-            {n.contact_email && (
-              <a href={`mailto:${n.contact_email}`}>
-                <Button size="sm" variant="outline" className="h-7 text-xs border-slate-600 text-slate-300 hover:bg-slate-700 gap-1">
-                  <Mail className="w-3 h-3" /> Send Email
-                </Button>
-              </a>
-            )}
-            {n.related_lead_id && (
-              <Link to={createPageUrl('LeadsDashboard')}>
-                <Button size="sm" variant="outline" className="h-7 text-xs border-slate-600 text-slate-300 hover:bg-slate-700 gap-1">
-                  <ChevronRight className="w-3 h-3" /> View Lead
-                </Button>
-              </Link>
-            )}
-            {n.related_proposal_id && (
-              <Link to={createPageUrl('AdminSales')}>
-                <Button size="sm" variant="outline" className="h-7 text-xs border-slate-600 text-slate-300 hover:bg-slate-700 gap-1">
-                  <FileText className="w-3 h-3" /> View Proposal
-                </Button>
-              </Link>
-            )}
-            <Button
-              size="sm"
-              className="h-7 text-xs bg-emerald-700 hover:bg-emerald-600 gap-1"
-              onClick={() => onAction(n.id, 'actioned')}
-            >
-              <CheckCheck className="w-3 h-3" /> Mark Done
-            </Button>
-            <Button
-              size="sm"
-              variant="ghost"
-              className="h-7 text-xs text-slate-500 hover:text-orange-400 gap-1"
-              onClick={() => {
-                const until = new Date(Date.now() + 86400000).toISOString();
-                onAction(n.id, 'snoozed', until);
-              }}
-            >
-              <Clock className="w-3 h-3" /> Snooze 1 Day
-            </Button>
-            <Button
-              size="sm"
-              variant="ghost"
-              className="h-7 text-xs text-slate-600 hover:text-red-400"
-              onClick={() => onAction(n.id, 'dismissed')}
-            >
-              <X className="w-3 h-3" />
-            </Button>
-          </div>
+          {n.related_lead_id && (
+            <Link to={`${createPageUrl('LeadsDashboard')}?lead_id=${n.related_lead_id}`}>
+              <Button size="sm" variant="outline" className="h-7 text-xs border-slate-600 text-slate-300 hover:bg-slate-700 gap-1">
+                <User className="w-3 h-3" /> View Lead
+              </Button>
+            </Link>
+          )}
+          {n.related_proposal_id && (
+            <Link to={`${createPageUrl('AdminSales')}?proposal_id=${n.related_proposal_id}&tab=proposals`}>
+              <Button size="sm" variant="outline" className="h-7 text-xs border-slate-600 text-slate-300 hover:bg-slate-700 gap-1">
+                <FileText className="w-3 h-3" /> View Proposal
+              </Button>
+            </Link>
+          )}
+          {n.related_trial_id && (
+            <Link to={`${createPageUrl('AdminClients')}?trial_id=${n.related_trial_id}`}>
+              <Button size="sm" variant="outline" className="h-7 text-xs border-slate-600 text-slate-300 hover:bg-slate-700 gap-1">
+                <Rocket className="w-3 h-3" /> View Trial
+              </Button>
+            </Link>
+          )}
+          <Button
+            size="sm"
+            className="h-7 text-xs bg-emerald-700 hover:bg-emerald-600 gap-1"
+            onClick={() => onAction(n.id, 'actioned')}
+          >
+            <CheckCheck className="w-3 h-3" /> Mark Done
+          </Button>
+          <Button
+            size="sm"
+            variant="ghost"
+            className="h-7 text-xs text-slate-500 hover:text-orange-400 gap-1"
+            onClick={() => {
+              const until = new Date(Date.now() + 86400000).toISOString();
+              onAction(n.id, 'snoozed', until);
+            }}
+          >
+            <Clock className="w-3 h-3" /> Snooze 1 Day
+          </Button>
+          <Button
+            size="sm"
+            variant="ghost"
+            className="h-7 text-xs text-slate-600 hover:text-red-400 gap-1"
+            onClick={() => onAction(n.id, 'dismissed')}
+            title="Dismiss"
+          >
+            <X className="w-3 h-3" /> Dismiss
+          </Button>
         </div>
       </div>
     </div>
