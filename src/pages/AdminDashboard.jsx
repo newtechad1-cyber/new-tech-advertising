@@ -131,6 +131,7 @@ const SECTION_COMPONENTS = {
   portfolio: PortfolioManagement,
   analytics: GoogleAnalyticsView,
   'social-accounts': SocialAccounts,
+  'lead-intel': LeadIntelDashboard,
   help: AdminHelpSupport,
 };
 
