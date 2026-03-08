@@ -219,6 +219,7 @@ import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AdminRevenueEngine from './pages/AdminRevenueEngine';
 import AdminRevenueDetail from './pages/AdminRevenueDetail';
+import AdminGovernance from './pages/AdminGovernance';
 import __Layout from './Layout.jsx';
 
 
@@ -395,6 +396,7 @@ export const PAGES = {
     "YouTubeUploadTest": YouTubeUploadTest,
     "AdminRevenueEngine": AdminRevenueEngine,
     "AdminRevenueDetail": AdminRevenueDetail,
+    "AdminGovernance": AdminGovernance,
 }
 
 export const pagesConfig = {
