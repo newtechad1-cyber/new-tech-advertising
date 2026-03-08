@@ -88,6 +88,8 @@ const CATEGORIES = [
     color: 'text-green-400',
     tiles: [
       { id: 'crm-hub', label: 'CRM & Marketing Hub', icon: Users, color: 'bg-green-500', description: 'Leads, clients, email & subscribers', link: 'CRMHub' },
+      { id: 'leads-dashboard', label: 'Leads Dashboard', icon: TrendingUp, color: 'bg-orange-500', description: 'View, filter, follow up & convert funnel leads', link: 'LeadsDashboard' },
+      { id: 'funnel-page', label: 'Lead Funnel Pages', icon: Share2, color: 'bg-blue-500', description: 'Streaming TV, ADA, SEO funnel landing pages', link: 'FunnelPage?service=streaming-tv-advertising' },
       { id: 'lead-intel', label: 'Lead Intel Dashboard', icon: TrendingUp, color: 'bg-emerald-600', description: 'CRM leads: status, source & location page tracking' },
       { id: 'operations-hub', label: 'Operations Hub', icon: Briefcase, color: 'bg-amber-600', description: 'Prospect → Proposal → Fulfillment workflows', link: 'OperationsHub' },
     ]
