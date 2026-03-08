@@ -226,7 +226,7 @@ export default function PortfolioManagement() {
                 <Button
                   size="sm"
                   variant="outline"
-                  onClick={() => handleEdit(item)}
+                  onClick={(e) => { e.stopPropagation(); handleEdit(item); }}
                   className="gap-2"
                 >
                   <Edit2 className="w-3 h-3" />
