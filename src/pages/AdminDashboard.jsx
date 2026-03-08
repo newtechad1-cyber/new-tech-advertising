@@ -32,6 +32,7 @@ import CampaignCreationWizard from '../components/admin/CampaignCreationWizard';
 import LeadIntelDashboard from '../components/admin/LeadIntelDashboard';
 import AuthorityPackDashboard from '../components/admin/AuthorityPackDashboard';
 import CityPageGenerator from '../components/admin/CityPageGenerator';
+import CaseStudyManager from '../components/admin/CaseStudyManager';
 
 // Module IDs that are locked behind an upgrade
 const LOCKED_MODULE_IDS = new Set([
@@ -103,6 +104,7 @@ const CATEGORIES = [
       { id: 'ai-operations', label: 'AI Operations', icon: Cpu, color: 'bg-violet-800', description: 'Tasks, budgets, cost ledger & memory', link: 'AiOperations' },
       { id: 'authority-packs', label: 'Authority Packs', icon: Tv, color: 'bg-violet-700', description: 'View all authority packs and linked assets' },
       { id: 'city-page-generator', label: 'City Page Generator', icon: Globe, color: 'bg-emerald-700', description: 'Generate {service}-in-{city} SEO landing pages with AI' },
+      { id: 'case-studies', label: 'Case Studies', icon: TrendingUp, color: 'bg-amber-600', description: 'Create case studies + auto-generate blog, video & social content' },
       { id: 'agent-architecture', label: 'Agent Architecture', icon: BrainCircuit, color: 'bg-fuchsia-700', description: '22-agent event-driven business system', link: 'AgentArchitecture' },
       { id: 'workflow-map', label: 'Workflow Map', icon: Wrench, color: 'bg-teal-700', description: 'Master page → entity → agent architecture map', link: 'WorkflowMap' },
     ]
@@ -138,6 +140,7 @@ const SECTION_COMPONENTS = {
   'lead-intel': LeadIntelDashboard,
   'authority-packs': AuthorityPackDashboard,
   'city-page-generator': CityPageGenerator,
+  'case-studies': CaseStudyManager,
   help: AdminHelpSupport,
 };
 

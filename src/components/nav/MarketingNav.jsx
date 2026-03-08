@@ -50,6 +50,10 @@ const NAV_LINKS = [
     ],
   },
   {
+    label: 'Results',
+    href: createPageUrl('CaseStudies'),
+  },
+  {
     label: 'Blog',
     href: createPageUrl('Blog'),
   },
