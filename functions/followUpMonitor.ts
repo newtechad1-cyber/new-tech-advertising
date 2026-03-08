@@ -5,6 +5,7 @@ Deno.serve(async (req) => {
     const base44 = createClientFromRequest(req);
     const created = [];
     const now = new Date();
+    const today = now.toISOString().split('T')[0];
     const twoDaysAgo = new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000).toISOString();
     const threeDaysAgo = new Date(now.getTime() - 3 * 24 * 60 * 60 * 1000).toISOString();
 
@@ -34,6 +35,34 @@ Deno.serve(async (req) => {
       }
       return toResolve.length;
     };
+
+    // ─── 0. AUTO-TASKS: new hot leads without pending tasks ──────────────────
+    const hotLeadScores = await base44.asServiceRole.entities.LeadScore.filter({ status: 'hot' });
+    for (const ls of hotLeadScores) {
+      const existingTasks = await base44.asServiceRole.entities.SalesTasks.filter({
+        lead_id: ls.lead_id,
+        status: 'pending',
+        task_type: 'call_client',
+      });
+      if (existingTasks.length === 0) {
+        const leads = await base44.asServiceRole.entities.Lead.filter({ id: ls.lead_id });
+        const lead = leads[0];
+        if (lead && !['won', 'lost'].includes(lead.status)) {
+          await base44.asServiceRole.entities.SalesTasks.create({
+            task_title: `Contact hot lead — ${lead.business_name}`,
+            task_type: 'call_client',
+            lead_id: ls.lead_id,
+            company_name: lead.business_name,
+            priority: 'high',
+            due_date: today,
+            status: 'pending',
+            notes: `Lead scored ${ls.score} points. Contact: ${lead.name} · ${lead.email}`,
+            alert_created: false,
+          });
+          created.push(`auto-task-hot-lead: ${lead.business_name}`);
+        }
+      }
+    }
 
     // ─── 1. HOT LEADS inactive for 3+ days ───────────────────────────────────
     const hotScores = await base44.asServiceRole.entities.LeadScore.filter({ status: 'hot' });
