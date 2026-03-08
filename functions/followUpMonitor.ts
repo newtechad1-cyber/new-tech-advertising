@@ -205,7 +205,6 @@ Deno.serve(async (req) => {
         }
       }
     }
-    }
 
     // ─── 5. OVERDUE TASKS — create alert if not already created ─────────────
     const pendingTasks = await base44.asServiceRole.entities.SalesTasks.filter({ status: 'pending' });
@@ -215,7 +214,7 @@ Deno.serve(async (req) => {
           title: '📋 Overdue Follow-Up Task',
           message: `Task "${task.task_title}" was due on ${task.due_date} and has not been completed.${task.company_name ? `\nCompany: ${task.company_name}` : ''}`,
           priority: 'high',
-          notification_type: 'followup_needed',
+          notification_type: 'task_overdue',
           related_lead_id: task.lead_id || '',
           related_proposal_id: task.proposal_id || '',
           company_name: task.company_name || '',
