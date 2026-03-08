@@ -161,6 +161,25 @@ Deno.serve(async (req) => {
       trial_end_at: trialEnd.toISOString(),
     });
 
+    // Create Lead in internal CRM
+    const existingLeads = await base44.asServiceRole.entities.Lead.filter({ email });
+    if (!existingLeads.length) {
+      await base44.asServiceRole.entities.Lead.create({
+        name: name,
+        email: email,
+        phone: phone || '',
+        business_name: name,
+        website: website_url || '',
+        industry: industry,
+        city: location_city,
+        state: location_state,
+        service_interest: 'diy_saas',
+        message: `Trial signup via createTrialAccount. Involvement: ${involvement_preference || 'undecided'}`,
+        status: 'new',
+        source: 'website',
+      });
+    }
+
     // Create personalized PortalLanding
     const landingData = buildPortalLanding({ name, industry, location_city, location_state });
     await base44.asServiceRole.entities.PortalLanding.create({
