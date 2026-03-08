@@ -107,6 +107,7 @@ const CATEGORIES = [
       { id: 'city-page-generator', label: 'City Page Generator', icon: Globe, color: 'bg-emerald-700', description: 'Generate {service}-in-{city} SEO landing pages with AI' },
       { id: 'case-studies', label: 'Case Studies', icon: TrendingUp, color: 'bg-amber-600', description: 'Create case studies + auto-generate blog, video & social content' },
       { id: 'blog-engine', label: 'Authority Blog Engine', icon: BookOpen, color: 'bg-rose-700', description: 'Auto-generate SEO articles + video scripts from service × industry × city' },
+      { id: 'content-engine', label: 'Content Multiplication Engine', icon: Zap, color: 'bg-violet-500', description: '1 source → blog, YouTube, TikTok, LinkedIn, Facebook, email & more', link: 'ContentEngine' },
       { id: 'agent-architecture', label: 'Agent Architecture', icon: BrainCircuit, color: 'bg-fuchsia-700', description: '22-agent event-driven business system', link: 'AgentArchitecture' },
       { id: 'workflow-map', label: 'Workflow Map', icon: Wrench, color: 'bg-teal-700', description: 'Master page → entity → agent architecture map', link: 'WorkflowMap' },
     ]
