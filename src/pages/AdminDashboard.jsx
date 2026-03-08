@@ -7,7 +7,7 @@ import {
   BookOpen, ShoppingBag, Mail, Users, Image, Video,
   StickyNote, HelpCircle, ArrowLeft, Zap, RefreshCw,
   Calendar, DollarSign, FileText, TrendingUp, MonitorPlay, Briefcase,
-  Globe, Share2, BarChart2, Lock, X, BrainCircuit, Settings, CalendarDays, Wrench, Cpu, Tv
+  Globe, Share2, BarChart2, Lock, X, BrainCircuit, Settings, CalendarDays, Wrench, Cpu, Tv, MapPin
 } from 'lucide-react';
 import AdminNav from '../components/nav/AdminNav';
 import { Button } from '@/components/ui/button';
@@ -31,6 +31,7 @@ import AdminHelpSupport from '../components/admin/AdminHelpSupport';
 import CampaignCreationWizard from '../components/admin/CampaignCreationWizard';
 import LeadIntelDashboard from '../components/admin/LeadIntelDashboard';
 import AuthorityPackDashboard from '../components/admin/AuthorityPackDashboard';
+import CityPageGenerator from '../components/admin/CityPageGenerator';
 
 // Module IDs that are locked behind an upgrade
 const LOCKED_MODULE_IDS = new Set([
@@ -101,6 +102,7 @@ const CATEGORIES = [
       { id: 'onboarding-queue', label: 'Trial Onboarding Queue', icon: Users, color: 'bg-green-600', description: 'Review & configure new trial accounts', link: 'AdminOnboardingQueue' },
       { id: 'ai-operations', label: 'AI Operations', icon: Cpu, color: 'bg-violet-800', description: 'Tasks, budgets, cost ledger & memory', link: 'AiOperations' },
       { id: 'authority-packs', label: 'Authority Packs', icon: Tv, color: 'bg-violet-700', description: 'View all authority packs and linked assets' },
+      { id: 'city-page-generator', label: 'City Page Generator', icon: Globe, color: 'bg-emerald-700', description: 'Generate {service}-in-{city} SEO landing pages with AI' },
       { id: 'agent-architecture', label: 'Agent Architecture', icon: BrainCircuit, color: 'bg-fuchsia-700', description: '22-agent event-driven business system', link: 'AgentArchitecture' },
       { id: 'workflow-map', label: 'Workflow Map', icon: Wrench, color: 'bg-teal-700', description: 'Master page → entity → agent architecture map', link: 'WorkflowMap' },
     ]
@@ -135,6 +137,7 @@ const SECTION_COMPONENTS = {
   'social-accounts': SocialAccounts,
   'lead-intel': LeadIntelDashboard,
   'authority-packs': AuthorityPackDashboard,
+  'city-page-generator': CityPageGenerator,
   help: AdminHelpSupport,
 };
 
