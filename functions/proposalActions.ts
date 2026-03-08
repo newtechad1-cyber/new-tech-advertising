@@ -123,6 +123,17 @@ Deno.serve(async (req) => {
         status: 'pending',
         notes: `Proposal accepted online by ${viewer_name || 'prospect'} (${viewer_email || ''}). Start onboarding immediately.`,
       });
+
+      // Auto-create onboarding workroom
+      try {
+        await base44.asServiceRole.functions.invoke('createOnboardingWorkroom', {
+          proposal_id: proposal.id,
+          onboarding_type: proposal.service_type || 'general_marketing',
+        });
+      } catch (e) {
+        console.log('Workroom creation failed:', e.message);
+      }
+
       return Response.json({ success: true });
     }
 
