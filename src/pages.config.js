@@ -190,6 +190,9 @@ import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AdminAutopilot from './pages/AdminAutopilot';
 import AdminSales from './pages/AdminSales';
 import AdminCommandCenter from './pages/AdminCommandCenter';
+import ClientDashboard from './pages/ClientDashboard';
+import AdminUsers from './pages/AdminUsers';
+import AdminClients from './pages/AdminClients';
 import __Layout from './Layout.jsx';
 
 
@@ -337,6 +340,9 @@ export const PAGES = {
     "AdminAutopilot": AdminAutopilot,
     "AdminSales": AdminSales,
     "AdminCommandCenter": AdminCommandCenter,
+    "ClientDashboard": ClientDashboard,
+    "AdminUsers": AdminUsers,
+    "AdminClients": AdminClients,
 }
 
 export const pagesConfig = {
