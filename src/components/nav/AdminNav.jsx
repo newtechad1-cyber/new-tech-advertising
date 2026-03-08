@@ -24,6 +24,7 @@ const NAV_GROUPS = [
       { label: 'Proposals', icon: FileText, page: 'ProposalsList' },
       { label: 'Pipeline', icon: FolderKanban, page: 'ProposalPipeline' },
       { label: 'Onboarding', icon: CheckSquare, page: 'AdminOnboarding' },
+      { label: 'Fulfillment', icon: Briefcase, page: 'AdminFulfillment' },
       { label: 'Tasks', icon: CheckSquare, page: 'AdminTasks' },
       { label: 'Opportunities', icon: TrendingUp, page: 'OperationsHub' },
     ],
