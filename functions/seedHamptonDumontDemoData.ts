@@ -169,8 +169,18 @@ Deno.serve(async (req) => {
 
     // 6. Seed Spotlights
     const spotlightTitles = [
-      { title: 'Spotlight: John Martinez - Robotics Team Leader', type: 'student' },
-      { title: 'Spotlight: Coach Sarah Johnson - Celebrating Excellence', type: 'staff' },
+      { 
+        title: 'John Martinez - State Championship Roboticist', 
+        type: 'student',
+        excerpt: 'A junior who led our robotics team to the state finals with innovative engineering',
+        body: 'John Martinez is a junior at Hampton-Dumont known for his exceptional problem-solving skills and leadership. As captain of the robotics team, he guided his teammates to the state championship. "I love building things and working with my team," John says. His dream is to study mechanical engineering at MIT.'
+      },
+      { 
+        title: 'Coach Sarah Chen - Inspiring Musical Excellence', 
+        type: 'staff',
+        excerpt: 'Our choir director transformed the music program and earned national recognition',
+        body: 'Director Sarah Chen joined Hampton-Dumont three years ago and completely transformed our choir program. Under her direction, the choir earned a superior rating at the state competition. "Every student deserves to experience the joy of making music," she says. Her passion is contagious and has inspired 150 students to join choir this year.'
+      },
     ];
 
     for (const spot of spotlightTitles) {
@@ -179,12 +189,13 @@ Deno.serve(async (req) => {
         title: spot.title,
         slug: spot.title.toLowerCase().replace(/\s+/g, '-'),
         spotlight_type: spot.type,
-        description: `Meet ${spot.title.split(': ')[1]}. Their dedication and passion inspire our community.`,
-        body: 'Their outstanding contributions have made a real difference at Hampton-Dumont.',
+        description: spot.excerpt,
+        body: spot.body,
         status: 'published',
         publish_status: 'published',
         visibility: 'public',
         featured: true,
+        featured_image_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500',
         published_date: new Date().toISOString(),
         public_url: `/schools/${schoolSlug}/spotlights/${spot.title.toLowerCase().replace(/\s+/g, '-')}`,
         canonical_route: `/schools/${schoolSlug}/spotlights`,
@@ -243,10 +254,30 @@ Deno.serve(async (req) => {
 
     // 9. Seed Video Projects
     const projectNames = [
-      { title: 'Robotics Team Story', type: 'team_feature', status: 'published' },
-      { title: 'Football Game Recap', type: 'game_recap', status: 'published' },
-      { title: 'Choir Concert Highlights', type: 'event_recap', status: 'published' },
-      { title: 'STEM Showcase Showcase', type: 'event_recap', status: 'review_ready' },
+      { 
+        title: 'Meet the Robotics Team', 
+        type: 'team_feature', 
+        status: 'published',
+        description: 'A behind-the-scenes look at the state-championship robotics team'
+      },
+      { 
+        title: 'Homecoming 2025 Highlights', 
+        type: 'event_recap', 
+        status: 'published',
+        description: 'The best moments from our homecoming week celebration'
+      },
+      { 
+        title: 'Spring Concert 2025', 
+        type: 'event_recap', 
+        status: 'published',
+        description: 'Students perform stunning musical selections at spring concert'
+      },
+      { 
+        title: 'STEM Innovation Showcase', 
+        type: 'event_recap', 
+        status: 'review_ready',
+        description: 'Students showcase engineering projects and scientific innovation'
+      },
     ];
 
     for (const proj of projectNames) {
@@ -257,7 +288,7 @@ Deno.serve(async (req) => {
         project_type: proj.type,
         status: proj.status,
         publish_status: proj.status === 'published' ? 'published' : 'not_ready',
-        description: proj.title,
+        description: proj.description,
         tone: 'warm',
         duration_target: '2-3 minutes',
         format_type: 'landscape',
