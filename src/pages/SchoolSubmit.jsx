@@ -199,13 +199,13 @@ export default function SchoolSubmit() {
             
             <div className="grid md:grid-cols-2 gap-6">
               <select
-                name="submission_type"
-                value={formData.submission_type}
+                name="upload_type"
+                value={formData.upload_type}
                 onChange={handleInputChange}
                 className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                <option value="video">Video</option>
-                <option value="photo">Photo</option>
+                <option value="video_only">Video Only</option>
+                <option value="photos_only">Photos Only</option>
                 <option value="mixed_media">Mixed Media</option>
               </select>
 
