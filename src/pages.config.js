@@ -315,6 +315,7 @@ import BulldogTVStories from './pages/BulldogTVStories';
 import BulldogTVVideos from './pages/BulldogTVVideos';
 import BulldogTVYearbook from './pages/BulldogTVYearbook';
 import BulldogTVSpotlights from './pages/BulldogTVSpotlights';
+import BulldogTVSubmissions from './pages/BulldogTVSubmissions';
 import __Layout from './Layout.jsx';
 
 
@@ -587,6 +588,7 @@ export const PAGES = {
     "BulldogTVVideos": BulldogTVVideos,
     "BulldogTVYearbook": BulldogTVYearbook,
     "BulldogTVSpotlights": BulldogTVSpotlights,
+    "BulldogTVSubmissions": BulldogTVSubmissions,
 }
 
 export const pagesConfig = {
