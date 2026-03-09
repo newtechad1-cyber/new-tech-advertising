@@ -160,21 +160,29 @@ export default function SchoolHome() {
 
       {/* Upcoming Events */}
       {upcomingEvents.length > 0 && (
-        <section className="py-12 md:py-16">
+        <section className="py-16 md:py-28">
           <div className="max-w-6xl mx-auto px-4 md:px-6">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 flex items-center gap-2"><Calendar className="h-6 md:h-8 w-6 md:w-8" /> Upcoming Events</h2>
+            <div className="mb-12 md:mb-16">
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-pink-100 text-pink-700 font-semibold text-sm mb-4">
+                <Calendar className="h-4 w-4 mr-2" /> Events
+              </div>
+              <h2 className="text-4xl md:text-5xl font-black mb-4 text-gray-900">What's Coming Up</h2>
+              <p className="text-gray-600 text-lg md:text-xl">Don't miss these important Bulldog events and celebrations</p>
+            </div>
             <div className="space-y-4">
               {upcomingEvents.map((event) => (
-                <Link key={event.id} to={`/schools/${schoolSlug}/events/${event.slug}`} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow flex justify-between items-start">
-                  <div>
-                    <h3 className="font-bold text-lg mb-2">{event.title}</h3>
-                    <p className="text-gray-600 mb-2">{event.location}</p>
-                    <p className="text-sm text-gray-500">
-                      {new Date(event.event_date).toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
-                      {event.event_time && ` at ${event.event_time}`}
-                    </p>
+                <Link key={event.id} to={`/schools/${schoolSlug}/events/${event.slug}`} className="group bg-white rounded-2xl shadow-md p-8 hover:shadow-xl hover:bg-gray-50 transition-all duration-300 border border-gray-100 hover:border-pink-200 flex justify-between items-start">
+                  <div className="flex-1">
+                    <h3 className="font-bold text-xl mb-3 text-gray-900 group-hover:text-pink-600 transition-colors">{event.title}</h3>
+                    <div className="space-y-2">
+                      {event.location && <p className="text-gray-700 font-semibold">📍 {event.location}</p>}
+                      <p className="text-lg text-gray-700 font-semibold">
+                        📅 {new Date(event.event_date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+                        {event.event_time && ` • ${event.event_time}`}
+                      </p>
+                    </div>
                   </div>
-                  <ArrowRight className="h-5 w-5 text-gray-400" />
+                  <ArrowRight className="h-6 w-6 text-pink-400 group-hover:text-pink-600 transition-colors flex-shrink-0 ml-4" />
                 </Link>
               ))}
             </div>
