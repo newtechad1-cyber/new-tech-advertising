@@ -97,7 +97,7 @@ export default function ExecutiveSummaryCards({ data }) {
       {cards.map((card, idx) => {
         const Icon = card.icon;
         return (
-          <a key={idx} href={createPageUrl(card.link)}>
+          <a key={idx} href={card.link}>
             <Card className={`cursor-pointer hover:shadow-md transition-all border ${colorClasses[card.color]} h-full`}>
               <CardContent className="p-4">
                 <div className="flex items-start justify-between">
