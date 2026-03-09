@@ -323,6 +323,9 @@ import SchoolStories from './pages/SchoolStories';
 import SchoolYearbook from './pages/SchoolYearbook';
 import SchoolEvents from './pages/SchoolEvents';
 import SchoolSpotlights from './pages/SchoolSpotlights';
+import AdminStoryLibrary from './pages/AdminStoryLibrary';
+import AdminSchoolEvents from './pages/AdminSchoolEvents';
+import AdminSchoolSpotlights from './pages/AdminSchoolSpotlights';
 import __Layout from './Layout.jsx';
 
 
@@ -603,6 +606,9 @@ export const PAGES = {
     "SchoolYearbook": SchoolYearbook,
     "SchoolEvents": SchoolEvents,
     "SchoolSpotlights": SchoolSpotlights,
+    "AdminStoryLibrary": AdminStoryLibrary,
+    "AdminSchoolEvents": AdminSchoolEvents,
+    "AdminSchoolSpotlights": AdminSchoolSpotlights,
 }
 
 export const pagesConfig = {
