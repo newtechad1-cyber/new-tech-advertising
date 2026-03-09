@@ -316,6 +316,7 @@ import BulldogTVVideos from './pages/BulldogTVVideos';
 import BulldogTVYearbook from './pages/BulldogTVYearbook';
 import BulldogTVSpotlights from './pages/BulldogTVSpotlights';
 import BulldogTVSubmissions from './pages/BulldogTVSubmissions';
+import AdminSchoolAIContentReview from './pages/AdminSchoolAIContentReview';
 import __Layout from './Layout.jsx';
 
 
@@ -589,6 +590,7 @@ export const PAGES = {
     "BulldogTVYearbook": BulldogTVYearbook,
     "BulldogTVSpotlights": BulldogTVSpotlights,
     "BulldogTVSubmissions": BulldogTVSubmissions,
+    "AdminSchoolAIContentReview": AdminSchoolAIContentReview,
 }
 
 export const pagesConfig = {
