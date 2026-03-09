@@ -70,15 +70,12 @@ export default function AdminSchoolDashboard() {
   const StatCard = ({ icon: Icon, label, value, color, route }) => (
     <Link
       to={route}
-      className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow border-l-4"
+      className="bg-white rounded-lg shadow-md p-4 md:p-6 hover:shadow-lg transition-shadow border-l-4"
       style={{ borderColor: color }}
     >
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-gray-600 text-sm mb-1">{label}</p>
-          <p className="text-3xl font-bold">{value}</p>
-        </div>
-        <Icon className="h-10 w-10" style={{ color }} />
+      <div className="flex flex-col items-start">
+        <p className="text-gray-600 text-xs md:text-sm mb-2">{label}</p>
+        <p className="text-2xl md:text-3xl font-bold">{value}</p>
       </div>
     </Link>
   );
@@ -86,17 +83,17 @@ export default function AdminSchoolDashboard() {
   return (
     <AdminShell schoolSlug={schoolSlug}>
       {/* Welcome */}
-      <div className="bg-gradient-to-r from-blue-700 via-blue-600 to-blue-700 text-white py-12 mb-8 rounded-2xl relative overflow-hidden shadow-lg">
+      <div className="bg-gradient-to-r from-blue-700 via-blue-600 to-blue-700 text-white py-10 md:py-12 mb-6 md:mb-8 rounded-2xl relative overflow-hidden shadow-lg">
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, white 0%, transparent 50%)' }} />
-        <div className="relative z-10 px-8">
-          <h1 className="text-4xl font-black mb-2">School Story Lab</h1>
-          <p className="text-blue-100 text-lg">Your content hub is active and thriving. Here's your status:</p>
+        <div className="relative z-10 px-6 md:px-8">
+          <h1 className="text-2xl md:text-4xl font-black mb-2">School Story Lab</h1>
+          <p className="text-blue-100 text-base md:text-lg">Your content hub is active and thriving. Here's your status:</p>
         </div>
       </div>
 
       {/* Quick Overview */}
-      <div className="mb-2 text-sm font-semibold text-gray-700 uppercase tracking-wide">Content Status</div>
-      <div className="grid md:grid-cols-4 gap-4 mb-12">
+      <div className="mb-2 text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wide">Content Status</div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8 md:mb-12">
         <StatCard
           icon={AlertCircle}
           label="Pending Submissions"
@@ -127,8 +124,8 @@ export default function AdminSchoolDashboard() {
         />
       </div>
 
-      <div className="mb-2 text-sm font-semibold text-gray-700 uppercase tracking-wide">Additional Metrics</div>
-      <div className="grid md:grid-cols-4 gap-4 mb-12">
+      <div className="mb-2 text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wide">Additional Metrics</div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8 md:mb-12">
         <StatCard
           icon={BookOpen}
           label="Yearbook Pages"
@@ -160,10 +157,10 @@ export default function AdminSchoolDashboard() {
       </div>
 
       {/* Two Column Layout */}
-      <div className="grid md:grid-cols-2 gap-8">
+      <div className="grid md:grid-cols-2 gap-6 md:gap-8">
         {/* Recent Activity */}
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h3 className="text-xl font-bold mb-4">Recent Activity</h3>
+        <div className="bg-white rounded-lg shadow-md p-6 order-2 md:order-1">
+          <h3 className="text-lg md:text-xl font-bold mb-4">Recent Activity</h3>
           {recentActivity.length > 0 ? (
             <div className="space-y-4">
               {recentActivity.map((activity, idx) => (
@@ -193,8 +190,8 @@ export default function AdminSchoolDashboard() {
         </div>
 
         {/* Needs Attention */}
-        <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-red-500">
-          <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+        <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-red-500 order-1 md:order-2">
+          <h3 className="text-lg md:text-xl font-bold mb-4 flex items-center gap-2">
             <AlertTriangle className="h-5 w-5 text-red-500" />
             Needs Attention
           </h3>
@@ -234,28 +231,28 @@ export default function AdminSchoolDashboard() {
       </div>
 
       {/* Quick Actions */}
-      <div className="mt-12 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 border border-blue-200">
-        <h3 className="text-xl font-black mb-6">Next Steps</h3>
-        <div className="grid md:grid-cols-4 gap-4">
-          <Link to={`/admin/schools/${schoolSlug}/submissions`} className="group bg-white hover:bg-blue-50 p-6 rounded-xl text-center border-2 border-blue-100 transition-all hover:border-blue-300 hover:shadow-md">
-            <p className="text-3xl mb-2">📋</p>
-            <p className="font-bold text-sm text-gray-900">Review Submissions</p>
-            <p className="text-xs text-gray-500 mt-2">Approve & moderate content</p>
+      <div className="mt-8 md:mt-12 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 md:p-8 border border-blue-200">
+        <h3 className="text-lg md:text-xl font-black mb-4 md:mb-6">Next Steps</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          <Link to={`/admin/schools/${schoolSlug}/submissions`} className="group bg-white hover:bg-blue-50 p-4 md:p-6 rounded-xl text-center border-2 border-blue-100 transition-all hover:border-blue-300 hover:shadow-md">
+            <p className="text-2xl md:text-3xl mb-2">📋</p>
+            <p className="font-bold text-xs md:text-sm text-gray-900">Review Submissions</p>
+            <p className="text-xs text-gray-500 mt-1 md:mt-2 hidden sm:block">Approve & moderate</p>
           </Link>
-          <Link to={`/admin/schools/${schoolSlug}/projects`} className="group bg-white hover:bg-blue-50 p-6 rounded-xl text-center border-2 border-blue-100 transition-all hover:border-blue-300 hover:shadow-md">
-            <p className="text-3xl mb-2">🎬</p>
-            <p className="font-bold text-sm text-gray-900">Create Project</p>
-            <p className="text-xs text-gray-500 mt-2">Start a new video</p>
+          <Link to={`/admin/schools/${schoolSlug}/projects`} className="group bg-white hover:bg-blue-50 p-4 md:p-6 rounded-xl text-center border-2 border-blue-100 transition-all hover:border-blue-300 hover:shadow-md">
+            <p className="text-2xl md:text-3xl mb-2">🎬</p>
+            <p className="font-bold text-xs md:text-sm text-gray-900">Create Project</p>
+            <p className="text-xs text-gray-500 mt-1 md:mt-2 hidden sm:block">Start video</p>
           </Link>
-          <Link to={`/admin/schools/${schoolSlug}/ai-lab`} className="group bg-white hover:bg-blue-50 p-6 rounded-xl text-center border-2 border-blue-100 transition-all hover:border-blue-300 hover:shadow-md">
-            <p className="text-3xl mb-2">⚡</p>
-            <p className="font-bold text-sm text-gray-900">AI Tools</p>
-            <p className="text-xs text-gray-500 mt-2">Generate content</p>
+          <Link to={`/admin/schools/${schoolSlug}/ai-lab`} className="group bg-white hover:bg-blue-50 p-4 md:p-6 rounded-xl text-center border-2 border-blue-100 transition-all hover:border-blue-300 hover:shadow-md">
+            <p className="text-2xl md:text-3xl mb-2">⚡</p>
+            <p className="font-bold text-xs md:text-sm text-gray-900">AI Tools</p>
+            <p className="text-xs text-gray-500 mt-1 md:mt-2 hidden sm:block">Generate content</p>
           </Link>
-          <Link to={`/admin/schools/${schoolSlug}/story-library`} className="group bg-white hover:bg-blue-50 p-6 rounded-xl text-center border-2 border-blue-100 transition-all hover:border-blue-300 hover:shadow-md">
-            <p className="text-3xl mb-2">📖</p>
-            <p className="font-bold text-sm text-gray-900">Write Story</p>
-            <p className="text-xs text-gray-500 mt-2">Share news & updates</p>
+          <Link to={`/admin/schools/${schoolSlug}/story-library`} className="group bg-white hover:bg-blue-50 p-4 md:p-6 rounded-xl text-center border-2 border-blue-100 transition-all hover:border-blue-300 hover:shadow-md">
+            <p className="text-2xl md:text-3xl mb-2">📖</p>
+            <p className="font-bold text-xs md:text-sm text-gray-900">Write Story</p>
+            <p className="text-xs text-gray-500 mt-1 md:mt-2 hidden sm:block">Share updates</p>
           </Link>
         </div>
       </div>
