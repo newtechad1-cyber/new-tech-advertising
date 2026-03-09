@@ -44,7 +44,7 @@ export default function AdminVideoRenderQueue() {
   }, [schoolSlug]);
 
   useEffect(() => {
-    let filtered = jobs;
+    let filtered = [...jobs];
 
     if (selectedStatus !== 'all') {
       filtered = filtered.filter(j => j.status === selectedStatus);
@@ -53,9 +53,10 @@ export default function AdminVideoRenderQueue() {
       filtered = filtered.filter(j => j.render_engine === selectedEngine);
     }
     if (searchTerm) {
+      const term = searchTerm.toLowerCase();
       filtered = filtered.filter(j =>
-        j.render_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        j.project_id.toLowerCase().includes(searchTerm.toLowerCase())
+        (j.render_name || '').toLowerCase().includes(term) ||
+        (j.project_id || '').toLowerCase().includes(term)
       );
     }
 
