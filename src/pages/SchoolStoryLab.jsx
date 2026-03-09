@@ -177,6 +177,65 @@ export default function SchoolStoryLab() {
         </div>
       </section>
 
+      {/* DEMO VIDEO SECTION */}
+      <section className="py-24 bg-white">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4 text-center">
+            See School Story Lab in Action
+          </h2>
+          
+          <p className="text-lg text-gray-600 text-center mb-12 max-w-3xl mx-auto">
+            Watch how students and teachers use School Story Lab to capture, create, and share the moments that matter.
+          </p>
+          
+          <div className="relative h-96 lg:h-[28rem] rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700">
+            <div className="absolute inset-0 flex items-center justify-center group cursor-pointer">
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center h-20 w-20 rounded-full bg-white/20 group-hover:bg-white/30 transition-all">
+                  <Play className="h-10 w-10 text-white fill-white" />
+                </div>
+                <p className="text-white mt-4 font-semibold">Play Demo</p>
+              </div>
+            </div>
+            
+            {/* Demo content preview */}
+            <div className="absolute inset-0 opacity-30">
+              <div className="grid grid-cols-2 h-full">
+                <div className="bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+                  <Upload className="h-12 w-12 text-white opacity-50" />
+                </div>
+                <div className="bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
+                  <Sparkles className="h-12 w-12 text-white opacity-50" />
+                </div>
+                <div className="bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                  <Video className="h-12 w-12 text-white opacity-50" />
+                </div>
+                <div className="bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center">
+                  <Calendar className="h-12 w-12 text-white opacity-50" />
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="grid md:grid-cols-4 gap-6 mt-12">
+            {[
+              { icon: Upload, label: 'Student Uploads' },
+              { icon: Sparkles, label: 'Story Generation' },
+              { icon: Video, label: 'Video Highlights' },
+              { icon: Calendar, label: 'Yearbook Pages' },
+            ].map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <div key={idx} className="text-center">
+                  <Icon className="h-8 w-8 text-blue-600 mx-auto mb-3" />
+                  <p className="text-gray-700 font-medium">{item.label}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* AI LEARNING SECTION */}
       <section className="py-24 bg-gradient-to-br from-purple-50 to-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
@@ -338,6 +397,58 @@ export default function SchoolStoryLab() {
                 <span className="text-gray-800 font-medium">{useCase}</span>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SCHOOL EXAMPLE SECTION */}
+      <section className="py-24 bg-white">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4 text-center">
+            See It in Action: Bulldog Story Lab
+          </h2>
+          
+          <p className="text-xl text-gray-600 text-center mb-12">
+            Hampton-Dumont Community Schools
+          </p>
+          
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Visual */}
+            <div className="space-y-4">
+              {[
+                { title: 'Student Stories', desc: 'Teachers and students share day-to-day moments from classrooms' },
+                { title: 'Sports Highlights', desc: 'Football, volleyball, and basketball games turned into highlight videos' },
+                { title: 'Robotics Club', desc: 'Competition wins and team projects documented and celebrated' },
+                { title: 'Concert Recap', desc: 'Music performances edited into professional highlight videos' },
+              ].map((item, idx) => (
+                <div key={idx} className="p-4 rounded-lg bg-gradient-to-r from-blue-50 to-transparent border-l-4 border-blue-600">
+                  <h3 className="font-bold text-gray-900 mb-1">{item.title}</h3>
+                  <p className="text-gray-700 text-sm">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+            
+            {/* Right Example Visual */}
+            <div className="relative h-96 rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-blue-100 to-blue-50 border-2 border-blue-200">
+              <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+                <BookOpen className="h-16 w-16 text-blue-600 mb-4" />
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Bulldog Story Lab</h3>
+                <p className="text-gray-700 mb-6">Hampton-Dumont Community Schools</p>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <p>📸 500+ Student Submissions</p>
+                  <p>🎬 45+ Video Stories</p>
+                  <p>📅 Live Digital Yearbook</p>
+                  <p>👥 2,500+ Parent Views</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-12 p-8 bg-blue-50 rounded-xl border-2 border-blue-200">
+            <blockquote className="text-lg text-gray-800 italic">
+              "School Story Lab transformed how we celebrate our students. Parents can now follow their students' stories throughout the entire year, not just see a yearbook in May."
+            </blockquote>
+            <p className="mt-4 font-semibold text-gray-900">— Sarah Jensen, Media Director, Hampton-Dumont Community Schools</p>
           </div>
         </div>
       </section>
