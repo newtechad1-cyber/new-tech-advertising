@@ -252,6 +252,11 @@ import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AdminSystemHealth from './pages/AdminSystemHealth';
 import AdminTestMatrix from './pages/AdminTestMatrix';
+import AdminQA from './pages/AdminQA';
+import AdminQATests from './pages/AdminQATests';
+import AdminQARuns from './pages/AdminQARuns';
+import AdminQAIssues from './pages/AdminQAIssues';
+import AdminQAReadiness from './pages/AdminQAReadiness';
 import __Layout from './Layout.jsx';
 
 
@@ -461,6 +466,11 @@ export const PAGES = {
     "YouTubeUploadTest": YouTubeUploadTest,
     "AdminSystemHealth": AdminSystemHealth,
     "AdminTestMatrix": AdminTestMatrix,
+    "AdminQA": AdminQA,
+    "AdminQATests": AdminQATests,
+    "AdminQARuns": AdminQARuns,
+    "AdminQAIssues": AdminQAIssues,
+    "AdminQAReadiness": AdminQAReadiness,
 }
 
 export const pagesConfig = {
