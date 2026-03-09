@@ -45,20 +45,17 @@ export default function AdminExecutive() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <AdminNav currentPage="executive" />
+      <AdminNav>
         <div className="p-8 text-center">
           <p className="text-gray-500">Loading executive dashboard...</p>
         </div>
-      </div>
+      </AdminNav>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <AdminNav currentPage="executive" />
-      
-      <div className="p-8">
+    <AdminNav>
+      <div className="p-8 bg-gray-50 min-h-screen">
         <div className="max-w-7xl mx-auto">
           
           {/* Header */}
