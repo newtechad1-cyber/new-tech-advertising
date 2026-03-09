@@ -56,18 +56,36 @@ export default function AdminSchoolSubmissions() {
     : submissions.filter(s => s.status === filterStatus);
 
   const handleApprove = async (id) => {
-    await base44.entities.StudentVideoSubmissions.update(id, { status: 'approved' });
-    setSubmissions(submissions.map(s => s.id === id ? { ...s, status: 'approved' } : s));
+    try {
+      await base44.entities.SchoolSubmissions.update(id, { status: 'approved' });
+      setSubmissions(submissions.map(s => s.id === id ? { ...s, status: 'approved' } : s));
+      setSelectedSubmission(null);
+    } catch (error) {
+      console.error('Error approving submission:', error);
+      alert('Error approving submission');
+    }
   };
 
   const handleReject = async (id) => {
-    await base44.entities.StudentVideoSubmissions.update(id, { status: 'rejected' });
-    setSubmissions(submissions.map(s => s.id === id ? { ...s, status: 'rejected' } : s));
+    try {
+      await base44.entities.SchoolSubmissions.update(id, { status: 'rejected' });
+      setSubmissions(submissions.map(s => s.id === id ? { ...s, status: 'rejected' } : s));
+      setSelectedSubmission(null);
+    } catch (error) {
+      console.error('Error rejecting submission:', error);
+      alert('Error rejecting submission');
+    }
   };
 
   const handleArchive = async (id) => {
-    await base44.entities.StudentVideoSubmissions.update(id, { status: 'archived' });
-    setSubmissions(submissions.filter(s => s.id !== id));
+    try {
+      await base44.entities.SchoolSubmissions.update(id, { status: 'archived' });
+      setSubmissions(submissions.filter(s => s.id !== id));
+      setSelectedSubmission(null);
+    } catch (error) {
+      console.error('Error archiving submission:', error);
+      alert('Error archiving submission');
+    }
   };
 
   const handleSaveToStory = async (submission) => {
