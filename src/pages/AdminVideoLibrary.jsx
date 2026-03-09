@@ -18,6 +18,7 @@ export default function AdminVideoLibrary() {
   const [viewMode, setViewMode] = useState('grid');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedPublishStatus, setSelectedPublishStatus] = useState('all');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
