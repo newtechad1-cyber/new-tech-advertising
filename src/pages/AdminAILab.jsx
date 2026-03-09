@@ -181,6 +181,7 @@ export default function AdminAILab() {
               </div>
             </div>
           </div>
+          </div>
 
           {/* Recent Jobs */}
           <div className="bg-white rounded-lg shadow-md p-6">
