@@ -73,6 +73,7 @@ import AdminClients from './pages/AdminClients';
 import AdminCommandCenter from './pages/AdminCommandCenter';
 import AdminCommerce from './pages/AdminCommerce';
 import AdminCommerceCompany from './pages/AdminCommerceCompany';
+import AdminContentEngine from './pages/AdminContentEngine';
 import AdminCopilot from './pages/AdminCopilot';
 import AdminCopilotAccount from './pages/AdminCopilotAccount';
 import AdminDashboard from './pages/AdminDashboard';
@@ -257,7 +258,18 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdminContentEngine from './pages/AdminContentEngine';
+import SalesRoom from './pages/SalesRoom';
+import DemoOverview from './pages/DemoOverview';
+import DemoPlatform from './pages/DemoPlatform';
+import DemoExamples from './pages/DemoExamples';
+import DemoPricing from './pages/DemoPricing';
+import DealRoom from './pages/DealRoom';
+import DealRoomProposal from './pages/DealRoomProposal';
+import DealRoomPricing from './pages/DealRoomPricing';
+import DealRoomRoi from './pages/DealRoomRoi';
+import DealRoomCaseStudies from './pages/DealRoomCaseStudies';
+import DealRoomContract from './pages/DealRoomContract';
+import StartTrial from './pages/StartTrial';
 import __Layout from './Layout.jsx';
 
 
@@ -288,6 +300,7 @@ export const PAGES = {
     "AdminCommandCenter": AdminCommandCenter,
     "AdminCommerce": AdminCommerce,
     "AdminCommerceCompany": AdminCommerceCompany,
+    "AdminContentEngine": AdminContentEngine,
     "AdminCopilot": AdminCopilot,
     "AdminCopilotAccount": AdminCopilotAccount,
     "AdminDashboard": AdminDashboard,
@@ -472,7 +485,18 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AdminContentEngine": AdminContentEngine,
+    "SalesRoom": SalesRoom,
+    "DemoOverview": DemoOverview,
+    "DemoPlatform": DemoPlatform,
+    "DemoExamples": DemoExamples,
+    "DemoPricing": DemoPricing,
+    "DealRoom": DealRoom,
+    "DealRoomProposal": DealRoomProposal,
+    "DealRoomPricing": DealRoomPricing,
+    "DealRoomRoi": DealRoomRoi,
+    "DealRoomCaseStudies": DealRoomCaseStudies,
+    "DealRoomContract": DealRoomContract,
+    "StartTrial": StartTrial,
 }
 
 export const pagesConfig = {
