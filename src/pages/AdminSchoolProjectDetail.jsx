@@ -210,12 +210,15 @@ export default function AdminSchoolProjectDetail() {
                   <div><h3 className="font-bold text-slate-900 text-lg">{script.title}</h3><p className="text-xs text-slate-400">Version {script.script_version} · <StatusBadge status={script.generation_status} /></p></div>
                   <Button onClick={generateScript} disabled={generating} variant="outline" size="sm" className="gap-1.5"><RefreshCw className="w-3.5 h-3.5" /> Regenerate</Button>
                 </div>
-                {[{ label: 'Hook Line', content: script.hook_line }, { label: 'Story Summary', content: script.story_summary }, { label: 'Voiceover Script', content: script.full_voiceover_script }, { label: 'Scene Structure', content: script.scene_structure }, { label: 'On-Screen Text', content: script.on_screen_text }, { label: 'Caption Text', content: script.caption_text }, { label: 'Music Direction', content: script.music_direction }].map(({ label, content }) => content && (
-                  <div key={label} className="bg-white rounded-xl border border-slate-200 p-4">
-                    <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">{label}</h4>
-                    <p className="text-sm text-slate-700 whitespace-pre-wrap leading-relaxed">{content}</p>
-                  </div>
-                ))}
+                {[
+                  { label: 'Title', content: script.title },
+                  { label: 'Script', content: script.script_text },
+                ].map(({ label, content }) => content && (
+                    <div key={label} className="bg-white rounded-xl border border-slate-200 p-4">
+                      <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">{label}</h4>
+                      <p className="text-sm text-slate-700 whitespace-pre-wrap leading-relaxed">{content}</p>
+                    </div>
+                  ))}
               </div>
             )}
           </div>
