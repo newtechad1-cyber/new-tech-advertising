@@ -1,37 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AdminShell from '@/components/school-tv/AdminShell';
-import { Plus, Play, BarChart3 } from 'lucide-react';
+import { Search, Eye, Copy, Plus, Archive, LayoutGrid, List } from 'lucide-react';
 
-const STATUS_COLORS = {
-  queued: 'bg-yellow-100 text-yellow-800',
-  preparing: 'bg-blue-100 text-blue-800',
-  processing: 'bg-indigo-100 text-indigo-800',
-  rendering: 'bg-orange-100 text-orange-800',
-  completed: 'bg-green-100 text-green-800',
-  failed: 'bg-red-100 text-red-800',
-  cancelled: 'bg-gray-100 text-gray-800',
+const VISIBILITY_COLORS = {
+  public: 'bg-green-100 text-green-800',
+  staff: 'bg-blue-100 text-blue-800',
+  private: 'bg-gray-100 text-gray-800',
 };
 
 export default function AdminVideoLibrary() {
   const { schoolSlug } = useParams();
   const [videos, setVideos] = useState([]);
-  const [renders, setRenders] = useState([]);
-  const [activeTab, setActiveTab] = useState('videos');
-  const [filteredItems, setFilteredItems] = useState([]);
+  const [filteredVideos, setFilteredVideos] = useState([]);
+  const [viewMode, setViewMode] = useState('grid');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadData = async () => {
       try {
-        const [videosData, rendersData] = await Promise.all([
-          base44.entities.VideoProjects.filter({ school_slug: schoolSlug }),
-          base44.entities.VideoRenderJobs.filter({ school_slug: schoolSlug }),
-        ]);
-        setVideos(videosData.sort((a, b) => new Date(b.updated_date || b.created_date) - new Date(a.updated_date || a.created_date)));
-        setRenders(rendersData.sort((a, b) => new Date(b.updated_date || b.created_date) - new Date(a.updated_date || a.created_date)));
-        setFilteredItems(videosData);
+        const data = await base44.entities.VideoProjects.filter({
+          school_slug: schoolSlug,
+          publish_status: 'published',
+        });
+        setVideos(data.sort((a, b) => new Date(b.published_date || b.created_date) - new Date(a.published_date || a.created_date)));
       } catch (error) {
         console.error('Error loading videos:', error);
       } finally {
@@ -41,10 +36,21 @@ export default function AdminVideoLibrary() {
     loadData();
   }, [schoolSlug]);
 
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-    setFilteredItems(tab === 'videos' ? videos : renders);
-  };
+  useEffect(() => {
+    let filtered = videos;
+
+    if (selectedCategory !== 'all') {
+      filtered = filtered.filter(v => v.project_type === selectedCategory);
+    }
+    if (searchTerm) {
+      filtered = filtered.filter(v =>
+        v.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        v.description?.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    setFilteredVideos(filtered);
+  }, [videos, selectedCategory, searchTerm]);
 
   if (loading) return <AdminShell schoolSlug={schoolSlug}><div className="text-center py-12">Loading...</div></AdminShell>;
 
@@ -54,116 +60,152 @@ export default function AdminVideoLibrary() {
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-3xl font-bold">Video Library</h1>
-          <p className="text-gray-600">Manage videos and render jobs</p>
+          <p className="text-gray-600">Published videos and content</p>
         </div>
-        <Link
-          to={`/admin/schools/${schoolSlug}/projects/new`}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2"
-        >
-          <Plus className="h-5 w-5" /> New Project
-        </Link>
+        <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2">
+          <Plus className="h-5 w-5" /> Upload
+        </button>
       </div>
 
-      {/* Tabs */}
-      <div className="bg-white rounded-lg shadow-md mb-6 border-b border-gray-200">
-        <div className="flex">
+      {/* Controls */}
+      <div className="bg-white rounded-lg shadow-md p-6 mb-6 space-y-4">
+        <div className="grid md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Search</label>
+            <div className="relative">
+              <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search videos..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Category</label>
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="all">All Categories</option>
+              <option value="weekly_recap">Weekly Recap</option>
+              <option value="sports_highlight">Sports Highlight</option>
+              <option value="classroom_spotlight">Classroom Spotlight</option>
+              <option value="event_recap">Event Recap</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="flex justify-end gap-2">
           <button
-            onClick={() => handleTabChange('videos')}
-            className={`flex-1 px-6 py-4 font-semibold text-center border-b-2 transition-colors ${
-              activeTab === 'videos'
-                ? 'border-blue-600 text-blue-600'
-                : 'border-transparent text-gray-600 hover:text-gray-800'
+            onClick={() => setViewMode('grid')}
+            className={`p-2 rounded-lg transition-colors ${
+              viewMode === 'grid'
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
-            <Play className="h-4 w-4 inline mr-2" /> Videos ({videos.length})
+            <LayoutGrid className="h-5 w-5" />
           </button>
           <button
-            onClick={() => handleTabChange('renders')}
-            className={`flex-1 px-6 py-4 font-semibold text-center border-b-2 transition-colors ${
-              activeTab === 'renders'
-                ? 'border-blue-600 text-blue-600'
-                : 'border-transparent text-gray-600 hover:text-gray-800'
+            onClick={() => setViewMode('list')}
+            className={`p-2 rounded-lg transition-colors ${
+              viewMode === 'list'
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
-            <BarChart3 className="h-4 w-4 inline mr-2" /> Render Queue ({renders.length})
+            <List className="h-5 w-5" />
           </button>
         </div>
       </div>
 
-      {/* Videos Tab */}
-      {activeTab === 'videos' && (
-        <div className="grid md:grid-cols-2 gap-6">
-          {videos.length > 0 ? (
-            videos.map((video) => (
-              <div key={video.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                {video.cover_image_url && (
-                  <img src={video.cover_image_url} alt={video.title} className="w-full h-40 object-cover" />
-                )}
-                <div className="p-6">
-                  <h3 className="text-lg font-bold mb-2">{video.title}</h3>
-                  <div className="mb-4">
-                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                      video.status === 'published' ? 'bg-green-100 text-green-800' :
-                      video.status === 'failed' ? 'bg-red-100 text-red-800' :
-                      'bg-blue-100 text-blue-800'
-                    }`}>
-                      {video.status.replace(/_/g, ' ')}
-                    </span>
-                  </div>
-                  <div className="flex gap-2">
-                    <Link
-                      to={`/admin/schools/${schoolSlug}/projects/${video.id}`}
-                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold text-sm text-center"
+      {/* Count */}
+      <div className="mb-4 text-sm text-gray-600">
+        Showing {filteredVideos.length} of {videos.length} videos
+      </div>
+
+      {/* Grid View */}
+      {viewMode === 'grid' && (
+        <div className="grid md:grid-cols-3 gap-6">
+          {filteredVideos.map((video) => (
+            <div key={video.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+              <div className="w-full h-40 bg-gray-900 flex items-center justify-center text-gray-400">
+                Video Thumbnail
+              </div>
+              <div className="p-4">
+                <h3 className="font-bold text-gray-900 mb-1 truncate">{video.title}</h3>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  <span className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full font-semibold">
+                    {video.project_type}
+                  </span>
+                  <span className={`text-xs px-2 py-1 rounded-full font-semibold ${VISIBILITY_COLORS[video.visibility] || 'bg-gray-100'}`}>
+                    {video.visibility}
+                  </span>
+                </div>
+                <p className="text-xs text-gray-600 mb-4">
+                  {new Date(video.published_date || video.created_date).toLocaleDateString()}
+                </p>
+                <div className="flex gap-2">
+                  {video.public_video_url && (
+                    <a
+                      href={video.public_video_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg font-semibold text-xs flex items-center justify-center gap-1"
                     >
-                      Edit
-                    </Link>
-                  </div>
+                      <Eye className="h-4 w-4" /> View
+                    </a>
+                  )}
+                  <button className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-lg font-semibold text-xs">
+                    <Copy className="h-4 w-4" />
+                  </button>
                 </div>
               </div>
-            ))
-          ) : (
-            <div className="col-span-full text-center py-12 bg-white rounded-lg">
-              <p className="text-gray-500">No videos yet</p>
             </div>
-          )}
+          ))}
         </div>
       )}
 
-      {/* Renders Tab */}
-      {activeTab === 'renders' && (
+      {/* List View */}
+      {viewMode === 'list' && (
         <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          {renders.length > 0 ? (
+          {filteredVideos.length > 0 ? (
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-50 border-b">
+                <thead className="bg-gray-50 border-b border-gray-200">
                   <tr>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Job ID</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Status</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Queue Position</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Progress</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Title</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Category</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Published</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Visibility</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y">
-                  {renders.map((render) => (
-                    <tr key={render.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 text-sm font-semibold">{render.render_name}</td>
+                <tbody className="divide-y divide-gray-200">
+                  {filteredVideos.map((video) => (
+                    <tr key={video.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 text-sm font-semibold text-gray-900 max-w-xs truncate">{video.title}</td>
+                      <td className="px-6 py-4 text-sm text-gray-600 capitalize">{video.project_type.replace(/_/g, ' ')}</td>
+                      <td className="px-6 py-4 text-sm text-gray-600">
+                        {new Date(video.published_date || video.created_date).toLocaleDateString()}
+                      </td>
                       <td className="px-6 py-4 text-sm">
-                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${STATUS_COLORS[render.status] || 'bg-gray-100'}`}>
-                          {render.status}
+                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${VISIBILITY_COLORS[video.visibility] || 'bg-gray-100'}`}>
+                          {video.visibility}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">#{render.queue_position || 'N/A'}</td>
-                      <td className="px-6 py-4">
-                        <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
-                          <div
-                            className={`h-full ${
-                              render.status === 'completed' ? 'bg-green-500' :
-                              render.status === 'failed' ? 'bg-red-500' :
-                              'bg-blue-500'
-                            }`}
-                            style={{ width: render.status === 'completed' ? '100%' : render.status === 'rendering' ? '66%' : '33%' }}
-                          />
-                        </div>
+                      <td className="px-6 py-4 text-sm flex gap-2">
+                        {video.public_video_url && (
+                          <a href={video.public_video_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 font-semibold text-xs">
+                            View
+                          </a>
+                        )}
+                        <button className="text-gray-600 hover:text-gray-800 font-semibold text-xs">Copy</button>
+                        <button className="text-gray-600 hover:text-gray-800 font-semibold text-xs">Archive</button>
                       </td>
                     </tr>
                   ))}
@@ -172,7 +214,7 @@ export default function AdminVideoLibrary() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-gray-500">No render jobs yet</p>
+              <p className="text-gray-500 text-lg">No videos found</p>
             </div>
           )}
         </div>

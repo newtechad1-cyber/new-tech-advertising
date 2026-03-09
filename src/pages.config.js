@@ -357,6 +357,8 @@ import AdminYearbookSeason from './pages/AdminYearbookSeason';
 import AdminYearbookPage from './pages/AdminYearbookPage';
 import AdminSchoolEventDetail from './pages/AdminSchoolEventDetail';
 import AdminSchoolSpotlightDetail from './pages/AdminSchoolSpotlightDetail';
+import AdminCreateProject from './pages/AdminCreateProject';
+import AdminProjectWorkspace from './pages/AdminProjectWorkspace';
 import __Layout from './Layout.jsx';
 
 
@@ -671,6 +673,8 @@ export const PAGES = {
     "AdminYearbookPage": AdminYearbookPage,
     "AdminSchoolEventDetail": AdminSchoolEventDetail,
     "AdminSchoolSpotlightDetail": AdminSchoolSpotlightDetail,
+    "AdminCreateProject": AdminCreateProject,
+    "AdminProjectWorkspace": AdminProjectWorkspace,
 }
 
 export const pagesConfig = {

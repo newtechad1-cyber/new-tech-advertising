@@ -1,38 +1,38 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { useSchoolRoute } from '@/components/school-tv/useSchoolRoute';
-import SchoolAdminNav from '@/components/school-tv/SchoolAdminNav';
-import { Button } from '@/components/ui/button';
-import AIStatusBadge from '@/components/school-tv/AIStatusBadge';
-import {
-  Plus,
-  Folder,
-  FileText,
-  Video,
-  Clock,
-  Users,
-  AlertCircle,
-  Copy,
-  Archive,
-  Play,
-  Sparkles,
-  Loader2,
-} from 'lucide-react';
+import AdminShell from '@/components/school-tv/AdminShell';
+import { Plus, Search, Play, Copy, Archive } from 'lucide-react';
+
+const STATUS_COLORS = {
+  draft: 'bg-gray-100 text-gray-800',
+  collecting_assets: 'bg-blue-100 text-blue-800',
+  ready_for_ai: 'bg-purple-100 text-purple-800',
+  script_generated: 'bg-cyan-100 text-cyan-800',
+  queued_for_render: 'bg-orange-100 text-orange-800',
+  rendering: 'bg-yellow-100 text-yellow-800',
+  review_ready: 'bg-green-100 text-green-800',
+  approved: 'bg-green-200 text-green-900',
+  published: 'bg-green-100 text-green-800',
+  failed: 'bg-red-100 text-red-800',
+};
 
 export default function AdminSchoolProjects() {
-  const { schoolSlug, currentPath } = useSchoolRoute();
-  const [selectedProject, setSelectedProject] = useState(null);
+  const { schoolSlug } = useParams();
   const [projects, setProjects] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
+  const [selectedStatus, setSelectedStatus] = useState('all');
+  const [selectedType, setSelectedType] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
-  const [activeWorkspaceTab, setActiveWorkspaceTab] = useState('overview');
 
   useEffect(() => {
     const loadData = async () => {
       try {
-        const data = await base44.entities.SchoolVideoProjects.filter({
+        const data = await base44.entities.VideoProjects.filter({
           school_slug: schoolSlug,
         });
-        setProjects(data);
+        setProjects(data.sort((a, b) => new Date(b.updated_date || b.created_date) - new Date(a.updated_date || a.created_date)));
       } catch (error) {
         console.error('Error loading projects:', error);
       } finally {
@@ -42,258 +42,169 @@ export default function AdminSchoolProjects() {
     loadData();
   }, [schoolSlug]);
 
-  const handleDuplicate = async (projectId) => {
-    const project = projects.find(p => p.id === projectId);
-    const newProject = await base44.entities.SchoolVideoProjects.create({
-      ...project,
-      title: `${project.title} (Copy)`,
-      status: 'draft',
-    });
-    setProjects([...projects, newProject]);
-  };
+  useEffect(() => {
+    let filtered = projects;
 
-  const handleArchive = async (projectId) => {
-    await base44.entities.SchoolVideoProjects.update(projectId, { status: 'archived' });
-    setProjects(projects.filter(p => p.id !== projectId));
-  };
+    if (selectedStatus !== 'all') {
+      filtered = filtered.filter(p => p.status === selectedStatus);
+    }
+    if (selectedType !== 'all') {
+      filtered = filtered.filter(p => p.project_type === selectedType);
+    }
+    if (searchTerm) {
+      filtered = filtered.filter(p =>
+        p.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
-      </div>
-    );
-  }
+    setFilteredProjects(filtered);
+  }, [projects, selectedStatus, selectedType, searchTerm]);
 
-  const statusColors = {
-    'in-progress': 'bg-blue-50 text-blue-700 border-blue-200',
-    'completed': 'bg-green-50 text-green-700 border-green-200',
-    'needs-review': 'bg-orange-50 text-orange-700 border-orange-200',
-    'draft': 'bg-gray-50 text-gray-700 border-gray-200',
-  };
+  if (loading) return <AdminShell schoolSlug={schoolSlug}><div className="text-center py-12">Loading...</div></AdminShell>;
 
   return (
-    <div className="flex h-screen bg-gray-50">
-      <SchoolAdminNav schoolSlug={schoolSlug} currentPath={currentPath} />
+    <AdminShell schoolSlug={schoolSlug}>
+      {/* Header */}
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h1 className="text-3xl font-bold">Video Projects</h1>
+          <p className="text-gray-600">Create and manage school video projects</p>
+        </div>
+        <Link
+          to={`/admin/schools/${schoolSlug}/projects/new`}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2"
+        >
+          <Plus className="h-5 w-5" /> New Project
+        </Link>
+      </div>
 
-      <div className="flex-1 overflow-auto">
-        {/* Header */}
-        <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6 flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Projects</h1>
-              <p className="text-gray-600 mt-1">Manage story and video projects</p>
+      {/* Filters */}
+      <div className="bg-white rounded-lg shadow-md p-6 mb-6 space-y-4">
+        <div className="grid md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Search</label>
+            <div className="relative">
+              <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search by project title..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
             </div>
-            <Button className="bg-blue-600 hover:bg-blue-700 flex items-center gap-2">
-              <Plus className="h-4 w-4" />
-              New Project
-            </Button>
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Project Type</label>
+            <select
+              value={selectedType}
+              onChange={(e) => setSelectedType(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="all">All Types</option>
+              <option value="weekly_recap">Weekly Recap</option>
+              <option value="sports_highlight">Sports Highlight</option>
+              <option value="classroom_spotlight">Classroom Spotlight</option>
+              <option value="event_recap">Event Recap</option>
+              <option value="student_story">Student Story</option>
+              <option value="custom">Custom</option>
+            </select>
           </div>
         </div>
 
-        {/* Content */}
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8">
-          {/* Projects Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project) => (
-              <div
-                key={project.id}
-                onClick={() => setSelectedProject(project)}
-                className={`rounded-xl border-2 p-6 cursor-pointer hover:shadow-lg transition-all ${statusColors[project.status]}`}
-              >
-                {/* Header */}
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold text-gray-900">{project.title}</h3>
-                  </div>
-                  {project.status === 'needs-review' && (
-                    <AlertCircle className="h-5 w-5 text-orange-600 flex-shrink-0" />
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">Status</label>
+          <select
+            value={selectedStatus}
+            onChange={(e) => setSelectedStatus(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="all">All Statuses</option>
+            <option value="draft">Draft</option>
+            <option value="collecting_assets">Collecting Assets</option>
+            <option value="ready_for_ai">Ready for AI</option>
+            <option value="script_generated">Script Generated</option>
+            <option value="queued_for_render">Queued for Render</option>
+            <option value="rendering">Rendering</option>
+            <option value="review_ready">Review Ready</option>
+            <option value="approved">Approved</option>
+            <option value="published">Published</option>
+            <option value="failed">Failed</option>
+          </select>
+        </div>
+
+        <button
+          onClick={() => {
+            setSelectedStatus('all');
+            setSelectedType('all');
+            setSearchTerm('');
+          }}
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-semibold"
+        >
+          Clear All Filters
+        </button>
+      </div>
+
+      {/* Count */}
+      <div className="mb-4 text-sm text-gray-600">
+        Showing {filteredProjects.length} of {projects.length} projects
+      </div>
+
+      {/* Projects Grid */}
+      {filteredProjects.length > 0 ? (
+        <div className="grid md:grid-cols-2 gap-6">
+          {filteredProjects.map((project) => (
+            <div key={project.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+              {project.cover_image && (
+                <img src={project.cover_image} alt={project.title} className="w-full h-40 object-cover bg-gray-900" />
+              )}
+              <div className="p-6">
+                <div className="flex justify-between items-start gap-2 mb-2">
+                  <h3 className="text-lg font-bold flex-1">{project.title}</h3>
+                  {project.publish_to_gallery && (
+                    <span className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full font-semibold">
+                      Bulldog TV
+                    </span>
                   )}
                 </div>
 
-                {/* Description */}
-                <p className="text-sm text-gray-700 mb-4">{project.description}</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className={`px-3 py-1 rounded-full text-xs font-semibold ${STATUS_COLORS[project.status] || 'bg-gray-100'}`}>
+                    {project.status.replace(/_/g, ' ')}
+                  </span>
+                  <span className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full font-semibold">
+                    {project.project_type.replace(/_/g, ' ')}
+                  </span>
+                </div>
 
-                {/* AI Content Status */}
-                {project.ai_content_status && (
-                  <div className="mb-4">
-                    <AIStatusBadge status={project.ai_content_status} size="sm" />
-                  </div>
+                {project.description && (
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">{project.description}</p>
                 )}
 
-                {/* Progress Bar */}
-                <div className="mb-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-semibold text-gray-700">Progress</span>
-                    <span className="text-xs font-bold text-gray-900">{project.progress}%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div
-                      className="bg-blue-600 h-2 rounded-full transition-all"
-                      style={{ width: `${project.progress || 0}%` }}
-                    ></div>
-                  </div>
+                <div className="flex gap-2">
+                  <Link
+                    to={`/admin/schools/${schoolSlug}/projects/${project.id}`}
+                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold text-sm flex items-center justify-center gap-2"
+                  >
+                    <Play className="h-4 w-4" /> Open
+                  </Link>
+                  <button className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-lg font-semibold text-sm">
+                    <Copy className="h-4 w-4" />
+                  </button>
+                  <button className="bg-red-100 hover:bg-red-200 text-red-800 px-3 py-2 rounded-lg font-semibold text-sm">
+                    <Archive className="h-4 w-4" />
+                  </button>
                 </div>
-
-                {/* Meta Info */}
-                <div className="space-y-2 mb-4 text-sm">
-                  <div className="flex items-center gap-2 text-gray-700">
-                    <Users className="h-4 w-4" />
-                    Team assigned
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-700">
-                    <FileText className="h-4 w-4" />
-                    {project.status === 'collecting_assets' ? 'Collecting assets' : 'Assets ready'}
-                  </div>
-                </div>
-
-                {/* Type Badge */}
-                <div className="inline-block px-3 py-1 bg-white rounded-lg text-xs font-semibold text-gray-700 border border-gray-300">
-                  {project.project_type}
-                </div>
-
-                {/* Action Button */}
-                <Button
-                  variant="ghost"
-                  className="w-full mt-4 text-blue-600 hover:text-blue-700"
-                  onClick={() => setSelectedProject(project)}
-                >
-                  <Play className="h-4 w-4 mr-2" />
-                  Open Workspace →
-                </Button>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-      </div>
-
-      {/* Project Detail Modal */}
-      {selectedProject && (
-        <div className="fixed right-0 top-0 h-screen w-96 bg-white border-l border-gray-200 shadow-lg z-50 flex flex-col">
-          <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-6 flex items-center justify-between">
-            <div>
-              <h2 className="text-xl font-bold">{selectedProject.title}</h2>
-              <p className="text-blue-100 mt-1">{selectedProject.progress}% complete</p>
-            </div>
-            <button
-              onClick={() => setSelectedProject(null)}
-              className="text-white hover:text-blue-100"
-            >
-              ✕
-            </button>
-          </div>
-
-          <div className="flex-1 overflow-auto p-6 space-y-6">
-            {/* Workspace Tabs */}
-            <div className="flex gap-2 border-b border-gray-200 overflow-x-auto">
-              {[
-                { id: 'overview', label: 'Overview', icon: '📋' },
-                { id: 'assets', label: 'Assets', icon: '🎬' },
-                { id: 'ai', label: 'AI Draft', icon: '✨' },
-                { id: 'builder', label: 'Builder', icon: '🎨' },
-                { id: 'yearbook', label: 'Yearbook', icon: '📖' },
-                { id: 'publish', label: 'Publish', icon: '📤' },
-              ].map(tab => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveWorkspaceTab(tab.id)}
-                  className={`px-4 py-2 text-sm font-semibold whitespace-nowrap ${
-                    activeWorkspaceTab === tab.id
-                      ? 'text-blue-600 border-b-2 border-blue-600'
-                      : 'text-gray-600'
-                  }`}
-                >
-                  {tab.icon} {tab.label}
-                </button>
-              ))}
-            </div>
-
-            {/* Tab Content */}
-            {activeWorkspaceTab === 'overview' && (
-              <div className="space-y-4">
-                <div>
-                  <p className="text-xs text-gray-500 uppercase font-semibold mb-2">Title</p>
-                  <p className="text-gray-900 font-medium">{selectedProject.title}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-gray-500 uppercase font-semibold mb-2">Status</p>
-                  <p className="text-gray-900">{selectedProject.status}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-gray-500 uppercase font-semibold mb-2">Progress</p>
-                  <div className="w-full bg-gray-200 rounded-full h-3">
-                    <div className="bg-blue-600 h-3 rounded-full" style={{ width: `${selectedProject.progress || 0}%` }}></div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {activeWorkspaceTab === 'ai' && (
-              <div className="space-y-4">
-                <Button className="w-full bg-purple-600 hover:bg-purple-700">
-                  <Sparkles className="h-4 w-4 mr-2" />
-                  Generate Story
-                </Button>
-                <Button className="w-full bg-purple-600 hover:bg-purple-700">
-                  <Sparkles className="h-4 w-4 mr-2" />
-                  Generate Video Script
-                </Button>
-                <Button className="w-full bg-purple-600 hover:bg-purple-700">
-                  <Sparkles className="h-4 w-4 mr-2" />
-                  Generate Captions
-                </Button>
-              </div>
-            )}
-
-            {activeWorkspaceTab === 'yearbook' && (
-              <div className="space-y-4">
-                <p className="text-sm text-gray-700 mb-4">Add this project to yearbook pages</p>
-                <Button variant="outline" className="w-full">
-                  Browse Yearbook Pages
-                </Button>
-              </div>
-            )}
-
-            {activeWorkspaceTab === 'publish' && (
-              <div className="space-y-4">
-                <Button className="w-full bg-green-600 hover:bg-green-700">
-                  Publish
-                </Button>
-                <Button variant="outline" className="w-full">
-                  Schedule Publish
-                </Button>
-              </div>
-            )}
-          </div>
-
-          <div className="bg-gray-50 border-t border-gray-200 p-6 space-y-3">
-            <Button className="w-full bg-blue-600 hover:bg-blue-700">
-              Save Changes
-            </Button>
-            <div className="flex gap-2">
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="flex-1"
-                onClick={() => handleDuplicate(selectedProject.id)}
-              >
-                <Copy className="h-4 w-4" />
-              </Button>
-              <Button 
-                variant="outline" 
-                size="sm"
-                className="flex-1 text-red-600"
-                onClick={() => {
-                  handleArchive(selectedProject.id);
-                  setSelectedProject(null);
-                }}
-              >
-                <Archive className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
+      ) : (
+        <div className="text-center py-12 bg-white rounded-lg">
+          <p className="text-gray-500 text-lg">No projects found</p>
+          <p className="text-gray-400 text-sm mt-2">Create a new project to get started</p>
         </div>
       )}
-    </div>
+    </AdminShell>
   );
 }
