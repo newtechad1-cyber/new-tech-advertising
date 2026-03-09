@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { base44 } from '@/api/base44Client';
 import { useSchoolRoute } from '@/components/school-tv/useSchoolRoute';
 import SchoolAdminNav from '@/components/school-tv/SchoolAdminNav';
 import { Button } from '@/components/ui/button';
+import AIStatusBadge from '@/components/school-tv/AIStatusBadge';
 import {
   Plus,
   Folder,
@@ -10,69 +12,58 @@ import {
   Clock,
   Users,
   AlertCircle,
+  Copy,
+  Archive,
+  Play,
+  Sparkles,
+  Loader2,
 } from 'lucide-react';
 
 export default function AdminSchoolProjects() {
   const { schoolSlug, currentPath } = useSchoolRoute();
   const [selectedProject, setSelectedProject] = useState(null);
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [activeWorkspaceTab, setActiveWorkspaceTab] = useState('overview');
 
-  const projects = [
-    {
-      id: 1,
-      title: 'Basketball Season Recap 2026',
-      description: 'Compile game highlights, player interviews, and season recap video',
-      status: 'in-progress',
-      progress: 75,
-      team: 'Coach Davis, Emma Chen',
-      assets: 12,
-      dueDate: 'Mar 15',
-      type: 'Video',
-    },
-    {
-      id: 2,
-      title: 'Science Fair Winners Spotlight',
-      description: 'Feature top 10 projects with student interviews and AI-generated articles',
-      status: 'completed',
-      progress: 100,
-      team: 'Ms. Johnson, Staff',
-      assets: 8,
-      dueDate: 'Mar 8',
-      type: 'Story',
-    },
-    {
-      id: 3,
-      title: 'Spring Concert Recap',
-      description: 'Performance highlights, student interviews, yearbook placement',
-      status: 'in-progress',
-      progress: 40,
-      team: 'Mr. Martinez, Students',
-      assets: 15,
-      dueDate: 'Mar 20',
-      type: 'Video',
-    },
-    {
-      id: 4,
-      title: 'Robotics Competition Story',
-      description: 'Behind-the-scenes footage, team celebration, award highlights',
-      status: 'needs-review',
-      progress: 85,
-      team: 'Ms. Khan, Students',
-      assets: 20,
-      dueDate: 'Mar 10',
-      type: 'Multi-format',
-    },
-    {
-      id: 5,
-      title: 'Spring Sports Highlights Reel',
-      description: 'Soccer, baseball, and track highlights compiled into one video',
-      status: 'in-progress',
-      progress: 60,
-      team: 'Coach Wilson',
-      assets: 25,
-      dueDate: 'Mar 25',
-      type: 'Video',
-    },
-  ];
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const data = await base44.entities.SchoolVideoProjects.filter({
+          school_slug: schoolSlug,
+        });
+        setProjects(data);
+      } catch (error) {
+        console.error('Error loading projects:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, [schoolSlug]);
+
+  const handleDuplicate = async (projectId) => {
+    const project = projects.find(p => p.id === projectId);
+    const newProject = await base44.entities.SchoolVideoProjects.create({
+      ...project,
+      title: `${project.title} (Copy)`,
+      status: 'draft',
+    });
+    setProjects([...projects, newProject]);
+  };
+
+  const handleArchive = async (projectId) => {
+    await base44.entities.SchoolVideoProjects.update(projectId, { status: 'archived' });
+    setProjects(projects.filter(p => p.id !== projectId));
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+      </div>
+    );
+  }
 
   const statusColors = {
     'in-progress': 'bg-blue-50 text-blue-700 border-blue-200',
@@ -123,6 +114,13 @@ export default function AdminSchoolProjects() {
                 {/* Description */}
                 <p className="text-sm text-gray-700 mb-4">{project.description}</p>
 
+                {/* AI Content Status */}
+                {project.ai_content_status && (
+                  <div className="mb-4">
+                    <AIStatusBadge status={project.ai_content_status} size="sm" />
+                  </div>
+                )}
+
                 {/* Progress Bar */}
                 <div className="mb-4">
                   <div className="flex items-center justify-between mb-2">
@@ -132,7 +130,7 @@ export default function AdminSchoolProjects() {
                   <div className="w-full bg-gray-200 rounded-full h-2">
                     <div
                       className="bg-blue-600 h-2 rounded-full transition-all"
-                      style={{ width: `${project.progress}%` }}
+                      style={{ width: `${project.progress || 0}%` }}
                     ></div>
                   </div>
                 </div>
@@ -141,28 +139,26 @@ export default function AdminSchoolProjects() {
                 <div className="space-y-2 mb-4 text-sm">
                   <div className="flex items-center gap-2 text-gray-700">
                     <Users className="h-4 w-4" />
-                    {project.team}
+                    Team assigned
                   </div>
                   <div className="flex items-center gap-2 text-gray-700">
                     <FileText className="h-4 w-4" />
-                    {project.assets} assets
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-700">
-                    <Clock className="h-4 w-4" />
-                    Due {project.dueDate}
+                    {project.status === 'collecting_assets' ? 'Collecting assets' : 'Assets ready'}
                   </div>
                 </div>
 
                 {/* Type Badge */}
                 <div className="inline-block px-3 py-1 bg-white rounded-lg text-xs font-semibold text-gray-700 border border-gray-300">
-                  {project.type}
+                  {project.project_type}
                 </div>
 
                 {/* Action Button */}
                 <Button
                   variant="ghost"
                   className="w-full mt-4 text-blue-600 hover:text-blue-700"
+                  onClick={() => setSelectedProject(project)}
                 >
+                  <Play className="h-4 w-4 mr-2" />
                   Open Workspace →
                 </Button>
               </div>
@@ -188,44 +184,113 @@ export default function AdminSchoolProjects() {
           </div>
 
           <div className="flex-1 overflow-auto p-6 space-y-6">
-            {/* Progress */}
-            <div>
-              <p className="text-xs text-gray-500 uppercase font-semibold mb-3">Progress</p>
-              <div className="w-full bg-gray-200 rounded-full h-3">
-                <div
-                  className="bg-blue-600 h-3 rounded-full"
-                  style={{ width: `${selectedProject.progress}%` }}
-                ></div>
-              </div>
+            {/* Workspace Tabs */}
+            <div className="flex gap-2 border-b border-gray-200 overflow-x-auto">
+              {[
+                { id: 'overview', label: 'Overview', icon: '📋' },
+                { id: 'assets', label: 'Assets', icon: '🎬' },
+                { id: 'ai', label: 'AI Draft', icon: '✨' },
+                { id: 'builder', label: 'Builder', icon: '🎨' },
+                { id: 'yearbook', label: 'Yearbook', icon: '📖' },
+                { id: 'publish', label: 'Publish', icon: '📤' },
+              ].map(tab => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveWorkspaceTab(tab.id)}
+                  className={`px-4 py-2 text-sm font-semibold whitespace-nowrap ${
+                    activeWorkspaceTab === tab.id
+                      ? 'text-blue-600 border-b-2 border-blue-600'
+                      : 'text-gray-600'
+                  }`}
+                >
+                  {tab.icon} {tab.label}
+                </button>
+              ))}
             </div>
 
-            {/* Tabs */}
-            <div className="space-y-4">
-              <Button className="w-full justify-start text-left font-semibold">
-                📋 Overview
-              </Button>
-              <Button variant="ghost" className="w-full justify-start text-left">
-                🎬 Assets
-              </Button>
-              <Button variant="ghost" className="w-full justify-start text-left">
-                ✍️ AI Draft
-              </Button>
-              <Button variant="ghost" className="w-full justify-start text-left">
-                🎨 Video Builder
-              </Button>
-              <Button variant="ghost" className="w-full justify-start text-left">
-                📖 Yearbook
-              </Button>
-              <Button variant="ghost" className="w-full justify-start text-left">
-                📤 Publishing
-              </Button>
-            </div>
+            {/* Tab Content */}
+            {activeWorkspaceTab === 'overview' && (
+              <div className="space-y-4">
+                <div>
+                  <p className="text-xs text-gray-500 uppercase font-semibold mb-2">Title</p>
+                  <p className="text-gray-900 font-medium">{selectedProject.title}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-500 uppercase font-semibold mb-2">Status</p>
+                  <p className="text-gray-900">{selectedProject.status}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-500 uppercase font-semibold mb-2">Progress</p>
+                  <div className="w-full bg-gray-200 rounded-full h-3">
+                    <div className="bg-blue-600 h-3 rounded-full" style={{ width: `${selectedProject.progress || 0}%` }}></div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeWorkspaceTab === 'ai' && (
+              <div className="space-y-4">
+                <Button className="w-full bg-purple-600 hover:bg-purple-700">
+                  <Sparkles className="h-4 w-4 mr-2" />
+                  Generate Story
+                </Button>
+                <Button className="w-full bg-purple-600 hover:bg-purple-700">
+                  <Sparkles className="h-4 w-4 mr-2" />
+                  Generate Video Script
+                </Button>
+                <Button className="w-full bg-purple-600 hover:bg-purple-700">
+                  <Sparkles className="h-4 w-4 mr-2" />
+                  Generate Captions
+                </Button>
+              </div>
+            )}
+
+            {activeWorkspaceTab === 'yearbook' && (
+              <div className="space-y-4">
+                <p className="text-sm text-gray-700 mb-4">Add this project to yearbook pages</p>
+                <Button variant="outline" className="w-full">
+                  Browse Yearbook Pages
+                </Button>
+              </div>
+            )}
+
+            {activeWorkspaceTab === 'publish' && (
+              <div className="space-y-4">
+                <Button className="w-full bg-green-600 hover:bg-green-700">
+                  Publish
+                </Button>
+                <Button variant="outline" className="w-full">
+                  Schedule Publish
+                </Button>
+              </div>
+            )}
           </div>
 
-          <div className="bg-gray-50 border-t border-gray-200 p-6">
+          <div className="bg-gray-50 border-t border-gray-200 p-6 space-y-3">
             <Button className="w-full bg-blue-600 hover:bg-blue-700">
-              Continue Editing
+              Save Changes
             </Button>
+            <div className="flex gap-2">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="flex-1"
+                onClick={() => handleDuplicate(selectedProject.id)}
+              >
+                <Copy className="h-4 w-4" />
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm"
+                className="flex-1 text-red-600"
+                onClick={() => {
+                  handleArchive(selectedProject.id);
+                  setSelectedProject(null);
+                }}
+              >
+                <Archive className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </div>
       )}
