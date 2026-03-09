@@ -20,6 +20,8 @@ export default function AdminStoryDetail() {
   const [loading, setLoading] = useState(true);
   const [mediaLinks, setMediaLinks] = useState([]);
   const [authors, setAuthors] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [tags, setTags] = useState([]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -35,6 +37,9 @@ export default function AdminStoryDetail() {
             status: 'draft',
             featured: false,
             visibility: 'staff',
+            category_ids: '[]',
+            author_ids: '[]',
+            media_link_ids: '[]',
           };
         } else {
           const data = await base44.entities.Stories.filter({
