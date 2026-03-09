@@ -39,20 +39,24 @@ export default function AdminVideoLibrary() {
   }, [schoolSlug]);
 
   useEffect(() => {
-    let filtered = videos;
+    let filtered = [...videos];
 
     if (selectedCategory !== 'all') {
       filtered = filtered.filter(v => v.project_type === selectedCategory);
     }
+    if (selectedPublishStatus !== 'all') {
+      filtered = filtered.filter(v => v.publish_status === selectedPublishStatus);
+    }
     if (searchTerm) {
+      const term = searchTerm.toLowerCase();
       filtered = filtered.filter(v =>
-        v.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        v.description?.toLowerCase().includes(searchTerm.toLowerCase())
+        (v.title || '').toLowerCase().includes(term) ||
+        (v.description || '').toLowerCase().includes(term)
       );
     }
 
     setFilteredVideos(filtered);
-  }, [videos, selectedCategory, searchTerm]);
+  }, [videos, selectedCategory, selectedPublishStatus, searchTerm]);
 
   if (loading) return <AdminShell schoolSlug={schoolSlug}><div className="text-center py-12">Loading...</div></AdminShell>;
 
