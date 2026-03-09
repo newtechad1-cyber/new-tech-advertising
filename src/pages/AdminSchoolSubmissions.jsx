@@ -129,8 +129,8 @@ export default function AdminSchoolSubmissions() {
         {/* Header */}
          <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
            <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6">
-             <h1 className="text-3xl font-bold text-gray-900">Student Submissions</h1>
-             <p className="text-gray-600 mt-2">Review student content before approval. All submissions require your verification.</p>
+             <h1 className="text-3xl font-bold text-gray-900">Content Submissions</h1>
+             <p className="text-gray-600 mt-2">Review and approve student submissions. Check consent and safety flags before publishing.</p>
            </div>
          </div>
 
@@ -325,7 +325,7 @@ export default function AdminSchoolSubmissions() {
                   onClick={() => handleSaveToStory(selectedSubmission)}
                 >
                   <Sparkles className="h-4 w-4 mr-2" />
-                  → Convert to Story
+                  Turn Into Story
                 </Button>
                 <Button 
                   className="w-full bg-red-600 hover:bg-red-700 text-white"
