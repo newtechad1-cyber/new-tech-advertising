@@ -18,7 +18,7 @@ export default function QANav({ current }) {
           <span className="font-bold text-gray-900 text-sm">QA Command Center</span>
         </div>
         <nav className="flex overflow-x-auto scrollbar-none">
-          {NAV.map(({ label, page, icon: Icon }) => (
+          {NAV.map(({ label, page, Icon }) => (
             <a key={page} href={createPageUrl(page)}
               className={`flex items-center gap-1.5 px-4 py-3 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
                 current === page ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-800'
