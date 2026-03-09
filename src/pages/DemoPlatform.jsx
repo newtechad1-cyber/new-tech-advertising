@@ -46,9 +46,9 @@ export default function DemoPlatform() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-10">
-          {PILLARS.map(({ icon: Icon, color, title, desc }) => (
+          {PILLARS.map(({ icon: PillarIcon, color, title, desc }) => (
             <div key={title} className="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-slate-600 transition-colors">
-              <Icon className={`w-6 h-6 ${color} mb-3`} />
+              <PillarIcon className={`w-6 h-6 ${color} mb-3`} />
               <h3 className="font-semibold text-white mb-2">{title}</h3>
               <p className="text-slate-400 text-sm leading-relaxed">{desc}</p>
             </div>

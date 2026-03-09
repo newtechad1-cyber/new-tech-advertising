@@ -288,6 +288,10 @@ import DemoProblem from './pages/DemoProblem';
 import DemoFeatures from './pages/DemoFeatures';
 import DemoRoi from './pages/DemoRoi';
 import DemoNext from './pages/DemoNext';
+import AdminDemoMachine from './pages/AdminDemoMachine';
+import AdminDemoMachinePaths from './pages/AdminDemoMachinePaths';
+import AdminDemoMachineSessions from './pages/AdminDemoMachineSessions';
+import AdminDemoMachineAnalytics from './pages/AdminDemoMachineAnalytics';
 import __Layout from './Layout.jsx';
 
 
@@ -533,6 +537,10 @@ export const PAGES = {
     "DemoFeatures": DemoFeatures,
     "DemoRoi": DemoRoi,
     "DemoNext": DemoNext,
+    "AdminDemoMachine": AdminDemoMachine,
+    "AdminDemoMachinePaths": AdminDemoMachinePaths,
+    "AdminDemoMachineSessions": AdminDemoMachineSessions,
+    "AdminDemoMachineAnalytics": AdminDemoMachineAnalytics,
 }
 
 export const pagesConfig = {
