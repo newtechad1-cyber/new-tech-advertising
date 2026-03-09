@@ -465,16 +465,25 @@ export default function AdminStoryDetail() {
             <div className="flex gap-2 pt-4">
                <button 
                  onClick={() => {
-                   updateStoryField('status', 'published');
-                   updateStoryField('visibility', 'public');
-                   saveStory();
+                   setStory(prev => ({
+                     ...prev,
+                     status: 'published',
+                     visibility: 'public',
+                   }));
+                   // Call saveStory after state updates
+                   setTimeout(() => saveStory(), 0);
                  }}
-                 className="flex-1 bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center justify-center gap-2">
+                 disabled={saving}
+                 className="flex-1 bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white px-6 py-2 rounded-lg font-semibold flex items-center justify-center gap-2">
                  <CheckCircle2 className="h-5 w-5" /> Publish Now
                </button>
                <button 
-                 onClick={() => updateStoryField('status', 'review')}
-                 className="flex-1 bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-lg font-semibold">
+                 onClick={() => {
+                   updateStoryField('status', 'review');
+                   saveStory();
+                 }}
+                 disabled={saving}
+                 className="flex-1 bg-gray-600 hover:bg-gray-700 disabled:bg-gray-400 text-white px-6 py-2 rounded-lg font-semibold">
                  Send for Review
                </button>
              </div>
