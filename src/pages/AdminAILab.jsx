@@ -137,10 +137,13 @@ export default function AdminAILab() {
             </div>
           </div>
 
+          </div>
+          </div>
+
           {/* Stats Cards */}
           <div>
-            <h3 className="text-lg font-black text-gray-900 mb-4">Activity Summary</h3>
-            <div className="grid md:grid-cols-4 gap-4">
+          <h3 className="text-lg font-black text-gray-900 mb-4">Activity Summary</h3>
+          <div className="grid md:grid-cols-4 gap-4">
               <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg shadow-md p-6 border border-purple-200">
               <div className="flex items-center justify-between">
                 <div>
