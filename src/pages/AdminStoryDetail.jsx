@@ -335,9 +335,7 @@ export default function AdminStoryDetail() {
               )}
             </div>
 
-            <button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold">
-              Add Media
-            </button>
+            <p className="text-xs text-gray-600 text-center py-4">Media management coming soon. Link media through events or yearbook pages.</p>
           </div>
         </div>
       )}
@@ -358,23 +356,17 @@ export default function AdminStoryDetail() {
                 Generate Draft
               </button>
               <button
-                onClick={() => createAIJob('story_generation')}
-                className="bg-white hover:bg-gray-50 border border-blue-200 text-gray-800 px-4 py-3 rounded-lg font-semibold text-sm"
-              >
-                Improve Story
-              </button>
-              <button
-                onClick={() => createAIJob('headline')}
-                className="bg-white hover:bg-gray-50 border border-blue-200 text-gray-800 px-4 py-3 rounded-lg font-semibold text-sm"
-              >
-                Generate Headlines
-              </button>
-              <button
-                onClick={() => createAIJob('story_generation')}
-                className="bg-white hover:bg-gray-50 border border-blue-200 text-gray-800 px-4 py-3 rounded-lg font-semibold text-sm"
-              >
-                Interview Questions
-              </button>
+                 onClick={() => createAIJob('headline')}
+                 className="bg-white hover:bg-gray-50 border border-blue-200 text-gray-800 px-4 py-3 rounded-lg font-semibold text-sm"
+               >
+                 Generate Headlines
+               </button>
+               <button
+                 onClick={() => createAIJob('headline')}
+                 className="bg-white hover:bg-gray-50 border border-blue-200 text-gray-800 px-4 py-3 rounded-lg font-semibold text-sm"
+               >
+                 Generate Caption
+               </button>
             </div>
           </div>
 
