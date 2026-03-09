@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   LayoutDashboard,
@@ -46,7 +46,7 @@ const ICON_MAP = {
 };
 
 export default function SchoolAdminNav({ schoolSlug, currentPath }) {
-  const [expandedSections, setExpandedSections] = React.useState(new Set(['Overview', 'Production']));
+  const [expandedSections, setExpandedSections] = useState(new Set(['Overview', 'Production']));
 
   const toggleSection = (section) => {
     const newExpanded = new Set(expandedSections);
