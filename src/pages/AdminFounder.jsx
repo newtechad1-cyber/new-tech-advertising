@@ -4,13 +4,13 @@ import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils';
 import { RefreshCw, ExternalLink, Zap } from 'lucide-react';
 
-import FounderKPIRow from '@/components/founder/FounderKPIRow';
-import FounderRevenue from '@/components/founder/FounderRevenue';
-import FounderSales from '@/components/founder/FounderSales';
-import FounderDelivery from '@/components/founder/FounderDelivery';
-import FounderResellers from '@/components/founder/FounderResellers';
-import FounderPlatformHealth from '@/components/founder/FounderPlatformHealth';
-import FounderActionList from '@/components/founder/FounderActionList';
+import FounderKPIRow from '@/components/founder/FounderKPIRow.jsx';
+import FounderRevenue from '@/components/founder/FounderRevenue.jsx';
+import FounderSales from '@/components/founder/FounderSales.jsx';
+import FounderDelivery from '@/components/founder/FounderDelivery.jsx';
+import FounderResellers from '@/components/founder/FounderResellers.jsx';
+import FounderPlatformHealth from '@/components/founder/FounderPlatformHealth.jsx';
+import FounderActionList from '@/components/founder/FounderActionList.jsx';
 
 const QUICK_LINKS = [
   { label: 'QA', page: 'AdminQA' },
