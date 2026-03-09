@@ -43,16 +43,21 @@ export default function SchoolHome() {
   return (
     <PublicShell currentPath="home">
       {/* Hero */}
-      <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <h1 className="text-5xl font-bold mb-4">{branding?.network_name || 'School Story Lab'}</h1>
-          <p className="text-xl text-slate-200 mb-8">Celebrating the stories, achievements, and spirit of {branding?.school_name}</p>
-          <div className="flex gap-4">
-            <Link to={`/schools/${schoolSlug}/stories`} className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold flex items-center gap-2">
-              Explore Stories <ArrowRight className="h-5 w-5" />
+      <div className="relative bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white py-24 overflow-hidden">
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, white 0%, transparent 50%), radial-gradient(circle at 80% 80%, white 0%, transparent 50%)' }} />
+        <div className="relative z-10 max-w-6xl mx-auto px-6">
+          <div className="mb-6 inline-block px-4 py-2 rounded-full bg-blue-500/20 border border-blue-400/30">
+            <p className="text-sm font-semibold text-blue-200">✨ School Stories</p>
+          </div>
+          <h1 className="text-6xl md:text-7xl font-black mb-4 leading-tight">{branding?.network_name || 'School Story Lab'}</h1>
+          <p className="text-2xl text-slate-200 mb-6 max-w-2xl leading-relaxed">Celebrating every achievement, moment, and memory that makes {branding?.school_name} special</p>
+          <p className="text-slate-300 mb-8 text-lg">A digital archive of pride, innovation, and community</p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link to={`/schools/${schoolSlug}/tv`} className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-bold flex items-center justify-center gap-2 transition-all hover:scale-105 text-lg">
+              <Play className="h-6 w-6" /> Watch Videos
             </Link>
-            <Link to={`/schools/${schoolSlug}/tv`} className="bg-slate-700 hover:bg-slate-600 text-white px-8 py-3 rounded-lg font-semibold flex items-center gap-2">
-              Watch Videos <Play className="h-5 w-5" />
+            <Link to={`/schools/${schoolSlug}/stories`} className="bg-slate-700 hover:bg-slate-600 text-white px-8 py-4 rounded-lg font-bold flex items-center justify-center gap-2 transition-all hover:scale-105 text-lg">
+              Read Stories <ArrowRight className="h-6 w-6" />
             </Link>
           </div>
         </div>
@@ -60,16 +65,22 @@ export default function SchoolHome() {
 
       {/* Featured Stories */}
       {featuredStories.length > 0 && (
-        <section className="py-16 bg-gray-50">
+        <section className="py-20 bg-gradient-to-b from-white to-gray-50">
           <div className="max-w-6xl mx-auto px-6">
-            <h2 className="text-3xl font-bold mb-8">Featured Stories</h2>
+            <div className="mb-12">
+              <h2 className="text-4xl font-black mb-3">Featured Stories</h2>
+              <p className="text-gray-600 text-lg">Real moments from our school community</p>
+            </div>
             <div className="grid md:grid-cols-3 gap-6">
               {featuredStories.map((story) => (
-                <Link key={story.id} to={`/schools/${schoolSlug}/stories/${story.slug}`} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                  {story.featured_image_url && <img src={story.featured_image_url} alt={story.title} className="w-full h-48 object-cover" />}
+                <Link key={story.id} to={`/schools/${schoolSlug}/stories/${story.slug}`} className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all hover:-translate-y-2">
+                  <div className="relative h-56 bg-gradient-to-br from-gray-200 to-gray-300 overflow-hidden">
+                    {story.featured_image_url && <img src={story.featured_image_url} alt={story.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />}
+                  </div>
                   <div className="p-6">
-                    <h3 className="font-bold text-lg mb-2 line-clamp-2">{story.title}</h3>
-                    <p className="text-gray-600 text-sm line-clamp-2">{story.excerpt || story.body?.substring(0, 100)}</p>
+                    <h3 className="font-bold text-lg mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors">{story.title}</h3>
+                    <p className="text-gray-600 text-sm line-clamp-2 mb-4">{story.excerpt || story.body?.substring(0, 100)}</p>
+                    <div className="flex items-center gap-2 text-blue-600 font-semibold text-sm">Read More <ArrowRight className="h-4 w-4" /></div>
                   </div>
                 </Link>
               ))}
@@ -152,11 +163,13 @@ export default function SchoolHome() {
       )}
 
       {/* CTA */}
-      <section className="py-16 bg-blue-600 text-white">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-4">Have a story to share?</h2>
-          <p className="text-lg mb-8 text-blue-100">Submit your videos, photos, and moments to {branding?.school_name}</p>
-          <Link to={`/schools/${schoolSlug}/submit`} className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-lg font-semibold inline-block">
+      <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-700 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, white 0%, transparent 50%)' }} />
+        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-4xl font-black mb-4">Share Your Story</h2>
+          <p className="text-xl mb-2 text-blue-100">Your voice matters. Contribute to {branding?.school_name}</p>
+          <p className="text-blue-100 mb-8">Videos, photos, moments—anything that celebrates our community</p>
+          <Link to={`/schools/${schoolSlug}/submit`} className="inline-block bg-white text-blue-600 hover:bg-blue-50 px-10 py-4 rounded-lg font-bold transition-all hover:scale-105 text-lg">
             Submit Content Now
           </Link>
         </div>
