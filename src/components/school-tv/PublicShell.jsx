@@ -37,10 +37,8 @@ export default function PublicShell({ children, currentPath }) {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Top Bar */}
       <TopBar schoolName={branding?.school_name || schoolSlug} />
 
-      {/* Navigation */}
       <nav className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 flex items-center overflow-x-auto">
           {PUBLIC_NAV.map((item) => {
@@ -64,10 +62,8 @@ export default function PublicShell({ children, currentPath }) {
         </div>
       </nav>
 
-      {/* Content */}
       <div className="flex-1">{children}</div>
 
-      {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-8">
