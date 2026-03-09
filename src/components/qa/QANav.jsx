@@ -2,11 +2,11 @@ import { createPageUrl } from '@/utils';
 import { Activity, List, Play, AlertTriangle, CheckCircle2, Shield } from 'lucide-react';
 
 const NAV = [
-  { label: 'Dashboard', page: 'AdminQA', icon: Activity },
-  { label: 'Test Cases', page: 'AdminQATests', icon: List },
-  { label: 'Test Runs', page: 'AdminQARuns', icon: Play },
-  { label: 'Issues', page: 'AdminQAIssues', icon: AlertTriangle },
-  { label: 'Readiness', page: 'AdminQAReadiness', icon: CheckCircle2 },
+  { label: 'Dashboard',  page: 'AdminQA',          Icon: Activity },
+  { label: 'Test Cases', page: 'AdminQATests',      Icon: List },
+  { label: 'Test Runs',  page: 'AdminQARuns',       Icon: Play },
+  { label: 'Issues',     page: 'AdminQAIssues',     Icon: AlertTriangle },
+  { label: 'Readiness',  page: 'AdminQAReadiness',  Icon: CheckCircle2 },
 ];
 
 export default function QANav({ current }) {
