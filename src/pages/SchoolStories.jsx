@@ -16,7 +16,7 @@ export default function SchoolStories() {
     const loadData = async () => {
       try {
         const [storiesData, categoriesData] = await Promise.all([
-          base44.entities.Stories.filter({ school_slug: schoolSlug, status: 'published' }),
+          base44.entities.Stories.filter({ school_slug: schoolSlug, status: 'published', visibility: 'public' }),
           base44.entities.StoryCategories.filter({ school_slug: schoolSlug, active: true }),
         ]);
         setStories(storiesData);

@@ -74,11 +74,20 @@ export default function AdminStoryDetail() {
   const saveStory = async () => {
     setSaving(true);
     try {
+      // Auto-generate slug if not set
+      const storyToSave = {
+        ...story,
+        slug: story.slug || story.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+        public_url: story.public_url || `/schools/${schoolSlug}/stories/${story.slug || story.title.toLowerCase().replace(/\s+/g, '-')}`,
+        canonical_route: story.canonical_route || `/schools/${schoolSlug}/stories`,
+      };
+      
       if (storyId === 'new') {
-        const newStory = await base44.entities.Stories.create(story);
+        const newStory = await base44.entities.Stories.create(storyToSave);
         window.location.href = `/admin/schools/${schoolSlug}/story-library/${newStory.id}`;
       } else {
-        await base44.entities.Stories.update(storyId, story);
+        await base44.entities.Stories.update(storyId, storyToSave);
+        setStory(storyToSave);
         alert('Story saved successfully!');
       }
     } catch (error) {

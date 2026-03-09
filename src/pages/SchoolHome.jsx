@@ -18,10 +18,10 @@ export default function SchoolHome() {
       try {
         const [brandingData, storiesData, videosData, eventsData, spotlightsData] = await Promise.all([
           base44.entities.SchoolBranding.filter({ school_slug: schoolSlug }),
-          base44.entities.Stories.filter({ school_slug: schoolSlug, featured: true, status: 'published' }),
-          base44.entities.VideoProjects.filter({ school_slug: schoolSlug, status: 'published' }),
+          base44.entities.Stories.filter({ school_slug: schoolSlug, featured: true, visibility: 'public', status: 'published' }),
+          base44.entities.VideoProjects.filter({ school_slug: schoolSlug, status: 'published', publish_to_gallery: true }),
           base44.entities.SchoolEvents.filter({ school_slug: schoolSlug, featured: true, status: 'published' }),
-          base44.entities.Spotlights.filter({ school_slug: schoolSlug, publish_status: 'published' }),
+          base44.entities.Spotlights.filter({ school_slug: schoolSlug, featured: true, status: 'published' }),
         ]);
         
         setBranding(brandingData[0] || null);
