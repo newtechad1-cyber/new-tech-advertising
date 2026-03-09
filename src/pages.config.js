@@ -303,6 +303,11 @@ import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import SchoolStoryLab from './pages/SchoolStoryLab';
 import AdminSchoolDashboard from './pages/AdminSchoolDashboard';
+import AdminSchoolVideoLibrary from './pages/AdminSchoolVideoLibrary';
+import AdminSchoolStoryLibrary from './pages/AdminSchoolStoryLibrary';
+import AdminSchoolYearbook from './pages/AdminSchoolYearbook';
+import AdminSchoolAILab from './pages/AdminSchoolAILab';
+import AdminSchoolAnalytics from './pages/AdminSchoolAnalytics';
 import __Layout from './Layout.jsx';
 
 
@@ -563,6 +568,11 @@ export const PAGES = {
     "YouTubeUploadTest": YouTubeUploadTest,
     "SchoolStoryLab": SchoolStoryLab,
     "AdminSchoolDashboard": AdminSchoolDashboard,
+    "AdminSchoolVideoLibrary": AdminSchoolVideoLibrary,
+    "AdminSchoolStoryLibrary": AdminSchoolStoryLibrary,
+    "AdminSchoolYearbook": AdminSchoolYearbook,
+    "AdminSchoolAILab": AdminSchoolAILab,
+    "AdminSchoolAnalytics": AdminSchoolAnalytics,
 }
 
 export const pagesConfig = {
