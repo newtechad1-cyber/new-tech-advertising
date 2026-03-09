@@ -39,12 +39,18 @@ export default function BulldogTV() {
       <SchoolTVHeader branding={branding} />
 
       {/* Hero */}
-      <div style={{ backgroundColor: branding.primary_color }} className="py-10 px-4 text-center">
-        <h1 className="text-4xl md:text-5xl font-black text-white mb-2">{branding.network_name}</h1>
-        <p className="text-white/75 text-lg">{branding.public_gallery_title || branding.intro_text}</p>
+      <div style={{ backgroundColor: branding.primary_color }} className="py-16 px-4 text-center relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, white 0%, transparent 50%), radial-gradient(circle at 80% 80%, white 0%, transparent 50%)' }} />
+        <div className="relative z-10 max-w-4xl mx-auto">
+          <h1 className="text-5xl md:text-6xl font-black text-white mb-3 leading-tight">{branding.network_name}</h1>
+          <p className="text-white/80 text-lg md:text-xl leading-relaxed">{branding.public_gallery_title || branding.intro_text}</p>
+          <div className="flex flex-wrap items-center justify-center gap-4 mt-6 text-white/70 text-sm">
+            <span>🎬 Videos</span> <span className="text-white/30">•</span> <span>🏆 Stories</span> <span className="text-white/30">•</span> <span>❤️ Community</span>
+          </div>
+        </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-10">
         {/* Featured */}
         {featured && (
           <div className="mb-10">
