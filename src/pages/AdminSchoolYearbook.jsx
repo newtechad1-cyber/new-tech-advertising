@@ -90,10 +90,15 @@ export default function AdminSchoolYearbook() {
         <div className="bg-white rounded-lg shadow overflow-hidden">
           <div className="p-6 border-b border-gray-200 flex items-center justify-between">
             <h2 className="text-xl font-bold text-gray-900">Pages</h2>
-            <Button className="bg-blue-600 hover:bg-blue-700">
-              <Plus className="h-4 w-4 mr-2" />
-              New Page
-            </Button>
+            {selectedSeason && (
+              <Link
+                to={`/admin/schools/${schoolSlug}/yearbook/pages/new?season=${selectedSeason}`}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold"
+              >
+                <Plus className="h-4 w-4" />
+                New Page
+              </Link>
+            )}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-6">
