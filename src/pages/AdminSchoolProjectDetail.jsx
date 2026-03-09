@@ -210,7 +210,7 @@ export default function AdminSchoolProjectDetail() {
             ) : (
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <div><h3 className="font-bold text-slate-900 text-lg">{script.title}</h3><p className="text-xs text-slate-400">Version {script.script_version} · <StatusBadge status={script.generation_status} /></p></div>
+                  <div><h3 className="font-bold text-slate-900 text-lg">{script.title}</h3><p className="text-xs text-slate-400">Generated script ready for review</p></div>
                   <Button onClick={generateScript} disabled={generating} variant="outline" size="sm" className="gap-1.5"><RefreshCw className="w-3.5 h-3.5" /> Regenerate</Button>
                 </div>
                 {[
