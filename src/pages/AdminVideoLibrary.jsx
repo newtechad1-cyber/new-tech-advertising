@@ -172,30 +172,34 @@ export default function AdminVideoLibrary() {
               <div className="p-4">
                 <h3 className="font-bold text-gray-900 mb-1 truncate">{video.title}</h3>
                 <div className="flex flex-wrap gap-2 mb-3">
-                  <span className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full font-semibold">
-                    {video.project_type}
+                  <span className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full font-semibold capitalize">
+                    {video.project_type.replace(/_/g, ' ')}
                   </span>
                   <span className={`text-xs px-2 py-1 rounded-full font-semibold ${VISIBILITY_COLORS[video.visibility] || 'bg-gray-100'}`}>
                     {video.visibility}
                   </span>
                 </div>
-                <p className="text-xs text-gray-600 mb-4">
+                <VideoPublishStatus publishStatus={video.publish_status} className="mb-3" />
+                <p className="text-xs text-gray-600 mb-3">
                   {new Date(video.published_date || video.created_date).toLocaleDateString()}
                 </p>
-                <div className="flex gap-2">
+                <div className="space-y-2">
+                  <Link
+                    to={`/admin/schools/${schoolSlug}/projects/${video.id}`}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg font-semibold text-xs flex items-center justify-center gap-1"
+                  >
+                    <ExternalLink className="h-4 w-4" /> Edit
+                  </Link>
                   {video.public_video_url && (
                     <a
                       href={video.public_video_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg font-semibold text-xs flex items-center justify-center gap-1"
+                      className="w-full bg-green-100 hover:bg-green-200 text-green-800 px-3 py-2 rounded-lg font-semibold text-xs flex items-center justify-center gap-1"
                     >
                       <Eye className="h-4 w-4" /> View
                     </a>
                   )}
-                  <button className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-lg font-semibold text-xs">
-                    <Copy className="h-4 w-4" />
-                  </button>
                 </div>
               </div>
             </div>
