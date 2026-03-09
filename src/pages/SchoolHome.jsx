@@ -43,21 +43,22 @@ export default function SchoolHome() {
   return (
     <PublicShell currentPath="home">
       {/* Hero */}
-      <div className="relative bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white py-16 md:py-24 overflow-hidden">
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, white 0%, transparent 50%), radial-gradient(circle at 80% 80%, white 0%, transparent 50%)' }} />
+      <div className="relative bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white py-20 md:py-32 overflow-hidden">
+        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 80%, #8b5cf6 0%, transparent 50%)' }} />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl" />
         <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-6">
-          <div className="mb-6 inline-flex items-center px-4 py-2 rounded-full bg-blue-500/20 border border-blue-400/30">
-            <p className="text-xs md:text-sm font-semibold text-blue-200">✨ School Stories</p>
+          <div className="mb-6 inline-flex items-center px-4 py-2 rounded-full bg-blue-500/30 border border-blue-400/50 backdrop-blur">
+            <p className="text-xs md:text-sm font-semibold text-blue-100">✨ Share Your Story</p>
           </div>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-4 leading-tight">{branding?.network_name || 'School Story Lab'}</h1>
-          <p className="text-lg md:text-2xl text-slate-200 mb-4 md:mb-6 max-w-2xl leading-relaxed">Celebrating every achievement, moment, and memory that makes our school community special</p>
-          <p className="text-slate-300 mb-6 md:mb-8 text-base md:text-lg">Where stories come alive—videos, photos, and moments from {branding?.school_name || 'our school'}</p>
-          <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-            <Link to={`/schools/${schoolSlug}/tv`} className="bg-blue-600 hover:bg-blue-700 text-white px-6 md:px-8 py-3 md:py-4 rounded-lg font-bold flex items-center justify-center gap-2 transition-all hover:scale-105 text-base md:text-lg">
-              <Play className="h-5 md:h-6 w-5 md:w-6" /> Watch Videos
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-4 leading-tight tracking-tight">{branding?.network_name || 'School Story Lab'}</h1>
+          <p className="text-xl md:text-3xl text-slate-100 mb-6 md:mb-8 max-w-3xl leading-relaxed font-semibold">{branding?.intro_text || 'Celebrating every achievement, moment, and memory that makes our school community special'}</p>
+          <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
+            <Link to={`/schools/${schoolSlug}/tv`} className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 md:px-10 py-4 md:py-5 rounded-xl font-bold flex items-center justify-center gap-3 transition-all hover:shadow-2xl text-base md:text-lg shadow-lg">
+              <Play className="h-6 md:h-7 w-6 md:w-7" /> Watch Videos
             </Link>
-            <Link to={`/schools/${schoolSlug}/stories`} className="bg-slate-700 hover:bg-slate-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-lg font-bold flex items-center justify-center gap-2 transition-all hover:scale-105 text-base md:text-lg">
-              Read Stories <ArrowRight className="h-5 md:h-6 w-5 md:w-6" />
+            <Link to={`/schools/${schoolSlug}/stories`} className="bg-white/15 hover:bg-white/25 backdrop-blur text-white px-8 md:px-10 py-4 md:py-5 rounded-xl font-bold flex items-center justify-center gap-3 transition-all border border-white/30 hover:border-white/50 text-base md:text-lg">
+              Read Stories <ArrowRight className="h-6 md:h-7 w-6 md:w-7" />
             </Link>
           </div>
         </div>
@@ -65,22 +66,24 @@ export default function SchoolHome() {
 
       {/* Featured Stories */}
       {featuredStories.length > 0 && (
-        <section className="py-12 md:py-20 bg-gradient-to-b from-white to-gray-50">
+        <section className="py-16 md:py-28 bg-white">
           <div className="max-w-6xl mx-auto px-4 md:px-6">
-            <div className="mb-8 md:mb-12">
-              <h2 className="text-3xl md:text-4xl font-black mb-2 md:mb-3">Featured Stories</h2>
-              <p className="text-gray-600 text-base md:text-lg">Real moments from our school community</p>
+            <div className="mb-12 md:mb-16">
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-700 font-semibold text-sm mb-4">📖 Featured Stories</div>
+              <h2 className="text-4xl md:text-5xl font-black mb-4 text-gray-900">Stories That Matter</h2>
+              <p className="text-gray-600 text-lg md:text-xl max-w-2xl">Real achievements, real moments, real pride from our school community</p>
             </div>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
               {featuredStories.map((story) => (
-                <Link key={story.id} to={`/schools/${schoolSlug}/stories/${story.slug}`} className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all hover:-translate-y-2">
-                  <div className="relative h-56 bg-gradient-to-br from-gray-200 to-gray-300 overflow-hidden">
-                    {story.featured_image_url && <img src={story.featured_image_url} alt={story.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />}
+                <Link key={story.id} to={`/schools/${schoolSlug}/stories/${story.slug}`} className="group bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-3 border border-gray-100">
+                  <div className="relative h-64 bg-gradient-to-br from-slate-200 to-slate-300 overflow-hidden">
+                    {story.featured_image_url && <img src={story.featured_image_url} alt={story.title} className="w-full h-full object-cover group-hover:scale-125 transition-transform duration-700" />}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
-                  <div className="p-6">
-                    <h3 className="font-bold text-lg mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors">{story.title}</h3>
-                    <p className="text-gray-600 text-sm line-clamp-2 mb-4">{story.excerpt || story.body?.substring(0, 100)}</p>
-                    <div className="flex items-center gap-2 text-blue-600 font-semibold text-sm">Read More <ArrowRight className="h-4 w-4" /></div>
+                  <div className="p-8">
+                    <h3 className="font-black text-xl mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors leading-tight">{story.title}</h3>
+                    <p className="text-gray-600 text-sm line-clamp-2 mb-6 leading-relaxed">{story.excerpt || story.body?.substring(0, 100)}</p>
+                    <div className="flex items-center gap-2 text-blue-600 font-bold text-sm group-hover:gap-3 transition-all">Read Story <ArrowRight className="h-5 w-5" /></div>
                   </div>
                 </Link>
               ))}
@@ -91,25 +94,33 @@ export default function SchoolHome() {
 
       {/* Featured Videos */}
       {featuredVideos.length > 0 && (
-        <section className="py-12 md:py-16">
+        <section className="py-16 md:py-28 bg-gray-50">
           <div className="max-w-6xl mx-auto px-4 md:px-6">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8">Latest Videos</h2>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            <div className="mb-12 md:mb-16">
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-700 font-semibold text-sm mb-4">🎬 Video Gallery</div>
+              <h2 className="text-4xl md:text-5xl font-black mb-4 text-gray-900">Watch Our Videos</h2>
+              <p className="text-gray-600 text-lg md:text-xl">Curated highlights celebrating our school community</p>
+            </div>
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
               {featuredVideos.map((video) => (
-                <Link key={video.id} to={`/schools/${schoolSlug}/tv/watch/${video.slug}`} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                <Link key={video.id} to={`/schools/${schoolSlug}/tv/watch/${video.slug}`} className="group bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-3 border border-gray-100">
                   {video.cover_image_url ? (
-                    <div className="relative h-48 bg-gray-900">
-                      <img src={video.cover_image_url} alt={video.title} className="w-full h-full object-cover opacity-70" />
-                      <Play className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white h-12 w-12" />
+                    <div className="relative h-56 bg-gradient-to-br from-slate-900 to-slate-800 overflow-hidden">
+                      <img src={video.cover_image_url} alt={video.title} className="w-full h-full object-cover opacity-85 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" />
+                      <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all flex items-center justify-center">
+                        <div className="w-16 h-16 rounded-full bg-white/90 group-hover:bg-white group-hover:scale-125 flex items-center justify-center transition-all shadow-lg">
+                          <Play className="text-slate-900 h-7 w-7 ml-1" />
+                        </div>
+                      </div>
                     </div>
                   ) : (
-                    <div className="h-48 bg-gray-300 flex items-center justify-center">
-                      <Play className="text-gray-500 h-12 w-12" />
+                    <div className="h-56 bg-gradient-to-br from-slate-300 to-slate-400 flex items-center justify-center">
+                      <Play className="text-white h-16 w-16" />
                     </div>
                   )}
-                  <div className="p-6">
-                    <h3 className="font-bold text-lg mb-2 line-clamp-2">{video.title}</h3>
-                    <p className="text-gray-600 text-sm">{video.project_type}</p>
+                  <div className="p-8">
+                    <h3 className="font-bold text-lg mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">{video.title}</h3>
+                    <p className="text-gray-600 text-sm capitalize">{video.project_type?.replace(/_/g, ' ') || 'Video'}</p>
                   </div>
                 </Link>
               ))}
@@ -163,14 +174,16 @@ export default function SchoolHome() {
       )}
 
       {/* CTA */}
-      <section className="py-12 md:py-20 bg-gradient-to-r from-blue-600 to-blue-700 text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, white 0%, transparent 50%)' }} />
+      <section className="py-20 md:py-32 bg-gradient-to-br from-blue-700 via-blue-600 to-purple-700 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #ffffff 0%, transparent 50%), radial-gradient(circle at 80% 80%, #ffffff 0%, transparent 50%)' }} />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-400/20 rounded-full blur-3xl" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 md:px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-black mb-3 md:mb-4">Share Your Story</h2>
-          <p className="text-lg md:text-xl mb-2 text-blue-100">Your voice matters. Contribute to {branding?.school_name}</p>
-          <p className="text-sm md:text-base text-blue-100 mb-6 md:mb-8">Videos, photos, moments—anything that celebrates our community</p>
-          <Link to={`/schools/${schoolSlug}/submit`} className="inline-block bg-white text-blue-600 hover:bg-blue-50 px-8 md:px-10 py-3 md:py-4 rounded-lg font-bold transition-all hover:scale-105 text-base md:text-lg">
-            Submit Content Now
+          <h2 className="text-4xl md:text-5xl font-black mb-6 leading-tight">Have a Story to Share?</h2>
+          <p className="text-lg md:text-xl mb-4 text-blue-50 font-semibold">Your voice matters. Contribute to {branding?.school_name}</p>
+          <p className="text-sm md:text-base text-blue-100 mb-10">{branding?.upload_instructions || 'Videos, photos, moments—anything that celebrates our community'}</p>
+          <Link to={`/schools/${schoolSlug}/submit`} className="inline-block bg-white text-blue-700 hover:bg-blue-50 px-10 md:px-12 py-4 md:py-5 rounded-xl font-bold transition-all hover:shadow-2xl text-base md:text-lg shadow-xl hover:scale-105">
+            Submit Your Content →
           </Link>
         </div>
       </section>
