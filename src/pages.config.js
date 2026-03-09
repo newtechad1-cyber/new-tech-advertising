@@ -343,6 +343,13 @@ import SchoolYearbookSeason from './pages/SchoolYearbookSeason';
 import SchoolYearbookCategory from './pages/SchoolYearbookCategory';
 import SchoolYearbookGallery from './pages/SchoolYearbookGallery';
 import SchoolYearbookPage from './pages/SchoolYearbookPage';
+import AdminSubmissionsList from './pages/AdminSubmissionsList';
+import AdminProjectsList from './pages/AdminProjectsList';
+import AdminVideoLibrary from './pages/AdminVideoLibrary';
+import AdminEventsList from './pages/AdminEventsList';
+import AdminAnalytics from './pages/AdminAnalytics';
+import AdminBranding from './pages/AdminBranding';
+import AdminYearbookLibrary from './pages/AdminYearbookLibrary';
 import __Layout from './Layout.jsx';
 
 
@@ -643,6 +650,13 @@ export const PAGES = {
     "SchoolYearbookCategory": SchoolYearbookCategory,
     "SchoolYearbookGallery": SchoolYearbookGallery,
     "SchoolYearbookPage": SchoolYearbookPage,
+    "AdminSubmissionsList": AdminSubmissionsList,
+    "AdminProjectsList": AdminProjectsList,
+    "AdminVideoLibrary": AdminVideoLibrary,
+    "AdminEventsList": AdminEventsList,
+    "AdminAnalytics": AdminAnalytics,
+    "AdminBranding": AdminBranding,
+    "AdminYearbookLibrary": AdminYearbookLibrary,
 }
 
 export const pagesConfig = {
