@@ -316,6 +316,6 @@ export default function AdminSchoolSubmissions() {
           </div>
         </div>
       )}
-    </div>
+    </AdminShell>
   );
 }
