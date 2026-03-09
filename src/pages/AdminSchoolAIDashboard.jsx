@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSchoolRoute } from '@/components/school-tv/useSchoolRoute';
 import SchoolAdminNav from '@/components/school-tv/SchoolAdminNav';
 import AIStatusBadge from '@/components/school-tv/AIStatusBadge';
+import AIPromptTemplateCard from '@/components/school-tv/AIPromptTemplateCard';
 import { Button } from '@/components/ui/button';
 import {
   Sparkles,
@@ -236,35 +237,18 @@ export default function AdminSchoolAIDashboard() {
 
           {/* Prompt Templates Tab */}
           {activeTab === 'templates' && (
-            <div className="grid md:grid-cols-2 gap-6">
-              {mockTemplates.map((template) => (
-                <div key={template.id} className="bg-white rounded-lg border border-gray-200 p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <div>
-                      <h3 className="text-lg font-bold text-gray-900">{template.name}</h3>
-                      <p className="text-xs text-gray-600 uppercase font-semibold mt-1">
-                        {template.prompt_type.replace(/_/g, ' ')}
-                      </p>
-                    </div>
-                    {template.is_active && (
-                      <span className="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">
-                        Active
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-sm text-gray-700 mb-4">{template.usage} uses this month</p>
-                  <div className="flex gap-2 pt-4 border-t border-gray-200">
-                    <Button variant="outline" size="sm" className="flex-1 text-blue-600">
-                      <Eye className="h-4 w-4 mr-1" />
-                      View
-                    </Button>
-                    <Button variant="outline" size="sm" className="flex-1">
-                      <Settings className="h-4 w-4 mr-1" />
-                      Edit
-                    </Button>
-                  </div>
-                </div>
-              ))}
+            <div className="space-y-6">
+              <div className="bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
+                <p className="text-sm text-blue-900">
+                  <strong>8 templates ready:</strong> These are optimized prompt templates that guide AI generation while keeping content school-safe, community-focused, and appropriate for all ages.
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                {mockTemplates.map((template) => (
+                  <AIPromptTemplateCard key={template.id} template={template} />
+                ))}
+              </div>
             </div>
           )}
 
