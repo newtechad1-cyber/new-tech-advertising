@@ -15,6 +15,8 @@ import {
   Palette,
   Settings,
   ChevronDown,
+  Clock,
+  Activity,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -35,19 +37,25 @@ const SIDEBAR_STRUCTURE = [
   {
     section: 'Production',
     items: [
-      { label: 'Projects', icon: 'Briefcase', routeKey: 'projects' },
-      { label: 'Render Queue', icon: 'Zap', routeKey: 'render-queue' },
-      { label: 'Video Library', icon: 'Film', routeKey: 'video-library' },
-      { label: 'Story Library', icon: 'BookOpen', routeKey: 'story-library' },
-      { label: 'Yearbook', icon: 'Calendar', routeKey: 'yearbook' },
-      { label: 'Events', icon: 'Calendar', routeKey: 'events' },
-      { label: 'Spotlights', icon: 'Star', routeKey: 'spotlights' },
+      { label: 'Projects', icon: 'Briefcase', routeKey: 'projects.list' },
+      { label: 'Render Queue', icon: 'Zap', routeKey: 'renderQueue.list' },
+      { label: 'Video Library', icon: 'Film', routeKey: 'libraries.video' },
+      { label: 'Story Library', icon: 'BookOpen', routeKey: 'libraries.story.list' },
+      { label: 'Yearbook', icon: 'Calendar', routeKey: 'yearbook.root' },
+    ],
+  },
+  {
+    section: 'Content Management',
+    items: [
+      { label: 'Events', icon: 'Clock', routeKey: 'events.list' },
+      { label: 'Spotlights', icon: 'Star', routeKey: 'spotlights.list' },
     ],
   },
   {
     section: 'AI Tools',
     items: [
-      { label: 'AI Lab', icon: 'Sparkles', routeKey: 'ai-lab' },
+      { label: 'AI Lab', icon: 'Sparkles', routeKey: 'aiLab.root' },
+      { label: 'Activity', icon: 'Activity', routeKey: 'aiLab.activity' },
     ],
   },
   {
@@ -69,8 +77,10 @@ const ICON_MAP = {
   Film,
   BookOpen,
   Calendar,
+  Clock,
   Star,
   Sparkles,
+  Activity,
   Users,
   Palette,
   Settings,
@@ -91,7 +101,35 @@ export default function AdminSidebar({ schoolSlug, currentPath }) {
     setExpandedSections(newExpanded);
   };
 
-  const getRoute = (routeKey) => `/admin/schools/${schoolSlug}/${routeKey}`;
+  const getRoute = (routeKey) => {
+    // Handle nested route keys like 'projects.list'
+    const keys = routeKey.split('.');
+    let route = {
+      'dashboard': 'dashboard',
+      'analytics': 'analytics',
+      'submissions': 'submissions',
+      'projects': 'projects',
+      'renderQueue': 'render-queue',
+      'libraries': 'libraries',
+      'video': 'video-library',
+      'story': 'story-library',
+      'yearbook': 'yearbook',
+      'events': 'events',
+      'spotlights': 'spotlights',
+      'aiLab': 'ai-lab',
+      'activity': 'ai-lab/activity',
+      'users': 'users',
+      'roles': 'roles',
+      'branding': 'branding',
+      'settings': 'settings',
+    };
+    
+    // For route keys with dots, use the first part (e.g., 'projects.list' -> 'projects')
+    const baseKey = keys[0];
+    const routePath = route[baseKey] || routeKey.replace(/\./g, '/');
+    
+    return `/admin/schools/${schoolSlug}/${routePath}`;
+  };
 
   const isActive = (route) => {
     return currentPath === route || currentPath.startsWith(route + '/');
