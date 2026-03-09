@@ -343,10 +343,18 @@ export default function AdminStoryDetail() {
                 <p className="text-sm text-gray-700">{story.ai_draft_text}</p>
               </div>
               <div className="flex gap-2">
-                <button className="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold text-sm">
+                <button 
+                  onClick={() => {
+                    updateStoryField('body', story.ai_draft_text);
+                    updateStoryField('ai_approval_status', 'approved');
+                    alert('AI draft accepted! Review and save to apply.');
+                  }}
+                  className="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold text-sm">
                   Accept Draft
                 </button>
-                <button className="flex-1 bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold text-sm">
+                <button 
+                  onClick={() => updateStoryField('ai_draft_text', null)}
+                  className="flex-1 bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold text-sm">
                   Reject
                 </button>
               </div>
