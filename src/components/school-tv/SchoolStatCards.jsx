@@ -12,10 +12,10 @@ export default function SchoolStatCards({ submissions = [], projects = [], rende
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-      {stats.map(({ label, value, icon: Icon, color }) => (
+      {stats.map(({ label, value, icon: StatIcon, color }) => (
         <div key={label} className="bg-white border border-slate-200 rounded-xl p-4 text-center">
           <div className={`w-8 h-8 rounded-lg ${color} flex items-center justify-center mx-auto mb-2`}>
-            <Icon className="w-4 h-4" />
+            <StatIcon className="w-4 h-4" />
           </div>
           <div className="text-2xl font-black text-slate-900">{value}</div>
           <div className="text-xs text-slate-500 mt-0.5 leading-tight">{label}</div>

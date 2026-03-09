@@ -77,6 +77,10 @@ import AdminContentEngine from './pages/AdminContentEngine';
 import AdminCopilot from './pages/AdminCopilot';
 import AdminCopilotAccount from './pages/AdminCopilotAccount';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminDemoMachine from './pages/AdminDemoMachine';
+import AdminDemoMachineAnalytics from './pages/AdminDemoMachineAnalytics';
+import AdminDemoMachinePaths from './pages/AdminDemoMachinePaths';
+import AdminDemoMachineSessions from './pages/AdminDemoMachineSessions';
 import AdminExecutive from './pages/AdminExecutive';
 import AdminFinance from './pages/AdminFinance';
 import AdminFounder from './pages/AdminFounder';
@@ -119,6 +123,14 @@ import AdminTasks from './pages/AdminTasks';
 import AdminTestMatrix from './pages/AdminTestMatrix';
 import AdminUsers from './pages/AdminUsers';
 import AdminVideoDetail from './pages/AdminVideoDetail';
+import AdminVideoEngine from './pages/AdminVideoEngine';
+import AdminVideoEngineAnalytics from './pages/AdminVideoEngineAnalytics';
+import AdminVideoEngineApprovals from './pages/AdminVideoEngineApprovals';
+import AdminVideoEngineBrands from './pages/AdminVideoEngineBrands';
+import AdminVideoEngineRenders from './pages/AdminVideoEngineRenders';
+import AdminVideoEngineRequest from './pages/AdminVideoEngineRequest';
+import AdminVideoEngineRequests from './pages/AdminVideoEngineRequests';
+import AdminVideoEngineTemplates from './pages/AdminVideoEngineTemplates';
 import AdminVideoGenerator from './pages/AdminVideoGenerator';
 import AdminVideoQueue from './pages/AdminVideoQueue';
 import AgentArchitecture from './pages/AgentArchitecture';
@@ -147,10 +159,10 @@ import ClientBilling from './pages/ClientBilling';
 import ClientCommerce from './pages/ClientCommerce';
 import ClientDashboard from './pages/ClientDashboard';
 import ClientDashboardDemo from './pages/ClientDashboardDemo';
+import Contact from './pages/Contact';
 import ClientFulfillment from './pages/ClientFulfillment';
 import ClientOnboarding from './pages/ClientOnboarding';
 import ClientSettings from './pages/ClientSettings';
-import Contact from './pages/Contact';
 import ContentDrafts from './pages/ContentDrafts';
 import ContentEngine from './pages/ContentEngine';
 import ContentQueue from './pages/ContentQueue';
@@ -165,9 +177,14 @@ import DealRoomRoi from './pages/DealRoomRoi';
 import DebugOAuthConnections from './pages/DebugOAuthConnections';
 import Demo from './pages/Demo';
 import DemoExamples from './pages/DemoExamples';
+import DemoFeatures from './pages/DemoFeatures';
+import DemoNext from './pages/DemoNext';
 import DemoOverview from './pages/DemoOverview';
 import DemoPlatform from './pages/DemoPlatform';
 import DemoPricing from './pages/DemoPricing';
+import DemoProblem from './pages/DemoProblem';
+import DemoRoi from './pages/DemoRoi';
+import DemoStart from './pages/DemoStart';
 import DentistMarketing from './pages/DentistMarketing';
 import freeAudit from './pages/Free-Audit';
 import FunnelPage from './pages/FunnelPage';
@@ -275,23 +292,9 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdminVideoEngine from './pages/AdminVideoEngine';
-import AdminVideoEngineRequests from './pages/AdminVideoEngineRequests';
-import AdminVideoEngineRequest from './pages/AdminVideoEngineRequest';
-import AdminVideoEngineBrands from './pages/AdminVideoEngineBrands';
-import AdminVideoEngineTemplates from './pages/AdminVideoEngineTemplates';
-import AdminVideoEngineRenders from './pages/AdminVideoEngineRenders';
-import AdminVideoEngineApprovals from './pages/AdminVideoEngineApprovals';
-import AdminVideoEngineAnalytics from './pages/AdminVideoEngineAnalytics';
-import DemoStart from './pages/DemoStart';
-import DemoProblem from './pages/DemoProblem';
-import DemoFeatures from './pages/DemoFeatures';
-import DemoRoi from './pages/DemoRoi';
-import DemoNext from './pages/DemoNext';
-import AdminDemoMachine from './pages/AdminDemoMachine';
-import AdminDemoMachinePaths from './pages/AdminDemoMachinePaths';
-import AdminDemoMachineSessions from './pages/AdminDemoMachineSessions';
-import AdminDemoMachineAnalytics from './pages/AdminDemoMachineAnalytics';
+import BulldogTVSubmit from './pages/BulldogTVSubmit';
+import BulldogTV from './pages/BulldogTV';
+import BulldogTVWatch from './pages/BulldogTVWatch';
 import __Layout from './Layout.jsx';
 
 
@@ -326,6 +329,10 @@ export const PAGES = {
     "AdminCopilot": AdminCopilot,
     "AdminCopilotAccount": AdminCopilotAccount,
     "AdminDashboard": AdminDashboard,
+    "AdminDemoMachine": AdminDemoMachine,
+    "AdminDemoMachineAnalytics": AdminDemoMachineAnalytics,
+    "AdminDemoMachinePaths": AdminDemoMachinePaths,
+    "AdminDemoMachineSessions": AdminDemoMachineSessions,
     "AdminExecutive": AdminExecutive,
     "AdminFinance": AdminFinance,
     "AdminFounder": AdminFounder,
@@ -368,6 +375,14 @@ export const PAGES = {
     "AdminTestMatrix": AdminTestMatrix,
     "AdminUsers": AdminUsers,
     "AdminVideoDetail": AdminVideoDetail,
+    "AdminVideoEngine": AdminVideoEngine,
+    "AdminVideoEngineAnalytics": AdminVideoEngineAnalytics,
+    "AdminVideoEngineApprovals": AdminVideoEngineApprovals,
+    "AdminVideoEngineBrands": AdminVideoEngineBrands,
+    "AdminVideoEngineRenders": AdminVideoEngineRenders,
+    "AdminVideoEngineRequest": AdminVideoEngineRequest,
+    "AdminVideoEngineRequests": AdminVideoEngineRequests,
+    "AdminVideoEngineTemplates": AdminVideoEngineTemplates,
     "AdminVideoGenerator": AdminVideoGenerator,
     "AdminVideoQueue": AdminVideoQueue,
     "AgentArchitecture": AgentArchitecture,
@@ -396,10 +411,10 @@ export const PAGES = {
     "ClientCommerce": ClientCommerce,
     "ClientDashboard": ClientDashboard,
     "ClientDashboardDemo": ClientDashboardDemo,
+    "Contact": Contact,
     "ClientFulfillment": ClientFulfillment,
     "ClientOnboarding": ClientOnboarding,
     "ClientSettings": ClientSettings,
-    "Contact": Contact,
     "ContentDrafts": ContentDrafts,
     "ContentEngine": ContentEngine,
     "ContentQueue": ContentQueue,
@@ -414,9 +429,14 @@ export const PAGES = {
     "DebugOAuthConnections": DebugOAuthConnections,
     "Demo": Demo,
     "DemoExamples": DemoExamples,
+    "DemoFeatures": DemoFeatures,
+    "DemoNext": DemoNext,
     "DemoOverview": DemoOverview,
     "DemoPlatform": DemoPlatform,
     "DemoPricing": DemoPricing,
+    "DemoProblem": DemoProblem,
+    "DemoRoi": DemoRoi,
+    "DemoStart": DemoStart,
     "DentistMarketing": DentistMarketing,
     "Free-Audit": freeAudit,
     "FunnelPage": FunnelPage,
@@ -524,23 +544,9 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AdminVideoEngine": AdminVideoEngine,
-    "AdminVideoEngineRequests": AdminVideoEngineRequests,
-    "AdminVideoEngineRequest": AdminVideoEngineRequest,
-    "AdminVideoEngineBrands": AdminVideoEngineBrands,
-    "AdminVideoEngineTemplates": AdminVideoEngineTemplates,
-    "AdminVideoEngineRenders": AdminVideoEngineRenders,
-    "AdminVideoEngineApprovals": AdminVideoEngineApprovals,
-    "AdminVideoEngineAnalytics": AdminVideoEngineAnalytics,
-    "DemoStart": DemoStart,
-    "DemoProblem": DemoProblem,
-    "DemoFeatures": DemoFeatures,
-    "DemoRoi": DemoRoi,
-    "DemoNext": DemoNext,
-    "AdminDemoMachine": AdminDemoMachine,
-    "AdminDemoMachinePaths": AdminDemoMachinePaths,
-    "AdminDemoMachineSessions": AdminDemoMachineSessions,
-    "AdminDemoMachineAnalytics": AdminDemoMachineAnalytics,
+    "BulldogTVSubmit": BulldogTVSubmit,
+    "BulldogTV": BulldogTV,
+    "BulldogTVWatch": BulldogTVWatch,
 }
 
 export const pagesConfig = {

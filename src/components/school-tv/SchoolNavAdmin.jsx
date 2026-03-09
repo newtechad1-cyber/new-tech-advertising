@@ -18,10 +18,10 @@ export default function SchoolNavAdmin({ currentPage }) {
           <Tv2 className="w-5 h-5 text-yellow-400" />
           <span className="font-bold text-sm">Bulldog TV Admin</span>
         </div>
-        {NAV.map(({ label, page, icon: Icon }) => (
+        {NAV.map(({ label, page, icon: NavIcon }) => (
           <Link key={page} to={createPageUrl(page)}>
             <button className={`flex items-center gap-1.5 px-3 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${currentPage === page ? 'border-yellow-400 text-white' : 'border-transparent text-slate-400 hover:text-white'}`}>
-              <Icon className="w-4 h-4" /> {label}
+              <NavIcon className="w-4 h-4" /> {label}
             </button>
           </Link>
         ))}
