@@ -75,7 +75,7 @@ export default function AdminVideoLibrary() {
 
       {/* Controls */}
       <div className="bg-white rounded-lg shadow-md p-6 mb-6 space-y-4">
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-3 gap-4">
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">Search</label>
             <div className="relative">
@@ -101,9 +101,36 @@ export default function AdminVideoLibrary() {
               <option value="sports_highlight">Sports Highlight</option>
               <option value="classroom_spotlight">Classroom Spotlight</option>
               <option value="event_recap">Event Recap</option>
+              <option value="student_story">Student Story</option>
+              <option value="custom">Custom</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Publish Status</label>
+            <select
+              value={selectedPublishStatus}
+              onChange={(e) => setSelectedPublishStatus(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="all">All Status</option>
+              <option value="not_ready">Not Ready</option>
+              <option value="queued">Queued</option>
+              <option value="published">Published</option>
+              <option value="partial">Partial</option>
+              <option value="failed">Failed</option>
             </select>
           </div>
         </div>
+        <button
+          onClick={() => {
+            setSelectedCategory('all');
+            setSelectedPublishStatus('all');
+            setSearchTerm('');
+          }}
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-semibold text-sm"
+        >
+          Clear Filters
+        </button>
 
         <div className="flex justify-end gap-2">
           <button
