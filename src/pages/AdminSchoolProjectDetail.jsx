@@ -1,17 +1,14 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { createPageUrl } from '@/utils';
-import { Link } from 'react-router-dom';
-import SchoolNavAdmin from '@/components/school-tv/SchoolNavAdmin';
-import StatusBadge from '@/components/school-tv/StatusBadge';
+import { useParams, Link } from 'react-router-dom';
+import SchoolAdminNav from '@/components/school-tv/SchoolAdminNav';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Wand2, Play, Film, Globe, CheckCircle, Loader2, RefreshCw, Music } from 'lucide-react';
+import { ArrowLeft, Wand2, Play, Film, Globe, CheckCircle, Loader2, RefreshCw } from 'lucide-react';
 
-const TABS = ['Overview', 'Assets', 'Script', 'Render', 'Publish'];
+const TABS = ['Overview', 'Assets', 'Script', 'Publishing'];
 
 export default function AdminSchoolProjectDetail() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const projectId = urlParams.get('id');
+  const { schoolSlug, projectId } = useParams();
 
   const [project, setProject] = useState(null);
   const [clips, setClips] = useState([]);
@@ -26,13 +23,13 @@ export default function AdminSchoolProjectDetail() {
   const loadAll = async () => {
     if (!projectId) return;
     const [proj, cls, scr, ren, pub] = await Promise.all([
-      base44.entities.SchoolVideoProjects.filter({ id: projectId }).then(r => r[0]),
-      base44.entities.SchoolVideoClips.filter({ project_id: projectId }, 'recommended_order'),
-      base44.entities.SchoolVideoScripts.filter({ project_id: projectId }, '-created_date'),
-      base44.entities.SchoolVideoRenders.filter({ project_id: projectId }, '-created_date'),
-      base44.entities.SchoolVideoPublishing.filter({ project_id: projectId }),
+      base44.entities.VideoProjects.filter({ id: projectId }).then(r => r[0]),
+      base44.entities.SchoolVideoClips.filter({ project_id: projectId }),
+      base44.entities.VideoScripts.filter({ project_id: projectId }, '-created_date'),
+      base44.entities.VideoRenderJobs.filter({ project_id: projectId }, '-created_date'),
+      base44.entities.VideoPublishingJobs.filter({ project_id: projectId }),
     ]);
-    setProject(proj); setClips(cls); setScripts(scr); setRenders(ren); setPublishing(pub);
+    setProject(proj); setClips(cls || []); setScripts(scr || []); setRenders(ren || []); setPublishing(pub || []);
   };
 
   useEffect(() => { loadAll(); }, [projectId]);
@@ -49,47 +46,66 @@ export default function AdminSchoolProjectDetail() {
 
   const queueRender = async () => {
     setQueuingRender(true);
-    const render = await base44.entities.SchoolVideoRenders.create({
-      project_id: projectId,
-      script_id: scripts[0]?.id || null,
-      render_name: `${project.title} — ${project.format_type}`,
-      render_engine: 'internal',
-      output_format: 'mp4',
-      resolution: project.format_type === 'vertical' ? '1080x1920' : '1920x1080',
-      aspect_ratio: project.format_type === 'vertical' ? '9:16' : '16:9',
-      estimated_duration: project.duration_target,
-      status: 'queued',
-      queue_position: renders.length + 1,
-    });
-    await base44.entities.SchoolVideoProjects.update(projectId, { status: 'queued_for_render' });
-    setRenders(prev => [render, ...prev]);
-    setProject(p => ({ ...p, status: 'queued_for_render' }));
-    setQueuingRender(false);
-    setTab('Render');
+    try {
+      const render = await base44.entities.VideoRenderJobs.create({
+        school_slug: schoolSlug,
+        project_id: projectId,
+        script_id: scripts[0]?.id || null,
+        render_name: `${project.title} — ${project.format_type}`,
+        render_engine: 'internal',
+        output_format: 'mp4',
+        resolution: project.format_type === 'vertical' ? '1080x1920' : '1920x1080',
+        aspect_ratio: project.format_type === 'vertical' ? '9:16' : '16:9',
+        estimated_duration: project.duration_target,
+        status: 'queued',
+        queue_position: renders.length + 1,
+      });
+      await base44.entities.VideoProjects.update(projectId, { status: 'queued_for_render' });
+      setRenders(prev => [render, ...prev]);
+      setProject(p => ({ ...p, status: 'queued_for_render' }));
+    } catch (e) {
+      console.error('Error queueing render:', e);
+      alert('Error queueing render');
+    } finally {
+      setQueuingRender(false);
+    }
   };
 
   const publishToGallery = async () => {
     setPublishingAction(true);
-    const pub = await base44.entities.SchoolVideoPublishing.create({
-      project_id: projectId,
-      destination: 'gallery',
-      destination_status: 'published',
-      published_at: new Date().toISOString(),
-    });
-    await base44.entities.SchoolVideoProjects.update(projectId, {
-      status: 'published',
-      publish_status: 'published',
-      publish_to_gallery: true,
-      published_date: new Date().toISOString(),
-    });
-    setPublishing(prev => [...prev, pub]);
-    setProject(p => ({ ...p, status: 'published', publish_status: 'published' }));
-    setPublishingAction(false);
+    try {
+      const pub = await base44.entities.VideoPublishingJobs.create({
+        school_slug: schoolSlug,
+        project_id: projectId,
+        render_job_id: renders[0]?.id || null,
+        video_url: renders[0]?.output_url || null,
+        destination: 'bulldog_tv',
+        destination_status: 'published',
+        published_at: new Date().toISOString(),
+      });
+      await base44.entities.VideoProjects.update(projectId, {
+        status: 'published',
+        publish_status: 'published',
+        publish_to_gallery: true,
+        published_date: new Date().toISOString(),
+      });
+      setPublishing(prev => [...prev, pub]);
+      setProject(p => ({ ...p, status: 'published', publish_status: 'published' }));
+    } catch (e) {
+      console.error('Error publishing:', e);
+      alert('Error publishing video');
+    } finally {
+      setPublishingAction(false);
+    }
   };
 
   const toggleClip = async (clip) => {
-    const updated = await base44.entities.SchoolVideoClips.update(clip.id, { is_selected: !clip.is_selected });
-    setClips(prev => prev.map(c => c.id === clip.id ? updated : c));
+    try {
+      const updated = await base44.entities.SchoolVideoClips.update(clip.id, { is_selected: !clip.is_selected });
+      setClips(prev => prev.map(c => c.id === clip.id ? updated : c));
+    } catch (e) {
+      console.error('Error toggling clip:', e);
+    }
   };
 
   if (!project) return <div className="min-h-screen bg-slate-50 flex items-center justify-center"><Loader2 className="w-6 h-6 animate-spin text-slate-400" /></div>;
@@ -99,10 +115,10 @@ export default function AdminSchoolProjectDetail() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <SchoolNavAdmin currentPage="AdminSchoolProjects" />
+      <SchoolAdminNav schoolSlug={schoolSlug} currentPath={`/admin/schools/${schoolSlug}/projects/${projectId}`} />
       <div className="max-w-6xl mx-auto px-4 py-6">
         <div className="flex items-center gap-3 mb-6">
-          <Link to={createPageUrl('AdminSchoolProjects')}><Button variant="ghost" size="sm"><ArrowLeft className="w-4 h-4" /></Button></Link>
+          <Link to={`/admin/schools/${schoolSlug}/projects`}><Button variant="ghost" size="sm"><ArrowLeft className="w-4 h-4" /></Button></Link>
           <div className="flex-1"><h1 className="text-xl font-bold text-slate-900">{project.title}</h1><div className="flex items-center gap-2 mt-1"><StatusBadge status={project.status} /><span className="text-xs text-slate-400 capitalize">{project.project_type?.replace(/_/g,' ')}</span><span className="text-slate-300">·</span><span className="text-xs text-slate-400">{project.tone}</span></div></div>
           <div className="flex gap-2">
             <Button onClick={generateScript} disabled={generating} variant="outline" className="gap-1.5">
@@ -122,9 +138,9 @@ export default function AdminSchoolProjectDetail() {
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-slate-200 mb-6">
-          {TABS.map(t => <button key={t} onClick={() => setTab(t)} className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${tab === t ? 'border-slate-900 text-slate-900' : 'border-transparent text-slate-500 hover:text-slate-700'}`}>{t}{t === 'Assets' && clips.length > 0 ? ` (${clips.length})` : ''}{t === 'Script' && scripts.length > 0 ? ` ✓` : ''}</button>)}
-        </div>
+         <div className="flex border-b border-slate-200 mb-6 overflow-x-auto">
+           {TABS.map(t => <button key={t} onClick={() => setTab(t)} className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${tab === t ? 'border-slate-900 text-slate-900' : 'border-transparent text-slate-500 hover:text-slate-700'}`}>{t}{t === 'Assets' && clips.length > 0 ? ` (${clips.length})` : ''}{t === 'Script' && scripts.length > 0 ? ` ✓` : ''}</button>)}
+         </div>
 
         {tab === 'Overview' && (
           <div className="grid grid-cols-2 gap-6">
@@ -205,47 +221,36 @@ export default function AdminSchoolProjectDetail() {
           </div>
         )}
 
-        {tab === 'Render' && (
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-slate-800">Render Queue</h3>
-              <Button onClick={queueRender} disabled={queuingRender || !script} className="bg-purple-600 hover:bg-purple-700 text-white gap-1.5">
-                {queuingRender ? <Loader2 className="w-4 h-4 animate-spin" /> : <Film className="w-4 h-4" />} Queue New Render
-              </Button>
-            </div>
-            {renders.length === 0 ? <div className="text-center py-16 text-slate-400 bg-white rounded-xl border border-slate-200">No renders yet. Generate a script first, then queue a render.</div> : (
-              <div className="space-y-3">
-                {renders.map(r => (
-                  <div key={r.id} className="bg-white rounded-xl border border-slate-200 p-4 flex items-center justify-between gap-4">
-                    <div><div className="font-medium text-slate-800">{r.render_name}</div><div className="text-xs text-slate-400 mt-0.5">{r.resolution} · {r.output_format?.toUpperCase()} · {r.aspect_ratio}</div></div>
-                    <div className="flex items-center gap-3"><StatusBadge status={r.status} />{r.output_url && <a href={r.output_url} target="_blank" className="text-xs text-blue-600 hover:underline flex items-center gap-1"><Play className="w-3 h-3" />Preview</a>}</div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+        {tab === 'Publishing' && (
+           <div>
+             <div className="flex items-center justify-between mb-4">
+               <h3 className="font-semibold text-slate-800">Publishing Status</h3>
+               {project.status !== 'published' && renders.length > 0 && (
+                 <Button onClick={publishToGallery} disabled={publishingAction} className="bg-green-600 hover:bg-green-700 text-white gap-1.5">
+                   {publishingAction ? <Loader2 className="w-4 h-4 animate-spin" /> : <Globe className="w-4 h-4" />} Publish to Bulldog TV
+                 </Button>
+               )}
+             </div>
+             {project.status === 'published' ? (
+               <div className="bg-white rounded-xl border border-green-200 p-6 text-center">
+                 <CheckCircle className="w-12 h-12 text-green-600 mx-auto mb-3" />
+                 <p className="font-semibold text-slate-900">Video Published</p>
+                 <p className="text-sm text-slate-600 mt-1">This video is now visible on Bulldog TV</p>
+                 {project.public_video_url && (
+                   <a href={project.public_video_url} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-blue-600 hover:underline text-sm font-semibold">
+                     View Published Video →
+                   </a>
+                 )}
+               </div>
+             ) : (
+               <div className="text-center py-16 text-slate-400 bg-white rounded-xl border border-slate-200">
+                 Queue a render first, then publish to Bulldog TV.
+               </div>
+             )}
+           </div>
         )}
 
-        {tab === 'Publish' && (
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-slate-800">Publishing</h3>
-              {project.status !== 'published' && <Button onClick={publishToGallery} disabled={publishingAction} className="bg-green-600 hover:bg-green-700 text-white gap-1.5">
-                {publishingAction ? <Loader2 className="w-4 h-4 animate-spin" /> : <Globe className="w-4 h-4" />} Publish to Gallery
-              </Button>}
-            </div>
-            {publishing.length === 0 ? <div className="text-center py-16 text-slate-400 bg-white rounded-xl border border-slate-200">Not published yet.</div> : (
-              <div className="space-y-3">
-                {publishing.map(pub => (
-                  <div key={pub.id} className="bg-white rounded-xl border border-slate-200 p-4 flex items-center justify-between">
-                    <div className="flex items-center gap-3"><Globe className="w-5 h-5 text-slate-400" /><div><div className="font-medium text-slate-800 capitalize">{pub.destination}</div>{pub.published_at && <div className="text-xs text-slate-400">{new Date(pub.published_at).toLocaleString()}</div>}</div></div>
-                    <StatusBadge status={pub.destination_status} />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
+
       </div>
     </div>
   );
