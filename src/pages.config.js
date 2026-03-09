@@ -108,6 +108,11 @@ import AdminResellerRevenue from './pages/AdminResellerRevenue';
 import AdminResellers from './pages/AdminResellers';
 import AdminRevenueDetail from './pages/AdminRevenueDetail';
 import AdminRevenueEngine from './pages/AdminRevenueEngine';
+import AdminSalesAssets from './pages/AdminSalesAssets';
+import AdminSalesDashboard from './pages/AdminSalesDashboard';
+import AdminSalesFollowups from './pages/AdminSalesFollowups';
+import AdminSalesPrompts from './pages/AdminSalesPrompts';
+import AdminSalesProspect from './pages/AdminSalesProspect';
 import AdminSettings from './pages/AdminSettings';
 import AdminSystemHealth from './pages/AdminSystemHealth';
 import AdminTasks from './pages/AdminTasks';
@@ -151,8 +156,18 @@ import ContentEngine from './pages/ContentEngine';
 import ContentQueue from './pages/ContentQueue';
 import ContentStudio from './pages/ContentStudio';
 import Dashboard from './pages/Dashboard';
+import DealRoom from './pages/DealRoom';
+import DealRoomCaseStudies from './pages/DealRoomCaseStudies';
+import DealRoomContract from './pages/DealRoomContract';
+import DealRoomPricing from './pages/DealRoomPricing';
+import DealRoomProposal from './pages/DealRoomProposal';
+import DealRoomRoi from './pages/DealRoomRoi';
 import DebugOAuthConnections from './pages/DebugOAuthConnections';
 import Demo from './pages/Demo';
+import DemoExamples from './pages/DemoExamples';
+import DemoOverview from './pages/DemoOverview';
+import DemoPlatform from './pages/DemoPlatform';
+import DemoPricing from './pages/DemoPricing';
 import DentistMarketing from './pages/DentistMarketing';
 import freeAudit from './pages/Free-Audit';
 import FunnelPage from './pages/FunnelPage';
@@ -224,6 +239,7 @@ import RoofingMarketing from './pages/RoofingMarketing';
 import SalesDashboard from './pages/SalesDashboard';
 import SalesLeads from './pages/SalesLeads';
 import SalesPipeline from './pages/SalesPipeline';
+import SalesRoom from './pages/SalesRoom';
 import ScheduledQueue from './pages/ScheduledQueue';
 import ServiceLocation from './pages/ServiceLocation';
 import Services from './pages/Services';
@@ -233,6 +249,7 @@ import SocialAccounts from './pages/SocialAccounts';
 import SocialMediaManagement from './pages/SocialMediaManagement';
 import SocialMediaMarketing from './pages/SocialMediaMarketing';
 import Start from './pages/Start';
+import StartTrial from './pages/StartTrial';
 import Store from './pages/Store';
 import streamingTv from './pages/Streaming-TV';
 import StreamingCreativePayment from './pages/StreamingCreativePayment';
@@ -258,23 +275,14 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import SalesRoom from './pages/SalesRoom';
-import DemoOverview from './pages/DemoOverview';
-import DemoPlatform from './pages/DemoPlatform';
-import DemoExamples from './pages/DemoExamples';
-import DemoPricing from './pages/DemoPricing';
-import DealRoom from './pages/DealRoom';
-import DealRoomProposal from './pages/DealRoomProposal';
-import DealRoomPricing from './pages/DealRoomPricing';
-import DealRoomRoi from './pages/DealRoomRoi';
-import DealRoomCaseStudies from './pages/DealRoomCaseStudies';
-import DealRoomContract from './pages/DealRoomContract';
-import StartTrial from './pages/StartTrial';
-import AdminSalesDashboard from './pages/AdminSalesDashboard';
-import AdminSalesProspect from './pages/AdminSalesProspect';
-import AdminSalesAssets from './pages/AdminSalesAssets';
-import AdminSalesPrompts from './pages/AdminSalesPrompts';
-import AdminSalesFollowups from './pages/AdminSalesFollowups';
+import AdminVideoEngine from './pages/AdminVideoEngine';
+import AdminVideoEngineRequests from './pages/AdminVideoEngineRequests';
+import AdminVideoEngineRequest from './pages/AdminVideoEngineRequest';
+import AdminVideoEngineBrands from './pages/AdminVideoEngineBrands';
+import AdminVideoEngineTemplates from './pages/AdminVideoEngineTemplates';
+import AdminVideoEngineRenders from './pages/AdminVideoEngineRenders';
+import AdminVideoEngineApprovals from './pages/AdminVideoEngineApprovals';
+import AdminVideoEngineAnalytics from './pages/AdminVideoEngineAnalytics';
 import __Layout from './Layout.jsx';
 
 
@@ -340,6 +348,11 @@ export const PAGES = {
     "AdminResellers": AdminResellers,
     "AdminRevenueDetail": AdminRevenueDetail,
     "AdminRevenueEngine": AdminRevenueEngine,
+    "AdminSalesAssets": AdminSalesAssets,
+    "AdminSalesDashboard": AdminSalesDashboard,
+    "AdminSalesFollowups": AdminSalesFollowups,
+    "AdminSalesPrompts": AdminSalesPrompts,
+    "AdminSalesProspect": AdminSalesProspect,
     "AdminSettings": AdminSettings,
     "AdminSystemHealth": AdminSystemHealth,
     "AdminTasks": AdminTasks,
@@ -383,8 +396,18 @@ export const PAGES = {
     "ContentQueue": ContentQueue,
     "ContentStudio": ContentStudio,
     "Dashboard": Dashboard,
+    "DealRoom": DealRoom,
+    "DealRoomCaseStudies": DealRoomCaseStudies,
+    "DealRoomContract": DealRoomContract,
+    "DealRoomPricing": DealRoomPricing,
+    "DealRoomProposal": DealRoomProposal,
+    "DealRoomRoi": DealRoomRoi,
     "DebugOAuthConnections": DebugOAuthConnections,
     "Demo": Demo,
+    "DemoExamples": DemoExamples,
+    "DemoOverview": DemoOverview,
+    "DemoPlatform": DemoPlatform,
+    "DemoPricing": DemoPricing,
     "DentistMarketing": DentistMarketing,
     "Free-Audit": freeAudit,
     "FunnelPage": FunnelPage,
@@ -456,6 +479,7 @@ export const PAGES = {
     "SalesDashboard": SalesDashboard,
     "SalesLeads": SalesLeads,
     "SalesPipeline": SalesPipeline,
+    "SalesRoom": SalesRoom,
     "ScheduledQueue": ScheduledQueue,
     "ServiceLocation": ServiceLocation,
     "Services": Services,
@@ -465,6 +489,7 @@ export const PAGES = {
     "SocialMediaManagement": SocialMediaManagement,
     "SocialMediaMarketing": SocialMediaMarketing,
     "Start": Start,
+    "StartTrial": StartTrial,
     "Store": Store,
     "Streaming-TV": streamingTv,
     "StreamingCreativePayment": StreamingCreativePayment,
@@ -490,23 +515,14 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "SalesRoom": SalesRoom,
-    "DemoOverview": DemoOverview,
-    "DemoPlatform": DemoPlatform,
-    "DemoExamples": DemoExamples,
-    "DemoPricing": DemoPricing,
-    "DealRoom": DealRoom,
-    "DealRoomProposal": DealRoomProposal,
-    "DealRoomPricing": DealRoomPricing,
-    "DealRoomRoi": DealRoomRoi,
-    "DealRoomCaseStudies": DealRoomCaseStudies,
-    "DealRoomContract": DealRoomContract,
-    "StartTrial": StartTrial,
-    "AdminSalesDashboard": AdminSalesDashboard,
-    "AdminSalesProspect": AdminSalesProspect,
-    "AdminSalesAssets": AdminSalesAssets,
-    "AdminSalesPrompts": AdminSalesPrompts,
-    "AdminSalesFollowups": AdminSalesFollowups,
+    "AdminVideoEngine": AdminVideoEngine,
+    "AdminVideoEngineRequests": AdminVideoEngineRequests,
+    "AdminVideoEngineRequest": AdminVideoEngineRequest,
+    "AdminVideoEngineBrands": AdminVideoEngineBrands,
+    "AdminVideoEngineTemplates": AdminVideoEngineTemplates,
+    "AdminVideoEngineRenders": AdminVideoEngineRenders,
+    "AdminVideoEngineApprovals": AdminVideoEngineApprovals,
+    "AdminVideoEngineAnalytics": AdminVideoEngineAnalytics,
 }
 
 export const pagesConfig = {
