@@ -28,7 +28,7 @@ export default function AdminSchoolProjectDetail() {
     if (!projectId) return;
     const [proj, cls, scr, ren, pub] = await Promise.all([
       base44.entities.VideoProjects.filter({ id: projectId }).then(r => r[0]),
-      base44.entities.SchoolVideoClips.filter({ project_id: projectId }),
+      base44.entities.VideoClips.filter({ project_id: projectId }),
       base44.entities.VideoScripts.filter({ project_id: projectId }, '-created_date'),
       base44.entities.VideoRenderJobs.filter({ project_id: projectId }, '-created_date'),
       base44.entities.VideoPublishingJobs.filter({ project_id: projectId }),
@@ -105,7 +105,7 @@ export default function AdminSchoolProjectDetail() {
 
   const toggleClip = async (clip) => {
     try {
-      const updated = await base44.entities.SchoolVideoClips.update(clip.id, { is_selected: !clip.is_selected });
+      const updated = await base44.entities.VideoClips.update(clip.id, { is_selected: !clip.is_selected });
       setClips(prev => prev.map(c => c.id === clip.id ? updated : c));
     } catch (e) {
       console.error('Error toggling clip:', e);
@@ -118,12 +118,11 @@ export default function AdminSchoolProjectDetail() {
   const latestRender = renders[0];
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <SchoolAdminNav schoolSlug={schoolSlug} currentPath={`/admin/schools/${schoolSlug}/projects/${projectId}`} />
+    <AdminShell schoolSlug={schoolSlug}>
       <div className="max-w-6xl mx-auto px-4 py-6">
         <div className="flex items-center gap-3 mb-6">
           <Link to={`/admin/schools/${schoolSlug}/projects`}><Button variant="ghost" size="sm"><ArrowLeft className="w-4 h-4" /></Button></Link>
-          <div className="flex-1"><h1 className="text-xl font-bold text-slate-900">{project.title}</h1><div className="flex items-center gap-2 mt-1"><StatusBadge status={project.status} /><span className="text-xs text-slate-400 capitalize">{project.project_type?.replace(/_/g,' ')}</span><span className="text-slate-300">·</span><span className="text-xs text-slate-400">{project.tone}</span></div></div>
+          <div className="flex-1"><h1 className="text-xl font-bold text-slate-900">{project.title}</h1><div className="flex items-center gap-2 mt-1"><span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded">{project.status}</span><span className="text-xs text-slate-400 capitalize">{project.project_type?.replace(/_/g,' ')}</span><span className="text-slate-300">·</span><span className="text-xs text-slate-400">{project.tone}</span></div></div>
           <div className="flex gap-2">
             <Button onClick={generateScript} disabled={generating} variant="outline" className="gap-1.5">
               {generating ? <><Loader2 className="w-4 h-4 animate-spin" />Generating...</> : <><Wand2 className="w-4 h-4" />Generate Script</>}
@@ -152,10 +151,10 @@ export default function AdminSchoolProjectDetail() {
               <h3 className="font-semibold text-slate-800">Project Details</h3>
               {[['School', project.school], ['Activity', project.activity_type], ['Event', project.event_name || '—'], ['Tone', project.tone], ['Duration', project.duration_target], ['Format', project.format_type]].map(([k, v]) => (
                 <div key={k} className="flex justify-between text-sm"><span className="text-slate-400">{k}</span><span className="text-slate-800 font-medium capitalize">{v}</span></div>
-              ))}
-            </div>
-            <div className="bg-white rounded-xl border border-slate-200 p-5">
-              <h3 className="font-semibold text-slate-800 mb-3">AI Story Summary</h3>
+                ))}
+                </div>
+                <div className="bg-white rounded-xl border border-slate-200 p-5">
+                <h3 className="font-semibold text-slate-800 mb-3">AI Story Summary</h3>
               {project.ai_story_summary ? (
                 <p className="text-sm text-slate-600 leading-relaxed">{project.ai_story_summary}</p>
               ) : (
@@ -222,7 +221,7 @@ export default function AdminSchoolProjectDetail() {
                       <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">{label}</h4>
                       <p className="text-sm text-slate-700 whitespace-pre-wrap leading-relaxed">{content}</p>
                     </div>
-                  ))}
+                    ))}
               </div>
             )}
           </div>
@@ -259,6 +258,6 @@ export default function AdminSchoolProjectDetail() {
 
 
       </div>
-    </div>
-  );
-}
+      </AdminShell>
+      );
+      }
