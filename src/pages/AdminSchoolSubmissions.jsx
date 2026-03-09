@@ -319,9 +319,10 @@ export default function AdminSchoolSubmissions() {
               <Archive className="h-4 w-4 mr-2" />
               Archive
             </Button>
-          </div>
-        </div>
-      )}
-    </AdminShell>
-  );
-}
+            </div>
+            </div>
+            </>
+            )}
+            </AdminShell>
+            );
+            }
