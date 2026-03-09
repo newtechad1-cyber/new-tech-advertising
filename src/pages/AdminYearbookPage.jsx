@@ -69,11 +69,20 @@ export default function AdminYearbookPage() {
   const savePage = async () => {
     setSaving(true);
     try {
+      // Auto-generate slug if not set
+      const pageToSave = {
+        ...page,
+        slug: page.slug || page.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+        public_url: page.public_url || `/schools/${schoolSlug}/yearbook/page/${page.slug || page.title.toLowerCase().replace(/\s+/g, '-')}`,
+        canonical_route: page.canonical_route || `/schools/${schoolSlug}/yearbook`,
+      };
+      
       if (pageId === 'new') {
-        const newPage = await base44.entities.YearbookPages.create(page);
+        const newPage = await base44.entities.YearbookPages.create(pageToSave);
         window.location.href = `/admin/schools/${schoolSlug}/yearbook/pages/${newPage.id}`;
       } else {
-        await base44.entities.YearbookPages.update(pageId, page);
+        await base44.entities.YearbookPages.update(pageId, pageToSave);
+        setPage(pageToSave);
         alert('Page saved successfully!');
       }
     } catch (error) {
