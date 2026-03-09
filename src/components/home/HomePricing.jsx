@@ -5,41 +5,55 @@ import { CheckCircle, ArrowRight } from 'lucide-react';
 
 const PLANS = [
   {
-    name: 'DIY Starter',
-    price: '$99',
+    name: 'Starter',
+    price: '$197',
     period: '/mo',
-    desc: 'Great for solopreneurs and small teams who want AI-powered content without agency costs.',
-    features: ['20 AI posts/month', 'Content scheduling', '3 social channels', 'Basic analytics', 'Authority Plan'],
+    desc: 'Everything a local business needs to automate marketing and start getting found online.',
+    features: [
+      '12 AI social posts/month',
+      'AI blog generator',
+      'Review monitoring',
+      'Basic analytics dashboard',
+      'Content calendar',
+      '3 social channels',
+      '7-day free trial',
+    ],
     cta: 'Start Free Trial',
     link: 'Get-Started',
     highlight: false,
   },
   {
-    name: 'DIY Pro',
-    price: '$199',
+    name: 'Growth',
+    price: '$297',
     period: '/mo',
-    desc: 'For growing businesses that need more content, more channels, and AI video capability.',
-    features: ['50 AI posts/month', 'Unlimited scheduling', '7 social channels', 'AI Video Studio', 'Advanced analytics', 'Priority support'],
+    desc: 'More content, AI video creation, and SEO automation to accelerate your online presence.',
+    features: [
+      '20 AI social posts/month',
+      'AI video creation',
+      'SEO automation',
+      'Full content calendar',
+      'Advanced analytics',
+      '7 social channels',
+      'Priority support',
+    ],
     cta: 'Start Free Trial',
     link: 'Get-Started',
-    highlight: false,
-  },
-  {
-    name: 'DFY Social',
-    price: '$399',
-    period: '/mo',
-    desc: 'Done-for-you social media management. We create, approve, and post everything.',
-    features: ['Everything in Pro', 'Dedicated content team', 'We post for you', 'Monthly strategy call', 'Video production included'],
-    cta: 'Book Strategy Call',
-    link: 'Book-Call',
     highlight: true,
   },
   {
-    name: 'Total Reach',
-    price: '$899',
+    name: 'Pro',
+    price: '$497',
     period: '/mo',
-    desc: 'Full-service marketing: social, video, streaming TV, and ADA compliance — all managed.',
-    features: ['Everything in DFY', 'Streaming TV ads', 'ADA compliance monitoring', 'Google Business management', 'Custom reporting', 'Dedicated account manager'],
+    desc: 'The full platform: AI video campaigns, reputation automation, and advanced analytics.',
+    features: [
+      'Everything in Growth',
+      'AI video campaigns',
+      'Reputation automation',
+      'Advanced analytics & reporting',
+      'Streaming TV ad scripts',
+      'Unlimited social channels',
+      'Dedicated account manager',
+    ],
     cta: 'Book Strategy Call',
     link: 'Book-Call',
     highlight: false,
@@ -60,7 +74,7 @@ export default function HomePricing() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {PLANS.map(plan => (
             <div
               key={plan.name}
