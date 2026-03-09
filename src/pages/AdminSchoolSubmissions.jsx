@@ -28,12 +28,13 @@ export default function AdminSchoolSubmissions() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const data = await base44.entities.StudentVideoSubmissions.filter({
-          school_slug: schoolSlug,
+        const data = await base44.entities.SchoolSubmissions.filter({
+          school: schoolSlug,
         });
-        setSubmissions(data);
+        setSubmissions(data || []);
       } catch (error) {
         console.error('Error loading submissions:', error);
+        setSubmissions([]);
       } finally {
         setLoading(false);
       }
