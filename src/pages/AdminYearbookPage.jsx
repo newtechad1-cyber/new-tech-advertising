@@ -321,33 +321,57 @@ export default function AdminYearbookPage() {
 
       {/* AI Tools Tab */}
       {activeTab === 'ai-tools' && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-          <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-            <Zap className="h-5 w-5" /> AI Content Tools
-          </h3>
-          <div className="grid md:grid-cols-2 gap-4">
-            <button
-              onClick={() => createAIJob('yearbook_intro')}
-              className="bg-white hover:bg-blue-50 border border-blue-200 text-gray-800 px-4 py-3 rounded-lg font-semibold text-sm"
-            >
-              Generate Intro
-            </button>
-            <button
-              onClick={() => createAIJob('caption_generation')}
-              className="bg-white hover:bg-blue-50 border border-blue-200 text-gray-800 px-4 py-3 rounded-lg font-semibold text-sm"
-            >
-              Generate Captions
-            </button>
-            <button
-              onClick={() => createAIJob('story_generation')}
-              className="bg-white hover:bg-blue-50 border border-blue-200 text-gray-800 px-4 py-3 rounded-lg font-semibold text-sm"
-            >
-              Suggest Highlights
-            </button>
-            <button className="bg-white hover:bg-blue-50 border border-blue-200 text-gray-800 px-4 py-3 rounded-lg font-semibold text-sm">
-              Accept AI Output
-            </button>
+        <div className="space-y-6">
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+            <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+              <Zap className="h-5 w-5" /> AI Content Tools
+            </h3>
+            <p className="text-sm text-gray-700 mb-4">Generate AI-assisted content to enhance your yearbook pages</p>
+            <div className="grid md:grid-cols-2 gap-4">
+              <button
+                onClick={() => createAIJob('yearbook_intro')}
+                className="bg-white hover:bg-blue-50 border border-blue-200 text-gray-800 px-4 py-3 rounded-lg font-semibold text-sm transition-colors"
+              >
+                Generate Intro
+              </button>
+              <button
+                onClick={() => createAIJob('caption_generation')}
+                className="bg-white hover:bg-blue-50 border border-blue-200 text-gray-800 px-4 py-3 rounded-lg font-semibold text-sm transition-colors"
+              >
+                Generate Captions
+              </button>
+              <button
+                onClick={() => createAIJob('story_generation')}
+                className="bg-white hover:bg-blue-50 border border-blue-200 text-gray-800 px-4 py-3 rounded-lg font-semibold text-sm transition-colors"
+              >
+                Suggest Highlights
+              </button>
+            </div>
           </div>
+
+          {page.ai_draft_text && (
+            <div className="bg-green-50 border border-green-200 rounded-lg p-6">
+              <h4 className="font-semibold text-green-900 mb-3">AI Draft Ready</h4>
+              <div className="bg-white rounded-lg p-4 mb-4 max-h-64 overflow-y-auto">
+                <p className="text-sm text-gray-700">{page.ai_draft_text}</p>
+              </div>
+              <div className="flex gap-2">
+                <button 
+                  onClick={() => {
+                    setPage(prev => ({ ...prev, body_text: page.ai_draft_text, ai_approval_status: 'approved' }));
+                    alert('AI draft applied to page content');
+                  }}
+                  className="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold text-sm">
+                  Accept & Apply
+                </button>
+                <button 
+                  onClick={() => setPage(prev => ({ ...prev, ai_draft_text: null }))}
+                  className="flex-1 bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold text-sm">
+                  Reject
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
 
