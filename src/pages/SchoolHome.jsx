@@ -50,8 +50,8 @@ export default function SchoolHome() {
             <p className="text-sm font-semibold text-blue-200">✨ School Stories</p>
           </div>
           <h1 className="text-6xl md:text-7xl font-black mb-4 leading-tight">{branding?.network_name || 'School Story Lab'}</h1>
-          <p className="text-2xl text-slate-200 mb-6 max-w-2xl leading-relaxed">Celebrating every achievement, moment, and memory that makes {branding?.school_name} special</p>
-          <p className="text-slate-300 mb-8 text-lg">A digital archive of pride, innovation, and community</p>
+           <p className="text-2xl text-slate-200 mb-6 max-w-2xl leading-relaxed">Celebrating every achievement, moment, and memory that makes our school community special</p>
+           <p className="text-slate-300 mb-8 text-lg">Where stories come alive—videos, photos, and moments from {branding?.school_name || 'our school'}</p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link to={`/schools/${schoolSlug}/tv`} className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-bold flex items-center justify-center gap-2 transition-all hover:scale-105 text-lg">
               <Play className="h-6 w-6" /> Watch Videos
