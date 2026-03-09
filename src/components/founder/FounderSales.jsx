@@ -2,17 +2,10 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
-import { Target, Clock, AlertCircle } from 'lucide-react';
+import { Target, Clock } from 'lucide-react';
 
 const STAGE_ORDER = ['Lead', 'Qualified', 'Proposal Sent', 'Negotiation', 'Closed Won', 'Closed Lost'];
-const STAGE_COLORS = {
-  'Lead': '#6b7280',
-  'Qualified': '#3b82f6',
-  'Proposal Sent': '#a855f7',
-  'Negotiation': '#f59e0b',
-  'Closed Won': '#22c55e',
-  'Closed Lost': '#ef4444',
-};
+const STAGE_COLORS = { 'Lead': '#6b7280', 'Qualified': '#3b82f6', 'Proposal Sent': '#a855f7', 'Negotiation': '#f59e0b', 'Closed Won': '#22c55e', 'Closed Lost': '#ef4444' };
 
 function Stat({ label, value, color = 'text-white' }) {
   return (
@@ -24,25 +17,9 @@ function Stat({ label, value, color = 'text-white' }) {
 }
 
 export default function FounderSales() {
-  const { data: leads = [] } = useQuery({
-    queryKey: ['founder-leads'],
-    queryFn: () => base44.entities.SalesLeads.list('-created_date', 300),
-  });
-
-  const { data: deals = [] } = useQuery({
-    queryKey: ['founder-deals'],
-    queryFn: () => base44.entities.SalesDeals.list('-created_date', 200),
-  });
-
-  const { data: activities = [] } = useQuery({
-    queryKey: ['founder-activities'],
-    queryFn: () => base44.entities.SalesActivities.list('-created_date', 200),
-  });
-
-  const { data: proposals = [] } = useQuery({
-    queryKey: ['founder-proposals'],
-    queryFn: () => base44.entities.Proposal.list('-created_date', 100),
-  });
+  const { data: leads = [] } = useQuery({ queryKey: ['founder-leads'], queryFn: () => base44.entities.SalesLeads.list('-created_date', 300) });
+  const { data: deals = [] } = useQuery({ queryKey: ['founder-deals'], queryFn: () => base44.entities.SalesDeals.list('-created_date', 200) });
+  const { data: activities = [] } = useQuery({ queryKey: ['founder-activities'], queryFn: () => base44.entities.SalesActivities.list('-created_date', 200) });
 
   const now = new Date();
   const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -52,35 +29,18 @@ export default function FounderSales() {
 
   const leadsToday = leads.filter(l => new Date(l.created_date) >= todayStart).length;
   const leadsWeek = leads.filter(l => new Date(l.created_date) >= weekAgo).length;
-
-  const demos = activities.filter(a =>
-    a.activity_type?.toLowerCase().includes('demo') || a.activity_type?.toLowerCase().includes('call')
-  ).length;
-
+  const demos = activities.filter(a => a.activity_type?.toLowerCase().includes('demo') || a.activity_type?.toLowerCase().includes('call')).length;
   const openDeals = deals.filter(d => !['Closed Won', 'Closed Lost'].includes(d.stage));
   const pipelineValue = openDeals.reduce((s, d) => s + (d.value || 0), 0);
-
-  const closedWon = deals.filter(d =>
-    d.stage === 'Closed Won' && new Date(d.updated_date) >= startOfMonth
-  ).length;
-
-  const totalClosed = deals.filter(d =>
-    ['Closed Won', 'Closed Lost'].includes(d.stage) && new Date(d.updated_date) >= startOfMonth
-  ).length;
+  const closedWon = deals.filter(d => d.stage === 'Closed Won' && new Date(d.updated_date) >= startOfMonth).length;
+  const totalClosed = deals.filter(d => ['Closed Won', 'Closed Lost'].includes(d.stage) && new Date(d.updated_date) >= startOfMonth).length;
   const closeRate = totalClosed > 0 ? Math.round((closedWon / totalClosed) * 100) : 0;
+  const needsFollowUp = deals.filter(d => !['Closed Won', 'Closed Lost'].includes(d.stage) && new Date(d.updated_date) < sevenDaysAgo);
 
-  const needsFollowUp = deals.filter(d => {
-    if (['Closed Won', 'Closed Lost'].includes(d.stage)) return false;
-    const last = new Date(d.updated_date);
-    return last < sevenDaysAgo;
-  });
-
-  // Pipeline by stage chart data
   const stageData = STAGE_ORDER.map(stage => ({
-    stage: stage.replace(' ', '\n'),
+    stage: stage.split(' ')[0],
     fullStage: stage,
     count: deals.filter(d => d.stage === stage).length,
-    value: deals.filter(d => d.stage === stage).reduce((s, d) => s + (d.value || 0), 0),
   })).filter(s => s.count > 0);
 
   return (
@@ -89,17 +49,14 @@ export default function FounderSales() {
         <Target className="w-4 h-4 text-orange-400" />
         <h2 className="text-sm font-bold text-white">Sales Snapshot</h2>
       </div>
-
       <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 mb-5">
         <Stat label="Leads Today" value={leadsToday} color={leadsToday > 0 ? 'text-green-400' : 'text-gray-400'} />
-        <Stat label="Leads This Week" value={leadsWeek} color={leadsWeek >= 3 ? 'text-green-400' : 'text-yellow-400'} />
-        <Stat label="Demos Sched." value={demos} color="text-blue-400" />
+        <Stat label="Leads Week" value={leadsWeek} color={leadsWeek >= 3 ? 'text-green-400' : 'text-yellow-400'} />
+        <Stat label="Demos" value={demos} color="text-blue-400" />
         <Stat label="Pipeline $" value={`$${Math.round(pipelineValue / 1000)}k`} color="text-purple-400" />
         <Stat label="Closed Won" value={closedWon} color="text-green-400" />
         <Stat label="Close Rate" value={`${closeRate}%`} color={closeRate >= 30 ? 'text-green-400' : closeRate > 0 ? 'text-yellow-400' : 'text-gray-400'} />
       </div>
-
-      {/* Pipeline Chart */}
       <div className="flex-1 min-h-[120px] mb-4">
         <p className="text-xs text-gray-500 mb-2">Deals by stage</p>
         {stageData.length > 0 ? (
@@ -107,16 +64,9 @@ export default function FounderSales() {
             <BarChart data={stageData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
               <XAxis dataKey="stage" tick={{ fill: '#6b7280', fontSize: 10 }} axisLine={false} tickLine={false} />
               <YAxis hide />
-              <Tooltip
-                contentStyle={{ background: '#1f2937', border: '1px solid #374151', borderRadius: 8, fontSize: 11 }}
-                labelFormatter={(l) => l.replace('\n', ' ')}
-                formatter={(v, n) => [v, 'Deals']}
-                itemStyle={{ color: '#e5e7eb' }}
-              />
+              <Tooltip contentStyle={{ background: '#1f2937', border: '1px solid #374151', borderRadius: 8, fontSize: 11 }} labelFormatter={(l) => stageData.find(s => s.stage === l)?.fullStage || l} formatter={(v) => [v, 'Deals']} itemStyle={{ color: '#e5e7eb' }} />
               <Bar dataKey="count" radius={[4, 4, 0, 0]}>
-                {stageData.map((entry, i) => (
-                  <Cell key={i} fill={STAGE_COLORS[entry.fullStage] || '#6b7280'} />
-                ))}
+                {stageData.map((entry, i) => <Cell key={i} fill={STAGE_COLORS[entry.fullStage] || '#6b7280'} />)}
               </Bar>
             </BarChart>
           </ResponsiveContainer>
@@ -124,8 +74,6 @@ export default function FounderSales() {
           <div className="h-[110px] flex items-center justify-center text-gray-600 text-sm">No deal data</div>
         )}
       </div>
-
-      {/* Needs Follow-up */}
       {needsFollowUp.length > 0 && (
         <div className="border-t border-gray-800 pt-3">
           <div className="flex items-center gap-1.5 mb-2">
