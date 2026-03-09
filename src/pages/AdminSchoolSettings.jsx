@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AdminShell from '@/components/school-tv/AdminShell';
-import { Settings, Save, Shield, Eye, FileText } from 'lucide-react';
+import { Settings, Save, Shield, Eye, FileText, Lock, Globe, ArrowRight } from 'lucide-react';
 
 export default function AdminSchoolSettings() {
   const { schoolSlug } = useParams();
@@ -42,6 +42,36 @@ export default function AdminSchoolSettings() {
           <Settings className="h-8 w-8" /> School Settings
         </h1>
         <p className="text-gray-600">Configure submission, moderation, and publishing rules</p>
+      </div>
+
+      {/* Quick Links to Sub-Pages */}
+      <div className="grid md:grid-cols-2 gap-4 mb-6">
+        <Link
+          to={`/admin/schools/${schoolSlug}/settings/permissions`}
+          className="bg-blue-50 border-2 border-blue-200 rounded-lg p-4 hover:bg-blue-100 transition-colors flex items-center justify-between group"
+        >
+          <div className="flex items-center gap-3">
+            <Lock className="h-5 w-5 text-blue-600" />
+            <div>
+              <p className="font-semibold text-gray-900">Permission Rules</p>
+              <p className="text-xs text-gray-600">Who can do what</p>
+            </div>
+          </div>
+          <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-blue-600" />
+        </Link>
+        <Link
+          to={`/admin/schools/${schoolSlug}/settings/publishing`}
+          className="bg-green-50 border-2 border-green-200 rounded-lg p-4 hover:bg-green-100 transition-colors flex items-center justify-between group"
+        >
+          <div className="flex items-center gap-3">
+            <Globe className="h-5 w-5 text-green-600" />
+            <div>
+              <p className="font-semibold text-gray-900">Publishing Settings</p>
+              <p className="text-xs text-gray-600">Where content goes</p>
+            </div>
+          </div>
+          <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-green-600" />
+        </Link>
       </div>
 
       {/* Tabs */}
