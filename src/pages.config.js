@@ -233,6 +233,9 @@ import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import ResellerDashboard from './pages/ResellerDashboard';
 import ResellerClients from './pages/ResellerClients';
 import ResellerBranding from './pages/ResellerBranding';
+import AdminResellers from './pages/AdminResellers';
+import AdminResellerClients from './pages/AdminResellerClients';
+import AdminResellerCommissions from './pages/AdminResellerCommissions';
 import __Layout from './Layout.jsx';
 
 
@@ -423,6 +426,9 @@ export const PAGES = {
     "ResellerDashboard": ResellerDashboard,
     "ResellerClients": ResellerClients,
     "ResellerBranding": ResellerBranding,
+    "AdminResellers": AdminResellers,
+    "AdminResellerClients": AdminResellerClients,
+    "AdminResellerCommissions": AdminResellerCommissions,
 }
 
 export const pagesConfig = {
