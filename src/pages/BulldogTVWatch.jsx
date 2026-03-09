@@ -47,8 +47,8 @@ export default function BulldogTVWatch() {
     <div className="min-h-screen bg-slate-50">
       <SchoolTVHeader branding={branding} />
 
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 mb-8">
+      <div className="max-w-5xl mx-auto px-4 py-8">
+        <div className="bg-white rounded-3xl overflow-hidden shadow-lg border border-slate-100 mb-10">
           {/* Video player area */}
           <div className="relative aspect-video bg-slate-900">
             {project.public_video_url ? (
@@ -63,37 +63,37 @@ export default function BulldogTVWatch() {
               </div>
             )}
           </div>
-          <div className="p-6">
-            <div className="flex items-start justify-between gap-4">
+          <div className="p-6 md:p-8">
+            <div className="flex flex-col sm:flex-row items-start justify-between gap-4 mb-4">
               <div className="flex-1">
-                <div className="flex flex-wrap gap-2 mb-3">
-                  {project.activity_type && <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-semibold capitalize">{project.activity_type.replace(/_/g,' ')}</span>}
-                  {project.project_type && <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 capitalize">{project.project_type.replace(/_/g,' ')}</span>}
-                  {project.team_or_group && <span className="text-xs px-2 py-0.5 rounded-full bg-blue-50 text-blue-600">{project.team_or_group}</span>}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.activity_type && <span className="inline-flex items-center gap-1 text-xs px-3 py-1 rounded-full bg-slate-100 text-slate-700 font-bold capitalize">{project.activity_type === 'sports' && '⚽'} {project.activity_type === 'music' && '🎵'} {project.activity_type === 'arts' && '🎨'} {project.activity_type === 'clubs' && '🎯'} {project.activity_type.replace(/_/g,' ')}</span>}
+                  {project.project_type && <span className="inline-flex items-center text-xs px-3 py-1 rounded-full bg-slate-100 text-slate-600 font-semibold capitalize">{project.project_type.replace(/_/g,' ')}</span>}
+                  {project.team_or_group && <span className="inline-flex items-center text-xs px-3 py-1 rounded-full bg-blue-100 text-blue-700 font-semibold">👥 {project.team_or_group}</span>}
                 </div>
-                <h1 className="text-2xl md:text-3xl font-black text-slate-900 mb-2">{project.generated_title || project.title}</h1>
-                <p className="text-slate-500 leading-relaxed">{project.generated_description || project.description}</p>
-                {date && <div className="flex items-center gap-1.5 mt-3 text-sm text-slate-400"><Calendar className="w-4 h-4" /> {date}</div>}
+                <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-3 leading-tight">{project.generated_title || project.title}</h1>
+                <p className="text-slate-600 text-base leading-relaxed">{project.generated_description || project.description}</p>
               </div>
-              <button onClick={copyUrl} className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 text-sm transition-colors shrink-0">
-                <Share2 className="w-4 h-4" /> {copied ? 'Copied!' : 'Share'}
+              <button onClick={copyUrl} className="flex items-center gap-1.5 px-4 py-2 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 text-sm font-medium transition-colors shrink-0">
+                <Share2 className="w-4 h-4" /> {copied ? '✓ Copied' : 'Share'}
               </button>
             </div>
+            {date && <div className="flex items-center gap-2 text-sm text-slate-500"><Calendar className="w-4 h-4" /> <span className="font-medium">{date}</span></div>}
           </div>
         </div>
 
         {/* Related */}
         {related.length > 0 && (
-          <div>
-            <h2 className="font-bold text-slate-800 text-lg mb-4">More from {branding.network_name}</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="mt-12">
+            <h2 className="font-bold text-slate-800 text-lg uppercase tracking-wide mb-6">📺 More Videos</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               {related.map(p => <VideoCard key={p.id} project={p} />)}
             </div>
           </div>
         )}
 
-        <div className="mt-10 text-center">
-          <Link to={createPageUrl('BulldogTV')} className="text-blue-600 hover:underline text-sm">← Back to {branding.network_name}</Link>
+        <div className="mt-12 pt-6 border-t border-slate-200 text-center">
+          <Link to={createPageUrl('BulldogTV')} style={{ color: branding.primary_color }} className="font-semibold hover:underline text-base">← Back to {branding.network_name}</Link>
         </div>
       </div>
 
