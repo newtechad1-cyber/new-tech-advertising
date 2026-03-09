@@ -109,16 +109,45 @@ export default function AdminSchoolYearbook() {
                 )}
                 <h3 className="font-bold text-gray-900 mb-1">{page.title}</h3>
                 <p className="text-sm text-gray-600 mb-3">{page.slug}</p>
+                <span className={`inline-block px-2 py-1 rounded text-xs font-semibold mb-3 ${
+                  page.status === 'published' ? 'bg-green-100 text-green-800' :
+                  page.status === 'review' ? 'bg-yellow-100 text-yellow-800' :
+                  'bg-gray-100 text-gray-800'
+                }`}>
+                  {page.status || 'draft'}
+                </span>
                 <div className="flex gap-2">
-                  <Button variant="ghost" size="sm">
-                    <Eye className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" size="sm">
+                  {page.public_url && (
+                    <a 
+                      href={page.public_url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center w-8 h-8 text-gray-600 hover:bg-gray-100 rounded transition-colors"
+                    >
+                      <Eye className="h-4 w-4" />
+                    </a>
+                  )}
+                  <Link 
+                    to={`/admin/schools/${schoolSlug}/yearbook/pages/${page.id}`}
+                    className="inline-flex items-center justify-center w-8 h-8 text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                  >
                     <Edit className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" size="sm" className="text-red-600">
+                  </Link>
+                  <button 
+                    onClick={async () => {
+                      if (confirm('Delete this page?')) {
+                        try {
+                          await base44.entities.YearbookPages.delete(page.id);
+                          setPages(pages.filter(p => p.id !== page.id));
+                        } catch (error) {
+                          console.error('Error deleting page:', error);
+                        }
+                      }
+                    }}
+                    className="inline-flex items-center justify-center w-8 h-8 text-red-600 hover:bg-red-50 rounded transition-colors"
+                  >
                     <Trash2 className="h-4 w-4" />
-                  </Button>
+                  </button>
                 </div>
               </div>
             ))}
