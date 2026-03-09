@@ -93,6 +93,11 @@ import AdminOptimizerDetail from './pages/AdminOptimizerDetail';
 import AdminOrchestrator from './pages/AdminOrchestrator';
 import AdminOrchestratorDetail from './pages/AdminOrchestratorDetail';
 import AdminPlatform from './pages/AdminPlatform';
+import AdminQA from './pages/AdminQA';
+import AdminQAIssues from './pages/AdminQAIssues';
+import AdminQAReadiness from './pages/AdminQAReadiness';
+import AdminQARuns from './pages/AdminQARuns';
+import AdminQATests from './pages/AdminQATests';
 import AdminRecommendationDetail from './pages/AdminRecommendationDetail';
 import AdminRecommendations from './pages/AdminRecommendations';
 import AdminResellerClients from './pages/AdminResellerClients';
@@ -103,7 +108,9 @@ import AdminRevenueDetail from './pages/AdminRevenueDetail';
 import AdminRevenueEngine from './pages/AdminRevenueEngine';
 import AdminSales from './pages/AdminSales';
 import AdminSettings from './pages/AdminSettings';
+import AdminSystemHealth from './pages/AdminSystemHealth';
 import AdminTasks from './pages/AdminTasks';
+import AdminTestMatrix from './pages/AdminTestMatrix';
 import AdminUsers from './pages/AdminUsers';
 import AdminVideoDetail from './pages/AdminVideoDetail';
 import AdminVideoGenerator from './pages/AdminVideoGenerator';
@@ -250,13 +257,6 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdminSystemHealth from './pages/AdminSystemHealth';
-import AdminTestMatrix from './pages/AdminTestMatrix';
-import AdminQA from './pages/AdminQA';
-import AdminQATests from './pages/AdminQATests';
-import AdminQARuns from './pages/AdminQARuns';
-import AdminQAIssues from './pages/AdminQAIssues';
-import AdminQAReadiness from './pages/AdminQAReadiness';
 import __Layout from './Layout.jsx';
 
 
@@ -307,6 +307,11 @@ export const PAGES = {
     "AdminOrchestrator": AdminOrchestrator,
     "AdminOrchestratorDetail": AdminOrchestratorDetail,
     "AdminPlatform": AdminPlatform,
+    "AdminQA": AdminQA,
+    "AdminQAIssues": AdminQAIssues,
+    "AdminQAReadiness": AdminQAReadiness,
+    "AdminQARuns": AdminQARuns,
+    "AdminQATests": AdminQATests,
     "AdminRecommendationDetail": AdminRecommendationDetail,
     "AdminRecommendations": AdminRecommendations,
     "AdminResellerClients": AdminResellerClients,
@@ -317,7 +322,9 @@ export const PAGES = {
     "AdminRevenueEngine": AdminRevenueEngine,
     "AdminSales": AdminSales,
     "AdminSettings": AdminSettings,
+    "AdminSystemHealth": AdminSystemHealth,
     "AdminTasks": AdminTasks,
+    "AdminTestMatrix": AdminTestMatrix,
     "AdminUsers": AdminUsers,
     "AdminVideoDetail": AdminVideoDetail,
     "AdminVideoGenerator": AdminVideoGenerator,
@@ -464,13 +471,6 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AdminSystemHealth": AdminSystemHealth,
-    "AdminTestMatrix": AdminTestMatrix,
-    "AdminQA": AdminQA,
-    "AdminQATests": AdminQATests,
-    "AdminQARuns": AdminQARuns,
-    "AdminQAIssues": AdminQAIssues,
-    "AdminQAReadiness": AdminQAReadiness,
 }
 
 export const pagesConfig = {
