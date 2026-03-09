@@ -58,7 +58,7 @@ export default function AdminStoryDetail() {
           setStory(storyData);
           
           if (storyId !== 'new') {
-            const [mediaData, authorsData] = await Promise.all([
+            const [mediaData, authorsData, eventsData, yearbookData, spotlightData, projectData] = await Promise.all([
               base44.entities.StoryMediaLinks.filter({
                 story_id: storyId,
                 school_slug: schoolSlug,
@@ -67,9 +67,25 @@ export default function AdminStoryDetail() {
                 story_id: storyId,
                 school_slug: schoolSlug,
               }),
+              base44.entities.SchoolEvents.filter({
+                school_slug: schoolSlug,
+              }),
+              base44.entities.YearbookPages.filter({
+                school_slug: schoolSlug,
+              }),
+              base44.entities.Spotlights.filter({
+                school_slug: schoolSlug,
+              }),
+              base44.entities.SchoolVideoProjects.filter({
+                school_slug: schoolSlug,
+              }),
             ]);
             setMediaLinks(mediaData.sort((a, b) => (a.order || 0) - (b.order || 0)));
             setAuthors(authorsData.sort((a, b) => (a.order || 0) - (b.order || 0)));
+            setEvents(eventsData || []);
+            setYearbookPages(yearbookData || []);
+            setSpotlights(spotlightData || []);
+            setProjects(projectData || []);
           }
         }
       } catch (error) {
