@@ -77,19 +77,28 @@ export default function AdminProjectWorkspace() {
       </div>
 
       {/* Tabs */}
-      <div className="bg-white rounded-lg shadow-md mb-6 border-b border-gray-200">
-        <div className="flex overflow-x-auto">
-          {['overview', 'assets', 'ai-draft', 'video-builder', 'yearbook', 'publishing', 'notes'].map(tab => (
+      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="flex overflow-x-auto border-b border-gray-200">
+          {[
+            { id: 'overview', label: 'Overview', icon: '📋' },
+            { id: 'assets', label: 'Assets', icon: '🎬' },
+            { id: 'ai-draft', label: 'AI Tools', icon: '⚡' },
+            { id: 'video-builder', label: 'Builder', icon: '🎨' },
+            { id: 'yearbook', label: 'Yearbook', icon: '📚' },
+            { id: 'publishing', label: 'Publish', icon: '🚀' },
+            { id: 'notes', label: 'Notes', icon: '📝' },
+          ].map(tab => (
             <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`flex-1 px-6 py-4 font-semibold text-center border-b-2 transition-colors text-sm whitespace-nowrap ${
-                activeTab === tab
-                  ? 'border-blue-600 text-blue-600'
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-4 md:px-6 py-4 font-semibold text-sm whitespace-nowrap transition-all flex items-center gap-2 border-b-2 ${
+                activeTab === tab.id
+                  ? 'border-blue-600 text-blue-600 bg-blue-50'
                   : 'border-transparent text-gray-600 hover:text-gray-800'
               }`}
             >
-              {tab === 'ai-draft' ? 'AI Draft' : tab === 'video-builder' ? 'Video Builder' : tab.charAt(0).toUpperCase() + tab.slice(1)}
+              <span>{tab.icon}</span>
+              <span className="hidden sm:inline">{tab.label}</span>
             </button>
           ))}
         </div>
@@ -163,43 +172,51 @@ export default function AdminProjectWorkspace() {
         </div>
       )}
 
-      {/* AI Draft Tab */}
+      {/* AI Tools Tab */}
       {activeTab === 'ai-draft' && (
         <div className="space-y-6">
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-            <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-              <Zap className="h-5 w-5" /> Generate AI Draft
+          <div className="bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200 rounded-lg p-6">
+            <h3 className="text-lg font-bold mb-2 flex items-center gap-2">
+              <Zap className="h-5 w-5 text-purple-600" /> AI Content Generation
             </h3>
-            <div className="grid md:grid-cols-2 gap-4">
+            <p className="text-sm text-gray-700 mb-6">Generate helpful content drafts. All AI outputs require staff review before use.</p>
+            
+            <div className="grid md:grid-cols-2 gap-3">
               <button
                 onClick={() => createAIJob('video_script')}
-                className="bg-white hover:bg-blue-50 border border-blue-200 text-gray-800 px-4 py-3 rounded-lg font-semibold text-sm"
+                className="bg-white hover:bg-purple-50 border-2 border-purple-200 text-gray-800 px-4 py-3 rounded-lg font-semibold text-sm transition-colors"
               >
-                Generate Video Script
+                📝 Video Script
               </button>
               <button
                 onClick={() => createAIJob('story_generation')}
-                className="bg-white hover:bg-blue-50 border border-blue-200 text-gray-800 px-4 py-3 rounded-lg font-semibold text-sm"
+                className="bg-white hover:bg-purple-50 border-2 border-purple-200 text-gray-800 px-4 py-3 rounded-lg font-semibold text-sm transition-colors"
               >
-                Generate Story Summary
+                📖 Story Draft
               </button>
               <button
                 onClick={() => createAIJob('caption_generation')}
-                className="bg-white hover:bg-blue-50 border border-blue-200 text-gray-800 px-4 py-3 rounded-lg font-semibold text-sm"
+                className="bg-white hover:bg-purple-50 border-2 border-purple-200 text-gray-800 px-4 py-3 rounded-lg font-semibold text-sm transition-colors"
               >
-                Generate Captions
+                💬 Captions
               </button>
               <button
                 onClick={() => createAIJob('headline')}
-                className="bg-white hover:bg-blue-50 border border-blue-200 text-gray-800 px-4 py-3 rounded-lg font-semibold text-sm"
+                className="bg-white hover:bg-purple-50 border-2 border-purple-200 text-gray-800 px-4 py-3 rounded-lg font-semibold text-sm transition-colors"
               >
-                Generate Headlines
+                ✨ Headlines
               </button>
             </div>
           </div>
 
           <div className="bg-white rounded-lg shadow-md p-6">
-            <p className="text-gray-500 text-center py-8">AI draft will appear here once generated</p>
+            <div className="text-center py-12">
+              <div className="inline-block p-4 bg-purple-50 rounded-full mb-4">
+                <Zap className="h-6 w-6 text-purple-600" />
+              </div>
+              <p className="text-gray-900 font-semibold">No AI drafts yet</p>
+              <p className="text-gray-600 text-sm mt-2">Generate content above to see previews here</p>
+            </div>
           </div>
         </div>
       )}
@@ -247,49 +264,85 @@ export default function AdminProjectWorkspace() {
 
       {/* Yearbook Tab */}
       {activeTab === 'yearbook' && (
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h3 className="text-lg font-bold mb-6">Yearbook Placement</h3>
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Assign to Season</label>
-              <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option>Select a season...</option>
-              </select>
+        <div className="space-y-6">
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h3 className="text-lg font-bold mb-2 flex items-center gap-2">
+              📚 Yearbook Placement
+            </h3>
+            <p className="text-sm text-gray-600 mb-6">Link this video to your yearbook for archival and visibility</p>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Yearbook Season</label>
+                <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <option>Select a season...</option>
+                  <option>2025-2026</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Category</label>
+                <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <option>Select a category...</option>
+                  <option>Sports</option>
+                  <option>Academics</option>
+                  <option>Arts</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Specific Page</label>
+                <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <option>Select a page...</option>
+                </select>
+              </div>
             </div>
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Assign to Category</label>
-              <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option>Select a category...</option>
-              </select>
-            </div>
-            <button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold">
-              Link to Yearbook Page
-            </button>
           </div>
+
+          <button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg font-semibold">
+            Link to Yearbook
+          </button>
         </div>
       )}
 
       {/* Publishing Tab */}
       {activeTab === 'publishing' && (
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h3 className="text-lg font-bold mb-6">Publishing Options</h3>
-          <div className="space-y-3">
-            <label className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
-              <input type="checkbox" defaultChecked className="w-4 h-4 accent-blue-600" />
-              <span className="text-gray-700 font-semibold">Publish to Bulldog TV</span>
-            </label>
-            <label className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
-              <input type="checkbox" className="w-4 h-4 accent-blue-600" />
-              <span className="text-gray-700 font-semibold">Add to Event</span>
-            </label>
-            <label className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
-              <input type="checkbox" className="w-4 h-4 accent-blue-600" />
-              <span className="text-gray-700 font-semibold">Add to Spotlight</span>
-            </label>
+        <div className="space-y-6">
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+              🚀 Publishing Destinations
+            </h3>
+            <p className="text-sm text-gray-600 mb-6">Choose where this video will appear</p>
+            
+            <div className="space-y-3 mb-6">
+              <label className="flex items-start gap-4 p-4 border-2 border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-colors">
+                <input type="checkbox" defaultChecked className="w-5 h-5 accent-blue-600 mt-1" />
+                <div className="flex-1">
+                  <p className="font-semibold text-gray-900">Bulldog TV (School Hub)</p>
+                  <p className="text-xs text-gray-600">Featured on the main media hub</p>
+                </div>
+              </label>
+              <label className="flex items-start gap-4 p-4 border-2 border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-colors">
+                <input type="checkbox" className="w-5 h-5 accent-blue-600 mt-1" />
+                <div className="flex-1">
+                  <p className="font-semibold text-gray-900">Link to Event</p>
+                  <p className="text-xs text-gray-600">Connect to a school event</p>
+                </div>
+              </label>
+              <label className="flex items-start gap-4 p-4 border-2 border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-colors">
+                <input type="checkbox" className="w-5 h-5 accent-blue-600 mt-1" />
+                <div className="flex-1">
+                  <p className="font-semibold text-gray-900">Link to Yearbook</p>
+                  <p className="text-xs text-gray-600">Add to a yearbook page</p>
+                </div>
+              </label>
+            </div>
           </div>
-          <button className="w-full mt-6 bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-semibold">
-            Publish Project
-          </button>
+
+          <div className="bg-green-50 border-2 border-green-200 rounded-lg p-6">
+            <button className="w-full bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-bold text-base flex items-center justify-center gap-2">
+              ✓ Publish This Project
+            </button>
+            <p className="text-xs text-green-700 text-center mt-3">Video will go live and be visible to your school community</p>
+          </div>
         </div>
       )}
 

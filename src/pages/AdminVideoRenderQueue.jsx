@@ -146,9 +146,24 @@ export default function AdminVideoRenderQueue() {
         </button>
       </div>
 
-      {/* Count */}
-      <div className="mb-4 text-sm text-gray-600">
-        Showing {filteredJobs.length} of {jobs.length} jobs
+      {/* Summary Bar */}
+      <div className="mb-6 p-4 bg-gradient-to-r from-blue-50 to-orange-50 border border-orange-200 rounded-lg">
+        <div className="grid grid-cols-3 gap-4 text-sm">
+          <div>
+            <p className="text-gray-600 font-semibold">Showing</p>
+            <p className="text-2xl font-bold text-gray-900">{filteredJobs.length}</p>
+          </div>
+          <div>
+            <p className="text-gray-600 font-semibold">Total</p>
+            <p className="text-2xl font-bold text-gray-900">{jobs.length}</p>
+          </div>
+          <div>
+            <p className="text-gray-600 font-semibold">Avg Progress</p>
+            <p className="text-2xl font-bold text-orange-600">
+              {filteredJobs.length > 0 ? Math.round(filteredJobs.reduce((sum, j) => sum + j.progress_percent, 0) / filteredJobs.length) : 0}%
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Jobs List */}

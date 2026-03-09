@@ -117,43 +117,43 @@ export default function AdminAILab() {
         <div className="space-y-6">
           {/* Stats Cards */}
           <div className="grid md:grid-cols-4 gap-4">
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg shadow-md p-6 border border-purple-200">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Total Jobs</p>
-                  <p className="text-3xl font-bold text-gray-900">{stats.total}</p>
+                  <p className="text-sm font-semibold text-purple-700">Total Jobs</p>
+                  <p className="text-3xl font-bold text-purple-900 mt-2">{stats.total}</p>
                 </div>
-                <Zap className="h-8 w-8 text-purple-600 opacity-20" />
+                <Zap className="h-10 w-10 text-purple-400" />
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-lg shadow-md p-6 border border-yellow-200">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Pending</p>
-                  <p className="text-3xl font-bold text-yellow-600">{stats.pending}</p>
+                  <p className="text-sm font-semibold text-yellow-700">Pending</p>
+                  <p className="text-3xl font-bold text-yellow-900 mt-2">{stats.pending}</p>
                 </div>
-                <Clock className="h-8 w-8 text-yellow-600 opacity-20" />
+                <Clock className="h-10 w-10 text-yellow-400" />
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg shadow-md p-6 border border-green-200">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Completed</p>
-                  <p className="text-3xl font-bold text-green-600">{stats.completed}</p>
+                  <p className="text-sm font-semibold text-green-700">Completed</p>
+                  <p className="text-3xl font-bold text-green-900 mt-2">{stats.completed}</p>
                 </div>
-                <CheckCircle2 className="h-8 w-8 text-green-600 opacity-20" />
+                <CheckCircle2 className="h-10 w-10 text-green-400" />
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-lg shadow-md p-6 border border-red-200">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Failed</p>
-                  <p className="text-3xl font-bold text-red-600">{stats.failed}</p>
+                  <p className="text-sm font-semibold text-red-700">Failed</p>
+                  <p className="text-3xl font-bold text-red-900 mt-2">{stats.failed}</p>
                 </div>
-                <AlertCircle className="h-8 w-8 text-red-600 opacity-20" />
+                <AlertCircle className="h-10 w-10 text-red-400" />
               </div>
             </div>
           </div>
