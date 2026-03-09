@@ -81,8 +81,8 @@ export default function AdminSchoolEvents() {
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold">Events</h1>
-          <p className="text-gray-600">Create and manage school events</p>
+          <h1 className="text-3xl font-bold">School Events</h1>
+          <p className="text-gray-600">Organize upcoming events and link to content</p>
         </div>
         <Link
           to={`/admin/schools/${schoolSlug}/events/new`}
