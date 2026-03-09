@@ -366,28 +366,44 @@ export default function AdminStoryDetail() {
           </div>
 
           {story.ai_draft_text && (
-            <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-              <h4 className="font-semibold text-green-900 mb-3">AI Draft Available</h4>
-              <div className="bg-white rounded-lg p-4 mb-4 max-h-64 overflow-y-auto">
-                <p className="text-sm text-gray-700">{story.ai_draft_text}</p>
-              </div>
-              <div className="flex gap-2">
-                <button 
-                  onClick={() => {
-                    updateStoryField('body', story.ai_draft_text);
-                    updateStoryField('ai_approval_status', 'approved');
-                    alert('AI draft accepted! Review and save to apply.');
-                  }}
-                  className="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold text-sm">
-                  Accept Draft
-                </button>
-                <button 
-                  onClick={() => updateStoryField('ai_draft_text', null)}
-                  className="flex-1 bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold text-sm">
-                  Reject
-                </button>
-              </div>
-            </div>
+           <div className={`rounded-lg p-6 ${aiDraftApplied ? 'bg-blue-50 border border-blue-200' : 'bg-green-50 border border-green-200'}`}>
+             <h4 className={`font-semibold mb-3 ${aiDraftApplied ? 'text-blue-900' : 'text-green-900'}`}>
+               {aiDraftApplied ? 'AI Draft Applied to Body' : 'AI Draft Available'}
+             </h4>
+             <div className="bg-white rounded-lg p-4 mb-4 max-h-64 overflow-y-auto">
+               <p className="text-sm text-gray-700">{story.ai_draft_text}</p>
+             </div>
+             {!aiDraftApplied ? (
+               <div className="flex gap-2">
+                 <button 
+                   onClick={applyAIDraft}
+                   className="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold text-sm">
+                   Accept & Apply
+                 </button>
+                 <button 
+                   onClick={() => {
+                     updateStoryField('ai_draft_text', null);
+                     setAiDraftApplied(false);
+                   }}
+                   className="flex-1 bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold text-sm">
+                   Reject
+                 </button>
+               </div>
+             ) : (
+               <div className="flex gap-2">
+                 <p className="flex-1 text-sm text-blue-800 font-medium">✓ Draft applied. Save to persist changes.</p>
+                 <button 
+                   onClick={() => {
+                     updateStoryField('ai_draft_text', null);
+                     updateStoryField('ai_approval_status', 'pending_review');
+                     setAiDraftApplied(false);
+                   }}
+                   className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold text-sm">
+                   Undo
+                 </button>
+               </div>
+             )}
+           </div>
           )}
         </div>
       )}
