@@ -298,6 +298,9 @@ import BulldogTVWatch from './pages/BulldogTVWatch';
 import AdminSchoolSubmissions from './pages/AdminSchoolSubmissions';
 import AdminSchoolProjects from './pages/AdminSchoolProjects';
 import AdminSchoolProjectDetail from './pages/AdminSchoolProjectDetail';
+import AdminSchoolRenderQueue from './pages/AdminSchoolRenderQueue';
+import AdminSchoolLibrary from './pages/AdminSchoolLibrary';
+import AdminSchoolBranding from './pages/AdminSchoolBranding';
 import __Layout from './Layout.jsx';
 
 
@@ -553,6 +556,9 @@ export const PAGES = {
     "AdminSchoolSubmissions": AdminSchoolSubmissions,
     "AdminSchoolProjects": AdminSchoolProjects,
     "AdminSchoolProjectDetail": AdminSchoolProjectDetail,
+    "AdminSchoolRenderQueue": AdminSchoolRenderQueue,
+    "AdminSchoolLibrary": AdminSchoolLibrary,
+    "AdminSchoolBranding": AdminSchoolBranding,
 }
 
 export const pagesConfig = {
