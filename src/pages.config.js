@@ -311,6 +311,10 @@ import AdminSchoolAnalytics from './pages/AdminSchoolAnalytics';
 import AdminSchoolUsers from './pages/AdminSchoolUsers';
 import AdminSchoolSettings from './pages/AdminSchoolSettings';
 import SchoolStoryLabPresentation from './pages/SchoolStoryLabPresentation';
+import BulldogTVStories from './pages/BulldogTVStories';
+import BulldogTVVideos from './pages/BulldogTVVideos';
+import BulldogTVYearbook from './pages/BulldogTVYearbook';
+import BulldogTVSpotlights from './pages/BulldogTVSpotlights';
 import __Layout from './Layout.jsx';
 
 
@@ -579,6 +583,10 @@ export const PAGES = {
     "AdminSchoolUsers": AdminSchoolUsers,
     "AdminSchoolSettings": AdminSchoolSettings,
     "SchoolStoryLabPresentation": SchoolStoryLabPresentation,
+    "BulldogTVStories": BulldogTVStories,
+    "BulldogTVVideos": BulldogTVVideos,
+    "BulldogTVYearbook": BulldogTVYearbook,
+    "BulldogTVSpotlights": BulldogTVSpotlights,
 }
 
 export const pagesConfig = {
