@@ -328,6 +328,13 @@ import AdminSchoolEvents from './pages/AdminSchoolEvents';
 import AdminSchoolSpotlights from './pages/AdminSchoolSpotlights';
 import AdminVideoRenderQueue from './pages/AdminVideoRenderQueue';
 import AdminAILab from './pages/AdminAILab';
+import SchoolHome from './pages/SchoolHome';
+import SchoolTV from './pages/SchoolTV';
+import SchoolSubmit from './pages/SchoolSubmit';
+import SchoolAbout from './pages/SchoolAbout';
+import ContributorHub from './pages/ContributorHub';
+import ContributorSubmissions from './pages/ContributorSubmissions';
+import ContributorAILab from './pages/ContributorAILab';
 import __Layout from './Layout.jsx';
 
 
@@ -613,6 +620,13 @@ export const PAGES = {
     "AdminSchoolSpotlights": AdminSchoolSpotlights,
     "AdminVideoRenderQueue": AdminVideoRenderQueue,
     "AdminAILab": AdminAILab,
+    "SchoolHome": SchoolHome,
+    "SchoolTV": SchoolTV,
+    "SchoolSubmit": SchoolSubmit,
+    "SchoolAbout": SchoolAbout,
+    "ContributorHub": ContributorHub,
+    "ContributorSubmissions": ContributorSubmissions,
+    "ContributorAILab": ContributorAILab,
 }
 
 export const pagesConfig = {
