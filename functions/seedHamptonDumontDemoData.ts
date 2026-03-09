@@ -29,13 +29,38 @@ Deno.serve(async (req) => {
       is_active: true,
     });
 
-    // 2. Seed Stories
+    // 2. Seed Stories with rich content
     const storyTitles = [
-      { title: 'Robotics Team Advances to State Championship', excerpt: 'Our award-winning robotics club has earned their place at the state finals with an incredible robot design.', category: 'academics' },
-      { title: 'Friday Night Lights: Bulldogs Dominate Rivals', excerpt: 'In an electrifying game, the football team secured victory with stellar defense and powerful plays.', category: 'sports' },
-      { title: 'Choir Program Hits Perfect Note at Spring Concert', excerpt: 'The chorus performed a stunning selection of music that left the audience speechless.', category: 'arts' },
-      { title: 'STEM Showcase Features Student Innovations', excerpt: 'Students from across the school demonstrated cutting-edge projects in engineering, coding, and design.', category: 'academics' },
-      { title: 'Student Council Leads Community Service Initiative', excerpt: 'Our student leaders organized a successful food drive that collected over 500 pounds of donations.', category: 'community' },
+      { 
+        title: 'Robotics Team Wins State Championship', 
+        excerpt: 'Hampton-Dumont Robotics advanced to nationals with an innovative design that impressed judges across Iowa.',
+        body: 'In a thrilling competition at the state finals, our robotics team demonstrated exceptional engineering and teamwork. Their custom-built robot featured advanced autonomous programming and mechanical precision. Coach Martinez said, "These students represent the future of STEM innovation. Their dedication is inspiring." The team will now compete at nationals in April.',
+        category: 'academics'
+      },
+      { 
+        title: 'Bulldogs Football: Undefeated Season in Sight', 
+        excerpt: 'With three games remaining, the football team continues its dominant run toward a perfect record.',
+        body: 'The Hampton-Dumont Bulldogs defeated Central High 42-14 in a display of offensive prowess and defensive dominance. Quarterback Jake Richardson threw for 350 yards while the defense recorded 8 sacks. Friday night\'s homecoming game against Regional rival Lincoln will be the biggest test yet.',
+        category: 'sports'
+      },
+      { 
+        title: 'Spring Choir Concert: A Standing Ovation', 
+        excerpt: 'Students performed repertoire from classical to contemporary, showcasing months of preparation.',
+        body: 'The spring concert featured 150 student vocalists performing in four different ensembles. Highlights included a powerful rendition of "Hallelujah" and a contemporary arrangement of "Imagine." Director Sarah Chen praised the students: "Their commitment to excellence in music is remarkable. Every student left it all on stage."',
+        category: 'arts'
+      },
+      { 
+        title: 'STEM Showcase: Innovation Day at Hampton-Dumont', 
+        excerpt: 'Fifty student projects showcased robotics, coding, environmental science, and engineering innovations.',
+        body: 'The annual STEM Showcase brought together students, families, and community members to celebrate innovation. Projects ranged from a sustainable water filtration system to an AI chatbot that helps students with homework. Each project demonstrated critical thinking and problem-solving skills.',
+        category: 'academics'
+      },
+      { 
+        title: 'Student Council Raises $8,000 for Local Food Bank', 
+        excerpt: 'A month-long campaign collected food, funds, and volunteer hours to support our community.',
+        body: 'Under the leadership of Student Body President Maria Gonzalez, student government organized a comprehensive community service initiative. The food drive collected 3,000 pounds of food while fundraising efforts brought in $8,000. Fifty students volunteered at the food bank to help sort and distribute supplies.',
+        category: 'community'
+      },
     ];
 
     for (const storyData of storyTitles) {
@@ -44,11 +69,12 @@ Deno.serve(async (req) => {
         title: storyData.title,
         slug: storyData.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
         excerpt: storyData.excerpt,
-        body: `${storyData.excerpt}\n\nThis remarkable achievement reflects the dedication and talent of our students. Our community continues to support excellence across all areas of school life.`,
+        body: storyData.body,
         status: 'published',
         publish_status: 'published',
         visibility: 'public',
         featured: storyData.category === 'sports' || storyData.category === 'academics',
+        featured_image_url: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=500',
         published_date: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(),
         public_url: `/schools/${schoolSlug}/stories/${storyData.title.toLowerCase().replace(/\s+/g, '-')}`,
         canonical_route: `/schools/${schoolSlug}/stories`,
