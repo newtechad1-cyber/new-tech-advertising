@@ -117,12 +117,22 @@ import AdminSalesDashboard from './pages/AdminSalesDashboard';
 import AdminSalesFollowups from './pages/AdminSalesFollowups';
 import AdminSalesPrompts from './pages/AdminSalesPrompts';
 import AdminSalesProspect from './pages/AdminSalesProspect';
+import AdminSchoolAIContentReview from './pages/AdminSchoolAIContentReview';
+import AdminSchoolAIDashboard from './pages/AdminSchoolAIDashboard';
+import AdminSchoolAILab from './pages/AdminSchoolAILab';
+import AdminSchoolAnalytics from './pages/AdminSchoolAnalytics';
 import AdminSchoolBranding from './pages/AdminSchoolBranding';
+import AdminSchoolDashboard from './pages/AdminSchoolDashboard';
 import AdminSchoolLibrary from './pages/AdminSchoolLibrary';
 import AdminSchoolProjectDetail from './pages/AdminSchoolProjectDetail';
 import AdminSchoolProjects from './pages/AdminSchoolProjects';
 import AdminSchoolRenderQueue from './pages/AdminSchoolRenderQueue';
+import AdminSchoolSettings from './pages/AdminSchoolSettings';
+import AdminSchoolStoryLibrary from './pages/AdminSchoolStoryLibrary';
 import AdminSchoolSubmissions from './pages/AdminSchoolSubmissions';
+import AdminSchoolUsers from './pages/AdminSchoolUsers';
+import AdminSchoolVideoLibrary from './pages/AdminSchoolVideoLibrary';
+import AdminSchoolYearbook from './pages/AdminSchoolYearbook';
 import AdminSettings from './pages/AdminSettings';
 import AdminSystemHealth from './pages/AdminSystemHealth';
 import AdminTasks from './pages/AdminTasks';
@@ -146,20 +156,25 @@ import AiMarketingPlatform from './pages/AiMarketingPlatform';
 import AiOperations from './pages/AiOperations';
 import AiSeo from './pages/AiSeo';
 import AiSocialMedia from './pages/AiSocialMedia';
+import AiVideos from './pages/AiVideos';
 import AiSocialMediaSmallBusiness from './pages/AiSocialMediaSmallBusiness';
 import AiVideoStudio from './pages/AiVideoStudio';
-import AiVideos from './pages/AiVideos';
 import AiWebsites from './pages/AiWebsites';
 import AuthorityMap from './pages/AuthorityMap';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import bookCall from './pages/Book-Call';
 import BulldogTV from './pages/BulldogTV';
+import BulldogTVSpotlights from './pages/BulldogTVSpotlights';
+import BulldogTVStories from './pages/BulldogTVStories';
+import BulldogTVSubmissions from './pages/BulldogTVSubmissions';
 import BulldogTVSubmit from './pages/BulldogTVSubmit';
+import BulldogTVVideos from './pages/BulldogTVVideos';
 import BulldogTVWatch from './pages/BulldogTVWatch';
+import BulldogTVYearbook from './pages/BulldogTVYearbook';
 import BusinessIntelProfileAdmin from './pages/BusinessIntelProfileAdmin';
-import CRMHub from './pages/CRMHub';
 import BusinessProfileAdmin from './pages/BusinessProfileAdmin';
+import CRMHub from './pages/CRMHub';
 import CaseStudies from './pages/CaseStudies';
 import CaseStudyDetail from './pages/CaseStudyDetail';
 import ChatWidget from './pages/ChatWidget';
@@ -267,6 +282,8 @@ import SalesLeads from './pages/SalesLeads';
 import SalesPipeline from './pages/SalesPipeline';
 import SalesRoom from './pages/SalesRoom';
 import ScheduledQueue from './pages/ScheduledQueue';
+import SchoolStoryLab from './pages/SchoolStoryLab';
+import SchoolStoryLabPresentation from './pages/SchoolStoryLabPresentation';
 import ServiceLocation from './pages/ServiceLocation';
 import Services from './pages/Services';
 import SetupComplete from './pages/SetupComplete';
@@ -286,6 +303,7 @@ import StreamingProposal from './pages/StreamingProposal';
 import StreamingTV from './pages/StreamingTV';
 import StreamingThankYou from './pages/StreamingThankYou';
 import StreamingTvAdvertising from './pages/StreamingTvAdvertising';
+import StudentAIStoryLab from './pages/StudentAIStoryLab';
 import TermsOfService from './pages/TermsOfService';
 import TrialDashboard from './pages/TrialDashboard';
 import TrialOnboarding from './pages/TrialOnboarding';
@@ -301,24 +319,6 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import SchoolStoryLab from './pages/SchoolStoryLab';
-import AdminSchoolDashboard from './pages/AdminSchoolDashboard';
-import AdminSchoolVideoLibrary from './pages/AdminSchoolVideoLibrary';
-import AdminSchoolStoryLibrary from './pages/AdminSchoolStoryLibrary';
-import AdminSchoolYearbook from './pages/AdminSchoolYearbook';
-import AdminSchoolAILab from './pages/AdminSchoolAILab';
-import AdminSchoolAnalytics from './pages/AdminSchoolAnalytics';
-import AdminSchoolUsers from './pages/AdminSchoolUsers';
-import AdminSchoolSettings from './pages/AdminSchoolSettings';
-import SchoolStoryLabPresentation from './pages/SchoolStoryLabPresentation';
-import BulldogTVStories from './pages/BulldogTVStories';
-import BulldogTVVideos from './pages/BulldogTVVideos';
-import BulldogTVYearbook from './pages/BulldogTVYearbook';
-import BulldogTVSpotlights from './pages/BulldogTVSpotlights';
-import BulldogTVSubmissions from './pages/BulldogTVSubmissions';
-import AdminSchoolAIContentReview from './pages/AdminSchoolAIContentReview';
-import StudentAIStoryLab from './pages/StudentAIStoryLab';
-import AdminSchoolAIDashboard from './pages/AdminSchoolAIDashboard';
 import __Layout from './Layout.jsx';
 
 
@@ -393,12 +393,22 @@ export const PAGES = {
     "AdminSalesFollowups": AdminSalesFollowups,
     "AdminSalesPrompts": AdminSalesPrompts,
     "AdminSalesProspect": AdminSalesProspect,
+    "AdminSchoolAIContentReview": AdminSchoolAIContentReview,
+    "AdminSchoolAIDashboard": AdminSchoolAIDashboard,
+    "AdminSchoolAILab": AdminSchoolAILab,
+    "AdminSchoolAnalytics": AdminSchoolAnalytics,
     "AdminSchoolBranding": AdminSchoolBranding,
+    "AdminSchoolDashboard": AdminSchoolDashboard,
     "AdminSchoolLibrary": AdminSchoolLibrary,
     "AdminSchoolProjectDetail": AdminSchoolProjectDetail,
     "AdminSchoolProjects": AdminSchoolProjects,
     "AdminSchoolRenderQueue": AdminSchoolRenderQueue,
+    "AdminSchoolSettings": AdminSchoolSettings,
+    "AdminSchoolStoryLibrary": AdminSchoolStoryLibrary,
     "AdminSchoolSubmissions": AdminSchoolSubmissions,
+    "AdminSchoolUsers": AdminSchoolUsers,
+    "AdminSchoolVideoLibrary": AdminSchoolVideoLibrary,
+    "AdminSchoolYearbook": AdminSchoolYearbook,
     "AdminSettings": AdminSettings,
     "AdminSystemHealth": AdminSystemHealth,
     "AdminTasks": AdminTasks,
@@ -422,20 +432,25 @@ export const PAGES = {
     "AiOperations": AiOperations,
     "AiSeo": AiSeo,
     "AiSocialMedia": AiSocialMedia,
+    "AiVideos": AiVideos,
     "AiSocialMediaSmallBusiness": AiSocialMediaSmallBusiness,
     "AiVideoStudio": AiVideoStudio,
-    "AiVideos": AiVideos,
     "AiWebsites": AiWebsites,
     "AuthorityMap": AuthorityMap,
     "Blog": Blog,
     "BlogPost": BlogPost,
     "Book-Call": bookCall,
     "BulldogTV": BulldogTV,
+    "BulldogTVSpotlights": BulldogTVSpotlights,
+    "BulldogTVStories": BulldogTVStories,
+    "BulldogTVSubmissions": BulldogTVSubmissions,
     "BulldogTVSubmit": BulldogTVSubmit,
+    "BulldogTVVideos": BulldogTVVideos,
     "BulldogTVWatch": BulldogTVWatch,
+    "BulldogTVYearbook": BulldogTVYearbook,
     "BusinessIntelProfileAdmin": BusinessIntelProfileAdmin,
-    "CRMHub": CRMHub,
     "BusinessProfileAdmin": BusinessProfileAdmin,
+    "CRMHub": CRMHub,
     "CaseStudies": CaseStudies,
     "CaseStudyDetail": CaseStudyDetail,
     "ChatWidget": ChatWidget,
@@ -543,6 +558,8 @@ export const PAGES = {
     "SalesPipeline": SalesPipeline,
     "SalesRoom": SalesRoom,
     "ScheduledQueue": ScheduledQueue,
+    "SchoolStoryLab": SchoolStoryLab,
+    "SchoolStoryLabPresentation": SchoolStoryLabPresentation,
     "ServiceLocation": ServiceLocation,
     "Services": Services,
     "SetupComplete": SetupComplete,
@@ -562,6 +579,7 @@ export const PAGES = {
     "StreamingTV": StreamingTV,
     "StreamingThankYou": StreamingThankYou,
     "StreamingTvAdvertising": StreamingTvAdvertising,
+    "StudentAIStoryLab": StudentAIStoryLab,
     "TermsOfService": TermsOfService,
     "TrialDashboard": TrialDashboard,
     "TrialOnboarding": TrialOnboarding,
@@ -577,24 +595,6 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "SchoolStoryLab": SchoolStoryLab,
-    "AdminSchoolDashboard": AdminSchoolDashboard,
-    "AdminSchoolVideoLibrary": AdminSchoolVideoLibrary,
-    "AdminSchoolStoryLibrary": AdminSchoolStoryLibrary,
-    "AdminSchoolYearbook": AdminSchoolYearbook,
-    "AdminSchoolAILab": AdminSchoolAILab,
-    "AdminSchoolAnalytics": AdminSchoolAnalytics,
-    "AdminSchoolUsers": AdminSchoolUsers,
-    "AdminSchoolSettings": AdminSchoolSettings,
-    "SchoolStoryLabPresentation": SchoolStoryLabPresentation,
-    "BulldogTVStories": BulldogTVStories,
-    "BulldogTVVideos": BulldogTVVideos,
-    "BulldogTVYearbook": BulldogTVYearbook,
-    "BulldogTVSpotlights": BulldogTVSpotlights,
-    "BulldogTVSubmissions": BulldogTVSubmissions,
-    "AdminSchoolAIContentReview": AdminSchoolAIContentReview,
-    "StudentAIStoryLab": StudentAIStoryLab,
-    "AdminSchoolAIDashboard": AdminSchoolAIDashboard,
 }
 
 export const pagesConfig = {

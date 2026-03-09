@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSchoolRoute } from '@/components/school-tv/useSchoolRoute';
 import SchoolAdminNav from '@/components/school-tv/SchoolAdminNav';
+import AIStatusBadge from '@/components/school-tv/AIStatusBadge';
 import { Button } from '@/components/ui/button';
 import {
   Sparkles,
@@ -10,7 +11,8 @@ import {
   BarChart3,
   Settings,
   Eye,
-  Trash2,
+  Zap,
+  TrendingUp,
 } from 'lucide-react';
 
 export default function AdminSchoolAIDashboard() {
@@ -23,27 +25,45 @@ export default function AdminSchoolAIDashboard() {
       job_type: 'generate_story',
       source: 'Robotics Submission #1204',
       status: 'completed',
-      moderation_status: 'pending_review',
+      moderation_status: 'approved',
       created: '2 hours ago',
-      generated_title: 'Robotics Team Prepares for Competition',
+      generated_title: 'Robotics Team Prepares for Regional Competition',
     },
     {
       id: 2,
       job_type: 'generate_captions',
-      source: 'Football Submission #1203',
+      source: 'Football Game #1203',
       status: 'completed',
       moderation_status: 'approved',
       created: '4 hours ago',
-      generated_title: '3 caption options generated',
+      generated_title: '3 caption options',
     },
     {
       id: 3,
       job_type: 'generate_video_script',
-      source: 'Choir Performance #1202',
-      status: 'processing',
+      source: 'Football Game #1203',
+      status: 'completed',
+      moderation_status: 'approved',
+      created: '3 hours ago',
+      generated_title: 'Voiceover script generated',
+    },
+    {
+      id: 4,
+      job_type: 'generate_story',
+      source: 'Choir Concert #1202',
+      status: 'completed',
       moderation_status: 'pending_review',
-      created: '10 minutes ago',
-      generated_title: 'Generating...',
+      created: '45 minutes ago',
+      generated_title: 'Spring Concert Highlights Excellence',
+    },
+    {
+      id: 5,
+      job_type: 'generate_headlines',
+      source: 'STEM Showcase #1201',
+      status: 'completed',
+      moderation_status: 'pending_review',
+      created: '30 minutes ago',
+      generated_title: '5 headline options',
     },
   ];
 
@@ -106,19 +126,7 @@ export default function AdminSchoolAIDashboard() {
     },
   ];
 
-  const statusColors = {
-    completed: 'bg-green-100 text-green-800',
-    processing: 'bg-blue-100 text-blue-800',
-    queued: 'bg-yellow-100 text-yellow-800',
-    failed: 'bg-red-100 text-red-800',
-  };
 
-  const moderationColors = {
-    pending_review: 'bg-orange-100 text-orange-800',
-    approved: 'bg-green-100 text-green-800',
-    rejected: 'bg-red-100 text-red-800',
-    edited: 'bg-blue-100 text-blue-800',
-  };
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -141,17 +149,22 @@ export default function AdminSchoolAIDashboard() {
           {/* Stats */}
           <div className="grid md:grid-cols-4 gap-6 mb-8">
             {[
-              { icon: Sparkles, label: 'Jobs Completed', value: '847', color: 'bg-purple-50' },
-              { icon: Clock, label: 'Pending Review', value: '12', color: 'bg-orange-50' },
-              { icon: CheckCircle2, label: 'Approved', value: '835', color: 'bg-green-50' },
-              { icon: BarChart3, label: 'Template Variations', value: '8', color: 'bg-blue-50' },
+              { icon: Zap, label: 'Jobs Completed', value: '847', color: 'from-purple-50 to-purple-100', trend: '+23% this month' },
+              { icon: AlertCircle, label: 'Pending Review', value: '12', color: 'from-orange-50 to-orange-100', trend: 'Needs approval' },
+              { icon: CheckCircle2, label: 'Approved', value: '835', color: 'from-green-50 to-green-100', trend: '98.6% approval' },
+              { icon: BarChart3, label: 'Templates', value: '8', color: 'from-blue-50 to-blue-100', trend: 'All active' },
             ].map((stat, idx) => {
               const Icon = stat.icon;
               return (
-                <div key={idx} className={`rounded-lg border border-gray-200 p-6 ${stat.color}`}>
-                  <Icon className="h-6 w-6 text-gray-700 mb-2" />
-                  <p className="text-sm text-gray-600 font-medium">{stat.label}</p>
-                  <p className="text-3xl font-bold text-gray-900 mt-1">{stat.value}</p>
+                <div key={idx} className={`rounded-lg border border-gray-200 bg-gradient-to-br ${stat.color} p-6 hover:shadow-md transition-shadow`}>
+                  <div className="flex items-start justify-between mb-4">
+                    <Icon className="h-6 w-6 text-gray-700" />
+                    <span className="text-xs font-semibold text-gray-600 bg-white px-2 py-1 rounded">
+                      {stat.trend}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-700 font-medium">{stat.label}</p>
+                  <p className="text-3xl font-bold text-gray-900 mt-2">{stat.value}</p>
                 </div>
               );
             })}
@@ -183,52 +196,41 @@ export default function AdminSchoolAIDashboard() {
 
           {/* Recent Jobs Tab */}
           {activeTab === 'jobs' && (
-            <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-              <table className="w-full">
-                <thead className="bg-gray-50 border-b border-gray-200">
-                  <tr>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Job Type</th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Source</th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Status</th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Moderation</th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Created</th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {mockJobs.map((job) => (
-                    <tr key={job.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4">
-                        <span className="text-sm font-semibold text-gray-900">
-                          {job.job_type.replace(/_/g, ' ').toUpperCase()}
+            <div className="space-y-3">
+              {mockJobs.map((job) => (
+                <div key={job.id} className="bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md transition-shadow">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className="text-sm font-bold text-gray-900 uppercase">
+                          {job.job_type.replace(/_/g, ' ')}
                         </span>
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-700">{job.source}</td>
-                      <td className="px-6 py-4">
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${statusColors[job.status]}`}>
-                          {job.status}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${moderationColors[job.moderation_status]}`}>
-                          {job.moderation_status.replace(/_/g, ' ')}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-700">{job.created}</td>
-                      <td className="px-6 py-4">
-                        <div className="flex gap-2">
-                          <Button variant="ghost" size="sm" className="text-blue-600">
-                            <Eye className="h-4 w-4" />
-                          </Button>
-                          <Button variant="ghost" size="sm" className="text-gray-600">
-                            <Settings className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                        <AIStatusBadge status={job.status} size="sm" />
+                      </div>
+                      <p className="text-sm text-gray-700 font-semibold">{job.generated_title}</p>
+                      <p className="text-xs text-gray-600 mt-1">From: {job.source}</p>
+                    </div>
+                    <div className="text-right flex-shrink-0">
+                      <AIStatusBadge status={job.moderation_status} size="sm" />
+                      <p className="text-xs text-gray-600 mt-2">{job.created}</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-2 pt-3 border-t border-gray-200">
+                    <Button variant="ghost" size="sm" className="text-blue-600">
+                      <Eye className="h-4 w-4 mr-1" />
+                      Review
+                    </Button>
+                    {job.moderation_status === 'pending_review' && (
+                      <>
+                        <Button variant="ghost" size="sm" className="text-green-600">
+                          <CheckCircle2 className="h-4 w-4 mr-1" />
+                          Approve
+                        </Button>
+                      </>
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
           )}
 
