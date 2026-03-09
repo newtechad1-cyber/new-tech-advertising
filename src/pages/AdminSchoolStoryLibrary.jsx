@@ -186,6 +186,6 @@ export default function AdminSchoolStoryLibrary() {
           )}
         </div>
       </div>
-    </div>
+    </AdminShell>
   );
 }
