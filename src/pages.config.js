@@ -283,6 +283,11 @@ import AdminVideoEngineTemplates from './pages/AdminVideoEngineTemplates';
 import AdminVideoEngineRenders from './pages/AdminVideoEngineRenders';
 import AdminVideoEngineApprovals from './pages/AdminVideoEngineApprovals';
 import AdminVideoEngineAnalytics from './pages/AdminVideoEngineAnalytics';
+import DemoStart from './pages/DemoStart';
+import DemoProblem from './pages/DemoProblem';
+import DemoFeatures from './pages/DemoFeatures';
+import DemoRoi from './pages/DemoRoi';
+import DemoNext from './pages/DemoNext';
 import __Layout from './Layout.jsx';
 
 
@@ -523,6 +528,11 @@ export const PAGES = {
     "AdminVideoEngineRenders": AdminVideoEngineRenders,
     "AdminVideoEngineApprovals": AdminVideoEngineApprovals,
     "AdminVideoEngineAnalytics": AdminVideoEngineAnalytics,
+    "DemoStart": DemoStart,
+    "DemoProblem": DemoProblem,
+    "DemoFeatures": DemoFeatures,
+    "DemoRoi": DemoRoi,
+    "DemoNext": DemoNext,
 }
 
 export const pagesConfig = {

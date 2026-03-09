@@ -1,126 +1,122 @@
-import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { ArrowRight, CheckCircle, Star } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { base44 } from '@/api/base44Client';
-import SalesProgressSteps from '@/components/sales/SalesProgressSteps';
-import SalesGuidePanel from '@/components/sales/SalesGuidePanel';
-import StickySalesCTA from '@/components/sales/StickySalesCTA';
-
-const LOGO = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png';
+import DemoProgressBar from '@/components/demo-machine/DemoProgressBar';
+import StickyCTA from '@/components/demo-machine/StickyCTA';
+import DemoAIPanel from '@/components/demo-machine/DemoAIPanel';
+import DemoConversionBlock from '@/components/demo-machine/DemoConversionBlock';
+import { useDemoPageView, useDemoTrack } from '@/components/demo-machine/useDemoSession';
+import { CheckCircle, ArrowRight, Zap } from 'lucide-react';
 
 const PLANS = [
   {
-    name: 'Starter', price: '$297', period: '/month', badge: null,
-    tagline: 'For solo operators and local businesses getting started',
-    color: 'border-slate-700', highlight: false,
-    features: ['AI-generated social content (weekly)', 'Monthly SEO blog articles (4)', 'Google Business profile management', 'Review request automation', 'Basic website updates', 'Monthly performance report'],
-    cta: 'Start Starter Plan',
+    name: 'Starter', price: '$497', period: '/mo', color: 'border-slate-700', popular: false,
+    desc: 'For solo operators and new businesses building their online presence.',
+    features: ['AI-built website', '4 blog posts/month', 'Local SEO pages (25)', 'Review automation', 'Basic lead capture', 'Monthly analytics report'],
   },
   {
-    name: 'Growth', price: '$597', period: '/month', badge: 'Most Popular',
-    tagline: 'For businesses ready to dominate their local market',
-    color: 'border-violet-600', highlight: true,
-    features: ['Everything in Starter', 'Custom website build included', 'Monthly video content (2 videos)', 'Advanced local SEO campaigns', 'Full social media management', 'Email marketing automation', 'Lead tracking dashboard'],
-    cta: 'Start Growth Plan',
+    name: 'Growth', price: '$897', period: '/mo', color: 'border-blue-600', popular: true,
+    desc: 'For established businesses ready to dominate their local market.',
+    features: ['Everything in Starter', '8 blog posts/month', 'Local SEO pages (100)', 'Social media management', 'CRM + lead pipeline', 'Google Ads integration', 'Weekly performance reports'],
   },
   {
-    name: 'Pro', price: '$997', period: '/month', badge: null,
-    tagline: 'For multi-service or multi-location businesses scaling aggressively',
-    color: 'border-yellow-700', highlight: false,
-    features: ['Everything in Growth', 'Streaming TV advertising', 'ADA compliance & remediation', 'Multi-location management', 'Dedicated account manager', 'Priority support & strategy calls', 'Custom integrations'],
-    cta: 'Start Pro Plan',
+    name: 'Pro', price: '$1,497', period: '/mo', color: 'border-purple-600', popular: false,
+    desc: 'For multi-location businesses and aggressive growth targets.',
+    features: ['Everything in Growth', 'Unlimited content', 'Unlimited SEO pages', 'Video content creation', 'Advanced CRM + automation', 'Dedicated success manager', 'Custom integrations'],
   },
 ];
 
 export default function DemoPricing() {
-  const sessionKey = localStorage.getItem('nta_session') || crypto.randomUUID();
-
-  useEffect(() => {
-    localStorage.setItem('nta_session', sessionKey);
-    base44.functions.invoke('trackSalesEvent', {
-      event_type: 'demo_pricing',
-      page_path: '/demo/pricing',
-      session_key: sessionKey,
-    }).catch(() => {});
-  }, []);
-
-  const track = (e) => base44.functions.invoke('trackSalesEvent', { event_type: e, page_path: '/demo/pricing', session_key: sessionKey }).catch(() => {});
+  useDemoPageView('DemoPricing');
+  const { track } = useDemoTrack();
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white pb-24">
-      <header className="border-b border-slate-800 px-6 py-4 flex items-center justify-between sticky top-0 z-30 bg-slate-950/95 backdrop-blur">
-        <Link to={createPageUrl('SalesRoom')}><img src={LOGO} alt="NTA" className="h-8 w-auto" /></Link>
-        <SalesProgressSteps currentStep="DemoPricing" />
-        <Link to={createPageUrl('DealRoom')}>
-          <Button size="sm" className="bg-violet-600 hover:bg-violet-500">Open Deal Room <ArrowRight className="w-4 h-4 ml-1" /></Button>
-        </Link>
-      </header>
+    <div className="min-h-screen bg-slate-950 text-white pb-32">
+      <DemoProgressBar currentPage="DemoPricing" />
 
-      <div className="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-3 gap-10">
-        <div className="lg:col-span-2 space-y-10">
-          <div>
-            <div className="inline-flex items-center gap-2 bg-yellow-900/30 border border-yellow-800 text-yellow-300 text-xs px-3 py-1.5 rounded-full mb-6">
-              Step 4 of 5 · Pricing
-            </div>
-            <h1 className="text-4xl font-extrabold leading-tight mb-4">
-              Real Marketing Costs.<br />
-              <span className="text-yellow-400">No Agency Markup.</span>
-            </h1>
-            <p className="text-slate-400 text-lg leading-relaxed">
-              The average small business agency retainer is $2,500–$4,500/month — for disconnected work across multiple vendors. NTA is one system, one price, complete coverage.
-            </p>
+      <div className="max-w-5xl mx-auto px-4 py-12">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-900/40 border border-blue-700 rounded-full text-blue-300 text-xs font-semibold mb-4">
+            Step 5 of 7 — Pricing
           </div>
+          <h1 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight">
+            Simple, Transparent<br /><span className="text-blue-400">Pricing That Makes Sense</span>
+          </h1>
+          <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+            Compare what you're spending now vs. what NTA costs — and what it delivers.
+          </p>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {PLANS.map(plan => (
-              <div key={plan.name} className={`bg-slate-900 border-2 ${plan.color} rounded-2xl overflow-hidden flex flex-col ${plan.highlight ? 'shadow-xl shadow-violet-600/10' : ''}`}>
-                {plan.badge && (
-                  <div className="bg-violet-600 text-white text-xs font-bold text-center py-1.5 flex items-center justify-center gap-1">
-                    <Star className="w-3 h-3" /> {plan.badge}
-                  </div>
-                )}
-                <div className="p-5 flex-1 flex flex-col">
-                  <h3 className="text-white font-bold text-lg">{plan.name}</h3>
-                  <div className="flex items-baseline gap-1 my-2">
-                    <span className="text-3xl font-extrabold text-white">{plan.price}</span>
-                    <span className="text-slate-500 text-sm">{plan.period}</span>
-                  </div>
-                  <p className="text-slate-500 text-xs mb-4">{plan.tagline}</p>
-                  <ul className="space-y-1.5 flex-1 mb-5">
-                    {plan.features.map(f => (
-                      <li key={f} className="flex items-start gap-2 text-xs text-slate-300">
-                        <CheckCircle className="w-3.5 h-3.5 text-green-400 flex-shrink-0 mt-0.5" /> {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <Link to={createPageUrl('StartTrial')} onClick={() => track('cta_start_trial')}>
-                    <Button className={`w-full text-sm font-semibold ${plan.highlight ? 'bg-violet-600 hover:bg-violet-500' : 'bg-slate-800 hover:bg-slate-700 border border-slate-700'}`}>
-                      {plan.cta}
-                    </Button>
-                  </Link>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
+          {PLANS.map(plan => (
+            <div key={plan.name} className={`bg-slate-900 border-2 rounded-2xl p-6 relative ${plan.color}`}>
+              {plan.popular && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-blue-600 text-white text-xs font-bold rounded-full">
+                  Most Popular
                 </div>
+              )}
+              <div className="mb-4">
+                <div className="font-bold text-xl text-white">{plan.name}</div>
+                <div className="flex items-end gap-1 mt-1">
+                  <span className="text-4xl font-black text-white">{plan.price}</span>
+                  <span className="text-slate-400 text-sm mb-1">{plan.period}</span>
+                </div>
+                <p className="text-slate-400 text-sm mt-2">{plan.desc}</p>
               </div>
-            ))}
-          </div>
+              <ul className="space-y-2 mb-6">
+                {plan.features.map(f => (
+                  <li key={f} className="flex items-start gap-2 text-sm text-slate-300">
+                    <CheckCircle className="w-4 h-4 text-green-400 shrink-0 mt-0.5" /> {f}
+                  </li>
+                ))}
+              </ul>
+              <Link to={createPageUrl('StartTrial')} onClick={() => track('cta_click', { value: `start_trial_${plan.name}` })}>
+                <button className={`w-full py-3 rounded-xl font-semibold text-sm transition-colors ${plan.popular ? 'bg-blue-600 hover:bg-blue-500 text-white' : 'border border-slate-600 hover:border-slate-400 text-slate-300'}`}>
+                  Start Free Trial
+                </button>
+              </Link>
+            </div>
+          ))}
+        </div>
 
-          <div className="bg-slate-900 border border-slate-700 rounded-xl p-6 text-center">
-            <p className="text-slate-400 mb-4">Not sure which plan fits? Open the Deal Room to get a personalized proposal and ROI estimate.</p>
-            <Link to={createPageUrl('DealRoom')} onClick={() => track('deal_room_visit')}>
-              <Button className="bg-violet-600 hover:bg-violet-500 font-bold px-8 py-3 h-auto rounded-xl">
-                Open My Deal Room <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </Link>
+        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 mb-8">
+          <h3 className="font-bold text-white mb-3 flex items-center gap-2"><Zap className="w-4 h-4 text-yellow-400" /> vs. Hiring an Agency</h3>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <div className="text-slate-400 text-xs font-semibold uppercase mb-2">Traditional Agency</div>
+              <div className="space-y-1 text-sm text-slate-400">
+                <div>Web design: <span className="text-red-400">$3,000–$8,000 upfront</span></div>
+                <div>SEO agency: <span className="text-red-400">$1,500–$3,000/mo</span></div>
+                <div>Content writer: <span className="text-red-400">$500–$1,500/mo</span></div>
+                <div>Social mgmt: <span className="text-red-400">$800–$2,000/mo</span></div>
+                <div className="font-bold text-red-400 pt-2 border-t border-slate-700">Total: $4,300–$8,500/mo</div>
+              </div>
+            </div>
+            <div>
+              <div className="text-slate-400 text-xs font-semibold uppercase mb-2">NTA Platform</div>
+              <div className="space-y-1 text-sm text-slate-400">
+                <div>Website: <span className="text-green-400">Included</span></div>
+                <div>SEO: <span className="text-green-400">Included</span></div>
+                <div>Content: <span className="text-green-400">Included</span></div>
+                <div>Social: <span className="text-green-400">Included</span></div>
+                <div className="font-bold text-green-400 pt-2 border-t border-slate-700">Total: from $497/mo</div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="space-y-6">
-          <SalesGuidePanel step="DemoPricing" />
+        <div className="text-center">
+          <Link to={createPageUrl('DemoRoi')} onClick={() => track('cta_click', { value: 'view_roi' })}>
+            <button className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-lg transition-colors">
+              Calculate Your ROI <ArrowRight className="w-5 h-5" />
+            </button>
+          </Link>
         </div>
+
+        <DemoConversionBlock title="Ready to Start?" nextPage="DemoRoi" nextLabel="See ROI Calculator →" />
       </div>
 
-      <StickySalesCTA currentStep="DemoPricing" onTrack={track} />
+      <DemoAIPanel context="Prospect is reviewing pricing plans, comparing NTA to agency costs" />
+      <StickyCTA currentStep="DemoPricing" />
     </div>
   );
 }
