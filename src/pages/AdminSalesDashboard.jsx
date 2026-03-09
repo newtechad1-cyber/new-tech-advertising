@@ -5,7 +5,7 @@ import AdminNav from '@/components/nav/AdminNav';
 import AdminGuard from '@/components/auth/AdminGuard';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Users, TrendingUp, DollarSign, FileText, Play, Phone, Zap, Eye, Star, ArrowRight, Loader2 } from 'lucide-react';
+import { Users, TrendingUp, DollarSign, FileText, Play, Phone, Zap, Eye, Star, ArrowRight, Loader2, BarChart2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
@@ -23,7 +23,8 @@ const STATUS_STYLES = {
 
 const PLAN_COLORS = { starter: 'text-cyan-400', growth: 'text-violet-400', pro: 'text-yellow-400' };
 
-function KPICard({ icon: Icon, label, value, sub, color = 'text-white', bgColor = 'bg-slate-800' }) {
+function KPICard({ icon: CardIcon, label, value, sub, color = 'text-white', bgColor = 'bg-slate-800' }) {
+  const Icon = CardIcon;
   return (
     <div className="bg-slate-900 border border-slate-700 rounded-xl p-4">
       <div className="flex items-start justify-between mb-2">
