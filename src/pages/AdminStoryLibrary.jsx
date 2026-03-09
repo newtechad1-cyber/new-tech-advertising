@@ -11,6 +11,9 @@ export default function AdminStoryLibrary() {
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedStory, setSelectedStory] = useState(null);
+  const [filterStatus, setFilterStatus] = useState('all');
+  const [filterCategory, setFilterCategory] = useState('all');
+  const [activeTab, setActiveTab] = useState('content');
 
   useEffect(() => {
     const loadData = async () => {
@@ -36,6 +39,26 @@ export default function AdminStoryLibrary() {
     archived: 'bg-red-100 text-red-800',
   };
 
+  const handlePublish = async (storyId) => {
+    await base44.entities.Stories.update(storyId, { 
+      status: 'published', 
+      publish_status: 'published',
+      published_date: new Date().toISOString()
+    });
+    setStories(stories.map(s => s.id === storyId ? { ...s, status: 'published' } : s));
+  };
+
+  const handleArchive = async (storyId) => {
+    await base44.entities.Stories.update(storyId, { status: 'archived' });
+    setStories(stories.filter(s => s.id !== storyId));
+  };
+
+  const filteredStories = stories.filter(s => {
+    const statusMatch = filterStatus === 'all' || s.status === filterStatus;
+    const categoryMatch = filterCategory === 'all' || JSON.parse(s.categories || '[]').includes(filterCategory);
+    return statusMatch && categoryMatch;
+  });
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -53,12 +76,27 @@ export default function AdminStoryLibrary() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Story Library</h1>
-            <p className="text-gray-700 mt-1">{stories.length} stories</p>
+            <p className="text-gray-700 mt-1">{filteredStories.length} stories</p>
           </div>
           <Button className="bg-blue-600 hover:bg-blue-700">
             <Plus className="h-4 w-4 mr-2" />
             New Story
           </Button>
+        </div>
+
+        {/* Filters */}
+        <div className="bg-white rounded-lg border border-gray-200 p-4 mb-6 flex gap-4">
+          <select
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+            className="px-3 py-2 rounded-lg border border-gray-200 text-sm"
+          >
+            <option value="all">All Status</option>
+            <option value="draft">Draft</option>
+            <option value="review">Review</option>
+            <option value="approved">Approved</option>
+            <option value="published">Published</option>
+          </select>
         </div>
 
         {/* Stories Table */}
@@ -74,7 +112,7 @@ export default function AdminStoryLibrary() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {stories.map((story) => (
+              {filteredStories.map((story) => (
                 <tr key={story.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4">
                     <div>
