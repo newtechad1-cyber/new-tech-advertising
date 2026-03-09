@@ -278,10 +278,11 @@ export default function AdminSchoolBranding() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white px-6 py-3 rounded-lg font-bold text-lg flex items-center justify-center gap-2"
+              className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white px-6 py-3 rounded-lg font-bold text-lg flex items-center justify-center gap-2 transition-all"
             >
-              <Save className="h-5 w-5" /> {saving ? 'Saving...' : 'Save Branding'}
+              <Save className="h-5 w-5" /> {saving ? 'Updating...' : '✓ Save Branding'}
             </button>
+            {saving && <p className="text-sm text-gray-600 text-center mt-3">Updating your school branding...</p>}
           </div>
 
           {/* Preview */}
