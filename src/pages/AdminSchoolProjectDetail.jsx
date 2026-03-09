@@ -23,6 +23,7 @@ export default function AdminSchoolProjectDetail() {
   const [generating, setGenerating] = useState(false);
   const [queuingRender, setQueuingRender] = useState(false);
   const [publishingAction, setPublishingAction] = useState(false);
+  const [lastSave, setLastSave] = useState(null);
 
   const loadAll = async () => {
     if (!projectId) return;
