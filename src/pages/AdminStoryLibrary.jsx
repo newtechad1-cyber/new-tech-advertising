@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AdminShell from '@/components/school-tv/AdminShell';
-import { Plus, Eye, Archive } from 'lucide-react';
+import { Plus, Eye, Search, Copy } from 'lucide-react';
 
 const STATUS_COLORS = {
   draft: 'bg-gray-100 text-gray-800',
@@ -17,6 +17,8 @@ export default function AdminStoryLibrary() {
   const [stories, setStories] = useState([]);
   const [filteredStories, setFilteredStories] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState('all');
+  const [selectedFeatured, setSelectedFeatured] = useState('all');
+  const [selectedAIDraft, setSelectedAIDraft] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -38,16 +40,28 @@ export default function AdminStoryLibrary() {
 
   useEffect(() => {
     let filtered = stories;
+    
     if (selectedStatus !== 'all') {
       filtered = filtered.filter(s => s.status === selectedStatus);
+    }
+    if (selectedFeatured !== 'all') {
+      filtered = filtered.filter(s => 
+        selectedFeatured === 'featured' ? s.featured : !s.featured
+      );
+    }
+    if (selectedAIDraft !== 'all') {
+      filtered = filtered.filter(s => 
+        selectedAIDraft === 'with-draft' ? s.ai_draft_text : !s.ai_draft_text
+      );
     }
     if (searchTerm) {
       filtered = filtered.filter(s =>
         s.title.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
+    
     setFilteredStories(filtered);
-  }, [stories, selectedStatus, searchTerm]);
+  }, [stories, selectedStatus, selectedFeatured, selectedAIDraft, searchTerm]);
 
   if (loading) return <AdminShell schoolSlug={schoolSlug}><div className="text-center py-12">Loading...</div></AdminShell>;
 
@@ -67,23 +81,82 @@ export default function AdminStoryLibrary() {
         </Link>
       </div>
 
-      {/* Filter Tabs */}
-      <div className="bg-white rounded-lg shadow-md p-4 mb-6">
-        <div className="flex flex-wrap gap-2">
-          {['all', 'draft', 'review', 'published'].map(status => (
-            <button
-              key={status}
-              onClick={() => setSelectedStatus(status)}
-              className={`px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${
-                selectedStatus === status
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
-              }`}
+      {/* Filters */}
+      <div className="bg-white rounded-lg shadow-md p-6 mb-6 space-y-4">
+        <div className="grid md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Search Stories</label>
+            <div className="relative">
+              <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search by title..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Status</label>
+            <select
+              value={selectedStatus}
+              onChange={(e) => setSelectedStatus(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              {status === 'all' ? 'All Stories' : status.charAt(0).toUpperCase() + status.slice(1)}
-            </button>
-          ))}
+              <option value="all">All Statuses</option>
+              <option value="draft">Draft</option>
+              <option value="review">Under Review</option>
+              <option value="approved">Approved</option>
+              <option value="published">Published</option>
+              <option value="archived">Archived</option>
+            </select>
+          </div>
         </div>
+
+        <div className="grid md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Featured</label>
+            <select
+              value={selectedFeatured}
+              onChange={(e) => setSelectedFeatured(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="all">All</option>
+              <option value="featured">Featured Only</option>
+              <option value="not-featured">Not Featured</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">AI Drafts</label>
+            <select
+              value={selectedAIDraft}
+              onChange={(e) => setSelectedAIDraft(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="all">All</option>
+              <option value="with-draft">Has AI Draft</option>
+              <option value="no-draft">No AI Draft</option>
+            </select>
+          </div>
+        </div>
+
+        <button
+          onClick={() => {
+            setSelectedStatus('all');
+            setSelectedFeatured('all');
+            setSelectedAIDraft('all');
+            setSearchTerm('');
+          }}
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-semibold"
+        >
+          Clear All Filters
+        </button>
+      </div>
+
+      {/* Count */}
+      <div className="mb-4 text-sm text-gray-600">
+        Showing {filteredStories.length} of {stories.length} stories
       </div>
 
       {/* Stories Grid */}
@@ -98,15 +171,20 @@ export default function AdminStoryLibrary() {
                 <div className="flex justify-between items-start gap-2 mb-2">
                   <h3 className="text-lg font-bold flex-1">{story.title}</h3>
                   {story.featured && (
-                    <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full font-semibold">
+                    <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full font-semibold whitespace-nowrap">
                       Featured
                     </span>
                   )}
                 </div>
-                <div className="mb-4">
+                <div className="flex flex-wrap gap-2 mb-4">
                   <span className={`px-3 py-1 rounded-full text-xs font-semibold ${STATUS_COLORS[story.status] || 'bg-gray-100'}`}>
                     {story.status.charAt(0).toUpperCase() + story.status.slice(1)}
                   </span>
+                  {story.ai_draft_text && (
+                    <span className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full font-semibold">
+                      AI Draft
+                    </span>
+                  )}
                 </div>
                 {story.excerpt && (
                   <p className="text-gray-600 text-sm mb-4 line-clamp-2">{story.excerpt}</p>
@@ -128,6 +206,9 @@ export default function AdminStoryLibrary() {
                       <Eye className="h-4 w-4" />
                     </a>
                   )}
+                  <button className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-lg font-semibold text-sm flex items-center gap-2">
+                    <Copy className="h-4 w-4" />
+                  </button>
                 </div>
               </div>
             </div>
