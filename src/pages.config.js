@@ -326,6 +326,8 @@ import SchoolSpotlights from './pages/SchoolSpotlights';
 import AdminStoryLibrary from './pages/AdminStoryLibrary';
 import AdminSchoolEvents from './pages/AdminSchoolEvents';
 import AdminSchoolSpotlights from './pages/AdminSchoolSpotlights';
+import AdminVideoRenderQueue from './pages/AdminVideoRenderQueue';
+import AdminAILab from './pages/AdminAILab';
 import __Layout from './Layout.jsx';
 
 
@@ -609,6 +611,8 @@ export const PAGES = {
     "AdminStoryLibrary": AdminStoryLibrary,
     "AdminSchoolEvents": AdminSchoolEvents,
     "AdminSchoolSpotlights": AdminSchoolSpotlights,
+    "AdminVideoRenderQueue": AdminVideoRenderQueue,
+    "AdminAILab": AdminAILab,
 }
 
 export const pagesConfig = {
