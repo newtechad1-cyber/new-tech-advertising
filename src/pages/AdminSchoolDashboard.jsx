@@ -118,10 +118,10 @@ export default function AdminSchoolDashboard() {
 
       {/* Quick Overview */}
        <div className="mb-6 text-xs md:text-sm font-black text-gray-800 uppercase tracking-wider">📊 Key Metrics</div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-10 md:mb-14">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mb-10 md:mb-14">
         <StatCard
           icon={AlertCircle}
-          label="Pending Submissions"
+          label="Submissions to Review"
           value={stats?.pendingSubmissions || 0}
           color="#ef4444"
           route={`/admin/schools/${schoolSlug}/submissions`}
@@ -135,22 +135,22 @@ export default function AdminSchoolDashboard() {
         />
         <StatCard
           icon={CheckCircle2}
-          label="Stories Published"
+          label="Stories Live"
           value={stats?.storiesPublished || 0}
           color="#10b981"
           route={`/admin/schools/${schoolSlug}/story-library`}
         />
         <StatCard
           icon={Video}
-          label="Videos Published"
+          label="Videos Live"
           value={stats?.videosPublished || 0}
           color="#3b82f6"
           route={`/admin/schools/${schoolSlug}/video-library`}
         />
       </div>
 
-      <div className="mb-6 text-xs md:text-sm font-black text-gray-800 uppercase tracking-wider">📈 Also Available</div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-10 md:mb-14">
+      <div className="mb-6 text-xs md:text-sm font-black text-gray-800 uppercase tracking-wider">📚 Other Content</div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mb-10 md:mb-14">
         <StatCard
           icon={BookOpen}
           label="Yearbook Pages"
@@ -167,14 +167,14 @@ export default function AdminSchoolDashboard() {
         />
         <StatCard
           icon={Zap}
-          label="AI Jobs Pending"
+          label="AI Jobs Queued"
           value={stats?.aiJobsPending || 0}
           color="#f59e0b"
           route={`/admin/schools/${schoolSlug}/ai-lab`}
         />
         <StatCard
           icon={AlertTriangle}
-          label="Failed Renders"
+          label="Render Issues"
           value={stats?.failedRenders || 0}
           color="#dc2626"
           route={`/admin/schools/${schoolSlug}/video-library`}
