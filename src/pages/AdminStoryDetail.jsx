@@ -178,42 +178,55 @@ export default function AdminStoryDetail() {
         <ArrowLeft className="h-4 w-4" /> Back to Stories
       </Link>
 
-      <div className="flex justify-between items-start gap-6 mb-6">
+      <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-6">
         <div>
           <h1 className="text-3xl font-bold mb-2">{story.title || 'New Story'}</h1>
-          <p className="text-gray-600">Edit and publish story content</p>
+          <div className="flex items-center gap-3 mt-3">
+            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${STATUS_COLORS[story.status]}`}>
+              {story.status.charAt(0).toUpperCase() + story.status.slice(1)}
+            </span>
+            {story.published_date && (
+              <span className="text-xs text-gray-600">
+                Published {new Date(story.published_date).toLocaleDateString()}
+              </span>
+            )}
+          </div>
         </div>
-        <div className="flex items-center gap-4">
-          <span className={`px-4 py-2 rounded-full text-sm font-semibold ${STATUS_COLORS[story.status]}`}>
-            {story.status.charAt(0).toUpperCase() + story.status.slice(1)}
-          </span>
+        <div className="flex flex-col gap-3 w-full md:w-auto">
           <button
             onClick={saveStory}
             disabled={saving}
-            className="bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2"
+            className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white px-6 py-2 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all"
           >
-            <Save className="h-5 w-5" /> Save
+            <Save className="h-4 w-4" /> {saving ? 'Saving...' : 'Save Changes'}
           </button>
         </div>
       </div>
 
       {/* Tabs */}
       <div className="bg-white rounded-lg shadow-md mb-6 border-b border-gray-200">
-        <div className="flex overflow-x-auto">
-          {['content', 'media', 'ai-tools', 'publishing', 'links', 'activity'].map(tab => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`flex-1 px-6 py-4 font-semibold text-center border-b-2 transition-colors text-sm whitespace-nowrap ${
-                activeTab === tab
-                  ? 'border-blue-600 text-blue-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-800'
-              }`}
-            >
-              {tab === 'ai-tools' ? 'AI Tools' : tab.charAt(0).toUpperCase() + tab.slice(1)}
-            </button>
-          ))}
-        </div>
+       <div className="flex overflow-x-auto gap-1 p-4">
+         {[
+           { id: 'content', label: 'Content' },
+           { id: 'media', label: 'Media' },
+           { id: 'ai-tools', label: 'AI Drafts' },
+           { id: 'publishing', label: 'Publish' },
+           { id: 'links', label: 'Links' },
+           { id: 'activity', label: 'Activity' },
+         ].map(tab => (
+           <button
+             key={tab.id}
+             onClick={() => setActiveTab(tab.id)}
+             className={`px-4 py-2 font-semibold text-sm rounded-lg transition-colors whitespace-nowrap ${
+               activeTab === tab.id
+                 ? 'bg-blue-600 text-white'
+                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+             }`}
+           >
+             {tab.label}
+           </button>
+         ))}
+       </div>
       </div>
 
       {/* Content Tab */}
@@ -366,42 +379,46 @@ export default function AdminStoryDetail() {
           </div>
 
           {story.ai_draft_text && (
-           <div className={`rounded-lg p-6 ${aiDraftApplied ? 'bg-blue-50 border border-blue-200' : 'bg-green-50 border border-green-200'}`}>
-             <h4 className={`font-semibold mb-3 ${aiDraftApplied ? 'text-blue-900' : 'text-green-900'}`}>
-               {aiDraftApplied ? 'AI Draft Applied to Body' : 'AI Draft Available'}
-             </h4>
-             <div className="bg-white rounded-lg p-4 mb-4 max-h-64 overflow-y-auto">
-               <p className="text-sm text-gray-700">{story.ai_draft_text}</p>
+           <div className={`rounded-lg p-6 border-l-4 ${aiDraftApplied ? 'bg-blue-50 border-l-blue-500 border border-blue-200' : 'bg-green-50 border-l-green-500 border border-green-200'}`}>
+             <div className="flex items-start justify-between mb-4">
+               <div>
+                 <h4 className={`font-bold mb-1 ${aiDraftApplied ? 'text-blue-900' : 'text-green-900'}`}>
+                   {aiDraftApplied ? '✓ Draft Applied' : 'New AI Draft'}
+                 </h4>
+                 <p className={`text-xs ${aiDraftApplied ? 'text-blue-700' : 'text-green-700'}`}>
+                   {aiDraftApplied ? 'This draft has been applied to your story body.' : 'Review and apply this AI-generated content.'}
+                 </p>
+               </div>
+             </div>
+             <div className="bg-white rounded-lg p-4 mb-4 max-h-64 overflow-y-auto border border-gray-200">
+               <p className="text-sm text-gray-700 whitespace-pre-wrap">{story.ai_draft_text}</p>
              </div>
              {!aiDraftApplied ? (
                <div className="flex gap-2">
                  <button 
                    onClick={applyAIDraft}
-                   className="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold text-sm">
-                   Accept & Apply
+                   className="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold text-sm transition-colors">
+                   ✓ Accept & Apply
                  </button>
                  <button 
                    onClick={() => {
                      updateStoryField('ai_draft_text', null);
                      setAiDraftApplied(false);
                    }}
-                   className="flex-1 bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold text-sm">
+                   className="flex-1 bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold text-sm transition-colors">
                    Reject
                  </button>
                </div>
              ) : (
-               <div className="flex gap-2">
-                 <p className="flex-1 text-sm text-blue-800 font-medium">✓ Draft applied. Save to persist changes.</p>
-                 <button 
-                   onClick={() => {
-                     updateStoryField('ai_draft_text', null);
-                     updateStoryField('ai_approval_status', 'pending_review');
-                     setAiDraftApplied(false);
-                   }}
-                   className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold text-sm">
-                   Undo
-                 </button>
-               </div>
+               <button 
+                 onClick={() => {
+                   updateStoryField('ai_draft_text', null);
+                   updateStoryField('ai_approval_status', 'pending_review');
+                   setAiDraftApplied(false);
+                 }}
+                 className="w-full bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold text-sm transition-colors">
+                 Undo & Regenerate
+               </button>
              )}
            </div>
           )}
@@ -462,31 +479,43 @@ export default function AdminStoryDetail() {
               />
             </div>
 
-            <div className="flex gap-2 pt-4">
-               <button 
-                 onClick={() => {
-                   setStory(prev => ({
-                     ...prev,
-                     status: 'published',
-                     visibility: 'public',
-                   }));
-                   // Call saveStory after state updates
-                   setTimeout(() => saveStory(), 0);
-                 }}
-                 disabled={saving}
-                 className="flex-1 bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white px-6 py-2 rounded-lg font-semibold flex items-center justify-center gap-2">
-                 <CheckCircle2 className="h-5 w-5" /> Publish Now
-               </button>
-               <button 
-                 onClick={() => {
-                   updateStoryField('status', 'review');
-                   saveStory();
-                 }}
-                 disabled={saving}
-                 className="flex-1 bg-gray-600 hover:bg-gray-700 disabled:bg-gray-400 text-white px-6 py-2 rounded-lg font-semibold">
-                 Send for Review
-               </button>
-             </div>
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+              <p className="text-sm text-blue-900 font-medium mb-2">📢 Publishing Actions</p>
+              <p className="text-xs text-blue-800 mb-4">Choose how to move this story through the workflow.</p>
+              <div className="space-y-2">
+                <button 
+                  onClick={() => {
+                    setStory(prev => ({
+                      ...prev,
+                      status: 'published',
+                      visibility: 'public',
+                    }));
+                    setTimeout(() => saveStory(), 0);
+                  }}
+                  disabled={saving}
+                  className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white px-6 py-2 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all">
+                  <CheckCircle2 className="h-5 w-5" /> {saving ? 'Publishing...' : 'Publish Now (Public)'}
+                </button>
+                <button 
+                  onClick={() => {
+                    updateStoryField('status', 'review');
+                    setTimeout(() => saveStory(), 0);
+                  }}
+                  disabled={saving}
+                  className="w-full bg-amber-600 hover:bg-amber-700 disabled:bg-gray-400 text-white px-6 py-2 rounded-lg font-semibold transition-all">
+                  📋 Send for Review
+                </button>
+                <button 
+                  onClick={() => {
+                    updateStoryField('status', 'draft');
+                    setTimeout(() => saveStory(), 0);
+                  }}
+                  disabled={saving}
+                  className="w-full bg-gray-600 hover:bg-gray-700 disabled:bg-gray-400 text-white px-6 py-2 rounded-lg font-semibold transition-all">
+                  Keep as Draft
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
