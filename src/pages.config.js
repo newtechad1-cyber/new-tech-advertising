@@ -295,6 +295,9 @@ import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import BulldogTVSubmit from './pages/BulldogTVSubmit';
 import BulldogTV from './pages/BulldogTV';
 import BulldogTVWatch from './pages/BulldogTVWatch';
+import AdminSchoolSubmissions from './pages/AdminSchoolSubmissions';
+import AdminSchoolProjects from './pages/AdminSchoolProjects';
+import AdminSchoolProjectDetail from './pages/AdminSchoolProjectDetail';
 import __Layout from './Layout.jsx';
 
 
@@ -547,6 +550,9 @@ export const PAGES = {
     "BulldogTVSubmit": BulldogTVSubmit,
     "BulldogTV": BulldogTV,
     "BulldogTVWatch": BulldogTVWatch,
+    "AdminSchoolSubmissions": AdminSchoolSubmissions,
+    "AdminSchoolProjects": AdminSchoolProjects,
+    "AdminSchoolProjectDetail": AdminSchoolProjectDetail,
 }
 
 export const pagesConfig = {
