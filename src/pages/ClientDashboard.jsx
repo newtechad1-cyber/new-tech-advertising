@@ -11,6 +11,7 @@ import {
   CheckCircle, Clock, ArrowRight, LogOut, Mail, Phone,
   TrendingUp, Calendar, Star
 } from 'lucide-react';
+import PlatformFeatureTiles from '@/components/dashboard/PlatformFeatureTiles';
 
 const LOGO = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/6e3c5001c_builtforsmallbusinessespng2.png';
 
