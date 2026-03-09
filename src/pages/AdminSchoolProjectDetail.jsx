@@ -53,6 +53,10 @@ export default function AdminSchoolProjectDetail() {
   };
 
   const queueRender = async () => {
+    if (!scripts.length) {
+      alert('Please generate a script first before rendering');
+      return;
+    }
     setQueuingRender(true);
     try {
       const render = await base44.entities.VideoRenderJobs.create({
@@ -71,9 +75,10 @@ export default function AdminSchoolProjectDetail() {
       await base44.entities.VideoProjects.update(projectId, { status: 'queued_for_render' });
       setRenders(prev => [render, ...prev]);
       setProject(p => ({ ...p, status: 'queued_for_render' }));
+      setLastSave(new Date());
     } catch (e) {
       console.error('Error queueing render:', e);
-      alert('Error queueing render');
+      alert('Error queueing render. Please try again.');
     } finally {
       setQueuingRender(false);
     }
