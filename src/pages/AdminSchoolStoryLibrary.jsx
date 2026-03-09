@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import SchoolAdminNav from '@/components/school-tv/SchoolAdminNav';
+import AdminShell from '@/components/school-tv/AdminShell';
 import { Button } from '@/components/ui/button';
 import {
   Edit,
