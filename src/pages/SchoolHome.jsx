@@ -131,16 +131,25 @@ export default function SchoolHome() {
 
       {/* Spotlights */}
       {spotlights.length > 0 && (
-        <section className="py-12 md:py-16 bg-gray-50">
+        <section className="py-16 md:py-28 bg-gray-50">
           <div className="max-w-6xl mx-auto px-4 md:px-6">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 flex items-center gap-2"><Star className="h-6 md:h-8 w-6 md:w-8 text-yellow-500" /> Spotlights</h2>
-            <div className="grid sm:grid-cols-2 md:grid-cols-2 gap-4 md:gap-6">
+            <div className="mb-12 md:mb-16 flex items-center gap-4">
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-yellow-100 text-yellow-700 font-semibold text-sm">
+                <Star className="h-4 w-4 mr-2" /> Spotlights
+              </div>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black mb-4 text-gray-900">Meet Our Community Stars</h2>
+            <p className="text-gray-600 text-lg md:text-xl max-w-2xl mb-12">Celebrating the students, staff, and community members who make H-D special</p>
+            <div className="grid sm:grid-cols-2 gap-6 md:gap-8">
               {spotlights.map((spotlight) => (
-                <Link key={spotlight.id} to={`/schools/${schoolSlug}/spotlights/${spotlight.slug}`} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                  {spotlight.featured_image_url && <img src={spotlight.featured_image_url} alt={spotlight.title} className="w-full h-48 object-cover" />}
-                  <div className="p-6">
-                    <h3 className="font-bold text-xl mb-2">{spotlight.title}</h3>
-                    <p className="text-gray-600 line-clamp-2">{spotlight.summary}</p>
+                <Link key={spotlight.id} to={`/schools/${schoolSlug}/spotlights/${spotlight.slug}`} className="group bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-3 border border-gray-100">
+                  <div className="relative h-64 bg-gradient-to-br from-slate-200 to-slate-300 overflow-hidden">
+                    {spotlight.featured_image_url && <img src={spotlight.featured_image_url} alt={spotlight.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                  <div className="p-8">
+                    <h3 className="font-black text-2xl mb-2 text-gray-900 group-hover:text-yellow-600 transition-colors">{spotlight.title}</h3>
+                    <p className="text-gray-600 line-clamp-2 leading-relaxed">{spotlight.summary}</p>
                   </div>
                 </Link>
               ))}
