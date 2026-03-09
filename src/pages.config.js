@@ -310,6 +310,7 @@ import AdminSchoolAILab from './pages/AdminSchoolAILab';
 import AdminSchoolAnalytics from './pages/AdminSchoolAnalytics';
 import AdminSchoolUsers from './pages/AdminSchoolUsers';
 import AdminSchoolSettings from './pages/AdminSchoolSettings';
+import SchoolStoryLabPresentation from './pages/SchoolStoryLabPresentation';
 import __Layout from './Layout.jsx';
 
 
@@ -577,6 +578,7 @@ export const PAGES = {
     "AdminSchoolAnalytics": AdminSchoolAnalytics,
     "AdminSchoolUsers": AdminSchoolUsers,
     "AdminSchoolSettings": AdminSchoolSettings,
+    "SchoolStoryLabPresentation": SchoolStoryLabPresentation,
 }
 
 export const pagesConfig = {
