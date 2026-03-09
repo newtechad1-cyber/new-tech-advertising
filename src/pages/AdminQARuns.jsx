@@ -16,6 +16,17 @@ const RESULT_STYLES = {
   in_progress: { icon: Play,         color: 'text-blue-600',  bg: 'bg-blue-100 text-blue-800 border-blue-200' },
 };
 
+const RUN_PRESETS = [
+  'Smoke Test',
+  'Critical Revenue Flow Test',
+  'Billing Regression',
+  'Reseller Regression',
+  'Content Fulfillment Regression',
+  'Security Isolation Test',
+  'Full Regression',
+  'Pre-Sales Launch Check',
+];
+
 function NewRunModal({ testCases, onClose, onSave }) {
   const [form, setForm] = useState({ run_name: '', environment: 'staging', build_version: '', notes: '', started_at: new Date().toISOString(), result: 'in_progress', test_case_id: '' });
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
@@ -32,7 +43,15 @@ function NewRunModal({ testCases, onClose, onSave }) {
             </SelectContent>
           </Select>
         </div>
-        <div><label className="text-xs text-gray-400 uppercase mb-1 block">Run Name</label><Input value={form.run_name} onChange={e => set('run_name', e.target.value)} placeholder="Sprint 4 Regression" /></div>
+        <div>
+          <label className="text-xs text-gray-400 uppercase mb-1 block">Run Name</label>
+          <Input value={form.run_name} onChange={e => set('run_name', e.target.value)} placeholder="Sprint 4 Regression" />
+          <div className="flex flex-wrap gap-1 mt-1.5">
+            {RUN_PRESETS.map(p => (
+              <button key={p} type="button" onClick={() => set('run_name', p)} className="text-xs px-2 py-0.5 rounded-full border border-gray-200 text-gray-500 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition-colors">{p}</button>
+            ))}
+          </div>
+        </div>
         <div className="grid grid-cols-2 gap-3">
           <div><label className="text-xs text-gray-400 uppercase mb-1 block">Environment</label>
             <Select value={form.environment} onValueChange={v => set('environment', v)}>
