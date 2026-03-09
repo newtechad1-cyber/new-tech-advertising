@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AdminShell from '@/components/school-tv/AdminShell';
-import { Search, Eye, Copy, Plus, Archive, LayoutGrid, List } from 'lucide-react';
+import VideoPublishStatus from '@/components/school-tv/VideoPublishStatus';
+import { Search, Eye, Copy, Plus, Archive, LayoutGrid, List, ExternalLink } from 'lucide-react';
 
 const VISIBILITY_COLORS = {
   public: 'bg-green-100 text-green-800',
