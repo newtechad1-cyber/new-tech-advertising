@@ -143,6 +143,14 @@ export default function AdminStoryDetail() {
     setStory(prev => ({ ...prev, [field]: value }));
   };
 
+  const applyAIDraft = () => {
+    if (story.ai_draft_text) {
+      updateStoryField('body', story.ai_draft_text);
+      updateStoryField('ai_approval_status', 'approved');
+      setAiDraftApplied(true);
+    }
+  };
+
   const createAIJob = async (jobType) => {
     try {
       await base44.entities.AIContentJobs.create({
