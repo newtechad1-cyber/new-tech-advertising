@@ -101,12 +101,14 @@ export default function AdminSchoolSubmissions() {
         status: 'draft',
         visibility: 'staff',
       });
-      alert(`Story created! You can edit it in the Story Library.`);
       // Update submission to mark it as linked
-      await base44.entities.StudentVideoSubmissions.update(submission.id, {
+      await base44.entities.SchoolSubmissions.update(submission.id, {
         status: 'assigned_to_project',
+        project_id: story.id,
       });
-      setSubmissions(submissions.map(s => s.id === submission.id ? { ...s, status: 'assigned_to_project' } : s));
+      setSubmissions(submissions.map(s => s.id === submission.id ? { ...s, status: 'assigned_to_project', project_id: story.id } : s));
+      setSelectedSubmission(null);
+      alert(`Story created successfully! Edit it in the Story Library.`);
     } catch (error) {
       console.error('Error saving to story:', error);
       alert('Error saving to story');
