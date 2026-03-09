@@ -114,10 +114,34 @@ export default function AdminAILab() {
 
       {/* Dashboard Tab */}
       {activeTab === 'dashboard' && (
-        <div className="space-y-6">
+        <div className="space-y-8">
+          {/* AI Tools Guide */}
+          <div className="bg-gradient-to-r from-purple-50 via-blue-50 to-purple-50 border-2 border-purple-200 rounded-2xl p-8">
+            <h3 className="text-2xl font-black mb-2 flex items-center gap-2">
+              ⚡ AI Content Generation
+            </h3>
+            <p className="text-gray-700 mb-6">Your AI assistant helps create quality content. All outputs are reviewed by staff before publishing.</p>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <div className="bg-white rounded-lg p-4">
+                <p className="font-bold text-purple-600 mb-2">✓ Save Time</p>
+                <p className="text-gray-700">Generate headlines, captions, and scripts instantly</p>
+              </div>
+              <div className="bg-white rounded-lg p-4">
+                <p className="font-bold text-purple-600 mb-2">✓ Consistent Quality</p>
+                <p className="text-gray-700">Maintain school voice and tone across all content</p>
+              </div>
+              <div className="bg-white rounded-lg p-4">
+                <p className="font-bold text-purple-600 mb-2">✓ School-Safe</p>
+                <p className="text-gray-700">Moderation-ready and appropriate for all ages</p>
+              </div>
+            </div>
+          </div>
+
           {/* Stats Cards */}
-          <div className="grid md:grid-cols-4 gap-4">
-            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg shadow-md p-6 border border-purple-200">
+          <div>
+            <h3 className="text-lg font-black text-gray-900 mb-4">Activity Summary</h3>
+            <div className="grid md:grid-cols-4 gap-4">
+              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg shadow-md p-6 border border-purple-200">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-semibold text-purple-700">Total Jobs</p>
@@ -160,7 +184,8 @@ export default function AdminAILab() {
 
           {/* Recent Jobs */}
           <div className="bg-white rounded-lg shadow-md p-6">
-            <h3 className="text-lg font-bold mb-4">Recent AI Jobs</h3>
+            <h3 className="text-lg font-bold mb-2">Recent AI Jobs</h3>
+            <p className="text-gray-600 text-sm mb-6">These content pieces are waiting for your review and approval</p>
             <div className="space-y-2 max-h-96 overflow-y-auto">
               {jobs.length > 0 ? (
                 jobs.slice(0, 10).map((job) => (
