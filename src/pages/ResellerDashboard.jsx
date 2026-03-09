@@ -72,6 +72,12 @@ export default function ResellerDashboard() {
           <Badge className={reseller.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}>
             {reseller.status}
           </Badge>
+          <Button size="sm" variant="ghost" onClick={() => window.location.href = createPageUrl('ResellerSignupLinks')}>
+            <Users className="w-4 h-4 mr-1" /> Links
+          </Button>
+          <Button size="sm" variant="ghost" onClick={() => window.location.href = createPageUrl('ResellerRevenue')}>
+            <TrendingUp className="w-4 h-4 mr-1" /> Revenue
+          </Button>
           <Button size="sm" variant="ghost" onClick={() => window.location.href = createPageUrl('ResellerBranding')}>
             <Settings className="w-4 h-4 mr-1" /> Branding
           </Button>

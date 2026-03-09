@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger
 } from '@/components/ui/dialog';
-import { Plus } from 'lucide-react';
+import { Plus, BarChart2 } from 'lucide-react';
 import AdminNav from '@/components/nav/AdminNav';
 import { createPageUrl } from '@/utils';
 
@@ -70,6 +70,13 @@ export default function AdminResellers() {
               <h1 className="text-4xl font-bold text-slate-900">Reseller Management</h1>
               <p className="text-slate-500 mt-1">Manage reseller partners, commissions, and white label settings</p>
             </div>
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => window.location.href = createPageUrl('AdminPlatform')}>
+                <BarChart2 className="w-4 h-4 mr-2" /> Platform Analytics
+              </Button>
+              <Button variant="outline" onClick={() => window.location.href = createPageUrl('AdminResellerRevenue')}>
+                Revenue
+              </Button>
             <Dialog open={showCreate} onOpenChange={setShowCreate}>
               <DialogTrigger asChild>
                 <Button><Plus className="w-4 h-4 mr-2" /> Add Reseller</Button>
@@ -120,6 +127,7 @@ export default function AdminResellers() {
                 </form>
               </DialogContent>
             </Dialog>
+            </div>
           </div>
 
           {/* Summary Metrics */}
