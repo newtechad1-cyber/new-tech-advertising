@@ -26,15 +26,21 @@ export default function AdminExecutive() {
   const [filters, setFilters] = useState({});
 
   // Fetch executive summary
-  const { data: summary, isLoading } = useQuery({
+  const { data: summary, isLoading, isError } = useQuery({
     queryKey: ['executive-summary', timePeriod, filters],
     queryFn: async () => {
-      const response = await base44.functions.invoke('getExecutiveDashboardSummary', {
-        time_period: timePeriod,
-        filters: filters
-      });
-      return response.data;
-    }
+      try {
+        const response = await base44.functions.invoke('getExecutiveDashboardSummary', {
+          time_period: timePeriod,
+          filters: filters
+        });
+        return response.data || {};
+      } catch (e) {
+        console.error('[AdminExecutive] getExecutiveDashboardSummary failed:', e);
+        return {};
+      }
+    },
+    retry: 1
   });
 
   if (isLoading) {
