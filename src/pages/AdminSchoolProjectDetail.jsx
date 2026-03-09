@@ -8,7 +8,11 @@ import { ArrowLeft, Wand2, Play, Film, Globe, CheckCircle, Loader2, RefreshCw } 
 const TABS = ['Overview', 'Assets', 'Script', 'Publishing'];
 
 export default function AdminSchoolProjectDetail() {
-  const { schoolSlug, projectId } = useParams();
+  const { schoolSlug, projectId } = useParams() || {};
+  
+  if (!schoolSlug || !projectId) {
+    return <div className="text-center py-12">Invalid project</div>;
+  }
 
   const [project, setProject] = useState(null);
   const [clips, setClips] = useState([]);
