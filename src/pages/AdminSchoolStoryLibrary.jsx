@@ -83,12 +83,12 @@ export default function AdminSchoolStoryLibrary() {
               <h1 className="text-3xl font-bold text-gray-900">Story Library</h1>
               <p className="text-gray-600 mt-1">{filteredStories.length} of {stories.length} stories</p>
             </div>
-            <Link
-              to={`/admin/schools/${schoolSlug}/story-library/new`}
+            <button
+              onClick={() => window.location.href = `${window.location.pathname}?action=create`}
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2"
             >
               <Plus className="h-5 w-5" /> New Story
-            </Link>
+            </button>
           </div>
         </div>
 
@@ -178,12 +178,12 @@ export default function AdminSchoolStoryLibrary() {
             <div className="text-center py-16 bg-white rounded-lg">
               <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
               <p className="text-gray-600 text-lg">No stories found</p>
-              <Link
-                to={`/admin/schools/${schoolSlug}/story-library/new`}
+              <button
+                onClick={() => window.location.href = `${window.location.pathname}?action=create`}
                 className="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold"
               >
                 Create Your First Story
-              </Link>
+              </button>
             </div>
           )}
         </div>

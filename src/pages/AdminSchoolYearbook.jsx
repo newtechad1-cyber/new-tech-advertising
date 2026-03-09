@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { useParams } from 'react-router-dom';
-import SchoolAdminNav from '@/components/school-tv/SchoolAdminNav';
+import { useParams, Link } from 'react-router-dom';
+import AdminShell from '@/components/school-tv/AdminShell';
 import { Button } from '@/components/ui/button';
 import { Loader2, Plus, Edit, Eye, Trash2 } from 'lucide-react';
 
@@ -49,17 +49,18 @@ export default function AdminSchoolYearbook() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
-      </div>
+      <AdminShell schoolSlug={schoolSlug}>
+        <div className="flex items-center justify-center h-screen">
+          <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+        </div>
+      </AdminShell>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <SchoolAdminNav schoolSlug={schoolSlug} currentPath="/admin/schools/:schoolSlug/yearbook" />
+    <AdminShell schoolSlug={schoolSlug}>
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="max-w-7xl mx-auto px-6 py-12">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">Yearbook Management</h1>
 
         {/* Season Selector */}
@@ -122,6 +123,6 @@ export default function AdminSchoolYearbook() {
           )}
         </div>
       </div>
-    </div>
+    </AdminShell>
   );
 }

@@ -28,7 +28,7 @@ export default function AdminSchoolSubmissions() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const data = await base44.entities.SchoolSubmissions.filter({
+        const data = await base44.entities.StudentVideoSubmissions.filter({
           school_slug: schoolSlug,
         });
         setSubmissions(data);
@@ -55,17 +55,17 @@ export default function AdminSchoolSubmissions() {
     : submissions.filter(s => s.status === filterStatus);
 
   const handleApprove = async (id) => {
-    await base44.entities.SchoolSubmissions.update(id, { status: 'approved' });
+    await base44.entities.StudentVideoSubmissions.update(id, { status: 'approved' });
     setSubmissions(submissions.map(s => s.id === id ? { ...s, status: 'approved' } : s));
   };
 
   const handleReject = async (id) => {
-    await base44.entities.SchoolSubmissions.update(id, { status: 'rejected' });
+    await base44.entities.StudentVideoSubmissions.update(id, { status: 'rejected' });
     setSubmissions(submissions.map(s => s.id === id ? { ...s, status: 'rejected' } : s));
   };
 
   const handleArchive = async (id) => {
-    await base44.entities.SchoolSubmissions.update(id, { status: 'archived' });
+    await base44.entities.StudentVideoSubmissions.update(id, { status: 'archived' });
     setSubmissions(submissions.filter(s => s.id !== id));
   };
 
