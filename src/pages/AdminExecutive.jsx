@@ -117,7 +117,6 @@ export default function AdminExecutive() {
 
         </div>
       </div>
-    </div>
     </AdminNav>
   );
 }
