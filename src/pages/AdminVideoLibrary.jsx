@@ -227,22 +227,32 @@ export default function AdminVideoLibrary() {
                     <tr key={video.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 text-sm font-semibold text-gray-900 max-w-xs truncate">{video.title}</td>
                       <td className="px-6 py-4 text-sm text-gray-600 capitalize">{video.project_type.replace(/_/g, ' ')}</td>
+                      <td className="px-6 py-4 text-sm">
+                        <span className={`text-xs px-2 py-1 rounded-full font-semibold ${
+                          video.publish_status === 'published' ? 'bg-green-100 text-green-800' :
+                          video.publish_status === 'queued' ? 'bg-blue-100 text-blue-800' :
+                          video.publish_status === 'partial' ? 'bg-yellow-100 text-yellow-800' :
+                          video.publish_status === 'failed' ? 'bg-red-100 text-red-800' :
+                          'bg-gray-100 text-gray-800'
+                        }`}>
+                          {(video.publish_status || 'not_ready').replace(/_/g, ' ')}
+                        </span>
+                      </td>
                       <td className="px-6 py-4 text-sm text-gray-600">
                         {new Date(video.published_date || video.created_date).toLocaleDateString()}
                       </td>
-                      <td className="px-6 py-4 text-sm">
-                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${VISIBILITY_COLORS[video.visibility] || 'bg-gray-100'}`}>
-                          {video.visibility}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-sm flex gap-2">
+                      <td className="px-6 py-4 text-sm flex gap-3">
+                        <Link
+                          to={`/admin/schools/${schoolSlug}/projects/${video.id}`}
+                          className="text-blue-600 hover:text-blue-800 font-semibold text-xs"
+                        >
+                          Edit
+                        </Link>
                         {video.public_video_url && (
-                          <a href={video.public_video_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 font-semibold text-xs">
+                          <a href={video.public_video_url} target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-800 font-semibold text-xs">
                             View
                           </a>
                         )}
-                        <button className="text-gray-600 hover:text-gray-800 font-semibold text-xs">Copy</button>
-                        <button className="text-gray-600 hover:text-gray-800 font-semibold text-xs">Archive</button>
                       </td>
                     </tr>
                   ))}
