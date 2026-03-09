@@ -25,7 +25,10 @@ const NAV_GROUPS = [
     items: [
       { label: 'Command Center', icon: Cpu, page: 'AdminCommandCenter' },
       { label: '🔔 Alert Center', icon: AlertCircle, page: 'AdminAlerts' },
-      { label: 'Sales Alerts', icon: Target, page: 'AdminSales' },
+      { label: '🎯 Sales Room HQ', icon: Target, page: 'AdminSalesDashboard' },
+      { label: 'Sales Assets', icon: Briefcase, page: 'AdminSalesAssets' },
+      { label: 'Sales Prompts', icon: Bot, page: 'AdminSalesPrompts' },
+      { label: 'Follow-ups', icon: Bell, page: 'AdminSalesFollowups' },
       { label: 'Leads & CRM', icon: Users, page: 'LeadsDashboard' },
       { label: 'Clients', icon: Briefcase, page: 'AdminClients' },
       { label: 'Users', icon: UserCog, page: 'AdminUsers' },

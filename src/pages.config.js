@@ -270,6 +270,11 @@ import DealRoomRoi from './pages/DealRoomRoi';
 import DealRoomCaseStudies from './pages/DealRoomCaseStudies';
 import DealRoomContract from './pages/DealRoomContract';
 import StartTrial from './pages/StartTrial';
+import AdminSalesDashboard from './pages/AdminSalesDashboard';
+import AdminSalesProspect from './pages/AdminSalesProspect';
+import AdminSalesAssets from './pages/AdminSalesAssets';
+import AdminSalesPrompts from './pages/AdminSalesPrompts';
+import AdminSalesFollowups from './pages/AdminSalesFollowups';
 import __Layout from './Layout.jsx';
 
 
@@ -497,6 +502,11 @@ export const PAGES = {
     "DealRoomCaseStudies": DealRoomCaseStudies,
     "DealRoomContract": DealRoomContract,
     "StartTrial": StartTrial,
+    "AdminSalesDashboard": AdminSalesDashboard,
+    "AdminSalesProspect": AdminSalesProspect,
+    "AdminSalesAssets": AdminSalesAssets,
+    "AdminSalesPrompts": AdminSalesPrompts,
+    "AdminSalesFollowups": AdminSalesFollowups,
 }
 
 export const pagesConfig = {
