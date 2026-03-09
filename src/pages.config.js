@@ -335,6 +335,14 @@ import SchoolAbout from './pages/SchoolAbout';
 import ContributorHub from './pages/ContributorHub';
 import ContributorSubmissions from './pages/ContributorSubmissions';
 import ContributorAILab from './pages/ContributorAILab';
+import SchoolStoryDetail from './pages/SchoolStoryDetail';
+import SchoolVideoDetail from './pages/SchoolVideoDetail';
+import SchoolEventDetail from './pages/SchoolEventDetail';
+import SchoolSpotlightDetail from './pages/SchoolSpotlightDetail';
+import SchoolYearbookSeason from './pages/SchoolYearbookSeason';
+import SchoolYearbookCategory from './pages/SchoolYearbookCategory';
+import SchoolYearbookGallery from './pages/SchoolYearbookGallery';
+import SchoolYearbookPage from './pages/SchoolYearbookPage';
 import __Layout from './Layout.jsx';
 
 
@@ -627,6 +635,14 @@ export const PAGES = {
     "ContributorHub": ContributorHub,
     "ContributorSubmissions": ContributorSubmissions,
     "ContributorAILab": ContributorAILab,
+    "SchoolStoryDetail": SchoolStoryDetail,
+    "SchoolVideoDetail": SchoolVideoDetail,
+    "SchoolEventDetail": SchoolEventDetail,
+    "SchoolSpotlightDetail": SchoolSpotlightDetail,
+    "SchoolYearbookSeason": SchoolYearbookSeason,
+    "SchoolYearbookCategory": SchoolYearbookCategory,
+    "SchoolYearbookGallery": SchoolYearbookGallery,
+    "SchoolYearbookPage": SchoolYearbookPage,
 }
 
 export const pagesConfig = {
