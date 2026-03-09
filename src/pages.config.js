@@ -236,6 +236,9 @@ import ResellerBranding from './pages/ResellerBranding';
 import AdminResellers from './pages/AdminResellers';
 import AdminResellerClients from './pages/AdminResellerClients';
 import AdminResellerCommissions from './pages/AdminResellerCommissions';
+import SalesDashboard from './pages/SalesDashboard';
+import SalesPipeline from './pages/SalesPipeline';
+import SalesLeads from './pages/SalesLeads';
 import __Layout from './Layout.jsx';
 
 
@@ -429,6 +432,9 @@ export const PAGES = {
     "AdminResellers": AdminResellers,
     "AdminResellerClients": AdminResellerClients,
     "AdminResellerCommissions": AdminResellerCommissions,
+    "SalesDashboard": SalesDashboard,
+    "SalesPipeline": SalesPipeline,
+    "SalesLeads": SalesLeads,
 }
 
 export const pagesConfig = {
