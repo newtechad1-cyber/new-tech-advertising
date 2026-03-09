@@ -82,18 +82,24 @@ export default function BulldogTVSubmit() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-white">
       <SchoolTVHeader branding={branding} />
-      <div style={{ backgroundColor: branding.primary_color }} className="py-12 px-4 text-center">
-        <h1 className="text-4xl font-black text-white mb-2">{branding.public_submission_page_title || 'Share Your Story'}</h1>
-        <p className="text-white/80 text-lg max-w-xl mx-auto">{branding.intro_text} — submit your clips and photos to be featured on {branding.network_name}.</p>
+      <div style={{ backgroundColor: branding.primary_color }} className="py-16 px-4 text-center relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, currentColor 0%, transparent 50%), radial-gradient(circle at 80% 80%, currentColor 0%, transparent 50%)' }} />
+        <div className="relative z-10 max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full" style={{ backgroundColor: `${branding.secondary_color}20` }}>
+            <span className="text-sm font-bold" style={{ color: branding.secondary_color }}>📹 SUBMIT YOUR CLIP</span>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-black text-white mb-3">{branding.public_submission_page_title || 'Share Your Story'}</h1>
+          <p className="text-white/85 text-lg leading-relaxed">{branding.intro_text} — submit your clips and photos to be featured on <strong>{branding.network_name}</strong>.</p>
+        </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-6xl mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Left: what to submit */}
           <div className="lg:col-span-1">
-            <h2 className="font-bold text-slate-800 text-lg mb-4">What can I submit?</h2>
+            <h2 className="font-bold text-slate-800 text-base mb-4 uppercase tracking-wide text-xs">📚 Categories</h2>
             <div className="space-y-3">
               {ACTIVITY_TYPES.map(({ value, label, icon: TypeIcon }) => (
                 <div key={value} className="flex items-center gap-3 p-3 bg-white rounded-xl border border-slate-200">
@@ -111,9 +117,12 @@ export default function BulldogTVSubmit() {
           </div>
 
           {/* Right: form */}
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
-              <h2 className="font-bold text-xl text-slate-900 mb-5">Submit Your Clip or Photos</h2>
+          <div className="lg:col-span-3">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-lg p-6 md:p-8">
+              <div className="flex items-center gap-2 mb-5">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-lg font-bold" style={{ backgroundColor: branding.secondary_color }}>✓</div>
+                <h2 className="font-black text-xl text-slate-900">Submit Your Clip or Photos</h2>
+              </div>
               <form onSubmit={handleSubmit} className="space-y-4">
                 {/* File drop zone */}
                 <div
