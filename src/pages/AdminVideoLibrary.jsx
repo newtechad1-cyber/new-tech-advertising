@@ -217,8 +217,8 @@ export default function AdminVideoLibrary() {
                   <tr>
                     <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Title</th>
                     <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Category</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Publish Status</th>
                     <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Published</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Visibility</th>
                     <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Actions</th>
                   </tr>
                 </thead>
