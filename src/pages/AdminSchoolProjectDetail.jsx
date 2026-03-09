@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useParams, Link } from 'react-router-dom';
-import SchoolAdminNav from '@/components/school-tv/SchoolAdminNav';
+import AdminShell from '@/components/school-tv/AdminShell';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Wand2, Play, Film, Globe, CheckCircle, Loader2, RefreshCw } from 'lucide-react';
 
