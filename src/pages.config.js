@@ -61,12 +61,17 @@ import AdaWebsiteCompliance from './pages/AdaWebsiteCompliance';
 import AdaWebsiteLawsuitPrevention from './pages/AdaWebsiteLawsuitPrevention';
 import AdaWebsiteRebuild from './pages/AdaWebsiteRebuild';
 import Admin from './pages/Admin';
+import AdminAIActivity from './pages/AdminAIActivity';
+import AdminAILab from './pages/AdminAILab';
+import AdminAIPrompts from './pages/AdminAIPrompts';
 import AdminAlerts from './pages/AdminAlerts';
+import AdminAnalytics from './pages/AdminAnalytics';
 import AdminApproval from './pages/AdminApproval';
 import AdminAutopilot from './pages/AdminAutopilot';
 import AdminBilling from './pages/AdminBilling';
 import AdminBillingContract from './pages/AdminBillingContract';
 import AdminBlog from './pages/AdminBlog';
+import AdminBranding from './pages/AdminBranding';
 import AdminClientSettings from './pages/AdminClientSettings';
 import AdminClientSettingsCompany from './pages/AdminClientSettingsCompany';
 import AdminClients from './pages/AdminClients';
@@ -76,11 +81,13 @@ import AdminCommerceCompany from './pages/AdminCommerceCompany';
 import AdminContentEngine from './pages/AdminContentEngine';
 import AdminCopilot from './pages/AdminCopilot';
 import AdminCopilotAccount from './pages/AdminCopilotAccount';
+import AdminCreateProject from './pages/AdminCreateProject';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminDemoMachine from './pages/AdminDemoMachine';
 import AdminDemoMachineAnalytics from './pages/AdminDemoMachineAnalytics';
 import AdminDemoMachinePaths from './pages/AdminDemoMachinePaths';
 import AdminDemoMachineSessions from './pages/AdminDemoMachineSessions';
+import AdminEventsList from './pages/AdminEventsList';
 import AdminExecutive from './pages/AdminExecutive';
 import AdminFinance from './pages/AdminFinance';
 import AdminFounder from './pages/AdminFounder';
@@ -99,6 +106,8 @@ import AdminOptimizerDetail from './pages/AdminOptimizerDetail';
 import AdminOrchestrator from './pages/AdminOrchestrator';
 import AdminOrchestratorDetail from './pages/AdminOrchestratorDetail';
 import AdminPlatform from './pages/AdminPlatform';
+import AdminProjectWorkspace from './pages/AdminProjectWorkspace';
+import AdminProjectsList from './pages/AdminProjectsList';
 import AdminQA from './pages/AdminQA';
 import AdminQAIssues from './pages/AdminQAIssues';
 import AdminQAReadiness from './pages/AdminQAReadiness';
@@ -123,17 +132,25 @@ import AdminSchoolAILab from './pages/AdminSchoolAILab';
 import AdminSchoolAnalytics from './pages/AdminSchoolAnalytics';
 import AdminSchoolBranding from './pages/AdminSchoolBranding';
 import AdminSchoolDashboard from './pages/AdminSchoolDashboard';
+import AdminSchoolEventDetail from './pages/AdminSchoolEventDetail';
+import AdminSchoolEvents from './pages/AdminSchoolEvents';
 import AdminSchoolLibrary from './pages/AdminSchoolLibrary';
 import AdminSchoolProjectDetail from './pages/AdminSchoolProjectDetail';
 import AdminSchoolProjects from './pages/AdminSchoolProjects';
 import AdminSchoolRenderQueue from './pages/AdminSchoolRenderQueue';
 import AdminSchoolSettings from './pages/AdminSchoolSettings';
+import AdminSchoolSpotlightDetail from './pages/AdminSchoolSpotlightDetail';
+import AdminSchoolSpotlights from './pages/AdminSchoolSpotlights';
 import AdminSchoolStoryLibrary from './pages/AdminSchoolStoryLibrary';
 import AdminSchoolSubmissions from './pages/AdminSchoolSubmissions';
 import AdminSchoolUsers from './pages/AdminSchoolUsers';
 import AdminSchoolVideoLibrary from './pages/AdminSchoolVideoLibrary';
 import AdminSchoolYearbook from './pages/AdminSchoolYearbook';
 import AdminSettings from './pages/AdminSettings';
+import AdminStoryDetail from './pages/AdminStoryDetail';
+import AdminStoryLibrary from './pages/AdminStoryLibrary';
+import AdminSubmissionDetail from './pages/AdminSubmissionDetail';
+import AdminSubmissionsList from './pages/AdminSubmissionsList';
 import AdminSystemHealth from './pages/AdminSystemHealth';
 import AdminTasks from './pages/AdminTasks';
 import AdminTestMatrix from './pages/AdminTestMatrix';
@@ -148,7 +165,14 @@ import AdminVideoEngineRequest from './pages/AdminVideoEngineRequest';
 import AdminVideoEngineRequests from './pages/AdminVideoEngineRequests';
 import AdminVideoEngineTemplates from './pages/AdminVideoEngineTemplates';
 import AdminVideoGenerator from './pages/AdminVideoGenerator';
+import AdminVideoLibrary from './pages/AdminVideoLibrary';
 import AdminVideoQueue from './pages/AdminVideoQueue';
+import AdminVideoRenderDetail from './pages/AdminVideoRenderDetail';
+import AdminVideoRenderQueue from './pages/AdminVideoRenderQueue';
+import AdminYearbookLibrary from './pages/AdminYearbookLibrary';
+import AdminYearbookOverview from './pages/AdminYearbookOverview';
+import AdminYearbookPage from './pages/AdminYearbookPage';
+import AdminYearbookSeason from './pages/AdminYearbookSeason';
 import AgentArchitecture from './pages/AgentArchitecture';
 import AiAccessibilityChecker from './pages/AiAccessibilityChecker';
 import AiAdvertising from './pages/AiAdvertising';
@@ -156,9 +180,9 @@ import AiMarketingPlatform from './pages/AiMarketingPlatform';
 import AiOperations from './pages/AiOperations';
 import AiSeo from './pages/AiSeo';
 import AiSocialMedia from './pages/AiSocialMedia';
-import AiVideos from './pages/AiVideos';
 import AiSocialMediaSmallBusiness from './pages/AiSocialMediaSmallBusiness';
 import AiVideoStudio from './pages/AiVideoStudio';
+import AiVideos from './pages/AiVideos';
 import AiWebsites from './pages/AiWebsites';
 import AuthorityMap from './pages/AuthorityMap';
 import Blog from './pages/Blog';
@@ -191,6 +215,9 @@ import ContentDrafts from './pages/ContentDrafts';
 import ContentEngine from './pages/ContentEngine';
 import ContentQueue from './pages/ContentQueue';
 import ContentStudio from './pages/ContentStudio';
+import ContributorAILab from './pages/ContributorAILab';
+import ContributorHub from './pages/ContributorHub';
+import ContributorSubmissions from './pages/ContributorSubmissions';
 import Dashboard from './pages/Dashboard';
 import DealRoom from './pages/DealRoom';
 import DealRoomCaseStudies from './pages/DealRoomCaseStudies';
@@ -282,8 +309,24 @@ import SalesLeads from './pages/SalesLeads';
 import SalesPipeline from './pages/SalesPipeline';
 import SalesRoom from './pages/SalesRoom';
 import ScheduledQueue from './pages/ScheduledQueue';
+import SchoolAbout from './pages/SchoolAbout';
+import SchoolEventDetail from './pages/SchoolEventDetail';
+import SchoolEvents from './pages/SchoolEvents';
+import SchoolHome from './pages/SchoolHome';
+import SchoolSpotlightDetail from './pages/SchoolSpotlightDetail';
+import SchoolSpotlights from './pages/SchoolSpotlights';
+import SchoolStories from './pages/SchoolStories';
+import SchoolStoryDetail from './pages/SchoolStoryDetail';
 import SchoolStoryLab from './pages/SchoolStoryLab';
 import SchoolStoryLabPresentation from './pages/SchoolStoryLabPresentation';
+import SchoolSubmit from './pages/SchoolSubmit';
+import SchoolTV from './pages/SchoolTV';
+import SchoolVideoDetail from './pages/SchoolVideoDetail';
+import SchoolYearbook from './pages/SchoolYearbook';
+import SchoolYearbookCategory from './pages/SchoolYearbookCategory';
+import SchoolYearbookGallery from './pages/SchoolYearbookGallery';
+import SchoolYearbookPage from './pages/SchoolYearbookPage';
+import SchoolYearbookSeason from './pages/SchoolYearbookSeason';
 import ServiceLocation from './pages/ServiceLocation';
 import Services from './pages/Services';
 import SetupComplete from './pages/SetupComplete';
@@ -319,49 +362,6 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import SchoolStories from './pages/SchoolStories';
-import SchoolYearbook from './pages/SchoolYearbook';
-import SchoolEvents from './pages/SchoolEvents';
-import SchoolSpotlights from './pages/SchoolSpotlights';
-import AdminStoryLibrary from './pages/AdminStoryLibrary';
-import AdminSchoolEvents from './pages/AdminSchoolEvents';
-import AdminSchoolSpotlights from './pages/AdminSchoolSpotlights';
-import AdminVideoRenderQueue from './pages/AdminVideoRenderQueue';
-import AdminAILab from './pages/AdminAILab';
-import SchoolHome from './pages/SchoolHome';
-import SchoolTV from './pages/SchoolTV';
-import SchoolSubmit from './pages/SchoolSubmit';
-import SchoolAbout from './pages/SchoolAbout';
-import ContributorHub from './pages/ContributorHub';
-import ContributorSubmissions from './pages/ContributorSubmissions';
-import ContributorAILab from './pages/ContributorAILab';
-import SchoolStoryDetail from './pages/SchoolStoryDetail';
-import SchoolVideoDetail from './pages/SchoolVideoDetail';
-import SchoolEventDetail from './pages/SchoolEventDetail';
-import SchoolSpotlightDetail from './pages/SchoolSpotlightDetail';
-import SchoolYearbookSeason from './pages/SchoolYearbookSeason';
-import SchoolYearbookCategory from './pages/SchoolYearbookCategory';
-import SchoolYearbookGallery from './pages/SchoolYearbookGallery';
-import SchoolYearbookPage from './pages/SchoolYearbookPage';
-import AdminSubmissionsList from './pages/AdminSubmissionsList';
-import AdminProjectsList from './pages/AdminProjectsList';
-import AdminVideoLibrary from './pages/AdminVideoLibrary';
-import AdminEventsList from './pages/AdminEventsList';
-import AdminAnalytics from './pages/AdminAnalytics';
-import AdminBranding from './pages/AdminBranding';
-import AdminYearbookLibrary from './pages/AdminYearbookLibrary';
-import AdminSubmissionDetail from './pages/AdminSubmissionDetail';
-import AdminStoryDetail from './pages/AdminStoryDetail';
-import AdminYearbookOverview from './pages/AdminYearbookOverview';
-import AdminYearbookSeason from './pages/AdminYearbookSeason';
-import AdminYearbookPage from './pages/AdminYearbookPage';
-import AdminSchoolEventDetail from './pages/AdminSchoolEventDetail';
-import AdminSchoolSpotlightDetail from './pages/AdminSchoolSpotlightDetail';
-import AdminCreateProject from './pages/AdminCreateProject';
-import AdminProjectWorkspace from './pages/AdminProjectWorkspace';
-import AdminAIPrompts from './pages/AdminAIPrompts';
-import AdminAIActivity from './pages/AdminAIActivity';
-import AdminVideoRenderDetail from './pages/AdminVideoRenderDetail';
 import __Layout from './Layout.jsx';
 
 
@@ -380,12 +380,17 @@ export const PAGES = {
     "AdaWebsiteLawsuitPrevention": AdaWebsiteLawsuitPrevention,
     "AdaWebsiteRebuild": AdaWebsiteRebuild,
     "Admin": Admin,
+    "AdminAIActivity": AdminAIActivity,
+    "AdminAILab": AdminAILab,
+    "AdminAIPrompts": AdminAIPrompts,
     "AdminAlerts": AdminAlerts,
+    "AdminAnalytics": AdminAnalytics,
     "AdminApproval": AdminApproval,
     "AdminAutopilot": AdminAutopilot,
     "AdminBilling": AdminBilling,
     "AdminBillingContract": AdminBillingContract,
     "AdminBlog": AdminBlog,
+    "AdminBranding": AdminBranding,
     "AdminClientSettings": AdminClientSettings,
     "AdminClientSettingsCompany": AdminClientSettingsCompany,
     "AdminClients": AdminClients,
@@ -395,11 +400,13 @@ export const PAGES = {
     "AdminContentEngine": AdminContentEngine,
     "AdminCopilot": AdminCopilot,
     "AdminCopilotAccount": AdminCopilotAccount,
+    "AdminCreateProject": AdminCreateProject,
     "AdminDashboard": AdminDashboard,
     "AdminDemoMachine": AdminDemoMachine,
     "AdminDemoMachineAnalytics": AdminDemoMachineAnalytics,
     "AdminDemoMachinePaths": AdminDemoMachinePaths,
     "AdminDemoMachineSessions": AdminDemoMachineSessions,
+    "AdminEventsList": AdminEventsList,
     "AdminExecutive": AdminExecutive,
     "AdminFinance": AdminFinance,
     "AdminFounder": AdminFounder,
@@ -418,6 +425,8 @@ export const PAGES = {
     "AdminOrchestrator": AdminOrchestrator,
     "AdminOrchestratorDetail": AdminOrchestratorDetail,
     "AdminPlatform": AdminPlatform,
+    "AdminProjectWorkspace": AdminProjectWorkspace,
+    "AdminProjectsList": AdminProjectsList,
     "AdminQA": AdminQA,
     "AdminQAIssues": AdminQAIssues,
     "AdminQAReadiness": AdminQAReadiness,
@@ -442,17 +451,25 @@ export const PAGES = {
     "AdminSchoolAnalytics": AdminSchoolAnalytics,
     "AdminSchoolBranding": AdminSchoolBranding,
     "AdminSchoolDashboard": AdminSchoolDashboard,
+    "AdminSchoolEventDetail": AdminSchoolEventDetail,
+    "AdminSchoolEvents": AdminSchoolEvents,
     "AdminSchoolLibrary": AdminSchoolLibrary,
     "AdminSchoolProjectDetail": AdminSchoolProjectDetail,
     "AdminSchoolProjects": AdminSchoolProjects,
     "AdminSchoolRenderQueue": AdminSchoolRenderQueue,
     "AdminSchoolSettings": AdminSchoolSettings,
+    "AdminSchoolSpotlightDetail": AdminSchoolSpotlightDetail,
+    "AdminSchoolSpotlights": AdminSchoolSpotlights,
     "AdminSchoolStoryLibrary": AdminSchoolStoryLibrary,
     "AdminSchoolSubmissions": AdminSchoolSubmissions,
     "AdminSchoolUsers": AdminSchoolUsers,
     "AdminSchoolVideoLibrary": AdminSchoolVideoLibrary,
     "AdminSchoolYearbook": AdminSchoolYearbook,
     "AdminSettings": AdminSettings,
+    "AdminStoryDetail": AdminStoryDetail,
+    "AdminStoryLibrary": AdminStoryLibrary,
+    "AdminSubmissionDetail": AdminSubmissionDetail,
+    "AdminSubmissionsList": AdminSubmissionsList,
     "AdminSystemHealth": AdminSystemHealth,
     "AdminTasks": AdminTasks,
     "AdminTestMatrix": AdminTestMatrix,
@@ -467,7 +484,14 @@ export const PAGES = {
     "AdminVideoEngineRequests": AdminVideoEngineRequests,
     "AdminVideoEngineTemplates": AdminVideoEngineTemplates,
     "AdminVideoGenerator": AdminVideoGenerator,
+    "AdminVideoLibrary": AdminVideoLibrary,
     "AdminVideoQueue": AdminVideoQueue,
+    "AdminVideoRenderDetail": AdminVideoRenderDetail,
+    "AdminVideoRenderQueue": AdminVideoRenderQueue,
+    "AdminYearbookLibrary": AdminYearbookLibrary,
+    "AdminYearbookOverview": AdminYearbookOverview,
+    "AdminYearbookPage": AdminYearbookPage,
+    "AdminYearbookSeason": AdminYearbookSeason,
     "AgentArchitecture": AgentArchitecture,
     "AiAccessibilityChecker": AiAccessibilityChecker,
     "AiAdvertising": AiAdvertising,
@@ -475,9 +499,9 @@ export const PAGES = {
     "AiOperations": AiOperations,
     "AiSeo": AiSeo,
     "AiSocialMedia": AiSocialMedia,
-    "AiVideos": AiVideos,
     "AiSocialMediaSmallBusiness": AiSocialMediaSmallBusiness,
     "AiVideoStudio": AiVideoStudio,
+    "AiVideos": AiVideos,
     "AiWebsites": AiWebsites,
     "AuthorityMap": AuthorityMap,
     "Blog": Blog,
@@ -510,6 +534,9 @@ export const PAGES = {
     "ContentEngine": ContentEngine,
     "ContentQueue": ContentQueue,
     "ContentStudio": ContentStudio,
+    "ContributorAILab": ContributorAILab,
+    "ContributorHub": ContributorHub,
+    "ContributorSubmissions": ContributorSubmissions,
     "Dashboard": Dashboard,
     "DealRoom": DealRoom,
     "DealRoomCaseStudies": DealRoomCaseStudies,
@@ -601,8 +628,24 @@ export const PAGES = {
     "SalesPipeline": SalesPipeline,
     "SalesRoom": SalesRoom,
     "ScheduledQueue": ScheduledQueue,
+    "SchoolAbout": SchoolAbout,
+    "SchoolEventDetail": SchoolEventDetail,
+    "SchoolEvents": SchoolEvents,
+    "SchoolHome": SchoolHome,
+    "SchoolSpotlightDetail": SchoolSpotlightDetail,
+    "SchoolSpotlights": SchoolSpotlights,
+    "SchoolStories": SchoolStories,
+    "SchoolStoryDetail": SchoolStoryDetail,
     "SchoolStoryLab": SchoolStoryLab,
     "SchoolStoryLabPresentation": SchoolStoryLabPresentation,
+    "SchoolSubmit": SchoolSubmit,
+    "SchoolTV": SchoolTV,
+    "SchoolVideoDetail": SchoolVideoDetail,
+    "SchoolYearbook": SchoolYearbook,
+    "SchoolYearbookCategory": SchoolYearbookCategory,
+    "SchoolYearbookGallery": SchoolYearbookGallery,
+    "SchoolYearbookPage": SchoolYearbookPage,
+    "SchoolYearbookSeason": SchoolYearbookSeason,
     "ServiceLocation": ServiceLocation,
     "Services": Services,
     "SetupComplete": SetupComplete,
@@ -638,49 +681,6 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "SchoolStories": SchoolStories,
-    "SchoolYearbook": SchoolYearbook,
-    "SchoolEvents": SchoolEvents,
-    "SchoolSpotlights": SchoolSpotlights,
-    "AdminStoryLibrary": AdminStoryLibrary,
-    "AdminSchoolEvents": AdminSchoolEvents,
-    "AdminSchoolSpotlights": AdminSchoolSpotlights,
-    "AdminVideoRenderQueue": AdminVideoRenderQueue,
-    "AdminAILab": AdminAILab,
-    "SchoolHome": SchoolHome,
-    "SchoolTV": SchoolTV,
-    "SchoolSubmit": SchoolSubmit,
-    "SchoolAbout": SchoolAbout,
-    "ContributorHub": ContributorHub,
-    "ContributorSubmissions": ContributorSubmissions,
-    "ContributorAILab": ContributorAILab,
-    "SchoolStoryDetail": SchoolStoryDetail,
-    "SchoolVideoDetail": SchoolVideoDetail,
-    "SchoolEventDetail": SchoolEventDetail,
-    "SchoolSpotlightDetail": SchoolSpotlightDetail,
-    "SchoolYearbookSeason": SchoolYearbookSeason,
-    "SchoolYearbookCategory": SchoolYearbookCategory,
-    "SchoolYearbookGallery": SchoolYearbookGallery,
-    "SchoolYearbookPage": SchoolYearbookPage,
-    "AdminSubmissionsList": AdminSubmissionsList,
-    "AdminProjectsList": AdminProjectsList,
-    "AdminVideoLibrary": AdminVideoLibrary,
-    "AdminEventsList": AdminEventsList,
-    "AdminAnalytics": AdminAnalytics,
-    "AdminBranding": AdminBranding,
-    "AdminYearbookLibrary": AdminYearbookLibrary,
-    "AdminSubmissionDetail": AdminSubmissionDetail,
-    "AdminStoryDetail": AdminStoryDetail,
-    "AdminYearbookOverview": AdminYearbookOverview,
-    "AdminYearbookSeason": AdminYearbookSeason,
-    "AdminYearbookPage": AdminYearbookPage,
-    "AdminSchoolEventDetail": AdminSchoolEventDetail,
-    "AdminSchoolSpotlightDetail": AdminSchoolSpotlightDetail,
-    "AdminCreateProject": AdminCreateProject,
-    "AdminProjectWorkspace": AdminProjectWorkspace,
-    "AdminAIPrompts": AdminAIPrompts,
-    "AdminAIActivity": AdminAIActivity,
-    "AdminVideoRenderDetail": AdminVideoRenderDetail,
 }
 
 export const pagesConfig = {

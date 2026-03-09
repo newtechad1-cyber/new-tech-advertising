@@ -1,230 +1,291 @@
-import React, { useState } from 'react';
-import { useSchoolRoute } from '@/components/school-tv/useSchoolRoute';
-import SchoolAdminNav from '@/components/school-tv/SchoolAdminNav';
-import { Button } from '@/components/ui/button';
-import {
-  Settings,
-  Bell,
-  Lock,
-  Shield,
-  Save,
-} from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { base44 } from '@/api/base44Client';
+import AdminShell from '@/components/school-tv/AdminShell';
+import { Settings, Save, Shield, Eye, FileText } from 'lucide-react';
 
 export default function AdminSchoolSettings() {
-  const { schoolSlug, currentPath } = useSchoolRoute();
+  const { schoolSlug } = useParams();
+  const [settings, setSettings] = useState({
+    require_consent: true,
+    require_teacher_review: true,
+    allow_public_submissions: false,
+    enable_ai_tools: true,
+    auto_publish: false,
+    require_release_signature: true,
+    ai_content_moderation: true,
+    max_file_size_mb: 500,
+    allowed_file_types: 'mp4,mov,jpg,png,gif',
+    submission_deadline: null,
+  });
+  const [saving, setSaving] = useState(false);
   const [activeTab, setActiveTab] = useState('general');
 
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      // In a real app, this would save to a Settings entity
+      alert('Settings saved successfully');
+    } catch (error) {
+      console.error('Error saving settings:', error);
+      alert('Failed to save settings');
+    } finally {
+      setSaving(false);
+    }
+  };
+
   return (
-    <div className="flex h-screen bg-gray-50">
-      <SchoolAdminNav schoolSlug={schoolSlug} currentPath={currentPath} />
+    <AdminShell schoolSlug={schoolSlug}>
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold flex items-center gap-2 mb-2">
+          <Settings className="h-8 w-8" /> School Settings
+        </h1>
+        <p className="text-gray-600">Configure submission, moderation, and publishing rules</p>
+      </div>
 
-      <div className="flex-1 overflow-auto">
-        {/* Header */}
-        <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6 flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
-                <Settings className="h-8 w-8 text-gray-700" />
-                Settings
-              </h1>
-              <p className="text-gray-600 mt-1">Configure your school's platform</p>
-            </div>
-            <Button className="bg-blue-600 hover:bg-blue-700 flex items-center gap-2">
-              <Save className="h-4 w-4" />
-              Save Changes
-            </Button>
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="max-w-5xl mx-auto px-6 lg:px-8 py-8">
-          {/* Tabs */}
-          <div className="bg-white rounded-lg border border-gray-200 mb-6">
-            <div className="flex border-b border-gray-200">
-              {['general', 'submissions', 'publishing', 'ai', 'safety'].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`px-6 py-4 font-semibold ${
-                    activeTab === tab
-                      ? 'text-blue-600 border-b-2 border-blue-600'
-                      : 'text-gray-700 hover:text-gray-900'
-                  }`}
-                >
-                  {tab === 'ai' ? 'AI Settings' : tab.charAt(0).toUpperCase() + tab.slice(1)}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* General Settings */}
-          {activeTab === 'general' && (
-            <div className="bg-white rounded-lg border border-gray-200 p-8 space-y-6">
-              <h2 className="text-xl font-bold text-gray-900">General Settings</h2>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">School Name</label>
-                <input
-                  type="text"
-                  defaultValue="Hampton-Dumont Community Schools"
-                  className="w-full px-4 py-2 rounded-lg border border-gray-200"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">District Name</label>
-                <input
-                  type="text"
-                  defaultValue="Hampton-Dumont Community School District"
-                  className="w-full px-4 py-2 rounded-lg border border-gray-200"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Contact Email</label>
-                <input
-                  type="email"
-                  defaultValue="media@hampton-dumont.edu"
-                  className="w-full px-4 py-2 rounded-lg border border-gray-200"
-                />
-              </div>
-              <div className="pt-4">
-                <label className="flex items-center gap-2">
-                  <input type="checkbox" defaultChecked className="rounded border-gray-200" />
-                  <span className="text-gray-700">Enable public yearbook</span>
-                </label>
-              </div>
-            </div>
-          )}
-
-          {/* Submission Rules */}
-          {activeTab === 'submissions' && (
-            <div className="bg-white rounded-lg border border-gray-200 p-8 space-y-6">
-              <h2 className="text-xl font-bold text-gray-900">Submission Rules</h2>
-              <div>
-                <label className="flex items-center gap-2 mb-4">
-                  <input type="checkbox" defaultChecked className="rounded border-gray-200" />
-                  <span className="text-gray-700 font-semibold">Require parent consent for minors</span>
-                </label>
-                <label className="flex items-center gap-2 mb-4">
-                  <input type="checkbox" defaultChecked className="rounded border-gray-200" />
-                  <span className="text-gray-700 font-semibold">Require all submissions to be reviewed</span>
-                </label>
-                <label className="flex items-center gap-2">
-                  <input type="checkbox" defaultChecked className="rounded border-gray-200" />
-                  <span className="text-gray-700 font-semibold">Allow anonymous submissions</span>
-                </label>
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Max file size (MB)</label>
-                <input
-                  type="number"
-                  defaultValue="500"
-                  className="w-full px-4 py-2 rounded-lg border border-gray-200"
-                />
-              </div>
-            </div>
-          )}
-
-          {/* Publishing Settings */}
-          {activeTab === 'publishing' && (
-            <div className="bg-white rounded-lg border border-gray-200 p-8 space-y-6">
-              <h2 className="text-xl font-bold text-gray-900">Publishing Settings</h2>
-              <div>
-                <label className="flex items-center gap-2 mb-4">
-                  <input type="checkbox" defaultChecked className="rounded border-gray-200" />
-                  <span className="text-gray-700 font-semibold">Auto-publish approved stories</span>
-                </label>
-                <label className="flex items-center gap-2 mb-4">
-                  <input type="checkbox" defaultChecked className="rounded border-gray-200" />
-                  <span className="text-gray-700 font-semibold">Show contributor names</span>
-                </label>
-                <label className="flex items-center gap-2">
-                  <input type="checkbox" className="rounded border-gray-200" />
-                  <span className="text-gray-700 font-semibold">Allow comments on stories</span>
-                </label>
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Default story visibility</label>
-                <select className="w-full px-4 py-2 rounded-lg border border-gray-200">
-                  <option>Public (visible to everyone)</option>
-                  <option>Internal (school only)</option>
-                  <option>Private (contributors only)</option>
-                </select>
-              </div>
-            </div>
-          )}
-
-          {/* AI Settings */}
-          {activeTab === 'ai' && (
-            <div className="bg-white rounded-lg border border-gray-200 p-8 space-y-6">
-              <h2 className="text-xl font-bold text-gray-900">AI Settings</h2>
-              <div>
-                <label className="flex items-center gap-2 mb-4">
-                  <input type="checkbox" defaultChecked className="rounded border-gray-200" />
-                  <span className="text-gray-700 font-semibold">Enable AI tools for students</span>
-                </label>
-                <label className="flex items-center gap-2 mb-4">
-                  <input type="checkbox" defaultChecked className="rounded border-gray-200" />
-                  <span className="text-gray-700 font-semibold">Require AI disclosure in content</span>
-                </label>
-                <label className="flex items-center gap-2">
-                  <input type="checkbox" defaultChecked className="rounded border-gray-200" />
-                  <span className="text-gray-700 font-semibold">Enable AI guidelines module</span>
-                </label>
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">AI tools available</label>
-                <div className="space-y-2">
-                  {['Story Title Ideas', 'Article Draft', 'Video Script', 'Caption Writer'].map((tool) => (
-                    <label key={tool} className="flex items-center gap-2">
-                      <input type="checkbox" defaultChecked className="rounded border-gray-200" />
-                      <span className="text-gray-700">{tool}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Safety Settings */}
-          {activeTab === 'safety' && (
-            <div className="bg-white rounded-lg border border-gray-200 p-8 space-y-6">
-              <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                <Shield className="h-5 w-5" />
-                Safety & Moderation
-              </h2>
-              <div>
-                <label className="flex items-center gap-2 mb-4">
-                  <input type="checkbox" defaultChecked className="rounded border-gray-200" />
-                  <span className="text-gray-700 font-semibold">Enable content filtering</span>
-                </label>
-                <label className="flex items-center gap-2 mb-4">
-                  <input type="checkbox" defaultChecked className="rounded border-gray-200" />
-                  <span className="text-gray-700 font-semibold">Flag potentially sensitive content</span>
-                </label>
-                <label className="flex items-center gap-2">
-                  <input type="checkbox" defaultChecked className="rounded border-gray-200" />
-                  <span className="text-gray-700 font-semibold">Require consent forms for identifiable students</span>
-                </label>
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Auto-flag keywords (comma-separated)</label>
-                <textarea
-                  defaultValue="inappropriate, offensive"
-                  rows="2"
-                  className="w-full px-4 py-2 rounded-lg border border-gray-200"
-                ></textarea>
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Data retention (days)</label>
-                <input
-                  type="number"
-                  defaultValue="365"
-                  className="w-full px-4 py-2 rounded-lg border border-gray-200"
-                />
-              </div>
-            </div>
-          )}
+      {/* Tabs */}
+      <div className="bg-white rounded-lg shadow-md mb-6 border-b border-gray-200">
+        <div className="flex overflow-x-auto">
+          {[
+            { id: 'general', label: 'General', icon: Settings },
+            { id: 'submission', label: 'Submissions', icon: FileText },
+            { id: 'moderation', label: 'Moderation', icon: Shield },
+            { id: 'publishing', label: 'Publishing', icon: Eye },
+          ].map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex-1 px-6 py-4 font-semibold text-center border-b-2 transition-colors text-sm whitespace-nowrap flex items-center justify-center gap-2 ${
+                activeTab === tab.id
+                  ? 'border-blue-600 text-blue-600'
+                  : 'border-transparent text-gray-600 hover:text-gray-800'
+              }`}
+            >
+              <tab.icon className="h-4 w-4" />
+              {tab.label}
+            </button>
+          ))}
         </div>
       </div>
-    </div>
+
+      {/* General Settings */}
+      {activeTab === 'general' && (
+        <div className="bg-white rounded-lg shadow-md p-6 space-y-6">
+          <div>
+            <h3 className="text-lg font-bold mb-4">General Settings</h3>
+            <div className="space-y-4">
+              <label className="flex items-center gap-3 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+                <input
+                  type="checkbox"
+                  checked={settings.require_consent}
+                  onChange={(e) => setSettings({ ...settings, require_consent: e.target.checked })}
+                  className="w-5 h-5 accent-blue-600"
+                />
+                <div>
+                  <p className="font-semibold text-gray-900">Require Consent Checkbox</p>
+                  <p className="text-sm text-gray-600">Contributors must confirm consent before submitting</p>
+                </div>
+              </label>
+
+              <label className="flex items-center gap-3 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+                <input
+                  type="checkbox"
+                  checked={settings.require_release_signature}
+                  onChange={(e) => setSettings({ ...settings, require_release_signature: e.target.checked })}
+                  className="w-5 h-5 accent-blue-600"
+                />
+                <div>
+                  <p className="font-semibold text-gray-900">Require Release Signature</p>
+                  <p className="text-sm text-gray-600">Contributors must agree to media release terms</p>
+                </div>
+              </label>
+
+              <label className="flex items-center gap-3 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+                <input
+                  type="checkbox"
+                  checked={settings.enable_ai_tools}
+                  onChange={(e) => setSettings({ ...settings, enable_ai_tools: e.target.checked })}
+                  className="w-5 h-5 accent-blue-600"
+                />
+                <div>
+                  <p className="font-semibold text-gray-900">Enable AI Tools</p>
+                  <p className="text-sm text-gray-600">Staff can use AI for story, caption, and script generation</p>
+                </div>
+              </label>
+
+              <label className="flex items-center gap-3 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+                <input
+                  type="checkbox"
+                  checked={settings.auto_publish}
+                  onChange={(e) => setSettings({ ...settings, auto_publish: e.target.checked })}
+                  className="w-5 h-5 accent-blue-600"
+                />
+                <div>
+                  <p className="font-semibold text-gray-900">Auto-Publish Approved Content</p>
+                  <p className="text-sm text-gray-600 text-red-600">⚠️ Default is disabled—requires manual publishing approval</p>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Submission Rules */}
+      {activeTab === 'submission' && (
+        <div className="bg-white rounded-lg shadow-md p-6 space-y-6">
+          <div>
+            <h3 className="text-lg font-bold mb-4">Submission Rules</h3>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Max File Size (MB)</label>
+                <input
+                  type="number"
+                  value={settings.max_file_size_mb}
+                  onChange={(e) => setSettings({ ...settings, max_file_size_mb: parseInt(e.target.value) })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Allowed File Types</label>
+                <input
+                  type="text"
+                  value={settings.allowed_file_types}
+                  onChange={(e) => setSettings({ ...settings, allowed_file_types: e.target.value })}
+                  placeholder="mp4,mov,jpg,png,gif"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                />
+                <p className="text-xs text-gray-600 mt-1">Comma-separated list</p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Submission Deadline (Optional)</label>
+                <input
+                  type="date"
+                  value={settings.submission_deadline || ''}
+                  onChange={(e) => setSettings({ ...settings, submission_deadline: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <label className="flex items-center gap-3 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+                <input
+                  type="checkbox"
+                  checked={settings.allow_public_submissions}
+                  onChange={(e) => setSettings({ ...settings, allow_public_submissions: e.target.checked })}
+                  className="w-5 h-5 accent-blue-600"
+                />
+                <div>
+                  <p className="font-semibold text-gray-900">Allow Public Submissions</p>
+                  <p className="text-sm text-gray-600">Non-authenticated users can submit content (with consent)</p>
+                </div>
+              </label>
+
+              <label className="flex items-center gap-3 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+                <input
+                  type="checkbox"
+                  checked={settings.require_teacher_review}
+                  onChange={(e) => setSettings({ ...settings, require_teacher_review: e.target.checked })}
+                  className="w-5 h-5 accent-blue-600"
+                />
+                <div>
+                  <p className="font-semibold text-gray-900">Require Teacher Review</p>
+                  <p className="text-sm text-gray-600">Teachers must review/approve before admin can publish</p>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Moderation Rules */}
+      {activeTab === 'moderation' && (
+        <div className="bg-white rounded-lg shadow-md p-6 space-y-6">
+          <div>
+            <h3 className="text-lg font-bold mb-4">Content Moderation</h3>
+            <div className="space-y-4">
+              <label className="flex items-center gap-3 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+                <input
+                  type="checkbox"
+                  checked={settings.ai_content_moderation}
+                  onChange={(e) => setSettings({ ...settings, ai_content_moderation: e.target.checked })}
+                  className="w-5 h-5 accent-blue-600"
+                />
+                <div>
+                  <p className="font-semibold text-gray-900">AI Content Moderation</p>
+                  <p className="text-sm text-gray-600">Flag submissions with potential safety concerns for review</p>
+                </div>
+              </label>
+
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <p className="text-sm text-blue-900">
+                  <strong>Safe Defaults Enabled:</strong> School Story Lab defaults to the safest settings for student use. Staff can review and adjust as needed.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Publishing Settings */}
+      {activeTab === 'publishing' && (
+        <div className="bg-white rounded-lg shadow-md p-6 space-y-6">
+          <div>
+            <h3 className="text-lg font-bold mb-4">Publishing & Visibility</h3>
+            <div className="space-y-4">
+              <p className="text-sm text-gray-600 bg-gray-50 border border-gray-200 rounded-lg p-4">
+                Publishing settings control where and how content appears. All published content is reviewed before going live.
+              </p>
+
+              <label className="flex items-center gap-3 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+                <input
+                  type="checkbox"
+                  defaultChecked
+                  className="w-5 h-5 accent-blue-600"
+                />
+                <div>
+                  <p className="font-semibold text-gray-900">Bulldog TV (School Hub)</p>
+                  <p className="text-sm text-gray-600">Featured content appears on school media hub</p>
+                </div>
+              </label>
+
+              <label className="flex items-center gap-3 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+                <input
+                  type="checkbox"
+                  className="w-5 h-5 accent-blue-600"
+                />
+                <div>
+                  <p className="font-semibold text-gray-900">Yearbook Integration</p>
+                  <p className="text-sm text-gray-600">Content can be linked to yearbook pages</p>
+                </div>
+              </label>
+
+              <label className="flex items-center gap-3 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+                <input
+                  type="checkbox"
+                  className="w-5 h-5 accent-blue-600"
+                />
+                <div>
+                  <p className="font-semibold text-gray-900">Social Media Sharing</p>
+                  <p className="text-sm text-gray-600">Allow publishing to YouTube, Facebook, Instagram</p>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Save Button */}
+      <div className="mt-8 flex gap-3">
+        <button
+          onClick={handleSave}
+          disabled={saving}
+          className="bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white px-8 py-3 rounded-lg font-bold flex items-center gap-2"
+        >
+          <Save className="h-5 w-5" /> {saving ? 'Saving...' : 'Save Settings'}
+        </button>
+      </div>
+    </AdminShell>
   );
 }

@@ -1,177 +1,184 @@
-import React from 'react';
-import { useSchoolRoute } from '@/components/school-tv/useSchoolRoute';
-import SchoolAdminNav from '@/components/school-tv/SchoolAdminNav';
-import { Button } from '@/components/ui/button';
-import {
-  Plus,
-  Edit,
-  Trash2,
-  Mail,
-  Users,
-  Shield,
-} from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { base44 } from '@/api/base44Client';
+import AdminShell from '@/components/school-tv/AdminShell';
+import { Plus, Edit2, Trash2, Mail, Lock } from 'lucide-react';
+
+const ROLE_DESCRIPTIONS = {
+  district_admin: 'Full platform access, manage schools',
+  principal_admin: 'School admin, manage all content and staff',
+  teacher_editor: 'Can create, edit, and publish content',
+  reviewer: 'Can approve submissions and content',
+  contributor: 'Can submit media and content',
+  student_media_lead: 'Student leadership role, curate content',
+};
 
 export default function AdminSchoolUsers() {
-  const { schoolSlug, currentPath } = useSchoolRoute();
+  const { schoolSlug } = useParams();
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showAddUser, setShowAddUser] = useState(false);
+  const [newUserEmail, setNewUserEmail] = useState('');
+  const [newUserRole, setNewUserRole] = useState('contributor');
+  const [inviting, setInviting] = useState(false);
 
-  const users = [
-    {
-      id: 1,
-      name: 'Sarah Jensen',
-      email: 'sjensen@hampton-dumont.edu',
-      role: 'District Admin',
-      status: 'active',
-      permissions: 'Full access',
-    },
-    {
-      id: 2,
-      name: 'Coach Davis',
-      email: 'cdavis@hampton-dumont.edu',
-      role: 'Teacher/Editor',
-      status: 'active',
-      permissions: 'Can edit, approve, publish',
-    },
-    {
-      id: 3,
-      name: 'Ms. Johnson',
-      email: 'mjohnson@hampton-dumont.edu',
-      role: 'Reviewer',
-      status: 'active',
-      permissions: 'Can review & approve',
-    },
-    {
-      id: 4,
-      name: 'Emma Chen',
-      email: 'echen@hamptondumont.edu',
-      role: 'Contributor',
-      status: 'active',
-      permissions: 'Can submit content',
-    },
-    {
-      id: 5,
-      name: 'Mr. Martinez',
-      email: 'mmartinez@hampton-dumont.edu',
-      role: 'Teacher/Editor',
-      status: 'active',
-      permissions: 'Can edit, approve, publish',
-    },
-  ];
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const data = await base44.entities.User.list();
+        setUsers(data);
+      } catch (error) {
+        console.error('Error loading users:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, []);
 
-  const roleColors = {
-    'District Admin': 'bg-red-100 text-red-800',
-    'Teacher/Editor': 'bg-blue-100 text-blue-800',
-    'Reviewer': 'bg-green-100 text-green-800',
-    'Contributor': 'bg-gray-100 text-gray-800',
+  const handleInviteUser = async () => {
+    if (!newUserEmail) {
+      alert('Please enter an email address');
+      return;
+    }
+
+    setInviting(true);
+    try {
+      await base44.users.inviteUser(newUserEmail, newUserRole);
+      alert(`Invited ${newUserEmail} as ${newUserRole}`);
+      setNewUserEmail('');
+      setNewUserRole('contributor');
+      setShowAddUser(false);
+    } catch (error) {
+      console.error('Error inviting user:', error);
+      alert('Failed to invite user');
+    } finally {
+      setInviting(false);
+    }
   };
 
-  return (
-    <div className="flex h-screen bg-gray-50">
-      <SchoolAdminNav schoolSlug={schoolSlug} currentPath={currentPath} />
+  if (loading) return <AdminShell schoolSlug={schoolSlug}><div className="text-center py-12">Loading...</div></AdminShell>;
 
-      <div className="flex-1 overflow-auto">
-        {/* Header */}
-        <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6 flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Users & Permissions</h1>
-              <p className="text-gray-600 mt-1">Manage team members and access control</p>
+  return (
+    <AdminShell schoolSlug={schoolSlug}>
+      {/* Header */}
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h1 className="text-3xl font-bold">Users & Access</h1>
+          <p className="text-gray-600">Manage team members and permissions</p>
+        </div>
+        <button
+          onClick={() => setShowAddUser(true)}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2"
+        >
+          <Plus className="h-5 w-5" /> Add User
+        </button>
+      </div>
+
+      {/* Add User Modal */}
+      {showAddUser && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+          <div className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full mx-4">
+            <h3 className="text-2xl font-bold mb-6">Invite Team Member</h3>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                <input
+                  type="email"
+                  value={newUserEmail}
+                  onChange={(e) => setNewUserEmail(e.target.value)}
+                  placeholder="user@example.com"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Role</label>
+                <select
+                  value={newUserRole}
+                  onChange={(e) => setNewUserRole(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="contributor">Contributor</option>
+                  <option value="reviewer">Reviewer</option>
+                  <option value="teacher_editor">Teacher/Editor</option>
+                  <option value="principal_admin">Principal/Admin</option>
+                  <option value="student_media_lead">Student Media Lead</option>
+                </select>
+                <p className="text-xs text-gray-600 mt-2">{ROLE_DESCRIPTIONS[newUserRole]}</p>
+              </div>
+
+              <div className="flex gap-3 pt-4">
+                <button
+                  onClick={() => setShowAddUser(false)}
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 font-semibold hover:bg-gray-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleInviteUser}
+                  disabled={inviting}
+                  className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white rounded-lg font-semibold"
+                >
+                  {inviting ? 'Sending...' : 'Send Invite'}
+                </button>
+              </div>
             </div>
-            <Button className="bg-blue-600 hover:bg-blue-700 flex items-center gap-2">
-              <Plus className="h-4 w-4" />
-              Add User
-            </Button>
           </div>
         </div>
+      )}
 
-        {/* Content */}
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8">
-          <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+      {/* Users List */}
+      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        {users.length > 0 ? (
+          <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Name</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Email</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Role</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Permissions</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Status</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Actions</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Name</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Email</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Role</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Status</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {users.map((user) => (
                   <tr key={user.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 font-medium text-gray-900">{user.name}</td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-2 text-gray-700">
-                        <Mail className="h-4 w-4" />
-                        {user.email}
-                      </div>
+                    <td className="px-6 py-4 text-sm font-semibold text-gray-900">{user.full_name || 'Unnamed'}</td>
+                    <td className="px-6 py-4 text-sm text-gray-600 flex items-center gap-2">
+                      <Mail className="h-4 w-4 text-gray-400" /> {user.email}
                     </td>
-                    <td className="px-6 py-4">
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${roleColors[user.role]}`}>
-                        {user.role}
+                    <td className="px-6 py-4 text-sm">
+                      <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-semibold capitalize">
+                        {user.role || 'contributor'}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-700">{user.permissions}</td>
-                    <td className="px-6 py-4">
-                      <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    <td className="px-6 py-4 text-sm">
+                      <span className="px-3 py-1 rounded-full bg-green-100 text-green-800 text-xs font-semibold">
                         Active
                       </span>
                     </td>
-                    <td className="px-6 py-4">
-                      <div className="flex gap-2">
-                        <Button variant="ghost" size="sm" className="text-blue-600">
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button variant="ghost" size="sm" className="text-red-600">
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
+                    <td className="px-6 py-4 text-sm flex gap-2">
+                      <button className="text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-1">
+                        <Edit2 className="h-4 w-4" /> Edit
+                      </button>
+                      <button className="text-red-600 hover:text-red-800 font-semibold flex items-center gap-1">
+                        <Trash2 className="h-4 w-4" /> Remove
+                      </button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-
-          {/* Role Descriptions */}
-          <div className="mt-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-              <Shield className="h-6 w-6" />
-              Role Descriptions
-            </h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              {[
-                {
-                  name: 'District Admin',
-                  desc: 'Full system access. Can manage all users, settings, and content.',
-                  color: 'bg-red-50',
-                },
-                {
-                  name: 'Teacher/Editor',
-                  desc: 'Can create, edit, and publish stories and videos. Can approve submissions.',
-                  color: 'bg-blue-50',
-                },
-                {
-                  name: 'Reviewer',
-                  desc: 'Can review and approve student submissions before publication.',
-                  color: 'bg-green-50',
-                },
-                {
-                  name: 'Contributor',
-                  desc: 'Can submit photos, videos, and stories for review.',
-                  color: 'bg-gray-50',
-                },
-              ].map((role, idx) => (
-                <div key={idx} className={`rounded-lg border border-gray-200 p-6 ${role.color}`}>
-                  <h3 className="text-lg font-bold text-gray-900">{role.name}</h3>
-                  <p className="text-gray-700 mt-2">{role.desc}</p>
-                </div>
-              ))}
-            </div>
+        ) : (
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">No users added yet</p>
           </div>
-        </div>
+        )}
       </div>
-    </div>
+    </AdminShell>
   );
 }
