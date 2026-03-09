@@ -67,6 +67,10 @@ export default function AdminYearbookPage() {
   }, [schoolSlug, pageId]);
 
   const savePage = async () => {
+    if (!page.title) {
+      alert('Please enter a page title');
+      return;
+    }
     setSaving(true);
     try {
       // Auto-generate slug if not set
@@ -75,6 +79,10 @@ export default function AdminYearbookPage() {
         slug: page.slug || page.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
         public_url: page.public_url || `/schools/${schoolSlug}/yearbook/page/${page.slug || page.title.toLowerCase().replace(/\s+/g, '-')}`,
         canonical_route: page.canonical_route || `/schools/${schoolSlug}/yearbook`,
+        // Preserve all publishing settings on save
+        status: page.status || 'draft',
+        publish_status: page.publish_status || 'unpublished',
+        visibility: page.visibility || 'staff',
       };
       
       if (pageId === 'new') {
