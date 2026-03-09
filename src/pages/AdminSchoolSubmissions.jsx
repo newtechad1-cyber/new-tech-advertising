@@ -168,72 +168,79 @@ export default function AdminSchoolSubmissions() {
 
           {/* Submissions Table */}
           <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-            <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-200">
-                <tr>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Contributor</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Title</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Type</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Submitted</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Safety</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Status</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Action</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {filteredSubmissions.map((submission) => (
-                  <tr key={submission.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4">
-                       <div>
-                         <p className="text-gray-900 font-semibold text-sm">{submission.contributor_name}</p>
-                         <p className="text-xs text-gray-500 mt-1">
-                           {submission.contributor_role || 'Student'}
-                         </p>
-                       </div>
-                     </td>
-                     <td className="px-6 py-4">
-                       <p className="text-gray-900 font-semibold text-sm">{submission.submission_title}</p>
-                     </td>
-                     <td className="px-6 py-4">
-                       <span className="text-sm text-gray-700 capitalize">{submission.activity_type}</span>
-                     </td>
-                     <td className="px-6 py-4">
-                       <span className="text-sm text-gray-700">{new Date(submission.created_date).toLocaleDateString()}</span>
-                     </td>
-                     <td className="px-6 py-4">
-                       <div className="space-y-1">
-                         {!submission.consent_confirmed && (
-                           <p className="text-xs font-semibold text-red-600 bg-red-50 px-2 py-1 rounded">⚠ No consent</p>
-                         )}
-                         {submission.ai_safety_flag && (
-                           <p className="text-xs font-semibold text-orange-600 bg-orange-50 px-2 py-1 rounded flex items-center gap-1">
-                             <AlertCircle className="h-3 w-3" /> Review needed
-                           </p>
-                         )}
-                         {submission.consent_confirmed && !submission.ai_safety_flag && (
-                           <p className="text-xs font-semibold text-green-600 bg-green-50 px-2 py-1 rounded">✓ Safe</p>
-                         )}
-                       </div>
-                     </td>
-                     <td className="px-6 py-4">
-                       <span className={`px-3 py-1 rounded-full text-xs font-bold ${statusColors[submission.status]}`}>
-                         {submission.status.charAt(0).toUpperCase() + submission.status.slice(1)}
-                       </span>
-                     </td>
-                     <td className="px-6 py-4">
-                       <Button
-                         variant="outline"
-                         size="sm"
-                         className="text-blue-600"
-                         onClick={() => setSelectedSubmission(submission)}
-                       >
-                         Review
-                       </Button>
-                     </td>
+            {filteredSubmissions.length > 0 ? (
+              <table className="w-full">
+                <thead className="bg-gray-50 border-b border-gray-200">
+                  <tr>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Contributor</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Title</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Type</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Submitted</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Safety</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Status</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Action</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {filteredSubmissions.map((submission) => (
+                    <tr key={submission.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4">
+                         <div>
+                           <p className="text-gray-900 font-semibold text-sm">{submission.contributor_name}</p>
+                           <p className="text-xs text-gray-500 mt-1">
+                             {submission.contributor_role || 'Student'}
+                           </p>
+                         </div>
+                       </td>
+                       <td className="px-6 py-4">
+                         <p className="text-gray-900 font-semibold text-sm">{submission.submission_title}</p>
+                       </td>
+                       <td className="px-6 py-4">
+                         <span className="text-sm text-gray-700 capitalize">{submission.activity_type}</span>
+                       </td>
+                       <td className="px-6 py-4">
+                         <span className="text-sm text-gray-700">{new Date(submission.created_date).toLocaleDateString()}</span>
+                       </td>
+                       <td className="px-6 py-4">
+                         <div className="space-y-1">
+                           {!submission.consent_confirmed && (
+                             <p className="text-xs font-semibold text-red-600 bg-red-50 px-2 py-1 rounded">⚠ No consent</p>
+                           )}
+                           {submission.ai_safety_flag && (
+                             <p className="text-xs font-semibold text-orange-600 bg-orange-50 px-2 py-1 rounded flex items-center gap-1">
+                               <AlertCircle className="h-3 w-3" /> Review needed
+                             </p>
+                           )}
+                           {submission.consent_confirmed && !submission.ai_safety_flag && (
+                             <p className="text-xs font-semibold text-green-600 bg-green-50 px-2 py-1 rounded">✓ Safe</p>
+                           )}
+                         </div>
+                       </td>
+                       <td className="px-6 py-4">
+                         <span className={`px-3 py-1 rounded-full text-xs font-bold ${statusColors[submission.status]}`}>
+                           {submission.status.charAt(0).toUpperCase() + submission.status.slice(1)}
+                         </span>
+                       </td>
+                       <td className="px-6 py-4">
+                         <Button
+                           variant="outline"
+                           size="sm"
+                           className="text-blue-600"
+                           onClick={() => setSelectedSubmission(submission)}
+                         >
+                           Review
+                         </Button>
+                       </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <div className="p-12 text-center">
+                <p className="text-gray-600 mb-4">No submissions found</p>
+                <p className="text-sm text-gray-500">When students submit content, it will appear here for review.</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
