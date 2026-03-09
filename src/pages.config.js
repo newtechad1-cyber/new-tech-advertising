@@ -239,6 +239,8 @@ import AdminResellerCommissions from './pages/AdminResellerCommissions';
 import SalesDashboard from './pages/SalesDashboard';
 import SalesPipeline from './pages/SalesPipeline';
 import SalesLeads from './pages/SalesLeads';
+import ClientBilling from './pages/ClientBilling';
+import AdminFinance from './pages/AdminFinance';
 import __Layout from './Layout.jsx';
 
 
@@ -435,6 +437,8 @@ export const PAGES = {
     "SalesDashboard": SalesDashboard,
     "SalesPipeline": SalesPipeline,
     "SalesLeads": SalesLeads,
+    "ClientBilling": ClientBilling,
+    "AdminFinance": AdminFinance,
 }
 
 export const pagesConfig = {
