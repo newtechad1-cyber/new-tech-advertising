@@ -107,7 +107,6 @@ import AdminResellerRevenue from './pages/AdminResellerRevenue';
 import AdminResellers from './pages/AdminResellers';
 import AdminRevenueDetail from './pages/AdminRevenueDetail';
 import AdminRevenueEngine from './pages/AdminRevenueEngine';
-import AdminSales from './pages/AdminSales';
 import AdminSettings from './pages/AdminSettings';
 import AdminSystemHealth from './pages/AdminSystemHealth';
 import AdminTasks from './pages/AdminTasks';
@@ -322,7 +321,6 @@ export const PAGES = {
     "AdminResellers": AdminResellers,
     "AdminRevenueDetail": AdminRevenueDetail,
     "AdminRevenueEngine": AdminRevenueEngine,
-    "AdminSales": AdminSales,
     "AdminSettings": AdminSettings,
     "AdminSystemHealth": AdminSystemHealth,
     "AdminTasks": AdminTasks,
