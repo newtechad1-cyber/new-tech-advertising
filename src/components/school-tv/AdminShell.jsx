@@ -4,8 +4,9 @@ import { base44 } from '@/api/base44Client';
 import AdminSidebar from './AdminSidebar';
 import TopBar from './TopBar';
 
-export default function AdminShell({ children, currentPath }) {
-  const { schoolSlug } = useParams();
+export default function AdminShell({ children, currentPath, schoolSlug: propSchoolSlug }) {
+  const { schoolSlug: paramSchoolSlug } = useParams();
+  const schoolSlug = propSchoolSlug || paramSchoolSlug;
   const [user, setUser] = useState(null);
   const [branding, setBranding] = useState(null);
 
