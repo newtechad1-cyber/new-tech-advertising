@@ -127,12 +127,12 @@ export default function AdminSchoolSubmissions() {
     <AdminShell schoolSlug={schoolSlug}>
       <div className="flex-1 overflow-auto">
         {/* Header */}
-        <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6">
-            <h1 className="text-3xl font-bold text-gray-900">Submissions</h1>
-            <p className="text-gray-600 mt-1">Review and approve student submissions</p>
-          </div>
-        </div>
+         <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
+           <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6">
+             <h1 className="text-3xl font-bold text-gray-900">Student Submissions</h1>
+             <p className="text-gray-600 mt-2">Review student content before approval. All submissions require your verification.</p>
+           </div>
+         </div>
 
         {/* Content */}
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8">
@@ -171,79 +171,65 @@ export default function AdminSchoolSubmissions() {
             <table className="w-full">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Contributor</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Submission</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Type</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Date</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Status</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Actions</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Contributor</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Title</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Type</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Submitted</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Safety</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Status</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {filteredSubmissions.map((submission) => (
                   <tr key={submission.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4">
-                      <div>
-                        <p className="text-gray-900 font-medium">{submission.contributor_name}</p>
-                        {!submission.consent_confirmed && (
-                          <p className="text-xs text-red-600 font-semibold mt-1">⚠ No consent</p>
-                        )}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div>
-                        <p className="text-gray-900 font-medium">{submission.submission_title}</p>
-                        {submission.ai_safety_flag && (
-                          <p className="text-xs text-orange-600 flex items-center gap-1 mt-1">
-                            <AlertCircle className="h-3 w-3" />
-                            AI safety review
-                          </p>
-                        )}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className="text-sm text-gray-700">{submission.activity_type}</span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className="text-sm text-gray-700">{new Date(submission.created_date).toLocaleDateString()}</span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${statusColors[submission.status]}`}>
-                        {submission.status.charAt(0).toUpperCase() + submission.status.slice(1)}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex gap-2">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="text-blue-600"
-                          onClick={() => setSelectedSubmission(submission)}
-                        >
-                          <Eye className="h-4 w-4" />
-                        </Button>
-                        {submission.status !== 'approved' && (
-                          <>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              className="text-green-600"
-                              onClick={() => handleApprove(submission.id)}
-                            >
-                              <Check className="h-4 w-4" />
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              className="text-red-600"
-                              onClick={() => handleReject(submission.id)}
-                            >
-                              <X className="h-4 w-4" />
-                            </Button>
-                          </>
-                        )}
-                      </div>
-                    </td>
+                       <div>
+                         <p className="text-gray-900 font-semibold text-sm">{submission.contributor_name}</p>
+                         <p className="text-xs text-gray-500 mt-1">
+                           {submission.contributor_role || 'Student'}
+                         </p>
+                       </div>
+                     </td>
+                     <td className="px-6 py-4">
+                       <p className="text-gray-900 font-semibold text-sm">{submission.submission_title}</p>
+                     </td>
+                     <td className="px-6 py-4">
+                       <span className="text-sm text-gray-700 capitalize">{submission.activity_type}</span>
+                     </td>
+                     <td className="px-6 py-4">
+                       <span className="text-sm text-gray-700">{new Date(submission.created_date).toLocaleDateString()}</span>
+                     </td>
+                     <td className="px-6 py-4">
+                       <div className="space-y-1">
+                         {!submission.consent_confirmed && (
+                           <p className="text-xs font-semibold text-red-600 bg-red-50 px-2 py-1 rounded">⚠ No consent</p>
+                         )}
+                         {submission.ai_safety_flag && (
+                           <p className="text-xs font-semibold text-orange-600 bg-orange-50 px-2 py-1 rounded flex items-center gap-1">
+                             <AlertCircle className="h-3 w-3" /> Review needed
+                           </p>
+                         )}
+                         {submission.consent_confirmed && !submission.ai_safety_flag && (
+                           <p className="text-xs font-semibold text-green-600 bg-green-50 px-2 py-1 rounded">✓ Safe</p>
+                         )}
+                       </div>
+                     </td>
+                     <td className="px-6 py-4">
+                       <span className={`px-3 py-1 rounded-full text-xs font-bold ${statusColors[submission.status]}`}>
+                         {submission.status.charAt(0).toUpperCase() + submission.status.slice(1)}
+                       </span>
+                     </td>
+                     <td className="px-6 py-4">
+                       <Button
+                         variant="outline"
+                         size="sm"
+                         className="text-blue-600"
+                         onClick={() => setSelectedSubmission(submission)}
+                       >
+                         Review
+                       </Button>
+                     </td>
                   </tr>
                 ))}
               </tbody>
@@ -272,12 +258,25 @@ export default function AdminSchoolSubmissions() {
              </div>
           
           <div className="flex-1 overflow-auto p-6 space-y-6">
-            {/* Tabs */}
-            <div className="flex gap-2 border-b border-gray-200">
-              <button className="px-4 py-2 text-sm font-semibold text-blue-600 border-b-2 border-blue-600">Overview</button>
-              <button className="px-4 py-2 text-sm font-semibold text-gray-600 hover:text-gray-900">Media</button>
-              <button className="px-4 py-2 text-sm font-semibold text-gray-600 hover:text-gray-900">AI</button>
-            </div>
+            {/* Submission Status Alert */}
+            {!selectedSubmission.consent_confirmed && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
+                <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-semibold text-red-900">Consent Not Confirmed</p>
+                  <p className="text-sm text-red-800 mt-1">This submission cannot be approved without verified parental/guardian consent.</p>
+                </div>
+              </div>
+            )}
+            {selectedSubmission.ai_safety_flag && (
+              <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex items-start gap-3">
+                <AlertCircle className="h-5 w-5 text-orange-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-semibold text-orange-900">AI Safety Review Needed</p>
+                  <p className="text-sm text-orange-800 mt-1">AI content screening flagged this for manual review. Please verify before approving.</p>
+                </div>
+              </div>
+            )}
 
             <div>
               <p className="text-xs text-gray-500 uppercase font-semibold mb-2">Contributor</p>
@@ -309,29 +308,44 @@ export default function AdminSchoolSubmissions() {
             </div>
           </div>
 
-          <div className="bg-gray-50 border-t border-gray-200 p-6 space-y-3">
-            <Button 
-              className="w-full bg-green-600 hover:bg-green-700 text-white"
-              onClick={() => handleApprove(selectedSubmission.id)}
-            >
-              <Check className="h-4 w-4 mr-2" />
-              Approve
-            </Button>
-            <Button 
-              className="w-full bg-red-600 hover:bg-red-700 text-white"
-              onClick={() => handleReject(selectedSubmission.id)}
-            >
-              <X className="h-4 w-4 mr-2" />
-              Reject
-            </Button>
-            <Button 
-              variant="outline" 
-              className="w-full text-purple-600"
-              onClick={() => handleSaveToStory(selectedSubmission)}
-            >
-              <Sparkles className="h-4 w-4 mr-2" />
-              Save as Story
-            </Button>
+          <div className="bg-gray-50 border-t border-gray-200 p-6 space-y-2">
+            <p className="text-xs text-gray-600 font-semibold uppercase mb-3">Moderation Actions</p>
+            {selectedSubmission.consent_confirmed ? (
+              <>
+                <Button 
+                  className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold"
+                  onClick={() => handleApprove(selectedSubmission.id)}
+                >
+                  <Check className="h-4 w-4 mr-2" />
+                  ✓ Approve for Publishing
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="w-full text-purple-600 border-purple-200"
+                  onClick={() => handleSaveToStory(selectedSubmission)}
+                >
+                  <Sparkles className="h-4 w-4 mr-2" />
+                  → Convert to Story
+                </Button>
+                <Button 
+                  className="w-full bg-red-600 hover:bg-red-700 text-white"
+                  onClick={() => handleReject(selectedSubmission.id)}
+                >
+                  <X className="h-4 w-4 mr-2" />
+                  Reject
+                </Button>
+              </>
+            ) : (
+              <div className="text-center py-4">
+                <p className="text-sm text-red-600 font-semibold mb-2">Cannot approve without consent</p>
+                <Button 
+                  className="w-full bg-red-600 hover:bg-red-700 text-white"
+                  onClick={() => handleReject(selectedSubmission.id)}
+                >
+                  Reject (No Consent)
+                </Button>
+              </div>
+            )}
             <Button 
               variant="ghost" 
               className="w-full text-gray-600"
