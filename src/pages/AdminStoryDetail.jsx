@@ -22,6 +22,11 @@ export default function AdminStoryDetail() {
   const [authors, setAuthors] = useState([]);
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
+  const [events, setEvents] = useState([]);
+  const [yearbookPages, setYearbookPages] = useState([]);
+  const [spotlights, setSpotlights] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [aiDraftApplied, setAiDraftApplied] = useState(false);
 
   useEffect(() => {
     const loadData = async () => {
