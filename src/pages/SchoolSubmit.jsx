@@ -28,9 +28,9 @@ export default function SchoolSubmit() {
     event_name: '',
     event_date: '',
     description: '',
-    submission_type: 'video',
+    upload_type: 'video_only',
     consent_confirmed: false,
-    legal_acknowledged: false,
+    legal_acknowledgement: false,
   });
   const [files, setFiles] = useState([]);
 
