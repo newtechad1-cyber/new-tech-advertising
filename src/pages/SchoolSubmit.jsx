@@ -69,24 +69,42 @@ export default function SchoolSubmit() {
         }
       }
 
-      // Create submission
-      await base44.entities.StudentVideoSubmissions.create({
-        school_slug: schoolSlug,
-        submission_title: formData.submission_title,
-        contributor_name: formData.contributor_name,
-        contributor_email: formData.contributor_email,
-        contributor_role: formData.contributor_role,
-        submission_type: formData.submission_type,
-        activity_type: formData.activity_type,
-        team_or_group: formData.team_or_group,
-        event_name: formData.event_name,
-        event_date: formData.event_date,
-        description: formData.description,
-        media_urls: JSON.stringify(mediaUrls),
-        consent_confirmed: formData.consent_confirmed,
-        legal_acknowledged: formData.legal_acknowledged,
-        status: 'pending',
-      });
+      // Create submission in SchoolSubmissions entity
+       const submissionData = {
+         school: schoolSlug,
+         submission_title: formData.submission_title,
+         contributor_name: formData.contributor_name,
+         contributor_email: formData.contributor_email,
+         contributor_role: formData.contributor_role,
+         activity_type: formData.activity_type,
+         team_or_group: formData.team_or_group,
+         event_name: formData.event_name,
+         event_date: formData.event_date,
+         description: formData.description,
+         upload_type: formData.upload_type,
+         grade_level: formData.grade_level,
+         consent_confirmed: formData.consent_confirmed,
+         legal_acknowledgement: formData.legal_acknowledgement,
+         status: 'pending',
+       };
+
+       // Separate video and photo files
+       if (mediaUrls.length > 0) {
+         const videoFiles = [];
+         const photoFiles = [];
+         mediaUrls.forEach(url => {
+           if (url.match(/\.(mp4|mov|avi|webm)$/i)) {
+             videoFiles.push(url);
+           } else if (url.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
+             photoFiles.push(url);
+           }
+         });
+         if (videoFiles.length > 0) submissionData.video_files = JSON.stringify(videoFiles);
+         if (photoFiles.length > 0) submissionData.photo_files = JSON.stringify(photoFiles);
+         if (videoFiles.length > 0) submissionData.thumbnail = videoFiles[0]; // Set first video as thumbnail placeholder
+       }
+
+       await base44.entities.SchoolSubmissions.create(submissionData);
 
       setSubmitted(true);
     } catch (error) {
