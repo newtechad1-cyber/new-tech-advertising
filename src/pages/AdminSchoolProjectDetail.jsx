@@ -85,6 +85,10 @@ export default function AdminSchoolProjectDetail() {
   };
 
   const publishToGallery = async () => {
+    if (!renders[0]?.output_url) {
+      alert('Please complete rendering before publishing');
+      return;
+    }
     setPublishingAction(true);
     try {
       const pub = await base44.entities.VideoPublishingJobs.create({
@@ -104,9 +108,10 @@ export default function AdminSchoolProjectDetail() {
       });
       setPublishing(prev => [...prev, pub]);
       setProject(p => ({ ...p, status: 'published', publish_status: 'published' }));
+      setLastSave(new Date());
     } catch (e) {
       console.error('Error publishing:', e);
-      alert('Error publishing video');
+      alert('Error publishing video. Please try again.');
     } finally {
       setPublishingAction(false);
     }
