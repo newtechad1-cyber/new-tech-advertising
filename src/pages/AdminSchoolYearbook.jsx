@@ -76,10 +76,13 @@ export default function AdminSchoolYearbook() {
                 {season.name}
               </Button>
             ))}
-            <Button variant="outline" className="text-blue-600">
-              <Plus className="h-4 w-4 mr-2" />
+            <Link
+              to={`/admin/schools/${schoolSlug}/yearbook/seasons/new`}
+              className="inline-flex items-center gap-2 px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 font-semibold"
+            >
+              <Plus className="h-4 w-4" />
               New Season
-            </Button>
+            </Link>
           </div>
         </div>
 
