@@ -70,10 +70,28 @@ export default function AdminSchoolSubmissions() {
   };
 
   const handleSaveToStory = async (submission) => {
-    await base44.functions.invoke('saveAIOutputToStory', {
-      submission_id: submission.id,
-      school_slug: schoolSlug,
-    });
+    try {
+      // Create a story from the submission
+      const story = await base44.entities.Stories.create({
+        school_slug: schoolSlug,
+        title: submission.submission_title,
+        slug: submission.submission_title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+        excerpt: submission.description?.substring(0, 200) || '',
+        body: submission.description || `Based on submission: ${submission.submission_title}`,
+        featured_image_url: submission.thumbnail || null,
+        status: 'draft',
+        visibility: 'staff',
+      });
+      alert(`Story created! You can edit it in the Story Library.`);
+      // Update submission to mark it as linked
+      await base44.entities.StudentVideoSubmissions.update(submission.id, {
+        status: 'assigned_to_project',
+      });
+      setSubmissions(submissions.map(s => s.id === submission.id ? { ...s, status: 'assigned_to_project' } : s));
+    } catch (error) {
+      console.error('Error saving to story:', error);
+      alert('Error saving to story');
+    }
   };
 
   if (loading) {
