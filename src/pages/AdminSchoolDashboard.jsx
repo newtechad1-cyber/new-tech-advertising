@@ -86,13 +86,17 @@ export default function AdminSchoolDashboard() {
   return (
     <AdminShell schoolSlug={schoolSlug}>
       {/* Welcome */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-8 mb-8 rounded-lg">
-        <h1 className="text-3xl font-bold mb-2">Welcome Back</h1>
-        <p className="text-blue-100">Here's what's happening in your School Story Lab</p>
+      <div className="bg-gradient-to-r from-blue-700 via-blue-600 to-blue-700 text-white py-12 mb-8 rounded-2xl relative overflow-hidden shadow-lg">
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, white 0%, transparent 50%)' }} />
+        <div className="relative z-10 px-8">
+          <h1 className="text-4xl font-black mb-2">School Story Lab</h1>
+          <p className="text-blue-100 text-lg">Your content hub is active and thriving. Here's your status:</p>
+        </div>
       </div>
 
-      {/* Summary Cards */}
-      <div className="grid md:grid-cols-4 gap-4 mb-8">
+      {/* Quick Overview */}
+      <div className="mb-2 text-sm font-semibold text-gray-700 uppercase tracking-wide">Content Status</div>
+      <div className="grid md:grid-cols-4 gap-4 mb-12">
         <StatCard
           icon={AlertCircle}
           label="Pending Submissions"
@@ -123,7 +127,8 @@ export default function AdminSchoolDashboard() {
         />
       </div>
 
-      <div className="grid md:grid-cols-4 gap-4 mb-8">
+      <div className="mb-2 text-sm font-semibold text-gray-700 uppercase tracking-wide">Additional Metrics</div>
+      <div className="grid md:grid-cols-4 gap-4 mb-12">
         <StatCard
           icon={BookOpen}
           label="Yearbook Pages"
@@ -229,20 +234,28 @@ export default function AdminSchoolDashboard() {
       </div>
 
       {/* Quick Actions */}
-      <div className="mt-8 bg-blue-50 rounded-lg p-6 border border-blue-200">
-        <h3 className="text-lg font-bold mb-4">Quick Actions</h3>
+      <div className="mt-12 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 border border-blue-200">
+        <h3 className="text-xl font-black mb-6">Next Steps</h3>
         <div className="grid md:grid-cols-4 gap-4">
-          <Link to={`/admin/schools/${schoolSlug}/submissions?action=create`} className="bg-white hover:bg-blue-50 p-4 rounded-lg text-center border border-blue-200 transition-colors">
-            <p className="font-semibold text-sm">+ New Submission</p>
+          <Link to={`/admin/schools/${schoolSlug}/submissions`} className="group bg-white hover:bg-blue-50 p-6 rounded-xl text-center border-2 border-blue-100 transition-all hover:border-blue-300 hover:shadow-md">
+            <p className="text-3xl mb-2">📋</p>
+            <p className="font-bold text-sm text-gray-900">Review Submissions</p>
+            <p className="text-xs text-gray-500 mt-2">Approve & moderate content</p>
           </Link>
-          <Link to={`/admin/schools/${schoolSlug}/projects?action=create`} className="bg-white hover:bg-blue-50 p-4 rounded-lg text-center border border-blue-200 transition-colors">
-            <p className="font-semibold text-sm">+ New Project</p>
+          <Link to={`/admin/schools/${schoolSlug}/projects`} className="group bg-white hover:bg-blue-50 p-6 rounded-xl text-center border-2 border-blue-100 transition-all hover:border-blue-300 hover:shadow-md">
+            <p className="text-3xl mb-2">🎬</p>
+            <p className="font-bold text-sm text-gray-900">Create Project</p>
+            <p className="text-xs text-gray-500 mt-2">Start a new video</p>
           </Link>
-          <Link to={`/admin/schools/${schoolSlug}/story-library?action=create`} className="bg-white hover:bg-blue-50 p-4 rounded-lg text-center border border-blue-200 transition-colors">
-            <p className="font-semibold text-sm">+ New Story</p>
+          <Link to={`/admin/schools/${schoolSlug}/ai-lab`} className="group bg-white hover:bg-blue-50 p-6 rounded-xl text-center border-2 border-blue-100 transition-all hover:border-blue-300 hover:shadow-md">
+            <p className="text-3xl mb-2">⚡</p>
+            <p className="font-bold text-sm text-gray-900">AI Tools</p>
+            <p className="text-xs text-gray-500 mt-2">Generate content</p>
           </Link>
-          <Link to={`/admin/schools/${schoolSlug}/ai-lab`} className="bg-white hover:bg-blue-50 p-4 rounded-lg text-center border border-blue-200 transition-colors">
-            <p className="font-semibold text-sm">AI Lab</p>
+          <Link to={`/admin/schools/${schoolSlug}/story-library`} className="group bg-white hover:bg-blue-50 p-6 rounded-xl text-center border-2 border-blue-100 transition-all hover:border-blue-300 hover:shadow-md">
+            <p className="text-3xl mb-2">📖</p>
+            <p className="font-bold text-sm text-gray-900">Write Story</p>
+            <p className="text-xs text-gray-500 mt-2">Share news & updates</p>
           </Link>
         </div>
       </div>
