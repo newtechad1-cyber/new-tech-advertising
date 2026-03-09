@@ -81,12 +81,12 @@ export default function AdminSchoolStoryLibrary() {
               <h1 className="text-3xl font-bold text-gray-900">Story Library</h1>
               <p className="text-gray-600 mt-1">{filteredStories.length} of {stories.length} stories</p>
             </div>
-            <button
-              onClick={() => window.location.href = `${window.location.pathname}?action=create`}
+            <Link
+              to={`/admin/schools/${schoolSlug}/story-library/new`}
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2"
             >
               <Plus className="h-5 w-5" /> New Story
-            </button>
+            </Link>
           </div>
         </div>
 
