@@ -352,6 +352,9 @@ import AdminBranding from './pages/AdminBranding';
 import AdminYearbookLibrary from './pages/AdminYearbookLibrary';
 import AdminSubmissionDetail from './pages/AdminSubmissionDetail';
 import AdminStoryDetail from './pages/AdminStoryDetail';
+import AdminYearbookOverview from './pages/AdminYearbookOverview';
+import AdminYearbookSeason from './pages/AdminYearbookSeason';
+import AdminYearbookPage from './pages/AdminYearbookPage';
 import __Layout from './Layout.jsx';
 
 
@@ -661,6 +664,9 @@ export const PAGES = {
     "AdminYearbookLibrary": AdminYearbookLibrary,
     "AdminSubmissionDetail": AdminSubmissionDetail,
     "AdminStoryDetail": AdminStoryDetail,
+    "AdminYearbookOverview": AdminYearbookOverview,
+    "AdminYearbookSeason": AdminYearbookSeason,
+    "AdminYearbookPage": AdminYearbookPage,
 }
 
 export const pagesConfig = {
