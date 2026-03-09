@@ -186,19 +186,13 @@ export default function AdminSchoolProjects() {
                 )}
 
                 <div className="flex gap-2">
-                  <Link
-                    to={`/admin/schools/${schoolSlug}/projects/${project.id}`}
-                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold text-sm flex items-center justify-center gap-2"
-                  >
-                    <Play className="h-4 w-4" /> Open
-                  </Link>
-                  <button className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-lg font-semibold text-sm">
-                    <Copy className="h-4 w-4" />
-                  </button>
-                  <button className="bg-red-100 hover:bg-red-200 text-red-800 px-3 py-2 rounded-lg font-semibold text-sm">
-                    <Archive className="h-4 w-4" />
-                  </button>
-                </div>
+                   <Link
+                     to={`/admin/schools/${schoolSlug}/projects/${project.id}`}
+                     className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold text-sm flex items-center justify-center gap-2"
+                   >
+                     <Play className="h-4 w-4" /> Edit
+                   </Link>
+                 </div>
               </div>
             </div>
           ))}
