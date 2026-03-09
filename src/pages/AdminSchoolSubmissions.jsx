@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { useSchoolRoute } from '@/components/school-tv/useSchoolRoute';
-import SchoolAdminNav from '@/components/school-tv/SchoolAdminNav';
+import { useParams } from 'react-router-dom';
+import AdminShell from '@/components/school-tv/AdminShell';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import AIStatusBadge from '@/components/school-tv/AIStatusBadge';
