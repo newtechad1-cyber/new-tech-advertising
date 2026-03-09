@@ -486,29 +486,53 @@ export default function AdminStoryDetail() {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Linked Event</label>
-                <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                  <option>Select an event...</option>
+                <select 
+                  value={story.event_id || ''}
+                  onChange={(e) => updateStoryField('event_id', e.target.value || null)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <option value="">Select an event...</option>
+                  {events.map(evt => (
+                    <option key={evt.id} value={evt.id}>{evt.event_name || evt.title}</option>
+                  ))}
                 </select>
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Linked Yearbook Page</label>
-                <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                  <option>Select a yearbook page...</option>
+                <select 
+                  value={story.yearbook_page_id || ''}
+                  onChange={(e) => updateStoryField('yearbook_page_id', e.target.value || null)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <option value="">Select a yearbook page...</option>
+                  {yearbookPages.map(page => (
+                    <option key={page.id} value={page.id}>{page.title}</option>
+                  ))}
                 </select>
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Linked Spotlight</label>
-                <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                  <option>Select a spotlight...</option>
+                <select 
+                  value={story.spotlight_id || ''}
+                  onChange={(e) => updateStoryField('spotlight_id', e.target.value || null)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <option value="">Select a spotlight...</option>
+                  {spotlights.map(spot => (
+                    <option key={spot.id} value={spot.id}>{spot.title}</option>
+                  ))}
                 </select>
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Linked Video Project</label>
-                <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                  <option>Select a video project...</option>
+                <select 
+                  value={story.project_id || ''}
+                  onChange={(e) => updateStoryField('project_id', e.target.value || null)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <option value="">Select a video project...</option>
+                  {projects.map(proj => (
+                    <option key={proj.id} value={proj.id}>{proj.title}</option>
+                  ))}
                 </select>
               </div>
             </div>
