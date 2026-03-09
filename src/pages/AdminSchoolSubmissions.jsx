@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { base44 } from '@/api/base44Client';
 import { useSchoolRoute } from '@/components/school-tv/useSchoolRoute';
 import SchoolAdminNav from '@/components/school-tv/SchoolAdminNav';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import AIStatusBadge from '@/components/school-tv/AIStatusBadge';
 import {
   Search,
   Filter,
@@ -11,72 +13,35 @@ import {
   X,
   Clock,
   AlertCircle,
+  Archive,
+  Sparkles,
+  Loader2,
 } from 'lucide-react';
 
 export default function AdminSchoolSubmissions() {
   const { schoolSlug, currentPath } = useSchoolRoute();
   const [selectedSubmission, setSelectedSubmission] = useState(null);
   const [filterStatus, setFilterStatus] = useState('all');
+  const [submissions, setSubmissions] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const submissions = [
-    {
-      id: 1204,
-      contributor: 'Emma Chen',
-      type: 'Video',
-      title: 'Basketball Game Highlights',
-      status: 'pending',
-      date: 'Mar 9, 2:30 PM',
-      thumbnail: '🎬',
-      consent: true,
-      notes: 'Good quality, check music rights',
-      flag: 'copyright',
-    },
-    {
-      id: 1203,
-      contributor: 'Jake Morrison',
-      type: 'Photos',
-      title: 'Science Fair Setup',
-      status: 'approved',
-      date: 'Mar 9, 1:15 PM',
-      thumbnail: '📸',
-      consent: true,
-      notes: 'Ready to publish',
-    },
-    {
-      id: 1202,
-      contributor: 'Sarah Kim',
-      type: 'Story',
-      title: 'Our Robotics Team Won!',
-      status: 'approved',
-      date: 'Mar 8, 4:45 PM',
-      thumbnail: '📝',
-      consent: true,
-      notes: 'Assigned to yearbook',
-    },
-    {
-      id: 1201,
-      contributor: 'Marcus Wilson',
-      type: 'Video',
-      title: 'Robotics Competition Recap',
-      status: 'review',
-      date: 'Mar 8, 2:20 PM',
-      thumbnail: '🎬',
-      consent: false,
-      notes: 'Missing parent consent form',
-      flag: 'consent',
-    },
-    {
-      id: 1200,
-      contributor: 'Alex Torres',
-      type: 'Photos',
-      title: 'Drama Club Rehearsal',
-      status: 'rejected',
-      date: 'Mar 7, 3:00 PM',
-      thumbnail: '📸',
-      consent: true,
-      notes: 'Blurry images, request resubmission',
-    },
-  ];
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const data = await base44.entities.SchoolSubmissions.filter({
+          school_slug: schoolSlug,
+        });
+        setSubmissions(data);
+      } catch (error) {
+        console.error('Error loading submissions:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, [schoolSlug]);
+
+
 
   const statusColors = {
     pending: 'bg-yellow-100 text-yellow-800',
@@ -88,6 +53,36 @@ export default function AdminSchoolSubmissions() {
   const filteredSubmissions = filterStatus === 'all' 
     ? submissions 
     : submissions.filter(s => s.status === filterStatus);
+
+  const handleApprove = async (id) => {
+    await base44.entities.SchoolSubmissions.update(id, { status: 'approved' });
+    setSubmissions(submissions.map(s => s.id === id ? { ...s, status: 'approved' } : s));
+  };
+
+  const handleReject = async (id) => {
+    await base44.entities.SchoolSubmissions.update(id, { status: 'rejected' });
+    setSubmissions(submissions.map(s => s.id === id ? { ...s, status: 'rejected' } : s));
+  };
+
+  const handleArchive = async (id) => {
+    await base44.entities.SchoolSubmissions.update(id, { status: 'archived' });
+    setSubmissions(submissions.filter(s => s.id !== id));
+  };
+
+  const handleSaveToStory = async (submission) => {
+    await base44.functions.invoke('saveAIOutputToStory', {
+      submission_id: submission.id,
+      school_slug: schoolSlug,
+    });
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -152,31 +147,28 @@ export default function AdminSchoolSubmissions() {
                   <tr key={submission.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div>
-                        <p className="text-gray-900 font-medium">{submission.contributor}</p>
-                        {!submission.consent && (
-                          <p className="text-xs text-red-600 font-semibold mt-1">⚠ No consent form</p>
+                        <p className="text-gray-900 font-medium">{submission.contributor_name}</p>
+                        {!submission.consent_confirmed && (
+                          <p className="text-xs text-red-600 font-semibold mt-1">⚠ No consent</p>
                         )}
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        <span className="text-2xl">{submission.thumbnail}</span>
-                        <div>
-                          <p className="text-gray-900 font-medium">{submission.title}</p>
-                          {submission.flag && (
-                            <p className="text-xs text-orange-600 flex items-center gap-1 mt-1">
-                              <AlertCircle className="h-3 w-3" />
-                              {submission.flag === 'copyright' ? 'Copyright flag' : 'Needs review'}
-                            </p>
-                          )}
-                        </div>
+                      <div>
+                        <p className="text-gray-900 font-medium">{submission.submission_title}</p>
+                        {submission.ai_safety_flag && (
+                          <p className="text-xs text-orange-600 flex items-center gap-1 mt-1">
+                            <AlertCircle className="h-3 w-3" />
+                            AI safety review
+                          </p>
+                        )}
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="text-sm text-gray-700">{submission.type}</span>
+                      <span className="text-sm text-gray-700">{submission.activity_type}</span>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="text-sm text-gray-700">{submission.date}</span>
+                      <span className="text-sm text-gray-700">{new Date(submission.created_date).toLocaleDateString()}</span>
                     </td>
                     <td className="px-6 py-4">
                       <span className={`px-3 py-1 rounded-full text-xs font-medium ${statusColors[submission.status]}`}>
@@ -199,6 +191,7 @@ export default function AdminSchoolSubmissions() {
                               variant="ghost"
                               size="sm"
                               className="text-green-600"
+                              onClick={() => handleApprove(submission.id)}
                             >
                               <Check className="h-4 w-4" />
                             </Button>
@@ -206,6 +199,7 @@ export default function AdminSchoolSubmissions() {
                               variant="ghost"
                               size="sm"
                               className="text-red-600"
+                              onClick={() => handleReject(submission.id)}
                             >
                               <X className="h-4 w-4" />
                             </Button>
@@ -235,50 +229,73 @@ export default function AdminSchoolSubmissions() {
           </div>
           
           <div className="flex-1 overflow-auto p-6 space-y-6">
+            {/* Tabs */}
+            <div className="flex gap-2 border-b border-gray-200">
+              <button className="px-4 py-2 text-sm font-semibold text-blue-600 border-b-2 border-blue-600">Overview</button>
+              <button className="px-4 py-2 text-sm font-semibold text-gray-600 hover:text-gray-900">Media</button>
+              <button className="px-4 py-2 text-sm font-semibold text-gray-600 hover:text-gray-900">AI</button>
+            </div>
+
             <div>
               <p className="text-xs text-gray-500 uppercase font-semibold mb-2">Contributor</p>
-              <p className="text-gray-900 font-medium">{selectedSubmission.contributor}</p>
+              <p className="text-gray-900 font-medium">{selectedSubmission.contributor_name}</p>
             </div>
             
             <div>
               <p className="text-xs text-gray-500 uppercase font-semibold mb-2">Title</p>
-              <p className="text-gray-900 font-medium">{selectedSubmission.title}</p>
+              <p className="text-gray-900 font-medium">{selectedSubmission.submission_title}</p>
             </div>
             
             <div>
               <p className="text-xs text-gray-500 uppercase font-semibold mb-2">Type</p>
-              <p className="text-gray-900">{selectedSubmission.type}</p>
+              <p className="text-gray-900">{selectedSubmission.activity_type}</p>
             </div>
-            
-            <div>
-              <p className="text-xs text-gray-500 uppercase font-semibold mb-2">Content Preview</p>
-              <div className="h-40 bg-gray-100 rounded-lg flex items-center justify-center text-4xl">
-                {selectedSubmission.thumbnail}
+
+            {selectedSubmission.ai_quality_score > 0 && (
+              <div className="bg-purple-50 rounded-lg p-4 border-l-4 border-purple-600">
+                <p className="text-xs text-purple-900 font-medium uppercase mb-2">AI Quality Score</p>
+                <p className="text-sm text-purple-900">{(selectedSubmission.ai_quality_score * 100).toFixed(0)}%</p>
               </div>
-            </div>
-            
-            <div className="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-600">
-              <p className="text-xs text-gray-600 font-medium uppercase mb-2">AI Notes</p>
-              <p className="text-sm text-gray-700">{selectedSubmission.notes}</p>
-            </div>
+            )}
             
             <div>
               <p className="text-xs text-gray-500 uppercase font-semibold mb-2">Consent Status</p>
-              <div className={`px-4 py-2 rounded-lg text-sm font-medium ${selectedSubmission.consent ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                {selectedSubmission.consent ? '✓ Consent provided' : '✗ No consent form'}
+              <div className={`px-4 py-2 rounded-lg text-sm font-medium ${selectedSubmission.consent_confirmed ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                {selectedSubmission.consent_confirmed ? '✓ Consent provided' : '✗ No consent'}
               </div>
             </div>
           </div>
 
           <div className="bg-gray-50 border-t border-gray-200 p-6 space-y-3">
-            <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
+            <Button 
+              className="w-full bg-green-600 hover:bg-green-700 text-white"
+              onClick={() => handleApprove(selectedSubmission.id)}
+            >
+              <Check className="h-4 w-4 mr-2" />
               Approve
             </Button>
-            <Button className="w-full bg-red-600 hover:bg-red-700 text-white">
+            <Button 
+              className="w-full bg-red-600 hover:bg-red-700 text-white"
+              onClick={() => handleReject(selectedSubmission.id)}
+            >
+              <X className="h-4 w-4 mr-2" />
               Reject
             </Button>
-            <Button variant="outline" className="w-full">
-              Request Changes
+            <Button 
+              variant="outline" 
+              className="w-full text-purple-600"
+              onClick={() => handleSaveToStory(selectedSubmission)}
+            >
+              <Sparkles className="h-4 w-4 mr-2" />
+              Save as Story
+            </Button>
+            <Button 
+              variant="ghost" 
+              className="w-full text-gray-600"
+              onClick={() => handleArchive(selectedSubmission.id)}
+            >
+              <Archive className="h-4 w-4 mr-2" />
+              Archive
             </Button>
           </div>
         </div>
