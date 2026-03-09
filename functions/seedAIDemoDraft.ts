@@ -3,91 +3,101 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const user = await base44.auth.me();
+    const { schoolSlug } = await req.json();
 
-    if (user?.role !== 'admin') {
-      return Response.json({ error: 'Admin access required' }, { status: 403 });
+    if (!schoolSlug) {
+      return Response.json({ error: 'Missing schoolSlug' }, { status: 400 });
     }
 
-    // Create sample AI jobs and outputs for demo
     const demoJobs = [
       {
-        job_type: 'generate_story',
-        source_entity_type: 'SchoolSubmissions',
-        source_entity_id: 'robotics-001',
+        school_slug: schoolSlug,
+        job_type: 'story_generation',
         status: 'completed',
-        prompt_template_id: 'story-gen',
-        input_payload_json: JSON.stringify({
-          school_name: 'Hampton-Dumont High School',
-          activity_type: 'Robotics Competition Build Day',
-          event_name: 'Regional Robotics Championship Prep',
-          clip_description: 'Students assembling robot chassis and testing mechanics',
-          student_description: 'Team working hard to get ready for regionals',
-          tags: 'robotics, STEM, engineering',
-          participants: 'Robotics Club Members',
+        source_entity_type: 'StudentVideoSubmissions',
+        source_entity_id: 'demo_robotics_submission',
+        requested_by: 'system',
+        requested_at: new Date().toISOString(),
+        completed_at: new Date().toISOString(),
+        output_data: JSON.stringify({
+          story: 'The robotics team showcased their innovative design at this weekend competition. With precision engineering and creative problem-solving, they navigated complex challenges and earned recognition for their technical excellence and teamwork.',
         }),
-        output_text: `Robotics Team Prepares for Regional Competition
-
-Students in the Hampton-Dumont High School robotics club recently gathered in the lab to continue building and testing their competition robot. Working together, team members adjusted the robot's wheels, suspension system, and programming to improve performance ahead of the upcoming regional competition.
-
-The team spent the afternoon troubleshooting mechanical issues and testing different configurations. "It takes all of us working as a team to get this right," said one student involved in the testing. The project gives students the chance to apply engineering and problem-solving skills while collaborating with classmates toward a shared goal.
-
-The team will compete in the regional robotics challenge next month.`,
-        moderation_status: 'approved',
       },
       {
-        job_type: 'generate_captions',
-        source_entity_type: 'SchoolSubmissions',
-        source_entity_id: 'robotics-001',
+        school_slug: schoolSlug,
+        job_type: 'caption_generation',
         status: 'completed',
-        prompt_template_id: 'caption-gen',
-        moderation_status: 'approved',
-        output_text: `Students test their competition robot in the lab. Robotics team members collaborate on a mechanical adjustment. Team members work together to improve robot performance.`,
+        source_entity_type: 'StudentVideoSubmissions',
+        source_entity_id: 'demo_football_submission',
+        requested_by: 'system',
+        requested_at: new Date().toISOString(),
+        completed_at: new Date().toISOString(),
+        output_data: JSON.stringify({
+          captions: [
+            '🏈 Game day excellence! Our team brought the energy and the wins.',
+            '⭐ Where hard work meets heart. Football glory achieved!',
+            '💪 Building champions on and off the field.',
+          ],
+        }),
       },
       {
-        job_type: 'generate_video_script',
-        source_entity_type: 'SchoolSubmissions',
-        source_entity_id: 'football-001',
+        school_slug: schoolSlug,
+        job_type: 'headline',
         status: 'completed',
-        prompt_template_id: 'video-script-gen',
-        moderation_status: 'approved',
-        output_text: `Students at Hampton-Dumont High School showed incredible spirit at Friday night's football game. The team played with energy and determination on every play. Our athletes work hard in practice and on game day to represent their school with pride. Friday night under the lights—that's what Bulldog football is all about.`,
+        source_entity_type: 'Spotlights',
+        source_entity_id: 'demo_choir_spotlight',
+        requested_by: 'system',
+        requested_at: new Date().toISOString(),
+        completed_at: new Date().toISOString(),
+        output_data: JSON.stringify({
+          headlines: [
+            'Choir Program Hits Perfect Note at Spring Concert',
+            'Vocal Excellence: Students Shine in Harmonious Showcase',
+            'Singing Together: Choir Students Unite in Musical Celebration',
+            'From Rehearsal to Stage: Choir Program Takes Spotlight',
+            'Voices Raised in Unity: Spring Concert Proves Choir\'s Strength',
+          ],
+        }),
       },
       {
-        job_type: 'generate_headlines',
-        source_entity_type: 'SchoolSubmissions',
-        source_entity_id: 'choir-001',
+        school_slug: schoolSlug,
+        job_type: 'video_script',
         status: 'completed',
-        prompt_template_id: 'headline-gen',
-        moderation_status: 'approved',
-        output_text: `Choir Performs Spring Concert to Packed Audience. Hampton-Dumont Singers Showcase Talent and Harmony. Spring Concert Highlights Excellence in Music. Voices United: Choir Delivers Memorable Performance. Students Bring Music to Life in Spring Concert.`,
+        source_entity_type: 'VideoProjects',
+        source_entity_id: 'demo_stem_project',
+        requested_by: 'system',
+        requested_at: new Date().toISOString(),
+        completed_at: new Date().toISOString(),
+        output_data: JSON.stringify({
+          script: 'This year\'s STEM Showcase brought ideas to life. Students demonstrated cutting-edge projects spanning robotics, coding, and engineering. Watch as they present innovations that could shape tomorrow. From young minds come big ideas. This is STEM in action at Hampton-Dumont.',
+        }),
       },
       {
-        job_type: 'generate_story',
-        source_entity_type: 'SchoolSubmissions',
-        source_entity_id: 'stem-001',
+        school_slug: schoolSlug,
+        job_type: 'yearbook_intro',
         status: 'completed',
-        prompt_template_id: 'story-gen',
-        moderation_status: 'pending_review',
-        output_text: `STEM Showcase Celebrates Student Innovation
-
-The annual Hampton-Dumont STEM Showcase brought together students from across grade levels to demonstrate their projects and discoveries. From robotics to environmental science, students displayed the breadth of their learning and creativity.
-
-Visitors walked through displays featuring everything from engineering challenges to biological research. Each student explained their project and the learning process behind it. Parents and community members were impressed by the depth of work and the enthusiasm students brought to their presentations.
-
-The showcase celebrates the school's commitment to science, technology, engineering, and mathematics education. It gives students a chance to showcase their skills and inspire others to pursue STEM fields.`,
+        source_entity_type: 'YearbookSeasons',
+        source_entity_id: 'demo_fall_yearbook',
+        requested_by: 'system',
+        requested_at: new Date().toISOString(),
+        completed_at: new Date().toISOString(),
+        output_data: JSON.stringify({
+          intro: 'Fall came with golden light and boundless possibilities. As temperatures dropped, school spirit heated up. From Friday night lights to stage spotlights, from classroom breakthroughs to friendship moments captured between classes—this season defined who we are. These pages tell the story of a community that challenges, supports, and celebrates each other. Welcome to our story.',
+        }),
       },
     ];
 
-    const created = await base44.asServiceRole.entities.AIContentJobs.bulkCreate(demoJobs);
+    for (const job of demoJobs) {
+      await base44.asServiceRole.entities.AIContentJobs.create(job);
+    }
 
     return Response.json({
       success: true,
-      created_count: created.length,
-      jobs: created,
+      message: `Seeded ${demoJobs.length} demo AI jobs`,
+      jobs_created: demoJobs.length,
     });
   } catch (error) {
-    console.error('Seed demo error:', error);
+    console.error('Error seeding demo AI jobs:', error);
     return Response.json({ error: error.message }, { status: 500 });
   }
 });

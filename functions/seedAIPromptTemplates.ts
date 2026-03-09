@@ -3,191 +3,122 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const user = await base44.auth.me();
+    const { schoolSlug } = await req.json();
 
-    if (!user?.role === 'admin') {
-      return Response.json({ error: 'Admin access required' }, { status: 403 });
+    if (!schoolSlug) {
+      return Response.json({ error: 'Missing schoolSlug' }, { status: 400 });
     }
 
     const templates = [
       {
-        name: 'Student Story Generator',
-        prompt_type: 'story_generator',
-        system_prompt: `You are a student journalism assistant for a school storytelling platform.
-
-Your task is to write a short positive news-style story based on photos or video uploaded by students.
-
-The story must be appropriate for a school website and written in clear, natural language.
-
-Guidelines:
-- focus on student participation and teamwork
-- highlight learning, creativity, or achievement
-- use a positive community tone
-- avoid exaggeration or marketing language
-- write in third person
-- keep the story between 120 and 200 words
-- make it suitable for parents, students, and the local community`,
-        user_prompt_template: `School Name: {school_name}
-Activity Type: {activity_type}
-Event Name: {event_name}
-Media Description: {clip_description}
-Student Notes: {student_description}
-Tags: {tags}
-Participants: {participants}
-
-Write a short story suitable for a school story hub.
-Include a headline and the story body.`,
-        output_format: 'headline + story body',
-        tone_profile: 'positive, community-focused, school-appropriate',
+        school_slug: schoolSlug,
+        name: 'Story Generator',
+        template_type: 'story_generator',
+        system_prompt: 'You are a creative writer for a school newspaper. Write engaging, positive stories about student and staff achievements. Keep tone warm and inspirational. Focus on the human interest angle.',
+        user_prompt_template: 'Write a compelling story about: {title}. Context: {description}. Submissions/content: {content}. Keep it 300-400 words.',
+        output_format: 'text',
+        tone: 'warm',
+        max_tokens: 500,
+        temperature: 0.8,
         is_active: true,
       },
       {
-        name: 'Yearbook Caption Generator',
-        prompt_type: 'caption_generator',
-        system_prompt: `You are writing captions for a digital school yearbook.
-
-Write 3 short caption options for a photo or video moment captured by students.
-
-Guidelines:
-- each caption must be 10–20 words
-- keep the tone positive and school appropriate
-- highlight the activity or student experience
-- avoid repeating the same wording`,
-        user_prompt_template: `School Name: {school_name}
-Activity: {activity_type}
-Event: {event_name}
-Description of the moment: {clip_description}
-Student notes: {student_description}
-
-Generate three caption options.`,
-        output_format: '3 caption options',
-        tone_profile: 'concise, positive, visual-focused',
+        school_slug: schoolSlug,
+        name: 'Caption Generator',
+        template_type: 'caption_generator',
+        system_prompt: 'Generate short, engaging captions for school social media and video content. Be energetic and positive. Captions should be 1-2 sentences.',
+        user_prompt_template: 'Generate 3 different captions for: {title}. Context: {description}. Return as JSON array of strings.',
+        output_format: 'array',
+        tone: 'energetic',
+        max_tokens: 300,
+        temperature: 0.9,
         is_active: true,
       },
       {
-        name: 'Video Highlight Script Generator',
-        prompt_type: 'video_script_generator',
-        system_prompt: `You are writing narration for a short school highlight video.
-
-Create a voiceover script for a 30–60 second video.
-
-Guidelines:
-- use warm, community-focused language
-- keep sentences short
-- focus on students and their activities
-- avoid marketing phrases
-- make the narration sound natural and conversational
-- total length should be about 60–90 words`,
-        user_prompt_template: `School Name: {school_name}
-Activity: {activity_type}
-Event: {event_name}
-Video Description: {clip_description}
-Student Notes: {student_description}
-
-Write a short highlight narration.`,
-        output_format: 'short voiceover script',
-        tone_profile: 'warm, conversational, community-focused',
+        school_slug: schoolSlug,
+        name: 'Video Script Generator',
+        template_type: 'video_script_generator',
+        system_prompt: 'Write short, punchy video scripts for school videos. Use active voice. Include natural transitions. Keep pacing energetic.',
+        user_prompt_template: 'Write a {duration} video script about {title}. Key points: {description}. Make it engaging for students and families.',
+        output_format: 'text',
+        tone: 'energetic',
+        max_tokens: 600,
+        temperature: 0.85,
         is_active: true,
       },
       {
+        school_slug: schoolSlug,
         name: 'Headline Generator',
-        prompt_type: 'headline_generator',
-        system_prompt: `You are creating headlines for a school story.
-
-Generate 5 headline options.
-
-Guidelines:
-- keep headlines clear and positive
-- focus on students and activities
-- use simple language appropriate for school news`,
-        user_prompt_template: `Activity: {activity_type}
-Event: {event_name}
-Description: {clip_description}
-
-Generate 5 headline options.`,
-        output_format: '5 headline options',
-        tone_profile: 'clear, positive, school-news style',
+        template_type: 'headline_generator',
+        system_prompt: 'Generate compelling headlines for school stories and events. Make them newsworthy and engaging. Should grab attention.',
+        user_prompt_template: 'Generate 5 different headlines for a story about: {title}. Context: {description}. Return as JSON array of strings.',
+        output_format: 'array',
+        tone: 'professional',
+        max_tokens: 200,
+        temperature: 0.8,
         is_active: true,
       },
       {
+        school_slug: schoolSlug,
         name: 'Interview Question Generator',
-        prompt_type: 'interview_question_generator',
-        system_prompt: `You are helping students conduct an interview for a school story.
-
-Generate 5 interview questions students could ask participants in this activity.
-
-Focus on: teamwork, learning, preparation, challenges, goals`,
-        user_prompt_template: `Activity: {activity_type}
-Event: {event_name}
-Description: {clip_description}
-
-Generate 5 interview questions.`,
-        output_format: '5 interview questions',
-        tone_profile: 'open-ended, curious, learning-focused',
+        template_type: 'interview_question_generator',
+        system_prompt: 'Generate thoughtful interview questions for student spotlights and features. Questions should be open-ended and encourage interesting responses.',
+        user_prompt_template: 'Generate 5 interview questions for a student/staff spotlight about: {subject_name}. Topic: {topic}. Return as JSON array of strings.',
+        output_format: 'array',
+        tone: 'warm',
+        max_tokens: 400,
+        temperature: 0.8,
         is_active: true,
       },
       {
+        school_slug: schoolSlug,
         name: 'Story Rewriter',
-        prompt_type: 'story_rewriter',
-        system_prompt: `Rewrite the story to make it clearer and more polished while keeping the tone appropriate for a school website.
-
-Do not exaggerate or add unsupported claims.
-Keep the story under 180 words.`,
-        user_prompt_template: `Story: {generated_story}`,
-        output_format: 'rewritten story',
-        tone_profile: 'polished, clear, school-appropriate',
+        template_type: 'story_rewriter',
+        system_prompt: 'Improve and rewrite school stories to be more engaging, clearer, and more professional. Keep the original facts and message. Enhance readability and impact.',
+        user_prompt_template: 'Improve this story about {topic}: {original_text}. Make it more engaging while keeping all facts accurate.',
+        output_format: 'text',
+        tone: 'warm',
+        max_tokens: 600,
+        temperature: 0.7,
         is_active: true,
       },
       {
+        school_slug: schoolSlug,
         name: 'Event Summary Generator',
-        prompt_type: 'event_summary_generator',
-        system_prompt: `You are summarizing multiple school media submissions into one school-appropriate event story.
-
-Write a short story that highlights participation, atmosphere, and key moments from the event.
-
-Guidelines:
-- positive and community-focused
-- suitable for parents and local community
-- 150 to 220 words
-- no hype or marketing tone`,
-        user_prompt_template: `School Name: {school_name}
-Event Name: {event_name}
-Activity Type: {activity_type}
-Submission Summaries: {submission_summaries}
-
-Write a unified event recap story.`,
-        output_format: 'headline + event recap story',
-        tone_profile: 'inclusive, community-focused, recap style',
+        template_type: 'event_summary_generator',
+        system_prompt: 'Write concise, engaging summaries of school events. Capture the spirit and highlights. 150-200 words.',
+        user_prompt_template: 'Write a summary of the {event_name} event that happened on {event_date}. Key details: {event_details}.',
+        output_format: 'text',
+        tone: 'warm',
+        max_tokens: 300,
+        temperature: 0.75,
         is_active: true,
       },
       {
+        school_slug: schoolSlug,
         name: 'Yearbook Blurb Generator',
-        prompt_type: 'yearbook_blurb_generator',
-        system_prompt: `Write a short digital yearbook introduction paragraph.
-
-Guidelines:
-- 60 to 100 words
-- positive and school appropriate
-- summarize the season, event, or category
-- natural and readable tone`,
-        user_prompt_template: `School Name: {school_name}
-Season or Category: {season_or_category}
-Summary Notes: {summary_notes}`,
-        output_format: 'short yearbook paragraph',
-        tone_profile: 'nostalgic, celebratory, yearbook style',
+        template_type: 'yearbook_blurb_generator',
+        system_prompt: 'Write inspiring, celebratory yearbook introductions and section blurbs. Should feel timeless and meaningful. 100-150 words.',
+        user_prompt_template: 'Write a yearbook intro blurb for {title}. School year: {school_year}. Themes: {themes}.',
+        output_format: 'text',
+        tone: 'inspirational',
+        max_tokens: 250,
+        temperature: 0.75,
         is_active: true,
       },
     ];
 
-    const created = await base44.asServiceRole.entities.AIPromptTemplates.bulkCreate(templates);
+    for (const template of templates) {
+      await base44.asServiceRole.entities.AIPromptTemplates.create(template);
+    }
 
     return Response.json({
       success: true,
-      created_count: created.length,
-      templates: created,
+      message: `Seeded ${templates.length} AI prompt templates`,
+      templates_created: templates.length,
     });
   } catch (error) {
-    console.error('Seed error:', error);
+    console.error('Error seeding prompt templates:', error);
     return Response.json({ error: error.message }, { status: 500 });
   }
 });

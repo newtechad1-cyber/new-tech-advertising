@@ -359,6 +359,8 @@ import AdminSchoolEventDetail from './pages/AdminSchoolEventDetail';
 import AdminSchoolSpotlightDetail from './pages/AdminSchoolSpotlightDetail';
 import AdminCreateProject from './pages/AdminCreateProject';
 import AdminProjectWorkspace from './pages/AdminProjectWorkspace';
+import AdminAIPrompts from './pages/AdminAIPrompts';
+import AdminAIActivity from './pages/AdminAIActivity';
 import __Layout from './Layout.jsx';
 
 
@@ -675,6 +677,8 @@ export const PAGES = {
     "AdminSchoolSpotlightDetail": AdminSchoolSpotlightDetail,
     "AdminCreateProject": AdminCreateProject,
     "AdminProjectWorkspace": AdminProjectWorkspace,
+    "AdminAIPrompts": AdminAIPrompts,
+    "AdminAIActivity": AdminAIActivity,
 }
 
 export const pagesConfig = {
