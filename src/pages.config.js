@@ -361,6 +361,7 @@ import AdminCreateProject from './pages/AdminCreateProject';
 import AdminProjectWorkspace from './pages/AdminProjectWorkspace';
 import AdminAIPrompts from './pages/AdminAIPrompts';
 import AdminAIActivity from './pages/AdminAIActivity';
+import AdminVideoRenderDetail from './pages/AdminVideoRenderDetail';
 import __Layout from './Layout.jsx';
 
 
@@ -679,6 +680,7 @@ export const PAGES = {
     "AdminProjectWorkspace": AdminProjectWorkspace,
     "AdminAIPrompts": AdminAIPrompts,
     "AdminAIActivity": AdminAIActivity,
+    "AdminVideoRenderDetail": AdminVideoRenderDetail,
 }
 
 export const pagesConfig = {

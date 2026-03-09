@@ -1,169 +1,245 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { useParams } from 'react-router-dom';
-import SchoolAdminNav from '@/components/school-tv/SchoolAdminNav';
-import { Button } from '@/components/ui/button';
-import { Loader2, RotateCw, Eye, AlertCircle } from 'lucide-react';
+import AdminShell from '@/components/school-tv/AdminShell';
+import { Play, RotateCcw, ExternalLink, Search, Filter, Zap } from 'lucide-react';
+
+const STATUS_COLORS = {
+  queued: 'bg-gray-100 text-gray-800',
+  preparing: 'bg-blue-100 text-blue-800',
+  processing: 'bg-blue-100 text-blue-800',
+  rendering: 'bg-cyan-100 text-cyan-800',
+  post_processing: 'bg-purple-100 text-purple-800',
+  completed: 'bg-green-100 text-green-800',
+  failed: 'bg-red-100 text-red-800',
+  cancelled: 'bg-gray-200 text-gray-700',
+};
 
 export default function AdminVideoRenderQueue() {
   const { schoolSlug } = useParams();
-  const [renders, setRenders] = useState([]);
+  const [jobs, setJobs] = useState([]);
+  const [filteredJobs, setFilteredJobs] = useState([]);
+  const [selectedStatus, setSelectedStatus] = useState('all');
+  const [selectedEngine, setSelectedEngine] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
-  const [selectedRender, setSelectedRender] = useState(null);
 
   useEffect(() => {
     const loadData = async () => {
       try {
-        const data = await base44.entities.SchoolVideoRenderJobs.filter({
-          status: { $ne: 'completed' },
+        const data = await base44.entities.VideoRenderJobs.filter({
+          school_slug: schoolSlug,
         });
-        setRenders(data);
+        setJobs(data.sort((a, b) => {
+          const orderMap = { queued: 0, preparing: 1, processing: 2, rendering: 3, post_processing: 4, completed: 5, failed: 6, cancelled: 7 };
+          return (orderMap[a.status] || 99) - (orderMap[b.status] || 99);
+        }));
       } catch (error) {
-        console.error('Error loading renders:', error);
+        console.error('Error loading render jobs:', error);
       } finally {
         setLoading(false);
       }
     };
     loadData();
-  }, []);
+  }, [schoolSlug]);
 
-  const handleRetry = async (renderId) => {
-    await base44.entities.SchoolVideoRenderJobs.update(renderId, {
-      status: 'queued',
-      retry_count: (renders.find(r => r.id === renderId)?.retry_count || 0) + 1,
-    });
-    setRenders(renders.map(r => r.id === renderId ? { ...r, status: 'queued' } : r));
-  };
+  useEffect(() => {
+    let filtered = jobs;
 
-  const statusColors = {
-    queued: 'bg-gray-100 text-gray-800',
-    processing: 'bg-blue-100 text-blue-800',
-    rendering: 'bg-purple-100 text-purple-800',
-    completed: 'bg-green-100 text-green-800',
-    failed: 'bg-red-100 text-red-800',
-  };
+    if (selectedStatus !== 'all') {
+      filtered = filtered.filter(j => j.status === selectedStatus);
+    }
+    if (selectedEngine !== 'all') {
+      filtered = filtered.filter(j => j.render_engine === selectedEngine);
+    }
+    if (searchTerm) {
+      filtered = filtered.filter(j =>
+        j.render_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        j.project_id.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin" />
-      </div>
-    );
-  }
+    setFilteredJobs(filtered);
+  }, [jobs, selectedStatus, selectedEngine, searchTerm]);
+
+  if (loading) return <AdminShell schoolSlug={schoolSlug}><div className="text-center py-12">Loading...</div></AdminShell>;
 
   return (
-    <div className="flex h-screen bg-gray-50">
-      <SchoolAdminNav />
-
-      <div className="flex-1 overflow-auto">
-        <div className="bg-white border-b border-gray-200 sticky top-0 z-40 p-6">
-          <h1 className="text-3xl font-bold text-gray-900">Render Queue</h1>
-          <p className="text-gray-600 mt-1">{renders.length} jobs in queue</p>
+    <AdminShell schoolSlug={schoolSlug}>
+      {/* Header */}
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h1 className="text-3xl font-bold flex items-center gap-2">
+            <Zap className="h-8 w-8 text-orange-600" /> Render Queue
+          </h1>
+          <p className="text-gray-600">Monitor video rendering jobs</p>
         </div>
-
-        <div className="max-w-7xl mx-auto px-6 py-8">
-          <div className="space-y-4">
-            {renders.map((render) => (
-              <div key={render.id} className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3">
-                      <h3 className="text-lg font-bold text-gray-900">{render.render_name}</h3>
-                      <span className={`px-3 py-1 text-xs font-semibold rounded-full ${statusColors[render.status]}`}>
-                        {render.status}
-                      </span>
-                    </div>
-                    <p className="text-sm text-gray-600 mt-2">Queue position: #{render.queue_position}</p>
-                    {render.retry_count > 0 && (
-                      <p className="text-xs text-orange-600 mt-1 flex items-center gap-1">
-                        <AlertCircle className="h-3 w-3" />
-                        Retry #{render.retry_count}
-                      </p>
-                    )}
-                  </div>
-                  <div className="flex gap-2">
-                    <Button variant="outline" size="sm" onClick={() => setSelectedRender(render)}>
-                      <Eye className="h-4 w-4" />
-                    </Button>
-                    {render.status === 'failed' && (
-                      <Button variant="outline" size="sm" onClick={() => handleRetry(render.id)}>
-                        <RotateCw className="h-4 w-4" />
-                      </Button>
-                    )}
-                  </div>
-                </div>
-
-                {/* Progress */}
-                {render.status === 'rendering' && (
-                  <div className="mt-4 w-full bg-gray-200 rounded-full h-2">
-                    <div className="bg-blue-600 h-2 rounded-full" style={{ width: '65%' }}></div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+        <div className="text-sm font-semibold">
+          <span className="text-blue-600">{jobs.filter(j => j.status === 'processing').length} processing</span>
+          {' · '}
+          <span className="text-green-600">{jobs.filter(j => j.status === 'completed').length} completed</span>
         </div>
       </div>
 
-      {/* Detail Panel */}
-      {selectedRender && (
-        <div className="fixed right-0 top-0 h-screen w-96 bg-white border-l border-gray-200 shadow-lg z-50 flex flex-col">
-          <div className="bg-gray-50 border-b border-gray-200 p-6 flex items-center justify-between">
-            <h2 className="text-xl font-bold">Render Details</h2>
-            <button onClick={() => setSelectedRender(null)} className="text-gray-500 hover:text-gray-700">✕</button>
+      {/* Filters */}
+      <div className="bg-white rounded-lg shadow-md p-6 mb-6 space-y-4">
+        <div className="grid md:grid-cols-3 gap-4">
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Search</label>
+            <div className="relative">
+              <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search by name or project..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
           </div>
-
-          <div className="flex-1 overflow-auto p-6 space-y-6">
-            <div>
-              <p className="text-xs text-gray-500 uppercase font-semibold mb-2">Name</p>
-              <p className="text-gray-900 font-medium">{selectedRender.render_name}</p>
-            </div>
-
-            <div>
-              <p className="text-xs text-gray-500 uppercase font-semibold mb-2">Status</p>
-              <span className={`px-3 py-1 text-xs font-semibold rounded-full ${statusColors[selectedRender.status]}`}>
-                {selectedRender.status}
-              </span>
-            </div>
-
-            <div>
-              <p className="text-xs text-gray-500 uppercase font-semibold mb-2">Output Format</p>
-              <p className="text-gray-900">{selectedRender.output_format} • {selectedRender.resolution}</p>
-            </div>
-
-            {selectedRender.error_log && (
-              <div className="bg-red-50 rounded-lg p-4 border-l-4 border-red-600">
-                <p className="text-xs text-red-900 font-semibold uppercase mb-2">Error Log</p>
-                <p className="text-sm text-red-900 font-mono whitespace-pre-wrap">{selectedRender.error_log}</p>
-              </div>
-            )}
-
-            {selectedRender.output_url && (
-              <Button className="w-full bg-green-600 hover:bg-green-700">
-                Download Output
-              </Button>
-            )}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Status</label>
+            <select
+              value={selectedStatus}
+              onChange={(e) => setSelectedStatus(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="all">All Statuses</option>
+              <option value="queued">Queued</option>
+              <option value="preparing">Preparing</option>
+              <option value="processing">Processing</option>
+              <option value="rendering">Rendering</option>
+              <option value="post_processing">Post-Processing</option>
+              <option value="completed">Completed</option>
+              <option value="failed">Failed</option>
+            </select>
           </div>
-
-          <div className="bg-gray-50 border-t border-gray-200 p-6 space-y-3">
-            {selectedRender.status === 'failed' && (
-              <Button 
-                className="w-full bg-orange-600 hover:bg-orange-700"
-                onClick={() => {
-                  handleRetry(selectedRender.id);
-                  setSelectedRender(null);
-                }}
-              >
-                <RotateCw className="h-4 w-4 mr-2" />
-                Retry Render
-              </Button>
-            )}
-            <Button variant="outline" className="w-full">
-              Open Project
-            </Button>
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Engine</label>
+            <select
+              value={selectedEngine}
+              onChange={(e) => setSelectedEngine(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="all">All Engines</option>
+              <option value="internal">Internal</option>
+              <option value="heygen">HeyGen</option>
+              <option value="synthesia">Synthesia</option>
+            </select>
           </div>
         </div>
-      )}
-    </div>
+
+        <button
+          onClick={() => {
+            setSelectedStatus('all');
+            setSelectedEngine('all');
+            setSearchTerm('');
+          }}
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-semibold"
+        >
+          Clear Filters
+        </button>
+      </div>
+
+      {/* Count */}
+      <div className="mb-4 text-sm text-gray-600">
+        Showing {filteredJobs.length} of {jobs.length} jobs
+      </div>
+
+      {/* Jobs List */}
+      <div className="space-y-3">
+        {filteredJobs.length > 0 ? (
+          filteredJobs.map((job) => (
+            <Link
+              key={job.id}
+              to={`/admin/schools/${schoolSlug}/render-queue/${job.id}`}
+              className="block bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow border-l-4 border-orange-600"
+            >
+              <div className="flex items-start justify-between gap-4 mb-4">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-2">
+                    <h3 className="text-lg font-bold text-gray-900">{job.render_name}</h3>
+                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${STATUS_COLORS[job.status] || 'bg-gray-100'}`}>
+                      {job.status.replace(/_/g, ' ')}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-600">Project: {job.project_id}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-2xl font-bold text-gray-900">{job.progress_percent}%</p>
+                  <p className="text-xs text-gray-600">Progress</p>
+                </div>
+              </div>
+
+              {/* Progress Bar */}
+              <div className="w-full bg-gray-200 rounded-full h-2 mb-4 overflow-hidden">
+                <div
+                  className="bg-gradient-to-r from-orange-500 to-orange-600 h-full rounded-full transition-all duration-300"
+                  style={{ width: `${job.progress_percent}%` }}
+                />
+              </div>
+
+              {/* Details */}
+              <div className="grid md:grid-cols-4 gap-4 text-sm mb-4">
+                <div>
+                  <p className="text-xs text-gray-600">Engine</p>
+                  <p className="font-semibold text-gray-900 capitalize">{job.render_engine}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-600">Resolution</p>
+                  <p className="font-semibold text-gray-900">{job.resolution}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-600">Queue Position</p>
+                  <p className="font-semibold text-gray-900">#{job.queue_position + 1}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-600">Retries</p>
+                  <p className="font-semibold text-gray-900">{job.retry_count}/{job.max_retries}</p>
+                </div>
+              </div>
+
+              {/* Error Alert */}
+              {job.status === 'failed' && job.failure_stage && (
+                <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
+                  <p className="text-xs font-semibold text-red-900">Failed at: {job.failure_stage}</p>
+                  <p className="text-xs text-red-800 mt-1 line-clamp-1">{job.error_message}</p>
+                </div>
+              )}
+
+              {/* Actions */}
+              <div className="flex gap-2">
+                <Link
+                  to={`/admin/schools/${schoolSlug}/render-queue/${job.id}`}
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold text-sm flex items-center justify-center gap-2"
+                  onClick={(e) => e.preventDefault()}
+                >
+                  <Play className="h-4 w-4" /> Details
+                </Link>
+                {job.status === 'failed' && job.retry_count < job.max_retries && (
+                  <button className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg font-semibold text-sm flex items-center gap-2">
+                    <RotateCcw className="h-4 w-4" /> Retry
+                  </button>
+                )}
+                {job.output_url && (
+                  <a
+                    href={job.output_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-green-100 hover:bg-green-200 text-green-800 px-3 py-2 rounded-lg font-semibold text-sm"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                  </a>
+                )}
+              </div>
+            </Link>
+          ))
+        ) : (
+          <div className="text-center py-12 bg-white rounded-lg">
+            <p className="text-gray-500 text-lg">No render jobs found</p>
+          </div>
+        )}
+      </div>
+    </AdminShell>
   );
 }
