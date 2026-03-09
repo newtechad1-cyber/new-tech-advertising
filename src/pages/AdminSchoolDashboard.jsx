@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AdminShell from '@/components/school-tv/AdminShell';
-import { AlertCircle, CheckCircle2, Clock, Video, BookOpen, Zap, BarChart3, AlertTriangle } from 'lucide-react';
+import { AlertCircle, CheckCircle2, Clock, Video, BookOpen, Zap, BarChart3, AlertTriangle, TrendingUp } from 'lucide-react';
 
 export default function AdminSchoolDashboard() {
   const { schoolSlug } = useParams();
@@ -111,13 +111,13 @@ export default function AdminSchoolDashboard() {
         <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #ffffff 0%, transparent 50%), radial-gradient(circle at 80% 80%, #ffffff 0%, transparent 50%)' }} />
         <div className="absolute top-0 right-0 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl" />
         <div className="relative z-10 px-6 md:px-8">
-          <h1 className="text-3xl md:text-5xl font-black mb-3 leading-tight">School Story Lab</h1>
-          <p className="text-blue-100 text-lg md:text-xl font-semibold">Welcome back! Your content platform is thriving. Here's what's happening today:</p>
+          <h1 className="text-3xl md:text-5xl font-black mb-3 leading-tight">Bulldog Story Lab</h1>
+          <p className="text-blue-100 text-lg md:text-xl font-semibold">Your content platform at a glance. Quick status of submissions, videos, stories, and AI tasks:</p>
         </div>
       </div>
 
       {/* Quick Overview */}
-      <div className="mb-6 text-xs md:text-sm font-black text-gray-800 uppercase tracking-wider">📊 Your Dashboard</div>
+       <div className="mb-6 text-xs md:text-sm font-black text-gray-800 uppercase tracking-wider">📊 Key Metrics</div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-10 md:mb-14">
         <StatCard
           icon={AlertCircle}
@@ -272,8 +272,8 @@ export default function AdminSchoolDashboard() {
 
       {/* Quick Actions */}
       <div className="mt-10 md:mt-14 bg-gradient-to-br from-blue-50 via-purple-50 to-blue-50 rounded-3xl p-8 md:p-10 border-2 border-blue-200 shadow-lg">
-        <h3 className="text-2xl md:text-3xl font-black mb-2">Let's Create Something Great</h3>
-        <p className="text-gray-600 mb-8">Get started with these quick actions</p>
+        <h3 className="text-2xl md:text-3xl font-black mb-2">Jump Into Workflow</h3>
+        <p className="text-gray-600 mb-8">Quick access to core tasks</p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           <Link to={`/admin/schools/${schoolSlug}/submissions`} className="group bg-white hover:bg-red-50 p-6 md:p-8 rounded-2xl text-center border-2 border-red-100 hover:border-red-300 transition-all hover:shadow-lg hover:-translate-y-2">
             <p className="text-4xl md:text-5xl mb-3">📋</p>

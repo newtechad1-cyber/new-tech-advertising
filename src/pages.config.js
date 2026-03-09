@@ -138,7 +138,10 @@ import AdminSchoolLibrary from './pages/AdminSchoolLibrary';
 import AdminSchoolProjectDetail from './pages/AdminSchoolProjectDetail';
 import AdminSchoolProjects from './pages/AdminSchoolProjects';
 import AdminSchoolRenderQueue from './pages/AdminSchoolRenderQueue';
+import AdminSchoolRoles from './pages/AdminSchoolRoles';
 import AdminSchoolSettings from './pages/AdminSchoolSettings';
+import AdminSchoolSettingsPermissions from './pages/AdminSchoolSettingsPermissions';
+import AdminSchoolSettingsPublishing from './pages/AdminSchoolSettingsPublishing';
 import AdminSchoolSpotlightDetail from './pages/AdminSchoolSpotlightDetail';
 import AdminSchoolSpotlights from './pages/AdminSchoolSpotlights';
 import AdminSchoolStoryLibrary from './pages/AdminSchoolStoryLibrary';
@@ -362,9 +365,6 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdminSchoolRoles from './pages/AdminSchoolRoles';
-import AdminSchoolSettingsPermissions from './pages/AdminSchoolSettingsPermissions';
-import AdminSchoolSettingsPublishing from './pages/AdminSchoolSettingsPublishing';
 import __Layout from './Layout.jsx';
 
 
@@ -460,7 +460,10 @@ export const PAGES = {
     "AdminSchoolProjectDetail": AdminSchoolProjectDetail,
     "AdminSchoolProjects": AdminSchoolProjects,
     "AdminSchoolRenderQueue": AdminSchoolRenderQueue,
+    "AdminSchoolRoles": AdminSchoolRoles,
     "AdminSchoolSettings": AdminSchoolSettings,
+    "AdminSchoolSettingsPermissions": AdminSchoolSettingsPermissions,
+    "AdminSchoolSettingsPublishing": AdminSchoolSettingsPublishing,
     "AdminSchoolSpotlightDetail": AdminSchoolSpotlightDetail,
     "AdminSchoolSpotlights": AdminSchoolSpotlights,
     "AdminSchoolStoryLibrary": AdminSchoolStoryLibrary,
@@ -684,9 +687,6 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AdminSchoolRoles": AdminSchoolRoles,
-    "AdminSchoolSettingsPermissions": AdminSchoolSettingsPermissions,
-    "AdminSchoolSettingsPublishing": AdminSchoolSettingsPublishing,
 }
 
 export const pagesConfig = {
