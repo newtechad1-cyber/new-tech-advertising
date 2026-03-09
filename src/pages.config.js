@@ -302,6 +302,7 @@ import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import SchoolStoryLab from './pages/SchoolStoryLab';
+import AdminSchoolDashboard from './pages/AdminSchoolDashboard';
 import __Layout from './Layout.jsx';
 
 
@@ -561,6 +562,7 @@ export const PAGES = {
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
     "SchoolStoryLab": SchoolStoryLab,
+    "AdminSchoolDashboard": AdminSchoolDashboard,
 }
 
 export const pagesConfig = {
