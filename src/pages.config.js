@@ -78,6 +78,7 @@ import AdminCopilotAccount from './pages/AdminCopilotAccount';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminExecutive from './pages/AdminExecutive';
 import AdminFinance from './pages/AdminFinance';
+import AdminFounder from './pages/AdminFounder';
 import AdminFulfillment from './pages/AdminFulfillment';
 import AdminFulfillmentDetail from './pages/AdminFulfillmentDetail';
 import AdminGovernance from './pages/AdminGovernance';
@@ -163,11 +164,11 @@ import Home from './pages/Home';
 import HvacIndustry from './pages/HvacIndustry';
 import HvacMarketing from './pages/HvacMarketing';
 import IndustriesHub from './pages/IndustriesHub';
+import Industry from './pages/Industry';
 import IndustriesNonprofits from './pages/IndustriesNonprofits';
 import IndustriesProfessionals from './pages/IndustriesProfessionals';
 import IndustriesServiceTrades from './pages/IndustriesServiceTrades';
 import IndustriesSmallLocal from './pages/IndustriesSmallLocal';
-import Industry from './pages/Industry';
 import IndustryIntelAdmin from './pages/IndustryIntelAdmin';
 import IndustryNonprofit from './pages/IndustryNonprofit';
 import IndustryNonprofits from './pages/IndustryNonprofits';
@@ -257,7 +258,6 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdminFounder from './pages/AdminFounder';
 import __Layout from './Layout.jsx';
 
 
@@ -293,6 +293,7 @@ export const PAGES = {
     "AdminDashboard": AdminDashboard,
     "AdminExecutive": AdminExecutive,
     "AdminFinance": AdminFinance,
+    "AdminFounder": AdminFounder,
     "AdminFulfillment": AdminFulfillment,
     "AdminFulfillmentDetail": AdminFulfillmentDetail,
     "AdminGovernance": AdminGovernance,
@@ -378,11 +379,11 @@ export const PAGES = {
     "HvacIndustry": HvacIndustry,
     "HvacMarketing": HvacMarketing,
     "IndustriesHub": IndustriesHub,
+    "Industry": Industry,
     "IndustriesNonprofits": IndustriesNonprofits,
     "IndustriesProfessionals": IndustriesProfessionals,
     "IndustriesServiceTrades": IndustriesServiceTrades,
     "IndustriesSmallLocal": IndustriesSmallLocal,
-    "Industry": Industry,
     "IndustryIntelAdmin": IndustryIntelAdmin,
     "IndustryNonprofit": IndustryNonprofit,
     "IndustryNonprofits": IndustryNonprofits,
@@ -472,7 +473,6 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AdminFounder": AdminFounder,
 }
 
 export const pagesConfig = {
