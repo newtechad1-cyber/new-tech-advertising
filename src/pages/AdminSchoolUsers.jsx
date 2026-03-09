@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AdminShell from '@/components/school-tv/AdminShell';
 import { Users, Plus, Trash2, Edit2, Mail, UserCheck, UserX } from 'lucide-react';
-import UserFormModal from '@/components/school-tv/UserFormModal';
+import UserFormModal from '@/components/school-tv/UserFormModal.jsx';
 
 const ROLE_LABELS = {
   'district_admin': 'District Admin',
