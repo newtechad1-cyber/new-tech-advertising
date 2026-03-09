@@ -80,19 +80,34 @@ export default function AdminStoryDetail() {
     setSaving(true);
     try {
       // Auto-generate slug if not set
+      const slug = story.slug || story.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
       const storyToSave = {
         ...story,
-        slug: story.slug || story.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
-        public_url: story.public_url || `/schools/${schoolSlug}/stories/${story.slug || story.title.toLowerCase().replace(/\s+/g, '-')}`,
-        canonical_route: story.canonical_route || `/schools/${schoolSlug}/stories`,
+        slug,
+        public_url: `/schools/${schoolSlug}/stories/${slug}`,
+        canonical_route: `/schools/${schoolSlug}/stories`,
+        // If transitioning to published, set published date
+        published_date: story.status === 'published' && !story.published_date ? new Date().toISOString() : story.published_date,
       };
       
       if (storyId === 'new') {
         const newStory = await base44.entities.Stories.create(storyToSave);
+        // Redirect to newly created story
         window.location.href = `/admin/schools/${schoolSlug}/story-library/${newStory.id}`;
       } else {
         await base44.entities.Stories.update(storyId, storyToSave);
         setStory(storyToSave);
+        // Track status change if appropriate
+        if (story.status !== storyToSave.status) {
+          await base44.entities.ContentStatusLogs.create({
+            school_slug: schoolSlug,
+            entity_type: 'Stories',
+            entity_id: storyId,
+            previous_status: story.status,
+            new_status: storyToSave.status,
+            changed_by: 'admin',
+          });
+        }
         alert('Story saved successfully!');
       }
     } catch (error) {
