@@ -251,6 +251,11 @@ export default function ClientDashboard() {
             </div>
           </div>
 
+          {/* Platform Feature Tiles */}
+          <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+            <PlatformFeatureTiles dark={false} />
+          </div>
+
           {/* Empty state if no data */}
           {proposals.length === 0 && socialPosts.length === 0 && (
             <div className="bg-white rounded-xl border border-slate-200 p-10 text-center">

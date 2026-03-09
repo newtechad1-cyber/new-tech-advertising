@@ -10,6 +10,7 @@ import DashboardFirstActions from '@/components/trial-dashboard/DashboardFirstAc
 import DashboardQuickTools from '@/components/trial-dashboard/DashboardQuickTools';
 import DashboardBusinessProfile from '@/components/trial-dashboard/DashboardBusinessProfile';
 import DashboardHelp from '@/components/trial-dashboard/DashboardHelp';
+import PlatformFeatureTiles from '@/components/dashboard/PlatformFeatureTiles';
 
 export default function TrialDashboard() {
   const [trial, setTrial] = useState(null);
@@ -152,6 +153,11 @@ export default function TrialDashboard() {
 
         {/* First actions */}
         <DashboardFirstActions readinessState={readinessState} businessProfile={businessProfile} weeklyPlan={weeklyPlan} />
+
+        {/* Platform feature tiles */}
+        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+          <PlatformFeatureTiles dark={true} />
+        </div>
 
         {/* Quick tools */}
         <DashboardQuickTools />
