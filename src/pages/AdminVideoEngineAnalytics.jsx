@@ -42,10 +42,10 @@ export default function AdminVideoEngineAnalytics() {
             { label: 'Total Views', value: totals.views, icon: Eye, color: 'text-blue-400' },
             { label: 'Total Clicks', value: totals.clicks, icon: MousePointer, color: 'text-purple-400' },
             { label: 'Leads Generated', value: totals.leads, icon: TrendingUp, color: 'text-green-400' },
-          ].map(({ label, value, icon: Icon, color }) => (
+          ].map(({ label, value, icon: StatIcon, color }) => (
             <Card key={label} className="bg-slate-900 border-slate-800">
               <CardContent className="p-5">
-                <Icon className={`w-5 h-5 ${color} mb-2`} />
+                <StatIcon className={`w-5 h-5 ${color} mb-2`} />
                 <div className="text-2xl font-bold text-white">{value.toLocaleString()}</div>
                 <div className="text-xs text-slate-400 mt-1">{label}</div>
               </CardContent>

@@ -71,11 +71,11 @@ export default function AdminVideoEngine() {
 
         {/* Quick Nav */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          {QUICK_LINKS.map(({ label, icon: Icon, page, desc }) => (
+          {QUICK_LINKS.map(({ label, icon: NavIcon, page, desc }) => (
             <Link key={page} to={createPageUrl(page)}>
               <Card className="bg-slate-900 border-slate-800 hover:border-blue-600 transition-colors cursor-pointer h-full">
                 <CardContent className="p-4">
-                  <Icon className="w-6 h-6 text-blue-400 mb-2" />
+                  <NavIcon className="w-6 h-6 text-blue-400 mb-2" />
                   <div className="font-semibold text-white">{label}</div>
                   <div className="text-xs text-slate-400 mt-1">{desc}</div>
                 </CardContent>
