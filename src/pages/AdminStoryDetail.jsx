@@ -444,6 +444,8 @@ export default function AdminStoryDetail() {
               <label className="block text-sm font-semibold text-gray-700 mb-2">SEO Title</label>
               <input
                 type="text"
+                value={story.seo_title || story.title}
+                onChange={(e) => updateStoryField('seo_title', e.target.value)}
                 placeholder="Title for search engines"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
@@ -452,6 +454,8 @@ export default function AdminStoryDetail() {
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">SEO Description</label>
               <textarea
+                value={story.seo_description || story.excerpt || ''}
+                onChange={(e) => updateStoryField('seo_description', e.target.value)}
                 placeholder="Description for search results"
                 rows="3"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
