@@ -406,13 +406,21 @@ export default function AdminStoryDetail() {
             </div>
 
             <div className="flex gap-2 pt-4">
-              <button className="flex-1 bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center justify-center gap-2">
-                <CheckCircle2 className="h-5 w-5" /> Publish
-              </button>
-              <button className="flex-1 bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-lg font-semibold">
-                Schedule
-              </button>
-            </div>
+               <button 
+                 onClick={() => {
+                   updateStoryField('status', 'published');
+                   updateStoryField('visibility', 'public');
+                   saveStory();
+                 }}
+                 className="flex-1 bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center justify-center gap-2">
+                 <CheckCircle2 className="h-5 w-5" /> Publish Now
+               </button>
+               <button 
+                 onClick={() => updateStoryField('status', 'review')}
+                 className="flex-1 bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-lg font-semibold">
+                 Send for Review
+               </button>
+             </div>
           </div>
         </div>
       )}
