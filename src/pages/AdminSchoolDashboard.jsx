@@ -44,18 +44,42 @@ export default function AdminSchoolDashboard() {
           failedRenders: rendersData.filter(r => r.status === 'failed').length,
         });
 
-        // Build recent activity
-        const activities = [];
-        submissionsData.slice(0, 3).forEach(s => {
-          if (s.updated_date) activities.push({
-            type: 'submission',
-            title: `Submission: ${s.submission_title}`,
-            status: s.status,
-            date: new Date(s.updated_date),
-          });
-        });
-        activities.sort((a, b) => b.date - a.date);
-        setRecentActivity(activities.slice(0, 5));
+        // Build recent activity from all sources
+         const activities = [];
+
+         // Add submissions with priority to pending
+         submissionsData.forEach(s => {
+           if (s.updated_date) activities.push({
+             type: 'submission',
+             icon: '📤',
+             title: s.submission_title,
+             subtitle: `By ${s.contributor_name}`,
+             status: s.status,
+             priority: s.status === 'pending' ? 1 : (s.status === 'approved' ? 2 : 3),
+             date: new Date(s.updated_date),
+           });
+         });
+
+         // Add stories
+         storiesData.slice(0, 3).forEach(story => {
+           activities.push({
+             type: 'story',
+             icon: '📖',
+             title: story.title,
+             subtitle: story.status,
+             status: story.status,
+             priority: story.status === 'draft' ? 1 : 2,
+             date: new Date(story.updated_date || story.created_date),
+           });
+         });
+
+         // Sort by priority, then by date
+         activities.sort((a, b) => {
+           if (a.priority !== b.priority) return a.priority - b.priority;
+           return b.date - a.date;
+         });
+
+         setRecentActivity(activities.slice(0, 6));
       } catch (error) {
         console.error('Error loading dashboard:', error);
       } finally {
@@ -159,75 +183,90 @@ export default function AdminSchoolDashboard() {
       {/* Two Column Layout */}
       <div className="grid md:grid-cols-2 gap-6 md:gap-8">
         {/* Recent Activity */}
-        <div className="bg-white rounded-lg shadow-md p-6 order-2 md:order-1">
-          <h3 className="text-lg md:text-xl font-bold mb-4">Recent Activity</h3>
-          {recentActivity.length > 0 ? (
-            <div className="space-y-4">
-              {recentActivity.map((activity, idx) => (
-                <div key={idx} className="flex items-start gap-4 pb-4 border-b border-gray-200 last:border-b-0">
-                  <div className="w-2 h-2 rounded-full bg-blue-600 mt-2 flex-shrink-0" />
-                  <div className="flex-1">
-                    <p className="font-semibold text-sm">{activity.title}</p>
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className={`text-xs px-2 py-1 rounded-full ${
-                        activity.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                        activity.status === 'approved' ? 'bg-green-100 text-green-800' :
-                        'bg-gray-100 text-gray-800'
-                      }`}>
-                        {activity.status}
-                      </span>
-                      <span className="text-xs text-gray-500">
-                        {activity.date.toLocaleDateString()}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-gray-500 text-sm">No recent activity</p>
-          )}
-        </div>
+         <div className="bg-white rounded-lg shadow-md p-6 order-2 md:order-1">
+           <h3 className="text-lg md:text-xl font-bold mb-1">Recent Activity</h3>
+           <p className="text-sm text-gray-600 mb-4">Latest content updates across your platform</p>
+           {recentActivity.length > 0 ? (
+             <div className="space-y-3">
+               {recentActivity.map((activity, idx) => (
+                 <div key={idx} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                   <span className="text-lg flex-shrink-0">{activity.icon}</span>
+                   <div className="flex-1 min-w-0">
+                     <p className="font-semibold text-sm text-gray-900 truncate">{activity.title}</p>
+                     <div className="flex items-center gap-2 mt-1">
+                       <span className={`text-xs px-2 py-0.5 rounded font-medium ${
+                         activity.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                         activity.status === 'approved' || activity.status === 'published' ? 'bg-green-100 text-green-800' :
+                         activity.status === 'draft' ? 'bg-blue-100 text-blue-800' :
+                         'bg-gray-100 text-gray-800'
+                       }`}>
+                         {activity.status}
+                       </span>
+                       <span className="text-xs text-gray-500">
+                         {activity.date.toLocaleDateString()}
+                       </span>
+                     </div>
+                   </div>
+                 </div>
+               ))}
+             </div>
+           ) : (
+             <div className="text-center py-8">
+               <p className="text-gray-500 text-sm">No activity yet</p>
+               <p className="text-xs text-gray-400 mt-2">Content and submissions will appear here</p>
+             </div>
+           )}
+         </div>
 
         {/* Needs Attention */}
-        <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-red-500 order-1 md:order-2">
-          <h3 className="text-lg md:text-xl font-bold mb-4 flex items-center gap-2">
-            <AlertTriangle className="h-5 w-5 text-red-500" />
-            Needs Attention
-          </h3>
-          <div className="space-y-3">
-            {stats?.pendingSubmissions > 0 && (
-              <div className="p-3 bg-red-50 rounded-lg border border-red-200">
-                <p className="font-semibold text-sm text-red-900 mb-1">{stats.pendingSubmissions} Pending Submissions</p>
-                <p className="text-xs text-red-700 mb-2">Review and approve content submissions</p>
-                <Link to={`/admin/schools/${schoolSlug}/submissions`} className="text-xs text-red-600 hover:text-red-800 font-semibold">
-                  Review Now →
-                </Link>
-              </div>
-            )}
-            {stats?.failedRenders > 0 && (
-              <div className="p-3 bg-orange-50 rounded-lg border border-orange-200">
-                <p className="font-semibold text-sm text-orange-900 mb-1">{stats.failedRenders} Failed Render Jobs</p>
-                <p className="text-xs text-orange-700 mb-2">Check and retry failed video renders</p>
-                <Link to={`/admin/schools/${schoolSlug}/video-library`} className="text-xs text-orange-600 hover:text-orange-800 font-semibold">
-                  View Failed →
-                </Link>
-              </div>
-            )}
-            {stats?.aiJobsPending > 0 && (
-              <div className="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
-                <p className="font-semibold text-sm text-yellow-900 mb-1">{stats.aiJobsPending} AI Jobs Pending</p>
-                <p className="text-xs text-yellow-700 mb-2">Monitor AI content generation queue</p>
-                <Link to={`/admin/schools/${schoolSlug}/ai-lab`} className="text-xs text-yellow-600 hover:text-yellow-800 font-semibold">
-                  Check Queue →
-                </Link>
-              </div>
-            )}
-            {!stats?.pendingSubmissions && !stats?.failedRenders && !stats?.aiJobsPending && (
-              <p className="text-gray-500 text-sm">Everything is running smoothly!</p>
-            )}
-          </div>
-        </div>
+         <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-amber-500 order-1 md:order-2">
+           <h3 className="text-lg md:text-xl font-bold mb-1 flex items-center gap-2">
+             <AlertTriangle className="h-5 w-5 text-amber-600" />
+             Action Items
+           </h3>
+           <p className="text-sm text-gray-600 mb-4">Tasks that need your attention</p>
+           <div className="space-y-2">
+             {stats?.pendingSubmissions > 0 && (
+               <Link to={`/admin/schools/${schoolSlug}/submissions`} className="block p-3 bg-red-50 hover:bg-red-100 rounded-lg border border-red-200 transition-colors">
+                 <div className="flex items-center justify-between">
+                   <div>
+                     <p className="font-bold text-red-900">{stats.pendingSubmissions} submissions pending</p>
+                     <p className="text-xs text-red-700">Student content waiting for review</p>
+                   </div>
+                   <span className="text-lg">→</span>
+                 </div>
+               </Link>
+             )}
+             {stats?.aiJobsPending > 0 && (
+               <Link to={`/admin/schools/${schoolSlug}/ai-lab`} className="block p-3 bg-yellow-50 hover:bg-yellow-100 rounded-lg border border-yellow-200 transition-colors">
+                 <div className="flex items-center justify-between">
+                   <div>
+                     <p className="font-bold text-yellow-900">{stats.aiJobsPending} AI drafts ready</p>
+                     <p className="text-xs text-yellow-700">AI-generated content for review</p>
+                   </div>
+                   <span className="text-lg">→</span>
+                 </div>
+               </Link>
+             )}
+             {stats?.failedRenders > 0 && (
+               <Link to={`/admin/schools/${schoolSlug}/video-library`} className="block p-3 bg-orange-50 hover:bg-orange-100 rounded-lg border border-orange-200 transition-colors">
+                 <div className="flex items-center justify-between">
+                   <div>
+                     <p className="font-bold text-orange-900">{stats.failedRenders} failed renders</p>
+                     <p className="text-xs text-orange-700">Video rendering issues to resolve</p>
+                   </div>
+                   <span className="text-lg">→</span>
+                 </div>
+               </Link>
+             )}
+             {!stats?.pendingSubmissions && !stats?.failedRenders && !stats?.aiJobsPending && (
+               <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
+                 <p className="text-green-900 font-semibold">✓ All caught up!</p>
+                 <p className="text-xs text-green-700">No urgent items need your attention</p>
+               </div>
+             )}
+           </div>
+         </div>
       </div>
 
       {/* Quick Actions */}
