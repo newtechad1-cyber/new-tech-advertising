@@ -304,31 +304,33 @@ export default function AdminVideoRenderDetail() {
 
           {/* Actions */}
           <div className="space-y-2">
-            {job.status === 'failed' && job.retry_count < job.max_retries && (
-              <button
-                onClick={handleRetry}
-                disabled={retrying}
-                className="w-full bg-orange-600 hover:bg-orange-700 disabled:bg-gray-400 text-white px-4 py-2 rounded-lg font-semibold text-sm flex items-center justify-center gap-2"
-              >
-                <RotateCcw className="h-4 w-4" /> {retrying ? 'Retrying...' : 'Retry Render'}
-              </button>
-            )}
-            {job.max_retries && job.retry_count >= job.max_retries && job.status === 'failed' && (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-                <p className="text-xs font-semibold text-red-900">Max retries reached ({job.max_retries})</p>
-              </div>
-            )}
-            {project && (
-              <Link
-                to={`/admin/schools/${schoolSlug}/projects/${project.id}`}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold text-sm text-center"
-              >
-                Open Project
-              </Link>
-            )}
-            <button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-lg font-semibold text-sm">
-              Mark Reviewed
-            </button>
+           {job.status === 'failed' && job.retry_count < job.max_retries && (
+             <button
+               onClick={handleRetry}
+               disabled={retrying}
+               className="w-full bg-orange-600 hover:bg-orange-700 disabled:bg-gray-400 text-white px-4 py-2 rounded-lg font-semibold text-sm flex items-center justify-center gap-2"
+             >
+               <RotateCcw className="h-4 w-4" /> {retrying ? 'Retrying...' : 'Retry Render'}
+             </button>
+           )}
+           {job.max_retries && job.retry_count >= job.max_retries && job.status === 'failed' && (
+             <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+               <p className="text-xs font-semibold text-red-900">Max retries reached ({job.max_retries})</p>
+             </div>
+           )}
+           {job.status === 'completed' && (
+             <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+               <p className="text-xs font-semibold text-green-900">✓ Render completed successfully</p>
+             </div>
+           )}
+           {project && (
+             <Link
+               to={`/admin/schools/${schoolSlug}/projects/${project.id}`}
+               className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold text-sm text-center"
+             >
+               → Open Project
+             </Link>
+           )}
           </div>
         </div>
       </div>
