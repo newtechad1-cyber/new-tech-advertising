@@ -62,16 +62,25 @@ import AdaWebsiteLawsuitPrevention from './pages/AdaWebsiteLawsuitPrevention';
 import AdaWebsiteRebuild from './pages/AdaWebsiteRebuild';
 import Admin from './pages/Admin';
 import AdminAlerts from './pages/AdminAlerts';
+import AdminApproval from './pages/AdminApproval';
 import AdminAutopilot from './pages/AdminAutopilot';
+import AdminBilling from './pages/AdminBilling';
+import AdminBillingContract from './pages/AdminBillingContract';
 import AdminBlog from './pages/AdminBlog';
+import AdminClientSettings from './pages/AdminClientSettings';
+import AdminClientSettingsCompany from './pages/AdminClientSettingsCompany';
 import AdminClients from './pages/AdminClients';
 import AdminCommandCenter from './pages/AdminCommandCenter';
+import AdminCommerce from './pages/AdminCommerce';
+import AdminCommerceCompany from './pages/AdminCommerceCompany';
 import AdminCopilot from './pages/AdminCopilot';
 import AdminCopilotAccount from './pages/AdminCopilotAccount';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminExecutive from './pages/AdminExecutive';
 import AdminFulfillment from './pages/AdminFulfillment';
 import AdminFulfillmentDetail from './pages/AdminFulfillmentDetail';
+import AdminGovernance from './pages/AdminGovernance';
+import AdminGovernancePolicy from './pages/AdminGovernancePolicy';
 import AdminHelp from './pages/AdminHelp';
 import AdminOnboarding from './pages/AdminOnboarding';
 import AdminOnboardingDetail from './pages/AdminOnboardingDetail';
@@ -84,6 +93,8 @@ import AdminOrchestrator from './pages/AdminOrchestrator';
 import AdminOrchestratorDetail from './pages/AdminOrchestratorDetail';
 import AdminRecommendationDetail from './pages/AdminRecommendationDetail';
 import AdminRecommendations from './pages/AdminRecommendations';
+import AdminRevenueDetail from './pages/AdminRevenueDetail';
+import AdminRevenueEngine from './pages/AdminRevenueEngine';
 import AdminSales from './pages/AdminSales';
 import AdminSettings from './pages/AdminSettings';
 import AdminTasks from './pages/AdminTasks';
@@ -113,10 +124,12 @@ import CaseStudies from './pages/CaseStudies';
 import CaseStudyDetail from './pages/CaseStudyDetail';
 import ChatWidget from './pages/ChatWidget';
 import ChatbotManagement from './pages/ChatbotManagement';
+import ClientCommerce from './pages/ClientCommerce';
 import ClientDashboard from './pages/ClientDashboard';
 import ClientDashboardDemo from './pages/ClientDashboardDemo';
 import ClientFulfillment from './pages/ClientFulfillment';
 import ClientOnboarding from './pages/ClientOnboarding';
+import ClientSettings from './pages/ClientSettings';
 import Contact from './pages/Contact';
 import ContentDrafts from './pages/ContentDrafts';
 import ContentEngine from './pages/ContentEngine';
@@ -163,8 +176,8 @@ import OnboardThankYou from './pages/OnboardThankYou';
 import Onboarding from './pages/Onboarding';
 import OnboardingStart from './pages/OnboardingStart';
 import OperationsHub from './pages/OperationsHub';
-import OurWork from './pages/OurWork';
 import OpportunitySignalAdmin from './pages/OpportunitySignalAdmin';
+import OurWork from './pages/OurWork';
 import PerformanceSignalAdmin from './pages/PerformanceSignalAdmin';
 import Platform from './pages/Platform';
 import Pricing from './pages/Pricing';
@@ -217,19 +230,9 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdminRevenueEngine from './pages/AdminRevenueEngine';
-import AdminRevenueDetail from './pages/AdminRevenueDetail';
-import AdminGovernance from './pages/AdminGovernance';
-import AdminApproval from './pages/AdminApproval';
-import AdminGovernancePolicy from './pages/AdminGovernancePolicy';
-import AdminBilling from './pages/AdminBilling';
-import AdminBillingContract from './pages/AdminBillingContract';
-import ClientCommerce from './pages/ClientCommerce';
-import AdminCommerce from './pages/AdminCommerce';
-import AdminCommerceCompany from './pages/AdminCommerceCompany';
-import ClientSettings from './pages/ClientSettings';
-import AdminClientSettings from './pages/AdminClientSettings';
-import AdminClientSettingsCompany from './pages/AdminClientSettingsCompany';
+import ResellerDashboard from './pages/ResellerDashboard';
+import ResellerClients from './pages/ResellerClients';
+import ResellerBranding from './pages/ResellerBranding';
 import __Layout from './Layout.jsx';
 
 
@@ -249,16 +252,25 @@ export const PAGES = {
     "AdaWebsiteRebuild": AdaWebsiteRebuild,
     "Admin": Admin,
     "AdminAlerts": AdminAlerts,
+    "AdminApproval": AdminApproval,
     "AdminAutopilot": AdminAutopilot,
+    "AdminBilling": AdminBilling,
+    "AdminBillingContract": AdminBillingContract,
     "AdminBlog": AdminBlog,
+    "AdminClientSettings": AdminClientSettings,
+    "AdminClientSettingsCompany": AdminClientSettingsCompany,
     "AdminClients": AdminClients,
     "AdminCommandCenter": AdminCommandCenter,
+    "AdminCommerce": AdminCommerce,
+    "AdminCommerceCompany": AdminCommerceCompany,
     "AdminCopilot": AdminCopilot,
     "AdminCopilotAccount": AdminCopilotAccount,
     "AdminDashboard": AdminDashboard,
     "AdminExecutive": AdminExecutive,
     "AdminFulfillment": AdminFulfillment,
     "AdminFulfillmentDetail": AdminFulfillmentDetail,
+    "AdminGovernance": AdminGovernance,
+    "AdminGovernancePolicy": AdminGovernancePolicy,
     "AdminHelp": AdminHelp,
     "AdminOnboarding": AdminOnboarding,
     "AdminOnboardingDetail": AdminOnboardingDetail,
@@ -271,6 +283,8 @@ export const PAGES = {
     "AdminOrchestratorDetail": AdminOrchestratorDetail,
     "AdminRecommendationDetail": AdminRecommendationDetail,
     "AdminRecommendations": AdminRecommendations,
+    "AdminRevenueDetail": AdminRevenueDetail,
+    "AdminRevenueEngine": AdminRevenueEngine,
     "AdminSales": AdminSales,
     "AdminSettings": AdminSettings,
     "AdminTasks": AdminTasks,
@@ -300,10 +314,12 @@ export const PAGES = {
     "CaseStudyDetail": CaseStudyDetail,
     "ChatWidget": ChatWidget,
     "ChatbotManagement": ChatbotManagement,
+    "ClientCommerce": ClientCommerce,
     "ClientDashboard": ClientDashboard,
     "ClientDashboardDemo": ClientDashboardDemo,
     "ClientFulfillment": ClientFulfillment,
     "ClientOnboarding": ClientOnboarding,
+    "ClientSettings": ClientSettings,
     "Contact": Contact,
     "ContentDrafts": ContentDrafts,
     "ContentEngine": ContentEngine,
@@ -350,8 +366,8 @@ export const PAGES = {
     "Onboarding": Onboarding,
     "OnboardingStart": OnboardingStart,
     "OperationsHub": OperationsHub,
-    "OurWork": OurWork,
     "OpportunitySignalAdmin": OpportunitySignalAdmin,
+    "OurWork": OurWork,
     "PerformanceSignalAdmin": PerformanceSignalAdmin,
     "Platform": Platform,
     "Pricing": Pricing,
@@ -404,19 +420,9 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AdminRevenueEngine": AdminRevenueEngine,
-    "AdminRevenueDetail": AdminRevenueDetail,
-    "AdminGovernance": AdminGovernance,
-    "AdminApproval": AdminApproval,
-    "AdminGovernancePolicy": AdminGovernancePolicy,
-    "AdminBilling": AdminBilling,
-    "AdminBillingContract": AdminBillingContract,
-    "ClientCommerce": ClientCommerce,
-    "AdminCommerce": AdminCommerce,
-    "AdminCommerceCompany": AdminCommerceCompany,
-    "ClientSettings": ClientSettings,
-    "AdminClientSettings": AdminClientSettings,
-    "AdminClientSettingsCompany": AdminClientSettingsCompany,
+    "ResellerDashboard": ResellerDashboard,
+    "ResellerClients": ResellerClients,
+    "ResellerBranding": ResellerBranding,
 }
 
 export const pagesConfig = {
