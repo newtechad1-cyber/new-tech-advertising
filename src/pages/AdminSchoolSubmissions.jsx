@@ -69,16 +69,18 @@ export default function AdminSchoolSubmissions() {
   return (
     <div className="min-h-screen bg-slate-50">
       <SchoolNavAdmin currentPage="AdminSchoolSubmissions" />
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        <div className="mb-6"><h1 className="text-2xl font-bold text-slate-900">Video Submissions</h1><p className="text-slate-500 text-sm">Review and approve media from students, staff, and contributors</p></div>
-        <div className="mb-6"><SchoolStatCards submissions={submissions} projects={projects} renders={renders} /></div>
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="mb-8"><h1 className="text-3xl font-black text-slate-900">📹 Video Submissions</h1><p className="text-slate-500 text-base">Review and approve media from students, staff, and contributors</p></div>
+        <div className="mb-8"><SchoolStatCards submissions={submissions} projects={projects} renders={renders} /></div>
 
         {/* Filters */}
-        <div className="flex flex-wrap gap-3 mb-4">
-          <div className="relative"><Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" /><Input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search..." className="pl-9 w-56" /></div>
-          <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)} className="border border-slate-200 rounded-lg px-3 py-2 text-sm bg-white"><option value="all">All Status</option>{STATUS_OPTIONS.slice(1).map(s => <option key={s} value={s}>{s.replace(/_/g,' ')}</option>)}</select>
-          <select value={actFilter} onChange={e => setActFilter(e.target.value)} className="border border-slate-200 rounded-lg px-3 py-2 text-sm bg-white"><option value="all">All Categories</option>{ACTIVITY_OPTIONS.slice(1).map(a => <option key={a} value={a}>{a}</option>)}</select>
-          <span className="text-sm text-slate-400 self-center">{filtered.length} submissions</span>
+        <div className="bg-white rounded-xl border border-slate-200 p-4 mb-6">
+          <div className="flex flex-col sm:flex-row gap-3">
+            <div className="relative flex-1"><Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" /><Input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by title or contributor..." className="pl-10 font-medium" /></div>
+            <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)} className="border border-slate-200 rounded-lg px-3 py-2 text-sm bg-white font-medium"><option value="all">All Status</option>{STATUS_OPTIONS.slice(1).map(s => <option key={s} value={s}>{s.replace(/_/g,' ')}</option>)}</select>
+            <select value={actFilter} onChange={e => setActFilter(e.target.value)} className="border border-slate-200 rounded-lg px-3 py-2 text-sm bg-white font-medium"><option value="all">All Categories</option>{ACTIVITY_OPTIONS.slice(1).map(a => <option key={a} value={a}>{a}</option>)}</select>
+          </div>
+          <div className="mt-3 text-xs text-slate-500"><strong>{filtered.length}</strong> submission{filtered.length !== 1 ? 's' : ''} • <strong>{submissions.filter(s => s.status === 'pending').length}</strong> awaiting review</div>
         </div>
 
         <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">

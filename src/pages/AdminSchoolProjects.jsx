@@ -74,16 +74,18 @@ export default function AdminSchoolProjects() {
   return (
     <div className="min-h-screen bg-slate-50">
       <SchoolNavAdmin currentPage="AdminSchoolProjects" />
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        <div className="flex items-center justify-between mb-6">
-          <div><h1 className="text-2xl font-bold text-slate-900">Video Projects</h1><p className="text-slate-500 text-sm">Manage the full pipeline from assets through publishing</p></div>
-          <Button onClick={() => setShowNew(true)} className="bg-slate-900 hover:bg-slate-800 text-white"><Plus className="w-4 h-4 mr-2" /> New Project</Button>
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+          <div><h1 className="text-3xl font-black text-slate-900">🎬 Video Projects</h1><p className="text-slate-500 text-base">Manage the full pipeline from assets through publishing</p></div>
+          <Button onClick={() => setShowNew(true)} className="bg-slate-900 hover:bg-slate-800 text-white font-bold"><Plus className="w-4 h-4 mr-2" /> New Project</Button>
         </div>
 
-        <div className="flex flex-wrap gap-3 mb-5">
-          <div className="relative"><Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" /><Input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search projects..." className="pl-9 w-56" /></div>
-          <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)} className="border border-slate-200 rounded-lg px-3 py-2 text-sm bg-white">{STATUSES.map(s => <option key={s} value={s}>{s === 'all' ? 'All Status' : s.replace(/_/g,' ')}</option>)}</select>
-          <select value={typeFilter} onChange={e => setTypeFilter(e.target.value)} className="border border-slate-200 rounded-lg px-3 py-2 text-sm bg-white">{TYPES.map(s => <option key={s} value={s}>{s === 'all' ? 'All Types' : s.replace(/_/g,' ')}</option>)}</select>
+        <div className="bg-white rounded-xl border border-slate-200 p-4 mb-6">
+          <div className="flex flex-col sm:flex-row gap-3">
+            <div className="relative flex-1"><Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" /><Input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search projects..." className="pl-10 font-medium" /></div>
+            <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)} className="border border-slate-200 rounded-lg px-3 py-2 text-sm bg-white font-medium">{STATUSES.map(s => <option key={s} value={s}>{s === 'all' ? 'All Status' : s.replace(/_/g,' ')}</option>)}</select>
+            <select value={typeFilter} onChange={e => setTypeFilter(e.target.value)} className="border border-slate-200 rounded-lg px-3 py-2 text-sm bg-white font-medium">{TYPES.map(s => <option key={s} value={s}>{s === 'all' ? 'All Types' : s.replace(/_/g,' ')}</option>)}</select>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
