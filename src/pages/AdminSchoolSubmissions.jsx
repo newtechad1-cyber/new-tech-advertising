@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 
 export default function AdminSchoolSubmissions() {
-  const { schoolSlug, currentPath } = useSchoolRoute();
+  const { schoolSlug } = useParams();
   const [selectedSubmission, setSelectedSubmission] = useState(null);
   const [filterStatus, setFilterStatus] = useState('all');
   const [submissions, setSubmissions] = useState([]);
