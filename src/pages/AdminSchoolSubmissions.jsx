@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import AdminShell from '@/components/school-tv/AdminShell';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import AIStatusBadge from '@/components/school-tv/AIStatusBadge';
+
 import {
   Search,
   Filter,
