@@ -103,9 +103,7 @@ export default function AdminSchoolSubmissions() {
   }
 
   return (
-    <div className="flex h-screen bg-gray-50">
-      <SchoolAdminNav schoolSlug={schoolSlug} currentPath={currentPath} />
-
+    <AdminShell schoolSlug={schoolSlug}>
       <div className="flex-1 overflow-auto">
         {/* Header */}
         <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
