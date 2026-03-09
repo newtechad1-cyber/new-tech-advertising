@@ -253,24 +253,32 @@ export default function AdminVideoRenderQueue() {
 
               {/* Actions */}
               <div className="flex flex-wrap gap-2">
-                <button className="flex-1 min-w-[140px] bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold text-sm flex items-center justify-center gap-2">
-                  <Play className="h-4 w-4" /> Details
-                </button>
-                {job.status === 'failed' && job.retry_count < job.max_retries && (
-                  <button className="flex-1 min-w-[140px] bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg font-semibold text-sm flex items-center justify-center gap-2">
-                    <RotateCcw className="h-4 w-4" /> Retry
-                  </button>
-                )}
-                {job.output_url && (
-                  <a
-                    href={job.output_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-green-100 hover:bg-green-200 text-green-800 px-3 py-2 rounded-lg font-semibold text-sm flex items-center gap-1"
-                  >
-                    <ExternalLink className="h-4 w-4" /> View
-                  </a>
-                )}
+               <Link
+                 to={`/admin/schools/${schoolSlug}/render-queue/${job.id}`}
+                 onClick={(e) => e.stopPropagation()}
+                 className="flex-1 min-w-[140px] bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold text-sm flex items-center justify-center gap-2"
+               >
+                 <Play className="h-4 w-4" /> Details
+               </Link>
+               {job.status === 'failed' && job.retry_count < job.max_retries && (
+                 <button
+                   onClick={(e) => handleRetry(job.id, e)}
+                   className="flex-1 min-w-[140px] bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg font-semibold text-sm flex items-center justify-center gap-2"
+                 >
+                   <RotateCcw className="h-4 w-4" /> Retry
+                 </button>
+               )}
+               {job.output_url && (
+                 <a
+                   href={job.output_url}
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   onClick={(e) => e.stopPropagation()}
+                   className="bg-green-100 hover:bg-green-200 text-green-800 px-3 py-2 rounded-lg font-semibold text-sm flex items-center gap-1"
+                 >
+                   <ExternalLink className="h-4 w-4" /> View
+                 </a>
+               )}
               </div>
             </div>
           ))
