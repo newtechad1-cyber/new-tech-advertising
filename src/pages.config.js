@@ -245,6 +245,11 @@ import ResellerSignupLinks from './pages/ResellerSignupLinks';
 import ResellerRevenue from './pages/ResellerRevenue';
 import AdminResellerRevenue from './pages/AdminResellerRevenue';
 import AdminPlatform from './pages/AdminPlatform';
+import PlumbingMarketing from './pages/PlumbingMarketing';
+import RestaurantMarketing from './pages/RestaurantMarketing';
+import RoofingMarketing from './pages/RoofingMarketing';
+import DentistMarketing from './pages/DentistMarketing';
+import MedSpaMarketing from './pages/MedSpaMarketing';
 import __Layout from './Layout.jsx';
 
 
@@ -447,6 +452,11 @@ export const PAGES = {
     "ResellerRevenue": ResellerRevenue,
     "AdminResellerRevenue": AdminResellerRevenue,
     "AdminPlatform": AdminPlatform,
+    "PlumbingMarketing": PlumbingMarketing,
+    "RestaurantMarketing": RestaurantMarketing,
+    "RoofingMarketing": RoofingMarketing,
+    "DentistMarketing": DentistMarketing,
+    "MedSpaMarketing": MedSpaMarketing,
 }
 
 export const pagesConfig = {
