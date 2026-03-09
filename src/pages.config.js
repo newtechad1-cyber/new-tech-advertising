@@ -350,6 +350,7 @@ import AdminEventsList from './pages/AdminEventsList';
 import AdminAnalytics from './pages/AdminAnalytics';
 import AdminBranding from './pages/AdminBranding';
 import AdminYearbookLibrary from './pages/AdminYearbookLibrary';
+import AdminSubmissionDetail from './pages/AdminSubmissionDetail';
 import __Layout from './Layout.jsx';
 
 
@@ -657,6 +658,7 @@ export const PAGES = {
     "AdminAnalytics": AdminAnalytics,
     "AdminBranding": AdminBranding,
     "AdminYearbookLibrary": AdminYearbookLibrary,
+    "AdminSubmissionDetail": AdminSubmissionDetail,
 }
 
 export const pagesConfig = {
