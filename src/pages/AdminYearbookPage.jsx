@@ -102,21 +102,22 @@ export default function AdminYearbookPage() {
   };
 
   const publishPage = async () => {
+    setSaving(true);
     try {
-      await base44.entities.YearbookPages.update(pageId, {
+      const updatedPage = {
+        ...page,
         status: 'published',
         publish_status: 'published',
         published_date: new Date().toISOString(),
-      });
-      setPage(prev => ({
-        ...prev,
-        status: 'published',
-        publish_status: 'published',
-      }));
-      alert('Page published!');
+      };
+      await base44.entities.YearbookPages.update(pageId, updatedPage);
+      setPage(updatedPage);
+      alert('Page published successfully!');
     } catch (error) {
       console.error('Error publishing page:', error);
       alert('Error publishing page');
+    } finally {
+      setSaving(false);
     }
   };
 
