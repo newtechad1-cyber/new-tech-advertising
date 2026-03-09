@@ -63,6 +63,29 @@ export default function AdminVideoRenderQueue() {
     setFilteredJobs(filtered);
   }, [jobs, selectedStatus, selectedEngine, searchTerm]);
 
+  const handleRetry = async (jobId, e) => {
+    e.stopPropagation();
+    try {
+      const job = jobs.find(j => j.id === jobId);
+      if (job && job.retry_count < job.max_retries) {
+        await base44.entities.VideoRenderJobs.update(jobId, {
+          status: 'queued',
+          retry_count: (job.retry_count || 0) + 1,
+          last_retry_at: new Date().toISOString(),
+          progress_percent: 0,
+        });
+        setJobs(jobs.map(j => j.id === jobId ? {
+          ...j,
+          status: 'queued',
+          retry_count: (j.retry_count || 0) + 1,
+          progress_percent: 0,
+        } : j));
+      }
+    } catch (error) {
+      console.error('Error retrying job:', error);
+    }
+  };
+
   if (loading) return <AdminShell schoolSlug={schoolSlug}><div className="text-center py-12">Loading...</div></AdminShell>;
 
   return (
