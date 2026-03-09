@@ -67,17 +67,22 @@ export default function AdminVideoRenderQueue() {
   return (
     <AdminShell schoolSlug={schoolSlug}>
       {/* Header */}
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div>
           <h1 className="text-3xl font-bold flex items-center gap-2">
             <Zap className="h-8 w-8 text-orange-600" /> Render Queue
           </h1>
           <p className="text-gray-600">Monitor video rendering jobs</p>
         </div>
-        <div className="text-sm font-semibold">
-          <span className="text-blue-600">{jobs.filter(j => j.status === 'processing').length} processing</span>
-          {' · '}
-          <span className="text-green-600">{jobs.filter(j => j.status === 'completed').length} completed</span>
+        <div className="text-sm font-semibold flex gap-4">
+          <div className="flex items-center gap-2">
+            <div className="h-2 w-2 bg-blue-600 rounded-full"></div>
+            <span>{jobs.filter(j => ['processing', 'rendering'].includes(j.status)).length} rendering</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="h-2 w-2 bg-green-600 rounded-full"></div>
+            <span>{jobs.filter(j => j.status === 'completed').length} done</span>
+          </div>
         </div>
       </div>
 
@@ -147,13 +152,13 @@ export default function AdminVideoRenderQueue() {
       </div>
 
       {/* Jobs List */}
-      <div className="space-y-3">
+      <div className="space-y-4">
         {filteredJobs.length > 0 ? (
           filteredJobs.map((job) => (
-            <Link
+            <div
               key={job.id}
-              to={`/admin/schools/${schoolSlug}/render-queue/${job.id}`}
-              className="block bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow border-l-4 border-orange-600"
+              className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow border-l-4 border-orange-600 cursor-pointer"
+              onClick={() => window.location.href = `/admin/schools/${schoolSlug}/render-queue/${job.id}`}
             >
               <div className="flex items-start justify-between gap-4 mb-4">
                 <div className="flex-1">
@@ -208,16 +213,12 @@ export default function AdminVideoRenderQueue() {
               )}
 
               {/* Actions */}
-              <div className="flex gap-2">
-                <Link
-                  to={`/admin/schools/${schoolSlug}/render-queue/${job.id}`}
-                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold text-sm flex items-center justify-center gap-2"
-                  onClick={(e) => e.preventDefault()}
-                >
+              <div className="flex flex-wrap gap-2">
+                <button className="flex-1 min-w-[140px] bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold text-sm flex items-center justify-center gap-2">
                   <Play className="h-4 w-4" /> Details
-                </Link>
+                </button>
                 {job.status === 'failed' && job.retry_count < job.max_retries && (
-                  <button className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg font-semibold text-sm flex items-center gap-2">
+                  <button className="flex-1 min-w-[140px] bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg font-semibold text-sm flex items-center justify-center gap-2">
                     <RotateCcw className="h-4 w-4" /> Retry
                   </button>
                 )}
@@ -226,17 +227,21 @@ export default function AdminVideoRenderQueue() {
                     href={job.output_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-green-100 hover:bg-green-200 text-green-800 px-3 py-2 rounded-lg font-semibold text-sm"
+                    className="bg-green-100 hover:bg-green-200 text-green-800 px-3 py-2 rounded-lg font-semibold text-sm flex items-center gap-1"
                   >
-                    <ExternalLink className="h-4 w-4" />
+                    <ExternalLink className="h-4 w-4" /> View
                   </a>
                 )}
               </div>
-            </Link>
+            </div>
           ))
         ) : (
-          <div className="text-center py-12 bg-white rounded-lg">
-            <p className="text-gray-500 text-lg">No render jobs found</p>
+          <div className="text-center py-16 bg-white rounded-lg">
+            <div className="inline-block mb-4 p-4 bg-orange-50 rounded-full">
+              <Zap className="h-8 w-8 text-orange-600" />
+            </div>
+            <p className="text-gray-900 text-lg font-semibold">No render jobs yet</p>
+            <p className="text-gray-600 text-sm mt-2">When you queue a render, it will appear here</p>
           </div>
         )}
       </div>

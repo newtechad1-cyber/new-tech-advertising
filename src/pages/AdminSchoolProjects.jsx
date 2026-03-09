@@ -65,14 +65,14 @@ export default function AdminSchoolProjects() {
   return (
     <AdminShell schoolSlug={schoolSlug}>
       {/* Header */}
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div>
           <h1 className="text-3xl font-bold">Video Projects</h1>
           <p className="text-gray-600">Create and manage school video projects</p>
         </div>
         <Link
           to={`/admin/schools/${schoolSlug}/projects/new`}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2"
+          className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center justify-center gap-2"
         >
           <Plus className="h-5 w-5" /> New Project
         </Link>
@@ -152,13 +152,17 @@ export default function AdminSchoolProjects() {
 
       {/* Projects Grid */}
       {filteredProjects.length > 0 ? (
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.map((project) => (
             <div key={project.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-              {project.cover_image && (
-                <img src={project.cover_image} alt={project.title} className="w-full h-40 object-cover bg-gray-900" />
-              )}
-              <div className="p-6">
+              <div className="w-full h-32 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-gray-400">
+                {project.cover_image ? (
+                  <img src={project.cover_image} alt={project.title} className="w-full h-full object-cover" />
+                ) : (
+                  <span className="text-sm font-semibold">Video Project</span>
+                )}
+              </div>
+              <div className="p-5">
                 <div className="flex justify-between items-start gap-2 mb-2">
                   <h3 className="text-lg font-bold flex-1">{project.title}</h3>
                   {project.publish_to_gallery && (
@@ -200,9 +204,18 @@ export default function AdminSchoolProjects() {
           ))}
         </div>
       ) : (
-        <div className="text-center py-12 bg-white rounded-lg">
-          <p className="text-gray-500 text-lg">No projects found</p>
-          <p className="text-gray-400 text-sm mt-2">Create a new project to get started</p>
+        <div className="text-center py-16 bg-white rounded-lg">
+          <div className="inline-block mb-4 p-4 bg-blue-50 rounded-full">
+            <Plus className="h-8 w-8 text-blue-600" />
+          </div>
+          <p className="text-gray-900 text-lg font-semibold">No projects yet</p>
+          <p className="text-gray-600 text-sm mt-2">Create your first video project to get started</p>
+          <Link
+            to={`/admin/schools/${schoolSlug}/projects/new`}
+            className="mt-6 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold"
+          >
+            Create Project
+          </Link>
         </div>
       )}
     </AdminShell>
