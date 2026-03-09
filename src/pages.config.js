@@ -77,6 +77,7 @@ import AdminCopilot from './pages/AdminCopilot';
 import AdminCopilotAccount from './pages/AdminCopilotAccount';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminExecutive from './pages/AdminExecutive';
+import AdminFinance from './pages/AdminFinance';
 import AdminFulfillment from './pages/AdminFulfillment';
 import AdminFulfillmentDetail from './pages/AdminFulfillmentDetail';
 import AdminGovernance from './pages/AdminGovernance';
@@ -91,8 +92,13 @@ import AdminOptimizer from './pages/AdminOptimizer';
 import AdminOptimizerDetail from './pages/AdminOptimizerDetail';
 import AdminOrchestrator from './pages/AdminOrchestrator';
 import AdminOrchestratorDetail from './pages/AdminOrchestratorDetail';
+import AdminPlatform from './pages/AdminPlatform';
 import AdminRecommendationDetail from './pages/AdminRecommendationDetail';
 import AdminRecommendations from './pages/AdminRecommendations';
+import AdminResellerClients from './pages/AdminResellerClients';
+import AdminResellerCommissions from './pages/AdminResellerCommissions';
+import AdminResellerRevenue from './pages/AdminResellerRevenue';
+import AdminResellers from './pages/AdminResellers';
 import AdminRevenueDetail from './pages/AdminRevenueDetail';
 import AdminRevenueEngine from './pages/AdminRevenueEngine';
 import AdminSales from './pages/AdminSales';
@@ -124,6 +130,7 @@ import CaseStudies from './pages/CaseStudies';
 import CaseStudyDetail from './pages/CaseStudyDetail';
 import ChatWidget from './pages/ChatWidget';
 import ChatbotManagement from './pages/ChatbotManagement';
+import ClientBilling from './pages/ClientBilling';
 import ClientCommerce from './pages/ClientCommerce';
 import ClientDashboard from './pages/ClientDashboard';
 import ClientDashboardDemo from './pages/ClientDashboardDemo';
@@ -138,6 +145,7 @@ import ContentStudio from './pages/ContentStudio';
 import Dashboard from './pages/Dashboard';
 import DebugOAuthConnections from './pages/DebugOAuthConnections';
 import Demo from './pages/Demo';
+import DentistMarketing from './pages/DentistMarketing';
 import freeAudit from './pages/Free-Audit';
 import FunnelPage from './pages/FunnelPage';
 import getStarted from './pages/Get-Started';
@@ -170,6 +178,7 @@ import LocalMarketIntelAdmin from './pages/LocalMarketIntelAdmin';
 import LocalVisibility from './pages/LocalVisibility';
 import LocationPageAdmin from './pages/LocationPageAdmin';
 import MarketingPlanGenerator from './pages/MarketingPlanGenerator';
+import MedSpaMarketing from './pages/MedSpaMarketing';
 import MetaConnect from './pages/MetaConnect';
 import OauthCallback from './pages/OauthCallback';
 import OnboardThankYou from './pages/OnboardThankYou';
@@ -180,6 +189,7 @@ import OpportunitySignalAdmin from './pages/OpportunitySignalAdmin';
 import OurWork from './pages/OurWork';
 import PerformanceSignalAdmin from './pages/PerformanceSignalAdmin';
 import Platform from './pages/Platform';
+import PlumbingMarketing from './pages/PlumbingMarketing';
 import Pricing from './pages/Pricing';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import ProgrammaticSEODashboard from './pages/ProgrammaticSEODashboard';
@@ -195,7 +205,17 @@ import Rebuild from './pages/Rebuild';
 import RebuildIntake from './pages/RebuildIntake';
 import RebuildIntakePretty from './pages/RebuildIntakePretty';
 import RebuildProposal from './pages/RebuildProposal';
+import ResellerBranding from './pages/ResellerBranding';
+import ResellerClients from './pages/ResellerClients';
+import ResellerDashboard from './pages/ResellerDashboard';
+import ResellerRevenue from './pages/ResellerRevenue';
+import ResellerSignupLinks from './pages/ResellerSignupLinks';
+import RestaurantMarketing from './pages/RestaurantMarketing';
 import RestaurantSocialMedia from './pages/RestaurantSocialMedia';
+import RoofingMarketing from './pages/RoofingMarketing';
+import SalesDashboard from './pages/SalesDashboard';
+import SalesLeads from './pages/SalesLeads';
+import SalesPipeline from './pages/SalesPipeline';
 import ScheduledQueue from './pages/ScheduledQueue';
 import ServiceLocation from './pages/ServiceLocation';
 import Services from './pages/Services';
@@ -230,26 +250,7 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import ResellerDashboard from './pages/ResellerDashboard';
-import ResellerClients from './pages/ResellerClients';
-import ResellerBranding from './pages/ResellerBranding';
-import AdminResellers from './pages/AdminResellers';
-import AdminResellerClients from './pages/AdminResellerClients';
-import AdminResellerCommissions from './pages/AdminResellerCommissions';
-import SalesDashboard from './pages/SalesDashboard';
-import SalesPipeline from './pages/SalesPipeline';
-import SalesLeads from './pages/SalesLeads';
-import ClientBilling from './pages/ClientBilling';
-import AdminFinance from './pages/AdminFinance';
-import ResellerSignupLinks from './pages/ResellerSignupLinks';
-import ResellerRevenue from './pages/ResellerRevenue';
-import AdminResellerRevenue from './pages/AdminResellerRevenue';
-import AdminPlatform from './pages/AdminPlatform';
-import PlumbingMarketing from './pages/PlumbingMarketing';
-import RestaurantMarketing from './pages/RestaurantMarketing';
-import RoofingMarketing from './pages/RoofingMarketing';
-import DentistMarketing from './pages/DentistMarketing';
-import MedSpaMarketing from './pages/MedSpaMarketing';
+import AdminSystemHealth from './pages/AdminSystemHealth';
 import __Layout from './Layout.jsx';
 
 
@@ -284,6 +285,7 @@ export const PAGES = {
     "AdminCopilotAccount": AdminCopilotAccount,
     "AdminDashboard": AdminDashboard,
     "AdminExecutive": AdminExecutive,
+    "AdminFinance": AdminFinance,
     "AdminFulfillment": AdminFulfillment,
     "AdminFulfillmentDetail": AdminFulfillmentDetail,
     "AdminGovernance": AdminGovernance,
@@ -298,8 +300,13 @@ export const PAGES = {
     "AdminOptimizerDetail": AdminOptimizerDetail,
     "AdminOrchestrator": AdminOrchestrator,
     "AdminOrchestratorDetail": AdminOrchestratorDetail,
+    "AdminPlatform": AdminPlatform,
     "AdminRecommendationDetail": AdminRecommendationDetail,
     "AdminRecommendations": AdminRecommendations,
+    "AdminResellerClients": AdminResellerClients,
+    "AdminResellerCommissions": AdminResellerCommissions,
+    "AdminResellerRevenue": AdminResellerRevenue,
+    "AdminResellers": AdminResellers,
     "AdminRevenueDetail": AdminRevenueDetail,
     "AdminRevenueEngine": AdminRevenueEngine,
     "AdminSales": AdminSales,
@@ -331,6 +338,7 @@ export const PAGES = {
     "CaseStudyDetail": CaseStudyDetail,
     "ChatWidget": ChatWidget,
     "ChatbotManagement": ChatbotManagement,
+    "ClientBilling": ClientBilling,
     "ClientCommerce": ClientCommerce,
     "ClientDashboard": ClientDashboard,
     "ClientDashboardDemo": ClientDashboardDemo,
@@ -345,6 +353,7 @@ export const PAGES = {
     "Dashboard": Dashboard,
     "DebugOAuthConnections": DebugOAuthConnections,
     "Demo": Demo,
+    "DentistMarketing": DentistMarketing,
     "Free-Audit": freeAudit,
     "FunnelPage": FunnelPage,
     "Get-Started": getStarted,
@@ -377,6 +386,7 @@ export const PAGES = {
     "LocalVisibility": LocalVisibility,
     "LocationPageAdmin": LocationPageAdmin,
     "MarketingPlanGenerator": MarketingPlanGenerator,
+    "MedSpaMarketing": MedSpaMarketing,
     "MetaConnect": MetaConnect,
     "OauthCallback": OauthCallback,
     "OnboardThankYou": OnboardThankYou,
@@ -387,6 +397,7 @@ export const PAGES = {
     "OurWork": OurWork,
     "PerformanceSignalAdmin": PerformanceSignalAdmin,
     "Platform": Platform,
+    "PlumbingMarketing": PlumbingMarketing,
     "Pricing": Pricing,
     "PrivacyPolicy": PrivacyPolicy,
     "ProgrammaticSEODashboard": ProgrammaticSEODashboard,
@@ -402,7 +413,17 @@ export const PAGES = {
     "RebuildIntake": RebuildIntake,
     "RebuildIntakePretty": RebuildIntakePretty,
     "RebuildProposal": RebuildProposal,
+    "ResellerBranding": ResellerBranding,
+    "ResellerClients": ResellerClients,
+    "ResellerDashboard": ResellerDashboard,
+    "ResellerRevenue": ResellerRevenue,
+    "ResellerSignupLinks": ResellerSignupLinks,
+    "RestaurantMarketing": RestaurantMarketing,
     "RestaurantSocialMedia": RestaurantSocialMedia,
+    "RoofingMarketing": RoofingMarketing,
+    "SalesDashboard": SalesDashboard,
+    "SalesLeads": SalesLeads,
+    "SalesPipeline": SalesPipeline,
     "ScheduledQueue": ScheduledQueue,
     "ServiceLocation": ServiceLocation,
     "Services": Services,
@@ -437,26 +458,7 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "ResellerDashboard": ResellerDashboard,
-    "ResellerClients": ResellerClients,
-    "ResellerBranding": ResellerBranding,
-    "AdminResellers": AdminResellers,
-    "AdminResellerClients": AdminResellerClients,
-    "AdminResellerCommissions": AdminResellerCommissions,
-    "SalesDashboard": SalesDashboard,
-    "SalesPipeline": SalesPipeline,
-    "SalesLeads": SalesLeads,
-    "ClientBilling": ClientBilling,
-    "AdminFinance": AdminFinance,
-    "ResellerSignupLinks": ResellerSignupLinks,
-    "ResellerRevenue": ResellerRevenue,
-    "AdminResellerRevenue": AdminResellerRevenue,
-    "AdminPlatform": AdminPlatform,
-    "PlumbingMarketing": PlumbingMarketing,
-    "RestaurantMarketing": RestaurantMarketing,
-    "RoofingMarketing": RoofingMarketing,
-    "DentistMarketing": DentistMarketing,
-    "MedSpaMarketing": MedSpaMarketing,
+    "AdminSystemHealth": AdminSystemHealth,
 }
 
 export const pagesConfig = {
