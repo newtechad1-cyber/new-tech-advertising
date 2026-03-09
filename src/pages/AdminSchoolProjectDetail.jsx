@@ -44,8 +44,11 @@ export default function AdminSchoolProjectDetail() {
     setTab('Script');
     try {
       await base44.functions.invoke('generateSchoolVideoScript', { project_id: projectId });
-      await loadAll();
-    } catch (e) { console.error(e); }
+      setTimeout(() => loadAll(), 500); // Allow time for job to process
+    } catch (e) { 
+      console.error('Error generating script:', e);
+      alert('Error generating script');
+    }
     setGenerating(false);
   };
 
