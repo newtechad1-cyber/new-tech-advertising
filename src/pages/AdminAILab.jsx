@@ -136,8 +136,6 @@ export default function AdminAILab() {
               </div>
             </div>
           </div>
-
-          </div>
           </div>
 
           {/* Stats Cards */}
