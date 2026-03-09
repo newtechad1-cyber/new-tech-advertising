@@ -188,34 +188,55 @@ const EVENTS = [
   }
 ];
 
-const SPOTLIGHTS = [
+const SPOTLIGHT_TYPES = [
   {
-    title: 'Teacher Spotlight: Mrs. Chen',
-    slug: 'teacher-spotlight-chen',
-    spotlight_type: 'teacher_spotlight',
     school_slug: HAMPTON_DUMONT_SLUG,
-    featured_person: 'Mrs. Sarah Chen',
-    featured_role: 'Choir Director',
-    description: 'Meet Mrs. Chen, whose passion for music education inspires our students daily.',
-    body: 'Mrs. Chen has been with H-D for 12 years, directing our award-winning choir program. Her students consistently perform at the highest levels.',
-    featured_image_url: 'https://via.placeholder.com/600x400/9333ea/ffffff?text=Mrs+Chen',
-    status: 'published',
-    publish_status: 'published',
-    visibility: 'public'
+    name: 'Teacher Spotlight',
+    slug: 'teacher-spotlight',
+    description: 'Celebrating the educators who inspire our students',
+    icon_emoji: '🎓',
+    sort_order: 1,
+    active: true
   },
   {
-    title: 'Student Achievement: Alex Rodriguez',
-    slug: 'student-spotlight-rodriguez',
-    spotlight_type: 'student_achievement',
     school_slug: HAMPTON_DUMONT_SLUG,
-    featured_person: 'Alex Rodriguez',
-    featured_role: 'Student Body President & Robotics Captain',
-    description: 'Alex leads by example both in student government and robotics.',
-    body: 'As Student Body President and Robotics Team Captain, Alex has shown exceptional leadership, organizing community service projects and advancing the robotics team to state competition.',
-    featured_image_url: 'https://via.placeholder.com/600x400/0ea5e9/1e3a5f?text=Alex+Rodriguez',
+    name: 'Student Achievement',
+    slug: 'student-achievement',
+    description: 'Honoring student leaders and achievers',
+    icon_emoji: '⭐',
+    sort_order: 2,
+    active: true
+  }
+];
+
+const SPOTLIGHTS = [
+  {
+    title: 'Mrs. Sarah Chen: Where Music Meets Heart',
+    slug: 'teacher-spotlight-chen',
+    school_slug: HAMPTON_DUMONT_SLUG,
+    spotlight_type_id: null, // Will be populated after type creation
+    featured_person_names: '["Mrs. Sarah Chen"]',
+    summary: 'Twelve years of inspiring students through the power of music. Mrs. Chen\'s choir program is more than an elective—it\'s a life-changing experience.',
+    full_text: 'For 12 years, Mrs. Sarah Chen has directed the H-D Choir program, transforming it into one of the most celebrated in the district. But her impact goes far beyond performances. Students talk about finding confidence, discovering their voice, and learning what it means to be part of something greater than yourself. "Music is a language that speaks directly to the heart," Mrs. Chen says. "My job is to help students discover what their voice can do."',
+    featured_image_url: 'https://via.placeholder.com/600x400/9333ea/ffffff?text=Teacher+Spotlight',
     status: 'published',
     publish_status: 'published',
-    visibility: 'public'
+    visibility: 'public',
+    featured: true
+  },
+  {
+    title: 'Alex Rodriguez: Student Leader Building the Future',
+    slug: 'student-spotlight-rodriguez',
+    school_slug: HAMPTON_DUMONT_SLUG,
+    spotlight_type_id: null, // Will be populated after type creation
+    featured_person_names: '["Alex Rodriguez"]',
+    summary: 'Robotics captain. Student body president. Community organizer. Alex Rodriguez is leading by example and showing what student leadership really means.',
+    full_text: 'As both Student Body President and Robotics Team Captain, Alex Rodriguez embodies what Bulldog Pride is all about. He doesn\'t just hold a title—he leads with action. Whether it\'s organizing community service projects that benefit local schools or pushing the robotics team to state competition, Alex shows up every single day ready to make a difference. "I realized we don\'t have to wait for adults," Alex said. "We can be the change. We ARE the future."',
+    featured_image_url: 'https://via.placeholder.com/600x400/0ea5e9/1e3a5f?text=Student+Leader',
+    status: 'published',
+    publish_status: 'published',
+    visibility: 'public',
+    featured: true
   }
 ];
 
@@ -350,6 +371,11 @@ Deno.serve(async (req) => {
     // Seed branding
     const brandingResult = await base44.entities.SchoolBranding.create(BRANDING);
 
+    // Seed spotlight types first
+    const spotlightTypesResult = await Promise.all(
+      SPOTLIGHT_TYPES.map(type => base44.entities.SpotlightTypes.create(type))
+    );
+
     // Seed stories
     const storiesResult = await Promise.all(
       STORIES.map(story => base44.entities.Stories.create(story))
@@ -365,9 +391,12 @@ Deno.serve(async (req) => {
       EVENTS.map(event => base44.entities.SchoolEvents.create(event))
     );
 
-    // Seed spotlights
+    // Seed spotlights with proper type IDs
     const spotlightsResult = await Promise.all(
-      SPOTLIGHTS.map(spotlight => base44.entities.Spotlights.create(spotlight))
+      SPOTLIGHTS.map((spotlight, idx) => base44.entities.Spotlights.create({
+        ...spotlight,
+        spotlight_type_id: spotlightTypesResult[idx % spotlightTypesResult.length].id
+      }))
     );
 
     // Seed submissions
@@ -385,6 +414,7 @@ Deno.serve(async (req) => {
       message: 'Hampton-Dumont demo data seeded successfully',
       summary: {
         branding: 1,
+        spotlightTypes: spotlightTypesResult.length,
         stories: storiesResult.length,
         videos: videosResult.length,
         events: eventsResult.length,
