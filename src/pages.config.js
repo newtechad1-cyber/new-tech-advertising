@@ -319,6 +319,10 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
+import SchoolStories from './pages/SchoolStories';
+import SchoolYearbook from './pages/SchoolYearbook';
+import SchoolEvents from './pages/SchoolEvents';
+import SchoolSpotlights from './pages/SchoolSpotlights';
 import __Layout from './Layout.jsx';
 
 
@@ -595,6 +599,10 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
+    "SchoolStories": SchoolStories,
+    "SchoolYearbook": SchoolYearbook,
+    "SchoolEvents": SchoolEvents,
+    "SchoolSpotlights": SchoolSpotlights,
 }
 
 export const pagesConfig = {
