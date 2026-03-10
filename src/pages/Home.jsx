@@ -19,12 +19,22 @@ export default function Home() {
   return (
     <div className="bg-slate-950">
       <MarketingNav />
-      {/* School Story Lab Banner */}
-      <div className="bg-gradient-to-r from-blue-700 to-indigo-700 text-white py-3 px-4 text-center">
-        <span className="text-sm font-semibold">🏫 Hampton-Dumont School Story Lab is live! </span>
-        <Link to={createPageUrl('SchoolHome')} className="text-sm font-bold underline underline-offset-2 hover:text-blue-200 ml-1">
-          Visit the School Site →
-        </Link>
+      {/* School Platform Banner */}
+      <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 px-4">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <h3 className="text-lg font-bold">Launch Your School's Own Streaming TV Network</h3>
+            <p className="text-sm text-blue-100 mt-1">Students create the stories. Your school controls the platform.</p>
+          </div>
+          <div className="flex gap-3 flex-shrink-0">
+            <Link to={createPageUrl('SchoolTV')} className="bg-white text-blue-600 px-4 py-2 rounded font-semibold text-sm hover:bg-blue-50 transition">
+              Watch Demo
+            </Link>
+            <a href="https://calendly.com/bulldog-tv-sales" target="_blank" rel="noopener noreferrer" className="border border-white text-white px-4 py-2 rounded font-semibold text-sm hover:bg-blue-500 transition">
+              Book a Demo
+            </a>
+          </div>
+        </div>
       </div>
       <main>
         <HomeHero />
