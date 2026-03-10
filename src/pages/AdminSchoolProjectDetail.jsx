@@ -65,6 +65,20 @@ export default function AdminSchoolProjectDetail() {
       alert('Please generate a script first before rendering');
       return;
     }
+
+    // MODERATION SAFETY CHECK: Verify all clips are from safe uploads
+    const clipsToCheck = clips.filter(c => c.is_selected);
+    if (clipsToCheck.length > 0) {
+      const submissions = await base44.entities.SchoolSubmissions.filter({
+        id: clipsToCheck.map(c => c.submission_id).filter(Boolean)
+      });
+      const blockedSubmission = submissions?.find(s => s.moderation_status === 'flagged' || s.moderation_status === 'requires_review' || s.status === 'rejected');
+      if (blockedSubmission) {
+        alert(`Cannot queue render: clip from submission "${blockedSubmission.submission_title}" is moderation-blocked (${blockedSubmission.moderation_status}). Remove or replace this asset.`);
+        return;
+      }
+    }
+
     setQueuingRender(true);
     try {
       const render = await base44.entities.VideoRenderJobs.create({
