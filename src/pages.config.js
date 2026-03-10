@@ -65,6 +65,7 @@ import AdminAIActivity from './pages/AdminAIActivity';
 import AdminAIControlCenter from './pages/AdminAIControlCenter';
 import AdminAILab from './pages/AdminAILab';
 import AdminAIPrompts from './pages/AdminAIPrompts';
+import AdminAIVideoStudio from './pages/AdminAIVideoStudio';
 import AdminAlerts from './pages/AdminAlerts';
 import AdminAnalytics from './pages/AdminAnalytics';
 import AdminApproval from './pages/AdminApproval';
@@ -271,8 +272,8 @@ import LeadsDashboard from './pages/LeadsDashboard';
 import LocalBusinessMarketing from './pages/LocalBusinessMarketing';
 import LocalMarketIntelAdmin from './pages/LocalMarketIntelAdmin';
 import LocalVisibility from './pages/LocalVisibility';
-import LocationPageAdmin from './pages/LocationPageAdmin';
 import OurWork from './pages/OurWork';
+import LocationPageAdmin from './pages/LocationPageAdmin';
 import MarketingPlanGenerator from './pages/MarketingPlanGenerator';
 import MedSpaMarketing from './pages/MedSpaMarketing';
 import MetaConnect from './pages/MetaConnect';
@@ -367,7 +368,6 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdminAIVideoStudio from './pages/AdminAIVideoStudio';
 import __Layout from './Layout.jsx';
 
 
@@ -390,6 +390,7 @@ export const PAGES = {
     "AdminAIControlCenter": AdminAIControlCenter,
     "AdminAILab": AdminAILab,
     "AdminAIPrompts": AdminAIPrompts,
+    "AdminAIVideoStudio": AdminAIVideoStudio,
     "AdminAlerts": AdminAlerts,
     "AdminAnalytics": AdminAnalytics,
     "AdminApproval": AdminApproval,
@@ -596,8 +597,8 @@ export const PAGES = {
     "LocalBusinessMarketing": LocalBusinessMarketing,
     "LocalMarketIntelAdmin": LocalMarketIntelAdmin,
     "LocalVisibility": LocalVisibility,
-    "LocationPageAdmin": LocationPageAdmin,
     "OurWork": OurWork,
+    "LocationPageAdmin": LocationPageAdmin,
     "MarketingPlanGenerator": MarketingPlanGenerator,
     "MedSpaMarketing": MedSpaMarketing,
     "MetaConnect": MetaConnect,
@@ -692,7 +693,6 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AdminAIVideoStudio": AdminAIVideoStudio,
 }
 
 export const pagesConfig = {

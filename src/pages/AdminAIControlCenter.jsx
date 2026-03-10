@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import AdminLayout from '@/components/admin/AdminLayout';
 import AIOverviewCards from '@/components/admin-ai/AIOverviewCards';
 import ManualRunCenter from '@/components/admin-ai/ManualRunCenter';
 import AIJobQueue from '@/components/admin-ai/AIJobQueue';
@@ -12,14 +13,13 @@ import { Activity, Play, Zap, AlertTriangle, Cog, CheckCircle } from 'lucide-rea
 export default function AdminAIControlCenter() {
   const [activeTab, setActiveTab] = useState('overview');
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900">AI Control Center</h1>
-          <p className="text-gray-600 mt-2">Monitor, launch, and manage all AI functions and automations across NTA.</p>
-        </div>
+  const content = (
+    <div>
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900">AI Control Center</h1>
+        <p className="text-gray-600 mt-2">Monitor, launch, and manage all AI functions and automations across NTA.</p>
+      </div>
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
@@ -92,7 +92,8 @@ export default function AdminAIControlCenter() {
             <OutputsAwaitingReview />
           </TabsContent>
         </Tabs>
-      </div>
     </div>
   );
+
+  return <AdminLayout currentPageName="AdminAIControlCenter">{content}</AdminLayout>;
 }
