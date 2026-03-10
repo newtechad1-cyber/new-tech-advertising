@@ -3,7 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { useParams, Link } from 'react-router-dom';
 import AdminShell from '@/components/school-tv/AdminShell';
 import { Button } from '@/components/ui/button';
-import { Loader2, Plus, Edit, Eye, Trash2 } from 'lucide-react';
+import { Loader2, Plus, Edit, Eye, Trash2, BookOpen } from 'lucide-react';
 
 export default function AdminSchoolYearbook() {
   const { schoolSlug } = useParams();

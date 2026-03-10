@@ -182,7 +182,7 @@ export default function AdminSchoolSpotlights() {
                 <div className="flex justify-between items-start gap-2 mb-2">
                   <div>
                     <h3 className="text-lg font-bold">{spotlight.title}</h3>
-                    <p className="text-sm text-gray-600">{spotlight.subject_name || 'Unnamed'}</p>
+                    <p className="text-sm text-gray-600">{spotlight.summary ? spotlight.summary.substring(0, 80) + '...' : ''}</p>
                   </div>
                   {spotlight.featured && (
                     <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full font-semibold">
@@ -195,8 +195,8 @@ export default function AdminSchoolSpotlights() {
                   {spotlight.status}
                 </span>
 
-                {spotlight.description && (
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">{spotlight.description}</p>
+                {spotlight.summary && (
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">{spotlight.summary}</p>
                 )}
 
                 <div className="flex gap-2">
@@ -220,7 +220,14 @@ export default function AdminSchoolSpotlights() {
         </div>
       ) : (
         <div className="text-center py-12 bg-white rounded-lg">
-          <p className="text-gray-500 text-lg">No spotlights found</p>
+          <p className="text-gray-500 text-lg mb-2">No spotlights found</p>
+          <p className="text-sm text-gray-400 mb-6">Celebrate students and staff by creating your first spotlight.</p>
+          <Link
+            to={`/admin/schools/${schoolSlug}/spotlights/new`}
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold"
+          >
+            <Plus className="h-4 w-4" /> Create First Spotlight
+          </Link>
         </div>
       )}
     </AdminShell>

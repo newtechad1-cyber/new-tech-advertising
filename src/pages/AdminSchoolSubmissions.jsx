@@ -29,7 +29,7 @@ export default function AdminSchoolSubmissions() {
     const loadData = async () => {
       try {
         const data = await base44.entities.SchoolSubmissions.filter({
-          school: schoolSlug,
+          school_slug: schoolSlug,
         });
         setSubmissions(data || []);
       } catch (error) {

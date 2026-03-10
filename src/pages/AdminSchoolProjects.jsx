@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AdminShell from '@/components/school-tv/AdminShell';
-import { Plus, Search, Play, Copy, Archive } from 'lucide-react';
+import { Plus, Search, ArrowRight } from 'lucide-react';
 
 const STATUS_COLORS = {
   draft: 'bg-gray-100 text-gray-800',
@@ -190,7 +190,7 @@ export default function AdminSchoolProjects() {
                      to={`/admin/schools/${schoolSlug}/projects/${project.id}`}
                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold text-sm flex items-center justify-center gap-2"
                    >
-                     <Play className="h-4 w-4" /> Edit
+                     Open <ArrowRight className="h-4 w-4" />
                    </Link>
                  </div>
               </div>
