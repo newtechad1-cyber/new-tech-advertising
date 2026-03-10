@@ -100,7 +100,7 @@ export default function AdminSchoolYearbook() {
             <h2 className="text-xl font-bold text-gray-900">Pages</h2>
             {selectedSeason && can('manage_yearbook') && (
               <Link
-                to={`${createPageUrl('AdminYearbookPage')}?seasonId=${selectedSeason}&schoolSlug=${schoolSlug}&action=new`}
+                to={`${createPageUrl('AdminYearbookPage')}?season=${selectedSeason}&schoolSlug=${schoolSlug}`}
                 className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold"
               >
                 <Plus className="h-4 w-4" />
@@ -173,7 +173,7 @@ export default function AdminSchoolYearbook() {
               <p className="text-gray-600 mb-4">No pages created yet</p>
               {selectedSeason && can('manage_yearbook') && (
                 <Link
-                  to={`${createPageUrl('AdminYearbookPage')}?seasonId=${selectedSeason}&schoolSlug=${schoolSlug}&action=new`}
+                  to={`${createPageUrl('AdminYearbookPage')}?season=${selectedSeason}&schoolSlug=${schoolSlug}`}
                   className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold"
                 >
                   <Plus className="h-4 w-4" />

@@ -85,7 +85,7 @@ export default function AdminSchoolStoryLibrary() {
             </div>
             {can('edit_stories') && (
               <Link
-                to={`${createPageUrl('AdminSchoolStoryLibrary')}?schoolSlug=${schoolSlug}&action=new`}
+                to={`${createPageUrl('AdminStoryDetail')}?id=new&schoolSlug=${schoolSlug}`}
                 className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2"
               >
                 <Plus className="h-5 w-5" /> New Story
@@ -186,7 +186,7 @@ export default function AdminSchoolStoryLibrary() {
               <p className="text-gray-600 text-lg">No stories found</p>
               {can('edit_stories') && (
                 <Link
-                  to={`${createPageUrl('AdminSchoolStoryLibrary')}?schoolSlug=${schoolSlug}&action=new`}
+                  to={`${createPageUrl('AdminStoryDetail')}?id=new&schoolSlug=${schoolSlug}`}
                   className="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold"
                 >
                   Create Your First Story
