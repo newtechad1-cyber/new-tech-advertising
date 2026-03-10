@@ -19,6 +19,17 @@ Deno.serve(async (req) => {
 
       // When submission is approved, ingest clips for analysis
       if (submission.status === 'approved') {
+        // MODERATION SAFETY CHECK: Block ingestion if submission is flagged/requires_review/rejected
+        if (submission.moderation_status === 'flagged' || submission.moderation_status === 'requires_review' || submission.status === 'rejected') {
+          console.error(`[MODERATION_BLOCK] Cannot ingest submission ${submission.id}: moderation_status='${submission.moderation_status}', status='${submission.status}'`);
+          return Response.json({ 
+            error: `Submission blocked by moderation`,
+            submission_id: submission.id,
+            moderation_status: submission.moderation_status,
+            reason: 'Must be marked safe before clip ingestion'
+          }, { status: 403 });
+        }
+        
         console.log(`[Automation] Ingesting clips from approved submission: ${submission.id}`);
         
         await base44.asServiceRole.functions.invoke('schoolVideoClipIngestion', {
