@@ -62,6 +62,7 @@ import AdaWebsiteLawsuitPrevention from './pages/AdaWebsiteLawsuitPrevention';
 import AdaWebsiteRebuild from './pages/AdaWebsiteRebuild';
 import Admin from './pages/Admin';
 import AdminAIActivity from './pages/AdminAIActivity';
+import AdminAIControlCenter from './pages/AdminAIControlCenter';
 import AdminAILab from './pages/AdminAILab';
 import AdminAIPrompts from './pages/AdminAIPrompts';
 import AdminAlerts from './pages/AdminAlerts';
@@ -271,6 +272,7 @@ import LocalBusinessMarketing from './pages/LocalBusinessMarketing';
 import LocalMarketIntelAdmin from './pages/LocalMarketIntelAdmin';
 import LocalVisibility from './pages/LocalVisibility';
 import LocationPageAdmin from './pages/LocationPageAdmin';
+import OurWork from './pages/OurWork';
 import MarketingPlanGenerator from './pages/MarketingPlanGenerator';
 import MedSpaMarketing from './pages/MedSpaMarketing';
 import MetaConnect from './pages/MetaConnect';
@@ -280,7 +282,6 @@ import Onboarding from './pages/Onboarding';
 import OnboardingStart from './pages/OnboardingStart';
 import OperationsHub from './pages/OperationsHub';
 import OpportunitySignalAdmin from './pages/OpportunitySignalAdmin';
-import OurWork from './pages/OurWork';
 import PerformanceSignalAdmin from './pages/PerformanceSignalAdmin';
 import Platform from './pages/Platform';
 import PlumbingMarketing from './pages/PlumbingMarketing';
@@ -366,7 +367,7 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdminAIControlCenter from './pages/AdminAIControlCenter';
+import AdminAIVideoStudio from './pages/AdminAIVideoStudio';
 import __Layout from './Layout.jsx';
 
 
@@ -386,6 +387,7 @@ export const PAGES = {
     "AdaWebsiteRebuild": AdaWebsiteRebuild,
     "Admin": Admin,
     "AdminAIActivity": AdminAIActivity,
+    "AdminAIControlCenter": AdminAIControlCenter,
     "AdminAILab": AdminAILab,
     "AdminAIPrompts": AdminAIPrompts,
     "AdminAlerts": AdminAlerts,
@@ -595,6 +597,7 @@ export const PAGES = {
     "LocalMarketIntelAdmin": LocalMarketIntelAdmin,
     "LocalVisibility": LocalVisibility,
     "LocationPageAdmin": LocationPageAdmin,
+    "OurWork": OurWork,
     "MarketingPlanGenerator": MarketingPlanGenerator,
     "MedSpaMarketing": MedSpaMarketing,
     "MetaConnect": MetaConnect,
@@ -604,7 +607,6 @@ export const PAGES = {
     "OnboardingStart": OnboardingStart,
     "OperationsHub": OperationsHub,
     "OpportunitySignalAdmin": OpportunitySignalAdmin,
-    "OurWork": OurWork,
     "PerformanceSignalAdmin": PerformanceSignalAdmin,
     "Platform": Platform,
     "PlumbingMarketing": PlumbingMarketing,
@@ -690,7 +692,7 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AdminAIControlCenter": AdminAIControlCenter,
+    "AdminAIVideoStudio": AdminAIVideoStudio,
 }
 
 export const pagesConfig = {

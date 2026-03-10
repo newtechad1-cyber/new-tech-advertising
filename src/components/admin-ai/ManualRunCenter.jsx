@@ -14,6 +14,7 @@ import {
   AdaSalesAssistantModal,
   CreateAIContentJobModal,
 } from './LaunchModals';
+import { createPageUrl } from '@/utils';
 
 const MANUAL_FUNCTIONS = [
   {
@@ -94,7 +95,11 @@ function FunctionCard({ func }) {
     'createAIContentJob',
   ];
 
+  // Functions that need dedicated pages
+  const pageFunctions = ['aiVideoStudio'];
+
   const needsModal = modalFunctions.includes(func.name);
+  const needsPage = pageFunctions.includes(func.name);
 
   // Get modal component for this function
   const getModalComponent = () => {
@@ -128,6 +133,22 @@ function FunctionCard({ func }) {
       default:
         return null;
     }
+  };
+
+  // Get page link for functions that need dedicated pages
+  const getPageLink = () => {
+    if (func.name === 'aiVideoStudio') {
+      return (
+        <Button
+          className="flex-1 bg-purple-600 hover:bg-purple-700 gap-1"
+          onClick={() => window.location.href = createPageUrl('AdminAIVideoStudio')}
+        >
+          <Play className="w-4 h-4" />
+          Open Studio
+        </Button>
+      );
+    }
+    return null;
   };
 
   const categoryColors = {
