@@ -9,7 +9,7 @@ export function useSchoolRoute() {
   const params = useParams();
   const location = useLocation();
 
-  const schoolSlug = params.schoolSlug || '';
+  const schoolSlug = params.schoolSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
 
   return {
     // Current parameters

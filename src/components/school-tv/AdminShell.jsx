@@ -6,7 +6,7 @@ import TopBar from './TopBar';
 
 export default function AdminShell({ children, currentPath, schoolSlug: propSchoolSlug }) {
   const { schoolSlug: paramSchoolSlug } = useParams();
-  const schoolSlug = propSchoolSlug || paramSchoolSlug;
+  const schoolSlug = propSchoolSlug || paramSchoolSlug || 'hampton-dumont';
   const [user, setUser] = useState(null);
   const [branding, setBranding] = useState(null);
 
