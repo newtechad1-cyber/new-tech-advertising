@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useSchoolRoute } from '@/components/school-tv/useSchoolRoute';
-import SchoolAdminNav from '@/components/school-tv/SchoolAdminNav';
+import { useParams } from 'react-router-dom';
+import AdminShell from '@/components/school-tv/AdminShell';
 import AIStatusBadge from '@/components/school-tv/AIStatusBadge';
 import AIPromptTemplateCard from '@/components/school-tv/AIPromptTemplateCard';
 import { Button } from '@/components/ui/button';

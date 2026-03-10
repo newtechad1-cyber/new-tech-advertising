@@ -1,6 +1,6 @@
 import React from 'react';
-import { useSchoolRoute } from '@/components/school-tv/useSchoolRoute';
-import SchoolAdminNav from '@/components/school-tv/SchoolAdminNav';
+import { useParams } from 'react-router-dom';
+import AdminShell from '@/components/school-tv/AdminShell';
 import {
   BarChart3,
   TrendingUp,
