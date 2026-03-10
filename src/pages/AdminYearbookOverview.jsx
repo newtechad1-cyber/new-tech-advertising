@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import AdminShell from '@/components/school-tv/AdminShell';
 import { Plus, Eye, Edit, Trash2, Search } from 'lucide-react';
@@ -13,7 +14,8 @@ const STATUS_COLORS = {
 };
 
 export default function AdminYearbookOverview() {
-  const { schoolSlug } = useParams();
+  const { schoolSlug: paramSlug } = useParams();
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
   const [seasons, setSeasons] = useState([]);
   const [filteredSeasons, setFilteredSeasons] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -152,7 +154,7 @@ export default function AdminYearbookOverview() {
             {filteredSeasons.map((season) => (
               <Link
                 key={season.id}
-                to={`/admin/schools/${schoolSlug}/yearbook/seasons/${season.id}`}
+                to={`${createPageUrl('AdminYearbookSeason')}?id=${season.id}&schoolSlug=${schoolSlug}`}
                 className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
               >
                 {season.cover_image_url && (

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import AdminShell from '@/components/school-tv/AdminShell';
+import { createPageUrl } from '@/utils';
 import { Shield, Edit2, Eye, Lock, FileText } from 'lucide-react';
 
 const ROLE_DEFINITIONS = [
@@ -134,7 +135,8 @@ const PERMISSION_ICONS = {
 };
 
 export default function AdminSchoolRoles() {
-  const { schoolSlug } = useParams();
+  const { schoolSlug: paramSlug } = useParams();
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
   const [selectedRole, setSelectedRole] = useState(ROLE_DEFINITIONS[0]);
   const [editMode, setEditMode] = useState(false);
 

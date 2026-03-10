@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import AdminShell from '@/components/school-tv/AdminShell';
 import { ArrowLeft, Save, Plus, Zap, Eye, GripVertical } from 'lucide-react';
 
 export default function AdminYearbookSeason() {
-  const { schoolSlug, seasonId } = useParams();
+  const { schoolSlug: paramSlug, seasonId: paramSeasonId } = useParams();
+  const searchParams = new URLSearchParams(window.location.search);
+  const schoolSlug = paramSlug || searchParams.get('schoolSlug') || 'hampton-dumont';
+  const seasonId = paramSeasonId || searchParams.get('id') || 'new';
   const [season, setSeason] = useState(null);
   const [pages, setPages] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -65,7 +69,7 @@ export default function AdminYearbookSeason() {
     try {
       if (seasonId === 'new') {
         const newSeason = await base44.entities.YearbookSeasons.create(season);
-        window.location.href = `/admin/schools/${schoolSlug}/yearbook/seasons/${newSeason.id}`;
+        window.location.href = `${createPageUrl('AdminYearbookSeason')}?id=${newSeason.id}&schoolSlug=${schoolSlug}`;
       } else {
         await base44.entities.YearbookSeasons.update(seasonId, season);
         alert('Season saved successfully!');
@@ -120,7 +124,7 @@ export default function AdminYearbookSeason() {
   return (
     <AdminShell schoolSlug={schoolSlug}>
       {/* Header */}
-      <Link to={`/admin/schools/${schoolSlug}/yearbook`} className="text-blue-600 hover:text-blue-800 mb-6 flex items-center gap-2 font-semibold">
+      <Link to={`${createPageUrl('AdminYearbookOverview')}?schoolSlug=${schoolSlug}`} className="text-blue-600 hover:text-blue-800 mb-6 flex items-center gap-2 font-semibold">
         <ArrowLeft className="h-4 w-4" /> Back to Yearbook
       </Link>
 
@@ -234,7 +238,7 @@ export default function AdminYearbookSeason() {
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-bold">Pages ({pages.length})</h3>
               <Link
-                to={`/admin/schools/${schoolSlug}/yearbook/pages/new?season=${seasonId}`}
+                to={`${createPageUrl('AdminYearbookPage')}?id=new&season=${seasonId}&schoolSlug=${schoolSlug}`}
                 className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm font-semibold flex items-center gap-1"
               >
                 <Plus className="h-4 w-4" />
@@ -246,7 +250,7 @@ export default function AdminYearbookSeason() {
                 pages.map((page) => (
                   <Link
                     key={page.id}
-                    to={`/admin/schools/${schoolSlug}/yearbook/pages/${page.id}`}
+                    to={`${createPageUrl('AdminYearbookPage')}?id=${page.id}&schoolSlug=${schoolSlug}`}
                     className="flex items-center gap-2 p-3 bg-gray-50 hover:bg-gray-100 rounded-lg group"
                   >
                     <GripVertical className="h-4 w-4 text-gray-400 group-hover:text-gray-600" />
