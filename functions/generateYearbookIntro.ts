@@ -54,6 +54,7 @@ Deno.serve(async (req) => {
     return Response.json({
       success: true,
       job_id: job.id,
+      tone_used: settings.ai_tone_default,
       yearbook_intro_pending: true,
     });
   } catch (error) {
