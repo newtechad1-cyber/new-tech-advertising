@@ -1,5 +1,7 @@
 import React from 'react';
 import { Download, Play, Check, Shield, Users, Zap, BookOpen, BarChart3, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 
@@ -350,6 +352,55 @@ export default function SchoolTVDealRoom() {
             <a href="/schooltv-demo" className="inline-flex items-center border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-blue-500 transition gap-2">
               Watch Demo <Play className="h-5 w-5" />
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 9.5: Live Demo School Example */}
+      <section className="bg-white py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-6 text-slate-900">See a Live Example Channel</h2>
+          <p className="text-center text-lg text-slate-600 mb-12 max-w-2xl mx-auto">
+            This is North Valley High School—a completely fictional demo school built to show what your school's streaming channel could look like. All content is AI-generated to demonstrate the platform's capabilities.
+          </p>
+          <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg overflow-hidden mb-8">
+            <div className="flex flex-col md:flex-row items-stretch">
+              <div className="bg-blue-900 p-8 md:w-1/2 flex flex-col justify-center text-white">
+                <h3 className="text-3xl font-bold mb-4">North Valley High School</h3>
+                <p className="text-blue-100 mb-6">
+                  A fictional school demonstrating how your institution can automatically generate, moderate, and publish professional school media content.
+                </p>
+                <ul className="space-y-3 mb-8 text-blue-100">
+                  <li className="flex items-center gap-2"><Check className="h-5 w-5 text-white flex-shrink-0" /> 6 AI-generated stories</li>
+                  <li className="flex items-center gap-2"><Check className="h-5 w-5 text-white flex-shrink-0" /> Featured sports highlights</li>
+                  <li className="flex items-center gap-2"><Check className="h-5 w-5 text-white flex-shrink-0" /> Student spotlights</li>
+                  <li className="flex items-center gap-2"><Check className="h-5 w-5 text-white flex-shrink-0" /> Event coverage & announcements</li>
+                </ul>
+                <a href="/demo-school-channel" className="inline-block bg-white text-blue-600 px-6 py-3 rounded-lg font-bold hover:bg-blue-50 transition w-fit">
+                  Explore Demo Channel →
+                </a>
+              </div>
+              <div className="md:w-1/2 bg-slate-200 min-h-64 flex items-center justify-center">
+                <div className="text-center">
+                  <Play className="h-16 w-16 text-blue-600 mx-auto mb-3" />
+                  <p className="text-slate-700 font-semibold">Click to explore the live demo channel</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="border border-slate-200 rounded-lg p-6">
+              <h4 className="font-bold text-slate-900 mb-2">📺 Streaming Channel</h4>
+              <p className="text-slate-600 text-sm">Beautiful, branded media hub with featured stories and categorized content.</p>
+            </div>
+            <div className="border border-slate-200 rounded-lg p-6">
+              <h4 className="font-bold text-slate-900 mb-2">🤖 AI-Generated Content</h4>
+              <p className="text-slate-600 text-sm">All stories automatically created with scripts, visuals, and metadata.</p>
+            </div>
+            <div className="border border-slate-200 rounded-lg p-6">
+              <h4 className="font-bold text-slate-900 mb-2">⚡ Fully Functional</h4>
+              <p className="text-slate-600 text-sm">Demonstrates story details, view counts, categories, and user engagement.</p>
+            </div>
           </div>
         </div>
       </section>
