@@ -87,16 +87,30 @@ export default function AdminSchoolStudentUploads() {
   const handleApprove = async (uploadId) => {
     setModerating(true);
     try {
+      const uploadToApprove = uploads.find(u => u.id === uploadId);
+
+      // MODERATION SAFETY: If upload was flagged, require explicit safe marking
+      if (uploadToApprove.moderation_status === 'flagged' || uploadToApprove.moderation_status === 'requires_review') {
+        const confirm = window.confirm(
+          `This upload has moderation status '${uploadToApprove.moderation_status}'.\n\nApproving will mark it as 'safe' and allow use in downstream workflows.\n\nContinue?`
+        );
+        if (!confirm) {
+          setModerating(false);
+          return;
+        }
+      }
+
       await base44.entities.StudentUploads.update(uploadId, {
         status: 'approved',
         moderation_status: 'safe',
         reviewed_by: 'admin',
         reviewed_at: new Date().toISOString(),
       });
-      setUploads(uploads.map(u => u.id === uploadId ? { ...u, status: 'approved' } : u));
+      setUploads(uploads.map(u => u.id === uploadId ? { ...u, status: 'approved', moderation_status: 'safe' } : u));
       setSelectedUpload(null);
     } catch (err) {
       console.error('Error approving:', err);
+      alert('Error approving upload');
     } finally {
       setModerating(false);
     }
