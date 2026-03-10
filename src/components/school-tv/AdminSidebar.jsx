@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import {
   LayoutDashboard,
   Upload,
@@ -24,46 +25,46 @@ const SIDEBAR_STRUCTURE = [
   {
     section: 'Overview',
     items: [
-      { label: 'Dashboard', icon: 'LayoutDashboard', routeKey: 'dashboard' },
-      { label: 'Analytics', icon: 'BarChart3', routeKey: 'analytics' },
+      { label: 'Dashboard', icon: 'LayoutDashboard', page: 'AdminSchoolDashboard' },
+      { label: 'Analytics', icon: 'BarChart3', page: 'AdminSchoolAnalytics' },
     ],
   },
   {
     section: 'Content Intake',
     items: [
-      { label: 'Submissions', icon: 'Upload', routeKey: 'submissions' },
+      { label: 'Submissions', icon: 'Upload', page: 'AdminSchoolSubmissions' },
     ],
   },
   {
     section: 'Production',
     items: [
-      { label: 'Projects', icon: 'Briefcase', routeKey: 'projects.list' },
-      { label: 'Render Queue', icon: 'Zap', routeKey: 'renderQueue.list' },
-      { label: 'Video Library', icon: 'Film', routeKey: 'libraries.video' },
-      { label: 'Story Library', icon: 'BookOpen', routeKey: 'libraries.story.list' },
-      { label: 'Yearbook', icon: 'Calendar', routeKey: 'yearbook.root' },
+      { label: 'Projects', icon: 'Briefcase', page: 'AdminSchoolProjects' },
+      { label: 'Render Queue', icon: 'Zap', page: 'AdminSchoolRenderQueue' },
+      { label: 'Video Library', icon: 'Film', page: 'AdminSchoolVideoLibrary' },
+      { label: 'Story Library', icon: 'BookOpen', page: 'AdminSchoolStoryLibrary' },
+      { label: 'Yearbook', icon: 'Calendar', page: 'AdminSchoolYearbook' },
     ],
   },
   {
     section: 'Content Management',
     items: [
-      { label: 'Events', icon: 'Clock', routeKey: 'events.list' },
-      { label: 'Spotlights', icon: 'Star', routeKey: 'spotlights.list' },
+      { label: 'Events', icon: 'Clock', page: 'AdminSchoolEvents' },
+      { label: 'Spotlights', icon: 'Star', page: 'AdminSchoolSpotlights' },
     ],
   },
   {
     section: 'AI Tools',
     items: [
-      { label: 'AI Lab', icon: 'Sparkles', routeKey: 'aiLab.root' },
-      { label: 'Activity', icon: 'Activity', routeKey: 'aiLab.activity' },
+      { label: 'AI Lab', icon: 'Sparkles', page: 'AdminSchoolAIDashboard' },
+      { label: 'Activity', icon: 'Activity', page: 'AdminSchoolAILab' },
     ],
   },
   {
     section: 'Administration',
     items: [
-      { label: 'Users', icon: 'Users', routeKey: 'users' },
-      { label: 'Branding', icon: 'Palette', routeKey: 'branding' },
-      { label: 'Settings', icon: 'Settings', routeKey: 'settings' },
+      { label: 'Users', icon: 'Users', page: 'AdminSchoolUsers' },
+      { label: 'Branding', icon: 'Palette', page: 'AdminSchoolBranding' },
+      { label: 'Settings', icon: 'Settings', page: 'AdminSchoolSettings' },
     ],
   },
 ];
@@ -87,8 +88,9 @@ const ICON_MAP = {
 };
 
 export default function AdminSidebar({ schoolSlug, currentPath }) {
+  const location = useLocation();
   const [expandedSections, setExpandedSections] = useState(
-    new Set(['Overview', 'Production'])
+    new Set(['Overview', 'Production', 'Content Intake'])
   );
 
   const toggleSection = (section) => {
@@ -101,54 +103,27 @@ export default function AdminSidebar({ schoolSlug, currentPath }) {
     setExpandedSections(newExpanded);
   };
 
-  const getRoute = (routeKey) => {
-    // Handle nested route keys like 'projects.list'
-    const keys = routeKey.split('.');
-    let route = {
-      'dashboard': 'dashboard',
-      'analytics': 'analytics',
-      'submissions': 'submissions',
-      'projects': 'projects',
-      'renderQueue': 'render-queue',
-      'libraries': 'libraries',
-      'video': 'video-library',
-      'story': 'story-library',
-      'yearbook': 'yearbook',
-      'events': 'events',
-      'spotlights': 'spotlights',
-      'aiLab': 'ai-lab',
-      'activity': 'ai-lab/activity',
-      'users': 'users',
-      'roles': 'roles',
-      'branding': 'branding',
-      'settings': 'settings',
-    };
-    
-    // For route keys with dots, use the first part (e.g., 'projects.list' -> 'projects')
-    const baseKey = keys[0];
-    const routePath = route[baseKey] || routeKey.replace(/\./g, '/');
-    
-    return `/admin/schools/${schoolSlug}/${routePath}`;
+  const getRoute = (page) => {
+    return `${createPageUrl(page)}?schoolSlug=${schoolSlug || 'hampton-dumont'}`;
   };
 
-  const isActive = (route) => {
-    if (!currentPath) return false;
-    return currentPath === route || currentPath.startsWith(route + '/');
+  const isActive = (page) => {
+    const currentPage = location.pathname.replace('/', '');
+    return currentPage === page;
   };
 
   return (
-    <nav className="w-64 bg-slate-900 text-white min-h-screen flex flex-col border-r border-slate-800">
+    <nav className="w-64 bg-slate-900 text-white min-h-screen flex flex-col border-r border-slate-800 flex-shrink-0">
       {/* Logo */}
       <div className="p-6 border-b border-slate-800">
         <h1 className="text-lg font-bold text-white">School Admin</h1>
-        <p className="text-sm text-slate-400 mt-1">{schoolSlug}</p>
+        <p className="text-sm text-slate-400 mt-1">{schoolSlug || 'hampton-dumont'}</p>
       </div>
 
       {/* Navigation Sections */}
       <div className="flex-1 overflow-y-auto">
         {SIDEBAR_STRUCTURE.map((section) => (
           <div key={section.section} className="border-b border-slate-800 last:border-b-0">
-            {/* Section Header */}
             <button
               onClick={() => toggleSection(section.section)}
               className="w-full px-6 py-3 flex items-center justify-between hover:bg-slate-800 transition-colors text-slate-300 hover:text-white"
@@ -164,17 +139,16 @@ export default function AdminSidebar({ schoolSlug, currentPath }) {
               />
             </button>
 
-            {/* Section Items */}
             {expandedSections.has(section.section) && (
               <div className="bg-slate-800/50">
                 {section.items.map((item) => {
-                  const route = getRoute(item.routeKey);
+                  const route = getRoute(item.page);
                   const Icon = ICON_MAP[item.icon];
-                  const active = isActive(route);
+                  const active = isActive(item.page);
 
                   return (
                     <Link
-                      key={item.routeKey}
+                      key={item.page}
                       to={route}
                       className={cn(
                         'px-6 py-3 flex items-center gap-3 transition-colors border-l-4 block text-sm',
@@ -197,7 +171,7 @@ export default function AdminSidebar({ schoolSlug, currentPath }) {
       {/* Footer */}
       <div className="p-6 border-t border-slate-800 text-xs text-slate-500">
         <p>School Story Lab</p>
-        <p className="mt-2">Bulldog Story Lab</p>
+        <p className="mt-1">Bulldog Story Lab</p>
       </div>
     </nav>
   );
