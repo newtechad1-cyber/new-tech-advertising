@@ -341,7 +341,18 @@ export default function AdminSchoolStudentUploads() {
                 </div>
               )}
 
-              {(selectedUpload.status === 'submitted' || selectedUpload.status === 'under_review') && (
+              {(selectedUpload.moderation_status === 'flagged' || selectedUpload.moderation_status === 'requires_review') && (
+                <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-3 flex items-start gap-2">
+                  <AlertCircle className="h-4 w-4 text-red-600 flex-shrink-0 mt-0.5" />
+                  <div className="text-sm text-red-800">
+                    <p className="font-semibold">Upload Blocked by Moderation</p>
+                    <p className="text-xs mt-1">{selectedUpload.moderation_notes}</p>
+                    <p className="text-xs mt-1 font-medium">Approving will mark as 'safe' and allow downstream use.</p>
+                  </div>
+                </div>
+              )}
+
+              {(selectedUpload.status === 'submitted' || selectedUpload.status === 'under_review' || selectedUpload.moderation_status === 'flagged' || selectedUpload.moderation_status === 'requires_review') && (
                 <div className="flex gap-3 pt-4 border-t border-gray-200">
                   <Button
                     onClick={() => handleApprove(selectedUpload.id)}
