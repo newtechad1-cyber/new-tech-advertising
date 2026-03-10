@@ -387,12 +387,17 @@ export default function AdminSchoolAIDashboard() {
                               {job.requested_by || '—'}
                             </td>
 
-                            {/* Created */}
+                            {/* Created / timing */}
                             <td className="px-4 py-3 text-xs text-gray-400 whitespace-nowrap">
-                              {relativeTime(job.created_date)}
+                              <div title="Requested at">{relativeTime(job.requested_at || job.created_date)}</div>
                               {job.completed_at && (
                                 <div className="text-green-500 mt-0.5">
                                   Done {relativeTime(job.completed_at)}
+                                </div>
+                              )}
+                              {job.reviewed_at && (
+                                <div className="text-blue-500 mt-0.5" title={`Reviewed by ${job.reviewed_by || 'staff'}`}>
+                                  Reviewed {relativeTime(job.reviewed_at)}
                                 </div>
                               )}
                             </td>
