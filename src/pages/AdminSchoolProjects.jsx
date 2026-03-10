@@ -20,7 +20,10 @@ const STATUS_COLORS = {
 export default function AdminSchoolProjects() {
   const { schoolSlug: paramSlug } = useParams();
   const schoolSlug = paramSlug || 'hampton-dumont';
-...
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
         const data = await base44.entities.SchoolVideoProjects.filter({
           school_slug: schoolSlug,
         });
