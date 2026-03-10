@@ -147,10 +147,6 @@ export default function AdminAIVideoStudio() {
         <h1 className="text-3xl font-bold text-gray-900">AI Video Studio</h1>
         <p className="text-gray-600 mt-2">Create, configure, and render videos with AI-powered tools</p>
       </div>
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">AI Video Studio</h1>
-          <p className="text-gray-600 mt-2">Create, configure, and render videos with AI-powered tools</p>
-        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left: Wizard */}
