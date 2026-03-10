@@ -372,6 +372,10 @@ import SchoolStudentLogin from './pages/SchoolStudentLogin';
 import SchoolStudentDashboard from './pages/SchoolStudentDashboard';
 import SchoolStudentUploadNew from './pages/SchoolStudentUploadNew';
 import AdminSchoolStudentUploads from './pages/AdminSchoolStudentUploads';
+import SchoolStudentUploads from './pages/SchoolStudentUploads';
+import SchoolStudentProfile from './pages/SchoolStudentProfile';
+import AdminSchoolStudentUsers from './pages/AdminSchoolStudentUsers';
+import AdminSchoolModeration from './pages/AdminSchoolModeration';
 import __Layout from './Layout.jsx';
 
 
@@ -701,6 +705,10 @@ export const PAGES = {
     "SchoolStudentDashboard": SchoolStudentDashboard,
     "SchoolStudentUploadNew": SchoolStudentUploadNew,
     "AdminSchoolStudentUploads": AdminSchoolStudentUploads,
+    "SchoolStudentUploads": SchoolStudentUploads,
+    "SchoolStudentProfile": SchoolStudentProfile,
+    "AdminSchoolStudentUsers": AdminSchoolStudentUsers,
+    "AdminSchoolModeration": AdminSchoolModeration,
 }
 
 export const pagesConfig = {
