@@ -378,6 +378,8 @@ import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import SchoolTVDealRoom from './pages/SchoolTVDealRoom';
+import DemoSchoolChannel from './pages/DemoSchoolChannel';
+import DemoSchoolStoryDetail from './pages/DemoSchoolStoryDetail';
 import __Layout from './Layout.jsx';
 
 
@@ -713,6 +715,8 @@ export const PAGES = {
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
     "SchoolTVDealRoom": SchoolTVDealRoom,
+    "DemoSchoolChannel": DemoSchoolChannel,
+    "DemoSchoolStoryDetail": DemoSchoolStoryDetail,
 }
 
 export const pagesConfig = {
