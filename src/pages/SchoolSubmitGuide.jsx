@@ -1,15 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import PublicShell from '@/components/school-tv/PublicShell';
 import { Upload, Video, Image, CheckCircle2, AlertCircle, Users, FileType } from 'lucide-react';
 
 export default function SchoolSubmitGuide() {
-  const schoolSlug = new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
-  const submitUrl = `${createPageUrl('SchoolSubmit')}?schoolSlug=${schoolSlug}`;
+  const { schoolSlug: paramSlug } = useParams();
+  const searchParams = new URLSearchParams(window.location.search);
+  const schoolSlug = paramSlug || searchParams.get('schoolSlug') || 'hampton-dumont';
+  const submitUrl = `/schools/${schoolSlug}/submit`;
 
   return (
-    <PublicShell currentPath="submit">
+    <PublicShell currentPath="submit-guide" schoolSlug={schoolSlug}>
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12 px-6">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Share Your Story</h1>

@@ -15,8 +15,9 @@ const PUBLIC_NAV = [
   { label: 'Help', icon: Info, path: 'submit-guide' },
 ];
 
-export default function PublicShell({ children, currentPath }) {
-  const { schoolSlug } = useParams();
+export default function PublicShell({ children, currentPath, schoolSlug: propSchoolSlug }) {
+  const { schoolSlug: paramSchoolSlug } = useParams();
+  const schoolSlug = propSchoolSlug || paramSchoolSlug;
   const [branding, setBranding] = useState(null);
 
   useEffect(() => {

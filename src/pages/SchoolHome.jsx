@@ -42,10 +42,10 @@ export default function SchoolHome() {
     loadData();
   }, [schoolSlug]);
 
-  if (loading) return <PublicShell currentPath="home"><div className="text-center py-12">Loading...</div></PublicShell>;
+  if (loading) return <PublicShell currentPath="home" schoolSlug={schoolSlug}><div className="text-center py-12">Loading...</div></PublicShell>;
 
   return (
-    <PublicShell currentPath="home">
+    <PublicShell currentPath="home" schoolSlug={schoolSlug}>
       {/* Hero */}
       <div className={`relative bg-gradient-to-br ${schoolSlug === 'hampton-dumont' ? 'from-red-700 via-red-600 to-black' : 'from-slate-950 via-slate-900 to-slate-800'} text-white py-20 md:py-32 overflow-hidden`}>
         <div className="absolute inset-0 opacity-20" style={{ backgroundImage: schoolSlug === 'hampton-dumont' ? 'radial-gradient(circle at 20% 50%, #dc2626 0%, transparent 50%), radial-gradient(circle at 80% 80%, #000000 0%, transparent 50%)' : 'radial-gradient(circle at 20% 50%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 80%, #8b5cf6 0%, transparent 50%)' }} />
