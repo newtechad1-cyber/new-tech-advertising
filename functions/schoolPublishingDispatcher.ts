@@ -22,11 +22,22 @@ Deno.serve(async (req) => {
     const project = await base44.entities.SchoolVideoProjects.get(renderJob.project_id);
     const deliveryManifest = JSON.parse(renderJob.output_manifest || '{}');
 
+    // Fetch school settings for platform defaults and publish gating
+    const settingsArr = await base44.asServiceRole.entities.SchoolSettings.filter({ school_slug: project?.school || '' });
+    const settings = {
+      publish_to_gallery_default: true,
+      publish_to_youtube_default: false,
+      publish_to_facebook_default: false,
+      publish_to_instagram_default: false,
+      enable_social_sharing: false,
+      ...(settingsArr[0] || {})
+    };
+
     const platforms = target_platforms || [
-      ...(project.publish_to_gallery ? ['gallery'] : []),
-      ...(project.publish_to_youtube ? ['youtube'] : []),
-      ...(project.publish_to_facebook ? ['facebook'] : []),
-      ...(project.publish_to_instagram ? ['instagram'] : [])
+      ...((project.publish_to_gallery ?? settings.publish_to_gallery_default) ? ['gallery'] : []),
+      ...(settings.enable_social_sharing && (project.publish_to_youtube ?? settings.publish_to_youtube_default) ? ['youtube'] : []),
+      ...(settings.enable_social_sharing && (project.publish_to_facebook ?? settings.publish_to_facebook_default) ? ['facebook'] : []),
+      ...(settings.enable_social_sharing && (project.publish_to_instagram ?? settings.publish_to_instagram_default) ? ['instagram'] : [])
     ];
 
     const publishingResults = [];

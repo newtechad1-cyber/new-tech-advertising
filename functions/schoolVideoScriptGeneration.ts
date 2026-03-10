@@ -25,6 +25,16 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Project not found' }, { status: 404 });
     }
 
+    // Fetch school settings for AI defaults
+    const settingsArr = await base44.asServiceRole.entities.SchoolSettings.filter({ school_slug: project.school || '' });
+    const settings = {
+      ai_tone_default: 'warm',
+      voiceover_enabled_default: true,
+      captions_enabled_default: true,
+      video_duration_target: '2-3 minutes',
+      ...(settingsArr[0] || {})
+    };
+
     // Fetch selected clips
     const clips = await base44.asServiceRole.entities.SchoolVideoClips.filter({
       project_id,
@@ -52,7 +62,7 @@ Project Details:
 - Description: ${project.description}
 - Objective: ${project.objective}
 - Target Audience: ${project.target_audience}
-- Tone: ${project.tone}
+- Tone: ${project.tone || settings.ai_tone_default}
 - School: ${branding?.school_name || 'School'} - ${branding?.network_name || 'Network'}
 
 Clips/Scenes:

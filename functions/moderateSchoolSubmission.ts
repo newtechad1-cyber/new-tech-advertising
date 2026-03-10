@@ -9,8 +9,23 @@ Deno.serve(async (req) => {
     if (!subs.length) return Response.json({ error: 'Not found' }, { status: 404 });
     const sub = subs[0];
 
+    // Fetch school settings to honour per-school moderation config
+    const settingsArr = await base44.asServiceRole.entities.SchoolSettings.filter({ school_slug: sub.school || '' });
+    const settings = { ai_content_moderation: true, moderation_strictness: 'standard', ...(settingsArr[0] || {}) };
+
+    if (!settings.ai_content_moderation) {
+      await base44.asServiceRole.entities.SchoolSubmissions.update(submission_id, { status: 'under_review' });
+      return Response.json({ success: true, assessment: { skipped: true, reason: 'AI moderation disabled for this school' } });
+    }
+
+    const strictnessNote = settings.moderation_strictness === 'strict'
+      ? 'Be conservative — flag anything that could be questionable in a school setting.'
+      : settings.moderation_strictness === 'relaxed'
+      ? 'Only flag clearly inappropriate content. Give submissions the benefit of the doubt.'
+      : 'Apply standard school-appropriate content guidelines.';
+
     const result = await base44.asServiceRole.integrations.Core.InvokeLLM({
-      prompt: `You are reviewing a video/photo submission for a school district's student media program.
+      prompt: `You are reviewing a video/photo submission for a school district's student media program. ${strictnessNote}
 
 Submission:
 - Title: ${sub.submission_title}

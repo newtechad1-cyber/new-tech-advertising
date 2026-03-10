@@ -27,9 +27,25 @@ Deno.serve(async (req) => {
       }),
     });
 
-    // If submission passes basic safety checks, queue AI analysis
-    if (!submission.ai_safety_flagged && submission.status === 'pending') {
-      // Queue AI safety check as a placeholder job
+    // Fetch school settings to drive workflow behaviour
+    const settingsArr = await base44.asServiceRole.entities.SchoolSettings.filter({ school_slug: submission.school_slug });
+    const settings = {
+      require_teacher_review: true,
+      notify_on_new_submission: true,
+      auto_approve_staff_submissions: false,
+      ai_content_moderation: true,
+      ...(settingsArr[0] || {})
+    };
+
+    // Auto-approve staff submissions if school setting allows it
+    const staffRoles = ['teacher', 'coach', 'staff'];
+    if (settings.auto_approve_staff_submissions && staffRoles.includes(submission.contributor_role)) {
+      await base44.asServiceRole.entities.StudentVideoSubmissions.update(submission.id, { status: 'approved' });
+      return Response.json({ success: true, message: 'Staff submission auto-approved per school settings', submissionId: submission.id });
+    }
+
+    // Queue AI content moderation only if enabled for this school
+    if (settings.ai_content_moderation && !submission.ai_safety_flagged && submission.status === 'pending') {
       await base44.asServiceRole.entities.AIContentJobs.create({
         school_slug: submission.school_slug,
         job_type: 'content_analysis',

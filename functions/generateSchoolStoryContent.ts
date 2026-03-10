@@ -13,7 +13,8 @@ Guidelines:
 • Use a positive community tone
 • Avoid exaggeration or marketing language
 • Write in third person
-• Keep the story between 120 and 200 words
+• Keep the story between {word_count_min} and {word_count_max} words
+• Use a {tone} tone
 • Make it suitable for parents, students, and the local community
 
 Use the information below to generate the story.
@@ -169,6 +170,7 @@ Deno.serve(async (req) => {
     const body = await req.json();
     const {
       school_name,
+      school_slug,
       activity_type,
       event_name,
       upload_type,
@@ -177,6 +179,15 @@ Deno.serve(async (req) => {
       tags,
       participants,
     } = body;
+
+    let settings = { ai_tone_default: 'warm', ai_story_word_count_min: 120, ai_story_word_count_max: 200, enable_ai_tools: true };
+    if (school_slug) {
+      const settingsArr = await base44.asServiceRole.entities.SchoolSettings.filter({ school_slug });
+      if (settingsArr.length > 0) settings = { ...settings, ...settingsArr[0] };
+    }
+    if (!settings.enable_ai_tools) {
+      return Response.json({ error: 'AI tools are disabled for this school' }, { status: 403 });
+    }
 
     const data = {
       school_name: school_name || '',
@@ -187,6 +198,9 @@ Deno.serve(async (req) => {
       student_description: student_description || '',
       tags: Array.isArray(tags) ? tags.join(', ') : tags || '',
       participants: participants || '',
+      tone: settings.ai_tone_default,
+      word_count_min: String(settings.ai_story_word_count_min),
+      word_count_max: String(settings.ai_story_word_count_max),
     };
 
     // Generate all content types in parallel

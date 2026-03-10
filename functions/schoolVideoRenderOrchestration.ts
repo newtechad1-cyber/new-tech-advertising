@@ -31,6 +31,16 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Project or script not found' }, { status: 404 });
     }
 
+    // Fetch school settings for render defaults
+    const settingsArr = await base44.asServiceRole.entities.SchoolSettings.filter({ school_slug: project.school || '' });
+    const settings = {
+      video_format_default: 'landscape',
+      video_resolution_default: '1920x1080',
+      video_duration_target: '2-3 minutes',
+      ...(settingsArr[0] || {})
+    };
+    const aspectRatioMap = { landscape: '16:9', square: '1:1', vertical: '9:16' };
+
     // Create render job record
     const renderJob = await base44.asServiceRole.entities.SchoolVideoRenders.create({
       project_id,
@@ -38,9 +48,9 @@ Deno.serve(async (req) => {
       render_name: `${project.title} - ${new Date().toISOString().split('T')[0]}`,
       render_engine: render_config?.engine || 'internal',
       output_format: render_config?.format || 'mp4',
-      resolution: render_config?.resolution || '1920x1080',
-      aspect_ratio: render_config?.aspect_ratio || '16:9',
-      estimated_duration: project.duration_target,
+      resolution: render_config?.resolution || settings.video_resolution_default,
+      aspect_ratio: render_config?.aspect_ratio || aspectRatioMap[settings.video_format_default] || '16:9',
+      estimated_duration: project.duration_target || settings.video_duration_target,
       status: 'queued',
       queue_position: 999 // Will be reordered by priority system
     });
