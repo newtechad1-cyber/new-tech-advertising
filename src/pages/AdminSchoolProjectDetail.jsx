@@ -282,7 +282,8 @@ export default function AdminSchoolProjectDetail() {
 
       </div>
       </div>
-      );
+    </div>
+  );
 
-      return <AdminLayout currentPageName="AdminSchoolProjectDetail">{content}</AdminLayout>;
+  return <AdminLayout currentPageName="AdminSchoolProjectDetail">{content}</AdminLayout>;
       }

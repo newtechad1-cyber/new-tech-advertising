@@ -82,7 +82,7 @@ export default function AdminSchoolDashboard() {
     loadData();
   }, [schoolSlug]);
 
-  if (loading) return <AdminShell schoolSlug={schoolSlug}><div className="text-center py-12">Loading...</div></AdminShell>;
+  if (loading) return <AdminLayout currentPageName="AdminSchoolDashboard"><div className="text-center py-12">Loading...</div></AdminLayout>;
 
   const StatCard = ({ icon: Icon, label, value, color, route }) => (
     <Link to={route} className="bg-white rounded-lg shadow-md p-4 md:p-6 hover:shadow-lg transition-shadow border-l-4" style={{ borderColor: color }}>

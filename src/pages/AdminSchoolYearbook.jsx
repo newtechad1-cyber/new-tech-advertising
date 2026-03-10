@@ -183,7 +183,6 @@ export default function AdminSchoolYearbook() {
           )}
         </div>
       </div>
-    </div>
   );
 
   return <AdminLayout currentPageName="AdminSchoolYearbook">{content}</AdminLayout>;

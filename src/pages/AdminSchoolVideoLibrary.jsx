@@ -445,7 +445,6 @@ export default function AdminSchoolVideoLibrary() {
           )}
         </div>
       </div>
-    </div>
   );
 
   return <AdminLayout currentPageName="AdminSchoolVideoLibrary">{content}</AdminLayout>;
