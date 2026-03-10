@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import PublicShell from '@/components/school-tv/PublicShell';
-import { Upload, Check } from 'lucide-react';
+import { Upload, Check, HelpCircle } from 'lucide-react';
 
 const ACTIVITY_TYPES = [
   'sports', 'classroom', 'arts', 'music', 'clubs', 'event', 'student_life', 'academic', 'other'
@@ -15,7 +16,7 @@ const CONTRIBUTOR_ROLES = [
 export default function SchoolSubmit() {
   const { schoolSlug: paramSlug } = useParams();
   const searchParams = new URLSearchParams(window.location.search);
-  const schoolSlug = paramSlug || searchParams.get('schoolSlug') || 'hampton-dumont';
+  const schoolSlug = paramSlug || searchParams.get('school') || 'hampton-dumont';
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -133,13 +134,40 @@ export default function SchoolSubmit() {
   }
 
   return (
-    <PublicShell currentPath="submit" schoolSlug={schoolSlug}>
-      <div className="bg-blue-50 py-12">
-        <div className="max-w-4xl mx-auto px-6">
-          <h1 className="text-4xl font-bold mb-4">Share Your Story</h1>
-          <p className="text-gray-700 text-lg">Submit your videos, photos, and memories to be featured</p>
-        </div>
-      </div>
+     <PublicShell currentPath="submit" schoolSlug={schoolSlug}>
+       <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16 px-6">
+         <div className="max-w-4xl mx-auto">
+           <h1 className="text-4xl md:text-5xl font-black mb-4">Share Your Story</h1>
+           <p className="text-xl text-blue-100 font-semibold mb-8">Submit your videos, photos, and memories to be featured on Bulldog TV</p>
+
+           <div className="grid sm:grid-cols-3 gap-4 text-sm">
+             <div className="bg-white/20 backdrop-blur rounded-lg p-4">
+               <div className="text-2xl mb-2">🎥</div>
+               <p className="font-semibold">Sports Highlights</p>
+               <p className="text-blue-100 text-xs mt-1">Game clips, championships, team moments</p>
+             </div>
+             <div className="bg-white/20 backdrop-blur rounded-lg p-4">
+               <div className="text-2xl mb-2">📸</div>
+               <p className="font-semibold">Club & Events</p>
+               <p className="text-blue-100 text-xs mt-1">Activities, competitions, celebrations</p>
+             </div>
+             <div className="bg-white/20 backdrop-blur rounded-lg p-4">
+               <div className="text-2xl mb-2">📖</div>
+               <p className="font-semibold">Student Stories</p>
+               <p className="text-blue-100 text-xs mt-1">Behind-the-scenes, achievements, memories</p>
+             </div>
+           </div>
+         </div>
+       </div>
+
+       <div className="bg-blue-50 py-8 px-6 border-b border-blue-200">
+         <div className="max-w-4xl mx-auto flex items-center gap-3">
+           <HelpCircle className="h-5 w-5 text-blue-600 flex-shrink-0" />
+           <p className="text-sm text-gray-700">
+            <strong>New to uploads?</strong> <a href={`${createPageUrl('SchoolSubmitGuide')}?school=${schoolSlug}`} className="text-blue-600 hover:underline font-semibold">Read our guide</a> for tips, file requirements, and FAQs.
+           </p>
+         </div>
+       </div>
 
       <form onSubmit={handleSubmit} className="max-w-4xl mx-auto px-6 py-12">
         {/* About You */}
