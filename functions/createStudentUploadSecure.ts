@@ -76,10 +76,29 @@ Deno.serve(async (req) => {
       ip_address: req.headers.get('x-forwarded-for') || 'unknown', // Audit trail
     });
 
+    // TRIGGER: Automatic content moderation for explicit/nudity detection
+    // This runs asynchronously and updates the upload status if explicit content detected
+    try {
+      await base44.asServiceRole.functions.invoke('moderateStudentUploadContent', {
+        upload_id: upload.id,
+        file_url: file_url,
+        upload_type: upload_type,
+        school_slug: school_slug,
+      });
+    } catch (err) {
+      // Log error but don't fail upload creation
+      // Admin can manually review if moderation fails
+      console.error('Content moderation failed, flagging for review:', err);
+      await base44.asServiceRole.entities.StudentUploads.update(upload.id, {
+        moderation_status: 'requires_review',
+        moderation_notes: 'Automatic moderation analysis failed. Requires manual review.',
+      });
+    }
+
     return Response.json({
       success: true,
       upload_id: upload.id,
-      message: 'Upload submitted successfully',
+      message: 'Upload submitted successfully. Content is being reviewed.',
     });
   } catch (error) {
     console.error('Upload creation error:', error);
