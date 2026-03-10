@@ -6,7 +6,7 @@ import { Save, Upload, Eye, ArrowLeft } from 'lucide-react';
 
 export default function AdminSchoolBranding() {
   const { schoolSlug: paramSlug } = useParams();
-  const schoolSlug = paramSlug || 'hampton-dumont';
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
   const [branding, setBranding] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);

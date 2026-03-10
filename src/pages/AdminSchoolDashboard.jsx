@@ -6,7 +6,7 @@ import { AlertCircle, CheckCircle2, Clock, Video, BookOpen, Zap, BarChart3, Aler
 
 export default function AdminSchoolDashboard() {
   const { schoolSlug: paramSlug } = useParams();
-  const schoolSlug = paramSlug || 'hampton-dumont';
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
   const [stats, setStats] = useState(null);
   const [recentActivity, setRecentActivity] = useState([]);
   const [loading, setLoading] = useState(true);

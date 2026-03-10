@@ -19,7 +19,7 @@ const STATUS_COLORS = {
 
 export default function AdminSchoolProjects() {
   const { schoolSlug: paramSlug } = useParams();
-  const schoolSlug = paramSlug || 'hampton-dumont';
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
 
   useEffect(() => {
     const loadData = async () => {

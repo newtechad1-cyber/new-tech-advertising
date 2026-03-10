@@ -18,7 +18,7 @@ import {
 
 export default function AdminSchoolSubmissions() {
   const { schoolSlug: paramSlug } = useParams();
-  const schoolSlug = paramSlug || 'hampton-dumont';
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
   const [selectedSubmission, setSelectedSubmission] = useState(null);
   const [filterStatus, setFilterStatus] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');

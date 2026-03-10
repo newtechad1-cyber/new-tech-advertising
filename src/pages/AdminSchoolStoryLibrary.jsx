@@ -15,7 +15,7 @@ import {
 
 export default function AdminSchoolStoryLibrary() {
   const { schoolSlug: paramSlug } = useParams();
-  const schoolSlug = paramSlug || 'hampton-dumont';
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
   const [stories, setStories] = useState([]);
   const [filteredStories, setFilteredStories] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState('all');

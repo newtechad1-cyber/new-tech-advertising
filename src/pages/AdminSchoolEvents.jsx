@@ -26,7 +26,7 @@ const EVENT_TYPE_COLORS = {
 
 export default function AdminSchoolEvents() {
   const { schoolSlug: paramSlug } = useParams();
-  const schoolSlug = paramSlug || 'hampton-dumont';
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [selectedType, setSelectedType] = useState('all');

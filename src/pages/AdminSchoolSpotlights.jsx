@@ -14,7 +14,7 @@ const STATUS_COLORS = {
 
 export default function AdminSchoolSpotlights() {
   const { schoolSlug: paramSlug } = useParams();
-  const schoolSlug = paramSlug || 'hampton-dumont';
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
   const [spotlights, setSpotlights] = useState([]);
   const [filteredSpotlights, setFilteredSpotlights] = useState([]);
   const [spotlightTypes, setSpotlightTypes] = useState([]);
