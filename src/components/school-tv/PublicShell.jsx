@@ -12,7 +12,7 @@ const PUBLIC_NAV = [
   { label: 'Events', icon: Calendar, path: 'events' },
   { label: 'Spotlights', icon: Star, path: 'spotlights' },
   { label: 'Submit', icon: Upload, path: 'submit' },
-  { label: 'About', icon: Info, path: 'about' },
+  { label: 'Help', icon: Info, path: 'submit-guide' },
 ];
 
 export default function PublicShell({ children, currentPath }) {

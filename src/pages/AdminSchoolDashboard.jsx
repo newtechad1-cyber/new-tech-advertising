@@ -226,6 +226,17 @@ export default function AdminSchoolDashboard() {
           </Link>
         </div>
       </div>
+
+      {/* Student Upload Guide Link */}
+      <div className="mt-10 bg-green-50 border-2 border-green-200 rounded-2xl p-8 text-center">
+        <p className="text-green-900 font-semibold mb-4">📚 Help students learn how to upload content</p>
+        <Link 
+          to={`${createPageUrl('SchoolSubmitGuide')}?schoolSlug=${schoolSlug}`}
+          className="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition-colors"
+        >
+          View Upload Guide
+        </Link>
+      </div>
     </AdminShell>
   );
 }
