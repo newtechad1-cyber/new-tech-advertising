@@ -374,7 +374,9 @@ export default function AdminSchoolAIDashboard() {
                             {/* Output preview */}
                             <td className="px-4 py-3 max-w-xs">
                               {job.status === 'failed' && job.error_log ? (
-                                <span className="text-xs text-red-500 line-clamp-2">{job.error_log.slice(0, 80)}…</span>
+                                <span className="text-xs text-red-500 line-clamp-2">{job.error_log.slice(0, 80)}{job.error_log.length > 80 ? '…' : ''}</span>
+                              ) : job.review_notes ? (
+                                <span className="text-xs text-blue-600 line-clamp-2 italic">Note: {job.review_notes.slice(0, 80)}{job.review_notes.length > 80 ? '…' : ''}</span>
                               ) : outputPreview ? (
                                 <span className="text-xs text-gray-600 line-clamp-2">{outputPreview}</span>
                               ) : (
