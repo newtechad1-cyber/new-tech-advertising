@@ -132,6 +132,7 @@ export default function AdminSidebar({ schoolSlug, currentPath }) {
   };
 
   const isActive = (route) => {
+    if (!currentPath) return false;
     return currentPath === route || currentPath.startsWith(route + '/');
   };
 
