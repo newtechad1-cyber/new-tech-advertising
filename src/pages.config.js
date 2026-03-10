@@ -381,6 +381,10 @@ import SchoolTVDealRoom from './pages/SchoolTVDealRoom';
 import DemoSchoolChannel from './pages/DemoSchoolChannel';
 import DemoSchoolStoryDetail from './pages/DemoSchoolStoryDetail';
 import DemoSchoolAbout from './pages/DemoSchoolAbout';
+import AdminSchoolLeads from './pages/AdminSchoolLeads';
+import AdminSchoolLeadDetail from './pages/AdminSchoolLeadDetail';
+import AdminSchoolOutreach from './pages/AdminSchoolOutreach';
+import AdminSchoolPipeline from './pages/AdminSchoolPipeline';
 import __Layout from './Layout.jsx';
 
 
@@ -719,6 +723,10 @@ export const PAGES = {
     "DemoSchoolChannel": DemoSchoolChannel,
     "DemoSchoolStoryDetail": DemoSchoolStoryDetail,
     "DemoSchoolAbout": DemoSchoolAbout,
+    "AdminSchoolLeads": AdminSchoolLeads,
+    "AdminSchoolLeadDetail": AdminSchoolLeadDetail,
+    "AdminSchoolOutreach": AdminSchoolOutreach,
+    "AdminSchoolPipeline": AdminSchoolPipeline,
 }
 
 export const pagesConfig = {
