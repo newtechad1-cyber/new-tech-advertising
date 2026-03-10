@@ -248,6 +248,7 @@ export default function AdminSchoolVideoLibrary() {
                 <option value="newest">Newest First</option>
                 <option value="oldest">Oldest First</option>
                 <option value="title">Title A–Z</option>
+                <option value="published">Recently Published</option>
               </select>
               <ChevronDown className="absolute right-2 top-2.5 h-4 w-4 text-gray-400 pointer-events-none" />
             </div>
