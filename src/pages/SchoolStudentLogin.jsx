@@ -39,8 +39,8 @@ export default function SchoolStudentLogin() {
         throw new Error('Email and access code are required');
       }
 
-      // Call backend validator - this enforces all security checks server-side
-      const response = await base44.functions.invoke('studentLoginValidator', {
+      // Call backend secure login - creates server-side session record
+      const response = await base44.functions.invoke('studentLoginSecure', {
         school_slug: schoolSlug,
         email: email.toLowerCase().trim(),
         access_code: accessCode.trim(),
@@ -52,15 +52,14 @@ export default function SchoolStudentLogin() {
 
       const session = response.data.session;
 
-      // Store session token (localStorage is now just a convenience layer)
-      // The backend validates this on every API call
+      // Store ONLY the opaque session token in localStorage
+      // Backend validates token against server-side session record on every request
+      // Token is non-reversible and cannot be forged
       localStorage.setItem('studentSession', JSON.stringify({
         student_user_id: session.student_user_id,
-        student_name: session.student_name,
-        email: session.email,
+        session_token: session.session_token, // Opaque, hashed server-side
         school_slug: schoolSlug,
-        session_token: session.session_token,
-        login_at: new Date().toISOString(),
+        expires_at: session.expires_at,
       }));
 
       // Redirect to dashboard
