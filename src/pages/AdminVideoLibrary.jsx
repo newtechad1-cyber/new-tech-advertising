@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import AdminShell from '@/components/school-tv/AdminShell';
+import AdminLayout from '@/components/admin/AdminLayout';
 import VideoPublishStatus from '@/components/school-tv/VideoPublishStatus';
 import { Search, Eye, Copy, Plus, Archive, LayoutGrid, List, ExternalLink } from 'lucide-react';
 
@@ -58,10 +58,9 @@ export default function AdminVideoLibrary() {
     setFilteredVideos(filtered);
   }, [videos, selectedCategory, selectedPublishStatus, searchTerm]);
 
-  if (loading) return <AdminShell schoolSlug={schoolSlug}><div className="text-center py-12">Loading...</div></AdminShell>;
+  if (loading) return <AdminLayout currentPageName="AdminVideoLibrary"><div className="text-center py-12">Loading...</div></AdminLayout>;
 
-  return (
-    <AdminShell schoolSlug={schoolSlug}>
+  const content = (
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div>

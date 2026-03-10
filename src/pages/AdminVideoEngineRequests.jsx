@@ -45,8 +45,8 @@ export default function AdminVideoEngineRequests() {
     return matchSearch && matchStatus;
   });
 
-  return (
-    <div className="min-h-screen bg-slate-950 text-white p-6">
+  const content = (
+    <div className="bg-slate-950 text-white p-6">
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center gap-3 mb-6">
           <Link to={createPageUrl('AdminVideoEngine')}>
@@ -107,4 +107,6 @@ export default function AdminVideoEngineRequests() {
       <NewRequestModal open={showModal} onClose={() => setShowModal(false)} onCreated={r => setRequests(prev => [r, ...prev])} />
     </div>
   );
+
+  return <AdminLayout currentPageName="AdminVideoEngineRequests">{content}</AdminLayout>;
 }

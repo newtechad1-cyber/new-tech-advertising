@@ -19,8 +19,8 @@ export default function AdminVideoEngineRenders() {
     base44.entities.VideoRenders.list('-created_date', 100).then(setRenders);
   }, []);
 
-  return (
-    <div className="min-h-screen bg-slate-950 text-white p-6">
+  const content = (
+    <div className="bg-slate-950 text-white p-6">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center gap-3 mb-6">
           <Link to={createPageUrl('AdminVideoEngine')}><Button variant="ghost" size="sm" className="text-slate-400"><ArrowLeft className="w-4 h-4" /></Button></Link>
@@ -66,4 +66,6 @@ export default function AdminVideoEngineRenders() {
       </div>
     </div>
   );
+
+  return <AdminLayout currentPageName="AdminVideoEngineRenders">{content}</AdminLayout>;
 }
