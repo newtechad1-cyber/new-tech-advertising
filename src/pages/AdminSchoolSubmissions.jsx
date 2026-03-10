@@ -20,7 +20,7 @@ import {
 
 export default function AdminSchoolSubmissions() {
   const { schoolSlug: paramSlug } = useParams();
-  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('school') || 'hampton-dumont';
   const { can } = useSchoolPermissions(schoolSlug);
   const [selectedSubmission, setSelectedSubmission] = useState(null);
   const [filterStatus, setFilterStatus] = useState('all');
