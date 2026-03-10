@@ -372,7 +372,17 @@ export default function AdminSchoolSubmissions() {
 
           <div className="bg-gray-50 border-t border-gray-200 p-6 space-y-2">
             <p className="text-xs text-gray-600 font-semibold uppercase mb-3">Moderation Actions</p>
-            {selectedSubmission.consent_confirmed ? (
+            {isModerationBlocked(selectedSubmission) && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-3 flex items-start gap-2">
+                <AlertCircle className="h-4 w-4 text-red-600 flex-shrink-0 mt-0.5" />
+                <div className="text-sm text-red-800">
+                  <p className="font-semibold">Submission Blocked</p>
+                  <p className="text-xs mt-1">Status: {selectedSubmission.status} | Moderation: {selectedSubmission.moderation_status}</p>
+                  <p className="text-xs mt-1">Must approve false positives in the moderation queue before use.</p>
+                </div>
+              </div>
+            )}
+            {selectedSubmission.consent_confirmed && !isModerationBlocked(selectedSubmission) ? (
               <>
                 <Button 
                   className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold"
@@ -397,6 +407,10 @@ export default function AdminSchoolSubmissions() {
                   Reject
                 </Button>
               </>
+            ) : selectedSubmission.consent_confirmed ? (
+              <div className="text-center py-4">
+                <p className="text-sm text-gray-600 font-semibold">This submission is blocked and cannot be used.</p>
+              </div>
             ) : (
               <div className="text-center py-4">
                 <p className="text-sm text-red-600 font-semibold mb-2">Cannot approve without consent</p>
