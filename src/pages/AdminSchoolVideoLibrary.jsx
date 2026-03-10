@@ -80,13 +80,20 @@ export default function AdminSchoolVideoLibrary() {
     const load = async () => {
       setLoading(true);
       try {
-        const [projs, rens, pubs] = await Promise.all([
-          base44.entities.SchoolVideoProjects.filter({ school: schoolSlug }, '-created_date'),
-          base44.entities.SchoolVideoRenders.list('-created_date', 500),
-          base44.entities.SchoolVideoPublishing.list('-created_date', 500),
-        ]);
+        // Fetch projects first, then scope renders + publishing to matching project IDs
+        const projs = await base44.entities.SchoolVideoProjects.filter({ school: schoolSlug }, '-created_date');
+        const projectIds = (projs || []).map(p => p.id);
+
+        const [rens, pubs] = projectIds.length > 0
+          ? await Promise.all([
+              base44.entities.SchoolVideoRenders.filter({ school_slug: schoolSlug }, '-created_date', 1000),
+              base44.entities.SchoolVideoPublishing.filter({ project_id: { $in: projectIds } }, '-created_date', 1000),
+            ])
+          : [[], []];
+
         setProjects(projs || []);
-        setRenders(rens || []);
+        // Keep only renders that belong to one of our projects
+        setRenders((rens || []).filter(r => projectIds.includes(r.project_id)));
         setPublishing(pubs || []);
       } catch (err) {
         console.error('Error loading video library:', err);
