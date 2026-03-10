@@ -62,9 +62,25 @@ export default function SchoolStudentDashboard() {
     loadData();
   }, [schoolSlug, navigate]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('studentSession');
-    navigate(`${createPageUrl('SchoolStudentLogin')}?school=${schoolSlug}`);
+  const handleLogout = async () => {
+    try {
+      const sessionStr = localStorage.getItem('studentSession');
+      if (sessionStr) {
+        const session = JSON.parse(sessionStr);
+        // Revoke server-side session
+        await base44.functions.invoke('studentLogout', {
+          student_user_id: session.student_user_id,
+          school_slug: schoolSlug,
+          session_token: session.session_token,
+        });
+      }
+    } catch (err) {
+      console.error('Logout error:', err);
+    } finally {
+      // Clear browser session regardless
+      localStorage.removeItem('studentSession');
+      navigate(`${createPageUrl('SchoolStudentLogin')}?school=${schoolSlug}`);
+    }
   };
 
   const handleNewUpload = () => {
