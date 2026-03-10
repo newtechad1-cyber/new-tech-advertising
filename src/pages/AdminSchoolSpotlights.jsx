@@ -83,11 +83,11 @@ export default function AdminSchoolSpotlights() {
           <p className="text-gray-600">Create and manage student and staff spotlights</p>
         </div>
         <Link
-          to={`${createPageUrl('AdminSchoolSpotlightDetail')}?schoolSlug=${schoolSlug}&action=new`}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2"
-        >
-          <Plus className="h-5 w-5" /> New Spotlight
-        </Link>
+           to={`${createPageUrl('AdminSchoolSpotlightDetail')}?id=new&schoolSlug=${schoolSlug}`}
+           className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2"
+         >
+           <Plus className="h-5 w-5" /> New Spotlight
+         </Link>
       </div>
 
       {/* Filters */}
@@ -225,11 +225,11 @@ export default function AdminSchoolSpotlights() {
           <p className="text-gray-500 text-lg mb-2">No spotlights found</p>
           <p className="text-sm text-gray-400 mb-6">Celebrate students and staff by creating your first spotlight.</p>
           <Link
-            to={`${createPageUrl('AdminSchoolSpotlightDetail')}?schoolSlug=${schoolSlug}&action=new`}
-            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold"
-          >
-            <Plus className="h-4 w-4" /> Create First Spotlight
-          </Link>
+             to={`${createPageUrl('AdminSchoolSpotlightDetail')}?id=new&schoolSlug=${schoolSlug}`}
+             className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold"
+           >
+             <Plus className="h-4 w-4" /> Create First Spotlight
+           </Link>
         </div>
       )}
     </AdminShell>

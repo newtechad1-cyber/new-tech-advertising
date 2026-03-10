@@ -87,11 +87,11 @@ export default function AdminSchoolEvents() {
           <p className="text-gray-600">Organize upcoming events and link to content</p>
         </div>
         <Link
-          to={`${createPageUrl('AdminSchoolEventDetail')}?schoolSlug=${schoolSlug}&action=new`}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2"
-        >
-          <Plus className="h-5 w-5" /> New Event
-        </Link>
+           to={`${createPageUrl('AdminSchoolEventDetail')}?id=new&schoolSlug=${schoolSlug}`}
+           className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2"
+         >
+           <Plus className="h-5 w-5" /> New Event
+         </Link>
       </div>
 
       {/* Filters */}
