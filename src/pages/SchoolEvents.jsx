@@ -27,10 +27,10 @@ export default function SchoolEvents() {
     loadData();
   }, [schoolSlug]);
 
-  if (loading) return <PublicShell currentPath="events"><div className="text-center py-12">Loading...</div></PublicShell>;
+  if (loading) return <PublicShell currentPath="events" schoolSlug={schoolSlug}><div className="text-center py-12">Loading...</div></PublicShell>;
 
   return (
-    <PublicShell currentPath="events">
+    <PublicShell currentPath="events" schoolSlug={schoolSlug}>
       {/* Header */}
       <div className="bg-slate-900 text-white py-12">
         <div className="max-w-6xl mx-auto px-6">

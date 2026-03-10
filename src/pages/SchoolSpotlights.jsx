@@ -27,10 +27,10 @@ export default function SchoolSpotlights() {
     loadData();
   }, [schoolSlug]);
 
-  if (loading) return <PublicShell currentPath="spotlights"><div className="text-center py-12">Loading...</div></PublicShell>;
+  if (loading) return <PublicShell currentPath="spotlights" schoolSlug={schoolSlug}><div className="text-center py-12">Loading...</div></PublicShell>;
 
   return (
-    <PublicShell currentPath="spotlights">
+    <PublicShell currentPath="spotlights" schoolSlug={schoolSlug}>
       {/* Header */}
       <div className="bg-yellow-50 py-12 border-b-4 border-yellow-400">
         <div className="max-w-6xl mx-auto px-6">
