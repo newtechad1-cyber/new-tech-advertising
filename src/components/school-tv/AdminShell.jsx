@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AdminSidebar from './AdminSidebar';
 import TopBar from './TopBar';

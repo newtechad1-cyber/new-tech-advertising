@@ -5,7 +5,8 @@ import AdminShell from '@/components/school-tv/AdminShell';
 import { Settings, Save, Shield, Eye, FileText, Lock, Globe, ArrowRight } from 'lucide-react';
 
 export default function AdminSchoolSettings() {
-  const { schoolSlug } = useParams();
+  const { schoolSlug: paramSlug } = useParams();
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
   const [settings, setSettings] = useState({
     require_consent: true,
     require_teacher_review: true,
