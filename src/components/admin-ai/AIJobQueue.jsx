@@ -10,7 +10,8 @@ import {
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Loader2, Eye, Trash2 } from 'lucide-react';
+import { Loader2, Eye, RotateCcw, AlertCircle, FileOutput, RefreshCw } from 'lucide-react';
+import { toast } from 'sonner';
 
 const statusColors = {
   pending: 'bg-yellow-100 text-yellow-800',
@@ -23,31 +24,52 @@ const statusColors = {
 export default function AIJobQueue() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [statusFilter, setStatusFilter] = useState('all');
   const [typeFilter, setTypeFilter] = useState('all');
 
+  const loadJobs = async () => {
+    try {
+      const query = {};
+      if (statusFilter !== 'all') query.status = statusFilter;
+      if (typeFilter !== 'all') query.function_name = typeFilter;
+
+      const data = await base44.asServiceRole.entities.AIJobs.filter(
+        query,
+        '-created_date',
+        100
+      );
+      setJobs(data);
+    } catch (error) {
+      console.error('Error loading jobs:', error);
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  };
+
   useEffect(() => {
-    const loadJobs = async () => {
-      try {
-        const query = {};
-        if (statusFilter !== 'all') query.status = statusFilter;
-        if (typeFilter !== 'all') query.function_name = typeFilter;
-
-        const data = await base44.asServiceRole.entities.AIJobs.filter(
-          query,
-          '-created_date',
-          100
-        );
-        setJobs(data);
-      } catch (error) {
-        console.error('Error loading jobs:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     loadJobs();
   }, [statusFilter, typeFilter]);
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await loadJobs();
+  };
+
+  const handleRetry = async (jobId) => {
+    try {
+      const job = jobs.find((j) => j.id === jobId);
+      await base44.asServiceRole.entities.AIJobs.update(jobId, {
+        status: 'pending',
+        retry_count: (job.retry_count || 0) + 1,
+      });
+      toast.success('Job queued for retry');
+      await loadJobs();
+    } catch (error) {
+      toast.error(`Retry failed: ${error.message}`);
+    }
+  };
 
   const functionNames = [...new Set(jobs.map((j) => j.function_name))];
   const formatTime = (isoString) => {
@@ -70,8 +92,18 @@ export default function AIJobQueue() {
   return (
     <div className="space-y-4">
       <Card>
-        <CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-lg">Job Queue Filters</CardTitle>
+          <Button
+            onClick={handleRefresh}
+            disabled={refreshing}
+            size="sm"
+            variant="outline"
+            className="gap-1"
+          >
+            <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
+            Refresh
+          </Button>
         </CardHeader>
         <CardContent className="flex gap-4">
           <div className="flex-1">
@@ -155,15 +187,46 @@ export default function AIJobQueue() {
                         {getDuration(job.started_at, job.completed_at)}
                       </td>
                       <td className="px-4 py-3 text-center">{job.retry_count || 0}</td>
-                      <td className="px-4 py-3 flex gap-2">
-                        <Button variant="ghost" size="icon" className="h-8 w-8">
-                          <Eye className="w-4 h-4" />
-                        </Button>
+                      <td className="px-4 py-3 flex gap-1">
                         {job.status === 'failed' && (
-                          <Button variant="ghost" size="icon" className="h-8 w-8 text-orange-600">
-                            <Loader2 className="w-4 h-4" />
+                          <>
+                            <Button
+                              onClick={() => handleRetry(job.id)}
+                              variant="ghost"
+                              size="icon"
+                              className="h-8 w-8 text-orange-600 hover:text-orange-700"
+                              title="Retry job"
+                            >
+                              <RotateCcw className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-8 w-8 text-red-600 hover:text-red-700"
+                              title="View error"
+                            >
+                              <AlertCircle className="w-4 h-4" />
+                            </Button>
+                          </>
+                        )}
+                        {job.output_record_id && (
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 text-blue-600 hover:text-blue-700"
+                            title="View output"
+                          >
+                            <FileOutput className="w-4 h-4" />
                           </Button>
                         )}
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8"
+                          title="View details"
+                        >
+                          <Eye className="w-4 h-4" />
+                        </Button>
                       </td>
                     </tr>
                   ))
