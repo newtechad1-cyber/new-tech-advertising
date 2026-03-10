@@ -143,9 +143,10 @@ export default function AdminSchoolVideoLibrary() {
     }
 
     result = [...result].sort((a, b) => {
-      if (sortBy === 'newest') return new Date(b.project.created_date) - new Date(a.project.created_date);
-      if (sortBy === 'oldest') return new Date(a.project.created_date) - new Date(b.project.created_date);
-      if (sortBy === 'title')  return (a.project.title || '').localeCompare(b.project.title || '');
+      if (sortBy === 'newest')    return new Date(b.project.created_date) - new Date(a.project.created_date);
+      if (sortBy === 'oldest')    return new Date(a.project.created_date) - new Date(b.project.created_date);
+      if (sortBy === 'title')     return (a.project.title || '').localeCompare(b.project.title || '');
+      if (sortBy === 'published') return new Date(b.project.published_date || 0) - new Date(a.project.published_date || 0);
       return 0;
     });
 
