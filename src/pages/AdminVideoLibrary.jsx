@@ -264,8 +264,10 @@ export default function AdminVideoLibrary() {
               <p className="text-gray-500 text-lg">No videos found</p>
             </div>
           )}
-        </div>
-      )}
-    </AdminShell>
-  );
-}
+          </div>
+          )}
+          </div>
+          );
+
+          return <AdminLayout currentPageName="AdminVideoLibrary">{content}</AdminLayout>;
+          }
