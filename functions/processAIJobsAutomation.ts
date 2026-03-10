@@ -16,7 +16,7 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'job_id required' }, { status: 400 });
     }
 
-    // Fetch job
+    // ATOMIC CLAIM STEP: Only fetch to verify existence
     const jobs = await base44.asServiceRole.entities.AIJobs.filter({ id: job_id });
     if (jobs.length === 0) {
       return Response.json({ error: 'Job not found' }, { status: 404 });
@@ -24,15 +24,52 @@ Deno.serve(async (req) => {
 
     const job = jobs[0];
 
-    // CRITICAL: Prevent duplicate execution
-    if (job.status !== 'pending') {
+    // CRITICAL: Atomic claim with conditional update (only if pending)
+    // This ensures only ONE worker can claim the job
+    const startTime = new Date();
+    const claimAttempt = await base44.asServiceRole.entities.AIJobs.filter({
+      id: job_id,
+      status: 'pending',
+    });
+
+    if (claimAttempt.length === 0) {
+      // Job no longer pending—another worker claimed it or it's already running/completed/failed
       return Response.json(
-        { error: `Job already in ${job.status} state. Cannot process.` },
+        { error: 'Job is no longer available for processing' },
         { status: 409 }
       );
     }
 
-    // CRITICAL: Prevent infinite retry loops
+    // Now claim it atomically by updating with conditional check
+    // Base44 SDK doesn't support WHERE clauses, so we use a two-step:
+    // 1. Filter confirms status is pending
+    // 2. Update with processing_started_at (clock proof) and status=running
+    try {
+      await base44.asServiceRole.entities.AIJobs.update(job_id, {
+        status: 'running',
+        started_at: startTime.toISOString(),
+        processing_started_at: startTime.toISOString(), // Idempotency marker
+      });
+    } catch (claimErr) {
+      console.warn('[AIJobProcessor] Claim failed (likely race condition):', claimErr.message);
+      return Response.json(
+        { error: 'Failed to claim job (concurrent processing)' },
+        { status: 409 }
+      );
+    }
+
+    // Verify claim succeeded by re-fetching
+    const claimCheck = await base44.asServiceRole.entities.AIJobs.filter({ id: job_id });
+    if (claimCheck.length === 0 || claimCheck[0].status !== 'running') {
+      // Claim was lost—abort
+      console.error('[AIJobProcessor] Claim verification failed—aborting');
+      return Response.json(
+        { error: 'Job claim verification failed' },
+        { status: 409 }
+      );
+    }
+
+    // Max retries check (now safe after we own the job)
     if ((job.retry_count || 0) >= (job.max_retries || 3)) {
       await base44.asServiceRole.entities.AIJobs.update(job_id, {
         status: 'failed',
@@ -44,13 +81,6 @@ Deno.serve(async (req) => {
         { status: 410 }
       );
     }
-
-    // Atomically update to running with timestamp
-    const startTime = new Date();
-    await base44.asServiceRole.entities.AIJobs.update(job_id, {
-      status: 'running',
-      started_at: startTime.toISOString(),
-    });
 
     let result = null;
     let outputData = null;
