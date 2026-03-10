@@ -31,9 +31,10 @@ export default function OutputsAwaitingReview() {
 
   const handleApprove = async (outputId) => {
     try {
+      const user = await base44.auth.me();
       await base44.asServiceRole.entities.AIOutputs.update(outputId, {
         approval_status: 'approved',
-        approved_by: (await base44.auth.me()).email,
+        approved_by: user.email,
         approved_at: new Date().toISOString(),
       });
       toast.success('Output approved');
@@ -45,8 +46,12 @@ export default function OutputsAwaitingReview() {
 
   const handleReject = async (outputId) => {
     try {
+      const user = await base44.auth.me();
       await base44.asServiceRole.entities.AIOutputs.update(outputId, {
         approval_status: 'rejected',
+        approved_by: user.email,
+        approved_at: new Date().toISOString(),
+        rejection_reason: 'Rejected by reviewer',
       });
       toast.success('Output rejected');
       setOutputs(outputs.filter((o) => o.id !== outputId));
