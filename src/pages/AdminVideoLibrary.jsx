@@ -61,6 +61,7 @@ export default function AdminVideoLibrary() {
   if (loading) return <AdminLayout currentPageName="AdminVideoLibrary"><div className="text-center py-12">Loading...</div></AdminLayout>;
 
   const content = (
+    <div>
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div>
