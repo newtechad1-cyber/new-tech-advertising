@@ -49,7 +49,7 @@ export default function AdminSchoolSettings() {
       {/* Quick Links to Sub-Pages */}
       <div className="grid md:grid-cols-2 gap-4 mb-6">
         <Link
-          to={`/admin/schools/${schoolSlug}/settings/permissions`}
+          to={`${createPageUrl('AdminSchoolSettingsPermissions')}?schoolSlug=${schoolSlug}`}
           className="bg-blue-50 border-2 border-blue-200 rounded-lg p-4 hover:bg-blue-100 transition-colors flex items-center justify-between group"
         >
           <div className="flex items-center gap-3">
@@ -62,7 +62,7 @@ export default function AdminSchoolSettings() {
           <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-blue-600" />
         </Link>
         <Link
-          to={`/admin/schools/${schoolSlug}/settings/publishing`}
+          to={`${createPageUrl('AdminSchoolSettingsPublishing')}?schoolSlug=${schoolSlug}`}
           className="bg-green-50 border-2 border-green-200 rounded-lg p-4 hover:bg-green-100 transition-colors flex items-center justify-between group"
         >
           <div className="flex items-center gap-3">

@@ -174,7 +174,7 @@ export default function AdminSchoolSpotlights() {
           {filteredSpotlights.map((spotlight) => (
             <Link
               key={spotlight.id}
-              to={`/admin/schools/${schoolSlug}/spotlights/${spotlight.id}`}
+              to={`${createPageUrl('AdminSchoolSpotlightDetail')}?id=${spotlight.id}&schoolSlug=${schoolSlug}`}
               className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
             >
               {spotlight.featured_image_url && (
@@ -225,7 +225,7 @@ export default function AdminSchoolSpotlights() {
           <p className="text-gray-500 text-lg mb-2">No spotlights found</p>
           <p className="text-sm text-gray-400 mb-6">Celebrate students and staff by creating your first spotlight.</p>
           <Link
-            to={`/admin/schools/${schoolSlug}/spotlights/new`}
+            to={`${createPageUrl('AdminSchoolSpotlightDetail')}?schoolSlug=${schoolSlug}&action=new`}
             className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold"
           >
             <Plus className="h-4 w-4" /> Create First Spotlight
