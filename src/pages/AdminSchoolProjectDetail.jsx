@@ -141,6 +141,7 @@ export default function AdminSchoolProjectDetail() {
   const latestRender = renders[0];
 
   const content = (
+    <div>
       <div className="max-w-6xl mx-auto px-4 py-6">
         <div className="flex items-center gap-3 mb-6">
           <a href={`${createPageUrl('AdminSchoolProjects')}?school=${schoolSlug}`}><Button variant="ghost" size="sm"><ArrowLeft className="w-4 h-4" /></Button></a>

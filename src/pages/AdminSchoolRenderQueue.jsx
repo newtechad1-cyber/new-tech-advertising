@@ -100,7 +100,6 @@ export default function AdminSchoolRenderQueue() {
           )}
         </div>
       </div>
-    </div>
   );
 
   return <AdminLayout currentPageName="AdminSchoolRenderQueue">{content}</AdminLayout>;

@@ -270,7 +270,6 @@ export default function AdminSchoolSubmissions() {
             )}
           </div>
         </div>
-      </div>
 
       {/* Preview Drawer */}
        {selectedSubmission && (
@@ -392,7 +391,7 @@ export default function AdminSchoolSubmissions() {
             </div>
             </>
             )}
-    </div>
+      </div>
   );
 
   return <AdminLayout currentPageName="AdminSchoolSubmissions">{content}</AdminLayout>;

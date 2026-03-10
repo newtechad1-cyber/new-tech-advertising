@@ -475,7 +475,6 @@ export default function AdminSchoolAIDashboard() {
 
         </div>
       </div>
-    </div>
   );
 
   return <AdminLayout currentPageName="AdminSchoolAIDashboard">{content}</AdminLayout>;
