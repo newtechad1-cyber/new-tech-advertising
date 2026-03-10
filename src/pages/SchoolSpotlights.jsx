@@ -5,7 +5,8 @@ import PublicShell from '@/components/school-tv/PublicShell';
 import { Star } from 'lucide-react';
 
 export default function SchoolSpotlights() {
-  const { schoolSlug } = useParams();
+  const { schoolSlug: paramSlug } = useParams();
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('school') || 'hampton-dumont';
   const [spotlights, setSpotlights] = useState([]);
   const [loading, setLoading] = useState(true);
 

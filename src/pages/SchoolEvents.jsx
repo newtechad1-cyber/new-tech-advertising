@@ -5,7 +5,8 @@ import PublicShell from '@/components/school-tv/PublicShell';
 import { Calendar, MapPin, ArrowRight } from 'lucide-react';
 
 export default function SchoolEvents() {
-  const { schoolSlug } = useParams();
+  const { schoolSlug: paramSlug } = useParams();
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('school') || 'hampton-dumont';
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 

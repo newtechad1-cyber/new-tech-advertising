@@ -68,8 +68,8 @@ const NAV_GROUPS = [
   {
     label: '🏫 School Story Lab',
     items: [
-      { label: 'HD School Admin', icon: LayoutDashboard, href: '/admin/schools/hampton-dumont/dashboard' },
-      { label: 'Public School Site', icon: Globe, href: '/schools/hampton-dumont/home' },
+      { label: 'HD School Admin', icon: LayoutDashboard, page: 'AdminSchoolDashboard' },
+      { label: 'Public School Site', icon: Globe, page: 'SchoolHome' },
     ],
   },
   {

@@ -5,7 +5,8 @@ import PublicShell from '@/components/school-tv/PublicShell';
 import { Search } from 'lucide-react';
 
 export default function SchoolStories() {
-  const { schoolSlug } = useParams();
+  const { schoolSlug: paramSlug } = useParams();
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('school') || 'hampton-dumont';
   const [stories, setStories] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
