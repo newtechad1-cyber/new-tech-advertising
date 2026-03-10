@@ -8,7 +8,7 @@ import { Play } from 'lucide-react';
 export default function SchoolTV() {
   const { schoolSlug: paramSlug } = useParams();
   const searchParams = new URLSearchParams(window.location.search);
-  const schoolSlug = paramSlug || searchParams.get('schoolSlug') || 'hampton-dumont';
+  const schoolSlug = paramSlug || searchParams.get('school') || 'hampton-dumont';
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -46,11 +46,11 @@ export default function SchoolTV() {
         {videos.length > 0 ? (
           <div className="grid md:grid-cols-3 gap-6">
             {videos.map((video) => (
-              <Link
-                key={video.id}
-                to={`/schools/${schoolSlug}/tv/watch/${video.slug}`}
-                className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
-              >
+                <a
+                  key={video.id}
+                  href={`${createPageUrl('SchoolVideoDetail')}?school=${schoolSlug}&id=${video.id}`}
+                  className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
+                >
                 <div className="relative h-48 bg-gray-900 overflow-hidden">
                   {video.cover_image_url ? (
                     <img src={video.cover_image_url} alt={video.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
@@ -70,15 +70,15 @@ export default function SchoolTV() {
                     </p>
                   )}
                 </div>
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No videos available yet.</p>
-          </div>
-        )}
-      </div>
-    </PublicShell>
-  );
-}
+                </a>
+                ))}
+                </div>
+                ) : (
+                <div className="text-center py-12">
+                <p className="text-gray-500 text-lg">No videos available yet.</p>
+                </div>
+                )}
+                </div>
+                </PublicShell>
+                );
+                }

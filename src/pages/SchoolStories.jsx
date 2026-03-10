@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import PublicShell from '@/components/school-tv/PublicShell';
 import { Search } from 'lucide-react';
@@ -97,9 +98,9 @@ export default function SchoolStories() {
         {filteredStories.length > 0 ? (
           <div className="grid md:grid-cols-2 gap-6">
             {filteredStories.map((story) => (
-              <Link
+              <a
                 key={story.id}
-                to={`/schools/${schoolSlug}/stories/${story.slug}`}
+                href={`${createPageUrl('SchoolStoryDetail')}?school=${schoolSlug}&id=${story.id}`}
                 className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
               >
                 {story.featured_image_url && (
@@ -109,16 +110,16 @@ export default function SchoolStories() {
                   <h3 className="font-bold text-xl mb-2">{story.title}</h3>
                   <p className="text-gray-600 mb-4 line-clamp-3">{story.excerpt || story.body?.substring(0, 150)}</p>
                   <span className="text-blue-600 font-semibold hover:underline">Read More →</span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No stories found matching your criteria.</p>
-          </div>
-        )}
-      </div>
-    </PublicShell>
-  );
-}
+                  </div>
+                  </a>
+                  ))}
+                  </div>
+                  ) : (
+                  <div className="text-center py-12">
+                  <p className="text-gray-500 text-lg">No stories found matching your criteria.</p>
+                  </div>
+                  )}
+                  </div>
+                  </PublicShell>
+                  );
+                  }

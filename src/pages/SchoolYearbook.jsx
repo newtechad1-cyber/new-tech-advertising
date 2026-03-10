@@ -8,7 +8,7 @@ import { BookOpen, ArrowRight } from 'lucide-react';
 export default function SchoolYearbook() {
   const { schoolSlug: paramSlug } = useParams();
   const searchParams = new URLSearchParams(window.location.search);
-  const schoolSlug = paramSlug || searchParams.get('schoolSlug') || 'hampton-dumont';
+  const schoolSlug = paramSlug || searchParams.get('school') || 'hampton-dumont';
   const [seasons, setSeasons] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -55,9 +55,9 @@ export default function SchoolYearbook() {
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {seasons.map((season) => (
-                <Link
+                <a
                   key={season.id}
-                  to={`/schools/${schoolSlug}/yearbook/season/${season.slug}`}
+                  href={`${createPageUrl('SchoolYearbookSeason')}?school=${schoolSlug}&id=${season.id}`}
                   className="group bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-3 border border-gray-100"
                 >
                   <div className="relative h-72 bg-gradient-to-br from-slate-300 to-slate-400 overflow-hidden">
@@ -75,10 +75,10 @@ export default function SchoolYearbook() {
                       <p className="text-gray-600 mb-6 line-clamp-2 leading-relaxed">{season.description}</p>
                     )}
                     <div className="flex items-center gap-2 text-blue-600 font-bold text-sm group-hover:gap-3 transition-all">Browse <ArrowRight className="h-5 w-5" /></div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+                    </div>
+                    </a>
+                    ))}
+                    </div>
           </>
         ) : (
           <div className="text-center py-20">
