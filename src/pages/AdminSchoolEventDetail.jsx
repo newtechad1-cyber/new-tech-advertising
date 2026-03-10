@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AdminShell from '@/components/school-tv/AdminShell';
-import { ArrowLeft, Save, Plus, Trash2, Zap } from 'lucide-react';
+import { ArrowLeft, Save, Trash2, Zap } from 'lucide-react';
 
 const STATUS_COLORS = {
   draft: 'bg-gray-100 text-gray-800',
