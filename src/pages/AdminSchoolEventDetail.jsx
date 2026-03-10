@@ -268,20 +268,6 @@ export default function AdminSchoolEventDetail() {
         <div className="bg-white rounded-lg shadow-md p-6">
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-lg font-bold">Linked Content ({linkedContent.length})</h3>
-            <div className="flex gap-2 flex-wrap">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-sm font-semibold flex items-center gap-1">
-                <Plus className="h-4 w-4" /> Story
-              </button>
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-sm font-semibold flex items-center gap-1">
-                <Plus className="h-4 w-4" /> Gallery
-              </button>
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-sm font-semibold flex items-center gap-1">
-                <Plus className="h-4 w-4" /> Video
-              </button>
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-sm font-semibold flex items-center gap-1">
-                <Plus className="h-4 w-4" /> Submission
-              </button>
-            </div>
           </div>
 
           {linkedContent.length > 0 ? (
