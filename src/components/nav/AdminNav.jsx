@@ -116,10 +116,10 @@ export default function AdminNav({ children }) {
               {group.items.map(item => (
                 <li key={item.label}>
                   <Link
-                    to={createPageUrl(item.page)}
+                    to={item.href || createPageUrl(item.page)}
                     onClick={() => setMobileOpen(false)}
                     className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      isActive(item.page)
+                      item.page && isActive(item.page)
                         ? 'bg-violet-600/20 text-violet-300'
                         : 'text-slate-400 hover:text-white hover:bg-slate-800'
                     }`}
