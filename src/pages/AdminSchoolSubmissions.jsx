@@ -68,6 +68,26 @@ export default function AdminSchoolSubmissions() {
       await base44.entities.SchoolSubmissions.update(id, { status: 'approved' });
       setSubmissions(submissions.map(s => s.id === id ? { ...s, status: 'approved' } : s));
       setSelectedSubmission(null);
+
+      // Queue AI jobs based on school settings
+      const settingsArr = await base44.entities.SchoolSettings.filter({ school_slug: schoolSlug });
+      const settings = { ai_auto_generate_captions: false, ai_auto_generate_story: false, enable_ai_tools: true, ...(settingsArr[0] || {}) };
+      if (settings.enable_ai_tools) {
+        const jobs = [];
+        if (settings.ai_auto_generate_captions) {
+          jobs.push(base44.entities.AIContentJobs.create({
+            school_slug: schoolSlug, job_type: 'caption_generation', status: 'pending',
+            source_entity_type: 'StudentVideoSubmissions', source_entity_id: id, requested_by: 'system_auto',
+          }));
+        }
+        if (settings.ai_auto_generate_story) {
+          jobs.push(base44.entities.AIContentJobs.create({
+            school_slug: schoolSlug, job_type: 'story_generation', status: 'pending',
+            source_entity_type: 'StudentVideoSubmissions', source_entity_id: id, requested_by: 'system_auto',
+          }));
+        }
+        if (jobs.length) await Promise.all(jobs);
+      }
     } catch (error) {
       console.error('Error approving submission:', error);
       alert('Error approving submission');

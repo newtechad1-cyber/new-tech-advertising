@@ -28,12 +28,15 @@ Deno.serve(async (req) => {
     });
 
     // Fetch school settings to drive workflow behaviour
-    const settingsArr = await base44.asServiceRole.entities.SchoolSettings.filter({ school_slug: submission.school_slug });
+    // SchoolSubmissions uses the `school` field (not school_slug)
+    const schoolSlug = submission.school || submission.school_slug || '';
+    const settingsArr = await base44.asServiceRole.entities.SchoolSettings.filter({ school_slug: schoolSlug });
     const settings = {
       require_teacher_review: true,
       notify_on_new_submission: true,
       auto_approve_staff_submissions: false,
       ai_content_moderation: true,
+      notification_email: '',
       ...(settingsArr[0] || {})
     };
 
@@ -45,15 +48,28 @@ Deno.serve(async (req) => {
     }
 
     // Queue AI content moderation only if enabled for this school
-    if (settings.ai_content_moderation && !submission.ai_safety_flagged && submission.status === 'pending') {
+    if (settings.ai_content_moderation && !submission.ai_safety_flag && submission.status === 'pending') {
       await base44.asServiceRole.entities.AIContentJobs.create({
-        school_slug: submission.school_slug,
+        school_slug: schoolSlug,
         job_type: 'content_analysis',
         status: 'pending',
         source_entity_type: 'StudentVideoSubmissions',
         source_entity_id: submission.id,
         requested_by: 'system',
       });
+    }
+
+    // Notify admin on new submission if enabled
+    if (settings.notify_on_new_submission) {
+      const branding = await base44.asServiceRole.entities.SchoolBranding.filter({ school_slug: schoolSlug });
+      const toEmail = settings.notification_email || branding[0]?.contact_email;
+      if (toEmail) {
+        await base44.asServiceRole.integrations.Core.SendEmail({
+          to: toEmail,
+          subject: `New submission: ${submission.submission_title || 'Untitled'}`,
+          body: `A new submission was received from ${submission.contributor_name || 'a contributor'} (${submission.contributor_role || 'student'}).\n\nTitle: ${submission.submission_title}\nActivity: ${submission.activity_type || 'N/A'}\n\nLog in to review it.`,
+        });
+      }
     }
 
     return Response.json({
