@@ -110,7 +110,8 @@ const PERMISSION_SETS = [
 ];
 
 export default function AdminSchoolSettingsPermissions() {
-  const { schoolSlug } = useParams();
+  const { schoolSlug: paramSlug } = useParams();
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
   const [permissions, setPermissions] = useState(
     PERMISSION_SETS.reduce((acc, set) => {
       set.rules.forEach((rule) => {
@@ -146,7 +147,7 @@ export default function AdminSchoolSettingsPermissions() {
       {/* Header */}
       <div className="mb-8">
         <Link
-          to={`/admin/schools/${schoolSlug}/settings`}
+          to={`${createPageUrl('AdminSchoolSettings')}?schoolSlug=${schoolSlug}`}
           className="text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-1 mb-4"
         >
           <ArrowLeft className="h-4 w-4" /> Back to Settings

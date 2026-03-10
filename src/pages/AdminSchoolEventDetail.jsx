@@ -14,7 +14,10 @@ const STATUS_COLORS = {
 };
 
 export default function AdminSchoolEventDetail() {
-  const { schoolSlug, eventId } = useParams();
+  const { schoolSlug: paramSlug, eventId: paramEventId } = useParams();
+  const searchParams = new URLSearchParams(window.location.search);
+  const schoolSlug = paramSlug || searchParams.get('schoolSlug') || 'hampton-dumont';
+  const eventId = paramEventId || searchParams.get('id') || 'new';
   const [event, setEvent] = useState(null);
   const [activeTab, setActiveTab] = useState('overview');
   const [linkedContent, setLinkedContent] = useState([]);
@@ -67,7 +70,7 @@ export default function AdminSchoolEventDetail() {
     try {
       if (eventId === 'new') {
         const newEvent = await base44.entities.SchoolEvents.create(event);
-        window.location.href = `/admin/schools/${schoolSlug}/events/${newEvent.id}`;
+        window.location.href = `${createPageUrl('AdminSchoolEventDetail')}?id=${newEvent.id}&schoolSlug=${schoolSlug}`;
       } else {
         await base44.entities.SchoolEvents.update(eventId, event);
         alert('Event saved successfully!');
@@ -113,7 +116,7 @@ export default function AdminSchoolEventDetail() {
   return (
     <AdminShell schoolSlug={schoolSlug}>
       {/* Header */}
-      <Link to={`/admin/schools/${schoolSlug}/events`} className="text-blue-600 hover:text-blue-800 mb-6 flex items-center gap-2 font-semibold">
+      <Link to={`${createPageUrl('AdminSchoolEvents')}?schoolSlug=${schoolSlug}`} className="text-blue-600 hover:text-blue-800 mb-6 flex items-center gap-2 font-semibold">
         <ArrowLeft className="h-4 w-4" /> Back to Events
       </Link>
 

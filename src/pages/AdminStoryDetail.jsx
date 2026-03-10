@@ -14,7 +14,10 @@ const STATUS_COLORS = {
 };
 
 export default function AdminStoryDetail() {
-  const { schoolSlug, storyId } = useParams();
+  const { schoolSlug: paramSlug, storyId: paramStoryId } = useParams();
+  const searchParams = new URLSearchParams(window.location.search);
+  const schoolSlug = paramSlug || searchParams.get('schoolSlug') || 'hampton-dumont';
+  const storyId = paramStoryId || searchParams.get('id') || 'new';
   const [story, setStory] = useState(null);
   const [activeTab, setActiveTab] = useState('content');
   const [saving, setSaving] = useState(false);
@@ -106,8 +109,8 @@ export default function AdminStoryDetail() {
       const storyToSave = {
         ...story,
         slug,
-        public_url: `/schools/${schoolSlug}/stories/${slug}`,
-        canonical_route: `/schools/${schoolSlug}/stories`,
+        public_url: `${createPageUrl('SchoolStoryDetail')}?slug=${slug}&schoolSlug=${schoolSlug}`,
+        canonical_route: createPageUrl('SchoolStories'),
         // If transitioning to published, set published date
         published_date: story.status === 'published' && !story.published_date ? new Date().toISOString() : story.published_date,
       };
@@ -115,7 +118,7 @@ export default function AdminStoryDetail() {
       if (storyId === 'new') {
         const newStory = await base44.entities.Stories.create(storyToSave);
         // Redirect to newly created story
-        window.location.href = `/admin/schools/${schoolSlug}/story-library/${newStory.id}`;
+        window.location.href = `${createPageUrl('AdminStoryDetail')}?id=${newStory.id}&schoolSlug=${schoolSlug}`;
       } else {
         await base44.entities.Stories.update(storyId, storyToSave);
         setStory(storyToSave);
@@ -175,7 +178,7 @@ export default function AdminStoryDetail() {
   return (
     <AdminShell schoolSlug={schoolSlug}>
       {/* Header */}
-      <Link to={`/admin/schools/${schoolSlug}/story-library`} className="text-blue-600 hover:text-blue-800 mb-6 flex items-center gap-2 font-semibold">
+      <Link to={`${createPageUrl('AdminSchoolStoryLibrary')}?schoolSlug=${schoolSlug}`} className="text-blue-600 hover:text-blue-800 mb-6 flex items-center gap-2 font-semibold">
         <ArrowLeft className="h-4 w-4" /> Back to Stories
       </Link>
 

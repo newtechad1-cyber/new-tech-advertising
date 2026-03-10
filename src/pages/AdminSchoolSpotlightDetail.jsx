@@ -14,7 +14,10 @@ const STATUS_COLORS = {
 };
 
 export default function AdminSchoolSpotlightDetail() {
-  const { schoolSlug, spotlightId } = useParams();
+  const { schoolSlug: paramSlug, spotlightId: paramSpotlightId } = useParams();
+  const searchParams = new URLSearchParams(window.location.search);
+  const schoolSlug = paramSlug || searchParams.get('schoolSlug') || 'hampton-dumont';
+  const spotlightId = paramSpotlightId || searchParams.get('id') || 'new';
   const [spotlight, setSpotlight] = useState(null);
   const [activeTab, setActiveTab] = useState('content');
   const [saving, setSaving] = useState(false);
@@ -57,7 +60,7 @@ export default function AdminSchoolSpotlightDetail() {
     try {
       if (spotlightId === 'new') {
         const newSpotlight = await base44.entities.Spotlights.create(spotlight);
-        window.location.href = `/admin/schools/${schoolSlug}/spotlights/${newSpotlight.id}`;
+        window.location.href = `${createPageUrl('AdminSchoolSpotlightDetail')}?id=${newSpotlight.id}&schoolSlug=${schoolSlug}`;
       } else {
         await base44.entities.Spotlights.update(spotlightId, spotlight);
         alert('Spotlight saved successfully!');
@@ -93,7 +96,7 @@ export default function AdminSchoolSpotlightDetail() {
   return (
     <AdminShell schoolSlug={schoolSlug}>
       {/* Header */}
-      <Link to={`/admin/schools/${schoolSlug}/spotlights`} className="text-blue-600 hover:text-blue-800 mb-6 flex items-center gap-2 font-semibold">
+      <Link to={`${createPageUrl('AdminSchoolSpotlights')}?schoolSlug=${schoolSlug}`} className="text-blue-600 hover:text-blue-800 mb-6 flex items-center gap-2 font-semibold">
         <ArrowLeft className="h-4 w-4" /> Back to Spotlights
       </Link>
 
