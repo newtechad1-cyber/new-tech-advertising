@@ -178,32 +178,44 @@ export default function AdminSchoolSubmissions() {
         {/* Content */}
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8">
           {/* Filters & Search */}
-          <div className="bg-white rounded-lg border border-gray-200 p-4 mb-6">
-            <div className="flex flex-col sm:flex-row gap-4">
-              <div className="flex-1 relative">
-                 <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                 <Input
-                   placeholder="Search by title or contributor..."
-                   className="pl-10"
-                   value={searchTerm}
-                   onChange={(e) => setSearchTerm(e.target.value)}
-                 />
-               </div>
-               <div className="flex gap-2">
-                 <select
-                  value={filterStatus}
-                  onChange={(e) => setFilterStatus(e.target.value)}
-                  className="px-4 py-2 rounded-lg border border-gray-200 text-sm text-gray-700"
-                >
-                  <option value="all">All Status</option>
-                  <option value="pending">Pending</option>
-                  <option value="approved">Approved</option>
-                  <option value="review">Needs Review</option>
-                  <option value="rejected">Rejected</option>
-                </select>
+            <div className="bg-white rounded-lg border border-gray-200 p-4 mb-6 space-y-4">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex-1 relative">
+                   <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                   <Input
+                     placeholder="Search by title or contributor..."
+                     className="pl-10"
+                     value={searchTerm}
+                     onChange={(e) => setSearchTerm(e.target.value)}
+                   />
+                 </div>
+                 <div className="flex gap-2">
+                   <select
+                    value={filterStatus}
+                    onChange={(e) => setFilterStatus(e.target.value)}
+                    className="px-4 py-2 rounded-lg border border-gray-200 text-sm text-gray-700"
+                  >
+                    <option value="all">All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="review">Needs Review</option>
+                    <option value="rejected">Rejected</option>
+                  </select>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="showBlocked"
+                  checked={showBlockedSubmissions}
+                  onChange={(e) => setShowBlockedSubmissions(e.target.checked)}
+                  className="rounded border-gray-300"
+                />
+                <label htmlFor="showBlocked" className="text-sm text-gray-700 font-medium">
+                  Show blocked submissions (flagged/rejected)
+                </label>
               </div>
             </div>
-          </div>
 
           {/* Submissions Table */}
           <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
