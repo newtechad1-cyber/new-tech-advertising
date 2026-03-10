@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import TopBar from './TopBar';
 import { Home, BookOpen, Video, Newspaper, Calendar, Star, Upload, Info } from 'lucide-react';
@@ -42,27 +43,40 @@ export default function PublicShell({ children, currentPath, schoolSlug: propSch
       <TopBar schoolName={branding?.school_name || schoolSlug} />
 
       <nav className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-6 flex items-center overflow-x-auto">
-          {PUBLIC_NAV.map((item) => {
-            const Icon = item.icon;
-            const isActive = currentPath.includes(item.path);
-            return (
-              <Link
-                key={item.path}
-                to={`/schools/${schoolSlug}/${item.path}`}
-                className={`px-6 py-4 flex items-center gap-2 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
-                  isActive
-                    ? 'text-blue-600 border-blue-600'
-                    : 'text-gray-700 border-transparent hover:text-gray-900'
-                }`}
-              >
-                <Icon className="h-4 w-4" />
-                {item.label}
-              </Link>
-            );
-          })}
-        </div>
-      </nav>
+         <div className="max-w-7xl mx-auto px-6 flex items-center overflow-x-auto">
+           {PUBLIC_NAV.map((item) => {
+             const Icon = item.icon;
+             const isActive = currentPath.includes(item.path);
+
+             const navLink = (() => {
+               const baseUrl = createPageUrl(item.path === 'home' ? 'SchoolHome' : 
+                                             item.path === 'yearbook' ? 'SchoolYearbook' :
+                                             item.path === 'tv' ? 'SchoolTV' :
+                                             item.path === 'stories' ? 'SchoolStories' :
+                                             item.path === 'events' ? 'SchoolEvents' :
+                                             item.path === 'spotlights' ? 'SchoolSpotlights' :
+                                             item.path === 'submit' ? 'SchoolSubmit' :
+                                             item.path === 'submit-guide' ? 'SchoolSubmitGuide' : 'SchoolHome');
+               return `${baseUrl}?school=${schoolSlug}`;
+             })();
+
+             return (
+               <a
+                 key={item.path}
+                 href={navLink}
+                 className={`px-6 py-4 flex items-center gap-2 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
+                   isActive
+                     ? 'text-blue-600 border-blue-600'
+                     : 'text-gray-700 border-transparent hover:text-gray-900'
+                 }`}
+               >
+                 <Icon className="h-4 w-4" />
+                 {item.label}
+               </a>
+             );
+           })}
+         </div>
+       </nav>
 
       <div className="flex-1">{children}</div>
 
