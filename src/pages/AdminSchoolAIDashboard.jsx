@@ -17,7 +17,8 @@ import {
 } from 'lucide-react';
 
 export default function AdminSchoolAIDashboard() {
-  const { schoolSlug, currentPath } = useSchoolRoute();
+  const { schoolSlug: paramSlug } = useParams();
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
   const [activeTab, setActiveTab] = useState('jobs');
 
   const mockJobs = [

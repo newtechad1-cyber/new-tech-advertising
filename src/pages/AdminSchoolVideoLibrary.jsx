@@ -13,7 +13,8 @@ import {
 } from 'lucide-react';
 
 export default function AdminSchoolVideoLibrary() {
-  const { schoolSlug, currentPath } = useSchoolRoute();
+  const { schoolSlug: paramSlug } = useParams();
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
   const [viewMode, setViewMode] = useState('grid');
 
   const videos = [

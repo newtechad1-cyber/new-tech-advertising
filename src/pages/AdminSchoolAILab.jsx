@@ -13,7 +13,8 @@ import {
 } from 'lucide-react';
 
 export default function AdminSchoolAILab() {
-  const { schoolSlug, currentPath } = useSchoolRoute();
+  const { schoolSlug: paramSlug } = useParams();
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
   const [activeTab, setActiveTab] = useState('templates');
 
   const templates = [

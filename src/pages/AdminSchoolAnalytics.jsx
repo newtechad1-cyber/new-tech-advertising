@@ -11,7 +11,8 @@ import {
 } from 'lucide-react';
 
 export default function AdminSchoolAnalytics() {
-  const { schoolSlug, currentPath } = useSchoolRoute();
+  const { schoolSlug: paramSlug } = useParams();
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
 
   const stats = [
     { icon: Upload, label: 'Total Submissions', value: '247', change: '+12%' },
