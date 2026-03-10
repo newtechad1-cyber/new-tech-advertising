@@ -39,41 +39,27 @@ export default function SchoolStudentLogin() {
         throw new Error('Email and access code are required');
       }
 
-      // Verify student exists and is active
-      const students = await base44.entities.StudentUsers.filter({
+      // Call backend validator - this enforces all security checks server-side
+      const response = await base44.functions.invoke('studentLoginValidator', {
         school_slug: schoolSlug,
         email: email.toLowerCase().trim(),
         access_code: accessCode.trim(),
-        is_active: true,
       });
 
-      if (!students || students.length === 0) {
-        throw new Error('Invalid email or access code');
+      if (!response.data?.success) {
+        throw new Error(response.data?.error || 'Login failed');
       }
 
-      const student = students[0];
+      const session = response.data.session;
 
-      // Check if suspended
-      if (student.suspended_until && new Date(student.suspended_until) > new Date()) {
-        throw new Error('Your account is temporarily suspended. Contact your administrator.');
-      }
-
-      // Check if can upload
-      if (!student.can_upload) {
-        throw new Error('Your upload access has been restricted. Contact your administrator.');
-      }
-
-      // Update last login
-      await base44.entities.StudentUsers.update(student.id, {
-        last_login_at: new Date().toISOString(),
-      });
-
-      // Store student session
+      // Store session token (localStorage is now just a convenience layer)
+      // The backend validates this on every API call
       localStorage.setItem('studentSession', JSON.stringify({
-        student_user_id: student.id,
-        student_name: student.full_name,
-        email: student.email,
+        student_user_id: session.student_user_id,
+        student_name: session.student_name,
+        email: session.email,
         school_slug: schoolSlug,
+        session_token: session.session_token,
         login_at: new Date().toISOString(),
       }));
 

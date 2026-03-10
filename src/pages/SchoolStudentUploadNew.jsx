@@ -104,22 +104,22 @@ export default function SchoolStudentUploadNew() {
 
       if (!uploadRes?.file_url) throw new Error('File upload failed');
 
-      // Create upload record with student identity
-      const upload = await base44.entities.StudentUploads.create({
+      // Call backend function - identity is ENFORCED server-side, not trusted from browser
+      const uploadResponse = await base44.functions.invoke('createStudentUploadSecure', {
         student_user_id: session.student_user_id,
-        student_name: student.full_name,
         school_slug: schoolSlug,
         title: formData.title.trim(),
         description: formData.description.trim(),
         category: formData.category,
-        file_urls: JSON.stringify([uploadRes.file_url]),
+        file_url: uploadRes.file_url,
+        file_size_mb: selectedFile.size / (1024 * 1024),
         upload_type: selectedFile.type.includes('video') ? 'video' : 
                      selectedFile.type.includes('audio') ? 'audio' : 'photo',
-        file_size_total_mb: selectedFile.size / (1024 * 1024),
-        status: 'submitted',
-        moderation_status: 'pending',
-        consent_confirmed: true,
       });
+
+      if (!uploadResponse.data?.success) {
+        throw new Error(uploadResponse.data?.error || 'Upload failed');
+      }
 
       setSuccess(true);
       setTimeout(() => {
