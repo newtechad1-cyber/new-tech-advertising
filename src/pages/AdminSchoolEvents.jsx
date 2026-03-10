@@ -79,6 +79,7 @@ export default function AdminSchoolEvents() {
   if (loading) return <AdminLayout currentPageName="AdminSchoolEvents"><div className="text-center py-12">Loading...</div></AdminLayout>;
 
   const content = (
+    <div>
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div>

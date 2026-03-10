@@ -55,6 +55,7 @@ export default function AdminSchoolProjects() {
   const newProjectUrl = `${createPageUrl('AdminCreateProject')}?school=${schoolSlug}`;
 
   const content = (
+    <div>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div>
           <h1 className="text-3xl font-bold">Video Projects</h1>

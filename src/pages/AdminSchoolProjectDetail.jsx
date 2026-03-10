@@ -286,4 +286,4 @@ export default function AdminSchoolProjectDetail() {
   );
 
   return <AdminLayout currentPageName="AdminSchoolProjectDetail">{content}</AdminLayout>;
-      }
+}
