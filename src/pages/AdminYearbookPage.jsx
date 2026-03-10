@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import AdminShell from '@/components/school-tv/AdminShell';
 import { ArrowLeft, Save, Plus, Trash2, Eye, Zap } from 'lucide-react';
 
 export default function AdminYearbookPage() {
-  const { schoolSlug, pageId } = useParams();
+  const { schoolSlug: paramSlug, pageId: paramPageId } = useParams();
+  const searchParams = new URLSearchParams(window.location.search);
+  const schoolSlug = paramSlug || searchParams.get('schoolSlug') || 'hampton-dumont';
+  const pageId = paramPageId || searchParams.get('id') || 'new';
   const [page, setPage] = useState(null);
   const [season, setSeason] = useState(null);
   const [items, setItems] = useState([]);
@@ -77,8 +81,8 @@ export default function AdminYearbookPage() {
       const pageToSave = {
         ...page,
         slug: page.slug || page.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
-        public_url: page.public_url || `/schools/${schoolSlug}/yearbook/page/${page.slug || page.title.toLowerCase().replace(/\s+/g, '-')}`,
-        canonical_route: page.canonical_route || `/schools/${schoolSlug}/yearbook`,
+        public_url: page.public_url || `${createPageUrl('SchoolYearbookPage')}?slug=${page.slug || page.title.toLowerCase().replace(/\s+/g, '-')}&schoolSlug=${schoolSlug}`,
+        canonical_route: page.canonical_route || createPageUrl('SchoolYearbook'),
         // Preserve all publishing settings on save
         status: page.status || 'draft',
         publish_status: page.publish_status || 'unpublished',
@@ -87,7 +91,7 @@ export default function AdminYearbookPage() {
       
       if (pageId === 'new') {
         const newPage = await base44.entities.YearbookPages.create(pageToSave);
-        window.location.href = `/admin/schools/${schoolSlug}/yearbook/pages/${newPage.id}`;
+        window.location.href = `${createPageUrl('AdminYearbookPage')}?id=${newPage.id}&schoolSlug=${schoolSlug}`;
       } else {
         await base44.entities.YearbookPages.update(pageId, pageToSave);
         setPage(pageToSave);
@@ -170,7 +174,7 @@ export default function AdminYearbookPage() {
   return (
     <AdminShell schoolSlug={schoolSlug}>
       {/* Header */}
-      <Link to={`/admin/schools/${schoolSlug}/yearbook`} className="text-blue-600 hover:text-blue-800 mb-6 flex items-center gap-2 font-semibold">
+      <Link to={`${createPageUrl('AdminYearbookOverview')}?schoolSlug=${schoolSlug}`} className="text-blue-600 hover:text-blue-800 mb-6 flex items-center gap-2 font-semibold">
         <ArrowLeft className="h-4 w-4" /> Back to Yearbook
       </Link>
 
