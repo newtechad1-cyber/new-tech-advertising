@@ -5,7 +5,9 @@ import PublicShell from '@/components/school-tv/PublicShell';
 import { Play } from 'lucide-react';
 
 export default function SchoolTV() {
-  const { schoolSlug } = useParams();
+  const { schoolSlug: paramSlug } = useParams();
+  const searchParams = new URLSearchParams(window.location.search);
+  const schoolSlug = paramSlug || searchParams.get('schoolSlug') || 'hampton-dumont';
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -26,10 +28,10 @@ export default function SchoolTV() {
     loadData();
   }, [schoolSlug]);
 
-  if (loading) return <PublicShell currentPath="tv"><div className="text-center py-12">Loading...</div></PublicShell>;
+  if (loading) return <PublicShell currentPath="tv" schoolSlug={schoolSlug}><div className="text-center py-12">Loading...</div></PublicShell>;
 
   return (
-    <PublicShell currentPath="tv">
+    <PublicShell currentPath="tv" schoolSlug={schoolSlug}>
       {/* Header */}
       <div className="bg-slate-900 text-white py-12">
         <div className="max-w-6xl mx-auto px-6">

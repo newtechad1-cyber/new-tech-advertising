@@ -5,7 +5,9 @@ import PublicShell from '@/components/school-tv/PublicShell';
 import { BookOpen, ArrowRight } from 'lucide-react';
 
 export default function SchoolYearbook() {
-  const { schoolSlug } = useParams();
+  const { schoolSlug: paramSlug } = useParams();
+  const searchParams = new URLSearchParams(window.location.search);
+  const schoolSlug = paramSlug || searchParams.get('schoolSlug') || 'hampton-dumont';
   const [seasons, setSeasons] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -26,10 +28,10 @@ export default function SchoolYearbook() {
     loadData();
   }, [schoolSlug]);
 
-  if (loading) return <PublicShell currentPath="yearbook"><div className="text-center py-12">Loading...</div></PublicShell>;
+  if (loading) return <PublicShell currentPath="yearbook" schoolSlug={schoolSlug}><div className="text-center py-12">Loading...</div></PublicShell>;
 
   return (
-    <PublicShell currentPath="yearbook">
+    <PublicShell currentPath="yearbook" schoolSlug={schoolSlug}>
       {/* Header */}
       <div className="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white py-20 md:py-28 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #8b5cf6 0%, transparent 50%), radial-gradient(circle at 80% 80%, #3b82f6 0%, transparent 50%)' }} />

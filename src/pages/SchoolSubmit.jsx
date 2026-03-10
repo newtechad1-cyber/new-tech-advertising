@@ -13,7 +13,9 @@ const CONTRIBUTOR_ROLES = [
 ];
 
 export default function SchoolSubmit() {
-  const { schoolSlug } = useParams();
+  const { schoolSlug: paramSlug } = useParams();
+  const searchParams = new URLSearchParams(window.location.search);
+  const schoolSlug = paramSlug || searchParams.get('schoolSlug') || 'hampton-dumont';
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -117,7 +119,7 @@ export default function SchoolSubmit() {
 
   if (submitted) {
     return (
-      <PublicShell currentPath="submit">
+      <PublicShell currentPath="submit" schoolSlug={schoolSlug}>
         <div className="max-w-2xl mx-auto px-6 py-16 text-center">
           <div className="bg-green-50 rounded-lg p-12 border-2 border-green-200">
             <Check className="h-16 w-16 text-green-600 mx-auto mb-6" />
@@ -131,7 +133,7 @@ export default function SchoolSubmit() {
   }
 
   return (
-    <PublicShell currentPath="submit">
+    <PublicShell currentPath="submit" schoolSlug={schoolSlug}>
       <div className="bg-blue-50 py-12">
         <div className="max-w-4xl mx-auto px-6">
           <h1 className="text-4xl font-bold mb-4">Share Your Story</h1>

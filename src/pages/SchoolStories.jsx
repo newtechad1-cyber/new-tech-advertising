@@ -38,10 +38,10 @@ export default function SchoolStories() {
     return matchCategory && matchSearch;
   });
 
-  if (loading) return <PublicShell currentPath="stories"><div className="text-center py-12">Loading...</div></PublicShell>;
+  if (loading) return <PublicShell currentPath="stories" schoolSlug={schoolSlug}><div className="text-center py-12">Loading...</div></PublicShell>;
 
   return (
-    <PublicShell currentPath="stories">
+    <PublicShell currentPath="stories" schoolSlug={schoolSlug}>
       {/* Header */}
       <div className="bg-slate-900 text-white py-12">
         <div className="max-w-6xl mx-auto px-6">
