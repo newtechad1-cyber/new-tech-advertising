@@ -20,7 +20,7 @@ const STATUS_COLORS = {
 
 export default function AdminSchoolProjects() {
   const { schoolSlug: paramSlug } = useParams();
-  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('school') || 'hampton-dumont';
   const [projects, setProjects] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState('all');
@@ -52,7 +52,7 @@ export default function AdminSchoolProjects() {
 
   if (loading) return <AdminShell schoolSlug={schoolSlug}><div className="text-center py-12">Loading...</div></AdminShell>;
 
-  const newProjectUrl = `${createPageUrl('AdminCreateProject')}?schoolSlug=${schoolSlug}`;
+  const newProjectUrl = `${createPageUrl('AdminCreateProject')}?school=${schoolSlug}`;
 
   return (
     <AdminShell schoolSlug={schoolSlug}>
@@ -61,9 +61,9 @@ export default function AdminSchoolProjects() {
           <h1 className="text-3xl font-bold">Video Projects</h1>
           <p className="text-gray-600">Create and manage school video projects</p>
         </div>
-        <Link to={newProjectUrl} className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center justify-center gap-2">
-          <Plus className="h-5 w-5" /> New Project
-        </Link>
+        <a href={newProjectUrl} className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center justify-center gap-2">
+           <Plus className="h-5 w-5" /> New Project
+         </a>
       </div>
 
       <div className="bg-white rounded-lg shadow-md p-6 mb-6 space-y-4">
@@ -144,12 +144,12 @@ export default function AdminSchoolProjects() {
                   </span>
                 </div>
                 {project.description && <p className="text-gray-600 text-sm mb-4 line-clamp-2">{project.description}</p>}
-                <Link
-                  to={`${createPageUrl('AdminSchoolProjectDetail')}?id=${project.id}&schoolSlug=${schoolSlug}`}
-                  className="flex w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold text-sm items-center justify-center gap-2"
-                >
-                  Open <ArrowRight className="h-4 w-4" />
-                </Link>
+                <a
+                   href={`${createPageUrl('AdminSchoolProjectDetail')}?id=${project.id}&school=${schoolSlug}`}
+                   className="flex w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold text-sm items-center justify-center gap-2"
+                 >
+                   Open <ArrowRight className="h-4 w-4" />
+                 </a>
               </div>
             </div>
           ))}
@@ -161,9 +161,9 @@ export default function AdminSchoolProjects() {
           </div>
           <p className="text-gray-900 text-lg font-semibold">No projects yet</p>
           <p className="text-gray-600 text-sm mt-2">Create your first video project to get started</p>
-          <Link to={newProjectUrl} className="mt-6 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold">
+          <a href={newProjectUrl} className="mt-6 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold">
             Create Project
-          </Link>
+          </a>
         </div>
       )}
     </AdminShell>
