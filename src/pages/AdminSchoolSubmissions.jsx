@@ -55,12 +55,16 @@ export default function AdminSchoolSubmissions() {
     rejected: 'bg-red-100 text-red-800',
   };
 
+  const isModerationBlocked = (s) => 
+    s.moderation_status === 'flagged' || s.moderation_status === 'requires_review' || s.status === 'rejected';
+
   const filteredSubmissions = submissions.filter(s => {
     const statusMatch = filterStatus === 'all' || s.status === filterStatus;
     const searchMatch = !searchTerm || 
       s.submission_title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       s.contributor_name?.toLowerCase().includes(searchTerm.toLowerCase());
-    return statusMatch && searchMatch;
+    const blockMatch = showBlockedSubmissions || !isModerationBlocked(s);
+    return statusMatch && searchMatch && blockMatch;
   });
 
   const handleApprove = async (id) => {
