@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
-import AdminShell from '@/components/school-tv/AdminShell';
+import AdminLayout from '@/components/admin/AdminLayout';
 import { AlertCircle, CheckCircle2, Clock, Video, BookOpen, Zap, BarChart3, AlertTriangle } from 'lucide-react';
 
 export default function AdminSchoolDashboard() {
@@ -93,8 +93,8 @@ export default function AdminSchoolDashboard() {
     </Link>
   );
 
-  return (
-    <AdminShell schoolSlug={schoolSlug}>
+  const content = (
+    <div>
       <div className="bg-gradient-to-br from-blue-700 via-blue-600 to-purple-700 text-white py-12 md:py-16 mb-8 md:mb-10 rounded-3xl relative overflow-hidden shadow-xl">
         <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #ffffff 0%, transparent 50%), radial-gradient(circle at 80% 80%, #ffffff 0%, transparent 50%)' }} />
         <div className="absolute top-0 right-0 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl" />
@@ -237,6 +237,8 @@ export default function AdminSchoolDashboard() {
           View Upload Guide
         </a>
       </div>
-    </AdminShell>
+    </div>
   );
+
+  return <AdminLayout currentPageName="AdminSchoolDashboard">{content}</AdminLayout>;
 }

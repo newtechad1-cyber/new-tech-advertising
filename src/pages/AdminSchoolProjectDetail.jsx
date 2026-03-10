@@ -135,13 +135,12 @@ export default function AdminSchoolProjectDetail() {
     }
   };
 
-  if (!project) return <div className="min-h-screen bg-slate-50 flex items-center justify-center"><Loader2 className="w-6 h-6 animate-spin text-slate-400" /></div>;
+  if (!project) return <AdminLayout currentPageName="AdminSchoolProjectDetail"><div className="flex items-center justify-center h-64"><Loader2 className="w-6 h-6 animate-spin text-slate-400" /></div></AdminLayout>;
 
   const script = scripts[0];
   const latestRender = renders[0];
 
-  return (
-    <AdminShell schoolSlug={schoolSlug}>
+  const content = (
       <div className="max-w-6xl mx-auto px-4 py-6">
         <div className="flex items-center gap-3 mb-6">
           <a href={`${createPageUrl('AdminSchoolProjects')}?school=${schoolSlug}`}><Button variant="ghost" size="sm"><ArrowLeft className="w-4 h-4" /></Button></a>
@@ -281,6 +280,8 @@ export default function AdminSchoolProjectDetail() {
 
 
       </div>
-      </AdminShell>
+      </div>
       );
+
+      return <AdminLayout currentPageName="AdminSchoolProjectDetail">{content}</AdminLayout>;
       }

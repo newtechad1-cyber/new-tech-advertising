@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
-import AdminShell from '@/components/school-tv/AdminShell';
+import AdminLayout from '@/components/admin/AdminLayout';
 import { Plus, Search, ArrowRight } from 'lucide-react';
 
 const STATUS_COLORS = {
@@ -54,8 +54,7 @@ export default function AdminSchoolProjects() {
 
   const newProjectUrl = `${createPageUrl('AdminCreateProject')}?school=${schoolSlug}`;
 
-  return (
-    <AdminShell schoolSlug={schoolSlug}>
+  const content = (
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div>
           <h1 className="text-3xl font-bold">Video Projects</h1>
@@ -166,6 +165,8 @@ export default function AdminSchoolProjects() {
           </a>
         </div>
       )}
-    </AdminShell>
+    </div>
   );
+
+  return <AdminLayout currentPageName="AdminSchoolProjects">{content}</AdminLayout>;
 }

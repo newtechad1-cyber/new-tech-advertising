@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
-import AdminShell from '@/components/school-tv/AdminShell';
+import AdminLayout from '@/components/admin/AdminLayout';
 import { useSchoolPermissions } from '@/components/school-tv/useSchoolPermissions';
 import PermissionGuard from '@/components/school-tv/PermissionGuard';
 import { Button } from '@/components/ui/button';
@@ -73,9 +73,8 @@ export default function AdminSchoolStoryLibrary() {
     );
   }
 
-  return (
-    <AdminShell schoolSlug={schoolSlug}>
-      <div className="flex-1 overflow-auto">
+  const content = (
+    <div>
         {/* Header */}
         <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
           <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6 flex justify-between items-center">
@@ -195,7 +194,8 @@ export default function AdminSchoolStoryLibrary() {
             </div>
           )}
         </div>
-      </div>
-    </AdminShell>
+    </div>
   );
+
+  return <AdminLayout currentPageName="AdminSchoolStoryLibrary">{content}</AdminLayout>;
 }

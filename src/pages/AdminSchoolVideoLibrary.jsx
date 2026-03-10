@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
-import AdminShell from '@/components/school-tv/AdminShell';
+import AdminLayout from '@/components/admin/AdminLayout';
 import { Button } from '@/components/ui/button';
 import {
   Search, Grid, List, Film, ExternalLink, AlertCircle,
@@ -166,17 +166,16 @@ export default function AdminSchoolVideoLibrary() {
 
   if (loading) {
     return (
-      <AdminShell schoolSlug={schoolSlug}>
+      <AdminLayout currentPageName="AdminSchoolVideoLibrary">
         <div className="flex items-center justify-center h-64">
           <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
         </div>
-      </AdminShell>
+      </AdminLayout>
     );
   }
 
-  return (
-    <AdminShell schoolSlug={schoolSlug}>
-      <div className="flex-1 overflow-auto">
+  const content = (
+    <div className="flex-1 overflow-auto">
         {/* Header */}
         <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
           <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6">
@@ -446,6 +445,8 @@ export default function AdminSchoolVideoLibrary() {
           )}
         </div>
       </div>
-    </AdminShell>
+    </div>
   );
+
+  return <AdminLayout currentPageName="AdminSchoolVideoLibrary">{content}</AdminLayout>;
 }
