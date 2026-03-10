@@ -24,9 +24,9 @@ export default function AdminSchoolDashboard() {
           rendersData,
         ] = await Promise.all([
           base44.entities.StudentVideoSubmissions.filter({ school_slug: schoolSlug }),
-          base44.entities.VideoProjects.filter({ school_slug: schoolSlug }),
+          base44.entities.SchoolVideoProjects.filter({ school_slug: schoolSlug }),
           base44.entities.Stories.filter({ school_slug: schoolSlug }),
-          base44.entities.VideoProjects.filter({ school_slug: schoolSlug, status: 'published' }),
+          base44.entities.SchoolVideoProjects.filter({ school_slug: schoolSlug, status: 'published' }),
           base44.entities.YearbookPages.filter({ school_slug: schoolSlug }),
           base44.entities.SchoolEvents.filter({ school_slug: schoolSlug }),
           base44.entities.AIContentJobs.filter({ school_slug: schoolSlug }),
