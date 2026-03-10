@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useParams } from 'react-router-dom';
 import AdminShell from '@/components/school-tv/AdminShell';
+import { useSchoolPermissions } from '@/components/school-tv/useSchoolPermissions';
+import PermissionGuard from '@/components/school-tv/PermissionGuard';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -19,6 +21,7 @@ import {
 export default function AdminSchoolSubmissions() {
   const { schoolSlug: paramSlug } = useParams();
   const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
+  const { can } = useSchoolPermissions(schoolSlug);
   const [selectedSubmission, setSelectedSubmission] = useState(null);
   const [filterStatus, setFilterStatus] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
@@ -60,6 +63,7 @@ export default function AdminSchoolSubmissions() {
   });
 
   const handleApprove = async (id) => {
+    if (!can('approve_submissions')) { alert('You do not have permission to approve submissions.'); return; }
     try {
       await base44.entities.SchoolSubmissions.update(id, { status: 'approved' });
       setSubmissions(submissions.map(s => s.id === id ? { ...s, status: 'approved' } : s));
@@ -71,6 +75,7 @@ export default function AdminSchoolSubmissions() {
   };
 
   const handleReject = async (id) => {
+    if (!can('reject_submissions')) { alert('You do not have permission to reject submissions.'); return; }
     try {
       await base44.entities.SchoolSubmissions.update(id, { status: 'rejected' });
       setSubmissions(submissions.map(s => s.id === id ? { ...s, status: 'rejected' } : s));
@@ -93,6 +98,7 @@ export default function AdminSchoolSubmissions() {
   };
 
   const handleSaveToStory = async (submission) => {
+    if (!can('edit_stories')) { alert('You do not have permission to create stories.'); return; }
     try {
       // Create a story from the submission
       const story = await base44.entities.Stories.create({

@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AdminShell from '@/components/school-tv/AdminShell';
+import { useSchoolPermissions } from '@/components/school-tv/useSchoolPermissions';
+import PermissionGuard from '@/components/school-tv/PermissionGuard';
 import { Save, Upload, Eye, ArrowLeft } from 'lucide-react';
 
 export default function AdminSchoolBranding() {
   const { schoolSlug: paramSlug } = useParams();
   const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
+  const { can } = useSchoolPermissions(schoolSlug);
   const [branding, setBranding] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -31,6 +34,7 @@ export default function AdminSchoolBranding() {
   }, [schoolSlug]);
 
   const handleSave = async () => {
+    if (!can('edit_branding')) { alert('You do not have permission to edit branding.'); return; }
     if (!branding) return;
     setSaving(true);
     try {
@@ -45,6 +49,14 @@ export default function AdminSchoolBranding() {
   };
 
   if (loading) return <AdminShell schoolSlug={schoolSlug}><div className="text-center py-12">Loading...</div></AdminShell>;
+
+  if (!can('edit_branding')) {
+    return (
+      <AdminShell schoolSlug={schoolSlug}>
+        <PermissionGuard can={can} permission="edit_branding" block>{null}</PermissionGuard>
+      </AdminShell>
+    );
+  }
 
   return (
     <AdminShell schoolSlug={schoolSlug}>

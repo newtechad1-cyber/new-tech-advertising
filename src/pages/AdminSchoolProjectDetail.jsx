@@ -3,6 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { useParams, Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import AdminShell from '@/components/school-tv/AdminShell';
+import { useSchoolPermissions } from '@/components/school-tv/useSchoolPermissions';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Wand2, Play, Film, Globe, CheckCircle, Loader2, RefreshCw } from 'lucide-react';
 
@@ -13,7 +14,8 @@ export default function AdminSchoolProjectDetail() {
   const searchParams = new URLSearchParams(window.location.search);
   const schoolSlug = paramSlug || searchParams.get('schoolSlug') || 'hampton-dumont';
   const projectId = paramProjectId || searchParams.get('id');
-  
+  const { can } = useSchoolPermissions(schoolSlug);
+
   if (!schoolSlug || !projectId) {
     return <div className="text-center py-12">Invalid project</div>;
   }
@@ -44,6 +46,7 @@ export default function AdminSchoolProjectDetail() {
   useEffect(() => { loadAll(); }, [projectId]);
 
   const generateScript = async () => {
+    if (!can('trigger_ai_jobs')) { alert('You do not have permission to trigger AI jobs.'); return; }
     setGenerating(true);
     setTab('Script');
     try {
@@ -57,6 +60,7 @@ export default function AdminSchoolProjectDetail() {
   };
 
   const queueRender = async () => {
+    if (!can('queue_render')) { alert('You do not have permission to queue renders.'); return; }
     if (!scripts.length) {
       alert('Please generate a script first before rendering');
       return;
@@ -89,6 +93,7 @@ export default function AdminSchoolProjectDetail() {
   };
 
   const publishToGallery = async () => {
+    if (!can('publish_video')) { alert('You do not have permission to publish videos.'); return; }
     if (!renders[0]?.output_url) {
       alert('Please complete rendering before publishing');
       return;
