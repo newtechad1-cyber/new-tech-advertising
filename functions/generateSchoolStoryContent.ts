@@ -189,6 +189,18 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'AI tools are disabled for this school' }, { status: 403 });
     }
 
+    // Load active school prompt templates (prefer school-specific over defaults)
+    const schoolTemplates = school_slug
+      ? await base44.asServiceRole.entities.AIPromptTemplates.filter({ school_slug, is_active: true })
+      : [];
+
+    // Helper: get school template by type, or fall back to built-in PROMPTS key
+    function getPrompt(templateType, fallbackKey) {
+      const t = schoolTemplates.find(t => t.template_type === templateType);
+      if (t) return { system: t.system_prompt, user: t.user_prompt_template };
+      return { system: null, user: PROMPTS[fallbackKey] };
+    }
+
     const data = {
       school_name: school_name || '',
       activity_type: activity_type || '',
@@ -203,31 +215,33 @@ Deno.serve(async (req) => {
       word_count_max: String(settings.ai_story_word_count_max),
     };
 
+    const storyTpl      = getPrompt('story_generator',             'story');
+    const captionTpl    = getPrompt('caption_generator',           'captions');
+    const scriptTpl     = getPrompt('video_script_generator',      'videoScript');
+    const headlineTpl   = getPrompt('headline_generator',          'headlines');
+    const questionsTpl  = getPrompt('interview_question_generator','questions');
+
     // Generate all content types in parallel
     const results = await Promise.all([
-      // Story
       base44.integrations.Core.InvokeLLM({
-        prompt: interpolatePrompt(PROMPTS.story, data),
+        prompt: interpolatePrompt(storyTpl.user, data),
+        ...(storyTpl.system ? { system_prompt: storyTpl.system } : {}),
       }),
-
-      // Captions
       base44.integrations.Core.InvokeLLM({
-        prompt: interpolatePrompt(PROMPTS.captions, data),
+        prompt: interpolatePrompt(captionTpl.user, data),
+        ...(captionTpl.system ? { system_prompt: captionTpl.system } : {}),
       }),
-
-      // Video Script
       base44.integrations.Core.InvokeLLM({
-        prompt: interpolatePrompt(PROMPTS.videoScript, data),
+        prompt: interpolatePrompt(scriptTpl.user, data),
+        ...(scriptTpl.system ? { system_prompt: scriptTpl.system } : {}),
       }),
-
-      // Headlines
       base44.integrations.Core.InvokeLLM({
-        prompt: interpolatePrompt(PROMPTS.headlines, data),
+        prompt: interpolatePrompt(headlineTpl.user, data),
+        ...(headlineTpl.system ? { system_prompt: headlineTpl.system } : {}),
       }),
-
-      // Interview Questions
       base44.integrations.Core.InvokeLLM({
-        prompt: interpolatePrompt(PROMPTS.questions, data),
+        prompt: interpolatePrompt(questionsTpl.user, data),
+        ...(questionsTpl.system ? { system_prompt: questionsTpl.system } : {}),
       }),
     ]);
 
