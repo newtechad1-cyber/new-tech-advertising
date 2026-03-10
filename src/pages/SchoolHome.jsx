@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import PublicShell from '@/components/school-tv/PublicShell';
 import { ArrowRight, Play, Calendar, Star } from 'lucide-react';
@@ -58,12 +59,12 @@ export default function SchoolHome() {
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-4 leading-tight tracking-tight">{branding?.network_name || 'School Story Lab'}</h1>
           <p className="text-xl md:text-3xl text-slate-100 mb-6 md:mb-8 max-w-3xl leading-relaxed font-semibold">{branding?.intro_text || 'Celebrating every achievement, moment, and memory that makes our school community special'}</p>
           <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
-            <Link to={`/schools/${schoolSlug}/tv`} className={`bg-gradient-to-r ${schoolSlug === 'hampton-dumont' ? 'from-red-600 to-red-700 hover:from-red-700 hover:to-red-800' : 'from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800'} text-white px-8 md:px-10 py-4 md:py-5 rounded-xl font-bold flex items-center justify-center gap-3 transition-all hover:shadow-2xl text-base md:text-lg shadow-lg`}>
+            <a href={`${createPageUrl('SchoolTV')}?school=${schoolSlug}`} className={`bg-gradient-to-r ${schoolSlug === 'hampton-dumont' ? 'from-red-600 to-red-700 hover:from-red-700 hover:to-red-800' : 'from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800'} text-white px-8 md:px-10 py-4 md:py-5 rounded-xl font-bold flex items-center justify-center gap-3 transition-all hover:shadow-2xl text-base md:text-lg shadow-lg`}>
               <Play className="h-6 md:h-7 w-6 md:w-7" /> Watch Videos
-            </Link>
-            <Link to={`/schools/${schoolSlug}/stories`} className="bg-white/15 hover:bg-white/25 backdrop-blur text-white px-8 md:px-10 py-4 md:py-5 rounded-xl font-bold flex items-center justify-center gap-3 transition-all border border-white/30 hover:border-white/50 text-base md:text-lg">
+            </a>
+            <a href={`${createPageUrl('SchoolStories')}?school=${schoolSlug}`} className="bg-white/15 hover:bg-white/25 backdrop-blur text-white px-8 md:px-10 py-4 md:py-5 rounded-xl font-bold flex items-center justify-center gap-3 transition-all border border-white/30 hover:border-white/50 text-base md:text-lg">
               Read Stories <ArrowRight className="h-6 md:h-7 w-6 md:w-7" />
-            </Link>
+            </a>
           </div>
         </div>
       </div>
@@ -79,7 +80,7 @@ export default function SchoolHome() {
             </div>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
               {featuredStories.map((story) => (
-                <Link key={story.id} to={`/schools/${schoolSlug}/stories/${story.slug}`} className="group bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-3 border border-gray-100">
+                <a key={story.id} href={`${createPageUrl('SchoolStoryDetail')}?school=${schoolSlug}&id=${story.id}`} className="group bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-3 border border-gray-100">
                   <div className="relative h-64 bg-gradient-to-br from-slate-200 to-slate-300 overflow-hidden">
                     {story.featured_image_url && <img src={story.featured_image_url} alt={story.title} className="w-full h-full object-cover group-hover:scale-125 transition-transform duration-700" />}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -88,13 +89,13 @@ export default function SchoolHome() {
                     <h3 className={`font-black text-xl mb-3 line-clamp-2 group-hover:${schoolSlug === 'hampton-dumont' ? 'text-red-600' : 'text-blue-600'} transition-colors leading-tight`}>{story.title}</h3>
                     <p className="text-gray-600 text-sm line-clamp-2 mb-6 leading-relaxed">{story.excerpt || story.body?.substring(0, 100)}</p>
                     <div className={`flex items-center gap-2 ${schoolSlug === 'hampton-dumont' ? 'text-red-600' : 'text-blue-600'} font-bold text-sm group-hover:gap-3 transition-all`}>Read Story <ArrowRight className="h-5 w-5" /></div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+                    </div>
+                    </a>
+                    ))}
+                    </div>
+                    </div>
+                    </section>
+                    )}
 
       {/* Featured Videos */}
       {featuredVideos.length > 0 && (
@@ -107,7 +108,7 @@ export default function SchoolHome() {
             </div>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
               {featuredVideos.map((video) => (
-                <Link key={video.id} to={`/schools/${schoolSlug}/tv/watch/${video.slug}`} className="group bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-3 border border-gray-100">
+                <a key={video.id} href={`${createPageUrl('SchoolVideoDetail')}?school=${schoolSlug}&id=${video.id}`} className="group bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-3 border border-gray-100">
                   {video.cover_image_url ? (
                     <div className="relative h-56 bg-gradient-to-br from-slate-900 to-slate-800 overflow-hidden">
                       <img src={video.cover_image_url} alt={video.title} className="w-full h-full object-cover opacity-85 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" />
@@ -126,14 +127,14 @@ export default function SchoolHome() {
                     <h3 className={`font-bold text-lg mb-2 line-clamp-2 group-hover:${schoolSlug === 'hampton-dumont' ? 'text-red-600' : 'text-blue-600'} transition-colors`}>{video.title}</h3>
                     <p className="text-gray-600 text-sm capitalize">{video.project_type?.replace(/_/g, ' ') || 'Video'}</p>
                   </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+                  </a>
+                  ))}
+                  </div>
+                  </div>
+                  </section>
+                  )}
 
-      {/* Spotlights */}
+                  {/* Spotlights */}
       {spotlights.length > 0 && (
         <section className="py-16 md:py-28 bg-gray-50">
           <div className="max-w-6xl mx-auto px-4 md:px-6">
@@ -146,7 +147,7 @@ export default function SchoolHome() {
             <p className="text-gray-600 text-lg md:text-xl max-w-2xl mb-12">Celebrating the students, staff, and community members who make H-D special</p>
             <div className="grid sm:grid-cols-2 gap-6 md:gap-8">
               {spotlights.map((spotlight) => (
-                <Link key={spotlight.id} to={`/schools/${schoolSlug}/spotlights/${spotlight.slug}`} className="group bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-3 border border-gray-100">
+                <a key={spotlight.id} href={`${createPageUrl('SchoolSpotlightDetail')}?school=${schoolSlug}&id=${spotlight.id}`} className="group bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-3 border border-gray-100">
                   <div className="relative h-64 bg-gradient-to-br from-slate-200 to-slate-300 overflow-hidden">
                     {spotlight.featured_image_url && <img src={spotlight.featured_image_url} alt={spotlight.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -155,14 +156,14 @@ export default function SchoolHome() {
                     <h3 className="font-black text-2xl mb-2 text-gray-900 group-hover:text-yellow-600 transition-colors">{spotlight.title}</h3>
                     <p className="text-gray-600 line-clamp-2 leading-relaxed">{spotlight.summary}</p>
                   </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+                  </a>
+                  ))}
+                  </div>
+                  </div>
+                  </section>
+                  )}
 
-      {/* Upcoming Events */}
+                  {/* Upcoming Events */}
       {upcomingEvents.length > 0 && (
         <section className="py-16 md:py-28">
           <div className="max-w-6xl mx-auto px-4 md:px-6">
@@ -175,7 +176,7 @@ export default function SchoolHome() {
             </div>
             <div className="space-y-4">
               {upcomingEvents.map((event) => (
-                <Link key={event.id} to={`/schools/${schoolSlug}/events/${event.slug}`} className="group bg-white rounded-2xl shadow-md p-8 hover:shadow-xl hover:bg-gray-50 transition-all duration-300 border border-gray-100 hover:border-pink-200 flex justify-between items-start">
+                <a key={event.id} href={`${createPageUrl('SchoolEventDetail')}?school=${schoolSlug}&id=${event.id}`} className="group bg-white rounded-2xl shadow-md p-8 hover:shadow-xl hover:bg-gray-50 transition-all duration-300 border border-gray-100 hover:border-pink-200 flex justify-between items-start">
                   <div className="flex-1">
                     <h3 className="font-bold text-xl mb-3 text-gray-900 group-hover:text-pink-600 transition-colors">{event.title}</h3>
                     <div className="space-y-2">
@@ -187,12 +188,12 @@ export default function SchoolHome() {
                     </div>
                   </div>
                   <ArrowRight className="h-6 w-6 text-pink-400 group-hover:text-pink-600 transition-colors flex-shrink-0 ml-4" />
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+                  </a>
+                  ))}
+                  </div>
+                  </div>
+                  </section>
+                  )}
 
       {/* CTA */}
       <section className={`py-20 md:py-32 bg-gradient-to-br ${schoolSlug === 'hampton-dumont' ? 'from-red-700 via-red-600 to-black' : 'from-blue-700 via-blue-600 to-purple-700'} text-white relative overflow-hidden`}>
@@ -203,9 +204,9 @@ export default function SchoolHome() {
           <h2 className="text-4xl md:text-5xl font-black mb-6 leading-tight">Have a Story to Share?</h2>
           <p className="text-lg md:text-xl mb-4 text-blue-50 font-semibold">Your voice matters. Contribute to {branding?.school_name}</p>
           <p className="text-sm md:text-base text-blue-100 mb-10">{branding?.upload_instructions || 'Videos, photos, moments—anything that celebrates our community'}</p>
-          <Link to={`/schools/${schoolSlug}/submit`} className={`inline-block bg-white ${schoolSlug === 'hampton-dumont' ? 'text-red-700 hover:bg-red-50' : 'text-blue-700 hover:bg-blue-50'} px-10 md:px-12 py-4 md:py-5 rounded-xl font-bold transition-all hover:shadow-2xl text-base md:text-lg shadow-xl hover:scale-105`}>
+          <a href={`${createPageUrl('SchoolSubmit')}?school=${schoolSlug}`} className={`inline-block bg-white ${schoolSlug === 'hampton-dumont' ? 'text-red-700 hover:bg-red-50' : 'text-blue-700 hover:bg-blue-50'} px-10 md:px-12 py-4 md:py-5 rounded-xl font-bold transition-all hover:shadow-2xl text-base md:text-lg shadow-xl hover:scale-105`}>
             Submit Your Content →
-          </Link>
+          </a>
         </div>
       </section>
     </PublicShell>
