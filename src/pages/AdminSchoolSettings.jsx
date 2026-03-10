@@ -3,6 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import AdminShell from '@/components/school-tv/AdminShell';
+import { useSchoolPermissions } from '@/components/school-tv/useSchoolPermissions';
+import PermissionGuard from '@/components/school-tv/PermissionGuard';
 import { Settings, Save, Shield, Globe, Lock, ArrowRight, Zap, Film, Bell, CheckCircle } from 'lucide-react';
 
 const DEFAULTS = {
@@ -63,6 +65,7 @@ const TABS = [
 export default function AdminSchoolSettings() {
   const { schoolSlug: paramSlug } = useParams();
   const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
+  const { can } = useSchoolPermissions(schoolSlug);
 
   const [settingsId, setSettingsId] = useState(null);
   const [settings, setSettings] = useState(DEFAULTS);
@@ -95,6 +98,7 @@ export default function AdminSchoolSettings() {
   }, [schoolSlug]);
 
   const handleSave = async () => {
+    if (!can('configure_settings')) { alert('You do not have permission to configure settings.'); return; }
     setSaving(true);
     try {
       const payload = { ...settings, school_slug: schoolSlug };
@@ -160,6 +164,14 @@ export default function AdminSchoolSettings() {
 
   if (loading) {
     return <AdminShell schoolSlug={schoolSlug}><div className="text-center py-12 text-gray-500">Loading settings...</div></AdminShell>;
+  }
+
+  if (!can('configure_settings')) {
+    return (
+      <AdminShell schoolSlug={schoolSlug}>
+        <PermissionGuard can={can} permission="configure_settings" block>{null}</PermissionGuard>
+      </AdminShell>
+    );
   }
 
   return (
