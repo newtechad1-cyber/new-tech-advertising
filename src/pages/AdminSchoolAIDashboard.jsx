@@ -409,19 +409,19 @@ export default function AdminSchoolAIDashboard() {
                                   </Link>
                                 )}
                                 {/* Approve pending_review */}
-                                {job.status === 'pending_review' && (
+                                {job.status === 'pending_review' && can('moderate_content') && (
                                   <Button variant="ghost" size="sm" className="text-green-600 h-7 px-2" onClick={() => handleApprove(job)}>
                                     <CheckCircle2 className="h-3.5 w-3.5" />
                                   </Button>
                                 )}
                                 {/* Reject pending_review */}
-                                {job.status === 'pending_review' && (
+                                {job.status === 'pending_review' && can('moderate_content') && (
                                   <Button variant="ghost" size="sm" className="text-red-500 h-7 px-2" onClick={() => handleReject(job)}>
                                     <XCircle className="h-3.5 w-3.5" />
                                   </Button>
                                 )}
                                 {/* Retry failed */}
-                                {job.status === 'failed' && (
+                                {job.status === 'failed' && can('trigger_ai_jobs') && (
                                   <Button
                                     variant="ghost" size="sm"
                                     className="text-orange-500 h-7 px-2 gap-1"
