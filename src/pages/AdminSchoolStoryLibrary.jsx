@@ -83,12 +83,14 @@ export default function AdminSchoolStoryLibrary() {
               <h1 className="text-3xl font-bold text-gray-900">Story Library</h1>
               <p className="text-gray-600 mt-1">{filteredStories.length} of {stories.length} stories</p>
             </div>
-            <Link
-              to={`${createPageUrl('AdminSchoolStoryLibrary')}?schoolSlug=${schoolSlug}&action=new`}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2"
-            >
-              <Plus className="h-5 w-5" /> New Story
-            </Link>
+            {can('edit_stories') && (
+              <Link
+                to={`${createPageUrl('AdminSchoolStoryLibrary')}?schoolSlug=${schoolSlug}&action=new`}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2"
+              >
+                <Plus className="h-5 w-5" /> New Story
+              </Link>
+            )}
           </div>
         </div>
 
@@ -151,12 +153,16 @@ export default function AdminSchoolStoryLibrary() {
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex gap-2">
-                          <Link
-                            to={`${createPageUrl('AdminStoryDetail')}?id=${story.id}&schoolSlug=${schoolSlug}`}
-                            className="text-blue-600 hover:text-blue-800"
-                          >
-                            <Edit className="h-4 w-4" />
-                          </Link>
+                          {can('edit_stories') ? (
+                            <Link
+                              to={`${createPageUrl('AdminStoryDetail')}?id=${story.id}&schoolSlug=${schoolSlug}`}
+                              className="text-blue-600 hover:text-blue-800"
+                            >
+                              <Edit className="h-4 w-4" />
+                            </Link>
+                          ) : (
+                            <Edit className="h-4 w-4 text-gray-300 cursor-not-allowed" title="Requires edit_stories permission" />
+                          )}
                           {story.status === 'published' && (
                             <a
                               href={`${createPageUrl('SchoolStoryDetail')}?slug=${story.slug}&schoolSlug=${schoolSlug}`}
@@ -178,12 +184,14 @@ export default function AdminSchoolStoryLibrary() {
             <div className="text-center py-16 bg-white rounded-lg">
               <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
               <p className="text-gray-600 text-lg">No stories found</p>
-              <Link
-                 to={`${createPageUrl('AdminSchoolStoryLibrary')}?schoolSlug=${schoolSlug}&action=new`}
-                 className="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold"
-               >
-                 Create Your First Story
-               </Link>
+              {can('edit_stories') && (
+                <Link
+                  to={`${createPageUrl('AdminSchoolStoryLibrary')}?schoolSlug=${schoolSlug}&action=new`}
+                  className="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold"
+                >
+                  Create Your First Story
+                </Link>
+              )}
             </div>
           )}
         </div>
