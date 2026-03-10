@@ -20,6 +20,18 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Missing submission data' }, { status: 400 });
     }
 
+    // MODERATION SAFETY CHECK: Block flagged/rejected uploads from ingestion
+    if (submission.moderation_status === 'flagged' || submission.moderation_status === 'requires_review' || submission.status === 'rejected') {
+      const blockReason = `Blocked: Upload has moderation_status='${submission.moderation_status}' and status='${submission.status}'. Must be marked safe before clip ingestion.`;
+      console.error(`[MODERATION_BLOCK] ${blockReason}`);
+      return Response.json({ 
+        error: blockReason,
+        submission_id,
+        moderation_status: submission.moderation_status,
+        status: submission.status
+      }, { status: 403 });
+    }
+
     // Extract video URLs from submission
     const videoFiles = submission.video_files ? JSON.parse(submission.video_files) : [];
     const photoFiles = submission.photo_files ? JSON.parse(submission.photo_files) : [];
