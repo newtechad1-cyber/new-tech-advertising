@@ -120,6 +120,7 @@ export default function AdminSchoolAIDashboard() {
 
   // ── retry failed job ─────────────────────────────────────────────────────────
   const handleRetry = async (job) => {
+    if (!can('trigger_ai_jobs')) { alert('You do not have permission to trigger AI jobs.'); return; }
     setRetrying(job.id);
     await base44.entities.AIContentJobs.update(job.id, {
       status: 'pending',
@@ -131,11 +132,13 @@ export default function AdminSchoolAIDashboard() {
 
   // ── approve / reject ─────────────────────────────────────────────────────────
   const handleApprove = async (job) => {
+    if (!can('moderate_content')) { alert('You do not have permission to moderate content.'); return; }
     await base44.entities.AIContentJobs.update(job.id, { status: 'approved' });
     setJobs(prev => prev.map(j => j.id === job.id ? { ...j, status: 'approved' } : j));
   };
 
   const handleReject = async (job) => {
+    if (!can('moderate_content')) { alert('You do not have permission to moderate content.'); return; }
     await base44.entities.AIContentJobs.update(job.id, { status: 'rejected' });
     setJobs(prev => prev.map(j => j.id === job.id ? { ...j, status: 'rejected' } : j));
   };
