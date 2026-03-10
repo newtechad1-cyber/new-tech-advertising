@@ -82,13 +82,15 @@ export default function AdminSchoolYearbook() {
                 {season.name}
               </Button>
             ))}
-            <Link
-              to={`${createPageUrl('AdminSchoolYearbook')}?schoolSlug=${schoolSlug}&action=new-season`}
-              className="inline-flex items-center gap-2 px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 font-semibold"
-            >
-              <Plus className="h-4 w-4" />
-              New Season
-            </Link>
+            {can('manage_yearbook') && (
+              <Link
+                to={`${createPageUrl('AdminSchoolYearbook')}?schoolSlug=${schoolSlug}&action=new-season`}
+                className="inline-flex items-center gap-2 px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 font-semibold"
+              >
+                <Plus className="h-4 w-4" />
+                New Season
+              </Link>
+            )}
           </div>
         </div>
 
@@ -96,7 +98,7 @@ export default function AdminSchoolYearbook() {
         <div className="bg-white rounded-lg shadow overflow-hidden">
           <div className="p-6 border-b border-gray-200 flex items-center justify-between">
             <h2 className="text-xl font-bold text-gray-900">Pages</h2>
-            {selectedSeason && (
+            {selectedSeason && can('manage_yearbook') && (
               <Link
                 to={`${createPageUrl('AdminYearbookPage')}?seasonId=${selectedSeason}&schoolSlug=${schoolSlug}&action=new`}
                 className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold"
@@ -133,27 +135,33 @@ export default function AdminSchoolYearbook() {
                       <Eye className="h-4 w-4" />
                     </a>
                   )}
-                  <Link 
-                    to={`${createPageUrl('AdminYearbookPage')}?id=${page.id}&schoolSlug=${schoolSlug}`}
-                    className="inline-flex items-center justify-center w-8 h-8 text-blue-600 hover:bg-blue-50 rounded transition-colors"
-                  >
-                    <Edit className="h-4 w-4" />
-                  </Link>
-                  <button 
-                    onClick={async () => {
-                      if (confirm('Delete this page?')) {
-                        try {
-                          await base44.entities.YearbookPages.delete(page.id);
-                          setPages(pages.filter(p => p.id !== page.id));
-                        } catch (error) {
-                          console.error('Error deleting page:', error);
-                        }
-                      }
-                    }}
-                    className="inline-flex items-center justify-center w-8 h-8 text-red-600 hover:bg-red-50 rounded transition-colors"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </button>
+                  {can('manage_yearbook') ? (
+                   <Link 
+                     to={`${createPageUrl('AdminYearbookPage')}?id=${page.id}&schoolSlug=${schoolSlug}`}
+                     className="inline-flex items-center justify-center w-8 h-8 text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                   >
+                     <Edit className="h-4 w-4" />
+                   </Link>
+                  ) : (
+                   <Edit className="h-4 w-4 text-gray-300 cursor-not-allowed" title="Requires manage_yearbook permission" />
+                  )}
+                  {can('manage_yearbook') && (
+                   <button 
+                     onClick={async () => {
+                       if (confirm('Delete this page?')) {
+                         try {
+                           await base44.entities.YearbookPages.delete(page.id);
+                           setPages(pages.filter(p => p.id !== page.id));
+                         } catch (error) {
+                           console.error('Error deleting page:', error);
+                         }
+                       }
+                     }}
+                     className="inline-flex items-center justify-center w-8 h-8 text-red-600 hover:bg-red-50 rounded transition-colors"
+                   >
+                     <Trash2 className="h-4 w-4" />
+                   </button>
+                  )}
                 </div>
               </div>
             ))}
@@ -163,7 +171,7 @@ export default function AdminSchoolYearbook() {
             <div className="p-12 text-center">
               <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
               <p className="text-gray-600 mb-4">No pages created yet</p>
-              {selectedSeason && (
+              {selectedSeason && can('manage_yearbook') && (
                 <Link
                   to={`${createPageUrl('AdminYearbookPage')}?seasonId=${selectedSeason}&schoolSlug=${schoolSlug}&action=new`}
                   className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold"
