@@ -83,7 +83,7 @@ export default function AdminSchoolSpotlights() {
           <p className="text-gray-600">Create and manage student and staff spotlights</p>
         </div>
         <Link
-          to={`/admin/schools/${schoolSlug}/spotlights/new`}
+          to={`${createPageUrl('AdminSchoolSpotlightDetail')}?schoolSlug=${schoolSlug}&action=new`}
           className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2"
         >
           <Plus className="h-5 w-5" /> New Spotlight
