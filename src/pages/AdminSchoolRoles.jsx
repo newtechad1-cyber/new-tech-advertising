@@ -1,245 +1,278 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { base44 } from '@/api/base44Client';
 import AdminShell from '@/components/school-tv/AdminShell';
-import { createPageUrl } from '@/utils';
-import { Shield, Edit2, Eye, Lock, FileText } from 'lucide-react';
-
-const ROLE_DEFINITIONS = [
-  {
-    id: 'district_admin',
-    name: 'District Admin',
-    description: 'Full system access across all schools',
-    color: 'red',
-    permissions: [
-      'view_all_content',
-      'manage_users',
-      'configure_settings',
-      'moderate_content',
-      'publish_content',
-      'manage_roles',
-      'view_analytics',
-      'manage_ai_tools',
-    ],
-  },
-  {
-    id: 'principal',
-    name: 'Principal / Admin Staff',
-    description: 'Administrative oversight and approvals',
-    color: 'blue',
-    permissions: [
-      'view_all_content',
-      'manage_users',
-      'configure_settings',
-      'moderate_content',
-      'publish_content',
-      'view_analytics',
-      'manage_ai_tools',
-    ],
-  },
-  {
-    id: 'teacher',
-    name: 'Teacher / Editor',
-    description: 'Create and edit school content',
-    color: 'purple',
-    permissions: [
-      'create_content',
-      'edit_own_content',
-      'submit_for_review',
-      'view_own_submissions',
-      'moderate_student_content',
-      'use_ai_tools',
-    ],
-  },
-  {
-    id: 'reviewer',
-    name: 'Reviewer',
-    description: 'Review and approve content submissions',
-    color: 'yellow',
-    permissions: [
-      'view_submissions',
-      'moderate_content',
-      'approve_content',
-      'reject_content',
-      'add_comments',
-    ],
-  },
-  {
-    id: 'contributor',
-    name: 'Contributor',
-    description: 'Submit content for review',
-    color: 'green',
-    permissions: [
-      'submit_content',
-      'view_own_submissions',
-      'edit_own_submissions',
-      'view_published_content',
-    ],
-  },
-  {
-    id: 'student_media_lead',
-    name: 'Student Media Lead',
-    description: 'Student leader managing submissions and projects',
-    color: 'cyan',
-    permissions: [
-      'create_content',
-      'edit_own_content',
-      'submit_for_review',
-      'view_submissions',
-      'moderate_student_content',
-      'coordinate_projects',
-    ],
-  },
-];
+import { useSchoolPermissions, DEFAULT_PERMISSIONS, ROLE_META } from '@/components/school-tv/useSchoolPermissions';
+import { Shield, Edit2, Eye, Lock, FileText, Film, BookOpen, Save, CheckCircle, Zap } from 'lucide-react';
 
 const PERMISSION_GROUPS = {
-  'Content Management': [
-    { id: 'create_content', label: 'Create Content' },
-    { id: 'edit_own_content', label: 'Edit Own Content' },
-    { id: 'view_all_content', label: 'View All Content' },
+  'Content': [
+    { id: 'view_all_content',   label: 'View All Content' },
+    { id: 'create_content',     label: 'Create Content' },
+    { id: 'edit_stories',       label: 'Edit Stories' },
   ],
-  'Review & Moderation': [
-    { id: 'view_submissions', label: 'View Submissions' },
-    { id: 'moderate_content', label: 'Moderate Content' },
-    { id: 'approve_content', label: 'Approve Content' },
-    { id: 'reject_content', label: 'Reject Content' },
-    { id: 'moderate_student_content', label: 'Moderate Student Content' },
-    { id: 'add_comments', label: 'Add Comments' },
+  'Submissions': [
+    { id: 'approve_submissions', label: 'Approve Submissions' },
+    { id: 'reject_submissions',  label: 'Reject Submissions' },
+    { id: 'moderate_content',    label: 'Moderate Content' },
   ],
-  'Publishing': [
-    { id: 'publish_content', label: 'Publish Content' },
-    { id: 'submit_for_review', label: 'Submit for Review' },
+  'AI & Production': [
+    { id: 'use_ai_tools',          label: 'Use AI Tools' },
+    { id: 'trigger_ai_jobs',       label: 'Trigger AI Jobs' },
+    { id: 'manage_video_projects', label: 'Manage Video Projects' },
+    { id: 'queue_render',          label: 'Queue Renders' },
+    { id: 'publish_video',         label: 'Publish Videos' },
+  ],
+  'Yearbook': [
+    { id: 'manage_yearbook', label: 'Manage Yearbook' },
   ],
   'Administration': [
-    { id: 'manage_users', label: 'Manage Users' },
-    { id: 'manage_roles', label: 'Manage Roles' },
     { id: 'configure_settings', label: 'Configure Settings' },
-  ],
-  'Analytics & AI': [
-    { id: 'view_analytics', label: 'View Analytics' },
-    { id: 'use_ai_tools', label: 'Use AI Tools' },
-    { id: 'manage_ai_tools', label: 'Manage AI Tools' },
-  ],
-  'Other': [
-    { id: 'view_own_submissions', label: 'View Own Submissions' },
-    { id: 'edit_own_submissions', label: 'Edit Own Submissions' },
-    { id: 'view_published_content', label: 'View Published Content' },
-    { id: 'coordinate_projects', label: 'Coordinate Projects' },
+    { id: 'edit_branding',      label: 'Edit Branding' },
+    { id: 'manage_users',       label: 'Manage Users' },
+    { id: 'manage_roles',       label: 'Manage Roles' },
+    { id: 'view_analytics',     label: 'View Analytics' },
   ],
 };
 
-const PERMISSION_ICONS = {
-  'Content Management': <FileText className="h-5 w-5" />,
-  'Review & Moderation': <Eye className="h-5 w-5" />,
-  'Publishing': <Lock className="h-5 w-5" />,
-  'Administration': <Shield className="h-5 w-5" />,
+const GROUP_ICONS = {
+  'Content':        <FileText className="h-4 w-4" />,
+  'Submissions':    <Eye className="h-4 w-4" />,
+  'AI & Production':<Zap className="h-4 w-4" />,
+  'Yearbook':       <BookOpen className="h-4 w-4" />,
+  'Administration': <Shield className="h-4 w-4" />,
+};
+
+const COLOR_CARD = {
+  red:    'bg-red-50 border-red-200',
+  purple: 'bg-purple-50 border-purple-200',
+  yellow: 'bg-yellow-50 border-yellow-200',
+  blue:   'bg-blue-50 border-blue-200',
+  green:  'bg-green-50 border-green-200',
+  gray:   'bg-gray-50 border-gray-200',
+};
+
+const COLOR_BADGE = {
+  red:    'bg-red-100 text-red-800',
+  purple: 'bg-purple-100 text-purple-800',
+  yellow: 'bg-yellow-100 text-yellow-800',
+  blue:   'bg-blue-100 text-blue-800',
+  green:  'bg-green-100 text-green-800',
+  gray:   'bg-gray-100 text-gray-700',
 };
 
 export default function AdminSchoolRoles() {
   const { schoolSlug: paramSlug } = useParams();
   const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
-  const [selectedRole, setSelectedRole] = useState(ROLE_DEFINITIONS[0]);
+
+  const { can } = useSchoolPermissions(schoolSlug);
+
+  // All role IDs in display order
+  const ROLE_IDS = Object.keys(ROLE_META);
+
+  // Per-school overrides loaded from entity: { [role_id]: { id, permissions[] } }
+  const [savedDefs, setSavedDefs] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  // Which role is selected in the left panel
+  const [selectedRoleId, setSelectedRoleId] = useState('school_admin');
   const [editMode, setEditMode] = useState(false);
 
-  const colorClasses = {
-    red: 'bg-red-50 border-red-200',
-    blue: 'bg-blue-50 border-blue-200',
-    purple: 'bg-purple-50 border-purple-200',
-    yellow: 'bg-yellow-50 border-yellow-200',
-    green: 'bg-green-50 border-green-200',
-    cyan: 'bg-cyan-50 border-cyan-200',
+  // Editable permissions for the currently selected role
+  const [editingPerms, setEditingPerms] = useState([]);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const defs = await base44.entities.SchoolRoleDefinitions.filter({ school_slug: schoolSlug });
+        const map = {};
+        defs.forEach(d => {
+          try { map[d.role_id] = { id: d.id, permissions: JSON.parse(d.permissions) }; } catch {}
+        });
+        setSavedDefs(map);
+      } catch (err) {
+        console.error('Error loading role definitions:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, [schoolSlug]);
+
+  // Resolve effective permissions for a role (saved override OR hardcoded default)
+  const effectivePerms = (roleId) => savedDefs[roleId]?.permissions ?? DEFAULT_PERMISSIONS[roleId] ?? [];
+  const isCustomised = (roleId) => !!savedDefs[roleId];
+
+  const handleSelectRole = (roleId) => {
+    setSelectedRoleId(roleId);
+    setEditMode(false);
   };
 
-  const colorBadges = {
-    red: 'bg-red-100 text-red-800',
-    blue: 'bg-blue-100 text-blue-800',
-    purple: 'bg-purple-100 text-purple-800',
-    yellow: 'bg-yellow-100 text-yellow-800',
-    green: 'bg-green-100 text-green-800',
-    cyan: 'bg-cyan-100 text-cyan-800',
+  const handleStartEdit = () => {
+    setEditingPerms([...effectivePerms(selectedRoleId)]);
+    setEditMode(true);
   };
+
+  const handleTogglePerm = (permId) => {
+    setEditingPerms(prev =>
+      prev.includes(permId) ? prev.filter(p => p !== permId) : [...prev, permId]
+    );
+  };
+
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      const permJson = JSON.stringify(editingPerms);
+      const existing = savedDefs[selectedRoleId];
+      if (existing?.id) {
+        await base44.entities.SchoolRoleDefinitions.update(existing.id, { permissions: permJson });
+      } else {
+        const created = await base44.entities.SchoolRoleDefinitions.create({
+          school_slug: schoolSlug,
+          role_id: selectedRoleId,
+          display_name: ROLE_META[selectedRoleId].display_name,
+          description: ROLE_META[selectedRoleId].description,
+          color: ROLE_META[selectedRoleId].color,
+          permissions: permJson,
+        });
+        setSavedDefs(prev => ({ ...prev, [selectedRoleId]: { id: created.id, permissions: editingPerms } }));
+      }
+      setSavedDefs(prev => ({ ...prev, [selectedRoleId]: { ...prev[selectedRoleId], permissions: editingPerms } }));
+      setEditMode(false);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 3000);
+    } catch (err) {
+      console.error('Error saving role:', err);
+      alert('Failed to save role permissions');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleResetToDefault = async () => {
+    if (!confirm('Reset this role to default permissions? This will remove any school-specific customisation.')) return;
+    const existing = savedDefs[selectedRoleId];
+    if (existing?.id) {
+      await base44.entities.SchoolRoleDefinitions.delete(existing.id);
+      const updated = { ...savedDefs };
+      delete updated[selectedRoleId];
+      setSavedDefs(updated);
+    }
+    setEditMode(false);
+  };
+
+  const handleCancel = () => {
+    setEditMode(false);
+  };
+
+  const meta = ROLE_META[selectedRoleId];
+  const activePerms = editMode ? editingPerms : effectivePerms(selectedRoleId);
+
+  if (loading) {
+    return <AdminShell schoolSlug={schoolSlug}><div className="text-center py-12 text-gray-500">Loading roles...</div></AdminShell>;
+  }
 
   return (
     <AdminShell schoolSlug={schoolSlug}>
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold flex items-center gap-2 mb-2">
-          <Shield className="h-8 w-8" /> School Roles & Permissions
-        </h1>
-        <p className="text-gray-600">Manage user roles and what they can do</p>
+      <div className="mb-6 flex items-center justify-between flex-wrap gap-3">
+        <div>
+          <h1 className="text-3xl font-bold flex items-center gap-2 mb-1">
+            <Shield className="h-8 w-8" /> Roles & Permissions
+          </h1>
+          <p className="text-gray-500 text-sm">Per-school customisation of what each role can do</p>
+        </div>
+        {saved && (
+          <div className="flex items-center gap-2 bg-green-50 border border-green-300 text-green-800 px-4 py-2 rounded-lg text-sm font-semibold">
+            <CheckCircle className="h-4 w-4" /> Permissions saved
+          </div>
+        )}
       </div>
 
       <div className="grid md:grid-cols-3 gap-6">
-        {/* Role List */}
+        {/* Role list */}
         <div className="md:col-span-1">
-          <div className="bg-white rounded-lg shadow-md overflow-hidden">
-            <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-              <p className="text-sm font-bold text-gray-700">Roles</p>
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+            <div className="bg-gray-50 px-5 py-3 border-b border-gray-200">
+              <p className="text-xs font-bold text-gray-600 uppercase tracking-wide">Roles ({ROLE_IDS.length})</p>
             </div>
-            <div className="divide-y divide-gray-200">
-              {ROLE_DEFINITIONS.map((role) => (
-                <button
-                  key={role.id}
-                  onClick={() => {
-                    setSelectedRole(role);
-                    setEditMode(false);
-                  }}
-                  className={`w-full text-left px-6 py-4 hover:bg-gray-50 transition-colors ${
-                    selectedRole.id === role.id ? 'bg-blue-50 border-l-4 border-blue-600' : ''
-                  }`}
-                >
-                  <p className="font-semibold text-gray-900">{role.name}</p>
-                  <p className="text-xs text-gray-600 mt-1">{role.description}</p>
-                </button>
-              ))}
+            <div className="divide-y divide-gray-100">
+              {ROLE_IDS.map((roleId) => {
+                const m = ROLE_META[roleId];
+                const custom = isCustomised(roleId);
+                return (
+                  <button
+                    key={roleId}
+                    onClick={() => handleSelectRole(roleId)}
+                    className={`w-full text-left px-5 py-4 hover:bg-gray-50 transition-colors ${
+                      selectedRoleId === roleId ? 'bg-blue-50 border-l-4 border-blue-600' : ''
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <p className="font-semibold text-gray-900 text-sm">{m.display_name}</p>
+                      {custom && <span className="text-xs bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded font-semibold">Custom</span>}
+                    </div>
+                    <p className="text-xs text-gray-500 mt-0.5">{effectivePerms(roleId).length} permissions</p>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
 
-        {/* Role Details */}
+        {/* Role detail */}
         <div className="md:col-span-2">
-          <div className={`rounded-lg shadow-md p-6 border-2 ${colorClasses[selectedRole.color]}`}>
+          <div className={`rounded-lg border-2 p-6 ${COLOR_CARD[meta.color]}`}>
             {/* Header */}
-            <div className="flex justify-between items-start mb-6">
+            <div className="flex justify-between items-start mb-5">
               <div>
-                <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold mb-3 ${colorBadges[selectedRole.color]}`}>
-                  {selectedRole.name}
+                <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold mb-2 ${COLOR_BADGE[meta.color]}`}>
+                  {meta.display_name}
                 </span>
-                <p className="text-sm text-gray-600">{selectedRole.description}</p>
+                {isCustomised(selectedRoleId) && (
+                  <span className="ml-2 text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded font-semibold">School-customised</span>
+                )}
+                <p className="text-sm text-gray-600">{meta.description}</p>
               </div>
-              <button
-                onClick={() => setEditMode(!editMode)}
-                className="text-gray-600 hover:text-gray-900 p-2"
-              >
-                <Edit2 className="h-5 w-5" />
-              </button>
+              {!editMode && can('manage_roles') && (
+                <button
+                  onClick={handleStartEdit}
+                  className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-gray-900 bg-white border border-gray-200 px-3 py-1.5 rounded-lg font-semibold"
+                >
+                  <Edit2 className="h-4 w-4" /> Edit
+                </button>
+              )}
             </div>
 
-            {/* Permissions */}
-            <div className="space-y-6">
+            {/* Permissions grid */}
+            <div className="space-y-5">
               {Object.entries(PERMISSION_GROUPS).map(([group, perms]) => (
                 <div key={group}>
-                  <div className="flex items-center gap-2 mb-3">
-                    {PERMISSION_ICONS[group] && <span className="text-gray-600">{PERMISSION_ICONS[group]}</span>}
-                    <h4 className="font-bold text-gray-900">{group}</h4>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-gray-500">{GROUP_ICONS[group]}</span>
+                    <h4 className="text-sm font-bold text-gray-800">{group}</h4>
                   </div>
-                  <div className="space-y-2 ml-7">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 ml-6">
                     {perms.map((perm) => {
-                      const hasPermission = selectedRole.permissions.includes(perm.id);
+                      const has = activePerms.includes(perm.id);
                       return (
-                        <label key={perm.id} className="flex items-center gap-3 cursor-pointer">
+                        <label
+                          key={perm.id}
+                          className={`flex items-center gap-2 cursor-pointer rounded-lg px-3 py-2 transition-colors ${
+                            has ? 'bg-white/70' : 'opacity-50'
+                          } ${editMode ? 'hover:bg-white' : ''}`}
+                        >
                           <input
                             type="checkbox"
-                            checked={hasPermission}
+                            checked={has}
                             disabled={!editMode}
-                            onChange={() => {
-                              // In real app, would update permissions
-                            }}
+                            onChange={() => handleTogglePerm(perm.id)}
                             className="w-4 h-4 rounded accent-blue-600"
                           />
-                          <span className={`text-sm ${hasPermission ? 'text-gray-900 font-semibold' : 'text-gray-600'}`}>
+                          <span className={`text-sm ${has ? 'text-gray-900 font-medium' : 'text-gray-500'}`}>
                             {perm.label}
                           </span>
-                          {hasPermission && <span className="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded">Allowed</span>}
                         </label>
                       );
                     })}
@@ -248,28 +281,75 @@ export default function AdminSchoolRoles() {
               ))}
             </div>
 
-            {/* Edit Mode Buttons */}
+            {/* Edit mode actions */}
             {editMode && (
-              <div className="mt-8 flex gap-3">
-                <button className="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold">
-                  Save Changes
+              <div className="mt-6 flex flex-wrap gap-3 border-t border-black/10 pt-5">
+                <button
+                  onClick={handleSave}
+                  disabled={saving}
+                  className="flex items-center gap-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white px-5 py-2 rounded-lg font-semibold text-sm"
+                >
+                  <Save className="h-4 w-4" /> {saving ? 'Saving...' : 'Save Changes'}
                 </button>
                 <button
-                  onClick={() => setEditMode(false)}
-                  className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-900 px-4 py-2 rounded-lg font-semibold"
+                  onClick={handleCancel}
+                  className="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-5 py-2 rounded-lg font-semibold text-sm"
                 >
                   Cancel
                 </button>
+                {isCustomised(selectedRoleId) && (
+                  <button
+                    onClick={handleResetToDefault}
+                    className="text-red-600 hover:text-red-800 text-sm font-semibold ml-auto"
+                  >
+                    Reset to defaults
+                  </button>
+                )}
               </div>
             )}
           </div>
 
-          {/* Info Box */}
-          <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <p className="text-sm text-blue-900">
-              <strong>Note:</strong> Role definitions are school-wide and apply to all users. Custom roles can be created in enterprise plans.
-            </p>
+          {/* Permission matrix summary */}
+          <div className="mt-6 bg-white rounded-lg border border-gray-200 overflow-hidden">
+            <div className="bg-gray-50 px-5 py-3 border-b border-gray-200">
+              <p className="text-xs font-bold text-gray-600 uppercase tracking-wide">Permission Matrix — All Roles</p>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr className="border-b border-gray-100">
+                    <th className="px-4 py-2 text-left text-gray-600 font-semibold w-40">Permission</th>
+                    {ROLE_IDS.map(r => (
+                      <th key={r} className={`px-3 py-2 text-center font-semibold ${selectedRoleId === r ? 'text-blue-700' : 'text-gray-600'}`}>
+                        {ROLE_META[r].display_name.split(' ')[0]}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.values(PERMISSION_GROUPS).flat().map((perm) => (
+                    <tr key={perm.id} className="border-b border-gray-50 hover:bg-gray-50">
+                      <td className="px-4 py-1.5 text-gray-700">{perm.label}</td>
+                      {ROLE_IDS.map(r => (
+                        <td key={r} className="px-3 py-1.5 text-center">
+                          {effectivePerms(r).includes(perm.id)
+                            ? <span className="text-green-600 font-bold">✓</span>
+                            : <span className="text-gray-200">—</span>}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
+
+          {!can('manage_roles') && (
+            <div className="mt-4 bg-amber-50 border border-amber-200 rounded-lg p-3 flex items-center gap-2 text-sm text-amber-800">
+              <Lock className="h-4 w-4 flex-shrink-0" />
+              Your role does not have <strong>manage_roles</strong> permission. You can view but not edit role definitions.
+            </div>
+          )}
         </div>
       </div>
     </AdminShell>
