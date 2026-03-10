@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useParams } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import AdminShell from '@/components/school-tv/AdminShell';
+import AdminLayout from '@/components/admin/AdminLayout';
 import { useSchoolPermissions } from '@/components/school-tv/useSchoolPermissions';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Wand2, Play, Film, Globe, CheckCircle, Loader2, RefreshCw } from 'lucide-react';
@@ -278,10 +278,9 @@ export default function AdminSchoolProjectDetail() {
              )}
            </div>
         )}
-
         </div>
         </div>
         );
 
         return <AdminLayout currentPageName="AdminSchoolProjectDetail">{content}</AdminLayout>;
-}
+        }
