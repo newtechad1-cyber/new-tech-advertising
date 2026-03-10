@@ -119,6 +119,13 @@ export default function AdminSchoolSubmissions() {
 
   const handleSaveToStory = async (submission) => {
     if (!can('edit_stories')) { alert('You do not have permission to create stories.'); return; }
+
+    // MODERATION SAFETY CHECK: Block flagged/requires_review uploads
+    if (submission.moderation_status === 'flagged' || submission.moderation_status === 'requires_review') {
+      alert(`Cannot create story: submission has moderation status '${submission.moderation_status}'. Must be marked 'safe' before use.`);
+      return;
+    }
+
     try {
       // Create a story from the submission
       const story = await base44.entities.Stories.create({

@@ -137,6 +137,7 @@ import AdminSchoolDashboard from './pages/AdminSchoolDashboard';
 import AdminSchoolEventDetail from './pages/AdminSchoolEventDetail';
 import AdminSchoolEvents from './pages/AdminSchoolEvents';
 import AdminSchoolLibrary from './pages/AdminSchoolLibrary';
+import AdminSchoolModeration from './pages/AdminSchoolModeration';
 import AdminSchoolProjectDetail from './pages/AdminSchoolProjectDetail';
 import AdminSchoolProjects from './pages/AdminSchoolProjects';
 import AdminSchoolRenderQueue from './pages/AdminSchoolRenderQueue';
@@ -147,11 +148,14 @@ import AdminSchoolSettingsPublishing from './pages/AdminSchoolSettingsPublishing
 import AdminSchoolSpotlightDetail from './pages/AdminSchoolSpotlightDetail';
 import AdminSchoolSpotlights from './pages/AdminSchoolSpotlights';
 import AdminSchoolStoryLibrary from './pages/AdminSchoolStoryLibrary';
+import AdminSchoolStudentUploads from './pages/AdminSchoolStudentUploads';
+import AdminSchoolStudentUsers from './pages/AdminSchoolStudentUsers';
 import AdminSchoolSubmissions from './pages/AdminSchoolSubmissions';
 import AdminSchoolUsers from './pages/AdminSchoolUsers';
 import AdminSchoolVideoLibrary from './pages/AdminSchoolVideoLibrary';
 import AdminSchoolYearbook from './pages/AdminSchoolYearbook';
 import AdminSettings from './pages/AdminSettings';
+import AiSeo from './pages/AiSeo';
 import AdminStoryDetail from './pages/AdminStoryDetail';
 import AdminStoryLibrary from './pages/AdminStoryLibrary';
 import AdminSubmissionDetail from './pages/AdminSubmissionDetail';
@@ -183,7 +187,6 @@ import AiAccessibilityChecker from './pages/AiAccessibilityChecker';
 import AiAdvertising from './pages/AiAdvertising';
 import AiMarketingPlatform from './pages/AiMarketingPlatform';
 import AiOperations from './pages/AiOperations';
-import AiSeo from './pages/AiSeo';
 import AiSocialMedia from './pages/AiSocialMedia';
 import AiSocialMediaSmallBusiness from './pages/AiSocialMediaSmallBusiness';
 import AiVideoStudio from './pages/AiVideoStudio';
@@ -272,7 +275,6 @@ import LeadsDashboard from './pages/LeadsDashboard';
 import LocalBusinessMarketing from './pages/LocalBusinessMarketing';
 import LocalMarketIntelAdmin from './pages/LocalMarketIntelAdmin';
 import LocalVisibility from './pages/LocalVisibility';
-import OurWork from './pages/OurWork';
 import LocationPageAdmin from './pages/LocationPageAdmin';
 import MarketingPlanGenerator from './pages/MarketingPlanGenerator';
 import MedSpaMarketing from './pages/MedSpaMarketing';
@@ -283,6 +285,7 @@ import Onboarding from './pages/Onboarding';
 import OnboardingStart from './pages/OnboardingStart';
 import OperationsHub from './pages/OperationsHub';
 import OpportunitySignalAdmin from './pages/OpportunitySignalAdmin';
+import OurWork from './pages/OurWork';
 import PerformanceSignalAdmin from './pages/PerformanceSignalAdmin';
 import Platform from './pages/Platform';
 import PlumbingMarketing from './pages/PlumbingMarketing';
@@ -324,6 +327,11 @@ import SchoolStories from './pages/SchoolStories';
 import SchoolStoryDetail from './pages/SchoolStoryDetail';
 import SchoolStoryLab from './pages/SchoolStoryLab';
 import SchoolStoryLabPresentation from './pages/SchoolStoryLabPresentation';
+import SchoolStudentDashboard from './pages/SchoolStudentDashboard';
+import SchoolStudentLogin from './pages/SchoolStudentLogin';
+import SchoolStudentProfile from './pages/SchoolStudentProfile';
+import SchoolStudentUploadNew from './pages/SchoolStudentUploadNew';
+import SchoolStudentUploads from './pages/SchoolStudentUploads';
 import SchoolSubmit from './pages/SchoolSubmit';
 import SchoolSubmitGuide from './pages/SchoolSubmitGuide';
 import SchoolTV from './pages/SchoolTV';
@@ -368,14 +376,6 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import SchoolStudentLogin from './pages/SchoolStudentLogin';
-import SchoolStudentDashboard from './pages/SchoolStudentDashboard';
-import SchoolStudentUploadNew from './pages/SchoolStudentUploadNew';
-import AdminSchoolStudentUploads from './pages/AdminSchoolStudentUploads';
-import SchoolStudentUploads from './pages/SchoolStudentUploads';
-import SchoolStudentProfile from './pages/SchoolStudentProfile';
-import AdminSchoolStudentUsers from './pages/AdminSchoolStudentUsers';
-import AdminSchoolModeration from './pages/AdminSchoolModeration';
 import __Layout from './Layout.jsx';
 
 
@@ -470,6 +470,7 @@ export const PAGES = {
     "AdminSchoolEventDetail": AdminSchoolEventDetail,
     "AdminSchoolEvents": AdminSchoolEvents,
     "AdminSchoolLibrary": AdminSchoolLibrary,
+    "AdminSchoolModeration": AdminSchoolModeration,
     "AdminSchoolProjectDetail": AdminSchoolProjectDetail,
     "AdminSchoolProjects": AdminSchoolProjects,
     "AdminSchoolRenderQueue": AdminSchoolRenderQueue,
@@ -480,11 +481,14 @@ export const PAGES = {
     "AdminSchoolSpotlightDetail": AdminSchoolSpotlightDetail,
     "AdminSchoolSpotlights": AdminSchoolSpotlights,
     "AdminSchoolStoryLibrary": AdminSchoolStoryLibrary,
+    "AdminSchoolStudentUploads": AdminSchoolStudentUploads,
+    "AdminSchoolStudentUsers": AdminSchoolStudentUsers,
     "AdminSchoolSubmissions": AdminSchoolSubmissions,
     "AdminSchoolUsers": AdminSchoolUsers,
     "AdminSchoolVideoLibrary": AdminSchoolVideoLibrary,
     "AdminSchoolYearbook": AdminSchoolYearbook,
     "AdminSettings": AdminSettings,
+    "AiSeo": AiSeo,
     "AdminStoryDetail": AdminStoryDetail,
     "AdminStoryLibrary": AdminStoryLibrary,
     "AdminSubmissionDetail": AdminSubmissionDetail,
@@ -516,7 +520,6 @@ export const PAGES = {
     "AiAdvertising": AiAdvertising,
     "AiMarketingPlatform": AiMarketingPlatform,
     "AiOperations": AiOperations,
-    "AiSeo": AiSeo,
     "AiSocialMedia": AiSocialMedia,
     "AiSocialMediaSmallBusiness": AiSocialMediaSmallBusiness,
     "AiVideoStudio": AiVideoStudio,
@@ -605,7 +608,6 @@ export const PAGES = {
     "LocalBusinessMarketing": LocalBusinessMarketing,
     "LocalMarketIntelAdmin": LocalMarketIntelAdmin,
     "LocalVisibility": LocalVisibility,
-    "OurWork": OurWork,
     "LocationPageAdmin": LocationPageAdmin,
     "MarketingPlanGenerator": MarketingPlanGenerator,
     "MedSpaMarketing": MedSpaMarketing,
@@ -616,6 +618,7 @@ export const PAGES = {
     "OnboardingStart": OnboardingStart,
     "OperationsHub": OperationsHub,
     "OpportunitySignalAdmin": OpportunitySignalAdmin,
+    "OurWork": OurWork,
     "PerformanceSignalAdmin": PerformanceSignalAdmin,
     "Platform": Platform,
     "PlumbingMarketing": PlumbingMarketing,
@@ -657,6 +660,11 @@ export const PAGES = {
     "SchoolStoryDetail": SchoolStoryDetail,
     "SchoolStoryLab": SchoolStoryLab,
     "SchoolStoryLabPresentation": SchoolStoryLabPresentation,
+    "SchoolStudentDashboard": SchoolStudentDashboard,
+    "SchoolStudentLogin": SchoolStudentLogin,
+    "SchoolStudentProfile": SchoolStudentProfile,
+    "SchoolStudentUploadNew": SchoolStudentUploadNew,
+    "SchoolStudentUploads": SchoolStudentUploads,
     "SchoolSubmit": SchoolSubmit,
     "SchoolSubmitGuide": SchoolSubmitGuide,
     "SchoolTV": SchoolTV,
@@ -701,14 +709,6 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "SchoolStudentLogin": SchoolStudentLogin,
-    "SchoolStudentDashboard": SchoolStudentDashboard,
-    "SchoolStudentUploadNew": SchoolStudentUploadNew,
-    "AdminSchoolStudentUploads": AdminSchoolStudentUploads,
-    "SchoolStudentUploads": SchoolStudentUploads,
-    "SchoolStudentProfile": SchoolStudentProfile,
-    "AdminSchoolStudentUsers": AdminSchoolStudentUsers,
-    "AdminSchoolModeration": AdminSchoolModeration,
 }
 
 export const pagesConfig = {
