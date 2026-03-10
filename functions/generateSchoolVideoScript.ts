@@ -1,26 +1,20 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 
-Deno.serve(async (req) => {
-  try {
-    const base44 = createClientFromRequest(req);
-    const user = await base44.auth.me();
-    if (!user || user.role !== 'admin') {
-      return Response.json({ error: 'Forbidden' }, { status: 403 });
-    }
+// ── Template resolution ──────────────────────────────────────────────────────
+// Returns the first active AIPromptTemplates record for this school+type,
+// or null if none found (callers fall back to hardcoded defaults).
+async function resolveTemplate(base44, school_slug, template_type) {
+  if (!school_slug) return null;
+  const results = await base44.asServiceRole.entities.AIPromptTemplates.filter({
+    school_slug,
+    template_type,
+    is_active: true,
+  });
+  return results[0] || null;
+}
 
-    const { project_id } = await req.json();
-
-    const projects = await base44.asServiceRole.entities.SchoolVideoProjects.filter({ id: project_id });
-    if (!projects.length) return Response.json({ error: 'Project not found' }, { status: 404 });
-    const project = projects[0];
-
-    const clips = await base44.asServiceRole.entities.SchoolVideoClips.filter({ project_id });
-
-    const clipContext = clips.length > 0
-      ? clips.map(c => `- ${c.clip_title || 'Clip'}: ${c.scene_description || ''} | Tags: ${c.ai_tags || ''} | Tone: ${c.emotional_tone || ''} | Activity: ${c.detected_activity || ''}`).join('\n')
-      : 'General school footage and activities';
-
-    const prompt = `You are a school video production writer creating a short, uplifting community video for ${project.school || 'Hampton-Dumont Community Schools'}.
+// ── Hardcoded fallback prompt (used when no school template is active) ────────
+const FALLBACK_SCRIPT_PROMPT = (project, clipContext, branding) => `You are a school video production writer creating a short, uplifting community video for ${project.school || 'the school'}.
 
 Project: "${project.title}"
 Type: ${project.project_type}
@@ -41,24 +35,67 @@ Guidelines:
 - Do NOT use clichés like "amazing journey" or "exciting adventure"
 - Structure for a ${project.duration_target || '2-3 minute'} video
 - Tone should be: ${project.tone || 'warm and genuine'}
+- School branding: "${branding?.intro_text || ''}"
 
-Generate a complete video script as a JSON object:
-{
-  "title": "compelling, specific video title",
-  "hook_line": "opening line that grabs attention in the first 10 seconds",
-  "short_description": "2-3 sentence description for the public gallery",
-  "story_summary": "one paragraph explaining the story arc and what makes this video meaningful",
-  "scene_structure": "numbered scene list, e.g. 1. Opening shot - students arriving... 2. Feature moment...",
-  "full_voiceover_script": "complete narration text, written as it would be spoken aloud",
-  "on_screen_text": "lower thirds and text overlay suggestions per scene",
-  "caption_text": "short social media caption version (2-3 sentences + hashtags)",
-  "music_direction": "specific musical mood, tempo, and style guidance (e.g. 'Upbeat acoustic guitar, 110 bpm, building energy mid-video')",
-  "outro_line": "memorable closing line",
-  "call_to_action": "viewer action encouraged at end"
-}`;
+Generate a complete video script as JSON with fields:
+title, hook_line, short_description, story_summary, scene_structure, full_voiceover_script, on_screen_text, caption_text, music_direction, outro_line, call_to_action`;
+
+Deno.serve(async (req) => {
+  try {
+    const base44 = createClientFromRequest(req);
+    const user = await base44.auth.me();
+    if (!user || user.role !== 'admin') {
+      return Response.json({ error: 'Forbidden' }, { status: 403 });
+    }
+
+    const { project_id } = await req.json();
+
+    const projects = await base44.asServiceRole.entities.SchoolVideoProjects.filter({ id: project_id });
+    if (!projects.length) return Response.json({ error: 'Project not found' }, { status: 404 });
+    const project = projects[0];
+
+    const school_slug = project.school || '';
+
+    const [clips, branding, template] = await Promise.all([
+      base44.asServiceRole.entities.SchoolVideoClips.filter({ project_id }),
+      base44.asServiceRole.entities.SchoolBranding.filter({ school_slug }).then(r => r[0] || null),
+      resolveTemplate(base44, school_slug, 'video_script_generator'),
+    ]);
+
+    const clipContext = clips.length > 0
+      ? clips.map(c => `- ${c.clip_title || 'Clip'}: ${c.scene_description || ''} | Tags: ${c.ai_tags || ''} | Tone: ${c.emotional_tone || ''} | Activity: ${c.detected_activity || ''}`).join('\n')
+      : 'General school footage and activities';
+
+    // Interpolation variables for template placeholders
+    const vars = {
+      project_title: project.title,
+      project_type: project.project_type,
+      activity_type: project.activity_type || 'general',
+      event_name: project.event_name || 'school activities',
+      tone: project.tone || 'warm',
+      duration_target: project.duration_target || '2-3 minutes',
+      target_audience: project.target_audience || 'students, parents, and community',
+      objective: project.objective || 'Celebrate student achievement',
+      school_name: branding?.school_name || project.school || 'the school',
+      intro_text: branding?.intro_text || '',
+      clip_context: clipContext,
+    };
+
+    let finalPrompt;
+    if (template?.user_prompt_template) {
+      // Interpolate school template
+      let p = template.user_prompt_template;
+      Object.entries(vars).forEach(([k, v]) => {
+        p = p.replace(new RegExp(`\\{${k}\\}`, 'g'), v || '');
+      });
+      finalPrompt = p;
+    } else {
+      finalPrompt = FALLBACK_SCRIPT_PROMPT(project, clipContext, branding);
+    }
 
     const result = await base44.asServiceRole.integrations.Core.InvokeLLM({
-      prompt,
+      prompt: finalPrompt,
+      ...(template?.system_prompt ? { system_prompt: template.system_prompt } : {}),
       response_json_schema: {
         type: 'object',
         properties: {
@@ -77,10 +114,17 @@ Generate a complete video script as a JSON object:
       }
     });
 
+    // Increment template usage_count
+    if (template?.id) {
+      await base44.asServiceRole.entities.AIPromptTemplates.update(template.id, {
+        usage_count: (template.usage_count || 0) + 1,
+      });
+    }
+
     const existingScripts = await base44.asServiceRole.entities.SchoolVideoScripts.filter({ project_id });
 
-    let scriptRecord;
     const scriptData = {
+      school_slug,
       project_id,
       title: result.title,
       hook_line: result.hook_line,
@@ -94,17 +138,19 @@ Generate a complete video script as a JSON object:
       outro_text: result.outro_line,
       call_to_action: result.call_to_action,
       generation_status: 'generated',
+      prompt_template_id: template?.id || null,
     };
 
+    let scriptRecord;
     if (existingScripts.length > 0) {
       scriptRecord = await base44.asServiceRole.entities.SchoolVideoScripts.update(existingScripts[0].id, {
         ...scriptData,
-        script_version: (existingScripts[0].script_version || 1) + 1
+        script_version: (existingScripts[0].script_version || 1) + 1,
       });
     } else {
       scriptRecord = await base44.asServiceRole.entities.SchoolVideoScripts.create({
         ...scriptData,
-        script_version: 1
+        script_version: 1,
       });
     }
 
@@ -112,10 +158,10 @@ Generate a complete video script as a JSON object:
       status: 'script_generated',
       generated_title: result.title,
       generated_description: result.short_description,
-      ai_story_summary: result.story_summary
+      ai_story_summary: result.story_summary,
     });
 
-    return Response.json({ success: true, script: scriptRecord });
+    return Response.json({ success: true, script: scriptRecord, template_used: template?.id || null });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
   }
