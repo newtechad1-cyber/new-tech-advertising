@@ -380,6 +380,7 @@ import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import SchoolTVDealRoom from './pages/SchoolTVDealRoom';
 import DemoSchoolChannel from './pages/DemoSchoolChannel';
 import DemoSchoolStoryDetail from './pages/DemoSchoolStoryDetail';
+import DemoSchoolAbout from './pages/DemoSchoolAbout';
 import __Layout from './Layout.jsx';
 
 
@@ -717,6 +718,7 @@ export const PAGES = {
     "SchoolTVDealRoom": SchoolTVDealRoom,
     "DemoSchoolChannel": DemoSchoolChannel,
     "DemoSchoolStoryDetail": DemoSchoolStoryDetail,
+    "DemoSchoolAbout": DemoSchoolAbout,
 }
 
 export const pagesConfig = {
