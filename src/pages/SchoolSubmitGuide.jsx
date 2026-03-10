@@ -7,8 +7,8 @@ import { Upload, Video, Image, CheckCircle2, AlertCircle, Users, FileType } from
 export default function SchoolSubmitGuide() {
   const { schoolSlug: paramSlug } = useParams();
   const searchParams = new URLSearchParams(window.location.search);
-  const schoolSlug = paramSlug || searchParams.get('schoolSlug') || 'hampton-dumont';
-  const submitUrl = `/schools/${schoolSlug}/submit`;
+  const schoolSlug = paramSlug || searchParams.get('school') || 'hampton-dumont';
+  const submitUrl = `${createPageUrl('SchoolSubmit')}?school=${schoolSlug}`;
 
   return (
     <PublicShell currentPath="submit-guide" schoolSlug={schoolSlug}>

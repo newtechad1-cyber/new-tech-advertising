@@ -104,7 +104,7 @@ export default function AdminSidebar({ schoolSlug, currentPath }) {
   };
 
   const getRoute = (page) => {
-    return `${createPageUrl(page)}?schoolSlug=${schoolSlug || 'hampton-dumont'}`;
+    return `${createPageUrl(page)}?school=${schoolSlug || 'hampton-dumont'}`;
   };
 
   const isActive = (page) => {

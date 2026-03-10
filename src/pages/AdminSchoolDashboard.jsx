@@ -7,18 +7,18 @@ import { AlertCircle, CheckCircle2, Clock, Video, BookOpen, Zap, BarChart3, Aler
 
 export default function AdminSchoolDashboard() {
   const { schoolSlug: paramSlug } = useParams();
-  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('school') || 'hampton-dumont';
   const [stats, setStats] = useState(null);
   const [recentActivity, setRecentActivity] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const submissionsUrl = `${createPageUrl('AdminSchoolSubmissions')}?schoolSlug=${schoolSlug}`;
-  const projectsUrl = `${createPageUrl('AdminSchoolProjects')}?schoolSlug=${schoolSlug}`;
-  const storyLibraryUrl = `${createPageUrl('AdminSchoolStoryLibrary')}?schoolSlug=${schoolSlug}`;
-  const videoLibraryUrl = `${createPageUrl('AdminSchoolVideoLibrary')}?schoolSlug=${schoolSlug}`;
-  const yearbookUrl = `${createPageUrl('AdminSchoolYearbook')}?schoolSlug=${schoolSlug}`;
-  const eventsUrl = `${createPageUrl('AdminSchoolEvents')}?schoolSlug=${schoolSlug}`;
-  const aiLabUrl = `${createPageUrl('AdminSchoolAIDashboard')}?schoolSlug=${schoolSlug}`;
+  const submissionsUrl = `${createPageUrl('AdminSchoolSubmissions')}?school=${schoolSlug}`;
+  const projectsUrl = `${createPageUrl('AdminSchoolProjects')}?school=${schoolSlug}`;
+  const storyLibraryUrl = `${createPageUrl('AdminSchoolStoryLibrary')}?school=${schoolSlug}`;
+  const videoLibraryUrl = `${createPageUrl('AdminSchoolVideoLibrary')}?school=${schoolSlug}`;
+  const yearbookUrl = `${createPageUrl('AdminSchoolYearbook')}?school=${schoolSlug}`;
+  const eventsUrl = `${createPageUrl('AdminSchoolEvents')}?school=${schoolSlug}`;
+  const aiLabUrl = `${createPageUrl('AdminSchoolAIDashboard')}?school=${schoolSlug}`;
 
   useEffect(() => {
     const loadData = async () => {
@@ -230,12 +230,12 @@ export default function AdminSchoolDashboard() {
       {/* Student Upload Guide Link */}
       <div className="mt-10 bg-green-50 border-2 border-green-200 rounded-2xl p-8 text-center">
         <p className="text-green-900 font-semibold mb-4">📚 Help students learn how to upload content</p>
-        <Link 
-          to={`${createPageUrl('SchoolSubmitGuide')}?schoolSlug=${schoolSlug}`}
+        <a 
+          href={`${createPageUrl('SchoolSubmitGuide')}?school=${schoolSlug}`}
           className="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition-colors"
         >
           View Upload Guide
-        </Link>
+        </a>
       </div>
     </AdminShell>
   );
