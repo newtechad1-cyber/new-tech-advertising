@@ -5,7 +5,9 @@ import PublicShell from '@/components/school-tv/PublicShell';
 import { ArrowRight, Play, Calendar, Star } from 'lucide-react';
 
 export default function SchoolHome() {
-  const { schoolSlug } = useParams();
+  const { schoolSlug: paramSlug } = useParams();
+  const searchParams = new URLSearchParams(window.location.search);
+  const schoolSlug = paramSlug || searchParams.get('school') || 'hampton-dumont';
   const [branding, setBranding] = useState(null);
   const [featuredStories, setFeaturedStories] = useState([]);
   const [featuredVideos, setFeaturedVideos] = useState([]);
