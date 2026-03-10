@@ -9,6 +9,10 @@ import {
   GenerateBlogArticleModal,
   AuthorityPlannerModal,
   MonthlyReportModal,
+  SchoolVideoScriptModal,
+  GenerateContentFromTopicModal,
+  AdaSalesAssistantModal,
+  CreateAIContentJobModal,
 } from './LaunchModals';
 
 const MANUAL_FUNCTIONS = [
@@ -84,57 +88,43 @@ function FunctionCard({ func }) {
     'generateBlogArticle',
     'authorityPlanner',
     'monthlyReportGenerator',
+    'schoolVideoScriptGeneration',
+    'generateContentFromTopic',
+    'adaSalesAssistant',
+    'createAIContentJob',
   ];
 
   const needsModal = modalFunctions.includes(func.name);
 
   // Get modal component for this function
   const getModalComponent = () => {
+    const buttonProps = {
+      className: 'flex-1 bg-blue-600 hover:bg-blue-700 gap-1',
+      children: (
+        <>
+          <Play className="w-4 h-4" />
+          Run Now
+        </>
+      ),
+    };
+
     switch (func.name) {
       case 'generateSchoolStoryContent':
-        return (
-          <GenerateSchoolStoryContentModal
-            trigger={
-              <Button className="flex-1 bg-blue-600 hover:bg-blue-700 gap-1">
-                <Play className="w-4 h-4" />
-                Run Now
-              </Button>
-            }
-          />
-        );
+        return <GenerateSchoolStoryContentModal trigger={<Button {...buttonProps} />} />;
       case 'generateBlogArticle':
-        return (
-          <GenerateBlogArticleModal
-            trigger={
-              <Button className="flex-1 bg-blue-600 hover:bg-blue-700 gap-1">
-                <Play className="w-4 h-4" />
-                Run Now
-              </Button>
-            }
-          />
-        );
+        return <GenerateBlogArticleModal trigger={<Button {...buttonProps} />} />;
       case 'authorityPlanner':
-        return (
-          <AuthorityPlannerModal
-            trigger={
-              <Button className="flex-1 bg-blue-600 hover:bg-blue-700 gap-1">
-                <Play className="w-4 h-4" />
-                Run Now
-              </Button>
-            }
-          />
-        );
+        return <AuthorityPlannerModal trigger={<Button {...buttonProps} />} />;
       case 'monthlyReportGenerator':
-        return (
-          <MonthlyReportModal
-            trigger={
-              <Button className="flex-1 bg-blue-600 hover:bg-blue-700 gap-1">
-                <Play className="w-4 h-4" />
-                Run Now
-              </Button>
-            }
-          />
-        );
+        return <MonthlyReportModal trigger={<Button {...buttonProps} />} />;
+      case 'schoolVideoScriptGeneration':
+        return <SchoolVideoScriptModal trigger={<Button {...buttonProps} />} />;
+      case 'generateContentFromTopic':
+        return <GenerateContentFromTopicModal trigger={<Button {...buttonProps} />} />;
+      case 'adaSalesAssistant':
+        return <AdaSalesAssistantModal trigger={<Button {...buttonProps} />} />;
+      case 'createAIContentJob':
+        return <CreateAIContentJobModal trigger={<Button {...buttonProps} />} />;
       default:
         return null;
     }
