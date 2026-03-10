@@ -4,6 +4,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Play, Eye, FileOutput, AlertCircle, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
+import {
+  GenerateSchoolStoryContentModal,
+  GenerateBlogArticleModal,
+  AuthorityPlannerModal,
+  MonthlyReportModal,
+} from './LaunchModals';
 
 const MANUAL_FUNCTIONS = [
   {
@@ -72,28 +78,65 @@ const MANUAL_FUNCTIONS = [
 ];
 
 function FunctionCard({ func }) {
-  const [running, setRunning] = useState(false);
+  // Functions that need modals (collect input before launch)
+  const modalFunctions = [
+    'generateSchoolStoryContent',
+    'generateBlogArticle',
+    'authorityPlanner',
+    'monthlyReportGenerator',
+  ];
 
-  const handleRun = async () => {
-    setRunning(true);
-    try {
-      // For demo, just log and show toast
-      // In production, would invoke the actual function
-      console.log(`Running: ${func.name}`);
-      toast.success(`Job queued: ${func.name}`);
-      
-      // Create a job record
-      await base44.asServiceRole.entities.AIJobs.create({
-        function_name: func.name,
-        status: 'pending',
-        trigger_source: 'manual',
-        triggered_by_email: (await base44.auth.me()).email,
-      });
+  const needsModal = modalFunctions.includes(func.name);
 
-      setTimeout(() => setRunning(false), 1000);
-    } catch (error) {
-      toast.error(`Failed to queue job: ${error.message}`);
-      setRunning(false);
+  // Get modal component for this function
+  const getModalComponent = () => {
+    switch (func.name) {
+      case 'generateSchoolStoryContent':
+        return (
+          <GenerateSchoolStoryContentModal
+            trigger={
+              <Button className="flex-1 bg-blue-600 hover:bg-blue-700 gap-1">
+                <Play className="w-4 h-4" />
+                Run Now
+              </Button>
+            }
+          />
+        );
+      case 'generateBlogArticle':
+        return (
+          <GenerateBlogArticleModal
+            trigger={
+              <Button className="flex-1 bg-blue-600 hover:bg-blue-700 gap-1">
+                <Play className="w-4 h-4" />
+                Run Now
+              </Button>
+            }
+          />
+        );
+      case 'authorityPlanner':
+        return (
+          <AuthorityPlannerModal
+            trigger={
+              <Button className="flex-1 bg-blue-600 hover:bg-blue-700 gap-1">
+                <Play className="w-4 h-4" />
+                Run Now
+              </Button>
+            }
+          />
+        );
+      case 'monthlyReportGenerator':
+        return (
+          <MonthlyReportModal
+            trigger={
+              <Button className="flex-1 bg-blue-600 hover:bg-blue-700 gap-1">
+                <Play className="w-4 h-4" />
+                Run Now
+              </Button>
+            }
+          />
+        );
+      default:
+        return null;
     }
   };
 
@@ -130,24 +173,28 @@ function FunctionCard({ func }) {
           </div>
         </div>
         <div className="flex gap-2 pt-2">
-          <Button
-            onClick={handleRun}
-            disabled={running}
-            size="sm"
-            className="flex-1 bg-blue-600 hover:bg-blue-700 gap-1"
-          >
-            {running ? (
-              <>
-                <Loader2 className="w-4 h-4 animate-spin" />
-                Running
-              </>
-            ) : (
-              <>
-                <Play className="w-4 h-4" />
-                Run Now
-              </>
-            )}
-          </Button>
+          {needsModal ? getModalComponent() : (
+            <Button
+              onClick={async () => {
+                try {
+                  await base44.asServiceRole.entities.AIJobs.create({
+                    function_name: func.name,
+                    status: 'pending',
+                    trigger_source: 'manual',
+                    triggered_by_email: (await base44.auth.me()).email,
+                  });
+                  toast.success(`Job queued: ${func.name}`);
+                } catch (error) {
+                  toast.error(`Error: ${error.message}`);
+                }
+              }}
+              size="sm"
+              className="flex-1 bg-blue-600 hover:bg-blue-700 gap-1"
+            >
+              <Play className="w-4 h-4" />
+              Run Now
+            </Button>
+          )}
           <Button variant="outline" size="sm" className="flex-1 gap-1">
             <Eye className="w-4 h-4" />
             View Jobs
