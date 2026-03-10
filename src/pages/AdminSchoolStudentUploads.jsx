@@ -122,13 +122,15 @@ export default function AdminSchoolStudentUploads() {
       await base44.entities.StudentUploads.update(uploadId, {
         status: 'rejected',
         rejection_reason: reason,
+        moderation_status: 'flagged', // Keep flagged to block downstream workflows
         reviewed_by: 'admin',
         reviewed_at: new Date().toISOString(),
       });
-      setUploads(uploads.map(u => u.id === uploadId ? { ...u, status: 'rejected' } : u));
+      setUploads(uploads.map(u => u.id === uploadId ? { ...u, status: 'rejected', moderation_status: 'flagged' } : u));
       setSelectedUpload(null);
     } catch (err) {
       console.error('Error rejecting:', err);
+      alert('Error rejecting upload');
     } finally {
       setModerating(false);
     }
