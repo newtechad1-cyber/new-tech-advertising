@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import AdminShell from '@/components/school-tv/AdminShell';
 import { Plus, Search, ArrowRight } from 'lucide-react';
@@ -20,13 +21,17 @@ const STATUS_COLORS = {
 export default function AdminSchoolProjects() {
   const { schoolSlug: paramSlug } = useParams();
   const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
+  const [projects, setProjects] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
+  const [selectedStatus, setSelectedStatus] = useState('all');
+  const [selectedType, setSelectedType] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadData = async () => {
       try {
-        const data = await base44.entities.SchoolVideoProjects.filter({
-          school_slug: schoolSlug,
-        });
+        const data = await base44.entities.SchoolVideoProjects.filter({ school_slug: schoolSlug });
         setProjects(data.sort((a, b) => new Date(b.updated_date || b.created_date) - new Date(a.updated_date || a.created_date)));
       } catch (error) {
         console.error('Error loading projects:', error);
@@ -39,41 +44,28 @@ export default function AdminSchoolProjects() {
 
   useEffect(() => {
     let filtered = projects;
-
-    if (selectedStatus !== 'all') {
-      filtered = filtered.filter(p => p.status === selectedStatus);
-    }
-    if (selectedType !== 'all') {
-      filtered = filtered.filter(p => p.project_type === selectedType);
-    }
-    if (searchTerm) {
-      filtered = filtered.filter(p =>
-        p.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-
+    if (selectedStatus !== 'all') filtered = filtered.filter(p => p.status === selectedStatus);
+    if (selectedType !== 'all') filtered = filtered.filter(p => p.project_type === selectedType);
+    if (searchTerm) filtered = filtered.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()));
     setFilteredProjects(filtered);
   }, [projects, selectedStatus, selectedType, searchTerm]);
 
   if (loading) return <AdminShell schoolSlug={schoolSlug}><div className="text-center py-12">Loading...</div></AdminShell>;
 
+  const newProjectUrl = `${createPageUrl('AdminCreateProject')}?schoolSlug=${schoolSlug}`;
+
   return (
     <AdminShell schoolSlug={schoolSlug}>
-      {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div>
           <h1 className="text-3xl font-bold">Video Projects</h1>
           <p className="text-gray-600">Create and manage school video projects</p>
         </div>
-        <Link
-          to={`/admin/schools/${schoolSlug}/projects/new`}
-          className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center justify-center gap-2"
-        >
+        <Link to={newProjectUrl} className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center justify-center gap-2">
           <Plus className="h-5 w-5" /> New Project
         </Link>
       </div>
 
-      {/* Filters */}
       <div className="bg-white rounded-lg shadow-md p-6 mb-6 space-y-4">
         <div className="grid md:grid-cols-2 gap-4">
           <div>
@@ -91,11 +83,7 @@ export default function AdminSchoolProjects() {
           </div>
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">Project Type</label>
-            <select
-              value={selectedType}
-              onChange={(e) => setSelectedType(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
+            <select value={selectedType} onChange={(e) => setSelectedType(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
               <option value="all">All Types</option>
               <option value="weekly_recap">Weekly Recap</option>
               <option value="sports_highlight">Sports Highlight</option>
@@ -106,14 +94,9 @@ export default function AdminSchoolProjects() {
             </select>
           </div>
         </div>
-
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2">Status</label>
-          <select
-            value={selectedStatus}
-            onChange={(e) => setSelectedStatus(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
+          <select value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option value="all">All Statuses</option>
             <option value="draft">Draft</option>
             <option value="collecting_assets">Collecting Assets</option>
@@ -127,25 +110,13 @@ export default function AdminSchoolProjects() {
             <option value="failed">Failed</option>
           </select>
         </div>
-
-        <button
-          onClick={() => {
-            setSelectedStatus('all');
-            setSelectedType('all');
-            setSearchTerm('');
-          }}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-semibold"
-        >
+        <button onClick={() => { setSelectedStatus('all'); setSelectedType('all'); setSearchTerm(''); }} className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-semibold">
           Clear All Filters
         </button>
       </div>
 
-      {/* Count */}
-      <div className="mb-4 text-sm text-gray-600">
-        Showing {filteredProjects.length} of {projects.length} projects
-      </div>
+      <div className="mb-4 text-sm text-gray-600">Showing {filteredProjects.length} of {projects.length} projects</div>
 
-      {/* Projects Grid */}
       {filteredProjects.length > 0 ? (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.map((project) => (
@@ -161,12 +132,9 @@ export default function AdminSchoolProjects() {
                 <div className="flex justify-between items-start gap-2 mb-2">
                   <h3 className="text-lg font-bold flex-1">{project.title}</h3>
                   {project.publish_to_gallery && (
-                    <span className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full font-semibold">
-                      Bulldog TV
-                    </span>
+                    <span className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full font-semibold">Bulldog TV</span>
                   )}
                 </div>
-
                 <div className="flex flex-wrap gap-2 mb-4">
                   <span className={`px-3 py-1 rounded-full text-xs font-semibold ${STATUS_COLORS[project.status] || 'bg-gray-100'}`}>
                     {project.status.replace(/_/g, ' ')}
@@ -175,19 +143,13 @@ export default function AdminSchoolProjects() {
                     {project.project_type.replace(/_/g, ' ')}
                   </span>
                 </div>
-
-                {project.description && (
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">{project.description}</p>
-                )}
-
-                <div className="flex gap-2">
-                   <Link
-                     to={`/admin/schools/${schoolSlug}/projects/${project.id}`}
-                     className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold text-sm flex items-center justify-center gap-2"
-                   >
-                     Open <ArrowRight className="h-4 w-4" />
-                   </Link>
-                 </div>
+                {project.description && <p className="text-gray-600 text-sm mb-4 line-clamp-2">{project.description}</p>}
+                <Link
+                  to={`${createPageUrl('AdminSchoolProjectDetail')}?id=${project.id}&schoolSlug=${schoolSlug}`}
+                  className="flex w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold text-sm items-center justify-center gap-2"
+                >
+                  Open <ArrowRight className="h-4 w-4" />
+                </Link>
               </div>
             </div>
           ))}
@@ -199,10 +161,7 @@ export default function AdminSchoolProjects() {
           </div>
           <p className="text-gray-900 text-lg font-semibold">No projects yet</p>
           <p className="text-gray-600 text-sm mt-2">Create your first video project to get started</p>
-          <Link
-            to={`/admin/schools/${schoolSlug}/projects/new`}
-            className="mt-6 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold"
-          >
+          <Link to={newProjectUrl} className="mt-6 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold">
             Create Project
           </Link>
         </div>
