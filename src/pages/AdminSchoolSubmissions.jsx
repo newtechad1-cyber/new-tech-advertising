@@ -22,6 +22,7 @@ export default function AdminSchoolSubmissions() {
   const { schoolSlug } = useParams();
   const [selectedSubmission, setSelectedSubmission] = useState(null);
   const [filterStatus, setFilterStatus] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
   const [submissions, setSubmissions] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -51,9 +52,13 @@ export default function AdminSchoolSubmissions() {
     rejected: 'bg-red-100 text-red-800',
   };
 
-  const filteredSubmissions = filterStatus === 'all' 
-    ? submissions 
-    : submissions.filter(s => s.status === filterStatus);
+  const filteredSubmissions = submissions.filter(s => {
+    const statusMatch = filterStatus === 'all' || s.status === filterStatus;
+    const searchMatch = !searchTerm || 
+      s.submission_title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      s.contributor_name?.toLowerCase().includes(searchTerm.toLowerCase());
+    return statusMatch && searchMatch;
+  });
 
   const handleApprove = async (id) => {
     try {
@@ -140,18 +145,16 @@ export default function AdminSchoolSubmissions() {
           <div className="bg-white rounded-lg border border-gray-200 p-4 mb-6">
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex-1 relative">
-                <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                <Input
-                  placeholder="Search submissions..."
-                  className="pl-10"
-                />
-              </div>
-              <div className="flex gap-2">
-                <Button variant="outline" className="flex items-center gap-2">
-                  <Filter className="h-4 w-4" />
-                  Filter
-                </Button>
-                <select
+                 <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                 <Input
+                   placeholder="Search by title or contributor..."
+                   className="pl-10"
+                   value={searchTerm}
+                   onChange={(e) => setSearchTerm(e.target.value)}
+                 />
+               </div>
+               <div className="flex gap-2">
+                 <select
                   value={filterStatus}
                   onChange={(e) => setFilterStatus(e.target.value)}
                   className="px-4 py-2 rounded-lg border border-gray-200 text-sm text-gray-700"
