@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import PublicShell from '@/components/school-tv/PublicShell';
 import { ArrowLeft, Calendar, MapPin } from 'lucide-react';
 
 export default function SchoolEventDetail() {
-  const { schoolSlug, eventSlug } = useParams();
+  const { eventSlug } = useParams();
+  const searchParams = new URLSearchParams(window.location.search);
+  const schoolSlug = searchParams.get('school') || 'hampton-dumont';
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -43,9 +46,9 @@ export default function SchoolEventDetail() {
 
         {/* Content */}
         <article className="max-w-3xl mx-auto px-6 py-12">
-          <Link to={`/schools/${schoolSlug}/events`} className="text-blue-600 hover:text-blue-800 mb-6 flex items-center gap-2">
-            <ArrowLeft className="h-4 w-4" /> Back to Events
-          </Link>
+          <a href={`${createPageUrl('SchoolEvents')}?school=${schoolSlug}`} className="text-blue-600 hover:text-blue-800 mb-6 flex items-center gap-2">
+             <ArrowLeft className="h-4 w-4" /> Back to Events
+           </a>
 
           <h1 className="text-4xl font-bold mb-6">{event.title}</h1>
 

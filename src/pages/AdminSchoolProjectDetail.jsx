@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import AdminShell from '@/components/school-tv/AdminShell';
 import { useSchoolPermissions } from '@/components/school-tv/useSchoolPermissions';
@@ -10,9 +10,9 @@ import { ArrowLeft, Wand2, Play, Film, Globe, CheckCircle, Loader2, RefreshCw } 
 const TABS = ['Overview', 'Assets', 'Script', 'Publishing'];
 
 export default function AdminSchoolProjectDetail() {
-  const { schoolSlug: paramSlug, projectId: paramProjectId } = useParams() || {};
+  const { projectId: paramProjectId } = useParams() || {};
   const searchParams = new URLSearchParams(window.location.search);
-  const schoolSlug = paramSlug || searchParams.get('schoolSlug') || 'hampton-dumont';
+  const schoolSlug = searchParams.get('school') || 'hampton-dumont';
   const projectId = paramProjectId || searchParams.get('id');
   const { can } = useSchoolPermissions(schoolSlug);
 
@@ -144,7 +144,7 @@ export default function AdminSchoolProjectDetail() {
     <AdminShell schoolSlug={schoolSlug}>
       <div className="max-w-6xl mx-auto px-4 py-6">
         <div className="flex items-center gap-3 mb-6">
-          <Link to={`${createPageUrl('AdminSchoolProjects')}?schoolSlug=${schoolSlug}`}><Button variant="ghost" size="sm"><ArrowLeft className="w-4 h-4" /></Button></Link>
+          <a href={`${createPageUrl('AdminSchoolProjects')}?school=${schoolSlug}`}><Button variant="ghost" size="sm"><ArrowLeft className="w-4 h-4" /></Button></a>
           <div className="flex-1"><h1 className="text-xl font-bold text-slate-900">{project.title}</h1><div className="flex items-center gap-2 mt-1"><span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded">{project.status}</span><span className="text-xs text-slate-400 capitalize">{project.project_type?.replace(/_/g,' ')}</span><span className="text-slate-300">·</span><span className="text-xs text-slate-400">{project.tone}</span></div></div>
           <div className="flex gap-2">
             <Button onClick={generateScript} disabled={generating} variant="outline" className="gap-1.5">

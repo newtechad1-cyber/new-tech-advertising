@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import PublicShell from '@/components/school-tv/PublicShell';
 import { ArrowLeft, Calendar } from 'lucide-react';
 
 export default function SchoolVideoDetail() {
-  const { schoolSlug, videoSlug } = useParams();
+  const { videoSlug } = useParams();
+  const searchParams = new URLSearchParams(window.location.search);
+  const schoolSlug = searchParams.get('school') || 'hampton-dumont';
   const [video, setVideo] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -35,9 +38,9 @@ export default function SchoolVideoDetail() {
     <PublicShell currentPath="tv">
       <div className="bg-gray-900 text-white py-12">
         <div className="max-w-4xl mx-auto px-6">
-          <Link to={`/schools/${schoolSlug}/tv`} className="text-blue-400 hover:text-blue-300 mb-6 flex items-center gap-2">
-            <ArrowLeft className="h-4 w-4" /> Back to Videos
-          </Link>
+          <a href={`${createPageUrl('SchoolTV')}?school=${schoolSlug}`} className="text-blue-400 hover:text-blue-300 mb-6 flex items-center gap-2">
+             <ArrowLeft className="h-4 w-4" /> Back to Videos
+           </a>
           
           {video.public_video_url && (
             <div className="aspect-video bg-black rounded-lg overflow-hidden mb-8 shadow-lg">

@@ -19,7 +19,7 @@ const PUBLIC_NAV = [
 export default function PublicShell({ children, currentPath, schoolSlug: propSchoolSlug }) {
   const { schoolSlug: paramSchoolSlug } = useParams();
   const searchParams = new URLSearchParams(window.location.search);
-  const schoolSlug = propSchoolSlug || paramSchoolSlug || searchParams.get('schoolSlug') || 'hampton-dumont';
+  const schoolSlug = propSchoolSlug || paramSchoolSlug || searchParams.get('school') || 'hampton-dumont';
   const [branding, setBranding] = useState(null);
 
   useEffect(() => {

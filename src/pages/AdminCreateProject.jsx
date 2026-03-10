@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 import AdminShell from '@/components/school-tv/AdminShell';
@@ -7,7 +7,7 @@ import { ArrowLeft, Save, Plus } from 'lucide-react';
 
 export default function AdminCreateProject() {
   const { schoolSlug: paramSlug } = useParams();
-  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
+  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('school') || 'hampton-dumont';
   const [step, setStep] = useState(1);
   const [project, setProject] = useState({
     school_slug: schoolSlug,
@@ -54,10 +54,10 @@ export default function AdminCreateProject() {
     setCreating(true);
     try {
       const newProject = await base44.entities.SchoolVideoProjects.create({
-        ...project,
-        description: project.title,
-      });
-      window.location.href = `${createPageUrl('AdminSchoolProjectDetail')}?id=${newProject.id}&schoolSlug=${schoolSlug}`;
+         ...project,
+         description: project.title,
+       });
+       window.location.href = `${createPageUrl('AdminSchoolProjectDetail')}?id=${newProject.id}&school=${schoolSlug}`;
     } catch (error) {
       console.error('Error creating project:', error);
       alert('Error creating project');
@@ -76,9 +76,9 @@ export default function AdminCreateProject() {
   return (
     <AdminShell schoolSlug={schoolSlug}>
       {/* Header */}
-      <Link to={`${createPageUrl('AdminSchoolProjects')}?schoolSlug=${schoolSlug}`} className="text-blue-600 hover:text-blue-800 mb-6 flex items-center gap-2 font-semibold">
-        <ArrowLeft className="h-4 w-4" /> Back to Projects
-      </Link>
+       <a href={`${createPageUrl('AdminSchoolProjects')}?school=${schoolSlug}`} className="text-blue-600 hover:text-blue-800 mb-6 flex items-center gap-2 font-semibold">
+         <ArrowLeft className="h-4 w-4" /> Back to Projects
+       </a>
 
       <h1 className="text-3xl font-bold mb-8">Create New Video Project</h1>
 

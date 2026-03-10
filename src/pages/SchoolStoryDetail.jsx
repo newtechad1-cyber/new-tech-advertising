@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import PublicShell from '@/components/school-tv/PublicShell';
 import { ArrowLeft, Calendar, User } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
 export default function SchoolStoryDetail() {
-  const { schoolSlug, storySlug } = useParams();
+  const { storySlug } = useParams();
+  const searchParams = new URLSearchParams(window.location.search);
+  const schoolSlug = searchParams.get('school') || 'hampton-dumont';
   const [story, setStory] = useState(null);
   const [authors, setAuthors] = useState([]);
   const [mediaLinks, setMediaLinks] = useState([]);
@@ -56,9 +59,9 @@ export default function SchoolStoryDetail() {
 
         {/* Content */}
         <article className="max-w-3xl mx-auto px-6 py-12">
-          <Link to={`/schools/${schoolSlug}/stories`} className="text-blue-600 hover:text-blue-800 mb-6 flex items-center gap-2">
-            <ArrowLeft className="h-4 w-4" /> Back to Stories
-          </Link>
+          <a href={`${createPageUrl('SchoolStories')}?school=${schoolSlug}`} className="text-blue-600 hover:text-blue-800 mb-6 flex items-center gap-2">
+             <ArrowLeft className="h-4 w-4" /> Back to Stories
+           </a>
 
           <h1 className="text-4xl font-bold mb-4">{story.title}</h1>
 

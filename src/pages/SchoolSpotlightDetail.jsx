@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import PublicShell from '@/components/school-tv/PublicShell';
 import { ArrowLeft, Star } from 'lucide-react';
 
 export default function SchoolSpotlightDetail() {
-  const { schoolSlug, spotlightSlug } = useParams();
+  const { spotlightSlug } = useParams();
+  const searchParams = new URLSearchParams(window.location.search);
+  const schoolSlug = searchParams.get('school') || 'hampton-dumont';
   const [spotlight, setSpotlight] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -43,9 +46,9 @@ export default function SchoolSpotlightDetail() {
 
         {/* Content */}
         <article className="max-w-3xl mx-auto px-6 py-12">
-          <Link to={`/schools/${schoolSlug}/spotlights`} className="text-blue-600 hover:text-blue-800 mb-6 flex items-center gap-2">
-            <ArrowLeft className="h-4 w-4" /> Back to Spotlights
-          </Link>
+          <a href={`${createPageUrl('SchoolSpotlights')}?school=${schoolSlug}`} className="text-blue-600 hover:text-blue-800 mb-6 flex items-center gap-2">
+             <ArrowLeft className="h-4 w-4" /> Back to Spotlights
+           </a>
 
           <div className="flex items-center gap-3 mb-4">
             <Star className="h-6 w-6 text-yellow-500" />
