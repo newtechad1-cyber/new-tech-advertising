@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useParams, Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import AdminShell from '@/components/school-tv/AdminShell';
+import AdminLayout from '@/components/admin/AdminLayout';
 import { useSchoolPermissions } from '@/components/school-tv/useSchoolPermissions';
 import PermissionGuard from '@/components/school-tv/PermissionGuard';
 import { Button } from '@/components/ui/button';
@@ -54,16 +54,15 @@ export default function AdminSchoolYearbook() {
 
   if (loading) {
     return (
-      <AdminShell schoolSlug={schoolSlug}>
-        <div className="flex items-center justify-center h-screen">
+      <AdminLayout currentPageName="AdminSchoolYearbook">
+        <div className="flex items-center justify-center h-64">
           <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
         </div>
-      </AdminShell>
+      </AdminLayout>
     );
   }
 
-  return (
-    <AdminShell schoolSlug={schoolSlug}>
+  const content = (
 
       <div className="max-w-7xl mx-auto px-6 py-12">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">Digital Yearbook</h1>
@@ -184,6 +183,8 @@ export default function AdminSchoolYearbook() {
           )}
         </div>
       </div>
-    </AdminShell>
+    </div>
   );
+
+  return <AdminLayout currentPageName="AdminSchoolYearbook">{content}</AdminLayout>;
 }

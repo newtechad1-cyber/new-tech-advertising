@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
-import AdminShell from '@/components/school-tv/AdminShell';
+import AdminLayout from '@/components/admin/AdminLayout';
 import { Plus, Search, Eye, Zap } from 'lucide-react';
 
 const STATUS_COLORS = {
@@ -76,10 +76,9 @@ export default function AdminSchoolEvents() {
     setFilteredEvents(filtered);
   }, [events, selectedType, selectedStatus, selectedFeatured, searchTerm]);
 
-  if (loading) return <AdminShell schoolSlug={schoolSlug}><div className="text-center py-12">Loading...</div></AdminShell>;
+  if (loading) return <AdminLayout currentPageName="AdminSchoolEvents"><div className="text-center py-12">Loading...</div></AdminLayout>;
 
-  return (
-    <AdminShell schoolSlug={schoolSlug}>
+  const content = (
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div>
@@ -240,6 +239,8 @@ export default function AdminSchoolEvents() {
           </div>
         )}
       </div>
-    </AdminShell>
+    </div>
   );
+
+  return <AdminLayout currentPageName="AdminSchoolEvents">{content}</AdminLayout>;
 }

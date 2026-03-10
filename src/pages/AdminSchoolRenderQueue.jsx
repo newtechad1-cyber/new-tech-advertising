@@ -62,9 +62,8 @@ export default function AdminSchoolRenderQueue() {
     );
   };
 
-  return (
-    <AdminShell schoolSlug={schoolSlug}>
-      <div className="flex-1 overflow-auto">
+  const content = (
+    <div className="flex-1 overflow-auto">
         <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
           <div className="max-w-4xl mx-auto px-6 py-6">
             <h1 className="text-2xl font-bold text-slate-900">Render Queue</h1>
@@ -101,6 +100,8 @@ export default function AdminSchoolRenderQueue() {
           )}
         </div>
       </div>
-    </AdminShell>
+    </div>
   );
+
+  return <AdminLayout currentPageName="AdminSchoolRenderQueue">{content}</AdminLayout>;
 }

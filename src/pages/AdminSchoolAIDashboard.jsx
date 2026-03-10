@@ -179,9 +179,8 @@ export default function AdminSchoolAIDashboard() {
   }, [jobs, statusFilter, typeFilter, entityFilter, dateRangeIdx, search]);
 
   // ── render ────────────────────────────────────────────────────────────────────
-  return (
-    <AdminShell schoolSlug={schoolSlug}>
-      <div className="flex-1 overflow-auto">
+  const content = (
+    <div className="flex-1 overflow-auto">
 
         {/* Header */}
         <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
@@ -476,6 +475,8 @@ export default function AdminSchoolAIDashboard() {
 
         </div>
       </div>
-    </AdminShell>
+    </div>
   );
+
+  return <AdminLayout currentPageName="AdminSchoolAIDashboard">{content}</AdminLayout>;
 }
