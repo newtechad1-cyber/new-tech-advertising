@@ -80,7 +80,7 @@ export default function AdminSchoolYearbook() {
               </Button>
             ))}
             <Link
-              to={`/admin/schools/${schoolSlug}/yearbook/seasons/new`}
+              to={`${createPageUrl('AdminSchoolYearbook')}?schoolSlug=${schoolSlug}&action=new-season`}
               className="inline-flex items-center gap-2 px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 font-semibold"
             >
               <Plus className="h-4 w-4" />
@@ -95,7 +95,7 @@ export default function AdminSchoolYearbook() {
             <h2 className="text-xl font-bold text-gray-900">Pages</h2>
             {selectedSeason && (
               <Link
-                to={`/admin/schools/${schoolSlug}/yearbook/pages/new?season=${selectedSeason}`}
+                to={`${createPageUrl('AdminYearbookPage')}?seasonId=${selectedSeason}&schoolSlug=${schoolSlug}&action=new`}
                 className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold"
               >
                 <Plus className="h-4 w-4" />
@@ -131,7 +131,7 @@ export default function AdminSchoolYearbook() {
                     </a>
                   )}
                   <Link 
-                    to={`/admin/schools/${schoolSlug}/yearbook/pages/${page.id}`}
+                    to={`${createPageUrl('AdminYearbookPage')}?id=${page.id}&schoolSlug=${schoolSlug}`}
                     className="inline-flex items-center justify-center w-8 h-8 text-blue-600 hover:bg-blue-50 rounded transition-colors"
                   >
                     <Edit className="h-4 w-4" />
@@ -162,7 +162,7 @@ export default function AdminSchoolYearbook() {
               <p className="text-gray-600 mb-4">No pages created yet</p>
               {selectedSeason && (
                 <Link
-                  to={`/admin/schools/${schoolSlug}/yearbook/pages/new?season=${selectedSeason}`}
+                  to={`${createPageUrl('AdminYearbookPage')}?seasonId=${selectedSeason}&schoolSlug=${schoolSlug}&action=new`}
                   className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold"
                 >
                   <Plus className="h-4 w-4" />
