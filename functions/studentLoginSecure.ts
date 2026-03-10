@@ -2,6 +2,7 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 
 /**
  * Secure login that creates a server-side session record.
+ * Implements concurrent session control: revokes older sessions on new login (safer default).
  * Returns an opaque session token that must be validated server-side on every request.
  */
 Deno.serve(async (req) => {
@@ -42,19 +43,38 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Upload access disabled' }, { status: 403 });
     }
 
-    // Step 4: Generate cryptographically strong random session token
+    // Step 4: CONCURRENT SESSION CONTROL
+    // Safer default for school use: revoke all previous sessions on new login
+    // This prevents account sharing and unauthorized concurrent access
+    const oldSessions = await base44.asServiceRole.entities.StudentSessions.filter({
+      student_user_id: student.id,
+      school_slug: school_slug,
+      is_active: true,
+    });
+    
+    if (oldSessions && oldSessions.length > 0) {
+      // Revoke all existing sessions for this student
+      for (const oldSession of oldSessions) {
+        await base44.asServiceRole.entities.StudentSessions.update(oldSession.id, {
+          is_active: false,
+          revoked_at: new Date().toISOString(),
+        });
+      }
+    }
+
+    // Step 5: Generate cryptographically strong random session token
     const sessionToken = Array.from(crypto.getRandomValues(new Uint8Array(32)))
       .map(b => b.toString(16).padStart(2, '0'))
       .join('');
 
-    // Step 5: Hash the token using SubtleCrypto (for server-side storage only)
+    // Step 6: Hash the token using SubtleCrypto (for server-side storage only)
     const tokenBuffer = new TextEncoder().encode(sessionToken);
     const hashBuffer = await crypto.subtle.digest('SHA-256', tokenBuffer);
     const sessionTokenHash = Array.from(new Uint8Array(hashBuffer))
       .map(b => b.toString(16).padStart(2, '0'))
       .join('');
 
-    // Step 6: Create server-side session record
+    // Step 7: Create server-side session record
     const expiresAt = new Date();
     expiresAt.setHours(expiresAt.getHours() + 24); // 24 hour session
 
@@ -70,7 +90,7 @@ Deno.serve(async (req) => {
       is_active: true,
     });
 
-    // Step 7: Update student last_login_at
+    // Step 8: Update student last_login_at
     await base44.asServiceRole.entities.StudentUsers.update(student.id, {
       last_login_at: new Date().toISOString(),
     });

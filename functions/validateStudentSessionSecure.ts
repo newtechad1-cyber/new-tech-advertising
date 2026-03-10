@@ -3,6 +3,7 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 /**
  * Validates session token against server-side session record.
  * This is the security boundary - token is hashed and checked server-side.
+ * Checks: expiry, revocation, account suspension, upload access.
  */
 Deno.serve(async (req) => {
   if (req.method !== 'POST') {
@@ -80,7 +81,14 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Account suspended' }, { status: 403 });
     }
 
-    // Step 7: Update last_seen_at
+    // Step 7: Check upload access
+    if (!student.can_upload) {
+      // Do not auto-revoke if can_upload is false (may be temporary)
+      // But deny access
+      return Response.json({ error: 'Upload access disabled' }, { status: 403 });
+    }
+
+    // Step 8: Update last_seen_at (for audit trail and session timeout detection)
     await base44.asServiceRole.entities.StudentSessions.update(session.id, {
       last_seen_at: new Date().toISOString(),
     });
