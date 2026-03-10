@@ -335,6 +335,7 @@ import SchoolStudentUploads from './pages/SchoolStudentUploads';
 import SchoolSubmit from './pages/SchoolSubmit';
 import SchoolSubmitGuide from './pages/SchoolSubmitGuide';
 import SchoolTV from './pages/SchoolTV';
+import SchoolTVDemo from './pages/SchoolTVDemo';
 import SchoolVideoDetail from './pages/SchoolVideoDetail';
 import SchoolYearbook from './pages/SchoolYearbook';
 import SchoolYearbookCategory from './pages/SchoolYearbookCategory';
@@ -376,7 +377,7 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import SchoolTVDemo from './pages/SchoolTVDemo';
+import SchoolTVDealRoom from './pages/SchoolTVDealRoom';
 import __Layout from './Layout.jsx';
 
 
@@ -669,6 +670,7 @@ export const PAGES = {
     "SchoolSubmit": SchoolSubmit,
     "SchoolSubmitGuide": SchoolSubmitGuide,
     "SchoolTV": SchoolTV,
+    "SchoolTVDemo": SchoolTVDemo,
     "SchoolVideoDetail": SchoolVideoDetail,
     "SchoolYearbook": SchoolYearbook,
     "SchoolYearbookCategory": SchoolYearbookCategory,
@@ -710,7 +712,7 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "SchoolTVDemo": SchoolTVDemo,
+    "SchoolTVDealRoom": SchoolTVDealRoom,
 }
 
 export const pagesConfig = {
