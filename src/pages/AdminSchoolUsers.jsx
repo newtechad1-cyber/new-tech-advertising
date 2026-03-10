@@ -15,7 +15,8 @@ const ROLE_LABELS = {
 };
 
 export default function AdminSchoolUsers() {
-  const { schoolSlug } = useParams();
+  const { schoolSlug: paramSlug } = useParams();
+  const schoolSlug = paramSlug || 'hampton-dumont';
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);

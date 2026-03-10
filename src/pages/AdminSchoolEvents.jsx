@@ -25,7 +25,8 @@ const EVENT_TYPE_COLORS = {
 };
 
 export default function AdminSchoolEvents() {
-  const { schoolSlug } = useParams();
+  const { schoolSlug: paramSlug } = useParams();
+  const schoolSlug = paramSlug || 'hampton-dumont';
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [selectedType, setSelectedType] = useState('all');

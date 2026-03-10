@@ -17,7 +17,8 @@ import {
 } from 'lucide-react';
 
 export default function AdminSchoolSubmissions() {
-  const { schoolSlug } = useParams();
+  const { schoolSlug: paramSlug } = useParams();
+  const schoolSlug = paramSlug || 'hampton-dumont';
   const [selectedSubmission, setSelectedSubmission] = useState(null);
   const [filterStatus, setFilterStatus] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');

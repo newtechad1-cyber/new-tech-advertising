@@ -5,7 +5,8 @@ import AdminShell from '@/components/school-tv/AdminShell';
 import { AlertCircle, CheckCircle2, Clock, Video, BookOpen, Zap, BarChart3, AlertTriangle, TrendingUp } from 'lucide-react';
 
 export default function AdminSchoolDashboard() {
-  const { schoolSlug } = useParams();
+  const { schoolSlug: paramSlug } = useParams();
+  const schoolSlug = paramSlug || 'hampton-dumont';
   const [stats, setStats] = useState(null);
   const [recentActivity, setRecentActivity] = useState([]);
   const [loading, setLoading] = useState(true);

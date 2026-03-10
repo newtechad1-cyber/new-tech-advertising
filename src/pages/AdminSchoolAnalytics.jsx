@@ -7,7 +7,7 @@ import {
   Users,
   FileText,
   Video,
-  Calendar,
+  Upload,
 } from 'lucide-react';
 
 export default function AdminSchoolAnalytics() {

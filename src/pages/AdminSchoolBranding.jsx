@@ -5,7 +5,8 @@ import AdminShell from '@/components/school-tv/AdminShell';
 import { Save, Upload, Eye, ArrowLeft } from 'lucide-react';
 
 export default function AdminSchoolBranding() {
-  const { schoolSlug } = useParams();
+  const { schoolSlug: paramSlug } = useParams();
+  const schoolSlug = paramSlug || 'hampton-dumont';
   const [branding, setBranding] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);

@@ -14,7 +14,8 @@ import {
 } from 'lucide-react';
 
 export default function AdminSchoolStoryLibrary() {
-  const { schoolSlug } = useParams();
+  const { schoolSlug: paramSlug } = useParams();
+  const schoolSlug = paramSlug || 'hampton-dumont';
   const [stories, setStories] = useState([]);
   const [filteredStories, setFilteredStories] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState('all');

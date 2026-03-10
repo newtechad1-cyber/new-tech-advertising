@@ -18,18 +18,10 @@ const STATUS_COLORS = {
 };
 
 export default function AdminSchoolProjects() {
-  const { schoolSlug } = useParams();
-  const [projects, setProjects] = useState([]);
-  const [filteredProjects, setFilteredProjects] = useState([]);
-  const [selectedStatus, setSelectedStatus] = useState('all');
-  const [selectedType, setSelectedType] = useState('all');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const data = await base44.entities.VideoProjects.filter({
+  const { schoolSlug: paramSlug } = useParams();
+  const schoolSlug = paramSlug || 'hampton-dumont';
+...
+        const data = await base44.entities.SchoolVideoProjects.filter({
           school_slug: schoolSlug,
         });
         setProjects(data.sort((a, b) => new Date(b.updated_date || b.created_date) - new Date(a.updated_date || a.created_date)));

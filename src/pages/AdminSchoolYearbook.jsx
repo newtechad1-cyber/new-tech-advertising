@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Loader2, Plus, Edit, Eye, Trash2, BookOpen } from 'lucide-react';
 
 export default function AdminSchoolYearbook() {
-  const { schoolSlug } = useParams();
+  const { schoolSlug: paramSlug } = useParams();
+  const schoolSlug = paramSlug || 'hampton-dumont';
   const [seasons, setSeasons] = useState([]);
   const [selectedSeason, setSelectedSeason] = useState(null);
   const [pages, setPages] = useState([]);
