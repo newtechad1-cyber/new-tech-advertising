@@ -11,6 +11,7 @@ import { Loader2, Plus, Edit, Eye, Trash2, BookOpen } from 'lucide-react';
 export default function AdminSchoolYearbook() {
   const { schoolSlug: paramSlug } = useParams();
   const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('schoolSlug') || 'hampton-dumont';
+  const { can } = useSchoolPermissions(schoolSlug);
   const [seasons, setSeasons] = useState([]);
   const [selectedSeason, setSelectedSeason] = useState(null);
   const [pages, setPages] = useState([]);
