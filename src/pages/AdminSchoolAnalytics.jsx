@@ -100,7 +100,7 @@ export default function AdminSchoolAnalytics() {
         base44.entities.SchoolSubmissions.filter({ school: schoolSlug }, '-created_date', 2000),
         base44.entities.Stories.filter({ school_slug: schoolSlug }, '-created_date', 2000),
         base44.entities.SchoolVideoProjects.filter({ school: schoolSlug }, '-created_date', 2000),
-        base44.entities.SchoolVideoRenders.list('-created_date', 2000),
+        base44.entities.SchoolVideoRenders.filter({ school_slug: schoolSlug }, '-created_date', 2000),
         base44.entities.SchoolEvents.filter({ school_slug: schoolSlug }, '-created_date', 2000),
         base44.entities.Spotlights.filter({ school_slug: schoolSlug }, '-created_date', 2000),
         base44.entities.YearbookPages.filter({ school_slug: schoolSlug }, '-created_date', 2000),
@@ -190,7 +190,7 @@ export default function AdminSchoolAnalytics() {
   const buckets = useMemo(() => buildMonthBuckets(Math.min(chartMonths, 12)), [chartMonths]);
 
   const trendData = useMemo(() => {
-    const subCounts   = countByMonth(submissions.filter(r => schoolProjectIds.has(r.project_id) || true), 'created_date', buckets);
+    const subCounts   = countByMonth(submissions, 'created_date', buckets);
     // re-use full (unfiltered) arrays for monthly chart so buckets stay stable
     const storyCounts = countByMonth(stories,   'created_date', buckets);
     const vidCounts   = countByMonth(projects,  'created_date', buckets);
