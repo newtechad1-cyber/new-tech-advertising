@@ -206,6 +206,6 @@ export default function AdminSchoolVideoLibrary() {
           )}
         </div>
       </div>
-    </div>
+    </AdminShell>
   );
 }

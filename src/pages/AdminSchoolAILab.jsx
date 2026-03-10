@@ -213,6 +213,6 @@ export default function AdminSchoolAILab() {
           )}
         </div>
       </div>
-    </div>
+    </AdminShell>
   );
 }

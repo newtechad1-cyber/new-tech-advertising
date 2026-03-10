@@ -154,6 +154,6 @@ export default function AdminSchoolAnalytics() {
           </div>
         </div>
       </div>
-    </div>
+    </AdminShell>
   );
 }

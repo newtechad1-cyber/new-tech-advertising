@@ -302,6 +302,6 @@ export default function AdminSchoolAIDashboard() {
           )}
         </div>
       </div>
-    </div>
+    </AdminShell>
   );
 }
