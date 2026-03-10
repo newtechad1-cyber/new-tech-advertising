@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
-import AdminShell from '@/components/school-tv/AdminShell';
+import AdminLayout from '@/components/admin/AdminLayout';
 import StatusBadge from '@/components/school-tv/StatusBadge';
 import { Button } from '@/components/ui/button';
 import { Loader2, Play, AlertCircle, CheckCircle } from 'lucide-react';

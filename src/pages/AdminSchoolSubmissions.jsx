@@ -272,25 +272,25 @@ export default function AdminSchoolSubmissions() {
         </div>
 
       {/* Preview Drawer */}
-       {selectedSubmission && (
-         <>
-           {/* Overlay */}
-           <div 
-             className="fixed inset-0 bg-black bg-opacity-30 z-40"
-             onClick={() => setSelectedSubmission(null)}
-           />
-           <div className="fixed right-0 top-0 h-screen w-96 bg-white border-l border-gray-200 shadow-lg z-50 flex flex-col">
-             <div className="bg-gray-50 border-b border-gray-200 p-6 flex items-center justify-between">
-               <h2 className="text-xl font-bold">Submission Detail</h2>
-               <button
-                 onClick={() => setSelectedSubmission(null)}
-                 className="text-gray-500 hover:text-gray-700 text-2xl leading-none"
-               >
-                 ✕
-               </button>
-             </div>
-          
-          <div className="flex-1 overflow-auto p-6 space-y-6">
+      {selectedSubmission && (
+        <>
+          {/* Overlay */}
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-30 z-40"
+            onClick={() => setSelectedSubmission(null)}
+          />
+          <div className="fixed right-0 top-0 h-screen w-96 bg-white border-l border-gray-200 shadow-lg z-50 flex flex-col">
+            <div className="bg-gray-50 border-b border-gray-200 p-6 flex items-center justify-between">
+              <h2 className="text-xl font-bold">Submission Detail</h2>
+              <button
+                onClick={() => setSelectedSubmission(null)}
+                className="text-gray-500 hover:text-gray-700 text-2xl leading-none"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-auto p-6 space-y-6">
             {/* Submission Status Alert */}
             {!selectedSubmission.consent_confirmed && (
               <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
@@ -391,8 +391,8 @@ export default function AdminSchoolSubmissions() {
             </div>
             </>
             )}
-      </div>
-  );
+            </div>
+            );
 
   return <AdminLayout currentPageName="AdminSchoolSubmissions">{content}</AdminLayout>;
 }

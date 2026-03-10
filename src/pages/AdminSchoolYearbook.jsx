@@ -63,7 +63,7 @@ export default function AdminSchoolYearbook() {
   }
 
   const content = (
-
+    <div>
       <div className="max-w-7xl mx-auto px-6 py-12">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">Digital Yearbook</h1>
         <p className="text-gray-600 mb-8">Organize and manage yearbook seasons and pages</p>
@@ -182,8 +182,9 @@ export default function AdminSchoolYearbook() {
             </div>
           )}
         </div>
-      </div>
-  );
+        </div>
+        </div>
+        );
 
-  return <AdminLayout currentPageName="AdminSchoolYearbook">{content}</AdminLayout>;
+        return <AdminLayout currentPageName="AdminSchoolYearbook">{content}</AdminLayout>;
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
-import AdminShell from '@/components/school-tv/AdminShell';
+import AdminLayout from '@/components/admin/AdminLayout';
 import { useSchoolPermissions } from '@/components/school-tv/useSchoolPermissions';
 import PermissionGuard from '@/components/school-tv/PermissionGuard';
 import { Button } from '@/components/ui/button';
