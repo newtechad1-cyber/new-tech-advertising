@@ -244,7 +244,12 @@ export default function AdminSchoolSubmissions() {
                          </div>
                        </td>
                        <td className="px-6 py-4">
-                         <p className="text-gray-900 font-semibold text-sm">{submission.submission_title}</p>
+                         <div className="flex items-center gap-2">
+                           <p className="text-gray-900 font-semibold text-sm">{submission.submission_title}</p>
+                           {isModerationBlocked(submission) && (
+                             <span className="px-2 py-0.5 bg-red-100 text-red-700 text-xs font-semibold rounded">BLOCKED</span>
+                           )}
+                         </div>
                        </td>
                        <td className="px-6 py-4">
                          <span className="text-sm text-gray-700 capitalize">{submission.activity_type}</span>
