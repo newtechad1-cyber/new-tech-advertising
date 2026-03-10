@@ -25,10 +25,11 @@ export default function SchoolStudentProfile() {
 
         const session = JSON.parse(sessionStr);
 
-        // Validate session
-        const validation = await base44.functions.invoke('validateStudentSession', {
+        // Validate session token against server-side record
+        const validation = await base44.functions.invoke('validateStudentSessionSecure', {
           student_user_id: session.student_user_id,
           school_slug: schoolSlug,
+          session_token: session.session_token,
         });
 
         if (!validation.data?.valid) {
