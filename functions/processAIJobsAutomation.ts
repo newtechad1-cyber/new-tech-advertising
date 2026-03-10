@@ -24,10 +24,32 @@ Deno.serve(async (req) => {
 
     const job = jobs[0];
 
-    // Update to running
+    // CRITICAL: Prevent duplicate execution
+    if (job.status !== 'pending') {
+      return Response.json(
+        { error: `Job already in ${job.status} state. Cannot process.` },
+        { status: 409 }
+      );
+    }
+
+    // CRITICAL: Prevent infinite retry loops
+    if ((job.retry_count || 0) >= (job.max_retries || 3)) {
+      await base44.asServiceRole.entities.AIJobs.update(job_id, {
+        status: 'failed',
+        completed_at: new Date().toISOString(),
+        error_message: `Max retries exceeded (${job.retry_count} of ${job.max_retries || 3})`,
+      });
+      return Response.json(
+        { error: 'Max retries exceeded' },
+        { status: 410 }
+      );
+    }
+
+    // Atomically update to running with timestamp
+    const startTime = new Date();
     await base44.asServiceRole.entities.AIJobs.update(job_id, {
       status: 'running',
-      started_at: new Date().toISOString(),
+      started_at: startTime.toISOString(),
     });
 
     let result = null;
@@ -89,11 +111,14 @@ Deno.serve(async (req) => {
 
       // Mark job as completed
       const completedAt = new Date();
+      const startedAtTime = new Date(job.started_at);
+      const durationMs = completedAt.getTime() - startedAtTime.getTime();
+
       await base44.asServiceRole.entities.AIJobs.update(job_id, {
         status: 'completed',
         completed_at: completedAt.toISOString(),
         output_data: outputData ? JSON.stringify(outputData) : null,
-        duration_ms: completedAt - new Date(job.started_at),
+        duration_ms: durationMs,
       });
 
       // Create or update AIOutput record if applicable
@@ -116,17 +141,28 @@ Deno.serve(async (req) => {
 
       return Response.json({ success: true, job_id, status: 'completed' });
     } catch (funcErr) {
-      // Mark job as failed
+      // CRITICAL: Only update retry_count if under max_retries
+      const currentRetry = job.retry_count || 0;
+      const maxRetries = job.max_retries || 3;
+      const nextStatus = currentRetry >= maxRetries ? 'failed' : 'pending';
+      const nextRetryCount = currentRetry + 1;
+
       await base44.asServiceRole.entities.AIJobs.update(job_id, {
-        status: 'failed',
-        completed_at: new Date().toISOString(),
+        status: nextStatus,
+        completed_at: nextStatus === 'failed' ? new Date().toISOString() : null,
         error_message: funcErr.message,
-        retry_count: (job.retry_count || 0) + 1,
+        retry_count: nextRetryCount,
       });
 
       console.error('[AIJobProcessor] Function execution failed:', funcErr.message);
       return Response.json(
-        { success: false, job_id, error: funcErr.message },
+        { 
+          success: false, 
+          job_id, 
+          error: funcErr.message,
+          retryable: nextStatus === 'pending',
+          nextRetry: nextStatus === 'pending' ? nextRetryCount : null,
+        },
         { status: 500 }
       );
     }
