@@ -141,9 +141,12 @@ export default function AdminAIVideoStudio() {
     if (step > 1) setStep(step - 1);
   };
 
-  return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-6xl mx-auto">
+  const content = (
+    <div>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900">AI Video Studio</h1>
+        <p className="text-gray-600 mt-2">Create, configure, and render videos with AI-powered tools</p>
+      </div>
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">AI Video Studio</h1>
           <p className="text-gray-600 mt-2">Create, configure, and render videos with AI-powered tools</p>
@@ -327,9 +330,10 @@ export default function AdminAIVideoStudio() {
             </Card>
           </div>
         </div>
-      </div>
     </div>
   );
+
+  return <AdminLayout currentPageName="AdminAIVideoStudio">{content}</AdminLayout>;
 }
 
 // Render inputs based on selected action
