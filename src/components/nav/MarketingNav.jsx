@@ -61,6 +61,10 @@ const NAV_LINKS = [
     label: 'Pricing',
     href: createPageUrl('Pricing'),
   },
+  {
+    label: '🏫 School Story Lab',
+    href: createPageUrl('SchoolHome'),
+  },
 ];
 
 function DropdownMenu({ items, onClose }) {
