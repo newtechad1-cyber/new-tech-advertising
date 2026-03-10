@@ -19,14 +19,15 @@ import {
 } from 'lucide-react';
 
 export default function AdminSchoolSubmissions() {
-  const { schoolSlug: paramSlug } = useParams();
-  const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('school') || 'hampton-dumont';
-  const { can } = useSchoolPermissions(schoolSlug);
-  const [selectedSubmission, setSelectedSubmission] = useState(null);
-  const [filterStatus, setFilterStatus] = useState('all');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [submissions, setSubmissions] = useState([]);
-  const [loading, setLoading] = useState(true);
+   const { schoolSlug: paramSlug } = useParams();
+   const schoolSlug = paramSlug || new URLSearchParams(window.location.search).get('school') || 'hampton-dumont';
+   const { can } = useSchoolPermissions(schoolSlug);
+   const [selectedSubmission, setSelectedSubmission] = useState(null);
+   const [filterStatus, setFilterStatus] = useState('all');
+   const [searchTerm, setSearchTerm] = useState('');
+   const [submissions, setSubmissions] = useState([]);
+   const [loading, setLoading] = useState(true);
+   const [showBlockedSubmissions, setShowBlockedSubmissions] = useState(false);
 
   useEffect(() => {
     const loadData = async () => {
