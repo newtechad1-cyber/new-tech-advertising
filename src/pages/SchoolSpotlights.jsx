@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import PublicShell from '@/components/school-tv/PublicShell';
 import { Star } from 'lucide-react';
@@ -46,9 +47,9 @@ export default function SchoolSpotlights() {
         {spotlights.length > 0 ? (
           <div className="grid md:grid-cols-2 gap-8">
             {spotlights.map((spotlight) => (
-              <Link
+              <a
                 key={spotlight.id}
-                to={`/schools/${schoolSlug}/spotlights/${spotlight.slug}`}
+                href={`${createPageUrl('SchoolSpotlightDetail')}?school=${schoolSlug}&id=${spotlight.id}`}
                 className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
               >
                 {spotlight.featured_image_url && (
@@ -61,15 +62,15 @@ export default function SchoolSpotlights() {
                     <Star className="h-4 w-4" /> Learn More
                   </span>
                 </div>
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No spotlights available yet.</p>
-          </div>
-        )}
-      </div>
-    </PublicShell>
-  );
+              </a>
+              ))}
+              </div>
+              ) : (
+              <div className="text-center py-12">
+              <p className="text-gray-500 text-lg">No spotlights available yet.</p>
+              </div>
+              )}
+              </div>
+              </PublicShell>
+              );
 }

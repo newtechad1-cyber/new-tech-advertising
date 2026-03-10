@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import PublicShell from '@/components/school-tv/PublicShell';
 import { Calendar, MapPin, ArrowRight } from 'lucide-react';
@@ -44,9 +45,9 @@ export default function SchoolEvents() {
         {events.length > 0 ? (
           <div className="space-y-6">
             {events.map((event) => (
-              <Link
+              <a
                 key={event.id}
-                to={`/schools/${schoolSlug}/events/${event.slug}`}
+                href={`${createPageUrl('SchoolEventDetail')}?school=${schoolSlug}&id=${event.id}`}
                 className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
               >
                 <div className="flex md:flex-row flex-col">
@@ -76,9 +77,9 @@ export default function SchoolEvents() {
                     <ArrowRight className="h-6 w-6 text-gray-400" />
                   </div>
                 </div>
-              </Link>
-            ))}
-          </div>
+                </a>
+                ))}
+                </div>
         ) : (
           <div className="text-center py-12">
             <p className="text-gray-500 text-lg">No upcoming events.</p>
