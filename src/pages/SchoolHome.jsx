@@ -3,11 +3,13 @@ import { useParams, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import PublicShell from '@/components/school-tv/PublicShell';
 import { ArrowRight, Play, Calendar, Star } from 'lucide-react';
+import { getSchoolColors } from '@/components/school-tv/useSchoolBrandingColors';
 
 export default function SchoolHome() {
   const { schoolSlug: paramSlug } = useParams();
   const searchParams = new URLSearchParams(window.location.search);
   const schoolSlug = paramSlug || searchParams.get('school') || 'hampton-dumont';
+  const schoolColors = getSchoolColors(schoolSlug);
   const [branding, setBranding] = useState(null);
   const [featuredStories, setFeaturedStories] = useState([]);
   const [featuredVideos, setFeaturedVideos] = useState([]);
@@ -45,18 +47,18 @@ export default function SchoolHome() {
   return (
     <PublicShell currentPath="home">
       {/* Hero */}
-      <div className="relative bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white py-20 md:py-32 overflow-hidden">
-        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 80%, #8b5cf6 0%, transparent 50%)' }} />
+      <div className={`relative bg-gradient-to-br ${schoolSlug === 'hampton-dumont' ? 'from-red-700 via-red-600 to-black' : 'from-slate-950 via-slate-900 to-slate-800'} text-white py-20 md:py-32 overflow-hidden`}>
+        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: schoolSlug === 'hampton-dumont' ? 'radial-gradient(circle at 20% 50%, #dc2626 0%, transparent 50%), radial-gradient(circle at 80% 80%, #000000 0%, transparent 50%)' : 'radial-gradient(circle at 20% 50%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 80%, #8b5cf6 0%, transparent 50%)' }} />
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl" />
         <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-6">
-          <div className="mb-6 inline-flex items-center px-4 py-2 rounded-full bg-blue-500/30 border border-blue-400/50 backdrop-blur">
-            <p className="text-xs md:text-sm font-semibold text-blue-100">✨ Share Your Story</p>
+          <div className={`mb-6 inline-flex items-center px-4 py-2 rounded-full ${schoolSlug === 'hampton-dumont' ? 'bg-red-500/30 border border-red-400/50' : 'bg-blue-500/30 border border-blue-400/50'} backdrop-blur`}>
+            <p className={`text-xs md:text-sm font-semibold ${schoolSlug === 'hampton-dumont' ? 'text-red-100' : 'text-blue-100'}`}>✨ Share Your Story</p>
           </div>
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-4 leading-tight tracking-tight">{branding?.network_name || 'School Story Lab'}</h1>
           <p className="text-xl md:text-3xl text-slate-100 mb-6 md:mb-8 max-w-3xl leading-relaxed font-semibold">{branding?.intro_text || 'Celebrating every achievement, moment, and memory that makes our school community special'}</p>
           <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
-            <Link to={`/schools/${schoolSlug}/tv`} className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 md:px-10 py-4 md:py-5 rounded-xl font-bold flex items-center justify-center gap-3 transition-all hover:shadow-2xl text-base md:text-lg shadow-lg">
+            <Link to={`/schools/${schoolSlug}/tv`} className={`bg-gradient-to-r ${schoolSlug === 'hampton-dumont' ? 'from-red-600 to-red-700 hover:from-red-700 hover:to-red-800' : 'from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800'} text-white px-8 md:px-10 py-4 md:py-5 rounded-xl font-bold flex items-center justify-center gap-3 transition-all hover:shadow-2xl text-base md:text-lg shadow-lg`}>
               <Play className="h-6 md:h-7 w-6 md:w-7" /> Watch Videos
             </Link>
             <Link to={`/schools/${schoolSlug}/stories`} className="bg-white/15 hover:bg-white/25 backdrop-blur text-white px-8 md:px-10 py-4 md:py-5 rounded-xl font-bold flex items-center justify-center gap-3 transition-all border border-white/30 hover:border-white/50 text-base md:text-lg">
@@ -71,7 +73,7 @@ export default function SchoolHome() {
         <section className="py-16 md:py-28 bg-white">
           <div className="max-w-6xl mx-auto px-4 md:px-6">
             <div className="mb-12 md:mb-16">
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-700 font-semibold text-sm mb-4">📖 Featured Stories</div>
+              <div className={`inline-flex items-center px-4 py-2 rounded-full ${schoolSlug === 'hampton-dumont' ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700'} font-semibold text-sm mb-4`}>📖 Featured Stories</div>
               <h2 className="text-4xl md:text-5xl font-black mb-4 text-gray-900">Stories That Matter</h2>
               <p className="text-gray-600 text-lg md:text-xl max-w-2xl">Real achievements, real moments, real pride from our school community</p>
             </div>
@@ -83,9 +85,9 @@ export default function SchoolHome() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                   <div className="p-8">
-                    <h3 className="font-black text-xl mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors leading-tight">{story.title}</h3>
+                    <h3 className={`font-black text-xl mb-3 line-clamp-2 group-hover:${schoolSlug === 'hampton-dumont' ? 'text-red-600' : 'text-blue-600'} transition-colors leading-tight`}>{story.title}</h3>
                     <p className="text-gray-600 text-sm line-clamp-2 mb-6 leading-relaxed">{story.excerpt || story.body?.substring(0, 100)}</p>
-                    <div className="flex items-center gap-2 text-blue-600 font-bold text-sm group-hover:gap-3 transition-all">Read Story <ArrowRight className="h-5 w-5" /></div>
+                    <div className={`flex items-center gap-2 ${schoolSlug === 'hampton-dumont' ? 'text-red-600' : 'text-blue-600'} font-bold text-sm group-hover:gap-3 transition-all`}>Read Story <ArrowRight className="h-5 w-5" /></div>
                   </div>
                 </Link>
               ))}
@@ -99,7 +101,7 @@ export default function SchoolHome() {
         <section className="py-16 md:py-28 bg-gray-50">
           <div className="max-w-6xl mx-auto px-4 md:px-6">
             <div className="mb-12 md:mb-16">
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-700 font-semibold text-sm mb-4">🎬 Video Gallery</div>
+              <div className={`inline-flex items-center px-4 py-2 rounded-full ${schoolSlug === 'hampton-dumont' ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700'} font-semibold text-sm mb-4`}>🎬 Video Gallery</div>
               <h2 className="text-4xl md:text-5xl font-black mb-4 text-gray-900">Watch Our Videos</h2>
               <p className="text-gray-600 text-lg md:text-xl">Curated highlights celebrating our school community</p>
             </div>
@@ -121,7 +123,7 @@ export default function SchoolHome() {
                     </div>
                   )}
                   <div className="p-8">
-                    <h3 className="font-bold text-lg mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">{video.title}</h3>
+                    <h3 className={`font-bold text-lg mb-2 line-clamp-2 group-hover:${schoolSlug === 'hampton-dumont' ? 'text-red-600' : 'text-blue-600'} transition-colors`}>{video.title}</h3>
                     <p className="text-gray-600 text-sm capitalize">{video.project_type?.replace(/_/g, ' ') || 'Video'}</p>
                   </div>
                 </Link>
@@ -193,7 +195,7 @@ export default function SchoolHome() {
       )}
 
       {/* CTA */}
-      <section className="py-20 md:py-32 bg-gradient-to-br from-blue-700 via-blue-600 to-purple-700 text-white relative overflow-hidden">
+      <section className={`py-20 md:py-32 bg-gradient-to-br ${schoolSlug === 'hampton-dumont' ? 'from-red-700 via-red-600 to-black' : 'from-blue-700 via-blue-600 to-purple-700'} text-white relative overflow-hidden`}>
         <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #ffffff 0%, transparent 50%), radial-gradient(circle at 80% 80%, #ffffff 0%, transparent 50%)' }} />
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-400/20 rounded-full blur-3xl" />
@@ -201,7 +203,7 @@ export default function SchoolHome() {
           <h2 className="text-4xl md:text-5xl font-black mb-6 leading-tight">Have a Story to Share?</h2>
           <p className="text-lg md:text-xl mb-4 text-blue-50 font-semibold">Your voice matters. Contribute to {branding?.school_name}</p>
           <p className="text-sm md:text-base text-blue-100 mb-10">{branding?.upload_instructions || 'Videos, photos, moments—anything that celebrates our community'}</p>
-          <Link to={`/schools/${schoolSlug}/submit`} className="inline-block bg-white text-blue-700 hover:bg-blue-50 px-10 md:px-12 py-4 md:py-5 rounded-xl font-bold transition-all hover:shadow-2xl text-base md:text-lg shadow-xl hover:scale-105">
+          <Link to={`/schools/${schoolSlug}/submit`} className={`inline-block bg-white ${schoolSlug === 'hampton-dumont' ? 'text-red-700 hover:bg-red-50' : 'text-blue-700 hover:bg-blue-50'} px-10 md:px-12 py-4 md:py-5 rounded-xl font-bold transition-all hover:shadow-2xl text-base md:text-lg shadow-xl hover:scale-105`}>
             Submit Your Content →
           </Link>
         </div>
