@@ -184,7 +184,7 @@ function FunctionCard({ func }) {
           </div>
         </div>
         <div className="flex gap-2 pt-2">
-          {needsModal ? getModalComponent() : (
+          {needsPage ? getPageLink() : needsModal ? getModalComponent() : (
             <Button
               onClick={async () => {
                 try {
