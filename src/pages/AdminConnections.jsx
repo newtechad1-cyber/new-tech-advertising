@@ -511,6 +511,22 @@ export default function AdminConnections() {
                       </div>
                     );
                   })}
+                  {/* YouTube shortcut callout */}
+                  {issues.some(c => c.platform_type === 'youtube') && (
+                    <div className="rounded-xl border border-red-800/30 bg-red-950/10 p-4 flex items-center justify-between gap-3 flex-wrap">
+                      <div>
+                        <p className="text-xs font-bold text-red-200 flex items-center gap-1.5">
+                          <Wrench className="w-3.5 h-3.5" /> YouTube needs setup
+                        </p>
+                        <p className="text-[10px] text-slate-400 mt-0.5">Channel mapping and upload capability must be verified before YouTube publishing can run.</p>
+                      </div>
+                      <Link to={createPageUrl("AdminYouTubeSetup")}>
+                        <Button size="sm" className="bg-red-700 hover:bg-red-600 font-bold gap-1.5 text-xs whitespace-nowrap">
+                          <Wrench className="w-3 h-3" /> Open YouTube Setup
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
                   {/* Meta shortcut callout */}
                   {issues.some(c => ['facebook','instagram'].includes(c.platform_type)) && (
                     <div className="rounded-xl border border-violet-800/40 bg-violet-950/15 p-4 flex items-center justify-between gap-3 flex-wrap">

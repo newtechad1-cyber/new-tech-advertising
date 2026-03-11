@@ -230,6 +230,12 @@ export default function PlatformCard({ platform, conn, onRefresh }) {
                 <ExternalLink className="w-3 h-3" /> Meta Setup →
               </Link>
             )}
+            {platform.youtubeSetupLink && (
+              <Link to={createPageUrl("AdminYouTubeSetup")}
+                className="flex items-center gap-1 text-[10px] text-red-400 hover:text-red-300 font-semibold transition-colors">
+                <ExternalLink className="w-3 h-3" /> YouTube Setup →
+              </Link>
+            )}
             <Link to={createPageUrl("AdminVideoPublishing")}
               className="flex items-center gap-1 text-[10px] text-slate-600 hover:text-violet-400 transition-colors">
               <ArrowUpRight className="w-3 h-3" /> Publishing queue
