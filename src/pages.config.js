@@ -430,6 +430,7 @@ import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AdminIntelligenceResellers from './pages/AdminIntelligenceResellers';
 import AdminAutonomy from './pages/AdminAutonomy';
 import AdminAutonomyOpportunities from './pages/AdminAutonomyOpportunities';
+import AdminAutonomyStrategies from './pages/AdminAutonomyStrategies';
 import __Layout from './Layout.jsx';
 
 
@@ -817,6 +818,7 @@ export const PAGES = {
     "AdminIntelligenceResellers": AdminIntelligenceResellers,
     "AdminAutonomy": AdminAutonomy,
     "AdminAutonomyOpportunities": AdminAutonomyOpportunities,
+    "AdminAutonomyStrategies": AdminAutonomyStrategies,
 }
 
 export const pagesConfig = {
