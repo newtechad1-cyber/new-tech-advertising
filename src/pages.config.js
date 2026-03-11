@@ -391,6 +391,7 @@ import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AdminContentMultiplier from './pages/AdminContentMultiplier';
 import ClientContentProduction from './pages/ClientContentProduction';
+import AdminNavigationQA from './pages/AdminNavigationQA';
 import __Layout from './Layout.jsx';
 
 
@@ -739,6 +740,7 @@ export const PAGES = {
     "YouTubeUploadTest": YouTubeUploadTest,
     "AdminContentMultiplier": AdminContentMultiplier,
     "ClientContentProduction": ClientContentProduction,
+    "AdminNavigationQA": AdminNavigationQA,
 }
 
 export const pagesConfig = {
