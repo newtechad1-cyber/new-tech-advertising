@@ -224,6 +224,12 @@ export default function PlatformCard({ platform, conn, onRefresh }) {
 
           {/* Quick links */}
           <div className="flex flex-wrap gap-x-3 gap-y-1 pt-1 border-t border-slate-800/60">
+            {platform.metaSetupLink && (
+              <Link to={createPageUrl("AdminMetaSetup")}
+                className="flex items-center gap-1 text-[10px] text-violet-400 hover:text-violet-300 font-semibold transition-colors">
+                <ExternalLink className="w-3 h-3" /> Meta Setup →
+              </Link>
+            )}
             <Link to={createPageUrl("AdminVideoPublishing")}
               className="flex items-center gap-1 text-[10px] text-slate-600 hover:text-violet-400 transition-colors">
               <ArrowUpRight className="w-3 h-3" /> Publishing queue
@@ -232,7 +238,7 @@ export default function PlatformCard({ platform, conn, onRefresh }) {
               className="flex items-center gap-1 text-[10px] text-slate-600 hover:text-red-400 transition-colors">
               <XCircle className="w-3 h-3" /> Failed jobs
             </Link>
-            <button onClick={() => { /* scroll to audit */ document.getElementById('audit-log')?.scrollIntoView({ behavior: 'smooth' }); }}
+            <button onClick={() => { document.getElementById('audit-log')?.scrollIntoView({ behavior: 'smooth' }); }}
               className="flex items-center gap-1 text-[10px] text-slate-600 hover:text-slate-300 transition-colors cursor-pointer">
               <List className="w-3 h-3" /> Test logs
             </button>
