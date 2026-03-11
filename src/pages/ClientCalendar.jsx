@@ -200,12 +200,21 @@ export default function ClientCalendar() {
             />
           </div>
 
+          {/* Weekly Timeline */}
+          {filteredEvents.length > 0 && (
+            <WeeklyTimeline events={filteredEvents} />
+          )}
+
           {/* Calendar View */}
-          <div>
-            {view === 'month' && <MonthView events={filteredEvents} />}
-            {view === 'week' && <WeekView events={filteredEvents} />}
-            {view === 'agenda' && <AgendaView events={filteredEvents} />}
-          </div>
+          {filteredEvents.length === 0 ? (
+            <MarketingPlanEmptyState />
+          ) : (
+            <div>
+              {view === 'month' && <MonthView events={filteredEvents} />}
+              {view === 'week' && <WeekView events={filteredEvents} />}
+              {view === 'agenda' && <AgendaView events={filteredEvents} />}
+            </div>
+          )}
 
           {/* Panels */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
