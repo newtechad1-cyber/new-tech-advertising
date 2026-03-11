@@ -70,8 +70,8 @@ const NAV_GROUPS = [
   {
     label: '🏫 School Story Lab',
     items: [
-      { label: 'HD School Admin', icon: LayoutDashboard, page: 'AdminSchoolDashboard' },
-      { label: 'Public School Site', icon: Globe, page: 'SchoolHome' },
+      { label: 'HD School Admin', icon: LayoutDashboard, page: 'AdminSchoolDashboard', allowCrossFamily: true },
+      { label: 'Public School Site', icon: Globe, page: 'SchoolHome', allowCrossFamily: true },
     ],
   },
   {
@@ -80,7 +80,7 @@ const NAV_GROUPS = [
       { label: 'Blog', icon: FileText, page: 'AdminBlog' },
       { label: 'Social Accounts', icon: Share2, page: 'SocialAccounts' },
       { label: 'Chatbots', icon: MessageSquare, page: 'ChatbotManagement' },
-      { label: 'Billing', icon: CreditCard, page: 'AdminDashboard' },
+      { label: 'Billing', icon: CreditCard, page: 'AdminBilling' },
       { label: 'Settings', icon: Settings, page: 'AdminSettings' },
     ],
   },
