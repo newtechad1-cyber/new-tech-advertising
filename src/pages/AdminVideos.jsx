@@ -20,6 +20,7 @@ export default function AdminVideos() {
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState('grid');
   const [selectedVideos, setSelectedVideos] = useState(new Set());
+  const [actionFeedback, setActionFeedback] = useState(null);
   
   // Filter state
   const [filters, setFilters] = useState({
