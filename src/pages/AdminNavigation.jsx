@@ -103,6 +103,9 @@ export default function AdminNavigation() {
         <Tabs defaultValue="overview" className="space-y-4">
           <TabsList className="bg-slate-800 border border-slate-700">
             <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="health">Health & Risk</TabsTrigger>
+            <TabsTrigger value="alerts">Conflicts</TabsTrigger>
+            <TabsTrigger value="categories">Categories</TabsTrigger>
             <TabsTrigger value="pages">Pages</TabsTrigger>
             <TabsTrigger value="routes">Routes</TabsTrigger>
             <TabsTrigger value="navigation">Navigation</TabsTrigger>
@@ -113,6 +116,20 @@ export default function AdminNavigation() {
             <NavigationHealthScore pages={pages} routes={routes} navs={navs} health={health} />
             <RouteConflictDetection routes={routes} pages={pages} />
             <RecentPageGovernanceChanges audits={audits} />
+          </TabsContent>
+
+          <TabsContent value="health" className="space-y-6">
+            <ArchitectureHealthScoring pages={pages} routes={routes} layouts={layouts} />
+            <HighRiskPagesPanel pages={pages} routes={routes} layouts={layouts} />
+            <NextBestArchitectureAction pages={pages} routes={routes} layouts={layouts} navItems={navItems} />
+          </TabsContent>
+
+          <TabsContent value="alerts" className="space-y-6">
+            <ArchitectureConflictAlerts pages={pages} routes={routes} layouts={layouts} navItems={navItems} />
+          </TabsContent>
+
+          <TabsContent value="categories" className="space-y-6">
+            <PageCategoryBrowser pages={pages} />
           </TabsContent>
 
           <TabsContent value="pages">
