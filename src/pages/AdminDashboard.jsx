@@ -27,7 +27,10 @@ import ClientHealthPanel from '@/components/operations/ClientHealthPanel';
 import PublishingMomentumStrip from '@/components/operations/PublishingMomentumStrip';
 import OperationalRisksPanel from '@/components/operations/OperationalRisksPanel';
 import QuickCommandBar from '@/components/operations/QuickCommandBar';
-import MetricCards from '@/components/command/MetricCards';
+import BusinessHealthScore from '@/components/operations/BusinessHealthScore';
+import NextBestExecutiveAction from '@/components/operations/NextBestExecutiveAction';
+import ClosingThisMonthSpotlight from '@/components/operations/ClosingThisMonthSpotlight';
+import TeamPerformanceSnapshot from '@/components/operations/TeamPerformanceSnapshot';
 import ActivityFeed from '@/components/command/ActivityFeed';
 
 const QUICK_ACTIONS = [
@@ -132,18 +135,36 @@ export default function AdminDashboard() {
             {/* Quick Command Bar */}
             <QuickCommandBar />
 
+            {/* Business Health Score & Next Best Action */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-2">
+                <BusinessHealthScore />
+              </div>
+              <NextBestExecutiveAction />
+            </div>
+
             {/* Executive KPI Strip */}
             <ExecutiveKPIStrip />
 
             {/* Publishing Momentum */}
             <PublishingMomentumStrip />
 
-            {/* Main 2x2 Grid: Revenue + Pipeline + Delivery + Client Health */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <RevenueMomentumPanel />
-              <PipelineSnapshot />
-              <DeliveryWorkloadPanel />
-              <ClientHealthPanel />
+            {/* Main 3-column Grid: Revenue + Pipeline + Closing Spotlight + Delivery + Client Health + Team */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-2 space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <RevenueMomentumPanel />
+                  <PipelineSnapshot />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <DeliveryWorkloadPanel />
+                  <ClientHealthPanel />
+                </div>
+              </div>
+              <div className="space-y-6">
+                <ClosingThisMonthSpotlight />
+                <TeamPerformanceSnapshot />
+              </div>
             </div>
 
             {/* Operational Risks */}
