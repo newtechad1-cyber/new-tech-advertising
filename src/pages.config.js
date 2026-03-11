@@ -427,6 +427,7 @@ import AdminIntelligence from './pages/AdminIntelligence';
 import AdminIntelligenceClients from './pages/AdminIntelligenceClients';
 import AdminIntelligenceSales from './pages/AdminIntelligenceSales';
 import AdminIntelligenceAutomation from './pages/AdminIntelligenceAutomation';
+import AdminIntelligenceResellers from './pages/AdminIntelligenceResellers';
 import __Layout from './Layout.jsx';
 
 
@@ -811,6 +812,7 @@ export const PAGES = {
     "AdminIntelligenceClients": AdminIntelligenceClients,
     "AdminIntelligenceSales": AdminIntelligenceSales,
     "AdminIntelligenceAutomation": AdminIntelligenceAutomation,
+    "AdminIntelligenceResellers": AdminIntelligenceResellers,
 }
 
 export const pagesConfig = {
