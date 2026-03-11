@@ -9,6 +9,8 @@ import VideoGridView from '@/components/video-library/VideoGridView';
 import VideoTableView from '@/components/video-library/VideoTableView';
 import BulkActionBar from '@/components/video-library/BulkActionBar';
 import EmptyStateLibrary from '@/components/video-library/EmptyStateLibrary';
+import HeroActionStrip from '@/components/video-library/HeroActionStrip';
+import BulkActionFeedback from '@/components/video-library/BulkActionFeedback';
 import { Loader2 } from 'lucide-react';
 
 export default function AdminVideos() {
