@@ -324,7 +324,7 @@ export const CANONICAL_ROUTE_MAP = {
   '/admindashboard':                { page: 'AdminDashboard',          family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'live'    },
   '/adminclients':                  { page: 'AdminClients',            family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'live'    },
   '/adminprospects':                { page: 'AdminSalesProspect',      family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'live'    },
-  '/adminsales':                    { page: 'AdminSalesDashboard',     family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'live'    },
+  '/adminsales':                    { page: 'AdminSales',              family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'live'    },
   '/adminvideos':                   { page: 'AdminVideoQueue',         family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'live'    },
   '/adminvideodetail':              { page: 'AdminVideoDetail',        family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'live'    },
   '/adminpublishing':               { page: 'AdminVideoPublishing',    family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'live'    },
