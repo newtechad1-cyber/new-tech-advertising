@@ -8,7 +8,7 @@ import { Switch } from "@/components/ui/switch";
 import {
   Globe, Link2, Linkedin, Youtube, Smartphone, Building2, ArrowLeft,
   RefreshCw, CheckCircle2, XCircle, AlertTriangle, Clock, Radio,
-  Loader2, ShieldCheck, Wifi, ChevronRight, Zap
+  Loader2, ShieldCheck, Wifi, ChevronRight, Zap, Sparkles
 } from "lucide-react";
 import PlatformCard, { STATUS_CONFIG } from "@/components/connections/PlatformCard";
 
@@ -385,6 +385,48 @@ export default function AdminConnections() {
           ))}
         </div>
 
+        {/* Admin callout banner — shown when connections exist */}
+        {!loading && connections.length > 0 && (() => {
+          const connectedPlatforms = connections.filter(c => c.connection_status === 'connected').map(c => c.platform_type);
+          const blockedCount = connections.filter(c => ['needs_connection', 'incomplete', 'token_expired', 'error'].includes(c.connection_status)).length;
+          const connectedNames = connectedPlatforms.map(p => PLATFORM_DEFS.find(d => d.type === p)?.label).filter(Boolean);
+          return (
+            <div className={`rounded-2xl border px-5 py-4 flex items-start gap-4 ${
+              blockedCount === 0
+                ? 'border-green-800/40 bg-green-950/15'
+                : 'border-violet-800/40 bg-violet-950/15'
+            }`}>
+              <Sparkles className={`w-5 h-5 flex-shrink-0 mt-0.5 ${blockedCount === 0 ? 'text-green-400' : 'text-violet-400'}`} />
+              <div className="flex-1 min-w-0">
+                {blockedCount === 0 ? (
+                  <>
+                    <p className="text-sm font-bold text-green-300">All channels are connected and ready.</p>
+                    <p className="text-xs text-slate-400 mt-0.5">Full automated distribution is enabled across all platforms.</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-sm font-bold text-slate-100">
+                      {connectedNames.length > 0
+                        ? `${connectedNames.join(' and ')} ${connectedNames.length === 1 ? 'is' : 'are'} connected.`
+                        : 'No channels connected yet.'
+                      }
+                      {' '}Finish the remaining channels to unlock full automated distribution.
+                    </p>
+                    <p className="text-xs text-slate-400 mt-0.5">
+                      {blockedCount} channel{blockedCount !== 1 ? 's' : ''} need{blockedCount === 1 ? 's' : ''} attention before automated publishing can run end-to-end.
+                    </p>
+                  </>
+                )}
+              </div>
+              {blockedCount > 0 && (
+                <span className="flex-shrink-0 text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-violet-800/40 border border-violet-700/50 text-violet-300">
+                  {blockedCount} action{blockedCount !== 1 ? 's' : ''} needed
+                </span>
+              )}
+            </div>
+          );
+        })()}
+
         {/* Loading or empty */}
         {loading ? (
           <div className="flex items-center justify-center py-16">
@@ -475,11 +517,13 @@ export default function AdminConnections() {
             )}
 
             {/* Audit log */}
+            <div id="audit-log">
             <AuditLogSection
               logs={auditLogs}
               filterPlatform={filterPlatform}
               setFilterPlatform={setFilterPlatform}
             />
+            </div>
           </>
         )}
       </div>
