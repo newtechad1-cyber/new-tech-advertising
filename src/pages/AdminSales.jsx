@@ -25,17 +25,19 @@ export default function AdminSales() {
     refetchInterval: 30000,
   });
 
-  // Fetch activity (mock for now - SalesActivities may not exist)
+  // Fetch activity
   const { data: activities = [] } = useQuery({
     queryKey: ['sales-activities'],
     queryFn: async () => {
       try {
-        return await base44.entities.SalesActivities?.list?.('-created_at', 50) || [];
+        const result = await base44.entities.SalesActivities.list('-created_at', 50);
+        return result || [];
       } catch {
         return [];
       }
     },
-    enabled: false,
+    enabled: true,
+    staleTime: 60000,
   });
 
   // Calculate KPIs
