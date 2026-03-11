@@ -92,6 +92,9 @@ export default function CalendarEventDetail({ event, onClose }) {
             </div>
           )}
 
+          {/* Why Posting Note */}
+          <WhyPostingNote platforms={platforms} status={event.status} />
+
           {/* CTA */}
           {event.cta && (
             <div>
