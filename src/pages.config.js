@@ -420,6 +420,7 @@ import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AdminAutomationRuleDetail from './pages/AdminAutomationRuleDetail';
 import AdminAccess from './pages/AdminAccess';
 import AdminAccessRoles from './pages/AdminAccessRoles';
+import AdminAccessPermissions from './pages/AdminAccessPermissions';
 import __Layout from './Layout.jsx';
 
 
@@ -797,6 +798,7 @@ export const PAGES = {
     "AdminAutomationRuleDetail": AdminAutomationRuleDetail,
     "AdminAccess": AdminAccess,
     "AdminAccessRoles": AdminAccessRoles,
+    "AdminAccessPermissions": AdminAccessPermissions,
 }
 
 export const pagesConfig = {
