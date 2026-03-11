@@ -5,6 +5,7 @@ import AdminTopBar from './AdminTopBar';
 import AdminBreadcrumbs from './AdminBreadcrumbs';
 import { cn } from '@/lib/utils';
 import RouteFamilyBadge from '@/components/admin/RouteFamilyBadge';
+import QABannerDev from './QABannerDev';
 
 export default function AdminLayout({ children, currentPageName }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -33,7 +34,9 @@ export default function AdminLayout({ children, currentPageName }) {
   }, []);
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex flex-col h-screen bg-gray-50">
+      <QABannerDev />
+      <div className="flex flex-1 overflow-hidden">
       {/* Sidebar */}
       <AdminSidebar
         isOpen={sidebarOpen}
@@ -76,6 +79,7 @@ export default function AdminLayout({ children, currentPageName }) {
 
       {/* Dev route family badge — AdminLayout is the NTA main admin shell */}
       <RouteFamilyBadge family="main_admin" />
+      </div>
     </div>
   );
 }
