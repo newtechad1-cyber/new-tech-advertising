@@ -4,6 +4,7 @@ import AdminSidebar from './AdminSidebar';
 import AdminTopBar from './AdminTopBar';
 import AdminBreadcrumbs from './AdminBreadcrumbs';
 import { cn } from '@/lib/utils';
+import RouteFamilyBadge from '@/components/admin/RouteFamilyBadge';
 
 export default function AdminLayout({ children, currentPageName }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -72,6 +73,9 @@ export default function AdminLayout({ children, currentPageName }) {
           onClick={() => setSidebarOpen(false)}
         />
       )}
+
+      {/* Dev route family badge — AdminLayout is used exclusively by school admin pages */}
+      <RouteFamilyBadge family="school_admin" />
     </div>
   );
 }
