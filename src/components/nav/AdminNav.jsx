@@ -86,6 +86,9 @@ const NAV_GROUPS = [
   },
 ];
 
+// ── Route validation — runs once at module load in dev ────────────────────────
+validateNavRoutes(NAV_GROUPS, ROUTE_FAMILIES.MAIN_ADMIN, 'AdminNav');
+
 export default function AdminNav({ children }) {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
