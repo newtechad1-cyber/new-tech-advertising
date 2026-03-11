@@ -72,6 +72,11 @@ import AdminAgentsWorkflows from './pages/AdminAgentsWorkflows';
 import AdminAlerts from './pages/AdminAlerts';
 import AdminAnalytics from './pages/AdminAnalytics';
 import AdminApproval from './pages/AdminApproval';
+import AdminAutomation from './pages/AdminAutomation';
+import AdminAutomationDependencies from './pages/AdminAutomationDependencies';
+import AdminAutomationHealth from './pages/AdminAutomationHealth';
+import AdminAutomationRules from './pages/AdminAutomationRules';
+import AdminAutomationTriggers from './pages/AdminAutomationTriggers';
 import AdminAutopilot from './pages/AdminAutopilot';
 import AdminBilling from './pages/AdminBilling';
 import AdminBillingContract from './pages/AdminBillingContract';
@@ -109,7 +114,12 @@ import AdminGovernancePolicy from './pages/AdminGovernancePolicy';
 import AdminGovernanceRelationships from './pages/AdminGovernanceRelationships';
 import AdminHelp from './pages/AdminHelp';
 import AdminMetaSetup from './pages/AdminMetaSetup';
+import AdminNavigation from './pages/AdminNavigation';
+import AdminNavigationLayouts from './pages/AdminNavigationLayouts';
+import AdminNavigationNav from './pages/AdminNavigationNav';
+import AdminNavigationPages from './pages/AdminNavigationPages';
 import AdminNavigationQA from './pages/AdminNavigationQA';
+import AdminNavigationRoutes from './pages/AdminNavigationRoutes';
 import AdminOnboarding from './pages/AdminOnboarding';
 import AdminOnboardingDetail from './pages/AdminOnboardingDetail';
 import AdminOnboardingQueue from './pages/AdminOnboardingQueue';
@@ -256,10 +266,10 @@ import DealRoom from './pages/DealRoom';
 import DealRoomCaseStudies from './pages/DealRoomCaseStudies';
 import DealRoomContract from './pages/DealRoomContract';
 import DealRoomPricing from './pages/DealRoomPricing';
+import Demo from './pages/Demo';
 import DealRoomProposal from './pages/DealRoomProposal';
 import DealRoomRoi from './pages/DealRoomRoi';
 import DebugOAuthConnections from './pages/DebugOAuthConnections';
-import Demo from './pages/Demo';
 import DemoExamples from './pages/DemoExamples';
 import DemoFeatures from './pages/DemoFeatures';
 import DemoNext from './pages/DemoNext';
@@ -374,8 +384,8 @@ import SchoolYearbookPage from './pages/SchoolYearbookPage';
 import SchoolYearbookSeason from './pages/SchoolYearbookSeason';
 import ServiceLocation from './pages/ServiceLocation';
 import Services from './pages/Services';
-import SetupComplete from './pages/SetupComplete';
 import SiteMap from './pages/SiteMap';
+import SetupComplete from './pages/SetupComplete';
 import SocialAccounts from './pages/SocialAccounts';
 import SocialMediaManagement from './pages/SocialMediaManagement';
 import SocialMediaMarketing from './pages/SocialMediaMarketing';
@@ -407,16 +417,6 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdminNavigation from './pages/AdminNavigation';
-import AdminNavigationPages from './pages/AdminNavigationPages';
-import AdminNavigationRoutes from './pages/AdminNavigationRoutes';
-import AdminNavigationNav from './pages/AdminNavigationNav';
-import AdminNavigationLayouts from './pages/AdminNavigationLayouts';
-import AdminAutomation from './pages/AdminAutomation';
-import AdminAutomationRules from './pages/AdminAutomationRules';
-import AdminAutomationTriggers from './pages/AdminAutomationTriggers';
-import AdminAutomationHealth from './pages/AdminAutomationHealth';
-import AdminAutomationDependencies from './pages/AdminAutomationDependencies';
 import __Layout from './Layout.jsx';
 
 
@@ -446,6 +446,11 @@ export const PAGES = {
     "AdminAlerts": AdminAlerts,
     "AdminAnalytics": AdminAnalytics,
     "AdminApproval": AdminApproval,
+    "AdminAutomation": AdminAutomation,
+    "AdminAutomationDependencies": AdminAutomationDependencies,
+    "AdminAutomationHealth": AdminAutomationHealth,
+    "AdminAutomationRules": AdminAutomationRules,
+    "AdminAutomationTriggers": AdminAutomationTriggers,
     "AdminAutopilot": AdminAutopilot,
     "AdminBilling": AdminBilling,
     "AdminBillingContract": AdminBillingContract,
@@ -483,7 +488,12 @@ export const PAGES = {
     "AdminGovernanceRelationships": AdminGovernanceRelationships,
     "AdminHelp": AdminHelp,
     "AdminMetaSetup": AdminMetaSetup,
+    "AdminNavigation": AdminNavigation,
+    "AdminNavigationLayouts": AdminNavigationLayouts,
+    "AdminNavigationNav": AdminNavigationNav,
+    "AdminNavigationPages": AdminNavigationPages,
     "AdminNavigationQA": AdminNavigationQA,
+    "AdminNavigationRoutes": AdminNavigationRoutes,
     "AdminOnboarding": AdminOnboarding,
     "AdminOnboardingDetail": AdminOnboardingDetail,
     "AdminOnboardingQueue": AdminOnboardingQueue,
@@ -630,10 +640,10 @@ export const PAGES = {
     "DealRoomCaseStudies": DealRoomCaseStudies,
     "DealRoomContract": DealRoomContract,
     "DealRoomPricing": DealRoomPricing,
+    "Demo": Demo,
     "DealRoomProposal": DealRoomProposal,
     "DealRoomRoi": DealRoomRoi,
     "DebugOAuthConnections": DebugOAuthConnections,
-    "Demo": Demo,
     "DemoExamples": DemoExamples,
     "DemoFeatures": DemoFeatures,
     "DemoNext": DemoNext,
@@ -748,8 +758,8 @@ export const PAGES = {
     "SchoolYearbookSeason": SchoolYearbookSeason,
     "ServiceLocation": ServiceLocation,
     "Services": Services,
-    "SetupComplete": SetupComplete,
     "SiteMap": SiteMap,
+    "SetupComplete": SetupComplete,
     "SocialAccounts": SocialAccounts,
     "SocialMediaManagement": SocialMediaManagement,
     "SocialMediaMarketing": SocialMediaMarketing,
@@ -781,16 +791,6 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AdminNavigation": AdminNavigation,
-    "AdminNavigationPages": AdminNavigationPages,
-    "AdminNavigationRoutes": AdminNavigationRoutes,
-    "AdminNavigationNav": AdminNavigationNav,
-    "AdminNavigationLayouts": AdminNavigationLayouts,
-    "AdminAutomation": AdminAutomation,
-    "AdminAutomationRules": AdminAutomationRules,
-    "AdminAutomationTriggers": AdminAutomationTriggers,
-    "AdminAutomationHealth": AdminAutomationHealth,
-    "AdminAutomationDependencies": AdminAutomationDependencies,
 }
 
 export const pagesConfig = {

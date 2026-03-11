@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { Settings, FileText } from 'lucide-react';
+import { Settings, FileText, Filter } from 'lucide-react';
 
 import AutomationKPICards from '@/components/automation/AutomationKPICards';
 import AutomationHealthOverview from '@/components/automation/AutomationHealthOverview';
 import DuplicateFirePanel from '@/components/automation/DuplicateFirePanel';
 import ConflictingRulesPanel from '@/components/automation/ConflictingRulesPanel';
 import RecentFailuresPanel from '@/components/automation/RecentFailuresPanel';
+import HighRiskAutomationsPanel from '@/components/automation/HighRiskAutomationsPanel';
+import StrongerVisualAlerts from '@/components/automation/StrongerVisualAlerts';
 
 export default function AdminAutomation() {
   const { data: rules = [] } = useQuery({
