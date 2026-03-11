@@ -181,8 +181,13 @@ export default function ReviewDetailModal({ isOpen, video, onApprove, onRequestC
               Request Changes
             </Button>
           </div>
-        </div>
-      </DialogContent>
-    </Dialog>
-  );
-}
+
+          {/* Brand Footer */}
+          <div className="mt-6 pt-4 border-t text-center text-xs text-slate-500">
+            <p>Your content is prepared and scheduled by <span className="font-semibold">New Tech Advertising</span>.</p>
+          </div>
+          </div>
+          </DialogContent>
+          </Dialog>
+          );
+          }
