@@ -74,8 +74,8 @@ export default function AdminLayout({ children, currentPageName }) {
         />
       )}
 
-      {/* Dev route family badge — AdminLayout is used exclusively by school admin pages */}
-      <RouteFamilyBadge family="school_admin" />
+      {/* Dev route family badge — AdminLayout is the NTA main admin shell */}
+      <RouteFamilyBadge family="main_admin" />
     </div>
   );
 }
