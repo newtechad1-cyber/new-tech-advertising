@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { RefreshCw, Zap, Video, AlertCircle, Settings } from 'lucide-react';
 
 export default function PublishingHeader({ onRefresh, isRefreshing }) {
-  const { context } = useGlobalContext();
+  const { activeContextType, activeCompanyName, activeSchoolName, getContextLabel } = useGlobalContext();
 
   return (
     <div className="border-b bg-gradient-to-r from-slate-50 to-slate-100 p-6">
@@ -15,14 +15,12 @@ export default function PublishingHeader({ onRefresh, isRefreshing }) {
       </div>
 
       {/* Context Summary */}
-      {context && (
+      {activeContextType && (
         <div className="flex items-center gap-4 mb-4 text-sm">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-gray-200">
             <span className="text-gray-600">Context:</span>
             <span className="font-semibold text-gray-900">
-              {context.active_context_type === 'client' ? context.active_company_name : 
-               context.active_context_type === 'school' ? context.active_school_name :
-               'Agency (All)'}
+              {getContextLabel()}
             </span>
           </div>
         </div>
