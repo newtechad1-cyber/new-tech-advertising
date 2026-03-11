@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChevronRight, Database, AlertTriangle } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
 
-export default function EntityRegistryOverview({ entities = [], health }) {
-  const [selectedCategory, setSelectedCategory] = useState(null);
-
+export default function EntityRegistryOverview({ entities = [] }) {
   const categories = {
     core: { label: 'Core', color: 'blue' },
     operational: { label: 'Operational', color: 'emerald' },
@@ -39,10 +35,9 @@ export default function EntityRegistryOverview({ entities = [], health }) {
             </CardHeader>
             <CardContent className="space-y-2">
               {entityList.map((entity) => (
-                <Link
+                <div
                   key={entity.id}
-                  to={createPageUrl('AdminGovernanceEntityDetail', `?entity=${entity.entity_key}`)}
-                  className="flex items-center justify-between p-3 rounded-lg bg-slate-900/50 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 transition-all group"
+                  className="flex items-center justify-between p-3 rounded-lg bg-slate-900/50 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 transition-all"
                 >
                   <div className="flex items-center gap-3 flex-1">
                     <Database className="w-4 h-4 text-slate-500" />
@@ -58,9 +53,9 @@ export default function EntityRegistryOverview({ entities = [], health }) {
                     <span className={`text-xs px-2 py-1 rounded font-mono text-${cat.color}-300`}>
                       {entity.tenant_scoped ? 'tenant' : 'global'}
                     </span>
-                    <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-slate-500" />
+                    <ChevronRight className="w-4 h-4 text-slate-600" />
                   </div>
-                </Link>
+                </div>
               ))}
             </CardContent>
           </Card>
