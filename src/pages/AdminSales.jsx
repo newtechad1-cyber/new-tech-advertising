@@ -45,6 +45,7 @@ export default function AdminSales() {
   const kpis = React.useMemo(() => {
     const now = new Date();
     const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
 
     const pipelineValue = deals
       .filter(d => !['closed_won', 'closed_lost'].includes(d.stage))
@@ -53,28 +54,29 @@ export default function AdminSales() {
     const closingThisMonth = deals.filter(d => {
       if (!d.closing_date || d.stage === 'closed_lost') return false;
       const closeDate = new Date(d.closing_date);
-      return closeDate.getMonth() === currentMonth && closeDate.getFullYear() === now.getFullYear();
+      return closeDate.getMonth() === currentMonth && closeDate.getFullYear() === currentYear;
     }).length;
 
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const today = new Date(currentYear, currentMonth, now.getDate());
     const followUpsDueToday = deals.filter(d => {
       if (!d.next_followup_date) return false;
       const followUp = new Date(d.next_followup_date);
-      return followUp.getTime() === today.getTime();
+      return followUp.toDateString() === today.toDateString();
     }).length;
 
+    const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
     const newLeads = deals.filter(
-      d => d.stage === 'new_lead' && new Date(d.created_date) > new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
+      d => d.stage === 'new_lead' && new Date(d.created_date || 0) >= sevenDaysAgo
     ).length;
 
     const closedWon = deals.filter(d => d.stage === 'closed_won');
-    const totalDeals = deals.filter(d => !['closed_lost'].includes(d.stage));
-    const winRate = totalDeals.length > 0 ? Math.round((closedWon.length / totalDeals.length) * 100) : 0;
+    const activeDeals = deals.filter(d => !['closed_won', 'closed_lost'].includes(d.stage));
+    const winRate = activeDeals.length > 0 ? Math.round((closedWon.length / (activeDeals.length + closedWon.length)) * 100) : 0;
 
     const revenueWonThisMonth = closedWon
       .filter(d => {
-        const closeDate = new Date(d.created_date);
-        return closeDate.getMonth() === currentMonth && closeDate.getFullYear() === now.getFullYear();
+        const createdDate = new Date(d.created_date || 0);
+        return createdDate.getMonth() === currentMonth && createdDate.getFullYear() === currentYear;
       })
       .reduce((sum, d) => sum + (d.deal_value || 0), 0);
 
