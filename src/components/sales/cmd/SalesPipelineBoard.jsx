@@ -87,6 +87,6 @@ export default function SalesPipelineBoard({ deals = [], onDealMove, onOpenDeal 
           ))}
         </div>
       </div>
-    </DndContext>
+    </div>
   );
 }
