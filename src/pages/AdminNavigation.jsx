@@ -11,6 +11,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import NavigationHealthScore from '@/components/navigation/NavigationHealthScore';
 import RouteConflictDetection from '@/components/navigation/RouteConflictDetection';
 import RecentPageGovernanceChanges from '@/components/navigation/RecentPageGovernanceChanges';
+import ArchitectureHealthScoring from '@/components/navigation/ArchitectureHealthScoring';
+import NextBestArchitectureAction from '@/components/navigation/NextBestArchitectureAction';
+import HighRiskPagesPanel from '@/components/navigation/HighRiskPagesPanel';
+import ArchitectureConflictAlerts from '@/components/navigation/ArchitectureConflictAlerts';
+import PageCategoryBrowser from '@/components/navigation/PageCategoryBrowser';
 
 export default function AdminNavigation() {
   const { data: pages = [] } = useQuery({

@@ -66,6 +66,9 @@ import AdminAIControlCenter from './pages/AdminAIControlCenter';
 import AdminAILab from './pages/AdminAILab';
 import AdminAIPrompts from './pages/AdminAIPrompts';
 import AdminAIVideoStudio from './pages/AdminAIVideoStudio';
+import AdminAgents from './pages/AdminAgents';
+import AdminAgentsRecovery from './pages/AdminAgentsRecovery';
+import AdminAgentsWorkflows from './pages/AdminAgentsWorkflows';
 import AdminAlerts from './pages/AdminAlerts';
 import AdminAnalytics from './pages/AdminAnalytics';
 import AdminApproval from './pages/AdminApproval';
@@ -98,7 +101,12 @@ import AdminFounder from './pages/AdminFounder';
 import AdminFulfillment from './pages/AdminFulfillment';
 import AdminFulfillmentDetail from './pages/AdminFulfillmentDetail';
 import AdminGovernance from './pages/AdminGovernance';
+import AdminGovernanceAudit from './pages/AdminGovernanceAudit';
+import AdminGovernanceDependencies from './pages/AdminGovernanceDependencies';
+import AdminGovernanceFields from './pages/AdminGovernanceFields';
+import AdminGovernanceLifecycles from './pages/AdminGovernanceLifecycles';
 import AdminGovernancePolicy from './pages/AdminGovernancePolicy';
+import AdminGovernanceRelationships from './pages/AdminGovernanceRelationships';
 import AdminHelp from './pages/AdminHelp';
 import AdminMetaSetup from './pages/AdminMetaSetup';
 import AdminNavigationQA from './pages/AdminNavigationQA';
@@ -328,6 +336,7 @@ import ResellerBranding from './pages/ResellerBranding';
 import ResellerClients from './pages/ResellerClients';
 import ResellerDashboard from './pages/ResellerDashboard';
 import ResellerRevenue from './pages/ResellerRevenue';
+import ResellerSettingsBranding from './pages/ResellerSettingsBranding';
 import ResellerSignupLinks from './pages/ResellerSignupLinks';
 import RestaurantMarketing from './pages/RestaurantMarketing';
 import RestaurantSocialMedia from './pages/RestaurantSocialMedia';
@@ -387,9 +396,9 @@ import TermsOfService from './pages/TermsOfService';
 import TrialDashboard from './pages/TrialDashboard';
 import TrialOnboarding from './pages/TrialOnboarding';
 import TrialSlug from './pages/TrialSlug';
-import TvVideo from './pages/TvVideo';
 import TrialStart from './pages/TrialStart';
 import TvCommercialScriptGenerator from './pages/TvCommercialScriptGenerator';
+import TvVideo from './pages/TvVideo';
 import VideoDetail from './pages/VideoDetail';
 import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
@@ -398,15 +407,6 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import ResellerSettingsBranding from './pages/ResellerSettingsBranding';
-import AdminAgents from './pages/AdminAgents';
-import AdminAgentsWorkflows from './pages/AdminAgentsWorkflows';
-import AdminAgentsRecovery from './pages/AdminAgentsRecovery';
-import AdminGovernanceFields from './pages/AdminGovernanceFields';
-import AdminGovernanceRelationships from './pages/AdminGovernanceRelationships';
-import AdminGovernanceLifecycles from './pages/AdminGovernanceLifecycles';
-import AdminGovernanceDependencies from './pages/AdminGovernanceDependencies';
-import AdminGovernanceAudit from './pages/AdminGovernanceAudit';
 import AdminNavigation from './pages/AdminNavigation';
 import AdminNavigationPages from './pages/AdminNavigationPages';
 import AdminNavigationRoutes from './pages/AdminNavigationRoutes';
@@ -435,6 +435,9 @@ export const PAGES = {
     "AdminAILab": AdminAILab,
     "AdminAIPrompts": AdminAIPrompts,
     "AdminAIVideoStudio": AdminAIVideoStudio,
+    "AdminAgents": AdminAgents,
+    "AdminAgentsRecovery": AdminAgentsRecovery,
+    "AdminAgentsWorkflows": AdminAgentsWorkflows,
     "AdminAlerts": AdminAlerts,
     "AdminAnalytics": AdminAnalytics,
     "AdminApproval": AdminApproval,
@@ -467,7 +470,12 @@ export const PAGES = {
     "AdminFulfillment": AdminFulfillment,
     "AdminFulfillmentDetail": AdminFulfillmentDetail,
     "AdminGovernance": AdminGovernance,
+    "AdminGovernanceAudit": AdminGovernanceAudit,
+    "AdminGovernanceDependencies": AdminGovernanceDependencies,
+    "AdminGovernanceFields": AdminGovernanceFields,
+    "AdminGovernanceLifecycles": AdminGovernanceLifecycles,
     "AdminGovernancePolicy": AdminGovernancePolicy,
+    "AdminGovernanceRelationships": AdminGovernanceRelationships,
     "AdminHelp": AdminHelp,
     "AdminMetaSetup": AdminMetaSetup,
     "AdminNavigationQA": AdminNavigationQA,
@@ -697,6 +705,7 @@ export const PAGES = {
     "ResellerClients": ResellerClients,
     "ResellerDashboard": ResellerDashboard,
     "ResellerRevenue": ResellerRevenue,
+    "ResellerSettingsBranding": ResellerSettingsBranding,
     "ResellerSignupLinks": ResellerSignupLinks,
     "RestaurantMarketing": RestaurantMarketing,
     "RestaurantSocialMedia": RestaurantSocialMedia,
@@ -756,9 +765,9 @@ export const PAGES = {
     "TrialDashboard": TrialDashboard,
     "TrialOnboarding": TrialOnboarding,
     "TrialSlug": TrialSlug,
-    "TvVideo": TvVideo,
     "TrialStart": TrialStart,
     "TvCommercialScriptGenerator": TvCommercialScriptGenerator,
+    "TvVideo": TvVideo,
     "VideoDetail": VideoDetail,
     "VideoIndex": VideoIndex,
     "Website-Rebuild": websiteRebuild,
@@ -767,15 +776,6 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "ResellerSettingsBranding": ResellerSettingsBranding,
-    "AdminAgents": AdminAgents,
-    "AdminAgentsWorkflows": AdminAgentsWorkflows,
-    "AdminAgentsRecovery": AdminAgentsRecovery,
-    "AdminGovernanceFields": AdminGovernanceFields,
-    "AdminGovernanceRelationships": AdminGovernanceRelationships,
-    "AdminGovernanceLifecycles": AdminGovernanceLifecycles,
-    "AdminGovernanceDependencies": AdminGovernanceDependencies,
-    "AdminGovernanceAudit": AdminGovernanceAudit,
     "AdminNavigation": AdminNavigation,
     "AdminNavigationPages": AdminNavigationPages,
     "AdminNavigationRoutes": AdminNavigationRoutes,
