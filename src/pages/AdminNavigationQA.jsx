@@ -13,7 +13,7 @@ import {
   ROUTE_INVENTORY,
   groupRoutesByFamily,
   calculateQAMetrics,
-} from '@/components/qa/routeQADetection';
+} from '@/components/qa/routeQADetection.js';
 
 export default function AdminNavigationQA() {
   const [selectedRoute, setSelectedRoute] = useState(null);
