@@ -19,11 +19,16 @@ import {
   ArrowRight, Activity
 } from 'lucide-react';
 
+import ExecutiveKPIStrip from '@/components/operations/ExecutiveKPIStrip';
+import RevenueMomentumPanel from '@/components/operations/RevenueMomentumPanel';
+import PipelineSnapshot from '@/components/operations/PipelineSnapshot';
+import DeliveryWorkloadPanel from '@/components/operations/DeliveryWorkloadPanel';
+import ClientHealthPanel from '@/components/operations/ClientHealthPanel';
+import PublishingMomentumStrip from '@/components/operations/PublishingMomentumStrip';
+import OperationalRisksPanel from '@/components/operations/OperationalRisksPanel';
+import QuickCommandBar from '@/components/operations/QuickCommandBar';
 import MetricCards from '@/components/command/MetricCards';
-import ContentEngineStats from '@/components/command/ContentEngineStats';
-import AutopilotStatus from '@/components/command/AutopilotStatus';
 import ActivityFeed from '@/components/command/ActivityFeed';
-import AlertsSummaryPanel from '@/components/command/AlertsSummaryPanel';
 
 const QUICK_ACTIONS = [
   { label: 'Command Center',    icon: Cpu,         page: 'AdminCommandCenter',      color: 'bg-violet-600 hover:bg-violet-700' },
@@ -94,82 +99,63 @@ export default function AdminDashboard() {
         <div className="min-h-screen bg-slate-950 text-white">
 
           {/* Header */}
-          <div className="bg-slate-900 border-b border-slate-800 px-6 py-5 sticky top-0 z-10">
-            <div className="max-w-screen-2xl mx-auto flex items-center justify-between gap-4 flex-wrap">
-              <div>
-                <div className="flex items-center gap-2">
-                  <Activity className="w-5 h-5 text-violet-400" />
-                  <h1 className="text-xl font-bold text-white">NTA Admin Dashboard</h1>
-                </div>
-                <p className="text-slate-400 text-sm mt-0.5">New Tech Advertising — Operations Overview</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <Link to={createPageUrl('AdminCommandCenter')}>
-                  <Button variant="outline" size="sm" className="border-slate-700 text-slate-300 hover:bg-slate-800 gap-1.5">
-                    <Cpu className="w-4 h-4" /> Command Center
-                  </Button>
-                </Link>
-                <Link to={createPageUrl('AdminAlerts')}>
-                  <Button size="sm" className="bg-orange-600 hover:bg-orange-700 gap-1.5">
-                    <Bell className="w-4 h-4" /> Alert Center
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
+           <div className="bg-gradient-to-r from-slate-900 to-slate-800 border-b border-slate-700 px-6 py-6 sticky top-0 z-10">
+             <div className="max-w-screen-2xl mx-auto flex items-center justify-between gap-4 flex-wrap">
+               <div>
+                 <div className="flex items-center gap-3">
+                   <div className="p-2 bg-violet-900/50 border border-violet-700 rounded-lg">
+                     <Zap className="w-5 h-5 text-violet-400" />
+                   </div>
+                   <div>
+                     <h1 className="text-2xl font-bold text-white">Agency Operations</h1>
+                     <p className="text-slate-400 text-sm mt-0.5">Real-time visibility into revenue, delivery, publishing, and client activity</p>
+                   </div>
+                 </div>
+               </div>
+               <div className="flex items-center gap-2 flex-wrap">
+                 <Link to={createPageUrl('AdminSales')}>
+                   <Button variant="outline" size="sm" className="border-slate-700 text-slate-300 hover:bg-slate-800 gap-1.5">
+                     <Target className="w-4 h-4" /> Sales Dashboard
+                   </Button>
+                 </Link>
+                 <Link to={createPageUrl('AdminVideoPublishing')}>
+                   <Button variant="outline" size="sm" className="border-slate-700 text-slate-300 hover:bg-slate-800 gap-1.5">
+                     <PlayCircle className="w-4 h-4" /> Publishing
+                   </Button>
+                 </Link>
+               </div>
+             </div>
+           </div>
 
-          <div className="max-w-screen-2xl mx-auto px-6 py-6 space-y-8">
+          <div className="max-w-screen-2xl mx-auto px-6 py-6 space-y-6">
 
-            {/* Quick Actions */}
-            <div>
-              <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Quick Actions</h2>
-              <div className="flex flex-wrap gap-3">
-                {QUICK_ACTIONS.map(({ label, icon: Icon, page, color }) => (
-                  <Link key={label} to={createPageUrl(page)}>
-                    <Button size="sm" className={`${color} text-white gap-2`}>
-                      <Icon className="w-4 h-4" />{label}
-                    </Button>
-                  </Link>
-                ))}
-              </div>
-            </div>
+            {/* Quick Command Bar */}
+            <QuickCommandBar />
 
-            {/* Key Metrics */}
-            <MetricCards />
+            {/* Executive KPI Strip */}
+            <ExecutiveKPIStrip />
 
-            {/* Main nav tiles */}
-            <div>
-              <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-4">Platform Areas</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {NAV_TILES.map(({ label, desc, icon: Icon, page, color, iconColor }) => (
-                  <Link key={label} to={createPageUrl(page)}
-                    className={`bg-slate-900 border-2 rounded-xl p-5 transition-all hover:bg-slate-800/60 group ${color}`}>
-                    <div className="flex items-start gap-3">
-                      <div className="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0">
-                        <Icon className={`w-4.5 h-4.5 ${iconColor}`} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold text-slate-100 group-hover:text-white transition-colors">{label}</p>
-                        <p className="text-xs text-slate-500 mt-0.5 leading-snug">{desc}</p>
-                      </div>
-                      <ArrowRight className="w-4 h-4 text-slate-700 group-hover:text-slate-400 transition-colors flex-shrink-0 mt-0.5" />
-                    </div>
-                  </Link>
-                ))}
-              </div>
+            {/* Publishing Momentum */}
+            <PublishingMomentumStrip />
+
+            {/* Main 2x2 Grid: Revenue + Pipeline + Delivery + Client Health */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <RevenueMomentumPanel />
+              <PipelineSnapshot />
+              <DeliveryWorkloadPanel />
+              <ClientHealthPanel />
             </div>
 
-            {/* Content + Alerts */}
-            <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-              <div className="xl:col-span-2 space-y-6">
-                <ContentEngineStats />
-                <AutopilotStatus />
-              </div>
-              <div className="space-y-4">
-                <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-widest">Action Required</h2>
-                <AlertsSummaryPanel />
-                <ActivityFeed />
-              </div>
+            {/* Operational Risks */}
+            <OperationalRisksPanel />
+
+            {/* Activity Feed */}
+            <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
+              <h3 className="text-sm font-bold text-white mb-6 flex items-center gap-2">
+                <Activity className="w-5 h-5 text-slate-400" />
+                Recent Activity
+              </h3>
+              <ActivityFeed />
             </div>
 
           </div>
