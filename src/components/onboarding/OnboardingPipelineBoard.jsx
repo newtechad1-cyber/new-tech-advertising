@@ -1,7 +1,14 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { ChevronRight, Clock, AlertCircle } from 'lucide-react';
+import { Clock, AlertCircle } from 'lucide-react';
+
+import ClientProgressScore from './ClientProgressScore';
+import NextBestOnboardingAction from './NextBestOnboardingAction';
+import ClientActivityTimeline from './ClientActivityTimeline';
+import ClientLaunchMilestone from './ClientLaunchMilestone';
+import FastLaunchModeIndicator from './FastLaunchModeIndicator';
+import OnboardingReminderAutomation from './OnboardingReminderAutomation';
 
 const STAGES = [
   { id: 'deal_closed', label: 'Deal Closed' },
@@ -65,38 +72,61 @@ export default function OnboardingPipelineBoard({ onSelectClient }) {
 
               {/* Client Cards */}
               <div className="space-y-2">
-                {stage.clients.map(client => (
-                  <div
-                    key={client.id}
-                    onClick={() => onSelectClient?.(client)}
-                    className={`border rounded-lg p-3 cursor-pointer transition-all hover:bg-slate-800/60 ${
-                      client.isStalled
-                        ? 'border-red-700/50 bg-red-900/10'
-                        : client.health === 'good'
-                        ? 'border-emerald-700/50 bg-emerald-900/10'
-                        : 'border-slate-700 bg-slate-800/30'
-                    }`}
-                  >
-                    <div className="flex items-start justify-between mb-2">
-                      <div className="flex-1">
-                        <p className="text-sm font-semibold text-white">{client.name}</p>
-                        <p className="text-xs text-slate-400">${(client.dealValue / 1000).toFixed(0)}k</p>
+                {stage.clients.map(clientData => {
+                  // Get full client object from query for rich data
+                  const fullClient = clients.find(c => c.id === clientData.id) || clientData;
+                  const isHighPriority = fullClient.deal_value > 25000;
+                  
+                  return (
+                    <div
+                      key={clientData.id}
+                      onClick={() => onSelectClient?.(fullClient)}
+                      className={`border rounded-lg p-3 cursor-pointer transition-all hover:bg-slate-800/60 space-y-2 ${
+                        clientData.isStalled
+                          ? 'border-red-700/50 bg-red-900/10'
+                          : clientData.health === 'good'
+                          ? 'border-emerald-700/50 bg-emerald-900/10'
+                          : 'border-slate-700 bg-slate-800/30'
+                      }`}
+                    >
+                      {/* Header: Name, Priority Badge, Stall Alert */}
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-semibold text-white truncate">{clientData.name}</p>
+                          <p className="text-xs text-slate-400">${(clientData.dealValue / 1000).toFixed(0)}k</p>
+                        </div>
+                        <div className="flex-shrink-0 flex items-center gap-1">
+                          <FastLaunchModeIndicator client={fullClient} isHighPriority={isHighPriority} />
+                          {clientData.isStalled && (
+                            <AlertCircle className="w-4 h-4 text-red-400" />
+                          )}
+                        </div>
                       </div>
-                      {client.isStalled && (
-                        <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
-                      )}
-                    </div>
 
-                    <div className="text-xs text-slate-400 mb-2 flex items-center gap-1">
-                      <Clock className="w-3 h-3" />
-                      {client.daysInStage}d in stage
-                    </div>
+                      {/* Progress Score */}
+                      <ClientProgressScore client={fullClient} />
 
-                    <div className="text-xs text-slate-500 truncate">
-                      {client.owner.split('@')[0]}
+                      {/* Launch Milestone */}
+                      <ClientLaunchMilestone client={fullClient} />
+
+                      {/* Next Best Action */}
+                      <NextBestOnboardingAction client={fullClient} />
+
+                      {/* Activity Timeline */}
+                      <ClientActivityTimeline client={fullClient} />
+
+                      {/* Footer: Days in Stage + Owner + Reminder */}
+                      <div className="flex items-center justify-between pt-2 border-t border-slate-700">
+                        <div className="text-xs text-slate-400 flex items-center gap-1">
+                          <Clock className="w-3 h-3" />
+                          {clientData.daysInStage}d
+                        </div>
+                        <span className="text-xs text-slate-500">{clientData.owner.split('@')[0]}</span>
+                        <OnboardingReminderAutomation client={fullClient} />
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
 
                 {stage.count === 0 && (
                   <div className="border-2 border-dashed border-slate-700 rounded-lg p-4 text-center text-slate-500">
