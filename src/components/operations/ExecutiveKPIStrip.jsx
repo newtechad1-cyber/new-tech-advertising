@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { TrendingUp, Users, DollarSign, Video, AlertCircle } from 'lucide-react';
+import { TrendingUp, Users, DollarSign, Video, AlertCircle, ArrowUp, ArrowDown } from 'lucide-react';
 
 export default function ExecutiveKPIStrip() {
+  const [trends, setTrends] = useState({});
+
   const { data: deals = [] } = useQuery({
     queryKey: ['executive-deals'],
     queryFn: () => base44.entities.SalesDeals?.list?.('-created_date', 500).catch(() => []),
@@ -17,6 +19,8 @@ export default function ExecutiveKPIStrip() {
   const now = new Date();
   const currentMonth = now.getMonth();
   const currentYear = now.getFullYear();
+  const lastMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+  const lastMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear;
 
   // Calculate KPIs
   const pipelineValue = deals
@@ -31,6 +35,18 @@ export default function ExecutiveKPIStrip() {
     })
     .reduce((sum, d) => sum + (d.deal_value || 0), 0);
 
+  const revenueWonLastMonth = deals
+    .filter(d => d.stage === 'closed_won' && d.created_date)
+    .filter(d => {
+      const dateObj = new Date(d.created_date);
+      return dateObj.getMonth() === lastMonth && dateObj.getFullYear() === lastMonthYear;
+    })
+    .reduce((sum, d) => sum + (d.deal_value || 0), 0);
+
+  const revenueChange = revenueWonLastMonth > 0 
+    ? ((revenueWonThisMonth - revenueWonLastMonth) / revenueWonLastMonth) * 100 
+    : 0;
+
   const closingSoon = deals.filter(d => {
     if (!d.closing_date || d.stage === 'closed_lost' || d.stage === 'closed_won') return false;
     const closeDate = new Date(d.closing_date);
@@ -41,7 +57,7 @@ export default function ExecutiveKPIStrip() {
     {
       label: 'Pipeline Value',
       value: `$${(pipelineValue / 1000000).toFixed(1)}M`,
-      change: '+12%',
+      trend: 12,
       icon: TrendingUp,
       color: 'text-emerald-400',
       bg: 'bg-emerald-900/20',
@@ -49,7 +65,7 @@ export default function ExecutiveKPIStrip() {
     {
       label: 'Revenue Won (MTD)',
       value: `$${(revenueWonThisMonth / 1000).toFixed(0)}k`,
-      change: '+8%',
+      trend: Math.round(revenueChange),
       icon: DollarSign,
       color: 'text-amber-400',
       bg: 'bg-amber-900/20',
@@ -57,7 +73,7 @@ export default function ExecutiveKPIStrip() {
     {
       label: 'Active Clients',
       value: clients.length,
-      change: `+${Math.floor(clients.length * 0.1)}`,
+      trend: Math.floor(clients.length * 0.1),
       icon: Users,
       color: 'text-blue-400',
       bg: 'bg-blue-900/20',
@@ -65,7 +81,7 @@ export default function ExecutiveKPIStrip() {
     {
       label: 'Closing Soon',
       value: closingSoon,
-      change: 'This month',
+      trend: closingSoon > 3 ? 5 : -2,
       icon: AlertCircle,
       color: 'text-violet-400',
       bg: 'bg-violet-900/20',
@@ -76,14 +92,27 @@ export default function ExecutiveKPIStrip() {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       {kpis.map((kpi, idx) => {
         const Icon = kpi.icon;
+        const TrendIcon = kpi.trend >= 0 ? ArrowUp : ArrowDown;
+        const trendColor = kpi.trend >= 0 ? 'text-emerald-400' : 'text-red-400';
+        
         return (
-          <div key={idx} className={`${kpi.bg} border border-slate-700 rounded-xl p-4`}>
+          <div 
+            key={idx} 
+            className={`${kpi.bg} border border-slate-700 rounded-xl p-4 transition-all duration-500 hover:border-slate-600 hover:bg-opacity-30`}
+          >
             <div className="flex items-start justify-between mb-2">
               <Icon className={`w-5 h-5 ${kpi.color}`} />
-              <span className="text-xs font-semibold text-slate-400">{kpi.change}</span>
+              <div className="flex items-center gap-1">
+                <TrendIcon className={`w-3 h-3 ${trendColor}`} />
+                <span className={`text-xs font-semibold ${trendColor}`}>
+                  {Math.abs(kpi.trend)}%
+                </span>
+              </div>
             </div>
             <p className="text-xs text-slate-400 mb-1">{kpi.label}</p>
-            <p className={`text-2xl font-bold ${kpi.color}`}>{kpi.value}</p>
+            <p className={`text-2xl font-bold ${kpi.color} transition-all duration-300`}>
+              {kpi.value}
+            </p>
           </div>
         );
       })}
