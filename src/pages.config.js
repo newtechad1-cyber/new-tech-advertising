@@ -407,6 +407,7 @@ import AdminGovernanceRelationships from './pages/AdminGovernanceRelationships';
 import AdminGovernanceLifecycles from './pages/AdminGovernanceLifecycles';
 import AdminGovernanceDependencies from './pages/AdminGovernanceDependencies';
 import AdminGovernanceAudit from './pages/AdminGovernanceAudit';
+import AdminNavigation from './pages/AdminNavigation';
 import __Layout from './Layout.jsx';
 
 
@@ -771,6 +772,7 @@ export const PAGES = {
     "AdminGovernanceLifecycles": AdminGovernanceLifecycles,
     "AdminGovernanceDependencies": AdminGovernanceDependencies,
     "AdminGovernanceAudit": AdminGovernanceAudit,
+    "AdminNavigation": AdminNavigation,
 }
 
 export const pagesConfig = {
