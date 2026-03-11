@@ -1,14 +1,6 @@
 import React from 'react';
-import { Facebook, Instagram, Globe, Youtube } from 'lucide-react';
 import CalendarStatusBadge from './CalendarStatusBadge';
-
-const CHANNEL_ICONS = {
-  facebook: Facebook,
-  instagram: Instagram,
-  website: Globe,
-  youtube: Youtube,
-  tiktok: () => <span className="text-sm font-bold">TT</span>,
-};
+import ChannelPills from './ChannelPills';
 
 export default function CalendarEventCard({ event, compact = false }) {
   const platforms = Array.isArray(event.platforms) ? event.platforms : [event.platforms].filter(Boolean);
@@ -41,21 +33,7 @@ export default function CalendarEventCard({ event, compact = false }) {
           )}
 
           {platforms.length > 0 && (
-            <div className="flex gap-1.5 flex-wrap">
-              {platforms.map((platform) => {
-                const Icon = CHANNEL_ICONS[platform];
-                if (!Icon) return null;
-                return (
-                  <div key={platform} className="bg-white rounded-md p-1 border border-slate-200">
-                    {typeof Icon === 'function' ? (
-                      <Icon className="w-3.5 h-3.5" />
-                    ) : (
-                      <Icon className="w-3.5 h-3.5 text-slate-600" />
-                    )}
-                  </div>
-                );
-              })}
-            </div>
+            <ChannelPills platforms={platforms} size="sm" />
           )}
         </div>
       </div>
