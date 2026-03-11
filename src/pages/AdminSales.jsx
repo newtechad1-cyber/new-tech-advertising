@@ -4,7 +4,7 @@ import { base44 } from '@/api/base44Client';
 import AdminNav from '@/components/nav/AdminNav';
 import AdminGuard from '@/components/auth/AdminGuard';
 import { Button } from '@/components/ui/button';
-import { Zap, Plus, RefreshCw, List, LayoutGrid } from 'lucide-react';
+import { Zap, Plus, RefreshCw, List, LayoutGrid, Menu } from 'lucide-react';
 import { createPageUrl } from '@/utils';
 import SalesKPICards from '@/components/sales/cmd/SalesKPICards';
 import CommandStrip from '@/components/sales/cmd/CommandStrip';
@@ -20,8 +20,9 @@ import RepPerformancePanel from '@/components/sales/cmd/RepPerformancePanel';
 import SalesActivityFeed from '@/components/sales/cmd/SalesActivityFeed';
 
 export default function AdminSales() {
-  const [viewMode, setViewMode] = useState('board');
-  const [refetchKey, setRefetchKey] = useState(0);
+   const [viewMode, setViewMode] = useState('board');
+   const [refetchKey, setRefetchKey] = useState(0);
+   const isLg = typeof window !== 'undefined' && window.innerWidth >= 1024;
 
   // Fetch deals
   const { data: deals = [], isLoading: dealsLoading } = useQuery({
@@ -154,6 +155,15 @@ export default function AdminSales() {
                 >
                   <List className="w-3 h-3" />
                 </Button>
+                <Button
+                  size="sm"
+                  variant={viewMode === 'list' ? 'default' : 'ghost'}
+                  className={`h-7 w-7 p-0 ${viewMode === 'list' ? 'bg-slate-700' : 'text-slate-500'}`}
+                  onClick={() => setViewMode('list')}
+                  title="Mobile List"
+                >
+                  <Menu className="w-3 h-3" />
+                </Button>
               </div>
             </div>
           </div>
@@ -171,18 +181,9 @@ export default function AdminSales() {
                {/* Left Column: Pipeline or Table */}
                <div className="lg:col-span-2 space-y-6">
                  {/* Pipeline Board, Table, or Mobile List */}
-                 {viewMode === 'board' ? (
-                   <SalesPipelineBoard deals={deals} />
-                 ) : viewMode === 'table' ? (
-                   <DealsTableView deals={deals} />
-                 ) : (
-                   <div className="lg:hidden">
-                     <DealsMobileList deals={deals} />
-                   </div>
-                 )}
-                 {viewMode !== 'board' && viewMode !== 'list' && (
-                   <DealsTableView deals={deals} />
-                 )}
+                 {viewMode === 'board' && <SalesPipelineBoard deals={deals} />}
+                 {viewMode === 'table' && <DealsTableView deals={deals} />}
+                 {viewMode === 'list' && <DealsMobileList deals={deals} />}
 
                  {/* Revenue Forecast */}
                  <RevenueForecaster deals={deals} />
