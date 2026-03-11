@@ -60,6 +60,18 @@ export default function BookCall() {
         source: 'website',
       });
 
+      // Create Google Calendar event
+      base44.functions.invoke('createDemoCalendarEvent', {
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        business_name: form.business_name,
+        website_url: form.website_url,
+        service_interest: form.service_interest,
+        best_time: form.best_time,
+        message: form.message,
+      }).catch(err => console.warn('[BookCall] Calendar event creation failed:', err.message));
+
       // Notify team
       await base44.integrations.Core.SendEmail({
         from_name: 'NTA — Strategy Call Request',
