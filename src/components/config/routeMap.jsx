@@ -23,6 +23,7 @@
  *   - Put a school admin page key in main admin nav without allowCrossFamily: true
  *   - Use 'Dashboard' / 'Settings' / 'Videos' / 'Analytics' as page keys — they are AMBIGUOUS
  *   - Use AdminDashboard as a catch-all; it is the NTA main admin dashboard
+ *   - Link to 'Dashboard' from MarketingNav — use 'ClientDashboard' instead
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
