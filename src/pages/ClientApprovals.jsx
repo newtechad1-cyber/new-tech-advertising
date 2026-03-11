@@ -201,8 +201,15 @@ export default function ClientApprovals() {
               onClose={() => setShowChangeModal(false)}
             />
           </>
-        )}
-      </div>
-    </ClientGuard>
-  );
-}
+          )}
+
+          {/* Brand Footer */}
+          <footer className="border-t bg-white mt-16">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 text-center text-sm text-slate-600">
+           <p>Your content is prepared and scheduled by <span className="font-semibold text-slate-900">New Tech Advertising</span>.</p>
+          </div>
+          </footer>
+          </div>
+          </ClientGuard>
+          );
+          }
