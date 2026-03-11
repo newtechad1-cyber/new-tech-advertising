@@ -16,6 +16,8 @@ import HighRiskAutomationsPanel from '@/components/automation/HighRiskAutomation
 import StrongerVisualAlerts from '@/components/automation/StrongerVisualAlerts';
 
 export default function AdminAutomation() {
+  const [selectedCategory, setSelectedCategory] = useState('all');
+
   const { data: rules = [] } = useQuery({
     queryKey: ['automation-rules'],
     queryFn: () => base44.entities.MasterAutomationRule?.list?.().catch(() => []),
@@ -40,6 +42,23 @@ export default function AdminAutomation() {
     queryKey: ['automation-audits'],
     queryFn: () => base44.entities.AutomationGovernanceAuditLog?.list?.('-created_at', 20).catch(() => []),
   });
+
+  const categories = [
+    { key: 'publishing', label: 'Publishing', color: 'indigo' },
+    { key: 'approvals', label: 'Approvals', color: 'blue' },
+    { key: 'onboarding', label: 'Onboarding', color: 'emerald' },
+    { key: 'reporting', label: 'Reporting', color: 'purple' },
+    { key: 'notification', label: 'Notifications', color: 'amber' },
+    { key: 'workflow', label: 'Workflows', color: 'cyan' },
+    { key: 'escalation', label: 'Escalations', color: 'red' },
+    { key: 'maintenance', label: 'System Health', color: 'slate' },
+  ];
+
+  const filteredRules = useMemo(() => {
+    return selectedCategory === 'all'
+      ? rules
+      : rules.filter(r => r.automation_category === selectedCategory);
+  }, [rules, selectedCategory]);
 
   const activeRules = rules.filter(r => r.active).length;
   const deprecatedRules = rules.filter(r => r.deprecated).length;
