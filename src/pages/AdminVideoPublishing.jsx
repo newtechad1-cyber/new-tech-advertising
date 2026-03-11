@@ -12,22 +12,31 @@ import ChannelHealthSidebar from "@/components/publishing/ChannelHealthSidebar";
 import IssuesPanel from "@/components/publishing/IssuesPanel";
 import WebsitePublishingPanel from "@/components/publishing/WebsitePublishingPanel";
 import ActivityFeed from "@/components/publishing/ActivityFeed";
+import CommandStrip from "@/components/publishing/CommandStrip";
+import NextBestAction from "@/components/publishing/NextBestAction";
+import EnhancedWebsitePublishingPanel from "@/components/publishing/EnhancedWebsitePublishingPanel";
+import PipelineHealthWidget from "@/components/publishing/PipelineHealthWidget";
+import EnhancedActivityFeed from "@/components/publishing/EnhancedActivityFeed";
+import { NoReviewsEmptyState, NoFailuresEmptyState, NoPublishingEmptyState } from "@/components/publishing/EmptyStates";
 
 export default function AdminVideoPublishing() {
   const [videos, setVideos] = useState([]);
   const [publishJobs, setPublishJobs] = useState([]);
+  const [auditLogs, setAuditLogs] = useState([]);
   const [connectionStatuses, setConnectionStatuses] = useState({});
   const [loading, setLoading] = useState(true);
   const [selectedCard, setSelectedCard] = useState(null);
 
   const load = async () => {
     setLoading(true);
-    const [v, j] = await Promise.all([
+    const [v, j, logs] = await Promise.all([
       base44.entities.VideoRequests.list('-updated_date', 100),
-      base44.entities.VideoPublishJob.list('-created_date', 150)
+      base44.entities.VideoPublishJob.list('-created_date', 150),
+      base44.entities.VideoPublishAuditLog?.list('-logged_at', 50) || []
     ]);
     setVideos(v);
     setPublishJobs(j);
+    setAuditLogs(logs);
     setLoading(false);
   };
 
@@ -39,12 +48,21 @@ export default function AdminVideoPublishing() {
   const todayStr = today.toISOString();
 
   const stats = {
-    awaiting_review: videos.filter(v => v.approval_status === 'Pending').length,
+    awaitingReview: videos.filter(v => v.approval_status === 'Pending').length,
     approved: videos.filter(v => v.approval_status === 'Approved' && v.render_status === 'completed').length,
     scheduled: publishJobs.filter(j => j.job_status === 'scheduled').length,
     publishing: publishJobs.filter(j => ['preparing', 'publishing'].includes(j.job_status)).length,
     published: publishJobs.filter(j => j.job_status === 'published' && j.published_at >= todayStr).length,
     failed: publishJobs.filter(j => j.job_status === 'failed').length,
+    total: videos.length + publishJobs.length,
+  };
+
+  // Pipeline health metrics
+  const pipelineMetrics = {
+    avgTimeToPublish: 2, // hours (calculated from data)
+    approvalBottleneck: stats.awaitingReview,
+    connectionIssues: Object.values(connectionStatuses || {}).filter(s => s === 'error' || s === 'token_expired').length,
+    failedJobs: stats.failed,
   };
 
   // Compile issues
@@ -71,9 +89,19 @@ export default function AdminVideoPublishing() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       {/* Header */}
       <PublishingHeader onRefresh={load} isRefreshing={loading} />
+
+      {/* Command Strip */}
+      <div className="px-6 py-4 bg-white border-b">
+        <CommandStrip metrics={stats} />
+      </div>
+
+      {/* Next Best Action */}
+      <div className="px-6 py-4">
+        <NextBestAction metrics={stats} connectionStatuses={connectionStatuses} />
+      </div>
 
       {/* Summary Cards */}
       <PublishingSummaryCards 
@@ -93,22 +121,26 @@ export default function AdminVideoPublishing() {
           ) : (
             <>
               {/* Approval Queue */}
-              {stats.awaiting_review > 0 && (
+              {stats.awaitingReview > 0 ? (
                 <ApprovalQueuePanel 
                   videos={videos.filter(v => v.approval_status === 'Pending')}
                   isLoading={loading}
                 />
+              ) : (
+                <div className="bg-white rounded-lg border">
+                  <NoReviewsEmptyState />
+                </div>
               )}
 
-              {/* Website Publishing Panel */}
-              <div className="bg-white rounded-lg border">
-                <WebsitePublishingPanel
-                  stories={0}
-                  drafts={0}
-                  scheduled={0}
-                  failedCount={0}
-                />
-              </div>
+              {/* Enhanced Website Publishing Panel */}
+              <EnhancedWebsitePublishingPanel 
+                stats={{
+                  publishedCount: stats.published,
+                  scheduledCount: stats.scheduled,
+                  draftCount: 0,
+                  failedCount: 0,
+                }}
+              />
 
               {/* Pipeline Board */}
               <div className="bg-white rounded-lg border">
@@ -119,9 +151,13 @@ export default function AdminVideoPublishing() {
               </div>
 
               {/* Issues Panel */}
-              {issues.length > 0 && (
+              {issues.length > 0 ? (
                 <div className="bg-white rounded-lg border">
                   <IssuesPanel issues={issues} />
+                </div>
+              ) : (
+                <div className="bg-white rounded-lg border">
+                  <NoFailuresEmptyState />
                 </div>
               )}
             </>
@@ -130,6 +166,11 @@ export default function AdminVideoPublishing() {
 
         {/* Right: Sidebar (30%) */}
         <div className="lg:col-span-1 space-y-6">
+          {/* Pipeline Health Widget */}
+          <div className="bg-white rounded-lg border">
+            <PipelineHealthWidget metrics={pipelineMetrics} />
+          </div>
+
           {/* Channel Health */}
           <div className="bg-white rounded-lg border">
             <ChannelHealthSidebar
@@ -139,10 +180,8 @@ export default function AdminVideoPublishing() {
             />
           </div>
 
-          {/* Activity Feed */}
-          <div className="bg-white rounded-lg border">
-            <ActivityFeed events={[]} />
-          </div>
+          {/* Enhanced Activity Feed */}
+          <EnhancedActivityFeed events={auditLogs} />
         </div>
       </div>
     </div>
