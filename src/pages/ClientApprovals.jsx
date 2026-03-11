@@ -164,6 +164,12 @@ export default function ClientApprovals() {
                 setSelectedVideo(video);
                 setShowDetailModal(true);
               }}
+              onApprove={handleApprove}
+              onRejectSwipe={(video) => {
+                setSelectedVideo(video);
+                setShowChangeModal(true);
+              }}
+              onApproveAll={handleApproveAll}
             />
           </div>
 
