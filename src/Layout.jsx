@@ -12,6 +12,8 @@ export const useViewMode = () => {
 };
 
 import ADAComplianceBanner from '@/components/marketing/ADAComplianceBanner';
+import RouteFamilyBadge from '@/components/admin/RouteFamilyBadge';
+import { PAGE_FAMILY_MAP } from '@/components/config/routeMap';
 
 export default function Layout({ children, currentPageName }) {
   const [user, setUser] = useState(null);
