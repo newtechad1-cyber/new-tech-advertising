@@ -437,6 +437,7 @@ import AdminOptimization from './pages/AdminOptimization';
 import AdminOptimizationCandidates from './pages/AdminOptimizationCandidates';
 import AdminOptimizationExperiments from './pages/AdminOptimizationExperiments';
 import AdminOptimizationOutcomes from './pages/AdminOptimizationOutcomes';
+import AdminOptimizationPolicies from './pages/AdminOptimizationPolicies';
 import __Layout from './Layout.jsx';
 
 
@@ -831,6 +832,7 @@ export const PAGES = {
     "AdminOptimizationCandidates": AdminOptimizationCandidates,
     "AdminOptimizationExperiments": AdminOptimizationExperiments,
     "AdminOptimizationOutcomes": AdminOptimizationOutcomes,
+    "AdminOptimizationPolicies": AdminOptimizationPolicies,
 }
 
 export const pagesConfig = {
