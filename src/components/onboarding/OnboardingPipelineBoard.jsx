@@ -1,0 +1,113 @@
+import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { base44 } from '@/api/base44Client';
+import { ChevronRight, Clock, AlertCircle } from 'lucide-react';
+
+const STAGES = [
+  { id: 'deal_closed', label: 'Deal Closed' },
+  { id: 'welcome_sent', label: 'Welcome Sent' },
+  { id: 'brand_assets', label: 'Brand Assets' },
+  { id: 'platform_setup', label: 'Platform Setup' },
+  { id: 'publishing_connected', label: 'Channels Connected' },
+  { id: 'first_content', label: 'First Content' },
+  { id: 'content_approved', label: 'Content Approved' },
+  { id: 'fully_live', label: 'Fully Live' },
+];
+
+export default function OnboardingPipelineBoard({ onSelectClient }) {
+  const { data: clients = [] } = useQuery({
+    queryKey: ['onboarding-pipeline'],
+    queryFn: () => base44.entities.ClientCompanies?.list?.('-created_date', 500).catch(() => []),
+  });
+
+  const now = new Date();
+
+  const stageData = STAGES.map(stage => {
+    const clientsInStage = clients.filter(c => (c.onboarding_stage || 'deal_closed') === stage.id);
+    return {
+      ...stage,
+      count: clientsInStage.length,
+      clients: clientsInStage.map(c => {
+        const enteredAt = new Date(c.onboarding_stage_entered_date || c.created_date || now);
+        const daysInStage = Math.floor((now - enteredAt) / (1000 * 60 * 60 * 24));
+        const isStalled = daysInStage > 7;
+        
+        return {
+          id: c.id,
+          name: c.name || c.company_name,
+          daysInStage,
+          isStalled,
+          dealValue: c.deal_value || 0,
+          owner: c.onboarding_owner_email || 'Unassigned',
+          health: c.onboarding_health || 'good',
+        };
+      }),
+    };
+  });
+
+  return (
+    <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
+      <h3 className="text-sm font-bold text-white mb-6">Onboarding Pipeline</h3>
+      
+      <div className="overflow-x-auto">
+        <div className="flex gap-4 pb-4 min-w-max">
+          {stageData.map((stage, idx) => (
+            <div key={idx} className="flex-shrink-0 w-80">
+              {/* Stage Header */}
+              <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-3 mb-3">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-sm font-semibold text-white">{stage.label}</h4>
+                  <span className="text-xs font-bold bg-slate-700 text-slate-300 px-2 py-1 rounded">
+                    {stage.count}
+                  </span>
+                </div>
+              </div>
+
+              {/* Client Cards */}
+              <div className="space-y-2">
+                {stage.clients.map(client => (
+                  <div
+                    key={client.id}
+                    onClick={() => onSelectClient?.(client)}
+                    className={`border rounded-lg p-3 cursor-pointer transition-all hover:bg-slate-800/60 ${
+                      client.isStalled
+                        ? 'border-red-700/50 bg-red-900/10'
+                        : client.health === 'good'
+                        ? 'border-emerald-700/50 bg-emerald-900/10'
+                        : 'border-slate-700 bg-slate-800/30'
+                    }`}
+                  >
+                    <div className="flex items-start justify-between mb-2">
+                      <div className="flex-1">
+                        <p className="text-sm font-semibold text-white">{client.name}</p>
+                        <p className="text-xs text-slate-400">${(client.dealValue / 1000).toFixed(0)}k</p>
+                      </div>
+                      {client.isStalled && (
+                        <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
+                      )}
+                    </div>
+
+                    <div className="text-xs text-slate-400 mb-2 flex items-center gap-1">
+                      <Clock className="w-3 h-3" />
+                      {client.daysInStage}d in stage
+                    </div>
+
+                    <div className="text-xs text-slate-500 truncate">
+                      {client.owner.split('@')[0]}
+                    </div>
+                  </div>
+                ))}
+
+                {stage.count === 0 && (
+                  <div className="border-2 border-dashed border-slate-700 rounded-lg p-4 text-center text-slate-500">
+                    <p className="text-xs">No clients</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
