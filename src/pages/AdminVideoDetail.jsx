@@ -10,14 +10,16 @@ import TranscriptCaptionsSection from "@/components/video-workspace/TranscriptCa
 import BrandingPanel from "@/components/video-workspace/BrandingPanel";
 import RenderOutputPanel from "@/components/video-workspace/RenderOutputPanel";
 import PublishingCopyPanel from "@/components/video-workspace/PublishingCopyPanel";
-import DestinationSelectionPanel from "@/components/video-workspace/DestinationSelectionPanel";
+import DestinationCardsPanel from "@/components/video-workspace/DestinationCardsPanel";
 import ReviewApprovalPanel from "@/components/video-workspace/ReviewApprovalPanel";
-import NextBestActionCard from "@/components/video-workspace/NextBestActionCard";
+import RecommendedNextAction from "@/components/video-workspace/RecommendedNextAction";
 import ChannelReadinessSidebar from "@/components/video-workspace/ChannelReadinessSidebar";
 import PublishStatusSection from "@/components/video-workspace/PublishStatusSection";
-import ActivityTimeline from "@/components/video-workspace/ActivityTimeline";
-import WebsitePublishingSection from "@/components/video-workspace/WebsitePublishingSection";
+import PremiumActivityTimeline from "@/components/video-workspace/PremiumActivityTimeline";
+import WebsiteFirstCard from "@/components/video-workspace/WebsiteFirstCard";
 import QuickActionBar from "@/components/video-workspace/QuickActionBar";
+import HeroStatusStrip from "@/components/video-workspace/HeroStatusStrip";
+import MissingBeforePublishChecklist from "@/components/video-workspace/MissingBeforePublishChecklist";
 
 export default function AdminVideoDetail() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -26,6 +28,7 @@ export default function AdminVideoDetail() {
   const [video, setVideo] = useState(null);
   const [publishJobs, setPublishJobs] = useState([]);
   const [auditLogs, setAuditLogs] = useState([]);
+  const [websiteStory, setWebsiteStory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [dirty, setDirty] = useState(false);
@@ -38,14 +41,16 @@ export default function AdminVideoDetail() {
         setLoading(false); 
         return; 
       }
-      const [v, jobs, logs] = await Promise.all([
+      const [v, jobs, logs, story] = await Promise.all([
         base44.entities.VideoRequests.get(id),
         base44.entities.VideoPublishJob?.filter({ video_id: id }, '-created_date', 20) || [],
-        base44.entities.VideoPublishAuditLog?.filter({ video_id: id }, '-logged_at', 30) || []
+        base44.entities.VideoPublishAuditLog?.filter({ video_id: id }, '-logged_at', 30) || [],
+        base44.entities.WebsiteVideoStory?.filter({ video_id: id }).then(res => res?.[0]) || null
       ]);
       setVideo(v);
       setPublishJobs(jobs);
       setAuditLogs(logs);
+      setWebsiteStory(story);
       setLoading(false);
     };
     load();
@@ -78,15 +83,33 @@ export default function AdminVideoDetail() {
 
   const handleRefresh = async () => {
     setRefreshing(true);
-    const [v, jobs, logs] = await Promise.all([
+    const [v, jobs, logs, story] = await Promise.all([
       base44.entities.VideoRequests.get(id),
       base44.entities.VideoPublishJob?.filter({ video_id: id }, '-created_date', 20) || [],
-      base44.entities.VideoPublishAuditLog?.filter({ video_id: id }, '-logged_at', 30) || []
+      base44.entities.VideoPublishAuditLog?.filter({ video_id: id }, '-logged_at', 30) || [],
+      base44.entities.WebsiteVideoStory?.filter({ video_id: id }).then(res => res?.[0]) || null
     ]);
     setVideo(v);
     setPublishJobs(jobs);
     setAuditLogs(logs);
+    setWebsiteStory(story);
     setRefreshing(false);
+  };
+
+  const handleNextAction = (actionKey) => {
+    // Route to appropriate section based on action
+    const scrollTo = {
+      transcript: 'transcript-section',
+      captions: 'captions-section',
+      branding: 'branding-section',
+      render: 'render-section',
+      copy: 'publishing-copy-section',
+      destinations: 'destinations-section',
+      review: 'review-section',
+      publish: 'review-section',
+    };
+    // In production, use scroll to element
+    console.log('Next action:', actionKey);
   };
 
   if (loading) {
@@ -181,7 +204,7 @@ export default function AdminVideoDetail() {
                 {video.request_type && (
                   <div>
                     <span className="text-slate-600">Type:</span>
-                    <span className="text-slate-900 font-medium ml-2 capitalize">{video.request_type.replace('_', ' ')}</span>
+                    <span className="text-slate-900 font-medium ml-2 capitalize">{video.request_type.replace(/_/g, ' ')}</span>
                   </div>
                 )}
               </div>
@@ -190,14 +213,25 @@ export default function AdminVideoDetail() {
         </div>
       </div>
 
-      {/* Workflow Status Strip */}
-      <div className="px-4 sm:px-6 py-4 bg-white border-b border-slate-200">
-        <WorkflowStatusStrip video={video} />
+      {/* Hero Status Strip */}
+      <div className="px-4 sm:px-6 py-4">
+        <div className="max-w-7xl mx-auto">
+          <HeroStatusStrip video={video} publishJobs={publishJobs} />
+        </div>
       </div>
 
-      {/* Next Best Action */}
+      {/* Recommended Next Action */}
       <div className="px-4 sm:px-6 py-4">
-        <NextBestActionCard video={video} handleImmediateSave={handleImmediateSave} />
+        <div className="max-w-7xl mx-auto">
+          <RecommendedNextAction video={video} onAction={handleNextAction} />
+        </div>
+      </div>
+
+      {/* Workflow Status Strip */}
+      <div className="px-4 sm:px-6 py-4 bg-white border-b border-slate-200">
+        <div className="max-w-7xl mx-auto">
+          <WorkflowStatusStrip video={video} />
+        </div>
       </div>
 
       {/* Main 3-column workspace */}
@@ -207,50 +241,65 @@ export default function AdminVideoDetail() {
           {/* LEFT COLUMN — Video + Transcript + Publishing Copy */}
           <div className="lg:col-span-4 space-y-6">
             <VideoPreviewPanel video={video} onChange={handleChange} />
-            <TranscriptCaptionsSection 
-              video={video} 
-              onChange={handleChange}
-              onImmediateSave={handleImmediateSave}
-            />
-            <PublishingCopyPanel
-              video={video}
-              onChange={handleChange}
-              onImmediateSave={handleImmediateSave}
-            />
+            <div id="transcript-section">
+              <TranscriptCaptionsSection 
+                video={video} 
+                onChange={handleChange}
+                onImmediateSave={handleImmediateSave}
+              />
+            </div>
+            <div id="publishing-copy-section">
+              <PublishingCopyPanel
+                video={video}
+                onChange={handleChange}
+                onImmediateSave={handleImmediateSave}
+              />
+            </div>
           </div>
 
-          {/* CENTER COLUMN — Branding + Render + Destinations */}
+          {/* CENTER COLUMN — Branding + Render + Destinations + Website */}
           <div className="lg:col-span-4 space-y-6">
-            <BrandingPanel video={video} onChange={handleChange} />
-            <RenderOutputPanel
+            <div id="branding-section">
+              <BrandingPanel video={video} onChange={handleChange} />
+            </div>
+            <div id="render-section">
+              <RenderOutputPanel
+                video={video}
+                onChange={handleChange}
+                onImmediateSave={handleImmediateSave}
+              />
+            </div>
+            <WebsiteFirstCard 
               video={video}
-              onChange={handleChange}
-              onImmediateSave={handleImmediateSave}
+              websiteStory={websiteStory}
+              onPublish={() => handleRefresh()}
+              onRetry={handleRefresh}
             />
-            <DestinationSelectionPanel
-              video={video}
-              onChange={handleChange}
-            />
-            <WebsitePublishingSection
-              video={video}
-              onChange={handleChange}
-            />
+            <div id="destinations-section">
+              <DestinationCardsPanel
+                video={video}
+                onChange={handleChange}
+              />
+            </div>
           </div>
 
-          {/* RIGHT COLUMN — Approval + Channels + Activity */}
+          {/* RIGHT COLUMN — Checklist + Approval + Channels + Activity */}
           <div className="lg:col-span-4 space-y-6">
-            <ReviewApprovalPanel
-              video={video}
-              onChange={handleChange}
-              onImmediateSave={handleImmediateSave}
-            />
+            <MissingBeforePublishChecklist video={video} publishJobs={publishJobs} />
+            <div id="review-section">
+              <ReviewApprovalPanel
+                video={video}
+                onChange={handleChange}
+                onImmediateSave={handleImmediateSave}
+              />
+            </div>
             <ChannelReadinessSidebar video={video} publishJobs={publishJobs} />
             <PublishStatusSection
               video={video}
               publishJobs={publishJobs}
               onRetry={handleRefresh}
             />
-            <ActivityTimeline auditLogs={auditLogs} />
+            <PremiumActivityTimeline auditLogs={auditLogs} video={video} />
           </div>
 
         </div>
