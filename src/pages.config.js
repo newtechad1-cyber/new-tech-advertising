@@ -421,6 +421,7 @@ import AdminAutomationRuleDetail from './pages/AdminAutomationRuleDetail';
 import AdminAccess from './pages/AdminAccess';
 import AdminAccessRoles from './pages/AdminAccessRoles';
 import AdminAccessPermissions from './pages/AdminAccessPermissions';
+import AdminAccessScopes from './pages/AdminAccessScopes';
 import __Layout from './Layout.jsx';
 
 
@@ -799,6 +800,7 @@ export const PAGES = {
     "AdminAccess": AdminAccess,
     "AdminAccessRoles": AdminAccessRoles,
     "AdminAccessPermissions": AdminAccessPermissions,
+    "AdminAccessScopes": AdminAccessScopes,
 }
 
 export const pagesConfig = {
