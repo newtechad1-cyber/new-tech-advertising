@@ -5,6 +5,11 @@ import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Users, FileText, Clock, TrendingUp, AlertTriangle, CheckCircle } from 'lucide-react';
 
+import ResellerHealthScore from '@/components/reseller/ResellerHealthScore';
+import ResellerNextBestAction from '@/components/reseller/ResellerNextBestAction';
+import OnboardingProgressExperience from '@/components/reseller/OnboardingProgressExperience';
+import ResellerAuditLog from '@/components/reseller/ResellerAuditLog';
+
 function ResellerDashboardContent() {
   const { reseller } = useResellerContext();
 
@@ -14,6 +19,36 @@ function ResellerDashboardContent() {
       if (!reseller?.id) return [];
       const maps = await base44.entities.ResellerClientMap?.filter?.({ reseller_id: reseller.id }, null, 100).catch(() => []);
       return maps;
+    },
+    enabled: !!reseller?.id,
+  });
+
+  const { data: onboarding } = useQuery({
+    queryKey: ['reseller-onboarding', reseller?.id],
+    queryFn: async () => {
+      if (!reseller?.id) return null;
+      const profiles = await base44.entities.ResellerOnboardingProfile?.filter?.({ reseller_id: reseller.id }, null, 1);
+      return profiles?.[0] || null;
+    },
+    enabled: !!reseller?.id,
+  });
+
+  const { data: branding } = useQuery({
+    queryKey: ['reseller-branding', reseller?.id],
+    queryFn: async () => {
+      if (!reseller?.id) return null;
+      const profiles = await base44.entities.ResellerBrandProfile?.filter?.({ reseller_id: reseller.id }, null, 1);
+      return profiles?.[0] || null;
+    },
+    enabled: !!reseller?.id,
+  });
+
+  const { data: domain } = useQuery({
+    queryKey: ['reseller-domain', reseller?.id],
+    queryFn: async () => {
+      if (!reseller?.id) return null;
+      const configs = await base44.entities.WhiteLabelDomainConfig?.filter?.({ reseller_id: reseller.id }, null, 1);
+      return configs?.[0] || null;
     },
     enabled: !!reseller?.id,
   });
@@ -52,40 +87,19 @@ function ResellerDashboardContent() {
           </div>
         </div>
 
-        {/* Main Content */}
+        {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           
-          {/* Client Health */}
-          <div className="lg:col-span-2 bg-slate-900 border border-slate-700 rounded-lg p-6">
-            <h3 className="text-lg font-bold text-white mb-4">Client Health</h3>
-            <div className="space-y-3">
-              {clients.slice(0, 5).map((client, idx) => (
-                <div key={idx} className="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg border border-slate-700">
-                  <div>
-                    <p className="text-sm font-semibold text-white">Client {idx + 1}</p>
-                    <p className="text-xs text-slate-400">{client.package_name} plan</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-emerald-400" />
-                    <span className="text-xs font-bold text-slate-300 capitalize">{client.status}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
+          {/* Left Column: Onboarding & Next Actions */}
+          <div className="space-y-6">
+            <ResellerHealthScore resellerId={reseller?.id} />
+            <ResellerNextBestAction reseller={reseller} onboarding={onboarding} domain={domain} branding={branding} />
           </div>
 
-          {/* Alerts */}
-          <div className="bg-slate-900 border border-slate-700 rounded-lg p-6">
-            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-              <AlertTriangle className="w-5 h-5 text-amber-400" />
-              Alerts
-            </h3>
-            {onboardingClients > 0 && (
-              <div className="p-3 bg-blue-900/20 border border-blue-700 rounded-lg mb-3">
-                <p className="text-xs font-semibold text-blue-200">{onboardingClients} clients onboarding</p>
-              </div>
-            )}
-            <p className="text-sm text-slate-300">All systems operational</p>
+          {/* Right Column: Client Health & Activity */}
+          <div className="lg:col-span-2 space-y-6">
+            <OnboardingProgressExperience onboarding={onboarding} />
+            <ResellerAuditLog resellerId={reseller?.id} limit={8} />
           </div>
         </div>
 

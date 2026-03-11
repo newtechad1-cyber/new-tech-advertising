@@ -4,6 +4,7 @@ import { ResellerProvider, useResellerContext } from '@/components/context/useRe
 import { Palette, Type } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import BrandingPreviewPanel from '@/components/reseller/BrandingPreviewPanel';
 
 function ResellerBrandingContent() {
   const { branding } = useResellerContext();
@@ -105,31 +106,8 @@ function ResellerBrandingContent() {
             <Button className="bg-cyan-600 hover:bg-cyan-700 w-full">Save Branding</Button>
           </div>
 
-          {/* Preview */}
-          <div className="bg-slate-900 border border-slate-700 rounded-lg p-6 h-fit sticky top-6">
-            <h3 className="text-lg font-bold text-white mb-4">Preview</h3>
-
-            <div className="space-y-4">
-              {/* Portal Header Preview */}
-              <div
-                style={{ backgroundColor: formData.primary_color }}
-                className="rounded-lg p-4 text-white h-20 flex items-center justify-center"
-              >
-                <p className="text-sm font-bold">{formData.brand_name}</p>
-              </div>
-
-              {/* Button Preview */}
-              <div className="space-y-2">
-                <button
-                  style={{ backgroundColor: formData.secondary_color }}
-                  className="w-full text-white font-semibold py-2 rounded-lg transition-all hover:opacity-90"
-                >
-                  Sample Button
-                </button>
-                <p className="text-xs text-slate-400 text-center">Secondary Color</p>
-              </div>
-            </div>
-          </div>
+          {/* Advanced Preview */}
+          <BrandingPreviewPanel branding={formData} />
         </div>
 
       </div>
