@@ -11,10 +11,10 @@ const ADMIN_NAV_STRUCTURE = [
     icon: '⚡',
     items: [
       { label: 'Dashboard', page: 'AdminDashboard' },
+      { label: 'Command Center', page: 'AdminCommandCenter' },
       { label: 'AI Control Center', page: 'AdminAIControlCenter' },
       { label: 'Job Queue', page: 'ScheduledQueue' },
       { label: 'Outputs Awaiting Review', page: 'AdminAILab' },
-      { label: 'Failed Jobs', page: 'AdminAILab' },
     ],
   },
   {
@@ -36,10 +36,19 @@ const ADMIN_NAV_STRUCTURE = [
     items: [
       { label: 'AI Video Studio', page: 'AdminAIVideoStudio' },
       { label: 'Video Requests', page: 'AdminVideoEngineRequests' },
-      { label: 'Video Scripts', page: 'AdminVideoEngineScripts' },
-      { label: 'Video Projects', page: 'AdminVideoEngineRequests' },
       { label: 'Video Renders', page: 'AdminVideoEngineRenders' },
       { label: 'Video Library', page: 'AdminVideoLibrary' },
+    ],
+  },
+  {
+    id: 'publishing',
+    title: 'Publishing & Distribution',
+    icon: '📡',
+    items: [
+      { label: 'Publishing Queue', page: 'AdminVideoPublishing' },
+      { label: 'Channel Connections', page: 'AdminConnections' },
+      { label: 'Meta Setup', page: 'AdminMetaSetup' },
+      { label: 'YouTube Setup', page: 'AdminYouTubeSetup' },
     ],
   },
   {
