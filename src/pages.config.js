@@ -402,6 +402,7 @@ import ResellerSettingsBranding from './pages/ResellerSettingsBranding';
 import AdminAgents from './pages/AdminAgents';
 import AdminAgentsWorkflows from './pages/AdminAgentsWorkflows';
 import AdminAgentsRecovery from './pages/AdminAgentsRecovery';
+import AdminGovernanceFields from './pages/AdminGovernanceFields';
 import __Layout from './Layout.jsx';
 
 
@@ -761,6 +762,7 @@ export const PAGES = {
     "AdminAgents": AdminAgents,
     "AdminAgentsWorkflows": AdminAgentsWorkflows,
     "AdminAgentsRecovery": AdminAgentsRecovery,
+    "AdminGovernanceFields": AdminGovernanceFields,
 }
 
 export const pagesConfig = {
