@@ -20,7 +20,7 @@ export default function ApprovalConfirmation({ type, onViewNext }) {
       emoji: '📝',
       title: 'Thanks for the feedback',
       message: 'Our team will update this content and resend for approval.',
-      detail: 'We'll notify you when it\'s ready.',
+      detail: "We'll notify you when it's ready.",
       actions: [
         { label: 'Review Next Item', onClick: onViewNext, primary: true },
         { label: 'View Requests', onClick: () => {}, primary: false }
