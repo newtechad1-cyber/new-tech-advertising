@@ -1,250 +1,206 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { base44 } from "@/api/base44Client";
 import { createPageUrl } from "@/utils";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Save, Video, Download } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, Save, Clapperboard, Loader2 } from "lucide-react";
+import VideoPreviewPanel from "@/components/video-workspace/VideoPreviewPanel";
+import ProcessingPipeline from "@/components/video-workspace/ProcessingPipeline";
+import CaptionsEditor from "@/components/video-workspace/CaptionsEditor";
+import BrandingPanel from "@/components/video-workspace/BrandingPanel";
+import OverlaySettings from "@/components/video-workspace/OverlaySettings";
+import RenderOutputPanel from "@/components/video-workspace/RenderOutputPanel";
 
-const ALL_STATUSES = ["Draft", "Ready to Render", "Rendering", "Needs Review", "Delivered", "Revision Requested"];
-const APPROVAL_STATUSES = ["Pending", "Approved", "Changes Requested"];
-const REVISION_STATUSES = ["Open", "In Progress", "Completed"];
-
-const statusColors = {
-  "Open": "bg-red-100 text-red-600",
-  "In Progress": "bg-yellow-100 text-yellow-700",
-  "Completed": "bg-green-100 text-green-700",
-};
+const PROCESSING_STAGES = [
+  { key: "uploaded", label: "Uploaded" },
+  { key: "processing", label: "Processing" },
+  { key: "ready_for_review", label: "Ready for Review" },
+  { key: "ready_to_render", label: "Ready to Render" },
+  { key: "published", label: "Published" },
+];
 
 export default function AdminVideoDetail() {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id");
 
   const [video, setVideo] = useState(null);
-  const [revisions, setRevisions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [edits, setEdits] = useState({});
-  const [adminNoteEdits, setAdminNoteEdits] = useState({});
+  const [dirty, setDirty] = useState(false);
+  const [savedFlash, setSavedFlash] = useState(false);
 
   useEffect(() => {
     const load = async () => {
-      const [v, revs] = await Promise.all([
-        base44.entities.VideoRequests.get(id),
-        base44.entities.VideoRevision.filter({ video_request_id: id }, "-created_date"),
-      ]);
+      if (!id) { setLoading(false); return; }
+      const v = await base44.entities.VideoRequests.get(id);
       setVideo(v);
-      setEdits({
-        status: v.status,
-        approval_status: v.approval_status,
-        script: v.script || "",
-        shotlist: v.shotlist || "",
-        caption: v.caption || "",
-        notes: v.notes || "",
-        render_output_url: v.render_output_url || "",
-        render_job_id: v.render_job_id || "",
-        render_status: v.render_status || "",
-      });
-      setRevisions(revs);
       setLoading(false);
     };
-    if (id) {
-      load();
-    } else {
-      setLoading(false);
-    }
+    load();
   }, [id]);
 
-  const handleSave = async () => {
+  // Merge updates into local video state
+  const handleChange = useCallback((updates) => {
+    setVideo(prev => ({ ...prev, ...updates }));
+    setDirty(true);
+  }, []);
+
+  // Standard save (uses current video state)
+  const handleSave = useCallback(async () => {
     setSaving(true);
-    const updated = await base44.entities.VideoRequests.update(id, edits);
-    setVideo(updated);
-    setSaving(false);
-  };
+    setVideo(prev => {
+      base44.entities.VideoRequests.update(id, prev).then(updated => {
+        setVideo(updated);
+        setSaving(false);
+        setDirty(false);
+        setSavedFlash(true);
+        setTimeout(() => setSavedFlash(false), 2000);
+      });
+      return prev;
+    });
+  }, [id]);
 
-  const handleRevisionStatusUpdate = async (revId, newStatus, adminNote) => {
-    const updateData = { status: newStatus };
-    if (adminNote !== undefined) updateData.admin_notes = adminNote;
-    if (newStatus === "Completed") updateData.resolved_at = new Date().toISOString();
-    await base44.entities.VideoRevision.update(revId, updateData);
-    const revs = await base44.entities.VideoRevision.filter({ video_request_id: id }, "-created_date");
-    setRevisions(revs);
-  };
-
-  const videoUrl = video?.final_video || video?.render_output_url;
+  // Immediate save with specific updates (used by AI generation steps)
+  const handleImmediateSave = useCallback(async (updates) => {
+    setVideo(prev => {
+      const newVideo = { ...prev, ...updates };
+      base44.entities.VideoRequests.update(id, newVideo).then(updated => {
+        setVideo(updated);
+        setDirty(false);
+      });
+      return newVideo;
+    });
+  }, [id]);
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900" />
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <Loader2 className="w-8 h-8 text-violet-400 animate-spin" />
+          <p className="text-slate-500 text-sm">Loading video workspace...</p>
+        </div>
       </div>
     );
   }
 
   if (!video) {
     return (
-      <div className="text-center py-20 text-gray-400">
-        <p>Video not found.</p>
-        <Link to={createPageUrl("AdminVideoQueue")} className="text-blue-600 text-sm mt-2 inline-block">← Back to Queue</Link>
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <div className="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center mx-auto">
+            <Clapperboard className="w-8 h-8 text-slate-600" />
+          </div>
+          <p className="text-slate-400">Video not found.</p>
+          <Link to={createPageUrl("AdminVideoQueue")}>
+            <Button variant="outline" className="border-slate-700 text-slate-300">← Back to Queue</Button>
+          </Link>
+        </div>
       </div>
     );
   }
 
+  const currentStageIndex = PROCESSING_STAGES.findIndex(s => s.key === (video.processing_status || "uploaded"));
+
   return (
-    <div className="min-h-screen bg-white">
-      <div className="bg-white border-b border-gray-200 px-4 py-3 flex items-center gap-3 sticky top-0 z-10">
-        <Link to={createPageUrl("AdminDashboard")}>
-          <Button variant="ghost" size="sm" className="gap-1 text-gray-500 hover:text-gray-900">← Admin Hub</Button>
-        </Link>
-        <span className="text-gray-300">|</span>
-        <Link to={createPageUrl("AdminVideoQueue")}>
-          <Button variant="ghost" size="sm" className="gap-1 text-gray-500 hover:text-gray-900">Video Queue</Button>
-        </Link>
-        <span className="text-gray-300">|</span>
-        <span className="text-sm font-medium text-gray-700">Video Detail</span>
-      </div>
-    <div className="max-w-4xl mx-auto px-4 py-10">
+    <div className="min-h-screen bg-slate-950 text-white">
 
-      <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">{video.title}</h1>
-          <p className="text-sm text-gray-500 mt-1">Requested by: {video.requested_by}</p>
+      {/* Top navigation bar */}
+      <div className="bg-slate-900 border-b border-slate-800 px-4 sm:px-6 py-3 flex items-center justify-between sticky top-0 z-30">
+        <div className="flex items-center gap-3 min-w-0">
+          <Link to={createPageUrl("AdminVideoQueue")}>
+            <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white gap-1.5 flex-shrink-0">
+              <ArrowLeft className="w-4 h-4" />
+              <span className="hidden sm:inline">Video Queue</span>
+            </Button>
+          </Link>
+          <span className="text-slate-700 hidden sm:block">|</span>
+          <div className="flex items-center gap-2 min-w-0">
+            <Clapperboard className="w-4 h-4 text-violet-400 flex-shrink-0" />
+            <span className="text-sm font-medium text-slate-300 truncate">{video.title}</span>
+          </div>
         </div>
-        <Button onClick={handleSave} disabled={saving} className="gap-2">
-          <Save className="w-4 h-4" /> {saving ? "Saving..." : "Save Changes"}
-        </Button>
+        <div className="flex items-center gap-2 flex-shrink-0">
+          {savedFlash && (
+            <span className="text-xs text-green-400 font-medium hidden sm:block">Saved ✓</span>
+          )}
+          {dirty && !savedFlash && (
+            <span className="text-xs text-amber-400 hidden sm:block">Unsaved changes</span>
+          )}
+          <Button
+            onClick={handleSave}
+            disabled={saving || !dirty}
+            size="sm"
+            className="bg-violet-600 hover:bg-violet-500 disabled:opacity-40 gap-2"
+          >
+            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+            <span className="hidden sm:inline">{saving ? "Saving..." : "Save Changes"}</span>
+          </Button>
+        </div>
       </div>
 
-      {/* Status controls */}
-      <Card className="mb-6">
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-semibold text-gray-600 uppercase tracking-wide">Status Controls</CardTitle>
-        </CardHeader>
-        <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label className="text-xs text-gray-500 mb-1 block">Status</label>
-            <Select value={edits.status} onValueChange={(v) => setEdits((e) => ({ ...e, status: v }))}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
-              <SelectContent>
-                {ALL_STATUSES.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}
-              </SelectContent>
-            </Select>
+      {/* Page header */}
+      <div className="bg-gradient-to-b from-slate-900 to-slate-950 border-b border-slate-800 px-4 sm:px-6 py-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h1 className="text-2xl font-extrabold text-white tracking-tight">AI Video Processing</h1>
+              <p className="text-slate-400 text-sm mt-1">Transcribe, caption, brand, and prepare this video for publishing.</p>
+            </div>
+
+            {/* Status pipeline pills */}
+            <div className="flex items-center gap-1.5 flex-wrap">
+              {PROCESSING_STAGES.map((stage, i) => {
+                const isActive = stage.key === (video.processing_status || "uploaded");
+                const isPast = i < currentStageIndex;
+                return (
+                  <button
+                    key={stage.key}
+                    onClick={() => handleChange({ processing_status: stage.key })}
+                    className={`text-xs px-3 py-1.5 rounded-full font-semibold transition-all border whitespace-nowrap ${
+                      isActive
+                        ? "bg-violet-600 border-violet-500 text-white shadow-lg shadow-violet-600/20"
+                        : isPast
+                        ? "bg-green-900/30 border-green-700/40 text-green-400 hover:bg-green-900/40"
+                        : "bg-slate-800 border-slate-700 text-slate-500 hover:border-slate-500 hover:text-slate-300"
+                    }`}
+                  >
+                    {isPast && "✓ "}{stage.label}
+                  </button>
+                );
+              })}
+            </div>
           </div>
-          <div>
-            <label className="text-xs text-gray-500 mb-1 block">Approval Status</label>
-            <Select value={edits.approval_status} onValueChange={(v) => setEdits((e) => ({ ...e, approval_status: v }))}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
-              <SelectContent>
-                {APPROVAL_STATUSES.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}
-              </SelectContent>
-            </Select>
-          </div>
-          <div>
-            <label className="text-xs text-gray-500 mb-1 block">Render Output URL</label>
-            <Input
-              value={edits.render_output_url}
-              onChange={(e) => setEdits((ed) => ({ ...ed, render_output_url: e.target.value }))}
-              placeholder="https://..."
+        </div>
+      </div>
+
+      {/* Main 2-column workspace */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+          {/* Left column — video + pipeline + captions */}
+          <div className="lg:col-span-7 space-y-6">
+            <VideoPreviewPanel video={video} onChange={handleChange} />
+            <ProcessingPipeline video={video} />
+            <CaptionsEditor
+              video={video}
+              onChange={handleChange}
+              onImmediateSave={handleImmediateSave}
             />
           </div>
-          <div>
-            <label className="text-xs text-gray-500 mb-1 block">Render Job ID</label>
-            <Input
-              value={edits.render_job_id}
-              onChange={(e) => setEdits((ed) => ({ ...ed, render_job_id: e.target.value }))}
-              placeholder="job_..."
+
+          {/* Right column — branding + overlays + export */}
+          <div className="lg:col-span-5 space-y-6">
+            <BrandingPanel video={video} onChange={handleChange} />
+            <OverlaySettings video={video} onChange={handleChange} />
+            <RenderOutputPanel
+              video={video}
+              onChange={handleChange}
+              onImmediateSave={handleImmediateSave}
             />
           </div>
-        </CardContent>
-      </Card>
 
-      {/* Video preview */}
-      {videoUrl && (
-        <div className="mb-6">
-          <div className="rounded-xl overflow-hidden bg-black aspect-video">
-            <video src={videoUrl} controls className="w-full h-full object-contain" />
-          </div>
-          <div className="mt-2 flex justify-end">
-            <a href={videoUrl} download>
-              <Button variant="outline" size="sm" className="gap-2">
-                <Download className="w-4 h-4" /> Download
-              </Button>
-            </a>
-          </div>
         </div>
-      )}
-
-      {/* Editable content */}
-      <div className="grid gap-4 mb-8">
-        {[
-          { key: "script", label: "Script" },
-          { key: "shotlist", label: "Shot List" },
-          { key: "caption", label: "Caption" },
-          { key: "notes", label: "Notes" },
-        ].map(({ key, label }) => (
-          <Card key={key}>
-            <CardHeader className="pb-1">
-              <CardTitle className="text-sm font-semibold text-gray-600 uppercase tracking-wide">{label}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Textarea
-                value={edits[key]}
-                onChange={(e) => setEdits((ed) => ({ ...ed, [key]: e.target.value }))}
-                className="min-h-[100px]"
-                placeholder={`Enter ${label.toLowerCase()}...`}
-              />
-            </CardContent>
-          </Card>
-        ))}
       </div>
-
-      {/* Revisions */}
-      {revisions.length > 0 && (
-        <div>
-          <h2 className="text-base font-semibold text-gray-800 mb-3">Revision Requests ({revisions.length})</h2>
-          <div className="space-y-4">
-            {revisions.map((rev) => (
-              <Card key={rev.id} className="border border-gray-200">
-                <CardContent className="pt-4 space-y-3">
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <span className="text-xs font-medium text-gray-500">{rev.requested_by}</span>
-                      <span className="text-xs text-gray-400 ml-2">{new Date(rev.created_date).toLocaleDateString()}</span>
-                    </div>
-                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColors[rev.status]}`}>{rev.status}</span>
-                  </div>
-                  <p className="text-sm text-gray-800 whitespace-pre-wrap">{rev.notes}</p>
-                  <div>
-                    <label className="text-xs text-gray-500 mb-1 block">Admin Notes</label>
-                    <Textarea
-                      value={adminNoteEdits[rev.id] ?? (rev.admin_notes || "")}
-                      onChange={(e) => setAdminNoteEdits((n) => ({ ...n, [rev.id]: e.target.value }))}
-                      className="min-h-[70px] text-sm"
-                      placeholder="Add a note for the client..."
-                    />
-                  </div>
-                  <div className="flex gap-2 flex-wrap">
-                    {REVISION_STATUSES.filter((s) => s !== rev.status).map((s) => (
-                      <Button
-                        key={s}
-                        size="sm"
-                        variant="outline"
-                        onClick={() => handleRevisionStatusUpdate(rev.id, s, adminNoteEdits[rev.id])}
-                      >
-                        Mark {s}
-                      </Button>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
     </div>
   );
 }
