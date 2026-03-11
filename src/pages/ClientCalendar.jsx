@@ -168,6 +168,15 @@ export default function ClientCalendar() {
           {/* Header */}
           <CalendarHeader companyName={companyName} primaryColor="#3B82F6" />
 
+          {/* Hero Strip */}
+          {calendarEvents.length > 0 && (
+            <HeroStrip 
+              nextPost={calendarEvents.find(e => e.status === 'scheduled' || e.status === 'approval')}
+              pendingCount={needsApproval}
+              campaignRunning={null}
+            />
+          )}
+
           {/* Summary Cards */}
           <CalendarSummary
             needsApproval={needsApproval}
