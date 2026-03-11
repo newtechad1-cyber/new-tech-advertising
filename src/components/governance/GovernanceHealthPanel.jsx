@@ -1,5 +1,4 @@
 import React from 'react';
-import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function GovernanceHealthPanel({ health, entities, fields }) {
@@ -40,12 +39,10 @@ export default function GovernanceHealthPanel({ health, entities, fields }) {
           Last checked: {new Date(health.snapshot_time).toLocaleString()}
         </div>
 
-        {/* Health Grade */}
         <div className={`rounded-lg p-3 bg-${healthColor}-950/30 border border-${healthColor}-700 text-${healthColor}-300`}>
           <p className="font-semibold">{healthLabel} Health Status</p>
         </div>
 
-        {/* Score Breakdown */}
         <div className="space-y-3">
           {scores.map((score, idx) => {
             const percent = (score.value / score.max) * 100;
@@ -68,7 +65,6 @@ export default function GovernanceHealthPanel({ health, entities, fields }) {
           })}
         </div>
 
-        {/* Summary */}
         <div className="border-t border-slate-700 pt-3 text-xs text-slate-400 space-y-1">
           <p>📊 {entities?.length || 0} entities | {fields?.length || 0} fields defined</p>
           <p>Last updated: {new Date(health.snapshot_time).toLocaleDateString()}</p>
