@@ -118,30 +118,31 @@ export default function AdminAgents() {
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
+            {/* Warnings Section */}
+            <OperationalWarnings tasks={tasks} agents={agents} />
+
+            {/* Health & Actions Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <AgentHealthScoreCard snapshots={snapshots} tasks={tasks} />
+              <div className="lg:col-span-2">
+                <NextBestOpsAction tasks={tasks} escalations={escalations} agents={agents} />
+              </div>
+            </div>
+
+            {/* Analytics Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Agent Health */}
-              <div className="bg-slate-900 border border-slate-700 rounded-lg p-6">
-                <h3 className="text-lg font-bold text-white mb-4">Agent Health Summary</h3>
-                <div className="space-y-2 text-sm">
+              <WorkloadSplit tasks={tasks} />
+              <div className="bg-slate-950 border border-slate-800 rounded-lg p-6">
+                <h3 className="text-lg font-bold text-white mb-4">System Summary</h3>
+                <div className="space-y-3 text-sm">
                   <div className="flex justify-between">
                     <span className="text-slate-400">Total Agents:</span>
                     <span className="font-bold text-white">{agents.length}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Active:</span>
+                    <span className="text-slate-400">Active Agents:</span>
                     <span className="font-bold text-emerald-400">{activeAgents}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">Inactive:</span>
-                    <span className="font-bold text-slate-400">{agents.length - activeAgents}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Task Summary */}
-              <div className="bg-slate-900 border border-slate-700 rounded-lg p-6">
-                <h3 className="text-lg font-bold text-white mb-4">Task Summary</h3>
-                <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-slate-400">Total Tasks:</span>
                     <span className="font-bold text-white">{tasks.length}</span>
@@ -149,16 +150,34 @@ export default function AdminAgents() {
                   <div className="flex justify-between">
                     <span className="text-slate-400">Completion Rate:</span>
                     <span className="font-bold text-emerald-400">
-                      {Math.round((tasks.filter(t => t.task_status === 'completed').length / tasks.length) * 100)}%
+                      {tasks.length > 0 ? Math.round((tasks.filter(t => t.task_status === 'completed').length / tasks.length) * 100) : 0}%
                     </span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">Avg Completion Time:</span>
-                    <span className="font-bold text-white">~12 min</span>
+                  <div className="border-t border-slate-800 pt-3 mt-3">
+                    <div className="flex justify-between">
+                      <span className="text-slate-400">Workflows Today:</span>
+                      <span className="font-bold text-blue-400">{runs.length}</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+
+            {/* Recent Task Samples */}
+            {tasks.length > 0 && (
+              <div className="space-y-4">
+                <h3 className="text-lg font-bold text-white">Recent Tasks</h3>
+                <div className="space-y-2">
+                  {tasks.slice(0, 3).map(task => (
+                    <TaskDetailDrilldown 
+                      key={task.id} 
+                      task={task}
+                      logs={logs.filter(l => l.task_id === task.id)}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
           </TabsContent>
 
           <TabsContent value="registry">
