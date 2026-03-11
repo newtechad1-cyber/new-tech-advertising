@@ -88,6 +88,9 @@ const ICON_MAP = {
   Settings,
 };
 
+// ── Route validation — runs once at module load in dev ────────────────────────
+validateNavRoutes(SIDEBAR_STRUCTURE, ROUTE_FAMILIES.SCHOOL_ADMIN, 'SchoolAdmin/AdminSidebar');
+
 export default function AdminSidebar({ schoolSlug, currentPath }) {
   const location = useLocation();
   const [expandedSections, setExpandedSections] = useState(
