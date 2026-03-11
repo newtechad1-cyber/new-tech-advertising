@@ -188,6 +188,9 @@ export default function AdminNav({ children }) {
       <main className="flex-1 lg:pl-56 pt-14 lg:pt-0">
         {children}
       </main>
+
+      {/* Dev route family badge */}
+      <RouteFamilyBadge family="main_admin" />
     </div>
   );
 }
