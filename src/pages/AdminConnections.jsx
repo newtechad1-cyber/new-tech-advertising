@@ -134,10 +134,11 @@ const PLATFORM_DEFS = [
     idLabel: 'YouTube Channel ID',
     idPlaceholder: 'e.g. UCxxxxxxxxxxxxx',
     publishTypes: ['Long-form video uploads', 'YouTube Shorts', 'Promotional videos', 'Case studies'],
+    youtubeSetupLink: true,
     setupGuide: {
       missing: 'YouTube Data API OAuth authorization and channel connection',
       blocked_reason: 'YouTube publishing requires a connected Google account with YouTube channel access. This OAuth flow has not been completed yet.',
-      next_step: 'Set up YouTube Data API v3 OAuth credentials in Google Cloud Console, then connect a channel with channel management permissions.',
+      next_step: 'Use the YouTube Setup flow to verify your token, map your channel, and confirm upload capability.',
     },
     requirements: [
       'Requires YouTube Data API v3 OAuth credentials',
