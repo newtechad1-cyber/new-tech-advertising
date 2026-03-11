@@ -8,6 +8,7 @@ import { Zap, Plus, RefreshCw, List, LayoutGrid } from 'lucide-react';
 import { createPageUrl } from '@/utils';
 import SalesKPICards from '@/components/sales/cmd/SalesKPICards';
 import SalesPipelineBoard from '@/components/sales/cmd/SalesPipelineBoard';
+import DealsTableView from '@/components/sales/cmd/DealsTableView';
 import FollowUpPriorityPanel from '@/components/sales/cmd/FollowUpPriorityPanel';
 import RevenueForecaster from '@/components/sales/cmd/RevenueForecaster';
 import LeadSourcePanel from '@/components/sales/cmd/LeadSourcePanel';
