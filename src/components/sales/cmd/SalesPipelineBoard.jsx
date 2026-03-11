@@ -28,9 +28,8 @@ export default function SalesPipelineBoard({ deals = [], onDealMove, onOpenDeal 
   });
 
   return (
-    <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
-      <div className="bg-slate-900 border border-slate-700 rounded-xl p-4 overflow-x-auto">
-        <div className="min-w-full flex gap-4">
+    <div className="bg-slate-900 border border-slate-700 rounded-xl p-4 overflow-x-auto">
+      <div className="min-w-full flex gap-4">
           {stageStats.map(stage => (
             <div
               key={stage.id}
