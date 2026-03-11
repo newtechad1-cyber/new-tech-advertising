@@ -340,6 +340,90 @@ export default function SchoolTVDealRoom() {
         </div>
       </section>
 
+      {/* Section: AI-Powered Community Visibility */}
+      <section className="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 bg-blue-500/20 border border-blue-400/30 text-blue-300 px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
+              <Search className="h-4 w-4" />
+              New Feature
+            </div>
+            <h2 className="text-4xl font-bold mb-4">AI-Powered Community Visibility</h2>
+            <p className="text-lg text-slate-300 max-w-3xl mx-auto">
+              School TV doesn't just stream content — it automatically turns your students' stories into SEO-friendly articles, videos, and updates that help your school appear in local search results and stay top-of-mind in the community.
+            </p>
+          </div>
+
+          {/* How it works */}
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-8 mb-10">
+            <div className="flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
+              <div className="flex-1">
+                <div className="text-blue-400 font-bold text-sm uppercase tracking-widest mb-2">How It Works</div>
+                <p className="text-slate-200 text-base leading-relaxed">
+                  Every piece of student content — a sports recap, a club feature, a student spotlight — is automatically transformed by AI into a published article, video, and social update. These are indexed by search engines, shared across platforms, and tied directly to your school's online presence.
+                </p>
+                <p className="text-slate-400 text-sm mt-3">
+                  Connected to our <span className="text-blue-400 font-semibold">AI Website Rebuild platform</span>, your school's site stays fresh with new, relevant content without your staff lifting a finger.
+                </p>
+              </div>
+              <div className="shrink-0 flex flex-col items-center gap-2 bg-blue-600/20 border border-blue-500/30 rounded-xl px-8 py-6">
+                <TrendingUp className="h-10 w-10 text-blue-400" />
+                <div className="text-2xl font-bold text-white">Auto-Published</div>
+                <div className="text-blue-300 text-sm text-center">SEO articles, videos &<br />community updates</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Benefits grid */}
+          <div className="grid md:grid-cols-3 gap-5 mb-10">
+            <div className="bg-white/5 border border-white/10 rounded-xl p-6">
+              <Star className="h-7 w-7 text-yellow-400 mb-3" />
+              <h3 className="font-bold text-white mb-2">Highlight Student Achievements</h3>
+              <p className="text-slate-400 text-sm">Every award, honor roll, and standout moment becomes a published story that families and the community can find and share online.</p>
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-xl p-6">
+              <Heart className="h-7 w-7 text-pink-400 mb-3" />
+              <h3 className="font-bold text-white mb-2">Increase Parent Engagement</h3>
+              <p className="text-slate-400 text-sm">Parents stay connected through real-time content from inside your school — published automatically to your site, social channels, and streaming platform.</p>
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-xl p-6">
+              <Megaphone className="h-7 w-7 text-orange-400 mb-3" />
+              <h3 className="font-bold text-white mb-2">Promote Athletics & Events</h3>
+              <p className="text-slate-400 text-sm">Game recaps, tournament highlights, and event previews are automatically formatted as SEO articles and shared to local audiences searching online.</p>
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-xl p-6">
+              <Users className="h-7 w-7 text-cyan-400 mb-3" />
+              <h3 className="font-bold text-white mb-2">Improve Community Awareness</h3>
+              <p className="text-slate-400 text-sm">Your school becomes a recognized presence in local search results, helping community members discover what's happening and feel connected.</p>
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-xl p-6">
+              <Globe className="h-7 w-7 text-green-400 mb-3" />
+              <h3 className="font-bold text-white mb-2">Strengthen Online Presence</h3>
+              <p className="text-slate-400 text-sm">Fresh, keyword-rich content published consistently — across your school site and streaming platform — builds long-term authority in local search.</p>
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-xl p-6">
+              <Search className="h-7 w-7 text-blue-400 mb-3" />
+              <h3 className="font-bold text-white mb-2">Show Up in Local Search</h3>
+              <p className="text-slate-400 text-sm">When parents search "[your school] football" or "[your school] news," your school's content appears — automatically created from what students already submit.</p>
+            </div>
+          </div>
+
+          {/* Connection callout */}
+          <div className="bg-blue-600/20 border border-blue-500/30 rounded-xl p-7 flex flex-col md:flex-row items-center gap-6">
+            <div className="flex-1">
+              <div className="text-blue-300 font-bold text-sm uppercase tracking-widest mb-2">Powered by the AI Website Rebuild Platform</div>
+              <p className="text-white text-base font-semibold mb-1">One ecosystem. Student content → streaming channel → school website → local search.</p>
+              <p className="text-slate-400 text-sm">School TV plugs directly into our AI Website Rebuild engine, so approved content from your students automatically keeps your school's website fresh, visible, and ranking.</p>
+            </div>
+            <Link to={createPageUrl('Rebuild')}>
+              <button className="shrink-0 bg-white text-blue-700 font-bold px-6 py-3 rounded-lg hover:bg-blue-50 transition whitespace-nowrap flex items-center gap-2">
+                Learn About AI Website Rebuild <ArrowRight className="h-4 w-4" />
+              </button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Section 9: Final CTA */}
       <section className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-20 px-4">
         <div className="max-w-3xl mx-auto text-center">
