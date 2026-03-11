@@ -143,7 +143,7 @@ export default function MarketingNav() {
 
         {/* Desktop CTAs */}
         <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
-          <Link to={createPageUrl('Dashboard')} className="text-sm text-slate-400 hover:text-white transition-colors font-medium">
+          <Link to={createPageUrl('ClientDashboard')} className="text-sm text-slate-400 hover:text-white transition-colors font-medium">
             Client Login
           </Link>
           <Link to={createPageUrl('AdminDashboard')} className="text-sm text-slate-400 hover:text-white transition-colors font-medium border border-slate-700 hover:border-slate-500 px-3 py-1.5 rounded-lg">
@@ -233,7 +233,7 @@ export default function MarketingNav() {
               Book a Strategy Call
             </Link>
             <Link
-              to={createPageUrl('Dashboard')}
+              to={createPageUrl('ClientDashboard')}
               onClick={() => setMobileOpen(false)}
               className="flex items-center justify-center w-full text-slate-400 hover:text-white text-sm py-2 transition-colors"
             >
