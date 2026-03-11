@@ -429,6 +429,7 @@ import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AdminIntelligenceResellers from './pages/AdminIntelligenceResellers';
 import AdminAutonomy from './pages/AdminAutonomy';
+import AdminAutonomyOpportunities from './pages/AdminAutonomyOpportunities';
 import __Layout from './Layout.jsx';
 
 
@@ -815,6 +816,7 @@ export const PAGES = {
     "YouTubeUploadTest": YouTubeUploadTest,
     "AdminIntelligenceResellers": AdminIntelligenceResellers,
     "AdminAutonomy": AdminAutonomy,
+    "AdminAutonomyOpportunities": AdminAutonomyOpportunities,
 }
 
 export const pagesConfig = {
