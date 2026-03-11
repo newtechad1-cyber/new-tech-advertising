@@ -410,6 +410,7 @@ import AdminGovernanceAudit from './pages/AdminGovernanceAudit';
 import AdminNavigation from './pages/AdminNavigation';
 import AdminNavigationPages from './pages/AdminNavigationPages';
 import AdminNavigationRoutes from './pages/AdminNavigationRoutes';
+import AdminNavigationNav from './pages/AdminNavigationNav';
 import __Layout from './Layout.jsx';
 
 
@@ -777,6 +778,7 @@ export const PAGES = {
     "AdminNavigation": AdminNavigation,
     "AdminNavigationPages": AdminNavigationPages,
     "AdminNavigationRoutes": AdminNavigationRoutes,
+    "AdminNavigationNav": AdminNavigationNav,
 }
 
 export const pagesConfig = {
