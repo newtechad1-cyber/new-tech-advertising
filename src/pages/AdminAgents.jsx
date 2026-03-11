@@ -8,6 +8,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import AgentRegistry from '@/components/agents/AgentRegistry';
 import TaskQueuePanel from '@/components/agents/TaskQueuePanel';
 import EscalationCenter from '@/components/agents/EscalationCenter';
+import AgentHealthScoreCard from '@/components/agents/AgentHealthScoreCard';
+import NextBestOpsAction from '@/components/agents/NextBestOpsAction';
+import WorkloadSplit from '@/components/agents/WorkloadSplit';
+import TaskDetailDrilldown from '@/components/agents/TaskDetailDrilldown';
+import OperationalWarnings from '@/components/agents/OperationalWarnings';
 
 export default function AdminAgents() {
   const [selectedTab, setSelectedTab] = useState('overview');
