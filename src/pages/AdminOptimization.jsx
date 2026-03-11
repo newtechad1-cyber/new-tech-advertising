@@ -7,21 +7,28 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Zap, TrendingUp, AlertCircle, CheckCircle2, RotateCcw, Settings } from 'lucide-react';
 import { createPageUrl } from '@/utils';
+import OptimizationMaturityScore from '@/components/optimization/OptimizationMaturityScore';
+import NextBestOptimizationAction from '@/components/optimization/NextBestOptimizationAction';
+import OptimizationAlerts from '@/components/optimization/OptimizationAlerts';
+import TopLearningWins from '@/components/optimization/TopLearningWins';
+import OptimizationCategoryGroup from '@/components/optimization/OptimizationCategoryGroup';
 
 export default function AdminOptimization() {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
   const { data: candidates = [] } = useQuery({
     queryKey: ['optimization-candidates'],
-    queryFn: () => base44.entities.OptimizationCandidate?.list?.('-detected_at', 50).catch(() => []),
+    queryFn: () => base44.entities.OptimizationCandidate?.list?.('-detected_at', 100).catch(() => []),
   });
 
   const { data: experiments = [] } = useQuery({
     queryKey: ['optimization-experiments'],
-    queryFn: () => base44.entities.OptimizationExperiment?.list?.('-created_at', 50).catch(() => []),
+    queryFn: () => base44.entities.OptimizationExperiment?.list?.('-created_at', 100).catch(() => []),
   });
 
   const { data: outcomes = [] } = useQuery({
     queryKey: ['optimization-outcomes'],
-    queryFn: () => base44.entities.OptimizationOutcome?.list?.('-measured_at', 100).catch(() => []),
+    queryFn: () => base44.entities.OptimizationOutcome?.list?.('-measured_at', 150).catch(() => []),
   });
 
   const { data: recommendations = [] } = useQuery({
@@ -34,6 +41,11 @@ export default function AdminOptimization() {
     queryFn: () => base44.entities.OptimizationHealthSnapshot?.list?.('-snapshot_time', 8).catch(() => []),
   });
 
+  const { data: policies = [] } = useQuery({
+    queryKey: ['optimization-policies'],
+    queryFn: () => base44.entities.OptimizationPolicy?.list?.('policy_key').catch(() => []),
+  });
+
   const stats = useMemo(() => {
     return {
       activeCanditates: candidates.filter(c => c.status === 'detected').length,
@@ -44,6 +56,32 @@ export default function AdminOptimization() {
       healthScore: health.length > 0 ? health[0].health_score : 0,
     };
   }, [candidates, experiments, outcomes, health]);
+
+  const categoryStats = useMemo(() => {
+    const CATEGORY_GROUPS = {
+      'Publishing': ['publishing_performance'],
+      'Sales': ['sales_conversion'],
+      'Onboarding': ['onboarding_efficiency'],
+      'Automation': ['automation_reliability'],
+      'Reporting': ['reporting_effectiveness'],
+      'Reseller Growth': ['reseller_growth'],
+      'Client Engagement': ['client_engagement'],
+    };
+
+    const stats = {};
+    Object.entries(CATEGORY_GROUPS).forEach(([group, categories]) => {
+      stats[group] = {
+        candidates: candidates.filter(c => categories.includes(c.optimization_category) && c.status === 'detected').length,
+        experiments: experiments.filter(e => categories.includes(e.optimization_category) && e.status === 'running').length,
+        wins: outcomes.filter(o => {
+          const exp = experiments.find(e => e.experiment_key === o.experiment_key);
+          return exp && categories.includes(exp.optimization_category) && o.outcome_direction === 'positive';
+        }).length,
+      };
+    });
+
+    return stats;
+  }, [candidates, experiments, outcomes]);
 
   const topOpportunities = useMemo(() => {
     return candidates
@@ -75,7 +113,7 @@ export default function AdminOptimization() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-white">Self-Optimization Control Center</h1>
-          <p className="text-slate-400 text-sm mt-1">Platform self-improvement & A/B testing hub</p>
+          <p className="text-slate-400 text-sm mt-1">Adaptive intelligence platform continuous improvement</p>
         </div>
 
         {/* KPI Cards */}
@@ -146,134 +184,146 @@ export default function AdminOptimization() {
           </Button>
         </div>
 
-        {/* Tabs */}
-        <Tabs defaultValue="candidates">
-          <TabsList className="bg-slate-800 border border-slate-700">
-            <TabsTrigger value="candidates">Top Candidates</TabsTrigger>
-            <TabsTrigger value="experiments">Active Experiments</TabsTrigger>
-            <TabsTrigger value="wins">Recent Wins</TabsTrigger>
-            <TabsTrigger value="failures">Failures & Rollbacks</TabsTrigger>
-            <TabsTrigger value="recommendations">Recommendations</TabsTrigger>
-          </TabsList>
+        <div className="grid grid-cols-3 gap-6">
+          {/* Left Column: Maturity + Category Selector */}
+          <div className="space-y-6">
+            <OptimizationMaturityScore
+              candidates={candidates}
+              experiments={experiments}
+              outcomes={outcomes}
+            />
+            <OptimizationCategoryGroup
+              selected={selectedCategory}
+              onSelect={setSelectedCategory}
+              stats={categoryStats}
+            />
+          </div>
 
-          {/* Top Candidates */}
-          <TabsContent value="candidates" className="space-y-2">
-            {topOpportunities.length === 0 ? (
-              <Card className="bg-slate-900/50 border-slate-700">
-                <CardContent className="p-6 text-center text-slate-400">No candidates detected</CardContent>
-              </Card>
-            ) : (
-              topOpportunities.map((cand, i) => (
-                <Card key={i} className="bg-slate-800/30 border-slate-700">
-                  <CardContent className="p-4">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <p className="font-semibold text-white capitalize">{cand.optimization_category.replace(/_/g, ' ')}</p>
-                        <p className="text-xs text-slate-400 mt-1">{cand.reason_detected}</p>
-                      </div>
-                      <div className="text-right ml-4">
-                        <p className="text-xl font-bold text-purple-300">{cand.confidence_score}%</p>
-                        <Badge className={cand.risk_level === 'low' ? 'bg-emerald-950 text-emerald-300' : cand.risk_level === 'medium' ? 'bg-yellow-950 text-yellow-300' : 'bg-red-950 text-red-300'}>
-                          {cand.risk_level}
-                        </Badge>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))
-            )}
-          </TabsContent>
+          {/* Middle Column: Alerts + Wins */}
+          <div className="space-y-6">
+            <OptimizationAlerts
+              candidates={candidates}
+              experiments={experiments}
+              outcomes={outcomes}
+              policies={policies}
+            />
+            <TopLearningWins
+              outcomes={outcomes}
+              experiments={experiments}
+              candidates={candidates}
+            />
+          </div>
 
-          {/* Active Experiments */}
-          <TabsContent value="experiments" className="space-y-2">
-            {activeExperiments.length === 0 ? (
-              <Card className="bg-slate-900/50 border-slate-700">
-                <CardContent className="p-6 text-center text-slate-400">No experiments running</CardContent>
-              </Card>
-            ) : (
-              activeExperiments.map((exp, i) => (
-                <Card key={i} className="bg-blue-950/20 border-blue-700/50">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="font-semibold text-white">{exp.experiment_name}</p>
-                        <p className="text-xs text-slate-400 mt-1">{exp.strategy_type.replace(/_/g, ' ')}</p>
-                      </div>
-                      <Badge className="bg-blue-950 text-blue-300">Running</Badge>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))
-            )}
-          </TabsContent>
+          {/* Right Column: Next Best Action + Tabs */}
+          <div className="space-y-6">
+            <NextBestOptimizationAction
+              candidates={candidates}
+              experiments={experiments}
+              outcomes={outcomes}
+              policies={policies}
+            />
 
-          {/* Recent Wins */}
-          <TabsContent value="wins" className="space-y-2">
-            {recentWins.length === 0 ? (
-              <Card className="bg-slate-900/50 border-slate-700">
-                <CardContent className="p-6 text-center text-slate-400">No wins yet</CardContent>
-              </Card>
-            ) : (
-              recentWins.map((outcome, i) => (
-                <Card key={i} className="bg-emerald-950/20 border-emerald-700/50">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="font-semibold text-emerald-300">{outcome.metric_name}</p>
-                        <p className="text-xs text-slate-400 mt-1">{outcome.baseline_value} → {outcome.observed_value}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-lg font-bold text-emerald-300">+{outcome.delta_value}%</p>
-                        <p className="text-xs text-slate-500">{outcome.confidence_level}% confident</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))
-            )}
-          </TabsContent>
+            {/* Tabs */}
+            <Tabs defaultValue="candidates">
+              <TabsList className="bg-slate-800 border border-slate-700 w-full">
+                <TabsTrigger value="candidates">Candidates</TabsTrigger>
+                <TabsTrigger value="experiments">Active</TabsTrigger>
+                <TabsTrigger value="wins">Wins</TabsTrigger>
+              </TabsList>
 
-          {/* Failures & Rollbacks */}
-          <TabsContent value="failures" className="space-y-2">
-            {failedExperiments.length === 0 ? (
-              <Card className="bg-emerald-950/20 border-emerald-700/50">
-                <CardContent className="p-6 text-center text-emerald-400">✓ No failures or rollbacks</CardContent>
-              </Card>
-            ) : (
-              failedExperiments.map((exp, i) => (
-                <Card key={i} className="bg-red-950/20 border-red-700/50">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3">
-                      <RotateCcw className="w-5 h-5 text-red-400" />
-                      <div className="flex-1">
-                        <p className="font-semibold text-red-300">{exp.experiment_name}</p>
-                        <p className="text-xs text-slate-400 mt-1">Status: {exp.status}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))
-            )}
-          </TabsContent>
+              {/* Top Candidates */}
+              <TabsContent value="candidates" className="space-y-2">
+                {topOpportunities.length === 0 ? (
+                  <Card className="bg-slate-900/50 border-slate-700">
+                    <CardContent className="p-4 text-center text-slate-400 text-xs">
+                      No candidates detected
+                    </CardContent>
+                  </Card>
+                ) : (
+                  topOpportunities.map((cand, i) => (
+                    <Card key={i} className="bg-slate-800/30 border-slate-700">
+                      <CardContent className="p-3">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="flex-1 min-w-0">
+                            <p className="font-semibold text-white text-xs capitalize">{cand.optimization_category.replace(/_/g, ' ')}</p>
+                            <p className="text-xs text-slate-400 mt-0.5 line-clamp-2">{cand.reason_detected}</p>
+                          </div>
+                          <div className="text-right flex-shrink-0">
+                            <p className="text-sm font-bold text-purple-300">{cand.confidence_score}%</p>
+                            <Badge
+                              className={`text-xs ${
+                                cand.risk_level === 'low'
+                                  ? 'bg-emerald-950 text-emerald-300'
+                                  : cand.risk_level === 'medium'
+                                    ? 'bg-yellow-950 text-yellow-300'
+                                    : 'bg-red-950 text-red-300'
+                              }`}
+                            >
+                              {cand.risk_level}
+                            </Badge>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))
+                )}
+              </TabsContent>
 
-          {/* Recommendations */}
-          <TabsContent value="recommendations" className="space-y-2">
-            {recommendations.length === 0 ? (
-              <Card className="bg-slate-900/50 border-slate-700">
-                <CardContent className="p-6 text-center text-slate-400">No recommendations</CardContent>
-              </Card>
-            ) : (
-              recommendations.slice(0, 5).map((rec, i) => (
-                <Card key={i} className="bg-slate-800/30 border-slate-700">
-                  <CardContent className="p-4">
-                    <p className="font-semibold text-white text-sm">{rec.recommendation_text}</p>
-                    <p className="text-xs text-slate-400 mt-2">{rec.suggested_action}</p>
-                  </CardContent>
-                </Card>
-              ))
-            )}
-          </TabsContent>
-        </Tabs>
+              {/* Active Experiments */}
+              <TabsContent value="experiments" className="space-y-2">
+                {activeExperiments.length === 0 ? (
+                  <Card className="bg-slate-900/50 border-slate-700">
+                    <CardContent className="p-4 text-center text-slate-400 text-xs">
+                      No experiments running
+                    </CardContent>
+                  </Card>
+                ) : (
+                  activeExperiments.map((exp, i) => (
+                    <Card key={i} className="bg-blue-950/20 border-blue-700/50">
+                      <CardContent className="p-3">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="flex-1 min-w-0">
+                            <p className="font-semibold text-white text-xs">{exp.experiment_name}</p>
+                            <p className="text-xs text-slate-400 mt-0.5">{exp.strategy_type.replace(/_/g, ' ')}</p>
+                          </div>
+                          <Badge className="bg-blue-950 text-blue-300 text-xs flex-shrink-0">Running</Badge>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))
+                )}
+              </TabsContent>
+
+              {/* Recent Wins */}
+              <TabsContent value="wins" className="space-y-2">
+                {recentWins.length === 0 ? (
+                  <Card className="bg-slate-900/50 border-slate-700">
+                    <CardContent className="p-4 text-center text-slate-400 text-xs">
+                      No wins yet
+                    </CardContent>
+                  </Card>
+                ) : (
+                  recentWins.map((outcome, i) => (
+                    <Card key={i} className="bg-emerald-950/20 border-emerald-700/50">
+                      <CardContent className="p-3">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="flex-1 min-w-0">
+                            <p className="font-semibold text-emerald-300 text-xs">{outcome.metric_name}</p>
+                            <p className="text-xs text-slate-400 mt-0.5">{outcome.baseline_value} → {outcome.observed_value}</p>
+                          </div>
+                          <div className="text-right flex-shrink-0">
+                            <p className="text-sm font-bold text-emerald-300">+{outcome.delta_value}%</p>
+                            <p className="text-xs text-slate-500">{outcome.confidence_level}%</p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))
+                )}
+              </TabsContent>
+            </Tabs>
+          </div>
+        </div>
       </div>
     </div>
   );
