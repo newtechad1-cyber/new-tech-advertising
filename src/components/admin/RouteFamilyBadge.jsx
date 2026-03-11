@@ -8,7 +8,7 @@
  * It is intentionally unobtrusive — low opacity until hovered.
  */
 import React from 'react';
-import { FAMILY_DISPLAY } from '@/lib/routeMap';
+import { FAMILY_DISPLAY } from '@/components/config/routeMap';
 
 export default function RouteFamilyBadge({ family }) {
   const def = FAMILY_DISPLAY[family];

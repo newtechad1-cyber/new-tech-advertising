@@ -7,6 +7,8 @@ import {
   Bot, Globe, CreditCard, Bell, Cpu, Target, Briefcase, UserCog, AlertCircle, CheckSquare, Brain, Zap, BarChart2
 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
+import { validateNavRoutes, ROUTE_FAMILIES } from '@/components/config/routeMap';
+import RouteFamilyBadge from '@/components/admin/RouteFamilyBadge';
 
 const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png';
 
