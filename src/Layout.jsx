@@ -57,10 +57,16 @@ export default function Layout({ children, currentPageName }) {
     isLoading
   };
 
+  // Derive route family from current page name for dev badge
+  const pageFamily = PAGE_FAMILY_MAP[currentPageName] || null;
+  // Only show badge for public/client pages — admin layouts render their own badge
+  const showBadge = pageFamily === 'public' || pageFamily === 'client_portal';
+
   return (
     <ViewModeContext.Provider value={contextValue}>
       {children}
       <ADAComplianceBanner />
+      {showBadge && <RouteFamilyBadge family={pageFamily} />}
     </ViewModeContext.Provider>
   );
 }
