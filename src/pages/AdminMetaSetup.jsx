@@ -528,30 +528,72 @@ export default function AdminMetaSetup() {
               />
             </div>
 
-            {/* Supported publish types */}
-            <Card className="bg-slate-900 border-slate-800">
+            {/* What NTA will unlock */}
+            <Card className={`border-2 ${isFullyReady ? 'border-green-700/30 bg-green-950/10' : 'border-slate-800 bg-slate-900'}`}>
               <CardContent className="p-5">
-                <p className="text-sm font-bold text-slate-300 flex items-center gap-2 mb-4">
-                  <Film className="w-4 h-4 text-violet-400" /> What NTA Can Publish Once Ready
-                </p>
+                <div className="flex items-center gap-2 mb-1">
+                  {isFullyReady
+                    ? <Unlock className="w-4 h-4 text-green-400" />
+                    : <Lock className="w-4 h-4 text-slate-500" />}
+                  <p className="text-sm font-bold text-slate-200">
+                    What NTA will unlock when Meta is ready
+                  </p>
+                  {!isFullyReady && <span className="ml-auto text-[9px] font-extrabold px-2 py-0.5 rounded-full border border-slate-700 bg-slate-800 text-slate-500 uppercase tracking-widest">Locked</span>}
+                  {isFullyReady && <span className="ml-auto text-[9px] font-extrabold px-2 py-0.5 rounded-full border border-green-700/50 bg-green-900/30 text-green-300 uppercase tracking-widest">Active</span>}
+                </div>
+                <p className="text-xs text-slate-500 mb-4 ml-6">Once both Facebook and Instagram connections are verified, NTA will automatically route approved videos to these destinations.</p>
                 <div className="grid sm:grid-cols-2 gap-3">
                   {[
-                    { platform: 'Facebook', Icon: FbIcon, color: 'text-blue-400', types: ['Video page posts', 'Promotional clips', 'Ad-ready content', 'Reels (where supported)'] },
-                    { platform: 'Instagram', Icon: IgIcon, color: 'text-pink-400', types: ['Feed video posts', 'Instagram Reels', 'Promotional clips', 'Story-format content'] },
-                  ].map(({ platform, Icon, color, types }) => (
-                    <div key={platform} className="rounded-xl border border-slate-700/60 bg-slate-800/30 p-4">
-                      <div className="flex items-center gap-2 mb-3">
-                        <Icon className={`w-4 h-4 ${color}`} />
-                        <p className="text-xs font-bold text-slate-300">{platform}</p>
+                    { Icon: FbIcon, color: 'text-blue-400', label: 'Facebook video posts', desc: 'Approved videos published automatically to your Facebook Page feed.' },
+                    { Icon: FbIcon, color: 'text-blue-400', label: 'Facebook page promotions', desc: 'Branded promotional clips distributed to Facebook with captions and CTAs.' },
+                    { Icon: IgIcon, color: 'text-pink-400', label: 'Instagram branded clips', desc: 'Short-form branded video content posted to Instagram feed.' },
+                    { Icon: IgIcon, color: 'text-pink-400', label: 'Instagram video distribution', desc: 'Video and Reel publishing to Instagram Business or Creator accounts.' },
+                    { Icon: Play,    color: 'text-violet-400', label: 'Approval-first publishing via NTA', desc: 'Every post goes through NTA review and approval before it reaches Meta.' },
+                  ].map(({ Icon, color, label, desc }) => (
+                    <div key={label} className={`rounded-xl border p-3.5 flex items-start gap-3 transition-all ${
+                      isFullyReady ? 'border-slate-700/60 bg-slate-800/20' : 'border-slate-800/60 bg-slate-900/50 opacity-60'
+                    }`}>
+                      <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${isFullyReady ? 'bg-slate-800' : 'bg-slate-900'}`}>
+                        <Icon className={`w-3.5 h-3.5 ${isFullyReady ? color : 'text-slate-700'}`} />
                       </div>
-                      {types.map(t => (
-                        <p key={t} className="text-[11px] text-slate-500 flex items-center gap-1.5 mb-1">
-                          <Radio className="w-2.5 h-2.5 text-slate-700" /> {t}
-                        </p>
-                      ))}
+                      <div className="flex-1 min-w-0">
+                        <p className={`text-xs font-bold leading-snug ${isFullyReady ? 'text-slate-200' : 'text-slate-600'}`}>{label}</p>
+                        <p className={`text-[10px] mt-0.5 leading-snug ${isFullyReady ? 'text-slate-500' : 'text-slate-700'}`}>{desc}</p>
+                      </div>
+                      {isFullyReady
+                        ? <CheckCircle2 className="w-3.5 h-3.5 text-green-400 flex-shrink-0 mt-0.5" />
+                        : <Lock className="w-3 h-3 text-slate-700 flex-shrink-0 mt-0.5" />}
                     </div>
                   ))}
                 </div>
+
+                {/* Quick nav links to publishing */}
+                {isFullyReady && (
+                  <div className="mt-4 pt-4 border-t border-slate-800 flex flex-wrap gap-3">
+                    <Link to={createPageUrl("AdminVideoPublishing")}>
+                      <Button size="sm" variant="outline" className="border-slate-700 text-slate-400 hover:text-white gap-1.5 text-xs">
+                        <LayoutGrid className="w-3 h-3" /> Publishing Queue
+                      </Button>
+                    </Link>
+                    <Link to={`${createPageUrl("AdminVideoPublishing")}?filter=blocked`}>
+                      <Button size="sm" variant="outline" className="border-slate-700 text-slate-400 hover:text-white gap-1.5 text-xs">
+                        <AlertTriangle className="w-3 h-3" /> Blocked Jobs
+                      </Button>
+                    </Link>
+                    <Link to={createPageUrl("AdminVideoPublishing")}>
+                      <Button size="sm" variant="outline" className="border-slate-700 text-slate-400 hover:text-white gap-1.5 text-xs">
+                        <Video className="w-3 h-3" /> Test Publish Logs
+                      </Button>
+                    </Link>
+                  </div>
+                )}
+                {!isFullyReady && (
+                  <div className="mt-4 pt-4 border-t border-slate-800">
+                    <p className="text-[10px] text-slate-600 flex items-center gap-1.5">
+                      <Lock className="w-3 h-3" /> Publishing queue links will activate once Meta is fully configured.
+                    </p>
+                  </div>
+                )}
               </CardContent>
             </Card>
 
