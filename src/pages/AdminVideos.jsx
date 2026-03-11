@@ -185,38 +185,50 @@ export default function AdminVideos() {
         {/* Content Area */}
         <div className="px-4 sm:px-6 py-8">
           <div className="max-w-7xl mx-auto">
-            {filteredVideos.length === 0 ? (
-              <EmptyStateLibrary
-                hasFilters={hasFiltersActive}
-                onClearFilters={() => setFilters({
-                  search: '',
-                  status: 'all',
-                  approval: 'all',
-                  company: 'all',
-                  destination: 'all',
-                  renderStatus: 'all',
-                })}
-              />
-            ) : viewMode === 'grid' ? (
-              <VideoGridView
-                videos={filteredVideos}
-                publishJobs={publishJobs}
-                selectedVideos={selectedVideos}
-                onSelectVideo={handleSelectVideo}
-                onSelectAll={handleSelectAll}
-              />
-            ) : (
-              <VideoTableView
-                videos={filteredVideos}
-                publishJobs={publishJobs}
-                selectedVideos={selectedVideos}
-                onSelectVideo={handleSelectVideo}
-                onSelectAll={handleSelectAll}
-              />
-            )}
+            <div className="transition-all duration-300 ease-in-out">
+              {filteredVideos.length === 0 ? (
+                <EmptyStateLibrary
+                  hasFilters={hasFiltersActive}
+                  onClearFilters={() => setFilters({
+                    search: '',
+                    status: 'all',
+                    approval: 'all',
+                    company: 'all',
+                    destination: 'all',
+                    renderStatus: 'all',
+                  })}
+                />
+              ) : viewMode === 'grid' ? (
+                <div className="animate-in fade-in duration-300">
+                  <VideoGridView
+                    videos={filteredVideos}
+                    publishJobs={publishJobs}
+                    selectedVideos={selectedVideos}
+                    onSelectVideo={handleSelectVideo}
+                    onSelectAll={handleSelectAll}
+                  />
+                </div>
+              ) : (
+                <div className="animate-in fade-in duration-300">
+                  <VideoTableView
+                    videos={filteredVideos}
+                    publishJobs={publishJobs}
+                    selectedVideos={selectedVideos}
+                    onSelectVideo={handleSelectVideo}
+                    onSelectAll={handleSelectAll}
+                  />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Bulk Action Feedback */}
+      <BulkActionFeedback 
+        actionResult={actionFeedback}
+        onClose={() => setActionFeedback(null)}
+      />
     </AdminLayout>
   );
 }
