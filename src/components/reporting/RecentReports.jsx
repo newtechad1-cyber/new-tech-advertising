@@ -1,8 +1,9 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Eye, Send, Edit2, Download } from 'lucide-react';
+import { Eye, Send, Edit2, Download, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import LowActivityAlert from './LowActivityAlert';
 
 export default function RecentReports() {
   const { data: reports = [] } = useQuery({
@@ -33,8 +34,11 @@ export default function RecentReports() {
 
       {reportsWithClient.length > 0 ? (
         <div className="space-y-3 max-h-96 overflow-y-auto">
-          {reportsWithClient.map((report, idx) => (
-            <div key={idx} className="border border-slate-700 rounded-lg p-4 hover:bg-slate-800/50 transition-all">
+          {reportsWithClient.map((report, idx) => {
+            const isLowActivity = (report.content_published_count || 0) < 2 && 
+                                  (report.campaigns_active || 0) < 1;
+            return (
+            <div key={idx} className={`border rounded-lg p-4 hover:bg-slate-800/50 transition-all ${isLowActivity ? 'border-orange-700 bg-orange-900/10' : 'border-slate-700'}`}>
               <div className="flex items-start justify-between mb-2">
                 <div className="flex-1">
                   <p className="text-sm font-semibold text-white">{report.clientName}</p>
@@ -42,9 +46,12 @@ export default function RecentReports() {
                     {new Date(report.report_start_date).toLocaleDateString()} – {new Date(report.report_end_date).toLocaleDateString()}
                   </p>
                 </div>
-                <span className={`text-xs font-bold px-2 py-1 rounded ${getStatusColor(report.delivery_status)}`}>
-                  {report.delivery_status}
-                </span>
+                <div className="flex items-center gap-2">
+                  {isLowActivity && <AlertTriangle className="w-4 h-4 text-orange-400" />}
+                  <span className={`text-xs font-bold px-2 py-1 rounded ${getStatusColor(report.delivery_status)}`}>
+                    {report.delivery_status}
+                  </span>
+                </div>
               </div>
 
               <div className="flex items-center gap-2 text-xs text-slate-400 mb-3">
@@ -66,8 +73,15 @@ export default function RecentReports() {
                   <Edit2 className="w-3 h-3" /> Edit
                 </Button>
               </div>
+
+              {isLowActivity && (
+                <div className="mt-3 pt-3 border-t border-orange-700">
+                  <LowActivityAlert client={{ name: report.clientName }} report={report} />
+                </div>
+              )}
             </div>
-          ))}
+            );
+          })}
         </div>
       ) : (
         <div className="text-center py-6 text-slate-500">

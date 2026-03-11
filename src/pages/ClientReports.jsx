@@ -5,10 +5,14 @@ import { BarChart3, Download, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 import ReportHeader from '@/components/reporting/ReportHeader';
+import MarketingMomentumScore from '@/components/reporting/MarketingMomentumScore';
+import ProgressIndicators from '@/components/reporting/ProgressIndicators';
 import VisibilityMomentumSummary from '@/components/reporting/VisibilityMomentumSummary';
 import MarketingActivityTimeline from '@/components/reporting/MarketingActivityTimeline';
+import MilestoneMessage from '@/components/reporting/MilestoneMessage';
 import HighlightsSection from '@/components/reporting/HighlightsSection';
 import ChannelPresenceSummary from '@/components/reporting/ChannelPresenceSummary';
+import WhatThisMeansBlock from '@/components/reporting/WhatThisMeansBlock';
 import UpcomingPlanSection from '@/components/reporting/UpcomingPlanSection';
 import ROINarrativeBlock from '@/components/reporting/ROINarrativeBlock';
 
@@ -39,6 +43,7 @@ export default function ClientReports() {
   });
 
   const latestReport = reports[0];
+  const previousReport = reports[1];
 
   if (!user) {
     return (
@@ -76,6 +81,15 @@ export default function ClientReports() {
             {/* Report Header */}
             <ReportHeader report={latestReport} />
 
+            {/* Marketing Momentum Score */}
+            <MarketingMomentumScore report={latestReport} previousReport={previousReport} />
+
+            {/* Milestone Message */}
+            <MilestoneMessage report={latestReport} previousReport={previousReport} />
+
+            {/* Progress Indicators */}
+            <ProgressIndicators report={latestReport} previousReport={previousReport} />
+
             {/* Visibility Momentum */}
             <VisibilityMomentumSummary report={latestReport} />
 
@@ -84,6 +98,9 @@ export default function ClientReports() {
 
             {/* Highlights */}
             <HighlightsSection report={latestReport} />
+
+            {/* What This Means */}
+            <WhatThisMeansBlock report={latestReport} />
 
             {/* Channel Presence */}
             <ChannelPresenceSummary report={latestReport} />
