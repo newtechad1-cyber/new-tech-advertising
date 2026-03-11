@@ -157,10 +157,14 @@ export default function AdminSales() {
 
             {/* Main Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Left Column: Pipeline */}
+              {/* Left Column: Pipeline or Table */}
               <div className="lg:col-span-2 space-y-6">
-                {/* Pipeline Board */}
-                <SalesPipelineBoard deals={deals} />
+                {/* Pipeline Board or Table */}
+                {viewMode === 'board' ? (
+                  <SalesPipelineBoard deals={deals} />
+                ) : (
+                  <DealsTableView deals={deals} />
+                )}
 
                 {/* Revenue Forecast */}
                 <RevenueForecaster deals={deals} />
