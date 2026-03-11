@@ -50,6 +50,11 @@ export default function AdminGovernance() {
     queryFn: () => base44.entities.SchemaHealthSnapshot?.list?.('-snapshot_time', 1).catch(() => []),
   });
 
+  const { data: dependencies = [] } = useQuery({
+    queryKey: ['entity-dependencies'],
+    queryFn: () => base44.entities.EntityDependencyMap?.list?.().catch(() => []),
+  });
+
   // KPI Calculations
   const activeEntities = entities.filter(e => e.active).length;
   const governedFields = fields.length;
