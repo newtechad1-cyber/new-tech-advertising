@@ -23,6 +23,9 @@ import {
 } from 'lucide-react';
 import { ADMIN_SIDEBAR_STRUCTURE, getAdminRoute } from './schoolRouteConfig';
 import { cn } from '@/lib/utils';
+// NOTE: This nav uses schoolRouteConfig dynamic paths (e.g. /admin/schools/:slug/dashboard).
+// The canonical school admin nav for base44 page routing is components/school-tv/AdminSidebar.
+// This component is used by ContributorShell / legacy multi-school SaaS routing only.
 
 const ICON_MAP = {
   LayoutDashboard,
