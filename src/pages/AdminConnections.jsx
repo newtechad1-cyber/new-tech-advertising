@@ -508,6 +508,22 @@ export default function AdminConnections() {
                       </div>
                     );
                   })}
+                  {/* Meta shortcut callout */}
+                  {issues.some(c => ['facebook','instagram'].includes(c.platform_type)) && (
+                    <div className="rounded-xl border border-violet-800/40 bg-violet-950/15 p-4 flex items-center justify-between gap-3 flex-wrap">
+                      <div>
+                        <p className="text-xs font-bold text-violet-200 flex items-center gap-1.5">
+                          <Wrench className="w-3.5 h-3.5" /> Facebook + Instagram need repair
+                        </p>
+                        <p className="text-[10px] text-slate-400 mt-0.5">These two platforms are linked and must be fixed together via the Meta Setup flow.</p>
+                      </div>
+                      <Link to={createPageUrl("AdminMetaSetup")}>
+                        <Button size="sm" className="bg-violet-600 hover:bg-violet-500 font-bold gap-1.5 text-xs whitespace-nowrap">
+                          <Wrench className="w-3 h-3" /> Open Meta Setup
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
                   <p className="text-[10px] text-slate-600 pt-1">
                     Fix these issues to unlock publishing for the affected channels. Blocked publish jobs will automatically show retry options once connections are restored.
                     {' '}<Link to={createPageUrl("AdminVideoPublishing")} className="text-violet-500 hover:text-violet-400">View blocked publish jobs →</Link>
