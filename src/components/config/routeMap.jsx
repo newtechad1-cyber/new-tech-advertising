@@ -135,6 +135,7 @@ export const PAGE_FAMILY_MAP = {
   AdminStoryLibrary:             'main_admin',
   AdminSubmissionDetail:         'main_admin',
   AdminSubmissionsList:          'main_admin',
+  AdminContentMultiplier:        'main_admin',    // /admincontentmultiplier
 
   // ─── SCHOOL ADMIN ─────────────────────────────────────────────────────────
   // All routes begin with /adminschool…
@@ -178,6 +179,7 @@ export const PAGE_FAMILY_MAP = {
   ClientDashboard:               'client_portal', // /clientdashboard  ← EXPLICIT, not 'Dashboard'
   ClientBilling:                 'client_portal', // /clientbilling
   ClientCommerce:                'client_portal', // /clientcommerce
+  ClientContentProduction:       'client_portal', // /clientcontentproduction
   ClientFulfillment:             'client_portal', // /clientfulfillment (replaced /clientvideos)
   ClientOnboarding:              'client_portal', // /clientonboarding
   ClientSettings:                'client_portal', // /clientsettings
@@ -335,6 +337,7 @@ export const CANONICAL_ROUTE_MAP = {
   '/adminbilling':                  { page: 'AdminBilling',            family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'live'    },
   '/adminreports':                  { page: 'AdminAnalytics',          family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'live'    },
   '/adminsupport':                  { page: 'AdminHelp',               family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'live'    },
+  '/admincontentmultiplier':        { page: 'AdminContentMultiplier',  family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'live'    },
 
   // ── SCHOOL ADMIN ─────────────────────────────────────────────────────────
   '/adminschooldashboard':          { page: 'AdminSchoolDashboard',    family: 'school_admin',  layout: 'AdminLayout/AdminShell', nav: 'AdminSidebar(school)', status: 'live' },
@@ -358,6 +361,7 @@ export const CANONICAL_ROUTE_MAP = {
   '/clientcalendar':                { page: null,                      family: 'client_portal', layout: 'ClientLayout',       nav: 'ClientNav',    status: 'missing' },
   '/clientanalytics':               { page: null,                      family: 'client_portal', layout: 'ClientLayout',       nav: 'ClientNav',    status: 'missing' },
   '/clientcommerce':                { page: 'ClientCommerce',          family: 'client_portal', layout: 'ClientLayout',       nav: 'ClientNav',    status: 'live'    },
+  '/clientcontentproduction':       { page: 'ClientContentProduction', family: 'client_portal', layout: 'ClientLayout',       nav: 'ClientNav',    status: 'live'    },
   '/clientsettings':                { page: 'ClientSettings',          family: 'client_portal', layout: 'ClientLayout',       nav: 'ClientNav',    status: 'live'    },
   '/clientsupport':                 { page: null,                      family: 'client_portal', layout: 'ClientLayout',       nav: 'ClientNav',    status: 'missing' },
 };
