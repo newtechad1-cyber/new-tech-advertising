@@ -80,7 +80,7 @@ export const PAGE_FAMILY_MAP = {
   AdminRecommendations:          'main_admin',
   AdminResellers:                'main_admin',
   AdminRevenueEngine:            'main_admin',
-  AdminSalesDashboard:           'main_admin',    // /adminsales
+  AdminSales:                    'main_admin',    // /adminsales
   AdminSalesAssets:              'main_admin',
   AdminSalesFollowups:           'main_admin',
   AdminSalesPrompts:             'main_admin',
