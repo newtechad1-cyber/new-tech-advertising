@@ -127,17 +127,36 @@ export default function About() {
 
           <div className="bg-slate-800/50 border border-slate-700 rounded-3xl p-10 md:p-14 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 rounded-full blur-2xl pointer-events-none" />
-            <div className="relative">
-              <div className="text-5xl text-blue-500/30 font-black leading-none mb-6">"</div>
-              <blockquote className="text-xl md:text-2xl text-slate-200 leading-relaxed mb-10 font-medium">
-                I started New Tech Advertising because I saw a clear gap: the businesses, schools, and organizations that needed marketing the most were the ones with the least access to the right tools. I wanted to build platforms that closed that gap — not just a marketing agency, but real technology infrastructure that works without a full-time marketing team.
-              </blockquote>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center text-white font-black text-lg">N</div>
-                <div>
-                  <div className="text-white font-bold">Founder, New Tech Advertising</div>
-                  <div className="text-slate-500 text-sm">AI Marketing Infrastructure Builder</div>
+            <div className="relative grid md:grid-cols-3 gap-10 items-start">
+              {/* Founder photo */}
+              <div className="flex flex-col items-center text-center md:items-start md:text-left">
+                <div className="relative mb-5">
+                  <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-800 blur opacity-40" />
+                  <img
+                    src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/c099addb0_headshot.png"
+                    alt="Founder, New Tech Advertising"
+                    className="relative w-44 h-52 object-cover object-top rounded-2xl border-2 border-blue-500/40 shadow-xl"
+                  />
                 </div>
+                <img
+                  src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png"
+                  alt="New Tech Advertising"
+                  className="h-8 w-auto object-contain mb-3 opacity-90"
+                />
+                <div className="text-white font-bold text-base">Founder & CEO</div>
+                <div className="text-blue-400 text-sm font-semibold">New Tech Advertising</div>
+                <div className="text-slate-500 text-xs mt-1">AI Marketing Infrastructure</div>
+              </div>
+
+              {/* Quote */}
+              <div className="md:col-span-2">
+                <div className="text-5xl text-blue-500/30 font-black leading-none mb-4">"</div>
+                <blockquote className="text-xl md:text-2xl text-slate-200 leading-relaxed mb-8 font-medium">
+                  I started New Tech Advertising because I saw a clear gap: the businesses, schools, and organizations that needed marketing the most were the ones with the least access to the right tools. I wanted to build platforms that closed that gap — not just a marketing agency, but real technology infrastructure that works without a full-time marketing team.
+                </blockquote>
+                <p className="text-slate-400 leading-relaxed text-base">
+                  Over the years, we've gone from helping local businesses with websites and social media to building full AI-powered streaming TV networks for schools, automated marketing engines for service businesses, and compliance infrastructure used across industries. Every platform we build comes from a real problem we saw a client face.
+                </p>
               </div>
             </div>
           </div>
