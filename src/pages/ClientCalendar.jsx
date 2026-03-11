@@ -11,11 +11,14 @@ import CalendarHeader from '@/components/client-calendar/CalendarHeader';
 import CalendarSummary from '@/components/client-calendar/CalendarSummary';
 import CalendarViewToggle from '@/components/client-calendar/CalendarViewToggle';
 import CalendarFilters from '@/components/client-calendar/CalendarFilters';
+import HeroStrip from '@/components/client-calendar/HeroStrip';
+import WeeklyTimeline from '@/components/client-calendar/WeeklyTimeline';
 import MonthView from '@/components/client-calendar/MonthView';
 import WeekView from '@/components/client-calendar/WeekView';
 import AgendaView from '@/components/client-calendar/AgendaView';
 import UpcomingThisWeek from '@/components/client-calendar/UpcomingThisWeek';
 import RecentlyPublished from '@/components/client-calendar/RecentlyPublished';
+import MarketingPlanEmptyState from '@/components/client-calendar/MarketingPlanEmptyState';
 
 const LOGO = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/6e3c5001c_builtforsmallbusinessespng2.png';
 
