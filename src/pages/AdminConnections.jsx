@@ -86,10 +86,11 @@ const PLATFORM_DEFS = [
     idLabel: 'Facebook Page ID',
     idPlaceholder: 'e.g. 123456789012345',
     publishTypes: ['Page video posts', 'Promotional clips', 'Ad-ready content', 'Reels'],
+    metaSetupLink: true,
     setupGuide: {
       missing: 'Facebook Page mapping or valid Page Access Token',
       blocked_reason: 'Token or Page ID may be set but the Facebook Graph API cannot validate the page. Publishing will be blocked until this is resolved.',
-      next_step: 'Verify META_PAGE_ACCESS_TOKEN and META_PAGE_ID in environment secrets. Run Verify to confirm access.',
+      next_step: 'Use the Meta Setup flow to verify token, map your Page, and run capability checks.',
     },
     requirements: [
       'Requires META_PAGE_ACCESS_TOKEN secret (Page-level token, not user token)',
@@ -109,10 +110,11 @@ const PLATFORM_DEFS = [
     idLabel: 'Instagram Business Account ID',
     idPlaceholder: 'e.g. 17841400000000000',
     publishTypes: ['Reels', 'Feed video posts', 'Promo clips', 'Story-format video'],
+    metaSetupLink: true,
     setupGuide: {
       missing: 'Instagram Business Account ID or account type verification',
       blocked_reason: 'Instagram requires a Business or Creator account linked to a Facebook Page. Personal accounts cannot be used for API publishing.',
-      next_step: 'Confirm META_INSTAGRAM_ACCOUNT_ID is set and the account is a Business/Creator type. Run Verify to check.',
+      next_step: 'Use the Meta Setup flow to verify the Instagram account, confirm Facebook Page linkage, and run capability checks.',
     },
     requirements: [
       'Requires META_INSTAGRAM_ACCOUNT_ID secret (Instagram Business Account ID)',
