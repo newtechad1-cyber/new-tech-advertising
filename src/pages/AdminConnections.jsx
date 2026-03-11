@@ -31,6 +31,7 @@ const PLATFORM_DEFS = [
     iconColor: 'text-cyan-400',
     idLabel: 'Website Domain',
     idPlaceholder: 'e.g. newtechadvertising.com',
+    publishTypes: ['Video story pages', 'Blog-style posts', 'SEO landing pages', 'Embedded video pages'],
     requirements: [
       'Always available — no external connection required',
       'Creates published video story pages on your website',
@@ -48,6 +49,7 @@ const PLATFORM_DEFS = [
     iconColor: 'text-slate-300',
     idLabel: 'GBP Location ID (optional)',
     idPlaceholder: 'Google Business Profile location ID',
+    publishTypes: ['Business Profile updates', 'Promotional posts', 'Video link posts'],
     requirements: [
       'Connected via Base44 Google OAuth connector',
       'Google Calendar / Business API scopes must be authorized',
@@ -65,6 +67,7 @@ const PLATFORM_DEFS = [
     iconColor: 'text-blue-400',
     idLabel: 'Company Page ID (optional)',
     idPlaceholder: 'LinkedIn company URN or page ID',
+    publishTypes: ['Company page posts', 'Video posts', 'Promotional clips', 'Thought leadership'],
     requirements: [
       'Connected via Base44 LinkedIn OAuth connector',
       'Supports w_member_social and w_organization_social scopes',
@@ -82,6 +85,12 @@ const PLATFORM_DEFS = [
     iconColor: 'text-blue-500',
     idLabel: 'Facebook Page ID',
     idPlaceholder: 'e.g. 123456789012345',
+    publishTypes: ['Page video posts', 'Promotional clips', 'Ad-ready content', 'Reels'],
+    setupGuide: {
+      missing: 'Facebook Page mapping or valid Page Access Token',
+      blocked_reason: 'Token or Page ID may be set but the Facebook Graph API cannot validate the page. Publishing will be blocked until this is resolved.',
+      next_step: 'Verify META_PAGE_ACCESS_TOKEN and META_PAGE_ID in environment secrets. Run Verify to confirm access.',
+    },
     requirements: [
       'Requires META_PAGE_ACCESS_TOKEN secret (Page-level token, not user token)',
       'Requires META_PAGE_ID secret (your Facebook Page numeric ID)',
@@ -99,6 +108,12 @@ const PLATFORM_DEFS = [
     iconColor: 'text-pink-400',
     idLabel: 'Instagram Business Account ID',
     idPlaceholder: 'e.g. 17841400000000000',
+    publishTypes: ['Reels', 'Feed video posts', 'Promo clips', 'Story-format video'],
+    setupGuide: {
+      missing: 'Instagram Business Account ID or account type verification',
+      blocked_reason: 'Instagram requires a Business or Creator account linked to a Facebook Page. Personal accounts cannot be used for API publishing.',
+      next_step: 'Confirm META_INSTAGRAM_ACCOUNT_ID is set and the account is a Business/Creator type. Run Verify to check.',
+    },
     requirements: [
       'Requires META_INSTAGRAM_ACCOUNT_ID secret (Instagram Business Account ID)',
       'Account must be a Business or Creator account (not personal)',
@@ -116,6 +131,12 @@ const PLATFORM_DEFS = [
     iconColor: 'text-red-400',
     idLabel: 'YouTube Channel ID',
     idPlaceholder: 'e.g. UCxxxxxxxxxxxxx',
+    publishTypes: ['Long-form video uploads', 'YouTube Shorts', 'Promotional videos', 'Case studies'],
+    setupGuide: {
+      missing: 'YouTube Data API OAuth authorization and channel connection',
+      blocked_reason: 'YouTube publishing requires a connected Google account with YouTube channel access. This OAuth flow has not been completed yet.',
+      next_step: 'Set up YouTube Data API v3 OAuth credentials in Google Cloud Console, then connect a channel with channel management permissions.',
+    },
     requirements: [
       'Requires YouTube Data API v3 OAuth credentials',
       'Must authorize a Google account with YouTube channel access',
@@ -133,6 +154,12 @@ const PLATFORM_DEFS = [
     iconColor: 'text-slate-300',
     idLabel: 'TikTok Account Label',
     idPlaceholder: 'e.g. @ntavideos',
+    publishTypes: ['Short-form video', 'Promotional clips', 'Product showcases', 'Trending-format content'],
+    setupGuide: {
+      missing: 'TikTok user OAuth authorization (API keys are configured)',
+      blocked_reason: 'TIKTOK_CLIENT_KEY and TIKTOK_CLIENT_SECRET are set, but the user-level OAuth authorization flow has not been completed. Publishing requires an authorized user token.',
+      next_step: 'Complete the TikTok Content Posting API user authorization flow. Contact the development team to implement the OAuth redirect and token exchange.',
+    },
     requirements: [
       'TIKTOK_CLIENT_KEY and TIKTOK_CLIENT_SECRET secrets are configured',
       'TikTok user OAuth authorization flow must be completed',
