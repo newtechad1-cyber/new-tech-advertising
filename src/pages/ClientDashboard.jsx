@@ -76,15 +76,6 @@ export default function ClientDashboard() {
   const recentLeads = leads.filter(l => new Date(l.created_date) > thirtyDaysAgo).length;
   const activeProposals = proposals.filter(p => ['sent', 'viewed'].includes(p.status));
 
-  const STATUS_BADGE = {
-    draft: 'bg-slate-100 text-slate-600',
-    sent: 'bg-blue-100 text-blue-700',
-    viewed: 'bg-violet-100 text-violet-700',
-    accepted: 'bg-green-100 text-green-700',
-    rejected: 'bg-red-100 text-red-600',
-    expired: 'bg-orange-100 text-orange-700',
-  };
-
   const handleLogout = () => base44.auth.logout();
 
   if (loading) {
