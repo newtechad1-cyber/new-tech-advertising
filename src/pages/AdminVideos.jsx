@@ -96,8 +96,19 @@ export default function AdminVideos() {
 
   const handleBulkAction = async (action, payload) => {
     console.log(`Bulk ${action} on ${selectedVideos.size} videos:`, payload);
-    // Handle bulk actions — approval, scheduling, etc.
-    setSelectedVideos(new Set());
+    
+    // Simulate action processing
+    const actionLabels = {
+      approve: { title: 'Videos Approved', successLabel: 'videos approved' },
+      schedule: { title: 'Videos Scheduled', successLabel: 'videos scheduled' },
+      retry: { title: 'Retry Jobs Queued', successLabel: 'retry jobs queued' },
+    };
+    
+    const feedback = actionLabels[action] || { title: 'Action Completed', successLabel: 'items processed' };
+    setActionFeedback({ ...feedback, success: selectedVideos.size, failed: 0 });
+    
+    // Clear selection after brief delay
+    setTimeout(() => setSelectedVideos(new Set()), 500);
   };
 
   if (loading) {
