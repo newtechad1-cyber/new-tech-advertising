@@ -12,6 +12,12 @@ import GovernanceHealthPanel from '@/components/governance/GovernanceHealthPanel
 import EntityRegistryOverview from '@/components/governance/EntityRegistryOverview';
 import SchemaHealthAlerts from '@/components/governance/SchemaHealthAlerts';
 import RecentGovernanceChanges from '@/components/governance/RecentGovernanceChanges';
+import GovernanceHealthScore from '@/components/governance/GovernanceHealthScore';
+import NextBestGovernanceAction from '@/components/governance/NextBestGovernanceAction';
+import ConflictDetectionPanel from '@/components/governance/ConflictDetectionPanel';
+import HighRiskEntitiesPanel from '@/components/governance/HighRiskEntitiesPanel';
+import CategorizedEntityBrowser from '@/components/governance/CategorizedEntityBrowser';
+import ArchitecturePreviewMode from '@/components/governance/ArchitecturePreviewMode';
 
 export default function AdminGovernance() {
   const { data: entities = [] } = useQuery({
