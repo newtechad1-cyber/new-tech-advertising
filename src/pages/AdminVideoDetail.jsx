@@ -303,15 +303,6 @@ export default function AdminVideoDetail() {
 
         </div>
       </div>
-
-      {/* Sticky Quick Action Bar */}
-      <QuickActionBar 
-        video={video}
-        dirty={dirty}
-        saving={saving}
-        onSave={handleSave}
-        onRefresh={handleRefresh}
-      />
     </div>
   );
 }
