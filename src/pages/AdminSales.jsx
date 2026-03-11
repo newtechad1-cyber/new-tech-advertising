@@ -7,8 +7,12 @@ import { Button } from '@/components/ui/button';
 import { Zap, Plus, RefreshCw, List, LayoutGrid } from 'lucide-react';
 import { createPageUrl } from '@/utils';
 import SalesKPICards from '@/components/sales/cmd/SalesKPICards';
+import CommandStrip from '@/components/sales/cmd/CommandStrip';
+import NextBestActionsPanel from '@/components/sales/cmd/NextBestActionsPanel';
+import ClosingSoonSection from '@/components/sales/cmd/ClosingSoonSection';
 import SalesPipelineBoard from '@/components/sales/cmd/SalesPipelineBoard';
 import DealsTableView from '@/components/sales/cmd/DealsTableView';
+import DealsMobileList from '@/components/sales/cmd/DealsMobileList';
 import FollowUpPriorityPanel from '@/components/sales/cmd/FollowUpPriorityPanel';
 import RevenueForecaster from '@/components/sales/cmd/RevenueForecaster';
 import LeadSourcePanel from '@/components/sales/cmd/LeadSourcePanel';
@@ -137,6 +141,7 @@ export default function AdminSales() {
                   variant={viewMode === 'board' ? 'default' : 'ghost'}
                   className={`h-7 w-7 p-0 ${viewMode === 'board' ? 'bg-slate-700' : 'text-slate-500'}`}
                   onClick={() => setViewMode('board')}
+                  title="Board View"
                 >
                   <LayoutGrid className="w-3 h-3" />
                 </Button>
@@ -145,6 +150,7 @@ export default function AdminSales() {
                   variant={viewMode === 'table' ? 'default' : 'ghost'}
                   className={`h-7 w-7 p-0 ${viewMode === 'table' ? 'bg-slate-700' : 'text-slate-500'}`}
                   onClick={() => setViewMode('table')}
+                  title="Table View"
                 >
                   <List className="w-3 h-3" />
                 </Button>
@@ -153,41 +159,57 @@ export default function AdminSales() {
           </div>
 
           {/* Content */}
-          <div className="max-w-screen-2xl mx-auto px-6 py-6 space-y-6">
-            {/* KPI Row */}
-            <SalesKPICards data={kpis} />
+           <div className="max-w-screen-2xl mx-auto px-6 py-6 space-y-6">
+             {/* Command Strip */}
+             <CommandStrip deals={deals} />
 
-            {/* Main Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Left Column: Pipeline or Table */}
-              <div className="lg:col-span-2 space-y-6">
-                {/* Pipeline Board or Table */}
-                {viewMode === 'board' ? (
-                  <SalesPipelineBoard deals={deals} />
-                ) : (
-                  <DealsTableView deals={deals} />
-                )}
+             {/* KPI Row */}
+             <SalesKPICards data={kpis} />
 
-                {/* Revenue Forecast */}
-                <RevenueForecaster deals={deals} />
-              </div>
+             {/* Main Grid */}
+             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+               {/* Left Column: Pipeline or Table */}
+               <div className="lg:col-span-2 space-y-6">
+                 {/* Pipeline Board, Table, or Mobile List */}
+                 {viewMode === 'board' ? (
+                   <SalesPipelineBoard deals={deals} />
+                 ) : viewMode === 'table' ? (
+                   <DealsTableView deals={deals} />
+                 ) : (
+                   <div className="lg:hidden">
+                     <DealsMobileList deals={deals} />
+                   </div>
+                 )}
+                 {viewMode !== 'board' && viewMode !== 'list' && (
+                   <DealsTableView deals={deals} />
+                 )}
 
-              {/* Right Sidebar */}
-              <div className="space-y-6">
-                {/* Follow-Ups */}
-                <FollowUpPriorityPanel deals={deals} />
+                 {/* Revenue Forecast */}
+                 <RevenueForecaster deals={deals} />
 
-                {/* Activity Feed */}
-                <SalesActivityFeed activities={activities} />
-              </div>
-            </div>
+                 {/* Closing Soon */}
+                 <ClosingSoonSection deals={deals} />
+               </div>
 
-            {/* Bottom Row: Source & Rep Performance */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <LeadSourcePanel deals={deals} />
-              <RepPerformancePanel deals={deals} />
-            </div>
-          </div>
+               {/* Right Sidebar */}
+               <div className="space-y-6">
+                 {/* Next Best Actions */}
+                 <NextBestActionsPanel deals={deals} />
+
+                 {/* Follow-Ups */}
+                 <FollowUpPriorityPanel deals={deals} />
+
+                 {/* Activity Feed */}
+                 <SalesActivityFeed activities={activities} />
+               </div>
+             </div>
+
+             {/* Bottom Row: Source & Rep Performance */}
+             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+               <LeadSourcePanel deals={deals} />
+               <RepPerformancePanel deals={deals} />
+             </div>
+           </div>
         </div>
       </AdminNav>
     </AdminGuard>

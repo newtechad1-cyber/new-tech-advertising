@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import DealCard from './DealCard';
+import EnhancedDealCard from './EnhancedDealCard';
 
 const PIPELINE_STAGES = [
   { id: 'new_lead', label: 'New Lead', color: 'slate' },
@@ -73,12 +73,11 @@ export default function SalesPipelineBoard({ deals = [], onDealMove, onOpenDeal 
                     <div className="text-center py-4 text-slate-500 text-xs">No deals</div>
                   ) : (
                     stage.deals.map(deal => (
-                      <DealCard
-                        key={deal.id}
-                        deal={deal}
-                        onOpen={() => onOpenDeal?.(deal.id)}
-                        stageColor={stage.color}
-                      />
+                       <EnhancedDealCard
+                         key={deal.id}
+                         deal={deal}
+                         onOpen={() => onOpenDeal?.(deal.id)}
+                       />
                     ))
                   )}
                 </div>
