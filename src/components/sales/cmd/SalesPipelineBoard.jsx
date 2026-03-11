@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { DndContext, DragEndEvent, closestCorners } from '@hello-pangea/dnd';
-import { Plus, AlertCircle, CheckCircle, Clock } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import DealCard from './DealCard';
 
