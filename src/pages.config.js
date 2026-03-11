@@ -399,6 +399,9 @@ import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import ResellerSettingsBranding from './pages/ResellerSettingsBranding';
+import AdminAgents from './pages/AdminAgents';
+import AdminAgentsWorkflows from './pages/AdminAgentsWorkflows';
+import AdminAgentsRecovery from './pages/AdminAgentsRecovery';
 import __Layout from './Layout.jsx';
 
 
@@ -755,6 +758,9 @@ export const PAGES = {
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
     "ResellerSettingsBranding": ResellerSettingsBranding,
+    "AdminAgents": AdminAgents,
+    "AdminAgentsWorkflows": AdminAgentsWorkflows,
+    "AdminAgentsRecovery": AdminAgentsRecovery,
 }
 
 export const pagesConfig = {
