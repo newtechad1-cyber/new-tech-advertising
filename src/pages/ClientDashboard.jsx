@@ -17,19 +17,6 @@ import ChannelPresenceSummary from '@/components/client-dashboard/ChannelPresenc
 
 const LOGO = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/6e3c5001c_builtforsmallbusinessespng2.png';
 
-function MetricCard({ icon: Icon, label, value, color, sub }) {
-  return (
-    <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
-      <div className={`inline-flex p-2 rounded-lg mb-3 ${color}`}>
-        <Icon className="w-5 h-5 text-white" />
-      </div>
-      <p className="text-2xl font-bold text-slate-900">{value}</p>
-      <p className="text-slate-500 text-sm">{label}</p>
-      {sub && <p className="text-slate-400 text-xs mt-1">{sub}</p>}
-    </div>
-  );
-}
-
 export default function ClientDashboard() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
