@@ -38,23 +38,31 @@ export default function AdminSchoolOutreach() {
           <p className="text-slate-600 mt-2">Manage email campaigns and outreach sequences</p>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        {/* Pipeline Metrics */}
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-6">
           <div className="bg-white rounded-lg border border-slate-200 p-4">
-            <div className="text-2xl font-bold text-slate-900">{campaigns.length}</div>
-            <div className="text-sm text-slate-600">Active Campaigns</div>
+            <div className="text-2xl font-bold text-slate-900">{leads.length}</div>
+            <div className="text-xs text-slate-500 font-medium mt-1">Total Leads</div>
           </div>
           <div className="bg-white rounded-lg border border-slate-200 p-4">
-            <div className="text-2xl font-bold text-blue-600">{leads.filter(l => l.outreach_status === 'contacted').length}</div>
-            <div className="text-sm text-slate-600">Contacted</div>
+            <div className="text-2xl font-bold text-orange-600">{leads.filter(l => l.outreach_status === 'contacted').length}</div>
+            <div className="text-xs text-slate-500 font-medium mt-1">Contacted</div>
           </div>
           <div className="bg-white rounded-lg border border-slate-200 p-4">
             <div className="text-2xl font-bold text-cyan-600">{leads.filter(l => l.outreach_status === 'replied').length}</div>
-            <div className="text-sm text-slate-600">Replied</div>
+            <div className="text-xs text-slate-500 font-medium mt-1">Replied</div>
           </div>
           <div className="bg-white rounded-lg border border-slate-200 p-4">
-            <div className="text-2xl font-bold text-green-600">{leads.filter(l => l.demo_booked).length}</div>
-            <div className="text-sm text-slate-600">Demos Booked</div>
+            <div className="text-2xl font-bold text-green-600">{leads.filter(l => ['demo_scheduled', 'demo_completed'].includes(l.outreach_status)).length}</div>
+            <div className="text-xs text-slate-500 font-medium mt-1">Demos</div>
+          </div>
+          <div className="bg-white rounded-lg border border-slate-200 p-4">
+            <div className="text-2xl font-bold text-purple-600">{leads.filter(l => l.outreach_status === 'pilot').length}</div>
+            <div className="text-xs text-slate-500 font-medium mt-1">Pilots</div>
+          </div>
+          <div className="bg-white rounded-lg border border-slate-200 p-4">
+            <div className="text-2xl font-bold text-emerald-600">{leads.filter(l => l.outreach_status === 'won').length}</div>
+            <div className="text-xs text-slate-500 font-medium mt-1">Won</div>
           </div>
         </div>
 
