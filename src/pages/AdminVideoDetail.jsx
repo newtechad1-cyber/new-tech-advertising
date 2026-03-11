@@ -17,7 +17,6 @@ import ChannelReadinessSidebar from "@/components/video-workspace/ChannelReadine
 import PublishStatusSection from "@/components/video-workspace/PublishStatusSection";
 import PremiumActivityTimeline from "@/components/video-workspace/PremiumActivityTimeline";
 import WebsiteFirstCard from "@/components/video-workspace/WebsiteFirstCard";
-import QuickActionBar from "@/components/video-workspace/QuickActionBar";
 import HeroStatusStrip from "@/components/video-workspace/HeroStatusStrip";
 import MissingBeforePublishChecklist from "@/components/video-workspace/MissingBeforePublishChecklist";
 
