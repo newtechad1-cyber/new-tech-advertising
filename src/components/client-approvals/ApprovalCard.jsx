@@ -101,10 +101,18 @@ export default function ApprovalCard({ video, onViewDetails, onApprove, onReject
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between gap-4 mb-3">
               <div className="flex-1 min-w-0">
-                <h3 className="text-lg font-semibold text-slate-900 truncate">
-                  {video.title}
-                </h3>
-                <p className="text-sm text-slate-600 mt-1 line-clamp-2">
+                <div className="flex items-center gap-2 mb-1">
+                  <h3 className="text-lg font-semibold text-slate-900 truncate">
+                    {video.title}
+                  </h3>
+                </div>
+                <div className="flex items-center gap-2 mb-2">
+                  <Zap className="w-3.5 h-3.5 text-amber-500" />
+                  <span className="text-xs font-medium text-amber-700 bg-amber-50 px-2 py-1 rounded">
+                    Quality: {qualityLabel}
+                  </span>
+                </div>
+                <p className="text-sm text-slate-600 line-clamp-2">
                   {video.goal || 'Ready for your review'}
                 </p>
               </div>
