@@ -8,7 +8,7 @@ import { Switch } from "@/components/ui/switch";
 import {
   Globe, Link2, Linkedin, Youtube, Smartphone, Building2, ArrowLeft,
   RefreshCw, CheckCircle2, XCircle, AlertTriangle, Clock, Radio,
-  Loader2, ShieldCheck, Wifi, ChevronRight, Zap, Sparkles
+  Loader2, ShieldCheck, Wifi, ChevronRight, Zap, Sparkles, Wrench
 } from "lucide-react";
 import PlatformCard, { STATUS_CONFIG } from "@/components/connections/PlatformCard";
 
