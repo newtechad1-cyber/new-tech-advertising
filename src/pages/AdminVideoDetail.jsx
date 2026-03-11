@@ -13,6 +13,9 @@ import RenderOutputPanel from "@/components/video-workspace/RenderOutputPanel";
 import BrandedPreviewCard from "@/components/video-workspace/BrandedPreviewCard";
 import AIRecommendations from "@/components/video-workspace/AIRecommendations";
 import ProcessingActivityLog from "@/components/video-workspace/ProcessingActivityLog";
+import ReviewApprovalPanel from "@/components/video-workspace/ReviewApprovalPanel";
+import PublishingCopyPanel from "@/components/video-workspace/PublishingCopyPanel";
+import ReadyForReviewCallout from "@/components/video-workspace/ReadyForReviewCallout";
 
 const PROCESSING_STAGES = [
   { key: "uploaded", label: "Uploaded" },
@@ -180,8 +183,12 @@ export default function AdminVideoDetail() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-          {/* Left column — video + pipeline + captions */}
+          {/* Left column — video + pipeline + captions + publishing copy */}
           <div className="lg:col-span-7 space-y-6">
+            <ReadyForReviewCallout
+              video={video}
+              onMarkForReview={() => handleImmediateSave({ review_status: "pending_review", processing_status: "ready_for_review" })}
+            />
             <VideoPreviewPanel video={video} onChange={handleChange} />
             <ProcessingPipeline video={video} />
             <CaptionsEditor
@@ -189,10 +196,20 @@ export default function AdminVideoDetail() {
               onChange={handleChange}
               onImmediateSave={handleImmediateSave}
             />
+            <PublishingCopyPanel
+              video={video}
+              onChange={handleChange}
+              onImmediateSave={handleImmediateSave}
+            />
           </div>
 
-          {/* Right column — branding + overlays + export */}
+          {/* Right column — review + branding + overlays + export + log */}
           <div className="lg:col-span-5 space-y-6">
+            <ReviewApprovalPanel
+              video={video}
+              onChange={handleChange}
+              onImmediateSave={handleImmediateSave}
+            />
             <AIRecommendations video={video} onChange={handleChange} />
             <BrandedPreviewCard video={video} />
             <BrandingPanel video={video} onChange={handleChange} />

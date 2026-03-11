@@ -141,7 +141,7 @@ export default function ReviewApprovalPanel({ video, onChange, onImmediateSave }
         <div>
           <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold mb-2">Publish Destinations</p>
           <div className="grid grid-cols-3 gap-2">
-            {DESTINATIONS.map(({ key, label, Icon }) => {
+            {DESTINATIONS.map(({ key, label, Icon: DestIcon }) => {
               const active = !!video[key];
               return (
                 <button
@@ -154,7 +154,7 @@ export default function ReviewApprovalPanel({ video, onChange, onImmediateSave }
                       : "bg-slate-800/40 border-slate-700 text-slate-600 hover:border-slate-500 hover:text-slate-400"
                   }`}
                 >
-                  <Icon className="w-4 h-4" />
+                  <DestIcon className="w-4 h-4" />
                   <span className="text-[10px] font-semibold">{label}</span>
                 </button>
               );
