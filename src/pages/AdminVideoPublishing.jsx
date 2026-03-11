@@ -100,6 +100,16 @@ export default function AdminVideoPublishing() {
                 />
               )}
 
+              {/* Website Publishing Panel */}
+              <div className="bg-white rounded-lg border">
+                <WebsitePublishingPanel
+                  stories={0}
+                  drafts={0}
+                  scheduled={0}
+                  failedCount={0}
+                />
+              </div>
+
               {/* Pipeline Board */}
               <div className="bg-white rounded-lg border">
                 <PipelineBoard 
