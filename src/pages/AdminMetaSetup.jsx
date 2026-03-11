@@ -211,19 +211,60 @@ export default function AdminMetaSetup() {
             Repair Meta publishing connections, verify page and account mapping, and unlock Facebook and Instagram distribution.
           </p>
 
-          {/* Status badges */}
+          {/* Platform readiness labels */}
           <div className="flex flex-wrap gap-3 mt-5">
+            {/* Overall */}
+            <div className={`px-3 py-2 rounded-xl border text-xs ${rdDisplay.cls}`}>
+              <p className="text-[9px] opacity-70 uppercase tracking-widest font-semibold">Meta Status</p>
+              <p className="font-bold mt-0.5">{rdDisplay.label}</p>
+            </div>
+            {/* Facebook platform label */}
+            {(() => {
+              const cfg = PLATFORM_STATUS[readiness.fbStatus] || PLATFORM_STATUS.not_started;
+              return (
+                <div className={`px-3 py-2 rounded-xl border text-xs ${cfg.cls}`}>
+                  <p className="text-[9px] opacity-70 uppercase tracking-widest font-semibold">Facebook</p>
+                  <div className="flex items-center gap-1.5 mt-0.5">
+                    <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${cfg.dot}`} />
+                    <p className="font-bold">{cfg.label}</p>
+                  </div>
+                </div>
+              );
+            })()}
+            {/* Instagram platform label */}
+            {(() => {
+              const cfg = PLATFORM_STATUS[readiness.igStatus] || PLATFORM_STATUS.not_started;
+              return (
+                <div className={`px-3 py-2 rounded-xl border text-xs ${cfg.cls}`}>
+                  <p className="text-[9px] opacity-70 uppercase tracking-widest font-semibold">Instagram</p>
+                  <div className="flex items-center gap-1.5 mt-0.5">
+                    <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${cfg.dot}`} />
+                    <p className="font-bold">{cfg.label}</p>
+                  </div>
+                </div>
+              );
+            })()}
+            <div className={`px-3 py-2 rounded-xl border text-xs ${readiness.score >= 100 ? 'text-green-300 bg-green-950/30 border-green-800/40' : readiness.score >= 50 ? 'text-amber-300 bg-amber-950/30 border-amber-800/40' : 'text-red-300 bg-red-950/30 border-red-800/40'}`}>
+              <p className="text-[9px] opacity-70 uppercase tracking-widest font-semibold">Readiness Score</p>
+              <p className="font-bold mt-0.5">{readiness.score}/100</p>
+            </div>
+            <div className="px-3 py-2 rounded-xl border text-xs text-slate-400 bg-slate-900 border-slate-700">
+              <p className="text-[9px] opacity-70 uppercase tracking-widest font-semibold">Last Verified</p>
+              <p className="font-bold mt-0.5">{profile?.last_verified_at ? new Date(profile.last_verified_at).toLocaleString() : 'Never'}</p>
+            </div>
+          </div>
+
+          {/* Quick nav links */}
+          <div className="flex flex-wrap gap-4 mt-4 pt-4 border-t border-slate-800/60">
             {[
-              { label: 'Meta Status', value: rdDisplay.label, cls: rdDisplay.cls },
-              { label: 'Facebook', value: readiness.fbStatus === 'ready' ? 'Ready' : readiness.fbStatus === 'incomplete' ? 'Incomplete' : readiness.fbStatus === 'blocked' ? 'Blocked' : 'Not Started', cls: readiness.fbStatus === 'ready' ? 'text-green-300 bg-green-950/30 border-green-800/40' : readiness.fbStatus === 'incomplete' ? 'text-amber-300 bg-amber-950/30 border-amber-800/40' : readiness.fbStatus === 'blocked' ? 'text-red-300 bg-red-950/30 border-red-800/40' : 'text-slate-400 bg-slate-900 border-slate-700' },
-              { label: 'Instagram', value: readiness.igStatus === 'ready' ? 'Ready' : readiness.igStatus === 'incomplete' ? 'Incomplete' : 'Not Started', cls: readiness.igStatus === 'ready' ? 'text-green-300 bg-green-950/30 border-green-800/40' : readiness.igStatus === 'incomplete' ? 'text-amber-300 bg-amber-950/30 border-amber-800/40' : 'text-slate-400 bg-slate-900 border-slate-700' },
-              { label: 'Readiness Score', value: `${readiness.score}/100`, cls: readiness.score >= 100 ? 'text-green-300 bg-green-950/30 border-green-800/40' : readiness.score >= 50 ? 'text-amber-300 bg-amber-950/30 border-amber-800/40' : 'text-red-300 bg-red-950/30 border-red-800/40' },
-              { label: 'Last Verified', value: profile?.last_verified_at ? new Date(profile.last_verified_at).toLocaleString() : 'Never', cls: 'text-slate-400 bg-slate-900 border-slate-700' },
-            ].map(({ label, value, cls }) => (
-              <div key={label} className={`px-3 py-2 rounded-xl border text-xs ${cls}`}>
-                <p className="text-[9px] opacity-70 uppercase tracking-widest font-semibold">{label}</p>
-                <p className="font-bold mt-0.5">{value}</p>
-              </div>
+              { label: 'Channel Connections', to: 'AdminConnections' },
+              { label: 'Publishing Queue', to: 'AdminVideoPublishing' },
+              { label: 'Blocked Jobs', to: 'AdminVideoPublishing' },
+            ].map(({ label, to }) => (
+              <Link key={label} to={createPageUrl(to)}
+                className="flex items-center gap-1 text-[11px] text-slate-500 hover:text-violet-400 transition-colors">
+                <ExternalLink className="w-3 h-3" /> {label}
+              </Link>
             ))}
           </div>
         </div>
