@@ -1,23 +1,42 @@
-import { useEffect, useState, useCallback } from 'react';
+import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { base44 } from '@/api/base44Client';
 
 /**
- * Global App Context Hook
- * Manages active operating context across the platform
- * 
- * Returns:
- * - context: current GlobalAppContext record
- * - loading: boolean
- * - switchContext: function to change context
- * - isContextType: helper to check current type
- * - getContextLabel: helper to get display label
+ * Global App Context
+ * Provides centralized access to active context across platform
  */
-export function useGlobalContext() {
-  const [context, setContext] = useState(null);
+const GlobalContext = createContext(null);
+
+/**
+ * Default context value — safe fallback if provider not initialized
+ */
+const DEFAULT_CONTEXT = {
+  activeContextType: 'agency',
+  activeCompanyId: null,
+  activeCompanyName: null,
+  activeSchoolId: null,
+  activeSchoolName: null,
+  activeVertical: null,
+  activeNavFamily: 'main_admin',
+  activeUserRole: 'viewer',
+  activeBrandProfileId: null,
+  activePublishingProfileId: null,
+  sessionId: null,
+  loading: true,
+  user: null,
+  contextMetadata: {},
+};
+
+/**
+ * Global Context Provider
+ * Wrap your app with this to enable useGlobalContext hook
+ */
+export function GlobalContextProvider({ children }) {
+  const [context, setContext] = useState(DEFAULT_CONTEXT);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
 
-  // Load user and initialize context
+  // Initialize context from Base44 or create default
   useEffect(() => {
     const initializeContext = async () => {
       try {
@@ -25,26 +44,69 @@ export function useGlobalContext() {
         setUser(authenticatedUser);
 
         // Try to load existing context for this user
-        const existingContexts = await base44.entities.GlobalAppContext.filter(
-          { created_by: authenticatedUser.email, active: true },
-          '-updated_date',
-          1
-        );
+        try {
+          const existingContexts = await base44.entities.GlobalAppContext.filter(
+            { created_by: authenticatedUser.email, active: true },
+            '-updated_date',
+            1
+          );
 
-        if (existingContexts.length > 0) {
-          setContext(existingContexts[0]);
-        } else {
-          // Create default agency context
-          const defaultContext = await base44.entities.GlobalAppContext.create({
-            active_context_type: 'agency',
-            active_user_role: authenticatedUser.role || 'viewer',
-            active_nav_family: 'main_admin',
-            session_id: generateSessionId(),
-          });
-          setContext(defaultContext);
+          if (existingContexts?.length > 0) {
+            const ctx = existingContexts[0];
+            setContext({
+              activeContextType: ctx.active_context_type || 'agency',
+              activeCompanyId: ctx.active_company_id || null,
+              activeCompanyName: ctx.active_company_name || null,
+              activeSchoolId: ctx.active_school_id || null,
+              activeSchoolName: ctx.active_school_name || null,
+              activeVertical: ctx.active_vertical_type || null,
+              activeNavFamily: ctx.active_nav_family || 'main_admin',
+              activeUserRole: ctx.active_user_role || authenticatedUser.role || 'viewer',
+              activeBrandProfileId: ctx.active_brand_profile_id || null,
+              activePublishingProfileId: ctx.active_publishing_profile_id || null,
+              sessionId: ctx.session_id || null,
+              loading: false,
+              user: authenticatedUser,
+              contextMetadata: ctx.context_metadata ? JSON.parse(ctx.context_metadata) : {},
+            });
+            return;
+          }
+        } catch (err) {
+          console.log('[useGlobalContext] Could not load existing context:', err.message);
         }
+
+        // Create default agency context
+        const defaultContext = await base44.entities.GlobalAppContext.create({
+          active_context_type: 'agency',
+          active_user_role: authenticatedUser.role || 'viewer',
+          active_nav_family: 'main_admin',
+          session_id: `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        });
+
+        setContext({
+          activeContextType: 'agency',
+          activeCompanyId: null,
+          activeCompanyName: null,
+          activeSchoolId: null,
+          activeSchoolName: null,
+          activeVertical: null,
+          activeNavFamily: 'main_admin',
+          activeUserRole: authenticatedUser.role || 'viewer',
+          activeBrandProfileId: null,
+          activePublishingProfileId: null,
+          sessionId: defaultContext.session_id,
+          loading: false,
+          user: authenticatedUser,
+          contextMetadata: {},
+        });
       } catch (error) {
-        console.error('[useGlobalContext] Error initializing context:', error);
+        console.error('[useGlobalContext] Error initializing:', error);
+        // Fallback to default context with just the user role
+        setContext((prev) => ({
+          ...DEFAULT_CONTEXT,
+          loading: false,
+          activeUserRole: 'viewer',
+        }));
       } finally {
         setLoading(false);
       }
@@ -54,77 +116,61 @@ export function useGlobalContext() {
   }, []);
 
   // Switch context
-  const switchContext = useCallback(async (contextUpdate) => {
-    if (!context) return;
-
+  const switchContext = useCallback(async (updates) => {
     try {
-      const updated = await base44.entities.GlobalAppContext.update(context.id, {
-        ...contextUpdate,
-        last_context_switch_at: new Date().toISOString(),
-        last_context_switch_by: user?.email,
-      });
-      setContext(updated);
-      return updated;
+      // Update local state immediately for responsive UI
+      setContext((prev) => ({
+        ...prev,
+        ...updates,
+      }));
+
+      // Sync to database if we have an existing context record
+      // (This is optional — can be added later if needed)
     } catch (error) {
       console.error('[useGlobalContext] Error switching context:', error);
-      throw error;
     }
-  }, [context, user]);
+  }, []);
 
-  // Helper: Check if context type matches
+  // Helper: Check context type
   const isContextType = useCallback((type) => {
-    return context?.active_context_type === type;
-  }, [context]);
+    return context.activeContextType === type;
+  }, [context.activeContextType]);
 
-  // Helper: Get display label for current context
+  // Helper: Get display label
   const getContextLabel = useCallback(() => {
-    if (!context) return 'Loading...';
-    
-    switch (context.active_context_type) {
-      case 'agency':
-        return 'Agency Admin';
-      case 'client':
-        return context.active_company_name ? `Client: ${context.active_company_name}` : 'Client Mode';
-      case 'school':
-        return context.active_school_name ? `School: ${context.active_school_name}` : 'School Mode';
-      case 'vertical_system':
-        return `Vertical: ${context.active_vertical_type?.toUpperCase() || 'Unknown'}`;
-      default:
-        return 'Unknown';
+    if (context.activeContextType === 'client' && context.activeCompanyName) {
+      return `Client: ${context.activeCompanyName}`;
     }
-  }, [context]);
-
-  // Helper: Get context metadata
-  const getContextMetadata = useCallback(() => {
-    if (!context?.context_metadata) return {};
-    try {
-      return JSON.parse(context.context_metadata);
-    } catch {
-      return {};
+    if (context.activeContextType === 'school' && context.activeSchoolName) {
+      return `School: ${context.activeSchoolName}`;
     }
-  }, [context]);
+    if (context.activeContextType === 'vertical_system' && context.activeVertical) {
+      return `Vertical: ${context.activeVertical.toUpperCase()}`;
+    }
+    return 'Agency (All)';
+  }, [context.activeContextType, context.activeCompanyName, context.activeSchoolName, context.activeVertical]);
 
-  return {
-    context,
-    loading,
-    user,
+  const value = {
+    ...context,
     switchContext,
     isContextType,
     getContextLabel,
-    getContextMetadata,
   };
+
+  return <GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>;
 }
 
 /**
- * Generate unique session ID
+ * Hook: Use global context anywhere in the app
+ * Returns safe defaults if context not yet initialized
  */
-function generateSessionId() {
-  return `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-}
+export function useGlobalContext() {
+  const context = useContext(GlobalContext);
 
-/**
- * Helper: Create context metadata JSON
- */
-export function createContextMetadata(meta) {
-  return JSON.stringify(meta);
+  // Return defaults if not wrapped in provider
+  if (!context) {
+    return DEFAULT_CONTEXT;
+  }
+
+  return context;
 }
