@@ -118,140 +118,74 @@ export default function ClientDashboard() {
         </header>
 
         <main className="max-w-6xl mx-auto px-4 py-8 space-y-8">
-          {/* Hero Welcome */}
-          <div className="bg-gradient-to-r from-blue-600 to-violet-600 rounded-2xl p-7 text-white">
-            <p className="text-blue-100 text-sm mb-1">Welcome back</p>
-            <h1 className="text-2xl font-bold mb-1">{companyName}</h1>
-            <p className="text-blue-100 text-sm">
-              {trial?.industry && `${trial.industry} · `}
-              {trial?.location_city && `${trial.location_city}, ${trial?.location_state}`}
-            </p>
-            <div className="mt-4 flex flex-wrap gap-3">
-              {trial?.trial_status && (
-                <span className="bg-white/20 rounded-full px-3 py-1 text-xs font-medium capitalize">
-                  Status: {trial.trial_status}
-                </span>
-              )}
-              {trial?.primary_goal && (
-                <span className="bg-white/20 rounded-full px-3 py-1 text-xs font-medium capitalize">
-                  Goal: {trial.primary_goal?.replace(/_/g, ' ')}
-                </span>
-              )}
-            </div>
-          </div>
+          {/* Performance Header */}
+          <PerformanceHeader companyName={companyName} primaryColor="#3B82F6" />
 
-          {/* Metric Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <MetricCard icon={Users} label="New Leads (30 days)" value={recentLeads} color="bg-blue-500" />
-            <MetricCard icon={Share2} label="Posts Published (30 days)" value={recentPosts} color="bg-pink-500" />
-            <MetricCard icon={FileText} label="Active Proposals" value={activeProposals.length} color="bg-violet-500" />
-            <MetricCard icon={TrendingUp} label="Total Leads" value={leads.length} color="bg-emerald-500" sub="All time" />
-          </div>
-
-          {/* Proposals */}
-          {proposals.length > 0 && (
-            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-              <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-violet-500" />
-                  <h2 className="font-semibold text-slate-800">Your Proposals</h2>
-                </div>
-              </div>
-              <div className="divide-y divide-slate-100">
-                {proposals.slice(0, 5).map(p => (
-                  <div key={p.id} className="px-5 py-4 flex items-center justify-between gap-4">
-                    <div>
-                      <p className="text-sm font-medium text-slate-800">{p.title}</p>
-                      <p className="text-xs text-slate-400 mt-0.5">{p.service_type?.replace(/_/g, ' ')}</p>
-                    </div>
-                    <div className="text-right">
-                      <span className={`text-xs px-2 py-1 rounded-full font-medium ${STATUS_BADGE[p.status] || 'bg-slate-100 text-slate-600'}`}>
-                        {p.status}
-                      </span>
-                      {p.monthly_fee && (
-                        <p className="text-xs text-slate-400 mt-1">${p.monthly_fee}/mo</p>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+          {/* Approval Reminder (if pending content) */}
+          {socialPosts.filter(p => p.scheduling_status === 'pending_review').length > 0 && (
+            <ApprovalReminder 
+              pendingCount={socialPosts.filter(p => p.scheduling_status === 'pending_review').length}
+              primaryColor="#3B82F6"
+            />
           )}
 
-          {/* Recent Content */}
-          {socialPosts.length > 0 && (
-            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-              <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Share2 className="w-4 h-4 text-pink-500" />
-                  <h2 className="font-semibold text-slate-800">Recent Content</h2>
-                </div>
-                <a href={createPageUrl('ScheduledQueue')} className="text-xs text-blue-600 hover:underline flex items-center gap-1">
-                  View all <ArrowRight className="w-3 h-3" />
-                </a>
-              </div>
-              <div className="divide-y divide-slate-100">
-                {socialPosts.slice(0, 5).map(post => (
-                  <div key={post.id} className="px-5 py-4 flex items-start gap-3">
-                    <div className={`p-1.5 rounded-lg shrink-0 ${
-                      post.platform === 'facebook' ? 'bg-blue-100' :
-                      post.platform === 'instagram' ? 'bg-pink-100' :
-                      post.platform === 'linkedin' ? 'bg-blue-100' : 'bg-slate-100'
-                    }`}>
-                      <Share2 className="w-3.5 h-3.5 text-slate-500" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm text-slate-700 line-clamp-2">{post.caption?.slice(0, 100)}...</p>
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className="text-xs text-slate-400 capitalize">{post.platform}</span>
-                        <span className="text-xs text-slate-300">·</span>
-                        <span className={`text-xs px-1.5 py-0.5 rounded-full ${
-                          post.scheduling_status === 'published' ? 'bg-green-100 text-green-700' :
-                          post.scheduling_status === 'scheduled' ? 'bg-blue-100 text-blue-700' :
-                          'bg-slate-100 text-slate-500'
-                        }`}>{post.scheduling_status || 'draft'}</span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          {/* Visibility Momentum Metrics */}
+          <VisibilityMetrics
+            contentPublished={recentPosts}
+            upcomingScheduled={socialPosts.filter(p => p.scheduling_status === 'scheduled').length}
+            videoViews={0}
+            websiteActivity={proposals.length}
+            campaignsRunning={activeProposals.length}
+          />
 
-          {/* Support / Next Action */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-white rounded-xl border border-slate-200 p-5">
-              <h3 className="font-semibold text-slate-800 mb-3 flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-blue-500" /> Schedule a Call
-              </h3>
-              <p className="text-sm text-slate-500 mb-4">Want to review your campaigns or discuss strategy?</p>
-              <a href="https://calendly.com" target="_blank" rel="noreferrer">
-                <Button size="sm" className="bg-blue-600 hover:bg-blue-700 w-full">Book a Strategy Call</Button>
-              </a>
-            </div>
-            <div className="bg-white rounded-xl border border-slate-200 p-5">
-              <h3 className="font-semibold text-slate-800 mb-3 flex items-center gap-2">
-                <Mail className="w-4 h-4 text-violet-500" /> Contact Support
-              </h3>
-              <p className="text-sm text-slate-500 mb-4">Have a question or need changes to your content?</p>
-              <a href="mailto:support@newtechadvertising.com">
-                <Button size="sm" variant="outline" className="w-full border-slate-300">Email Our Team</Button>
-              </a>
-            </div>
-          </div>
+          {/* Recent Marketing Activity Feed */}
+          <ActivityFeed activities={[
+            {
+              type: 'video_published',
+              title: 'New Video Published',
+              description: 'Your promotional video is now live on Facebook',
+              timestamp: new Date(),
+            },
+            {
+              type: 'story_created',
+              title: 'Website Story Created',
+              description: 'Brand story published to your website',
+              timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+            },
+            {
+              type: 'campaign_scheduled',
+              title: 'Campaign Scheduled',
+              description: 'Seasonal promotion is scheduled to go live',
+              timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
+            },
+          ]} />
 
-          {/* Platform Feature Tiles */}
-          <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
-            <PlatformFeatureTiles dark={false} />
-          </div>
+          {/* Upcoming Content */}
+          <UpcomingContentPanel content={socialPosts.slice(0, 4).map(p => ({
+            title: p.caption?.slice(0, 50) || 'Scheduled Post',
+            thumbnail: p.media_url,
+            publishDate: p.scheduled_date || new Date(),
+            platforms: [p.platform || 'website'],
+          }))} />
 
-          {/* Empty state if no data */}
-          {proposals.length === 0 && socialPosts.length === 0 && (
+          {/* Recent Wins */}
+          <RecentWinsPanel />
+
+          {/* Performance Story */}
+          <PerformanceStory companyName={companyName} />
+
+          {/* Channel Presence Summary */}
+          <ChannelPresenceSummary />
+
+          {/* Empty State */}
+          {socialPosts.length === 0 && proposals.length === 0 && (
             <div className="bg-white rounded-xl border border-slate-200 p-10 text-center">
-              <Zap className="w-10 h-10 text-violet-300 mx-auto mb-3" />
-              <h3 className="font-semibold text-slate-700 mb-2">Your dashboard is being set up</h3>
+              <svg className="w-12 h-12 text-slate-300 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              <h3 className="font-semibold text-slate-700 mb-2">We're Preparing Your Marketing System</h3>
               <p className="text-sm text-slate-400 max-w-sm mx-auto">
-                Your content, campaigns, and reports will appear here once your account is configured by our team.
+                Content will begin appearing here soon as we set up your campaigns and publishing schedule.
               </p>
             </div>
           )}
