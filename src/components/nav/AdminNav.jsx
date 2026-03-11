@@ -46,6 +46,7 @@ const NAV_GROUPS = [
     label: 'Content',
     items: [
       { label: '⚡ Content Engine', icon: Zap, page: 'AdminContentEngine' },
+      { label: '🔥 Content Multiplier', icon: Zap, page: 'AdminContentMultiplier' },
       { label: 'Content Queue', icon: Share2, page: 'ContentQueue' },
       { label: 'Content Studio', icon: Bot, page: 'ContentStudio' },
       { label: 'AI Operations', icon: Bot, page: 'AiOperations' },
