@@ -1,45 +1,15 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { createPageUrl } from "@/utils";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import {
-  Globe, Facebook, Instagram, Youtube, Smartphone, Building2,
-  CheckCircle2, XCircle, Clock, Loader2, RefreshCw, ExternalLink,
-  AlertTriangle, Ban, Calendar, Radio, Play, Video, ArrowLeft, Zap, Link2
-} from "lucide-react";
-
-const DEST_ICONS = {
-  website: Globe, facebook: Facebook, instagram: Instagram,
-  youtube: Youtube, tiktok: Smartphone, gbp: Building2
-};
-const DEST_COLORS = {
-  website: "text-cyan-400", facebook: "text-blue-400", instagram: "text-pink-400",
-  youtube: "text-red-400", tiktok: "text-slate-300", gbp: "text-green-400"
-};
-
-const JOB_STATUS_CFG = {
-  queued:     { label: "Queued",     cls: "bg-slate-800 text-slate-400 border-slate-700" },
-  preparing:  { label: "Preparing",  cls: "bg-blue-900/30 text-blue-300 border-blue-700/40" },
-  publishing: { label: "Publishing", cls: "bg-amber-900/30 text-amber-300 border-amber-700/40" },
-  published:  { label: "Published",  cls: "bg-green-900/30 text-green-300 border-green-700/40" },
-  failed:     { label: "Failed",     cls: "bg-red-900/30 text-red-300 border-red-700/40" },
-  skipped:    { label: "Skipped",    cls: "bg-slate-800 text-slate-600 border-slate-700" },
-  scheduled:  { label: "Scheduled",  cls: "bg-violet-900/30 text-violet-300 border-violet-700/40" },
-  blocked:    { label: "Blocked",    cls: "bg-orange-900/30 text-orange-300 border-orange-700/40" },
-};
-
-const TABS = [
-  { key: "all", label: "All" },
-  { key: "queued", label: "Queued" },
-  { key: "scheduled", label: "Scheduled" },
-  { key: "publishing", label: "Publishing" },
-  { key: "published", label: "Published" },
-  { key: "failed", label: "Failed" },
-  { key: "blocked", label: "Blocked" },
-  { key: "skipped", label: "Skipped" },
-];
+import { Loader2, RefreshCw } from "lucide-react";
+import PublishingHeader from "@/components/publishing/PublishingHeader";
+import PublishingSummaryCards from "@/components/publishing/PublishingSummaryCards";
+import ApprovalQueuePanel from "@/components/publishing/ApprovalQueuePanel";
+import PipelineBoard from "@/components/publishing/PipelineBoard";
+import ChannelHealthSidebar from "@/components/publishing/ChannelHealthSidebar";
+import IssuesPanel from "@/components/publishing/IssuesPanel";
 
 export default function AdminVideoPublishing() {
   const [jobs, setJobs] = useState([]);

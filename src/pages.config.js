@@ -82,6 +82,7 @@ import AdminCommerce from './pages/AdminCommerce';
 import AdminCommerceCompany from './pages/AdminCommerceCompany';
 import AdminConnections from './pages/AdminConnections';
 import AdminContentEngine from './pages/AdminContentEngine';
+import AdminContentMultiplier from './pages/AdminContentMultiplier';
 import AdminCopilot from './pages/AdminCopilot';
 import AdminCopilotAccount from './pages/AdminCopilotAccount';
 import AdminCreateProject from './pages/AdminCreateProject';
@@ -100,6 +101,7 @@ import AdminGovernance from './pages/AdminGovernance';
 import AdminGovernancePolicy from './pages/AdminGovernancePolicy';
 import AdminHelp from './pages/AdminHelp';
 import AdminMetaSetup from './pages/AdminMetaSetup';
+import AdminNavigationQA from './pages/AdminNavigationQA';
 import AdminOnboarding from './pages/AdminOnboarding';
 import AdminOnboardingDetail from './pages/AdminOnboardingDetail';
 import AdminOnboardingQueue from './pages/AdminOnboardingQueue';
@@ -155,9 +157,9 @@ import AdminSchoolSpotlightDetail from './pages/AdminSchoolSpotlightDetail';
 import AdminSchoolSpotlights from './pages/AdminSchoolSpotlights';
 import AdminSchoolStoryLibrary from './pages/AdminSchoolStoryLibrary';
 import AdminSchoolStudentUploads from './pages/AdminSchoolStudentUploads';
-import AdminSchoolUsers from './pages/AdminSchoolUsers';
 import AdminSchoolStudentUsers from './pages/AdminSchoolStudentUsers';
 import AdminSchoolSubmissions from './pages/AdminSchoolSubmissions';
+import AdminSchoolUsers from './pages/AdminSchoolUsers';
 import AdminSchoolVideoLibrary from './pages/AdminSchoolVideoLibrary';
 import AdminSchoolYearbook from './pages/AdminSchoolYearbook';
 import AdminSettings from './pages/AdminSettings';
@@ -221,6 +223,7 @@ import ChatWidget from './pages/ChatWidget';
 import ChatbotManagement from './pages/ChatbotManagement';
 import ClientBilling from './pages/ClientBilling';
 import ClientCommerce from './pages/ClientCommerce';
+import ClientContentProduction from './pages/ClientContentProduction';
 import ClientDashboard from './pages/ClientDashboard';
 import ClientDashboardDemo from './pages/ClientDashboardDemo';
 import ClientFulfillment from './pages/ClientFulfillment';
@@ -268,9 +271,9 @@ import HvacMarketing from './pages/HvacMarketing';
 import IndustriesHub from './pages/IndustriesHub';
 import IndustriesNonprofits from './pages/IndustriesNonprofits';
 import IndustriesProfessionals from './pages/IndustriesProfessionals';
+import Industry from './pages/Industry';
 import IndustriesServiceTrades from './pages/IndustriesServiceTrades';
 import IndustriesSmallLocal from './pages/IndustriesSmallLocal';
-import Industry from './pages/Industry';
 import IndustryIntelAdmin from './pages/IndustryIntelAdmin';
 import IndustryNonprofit from './pages/IndustryNonprofit';
 import IndustryNonprofits from './pages/IndustryNonprofits';
@@ -389,9 +392,6 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdminContentMultiplier from './pages/AdminContentMultiplier';
-import ClientContentProduction from './pages/ClientContentProduction';
-import AdminNavigationQA from './pages/AdminNavigationQA';
 import __Layout from './Layout.jsx';
 
 
@@ -431,6 +431,7 @@ export const PAGES = {
     "AdminCommerceCompany": AdminCommerceCompany,
     "AdminConnections": AdminConnections,
     "AdminContentEngine": AdminContentEngine,
+    "AdminContentMultiplier": AdminContentMultiplier,
     "AdminCopilot": AdminCopilot,
     "AdminCopilotAccount": AdminCopilotAccount,
     "AdminCreateProject": AdminCreateProject,
@@ -449,6 +450,7 @@ export const PAGES = {
     "AdminGovernancePolicy": AdminGovernancePolicy,
     "AdminHelp": AdminHelp,
     "AdminMetaSetup": AdminMetaSetup,
+    "AdminNavigationQA": AdminNavigationQA,
     "AdminOnboarding": AdminOnboarding,
     "AdminOnboardingDetail": AdminOnboardingDetail,
     "AdminOnboardingQueue": AdminOnboardingQueue,
@@ -504,9 +506,9 @@ export const PAGES = {
     "AdminSchoolSpotlights": AdminSchoolSpotlights,
     "AdminSchoolStoryLibrary": AdminSchoolStoryLibrary,
     "AdminSchoolStudentUploads": AdminSchoolStudentUploads,
-    "AdminSchoolUsers": AdminSchoolUsers,
     "AdminSchoolStudentUsers": AdminSchoolStudentUsers,
     "AdminSchoolSubmissions": AdminSchoolSubmissions,
+    "AdminSchoolUsers": AdminSchoolUsers,
     "AdminSchoolVideoLibrary": AdminSchoolVideoLibrary,
     "AdminSchoolYearbook": AdminSchoolYearbook,
     "AdminSettings": AdminSettings,
@@ -570,6 +572,7 @@ export const PAGES = {
     "ChatbotManagement": ChatbotManagement,
     "ClientBilling": ClientBilling,
     "ClientCommerce": ClientCommerce,
+    "ClientContentProduction": ClientContentProduction,
     "ClientDashboard": ClientDashboard,
     "ClientDashboardDemo": ClientDashboardDemo,
     "ClientFulfillment": ClientFulfillment,
@@ -617,9 +620,9 @@ export const PAGES = {
     "IndustriesHub": IndustriesHub,
     "IndustriesNonprofits": IndustriesNonprofits,
     "IndustriesProfessionals": IndustriesProfessionals,
+    "Industry": Industry,
     "IndustriesServiceTrades": IndustriesServiceTrades,
     "IndustriesSmallLocal": IndustriesSmallLocal,
-    "Industry": Industry,
     "IndustryIntelAdmin": IndustryIntelAdmin,
     "IndustryNonprofit": IndustryNonprofit,
     "IndustryNonprofits": IndustryNonprofits,
@@ -738,9 +741,6 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AdminContentMultiplier": AdminContentMultiplier,
-    "ClientContentProduction": ClientContentProduction,
-    "AdminNavigationQA": AdminNavigationQA,
 }
 
 export const pagesConfig = {
