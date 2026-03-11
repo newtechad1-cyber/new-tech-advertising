@@ -129,6 +129,20 @@ export default function AdminVideos() {
   return (
     <AdminLayout currentPageName="AdminVideos">
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+        {/* Hero Action Strip */}
+        <div className="px-4 sm:px-6 py-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-blue-200">
+          <div className="max-w-7xl mx-auto">
+            <HeroActionStrip 
+              onUpload={() => console.log('Upload')}
+              onReviewNext={() => console.log('Review next')}
+              onFixBlocked={() => console.log('Fix blocked')}
+              onRetryFailed={() => console.log('Retry failed')}
+              blockedCount={metrics.failed}
+              failedCount={metrics.failed}
+            />
+          </div>
+        </div>
+
         {/* Header */}
         <VideoLibraryHeader metrics={metrics} />
 
