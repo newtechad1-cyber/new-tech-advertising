@@ -383,8 +383,8 @@ import DemoSchoolStoryDetail from './pages/DemoSchoolStoryDetail';
 import DemoSchoolAbout from './pages/DemoSchoolAbout';
 import AdminSchoolLeads from './pages/AdminSchoolLeads';
 import AdminSchoolLeadDetail from './pages/AdminSchoolLeadDetail';
-import AdminSchoolOutreach from './pages/AdminSchoolOutreach';
 import AdminSchoolPipeline from './pages/AdminSchoolPipeline';
+import AdminSchoolOutreach from './pages/AdminSchoolOutreach';
 import __Layout from './Layout.jsx';
 
 
@@ -725,8 +725,8 @@ export const PAGES = {
     "DemoSchoolAbout": DemoSchoolAbout,
     "AdminSchoolLeads": AdminSchoolLeads,
     "AdminSchoolLeadDetail": AdminSchoolLeadDetail,
-    "AdminSchoolOutreach": AdminSchoolOutreach,
     "AdminSchoolPipeline": AdminSchoolPipeline,
+    "AdminSchoolOutreach": AdminSchoolOutreach,
 }
 
 export const pagesConfig = {

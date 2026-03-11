@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Mail, Phone, Globe, ChevronLeft, Calendar, CheckCircle2 } from 'lucide-react';
+import OutreachAssistPanel from '@/components/school-tv/OutreachAssistPanel';
 
 const statusColors = {
   new: 'bg-slate-100 text-slate-800',
