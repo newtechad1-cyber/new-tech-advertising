@@ -424,6 +424,7 @@ import AdminAccessPermissions from './pages/AdminAccessPermissions';
 import AdminAccessScopes from './pages/AdminAccessScopes';
 import AdminAccessAudit from './pages/AdminAccessAudit';
 import AdminIntelligence from './pages/AdminIntelligence';
+import AdminIntelligenceClients from './pages/AdminIntelligenceClients';
 import __Layout from './Layout.jsx';
 
 
@@ -805,6 +806,7 @@ export const PAGES = {
     "AdminAccessScopes": AdminAccessScopes,
     "AdminAccessAudit": AdminAccessAudit,
     "AdminIntelligence": AdminIntelligence,
+    "AdminIntelligenceClients": AdminIntelligenceClients,
 }
 
 export const pagesConfig = {
