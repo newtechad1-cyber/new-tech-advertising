@@ -80,6 +80,7 @@ import AdminClients from './pages/AdminClients';
 import AdminCommandCenter from './pages/AdminCommandCenter';
 import AdminCommerce from './pages/AdminCommerce';
 import AdminCommerceCompany from './pages/AdminCommerceCompany';
+import AdminConnections from './pages/AdminConnections';
 import AdminContentEngine from './pages/AdminContentEngine';
 import AdminCopilot from './pages/AdminCopilot';
 import AdminCopilotAccount from './pages/AdminCopilotAccount';
@@ -98,6 +99,7 @@ import AdminFulfillmentDetail from './pages/AdminFulfillmentDetail';
 import AdminGovernance from './pages/AdminGovernance';
 import AdminGovernancePolicy from './pages/AdminGovernancePolicy';
 import AdminHelp from './pages/AdminHelp';
+import AdminMetaSetup from './pages/AdminMetaSetup';
 import AdminOnboarding from './pages/AdminOnboarding';
 import AdminOnboardingDetail from './pages/AdminOnboardingDetail';
 import AdminOnboardingQueue from './pages/AdminOnboardingQueue';
@@ -153,9 +155,9 @@ import AdminSchoolSpotlightDetail from './pages/AdminSchoolSpotlightDetail';
 import AdminSchoolSpotlights from './pages/AdminSchoolSpotlights';
 import AdminSchoolStoryLibrary from './pages/AdminSchoolStoryLibrary';
 import AdminSchoolStudentUploads from './pages/AdminSchoolStudentUploads';
+import AdminSchoolUsers from './pages/AdminSchoolUsers';
 import AdminSchoolStudentUsers from './pages/AdminSchoolStudentUsers';
 import AdminSchoolSubmissions from './pages/AdminSchoolSubmissions';
-import AdminSchoolUsers from './pages/AdminSchoolUsers';
 import AdminSchoolVideoLibrary from './pages/AdminSchoolVideoLibrary';
 import AdminSchoolYearbook from './pages/AdminSchoolYearbook';
 import AdminSettings from './pages/AdminSettings';
@@ -178,6 +180,7 @@ import AdminVideoEngineRequests from './pages/AdminVideoEngineRequests';
 import AdminVideoEngineTemplates from './pages/AdminVideoEngineTemplates';
 import AdminVideoGenerator from './pages/AdminVideoGenerator';
 import AdminVideoLibrary from './pages/AdminVideoLibrary';
+import AdminVideoPublishing from './pages/AdminVideoPublishing';
 import AdminVideoQueue from './pages/AdminVideoQueue';
 import AdminVideoRenderDetail from './pages/AdminVideoRenderDetail';
 import AdminVideoRenderQueue from './pages/AdminVideoRenderQueue';
@@ -185,6 +188,7 @@ import AdminYearbookLibrary from './pages/AdminYearbookLibrary';
 import AdminYearbookOverview from './pages/AdminYearbookOverview';
 import AdminYearbookPage from './pages/AdminYearbookPage';
 import AdminYearbookSeason from './pages/AdminYearbookSeason';
+import AdminYouTubeSetup from './pages/AdminYouTubeSetup';
 import AgentArchitecture from './pages/AgentArchitecture';
 import AiAccessibilityChecker from './pages/AiAccessibilityChecker';
 import AiAdvertising from './pages/AiAdvertising';
@@ -385,10 +389,6 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdminVideoPublishing from './pages/AdminVideoPublishing';
-import AdminConnections from './pages/AdminConnections';
-import AdminMetaSetup from './pages/AdminMetaSetup';
-import AdminYouTubeSetup from './pages/AdminYouTubeSetup';
 import __Layout from './Layout.jsx';
 
 
@@ -426,6 +426,7 @@ export const PAGES = {
     "AdminCommandCenter": AdminCommandCenter,
     "AdminCommerce": AdminCommerce,
     "AdminCommerceCompany": AdminCommerceCompany,
+    "AdminConnections": AdminConnections,
     "AdminContentEngine": AdminContentEngine,
     "AdminCopilot": AdminCopilot,
     "AdminCopilotAccount": AdminCopilotAccount,
@@ -444,6 +445,7 @@ export const PAGES = {
     "AdminGovernance": AdminGovernance,
     "AdminGovernancePolicy": AdminGovernancePolicy,
     "AdminHelp": AdminHelp,
+    "AdminMetaSetup": AdminMetaSetup,
     "AdminOnboarding": AdminOnboarding,
     "AdminOnboardingDetail": AdminOnboardingDetail,
     "AdminOnboardingQueue": AdminOnboardingQueue,
@@ -499,9 +501,9 @@ export const PAGES = {
     "AdminSchoolSpotlights": AdminSchoolSpotlights,
     "AdminSchoolStoryLibrary": AdminSchoolStoryLibrary,
     "AdminSchoolStudentUploads": AdminSchoolStudentUploads,
+    "AdminSchoolUsers": AdminSchoolUsers,
     "AdminSchoolStudentUsers": AdminSchoolStudentUsers,
     "AdminSchoolSubmissions": AdminSchoolSubmissions,
-    "AdminSchoolUsers": AdminSchoolUsers,
     "AdminSchoolVideoLibrary": AdminSchoolVideoLibrary,
     "AdminSchoolYearbook": AdminSchoolYearbook,
     "AdminSettings": AdminSettings,
@@ -524,6 +526,7 @@ export const PAGES = {
     "AdminVideoEngineTemplates": AdminVideoEngineTemplates,
     "AdminVideoGenerator": AdminVideoGenerator,
     "AdminVideoLibrary": AdminVideoLibrary,
+    "AdminVideoPublishing": AdminVideoPublishing,
     "AdminVideoQueue": AdminVideoQueue,
     "AdminVideoRenderDetail": AdminVideoRenderDetail,
     "AdminVideoRenderQueue": AdminVideoRenderQueue,
@@ -531,6 +534,7 @@ export const PAGES = {
     "AdminYearbookOverview": AdminYearbookOverview,
     "AdminYearbookPage": AdminYearbookPage,
     "AdminYearbookSeason": AdminYearbookSeason,
+    "AdminYouTubeSetup": AdminYouTubeSetup,
     "AgentArchitecture": AgentArchitecture,
     "AiAccessibilityChecker": AiAccessibilityChecker,
     "AiAdvertising": AiAdvertising,
@@ -731,10 +735,6 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AdminVideoPublishing": AdminVideoPublishing,
-    "AdminConnections": AdminConnections,
-    "AdminMetaSetup": AdminMetaSetup,
-    "AdminYouTubeSetup": AdminYouTubeSetup,
 }
 
 export const pagesConfig = {

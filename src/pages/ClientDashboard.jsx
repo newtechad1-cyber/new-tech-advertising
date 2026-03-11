@@ -113,8 +113,8 @@ export default function ClientDashboard() {
             <img src={LOGO} alt="NTA" className="h-8 w-auto" />
             <nav className="hidden md:flex items-center gap-6 text-sm text-slate-500">
               <span className="text-blue-600 font-semibold border-b-2 border-blue-600 pb-0.5">Dashboard</span>
-              <a href={createPageUrl('ScheduledQueue')} className="hover:text-slate-800">Content</a>
-              <a href={createPageUrl('Dashboard')} className="hover:text-slate-800">Proposals</a>
+              <a href={createPageUrl('ClientFulfillment')} className="hover:text-slate-800">Services</a>
+              <a href={createPageUrl('ClientSettings')} className="hover:text-slate-800">Settings</a>
             </nav>
             <div className="flex items-center gap-3">
               <div className="text-right hidden sm:block">
