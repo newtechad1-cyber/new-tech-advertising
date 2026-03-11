@@ -136,8 +136,12 @@ import AdminSchoolBranding from './pages/AdminSchoolBranding';
 import AdminSchoolDashboard from './pages/AdminSchoolDashboard';
 import AdminSchoolEventDetail from './pages/AdminSchoolEventDetail';
 import AdminSchoolEvents from './pages/AdminSchoolEvents';
+import AdminSchoolLeadDetail from './pages/AdminSchoolLeadDetail';
+import AdminSchoolLeads from './pages/AdminSchoolLeads';
 import AdminSchoolLibrary from './pages/AdminSchoolLibrary';
 import AdminSchoolModeration from './pages/AdminSchoolModeration';
+import AdminSchoolOutreach from './pages/AdminSchoolOutreach';
+import AdminSchoolPipeline from './pages/AdminSchoolPipeline';
 import AdminSchoolProjectDetail from './pages/AdminSchoolProjectDetail';
 import AdminSchoolProjects from './pages/AdminSchoolProjects';
 import AdminSchoolRenderQueue from './pages/AdminSchoolRenderQueue';
@@ -155,7 +159,6 @@ import AdminSchoolUsers from './pages/AdminSchoolUsers';
 import AdminSchoolVideoLibrary from './pages/AdminSchoolVideoLibrary';
 import AdminSchoolYearbook from './pages/AdminSchoolYearbook';
 import AdminSettings from './pages/AdminSettings';
-import AiSeo from './pages/AiSeo';
 import AdminStoryDetail from './pages/AdminStoryDetail';
 import AdminStoryLibrary from './pages/AdminStoryLibrary';
 import AdminSubmissionDetail from './pages/AdminSubmissionDetail';
@@ -187,6 +190,7 @@ import AiAccessibilityChecker from './pages/AiAccessibilityChecker';
 import AiAdvertising from './pages/AiAdvertising';
 import AiMarketingPlatform from './pages/AiMarketingPlatform';
 import AiOperations from './pages/AiOperations';
+import AiSeo from './pages/AiSeo';
 import AiSocialMedia from './pages/AiSocialMedia';
 import AiSocialMediaSmallBusiness from './pages/AiSocialMediaSmallBusiness';
 import AiVideoStudio from './pages/AiVideoStudio';
@@ -243,6 +247,9 @@ import DemoPlatform from './pages/DemoPlatform';
 import DemoPricing from './pages/DemoPricing';
 import DemoProblem from './pages/DemoProblem';
 import DemoRoi from './pages/DemoRoi';
+import DemoSchoolAbout from './pages/DemoSchoolAbout';
+import DemoSchoolChannel from './pages/DemoSchoolChannel';
+import DemoSchoolStoryDetail from './pages/DemoSchoolStoryDetail';
 import DemoStart from './pages/DemoStart';
 import DentistMarketing from './pages/DentistMarketing';
 import freeAudit from './pages/Free-Audit';
@@ -335,6 +342,7 @@ import SchoolStudentUploads from './pages/SchoolStudentUploads';
 import SchoolSubmit from './pages/SchoolSubmit';
 import SchoolSubmitGuide from './pages/SchoolSubmitGuide';
 import SchoolTV from './pages/SchoolTV';
+import SchoolTVDealRoom from './pages/SchoolTVDealRoom';
 import SchoolTVDemo from './pages/SchoolTVDemo';
 import SchoolVideoDetail from './pages/SchoolVideoDetail';
 import SchoolYearbook from './pages/SchoolYearbook';
@@ -377,14 +385,6 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import SchoolTVDealRoom from './pages/SchoolTVDealRoom';
-import DemoSchoolChannel from './pages/DemoSchoolChannel';
-import DemoSchoolStoryDetail from './pages/DemoSchoolStoryDetail';
-import DemoSchoolAbout from './pages/DemoSchoolAbout';
-import AdminSchoolLeads from './pages/AdminSchoolLeads';
-import AdminSchoolLeadDetail from './pages/AdminSchoolLeadDetail';
-import AdminSchoolPipeline from './pages/AdminSchoolPipeline';
-import AdminSchoolOutreach from './pages/AdminSchoolOutreach';
 import __Layout from './Layout.jsx';
 
 
@@ -478,8 +478,12 @@ export const PAGES = {
     "AdminSchoolDashboard": AdminSchoolDashboard,
     "AdminSchoolEventDetail": AdminSchoolEventDetail,
     "AdminSchoolEvents": AdminSchoolEvents,
+    "AdminSchoolLeadDetail": AdminSchoolLeadDetail,
+    "AdminSchoolLeads": AdminSchoolLeads,
     "AdminSchoolLibrary": AdminSchoolLibrary,
     "AdminSchoolModeration": AdminSchoolModeration,
+    "AdminSchoolOutreach": AdminSchoolOutreach,
+    "AdminSchoolPipeline": AdminSchoolPipeline,
     "AdminSchoolProjectDetail": AdminSchoolProjectDetail,
     "AdminSchoolProjects": AdminSchoolProjects,
     "AdminSchoolRenderQueue": AdminSchoolRenderQueue,
@@ -497,7 +501,6 @@ export const PAGES = {
     "AdminSchoolVideoLibrary": AdminSchoolVideoLibrary,
     "AdminSchoolYearbook": AdminSchoolYearbook,
     "AdminSettings": AdminSettings,
-    "AiSeo": AiSeo,
     "AdminStoryDetail": AdminStoryDetail,
     "AdminStoryLibrary": AdminStoryLibrary,
     "AdminSubmissionDetail": AdminSubmissionDetail,
@@ -529,6 +532,7 @@ export const PAGES = {
     "AiAdvertising": AiAdvertising,
     "AiMarketingPlatform": AiMarketingPlatform,
     "AiOperations": AiOperations,
+    "AiSeo": AiSeo,
     "AiSocialMedia": AiSocialMedia,
     "AiSocialMediaSmallBusiness": AiSocialMediaSmallBusiness,
     "AiVideoStudio": AiVideoStudio,
@@ -585,6 +589,9 @@ export const PAGES = {
     "DemoPricing": DemoPricing,
     "DemoProblem": DemoProblem,
     "DemoRoi": DemoRoi,
+    "DemoSchoolAbout": DemoSchoolAbout,
+    "DemoSchoolChannel": DemoSchoolChannel,
+    "DemoSchoolStoryDetail": DemoSchoolStoryDetail,
     "DemoStart": DemoStart,
     "DentistMarketing": DentistMarketing,
     "Free-Audit": freeAudit,
@@ -677,6 +684,7 @@ export const PAGES = {
     "SchoolSubmit": SchoolSubmit,
     "SchoolSubmitGuide": SchoolSubmitGuide,
     "SchoolTV": SchoolTV,
+    "SchoolTVDealRoom": SchoolTVDealRoom,
     "SchoolTVDemo": SchoolTVDemo,
     "SchoolVideoDetail": SchoolVideoDetail,
     "SchoolYearbook": SchoolYearbook,
@@ -719,14 +727,6 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "SchoolTVDealRoom": SchoolTVDealRoom,
-    "DemoSchoolChannel": DemoSchoolChannel,
-    "DemoSchoolStoryDetail": DemoSchoolStoryDetail,
-    "DemoSchoolAbout": DemoSchoolAbout,
-    "AdminSchoolLeads": AdminSchoolLeads,
-    "AdminSchoolLeadDetail": AdminSchoolLeadDetail,
-    "AdminSchoolPipeline": AdminSchoolPipeline,
-    "AdminSchoolOutreach": AdminSchoolOutreach,
 }
 
 export const pagesConfig = {

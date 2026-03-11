@@ -1,5 +1,5 @@
 import React from 'react';
-import { Download, Play, Check, Shield, Users, Zap, BookOpen, BarChart3, ArrowRight } from 'lucide-react';
+import { Download, Play, Check, Shield, Users, Zap, BookOpen, BarChart3, ArrowRight, Search, TrendingUp, Star, Megaphone, Globe, Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import MarketingNav from '../components/nav/MarketingNav';
