@@ -16,6 +16,7 @@ import ProcessingActivityLog from "@/components/video-workspace/ProcessingActivi
 import ReviewApprovalPanel from "@/components/video-workspace/ReviewApprovalPanel";
 import PublishingCopyPanel from "@/components/video-workspace/PublishingCopyPanel";
 import ReadyForReviewCallout from "@/components/video-workspace/ReadyForReviewCallout";
+import PublishJobsPanel from "@/components/video-workspace/PublishJobsPanel";
 
 const PROCESSING_STAGES = [
   { key: "uploaded", label: "Uploaded" },
@@ -203,7 +204,7 @@ export default function AdminVideoDetail() {
             />
           </div>
 
-          {/* Right column — review + branding + overlays + export + log */}
+          {/* Right column — review + publish jobs + branding + overlays + export + log */}
           <div className="lg:col-span-5 space-y-6">
             <ReviewApprovalPanel
               video={video}
@@ -219,6 +220,7 @@ export default function AdminVideoDetail() {
               onChange={handleChange}
               onImmediateSave={handleImmediateSave}
             />
+            <PublishJobsPanel video={video} />
             <ProcessingActivityLog video={video} />
           </div>
 

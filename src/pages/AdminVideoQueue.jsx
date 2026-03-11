@@ -4,7 +4,7 @@ import { createPageUrl } from "@/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Video, Clock, ChevronRight, ShieldCheck, Send, CheckCircle2, XCircle, AlertTriangle, Loader2, RefreshCw } from "lucide-react";
+import { Video, Clock, ChevronRight, ShieldCheck, Send, CheckCircle2, XCircle, AlertTriangle, Loader2, RefreshCw, Radio } from "lucide-react";
 
 const PIPELINE_TABS = [
   { key: "all", label: "All" },
@@ -90,6 +90,11 @@ export default function AdminVideoQueue() {
           <Video className="w-4 h-4 text-violet-400" />
           <span className="text-sm font-medium text-slate-300">Video Pipeline</span>
         </div>
+        <Link to={createPageUrl("AdminVideoPublishing")} className="ml-auto mr-2">
+          <Button variant="outline" size="sm" className="border-slate-700 text-slate-400 hover:text-slate-200 gap-1.5 text-xs">
+            <Radio className="w-3.5 h-3.5" /> Publishing Ops
+          </Button>
+        </Link>
         <Button
           variant="ghost"
           size="sm"
