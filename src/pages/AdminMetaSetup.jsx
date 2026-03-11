@@ -6,7 +6,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   ArrowLeft, RefreshCw, Loader2, CheckCircle2, XCircle, AlertTriangle,
-  Shield, Wifi, Clock, Film, ChevronRight, Zap, Radio
+  Shield, Wifi, Clock, Film, ChevronRight, Zap, Radio,
+  ExternalLink, ListChecks, Target, ArrowUpRight, Video,
+  Lock, Unlock, Play, LayoutGrid
 } from "lucide-react";
 import MetaStepCard from "@/components/connections/MetaStepCard";
 
@@ -87,6 +89,26 @@ const READINESS_DISPLAY = {
   blocked:                 { label: 'Blocked',                 cls: 'text-red-300 bg-red-950/30 border-red-800/40' },
   token_expired:           { label: 'Token Expired',           cls: 'text-red-300 bg-red-950/30 border-red-800/40' },
   needs_connection:        { label: 'Not Configured',          cls: 'text-slate-400 bg-slate-900 border-slate-700' },
+};
+
+// ─── Next Action Engine ───────────────────────────────────────────────────────
+function computeNextAction(profile, readiness) {
+  if (!profile) return { label: 'Run initial verification to check Meta connection status', action: 'refresh', priority: 'high' };
+  if (profile.token_status === 'expired') return { label: 'Reconnect expired Meta token — regenerate META_PAGE_ACCESS_TOKEN in environment secrets', action: 'refresh', priority: 'critical' };
+  if (profile.token_status === 'not_set' || !profile.token_status) return { label: 'Configure META_PAGE_ACCESS_TOKEN in Base44 environment secrets', action: 'refresh', priority: 'critical' };
+  if (!profile.facebook_page_id) return { label: 'Set META_PAGE_ID in environment secrets with your Facebook Page numeric ID', action: 'refresh', priority: 'high' };
+  if (!profile.facebook_page_access_verified) return { label: 'Verify Facebook Page access — click Refresh All to confirm page is reachable', action: 'refresh', priority: 'high' };
+  if (!profile.instagram_account_id) return { label: 'Set META_INSTAGRAM_ACCOUNT_ID in secrets with your Instagram Business Account ID', action: 'refresh', priority: 'medium' };
+  if (!profile.instagram_linked_to_facebook_page) return { label: 'Link Instagram account to the selected Facebook Page in Business Manager', action: 'refresh', priority: 'medium' };
+  if (!profile.facebook_publish_permissions_ok) return { label: 'Run Meta capability check to verify publishing permissions are granted', action: 'refresh', priority: 'low' };
+  return { label: 'Run test publish to confirm Facebook and Instagram are fully operational', action: 'test', priority: 'low' };
+}
+
+const PLATFORM_STATUS = {
+  ready:       { label: 'Ready',      cls: 'text-green-300 bg-green-950/30 border-green-800/40',   dot: 'bg-green-400' },
+  incomplete:  { label: 'Incomplete', cls: 'text-amber-300 bg-amber-950/30 border-amber-800/40',  dot: 'bg-amber-400' },
+  blocked:     { label: 'Blocked',    cls: 'text-red-300 bg-red-950/30 border-red-800/40',         dot: 'bg-red-400' },
+  not_started: { label: 'Not Started',cls: 'text-slate-400 bg-slate-900 border-slate-700',         dot: 'bg-slate-600' },
 };
 
 const EVENT_COLORS = {
