@@ -62,6 +62,10 @@ const NAV_LINKS = [
     href: createPageUrl('Pricing'),
   },
   {
+    label: 'About',
+    href: createPageUrl('About'),
+  },
+  {
     label: '🏫 School Story Lab',
     href: createPageUrl('SchoolHome'),
   },
