@@ -137,7 +137,7 @@ export default function ProcessingActivityLog({ video }) {
 
             <div className="space-y-3">
               {events.map((event) => {
-                const { Icon } = { Icon: event.icon };
+                const Icon = event.icon;
                 return (
                   <div key={event.id} className="flex items-start gap-3 pl-1">
                     {/* Icon circle */}

@@ -22,7 +22,8 @@ const FORMAT_ICONS = {
   export_vertical: { Icon: Smartphone, label: "9:16 Vertical" },
 };
 
-function PreviewRow({ icon: Icon, label, value, active, hint }) {
+function PreviewRow({ icon: IconComp, label, value, active, hint }) {
+  const Icon = IconComp;
   return (
     <div className="flex items-center justify-between py-2 border-b border-slate-800/60 last:border-0">
       <div className="flex items-center gap-2.5">

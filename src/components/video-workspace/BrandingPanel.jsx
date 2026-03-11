@@ -70,6 +70,7 @@ export default function BrandingPanel({ video, onChange }) {
   ].filter(Boolean).length;
 
   const brandingComplete = !!(video.brand_name && video.primary_color);
+  const hasAnyBranding = logoCount > 0 || brandingComplete;
 
   return (
     <Card className="bg-slate-900 border-slate-800">
@@ -88,6 +89,19 @@ export default function BrandingPanel({ video, onChange }) {
         </div>
       </CardHeader>
       <CardContent className="space-y-5">
+
+        {/* No branding nudge */}
+        {!hasAnyBranding && (
+          <div className="rounded-xl border border-slate-700/60 bg-slate-800/30 p-4 flex items-start gap-3">
+            <div className="w-8 h-8 rounded-full bg-slate-700/50 flex items-center justify-center flex-shrink-0">
+              <Palette className="w-4 h-4 text-slate-500" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-slate-300">No branding assets yet</p>
+              <p className="text-xs text-slate-500 mt-0.5">Upload a logo and fill in brand details to create a professionally branded version of this video.</p>
+            </div>
+          </div>
+        )}
 
         {/* Logo uploads */}
         <div>

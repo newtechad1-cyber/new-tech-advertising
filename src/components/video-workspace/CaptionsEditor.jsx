@@ -198,6 +198,28 @@ Example output:
           </div>
         </div>
 
+        {/* Suggested action: transcript exists but captions are empty */}
+        {transcriptStatus === "completed" && (!captionsStatus || captionsStatus === "not_started") && (
+          <div className="rounded-xl border border-amber-700/40 bg-amber-900/10 p-4 flex items-start gap-3">
+            <div className="w-8 h-8 rounded-full bg-amber-900/30 flex items-center justify-center flex-shrink-0">
+              <Mic className="w-4 h-4 text-amber-400" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-amber-200">Transcript found. Generate AI captions now.</p>
+              <p className="text-xs text-amber-300/70 mt-0.5">Your transcript is ready — click below to instantly generate timed caption blocks.</p>
+            </div>
+            <Button
+              size="sm"
+              onClick={handleGenerateCaptions}
+              disabled={genCaptions}
+              className="flex-shrink-0 bg-amber-600 hover:bg-amber-500 text-white gap-1.5 text-xs"
+            >
+              {genCaptions ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Type className="w-3.5 h-3.5" />}
+              Generate Now
+            </Button>
+          </div>
+        )}
+
         {/* Step 2: Caption blocks */}
         <div className="rounded-xl border border-slate-700 bg-slate-800/40 p-4 space-y-3">
           <div className="flex items-center justify-between flex-wrap gap-2">

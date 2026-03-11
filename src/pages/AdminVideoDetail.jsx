@@ -10,6 +10,9 @@ import CaptionsEditor from "@/components/video-workspace/CaptionsEditor";
 import BrandingPanel from "@/components/video-workspace/BrandingPanel";
 import OverlaySettings from "@/components/video-workspace/OverlaySettings";
 import RenderOutputPanel from "@/components/video-workspace/RenderOutputPanel";
+import BrandedPreviewCard from "@/components/video-workspace/BrandedPreviewCard";
+import AIRecommendations from "@/components/video-workspace/AIRecommendations";
+import ProcessingActivityLog from "@/components/video-workspace/ProcessingActivityLog";
 
 const PROCESSING_STAGES = [
   { key: "uploaded", label: "Uploaded" },
@@ -190,6 +193,8 @@ export default function AdminVideoDetail() {
 
           {/* Right column — branding + overlays + export */}
           <div className="lg:col-span-5 space-y-6">
+            <AIRecommendations video={video} onChange={handleChange} />
+            <BrandedPreviewCard video={video} />
             <BrandingPanel video={video} onChange={handleChange} />
             <OverlaySettings video={video} onChange={handleChange} />
             <RenderOutputPanel
@@ -197,6 +202,7 @@ export default function AdminVideoDetail() {
               onChange={handleChange}
               onImmediateSave={handleImmediateSave}
             />
+            <ProcessingActivityLog video={video} />
           </div>
 
         </div>
