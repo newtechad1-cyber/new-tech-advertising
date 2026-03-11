@@ -93,8 +93,45 @@ export default function AdminAutomation() {
         {/* KPI Cards */}
         <AutomationKPICards rules={rules} triggers={triggers} executions={executions} health={health} />
 
+        {/* Category Filter */}
+        <div className="mb-6">
+          <div className="flex flex-wrap gap-2">
+            <Button
+              variant={selectedCategory === 'all' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setSelectedCategory('all')}
+              className="text-xs"
+            >
+              All Categories
+            </Button>
+            {categories.map(cat => (
+              <Button
+                key={cat.key}
+                variant={selectedCategory === cat.key ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setSelectedCategory(cat.key)}
+                className={`text-xs ${selectedCategory === cat.key ? '' : ''}`}
+              >
+                {cat.label}
+              </Button>
+            ))}
+          </div>
+        </div>
+
+        {/* Critical Alerts */}
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold text-white mb-3">⚠️ Critical Alerts</h2>
+          <StrongerVisualAlerts rules={filteredRules} health={health} executions={executions} triggers={triggers} />
+        </div>
+
+        {/* High-Risk Automations */}
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold text-white mb-3">Core Automation Health</h2>
+          <HighRiskAutomationsPanel rules={filteredRules} health={health} executions={executions} />
+        </div>
+
         {/* Health Overview */}
-        <AutomationHealthOverview rules={rules} health={health} executions={executions} />
+        <AutomationHealthOverview rules={filteredRules} health={health} executions={executions} />
 
         {/* Main Tabs */}
         <Tabs defaultValue="conflicts" className="space-y-6">
@@ -106,15 +143,15 @@ export default function AdminAutomation() {
           </TabsList>
 
           <TabsContent value="conflicts">
-            <ConflictingRulesPanel rules={rules} triggers={triggers} />
+            <ConflictingRulesPanel rules={filteredRules} triggers={triggers} />
           </TabsContent>
 
           <TabsContent value="duplicates">
-            <DuplicateFirePanel rules={rules} health={health} triggers={triggers} />
+            <DuplicateFirePanel rules={filteredRules} health={health} triggers={triggers} />
           </TabsContent>
 
           <TabsContent value="failures">
-            <RecentFailuresPanel executions={executions} rules={rules} />
+            <RecentFailuresPanel executions={executions} rules={filteredRules} />
           </TabsContent>
 
           <TabsContent value="changes">
