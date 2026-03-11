@@ -276,6 +276,118 @@ export default function AdminMetaSetup() {
           <div className="flex justify-center py-16"><Loader2 className="w-8 h-8 text-violet-400 animate-spin" /></div>
         ) : (
           <>
+            {/* ── Top callout banner ── */}
+            {!isFullyReady && (
+              <div className={`rounded-2xl border-2 p-4 flex items-start gap-3 ${
+                readiness.status === 'token_expired' || readiness.status === 'blocked'
+                  ? 'border-red-700/40 bg-red-950/20'
+                  : isConnectedButIncomplete
+                  ? 'border-amber-700/30 bg-amber-950/15'
+                  : 'border-violet-700/30 bg-violet-950/15'
+              }`}>
+                {readiness.status === 'token_expired' || readiness.status === 'blocked'
+                  ? <AlertTriangle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                  : isConnectedButIncomplete
+                  ? <AlertTriangle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+                  : <Lock className="w-5 h-5 text-violet-400 flex-shrink-0 mt-0.5" />
+                }
+                <div className="flex-1 min-w-0">
+                  <p className={`text-sm font-bold ${
+                    readiness.status === 'token_expired' || readiness.status === 'blocked' ? 'text-red-200'
+                    : isConnectedButIncomplete ? 'text-amber-200' : 'text-violet-200'
+                  }`}>
+                    {readiness.status === 'token_expired'
+                      ? 'Meta token has expired — Facebook and Instagram publishing is fully blocked.'
+                      : isConnectedButIncomplete
+                      ? 'Meta is connected but incomplete — publishing is not yet available.'
+                      : 'Meta publishing is not fully ready yet.'}
+                  </p>
+                  <p className="text-xs text-slate-400 mt-1 leading-snug">
+                    Complete the steps below to unlock Facebook and Instagram distribution.
+                    {isConnectedButIncomplete && ' Some parts of the connection are working, but missing configuration items are preventing publishing.'}
+                  </p>
+                </div>
+                <Button onClick={handleRefreshAll} disabled={running} size="sm"
+                  className="bg-violet-600 hover:bg-violet-500 gap-1.5 text-xs font-bold flex-shrink-0">
+                  {running ? <Loader2 className="w-3 h-3 animate-spin" /> : <RefreshCw className="w-3 h-3" />}
+                  Refresh
+                </Button>
+              </div>
+            )}
+            {isFullyReady && (
+              <div className="rounded-2xl border-2 border-green-700/40 bg-green-950/20 p-4 flex items-center gap-3">
+                <Unlock className="w-5 h-5 text-green-400 flex-shrink-0" />
+                <div className="flex-1">
+                  <p className="text-sm font-bold text-green-200">Meta is fully configured and ready.</p>
+                  <p className="text-xs text-slate-400 mt-0.5">Facebook and Instagram publishing is active. Run a test publish to confirm end-to-end.</p>
+                </div>
+              </div>
+            )}
+
+            {/* ── What's Missing checklist + Next Action side by side ── */}
+            <div className="grid sm:grid-cols-2 gap-4">
+              {/* What's Missing */}
+              <Card className="bg-slate-900 border-slate-800">
+                <CardContent className="p-5">
+                  <p className="text-sm font-bold text-slate-200 flex items-center gap-2 mb-4">
+                    <ListChecks className="w-4 h-4 text-violet-400" /> What's Missing
+                  </p>
+                  <div className="space-y-2">
+                    {[
+                      { label: 'Facebook connected', done: profile?.token_status === 'active' },
+                      { label: 'Facebook Page selected', done: !!profile?.facebook_page_id },
+                      { label: 'Facebook Page access verified', done: !!profile?.facebook_page_access_verified },
+                      { label: 'Publish permissions confirmed', done: !!profile?.facebook_publish_permissions_ok },
+                      { label: 'Instagram account found', done: !!profile?.instagram_account_id },
+                      { label: 'Instagram linked to Facebook Page', done: !!profile?.instagram_linked_to_facebook_page },
+                      { label: 'Instagram publish capability verified', done: !!profile?.instagram_publish_permissions_ok },
+                    ].map(({ label, done }) => (
+                      <div key={label} className={`flex items-center gap-2.5 px-3 py-2 rounded-lg border transition-all ${
+                        done ? 'border-green-800/25 bg-green-950/10' : 'border-slate-700/50 bg-slate-800/20'
+                      }`}>
+                        {done
+                          ? <CheckCircle2 className="w-3.5 h-3.5 text-green-400 flex-shrink-0" />
+                          : <div className="w-3.5 h-3.5 rounded-full border-2 border-slate-600 flex-shrink-0" />
+                        }
+                        <span className={`text-xs font-medium ${done ? 'text-green-300' : 'text-slate-400'}`}>{label}</span>
+                        {!done && <span className="ml-auto text-[9px] font-bold text-slate-600 uppercase tracking-wide">Missing</span>}
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Recommended Next Action */}
+              <Card className={`border-2 ${
+                nextAction.priority === 'critical' ? 'bg-red-950/10 border-red-800/30'
+                : nextAction.priority === 'high'   ? 'bg-amber-950/10 border-amber-800/30'
+                : 'bg-slate-900 border-slate-700'
+              }`}>
+                <CardContent className="p-5 flex flex-col h-full">
+                  <p className="text-sm font-bold text-slate-200 flex items-center gap-2 mb-3">
+                    <Target className="w-4 h-4 text-violet-400" /> Recommended Next Action
+                  </p>
+                  <div className="flex-1 flex flex-col justify-between gap-4">
+                    <div>
+                      <div className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full border text-[9px] font-extrabold uppercase tracking-widest mb-3 ${
+                        nextAction.priority === 'critical' ? 'border-red-700/50 bg-red-900/30 text-red-300'
+                        : nextAction.priority === 'high'   ? 'border-amber-700/50 bg-amber-900/30 text-amber-300'
+                        : 'border-violet-700/50 bg-violet-900/30 text-violet-300'
+                      }`}>
+                        {nextAction.priority === 'critical' ? '🔴' : nextAction.priority === 'high' ? '🟡' : '🟢'} {nextAction.priority} priority
+                      </div>
+                      <p className="text-sm text-slate-200 font-semibold leading-snug">{nextAction.label}</p>
+                    </div>
+                    <Button onClick={handleRefreshAll} disabled={running}
+                      className="w-full bg-violet-600 hover:bg-violet-500 gap-2 font-bold text-sm">
+                      {running ? <Loader2 className="w-4 h-4 animate-spin" /> : <Zap className="w-4 h-4" />}
+                      {isFullyReady ? 'Re-verify All' : 'Run Verification'}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
             {/* Issues panel */}
             {readiness.issues.length > 0 && (
               <Card className="bg-slate-900 border-red-900/30">
