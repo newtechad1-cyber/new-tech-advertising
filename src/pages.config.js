@@ -414,6 +414,7 @@ import AdminNavigationNav from './pages/AdminNavigationNav';
 import AdminNavigationLayouts from './pages/AdminNavigationLayouts';
 import AdminAutomation from './pages/AdminAutomation';
 import AdminAutomationRules from './pages/AdminAutomationRules';
+import AdminAutomationTriggers from './pages/AdminAutomationTriggers';
 import __Layout from './Layout.jsx';
 
 
@@ -785,6 +786,7 @@ export const PAGES = {
     "AdminNavigationLayouts": AdminNavigationLayouts,
     "AdminAutomation": AdminAutomation,
     "AdminAutomationRules": AdminAutomationRules,
+    "AdminAutomationTriggers": AdminAutomationTriggers,
 }
 
 export const pagesConfig = {
