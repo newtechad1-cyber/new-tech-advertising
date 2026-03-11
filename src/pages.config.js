@@ -435,6 +435,7 @@ import AdminAutonomyImpact from './pages/AdminAutonomyImpact';
 import AdminAutonomyGovernance from './pages/AdminAutonomyGovernance';
 import AdminOptimization from './pages/AdminOptimization';
 import AdminOptimizationCandidates from './pages/AdminOptimizationCandidates';
+import AdminOptimizationExperiments from './pages/AdminOptimizationExperiments';
 import __Layout from './Layout.jsx';
 
 
@@ -827,6 +828,7 @@ export const PAGES = {
     "AdminAutonomyGovernance": AdminAutonomyGovernance,
     "AdminOptimization": AdminOptimization,
     "AdminOptimizationCandidates": AdminOptimizationCandidates,
+    "AdminOptimizationExperiments": AdminOptimizationExperiments,
 }
 
 export const pagesConfig = {
