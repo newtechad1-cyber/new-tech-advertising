@@ -403,6 +403,7 @@ import AdminAgents from './pages/AdminAgents';
 import AdminAgentsWorkflows from './pages/AdminAgentsWorkflows';
 import AdminAgentsRecovery from './pages/AdminAgentsRecovery';
 import AdminGovernanceFields from './pages/AdminGovernanceFields';
+import AdminGovernanceRelationships from './pages/AdminGovernanceRelationships';
 import __Layout from './Layout.jsx';
 
 
@@ -763,6 +764,7 @@ export const PAGES = {
     "AdminAgentsWorkflows": AdminAgentsWorkflows,
     "AdminAgentsRecovery": AdminAgentsRecovery,
     "AdminGovernanceFields": AdminGovernanceFields,
+    "AdminGovernanceRelationships": AdminGovernanceRelationships,
 }
 
 export const pagesConfig = {
