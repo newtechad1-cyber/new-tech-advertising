@@ -67,11 +67,20 @@ export default function VideoCard({ video, publishJobs }) {
       </div>
 
       {/* Content */}
-      <div className="flex-1 p-4 flex flex-col gap-3">
+      <div className="flex-1 p-4 flex flex-col gap-4">
         <div>
           <h3 className="font-semibold text-slate-900 line-clamp-2">{video.title}</h3>
           <p className="text-xs text-slate-500 mt-1">{video.brand_name}</p>
         </div>
+
+        {/* Workflow Progress */}
+        <WorkflowProgressBar video={video} />
+
+        {/* Channel Distribution */}
+        <ChannelDistributionSummary video={video} publishJobs={videoJobs} />
+
+        {/* Next Best Action */}
+        <NextBestAction video={video} publishJobs={videoJobs} onAction={(action) => console.log('Action:', action)} />
 
         {/* Issues */}
         {issues.length > 0 && (
