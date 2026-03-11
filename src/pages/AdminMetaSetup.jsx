@@ -163,6 +163,9 @@ export default function AdminMetaSetup() {
 
   const readiness = useMemo(() => computeReadiness(profile), [profile]);
   const rdDisplay = READINESS_DISPLAY[readiness.status] || READINESS_DISPLAY.needs_connection;
+  const nextAction = useMemo(() => computeNextAction(profile, readiness), [profile, readiness]);
+  const isFullyReady = readiness.score >= 100;
+  const isConnectedButIncomplete = readiness.status === 'connected_but_incomplete' || readiness.status === 'partially_ready';
 
   const perms = useMemo(() => {
     try { return JSON.parse(profile?.permissions_json || '[]'); } catch { return []; }
