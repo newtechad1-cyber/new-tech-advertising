@@ -138,6 +138,11 @@ export default function AdminVideoPublishing() {
               failedJobs={{}}
             />
           </div>
+
+          {/* Activity Feed */}
+          <div className="bg-white rounded-lg border">
+            <ActivityFeed events={[]} />
+          </div>
         </div>
       </div>
     </div>
