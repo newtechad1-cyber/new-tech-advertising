@@ -419,6 +419,7 @@ import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AdminAutomationRuleDetail from './pages/AdminAutomationRuleDetail';
 import AdminAccess from './pages/AdminAccess';
+import AdminAccessRoles from './pages/AdminAccessRoles';
 import __Layout from './Layout.jsx';
 
 
@@ -795,6 +796,7 @@ export const PAGES = {
     "YouTubeUploadTest": YouTubeUploadTest,
     "AdminAutomationRuleDetail": AdminAutomationRuleDetail,
     "AdminAccess": AdminAccess,
+    "AdminAccessRoles": AdminAccessRoles,
 }
 
 export const pagesConfig = {
