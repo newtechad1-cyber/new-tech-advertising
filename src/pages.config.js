@@ -66,6 +66,11 @@ import AdminAIControlCenter from './pages/AdminAIControlCenter';
 import AdminAILab from './pages/AdminAILab';
 import AdminAIPrompts from './pages/AdminAIPrompts';
 import AdminAIVideoStudio from './pages/AdminAIVideoStudio';
+import AdminAccess from './pages/AdminAccess';
+import AdminAccessAudit from './pages/AdminAccessAudit';
+import AdminAccessPermissions from './pages/AdminAccessPermissions';
+import AdminAccessRoles from './pages/AdminAccessRoles';
+import AdminAccessScopes from './pages/AdminAccessScopes';
 import AdminAgents from './pages/AdminAgents';
 import AdminAgentsRecovery from './pages/AdminAgentsRecovery';
 import AdminAgentsWorkflows from './pages/AdminAgentsWorkflows';
@@ -75,6 +80,7 @@ import AdminApproval from './pages/AdminApproval';
 import AdminAutomation from './pages/AdminAutomation';
 import AdminAutomationDependencies from './pages/AdminAutomationDependencies';
 import AdminAutomationHealth from './pages/AdminAutomationHealth';
+import AdminAutomationRuleDetail from './pages/AdminAutomationRuleDetail';
 import AdminAutomationRules from './pages/AdminAutomationRules';
 import AdminAutomationTriggers from './pages/AdminAutomationTriggers';
 import AdminAutopilot from './pages/AdminAutopilot';
@@ -113,6 +119,10 @@ import AdminGovernanceLifecycles from './pages/AdminGovernanceLifecycles';
 import AdminGovernancePolicy from './pages/AdminGovernancePolicy';
 import AdminGovernanceRelationships from './pages/AdminGovernanceRelationships';
 import AdminHelp from './pages/AdminHelp';
+import AdminIntelligence from './pages/AdminIntelligence';
+import AdminIntelligenceAutomation from './pages/AdminIntelligenceAutomation';
+import AdminIntelligenceClients from './pages/AdminIntelligenceClients';
+import AdminIntelligenceSales from './pages/AdminIntelligenceSales';
 import AdminMetaSetup from './pages/AdminMetaSetup';
 import AdminNavigation from './pages/AdminNavigation';
 import AdminNavigationLayouts from './pages/AdminNavigationLayouts';
@@ -266,10 +276,10 @@ import DealRoom from './pages/DealRoom';
 import DealRoomCaseStudies from './pages/DealRoomCaseStudies';
 import DealRoomContract from './pages/DealRoomContract';
 import DealRoomPricing from './pages/DealRoomPricing';
-import Demo from './pages/Demo';
 import DealRoomProposal from './pages/DealRoomProposal';
 import DealRoomRoi from './pages/DealRoomRoi';
 import DebugOAuthConnections from './pages/DebugOAuthConnections';
+import Demo from './pages/Demo';
 import DemoExamples from './pages/DemoExamples';
 import DemoFeatures from './pages/DemoFeatures';
 import DemoNext from './pages/DemoNext';
@@ -384,8 +394,8 @@ import SchoolYearbookPage from './pages/SchoolYearbookPage';
 import SchoolYearbookSeason from './pages/SchoolYearbookSeason';
 import ServiceLocation from './pages/ServiceLocation';
 import Services from './pages/Services';
-import SiteMap from './pages/SiteMap';
 import SetupComplete from './pages/SetupComplete';
+import SiteMap from './pages/SiteMap';
 import SocialAccounts from './pages/SocialAccounts';
 import SocialMediaManagement from './pages/SocialMediaManagement';
 import SocialMediaMarketing from './pages/SocialMediaMarketing';
@@ -417,17 +427,8 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdminAutomationRuleDetail from './pages/AdminAutomationRuleDetail';
-import AdminAccess from './pages/AdminAccess';
-import AdminAccessRoles from './pages/AdminAccessRoles';
-import AdminAccessPermissions from './pages/AdminAccessPermissions';
-import AdminAccessScopes from './pages/AdminAccessScopes';
-import AdminAccessAudit from './pages/AdminAccessAudit';
-import AdminIntelligence from './pages/AdminIntelligence';
-import AdminIntelligenceClients from './pages/AdminIntelligenceClients';
-import AdminIntelligenceSales from './pages/AdminIntelligenceSales';
-import AdminIntelligenceAutomation from './pages/AdminIntelligenceAutomation';
 import AdminIntelligenceResellers from './pages/AdminIntelligenceResellers';
+import AdminAutonomy from './pages/AdminAutonomy';
 import __Layout from './Layout.jsx';
 
 
@@ -451,6 +452,11 @@ export const PAGES = {
     "AdminAILab": AdminAILab,
     "AdminAIPrompts": AdminAIPrompts,
     "AdminAIVideoStudio": AdminAIVideoStudio,
+    "AdminAccess": AdminAccess,
+    "AdminAccessAudit": AdminAccessAudit,
+    "AdminAccessPermissions": AdminAccessPermissions,
+    "AdminAccessRoles": AdminAccessRoles,
+    "AdminAccessScopes": AdminAccessScopes,
     "AdminAgents": AdminAgents,
     "AdminAgentsRecovery": AdminAgentsRecovery,
     "AdminAgentsWorkflows": AdminAgentsWorkflows,
@@ -460,6 +466,7 @@ export const PAGES = {
     "AdminAutomation": AdminAutomation,
     "AdminAutomationDependencies": AdminAutomationDependencies,
     "AdminAutomationHealth": AdminAutomationHealth,
+    "AdminAutomationRuleDetail": AdminAutomationRuleDetail,
     "AdminAutomationRules": AdminAutomationRules,
     "AdminAutomationTriggers": AdminAutomationTriggers,
     "AdminAutopilot": AdminAutopilot,
@@ -498,6 +505,10 @@ export const PAGES = {
     "AdminGovernancePolicy": AdminGovernancePolicy,
     "AdminGovernanceRelationships": AdminGovernanceRelationships,
     "AdminHelp": AdminHelp,
+    "AdminIntelligence": AdminIntelligence,
+    "AdminIntelligenceAutomation": AdminIntelligenceAutomation,
+    "AdminIntelligenceClients": AdminIntelligenceClients,
+    "AdminIntelligenceSales": AdminIntelligenceSales,
     "AdminMetaSetup": AdminMetaSetup,
     "AdminNavigation": AdminNavigation,
     "AdminNavigationLayouts": AdminNavigationLayouts,
@@ -651,10 +662,10 @@ export const PAGES = {
     "DealRoomCaseStudies": DealRoomCaseStudies,
     "DealRoomContract": DealRoomContract,
     "DealRoomPricing": DealRoomPricing,
-    "Demo": Demo,
     "DealRoomProposal": DealRoomProposal,
     "DealRoomRoi": DealRoomRoi,
     "DebugOAuthConnections": DebugOAuthConnections,
+    "Demo": Demo,
     "DemoExamples": DemoExamples,
     "DemoFeatures": DemoFeatures,
     "DemoNext": DemoNext,
@@ -769,8 +780,8 @@ export const PAGES = {
     "SchoolYearbookSeason": SchoolYearbookSeason,
     "ServiceLocation": ServiceLocation,
     "Services": Services,
-    "SiteMap": SiteMap,
     "SetupComplete": SetupComplete,
+    "SiteMap": SiteMap,
     "SocialAccounts": SocialAccounts,
     "SocialMediaManagement": SocialMediaManagement,
     "SocialMediaMarketing": SocialMediaMarketing,
@@ -802,17 +813,8 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AdminAutomationRuleDetail": AdminAutomationRuleDetail,
-    "AdminAccess": AdminAccess,
-    "AdminAccessRoles": AdminAccessRoles,
-    "AdminAccessPermissions": AdminAccessPermissions,
-    "AdminAccessScopes": AdminAccessScopes,
-    "AdminAccessAudit": AdminAccessAudit,
-    "AdminIntelligence": AdminIntelligence,
-    "AdminIntelligenceClients": AdminIntelligenceClients,
-    "AdminIntelligenceSales": AdminIntelligenceSales,
-    "AdminIntelligenceAutomation": AdminIntelligenceAutomation,
     "AdminIntelligenceResellers": AdminIntelligenceResellers,
+    "AdminAutonomy": AdminAutonomy,
 }
 
 export const pagesConfig = {
