@@ -190,26 +190,39 @@ export default function AdminSchoolLeadDetail() {
           </div>
         </div>
 
-        {/* Actions */}
+        {/* AI Outreach Assistant */}
+        <OutreachAssistPanel lead={currentLead} leadId={leadId} />
+
+        {/* Pipeline Actions */}
         <div className="bg-white rounded-lg border border-slate-200 p-6 mb-6">
-          <h2 className="font-bold text-slate-900 mb-4">Quick Actions</h2>
+          <h2 className="font-bold text-slate-900 mb-4">Pipeline Actions</h2>
           <div className="flex flex-wrap gap-2">
-            <Button variant="outline" size="sm" onClick={() => handleStatusChange('contacted')}>
+            <Button variant="outline" size="sm" onClick={() => handleStatusChange('contacted')}
+              className={currentLead.outreach_status === 'contacted' ? 'border-orange-400 text-orange-700' : ''}>
               Mark Contacted
             </Button>
-            <Button variant="outline" size="sm" onClick={() => handleStatusChange('replied')}>
+            <Button variant="outline" size="sm" onClick={() => handleStatusChange('replied')}
+              className={currentLead.outreach_status === 'replied' ? 'border-cyan-400 text-cyan-700' : ''}>
               Mark Replied
             </Button>
-            <Button variant="outline" size="sm" onClick={handleScheduleDemo}>
+            <Button variant="outline" size="sm" onClick={handleScheduleDemo}
+              className={currentLead.outreach_status === 'demo_scheduled' ? 'border-green-400 text-green-700' : ''}>
               Schedule Demo
             </Button>
-            <Button variant="outline" size="sm" onClick={() => handleStatusChange('pilot')}>
+            <Button variant="outline" size="sm" onClick={() => handleStatusChange('demo_completed')}
+              className={currentLead.outreach_status === 'demo_completed' ? 'border-emerald-400 text-emerald-700' : ''}>
+              Demo Completed
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => handleStatusChange('pilot')}
+              className={currentLead.outreach_status === 'pilot' ? 'border-purple-400 text-purple-700' : ''}>
               Mark Pilot
             </Button>
-            <Button variant="outline" size="sm" onClick={() => handleStatusChange('won')}>
+            <Button size="sm" onClick={() => handleStatusChange('won')}
+              className="bg-green-600 hover:bg-green-700 text-white">
               Mark Won
             </Button>
-            <Button variant="outline" size="sm" onClick={() => handleStatusChange('lost')}>
+            <Button variant="outline" size="sm" onClick={() => handleStatusChange('lost')}
+              className="text-red-600 border-red-300 hover:bg-red-50">
               Mark Lost
             </Button>
           </div>
