@@ -396,6 +396,8 @@ import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import ClientCalendar from './pages/ClientCalendar';
 import AdminSales from './pages/AdminSales';
+import AdminReports from './pages/AdminReports';
+import ClientReports from './pages/ClientReports';
 import __Layout from './Layout.jsx';
 
 
@@ -749,6 +751,8 @@ export const PAGES = {
     "YouTubeUploadTest": YouTubeUploadTest,
     "ClientCalendar": ClientCalendar,
     "AdminSales": AdminSales,
+    "AdminReports": AdminReports,
+    "ClientReports": ClientReports,
 }
 
 export const pagesConfig = {
