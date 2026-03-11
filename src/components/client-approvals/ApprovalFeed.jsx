@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import ApprovalCard from './ApprovalCard';
 
-export default function ApprovalFeed({ videos, onViewDetails }) {
+export default function ApprovalFeed({ videos, onViewDetails, onApprove, onRejectSwipe, onApproveAll }) {
   if (videos.length === 0) {
     return (
       <Card className="border-0 shadow-sm">
@@ -22,19 +22,31 @@ export default function ApprovalFeed({ videos, onViewDetails }) {
 
   return (
     <div className="space-y-4">
-      <div>
-        <h2 className="text-lg font-semibold text-slate-900 mb-4">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-lg font-semibold text-slate-900">
           Pending Approval ({videos.length})
         </h2>
-        <div className="grid grid-cols-1 gap-4">
-          {videos.map(video => (
-            <ApprovalCard
-              key={video.id}
-              video={video}
-              onViewDetails={onViewDetails}
-            />
-          ))}
-        </div>
+        {videos.length > 1 && (
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={onApproveAll}
+            className="gap-2"
+          >
+            ✓ Approve All Ready Items
+          </Button>
+        )}
+      </div>
+      <div className="grid grid-cols-1 gap-4">
+        {videos.map(video => (
+          <ApprovalCard
+            key={video.id}
+            video={video}
+            onViewDetails={onViewDetails}
+            onApprove={onApprove}
+            onRejectSwipe={onRejectSwipe}
+          />
+        ))}
       </div>
     </div>
   );
