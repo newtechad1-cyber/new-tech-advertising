@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Facebook, Instagram, Youtube, Music, Globe, ChevronRight } from 'lucide-react';
+import { Facebook, Instagram, Youtube, Music, Globe, ChevronRight, Zap } from 'lucide-react';
 import { format } from 'date-fns';
 
-export default function ApprovalCard({ video, onViewDetails }) {
+export default function ApprovalCard({ video, onViewDetails, onApprove, onRejectSwipe }) {
+  const [swipeX, setSwipeX] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   const platformIcons = {
     facebook: <Facebook className="w-4 h-4" />,
     instagram: <Instagram className="w-4 h-4" />,
