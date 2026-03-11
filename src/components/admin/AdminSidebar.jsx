@@ -129,7 +129,7 @@ const ADMIN_NAV_STRUCTURE = [
 ];
 
 // ── Route validation — runs once at module load in dev ────────────────────────
-validateNavRoutes(ADMIN_NAV_STRUCTURE, ROUTE_FAMILIES.SCHOOL_ADMIN, 'AdminLayout/AdminSidebar');
+validateNavRoutes(ADMIN_NAV_STRUCTURE, ROUTE_FAMILIES.MAIN_ADMIN, 'AdminLayout/AdminSidebar');
 
 function SidebarSection({ section, isOpen, onToggle, isActive, currentPageName, isCollapsed }) {
   const isExpanded = isOpen && !isCollapsed;
