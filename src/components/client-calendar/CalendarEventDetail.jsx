@@ -80,17 +80,7 @@ export default function CalendarEventDetail({ event, onClose }) {
           {platforms.length > 0 && (
             <div>
               <p className="text-sm text-slate-600 mb-3">Publishing To</p>
-              <div className="flex flex-wrap gap-2">
-                {platforms.map(platform => {
-                  const Icon = CHANNEL_ICONS[platform];
-                  return (
-                    <div key={platform} className="flex items-center gap-2 bg-slate-50 rounded-lg px-3 py-2">
-                      {Icon && <Icon className="w-4 h-4 text-slate-600" />}
-                      <span className="text-sm font-medium text-slate-900 capitalize">{platform}</span>
-                    </div>
-                  );
-                })}
-              </div>
+              <ChannelPills platforms={platforms} />
             </div>
           )}
 
