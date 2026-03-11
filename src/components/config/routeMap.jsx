@@ -137,6 +137,7 @@ export const PAGE_FAMILY_MAP = {
   AdminSubmissionDetail:         'main_admin',
   AdminSubmissionsList:          'main_admin',
   AdminContentMultiplier:        'main_admin',    // /admincontentmultiplier
+  AdminNavigationQA:             'main_admin',    // /adminqa/navigation (QA-only)
 
   // ─── SCHOOL ADMIN ─────────────────────────────────────────────────────────
   // All routes begin with /adminschool…
@@ -339,6 +340,7 @@ export const CANONICAL_ROUTE_MAP = {
   '/adminreports':                  { page: 'AdminAnalytics',          family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'live'    },
   '/adminsupport':                  { page: 'AdminHelp',               family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'live'    },
   '/admincontentmultiplier':        { page: 'AdminContentMultiplier',  family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'live'    },
+  '/adminqa/navigation':            { page: 'AdminNavigationQA',       family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'internal' },
 
   // ── SCHOOL ADMIN ─────────────────────────────────────────────────────────
   '/adminschooldashboard':          { page: 'AdminSchoolDashboard',    family: 'school_admin',  layout: 'AdminLayout/AdminShell', nav: 'AdminSidebar(school)', status: 'live' },
