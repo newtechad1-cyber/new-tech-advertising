@@ -30,8 +30,56 @@ export default function ApprovalCard({ video, onViewDetails, onApprove, onReject
     'Published': 'bg-green-100 text-green-800'
   };
 
+  const qualityScore = video.quality_score || 92;
+  const qualityLabel = 
+    qualityScore >= 95 ? 'Optimized for engagement' :
+    qualityScore >= 90 ? 'Seasonal promotion' :
+    'Educational content';
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setSwipeX(e.clientX);
+  };
+
+  const handleMouseUp = (e) => {
+    if (!isDragging) return;
+    const diff = e.clientX - swipeX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        onApprove?.(video);
+      } else {
+        onRejectSwipe?.(video);
+      }
+    }
+    setIsDragging(false);
+  };
+
+  const handleTouchStart = (e) => {
+    setIsDragging(true);
+    setSwipeX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    if (!isDragging) return;
+    const diff = e.changedTouches[0].clientX - swipeX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        onApprove?.(video);
+      } else {
+        onRejectSwipe?.(video);
+      }
+    }
+    setIsDragging(false);
+  };
+
   return (
-    <Card className="border-0 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+    <Card 
+      className="border-0 shadow-sm hover:shadow-md transition-shadow overflow-hidden cursor-grab active:cursor-grabbing"
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       <CardContent className="p-0">
         <div className="flex gap-6 p-6">
           {/* Thumbnail */}
