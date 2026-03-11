@@ -59,7 +59,6 @@ export const ROUTE_INVENTORY = [
 
 /**
  * Group routes by family
- * Returns object with keys: public, main_admin, school_admin, client_portal
  */
 export function groupRoutesByFamily() {
   const grouped = {
@@ -113,7 +112,6 @@ export function getRoutesByFamily(family) {
 
 /**
  * Detect routing collision
- * Check if a page's detected family doesn't match expected
  */
 export function detectRoutingCollision(route, detectedFamily) {
   return route.page_family !== detectedFamily;
