@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import {
   Globe, Facebook, Instagram, Youtube, Smartphone, Building2,
   CheckCircle2, XCircle, Clock, Loader2, RefreshCw, ExternalLink,
-  AlertTriangle, Ban, Calendar, Radio, Play, Video, ArrowLeft, Zap
+  AlertTriangle, Ban, Calendar, Radio, Play, Video, ArrowLeft, Zap, Link2
 } from "lucide-react";
 
 const DEST_ICONS = {
@@ -100,7 +100,12 @@ export default function AdminVideoPublishing() {
           <Radio className="w-4 h-4 text-violet-400" />
           <span className="text-sm font-medium text-slate-300">Publishing Operations</span>
         </div>
-        <Button variant="ghost" size="sm" onClick={load} className="ml-auto text-slate-500 hover:text-slate-300">
+        <Link to={createPageUrl("AdminConnections")} className="ml-auto mr-1">
+          <Button variant="outline" size="sm" className="border-slate-700 text-slate-400 hover:text-white gap-1.5 text-xs">
+            <Link2 className="w-3.5 h-3.5" /> Channel Connections
+          </Button>
+        </Link>
+        <Button variant="ghost" size="sm" onClick={load} className="text-slate-500 hover:text-slate-300">
           <RefreshCw className="w-4 h-4" />
         </Button>
       </div>

@@ -166,7 +166,14 @@ export default function PublishJobsPanel({ video }) {
                     )}
 
                     {job?.error_message && (
-                      <p className="text-[11px] text-red-400/80 mt-1 leading-snug">{job.error_message}</p>
+                      <div className="mt-1">
+                        <p className="text-[11px] text-red-400/80 leading-snug">{job.error_message}</p>
+                        {(job.job_status === 'blocked') && (
+                          <a href={`${window.location.origin}/AdminConnections`} className="inline-flex items-center gap-1 text-[10px] text-violet-400 hover:text-violet-300 mt-0.5">
+                            Fix connection →
+                          </a>
+                        )}
+                      </div>
                     )}
 
                     {job?.scheduled_for && job.job_status === 'scheduled' && (
