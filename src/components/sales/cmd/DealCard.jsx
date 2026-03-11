@@ -49,15 +49,15 @@ export default function DealCard({ deal, onOpen, stageColor }) {
       </div>
 
       {/* Lead Source & Rep */}
-      <div className="mb-2 space-y-1">
+      <div className="mb-2 space-y-1 text-xs">
         {deal.lead_source && (
-          <p className="text-xs text-slate-400">
+          <p className="text-slate-400">
             <span className="text-slate-500">Source:</span> {deal.lead_source}
           </p>
         )}
         {deal.assigned_to && (
-          <p className="text-xs text-slate-400">
-            <span className="text-slate-500">Owner:</span> {deal.assigned_to.split('@')[0]}
+          <p className="text-slate-400">
+            <span className="text-slate-500">Owner:</span> {String(deal.assigned_to).split('@')[0]}
           </p>
         )}
       </div>
