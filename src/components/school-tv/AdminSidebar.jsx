@@ -20,6 +20,7 @@ import {
   Activity,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { validateNavRoutes, ROUTE_FAMILIES } from '@/components/config/routeMap';
 
 const SIDEBAR_STRUCTURE = [
   {
