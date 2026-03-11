@@ -5,9 +5,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Link } from "react-router-dom";
+import { createPageUrl } from "@/utils";
 import {
   CheckCircle2, XCircle, AlertTriangle, Loader2, RefreshCw,
-  Settings, Wifi, WifiOff, Clock, ExternalLink, Play, ChevronDown, ChevronUp
+  Settings, Wifi, WifiOff, Clock, Play, ChevronDown, ChevronUp,
+  ArrowUpRight, Film, List, ExternalLink
 } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 
@@ -21,6 +24,13 @@ export const STATUS_CONFIG = {
   pending_verification: { label: "Pending",             cls: "bg-blue-900/30 text-blue-300 border-blue-700/40",      dot: "bg-blue-400" },
 };
 
+export function getReadiness(status) {
+  if (status === 'connected') return { label: 'Ready', cls: 'text-green-400 bg-green-950/50 border-green-800/40' };
+  if (['incomplete', 'pending_verification'].includes(status)) return { label: 'Partially Ready', cls: 'text-amber-300 bg-amber-950/40 border-amber-800/40' };
+  if (['token_expired', 'error'].includes(status)) return { label: 'Blocked', cls: 'text-red-400 bg-red-950/40 border-red-800/40' };
+  return { label: 'Not Configured', cls: 'text-slate-500 bg-slate-900 border-slate-700' };
+}
+
 export default function PlatformCard({ platform, conn, onRefresh }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [verifying, setVerifying] = useState(false);
@@ -32,8 +42,10 @@ export default function PlatformCard({ platform, conn, onRefresh }) {
 
   const status = conn?.connection_status || 'needs_connection';
   const sCfg = STATUS_CONFIG[status] || STATUS_CONFIG.needs_connection;
+  const readiness = getReadiness(status);
   const PIcon = platform.Icon;
   const isHealthy = status === 'connected';
+  const isIncomplete = status === 'incomplete';
   const hasIssue = ['error', 'token_expired', 'incomplete'].includes(status);
 
   const openModal = () => {
@@ -82,14 +94,15 @@ export default function PlatformCard({ platform, conn, onRefresh }) {
 
   return (
     <>
-      <Card className={`border-2 transition-all hover:shadow-lg hover:shadow-black/20 ${
-        isHealthy ? 'bg-slate-900 border-green-800/30' :
-        hasIssue  ? 'bg-slate-900 border-orange-800/25' :
-                    'bg-slate-900 border-slate-800'
+      <Card className={`border-2 transition-all hover:shadow-lg hover:shadow-black/20 flex flex-col ${
+        isHealthy   ? 'bg-slate-900 border-green-800/30' :
+        isIncomplete? 'bg-slate-900 border-amber-800/25' :
+        hasIssue    ? 'bg-slate-900 border-red-900/25' :
+                      'bg-slate-900 border-slate-800'
       }`}>
-        <CardContent className="p-5 space-y-4">
+        <CardContent className="p-5 space-y-3 flex flex-col flex-1">
 
-          {/* Header */}
+          {/* Header row */}
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-center gap-3">
               <div className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 ${platform.iconBg}`}>
@@ -102,11 +115,33 @@ export default function PlatformCard({ platform, conn, onRefresh }) {
                 </p>
               </div>
             </div>
-            <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[10px] font-bold flex-shrink-0 ${sCfg.cls}`}>
-              <div className={`w-1.5 h-1.5 rounded-full ${sCfg.dot}`} />
-              {sCfg.label}
+            {/* Status + Readiness stacked */}
+            <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
+              <div className={`flex items-center gap-1.5 px-2 py-0.5 rounded-full border text-[9px] font-bold ${sCfg.cls}`}>
+                <div className={`w-1.5 h-1.5 rounded-full ${sCfg.dot}`} />
+                {sCfg.label}
+              </div>
+              <div className={`flex items-center px-2 py-0.5 rounded-full border text-[9px] font-extrabold tracking-wide ${readiness.cls}`}>
+                {readiness.label}
+              </div>
             </div>
           </div>
+
+          {/* What NTA can publish here */}
+          {platform.publishTypes && (
+            <div className="space-y-1.5">
+              <p className="text-[9px] text-slate-600 uppercase tracking-widest font-semibold flex items-center gap-1">
+                <Film className="w-2.5 h-2.5" /> What NTA publishes here
+              </p>
+              <div className="flex flex-wrap gap-1">
+                {platform.publishTypes.map((pt, i) => (
+                  <span key={i} className="text-[9px] px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 font-medium">
+                    {pt}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Account ID */}
           {conn?.page_id_or_channel_id && (
@@ -116,10 +151,34 @@ export default function PlatformCard({ platform, conn, onRefresh }) {
             </div>
           )}
 
-          {/* Error */}
-          {conn?.last_error && !isHealthy && (
-            <div className="px-3 py-2 rounded-lg bg-slate-800/30 border border-slate-700/40">
-              <p className="text-[10px] text-slate-500 leading-snug">{conn.last_error}</p>
+          {/* Incomplete callout — token/auth exists but page mapping missing */}
+          {isIncomplete && platform.setupGuide && (
+            <div className="rounded-lg border border-amber-800/40 bg-amber-950/20 px-3 py-2.5 space-y-1.5">
+              <p className="text-[10px] font-bold text-amber-300 flex items-center gap-1.5">
+                <AlertTriangle className="w-3 h-3" /> Connected but incomplete
+              </p>
+              <p className="text-[10px] text-slate-400 leading-snug">
+                <span className="font-semibold text-slate-300">Missing: </span>{platform.setupGuide.missing}
+              </p>
+              <p className="text-[10px] text-amber-400/70 leading-snug">→ {platform.setupGuide.next_step}</p>
+            </div>
+          )}
+
+          {/* Needs setup callout */}
+          {(status === 'needs_connection') && platform.setupGuide && (
+            <div className="rounded-lg border border-slate-700 bg-slate-800/30 px-3 py-2.5 space-y-1.5">
+              <p className="text-[10px] font-bold text-slate-400 flex items-center gap-1.5">
+                <AlertTriangle className="w-3 h-3 text-slate-500" /> Setup required
+              </p>
+              <p className="text-[10px] text-slate-500 leading-snug">{platform.setupGuide.blocked_reason}</p>
+              <p className="text-[10px] text-violet-400/80 leading-snug">→ {platform.setupGuide.next_step}</p>
+            </div>
+          )}
+
+          {/* Generic error */}
+          {conn?.last_error && !isHealthy && !isIncomplete && status !== 'needs_connection' && (
+            <div className="px-3 py-2 rounded-lg bg-slate-800/30 border border-red-900/30">
+              <p className="text-[10px] text-red-300/70 leading-snug">{conn.last_error}</p>
             </div>
           )}
 
@@ -136,7 +195,7 @@ export default function PlatformCard({ platform, conn, onRefresh }) {
               </span>
             )}
             {conn?.publishing_enabled && (
-              <span className="flex items-center gap-1 text-violet-400">
+              <span className="flex items-center gap-1 text-violet-400 font-semibold">
                 <Play className="w-3 h-3" /> Publishing ON
               </span>
             )}
@@ -150,7 +209,7 @@ export default function PlatformCard({ platform, conn, onRefresh }) {
             </div>
           )}
 
-          {/* Actions */}
+          {/* Action buttons */}
           <div className="grid grid-cols-2 gap-2">
             <Button size="sm" variant="outline" onClick={handleVerify} disabled={verifying}
               className="border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800 gap-1 text-xs h-8">
@@ -163,11 +222,26 @@ export default function PlatformCard({ platform, conn, onRefresh }) {
             </Button>
           </div>
 
+          {/* Quick links */}
+          <div className="flex flex-wrap gap-x-3 gap-y-1 pt-1 border-t border-slate-800/60">
+            <Link to={createPageUrl("AdminVideoPublishing")}
+              className="flex items-center gap-1 text-[10px] text-slate-600 hover:text-violet-400 transition-colors">
+              <ArrowUpRight className="w-3 h-3" /> Publishing queue
+            </Link>
+            <Link to={`${createPageUrl("AdminVideoPublishing")}?platform=${platform.type}&filter=failed`}
+              className="flex items-center gap-1 text-[10px] text-slate-600 hover:text-red-400 transition-colors">
+              <XCircle className="w-3 h-3" /> Failed jobs
+            </Link>
+            <button onClick={() => { /* scroll to audit */ document.getElementById('audit-log')?.scrollIntoView({ behavior: 'smooth' }); }}
+              className="flex items-center gap-1 text-[10px] text-slate-600 hover:text-slate-300 transition-colors cursor-pointer">
+              <List className="w-3 h-3" /> Test logs
+            </button>
+          </div>
+
           {/* Requirements accordion */}
           <button
             onClick={() => setShowReqs(r => !r)}
-            className="w-full flex items-center justify-between text-[10px] text-slate-600 hover:text-slate-400 transition-colors pt-1"
-          >
+            className="w-full flex items-center justify-between text-[10px] text-slate-600 hover:text-slate-400 transition-colors">
             <span className="uppercase tracking-widest font-semibold">Requirements & Notes</span>
             {showReqs ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
           </button>
@@ -192,12 +266,31 @@ export default function PlatformCard({ platform, conn, onRefresh }) {
           </DialogHeader>
 
           <div className="space-y-4 mt-2">
-            {/* Status bar */}
-            <div className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-xs font-semibold ${sCfg.cls}`}>
-              <div className={`w-2 h-2 rounded-full ${sCfg.dot}`} />
-              {sCfg.label}
-              {conn?.last_error && <span className="text-slate-500 font-normal ml-1 truncate text-[10px]">{conn.last_error}</span>}
+            {/* Status + Readiness */}
+            <div className="flex items-center gap-2 flex-wrap">
+              <div className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-xs font-semibold flex-1 ${sCfg.cls}`}>
+                <div className={`w-2 h-2 rounded-full ${sCfg.dot}`} />
+                {sCfg.label}
+                {conn?.last_error && <span className="text-slate-500 font-normal ml-1 truncate text-[10px]">{conn.last_error}</span>}
+              </div>
+              <div className={`px-3 py-2 rounded-lg border text-xs font-extrabold ${readiness.cls}`}>
+                {readiness.label}
+              </div>
             </div>
+
+            {/* Setup guide for incomplete/not configured */}
+            {platform.setupGuide && !isHealthy && (
+              <div className="rounded-xl border border-slate-700/60 bg-slate-800/30 p-3 space-y-2">
+                <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">Setup Guide</p>
+                {platform.setupGuide.missing && (
+                  <p className="text-xs text-slate-300"><span className="text-amber-400 font-semibold">Missing: </span>{platform.setupGuide.missing}</p>
+                )}
+                {platform.setupGuide.blocked_reason && (
+                  <p className="text-xs text-slate-400 leading-snug">{platform.setupGuide.blocked_reason}</p>
+                )}
+                <p className="text-xs text-violet-400 leading-snug">→ {platform.setupGuide.next_step}</p>
+              </div>
+            )}
 
             {/* Connection details */}
             {conn && (
@@ -262,9 +355,7 @@ export default function PlatformCard({ platform, conn, onRefresh }) {
                 </Button>
                 {testResult && (
                   <div className={`flex items-start gap-1.5 text-[10px] px-2.5 py-2 rounded-lg border flex-1 ${
-                    testResult.success
-                      ? 'bg-green-900/20 border-green-700/40 text-green-300'
-                      : 'bg-red-900/20 border-red-700/40 text-red-300'
+                    testResult.success ? 'bg-green-900/20 border-green-700/40 text-green-300' : 'bg-red-900/20 border-red-700/40 text-red-300'
                   }`}>
                     {testResult.success ? <CheckCircle2 className="w-3 h-3 flex-shrink-0 mt-0.5" /> : <XCircle className="w-3 h-3 flex-shrink-0 mt-0.5" />}
                     <span className="leading-snug">{testResult.success ? (testResult.message || 'Connection OK') : (testResult.error || testResult.message || 'Test failed')}</span>
