@@ -1,14 +1,9 @@
 import React from 'react';
-import { X, ExternalLink, Facebook, Instagram, Globe, Youtube, CheckCircle, Clock } from 'lucide-react';
+import { X, ExternalLink, CheckCircle, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils';
-
-const CHANNEL_ICONS = {
-  facebook: Facebook,
-  instagram: Instagram,
-  website: Globe,
-  youtube: Youtube,
-};
+import ChannelPills from './ChannelPills';
+import WhyPostingNote from './WhyPostingNote';
 
 export default function CalendarEventDetail({ event, onClose }) {
   if (!event) return null;
