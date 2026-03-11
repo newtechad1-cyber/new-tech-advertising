@@ -10,6 +10,8 @@ import ApprovalQueuePanel from "@/components/publishing/ApprovalQueuePanel";
 import PipelineBoard from "@/components/publishing/PipelineBoard";
 import ChannelHealthSidebar from "@/components/publishing/ChannelHealthSidebar";
 import IssuesPanel from "@/components/publishing/IssuesPanel";
+import WebsitePublishingPanel from "@/components/publishing/WebsitePublishingPanel";
+import ActivityFeed from "@/components/publishing/ActivityFeed";
 
 export default function AdminVideoPublishing() {
   const [videos, setVideos] = useState([]);
