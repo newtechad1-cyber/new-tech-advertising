@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Mail, Send } from 'lucide-react';
+import { Mail } from 'lucide-react';
 
 export default function AdminSchoolOutreach() {
   const [expandedCampaign, setExpandedCampaign] = useState(null);
