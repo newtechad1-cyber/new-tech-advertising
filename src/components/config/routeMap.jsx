@@ -109,7 +109,9 @@ export const PAGE_FAMILY_MAP = {
   AdminYearbookSeason:           'main_admin',
   AiOperations:                  'main_admin',
   AiVideoStudio:                 'main_admin',
-  AgentArchitecture:             'main_admin',    // /adminagents
+  AdminAgents:                   'main_admin',    // /adminagents
+  AdminAgentsWorkflows:          'main_admin',    // /adminagents/workflows
+  AdminAgentsRecovery:           'main_admin',    // /adminagents/recovery
   AuthorityMap:                  'main_admin',
   BusinessIntelProfileAdmin:     'main_admin',
   BusinessProfileAdmin:          'main_admin',
