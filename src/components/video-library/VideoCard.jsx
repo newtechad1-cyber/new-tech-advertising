@@ -19,6 +19,9 @@ import {
   Share2,
 } from 'lucide-react';
 import { getVideoIssues, formatDate } from '@/components/video-library/videoLibraryUtils';
+import WorkflowProgressBar from '@/components/video-library/WorkflowProgressBar';
+import ChannelDistributionSummary from '@/components/video-library/ChannelDistributionSummary';
+import NextBestAction from '@/components/video-library/NextBestAction';
 
 const STATUS_COLORS = {
   uploaded: 'bg-slate-100 text-slate-700',
