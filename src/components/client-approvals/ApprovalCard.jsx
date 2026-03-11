@@ -121,27 +121,37 @@ export default function ApprovalCard({ video, onViewDetails, onApprove, onReject
               </Badge>
             </div>
 
-            {/* Platforms & Schedule */}
-            <div className="flex items-center gap-6 mb-4 text-sm">
-              {enabledPlatforms.length > 0 && (
-                <div className="flex items-center gap-2">
-                  <span className="text-slate-600">Publishing to:</span>
-                  <div className="flex gap-2">
-                    {enabledPlatforms.map(platform => (
-                      <div key={platform} className="text-slate-600">
-                        {platformIcons[platform]}
-                      </div>
-                    ))}
+            {/* AI Explanation & Channel Reach */}
+            <div className="bg-blue-50 rounded-lg p-3 mb-4 text-sm">
+              <p className="font-medium text-blue-900 mb-2">Why we created this</p>
+              <p className="text-blue-800 text-xs mb-3">
+                {video.ai_explanation || 'Designed to drive engagement with your target audience and amplify your brand message.'}
+              </p>
+              <div className="space-y-1">
+                {video.facebook_publish_enabled && (
+                  <div className="flex items-center gap-2 text-xs text-blue-700">
+                    <Facebook className="w-3 h-3" /> Facebook visibility boost
                   </div>
-                </div>
-              )}
-
-              {video.scheduled_publish_at && (
-                <div className="text-slate-600">
-                  📅 {format(new Date(video.scheduled_publish_at), 'MMM d, yyyy')}
-                </div>
-              )}
+                )}
+                {video.website_publish_enabled && (
+                  <div className="flex items-center gap-2 text-xs text-blue-700">
+                    <Globe className="w-3 h-3" /> Website SEO value
+                  </div>
+                )}
+                {video.tiktok_publish_enabled && (
+                  <div className="flex items-center gap-2 text-xs text-blue-700">
+                    <Music className="w-3 h-3" /> Short-form video reach
+                  </div>
+                )}
+              </div>
             </div>
+
+            {/* Schedule */}
+            {video.scheduled_publish_at && (
+              <div className="text-xs text-slate-600 mb-4">
+                📅 Publishing: {format(new Date(video.scheduled_publish_at), 'MMM d, yyyy')}
+              </div>
+            )}
 
             {/* Actions */}
             <div className="flex gap-2">
