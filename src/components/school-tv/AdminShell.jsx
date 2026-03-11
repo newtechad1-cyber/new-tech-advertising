@@ -3,6 +3,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AdminSidebar from './AdminSidebar';
 import TopBar from './TopBar';
+import RouteFamilyBadge from '@/components/admin/RouteFamilyBadge';
 
 export default function AdminShell({ children, currentPath, schoolSlug: propSchoolSlug }) {
   const { schoolSlug: paramSchoolSlug } = useParams();
@@ -53,6 +54,9 @@ export default function AdminShell({ children, currentPath, schoolSlug: propScho
           {children}
         </div>
       </div>
+
+      {/* Dev route family badge */}
+      <RouteFamilyBadge family="school_admin" />
     </div>
   );
 }
