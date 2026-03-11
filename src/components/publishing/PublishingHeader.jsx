@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGlobalContext } from '@/components/context/useGlobalContext.jsx';
+import { useGlobalContext } from '@/components/context/useGlobalContext';
 import { Button } from '@/components/ui/button';
 import { RefreshCw, Zap, Video, AlertCircle, Settings } from 'lucide-react';
 
