@@ -5,61 +5,55 @@ import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import {
   ArrowRight, Play, Zap, Globe, Tv, Users, Shield, BarChart3,
-  CheckCircle, Building2, GraduationCap, Heart, Megaphone, Star,
-  Code2, Cpu, Video, TrendingUp, Sparkles, ChevronRight
+  CheckCircle, Building2, GraduationCap, Heart, Code2, Cpu,
+  Video, TrendingUp, Sparkles, ChevronRight, Star
 } from 'lucide-react';
 
-const INDUSTRIES = [
-  { icon: Building2, label: 'Local Businesses', color: 'text-blue-400', bg: 'bg-blue-500/10 border-blue-500/20', desc: 'AI marketing tools, websites, and local visibility for service businesses, retail, and professional practices.' },
-  { icon: GraduationCap, label: 'Schools & Districts', color: 'text-purple-400', bg: 'bg-purple-500/10 border-purple-500/20', desc: 'Streaming TV networks, student media platforms, and AI content publishing for K–12 schools.' },
-  { icon: Heart, label: 'Nonprofits', color: 'text-pink-400', bg: 'bg-pink-500/10 border-pink-500/20', desc: 'Mission-driven storytelling, community visibility, and AI-powered communications for nonprofits.' },
-  { icon: Megaphone, label: 'Marketing Agencies', color: 'text-orange-400', bg: 'bg-orange-500/10 border-orange-500/20', desc: 'White-label AI content, reseller programs, and platform infrastructure for agencies scaling their clients.' },
-  { icon: Users, label: 'Service Professionals', color: 'text-cyan-400', bg: 'bg-cyan-500/10 border-cyan-500/20', desc: 'Reputation management, lead generation, and community presence for medical, legal, and trade professionals.' },
-  { icon: Globe, label: 'Communities & Events', color: 'text-green-400', bg: 'bg-green-500/10 border-green-500/20', desc: 'Event promotion, local awareness campaigns, and streaming media for organizations and community groups.' },
-];
-
-const PLATFORMS = [
-  { icon: Tv, name: 'School TV', desc: 'Streaming media networks for K–12 schools powered by student submissions and AI video production.' },
-  { icon: Code2, name: 'AI Website Rebuild', desc: 'ADA-compliant, SEO-ready websites rebuilt with AI content engines that keep your site fresh automatically.' },
-  { icon: BarChart3, name: 'AI Marketing Platform', desc: 'Social media, video, blog, and email content generated and published automatically from a single dashboard.' },
-  { icon: Shield, name: 'ADA Compliance', desc: 'Website accessibility auditing, remediation, and ongoing compliance monitoring to protect your business.' },
-];
-
-const FUTURE_POINTS = [
-  { title: 'Every school has a streaming media network', desc: 'Student stories, sports highlights, and school news published automatically — community visibility built in.' },
-  { title: 'Every business has an AI marketing engine', desc: 'Content, video, social, and SEO handled automatically so businesses can focus on what they do best.' },
-  { title: 'Video replaces static content everywhere', desc: 'The next decade belongs to video-first communication. We build the infrastructure that makes it accessible.' },
-  { title: 'AI handles the production — humans handle the strategy', desc: 'We put powerful AI tools into the hands of non-technical people without requiring a marketing degree.' },
-];
+const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png';
+const HEADSHOT_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/c099addb0_headshot.png';
+const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
 
 export default function About() {
   React.useEffect(() => {
-    document.title = 'About New Tech Advertising | AI-Powered Marketing Platforms';
+    document.title = 'About New Tech Advertising | Building the Platforms That Power Modern Marketing';
   }, []);
 
   return (
     <div className="bg-slate-900 min-h-screen">
       <MarketingNav />
 
-      {/* ── 1. HERO ──────────────────────────────────────────── */}
-      <section className="relative bg-gradient-to-b from-slate-950 via-slate-900 to-slate-900 overflow-hidden pt-6">
+      {/* ── 1. HERO ─────────────────────────────────────────── */}
+      <section className="relative bg-gradient-to-b from-slate-950 via-slate-900 to-slate-900 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-blue-600/8 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-0 w-80 h-80 bg-indigo-600/8 rounded-full blur-3xl" />
         </div>
 
         <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-24 text-center">
-          <div className="inline-flex items-center gap-2 bg-blue-600/20 border border-blue-500/30 text-blue-300 text-sm font-semibold px-4 py-1.5 rounded-full mb-8">
+          <div className="inline-flex items-center gap-2 bg-blue-600/20 border border-blue-500/30 text-blue-300 text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
             <Sparkles className="w-3.5 h-3.5" />
-            AI-Powered Marketing Infrastructure
+            About New Tech Advertising
           </div>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-6">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-8">
             Building the Platforms That<br />
             <span className="text-blue-400">Power Modern Marketing</span>
           </h1>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">
-            New Tech Advertising develops AI-powered systems that help businesses, schools, and organizations create content, automate marketing, and connect with their communities.
-          </p>
+
+          <div className="max-w-3xl mx-auto text-left space-y-5 text-slate-300 text-lg leading-relaxed mb-12">
+            <p>Marketing has changed.</p>
+            <p>
+              For years businesses were told they needed complex strategies, expensive agencies, and endless marketing tools just to stay competitive.
+            </p>
+            <p className="font-semibold text-white">But technology has changed everything.</p>
+            <p>
+              Artificial intelligence, automation, and modern media platforms now allow businesses and organizations to do things that once required entire marketing departments.
+            </p>
+            <p className="text-blue-300 font-semibold text-xl">New Tech Advertising was built to make those tools accessible.</p>
+            <p>
+              We build platforms that help businesses, schools, and organizations create content, publish media, improve visibility, and connect with their communities using modern technology.
+            </p>
+          </div>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to={createPageUrl('Contact')}
               className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl text-base transition shadow-lg shadow-blue-900/40">
@@ -72,7 +66,6 @@ export default function About() {
           </div>
         </div>
 
-        {/* Platform strip */}
         <div className="border-t border-slate-800 py-4 px-6">
           <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-6 text-slate-500 text-sm font-medium">
             {['School Streaming TV', 'AI Website Rebuild', 'ADA Compliance', 'AI Marketing Platform', 'Video Production', 'Local SEO', 'Content Automation'].map(p => (
@@ -84,32 +77,43 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── 2. MISSION ───────────────────────────────────────── */}
+      {/* ── 2. MISSION ──────────────────────────────────────── */}
       <section className="py-24 px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
             <div>
               <div className="text-blue-400 font-bold text-sm uppercase tracking-widest mb-3">Our Mission</div>
               <h2 className="text-4xl font-extrabold text-white mb-6 leading-tight">
-                Make powerful marketing infrastructure accessible to everyone
+                Our mission is simple
               </h2>
+              <p className="text-slate-300 text-xl leading-relaxed mb-4 font-medium">
+                Give organizations the technology they need to compete in a modern digital world.
+              </p>
+              <p className="text-slate-500 mb-2">Not complicated marketing strategies.</p>
+              <p className="text-slate-500 mb-8">Not expensive agency retainers.</p>
               <p className="text-slate-400 text-lg leading-relaxed mb-6">
-                For too long, the kind of marketing infrastructure that big companies use — streaming channels, AI content engines, automated publishing, SEO systems — has been out of reach for local businesses, schools, and community organizations.
+                Instead, we build systems that work automatically in the background — helping organizations accomplish more with less effort.
               </p>
-              <p className="text-slate-400 text-lg leading-relaxed">
-                We're changing that. By building purpose-built platforms that run on AI and require no technical expertise, we give every organization the tools to build a real digital presence, connect with their community, and grow.
-              </p>
+              <p className="text-slate-300 font-semibold mt-6">The goal is not just marketing.</p>
+              <p className="text-blue-400 font-bold text-lg">The goal is building long-term digital infrastructure.</p>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+
+            <div className="space-y-4">
               {[
-                { number: '500+', label: 'Businesses Served', color: 'text-blue-400' },
-                { number: '3', label: 'Active AI Platforms', color: 'text-purple-400' },
-                { number: '100%', label: 'U.S.-Based Team', color: 'text-green-400' },
-                { number: '∞', label: 'Content Potential', color: 'text-orange-400' },
-              ].map(stat => (
-                <div key={stat.label} className="bg-slate-800 border border-slate-700 rounded-2xl p-6 text-center">
-                  <div className={`text-4xl font-black mb-1 ${stat.color}`}>{stat.number}</div>
-                  <div className="text-slate-400 text-sm font-medium">{stat.label}</div>
+                { icon: BarChart3, label: 'Publish consistent content', desc: 'Automated publishing keeps your presence active without manual effort.' },
+                { icon: Video, label: 'Create professional video and media', desc: 'AI-powered video production without a production team.' },
+                { icon: Globe, label: 'Improve search visibility', desc: 'Programmatic SEO and local presence optimization built in.' },
+                { icon: Zap, label: 'Automate repetitive marketing work', desc: 'Systems that handle the routine so you can focus on what matters.' },
+                { icon: Users, label: 'Strengthen community relationships', desc: 'Storytelling platforms that connect you to the people you serve.' },
+              ].map(({ icon: Icon, label, desc }) => (
+                <div key={label} className="flex items-start gap-4 bg-slate-800/50 border border-slate-700/50 rounded-xl p-4">
+                  <div className="w-9 h-9 rounded-lg bg-blue-600/20 border border-blue-500/20 flex items-center justify-center shrink-0">
+                    <Icon className="h-4 w-4 text-blue-400" />
+                  </div>
+                  <div>
+                    <div className="text-white font-semibold text-sm mb-0.5">{label}</div>
+                    <div className="text-slate-500 text-xs leading-relaxed">{desc}</div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -117,137 +121,136 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── 3. FOUNDER STORY ─────────────────────────────────── */}
+      {/* ── 3. FOUNDER STORY ────────────────────────────────── */}
       <section className="py-24 px-6 bg-gradient-to-b from-slate-900 to-slate-950">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <div className="text-blue-400 font-bold text-sm uppercase tracking-widest mb-3">The Story</div>
-            <h2 className="text-4xl font-extrabold text-white">Built from the ground up</h2>
+            <div className="text-blue-400 font-bold text-sm uppercase tracking-widest mb-3">The Founder's Perspective</div>
+            <h2 className="text-4xl font-extrabold text-white">Built from real-world experience</h2>
           </div>
 
           <div className="bg-slate-800/50 border border-slate-700 rounded-3xl p-10 md:p-14 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 rounded-full blur-2xl pointer-events-none" />
             <div className="relative grid md:grid-cols-3 gap-10 items-start">
+
               {/* Founder photo */}
-              <div className="flex flex-col items-center text-center md:items-start md:text-left">
+              <div className="flex flex-col items-center text-center">
                 <div className="relative mb-5">
                   <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-800 blur opacity-40" />
                   <img
-                    src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/c099addb0_headshot.png"
+                    src={HEADSHOT_URL}
                     alt="Founder, New Tech Advertising"
                     className="relative w-44 h-52 object-cover object-top rounded-2xl border-2 border-blue-500/40 shadow-xl"
                   />
                 </div>
                 <img
-                  src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png"
+                  src={LOGO_URL}
                   alt="New Tech Advertising"
-                  className="h-8 w-auto object-contain mb-3 opacity-90"
+                  className="h-7 w-auto object-contain mb-3 opacity-90"
                 />
-                <div className="text-white font-bold text-base">Founder & CEO</div>
-                <div className="text-blue-400 text-sm font-semibold">New Tech Advertising</div>
-                <div className="text-slate-500 text-xs mt-1">AI Marketing Infrastructure</div>
+                <div className="text-white font-bold text-sm">Founder & CEO</div>
+                <div className="text-blue-400 text-xs font-semibold">New Tech Advertising</div>
               </div>
 
-              {/* Quote */}
-              <div className="md:col-span-2">
-                <div className="text-5xl text-blue-500/30 font-black leading-none mb-4">"</div>
-                <blockquote className="text-xl md:text-2xl text-slate-200 leading-relaxed mb-8 font-medium">
-                  I started New Tech Advertising because I saw a clear gap: the businesses, schools, and organizations that needed marketing the most were the ones with the least access to the right tools. I wanted to build platforms that closed that gap — not just a marketing agency, but real technology infrastructure that works without a full-time marketing team.
-                </blockquote>
-                <p className="text-slate-400 leading-relaxed text-base">
-                  Over the years, we've gone from helping local businesses with websites and social media to building full AI-powered streaming TV networks for schools, automated marketing engines for service businesses, and compliance infrastructure used across industries. Every platform we build comes from a real problem we saw a client face.
+              {/* Story */}
+              <div className="md:col-span-2 space-y-5 text-slate-300 leading-relaxed">
+                <p>
+                  New Tech Advertising was built from decades of real-world experience working with businesses that needed better ways to reach their customers.
+                </p>
+                <p>Over the years, marketing has evolved dramatically:</p>
+
+                <div className="space-y-2 pl-4 border-l-2 border-blue-500/40">
+                  {[
+                    'Print advertising became websites.',
+                    'Websites became social media.',
+                    'Social media became video.',
+                    'Now artificial intelligence is transforming everything again.',
+                  ].map(line => (
+                    <p key={line} className="text-slate-400 text-sm">{line}</p>
+                  ))}
+                </div>
+
+                <p>Through all of these changes one lesson became clear:</p>
+                <p className="text-white font-bold text-xl">Most organizations don't need more marketing complexity. They need better systems.</p>
+
+                <p>
+                  New Tech Advertising focuses on building technology platforms that allow organizations to create content, automate marketing tasks, and improve their online visibility without requiring a large marketing staff.
+                </p>
+                <p className="text-blue-300 font-semibold">
+                  With decades of experience working with local businesses and community organizations, the focus has always remained the same: build tools that actually work in the real world.
                 </p>
               </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="grid md:grid-cols-3 gap-6 mt-10">
+      {/* ── 4. PLATFORM APPROACH ────────────────────────────── */}
+      <section className="py-24 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="text-blue-400 font-bold text-sm uppercase tracking-widest mb-3">Our Approach</div>
+            <h2 className="text-4xl font-extrabold text-white mb-4">A Platform Approach — Not a Traditional Agency</h2>
+            <p className="text-slate-400 text-lg max-w-3xl mx-auto">
+              New Tech Advertising is not a traditional marketing agency. We focus on building technology platforms that organizations can use to manage their own content, media, and digital presence.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
             {[
-              { icon: Zap, title: 'Started with a simple belief', desc: 'Every business deserves access to marketing tools that actually work — not just templates and advice.' },
-              { icon: Cpu, title: 'Built AI into the foundation', desc: 'We didn\'t bolt AI on as a feature. We rebuilt our platforms from the ground up around AI production.' },
-              { icon: TrendingUp, title: 'Scaled into multiple industries', desc: 'What started as local business marketing grew into streaming TV for schools, AI websites, and beyond.' },
-            ].map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="bg-slate-800/40 border border-slate-700/50 rounded-2xl p-6">
-                <Icon className="h-6 w-6 text-blue-400 mb-3" />
-                <h3 className="text-white font-bold mb-2">{title}</h3>
+              { icon: Cpu, name: 'AI-Powered Content Creation', desc: 'Systems that generate articles, videos, social posts, and more — automatically.' },
+              { icon: Zap, name: 'Automated Publishing Workflows', desc: 'Set it up once. Content goes out consistently without manual intervention.' },
+              { icon: Video, name: 'Video & Media Generation', desc: 'Broadcast-quality video produced from raw media or simple inputs.' },
+              { icon: Globe, name: 'Search Visibility Optimization', desc: 'Local SEO, programmatic pages, and ongoing presence built into every platform.' },
+              { icon: Users, name: 'Community Storytelling Platforms', desc: 'Channels that capture and share the stories happening in your organization.' },
+              { icon: TrendingUp, name: 'Continuous Content Stream', desc: 'These systems produce a constant stream of content without needing a marketing team.' },
+            ].map(({ icon: Icon, name, desc }) => (
+              <div key={name} className="bg-slate-800 border border-slate-700 hover:border-blue-500/50 rounded-2xl p-6 transition group">
+                <div className="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/20 flex items-center justify-center mb-4 group-hover:bg-blue-600/30 transition">
+                  <Icon className="h-5 w-5 text-blue-400" />
+                </div>
+                <h3 className="text-white font-bold mb-2 text-sm">{name}</h3>
                 <p className="text-slate-400 text-sm leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* ── 4. PLATFORM APPROACH ─────────────────────────────── */}
-      <section className="py-24 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="text-blue-400 font-bold text-sm uppercase tracking-widest mb-3">How We Build</div>
-            <h2 className="text-4xl font-extrabold text-white mb-4">Platforms, not projects</h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-              We don't build one-off websites or run campaigns in isolation. We build integrated platforms that keep working — generating content, publishing media, and growing presence automatically.
+          <div className="bg-gradient-to-r from-blue-600/10 to-indigo-600/10 border border-blue-500/20 rounded-2xl p-8 text-center">
+            <p className="text-white font-bold text-xl mb-2">
+              These systems allow organizations to produce a continuous stream of content without needing a large marketing team.
             </p>
           </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            {PLATFORMS.map(({ icon: Icon, name, desc }) => (
-              <div key={name} className="bg-slate-800 border border-slate-700 hover:border-blue-500/50 rounded-2xl p-8 transition group">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-blue-600/20 border border-blue-500/20 flex items-center justify-center shrink-0 group-hover:bg-blue-600/30 transition">
-                    <Icon className="h-6 w-6 text-blue-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-white font-bold text-lg mb-2">{name}</h3>
-                    <p className="text-slate-400 leading-relaxed">{desc}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10 bg-gradient-to-r from-blue-600/10 to-indigo-600/10 border border-blue-500/20 rounded-2xl p-8">
-            <div className="grid md:grid-cols-3 gap-6 text-center">
-              {[
-                { label: 'AI-Generated Content', desc: 'Every platform produces content automatically — articles, videos, social posts, and more.' },
-                { label: 'No Technical Skills Required', desc: 'Built for administrators, principals, and business owners — not developers.' },
-                { label: 'Always-On Publishing', desc: 'Content is created and published on a schedule without manual intervention.' },
-              ].map(item => (
-                <div key={item.label}>
-                  <CheckCircle className="h-6 w-6 text-blue-400 mx-auto mb-2" />
-                  <div className="text-white font-semibold mb-1">{item.label}</div>
-                  <div className="text-slate-400 text-sm">{item.desc}</div>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* ── 5. VIDEO & MEDIA FOCUS ───────────────────────────── */}
+      {/* ── 5. VIDEO FOCUS ──────────────────────────────────── */}
       <section className="py-24 px-6 bg-gradient-to-b from-slate-950 to-slate-900">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <div className="text-blue-400 font-bold text-sm uppercase tracking-widest mb-3">Video-First</div>
               <h2 className="text-4xl font-extrabold text-white mb-6 leading-tight">
-                Video is the language of the modern internet
+                The Power of Video
               </h2>
-              <p className="text-slate-400 text-lg leading-relaxed mb-6">
-                We built our platforms around video because video is what drives engagement, builds trust, and creates community connection. Text-only marketing is no longer enough — and video production used to be expensive and technical.
+              <p className="text-slate-300 text-lg leading-relaxed mb-4 font-medium">
+                Video has become the most powerful form of communication.
               </p>
               <p className="text-slate-400 text-lg leading-relaxed mb-8">
-                Our AI systems automatically produce broadcast-quality video content from raw media, student submissions, or business inputs — no editor, no production team, no waiting weeks for a deliverable.
+                People engage with video more than any other type of content online. That's why the platforms we build emphasize video-first communication — giving every organization the ability to tell their story through the most compelling medium available.
+              </p>
+              <p className="text-slate-400 leading-relaxed mb-8">
+                Video allows organizations to communicate with their audiences in ways that traditional marketing cannot.
               </p>
               <div className="space-y-3">
                 {[
-                  'AI-generated video scripts and narration',
-                  'Automated highlight reels and episode production',
-                  'Multi-platform publishing in one click',
-                  'Branded intros, captions, and music — automatic',
-                  'School streaming channels with full content libraries',
+                  'Video storytelling',
+                  'Short-form media',
+                  'Streaming channels',
+                  'Visual content creation',
                 ].map(item => (
                   <div key={item} className="flex items-center gap-3 text-slate-300">
                     <CheckCircle className="h-4 w-4 text-blue-400 shrink-0" />
-                    <span className="text-sm">{item}</span>
+                    <span>{item}</span>
                   </div>
                 ))}
               </div>
@@ -258,7 +261,11 @@ export default function About() {
               <div className="absolute -inset-4 bg-blue-600/5 rounded-3xl blur-2xl" />
               <div className="relative bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden">
                 <div className="bg-slate-900 px-4 py-3 flex items-center gap-2 border-b border-slate-700">
-                  <div className="flex gap-1.5"><div className="w-3 h-3 rounded-full bg-red-500/60" /><div className="w-3 h-3 rounded-full bg-yellow-500/60" /><div className="w-3 h-3 rounded-full bg-green-500/60" /></div>
+                  <div className="flex gap-1.5">
+                    <div className="w-3 h-3 rounded-full bg-red-500/60" />
+                    <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
+                    <div className="w-3 h-3 rounded-full bg-green-500/60" />
+                  </div>
                   <div className="text-slate-500 text-xs font-mono ml-2">AI Video Engine — Live</div>
                 </div>
                 <div className="p-6 space-y-3">
@@ -287,99 +294,135 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── 6. INDUSTRIES SERVED ─────────────────────────────── */}
-      <section className="py-24 px-6">
+      {/* ── 5b. HELPING TELL STORIES ────────────────────────── */}
+      <section className="py-20 px-6 bg-slate-900">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="text-blue-400 font-bold text-sm uppercase tracking-widest mb-3">Storytelling</div>
+          <h2 className="text-4xl font-extrabold text-white mb-6">Helping Organizations Tell Their Stories</h2>
+          <p className="text-slate-400 text-lg leading-relaxed mb-8 max-w-3xl mx-auto">
+            Every organization has stories worth sharing. Businesses serve their communities. Schools educate and inspire students. Local organizations create meaningful change.
+          </p>
+          <p className="text-white font-bold text-xl mb-4">The challenge is not the stories themselves.</p>
+          <p className="text-blue-400 font-bold text-xl mb-10">The challenge is getting those stories seen.</p>
+          <p className="text-slate-400 text-lg leading-relaxed max-w-3xl mx-auto">
+            New Tech Advertising platforms help organizations turn everyday moments into powerful content that reaches their audience and strengthens their reputation.
+          </p>
+        </div>
+      </section>
+
+      {/* ── 6. INDUSTRIES ───────────────────────────────────── */}
+      <section className="py-24 px-6 bg-gradient-to-b from-slate-900 to-slate-950">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <div className="text-blue-400 font-bold text-sm uppercase tracking-widest mb-3">Industries</div>
-            <h2 className="text-4xl font-extrabold text-white mb-4">Built for people with a community to serve</h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-              Our platforms are designed for organizations that need to communicate — consistently, professionally, and at scale.
-            </p>
+            <div className="text-blue-400 font-bold text-sm uppercase tracking-widest mb-3">Industries We Serve</div>
+            <h2 className="text-4xl font-extrabold text-white mb-4">Built for organizations that want to modernize how they communicate</h2>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {INDUSTRIES.map(({ icon: Icon, label, color, bg, desc }) => (
-              <div key={label} className={`border rounded-2xl p-6 ${bg} hover:scale-[1.01] transition`}>
-                <Icon className={`h-7 w-7 ${color} mb-3`} />
-                <h3 className="text-white font-bold text-lg mb-2">{label}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{desc}</p>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                icon: Building2, color: 'text-blue-400', bg: 'bg-blue-500/10 border-blue-500/20',
+                label: 'Small and Mid-Sized Businesses',
+                desc: 'Businesses that want modern marketing systems without hiring large agencies.',
+              },
+              {
+                icon: GraduationCap, color: 'text-purple-400', bg: 'bg-purple-500/10 border-purple-500/20',
+                label: 'Schools and School Districts',
+                desc: 'Schools using media platforms to highlight student achievements and connect with their communities.',
+              },
+              {
+                icon: Heart, color: 'text-pink-400', bg: 'bg-pink-500/10 border-pink-500/20',
+                label: 'Community Organizations',
+                desc: 'Organizations that want to increase visibility and share their impact.',
+              },
+            ].map(({ icon: Icon, color, bg, label, desc }) => (
+              <div key={label} className={`border rounded-2xl p-8 ${bg}`}>
+                <Icon className={`h-8 w-8 ${color} mb-4`} />
+                <h3 className="text-white font-bold text-lg mb-3">{label}</h3>
+                <p className="text-slate-400 leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── 7. FUTURE OF MARKETING ───────────────────────────── */}
-      <section className="py-24 px-6 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-900">
+      {/* ── 7. FUTURE OF MARKETING ──────────────────────────── */}
+      <section className="py-24 px-6 bg-slate-900">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <div className="text-blue-400 font-bold text-sm uppercase tracking-widest mb-3">Where We're Headed</div>
-            <h2 className="text-4xl font-extrabold text-white mb-4">The future of marketing is automated, video-first, and community-centered</h2>
+            <div className="text-blue-400 font-bold text-sm uppercase tracking-widest mb-3">Looking Ahead</div>
+            <h2 className="text-4xl font-extrabold text-white mb-6">The Future of Marketing</h2>
             <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-              We're not chasing trends. We're building the infrastructure for how organizations will communicate for the next decade.
+              We believe the future of marketing will be built on three foundations:
             </p>
+            <div className="flex flex-wrap gap-4 justify-center mt-6">
+              {['Automation', 'Video', 'Artificial Intelligence'].map(item => (
+                <span key={item} className="bg-blue-600/20 border border-blue-500/30 text-blue-300 font-bold px-6 py-2 rounded-full text-lg">
+                  {item}
+                </span>
+              ))}
+            </div>
           </div>
 
-          <div className="space-y-5">
-            {FUTURE_POINTS.map((point, i) => (
-              <div key={i} className="flex items-start gap-5 bg-slate-800/40 border border-slate-700/50 hover:border-blue-500/30 rounded-2xl p-6 transition">
-                <div className="w-8 h-8 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center shrink-0 text-blue-400 font-black text-sm">
-                  {i + 1}
-                </div>
-                <div>
-                  <h3 className="text-white font-bold text-lg mb-1">{point.title}</h3>
-                  <p className="text-slate-400 leading-relaxed">{point.desc}</p>
-                </div>
-                <ChevronRight className="h-5 w-5 text-slate-600 shrink-0 mt-1" />
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-12 text-center">
-            <p className="text-2xl font-bold text-white mb-2">We're already building it.</p>
-            <p className="text-slate-400">School TV networks. AI website engines. Automated marketing platforms. Real technology, deployed today.</p>
+          <div className="bg-slate-800/50 border border-slate-700 rounded-3xl p-10 text-center mb-12">
+            <p className="text-white text-xl font-medium leading-relaxed max-w-3xl mx-auto">
+              Organizations that embrace these tools will have a major advantage in the years ahead.
+              New Tech Advertising exists to help businesses and organizations make that transition successfully.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* ── 8. CLOSING CTA ───────────────────────────────────── */}
+      {/* ── 8. CLOSING CTA ──────────────────────────────────── */}
       <section className="py-24 px-6 bg-gradient-to-br from-[#0D1F3C] via-slate-900 to-slate-950 border-t border-slate-800">
         <div className="max-w-4xl mx-auto text-center">
+          <img
+            src={LOGO_URL}
+            alt="New Tech Advertising"
+            className="h-10 w-auto object-contain mx-auto mb-8 opacity-90"
+          />
           <div className="inline-flex items-center gap-2 bg-blue-500/20 border border-blue-400/30 text-blue-300 px-4 py-1.5 rounded-full text-sm font-semibold mb-8">
-            <Star className="h-4 w-4" /> Ready to Build Something Real?
+            <Star className="h-4 w-4" /> Let's Build the Future Together
           </div>
           <h2 className="text-5xl font-extrabold text-white mb-6 leading-tight">
-            Let's build your platform
+            Technology should empower organizations — not overwhelm them.
           </h2>
-          <p className="text-slate-400 text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
-            Whether you're a school looking for a streaming media network, a business that needs AI-powered marketing, or an organization that wants to connect with its community — we have a platform for you.
+          <p className="text-slate-400 text-xl mb-4 max-w-3xl mx-auto leading-relaxed">
+            New Tech Advertising builds the systems that make modern marketing simpler, more powerful, and more effective.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <p className="text-slate-400 text-lg mb-12 max-w-3xl mx-auto leading-relaxed">
+            If you're interested in learning how these platforms can help your organization grow, connect with your audience, and share your story more effectively, we'd love to show you what's possible.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
             <a href="https://calendly.com/bulldog-tv-sales" target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-10 py-4 rounded-xl text-lg transition shadow-lg shadow-blue-900/50">
               Book a Strategy Call <ArrowRight className="h-5 w-5" />
             </a>
-            <Link to={createPageUrl('SchoolTVDealRoom')}
+            <a href={TRIAL_URL}
               className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-bold px-10 py-4 rounded-xl text-lg transition">
-              <Tv className="h-5 w-5" /> See School TV Platform
-            </Link>
+              Start Free Trial
+            </a>
           </div>
 
-          {/* Quick nav */}
-          <div className="flex flex-wrap gap-4 justify-center text-sm">
+          <div className="flex flex-wrap gap-4 justify-center text-sm mt-8">
             {[
               { label: 'AI Website Rebuild', to: 'Rebuild' },
               { label: 'ADA Compliance', to: 'AdaAccessibility' },
               { label: 'School TV', to: 'SchoolTVDealRoom' },
+              { label: 'Streaming TV', to: 'StreamingTV' },
               { label: 'Contact Us', to: 'Contact' },
             ].map(({ label, to }) => (
               <Link key={label} to={createPageUrl(to)}
-                className="text-slate-400 hover:text-blue-400 transition flex items-center gap-1">
+                className="text-slate-500 hover:text-blue-400 transition flex items-center gap-1">
                 {label} <ChevronRight className="h-3 w-3" />
               </Link>
             ))}
           </div>
+
+          <p className="text-slate-600 text-sm mt-12 font-medium italic">
+            New Tech Advertising — Building the platforms that power modern marketing.
+          </p>
         </div>
       </section>
 
