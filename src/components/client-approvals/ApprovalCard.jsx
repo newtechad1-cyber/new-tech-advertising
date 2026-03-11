@@ -157,7 +157,7 @@ export default function ApprovalCard({ video, onViewDetails, onApprove, onReject
             <div className="flex gap-2">
               <Button
                 size="sm"
-                onClick={() => onViewDetails(video)}
+                onClick={() => onApprove?.(video)}
                 className="gap-2"
               >
                 Approve
@@ -172,6 +172,7 @@ export default function ApprovalCard({ video, onViewDetails, onApprove, onReject
                 <ChevronRight className="w-4 h-4" />
               </Button>
             </div>
+            <p className="text-xs text-slate-500 mt-2">💡 Swipe right to approve, left for changes</p>
           </div>
         </div>
       </CardContent>
