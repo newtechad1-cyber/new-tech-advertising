@@ -387,6 +387,7 @@ import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AdminVideoPublishing from './pages/AdminVideoPublishing';
 import AdminConnections from './pages/AdminConnections';
+import AdminMetaSetup from './pages/AdminMetaSetup';
 import __Layout from './Layout.jsx';
 
 
@@ -731,6 +732,7 @@ export const PAGES = {
     "YouTubeUploadTest": YouTubeUploadTest,
     "AdminVideoPublishing": AdminVideoPublishing,
     "AdminConnections": AdminConnections,
+    "AdminMetaSetup": AdminMetaSetup,
 }
 
 export const pagesConfig = {
