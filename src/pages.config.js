@@ -432,6 +432,7 @@ import AdminAutonomy from './pages/AdminAutonomy';
 import AdminAutonomyOpportunities from './pages/AdminAutonomyOpportunities';
 import AdminAutonomyStrategies from './pages/AdminAutonomyStrategies';
 import AdminAutonomyImpact from './pages/AdminAutonomyImpact';
+import AdminAutonomyGovernance from './pages/AdminAutonomyGovernance';
 import __Layout from './Layout.jsx';
 
 
@@ -821,6 +822,7 @@ export const PAGES = {
     "AdminAutonomyOpportunities": AdminAutonomyOpportunities,
     "AdminAutonomyStrategies": AdminAutonomyStrategies,
     "AdminAutonomyImpact": AdminAutonomyImpact,
+    "AdminAutonomyGovernance": AdminAutonomyGovernance,
 }
 
 export const pagesConfig = {
