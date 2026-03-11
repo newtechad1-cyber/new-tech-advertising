@@ -269,6 +269,7 @@ export default function ClientDashboard() {
           )}
         </main>
       </div>
+      <RouteFamilyBadge family="client_portal" />
     </ClientGuard>
   );
 }
