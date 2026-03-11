@@ -121,12 +121,14 @@ import AdminQARuns from './pages/AdminQARuns';
 import AdminQATests from './pages/AdminQATests';
 import AdminRecommendationDetail from './pages/AdminRecommendationDetail';
 import AdminRecommendations from './pages/AdminRecommendations';
+import AdminReports from './pages/AdminReports';
 import AdminResellerClients from './pages/AdminResellerClients';
 import AdminResellerCommissions from './pages/AdminResellerCommissions';
 import AdminResellerRevenue from './pages/AdminResellerRevenue';
 import AdminResellers from './pages/AdminResellers';
 import AdminRevenueDetail from './pages/AdminRevenueDetail';
 import AdminRevenueEngine from './pages/AdminRevenueEngine';
+import AdminSales from './pages/AdminSales';
 import AdminSalesAssets from './pages/AdminSalesAssets';
 import AdminSalesDashboard from './pages/AdminSalesDashboard';
 import AdminSalesFollowups from './pages/AdminSalesFollowups';
@@ -224,12 +226,14 @@ import ChatWidget from './pages/ChatWidget';
 import ChatbotManagement from './pages/ChatbotManagement';
 import ClientApprovals from './pages/ClientApprovals';
 import ClientBilling from './pages/ClientBilling';
+import ClientCalendar from './pages/ClientCalendar';
 import ClientCommerce from './pages/ClientCommerce';
 import ClientContentProduction from './pages/ClientContentProduction';
 import ClientDashboard from './pages/ClientDashboard';
 import ClientDashboardDemo from './pages/ClientDashboardDemo';
 import ClientFulfillment from './pages/ClientFulfillment';
 import ClientOnboarding from './pages/ClientOnboarding';
+import ClientReports from './pages/ClientReports';
 import ClientSettings from './pages/ClientSettings';
 import Contact from './pages/Contact';
 import ContentDrafts from './pages/ContentDrafts';
@@ -383,9 +387,9 @@ import TermsOfService from './pages/TermsOfService';
 import TrialDashboard from './pages/TrialDashboard';
 import TrialOnboarding from './pages/TrialOnboarding';
 import TrialSlug from './pages/TrialSlug';
+import TvVideo from './pages/TvVideo';
 import TrialStart from './pages/TrialStart';
 import TvCommercialScriptGenerator from './pages/TvCommercialScriptGenerator';
-import TvVideo from './pages/TvVideo';
 import VideoDetail from './pages/VideoDetail';
 import VideoIndex from './pages/VideoIndex';
 import websiteRebuild from './pages/Website-Rebuild';
@@ -394,10 +398,7 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import ClientCalendar from './pages/ClientCalendar';
-import AdminSales from './pages/AdminSales';
-import AdminReports from './pages/AdminReports';
-import ClientReports from './pages/ClientReports';
+import ResellerSettingsBranding from './pages/ResellerSettingsBranding';
 import __Layout from './Layout.jsx';
 
 
@@ -476,12 +477,14 @@ export const PAGES = {
     "AdminQATests": AdminQATests,
     "AdminRecommendationDetail": AdminRecommendationDetail,
     "AdminRecommendations": AdminRecommendations,
+    "AdminReports": AdminReports,
     "AdminResellerClients": AdminResellerClients,
     "AdminResellerCommissions": AdminResellerCommissions,
     "AdminResellerRevenue": AdminResellerRevenue,
     "AdminResellers": AdminResellers,
     "AdminRevenueDetail": AdminRevenueDetail,
     "AdminRevenueEngine": AdminRevenueEngine,
+    "AdminSales": AdminSales,
     "AdminSalesAssets": AdminSalesAssets,
     "AdminSalesDashboard": AdminSalesDashboard,
     "AdminSalesFollowups": AdminSalesFollowups,
@@ -579,12 +582,14 @@ export const PAGES = {
     "ChatbotManagement": ChatbotManagement,
     "ClientApprovals": ClientApprovals,
     "ClientBilling": ClientBilling,
+    "ClientCalendar": ClientCalendar,
     "ClientCommerce": ClientCommerce,
     "ClientContentProduction": ClientContentProduction,
     "ClientDashboard": ClientDashboard,
     "ClientDashboardDemo": ClientDashboardDemo,
     "ClientFulfillment": ClientFulfillment,
     "ClientOnboarding": ClientOnboarding,
+    "ClientReports": ClientReports,
     "ClientSettings": ClientSettings,
     "Contact": Contact,
     "ContentDrafts": ContentDrafts,
@@ -738,9 +743,9 @@ export const PAGES = {
     "TrialDashboard": TrialDashboard,
     "TrialOnboarding": TrialOnboarding,
     "TrialSlug": TrialSlug,
+    "TvVideo": TvVideo,
     "TrialStart": TrialStart,
     "TvCommercialScriptGenerator": TvCommercialScriptGenerator,
-    "TvVideo": TvVideo,
     "VideoDetail": VideoDetail,
     "VideoIndex": VideoIndex,
     "Website-Rebuild": websiteRebuild,
@@ -749,10 +754,7 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "ClientCalendar": ClientCalendar,
-    "AdminSales": AdminSales,
-    "AdminReports": AdminReports,
-    "ClientReports": ClientReports,
+    "ResellerSettingsBranding": ResellerSettingsBranding,
 }
 
 export const pagesConfig = {

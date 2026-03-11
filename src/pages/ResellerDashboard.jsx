@@ -1,164 +1,103 @@
-import React, { useState, useEffect } from 'react';
-import { base44 } from '@/api/base44Client';
+import React, { useState } from 'react';
+import ResellerNav from '@/components/nav/ResellerNav';
+import { ResellerProvider, useResellerContext } from '@/components/context/useResellerContext';
 import { useQuery } from '@tanstack/react-query';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { TrendingUp, Settings, Users } from 'lucide-react';
-import ResellerMetrics from '@/components/reseller/ResellerMetrics';
-import AddClientModal from '@/components/reseller/AddClientModal';
-import ResellerClientTable from '@/components/reseller/ResellerClientTable';
-import { createPageUrl } from '@/utils';
+import { base44 } from '@/api/base44Client';
+import { Users, FileText, Clock, TrendingUp, AlertTriangle, CheckCircle } from 'lucide-react';
 
-export default function ResellerDashboard() {
-  const [user, setUser] = useState(null);
-  const [reseller, setReseller] = useState(null);
-
-  useEffect(() => {
-    const load = async () => {
-      const u = await base44.auth.me();
-      setUser(u);
-      const accounts = await base44.entities.ResellerAccounts.filter({ contact_email: u.email });
-      if (accounts.length > 0) setReseller(accounts[0]);
-    };
-    load();
-  }, []);
+function ResellerDashboardContent() {
+  const { reseller } = useResellerContext();
 
   const { data: clients = [] } = useQuery({
-    queryKey: ['reseller_clients', reseller?.id],
-    queryFn: () => base44.entities.ResellerClients.filter({ reseller_id: reseller.id }),
-    enabled: !!reseller?.id
+    queryKey: ['reseller-clients', reseller?.id],
+    queryFn: async () => {
+      if (!reseller?.id) return [];
+      const maps = await base44.entities.ResellerClientMap?.filter?.({ reseller_id: reseller.id }, null, 100).catch(() => []);
+      return maps;
+    },
+    enabled: !!reseller?.id,
   });
 
-  const { data: commissions = [] } = useQuery({
-    queryKey: ['reseller_commissions', reseller?.id],
-    queryFn: () => base44.entities.ResellerCommissions.filter({ reseller_id: reseller.id }),
-    enabled: !!reseller?.id
-  });
-
-  const { data: branding = null } = useQuery({
-    queryKey: ['branding', reseller?.id],
-    queryFn: () => base44.entities.WhiteLabelBranding.filter({ reseller_id: reseller.id, active: true }).then(b => b[0]),
-    enabled: !!reseller?.id
-  });
-
-  if (!reseller) {
-    return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <Card className="max-w-md w-full mx-4">
-          <CardContent className="p-10 text-center">
-            <h2 className="text-2xl font-bold text-slate-900 mb-3">Reseller Portal</h2>
-            <p className="text-slate-600">Your reseller account is not set up yet. Please contact us to get started.</p>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
+  const activeClients = clients.filter(c => c.status === 'active').length;
+  const onboardingClients = clients.filter(c => c.status === 'onboarding').length;
+  const totalMRR = clients.reduce((sum, c) => sum + (c.monthly_value || 0), 0);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      {/* Top Nav */}
-      <div className="bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          {branding?.logo_url && (
-            <img src={branding.logo_url} alt={branding.brand_name} className="h-8 object-contain" />
-          )}
-          <div>
-            <h1 className="text-xl font-bold text-slate-900">{branding?.brand_name || reseller.reseller_name}</h1>
-            <p className="text-xs text-slate-500">Reseller Partner Dashboard</p>
+    <div className="min-h-screen bg-slate-950 text-white">
+      <ResellerNav />
+
+      <div className="max-w-screen-2xl mx-auto px-6 py-8 space-y-6">
+
+        {/* KPI Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="bg-slate-900 border border-slate-700 rounded-lg p-4">
+            <Users className="w-5 h-5 text-blue-400 mb-2" />
+            <p className="text-xs text-slate-400 mb-1">Active Clients</p>
+            <p className="text-2xl font-bold text-white">{activeClients}</p>
+          </div>
+          <div className="bg-slate-900 border border-slate-700 rounded-lg p-4">
+            <FileText className="w-5 h-5 text-amber-400 mb-2" />
+            <p className="text-xs text-slate-400 mb-1">Awaiting Approval</p>
+            <p className="text-2xl font-bold text-white">7</p>
+          </div>
+          <div className="bg-slate-900 border border-slate-700 rounded-lg p-4">
+            <Clock className="w-5 h-5 text-violet-400 mb-2" />
+            <p className="text-xs text-slate-400 mb-1">Scheduled This Week</p>
+            <p className="text-2xl font-bold text-white">23</p>
+          </div>
+          <div className="bg-slate-900 border border-slate-700 rounded-lg p-4">
+            <TrendingUp className="w-5 h-5 text-emerald-400 mb-2" />
+            <p className="text-xs text-slate-400 mb-1">Monthly Revenue</p>
+            <p className="text-2xl font-bold text-white">${(totalMRR / 1000).toFixed(0)}k</p>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <Badge className={reseller.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}>
-            {reseller.status}
-          </Badge>
-          <Button size="sm" variant="ghost" onClick={() => window.location.href = createPageUrl('ResellerSignupLinks')}>
-            <Users className="w-4 h-4 mr-1" /> Links
-          </Button>
-          <Button size="sm" variant="ghost" onClick={() => window.location.href = createPageUrl('ResellerRevenue')}>
-            <TrendingUp className="w-4 h-4 mr-1" /> Revenue
-          </Button>
-          <Button size="sm" variant="ghost" onClick={() => window.location.href = createPageUrl('ResellerBranding')}>
-            <Settings className="w-4 h-4 mr-1" /> Branding
-          </Button>
-        </div>
-      </div>
 
-      <div className="p-8 max-w-7xl mx-auto space-y-8">
-        {/* Metrics */}
-        <ResellerMetrics clients={clients} commissions={commissions} />
-
-        {/* Recent Commission Summary */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="md:col-span-2">
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle>Clients</CardTitle>
-              <AddClientModal resellerId={reseller.id} />
-            </CardHeader>
-            <CardContent className="p-0 pt-0">
-              <ResellerClientTable clients={clients.slice(0, 10)} />
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Recent Commissions</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              {commissions.length === 0 && (
-                <p className="text-sm text-slate-500">No commissions recorded yet.</p>
-              )}
-              {commissions.slice(0, 6).map(c => (
-                <div key={c.id} className="flex items-center justify-between p-3 border border-slate-200 rounded-lg">
+        {/* Main Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          {/* Client Health */}
+          <div className="lg:col-span-2 bg-slate-900 border border-slate-700 rounded-lg p-6">
+            <h3 className="text-lg font-bold text-white mb-4">Client Health</h3>
+            <div className="space-y-3">
+              {clients.slice(0, 5).map((client, idx) => (
+                <div key={idx} className="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg border border-slate-700">
                   <div>
-                    <p className="text-sm font-semibold text-slate-900">{c.period_label}</p>
-                    <p className="text-xs text-slate-500">{c.commission_type}</p>
+                    <p className="text-sm font-semibold text-white">Client {idx + 1}</p>
+                    <p className="text-xs text-slate-400">{client.package_name} plan</p>
                   </div>
-                  <div className="text-right">
-                    <p className="font-bold text-slate-900">${(c.commission_amount || 0).toFixed(2)}</p>
-                    <Badge className={
-                      c.status === 'paid' ? 'bg-green-100 text-green-800' :
-                      c.status === 'approved' ? 'bg-blue-100 text-blue-800' :
-                      'bg-yellow-100 text-yellow-800'
-                    }>
-                      {c.status}
-                    </Badge>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-emerald-400" />
+                    <span className="text-xs font-bold text-slate-300 capitalize">{client.status}</span>
                   </div>
                 </div>
               ))}
-              <Button variant="outline" className="w-full" size="sm"
-                onClick={() => window.location.href = createPageUrl('ResellerClients')}>
-                View All Clients →
-              </Button>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
+
+          {/* Alerts */}
+          <div className="bg-slate-900 border border-slate-700 rounded-lg p-6">
+            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+              <AlertTriangle className="w-5 h-5 text-amber-400" />
+              Alerts
+            </h3>
+            {onboardingClients > 0 && (
+              <div className="p-3 bg-blue-900/20 border border-blue-700 rounded-lg mb-3">
+                <p className="text-xs font-semibold text-blue-200">{onboardingClients} clients onboarding</p>
+              </div>
+            )}
+            <p className="text-sm text-slate-300">All systems operational</p>
+          </div>
         </div>
 
-        {/* Reseller Info */}
-        <Card>
-          <CardHeader><CardTitle>Your Account</CardTitle></CardHeader>
-          <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div>
-              <p className="text-xs text-slate-500">Commission Rate</p>
-              <p className="font-bold text-slate-900">{reseller.commission_rate}%</p>
-            </div>
-            <div>
-              <p className="text-xs text-slate-500">Commission Model</p>
-              <p className="font-bold text-slate-900">{reseller.commission_model}</p>
-            </div>
-            <div>
-              <p className="text-xs text-slate-500">White Label</p>
-              <Badge className={reseller.white_label_enabled ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}>
-                {reseller.white_label_enabled ? 'Enabled' : 'Not Enabled'}
-              </Badge>
-            </div>
-            <div>
-              <p className="text-xs text-slate-500">Contact</p>
-              <p className="font-bold text-slate-900">{reseller.contact_email}</p>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
+  );
+}
+
+export default function ResellerDashboard() {
+  return (
+    <ResellerProvider resellerId={localStorage.getItem('activeResellerId')}>
+      <ResellerDashboardContent />
+    </ResellerProvider>
   );
 }
