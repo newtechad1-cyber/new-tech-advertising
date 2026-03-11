@@ -114,6 +114,7 @@ export default function AdminGovernance() {
         <Tabs defaultValue="overview" className="space-y-4">
           <TabsList className="bg-slate-800 border border-slate-700">
             <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="controls">Controls</TabsTrigger>
             <TabsTrigger value="entities">Entities</TabsTrigger>
             <TabsTrigger value="fields">Fields</TabsTrigger>
             <TabsTrigger value="relationships">Relationships</TabsTrigger>
@@ -125,11 +126,18 @@ export default function AdminGovernance() {
           <TabsContent value="overview" className="space-y-6">
             <GovernanceHealthPanel health={health[0]} entities={entities} fields={fields} />
             <SchemaHealthAlerts health={health[0]} />
+            <ConflictDetectionPanel entities={entities} fields={fields} lifecycles={lifecycles} relationships={relationships} />
             <RecentGovernanceChanges audits={audits} />
           </TabsContent>
 
-          <TabsContent value="entities">
-            <EntityRegistryOverview entities={entities} health={health[0]} />
+          <TabsContent value="controls" className="space-y-6">
+            <NextBestGovernanceAction entities={entities} fields={fields} lifecycles={lifecycles} relationships={relationships} dependencies={dependencies} />
+            <HighRiskEntitiesPanel entities={entities} fields={fields} relationships={relationships} />
+            <ArchitecturePreviewMode entities={entities} relationships={relationships} fields={fields} />
+          </TabsContent>
+
+          <TabsContent value="entities" className="space-y-6">
+            <CategorizedEntityBrowser entities={entities} />
           </TabsContent>
 
           <TabsContent value="fields">
