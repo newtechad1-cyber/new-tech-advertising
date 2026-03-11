@@ -1,79 +1,83 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { base44 } from '@/api/base44Client';
-import { Activity, Phone, Mail, CalendarCheck, FileText, UserCheck, MessageSquare, RefreshCw, Zap } from 'lucide-react';
+import { Activity, Plus, CheckCircle, AlertCircle, FileText, Phone, TrendingUp, X } from 'lucide-react';
 
 const ACTIVITY_ICONS = {
-  call: { icon: Phone, color: 'text-blue-400 bg-blue-900/30' },
-  email: { icon: Mail, color: 'text-purple-400 bg-purple-900/30' },
-  meeting: { icon: CalendarCheck, color: 'text-green-400 bg-green-900/30' },
-  demo: { icon: Zap, color: 'text-yellow-400 bg-yellow-900/30' },
-  proposal_sent: { icon: FileText, color: 'text-orange-400 bg-orange-900/30' },
-  follow_up: { icon: RefreshCw, color: 'text-cyan-400 bg-cyan-900/30' },
-  note: { icon: MessageSquare, color: 'text-gray-400 bg-gray-800' },
-  stage_change: { icon: RefreshCw, color: 'text-indigo-400 bg-indigo-900/30' },
-  conversion: { icon: UserCheck, color: 'text-green-400 bg-green-900/30' },
+  deal_created: { icon: Plus, color: 'text-blue-400', bg: 'bg-blue-900/20' },
+  demo_scheduled: { icon: Phone, color: 'text-violet-400', bg: 'bg-violet-900/20' },
+  proposal_sent: { icon: FileText, color: 'text-amber-400', bg: 'bg-amber-900/20' },
+  followup_logged: { icon: Activity, color: 'text-slate-400', bg: 'bg-slate-800/50' },
+  deal_won: { icon: CheckCircle, color: 'text-green-400', bg: 'bg-green-900/20' },
+  deal_lost: { icon: X, color: 'text-red-400', bg: 'bg-red-900/20' },
+  note_added: { icon: AlertCircle, color: 'text-yellow-400', bg: 'bg-yellow-900/20' },
 };
 
-const ACTIVITY_LABELS = {
-  call: 'Call', email: 'Email', meeting: 'Meeting', demo: 'Demo', proposal_sent: 'Proposal Sent',
-  follow_up: 'Follow-up', note: 'Note', stage_change: 'Stage Change', conversion: 'Converted',
-};
+export default function SalesActivityFeed({ activities = [] }) {
+  const sortedActivities = [...activities]
+    .sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0))
+    .slice(0, 10);
 
-function timeAgo(d) {
-  const diff = (Date.now() - new Date(d)) / 1000;
-  if (diff < 60) return 'just now';
-  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-  return `${Math.floor(diff / 86400)}d ago`;
-}
-
-export default function SalesActivityFeed({ limit = 30 }) {
-  const { data: activities = [], isLoading } = useQuery({
-    queryKey: ['sc-activity-feed'],
-    queryFn: () => base44.entities.SalesActivities.list('-created_date', limit),
-    refetchInterval: 30000,
-  });
-  const { data: deals = [] } = useQuery({ queryKey: ['sc-pipeline-deals'], queryFn: () => base44.entities.SalesDeals.list('-created_date', 500) });
-
-  const dealMap = deals.reduce((m, d) => { m[d.id] = d; return m; }, {});
+  const getActivityLabel = (activity) => {
+    switch (activity.activity_type) {
+      case 'deal_created':
+        return `${activity.company_name} deal created`;
+      case 'demo_scheduled':
+        return `Demo scheduled with ${activity.company_name}`;
+      case 'proposal_sent':
+        return `Proposal sent to ${activity.company_name}`;
+      case 'followup_logged':
+        return `Follow-up logged for ${activity.company_name}`;
+      case 'deal_won':
+        return `🎉 ${activity.company_name} closed won`;
+      case 'deal_lost':
+        return `${activity.company_name} closed lost`;
+      case 'note_added':
+        return `Note added on ${activity.company_name}`;
+      default:
+        return activity.company_name;
+    }
+  };
 
   return (
-    <div className="bg-gray-900 rounded-xl border border-gray-800 h-full flex flex-col">
-      <div className="px-5 py-4 border-b border-gray-800 flex items-center gap-2">
-        <Activity className="w-4 h-4 text-cyan-400" />
-        <h2 className="text-sm font-bold text-white">Deal Activity Feed</h2>
-        <span className="ml-auto text-xs text-gray-600">Live · auto-refresh 30s</span>
+    <div className="bg-slate-900 border border-slate-700 rounded-xl overflow-hidden">
+      <div className="bg-gradient-to-r from-slate-800 to-slate-900 border-b border-slate-700 px-4 py-3 flex items-center gap-2">
+        <Activity className="w-4 h-4 text-slate-400" />
+        <h3 className="text-sm font-bold text-white">Recent Activity</h3>
       </div>
-      <div className="flex-1 overflow-y-auto max-h-[480px]">
-        {isLoading ? (
-          <div className="text-center py-10 text-gray-600 text-sm">Loading...</div>
-        ) : activities.length === 0 ? (
-          <div className="text-center py-10 text-gray-600 text-sm">No activity yet</div>
+
+      <div className="divide-y divide-slate-700 max-h-80 overflow-y-auto">
+        {sortedActivities.length === 0 ? (
+          <div className="px-4 py-8 text-center text-slate-500 text-sm">No activity yet</div>
         ) : (
-          <div className="divide-y divide-gray-800">
-            {activities.map(a => {
-              const cfg = ACTIVITY_ICONS[a.activity_type] || ACTIVITY_ICONS.note;
-              const Icon = cfg.icon;
-              const deal = dealMap[a.deal_id];
-              return (
-                <div key={a.id} className="flex items-start gap-3 px-4 py-3 hover:bg-gray-800/30 transition-colors">
-                  <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${cfg.color}`}>
-                    <Icon className="w-3.5 h-3.5" />
+          sortedActivities.map((activity, idx) => {
+            const config = ACTIVITY_ICONS[activity.activity_type] || ACTIVITY_ICONS.note_added;
+            const Icon = config.icon;
+
+            return (
+              <div key={idx} className={`px-4 py-3 hover:bg-slate-800/50 transition-colors ${config.bg}`}>
+                <div className="flex items-start gap-3">
+                  <div className={`mt-0.5 flex-shrink-0 p-1.5 rounded-full ${config.bg}`}>
+                    <Icon className={`w-3 h-3 ${config.color}`} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold text-gray-300">{ACTIVITY_LABELS[a.activity_type] || a.activity_type}</span>
-                      <span className="text-xs text-gray-600 flex-shrink-0 ml-2">{timeAgo(a.created_date || a.date)}</span>
-                    </div>
-                    {deal && <p className="text-xs text-gray-500 mt-0.5">{deal.company_name}</p>}
-                    {a.notes && <p className="text-xs text-gray-600 mt-0.5 truncate">{a.notes}</p>}
-                    {a.user && <p className="text-xs text-gray-700 mt-0.5">{a.user}</p>}
+                    <p className="text-sm text-slate-300">
+                      {getActivityLabel(activity)}
+                    </p>
+                    <p className="text-xs text-slate-600 mt-0.5">
+                      {new Date(activity.created_at || 0).toLocaleString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </p>
                   </div>
                 </div>
-              );
-            })}
-          </div>
+                {activity.notes && (
+                  <p className="text-xs text-slate-400 mt-2 ml-6 italic">"{activity.notes}"</p>
+                )}
+              </div>
+            );
+          })
         )}
       </div>
     </div>
