@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from '@/components/ui/card';
-import { Film, Clock, CheckCircle2, AlertTriangle, Zap, Globe, BarChart3 } from 'lucide-react';
+import { Film, Clock, CheckCircle2, AlertTriangle, Zap, Globe, BarChart3, Calendar } from 'lucide-react';
 
 const METRIC_CARDS = [
   {
