@@ -17,15 +17,6 @@ const PIPELINE_STAGES = [
 export default function SalesPipelineBoard({ deals = [], onDealMove, onOpenDeal }) {
   const [collapsedStages, setCollapsedStages] = useState({});
 
-  const handleDragEnd = (event) => {
-    const { active, over } = event;
-    if (over && active.id !== over.id) {
-      const dealId = active.id.replace('deal-', '');
-      const newStage = over.id.replace('stage-', '');
-      onDealMove?.(dealId, newStage);
-    }
-  };
-
   const stageStats = PIPELINE_STAGES.map(stage => {
     const stageDeals = deals.filter(d => d.stage === stage.id);
     return {
