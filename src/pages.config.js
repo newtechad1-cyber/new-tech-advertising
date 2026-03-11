@@ -388,6 +388,7 @@ import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AdminVideoPublishing from './pages/AdminVideoPublishing';
 import AdminConnections from './pages/AdminConnections';
 import AdminMetaSetup from './pages/AdminMetaSetup';
+import AdminYouTubeSetup from './pages/AdminYouTubeSetup';
 import __Layout from './Layout.jsx';
 
 
@@ -733,6 +734,7 @@ export const PAGES = {
     "AdminVideoPublishing": AdminVideoPublishing,
     "AdminConnections": AdminConnections,
     "AdminMetaSetup": AdminMetaSetup,
+    "AdminYouTubeSetup": AdminYouTubeSetup,
 }
 
 export const pagesConfig = {
