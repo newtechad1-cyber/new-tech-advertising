@@ -41,6 +41,16 @@ export default function AdminAgents() {
     },
   });
 
+  const { data: snapshots = [] } = useQuery({
+    queryKey: ['agent-health-snapshots'],
+    queryFn: () => base44.entities.AgentHealthSnapshot?.list?.().catch(() => []),
+  });
+
+  const { data: logs = [] } = useQuery({
+    queryKey: ['agent-task-logs'],
+    queryFn: () => base44.entities.AgentTaskLog?.list?.('-created_at', 100).catch(() => []),
+  });
+
   // KPI Calculations
   const activeAgents = agents.filter(a => a.active).length;
   const tasksRunning = tasks.filter(t => t.task_status === 'running').length;
