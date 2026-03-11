@@ -82,6 +82,23 @@ export default function ClientApprovals() {
     }
   };
 
+  const handleApproveAll = async () => {
+    try {
+      for (const video of pendingVideos) {
+        await base44.entities.VideoRequests.update(video.id, {
+          approval_status: 'Approved',
+          approved_by: user?.email,
+          approved_at: new Date().toISOString()
+        });
+      }
+      setPendingVideos([]);
+      setConfirmationMessage('approved');
+      setTimeout(() => setConfirmationMessage(null), 4000);
+    } catch (error) {
+      console.error('Failed to approve all videos:', error);
+    }
+  };
+
   const handleRequestChanges = async (video, feedback) => {
     try {
       await base44.entities.VideoRequests.update(video.id, {
