@@ -23,7 +23,7 @@ import ProposalsMetricsPanel from '@/components/proposals/ProposalsMetricsPanel'
 
 const QUICK_ACTIONS = [
   { label: 'Generate Blog', icon: FileText, page: 'AdminBlog', color: 'bg-rose-600 hover:bg-rose-700' },
-  { label: 'Create Case Study', icon: Target, page: 'AdminDashboard', color: 'bg-amber-600 hover:bg-amber-700' },
+  { label: 'Case Studies', icon: Target, page: 'AdminSalesAssets', color: 'bg-amber-600 hover:bg-amber-700' },
   { label: 'Content Engine', icon: Zap, page: 'ContentEngine', color: 'bg-violet-600 hover:bg-violet-700' },
   { label: 'Video Generator', icon: Clapperboard, page: 'AiVideoStudio', color: 'bg-purple-600 hover:bg-purple-700' },
   { label: 'Alert Center', icon: Bell, page: 'AdminAlerts', color: 'bg-red-600 hover:bg-red-700' },
