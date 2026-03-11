@@ -48,6 +48,11 @@ export default function AdminNavigation() {
     queryFn: () => base44.entities.PageGovernanceAuditLog?.list?.('-created_at', 50).catch(() => []),
   });
 
+  const { data: navItems = [] } = useQuery({
+    queryKey: ['navigation-items'],
+    queryFn: () => base44.entities.NavigationItemDefinition?.list?.().catch(() => []),
+  });
+
   const activePages = pages.filter(p => p.active).length;
   const activeRoutes = routes.filter(r => r.active).length;
   const activeNavs = navs.filter(n => n.active).length;
