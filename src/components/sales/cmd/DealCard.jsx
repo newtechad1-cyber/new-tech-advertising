@@ -13,8 +13,10 @@ export default function DealCard({ deal, onOpen, stageColor }) {
   const getHealthIndicators = () => {
     const indicators = [];
     if (!deal.next_followup_date) indicators.push('no_followup');
-    if (deal.next_followup_date && new Date(deal.next_followup_date) < new Date()) indicators.push('overdue');
-    if (deal.deal_value > 10000) indicators.push('high_value');
+    if (deal.next_followup_date && new Date(deal.next_followup_date) < new Date()) {
+      indicators.push('overdue');
+    }
+    if ((deal.deal_value || 0) > 10000) indicators.push('high_value');
     return indicators.slice(0, 2);
   };
 
