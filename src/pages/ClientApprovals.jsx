@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import ClientGuard from '@/components/auth/ClientGuard';
-import ApprovalHeader from '@/components/client-approvals/ApprovalHeader';
-import ApprovalMetricsCards from '@/components/client-approvals/ApprovalMetricsCards';
-import ApprovalFeed from '@/components/client-approvals/ApprovalFeed';
-import ScheduledContentPanel from '@/components/client-approvals/ScheduledContentPanel';
-import RecentlyPublishedPanel from '@/components/client-approvals/RecentlyPublishedPanel';
-import ReviewDetailModal from '@/components/client-approvals/ReviewDetailModal';
-import ApprovalConfirmation from '@/components/client-approvals/ApprovalConfirmation';
-import ChangeRequestModal from '@/components/client-approvals/ChangeRequestModal';
+import ApprovalHeader from '@/components/client-approvals/ApprovalHeader.jsx';
+import ApprovalMetricsCards from '@/components/client-approvals/ApprovalMetricsCards.jsx';
+import ApprovalFeed from '@/components/client-approvals/ApprovalFeed.jsx';
+import ScheduledContentPanel from '@/components/client-approvals/ScheduledContentPanel.jsx';
+import RecentlyPublishedPanel from '@/components/client-approvals/RecentlyPublishedPanel.jsx';
+import ReviewDetailModal from '@/components/client-approvals/ReviewDetailModal.jsx';
+import ApprovalConfirmation from '@/components/client-approvals/ApprovalConfirmation.jsx';
+import ChangeRequestModal from '@/components/client-approvals/ChangeRequestModal.jsx';
 
 export default function ClientApprovals() {
   const [user, setUser] = useState(null);
