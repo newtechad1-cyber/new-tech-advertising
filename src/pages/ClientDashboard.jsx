@@ -4,15 +4,16 @@ import { createPageUrl } from '@/utils';
 import ClientGuard from '@/components/auth/ClientGuard';
 import RouteFamilyBadge from '@/components/admin/RouteFamilyBadge';
 import { useQuery } from '@tanstack/react-query';
-import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import {
-  Users, FileText, Zap, BarChart2, Share2, Video,
-  CheckCircle, Clock, ArrowRight, LogOut, Mail, Phone,
-  TrendingUp, Calendar, Star
-} from 'lucide-react';
-import PlatformFeatureTiles from '@/components/dashboard/PlatformFeatureTiles';
+import { LogOut } from 'lucide-react';
+import PerformanceHeader from '@/components/client-dashboard/PerformanceHeader';
+import VisibilityMetrics from '@/components/client-dashboard/VisibilityMetrics';
+import ActivityFeed from '@/components/client-dashboard/ActivityFeed';
+import UpcomingContentPanel from '@/components/client-dashboard/UpcomingContentPanel';
+import RecentWinsPanel from '@/components/client-dashboard/RecentWinsPanel';
+import ApprovalReminder from '@/components/client-dashboard/ApprovalReminder';
+import PerformanceStory from '@/components/client-dashboard/PerformanceStory';
+import ChannelPresenceSummary from '@/components/client-dashboard/ChannelPresenceSummary';
 
 const LOGO = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/6e3c5001c_builtforsmallbusinessespng2.png';
 

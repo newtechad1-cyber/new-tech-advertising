@@ -186,6 +186,7 @@ import AdminVideoPublishing from './pages/AdminVideoPublishing';
 import AdminVideoQueue from './pages/AdminVideoQueue';
 import AdminVideoRenderDetail from './pages/AdminVideoRenderDetail';
 import AdminVideoRenderQueue from './pages/AdminVideoRenderQueue';
+import AdminVideos from './pages/AdminVideos';
 import AdminYearbookLibrary from './pages/AdminYearbookLibrary';
 import AdminYearbookOverview from './pages/AdminYearbookOverview';
 import AdminYearbookPage from './pages/AdminYearbookPage';
@@ -221,6 +222,7 @@ import CaseStudies from './pages/CaseStudies';
 import CaseStudyDetail from './pages/CaseStudyDetail';
 import ChatWidget from './pages/ChatWidget';
 import ChatbotManagement from './pages/ChatbotManagement';
+import ClientApprovals from './pages/ClientApprovals';
 import ClientBilling from './pages/ClientBilling';
 import ClientCommerce from './pages/ClientCommerce';
 import ClientContentProduction from './pages/ClientContentProduction';
@@ -271,9 +273,9 @@ import HvacMarketing from './pages/HvacMarketing';
 import IndustriesHub from './pages/IndustriesHub';
 import IndustriesNonprofits from './pages/IndustriesNonprofits';
 import IndustriesProfessionals from './pages/IndustriesProfessionals';
-import Industry from './pages/Industry';
 import IndustriesServiceTrades from './pages/IndustriesServiceTrades';
 import IndustriesSmallLocal from './pages/IndustriesSmallLocal';
+import Industry from './pages/Industry';
 import IndustryIntelAdmin from './pages/IndustryIntelAdmin';
 import IndustryNonprofit from './pages/IndustryNonprofit';
 import IndustryNonprofits from './pages/IndustryNonprofits';
@@ -392,8 +394,6 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdminVideos from './pages/AdminVideos';
-import ClientApprovals from './pages/ClientApprovals';
 import __Layout from './Layout.jsx';
 
 
@@ -537,6 +537,7 @@ export const PAGES = {
     "AdminVideoQueue": AdminVideoQueue,
     "AdminVideoRenderDetail": AdminVideoRenderDetail,
     "AdminVideoRenderQueue": AdminVideoRenderQueue,
+    "AdminVideos": AdminVideos,
     "AdminYearbookLibrary": AdminYearbookLibrary,
     "AdminYearbookOverview": AdminYearbookOverview,
     "AdminYearbookPage": AdminYearbookPage,
@@ -572,6 +573,7 @@ export const PAGES = {
     "CaseStudyDetail": CaseStudyDetail,
     "ChatWidget": ChatWidget,
     "ChatbotManagement": ChatbotManagement,
+    "ClientApprovals": ClientApprovals,
     "ClientBilling": ClientBilling,
     "ClientCommerce": ClientCommerce,
     "ClientContentProduction": ClientContentProduction,
@@ -622,9 +624,9 @@ export const PAGES = {
     "IndustriesHub": IndustriesHub,
     "IndustriesNonprofits": IndustriesNonprofits,
     "IndustriesProfessionals": IndustriesProfessionals,
-    "Industry": Industry,
     "IndustriesServiceTrades": IndustriesServiceTrades,
     "IndustriesSmallLocal": IndustriesSmallLocal,
+    "Industry": Industry,
     "IndustryIntelAdmin": IndustryIntelAdmin,
     "IndustryNonprofit": IndustryNonprofit,
     "IndustryNonprofits": IndustryNonprofits,
@@ -743,8 +745,6 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AdminVideos": AdminVideos,
-    "ClientApprovals": ClientApprovals,
 }
 
 export const pagesConfig = {
