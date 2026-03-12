@@ -29,6 +29,7 @@ import AdminFounderScorecardWeekly from './pages/AdminFounderScorecardWeekly';
 import AdminFounderScenarios from './pages/AdminFounderScenarios';
 import AdminClientSuccess from './pages/AdminClientSuccess';
 import AdminClientRetention from './pages/AdminClientRetention';
+import AdminClientExpansion from './pages/AdminClientExpansion';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -103,6 +104,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin/founder-scenarios" element={<LayoutWrapper currentPageName="AdminFounderScenarios"><AdminFounderScenarios /></LayoutWrapper>} />
       <Route path="/admin/client-success" element={<LayoutWrapper currentPageName="AdminClientSuccess"><AdminClientSuccess /></LayoutWrapper>} />
       <Route path="/admin/client-retention" element={<LayoutWrapper currentPageName="AdminClientRetention"><AdminClientRetention /></LayoutWrapper>} />
+      <Route path="/admin/client-expansion" element={<LayoutWrapper currentPageName="AdminClientExpansion"><AdminClientExpansion /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

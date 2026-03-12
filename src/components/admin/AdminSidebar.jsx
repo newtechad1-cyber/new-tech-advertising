@@ -134,6 +134,7 @@ const ADMIN_NAV_STRUCTURE = [
     items: [
       { label: 'Command Center', page: 'AdminClientSuccess' },
       { label: 'Retention Risk', page: 'AdminClientRetention' },
+      { label: 'Expansion Pipeline', page: 'AdminClientExpansion' },
     ],
   },
   {
