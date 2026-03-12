@@ -91,6 +91,7 @@ const ADMIN_NAV_STRUCTURE = [
     items: [
       { label: 'Production Command', page: 'AdminOperations' },
       { label: 'Capacity Planning', page: 'AdminOperationsCapacity' },
+      { label: 'SLA Fulfillment', page: 'AdminOperationsSLA' },
       { label: 'Fulfillment Monitor', page: 'AdminFulfillment' },
       { label: 'Client Accounts', page: 'AdminClients' },
       { label: 'Onboarding', page: 'AdminOnboarding' },

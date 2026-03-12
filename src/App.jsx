@@ -33,6 +33,7 @@ import AdminClientExpansion from './pages/AdminClientExpansion';
 import AdminClientLTV from './pages/AdminClientLTV';
 import AdminOperations from './pages/AdminOperations';
 import AdminOperationsCapacity from './pages/AdminOperationsCapacity';
+import AdminOperationsSLA from './pages/AdminOperationsSLA';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -111,6 +112,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin/client-ltv" element={<LayoutWrapper currentPageName="AdminClientLTV"><AdminClientLTV /></LayoutWrapper>} />
       <Route path="/admin/operations" element={<LayoutWrapper currentPageName="AdminOperations"><AdminOperations /></LayoutWrapper>} />
       <Route path="/admin/operations-capacity" element={<LayoutWrapper currentPageName="AdminOperationsCapacity"><AdminOperationsCapacity /></LayoutWrapper>} />
+      <Route path="/admin/operations-sla" element={<LayoutWrapper currentPageName="AdminOperationsSLA"><AdminOperationsSLA /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
