@@ -36,6 +36,7 @@ import AdminOperationsCapacity from './pages/AdminOperationsCapacity';
 import AdminOperationsSLA from './pages/AdminOperationsSLA';
 import AdminOperationsEfficiency from './pages/AdminOperationsEfficiency';
 import AdminControlTower from './pages/AdminControlTower';
+import AdminControlTowerInsights from './pages/AdminControlTowerInsights';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -117,6 +118,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin/operations-sla" element={<LayoutWrapper currentPageName="AdminOperationsSLA"><AdminOperationsSLA /></LayoutWrapper>} />
       <Route path="/admin/operations-efficiency" element={<LayoutWrapper currentPageName="AdminOperationsEfficiency"><AdminOperationsEfficiency /></LayoutWrapper>} />
       <Route path="/admin/control-tower" element={<LayoutWrapper currentPageName="AdminControlTower"><AdminControlTower /></LayoutWrapper>} />
+      <Route path="/admin/control-tower-insights" element={<LayoutWrapper currentPageName="AdminControlTowerInsights"><AdminControlTowerInsights /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

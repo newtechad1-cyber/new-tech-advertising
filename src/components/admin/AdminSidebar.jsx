@@ -12,6 +12,7 @@ const ADMIN_NAV_STRUCTURE = [
     icon: '⚡',
     items: [
       { label: 'Control Tower', page: 'AdminControlTower' },
+      { label: 'Drilldown Insights', page: 'AdminControlTowerInsights' },
       { label: 'Dashboard', page: 'AdminDashboard' },
       { label: 'Command Center', page: 'AdminCommandCenter' },
       { label: 'AI Control Center', page: 'AdminAIControlCenter' },
