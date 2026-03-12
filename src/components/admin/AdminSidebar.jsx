@@ -116,6 +116,15 @@ const ADMIN_NAV_STRUCTURE = [
     ],
   },
   {
+    id: 'founder-planner',
+    title: 'Founder Planner',
+    icon: '🧭',
+    items: [
+      { label: 'Weekly Planner', page: 'AdminFounderPlanner' },
+      { label: 'Founder Scorecard', page: 'FounderScorecard' },
+    ],
+  },
+  {
     id: 'vertical-intelligence',
     title: 'Vertical Intelligence',
     icon: '🎯',
