@@ -188,9 +188,9 @@ const AuthenticatedApp = () => {
       <Route path="/admin/platform-qa" element={<LayoutWrapper currentPageName="AdminPlatformQA"><AdminPlatformQA /></LayoutWrapper>} />
       {/* Trial Onboarding Flow */}
       <Route path="/trial/welcome" element={<LayoutWrapper currentPageName="TrialWelcome"><TrialWelcome /></LayoutWrapper>} />
-      <Route path="/trial/business-setup" element={<LayoutWrapper currentPageName="TrialBusinessSetup"><TrialBusinessSetup /></LayoutWrapper>} />
-      <Route path="/trial/connect-channels" element={<LayoutWrapper currentPageName="TrialConnectChannels"><TrialConnectChannels /></LayoutWrapper>} />
-      <Route path="/trial/activation-preview" element={<LayoutWrapper currentPageName="TrialActivationPreview"><TrialActivationPreview /></LayoutWrapper>} />
+      <Route path="/trial/business" element={<LayoutWrapper currentPageName="TrialBusiness"><TrialBusiness /></LayoutWrapper>} />
+      <Route path="/trial/channels" element={<LayoutWrapper currentPageName="TrialChannels"><TrialChannels /></LayoutWrapper>} />
+      <Route path="/trial/activation" element={<LayoutWrapper currentPageName="TrialActivation"><TrialActivation /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
