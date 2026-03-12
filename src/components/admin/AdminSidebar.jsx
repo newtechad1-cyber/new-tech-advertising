@@ -123,6 +123,7 @@ const ADMIN_NAV_STRUCTURE = [
       { label: 'Weekly Planner', page: 'AdminFounderPlanner' },
       { label: 'Founder Scorecard', page: 'FounderScorecard' },
       { label: 'Priority Intelligence', page: 'AdminFounderPriorities' },
+      { label: 'Weekly Scorecard', page: 'AdminFounderScorecardWeekly' },
     ],
   },
   {
