@@ -38,6 +38,7 @@ import AdminOperationsEfficiency from './pages/AdminOperationsEfficiency';
 import AdminControlTower from './pages/AdminControlTower';
 import AdminControlTowerInsights from './pages/AdminControlTowerInsights';
 import AdminControlTowerRisk from './pages/AdminControlTowerRisk';
+import AdminControlTowerActions from './pages/AdminControlTowerActions';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -121,6 +122,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin/control-tower" element={<LayoutWrapper currentPageName="AdminControlTower"><AdminControlTower /></LayoutWrapper>} />
       <Route path="/admin/control-tower-insights" element={<LayoutWrapper currentPageName="AdminControlTowerInsights"><AdminControlTowerInsights /></LayoutWrapper>} />
       <Route path="/admin/control-tower-risk" element={<LayoutWrapper currentPageName="AdminControlTowerRisk"><AdminControlTowerRisk /></LayoutWrapper>} />
+      <Route path="/admin/control-tower-actions" element={<LayoutWrapper currentPageName="AdminControlTowerActions"><AdminControlTowerActions /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

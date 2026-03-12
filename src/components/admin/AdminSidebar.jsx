@@ -14,6 +14,7 @@ const ADMIN_NAV_STRUCTURE = [
       { label: 'Control Tower', page: 'AdminControlTower' },
       { label: 'Drilldown Insights', page: 'AdminControlTowerInsights' },
       { label: 'Risk Radar', page: 'AdminControlTowerRisk' },
+      { label: 'Action Launcher', page: 'AdminControlTowerActions' },
       { label: 'Dashboard', page: 'AdminDashboard' },
       { label: 'Command Center', page: 'AdminCommandCenter' },
       { label: 'AI Control Center', page: 'AdminAIControlCenter' },
