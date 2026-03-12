@@ -60,6 +60,7 @@ import AdminPricingIntelligence from './pages/AdminPricingIntelligence';
 import AdminPricingPackaging from './pages/AdminPricingPackaging';
 import AdminPricingExperiments from './pages/AdminPricingExperiments';
 import AdminPricingRecommendations from './pages/AdminPricingRecommendations';
+import AdminNavigationAudit from './pages/AdminNavigationAudit';
 import ClientROI from './pages/ClientROI';
 import ClientROIReports from './pages/ClientROIReports';
 import ClientROITimeline from './pages/ClientROITimeline';
@@ -171,6 +172,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin/pricing-packaging" element={<LayoutWrapper currentPageName="AdminPricingPackaging"><AdminPricingPackaging /></LayoutWrapper>} />
       <Route path="/admin/pricing-experiments" element={<LayoutWrapper currentPageName="AdminPricingExperiments"><AdminPricingExperiments /></LayoutWrapper>} />
       <Route path="/admin/pricing-recommendations" element={<LayoutWrapper currentPageName="AdminPricingRecommendations"><AdminPricingRecommendations /></LayoutWrapper>} />
+      <Route path="/admin/navigation-audit" element={<LayoutWrapper currentPageName="AdminNavigationAudit"><AdminNavigationAudit /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
