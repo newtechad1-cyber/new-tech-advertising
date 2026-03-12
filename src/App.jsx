@@ -16,6 +16,7 @@ import AdminReferrals from './pages/AdminReferrals';
 import ClientLocations from './pages/ClientLocations';
 import AdminEnterpriseAccounts from './pages/AdminEnterpriseAccounts';
 import AdminLocationPerformance from './pages/AdminLocationPerformance';
+import AdminVerticalIntelligence from './pages/AdminVerticalIntelligence';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
