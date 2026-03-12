@@ -21,7 +21,7 @@ const FALLBACK_RENDERS = [
   { id: 'v5', project_title: 'Citywide Dental — New Patient Welcome', client_name: 'Citywide Dental', vertical: 'Dental', format_type: 'explainer', status: 'queued', priority: 'normal', scene_count: 8, voiceover_status: 'pending', branding_status: 'pending', render_progress: 0 },
 ];
 
-const SubStatusBadge = ({ status, icon: Icon, label }) => (
+const SubStatusBadge = ({ status, icon: IconComp, label }) => (
   <span className={`flex items-center gap-1 text-[9px] px-1.5 py-0.5 rounded-full border ${
     status === 'approved' || status === 'generated' || status === 'applied' ? 'border-emerald-700/40 text-emerald-400' :
     status === 'failed' ? 'border-red-700/40 text-red-400' :
