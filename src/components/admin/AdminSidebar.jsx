@@ -126,6 +126,7 @@ const ADMIN_NAV_STRUCTURE = [
       { label: 'Expansion Engine', page: 'AdminVerticalExpansion' },
       { label: 'Expansion Playbook', page: 'AdminExpansionPlaybook' },
       { label: 'Execution Tracker', page: 'AdminExpansionExecution' },
+      { label: 'Territory Activation', page: 'AdminExpansionTerritories' },
     ],
   },
   {
