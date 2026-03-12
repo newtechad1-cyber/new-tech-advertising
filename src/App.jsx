@@ -75,6 +75,7 @@ import TrialWelcome from './pages/TrialWelcome';
 import TrialBusiness from './pages/TrialBusiness';
 import TrialChannels from './pages/TrialChannels';
 import TrialActivation from './pages/TrialActivation';
+import DemoFlow from './pages/DemoFlow';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
