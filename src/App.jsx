@@ -22,6 +22,7 @@ import AdminVerticalCampaigns from './pages/AdminVerticalCampaigns';
 import AdminVerticalExpansion from './pages/AdminVerticalExpansion';
 import AdminExpansionExecution from './pages/AdminExpansionExecution';
 import AdminExpansionTerritories from './pages/AdminExpansionTerritories';
+import AdminExpansionRevenue from './pages/AdminExpansionRevenue';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -89,6 +90,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin/vertical-expansion" element={<LayoutWrapper currentPageName="AdminVerticalExpansion"><AdminVerticalExpansion /></LayoutWrapper>} />
       <Route path="/admin/expansion-execution" element={<LayoutWrapper currentPageName="AdminExpansionExecution"><AdminExpansionExecution /></LayoutWrapper>} />
       <Route path="/admin/expansion-territories" element={<LayoutWrapper currentPageName="AdminExpansionTerritories"><AdminExpansionTerritories /></LayoutWrapper>} />
+      <Route path="/admin/expansion-revenue" element={<LayoutWrapper currentPageName="AdminExpansionRevenue"><AdminExpansionRevenue /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
