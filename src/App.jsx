@@ -56,6 +56,7 @@ import AdminKnowledge from './pages/AdminKnowledge';
 import AdminKnowledgeWorkflows from './pages/AdminKnowledgeWorkflows';
 import AdminKnowledgeTraining from './pages/AdminKnowledgeTraining';
 import AdminKnowledgeIntelligence from './pages/AdminKnowledgeIntelligence';
+import AdminPricingIntelligence from './pages/AdminPricingIntelligence';
 import ClientROI from './pages/ClientROI';
 import ClientROIReports from './pages/ClientROIReports';
 import ClientROITimeline from './pages/ClientROITimeline';
@@ -163,6 +164,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin/knowledge-workflows" element={<LayoutWrapper currentPageName="AdminKnowledgeWorkflows"><AdminKnowledgeWorkflows /></LayoutWrapper>} />
       <Route path="/admin/knowledge-training" element={<LayoutWrapper currentPageName="AdminKnowledgeTraining"><AdminKnowledgeTraining /></LayoutWrapper>} />
       <Route path="/admin/knowledge-intelligence" element={<LayoutWrapper currentPageName="AdminKnowledgeIntelligence"><AdminKnowledgeIntelligence /></LayoutWrapper>} />
+      <Route path="/admin/pricing-intelligence" element={<LayoutWrapper currentPageName="AdminPricingIntelligence"><AdminPricingIntelligence /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
