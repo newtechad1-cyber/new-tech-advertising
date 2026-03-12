@@ -63,6 +63,7 @@ import AdminPricingRecommendations from './pages/AdminPricingRecommendations';
 import AdminNavigationAudit from './pages/AdminNavigationAudit';
 import AdminChannels from './pages/AdminChannels';
 import ClientChannels from './pages/ClientChannels';
+import ClientResults from './pages/ClientResults';
 import AdminProductionStability from './pages/AdminProductionStability';
 import AdminPlatformQA from './pages/AdminPlatformQA';
 import ClientROI from './pages/ClientROI';
