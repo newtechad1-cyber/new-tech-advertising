@@ -48,6 +48,7 @@ import AdminAIWorkforce from './pages/AdminAIWorkforce';
 import AdminAIOrchestration from './pages/AdminAIOrchestration';
 import AdminAIRouting from './pages/AdminAIRouting';
 import AdminAIGrowthLoops from './pages/AdminAIGrowthLoops';
+import AdminAutomationRules from './pages/AdminAutomationRules';
 import ClientROI from './pages/ClientROI';
 import ClientROIReports from './pages/ClientROIReports';
 import ClientROITimeline from './pages/ClientROITimeline';
@@ -147,6 +148,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin/ai-orchestration" element={<LayoutWrapper currentPageName="AdminAIOrchestration"><AdminAIOrchestration /></LayoutWrapper>} />
       <Route path="/admin/ai-routing" element={<LayoutWrapper currentPageName="AdminAIRouting"><AdminAIRouting /></LayoutWrapper>} />
       <Route path="/admin/ai-growth-loops" element={<LayoutWrapper currentPageName="AdminAIGrowthLoops"><AdminAIGrowthLoops /></LayoutWrapper>} />
+      <Route path="/admin/automation-rules" element={<LayoutWrapper currentPageName="AdminAutomationRules"><AdminAutomationRules /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
