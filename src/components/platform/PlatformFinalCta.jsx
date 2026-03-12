@@ -20,18 +20,18 @@ export default function PlatformFinalCta() {
           Create marketing content, schedule posts, and see how easy marketing can be with the NTA platform.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a
-            href={TRIAL_URL}
+          <Link
+            to={TRIAL_URL}
             className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl text-base transition-all duration-200 shadow-lg shadow-blue-600/30 hover:shadow-blue-500/40 hover:-translate-y-0.5"
           >
-            Start Your 7-Day Free Trial <ArrowRight className="w-4 h-4" />
-          </a>
-          <a
-            href={STRATEGY_URL}
+            Start Your Free Trial <ArrowRight className="w-4 h-4" />
+          </Link>
+          <Link
+            to={STRATEGY_URL}
             className="inline-flex items-center gap-2 border border-slate-500 hover:border-white text-slate-300 hover:text-white font-semibold px-6 py-4 rounded-xl text-base transition-all duration-200"
           >
-            <Phone className="w-4 h-4" /> Book Strategy Call
-          </a>
+            <Phone className="w-4 h-4" /> Get Growth Plan
+          </Link>
         </div>
         <p className="text-slate-500 text-sm mt-6">No credit card required • 7 days free • Cancel anytime</p>
       </div>
