@@ -48,10 +48,10 @@ export default function HomeHero() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
             <Link
-              to={createPageUrl('Start')}
+              to={createPageUrl('AiMarketingPlatform')}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-bold text-lg px-8 py-4 rounded-xl transition-all shadow-lg shadow-violet-600/30 hover:shadow-violet-500/40 hover:scale-105"
             >
-              Start Free Trial <ArrowRight className="w-5 h-5" />
+              See How It Works <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
               to={createPageUrl('Demo')}
