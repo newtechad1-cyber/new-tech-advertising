@@ -70,9 +70,9 @@ import ClientROIReports from './pages/ClientROIReports';
 import ClientROITimeline from './pages/ClientROITimeline';
 import Home from './pages/Home';
 import TrialWelcome from './pages/TrialWelcome';
-import TrialBusinessSetup from './pages/TrialBusinessSetup';
-import TrialConnectChannels from './pages/TrialConnectChannels';
-import TrialActivationPreview from './pages/TrialActivationPreview';
+import TrialBusiness from './pages/TrialBusiness';
+import TrialChannels from './pages/TrialChannels';
+import TrialActivation from './pages/TrialActivation';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
