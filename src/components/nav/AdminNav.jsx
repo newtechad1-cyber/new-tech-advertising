@@ -21,6 +21,7 @@ const NAV_GROUPS = [
       { label: '💰 Sales Command', icon: Target, page: 'AdminSalesCommand' },
       { label: '🔄 Client Lifecycle', icon: Zap, page: 'AdminClientLifecycle' },
       { label: '🏭 AI Prod. Ops', icon: BarChart2, page: 'AdminAIOperations' },
+      { label: '📊 Client Performance', icon: TrendingUp, page: 'AdminClientPerformance' },
       { label: '⚡ Founder Dashboard', icon: Zap, page: 'AdminFounder' },
       { label: '👔 Executive Dashboard', icon: TrendingUp, page: 'AdminExecutive' },
       { label: '🧠 AI Copilot', icon: Brain, page: 'AdminCopilot' },
