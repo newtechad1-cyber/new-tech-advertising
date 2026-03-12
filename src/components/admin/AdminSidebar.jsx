@@ -133,6 +133,7 @@ const ADMIN_NAV_STRUCTURE = [
     icon: '💚',
     items: [
       { label: 'Command Center', page: 'AdminClientSuccess' },
+      { label: 'Retention Risk', page: 'AdminClientRetention' },
     ],
   },
   {
