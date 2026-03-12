@@ -86,14 +86,15 @@ const ADMIN_NAV_STRUCTURE = [
   },
   {
     id: 'operations',
-    title: 'Client Operations',
-    icon: '🔧',
+    title: 'Operations',
+    icon: '⚙️',
     items: [
+      { label: 'Production Command', page: 'AdminOperations' },
+      { label: 'Capacity Planning', page: 'AdminOperationsCapacity' },
       { label: 'Fulfillment Monitor', page: 'AdminFulfillment' },
       { label: 'Client Accounts', page: 'AdminClients' },
       { label: 'Onboarding', page: 'AdminOnboarding' },
       { label: 'Requests', page: 'AdminAlerts' },
-      { label: 'Reporting', page: 'AdminAnalytics' },
     ],
   },
   {
