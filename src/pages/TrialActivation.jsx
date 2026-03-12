@@ -138,7 +138,7 @@ export default function TrialActivation() {
 
             <button
               className="w-full text-slate-400 hover:text-slate-200 font-semibold transition-colors py-3"
-              onClick={() => alert('We'll email you when your first posts are ready!')}
+              onClick={() => alert("We'll email you when your first posts are ready!")}
             >
               Email me when content is ready
             </button>
