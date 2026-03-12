@@ -39,6 +39,7 @@ import AdminControlTower from './pages/AdminControlTower';
 import AdminControlTowerInsights from './pages/AdminControlTowerInsights';
 import AdminControlTowerRisk from './pages/AdminControlTowerRisk';
 import AdminControlTowerActions from './pages/AdminControlTowerActions';
+import AdminROIExpansion from './pages/AdminROIExpansion';
 import ClientROI from './pages/ClientROI';
 import ClientROIReports from './pages/ClientROIReports';
 import ClientROITimeline from './pages/ClientROITimeline';
@@ -129,6 +130,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin/control-tower-insights" element={<LayoutWrapper currentPageName="AdminControlTowerInsights"><AdminControlTowerInsights /></LayoutWrapper>} />
       <Route path="/admin/control-tower-risk" element={<LayoutWrapper currentPageName="AdminControlTowerRisk"><AdminControlTowerRisk /></LayoutWrapper>} />
       <Route path="/admin/control-tower-actions" element={<LayoutWrapper currentPageName="AdminControlTowerActions"><AdminControlTowerActions /></LayoutWrapper>} />
+      <Route path="/admin/roi-expansion" element={<LayoutWrapper currentPageName="AdminROIExpansion"><AdminROIExpansion /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
