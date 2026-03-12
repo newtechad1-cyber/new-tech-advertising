@@ -27,7 +27,7 @@ const SubStatusBadge = ({ status, icon: IconComp, label }) => (
     status === 'failed' ? 'border-red-700/40 text-red-400' :
     'border-slate-700 text-slate-500'
   }`}>
-    <Icon className="w-2.5 h-2.5" />{label}: {status}
+    <IconComp className="w-2.5 h-2.5" />{label}: {status}
   </span>
 );
 

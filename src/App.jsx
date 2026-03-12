@@ -10,6 +10,7 @@ import PageNotFound from './lib/PageNotFound';
 import AdminControlTowerPage from './pages/AdminControlTower';
 import AdminSalesCommandPage from './pages/AdminSalesCommand';
 import AdminClientLifecyclePage from './pages/AdminClientLifecycle';
+import AdminAIOperationsPage from './pages/AdminAIOperations';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 
@@ -66,6 +67,7 @@ const AuthenticatedApp = () => {
       <Route path="/AdminControlTower" element={<LayoutWrapper currentPageName="AdminControlTower"><AdminControlTowerPage /></LayoutWrapper>} />
       <Route path="/AdminSalesCommand" element={<LayoutWrapper currentPageName="AdminSalesCommand"><AdminSalesCommandPage /></LayoutWrapper>} />
       <Route path="/AdminClientLifecycle" element={<LayoutWrapper currentPageName="AdminClientLifecycle"><AdminClientLifecyclePage /></LayoutWrapper>} />
+      <Route path="/AdminAIOperations" element={<LayoutWrapper currentPageName="AdminAIOperations"><AdminAIOperationsPage /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
