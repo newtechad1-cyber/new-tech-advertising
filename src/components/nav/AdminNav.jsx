@@ -17,6 +17,7 @@ const NAV_GROUPS = [
   {
     label: 'Executive',
     items: [
+      { label: '🗼 Control Tower', icon: Cpu, page: 'AdminControlTower' },
       { label: '⚡ Founder Dashboard', icon: Zap, page: 'AdminFounder' },
       { label: '👔 Executive Dashboard', icon: TrendingUp, page: 'AdminExecutive' },
       { label: '🧠 AI Copilot', icon: Brain, page: 'AdminCopilot' },
