@@ -38,16 +38,16 @@ export default function PlatformHero() {
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
           <a
-            href={TRIAL_URL}
+            href={DEMO_URL}
             className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl text-base transition-all duration-200 shadow-lg shadow-blue-600/30 hover:shadow-blue-500/40 hover:-translate-y-0.5"
           >
-            Start Your 7-Day Free Trial <ArrowRight className="w-4 h-4" />
+            <Play className="w-4 h-4 fill-current" /> Watch Platform Demo
           </a>
           <a
-            href={DEMO_URL}
+            href={STRATEGY_URL}
             className="inline-flex items-center gap-2 border border-slate-600 hover:border-slate-400 text-slate-300 hover:text-white font-semibold px-6 py-4 rounded-xl text-base transition-all duration-200"
           >
-            <Play className="w-4 h-4 fill-current" /> Watch Platform Demo
+            Get Growth Strategy <ArrowRight className="w-4 h-4" />
           </a>
         </div>
 
