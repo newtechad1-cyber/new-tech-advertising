@@ -39,6 +39,7 @@ import AdminControlTower from './pages/AdminControlTower';
 import AdminControlTowerInsights from './pages/AdminControlTowerInsights';
 import AdminControlTowerRisk from './pages/AdminControlTowerRisk';
 import AdminControlTowerActions from './pages/AdminControlTowerActions';
+import ClientROI from './pages/ClientROI';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -96,6 +97,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin/campaigns" element={<LayoutWrapper currentPageName="AdminCampaigns"><AdminCampaigns /></LayoutWrapper>} />
       <Route path="/client/referrals" element={<LayoutWrapper currentPageName="ClientReferrals"><ClientReferrals /></LayoutWrapper>} />
       <Route path="/client/referral-status" element={<LayoutWrapper currentPageName="ClientReferralStatus"><ClientReferralStatus /></LayoutWrapper>} />
+      <Route path="/client/roi" element={<LayoutWrapper currentPageName="ClientROI"><ClientROI /></LayoutWrapper>} />
       <Route path="/admin/referrals" element={<LayoutWrapper currentPageName="AdminReferrals"><AdminReferrals /></LayoutWrapper>} />
       <Route path="/client/locations" element={<LayoutWrapper currentPageName="ClientLocations"><ClientLocations /></LayoutWrapper>} />
       <Route path="/admin/enterprise-accounts" element={<LayoutWrapper currentPageName="AdminEnterpriseAccounts"><AdminEnterpriseAccounts /></LayoutWrapper>} />
