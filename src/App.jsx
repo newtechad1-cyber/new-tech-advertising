@@ -41,6 +41,7 @@ import AdminControlTowerRisk from './pages/AdminControlTowerRisk';
 import AdminControlTowerActions from './pages/AdminControlTowerActions';
 import AdminROIExpansion from './pages/AdminROIExpansion';
 import AdminFunnelOptimization from './pages/AdminFunnelOptimization';
+import AdminFunnelPages from './pages/AdminFunnelPages';
 import ClientROI from './pages/ClientROI';
 import ClientROIReports from './pages/ClientROIReports';
 import ClientROITimeline from './pages/ClientROITimeline';
@@ -133,6 +134,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin/control-tower-actions" element={<LayoutWrapper currentPageName="AdminControlTowerActions"><AdminControlTowerActions /></LayoutWrapper>} />
       <Route path="/admin/roi-expansion" element={<LayoutWrapper currentPageName="AdminROIExpansion"><AdminROIExpansion /></LayoutWrapper>} />
       <Route path="/admin/funnel-optimization" element={<LayoutWrapper currentPageName="AdminFunnelOptimization"><AdminFunnelOptimization /></LayoutWrapper>} />
+      <Route path="/admin/funnel-pages" element={<LayoutWrapper currentPageName="AdminFunnelPages"><AdminFunnelPages /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
