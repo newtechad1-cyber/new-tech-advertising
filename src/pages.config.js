@@ -47,6 +47,7 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
+import AIWorkforce from './pages/AIWorkforce';
 import About from './pages/About';
 import adaCompliance from './pages/Ada-Compliance';
 import Ada from './pages/Ada';
@@ -64,6 +65,7 @@ import Admin from './pages/Admin';
 import AdminAIActivity from './pages/AdminAIActivity';
 import AdminAIControlCenter from './pages/AdminAIControlCenter';
 import AdminAILab from './pages/AdminAILab';
+import AdminAIOperations from './pages/AdminAIOperations';
 import AdminAIPrompts from './pages/AdminAIPrompts';
 import AdminAIVideoStudio from './pages/AdminAIVideoStudio';
 import AdminAccess from './pages/AdminAccess';
@@ -83,11 +85,19 @@ import AdminAutomationHealth from './pages/AdminAutomationHealth';
 import AdminAutomationRuleDetail from './pages/AdminAutomationRuleDetail';
 import AdminAutomationRules from './pages/AdminAutomationRules';
 import AdminAutomationTriggers from './pages/AdminAutomationTriggers';
+import AdminAutonomy from './pages/AdminAutonomy';
+import AdminAutonomyGovernance from './pages/AdminAutonomyGovernance';
+import AdminAutonomyImpact from './pages/AdminAutonomyImpact';
+import AdminAutonomyOpportunities from './pages/AdminAutonomyOpportunities';
+import AdminAutonomyStrategies from './pages/AdminAutonomyStrategies';
 import AdminAutopilot from './pages/AdminAutopilot';
 import AdminBilling from './pages/AdminBilling';
 import AdminBillingContract from './pages/AdminBillingContract';
 import AdminBlog from './pages/AdminBlog';
 import AdminBranding from './pages/AdminBranding';
+import AdminCampaigns from './pages/AdminCampaigns';
+import AdminClientLifecycle from './pages/AdminClientLifecycle';
+import AdminClientPerformance from './pages/AdminClientPerformance';
 import AdminClientSettings from './pages/AdminClientSettings';
 import AdminClientSettingsCompany from './pages/AdminClientSettingsCompany';
 import AdminClients from './pages/AdminClients';
@@ -97,6 +107,7 @@ import AdminCommerceCompany from './pages/AdminCommerceCompany';
 import AdminConnections from './pages/AdminConnections';
 import AdminContentEngine from './pages/AdminContentEngine';
 import AdminContentMultiplier from './pages/AdminContentMultiplier';
+import AdminControlTower from './pages/AdminControlTower';
 import AdminCopilot from './pages/AdminCopilot';
 import AdminCopilotAccount from './pages/AdminCopilotAccount';
 import AdminCreateProject from './pages/AdminCreateProject';
@@ -105,6 +116,7 @@ import AdminDemoMachine from './pages/AdminDemoMachine';
 import AdminDemoMachineAnalytics from './pages/AdminDemoMachineAnalytics';
 import AdminDemoMachinePaths from './pages/AdminDemoMachinePaths';
 import AdminDemoMachineSessions from './pages/AdminDemoMachineSessions';
+import AdminEnterpriseAccounts from './pages/AdminEnterpriseAccounts';
 import AdminEventsList from './pages/AdminEventsList';
 import AdminExecutive from './pages/AdminExecutive';
 import AdminFinance from './pages/AdminFinance';
@@ -122,7 +134,9 @@ import AdminHelp from './pages/AdminHelp';
 import AdminIntelligence from './pages/AdminIntelligence';
 import AdminIntelligenceAutomation from './pages/AdminIntelligenceAutomation';
 import AdminIntelligenceClients from './pages/AdminIntelligenceClients';
+import AdminIntelligenceResellers from './pages/AdminIntelligenceResellers';
 import AdminIntelligenceSales from './pages/AdminIntelligenceSales';
+import AdminLocationPerformance from './pages/AdminLocationPerformance';
 import AdminMetaSetup from './pages/AdminMetaSetup';
 import AdminNavigation from './pages/AdminNavigation';
 import AdminNavigationLayouts from './pages/AdminNavigationLayouts';
@@ -135,7 +149,12 @@ import AdminOnboardingDetail from './pages/AdminOnboardingDetail';
 import AdminOnboardingQueue from './pages/AdminOnboardingQueue';
 import AdminOperations from './pages/AdminOperations';
 import AdminOperationsCompany from './pages/AdminOperationsCompany';
+import AdminOptimization from './pages/AdminOptimization';
+import AdminOptimizationCandidates from './pages/AdminOptimizationCandidates';
+import AdminOptimizationExperiments from './pages/AdminOptimizationExperiments';
+import AdminOptimizationOutcomes from './pages/AdminOptimizationOutcomes';
 import AdminOptimizer from './pages/AdminOptimizer';
+import AdminOptimizationPolicies from './pages/AdminOptimizationPolicies';
 import AdminOptimizerDetail from './pages/AdminOptimizerDetail';
 import AdminOrchestrator from './pages/AdminOrchestrator';
 import AdminOrchestratorDetail from './pages/AdminOrchestratorDetail';
@@ -158,6 +177,7 @@ import AdminRevenueDetail from './pages/AdminRevenueDetail';
 import AdminRevenueEngine from './pages/AdminRevenueEngine';
 import AdminSales from './pages/AdminSales';
 import AdminSalesAssets from './pages/AdminSalesAssets';
+import AdminSalesCommand from './pages/AdminSalesCommand';
 import AdminSalesDashboard from './pages/AdminSalesDashboard';
 import AdminSalesFollowups from './pages/AdminSalesFollowups';
 import AdminSalesPrompts from './pages/AdminSalesPrompts';
@@ -240,8 +260,8 @@ import bookCall from './pages/Book-Call';
 import BulldogTV from './pages/BulldogTV';
 import BulldogTVSpotlights from './pages/BulldogTVSpotlights';
 import BulldogTVStories from './pages/BulldogTVStories';
-import BulldogTVSubmissions from './pages/BulldogTVSubmissions';
 import BulldogTVSubmit from './pages/BulldogTVSubmit';
+import BulldogTVSubmissions from './pages/BulldogTVSubmissions';
 import BulldogTVVideos from './pages/BulldogTVVideos';
 import BulldogTVWatch from './pages/BulldogTVWatch';
 import BulldogTVYearbook from './pages/BulldogTVYearbook';
@@ -255,11 +275,13 @@ import ChatbotManagement from './pages/ChatbotManagement';
 import ClientApprovals from './pages/ClientApprovals';
 import ClientBilling from './pages/ClientBilling';
 import ClientCalendar from './pages/ClientCalendar';
+import ClientCampaigns from './pages/ClientCampaigns';
 import ClientCommerce from './pages/ClientCommerce';
 import ClientContentProduction from './pages/ClientContentProduction';
 import ClientDashboard from './pages/ClientDashboard';
 import ClientDashboardDemo from './pages/ClientDashboardDemo';
 import ClientFulfillment from './pages/ClientFulfillment';
+import ClientLocations from './pages/ClientLocations';
 import ClientOnboarding from './pages/ClientOnboarding';
 import ClientReports from './pages/ClientReports';
 import ClientSettings from './pages/ClientSettings';
@@ -358,9 +380,9 @@ import ResellerDashboard from './pages/ResellerDashboard';
 import ResellerRevenue from './pages/ResellerRevenue';
 import ResellerSettingsBranding from './pages/ResellerSettingsBranding';
 import ResellerSignupLinks from './pages/ResellerSignupLinks';
+import RoofingMarketing from './pages/RoofingMarketing';
 import RestaurantMarketing from './pages/RestaurantMarketing';
 import RestaurantSocialMedia from './pages/RestaurantSocialMedia';
-import RoofingMarketing from './pages/RoofingMarketing';
 import SalesDashboard from './pages/SalesDashboard';
 import SalesLeads from './pages/SalesLeads';
 import SalesPipeline from './pages/SalesPipeline';
@@ -427,21 +449,20 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdminIntelligenceResellers from './pages/AdminIntelligenceResellers';
-import AdminAutonomy from './pages/AdminAutonomy';
-import AdminAutonomyOpportunities from './pages/AdminAutonomyOpportunities';
-import AdminAutonomyStrategies from './pages/AdminAutonomyStrategies';
-import AdminAutonomyImpact from './pages/AdminAutonomyImpact';
-import AdminAutonomyGovernance from './pages/AdminAutonomyGovernance';
-import AdminOptimization from './pages/AdminOptimization';
-import AdminOptimizationCandidates from './pages/AdminOptimizationCandidates';
-import AdminOptimizationExperiments from './pages/AdminOptimizationExperiments';
-import AdminOptimizationOutcomes from './pages/AdminOptimizationOutcomes';
-import AdminOptimizationPolicies from './pages/AdminOptimizationPolicies';
+import FounderScorecard from './pages/FounderScorecard';
+import ClientReferralStatus from './pages/ClientReferralStatus';
+import AdminVerticalIntelligence from './pages/AdminVerticalIntelligence';
+import ClientReferrals from './pages/ClientReferrals';
+import AdminReferrals from './pages/AdminReferrals';
+import AdminVerticalRevenue from './pages/AdminVerticalRevenue';
+import AdminVerticalCampaigns from './pages/AdminVerticalCampaigns';
+import AdminVerticalExpansion from './pages/AdminVerticalExpansion';
+import AdminExpansionPlaybook from './pages/AdminExpansionPlaybook';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
+    "AIWorkforce": AIWorkforce,
     "About": About,
     "Ada-Compliance": adaCompliance,
     "Ada": Ada,
@@ -459,6 +480,7 @@ export const PAGES = {
     "AdminAIActivity": AdminAIActivity,
     "AdminAIControlCenter": AdminAIControlCenter,
     "AdminAILab": AdminAILab,
+    "AdminAIOperations": AdminAIOperations,
     "AdminAIPrompts": AdminAIPrompts,
     "AdminAIVideoStudio": AdminAIVideoStudio,
     "AdminAccess": AdminAccess,
@@ -478,11 +500,19 @@ export const PAGES = {
     "AdminAutomationRuleDetail": AdminAutomationRuleDetail,
     "AdminAutomationRules": AdminAutomationRules,
     "AdminAutomationTriggers": AdminAutomationTriggers,
+    "AdminAutonomy": AdminAutonomy,
+    "AdminAutonomyGovernance": AdminAutonomyGovernance,
+    "AdminAutonomyImpact": AdminAutonomyImpact,
+    "AdminAutonomyOpportunities": AdminAutonomyOpportunities,
+    "AdminAutonomyStrategies": AdminAutonomyStrategies,
     "AdminAutopilot": AdminAutopilot,
     "AdminBilling": AdminBilling,
     "AdminBillingContract": AdminBillingContract,
     "AdminBlog": AdminBlog,
     "AdminBranding": AdminBranding,
+    "AdminCampaigns": AdminCampaigns,
+    "AdminClientLifecycle": AdminClientLifecycle,
+    "AdminClientPerformance": AdminClientPerformance,
     "AdminClientSettings": AdminClientSettings,
     "AdminClientSettingsCompany": AdminClientSettingsCompany,
     "AdminClients": AdminClients,
@@ -492,6 +522,7 @@ export const PAGES = {
     "AdminConnections": AdminConnections,
     "AdminContentEngine": AdminContentEngine,
     "AdminContentMultiplier": AdminContentMultiplier,
+    "AdminControlTower": AdminControlTower,
     "AdminCopilot": AdminCopilot,
     "AdminCopilotAccount": AdminCopilotAccount,
     "AdminCreateProject": AdminCreateProject,
@@ -500,6 +531,7 @@ export const PAGES = {
     "AdminDemoMachineAnalytics": AdminDemoMachineAnalytics,
     "AdminDemoMachinePaths": AdminDemoMachinePaths,
     "AdminDemoMachineSessions": AdminDemoMachineSessions,
+    "AdminEnterpriseAccounts": AdminEnterpriseAccounts,
     "AdminEventsList": AdminEventsList,
     "AdminExecutive": AdminExecutive,
     "AdminFinance": AdminFinance,
@@ -517,7 +549,9 @@ export const PAGES = {
     "AdminIntelligence": AdminIntelligence,
     "AdminIntelligenceAutomation": AdminIntelligenceAutomation,
     "AdminIntelligenceClients": AdminIntelligenceClients,
+    "AdminIntelligenceResellers": AdminIntelligenceResellers,
     "AdminIntelligenceSales": AdminIntelligenceSales,
+    "AdminLocationPerformance": AdminLocationPerformance,
     "AdminMetaSetup": AdminMetaSetup,
     "AdminNavigation": AdminNavigation,
     "AdminNavigationLayouts": AdminNavigationLayouts,
@@ -530,7 +564,12 @@ export const PAGES = {
     "AdminOnboardingQueue": AdminOnboardingQueue,
     "AdminOperations": AdminOperations,
     "AdminOperationsCompany": AdminOperationsCompany,
+    "AdminOptimization": AdminOptimization,
+    "AdminOptimizationCandidates": AdminOptimizationCandidates,
+    "AdminOptimizationExperiments": AdminOptimizationExperiments,
+    "AdminOptimizationOutcomes": AdminOptimizationOutcomes,
     "AdminOptimizer": AdminOptimizer,
+    "AdminOptimizationPolicies": AdminOptimizationPolicies,
     "AdminOptimizerDetail": AdminOptimizerDetail,
     "AdminOrchestrator": AdminOrchestrator,
     "AdminOrchestratorDetail": AdminOrchestratorDetail,
@@ -553,6 +592,7 @@ export const PAGES = {
     "AdminRevenueEngine": AdminRevenueEngine,
     "AdminSales": AdminSales,
     "AdminSalesAssets": AdminSalesAssets,
+    "AdminSalesCommand": AdminSalesCommand,
     "AdminSalesDashboard": AdminSalesDashboard,
     "AdminSalesFollowups": AdminSalesFollowups,
     "AdminSalesPrompts": AdminSalesPrompts,
@@ -635,8 +675,8 @@ export const PAGES = {
     "BulldogTV": BulldogTV,
     "BulldogTVSpotlights": BulldogTVSpotlights,
     "BulldogTVStories": BulldogTVStories,
-    "BulldogTVSubmissions": BulldogTVSubmissions,
     "BulldogTVSubmit": BulldogTVSubmit,
+    "BulldogTVSubmissions": BulldogTVSubmissions,
     "BulldogTVVideos": BulldogTVVideos,
     "BulldogTVWatch": BulldogTVWatch,
     "BulldogTVYearbook": BulldogTVYearbook,
@@ -650,11 +690,13 @@ export const PAGES = {
     "ClientApprovals": ClientApprovals,
     "ClientBilling": ClientBilling,
     "ClientCalendar": ClientCalendar,
+    "ClientCampaigns": ClientCampaigns,
     "ClientCommerce": ClientCommerce,
     "ClientContentProduction": ClientContentProduction,
     "ClientDashboard": ClientDashboard,
     "ClientDashboardDemo": ClientDashboardDemo,
     "ClientFulfillment": ClientFulfillment,
+    "ClientLocations": ClientLocations,
     "ClientOnboarding": ClientOnboarding,
     "ClientReports": ClientReports,
     "ClientSettings": ClientSettings,
@@ -753,9 +795,9 @@ export const PAGES = {
     "ResellerRevenue": ResellerRevenue,
     "ResellerSettingsBranding": ResellerSettingsBranding,
     "ResellerSignupLinks": ResellerSignupLinks,
+    "RoofingMarketing": RoofingMarketing,
     "RestaurantMarketing": RestaurantMarketing,
     "RestaurantSocialMedia": RestaurantSocialMedia,
-    "RoofingMarketing": RoofingMarketing,
     "SalesDashboard": SalesDashboard,
     "SalesLeads": SalesLeads,
     "SalesPipeline": SalesPipeline,
@@ -822,21 +864,19 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AdminIntelligenceResellers": AdminIntelligenceResellers,
-    "AdminAutonomy": AdminAutonomy,
-    "AdminAutonomyOpportunities": AdminAutonomyOpportunities,
-    "AdminAutonomyStrategies": AdminAutonomyStrategies,
-    "AdminAutonomyImpact": AdminAutonomyImpact,
-    "AdminAutonomyGovernance": AdminAutonomyGovernance,
-    "AdminOptimization": AdminOptimization,
-    "AdminOptimizationCandidates": AdminOptimizationCandidates,
-    "AdminOptimizationExperiments": AdminOptimizationExperiments,
-    "AdminOptimizationOutcomes": AdminOptimizationOutcomes,
-    "AdminOptimizationPolicies": AdminOptimizationPolicies,
+    "FounderScorecard": FounderScorecard,
+    "ClientReferralStatus": ClientReferralStatus,
+    "AdminVerticalIntelligence": AdminVerticalIntelligence,
+    "ClientReferrals": ClientReferrals,
+    "AdminReferrals": AdminReferrals,
+    "AdminVerticalRevenue": AdminVerticalRevenue,
+    "AdminVerticalCampaigns": AdminVerticalCampaigns,
+    "AdminVerticalExpansion": AdminVerticalExpansion,
+    "AdminExpansionPlaybook": AdminExpansionPlaybook,
 }
 
 export const pagesConfig = {
-    mainPage: "Home",
+    mainPage: "Start",
     Pages: PAGES,
     Layout: __Layout,
 };
