@@ -44,6 +44,7 @@ import AdminFunnelOptimization from './pages/AdminFunnelOptimization';
 import AdminFunnelPages from './pages/AdminFunnelPages';
 import AdminFunnelTests from './pages/AdminFunnelTests';
 import AdminFunnelOpportunities from './pages/AdminFunnelOpportunities';
+import AdminAIWorkforce from './pages/AdminAIWorkforce';
 import ClientROI from './pages/ClientROI';
 import ClientROIReports from './pages/ClientROIReports';
 import ClientROITimeline from './pages/ClientROITimeline';
@@ -139,6 +140,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin/funnel-pages" element={<LayoutWrapper currentPageName="AdminFunnelPages"><AdminFunnelPages /></LayoutWrapper>} />
       <Route path="/admin/funnel-tests" element={<LayoutWrapper currentPageName="AdminFunnelTests"><AdminFunnelTests /></LayoutWrapper>} />
       <Route path="/admin/funnel-opportunities" element={<LayoutWrapper currentPageName="AdminFunnelOpportunities"><AdminFunnelOpportunities /></LayoutWrapper>} />
+      <Route path="/admin/ai-workforce" element={<LayoutWrapper currentPageName="AdminAIWorkforce"><AdminAIWorkforce /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
