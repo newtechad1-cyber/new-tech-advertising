@@ -11,6 +11,7 @@ const ADMIN_NAV_STRUCTURE = [
     title: 'Command Center',
     icon: '⚡',
     items: [
+      { label: 'Control Tower', page: 'AdminControlTower' },
       { label: 'Dashboard', page: 'AdminDashboard' },
       { label: 'Command Center', page: 'AdminCommandCenter' },
       { label: 'AI Control Center', page: 'AdminAIControlCenter' },
