@@ -64,6 +64,7 @@ import AdminNavigationAudit from './pages/AdminNavigationAudit';
 import AdminChannels from './pages/AdminChannels';
 import ClientChannels from './pages/ClientChannels';
 import AdminProductionStability from './pages/AdminProductionStability';
+import AdminPlatformQA from './pages/AdminPlatformQA';
 import ClientROI from './pages/ClientROI';
 import ClientROIReports from './pages/ClientROIReports';
 import ClientROITimeline from './pages/ClientROITimeline';
@@ -179,6 +180,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin/channels" element={<LayoutWrapper currentPageName="AdminChannels"><AdminChannels /></LayoutWrapper>} />
       <Route path="/client/channels" element={<LayoutWrapper currentPageName="ClientChannels"><ClientChannels /></LayoutWrapper>} />
       <Route path="/admin/production-stability" element={<LayoutWrapper currentPageName="AdminProductionStability"><AdminProductionStability /></LayoutWrapper>} />
+      <Route path="/admin/platform-qa" element={<LayoutWrapper currentPageName="AdminPlatformQA"><AdminPlatformQA /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
