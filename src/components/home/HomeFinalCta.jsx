@@ -25,10 +25,10 @@ export default function HomeFinalCta() {
             Start Free Trial <ArrowRight className="w-5 h-5" />
           </Link>
           <Link
-            to={createPageUrl('Demo')}
+            to={createPageUrl('MarketingPlanGenerator')}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold text-lg px-8 py-4 rounded-xl transition-all"
           >
-            <Play className="w-4 h-4" /> Watch Demo
+            Get Growth Strategy
           </Link>
         </div>
         <Link
