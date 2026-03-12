@@ -114,6 +114,7 @@ const AuthenticatedApp = () => {
           <Home />
         </LayoutWrapper>
       } />
+      <Route path="/client/dashboard" element={<LayoutWrapper currentPageName="ClientDashboard"><ClientDashboard /></LayoutWrapper>} />
       {Object.entries(Pages).map(([path, Page]) => (
         <Route
           key={path}
