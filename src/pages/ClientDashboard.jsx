@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import MarketingStatusHero from '@/components/client-dashboard/MarketingStatusHero';
-import UpcomingContentTimeline from '@/components/client-dashboard/UpcomingContentTimeline';
-import ChannelHealthSnapshot from '@/components/client-dashboard/ChannelHealthSnapshot';
-import PerformanceSnapshot from '@/components/client-dashboard/PerformanceSnapshot';
-import QuickActionsStrip from '@/components/client-dashboard/QuickActionsStrip';
+import MarketingStatusHero from '@/components/client-dashboard/MarketingStatusHero.jsx';
+import UpcomingContentTimeline from '@/components/client-dashboard/UpcomingContentTimeline.jsx';
+import ChannelHealthSnapshot from '@/components/client-dashboard/ChannelHealthSnapshot.jsx';
+import PerformanceSnapshot from '@/components/client-dashboard/PerformanceSnapshot.jsx';
+import QuickActionsStrip from '@/components/client-dashboard/QuickActionsStrip.jsx';
 
 export default function ClientDashboard() {
   const [user, setUser] = useState(null);
