@@ -18,6 +18,7 @@ import AdminEnterpriseAccounts from './pages/AdminEnterpriseAccounts';
 import AdminLocationPerformance from './pages/AdminLocationPerformance';
 import AdminVerticalIntelligence from './pages/AdminVerticalIntelligence';
 import AdminVerticalRevenue from './pages/AdminVerticalRevenue';
+import AdminVerticalCampaigns from './pages/AdminVerticalCampaigns';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -81,6 +82,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin/location-performance" element={<LayoutWrapper currentPageName="AdminLocationPerformance"><AdminLocationPerformance /></LayoutWrapper>} />
       <Route path="/admin/vertical-intelligence" element={<LayoutWrapper currentPageName="AdminVerticalIntelligence"><AdminVerticalIntelligence /></LayoutWrapper>} />
       <Route path="/admin/vertical-revenue" element={<LayoutWrapper currentPageName="AdminVerticalRevenue"><AdminVerticalRevenue /></LayoutWrapper>} />
+      <Route path="/admin/vertical-campaigns" element={<LayoutWrapper currentPageName="AdminVerticalCampaigns"><AdminVerticalCampaigns /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
