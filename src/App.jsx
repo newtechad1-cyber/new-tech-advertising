@@ -68,6 +68,7 @@ import AdminPlatformQA from './pages/AdminPlatformQA';
 import ClientROI from './pages/ClientROI';
 import ClientROIReports from './pages/ClientROIReports';
 import ClientROITimeline from './pages/ClientROITimeline';
+import Home from './pages/Home';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -104,8 +105,8 @@ const AuthenticatedApp = () => {
   return (
     <Routes>
       <Route path="/" element={
-        <LayoutWrapper currentPageName={mainPageKey}>
-          <MainPage />
+        <LayoutWrapper currentPageName="Home">
+          <Home />
         </LayoutWrapper>
       } />
       {Object.entries(Pages).map(([path, Page]) => (
