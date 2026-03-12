@@ -13,6 +13,9 @@ import AdminCampaigns from './pages/AdminCampaigns';
 import ClientReferrals from './pages/ClientReferrals';
 import ClientReferralStatus from './pages/ClientReferralStatus';
 import AdminReferrals from './pages/AdminReferrals';
+import ClientLocations from './pages/ClientLocations';
+import AdminEnterpriseAccounts from './pages/AdminEnterpriseAccounts';
+import AdminLocationPerformance from './pages/AdminLocationPerformance';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
