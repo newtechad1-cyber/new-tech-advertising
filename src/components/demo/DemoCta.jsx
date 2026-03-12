@@ -15,16 +15,16 @@ export default function DemoCta() {
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
           <Link
-            to={createPageUrl('Start')}
+            to={createPageUrl('MarketingPlanGenerator')}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-bold text-lg px-8 py-4 rounded-xl transition-all shadow-lg shadow-violet-600/30 hover:scale-105"
           >
-            Start Free Trial <ArrowRight className="w-5 h-5" />
+            Get Growth Strategy <ArrowRight className="w-5 h-5" />
           </Link>
           <Link
-            to={createPageUrl('Home')}
+            to={createPageUrl('Start')}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold text-lg px-8 py-4 rounded-xl transition-all"
           >
-            <Home className="w-5 h-5" /> Go to Homepage
+            Start Free Trial
           </Link>
         </div>
         <p className="text-slate-600 text-xs">
