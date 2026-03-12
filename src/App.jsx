@@ -8,6 +8,7 @@ import { pagesConfig } from './pages.config'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import AdminControlTowerPage from './pages/AdminControlTower';
+import AdminSalesCommandPage from './pages/AdminSalesCommand';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 
@@ -62,6 +63,7 @@ const AuthenticatedApp = () => {
         />
       ))}
       <Route path="/AdminControlTower" element={<LayoutWrapper currentPageName="AdminControlTower"><AdminControlTowerPage /></LayoutWrapper>} />
+      <Route path="/AdminSalesCommand" element={<LayoutWrapper currentPageName="AdminSalesCommand"><AdminSalesCommandPage /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
