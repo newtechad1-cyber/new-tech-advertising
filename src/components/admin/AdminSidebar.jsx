@@ -125,6 +125,7 @@ const ADMIN_NAV_STRUCTURE = [
       { label: 'Campaign Intelligence', page: 'AdminVerticalCampaigns' },
       { label: 'Expansion Engine', page: 'AdminVerticalExpansion' },
       { label: 'Expansion Playbook', page: 'AdminExpansionPlaybook' },
+      { label: 'Execution Tracker', page: 'AdminExpansionExecution' },
     ],
   },
   {
