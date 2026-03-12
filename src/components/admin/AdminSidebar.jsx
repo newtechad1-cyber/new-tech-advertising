@@ -116,6 +116,18 @@ const ADMIN_NAV_STRUCTURE = [
     ],
   },
   {
+    id: 'vertical-intelligence',
+    title: 'Vertical Intelligence',
+    icon: '🎯',
+    items: [
+      { label: 'Industry Verticals', page: 'AdminVerticalIntelligence' },
+      { label: 'Revenue Analytics', page: 'AdminVerticalRevenue' },
+      { label: 'Campaign Intelligence', page: 'AdminVerticalCampaigns' },
+      { label: 'Expansion Engine', page: 'AdminVerticalExpansion' },
+      { label: 'Expansion Playbook', page: 'AdminExpansionPlaybook' },
+    ],
+  },
+  {
     id: 'system',
     title: 'System',
     icon: '⚙️',
