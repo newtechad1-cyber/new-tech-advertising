@@ -31,10 +31,10 @@ export default function DemoHero({ onPlayVideo }) {
             <Play className="w-5 h-5 fill-white" /> Watch the Demo
           </button>
           <Link
-            to={createPageUrl('Start')}
+            to={createPageUrl('MarketingPlanGenerator')}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold text-lg px-8 py-4 rounded-xl transition-all"
           >
-            Start Free Trial <ArrowRight className="w-5 h-5" />
+            Get Growth Strategy <ArrowRight className="w-5 h-5" />
           </Link>
         </div>
       </div>
