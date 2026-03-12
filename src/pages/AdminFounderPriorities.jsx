@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import {
   AlertTriangle, TrendingUp, DollarSign, CheckCircle2,
   BarChart2, Zap, ChevronRight, Circle, Flag, Filter
@@ -251,7 +251,7 @@ export default function AdminFounderPriorities() {
               />
               <Bar dataKey="count" radius={[6, 6, 0, 0]}>
                 {chartData.map((entry, i) => (
-                  <rect key={i} fill={entry.fill} />
+                  <Cell key={i} fill={entry.fill} />
                 ))}
               </Bar>
             </BarChart>
