@@ -127,10 +127,10 @@ export default function AdminVerticalExpansion() {
     return { region, count: opps.length, score, topVertical };
   });
 
-  const KPI = ({ label, value, sub, Ic, color }) => (
+  const KPI = ({ label, value, sub, Ic: KpiIc, color }) => (
     <div className="bg-[#0f1729] border border-slate-800 rounded-2xl p-5">
       <div className="flex items-center gap-2 mb-3">
-        <Ic className={`w-4 h-4 ${color}`} />
+        <KpiIc className={`w-4 h-4 ${color}`} />
         <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">{label}</span>
       </div>
       <p className={`text-2xl font-black leading-tight ${color}`}>{value}</p>
