@@ -128,6 +128,14 @@ const ADMIN_NAV_STRUCTURE = [
     ],
   },
   {
+    id: 'client-success',
+    title: 'Client Success',
+    icon: '💚',
+    items: [
+      { label: 'Command Center', page: 'AdminClientSuccess' },
+    ],
+  },
+  {
     id: 'vertical-intelligence',
     title: 'Vertical Intelligence',
     icon: '🎯',
