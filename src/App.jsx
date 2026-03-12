@@ -68,6 +68,7 @@ import AdminPlatformQA from './pages/AdminPlatformQA';
 import ClientROI from './pages/ClientROI';
 import ClientROIReports from './pages/ClientROIReports';
 import ClientROITimeline from './pages/ClientROITimeline';
+import ClientDashboard from './pages/ClientDashboard';
 import Home from './pages/Home';
 import TrialWelcome from './pages/TrialWelcome';
 import TrialBusiness from './pages/TrialBusiness';
