@@ -75,6 +75,10 @@ const AuthenticatedApp = () => {
       <Route path="/client/referrals" element={<LayoutWrapper currentPageName="ClientReferrals"><ClientReferrals /></LayoutWrapper>} />
       <Route path="/client/referral-status" element={<LayoutWrapper currentPageName="ClientReferralStatus"><ClientReferralStatus /></LayoutWrapper>} />
       <Route path="/admin/referrals" element={<LayoutWrapper currentPageName="AdminReferrals"><AdminReferrals /></LayoutWrapper>} />
+      <Route path="/client/locations" element={<LayoutWrapper currentPageName="ClientLocations"><ClientLocations /></LayoutWrapper>} />
+      <Route path="/admin/enterprise-accounts" element={<LayoutWrapper currentPageName="AdminEnterpriseAccounts"><AdminEnterpriseAccounts /></LayoutWrapper>} />
+      <Route path="/admin/location-performance" element={<LayoutWrapper currentPageName="AdminLocationPerformance"><AdminLocationPerformance /></LayoutWrapper>} />
+      <Route path="/admin/vertical-intelligence" element={<LayoutWrapper currentPageName="AdminVerticalIntelligence"><AdminVerticalIntelligence /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
