@@ -195,6 +195,9 @@ const AuthenticatedApp = () => {
       {/* Demo Flow */}
       <Route path="/demo/flow" element={<LayoutWrapper currentPageName="DemoFlow"><DemoFlow /></LayoutWrapper>} />
 
+      {/* Deal Room */}
+      <Route path="/deal-room/:company" element={<LayoutWrapper currentPageName="DealRoom"><DealRoom /></LayoutWrapper>} />
+
       {/* Trial Onboarding Flow */}
       <Route path="/trial/welcome" element={<LayoutWrapper currentPageName="TrialWelcome"><TrialWelcome /></LayoutWrapper>} />
       <Route path="/trial/business" element={<LayoutWrapper currentPageName="TrialBusiness"><TrialBusiness /></LayoutWrapper>} />
