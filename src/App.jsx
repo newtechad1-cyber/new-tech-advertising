@@ -24,6 +24,7 @@ import AdminExpansionExecution from './pages/AdminExpansionExecution';
 import AdminExpansionTerritories from './pages/AdminExpansionTerritories';
 import AdminExpansionRevenue from './pages/AdminExpansionRevenue';
 import AdminFounderPlanner from './pages/AdminFounderPlanner';
+import AdminFounderPriorities from './pages/AdminFounderPriorities';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -93,6 +94,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin/expansion-territories" element={<LayoutWrapper currentPageName="AdminExpansionTerritories"><AdminExpansionTerritories /></LayoutWrapper>} />
       <Route path="/admin/expansion-revenue" element={<LayoutWrapper currentPageName="AdminExpansionRevenue"><AdminExpansionRevenue /></LayoutWrapper>} />
       <Route path="/admin/founder-planner" element={<LayoutWrapper currentPageName="AdminFounderPlanner"><AdminFounderPlanner /></LayoutWrapper>} />
+      <Route path="/admin/founder-priorities" element={<LayoutWrapper currentPageName="AdminFounderPriorities"><AdminFounderPriorities /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
