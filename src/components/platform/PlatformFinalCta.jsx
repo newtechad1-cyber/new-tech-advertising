@@ -1,8 +1,10 @@
 import React from 'react';
 import { ArrowRight, Phone } from 'lucide-react';
+import { createPageUrl } from '@/utils';
+import { Link } from 'react-router-dom';
 
-const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
-const STRATEGY_URL = 'https://app.newtechadvertising.com/book-call';
+const TRIAL_URL = createPageUrl('Start');
+const STRATEGY_URL = createPageUrl('MarketingPlanGenerator');
 
 export default function PlatformFinalCta() {
   return (
