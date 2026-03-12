@@ -61,6 +61,8 @@ import AdminPricingPackaging from './pages/AdminPricingPackaging';
 import AdminPricingExperiments from './pages/AdminPricingExperiments';
 import AdminPricingRecommendations from './pages/AdminPricingRecommendations';
 import AdminNavigationAudit from './pages/AdminNavigationAudit';
+import AdminChannels from './pages/AdminChannels';
+import ClientChannels from './pages/ClientChannels';
 import ClientROI from './pages/ClientROI';
 import ClientROIReports from './pages/ClientROIReports';
 import ClientROITimeline from './pages/ClientROITimeline';
@@ -173,6 +175,8 @@ const AuthenticatedApp = () => {
       <Route path="/admin/pricing-experiments" element={<LayoutWrapper currentPageName="AdminPricingExperiments"><AdminPricingExperiments /></LayoutWrapper>} />
       <Route path="/admin/pricing-recommendations" element={<LayoutWrapper currentPageName="AdminPricingRecommendations"><AdminPricingRecommendations /></LayoutWrapper>} />
       <Route path="/admin/navigation-audit" element={<LayoutWrapper currentPageName="AdminNavigationAudit"><AdminNavigationAudit /></LayoutWrapper>} />
+      <Route path="/admin/channels" element={<LayoutWrapper currentPageName="AdminChannels"><AdminChannels /></LayoutWrapper>} />
+      <Route path="/client/channels" element={<LayoutWrapper currentPageName="ClientChannels"><ClientChannels /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
