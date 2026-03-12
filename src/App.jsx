@@ -51,6 +51,7 @@ import AdminAIGrowthLoops from './pages/AdminAIGrowthLoops';
 import AdminAutomationRules from './pages/AdminAutomationRules';
 import AdminAutomationConditions from './pages/AdminAutomationConditions';
 import AdminAutomationFlows from './pages/AdminAutomationFlows';
+import AdminAutomationPerformance from './pages/AdminAutomationPerformance';
 import ClientROI from './pages/ClientROI';
 import ClientROIReports from './pages/ClientROIReports';
 import ClientROITimeline from './pages/ClientROITimeline';
@@ -153,6 +154,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin/automation-rules" element={<LayoutWrapper currentPageName="AdminAutomationRules"><AdminAutomationRules /></LayoutWrapper>} />
       <Route path="/admin/automation-conditions" element={<LayoutWrapper currentPageName="AdminAutomationConditions"><AdminAutomationConditions /></LayoutWrapper>} />
       <Route path="/admin/automation-flows" element={<LayoutWrapper currentPageName="AdminAutomationFlows"><AdminAutomationFlows /></LayoutWrapper>} />
+      <Route path="/admin/automation-performance" element={<LayoutWrapper currentPageName="AdminAutomationPerformance"><AdminAutomationPerformance /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
