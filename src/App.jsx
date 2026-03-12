@@ -77,6 +77,7 @@ import TrialChannels from './pages/TrialChannels';
 import TrialActivation from './pages/TrialActivation';
 import DemoFlow from './pages/DemoFlow';
 import DealRoom from './pages/DealRoom';
+import SalesCommandCenter from './pages/SalesCommandCenter';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
