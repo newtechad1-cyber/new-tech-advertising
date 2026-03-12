@@ -101,7 +101,7 @@ export default function AdminVerticalRevenue() {
     if (d.average_client_value > 1200) flags.push({ vertical: v, insight: 'Premium ACV detected — candidates for authority or enterprise upsell packages.', type: 'premium' });
   });
 
-  const KPI = ({ label, value, sub, icon: Icon, color }) => (
+  const KPI = ({ label, value, sub, icon: KpiIcon, color }) => (
     <div className="bg-[#0f1729] border border-slate-800 rounded-2xl p-5">
       <div className="flex items-center gap-2 mb-3">
         <Icon className={`w-4 h-4 ${color}`} />
