@@ -187,6 +187,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin/navigation-audit" element={<LayoutWrapper currentPageName="AdminNavigationAudit"><AdminNavigationAudit /></LayoutWrapper>} />
       <Route path="/admin/channels" element={<LayoutWrapper currentPageName="AdminChannels"><AdminChannels /></LayoutWrapper>} />
       <Route path="/client/channels" element={<LayoutWrapper currentPageName="ClientChannels"><ClientChannels /></LayoutWrapper>} />
+      <Route path="/client/results" element={<LayoutWrapper currentPageName="ClientResults"><ClientResults /></LayoutWrapper>} />
       <Route path="/admin/production-stability" element={<LayoutWrapper currentPageName="AdminProductionStability"><AdminProductionStability /></LayoutWrapper>} />
       <Route path="/admin/platform-qa" element={<LayoutWrapper currentPageName="AdminPlatformQA"><AdminPlatformQA /></LayoutWrapper>} />
       {/* Trial Onboarding Flow */}
