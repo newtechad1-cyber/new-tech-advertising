@@ -126,7 +126,7 @@ const SECTIONS = [
         </p>
         <div className="space-y-3">
           {[
-            { q: 'How do I get notified?', a: 'You'll receive an email when content is ready for review. You can also check your dashboard at any time.' },
+            { q: 'How do I get notified?', a: "You'll receive an email when content is ready for review. You can also check your dashboard at any time." },
             { q: 'What if I want changes?', a: 'Leave a revision note and our team will update the content within 1 business day.' },
             { q: 'How long do I have to approve?', a: 'Content stays in your queue for 5 days. If not reviewed, it moves to the next scheduled slot.' },
             { q: 'Can I skip approval entirely?', a: 'Yes — turn on Auto-Approve in your settings and content publishes on the planned date automatically.' },
