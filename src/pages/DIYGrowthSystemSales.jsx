@@ -70,11 +70,23 @@ export default function DIYGrowthSystemSales() {
       {/* Pain Points */}
       <DIYPainPoints />
 
+      {/* How It Works */}
+      <DIYHowItWorks />
+
+      {/* 30-Day Outcomes */}
+      <DIY30DayOutcomes />
+
       {/* Outcome-Based Value Stack */}
       <DIYOutcomeStack />
 
       {/* What's Included */}
       <DIYIncluded />
+
+      {/* Upgrade Path */}
+      <DIYUpgradePath />
+
+      {/* Risk Removal */}
+      <DIYRiskRemoval />
 
       {/* Advanced Comparison */}
       <DIYComparisonAdvanced />
