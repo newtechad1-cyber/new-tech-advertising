@@ -111,6 +111,7 @@ export default function NTAAIWorkforceOrchestrator() {
 
   return (
     <div className="min-h-screen bg-slate-950">
+      <NTACommandNav />
       <AWHeader
         kpis={kpis}
         globalPaused={globalPaused}

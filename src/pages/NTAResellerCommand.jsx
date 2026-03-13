@@ -91,6 +91,7 @@ export default function NTAResellerCommand() {
 
   return (
     <div className="min-h-screen bg-slate-950">
+      <NTACommandNav />
       {showAddModal && (
         <RSAddResellerModal
           onClose={() => setShowAddModal(false)}

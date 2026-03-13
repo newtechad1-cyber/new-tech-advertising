@@ -190,6 +190,7 @@ export default function NTADealRoom() {
 
   return (
     <div className="min-h-screen bg-slate-950 pb-24">
+      <NTACommandNav />
       {/* Engagement indicator (top bar for operator awareness) */}
       {viewedSections.size > 0 && (
         <div className="fixed top-0 left-0 right-0 z-40 bg-blue-950/80 backdrop-blur-sm border-b border-blue-800/40 px-4 py-1.5 flex items-center gap-3">

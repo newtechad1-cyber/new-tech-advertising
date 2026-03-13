@@ -107,6 +107,7 @@ export default function NTAOnboardingCenter() {
 
   return (
     <div className="min-h-screen bg-slate-950">
+      <NTACommandNav />
       {/* Top admin bar */}
       {isAdmin && (
         <div className="bg-slate-900 border-b border-slate-800 px-6 py-2 flex items-center gap-4">
