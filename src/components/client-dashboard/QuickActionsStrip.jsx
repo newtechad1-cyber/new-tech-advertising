@@ -1,6 +1,7 @@
 import React from 'react';
 import { Plus, Zap, Calendar, TrendingUp } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { openBooking } from '@/components/config/bookingConfig';
 
 export default function QuickActionsStrip() {
   const navigate = useNavigate();

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Menu, X, ChevronDown } from 'lucide-react';
+import { BOOKING_URL, BOOKING_IS_EXTERNAL } from '@/components/config/bookingConfig';
 
 const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png';
 
