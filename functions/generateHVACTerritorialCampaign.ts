@@ -299,10 +299,10 @@ Return EXACTLY this JSON structure:
       "500-1000 monthly impressions from HVAC targeting"
     ],
     "aggregate_quarterly": [
-      "45-75 HVAC leads across 3 territories",
-      "90-150 demo bookings",
-      "60-90 DIY system signups from HVAC industry",
-      "$50K+ projected MRR from HVAC vertical"
+      "60-100 HVAC leads across 4 territories",
+      "120-200 demo bookings",
+      "80-120 DIY system signups from HVAC industry",
+      "$65K+ projected MRR from HVAC vertical"
     ]
   }
 }
