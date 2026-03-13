@@ -87,6 +87,7 @@ import NTAOnboardingCenter from './pages/NTAOnboardingCenter';
 import NTAChannelHub from './pages/NTAChannelHub';
 import NTAResellerCommand from './pages/NTAResellerCommand';
 import NTAAIWorkforceOrchestrator from './pages/NTAAIWorkforceOrchestrator';
+import NTAHomepage from './pages/NTAHomepage';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
