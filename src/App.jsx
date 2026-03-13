@@ -85,6 +85,7 @@ import AdminProposalGenerator from './pages/AdminProposalGenerator';
 import NTADealRoom from './pages/NTADealRoom';
 import NTAOnboardingCenter from './pages/NTAOnboardingCenter';
 import NTAChannelHub from './pages/NTAChannelHub';
+import NTAResellerCommand from './pages/NTAResellerCommand';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -208,6 +209,7 @@ const AuthenticatedApp = () => {
       <Route path="/nta/deal-room" element={<LayoutWrapper currentPageName="NTADealRoom"><NTADealRoom /></LayoutWrapper>} />
       <Route path="/nta/onboarding" element={<LayoutWrapper currentPageName="NTAOnboardingCenter"><NTAOnboardingCenter /></LayoutWrapper>} />
       <Route path="/nta/channels" element={<LayoutWrapper currentPageName="NTAChannelHub"><NTAChannelHub /></LayoutWrapper>} />
+      <Route path="/nta/reseller-command" element={<LayoutWrapper currentPageName="NTAResellerCommand"><NTAResellerCommand /></LayoutWrapper>} />
       {/* Demo Flow */}
       <Route path="/demo/flow" element={<LayoutWrapper currentPageName="DemoFlow"><DemoFlow /></LayoutWrapper>} />
 
