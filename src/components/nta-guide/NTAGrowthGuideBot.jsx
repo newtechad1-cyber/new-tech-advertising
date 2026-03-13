@@ -79,7 +79,7 @@ export default function NTAGrowthGuideBot() {
                 <>
                   {/* Bot message */}
                   <div className="flex items-start gap-2.5">
-                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-700 to-cyan-500 flex-shrink-0 mt-0.5" />
+                    <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/4180c3dd4_faviconimage_edited.png" alt="bot" className="w-7 h-7 rounded-full object-cover flex-shrink-0 mt-0.5 bg-white" />
                     <div className="bg-slate-800 border border-slate-700 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%]">
                       <p className="text-slate-200 text-sm leading-relaxed">
                         Hi — I'm the NTA Growth Guide. Want a quick tour of how this platform builds local market authority?
@@ -105,7 +105,7 @@ export default function NTAGrowthGuideBot() {
               {phase === 'tour' && (
                 <>
                   <div className="flex items-start gap-2.5">
-                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-700 to-cyan-500 flex-shrink-0 mt-0.5" />
+                    <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/4180c3dd4_faviconimage_edited.png" alt="bot" className="w-7 h-7 rounded-full object-cover flex-shrink-0 mt-0.5 bg-white" />
                     <div className="bg-slate-800 border border-slate-700 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%]">
                       <p className="text-slate-200 text-sm leading-relaxed">
                         Here's how NTA builds authority for local service businesses:
