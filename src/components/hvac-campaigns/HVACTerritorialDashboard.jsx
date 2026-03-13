@@ -77,6 +77,13 @@ export default function HVACTerritorialDashboard() {
                 icon: '🏆',
                 focus: 'Premium Positioning, Smart Systems, Brand Growth',
                 message: 'Premium market leadership through innovation'
+              },
+              {
+                name: 'Albert Lea HVAC',
+                region: 'Albert Lea, Minnesota',
+                icon: '🔧',
+                focus: 'Local Service Authority, Seasonal Repair, Maintenance Plans',
+                message: 'Service authority + predictable maintenance revenue'
               }
             ].map((territory, idx) => (
               <Card key={idx} className={`border-2 ${TERRITORY_COLORS[territory.name]}`}>
