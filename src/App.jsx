@@ -92,6 +92,7 @@ import NTASalesFollowUp from './pages/NTASalesFollowUp';
 import NTAPricingStack from './pages/NTAPricingStack';
 import ClientGrowthJourney from './pages/ClientGrowthJourney';
 import NTAOperatorCommand from './pages/NTAOperatorCommand';
+import NTAAcquisitionCommand from './pages/NTAAcquisitionCommand';
 import AdminRetentionDashboard from './pages/AdminRetentionDashboard';
 import NTADemoFunnel from './pages/NTADemoFunnel';
 
@@ -222,6 +223,7 @@ const AuthenticatedApp = () => {
       <Route path="/nta/home" element={<NTAHomepage />} />
       <Route path="/nta/sales-followup" element={<LayoutWrapper currentPageName="NTASalesFollowUp"><NTASalesFollowUp /></LayoutWrapper>} />
       <Route path="/nta/pricing-stack" element={<LayoutWrapper currentPageName="NTAPricingStack"><NTAPricingStack /></LayoutWrapper>} />
+      <Route path="/nta/acquisition-command" element={<LayoutWrapper currentPageName="NTAAcquisitionCommand"><NTAAcquisitionCommand /></LayoutWrapper>} />
       <Route path="/nta/operator-command" element={<LayoutWrapper currentPageName="NTAOperatorCommand"><NTAOperatorCommand /></LayoutWrapper>} />
       <Route path="/client/growth-journey" element={<LayoutWrapper currentPageName="ClientGrowthJourney"><ClientGrowthJourney /></LayoutWrapper>} />
       <Route path="/admin/retention-dashboard" element={<LayoutWrapper currentPageName="AdminRetentionDashboard"><AdminRetentionDashboard /></LayoutWrapper>} />
