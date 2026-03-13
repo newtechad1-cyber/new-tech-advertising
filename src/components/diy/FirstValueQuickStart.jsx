@@ -8,7 +8,8 @@ const QUICK_START_ACTIONS = [
   {
     id: 'social_post',
     title: 'Create First Social Post',
-    description: 'Generate AI-powered post in 5 minutes',
+    description: 'Generate AI-powered social content in minutes',
+    benefit: 'Get your first piece of content live today',
     icon: Share2,
     time: '5 min',
     color: 'from-orange-50 to-orange-100',
@@ -19,7 +20,8 @@ const QUICK_START_ACTIONS = [
   {
     id: 'campaign',
     title: 'Launch First Campaign',
-    description: 'Set up your first marketing campaign',
+    description: 'Set up your first marketing campaign in minutes',
+    benefit: 'Automate content distribution & start seeing results',
     icon: Zap,
     time: '10 min',
     color: 'from-blue-50 to-blue-100',
@@ -30,13 +32,26 @@ const QUICK_START_ACTIONS = [
   {
     id: 'video_script',
     title: 'Write First Video Script',
-    description: 'Create a script for your first video',
+    description: 'Generate a script for your first video',
+    benefit: 'Video drives 3x more engagement than text',
     icon: Video,
     time: '7 min',
     color: 'from-purple-50 to-purple-100',
     borderColor: 'border-purple-300',
     badgeColor: 'bg-purple-100 text-purple-900',
     action: 'GenerateVideoScript'
+  },
+  {
+    id: 'log_lead',
+    title: 'Log Your First Lead',
+    description: 'Track where your leads come from',
+    benefit: 'Build your lead source database & measure ROI',
+    icon: TrendingUp,
+    time: '3 min',
+    color: 'from-green-50 to-green-100',
+    borderColor: 'border-green-300',
+    badgeColor: 'bg-green-100 text-green-900',
+    action: 'LogLead'
   }
 ];
 
