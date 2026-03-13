@@ -1,8 +1,7 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { CheckCircle, ArrowRight } from 'lucide-react';
-import { goToBookingPage } from '@/components/config/bookingConfig';
 
 const PLANS = [
   {
@@ -62,7 +61,6 @@ const PLANS = [
 ];
 
 export default function HomePricing() {
-  const navigate = useNavigate();
   return (
     <section className="bg-slate-950 py-20 px-4 border-t border-slate-800">
       <div className="max-w-6xl mx-auto">
@@ -108,12 +106,14 @@ export default function HomePricing() {
                 ))}
               </ul>
               {plan.link === null ? (
-                <button
-                  onClick={() => goToBookingPage(navigate)}
+                <a
+                  href="https://calendar.app.google/p6ieYanvwhixXxZ67"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-full text-center font-bold py-2.5 rounded-xl transition-all text-sm flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white"
                 >
                   {plan.cta} <ArrowRight className="w-3.5 h-3.5" />
-                </button>
+                </a>
               ) : (
                 <Link
                   to={createPageUrl(plan.link)}
