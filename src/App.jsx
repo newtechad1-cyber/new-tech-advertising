@@ -96,6 +96,7 @@ import NTAAcquisitionCommand from './pages/NTAAcquisitionCommand';
 import AdminRetentionDashboard from './pages/AdminRetentionDashboard';
 import NTADemoFunnel from './pages/NTADemoFunnel';
 import GettingStarted from './pages/GettingStarted';
+import ChannelHelpCenter from './pages/ChannelHelpCenter';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];

@@ -72,9 +72,14 @@ const SECTIONS = [
             </div>
           ))}
         </div>
-        <Link to="/nta/channels" className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors mt-2">
-          Go to Channel Hub <ArrowRight className="w-4 h-4" />
-        </Link>
+        <div className="flex flex-wrap gap-3 mt-2">
+          <Link to="/nta/channels" className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">
+            Go to Channel Hub <ArrowRight className="w-4 h-4" />
+          </Link>
+          <Link to="/channel-help" className="inline-flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">
+            Connection Help Guide <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
       </div>
     ),
   },
