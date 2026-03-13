@@ -116,7 +116,7 @@ export default function FirstActionSuccessModal({
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-2 pt-2">
+        <div className="flex gap-2 pt-2 flex-col sm:flex-row">
           <Button
             onClick={onClose}
             variant="outline"
@@ -124,6 +124,18 @@ export default function FirstActionSuccessModal({
           >
             Continue Browsing
           </Button>
+          {nextSuggestion && (
+            <Button
+              onClick={() => {
+                onNextStep?.(nextSuggestion.recommendedAction);
+                onClose();
+              }}
+              className="flex-1 bg-green-600 text-white hover:bg-green-700"
+            >
+              {getNextActionLabel(nextSuggestion.recommendedAction)}
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          )}
           <Button
             onClick={() => {
               onNextStep?.(actionType);
