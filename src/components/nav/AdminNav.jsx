@@ -145,7 +145,7 @@ export default function AdminNav({ children }) {
                     to={item.href || createPageUrl(item.page)}
                     onClick={() => setMobileOpen(false)}
                     className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      item.page && isActive(item.page)
+                      isActive(item)
                         ? 'bg-violet-600/20 text-violet-300'
                         : 'text-slate-400 hover:text-white hover:bg-slate-800'
                     }`}
