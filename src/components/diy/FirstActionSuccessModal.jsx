@@ -87,13 +87,32 @@ export default function FirstActionSuccessModal({
           </div>
 
           {/* Next Action Suggestion */}
-          <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 text-sm">
-            <p className="text-slate-600 mb-2">
-              <span className="font-semibold">What's next?</span>
-              <br />
-              {config.nextAction}
-            </p>
-          </div>
+          {nextSuggestion ? (
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 space-y-2">
+              <div className="flex gap-2 items-start">
+                <Lightbulb className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <p className="font-semibold text-sm text-blue-900">
+                    {nextSuggestion.title}
+                  </p>
+                  <p className="text-xs text-blue-800 mt-1">
+                    {nextSuggestion.message}
+                  </p>
+                  <p className="text-xs text-blue-700 italic mt-2">
+                    💡 {nextSuggestion.why}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 text-sm">
+              <p className="text-slate-600 mb-2">
+                <span className="font-semibold">What's next?</span>
+                <br />
+                {config.nextAction}
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Action Buttons */}
