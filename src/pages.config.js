@@ -64,10 +64,14 @@ import AdaWebsiteRebuild from './pages/AdaWebsiteRebuild';
 import Admin from './pages/Admin';
 import AdminAIActivity from './pages/AdminAIActivity';
 import AdminAIControlCenter from './pages/AdminAIControlCenter';
+import AdminAIGrowthLoops from './pages/AdminAIGrowthLoops';
 import AdminAILab from './pages/AdminAILab';
 import AdminAIOperations from './pages/AdminAIOperations';
+import AdminAIOrchestration from './pages/AdminAIOrchestration';
 import AdminAIPrompts from './pages/AdminAIPrompts';
+import AdminAIRouting from './pages/AdminAIRouting';
 import AdminAIVideoStudio from './pages/AdminAIVideoStudio';
+import AdminAIWorkforce from './pages/AdminAIWorkforce';
 import AdminAccess from './pages/AdminAccess';
 import AdminAccessAudit from './pages/AdminAccessAudit';
 import AdminAccessPermissions from './pages/AdminAccessPermissions';
@@ -80,8 +84,11 @@ import AdminAlerts from './pages/AdminAlerts';
 import AdminAnalytics from './pages/AdminAnalytics';
 import AdminApproval from './pages/AdminApproval';
 import AdminAutomation from './pages/AdminAutomation';
+import AdminAutomationConditions from './pages/AdminAutomationConditions';
 import AdminAutomationDependencies from './pages/AdminAutomationDependencies';
+import AdminAutomationFlows from './pages/AdminAutomationFlows';
 import AdminAutomationHealth from './pages/AdminAutomationHealth';
+import AdminAutomationPerformance from './pages/AdminAutomationPerformance';
 import AdminAutomationRuleDetail from './pages/AdminAutomationRuleDetail';
 import AdminAutomationRules from './pages/AdminAutomationRules';
 import AdminAutomationTriggers from './pages/AdminAutomationTriggers';
@@ -96,10 +103,15 @@ import AdminBillingContract from './pages/AdminBillingContract';
 import AdminBlog from './pages/AdminBlog';
 import AdminBranding from './pages/AdminBranding';
 import AdminCampaigns from './pages/AdminCampaigns';
+import AdminChannels from './pages/AdminChannels';
+import AdminClientExpansion from './pages/AdminClientExpansion';
+import AdminClientLTV from './pages/AdminClientLTV';
 import AdminClientLifecycle from './pages/AdminClientLifecycle';
 import AdminClientPerformance from './pages/AdminClientPerformance';
+import AdminClientRetention from './pages/AdminClientRetention';
 import AdminClientSettings from './pages/AdminClientSettings';
 import AdminClientSettingsCompany from './pages/AdminClientSettingsCompany';
+import AdminClientSuccess from './pages/AdminClientSuccess';
 import AdminClients from './pages/AdminClients';
 import AdminCommandCenter from './pages/AdminCommandCenter';
 import AdminCommerce from './pages/AdminCommerce';
@@ -108,6 +120,9 @@ import AdminConnections from './pages/AdminConnections';
 import AdminContentEngine from './pages/AdminContentEngine';
 import AdminContentMultiplier from './pages/AdminContentMultiplier';
 import AdminControlTower from './pages/AdminControlTower';
+import AdminControlTowerActions from './pages/AdminControlTowerActions';
+import AdminControlTowerInsights from './pages/AdminControlTowerInsights';
+import AdminControlTowerRisk from './pages/AdminControlTowerRisk';
 import AdminCopilot from './pages/AdminCopilot';
 import AdminCopilotAccount from './pages/AdminCopilotAccount';
 import AdminCreateProject from './pages/AdminCreateProject';
@@ -119,26 +134,45 @@ import AdminDemoMachineSessions from './pages/AdminDemoMachineSessions';
 import AdminEnterpriseAccounts from './pages/AdminEnterpriseAccounts';
 import AdminEventsList from './pages/AdminEventsList';
 import AdminExecutive from './pages/AdminExecutive';
+import AdminExpansionExecution from './pages/AdminExpansionExecution';
+import AdminExpansionPlaybook from './pages/AdminExpansionPlaybook';
+import AdminExpansionRevenue from './pages/AdminExpansionRevenue';
+import AdminExpansionTerritories from './pages/AdminExpansionTerritories';
 import AdminFinance from './pages/AdminFinance';
 import AdminFounder from './pages/AdminFounder';
+import AdminFounderPlanner from './pages/AdminFounderPlanner';
+import AdminFounderPriorities from './pages/AdminFounderPriorities';
+import AdminFounderScenarios from './pages/AdminFounderScenarios';
+import AdminFounderScorecardWeekly from './pages/AdminFounderScorecardWeekly';
 import AdminFulfillment from './pages/AdminFulfillment';
 import AdminFulfillmentDetail from './pages/AdminFulfillmentDetail';
+import AdminFunnelOpportunities from './pages/AdminFunnelOpportunities';
+import AdminFunnelOptimization from './pages/AdminFunnelOptimization';
+import AdminFunnelPages from './pages/AdminFunnelPages';
+import AdminFunnelTests from './pages/AdminFunnelTests';
 import AdminGovernance from './pages/AdminGovernance';
 import AdminGovernanceAudit from './pages/AdminGovernanceAudit';
 import AdminGovernanceDependencies from './pages/AdminGovernanceDependencies';
 import AdminGovernanceFields from './pages/AdminGovernanceFields';
+import AdminQA from './pages/AdminQA';
 import AdminGovernanceLifecycles from './pages/AdminGovernanceLifecycles';
 import AdminGovernancePolicy from './pages/AdminGovernancePolicy';
 import AdminGovernanceRelationships from './pages/AdminGovernanceRelationships';
 import AdminHelp from './pages/AdminHelp';
+import AdminHotProspectsAlert from './pages/AdminHotProspectsAlert';
 import AdminIntelligence from './pages/AdminIntelligence';
 import AdminIntelligenceAutomation from './pages/AdminIntelligenceAutomation';
 import AdminIntelligenceClients from './pages/AdminIntelligenceClients';
 import AdminIntelligenceResellers from './pages/AdminIntelligenceResellers';
 import AdminIntelligenceSales from './pages/AdminIntelligenceSales';
+import AdminKnowledge from './pages/AdminKnowledge';
+import AdminKnowledgeIntelligence from './pages/AdminKnowledgeIntelligence';
+import AdminKnowledgeTraining from './pages/AdminKnowledgeTraining';
+import AdminKnowledgeWorkflows from './pages/AdminKnowledgeWorkflows';
 import AdminLocationPerformance from './pages/AdminLocationPerformance';
 import AdminMetaSetup from './pages/AdminMetaSetup';
 import AdminNavigation from './pages/AdminNavigation';
+import AdminNavigationAudit from './pages/AdminNavigationAudit';
 import AdminNavigationLayouts from './pages/AdminNavigationLayouts';
 import AdminNavigationNav from './pages/AdminNavigationNav';
 import AdminNavigationPages from './pages/AdminNavigationPages';
@@ -148,31 +182,43 @@ import AdminOnboarding from './pages/AdminOnboarding';
 import AdminOnboardingDetail from './pages/AdminOnboardingDetail';
 import AdminOnboardingQueue from './pages/AdminOnboardingQueue';
 import AdminOperations from './pages/AdminOperations';
+import AdminOperationsCapacity from './pages/AdminOperationsCapacity';
 import AdminOperationsCompany from './pages/AdminOperationsCompany';
+import AdminOperationsEfficiency from './pages/AdminOperationsEfficiency';
+import AdminOperationsSLA from './pages/AdminOperationsSLA';
 import AdminOptimization from './pages/AdminOptimization';
 import AdminOptimizationCandidates from './pages/AdminOptimizationCandidates';
 import AdminOptimizationExperiments from './pages/AdminOptimizationExperiments';
 import AdminOptimizationOutcomes from './pages/AdminOptimizationOutcomes';
-import AdminOptimizer from './pages/AdminOptimizer';
 import AdminOptimizationPolicies from './pages/AdminOptimizationPolicies';
+import AdminOptimizer from './pages/AdminOptimizer';
 import AdminOptimizerDetail from './pages/AdminOptimizerDetail';
 import AdminOrchestrator from './pages/AdminOrchestrator';
 import AdminOrchestratorDetail from './pages/AdminOrchestratorDetail';
 import AdminPlatform from './pages/AdminPlatform';
+import AdminPlatformQA from './pages/AdminPlatformQA';
+import AdminPricingExperiments from './pages/AdminPricingExperiments';
+import AdminPricingIntelligence from './pages/AdminPricingIntelligence';
+import AdminPricingPackaging from './pages/AdminPricingPackaging';
+import AdminPricingRecommendations from './pages/AdminPricingRecommendations';
+import AdminProductionStability from './pages/AdminProductionStability';
 import AdminProjectWorkspace from './pages/AdminProjectWorkspace';
 import AdminProjectsList from './pages/AdminProjectsList';
-import AdminQA from './pages/AdminQA';
+import AdminProposalGenerator from './pages/AdminProposalGenerator';
 import AdminQAIssues from './pages/AdminQAIssues';
 import AdminQAReadiness from './pages/AdminQAReadiness';
 import AdminQARuns from './pages/AdminQARuns';
 import AdminQATests from './pages/AdminQATests';
+import AdminROIExpansion from './pages/AdminROIExpansion';
 import AdminRecommendationDetail from './pages/AdminRecommendationDetail';
 import AdminRecommendations from './pages/AdminRecommendations';
+import AdminReferrals from './pages/AdminReferrals';
 import AdminReports from './pages/AdminReports';
 import AdminResellerClients from './pages/AdminResellerClients';
 import AdminResellerCommissions from './pages/AdminResellerCommissions';
 import AdminResellerRevenue from './pages/AdminResellerRevenue';
 import AdminResellers from './pages/AdminResellers';
+import AdminRetentionDashboard from './pages/AdminRetentionDashboard';
 import AdminRevenueDetail from './pages/AdminRevenueDetail';
 import AdminRevenueEngine from './pages/AdminRevenueEngine';
 import AdminSales from './pages/AdminSales';
@@ -210,9 +256,9 @@ import AdminSchoolStudentUploads from './pages/AdminSchoolStudentUploads';
 import AdminSchoolStudentUsers from './pages/AdminSchoolStudentUsers';
 import AdminSchoolSubmissions from './pages/AdminSchoolSubmissions';
 import AdminSchoolUsers from './pages/AdminSchoolUsers';
+import AdminSettings from './pages/AdminSettings';
 import AdminSchoolVideoLibrary from './pages/AdminSchoolVideoLibrary';
 import AdminSchoolYearbook from './pages/AdminSchoolYearbook';
-import AdminSettings from './pages/AdminSettings';
 import AdminStoryDetail from './pages/AdminStoryDetail';
 import AdminStoryLibrary from './pages/AdminStoryLibrary';
 import AdminSubmissionDetail from './pages/AdminSubmissionDetail';
@@ -221,6 +267,10 @@ import AdminSystemHealth from './pages/AdminSystemHealth';
 import AdminTasks from './pages/AdminTasks';
 import AdminTestMatrix from './pages/AdminTestMatrix';
 import AdminUsers from './pages/AdminUsers';
+import AdminVerticalCampaigns from './pages/AdminVerticalCampaigns';
+import AdminVerticalExpansion from './pages/AdminVerticalExpansion';
+import AdminVerticalIntelligence from './pages/AdminVerticalIntelligence';
+import AdminVerticalRevenue from './pages/AdminVerticalRevenue';
 import AdminVideoDetail from './pages/AdminVideoDetail';
 import AdminVideoEngine from './pages/AdminVideoEngine';
 import AdminVideoEngineAnalytics from './pages/AdminVideoEngineAnalytics';
@@ -257,11 +307,12 @@ import AuthorityMap from './pages/AuthorityMap';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import bookCall from './pages/Book-Call';
+import BookCall from './pages/BookCall';
 import BulldogTV from './pages/BulldogTV';
 import BulldogTVSpotlights from './pages/BulldogTVSpotlights';
 import BulldogTVStories from './pages/BulldogTVStories';
-import BulldogTVSubmit from './pages/BulldogTVSubmit';
 import BulldogTVSubmissions from './pages/BulldogTVSubmissions';
+import BulldogTVSubmit from './pages/BulldogTVSubmit';
 import BulldogTVVideos from './pages/BulldogTVVideos';
 import BulldogTVWatch from './pages/BulldogTVWatch';
 import BulldogTVYearbook from './pages/BulldogTVYearbook';
@@ -270,20 +321,29 @@ import BusinessProfileAdmin from './pages/BusinessProfileAdmin';
 import CRMHub from './pages/CRMHub';
 import CaseStudies from './pages/CaseStudies';
 import CaseStudyDetail from './pages/CaseStudyDetail';
+import ChannelHelpCenter from './pages/ChannelHelpCenter';
 import ChatWidget from './pages/ChatWidget';
 import ChatbotManagement from './pages/ChatbotManagement';
 import ClientApprovals from './pages/ClientApprovals';
 import ClientBilling from './pages/ClientBilling';
 import ClientCalendar from './pages/ClientCalendar';
 import ClientCampaigns from './pages/ClientCampaigns';
+import ClientChannels from './pages/ClientChannels';
 import ClientCommerce from './pages/ClientCommerce';
 import ClientContentProduction from './pages/ClientContentProduction';
 import ClientDashboard from './pages/ClientDashboard';
 import ClientDashboardDemo from './pages/ClientDashboardDemo';
 import ClientFulfillment from './pages/ClientFulfillment';
+import ClientGrowthJourney from './pages/ClientGrowthJourney';
 import ClientLocations from './pages/ClientLocations';
 import ClientOnboarding from './pages/ClientOnboarding';
+import ClientROI from './pages/ClientROI';
+import ClientROIReports from './pages/ClientROIReports';
+import ClientROITimeline from './pages/ClientROITimeline';
+import ClientReferralStatus from './pages/ClientReferralStatus';
+import ClientReferrals from './pages/ClientReferrals';
 import ClientReports from './pages/ClientReports';
+import ClientResults from './pages/ClientResults';
 import ClientSettings from './pages/ClientSettings';
 import Contact from './pages/Contact';
 import ContentDrafts from './pages/ContentDrafts';
@@ -293,6 +353,12 @@ import ContentStudio from './pages/ContentStudio';
 import ContributorAILab from './pages/ContributorAILab';
 import ContributorHub from './pages/ContributorHub';
 import ContributorSubmissions from './pages/ContributorSubmissions';
+import DIYBillingSettings from './pages/DIYBillingSettings';
+import DIYCheckoutSuccess from './pages/DIYCheckoutSuccess';
+import DIYDashboard from './pages/DIYDashboard';
+import DIYGrowthSystemSales from './pages/DIYGrowthSystemSales';
+import DIYOnboarding from './pages/DIYOnboarding';
+import DIYPricingLadder from './pages/DIYPricingLadder';
 import Dashboard from './pages/Dashboard';
 import DealRoom from './pages/DealRoom';
 import DealRoomCaseStudies from './pages/DealRoomCaseStudies';
@@ -304,6 +370,7 @@ import DebugOAuthConnections from './pages/DebugOAuthConnections';
 import Demo from './pages/Demo';
 import DemoExamples from './pages/DemoExamples';
 import DemoFeatures from './pages/DemoFeatures';
+import DemoFlow from './pages/DemoFlow';
 import DemoNext from './pages/DemoNext';
 import DemoOverview from './pages/DemoOverview';
 import DemoPlatform from './pages/DemoPlatform';
@@ -315,9 +382,11 @@ import DemoSchoolChannel from './pages/DemoSchoolChannel';
 import DemoSchoolStoryDetail from './pages/DemoSchoolStoryDetail';
 import DemoStart from './pages/DemoStart';
 import DentistMarketing from './pages/DentistMarketing';
+import FounderScorecard from './pages/FounderScorecard';
 import freeAudit from './pages/Free-Audit';
 import FunnelPage from './pages/FunnelPage';
 import getStarted from './pages/Get-Started';
+import GettingStarted from './pages/GettingStarted';
 import GlobalSettings from './pages/GlobalSettings';
 import GrowthSystem from './pages/GrowthSystem';
 import HelpAndSupport from './pages/HelpAndSupport';
@@ -349,6 +418,20 @@ import LocationPageAdmin from './pages/LocationPageAdmin';
 import MarketingPlanGenerator from './pages/MarketingPlanGenerator';
 import MedSpaMarketing from './pages/MedSpaMarketing';
 import MetaConnect from './pages/MetaConnect';
+import NTAAIWorkforceOrchestrator from './pages/NTAAIWorkforceOrchestrator';
+import NTAAcquisitionCommand from './pages/NTAAcquisitionCommand';
+import NTAChannelHub from './pages/NTAChannelHub';
+import NTADealRoom from './pages/NTADealRoom';
+import NTADemoFunnel from './pages/NTADemoFunnel';
+import NTADemoMachine from './pages/NTADemoMachine';
+import NTAHomepage from './pages/NTAHomepage';
+import NTAOnboardingCenter from './pages/NTAOnboardingCenter';
+import NTAOperatorCommand from './pages/NTAOperatorCommand';
+import NTAPricingLadderPage from './pages/NTAPricingLadderPage';
+import NTAPricingStack from './pages/NTAPricingStack';
+import NTAResellerCommand from './pages/NTAResellerCommand';
+import NTASalesFollowUp from './pages/NTASalesFollowUp';
+import NTASalesPipeline from './pages/NTASalesPipeline';
 import OauthCallback from './pages/OauthCallback';
 import OnboardThankYou from './pages/OnboardThankYou';
 import Onboarding from './pages/Onboarding';
@@ -380,9 +463,10 @@ import ResellerDashboard from './pages/ResellerDashboard';
 import ResellerRevenue from './pages/ResellerRevenue';
 import ResellerSettingsBranding from './pages/ResellerSettingsBranding';
 import ResellerSignupLinks from './pages/ResellerSignupLinks';
-import RoofingMarketing from './pages/RoofingMarketing';
 import RestaurantMarketing from './pages/RestaurantMarketing';
 import RestaurantSocialMedia from './pages/RestaurantSocialMedia';
+import RoofingMarketing from './pages/RoofingMarketing';
+import SalesCommandCenter from './pages/SalesCommandCenter';
 import SalesDashboard from './pages/SalesDashboard';
 import SalesLeads from './pages/SalesLeads';
 import SalesPipeline from './pages/SalesPipeline';
@@ -435,10 +519,14 @@ import StreamingThankYou from './pages/StreamingThankYou';
 import StreamingTvAdvertising from './pages/StreamingTvAdvertising';
 import StudentAIStoryLab from './pages/StudentAIStoryLab';
 import TermsOfService from './pages/TermsOfService';
+import TrialActivation from './pages/TrialActivation';
+import TrialBusiness from './pages/TrialBusiness';
+import TrialChannels from './pages/TrialChannels';
 import TrialDashboard from './pages/TrialDashboard';
 import TrialOnboarding from './pages/TrialOnboarding';
 import TrialSlug from './pages/TrialSlug';
 import TrialStart from './pages/TrialStart';
+import TrialWelcome from './pages/TrialWelcome';
 import TvCommercialScriptGenerator from './pages/TvCommercialScriptGenerator';
 import TvVideo from './pages/TvVideo';
 import VideoDetail from './pages/VideoDetail';
@@ -449,15 +537,12 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import FounderScorecard from './pages/FounderScorecard';
-import ClientReferralStatus from './pages/ClientReferralStatus';
-import AdminVerticalIntelligence from './pages/AdminVerticalIntelligence';
-import ClientReferrals from './pages/ClientReferrals';
-import AdminReferrals from './pages/AdminReferrals';
-import AdminVerticalRevenue from './pages/AdminVerticalRevenue';
-import AdminVerticalCampaigns from './pages/AdminVerticalCampaigns';
-import AdminVerticalExpansion from './pages/AdminVerticalExpansion';
-import AdminExpansionPlaybook from './pages/AdminExpansionPlaybook';
+import AdminDataGovernance from './pages/AdminDataGovernance';
+import AdminAccessGovernance from './pages/AdminAccessGovernance';
+import AdminTenantGovernance from './pages/AdminTenantGovernance';
+import AdminPageRegistry from './pages/AdminPageRegistry';
+import AdminWorkflows from './pages/AdminWorkflows';
+import ClientMonthlyGrowthReport from './pages/ClientMonthlyGrowthReport';
 import __Layout from './Layout.jsx';
 
 
@@ -479,10 +564,14 @@ export const PAGES = {
     "Admin": Admin,
     "AdminAIActivity": AdminAIActivity,
     "AdminAIControlCenter": AdminAIControlCenter,
+    "AdminAIGrowthLoops": AdminAIGrowthLoops,
     "AdminAILab": AdminAILab,
     "AdminAIOperations": AdminAIOperations,
+    "AdminAIOrchestration": AdminAIOrchestration,
     "AdminAIPrompts": AdminAIPrompts,
+    "AdminAIRouting": AdminAIRouting,
     "AdminAIVideoStudio": AdminAIVideoStudio,
+    "AdminAIWorkforce": AdminAIWorkforce,
     "AdminAccess": AdminAccess,
     "AdminAccessAudit": AdminAccessAudit,
     "AdminAccessPermissions": AdminAccessPermissions,
@@ -495,8 +584,11 @@ export const PAGES = {
     "AdminAnalytics": AdminAnalytics,
     "AdminApproval": AdminApproval,
     "AdminAutomation": AdminAutomation,
+    "AdminAutomationConditions": AdminAutomationConditions,
     "AdminAutomationDependencies": AdminAutomationDependencies,
+    "AdminAutomationFlows": AdminAutomationFlows,
     "AdminAutomationHealth": AdminAutomationHealth,
+    "AdminAutomationPerformance": AdminAutomationPerformance,
     "AdminAutomationRuleDetail": AdminAutomationRuleDetail,
     "AdminAutomationRules": AdminAutomationRules,
     "AdminAutomationTriggers": AdminAutomationTriggers,
@@ -511,10 +603,15 @@ export const PAGES = {
     "AdminBlog": AdminBlog,
     "AdminBranding": AdminBranding,
     "AdminCampaigns": AdminCampaigns,
+    "AdminChannels": AdminChannels,
+    "AdminClientExpansion": AdminClientExpansion,
+    "AdminClientLTV": AdminClientLTV,
     "AdminClientLifecycle": AdminClientLifecycle,
     "AdminClientPerformance": AdminClientPerformance,
+    "AdminClientRetention": AdminClientRetention,
     "AdminClientSettings": AdminClientSettings,
     "AdminClientSettingsCompany": AdminClientSettingsCompany,
+    "AdminClientSuccess": AdminClientSuccess,
     "AdminClients": AdminClients,
     "AdminCommandCenter": AdminCommandCenter,
     "AdminCommerce": AdminCommerce,
@@ -523,6 +620,9 @@ export const PAGES = {
     "AdminContentEngine": AdminContentEngine,
     "AdminContentMultiplier": AdminContentMultiplier,
     "AdminControlTower": AdminControlTower,
+    "AdminControlTowerActions": AdminControlTowerActions,
+    "AdminControlTowerInsights": AdminControlTowerInsights,
+    "AdminControlTowerRisk": AdminControlTowerRisk,
     "AdminCopilot": AdminCopilot,
     "AdminCopilotAccount": AdminCopilotAccount,
     "AdminCreateProject": AdminCreateProject,
@@ -534,26 +634,45 @@ export const PAGES = {
     "AdminEnterpriseAccounts": AdminEnterpriseAccounts,
     "AdminEventsList": AdminEventsList,
     "AdminExecutive": AdminExecutive,
+    "AdminExpansionExecution": AdminExpansionExecution,
+    "AdminExpansionPlaybook": AdminExpansionPlaybook,
+    "AdminExpansionRevenue": AdminExpansionRevenue,
+    "AdminExpansionTerritories": AdminExpansionTerritories,
     "AdminFinance": AdminFinance,
     "AdminFounder": AdminFounder,
+    "AdminFounderPlanner": AdminFounderPlanner,
+    "AdminFounderPriorities": AdminFounderPriorities,
+    "AdminFounderScenarios": AdminFounderScenarios,
+    "AdminFounderScorecardWeekly": AdminFounderScorecardWeekly,
     "AdminFulfillment": AdminFulfillment,
     "AdminFulfillmentDetail": AdminFulfillmentDetail,
+    "AdminFunnelOpportunities": AdminFunnelOpportunities,
+    "AdminFunnelOptimization": AdminFunnelOptimization,
+    "AdminFunnelPages": AdminFunnelPages,
+    "AdminFunnelTests": AdminFunnelTests,
     "AdminGovernance": AdminGovernance,
     "AdminGovernanceAudit": AdminGovernanceAudit,
     "AdminGovernanceDependencies": AdminGovernanceDependencies,
     "AdminGovernanceFields": AdminGovernanceFields,
+    "AdminQA": AdminQA,
     "AdminGovernanceLifecycles": AdminGovernanceLifecycles,
     "AdminGovernancePolicy": AdminGovernancePolicy,
     "AdminGovernanceRelationships": AdminGovernanceRelationships,
     "AdminHelp": AdminHelp,
+    "AdminHotProspectsAlert": AdminHotProspectsAlert,
     "AdminIntelligence": AdminIntelligence,
     "AdminIntelligenceAutomation": AdminIntelligenceAutomation,
     "AdminIntelligenceClients": AdminIntelligenceClients,
     "AdminIntelligenceResellers": AdminIntelligenceResellers,
     "AdminIntelligenceSales": AdminIntelligenceSales,
+    "AdminKnowledge": AdminKnowledge,
+    "AdminKnowledgeIntelligence": AdminKnowledgeIntelligence,
+    "AdminKnowledgeTraining": AdminKnowledgeTraining,
+    "AdminKnowledgeWorkflows": AdminKnowledgeWorkflows,
     "AdminLocationPerformance": AdminLocationPerformance,
     "AdminMetaSetup": AdminMetaSetup,
     "AdminNavigation": AdminNavigation,
+    "AdminNavigationAudit": AdminNavigationAudit,
     "AdminNavigationLayouts": AdminNavigationLayouts,
     "AdminNavigationNav": AdminNavigationNav,
     "AdminNavigationPages": AdminNavigationPages,
@@ -563,31 +682,43 @@ export const PAGES = {
     "AdminOnboardingDetail": AdminOnboardingDetail,
     "AdminOnboardingQueue": AdminOnboardingQueue,
     "AdminOperations": AdminOperations,
+    "AdminOperationsCapacity": AdminOperationsCapacity,
     "AdminOperationsCompany": AdminOperationsCompany,
+    "AdminOperationsEfficiency": AdminOperationsEfficiency,
+    "AdminOperationsSLA": AdminOperationsSLA,
     "AdminOptimization": AdminOptimization,
     "AdminOptimizationCandidates": AdminOptimizationCandidates,
     "AdminOptimizationExperiments": AdminOptimizationExperiments,
     "AdminOptimizationOutcomes": AdminOptimizationOutcomes,
-    "AdminOptimizer": AdminOptimizer,
     "AdminOptimizationPolicies": AdminOptimizationPolicies,
+    "AdminOptimizer": AdminOptimizer,
     "AdminOptimizerDetail": AdminOptimizerDetail,
     "AdminOrchestrator": AdminOrchestrator,
     "AdminOrchestratorDetail": AdminOrchestratorDetail,
     "AdminPlatform": AdminPlatform,
+    "AdminPlatformQA": AdminPlatformQA,
+    "AdminPricingExperiments": AdminPricingExperiments,
+    "AdminPricingIntelligence": AdminPricingIntelligence,
+    "AdminPricingPackaging": AdminPricingPackaging,
+    "AdminPricingRecommendations": AdminPricingRecommendations,
+    "AdminProductionStability": AdminProductionStability,
     "AdminProjectWorkspace": AdminProjectWorkspace,
     "AdminProjectsList": AdminProjectsList,
-    "AdminQA": AdminQA,
+    "AdminProposalGenerator": AdminProposalGenerator,
     "AdminQAIssues": AdminQAIssues,
     "AdminQAReadiness": AdminQAReadiness,
     "AdminQARuns": AdminQARuns,
     "AdminQATests": AdminQATests,
+    "AdminROIExpansion": AdminROIExpansion,
     "AdminRecommendationDetail": AdminRecommendationDetail,
     "AdminRecommendations": AdminRecommendations,
+    "AdminReferrals": AdminReferrals,
     "AdminReports": AdminReports,
     "AdminResellerClients": AdminResellerClients,
     "AdminResellerCommissions": AdminResellerCommissions,
     "AdminResellerRevenue": AdminResellerRevenue,
     "AdminResellers": AdminResellers,
+    "AdminRetentionDashboard": AdminRetentionDashboard,
     "AdminRevenueDetail": AdminRevenueDetail,
     "AdminRevenueEngine": AdminRevenueEngine,
     "AdminSales": AdminSales,
@@ -625,9 +756,9 @@ export const PAGES = {
     "AdminSchoolStudentUsers": AdminSchoolStudentUsers,
     "AdminSchoolSubmissions": AdminSchoolSubmissions,
     "AdminSchoolUsers": AdminSchoolUsers,
+    "AdminSettings": AdminSettings,
     "AdminSchoolVideoLibrary": AdminSchoolVideoLibrary,
     "AdminSchoolYearbook": AdminSchoolYearbook,
-    "AdminSettings": AdminSettings,
     "AdminStoryDetail": AdminStoryDetail,
     "AdminStoryLibrary": AdminStoryLibrary,
     "AdminSubmissionDetail": AdminSubmissionDetail,
@@ -636,6 +767,10 @@ export const PAGES = {
     "AdminTasks": AdminTasks,
     "AdminTestMatrix": AdminTestMatrix,
     "AdminUsers": AdminUsers,
+    "AdminVerticalCampaigns": AdminVerticalCampaigns,
+    "AdminVerticalExpansion": AdminVerticalExpansion,
+    "AdminVerticalIntelligence": AdminVerticalIntelligence,
+    "AdminVerticalRevenue": AdminVerticalRevenue,
     "AdminVideoDetail": AdminVideoDetail,
     "AdminVideoEngine": AdminVideoEngine,
     "AdminVideoEngineAnalytics": AdminVideoEngineAnalytics,
@@ -672,11 +807,12 @@ export const PAGES = {
     "Blog": Blog,
     "BlogPost": BlogPost,
     "Book-Call": bookCall,
+    "BookCall": BookCall,
     "BulldogTV": BulldogTV,
     "BulldogTVSpotlights": BulldogTVSpotlights,
     "BulldogTVStories": BulldogTVStories,
-    "BulldogTVSubmit": BulldogTVSubmit,
     "BulldogTVSubmissions": BulldogTVSubmissions,
+    "BulldogTVSubmit": BulldogTVSubmit,
     "BulldogTVVideos": BulldogTVVideos,
     "BulldogTVWatch": BulldogTVWatch,
     "BulldogTVYearbook": BulldogTVYearbook,
@@ -685,20 +821,29 @@ export const PAGES = {
     "CRMHub": CRMHub,
     "CaseStudies": CaseStudies,
     "CaseStudyDetail": CaseStudyDetail,
+    "ChannelHelpCenter": ChannelHelpCenter,
     "ChatWidget": ChatWidget,
     "ChatbotManagement": ChatbotManagement,
     "ClientApprovals": ClientApprovals,
     "ClientBilling": ClientBilling,
     "ClientCalendar": ClientCalendar,
     "ClientCampaigns": ClientCampaigns,
+    "ClientChannels": ClientChannels,
     "ClientCommerce": ClientCommerce,
     "ClientContentProduction": ClientContentProduction,
     "ClientDashboard": ClientDashboard,
     "ClientDashboardDemo": ClientDashboardDemo,
     "ClientFulfillment": ClientFulfillment,
+    "ClientGrowthJourney": ClientGrowthJourney,
     "ClientLocations": ClientLocations,
     "ClientOnboarding": ClientOnboarding,
+    "ClientROI": ClientROI,
+    "ClientROIReports": ClientROIReports,
+    "ClientROITimeline": ClientROITimeline,
+    "ClientReferralStatus": ClientReferralStatus,
+    "ClientReferrals": ClientReferrals,
     "ClientReports": ClientReports,
+    "ClientResults": ClientResults,
     "ClientSettings": ClientSettings,
     "Contact": Contact,
     "ContentDrafts": ContentDrafts,
@@ -708,6 +853,12 @@ export const PAGES = {
     "ContributorAILab": ContributorAILab,
     "ContributorHub": ContributorHub,
     "ContributorSubmissions": ContributorSubmissions,
+    "DIYBillingSettings": DIYBillingSettings,
+    "DIYCheckoutSuccess": DIYCheckoutSuccess,
+    "DIYDashboard": DIYDashboard,
+    "DIYGrowthSystemSales": DIYGrowthSystemSales,
+    "DIYOnboarding": DIYOnboarding,
+    "DIYPricingLadder": DIYPricingLadder,
     "Dashboard": Dashboard,
     "DealRoom": DealRoom,
     "DealRoomCaseStudies": DealRoomCaseStudies,
@@ -719,6 +870,7 @@ export const PAGES = {
     "Demo": Demo,
     "DemoExamples": DemoExamples,
     "DemoFeatures": DemoFeatures,
+    "DemoFlow": DemoFlow,
     "DemoNext": DemoNext,
     "DemoOverview": DemoOverview,
     "DemoPlatform": DemoPlatform,
@@ -730,9 +882,11 @@ export const PAGES = {
     "DemoSchoolStoryDetail": DemoSchoolStoryDetail,
     "DemoStart": DemoStart,
     "DentistMarketing": DentistMarketing,
+    "FounderScorecard": FounderScorecard,
     "Free-Audit": freeAudit,
     "FunnelPage": FunnelPage,
     "Get-Started": getStarted,
+    "GettingStarted": GettingStarted,
     "GlobalSettings": GlobalSettings,
     "GrowthSystem": GrowthSystem,
     "HelpAndSupport": HelpAndSupport,
@@ -764,6 +918,20 @@ export const PAGES = {
     "MarketingPlanGenerator": MarketingPlanGenerator,
     "MedSpaMarketing": MedSpaMarketing,
     "MetaConnect": MetaConnect,
+    "NTAAIWorkforceOrchestrator": NTAAIWorkforceOrchestrator,
+    "NTAAcquisitionCommand": NTAAcquisitionCommand,
+    "NTAChannelHub": NTAChannelHub,
+    "NTADealRoom": NTADealRoom,
+    "NTADemoFunnel": NTADemoFunnel,
+    "NTADemoMachine": NTADemoMachine,
+    "NTAHomepage": NTAHomepage,
+    "NTAOnboardingCenter": NTAOnboardingCenter,
+    "NTAOperatorCommand": NTAOperatorCommand,
+    "NTAPricingLadderPage": NTAPricingLadderPage,
+    "NTAPricingStack": NTAPricingStack,
+    "NTAResellerCommand": NTAResellerCommand,
+    "NTASalesFollowUp": NTASalesFollowUp,
+    "NTASalesPipeline": NTASalesPipeline,
     "OauthCallback": OauthCallback,
     "OnboardThankYou": OnboardThankYou,
     "Onboarding": Onboarding,
@@ -795,9 +963,10 @@ export const PAGES = {
     "ResellerRevenue": ResellerRevenue,
     "ResellerSettingsBranding": ResellerSettingsBranding,
     "ResellerSignupLinks": ResellerSignupLinks,
-    "RoofingMarketing": RoofingMarketing,
     "RestaurantMarketing": RestaurantMarketing,
     "RestaurantSocialMedia": RestaurantSocialMedia,
+    "RoofingMarketing": RoofingMarketing,
+    "SalesCommandCenter": SalesCommandCenter,
     "SalesDashboard": SalesDashboard,
     "SalesLeads": SalesLeads,
     "SalesPipeline": SalesPipeline,
@@ -850,10 +1019,14 @@ export const PAGES = {
     "StreamingTvAdvertising": StreamingTvAdvertising,
     "StudentAIStoryLab": StudentAIStoryLab,
     "TermsOfService": TermsOfService,
+    "TrialActivation": TrialActivation,
+    "TrialBusiness": TrialBusiness,
+    "TrialChannels": TrialChannels,
     "TrialDashboard": TrialDashboard,
     "TrialOnboarding": TrialOnboarding,
     "TrialSlug": TrialSlug,
     "TrialStart": TrialStart,
+    "TrialWelcome": TrialWelcome,
     "TvCommercialScriptGenerator": TvCommercialScriptGenerator,
     "TvVideo": TvVideo,
     "VideoDetail": VideoDetail,
@@ -864,19 +1037,16 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "FounderScorecard": FounderScorecard,
-    "ClientReferralStatus": ClientReferralStatus,
-    "AdminVerticalIntelligence": AdminVerticalIntelligence,
-    "ClientReferrals": ClientReferrals,
-    "AdminReferrals": AdminReferrals,
-    "AdminVerticalRevenue": AdminVerticalRevenue,
-    "AdminVerticalCampaigns": AdminVerticalCampaigns,
-    "AdminVerticalExpansion": AdminVerticalExpansion,
-    "AdminExpansionPlaybook": AdminExpansionPlaybook,
+    "AdminDataGovernance": AdminDataGovernance,
+    "AdminAccessGovernance": AdminAccessGovernance,
+    "AdminTenantGovernance": AdminTenantGovernance,
+    "AdminPageRegistry": AdminPageRegistry,
+    "AdminWorkflows": AdminWorkflows,
+    "ClientMonthlyGrowthReport": ClientMonthlyGrowthReport,
 }
 
 export const pagesConfig = {
-    mainPage: "Start",
+    mainPage: "AdminOperationsCapacity",
     Pages: PAGES,
     Layout: __Layout,
 };
