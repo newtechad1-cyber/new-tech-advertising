@@ -147,7 +147,7 @@ const AuthenticatedApp = () => {
           }
         />
       ))}
-      <Route path="/admin/ai-workforce" element={<LayoutWrapper currentPageName="AIWorkforce"><AIWorkforce /></LayoutWrapper>} />
+      <Route path="/admin/ai-workforce-legacy" element={<LayoutWrapper currentPageName="AIWorkforce"><AIWorkforce /></LayoutWrapper>} />
       <Route path="/admin/founder-scorecard" element={<LayoutWrapper currentPageName="FounderScorecard"><FounderScorecard /></LayoutWrapper>} />
       <Route path="/client/campaigns" element={<LayoutWrapper currentPageName="ClientCampaigns"><ClientCampaigns /></LayoutWrapper>} />
       <Route path="/admin/campaigns" element={<LayoutWrapper currentPageName="AdminCampaigns"><AdminCampaigns /></LayoutWrapper>} />
@@ -220,6 +220,7 @@ const AuthenticatedApp = () => {
       <Route path="/nta/channels" element={<LayoutWrapper currentPageName="NTAChannelHub"><NTAChannelHub /></LayoutWrapper>} />
       <Route path="/nta/reseller-command" element={<LayoutWrapper currentPageName="NTAResellerCommand"><NTAResellerCommand /></LayoutWrapper>} />
       <Route path="/nta/ai-workforce" element={<LayoutWrapper currentPageName="NTAAIWorkforceOrchestrator"><NTAAIWorkforceOrchestrator /></LayoutWrapper>} />
+      <Route path="/nta" element={<Navigate to="/nta/operator-command" replace />} />
       <Route path="/nta/home" element={<NTAHomepage />} />
       <Route path="/nta/sales-followup" element={<LayoutWrapper currentPageName="NTASalesFollowUp"><NTASalesFollowUp /></LayoutWrapper>} />
       <Route path="/nta/pricing-stack" element={<LayoutWrapper currentPageName="NTAPricingStack"><NTAPricingStack /></LayoutWrapper>} />
