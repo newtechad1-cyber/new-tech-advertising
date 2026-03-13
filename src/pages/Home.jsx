@@ -31,9 +31,9 @@ export default function Home() {
             <Link to={createPageUrl('SchoolTVDealRoom')} className="bg-white text-blue-600 px-4 py-2 rounded font-semibold text-sm hover:bg-blue-50 transition">
               View Deal Room
             </Link>
-            <a href="https://calendly.com/bulldog-tv-sales" target="_blank" rel="noopener noreferrer" className="border border-white text-white px-4 py-2 rounded font-semibold text-sm hover:bg-blue-500 transition">
+            <Link to={createPageUrl('BookCall')} className="border border-white text-white px-4 py-2 rounded font-semibold text-sm hover:bg-blue-500 transition">
               Book a Demo
-            </a>
+            </Link>
           </div>
         </div>
       </div>
