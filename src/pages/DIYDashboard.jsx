@@ -12,6 +12,7 @@ import DIYWebsiteTools from '@/components/diy/DIYWebsiteTools';
 import DIYVideoStudio from '@/components/diy/DIYVideoStudio';
 import DIYSocialPlanner from '@/components/diy/DIYSocialPlanner';
 import DIYLeadTracker from '@/components/diy/DIYLeadTracker';
+import PricingLadderUpgradePanel from '@/components/pricing/PricingLadderUpgradePanel';
 
 const MODULES = [
   { id: 'command', title: 'Marketing Command Center', icon: TrendingUp, component: DIYCommandCenter },
@@ -99,6 +100,16 @@ export default function DIYDashboard() {
               <DIYTodaysPriorities onTaskClick={handleTaskClick} />
               <DIYCommandCenterPanel subscription={subscription} />
               <DIYToolsGrid onToolClick={handleTaskClick} />
+              <div className="mt-8">
+                <PricingLadderUpgradePanel
+                  currentPlan="diy"
+                  readinessScore={65}
+                  priority="medium"
+                  nextPlan="guided"
+                  onUpgrade={() => window.location.href = 'mailto:sales@newtechadvertising.com?subject=Upgrade to Guided Growth'}
+                  compact={false}
+                />
+              </div>
               <DIYUpgradePanel onUpgradeClick={handleUpgradeClick} subscription={subscription} />
             </>
           ) : (
