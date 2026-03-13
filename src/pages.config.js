@@ -74,6 +74,7 @@ import AdminAIVideoStudio from './pages/AdminAIVideoStudio';
 import AdminAIWorkforce from './pages/AdminAIWorkforce';
 import AdminAccess from './pages/AdminAccess';
 import AdminAccessAudit from './pages/AdminAccessAudit';
+import AdminAccessGovernance from './pages/AdminAccessGovernance';
 import AdminAccessPermissions from './pages/AdminAccessPermissions';
 import AdminAccessRoles from './pages/AdminAccessRoles';
 import AdminAccessScopes from './pages/AdminAccessScopes';
@@ -127,6 +128,7 @@ import AdminCopilot from './pages/AdminCopilot';
 import AdminCopilotAccount from './pages/AdminCopilotAccount';
 import AdminCreateProject from './pages/AdminCreateProject';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminDataGovernance from './pages/AdminDataGovernance';
 import AdminDemoMachine from './pages/AdminDemoMachine';
 import AdminDemoMachineAnalytics from './pages/AdminDemoMachineAnalytics';
 import AdminDemoMachinePaths from './pages/AdminDemoMachinePaths';
@@ -152,13 +154,12 @@ import AdminFunnelPages from './pages/AdminFunnelPages';
 import AdminFunnelTests from './pages/AdminFunnelTests';
 import AdminGovernance from './pages/AdminGovernance';
 import AdminGovernanceAudit from './pages/AdminGovernanceAudit';
+import AdminHelp from './pages/AdminHelp';
 import AdminGovernanceDependencies from './pages/AdminGovernanceDependencies';
 import AdminGovernanceFields from './pages/AdminGovernanceFields';
-import AdminQA from './pages/AdminQA';
 import AdminGovernanceLifecycles from './pages/AdminGovernanceLifecycles';
 import AdminGovernancePolicy from './pages/AdminGovernancePolicy';
 import AdminGovernanceRelationships from './pages/AdminGovernanceRelationships';
-import AdminHelp from './pages/AdminHelp';
 import AdminHotProspectsAlert from './pages/AdminHotProspectsAlert';
 import AdminIntelligence from './pages/AdminIntelligence';
 import AdminIntelligenceAutomation from './pages/AdminIntelligenceAutomation';
@@ -195,6 +196,7 @@ import AdminOptimizer from './pages/AdminOptimizer';
 import AdminOptimizerDetail from './pages/AdminOptimizerDetail';
 import AdminOrchestrator from './pages/AdminOrchestrator';
 import AdminOrchestratorDetail from './pages/AdminOrchestratorDetail';
+import AdminPageRegistry from './pages/AdminPageRegistry';
 import AdminPlatform from './pages/AdminPlatform';
 import AdminPlatformQA from './pages/AdminPlatformQA';
 import AdminPricingExperiments from './pages/AdminPricingExperiments';
@@ -205,6 +207,7 @@ import AdminProductionStability from './pages/AdminProductionStability';
 import AdminProjectWorkspace from './pages/AdminProjectWorkspace';
 import AdminProjectsList from './pages/AdminProjectsList';
 import AdminProposalGenerator from './pages/AdminProposalGenerator';
+import AdminQA from './pages/AdminQA';
 import AdminQAIssues from './pages/AdminQAIssues';
 import AdminQAReadiness from './pages/AdminQAReadiness';
 import AdminQARuns from './pages/AdminQARuns';
@@ -253,18 +256,20 @@ import AdminSchoolSpotlightDetail from './pages/AdminSchoolSpotlightDetail';
 import AdminSchoolSpotlights from './pages/AdminSchoolSpotlights';
 import AdminSchoolStoryLibrary from './pages/AdminSchoolStoryLibrary';
 import AdminSchoolStudentUploads from './pages/AdminSchoolStudentUploads';
+import AiSeo from './pages/AiSeo';
 import AdminSchoolStudentUsers from './pages/AdminSchoolStudentUsers';
 import AdminSchoolSubmissions from './pages/AdminSchoolSubmissions';
 import AdminSchoolUsers from './pages/AdminSchoolUsers';
-import AdminSettings from './pages/AdminSettings';
 import AdminSchoolVideoLibrary from './pages/AdminSchoolVideoLibrary';
 import AdminSchoolYearbook from './pages/AdminSchoolYearbook';
+import AdminSettings from './pages/AdminSettings';
 import AdminStoryDetail from './pages/AdminStoryDetail';
 import AdminStoryLibrary from './pages/AdminStoryLibrary';
 import AdminSubmissionDetail from './pages/AdminSubmissionDetail';
 import AdminSubmissionsList from './pages/AdminSubmissionsList';
 import AdminSystemHealth from './pages/AdminSystemHealth';
 import AdminTasks from './pages/AdminTasks';
+import AdminTenantGovernance from './pages/AdminTenantGovernance';
 import AdminTestMatrix from './pages/AdminTestMatrix';
 import AdminUsers from './pages/AdminUsers';
 import AdminVerticalCampaigns from './pages/AdminVerticalCampaigns';
@@ -287,6 +292,7 @@ import AdminVideoQueue from './pages/AdminVideoQueue';
 import AdminVideoRenderDetail from './pages/AdminVideoRenderDetail';
 import AdminVideoRenderQueue from './pages/AdminVideoRenderQueue';
 import AdminVideos from './pages/AdminVideos';
+import AdminWorkflows from './pages/AdminWorkflows';
 import AdminYearbookLibrary from './pages/AdminYearbookLibrary';
 import AdminYearbookOverview from './pages/AdminYearbookOverview';
 import AdminYearbookPage from './pages/AdminYearbookPage';
@@ -297,7 +303,6 @@ import AiAccessibilityChecker from './pages/AiAccessibilityChecker';
 import AiAdvertising from './pages/AiAdvertising';
 import AiMarketingPlatform from './pages/AiMarketingPlatform';
 import AiOperations from './pages/AiOperations';
-import AiSeo from './pages/AiSeo';
 import AiSocialMedia from './pages/AiSocialMedia';
 import AiSocialMediaSmallBusiness from './pages/AiSocialMediaSmallBusiness';
 import AiVideoStudio from './pages/AiVideoStudio';
@@ -537,11 +542,6 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdminDataGovernance from './pages/AdminDataGovernance';
-import AdminAccessGovernance from './pages/AdminAccessGovernance';
-import AdminTenantGovernance from './pages/AdminTenantGovernance';
-import AdminPageRegistry from './pages/AdminPageRegistry';
-import AdminWorkflows from './pages/AdminWorkflows';
 import ClientMonthlyGrowthReport from './pages/ClientMonthlyGrowthReport';
 import AdminGrowthIntelligence from './pages/AdminGrowthIntelligence';
 import __Layout from './Layout.jsx';
@@ -575,6 +575,7 @@ export const PAGES = {
     "AdminAIWorkforce": AdminAIWorkforce,
     "AdminAccess": AdminAccess,
     "AdminAccessAudit": AdminAccessAudit,
+    "AdminAccessGovernance": AdminAccessGovernance,
     "AdminAccessPermissions": AdminAccessPermissions,
     "AdminAccessRoles": AdminAccessRoles,
     "AdminAccessScopes": AdminAccessScopes,
@@ -628,6 +629,7 @@ export const PAGES = {
     "AdminCopilotAccount": AdminCopilotAccount,
     "AdminCreateProject": AdminCreateProject,
     "AdminDashboard": AdminDashboard,
+    "AdminDataGovernance": AdminDataGovernance,
     "AdminDemoMachine": AdminDemoMachine,
     "AdminDemoMachineAnalytics": AdminDemoMachineAnalytics,
     "AdminDemoMachinePaths": AdminDemoMachinePaths,
@@ -653,13 +655,12 @@ export const PAGES = {
     "AdminFunnelTests": AdminFunnelTests,
     "AdminGovernance": AdminGovernance,
     "AdminGovernanceAudit": AdminGovernanceAudit,
+    "AdminHelp": AdminHelp,
     "AdminGovernanceDependencies": AdminGovernanceDependencies,
     "AdminGovernanceFields": AdminGovernanceFields,
-    "AdminQA": AdminQA,
     "AdminGovernanceLifecycles": AdminGovernanceLifecycles,
     "AdminGovernancePolicy": AdminGovernancePolicy,
     "AdminGovernanceRelationships": AdminGovernanceRelationships,
-    "AdminHelp": AdminHelp,
     "AdminHotProspectsAlert": AdminHotProspectsAlert,
     "AdminIntelligence": AdminIntelligence,
     "AdminIntelligenceAutomation": AdminIntelligenceAutomation,
@@ -696,6 +697,7 @@ export const PAGES = {
     "AdminOptimizerDetail": AdminOptimizerDetail,
     "AdminOrchestrator": AdminOrchestrator,
     "AdminOrchestratorDetail": AdminOrchestratorDetail,
+    "AdminPageRegistry": AdminPageRegistry,
     "AdminPlatform": AdminPlatform,
     "AdminPlatformQA": AdminPlatformQA,
     "AdminPricingExperiments": AdminPricingExperiments,
@@ -706,6 +708,7 @@ export const PAGES = {
     "AdminProjectWorkspace": AdminProjectWorkspace,
     "AdminProjectsList": AdminProjectsList,
     "AdminProposalGenerator": AdminProposalGenerator,
+    "AdminQA": AdminQA,
     "AdminQAIssues": AdminQAIssues,
     "AdminQAReadiness": AdminQAReadiness,
     "AdminQARuns": AdminQARuns,
@@ -754,18 +757,20 @@ export const PAGES = {
     "AdminSchoolSpotlights": AdminSchoolSpotlights,
     "AdminSchoolStoryLibrary": AdminSchoolStoryLibrary,
     "AdminSchoolStudentUploads": AdminSchoolStudentUploads,
+    "AiSeo": AiSeo,
     "AdminSchoolStudentUsers": AdminSchoolStudentUsers,
     "AdminSchoolSubmissions": AdminSchoolSubmissions,
     "AdminSchoolUsers": AdminSchoolUsers,
-    "AdminSettings": AdminSettings,
     "AdminSchoolVideoLibrary": AdminSchoolVideoLibrary,
     "AdminSchoolYearbook": AdminSchoolYearbook,
+    "AdminSettings": AdminSettings,
     "AdminStoryDetail": AdminStoryDetail,
     "AdminStoryLibrary": AdminStoryLibrary,
     "AdminSubmissionDetail": AdminSubmissionDetail,
     "AdminSubmissionsList": AdminSubmissionsList,
     "AdminSystemHealth": AdminSystemHealth,
     "AdminTasks": AdminTasks,
+    "AdminTenantGovernance": AdminTenantGovernance,
     "AdminTestMatrix": AdminTestMatrix,
     "AdminUsers": AdminUsers,
     "AdminVerticalCampaigns": AdminVerticalCampaigns,
@@ -788,6 +793,7 @@ export const PAGES = {
     "AdminVideoRenderDetail": AdminVideoRenderDetail,
     "AdminVideoRenderQueue": AdminVideoRenderQueue,
     "AdminVideos": AdminVideos,
+    "AdminWorkflows": AdminWorkflows,
     "AdminYearbookLibrary": AdminYearbookLibrary,
     "AdminYearbookOverview": AdminYearbookOverview,
     "AdminYearbookPage": AdminYearbookPage,
@@ -798,7 +804,6 @@ export const PAGES = {
     "AiAdvertising": AiAdvertising,
     "AiMarketingPlatform": AiMarketingPlatform,
     "AiOperations": AiOperations,
-    "AiSeo": AiSeo,
     "AiSocialMedia": AiSocialMedia,
     "AiSocialMediaSmallBusiness": AiSocialMediaSmallBusiness,
     "AiVideoStudio": AiVideoStudio,
@@ -1038,11 +1043,6 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AdminDataGovernance": AdminDataGovernance,
-    "AdminAccessGovernance": AdminAccessGovernance,
-    "AdminTenantGovernance": AdminTenantGovernance,
-    "AdminPageRegistry": AdminPageRegistry,
-    "AdminWorkflows": AdminWorkflows,
     "ClientMonthlyGrowthReport": ClientMonthlyGrowthReport,
     "AdminGrowthIntelligence": AdminGrowthIntelligence,
 }
