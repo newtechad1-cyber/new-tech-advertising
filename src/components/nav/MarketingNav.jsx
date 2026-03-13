@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Menu, X, ChevronDown } from 'lucide-react';
-import { goToBookingPage } from '@/components/config/bookingConfig';
 
 const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png';
 
@@ -91,7 +90,6 @@ function DropdownMenu({ items, onClose }) {
 }
 
 export default function MarketingNav() {
-  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [scrolled, setScrolled] = useState(false);
@@ -151,12 +149,14 @@ export default function MarketingNav() {
            <Link to={createPageUrl('AdminDashboard')} className="text-sm text-slate-400 hover:text-white transition-colors font-medium border border-slate-700 hover:border-slate-500 px-3 py-1.5 rounded-lg">
              Admin Login
            </Link>
-           <button
-             onClick={() => goToBookingPage(navigate)}
+           <a
+             href="https://calendar.app.google/p6ieYanvwhixXxZ67"
+             target="_blank"
+             rel="noopener noreferrer"
              className="text-sm font-semibold text-slate-300 hover:text-white border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg transition-colors"
            >
              Book a Call
-           </button>
+           </a>
           <Link
             to={createPageUrl('Start')}
             className="bg-violet-600 hover:bg-violet-500 text-white font-bold text-sm px-5 py-2 rounded-lg transition-all shadow-lg shadow-violet-600/20"
@@ -227,15 +227,15 @@ export default function MarketingNav() {
             >
               Start Free Trial
             </Link>
-            <button
-              onClick={() => {
-                setMobileOpen(false);
-                goToBookingPage(navigate);
-              }}
+            <a
+              href="https://calendar.app.google/p6ieYanvwhixXxZ67"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileOpen(false)}
               className="flex items-center justify-center w-full bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold py-3 rounded-xl transition-all"
             >
               Book a Strategy Call
-            </button>
+            </a>
             <Link
               to={createPageUrl('ClientDashboard')}
               onClick={() => setMobileOpen(false)}
