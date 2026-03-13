@@ -17,6 +17,7 @@ const NAV_GROUPS = [
   {
     label: '⚡ NTA Command',
     items: [
+      { label: '📖 Getting Started', icon: CheckSquare, href: '/getting-started' },
       { label: '🗺️ Operator Command', icon: LayoutDashboard, href: '/nta/operator-command' },
       { label: '🚀 Onboarding Center', icon: CheckSquare, href: '/nta/onboarding' },
       { label: '📡 Channel Hub', icon: Share2, href: '/nta/channels' },
