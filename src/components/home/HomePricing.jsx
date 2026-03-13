@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { CheckCircle, ArrowRight } from 'lucide-react';
-import { BOOKING_URL, BOOKING_IS_EXTERNAL } from '@/components/config/bookingConfig';
+import { goToBookingPage } from '@/components/config/bookingConfig';
 
 const PLANS = [
   {
@@ -62,6 +62,7 @@ const PLANS = [
 ];
 
 export default function HomePricing() {
+  const navigate = useNavigate();
   return (
     <section className="bg-slate-950 py-20 px-4 border-t border-slate-800">
       <div className="max-w-6xl mx-auto">
@@ -107,23 +108,12 @@ export default function HomePricing() {
                 ))}
               </ul>
               {plan.link === null ? (
-                BOOKING_IS_EXTERNAL ? (
-                  <a
-                    href={BOOKING_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full text-center font-bold py-2.5 rounded-xl transition-all text-sm flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white"
-                  >
-                    {plan.cta} <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
-                ) : (
-                  <Link
-                    to={BOOKING_URL}
-                    className="w-full text-center font-bold py-2.5 rounded-xl transition-all text-sm flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white"
-                  >
-                    {plan.cta} <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                )
+                <button
+                  onClick={() => goToBookingPage(navigate)}
+                  className="w-full text-center font-bold py-2.5 rounded-xl transition-all text-sm flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white"
+                >
+                  {plan.cta} <ArrowRight className="w-3.5 h-3.5" />
+                </button>
               ) : (
                 <Link
                   to={createPageUrl(plan.link)}
