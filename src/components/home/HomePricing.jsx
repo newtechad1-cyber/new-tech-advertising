@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { CheckCircle, ArrowRight } from 'lucide-react';
+import { BOOKING_URL, BOOKING_IS_EXTERNAL } from '@/components/config/bookingConfig';
 
 const PLANS = [
   {
