@@ -99,8 +99,11 @@ export default function FirstValueQuickStart({ onActionStart, completedActions =
                           </Badge>
                         )}
                       </div>
-                      <p className="text-sm text-slate-700">
+                      <p className="text-xs text-slate-600 mb-2">
                         {action.description}
+                      </p>
+                      <p className="text-sm font-medium text-slate-800 italic">
+                        {action.benefit}
                       </p>
                     </div>
                   </div>
