@@ -50,6 +50,9 @@ export default function DIYGrowthSystemSales() {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="text-xl font-bold text-white">NTA DIY</div>
           <div className="flex items-center gap-3">
+            <a href="/nta/pricing-ladder" className="text-slate-400 hover:text-white text-sm transition-colors">
+              See All Plans
+            </a>
             <a href="/" className="text-slate-400 hover:text-white text-sm transition-colors">
               Back to Home
             </a>
