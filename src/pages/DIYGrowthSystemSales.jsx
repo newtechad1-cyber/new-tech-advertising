@@ -10,14 +10,20 @@ import DIYPricing from '@/components/diy/DIYPricing';
 import DIYTestimonials from '@/components/diy/DIYTestimonials';
 import DIYCTAFAQ from '@/components/diy/DIYCTAFAQ';
 import DIYFinalClose from '@/components/diy/DIYFinalClose';
+import DIYCheckoutModal from '@/components/diy/DIYCheckoutModal';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import { base44 } from '@/api/base44Client';
 
 export default function DIYGrowthSystemSales() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
 
-  const handleStartDIYPlan = async () => {
+  const handleStartDIYPlan = () => {
+    setShowCheckoutModal(true);
+  };
+
+  const handleProceedToCheckout = async () => {
     setIsLoading(true);
     setError(null);
     try {
@@ -26,10 +32,12 @@ export default function DIYGrowthSystemSales() {
         window.location.href = response.data.stripe_url;
       } else {
         setError('Failed to initiate checkout. Please try again.');
+        setShowCheckoutModal(false);
       }
     } catch (err) {
       setError('An error occurred. Please try again.');
       console.error('Checkout error:', err);
+      setShowCheckoutModal(false);
     } finally {
       setIsLoading(false);
     }
@@ -76,14 +84,20 @@ export default function DIYGrowthSystemSales() {
       {/* Final Close */}
       <DIYFinalClose onCTA={handleStartDIYPlan} isLoading={isLoading} />
 
+      {/* Checkout Modal */}
+      <DIYCheckoutModal
+        isOpen={showCheckoutModal}
+        onClose={() => setShowCheckoutModal(false)}
+        onProceed={handleProceedToCheckout}
+        isLoading={isLoading}
+      />
+
       {/* Error Message */}
       {error && (
         <div className="fixed bottom-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg">
           {error}
         </div>
       )}
-
-
 
       <SiteFooter />
     </div>
