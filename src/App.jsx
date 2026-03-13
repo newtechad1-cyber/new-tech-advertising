@@ -89,6 +89,7 @@ import NTAResellerCommand from './pages/NTAResellerCommand';
 import NTAAIWorkforceOrchestrator from './pages/NTAAIWorkforceOrchestrator';
 import NTAHomepage from './pages/NTAHomepage';
 import NTASalesFollowUp from './pages/NTASalesFollowUp';
+import NTAPricingStack from './pages/NTAPricingStack';
 import NTADemoFunnel from './pages/NTADemoFunnel';
 
 const { Pages, Layout, mainPage } = pagesConfig;
