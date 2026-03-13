@@ -56,7 +56,7 @@ const PLANS = [
       'Dedicated account manager',
     ],
     cta: 'Book Strategy Call',
-    link: 'Book-Call',
+    link: null, // controlled by BOOKING_URL from bookingConfig
     highlight: false,
   },
 ];
