@@ -50,15 +50,15 @@ export default function NTANav() {
       </div>
 
       {open && (
-        <div className="md:hidden bg-white border-t border-slate-200 px-6 py-4 space-y-4">
-          {['Platform', 'Industries', 'Results', 'Pricing'].map(item => (
-            <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setOpen(false)}
-              className="block text-sm font-semibold text-slate-700">{item}</a>
-          ))}
-          <a href="#demo" className="block w-full text-center px-4 py-2.5 rounded-xl text-sm font-bold text-white bg-blue-600">
-            Book Demo →
-          </a>
-        </div>
+       <div className="md:hidden bg-white border-t border-slate-200 px-6 py-4 space-y-4">
+         {['Platform', 'Industries', 'Results', 'Pricing'].map(item => (
+           <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setOpen(false)}
+             className="block text-sm font-semibold text-slate-700">{item}</a>
+         ))}
+         <a href="/book-call" className="block w-full text-center px-4 py-2.5 rounded-xl text-sm font-bold text-white bg-blue-600">
+           Book Demo →
+         </a>
+       </div>
       )}
     </nav>
   );
