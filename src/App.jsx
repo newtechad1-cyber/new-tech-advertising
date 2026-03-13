@@ -79,6 +79,7 @@ import DemoFlow from './pages/DemoFlow';
 import DealRoom from './pages/DealRoom';
 import SalesCommandCenter from './pages/SalesCommandCenter';
 import AdminSalesCommand from './pages/AdminSalesCommand';
+import NTASalesPipeline from './pages/NTASalesPipeline';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -196,6 +197,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin/platform-qa" element={<LayoutWrapper currentPageName="AdminPlatformQA"><AdminPlatformQA /></LayoutWrapper>} />
       <Route path="/admin/sales-command" element={<LayoutWrapper currentPageName="AdminSalesCommand"><AdminSalesCommand /></LayoutWrapper>} />
       <Route path="/sales/command-center" element={<LayoutWrapper currentPageName="SalesCommandCenter"><SalesCommandCenter /></LayoutWrapper>} />
+      <Route path="/admin/sales-pipeline" element={<LayoutWrapper currentPageName="NTASalesPipeline"><NTASalesPipeline /></LayoutWrapper>} />
       {/* Demo Flow */}
       <Route path="/demo/flow" element={<LayoutWrapper currentPageName="DemoFlow"><DemoFlow /></LayoutWrapper>} />
 
