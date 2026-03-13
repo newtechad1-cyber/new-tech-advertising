@@ -26,9 +26,9 @@ export default function NTAConversionClose() {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
-          <a href="/nta/deal-room"
+          <a href="/book-call"
             className="w-full sm:w-auto px-10 py-5 rounded-2xl text-lg font-black text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-cyan-500 transition-all shadow-2xl shadow-blue-600/40 hover:shadow-blue-500/50 hover:-translate-y-1">
-            Book My Platform Demo →
+            Book My Strategy Call →
           </a>
         </div>
 
