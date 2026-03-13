@@ -105,6 +105,7 @@ import AdminBlog from './pages/AdminBlog';
 import AdminBranding from './pages/AdminBranding';
 import AdminCampaigns from './pages/AdminCampaigns';
 import AdminChannels from './pages/AdminChannels';
+import AdminClientCommunications from './pages/AdminClientCommunications';
 import AdminClientExpansion from './pages/AdminClientExpansion';
 import AdminClientLTV from './pages/AdminClientLTV';
 import AdminClientLifecycle from './pages/AdminClientLifecycle';
@@ -153,13 +154,15 @@ import AdminFunnelOptimization from './pages/AdminFunnelOptimization';
 import AdminFunnelPages from './pages/AdminFunnelPages';
 import AdminFunnelTests from './pages/AdminFunnelTests';
 import AdminGovernance from './pages/AdminGovernance';
+import AdminQA from './pages/AdminQA';
 import AdminGovernanceAudit from './pages/AdminGovernanceAudit';
-import AdminHelp from './pages/AdminHelp';
 import AdminGovernanceDependencies from './pages/AdminGovernanceDependencies';
 import AdminGovernanceFields from './pages/AdminGovernanceFields';
 import AdminGovernanceLifecycles from './pages/AdminGovernanceLifecycles';
 import AdminGovernancePolicy from './pages/AdminGovernancePolicy';
 import AdminGovernanceRelationships from './pages/AdminGovernanceRelationships';
+import AdminGrowthIntelligence from './pages/AdminGrowthIntelligence';
+import AdminHelp from './pages/AdminHelp';
 import AdminHotProspectsAlert from './pages/AdminHotProspectsAlert';
 import AdminIntelligence from './pages/AdminIntelligence';
 import AdminIntelligenceAutomation from './pages/AdminIntelligenceAutomation';
@@ -207,7 +210,6 @@ import AdminProductionStability from './pages/AdminProductionStability';
 import AdminProjectWorkspace from './pages/AdminProjectWorkspace';
 import AdminProjectsList from './pages/AdminProjectsList';
 import AdminProposalGenerator from './pages/AdminProposalGenerator';
-import AdminQA from './pages/AdminQA';
 import AdminQAIssues from './pages/AdminQAIssues';
 import AdminQAReadiness from './pages/AdminQAReadiness';
 import AdminQARuns from './pages/AdminQARuns';
@@ -254,9 +256,9 @@ import AdminSchoolSettingsPermissions from './pages/AdminSchoolSettingsPermissio
 import AdminSchoolSettingsPublishing from './pages/AdminSchoolSettingsPublishing';
 import AdminSchoolSpotlightDetail from './pages/AdminSchoolSpotlightDetail';
 import AdminSchoolSpotlights from './pages/AdminSchoolSpotlights';
+import AiSeo from './pages/AiSeo';
 import AdminSchoolStoryLibrary from './pages/AdminSchoolStoryLibrary';
 import AdminSchoolStudentUploads from './pages/AdminSchoolStudentUploads';
-import AiSeo from './pages/AiSeo';
 import AdminSchoolStudentUsers from './pages/AdminSchoolStudentUsers';
 import AdminSchoolSubmissions from './pages/AdminSchoolSubmissions';
 import AdminSchoolUsers from './pages/AdminSchoolUsers';
@@ -341,6 +343,7 @@ import ClientDashboardDemo from './pages/ClientDashboardDemo';
 import ClientFulfillment from './pages/ClientFulfillment';
 import ClientGrowthJourney from './pages/ClientGrowthJourney';
 import ClientLocations from './pages/ClientLocations';
+import ClientMonthlyGrowthReport from './pages/ClientMonthlyGrowthReport';
 import ClientOnboarding from './pages/ClientOnboarding';
 import ClientROI from './pages/ClientROI';
 import ClientROIReports from './pages/ClientROIReports';
@@ -484,8 +487,8 @@ import SchoolHome from './pages/SchoolHome';
 import SchoolSpotlightDetail from './pages/SchoolSpotlightDetail';
 import SchoolSpotlights from './pages/SchoolSpotlights';
 import SchoolStories from './pages/SchoolStories';
-import SchoolStoryDetail from './pages/SchoolStoryDetail';
 import SchoolStoryLab from './pages/SchoolStoryLab';
+import SchoolStoryDetail from './pages/SchoolStoryDetail';
 import SchoolStoryLabPresentation from './pages/SchoolStoryLabPresentation';
 import SchoolStudentDashboard from './pages/SchoolStudentDashboard';
 import SchoolStudentLogin from './pages/SchoolStudentLogin';
@@ -542,9 +545,7 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import ClientMonthlyGrowthReport from './pages/ClientMonthlyGrowthReport';
-import AdminGrowthIntelligence from './pages/AdminGrowthIntelligence';
-import AdminClientCommunications from './pages/AdminClientCommunications';
+import AdminNTALaunchCampaign from './pages/AdminNTALaunchCampaign';
 import __Layout from './Layout.jsx';
 
 
@@ -607,6 +608,7 @@ export const PAGES = {
     "AdminBranding": AdminBranding,
     "AdminCampaigns": AdminCampaigns,
     "AdminChannels": AdminChannels,
+    "AdminClientCommunications": AdminClientCommunications,
     "AdminClientExpansion": AdminClientExpansion,
     "AdminClientLTV": AdminClientLTV,
     "AdminClientLifecycle": AdminClientLifecycle,
@@ -655,13 +657,15 @@ export const PAGES = {
     "AdminFunnelPages": AdminFunnelPages,
     "AdminFunnelTests": AdminFunnelTests,
     "AdminGovernance": AdminGovernance,
+    "AdminQA": AdminQA,
     "AdminGovernanceAudit": AdminGovernanceAudit,
-    "AdminHelp": AdminHelp,
     "AdminGovernanceDependencies": AdminGovernanceDependencies,
     "AdminGovernanceFields": AdminGovernanceFields,
     "AdminGovernanceLifecycles": AdminGovernanceLifecycles,
     "AdminGovernancePolicy": AdminGovernancePolicy,
     "AdminGovernanceRelationships": AdminGovernanceRelationships,
+    "AdminGrowthIntelligence": AdminGrowthIntelligence,
+    "AdminHelp": AdminHelp,
     "AdminHotProspectsAlert": AdminHotProspectsAlert,
     "AdminIntelligence": AdminIntelligence,
     "AdminIntelligenceAutomation": AdminIntelligenceAutomation,
@@ -709,7 +713,6 @@ export const PAGES = {
     "AdminProjectWorkspace": AdminProjectWorkspace,
     "AdminProjectsList": AdminProjectsList,
     "AdminProposalGenerator": AdminProposalGenerator,
-    "AdminQA": AdminQA,
     "AdminQAIssues": AdminQAIssues,
     "AdminQAReadiness": AdminQAReadiness,
     "AdminQARuns": AdminQARuns,
@@ -756,9 +759,9 @@ export const PAGES = {
     "AdminSchoolSettingsPublishing": AdminSchoolSettingsPublishing,
     "AdminSchoolSpotlightDetail": AdminSchoolSpotlightDetail,
     "AdminSchoolSpotlights": AdminSchoolSpotlights,
+    "AiSeo": AiSeo,
     "AdminSchoolStoryLibrary": AdminSchoolStoryLibrary,
     "AdminSchoolStudentUploads": AdminSchoolStudentUploads,
-    "AiSeo": AiSeo,
     "AdminSchoolStudentUsers": AdminSchoolStudentUsers,
     "AdminSchoolSubmissions": AdminSchoolSubmissions,
     "AdminSchoolUsers": AdminSchoolUsers,
@@ -843,6 +846,7 @@ export const PAGES = {
     "ClientFulfillment": ClientFulfillment,
     "ClientGrowthJourney": ClientGrowthJourney,
     "ClientLocations": ClientLocations,
+    "ClientMonthlyGrowthReport": ClientMonthlyGrowthReport,
     "ClientOnboarding": ClientOnboarding,
     "ClientROI": ClientROI,
     "ClientROIReports": ClientROIReports,
@@ -986,8 +990,8 @@ export const PAGES = {
     "SchoolSpotlightDetail": SchoolSpotlightDetail,
     "SchoolSpotlights": SchoolSpotlights,
     "SchoolStories": SchoolStories,
-    "SchoolStoryDetail": SchoolStoryDetail,
     "SchoolStoryLab": SchoolStoryLab,
+    "SchoolStoryDetail": SchoolStoryDetail,
     "SchoolStoryLabPresentation": SchoolStoryLabPresentation,
     "SchoolStudentDashboard": SchoolStudentDashboard,
     "SchoolStudentLogin": SchoolStudentLogin,
@@ -1044,9 +1048,7 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "ClientMonthlyGrowthReport": ClientMonthlyGrowthReport,
-    "AdminGrowthIntelligence": AdminGrowthIntelligence,
-    "AdminClientCommunications": AdminClientCommunications,
+    "AdminNTALaunchCampaign": AdminNTALaunchCampaign,
 }
 
 export const pagesConfig = {
