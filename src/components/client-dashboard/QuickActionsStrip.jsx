@@ -1,7 +1,7 @@
 import React from 'react';
 import { Plus, Zap, Calendar, TrendingUp } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { openBooking } from '@/components/config/bookingConfig';
+import { goToBookingPage } from '@/components/config/bookingConfig';
 
 export default function QuickActionsStrip() {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ export default function QuickActionsStrip() {
     {
       label: 'Book Strategy Session',
       icon: <Calendar className="w-4 h-4" />,
-      action: () => openBooking(navigate),
+      action: () => goToBookingPage(navigate),
       color: 'bg-slate-600 hover:bg-slate-700',
     },
     {
