@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight, Clock, CheckCircle } from 'lucide-react';
-import { openBooking } from '@/components/config/bookingConfig';
+import { openSchedulingCalendar } from '@/components/config/bookingConfig';
 
 export default function BCBookingSection() {
   return (
@@ -24,7 +24,7 @@ export default function BCBookingSection() {
         </p>
 
         <button
-          onClick={() => openBooking()}
+          onClick={() => openSchedulingCalendar()}
           className="inline-flex items-center gap-2 px-12 py-6 rounded-2xl text-lg font-bold text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-cyan-500 transition-all shadow-2xl shadow-blue-600/40 hover:shadow-blue-500/50 hover:-translate-y-1 mb-8"
         >
           <Clock className="w-5 h-5" />
