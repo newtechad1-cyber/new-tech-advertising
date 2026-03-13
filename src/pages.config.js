@@ -544,6 +544,7 @@ import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import ClientMonthlyGrowthReport from './pages/ClientMonthlyGrowthReport';
 import AdminGrowthIntelligence from './pages/AdminGrowthIntelligence';
+import AdminClientCommunications from './pages/AdminClientCommunications';
 import __Layout from './Layout.jsx';
 
 
@@ -1045,6 +1046,7 @@ export const PAGES = {
     "YouTubeUploadTest": YouTubeUploadTest,
     "ClientMonthlyGrowthReport": ClientMonthlyGrowthReport,
     "AdminGrowthIntelligence": AdminGrowthIntelligence,
+    "AdminClientCommunications": AdminClientCommunications,
 }
 
 export const pagesConfig = {
