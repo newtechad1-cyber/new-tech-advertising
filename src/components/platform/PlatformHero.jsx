@@ -3,6 +3,7 @@ import { ArrowRight, CheckCircle, Play, Zap } from 'lucide-react';
 
 const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
 const DEMO_URL = '#platform-preview';
+const STRATEGY_URL = '/book-call';
 
 export default function PlatformHero() {
   return (
