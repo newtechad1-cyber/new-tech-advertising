@@ -23,7 +23,7 @@ export default function NTACommandNav() {
     <div className="bg-slate-950 border-b border-slate-800 sticky top-0 z-50">
       {/* Desktop */}
       <div className="hidden md:flex items-center gap-1 px-4 h-10 max-w-[1600px] mx-auto">
-        <span className="text-xs font-black text-slate-500 uppercase tracking-widest mr-3 whitespace-nowrap">NTA Command</span>
+        <Link to="/nta/operator-command" className="text-xs font-black text-slate-500 uppercase tracking-widest mr-3 whitespace-nowrap hover:text-slate-300 transition-colors">NTA Command</Link>
         <div className="flex items-center gap-0.5">
           {NAV_ITEMS.map(item => {
             const active = isActive(item.path);
@@ -49,7 +49,7 @@ export default function NTACommandNav() {
 
       {/* Mobile */}
       <div className="md:hidden flex items-center justify-between px-4 h-10">
-        <span className="text-xs font-black text-slate-400">NTA Command</span>
+        <Link to="/nta/operator-command" className="text-xs font-black text-slate-400 hover:text-white transition-colors">NTA Command</Link>
         <button onClick={() => setMobileOpen(o => !o)} className="text-slate-400 hover:text-white p-1">
           {mobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
         </button>
