@@ -13,6 +13,8 @@ import DIYVideoStudio from '@/components/diy/DIYVideoStudio';
 import DIYSocialPlanner from '@/components/diy/DIYSocialPlanner';
 import DIYLeadTracker from '@/components/diy/DIYLeadTracker';
 import PricingLadderUpgradePanel from '@/components/pricing/PricingLadderUpgradePanel';
+import DIYUpgradeBanners from '@/components/diy/DIYUpgradeBanners';
+import { useBehaviorSignals } from '@/components/diy/useBehaviorSignals';
 
 const MODULES = [
   { id: 'command', title: 'Marketing Command Center', icon: TrendingUp, component: DIYCommandCenter },
@@ -25,12 +27,14 @@ const MODULES = [
 export default function DIYDashboard() {
   const navigate = useNavigate();
   const [subscription, setSubscription] = useState(null);
+  const [growthStage, setGrowthStage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [activeModule, setActiveModule] = useState(null);
   const [showUpgradePanel, setShowUpgradePanel] = useState(false);
+  const behaviorSignals = useBehaviorSignals(subscription);
 
   useEffect(() => {
-    const loadSubscription = async () => {
+    const loadData = async () => {
       try {
         const user = await base44.auth.me();
         if (!user) {
@@ -50,15 +54,25 @@ export default function DIYDashboard() {
         }
 
         setSubscription(subs[0]);
+
+        // Load growth stage
+        const stages = await base44.entities.ClientGrowthStage.filter(
+          { onboarding_id: subs[0].id },
+          '-created_date',
+          1
+        );
+        if (stages.length > 0) {
+          setGrowthStage(stages[0]);
+        }
       } catch (error) {
-        console.error('Error loading subscription:', error);
+        console.error('Error loading data:', error);
         navigate('/');
       } finally {
         setIsLoading(false);
       }
     };
 
-    loadSubscription();
+    loadData();
   }, [navigate]);
 
   if (isLoading) {
@@ -96,6 +110,20 @@ export default function DIYDashboard() {
         <div className="max-w-7xl mx-auto">
           {isDashboardView ? (
             <>
+              {/* Behavior Signals Banner */}
+              {subscription && growthStage && (
+                <DIYUpgradeBanners
+                  subscription={subscription}
+                  growthStage={growthStage}
+                  onUpgradeClick={(plan) => {
+                    window.location.href = `mailto:sales@newtechadvertising.com?subject=Upgrade to ${plan}`;
+                  }}
+                  onDismiss={(signal) => {
+                    console.log('Dismissed signal:', signal);
+                  }}
+                />
+              )}
+
               {/* Dashboard View */}
               <DIYTodaysPriorities onTaskClick={handleTaskClick} />
               <DIYCommandCenterPanel subscription={subscription} />
@@ -103,9 +131,9 @@ export default function DIYDashboard() {
               <div className="mt-8">
                 <PricingLadderUpgradePanel
                   currentPlan="diy"
-                  readinessScore={65}
-                  priority="medium"
-                  nextPlan="guided"
+                  readinessScore={behaviorSignals.readinessScore}
+                  priority={behaviorSignals.alertPriority}
+                  nextPlan={behaviorSignals.recommendedPlan}
                   onUpgrade={() => window.location.href = 'mailto:sales@newtechadvertising.com?subject=Upgrade to Guided Growth'}
                   compact={false}
                 />
