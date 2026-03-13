@@ -216,6 +216,7 @@ const AuthenticatedApp = () => {
       <Route path="/nta/reseller-command" element={<LayoutWrapper currentPageName="NTAResellerCommand"><NTAResellerCommand /></LayoutWrapper>} />
       <Route path="/nta/ai-workforce" element={<LayoutWrapper currentPageName="NTAAIWorkforceOrchestrator"><NTAAIWorkforceOrchestrator /></LayoutWrapper>} />
       <Route path="/nta/home" element={<NTAHomepage />} />
+      <Route path="/nta/sales-followup" element={<LayoutWrapper currentPageName="NTASalesFollowUp"><NTASalesFollowUp /></LayoutWrapper>} />
       <Route path="/nta/demo" element={<NTADemoFunnel />} />
       {/* Demo Flow */}
       <Route path="/demo/flow" element={<LayoutWrapper currentPageName="DemoFlow"><DemoFlow /></LayoutWrapper>} />
