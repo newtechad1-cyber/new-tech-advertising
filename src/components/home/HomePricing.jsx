@@ -106,16 +106,36 @@ export default function HomePricing() {
                   </li>
                 ))}
               </ul>
-              <Link
-                to={createPageUrl(plan.link)}
-                className={`w-full text-center font-bold py-2.5 rounded-xl transition-all text-sm flex items-center justify-center gap-2 ${
-                  plan.highlight
-                    ? 'bg-violet-600 hover:bg-violet-500 text-white shadow-lg shadow-violet-600/30'
-                    : 'bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white'
-                }`}
-              >
-                {plan.cta} <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
+              {plan.link === null ? (
+                BOOKING_IS_EXTERNAL ? (
+                  <a
+                    href={BOOKING_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full text-center font-bold py-2.5 rounded-xl transition-all text-sm flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white"
+                  >
+                    {plan.cta} <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                ) : (
+                  <Link
+                    to={BOOKING_URL}
+                    className="w-full text-center font-bold py-2.5 rounded-xl transition-all text-sm flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white"
+                  >
+                    {plan.cta} <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                )
+              ) : (
+                <Link
+                  to={createPageUrl(plan.link)}
+                  className={`w-full text-center font-bold py-2.5 rounded-xl transition-all text-sm flex items-center justify-center gap-2 ${
+                    plan.highlight
+                      ? 'bg-violet-600 hover:bg-violet-500 text-white shadow-lg shadow-violet-600/30'
+                      : 'bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white'
+                  }`}
+                >
+                  {plan.cta} <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              )}
             </div>
           ))}
         </div>
