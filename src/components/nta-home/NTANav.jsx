@@ -36,10 +36,10 @@ export default function NTANav() {
         </div>
 
         <div className="hidden md:flex items-center gap-3">
-          <a href="#demo" className={`text-sm font-semibold transition-colors ${scrolled ? 'text-slate-600' : 'text-white/80'}`}>
+          <a href="#sign-in" className={`text-sm font-semibold transition-colors ${scrolled ? 'text-slate-600' : 'text-white/80'}`}>
             Sign In
           </a>
-          <a href="#demo" className="px-4 py-2 rounded-xl text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/30">
+          <a href="/book-call" className="px-4 py-2 rounded-xl text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/30">
             Book Demo →
           </a>
         </div>
