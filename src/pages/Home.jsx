@@ -14,6 +14,7 @@ import HomePricing from '../components/home/HomePricing';
 import HomeFinalCta from '../components/home/HomeFinalCta';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import NTAGrowthGuideBot from '../components/nta-guide/NTAGrowthGuideBot';
 
 export default function Home() {
   return (
