@@ -90,6 +90,8 @@ import NTAAIWorkforceOrchestrator from './pages/NTAAIWorkforceOrchestrator';
 import NTAHomepage from './pages/NTAHomepage';
 import NTASalesFollowUp from './pages/NTASalesFollowUp';
 import NTAPricingStack from './pages/NTAPricingStack';
+import ClientGrowthJourney from './pages/ClientGrowthJourney';
+import AdminRetentionDashboard from './pages/AdminRetentionDashboard';
 import NTADemoFunnel from './pages/NTADemoFunnel';
 
 const { Pages, Layout, mainPage } = pagesConfig;
