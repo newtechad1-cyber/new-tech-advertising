@@ -12,7 +12,6 @@ export default function Start() {
   const [submitted, setSubmitted] = useState(false);
   const [trialId, setTrialId] = useState(null);
   const formRef = useRef(null);
-  const [open, setOpen] = useState(false);
 
   // Read optional source attribution from URL params
   const urlParams = new URLSearchParams(window.location.search);
