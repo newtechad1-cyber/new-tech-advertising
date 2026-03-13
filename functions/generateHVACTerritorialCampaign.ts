@@ -212,6 +212,76 @@ Return EXACTLY this JSON structure:
       ],
       "seasonal_focus": "Premium spring installations + summer smart system upgrades + fall performance optimization + winter comfort positioning",
       "weekly_schedule": "Mon: Premium positioning | Tue-Wed: Smart systems authority | Thu: Brand growth content | Fri-Sat: Professional case studies | Sun: Premium video scripts"
+    },
+    {
+      "market": "Albert Lea HVAC",
+      "region": "Albert Lea, Minnesota",
+      "territory_focus": "local service authority, seasonal repair urgency, maintenance plan promotion",
+      "status": "active",
+      "posting_cadence": "5-6 posts per week",
+      "content_streams": [
+        {
+          "stream_name": "Local Service Authority",
+          "posts": [
+            {
+              "headline": "[Albert Lea] HVAC Service Authority: Why Local Homeowners Trust Consistent Companies",
+              "body": "Albert Lea families want to know their HVAC company is reliable and local. Build consistent visibility to establish trust.",
+              "cta": "Book demo to see how local authority builds leads"
+            },
+            {
+              "headline": "[Albert Lea] HVAC Expertise: The Service Standard Albert Lea Expects",
+              "body": "Albert Lea homeowners deserve quality service. Consistent content positioning builds your local service reputation.",
+              "cta": "Join Albert Lea HVAC founders"
+            }
+          ]
+        },
+        {
+          "stream_name": "Seasonal Repair Urgency",
+          "posts": [
+            {
+              "headline": "[Albert Lea] Spring HVAC Maintenance: Prepare Your System Now",
+              "body": "Spring weather in Albert Lea demands AC preparation. Position your maintenance services with consistent visibility.",
+              "cta": "Get seasonal maintenance content templates"
+            },
+            {
+              "headline": "[Albert Lea] Winter Furnace Emergency? Here's What You Need",
+              "body": "Albert Lea winters are harsh. Build pre-season visibility so customers call you first.",
+              "cta": "Learn winter HVAC marketing strategy"
+            }
+          ]
+        },
+        {
+          "stream_name": "Maintenance Plan Promotion",
+          "posts": [
+            {
+              "headline": "[Albert Lea] HVAC Maintenance Plans: Predictable Service, Predictable Costs",
+              "body": "Albert Lea homeowners love predictability. Maintenance plans create recurring revenue and customer loyalty.",
+              "cta": "Book demo for maintenance plan strategy"
+            },
+            {
+              "headline": "[Albert Lea] HVAC Preventive Care: Stop Emergency Repairs Before They Happen",
+              "body": "Smart Albert Lea homeowners invest in preventive maintenance. Promote plans consistently to capture market share.",
+              "cta": "Get maintenance plan content templates"
+            }
+          ]
+        }
+      ],
+      "video_scripts": [
+        {
+          "title": "[Albert Lea] HVAC Local Authority",
+          "length": "30-45 seconds",
+          "structure": "Local trust → Service consistency → CTA",
+          "script": "Hook: '[Albert Lea] homeowners want a reliable HVAC company they can trust' Problem: 'Most companies don't show up consistently' Solution: 'The DIY Growth System builds the local authority that attracts loyal customers' CTA: 'Message for a demo'"
+        },
+        {
+          "title": "[Albert Lea] Maintenance Plan Authority",
+          "length": "30-45 seconds",
+          "structure": "Maintenance benefit → Cost savings → CTA",
+          "script": "Albert Lea homeowners benefit from maintenance plans that prevent emergencies and save money. Build authority through consistent seasonal content"
+        }
+      ],
+      "seasonal_focus": "Spring AC prep + summer maintenance + fall heating inspection + winter emergency readiness",
+      "weekly_schedule": "Mon-Tue: Local authority | Wed-Thu: Seasonal maintenance | Fri: Maintenance plans | Sat-Sun: Video scripts + community"
     }
   ],
   "cross_territory_strategy": {
