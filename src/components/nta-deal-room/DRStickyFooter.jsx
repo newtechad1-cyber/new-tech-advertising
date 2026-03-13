@@ -1,5 +1,6 @@
 import React from 'react';
 import { CheckCircle2, Phone, MessageSquare, DollarSign, Calendar, Loader2 } from 'lucide-react';
+import { openSchedulingCalendar } from '@/components/config/bookingConfig';
 
 const fmt = (n) => n ? `$${Number(n).toLocaleString()}` : '—';
 
@@ -54,7 +55,10 @@ export default function DRStickyFooter({ monthlyFee, setupFee, startDate, contra
               Request Changes
             </button>
             <button
-              onClick={onCallRequest}
+              onClick={() => {
+                onCallRequest();
+                openSchedulingCalendar();
+              }}
               className="flex items-center gap-2 px-4 py-2.5 border border-blue-600/60 hover:border-blue-500 text-blue-400 hover:text-blue-300 rounded-xl text-sm font-semibold transition-colors"
             >
               <Phone className="w-4 h-4" />
