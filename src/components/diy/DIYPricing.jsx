@@ -52,8 +52,6 @@ export default function DIYPricing({ onCTA, isLoading }) {
                 Most businesses recover this investment with just one new customer.
               </p>
             </div>
-              {}
-            </div>
           </div>
         </div>
 
