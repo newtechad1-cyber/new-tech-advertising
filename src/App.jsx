@@ -98,6 +98,8 @@ import NTADemoFunnel from './pages/NTADemoFunnel';
 import AdminAIOperations from './pages/AdminAIOperations';
 import AdminDataGovernance from './pages/AdminDataGovernance';
 import AdminAccessGovernance from './pages/AdminAccessGovernance';
+import AdminTenantGovernance from './pages/AdminTenantGovernance';
+import ResellerDashboard from './pages/ResellerDashboard';
 import GettingStarted from './pages/GettingStarted';
 import AdminHotProspectsAlert from './pages/AdminHotProspectsAlert';
 import ChannelHelpCenter from './pages/ChannelHelpCenter';
