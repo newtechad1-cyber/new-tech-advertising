@@ -113,8 +113,9 @@ export default function AdminNav({ children }) {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const isActive = (page) => {
-    const target = createPageUrl(page);
+  const isActive = (item) => {
+    if (item.href) return location.pathname === item.href;
+    const target = createPageUrl(item.page);
     return location.pathname === target || location.pathname === target + '.html';
   };
 
