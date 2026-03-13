@@ -12,6 +12,7 @@ export default function Start() {
   const [submitted, setSubmitted] = useState(false);
   const [trialId, setTrialId] = useState(null);
   const formRef = useRef(null);
+  const [open, setOpen] = useState(false);
 
   // Read optional source attribution from URL params
   const urlParams = new URLSearchParams(window.location.search);
@@ -44,9 +45,9 @@ export default function Start() {
             />
           </Link>
           <div className="flex items-center gap-4">
-            <Link to={createPageUrl('Book-Call')} className="text-slate-400 hover:text-white text-sm transition-colors hidden sm:block">
+            <a href="https://calendar.app.google/p6ieYanvwhixXxZ67" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white text-sm transition-colors hidden sm:block">
               Prefer a call? →
-            </Link>
+            </a>
           </div>
         </div>
       </header>
