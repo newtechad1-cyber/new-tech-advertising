@@ -288,8 +288,8 @@ Return EXACTLY this JSON structure:
     "unified_offer": "DIY Growth System for HVAC Companies - $99/month founding rate",
     "industry_focus": "HVAC-specific content templates, seasonal calendars, lead generation metrics",
     "channel_distribution": "Facebook (HVAC groups), Google Business (local), Instagram (before/after), LinkedIn (B2B), YouTube Shorts (educational)",
-    "territorial_differentiation": "Mason City = authority building | Austin = lead generation | Rochester = premium positioning",
-    "total_posting_volume": "15-18 posts per week across 3 territories (5-6 per territory)"
+    "territorial_differentiation": "Mason City = authority building | Austin = lead generation | Rochester = premium positioning | Albert Lea = service authority + maintenance plans",
+    "total_posting_volume": "20-24 posts per week across 4 territories (5-6 per territory)"
   },
   "success_metrics": {
     "per_territory_monthly": [
