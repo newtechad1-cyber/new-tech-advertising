@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
+import { goToBookingPage } from '../components/config/bookingConfig';
 
 export default function SchoolTVDealRoom() {
   return (
@@ -32,9 +33,9 @@ export default function SchoolTVDealRoom() {
             This short video shows how students submit stories, administrators moderate content, and the platform turns school events into a streaming TV channel.
           </p>
           <div className="text-center">
-            <a href="https://calendly.com/bulldog-tv-sales" target="_blank" rel="noopener noreferrer" className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition">
+            <button onClick={() => goToBookingPage()} className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition">
               Book a Live Demo
-            </a>
+            </button>
           </div>
         </div>
       </section>
@@ -260,9 +261,9 @@ export default function SchoolTVDealRoom() {
                 <li className="flex items-start gap-2"><Check className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" /> 100 AI videos/year</li>
                 <li className="flex items-start gap-2"><Check className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" /> Streaming channel</li>
               </ul>
-              <a href="https://calendly.com/bulldog-tv-sales" target="_blank" rel="noopener noreferrer" className="block text-center bg-slate-100 text-slate-900 py-2 rounded font-semibold hover:bg-slate-200 transition">
-                Get Started
-              </a>
+              <button onClick={() => goToBookingPage()} className="block text-center w-full bg-slate-100 text-slate-900 py-2 rounded font-semibold hover:bg-slate-200 transition">
+                 Get Started
+               </button>
             </div>
 
             <div className="bg-blue-600 rounded-lg p-8 text-white relative">
@@ -276,9 +277,9 @@ export default function SchoolTVDealRoom() {
                 <li className="flex items-start gap-2"><Check className="h-4 w-4 flex-shrink-0 mt-0.5" /> Multi-platform publishing</li>
                 <li className="flex items-start gap-2"><Check className="h-4 w-4 flex-shrink-0 mt-0.5" /> Analytics dashboard</li>
               </ul>
-              <a href="https://calendly.com/bulldog-tv-sales" target="_blank" rel="noopener noreferrer" className="block text-center bg-white text-blue-600 py-2 rounded font-semibold hover:bg-blue-50 transition">
-                Get Started
-              </a>
+              <button onClick={() => goToBookingPage()} className="block text-center w-full bg-white text-blue-600 py-2 rounded font-semibold hover:bg-blue-50 transition">
+                 Get Started
+               </button>
             </div>
 
             <div className="bg-white rounded-lg border border-slate-200 p-8">
@@ -291,9 +292,9 @@ export default function SchoolTVDealRoom() {
                 <li className="flex items-start gap-2"><Check className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" /> Dedicated support</li>
                 <li className="flex items-start gap-2"><Check className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" /> Custom integrations</li>
               </ul>
-              <a href="https://calendly.com/bulldog-tv-sales" target="_blank" rel="noopener noreferrer" className="block text-center bg-slate-100 text-slate-900 py-2 rounded font-semibold hover:bg-slate-200 transition">
-                Contact Sales
-              </a>
+              <button onClick={() => goToBookingPage()} className="block text-center w-full bg-slate-100 text-slate-900 py-2 rounded font-semibold hover:bg-slate-200 transition">
+                 Contact Sales
+               </button>
             </div>
           </div>
         </div>
@@ -430,9 +431,9 @@ export default function SchoolTVDealRoom() {
           <h2 className="text-4xl font-bold mb-6">Start Your School's Streaming TV Network</h2>
           <p className="text-lg text-blue-100 mb-10">See how to launch in your school in under 3 weeks.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://calendly.com/bulldog-tv-sales" target="_blank" rel="noopener noreferrer" className="inline-flex items-center bg-white text-blue-600 px-8 py-4 rounded-lg font-bold text-lg hover:bg-blue-50 transition gap-2">
+            <button onClick={() => goToBookingPage()} className="inline-flex items-center bg-white text-blue-600 px-8 py-4 rounded-lg font-bold text-lg hover:bg-blue-50 transition gap-2">
               Book a Demo <ArrowRight className="h-5 w-5" />
-            </a>
+            </button>
             <a href="/schooltv-demo" className="inline-flex items-center border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-blue-500 transition gap-2">
               Watch Demo <Play className="h-5 w-5" />
             </a>
@@ -504,11 +505,11 @@ export default function SchoolTVDealRoom() {
               <h3 className="font-bold text-lg mb-2">Launch Guide</h3>
               <p className="text-slate-300 text-sm">Step-by-step guide to launching your school's streaming TV network.</p>
             </a>
-            <a href="https://calendly.com/bulldog-tv-sales" target="_blank" rel="noopener noreferrer" className="bg-slate-800 rounded-lg p-8 hover:bg-slate-700 transition text-center">
-              <Users className="h-10 w-10 text-blue-400 mx-auto mb-4" />
-              <h3 className="font-bold text-lg mb-2">Contact Sales</h3>
-              <p className="text-slate-300 text-sm">Talk with our team about your school's specific needs.</p>
-            </a>
+            <button onClick={() => goToBookingPage()} className="bg-slate-800 rounded-lg p-8 hover:bg-slate-700 transition text-center w-full text-left">
+               <Users className="h-10 w-10 text-blue-400 mx-auto mb-4" />
+               <h3 className="font-bold text-lg mb-2">Contact Sales</h3>
+               <p className="text-slate-300 text-sm">Talk with our team about your school's specific needs.</p>
+             </button>
           </div>
         </div>
       </section>
