@@ -15,6 +15,13 @@ import DIYLeadTracker from '@/components/diy/DIYLeadTracker';
 import PricingLadderUpgradePanel from '@/components/pricing/PricingLadderUpgradePanel';
 import DIYUpgradeBanners from '@/components/diy/DIYUpgradeBanners';
 import { useBehaviorSignals } from '@/components/diy/useBehaviorSignals';
+import DIYStreakIndicator from '@/components/diy/DIYStreakIndicator';
+import DIYWeeklyWins from '@/components/diy/DIYWeeklyWins';
+import DIYGrowthScoreTrend from '@/components/diy/DIYGrowthScoreTrend';
+import DIYMilestoneCelebration from '@/components/diy/DIYMilestoneCelebration';
+import DIYWeeklyFocusPlan from '@/components/diy/DIYWeeklyFocusPlan';
+import DIYInactivityNudge from '@/components/diy/DIYInactivityNudge';
+import { useRetentionTracking } from '@/components/diy/useRetentionTracking';
 
 const MODULES = [
   { id: 'command', title: 'Marketing Command Center', icon: TrendingUp, component: DIYCommandCenter },
@@ -31,7 +38,9 @@ export default function DIYDashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [activeModule, setActiveModule] = useState(null);
   const [showUpgradePanel, setShowUpgradePanel] = useState(false);
+  const [displayedMilestones, setDisplayedMilestones] = useState([]);
   const behaviorSignals = useBehaviorSignals(subscription);
+  const { metrics, milestones } = useRetentionTracking(subscription);
 
   useEffect(() => {
     const loadData = async () => {
@@ -98,11 +107,43 @@ export default function DIYDashboard() {
     window.location.href = 'mailto:sales@newtechadvertising.com?subject=Upgrade to Guided Growth';
   };
 
+  // Display milestones one at a time
+  useEffect(() => {
+    if (milestones && milestones.length > 0) {
+      const nextMilestone = milestones.find(
+        (m) => !displayedMilestones.includes(m.type)
+      );
+      if (nextMilestone) {
+        const timer = setTimeout(() => {
+          setDisplayedMilestones([...displayedMilestones, nextMilestone.type]);
+        }, 500);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [milestones, displayedMilestones]);
+
   // Dashboard view or module view
   const isDashboardView = !activeModule;
 
   return (
     <div className="min-h-screen bg-slate-950">
+      {/* Milestone Celebration Modal */}
+      {milestones && milestones.length > 0 && (
+        <>
+          {milestones.map((milestone) => (
+            !displayedMilestones.includes(milestone.type) && (
+              <DIYMilestoneCelebration
+                key={milestone.type}
+                milestone={milestone}
+                onClose={() => {
+                  setDisplayedMilestones([...displayedMilestones, milestone.type]);
+                }}
+              />
+            )
+          ))}
+        </>
+      )}
+
       {/* Header Strip */}
       <DIYHeaderStrip subscription={subscription} onUpgradeClick={handleUpgradeClick} />
 
@@ -110,6 +151,21 @@ export default function DIYDashboard() {
         <div className="max-w-7xl mx-auto">
           {isDashboardView ? (
             <>
+              {/* Streak Indicator */}
+              {metrics && (
+                <div className="mb-6 pb-6 border-b border-slate-700">
+                  <DIYStreakIndicator metrics={metrics} />
+                </div>
+              )}
+
+              {/* Inactivity Nudge */}
+              {metrics && (
+                <DIYInactivityNudge
+                  metrics={metrics}
+                  onAction={() => handleTaskClick('command')}
+                />
+              )}
+
               {/* Behavior Signals Banner */}
               {subscription && growthStage && (
                 <DIYUpgradeBanners
@@ -122,6 +178,21 @@ export default function DIYDashboard() {
                     console.log('Dismissed signal:', signal);
                   }}
                 />
+              )}
+
+              {/* Weekly Focus Plan */}
+              {metrics && (
+                <div className="mb-8">
+                  <DIYWeeklyFocusPlan metrics={metrics} subscription={subscription} />
+                </div>
+              )}
+
+              {/* Growth Score & Weekly Wins */}
+              {metrics && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                  <DIYGrowthScoreTrend metrics={metrics} />
+                  <DIYWeeklyWins metrics={metrics} />
+                </div>
               )}
 
               {/* Dashboard View */}
