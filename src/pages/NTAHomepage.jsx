@@ -26,6 +26,7 @@ export default function NTAHomepage() {
       <NTAPricing />
       <NTAConversionClose />
       <NTAFooter />
+      <NTASiteGuide mode="homepage" />
     </div>
   );
 }

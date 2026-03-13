@@ -156,6 +156,7 @@ export default function NTADemoFunnel() {
           )}
         </div>
 
+        <NTASiteGuide mode="funnel" />
         {/* Trust footer */}
         {step < 4 && (
           <div className="mt-6 flex items-center justify-center gap-6 text-xs text-slate-400">
