@@ -12,7 +12,7 @@ Deno.serve(async (req) => {
     // Generate HVAC industry-specific territorial campaigns
     const hvacResponse = await base44.integrations.Core.InvokeLLM({
       model: 'gpt_5',
-      prompt: `Create 3 localized HVAC territorial domination campaigns. Generate HVAC-specific content, seasonal messaging, video scripts, and posting schedules.
+      prompt: `Create 4 localized HVAC territorial domination campaigns including Albert Lea, Minnesota. Generate HVAC-specific content, seasonal messaging, video scripts, and posting schedules.
 
 Return EXACTLY this JSON structure:
 
