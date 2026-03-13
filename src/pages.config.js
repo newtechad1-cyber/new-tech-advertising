@@ -548,6 +548,7 @@ import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AdminGeographicCampaigns from './pages/AdminGeographicCampaigns';
 import AdminHVACTerritorialCampaign from './pages/AdminHVACTerritorialCampaign';
+import AdminAlbertLeaRestaurantCampaign from './pages/AdminAlbertLeaRestaurantCampaign';
 import __Layout from './Layout.jsx';
 
 
@@ -1053,6 +1054,7 @@ export const PAGES = {
     "YouTubeUploadTest": YouTubeUploadTest,
     "AdminGeographicCampaigns": AdminGeographicCampaigns,
     "AdminHVACTerritorialCampaign": AdminHVACTerritorialCampaign,
+    "AdminAlbertLeaRestaurantCampaign": AdminAlbertLeaRestaurantCampaign,
 }
 
 export const pagesConfig = {
