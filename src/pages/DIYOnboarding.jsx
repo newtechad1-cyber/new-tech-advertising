@@ -218,18 +218,256 @@ export default function DIYOnboarding() {
             </div>
           )}
 
-          {/* Step 4: Marketing Goals */}
+          {/* Step 4: Primary Growth Goal */}
           {currentStep === 4 && (
             <div className="space-y-4">
               <label className="block">
-                <span className="text-white font-semibold mb-2 block">Primary Marketing Goal</span>
-                <Input
-                  value={formData.marketing_goals}
-                  onChange={(e) => handleInputChange('marketing_goals', e.target.value)}
-                  placeholder="e.g., Generate more leads, build brand authority"
-                  className="bg-slate-800 border-slate-700 text-white"
-                />
+                <span className="text-white font-semibold mb-2 block">What is your biggest growth priority?</span>
               </label>
+              <div className="space-y-3">
+                {[
+                  { value: 'more_leads', label: 'Generate More Leads' },
+                  { value: 'higher_ticket_sales', label: 'Higher Ticket Sales' },
+                  { value: 'brand_authority', label: 'Build Brand Authority' },
+                  { value: 'beat_competitors', label: 'Beat Competitors' },
+                  { value: 'expand_locations', label: 'Expand to New Locations' },
+                  { value: 'faster_growth', label: 'Faster Overall Growth' },
+                ].map((option) => (
+                  <label
+                    key={option.value}
+                    className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${
+                      formData.primary_growth_goal === option.value
+                        ? 'bg-violet-600/20 border-violet-600'
+                        : 'bg-slate-800 border-slate-700 hover:border-slate-600'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="growth_goal"
+                      value={option.value}
+                      checked={formData.primary_growth_goal === option.value}
+                      onChange={(e) => handleInputChange('primary_growth_goal', e.target.value)}
+                    />
+                    <span className="text-white">{option.label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Step 5: Revenue Growth Target */}
+          {currentStep === 5 && (
+            <div className="space-y-4">
+              <label className="block">
+                <span className="text-white font-semibold mb-2 block">What monthly revenue growth would you like to achieve?</span>
+              </label>
+              <div className="space-y-3">
+                {[
+                  { value: 'under_5k', label: 'Under $5K' },
+                  { value: '5k_10k', label: '$5K - $10K' },
+                  { value: '10k_25k', label: '$10K - $25K' },
+                  { value: '25k_50k', label: '$25K - $50K' },
+                  { value: '50k_plus', label: '$50K+' },
+                ].map((option) => (
+                  <label
+                    key={option.value}
+                    className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${
+                      formData.revenue_growth_target === option.value
+                        ? 'bg-violet-600/20 border-violet-600'
+                        : 'bg-slate-800 border-slate-700 hover:border-slate-600'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="revenue"
+                      value={option.value}
+                      checked={formData.revenue_growth_target === option.value}
+                      onChange={(e) => handleInputChange('revenue_growth_target', e.target.value)}
+                    />
+                    <span className="text-white">{option.label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Step 6: Time Commitment */}
+          {currentStep === 6 && (
+            <div className="space-y-4">
+              <label className="block">
+                <span className="text-white font-semibold mb-2 block">How much time can you invest in marketing weekly?</span>
+              </label>
+              <div className="space-y-3">
+                {[
+                  { value: 'minimal', label: 'Minimal (Less than 5 hours)' },
+                  { value: '5_10_hours', label: '5-10 hours' },
+                  { value: '10_15_hours', label: '10-15 hours' },
+                  { value: '15_20_hours', label: '15-20 hours' },
+                  { value: '20_plus_hours', label: 'More than 20 hours' },
+                ].map((option) => (
+                  <label
+                    key={option.value}
+                    className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${
+                      formData.time_commitment_level === option.value
+                        ? 'bg-violet-600/20 border-violet-600'
+                        : 'bg-slate-800 border-slate-700 hover:border-slate-600'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="time"
+                      value={option.value}
+                      checked={formData.time_commitment_level === option.value}
+                      onChange={(e) => handleInputChange('time_commitment_level', e.target.value)}
+                    />
+                    <span className="text-white">{option.label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Step 7: Marketing Frustration */}
+          {currentStep === 7 && (
+            <div className="space-y-4">
+              <label className="block">
+                <span className="text-white font-semibold mb-2 block">What frustrates you most about marketing today?</span>
+              </label>
+              <div className="space-y-3">
+                {[
+                  { value: 'no_consistency', label: 'No Consistency in Posting/Content' },
+                  { value: 'no_leads', label: 'Not Getting Enough Leads' },
+                  { value: 'low_roi', label: 'Low ROI on Marketing Spend' },
+                  { value: 'too_much_work', label: 'Too Much Work, Not Enough Time' },
+                  { value: 'execution_gaps', label: 'Ideas But Poor Execution' },
+                ].map((option) => (
+                  <label
+                    key={option.value}
+                    className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${
+                      formData.marketing_frustration === option.value
+                        ? 'bg-violet-600/20 border-violet-600'
+                        : 'bg-slate-800 border-slate-700 hover:border-slate-600'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="frustration"
+                      value={option.value}
+                      checked={formData.marketing_frustration === option.value}
+                      onChange={(e) => handleInputChange('marketing_frustration', e.target.value)}
+                    />
+                    <span className="text-white">{option.label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Step 8: Growth Speed Intent */}
+          {currentStep === 8 && (
+            <div className="space-y-4">
+              <label className="block">
+                <span className="text-white font-semibold mb-2 block">How fast do you want to grow?</span>
+              </label>
+              <div className="space-y-3">
+                {[
+                  { value: 'slow_steady', label: 'Slow & Steady', desc: 'Sustainable growth over time' },
+                  { value: 'moderate', label: 'Moderate Growth', desc: 'Consistent progress' },
+                  { value: 'aggressive', label: 'Aggressive Growth', desc: 'Significant expansion quickly' },
+                  { value: 'very_aggressive', label: 'Very Aggressive', desc: 'Maximum growth, all out' },
+                ].map((option) => (
+                  <label
+                    key={option.value}
+                    className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-all ${
+                      formData.growth_speed_intent === option.value
+                        ? 'bg-violet-600/20 border-violet-600'
+                        : 'bg-slate-800 border-slate-700 hover:border-slate-600'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="speed"
+                      value={option.value}
+                      checked={formData.growth_speed_intent === option.value}
+                      onChange={(e) => handleInputChange('growth_speed_intent', e.target.value)}
+                      className="mt-1"
+                    />
+                    <div>
+                      <p className="text-white font-semibold">{option.label}</p>
+                      <p className="text-slate-400 text-sm">{option.desc}</p>
+                    </div>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Step 9: Upsell Intent */}
+          {currentStep === 9 && (
+            <div className="space-y-4">
+              <label className="block">
+                <span className="text-white font-semibold mb-2 block">How do you want to approach marketing?</span>
+              </label>
+              <div className="space-y-3">
+                {[
+                  { value: 'diy_only', label: 'DIY Only', desc: 'I want to do everything myself with AI tools' },
+                  { value: 'wants_guidance', label: 'DIY + Guidance', desc: 'I want tools + monthly strategy help' },
+                  { value: 'wants_full_service', label: 'Full Service', desc: 'I want you to handle everything' },
+                ].map((option) => (
+                  <label
+                    key={option.value}
+                    className={`flex items-start gap-3 p-4 rounded-lg border cursor-pointer transition-all ${
+                      formData.upsell_intent === option.value
+                        ? 'bg-violet-600/20 border-violet-600'
+                        : 'bg-slate-800 border-slate-700 hover:border-slate-600'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="preference"
+                      value={option.value}
+                      checked={formData.upsell_intent === option.value}
+                      onChange={(e) => handleInputChange('upsell_intent', e.target.value)}
+                      className="mt-1"
+                    />
+                    <div className="flex-1">
+                      <p className="text-white font-semibold">{option.label}</p>
+                      <p className="text-slate-400 text-sm">{option.desc}</p>
+                    </div>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Step 10: Campaign Setup */}
+          {currentStep === 10 && (
+            <div className="space-y-4">
+              <div className="bg-slate-800 rounded-lg p-6 border border-violet-600/20">
+                <p className="text-slate-300">
+                  We're setting up your first AI-powered marketing campaign based on your business info.
+                  This will include:
+                </p>
+                <ul className="text-slate-300 space-y-2 mt-4">
+                  <li>✓ Content calendar with AI-generated posts</li>
+                  <li>✓ Social media strategy for your industry</li>
+                  <li>✓ Initial brand voice and messaging framework</li>
+                  <li>✓ Lead tracking setup</li>
+                </ul>
+              </div>
+            </div>
+          )}
+
+          {/* Step 11: Recommendation */}
+          {currentStep === 11 && (
+            <div className="space-y-6">
+              <DIYOnboardingRecommendationPanel
+                recommendation={getUpgradeRecommendation(formData)}
+                insight={getProfileInsight(formData)}
+                onContinue={() => {
+                  handleNext();
+                }}
+              />
             </div>
           )}
 
@@ -331,7 +569,7 @@ export default function DIYOnboarding() {
               disabled={isSaving}
               className="flex-1 bg-violet-600 hover:bg-violet-700"
             >
-              {isSaving ? 'Saving...' : currentStep === 7 ? 'Go to Dashboard' : 'Next'}
+              {isSaving ? 'Saving...' : currentStep === 11 ? 'Go to Dashboard' : 'Next'}
               {!isSaving && <ChevronRight className="ml-2 w-4 h-4" />}
             </Button>
           </div>
