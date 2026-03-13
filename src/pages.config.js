@@ -549,6 +549,7 @@ import YouTubeUploadTest from './pages/YouTubeUploadTest';
 import AdminGeographicCampaigns from './pages/AdminGeographicCampaigns';
 import AdminHVACTerritorialCampaign from './pages/AdminHVACTerritorialCampaign';
 import AdminAlbertLeaRestaurantCampaign from './pages/AdminAlbertLeaRestaurantCampaign';
+import AdminLiveOrchestration from './pages/AdminLiveOrchestration';
 import __Layout from './Layout.jsx';
 
 
@@ -1055,6 +1056,7 @@ export const PAGES = {
     "AdminGeographicCampaigns": AdminGeographicCampaigns,
     "AdminHVACTerritorialCampaign": AdminHVACTerritorialCampaign,
     "AdminAlbertLeaRestaurantCampaign": AdminAlbertLeaRestaurantCampaign,
+    "AdminLiveOrchestration": AdminLiveOrchestration,
 }
 
 export const pagesConfig = {
