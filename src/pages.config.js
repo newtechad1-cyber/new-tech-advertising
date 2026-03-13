@@ -543,6 +543,7 @@ import AdminTenantGovernance from './pages/AdminTenantGovernance';
 import AdminPageRegistry from './pages/AdminPageRegistry';
 import AdminWorkflows from './pages/AdminWorkflows';
 import ClientMonthlyGrowthReport from './pages/ClientMonthlyGrowthReport';
+import AdminGrowthIntelligence from './pages/AdminGrowthIntelligence';
 import __Layout from './Layout.jsx';
 
 
@@ -1043,6 +1044,7 @@ export const PAGES = {
     "AdminPageRegistry": AdminPageRegistry,
     "AdminWorkflows": AdminWorkflows,
     "ClientMonthlyGrowthReport": ClientMonthlyGrowthReport,
+    "AdminGrowthIntelligence": AdminGrowthIntelligence,
 }
 
 export const pagesConfig = {
