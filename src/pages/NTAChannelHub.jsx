@@ -233,6 +233,7 @@ export default function NTAChannelHub() {
             <p className="text-slate-400 text-sm mt-0.5">
               Connect your platforms to unlock automated publishing and analytics.
               <span className="text-green-400 font-bold ml-2">{connectedCount}/5 connected</span>
+              <a href="/channel-help" className="text-blue-400 hover:text-blue-300 ml-3 underline text-xs">Setup Help Guide</a>
             </p>
           </div>
           <div className="ml-auto flex items-center gap-2">
