@@ -25,7 +25,7 @@ const TOUR_STEPS = [
     title: 'AI Content Engine',
     emoji: '🤖',
     body: `Every week, the AI engine writes 2 SEO-optimized blogs, 5 social posts, and 1 video script — all branded to your business voice and localized to your city.`,
-    highlight: 'That's 400+ pieces of content per year, published automatically. No agency, no freelancer, no effort on your end.',
+    highlight: "That's 400+ pieces of content per year, published automatically. No agency, no freelancer, no effort on your end.",
     color: '#8b5cf6',
   },
   {
