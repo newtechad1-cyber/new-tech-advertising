@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { CreditCard, Calendar, AlertCircle, ArrowUpRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { base44 } from '@/api/base44Client';
+import { CreditCard, Calendar, AlertCircle, CheckCircle2, ArrowRight, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { base44 } from '@/api/base44Client';
+import { Button } from '@/components/ui/button';
 
 export default function DIYBillingSettings() {
   const navigate = useNavigate();
   const [subscription, setSubscription] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
+  const [isCanceling, setIsCanceling] = useState(false);
 
   useEffect(() => {
     const loadSubscription = async () => {
@@ -41,6 +42,52 @@ export default function DIYBillingSettings() {
     loadSubscription();
   }, [navigate]);
 
+  const handleCancelSubscription = async () => {
+    setIsCanceling(true);
+    try {
+      await base44.entities.DIYSubscription.update(subscription.id, {
+        status: 'cancelled',
+        billing_status: 'cancelled',
+      });
+      setSubscription(prev => ({ ...prev, status: 'cancelled', billing_status: 'cancelled' }));
+      setShowCancelModal(false);
+    } catch (error) {
+      console.error('Error canceling subscription:', error);
+    } finally {
+      setIsCanceling(false);
+    }
+  };
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'active':
+        return 'text-green-400';
+      case 'trialing':
+        return 'text-blue-400';
+      case 'past_due':
+        return 'text-orange-400';
+      case 'cancelled':
+        return 'text-red-400';
+      default:
+        return 'text-slate-400';
+    }
+  };
+
+  const getStatusBadge = (status) => {
+    switch (status) {
+      case 'active':
+        return { bg: 'bg-green-500/20', border: 'border-green-500/30', text: 'text-green-300' };
+      case 'trialing':
+        return { bg: 'bg-blue-500/20', border: 'border-blue-500/30', text: 'text-blue-300' };
+      case 'past_due':
+        return { bg: 'bg-orange-500/20', border: 'border-orange-500/30', text: 'text-orange-300' };
+      case 'cancelled':
+        return { bg: 'bg-red-500/20', border: 'border-red-500/30', text: 'text-red-300' };
+      default:
+        return { bg: 'bg-slate-500/20', border: 'border-slate-500/30', text: 'text-slate-300' };
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center">
@@ -49,190 +96,235 @@ export default function DIYBillingSettings() {
     );
   }
 
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'active':
-      case 'trialing':
-        return 'text-green-400';
-      case 'past_due':
-        return 'text-yellow-400';
-      case 'cancelled':
-      case 'incomplete':
-        return 'text-red-400';
-      default:
-        return 'text-slate-400';
-    }
-  };
+  if (!subscription) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-white text-lg mb-4">No active subscription found</p>
+          <Button onClick={() => navigate('/nta/diy-growth-system')} className="bg-violet-600 hover:bg-violet-700">
+            Start DIY Plan
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
-  const getStatusLabel = (status) => {
-    switch (status) {
-      case 'active':
-        return 'Active';
-      case 'trialing':
-        return 'Trialing';
-      case 'past_due':
-        return 'Past Due - Action Required';
-      case 'cancelled':
-        return 'Cancelled';
-      case 'incomplete':
-        return 'Incomplete';
-      default:
-        return status;
-    }
-  };
+  const statusBadge = getStatusBadge(subscription.billing_status || 'active');
+  const planPrice = 99;
 
   return (
     <div className="min-h-screen bg-slate-950">
       {/* Header */}
-      <div className="bg-slate-900 border-b border-slate-800 py-8 px-6">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl font-bold text-white mb-2">Billing & Subscription</h1>
+      <header className="bg-slate-900 border-b border-slate-800 py-6 px-6 sticky top-0 z-50">
+        <div className="max-w-6xl mx-auto">
+          <button
+            onClick={() => navigate('/client/diy-dashboard')}
+            className="text-slate-400 hover:text-white font-semibold flex items-center gap-2 mb-4"
+          >
+            ← Back to Dashboard
+          </button>
+          <h1 className="text-3xl font-bold text-white">Billing & Subscription</h1>
           <p className="text-slate-400">Manage your DIY Growth System plan</p>
         </div>
-      </div>
+      </header>
 
-      {/* Content */}
-      <div className="py-12 px-6">
-        <div className="max-w-4xl mx-auto space-y-8">
-          {/* Current Plan */}
-          <div className="bg-slate-900 border border-slate-800 rounded-lg p-8">
-            <h2 className="text-2xl font-bold text-white mb-8">Current Plan</h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              {/* Plan Details */}
-              <div className="md:col-span-2 space-y-6">
-                <div>
-                  <p className="text-slate-400 text-sm mb-2">Plan Type</p>
-                  <p className="text-2xl font-bold text-white">DIY Growth System</p>
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div>
-                    <p className="text-slate-400 text-sm mb-2">Monthly Cost</p>
-                    <p className="text-3xl font-bold text-white">$99</p>
-                  </div>
-                  <div>
-                    <p className="text-slate-400 text-sm mb-2">Next Renewal</p>
-                    <p className="text-white font-semibold">
-                      {subscription?.next_renewal_date
-                        ? new Date(subscription.next_renewal_date).toLocaleDateString()
-                        : 'TBD'}
-                    </p>
-                  </div>
-                </div>
-
-                <div>
-                  <p className="text-slate-400 text-sm mb-2">Status</p>
-                  <span className={`inline-flex items-center gap-2 font-semibold ${getStatusColor(subscription?.billing_status)}`}>
-                    <div className={`w-2 h-2 rounded-full ${subscription?.billing_status === 'active' ? 'bg-green-400' : 'bg-slate-400'}`} />
-                    {getStatusLabel(subscription?.billing_status)}
-                  </span>
-                </div>
-
-                {subscription?.billing_status === 'past_due' && (
-                  <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4 flex gap-3">
-                    <AlertCircle className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-yellow-400 font-semibold text-sm mb-1">Payment Action Required</p>
-                      <p className="text-slate-300 text-sm">Your payment failed. Please update your payment method to continue using DIY.</p>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Quick Actions */}
-              <div className="bg-slate-800/50 rounded-lg p-6 h-fit">
-                <h3 className="text-white font-semibold mb-4">Quick Actions</h3>
-                <div className="space-y-3">
-                  <Button variant="outline" className="w-full">
-                    Update Payment Method
-                  </Button>
-                  <Button variant="outline" className="w-full">
-                    Download Invoice
-                  </Button>
-                </div>
-              </div>
+      <div className="max-w-4xl mx-auto p-6">
+        {/* Current Plan */}
+        <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-8 mb-8">
+          <div className="flex items-start justify-between mb-6">
+            <div>
+              <h2 className="text-2xl font-bold text-white mb-2">Current Plan</h2>
+              <p className="text-slate-400">DIY Growth System</p>
             </div>
-          </div>
-
-          {/* Upgrade Options */}
-          <div className="bg-slate-900 border border-slate-800 rounded-lg p-8">
-            <h2 className="text-2xl font-bold text-white mb-8">Ready to Upgrade?</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              {[
-                {
-                  name: 'Guided Growth',
-                  price: '$299/mo',
-                  description: 'Add monthly strategy help and coaching',
-                  benefits: ['Monthly strategy calls', 'Priority support', 'Personalized growth plan'],
-                },
-                {
-                  name: 'Done-For-You',
-                  price: '$1,200/mo',
-                  description: 'We handle all execution',
-                  benefits: ['Full content creation', 'Video production', 'Dedicated account manager'],
-                },
-                {
-                  name: 'Premium Authority',
-                  price: '$3,000+/mo',
-                  description: 'Market dominance strategy',
-                  benefits: ['Streaming TV ads', 'Premium visibility stack', 'Growth team'],
-                },
-              ].map((plan, idx) => (
-                <div key={idx} className="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
-                  <h3 className="text-lg font-bold text-white mb-2">{plan.name}</h3>
-                  <p className="text-violet-400 font-semibold text-lg mb-2">{plan.price}</p>
-                  <p className="text-slate-400 text-sm mb-4">{plan.description}</p>
-                  <ul className="space-y-2 mb-6">
-                    {plan.benefits.map((benefit, bIdx) => (
-                      <li key={bIdx} className="text-slate-300 text-xs flex gap-2">
-                        <span className="text-green-500 flex-shrink-0">✓</span>
-                        {benefit}
-                      </li>
-                    ))}
-                  </ul>
-                  <a href="mailto:sales@newtechadvertising.com">
-                    <Button variant="outline" className="w-full">
-                      Learn More
-                      <ArrowUpRight className="ml-2 w-4 h-4" />
-                    </Button>
-                  </a>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Billing History */}
-          <div className="bg-slate-900 border border-slate-800 rounded-lg p-8">
-            <h2 className="text-2xl font-bold text-white mb-6">Billing History</h2>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between p-4 bg-slate-800/50 rounded-lg">
-                <div className="flex items-center gap-4">
-                  <CreditCard className="w-5 h-5 text-violet-400" />
-                  <div>
-                    <p className="text-white font-semibold">DIY Growth System - Monthly</p>
-                    <p className="text-slate-400 text-sm">March 13, 2026</p>
-                  </div>
-                </div>
-                <p className="text-white font-semibold">$99.00</p>
-              </div>
-              <p className="text-slate-400 text-sm text-center py-4">
-                More invoices will appear here as you continue your subscription
+            <div className={`${statusBadge.bg} ${statusBadge.border} border rounded-lg px-4 py-2`}>
+              <p className={`${statusBadge.text} text-sm font-bold capitalize`}>
+                {subscription.billing_status || 'active'}
               </p>
             </div>
           </div>
 
-          {/* Danger Zone */}
-          <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-8">
-            <h2 className="text-2xl font-bold text-red-400 mb-4">Danger Zone</h2>
-            <p className="text-slate-300 mb-6">
-              Canceling your subscription will immediately remove access to all DIY tools. Your data will be retained for 30 days.
-            </p>
-            <Button className="bg-red-600 hover:bg-red-700 text-white">
-              Cancel Subscription
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
+            {/* Price */}
+            <div className="bg-slate-800/50 rounded-lg p-6">
+              <p className="text-slate-400 text-sm font-semibold mb-2">Monthly Price</p>
+              <p className="text-3xl font-bold text-white">
+                ${planPrice}
+                <span className="text-lg text-slate-400">/mo</span>
+              </p>
+              <p className="text-slate-500 text-xs mt-2">Billed on your renewal date</p>
+            </div>
+
+            {/* Renewal Date */}
+            <div className="bg-slate-800/50 rounded-lg p-6">
+              <div className="flex items-center gap-2 mb-2">
+                <Calendar className="w-4 h-4 text-slate-400" />
+                <p className="text-slate-400 text-sm font-semibold">Next Renewal</p>
+              </div>
+              <p className="text-2xl font-bold text-white">
+                {subscription.next_renewal_date
+                  ? new Date(subscription.next_renewal_date).toLocaleDateString('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                      year: 'numeric',
+                    })
+                  : 'TBD'}
+              </p>
+              <p className="text-slate-500 text-xs mt-2">
+                {subscription.billing_status === 'active' ? 'Your subscription renews on this date' : 'Your subscription has been cancelled'}
+              </p>
+            </div>
+
+            {/* Payment Status */}
+            <div className="bg-slate-800/50 rounded-lg p-6">
+              <div className="flex items-center gap-2 mb-2">
+                <CreditCard className="w-4 h-4 text-slate-400" />
+                <p className="text-slate-400 text-sm font-semibold">Payment Status</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-6 h-6 text-green-400" />
+                <p className="text-white font-bold">All Set</p>
+              </div>
+              <p className="text-slate-500 text-xs mt-2">No payment issues</p>
+            </div>
+          </div>
+
+          {/* Alerts */}
+          {subscription.billing_status === 'past_due' && (
+            <div className="bg-orange-500/20 border border-orange-500/30 rounded-lg p-4 mb-6">
+              <div className="flex items-start gap-3">
+                <AlertCircle className="w-5 h-5 text-orange-400 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-white font-semibold">Payment Past Due</p>
+                  <p className="text-orange-300 text-sm mt-1">
+                    Your payment failed. Please update your payment method to avoid service interruption.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {subscription.billing_status === 'cancelled' && (
+            <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-4 mb-6">
+              <div className="flex items-start gap-3">
+                <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-white font-semibold">Subscription Cancelled</p>
+                  <p className="text-red-300 text-sm mt-1">
+                    Your subscription has been cancelled. You'll still have access until the end of your billing period.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Manage Billing */}
+        <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-8 mb-8">
+          <h2 className="text-2xl font-bold text-white mb-6">Manage Billing</h2>
+
+          <div className="space-y-4">
+            <Button
+              onClick={() => window.location.href = 'https://billing.stripe.com/p/login/test'}
+              className="w-full bg-slate-800 hover:bg-slate-700 text-white py-3 text-base font-semibold rounded-lg flex items-center justify-center gap-2"
+            >
+              <CreditCard className="w-5 h-5" />
+              Update Payment Method
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+
+            <Button
+              onClick={() => window.location.href = 'https://billing.stripe.com/p/login/test'}
+              className="w-full bg-slate-800 hover:bg-slate-700 text-white py-3 text-base font-semibold rounded-lg flex items-center justify-center gap-2"
+            >
+              <Calendar className="w-5 h-5" />
+              View Invoices
+              <ArrowRight className="w-4 h-4" />
             </Button>
           </div>
         </div>
+
+        {/* Upgrade to Guided Growth */}
+        <div className="bg-gradient-to-r from-indigo-600/15 to-blue-600/15 border border-indigo-600/30 rounded-xl p-8 mb-8">
+          <h2 className="text-2xl font-bold text-white mb-2">Ready to Accelerate?</h2>
+          <p className="text-slate-400 mb-6">
+            Upgrade to Guided Growth for 1-on-1 strategy calls, a dedicated growth strategist, and advanced AI features.
+          </p>
+          <Button
+            onClick={() => window.location.href = 'mailto:sales@newtechadvertising.com?subject=Upgrade to Guided Growth'}
+            className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-lg flex items-center gap-2"
+          >
+            Explore Guided Growth
+            <ArrowRight className="w-5 h-5" />
+          </Button>
+        </div>
+
+        {/* Cancel Subscription */}
+        {subscription.billing_status !== 'cancelled' && (
+          <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-8">
+            <h2 className="text-2xl font-bold text-white mb-2">Cancel Subscription</h2>
+            <p className="text-slate-400 mb-6">
+              We'd be sad to see you go, but if you need to cancel, you can do it anytime. No questions asked.
+            </p>
+            <Button
+              onClick={() => setShowCancelModal(true)}
+              className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg"
+            >
+              Cancel My Subscription
+            </Button>
+            <p className="text-slate-500 text-sm mt-4">
+              You'll still have access through the end of your billing period.
+            </p>
+          </div>
+        )}
       </div>
+
+      {/* Cancel Confirmation Modal */}
+      {showCancelModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-8 relative">
+            <button
+              onClick={() => setShowCancelModal(false)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-white"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <h2 className="text-2xl font-bold text-white mb-4">Cancel Subscription?</h2>
+            <p className="text-slate-400 mb-6">
+              You'll still have access to your DIY Growth System through the end of your current billing period.
+            </p>
+
+            <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4 mb-6">
+              <p className="text-slate-300 text-sm">
+                <span className="text-white font-semibold">Access until:</span> {subscription.next_renewal_date
+                  ? new Date(subscription.next_renewal_date).toLocaleDateString('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                      year: 'numeric',
+                    })
+                  : 'TBD'}
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <Button
+                onClick={handleCancelSubscription}
+                disabled={isCanceling}
+                className="w-full bg-red-600 hover:bg-red-700 text-white py-3 font-bold rounded-lg"
+              >
+                {isCanceling ? 'Cancelling...' : 'Confirm Cancellation'}
+              </Button>
+              <Button
+                onClick={() => setShowCancelModal(false)}
+                variant="outline"
+                className="w-full bg-slate-800 border-slate-700 text-white hover:bg-slate-700 py-3 font-bold rounded-lg"
+              >
+                Keep My Subscription
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
