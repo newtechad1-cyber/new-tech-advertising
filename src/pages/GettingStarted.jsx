@@ -92,7 +92,7 @@ const SECTIONS = [
         <ol className="space-y-3">
           {[
             { step: '1', title: 'Content is Created', desc: 'Our AI and editorial team produce articles, social posts, and video scripts tailored to your industry and city.' },
-            { step: '2', title: 'You Review & Approve', desc: 'You'll get a notification when content is ready. One click to approve, or leave a note if you'd like changes.' },
+            { step: '2', title: 'You Review & Approve', desc: "You'll get a notification when content is ready. One click to approve, or leave a note if you'd like changes." },
             { step: '3', title: 'We Publish Everywhere', desc: 'Approved content goes live across your website, Google, Facebook, Instagram, and YouTube — on schedule.' },
             { step: '4', title: 'We Track the Results', desc: 'Impressions, clicks, leads, and ROI are captured automatically and added to your monthly report.' },
           ].map(({ step, title, desc }) => (
