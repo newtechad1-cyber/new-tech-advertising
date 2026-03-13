@@ -150,12 +150,23 @@ export default function MarketingNav() {
           <Link to={createPageUrl('AdminDashboard')} className="text-sm text-slate-400 hover:text-white transition-colors font-medium border border-slate-700 hover:border-slate-500 px-3 py-1.5 rounded-lg">
             Admin Login
           </Link>
-          <Link
-            to={createPageUrl('Book-Call')}
-            className="text-sm font-semibold text-slate-300 hover:text-white border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg transition-colors"
-          >
-            Book a Call
-          </Link>
+          {BOOKING_IS_EXTERNAL ? (
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-semibold text-slate-300 hover:text-white border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg transition-colors"
+            >
+              Book a Call
+            </a>
+          ) : (
+            <Link
+              to={BOOKING_URL}
+              className="text-sm font-semibold text-slate-300 hover:text-white border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg transition-colors"
+            >
+              Book a Call
+            </Link>
+          )}
           <Link
             to={createPageUrl('Start')}
             className="bg-violet-600 hover:bg-violet-500 text-white font-bold text-sm px-5 py-2 rounded-lg transition-all shadow-lg shadow-violet-600/20"

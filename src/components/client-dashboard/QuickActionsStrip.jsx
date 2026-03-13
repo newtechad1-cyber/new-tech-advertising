@@ -22,7 +22,7 @@ export default function QuickActionsStrip() {
     {
       label: 'Book Strategy Session',
       icon: <Calendar className="w-4 h-4" />,
-      action: () => window.open('https://calendly.com', '_blank'),
+      action: () => openBooking(navigate),
       color: 'bg-slate-600 hover:bg-slate-700',
     },
     {
