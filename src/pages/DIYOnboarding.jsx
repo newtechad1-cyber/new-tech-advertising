@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, CheckCircle2 } from 'lucide-react';
+import { ChevronRight, CheckCircle2, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { base44 } from '@/api/base44Client';
 import { useNavigate } from 'react-router-dom';
+import NTAPricingLadder from '@/components/pricing/NTAPricingLadder';
 
 const STEPS = [
   { id: 1, title: 'Business Info', key: 'business_name' },
@@ -266,20 +267,31 @@ export default function DIYOnboarding() {
             </div>
           )}
 
-          {/* Step 7: Campaign Setup */}
+          {/* Step 7: Upgrade Path */}
           {currentStep === 7 && (
-            <div className="space-y-4">
-              <div className="bg-slate-800 rounded-lg p-6 border border-violet-600/20">
-                <p className="text-slate-300">
-                  We're setting up your first AI-powered marketing campaign based on your business info.
-                  This will include:
+            <div className="space-y-6">
+              <div className="bg-gradient-to-r from-violet-600/10 to-indigo-600/10 border border-violet-500/30 rounded-lg p-6">
+                <div className="flex items-start gap-3 mb-4">
+                  <Zap className="w-5 h-5 text-violet-400 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h3 className="text-white font-bold text-lg">You're All Set!</h3>
+                    <p className="text-slate-300 text-sm mt-1">
+                      Your onboarding is complete. Now, let's explore what's possible with each plan.
+                    </p>
+                  </div>
+                </div>
+                <p className="text-slate-400 text-sm">
+                  You can stay on DIY and manage everything yourself, or upgrade for expert guidance and execution support.
                 </p>
-                <ul className="text-slate-300 space-y-2 mt-4">
-                  <li>✓ Content calendar with AI-generated posts</li>
-                  <li>✓ Social media strategy for your industry</li>
-                  <li>✓ Initial brand voice and messaging framework</li>
-                  <li>✓ Lead tracking setup</li>
-                </ul>
+              </div>
+
+              <div className="border border-slate-800 rounded-lg overflow-hidden">
+                <NTAPricingLadder
+                  currentPlan="diy"
+                  onSelectPlan={() => {}}
+                  showPhases={true}
+                  compact={false}
+                />
               </div>
             </div>
           )}
@@ -300,7 +312,7 @@ export default function DIYOnboarding() {
               disabled={isSaving}
               className="flex-1 bg-violet-600 hover:bg-violet-700"
             >
-              {isSaving ? 'Saving...' : currentStep === 7 ? 'Complete Setup' : 'Next'}
+              {isSaving ? 'Saving...' : currentStep === 7 ? 'Go to Dashboard' : 'Next'}
               {!isSaving && <ChevronRight className="ml-2 w-4 h-4" />}
             </Button>
           </div>
