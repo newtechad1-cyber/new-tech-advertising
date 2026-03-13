@@ -11,8 +11,8 @@
  * Current default: routes to the internal NTA strategy-call intake form.
  */
 
-export const BOOKING_URL = '/Book-Call';
-export const BOOKING_IS_EXTERNAL = false;
+export const BOOKING_URL = 'https://calendar.app.google/p6ieYanvwhixXxZ67';
+export const BOOKING_IS_EXTERNAL = true;
 
 /**
  * Helper — opens the booking destination correctly.
