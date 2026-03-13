@@ -3,6 +3,7 @@ import { CreditCard, Calendar, AlertCircle, CheckCircle2, ArrowRight, X } from '
 import { useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
+import NTAPricingLadder from '@/components/pricing/NTAPricingLadder';
 
 export default function DIYBillingSettings() {
   const navigate = useNavigate();
@@ -243,19 +244,25 @@ export default function DIYBillingSettings() {
           </div>
         </div>
 
-        {/* Upgrade to Guided Growth */}
-        <div className="bg-gradient-to-r from-indigo-600/15 to-blue-600/15 border border-indigo-600/30 rounded-xl p-8 mb-8">
-          <h2 className="text-2xl font-bold text-white mb-2">Ready to Accelerate?</h2>
-          <p className="text-slate-400 mb-6">
-            Upgrade to Guided Growth for 1-on-1 strategy calls, a dedicated growth strategist, and advanced AI features.
-          </p>
-          <Button
-            onClick={() => window.location.href = 'mailto:sales@newtechadvertising.com?subject=Upgrade to Guided Growth'}
-            className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-lg flex items-center gap-2"
-          >
-            Explore Guided Growth
-            <ArrowRight className="w-5 h-5" />
-          </Button>
+        {/* Pricing Ladder */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-white mb-6">Explore Your Options</h2>
+          <NTAPricingLadder
+            currentPlan="diy"
+            onSelectPlan={(planId) => {
+              if (planId === 'diy') {
+                // Already on DIY
+              } else if (planId === 'guided') {
+                window.location.href = 'mailto:sales@newtechadvertising.com?subject=Upgrade to Guided Growth';
+              } else if (planId === 'done-for-you') {
+                window.location.href = 'mailto:sales@newtechadvertising.com?subject=Explore Done-For-You';
+              } else if (planId === 'premium') {
+                window.location.href = 'mailto:sales@newtechadvertising.com?subject=Premium Authority Growth';
+              }
+            }}
+            showPhases={true}
+            compact={false}
+          />
         </div>
 
         {/* Cancel Subscription */}
