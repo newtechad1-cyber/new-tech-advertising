@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Plus, RefreshCw, Filter, Zap, Flame, TrendingUp, Users, ChevronDown } from 'lucide-react';
+import NTACommandNav from '@/components/nta-command/NTACommandNav';
 import { base44 } from '@/api/base44Client';
 import SFUKPIBar from '@/components/sales-followup/SFUKPIBar';
 import SFUSequenceCard from '@/components/sales-followup/SFUSequenceCard';
@@ -46,6 +47,7 @@ export default function NTASalesFollowUp() {
 
   return (
     <div className="min-h-screen bg-slate-50">
+      <NTACommandNav />
       {/* Header */}
       <div className="bg-white border-b border-slate-200 sticky top-0 z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
