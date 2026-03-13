@@ -64,7 +64,7 @@ export default function NTAProcess() {
         </div>
 
         <div className="mt-14 text-center">
-          <a href="#demo" className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-base font-black text-white bg-blue-600 hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/30 hover:-translate-y-0.5">
+          <a href="/book-call" className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-base font-black text-white bg-blue-600 hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/30 hover:-translate-y-0.5">
             Start With a Free Demo →
           </a>
           <p className="text-slate-400 text-sm mt-3">No commitment required. See the platform for your market before deciding.</p>
