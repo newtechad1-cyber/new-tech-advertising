@@ -96,6 +96,7 @@ import NTAAcquisitionCommand from './pages/NTAAcquisitionCommand';
 import AdminRetentionDashboard from './pages/AdminRetentionDashboard';
 import NTADemoFunnel from './pages/NTADemoFunnel';
 import AdminAIOperations from './pages/AdminAIOperations';
+import AdminDataGovernance from './pages/AdminDataGovernance';
 import GettingStarted from './pages/GettingStarted';
 import AdminHotProspectsAlert from './pages/AdminHotProspectsAlert';
 import ChannelHelpCenter from './pages/ChannelHelpCenter';
