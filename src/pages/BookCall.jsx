@@ -8,6 +8,8 @@ import BCWhyChooseNTA from '@/components/book-call/BCWhyChooseNTA';
 import BCFounderVideo from '@/components/book-call/BCFounderVideo';
 import BCFAQ from '@/components/book-call/BCFAQ';
 import BCBookingSection from '@/components/book-call/BCBookingSection';
+// Note: All components within /book-call use openSchedulingCalendar()
+// to open Google Calendar directly
 
 export default function BookCall() {
   return (
