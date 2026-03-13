@@ -132,6 +132,22 @@ export default function HelpAndSupport() {
 
       <div className="max-w-5xl mx-auto px-6 py-12">
 
+        {/* Getting Started Banner */}
+        <div className="mb-10 bg-gradient-to-r from-blue-900 to-cyan-900 border border-blue-700 rounded-2xl p-6 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-blue-600/30 rounded-xl flex items-center justify-center flex-shrink-0">
+              <Rocket className="w-6 h-6 text-blue-300" />
+            </div>
+            <div>
+              <p className="text-white font-bold text-lg">New to NTA? Start Here.</p>
+              <p className="text-blue-200 text-sm">Follow the Getting Started guide to connect your channels and complete your first 7-day checklist.</p>
+            </div>
+          </div>
+          <Link to="/getting-started" className="flex-shrink-0 inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold px-5 py-2.5 rounded-xl transition-colors">
+            Get Started <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+
         {/* Quick Nav */}
         <div className="flex flex-wrap gap-2 mb-12">
           {SECTIONS.map(s => (
