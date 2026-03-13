@@ -88,6 +88,7 @@ import NTAChannelHub from './pages/NTAChannelHub';
 import NTAResellerCommand from './pages/NTAResellerCommand';
 import NTAAIWorkforceOrchestrator from './pages/NTAAIWorkforceOrchestrator';
 import NTAHomepage from './pages/NTAHomepage';
+import NTADemoFunnel from './pages/NTADemoFunnel';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -214,6 +215,7 @@ const AuthenticatedApp = () => {
       <Route path="/nta/reseller-command" element={<LayoutWrapper currentPageName="NTAResellerCommand"><NTAResellerCommand /></LayoutWrapper>} />
       <Route path="/nta/ai-workforce" element={<LayoutWrapper currentPageName="NTAAIWorkforceOrchestrator"><NTAAIWorkforceOrchestrator /></LayoutWrapper>} />
       <Route path="/nta/home" element={<NTAHomepage />} />
+      <Route path="/nta/demo" element={<NTADemoFunnel />} />
       {/* Demo Flow */}
       <Route path="/demo/flow" element={<LayoutWrapper currentPageName="DemoFlow"><DemoFlow /></LayoutWrapper>} />
 
