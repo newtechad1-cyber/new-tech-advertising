@@ -101,6 +101,7 @@ import AdminAccessGovernance from './pages/AdminAccessGovernance';
 import AdminTenantGovernance from './pages/AdminTenantGovernance';
 import ResellerDashboard from './pages/ResellerDashboard';
 import AdminPageRegistry from './pages/AdminPageRegistry';
+import AdminWorkflows from './pages/AdminWorkflows';
 import GettingStarted from './pages/GettingStarted';
 import AdminHotProspectsAlert from './pages/AdminHotProspectsAlert';
 import ChannelHelpCenter from './pages/ChannelHelpCenter';
