@@ -221,7 +221,7 @@ export default function HVACTerritorialDashboard() {
         </div>
 
         {/* Territory Selector */}
-        <div className="grid md:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-4 gap-4">
           {campaign.campaigns?.map((terr, idx) => (
             <Button
               key={idx}
