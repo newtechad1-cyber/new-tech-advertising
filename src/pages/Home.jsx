@@ -15,6 +15,7 @@ import HomeFinalCta from '../components/home/HomeFinalCta';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import NTAGrowthGuideBot from '../components/nta-guide/NTAGrowthGuideBot';
+import BookCall from '../pages/BookCall';
 
 export default function Home() {
   return (
