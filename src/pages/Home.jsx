@@ -51,6 +51,7 @@ export default function Home() {
         <HomeFinalCta />
       </main>
       <SiteFooter />
+      <NTAGrowthGuideBot />
     </div>
   );
 }
