@@ -97,7 +97,6 @@ import AdminRetentionDashboard from './pages/AdminRetentionDashboard';
 import NTADemoFunnel from './pages/NTADemoFunnel';
 import GettingStarted from './pages/GettingStarted';
 import AdminHotProspectsAlert from './pages/AdminHotProspectsAlert';
-import AdminClientSuccess from './pages/AdminClientSuccess';
 import ChannelHelpCenter from './pages/ChannelHelpCenter';
 import BookCall from './pages/BookCall';
 import DIYGrowthSystemSales from './pages/DIYGrowthSystemSales';
