@@ -39,13 +39,15 @@ export default function FirstActionSuccessModal({
   isOpen,
   actionType,
   onClose,
-  onNextStep
+  onNextStep,
+  completedActions = []
 }) {
   if (!actionType || !ACTION_SUCCESS_CONFIG[actionType]) {
     return null;
   }
 
   const config = ACTION_SUCCESS_CONFIG[actionType];
+  const nextSuggestion = useNextStepSuggestion(completedActions);
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
