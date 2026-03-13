@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   ChevronDown, Zap, BarChart3, Globe, Shield, BookOpen, Lightbulb,
   Share2, Mail, Users, Image, Video, StickyNote, BrainCircuit,
   Settings, CalendarDays, Cpu, Tv, TrendingUp, Briefcase,
-  FileText, ShoppingBag, RefreshCw, MonitorPlay, MapPin, HelpCircle
+  FileText, ShoppingBag, RefreshCw, MonitorPlay, MapPin, HelpCircle, Rocket, ArrowRight
 } from 'lucide-react';
 
 const SECTIONS = [
