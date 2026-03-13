@@ -204,6 +204,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin/ai-orchestration" element={<LayoutWrapper currentPageName="AdminAIOrchestration"><AdminAIOrchestration /></LayoutWrapper>} />
       <Route path="/admin/ai-routing" element={<LayoutWrapper currentPageName="AdminAIRouting"><AdminAIRouting /></LayoutWrapper>} />
       <Route path="/admin/ai-growth-loops" element={<LayoutWrapper currentPageName="AdminAIGrowthLoops"><AdminAIGrowthLoops /></LayoutWrapper>} />
+      <Route path="/admin/ai-operations" element={<LayoutWrapper currentPageName="AdminAIOperations"><AdminAIOperations /></LayoutWrapper>} />
       <Route path="/admin/automation-rules" element={<LayoutWrapper currentPageName="AdminAutomationRules"><AdminAutomationRules /></LayoutWrapper>} />
       <Route path="/admin/automation-conditions" element={<LayoutWrapper currentPageName="AdminAutomationConditions"><AdminAutomationConditions /></LayoutWrapper>} />
       <Route path="/admin/automation-flows" element={<LayoutWrapper currentPageName="AdminAutomationFlows"><AdminAutomationFlows /></LayoutWrapper>} />
