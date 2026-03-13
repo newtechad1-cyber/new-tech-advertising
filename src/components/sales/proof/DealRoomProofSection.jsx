@@ -1,168 +1,133 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Loader2, Award, TrendingUp, Users, Zap } from 'lucide-react';
+import { Sparkles, Quote, TrendingUp } from 'lucide-react';
 
-const HIGHLIGHT_ICONS = {
-  growth_milestone: TrendingUp,
-  revenue_result: Award,
-  content_win: Zap,
-  lead_breakthrough: Users,
-  efficiency_gain: TrendingUp,
-  testimonial: Users
+const TYPE_ICONS = {
+  growth_milestone: '📈',
+  revenue_result: '💰',
+  content_win: '📝',
+  lead_breakthrough: '🎯',
+  efficiency_gain: '⚡',
+  testimonial: '💬'
 };
 
-const HIGHLIGHT_COLORS = {
-  growth_milestone: 'from-blue-50 to-blue-100 border-blue-200',
-  revenue_result: 'from-green-50 to-green-100 border-green-200',
-  content_win: 'from-purple-50 to-purple-100 border-purple-200',
-  lead_breakthrough: 'from-orange-50 to-orange-100 border-orange-200',
-  efficiency_gain: 'from-teal-50 to-teal-100 border-teal-200',
-  testimonial: 'from-pink-50 to-pink-100 border-pink-200'
+const TYPE_COLORS = {
+  growth_milestone: 'bg-green-100 text-green-900',
+  revenue_result: 'bg-purple-100 text-purple-900',
+  content_win: 'bg-blue-100 text-blue-900',
+  lead_breakthrough: 'bg-orange-100 text-orange-900',
+  efficiency_gain: 'bg-yellow-100 text-yellow-900',
+  testimonial: 'bg-pink-100 text-pink-900'
 };
 
-export default function DealRoomProofSection({ organizationId, title = 'Success Highlights' }) {
+export default function DealRoomProofSection({ organizationId }) {
   const [highlights, setHighlights] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadHighlights = async () => {
+    const fetchHighlights = async () => {
       try {
-        const approved = await base44.entities.SuccessHighlight.filter(
+        const data = await base44.entities.SuccessHighlight.filter(
           {
             organizationId,
             approvalStatus: 'approved',
-            dealRoomVisibility: 'public'
+            visibility: { $in: ['deal_room', 'all'] },
+            taggedForSales: true
           },
           '-createdAt',
           6
         );
-        setHighlights(approved || []);
+        setHighlights(data || []);
       } catch (error) {
-        console.error('Error loading highlights:', error);
+        console.error('Error fetching highlights:', error);
       } finally {
         setIsLoading(false);
       }
     };
 
     if (organizationId) {
-      loadHighlights();
+      fetchHighlights();
     }
   }, [organizationId]);
 
   if (isLoading) {
     return (
-      <div className="py-12 text-center">
-        <Loader2 className="w-6 h-6 animate-spin text-slate-400 mx-auto" />
-      </div>
+      <Card className="border border-slate-200">
+        <CardContent className="py-8 text-center text-slate-500">
+          Loading proof...
+        </CardContent>
+      </Card>
     );
   }
 
   if (!highlights || highlights.length === 0) {
-    return (
-      <div className="py-12 text-center">
-        <Award className="w-8 h-8 text-slate-300 mx-auto mb-3" />
-        <p className="text-slate-500">No success highlights yet</p>
-      </div>
-    );
+    return null;
   }
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-2xl font-bold text-slate-900 mb-2">{title}</h3>
-        <p className="text-slate-600">Real results from clients using our platform</p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {highlights.map((highlight) => (
-          <HighlightCard key={highlight.id} highlight={highlight} />
-        ))}
-      </div>
-
-      {/* Testimonial Placeholder Section */}
-      {highlights.some(h => h.testimonialPlaceholder) && (
-        <div className="border-t-2 border-slate-200 pt-6">
-          <h4 className="text-lg font-semibold text-slate-900 mb-4">Client Testimonials</h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {highlights
-              .filter(h => h.testimonialPlaceholder)
-              .map((highlight) => (
-                <TestimonialBlock key={highlight.id} highlight={highlight} />
-              ))}
-          </div>
+    <Card className="border-2 border-blue-200 bg-gradient-to-br from-slate-50 to-blue-50">
+      <CardHeader>
+        <div className="flex items-center gap-2">
+          <Sparkles className="w-5 h-5 text-blue-600" />
+          <CardTitle>Early Traction & Proof</CardTitle>
         </div>
-      )}
-    </div>
-  );
-}
+        <p className="text-sm text-slate-600 mt-2">
+          Real results from clients using our platform
+        </p>
+      </CardHeader>
 
-function HighlightCard({ highlight }) {
-  const Icon = HIGHLIGHT_ICONS[highlight.highlightType] || Award;
-  const colorClass = HIGHLIGHT_COLORS[highlight.highlightType];
-
-  const metrics = highlight.metrics ? JSON.parse(highlight.metrics) : {};
-
-  return (
-    <Card className={`border-2 bg-gradient-to-br ${colorClass}`}>
-      <CardContent className="p-4">
-        <div className="flex items-start gap-3">
-          <div className="flex-shrink-0 mt-1">
-            <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-white/60">
-              <Icon className="w-5 h-5 text-slate-700" />
-            </div>
-          </div>
-          <div className="flex-1">
-            <p className="text-sm font-semibold text-slate-900 mb-1">
-              {highlight.highlightLabel}
-            </p>
-            <p className="text-sm text-slate-700 leading-relaxed mb-2">
-              {highlight.summaryText}
-            </p>
-            {Object.keys(metrics).length > 0 && (
-              <div className="text-xs text-slate-600 space-y-1 mt-2">
-                {Object.entries(metrics).map(([key, value]) => (
-                  <div key={key} className="flex justify-between">
-                    <span className="capitalize">{key.replace(/_/g, ' ')}:</span>
-                    <span className="font-semibold text-slate-900">
-                      {typeof value === 'number' ? (key.includes('score') ? `${value}/100` : value) : value}
-                    </span>
-                  </div>
-                ))}
+      <CardContent>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {highlights.map((highlight) => (
+            <div
+              key={highlight.id}
+              className="bg-white rounded-lg border border-slate-200 p-4 hover:shadow-md transition space-y-3"
+            >
+              {/* Type + Industry */}
+              <div className="flex items-center gap-2 flex-wrap">
+                <Badge className={TYPE_COLORS[highlight.highlightType]}>
+                  {TYPE_ICONS[highlight.highlightType]}{' '}
+                  {highlight.highlightType.replace(/_/g, ' ')}
+                </Badge>
+                {highlight.industry && (
+                  <Badge variant="outline" className="text-xs">
+                    {highlight.industry}
+                  </Badge>
+                )}
               </div>
-            )}
-          </div>
+
+              {/* Summary */}
+              <p className="text-sm font-medium text-slate-900 leading-relaxed">
+                {highlight.summaryText}
+              </p>
+
+              {/* Metric */}
+              {highlight.metricReference && (
+                <div className="flex items-center gap-2 text-sm font-semibold text-slate-700 bg-slate-50 p-2 rounded">
+                  <TrendingUp className="w-4 h-4 text-green-600" />
+                  {highlight.metricReference}
+                </div>
+              )}
+
+              {/* Testimonial */}
+              {highlight.testimonialQuote && (
+                <div className="border-l-4 border-blue-300 bg-blue-50 p-3 rounded text-sm italic text-slate-700">
+                  <Quote className="w-3 h-3 text-blue-400 mb-1" />
+                  "{highlight.testimonialQuote}"
+                </div>
+              )}
+            </div>
+          ))}
         </div>
-      </CardContent>
-    </Card>
-  );
-}
 
-function TestimonialBlock({ highlight }) {
-  return (
-    <Card className="border-2 border-pink-200 bg-gradient-to-br from-pink-50 to-pink-100">
-      <CardContent className="p-4">
-        <div className="space-y-3">
-          {highlight.testimonialText ? (
-            <>
-              <p className="italic text-slate-700">"{highlight.testimonialText}"</p>
-              <div className="text-sm">
-                <p className="font-semibold text-slate-900">{highlight.attributionName}</p>
-                <p className="text-slate-600">{highlight.attributionTitle}</p>
-              </div>
-            </>
-          ) : (
-            <div className="text-center py-6">
-              <Badge variant="outline" className="mb-3">Testimonial Block</Badge>
-              <p className="text-sm text-slate-600">
-                {highlight.highlightLabel || 'Client Success Story'}
-              </p>
-              <p className="text-xs text-slate-500 mt-2">
-                Customize with client quote and details
-              </p>
-            </div>
-          )}
+        {/* Footer */}
+        <div className="mt-6 pt-4 border-t border-slate-200 text-center text-sm text-slate-600">
+          <p>
+            These are just a few of the wins our clients are seeing. Let's build
+            your success story next.
+          </p>
         </div>
       </CardContent>
     </Card>
