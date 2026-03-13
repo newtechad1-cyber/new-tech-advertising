@@ -85,7 +85,7 @@ export default function NTAPricing() {
                   ))}
                 </ul>
 
-                <a href="#demo" className={`block w-full text-center py-3 rounded-xl text-sm font-black transition-all ${
+                <a href="/book-call" className={`block w-full text-center py-3 rounded-xl text-sm font-black transition-all ${
                   plan.popular
                     ? 'bg-white text-blue-600 hover:bg-blue-50 shadow-lg'
                     : 'bg-slate-900 text-white hover:bg-slate-800'
