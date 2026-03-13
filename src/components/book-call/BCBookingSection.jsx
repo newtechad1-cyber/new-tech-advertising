@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight, Clock, CheckCircle } from 'lucide-react';
-import { openSchedulingCalendar } from '@/components/config/bookingConfig';
+import { openSchedulingCalendar, BOOKING_EXTERNAL_URL } from '@/components/config/bookingConfig';
 
 export default function BCBookingSection() {
   return (
