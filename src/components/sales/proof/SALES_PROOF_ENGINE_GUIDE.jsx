@@ -1,199 +1,320 @@
 # NTA Sales Proof + Case Study Engine
-## Implementation & Usage Guide
 
 ---
 
 ## Overview
-Lightweight engine to auto-generate success highlights from growth metrics and display them in deal rooms. No manual case study writing required—highlights are extracted directly from real performance data.
+
+Lightweight system to create, manage, and display early traction proof across deal rooms and upgrade panels. Increases conversion confidence through real client wins.
+
+**Goal:** Show prospective clients that others (similar industry) are already seeing results.
+
+**Files:**
+- Entity: `SuccessHighlight.json`
+- Admin UI: `AdminHighlightCreator.jsx`, `AdminHighlightManager.jsx`
+- Display: `DealRoomProofSection.jsx`, `UpgradeProofCard.jsx`
 
 ---
 
-## Data Model
+## Data Model: SuccessHighlight
 
-### SuccessHighlight Entity
-**Location:** `entities/SuccessHighlight.json`
+**Fields:**
 
-**Core Fields:**
+| Field | Type | Description |
+|-------|------|-------------|
+| `highlightId` | string | Unique identifier |
+| `organizationId` | string | Organization this proof is for |
+| `highlightType` | enum | growth_milestone, revenue_result, content_win, lead_breakthrough, efficiency_gain, testimonial |
+| `industry` | string | Industry tag (HVAC, SaaS, Local Services, etc.) |
+| `summaryText` | string | Short 1-2 sentence win (50-150 chars) |
+| `metricReference` | string | "45% growth", "120 leads", "$50K revenue" |
+| `testimonialQuote` | string | Optional client quote |
+| `approvalStatus` | enum | draft, pending_review, approved, rejected |
+| `visibility` | enum | internal, deal_room, upgrade_panels, all |
+| `taggedForSales` | boolean | Admin flagged for active sales use |
+| `createdAt` | date-time | When created |
+
+**Example:**
 ```javascript
 {
-  highlightId: string,           // Unique ID
-  organizationId: string,        // Client/org reference
-  highlightType: enum,           // growth_milestone | revenue_result | content_win | lead_breakthrough | efficiency_gain | testimonial
-  summaryText: string,           // 1-2 sentence proof point (50-150 chars)
-  metricSnapshotId: string,      // Reference to GrowthMetricsSnapshot
-  metrics: JSON,                 // Actual metrics displayed {growthScore: 75, leads: 12, etc}
-  highlightLabel: string,        // Short label "3x Growth", "Q1 Results", "150% ROI"
-  approvalStatus: enum,          // draft | pending_review | approved | rejected | archived
-  taggedForSales: boolean,       // Ready for deal rooms
-  dealRoomVisibility: enum,      // public | private | draft
-  testimonialPlaceholder: boolean, // If true, needs manual review/quote
-  testimonialText: string,       // Optional quote
-  attributionName: string,       // Contact name
-  attributionTitle: string,      // Contact title
-  createdAt: date,               // When generated
-  createdBy: string              // User email
+  highlightId: 'highlight_1710432000000',
+  organizationId: 'org_hvac_demo',
+  highlightType: 'lead_breakthrough',
+  industry: 'HVAC',
+  summaryText: 'HVAC company 3x qualified leads in first month using content engine',
+  metricReference: '120 new leads',
+  testimonialQuote: 'Best platform weve tried for local HVAC marketing',
+  approvalStatus: 'approved',
+  visibility: 'deal_room',
+  taggedForSales: true,
+  createdAt: '2026-03-13T10:00:00Z'
 }
 ```
 
 ---
 
-## Admin Workflow
+## Component 1: AdminHighlightCreator
 
-### 1. Generate Highlights from Metrics
-**Function:** `functions/generateSalesProof.js`
+**File:** `components/sales/proof/AdminHighlightCreator.jsx`
+
+Creates a new success highlight manually.
 
 **Usage:**
-```javascript
-const response = await base44.functions.invoke('generateSalesProof', {
-  organizationId: 'org_123',
-  metricSnapshotId: 'snapshot_456'
-});
-
-// Response:
-// {
-//   success: true,
-//   generated: 3,
-//   highlights: [
-//     { id: '...', type: 'revenue_result', summary: '...', label: '2 Deals Won' },
-//     { id: '...', type: 'growth_milestone', summary: '...', label: '78/100 Growth' },
-//     { id: '...', type: 'lead_breakthrough', summary: '...', label: '12 Leads' }
-//   ]
-// }
-```
-
-**What It Generates (if metrics qualify):**
-- **Growth Score > 70** → Growth Milestone highlight
-- **Deals Closed > 0** → Revenue Result highlight
-- **Leads > 8** → Lead Breakthrough highlight
-- **Content Published > 5** → Content Win highlight
-- **Momentum > 70** → Efficiency Gain highlight
-
-**Auto-Generated Summary Examples:**
-- "Achieved 78/100 growth score through consistent content execution and lead capture"
-- "Closed 2 revenue deals directly from marketing efforts"
-- "Generated 12 qualified leads through strategic content and visibility initiatives"
-- "Published 8 pieces of strategic content driving visibility and engagement"
-- "Achieved 75/100 momentum score with accelerating week-over-week growth"
-
-### 2. Admin Approval Component
-**Component:** `components/sales/proof/AdminSalesProofGenerator.jsx`
-
-**Props:**
 ```jsx
-<AdminSalesProofGenerator 
-  organizationId="org_123"
-  onGenerated={(highlights) => {
-    // Handle generated highlights
+<AdminHighlightCreator
+  organizationId="org_hvac_demo"
+  onSuccess={() => {
+    // Refresh list or show confirmation
   }}
 />
 ```
 
 **Features:**
-- Displays latest metrics (growth, momentum, leads, deals, content, revenue)
-- "Generate Sales Highlights" button calls backend function
-- Shows generated highlights in pending state
-- "Approve" button per highlight to tag for sales
-- Approved highlights become public in deal rooms
+- Form for all highlight fields
+- Live preview as user types
+- Type selector with emoji labels
+- Industry field (optional)
+- Visibility dropdown
+- Sales tagging checkbox
+- Disabled until summary provided
 
-**Admin Flow:**
-1. Admin navigates to organization
-2. Clicks "Generate Sales Highlights"
-3. System analyzes latest GrowthMetricsSnapshot
-4. Creates 1-5 proof highlights
-5. Admin reviews each highlight's summary & label
-6. Approves to make public for deal rooms
+**Form Layout:**
+```
+┌────────────────────────────────┐
+│ + Add Success Highlight        │
+└────────────────────────────────┘
+
+[Opens Form]
+
+┌────────────────────────────────┐
+│ ✨ Create Success Highlight   │
+├────────────────────────────────┤
+│ Highlight Type: [📈 Growth... ▼│
+│ Industry: [HVAC        ]       │
+│ Summary: [Short 1-2 sent... ]  │
+│          [Max 150 chars]        │
+│ Metric: [45% growth, 120 led..│
+│ Testimonial: [Quote optional..]│
+│ Where: [Deal Room    ▼]        │
+│ ☑ Tag for active sales        │
+│                                │
+│ [Preview]                      │
+│ 📈 Growth Milestone | HVAC     │
+│ HVAC company 3x leads...       │
+│ 120 new leads                  │
+│                                │
+│ [Cancel] [Create Highlight]   │
+└────────────────────────────────┘
+```
 
 ---
 
-## Deal Room Display
+## Component 2: AdminHighlightManager
 
-### DealRoomProofSection Component
-**Location:** `components/sales/proof/DealRoomProofSection.jsx`
+**File:** `components/sales/proof/AdminHighlightManager.jsx`
 
-**Props:**
+Displays all highlights for an organization with approval workflow.
+
+**Usage:**
 ```jsx
-<DealRoomProofSection 
-  organizationId="org_123"
-  title="Success Highlights"  // Optional, defaults to "Success Highlights"
+<AdminHighlightManager organizationId="org_hvac_demo" />
+```
+
+**Features:**
+- Table view of all highlights
+- Status: draft, pending_review, approved, rejected
+- Visibility indicators (internal/deal_room/upgrade_panels)
+- Sales tag toggle
+- Approve/Reject buttons (for draft)
+- Delete button
+- Hover effects
+
+**Table Columns:**
+| Summary | Type | Status | Visibility | Sales Tagged | Actions |
+|---------|------|--------|------------|--------------|---------|
+| HVAC company 3x leads... | Growth M. | approved | deal_room | ✓ | Tag Reject Delete |
+
+**Action Buttons:**
+- **Approve** (appears on draft) → moves to approved
+- **Reject** (appears on draft) → marks as rejected
+- **Tag/Untag** → toggles `taggedForSales`
+- **Delete** → removes highlight
+
+---
+
+## Component 3: DealRoomProofSection
+
+**File:** `components/sales/proof/DealRoomProofSection.jsx`
+
+Displays proof in deal room for prospect viewing.
+
+**Usage:**
+```jsx
+<DealRoomProofSection organizationId="org_prospect" />
+```
+
+**Features:**
+- Fetches approved, tagged highlights for deal_room visibility
+- Shows 6 max per section
+- Color-coded by type
+- Shows industry tag
+- Displays metric with trending icon
+- Testimonial in blockquote style
+- Footer message encouraging prospect
+
+**Display:**
+```
+┌────────────────────────────────────────┐
+│ ✨ Early Traction & Proof              │
+│ Real results from clients...            │
+├────────────────────────────────────────┤
+│ ┌──────────────┐ ┌──────────────┐ ... │
+│ │ 📈 Growth M. │ │ 💰 Revenue   │     │
+│ │ HVAC         │ │ SaaS         │     │
+│ │ HVAC 3x...   │ │ B2B SaaS...  │     │
+│ │ 120 leads    │ │ $50K revenue │     │
+│ └──────────────┘ └──────────────┘     │
+│                                        │
+│ Real results. Let's build yours next. │
+└────────────────────────────────────────┘
+```
+
+**Filters:**
+- Only approved highlights
+- Only visibility: deal_room or all
+- Only tagged for sales (taggedForSales: true)
+- Shows up to 6
+
+---
+
+## Component 4: UpgradeProofCard
+
+**File:** `components/pricing/UpgradeProofCard.jsx`
+
+Lightweight proof cards for upgrade panels.
+
+**Usage:**
+```jsx
+// Show 2 success stories in upgrade panel
+<UpgradeProofCard
+  organizationId="org_diy_user"
+  filterByIndustry="HVAC"  // Optional
+  filterByType="growth_milestone"  // Optional
+  maxCards={2}
 />
 ```
 
-**Displays:**
-- Hero section with title + subtitle
-- 2-column grid of highlight cards (up to 6)
-- Color-coded by highlight type:
-  - Growth Milestone: Blue
-  - Revenue Result: Green
-  - Content Win: Purple
-  - Lead Breakthrough: Orange
-  - Efficiency Gain: Teal
-  - Testimonial: Pink
-- Icon per type
-- Label, summary text, metrics
-- Optional testimonial placeholder blocks
+**Features:**
+- Compact card design for sidebars
+- Filters by industry or type (optional)
+- Shows 1-2 cards max
+- Includes metric + short testimonial
+- Returns null if no relevant highlights
 
-**Example Layout:**
+**Display:**
 ```
-┌─────────────────────────────┐
-│    Success Highlights       │
-│  Real results from clients  │
-├─────────────────────────────┤
-│ ┌──────────────┬──────────┐ │
-│ │ 78/100 Growth│Deals Won │ │
-│ │ Achieved 78/ │ Closed 2 │ │
-│ │ through cons…│ revenue… │ │
-│ ├──────────────┼──────────┤ │
-│ │ 12 Leads     │  Momentum│ │
-│ │ Generated 12 │Achieved…│ │
-│ │ qualified…   │  75/100 │ │
-│ └──────────────┴──────────┘ │
-│  Client Testimonials       │
-│  [Placeholder blocks]      │
-└─────────────────────────────┘
+✨ Success Stories
+┌─────────────────────┐
+│ Growth Milestone    │
+│ HVAC               │
+│ HVAC 3x leads...   │
+│ 📈 120 new leads   │
+│ "Best platform..." │
+└─────────────────────┘
+```
+
+**Props:**
+```javascript
+{
+  organizationId: string,        // Required
+  filterByIndustry: string,      // Optional: filter to industry
+  filterByType: string,          // Optional: filter to highlight type
+  maxCards: number               // Default: 2
+}
 ```
 
 ---
 
-## Usage Examples
+## Integration Examples
 
-### In Admin Dashboard
+### 1. Add to Deal Room Page
+
 ```jsx
-// Add to AdminClientDetail or similar
-import AdminSalesProofGenerator from '@/components/sales/proof/AdminSalesProofGenerator';
-
-export default function AdminClientDetail({ organizationId }) {
-  return (
-    <div className="space-y-6">
-      {/* Other admin panels */}
-      <AdminSalesProofGenerator 
-        organizationId={organizationId}
-        onGenerated={(highlights) => {
-          console.log('New highlights created');
-        }}
-      />
-    </div>
-  );
-}
-```
-
-### In Deal Room
-```jsx
-// Add to DealRoom or similar
 import DealRoomProofSection from '@/components/sales/proof/DealRoomProofSection';
 
-export default function DealRoom({ organizationId }) {
+export default function DealRoom() {
+  const prospectOrgId = 'org_prospect';
+
   return (
-    <div className="space-y-12">
-      <DealRoomHero />
-      <DealRoomStrategy />
+    <div className="space-y-8">
+      {/* ... other deal room sections ... */}
       
-      {/* Proof section */}
-      <DealRoomProofSection 
-        organizationId={organizationId}
-        title="Our Success Stories"
+      {/* Add proof section mid-deal room */}
+      <DealRoomProofSection organizationId={prospectOrgId} />
+      
+      {/* ... continue with pricing, CTA, etc ... */}
+    </div>
+  );
+}
+```
+
+### 2. Add to Upgrade Panel
+
+```jsx
+import UpgradeProofCard from '@/components/pricing/UpgradeProofCard';
+
+export default function UpgradePricing() {
+  const currentUser = await base44.auth.me();
+  const userOrg = await fetchUserOrganization(currentUser.id);
+
+  return (
+    <div className="space-y-6">
+      <h2>Upgrade Your Plan</h2>
+      
+      {/* Pricing options */}
+      {PLAN_OPTIONS.map(plan => (
+        <div key={plan.id} className="p-4 border rounded">
+          <h3>{plan.name}</h3>
+          <p>{plan.description}</p>
+          
+          {/* Show 1-2 relevant success stories */}
+          <UpgradeProofCard
+            organizationId={userOrg.id}
+            filterByIndustry={userOrg.industry}
+            maxCards={1}
+          />
+          
+          <Button>Upgrade</Button>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+### 3. Admin Dashboard Usage
+
+```jsx
+import AdminHighlightCreator from '@/components/sales/proof/AdminHighlightCreator';
+import AdminHighlightManager from '@/components/sales/proof/AdminHighlightManager';
+
+export default function AdminSalesProof() {
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  return (
+    <div className="space-y-6">
+      <h1>Sales Proof Management</h1>
+      
+      {/* Create new highlight */}
+      <AdminHighlightCreator
+        organizationId="org_company"
+        onSuccess={() => setRefreshKey(prev => prev + 1)}
       />
       
-      <DealRoomPricing />
+      {/* Manage all highlights */}
+      <AdminHighlightManager
+        key={refreshKey}
+        organizationId="org_company"
+      />
     </div>
   );
 }
@@ -201,129 +322,112 @@ export default function DealRoom({ organizationId }) {
 
 ---
 
-## Highlights Generation Logic
+## Workflow: Creating a Success Highlight
 
-### Growth Milestone (Priority 1)
-**Trigger:** `growthScore > 70`
-- **Label:** "{growthScore}/100 Growth"
-- **Summary:** "Achieved {growthScore}/100 growth score through consistent content execution and lead capture"
-- **Metrics shown:** growthScore, period
-
-### Revenue Result (Priority 2)
-**Trigger:** `dealsClosedCount > 0`
-- **Label:** "{dealsClosedCount} Deal{s} Won"
-- **Summary:** "Closed {count} revenue deal(s) directly from marketing efforts"
-- **Metrics shown:** dealsClosedCount, revenueAttributed
-
-### Lead Breakthrough (Priority 3)
-**Trigger:** `leadsLoggedCount > 8`
-- **Label:** "{leadsLoggedCount} Leads"
-- **Summary:** "Generated {count} qualified leads through strategic content and visibility initiatives"
-- **Metrics shown:** leadsLoggedCount
-
-### Content Win (Priority 4)
-**Trigger:** `contentPublishedCount > 5`
-- **Label:** "{contentPublishedCount} Content Pieces"
-- **Summary:** "Published {count} pieces of strategic content driving visibility and engagement"
-- **Metrics shown:** contentPublishedCount, videosCreatedCount
-
-### Efficiency Gain (Priority 5)
-**Trigger:** `momentumScore > 70`
-- **Label:** "{momentumScore}/100 Momentum"
-- **Summary:** "Achieved {momentumScore}/100 momentum score with accelerating week-over-week growth"
-- **Metrics shown:** momentumScore
-
----
-
-## Workflow States
-
-### Draft
-- Auto-generated highlights start here
-- Not visible anywhere
-- Ready for admin review
-
-### Pending Review
-- Initial state after generation
-- Admin can approve or reject
-- Visible only to admin
-
-### Approved
-- Ready for deal rooms
-- Marked with `taggedForSales: true`
-- `dealRoomVisibility: 'public'` = shows in DealRoomProofSection
-
-### Rejected
-- Admin rejected the highlight
-- Hidden from public view
-- Can be re-generated if metrics change
-
-### Archived
-- Manually archived by admin
-- Hidden from all views
-
----
-
-## Testimonial Placeholders
-
-Create manual testimonial proof points:
-
-```javascript
-// Create placeholder
-await base44.entities.SuccessHighlight.create({
-  highlightId: crypto.randomUUID(),
-  organizationId: 'org_123',
-  highlightType: 'testimonial',
-  summaryText: 'Client feedback placeholder',
-  approvalStatus: 'approved',
-  taggedForSales: true,
-  dealRoomVisibility: 'public',
-  testimonialPlaceholder: true,
-  highlightLabel: 'Client Success'
-  // testimonialText: 'We increased leads by...' (fill in manually)
-  // attributionName: 'John Doe'
-  // attributionTitle: 'Marketing Manager'
-});
+**Step 1: Admin creates highlight**
+```
+Admin clicks "Add Success Highlight"
+→ Form opens with fields for:
+  - Type (growth, revenue, content, lead, efficiency, testimonial)
+  - Industry (optional)
+  - Summary (1-2 sentence win)
+  - Metric (e.g., "45% growth")
+  - Testimonial (optional quote)
+  - Visibility (internal, deal_room, upgrade_panels, all)
+  - Sales tag checkbox
 ```
 
-Deal room will show placeholder block until testimonialText is filled.
+**Step 2: Admin submits**
+```
+Form validates (summary required)
+→ SuccessHighlight created with:
+  - approvalStatus: 'draft'
+  - taggedForSales: false by default
+→ Appears in AdminHighlightManager
+```
+
+**Step 3: Admin approves & tags**
+```
+Admin reviews in manager table
+→ Clicks "Approve" (sets approvalStatus: 'approved')
+→ Clicks "Tag" (sets taggedForSales: true)
+→ Now visible in deal rooms & upgrade panels
+```
+
+**Step 4: Displays in sales contexts**
+```
+- DealRoomProofSection fetches & displays
+- UpgradeProofCard shows on upgrade flows
+- Filtered by visibility + approval + sales tag
+```
 
 ---
 
-## Best Practices
+## Analytics & Metrics
+
+**Track these events:**
+```javascript
+// When admin creates highlight
+admin_highlight_created
+→ Properties: { type, visibility }
+
+// When admin approves
+admin_highlight_approved
+→ Properties: { visibility }
+
+// When prospect views deal room with proof
+deal_room_proof_viewed
+→ Properties: { highlight_count }
+```
+
+---
+
+## UX Best Practices
 
 ✅ **DO:**
-- Generate highlights monthly from latest metrics
-- Approve highlights that are specific & measurable
-- Update testimonial fields when client quote available
-- Archive old highlights (> 6 months)
-- Show 4-6 highlights in deal rooms (not overwhelming)
+- Show real, specific results (not vague claims)
+- Include industry tags for relevance
+- Tag highlights after admin review (approval flow)
+- Show 3-6 proof cards in deal room (not overwhelming)
+- Use industry-relevant highlights in upgrade upsells
+- Include one testimonial highlight per section
 
 ❌ **DON'T:**
-- Show unqualified highlights (approval required first)
-- Mix old metrics (monthly refresh recommended)
-- Show all highlights (curate to strongest 4-6)
-- Manually write summaries (use auto-generation)
+- Show unapproved highlights
+- Display same highlight everywhere (vary by section)
+- Make testimonials generic or unclear
+- Overload pages with too many proof points
+- Skip admin approval workflow
 
 ---
 
-## Future Enhancements
+## Customization
 
-1. **Highlight Curation**
-   - Allow admin to reorder/hide specific highlights
-   - Track which highlights drive highest conversion
+### Change visibility options:
+Edit `VISIBILITY_OPTIONS` in `AdminHighlightCreator.jsx`
 
-2. **Testimonial Automation**
-   - Send review request to client when highlight approved
-   - Auto-update testimonialText from response
+### Add new highlight types:
+Edit `HIGHLIGHT_TYPES` in `AdminHighlightCreator.jsx`
+Edit `TYPE_ICONS` and `TYPE_COLORS` in `DealRoomProofSection.jsx`
 
-3. **Variant Testing**
-   - Test different summary wordings
-   - Measure which converts better
+### Change card styling:
+Modify grid/card classes in `DealRoomProofSection.jsx` or `UpgradeProofCard.jsx`
 
-4. **Competitive Positioning**
-   - Show industry benchmarks alongside metrics
-   - "78/100 growth (90th percentile in {industry})"
+### Adjust fetch limits:
+Change `maxCards` prop defaults in component calls
 
-5. **Video Proof Points**
-   - Link to client video testimonials
-   - Auto-transcribe for text proof points
+---
+
+## Testing Checklist
+
+- [ ] Create highlight with all fields
+- [ ] Create highlight with minimal fields (summary + type only)
+- [ ] Approve/reject highlight in manager
+- [ ] Tag/untag highlight
+- [ ] Delete highlight
+- [ ] Verify approved highlights show in deal room
+- [ ] Filter highlights by industry
+- [ ] Show max 2 cards in upgrade panel
+- [ ] Testimonial displays correctly
+- [ ] Metric displays with icon
+- [ ] Analytics events fire
