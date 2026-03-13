@@ -15,6 +15,20 @@ const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/pub
 // ── Admin navigation — canonical /admin route ──────────────────────────────────
 const NAV_GROUPS = [
   {
+    label: '⚡ NTA Command',
+    items: [
+      { label: '🗺️ Operator Command', icon: LayoutDashboard, href: '/nta/operator-command' },
+      { label: '🚀 Onboarding Center', icon: CheckSquare, href: '/nta/onboarding' },
+      { label: '📡 Channel Hub', icon: Share2, href: '/nta/channels' },
+      { label: '🤖 AI Workforce', icon: Bot, href: '/nta/ai-workforce' },
+      { label: '💼 Sales Follow-Up', icon: Target, href: '/nta/sales-followup' },
+      { label: '💰 Pricing Stack', icon: CreditCard, href: '/nta/pricing-stack' },
+      { label: '🎯 Acquisition', icon: Zap, href: '/nta/acquisition-command' },
+      { label: '🏢 Reseller Command', icon: Users, href: '/nta/reseller-command' },
+      { label: '🤝 Deal Room', icon: Briefcase, href: '/nta/deal-room' },
+    ],
+  },
+  {
     label: 'Executive',
     items: [
       { label: '🗼 Control Tower', icon: Cpu, page: 'AdminControlTower' },

@@ -192,6 +192,19 @@ export const PAGE_FAMILY_MAP = {
   // Pages should link to ClientDashboard explicitly.
   Dashboard:                     'client_portal', // DEPRECATED — use ClientDashboard
 
+  // ─── NTA COMMAND (internal ops — no admin shell, NTACommandNav) ──────────
+  NTAOperatorCommand:            'main_admin',
+  NTAOnboardingCenter:           'main_admin',
+  NTAChannelHub:                 'main_admin',
+  NTAAIWorkforceOrchestrator:    'main_admin',
+  NTASalesFollowUp:              'main_admin',
+  NTAPricingStack:               'main_admin',
+  NTAAcquisitionCommand:         'main_admin',
+  NTAResellerCommand:            'main_admin',
+  NTADealRoom:                   'main_admin',
+  NTADemoFunnel:                 'main_admin',
+  NTAHomepage:                   'main_admin',
+
   // ─── PUBLIC SITE ──────────────────────────────────────────────────────────
   Home:                          'public',        // /
   About:                         'public',        // /about
@@ -345,6 +358,20 @@ export const CANONICAL_ROUTE_MAP = {
   '/adminsupport':                  { page: 'AdminHelp',               family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'live'    },
   '/admincontentmultiplier':        { page: 'AdminContentMultiplier',  family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'live'    },
   '/adminqa/navigation':            { page: 'AdminNavigationQA',       family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'internal' },
+
+  // ── NTA COMMAND ──────────────────────────────────────────────────────────
+  '/nta/operator-command':       { page: 'NTAOperatorCommand',         family: 'main_admin', layout: 'NTACommandNav+LayoutWrapper', nav: 'NTACommandNav', status: 'live' },
+  '/nta/onboarding':             { page: 'NTAOnboardingCenter',        family: 'main_admin', layout: 'NTACommandNav+LayoutWrapper', nav: 'NTACommandNav', status: 'live' },
+  '/nta/channels':               { page: 'NTAChannelHub',              family: 'main_admin', layout: 'NTACommandNav+LayoutWrapper', nav: 'NTACommandNav', status: 'live' },
+  '/nta/ai-workforce':           { page: 'NTAAIWorkforceOrchestrator', family: 'main_admin', layout: 'NTACommandNav+LayoutWrapper', nav: 'NTACommandNav', status: 'live' },
+  '/nta/sales-followup':         { page: 'NTASalesFollowUp',           family: 'main_admin', layout: 'NTACommandNav+LayoutWrapper', nav: 'NTACommandNav', status: 'live' },
+  '/nta/pricing-stack':          { page: 'NTAPricingStack',            family: 'main_admin', layout: 'NTACommandNav+LayoutWrapper', nav: 'NTACommandNav', status: 'live' },
+  '/nta/acquisition-command':    { page: 'NTAAcquisitionCommand',      family: 'main_admin', layout: 'NTACommandNav+LayoutWrapper', nav: 'NTACommandNav', status: 'live' },
+  '/nta/reseller-command':       { page: 'NTAResellerCommand',         family: 'main_admin', layout: 'NTACommandNav+LayoutWrapper', nav: 'NTACommandNav', status: 'live' },
+  '/nta/deal-room':              { page: 'NTADealRoom',                family: 'main_admin', layout: 'NTACommandNav+LayoutWrapper', nav: 'NTACommandNav', status: 'live' },
+  '/nta/demo':                   { page: 'NTADemoFunnel',              family: 'main_admin', layout: 'none (bare)',                 nav: 'none',          status: 'live' },
+  '/nta/home':                   { page: 'NTAHomepage',                family: 'main_admin', layout: 'none (bare)',                 nav: 'none',          status: 'live' },
+  '/nta':                        { page: null,                         family: 'main_admin', layout: 'redirect',                   nav: 'none',          status: 'redirect→/nta/operator-command' },
 
   // ── SCHOOL ADMIN ─────────────────────────────────────────────────────────
   '/adminschooldashboard':          { page: 'AdminSchoolDashboard',    family: 'school_admin',  layout: 'AdminLayout/AdminShell', nav: 'AdminSidebar(school)', status: 'live' },
