@@ -96,6 +96,7 @@ import NTAAcquisitionCommand from './pages/NTAAcquisitionCommand';
 import AdminRetentionDashboard from './pages/AdminRetentionDashboard';
 import NTADemoFunnel from './pages/NTADemoFunnel';
 import GettingStarted from './pages/GettingStarted';
+import AdminHotProspectsAlert from './pages/AdminHotProspectsAlert';
 import ChannelHelpCenter from './pages/ChannelHelpCenter';
 import BookCall from './pages/BookCall';
 import DIYGrowthSystemSales from './pages/DIYGrowthSystemSales';
@@ -242,6 +243,7 @@ const AuthenticatedApp = () => {
       <Route path="/getting-started" element={<LayoutWrapper currentPageName="GettingStarted"><GettingStarted /></LayoutWrapper>} />
       <Route path="/channel-help" element={<LayoutWrapper currentPageName="ChannelHelpCenter"><ChannelHelpCenter /></LayoutWrapper>} />
       <Route path="/book-call" element={<LayoutWrapper currentPageName="BookCall"><BookCall /></LayoutWrapper>} />
+      <Route path="/admin/hot-prospects" element={<LayoutWrapper currentPageName="AdminHotProspectsAlert"><AdminHotProspectsAlert /></LayoutWrapper>} />
       <Route path="/nta/diy-growth-system" element={<LayoutWrapper currentPageName="DIYGrowthSystemSales"><DIYGrowthSystemSales /></LayoutWrapper>} />
       <Route path="/nta/pricing-ladder" element={<LayoutWrapper currentPageName="NTAPricingLadderPage"><NTAPricingLadderPage /></LayoutWrapper>} />
       <Route path="/client/diy-onboarding" element={<LayoutWrapper currentPageName="DIYOnboarding"><DIYOnboarding /></LayoutWrapper>} />
