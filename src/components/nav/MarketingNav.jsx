@@ -237,13 +237,25 @@ export default function MarketingNav() {
             >
               Start Free Trial
             </Link>
-            <Link
-              to={createPageUrl('Book-Call')}
-              onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-center w-full bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold py-3 rounded-xl transition-all"
-            >
-              Book a Strategy Call
-            </Link>
+            {BOOKING_IS_EXTERNAL ? (
+              <a
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center justify-center w-full bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold py-3 rounded-xl transition-all"
+              >
+                Book a Strategy Call
+              </a>
+            ) : (
+              <Link
+                to={BOOKING_URL}
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center justify-center w-full bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold py-3 rounded-xl transition-all"
+              >
+                Book a Strategy Call
+              </Link>
+            )}
             <Link
               to={createPageUrl('ClientDashboard')}
               onClick={() => setMobileOpen(false)}
