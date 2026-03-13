@@ -30,7 +30,7 @@ export default function AdminSalesProofGenerator({ organizationId, onGenerated }
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const loadLatestSnapshot = async () => {
       try {
         setIsLoading(true);
