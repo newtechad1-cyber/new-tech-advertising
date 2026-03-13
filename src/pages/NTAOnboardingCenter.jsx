@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { format } from 'date-fns';
 import { Loader2, Shield, Users, ChevronDown } from 'lucide-react';
+import NTACommandNav from '@/components/nta-command/NTACommandNav';
 import OBHeader from '@/components/onboarding-cmd/OBHeader';
 import OBProgressTracker from '@/components/onboarding-cmd/OBProgressTracker';
 import OBClientChecklist from '@/components/onboarding-cmd/OBClientChecklist';

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Loader2, ArrowLeft, Bell } from 'lucide-react';
+import NTACommandNav from '@/components/nta-command/NTACommandNav';
 import CHPlatformCard from '@/components/channel-hub/CHPlatformCard';
 import CHConnectionWizard from '@/components/channel-hub/CHConnectionWizard';
 import CHTikTokFallback from '@/components/channel-hub/CHTikTokFallback';

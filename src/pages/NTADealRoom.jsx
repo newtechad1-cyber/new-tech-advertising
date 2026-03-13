@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { base44 } from '@/api/base44Client';
 import { format } from 'date-fns';
 import { Loader2, Eye, BarChart2, CheckCircle2 } from 'lucide-react';
+import NTACommandNav from '@/components/nta-command/NTACommandNav';
 import DRHeader from '@/components/nta-deal-room/DRHeader';
 import DRStrategyHero from '@/components/nta-deal-room/DRStrategyHero';
 import DRVisibilitySnapshot from '@/components/nta-deal-room/DRVisibilitySnapshot';

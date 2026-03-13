@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Loader2 } from 'lucide-react';
+import NTACommandNav from '@/components/nta-command/NTACommandNav';
 import AWHeader from '@/components/ai-workforce/AWHeader';
 import AWAgentBoard from '@/components/ai-workforce/AWAgentBoard';
 import AWJobQueue from '@/components/ai-workforce/AWJobQueue';

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Loader2 } from 'lucide-react';
+import NTACommandNav from '@/components/nta-command/NTACommandNav';
 import RSHeader from '@/components/reseller-cmd/RSHeader';
 import RSPerformanceGrid from '@/components/reseller-cmd/RSPerformanceGrid';
 import RSTerritoryMap from '@/components/reseller-cmd/RSTerritoryMap';

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Plus, RefreshCw, TrendingUp, Users, DollarSign, Target, Zap, BarChart2 } from 'lucide-react';
+import NTACommandNav from '@/components/nta-command/NTACommandNav';
 import ACQFunnelBar from '@/components/acquisition/ACQFunnelBar';
 import ACQSourceCard from '@/components/acquisition/ACQSourceCard';
 import ACQCampaignTable from '@/components/acquisition/ACQCampaignTable';

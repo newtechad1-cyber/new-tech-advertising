@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Users, DollarSign, Zap, AlertTriangle, Activity, Clock, RefreshCw } from 'lucide-react';
+import NTACommandNav from '@/components/nta-command/NTACommandNav';
 import OCPDailyKPIBar from '@/components/operator-cmd/OCPDailyKPIBar';
 import OCPActionBar from '@/components/operator-cmd/OCPActionBar';
 import OCPRevenuePanel from '@/components/operator-cmd/OCPRevenuePanel';
