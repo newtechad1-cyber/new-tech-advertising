@@ -5,15 +5,21 @@ import { Input } from '@/components/ui/input';
 import { base44 } from '@/api/base44Client';
 import { useNavigate } from 'react-router-dom';
 import NTAPricingLadder from '@/components/pricing/NTAPricingLadder';
+import DIYOnboardingRecommendationPanel from '@/components/diy/DIYOnboardingRecommendationPanel';
+import { calculateUpgradeReadinessScore, getRecommendedNextPlan, getUpgradeRecommendation, getProfileInsight } from '@/components/diy/DIYUpgradeReadinessLogic';
 
 const STEPS = [
   { id: 1, title: 'Business Info', key: 'business_name' },
   { id: 2, title: 'Services', key: 'business_services' },
   { id: 3, title: 'Service Area', key: 'service_area' },
-  { id: 4, title: 'Marketing Goals', key: 'marketing_goals' },
-  { id: 5, title: 'Current Frustrations', key: 'current_frustrations' },
-  { id: 6, title: 'Your Preference', key: 'upsell_intent' },
-  { id: 7, title: 'Campaign Setup', key: 'campaign_setup' },
+  { id: 4, title: 'Primary Goal', key: 'primary_growth_goal' },
+  { id: 5, title: 'Revenue Target', key: 'revenue_growth_target' },
+  { id: 6, title: 'Time Available', key: 'time_commitment_level' },
+  { id: 7, title: 'Main Frustration', key: 'marketing_frustration' },
+  { id: 8, title: 'Growth Speed', key: 'growth_speed_intent' },
+  { id: 9, title: 'Your Preference', key: 'upsell_intent' },
+  { id: 10, title: 'Campaign Setup', key: 'campaign_setup' },
+  { id: 11, title: 'Your Recommendation', key: 'recommendation' },
 ];
 
 export default function DIYOnboarding() {
@@ -26,8 +32,11 @@ export default function DIYOnboarding() {
     business_name: '',
     business_services: '',
     service_area: '',
-    marketing_goals: '',
-    current_frustrations: '',
+    primary_growth_goal: '',
+    revenue_growth_target: '',
+    time_commitment_level: '',
+    marketing_frustration: '',
+    growth_speed_intent: '',
     upsell_intent: 'diy_only',
     website_url: '',
     social_links: '',
@@ -56,8 +65,11 @@ export default function DIYOnboarding() {
           business_name: subs[0].business_name || '',
           business_services: subs[0].business_services || '',
           service_area: subs[0].service_area || '',
-          marketing_goals: subs[0].marketing_goals || '',
-          current_frustrations: subs[0].current_frustrations || '',
+          primary_growth_goal: subs[0].primary_growth_goal || '',
+          revenue_growth_target: subs[0].revenue_growth_target || '',
+          time_commitment_level: subs[0].time_commitment_level || '',
+          marketing_frustration: subs[0].marketing_frustration || '',
+          growth_speed_intent: subs[0].growth_speed_intent || '',
           upsell_intent: subs[0].upsell_intent || 'diy_only',
           website_url: subs[0].website_url || '',
           social_links: subs[0].social_links || '',
@@ -84,17 +96,24 @@ export default function DIYOnboarding() {
         onboarding_step: currentStep + 1,
       };
 
-      if (currentStep === 7) {
+      // Calculate scores when reaching recommendation step
+      if (currentStep === 10) {
+        const readinessScore = calculateUpgradeReadinessScore(formData);
+        const nextPlan = getRecommendedNextPlan(formData);
+        updateData.upgrade_readiness_score = readinessScore;
+        updateData.recommended_next_plan = nextPlan;
+      }
+
+      if (currentStep === 11) {
         updateData.onboarding_completed = true;
-        updateData.onboarding_step = 7;
         updateData.onboarding_completion_percent = 100;
       } else {
-        updateData.onboarding_completion_percent = Math.round((currentStep / 7) * 100);
+        updateData.onboarding_completion_percent = Math.round((currentStep / 11) * 100);
       }
 
       await base44.entities.DIYSubscription.update(subscription.id, updateData);
 
-      if (currentStep === 6) {
+      if (currentStep === 11) {
         navigate('/client/diy-dashboard');
       } else {
         setCurrentStep(currentStep + 1);
