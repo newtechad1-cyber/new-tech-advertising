@@ -103,6 +103,7 @@ import DIYOnboarding from './pages/DIYOnboarding';
 import DIYDashboard from './pages/DIYDashboard';
 import DIYPricingLadder from './pages/DIYPricingLadder';
 import DIYBillingSettings from './pages/DIYBillingSettings';
+import DIYCheckoutSuccess from './pages/DIYCheckoutSuccess';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -245,6 +246,7 @@ const AuthenticatedApp = () => {
       <Route path="/client/diy-onboarding" element={<LayoutWrapper currentPageName="DIYOnboarding"><DIYOnboarding /></LayoutWrapper>} />
       <Route path="/client/diy-dashboard" element={<LayoutWrapper currentPageName="DIYDashboard"><DIYDashboard /></LayoutWrapper>} />
       <Route path="/client/diy-billing" element={<LayoutWrapper currentPageName="DIYBillingSettings"><DIYBillingSettings /></LayoutWrapper>} />
+      <Route path="/diy-checkout-success" element={<DIYCheckoutSuccess />} />
       {/* Demo Flow */}
       <Route path="/demo/flow" element={<LayoutWrapper currentPageName="DemoFlow"><DemoFlow /></LayoutWrapper>} />
 
