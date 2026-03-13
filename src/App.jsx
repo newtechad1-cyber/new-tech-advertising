@@ -98,6 +98,9 @@ import NTADemoFunnel from './pages/NTADemoFunnel';
 import GettingStarted from './pages/GettingStarted';
 import ChannelHelpCenter from './pages/ChannelHelpCenter';
 import BookCall from './pages/BookCall';
+import DIYGrowthSystemSales from './pages/DIYGrowthSystemSales';
+import DIYOnboarding from './pages/DIYOnboarding';
+import DIYDashboard from './pages/DIYDashboard';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -235,6 +238,9 @@ const AuthenticatedApp = () => {
       <Route path="/getting-started" element={<LayoutWrapper currentPageName="GettingStarted"><GettingStarted /></LayoutWrapper>} />
       <Route path="/channel-help" element={<LayoutWrapper currentPageName="ChannelHelpCenter"><ChannelHelpCenter /></LayoutWrapper>} />
       <Route path="/book-call" element={<LayoutWrapper currentPageName="BookCall"><BookCall /></LayoutWrapper>} />
+      <Route path="/nta/diy-growth-system" element={<LayoutWrapper currentPageName="DIYGrowthSystemSales"><DIYGrowthSystemSales /></LayoutWrapper>} />
+      <Route path="/client/diy-onboarding" element={<LayoutWrapper currentPageName="DIYOnboarding"><DIYOnboarding /></LayoutWrapper>} />
+      <Route path="/client/diy-dashboard" element={<LayoutWrapper currentPageName="DIYDashboard"><DIYDashboard /></LayoutWrapper>} />
       {/* Demo Flow */}
       <Route path="/demo/flow" element={<LayoutWrapper currentPageName="DemoFlow"><DemoFlow /></LayoutWrapper>} />
 
