@@ -10,6 +10,7 @@ import NTAProcess from '@/components/nta-home/NTAProcess';
 import NTAPricing from '@/components/nta-home/NTAPricing';
 import NTAConversionClose from '@/components/nta-home/NTAConversionClose';
 import NTAFooter from '@/components/nta-home/NTAFooter';
+import NTASiteGuide from '@/components/nta-guide/NTASiteGuide';
 
 export default function NTAHomepage() {
   return (

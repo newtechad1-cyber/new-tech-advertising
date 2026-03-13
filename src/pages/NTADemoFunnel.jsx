@@ -3,6 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { ArrowLeft, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import FunnelProgress from '@/components/nta-demo-funnel/FunnelProgress';
+import NTASiteGuide from '@/components/nta-guide/NTASiteGuide';
 import StepQualification from '@/components/nta-demo-funnel/StepQualification';
 import StepInsights from '@/components/nta-demo-funnel/StepInsights';
 import StepBooking from '@/components/nta-demo-funnel/StepBooking';
