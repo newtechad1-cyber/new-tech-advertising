@@ -14,15 +14,15 @@ export default function DIYHero({ onCTA, isLoading }) {
 
         {/* Headline */}
         <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6 leading-tight">
-          Build Your AI Marketing System for{' '}
+          Build Your Own AI Marketing Machine<br/>
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-400">
-            $99/Month
+            Without Hiring an Agency
           </span>
         </h1>
 
         {/* Subheadline */}
-        <p className="text-xl text-slate-400 mb-8 max-w-2xl mx-auto">
-          All the AI tools you need to generate content, manage social media, create videos, and track ROI — without hiring an agency.
+        <p className="text-xl text-slate-400 mb-8 max-w-3xl mx-auto leading-relaxed">
+          NTA gives small and mid-sized businesses the exact tools, structure, and marketing plan needed to generate more leads, create powerful video content, improve SEO visibility, and grow consistently — all for just $99/month.
         </p>
 
         {/* CTA Button */}
@@ -36,20 +36,11 @@ export default function DIYHero({ onCTA, isLoading }) {
           {!isLoading && <ArrowRight className="w-5 h-5" />}
         </Button>
 
-        {/* Trust indicators */}
-        <div className="mt-12 flex items-center justify-center gap-8 text-sm text-slate-400">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-green-500" />
-            No setup fees
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-green-500" />
-            Cancel anytime
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-green-500" />
-            Full access to all AI tools
-          </div>
+        {/* Trust Line */}
+        <div className="mt-12 pt-8 border-t border-slate-800">
+          <p className="text-slate-400 text-sm">
+            Built from 45+ years of real marketing and small-business growth experience.
+          </p>
         </div>
       </div>
     </section>

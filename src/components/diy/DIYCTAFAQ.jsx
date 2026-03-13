@@ -3,36 +3,24 @@ import { ChevronDown } from 'lucide-react';
 
 const FAQS = [
   {
-    q: 'Do I need marketing experience to use DIY?',
-    a: 'No. The AI handles all the marketing expertise. You just answer a few questions and the system generates strategy, content, and campaigns for you.',
+    q: 'Is this software or a marketing program?',
+    a: 'It\'s a complete marketing growth system with tools, structure, and guidance.',
   },
   {
-    q: 'How quickly will I see results?',
-    a: 'Most customers see their first leads within 2-3 weeks. It depends on your industry and how consistently you use the tools.',
+    q: 'Do I need marketing experience?',
+    a: 'No. The platform shows you what to do each week.',
   },
   {
-    q: 'Can I upgrade to a higher plan later?',
-    a: 'Absolutely. Many customers start with DIY, get results, and then upgrade to Guided Growth (with strategy help) or Done-For-You (with full execution).',
+    q: 'How much time will this take?',
+    a: 'Most users spend 1–3 hours per week.',
   },
   {
-    q: 'What if I want to cancel?',
-    a: 'Cancel anytime with one click. No contracts, no penalties. Your data stays yours.',
+    q: 'Can I upgrade later?',
+    a: 'Yes. You can move into guided or done-for-you plans anytime.',
   },
   {
-    q: 'Do you accept all payment methods?',
-    a: 'Yes. We accept all major credit cards through Stripe. Billing is secure and your payment info is never stored on our servers.',
-  },
-  {
-    q: 'Is there a free trial?',
-    a: 'No free trial, but the $99/month is significantly less than most marketing tools combined. Most customers see ROI in the first month.',
-  },
-  {
-    q: 'What if I need help using the platform?',
-    a: 'Email support is included. We also have a knowledge base with video tutorials and setup guides. Pro support is available for $49/month.',
-  },
-  {
-    q: 'Can I use DIY for multiple locations or brands?',
-    a: 'One DIY plan = one business. If you have multiple locations, you can set them up within one account or purchase additional plans.',
+    q: 'Is there a contract?',
+    a: 'No. Monthly subscription you can cancel anytime.',
   },
 ];
 

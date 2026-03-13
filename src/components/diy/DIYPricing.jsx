@@ -13,39 +13,46 @@ export default function DIYPricing({ onCTA, isLoading }) {
 
         <div className="max-w-md mx-auto">
           <div className="bg-gradient-to-b from-violet-600/20 to-indigo-600/10 border border-violet-600/50 rounded-2xl p-10">
-            <h3 className="text-3xl font-bold text-white mb-2">DIY Growth System</h3>
+            <h3 className="text-3xl font-bold text-white mb-6">💰 NTA DIY Growth System</h3>
             <div className="mb-8">
               <div className="text-5xl font-bold text-white">$99</div>
-              <p className="text-slate-400 text-sm mt-1">per month, billed monthly</p>
+              <p className="text-slate-400 text-sm mt-2">per month</p>
             </div>
 
             <Button
               onClick={onCTA}
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white py-6 text-lg font-semibold mb-8 rounded-lg flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white py-6 text-lg font-semibold mb-6 rounded-lg flex items-center justify-center gap-2"
             >
-              {isLoading ? 'Processing...' : 'Start DIY Plan'}
+              {isLoading ? 'Processing...' : 'Start Your DIY Growth System Today'}
               {!isLoading && <ArrowRight className="w-5 h-5" />}
             </Button>
 
-            <div className="space-y-4">
-              <p className="text-slate-400 text-sm">Everything included:</p>
-              {[
-                'AI Content Generation (4 posts/month)',
-                'Social Media Management',
-                'AI Video Studio (basic)',
-                'Lead Tracking & CRM',
-                'ROI Dashboard',
-                'Chat Assistant',
-                'Website Tools',
-                'Email Support',
-                'Cancel Anytime',
-              ].map((feature, idx) => (
-                <div key={idx} className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span className="text-slate-300 text-sm">{feature}</span>
-                </div>
-              ))}
+            <div className="space-y-3 mb-8 text-xs text-slate-400">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
+                cancel anytime
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
+                no long contracts
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
+                simple onboarding
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
+                structured weekly marketing direction
+              </div>
+            </div>
+
+            <div className="border-t border-slate-600/30 pt-6">
+              <p className="text-slate-400 text-xs text-center">
+                Most businesses recover this investment with just one new customer.
+              </p>
+            </div>
+              {}
             </div>
           </div>
         </div>

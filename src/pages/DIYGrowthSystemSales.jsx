@@ -9,6 +9,7 @@ import DIYComparisonAdvanced from '@/components/diy/DIYComparisonAdvanced';
 import DIYPricing from '@/components/diy/DIYPricing';
 import DIYTestimonials from '@/components/diy/DIYTestimonials';
 import DIYCTAFAQ from '@/components/diy/DIYCTAFAQ';
+import DIYFinalClose from '@/components/diy/DIYFinalClose';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import { base44 } from '@/api/base44Client';
 
@@ -72,6 +73,9 @@ export default function DIYGrowthSystemSales() {
       {/* FAQ Section */}
       <DIYCTAFAQ />
 
+      {/* Final Close */}
+      <DIYFinalClose onCTA={handleStartDIYPlan} isLoading={isLoading} />
+
       {/* Error Message */}
       {error && (
         <div className="fixed bottom-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg">
@@ -79,25 +83,7 @@ export default function DIYGrowthSystemSales() {
         </div>
       )}
 
-      {/* Final CTA Section */}
-      <section className="bg-gradient-to-r from-violet-600 to-indigo-600 py-16 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-white mb-4">
-            Ready to Build Your AI Marketing System?
-          </h2>
-          <p className="text-lg text-violet-100 mb-8">
-            Start with our DIY Growth System and scale when you're ready.
-          </p>
-          <Button
-            onClick={handleStartDIYPlan}
-            disabled={isLoading}
-            className="bg-white text-violet-600 hover:bg-slate-100 text-lg px-8 py-6 rounded-lg font-semibold"
-          >
-            {isLoading ? 'Processing...' : 'Start DIY Plan - $99/month'}
-            {!isLoading && <ArrowRight className="ml-2 w-5 h-5" />}
-          </Button>
-        </div>
-      </section>
+
 
       <SiteFooter />
     </div>
