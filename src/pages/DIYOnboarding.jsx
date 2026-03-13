@@ -10,8 +10,9 @@ const STEPS = [
   { id: 2, title: 'Services', key: 'business_services' },
   { id: 3, title: 'Service Area', key: 'service_area' },
   { id: 4, title: 'Marketing Goals', key: 'marketing_goals' },
-  { id: 5, title: 'Website & Social', key: 'website_url' },
-  { id: 6, title: 'Campaign Setup', key: 'campaign_setup' },
+  { id: 5, title: 'Current Frustrations', key: 'current_frustrations' },
+  { id: 6, title: 'Your Preference', key: 'upsell_intent' },
+  { id: 7, title: 'Campaign Setup', key: 'campaign_setup' },
 ];
 
 export default function DIYOnboarding() {
@@ -25,6 +26,8 @@ export default function DIYOnboarding() {
     business_services: '',
     service_area: '',
     marketing_goals: '',
+    current_frustrations: '',
+    upsell_intent: 'diy_only',
     website_url: '',
     social_links: '',
   });
@@ -53,6 +56,8 @@ export default function DIYOnboarding() {
           business_services: subs[0].business_services || '',
           service_area: subs[0].service_area || '',
           marketing_goals: subs[0].marketing_goals || '',
+          current_frustrations: subs[0].current_frustrations || '',
+          upsell_intent: subs[0].upsell_intent || 'diy_only',
           website_url: subs[0].website_url || '',
           social_links: subs[0].social_links || '',
         });
@@ -78,9 +83,12 @@ export default function DIYOnboarding() {
         onboarding_step: currentStep + 1,
       };
 
-      if (currentStep === 6) {
+      if (currentStep === 7) {
         updateData.onboarding_completed = true;
-        updateData.onboarding_step = 6;
+        updateData.onboarding_step = 7;
+        updateData.onboarding_completion_percent = 100;
+      } else {
+        updateData.onboarding_completion_percent = Math.round((currentStep / 7) * 100);
       }
 
       await base44.entities.DIYSubscription.update(subscription.id, updateData);
@@ -205,32 +213,61 @@ export default function DIYOnboarding() {
             </div>
           )}
 
-          {/* Step 5: Website & Social */}
+          {/* Step 5: Current Frustrations */}
           {currentStep === 5 && (
             <div className="space-y-4">
-              <label className="block mb-4">
-                <span className="text-white font-semibold mb-2 block">Website URL (optional)</span>
-                <Input
-                  value={formData.website_url}
-                  onChange={(e) => handleInputChange('website_url', e.target.value)}
-                  placeholder="https://yourwebsite.com"
-                  className="bg-slate-800 border-slate-700 text-white"
-                />
-              </label>
               <label className="block">
-                <span className="text-white font-semibold mb-2 block">Social Media Links (optional)</span>
+                <span className="text-white font-semibold mb-2 block">What's your biggest frustration with marketing right now?</span>
                 <Input
-                  value={formData.social_links}
-                  onChange={(e) => handleInputChange('social_links', e.target.value)}
-                  placeholder="Facebook, Instagram, LinkedIn links"
+                  value={formData.current_frustrations}
+                  onChange={(e) => handleInputChange('current_frustrations', e.target.value)}
+                  placeholder="e.g., not enough leads, inconsistent social media, no time for marketing"
                   className="bg-slate-800 border-slate-700 text-white"
                 />
               </label>
             </div>
           )}
 
-          {/* Step 6: Campaign Setup */}
+          {/* Step 6: Upsell Intent */}
           {currentStep === 6 && (
+            <div className="space-y-4">
+              <label className="block">
+                <span className="text-white font-semibold mb-2 block">How do you want to approach marketing?</span>
+              </label>
+              <div className="space-y-3">
+                {[
+                  { value: 'diy_only', label: 'DIY Only', desc: 'I want to do everything myself with AI tools' },
+                  { value: 'wants_guidance', label: 'DIY + Guidance', desc: 'I want tools + monthly strategy help' },
+                  { value: 'wants_full_service', label: 'Full Service', desc: 'I want you to handle everything' },
+                ].map((option) => (
+                  <label
+                    key={option.value}
+                    className={`flex items-start gap-3 p-4 rounded-lg border cursor-pointer transition-all ${
+                      formData.upsell_intent === option.value
+                        ? 'bg-violet-600/20 border-violet-600'
+                        : 'bg-slate-800 border-slate-700 hover:border-slate-600'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="preference"
+                      value={option.value}
+                      checked={formData.upsell_intent === option.value}
+                      onChange={(e) => handleInputChange('upsell_intent', e.target.value)}
+                      className="mt-1"
+                    />
+                    <div className="flex-1">
+                      <p className="text-white font-semibold">{option.label}</p>
+                      <p className="text-slate-400 text-sm">{option.desc}</p>
+                    </div>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Step 7: Campaign Setup */}
+          {currentStep === 7 && (
             <div className="space-y-4">
               <div className="bg-slate-800 rounded-lg p-6 border border-violet-600/20">
                 <p className="text-slate-300">
@@ -263,7 +300,7 @@ export default function DIYOnboarding() {
               disabled={isSaving}
               className="flex-1 bg-violet-600 hover:bg-violet-700"
             >
-              {isSaving ? 'Saving...' : currentStep === 6 ? 'Complete Setup' : 'Next'}
+              {isSaving ? 'Saving...' : currentStep === 7 ? 'Complete Setup' : 'Next'}
               {!isSaving && <ChevronRight className="ml-2 w-4 h-4" />}
             </Button>
           </div>

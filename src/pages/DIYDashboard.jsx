@@ -21,6 +21,7 @@ export default function DIYDashboard() {
   const [subscription, setSubscription] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [activeModule, setActiveModule] = useState('command');
+  const [showUpgradePrompt, setShowUpgradePrompt] = useState(false);
 
   useEffect(() => {
     const loadSubscription = async () => {
@@ -70,12 +71,37 @@ export default function DIYDashboard() {
       {/* Header */}
       <header className="bg-slate-900 border-b border-slate-800 py-6 px-6 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl font-bold text-white mb-2">
-            {subscription?.business_name || 'DIY Dashboard'}
-          </h1>
-          <p className="text-slate-400">
-            Your AI Marketing Command Center
-          </p>
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h1 className="text-3xl font-bold text-white mb-2">
+                {subscription?.business_name || 'DIY Dashboard'}
+              </h1>
+              <p className="text-slate-400">
+                Your AI Marketing Command Center
+              </p>
+            </div>
+            <div className="text-right">
+              <p className="text-slate-400 text-sm mb-1">Current Plan</p>
+              <p className="text-white font-bold">DIY Growth System</p>
+              <p className="text-violet-400 text-sm">$99/month</p>
+            </div>
+          </div>
+          
+          {/* Onboarding Progress */}
+          {subscription && subscription.onboarding_completion_percent < 100 && (
+            <div className="mt-6 bg-slate-800/50 rounded-lg p-3">
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-slate-300 text-sm font-semibold">Onboarding Progress</p>
+                <p className="text-violet-400 text-sm">{Math.round(subscription.onboarding_completion_percent)}%</p>
+              </div>
+              <div className="w-full bg-slate-700 rounded-full h-2">
+                <div
+                  className="bg-gradient-to-r from-violet-600 to-indigo-600 h-2 rounded-full transition-all"
+                  style={{ width: `${subscription.onboarding_completion_percent}%` }}
+                />
+              </div>
+            </div>
+          )}
         </div>
       </header>
 
@@ -104,16 +130,53 @@ export default function DIYDashboard() {
             })}
           </div>
 
-          {/* Subscription Info */}
-          <div className="mt-12 pt-6 border-t border-slate-800">
-            <p className="text-xs text-slate-500 mb-3">Subscription</p>
-            <div className="bg-slate-800 rounded-lg p-4">
-              <p className="text-sm text-white font-semibold">DIY Growth System</p>
-              <p className="text-sm text-violet-400">$99/month</p>
-              <p className="text-xs text-slate-400 mt-2">
-                Status: <span className="text-green-400 font-semibold">{subscription?.status || 'active'}</span>
-              </p>
+          {/* Subscription Info & Upgrade */}
+          <div className="mt-12 pt-6 border-t border-slate-800 space-y-4">
+            <div>
+              <p className="text-xs text-slate-500 mb-3">Current Plan</p>
+              <div className="bg-slate-800 rounded-lg p-4">
+                <p className="text-sm text-white font-semibold">DIY Growth System</p>
+                <p className="text-sm text-violet-400">$99/month</p>
+                <p className="text-xs text-slate-400 mt-2">
+                  Status: <span className="text-green-400 font-semibold">{subscription?.billing_status || 'active'}</span>
+                </p>
+              </div>
             </div>
+
+            {/* Upgrade CTA */}
+            {subscription?.upsell_intent === 'wants_guidance' && (
+              <div className="bg-gradient-to-r from-violet-600/20 to-indigo-600/20 border border-violet-600/30 rounded-lg p-4">
+                <p className="text-white text-xs font-bold mb-2">Ready to Upgrade?</p>
+                <p className="text-slate-300 text-xs mb-3">
+                  Based on your goals, Guided Growth may help you move faster.
+                </p>
+                <a href="mailto:sales@newtechadvertising.com?subject=Upgrade to Guided Growth" className="inline-block">
+                  <button className="w-full bg-violet-600 hover:bg-violet-700 text-white text-xs font-bold py-2 rounded transition-colors">
+                    Learn About Guided Growth →
+                  </button>
+                </a>
+              </div>
+            )}
+
+            {subscription?.upsell_intent === 'wants_full_service' && (
+              <div className="bg-gradient-to-r from-indigo-600/20 to-blue-600/20 border border-indigo-600/30 rounded-lg p-4">
+                <p className="text-white text-xs font-bold mb-2">Perfect for Done-For-You</p>
+                <p className="text-slate-300 text-xs mb-3">
+                  Let our team handle execution while you focus on running your business.
+                </p>
+                <a href="mailto:sales@newtechadvertising.com?subject=Done-For-You Marketing Services" className="inline-block">
+                  <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold py-2 rounded transition-colors">
+                    Schedule Consultation →
+                  </button>
+                </a>
+              </div>
+            )}
+
+            <a href="/client/diy-billing" className="block">
+              <button className="w-full bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold py-2 rounded transition-colors">
+                Manage Billing
+              </button>
+            </a>
           </div>
         </div>
 

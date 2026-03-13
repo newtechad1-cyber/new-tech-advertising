@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { ArrowRight, CheckCircle2, TrendingUp, Users, Brain, Video, MessageSquare } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import DIYHero from '@/components/diy/DIYHero';
-import DIYValueStack from '@/components/diy/DIYValueStack';
-import DIYComparison from '@/components/diy/DIYComparison';
+import DIYPainPoints from '@/components/diy/DIYPainPoints';
+import DIYOutcomeStack from '@/components/diy/DIYOutcomeStack';
+import DIYIncluded from '@/components/diy/DIYIncluded';
+import DIYComparisonAdvanced from '@/components/diy/DIYComparisonAdvanced';
 import DIYPricing from '@/components/diy/DIYPricing';
 import DIYTestimonials from '@/components/diy/DIYTestimonials';
+import DIYCTAFAQ from '@/components/diy/DIYCTAFAQ';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import { base44 } from '@/api/base44Client';
 
@@ -48,17 +51,26 @@ export default function DIYGrowthSystemSales() {
       {/* Hero Section */}
       <DIYHero onCTA={handleStartDIYPlan} isLoading={isLoading} />
 
-      {/* Value Stack */}
-      <DIYValueStack />
+      {/* Pain Points */}
+      <DIYPainPoints />
 
-      {/* Comparison */}
-      <DIYComparison />
+      {/* Outcome-Based Value Stack */}
+      <DIYOutcomeStack />
+
+      {/* What's Included */}
+      <DIYIncluded />
+
+      {/* Advanced Comparison */}
+      <DIYComparisonAdvanced />
 
       {/* Pricing */}
       <DIYPricing onCTA={handleStartDIYPlan} isLoading={isLoading} />
 
-      {/* Testimonials Placeholder */}
+      {/* Testimonials */}
       <DIYTestimonials />
+
+      {/* FAQ Section */}
+      <DIYCTAFAQ />
 
       {/* Error Message */}
       {error && (
