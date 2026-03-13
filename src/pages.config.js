@@ -175,6 +175,7 @@ import AdminKnowledgeTraining from './pages/AdminKnowledgeTraining';
 import AdminKnowledgeWorkflows from './pages/AdminKnowledgeWorkflows';
 import AdminLocationPerformance from './pages/AdminLocationPerformance';
 import AdminMetaSetup from './pages/AdminMetaSetup';
+import AdminNTALaunchCampaign from './pages/AdminNTALaunchCampaign';
 import AdminNavigation from './pages/AdminNavigation';
 import AdminNavigationAudit from './pages/AdminNavigationAudit';
 import AdminNavigationLayouts from './pages/AdminNavigationLayouts';
@@ -255,8 +256,8 @@ import AdminSchoolSettings from './pages/AdminSchoolSettings';
 import AdminSchoolSettingsPermissions from './pages/AdminSchoolSettingsPermissions';
 import AdminSchoolSettingsPublishing from './pages/AdminSchoolSettingsPublishing';
 import AdminSchoolSpotlightDetail from './pages/AdminSchoolSpotlightDetail';
-import AdminSchoolSpotlights from './pages/AdminSchoolSpotlights';
 import AiSeo from './pages/AiSeo';
+import AdminSchoolSpotlights from './pages/AdminSchoolSpotlights';
 import AdminSchoolStoryLibrary from './pages/AdminSchoolStoryLibrary';
 import AdminSchoolStudentUploads from './pages/AdminSchoolStudentUploads';
 import AdminSchoolStudentUsers from './pages/AdminSchoolStudentUsers';
@@ -367,8 +368,8 @@ import DIYDashboard from './pages/DIYDashboard';
 import DIYGrowthSystemSales from './pages/DIYGrowthSystemSales';
 import DIYOnboarding from './pages/DIYOnboarding';
 import DIYPricingLadder from './pages/DIYPricingLadder';
-import Dashboard from './pages/Dashboard';
 import DealRoom from './pages/DealRoom';
+import Dashboard from './pages/Dashboard';
 import DealRoomCaseStudies from './pages/DealRoomCaseStudies';
 import DealRoomContract from './pages/DealRoomContract';
 import DealRoomPricing from './pages/DealRoomPricing';
@@ -487,8 +488,8 @@ import SchoolHome from './pages/SchoolHome';
 import SchoolSpotlightDetail from './pages/SchoolSpotlightDetail';
 import SchoolSpotlights from './pages/SchoolSpotlights';
 import SchoolStories from './pages/SchoolStories';
-import SchoolStoryLab from './pages/SchoolStoryLab';
 import SchoolStoryDetail from './pages/SchoolStoryDetail';
+import SchoolStoryLab from './pages/SchoolStoryLab';
 import SchoolStoryLabPresentation from './pages/SchoolStoryLabPresentation';
 import SchoolStudentDashboard from './pages/SchoolStudentDashboard';
 import SchoolStudentLogin from './pages/SchoolStudentLogin';
@@ -545,7 +546,7 @@ import WebsiteVideoManager from './pages/WebsiteVideoManager';
 import WeeklyPlanAdmin from './pages/WeeklyPlanAdmin';
 import WorkflowMap from './pages/WorkflowMap';
 import YouTubeUploadTest from './pages/YouTubeUploadTest';
-import AdminNTALaunchCampaign from './pages/AdminNTALaunchCampaign';
+import AdminGeographicCampaigns from './pages/AdminGeographicCampaigns';
 import __Layout from './Layout.jsx';
 
 
@@ -678,6 +679,7 @@ export const PAGES = {
     "AdminKnowledgeWorkflows": AdminKnowledgeWorkflows,
     "AdminLocationPerformance": AdminLocationPerformance,
     "AdminMetaSetup": AdminMetaSetup,
+    "AdminNTALaunchCampaign": AdminNTALaunchCampaign,
     "AdminNavigation": AdminNavigation,
     "AdminNavigationAudit": AdminNavigationAudit,
     "AdminNavigationLayouts": AdminNavigationLayouts,
@@ -758,8 +760,8 @@ export const PAGES = {
     "AdminSchoolSettingsPermissions": AdminSchoolSettingsPermissions,
     "AdminSchoolSettingsPublishing": AdminSchoolSettingsPublishing,
     "AdminSchoolSpotlightDetail": AdminSchoolSpotlightDetail,
-    "AdminSchoolSpotlights": AdminSchoolSpotlights,
     "AiSeo": AiSeo,
+    "AdminSchoolSpotlights": AdminSchoolSpotlights,
     "AdminSchoolStoryLibrary": AdminSchoolStoryLibrary,
     "AdminSchoolStudentUploads": AdminSchoolStudentUploads,
     "AdminSchoolStudentUsers": AdminSchoolStudentUsers,
@@ -870,8 +872,8 @@ export const PAGES = {
     "DIYGrowthSystemSales": DIYGrowthSystemSales,
     "DIYOnboarding": DIYOnboarding,
     "DIYPricingLadder": DIYPricingLadder,
-    "Dashboard": Dashboard,
     "DealRoom": DealRoom,
+    "Dashboard": Dashboard,
     "DealRoomCaseStudies": DealRoomCaseStudies,
     "DealRoomContract": DealRoomContract,
     "DealRoomPricing": DealRoomPricing,
@@ -990,8 +992,8 @@ export const PAGES = {
     "SchoolSpotlightDetail": SchoolSpotlightDetail,
     "SchoolSpotlights": SchoolSpotlights,
     "SchoolStories": SchoolStories,
-    "SchoolStoryLab": SchoolStoryLab,
     "SchoolStoryDetail": SchoolStoryDetail,
+    "SchoolStoryLab": SchoolStoryLab,
     "SchoolStoryLabPresentation": SchoolStoryLabPresentation,
     "SchoolStudentDashboard": SchoolStudentDashboard,
     "SchoolStudentLogin": SchoolStudentLogin,
@@ -1048,7 +1050,7 @@ export const PAGES = {
     "WeeklyPlanAdmin": WeeklyPlanAdmin,
     "WorkflowMap": WorkflowMap,
     "YouTubeUploadTest": YouTubeUploadTest,
-    "AdminNTALaunchCampaign": AdminNTALaunchCampaign,
+    "AdminGeographicCampaigns": AdminGeographicCampaigns,
 }
 
 export const pagesConfig = {
