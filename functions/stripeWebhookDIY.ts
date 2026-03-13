@@ -82,6 +82,26 @@ Deno.serve(async (req) => {
           await base44.entities.DIYSubscription.update(subs[0].id, {
             stripe_subscription_id: session.subscription,
             status: 'active',
+            billing_status: 'active',
+            billing_email: customer.email,
+          });
+        }
+
+        return Response.json({ received: true });
+      }
+
+      case 'customer.subscription.created': {
+        const subscription = event.data.object;
+
+        const subs = await base44.entities.DIYSubscription.filter({
+          stripe_subscription_id: subscription.id,
+        });
+
+        if (subs.length > 0) {
+          const currentPeriodEnd = new Date(subscription.current_period_end * 1000);
+          await base44.entities.DIYSubscription.update(subs[0].id, {
+            billing_status: subscription.status,
+            next_renewal_date: currentPeriodEnd.toISOString().split('T')[0],
           });
         }
 
@@ -91,18 +111,17 @@ Deno.serve(async (req) => {
       case 'customer.subscription.updated': {
         const subscription = event.data.object;
 
-        // Update status
+        // Update status and renewal date
         const subs = await base44.entities.DIYSubscription.filter({
           stripe_subscription_id: subscription.id,
         });
 
         if (subs.length > 0) {
-          const newStatus = subscription.status === 'active' ? 'active' : 
-                           subscription.status === 'past_due' ? 'past_due' : 
-                           'paused';
-
+          const currentPeriodEnd = new Date(subscription.current_period_end * 1000);
           await base44.entities.DIYSubscription.update(subs[0].id, {
-            status: newStatus,
+            billing_status: subscription.status,
+            status: subscription.status === 'active' || subscription.status === 'trialing' ? 'active' : 'paused',
+            next_renewal_date: currentPeriodEnd.toISOString().split('T')[0],
           });
         }
 
@@ -120,6 +139,23 @@ Deno.serve(async (req) => {
         if (subs.length > 0) {
           await base44.entities.DIYSubscription.update(subs[0].id, {
             status: 'cancelled',
+            billing_status: 'cancelled',
+          });
+        }
+
+        return Response.json({ received: true });
+      }
+
+      case 'invoice.payment_failed': {
+        const invoice = event.data.object;
+
+        const subs = await base44.entities.DIYSubscription.filter({
+          stripe_subscription_id: invoice.subscription,
+        });
+
+        if (subs.length > 0) {
+          await base44.entities.DIYSubscription.update(subs[0].id, {
+            billing_status: 'past_due',
           });
         }
 
