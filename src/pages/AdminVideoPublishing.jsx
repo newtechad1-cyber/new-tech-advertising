@@ -29,15 +29,20 @@ export default function AdminVideoPublishing() {
 
   const load = async () => {
     setLoading(true);
-    const [v, j, logs] = await Promise.all([
-      base44.entities.VideoRequests.list('-updated_date', 100),
-      base44.entities.VideoPublishJob.list('-created_date', 150),
-      base44.entities.VideoPublishAuditLog?.list('-logged_at', 50) || []
-    ]);
-    setVideos(v);
-    setPublishJobs(j);
-    setAuditLogs(logs);
-    setLoading(false);
+    try {
+      const [v, j, logs] = await Promise.all([
+        base44.entities.VideoRequests.list('-updated_date', 100),
+        base44.entities.VideoPublishJob.list('-created_date', 150),
+        base44.entities.VideoPublishAuditLog?.list('-logged_at', 50) || []
+      ]);
+      setVideos(v || []);
+      setPublishJobs(j || []);
+      setAuditLogs(logs || []);
+    } catch (err) {
+      console.error('AdminVideoPublishing load error:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => { load(); }, []);
