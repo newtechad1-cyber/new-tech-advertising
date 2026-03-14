@@ -25,7 +25,7 @@ const SECTIONS = [
     content: (
       <div className="space-y-4 text-slate-300 leading-relaxed">
         <p>
-          NTA (National Territory Authority) is your all-in-one authority-building platform. We create content, manage your social channels, publish to the web, and track the real business impact — so you can focus on running your business.
+          NTA (New Tech Advertising) is your all-in-one authority-building platform. We create content, manage your social channels, publish to the web, and track the real business impact — so you can focus on running your business.
         </p>
         <p>
           Over the next 30–90 days, you'll see your brand appear consistently across Google, social media, streaming TV, and more. The system works quietly in the background. Your job is simple: review content, approve it, and watch your visibility grow.
