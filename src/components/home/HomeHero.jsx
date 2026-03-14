@@ -31,7 +31,7 @@ export default function HomeHero() {
         <div className="flex justify-center mb-6">
           <span className="inline-flex items-center gap-2 bg-violet-600/20 border border-violet-500/30 text-violet-300 text-sm font-medium px-4 py-1.5 rounded-full">
             <Zap className="w-3.5 h-3.5" />
-            Built for Small Businesses
+            Home Grown Values - Nationwide Reach
           </span>
         </div>
 
