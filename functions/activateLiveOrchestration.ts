@@ -10,20 +10,35 @@ Deno.serve(async (req) => {
     }
 
     // 1. Generate Regional Authority Campaign
-    const regionalResponse = await base44.functions.invoke('generateNTALaunchCampaign', {
-      campaign_type: 'regional_authority',
-      focus: 'AI marketing system awareness for small businesses',
-      regions: ['Mason City IA', 'Austin MN', 'Albert Lea MN', 'Rochester MN']
-    });
+    let regionalResponse = null;
+    try {
+      regionalResponse = await base44.asServiceRole.functions.invoke('generateNTALaunchCampaign', {
+        campaign_type: 'regional_authority',
+        focus: 'AI marketing system awareness for small businesses',
+        regions: ['Mason City IA', 'Austin MN', 'Albert Lea MN', 'Rochester MN']
+      });
+    } catch (e) {
+      console.log('Regional campaign generation:', e.message);
+    }
 
     // 2. Generate HVAC Territorial Campaigns
-    const hvacResponse = await base44.functions.invoke('generateHVACTerritorialCampaign', {
-      territories: ['Mason City', 'Austin', 'Albert Lea', 'Rochester'],
-      campaign_focus: 'seasonal_authority'
-    });
+    let hvacResponse = null;
+    try {
+      hvacResponse = await base44.asServiceRole.functions.invoke('generateHVACTerritorialCampaign', {
+        territories: ['Mason City', 'Austin', 'Albert Lea', 'Rochester'],
+        campaign_focus: 'seasonal_authority'
+      });
+    } catch (e) {
+      console.log('HVAC campaign generation:', e.message);
+    }
 
     // 3. Generate Restaurant Territorial Campaigns
-    const restaurantResponse = await base44.functions.invoke('generateAlbertLeaRestaurantCampaign', {});
+    let restaurantResponse = null;
+    try {
+      restaurantResponse = await base44.asServiceRole.functions.invoke('generateAlbertLeaRestaurantCampaign', {});
+    } catch (e) {
+      console.log('Restaurant campaign generation:', e.message);
+    }
 
     // 4. Create Campaign Records
     const campaigns = [
