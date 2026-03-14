@@ -23,7 +23,7 @@ export default function HomeStreamingTV() {
               Small businesses can now run TV ads
             </h2>
             <p className="text-slate-400 text-lg leading-relaxed mb-6">
-              Streaming TV advertising used to cost $50,000 and require a production crew. NTA handles the script, produces your video, and launches your campaign on 30+ platforms — at a fraction of broadcast cost.
+              Broadcast TV advertising used to cost thousands, even millions and required a production crew. NTA handles the script, produces your video, and launches your campaign on 30+ platforms — at a fraction of over the air broadcast TV cost.
             </p>
 
             <div className="space-y-4 mb-8">
