@@ -43,7 +43,7 @@ export default function DealCard({ opportunity, onClick }) {
         <span className={`${stageBadges[opportunity.stage]} text-white px-2 py-1 rounded text-xs`}>
           {opportunity.stage.replace('_', ' ')}
         </span>
-        {opportunity.decision_timeline !== 'exploring' && (
+        {opportunity.decision_timeline && opportunity.decision_timeline !== 'exploring' && (
           <span className="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded">
             {opportunity.decision_timeline.replace('_', ' ')}
           </span>
