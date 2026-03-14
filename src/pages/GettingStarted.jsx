@@ -20,7 +20,7 @@ const SECTIONS = [
     id: 'welcome',
     number: '01',
     icon: Rocket,
-    title: 'Welcome to NTA',
+    title: 'Welcome to NTA (New Tech Advertising)',
     color: 'blue',
     content: (
       <div className="space-y-4 text-slate-300 leading-relaxed">
