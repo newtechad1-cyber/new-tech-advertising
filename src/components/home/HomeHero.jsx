@@ -61,6 +61,19 @@ export default function HomeHero() {
             </Link>
           </div>
 
+          {/* Hero Video */}
+          <div className="flex justify-center mb-8">
+            <div className="rounded-2xl overflow-hidden shadow-2xl shadow-violet-900/30 border border-slate-700 w-full max-w-sm aspect-[9/16]">
+              <iframe
+                src="https://www.youtube.com/embed/AUy46z-QUqw"
+                title="NTA Overview"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+          </div>
+
           {/* Capability badges */}
           <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
             {CAPABILITIES.map(({ icon: Icon, label }) => (
