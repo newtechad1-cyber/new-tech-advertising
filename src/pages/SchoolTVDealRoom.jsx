@@ -33,12 +33,14 @@ export default function SchoolTVDealRoom() {
       {/* Section 2: 3-Minute Demo */}
       <section className="bg-white py-20 px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-slate-900 rounded-lg overflow-hidden aspect-video flex items-center justify-center mb-6">
-            <div className="text-center text-white">
-              <Play className="h-20 w-20 text-blue-400 mx-auto mb-4" />
-              <p className="text-lg font-semibold">3-minute platform demo video</p>
-              <p className="text-sm text-slate-400 mt-2">Shows student submissions, admin moderation, and streaming TV channel</p>
-            </div>
+          <div className="rounded-xl overflow-hidden aspect-video mb-6 shadow-lg">
+            <iframe
+              src="https://www.youtube.com/embed/Qtx8O_DL6_8"
+              title="School TV Platform Demo"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full"
+            />
           </div>
           <p className="text-slate-700 text-center mb-6">
             This short video shows how students submit stories, administrators moderate content, and the platform turns school events into a streaming TV channel.
