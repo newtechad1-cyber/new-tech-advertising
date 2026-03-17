@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Play, ArrowRight, Monitor } from 'lucide-react';
+import { Play, ArrowRight } from 'lucide-react';
 
 export default function HomeDemoSection() {
   return (
