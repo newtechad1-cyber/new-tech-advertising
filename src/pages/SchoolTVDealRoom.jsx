@@ -15,7 +15,18 @@ export default function SchoolTVDealRoom() {
       <section className="bg-gradient-to-b from-slate-900 to-slate-800 text-white py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-5xl font-bold mb-4">Welcome to the School Media Platform Demo</h1>
-          <p className="text-xl text-slate-300">Everything you need to evaluate launching your school's streaming TV network.</p>
+          <p className="text-xl text-slate-300 mb-10">Everything you need to evaluate launching your school's streaming TV network.</p>
+          <div className="flex justify-center">
+            <div className="rounded-2xl overflow-hidden shadow-2xl border border-slate-700 w-full max-w-sm" style={{aspectRatio: '9/16'}}>
+              <iframe
+                src="https://www.youtube.com/embed/KsNH25LXfZs"
+                title="School TV Platform Overview"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
