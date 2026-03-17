@@ -15,21 +15,15 @@ export default function HomeDemoSection() {
           Watch how NTA helps a local business go from zero presence to consistent content, video, and streaming TV campaigns in one connected system.
         </p>
 
-        {/* Demo placeholder — swap with real embed when video is ready */}
-        <div className="relative bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden aspect-video max-w-3xl mx-auto mb-8 group cursor-pointer hover:border-violet-600/50 transition-colors">
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
-            <div className="w-16 h-16 bg-violet-600/90 rounded-full flex items-center justify-center shadow-lg shadow-violet-600/40 group-hover:bg-violet-500 transition-colors">
-              <Play className="w-7 h-7 text-white fill-white ml-1" />
-            </div>
-            <p className="text-slate-400 text-sm">Platform walkthrough — 3 minutes</p>
-          </div>
-          {/* Placeholder grid pattern */}
-          <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle, #7c3aed 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
-          <div className="absolute inset-0 flex items-start justify-start p-5">
-            <div className="flex items-center gap-2 bg-slate-800/80 border border-slate-700 rounded-lg px-3 py-1.5">
-              <Monitor className="w-3.5 h-3.5 text-violet-400" />
-              <span className="text-slate-300 text-xs font-medium">NTA Marketing System — Platform Overview</span>
-            </div>
+        <div className="flex justify-center mb-8">
+          <div className="rounded-2xl overflow-hidden shadow-2xl border border-slate-700 w-full max-w-sm" style={{aspectRatio: '9/16'}}>
+            <iframe
+              src="https://www.youtube.com/embed/u4RNWisgfHA"
+              title="NTA Platform Demo"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full"
+            />
           </div>
         </div>
 
