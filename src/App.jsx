@@ -113,6 +113,8 @@ import DIYPricingLadder from './pages/DIYPricingLadder';
 import DIYBillingSettings from './pages/DIYBillingSettings';
 import DIYCheckoutSuccess from './pages/DIYCheckoutSuccess';
 import NTAPricingLadderPage from './pages/NTAPricingLadderPage';
+import JoinNTA from './pages/JoinNTA';
+import AdminRecruitingCandidates from './pages/AdminRecruitingCandidates';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
