@@ -98,14 +98,23 @@ export default function JoinNTA() {
     setError('');
 
     // Upload files if provided
+    const toBase64 = (file) => new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+
     let resumeUrl = null;
     let coverLetterUrl = null;
     if (resume) {
-      const res = await base44.integrations.Core.UploadFile({ file: resume });
+      const b64 = await toBase64(resume);
+      const res = await base44.integrations.Core.UploadFile({ file: b64 });
       resumeUrl = res.file_url;
     }
     if (coverLetter) {
-      const res = await base44.integrations.Core.UploadFile({ file: coverLetter });
+      const b64 = await toBase64(coverLetter);
+      const res = await base44.integrations.Core.UploadFile({ file: b64 });
       coverLetterUrl = res.file_url;
     }
 
