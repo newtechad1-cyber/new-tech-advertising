@@ -95,31 +95,19 @@ export default function JoinNTA() {
     setSubmitting(true);
     setError('');
     try {
-      let resumeUrl = null;
-      let coverLetterUrl = null;
-      if (resume) {
-        const b64 = await toBase64(resume);
-        const res = await base44.integrations.Core.UploadFile({ file: b64 });
-        resumeUrl = res.file_url;
-      }
-      if (coverLetter) {
-        const b64 = await toBase64(coverLetter);
-        const res = await base44.integrations.Core.UploadFile({ file: b64 });
-        coverLetterUrl = res.file_url;
-      }
       await base44.entities.RecruitingCandidate.create({
         ...form,
         status: 'New Lead',
         submitted_at: new Date().toISOString(),
       });
-      const fileLinks = [
-        resumeUrl ? `Resume: ${resumeUrl}` : null,
-        coverLetterUrl ? `Cover Letter: ${coverLetterUrl}` : null,
+      const fileNote = [
+        resume ? `Resume attached: ${resume.name}` : null,
+        coverLetter ? `Cover Letter attached: ${coverLetter.name}` : null,
       ].filter(Boolean).join('\n');
       await base44.integrations.Core.SendEmail({
         to: 'rick@newtechadvertising.com',
         subject: `New NTA Partner Application — ${form.full_name}`,
-        body: `New application submitted from the Join NTA page.\n\nName: ${form.full_name}\nEmail: ${form.email}\nPhone: ${form.phone || 'Not provided'}\nCity: ${form.city || 'Not provided'}\nCurrent Role: ${form.current_role || 'Not provided'}\n\nBusiness Relationships:\n${form.business_relationships || 'Not provided'}\n\nWhy Interested:\n${form.interest_reason || 'Not provided'}\n\n${fileLinks ? `Attached Files:\n${fileLinks}` : 'No files uploaded.'}`,
+        body: `New application submitted from the Join NTA page.\n\nName: ${form.full_name}\nEmail: ${form.email}\nPhone: ${form.phone || 'Not provided'}\nCity: ${form.city || 'Not provided'}\nCurrent Role: ${form.current_role || 'Not provided'}\n\nBusiness Relationships:\n${form.business_relationships || 'Not provided'}\n\nWhy Interested:\n${form.interest_reason || 'Not provided'}\n\n${fileNote || 'No files uploaded.'}`,
       });
       setSubmitted(true);
     } catch (err) {
