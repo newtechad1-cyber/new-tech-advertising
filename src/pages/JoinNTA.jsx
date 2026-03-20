@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { base44 } from '@/api/base44Client';
-import { CheckCircle, DollarSign, MapPin, Users, Zap, TrendingUp, Star, ArrowRight, Building2 } from 'lucide-react';
+import { CheckCircle, DollarSign, MapPin, Users, Zap, TrendingUp, Star, ArrowRight, Building2, Paperclip } from 'lucide-react';
 
 const BENEFITS = [
   {
