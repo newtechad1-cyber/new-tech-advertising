@@ -111,7 +111,8 @@ export default function JoinNTA() {
       });
       setSubmitted(true);
     } catch (err) {
-      setError('Something went wrong. Please try again or email us directly.');
+      console.error('JoinNTA submit error:', err);
+      setError(err?.message || 'Something went wrong. Please try again or email us directly.');
     }
     setSubmitting(false);
   };
