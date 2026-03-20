@@ -71,13 +71,6 @@ const IDEAL = [
   'Entrepreneurial attitude — you want to own your income',
 ];
 
-const toBase64 = (file) => new Promise((resolve, reject) => {
-  const reader = new FileReader();
-  reader.onload = () => resolve(reader.result);
-  reader.onerror = reject;
-  reader.readAsDataURL(file);
-});
-
 export default function JoinNTA() {
   const formRef = useRef(null);
   const [form, setForm] = useState({
