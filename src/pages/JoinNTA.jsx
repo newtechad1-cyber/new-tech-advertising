@@ -96,6 +96,7 @@ export default function JoinNTA() {
     }
     setSubmitting(true);
     setError('');
+    try {
 
     // Upload files if provided
     const toBase64 = (file) => new Promise((resolve, reject) => {
