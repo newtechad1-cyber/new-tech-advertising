@@ -95,20 +95,12 @@ export default function JoinNTA() {
     setSubmitting(true);
     setError('');
     try {
-      await base44.entities.RecruitingCandidate.create({
+      const response = await base44.functions.invoke('submitRecruitingApplication', {
         ...form,
-        status: 'New Lead',
-        submitted_at: new Date().toISOString(),
+        resume_name: resume?.name || null,
+        cover_letter_name: coverLetter?.name || null,
       });
-      const fileNote = [
-        resume ? `Resume attached: ${resume.name}` : null,
-        coverLetter ? `Cover Letter attached: ${coverLetter.name}` : null,
-      ].filter(Boolean).join('\n');
-      await base44.integrations.Core.SendEmail({
-        to: 'rick@newtechadvertising.com',
-        subject: `New NTA Partner Application — ${form.full_name}`,
-        body: `New application submitted from the Join NTA page.\n\nName: ${form.full_name}\nEmail: ${form.email}\nPhone: ${form.phone || 'Not provided'}\nCity: ${form.city || 'Not provided'}\nCurrent Role: ${form.current_role || 'Not provided'}\n\nBusiness Relationships:\n${form.business_relationships || 'Not provided'}\n\nWhy Interested:\n${form.interest_reason || 'Not provided'}\n\n${fileNote || 'No files uploaded.'}`,
-      });
+      if (response.data?.error) throw new Error(response.data.error);
       setSubmitted(true);
     } catch (err) {
       console.error('JoinNTA submit error:', err);
