@@ -137,6 +137,24 @@ export default function JoinNTA() {
         </div>
       </section>
 
+      {/* LINKEDIN EMBED */}
+      <section className="py-16 px-6 bg-white">
+        <div className="max-w-3xl mx-auto flex flex-col items-center">
+          <p className="text-slate-500 text-sm uppercase tracking-widest font-semibold mb-6">See What We're Building</p>
+          <div className="w-full flex justify-center overflow-hidden rounded-xl shadow-md">
+            <iframe
+              src="https://www.linkedin.com/embed/feed/update/urn:li:share:7440754038012399616?collapsed=1"
+              height="574"
+              width="504"
+              frameBorder="0"
+              allowFullScreen
+              title="Embedded post"
+              className="max-w-full"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* SECTION 2 — OPPORTUNITY OVERVIEW */}
       <section className="py-20 px-6 bg-slate-50">
         <div className="max-w-3xl mx-auto text-center">
