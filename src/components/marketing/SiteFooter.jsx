@@ -37,6 +37,7 @@ export default function SiteFooter() {
           <p className="text-white font-semibold mb-3 text-sm">Showcase</p>
           <ul className="space-y-2 text-sm">
             <li><a href={createPageUrl('OurWork')} className="hover:text-white transition-colors">Our Work</a></li>
+            <li><a href="https://newtechadvertising.com/join-nta" className="hover:text-white transition-colors">Account Managers Opportunity</a></li>
           </ul>
         </div>
         <div>
