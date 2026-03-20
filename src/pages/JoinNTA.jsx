@@ -78,6 +78,8 @@ export default function JoinNTA() {
     full_name: '', city: '', phone: '', email: '',
     current_role: '', business_relationships: '', interest_reason: '',
   });
+  const [resume, setResume] = useState(null);
+  const [coverLetter, setCoverLetter] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
