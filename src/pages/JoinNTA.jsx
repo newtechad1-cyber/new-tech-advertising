@@ -329,6 +329,31 @@ export default function JoinNTA() {
                 <label className="block text-sm font-semibold text-slate-700 mb-1.5">Why are you interested in this opportunity?</label>
                 <textarea name="interest_reason" value={form.interest_reason} onChange={handleChange} rows={3} placeholder="What excites you about this opportunity? What are you looking for?" className="w-full border border-slate-300 rounded-lg px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm resize-none" />
               </div>
+              {/* File Uploads */}
+              <div className="border-t border-slate-100 pt-5 space-y-4">
+                <p className="text-sm font-semibold text-slate-700">Upload Documents <span className="text-slate-400 font-normal">(optional)</span></p>
+                <div>
+                  <label className="block text-sm text-slate-600 mb-1.5">Resume</label>
+                  <label className="flex items-center gap-3 cursor-pointer border border-dashed border-slate-300 hover:border-blue-400 rounded-lg px-4 py-3 transition">
+                    <Paperclip className="w-4 h-4 text-slate-400 flex-shrink-0" />
+                    <span className="text-sm text-slate-500 truncate">
+                      {resume ? resume.name : 'Choose file (PDF, DOC, DOCX)'}
+                    </span>
+                    <input type="file" accept=".pdf,.doc,.docx" className="hidden" onChange={e => setResume(e.target.files[0] || null)} />
+                  </label>
+                </div>
+                <div>
+                  <label className="block text-sm text-slate-600 mb-1.5">Cover Letter</label>
+                  <label className="flex items-center gap-3 cursor-pointer border border-dashed border-slate-300 hover:border-blue-400 rounded-lg px-4 py-3 transition">
+                    <Paperclip className="w-4 h-4 text-slate-400 flex-shrink-0" />
+                    <span className="text-sm text-slate-500 truncate">
+                      {coverLetter ? coverLetter.name : 'Choose file (PDF, DOC, DOCX)'}
+                    </span>
+                    <input type="file" accept=".pdf,.doc,.docx" className="hidden" onChange={e => setCoverLetter(e.target.files[0] || null)} />
+                  </label>
+                </div>
+              </div>
+
               {error && <p className="text-red-600 text-sm">{error}</p>}
               <button type="submit" disabled={submitting} className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white font-bold py-4 rounded-xl text-lg transition flex items-center justify-center gap-2">
                 {submitting ? 'Submitting...' : <>Explore Opportunity <ArrowRight className="w-5 h-5" /></>}
