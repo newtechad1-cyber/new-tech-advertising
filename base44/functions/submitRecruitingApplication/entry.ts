@@ -23,18 +23,6 @@ Deno.serve(async (req) => {
       submitted_at: new Date().toISOString(),
     });
 
-    // Send notification email
-    const fileNote = [
-      resume_name ? `Resume: ${resume_name}` : null,
-      cover_letter_name ? `Cover Letter: ${cover_letter_name}` : null,
-    ].filter(Boolean).join('\n');
-
-    await base44.asServiceRole.integrations.Core.SendEmail({
-      to: 'rick@newtechadvertising.com',
-      subject: `New NTA Partner Application — ${full_name}`,
-      body: `New application submitted from the Join NTA page.\n\nName: ${full_name}\nEmail: ${email}\nPhone: ${phone || 'Not provided'}\nCity: ${city || 'Not provided'}\nCurrent Role: ${current_role || 'Not provided'}\n\nBusiness Relationships:\n${business_relationships || 'Not provided'}\n\nWhy Interested:\n${interest_reason || 'Not provided'}\n\n${fileNote || 'No files uploaded.'}`,
-    });
-
     return Response.json({ success: true });
   } catch (error) {
     console.error('submitRecruitingApplication error:', error);
