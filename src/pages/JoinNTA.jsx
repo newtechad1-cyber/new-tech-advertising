@@ -16,17 +16,17 @@ const BENEFITS = [
   {
     icon: Zap,
     title: 'Innovative But Understandable Solutions',
-    desc: 'NTA\'s tools are built for real small businesses — no tech jargon, no confusion. You can explain them to any business owner over coffee.',
+    desc: "NTA's tools are built for real small businesses — no tech jargon, no confusion. You can explain them to any business owner over coffee.",
   },
   {
     icon: Users,
     title: 'High-Tech + High-Touch Support',
-    desc: 'You\'re not out there alone. We back you with proven materials, onboarding support, and a team that helps you close and deliver.',
+    desc: "You're not out there alone. We back you with proven materials, onboarding support, and a team that helps you close and deliver.",
   },
   {
     icon: TrendingUp,
     title: 'Expanding Growth Markets',
-    desc: 'We\'re strategically targeting regional markets with high business density and low competition. Now is the time to plant your flag.',
+    desc: "We're strategically targeting regional markets with high business density and low competition. Now is the time to plant your flag.",
   },
 ];
 
@@ -46,7 +46,6 @@ const EARNINGS = [
     result: '$600–$1,200/mo partner income',
     color: 'border-violet-200 bg-violet-50',
     accent: 'text-violet-700',
-    highlight: true,
   },
   {
     label: '25 Active Clients',
@@ -72,6 +71,13 @@ const IDEAL = [
   'Entrepreneurial attitude — you want to own your income',
 ];
 
+const toBase64 = (file) => new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.onload = () => resolve(reader.result);
+  reader.onerror = reject;
+  reader.readAsDataURL(file);
+});
+
 export default function JoinNTA() {
   const formRef = useRef(null);
   const [form, setForm] = useState({
@@ -85,7 +91,6 @@ export default function JoinNTA() {
   const [error, setError] = useState('');
 
   const scrollToForm = () => formRef.current?.scrollIntoView({ behavior: 'smooth' });
-
   const handleChange = (e) => setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
@@ -97,13 +102,6 @@ export default function JoinNTA() {
     setSubmitting(true);
     setError('');
     try {
-      const toBase64 = (file) => new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
-
       let resumeUrl = null;
       let coverLetterUrl = null;
       if (resume) {
@@ -116,32 +114,20 @@ export default function JoinNTA() {
         const res = await base44.integrations.Core.UploadFile({ file: b64 });
         coverLetterUrl = res.file_url;
       }
-
       await base44.entities.RecruitingCandidate.create({
         ...form,
         status: 'New Lead',
         submitted_at: new Date().toISOString(),
       });
-
       const fileLinks = [
         resumeUrl ? `Resume: ${resumeUrl}` : null,
         coverLetterUrl ? `Cover Letter: ${coverLetterUrl}` : null,
       ].filter(Boolean).join('\n');
-
       await base44.integrations.Core.SendEmail({
         to: 'rick@newtechadvertising.com',
         subject: `New NTA Partner Application — ${form.full_name}`,
-        body: `New application submitted from the Join NTA page.\n\n` +
-          `Name: ${form.full_name}\n` +
-          `Email: ${form.email}\n` +
-          `Phone: ${form.phone || 'Not provided'}\n` +
-          `City: ${form.city || 'Not provided'}\n` +
-          `Current Role: ${form.current_role || 'Not provided'}\n\n` +
-          `Business Relationships:\n${form.business_relationships || 'Not provided'}\n\n` +
-          `Why Interested:\n${form.interest_reason || 'Not provided'}\n\n` +
-          (fileLinks ? `Attached Files:\n${fileLinks}` : 'No files uploaded.'),
+        body: `New application submitted from the Join NTA page.\n\nName: ${form.full_name}\nEmail: ${form.email}\nPhone: ${form.phone || 'Not provided'}\nCity: ${form.city || 'Not provided'}\nCurrent Role: ${form.current_role || 'Not provided'}\n\nBusiness Relationships:\n${form.business_relationships || 'Not provided'}\n\nWhy Interested:\n${form.interest_reason || 'Not provided'}\n\n${fileLinks ? `Attached Files:\n${fileLinks}` : 'No files uploaded.'}`,
       });
-
       setSubmitted(true);
     } catch (err) {
       setError('Something went wrong. Please try again or email us directly.');
@@ -151,7 +137,6 @@ export default function JoinNTA() {
 
   return (
     <div className="min-h-screen bg-white font-sans">
-
       {/* Nav */}
       <header className="bg-white border-b border-slate-100 px-6 py-4 flex items-center justify-between sticky top-0 z-10 shadow-sm">
         <div className="font-bold text-slate-900 text-lg tracking-tight">New Tech Advertising</div>
@@ -160,7 +145,7 @@ export default function JoinNTA() {
         </button>
       </header>
 
-      {/* SECTION 1 — HERO */}
+      {/* HERO */}
       <section className="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-24 px-6 text-center">
         <div className="max-w-3xl mx-auto">
           <span className="inline-block bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-semibold px-4 py-1.5 rounded-full mb-6 uppercase tracking-widest">
@@ -201,7 +186,7 @@ export default function JoinNTA() {
         </div>
       </section>
 
-      {/* SECTION 2 — OPPORTUNITY OVERVIEW */}
+      {/* OPPORTUNITY OVERVIEW */}
       <section className="py-20 px-6 bg-slate-50">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-slate-900 mb-5">The Opportunity</h2>
@@ -217,15 +202,15 @@ export default function JoinNTA() {
         </div>
       </section>
 
-      {/* SECTION 3 — WHY JOIN NTA */}
+      {/* WHY JOIN NTA */}
       <section className="py-20 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-slate-900 text-center mb-14">Why Join NTA</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {BENEFITS.map(({ icon: Icon, title, desc }) => (
+            {BENEFITS.map(({ icon: BenefitIcon, title, desc }) => (
               <div key={title} className="border border-slate-200 rounded-2xl p-7 hover:shadow-md transition">
                 <div className="bg-blue-50 w-12 h-12 rounded-xl flex items-center justify-center mb-4">
-                  <Icon className="w-6 h-6 text-blue-600" />
+                  <BenefitIcon className="w-6 h-6 text-blue-600" />
                 </div>
                 <h3 className="font-bold text-slate-900 text-lg mb-2">{title}</h3>
                 <p className="text-slate-600 text-sm leading-relaxed">{desc}</p>
@@ -235,7 +220,7 @@ export default function JoinNTA() {
         </div>
       </section>
 
-      {/* SECTION 4 — EARNINGS SNAPSHOT */}
+      {/* EARNINGS SNAPSHOT */}
       <section className="py-20 px-6 bg-slate-50">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
@@ -256,7 +241,7 @@ export default function JoinNTA() {
         </div>
       </section>
 
-      {/* SECTION 5 — WHO WE'RE LOOKING FOR */}
+      {/* WHO WE'RE LOOKING FOR */}
       <section className="py-20 px-6 bg-white">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-slate-900 text-center mb-12">Who We're Looking For</h2>
@@ -271,7 +256,7 @@ export default function JoinNTA() {
         </div>
       </section>
 
-      {/* SECTION 6 — TARGET MARKETS */}
+      {/* TARGET MARKETS */}
       <section className="py-20 px-6 bg-blue-600 text-white">
         <div className="max-w-4xl mx-auto text-center">
           <Building2 className="w-10 h-10 mx-auto mb-4 text-blue-200" />
@@ -289,7 +274,7 @@ export default function JoinNTA() {
         </div>
       </section>
 
-      {/* SECTION 7 — APPLICATION FORM */}
+      {/* APPLICATION FORM */}
       <section ref={formRef} className="py-20 px-6 bg-slate-50">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-12">
@@ -338,7 +323,6 @@ export default function JoinNTA() {
                 <label className="block text-sm font-semibold text-slate-700 mb-1.5">Why are you interested in this opportunity?</label>
                 <textarea name="interest_reason" value={form.interest_reason} onChange={handleChange} rows={3} placeholder="What excites you about this opportunity? What are you looking for?" className="w-full border border-slate-300 rounded-lg px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm resize-none" />
               </div>
-              {/* File Uploads */}
               <div className="border-t border-slate-100 pt-5 space-y-4">
                 <p className="text-sm font-semibold text-slate-700">Upload Documents <span className="text-slate-400 font-normal">(optional)</span></p>
                 <div>
@@ -362,10 +346,9 @@ export default function JoinNTA() {
                   </label>
                 </div>
               </div>
-
               {error && <p className="text-red-600 text-sm">{error}</p>}
               <button type="submit" disabled={submitting} className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white font-bold py-4 rounded-xl text-lg transition flex items-center justify-center gap-2">
-                {submitting ? 'Submitting...' : <>Explore Opportunity <ArrowRight className="w-5 h-5" /></>}
+                {submitting ? 'Submitting...' : <><span>Explore Opportunity</span><ArrowRight className="w-5 h-5" /></>}
               </button>
             </form>
           )}
