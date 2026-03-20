@@ -97,54 +97,50 @@ export default function JoinNTA() {
     setSubmitting(true);
     setError('');
     try {
+      const toBase64 = (file) => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
 
-    // Upload files if provided
-    const toBase64 = (file) => new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
+      let resumeUrl = null;
+      let coverLetterUrl = null;
+      if (resume) {
+        const b64 = await toBase64(resume);
+        const res = await base44.integrations.Core.UploadFile({ file: b64 });
+        resumeUrl = res.file_url;
+      }
+      if (coverLetter) {
+        const b64 = await toBase64(coverLetter);
+        const res = await base44.integrations.Core.UploadFile({ file: b64 });
+        coverLetterUrl = res.file_url;
+      }
 
-    let resumeUrl = null;
-    let coverLetterUrl = null;
-    if (resume) {
-      const b64 = await toBase64(resume);
-      const res = await base44.integrations.Core.UploadFile({ file: b64 });
-      resumeUrl = res.file_url;
-    }
-    if (coverLetter) {
-      const b64 = await toBase64(coverLetter);
-      const res = await base44.integrations.Core.UploadFile({ file: b64 });
-      coverLetterUrl = res.file_url;
-    }
+      await base44.entities.RecruitingCandidate.create({
+        ...form,
+        status: 'New Lead',
+        submitted_at: new Date().toISOString(),
+      });
 
-    // Save candidate record
-    await base44.entities.RecruitingCandidate.create({
-      ...form,
-      status: 'New Lead',
-      submitted_at: new Date().toISOString(),
-    });
+      const fileLinks = [
+        resumeUrl ? `Resume: ${resumeUrl}` : null,
+        coverLetterUrl ? `Cover Letter: ${coverLetterUrl}` : null,
+      ].filter(Boolean).join('\n');
 
-    // Send email notification
-    const fileLinks = [
-      resumeUrl ? `Resume: ${resumeUrl}` : null,
-      coverLetterUrl ? `Cover Letter: ${coverLetterUrl}` : null,
-    ].filter(Boolean).join('\n');
-
-    await base44.integrations.Core.SendEmail({
-      to: 'rick@newtechadvertising.com',
-      subject: `New NTA Partner Application — ${form.full_name}`,
-      body: `New application submitted from the Join NTA page.\n\n` +
-        `Name: ${form.full_name}\n` +
-        `Email: ${form.email}\n` +
-        `Phone: ${form.phone || 'Not provided'}\n` +
-        `City: ${form.city || 'Not provided'}\n` +
-        `Current Role: ${form.current_role || 'Not provided'}\n\n` +
-        `Business Relationships:\n${form.business_relationships || 'Not provided'}\n\n` +
-        `Why Interested:\n${form.interest_reason || 'Not provided'}\n\n` +
-        (fileLinks ? `Attached Files:\n${fileLinks}` : 'No files uploaded.'),
-    });
+      await base44.integrations.Core.SendEmail({
+        to: 'rick@newtechadvertising.com',
+        subject: `New NTA Partner Application — ${form.full_name}`,
+        body: `New application submitted from the Join NTA page.\n\n` +
+          `Name: ${form.full_name}\n` +
+          `Email: ${form.email}\n` +
+          `Phone: ${form.phone || 'Not provided'}\n` +
+          `City: ${form.city || 'Not provided'}\n` +
+          `Current Role: ${form.current_role || 'Not provided'}\n\n` +
+          `Business Relationships:\n${form.business_relationships || 'Not provided'}\n\n` +
+          `Why Interested:\n${form.interest_reason || 'Not provided'}\n\n` +
+          (fileLinks ? `Attached Files:\n${fileLinks}` : 'No files uploaded.'),
+      });
 
       setSubmitted(true);
     } catch (err) {
