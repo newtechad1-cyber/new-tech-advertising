@@ -44,12 +44,12 @@ export default function HomeProblem() {
     <section className="bg-slate-950 py-20 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-14">
-          <span className="text-rose-400 text-sm font-semibold uppercase tracking-widest">The Problem</span>
+          <span className="text-rose-400 text-sm font-semibold uppercase tracking-widest">Sound Familiar?</span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-3 mb-4">
-            Marketing is too hard for most small businesses
+            You're great at your business.<br className="hidden sm:block" /> Marketing it shouldn't feel like a second job.
           </h2>
           <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-            Not because owners don't care — but because the tools, agencies, and systems weren't built for them.
+            You didn't start your business to spend nights writing captions, chasing agencies, or figuring out algorithms. But here you are — and it's not your fault. The whole system was built for big brands, not you.
           </p>
         </div>
 
