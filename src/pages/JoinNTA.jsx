@@ -113,7 +113,7 @@ export default function JoinNTA() {
     <div className="min-h-screen bg-white font-sans">
       {/* Nav */}
       <header className="bg-white border-b border-slate-100 px-6 py-4 flex items-center justify-between sticky top-0 z-10 shadow-sm">
-        <a href="https://newtechadvertising.com/join-nta"><img src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/62de67e4f_finalNTAlogo.png" alt="New Tech Advertising" className="h-10 w-auto object-contain" /></a>
+        <a href="https://newtechadvertising.com"><img src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/62de67e4f_finalNTAlogo.png" alt="New Tech Advertising" className="h-10 w-auto object-contain" /></a>
         <button onClick={scrollToForm} className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-5 py-2 rounded-lg transition">
           Apply Now
         </button>
