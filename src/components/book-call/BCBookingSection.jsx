@@ -30,13 +30,16 @@ export default function BCBookingSection() {
           "No pressure. No generic pitch. Just a real strategy conversation about how to grow your business."
         </p>
 
-        <button
-          onClick={handleClick}
+        <a
+          href="https://calendar.app.google/p6ieYanvwhixXxZ67"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => setOpened(true)}
           className="inline-flex items-center gap-2 px-12 py-6 rounded-2xl text-lg font-bold text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-cyan-500 transition-all shadow-2xl shadow-blue-600/40 hover:shadow-blue-500/50 hover:-translate-y-1 mb-4"
         >
           <Clock className="w-5 h-5" />
           Choose Your Time <ArrowRight className="w-5 h-5" />
-        </button>
+        </a>
 
         {opened && (
           <div className="mb-6 inline-flex items-center gap-2 bg-green-500/20 border border-green-400/40 text-green-300 px-5 py-3 rounded-xl text-sm font-semibold">
