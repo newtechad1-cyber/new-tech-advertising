@@ -70,9 +70,9 @@ const STEPS = [
 
 const LOCAL_MARKETS = [
   { city: 'Mason City', state: 'IA', href: '/website-rebuilds/mason-city-ia' },
-  { city: 'Rochester', state: 'MN', href: null },
-  { city: 'Austin', state: 'MN', href: null },
-  { city: 'Albert Lea', state: 'MN', href: null },
+  { city: 'Rochester', state: 'MN', href: '/website-rebuilds/rochester-mn' },
+  { city: 'Austin', state: 'MN', href: '/services/website-rebuilds' },
+  { city: 'Albert Lea', state: 'MN', href: '/services/website-rebuilds' },
 ];
 
 const VALUE_POINTS = [
@@ -272,7 +272,10 @@ export default function Home() {
             <p className="text-slate-400 text-sm mb-4 font-medium">Local service pages:</p>
             <div className="flex flex-wrap justify-center gap-4 text-sm">
               <Link to="/website-rebuilds/mason-city-ia" className="text-blue-400 hover:text-blue-300 hover:underline font-medium transition">
-                → Mason City Website Rebuild Services
+                → Mason City, IA Website Rebuild Services
+              </Link>
+              <Link to="/website-rebuilds/rochester-mn" className="text-blue-400 hover:text-blue-300 hover:underline font-medium transition">
+                → Rochester, MN Website Rebuild Services
               </Link>
               <Link to="/services/website-rebuilds" className="text-blue-400 hover:text-blue-300 hover:underline font-medium transition">
                 → Website Rebuild Services Overview
