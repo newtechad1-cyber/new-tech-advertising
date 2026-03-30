@@ -114,6 +114,7 @@ import DIYBillingSettings from './pages/DIYBillingSettings';
 import DIYCheckoutSuccess from './pages/DIYCheckoutSuccess';
 import NTAPricingLadderPage from './pages/NTAPricingLadderPage';
 import JoinNTA from './pages/JoinNTA';
+import WebsiteRebuildService from './pages/WebsiteRebuildService';
 import AdminRecruitingCandidates from './pages/AdminRecruitingCandidates';
 
 const { Pages, Layout, mainPage } = pagesConfig;
@@ -279,6 +280,7 @@ const AuthenticatedApp = () => {
       <Route path="/trial/channels" element={<LayoutWrapper currentPageName="TrialChannels"><TrialChannels /></LayoutWrapper>} />
       <Route path="/trial/activation" element={<LayoutWrapper currentPageName="TrialActivation"><TrialActivation /></LayoutWrapper>} />
       <Route path="/join-nta" element={<JoinNTA />} />
+      <Route path="/services/website-rebuilds" element={<LayoutWrapper currentPageName="WebsiteRebuildService"><WebsiteRebuildService /></LayoutWrapper>} />
       <Route path="/admin/recruiting-candidates" element={<LayoutWrapper currentPageName="AdminRecruitingCandidates"><AdminRecruitingCandidates /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
