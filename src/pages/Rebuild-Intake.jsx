@@ -35,56 +35,43 @@ export default function RebuildIntake() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      // Create Company
-      const company = await base44.entities.Company.create({
-        business_name: form.business_name,
-        website: form.website,
-        industry: form.industry,
-        email: form.email,
-        phone: form.phone,
-        city: form.city,
-        state: form.state,
-        status: 'lead',
-        source: 'website',
-      });
-
-      // Create Lead
-      const lead = await base44.entities.Lead.create({
-        company_id: company.id,
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-        business_name: form.business_name,
-        website: form.website,
-        industry: form.industry,
-        service_interest: 'ada_rebuild',
-        message: `Service: ${form.service_type} | Pages: ${form.page_count} | ${form.notes}`,
-        status: 'new',
-        source: 'website',
-      });
-
-      // Create ServiceRequest
-      await base44.entities.ServiceRequest.create({
-        company_id: company.id,
-        lead_id: lead.id,
-        service_type: form.service_type,
-        status: 'submitted',
-        notes: form.notes,
-        request_details: JSON.stringify({
-          website: form.website,
-          page_count: form.page_count,
-          city: form.city,
-          state: form.state,
-        }),
-      });
-
-      // Notify team
+      // Always send email notification first
       await base44.integrations.Core.SendEmail({
         from_name: 'NTA — Website Intake',
         to: 'rick@newtechadvertising.com',
         subject: `Website Intake: ${form.business_name} — ${form.service_type}`,
-        body: `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nBusiness: ${form.business_name}\nWebsite: ${form.website}\nService: ${form.service_type}\nPages: ${form.page_count}\nCity/State: ${form.city}, ${form.state}\nNotes: ${form.notes}`,
+        body: `New website rebuild inquiry:\n\nName: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nBusiness: ${form.business_name}\nWebsite: ${form.website}\nService: ${form.service_type}\nPages: ${form.page_count}\nCity/State: ${form.city}, ${form.state}\nIndustry: ${form.industry}\nNotes: ${form.notes}`,
       });
+
+      // Best-effort entity creation (non-blocking)
+      try {
+        const company = await base44.entities.Company.create({
+          business_name: form.business_name,
+          website: form.website,
+          industry: form.industry,
+          email: form.email,
+          phone: form.phone,
+          city: form.city,
+          state: form.state,
+          status: 'lead',
+          source: 'website',
+        });
+        await base44.entities.Lead.create({
+          company_id: company.id,
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          business_name: form.business_name,
+          website: form.website,
+          industry: form.industry,
+          service_interest: form.service_type,
+          message: `Service: ${form.service_type} | Pages: ${form.page_count} | ${form.notes}`,
+          status: 'new',
+          source: 'website',
+        });
+      } catch (entityErr) {
+        console.warn('Entity creation failed (non-critical):', entityErr);
+      }
 
       setStep(2);
     } catch (err) {
