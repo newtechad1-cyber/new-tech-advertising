@@ -67,34 +67,49 @@ Deno.serve(async (req) => {
       // Do NOT return — continue to send email regardless
     }
 
-    // ── STEP 2: Send email notification to Rick ───────────────────────────
+    // ── STEP 2: Send email notification to Rick via Resend ─────────────────
     try {
-      console.log('[sendRebuildIntakeEmail] Email send started to:', NOTIFY_EMAIL);
-      await base44.asServiceRole.integrations.Core.SendEmail({
-        from_name: 'NTA Website Intake',
-        to: NOTIFY_EMAIL,
-        subject: `New Website Audit Lead: ${business_name}`,
-        body: [
-          `New website audit request received!`,
-          ``,
-          `Name:         ${name}`,
-          `Email:        ${email}`,
-          `Phone:        ${phone || 'Not provided'}`,
-          `Business:     ${business_name}`,
-          `Website:      ${website || 'Not provided'}`,
-          `Service:      ${service_type || 'Not specified'}`,
-          `Pages:        ${page_count || 'Not specified'}`,
-          `Location:     ${city || ''}, ${state || ''}`,
-          `Industry:     ${industry || 'Not specified'}`,
-          `Source Page:  ${source || 'unknown'}`,
-          ``,
-          `Notes:`,
-          notes || 'None',
-          ``,
-          `Submitted: ${submittedAt} CT`,
-          `Lead ID: ${leadId || (crmFailed ? 'CRM SAVE FAILED' : 'unknown')}`,
-        ].join('\n'),
+      const resendKey = Deno.env.get('RESEND_API_KEY');
+      console.log('[sendRebuildIntakeEmail] Email send started to:', NOTIFY_EMAIL, '| resend key present:', !!resendKey);
+      if (!resendKey) throw new Error('RESEND_API_KEY not set');
+      const resendRes = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${Deno.env.get('RESEND_API_KEY')}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: 'NTA Intake <onboarding@resend.dev>',
+          to: [NOTIFY_EMAIL],
+          subject: `New Website Audit Lead: ${business_name}`,
+          text: [
+            'New website audit request received!',
+            '',
+            `Name:         ${name}`,
+            `Email:        ${email}`,
+            `Phone:        ${phone || 'Not provided'}`,
+            `Business:     ${business_name}`,
+            `Website:      ${website || 'Not provided'}`,
+            `Service:      ${service_type || 'Not specified'}`,
+            `Pages:        ${page_count || 'Not specified'}`,
+            `Location:     ${city || ''}, ${state || ''}`,
+            `Industry:     ${industry || 'Not specified'}`,
+            `Source Page:  ${source || 'unknown'}`,
+            '',
+            'Notes:',
+            notes || 'None',
+            '',
+            `Submitted: ${submittedAt} CT`,
+            `Lead ID: ${leadId || (crmFailed ? 'CRM SAVE FAILED' : 'unknown')}`,
+          ].join('\n'),
+        }),
       });
+      const resendBody = await resendRes.json();
+      if (!resendRes.ok) {
+        console.error('[sendRebuildIntakeEmail] Resend error body:', JSON.stringify(resendBody));
+        throw new Error(`Resend ${resendRes.status}: ${resendBody.message || resendBody.name || JSON.stringify(resendBody)}`);
+      }
+      console.log('[sendRebuildIntakeEmail] Resend response:', JSON.stringify(resendBody));
       console.log('[sendRebuildIntakeEmail] Email send SUCCESS to:', NOTIFY_EMAIL);
     } catch (emailErr) {
       emailFailed = true;
