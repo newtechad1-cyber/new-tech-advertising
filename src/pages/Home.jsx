@@ -144,6 +144,20 @@ export default function Home() {
               Explore Services <ChevronRight className="w-5 h-5" />
             </a>
           </div>
+
+          {/* Hero Video */}
+          <div className="mt-12 flex justify-center">
+            <div className="rounded-2xl overflow-hidden shadow-2xl shadow-blue-900/40 border border-white/10" style={{width: '315px', height: '560px'}}>
+              <iframe
+                src="https://www.youtube.com/embed/7bvNuGtD6ns"
+                title="NTA Website Rebuild Overview"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+                style={{border: 'none'}}
+              />
+            </div>
+          </div>
         </div>
       </section>
 
