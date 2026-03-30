@@ -19,7 +19,7 @@ Deno.serve(async (req) => {
       'homepage': 'website',
       'website-rebuild-service': 'seo_page',
       'website-rebuild-mason-city-ia': 'seo_page',
-      'mason-city': 'seo_page',
+      'website-rebuild-rochester-mn': 'seo_page',
       'rebuild-intake': 'website',
       'book-call': 'website',
       'funnel': 'funnel_page',
@@ -114,7 +114,36 @@ Deno.serve(async (req) => {
     } catch (emailErr) {
       emailFailed = true;
       console.error('[sendRebuildIntakeEmail] Email send FAILED:', emailErr.message);
-      // Do NOT return — still report success if CRM saved
+
+      // ── BACKUP ALERT: flag lead + create activity record ──────────────────
+      if (leadId) {
+        const alertNote = `ALERT: Email notification failed for this lead. Source: ${source || 'unknown'}. Business: ${business_name}. Contact: ${name} | ${email} | ${phone || 'no phone'}. Submitted: ${submittedAt} CT. Reason: ${emailErr.message}`;
+        try {
+          await base44.asServiceRole.entities.Lead.update(leadId, {
+            internal_notes: alertNote,
+            status: 'new',
+          });
+          console.log('[sendRebuildIntakeEmail] BACKUP: Lead flagged with email failure note, lead ID:', leadId);
+        } catch (flagErr) {
+          console.error('[sendRebuildIntakeEmail] BACKUP: Failed to flag lead:', flagErr.message);
+        }
+
+        try {
+          await base44.asServiceRole.entities.LeadActivity.create({
+            lead_id: leadId,
+            company_name: business_name,
+            activity_type: 'form_submission',
+            page_url: source || 'rebuild-intake',
+            page_visited: `Rebuild Intake — ${source || 'unknown'}`,
+            details: `BACKUP ALERT — Email notification failed. Manual follow-up required.\n\nLead Details:\n- Business: ${business_name}\n- Contact: ${name}\n- Email: ${email}\n- Phone: ${phone || 'not provided'}\n- Website: ${website || 'not provided'}\n- Source: ${source || 'unknown'}\n- Submitted: ${submittedAt} CT\n- Error: ${emailErr.message}`,
+          });
+          console.log('[sendRebuildIntakeEmail] BACKUP: LeadActivity alert record created for lead ID:', leadId);
+        } catch (actErr) {
+          console.error('[sendRebuildIntakeEmail] BACKUP: Failed to create LeadActivity alert:', actErr.message);
+        }
+      } else {
+        console.error('[sendRebuildIntakeEmail] BACKUP: Cannot create alert — no lead ID (CRM also failed). Full details:', { name, email, business_name, phone, source, submittedAt });
+      }
     }
 
     // ── STEP 3: Send visitor confirmation (non-critical, best-effort) ─────
