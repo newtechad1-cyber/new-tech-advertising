@@ -72,7 +72,7 @@ const LOCAL_MARKETS = [
   { city: 'Mason City', state: 'IA', href: '/website-rebuilds/mason-city-ia' },
   { city: 'Rochester', state: 'MN', href: '/website-rebuilds/rochester-mn' },
   { city: 'Austin', state: 'MN', href: '/website-rebuilds/austin-mn' },
-  { city: 'Albert Lea', state: 'MN', href: '/services/website-rebuilds' },
+  { city: 'Albert Lea', state: 'MN', href: '/website-rebuilds/albert-lea-mn' },
 ];
 
 const VALUE_POINTS = [
