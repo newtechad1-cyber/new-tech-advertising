@@ -33,50 +33,40 @@ export default function RebuildIntake() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!form.name || !form.email || !form.business_name || !form.phone || !form.website) {
+      toast.error('Please fill in all required fields.');
+      return;
+    }
+
     setSubmitting(true);
+    console.log('[RebuildIntake] Submit started for:', form.business_name);
+
     try {
-      // Always send email notification first
-      await base44.integrations.Core.SendEmail({
-        from_name: 'NTA — Website Intake',
-        to: 'rick@newtechadvertising.com',
-        subject: `Website Intake: ${form.business_name} — ${form.service_type}`,
-        body: `New website rebuild inquiry:\n\nName: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nBusiness: ${form.business_name}\nWebsite: ${form.website}\nService: ${form.service_type}\nPages: ${form.page_count}\nCity/State: ${form.city}, ${form.state}\nIndustry: ${form.industry}\nNotes: ${form.notes}`,
+      console.log('[RebuildIntake] Calling sendRebuildIntakeEmail backend function...');
+      const response = await base44.functions.invoke('sendRebuildIntakeEmail', {
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        business_name: form.business_name,
+        website: form.website,
+        service_type: form.service_type,
+        page_count: form.page_count,
+        city: form.city,
+        state: form.state,
+        industry: form.industry,
+        notes: form.notes,
       });
 
-      // Best-effort entity creation (non-blocking)
-      try {
-        const company = await base44.entities.Company.create({
-          business_name: form.business_name,
-          website: form.website,
-          industry: form.industry,
-          email: form.email,
-          phone: form.phone,
-          city: form.city,
-          state: form.state,
-          status: 'lead',
-          source: 'website',
-        });
-        await base44.entities.Lead.create({
-          company_id: company.id,
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-          business_name: form.business_name,
-          website: form.website,
-          industry: form.industry,
-          service_interest: form.service_type,
-          message: `Service: ${form.service_type} | Pages: ${form.page_count} | ${form.notes}`,
-          status: 'new',
-          source: 'website',
-        });
-      } catch (entityErr) {
-        console.warn('Entity creation failed (non-critical):', entityErr);
+      if (response.data?.error) {
+        throw new Error(response.data.error);
       }
 
+      console.log('[RebuildIntake] Email sent successfully, showing success state.');
       setStep(2);
     } catch (err) {
-      toast.error('Something went wrong. Please try again.');
-      console.error(err);
+      console.error('[RebuildIntake] Submit failed:', err);
+      toast.error('Something went wrong sending your request. Please try again or call us at 641-420-8816.');
     } finally {
       setSubmitting(false);
     }
@@ -90,18 +80,21 @@ export default function RebuildIntake() {
             <CheckCircle className="w-8 h-8 text-green-600" />
           </div>
           <h1 className="text-2xl font-extrabold text-slate-900 mb-3">Request Received!</h1>
-          <p className="text-slate-600 mb-6">
-            We'll review your site and prepare a proposal within <strong>1–2 business days</strong>. We'll email it directly to <span className="font-semibold">{form.email}</span>.
+          <p className="text-slate-600 mb-2">
+            Thanks — your website audit request was received. We'll review your site and reach out soon.
+          </p>
+          <p className="text-slate-500 text-sm mb-6">
+            We'll be in touch at <span className="font-semibold text-slate-700">{form.email}</span> within 1–2 business days.
           </p>
           <div className="space-y-3">
             <Link
-              to={createPageUrl('Book-Call')}
+              to="/book-call"
               className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all text-sm"
             >
               Book a call to discuss <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              to={createPageUrl('Home')}
+              to="/"
               className="w-full flex items-center justify-center text-slate-500 hover:text-slate-800 text-sm transition-colors py-2"
             >
               ← Back to home
