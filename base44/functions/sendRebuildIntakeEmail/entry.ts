@@ -14,7 +14,30 @@ Deno.serve(async (req) => {
     const base44 = createClientFromRequest(req);
     const submittedAt = new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' });
 
-    console.log('[sendRebuildIntakeEmail] Processing submission:', business_name, email, '| source:', source || 'unknown');
+    // Map raw source param → valid Lead.source enum value
+    const sourceEnumMap = {
+      'homepage': 'website',
+      'website-rebuild-service': 'seo_page',
+      'website-rebuild-mason-city-ia': 'seo_page',
+      'mason-city': 'seo_page',
+      'rebuild-intake': 'website',
+      'book-call': 'website',
+      'funnel': 'funnel_page',
+      'blog': 'blog_article',
+    };
+    const crmSource = sourceEnumMap[source] || 'website';
+
+    // Map service_type → valid Lead.service_interest enum value
+    const serviceEnumMap = {
+      'ada_rebuild': 'ada_rebuild',
+      'website_rebuild': 'dfy_managed',
+      'both': 'ada_rebuild',
+      'streaming-tv-advertising': 'streaming_tv',
+      'local-seo': 'local_seo',
+    };
+    const crmServiceInterest = serviceEnumMap[service_type] || 'not_sure';
+
+    console.log('[sendRebuildIntakeEmail] Processing submission:', business_name, email, '| source:', source || 'unknown', '→ crmSource:', crmSource);
 
     let leadId = null;
     let crmFailed = false;
@@ -30,11 +53,11 @@ Deno.serve(async (req) => {
         business_name,
         website: website || '',
         industry: industry || '',
-        service_interest: service_type || 'website_rebuild',
+        service_interest: crmServiceInterest,
         message: `Rebuild Intake | Service: ${service_type} | Pages: ${page_count} | City: ${city || ''}, ${state || ''} | Source: ${source || 'unknown'} | Notes: ${notes || 'none'}`,
         status: 'new',
-        source: source || 'rebuild_intake',
-        lead_source_page: source || 'rebuild_intake',
+        source: crmSource,
+        lead_source_page: source || 'unknown',
       });
       leadId = lead.id;
       console.log('[sendRebuildIntakeEmail] CRM save SUCCESS — lead ID:', leadId);
