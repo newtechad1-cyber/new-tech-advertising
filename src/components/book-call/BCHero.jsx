@@ -1,11 +1,18 @@
-import React from 'react';
-import { ArrowRight, Zap } from 'lucide-react';
-import { openSchedulingCalendar, BOOKING_EXTERNAL_URL } from '@/components/config/bookingConfig';
+import React, { useState } from 'react';
+import { ArrowRight, Zap, CheckCircle } from 'lucide-react';
+import { openSchedulingCalendar } from '@/components/config/bookingConfig';
 
 export default function BCHero() {
+  const [opened, setOpened] = useState(false);
+
+  const handleClick = () => {
+    openSchedulingCalendar();
+    setOpened(true);
+  };
+
   return (
     <section className="relative bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 py-24 px-6 overflow-hidden">
-      <div className="absolute inset-0 opacity-[0.04]"
+      <div className="absolute inset-0 opacity-[0.04] pointer-events-none"
         style={{ backgroundImage: 'linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)', backgroundSize: '64px 64px' }} />
       
       <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full bg-blue-600/10 blur-[120px] pointer-events-none" />
@@ -29,11 +36,18 @@ export default function BCHero() {
         </p>
 
         <button
-          onClick={() => openSchedulingCalendar()}
+          onClick={handleClick}
           className="inline-flex items-center gap-2 px-10 py-5 rounded-2xl text-lg font-black text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-cyan-500 transition-all shadow-2xl shadow-blue-600/40 hover:shadow-blue-500/50 hover:-translate-y-1"
         >
           Choose Your Time <ArrowRight className="w-5 h-5" />
         </button>
+
+        {opened && (
+          <div className="mt-4 inline-flex items-center gap-2 bg-green-500/20 border border-green-400/40 text-green-300 px-5 py-3 rounded-xl text-sm font-semibold">
+            <CheckCircle className="w-4 h-4" />
+            Calendar opened in a new tab — pick your time!
+          </div>
+        )}
 
         <p className="text-slate-500 text-sm mt-6">
           Calendar opens instantly • Book on your schedule • Call confirmed in 2 hours
