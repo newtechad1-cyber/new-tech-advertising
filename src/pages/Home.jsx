@@ -149,12 +149,15 @@ export default function Home() {
           <div className="mt-12 flex justify-center">
             <div className="rounded-2xl overflow-hidden shadow-2xl shadow-blue-900/40 border border-white/10" style={{width: '315px', height: '560px'}}>
               <iframe
-                src="https://www.youtube.com/embed/7bvNuGtD6ns"
+                width="315"
+                height="560"
+                src="https://www.youtube.com/embed/7bvNuGtD6ns?rel=0&playsinline=1"
                 title="NTA Website Rebuild Overview"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
-                className="w-full h-full"
-                style={{border: 'none'}}
+                referrerPolicy="strict-origin-when-cross-origin"
+                style={{width: '100%', height: '100%', border: 'none', display: 'block'}}
               />
             </div>
           </div>
