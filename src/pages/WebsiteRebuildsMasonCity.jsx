@@ -120,7 +120,7 @@ export default function WebsiteRebuildsMasonCity() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              to="/RebuildIntake?source=website-rebuild-mason-city-ia"
+              to="/rebuild-intake?source=website-rebuild-mason-city-ia"
               className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl text-lg transition shadow-lg shadow-blue-600/30"
             >
               Get a Free Website Audit <ArrowRight className="w-5 h-5" />
@@ -314,7 +314,7 @@ export default function WebsiteRebuildsMasonCity() {
               ))}
             </div>
             <Link
-              to="/RebuildIntake?source=website-rebuild-mason-city-ia"
+              to="/rebuild-intake?source=website-rebuild-mason-city-ia"
               className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold px-10 py-4 rounded-xl text-lg transition shadow-lg shadow-blue-600/30"
             >
               Get My Free Audit <ArrowRight className="w-5 h-5" />
@@ -369,7 +369,7 @@ export default function WebsiteRebuildsMasonCity() {
             Every day with an underperforming site is a day you're handing business to your North Iowa competitors. Let's fix that.
           </p>
           <Link
-            to="/RebuildIntake?source=website-rebuild-mason-city-ia"
+            to="/rebuild-intake?source=website-rebuild-mason-city-ia"
             className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-10 py-5 rounded-xl text-xl transition shadow-xl shadow-blue-600/30"
           >
             Start With a Free Audit <ArrowRight className="w-6 h-6" />
