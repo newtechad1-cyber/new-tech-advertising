@@ -22,6 +22,12 @@ export default function RebuildIntake() {
   const navigate = useNavigate();
   const [step, setStep] = useState(1); // 1=form, 2=success
   const [submitting, setSubmitting] = useState(false);
+  const [partialSuccess, setPartialSuccess] = useState(null); // tracks which step failed
+
+  // Detect source from URL param e.g. ?source=mason-city or ?source=website-rebuild-service
+  const urlParams = new URLSearchParams(window.location.search);
+  const sourcePage = urlParams.get('source') || 'rebuild-intake';
+
   const [form, setForm] = useState({
     name: '', email: '', phone: '', business_name: '',
     website: '', city: '', state: '', industry: '',
@@ -33,6 +39,7 @@ export default function RebuildIntake() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (submitting) return; // prevent double-submit
 
     if (!form.name || !form.email || !form.business_name || !form.phone || !form.website) {
       toast.error('Please fill in all required fields.');
@@ -40,10 +47,11 @@ export default function RebuildIntake() {
     }
 
     setSubmitting(true);
-    console.log('[RebuildIntake] Submit started for:', form.business_name);
+    setPartialSuccess(null);
+    console.log('[RebuildIntake] Submit started for:', form.business_name, '| source:', sourcePage);
 
     try {
-      console.log('[RebuildIntake] Calling sendRebuildIntakeEmail backend function...');
+      console.log('[RebuildIntake] Calling sendRebuildIntakeEmail...');
       const response = await base44.functions.invoke('sendRebuildIntakeEmail', {
         name: form.name,
         email: form.email,
@@ -56,16 +64,26 @@ export default function RebuildIntake() {
         state: form.state,
         industry: form.industry,
         notes: form.notes,
+        source: sourcePage,
       });
 
-      if (response.data?.error) {
-        throw new Error(response.data.error);
+      const data = response.data;
+      console.log('[RebuildIntake] Response:', data);
+
+      if (!data?.success) {
+        throw new Error(data?.error || 'Unknown error from backend');
       }
 
-      console.log('[RebuildIntake] Email sent successfully, showing success state.');
+      // Check partial failures
+      if (data.crm_failed || data.email_failed) {
+        setPartialSuccess({ crmFailed: !!data.crm_failed, emailFailed: !!data.email_failed });
+        console.warn('[RebuildIntake] Partial failure — crm_failed:', data.crm_failed, 'email_failed:', data.email_failed);
+      }
+
+      console.log('[RebuildIntake] Success — showing confirmation.');
       setStep(2);
     } catch (err) {
-      console.error('[RebuildIntake] Submit failed:', err);
+      console.error('[RebuildIntake] Submit failed:', err?.message || err);
       toast.error('Something went wrong sending your request. Please try again or call us at 641-420-8816.');
     } finally {
       setSubmitting(false);

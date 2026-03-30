@@ -132,7 +132,7 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              to="/RebuildIntake"
+              to="/RebuildIntake?source=homepage"
               className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl text-lg transition shadow-lg shadow-blue-600/30"
             >
               Get a Free Website Audit <ArrowRight className="w-5 h-5" />
@@ -208,7 +208,7 @@ export default function Home() {
               We rebuild and improve systems that help businesses <span className="text-blue-600">get found and generate more leads.</span>
             </p>
             <Link
-              to="/RebuildIntake"
+              to="/RebuildIntake?source=homepage"
               className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-xl text-lg transition shadow-md"
             >
               Get a Free Website Audit <ArrowRight className="w-5 h-5" />
@@ -318,7 +318,7 @@ export default function Home() {
               ))}
             </div>
             <Link
-              to="/RebuildIntake"
+              to="/RebuildIntake?source=homepage"
               className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold px-10 py-4 rounded-xl text-lg transition shadow-lg shadow-blue-600/30"
             >
               Get My Free Audit <ArrowRight className="w-5 h-5" />
@@ -355,7 +355,7 @@ export default function Home() {
             Every day with an underperforming site is a day you're handing customers to your competitors. Let's change that.
           </p>
           <Link
-            to="/RebuildIntake"
+            to="/RebuildIntake?source=homepage"
             className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-10 py-5 rounded-xl text-xl transition shadow-xl shadow-blue-600/30"
           >
             Get Your Free Website Audit <ArrowRight className="w-6 h-6" />
