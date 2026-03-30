@@ -117,6 +117,7 @@ import JoinNTA from './pages/JoinNTA';
 import WebsiteRebuildService from './pages/WebsiteRebuildService';
 import WebsiteRebuildsMasonCity from './pages/WebsiteRebuildsMasonCity';
 import WebsiteRebuildsRochesterMN from './pages/WebsiteRebuildsRochesterMN';
+import WebsiteRebuildsAustinMN from './pages/WebsiteRebuildsAustinMN';
 import AdminRecruitingCandidates from './pages/AdminRecruitingCandidates';
 import RebuildIntake from './pages/Rebuild-Intake';
 
@@ -286,6 +287,7 @@ const AuthenticatedApp = () => {
       <Route path="/services/website-rebuilds" element={<LayoutWrapper currentPageName="WebsiteRebuildService"><WebsiteRebuildService /></LayoutWrapper>} />
       <Route path="/website-rebuilds/mason-city-ia" element={<LayoutWrapper currentPageName="WebsiteRebuildsMasonCity"><WebsiteRebuildsMasonCity /></LayoutWrapper>} />
       <Route path="/website-rebuilds/rochester-mn" element={<WebsiteRebuildsRochesterMN />} />
+      <Route path="/website-rebuilds/austin-mn" element={<WebsiteRebuildsAustinMN />} />
       <Route path="/rebuild-intake" element={<RebuildIntake />} />
       <Route path="/admin/recruiting-candidates" element={<LayoutWrapper currentPageName="AdminRecruitingCandidates"><AdminRecruitingCandidates /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
