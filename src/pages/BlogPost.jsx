@@ -117,12 +117,19 @@ export default function BlogPost() {
       <main className="flex-1 bg-white">
         <div className="max-w-3xl mx-auto px-6 py-14">
 
-          {/* Excerpt / lead */}
+          {/* Excerpt / lead + top internal link */}
           {post.excerpt && (
-            <p className="text-xl text-slate-600 leading-relaxed mb-10 border-l-4 border-blue-500 pl-6 font-medium italic" style={{ fontFamily: 'Georgia, serif' }}>
+            <p className="text-xl text-slate-600 leading-relaxed mb-6 border-l-4 border-blue-500 pl-6 font-medium italic" style={{ fontFamily: 'Georgia, serif' }}>
               {post.excerpt}
             </p>
           )}
+
+          {/* Strategic top link — first 150 words */}
+          <p className="text-slate-600 leading-relaxed mb-10">
+            If your business website isn't generating consistent leads, it may be time to explore our{' '}
+            <Link to="/services/website-rebuilds" className="text-blue-600 font-semibold hover:underline">AI-powered website rebuild services</Link>
+            {' '}— built to rank, convert, and grow with your business.
+          </p>
 
           {/* Tags */}
           {post.tags && post.tags.length > 0 && (
@@ -152,6 +159,16 @@ export default function BlogPost() {
             <ReactMarkdown>{post.content}</ReactMarkdown>
           </div>
 
+          {/* Mid-content strategic callout */}
+          <div className="my-10 bg-blue-50 border border-blue-200 rounded-2xl px-7 py-6">
+            <p className="text-slate-700 leading-relaxed m-0">
+              <span className="font-semibold text-slate-900">Serving North Iowa &amp; Southern Minnesota?</span>{' '}
+              Local businesses across the region are seeing real results with a focused rebuild strategy. Learn how our{' '}
+              <Link to="/website-rebuilds/mason-city-ia" className="text-blue-600 font-semibold hover:underline">website rebuild services in Mason City</Link>{' '}
+              are helping local companies turn their websites into lead machines.
+            </p>
+          </div>
+
           {/* Divider */}
           <hr className="my-14 border-slate-200" />
 
@@ -179,10 +196,10 @@ export default function BlogPost() {
               Get a free website audit and discover exactly what's holding your business back online.
             </p>
             <Link
-              to="/rebuild-intake?source=blog-article"
+              to={`/rebuild-intake?source=article-${post.slug || 'blog'}`}
               className="inline-flex items-center gap-2 bg-white hover:bg-blue-50 text-blue-700 font-bold px-8 py-4 rounded-xl text-base transition shadow-lg"
             >
-              Get Your Free Audit <ArrowRight className="w-5 h-5" />
+              Get your free website rebuild preview <ArrowRight className="w-5 h-5" />
             </Link>
             <p className="text-blue-200 text-xs mt-4">No credit card required. Response within 24–48 hours.</p>
           </div>
