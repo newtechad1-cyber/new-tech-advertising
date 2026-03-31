@@ -258,6 +258,25 @@ export default function WebsiteRebuildsAustinMN() {
         </div>
       </section>
 
+      {/* ── GROW BEYOND WEBSITE ── */}
+      <section className="py-16 px-6 bg-violet-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white border-2 border-violet-200 rounded-3xl p-10 text-center shadow-sm">
+            <span className="inline-block bg-violet-600 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-5">Beyond the Rebuild</span>
+            <h2 className="text-3xl font-bold text-slate-900 mb-5">Grow Your Business Beyond Your Website</h2>
+            <p className="text-slate-600 leading-relaxed mb-4 max-w-2xl mx-auto">
+              A great website is just the starting point. Local businesses in Austin are using social media to drive consistent traffic, stay top-of-mind with customers, and turn their online presence into a steady stream of new leads.
+            </p>
+            <p className="text-slate-600 leading-relaxed mb-8 max-w-2xl mx-auto">
+              Our <Link to="/services/social-media-management" className="text-violet-600 font-semibold hover:underline">social media management services</Link> are built to work alongside your rebuilt website — creating a unified growth engine that compounds visibility month over month.
+            </p>
+            <Link to="/services/social-media-management" className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white font-bold px-8 py-3 rounded-xl transition shadow-md">
+              See Social Media Management <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ── 9. FAQ ── */}
       <section className="py-20 px-6 bg-white">
         <div className="max-w-3xl mx-auto">
