@@ -20,54 +20,33 @@ const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/pub
 
 const NAV_LINKS = [
   {
-    label: 'Growth System',
-    href: createPageUrl('GrowthSystem'),
+    label: 'Services',
+    href: '/services/website-rebuilds',
     children: [
-      { label: 'The NTA Growth System', href: createPageUrl('GrowthSystem'), desc: 'Our complete small business marketing system' },
-      { label: 'AI Marketing Platform', href: createPageUrl('AiMarketingPlatform'), desc: 'Every tool in one place' },
-      { label: 'Social Media Tools', href: createPageUrl('AiSocialMedia'), desc: 'Create, schedule, and publish automatically' },
-      { label: 'AI Video Studio', href: createPageUrl('AiVideos'), desc: 'Turn ideas into marketing videos' },
-      { label: 'Streaming TV Ads', href: createPageUrl('StreamingTvAdvertising'), desc: 'Local ads on Hulu, Roku, Paramount+' },
+      { label: 'Website Rebuilds', href: '/services/website-rebuilds', desc: 'Modern websites built to rank and convert' },
+      { label: 'ADA Compliance', href: '/AdaWebsiteCompliance', desc: 'Protect your business and expand your reach' },
+      { label: 'Streaming TV Ads', href: '/StreamingTvAdvertising', desc: 'Local ads on Hulu, Roku, Paramount+' },
+      { label: 'AI SEO & Marketing', href: '/AiSeo', desc: 'Content and SEO systems that build authority' },
     ],
   },
   {
-    label: 'Industries',
-    href: createPageUrl('IndustriesHub'),
+    label: 'Locations',
+    href: '/services/website-rebuilds',
     children: [
-      { label: 'HVAC & Home Services', href: createPageUrl('HvacIndustry'), desc: 'Grow service calls and installs' },
-      { label: 'Restaurants', href: createPageUrl('RestaurantSocialMedia'), desc: 'Keep tables full year-round' },
-      { label: 'Service Trades', href: createPageUrl('IndustriesServiceTrades'), desc: 'Plumbers, electricians, contractors' },
-      { label: 'Professional Services', href: createPageUrl('IndustriesProfessionals'), desc: 'Consultants, legal, accounting' },
-      { label: 'Nonprofits', href: createPageUrl('IndustriesNonprofits'), desc: 'Awareness and donor campaigns' },
+      { label: 'Mason City, IA', href: '/website-rebuilds/mason-city-ia', desc: 'Website rebuild services in Mason City' },
+      { label: 'Rochester, MN', href: '/website-rebuilds/rochester-mn', desc: 'Website rebuild services in Rochester' },
+      { label: 'Austin, MN', href: '/website-rebuilds/austin-mn', desc: 'Website rebuild services in Austin' },
+      { label: 'Albert Lea, MN', href: '/website-rebuilds/albert-lea-mn', desc: 'Website rebuild services in Albert Lea' },
     ],
-  },
-  {
-    label: 'Tools',
-    href: createPageUrl('TvCommercialScriptGenerator'),
-    children: [
-      { label: 'TV Commercial Script Generator', href: createPageUrl('TvCommercialScriptGenerator'), desc: 'Generate a streaming TV ad script free' },
-      { label: 'Marketing Plan Generator', href: createPageUrl('MarketingPlanGenerator'), desc: 'Build your 90-day marketing plan free' },
-    ],
-  },
-  {
-    label: 'Results',
-    href: createPageUrl('CaseStudies'),
   },
   {
     label: 'Blog',
     href: createPageUrl('Blog'),
   },
   {
-    label: 'Pricing',
-    href: createPageUrl('Pricing'),
-  },
-  {
-    label: 'About',
-    href: createPageUrl('About'),
-  },
-  {
-    label: '🏫 School Story Lab',
-    href: createPageUrl('SchoolHome'),
+    label: 'Book a Call',
+    href: 'https://calendar.app.google/p6ieYanvwhixXxZ67',
+    external: true,
   },
 ];
 
@@ -119,6 +98,9 @@ export default function MarketingNav() {
 
         {/* Desktop nav links */}
         <div className="hidden lg:flex items-center gap-1 flex-1">
+          <Link to="/" className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-lg transition-colors">
+            Home
+          </Link>
           {NAV_LINKS.map(link => (
             <div key={link.label} className="relative">
               {link.children ? (
@@ -129,6 +111,10 @@ export default function MarketingNav() {
                   {link.label}
                   <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeDropdown === link.label ? 'rotate-180' : ''}`} />
                 </button>
+              ) : link.external ? (
+                <a href={link.href} target="_blank" rel="noopener noreferrer" className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-lg transition-colors">
+                  {link.label}
+                </a>
               ) : (
                 <a href={link.href} className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-lg transition-colors">
                   {link.label}
@@ -178,6 +164,7 @@ export default function MarketingNav() {
       {mobileOpen && (
         <div className="lg:hidden fixed inset-0 top-16 z-40 bg-slate-950 overflow-y-auto">
           <div className="px-4 py-4 space-y-1">
+            <a href="/" onClick={() => setMobileOpen(false)} className="block px-4 py-3 text-base font-semibold text-white rounded-lg hover:bg-slate-800">Home</a>
             {NAV_LINKS.map(link => (
               <div key={link.label}>
                 {link.children ? (
@@ -192,12 +179,7 @@ export default function MarketingNav() {
                     {mobileExpanded === link.label && (
                       <div className="ml-4 border-l border-slate-800 pl-3 space-y-0.5 mb-1">
                         {link.children.map(child => (
-                          <a
-                            key={child.label}
-                            href={child.href}
-                            onClick={() => setMobileOpen(false)}
-                            className="block px-3 py-2.5 rounded-lg hover:bg-slate-800"
-                          >
+                          <a key={child.label} href={child.href} onClick={() => setMobileOpen(false)} className="block px-3 py-2.5 rounded-lg hover:bg-slate-800">
                             <div className="text-sm font-medium text-white">{child.label}</div>
                             {child.desc && <div className="text-xs text-slate-500 mt-0.5">{child.desc}</div>}
                           </a>
@@ -205,12 +187,12 @@ export default function MarketingNav() {
                       </div>
                     )}
                   </>
+                ) : link.external ? (
+                  <a href={link.href} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)} className="block px-4 py-3 text-base font-semibold text-white rounded-lg hover:bg-slate-800">
+                    {link.label}
+                  </a>
                 ) : (
-                  <a
-                    href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="block px-4 py-3 text-base font-semibold text-white rounded-lg hover:bg-slate-800"
-                  >
+                  <a href={link.href} onClick={() => setMobileOpen(false)} className="block px-4 py-3 text-base font-semibold text-white rounded-lg hover:bg-slate-800">
                     {link.label}
                   </a>
                 )}
