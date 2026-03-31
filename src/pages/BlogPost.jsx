@@ -7,6 +7,7 @@ import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import NTAGrowthGuideBot from '../components/nta-guide/NTAGrowthGuideBot';
 import { Calendar, User, ArrowLeft, Loader2, Tag, Clock, ArrowRight } from 'lucide-react';
+import { applyInternalLinks } from '../utils/internalLinking';
 import { createPageUrl } from '../utils';
 
 function estimateReadTime(content) {
@@ -156,7 +157,7 @@ export default function BlogPost() {
             prose-code:bg-slate-100 prose-code:text-blue-700 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm
             prose-pre:bg-slate-900 prose-pre:rounded-xl prose-pre:shadow-lg
           " style={{ fontFamily: "'Georgia', serif", lineHeight: '1.85' }}>
-            <ReactMarkdown>{post.content}</ReactMarkdown>
+            <ReactMarkdown>{applyInternalLinks(post.content)}</ReactMarkdown>
           </div>
 
           {/* Mid-content strategic callout */}
