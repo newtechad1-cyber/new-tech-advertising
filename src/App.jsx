@@ -122,6 +122,10 @@ import WebsiteRebuildsAlbertLeaMN from './pages/WebsiteRebuildsAlbertLeaMN';
 import AdminRecruitingCandidates from './pages/AdminRecruitingCandidates';
 import RebuildIntake from './pages/Rebuild-Intake';
 import SocialMediaManagement from './pages/SocialMediaManagement';
+import SocialMediaMasonCity from './pages/SocialMediaMasonCity';
+import SocialMediaRochesterMN from './pages/SocialMediaRochesterMN';
+import SocialMediaAustinMN from './pages/SocialMediaAustinMN';
+import SocialMediaAlbertLeaMN from './pages/SocialMediaAlbertLeaMN';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -288,6 +292,10 @@ const AuthenticatedApp = () => {
       <Route path="/join-nta" element={<JoinNTA />} />
       <Route path="/services/website-rebuilds" element={<LayoutWrapper currentPageName="WebsiteRebuildService"><WebsiteRebuildService /></LayoutWrapper>} />
       <Route path="/services/social-media-management" element={<LayoutWrapper currentPageName="SocialMediaManagement"><SocialMediaManagement /></LayoutWrapper>} />
+      <Route path="/social-media/mason-city-ia" element={<LayoutWrapper currentPageName="SocialMediaMasonCity"><SocialMediaMasonCity /></LayoutWrapper>} />
+      <Route path="/social-media/rochester-mn" element={<LayoutWrapper currentPageName="SocialMediaRochesterMN"><SocialMediaRochesterMN /></LayoutWrapper>} />
+      <Route path="/social-media/austin-mn" element={<LayoutWrapper currentPageName="SocialMediaAustinMN"><SocialMediaAustinMN /></LayoutWrapper>} />
+      <Route path="/social-media/albert-lea-mn" element={<LayoutWrapper currentPageName="SocialMediaAlbertLeaMN"><SocialMediaAlbertLeaMN /></LayoutWrapper>} />
       <Route path="/website-rebuilds/mason-city-ia" element={<LayoutWrapper currentPageName="WebsiteRebuildsMasonCity"><WebsiteRebuildsMasonCity /></LayoutWrapper>} />
       <Route path="/website-rebuilds/rochester-mn" element={<WebsiteRebuildsRochesterMN />} />
       <Route path="/website-rebuilds/austin-mn" element={<WebsiteRebuildsAustinMN />} />
