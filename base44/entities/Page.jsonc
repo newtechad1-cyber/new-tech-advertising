@@ -1,0 +1,147 @@
+{
+  "name": "Page",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL slug e.g. growth-system"
+    },
+    "full_url": {
+      "type": "string",
+      "description": "Full canonical URL e.g. /growth-system"
+    },
+    "page_type": {
+      "type": "string",
+      "enum": [
+        "homepage",
+        "pillar",
+        "industry",
+        "playbook",
+        "tool",
+        "video",
+        "article",
+        "conversion",
+        "resource"
+      ]
+    },
+    "section": {
+      "type": "string",
+      "enum": [
+        "root",
+        "growth-system",
+        "platform",
+        "streaming-tv-advertising",
+        "industries",
+        "marketing-playbooks",
+        "learn",
+        "tools",
+        "videos",
+        "resources",
+        "start",
+        "demo",
+        "pricing"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "published",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "seo_title": {
+      "type": "string"
+    },
+    "meta_description": {
+      "type": "string"
+    },
+    "canonical_url": {
+      "type": "string"
+    },
+    "og_title": {
+      "type": "string"
+    },
+    "og_description": {
+      "type": "string"
+    },
+    "hero_heading": {
+      "type": "string"
+    },
+    "hero_subheading": {
+      "type": "string"
+    },
+    "primary_cta": {
+      "type": "string"
+    },
+    "secondary_cta": {
+      "type": "string"
+    },
+    "featured_video": {
+      "type": "string",
+      "description": "VideoAsset ID"
+    },
+    "featured_image": {
+      "type": "string"
+    },
+    "related_pages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Page IDs"
+    },
+    "pillar_page": {
+      "type": "string",
+      "description": "Page ID of parent pillar"
+    },
+    "industry": {
+      "type": "string",
+      "description": "Industry ID"
+    },
+    "topic_cluster": {
+      "type": "string",
+      "description": "TopicCluster ID"
+    },
+    "publish_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "author": {
+      "type": "string"
+    },
+    "schema_type": {
+      "type": "string",
+      "enum": [
+        "WebPage",
+        "Article",
+        "FAQPage",
+        "HowTo",
+        "Product",
+        "Service",
+        "VideoObject",
+        "SoftwareApplication"
+      ],
+      "default": "WebPage"
+    },
+    "created_by_automation": {
+      "type": "boolean",
+      "default": false,
+      "description": "True if this record was created by an automation"
+    },
+    "source_automation_name": {
+      "type": "string",
+      "description": "Name of the automation that created this record"
+    }
+  },
+  "required": [
+    "title",
+    "slug",
+    "page_type",
+    "section"
+  ]
+}

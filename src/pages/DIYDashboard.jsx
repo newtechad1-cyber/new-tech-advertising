@@ -84,6 +84,21 @@ export default function DIYDashboard() {
     loadData();
   }, [navigate]);
 
+  // Display milestones one at a time
+  useEffect(() => {
+    if (milestones && milestones.length > 0) {
+      const nextMilestone = milestones.find(
+        (m) => !displayedMilestones.includes(m.type)
+      );
+      if (nextMilestone) {
+        const timer = setTimeout(() => {
+          setDisplayedMilestones([...displayedMilestones, nextMilestone.type]);
+        }, 500);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [milestones, displayedMilestones]);
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center">
@@ -106,21 +121,6 @@ export default function DIYDashboard() {
   const handleUpgradeClick = () => {
     window.location.href = 'mailto:sales@newtechadvertising.com?subject=Upgrade to Guided Growth';
   };
-
-  // Display milestones one at a time
-  useEffect(() => {
-    if (milestones && milestones.length > 0) {
-      const nextMilestone = milestones.find(
-        (m) => !displayedMilestones.includes(m.type)
-      );
-      if (nextMilestone) {
-        const timer = setTimeout(() => {
-          setDisplayedMilestones([...displayedMilestones, nextMilestone.type]);
-        }, 500);
-        return () => clearTimeout(timer);
-      }
-    }
-  }, [milestones, displayedMilestones]);
 
   // Dashboard view or module view
   const isDashboardView = !activeModule;

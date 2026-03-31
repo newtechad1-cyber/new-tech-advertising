@@ -1,0 +1,95 @@
+{
+  "name": "Opportunity",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Company ID"
+    },
+    "lead_id": {
+      "type": "string",
+      "description": "Reference to originating Lead ID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Short label for this deal (e.g. 'ADA Rebuild + SaaS')"
+    },
+    "service_type": {
+      "type": "string",
+      "enum": [
+        "diy_saas",
+        "dfy_managed",
+        "ada_rebuild",
+        "streaming_tv",
+        "video_production",
+        "other"
+      ],
+      "description": "Primary service being sold"
+    },
+    "package": {
+      "type": "string",
+      "enum": [
+        "Starter",
+        "Growth",
+        "Authority",
+        "Custom"
+      ],
+      "description": "Package tier if applicable"
+    },
+    "estimated_value": {
+      "type": "number",
+      "description": "Estimated total deal value in dollars"
+    },
+    "monthly_recurring": {
+      "type": "number",
+      "description": "Monthly recurring revenue component"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "discovery",
+        "qualification",
+        "proposal",
+        "negotiation",
+        "closed_won",
+        "closed_lost"
+      ],
+      "default": "discovery"
+    },
+    "close_probability": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Estimated % chance of closing"
+    },
+    "expected_close_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "assigned_to": {
+      "type": "string",
+      "description": "Account manager email"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "lost_reason": {
+      "type": "string",
+      "description": "Reason if closed lost"
+    },
+    "created_by_automation": {
+      "type": "boolean",
+      "default": false,
+      "description": "True if this record was created by an automation"
+    },
+    "source_automation_name": {
+      "type": "string",
+      "description": "Name of the automation that created this record"
+    }
+  },
+  "required": [
+    "company_id",
+    "name",
+    "service_type"
+  ]
+}

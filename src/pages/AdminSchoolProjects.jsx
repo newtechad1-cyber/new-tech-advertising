@@ -50,7 +50,7 @@ export default function AdminSchoolProjects() {
     setFilteredProjects(filtered);
   }, [projects, selectedStatus, selectedType, searchTerm]);
 
-  if (loading) return <AdminShell schoolSlug={schoolSlug}><div className="text-center py-12">Loading...</div></AdminShell>;
+  if (loading) return <AdminLayout currentPageName="AdminSchoolProjects"><div className="text-center py-12">Loading...</div></AdminLayout>;
 
   const newProjectUrl = `${createPageUrl('AdminCreateProject')}?school=${schoolSlug}`;
 

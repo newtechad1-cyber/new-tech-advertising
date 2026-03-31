@@ -126,7 +126,7 @@ export default function OptimizationSimulation({ candidate = null, onApprove = (
               </div>
               <div className="p-2 bg-slate-900/50 rounded border border-slate-700 text-xs">
                 <p className="text-slate-400 mb-1">✓ Rollback Trigger</p>
-                <p className="text-slate-300">Automatic rollback if metric degrades >10% or errors spike.</p>
+                <p className="text-slate-300">Automatic rollback if metric degrades &gt;10% or errors spike.</p>
               </div>
             </div>
           </TabsContent>

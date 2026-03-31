@@ -121,6 +121,7 @@ import WebsiteRebuildsRochesterMN from './pages/WebsiteRebuildsRochesterMN';
 import WebsiteRebuildsAustinMN from './pages/WebsiteRebuildsAustinMN';
 import WebsiteRebuildsAlbertLeaMN from './pages/WebsiteRebuildsAlbertLeaMN';
 import AdminRecruitingCandidates from './pages/AdminRecruitingCandidates';
+import AdminRecentAIActivity from './pages/AdminRecentAIActivity';
 import RebuildIntake from './pages/Rebuild-Intake';
 import SocialMediaManagement from './pages/SocialMediaManagement';
 import SocialMediaMasonCity from './pages/SocialMediaMasonCity';
@@ -304,6 +305,7 @@ const AuthenticatedApp = () => {
       <Route path="/website-rebuilds/albert-lea-mn" element={<WebsiteRebuildsAlbertLeaMN />} />
       <Route path="/rebuild-intake" element={<RebuildIntake />} />
       <Route path="/admin/recruiting-candidates" element={<LayoutWrapper currentPageName="AdminRecruitingCandidates"><AdminRecruitingCandidates /></LayoutWrapper>} />
+      <Route path="/admin/recent-ai-activity" element={<LayoutWrapper currentPageName="AdminRecentAIActivity"><AdminRecentAIActivity /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

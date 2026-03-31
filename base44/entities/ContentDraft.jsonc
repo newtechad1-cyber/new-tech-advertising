@@ -1,0 +1,126 @@
+{
+  "name": "ContentDraft",
+  "type": "object",
+  "properties": {
+    "account_id": {
+      "type": "string",
+      "description": "Reference to TrialAccount/account ID"
+    },
+    "source_artifact_id": {
+      "type": "string",
+      "description": "AiArtifact ID this was created from"
+    },
+    "platform": {
+      "type": "string",
+      "enum": [
+        "facebook",
+        "instagram",
+        "linkedin"
+      ],
+      "description": "Target platform"
+    },
+    "pillar": {
+      "type": "string",
+      "enum": [
+        "social_media",
+        "website_development",
+        "ada_compliance",
+        "local_streaming_tv_ads"
+      ]
+    },
+    "goal": {
+      "type": "string",
+      "enum": [
+        "awareness",
+        "leads",
+        "promotion",
+        "trust"
+      ]
+    },
+    "hook": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string"
+    },
+    "hashtags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "cta": {
+      "type": "string"
+    },
+    "image_prompt": {
+      "type": "string"
+    },
+    "video_script": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "scheduled",
+        "published",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "scheduled_for": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "media_type": {
+      "type": "string",
+      "enum": [
+        "none",
+        "ai_image",
+        "template_image",
+        "video"
+      ],
+      "default": "none"
+    },
+    "media_status": {
+      "type": "string",
+      "enum": [
+        "none",
+        "generating",
+        "ready",
+        "failed"
+      ],
+      "default": "none"
+    },
+    "media_url": {
+      "type": "string"
+    },
+    "media_prompt": {
+      "type": "string"
+    },
+    "media_generation_error": {
+      "type": "string"
+    },
+    "media_generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created_by_automation": {
+      "type": "boolean",
+      "default": false,
+      "description": "True if this record was created by an automation"
+    },
+    "source_automation_name": {
+      "type": "string",
+      "description": "Name of the automation that created this record"
+    }
+  },
+  "required": [
+    "account_id",
+    "platform"
+  ]
+}

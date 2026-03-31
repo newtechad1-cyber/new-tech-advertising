@@ -16,10 +16,6 @@ export default function AdminSchoolProjectDetail() {
   const projectId = paramProjectId || searchParams.get('id');
   const { can } = useSchoolPermissions(schoolSlug);
 
-  if (!schoolSlug || !projectId) {
-    return <div className="text-center py-12">Invalid project</div>;
-  }
-
   const [project, setProject] = useState(null);
   const [clips, setClips] = useState([]);
   const [scripts, setScripts] = useState([]);
@@ -30,6 +26,10 @@ export default function AdminSchoolProjectDetail() {
   const [queuingRender, setQueuingRender] = useState(false);
   const [publishingAction, setPublishingAction] = useState(false);
   const [lastSave, setLastSave] = useState(null);
+
+  if (!schoolSlug || !projectId) {
+    return <div className="text-center py-12">Invalid project</div>;
+  }
 
   const loadAll = async () => {
     if (!projectId) return;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, AlertTriangle, Zap, Send } from 'lucide-react';
+import { X, AlertTriangle, Zap, Send, CheckCircle2 } from 'lucide-react';
 
 const STATUS_CONFIG = {
   on_track: 'On Track',
@@ -20,6 +20,12 @@ export default function SLAModal({ sla, onClose, onStatusUpdate }) {
   const [newNote, setNewNote] = useState('');
   const [submitting, setSubmitting] = useState(false);
   if (!sla) return null;
+
+  async function addNote() {
+    if (!newNote.trim()) return;
+    setSubmitting(true);
+    setTimeout(() => { setNewNote(''); setSubmitting(false); }, 500);
+  }
 
   const daysOverdue = Math.ceil((new Date() - new Date(sla.sla_due_date)) / (1000 * 60 * 60 * 24));
   const isOverdue = daysOverdue > 0;

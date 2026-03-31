@@ -1,0 +1,73 @@
+{
+  "name": "ScheduledPost",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Company ID"
+    },
+    "content_item_id": {
+      "type": "string",
+      "description": "Reference to ContentItem ID"
+    },
+    "social_account_id": {
+      "type": "string",
+      "description": "Reference to SocialAccount ID"
+    },
+    "platform": {
+      "type": "string",
+      "enum": [
+        "facebook",
+        "instagram",
+        "linkedin",
+        "tiktok",
+        "twitter",
+        "google_business",
+        "youtube"
+      ]
+    },
+    "scheduled_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When to publish"
+    },
+    "posted_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When actually published"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "scheduled",
+        "posted",
+        "failed",
+        "cancelled"
+      ],
+      "default": "scheduled"
+    },
+    "platform_post_id": {
+      "type": "string",
+      "description": "ID returned by the platform after posting"
+    },
+    "error_message": {
+      "type": "string",
+      "description": "Error details if posting failed"
+    },
+    "created_by_automation": {
+      "type": "boolean",
+      "default": false,
+      "description": "True if this record was created by an automation"
+    },
+    "source_automation_name": {
+      "type": "string",
+      "description": "Name of the automation that created this record"
+    }
+  },
+  "required": [
+    "company_id",
+    "content_item_id",
+    "platform",
+    "scheduled_at"
+  ]
+}
