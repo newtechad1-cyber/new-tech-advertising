@@ -91,6 +91,20 @@ const LINK_RULES = [
     url: '/AiSeo',
     group: 'seo',
   },
+  // Social media management
+  {
+    patterns: [
+      /\bsocial media management\b/i,
+      /\bmanage (your )?social media\b/i,
+      /\bsocial media (for|strategy|marketing|content|posting|presence)\b/i,
+      /\bposting (consistently|on social|content)\b/i,
+      /\bongoing marketing\b/i,
+      /\bgrowing (your )?(visibility|online presence)\b/i,
+      /\bdrive (traffic|visibility)\b/i,
+    ],
+    url: '/services/social-media-management',
+    group: 'social-media',
+  },
   // Streaming TV
   {
     patterns: [
