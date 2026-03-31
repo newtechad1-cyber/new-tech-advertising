@@ -4,8 +4,9 @@ import { useQuery } from '@tanstack/react-query';
 import NTACommandNav from '../components/nta-command/NTACommandNav';
 import { 
   Zap, CheckCircle, XCircle, Clock, Play, List, 
-  AlertTriangle, Filter, RefreshCw, ChevronDown, ChevronUp, X
+  AlertTriangle, Filter, RefreshCw, ChevronDown, ChevronUp, X, ShieldCheck
 } from 'lucide-react';
+import AuditModal from '../components/automation/AuditModal';
 
 const STATUS_ORDER = { failed: 0, 'Failed': 0, never: 1, 'Never Triggered': 1, running: 2, 'Running': 2, success: 3 };
 
@@ -93,6 +94,7 @@ export default function AutomationCommandCenter() {
   const [logsModal, setLogsModal] = useState(null);
   const [runningTest, setRunningTest] = useState(null);
   const [testResults, setTestResults] = useState({});
+  const [auditModal, setAuditModal] = useState(null);
 
   const { data: rules = [], isLoading, refetch } = useQuery({
     queryKey: ['automationRules'],
@@ -257,7 +259,7 @@ export default function AutomationCommandCenter() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-slate-800">
-                    {['Automation', 'Status', 'Last Run', 'Last Result', 'Processed', 'Created', 'Last Error', 'Actions'].map(h => (
+                    {['Automation', 'Status', 'Last Run', 'Last Result', 'Processed', 'Created', 'Last Error', 'Actions', 'Audit'].map(h => (
                       <th key={h} className="text-left text-xs font-bold text-slate-500 uppercase tracking-widest px-5 py-4 whitespace-nowrap">{h}</th>
                     ))}
                   </tr>
@@ -344,8 +346,18 @@ export default function AutomationCommandCenter() {
                             >
                               <List className="w-3 h-3" /> View Logs
                             </button>
-                          </div>
-                        </td>
+                            </div>
+                            </td>
+
+                            {/* Audit */}
+                            <td className="px-5 py-4">
+                            <button
+                             onClick={() => setAuditModal(rule)}
+                             className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg bg-violet-500/10 text-violet-400 border border-violet-700 hover:bg-violet-500/20 transition whitespace-nowrap"
+                            >
+                             <ShieldCheck className="w-3 h-3" /> Audit
+                            </button>
+                            </td>
                       </tr>
                     );
                   })}
@@ -362,6 +374,14 @@ export default function AutomationCommandCenter() {
 
       {logsModal && (
         <LogsModal rule={logsModal} logs={logs} onClose={() => setLogsModal(null)} />
+      )}
+      {auditModal && (
+        <AuditModal
+          rule={auditModal}
+          logs={logs}
+          onClose={() => setAuditModal(null)}
+          onRuleUpdate={() => { refetch(); setAuditModal(null); }}
+        />
       )}
     </div>
   );

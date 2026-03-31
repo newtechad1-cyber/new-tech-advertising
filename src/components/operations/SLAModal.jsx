@@ -17,18 +17,9 @@ const DELAY_REASON_LABELS = {
 };
 
 export default function SLAModal({ sla, onClose, onStatusUpdate }) {
-  if (!sla) return null;
   const [newNote, setNewNote] = useState('');
   const [submitting, setSubmitting] = useState(false);
-
-  async function addNote() {
-    if (!newNote.trim()) return;
-    setSubmitting(true);
-    setTimeout(() => {
-      setNewNote('');
-      setSubmitting(false);
-    }, 500);
-  }
+  if (!sla) return null;
 
   const daysOverdue = Math.ceil((new Date() - new Date(sla.sla_due_date)) / (1000 * 60 * 60 * 24));
   const isOverdue = daysOverdue > 0;
@@ -145,6 +136,3 @@ export default function SLAModal({ sla, onClose, onStatusUpdate }) {
     </div>
   );
 }
-
-// Missing import fix
-import { CheckCircle2 } from 'lucide-react';

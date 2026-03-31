@@ -18,8 +18,8 @@ const STATUS_LABELS = {
 };
 
 export default function PredictiveRiskModal({ risk, onClose }) {
+  const [newStatus, setNewStatus] = useState(risk?.monitoring_status);
   if (!risk) return null;
-  const [newStatus, setNewStatus] = useState(risk.monitoring_status);
 
   const prob = risk.probability_score || 50;
   const impact = risk.impact_severity || 50;

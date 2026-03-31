@@ -25,8 +25,8 @@ const URGENCY_LABELS = {
 };
 
 export default function StrategicActionModal({ initiative, onClose }) {
+  const [newStatus, setNewStatus] = useState(initiative?.execution_status);
   if (!initiative) return null;
-  const [newStatus, setNewStatus] = useState(initiative.execution_status);
 
   const impact = initiative.projected_revenue_impact || 0;
 

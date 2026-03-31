@@ -20,7 +20,7 @@ export default function ContextDebugBadge() {
   const [collapsed, setCollapsed] = useState(true);
 
   // Only show in development
-  if (process.env.NODE_ENV !== 'development') {
+  if (import.meta.env.MODE !== 'development') {
     return null;
   }
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
@@ -36,7 +36,7 @@ export default function OnboardingFlow({ onComplete, initialProfile }) {
 
   // Dev logging helper
   const devLog = (message, data) => {
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.MODE === 'development') {
       console.log(`[Onboarding] ${message}`, data || '');
     }
   };

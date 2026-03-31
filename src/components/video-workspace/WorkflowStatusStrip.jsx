@@ -13,7 +13,7 @@ const WORKFLOW_STAGES = [
   { key: 'published', label: 'Published', icon: CheckCircle2 },
 ];
 
-export default function WorkflowStatusStrip({ video }) {
+export default function WorkflowStatusStrip({ video, publishJobs = [] }) {
   const getStageStatus = (stageKey) => {
     if (stageKey === 'uploaded') return 'completed';
     if (stageKey === 'transcript_ready' && video.transcript_status === 'completed') return 'completed';

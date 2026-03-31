@@ -147,7 +147,8 @@ export const getNextJob = async () => {
 export const startJob = async (jobId) => {
   try {
     const now = new Date().toISOString();
-    const jobConfig = JOB_TYPE_CONFIG[job?.job_type] || {};
+    const jobRecord = await base44.entities.AIJobQueue.read(jobId);
+    const jobConfig = JOB_TYPE_CONFIG[jobRecord?.job_type] || {};
     const estimatedCompletion = new Date(
       Date.now() + (jobConfig.estimated_duration_minutes || 30) * 60000
     );

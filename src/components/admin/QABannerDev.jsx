@@ -3,7 +3,7 @@ import { AlertCircle, Zap } from 'lucide-react';
 
 export default function QABannerDev() {
   // Dev-only banner — only render in development
-  if (process.env.NODE_ENV !== 'development') {
+  if (import.meta.env.MODE !== 'development') {
     return null;
   }
 

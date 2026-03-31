@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Loader2, ArrowRight, CheckCircle2, AlertCircle, Play, Clock } from 'lucide-react';
+import AdminLayout from '@/components/admin/AdminLayout';
 import { toast } from 'sonner';
 
 const ACTIONS = {

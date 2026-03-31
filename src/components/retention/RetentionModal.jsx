@@ -31,9 +31,9 @@ function fmt(n) {
 }
 
 export default function RetentionModal({ intervention, onClose, onStatusUpdate }) {
-  if (!intervention) return null;
   const [newNote, setNewNote] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  if (!intervention) return null;
 
   const sevCfg = SEVERITY_CONFIG[intervention.risk_severity] || SEVERITY_CONFIG.moderate;
 

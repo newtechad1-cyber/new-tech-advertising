@@ -26,9 +26,9 @@ const PRIORITY_CONFIG = {
 };
 
 export default function ProductionModal({ job, onClose, onStatusUpdate }) {
-  if (!job) return null;
   const [newNote, setNewNote] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  if (!job) return null;
 
   async function addNote() {
     if (!newNote.trim()) return;

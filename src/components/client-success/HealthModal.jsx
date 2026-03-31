@@ -31,9 +31,9 @@ function ScoreBar({ label, score }) {
 }
 
 export default function HealthModal({ profile, onClose }) {
-  if (!profile) return null;
   const [note, setNote] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  if (!profile) return null;
 
   async function addNote() {
     if (!note.trim()) return;

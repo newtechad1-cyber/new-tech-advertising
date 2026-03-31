@@ -24,9 +24,9 @@ function fmt(n) {
 }
 
 export default function ExpansionModal({ opportunity, onClose, onStatusUpdate }) {
-  if (!opportunity) return null;
   const [newNote, setNewNote] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  if (!opportunity) return null;
   const readiness = opportunity.readiness_score || 60;
 
   async function addNote() {

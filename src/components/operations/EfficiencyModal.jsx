@@ -25,10 +25,10 @@ const STATUS_TRANSITIONS = {
 };
 
 export default function EfficiencyModal({ signal, onClose, onStatusUpdate }) {
-  if (!signal) return null;
-  const [newStatus, setNewStatus] = useState(signal.implementation_status);
+  const [newStatus, setNewStatus] = useState(signal?.implementation_status);
   const [note, setNote] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  if (!signal) return null;
 
   async function updateStatus() {
     if (newStatus === signal.implementation_status) return;

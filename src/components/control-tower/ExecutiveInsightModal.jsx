@@ -17,9 +17,9 @@ const STATUS_LABELS = {
 };
 
 export default function ExecutiveInsightModal({ insight, onClose }) {
+  const [newStatus, setNewStatus] = useState(insight?.status);
+  const [owner, setOwner] = useState(insight?.assigned_owner || '');
   if (!insight) return null;
-  const [newStatus, setNewStatus] = useState(insight.status);
-  const [owner, setOwner] = useState(insight.assigned_owner || '');
 
   const impact = insight.impact_score || 50;
   const impactLevel = impact >= 75 ? 'Critical' : impact >= 50 ? 'Significant' : 'Moderate';

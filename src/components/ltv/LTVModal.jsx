@@ -21,9 +21,9 @@ function getStageInsight(stage, retention, expansion) {
 }
 
 export default function LTVModal({ metric, onClose }) {
-  if (!metric) return null;
   const [newNote, setNewNote] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  if (!metric) return null;
   const retention = metric.retention_probability_score || 70;
 
   async function addNote() {

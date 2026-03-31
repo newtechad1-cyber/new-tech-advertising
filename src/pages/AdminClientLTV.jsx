@@ -4,7 +4,7 @@ import {
   BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie
 } from 'recharts';
-import { TrendingUp, DollarSign, Users, Calendar, CheckCircle2 } from 'lucide-react';
+import { TrendingUp, DollarSign, Users, Calendar, CheckCircle2, Zap } from 'lucide-react';
 import LTVCard from '@/components/ltv/LTVCard';
 import LTVModal from '@/components/ltv/LTVModal';
 
