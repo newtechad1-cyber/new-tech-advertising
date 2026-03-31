@@ -425,6 +425,41 @@ export default function WebsiteRebuildService() {
         </div>
       </section>
 
+      {/* WHAT HAPPENS AFTER */}
+      <section className="py-20 px-6 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-gradient-to-br from-violet-50 to-slate-50 border-2 border-violet-200 rounded-3xl p-10">
+            <div className="max-w-2xl mx-auto text-center">
+              <span className="inline-block bg-violet-600 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-5">
+                After the Launch
+              </span>
+              <h2 className="text-3xl font-bold text-slate-900 mb-5">
+                What Happens After Your Website Is Rebuilt?
+              </h2>
+              <p className="text-slate-600 leading-relaxed mb-5">
+                A high-performance website is your foundation — but a foundation alone doesn't bring customers. Once your new site is live, the next step is driving consistent traffic and visibility so that your investment actually pays off.
+              </p>
+              <p className="text-slate-600 leading-relaxed mb-5">
+                That's where content and social media come in. Businesses that pair a rebuilt website with{' '}
+                <Link to="/services/social-media-management" className="text-violet-600 font-semibold hover:underline">
+                  ongoing social media management
+                </Link>
+                {' '}see compounding results — more visibility, more traffic, and more leads month over month.
+              </p>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                Your website and your social presence work together as a unified growth engine. We manage both so you don't have to.
+              </p>
+              <Link
+                to="/services/social-media-management"
+                className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white font-bold px-8 py-3 rounded-xl transition shadow-md"
+              >
+                See Social Media Management <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="py-20 px-6 bg-white">
         <div className="max-w-3xl mx-auto">
