@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
-import { CheckCircle, AlertTriangle, Zap, TrendingUp, Shield, ArrowRight, Clock, Search, Smartphone, MousePointer, BarChart2, ChevronRight } from 'lucide-react';
+import { CheckCircle, AlertTriangle, Zap, TrendingUp, Shield, ArrowRight, Clock, Search, Smartphone, MousePointer, BarChart2, ChevronRight, MapPin, BookOpen } from 'lucide-react';
 
 const PROBLEMS = [
   { icon: Zap, text: 'Slow load speeds hurting Google rankings' },
@@ -155,6 +155,49 @@ export default function WebsiteRebuildService() {
                 style={{width: '100%', height: '100%', border: 'none', display: 'block'}}
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SERVICE AREAS ── */}
+      <section className="py-14 px-6 bg-white border-b border-slate-100">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center gap-3 mb-6">
+            <MapPin className="w-5 h-5 text-blue-600" />
+            <h2 className="text-xl font-bold text-slate-900">Local Service Areas</h2>
+          </div>
+          <p className="text-slate-600 mb-8 max-w-2xl">
+            We specialize in website rebuilds for small businesses across North Iowa and Southern Minnesota. Click your area to see local-specific information and pricing.
+          </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Link to="/website-rebuilds/mason-city-ia" className="group flex items-center justify-between bg-blue-50 hover:bg-blue-600 border border-blue-200 hover:border-blue-600 rounded-xl px-5 py-4 transition-all">
+              <div>
+                <p className="font-bold text-slate-900 group-hover:text-white text-sm">Mason City, IA</p>
+                <p className="text-blue-600 group-hover:text-blue-100 text-xs font-medium mt-0.5">Mason City website rebuild services</p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-blue-400 group-hover:text-white flex-shrink-0" />
+            </Link>
+            <Link to="/website-rebuilds/rochester-mn" className="group flex items-center justify-between bg-blue-50 hover:bg-blue-600 border border-blue-200 hover:border-blue-600 rounded-xl px-5 py-4 transition-all">
+              <div>
+                <p className="font-bold text-slate-900 group-hover:text-white text-sm">Rochester, MN</p>
+                <p className="text-blue-600 group-hover:text-blue-100 text-xs font-medium mt-0.5">Rochester MN website redesign</p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-blue-400 group-hover:text-white flex-shrink-0" />
+            </Link>
+            <Link to="/website-rebuilds/austin-mn" className="group flex items-center justify-between bg-blue-50 hover:bg-blue-600 border border-blue-200 hover:border-blue-600 rounded-xl px-5 py-4 transition-all">
+              <div>
+                <p className="font-bold text-slate-900 group-hover:text-white text-sm">Austin, MN</p>
+                <p className="text-blue-600 group-hover:text-blue-100 text-xs font-medium mt-0.5">Austin MN website rebuild services</p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-blue-400 group-hover:text-white flex-shrink-0" />
+            </Link>
+            <Link to="/website-rebuilds/albert-lea-mn" className="group flex items-center justify-between bg-blue-50 hover:bg-blue-600 border border-blue-200 hover:border-blue-600 rounded-xl px-5 py-4 transition-all">
+              <div>
+                <p className="font-bold text-slate-900 group-hover:text-white text-sm">Albert Lea, MN</p>
+                <p className="text-blue-600 group-hover:text-blue-100 text-xs font-medium mt-0.5">Albert Lea website redesign</p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-blue-400 group-hover:text-white flex-shrink-0" />
+            </Link>
           </div>
         </div>
       </section>
@@ -325,6 +368,45 @@ export default function WebsiteRebuildService() {
         </div>
       </section>
 
+      {/* ── HELPFUL RESOURCES ── */}
+      <section className="py-14 px-6 bg-slate-50">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center gap-3 mb-6">
+            <BookOpen className="w-5 h-5 text-blue-600" />
+            <h2 className="text-xl font-bold text-slate-900">Helpful Resources</h2>
+          </div>
+          <p className="text-slate-600 mb-8 max-w-2xl">
+            Learn what's really happening with your website and what modern alternatives look like.
+          </p>
+          <div className="grid sm:grid-cols-3 gap-5">
+            <Link to="/Blog" className="group block bg-white border border-slate-200 hover:border-blue-300 hover:shadow-md rounded-2xl p-6 transition-all">
+              <p className="text-xs font-bold uppercase tracking-widest text-blue-600 mb-2">Website Performance</p>
+              <h3 className="font-bold text-slate-900 text-base group-hover:text-blue-700 leading-snug mb-2">
+                5 Signs Your Website Is Losing Customers
+              </h3>
+              <p className="text-slate-500 text-sm leading-relaxed mb-4">Learn the warning <Link to="/Blog" className="text-blue-600 font-medium hover:underline" onClick={e => e.stopPropagation()}>signs your website is losing customers</Link> before they bounce to a competitor.</p>
+              <span className="inline-flex items-center gap-1 text-blue-600 text-sm font-semibold group-hover:gap-2 transition-all">Read more <ArrowRight className="w-3.5 h-3.5" /></span>
+            </Link>
+            <Link to="/Blog" className="group block bg-white border border-slate-200 hover:border-blue-300 hover:shadow-md rounded-2xl p-6 transition-all">
+              <p className="text-xs font-bold uppercase tracking-widest text-violet-600 mb-2">Technology</p>
+              <h3 className="font-bold text-slate-900 text-base group-hover:text-blue-700 leading-snug mb-2">
+                AI Websites vs Traditional Websites
+              </h3>
+              <p className="text-slate-500 text-sm leading-relaxed mb-4">Compare <Link to="/Blog" className="text-blue-600 font-medium hover:underline" onClick={e => e.stopPropagation()}>AI websites vs traditional websites</Link> and understand what performs better for local businesses.</p>
+              <span className="inline-flex items-center gap-1 text-blue-600 text-sm font-semibold group-hover:gap-2 transition-all">Read more <ArrowRight className="w-3.5 h-3.5" /></span>
+            </Link>
+            <Link to="/AdaWebsiteCompliance" className="group block bg-white border border-slate-200 hover:border-blue-300 hover:shadow-md rounded-2xl p-6 transition-all">
+              <p className="text-xs font-bold uppercase tracking-widest text-emerald-600 mb-2">Compliance</p>
+              <h3 className="font-bold text-slate-900 text-base group-hover:text-blue-700 leading-snug mb-2">
+                ADA Compliance Guide for Business Websites
+              </h3>
+              <p className="text-slate-500 text-sm leading-relaxed mb-4">Everything you need to know about <Link to="/AdaWebsiteCompliance" className="text-blue-600 font-medium hover:underline" onClick={e => e.stopPropagation()}>ADA compliance for business websites</Link> and how to avoid lawsuits.</p>
+              <span className="inline-flex items-center gap-1 text-blue-600 text-sm font-semibold group-hover:gap-2 transition-all">Read more <ArrowRight className="w-3.5 h-3.5" /></span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ── 8. TRUST ── */}
       <section className="py-20 px-6 bg-slate-50">
         <div className="max-w-4xl mx-auto text-center">
@@ -377,11 +459,12 @@ export default function WebsiteRebuildService() {
             Every day with an underperforming site is a day you're handing leads to competitors. Let's change that.
           </p>
           <Link
-            to="/rebuild-intake?source=website-rebuild-service"
+            to="/rebuild-intake"
             className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-10 py-5 rounded-xl text-xl transition shadow-xl shadow-blue-600/30"
           >
-            Get Your Free Audit Today <ArrowRight className="w-6 h-6" />
+            Start your website rebuild <ArrowRight className="w-6 h-6" />
           </Link>
+          <p className="text-slate-400 text-sm mt-4">No commitment required. Free audit included.</p>
         </div>
       </section>
 
