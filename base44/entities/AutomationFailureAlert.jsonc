@@ -1,0 +1,56 @@
+{
+  "name": "AutomationFailureAlert",
+  "type": "object",
+  "properties": {
+    "rule_id": {
+      "type": "string",
+      "description": "Reference to AutomationRule ID"
+    },
+    "rule_name": {
+      "type": "string"
+    },
+    "alert_type": {
+      "type": "string",
+      "enum": [
+        "repeated_failures",
+        "overdue_run"
+      ],
+      "description": "Type of alert triggered"
+    },
+    "failure_count": {
+      "type": "number",
+      "description": "Number of consecutive failures"
+    },
+    "last_run_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expected_interval_hours": {
+      "type": "number"
+    },
+    "hours_overdue": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "acknowledged",
+        "resolved"
+      ],
+      "default": "open"
+    },
+    "notification_sent": {
+      "type": "boolean",
+      "default": false
+    },
+    "details": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "rule_id",
+    "rule_name",
+    "alert_type"
+  ]
+}

@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import AuditModal from '../components/automation/AuditModal';
 import ConnectionHealthPanel from '../components/automation/ConnectionHealthPanel';
+import AutomationFailureMonitorPanel from '../components/automation/AutomationFailureMonitorPanel';
 
 const STATUS_ORDER = { failed: 0, 'Failed': 0, never: 1, 'Never Triggered': 1, running: 2, 'Running': 2, success: 3 };
 
@@ -190,6 +191,9 @@ export default function AutomationCommandCenter() {
             <RefreshCw className="w-4 h-4" /> Refresh
           </button>
         </div>
+
+        {/* Failure Monitor */}
+        <AutomationFailureMonitorPanel />
 
         {/* Connection Health */}
         <ConnectionHealthPanel />
