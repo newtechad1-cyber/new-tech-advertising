@@ -74,7 +74,7 @@ const RESULTS = [
 const FAQS = [
   {
     q: 'How long does a rebuild take?',
-    a: 'Most small business website rebuilds are completed in 2–4 weeks. Larger or more complex sites may take 4–8 weeks. We move quickly without cutting corners.',
+    a: 'Most small business website rebuilds are completed in 2-4 weeks. Larger or more complex sites may take 4-8 weeks. We move quickly without cutting corners.',
   },
   {
     q: 'Will I lose my existing SEO rankings?',
@@ -86,11 +86,11 @@ const FAQS = [
   },
   {
     q: 'What does a rebuild cost?',
-    a: 'Pricing depends on your site size and goals. We offer a free audit first so you know exactly what\'s needed before committing. Most projects start at $2,500.',
+    a: "Pricing depends on your site size and goals. We offer a free audit first so you know exactly what's needed before committing. Most projects start at $2,500.",
   },
   {
     q: 'Do you work with small businesses?',
-    a: 'That\'s our specialty. We\'ve built our entire platform around the needs of small and mid-sized local businesses who need results without agency overhead.',
+    a: "That's our specialty. We've built our entire platform around the needs of small and mid-sized local businesses who need results without agency overhead.",
   },
   {
     q: 'Can you improve my Google rankings after the rebuild?',
@@ -105,15 +105,38 @@ const TRUST_ITEMS = [
   { icon: BarChart2, text: 'Performance-first approach on every project' },
 ];
 
+const RESOURCES = [
+  {
+    category: 'Website Performance',
+    categoryColor: 'text-blue-600',
+    title: '5 Signs Your Website Is Losing Customers',
+    desc: 'Learn the warning signs your website is losing customers before they bounce to a competitor.',
+    href: '/Blog',
+  },
+  {
+    category: 'Technology',
+    categoryColor: 'text-violet-600',
+    title: 'AI Websites vs Traditional Websites',
+    desc: 'Compare AI websites vs traditional websites and understand what performs better for local businesses.',
+    href: '/Blog',
+  },
+  {
+    category: 'Compliance',
+    categoryColor: 'text-emerald-600',
+    title: 'ADA Compliance Guide for Business Websites',
+    desc: 'Everything you need to know about ADA compliance for business websites and how to avoid lawsuits.',
+    href: '/AdaWebsiteCompliance',
+  },
+];
+
 export default function WebsiteRebuildService() {
   return (
     <div className="bg-white min-h-screen">
-      {/* SEO Meta — rendered via Helmet or inline for now */}
       <title>Website Rebuild Services for Small Business | NTA</title>
 
       <MarketingNav />
 
-      {/* ── 1. HERO ── */}
+      {/* HERO */}
       <section className="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white pt-24 pb-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <span className="inline-block bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-semibold px-4 py-1.5 rounded-full mb-6 uppercase tracking-widest">
@@ -140,7 +163,6 @@ export default function WebsiteRebuildService() {
             </a>
           </div>
 
-          {/* Hero Video */}
           <div className="mt-12 flex justify-center">
             <div className="rounded-2xl overflow-hidden shadow-2xl shadow-blue-900/40 border border-white/10" style={{width: '315px', height: '560px'}}>
               <iframe
@@ -159,7 +181,7 @@ export default function WebsiteRebuildService() {
         </div>
       </section>
 
-      {/* ── SERVICE AREAS ── */}
+      {/* SERVICE AREAS */}
       <section className="py-14 px-6 bg-white border-b border-slate-100">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center gap-3 mb-6">
@@ -170,39 +192,25 @@ export default function WebsiteRebuildService() {
             We specialize in website rebuilds for small businesses across North Iowa and Southern Minnesota. Click your area to see local-specific information and pricing.
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Link to="/website-rebuilds/mason-city-ia" className="group flex items-center justify-between bg-blue-50 hover:bg-blue-600 border border-blue-200 hover:border-blue-600 rounded-xl px-5 py-4 transition-all">
-              <div>
-                <p className="font-bold text-slate-900 group-hover:text-white text-sm">Mason City, IA</p>
-                <p className="text-blue-600 group-hover:text-blue-100 text-xs font-medium mt-0.5">Mason City website rebuild services</p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-blue-400 group-hover:text-white flex-shrink-0" />
-            </Link>
-            <Link to="/website-rebuilds/rochester-mn" className="group flex items-center justify-between bg-blue-50 hover:bg-blue-600 border border-blue-200 hover:border-blue-600 rounded-xl px-5 py-4 transition-all">
-              <div>
-                <p className="font-bold text-slate-900 group-hover:text-white text-sm">Rochester, MN</p>
-                <p className="text-blue-600 group-hover:text-blue-100 text-xs font-medium mt-0.5">Rochester MN website redesign</p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-blue-400 group-hover:text-white flex-shrink-0" />
-            </Link>
-            <Link to="/website-rebuilds/austin-mn" className="group flex items-center justify-between bg-blue-50 hover:bg-blue-600 border border-blue-200 hover:border-blue-600 rounded-xl px-5 py-4 transition-all">
-              <div>
-                <p className="font-bold text-slate-900 group-hover:text-white text-sm">Austin, MN</p>
-                <p className="text-blue-600 group-hover:text-blue-100 text-xs font-medium mt-0.5">Austin MN website rebuild services</p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-blue-400 group-hover:text-white flex-shrink-0" />
-            </Link>
-            <Link to="/website-rebuilds/albert-lea-mn" className="group flex items-center justify-between bg-blue-50 hover:bg-blue-600 border border-blue-200 hover:border-blue-600 rounded-xl px-5 py-4 transition-all">
-              <div>
-                <p className="font-bold text-slate-900 group-hover:text-white text-sm">Albert Lea, MN</p>
-                <p className="text-blue-600 group-hover:text-blue-100 text-xs font-medium mt-0.5">Albert Lea website redesign</p>
-              </div>
-              <ArrowRight className="w-4 h-4 text-blue-400 group-hover:text-white flex-shrink-0" />
-            </Link>
+            {[
+              { city: 'Mason City, IA', desc: 'Mason City website rebuild services', href: '/website-rebuilds/mason-city-ia' },
+              { city: 'Rochester, MN', desc: 'Rochester MN website redesign', href: '/website-rebuilds/rochester-mn' },
+              { city: 'Austin, MN', desc: 'Austin MN website rebuild services', href: '/website-rebuilds/austin-mn' },
+              { city: 'Albert Lea, MN', desc: 'Albert Lea website redesign', href: '/website-rebuilds/albert-lea-mn' },
+            ].map(({ city, desc, href }) => (
+              <Link key={city} to={href} className="group flex items-center justify-between bg-blue-50 hover:bg-blue-600 border border-blue-200 hover:border-blue-600 rounded-xl px-5 py-4 transition-all">
+                <div>
+                  <p className="font-bold text-slate-900 group-hover:text-white text-sm">{city}</p>
+                  <p className="text-blue-600 group-hover:text-blue-100 text-xs font-medium mt-0.5">{desc}</p>
+                </div>
+                <ArrowRight className="w-4 h-4 text-blue-400 group-hover:text-white flex-shrink-0" />
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ── 2. PROBLEM ── */}
+      {/* PROBLEM */}
       <section className="py-20 px-6 bg-slate-50">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
@@ -224,12 +232,12 @@ export default function WebsiteRebuildService() {
             ))}
           </div>
           <p className="text-center text-lg font-semibold text-slate-800">
-            If your website isn't generating leads, it's <span className="text-red-500">costing you business.</span>
+            If your website is not generating leads, it's <span className="text-red-500">costing you business.</span>
           </p>
         </div>
       </section>
 
-      {/* ── 3. SOLUTION ── */}
+      {/* SOLUTION */}
       <section className="py-20 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
@@ -254,29 +262,27 @@ export default function WebsiteRebuildService() {
         </div>
       </section>
 
-      {/* ── 4. BEFORE / AFTER ── */}
+      {/* BEFORE / AFTER */}
       <section className="py-20 px-6 bg-slate-900">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold text-white text-center mb-14">
             The Difference Is Dramatic
           </h2>
           <div className="grid sm:grid-cols-2 gap-6">
-            {/* Before */}
             <div className="bg-red-950/40 border border-red-800/50 rounded-2xl p-8">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-3 h-3 rounded-full bg-red-500" />
                 <h3 className="text-red-300 font-bold text-lg uppercase tracking-wide">Before</h3>
               </div>
               <ul className="space-y-4">
-                {['Slow load times (5–8 seconds)', 'Outdated design from 2015', 'Confusing navigation and layout', 'No clear calls-to-action', 'Buried on page 3+ of Google', 'Zero lead capture system'].map(item => (
+                {['Slow load times (5-8 seconds)', 'Outdated design from 2015', 'Confusing navigation and layout', 'No clear calls-to-action', 'Buried on page 3+ of Google', 'Zero lead capture system'].map(item => (
                   <li key={item} className="flex items-start gap-3 text-red-200 text-sm">
-                    <span className="text-red-400 mt-0.5 flex-shrink-0">✗</span>
+                    <span className="text-red-400 mt-0.5 flex-shrink-0">x</span>
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
-            {/* After */}
             <div className="bg-emerald-950/40 border border-emerald-700/50 rounded-2xl p-8">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-3 h-3 rounded-full bg-emerald-400" />
@@ -295,7 +301,7 @@ export default function WebsiteRebuildService() {
         </div>
       </section>
 
-      {/* ── 5. PROCESS ── */}
+      {/* PROCESS */}
       <section id="process" className="py-20 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
@@ -316,7 +322,7 @@ export default function WebsiteRebuildService() {
         </div>
       </section>
 
-      {/* ── 6. RESULTS ── */}
+      {/* RESULTS */}
       <section className="py-20 px-6 bg-blue-600">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-10">Built to Drive Real Results</h2>
@@ -331,7 +337,7 @@ export default function WebsiteRebuildService() {
         </div>
       </section>
 
-      {/* ── 7. OFFER ── */}
+      {/* FREE AUDIT OFFER */}
       <section className="py-20 px-6 bg-white">
         <div className="max-w-3xl mx-auto">
           <div className="bg-gradient-to-br from-blue-50 to-slate-50 border-2 border-blue-200 rounded-3xl p-10 text-center shadow-lg">
@@ -363,12 +369,12 @@ export default function WebsiteRebuildService() {
             >
               Get My Free Audit <ArrowRight className="w-5 h-5" />
             </Link>
-            <p className="text-slate-400 text-xs mt-4">No credit card required. Results delivered within 24–48 hours.</p>
+            <p className="text-slate-400 text-xs mt-4">No credit card required. Results delivered within 24-48 hours.</p>
           </div>
         </div>
       </section>
 
-      {/* ── HELPFUL RESOURCES ── */}
+      {/* HELPFUL RESOURCES */}
       <section className="py-14 px-6 bg-slate-50">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center gap-3 mb-6">
@@ -379,35 +385,21 @@ export default function WebsiteRebuildService() {
             Learn what's really happening with your website and what modern alternatives look like.
           </p>
           <div className="grid sm:grid-cols-3 gap-5">
-            <Link to="/Blog" className="group block bg-white border border-slate-200 hover:border-blue-300 hover:shadow-md rounded-2xl p-6 transition-all">
-              <p className="text-xs font-bold uppercase tracking-widest text-blue-600 mb-2">Website Performance</p>
-              <h3 className="font-bold text-slate-900 text-base group-hover:text-blue-700 leading-snug mb-2">
-                5 Signs Your Website Is Losing Customers
-              </h3>
-              <p className="text-slate-500 text-sm leading-relaxed mb-4">Learn the warning <Link to="/Blog" className="text-blue-600 font-medium hover:underline" onClick={e => e.stopPropagation()}>signs your website is losing customers</Link> before they bounce to a competitor.</p>
-              <span className="inline-flex items-center gap-1 text-blue-600 text-sm font-semibold group-hover:gap-2 transition-all">Read more <ArrowRight className="w-3.5 h-3.5" /></span>
-            </Link>
-            <Link to="/Blog" className="group block bg-white border border-slate-200 hover:border-blue-300 hover:shadow-md rounded-2xl p-6 transition-all">
-              <p className="text-xs font-bold uppercase tracking-widest text-violet-600 mb-2">Technology</p>
-              <h3 className="font-bold text-slate-900 text-base group-hover:text-blue-700 leading-snug mb-2">
-                AI Websites vs Traditional Websites
-              </h3>
-              <p className="text-slate-500 text-sm leading-relaxed mb-4">Compare <Link to="/Blog" className="text-blue-600 font-medium hover:underline" onClick={e => e.stopPropagation()}>AI websites vs traditional websites</Link> and understand what performs better for local businesses.</p>
-              <span className="inline-flex items-center gap-1 text-blue-600 text-sm font-semibold group-hover:gap-2 transition-all">Read more <ArrowRight className="w-3.5 h-3.5" /></span>
-            </Link>
-            <Link to="/AdaWebsiteCompliance" className="group block bg-white border border-slate-200 hover:border-blue-300 hover:shadow-md rounded-2xl p-6 transition-all">
-              <p className="text-xs font-bold uppercase tracking-widest text-emerald-600 mb-2">Compliance</p>
-              <h3 className="font-bold text-slate-900 text-base group-hover:text-blue-700 leading-snug mb-2">
-                ADA Compliance Guide for Business Websites
-              </h3>
-              <p className="text-slate-500 text-sm leading-relaxed mb-4">Everything you need to know about <Link to="/AdaWebsiteCompliance" className="text-blue-600 font-medium hover:underline" onClick={e => e.stopPropagation()}>ADA compliance for business websites</Link> and how to avoid lawsuits.</p>
-              <span className="inline-flex items-center gap-1 text-blue-600 text-sm font-semibold group-hover:gap-2 transition-all">Read more <ArrowRight className="w-3.5 h-3.5" /></span>
-            </Link>
+            {RESOURCES.map((r) => (
+              <Link key={r.title} to={r.href} className="group block bg-white border border-slate-200 hover:border-blue-300 hover:shadow-md rounded-2xl p-6 transition-all">
+                <p className={`text-xs font-bold uppercase tracking-widest mb-2 ${r.categoryColor}`}>{r.category}</p>
+                <h3 className="font-bold text-slate-900 text-base group-hover:text-blue-700 leading-snug mb-2">{r.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed mb-4">{r.desc}</p>
+                <span className="inline-flex items-center gap-1 text-blue-600 text-sm font-semibold group-hover:gap-2 transition-all">
+                  Read more <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ── 8. TRUST ── */}
+      {/* TRUST */}
       <section className="py-20 px-6 bg-slate-50">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-slate-900 mb-4">Why Businesses Trust NTA</h2>
@@ -424,17 +416,16 @@ export default function WebsiteRebuildService() {
               </div>
             ))}
           </div>
-          {/* Internal links */}
           <div className="mt-12 flex flex-wrap justify-center gap-4 text-sm">
-            <Link to="/AdaWebsiteCompliance" className="text-blue-600 hover:underline font-medium">→ ADA Compliance Services</Link>
-            <Link to="/AiSeo" className="text-blue-600 hover:underline font-medium">→ AI SEO & Marketing</Link>
-            <Link to="/Contact" className="text-blue-600 hover:underline font-medium">→ Contact Us</Link>
-            <Link to="/Blog" className="text-blue-600 hover:underline font-medium">→ Read Our Blog</Link>
+            <Link to="/AdaWebsiteCompliance" className="text-blue-600 hover:underline font-medium">ADA Compliance Services</Link>
+            <Link to="/AiSeo" className="text-blue-600 hover:underline font-medium">AI SEO &amp; Marketing</Link>
+            <Link to="/Contact" className="text-blue-600 hover:underline font-medium">Contact Us</Link>
+            <Link to="/Blog" className="text-blue-600 hover:underline font-medium">Read Our Blog</Link>
           </div>
         </div>
       </section>
 
-      {/* ── 9. FAQ ── */}
+      {/* FAQ */}
       <section className="py-20 px-6 bg-white">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-slate-900 text-center mb-12">Frequently Asked Questions</h2>
@@ -449,7 +440,7 @@ export default function WebsiteRebuildService() {
         </div>
       </section>
 
-      {/* ── 10. FINAL CTA ── */}
+      {/* FINAL CTA */}
       <section className="py-24 px-6 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white text-center">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-4xl sm:text-5xl font-extrabold mb-6 leading-tight">
