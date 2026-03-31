@@ -7,6 +7,7 @@ import {
   AlertTriangle, Filter, RefreshCw, ChevronDown, ChevronUp, X, ShieldCheck
 } from 'lucide-react';
 import AuditModal from '../components/automation/AuditModal';
+import ConnectionHealthPanel from '../components/automation/ConnectionHealthPanel';
 
 const STATUS_ORDER = { failed: 0, 'Failed': 0, never: 1, 'Never Triggered': 1, running: 2, 'Running': 2, success: 3 };
 
@@ -189,6 +190,9 @@ export default function AutomationCommandCenter() {
             <RefreshCw className="w-4 h-4" /> Refresh
           </button>
         </div>
+
+        {/* Connection Health */}
+        <ConnectionHealthPanel />
 
         {/* KPI Bar */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">

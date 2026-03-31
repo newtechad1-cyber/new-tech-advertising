@@ -27,10 +27,6 @@ export default function AdminSchoolProjectDetail() {
   const [publishingAction, setPublishingAction] = useState(false);
   const [lastSave, setLastSave] = useState(null);
 
-  if (!schoolSlug || !projectId) {
-    return <div className="text-center py-12">Invalid project</div>;
-  }
-
   const loadAll = async () => {
     if (!projectId) return;
     const [proj, cls, scr, ren, pub] = await Promise.all([
@@ -44,6 +40,10 @@ export default function AdminSchoolProjectDetail() {
   };
 
   useEffect(() => { loadAll(); }, [projectId]);
+
+  if (!schoolSlug || !projectId) {
+    return <div className="text-center py-12">Invalid project</div>;
+  }
 
   const generateScript = async () => {
     if (!can('trigger_ai_jobs')) { alert('You do not have permission to trigger AI jobs.'); return; }
