@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Users, Share2, Bot, Building2, Target, DollarSign, Menu, X, Zap } from 'lucide-react';
+import { LayoutDashboard, Users, Share2, Bot, Building2, Target, DollarSign, Menu, X, Zap, Activity } from 'lucide-react';
 
 const NAV_ITEMS = [
   { label: 'Operator',    path: '/nta/operator-command',   icon: LayoutDashboard },
@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { label: 'Deal Room',   path: '/nta/deal-room',          icon: Target },
   { label: 'Pricing',     path: '/nta/pricing-stack',      icon: DollarSign },
   { label: 'Acquisition', path: '/nta/acquisition-command',icon: Zap },
+  { label: '⚡ Automations', path: '/nta/automation-command', icon: Activity },
 ];
 
 export default function NTACommandNav() {
