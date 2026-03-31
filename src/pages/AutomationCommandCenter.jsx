@@ -7,12 +7,19 @@ import {
   AlertTriangle, Filter, RefreshCw, ChevronDown, ChevronUp, X
 } from 'lucide-react';
 
-const STATUS_ORDER = { failed: 0, never: 1, running: 2, success: 3 };
+const STATUS_ORDER = { failed: 0, 'Failed': 0, never: 1, 'Never Triggered': 1, running: 2, 'Running': 2, success: 3 };
 
 function deriveStatus(rule) {
+  // Prefer stored automation_status if present
+  if (rule.automation_status) {
+    if (rule.automation_status === 'Failed') return 'failed';
+    if (rule.automation_status === 'Never Triggered') return 'never';
+    if (rule.automation_status === 'Running') return 'running';
+  }
+  // Fallback: compute from fields
   if (!rule.last_executed_at) return 'never';
-  if (rule.failure_count > 0 && rule.failure_count >= rule.success_count) return 'failed';
-  return 'success';
+  if (rule.last_run_result === 'failed' || (rule.failure_count > 0 && rule.failure_count >= rule.success_count)) return 'failed';
+  return 'running';
 }
 
 function StatusBadge({ status }) {
@@ -20,7 +27,7 @@ function StatusBadge({ status }) {
     failed:  { label: 'Failed',          cls: 'bg-red-100 text-red-700',    icon: XCircle },
     never:   { label: 'Never Triggered', cls: 'bg-slate-100 text-slate-500', icon: Clock },
     running: { label: 'Running',         cls: 'bg-blue-100 text-blue-700',  icon: Zap },
-    success: { label: 'Success',         cls: 'bg-green-100 text-green-700', icon: CheckCircle },
+    success: { label: 'Running',         cls: 'bg-blue-100 text-blue-700',  icon: Zap },
   }[status] || { label: status, cls: 'bg-slate-100 text-slate-500', icon: Clock };
   const Icon = cfg.icon;
   return (
@@ -92,6 +99,14 @@ export default function AutomationCommandCenter() {
     queryFn: () => base44.entities.AutomationRule.list('-last_executed_at'),
   });
 
+  // Sync computed automation_status back to entity after data loads
+  const syncStatus = async (ruleId, status) => {
+    const map = { failed: 'Failed', never: 'Never Triggered', running: 'Running' };
+    const val = map[status];
+    if (!val) return;
+    try { await base44.entities.AutomationRule.update(ruleId, { automation_status: val }); } catch (_) {}
+  };
+
   const { data: logs = [] } = useQuery({
     queryKey: ['automationRuleLogs'],
     queryFn: () => base44.entities.AutomationRuleLog.list('-created_date', 200),
@@ -102,6 +117,16 @@ export default function AutomationCommandCenter() {
     if (!acc[log.rule_id]) acc[log.rule_id] = log;
     return acc;
   }, {});
+
+  // Sync automation_status to entity for any rules whose computed status differs
+  useEffect(() => {
+    if (!rules.length) return;
+    const map = { failed: 'Failed', never: 'Never Triggered', running: 'Running' };
+    rules.forEach(rule => {
+      const computed = deriveStatus(rule);
+      if (map[computed] !== rule.automation_status) syncStatus(rule.id, computed);
+    });
+  }, [rules.length, logs.length]);
 
   const triggerCategories = [...new Set(rules.map(r => r.trigger_category).filter(Boolean))];
 
@@ -169,7 +194,7 @@ export default function AutomationCommandCenter() {
             { label: 'Total Rules', value: stats.total, cls: 'text-white' },
             { label: 'Failed', value: stats.failed, cls: 'text-red-400' },
             { label: 'Never Triggered', value: stats.never, cls: 'text-slate-400' },
-            { label: 'Successful', value: stats.success, cls: 'text-green-400' },
+            { label: 'Running', value: stats.success, cls: 'text-blue-400' },
           ].map(s => (
             <div key={s.label} className="bg-slate-900 border border-slate-800 rounded-xl px-5 py-4">
               <p className="text-slate-500 text-xs font-semibold uppercase tracking-widest mb-1">{s.label}</p>

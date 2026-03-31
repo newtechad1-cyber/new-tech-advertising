@@ -1,0 +1,142 @@
+{
+  "name": "AutomationRule",
+  "type": "object",
+  "properties": {
+    "rule_name": {
+      "type": "string",
+      "description": "Human-readable rule name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed rule description"
+    },
+    "trigger_event": {
+      "type": "string",
+      "enum": [
+        "user_signup",
+        "onboarding_complete",
+        "first_milestone",
+        "inactivity_detected",
+        "momentum_drop",
+        "upgrade_readiness_high",
+        "leads_logged",
+        "payment_failed",
+        "subscription_cancelled",
+        "discovery_done",
+        "proposal_not_viewed",
+        "deal_won",
+        "engagement_increase",
+        "growth_score_milestone"
+      ],
+      "description": "Event that triggers the rule"
+    },
+    "trigger_category": {
+      "type": "string",
+      "enum": [
+        "lifecycle",
+        "retention",
+        "sales_signals",
+        "billing",
+        "pipeline"
+      ],
+      "description": "Category of the trigger"
+    },
+    "trigger_condition": {
+      "type": "string",
+      "description": "Conditional logic JSON (e.g. engagement_score > 50)"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "send_email",
+        "show_modal",
+        "send_notification",
+        "create_record",
+        "update_record",
+        "flag_entity",
+        "trigger_workflow",
+        "update_dashboard"
+      ],
+      "description": "Type of action to perform"
+    },
+    "action_target": {
+      "type": "string",
+      "description": "Target entity or system (e.g., user, prospect, subscription)"
+    },
+    "action_payload": {
+      "type": "string",
+      "description": "JSON payload for action execution"
+    },
+    "priority": {
+      "type": "number",
+      "default": 5,
+      "description": "Execution priority 1-10 (10 = highest)"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether rule is active"
+    },
+    "execution_limit_per_user": {
+      "type": "number",
+      "default": 1,
+      "description": "Max executions per user per day"
+    },
+    "cooldown_hours": {
+      "type": "number",
+      "default": 24,
+      "description": "Hours to wait before re-triggering for same entity"
+    },
+    "execution_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Total executions of this rule"
+    },
+    "success_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Successful executions"
+    },
+    "failure_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Failed executions"
+    },
+    "last_executed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_run_result": {
+      "type": "string",
+      "enum": [
+        "success",
+        "failed"
+      ],
+      "description": "Result of the most recent run"
+    },
+    "automation_status": {
+      "type": "string",
+      "enum": [
+        "Running",
+        "Failed",
+        "Never Triggered"
+      ],
+      "description": "Computed status: Running = last run successful within schedule, Failed = last run failed, Never Triggered = no run history"
+    },
+    "created_by": {
+      "type": "string",
+      "description": "Admin who created the rule"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Internal notes about rule behavior"
+    }
+  },
+  "required": [
+    "rule_name",
+    "trigger_event",
+    "trigger_category",
+    "action_type",
+    "action_target"
+  ]
+}
