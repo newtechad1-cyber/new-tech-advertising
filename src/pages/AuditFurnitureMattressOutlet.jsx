@@ -60,6 +60,9 @@ const WHAT_IT_SHOULD_DO = [
   'Support your marketing efforts with consistent branding and messaging',
 ];
 
+const DEMO_LINK = 'https://newtechadvertising.com/demo/furniture-mattress-outlet';
+const BOOKING_LINK = 'https://newtechadvertising.com/book-a-call';
+
 export default function AuditFurnitureMattressOutlet() {
   useEffect(() => {
     document.title = 'Website Audit — Furniture & Mattress Outlet';
@@ -77,10 +80,10 @@ export default function AuditFurnitureMattressOutlet() {
           <span className="font-bold text-slate-800 text-sm">New Tech Advertising</span>
         </div>
         <div className="flex gap-3">
-          <a href="#" className="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-slate-900 border border-slate-200 px-4 py-2 rounded-lg transition-colors">
+          <a href={DEMO_LINK} className="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-slate-900 border border-slate-200 px-4 py-2 rounded-lg transition-colors">
             View Demo Preview
           </a>
-          <a href="/book-a-call" className="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
+          <a href={BOOKING_LINK} className="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
             <Phone className="w-3.5 h-3.5" /> Book a Call
           </a>
         </div>
@@ -101,13 +104,13 @@ export default function AuditFurnitureMattressOutlet() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="#"
+              href={DEMO_LINK}
               className="inline-flex items-center justify-center gap-2 bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold px-8 py-3.5 rounded-xl transition-colors text-sm"
             >
               <Monitor className="w-4 h-4" /> View Demo Preview
             </a>
             <a
-              href="/book-a-call"
+              href={BOOKING_LINK}
               className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold px-8 py-3.5 rounded-xl transition-colors text-sm"
             >
               <Phone className="w-4 h-4" /> Book a Call
@@ -231,7 +234,7 @@ export default function AuditFurnitureMattressOutlet() {
             Instead of only pointing out issues, we created a sample homepage concept to show what a modern, conversion-focused version of your site could look like — built specifically for Furniture & Mattress Outlet.
           </p>
           <a
-            href="#"
+            href={DEMO_LINK}
             className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-700 text-white font-bold px-10 py-4 rounded-xl transition-colors text-sm shadow-lg"
           >
             <Monitor className="w-4 h-4" /> View the Sample Rebuild
@@ -258,13 +261,13 @@ export default function AuditFurnitureMattressOutlet() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="/book-a-call"
+              href={BOOKING_LINK}
               className="inline-flex items-center justify-center gap-2 bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold px-8 py-4 rounded-xl transition-colors text-sm shadow-lg"
             >
               <Phone className="w-4 h-4" /> Book a Call
             </a>
             <a
-              href="#"
+              href={DEMO_LINK}
               className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold px-8 py-4 rounded-xl transition-colors text-sm"
             >
               <Monitor className="w-4 h-4" /> View Demo Preview
