@@ -8,9 +8,23 @@ import ReactQuill from 'react-quill';
 
 const CAMPAIGNS = [
   {
+    id: 'fmo_followup',
+    name: 'Furniture & Mattress Outlet — Audit + Demo Follow-Up',
+    description: 'Prospect outreach for Furniture & Mattress Outlet',
+    defaultLead: {
+      name: '',
+      email: '',
+      business_name: 'Furniture & Mattress Outlet',
+      audit_link: 'https://newtechadvertising.com/audit/furniture-mattress-outlet',
+      demo_link: 'https://newtechadvertising.com/demo/furniture-mattress-outlet',
+      booking_link: 'https://newtechadvertising.com/book-a-call',
+    },
+  },
+  {
     id: 'audit_demo_followup',
-    name: 'Website Audit + Demo Follow-Up',
+    name: 'Website Audit + Demo Follow-Up (Generic)',
     description: 'Nurture sequence for prospects after audit/demo',
+    defaultLead: null,
   },
 ];
 
@@ -101,7 +115,13 @@ export default function Autoresponder() {
   const [sendResult, setSendResult] = useState(null);
   const [expandedDay, setExpandedDay] = useState(null);
 
-  useEffect(() => { loadSequences(); }, [activeCampaign]);
+  useEffect(() => {
+    loadSequences();
+    const campaign = CAMPAIGNS.find(c => c.id === activeCampaign);
+    if (campaign?.defaultLead) {
+      setLeadForm(prev => ({ ...prev, ...campaign.defaultLead }));
+    }
+  }, [activeCampaign]);
 
   const loadSequences = async () => {
     setLoading(true);
