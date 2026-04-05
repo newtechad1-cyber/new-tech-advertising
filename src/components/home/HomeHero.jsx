@@ -65,7 +65,7 @@ export default function HomeHero() {
           <div className="flex justify-center mb-8">
             <div className="rounded-2xl overflow-hidden shadow-2xl shadow-violet-900/30 border border-slate-700 w-full max-w-sm aspect-[9/16]">
               <iframe
-                src="https://www.youtube.com/embed/AUy46z-QUqw"
+                src="https://www.youtube.com/embed/X1yCn7xgx_o"
                 title="NTA Overview"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
