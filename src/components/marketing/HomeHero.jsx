@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight, CheckCircle, Play } from 'lucide-react';
+import VideoSystem from '../VideoSystem';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 
@@ -61,36 +62,13 @@ export default function HomeHero() {
 
           {/* Right: Video demo */}
           <div style={{ width: '100%', display: 'block' }}>
-            <div style={{
-              position: 'relative',
-              width: '100%',
-              minHeight: '315px',
-              aspectRatio: '16 / 9',
-              background: '#000',
-              borderRadius: '12px',
-              overflow: 'hidden',
-            }}>
-              <iframe
-                src="https://www.youtube.com/embed/X1yCn7x_o"
-                title="NTA Platform Overview"
-                width="100%"
-                height="100%"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  border: 'none',
-                  display: 'block',
-                  minHeight: '315px',
-                }}
-              />
-            </div>
+            <VideoSystem
+              video="https://www.youtube.com/embed/X1yCn7x_o"
+              title="NTA Platform Overview"
+              priority
+              shadow
+              border
+            />
           </div>
         </div>
       </div>
