@@ -130,7 +130,6 @@ import SocialMediaMasonCity from './pages/SocialMediaMasonCity';
 import SocialMediaRochesterMN from './pages/SocialMediaRochesterMN';
 import SocialMediaAustinMN from './pages/SocialMediaAustinMN';
 import SocialMediaAlbertLeaMN from './pages/SocialMediaAlbertLeaMN';
-import DailyCommandDashboard from './pages/DailyCommandDashboard';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -166,8 +165,7 @@ const AuthenticatedApp = () => {
   // Render the main app
   return (
     <Routes>
-      <Route path="/" element={<DailyCommandDashboard />} />
-      <Route path="/home" element={
+      <Route path="/" element={
         <LayoutWrapper currentPageName="Home">
           <Home />
         </LayoutWrapper>
