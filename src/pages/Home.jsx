@@ -122,15 +122,15 @@ export default function Home() {
             Local Business Growth Systems
           </span>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
-            We Help Local Businesses<br className="hidden sm:block" /> Get More Customers Online
+            We Support Local Business Growth with Modern Websites and Marketing Systems
           </h1>
-          <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-4 leading-relaxed">
-            Modern websites, AI-powered marketing, and advertising systems built to generate leads, improve visibility, and help your business grow.
+          <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-3 leading-relaxed">
+            Modern websites, AI-powered marketing, and local advertising systems designed to help you get found, build trust, and turn visitors into real customers.
           </p>
           <p className="text-slate-400 text-sm mb-10">
-            Practical systems. Real results. Built for small and local businesses in North Iowa and Southern Minnesota.
+            Practical systems. Real results. Built specifically for small and local businesses.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-4">
             <Link
               to="/rebuild-intake?source=homepage"
               className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl text-lg transition shadow-lg shadow-blue-600/30"
@@ -141,9 +141,10 @@ export default function Home() {
               href="#services"
               className="inline-flex items-center justify-center gap-2 border-2 border-white/30 hover:border-white/60 text-white font-semibold px-8 py-4 rounded-xl text-lg transition"
             >
-              Explore Services <ChevronRight className="w-5 h-5" />
+              See How It Works <ChevronRight className="w-5 h-5" />
             </a>
           </div>
+          <p className="text-slate-500 text-sm">No contracts. No fluff. Just systems that work.</p>
 
           {/* Hero Video */}
           <div className="mt-12 flex justify-center px-4">
