@@ -1,0 +1,79 @@
+{
+  "name": "NTADemoLead",
+  "type": "object",
+  "properties": {
+    "business_name": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "contact_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Lead Identified",
+        "Demo In Progress",
+        "Demo Built",
+        "Demo Sent",
+        "Responded",
+        "Call Booked",
+        "Proposal Sent",
+        "Closed Won",
+        "Closed Lost"
+      ],
+      "default": "Lead Identified"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "last_contact_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "demo_url": {
+      "type": "string"
+    },
+    "demo_built_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "demo_sent_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "call_booked_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "archived": {
+      "type": "boolean",
+      "default": false
+    },
+    "archived_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "activity_log": {
+      "type": "string",
+      "description": "JSON array of activity entries"
+    }
+  },
+  "required": [
+    "business_name"
+  ]
+}
