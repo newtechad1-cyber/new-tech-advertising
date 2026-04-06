@@ -19,6 +19,8 @@ const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/pub
 // /admin         → AdminDashboard
 
 const NAV_LINKS = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/About' },
   {
     label: 'Services',
     href: '/services/website-rebuilds',
@@ -39,15 +41,8 @@ const NAV_LINKS = [
       { label: 'Albert Lea, MN', href: '/website-rebuilds/albert-lea-mn', desc: 'Website rebuild services in Albert Lea' },
     ],
   },
-  {
-    label: 'Blog',
-    href: createPageUrl('Blog'),
-  },
-  {
-    label: 'Book a Call',
-    href: 'https://calendar.app.google/p6ieYanvwhixXxZ67',
-    external: true,
-  },
+  { label: 'Blog', href: createPageUrl('Blog') },
+  { label: 'Contact', href: '/Contact' },
 ];
 
 function DropdownMenu({ items, onClose }) {
@@ -97,26 +92,19 @@ export default function MarketingNav() {
         </Link>
 
         {/* Desktop nav links */}
-        <div className="hidden lg:flex items-center gap-1 flex-1">
-          <Link to="/" className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-lg transition-colors">
-            Home
-          </Link>
+        <div className="hidden lg:flex items-center gap-0.5 flex-1">
           {NAV_LINKS.map(link => (
             <div key={link.label} className="relative">
               {link.children ? (
                 <button
                   onClick={e => { e.stopPropagation(); setActiveDropdown(activeDropdown === link.label ? null : link.label); }}
-                  className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-lg transition-colors"
+                  className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-lg transition-colors whitespace-nowrap"
                 >
                   {link.label}
                   <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeDropdown === link.label ? 'rotate-180' : ''}`} />
                 </button>
-              ) : link.external ? (
-                <a href={link.href} target="_blank" rel="noopener noreferrer" className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-lg transition-colors">
-                  {link.label}
-                </a>
               ) : (
-                <a href={link.href} className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-lg transition-colors">
+                <a href={link.href} className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-lg transition-colors whitespace-nowrap block">
                   {link.label}
                 </a>
               )}
@@ -128,26 +116,26 @@ export default function MarketingNav() {
         </div>
 
         {/* Desktop CTAs */}
-         <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
-           <Link to={createPageUrl('ClientDashboard')} className="text-sm text-slate-400 hover:text-white transition-colors font-medium">
-             Client Login
-           </Link>
-           <Link to={createPageUrl('AdminDashboard')} className="text-sm text-slate-400 hover:text-white transition-colors font-medium border border-slate-700 hover:border-slate-500 px-3 py-1.5 rounded-lg">
-             Admin Login
-           </Link>
-           <a
-             href="https://calendar.app.google/p6ieYanvwhixXxZ67"
-             target="_blank"
-             rel="noopener noreferrer"
-             className="text-sm font-semibold text-slate-300 hover:text-white border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg transition-colors"
-           >
-             Book a Call
-           </a>
+        <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
+          <Link to={createPageUrl('ClientDashboard')} className="text-xs text-slate-400 hover:text-white transition-colors font-medium whitespace-nowrap">
+            Client Login
+          </Link>
+          <Link to={createPageUrl('AdminDashboard')} className="text-xs text-slate-400 hover:text-white transition-colors font-medium border border-slate-700 hover:border-slate-500 px-2.5 py-1.5 rounded-lg whitespace-nowrap">
+            Admin Login
+          </Link>
+          <a
+            href="https://calendar.app.google/p6ieYanvwhixXxZ67"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap shadow-lg shadow-blue-600/20"
+          >
+            Book a Call
+          </a>
           <Link
             to={createPageUrl('Start')}
-            className="bg-violet-600 hover:bg-violet-500 text-white font-bold text-sm px-5 py-2 rounded-lg transition-all shadow-lg shadow-violet-600/20"
+            className="bg-violet-600 hover:bg-violet-500 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-lg shadow-violet-600/20 whitespace-nowrap"
           >
-            Start Free Trial
+            Free Trial
           </Link>
         </div>
 
@@ -164,7 +152,6 @@ export default function MarketingNav() {
       {mobileOpen && (
         <div className="lg:hidden fixed inset-0 top-16 z-40 bg-slate-950 overflow-y-auto">
           <div className="px-4 py-4 space-y-1">
-            <a href="/" onClick={() => setMobileOpen(false)} className="block px-4 py-3 text-base font-semibold text-white rounded-lg hover:bg-slate-800">Home</a>
             {NAV_LINKS.map(link => (
               <div key={link.label}>
                 {link.children ? (
@@ -187,10 +174,6 @@ export default function MarketingNav() {
                       </div>
                     )}
                   </>
-                ) : link.external ? (
-                  <a href={link.href} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)} className="block px-4 py-3 text-base font-semibold text-white rounded-lg hover:bg-slate-800">
-                    {link.label}
-                  </a>
                 ) : (
                   <a href={link.href} onClick={() => setMobileOpen(false)} className="block px-4 py-3 text-base font-semibold text-white rounded-lg hover:bg-slate-800">
                     {link.label}
@@ -202,6 +185,15 @@ export default function MarketingNav() {
 
           {/* Mobile CTAs */}
           <div className="px-4 py-6 border-t border-slate-800 space-y-3">
+            <a
+              href="https://calendar.app.google/p6ieYanvwhixXxZ67"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center justify-center w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-all"
+            >
+              Book a Call
+            </a>
             <Link
               to={createPageUrl('Start')}
               onClick={() => setMobileOpen(false)}
@@ -209,22 +201,22 @@ export default function MarketingNav() {
             >
               Start Free Trial
             </Link>
-            <a
-              href="https://calendar.app.google/p6ieYanvwhixXxZ67"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-center w-full bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold py-3 rounded-xl transition-all"
-            >
-              Book a Strategy Call
-            </a>
-            <Link
-              to={createPageUrl('ClientDashboard')}
-              onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-center w-full text-slate-400 hover:text-white text-sm py-2 transition-colors"
-            >
-              Client Login →
-            </Link>
+            <div className="flex gap-3">
+              <Link
+                to={createPageUrl('ClientDashboard')}
+                onClick={() => setMobileOpen(false)}
+                className="flex-1 flex items-center justify-center text-slate-400 hover:text-white text-sm py-2 border border-slate-700 rounded-lg transition-colors"
+              >
+                Client Login
+              </Link>
+              <Link
+                to={createPageUrl('AdminDashboard')}
+                onClick={() => setMobileOpen(false)}
+                className="flex-1 flex items-center justify-center text-slate-400 hover:text-white text-sm py-2 border border-slate-700 rounded-lg transition-colors"
+              >
+                Admin Login
+              </Link>
+            </div>
           </div>
         </div>
       )}
