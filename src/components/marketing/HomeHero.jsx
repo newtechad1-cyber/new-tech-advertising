@@ -61,16 +61,15 @@ export default function HomeHero() {
 
           {/* Right: Video demo */}
           <div className="relative">
-            <div className="relative bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden shadow-2xl">
-              <video
-                src="https://files2.heygen.ai/aws_pacific/avatar_tmp/2b9c0382ad664e3990529d134833aa24/1903f8c848224e64a8493445ae0d1ca2.mp4?Expires=1773342252&Signature=AwFGpVxq0Br0PLziLA7oIVHdo0~c39jFDotG67-3iPlQZUgBeFB9LoRVTMPG~ki3wt5S7OR2Yu-ofOsT2nkJu5gh8D4L4rZNclsH6~VDr~td16j-CcfgXRnH0mBCHcf9rNbjuhfhlRt1DbcumUbyMk9olEcYUJdc0qRbkwEsnm-U2WnrCy5Deau6bfsGkBY9woOsW0ZSRfQwq4IFJe~hiixOvYJkWEY9ZGMELhHzOiKxJLGME5I3O~kmUg2wF9lhmRA7j5Ya3SMy6BJ15kmzLj2Gnm1tFYT3ugyVBBwh9mIzQAA8wi6f2qAhtbcenCMraRt1AndTMQfC8Yd7RmVCpg__&Key-Pair-Id=K38HBHX5LX3X2H"
-                controls
-                className="w-full rounded-2xl"
-                poster=""
+            <div className="relative bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden shadow-2xl aspect-video">
+              <iframe
+                src="https://www.youtube.com/embed/X1yCn7xgx_o"
+                title="NTA Overview"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
               />
             </div>
-
-
           </div>
         </div>
       </div>
