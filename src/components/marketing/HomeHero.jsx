@@ -63,11 +63,11 @@ export default function HomeHero() {
           {/* Right: Video demo */}
           <div style={{ width: '100%', display: 'block' }}>
             <VideoSystem
-              video="https://www.youtube.com/embed/X1yCn7x_o"
-              title="NTA Platform Overview"
+              video="https://youtu.be/X1yCn7xgx_o"
+              title="NTA Homepage Video"
+              format="landscape"
+              maxWidth="960px"
               priority
-              shadow
-              border
             />
           </div>
         </div>
