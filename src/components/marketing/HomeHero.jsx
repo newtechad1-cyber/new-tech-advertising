@@ -61,13 +61,13 @@ export default function HomeHero() {
 
           {/* Right: Video demo */}
           <div className="relative">
-            <div className="relative bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden shadow-2xl aspect-video">
+            <div style={{ position: 'relative', width: '100%', maxWidth: '960px', margin: '0 auto', aspectRatio: '16 / 9' }}>
               <iframe
                 src="https://www.youtube.com/embed/X1yCn7xgx_o"
-                title="NTA Overview"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                title="YouTube video player"
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0, borderRadius: '1rem' }}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
-                className="w-full h-full"
               />
             </div>
           </div>
