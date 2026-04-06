@@ -122,6 +122,8 @@ import WebsiteRebuildsAustinMN from './pages/WebsiteRebuildsAustinMN';
 import WebsiteRebuildsAlbertLeaMN from './pages/WebsiteRebuildsAlbertLeaMN';
 import AdminRecruitingCandidates from './pages/AdminRecruitingCandidates';
 import AuditFurnitureMattressOutlet from './pages/AuditFurnitureMattressOutlet';
+import CRMDashboard from './pages/CRMDashboard';
+import CRMArchivedLeads from './pages/CRMArchivedLeads';
 import DemoFurnitureMattressOutlet from './pages/DemoFurnitureMattressOutlet';
 import AdminRecentAIActivity from './pages/AdminRecentAIActivity';
 import RebuildIntake from './pages/Rebuild-Intake';
@@ -309,6 +311,9 @@ const AuthenticatedApp = () => {
       <Route path="/admin/recruiting-candidates" element={<LayoutWrapper currentPageName="AdminRecruitingCandidates"><AdminRecruitingCandidates /></LayoutWrapper>} />
       <Route path="/admin/recent-ai-activity" element={<LayoutWrapper currentPageName="AdminRecentAIActivity"><AdminRecentAIActivity /></LayoutWrapper>} />
       <Route path="/audit/furniture-mattress-outlet" element={<AuditFurnitureMattressOutlet />} />
+      <Route path="/dashboard" element={<CRMDashboard />} />
+      <Route path="/dashboard/leads" element={<CRMDashboard />} />
+      <Route path="/dashboard/archived" element={<CRMArchivedLeads />} />
       <Route path="/demo/furniture-mattress-outlet" element={<DemoFurnitureMattressOutlet />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
