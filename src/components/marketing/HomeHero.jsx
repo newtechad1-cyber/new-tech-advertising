@@ -60,14 +60,15 @@ export default function HomeHero() {
           </div>
 
           {/* Right: Video demo */}
-          <div className="relative">
-            <div style={{ position: 'relative', width: '100%', maxWidth: '960px', margin: '0 auto', aspectRatio: '16 / 9' }}>
+          <div className="relative" style={{ width: '100%', maxWidth: '960px', margin: '0 auto' }}>
+            <div style={{ position: 'relative', paddingTop: '56.25%', width: '100%' }}>
               <iframe
-                src="https://www.youtube.com/embed/X1yCn7xgx_o"
+                src="https://www.youtube.com/embed/X1yCn7x_o"
                 title="YouTube video player"
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0, borderRadius: '1rem' }}
+                frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0, borderRadius: '12px' }}
               />
             </div>
           </div>
