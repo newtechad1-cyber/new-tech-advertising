@@ -7,7 +7,7 @@ const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
 
 export default function HomeHero() {
   return (
-    <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
+    <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Background accent */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/10 rounded-full blur-3xl" />
@@ -60,15 +60,16 @@ export default function HomeHero() {
           </div>
 
           {/* Right: Video demo */}
-          <div className="relative" style={{ width: '100%', maxWidth: '960px', margin: '0 auto' }}>
-            <div style={{ position: 'relative', paddingTop: '56.25%', width: '100%' }}>
+          <div style={{ width: '100%' }}>
+            <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', minHeight: '315px', background: '#000', borderRadius: '16px', overflow: 'hidden' }}>
               <iframe
-                src="https://www.youtube.com/embed/X1yCn7x_o"
+                src="https://www.youtube.com/embed/X1yCn7xgx_o"
                 title="YouTube video player"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0, borderRadius: '12px' }}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0 }}
               />
             </div>
           </div>
