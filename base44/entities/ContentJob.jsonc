@@ -1,0 +1,77 @@
+{
+  "name": "ContentJob",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "Full Pack",
+        "Blog Article",
+        "Video Script",
+        "Social Posts",
+        "Image Prompts"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "Generated",
+        "Video Created",
+        "Posted",
+        "Archived"
+      ],
+      "default": "Draft"
+    },
+    "blog_article": {
+      "type": "string",
+      "format": "markdown"
+    },
+    "video_script": {
+      "type": "string"
+    },
+    "social_facebook": {
+      "type": "string"
+    },
+    "social_linkedin": {
+      "type": "string"
+    },
+    "social_gbp": {
+      "type": "string"
+    },
+    "image_prompts": {
+      "type": "string"
+    },
+    "heygen_video_url": {
+      "type": "string"
+    },
+    "posted_facebook": {
+      "type": "boolean",
+      "default": false
+    },
+    "posted_linkedin": {
+      "type": "boolean",
+      "default": false
+    },
+    "posted_gbp": {
+      "type": "boolean",
+      "default": false
+    },
+    "notes": {
+      "type": "string"
+    },
+    "topic": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "client_name",
+    "content_type"
+  ]
+}

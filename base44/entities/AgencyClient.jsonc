@@ -1,0 +1,30 @@
+{
+  "name": "AgencyClient",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "services": {
+      "type": "string",
+      "description": "Comma-separated services"
+    },
+    "target_keywords": {
+      "type": "string",
+      "description": "Comma-separated keywords"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "archived": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

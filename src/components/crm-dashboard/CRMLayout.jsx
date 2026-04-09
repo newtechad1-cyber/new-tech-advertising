@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Users, Archive, ChevronLeft, Menu, X } from 'lucide-react';
+import { LayoutDashboard, Users, Archive, ChevronLeft, Menu, X, FileText } from 'lucide-react';
 
 const NAV = [
   { label: 'Daily Command', href: '/dashboard', icon: LayoutDashboard },
   { label: 'All Leads', href: '/dashboard/leads', icon: Users },
   { label: 'Archived Leads', href: '/dashboard/archived', icon: Archive },
+  { label: 'Content Command', href: '/content-command', icon: FileText },
 ];
 
 export default function CRMLayout({ children }) {
