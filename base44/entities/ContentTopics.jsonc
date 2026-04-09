@@ -5,9 +5,13 @@
     "title": {
       "type": "string"
     },
+    "client_id": {
+      "type": "string",
+      "description": "Reference to Clients ID"
+    },
     "client": {
       "type": "string",
-      "description": "Client name or ID"
+      "description": "Denormalized client business_name"
     },
     "primary_keyword": {
       "type": "string"
@@ -59,6 +63,6 @@
   },
   "required": [
     "title",
-    "client"
+    "client_id"
   ]
 }

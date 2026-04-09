@@ -126,6 +126,8 @@ import CRMDashboard from './pages/CRMDashboard';
 import CRMArchivedLeads from './pages/CRMArchivedLeads';
 import ContentCommandDashboard from './pages/ContentCommandDashboard';
 import ContentCommandCenter from './pages/ContentCommandCenter';
+import ClientManager from './pages/ClientManager';
+import ClientDetail from './pages/ClientDetail';
 import DemoFurnitureMattressOutlet from './pages/DemoFurnitureMattressOutlet';
 import AdminRecentAIActivity from './pages/AdminRecentAIActivity';
 import RebuildIntake from './pages/Rebuild-Intake';
@@ -318,6 +320,8 @@ const AuthenticatedApp = () => {
       <Route path="/dashboard/archived" element={<CRMArchivedLeads />} />
       <Route path="/content-command" element={<ContentCommandDashboard />} />
       <Route path="/content-center" element={<ContentCommandCenter />} />
+      <Route path="/clients" element={<ClientManager />} />
+      <Route path="/clients/:id" element={<ClientDetail />} />
       <Route path="/demo/furniture-mattress-outlet" element={<DemoFurnitureMattressOutlet />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>

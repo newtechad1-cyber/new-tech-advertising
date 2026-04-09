@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { Plus, ChevronDown, AlertTriangle, CheckCircle, Clock, Zap, FileText, RefreshCw, X, Eye } from 'lucide-react';
+import { Plus, ChevronDown, AlertTriangle, CheckCircle, Clock, Zap, FileText, RefreshCw, X, Eye, Users } from 'lucide-react';
 import CRMLayout from '../components/crm-dashboard/CRMLayout';
 
 const ASSET_OPTIONS = [
@@ -32,7 +33,11 @@ const TABS = ['intake', 'topics', 'jobs', 'review', 'published', 'errors'];
 const TAB_LABELS = { intake: '➕ New Topic', topics: '📋 Topics', jobs: '⚙️ AI Jobs', review: '👁 Review', published: '✅ Published', errors: '🚨 Errors' };
 
 export default function ContentCommandCenter() {
-  const [tab, setTab] = useState('intake');
+  const [searchParams] = useSearchParams();
+  const preselectedClientId = searchParams.get('client');
+  const initialTab = searchParams.get('tab') || 'intake';
+
+  const [tab, setTab] = useState(initialTab);
   const [clients, setClients] = useState([]);
   const [topics, setTopics] = useState([]);
   const [jobs, setJobs] = useState([]);
@@ -43,15 +48,27 @@ export default function ContentCommandCenter() {
   const [submitting, setSubmitting] = useState(false);
 
   const [form, setForm] = useState({
-    title: '', client: '', primary_keyword: '', market: '',
+    title: '', client_id: '', client: '', primary_keyword: '', market: '',
     service_type: '', notes: '', priority: 'medium', requested_assets: [],
   });
 
-  useEffect(() => { loadAll(); }, []);
+  useEffect(() => {
+    loadAll();
+  }, []);
+
+  useEffect(() => {
+    if (preselectedClientId && clients.length > 0) {
+      const found = clients.find(c => c.id === preselectedClientId);
+      if (found) {
+        setClientFilter(found.business_name);
+        setForm(p => ({ ...p, client_id: found.id, client: found.business_name }));
+      }
+    }
+  }, [preselectedClientId, clients]);
 
   const loadAll = async () => {
     const [c, t, j, a, al] = await Promise.all([
-      base44.entities.AgencyClient.filter({ archived: false }),
+      base44.entities.Clients.filter({ archived: false }),
       base44.entities.ContentTopics.list('-created_date', 100),
       base44.entities.AIJobs.list('-created_date', 200),
       base44.entities.ContentAssets.list('-created_date', 200),
@@ -74,13 +91,12 @@ export default function ContentCommandCenter() {
   };
 
   const submitTopic = async () => {
-    if (!form.title.trim() || !form.client) return;
+    if (!form.title.trim() || !form.client_id) return;
     setSubmitting(true);
     const topic = await base44.entities.ContentTopics.create({ ...form, status: 'idea' });
     setTopics(prev => [topic, ...prev]);
-    // Trigger pipeline
     await base44.functions.invoke('onContentTopicCreated', { data: topic });
-    setForm({ title: '', client: '', primary_keyword: '', market: '', service_type: '', notes: '', priority: 'medium', requested_assets: [] });
+    setForm({ title: '', client_id: '', client: '', primary_keyword: '', market: '', service_type: '', notes: '', priority: 'medium', requested_assets: [] });
     setSubmitting(false);
     setTab('topics');
     setTimeout(loadAll, 2000);
@@ -102,7 +118,7 @@ export default function ContentCommandCenter() {
   const publishedAssets = assets.filter(a => a.status === 'published' && (!clientFilter || a.client === clientFilter));
   const failedJobs = filteredJobs.filter(j => j.status === 'failed');
 
-  const clientNames = [...new Set([...clients.map(c => c.name), ...topics.map(t => t.client)])].filter(Boolean);
+  const clientNames = clients.map(c => c.business_name).filter(Boolean);
 
   return (
     <CRMLayout>
@@ -166,13 +182,23 @@ export default function ContentCommandCenter() {
                     placeholder="e.g. Summer HVAC Maintenance Tips" className={inputCls} />
                 </Field>
                 <Field label="Client *">
-                  <div className="relative">
-                    <select value={form.client} onChange={e => setForm(p => ({ ...p, client: e.target.value }))} className={`${inputCls} pr-8 appearance-none`}>
-                      <option value="">Select client...</option>
-                      {clientNames.map(n => <option key={n} value={n}>{n}</option>)}
-                    </select>
-                    <ChevronDown className="absolute right-2.5 top-2.5 w-4 h-4 text-slate-500 pointer-events-none" />
-                  </div>
+                  {clients.length === 0 ? (
+                    <div className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2">
+                      <p className="text-xs text-amber-400 mb-1">No clients found. Add a client first.</p>
+                      <Link to="/clients" className="text-xs text-blue-400 hover:text-blue-300 inline-flex items-center gap-1"><Users className="w-3 h-3" /> Add New Client</Link>
+                    </div>
+                  ) : (
+                    <div className="relative">
+                      <select value={form.client_id} onChange={e => {
+                        const found = clients.find(c => c.id === e.target.value);
+                        setForm(p => ({ ...p, client_id: e.target.value, client: found?.business_name || '' }));
+                      }} className={`${inputCls} pr-8 appearance-none`}>
+                        <option value="">Select client...</option>
+                        {clients.map(c => <option key={c.id} value={c.id}>{c.business_name}</option>)}
+                      </select>
+                      <ChevronDown className="absolute right-2.5 top-2.5 w-4 h-4 text-slate-500 pointer-events-none" />
+                    </div>
+                  )}
                 </Field>
                 <Field label="Primary Keyword">
                   <input value={form.primary_keyword} onChange={e => setForm(p => ({ ...p, primary_keyword: e.target.value }))}

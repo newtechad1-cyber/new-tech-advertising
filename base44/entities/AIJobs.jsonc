@@ -8,8 +8,13 @@
     "topic_title": {
       "type": "string"
     },
+    "client_id": {
+      "type": "string",
+      "description": "Reference to Clients ID"
+    },
     "client": {
-      "type": "string"
+      "type": "string",
+      "description": "Denormalized client business_name"
     },
     "job_type": {
       "type": "string",
@@ -50,6 +55,6 @@
   "required": [
     "topic_id",
     "job_type",
-    "client"
+    "client_id"
   ]
 }

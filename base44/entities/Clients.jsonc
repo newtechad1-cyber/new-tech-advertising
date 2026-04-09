@@ -1,0 +1,73 @@
+{
+  "name": "Clients",
+  "type": "object",
+  "properties": {
+    "business_name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "primary_contact": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "core_services": {
+      "type": "string"
+    },
+    "target_keywords": {
+      "type": "string"
+    },
+    "brand_voice": {
+      "type": "string"
+    },
+    "posting_channels": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "website",
+          "facebook",
+          "linkedin",
+          "gbp",
+          "email",
+          "youtube"
+        ]
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "lead",
+        "active_client",
+        "paused",
+        "former_client"
+      ],
+      "default": "active_client"
+    },
+    "archived": {
+      "type": "boolean",
+      "default": false
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "business_name"
+  ]
+}

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Users, Archive, ChevronLeft, Menu, X, FileText } from 'lucide-react';
+import { LayoutDashboard, Users, Archive, ChevronLeft, Menu, X, FileText, Building2 } from 'lucide-react';
 
 const NAV = [
   { label: 'Daily Command', href: '/dashboard', icon: LayoutDashboard },
   { label: 'All Leads', href: '/dashboard/leads', icon: Users },
   { label: 'Archived Leads', href: '/dashboard/archived', icon: Archive },
-  { label: 'Content Command', href: '/content-command', icon: FileText },
+  { label: 'Clients', href: '/clients', icon: Building2 },
   { label: 'Content Center', href: '/content-center', icon: FileText },
 ];
 
