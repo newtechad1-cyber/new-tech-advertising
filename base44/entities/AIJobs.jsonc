@@ -1,0 +1,55 @@
+{
+  "name": "AIJobs",
+  "type": "object",
+  "properties": {
+    "topic_id": {
+      "type": "string"
+    },
+    "topic_title": {
+      "type": "string"
+    },
+    "client": {
+      "type": "string"
+    },
+    "job_type": {
+      "type": "string",
+      "enum": [
+        "blog",
+        "landing_page",
+        "video_script",
+        "social_series",
+        "gbp_post",
+        "email"
+      ]
+    },
+    "prompt_input": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "processing",
+        "completed",
+        "failed"
+      ],
+      "default": "pending"
+    },
+    "output_reference": {
+      "type": "string",
+      "description": "ID of the resulting ContentAsset"
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "topic_id",
+    "job_type",
+    "client"
+  ]
+}

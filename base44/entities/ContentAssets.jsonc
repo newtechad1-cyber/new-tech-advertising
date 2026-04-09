@@ -1,0 +1,51 @@
+{
+  "name": "ContentAssets",
+  "type": "object",
+  "properties": {
+    "topic_id": {
+      "type": "string"
+    },
+    "topic_title": {
+      "type": "string"
+    },
+    "client": {
+      "type": "string"
+    },
+    "asset_type": {
+      "type": "string",
+      "enum": [
+        "blog",
+        "landing_page",
+        "video_script",
+        "social_series",
+        "gbp_post",
+        "email"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string",
+      "format": "markdown"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "ready_for_review",
+        "approved",
+        "published"
+      ],
+      "default": "draft"
+    },
+    "published_url": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "topic_id",
+    "asset_type",
+    "client"
+  ]
+}

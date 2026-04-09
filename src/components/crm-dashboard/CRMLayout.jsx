@@ -7,6 +7,7 @@ const NAV = [
   { label: 'All Leads', href: '/dashboard/leads', icon: Users },
   { label: 'Archived Leads', href: '/dashboard/archived', icon: Archive },
   { label: 'Content Command', href: '/content-command', icon: FileText },
+  { label: 'Content Center', href: '/content-center', icon: FileText },
 ];
 
 export default function CRMLayout({ children }) {

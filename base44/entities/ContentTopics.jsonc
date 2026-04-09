@@ -1,0 +1,64 @@
+{
+  "name": "ContentTopics",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "client": {
+      "type": "string",
+      "description": "Client name or ID"
+    },
+    "primary_keyword": {
+      "type": "string"
+    },
+    "market": {
+      "type": "string"
+    },
+    "service_type": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "requested_assets": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "blog",
+          "landing_page",
+          "video_script",
+          "social_series",
+          "gbp_post",
+          "email"
+        ]
+      }
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "idea",
+        "queued",
+        "processing",
+        "ready_for_review",
+        "published",
+        "error"
+      ],
+      "default": "idea"
+    }
+  },
+  "required": [
+    "title",
+    "client"
+  ]
+}

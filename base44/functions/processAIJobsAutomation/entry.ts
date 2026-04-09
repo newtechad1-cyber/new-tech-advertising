@@ -1,218 +1,105 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.23';
 
-/**
- * AI JOB PROCESSOR AUTOMATION
- * Runs when AIJobs status changes from pending to running
- * Invokes the appropriate function based on function_name
- * Handles status transitions and error tracking
- */
+const ASSET_PROMPTS = {
+  blog: (ctx) => `Write a comprehensive, SEO-optimized blog article for a local business.
+Client: ${ctx.client}
+Topic: ${ctx.title}
+Primary Keyword: ${ctx.primary_keyword || 'N/A'}
+Market: ${ctx.market || 'N/A'}
+Service: ${ctx.service_type || 'N/A'}
+Notes: ${ctx.notes || 'N/A'}
+Write a 700-900 word blog article in markdown with H2 subheadings, natural keyword use, and a local CTA at the end.`,
+
+  landing_page: (ctx) => `Write a high-converting landing page for a local business service.
+Client: ${ctx.client}, Topic: ${ctx.title}, Keyword: ${ctx.primary_keyword || 'N/A'}, Market: ${ctx.market || 'N/A'}, Service: ${ctx.service_type || 'N/A'}
+Include: Hero headline, subheadline, 3 benefit blocks, social proof placeholder, and a strong CTA. Write in markdown.`,
+
+  video_script: (ctx) => `Write a 60-90 second HeyGen video script for a local business.
+Client: ${ctx.client}, Topic: ${ctx.title}, Keyword: ${ctx.primary_keyword || 'N/A'}
+Format: [SCENE: description] followed by spoken text. Include hook, 3 key points, and CTA.`,
+
+  social_series: (ctx) => `Write a 5-post social media series for Facebook and LinkedIn.
+Client: ${ctx.client}, Topic: ${ctx.title}, Keyword: ${ctx.primary_keyword || 'N/A'}, Market: ${ctx.market || 'N/A'}
+Format each post with POST 1:, POST 2: etc. Mix educational, promotional, and engagement posts.`,
+
+  gbp_post: (ctx) => `Write 3 Google Business Profile posts for a local business.
+Client: ${ctx.client}, Topic: ${ctx.title}, Keyword: ${ctx.primary_keyword || 'N/A'}, Market: ${ctx.market || 'N/A'}
+Each post: 150-200 words, local focus, strong CTA. Label POST 1:, POST 2:, POST 3:.`,
+
+  email: (ctx) => `Write a marketing email for a local business.
+Client: ${ctx.client}, Topic: ${ctx.title}, Keyword: ${ctx.primary_keyword || 'N/A'}
+Include: Subject line, preview text, body (300-400 words), and a CTA button label. Write in markdown.`,
+};
 
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const { job_id } = await req.json();
+    const body = await req.json();
 
-    if (!job_id) {
-      return Response.json({ error: 'job_id required' }, { status: 400 });
-    }
+    const jobId = body.data?.id || body.event?.entity_id;
+    if (!jobId) return Response.json({ error: 'No job ID' }, { status: 400 });
 
-    // ATOMIC CLAIM STEP: Only fetch to verify existence
-    const jobs = await base44.asServiceRole.entities.AIJobs.filter({ id: job_id });
-    if (jobs.length === 0) {
-      return Response.json({ error: 'Job not found' }, { status: 404 });
-    }
+    const job = await base44.asServiceRole.entities.AIJobs.get(jobId);
+    if (!job) return Response.json({ error: 'Job not found' }, { status: 404 });
+    if (job.status !== 'pending') return Response.json({ message: 'Job already processed', status: job.status });
 
-    const job = jobs[0];
+    // Mark as processing
+    await base44.asServiceRole.entities.AIJobs.update(jobId, { status: 'processing' });
 
-    // CRITICAL: Atomic claim with conditional update (only if pending)
-    // This ensures only ONE worker can claim the job
-    const startTime = new Date();
-    const claimAttempt = await base44.asServiceRole.entities.AIJobs.filter({
-      id: job_id,
-      status: 'pending',
+    let promptInput = {};
+    try { promptInput = JSON.parse(job.prompt_input || '{}'); } catch (_) {}
+
+    const ctx = {
+      client: job.client,
+      title: job.topic_title,
+      ...promptInput,
+    };
+
+    const promptFn = ASSET_PROMPTS[job.job_type];
+    if (!promptFn) throw new Error(`Unknown job_type: ${job.job_type}`);
+
+    const prompt = promptFn(ctx);
+    const result = await base44.asServiceRole.integrations.Core.InvokeLLM({ prompt });
+
+    const assetTitle = `${ctx.title} — ${job.job_type.replace('_', ' ')}`;
+
+    // Save to ContentAssets
+    const asset = await base44.asServiceRole.entities.ContentAssets.create({
+      topic_id: job.topic_id,
+      topic_title: job.topic_title,
+      client: job.client,
+      asset_type: job.job_type,
+      title: assetTitle,
+      content: result,
+      status: 'ready_for_review',
     });
 
-    if (claimAttempt.length === 0) {
-      // Job no longer pending—another worker claimed it or it's already running/completed/failed
-      return Response.json(
-        { error: 'Job is no longer available for processing' },
-        { status: 409 }
-      );
+    // Mark job completed
+    await base44.asServiceRole.entities.AIJobs.update(jobId, {
+      status: 'completed',
+      output_reference: asset.id,
+      completed_at: new Date().toISOString(),
+    });
+
+    // Update topic status if all jobs for this topic are done
+    const allJobs = await base44.asServiceRole.entities.AIJobs.filter({ topic_id: job.topic_id });
+    const allDone = allJobs.every(j => j.id === jobId || j.status === 'completed');
+    if (allDone) {
+      await base44.asServiceRole.entities.ContentTopics.update(job.topic_id, { status: 'ready_for_review' });
     }
 
-    // Now claim it atomically by updating with conditional check
-    // Base44 SDK doesn't support WHERE clauses, so we use a two-step:
-    // 1. Filter confirms status is pending
-    // 2. Update with processing_started_at (clock proof) and status=running
-    try {
-      await base44.asServiceRole.entities.AIJobs.update(job_id, {
-        status: 'running',
-        started_at: startTime.toISOString(),
-        processing_started_at: startTime.toISOString(), // Idempotency marker
-      });
-    } catch (claimErr) {
-      console.warn('[AIJobProcessor] Claim failed (likely race condition):', claimErr.message);
-      return Response.json(
-        { error: 'Failed to claim job (concurrent processing)' },
-        { status: 409 }
-      );
-    }
-
-    // Verify claim succeeded by re-fetching
-    const claimCheck = await base44.asServiceRole.entities.AIJobs.filter({ id: job_id });
-    if (claimCheck.length === 0 || claimCheck[0].status !== 'running') {
-      // Claim was lost—abort
-      console.error('[AIJobProcessor] Claim verification failed—aborting');
-      return Response.json(
-        { error: 'Job claim verification failed' },
-        { status: 409 }
-      );
-    }
-
-    // Max retries check (now safe after we own the job)
-    if ((job.retry_count || 0) >= (job.max_retries || 3)) {
-      await base44.asServiceRole.entities.AIJobs.update(job_id, {
-        status: 'failed',
-        completed_at: new Date().toISOString(),
-        error_message: `Max retries exceeded (${job.retry_count} of ${job.max_retries || 3})`,
-      });
-      return Response.json(
-        { error: 'Max retries exceeded' },
-        { status: 410 }
-      );
-    }
-
-    let result = null;
-    let outputData = null;
-
-    try {
-      const inputData = job.input_data ? JSON.parse(job.input_data) : {};
-
-      // Route to appropriate function based on function_name
-      switch (job.function_name) {
-        case 'generateSchoolStoryContent':
-          result = await base44.asServiceRole.functions.invoke('generateSchoolStoryContent', inputData);
-          outputData = result?.generatedContent;
-          break;
-
-        case 'schoolVideoScriptGeneration':
-          result = await base44.asServiceRole.functions.invoke('schoolVideoScriptGeneration', inputData);
-          outputData = result?.script;
-          break;
-
-        case 'generateBlogArticle':
-          result = await base44.asServiceRole.functions.invoke('generateBlogArticle', inputData);
-          outputData = { post_id: result?.post_id, slug: result?.slug };
-          break;
-
-        case 'aiVideoStudio':
-          result = await base44.asServiceRole.functions.invoke('aiVideoStudio', inputData);
-          outputData = result;
-          break;
-
-        case 'authorityPlanner':
-          result = await base44.asServiceRole.functions.invoke('authorityPlanner', {});
-          outputData = result;
-          break;
-
-        case 'monthlyReportGenerator':
-          result = await base44.asServiceRole.functions.invoke('monthlyReportGenerator', {});
-          outputData = result;
-          break;
-
-        case 'generateContentFromTopic':
-          result = await base44.asServiceRole.functions.invoke('generateContentFromTopic', inputData);
-          outputData = result?.generated;
-          break;
-
-        case 'adaSalesAssistant':
-          result = await base44.asServiceRole.functions.invoke('adaSalesAssistant', inputData);
-          outputData = result?.result;
-          break;
-
-        case 'createAIContentJob':
-          result = await base44.asServiceRole.functions.invoke('createAIContentJob', inputData);
-          outputData = { jobId: result?.jobId };
-          break;
-
-        default:
-          throw new Error(`Unknown function: ${job.function_name}`);
-      }
-
-      // Mark job as completed
-      const completedAt = new Date();
-      const startedAtTime = new Date(job.started_at);
-      const durationMs = completedAt.getTime() - startedAtTime.getTime();
-
-      await base44.asServiceRole.entities.AIJobs.update(job_id, {
-        status: 'completed',
-        completed_at: completedAt.toISOString(),
-        output_data: outputData ? JSON.stringify(outputData) : null,
-        duration_ms: durationMs,
-      });
-
-      // Create or update AIOutput record if applicable
-      if (outputData) {
-        try {
-          await base44.asServiceRole.entities.AIOutputs.create({
-            ai_job_id: job_id,
-            function_name: job.function_name,
-            output_type: determineOutputType(job.function_name),
-            title: `${job.function_name} - ${new Date().toLocaleString()}`,
-            content: JSON.stringify(outputData),
-            client_id: job.client_id,
-            school_slug: job.school_slug,
-            approval_status: 'pending_review',
-          });
-        } catch (outputErr) {
-          console.warn('[AIJobProcessor] Failed to create AIOutput:', outputErr.message);
-        }
-      }
-
-      return Response.json({ success: true, job_id, status: 'completed' });
-    } catch (funcErr) {
-      // CRITICAL: Only update retry_count if under max_retries
-      const currentRetry = job.retry_count || 0;
-      const maxRetries = job.max_retries || 3;
-      const nextStatus = currentRetry >= maxRetries ? 'failed' : 'pending';
-      const nextRetryCount = currentRetry + 1;
-
-      await base44.asServiceRole.entities.AIJobs.update(job_id, {
-        status: nextStatus,
-        completed_at: nextStatus === 'failed' ? new Date().toISOString() : null,
-        error_message: funcErr.message,
-        retry_count: nextRetryCount,
-      });
-
-      console.error('[AIJobProcessor] Function execution failed:', funcErr.message);
-      return Response.json(
-        { 
-          success: false, 
-          job_id, 
-          error: funcErr.message,
-          retryable: nextStatus === 'pending',
-          nextRetry: nextStatus === 'pending' ? nextRetryCount : null,
-        },
-        { status: 500 }
-      );
-    }
+    return Response.json({ success: true, asset_id: asset.id });
   } catch (error) {
-    console.error('[AIJobProcessor] Automation error:', error);
+    // Mark job failed
+    const base44 = createClientFromRequest(req);
+    const body = await req.json().catch(() => ({}));
+    const jobId = body.data?.id || body.event?.entity_id;
+    if (jobId) {
+      await base44.asServiceRole.entities.AIJobs.update(jobId, {
+        status: 'failed',
+        error_message: error.message,
+      }).catch(() => {});
+    }
     return Response.json({ error: error.message }, { status: 500 });
   }
 });
-
-function determineOutputType(functionName) {
-  const mapping = {
-    generateSchoolStoryContent: 'story',
-    schoolVideoScriptGeneration: 'video_script',
-    generateBlogArticle: 'blog_article',
-    aiVideoStudio: 'video',
-    authorityPlanner: 'authority_map',
-    monthlyReportGenerator: 'report',
-    generateContentFromTopic: 'content',
-    adaSalesAssistant: 'sales_intelligence',
-    createAIContentJob: 'job_queue',
-  };
-  return mapping[functionName] || 'other';
-}

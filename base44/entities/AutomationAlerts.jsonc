@@ -1,0 +1,37 @@
+{
+  "name": "AutomationAlerts",
+  "type": "object",
+  "properties": {
+    "automation_name": {
+      "type": "string"
+    },
+    "issue_type": {
+      "type": "string",
+      "enum": [
+        "stuck_job",
+        "failed_job",
+        "error",
+        "warning"
+      ]
+    },
+    "message": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "resolved"
+      ],
+      "default": "open"
+    },
+    "reference_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "automation_name",
+    "issue_type",
+    "message"
+  ]
+}
