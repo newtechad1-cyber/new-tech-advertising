@@ -13,20 +13,14 @@ const NAV = [
     exact: true,
   },
   {
-    label: 'Prospecting',
+    label: 'Leads',
+    href: '/agency/leads',
     icon: Target,
-    children: [
-      { label: 'Pipeline', href: '/agency/pipeline' },
-      { label: 'CRM / Leads', href: '/dashboard' },
-    ],
   },
   {
-    label: 'Sales',
+    label: 'Pipeline',
+    href: '/agency/pipeline',
     icon: TrendingUp,
-    children: [
-      { label: 'Pipeline', href: '/agency/pipeline' },
-      { label: 'Proposals', href: '/admin/proposal-generator' },
-    ],
   },
   {
     label: 'Clients',
@@ -159,6 +153,7 @@ export default function AgencyLayout({ children }) {
         {!collapsed && (
           <div className="px-3 py-3 border-t border-slate-800 space-y-1 flex-shrink-0">
             <a href="/" className="block text-xs text-slate-600 hover:text-slate-400 transition-colors">← Public Site</a>
+            <a href="/dashboard" className="block text-xs text-slate-700 hover:text-slate-500 transition-colors">Legacy CRM ↗</a>
           </div>
         )}
       </aside>

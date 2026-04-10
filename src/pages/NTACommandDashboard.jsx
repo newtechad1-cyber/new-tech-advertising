@@ -35,13 +35,24 @@ export default function NTACommandDashboard() {
 
   useEffect(() => {
     Promise.all([
-      base44.entities.DemoPipelineLead.filter({ archived: false }),
+      base44.entities.SalesDeal.filter({ archived: false }),
+      base44.entities.SalesLead.list('-created_date', 500),
       base44.entities.Clients.filter({ archived: false }),
       base44.entities.ContentTopics.list('-created_date', 50),
       base44.entities.ContentAssets.list('-updated_date', 30),
       base44.entities.AIJobs.filter({ status: 'failed' }),
-    ]).then(([l, c, t, a, j]) => {
-      setLeads(l);
+    ]).then(([deals, salesLeads, c, t, a, j]) => {
+      // Map leads by id for quick lookup
+      const leadMap = {};
+      salesLeads.forEach(l => { leadMap[l.id] = l; });
+      // Build pipeline-like lead objects from SalesDeals
+      const pipelineLeads = deals.map(d => ({
+        ...leadMap[d.lead_id],
+        id: d.id,
+        business_name: d.deal_name,
+        _stage: d.stage,
+      }));
+      setLeads(pipelineLeads);
       setClients(c);
       setTopics(t);
       setAssets(a);
@@ -50,17 +61,17 @@ export default function NTACommandDashboard() {
     });
   }, []);
 
-  // Derived
-  const activeLeads = leads.filter(l => mapLeadStage(l.status) !== 'Closed');
-  const newLeads = leads.filter(l => mapLeadStage(l.status) === 'New Lead');
-  const hotLeads = leads.filter(l => ['Proposal', 'Demo Sent'].includes(mapLeadStage(l.status)));
+  // Derived — use _stage from SalesDeals
+  const activeLeads = leads.filter(l => !['Closed Won', 'Closed Lost'].includes(l._stage));
+  const newLeads = leads.filter(l => l._stage === 'New Lead');
+  const hotLeads = leads.filter(l => ['Proposal', 'Demo Sent'].includes(l._stage));
   const activeClients = clients.filter(c => c.status === 'active_client');
   const inProgress = topics.filter(t => ['queued', 'processing'].includes(t.status));
   const forReview = assets.filter(a => a.status === 'ready_for_review');
   const failedJobs = jobs;
 
   const WORKFLOW = [
-    { step: '1', label: 'Add Lead', sub: 'Start prospecting', href: '/agency/pipeline', color: 'border-slate-700' },
+    { step: '1', label: 'Add Lead', sub: 'Start prospecting', href: '/agency/leads', color: 'border-slate-700' },
     { step: '2', label: 'Work Pipeline', sub: 'Move through stages', href: '/agency/pipeline', color: 'border-blue-800' },
     { step: '3', label: 'Close & Onboard', sub: 'Convert to client', href: '/agency/clients', color: 'border-violet-800' },
     { step: '4', label: 'Produce Content', sub: 'Create topics & generate', href: '/agency/content?tab=intake', color: 'border-amber-800' },
@@ -141,7 +152,7 @@ export default function NTACommandDashboard() {
               )}
               {/* Stage summary */}
               {!loading && STAGE_ORDER.filter(s => s !== 'Closed').map(stage => {
-                const count = leads.filter(l => mapLeadStage(l.status) === stage).length;
+                const count = leads.filter(l => l._stage === stage).length;
                 if (count === 0) return null;
                 return (
                   <div key={stage} className="flex items-center justify-between px-4 py-2.5">
@@ -156,8 +167,8 @@ export default function NTACommandDashboard() {
                     <p className="text-sm font-medium text-white truncate">{l.business_name}</p>
                     <p className="text-xs text-slate-500">{l.city || l.industry || '—'}</p>
                   </div>
-                  <span className={`text-xs font-bold px-2 py-0.5 rounded-full flex-shrink-0 ml-2 ${STAGE_COLORS[mapLeadStage(l.status)] || 'bg-slate-700 text-slate-300'}`}>
-                    {mapLeadStage(l.status)}
+                  <span className={`text-xs font-bold px-2 py-0.5 rounded-full flex-shrink-0 ml-2 ${STAGE_COLORS[l._stage] || 'bg-slate-700 text-slate-300'}`}>
+                    {l._stage || 'New Lead'}
                   </span>
                 </div>
               ))}

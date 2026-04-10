@@ -142,6 +142,7 @@ import AgencyClients from './pages/AgencyClients';
 import AgencyPipeline from './pages/AgencyPipeline';
 import AgencyContent from './pages/AgencyContent';
 import AgencyWebsites from './pages/AgencyWebsites';
+import AgencyLeads from './pages/AgencyLeads';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -333,6 +334,7 @@ const AuthenticatedApp = () => {
       <Route path="/agency/pipeline" element={<AgencyPipeline />} />
       <Route path="/agency/content" element={<AgencyContent />} />
       <Route path="/agency/websites" element={<AgencyWebsites />} />
+      <Route path="/agency/leads" element={<AgencyLeads />} />
       <Route path="/demo/furniture-mattress-outlet" element={<DemoFurnitureMattressOutlet />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
