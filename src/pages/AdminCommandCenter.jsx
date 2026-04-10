@@ -19,6 +19,8 @@ import ActivityFeed from '@/components/command/ActivityFeed';
 import SalesAlertsPanel from '@/components/sales/SalesAlertsPanel';
 import AlertsSummaryPanel from '@/components/command/AlertsSummaryPanel';
 import PipelineSummaryPanel from '@/components/pipeline/PipelineSummaryPanel';
+import CRMPipelinePanel from '@/components/command/CRMPipelinePanel';
+import TodaysActionsPanel from '@/components/command/TodaysActionsPanel';
 import ProposalsMetricsPanel from '@/components/proposals/ProposalsMetricsPanel';
 
 const QUICK_ACTIONS = [
@@ -72,6 +74,14 @@ export default function AdminCommandCenter() {
           </div>
 
           <div className="max-w-screen-2xl mx-auto px-6 py-6 space-y-8">
+            {/* Today's Actions */}
+            <TodaysActionsPanel />
+
+            {/* CRM Pipeline */}
+            <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
+              <CRMPipelinePanel />
+            </div>
+
             {/* Quick Actions */}
             <div>
               <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Quick Actions</h2>
