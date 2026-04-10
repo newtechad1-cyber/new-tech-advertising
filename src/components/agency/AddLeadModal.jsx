@@ -3,9 +3,9 @@ import { X, ChevronDown } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const BLANK = {
-  first_name: '', last_name: '', business_name: '', phone: '', email: '',
+  first_name: '', last_name: '', contact_name: '', business_name: '', phone: '', email: '',
   website: '', city: '', state: '', industry: '',
-  lead_source: 'other', notes: '', status: 'new',
+  lead_source: 'other', notes: '', status: 'new', next_follow_up: '',
 };
 
 const SOURCE_LABELS = {
@@ -22,10 +22,7 @@ export default function AddLeadModal({ onClose, onSaved }) {
 
   const validate = () => {
     const e = {};
-    if (!form.first_name.trim()) e.first_name = 'Required';
     if (!form.business_name.trim()) e.business_name = 'Required';
-    if (!form.phone.trim()) e.phone = 'Required';
-    if (!form.email.trim()) e.email = 'Required';
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -60,34 +57,26 @@ export default function AddLeadModal({ onClose, onSaved }) {
 
         {/* Body */}
         <div className="overflow-y-auto flex-1 p-5 space-y-4">
-          {/* Name row */}
-          <div className="grid grid-cols-2 gap-3">
-            <Field label="First Name *" error={errors.first_name}>
-              <input value={form.first_name} onChange={e => set('first_name', e.target.value)}
-                placeholder="John" className={inp(errors.first_name)} />
-            </Field>
-            <Field label="Last Name">
-              <input value={form.last_name} onChange={e => set('last_name', e.target.value)}
-                placeholder="Smith" className={inp()} />
-            </Field>
-          </div>
-
           <Field label="Business Name *" error={errors.business_name}>
             <input value={form.business_name} onChange={e => set('business_name', e.target.value)}
               placeholder="Acme HVAC" className={inp(errors.business_name)} />
           </Field>
 
-          {/* Contact row */}
           <div className="grid grid-cols-2 gap-3">
-            <Field label="Phone *" error={errors.phone}>
-              <input value={form.phone} onChange={e => set('phone', e.target.value)}
-                placeholder="(641) 555-0100" className={inp(errors.phone)} />
+            <Field label="Contact Name">
+              <input value={form.contact_name} onChange={e => set('contact_name', e.target.value)}
+                placeholder="John Smith" className={inp()} />
             </Field>
-            <Field label="Email *" error={errors.email}>
-              <input type="email" value={form.email} onChange={e => set('email', e.target.value)}
-                placeholder="john@acme.com" className={inp(errors.email)} />
+            <Field label="Phone">
+              <input value={form.phone} onChange={e => set('phone', e.target.value)}
+                placeholder="(641) 555-0100" className={inp()} />
             </Field>
           </div>
+
+          <Field label="Email">
+            <input type="email" value={form.email} onChange={e => set('email', e.target.value)}
+              placeholder="john@acme.com" className={inp()} />
+          </Field>
 
           <Field label="Website">
             <input value={form.website} onChange={e => set('website', e.target.value)}

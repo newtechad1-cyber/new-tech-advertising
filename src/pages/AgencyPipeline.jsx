@@ -6,6 +6,16 @@ import AgencyLayout from '../components/agency/AgencyLayout';
 import AddLeadModal from '../components/agency/AddLeadModal';
 import LeadDetailModal from '../components/agency/LeadDetailModal';
 
+function fmtFollowUp(d) {
+  if (!d) return '';
+  return new Date(d + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+function isOverdue(d) {
+  if (!d) return false;
+  return new Date(d + 'T12:00:00') < new Date();
+}
+
 const STAGES = ['New Lead', 'Contacted', 'Demo Sent', 'Proposal', 'Closed Won', 'Closed Lost'];
 
 const STAGE_STYLES = {
@@ -169,6 +179,15 @@ export default function AgencyPipeline() {
                                       )}
                                     </div>
 
+                                    {/* Follow-up date */}
+                                    {lead?.next_follow_up && (
+                                      <div className="mt-2" onClick={e => e.stopPropagation()}>
+                                        <span className={`text-xs flex items-center gap-1 ${isOverdue(lead.next_follow_up) ? 'text-red-400' : 'text-slate-500'}`}>
+                                          📅 Next: {fmtFollowUp(lead.next_follow_up)}{isOverdue(lead.next_follow_up) ? ' ⚠️' : ''}
+                                        </span>
+                                      </div>
+                                    )}
+
                                     {/* Value + delete */}
                                     <div className="flex items-center justify-between mt-2" onClick={e => e.stopPropagation()}>
                                       {deal.value
@@ -182,15 +201,14 @@ export default function AgencyPipeline() {
                                       </button>
                                     </div>
 
-                                    {/* No lead linked indicator */}
                                     {!lead && deal.lead_id && (
                                       <p className="text-xs text-amber-500 mt-1.5 flex items-center gap-1">
                                         <Users className="w-3 h-3" /> Lead not found
                                       </p>
                                     )}
-                                  </div>
-                                )}
-                              </Draggable>
+                                    </div>
+                                    )}
+                                    </Draggable>
                             );
                           })}
                         </div>

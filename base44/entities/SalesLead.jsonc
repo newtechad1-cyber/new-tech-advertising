@@ -8,6 +8,10 @@
     "last_name": {
       "type": "string"
     },
+    "contact_name": {
+      "type": "string",
+      "description": "Full contact name (alternative to first/last)"
+    },
     "business_name": {
       "type": "string"
     },
@@ -41,7 +45,16 @@
       "default": "other"
     },
     "notes": {
-      "type": "string"
+      "type": "string",
+      "description": "Timestamped note history (append-only)"
+    },
+    "last_contacted": {
+      "type": "string",
+      "format": "date"
+    },
+    "next_follow_up": {
+      "type": "string",
+      "format": "date"
     },
     "status": {
       "type": "string",
@@ -55,9 +68,6 @@
     }
   },
   "required": [
-    "first_name",
-    "business_name",
-    "phone",
-    "email"
+    "business_name"
   ]
 }
