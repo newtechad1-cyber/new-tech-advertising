@@ -136,6 +136,11 @@ import SocialMediaMasonCity from './pages/SocialMediaMasonCity';
 import SocialMediaRochesterMN from './pages/SocialMediaRochesterMN';
 import SocialMediaAustinMN from './pages/SocialMediaAustinMN';
 import SocialMediaAlbertLeaMN from './pages/SocialMediaAlbertLeaMN';
+import AgencyDashboard from './pages/AgencyDashboard';
+import AgencyClients from './pages/AgencyClients';
+import AgencyPipeline from './pages/AgencyPipeline';
+import AgencyContent from './pages/AgencyContent';
+import AgencyWebsites from './pages/AgencyWebsites';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -322,6 +327,11 @@ const AuthenticatedApp = () => {
       <Route path="/content-center" element={<ContentCommandCenter />} />
       <Route path="/clients" element={<ClientManager />} />
       <Route path="/clients/:id" element={<ClientDetail />} />
+      <Route path="/agency" element={<AgencyDashboard />} />
+      <Route path="/agency/clients" element={<AgencyClients />} />
+      <Route path="/agency/pipeline" element={<AgencyPipeline />} />
+      <Route path="/agency/content" element={<AgencyContent />} />
+      <Route path="/agency/websites" element={<AgencyWebsites />} />
       <Route path="/demo/furniture-mattress-outlet" element={<DemoFurnitureMattressOutlet />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
