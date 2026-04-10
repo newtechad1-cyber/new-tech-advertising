@@ -1,147 +1,112 @@
 import React, { useEffect, useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { Plus, ExternalLink, Trash2, X } from 'lucide-react';
+import { Plus, Phone, Mail, Trash2, Users } from 'lucide-react';
 import AgencyLayout from '../components/agency/AgencyLayout';
+import AddLeadModal from '../components/agency/AddLeadModal';
+import LeadDetailModal from '../components/agency/LeadDetailModal';
 
-const STAGES = ['New Lead', 'Contacted', 'Demo Sent', 'Proposal', 'Closed'];
+const STAGES = ['New Lead', 'Contacted', 'Demo Sent', 'Proposal', 'Closed Won', 'Closed Lost'];
 
-const STAGE_COLORS = {
-  'New Lead':   { border: 'border-slate-600',  dot: 'bg-slate-400' },
-  'Contacted':  { border: 'border-blue-600',   dot: 'bg-blue-400' },
-  'Demo Sent':  { border: 'border-violet-600', dot: 'bg-violet-400' },
-  'Proposal':   { border: 'border-amber-500',  dot: 'bg-amber-400' },
-  'Closed':     { border: 'border-emerald-500',dot: 'bg-emerald-400' },
+const STAGE_STYLES = {
+  'New Lead':    { border: 'border-slate-700',   dot: 'bg-slate-400',   header: 'text-slate-400' },
+  'Contacted':   { border: 'border-blue-700',    dot: 'bg-blue-400',    header: 'text-blue-400' },
+  'Demo Sent':   { border: 'border-violet-700',  dot: 'bg-violet-400',  header: 'text-violet-400' },
+  'Proposal':    { border: 'border-amber-600',   dot: 'bg-amber-400',   header: 'text-amber-400' },
+  'Closed Won':  { border: 'border-emerald-600', dot: 'bg-emerald-400', header: 'text-emerald-400' },
+  'Closed Lost': { border: 'border-red-800',     dot: 'bg-red-600',     header: 'text-red-400' },
 };
 
-// Map old DemoPipelineLead statuses → new stages
-function mapStatus(oldStatus) {
-  const map = {
-    'Lead Identified': 'New Lead',
-    'Demo In Progress': 'Contacted',
-    'Demo Built': 'Contacted',
-    'Demo Sent': 'Demo Sent',
-    'Responded': 'Contacted',
-    'Call Booked': 'Proposal',
-    'Proposal Sent': 'Proposal',
-    'Closed Won': 'Closed',
-    'Closed Lost': 'Closed',
-    'New Lead': 'New Lead',
-    'Contacted': 'Contacted',
-    'Proposal': 'Proposal',
-    'Closed': 'Closed',
-  };
-  return map[oldStatus] || 'New Lead';
-}
-
-const EMPTY_FORM = { business_name: '', website: '', city: '', industry: '', notes: '' };
-
 export default function AgencyPipeline() {
-  const [leads, setLeads] = useState([]);
+  const [deals, setDeals] = useState([]);
+  const [leadsMap, setLeadsMap] = useState({});
   const [loading, setLoading] = useState(true);
   const [showAdd, setShowAdd] = useState(false);
-  const [form, setForm] = useState(EMPTY_FORM);
-  const [adding, setAdding] = useState(false);
+  const [selected, setSelected] = useState(null); // { deal, lead }
   const [deleteConfirm, setDeleteConfirm] = useState(null);
 
-  const load = () =>
-    base44.entities.DemoPipelineLead.filter({ archived: false }).then(data => {
-      setLeads(data);
-      setLoading(false);
-    });
+  const load = async () => {
+    const [d, l] = await Promise.all([
+      base44.entities.SalesDeal.filter({ archived: false }),
+      base44.entities.SalesLead.list('-created_date', 500),
+    ]);
+    const map = {};
+    l.forEach(lead => { map[lead.id] = lead; });
+    setDeals(d);
+    setLeadsMap(map);
+    setLoading(false);
+  };
 
   useEffect(() => { load(); }, []);
 
   const stageMap = STAGES.reduce((acc, s) => {
-    acc[s] = leads.filter(l => mapStatus(l.status) === s);
+    acc[s] = deals.filter(d => d.stage === s);
     return acc;
   }, {});
 
   const handleDragEnd = async ({ draggableId, destination, source }) => {
     if (!destination || destination.droppableId === source.droppableId) return;
     const newStage = destination.droppableId;
-    setLeads(prev => prev.map(l => l.id === draggableId ? { ...l, status: newStage } : l));
-    await base44.entities.DemoPipelineLead.update(draggableId, { status: newStage });
+    setDeals(prev => prev.map(d => d.id === draggableId ? { ...d, stage: newStage } : d));
+    await base44.entities.SalesDeal.update(draggableId, { stage: newStage });
   };
 
-  const addLead = async () => {
-    if (!form.business_name.trim()) return;
-    setAdding(true);
-    const lead = await base44.entities.DemoPipelineLead.create({ ...form, status: 'New Lead', archived: false });
-    setLeads(prev => [lead, ...prev]);
-    setForm(EMPTY_FORM);
-    setAdding(false);
+  const onLeadSaved = ({ lead, deal }) => {
+    setLeadsMap(prev => ({ ...prev, [lead.id]: lead }));
+    setDeals(prev => [deal, ...prev]);
     setShowAdd(false);
   };
 
-  const deleteLead = async (id) => {
-    await base44.entities.DemoPipelineLead.delete(id);
-    setLeads(prev => prev.filter(l => l.id !== id));
+  const onDealUpdated = (updated) => {
+    setDeals(prev => prev.map(d => d.id === updated.id ? updated : d));
+    if (selected?.deal?.id === updated.id) {
+      setSelected(s => ({ ...s, deal: updated }));
+    }
+  };
+
+  const deleteDeal = async (id) => {
+    await base44.entities.SalesDeal.update(id, { archived: true });
+    setDeals(prev => prev.filter(d => d.id !== id));
     setDeleteConfirm(null);
   };
 
+  const openDetail = (deal) => {
+    const lead = leadsMap[deal.lead_id] || null;
+    setSelected({ deal, lead });
+  };
+
+  const totalActive = deals.filter(d => !['Closed Won', 'Closed Lost'].includes(d.stage)).length;
+  const closedWon = deals.filter(d => d.stage === 'Closed Won').length;
+
   return (
     <AgencyLayout>
-      <div className="p-6">
+      <div className="p-6 flex flex-col h-full">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-5 flex-shrink-0">
           <div>
             <h1 className="text-xl font-bold text-white">Sales Pipeline</h1>
-            <p className="text-slate-500 text-sm mt-0.5">{leads.length} leads · drag to move between stages</p>
+            <p className="text-slate-500 text-sm mt-0.5">
+              {totalActive} active deals · {closedWon} closed won · drag to move stages
+            </p>
           </div>
           <button
-            onClick={() => setShowAdd(!showAdd)}
+            onClick={() => setShowAdd(true)}
             className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm px-4 py-2 rounded-lg transition-colors"
           >
             <Plus className="w-4 h-4" /> Add Lead
           </button>
         </div>
 
-        {/* Add lead form */}
-        {showAdd && (
-          <div className="bg-slate-900 border border-slate-700 rounded-xl p-5 mb-6">
-            <div className="flex items-center justify-between mb-4">
-              <p className="text-sm font-bold text-white">New Lead</p>
-              <button onClick={() => setShowAdd(false)} className="text-slate-500 hover:text-white"><X className="w-4 h-4" /></button>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
-              {[
-                { key: 'business_name', placeholder: 'Business Name *' },
-                { key: 'website', placeholder: 'Website' },
-                { key: 'city', placeholder: 'City' },
-                { key: 'industry', placeholder: 'Industry' },
-                { key: 'notes', placeholder: 'Notes' },
-              ].map(f => (
-                <input
-                  key={f.key}
-                  placeholder={f.placeholder}
-                  value={form[f.key]}
-                  onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))}
-                  onKeyDown={e => e.key === 'Enter' && addLead()}
-                  className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
-                />
-              ))}
-            </div>
-            <button
-              onClick={addLead}
-              disabled={adding || !form.business_name.trim()}
-              className="bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-semibold text-sm px-5 py-2 rounded-lg transition-colors"
-            >
-              {adding ? 'Adding...' : 'Add Lead'}
-            </button>
-          </div>
-        )}
-
-        {/* Kanban */}
+        {/* Kanban board */}
         {loading ? (
-          <div className="flex gap-4">
-            {STAGES.map(s => <div key={s} className="flex-1 h-64 bg-slate-900 rounded-xl animate-pulse" />)}
+          <div className="flex gap-3 overflow-x-auto">
+            {STAGES.map(s => <div key={s} className="flex-shrink-0 w-52 h-64 bg-slate-900 rounded-xl animate-pulse" />)}
           </div>
         ) : (
           <DragDropContext onDragEnd={handleDragEnd}>
-            <div className="flex gap-3 overflow-x-auto pb-4" style={{ minHeight: '400px' }}>
+            <div className="flex gap-3 overflow-x-auto pb-4 flex-1" style={{ minHeight: '400px' }}>
               {STAGES.map(stage => {
-                const { border, dot } = STAGE_COLORS[stage];
+                const style = STAGE_STYLES[stage];
                 const items = stageMap[stage];
                 return (
                   <Droppable key={stage} droppableId={stage}>
@@ -149,45 +114,90 @@ export default function AgencyPipeline() {
                       <div
                         ref={provided.innerRef}
                         {...provided.droppableProps}
-                        className={`flex-shrink-0 w-48 bg-slate-900 border rounded-xl p-3 transition-colors ${snapshot.isDraggingOver ? 'border-blue-500' : 'border-slate-800'}`}
+                        className={`flex-shrink-0 w-52 bg-slate-900 border rounded-xl p-3 flex flex-col transition-colors ${
+                          snapshot.isDraggingOver ? 'border-blue-500 bg-blue-950/20' : style.border
+                        }`}
                       >
-                        <div className="flex items-center gap-2 mb-3">
-                          <div className={`w-2 h-2 rounded-full ${dot}`} />
-                          <p className="text-xs font-bold text-slate-300">{stage}</p>
-                          <span className="ml-auto text-xs text-slate-600 font-bold">{items.length}</span>
+                        {/* Column header */}
+                        <div className="flex items-center gap-2 mb-3 flex-shrink-0">
+                          <div className={`w-2 h-2 rounded-full ${style.dot}`} />
+                          <p className={`text-xs font-bold ${style.header}`}>{stage}</p>
+                          <span className="ml-auto text-xs font-bold text-slate-600">{items.length}</span>
                         </div>
-                        <div className="space-y-2">
-                          {items.map((lead, idx) => (
-                            <Draggable key={lead.id} draggableId={lead.id} index={idx}>
-                              {(p) => (
-                                <div
-                                  ref={p.innerRef}
-                                  {...p.draggableProps}
-                                  {...p.dragHandleProps}
-                                  className="bg-slate-800 border border-slate-700 rounded-lg p-2.5 group"
-                                >
-                                  <p className="text-xs font-semibold text-white leading-tight truncate">{lead.business_name}</p>
-                                  {lead.city && <p className="text-xs text-slate-500 mt-0.5 truncate">{lead.city}</p>}
-                                  {lead.industry && <p className="text-xs text-slate-600 truncate">{lead.industry}</p>}
-                                  {lead.notes && <p className="text-xs text-slate-500 mt-1 truncate italic">{lead.notes}</p>}
-                                  <div className="flex gap-1 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    {lead.website && (
-                                      <a href={lead.website.startsWith('http') ? lead.website : `https://${lead.website}`} target="_blank" rel="noopener noreferrer" className="p-1 text-slate-500 hover:text-blue-400 rounded">
-                                        <ExternalLink className="w-3 h-3" />
-                                      </a>
+
+                        {/* Cards */}
+                        <div className="space-y-2 flex-1">
+                          {items.map((deal, idx) => {
+                            const lead = leadsMap[deal.lead_id];
+                            const contactName = lead ? [lead.first_name, lead.last_name].filter(Boolean).join(' ') : null;
+                            return (
+                              <Draggable key={deal.id} draggableId={deal.id} index={idx}>
+                                {(p, snap) => (
+                                  <div
+                                    ref={p.innerRef}
+                                    {...p.draggableProps}
+                                    {...p.dragHandleProps}
+                                    className={`bg-slate-800 border rounded-xl p-3 group cursor-pointer transition-colors ${
+                                      snap.isDragging ? 'border-blue-500 shadow-xl' : 'border-slate-700 hover:border-slate-500'
+                                    }`}
+                                    onClick={() => openDetail(deal)}
+                                  >
+                                    {/* Business name */}
+                                    <p className="text-sm font-semibold text-white leading-tight truncate">
+                                      {deal.deal_name}
+                                    </p>
+
+                                    {/* Contact name */}
+                                    {contactName && (
+                                      <p className="text-xs text-slate-400 mt-0.5 truncate">{contactName}</p>
                                     )}
-                                    <button onClick={() => setDeleteConfirm(lead.id)} className="p-1 text-slate-500 hover:text-red-400 rounded ml-auto">
-                                      <Trash2 className="w-3 h-3" />
-                                    </button>
+
+                                    {/* Phone + email quick actions */}
+                                    <div className="flex gap-2 mt-2.5" onClick={e => e.stopPropagation()}>
+                                      {lead?.phone && (
+                                        <a href={`tel:${lead.phone.replace(/\D/g, '')}`}
+                                          className="flex items-center gap-1 text-xs text-emerald-400 hover:text-emerald-300 bg-emerald-400/10 hover:bg-emerald-400/20 px-2 py-1 rounded-lg transition-colors flex-1 truncate">
+                                          <Phone className="w-3 h-3 flex-shrink-0" />
+                                          <span className="truncate">{lead.phone}</span>
+                                        </a>
+                                      )}
+                                      {lead?.email && (
+                                        <a href={`mailto:${lead.email}`}
+                                          className="p-1.5 text-blue-400 hover:text-blue-300 bg-blue-400/10 hover:bg-blue-400/20 rounded-lg transition-colors flex-shrink-0">
+                                          <Mail className="w-3 h-3" />
+                                        </a>
+                                      )}
+                                    </div>
+
+                                    {/* Value + delete */}
+                                    <div className="flex items-center justify-between mt-2" onClick={e => e.stopPropagation()}>
+                                      {deal.value
+                                        ? <span className="text-xs font-semibold text-emerald-400">${Number(deal.value).toLocaleString()}</span>
+                                        : <span />
+                                      }
+                                      <button
+                                        onClick={() => setDeleteConfirm(deal.id)}
+                                        className="p-1 text-slate-600 hover:text-red-400 rounded opacity-0 group-hover:opacity-100 transition-all">
+                                        <Trash2 className="w-3 h-3" />
+                                      </button>
+                                    </div>
+
+                                    {/* No lead linked indicator */}
+                                    {!lead && deal.lead_id && (
+                                      <p className="text-xs text-amber-500 mt-1.5 flex items-center gap-1">
+                                        <Users className="w-3 h-3" /> Lead not found
+                                      </p>
+                                    )}
                                   </div>
-                                </div>
-                              )}
-                            </Draggable>
-                          ))}
+                                )}
+                              </Draggable>
+                            );
+                          })}
                         </div>
+
                         {provided.placeholder}
-                        {items.length === 0 && (
-                          <p className="text-slate-700 text-xs text-center py-4">Drop here</p>
+                        {items.length === 0 && !snapshot.isDraggingOver && (
+                          <p className="text-slate-700 text-xs text-center py-6">Empty</p>
                         )}
                       </div>
                     )}
@@ -199,13 +209,27 @@ export default function AgencyPipeline() {
         )}
       </div>
 
+      {/* Add Lead Modal */}
+      {showAdd && <AddLeadModal onClose={() => setShowAdd(false)} onSaved={onLeadSaved} />}
+
+      {/* Lead Detail Modal */}
+      {selected && (
+        <LeadDetailModal
+          deal={selected.deal}
+          lead={selected.lead}
+          onClose={() => setSelected(null)}
+          onUpdated={onDealUpdated}
+        />
+      )}
+
+      {/* Delete confirm */}
       {deleteConfirm && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
           <div className="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-sm w-full mx-4">
-            <h3 className="font-bold text-white mb-2">Delete Lead?</h3>
-            <p className="text-slate-400 text-sm mb-5">This cannot be undone.</p>
+            <h3 className="font-bold text-white mb-2">Archive Deal?</h3>
+            <p className="text-slate-400 text-sm mb-5">This will hide the deal from the pipeline. Lead data is preserved.</p>
             <div className="flex gap-3">
-              <button onClick={() => deleteLead(deleteConfirm)} className="flex-1 bg-red-600 hover:bg-red-500 text-white font-semibold py-2 rounded-lg text-sm">Delete</button>
+              <button onClick={() => deleteDeal(deleteConfirm)} className="flex-1 bg-red-600 hover:bg-red-500 text-white font-semibold py-2 rounded-lg text-sm">Archive</button>
               <button onClick={() => setDeleteConfirm(null)} className="flex-1 bg-slate-800 text-white font-semibold py-2 rounded-lg text-sm">Cancel</button>
             </div>
           </div>

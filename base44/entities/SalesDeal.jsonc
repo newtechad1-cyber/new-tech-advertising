@@ -1,0 +1,40 @@
+{
+  "name": "SalesDeal",
+  "type": "object",
+  "properties": {
+    "lead_id": {
+      "type": "string",
+      "description": "Reference to SalesLead ID"
+    },
+    "deal_name": {
+      "type": "string"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "New Lead",
+        "Contacted",
+        "Demo Sent",
+        "Proposal",
+        "Closed Won",
+        "Closed Lost"
+      ],
+      "default": "New Lead"
+    },
+    "value": {
+      "type": "number",
+      "description": "Estimated deal value in USD"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "archived": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "lead_id",
+    "deal_name"
+  ]
+}

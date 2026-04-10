@@ -1,0 +1,63 @@
+{
+  "name": "SalesLead",
+  "type": "object",
+  "properties": {
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "lead_source": {
+      "type": "string",
+      "enum": [
+        "website",
+        "cold_outreach",
+        "referral",
+        "walk_in",
+        "other"
+      ],
+      "default": "other"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "contacted",
+        "qualified",
+        "unresponsive"
+      ],
+      "default": "new"
+    }
+  },
+  "required": [
+    "first_name",
+    "business_name",
+    "phone",
+    "email"
+  ]
+}
