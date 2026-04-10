@@ -137,6 +137,7 @@ import SocialMediaRochesterMN from './pages/SocialMediaRochesterMN';
 import SocialMediaAustinMN from './pages/SocialMediaAustinMN';
 import SocialMediaAlbertLeaMN from './pages/SocialMediaAlbertLeaMN';
 import AgencyDashboard from './pages/AgencyDashboard';
+import NTACommandDashboard from './pages/NTACommandDashboard';
 import AgencyClients from './pages/AgencyClients';
 import AgencyPipeline from './pages/AgencyPipeline';
 import AgencyContent from './pages/AgencyContent';
@@ -327,7 +328,7 @@ const AuthenticatedApp = () => {
       <Route path="/content-center" element={<ContentCommandCenter />} />
       <Route path="/clients" element={<ClientManager />} />
       <Route path="/clients/:id" element={<ClientDetail />} />
-      <Route path="/agency" element={<AgencyDashboard />} />
+      <Route path="/agency" element={<NTACommandDashboard />} />
       <Route path="/agency/clients" element={<AgencyClients />} />
       <Route path="/agency/pipeline" element={<AgencyPipeline />} />
       <Route path="/agency/content" element={<AgencyContent />} />
