@@ -144,6 +144,12 @@ import AgencyContent from './pages/AgencyContent';
 import AgencyWebsites from './pages/AgencyWebsites';
 import AgencyLeads from './pages/AgencyLeads';
 import NTAContentDashboard from './pages/NTAContentDashboard';
+import HVACFunnel1 from './pages/HVACFunnel1';
+import HVACFunnel2 from './pages/HVACFunnel2';
+import HVACFunnel3 from './pages/HVACFunnel3';
+import HVACFunnel4 from './pages/HVACFunnel4';
+import HVACFunnel5 from './pages/HVACFunnel5';
+import HVACFunnelThankYou from './pages/HVACFunnelThankYou';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -337,6 +343,12 @@ const AuthenticatedApp = () => {
       <Route path="/agency/websites" element={<AgencyWebsites />} />
       <Route path="/agency/leads" element={<AgencyLeads />} />
       <Route path="/nta/content-dashboard" element={<NTAContentDashboard />} />
+      <Route path="/hvac-funnel/1" element={<HVACFunnel1 />} />
+      <Route path="/hvac-funnel/2" element={<HVACFunnel2 />} />
+      <Route path="/hvac-funnel/3" element={<HVACFunnel3 />} />
+      <Route path="/hvac-funnel/4" element={<HVACFunnel4 />} />
+      <Route path="/hvac-funnel/5" element={<HVACFunnel5 />} />
+      <Route path="/hvac-funnel/thank-you" element={<HVACFunnelThankYou />} />
       <Route path="/demo/furniture-mattress-outlet" element={<DemoFurnitureMattressOutlet />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
