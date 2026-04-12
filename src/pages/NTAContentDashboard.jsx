@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   LayoutDashboard, Library, Film, Calendar, Mail, Monitor,
-  BarChart2, Settings, ChevronLeft, Menu, Zap
+  BarChart2, Settings, ChevronLeft, Menu, Zap, Users
 } from 'lucide-react';
 import NTAOverview from '../components/nta-dashboard/NTAOverview';
 import NTAContentLibrary from '../components/nta-dashboard/NTAContentLibrary';
@@ -11,6 +11,7 @@ import NTAOutreachContent from '../components/nta-dashboard/NTAOutreachContent';
 import NTADemoAssets from '../components/nta-dashboard/NTADemoAssets';
 import NTAAnalytics from '../components/nta-dashboard/NTAAnalytics';
 import NTASettings from '../components/nta-dashboard/NTASettings';
+import NTALeadContentMatch from '../components/nta-dashboard/NTALeadContentMatch';
 
 const NAV = [
   { id: 'overview',    label: 'Overview',           icon: LayoutDashboard },
@@ -21,6 +22,7 @@ const NAV = [
   { id: 'demo',        label: 'Demo Assets',         icon: Monitor },
   { id: 'analytics',   label: 'Analytics',           icon: BarChart2 },
   { id: 'settings',    label: 'Settings',            icon: Settings },
+  { id: 'leadmatch',   label: 'Lead Content Match',  icon: Users },
 ];
 
 const SECTIONS = {
@@ -32,6 +34,7 @@ const SECTIONS = {
   demo:       NTADemoAssets,
   analytics:  NTAAnalytics,
   settings:   NTASettings,
+  leadmatch:  NTALeadContentMatch,
 };
 
 export default function NTAContentDashboard() {

@@ -1,0 +1,101 @@
+{
+  "name": "LeadContentMatch",
+  "type": "object",
+  "properties": {
+    "business_name": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "New Lead",
+        "Audit Sent",
+        "Demo Built",
+        "Follow-Up",
+        "Closed"
+      ],
+      "default": "New Lead"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "default": "Medium"
+    },
+    "last_contact_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "outreach_status": {
+      "type": "string",
+      "enum": [
+        "Not Started",
+        "First Outreach Sent",
+        "Following Up",
+        "Demo Sent",
+        "Replied"
+      ],
+      "default": "Not Started"
+    },
+    "reply_status": {
+      "type": "string",
+      "enum": [
+        "No Reply",
+        "Opened",
+        "Replied",
+        "Interested",
+        "Not Interested"
+      ],
+      "default": "No Reply"
+    },
+    "close_page_url": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "matched_video_id": {
+      "type": "string",
+      "description": "ID of matched NTAContent"
+    },
+    "matched_video_title": {
+      "type": "string"
+    },
+    "matched_video_url": {
+      "type": "string"
+    },
+    "matched_video_topic": {
+      "type": "string"
+    },
+    "matched_funnel_stage": {
+      "type": "string"
+    },
+    "suggested_use_case": {
+      "type": "string"
+    },
+    "video_used_outreach": {
+      "type": "boolean",
+      "default": false
+    },
+    "video_used_followup": {
+      "type": "boolean",
+      "default": false
+    },
+    "video_used_demo": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "business_name"
+  ]
+}
