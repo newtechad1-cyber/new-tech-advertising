@@ -143,6 +143,7 @@ import AgencyPipeline from './pages/AgencyPipeline';
 import AgencyContent from './pages/AgencyContent';
 import AgencyWebsites from './pages/AgencyWebsites';
 import AgencyLeads from './pages/AgencyLeads';
+import NTAContentDashboard from './pages/NTAContentDashboard';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -335,6 +336,7 @@ const AuthenticatedApp = () => {
       <Route path="/agency/content" element={<AgencyContent />} />
       <Route path="/agency/websites" element={<AgencyWebsites />} />
       <Route path="/agency/leads" element={<AgencyLeads />} />
+      <Route path="/nta/content-dashboard" element={<NTAContentDashboard />} />
       <Route path="/demo/furniture-mattress-outlet" element={<DemoFurnitureMattressOutlet />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>

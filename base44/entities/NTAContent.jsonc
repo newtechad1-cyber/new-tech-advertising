@@ -1,0 +1,140 @@
+{
+  "name": "NTAContent",
+  "type": "object",
+  "properties": {
+    "video_title": {
+      "type": "string"
+    },
+    "topic": {
+      "type": "string"
+    },
+    "funnel_stage": {
+      "type": "string",
+      "enum": [
+        "Awareness",
+        "Consideration",
+        "Demo",
+        "Close",
+        "Retention"
+      ],
+      "default": "Awareness"
+    },
+    "format": {
+      "type": "string",
+      "enum": [
+        "Talking Head",
+        "Slide Deck",
+        "Screen Recording",
+        "B-Roll + VO",
+        "Animation"
+      ]
+    },
+    "script": {
+      "type": "string",
+      "format": "markdown"
+    },
+    "facebook_caption": {
+      "type": "string"
+    },
+    "gbp_post": {
+      "type": "string"
+    },
+    "linkedin_post": {
+      "type": "string"
+    },
+    "youtube_title": {
+      "type": "string"
+    },
+    "youtube_description": {
+      "type": "string"
+    },
+    "hashtags": {
+      "type": "string"
+    },
+    "cta": {
+      "type": "string"
+    },
+    "platforms": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Facebook",
+          "LinkedIn",
+          "YouTube",
+          "GBP",
+          "Website",
+          "Instagram"
+        ]
+      }
+    },
+    "suggested_primary_platform": {
+      "type": "string"
+    },
+    "suggested_secondary_platforms": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "default": "Medium"
+    },
+    "outreach_compatible": {
+      "type": "boolean",
+      "default": false
+    },
+    "demo_compatible": {
+      "type": "boolean",
+      "default": false
+    },
+    "script_status": {
+      "type": "string",
+      "enum": [
+        "Idea",
+        "Script Ready",
+        "In Production",
+        "Complete"
+      ],
+      "default": "Idea"
+    },
+    "posted_status": {
+      "type": "string",
+      "enum": [
+        "Not Created",
+        "Created",
+        "Posted"
+      ],
+      "default": "Not Created"
+    },
+    "used_in_outreach": {
+      "type": "boolean",
+      "default": false
+    },
+    "used_in_demo": {
+      "type": "boolean",
+      "default": false
+    },
+    "outreach_use_case": {
+      "type": "string"
+    },
+    "demo_placement": {
+      "type": "string",
+      "enum": [
+        "Hero explanation",
+        "Audit walkthrough",
+        "Why this matters",
+        "CTA reinforcement"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "video_title"
+  ]
+}
