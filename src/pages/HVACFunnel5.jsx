@@ -1,6 +1,6 @@
 import React from 'react';
 import { CheckCircle, Shield, Star, Clock, ArrowRight } from 'lucide-react';
-import HVACVideoBlock from '../components/hvac-funnel/HVACVideoBlock';
+
 import HVACLeadForm from '../components/hvac-funnel/HVACLeadForm';
 
 const INCLUDES = [
@@ -52,7 +52,20 @@ export default function HVACFunnel5() {
         </div>
 
         {/* Video */}
-        <HVACVideoBlock title="What Happens After You Request Your Demo" subtitle="Rick explains the next steps — takes 2 minutes" />
+        <div className="w-full max-w-3xl mx-auto my-8">
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-700" style={{ aspectRatio: '16/9' }}>
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://app.heygen.com/embeds/914a6ec20cde4360be552f7e490c1af6"
+              title="HeyGen video player"
+              frameBorder="0"
+              allow="encrypted-media; fullscreen;"
+              allowFullScreen
+              className="absolute inset-0 w-full h-full"
+            />
+          </div>
+        </div>
 
         {/* What's included */}
         <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
