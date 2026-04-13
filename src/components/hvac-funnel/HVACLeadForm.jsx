@@ -23,6 +23,11 @@ export default function HVACLeadForm({ ctaLabel = 'Request Your Free HVAC Demo S
       status: 'new',
       notes: 'HVAC Growth System funnel lead',
     });
+    await base44.integrations.Core.SendEmail({
+      to: 'newtechad1@gmail.com',
+      subject: `New HVAC Funnel Lead: ${form.business_name}`,
+      body: `New lead from the HVAC Growth System funnel:\n\nName: ${form.name}\nBusiness: ${form.business_name}\nPhone: ${form.phone}\nEmail: ${form.email}`,
+    });
     setLoading(false);
     navigate('/hvac-funnel/thank-you');
   };
