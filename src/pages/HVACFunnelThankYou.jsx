@@ -62,7 +62,7 @@ export default function HVACFunnelThankYou() {
         <div className="space-y-2">
           <p className="text-slate-500 text-sm">Questions? Reach out directly:</p>
           <a href="tel:+16415550100" className="text-blue-600 font-bold text-lg hover:text-blue-500">(641) 555-0100</a>
-          <p className="text-slate-400 text-xs">or email rick@newtech.ad</p>
+
         </div>
 
         <Link to="/" className="inline-flex items-center gap-2 text-slate-400 hover:text-slate-600 text-sm transition-colors">

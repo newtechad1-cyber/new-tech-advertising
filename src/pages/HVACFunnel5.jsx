@@ -104,7 +104,7 @@ export default function HVACFunnel5() {
 
         {/* Footer */}
         <div className="text-center text-xs text-slate-400 pb-4 space-y-1">
-          <p>New Tech Advertising · Mason City, IA · newtech.ad</p>
+          <p>New Tech Advertising · Mason City, IA</p>
           <p>Your information is 100% secure and will never be shared or sold.</p>
         </div>
       </div>
