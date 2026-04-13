@@ -38,7 +38,20 @@ export default function HVACFunnel1() {
         </div>
 
         {/* Video */}
-        <HVACVideoBlock title="Rick Explains Why the Old Way Is Broken" subtitle="2 min · Watch before moving on" />
+        <div className="w-full max-w-3xl mx-auto my-8">
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-700" style={{ aspectRatio: '16/9' }}>
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://app.heygen.com/embeds/6085244185924805a2e1b5344292baf9"
+              title="HeyGen video player"
+              frameBorder="0"
+              allow="encrypted-media; fullscreen;"
+              allowFullScreen
+              className="absolute inset-0 w-full h-full"
+            />
+          </div>
+        </div>
 
         {/* Problems */}
         <div className="space-y-4">
