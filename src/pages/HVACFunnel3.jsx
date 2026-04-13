@@ -53,7 +53,20 @@ export default function HVACFunnel3() {
         </div>
 
         {/* Video */}
-        <HVACVideoBlock title="How the NTA HVAC Growth System Works" subtitle="Rick walks you through exactly what we do and why it works" />
+        <div className="w-full max-w-3xl mx-auto my-8">
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-700" style={{ aspectRatio: '16/9' }}>
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://app.heygen.com/embeds/9f1bd913f20647ba837d294586ccf394"
+              title="HeyGen video player"
+              frameBorder="0"
+              allow="encrypted-media; fullscreen;"
+              allowFullScreen
+              className="absolute inset-0 w-full h-full"
+            />
+          </div>
+        </div>
 
         {/* System pillars */}
         <div className="space-y-4">
