@@ -41,7 +41,20 @@ export default function HVACFunnel2() {
         </div>
 
         {/* Video */}
-        <HVACVideoBlock title="The 3 Shifts That Changed Local HVAC Marketing" subtitle="See how the market moved while most companies weren't watching" />
+        <div className="w-full max-w-3xl mx-auto my-8">
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-700" style={{ aspectRatio: '16/9' }}>
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://app.heygen.com/embeds/e9a1b977f9fb41a8a9b890c299014f48"
+              title="HeyGen video player"
+              frameBorder="0"
+              allow="encrypted-media; fullscreen;"
+              allowFullScreen
+              className="absolute inset-0 w-full h-full"
+            />
+          </div>
+        </div>
 
         {/* Before / After shifts */}
         <div className="space-y-4">
