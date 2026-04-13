@@ -60,7 +60,20 @@ export default function HVACFunnel4() {
         </div>
 
         {/* Demo video */}
-        <HVACVideoBlock title="Mason City HVAC — Before & After Walkthrough" subtitle="See exactly how the system was implemented and what changed" />
+        <div className="w-full max-w-3xl mx-auto my-8">
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-700" style={{ aspectRatio: '16/9' }}>
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://app.heygen.com/embeds/8435c10ba2224661923c4a1a0646264d"
+              title="HeyGen video player"
+              frameBorder="0"
+              allow="encrypted-media; fullscreen;"
+              allowFullScreen
+              className="absolute inset-0 w-full h-full"
+            />
+          </div>
+        </div>
 
         {/* Before / After toggle */}
         <div>
