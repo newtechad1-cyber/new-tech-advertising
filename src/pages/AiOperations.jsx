@@ -27,13 +27,35 @@ const STEP_STATUS_CONFIG = {
 
 const PAGE_SIZE = 25;
 
-function TasksTab({ onNavigateToLedger }) {
-  // Map task agent_key categories to their specific Twin webhooks
-  const TWIN_WEBHOOKS = {
-    default: 'https://hook.us2.make.com/twin-default',
-  };
+// Category → webhook URL mapping
+const CATEGORY_WEBHOOKS = {
+  Sales:       'https://hook.us2.make.com/lead-scoring-engine',
+  Proposal:    'https://hook.us2.make.com/close-agent',
+  Fulfillment: 'https://hook.us2.make.com/posting-agent',
+};
 
-  const getTwinWebhook = (task) => TWIN_WEBHOOKS[task.agent_key] ?? TWIN_WEBHOOKS.default;
+// Build the payload based on task category
+function buildTwinPayload(task) {
+  const category = task.category || task.agent_key;
+  if (category === 'Sales') {
+    return { category, lead_data: task.inputs ?? task.outputs ?? {}, task_id: task.id };
+  }
+  if (category === 'Proposal') {
+    const markdown = task.outputs?.markdown ?? task.outputs?.content ?? task.inputs?.markdown ?? '';
+    return { category, markdown, task_id: task.id };
+  }
+  if (category === 'Fulfillment') {
+    const production_tasks = task.outputs?.production_tasks ?? task.inputs?.production_tasks ?? [];
+    return { category, production_tasks, task_id: task.id };
+  }
+  return { category, task };
+}
+
+function TasksTab({ onNavigateToLedger }) {
+  const getTwinWebhook = (task) => {
+    const category = task.category || task.agent_key;
+    return CATEGORY_WEBHOOKS[category] ?? null;
+  };
 
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -65,10 +87,15 @@ function TasksTab({ onNavigateToLedger }) {
   };
 
   const executeTwin = async (task) => {
+    const webhookUrl = getTwinWebhook(task);
+    if (!webhookUrl) {
+      toast.error(`No twin webhook configured for category: ${task.category || task.agent_key}`);
+      return;
+    }
     setTwinRunning(r => ({ ...r, [task.id]: true }));
     setTasks(prev => prev.map(t => t.id === task.id ? { ...t, step_status: 'running' } : t));
     try {
-      await triggerTwinAgent(getTwinWebhook(task), task);
+      await triggerTwinAgent(webhookUrl, buildTwinPayload(task));
       toast.success('Twin agent triggered successfully');
     } catch (err) {
       toast.error(err.message || 'Twin agent trigger failed');
