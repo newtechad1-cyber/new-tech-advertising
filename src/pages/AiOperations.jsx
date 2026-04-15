@@ -28,7 +28,12 @@ const STEP_STATUS_CONFIG = {
 const PAGE_SIZE = 25;
 
 function TasksTab({ onNavigateToLedger }) {
-  const TWIN_WEBHOOK_URL = 'https://hook.us2.make.com/your-twin-webhook-url';
+  // Map task agent_key categories to their specific Twin webhooks
+  const TWIN_WEBHOOKS = {
+    default: 'https://hook.us2.make.com/twin-default',
+  };
+
+  const getTwinWebhook = (task) => TWIN_WEBHOOKS[task.agent_key] ?? TWIN_WEBHOOKS.default;
 
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -62,8 +67,14 @@ function TasksTab({ onNavigateToLedger }) {
   const executeTwin = async (task) => {
     setTwinRunning(r => ({ ...r, [task.id]: true }));
     setTasks(prev => prev.map(t => t.id === task.id ? { ...t, step_status: 'running' } : t));
-    await triggerTwinAgent(TWIN_WEBHOOK_URL, task);
-    setTwinRunning(r => ({ ...r, [task.id]: false }));
+    try {
+      await triggerTwinAgent(getTwinWebhook(task), task);
+      toast.success('Twin agent triggered successfully');
+    } catch (err) {
+      toast.error(err.message || 'Twin agent trigger failed');
+    } finally {
+      setTwinRunning(r => ({ ...r, [task.id]: false }));
+    }
   };
 
   const runStep = async (task) => {
@@ -160,7 +171,7 @@ function TasksTab({ onNavigateToLedger }) {
                   <Button size="sm" onClick={() => executeTwin(task)} disabled={twinRunning[task.id]}
                     className="bg-cyan-800 hover:bg-cyan-700 h-8 text-xs">
                     {twinRunning[task.id] ? <Loader2 className="w-3 h-3 animate-spin mr-1" /> : <Zap className="w-3 h-3 mr-1" />}
-                    Execute on Twin
+                    Trigger Twin Execution
                   </Button>
                 </div>
               </div>
