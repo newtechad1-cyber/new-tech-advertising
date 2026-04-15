@@ -70,7 +70,7 @@ const tabs = [
           {['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(d => <span key={d}>{d}</span>)}
         </div>
         <div className="grid grid-cols-7 gap-1">
-          {Array.from({length:35}, (_, i) => {
+          {Array.from({length:35}).map((_, i) => {
             const day = i - 2;
             const scheduled = [3,6,10,13,17,20,24,27].includes(day);
             return (
