@@ -29,9 +29,11 @@ const PAGE_SIZE = 25;
 
 // Category → webhook URL mapping
 const CATEGORY_WEBHOOKS = {
-  Sales:       'https://hook.us2.make.com/lead-scoring-engine',
-  Proposal:    'https://hook.us2.make.com/close-agent',
-  Fulfillment: 'https://hook.us2.make.com/posting-agent',
+  Sales:       'https://build.twin.so/triggers/66e7b5d6-5948-4eae-90e7-5b040999c124/webhook',
+  Proposal:    'https://build.twin.so/triggers/nta-audit-external-trigger/webhook',
+  Close:       'https://build.twin.so/triggers/4a66977d-84e7-4f95-8770-1999a92fc988/webhook',
+  Fulfillment: 'https://build.twin.so/triggers/nta-posting-webhook/webhook',
+  Video:       'https://build.twin.so/triggers/f1a32572-0dfc-4152-9ef9-c9ea24961cf8/webhook',
 };
 
 // Build the payload based on task category
