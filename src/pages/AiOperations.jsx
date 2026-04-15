@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AdminGuard from '../components/auth/AdminGuard';
 import { base44 } from '@/api/base44Client';
+import { triggerTwinAgent } from '@/api/twinClient';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -27,9 +28,12 @@ const STEP_STATUS_CONFIG = {
 const PAGE_SIZE = 25;
 
 function TasksTab({ onNavigateToLedger }) {
+  const TWIN_WEBHOOK_URL = 'https://hook.us2.make.com/your-twin-webhook-url';
+
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [running, setRunning] = useState({});
+  const [twinRunning, setTwinRunning] = useState({});
   const [viewTask, setViewTask] = useState(null);
   const [taskLedger, setTaskLedger] = useState([]);
   const [ledgerLoading, setLedgerLoading] = useState(false);
@@ -53,6 +57,13 @@ function TasksTab({ onNavigateToLedger }) {
     const entries = await base44.entities.AiCostLedger.filter({ task_id: task.id }, '-created_date', 10);
     setTaskLedger(entries);
     setLedgerLoading(false);
+  };
+
+  const executeTwin = async (task) => {
+    setTwinRunning(r => ({ ...r, [task.id]: true }));
+    setTasks(prev => prev.map(t => t.id === task.id ? { ...t, step_status: 'running' } : t));
+    await triggerTwinAgent(TWIN_WEBHOOK_URL, task);
+    setTwinRunning(r => ({ ...r, [task.id]: false }));
   };
 
   const runStep = async (task) => {
@@ -145,6 +156,11 @@ function TasksTab({ onNavigateToLedger }) {
                     className="bg-violet-700 hover:bg-violet-600 h-8 text-xs">
                     {running[task.id] ? <Loader2 className="w-3 h-3 animate-spin mr-1" /> : <Play className="w-3 h-3 mr-1" />}
                     Run Step
+                  </Button>
+                  <Button size="sm" onClick={() => executeTwin(task)} disabled={twinRunning[task.id]}
+                    className="bg-cyan-800 hover:bg-cyan-700 h-8 text-xs">
+                    {twinRunning[task.id] ? <Loader2 className="w-3 h-3 animate-spin mr-1" /> : <Zap className="w-3 h-3 mr-1" />}
+                    Execute on Twin
                   </Button>
                 </div>
               </div>
