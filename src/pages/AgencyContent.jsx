@@ -37,6 +37,7 @@ export default function AgencyContent() {
   const [expanded, setExpanded] = useState(null);
   const [form, setForm] = useState(BLANK_FORM);
   const [submitting, setSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // null | { ok, message, topicId, automationResult, error }
 
   useEffect(() => {
     loadAll();
@@ -68,13 +69,35 @@ export default function AgencyContent() {
   const submit = async () => {
     if (!form.title.trim() || !form.client_id) return;
     setSubmitting(true);
-    const topic = await base44.entities.ContentTopics.create({ ...form, status: 'idea' });
-    setTopics(prev => [topic, ...prev]);
-    await base44.functions.invoke('onContentTopicCreated', { data: topic });
-    setForm(BLANK_FORM);
-    setSubmitting(false);
-    switchTab('topics');
-    setTimeout(loadAll, 2000);
+    setSubmitStatus(null);
+    let topic = null;
+    try {
+      // Step 1: create the topic
+      topic = await base44.entities.ContentTopics.create({ ...form, status: 'idea' });
+      console.log('[AgencyContent] ContentTopics.create result:', topic);
+      setTopics(prev => [topic, ...prev]);
+
+      // Step 2: invoke automation (may fail independently)
+      let automationResult = null;
+      try {
+        const res = await base44.functions.invoke('onContentTopicCreated', { data: topic });
+        automationResult = res?.data ?? res;
+        console.log('[AgencyContent] onContentTopicCreated result:', automationResult);
+        setSubmitStatus({ ok: true, message: 'Topic created and generation started', topicId: topic.id, automationResult, error: null });
+      } catch (automationErr) {
+        console.warn('[AgencyContent] onContentTopicCreated failed:', automationErr.message);
+        setSubmitStatus({ ok: false, message: 'Topic created, but generation automation failed', topicId: topic.id, automationResult: null, error: automationErr.message });
+      }
+
+      setForm(BLANK_FORM);
+      switchTab('topics');
+      setTimeout(loadAll, 2000);
+    } catch (topicErr) {
+      console.error('[AgencyContent] ContentTopics.create failed:', topicErr.message);
+      setSubmitStatus({ ok: false, message: 'Could not create content topic', topicId: null, automationResult: null, error: topicErr.message });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const updateAsset = async (id, status) => {
@@ -185,6 +208,24 @@ export default function AgencyContent() {
               className="mt-4 inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-bold text-sm px-5 py-2.5 rounded-lg">
               <Zap className="w-4 h-4" />{submitting ? 'Creating...' : 'Create & Generate'}
             </button>
+
+            {/* Submit feedback */}
+            {submitStatus && (
+              <div className={`mt-3 px-4 py-3 rounded-lg text-sm border ${submitStatus.ok ? 'bg-emerald-900/40 border-emerald-700 text-emerald-300' : 'bg-red-900/30 border-red-800 text-red-300'}`}>
+                <p className="font-semibold">{submitStatus.message}</p>
+                {submitStatus.error && <p className="text-xs mt-1 opacity-75">{submitStatus.error}</p>}
+              </div>
+            )}
+
+            {/* Debug panel */}
+            {submitStatus && (
+              <details className="mt-3">
+                <summary className="text-xs text-slate-600 cursor-pointer hover:text-slate-400">Debug info</summary>
+                <pre className="mt-2 text-xs text-slate-500 bg-slate-800 rounded-lg p-3 overflow-auto max-h-40 whitespace-pre-wrap">
+                  {JSON.stringify({ topicId: submitStatus.topicId, automationResult: submitStatus.automationResult, error: submitStatus.error }, null, 2)}
+                </pre>
+              </details>
+            )}
           </div>
         )}
 
