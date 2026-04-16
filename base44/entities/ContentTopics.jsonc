@@ -13,6 +13,24 @@
       "type": "string",
       "description": "Denormalized client business_name"
     },
+    "company_id": {
+      "type": "string"
+    },
+    "opportunity_id": {
+      "type": "string"
+    },
+    "lead_workflow_id": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string",
+      "enum": [
+        "client_content",
+        "sales_video",
+        "sales_outreach"
+      ],
+      "default": "client_content"
+    },
     "primary_keyword": {
       "type": "string"
     },
@@ -62,7 +80,6 @@
     }
   },
   "required": [
-    "title",
-    "client_id"
+    "title"
   ]
 }

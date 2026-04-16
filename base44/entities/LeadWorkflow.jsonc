@@ -140,6 +140,37 @@
       "type": "string",
       "format": "date"
     },
+    "content_topic_id": {
+      "type": "string"
+    },
+    "content_workflow_id": {
+      "type": "string"
+    },
+    "sales_video_status": {
+      "type": "string",
+      "enum": [
+        "not_created",
+        "topic_created",
+        "script_ready",
+        "heygen_pending",
+        "video_ready",
+        "outreach_ready",
+        "sent"
+      ],
+      "default": "not_created"
+    },
+    "sales_video_url": {
+      "type": "string"
+    },
+    "outreach_asset_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "ready",
+        "sent"
+      ],
+      "default": "not_started"
+    },
     "notes": {
       "type": "string"
     }

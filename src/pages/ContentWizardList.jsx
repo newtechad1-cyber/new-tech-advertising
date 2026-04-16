@@ -163,6 +163,9 @@ function WizardCard({ wf, group }) {
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
           <p className="font-semibold text-white text-sm truncate">{wf.title}</p>
+          {wf.workflow_purpose === 'sales_outreach' && (
+            <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-purple-900/50 text-purple-300 border border-purple-700">Sales Outreach</span>
+          )}
           {wf.priority && wf.priority !== 'medium' && (
             <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${PRIORITY_COLORS[wf.priority]}`}>{wf.priority}</span>
           )}

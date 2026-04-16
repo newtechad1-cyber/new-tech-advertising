@@ -17,6 +17,20 @@
     "content_topic_id": {
       "type": "string"
     },
+    "lead_workflow_id": {
+      "type": "string"
+    },
+    "opportunity_id": {
+      "type": "string"
+    },
+    "workflow_purpose": {
+      "type": "string",
+      "enum": [
+        "client_content",
+        "sales_outreach"
+      ],
+      "default": "client_content"
+    },
     "script_text": {
       "type": "string"
     },
@@ -193,7 +207,6 @@
     }
   },
   "required": [
-    "title",
-    "client_id"
+    "title"
   ]
 }

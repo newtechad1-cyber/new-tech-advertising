@@ -6,7 +6,7 @@ import { logSystemEvent } from '@/lib/logSystemEvent';
 import {
   ChevronLeft, Loader2, CheckCircle2, Copy, Check,
   Zap, Search, Mail, Phone, RefreshCw, AlertTriangle,
-  TrendingUp, Calendar, FileText, DollarSign, StickyNote
+  TrendingUp, Calendar, FileText, DollarSign, StickyNote, Video, ExternalLink
 } from 'lucide-react';
 
 const STAGES = [
@@ -113,6 +113,8 @@ export default function LeadWizardDetail() {
   const [notice, setNotice] = useState(null);
   const [copied, setCopied] = useState(null);
   const [showCloseModal, setShowCloseModal] = useState(null); // 'won' | 'lost'
+  const [salesWf, setSalesWf] = useState(null);
+  const [creatingContent, setCreatingContent] = useState(false);
 
   // Editable fields
   const [auditSummary, setAuditSummary] = useState('');
@@ -142,6 +144,10 @@ export default function LeadWizardDetail() {
       if (record.submission_id) {
         const subs = await base44.entities.Submission.filter({ id: record.submission_id });
         setSubmission(Array.isArray(subs) ? subs[0] : subs);
+      }
+      if (record.content_workflow_id) {
+        const cwfs = await base44.entities.ContentWorkflow.filter({ id: record.content_workflow_id });
+        setSalesWf(Array.isArray(cwfs) ? cwfs[0] : cwfs);
       }
     } finally {
       setLoading(false);
@@ -227,7 +233,45 @@ Be specific and actionable. Format as clear sections.`;
   const approveAudit = async () => {
     await save({ audit_summary: auditSummary, audit_url: auditUrl, audit_notes: auditNotes, current_stage: 'outreach_ready' });
     log('audit_approved', `Audit approved for ${wf?.company_name || wf?.title}`);
-    toast('success', 'Audit approved! Ready for outreach.');
+    toast('success', 'Audit approved! Creating sales video workflow...');
+    // Auto-create sales content workflow
+    setCreatingContent(true);
+    try {
+      const res = await base44.functions.invoke('createSalesContentWorkflow', { lead_workflow_id: id });
+      if (res?.data?.content_workflow_id) {
+        const cwfs = await base44.entities.ContentWorkflow.filter({ id: res.data.content_workflow_id });
+        setSalesWf(Array.isArray(cwfs) ? cwfs[0] : cwfs);
+        // Reload lead to get updated IDs
+        const results = await base44.entities.LeadWorkflow.filter({ id });
+        const record = Array.isArray(results) ? results[0] : results;
+        if (record) hydrate(record);
+        toast('success', res.data.script_generated ? 'Sales video script created! Open Content Workflow to review.' : 'Sales content workflow created — add script manually.');
+      }
+    } catch (err) {
+      toast('error', 'Sales content creation failed: ' + err.message);
+    } finally {
+      setCreatingContent(false);
+    }
+  };
+
+  const createSalesContentManually = async () => {
+    if (wf?.content_workflow_id) return;
+    setCreatingContent(true);
+    try {
+      const res = await base44.functions.invoke('createSalesContentWorkflow', { lead_workflow_id: id });
+      if (res?.data?.content_workflow_id) {
+        const cwfs = await base44.entities.ContentWorkflow.filter({ id: res.data.content_workflow_id });
+        setSalesWf(Array.isArray(cwfs) ? cwfs[0] : cwfs);
+        const results = await base44.entities.LeadWorkflow.filter({ id });
+        const record = Array.isArray(results) ? results[0] : results;
+        if (record) hydrate(record);
+        toast('success', 'Sales content workflow created!');
+      }
+    } catch (err) {
+      toast('error', err.message);
+    } finally {
+      setCreatingContent(false);
+    }
   };
 
   const generateOutreachEmail = async () => {
@@ -481,6 +525,52 @@ Return only the email text.`;
             )}
             {auditSummary && <Btn onClick={() => save({ audit_summary: auditSummary, audit_url: auditUrl, audit_notes: auditNotes })} disabled={saving} variant="ghost">Save</Btn>}
           </div>
+        </Card>
+
+        {/* SALES VIDEO WORKFLOW */}
+        <Card icon={Video} title="Sales Video Workflow" color="text-purple-400">
+          {wf.content_workflow_id && salesWf ? (
+            <div className="space-y-3">
+              <div className="grid grid-cols-2 gap-3 text-sm">
+                <div><p className="text-slate-500 text-xs">Purpose</p><p className="text-purple-300 font-semibold text-xs">Sales Outreach</p></div>
+                <div><p className="text-slate-500 text-xs">Stage</p><p className="text-white capitalize text-xs">{salesWf.current_stage?.replace(/_/g, ' ')}</p></div>
+                <div><p className="text-slate-500 text-xs">Script</p><p className={`text-xs font-semibold ${salesWf.script_status === 'approved' ? 'text-emerald-400' : salesWf.script_status === 'generated' ? 'text-amber-400' : 'text-slate-500'}`}>{salesWf.script_status?.replace(/_/g, ' ')}</p></div>
+                <div><p className="text-slate-500 text-xs">HeyGen</p><p className={`text-xs font-semibold ${salesWf.heygen_status === 'completed' ? 'text-emerald-400' : salesWf.heygen_status === 'in_progress' ? 'text-amber-400' : 'text-slate-500'}`}>{salesWf.heygen_status?.replace(/_/g, ' ')}</p></div>
+              </div>
+              {salesWf.heygen_video_url && (
+                <div>
+                  <p className="text-slate-500 text-xs mb-1">Sales Video</p>
+                  <a href={salesWf.heygen_video_url} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline text-sm flex items-center gap-1">
+                    <ExternalLink className="w-3.5 h-3.5" /> View Video
+                  </a>
+                </div>
+              )}
+              <div className="flex gap-2 flex-wrap pt-1">
+                <Link to={`/agency/content-wizard/${wf.content_workflow_id}`}
+                  className="inline-flex items-center gap-2 text-sm font-semibold px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-colors">
+                  <ExternalLink className="w-4 h-4" /> Open Content Workflow
+                </Link>
+                {salesWf.script_long && (
+                  <CopyBtn text={salesWf.script_long} label="Copy Script" keyName="salesScript" copied={copied} setCopied={setCopied} />
+                )}
+                {salesWf.heygen_video_url && (
+                  <CopyBtn text={salesWf.heygen_video_url} label="Copy Video URL" keyName="videoUrl" copied={copied} setCopied={setCopied} />
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              <p className="text-slate-500 text-sm">No sales video workflow linked yet.</p>
+              {['outreach_ready', 'outreach_sent', 'followup_in_progress', 'demo_scheduled', 'proposal_sent'].includes(wf.current_stage) && (
+                <Btn onClick={createSalesContentManually} disabled={creatingContent || saving} variant="primary">
+                  {creatingContent ? <><Loader2 className="w-4 h-4 animate-spin" /> Creating...</> : <><Zap className="w-4 h-4" /> Create Sales Video Workflow</>}
+                </Btn>
+              )}
+              {wf.current_stage === 'audit_ready' && (
+                <p className="text-slate-600 text-xs">Approve the audit above to auto-create the sales video workflow.</p>
+              )}
+            </div>
+          )}
         </Card>
 
         {/* OUTREACH */}
