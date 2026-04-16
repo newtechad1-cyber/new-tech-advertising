@@ -13,7 +13,7 @@ const STATUS_COLORS = {
 };
 const STATUS_LABELS = { active_client: 'Active', lead: 'Lead', paused: 'Paused', former_client: 'Former' };
 
-const BLANK = { business_name: '', city: '', state: '', email: '', phone: '', website: '', core_services: '', target_keywords: '', brand_voice: '', status: 'active_client', notes: '' };
+const BLANK = { business_name: '', city: '', state: '', email: '', phone: '', website: '', core_services: '', target_keywords: '', brand_voice: '', posting_channels: '', status: 'active_client', notes: '' };
 
 export default function AgencyClients() {
   const [clients, setClients] = useState([]);
@@ -37,15 +37,97 @@ export default function AgencyClients() {
   const openAdd = () => { setForm(BLANK); setModal('add'); };
   const openEdit = (c) => { setForm({ ...c }); setModal(c); };
 
+  const syncToNTA = async (clientRecord, isNew) => {
+    try {
+      const companyFields = {
+        company_name: clientRecord.business_name,
+        website: clientRecord.website || '',
+        email: clientRecord.email || '',
+        phone: clientRecord.phone || '',
+        city: clientRecord.city || '',
+        state: clientRecord.state || '',
+        notes: [clientRecord.core_services, clientRecord.target_keywords, clientRecord.brand_voice, clientRecord.notes].filter(Boolean).join('\n\n'),
+        source: 'agency_clients',
+        status: clientRecord.status === 'active_client' ? 'active' : 'prospect',
+        lifecycle_stage: clientRecord.status === 'active_client' ? 'client' : 'lead',
+        active_client: clientRecord.status === 'active_client',
+      };
+
+      // Find existing company by name
+      const existing = await base44.entities.NTACompany.filter({ company_name: clientRecord.business_name });
+      let company;
+      if (existing.length > 0) {
+        company = existing[0];
+        await base44.entities.NTACompany.update(company.id, companyFields);
+      } else {
+        company = await base44.entities.NTACompany.create(companyFields);
+      }
+
+      // Create/update primary Contact if email or phone exists
+      if (clientRecord.email || clientRecord.phone) {
+        const contacts = await base44.entities.NTAContact.filter({ company_id: company.id, is_primary: true });
+        const contactFields = {
+          company_id: company.id,
+          name: clientRecord.business_name,
+          email: clientRecord.email || '',
+          phone: clientRecord.phone || '',
+          role: 'Owner',
+          is_primary: true,
+        };
+        if (contacts.length > 0) {
+          await base44.entities.NTAContact.update(contacts[0].id, contactFields);
+        } else {
+          await base44.entities.NTAContact.create(contactFields);
+        }
+      }
+
+      // Activity log
+      await base44.entities.NTAActivity.create({
+        company_id: company.id,
+        activity_type: isNew ? 'company_created' : 'note',
+        title: isNew ? `Client created: ${clientRecord.business_name}` : `Client updated: ${clientRecord.business_name}`,
+        details: `Status: ${clientRecord.status} | Services: ${clientRecord.core_services || '—'}`,
+        source_system: 'agency_clients',
+      });
+
+      // Default project + campaign for new active clients
+      if (isNew && clientRecord.status === 'active_client') {
+        const projects = await base44.entities.NTAClientProject.filter({ company_id: company.id });
+        if (projects.length === 0) {
+          await base44.entities.NTAClientProject.create({
+            company_id: company.id,
+            project_name: `${clientRecord.business_name} Growth System`,
+            project_type: 'seo',
+            status: 'in_progress',
+            priority: 'medium',
+          });
+        }
+        const campaigns = await base44.entities.NTACampaign.filter({ company_id: company.id });
+        if (campaigns.length === 0) {
+          await base44.entities.NTACampaign.create({
+            company_id: company.id,
+            campaign_name: `${clientRecord.business_name} Lead Generation`,
+            campaign_type: 'seo',
+            status: 'active',
+          });
+        }
+      }
+    } catch (err) {
+      console.warn('[AgencyClients] NTA sync failed:', err.message);
+    }
+  };
+
   const save = async () => {
     if (!form.business_name.trim()) return;
     setSaving(true);
     if (modal === 'add') {
       const created = await base44.entities.Clients.create({ ...form, archived: false });
       setClients(prev => [created, ...prev]);
+      syncToNTA(created, true); // non-blocking
     } else {
       await base44.entities.Clients.update(modal.id, form);
       setClients(prev => prev.map(c => c.id === modal.id ? { ...c, ...form } : c));
+      syncToNTA({ ...modal, ...form }, false); // non-blocking
     }
     setSaving(false);
     setModal(null);
@@ -175,6 +257,7 @@ export default function AgencyClients() {
                 { key: 'state', label: 'State', type: 'text' },
                 { key: 'core_services', label: 'Core Services', type: 'text' },
                 { key: 'target_keywords', label: 'Target Keywords', type: 'text' },
+                { key: 'posting_channels', label: 'Posting Channels (comma-separated)', type: 'text' },
               ].map(f => (
                 <div key={f.key}>
                   <label className="text-xs font-semibold text-slate-400 block mb-1">{f.label}</label>
