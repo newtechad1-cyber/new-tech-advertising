@@ -1,0 +1,92 @@
+{
+  "name": "NTAOpportunity",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string"
+    },
+    "primary_contact_id": {
+      "type": "string"
+    },
+    "submission_id": {
+      "type": "string"
+    },
+    "opportunity_name": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "offer_type": {
+      "type": "string",
+      "enum": [
+        "dfy_managed",
+        "diy_saas",
+        "ada_rebuild",
+        "website_rebuild",
+        "streaming_tv",
+        "video_production",
+        "local_seo",
+        "other"
+      ],
+      "default": "dfy_managed"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "new",
+        "qualified",
+        "audit_ready",
+        "contacted",
+        "demo_scheduled",
+        "demo_completed",
+        "proposal_sent",
+        "followup",
+        "won",
+        "lost",
+        "stalled"
+      ],
+      "default": "new"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "won",
+        "lost",
+        "stalled"
+      ],
+      "default": "open"
+    },
+    "estimated_value": {
+      "type": "number"
+    },
+    "next_step": {
+      "type": "string"
+    },
+    "next_step_due": {
+      "type": "string",
+      "format": "date"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "last_contacted": {
+      "type": "string",
+      "format": "date"
+    },
+    "closed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "won_lost_reason": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "opportunity_name"
+  ]
+}

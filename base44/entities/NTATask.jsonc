@@ -1,0 +1,80 @@
+{
+  "name": "NTATask",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string"
+    },
+    "opportunity_id": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "campaign_id": {
+      "type": "string"
+    },
+    "submission_id": {
+      "type": "string"
+    },
+    "task_type": {
+      "type": "string",
+      "enum": [
+        "follow_up",
+        "call",
+        "email",
+        "demo",
+        "proposal",
+        "onboarding",
+        "content",
+        "approval",
+        "webhook_retry",
+        "system",
+        "other"
+      ],
+      "default": "follow_up"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "todo",
+        "in_progress",
+        "done",
+        "cancelled"
+      ],
+      "default": "todo"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "created_by": {
+      "type": "string"
+    },
+    "source_system": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}

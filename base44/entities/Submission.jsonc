@@ -1,0 +1,119 @@
+{
+  "name": "Submission",
+  "type": "object",
+  "properties": {
+    "submission_type": {
+      "type": "string",
+      "enum": [
+        "lead",
+        "audit",
+        "demo_request",
+        "trial",
+        "contact",
+        "ada",
+        "rebuild",
+        "referral",
+        "other"
+      ],
+      "default": "lead"
+    },
+    "source_system": {
+      "type": "string",
+      "enum": [
+        "website",
+        "hvac_funnel",
+        "ada_funnel",
+        "rebuild_intake",
+        "demo_flow",
+        "crm_manual",
+        "api",
+        "other"
+      ],
+      "default": "website"
+    },
+    "source_page": {
+      "type": "string"
+    },
+    "source_campaign": {
+      "type": "string"
+    },
+    "source_url": {
+      "type": "string"
+    },
+    "raw_payload": {
+      "type": "string",
+      "description": "JSON string of original form data"
+    },
+    "name": {
+      "type": "string"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "matched_company_id": {
+      "type": "string"
+    },
+    "processing_status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "processing",
+        "matched",
+        "created",
+        "failed",
+        "spam",
+        "archived"
+      ],
+      "default": "new"
+    },
+    "webhook_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "sent",
+        "success",
+        "failed",
+        "skipped"
+      ],
+      "default": "pending"
+    },
+    "webhook_response": {
+      "type": "string"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium"
+    }
+  },
+  "required": [
+    "submission_type",
+    "source_system"
+  ]
+}

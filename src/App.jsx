@@ -150,6 +150,17 @@ import HVACFunnel3 from './pages/HVACFunnel3';
 import HVACFunnel4 from './pages/HVACFunnel4';
 import HVACFunnel5 from './pages/HVACFunnel5';
 import HVACFunnelThankYou from './pages/HVACFunnelThankYou';
+import NTACommandCenter from './pages/NTACommandCenter';
+import NTASubmissions from './pages/NTASubmissions';
+import NTACompanies from './pages/NTACompanies';
+import NTACompanyDetail from './pages/NTACompanyDetail';
+import NTAOpportunities from './pages/NTAOpportunities';
+import NTAClients from './pages/NTAClients';
+import NTAProjects from './pages/NTAProjects';
+import NTACampaigns from './pages/NTACampaigns';
+import NTATasks from './pages/NTATasks';
+import NTAActivityLog from './pages/NTAActivityLog';
+import NTASystemHealth from './pages/NTASystemHealth';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -350,6 +361,18 @@ const AuthenticatedApp = () => {
       <Route path="/hvac-funnel/5" element={<HVACFunnel5 />} />
       <Route path="/hvac-funnel/thank-you" element={<HVACFunnelThankYou />} />
       <Route path="/demo/furniture-mattress-outlet" element={<DemoFurnitureMattressOutlet />} />
+      {/* NTA Operating System */}
+      <Route path="/nta/command-center" element={<LayoutWrapper currentPageName="NTACommandCenter"><NTACommandCenter /></LayoutWrapper>} />
+      <Route path="/nta/submissions" element={<LayoutWrapper currentPageName="NTASubmissions"><NTASubmissions /></LayoutWrapper>} />
+      <Route path="/nta/companies" element={<LayoutWrapper currentPageName="NTACompanies"><NTACompanies /></LayoutWrapper>} />
+      <Route path="/nta/companies/:id" element={<LayoutWrapper currentPageName="NTACompanyDetail"><NTACompanyDetail /></LayoutWrapper>} />
+      <Route path="/nta/opportunities" element={<LayoutWrapper currentPageName="NTAOpportunities"><NTAOpportunities /></LayoutWrapper>} />
+      <Route path="/nta/clients" element={<LayoutWrapper currentPageName="NTAClients"><NTAClients /></LayoutWrapper>} />
+      <Route path="/nta/projects" element={<LayoutWrapper currentPageName="NTAProjects"><NTAProjects /></LayoutWrapper>} />
+      <Route path="/nta/campaigns" element={<LayoutWrapper currentPageName="NTACampaigns"><NTACampaigns /></LayoutWrapper>} />
+      <Route path="/nta/tasks" element={<LayoutWrapper currentPageName="NTATasks"><NTATasks /></LayoutWrapper>} />
+      <Route path="/nta/activity" element={<LayoutWrapper currentPageName="NTAActivityLog"><NTAActivityLog /></LayoutWrapper>} />
+      <Route path="/nta/system-health" element={<LayoutWrapper currentPageName="NTASystemHealth"><NTASystemHealth /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

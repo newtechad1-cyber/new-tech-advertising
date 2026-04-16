@@ -1,0 +1,89 @@
+{
+  "name": "NTACompany",
+  "type": "object",
+  "properties": {
+    "company_name": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "zip": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "owner_name": {
+      "type": "string"
+    },
+    "primary_contact_name": {
+      "type": "string"
+    },
+    "primary_contact_email": {
+      "type": "string"
+    },
+    "primary_contact_phone": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "prospect",
+        "churned"
+      ],
+      "default": "prospect"
+    },
+    "lifecycle_stage": {
+      "type": "string",
+      "enum": [
+        "lead",
+        "qualified",
+        "opportunity",
+        "client",
+        "churned"
+      ],
+      "default": "lead"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    },
+    "active_client": {
+      "type": "boolean",
+      "default": false
+    },
+    "archived": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "company_name"
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "name": "NTACampaign",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "campaign_name": {
+      "type": "string"
+    },
+    "campaign_type": {
+      "type": "string",
+      "enum": [
+        "social",
+        "email",
+        "video",
+        "seo",
+        "ads",
+        "outreach",
+        "other"
+      ],
+      "default": "social"
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "facebook",
+        "linkedin",
+        "instagram",
+        "youtube",
+        "gbp",
+        "email",
+        "website",
+        "other"
+      ],
+      "default": "facebook"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "paused",
+        "completed",
+        "cancelled"
+      ],
+      "default": "draft"
+    },
+    "goal": {
+      "type": "string"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "source_system": {
+      "type": "string"
+    },
+    "content_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "ready",
+        "approved",
+        "published"
+      ],
+      "default": "not_started"
+    },
+    "publish_status": {
+      "type": "string",
+      "enum": [
+        "not_scheduled",
+        "scheduled",
+        "published",
+        "failed"
+      ],
+      "default": "not_scheduled"
+    },
+    "metrics_json": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "campaign_name"
+  ]
+}

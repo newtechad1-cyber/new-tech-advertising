@@ -1,0 +1,73 @@
+{
+  "name": "NTAClientProject",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string"
+    },
+    "opportunity_id": {
+      "type": "string"
+    },
+    "project_name": {
+      "type": "string"
+    },
+    "project_type": {
+      "type": "string",
+      "enum": [
+        "onboarding",
+        "website_rebuild",
+        "ada_rebuild",
+        "streaming_tv",
+        "video_production",
+        "social_setup",
+        "seo",
+        "content",
+        "other"
+      ],
+      "default": "onboarding"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "review",
+        "blocked",
+        "completed",
+        "cancelled"
+      ],
+      "default": "not_started"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "scope": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_name",
+    "company_id"
+  ]
+}

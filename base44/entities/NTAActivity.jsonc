@@ -1,0 +1,65 @@
+{
+  "name": "NTAActivity",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string"
+    },
+    "contact_id": {
+      "type": "string"
+    },
+    "opportunity_id": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "campaign_id": {
+      "type": "string"
+    },
+    "submission_id": {
+      "type": "string"
+    },
+    "task_id": {
+      "type": "string"
+    },
+    "activity_type": {
+      "type": "string",
+      "enum": [
+        "submission",
+        "company_created",
+        "opportunity_created",
+        "opportunity_updated",
+        "stage_change",
+        "task_created",
+        "task_completed",
+        "webhook_sent",
+        "webhook_failed",
+        "email_sent",
+        "note",
+        "call",
+        "demo",
+        "won",
+        "lost",
+        "system"
+      ],
+      "default": "note"
+    },
+    "title": {
+      "type": "string"
+    },
+    "details": {
+      "type": "string"
+    },
+    "source_system": {
+      "type": "string"
+    },
+    "created_by": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "activity_type"
+  ]
+}
