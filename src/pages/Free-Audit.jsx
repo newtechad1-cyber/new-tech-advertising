@@ -33,6 +33,26 @@ export default function FreeAudit() {
     e.preventDefault();
     setSubmitting(true);
     try {
+      // Mirror to NTA Unified Intake (non-blocking)
+      base44.functions.invoke('ntaUnifiedIntake', {
+        submission_type: 'free_audit_request',
+        offer_type: 'marketing_audit',
+        mapping_confidence: 'hardcoded',
+        mapping_notes: 'Free-Audit.jsx /free-audit hardcoded',
+        detected_route: '/free-audit',
+        detected_component: 'FreeAudit',
+        source_system: 'website',
+        source_page: '/free-audit',
+        name: form.name,
+        business_name: form.business_name,
+        email: form.email,
+        phone: form.phone,
+        website: form.website,
+        notes: `Industry: ${form.industry}`,
+        priority: 'high',
+        is_high_intent: true,
+      }).catch(err => console.warn('[FreeAudit] NTA mirror failed:', err.message));
+
       // Create Company
       const company = await base44.entities.Company.create({
         business_name: form.business_name,

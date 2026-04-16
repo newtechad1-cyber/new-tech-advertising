@@ -67,6 +67,29 @@ export default function AdaIntake() {
     setIsSubmitting(true);
 
     try {
+      // Mirror to NTA Unified Intake (non-blocking)
+      base44.functions.invoke('ntaUnifiedIntake', {
+        submission_type: 'ada_intake_form',
+        offer_type: 'ada_compliance',
+        mapping_confidence: 'hardcoded',
+        mapping_notes: 'AdaIntake.jsx /ada-intake hardcoded',
+        detected_route: '/ada-intake',
+        detected_component: 'AdaIntake',
+        source_system: 'ada_funnel',
+        source_page: '/ada-intake',
+        name: formData.full_name,
+        business_name: formData.business_name,
+        email: formData.email,
+        phone: formData.phone,
+        website: formData.website_url,
+        city: formData.city,
+        state: formData.state,
+        notes: formData.notes || '',
+        selected_package: formData.package,
+        priority: 'high',
+        is_high_intent: true,
+      }).catch(err => console.warn('[AdaIntake] NTA mirror failed:', err.message));
+
       const lead = await base44.entities.AdaLead.create({
         ...formData,
         status: 'new',

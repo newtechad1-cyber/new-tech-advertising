@@ -93,6 +93,29 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
     try {
       const { base44 } = await import('@/api/base44Client');
 
+      // Mirror to NTA Unified Intake (non-blocking)
+      base44.functions.invoke('ntaUnifiedIntake', {
+        submission_type: 'trial_signup',
+        offer_type: 'trial_onboarding',
+        mapping_confidence: 'hardcoded',
+        mapping_notes: 'StartForm.jsx /start hardcoded',
+        detected_route: sourceData.source_page || '/start',
+        detected_component: 'StartForm',
+        source_system: 'website',
+        source_page: sourceData.source_page || '/start',
+        source_campaign: sourceData.source_campaign || '',
+        name: form.full_name,
+        business_name: form.business_name,
+        email: form.email,
+        phone: form.phone,
+        website: form.website_url,
+        city: form.city,
+        state: form.state,
+        notes: `Industry: ${form.industry} | Goal: ${form.primary_goal}${form.notes ? ' | ' + form.notes : ''}`,
+        priority: 'high',
+        is_high_intent: true,
+      }).catch(err => console.warn('[StartForm] NTA mirror failed:', err.message));
+
       // 1. Create TrialAccount record
       const slug = form.business_name.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + Date.now();
       const trialData = {

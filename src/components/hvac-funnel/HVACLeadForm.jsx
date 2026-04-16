@@ -14,6 +14,25 @@ export default function HVACLeadForm({ ctaLabel = 'Request Your Free HVAC Demo S
     e.preventDefault();
     if (!form.name || !form.phone || !form.email || !form.business_name) return;
     setLoading(true);
+    // Mirror to NTA Unified Intake (non-blocking)
+    base44.functions.invoke('ntaUnifiedIntake', {
+      submission_type: 'hvac_funnel_lead',
+      offer_type: 'hvac_marketing',
+      mapping_confidence: 'hardcoded',
+      mapping_notes: 'HVACLeadForm.jsx hardcoded',
+      detected_route: window.location.pathname,
+      detected_component: 'HVACLeadForm',
+      source_system: 'hvac_funnel',
+      source_page: window.location.pathname,
+      name: form.name,
+      business_name: form.business_name,
+      email: form.email,
+      phone: form.phone,
+      priority: 'high',
+      is_high_intent: true,
+      notes: 'HVAC Growth System funnel lead',
+    }).catch(err => console.warn('[HVACLeadForm] NTA mirror failed:', err.message));
+
     await base44.entities.SalesLead.create({
       contact_name: form.name,
       phone: form.phone,

@@ -13,7 +13,18 @@
         "ada",
         "rebuild",
         "referral",
-        "other"
+        "other",
+        "free_audit_request",
+        "get_started",
+        "landing_signup",
+        "case_study_inquiry",
+        "trial_signup",
+        "hvac_funnel_lead",
+        "manual_lead_entry",
+        "website_rebuild_intake",
+        "ada_assessment_request",
+        "ada_intake_form",
+        "service_location_inquiry"
       ],
       "default": "lead"
     },
@@ -27,6 +38,7 @@
         "demo_flow",
         "crm_manual",
         "api",
+        "migration",
         "other"
       ],
       "default": "website"
@@ -42,7 +54,7 @@
     },
     "raw_payload": {
       "type": "string",
-      "description": "JSON string of original form data"
+      "description": "JSON string of original form data including _nta_debug metadata"
     },
     "name": {
       "type": "string"
@@ -78,6 +90,7 @@
         "processing",
         "matched",
         "created",
+        "completed",
         "failed",
         "spam",
         "archived"

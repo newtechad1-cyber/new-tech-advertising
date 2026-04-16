@@ -7,7 +7,12 @@ Deno.serve(async (req) => {
 
     // ── NTA Unified Intake Mirror (non-blocking) ──────────────────────────
     base44.asServiceRole.functions.invoke('ntaUnifiedIntake', {
-      submission_type: 'ada',
+      submission_type: 'ada_intake_form',
+      offer_type: 'ada_compliance',
+      mapping_confidence: 'hardcoded',
+      mapping_notes: 'adaIntake function; Ada.jsx /ada',
+      detected_route: '/ada',
+      detected_component: 'Ada',
       source_system: 'ada_funnel',
       source_page: '/ada',
       name: formData.name,
@@ -18,6 +23,7 @@ Deno.serve(async (req) => {
       city: formData.city,
       state: formData.state,
       notes: formData.notes || '',
+      selected_package: formData.selected_package,
       priority: 'high',
       is_high_intent: true,
       raw_payload: formData,

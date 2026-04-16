@@ -158,6 +158,26 @@ function AddLeadModal({ onClose, onSaved }) {
     setSaving(true);
     const lead = await base44.entities.SalesLead.create(form);
     const deal = await base44.entities.SalesDeal.create({ lead_id: lead.id, deal_name: form.business_name, stage: 'New Lead', archived: false });
+
+    // Mirror to NTA Unified Intake (non-blocking)
+    base44.functions.invoke('ntaUnifiedIntake', {
+      submission_type: 'manual_lead_entry',
+      offer_type: 'manual_sales_opportunity',
+      mapping_confidence: 'hardcoded',
+      mapping_notes: 'CRMPipelinePanel.jsx manual add lead',
+      detected_route: window.location.pathname,
+      detected_component: 'CRMPipelinePanel',
+      source_system: 'crm_manual',
+      source_page: window.location.pathname,
+      name: form.contact_name || '',
+      business_name: form.business_name,
+      email: form.email || '',
+      phone: form.phone || '',
+      website: form.website || '',
+      notes: form.notes || '',
+      priority: 'medium',
+    }).catch(err => console.warn('[CRMPipelinePanel] NTA mirror failed:', err.message));
+
     setSaving(false);
     onSaved({ lead, deal });
   };

@@ -46,6 +46,26 @@ function LeadForm({ city, service }) {
         status: 'new',
         lead_type: 'inbound',
       });
+
+      // Mirror to NTA Unified Intake (non-blocking)
+      base44.functions.invoke('ntaUnifiedIntake', {
+        submission_type: 'service_location_inquiry',
+        mapping_confidence: 'hardcoded',
+        mapping_notes: `ServiceLocation.jsx; service_slug=${service}`,
+        detected_route: window.location.pathname,
+        detected_component: 'ServiceLocation',
+        source_system: 'website',
+        source_page: `service-location:${service}:${city}`,
+        service_slug: service,
+        business_name: form.business_name,
+        email: form.email,
+        phone: form.phone,
+        city: form.city || city || '',
+        notes: `Service: ${service}`,
+        priority: 'medium',
+        is_high_intent: true,
+      }).catch(err => console.warn('[ServiceLocation] NTA mirror failed:', err.message));
+
       setSubmitted(true);
     } catch (err) {
       console.error('Lead submit error:', err);

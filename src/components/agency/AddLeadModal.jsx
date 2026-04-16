@@ -39,6 +39,28 @@ export default function AddLeadModal({ onClose, onSaved }) {
       stage: 'New Lead',
       archived: false,
     });
+
+    // Mirror to NTA Unified Intake (non-blocking)
+    base44.functions.invoke('ntaUnifiedIntake', {
+      submission_type: 'manual_lead_entry',
+      offer_type: 'manual_sales_opportunity',
+      mapping_confidence: 'hardcoded',
+      mapping_notes: 'AddLeadModal.jsx agency manual entry',
+      detected_route: window.location.pathname,
+      detected_component: 'AddLeadModal',
+      source_system: 'crm_manual',
+      source_page: window.location.pathname,
+      name: form.contact_name || '',
+      business_name: form.business_name,
+      email: form.email || '',
+      phone: form.phone || '',
+      website: form.website || '',
+      city: form.city || '',
+      state: form.state || '',
+      notes: form.notes || '',
+      priority: 'medium',
+    }).catch(err => console.warn('[AddLeadModal] NTA mirror failed:', err.message));
+
     setSaving(false);
     onSaved({ lead, deal });
   };

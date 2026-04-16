@@ -37,6 +37,26 @@ function LeadForm({ city, service }) {
         service_interest: service,
         status: 'new',
       });
+
+      // Mirror to NTA Unified Intake (non-blocking)
+      base44.functions.invoke('ntaUnifiedIntake', {
+        submission_type: 'case_study_inquiry',
+        mapping_confidence: 'hardcoded',
+        mapping_notes: `CaseStudyDetail.jsx; service_used=${service}`,
+        detected_route: window.location.pathname,
+        detected_component: 'CaseStudyDetail',
+        source_system: 'website',
+        source_page: window.location.pathname,
+        service_used: service,
+        business_name: form.business_name,
+        email: form.email,
+        phone: form.phone,
+        city: form.city || city || '',
+        notes: `Inquired from case study: ${service}`,
+        priority: 'medium',
+        is_high_intent: true,
+      }).catch(err => console.warn('[CaseStudyDetail] NTA mirror failed:', err.message));
+
       await base44.integrations.Core.SendEmail({
         from_name: 'NTA Case Study Lead',
         to: 'rick@newtechadvertising.com',

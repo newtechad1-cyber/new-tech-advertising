@@ -32,6 +32,25 @@ export default function GetStarted() {
     e.preventDefault();
     setSubmitting(true);
     try {
+      // Mirror to NTA Unified Intake (non-blocking)
+      base44.functions.invoke('ntaUnifiedIntake', {
+        submission_type: 'get_started',
+        mapping_confidence: 'hardcoded',
+        mapping_notes: 'Get-Started.jsx /get-started; offer_type derived from service_interest',
+        detected_route: '/get-started',
+        detected_component: 'GetStarted',
+        source_system: 'website',
+        source_page: '/get-started',
+        service_interest: form.service_interest,
+        name: form.name,
+        business_name: form.business_name,
+        email: form.email,
+        phone: form.phone,
+        notes: form.message || '',
+        priority: 'high',
+        is_high_intent: true,
+      }).catch(err => console.warn('[GetStarted] NTA mirror failed:', err.message));
+
       // 1. Create or find Company
       const company = await base44.entities.Company.create({
         business_name: form.business_name,

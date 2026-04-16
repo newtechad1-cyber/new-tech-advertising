@@ -9,7 +9,19 @@ import { toast } from 'sonner';
 import { base44 } from '@/api/base44Client';
 import { trackLeadSubmit } from '../analytics/trackingUtils';
 
-export default function SignupModal({ isOpen, onClose }) {
+// Route → offer_type inference for SignupModal
+function inferOfferTypeFromRoute(route) {
+  if (/\/ada/.test(route)) return 'ada_compliance';
+  if (/ai-advertising|ai-ads/.test(route)) return 'ai_advertising';
+  if (/local-seo|local-visibility/.test(route)) return 'local_seo';
+  if (/social-media/.test(route)) return 'social_media_management';
+  if (/ai-video/.test(route)) return 'ai_video';
+  if (/website-rebuild/.test(route)) return 'website_rebuild';
+  if (/streaming/.test(route)) return 'streaming_tv';
+  return null;
+}
+
+export default function SignupModal({ isOpen, onClose, submissionType, offerType }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -29,6 +41,34 @@ export default function SignupModal({ isOpen, onClose }) {
     console.log('SIGNUP_CLICK', { email: formData.email });
 
     try {
+      // Resolve offer_type: prop override > route inference > fallback
+      const currentRoute = window.location.pathname;
+      const resolvedOfferType = offerType
+        || inferOfferTypeFromRoute(currentRoute)
+        || 'consultation';
+      const resolvedSubType = submissionType || 'landing_signup';
+      const routeMatched = offerType ? 'prop_override' : inferOfferTypeFromRoute(currentRoute) ? 'route_inferred' : 'fallback';
+
+      // Mirror to NTA Unified Intake (non-blocking)
+      base44.functions.invoke('ntaUnifiedIntake', {
+        submission_type: resolvedSubType,
+        offer_type: resolvedOfferType,
+        mapping_confidence: routeMatched === 'fallback' ? 'fallback' : 'hardcoded',
+        mapping_notes: `SignupModal; route=${currentRoute}; match=${routeMatched}; selected_service=${formData.selectedService}`,
+        detected_route: currentRoute,
+        detected_component: 'SignupModal',
+        source_system: 'website',
+        source_page: currentRoute,
+        selected_service: formData.selectedService,
+        name: formData.name,
+        business_name: formData.businessName,
+        email: formData.email,
+        phone: formData.phone,
+        website: formData.websiteUrl,
+        notes: formData.message || '',
+        priority: 'medium',
+      }).catch(err => console.warn('[SignupModal] NTA mirror failed:', err.message));
+
       // Create lead record
       const lead = await base44.entities.Lead.create({
         name: formData.name,

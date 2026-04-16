@@ -23,13 +23,27 @@
         "dfy_managed",
         "diy_saas",
         "ada_rebuild",
+        "ada_compliance",
         "website_rebuild",
         "streaming_tv",
         "video_production",
         "local_seo",
-        "other"
+        "other",
+        "marketing_audit",
+        "diy_growth_system",
+        "done_for_you_marketing",
+        "consultation",
+        "ai_advertising",
+        "social_media_management",
+        "ai_video",
+        "trial_onboarding",
+        "hvac_marketing",
+        "hvac_website_rebuild",
+        "hvac_local_seo",
+        "manual_sales_opportunity",
+        "local_service_inquiry"
       ],
-      "default": "dfy_managed"
+      "default": "consultation"
     },
     "stage": {
       "type": "string",

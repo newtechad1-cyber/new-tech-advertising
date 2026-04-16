@@ -43,6 +43,37 @@ Deno.serve(async (req) => {
     let crmFailed = false;
     let emailFailed = false;
 
+    // ── NTA Unified Intake Mirror (non-blocking) ──────────────────────────
+    // Map service_type to offer_type
+    const rebuildOfferMap = {
+      ada_rebuild:    'ada_compliance',
+      website_rebuild: 'website_rebuild',
+      both:           'website_rebuild',
+    };
+    const rebuildOfferType = rebuildOfferMap[service_type] || 'website_rebuild';
+
+    base44.asServiceRole.functions.invoke('ntaUnifiedIntake', {
+      submission_type: 'website_rebuild_intake',
+      offer_type: rebuildOfferType,
+      mapping_confidence: 'hardcoded',
+      mapping_notes: `sendRebuildIntakeEmail; service_type=${service_type}`,
+      detected_route: '/rebuild-intake',
+      detected_component: 'RebuildIntake',
+      source_system: 'rebuild_intake',
+      source_page: source || '/rebuild-intake',
+      name,
+      business_name,
+      email,
+      phone: phone || '',
+      website: website || '',
+      city: city || '',
+      state: state || '',
+      notes: `Service: ${service_type} | Pages: ${page_count}${notes ? ' | ' + notes : ''}`,
+      priority: 'high',
+      is_high_intent: true,
+    }).catch(err => console.warn('[sendRebuildIntakeEmail] NTA mirror failed:', err.message));
+    // ─────────────────────────────────────────────────────────────────────
+
     // ── STEP 1: Save Lead to CRM ──────────────────────────────────────────
     try {
       console.log('[sendRebuildIntakeEmail] CRM save started...');
