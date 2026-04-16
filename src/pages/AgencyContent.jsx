@@ -44,6 +44,21 @@ export default function AgencyContent() {
     loadAll();
   }, []);
 
+  useEffect(() => {
+    const selectedClientFromUrl = searchParams.get('client');
+    if (!selectedClientFromUrl) return;
+
+    const client = clients.find(c => c.id === selectedClientFromUrl);
+    if (client) {
+      setClientFilter(client.business_name);
+      setForm(prev => ({
+        ...prev,
+        client_id: client.id,
+        client: client.business_name,
+      }));
+    }
+  }, [clients, searchParams]);
+
   const loadAll = async () => {
     const [c, t, j, a] = await Promise.all([
       base44.entities.Clients.filter({ archived: false }),
