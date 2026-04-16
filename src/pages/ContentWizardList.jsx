@@ -142,6 +142,17 @@ export default function ContentWizardList() {
   );
 }
 
+const STATUS_DOTS = {
+  not_started: 'bg-slate-600', not_sent: 'bg-slate-600', not_created: 'bg-slate-600',
+  generated: 'bg-amber-400', in_progress: 'bg-amber-400', queued: 'bg-amber-400',
+  approved: 'bg-emerald-400', completed: 'bg-emerald-400', posted: 'bg-emerald-400', scheduled: 'bg-blue-400',
+  rejected: 'bg-red-500', failed: 'bg-red-500',
+};
+
+function StatusPip({ status }) {
+  return <span className={`inline-block w-2 h-2 rounded-full flex-shrink-0 ${STATUS_DOTS[status] || 'bg-slate-600'}`} title={status} />;
+}
+
 function WizardCard({ wf, group }) {
   const action = STAGE_TO_ACTION[wf.current_stage] || 'Continue';
   const overdue = isOverdue(wf.due_date);
@@ -164,10 +175,16 @@ function WizardCard({ wf, group }) {
               <Clock className="w-3 h-3" />{fmt(wf.due_date)}
             </span>
           )}
+          <span className="flex items-center gap-1 text-xs text-slate-600">
+            <StatusPip status={wf.script_status} /> Script
+            <StatusPip status={wf.heygen_status} /> HeyGen
+            <StatusPip status={wf.caption_status} /> Caption
+            <StatusPip status={wf.publishing_status} /> Post
+          </span>
         </div>
       </div>
       <div className="flex items-center gap-2 flex-shrink-0">
-        <span className="text-xs font-semibold text-blue-400 bg-blue-900/30 px-3 py-1.5 rounded-lg border border-blue-800 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-colors">
+        <span className="text-xs font-semibold text-blue-400 bg-blue-900/30 px-3 py-1.5 rounded-lg border border-blue-800 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-colors whitespace-nowrap">
           {action}
         </span>
         <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-white transition-colors" />

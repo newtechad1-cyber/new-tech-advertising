@@ -20,6 +20,21 @@
     "script_text": {
       "type": "string"
     },
+    "script_long": {
+      "type": "string"
+    },
+    "script_short": {
+      "type": "string"
+    },
+    "hook": {
+      "type": "string"
+    },
+    "cta": {
+      "type": "string"
+    },
+    "script_notes": {
+      "type": "string"
+    },
     "script_status": {
       "type": "string",
       "enum": [
@@ -30,10 +45,29 @@
       ],
       "default": "not_started"
     },
+    "image_prompt": {
+      "type": "string"
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "thumbnail_notes": {
+      "type": "string"
+    },
+    "heygen_avatar": {
+      "type": "string"
+    },
+    "heygen_template": {
+      "type": "string"
+    },
+    "heygen_script": {
+      "type": "string"
+    },
     "heygen_status": {
       "type": "string",
       "enum": [
         "not_sent",
+        "in_progress",
         "queued",
         "processing",
         "completed",
@@ -44,7 +78,19 @@
     "heygen_video_url": {
       "type": "string"
     },
+    "heygen_notes": {
+      "type": "string"
+    },
     "caption_text": {
+      "type": "string"
+    },
+    "caption_primary": {
+      "type": "string"
+    },
+    "caption_short": {
+      "type": "string"
+    },
+    "hashtags": {
       "type": "string"
     },
     "caption_status": {
@@ -56,18 +102,19 @@
       ],
       "default": "not_created"
     },
-    "publishing_status": {
-      "type": "string",
-      "enum": [
-        "not_started",
-        "scheduled",
-        "posted"
-      ],
-      "default": "not_started"
-    },
-    "scheduled_date": {
-      "type": "string",
-      "format": "date-time"
+    "selected_channels": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "facebook",
+          "instagram",
+          "linkedin",
+          "youtube",
+          "gbp",
+          "website"
+        ]
+      }
     },
     "publish_channels": {
       "type": "array",
@@ -82,6 +129,32 @@
           "website"
         ]
       }
+    },
+    "publishing_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "scheduled",
+        "posted"
+      ],
+      "default": "not_started"
+    },
+    "scheduled_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "publish_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "publishing_notes": {
+      "type": "string"
     },
     "current_stage": {
       "type": "string",
