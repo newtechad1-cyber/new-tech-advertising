@@ -32,6 +32,7 @@ const NAV = [
     icon: FileText,
     children: [
       { label: 'Content Center', href: '/agency/content' },
+      { label: 'Content Wizard', href: '/agency/content-wizard' },
       { label: 'New Topic', href: '/agency/content?tab=intake' },
       { label: 'Review Queue', href: '/agency/content?tab=review' },
     ],

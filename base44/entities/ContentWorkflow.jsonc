@@ -1,0 +1,126 @@
+{
+  "name": "ContentWorkflow",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "client": {
+      "type": "string"
+    },
+    "campaign_id": {
+      "type": "string"
+    },
+    "content_topic_id": {
+      "type": "string"
+    },
+    "script_text": {
+      "type": "string"
+    },
+    "script_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "generated",
+        "approved",
+        "rejected"
+      ],
+      "default": "not_started"
+    },
+    "heygen_status": {
+      "type": "string",
+      "enum": [
+        "not_sent",
+        "queued",
+        "processing",
+        "completed",
+        "failed"
+      ],
+      "default": "not_sent"
+    },
+    "heygen_video_url": {
+      "type": "string"
+    },
+    "caption_text": {
+      "type": "string"
+    },
+    "caption_status": {
+      "type": "string",
+      "enum": [
+        "not_created",
+        "generated",
+        "approved"
+      ],
+      "default": "not_created"
+    },
+    "publishing_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "scheduled",
+        "posted"
+      ],
+      "default": "not_started"
+    },
+    "scheduled_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "publish_channels": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "facebook",
+          "instagram",
+          "linkedin",
+          "youtube",
+          "gbp",
+          "website"
+        ]
+      }
+    },
+    "current_stage": {
+      "type": "string",
+      "enum": [
+        "topic_created",
+        "script_ready",
+        "script_approved",
+        "heygen_pending",
+        "video_ready",
+        "caption_ready",
+        "approved_for_posting",
+        "scheduled",
+        "published"
+      ],
+      "default": "topic_created"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "client_id"
+  ]
+}

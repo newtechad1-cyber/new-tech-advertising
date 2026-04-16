@@ -162,6 +162,8 @@ import NTATasks from './pages/NTATasks';
 import NTAActivityLog from './pages/NTAActivityLog';
 import NTASystemHealth from './pages/NTASystemHealth';
 import NTAMigration from './pages/NTAMigration';
+import ContentWizardList from './pages/ContentWizardList';
+import ContentWizardDetail from './pages/ContentWizardDetail';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -375,6 +377,8 @@ const AuthenticatedApp = () => {
       <Route path="/nta/activity" element={<LayoutWrapper currentPageName="NTAActivityLog"><NTAActivityLog /></LayoutWrapper>} />
       <Route path="/nta/system-health" element={<LayoutWrapper currentPageName="NTASystemHealth"><NTASystemHealth /></LayoutWrapper>} />
       <Route path="/nta/migration" element={<LayoutWrapper currentPageName="NTAMigration"><NTAMigration /></LayoutWrapper>} />
+      <Route path="/agency/content-wizard" element={<ContentWizardList />} />
+      <Route path="/agency/content-wizard/:id" element={<ContentWizardDetail />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
