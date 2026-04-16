@@ -1,9 +1,28 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
     const formData = await req.json();
+
+    // ── NTA Unified Intake Mirror (non-blocking) ──────────────────────────
+    base44.asServiceRole.functions.invoke('ntaUnifiedIntake', {
+      submission_type: 'ada',
+      source_system: 'ada_funnel',
+      source_page: '/ada',
+      name: formData.name,
+      business_name: formData.business,
+      email: formData.email,
+      phone: formData.phone,
+      website: formData.website_url,
+      city: formData.city,
+      state: formData.state,
+      notes: formData.notes || '',
+      priority: 'high',
+      is_high_intent: true,
+      raw_payload: formData,
+    }).catch(err => console.warn('[adaIntake] NTA mirror failed (non-critical):', err.message));
+    // ─────────────────────────────────────────────────────────────────────
 
     // Create lead in database
     const lead = await base44.asServiceRole.entities.AdaLead.create({

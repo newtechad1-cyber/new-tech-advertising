@@ -161,6 +161,7 @@ import NTACampaigns from './pages/NTACampaigns';
 import NTATasks from './pages/NTATasks';
 import NTAActivityLog from './pages/NTAActivityLog';
 import NTASystemHealth from './pages/NTASystemHealth';
+import NTAMigration from './pages/NTAMigration';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -373,6 +374,7 @@ const AuthenticatedApp = () => {
       <Route path="/nta/tasks" element={<LayoutWrapper currentPageName="NTATasks"><NTATasks /></LayoutWrapper>} />
       <Route path="/nta/activity" element={<LayoutWrapper currentPageName="NTAActivityLog"><NTAActivityLog /></LayoutWrapper>} />
       <Route path="/nta/system-health" element={<LayoutWrapper currentPageName="NTASystemHealth"><NTASystemHealth /></LayoutWrapper>} />
+      <Route path="/nta/migration" element={<LayoutWrapper currentPageName="NTAMigration"><NTAMigration /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

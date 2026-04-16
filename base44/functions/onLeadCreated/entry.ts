@@ -3,7 +3,7 @@
  * Trigger:    EntityAutomation on Lead (create)
  * Action:     sales_agent.qualify_lead
  */
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
 Deno.serve(async (req) => {
   const base44 = createClientFromRequest(req);
@@ -17,6 +17,25 @@ Deno.serve(async (req) => {
   if (!lead) {
     return Response.json({ error: 'Lead not found in payload' }, { status: 400 });
   }
+
+  // ── NTA Unified Intake Mirror (non-blocking) ──────────────────────────
+  base44.asServiceRole.functions.invoke('ntaUnifiedIntake', {
+    submission_type: 'lead',
+    source_system: lead.source || 'website',
+    source_page: lead.page_url || '',
+    name: lead.name,
+    business_name: lead.business_name,
+    email: lead.email,
+    phone: lead.phone,
+    website: lead.website,
+    city: lead.city,
+    state: lead.state,
+    notes: lead.message || lead.notes || '',
+    priority: 'medium',
+    raw_payload: lead,
+    skip_webhook: false,
+  }).catch(err => console.warn('[onLeadCreated] NTA mirror failed (non-critical):', err.message));
+  // ─────────────────────────────────────────────────────────────────────
 
   // Build an AiTask for sales_agent.qualify_lead
   const task = await base44.asServiceRole.entities.AiTask.create({

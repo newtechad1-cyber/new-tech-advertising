@@ -1,4 +1,4 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
 Deno.serve(async (req) => {
   try {
@@ -21,6 +21,24 @@ Deno.serve(async (req) => {
     // Fetch BrandDNA
     const dnaList = await base44.asServiceRole.entities.BrandDNA.filter({ account_id });
     const dna = dnaList[0] || null;
+
+    // ── NTA Unified Intake Mirror (non-blocking) ──────────────────────────
+    base44.asServiceRole.functions.invoke('ntaUnifiedIntake', {
+      submission_type: 'trial',
+      source_system: 'website',
+      source_page: '/trial',
+      name: account.full_name || account.name,
+      business_name: account.name,
+      email: account.email,
+      phone: account.phone || '',
+      website: account.website_url || '',
+      city: account.location_city,
+      state: account.location_state,
+      notes: `Trial signup. Goal: ${account.primary_goal || 'N/A'}`,
+      priority: 'medium',
+      raw_payload: { account_id: account.id, ...account },
+    }).catch(err => console.warn('[sendTrialToCRM] NTA mirror failed (non-critical):', err.message));
+    // ─────────────────────────────────────────────────────────────────────
 
     // Upsert Lead record into the internal CRM (Base44 Lead entity)
     // Check if a lead with this email already exists to avoid duplicates
