@@ -18,6 +18,11 @@ const NAV = [
     icon: Target,
   },
   {
+    label: 'Lead Wizard',
+    href: '/agency/lead-wizard',
+    icon: Briefcase,
+  },
+  {
     label: 'Pipeline',
     href: '/agency/pipeline',
     icon: TrendingUp,

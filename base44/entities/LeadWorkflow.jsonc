@@ -1,0 +1,150 @@
+{
+  "name": "LeadWorkflow",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "company_id": {
+      "type": "string"
+    },
+    "contact_id": {
+      "type": "string"
+    },
+    "opportunity_id": {
+      "type": "string"
+    },
+    "submission_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "lead_source": {
+      "type": "string"
+    },
+    "current_stage": {
+      "type": "string",
+      "enum": [
+        "new_lead",
+        "audit_pending",
+        "audit_ready",
+        "outreach_ready",
+        "outreach_sent",
+        "followup_in_progress",
+        "demo_scheduled",
+        "proposal_sent",
+        "closed_won",
+        "closed_lost"
+      ],
+      "default": "new_lead"
+    },
+    "stage_status": {
+      "type": "string"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "audit_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "completed"
+      ],
+      "default": "not_started"
+    },
+    "audit_summary": {
+      "type": "string"
+    },
+    "audit_url": {
+      "type": "string"
+    },
+    "audit_notes": {
+      "type": "string"
+    },
+    "outreach_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "draft",
+        "sent"
+      ],
+      "default": "not_started"
+    },
+    "outreach_email": {
+      "type": "string"
+    },
+    "outreach_sent_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "outreach_notes": {
+      "type": "string"
+    },
+    "followup_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "active",
+        "paused",
+        "completed"
+      ],
+      "default": "not_started"
+    },
+    "followup_count": {
+      "type": "integer",
+      "default": 0
+    },
+    "last_followup_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "next_followup_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "followup_notes": {
+      "type": "string"
+    },
+    "close_status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "won",
+        "lost"
+      ],
+      "default": "open"
+    },
+    "deal_value": {
+      "type": "number"
+    },
+    "close_notes": {
+      "type": "string"
+    },
+    "close_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}
