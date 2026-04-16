@@ -176,19 +176,32 @@ export default function AgencyClients() {
 
   const save = async () => {
     if (!form.business_name.trim()) return;
+
     setSaving(true);
-    const payload = normalizeClientPayload(form);
-    if (modal === 'add') {
-      const created = await base44.entities.Clients.create({ ...payload, archived: false });
-      setClients(prev => [created, ...prev]);
-      syncToNTA(created, true); // non-blocking
-    } else {
-      await base44.entities.Clients.update(modal.id, payload);
-      setClients(prev => prev.map(c => c.id === modal.id ? { ...c, ...payload } : c));
-      syncToNTA({ ...modal, ...payload }, false); // non-blocking
+
+    try {
+      const payload = {
+        ...normalizeClientPayload(form),
+        archived: modal === 'add' ? false : form.archived ?? false,
+      };
+
+      if (modal === 'add') {
+        const created = await base44.entities.Clients.create(payload);
+        setClients(prev => [created, ...prev]);
+        syncToNTA(created, true); // non-blocking
+      } else {
+        await base44.entities.Clients.update(modal.id, payload);
+        setClients(prev => prev.map(c => c.id === modal.id ? { ...c, ...payload } : c));
+        syncToNTA({ ...modal, ...payload }, false); // non-blocking
+      }
+
+      setModal(null);
+    } catch (err) {
+      console.error('[AgencyClients] save failed:', err);
+      alert(`Could not save client: ${err.message}`);
+    } finally {
+      setSaving(false);
     }
-    setSaving(false);
-    setModal(null);
   };
 
   const archive = async (id, val) => {
