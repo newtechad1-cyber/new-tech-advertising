@@ -71,11 +71,11 @@ export default function ClientDetail() {
               </p>
             </div>
             <div className="flex gap-2">
-              <Link to={`/content-center?client=${id}`}
+              <Link to={`/agency/content?client=${id}`}
                 className="inline-flex items-center gap-2 bg-violet-700 hover:bg-violet-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
                 <Zap className="w-4 h-4" /> Open Content Center
               </Link>
-              <Link to={`/content-center?client=${id}&tab=intake`}
+              <Link to={`/agency/content?client=${id}&tab=intake`}
                 className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
                 <Plus className="w-4 h-4" /> New Topic
               </Link>
