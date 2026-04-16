@@ -45,7 +45,15 @@ export default function AgencyClients() {
   useEffect(() => { load(); }, []);
 
   const openAdd = () => { setForm(BLANK); setModal('add'); };
-  const openEdit = (c) => { setForm({ ...c }); setModal(c); };
+  const openEdit = (c) => {
+    setForm({
+      ...c,
+      posting_channels: Array.isArray(c.posting_channels)
+        ? c.posting_channels.join(', ')
+        : (c.posting_channels || ''),
+    });
+    setModal(c);
+  };
 
   const syncToNTA = async (clientRecord, isNew) => {
     logSystemEvent({
