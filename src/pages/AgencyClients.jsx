@@ -16,6 +16,15 @@ const STATUS_LABELS = { active_client: 'Active', lead: 'Lead', paused: 'Paused',
 
 const BLANK = { business_name: '', city: '', state: '', email: '', phone: '', website: '', core_services: '', target_keywords: '', brand_voice: '', posting_channels: '', status: 'active_client', notes: '' };
 
+const normalizeClientPayload = (data) => ({
+  ...data,
+  posting_channels: typeof data.posting_channels === 'string'
+    ? data.posting_channels.split(',').map(s => s.trim().toLowerCase()).filter(Boolean)
+    : Array.isArray(data.posting_channels)
+      ? data.posting_channels
+      : [],
+});
+
 export default function AgencyClients() {
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -168,14 +177,15 @@ export default function AgencyClients() {
   const save = async () => {
     if (!form.business_name.trim()) return;
     setSaving(true);
+    const payload = normalizeClientPayload(form);
     if (modal === 'add') {
-      const created = await base44.entities.Clients.create({ ...form, archived: false });
+      const created = await base44.entities.Clients.create({ ...payload, archived: false });
       setClients(prev => [created, ...prev]);
       syncToNTA(created, true); // non-blocking
     } else {
-      await base44.entities.Clients.update(modal.id, form);
-      setClients(prev => prev.map(c => c.id === modal.id ? { ...c, ...form } : c));
-      syncToNTA({ ...modal, ...form }, false); // non-blocking
+      await base44.entities.Clients.update(modal.id, payload);
+      setClients(prev => prev.map(c => c.id === modal.id ? { ...c, ...payload } : c));
+      syncToNTA({ ...modal, ...payload }, false); // non-blocking
     }
     setSaving(false);
     setModal(null);
