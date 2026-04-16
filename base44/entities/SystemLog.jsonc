@@ -1,0 +1,105 @@
+{
+  "name": "SystemLog",
+  "type": "object",
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "description": "Short machine-readable event name e.g. submission_saved, webhook_failed"
+    },
+    "source_system": {
+      "type": "string",
+      "enum": [
+        "website",
+        "agency",
+        "nta",
+        "twin",
+        "webhook",
+        "migration",
+        "base44_function",
+        "manual"
+      ],
+      "default": "website"
+    },
+    "source_route": {
+      "type": "string",
+      "description": "Page route if available e.g. /agency/content"
+    },
+    "source_component": {
+      "type": "string",
+      "description": "Component or function name e.g. AgencyContent, ntaUnifiedIntake"
+    },
+    "entity_type": {
+      "type": "string",
+      "description": "Primary entity type e.g. Submission, ContentWorkflow, AIJob"
+    },
+    "entity_id": {
+      "type": "string"
+    },
+    "related_entity_type": {
+      "type": "string"
+    },
+    "related_entity_id": {
+      "type": "string"
+    },
+    "workflow_type": {
+      "type": "string",
+      "enum": [
+        "intake",
+        "crm",
+        "content",
+        "heygen",
+        "publishing",
+        "webhook",
+        "migration",
+        "client_setup",
+        "system"
+      ],
+      "default": "system"
+    },
+    "workflow_stage": {
+      "type": "string",
+      "description": "Fine-grained step e.g. topic_created, company_matched, webhook_sent"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "started",
+        "success",
+        "failed",
+        "warning",
+        "skipped"
+      ],
+      "default": "success"
+    },
+    "message": {
+      "type": "string",
+      "description": "Short human-readable summary"
+    },
+    "error_details": {
+      "type": "string",
+      "description": "Full error text or structured error JSON"
+    },
+    "payload_snapshot": {
+      "type": "string",
+      "description": "Safe JSON summary of data involved - no secrets"
+    },
+    "user_context": {
+      "type": "string",
+      "description": "Current user or operator if available"
+    },
+    "log_level": {
+      "type": "string",
+      "enum": [
+        "info",
+        "warning",
+        "error",
+        "critical"
+      ],
+      "default": "info"
+    }
+  },
+  "required": [
+    "event_type",
+    "status"
+  ]
+}

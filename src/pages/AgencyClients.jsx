@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { Plus, Search, Archive, Trash2, Edit, X, ChevronDown, ExternalLink } from 'lucide-react';
 import AgencyLayout from '../components/agency/AgencyLayout';
+import { logSystemEvent } from '@/lib/logSystemEvent';
 
 const STATUSES = ['lead', 'active_client', 'paused', 'former_client'];
 const STATUS_COLORS = {
@@ -38,6 +39,14 @@ export default function AgencyClients() {
   const openEdit = (c) => { setForm({ ...c }); setModal(c); };
 
   const syncToNTA = async (clientRecord, isNew) => {
+    logSystemEvent({
+      event_type: isNew ? 'client_create_started' : 'client_updated',
+      source_system: 'agency', source_route: '/agency/clients', source_component: 'AgencyClients',
+      workflow_type: 'client_setup', workflow_stage: isNew ? 'client_create_started' : 'client_update_started',
+      status: 'started',
+      message: isNew ? `Client creation started: ${clientRecord.business_name}` : `Client update started: ${clientRecord.business_name}`,
+      payload_snapshot: { business_name: clientRecord.business_name, status: clientRecord.status, city: clientRecord.city },
+    });
     try {
       const companyFields = {
         company_name: clientRecord.business_name,
@@ -59,8 +68,22 @@ export default function AgencyClients() {
       if (existing.length > 0) {
         company = existing[0];
         await base44.entities.NTACompany.update(company.id, companyFields);
+        logSystemEvent({
+          event_type: 'company_synced_from_client',
+          source_system: 'agency', source_route: '/agency/clients', source_component: 'AgencyClients',
+          entity_type: 'NTACompany', entity_id: company.id,
+          workflow_type: 'client_setup', workflow_stage: 'company_updated', status: 'success',
+          message: `Company record updated from client sync: ${clientRecord.business_name}`,
+        });
       } else {
         company = await base44.entities.NTACompany.create(companyFields);
+        logSystemEvent({
+          event_type: 'company_synced_from_client',
+          source_system: 'agency', source_route: '/agency/clients', source_component: 'AgencyClients',
+          entity_type: 'NTACompany', entity_id: company.id,
+          workflow_type: 'client_setup', workflow_stage: 'company_created', status: 'success',
+          message: `New company created from client sync: ${clientRecord.business_name}`,
+        });
       }
 
       // Create/update primary Contact if email or phone exists
@@ -76,8 +99,10 @@ export default function AgencyClients() {
         };
         if (contacts.length > 0) {
           await base44.entities.NTAContact.update(contacts[0].id, contactFields);
+          logSystemEvent({ event_type: 'contact_synced_from_client', source_system: 'agency', source_route: '/agency/clients', source_component: 'AgencyClients', entity_type: 'NTAContact', entity_id: contacts[0].id, related_entity_type: 'NTACompany', related_entity_id: company.id, workflow_type: 'client_setup', workflow_stage: 'contact_updated', status: 'success', message: `Primary contact updated for ${clientRecord.business_name}` });
         } else {
-          await base44.entities.NTAContact.create(contactFields);
+          const newContact = await base44.entities.NTAContact.create(contactFields);
+          logSystemEvent({ event_type: 'contact_synced_from_client', source_system: 'agency', source_route: '/agency/clients', source_component: 'AgencyClients', entity_type: 'NTAContact', entity_id: newContact.id, related_entity_type: 'NTACompany', related_entity_id: company.id, workflow_type: 'client_setup', workflow_stage: 'contact_created', status: 'success', message: `Primary contact created for ${clientRecord.business_name}` });
         }
       }
 
@@ -94,26 +119,49 @@ export default function AgencyClients() {
       if (isNew && clientRecord.status === 'active_client') {
         const projects = await base44.entities.NTAClientProject.filter({ company_id: company.id });
         if (projects.length === 0) {
-          await base44.entities.NTAClientProject.create({
+          const proj = await base44.entities.NTAClientProject.create({
             company_id: company.id,
             project_name: `${clientRecord.business_name} Growth System`,
             project_type: 'seo',
             status: 'in_progress',
             priority: 'medium',
           });
+          logSystemEvent({ event_type: 'default_project_created', source_system: 'agency', source_route: '/agency/clients', source_component: 'AgencyClients', entity_type: 'NTAClientProject', entity_id: proj.id, related_entity_type: 'NTACompany', related_entity_id: company.id, workflow_type: 'client_setup', workflow_stage: 'default_project_created', status: 'success', message: `Default growth project created for ${clientRecord.business_name}` });
         }
         const campaigns = await base44.entities.NTACampaign.filter({ company_id: company.id });
         if (campaigns.length === 0) {
-          await base44.entities.NTACampaign.create({
+          const camp = await base44.entities.NTACampaign.create({
             company_id: company.id,
             campaign_name: `${clientRecord.business_name} Lead Generation`,
             campaign_type: 'seo',
             status: 'active',
           });
+          logSystemEvent({ event_type: 'default_campaign_created', source_system: 'agency', source_route: '/agency/clients', source_component: 'AgencyClients', entity_type: 'NTACampaign', entity_id: camp.id, related_entity_type: 'NTACompany', related_entity_id: company.id, workflow_type: 'client_setup', workflow_stage: 'default_campaign_created', status: 'success', message: `Default campaign created for ${clientRecord.business_name}` });
         }
       }
+
+      logSystemEvent({
+        event_type: isNew ? 'client_created' : 'client_updated',
+        source_system: 'agency', source_route: '/agency/clients', source_component: 'AgencyClients',
+        entity_type: 'Clients', entity_id: clientRecord.id || '',
+        related_entity_type: 'NTACompany', related_entity_id: company.id,
+        workflow_type: 'client_setup', workflow_stage: isNew ? 'client_created' : 'client_updated',
+        status: 'success',
+        message: isNew
+          ? `Client created and synced to NTA: ${clientRecord.business_name}`
+          : `Client updated and synced to NTA: ${clientRecord.business_name}`,
+      });
     } catch (err) {
       console.warn('[AgencyClients] NTA sync failed:', err.message);
+      logSystemEvent({
+        event_type: 'client_sync_failed',
+        source_system: 'agency', source_route: '/agency/clients', source_component: 'AgencyClients',
+        workflow_type: 'client_setup', workflow_stage: 'sync_failed',
+        status: 'failed', log_level: 'error',
+        message: `NTA sync failed for client "${clientRecord.business_name}": ${err.message}`,
+        error_details: err.message,
+        payload_snapshot: { business_name: clientRecord.business_name, isNew },
+      });
     }
   };
 

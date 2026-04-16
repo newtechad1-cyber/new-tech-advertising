@@ -15,9 +15,33 @@
 
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
+// ── Inline log helper (no local imports in Deno) ──────────────────────────────
+async function logEvent(base44, params) {
+  try {
+    const {
+      event_type, source_system = 'base44_function', source_route = '',
+      source_component = 'ntaUnifiedIntake', entity_type = '', entity_id = '',
+      related_entity_type = '', related_entity_id = '', workflow_type = 'intake',
+      workflow_stage = '', status = 'success', message = '', error_details = '',
+      payload_snapshot = '', user_context = '', log_level,
+    } = params;
+    const resolvedLevel = log_level || (status === 'failed' ? 'error' : status === 'warning' ? 'warning' : 'info');
+    await base44.asServiceRole.entities.SystemLog.create({
+      event_type, source_system, source_route, source_component,
+      entity_type, entity_id: entity_id ? String(entity_id) : '',
+      related_entity_type, related_entity_id: related_entity_id ? String(related_entity_id) : '',
+      workflow_type, workflow_stage, status, message,
+      error_details: String(error_details || ''),
+      payload_snapshot: typeof payload_snapshot === 'string' ? payload_snapshot.slice(0, 2000) : JSON.stringify(payload_snapshot || {}).slice(0, 2000),
+      user_context, log_level: resolvedLevel,
+    });
+  } catch (e) {
+    console.warn('[ntaUnifiedIntake] SystemLog write failed:', e.message);
+  }
+}
+
 // ── Mapping tables ────────────────────────────────────────────────────────────
 
-// Service interest → offer_type (for Get-Started page)
 const SERVICE_INTEREST_TO_OFFER_TYPE = {
   diy_saas:     'diy_growth_system',
   dfy_managed:  'done_for_you_marketing',
@@ -26,7 +50,6 @@ const SERVICE_INTEREST_TO_OFFER_TYPE = {
   not_sure:     'consultation',
 };
 
-// service_used slug → offer_type (for CaseStudyDetail)
 const CASE_STUDY_SERVICE_TO_OFFER_TYPE = {
   'ada-rebuild':            'ada_compliance',
   'ada-website-compliance': 'ada_compliance',
@@ -38,14 +61,12 @@ const CASE_STUDY_SERVICE_TO_OFFER_TYPE = {
   'streaming-tv-advertising': 'streaming_tv',
 };
 
-// SignupModal selectedService → offer_type
 const SIGNUP_MODAL_SERVICE_TO_OFFER_TYPE = {
   'complete-marketing':  'done_for_you_marketing',
   'dfy-social':          'social_media_management',
   'diy-social':          'diy_growth_system',
 };
 
-// Route pattern → offer_type (for SignupModal route inference)
 const ROUTE_TO_OFFER_TYPE = {
   '/ada':                   'ada_compliance',
   '/ada-compliance':        'ada_compliance',
@@ -62,7 +83,6 @@ const ROUTE_TO_OFFER_TYPE = {
   '/streaming-tv-advertising': 'streaming_tv',
 };
 
-// ServiceLocation service slug → offer_type
 const SERVICE_SLUG_TO_OFFER_TYPE = {
   'streaming-tv-advertising': 'streaming_tv',
   'ada-website-compliance':   'ada_compliance',
@@ -99,9 +119,9 @@ function resolveMapping(payload) {
     submission_type: raw_sub_type,
     offer_type: raw_offer_type,
     service_interest,
-    service_used,        // CaseStudyDetail
-    service_slug,        // ServiceLocation
-    selected_service,    // SignupModal
+    service_used,
+    service_slug,
+    selected_service,
     source_page,
     detected_route,
     detected_component,
@@ -114,12 +134,10 @@ function resolveMapping(payload) {
   let mapping_confidence = raw_confidence || 'fallback';
   let mapping_notes = raw_notes || '';
 
-  // If offer_type already hardcoded by caller, trust it
   if (offer_type && mapping_confidence === 'hardcoded') {
     return { submission_type, offer_type, mapping_confidence, mapping_notes };
   }
 
-  // ── Get-Started: derive from service_interest
   if (submission_type === 'get_started' && service_interest) {
     offer_type = SERVICE_INTEREST_TO_OFFER_TYPE[service_interest] || 'consultation';
     mapping_confidence = 'hardcoded';
@@ -127,7 +145,6 @@ function resolveMapping(payload) {
     return { submission_type, offer_type, mapping_confidence, mapping_notes };
   }
 
-  // ── CaseStudyDetail: derive from service_used
   if (submission_type === 'case_study_inquiry' && service_used) {
     offer_type = CASE_STUDY_SERVICE_TO_OFFER_TYPE[service_used] || 'consultation';
     mapping_confidence = 'hardcoded';
@@ -135,7 +152,6 @@ function resolveMapping(payload) {
     return { submission_type, offer_type, mapping_confidence, mapping_notes };
   }
 
-  // ── ServiceLocation: derive from service_slug
   if (submission_type === 'service_location_inquiry' && service_slug) {
     offer_type = SERVICE_SLUG_TO_OFFER_TYPE[service_slug] || 'local_service_inquiry';
     mapping_confidence = 'hardcoded';
@@ -143,14 +159,12 @@ function resolveMapping(payload) {
     return { submission_type, offer_type, mapping_confidence, mapping_notes };
   }
 
-  // ── SignupModal: derive from selected_service or route
   if (submission_type === 'landing_signup') {
     if (selected_service && SIGNUP_MODAL_SERVICE_TO_OFFER_TYPE[selected_service]) {
       offer_type = SIGNUP_MODAL_SERVICE_TO_OFFER_TYPE[selected_service];
       mapping_confidence = 'hardcoded';
       mapping_notes = `landing_signup; selected_service=${selected_service}`;
     } else {
-      // Infer from route
       const route = detected_route || source_page || '';
       const routeMatch = Object.keys(ROUTE_TO_OFFER_TYPE).find(k => route.startsWith(k));
       if (routeMatch) {
@@ -166,7 +180,6 @@ function resolveMapping(payload) {
     return { submission_type, offer_type, mapping_confidence, mapping_notes };
   }
 
-  // ── Hardcoded single-source mappings (already set by caller) ─────────────
   const HARDCODED = {
     free_audit_request:       'marketing_audit',
     trial_signup:             'trial_onboarding',
@@ -184,10 +197,10 @@ function resolveMapping(payload) {
     return { submission_type, offer_type, mapping_confidence, mapping_notes };
   }
 
-  // ── Fallback
+  // Fallback
   offer_type = offer_type || 'consultation';
   mapping_confidence = 'fallback';
-  mapping_notes = mapping_notes || `unknown submission_type=${submission_type}, defaulted`;
+  mapping_notes = mapping_notes || `unknown submission_type=${submission_type}, defaulted to consultation`;
   return { submission_type, offer_type, mapping_confidence, mapping_notes };
 }
 
@@ -215,20 +228,16 @@ Deno.serve(async (req) => {
       is_high_intent = false,
       skip_webhook = false,
       raw_payload,
-      // Service fields for mapping
       service_interest,
       service_used,
       service_slug,
       selected_service,
-      // Debug/classification fields
       detected_route = source_page || '',
       detected_component = '',
-      // Package data (Ada, etc.)
       selected_package,
       package: packageField,
     } = payload;
 
-    // Resolve final submission_type + offer_type
     const { submission_type, offer_type, mapping_confidence, mapping_notes } = resolveMapping({
       ...payload,
       detected_route,
@@ -237,50 +246,90 @@ Deno.serve(async (req) => {
 
     console.log(`[ntaUnifiedIntake] ${submission_type} → ${offer_type} [${mapping_confidence}] | ${business_name || email}`);
 
-    // ── Load existing companies for dedup ─────────────────────────────────
+    // Log mapping start
+    await logEvent(base44, {
+      event_type: mapping_confidence === 'fallback' ? 'migration_fallback_used' : 'migration_submission_intercepted',
+      source_system,
+      source_route: detected_route,
+      source_component: detected_component || 'ntaUnifiedIntake',
+      workflow_type: 'migration',
+      workflow_stage: mapping_confidence === 'fallback' ? 'mapped_fallback' : 'mapped_hardcoded',
+      status: mapping_confidence === 'fallback' ? 'warning' : 'success',
+      message: mapping_confidence === 'fallback'
+        ? `Unknown mapping context — fallback offer_type used: submission_type=${submission_type}, offer_type=${offer_type}`
+        : `Intake intercepted: submission_type=${submission_type} → offer_type=${offer_type}`,
+      payload_snapshot: JSON.stringify({ submission_type, offer_type, mapping_confidence, mapping_notes, business_name, email }),
+    });
+
+    // ── Load existing companies for dedup
     const existingCompanies = await base44.asServiceRole.entities.NTACompany.filter({ archived: false });
 
-    // ── Create Submission ─────────────────────────────────────────────────
+    // ── Create Submission
     const packageNotes = selected_package || packageField
       ? `Package: ${selected_package || packageField}` : '';
 
-    const submission = await base44.asServiceRole.entities.Submission.create({
-      submission_type,
-      source_system,
-      source_page,
-      source_campaign: source_campaign || '',
-      source_url: source_url || '',
-      name,
-      business_name,
-      email,
-      phone,
-      website,
-      city,
-      state,
-      notes: [notes, packageNotes].filter(Boolean).join(' | '),
-      raw_payload: JSON.stringify({
-        ...(typeof raw_payload === 'object' ? raw_payload : {}),
-        // Debug metadata stored in raw_payload
-        _nta_debug: {
-          detected_route,
-          detected_component,
-          mapped_submission_type: submission_type,
-          mapped_offer_type: offer_type,
-          mapping_confidence,
-          mapping_notes,
-          service_interest: service_interest || null,
-          service_used: service_used || null,
-          service_slug: service_slug || null,
-          selected_service: selected_service || null,
-          selected_package: selected_package || packageField || null,
-        }
-      }),
-      processing_status: 'processing',
-      webhook_status: skip_webhook ? 'skipped' : 'pending',
-      priority,
+    let submission;
+    try {
+      submission = await base44.asServiceRole.entities.Submission.create({
+        submission_type,
+        source_system,
+        source_page,
+        source_campaign: source_campaign || '',
+        source_url: source_url || '',
+        name,
+        business_name,
+        email,
+        phone,
+        website,
+        city,
+        state,
+        notes: [notes, packageNotes].filter(Boolean).join(' | '),
+        raw_payload: JSON.stringify({
+          ...(typeof raw_payload === 'object' ? raw_payload : {}),
+          _nta_debug: {
+            detected_route, detected_component,
+            mapped_submission_type: submission_type,
+            mapped_offer_type: offer_type,
+            mapping_confidence, mapping_notes,
+            service_interest: service_interest || null,
+            service_used: service_used || null,
+            service_slug: service_slug || null,
+            selected_service: selected_service || null,
+            selected_package: selected_package || packageField || null,
+          }
+        }),
+        processing_status: 'processing',
+        webhook_status: skip_webhook ? 'skipped' : 'pending',
+        priority,
+      });
+
+      await logEvent(base44, {
+        event_type: 'migration_submission_created',
+        source_system, source_route: detected_route, source_component: detected_component || 'ntaUnifiedIntake',
+        entity_type: 'Submission', entity_id: submission.id,
+        workflow_type: 'migration', workflow_stage: 'submission_created', status: 'success',
+        message: `Submission record created for ${business_name || email} (${submission_type})`,
+        payload_snapshot: JSON.stringify({ submission_type, offer_type, business_name, email, source_system }),
+      });
+    } catch (subErr) {
+      await logEvent(base44, {
+        event_type: 'migration_failed', source_system, source_route: detected_route,
+        source_component: 'ntaUnifiedIntake', workflow_type: 'migration',
+        workflow_stage: 'submission_create', status: 'failed',
+        message: `Failed to create Submission record for ${business_name || email}: ${subErr.message}`,
+        error_details: subErr.message,
+      });
+      throw subErr;
+    }
+
+    // ── Match or create Company
+    await logEvent(base44, {
+      event_type: 'migration_company_match_started',
+      source_system, entity_type: 'Submission', entity_id: submission.id,
+      workflow_type: 'migration', workflow_stage: 'company_match_started', status: 'started',
+      message: `Looking up company match for ${business_name || email}`,
     });
 
-    // ── Match or create Company ───────────────────────────────────────────
     let company = matchCompany(existingCompanies, { website, email, phone, business_name });
     let company_created = false;
 
@@ -306,15 +355,33 @@ Deno.serve(async (req) => {
         details: `Source: ${source_system} | Route: ${detected_route}`,
         source_system,
       });
+
+      await logEvent(base44, {
+        event_type: 'migration_company_created',
+        source_system, source_route: detected_route, source_component: 'ntaUnifiedIntake',
+        entity_type: 'NTACompany', entity_id: company.id,
+        related_entity_type: 'Submission', related_entity_id: submission.id,
+        workflow_type: 'migration', workflow_stage: 'company_created', status: 'success',
+        message: `New company created: ${company.company_name}`,
+        payload_snapshot: JSON.stringify({ company_name: company.company_name, source_system }),
+      });
+    } else {
+      await logEvent(base44, {
+        event_type: 'migration_company_matched',
+        source_system, source_route: detected_route,
+        entity_type: 'NTACompany', entity_id: company.id,
+        related_entity_type: 'Submission', related_entity_id: submission.id,
+        workflow_type: 'migration', workflow_stage: 'company_matched', status: 'success',
+        message: `Company matched by existing record: ${company.company_name}`,
+      });
     }
 
-    // Update submission with matched company
     await base44.asServiceRole.entities.Submission.update(submission.id, {
       matched_company_id: company.id,
       processing_status: 'matched',
     });
 
-    // ── Create/dedup Contact ──────────────────────────────────────────────
+    // ── Create/dedup Contact
     let contact_id = null;
     if (email || phone) {
       const existingContacts = await base44.asServiceRole.entities.NTAContact.filter({ company_id: company.id });
@@ -331,12 +398,27 @@ Deno.serve(async (req) => {
           is_primary: existingContacts.length === 0,
         });
         contact_id = contact.id;
+
+        await logEvent(base44, {
+          event_type: 'migration_contact_created',
+          source_system, entity_type: 'NTAContact', entity_id: contact.id,
+          related_entity_type: 'NTACompany', related_entity_id: company.id,
+          workflow_type: 'migration', workflow_stage: 'contact_created', status: 'success',
+          message: `Contact created for ${name || business_name} at ${company.company_name}`,
+        });
       } else {
         contact_id = contactExists.id;
+        await logEvent(base44, {
+          event_type: 'migration_contact_updated',
+          source_system, entity_type: 'NTAContact', entity_id: contactExists.id,
+          related_entity_type: 'NTACompany', related_entity_id: company.id,
+          workflow_type: 'migration', workflow_stage: 'contact_deduped', status: 'success',
+          message: `Contact already exists for ${name || email} — skipped duplicate creation`,
+        });
       }
     }
 
-    // ── Create Opportunity (dedup: skip if open opp exists within 7 days) ─
+    // ── Create Opportunity (dedup within 7 days)
     let opportunity_id = null;
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
     const recentOpps = await base44.asServiceRole.entities.NTAOpportunity.filter({
@@ -368,9 +450,27 @@ Deno.serve(async (req) => {
         details: `Type: ${offer_type} | Source: ${source_system} | Confidence: ${mapping_confidence} | ${mapping_notes}`,
         source_system,
       });
+
+      await logEvent(base44, {
+        event_type: 'migration_opportunity_created',
+        source_system, source_route: detected_route,
+        entity_type: 'NTAOpportunity', entity_id: opp.id,
+        related_entity_type: 'NTACompany', related_entity_id: company.id,
+        workflow_type: 'migration', workflow_stage: 'opportunity_created', status: 'success',
+        message: `Opportunity created: ${opp.opportunity_name} (${offer_type})`,
+        payload_snapshot: JSON.stringify({ offer_type, mapping_confidence }),
+      });
+    } else {
+      await logEvent(base44, {
+        event_type: 'migration_opportunity_updated',
+        source_system, entity_type: 'NTAOpportunity', entity_id: tooRecent.id,
+        related_entity_type: 'NTACompany', related_entity_id: company.id,
+        workflow_type: 'migration', workflow_stage: 'opportunity_deduped', status: 'skipped',
+        message: `Opportunity already exists within 7 days for ${company.company_name} — skipped duplicate`,
+      });
     }
 
-    // ── Log submission activity ───────────────────────────────────────────
+    // ── Log submission activity
     await base44.asServiceRole.entities.NTAActivity.create({
       company_id: company.id,
       submission_id: submission.id,
@@ -381,12 +481,20 @@ Deno.serve(async (req) => {
       source_system,
     });
 
-    // ── Create follow-up task ─────────────────────────────────────────────
+    await logEvent(base44, {
+      event_type: 'migration_activity_created',
+      source_system, entity_type: 'Submission', entity_id: submission.id,
+      related_entity_type: 'NTACompany', related_entity_id: company.id,
+      workflow_type: 'migration', workflow_stage: 'activity_logged', status: 'success',
+      message: `Activity logged for ${submission_type} from ${business_name || email}`,
+    });
+
+    // ── Create follow-up task
     const HIGH_INTENT = ['ada_intake_form', 'ada_assessment_request', 'website_rebuild_intake', 'free_audit_request', 'hvac_funnel_lead'];
     const dueDays = HIGH_INTENT.includes(submission_type) ? 0 : 1;
     const dueDate = new Date(Date.now() + dueDays * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
-    await base44.asServiceRole.entities.NTATask.create({
+    const task = await base44.asServiceRole.entities.NTATask.create({
       company_id: company.id,
       opportunity_id: opportunity_id || null,
       submission_id: submission.id,
@@ -399,7 +507,15 @@ Deno.serve(async (req) => {
       source_system,
     });
 
-    // ── Webhooks (skip if flagged) ────────────────────────────────────────
+    await logEvent(base44, {
+      event_type: 'migration_task_created',
+      source_system, entity_type: 'NTATask', entity_id: task.id,
+      related_entity_type: 'Submission', related_entity_id: submission.id,
+      workflow_type: 'migration', workflow_stage: 'followup_task_created', status: 'success',
+      message: `Follow-up task created for ${business_name || name}: due ${dueDate}`,
+    });
+
+    // ── Webhooks
     let webhook_status = 'skipped';
 
     if (!skip_webhook) {
@@ -407,85 +523,113 @@ Deno.serve(async (req) => {
       const agentKey = Deno.env.get('AGENT_WEBHOOK_KEY');
       const crmUrl = Deno.env.get('CRM_WEBHOOK_URL');
 
-      const webhookPayload = {
-        type: submission_type,
-        offer_type,
-        mapping_confidence,
-        source: source_system,
-        source_page,
-        name, business_name, email, phone, website, city, state,
-        company_id: company.id,
-        submission_id: submission.id,
-        opportunity_id,
-        notes,
-      };
+      if (!agentUrl && !crmUrl) {
+        await logEvent(base44, {
+          event_type: 'webhook_skipped_missing_env',
+          source_system, source_component: 'ntaUnifiedIntake',
+          entity_type: 'Submission', entity_id: submission.id,
+          workflow_type: 'webhook', workflow_stage: 'env_check', status: 'warning',
+          message: 'No webhook URLs configured — AGENT_WEBHOOK_URL and CRM_WEBHOOK_URL both missing. Webhook skipped.',
+        });
+      } else {
+        const webhookPayload = {
+          type: submission_type, offer_type, mapping_confidence, source: source_system,
+          source_page, name, business_name, email, phone, website, city, state,
+          company_id: company.id, submission_id: submission.id, opportunity_id, notes,
+        };
 
-      try {
-        const promises = [];
-        if (agentUrl) {
-          promises.push(fetch(agentUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', ...(agentKey ? { 'x-agent-key': agentKey } : {}) },
-            body: JSON.stringify(webhookPayload),
-          }));
+        await logEvent(base44, {
+          event_type: 'webhook_prepare_started',
+          source_system, entity_type: 'Submission', entity_id: submission.id,
+          workflow_type: 'webhook', workflow_stage: 'prepare', status: 'started',
+          message: `Sending webhooks for ${submission_type} from ${business_name || email}`,
+          payload_snapshot: JSON.stringify({ agentUrl: !!agentUrl, crmUrl: !!crmUrl, submission_type }),
+        });
+
+        try {
+          const promises = [];
+          if (agentUrl) {
+            promises.push(fetch(agentUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', ...(agentKey ? { 'x-agent-key': agentKey } : {}) },
+              body: JSON.stringify(webhookPayload),
+            }));
+          }
+          if (crmUrl) {
+            promises.push(fetch(crmUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(webhookPayload),
+            }));
+          }
+          await Promise.all(promises);
+          webhook_status = 'sent';
+
+          await base44.asServiceRole.entities.Submission.update(submission.id, {
+            webhook_status: 'success',
+            processing_status: 'created',
+          });
+
+          await base44.asServiceRole.entities.NTAActivity.create({
+            company_id: company.id, submission_id: submission.id,
+            activity_type: 'webhook_sent', title: `Webhook sent for ${submission_type}`, source_system,
+          });
+
+          await logEvent(base44, {
+            event_type: 'webhook_success',
+            source_system, entity_type: 'Submission', entity_id: submission.id,
+            related_entity_type: 'NTACompany', related_entity_id: company.id,
+            workflow_type: 'webhook', workflow_stage: 'delivered', status: 'success',
+            message: `Webhook delivered successfully for ${submission_type} from ${business_name || email}`,
+          });
+        } catch (whErr) {
+          webhook_status = 'failed';
+          console.warn('[ntaUnifiedIntake] Webhook failed:', whErr.message);
+
+          await base44.asServiceRole.entities.Submission.update(submission.id, {
+            webhook_status: 'failed',
+            webhook_response: whErr.message,
+            processing_status: 'failed',
+          });
+
+          await base44.asServiceRole.entities.NTAActivity.create({
+            company_id: company.id, submission_id: submission.id,
+            activity_type: 'webhook_failed', title: `Webhook failed for ${submission_type}`,
+            details: whErr.message, source_system,
+          });
+
+          await logEvent(base44, {
+            event_type: 'webhook_failed',
+            source_system, source_component: 'ntaUnifiedIntake',
+            entity_type: 'Submission', entity_id: submission.id,
+            related_entity_type: 'NTACompany', related_entity_id: company.id,
+            workflow_type: 'webhook', workflow_stage: 'delivery_failed',
+            status: 'failed', log_level: 'error',
+            message: `Webhook delivery failed for ${submission_type} from ${business_name || email}: ${whErr.message}`,
+            error_details: whErr.message,
+          });
+
+          await base44.asServiceRole.entities.NTATask.create({
+            company_id: company.id, submission_id: submission.id,
+            task_type: 'webhook_retry',
+            title: `URGENT: Retry webhook for ${business_name || email}`,
+            description: `Webhook failed: ${whErr.message}`,
+            status: 'todo', priority: 'urgent',
+            due_date: new Date().toISOString().split('T')[0],
+            source_system,
+          });
         }
-        if (crmUrl) {
-          promises.push(fetch(crmUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(webhookPayload),
-          }));
-        }
-        await Promise.all(promises);
-        webhook_status = 'sent';
-
-        await base44.asServiceRole.entities.Submission.update(submission.id, {
-          webhook_status: 'success',
-          processing_status: 'created',
-        });
-
-        await base44.asServiceRole.entities.NTAActivity.create({
-          company_id: company.id,
-          submission_id: submission.id,
-          activity_type: 'webhook_sent',
-          title: `Webhook sent for ${submission_type}`,
-          source_system,
-        });
-      } catch (whErr) {
-        webhook_status = 'failed';
-        console.warn('[ntaUnifiedIntake] Webhook failed:', whErr.message);
-
-        await base44.asServiceRole.entities.Submission.update(submission.id, {
-          webhook_status: 'failed',
-          webhook_response: whErr.message,
-          processing_status: 'failed',
-        });
-
-        await base44.asServiceRole.entities.NTAActivity.create({
-          company_id: company.id,
-          submission_id: submission.id,
-          activity_type: 'webhook_failed',
-          title: `Webhook failed for ${submission_type}`,
-          details: whErr.message,
-          source_system,
-        });
-
-        // Urgent retry task
-        await base44.asServiceRole.entities.NTATask.create({
-          company_id: company.id,
-          submission_id: submission.id,
-          task_type: 'webhook_retry',
-          title: `URGENT: Retry webhook for ${business_name || email}`,
-          description: `Webhook failed: ${whErr.message}`,
-          status: 'todo',
-          priority: 'urgent',
-          due_date: new Date().toISOString().split('T')[0],
-          source_system,
-        });
       }
     } else {
       await base44.asServiceRole.entities.Submission.update(submission.id, {
         processing_status: 'created',
+      });
+
+      await logEvent(base44, {
+        event_type: 'webhook_skipped_missing_env',
+        source_system, entity_type: 'Submission', entity_id: submission.id,
+        workflow_type: 'webhook', workflow_stage: 'skipped', status: 'skipped',
+        message: `Webhook skipped by caller flag for ${submission_type}`,
       });
     }
 
@@ -497,15 +641,7 @@ Deno.serve(async (req) => {
       contact_id,
       opportunity_id,
       webhook_status,
-      // Debug output
-      debug: {
-        submission_type,
-        offer_type,
-        mapping_confidence,
-        mapping_notes,
-        detected_route,
-        detected_component,
-      },
+      debug: { submission_type, offer_type, mapping_confidence, mapping_notes, detected_route, detected_component },
     });
 
   } catch (err) {

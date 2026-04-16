@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AgencyLayout from '../components/agency/AgencyLayout';
+import { logSystemEvent } from '@/lib/logSystemEvent';
 import { CheckCircle2, Circle, Loader2, ChevronLeft, AlertTriangle, Video, FileText, Send, Calendar } from 'lucide-react';
 
 const STAGES = [
@@ -63,6 +64,17 @@ export default function ContentWizardDetail() {
     try {
       const updated = await base44.entities.ContentWorkflow.update(id, updates);
       setWf(updated);
+      // Log stage changes
+      if (updates.current_stage && updates.current_stage !== wf?.current_stage) {
+        logSystemEvent({
+          event_type: 'content_workflow_stage_changed',
+          source_system: 'agency', source_route: '/agency/content-wizard', source_component: 'ContentWizardDetail',
+          entity_type: 'ContentWorkflow', entity_id: id,
+          workflow_type: 'content', workflow_stage: updates.current_stage, status: 'success',
+          message: `Workflow "${wf?.title}" moved to stage: ${updates.current_stage}`,
+          payload_snapshot: { from: wf?.current_stage, to: updates.current_stage },
+        });
+      }
       return updated;
     } finally {
       setSaving(false);
@@ -91,8 +103,10 @@ Keep it conversational and direct.`;
       const generated = typeof res === 'string' ? res : res?.text || res?.content || JSON.stringify(res);
       setScriptText(generated);
       await save({ script_text: generated, script_status: 'generated', current_stage: 'script_ready' });
+      logSystemEvent({ event_type: 'script_generated', source_system: 'agency', source_route: '/agency/content-wizard', source_component: 'ContentWizardDetail', entity_type: 'ContentWorkflow', entity_id: id, workflow_type: 'content', workflow_stage: 'script_ready', status: 'success', message: `Script generated for "${wf.title}"` });
       showNotice('success', 'Script generated! Review and approve below.');
     } catch (err) {
+      logSystemEvent({ event_type: 'content_generation_failed', source_system: 'agency', source_route: '/agency/content-wizard', source_component: 'ContentWizardDetail', entity_type: 'ContentWorkflow', entity_id: id, workflow_type: 'content', workflow_stage: 'script_generate_failed', status: 'failed', log_level: 'error', message: `Script generation failed for "${wf.title}": ${err.message}`, error_details: err.message });
       showNotice('error', 'Script generation failed: ' + err.message);
       setSaving(false);
     }
@@ -100,6 +114,7 @@ Keep it conversational and direct.`;
 
   const approveScript = async () => {
     await save({ script_text: scriptText, script_status: 'approved', current_stage: 'script_approved' });
+    logSystemEvent({ event_type: 'script_approved', source_system: 'agency', source_route: '/agency/content-wizard', source_component: 'ContentWizardDetail', entity_type: 'ContentWorkflow', entity_id: id, workflow_type: 'content', workflow_stage: 'script_approved', status: 'success', message: `Script approved for "${wf.title}"` });
     showNotice('success', 'Script approved!');
   };
 
@@ -110,6 +125,7 @@ Keep it conversational and direct.`;
   };
 
   const sendToHeygen = async () => {
+    logSystemEvent({ event_type: 'heygen_send_started', source_system: 'agency', source_route: '/agency/content-wizard', source_component: 'ContentWizardDetail', entity_type: 'ContentWorkflow', entity_id: id, workflow_type: 'heygen', workflow_stage: 'queued', status: 'success', message: `Script sent to HeyGen queue for "${wf.title}"` });
     await save({ script_text: scriptText, heygen_status: 'queued', current_stage: 'heygen_pending' });
     showNotice('success', 'Sent to HeyGen queue. Enter the video URL when ready.');
   };
@@ -117,6 +133,7 @@ Keep it conversational and direct.`;
   const submitVideoUrl = async () => {
     if (!videoUrl.trim()) { showNotice('error', 'Please enter a video URL.'); return; }
     await save({ heygen_video_url: videoUrl, heygen_status: 'completed', current_stage: 'video_ready' });
+    logSystemEvent({ event_type: 'video_url_added', source_system: 'agency', source_route: '/agency/content-wizard', source_component: 'ContentWizardDetail', entity_type: 'ContentWorkflow', entity_id: id, workflow_type: 'heygen', workflow_stage: 'video_ready', status: 'success', message: `HeyGen video URL saved for "${wf.title}"` });
     showNotice('success', 'Video URL saved!');
   };
 
@@ -133,8 +150,10 @@ Keep it punchy and local-business focused.`;
       const generated = typeof res === 'string' ? res : res?.text || res?.content || JSON.stringify(res);
       setCaptionText(generated);
       await save({ caption_text: generated, caption_status: 'generated', current_stage: 'caption_ready' });
+      logSystemEvent({ event_type: 'caption_generated', source_system: 'agency', source_route: '/agency/content-wizard', source_component: 'ContentWizardDetail', entity_type: 'ContentWorkflow', entity_id: id, workflow_type: 'content', workflow_stage: 'caption_ready', status: 'success', message: `Caption generated for "${wf?.title}"` });
       showNotice('success', 'Caption generated!');
     } catch (err) {
+      logSystemEvent({ event_type: 'content_generation_failed', source_system: 'agency', source_route: '/agency/content-wizard', source_component: 'ContentWizardDetail', entity_type: 'ContentWorkflow', entity_id: id, workflow_type: 'content', workflow_stage: 'caption_generate_failed', status: 'failed', log_level: 'error', message: `Caption generation failed for "${wf?.title}": ${err.message}`, error_details: err.message });
       showNotice('error', 'Caption generation failed: ' + err.message);
       setSaving(false);
     }
@@ -142,26 +161,20 @@ Keep it punchy and local-business focused.`;
 
   const approveForPosting = async () => {
     await save({ caption_text: captionText, caption_status: 'approved', current_stage: 'approved_for_posting' });
+    logSystemEvent({ event_type: 'caption_approved', source_system: 'agency', source_route: '/agency/content-wizard', source_component: 'ContentWizardDetail', entity_type: 'ContentWorkflow', entity_id: id, workflow_type: 'content', workflow_stage: 'approved_for_posting', status: 'success', message: `Caption approved for posting: "${wf.title}"` });
     showNotice('success', 'Approved for posting!');
   };
 
   const schedulePost = async () => {
     if (!scheduledDate) { showNotice('error', 'Please select a schedule date.'); return; }
-    await save({
-      publish_channels: selectedChannels,
-      scheduled_date: scheduledDate,
-      publishing_status: 'scheduled',
-      current_stage: 'scheduled',
-    });
+    await save({ publish_channels: selectedChannels, scheduled_date: scheduledDate, publishing_status: 'scheduled', current_stage: 'scheduled' });
+    logSystemEvent({ event_type: 'publishing_scheduled', source_system: 'agency', source_route: '/agency/content-wizard', source_component: 'ContentWizardDetail', entity_type: 'ContentWorkflow', entity_id: id, workflow_type: 'publishing', workflow_stage: 'scheduled', status: 'success', message: `Post scheduled for "${wf?.title}" on ${scheduledDate}`, payload_snapshot: { channels: selectedChannels, scheduledDate } });
     showNotice('success', 'Post scheduled!');
   };
 
   const markPosted = async () => {
-    await save({
-      publish_channels: selectedChannels,
-      publishing_status: 'posted',
-      current_stage: 'published',
-    });
+    await save({ publish_channels: selectedChannels, publishing_status: 'posted', current_stage: 'published' });
+    logSystemEvent({ event_type: 'publishing_posted', source_system: 'agency', source_route: '/agency/content-wizard', source_component: 'ContentWizardDetail', entity_type: 'ContentWorkflow', entity_id: id, workflow_type: 'publishing', workflow_stage: 'published', status: 'success', message: `Content published: "${wf?.title}"`, payload_snapshot: { channels: selectedChannels } });
     showNotice('success', 'Marked as published! 🎉');
   };
 

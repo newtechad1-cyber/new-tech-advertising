@@ -3,6 +3,7 @@ import { useSearchParams, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { Plus, RefreshCw, ChevronDown, X, Eye, Zap, AlertTriangle, Clock } from 'lucide-react';
 import AgencyLayout from '../components/agency/AgencyLayout';
+import { logSystemEvent } from '@/lib/logSystemEvent';
 
 const ASSET_OPTS = ['blog', 'landing_page', 'video_script', 'social_series', 'gbp_post', 'email'];
 const ASSET_LABELS = { blog: 'Blog', landing_page: 'Landing Page', video_script: 'Video Script', social_series: 'Social Series', gbp_post: 'GBP Post', email: 'Email' };
@@ -71,11 +72,30 @@ export default function AgencyContent() {
     setSubmitting(true);
     setSubmitStatus(null);
     let topic = null;
+
+    // Log: started
+    logSystemEvent({
+      event_type: 'content_topic_create_started',
+      source_system: 'agency', source_route: '/agency/content', source_component: 'AgencyContent',
+      workflow_type: 'content', workflow_stage: 'intake_submitted', status: 'started',
+      message: `Content topic creation started: "${form.title}" for ${form.client || form.client_id}`,
+      payload_snapshot: { title: form.title, client: form.client, requested_assets: form.requested_assets, priority: form.priority },
+    });
+
     try {
       // Step 1: create the topic
       topic = await base44.entities.ContentTopics.create({ ...form, status: 'idea' });
       console.log('[AgencyContent] ContentTopics.create result:', topic);
       setTopics(prev => [topic, ...prev]);
+
+      logSystemEvent({
+        event_type: 'content_topic_created',
+        source_system: 'agency', source_route: '/agency/content', source_component: 'AgencyContent',
+        entity_type: 'ContentTopics', entity_id: topic.id,
+        workflow_type: 'content', workflow_stage: 'topic_saved', status: 'success',
+        message: `Content topic saved: "${topic.title}" for ${topic.client || topic.client_id}`,
+        payload_snapshot: { id: topic.id, title: topic.title, client: topic.client, requested_assets: topic.requested_assets },
+      });
 
       // Step 2: invoke automation (may fail independently)
       let automationResult = null;
@@ -83,9 +103,29 @@ export default function AgencyContent() {
         const res = await base44.functions.invoke('onContentTopicCreated', { data: topic });
         automationResult = res?.data ?? res;
         console.log('[AgencyContent] onContentTopicCreated result:', automationResult);
+
+        logSystemEvent({
+          event_type: 'content_generation_requested',
+          source_system: 'agency', source_route: '/agency/content', source_component: 'AgencyContent',
+          entity_type: 'ContentTopics', entity_id: topic.id,
+          workflow_type: 'content', workflow_stage: 'automation_triggered', status: 'success',
+          message: `Content generation triggered for "${topic.title}" — ${topic.requested_assets?.length || 0} asset types queued`,
+        });
+
         setSubmitStatus({ ok: true, message: 'Topic created and generation started', topicId: topic.id, automationResult, error: null });
       } catch (automationErr) {
         console.warn('[AgencyContent] onContentTopicCreated failed:', automationErr.message);
+
+        logSystemEvent({
+          event_type: 'content_generation_failed',
+          source_system: 'agency', source_route: '/agency/content', source_component: 'AgencyContent',
+          entity_type: 'ContentTopics', entity_id: topic.id,
+          workflow_type: 'content', workflow_stage: 'automation_failed',
+          status: 'failed', log_level: 'error',
+          message: `Content topic "${topic.title}" was saved but generation automation failed: ${automationErr.message}`,
+          error_details: automationErr.message,
+        });
+
         setSubmitStatus({ ok: false, message: 'Topic created, but generation automation failed', topicId: topic.id, automationResult: null, error: automationErr.message });
       }
 
@@ -94,6 +134,17 @@ export default function AgencyContent() {
       setTimeout(loadAll, 2000);
     } catch (topicErr) {
       console.error('[AgencyContent] ContentTopics.create failed:', topicErr.message);
+
+      logSystemEvent({
+        event_type: 'content_topic_create_failed',
+        source_system: 'agency', source_route: '/agency/content', source_component: 'AgencyContent',
+        workflow_type: 'content', workflow_stage: 'topic_create_failed',
+        status: 'failed', log_level: 'error',
+        message: `Failed to create content topic "${form.title}": ${topicErr.message}`,
+        error_details: topicErr.message,
+        payload_snapshot: { title: form.title, client: form.client },
+      });
+
       setSubmitStatus({ ok: false, message: 'Could not create content topic', topicId: null, automationResult: null, error: topicErr.message });
     } finally {
       setSubmitting(false);
