@@ -166,6 +166,9 @@ import ContentWizardList from './pages/ContentWizardList';
 import ContentWizardDetail from './pages/ContentWizardDetail';
 import LeadWizardList from './pages/LeadWizardList';
 import LeadWizardDetail from './pages/LeadWizardDetail';
+import ChannelConnections from './pages/ChannelConnections';
+import PublishingQueuePage from './pages/PublishingQueue';
+import PublishingOps from './pages/PublishingOps';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -383,6 +386,9 @@ const AuthenticatedApp = () => {
       <Route path="/agency/content-wizard/:id" element={<ContentWizardDetail />} />
       <Route path="/agency/lead-wizard" element={<LeadWizardList />} />
       <Route path="/agency/lead-wizard/:id" element={<LeadWizardDetail />} />
+      <Route path="/agency/channel-connections" element={<LayoutWrapper currentPageName="ChannelConnections"><ChannelConnections /></LayoutWrapper>} />
+      <Route path="/agency/publishing-queue" element={<LayoutWrapper currentPageName="PublishingQueuePage"><PublishingQueuePage /></LayoutWrapper>} />
+      <Route path="/agency/publishing-ops" element={<LayoutWrapper currentPageName="PublishingOps"><PublishingOps /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Users, TrendingUp, FileText, BarChart2,
-  ChevronLeft, Menu, ChevronDown, ChevronRight, Target, Briefcase
+  ChevronLeft, Menu, ChevronDown, ChevronRight, Target, Briefcase,
+  Wifi, Send, Settings2
 } from 'lucide-react';
 
 const NAV = [
@@ -48,6 +49,15 @@ const NAV = [
     children: [
       { label: 'Client List', href: '/agency/clients' },
       { label: 'Websites', href: '/agency/websites' },
+    ],
+  },
+  {
+    label: 'Publishing',
+    icon: Send,
+    children: [
+      { label: 'Publishing Queue', href: '/agency/publishing-queue' },
+      { label: 'Channel Connections', href: '/agency/channel-connections' },
+      { label: 'Publishing Ops', href: '/agency/publishing-ops' },
     ],
   },
 ];
