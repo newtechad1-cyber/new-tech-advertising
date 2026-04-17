@@ -11,10 +11,24 @@ export default function ChannelConnections() {
   const [connections, setConnections] = useState([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
-  const [oauthPending, setOauthPending] = useState(null); // { provider, clientId, clientName }
   const [notice, setNotice] = useState(null);
 
-  useEffect(() => { loadAll(); }, []);
+  useEffect(() => {
+    loadAll();
+    // Check for OAuth return params
+    const params = new URLSearchParams(window.location.search);
+    const oauthSuccess = params.get('oauth_success');
+    const oauthError = params.get('oauth_error');
+    const account = params.get('account');
+    if (oauthSuccess) {
+      showNotice('success', `Connected ${oauthSuccess}${account ? ` — ${account}` : ''}! Destinations are ready to select.`);
+      // Clean URL
+      window.history.replaceState({}, '', window.location.pathname);
+    } else if (oauthError) {
+      showNotice('error', `OAuth failed: ${oauthError}`);
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  }, []);
 
   const loadAll = async () => {
     setLoading(true);
@@ -33,37 +47,17 @@ export default function ChannelConnections() {
     connections.find(c => c.client_id === clientId && c.provider === provider);
 
   const handleConnect = async (provider, clientId, clientName) => {
-    const redirectUri = `${window.location.origin}/agency/channel-connections`;
     try {
       const res = await base44.functions.invoke('channelOAuthStart', {
-        provider, client_id: clientId, client_name: clientName, redirect_uri: redirectUri,
+        provider, client_id: clientId, client_name: clientName,
       });
       if (res?.data?.auth_url) {
-        window.open(res.data.auth_url, '_blank', 'width=600,height=700');
-        setOauthPending({ provider, clientId, clientName, redirectUri });
-        showNotice('info', `OAuth window opened for ${provider}. Complete the authorization then click "I authorized it".`);
+        // Google/Meta will redirect back to the backend callback URL, which then
+        // redirects back here with ?oauth_success or ?oauth_error
+        window.location.href = res.data.auth_url;
       }
     } catch (err) {
       showNotice('error', 'Failed to start OAuth: ' + err.message);
-    }
-  };
-
-  // Handle manual callback input (for apps that redirect back to this page)
-  const handleManualCallback = async () => {
-    const code = prompt('Paste the authorization code from the redirect URL:');
-    const state = prompt('Paste the state parameter from the redirect URL:');
-    if (!code || !state || !oauthPending) return;
-    try {
-      const res = await base44.functions.invoke('channelOAuthCallback', {
-        code, state, redirect_uri: oauthPending.redirectUri,
-      });
-      if (res?.data?.success) {
-        showNotice('success', `Connected! Account: ${res.data.account_name} — ${res.data.destinations?.length || 0} destinations found.`);
-        loadAll();
-        setOauthPending(null);
-      }
-    } catch (err) {
-      showNotice('error', 'OAuth callback failed: ' + err.message);
     }
   };
 
@@ -115,11 +109,6 @@ export default function ChannelConnections() {
             'bg-blue-900/30 border-blue-800 text-blue-300'
           }`}>
             {notice.msg}
-            {oauthPending && (
-              <button onClick={handleManualCallback} className="ml-3 text-xs font-bold underline hover:no-underline">
-                I authorized it — enter code
-              </button>
-            )}
           </div>
         )}
 
