@@ -13,7 +13,7 @@ const PROVIDER_LABELS = {
 };
 
 const APPROVAL_FILTERS = ['all', 'draft', 'needs_review', 'approved', 'rejected'];
-const PUBLISH_FILTERS  = ['all', 'queued', 'scheduled', 'posting', 'posted', 'failed', 'paused'];
+const PUBLISH_FILTERS  = ['all', 'not_started', 'queued', 'scheduled', 'publishing', 'posted', 'failed', 'cancelled'];
 
 export default function PublishingQueuePage() {
   const [items, setItems] = useState([]);

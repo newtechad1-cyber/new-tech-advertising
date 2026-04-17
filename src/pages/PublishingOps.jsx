@@ -18,6 +18,7 @@ export default function PublishingOps() {
   const [logs, setLogs] = useState([]);
   const [connections, setConnections] = useState([]);
   const [failedItems, setFailedItems] = useState([]);
+  const [allQueueItems, setAllQueueItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [running, setRunning] = useState(false);
   const [runResult, setRunResult] = useState(null);
@@ -27,14 +28,16 @@ export default function PublishingOps() {
 
   const loadAll = async () => {
     setLoading(true);
-    const [l, c, f] = await Promise.all([
+    const [l, c, f, q] = await Promise.all([
       base44.entities.PostingLog.list('-created_date', 100),
       base44.entities.ChannelConnection.list('-updated_date', 200),
       base44.entities.PublishingQueue.filter({ publish_status: 'failed' }),
+      base44.entities.PublishingQueue.list('-scheduled_for', 200),
     ]);
     setLogs(l);
     setConnections(c);
     setFailedItems(f);
+    setAllQueueItems(q);
     setLoading(false);
   };
 
@@ -57,11 +60,20 @@ export default function PublishingOps() {
 
   const reconnectNeeded = connections.filter(c => c.status === 'error' || c.status === 'expired');
 
+  const now = new Date();
+  const stuckItems = allQueueItems.filter(item => {
+    if (item.publish_status === 'posted' || item.publish_status === 'cancelled' || item.publish_status === 'publishing') return false;
+    if (!item.scheduled_for) return false;
+    if (new Date(item.scheduled_for) > now) return false;
+    return item.approval_status !== 'approved' || !['queued', 'scheduled', 'not_started'].includes(item.publish_status);
+  });
+
   const TABS = [
-    { key: 'logs',    label: 'Event Logs',           count: logs.length },
-    { key: 'failed',  label: 'Failed Queue',          count: failedItems.length },
-    { key: 'reconnect', label: 'Reconnect Needed',    count: reconnectNeeded.length },
-    { key: 'connections', label: 'All Connections',   count: connections.length },
+    { key: 'logs',        label: 'Event Logs',        count: logs.length },
+    { key: 'diagnostics', label: 'Queue Diagnostics', count: stuckItems.length },
+    { key: 'failed',      label: 'Failed Queue',       count: failedItems.length },
+    { key: 'reconnect',   label: 'Reconnect Needed',   count: reconnectNeeded.length },
+    { key: 'connections', label: 'All Connections',    count: connections.length },
   ];
 
   return (
@@ -144,6 +156,45 @@ export default function PublishingOps() {
                 ))}
               </div>
             )}
+          </div>
+        )}
+
+        {/* DIAGNOSTICS TAB */}
+        {activeTab === 'diagnostics' && (
+          <div className="space-y-3">
+            <p className="text-xs text-slate-500">Items that are past their scheduled time but will NOT run on the next job cycle.</p>
+            {stuckItems.length === 0 ? <EmptyState text="No stuck items — all scheduled posts look healthy!" /> : stuckItems.map(item => {
+              const isApproved = item.approval_status === 'approved';
+              const isActionable = ['queued', 'scheduled', 'not_started'].includes(item.publish_status);
+              const reasons = [];
+              if (!isApproved) reasons.push(`approval_status is "${item.approval_status}" (need: approved)`);
+              if (!isActionable) reasons.push(`publish_status is "${item.publish_status}" (need: queued/scheduled/not_started)`);
+              if (!item.connection_id) reasons.push('No connection_id');
+              if (item.notes?.includes('[Runner skip')) reasons.push(item.notes);
+              return (
+                <div key={item.id} className="bg-slate-900 border border-amber-800/50 rounded-xl p-4 space-y-2">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="font-semibold text-white text-sm">{item.title || item.body_text?.slice(0, 60)}</p>
+                      <p className="text-xs text-slate-500 mt-0.5">{item.provider} · {item.client_name} · scheduled: {item.scheduled_for ? new Date(item.scheduled_for).toLocaleString() : '—'}</p>
+                    </div>
+                    <div className="flex gap-1.5 flex-shrink-0">
+                      <span className="text-xs font-bold px-2 py-0.5 rounded-full border bg-slate-800 text-slate-400 border-slate-700 capitalize">{item.approval_status?.replace(/_/g,' ')}</span>
+                      <span className="text-xs font-bold px-2 py-0.5 rounded-full border bg-slate-800 text-slate-400 border-slate-700 capitalize">{item.publish_status?.replace(/_/g,' ')}</span>
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    {reasons.map((r, i) => (
+                      <p key={i} className="text-xs text-amber-400 flex items-start gap-1"><span className="text-amber-600 flex-shrink-0">✗</span>{r}</p>
+                    ))}
+                  </div>
+                  <button onClick={() => manualRetry(item.id)}
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg">
+                    <Play className="w-3.5 h-3.5" /> Force Run Now
+                  </button>
+                </div>
+              );
+            })}
           </div>
         )}
 

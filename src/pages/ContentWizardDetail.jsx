@@ -7,6 +7,7 @@ import {
   ChevronLeft, Loader2, CheckCircle2, Copy, Check,
   FileText, Image, Video, Send, Calendar, StickyNote, Zap, RefreshCw
 } from 'lucide-react';
+import ContentWizardPublishSection from '../components/publishing/ContentWizardPublishSection';
 
 const STAGES = [
   { key: 'topic_created', label: 'Topic' },
@@ -101,6 +102,7 @@ export default function ContentWizardDetail() {
   const { id } = useParams();
   const [wf, setWf] = useState(null);
   const [topic, setTopic] = useState(null);
+  const [connections, setConnections] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [notice, setNotice] = useState(null);
@@ -142,6 +144,9 @@ export default function ContentWizardDetail() {
         const topics = await base44.entities.ContentTopics.filter({ id: record.content_topic_id });
         setTopic(Array.isArray(topics) ? topics[0] : topics);
       }
+      // Load channel connections for publishing
+      const conns = await base44.entities.ChannelConnection.filter({ client_id: record.client_id });
+      setConnections(conns.filter(c => c.status === 'connected'));
     } finally {
       setLoading(false);
     }
@@ -585,47 +590,8 @@ Return JSON with:
           </div>
         </SectionCard>
 
-        {/* SECTION 6: Scheduling & Posting */}
-        <SectionCard icon={Calendar} title="Scheduling & Posting" color="text-blue-400">
-          <div className="flex items-center gap-4 flex-wrap text-xs">
-            <span className="text-slate-500">Publishing status: <StatusDot status={wf.publishing_status} /></span>
-          </div>
-          <div className="space-y-3">
-            <div>
-              <label className="text-xs font-semibold text-slate-400 block mb-1">Schedule Date & Time</label>
-              <input type="datetime-local" value={scheduledDate} onChange={e => setScheduledDate(e.target.value)}
-                className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" />
-            </div>
-            {(wf.publish_urls?.length > 0) && (
-              <div>
-                <label className="text-xs font-semibold text-slate-400 block mb-2">Post URLs</label>
-                <div className="space-y-1">
-                  {wf.publish_urls.map((u, i) => (
-                    <a key={i} href={u} target="_blank" rel="noopener noreferrer" className="block text-xs text-blue-400 hover:underline truncate">{u}</a>
-                  ))}
-                </div>
-              </div>
-            )}
-            <div>
-              <label className="text-xs font-semibold text-slate-400 block mb-1">Add Post URL</label>
-              <div className="flex gap-2">
-                <input value={newPublishUrl} onChange={e => setNewPublishUrl(e.target.value)} placeholder="https://facebook.com/post/..."
-                  className="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" />
-                <ActionBtn onClick={addPublishUrl} disabled={saving || !newPublishUrl.trim()} variant="ghost" size="sm">Add</ActionBtn>
-              </div>
-            </div>
-          </div>
-          <div className="flex gap-2 flex-wrap">
-            {wf.publishing_status !== 'posted' && (
-              <ActionBtn onClick={schedulePost} disabled={saving || !scheduledDate} variant="primary">
-                <Calendar className="w-4 h-4" /> Schedule Post
-              </ActionBtn>
-            )}
-            <ActionBtn onClick={markPosted} disabled={saving} variant="success">
-              <CheckCircle2 className="w-4 h-4" /> Mark as Posted
-            </ActionBtn>
-          </div>
-        </SectionCard>
+        {/* SECTION 6: Publishing */}
+        <ContentWizardPublishSection wf={wf} connections={connections} onSaved={load} />
 
         {/* SECTION 7: Notes */}
         <SectionCard icon={StickyNote} title="Notes" color="text-slate-400">
