@@ -3,7 +3,7 @@ import { base44 } from '@/api/base44Client';
 import AgencyLayout from '../components/agency/AgencyLayout';
 import QueueItemRow from '../components/publishing/QueueItemRow';
 import AddToQueueModal from '../components/publishing/AddToQueueModal';
-import { RefreshCw, Plus, Filter, Calendar, List, AlertTriangle, CheckCircle2, X } from 'lucide-react';
+import { RefreshCw, Plus, X } from 'lucide-react';
 
 const PROVIDER_LABELS = {
   google_business_profile: '📍 GBP',
@@ -25,8 +25,6 @@ export default function PublishingQueuePage() {
   const [publishFilter, setPublishFilter] = useState('all');
   const [providerFilter, setProviderFilter] = useState('all');
   const [clientFilter, setClientFilter] = useState('all');
-  const [viewMode, setViewMode] = useState('list'); // 'list' | 'calendar'
-
   useEffect(() => { loadAll(); }, []);
 
   const loadAll = async () => {
@@ -48,11 +46,13 @@ export default function PublishingQueuePage() {
     return true;
   });
 
+  const now = new Date();
   const stats = {
-    today_scheduled: items.filter(i => i.publish_status === 'scheduled' && isSameDay(i.scheduled_for, new Date())).length,
-    today_posted:    items.filter(i => i.publish_status === 'posted'    && isSameDay(i.updated_date, new Date())).length,
-    failed:          items.filter(i => i.publish_status === 'failed').length,
-    needs_review:    items.filter(i => i.approval_status === 'needs_review').length,
+    total:       items.length,
+    queued:      items.filter(i => ['queued', 'scheduled', 'not_started'].includes(i.publish_status) && i.approval_status === 'approved').length,
+    due_now:     items.filter(i => ['queued', 'scheduled', 'not_started'].includes(i.publish_status) && i.approval_status === 'approved' && i.connection_id && i.scheduled_for && new Date(i.scheduled_for) <= now).length,
+    posted:      items.filter(i => i.publish_status === 'posted').length,
+    failed:      items.filter(i => i.publish_status === 'failed').length,
   };
 
   const providerOptions = [...new Set(items.map(i => i.provider))];
@@ -78,12 +78,13 @@ export default function PublishingQueuePage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
           {[
-            { label: 'Scheduled Today', value: stats.today_scheduled, color: 'text-blue-400' },
-            { label: 'Posted Today',    value: stats.today_posted,    color: 'text-emerald-400' },
-            { label: 'Failed',          value: stats.failed,          color: stats.failed > 0 ? 'text-red-400' : 'text-slate-500' },
-            { label: 'Needs Review',    value: stats.needs_review,    color: stats.needs_review > 0 ? 'text-amber-400' : 'text-slate-500' },
+            { label: 'Total Items', value: stats.total,    color: 'text-slate-300' },
+            { label: 'Queued',      value: stats.queued,   color: stats.queued > 0 ? 'text-blue-400' : 'text-slate-500' },
+            { label: 'Due Now',     value: stats.due_now,  color: stats.due_now > 0 ? 'text-amber-400' : 'text-slate-500' },
+            { label: 'Posted',      value: stats.posted,   color: stats.posted > 0 ? 'text-emerald-400' : 'text-slate-500' },
+            { label: 'Failed',      value: stats.failed,   color: stats.failed > 0 ? 'text-red-400' : 'text-slate-500' },
           ].map(s => (
             <div key={s.label} className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-center">
               <p className={`text-2xl font-black ${s.color}`}>{s.value}</p>
@@ -198,12 +199,4 @@ function MetaRow({ label, value }) {
       <span className="text-white text-xs text-right capitalize">{value}</span>
     </div>
   );
-}
-
-function isSameDay(dateStr, target) {
-  if (!dateStr) return false;
-  const d = new Date(dateStr);
-  return d.getFullYear() === target.getFullYear() &&
-    d.getMonth() === target.getMonth() &&
-    d.getDate() === target.getDate();
 }

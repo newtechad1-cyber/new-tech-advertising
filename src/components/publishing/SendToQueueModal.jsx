@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { X, Send, Clock, Zap, CheckCircle2, Loader2, AlertTriangle } from 'lucide-react';
+import { X, Send, Clock, Zap, CheckCircle2, Loader2, AlertTriangle, Link } from 'lucide-react';
 
 const PROVIDERS = [
   { key: 'google_business_profile', label: 'GBP', emoji: '📍' },
@@ -18,32 +18,28 @@ const CONTENT_TYPE_MAP = {
   landing_page: 'link_post',
 };
 
-async function logQueueEvent(eventType, data) {
-  try {
-    await base44.entities.PostingLog.create({
-      event_time: new Date().toISOString(),
-      event_type: eventType,
-      status: data.status || 'info',
-      ...data,
-    });
-  } catch (_) {}
-}
-
 export default function SendToQueueModal({ asset, mode, onClose, onSuccess }) {
-  // mode: 'queue' | 'schedule' | 'now'
   const [selectedProviders, setSelectedProviders] = useState([]);
   const [connections, setConnections] = useState([]);
+  const [loadingConns, setLoadingConns] = useState(true);
   const [scheduledFor, setScheduledFor] = useState('');
   const [saving, setSaving] = useState(false);
-  const [done, setDone] = useState(false);
-  const [error, setError] = useState(null);
+  const [createdItems, setCreatedItems] = useState([]); // [{provider, queueId, error}]
+  const [globalError, setGlobalError] = useState(null);
 
   useEffect(() => {
-    if (asset?.client_id) {
-      base44.entities.ChannelConnection.filter({ client_id: asset.client_id, status: 'connected' })
-        .then(setConnections);
-    }
-    // Default schedule to +1 hour rounded to the hour
+    const load = async () => {
+      if (asset?.client_id) {
+        try {
+          const conns = await base44.entities.ChannelConnection.filter({ client_id: asset.client_id });
+          setConnections(conns);
+        } catch (_) {}
+      }
+      setLoadingConns(false);
+    };
+    load();
+
+    // Default schedule to +1 hour rounded
     const d = new Date(Date.now() + 60 * 60 * 1000);
     d.setMinutes(0, 0, 0);
     setScheduledFor(d.toISOString().slice(0, 16));
@@ -52,117 +48,137 @@ export default function SendToQueueModal({ asset, mode, onClose, onSuccess }) {
   const toggleProvider = (key) =>
     setSelectedProviders(prev => prev.includes(key) ? prev.filter(p => p !== key) : [...prev, key]);
 
+  // Find best connection for a provider (prefer connected, then any)
   const getConnectionForProvider = (providerKey) =>
-    connections.find(c => c.provider === providerKey && c.status === 'connected') || null;
+    connections.find(c => c.provider === providerKey && c.status === 'connected') ||
+    connections.find(c => c.provider === providerKey) ||
+    null;
 
-  // Returns null if valid, string reason if invalid
-  const validateProvider = (providerKey) => {
+  // Validate a single provider — returns error string or null
+  const providerError = (providerKey) => {
     const conn = getConnectionForProvider(providerKey);
-    if (!conn) return `No active connection for ${providerKey}`;
-    if (!conn.id) return `Connection missing ID for ${providerKey}`;
-    return null; // valid
-  };
-
-  const buildQueueItem = (providerKey, scheduledAt, publishStatus) => {
-    const conn = getConnectionForProvider(providerKey);
-    return {
-      client_id: asset.client_id,
-      client_name: asset.client || '',
-      connection_id: conn?.id || null,
-      provider: providerKey,
-      content_type: CONTENT_TYPE_MAP[asset.asset_type] || 'text_post',
-      title: asset.title || asset.topic_title || '',
-      body_text: asset.caption || asset.content?.slice(0, 1000) || '',
-      caption: asset.caption || '',
-      hashtags: asset.hashtags || '',
-      media_urls: asset.media_url ? [asset.media_url] : [],
-      video_url: asset.video_url || '',
-      scheduled_for: scheduledAt,
-      timezone: 'America/Chicago',
-      approval_status: 'approved',
-      publish_status: publishStatus,
-      source_wizard: 'content_wizard',
-      source_content_id: asset.id,
-      notes: null,
-    };
+    if (!conn) return `No channel connection found for ${providerKey}. Go to Channel Connections to set one up.`;
+    if (conn.status !== 'connected') return `Connection for ${providerKey} is "${conn.status}" — reconnect it in Channel Connections.`;
+    if (!conn.id) return `Connection for ${providerKey} is missing an ID.`;
+    return null;
   };
 
   const handleSubmit = async () => {
-    setError(null);
-    if (selectedProviders.length === 0) { setError('Select at least one platform.'); return; }
-    if (mode === 'schedule' && !scheduledFor) { setError('Pick a date/time.'); return; }
+    setGlobalError(null);
+    setCreatedItems([]);
 
-    // Validate connections — block if any selected provider has no active connection
-    const connectionErrors = selectedProviders
-      .map(p => validateProvider(p))
-      .filter(Boolean);
+    // Validate platforms selected
+    if (selectedProviders.length === 0) {
+      setGlobalError('Select at least one platform.');
+      return;
+    }
 
-    if (connectionErrors.length > 0) {
-      setError(`Missing connections: ${connectionErrors.join('; ')}. Connect these channels first in Channel Connections.`);
+    // Validate schedule time for schedule mode
+    if (mode === 'schedule' && !scheduledFor) {
+      setGlobalError('Pick a scheduled date and time.');
+      return;
+    }
+
+    // Validate all selected providers have a valid connection — block if any fail
+    const providerErrors = selectedProviders.map(p => ({ p, err: providerError(p) })).filter(x => x.err);
+    if (providerErrors.length > 0) {
+      setGlobalError(providerErrors.map(x => x.err).join(' | '));
       return;
     }
 
     setSaving(true);
-    try {
+    const results = [];
+
+    for (const providerKey of selectedProviders) {
+      const conn = getConnectionForProvider(providerKey);
+
       const scheduledAt = mode === 'now'
         ? new Date().toISOString()
         : mode === 'schedule'
           ? new Date(scheduledFor).toISOString()
-          : null;
+          : new Date().toISOString(); // 'queue' mode = immediate
 
-      // For 'queue' mode (no schedule) — set scheduled_for to now so runner picks it up immediately
-      const finalScheduledAt = scheduledAt ?? new Date().toISOString();
-
-      // publish_status: scheduled (has future time), queued (immediate/now/queue)
-      const isScheduledFuture = mode === 'schedule' && scheduledAt && new Date(scheduledAt) > new Date();
+      const isScheduledFuture = mode === 'schedule' && new Date(scheduledFor) > new Date();
       const publishStatus = isScheduledFuture ? 'scheduled' : 'queued';
 
-      const creates = selectedProviders.map(async (p) => {
-        const conn = getConnectionForProvider(p);
-        const item = buildQueueItem(p, finalScheduledAt, publishStatus);
+      const queueItem = {
+        client_id: asset.client_id,
+        client_name: asset.client || '',
+        connection_id: conn.id,
+        provider: providerKey,
+        content_type: CONTENT_TYPE_MAP[asset.asset_type] || 'text_post',
+        title: asset.title || asset.topic_title || '',
+        body_text: asset.caption || asset.content?.slice(0, 1000) || '',
+        caption: asset.caption || '',
+        hashtags: asset.hashtags || '',
+        media_urls: asset.media_url ? [asset.media_url] : [],
+        video_url: asset.video_url || '',
+        scheduled_for: scheduledAt,
+        timezone: 'America/Chicago',
+        approval_status: 'approved',
+        publish_status: publishStatus,
+        source_wizard: 'content_wizard',
+        source_content_id: asset.id,
+      };
 
-        await logQueueEvent('queue_item_created', {
+      try {
+        // Log intent
+        await base44.entities.PostingLog.create({
+          event_time: new Date().toISOString(),
+          event_type: 'queue_item_created',
           client_id: asset.client_id,
-          provider: p,
+          provider: providerKey,
           status: 'info',
-          message: `Creating queue item for ${p} — approval=approved publish=${publishStatus} scheduled=${finalScheduledAt}`,
-          payload: JSON.stringify({ provider: p, connection_id: conn?.id, scheduled_for: finalScheduledAt, publish_status: publishStatus }),
-        });
+          message: `Creating queue item: ${providerKey} approval=approved publish=${publishStatus} scheduled=${scheduledAt} connection=${conn.id}`,
+          payload: JSON.stringify({ provider: providerKey, connection_id: conn.id, scheduled_for: scheduledAt }),
+        }).catch(() => {});
 
-        const created = await base44.entities.PublishingQueue.create(item);
+        const created = await base44.entities.PublishingQueue.create(queueItem);
+        results.push({ provider: providerKey, queueId: created.id, error: null });
 
-        await logQueueEvent('queue_item_linked_to_connection', {
+        // Log success
+        await base44.entities.PostingLog.create({
+          event_time: new Date().toISOString(),
+          event_type: 'queue_item_linked_to_connection',
           queue_id: created.id,
           client_id: asset.client_id,
-          provider: p,
+          provider: providerKey,
           status: 'success',
-          message: `Queue item ${created.id} linked to connection ${conn?.id} (${conn?.external_account_name || ''})`,
-          payload: JSON.stringify({ queue_id: created.id, connection_id: conn?.id }),
-        });
+          message: `Queue item ${created.id} created and linked to connection ${conn.id}`,
+        }).catch(() => {});
 
-        return created;
-      });
+        // If Publish Now — trigger immediately
+        if (mode === 'now') {
+          base44.functions.invoke('publishQueueItem', { queue_id: created.id }).catch(() => {});
+        }
+      } catch (err) {
+        results.push({ provider: providerKey, queueId: null, error: err.message });
 
-      const created = await Promise.all(creates);
-
-      // If "Publish Now" — trigger publishQueueItem immediately for each
-      if (mode === 'now') {
-        await Promise.allSettled(
-          created.map(item => base44.functions.invoke('publishQueueItem', { queue_id: item.id }))
-        );
+        await base44.entities.PostingLog.create({
+          event_time: new Date().toISOString(),
+          event_type: 'queue_item_creation_failed',
+          client_id: asset.client_id,
+          provider: providerKey,
+          status: 'failed',
+          message: `Failed to create queue item for ${providerKey}: ${err.message}`,
+          error_details: err.message,
+        }).catch(() => {});
       }
+    }
 
-      // Update asset status
+    setCreatedItems(results);
+
+    // Update asset status if at least one succeeded
+    const anySuccess = results.some(r => !r.error);
+    if (anySuccess) {
       await base44.entities.ContentAssets.update(asset.id, {
         status: mode === 'now' ? 'published' : 'approved',
-      });
+      }).catch(() => {});
+    }
 
-      setDone(true);
-      setTimeout(() => { onSuccess?.(); onClose(); }, 1500);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setSaving(false);
+    setSaving(false);
+    if (anySuccess) {
+      setTimeout(() => { onSuccess?.(); onClose(); }, 2000);
     }
   };
 
@@ -172,6 +188,9 @@ export default function SendToQueueModal({ asset, mode, onClose, onSuccess }) {
     schedule: <Clock className="w-4 h-4" />,
     now: <Zap className="w-4 h-4" />,
   }[mode];
+
+  const allCreated = createdItems.length > 0 && createdItems.every(r => !r.error);
+  const someCreated = createdItems.some(r => !r.error);
 
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-[60] p-4">
@@ -188,53 +207,65 @@ export default function SendToQueueModal({ asset, mode, onClose, onSuccess }) {
           {/* Asset info */}
           <div className="bg-slate-800 rounded-lg px-3 py-2.5">
             <p className="text-xs text-slate-400">Content</p>
-            <p className="text-sm font-semibold text-white mt-0.5">{asset.title || asset.topic_title}</p>
-            <p className="text-xs text-slate-500">{asset.client} · {asset.asset_type?.replace('_', ' ')}</p>
+            <p className="text-sm font-semibold text-white mt-0.5 truncate">{asset.title || asset.topic_title}</p>
+            <p className="text-xs text-slate-500">{asset.client} · {asset.asset_type?.replace(/_/g, ' ')}</p>
           </div>
 
           {/* Platform selection */}
           <div>
             <p className="text-xs font-semibold text-slate-400 mb-2">Select Platforms</p>
-            <div className="grid grid-cols-2 gap-2">
-              {PROVIDERS.map(p => {
-                const conn = getConnectionForProvider(p.key);
-                const selected = selectedProviders.includes(p.key);
-                const noConn = selected && !conn;
-                return (
-                  <button key={p.key} onClick={() => toggleProvider(p.key)}
-                    className={`flex items-center gap-2 px-3 py-2.5 rounded-lg border text-sm font-medium transition-colors ${
-                      noConn
-                        ? 'bg-red-900/30 border-red-700 text-red-300'
-                        : selected
-                          ? 'bg-blue-600 border-blue-500 text-white'
+            {loadingConns ? (
+              <div className="flex items-center gap-2 text-xs text-slate-500 py-2">
+                <Loader2 className="w-3.5 h-3.5 animate-spin" /> Loading connections...
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-2">
+                {PROVIDERS.map(p => {
+                  const conn = getConnectionForProvider(p.key);
+                  const selected = selectedProviders.includes(p.key);
+                  const hasActive = conn?.status === 'connected';
+                  const hasAny = !!conn;
+                  return (
+                    <button key={p.key} onClick={() => toggleProvider(p.key)}
+                      className={`flex items-center gap-2 px-3 py-2.5 rounded-lg border text-sm font-medium transition-colors ${
+                        selected ? 'bg-blue-600 border-blue-500 text-white'
                           : 'bg-slate-800 border-slate-700 text-slate-400 hover:text-white hover:border-slate-600'
-                    }`}>
-                    <span>{p.emoji}</span>
-                    <span className="flex-1 text-left">{p.label}</span>
-                    {conn
-                      ? <span className="w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0" title="Connection found" />
-                      : <span className="w-2 h-2 rounded-full bg-slate-600 flex-shrink-0" title="No connection" />
-                    }
-                  </button>
-                );
-              })}
-            </div>
-            <p className="text-xs text-slate-600 mt-1.5">🟢 = active connection found · red = no connection (will block)</p>
+                      }`}>
+                      <span>{p.emoji}</span>
+                      <span className="flex-1 text-left">{p.label}</span>
+                      {hasActive
+                        ? <span className="w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0" title="Connected" />
+                        : hasAny
+                          ? <span className="w-2 h-2 rounded-full bg-amber-400 flex-shrink-0" title={`Status: ${conn.status}`} />
+                          : <span className="w-2 h-2 rounded-full bg-slate-600 flex-shrink-0" title="No connection" />
+                      }
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+            <p className="text-xs text-slate-600 mt-1.5">🟢 connected · 🟡 exists but not active · ⚫ none</p>
           </div>
 
-          {/* Missing connection warnings */}
+          {/* Per-provider warnings for selected with issues */}
           {selectedProviders.map(p => {
-            const err = validateProvider(p);
+            const err = providerError(p);
             if (!err) return null;
+            const LABELS = { google_business_profile: 'GBP', facebook: 'Facebook', instagram: 'Instagram', youtube: 'YouTube' };
             return (
               <div key={p} className="flex items-start gap-2 bg-red-900/20 border border-red-800 rounded-lg px-3 py-2">
                 <AlertTriangle className="w-3.5 h-3.5 text-red-400 mt-0.5 flex-shrink-0" />
-                <p className="text-xs text-red-400">{err} — go to Channel Connections to connect this platform.</p>
+                <div>
+                  <p className="text-xs text-red-400 font-semibold">{LABELS[p]}: {err}</p>
+                  <a href="/agency/channel-connections" target="_blank" className="text-xs text-blue-400 hover:underline flex items-center gap-0.5 mt-0.5">
+                    <Link className="w-3 h-3" /> Open Channel Connections
+                  </a>
+                </div>
               </div>
             );
           })}
 
-          {/* Schedule date/time */}
+          {/* Schedule datetime */}
           {mode === 'schedule' && (
             <div>
               <label className="text-xs font-semibold text-slate-400 block mb-1">Schedule Date & Time</label>
@@ -243,45 +274,50 @@ export default function SendToQueueModal({ asset, mode, onClose, onSuccess }) {
             </div>
           )}
 
-          {/* Ready-to-publish indicator */}
-          {selectedProviders.length > 0 && (
-            <div className={`rounded-lg px-3 py-2.5 text-xs border ${
-              selectedProviders.every(p => !validateProvider(p))
-                ? 'bg-emerald-900/20 border-emerald-800 text-emerald-400'
-                : 'bg-amber-900/20 border-amber-800 text-amber-400'
-            }`}>
-              {selectedProviders.every(p => !validateProvider(p))
-                ? '✓ Ready to publish — all selected platforms have active connections'
-                : '⚠ Fix missing connections before submitting'
-              }
-            </div>
-          )}
-
-          {mode === 'now' && selectedProviders.every(p => !validateProvider(p)) && (
+          {mode === 'now' && (
             <div className="bg-amber-900/20 border border-amber-700/50 rounded-lg px-3 py-2.5 text-xs text-amber-400">
-              This will immediately trigger publishing to the selected platforms.
+              This will immediately create a queue item and trigger publishing to selected platforms.
             </div>
           )}
 
-          {error && (
+          {/* Global error */}
+          {globalError && (
             <div className="flex items-start gap-2 bg-red-900/20 border border-red-800 rounded-lg px-3 py-2">
               <AlertTriangle className="w-3.5 h-3.5 text-red-400 mt-0.5 flex-shrink-0" />
-              <p className="text-xs text-red-400">{error}</p>
+              <p className="text-xs text-red-400">{globalError}</p>
             </div>
           )}
 
-          {done && (
-            <div className="flex items-center gap-2 text-emerald-400 text-sm font-semibold">
-              <CheckCircle2 className="w-4 h-4" /> Done! Added to queue.
+          {/* Per-item results after submit */}
+          {createdItems.length > 0 && (
+            <div className="space-y-2">
+              {createdItems.map((r, i) => (
+                <div key={i} className={`flex items-start gap-2 rounded-lg px-3 py-2 border ${r.error ? 'bg-red-900/20 border-red-800' : 'bg-emerald-900/20 border-emerald-800'}`}>
+                  {r.error
+                    ? <AlertTriangle className="w-3.5 h-3.5 text-red-400 mt-0.5 flex-shrink-0" />
+                    : <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 mt-0.5 flex-shrink-0" />
+                  }
+                  <div>
+                    <p className={`text-xs font-semibold ${r.error ? 'text-red-400' : 'text-emerald-400'}`}>
+                      {r.provider?.replace(/_/g, ' ')}: {r.error ? 'Failed' : 'Queue item created ✓'}
+                    </p>
+                    {r.queueId && <p className="text-xs text-slate-500 font-mono mt-0.5">ID: {r.queueId}</p>}
+                    {r.error && <p className="text-xs text-red-300 mt-0.5">{r.error}</p>}
+                  </div>
+                </div>
+              ))}
+              {someCreated && (
+                <p className="text-xs text-slate-500">Closing in a moment… or <button onClick={onClose} className="text-blue-400 hover:underline">close now</button></p>
+              )}
             </div>
           )}
         </div>
 
         <div className="px-5 py-4 border-t border-slate-800 flex gap-3">
-          <button onClick={handleSubmit} disabled={saving || done}
+          <button onClick={handleSubmit} disabled={saving || allCreated}
             className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-semibold py-2 rounded-lg text-sm">
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : modeIcon}
-            {saving ? 'Processing...' : modeLabel}
+            {saving ? 'Creating queue items...' : modeLabel}
           </button>
           <button onClick={onClose} className="px-4 bg-slate-800 text-white font-semibold py-2 rounded-lg text-sm">Cancel</button>
         </div>

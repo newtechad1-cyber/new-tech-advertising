@@ -90,6 +90,38 @@ export default function PublishingOps() {
     loadAll();
   };
 
+  const createTestQueueItem = async () => {
+    // Find first active GBP connection
+    const gbpConn = connections.find(c => c.provider === 'google_business_profile' && c.status === 'connected')
+      || connections.find(c => c.status === 'connected');
+    if (!gbpConn) {
+      alert('No active connections found. Connect a channel first in Channel Connections.');
+      return;
+    }
+    const scheduledFor = new Date(Date.now() - 60 * 1000).toISOString(); // 1 min ago
+    try {
+      const item = await base44.entities.PublishingQueue.create({
+        client_id: gbpConn.client_id,
+        client_name: gbpConn.client_name || '',
+        connection_id: gbpConn.id,
+        provider: gbpConn.provider,
+        content_type: gbpConn.provider === 'google_business_profile' ? 'gbp_cta' : 'text_post',
+        title: '[TEST] Auto-created diagnostic post',
+        body_text: 'This is a test queue item created from Publishing Ops diagnostics.',
+        caption: 'Test post from Publishing Ops.',
+        scheduled_for: scheduledFor,
+        timezone: 'America/Chicago',
+        approval_status: 'approved',
+        publish_status: 'queued',
+        source_wizard: 'manual',
+      });
+      alert(`Test queue item created! ID: ${item.id}\nProvider: ${item.provider}\nScheduled: ${scheduledFor}\nRun the job runner to attempt publishing.`);
+      loadAll();
+    } catch (err) {
+      alert(`Failed to create test item: ${err.message}`);
+    }
+  };
+
   const manualRetry = async (queueId) => {
     await base44.functions.invoke('publishQueueItem', { queue_id: queueId });
     loadAll();
@@ -155,6 +187,10 @@ export default function PublishingOps() {
           <div className="flex items-center gap-2">
             <button onClick={loadAll} className="p-2 text-slate-500 hover:text-white bg-slate-800 rounded-lg">
               <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+            </button>
+            <button onClick={createTestQueueItem}
+              className="inline-flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white text-sm font-semibold px-4 py-2 rounded-lg">
+              <Info className="w-4 h-4" /> Create Test Item
             </button>
             <button onClick={runJobRunner} disabled={running}
               className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-600 disabled:opacity-50 text-white text-sm font-semibold px-4 py-2 rounded-lg">
@@ -266,9 +302,25 @@ export default function PublishingOps() {
         {/* SKIPPED ITEMS TAB */}
         {activeTab === 'skipped' && (
           <div className="space-y-3">
+            {/* Diagnostic counts */}
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+              {[
+                { label: 'Total Queue Items', value: allQueueItems.length, color: 'text-slate-300' },
+                { label: 'Due Now (Eligible)', value: dueItems.length, color: dueItems.length > 0 ? 'text-blue-400' : 'text-slate-500' },
+                { label: 'Missing Provider', value: nonTerminal.filter(i => !i.provider).length, color: 'text-red-400' },
+                { label: 'Missing Connection', value: nonTerminal.filter(i => !i.connection_id).length, color: 'text-red-400' },
+                { label: 'Missing Schedule', value: nonTerminal.filter(i => !i.scheduled_for).length, color: 'text-amber-400' },
+                { label: 'Not Approved', value: nonTerminal.filter(i => i.approval_status !== 'approved').length, color: 'text-amber-400' },
+              ].map(s => (
+                <div key={s.label} className="bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-center">
+                  <p className={`text-xl font-black ${s.color}`}>{s.value}</p>
+                  <p className="text-slate-500 text-xs mt-0.5">{s.label}</p>
+                </div>
+              ))}
+            </div>
             <div className="bg-amber-900/20 border border-amber-800 rounded-lg px-4 py-3 text-xs text-amber-400">
-              <p className="font-semibold mb-1">These items are past their scheduled time but are NOT eligible for the runner.</p>
-              <p>Fix the issues listed below, then run the job runner again or use Force Publish.</p>
+              <p className="font-semibold mb-1">Items below are past their scheduled time but NOT eligible for the runner.</p>
+              <p>Fix the issues listed, then run the job runner or use Force Publish.</p>
             </div>
             {skippedItems.length === 0 ? <EmptyState text="No skipped items — all scheduled posts are valid!" /> : skippedItems.map(({ item, reasons }) => (
               <div key={item.id} className="bg-slate-900 border border-amber-800/50 rounded-xl p-4 space-y-3">
