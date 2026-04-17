@@ -41,6 +41,7 @@ export default function AgencyContent() {
   const [expanded, setExpanded] = useState(null);
   const [selectedIds, setSelectedIds] = useState(new Set());
   const [bulkModal, setBulkModal] = useState(null); // { mode, assets }
+  const [bulkClientId, setBulkClientId] = useState('');
   const [form, setForm] = useState(BLANK_FORM);
   const [submitting, setSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // null | { ok, message, topicId, automationResult, error }
@@ -195,6 +196,17 @@ export default function AgencyContent() {
     setSelectedIds(new Set());
   };
 
+  const bulkAssignClient = async () => {
+    if (!bulkClientId) return;
+    const client = clients.find(c => c.id === bulkClientId);
+    await Promise.all([...selectedIds].map(id =>
+      base44.entities.ContentAssets.update(id, { client_id: bulkClientId, client: client?.business_name || '' })
+    ));
+    setAssets(prev => prev.map(a => selectedIds.has(a.id) ? { ...a, client_id: bulkClientId, client: client?.business_name || '' } : a));
+    setSelectedIds(new Set());
+    setBulkClientId('');
+  };
+
   const filt = (list) => clientFilter ? list.filter(x => x.client === clientFilter || x.client_id === clientFilter) : list;
 
   const reviewAssets = filt(assets).filter(a => ['draft', 'needs_review', 'ready_for_review', 'approved', 'rejected'].includes(a.status));
@@ -227,11 +239,12 @@ export default function AgencyContent() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
           {[
             { label: 'Topics Active', value: filtTopics.filter(t => !['published','error'].includes(t.status)).length, color: 'text-blue-400' },
             { label: 'Jobs Running', value: filt(jobs).filter(j => j.status === 'processing').length, color: 'text-amber-400' },
             { label: 'Needs Review', value: filt(assets).filter(a => ['draft','needs_review','ready_for_review'].includes(a.status)).length, color: 'text-violet-400' },
+            { label: 'No Client', value: filt(assets).filter(a => !a.client_id).length, color: filt(assets).filter(a => !a.client_id).length > 0 ? 'text-red-400' : 'text-slate-500' },
             { label: 'Errors', value: failedJobs.length, color: failedJobs.length > 0 ? 'text-red-400' : 'text-slate-500' },
           ].map(s => (
             <div key={s.label} className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-center">
@@ -405,6 +418,20 @@ export default function AgencyContent() {
                       className="inline-flex items-center gap-1 px-3 py-1.5 bg-violet-700 hover:bg-violet-600 text-white text-xs font-semibold rounded-lg">
                       <Clock className="w-3.5 h-3.5" /> Schedule {selectedIds.size}
                     </button>
+                    {/* Bulk assign client */}
+                    <div className="flex items-center gap-1">
+                      <select value={bulkClientId} onChange={e => setBulkClientId(e.target.value)}
+                        className="bg-slate-800 border border-slate-700 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none">
+                        <option value="">Assign client…</option>
+                        {clients.map(c => <option key={c.id} value={c.id}>{c.business_name}</option>)}
+                      </select>
+                      {bulkClientId && (
+                        <button onClick={bulkAssignClient}
+                          className="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white text-xs font-semibold rounded-lg">
+                          Apply
+                        </button>
+                      )}
+                    </div>
                   </>
                 )}
               </div>
@@ -414,6 +441,7 @@ export default function AgencyContent() {
               <ContentReviewCard
                 key={a.id}
                 asset={a}
+                clients={clients}
                 selected={selectedIds.has(a.id)}
                 onSelect={handleSelectAsset}
                 onView={() => setExpanded(a)}

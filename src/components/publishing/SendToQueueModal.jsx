@@ -33,6 +33,13 @@ export default function SendToQueueModal({ asset, mode, onClose, onSuccess }) {
         try {
           const conns = await base44.entities.ChannelConnection.filter({ client_id: asset.client_id });
           setConnections(conns);
+          // Auto-select if exactly one valid (connected) provider
+          const validProviders = PROVIDERS
+            .map(p => p.key)
+            .filter(key => conns.some(c => c.provider === key && c.status === 'connected'));
+          if (validProviders.length === 1) {
+            setSelectedProviders(validProviders);
+          }
         } catch (_) {}
       }
       setLoadingConns(false);
@@ -66,6 +73,11 @@ export default function SendToQueueModal({ asset, mode, onClose, onSuccess }) {
   const handleSubmit = async () => {
     setGlobalError(null);
     setCreatedItems([]);
+
+    if (!asset.client_id) {
+      setGlobalError('Select a client before publishing.');
+      return;
+    }
 
     // Validate platforms selected
     if (selectedProviders.length === 0) {
@@ -205,11 +217,40 @@ export default function SendToQueueModal({ asset, mode, onClose, onSuccess }) {
 
         <div className="p-5 space-y-4">
           {/* Asset info */}
-          <div className="bg-slate-800 rounded-lg px-3 py-2.5">
+          <div className="bg-slate-800 rounded-lg px-3 py-2.5 space-y-1">
             <p className="text-xs text-slate-400">Content</p>
-            <p className="text-sm font-semibold text-white mt-0.5 truncate">{asset.title || asset.topic_title}</p>
-            <p className="text-xs text-slate-500">{asset.client} · {asset.asset_type?.replace(/_/g, ' ')}</p>
+            <p className="text-sm font-semibold text-white truncate">{asset.title || asset.topic_title}</p>
+            <p className="text-xs text-slate-500">{asset.asset_type?.replace(/_/g, ' ')}</p>
+            <div className="flex items-center gap-2 pt-0.5">
+              <span className="text-xs text-slate-500">Client:</span>
+              {asset.client_id
+                ? <span className="text-xs font-semibold text-emerald-400">{asset.client || asset.client_id}</span>
+                : <span className="text-xs font-semibold text-red-400 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> No client assigned — close and assign a client first.</span>
+              }
+            </div>
+            {selectedProviders.length > 0 && (
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-slate-500">Connections found:</span>
+                <span className="text-xs font-semibold text-white">
+                  {selectedProviders.map(p => {
+                    const conn = getConnectionForProvider(p);
+                    return `${p.replace('google_business_profile','GBP').replace(/_/g,' ')}: ${conn ? (conn.status === 'connected' ? '✓' : conn.status) : '✗'}`;
+                  }).join(' · ')}
+                </span>
+              </div>
+            )}
           </div>
+
+          {/* Hard block if no client */}
+          {!asset.client_id && (
+            <div className="flex items-start gap-2 bg-red-900/20 border border-red-800 rounded-lg px-3 py-3">
+              <AlertTriangle className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="text-sm font-bold text-red-400">Select a client before publishing.</p>
+                <p className="text-xs text-red-300 mt-0.5">Close this modal and assign a client to the content item first.</p>
+              </div>
+            </div>
+          )}
 
           {/* Platform selection */}
           <div>
@@ -314,10 +355,10 @@ export default function SendToQueueModal({ asset, mode, onClose, onSuccess }) {
         </div>
 
         <div className="px-5 py-4 border-t border-slate-800 flex gap-3">
-          <button onClick={handleSubmit} disabled={saving || allCreated}
-            className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-semibold py-2 rounded-lg text-sm">
+          <button onClick={handleSubmit} disabled={saving || allCreated || !asset.client_id}
+            className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-2 rounded-lg text-sm">
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : modeIcon}
-            {saving ? 'Creating queue items...' : modeLabel}
+            {saving ? 'Creating queue items...' : !asset.client_id ? 'No client assigned' : modeLabel}
           </button>
           <button onClick={onClose} className="px-4 bg-slate-800 text-white font-semibold py-2 rounded-lg text-sm">Cancel</button>
         </div>

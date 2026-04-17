@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Eye, Check, X, Send, Clock, Zap, ChevronDown, ChevronUp } from 'lucide-react';
+import { Eye, Check, X, Send, Clock, Zap, ChevronDown, ChevronUp, AlertTriangle, UserX } from 'lucide-react';
 import SendToQueueModal from './SendToQueueModal';
 
 const STATUS_STYLES = {
@@ -19,16 +19,34 @@ const ASSET_LABELS = {
   social_series: 'Social Series', gbp_post: 'GBP Post', email: 'Email',
 };
 
-export default function ContentReviewCard({ asset, onUpdated, onView, selected, onSelect }) {
+export default function ContentReviewCard({ asset, onUpdated, onView, selected, onSelect, clients = [] }) {
   const [queueModal, setQueueModal] = useState(null); // 'queue' | 'schedule' | 'now' | null
   const [expanded, setExpanded] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [publishError, setPublishError] = useState(null);
+
+  const hasClient = !!(asset.client_id);
 
   const update = async (fields) => {
     setSaving(true);
     await base44.entities.ContentAssets.update(asset.id, fields);
     onUpdated?.({ ...asset, ...fields });
     setSaving(false);
+  };
+
+  const handleClientChange = async (e) => {
+    const clientId = e.target.value;
+    const client = clients.find(c => c.id === clientId);
+    await update({ client_id: clientId, client: client?.business_name || '' });
+  };
+
+  const tryOpenModal = (mode) => {
+    if (!hasClient) {
+      setPublishError('Select a client before publishing.');
+      return;
+    }
+    setPublishError(null);
+    setQueueModal(mode);
   };
 
   const status = asset.status;
@@ -49,12 +67,39 @@ export default function ContentReviewCard({ asset, onUpdated, onView, selected, 
               <div>
                 <p className="font-semibold text-white text-sm">{asset.title || asset.topic_title || '—'}</p>
                 <p className="text-xs text-slate-500 mt-0.5">
-                  {asset.client} · {ASSET_LABELS[asset.asset_type] || asset.asset_type} · {fmt(asset.created_date)}
+                  {ASSET_LABELS[asset.asset_type] || asset.asset_type} · {fmt(asset.created_date)}
                 </p>
               </div>
-              <span className={`text-xs font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${STATUS_STYLES[status] || 'bg-slate-700 text-slate-300'}`}>
-                {status?.replace(/_/g, ' ')}
-              </span>
+              <div className="flex items-center gap-1.5 flex-shrink-0 flex-wrap justify-end">
+                {!hasClient && (
+                  <span className="inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-full bg-red-900/60 text-red-400 border border-red-800">
+                    <UserX className="w-3 h-3" /> No Client
+                  </span>
+                )}
+                <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${STATUS_STYLES[status] || 'bg-slate-700 text-slate-300'}`}>
+                  {status?.replace(/_/g, ' ')}
+                </span>
+              </div>
+            </div>
+
+            {/* Client selector */}
+            <div className="mt-2">
+              {clients.length > 0 ? (
+                <select
+                  value={asset.client_id || ''}
+                  onChange={handleClientChange}
+                  className={`w-full bg-slate-800 border rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-blue-500 ${
+                    !hasClient ? 'border-red-700' : 'border-slate-700'
+                  }`}
+                >
+                  <option value="">— Select client —</option>
+                  {clients.map(c => (
+                    <option key={c.id} value={c.id}>{c.business_name}</option>
+                  ))}
+                </select>
+              ) : (
+                <p className="text-xs text-slate-500">{asset.client || <span className="text-red-400">No client assigned</span>}</p>
+              )}
             </div>
 
             {/* Content preview */}
@@ -72,7 +117,7 @@ export default function ContentReviewCard({ asset, onUpdated, onView, selected, 
             )}
 
             {/* Action bar */}
-            <div className="flex items-center gap-1.5 mt-3 flex-wrap">
+            <div className="flex items-center gap-1.5 mt-2 flex-wrap">
               <button onClick={() => onView?.(asset)}
                 className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium rounded-lg">
                 <Eye className="w-3.5 h-3.5" /> View
@@ -101,21 +146,29 @@ export default function ContentReviewCard({ asset, onUpdated, onView, selected, 
 
               {(isApproved || isReviewable) && (
                 <>
-                  <button onClick={() => setQueueModal('queue')}
+                  <button onClick={() => tryOpenModal('queue')}
                     className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-blue-900/60 hover:bg-blue-700 text-blue-300 text-xs font-semibold rounded-lg">
                     <Send className="w-3.5 h-3.5" /> Send to Queue
                   </button>
-                  <button onClick={() => setQueueModal('schedule')}
+                  <button onClick={() => tryOpenModal('schedule')}
                     className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-violet-900/60 hover:bg-violet-700 text-violet-300 text-xs font-semibold rounded-lg">
                     <Clock className="w-3.5 h-3.5" /> Schedule
                   </button>
-                  <button onClick={() => setQueueModal('now')}
+                  <button onClick={() => tryOpenModal('now')}
                     className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-amber-700 hover:bg-amber-600 text-white text-xs font-semibold rounded-lg">
                     <Zap className="w-3.5 h-3.5" /> Publish Now
                   </button>
                 </>
               )}
             </div>
+
+            {/* Publish error */}
+            {publishError && (
+              <div className="flex items-center gap-1.5 mt-2 bg-red-900/20 border border-red-800 rounded-lg px-3 py-2">
+                <AlertTriangle className="w-3.5 h-3.5 text-red-400 flex-shrink-0" />
+                <p className="text-xs text-red-400 font-semibold">{publishError}</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
