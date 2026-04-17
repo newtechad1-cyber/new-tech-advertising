@@ -38,13 +38,30 @@
       "type": "string",
       "enum": [
         "draft",
+        "needs_review",
         "ready_for_review",
         "approved",
+        "rejected",
         "published"
       ],
       "default": "draft"
     },
     "published_url": {
+      "type": "string"
+    },
+    "media_url": {
+      "type": "string"
+    },
+    "video_url": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string"
+    },
+    "hashtags": {
+      "type": "string"
+    },
+    "review_notes": {
       "type": "string"
     }
   },

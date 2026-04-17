@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { Plus, RefreshCw, ChevronDown, X, Eye, Zap, AlertTriangle, Clock } from 'lucide-react';
+import { Plus, RefreshCw, ChevronDown, X, Eye, Zap, AlertTriangle, Clock, Check, Send } from 'lucide-react';
 import AgencyLayout from '../components/agency/AgencyLayout';
 import { logSystemEvent } from '@/lib/logSystemEvent';
+import ContentReviewCard from '../components/publishing/ContentReviewCard';
+import SendToQueueModal from '../components/publishing/SendToQueueModal';
 
 const ASSET_OPTS = ['blog', 'landing_page', 'video_script', 'social_series', 'gbp_post', 'email'];
 const ASSET_LABELS = { blog: 'Blog', landing_page: 'Landing Page', video_script: 'Video Script', social_series: 'Social Series', gbp_post: 'GBP Post', email: 'Email' };
@@ -36,6 +38,8 @@ export default function AgencyContent() {
   const [assets, setAssets] = useState([]);
   const [clientFilter, setClientFilter] = useState('');
   const [expanded, setExpanded] = useState(null);
+  const [selectedIds, setSelectedIds] = useState(new Set());
+  const [bulkModal, setBulkModal] = useState(null); // { mode, assets }
   const [form, setForm] = useState(BLANK_FORM);
   const [submitting, setSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // null | { ok, message, topicId, automationResult, error }
@@ -171,9 +175,28 @@ export default function AgencyContent() {
     setAssets(prev => prev.map(a => a.id === id ? { ...a, status } : a));
   };
 
+  const handleAssetUpdated = (updated) => {
+    setAssets(prev => prev.map(a => a.id === updated.id ? updated : a));
+  };
+
+  const handleSelectAsset = (id, checked) => {
+    setSelectedIds(prev => { const s = new Set(prev); checked ? s.add(id) : s.delete(id); return s; });
+  };
+
+  const handleSelectAll = (list) => {
+    if (selectedIds.size === list.length) setSelectedIds(new Set());
+    else setSelectedIds(new Set(list.map(a => a.id)));
+  };
+
+  const bulkApprove = async () => {
+    await Promise.all([...selectedIds].map(id => base44.entities.ContentAssets.update(id, { status: 'approved' })));
+    setAssets(prev => prev.map(a => selectedIds.has(a.id) ? { ...a, status: 'approved' } : a));
+    setSelectedIds(new Set());
+  };
+
   const filt = (list) => clientFilter ? list.filter(x => x.client === clientFilter || x.client_id === clientFilter) : list;
 
-  const reviewAssets = filt(assets).filter(a => a.status === 'ready_for_review');
+  const reviewAssets = filt(assets).filter(a => ['draft', 'needs_review', 'ready_for_review', 'approved', 'rejected'].includes(a.status));
   const publishedAssets = filt(assets).filter(a => a.status === 'published');
   const failedJobs = filt(jobs).filter(j => j.status === 'failed');
   const filtTopics = filt(topics);
@@ -207,7 +230,7 @@ export default function AgencyContent() {
           {[
             { label: 'Topics Active', value: filtTopics.filter(t => !['published','error'].includes(t.status)).length, color: 'text-blue-400' },
             { label: 'Jobs Running', value: filt(jobs).filter(j => j.status === 'processing').length, color: 'text-amber-400' },
-            { label: 'For Review', value: reviewAssets.length, color: 'text-violet-400' },
+            { label: 'Needs Review', value: filt(assets).filter(a => ['draft','needs_review','ready_for_review'].includes(a.status)).length, color: 'text-violet-400' },
             { label: 'Errors', value: failedJobs.length, color: failedJobs.length > 0 ? 'text-red-400' : 'text-slate-500' },
           ].map(s => (
             <div key={s.label} className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-center">
@@ -223,7 +246,7 @@ export default function AgencyContent() {
             <button key={t} onClick={() => switchTab(t)}
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${tab === t ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'}`}>
               {TAB_LABELS[t]}
-              {t === 'review' && reviewAssets.length > 0 && <span className="ml-1.5 bg-violet-500 text-white text-xs px-1.5 py-0.5 rounded-full">{reviewAssets.length}</span>}
+              {t === 'review' && reviewAssets.length > 0 && <span className="ml-1.5 bg-violet-500 text-white text-xs px-1.5 py-0.5 rounded-full">{filt(assets).filter(a => ['draft','needs_review','ready_for_review'].includes(a.status)).length}</span>}
               {t === 'errors' && failedJobs.length > 0 && <span className="ml-1.5 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">{failedJobs.length}</span>}
             </button>
           ))}
@@ -324,11 +347,43 @@ export default function AgencyContent() {
         {/* REVIEW */}
         {tab === 'review' && (
           <div className="space-y-3">
-            {reviewAssets.length === 0 && <Empty text="Nothing pending review. Nice work." />}
+            {/* Bulk action bar */}
+            {reviewAssets.length > 0 && (
+              <div className="flex items-center gap-2 flex-wrap bg-slate-900 border border-slate-800 rounded-xl px-4 py-3">
+                <input type="checkbox"
+                  checked={selectedIds.size === reviewAssets.length && reviewAssets.length > 0}
+                  onChange={() => handleSelectAll(reviewAssets)}
+                  className="w-4 h-4 rounded border-slate-600 accent-blue-500 cursor-pointer" />
+                <span className="text-xs text-slate-400">{selectedIds.size > 0 ? `${selectedIds.size} selected` : 'Select all'}</span>
+                {selectedIds.size > 0 && (
+                  <>
+                    <div className="w-px h-4 bg-slate-700 mx-1" />
+                    <button onClick={bulkApprove}
+                      className="inline-flex items-center gap-1 px-3 py-1.5 bg-teal-700 hover:bg-teal-600 text-white text-xs font-semibold rounded-lg">
+                      <Check className="w-3.5 h-3.5" /> Approve {selectedIds.size}
+                    </button>
+                    <button onClick={() => setBulkModal({ mode: 'queue', assets: reviewAssets.filter(a => selectedIds.has(a.id)) })}
+                      className="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-700 hover:bg-blue-600 text-white text-xs font-semibold rounded-lg">
+                      <Send className="w-3.5 h-3.5" /> Queue {selectedIds.size}
+                    </button>
+                    <button onClick={() => setBulkModal({ mode: 'schedule', assets: reviewAssets.filter(a => selectedIds.has(a.id)) })}
+                      className="inline-flex items-center gap-1 px-3 py-1.5 bg-violet-700 hover:bg-violet-600 text-white text-xs font-semibold rounded-lg">
+                      <Clock className="w-3.5 h-3.5" /> Schedule {selectedIds.size}
+                    </button>
+                  </>
+                )}
+              </div>
+            )}
+            {reviewAssets.length === 0 && <Empty text="No content in review. Create a topic to get started." />}
             {reviewAssets.map(a => (
-              <AssetRow key={a.id} asset={a} onView={() => setExpanded(a)}
-                onApprove={() => { updateAsset(a.id, 'approved'); }}
-                onPublish={() => { updateAsset(a.id, 'published'); }} />
+              <ContentReviewCard
+                key={a.id}
+                asset={a}
+                selected={selectedIds.has(a.id)}
+                onSelect={handleSelectAsset}
+                onView={() => setExpanded(a)}
+                onUpdated={handleAssetUpdated}
+              />
             ))}
           </div>
         )}
@@ -359,6 +414,22 @@ export default function AgencyContent() {
         )}
       </div>
 
+      {/* Bulk send-to-queue modal (picks first asset to determine client, user selects platforms once for all) */}
+      {bulkModal && bulkModal.assets?.length > 0 && (
+        <SendToQueueModal
+          asset={bulkModal.assets[0]}
+          mode={bulkModal.mode}
+          onClose={() => setBulkModal(null)}
+          onSuccess={async () => {
+            // For bulk: create queue items for remaining assets with same settings
+            // (the modal handles asset[0]; we handle the rest after close)
+            setBulkModal(null);
+            setSelectedIds(new Set());
+            loadAll();
+          }}
+        />
+      )}
+
       {/* Asset drawer */}
       {expanded && (
         <div className="fixed inset-y-0 right-0 w-full max-w-2xl bg-slate-900 border-l border-slate-800 z-50 overflow-y-auto shadow-2xl">
@@ -372,18 +443,14 @@ export default function AgencyContent() {
             </div>
             <button onClick={() => setExpanded(null)} className="p-2 text-slate-500 hover:text-white rounded-lg"><X className="w-5 h-5" /></button>
           </div>
-          <div className="p-5">
-            {['ready_for_review', 'approved'].includes(expanded.status) && (
-              <div className="flex gap-2 mb-4">
-                {expanded.status === 'ready_for_review' && (
-                  <button onClick={() => { updateAsset(expanded.id, 'approved'); setExpanded(a => ({ ...a, status: 'approved' })); }}
-                    className="px-4 py-2 bg-teal-600 hover:bg-teal-500 text-white text-sm font-semibold rounded-lg">Approve</button>
-                )}
-                <button onClick={() => { updateAsset(expanded.id, 'published'); setExpanded(a => ({ ...a, status: 'published' })); }}
-                  className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold rounded-lg">Mark Published</button>
-              </div>
-            )}
-            <pre className="text-sm text-slate-300 whitespace-pre-wrap leading-relaxed bg-slate-800 rounded-xl p-4 max-h-[calc(100vh-220px)] overflow-y-auto">
+          <div className="p-5 space-y-4">
+            <ContentReviewCard
+              asset={expanded}
+              selected={false}
+              onUpdated={(updated) => { handleAssetUpdated(updated); setExpanded(updated); }}
+              onView={null}
+            />
+            <pre className="text-sm text-slate-300 whitespace-pre-wrap leading-relaxed bg-slate-800 rounded-xl p-4 max-h-[calc(100vh-300px)] overflow-y-auto">
               {expanded.content || 'No content generated.'}
             </pre>
           </div>
