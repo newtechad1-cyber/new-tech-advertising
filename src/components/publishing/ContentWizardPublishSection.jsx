@@ -68,6 +68,7 @@ export default function ContentWizardPublishSection({ wf, connections, onSaved }
   const [mode, setMode] = useState(null); // 'now' | 'once' | 'recurring'
   const [provider, setProvider] = useState('google_business_profile');
   const [connectionId, setConnectionId] = useState('');
+  const [showDiag, setShowDiag] = useState(false);
 
   // Schedule Once
   const [scheduleDate, setScheduleDate] = useState('');
@@ -88,8 +89,31 @@ export default function ContentWizardPublishSection({ wf, connections, onSaved }
   const [acting, setActing] = useState(false);
   const [result, setResult] = useState(null); // { type: 'success'|'error', msg }
 
-  const providerConnections = connections.filter(c => c.provider === provider && c.status === 'connected');
-  const selectedConn = providerConnections.find(c => c.id === connectionId) || providerConnections[0];
+  // Providers requiring a destination to be selected before publishing
+  const DEST_REQUIRED_PROVIDERS = ['google_business_profile'];
+
+  // All connections for this provider regardless of status (for diagnostics)
+  const allProviderConns = connections.filter(c => c.provider === provider);
+
+  // Connected connections for this provider
+  const connectedConns = allProviderConns.filter(c => c.status === 'connected');
+
+  // Valid = connected AND (destination not required OR destination is selected)
+  const providerConnections = connectedConns.filter(c =>
+    !DEST_REQUIRED_PROVIDERS.includes(provider) || !!c.selected_destination_id
+  );
+
+  // Auto-select the one valid connection, or the explicitly chosen one
+  const selectedConn = providerConnections.find(c => c.id === connectionId)
+    || (providerConnections.length === 1 ? providerConnections[0] : null);
+
+  // Diagnostic: why each connected conn is excluded
+  const connDiagnostics = connectedConns.map(c => {
+    const issues = [];
+    if (c.client_id !== wf.client_id) issues.push(`wrong client (got ${c.client_id}, need ${wf.client_id})`);
+    if (DEST_REQUIRED_PROVIDERS.includes(provider) && !c.selected_destination_id) issues.push('no destination selected');
+    return { conn: c, issues };
+  });
 
   const logEvent = async (type, message, extra = {}) => {
     try {
@@ -238,7 +262,7 @@ export default function ContentWizardPublishSection({ wf, connections, onSaved }
       <div className="grid grid-cols-2 gap-3">
         <div>
           <label className="text-xs font-semibold text-slate-400 block mb-1">Platform</label>
-          <select value={provider} onChange={e => { setProvider(e.target.value); setConnectionId(''); }}
+          <select value={provider} onChange={e => { setProvider(e.target.value); setConnectionId(''); setShowDiag(false); }}
             className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none">
             {Object.entries(PROVIDER_LABELS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
           </select>
@@ -246,19 +270,91 @@ export default function ContentWizardPublishSection({ wf, connections, onSaved }
         <div>
           <label className="text-xs font-semibold text-slate-400 block mb-1">Account</label>
           {providerConnections.length === 0 ? (
-            <div className="flex items-center gap-1.5 text-xs text-amber-400 bg-amber-900/20 border border-amber-800 rounded-lg px-3 py-2">
-              <AlertTriangle className="w-3.5 h-3.5 flex-shrink-0" /> No connected account
-            </div>
+            <button
+              onClick={() => setShowDiag(p => !p)}
+              className="w-full flex items-center gap-1.5 text-xs text-amber-400 bg-amber-900/20 border border-amber-800 rounded-lg px-3 py-2 hover:bg-amber-900/30 transition-colors">
+              <AlertTriangle className="w-3.5 h-3.5 flex-shrink-0" />
+              No valid connection — tap to diagnose
+            </button>
           ) : (
             <select value={connectionId || selectedConn?.id || ''} onChange={e => setConnectionId(e.target.value)}
               className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none">
               {providerConnections.map(c => (
-                <option key={c.id} value={c.id}>{c.external_account_name || c.selected_destination_name || c.id}</option>
+                <option key={c.id} value={c.id}>
+                  {c.external_account_name || c.id}{c.selected_destination_name ? ` → ${c.selected_destination_name}` : ''}
+                  {c.is_default ? ' ★' : ''}
+                </option>
               ))}
             </select>
           )}
         </div>
       </div>
+
+      {/* Auto-select notice */}
+      {providerConnections.length === 1 && !connectionId && (
+        <div className="text-xs text-emerald-400 bg-emerald-900/20 border border-emerald-800 rounded-lg px-3 py-2">
+          ✓ Auto-selected: {selectedConn?.external_account_name}{selectedConn?.selected_destination_name ? ` → ${selectedConn.selected_destination_name}` : ''}
+        </div>
+      )}
+
+      {/* Connected-but-no-destination warning */}
+      {connectedConns.length > 0 && providerConnections.length === 0 && DEST_REQUIRED_PROVIDERS.includes(provider) && (
+        <div className="flex items-start gap-2 text-xs text-amber-400 bg-amber-900/20 border border-amber-800 rounded-lg px-3 py-2">
+          <AlertTriangle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
+          <span>
+            {connectedConns.length} connected account{connectedConns.length > 1 ? 's' : ''} found, but{' '}
+            <strong>no destination selected</strong>. Go to Channel Connections → Select Destination for this client's GBP account.
+          </span>
+        </div>
+      )}
+
+      {/* Diagnostic panel */}
+      {showDiag && (
+        <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-4 space-y-3 text-xs">
+          <p className="font-bold text-white">Connection Diagnostics</p>
+          <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-slate-400">
+            <span className="text-slate-500">Searching client_id</span><span className="font-mono text-white">{wf.client_id || '(none)'}</span>
+            <span className="text-slate-500">Provider</span><span className="font-mono text-white">{provider}</span>
+            <span className="text-slate-500">All connections loaded</span><span className="font-mono text-white">{connections.length}</span>
+            <span className="text-slate-500">Provider matches</span><span className="font-mono text-white">{allProviderConns.length}</span>
+            <span className="text-slate-500">Connected</span><span className="font-mono text-white">{connectedConns.length}</span>
+            <span className="text-slate-500">Valid (ready)</span><span className={`font-mono font-bold ${providerConnections.length > 0 ? 'text-emerald-400' : 'text-red-400'}`}>{providerConnections.length}</span>
+          </div>
+          {allProviderConns.length === 0 && (
+            <p className="text-amber-400">⚠ No ChannelConnection records found with provider="{provider}" for any client.</p>
+          )}
+          {connDiagnostics.length > 0 && (
+            <div className="space-y-2">
+              <p className="font-semibold text-slate-400">Connected records:</p>
+              {connDiagnostics.map(({ conn: c, issues }) => (
+                <div key={c.id} className={`rounded-lg border px-3 py-2 space-y-1 ${issues.length === 0 ? 'border-emerald-700 bg-emerald-900/20' : 'border-amber-700 bg-amber-900/10'}`}>
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-white">{c.id.slice(0,12)}…</span>
+                    <span className={issues.length === 0 ? 'text-emerald-400' : 'text-amber-400'}>{issues.length === 0 ? '✓ Ready' : `${issues.length} issue(s)`}</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-x-3 gap-y-0.5 text-slate-400">
+                    <span className="text-slate-600">account</span><span>{c.external_account_name || '—'}</span>
+                    <span className="text-slate-600">client_id</span><span className="font-mono">{c.client_id}</span>
+                    <span className="text-slate-600">status</span><span>{c.status}</span>
+                    <span className="text-slate-600">destination_id</span><span className="font-mono">{c.selected_destination_id || '(none)'}</span>
+                    <span className="text-slate-600">destination_name</span><span>{c.selected_destination_name || '(none)'}</span>
+                  </div>
+                  {issues.map((iss, i) => (
+                    <p key={i} className="text-amber-400">✗ {iss}</p>
+                  ))}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Toggle diagnostics link when connections exist */}
+      {providerConnections.length > 0 && (
+        <button onClick={() => setShowDiag(p => !p)} className="text-xs text-slate-600 hover:text-slate-400 transition-colors">
+          {showDiag ? '▲ Hide diagnostics' : '▼ Show connection diagnostics'}
+        </button>
+      )}
 
       {/* Mode selector */}
       <div className="grid grid-cols-3 gap-2">

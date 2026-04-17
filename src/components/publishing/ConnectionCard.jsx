@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckCircle2, XCircle, AlertTriangle, Clock, RefreshCw, Unlink, Settings, ChevronDown } from 'lucide-react';
+import { CheckCircle2, XCircle, AlertTriangle, Clock, RefreshCw, Unlink, Settings, ChevronDown, Star } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const PROVIDER_CONFIG = {
@@ -22,6 +22,8 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
   const [loadingDests, setLoadingDests] = useState(false);
   const [disconnecting, setDisconnecting] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [showDebug, setShowDebug] = useState(false);
+  const [settingDefault, setSettingDefault] = useState(false);
 
   const cfg = PROVIDER_CONFIG[provider];
   const conn = connection;
@@ -67,6 +69,14 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
     setRefreshing(false);
   };
 
+  const handleSetDefault = async () => {
+    if (!conn) return;
+    setSettingDefault(true);
+    await base44.entities.ChannelConnection.update(conn.id, { is_default: true });
+    onRefresh();
+    setSettingDefault(false);
+  };
+
   return (
     <div className={`bg-slate-900 border ${conn ? cfg.border : 'border-slate-800'} rounded-xl p-4 space-y-3`}>
       {/* Header */}
@@ -80,16 +90,39 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
             )}
           </div>
         </div>
-        <span className={`text-xs font-bold px-2 py-1 rounded-full border ${STATUS_BADGE[status]}`}>
-          {status === 'connected' ? '✓ Connected' : status === 'expired' ? 'Expired' : status === 'error' ? 'Error' : 'Not Connected'}
+        <span className={`text-xs font-bold px-2 py-1 rounded-full border ${
+          status === 'connected' && !conn?.selected_destination_id
+            ? 'bg-amber-900/40 text-amber-400 border-amber-700'
+            : STATUS_BADGE[status]
+        }`}>
+          {status === 'connected' && !conn?.selected_destination_id
+            ? '⚠ Dest. Required'
+            : status === 'connected' ? '✓ Connected'
+            : status === 'expired' ? 'Expired'
+            : status === 'error' ? 'Error'
+            : 'Not Connected'}
         </span>
       </div>
 
+      {/* Destination Required warning */}
+      {conn && status === 'connected' && !conn.selected_destination_id && (
+        <div className="flex items-center gap-1.5 bg-amber-900/20 border border-amber-800 rounded-lg px-3 py-2">
+          <AlertTriangle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
+          <div>
+            <p className="text-xs font-semibold text-amber-400">Destination Required</p>
+            <p className="text-xs text-amber-600">Select a destination below before publishing</p>
+          </div>
+        </div>
+      )}
+
       {/* Destination */}
       {conn?.selected_destination_name && (
-        <div className="bg-slate-800/50 rounded-lg px-3 py-2">
-          <p className="text-xs text-slate-500">Default Destination</p>
-          <p className="text-xs font-semibold text-white">{conn.selected_destination_name}</p>
+        <div className="bg-slate-800/50 rounded-lg px-3 py-2 flex items-center justify-between">
+          <div>
+            <p className="text-xs text-slate-500">Selected Destination</p>
+            <p className="text-xs font-semibold text-white">{conn.selected_destination_name}</p>
+          </div>
+          {conn.is_default && <span className="text-xs text-amber-400 font-bold">★ Default</span>}
         </div>
       )}
 
@@ -170,6 +203,13 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
           </button>
         ) : (
           <>
+            {conn.selected_destination_id && !conn.is_default && (
+              <button onClick={handleSetDefault} disabled={settingDefault}
+                className="flex-1 text-xs font-semibold px-3 py-2 bg-amber-900/30 hover:bg-amber-900/50 border border-amber-800 text-amber-400 rounded-lg transition-colors disabled:opacity-50 flex items-center gap-1.5 justify-center">
+                <Star className="w-3.5 h-3.5" />
+                {settingDefault ? 'Saving…' : 'Set Default'}
+              </button>
+            )}
             <button onClick={() => onConnect(provider)}
               className="flex-1 text-xs font-semibold px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 rounded-lg transition-colors">
               Reconnect
@@ -187,6 +227,37 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
           </>
         )}
       </div>
+
+      {/* Debug toggle */}
+      {conn && (
+        <button onClick={() => setShowDebug(p => !p)}
+          className="text-xs text-slate-700 hover:text-slate-500 transition-colors w-full text-left pt-1">
+          {showDebug ? '▲ Hide debug' : '▼ Debug info'}
+        </button>
+      )}
+
+      {/* Debug panel */}
+      {showDebug && conn && (
+        <div className="bg-slate-950 border border-slate-700 rounded-lg p-3 space-y-1 text-xs font-mono">
+          <DebugRow label="id" value={conn.id} />
+          <DebugRow label="client_id" value={conn.client_id} />
+          <DebugRow label="provider" value={conn.provider} highlight />
+          <DebugRow label="status" value={conn.status} highlight />
+          <DebugRow label="destination_id" value={conn.selected_destination_id || '(none)'} />
+          <DebugRow label="destination_name" value={conn.selected_destination_name || '(none)'} />
+          <DebugRow label="is_default" value={String(!!conn.is_default)} />
+          <DebugRow label="expires_at" value={conn.expires_at || '—'} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function DebugRow({ label, value, highlight }) {
+  return (
+    <div className="flex gap-2">
+      <span className="text-slate-600 w-32 flex-shrink-0">{label}</span>
+      <span className={highlight ? 'text-amber-300' : 'text-slate-300'}>{value}</span>
     </div>
   );
 }
