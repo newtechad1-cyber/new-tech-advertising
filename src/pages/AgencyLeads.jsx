@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Plus, Search, Phone, Mail, Calendar, ChevronDown } from 'lucide-react';
+import { Plus, Search, Phone, Mail, Calendar, ChevronDown, Trash2 } from 'lucide-react';
 import AgencyLayout from '../components/agency/AgencyLayout';
 import AddLeadModal from '../components/agency/AddLeadModal';
 import LeadDetailModal from '../components/agency/LeadDetailModal';
@@ -76,6 +76,13 @@ export default function AgencyLeads() {
 
   const onLeadUpdated = (updatedLead) => {
     setLeads(prev => prev.map(l => l.id === updatedLead?.id ? updatedLead : l));
+  };
+
+  const deleteLead = async (e, leadId) => {
+    e.stopPropagation();
+    if (!confirm('Delete this lead? This cannot be undone.')) return;
+    await base44.entities.SalesLead.delete(leadId);
+    setLeads(prev => prev.filter(l => l.id !== leadId));
   };
 
   const counts = {
@@ -194,16 +201,25 @@ export default function AgencyLeads() {
                       )}
                     </div>
 
-                    <div className="col-span-2">
-                      {lead.next_follow_up ? (
-                        <span className={`flex items-center gap-1 text-xs font-medium ${isOverdue(lead.next_follow_up) ? 'text-red-400' : 'text-slate-400'}`}>
-                          <Calendar className="w-3 h-3" />{fmtDate(lead.next_follow_up)}{isOverdue(lead.next_follow_up) ? ' ⚠️' : ''}
-                        </span>
-                      ) : lead.last_contacted ? (
-                        <span className="text-xs text-slate-600">Last: {fmtDate(lead.last_contacted)}</span>
-                      ) : (
-                        <span className="text-xs text-slate-700">—</span>
-                      )}
+                    <div className="col-span-2 flex items-center justify-between gap-2">
+                      <div>
+                        {lead.next_follow_up ? (
+                          <span className={`flex items-center gap-1 text-xs font-medium ${isOverdue(lead.next_follow_up) ? 'text-red-400' : 'text-slate-400'}`}>
+                            <Calendar className="w-3 h-3" />{fmtDate(lead.next_follow_up)}{isOverdue(lead.next_follow_up) ? ' ⚠️' : ''}
+                          </span>
+                        ) : lead.last_contacted ? (
+                          <span className="text-xs text-slate-600">Last: {fmtDate(lead.last_contacted)}</span>
+                        ) : (
+                          <span className="text-xs text-slate-700">—</span>
+                        )}
+                      </div>
+                      <button
+                        onClick={(e) => deleteLead(e, lead.id)}
+                        className="opacity-0 group-hover:opacity-100 p-1.5 text-slate-600 hover:text-red-400 hover:bg-red-900/20 rounded-lg transition-all"
+                        title="Delete lead"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
                     </div>
                   </div>
                 );
