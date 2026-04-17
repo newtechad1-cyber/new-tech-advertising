@@ -14,6 +14,7 @@ const STATUS_STYLES = {
   idea: 'bg-slate-700 text-slate-300',
   queued: 'bg-blue-900 text-blue-300',
   processing: 'bg-amber-900 text-amber-300',
+  needs_review: 'bg-amber-900 text-amber-300',
   ready_for_review: 'bg-violet-900 text-violet-300',
   approved: 'bg-teal-900 text-teal-300',
   published: 'bg-emerald-900 text-emerald-300',
@@ -347,6 +348,40 @@ export default function AgencyContent() {
         {/* REVIEW */}
         {tab === 'review' && (
           <div className="space-y-3">
+            {/* Debug panel */}
+            <details className="bg-slate-900 border border-slate-700 rounded-xl">
+              <summary className="px-4 py-3 text-xs text-slate-500 cursor-pointer hover:text-slate-300 font-semibold select-none">
+                🔍 Debug: ContentAssets ({assets.length} total)
+              </summary>
+              <div className="px-4 pb-4 space-y-3">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
+                  {[
+                    { label: 'needs_review', value: assets.filter(a => a.status === 'needs_review').length, color: 'text-amber-400' },
+                    { label: 'draft', value: assets.filter(a => a.status === 'draft').length, color: 'text-slate-400' },
+                    { label: 'approved', value: assets.filter(a => a.status === 'approved').length, color: 'text-emerald-400' },
+                    { label: 'published', value: assets.filter(a => a.status === 'published').length, color: 'text-blue-400' },
+                  ].map(s => (
+                    <div key={s.label} className="bg-slate-800 rounded-lg p-2 text-center">
+                      <p className={`text-lg font-black ${s.color}`}>{s.value}</p>
+                      <p className="text-slate-500 text-xs">{s.label}</p>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-xs text-slate-500 font-semibold mt-1">Most recent 10 assets:</p>
+                <div className="space-y-1 max-h-48 overflow-y-auto">
+                  {[...assets].slice(0, 10).map(a => (
+                    <div key={a.id} className="flex items-center gap-2 text-xs text-slate-400 bg-slate-800 rounded px-2 py-1">
+                      <span className="font-mono text-slate-600">{a.id?.slice(0, 8)}…</span>
+                      <span className={`font-semibold ${a.status === 'needs_review' ? 'text-amber-400' : a.status === 'approved' ? 'text-emerald-400' : 'text-slate-400'}`}>{a.status}</span>
+                      <span className="flex-1 truncate">{a.title || a.asset_type}</span>
+                      <span className="text-slate-600">{fmt(a.created_date)}</span>
+                    </div>
+                  ))}
+                  {assets.length === 0 && <p className="text-xs text-slate-600 italic">No ContentAssets records found.</p>}
+                </div>
+              </div>
+            </details>
+
             {/* Bulk action bar */}
             {reviewAssets.length > 0 && (
               <div className="flex items-center gap-2 flex-wrap bg-slate-900 border border-slate-800 rounded-xl px-4 py-3">

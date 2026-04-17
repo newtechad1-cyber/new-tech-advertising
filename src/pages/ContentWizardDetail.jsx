@@ -322,6 +322,68 @@ Return JSON with:
 
   const toggleChannel = (ch) => setSelectedChannels(prev => prev.includes(ch) ? prev.filter(c => c !== ch) : [...prev, ch]);
 
+  // --- SAVE TO REVIEW ---
+  const [savedAssetId, setSavedAssetId] = useState(null);
+  const [savingToReview, setSavingToReview] = useState(false);
+
+  const saveToReview = async () => {
+    setSavingToReview(true);
+    try {
+      // Determine what content to use: caption > script > title
+      const bodyText = captionPrimary || scriptLong || wf.title;
+      const assetType = heygenVideoUrl ? 'video_script' : captionPrimary ? 'social_series' : 'video_script';
+
+      const asset = await base44.entities.ContentAssets.create({
+        topic_id: wf.content_topic_id || wf.id,
+        topic_title: wf.title,
+        client_id: wf.client_id,
+        client: wf.client,
+        asset_type: assetType,
+        title: wf.title,
+        content: bodyText,
+        caption: captionPrimary || captionShort || '',
+        hashtags: hashtags || '',
+        media_url: imageUrl || '',
+        video_url: heygenVideoUrl || '',
+        status: 'needs_review',
+        review_notes: `Saved from Content Wizard (stage: ${wf.current_stage})`,
+      });
+
+      setSavedAssetId(asset.id);
+
+      logSystemEvent({
+        event_type: 'content_asset_created',
+        source_system: 'agency',
+        source_route: '/agency/content-wizard',
+        source_component: 'ContentWizardDetail',
+        entity_type: 'ContentAssets',
+        entity_id: asset.id,
+        workflow_type: 'content',
+        workflow_stage: 'saved_to_review',
+        status: 'success',
+        message: `Content asset saved to Review from wizard: "${wf.title}" (${asset.id})`,
+        payload_snapshot: { asset_id: asset.id, workflow_id: wf.id, client_id: wf.client_id, status: 'needs_review' },
+      });
+
+      showNotice('success', `Saved to Review! Asset ID: ${asset.id.slice(0, 8)}…`);
+    } catch (err) {
+      logSystemEvent({
+        event_type: 'content_asset_creation_failed',
+        source_system: 'agency',
+        source_route: '/agency/content-wizard',
+        source_component: 'ContentWizardDetail',
+        workflow_type: 'content',
+        workflow_stage: 'save_to_review_failed',
+        status: 'failed',
+        message: `Failed to save asset to Review: ${err.message}`,
+        error_details: err.message,
+      });
+      showNotice('error', 'Failed to save to Review: ' + err.message);
+    } finally {
+      setSavingToReview(false);
+    }
+  };
+
   if (loading) return (
     <AgencyLayout>
       <div className="flex items-center justify-center py-32 text-slate-500">
@@ -452,7 +514,26 @@ Return JSON with:
               </ActionBtn>
             )}
             <ActionBtn onClick={saveScript} disabled={saving} variant="ghost">Save Draft</ActionBtn>
+            {scriptLong && (
+              <ActionBtn onClick={saveToReview} disabled={savingToReview} variant="ghost">
+                {savingToReview ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                Save to Review
+              </ActionBtn>
+            )}
           </div>
+
+          {savedAssetId && (
+            <div className="flex items-center gap-3 bg-emerald-900/30 border border-emerald-700 rounded-lg px-4 py-3">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+              <div className="flex-1">
+                <p className="text-sm text-emerald-300 font-semibold">Saved to Review!</p>
+                <p className="text-xs text-emerald-500 font-mono mt-0.5">Asset ID: {savedAssetId}</p>
+              </div>
+              <Link to="/agency/content?tab=review" className="text-xs font-semibold px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg whitespace-nowrap">
+                Open in Review →
+              </Link>
+            </div>
+          )}
         </SectionCard>
 
         {/* SECTION 3: Visuals */}
@@ -587,7 +668,25 @@ Return JSON with:
                 <CheckCircle2 className="w-4 h-4" /> Approve Post Assets
               </ActionBtn>
             )}
+            <ActionBtn onClick={saveToReview} disabled={savingToReview || (!captionPrimary && !scriptLong)} variant="ghost">
+              {savingToReview ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+              Save to Review Queue
+            </ActionBtn>
           </div>
+
+          {/* Saved-to-review confirmation */}
+          {savedAssetId && (
+            <div className="flex items-center gap-3 bg-emerald-900/30 border border-emerald-700 rounded-lg px-4 py-3">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+              <div className="flex-1">
+                <p className="text-sm text-emerald-300 font-semibold">Saved to Review!</p>
+                <p className="text-xs text-emerald-500 font-mono mt-0.5">Asset ID: {savedAssetId}</p>
+              </div>
+              <Link to="/agency/content?tab=review" className="text-xs font-semibold px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg whitespace-nowrap">
+                Open in Review →
+              </Link>
+            </div>
+          )}
         </SectionCard>
 
         {/* SECTION 6: Publishing */}
