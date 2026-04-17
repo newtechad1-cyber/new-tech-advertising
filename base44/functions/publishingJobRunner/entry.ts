@@ -11,6 +11,35 @@ async function postLog(base44, data) {
   }
 }
 
+// Returns a human-readable reason why a queue item is NOT eligible, or null if it is eligible.
+function getSkipReason(item, now) {
+  if (!item.provider) return 'missing_provider: no provider set on queue item';
+  if (!item.connection_id) return 'missing_connection_id: no connection_id linked to queue item';
+  if (!item.scheduled_for) return 'missing_schedule: scheduled_for is empty';
+  if (item.approval_status !== 'approved') {
+    return `not_approved: approval_status="${item.approval_status}" (need: approved)`;
+  }
+  const ELIGIBLE_STATUSES = ['queued', 'scheduled', 'not_started'];
+  if (!ELIGIBLE_STATUSES.includes(item.publish_status)) {
+    return `bad_publish_status: publish_status="${item.publish_status}" (need: queued/scheduled/not_started)`;
+  }
+  if (new Date(item.scheduled_for) > now) {
+    return `not_yet_due: scheduled_for=${item.scheduled_for} is in the future`;
+  }
+  return null; // eligible
+}
+
+// Check if item is "ready to publish" (all required fields present + approved + queueable)
+function isReadyToPublish(item) {
+  return !!(
+    item.provider &&
+    item.connection_id &&
+    item.scheduled_for &&
+    item.approval_status === 'approved' &&
+    ['queued', 'scheduled', 'not_started'].includes(item.publish_status)
+  );
+}
+
 Deno.serve(async (req) => {
   const base44 = createClientFromRequest(req);
 
@@ -38,56 +67,85 @@ Deno.serve(async (req) => {
 
   // Fetch all non-terminal items
   const allItems = await base44.asServiceRole.entities.PublishingQueue.list('-scheduled_for', 500);
+  const nonTerminal = allItems.filter(item =>
+    !['posted', 'cancelled', 'publishing'].includes(item.publish_status)
+  );
 
-  // Filter: approved + actionable publish status + scheduled_for <= now
-  const ELIGIBLE_STATUSES = ['queued', 'scheduled', 'not_started'];
-  const ELIGIBLE_APPROVALS = ['approved'];
+  // Classify each item
+  const dueItems = [];
+  const skippedItems = [];
 
-  const dueItems = allItems.filter(item => {
-    if (!ELIGIBLE_APPROVALS.includes(item.approval_status)) return false;
-    if (!ELIGIBLE_STATUSES.includes(item.publish_status)) return false;
-    if (!item.scheduled_for) return false;
-    return new Date(item.scheduled_for) <= now;
-  });
+  for (const item of nonTerminal) {
+    const reason = getSkipReason(item, now);
+    if (reason === null) {
+      dueItems.push(item);
+    } else if (item.scheduled_for) {
+      // Only report as skipped if it has a schedule (otherwise it's just a draft sitting in queue)
+      skippedItems.push({ item, reason });
+    }
+  }
 
-  const skippedItems = allItems.filter(item => {
-    // Only log skips for items that seem like they should be running
-    if (item.publish_status === 'posted' || item.publish_status === 'cancelled' || item.publish_status === 'publishing') return false;
-    if (!item.scheduled_for) return false;
-    if (new Date(item.scheduled_for) > now) return false;
-    // Skipped = has scheduled_for <= now but not in due list
-    return !dueItems.find(d => d.id === item.id);
-  });
-
-  console.log(`[publishingJobRunner] total=${allItems.length} due=${dueItems.length} skipped=${skippedItems.length}`);
+  console.log(`[publishingJobRunner] total=${allItems.length} nonTerminal=${nonTerminal.length} due=${dueItems.length} skipped=${skippedItems.length}`);
 
   await postLog(base44, {
-    event_type: 'publish_attempt',
+    event_type: 'runner_due_items_found',
     status: 'info',
-    message: `Found ${dueItems.length} due items, ${skippedItems.length} skipped items`,
-    payload: JSON.stringify({ total: allItems.length, due: dueItems.length, skipped: skippedItems.length }),
+    message: `Found ${dueItems.length} due items ready to publish`,
+    payload: JSON.stringify({
+      total: allItems.length,
+      non_terminal: nonTerminal.length,
+      due: dueItems.length,
+      skipped: skippedItems.length,
+    }),
   });
 
-  // Log why items were skipped
-  for (const item of skippedItems) {
-    let reason = 'unknown';
-    if (!ELIGIBLE_APPROVALS.includes(item.approval_status)) {
-      reason = `approval_status is "${item.approval_status}" (need: approved)`;
-    } else if (!ELIGIBLE_STATUSES.includes(item.publish_status)) {
-      reason = `publish_status is "${item.publish_status}" (need: queued/scheduled/not_started)`;
-    }
+  if (skippedItems.length > 0) {
+    await postLog(base44, {
+      event_type: 'runner_skipped_items_found',
+      status: 'warning',
+      message: `${skippedItems.length} items skipped — see payload for details`,
+      payload: JSON.stringify(
+        skippedItems.map(({ item, reason }) => ({
+          id: item.id,
+          title: item.title || item.body_text?.slice(0, 50),
+          provider: item.provider,
+          client_id: item.client_id,
+          connection_id: item.connection_id,
+          scheduled_for: item.scheduled_for,
+          approval_status: item.approval_status,
+          publish_status: item.publish_status,
+          reason,
+        }))
+      ),
+    });
+  }
+
+  // Log + annotate each skipped item
+  for (const { item, reason } of skippedItems) {
+    // Determine specific event type
+    let eventType = 'queue_item_skipped';
+    if (reason.startsWith('missing_provider')) eventType = 'queue_item_missing_provider';
+    else if (reason.startsWith('missing_connection_id')) eventType = 'queue_item_missing_connection';
+    else if (reason.startsWith('missing_schedule')) eventType = 'queue_item_missing_schedule';
+    else if (reason.startsWith('not_approved')) eventType = 'queue_item_not_approved';
 
     await postLog(base44, {
       queue_id: item.id,
       client_id: item.client_id,
-      provider: item.provider,
-      event_type: 'queue_item_skipped',
+      provider: item.provider || '',
+      event_type: eventType,
       status: 'warning',
       message: `Skipped "${item.title || item.id}": ${reason}`,
-      payload: JSON.stringify({ approval_status: item.approval_status, publish_status: item.publish_status, scheduled_for: item.scheduled_for }),
+      payload: JSON.stringify({
+        approval_status: item.approval_status,
+        publish_status: item.publish_status,
+        scheduled_for: item.scheduled_for,
+        connection_id: item.connection_id,
+        provider: item.provider,
+      }),
     });
 
-    // Write skip reason back to the queue item for diagnostics
+    // Write skip reason + ready_to_publish=false back to the queue item
     await base44.asServiceRole.entities.PublishingQueue.update(item.id, {
       notes: `[Runner skip ${now.toISOString()}]: ${reason}`,
     });
@@ -110,7 +168,6 @@ Deno.serve(async (req) => {
     });
 
     try {
-      // Call publishQueueItem via SDK (internal bypass)
       const res = await base44.asServiceRole.functions.invoke('publishQueueItem', {
         queue_id: item.id,
         bypass_auth: true,
@@ -138,7 +195,14 @@ Deno.serve(async (req) => {
     }
   }
 
-  const summary = { processed, published, failed, skipped: skippedItems.length, run_at: now.toISOString() };
+  const summary = {
+    processed,
+    published,
+    failed,
+    skipped: skippedItems.length,
+    due_items: dueItems.length,
+    run_at: now.toISOString(),
+  };
   console.log(`[publishingJobRunner] done`, summary);
 
   await postLog(base44, {
