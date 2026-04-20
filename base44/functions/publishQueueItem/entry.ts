@@ -203,13 +203,15 @@ Deno.serve(async (req) => {
       }
     }
 
-    // Destination
-    const destinationId = item.connection_id && conn.selected_destination_id
-      ? conn.selected_destination_id
-      : conn.selected_destination_id;
+    // Destination validation — required before attempting publish
+    const destinationId = conn.selected_destination_id || null;
+    const PROVIDERS_REQUIRING_DESTINATION = ['google_business_profile', 'youtube'];
 
-    if (!destinationId && (item.provider === 'google_business_profile' || item.provider === 'youtube')) {
-      throw new Error('No destination selected on connection (location/channel required)');
+    if (PROVIDERS_REQUIRING_DESTINATION.includes(item.provider) && !destinationId) {
+      throw new Error(
+        `Cannot publish: no destination selected on connection "${conn.id}" for ${item.provider}. ` +
+        `Go to Channel Connections and select a ${item.provider === 'youtube' ? 'YouTube channel' : 'GBP location'}.`
+      );
     }
 
     let providerResponse = null;

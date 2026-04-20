@@ -18,6 +18,7 @@ const PUBLISH_FILTERS  = ['all', 'not_started', 'queued', 'scheduled', 'publishi
 export default function PublishingQueuePage() {
   const [items, setItems] = useState([]);
   const [clients, setClients] = useState([]);
+  const [connections, setConnections] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAddModal, setShowAddModal] = useState(false);
   const [detailItem, setDetailItem] = useState(null);
@@ -29,12 +30,14 @@ export default function PublishingQueuePage() {
 
   const loadAll = async () => {
     setLoading(true);
-    const [q, c] = await Promise.all([
+    const [q, c, cx] = await Promise.all([
       base44.entities.PublishingQueue.list('-created_date', 200),
       base44.entities.Clients.filter({ archived: false }),
+      base44.entities.ChannelConnection.list('-updated_date', 200),
     ]);
     setItems(q);
     setClients(c);
+    setConnections(cx);
     setLoading(false);
   };
 
@@ -120,7 +123,7 @@ export default function PublishingQueuePage() {
         ) : (
           <div className="space-y-2">
             {filtered.map(item => (
-              <QueueItemRow key={item.id} item={item} onRefresh={loadAll} onDetail={setDetailItem} />
+              <QueueItemRow key={item.id} item={item} onRefresh={loadAll} onDetail={setDetailItem} connections={connections} />
             ))}
           </div>
         )}

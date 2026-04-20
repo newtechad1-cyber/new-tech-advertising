@@ -11,6 +11,10 @@ async function postLog(base44, data) {
   }
 }
 
+// Canonical runnable statuses — single source of truth
+const ELIGIBLE_STATUSES = ['queued', 'scheduled', 'not_started'];
+const NON_RUNNABLE_STATUSES = ['publishing', 'posted', 'failed', 'cancelled'];
+
 // Returns a human-readable reason why a queue item is NOT eligible, or null if it is eligible.
 function getSkipReason(item, now) {
   if (!item.provider) return 'missing_provider: no provider set on queue item';
@@ -19,7 +23,12 @@ function getSkipReason(item, now) {
   if (item.approval_status !== 'approved') {
     return `not_approved: approval_status="${item.approval_status}" (need: approved)`;
   }
-  const ELIGIBLE_STATUSES = ['queued', 'scheduled', 'not_started'];
+  if (item.publish_status === 'failed') {
+    return `failed_status: publish_status="failed" — manual reset required before retrying`;
+  }
+  if (item.publish_status === 'publishing') {
+    return `stuck_publishing: publish_status="publishing" — item may be stuck, use Reset to Queue`;
+  }
   if (!ELIGIBLE_STATUSES.includes(item.publish_status)) {
     return `bad_publish_status: publish_status="${item.publish_status}" (need: queued/scheduled/not_started)`;
   }
@@ -66,10 +75,36 @@ Deno.serve(async (req) => {
   });
 
   // Fetch all non-terminal items
+  // NOTE: 'publishing' is intentionally NOT excluded — we need to detect stuck items
   const allItems = await base44.asServiceRole.entities.PublishingQueue.list('-scheduled_for', 500);
   const nonTerminal = allItems.filter(item =>
-    !['posted', 'cancelled', 'publishing'].includes(item.publish_status)
+    !['posted', 'cancelled'].includes(item.publish_status)
   );
+
+  // Detect stuck publishing items: status=publishing with no recent activity (>10 min old)
+  const stuckThreshold = new Date(now.getTime() - 10 * 60 * 1000); // 10 minutes ago
+  const stuckItems = allItems.filter(item => {
+    if (item.publish_status !== 'publishing') return false;
+    const updatedAt = item.updated_date ? new Date(item.updated_date) : new Date(0);
+    return updatedAt < stuckThreshold;
+  });
+
+  // Reset stuck publishing items to failed
+  for (const stuck of stuckItems) {
+    console.warn(`[publishingJobRunner] STUCK item detected: ${stuck.id} — resetting to failed`);
+    await base44.asServiceRole.entities.PublishingQueue.update(stuck.id, {
+      publish_status: 'failed',
+      error_message: `Auto-reset: item was stuck in "publishing" state for >10 min (no worker completed)`,
+    });
+    await postLog(base44, {
+      queue_id: stuck.id,
+      client_id: stuck.client_id,
+      provider: stuck.provider || '',
+      event_type: 'queue_item_stuck_reset',
+      status: 'warning',
+      message: `Stuck publishing item auto-reset to failed: "${stuck.title || stuck.id}"`,
+    });
+  }
 
   // Classify each item
   const dueItems = [];

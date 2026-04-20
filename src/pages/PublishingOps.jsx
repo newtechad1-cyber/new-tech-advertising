@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import AgencyLayout from '../components/agency/AgencyLayout';
-import { RefreshCw, Play, AlertTriangle, CheckCircle2, XCircle, Clock, Info } from 'lucide-react';
+import { RefreshCw, Play, AlertTriangle, CheckCircle2, XCircle, Clock, Info, RotateCcw } from 'lucide-react';
 
 const EVENT_COLORS = {
   publish_success:               'text-emerald-400',
@@ -130,9 +130,18 @@ export default function PublishingOps() {
   const reconnectNeeded = connections.filter(c => c.status === 'error' || c.status === 'expired');
 
   const now = new Date();
+  // publishing is NOT excluded — we need to detect stuck items
   const nonTerminal = allQueueItems.filter(item =>
-    !['posted', 'cancelled', 'publishing'].includes(item.publish_status)
+    !['posted', 'cancelled'].includes(item.publish_status)
   );
+
+  // Stuck publishing: status=publishing, updated > 10 min ago
+  const stuckThreshold = new Date(now.getTime() - 10 * 60 * 1000);
+  const stuckItems = allQueueItems.filter(item => {
+    if (item.publish_status !== 'publishing') return false;
+    const updatedAt = item.updated_date ? new Date(item.updated_date) : new Date(0);
+    return updatedAt < stuckThreshold;
+  });
 
   // Items that are due (past scheduled_for) but NOT eligible for the runner
   const skippedItems = nonTerminal
@@ -171,6 +180,7 @@ export default function PublishingOps() {
     { key: 'skipped',     label: 'Skipped Items',     count: skippedItems.length, alert: skippedItems.length > 0 },
     { key: 'upcoming',    label: 'Upcoming',          count: upcomingItems.length },
     { key: 'failed',      label: 'Failed',            count: failedItems.length, alert: failedItems.length > 0 },
+    { key: 'stuck',       label: 'Stuck Publishing',  count: stuckItems.length, alert: stuckItems.length > 0 },
     { key: 'reconnect',   label: 'Reconnect Needed',  count: reconnectNeeded.length, alert: reconnectNeeded.length > 0 },
     { key: 'connections', label: 'All Connections',   count: connections.length },
   ];
@@ -214,8 +224,8 @@ export default function PublishingOps() {
           {[
             { label: 'Due Now',          value: dueItems.length,       color: dueItems.length > 0 ? 'text-blue-400' : 'text-slate-500' },
             { label: 'Skipped',          value: skippedItems.length,   color: skippedItems.length > 0 ? 'text-amber-400' : 'text-slate-500' },
-            { label: 'Failed Posts',     value: failedItems.length,    color: failedItems.length > 0 ? 'text-red-400' : 'text-slate-500' },
-            { label: 'Reconnect Needed', value: reconnectNeeded.length,color: reconnectNeeded.length > 0 ? 'text-amber-400' : 'text-slate-500' },
+            { label: 'Failed',           value: failedItems.length,    color: failedItems.length > 0 ? 'text-red-400' : 'text-slate-500' },
+            { label: 'Stuck Publishing', value: stuckItems.length,     color: stuckItems.length > 0 ? 'text-amber-400' : 'text-slate-500' },
             { label: 'Active Channels',  value: connections.filter(c => c.status === 'connected').length, color: 'text-emerald-400' },
           ].map(s => (
             <div key={s.label} className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-center">
@@ -395,19 +405,84 @@ export default function PublishingOps() {
         {/* FAILED TAB */}
         {activeTab === 'failed' && (
           <div className="space-y-2">
-            {failedItems.length === 0 ? <EmptyState text="No failed posts. All clear!" /> : failedItems.map(item => (
-              <div key={item.id} className="bg-slate-900 border border-red-900 rounded-xl p-4 flex items-start justify-between gap-4">
+            {failedItems.length === 0 ? <EmptyState text="No failed posts. All clear!" /> : failedItems.map(item => {
+              const conn = item.connection_id ? connections.find(c => c.id === item.connection_id) : null;
+              const needsDest = ['google_business_profile', 'youtube'].includes(item.provider);
+              const missingDest = needsDest && item.connection_id && !conn?.selected_destination_id;
+              const isNoDestErr = item.error_message?.includes('no destination') || item.error_message?.includes('No destination');
+              return (
+                <div key={item.id} className="bg-slate-900 border border-red-900 rounded-xl p-4 space-y-2">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1">
+                      <p className="font-semibold text-white text-sm">{item.title || item.body_text?.slice(0, 60)}</p>
+                      <p className="text-xs text-slate-500 mt-0.5">{item.provider?.replace(/_/g,' ')} · {item.client_name} · Retries: {item.retry_count}/{item.max_retries || 3}</p>
+                      {item.error_message && <p className="text-xs text-red-400 mt-1">{item.error_message}</p>}
+                    </div>
+                    <div className="flex gap-1.5 flex-shrink-0 flex-wrap justify-end">
+                      {/* Reset to queue */}
+                      {!missingDest && (
+                        <button onClick={async () => {
+                          await base44.entities.PublishingQueue.update(item.id, { publish_status: 'queued', error_message: null });
+                          loadAll();
+                        }} className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg">
+                          <RotateCcw className="w-3.5 h-3.5" /> Reset to Queue
+                        </button>
+                      )}
+                      {/* Retry now */}
+                      {!missingDest && (
+                        <button onClick={() => manualRetry(item.id)}
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1.5 bg-amber-700 hover:bg-amber-600 text-white rounded-lg">
+                          <Play className="w-3.5 h-3.5" /> Retry Now
+                        </button>
+                      )}
+                      {/* Missing destination */}
+                      {missingDest && (
+                        <a href="/agency/channel-connections"
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded-lg">
+                          Select Destination →
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                  {missingDest && (
+                    <div className="bg-red-950/40 border border-red-800/60 rounded-lg px-3 py-2 text-xs text-red-400">
+                      Cannot retry: no destination selected on connection. Select a {item.provider === 'youtube' ? 'YouTube channel' : 'GBP location'} in Channel Connections first.
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* STUCK PUBLISHING TAB */}
+        {activeTab === 'stuck' && (
+          <div className="space-y-3">
+            <div className="bg-amber-900/20 border border-amber-800 rounded-lg px-4 py-3 text-xs text-amber-400">
+              <p className="font-semibold mb-1">Stuck Publishing Detection</p>
+              <p>Items stuck in "publishing" status for &gt;10 minutes with no worker completion. The job runner auto-resets these on each run. You can also manually reset or mark failed below.</p>
+            </div>
+            {stuckItems.length === 0 ? <EmptyState text="No stuck publishing items detected." /> : stuckItems.map(item => (
+              <div key={item.id} className="bg-slate-900 border border-amber-800 rounded-xl p-4 flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <p className="font-semibold text-white text-sm">{item.title || item.body_text?.slice(0, 60)}</p>
-                  <p className="text-xs text-slate-500 mt-0.5">{item.provider} · {item.client_name} · Retries: {item.retry_count}/{item.max_retries || 3}</p>
-                  {item.error_message && <p className="text-xs text-red-400 mt-1">{item.error_message}</p>}
+                  <p className="text-xs text-slate-500 mt-0.5">{item.provider?.replace(/_/g,' ')} · {item.client_name}</p>
+                  <p className="text-xs text-amber-500 mt-1">Stuck in "publishing" since ~{item.updated_date ? new Date(item.updated_date).toLocaleString() : 'unknown'}</p>
                 </div>
-                {item.retry_count < (item.max_retries || 3) && (
-                  <button onClick={() => manualRetry(item.id)}
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 bg-amber-700 hover:bg-amber-600 text-white rounded-lg">
-                    <Play className="w-3.5 h-3.5" /> Retry
+                <div className="flex gap-1.5 flex-shrink-0">
+                  <button onClick={async () => {
+                    await base44.entities.PublishingQueue.update(item.id, { publish_status: 'queued', error_message: null });
+                    loadAll();
+                  }} className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg">
+                    <RotateCcw className="w-3.5 h-3.5" /> Reset to Queue
                   </button>
-                )}
+                  <button onClick={async () => {
+                    await base44.entities.PublishingQueue.update(item.id, { publish_status: 'failed', error_message: 'Manually marked failed: stuck in publishing state' });
+                    loadAll();
+                  }} className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1.5 bg-red-800 hover:bg-red-700 text-white rounded-lg">
+                    <XCircle className="w-3.5 h-3.5" /> Mark Failed
+                  </button>
+                </div>
               </div>
             ))}
           </div>
