@@ -20,6 +20,26 @@ export default function ChannelConnections() {
     const oauthSuccess = params.get('oauth_success');
     const oauthError = params.get('oauth_error');
     const account = params.get('account');
+    const missingScopes = params.get('missing_scopes');
+    const pagesCount = params.get('pages_count');
+    const autoSelected = params.get('auto_selected');
+
+    if (oauthSuccess === 'facebook') {
+      window.history.replaceState({}, '', window.location.pathname);
+      if (autoSelected) {
+        showNotice('success', `Facebook connected — Page "${autoSelected}" auto-selected and ready to publish!`);
+      } else if (pagesCount === '0') {
+        showNotice('error', `Facebook connected but no Pages found for "${account}". Make sure you manage a Facebook Page.`);
+      } else {
+        showNotice('success', `Facebook connected as ${account} — ${pagesCount || 'multiple'} Page${pagesCount !== '1' ? 's' : ''} found. Select a Page to start publishing.`);
+      }
+      if (missingScopes) {
+        showNotice('error', `Warning: missing permissions: ${missingScopes}. Reconnect Facebook to grant all required permissions.`);
+      }
+      loadAll();
+      return;
+    }
+
     if (oauthSuccess) {
       showNotice('success', `Connected ${oauthSuccess}${account ? ` — ${account}` : ''}! Loading destinations…`);
       window.history.replaceState({}, '', window.location.pathname);
@@ -81,12 +101,20 @@ export default function ChannelConnections() {
 
   const handleConnect = async (provider, clientId, clientName) => {
     try {
-      const res = await base44.functions.invoke('channelOAuthStart', {
-        provider, client_id: clientId, client_name: clientName,
-      });
+      let res;
+      if (provider === 'facebook') {
+        // Facebook uses its own dedicated OAuth start function
+        res = await base44.functions.invoke('facebookOAuthStart', {
+          client_id: clientId,
+          client_name: clientName,
+          enable_video: true,
+        });
+      } else {
+        res = await base44.functions.invoke('channelOAuthStart', {
+          provider, client_id: clientId, client_name: clientName,
+        });
+      }
       if (res?.data?.auth_url) {
-        // Google/Meta will redirect back to the backend callback URL, which then
-        // redirects back here with ?oauth_success or ?oauth_error
         window.location.href = res.data.auth_url;
       }
     } catch (err) {

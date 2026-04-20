@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { AlertTriangle, RefreshCw, Unlink, Settings, ChevronDown, Star, MapPin, Circle, Clock } from 'lucide-react';
+import { AlertTriangle, RefreshCw, Unlink, Settings, ChevronDown, Star, MapPin, Circle, Clock, Users } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
+import FacebookPageSelectModal from './FacebookPageSelectModal';
 
 const PROVIDER_CONFIG = {
   google_business_profile: { label: 'Google Business Profile', icon: '📍', color: 'text-blue-400', border: 'border-blue-800' },
@@ -16,7 +17,7 @@ const STATUS_BADGE = {
   disconnected: 'bg-slate-800 text-slate-500 border-slate-700',
 };
 
-const REQUIRES_DESTINATION = ['google_business_profile', 'youtube'];
+const REQUIRES_DESTINATION = ['google_business_profile', 'youtube', 'facebook'];
 
 export default function ConnectionCard({ provider, connection, clientId, clientName, onConnect, onRefresh }) {
   const [showDests, setShowDests] = useState(false);
@@ -26,11 +27,13 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
   const [settingDefault, setSettingDefault] = useState(false);
   const [showDebug, setShowDebug] = useState(false);
   const [selectingDest, setSelectingDest] = useState(null);
+  const [showFBPageModal, setShowFBPageModal] = useState(false);
 
   const cfg = PROVIDER_CONFIG[provider];
   const conn = connection;
   const status = conn?.status || 'disconnected';
   const isGBP = provider === 'google_business_profile';
+  const isFacebook = provider === 'facebook';
   const needsDest = REQUIRES_DESTINATION.includes(provider);
 
   // Parse stored destinations (written by fetchGBPLocations or OAuth callback)
@@ -98,11 +101,27 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
     setShowDests(false);
   };
 
+  const handleConnectFacebook = async () => {
+    try {
+      const res = await base44.functions.invoke('facebookOAuthStart', {
+        client_id: clientId,
+        client_name: clientName,
+        enable_video: true,
+      });
+      if (res?.data?.auth_url) {
+        window.location.href = res.data.auth_url;
+      }
+    } catch (err) {
+      console.error('[ConnectionCard] facebookOAuthStart failed:', err.message);
+    }
+  };
+
   const handleDisconnect = async () => {
     if (!conn) return;
     setDisconnecting(true);
     await base44.entities.ChannelConnection.update(conn.id, {
       status: 'disconnected', access_token: null, refresh_token: null,
+      selected_destination_id: null, selected_destination_name: null,
     });
     onRefresh();
     setDisconnecting(false);
@@ -160,17 +179,28 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
         </div>
       )}
 
-      {/* Destination Required warning — with cached destinations note */}
+      {/* Destination Required warning */}
       {conn && status === 'connected' && needsDest && !hasDestination && (
         <div className="flex items-start gap-1.5 bg-amber-900/20 border border-amber-800 rounded-lg px-3 py-2">
           <AlertTriangle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
-          <div>
+          <div className="flex-1 min-w-0">
             <p className="text-xs font-semibold text-amber-400">Destination Required</p>
             <p className="text-xs text-amber-600">
-              {storedDestinations.length > 0
-                ? `${storedDestinations.length} location${storedDestinations.length !== 1 ? 's' : ''} available — select one below`
-                : 'No locations loaded yet. Use Refresh Locations below.'}
+              {isFacebook
+                ? storedDestinations.length > 0
+                  ? `${storedDestinations.length} Page${storedDestinations.length !== 1 ? 's' : ''} available — select a Page to enable publishing`
+                  : 'No Facebook Pages found. Reconnect to retry.'
+                : storedDestinations.length > 0
+                  ? `${storedDestinations.length} location${storedDestinations.length !== 1 ? 's' : ''} available — select one below`
+                  : 'No locations loaded yet. Use Refresh Locations below.'}
             </p>
+            {isFacebook && storedDestinations.length > 0 && (
+              <button
+                onClick={() => setShowFBPageModal(true)}
+                className="mt-1.5 text-xs font-bold text-blue-400 hover:text-blue-300 underline underline-offset-2">
+                Select a Page →
+              </button>
+            )}
           </div>
         </div>
       )}
@@ -296,12 +326,14 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
       {/* Actions */}
       <div className="flex gap-2 flex-wrap pt-1">
         {!conn || status === 'disconnected' ? (
-          <button onClick={() => onConnect(provider)}
+          <button
+            onClick={() => isFacebook ? handleConnectFacebook() : onConnect(provider)}
             className="flex-1 text-xs font-semibold px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors">
-            Connect
+            {isFacebook ? '👥 Connect Facebook' : 'Connect'}
           </button>
         ) : (
           <>
+            {/* GBP: Refresh Locations */}
             {isGBP && (
               <button
                 onClick={() => handleRefreshLocations(false)}
@@ -313,6 +345,26 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
               </button>
             )}
 
+            {/* Facebook: Select Page button when no destination */}
+            {isFacebook && !hasDestination && storedDestinations.length > 0 && (
+              <button
+                onClick={() => setShowFBPageModal(true)}
+                className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded-lg transition-colors">
+                <Users className="w-3.5 h-3.5" />
+                Select Page
+              </button>
+            )}
+
+            {/* Facebook: Change page when destination is set */}
+            {isFacebook && hasDestination && storedDestinations.length > 1 && (
+              <button
+                onClick={() => setShowFBPageModal(true)}
+                className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 bg-slate-700 hover:bg-slate-600 border border-slate-600 text-slate-300 rounded-lg transition-colors">
+                <Users className="w-3.5 h-3.5" />
+                Change Page
+              </button>
+            )}
+
             {conn.selected_destination_id && !conn.is_default && (
               <button onClick={handleSetDefault} disabled={settingDefault}
                 className="text-xs font-semibold px-3 py-2 bg-amber-900/30 hover:bg-amber-900/50 border border-amber-800 text-amber-400 rounded-lg transition-colors disabled:opacity-50 flex items-center gap-1.5">
@@ -321,7 +373,8 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
               </button>
             )}
 
-            <button onClick={() => onConnect(provider)}
+            <button
+              onClick={() => isFacebook ? handleConnectFacebook() : onConnect(provider)}
               className="text-xs font-semibold px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 rounded-lg transition-colors">
               Reconnect
             </button>
@@ -333,6 +386,18 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
           </>
         )}
       </div>
+
+      {/* Facebook Page Select Modal */}
+      {showFBPageModal && conn && (
+        <FacebookPageSelectModal
+          connection={conn}
+          onSaved={(page) => {
+            setShowFBPageModal(false);
+            onRefresh();
+          }}
+          onClose={() => setShowFBPageModal(false)}
+        />
+      )}
 
       {/* Debug toggle */}
       {conn && (
