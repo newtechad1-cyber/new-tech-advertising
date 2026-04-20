@@ -199,7 +199,12 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
 
       {/* GBP Diagnostic panel (only when no stored destinations) */}
       {showDiagPanel && (
-        <GBPDiagPanel diag={diag} syncError={destSyncError} syncAt={destSyncAt} />
+        <GBPDiagPanel
+          diag={diag}
+          syncError={destSyncError}
+          syncAt={destSyncAt}
+          onReconnect={() => onConnect(provider)}
+        />
       )}
 
       {/* Refresh result feedback */}
@@ -359,9 +364,11 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
             <DebugRow key={i} label={`  dest[${i}]`} value={`${d.name} — ${d.id}`} />
           ))}
           {diag && <DebugRow label="diag_diagnosis" value={diag.final_diagnosis || '—'} highlight />}
-          {diag && <DebugRow label="diag_step" value={diag.step || '—'} />}
+          {diag && <DebugRow label="step_outcome" value={diag.step_outcome || diag.step || '—'} highlight />}
+          {diag && <DebugRow label="token_refresh" value={diag.token_refresh_attempted ? (diag.token_refresh_succeeded ? '✓ succeeded' : '✗ failed') : 'not attempted'} />}
           {diag && <DebugRow label="diag_accts" value={String(diag.accounts_returned ?? '—')} />}
           {diag && <DebugRow label="diag_locs" value={String(diag.locations_returned ?? '—')} />}
+          {diag?.account_api_raw_body && <DebugRow label="raw_body" value={diag.account_api_raw_body.slice(0, 120)} />}
           {/* Force retry from debug mode */}
           {isGBP && conn && status === 'connected' && (
             <button
@@ -387,19 +394,40 @@ function DebugRow({ label, value, highlight }) {
 }
 
 // ── GBP Diagnostic Panel ──────────────────────────────────────────────────────
-const DIAGNOSIS_MESSAGES = {
-  no_token:                   { color: 'text-red-400',    msg: 'No access token stored — reconnect OAuth' },
-  auth_failed:                { color: 'text-red-400',    msg: 'OAuth token rejected — reconnect' },
-  api_disabled:               { color: 'text-red-400',    msg: 'My Business Account Management API is not enabled in Google Cloud Console' },
-  no_permission:              { color: 'text-amber-400',  msg: 'Authenticated Google user lacks GBP API permissions' },
-  quota_exceeded:             { color: 'text-amber-400',  msg: 'Google API quota exceeded — this Google Cloud project is being rate-limited. Check quota settings or wait before retrying.' },
-  network_error:              { color: 'text-red-400',    msg: 'Network error reaching Google APIs' },
-  no_accounts:                { color: 'text-amber-400',  msg: 'Connected Google user has no accessible Business Profile accounts' },
-  locations_api_disabled:     { color: 'text-red-400',    msg: 'My Business Business Information API is not enabled in Google Cloud Console' },
-  locations_no_permission:    { color: 'text-amber-400',  msg: 'Token scope missing — business.manage required for reading locations' },
-  locations_api_errors:       { color: 'text-red-400',    msg: 'Locations API returned errors for all accounts — see step trace' },
-  accounts_exist_no_locations:{ color: 'text-amber-400',  msg: 'Account(s) found but no locations returned — may have no verified listings' },
-  success:                    { color: 'text-emerald-400', msg: 'Sync succeeded' },
+
+// Maps every possible final_diagnosis to { title, color, detail, needsReconnect, isQuota }
+const DIAGNOSIS_CONFIG = {
+  // Token/auth
+  oauth_token_missing:       { color: 'text-red-400',    title: 'No access token stored',              detail: 'OAuth must be re-done to generate a new access token.',                                                              needsReconnect: true },
+  token_refresh_failed:      { color: 'text-red-400',    title: 'Google connection needs to be refreshed', detail: 'Token refresh failed — the stored refresh token was rejected.',                                                 needsReconnect: true },
+  missing_refresh_token:     { color: 'text-red-400',    title: 'Google connection needs to be refreshed', detail: 'No refresh token is stored. Reconnect Google to grant offline access.',                                        needsReconnect: true },
+  token_expired:             { color: 'text-red-400',    title: 'Google connection needs to be refreshed', detail: 'Access token was rejected by Google (401). The token may have been revoked.',                                  needsReconnect: true },
+  auth_failed:               { color: 'text-red-400',    title: 'Google connection needs to be refreshed', detail: 'OAuth token was rejected. Reconnect to re-authorize.',                                                         needsReconnect: true },
+  // Quota
+  provider_quota_failure:    { color: 'text-amber-400',  title: 'Google API quota exceeded',           detail: 'This Google Cloud project is being rate-limited. Check Quotas in Cloud Console → APIs & Services.',               isQuota: true },
+  // API disabled
+  provider_api_disabled:     { color: 'text-red-400',    title: 'Google API not enabled',               detail: 'My Business Account Management API must be enabled in Google Cloud Console for this project.' },
+  // Permission
+  provider_permission_failure:{ color: 'text-amber-400', title: 'Permission denied',                   detail: 'This Google account lacks permission to access the Business Profile API. Check scopes.' },
+  // Accounts
+  no_accounts_returned:      { color: 'text-amber-400',  title: 'No Business Profile accounts found',  detail: 'The connected Google account has no accessible Business Profile accounts.' },
+  // Locations
+  locations_api_errors:      { color: 'text-red-400',    title: 'Locations API errors',                detail: 'All location fetch requests failed — see step trace for per-account details.' },
+  no_locations_returned:     { color: 'text-amber-400',  title: 'No locations found',                  detail: 'Account(s) were found but returned zero locations. The account may have no verified listings.' },
+  // Misc
+  network_error:             { color: 'text-red-400',    title: 'Network error',                       detail: 'Could not reach Google APIs — check connectivity.' },
+  normalization_failure:     { color: 'text-red-400',    title: 'Response parse error',                detail: 'Google returned a non-JSON or unexpected response.' },
+  unknown_provider_error:    { color: 'text-amber-400',  title: 'Unclassified provider error',         detail: 'An unexpected error was returned by Google. See raw details in step trace.' },
+  // Legacy keys from older diag objects
+  no_token:                  { color: 'text-red-400',    title: 'No access token stored',              detail: 'OAuth must be re-done.',                                                                                           needsReconnect: true },
+  api_disabled:              { color: 'text-red-400',    title: 'Google API not enabled',               detail: 'My Business Account Management API must be enabled in Google Cloud Console.' },
+  no_permission:             { color: 'text-amber-400',  title: 'Permission denied',                   detail: 'This Google account lacks permission to access the Business Profile API.' },
+  quota_exceeded:            { color: 'text-amber-400',  title: 'Google API quota exceeded',           detail: 'This project is being rate-limited. Check Cloud Console quotas.',                                                  isQuota: true },
+  no_accounts:               { color: 'text-amber-400',  title: 'No Business Profile accounts found',  detail: 'The connected Google account has no accessible Business Profile accounts.' },
+  locations_api_disabled:    { color: 'text-red-400',    title: 'Locations API not enabled',           detail: 'My Business Business Information API must be enabled in Google Cloud Console.' },
+  locations_no_permission:   { color: 'text-amber-400',  title: 'Permission denied',                   detail: 'Token scope missing — business.manage required for reading locations.' },
+  accounts_exist_no_locations:{ color: 'text-amber-400', title: 'No locations found',                  detail: 'Account(s) found but zero locations returned — may have no verified listings.' },
+  success:                   { color: 'text-emerald-400', title: 'Sync succeeded',                     detail: '' },
 };
 
 function StepRow({ label, value, valueClass = 'text-slate-300' }) {
@@ -412,33 +440,70 @@ function StepRow({ label, value, valueClass = 'text-slate-300' }) {
   );
 }
 
-function GBPDiagPanel({ diag, syncError, syncAt }) {
+function GBPDiagPanel({ diag, syncError, syncAt, onReconnect }) {
   const [open, setOpen] = useState(false);
   const diagnosis = diag?.final_diagnosis;
-  const dm = DIAGNOSIS_MESSAGES[diagnosis] || { color: 'text-slate-400', msg: syncError || 'Unknown sync failure' };
-  const isQuota = diagnosis === 'quota_exceeded';
+
+  // Use human_message from diag if available (new format), fall back to DIAGNOSIS_CONFIG, fall back to syncError
+  const cfg = DIAGNOSIS_CONFIG[diagnosis] || { color: 'text-slate-400', title: 'Destination sync failed', detail: '' };
+  const displayDetail = diag?.human_message || cfg.detail || syncError || 'Unknown failure — enable step trace for details';
+
+  const isQuota = cfg.isQuota;
+  const needsReconnect = cfg.needsReconnect;
+
+  // Step outcome (new diag format) or legacy step field
+  const stepOutcome = diag?.step_outcome || diag?.step || '—';
 
   return (
-    <div className={`border rounded-lg p-3 space-y-2 ${isQuota ? 'bg-amber-950/20 border-amber-800/60' : 'bg-slate-800/60 border-slate-700'}`}>
-      <div className={`flex items-start gap-2 ${dm.color}`}>
+    <div className={`border rounded-lg p-3 space-y-2 ${isQuota ? 'bg-amber-950/20 border-amber-800/60' : needsReconnect ? 'bg-red-950/20 border-red-900/60' : 'bg-slate-800/60 border-slate-700'}`}>
+
+      {/* Classified error title */}
+      <div className={`flex items-start gap-2 ${cfg.color}`}>
         <AlertTriangle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
-        <div>
-          <p className="text-xs font-semibold">
-            {isQuota ? 'Google API quota exceeded' : 'Destination sync failed'}
+        <div className="flex-1 min-w-0">
+          <p className="text-xs font-semibold">{cfg.title}</p>
+          <p className="text-xs mt-0.5 opacity-80">{displayDetail}</p>
+          {/* Step where it failed */}
+          <p className="text-xs mt-1 text-slate-600">Step: <span className="text-slate-400 font-mono">{stepOutcome}</span>
+            {diag?.account_api_http_status && <span className="ml-2">HTTP <span className={diag.account_api_http_status === 200 ? 'text-emerald-400' : 'text-red-400'}>{diag.account_api_http_status}</span></span>}
           </p>
-          <p className="text-xs mt-0.5 opacity-80">{dm.msg}</p>
-          {isQuota && (
-            <p className="text-xs mt-1 text-amber-600">
-              Go to Google Cloud Console → APIs &amp; Services → Quotas for <code>mybusinessaccountmanagement.googleapis.com</code> to request an increase.
-            </p>
-          )}
         </div>
       </div>
+
+      {/* Quota-specific guidance */}
+      {isQuota && (
+        <p className="text-xs text-amber-600">
+          Cloud Console → APIs &amp; Services → Quotas → <code>mybusinessaccountmanagement.googleapis.com</code> → request increase.
+        </p>
+      )}
+
+      {/* Token refresh summary */}
+      {diag && (diag.token_refresh_attempted || diag.token_refresh_error) && (
+        <div className="text-xs flex items-center gap-2 flex-wrap">
+          <span className="text-slate-500">Token refresh:</span>
+          {diag.token_refresh_attempted
+            ? <span className={diag.token_refresh_succeeded ? 'text-emerald-400' : 'text-red-400'}>
+                {diag.token_refresh_succeeded ? '✓ Succeeded' : '✗ Failed'}
+              </span>
+            : <span className="text-slate-600">Not attempted</span>
+          }
+          {diag.token_refresh_error && <span className="text-red-400">— {diag.token_refresh_error}</span>}
+        </div>
+      )}
+
+      {/* Reconnect CTA */}
+      {needsReconnect && onReconnect && (
+        <button onClick={onReconnect}
+          className="flex items-center gap-1.5 text-xs font-bold text-white bg-red-700 hover:bg-red-600 px-3 py-1.5 rounded-lg transition-colors">
+          Reconnect Google →
+        </button>
+      )}
 
       {syncAt && (
         <p className="text-xs text-slate-600">Last attempted: {new Date(syncAt).toLocaleString()}</p>
       )}
 
+      {/* Step trace toggle */}
       {diag && (
         <button onClick={() => setOpen(p => !p)}
           className="text-xs text-slate-600 hover:text-slate-400 flex items-center gap-1">
@@ -449,13 +514,19 @@ function GBPDiagPanel({ diag, syncError, syncAt }) {
 
       {open && diag && (
         <div className="bg-slate-950 border border-slate-700 rounded-lg p-3 space-y-1.5 text-xs font-mono">
-          <StepRow label="step_reached" value={diag.step || '—'} valueClass="text-amber-300" />
+          <StepRow label="step_outcome" value={stepOutcome} valueClass="text-amber-300" />
+          <StepRow label="final_diagnosis" value={diag.final_diagnosis || '—'} valueClass="text-amber-300" />
           <StepRow label="token_present" value={String(diag.token_present)} valueClass={diag.token_present ? 'text-emerald-400' : 'text-red-400'} />
-          {diag.token_refresh_error && <StepRow label="token_refresh_err" value={diag.token_refresh_error} valueClass="text-red-400" />}
+          <StepRow label="has_refresh_token" value={String(diag.has_refresh_token ?? '—')} />
+          <StepRow label="token_refresh_attempted" value={String(diag.token_refresh_attempted ?? '—')} />
+          <StepRow label="token_refresh_succeeded" value={String(diag.token_refresh_succeeded ?? '—')} valueClass={diag.token_refresh_succeeded ? 'text-emerald-400' : 'text-slate-400'} />
+          {diag.token_refresh_error && <StepRow label="token_refresh_error" value={diag.token_refresh_error} valueClass="text-red-400" />}
+          {diag.token_refresh_raw && <StepRow label="token_refresh_raw" value={diag.token_refresh_raw} valueClass="text-red-300" />}
           <StepRow label="acct_api_attempted" value={String(diag.account_api_attempted)} />
           <StepRow label="acct_api_http" value={String(diag.account_api_http_status ?? '—')} valueClass={diag.account_api_http_status === 200 ? 'text-emerald-400' : 'text-red-400'} />
           {diag.account_api_error && <StepRow label="acct_api_error" value={diag.account_api_error} valueClass="text-red-400" />}
           {diag.account_api_error_class && <StepRow label="acct_error_class" value={diag.account_api_error_class} valueClass="text-amber-300" />}
+          {diag.account_api_raw_body && <StepRow label="acct_raw_body" value={diag.account_api_raw_body} valueClass="text-red-300" />}
           <StepRow label="accounts_returned" value={String(diag.accounts_returned ?? '—')} valueClass={diag.accounts_returned > 0 ? 'text-emerald-400' : 'text-amber-400'} />
           {diag.account_sample?.map((a, i) => <StepRow key={i} label={`  account[${i}]`} value={`${a.name} | ${a.id}`} />)}
           <StepRow label="loc_api_attempted" value={String(diag.location_api_attempted)} />
@@ -463,7 +534,6 @@ function GBPDiagPanel({ diag, syncError, syncAt }) {
           {diag.location_sample?.map((l, i) => <StepRow key={i} label={`  location[${i}]`} value={`${l.name} | ${l.id}`} />)}
           {diag.location_api_errors?.map((e, i) => <StepRow key={i} label={`  loc_err[${i}]`} value={`${e.class} (${e.http_status ?? '?'}) ${e.error}`} valueClass="text-red-400" />)}
           <StepRow label="destinations_saved" value={String(diag.destinations_saved ?? '—')} />
-          <StepRow label="final_diagnosis" value={diag.final_diagnosis || '—'} valueClass="text-amber-300" />
           <StepRow label="synced_at" value={diag.synced_at || '—'} />
           {diag.forced && <StepRow label="forced" value="true" valueClass="text-amber-300" />}
         </div>
