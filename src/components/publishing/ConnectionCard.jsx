@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckCircle2, XCircle, AlertTriangle, RefreshCw, Unlink, Settings, ChevronDown, Star, MapPin, Info } from 'lucide-react';
+import { AlertTriangle, RefreshCw, Unlink, Settings, ChevronDown, Star, MapPin, Info, CheckCircle2, XCircle, Circle } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const PROVIDER_CONFIG = {
@@ -38,6 +38,12 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
   const storedDestinations = (() => {
     if (!conn?.destinations_json) return [];
     try { return JSON.parse(conn.destinations_json); } catch { return []; }
+  })();
+
+  // Parse GBP diagnostic JSON
+  const diag = (() => {
+    if (!conn?.gbp_diag_json) return null;
+    try { return JSON.parse(conn.gbp_diag_json); } catch { return null; }
   })();
 
   const hasDestination = !!conn?.selected_destination_id;
@@ -176,26 +182,9 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
         </div>
       )}
 
-      {/* Zero locations diagnostic */}
-      {noLocationsAfterSync && storedDestinations.length === 0 && (
-        <div className="bg-slate-800/60 border border-slate-700 rounded-lg px-3 py-2.5 space-y-1">
-          <p className="text-xs font-semibold text-slate-400 flex items-center gap-1.5">
-            <Info className="w-3.5 h-3.5" /> No locations found after sync
-          </p>
-          <p className="text-xs text-slate-500">Possible reasons:</p>
-          <ul className="text-xs text-slate-500 space-y-0.5 list-disc list-inside">
-            <li>This Google account doesn't manage any Business Profiles</li>
-            <li>Locations exist but are unverified or suspended</li>
-            <li>A different Google account owns the locations</li>
-          </ul>
-          {destSyncError && (
-            <details className="mt-1">
-              <summary className="text-xs text-slate-600 cursor-pointer hover:text-slate-400">Technical details</summary>
-              <p className="text-xs text-red-400 mt-1 break-all">{destSyncError}</p>
-            </details>
-          )}
-          <p className="text-xs text-slate-600">Last sync: {destSyncAt ? new Date(destSyncAt).toLocaleString() : '—'}</p>
-        </div>
+      {/* GBP Diagnostic panel */}
+      {isGBP && conn && status === 'connected' && destSyncAt && storedDestinations.length === 0 && (
+        <GBPDiagPanel diag={diag} syncError={destSyncError} syncAt={destSyncAt} />
       )}
 
       {/* Error */}
@@ -354,6 +343,10 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
           {storedDestinations.slice(0, 3).map((d, i) => (
             <DebugRow key={i} label={`  dest[${i}]`} value={`${d.name} — ${d.id}`} />
           ))}
+          {diag && <DebugRow label="diag_diagnosis" value={diag.final_diagnosis || '—'} highlight />}
+          {diag && <DebugRow label="diag_step" value={diag.step || '—'} />}
+          {diag && <DebugRow label="diag_accts" value={String(diag.accounts_returned ?? '—')} />}
+          {diag && <DebugRow label="diag_locs" value={String(diag.locations_returned ?? '—')} />}
         </div>
       )}
     </div>
@@ -365,6 +358,95 @@ function DebugRow({ label, value, highlight }) {
     <div className="flex gap-2">
       <span className="text-slate-600 w-32 flex-shrink-0">{label}</span>
       <span className={`break-all ${highlight ? 'text-amber-300' : 'text-slate-300'}`}>{value}</span>
+    </div>
+  );
+}
+
+// ── GBP Step-by-Step Diagnostic Panel ────────────────────────────────────────
+const DIAGNOSIS_MESSAGES = {
+  no_token:                   { color: 'text-red-400',    msg: 'No access token stored — OAuth must be redone' },
+  auth_failed:                { color: 'text-red-400',    msg: 'OAuth token was rejected — reconnect' },
+  api_disabled:               { color: 'text-red-400',    msg: 'My Business Account Management API is not enabled in Google Cloud Console for this project' },
+  no_permission:              { color: 'text-amber-400',  msg: 'Authenticated Google user lacks GBP API permissions' },
+  quota_exceeded:             { color: 'text-amber-400',  msg: 'API quota exceeded — try again later' },
+  network_error:              { color: 'text-red-400',    msg: 'Network error reaching Google APIs' },
+  no_accounts:                { color: 'text-amber-400',  msg: 'Connected Google user has no accessible Business Profile accounts' },
+  locations_api_disabled:     { color: 'text-red-400',    msg: 'My Business Business Information API is not enabled in Google Cloud Console' },
+  locations_no_permission:    { color: 'text-amber-400',  msg: 'Token scope missing — business.manage required for reading locations' },
+  locations_api_errors:       { color: 'text-red-400',    msg: 'Locations API returned errors for all accounts — see details below' },
+  accounts_exist_no_locations:{ color: 'text-amber-400',  msg: 'Account(s) found but no locations returned — may have no published/verified locations' },
+  success:                    { color: 'text-emerald-400', msg: 'Sync succeeded' },
+};
+
+function StepRow({ icon, label, value, valueClass = 'text-slate-300' }) {
+  const Icon = icon;
+  return (
+    <div className="flex items-start gap-2">
+      <Icon className="w-3 h-3 text-slate-600 flex-shrink-0 mt-0.5" />
+      <span className="text-slate-500 w-44 flex-shrink-0">{label}</span>
+      <span className={`break-all text-xs ${valueClass}`}>{value}</span>
+    </div>
+  );
+}
+
+function GBPDiagPanel({ diag, syncError, syncAt }) {
+  const [open, setOpen] = useState(false);
+  const diagnosis = diag?.final_diagnosis;
+  const dm = DIAGNOSIS_MESSAGES[diagnosis] || { color: 'text-slate-400', msg: syncError || 'Unknown sync failure' };
+
+  return (
+    <div className="bg-slate-800/60 border border-slate-700 rounded-lg p-3 space-y-2">
+      {/* Plain-language blocker */}
+      <div className={`flex items-start gap-2 ${dm.color}`}>
+        <AlertTriangle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
+        <p className="text-xs font-semibold">{dm.msg}</p>
+      </div>
+
+      {syncAt && (
+        <p className="text-xs text-slate-600">Last sync: {new Date(syncAt).toLocaleString()}</p>
+      )}
+
+      {/* Expandable step trace */}
+      {diag && (
+        <button onClick={() => setOpen(p => !p)}
+          className="text-xs text-slate-600 hover:text-slate-400 flex items-center gap-1">
+          <ChevronDown className={`w-3 h-3 transition-transform ${open ? 'rotate-180' : ''}`} />
+          {open ? 'Hide step trace' : 'Show step trace'}
+        </button>
+      )}
+
+      {open && diag && (
+        <div className="bg-slate-950 border border-slate-700 rounded-lg p-3 space-y-1.5 text-xs font-mono">
+          <StepRow icon={Circle} label="step_reached" value={diag.step || '—'} valueClass="text-amber-300" />
+          <StepRow icon={Circle} label="token_present" value={String(diag.token_present)} valueClass={diag.token_present ? 'text-emerald-400' : 'text-red-400'} />
+          {diag.token_refresh_error && (
+            <StepRow icon={Circle} label="token_refresh_err" value={diag.token_refresh_error} valueClass="text-red-400" />
+          )}
+          <StepRow icon={Circle} label="acct_api_attempted" value={String(diag.account_api_attempted)} />
+          <StepRow icon={Circle} label="acct_api_http" value={String(diag.account_api_http_status ?? '—')} valueClass={diag.account_api_http_status === 200 ? 'text-emerald-400' : 'text-red-400'} />
+          {diag.account_api_error && (
+            <StepRow icon={Circle} label="acct_api_error" value={diag.account_api_error} valueClass="text-red-400" />
+          )}
+          {diag.account_api_error_class && (
+            <StepRow icon={Circle} label="acct_error_class" value={diag.account_api_error_class} valueClass="text-amber-300" />
+          )}
+          <StepRow icon={Circle} label="accounts_returned" value={String(diag.accounts_returned ?? '—')} valueClass={diag.accounts_returned > 0 ? 'text-emerald-400' : 'text-amber-400'} />
+          {diag.account_sample?.map((a, i) => (
+            <StepRow key={i} icon={Circle} label={`  account[${i}]`} value={`${a.name} | ${a.id}`} />
+          ))}
+          <StepRow icon={Circle} label="loc_api_attempted" value={String(diag.location_api_attempted)} />
+          <StepRow icon={Circle} label="locations_returned" value={String(diag.locations_returned ?? '—')} valueClass={diag.locations_returned > 0 ? 'text-emerald-400' : 'text-amber-400'} />
+          {diag.location_sample?.map((l, i) => (
+            <StepRow key={i} icon={Circle} label={`  location[${i}]`} value={`${l.name} | ${l.id}`} />
+          ))}
+          {diag.location_api_errors?.map((e, i) => (
+            <StepRow key={i} icon={Circle} label={`  loc_err[${i}]`} value={`${e.class} (${e.http_status ?? '?'}) ${e.error}`} valueClass="text-red-400" />
+          ))}
+          <StepRow icon={Circle} label="destinations_saved" value={String(diag.destinations_saved ?? '—')} />
+          <StepRow icon={Circle} label="final_diagnosis" value={diag.final_diagnosis || '—'} valueClass="text-amber-300" />
+          <StepRow icon={Circle} label="synced_at" value={diag.synced_at || '—'} />
+        </div>
+      )}
     </div>
   );
 }
