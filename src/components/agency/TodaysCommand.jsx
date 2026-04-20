@@ -5,8 +5,8 @@ import {
   TrendingUp, ChevronRight, X, Phone, Mail,
   CheckCircle, BarChart2
 } from 'lucide-react';
-import { scoreLead, PRIORITY_STYLES } from '@/lib/leadPriority';
-import LeadDetailModal from './LeadDetailModal';
+import { scoreLead, PRIORITY_STYLES } from '../../lib/leadPriority.js';
+import LeadDetailModal from './LeadDetailModal.jsx';
 
 const today = new Date().toISOString().split('T')[0];
 const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
@@ -45,6 +45,33 @@ export default function TodaysCommand({ leads, deals, dealsMap, leadsMap, onLead
     return updated && updated < staleThreshold;
   });
 
+  // Execution-focused buckets
+  // Proposal needs follow-up: in Proposal stage, proposal_follow_up date is overdue or not set
+  const proposalFollowUpDeals = proposalDeals.filter(d => {
+    if (!d.proposal_follow_up) return true; // no date = needs follow-up
+    return d.proposal_follow_up <= today;    // overdue
+  });
+
+  // Hot opportunities: High priority score (score >= 40), not closed
+  const hotLeads = leads.filter(l => {
+    const d = dealsMap[l.id];
+    if (['Closed Won', 'Closed Lost'].includes(d?.stage)) return false;
+    const { label } = scoreLead(l, d);
+    return label === 'High';
+  });
+
+  // Waiting on response: proposal sent, no follow-up yet
+  const waitingLeads = proposalDeals
+    .filter(d => d.proposal_sent_date && !d.proposal_follow_up)
+    .map(d => leadsMap[d.lead_id]).filter(Boolean);
+
+  // Ready to close: Proposal stage + follow-up is today or overdue
+  const readyToCloseDeals = proposalDeals.filter(d => {
+    const lead = leadsMap[d.lead_id];
+    if (!lead) return false;
+    return lead.next_follow_up && lead.next_follow_up <= today;
+  });
+
   const BUCKETS = [
     {
       id: 'overdue',
@@ -69,59 +96,59 @@ export default function TodaysCommand({ leads, deals, dealsMap, leadsMap, onLead
       items: dueTodayLeads,
     },
     {
-      id: 'proposal',
-      icon: Target,
-      label: 'Proposals',
-      count: proposalDeals.length,
-      color: proposalDeals.length > 0 ? 'text-blue-400' : 'text-slate-500',
-      border: 'border-slate-800',
-      bg: 'bg-slate-900',
-      hint: 'Deals awaiting close',
-      items: proposalDeals.map(d => leadsMap[d.lead_id]).filter(Boolean),
+      id: 'hot',
+      icon: Flame,
+      label: 'Hot',
+      count: hotLeads.length,
+      color: hotLeads.length > 0 ? 'text-orange-400' : 'text-slate-500',
+      border: hotLeads.length > 0 ? 'border-orange-800' : 'border-slate-800',
+      bg: hotLeads.length > 0 ? 'bg-orange-950/20' : 'bg-slate-900',
+      hint: 'High-priority opportunities',
+      items: hotLeads,
     },
     {
-      id: 'new',
-      icon: Flame,
-      label: 'New This Week',
-      count: newLeads.length,
-      color: newLeads.length > 0 ? 'text-emerald-400' : 'text-slate-500',
+      id: 'proposal_followup',
+      icon: Target,
+      label: 'Prop. Follow-Up',
+      count: proposalFollowUpDeals.length,
+      color: proposalFollowUpDeals.length > 0 ? 'text-blue-400' : 'text-slate-500',
       border: 'border-slate-800',
       bg: 'bg-slate-900',
-      hint: 'Leads added in last 7 days',
-      items: newLeads,
+      hint: 'Proposals needing follow-up',
+      items: proposalFollowUpDeals.map(d => leadsMap[d.lead_id]).filter(Boolean),
+    },
+    {
+      id: 'waiting',
+      icon: Clock,
+      label: 'Waiting',
+      count: waitingLeads.length,
+      color: waitingLeads.length > 0 ? 'text-violet-400' : 'text-slate-500',
+      border: 'border-slate-800',
+      bg: 'bg-slate-900',
+      hint: 'Proposal sent, waiting on response',
+      items: waitingLeads,
+    },
+    {
+      id: 'ready_close',
+      icon: TrendingUp,
+      label: 'Ready to Close',
+      count: readyToCloseDeals.length,
+      color: readyToCloseDeals.length > 0 ? 'text-emerald-400' : 'text-slate-500',
+      border: readyToCloseDeals.length > 0 ? 'border-emerald-800' : 'border-slate-800',
+      bg: readyToCloseDeals.length > 0 ? 'bg-emerald-950/20' : 'bg-slate-900',
+      hint: 'In proposal, follow-up overdue or today',
+      items: readyToCloseDeals.map(d => leadsMap[d.lead_id]).filter(Boolean),
     },
     {
       id: 'noaction',
-      icon: Clock,
-      label: 'No Action Set',
+      icon: UserX,
+      label: 'No Action',
       count: noActionLeads.length,
-      color: noActionLeads.length > 0 ? 'text-violet-400' : 'text-slate-500',
+      color: noActionLeads.length > 0 ? 'text-slate-400' : 'text-slate-600',
       border: 'border-slate-800',
       bg: 'bg-slate-900',
       hint: 'Open leads with no follow-up date',
       items: noActionLeads,
-    },
-    {
-      id: 'incomplete',
-      icon: UserX,
-      label: 'Fix Info',
-      count: incompleteLeads.length,
-      color: incompleteLeads.length > 0 ? 'text-orange-400' : 'text-slate-500',
-      border: 'border-slate-800',
-      bg: 'bg-slate-900',
-      hint: 'Missing contact name or phone/email',
-      items: incompleteLeads,
-    },
-    {
-      id: 'stale',
-      icon: TrendingUp,
-      label: 'Stale Deals',
-      count: staleDeals.length,
-      color: staleDeals.length > 0 ? 'text-slate-400' : 'text-slate-600',
-      border: 'border-slate-800',
-      bg: 'bg-slate-900',
-      hint: 'No activity in 14+ days',
-      items: staleDeals.map(d => leadsMap[d.lead_id]).filter(Boolean),
     },
   ];
 

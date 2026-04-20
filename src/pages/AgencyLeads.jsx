@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Plus, Search, Phone, Mail, Calendar, Trash2, AlertCircle, RefreshCw, SlidersHorizontal } from 'lucide-react';
 import AgencyLayout from '../components/agency/AgencyLayout';
-import { scoreLead, PRIORITY_STYLES } from '@/lib/leadPriority';
+import { scoreLead, PRIORITY_STYLES } from '../lib/leadPriority.js';
 import AddLeadModal from '../components/agency/AddLeadModal';
-import LeadDetailModal from '../components/agency/LeadDetailModal';
+import LeadDetailModal from '../components/agency/LeadDetailModal.jsx';
 
 function isIncomplete(lead) {
   const hasName = !!(lead.contact_name || lead.first_name || lead.last_name);
