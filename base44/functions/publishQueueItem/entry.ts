@@ -217,6 +217,19 @@ Deno.serve(async (req) => {
     let providerResponse = null;
     let platformPostId = null;
     let platformPostUrl = null;
+    let failureCategory = null;
+
+    // Failure category classifier
+    const classifyFailure = (msg) => {
+      const m = (msg || '').toLowerCase();
+      if (!conn || !accessToken) return 'connection_destination_failure';
+      if (m.includes('no destination') || m.includes('no channel') || m.includes('no facebook page') || m.includes('no instagram')) return 'connection_destination_failure';
+      if (m.includes('invalid_grant') || m.includes('token') || m.includes('unauthenticated') || m.includes('unauthorized') || m.includes('401')) return 'provider_auth_failure';
+      if (m.includes('quota') || m.includes('rate limit') || m.includes('429') || m.includes('too many')) return 'provider_quota_failure';
+      if (m.includes('invalid') || m.includes('content') || m.includes('policy') || m.includes('violation') || m.includes('reject')) return 'provider_content_rejection';
+      if (m.includes('not implemented')) return 'queue_validation_failure';
+      return 'unknown_provider_error';
+    };
 
     // --- PUBLISH ---
     if (item.provider === 'google_business_profile') {
@@ -237,13 +250,19 @@ Deno.serve(async (req) => {
       throw new Error(`Provider ${item.provider} publishing not yet implemented`);
     }
 
-    // Mark success
+    // Mark success — confirmed posted by provider
     const now = new Date().toISOString();
+    const providerNote = platformPostId
+      ? `Provider confirmed post. ID: ${platformPostId}${platformPostUrl ? ` — ${platformPostUrl}` : ''}`
+      : `Provider accepted post (no post ID returned).`;
     await base44.asServiceRole.entities.PublishingQueue.update(queue_id, {
       publish_status: 'posted',
       platform_post_id: platformPostId || null,
       platform_post_url: platformPostUrl || null,
       provider_response: JSON.stringify(providerResponse),
+      publish_confirmed_at: now,
+      publish_confirmation_note: providerNote,
+      failure_category: null,
       error_message: null,
     });
 
@@ -268,11 +287,15 @@ Deno.serve(async (req) => {
     const retryCount = (item.retry_count || 0) + 1;
     const maxRetries = item.max_retries || 3;
     const newStatus = retryCount >= maxRetries ? 'failed' : 'queued';
+    failureCategory = classifyFailure(err.message);
 
     await base44.asServiceRole.entities.PublishingQueue.update(queue_id, {
       publish_status: newStatus,
       error_message: err.message,
       retry_count: retryCount,
+      failure_category: failureCategory,
+      publish_confirmed_at: null,
+      publish_confirmation_note: null,
     });
 
     await postLog(base44, {

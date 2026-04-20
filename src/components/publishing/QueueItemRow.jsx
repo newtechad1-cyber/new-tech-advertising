@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   ChevronRight, CheckCircle2, XCircle, Trash2, Calendar,
   ExternalLink, AlertTriangle, Play, ChevronDown, ChevronUp,
-  RotateCcw, Link2, MapPin
+  RotateCcw, Link2, MapPin, ShieldCheck, Send, Clock
 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
@@ -29,6 +29,36 @@ const PUBLISH_BADGE = {
   failed:      'bg-red-900/40 text-red-400 border-red-700',
   cancelled:   'bg-slate-800 text-slate-500 border-slate-700',
 };
+
+// 5-level confirmation state
+const CONFIRMATION_STATE = {
+  queued_internally:        { label: 'Queued internally',        color: 'text-blue-400',    icon: Clock },
+  sent_to_provider:         { label: 'Sent to provider',         color: 'text-amber-400',   icon: Send },
+  confirmed_posted:         { label: 'Confirmed by provider',    color: 'text-emerald-400', icon: ShieldCheck },
+  failed_before_provider:   { label: 'Failed before provider',   color: 'text-red-400',     icon: XCircle },
+  failed_at_provider:       { label: 'Failed at provider',       color: 'text-red-400',     icon: XCircle },
+};
+
+const FAILURE_CATEGORY_LABELS = {
+  queue_validation_failure:     { label: 'Queue validation',        color: 'text-amber-400' },
+  connection_destination_failure:{ label: 'Connection/destination', color: 'text-amber-400' },
+  provider_auth_failure:        { label: 'Auth failure',            color: 'text-red-400' },
+  provider_quota_failure:       { label: 'Quota exceeded',          color: 'text-amber-400' },
+  provider_content_rejection:   { label: 'Content rejected',        color: 'text-red-400' },
+  unknown_provider_error:       { label: 'Provider error',          color: 'text-red-400' },
+};
+
+function getConfirmationState(item) {
+  if (item.publish_status === 'posted' && item.publish_confirmed_at) return 'confirmed_posted';
+  if (item.publish_status === 'posted') return 'confirmed_posted'; // posted without timestamp still counts
+  if (item.publish_status === 'publishing') return 'sent_to_provider';
+  if (item.publish_status === 'failed') {
+    const cat = item.failure_category;
+    if (cat === 'queue_validation_failure' || cat === 'connection_destination_failure') return 'failed_before_provider';
+    return 'failed_at_provider';
+  }
+  return 'queued_internally';
+}
 
 // Canonical runnable statuses (must match backend)
 const ELIGIBLE_STATUSES = ['queued', 'scheduled', 'not_started'];
@@ -146,6 +176,10 @@ export default function QueueItemRow({ item, onRefresh, onDetail, connections = 
   const isStuckPublishing = item.publish_status === 'publishing';
   const isCancelled = item.publish_status === 'cancelled';
   const isPosted = item.publish_status === 'posted';
+  const confirmState = getConfirmationState(item);
+  const confirmDef = CONFIRMATION_STATE[confirmState];
+  const ConfirmIcon = confirmDef?.icon;
+  const failureCatDef = item.failure_category ? FAILURE_CATEGORY_LABELS[item.failure_category] : null;
 
   // Destination check
   const needsDestination = DESTINATION_REQUIRED.includes(item.provider);
@@ -212,15 +246,45 @@ export default function QueueItemRow({ item, onRefresh, onDetail, connections = 
             </a>
           )}
 
+          {/* Confirmation state line */}
+          {(isPosted || isFailed || isStuckPublishing) && confirmDef && (
+            <div className={`flex items-center gap-1.5 mt-1.5 ${confirmDef.color}`}>
+              <ConfirmIcon className="w-3 h-3 flex-shrink-0" />
+              <span className="text-xs font-semibold">{confirmDef.label}</span>
+              {item.publish_confirmed_at && (
+                <span className="text-xs text-slate-500">· {new Date(item.publish_confirmed_at).toLocaleString()}</span>
+              )}
+            </div>
+          )}
+
+          {/* Failure category badge */}
+          {isFailed && failureCatDef && (
+            <span className={`inline-flex items-center text-xs font-bold mt-1 ${failureCatDef.color}`}>
+              ↳ {failureCatDef.label}
+            </span>
+          )}
+
           {item.error_message && !topBlocker && (
             <p className="text-xs text-red-400 mt-1 flex items-center gap-1">
               <AlertTriangle className="w-3 h-3 flex-shrink-0" /> {item.error_message}
             </p>
           )}
-          {item.platform_post_url && (
-            <a href={item.platform_post_url} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-400 hover:underline flex items-center gap-1 mt-1">
-              <ExternalLink className="w-3 h-3" /> View Post
-            </a>
+
+          {/* Provider confirmation evidence */}
+          {isPosted && (
+            <div className="flex items-center gap-2 flex-wrap mt-1">
+              {item.platform_post_id && (
+                <span className="text-xs text-slate-500 font-mono">ID: {item.platform_post_id}</span>
+              )}
+              {item.platform_post_url && (
+                <a href={item.platform_post_url} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-400 hover:underline flex items-center gap-1">
+                  <ExternalLink className="w-3 h-3" /> View Post
+                </a>
+              )}
+              {item.publish_confirmation_note && !item.platform_post_url && (
+                <span className="text-xs text-slate-500">{item.publish_confirmation_note}</span>
+              )}
+            </div>
           )}
         </div>
 
@@ -341,6 +405,11 @@ export default function QueueItemRow({ item, onRefresh, onDetail, connections = 
           <div className="grid grid-cols-2 gap-x-4 gap-y-0.5 text-xs pt-2 border-t border-slate-800 mt-1">
             <span className="text-slate-500">Runner status field</span><span className="text-slate-400">publish_status</span>
             <span className="text-slate-500">Runnable values</span><span className="text-slate-400">queued / scheduled / not_started</span>
+            <span className="text-slate-500">Confirmation state</span><span className={`font-semibold ${confirmDef?.color || 'text-slate-400'}`}>{confirmDef?.label || '—'}</span>
+            {item.failure_category && <><span className="text-slate-500">Failure category</span><span className={`font-semibold ${failureCatDef?.color || 'text-red-400'}`}>{failureCatDef?.label || item.failure_category}</span></>}
+            {item.publish_confirmed_at && <><span className="text-slate-500">Confirmed at</span><span className="text-emerald-400">{new Date(item.publish_confirmed_at).toLocaleString()}</span></>}
+            {item.platform_post_id && <><span className="text-slate-500">Provider post ID</span><span className="text-slate-400 font-mono break-all">{item.platform_post_id}</span></>}
+            {item.publish_confirmation_note && <><span className="text-slate-500">Provider note</span><span className="text-slate-400">{item.publish_confirmation_note}</span></>}
             <span className="text-slate-500">Item ID</span><span className="text-slate-400 font-mono">{item.id?.slice(0, 14)}</span>
             <span className="text-slate-500">Current time</span><span className="text-slate-400">{now.toLocaleTimeString()}</span>
           </div>

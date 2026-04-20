@@ -219,21 +219,30 @@ export default function PublishingOps() {
           </div>
         )}
 
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-          {[
-            { label: 'Due Now',          value: dueItems.length,       color: dueItems.length > 0 ? 'text-blue-400' : 'text-slate-500' },
-            { label: 'Skipped',          value: skippedItems.length,   color: skippedItems.length > 0 ? 'text-amber-400' : 'text-slate-500' },
-            { label: 'Failed',           value: failedItems.length,    color: failedItems.length > 0 ? 'text-red-400' : 'text-slate-500' },
-            { label: 'Stuck Publishing', value: stuckItems.length,     color: stuckItems.length > 0 ? 'text-amber-400' : 'text-slate-500' },
-            { label: 'Active Channels',  value: connections.filter(c => c.status === 'connected').length, color: 'text-emerald-400' },
-          ].map(s => (
-            <div key={s.label} className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-center">
-              <p className={`text-2xl font-black ${s.color}`}>{s.value}</p>
-              <p className="text-slate-500 text-xs mt-0.5">{s.label}</p>
+        {/* Stats — publish confirmation counts */}
+        {(() => {
+          const queuedCount    = allQueueItems.filter(i => ['queued','scheduled','not_started'].includes(i.publish_status)).length;
+          const blockedCount   = skippedItems.length;
+          const publishingCount = allQueueItems.filter(i => i.publish_status === 'publishing').length;
+          const confirmedCount = allQueueItems.filter(i => i.publish_status === 'posted').length;
+          const failedCount    = failedItems.length;
+          return (
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+              {[
+                { label: 'Queued',             value: queuedCount,     color: queuedCount > 0 ? 'text-blue-400' : 'text-slate-500' },
+                { label: 'Blocked / Skipped',  value: blockedCount,    color: blockedCount > 0 ? 'text-amber-400' : 'text-slate-500' },
+                { label: 'Publishing',         value: publishingCount, color: publishingCount > 0 ? 'text-amber-400' : 'text-slate-500' },
+                { label: 'Posted Confirmed',   value: confirmedCount,  color: confirmedCount > 0 ? 'text-emerald-400' : 'text-slate-500' },
+                { label: 'Failed',             value: failedCount,     color: failedCount > 0 ? 'text-red-400' : 'text-slate-500' },
+              ].map(s => (
+                <div key={s.label} className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-center">
+                  <p className={`text-2xl font-black ${s.color}`}>{s.value}</p>
+                  <p className="text-slate-500 text-xs mt-0.5">{s.label}</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          );
+        })()}
 
         {/* Tabs */}
         <div className="flex gap-1 flex-wrap">
@@ -416,6 +425,11 @@ export default function PublishingOps() {
                     <div className="flex-1">
                       <p className="font-semibold text-white text-sm">{item.title || item.body_text?.slice(0, 60)}</p>
                       <p className="text-xs text-slate-500 mt-0.5">{item.provider?.replace(/_/g,' ')} · {item.client_name} · Retries: {item.retry_count}/{item.max_retries || 3}</p>
+                      {item.failure_category && (
+                        <p className="text-xs text-amber-400 mt-0.5 font-semibold">
+                          ↳ {{'queue_validation_failure':'Queue validation','connection_destination_failure':'Connection/destination','provider_auth_failure':'Auth failure','provider_quota_failure':'Quota exceeded','provider_content_rejection':'Content rejected','unknown_provider_error':'Provider error'}[item.failure_category] || item.failure_category}
+                        </p>
+                      )}
                       {item.error_message && <p className="text-xs text-red-400 mt-1">{item.error_message}</p>}
                     </div>
                     <div className="flex gap-1.5 flex-shrink-0 flex-wrap justify-end">
