@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { Users, FileText, AlertTriangle, CheckCircle, Clock, ArrowRight, Plus } from 'lucide-react';
 import AgencyLayout from '../components/agency/AgencyLayout';
+import TodaysCommand from '../components/agency/TodaysCommand';
 
 export default function AgencyDashboard() {
   const [clients, setClients] = useState([]);
   const [topics, setTopics] = useState([]);
   const [jobs, setJobs] = useState([]);
   const [assets, setAssets] = useState([]);
+  const [leads, setLeads] = useState([]);
+  const [deals, setDeals] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -17,14 +20,33 @@ export default function AgencyDashboard() {
       base44.entities.ContentTopics.list('-created_date', 50),
       base44.entities.AIJobs.list('-created_date', 100),
       base44.entities.ContentAssets.list('-updated_date', 20),
-    ]).then(([c, t, j, a]) => {
+      base44.entities.SalesLead.list('-created_date', 500),
+      base44.entities.SalesDeal.filter({ archived: false }),
+    ]).then(([c, t, j, a, l, d]) => {
       setClients(c);
       setTopics(t);
       setJobs(j);
       setAssets(a);
+      setLeads(l);
+      setDeals(d);
       setLoading(false);
     });
   }, []);
+
+  // Build lookup maps for TodaysCommand
+  const dealsMap = {};
+  deals.forEach(deal => { if (deal.lead_id) dealsMap[deal.lead_id] = deal; });
+  const leadsMap = {};
+  leads.forEach(lead => { leadsMap[lead.id] = lead; });
+
+  const handleLeadUpdated = (updatedDeal, updatedLead) => {
+    if (updatedDeal?.id) {
+      setDeals(prev => prev.map(d => d.id === updatedDeal.id ? updatedDeal : d));
+    }
+    if (updatedLead?.id) {
+      setLeads(prev => prev.map(l => l.id === updatedLead.id ? updatedLead : l));
+    }
+  };
 
   const activeClients = clients.filter(c => c.status === 'active_client');
   const inProgress = topics.filter(t => ['queued', 'processing'].includes(t.status));
@@ -48,23 +70,47 @@ export default function AgencyDashboard() {
           <p className="text-slate-500 text-sm mt-0.5">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</p>
         </div>
 
-        {/* KPI strip */}
+        {/* TODAY'S COMMAND — CRM daily operator layer */}
         {loading ? (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-            {[...Array(4)].map((_, i) => <div key={i} className="h-20 bg-slate-800 rounded-xl animate-pulse" />)}
+          <div className="space-y-2">
+            <div className="h-6 w-40 bg-slate-800 rounded animate-pulse" />
+            <div className="grid grid-cols-7 gap-2">
+              {[...Array(7)].map((_, i) => <div key={i} className="h-20 bg-slate-800 rounded-xl animate-pulse" />)}
+            </div>
           </div>
         ) : (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-            <StatCard icon={Users} label="Active Clients" value={activeClients.length} color="text-blue-400" href="/agency/clients" />
-            <StatCard icon={Clock} label="Content In Progress" value={inProgress.length} color="text-amber-400" href="/agency/content?tab=topics" />
-            <StatCard icon={CheckCircle} label="Ready for Review" value={forReview.length} color="text-violet-400" href="/agency/content?tab=review" />
-            <StatCard icon={AlertTriangle} label="Failed Jobs" value={failedJobs.length} color={failedJobs.length > 0 ? "text-red-400" : "text-slate-500"} href="/agency/content?tab=errors" />
-          </div>
+          <TodaysCommand
+            leads={leads}
+            deals={deals}
+            dealsMap={dealsMap}
+            leadsMap={leadsMap}
+            onLeadUpdated={handleLeadUpdated}
+          />
         )}
+
+        {/* Divider */}
+        <div className="border-t border-slate-800" />
+
+        {/* Content KPI strip */}
+        <div>
+          <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">Content Operations</h2>
+          {loading ? (
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              {[...Array(4)].map((_, i) => <div key={i} className="h-20 bg-slate-800 rounded-xl animate-pulse" />)}
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              <StatCard icon={Users} label="Active Clients" value={activeClients.length} color="text-blue-400" href="/agency/clients" />
+              <StatCard icon={Clock} label="Content In Progress" value={inProgress.length} color="text-amber-400" href="/agency/content?tab=topics" />
+              <StatCard icon={CheckCircle} label="Ready for Review" value={forReview.length} color="text-violet-400" href="/agency/content?tab=review" />
+              <StatCard icon={AlertTriangle} label="Failed Jobs" value={failedJobs.length} color={failedJobs.length > 0 ? "text-red-400" : "text-slate-500"} href="/agency/content?tab=errors" />
+            </div>
+          )}
+        </div>
 
         {/* Workflow guide */}
         <section>
-          <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">Daily Workflow</h2>
+          <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">Content Workflow</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
             {WORKFLOW.map(w => (
               <Link key={w.step} to={w.href} className="bg-slate-900 border border-slate-800 hover:border-blue-700 rounded-xl p-4 group transition-all">
@@ -132,7 +178,7 @@ export default function AgencyDashboard() {
         </div>
 
         {/* Failed jobs alert */}
-        {failedJobs.length > 0 && (
+        {!loading && failedJobs.length > 0 && (
           <section>
             <div className="bg-red-950/50 border border-red-900/60 rounded-xl p-4 flex items-start justify-between gap-4">
               <div className="flex items-start gap-3">

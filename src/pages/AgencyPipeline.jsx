@@ -3,6 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { Plus, Phone, Mail, Trash2, AlertCircle, RefreshCw, ChevronDown } from 'lucide-react';
 import AgencyLayout from '../components/agency/AgencyLayout';
+import { scoreLead, PRIORITY_STYLES } from '@/lib/leadPriority';
 import AddLeadModal from '../components/agency/AddLeadModal';
 import LeadDetailModal from '../components/agency/LeadDetailModal';
 
@@ -183,6 +184,8 @@ export default function AgencyPipeline() {
                               ? (lead.contact_name || [lead.first_name, lead.last_name].filter(Boolean).join(' ') || null)
                               : null;
                             const overdue = lead && isOverdue(lead.next_follow_up);
+                            const { label: pLabel } = scoreLead(lead, deal);
+                            const ps = PRIORITY_STYLES[pLabel];
 
                             return (
                               <Draggable key={deal.id} draggableId={deal.id} index={idx}>
@@ -254,10 +257,13 @@ export default function AgencyPipeline() {
                                       </button>
                                     </div>
 
-                                    {/* Value */}
-                                    {deal.value ? (
-                                      <p className="text-xs font-semibold text-emerald-400 mt-1.5">${Number(deal.value).toLocaleString()}</p>
-                                    ) : null}
+                                    {/* Priority + Value */}
+                                    <div className="flex items-center justify-between mt-1.5">
+                                      <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full ${ps.badge}`}>{pLabel}</span>
+                                      {deal.value ? (
+                                        <span className="text-xs font-semibold text-emerald-400">${Number(deal.value).toLocaleString()}</span>
+                                      ) : null}
+                                    </div>
 
                                     {/* Warnings */}
                                     {!lead && deal.lead_id && (

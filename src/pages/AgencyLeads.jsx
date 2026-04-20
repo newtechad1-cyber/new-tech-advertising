@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Plus, Search, Phone, Mail, Calendar, Trash2, AlertCircle, RefreshCw, SlidersHorizontal } from 'lucide-react';
 import AgencyLayout from '../components/agency/AgencyLayout';
+import { scoreLead, PRIORITY_STYLES } from '@/lib/leadPriority';
 import AddLeadModal from '../components/agency/AddLeadModal';
 import LeadDetailModal from '../components/agency/LeadDetailModal';
 
@@ -226,6 +227,8 @@ export default function AgencyLeads() {
                 const overdue = isOverdue(lead.next_follow_up);
                 const dueToday = isDueToday(lead.next_follow_up);
                 const incomplete = isIncomplete(lead);
+                const { label: pLabel } = scoreLead(lead, deal);
+                const ps = PRIORITY_STYLES[pLabel];
 
                 return (
                   <div key={lead.id}
@@ -248,6 +251,7 @@ export default function AgencyLeads() {
                             <AlertCircle className="w-2.5 h-2.5" /> Incomplete
                           </span>
                         )}
+                        <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full ${ps.badge}`}>{pLabel}</span>
                       </div>
                     </div>
 
