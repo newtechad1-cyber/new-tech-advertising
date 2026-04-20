@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { Users, FileText, AlertTriangle, CheckCircle, Clock, ArrowRight, Plus } from 'lucide-react';
 import AgencyLayout from '../components/agency/AgencyLayout';
-import TodaysCommand from '../components/agency/TodaysCommand';
+import TodaysCommand from '../components/agency/TodaysCommand.jsx';
 
 export default function AgencyDashboard() {
   const [clients, setClients] = useState([]);
