@@ -14,19 +14,14 @@ const NAV = [
     exact: true,
   },
   {
-    label: 'Leads',
-    href: '/agency/leads',
-    icon: Target,
-  },
-  {
-    label: 'Lead Wizard',
-    href: '/agency/lead-wizard',
-    icon: Briefcase,
-  },
-  {
     label: 'Pipeline',
     href: '/agency/pipeline',
     icon: TrendingUp,
+  },
+  {
+    label: 'Leads',
+    href: '/agency/leads',
+    icon: Target,
   },
   {
     label: 'Clients',
@@ -34,7 +29,7 @@ const NAV = [
     icon: Users,
   },
   {
-    label: 'Fulfillment',
+    label: 'Content',
     icon: FileText,
     children: [
       { label: 'Content Center', href: '/agency/content' },
@@ -44,18 +39,15 @@ const NAV = [
     ],
   },
   {
-    label: 'Performance',
+    label: 'Websites',
+    href: '/agency/websites',
     icon: BarChart2,
-    children: [
-      { label: 'Client List', href: '/agency/clients' },
-      { label: 'Websites', href: '/agency/websites' },
-    ],
   },
   {
     label: 'Publishing',
     icon: Send,
     children: [
-      { label: 'Publishing Queue', href: '/agency/publishing-queue' },
+      { label: 'Queue', href: '/agency/publishing-queue' },
       { label: 'Channel Connections', href: '/agency/channel-connections' },
       { label: 'Publishing Ops', href: '/agency/publishing-ops' },
     ],

@@ -63,8 +63,13 @@ export default function AgencyLeads() {
     setShowAdd(false);
   };
 
-  const onDealUpdated = (updatedDeal) => {
-    setDealsMap(prev => ({ ...prev, [updatedDeal.lead_id]: updatedDeal }));
+  const onDealUpdated = (updatedDeal, updatedLead) => {
+    if (updatedDeal?.id) {
+      setDealsMap(prev => ({ ...prev, [updatedDeal.lead_id]: updatedDeal }));
+    }
+    if (updatedLead?.id) {
+      setLeads(prev => prev.map(l => l.id === updatedLead.id ? updatedLead : l));
+    }
   };
 
   const openLead = (lead) => {

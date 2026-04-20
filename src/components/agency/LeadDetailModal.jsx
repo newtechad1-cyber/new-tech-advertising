@@ -54,10 +54,12 @@ export default function LeadDetailModal({ deal, lead: initialLead, onClose, onUp
       await base44.entities.SalesLead.update(lead.id, editForm);
       const updated = { ...lead, ...editForm };
       setLead(updated);
-      // Also sync deal_name if business_name changed
-      if (editForm.business_name !== deal.deal_name) {
+      // Sync deal_name if business_name changed and a real deal exists
+      if (deal.id && editForm.business_name !== deal.deal_name) {
         await base44.entities.SalesDeal.update(deal.id, { deal_name: editForm.business_name });
-        onUpdated({ ...deal, deal_name: editForm.business_name });
+        onUpdated({ ...deal, deal_name: editForm.business_name }, updated);
+      } else {
+        onUpdated(deal, updated);
       }
     }
     setSaving(false);
@@ -65,10 +67,11 @@ export default function LeadDetailModal({ deal, lead: initialLead, onClose, onUp
   };
 
   const moveStage = async (stage) => {
+    if (!deal.id) return; // can't move stage on virtual deal
     setMovingStage(true);
     await base44.entities.SalesDeal.update(deal.id, { stage });
     setCurrentStage(stage);
-    onUpdated({ ...deal, stage });
+    onUpdated({ ...deal, stage }, lead);
     setMovingStage(false);
   };
 

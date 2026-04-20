@@ -67,10 +67,15 @@ export default function AgencyPipeline() {
     setShowAdd(false);
   };
 
-  const onDealUpdated = (updated) => {
-    setDeals(prev => prev.map(d => d.id === updated.id ? updated : d));
-    if (selected?.deal?.id === updated.id) {
-      setSelected(s => ({ ...s, deal: updated }));
+  const onDealUpdated = (updated, updatedLead) => {
+    if (updated?.id) {
+      setDeals(prev => prev.map(d => d.id === updated.id ? updated : d));
+    }
+    if (selected?.deal?.id === updated?.id) {
+      setSelected(s => ({ ...s, deal: updated, lead: updatedLead || s?.lead }));
+    }
+    if (updatedLead?.id) {
+      setLeadsMap(prev => ({ ...prev, [updatedLead.id]: updatedLead }));
     }
   };
 

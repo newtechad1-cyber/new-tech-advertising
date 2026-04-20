@@ -1,36 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { base44 } from '@/api/base44Client';
-import { createPageUrl } from '../../utils';
-import { AlertCircle, Lock } from 'lucide-react';
+import React from 'react';
+import { useAuth } from '@/lib/AuthContext';
+import { Lock } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 export default function AdminGuard({ children }) {
-  const [isAuthorized, setIsAuthorized] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const { user, isLoadingAuth, authChecked, navigateToLogin } = useAuth();
 
-  useEffect(() => {
-    checkAdminAccess();
-  }, []);
-
-  const checkAdminAccess = async () => {
-    try {
-      const user = await base44.auth.me();
-      
-      if (user.role !== 'admin') {
-        setIsAuthorized(false);
-      } else {
-        setIsAuthorized(true);
-      }
-    } catch (error) {
-      console.error('[AdminGuard] Auth error:', error);
-      base44.auth.redirectToLogin();
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  if (isLoading) {
+  if (isLoadingAuth || !authChecked) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <p className="text-slate-600">Verifying access...</p>
@@ -38,7 +15,12 @@ export default function AdminGuard({ children }) {
     );
   }
 
-  if (!isAuthorized) {
+  if (!user) {
+    navigateToLogin();
+    return null;
+  }
+
+  if (user.role !== 'admin') {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
         <Card className="max-w-md w-full">
@@ -52,10 +34,7 @@ export default function AdminGuard({ children }) {
             <p className="text-slate-600">
               This page is only accessible to administrators. If you believe you should have access, please contact support.
             </p>
-            <Button 
-              onClick={() => window.location.href = createPageUrl('ClientDashboard')} 
-              className="w-full"
-            >
+            <Button onClick={() => window.location.href = '/client/dashboard'} className="w-full">
               Return to Dashboard
             </Button>
           </CardContent>
