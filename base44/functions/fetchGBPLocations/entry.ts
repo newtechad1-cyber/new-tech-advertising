@@ -1,5 +1,8 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
+// Cooldown duration after a quota error: 2 minutes (Google's per-minute quota window)
+const QUOTA_COOLDOWN_MS = 2 * 60 * 1000;
+
 async function refreshGoogleToken(refreshToken) {
   const res = await fetch('https://oauth2.googleapis.com/token', {
     method: 'POST',
@@ -14,26 +17,15 @@ async function refreshGoogleToken(refreshToken) {
   return res.json();
 }
 
-// Classify an API error object into a human-readable diagnosis
 function classifyApiError(errorObj) {
   if (!errorObj) return null;
   const status = errorObj.code || errorObj.status;
   const msg = (errorObj.message || '').toLowerCase();
-  if (status === 403 || msg.includes('disabled') || msg.includes('not enabled') || msg.includes('has not been used')) {
-    return 'api_disabled'; // GBP API not enabled in Cloud Console
-  }
-  if (status === 403 && (msg.includes('permission') || msg.includes('forbidden'))) {
-    return 'no_permission';
-  }
-  if (status === 401 || msg.includes('unauthenticated') || msg.includes('invalid_grant')) {
-    return 'auth_failed';
-  }
-  if (status === 429 || msg.includes('quota') || msg.includes('rate limit')) {
-    return 'quota_exceeded';
-  }
-  if (status === 404) {
-    return 'not_found';
-  }
+  if (status === 429 || msg.includes('quota') || msg.includes('rate limit')) return 'quota_exceeded';
+  if (msg.includes('disabled') || msg.includes('not enabled') || msg.includes('has not been used')) return 'api_disabled';
+  if (status === 403 && (msg.includes('permission') || msg.includes('forbidden'))) return 'no_permission';
+  if (status === 401 || msg.includes('unauthenticated') || msg.includes('invalid_grant')) return 'auth_failed';
+  if (status === 404) return 'not_found';
   return 'api_error';
 }
 
@@ -44,19 +36,34 @@ Deno.serve(async (req) => {
 
   let payload = {};
   try { payload = await req.json(); } catch (_) {}
-  const { connection_id } = payload;
+  const { connection_id, force = false } = payload;
 
   if (!connection_id) return Response.json({ error: 'connection_id required' }, { status: 400 });
 
-  // ── Load connection ──────────────────────────────────────────────────────
+  // Load connection
   const conns = await base44.asServiceRole.entities.ChannelConnection.filter({ id: connection_id });
   const conn = conns[0];
   if (!conn) return Response.json({ error: 'Connection not found' }, { status: 404 });
-  if (conn.provider !== 'google_business_profile') {
-    return Response.json({ error: 'For google_business_profile only' }, { status: 400 });
+  if (conn.provider !== 'google_business_profile') return Response.json({ error: 'For google_business_profile only' }, { status: 400 });
+
+  const now = Date.now();
+
+  // ── Cooldown guard ───────────────────────────────────────────────────────
+  if (!force && conn.dest_sync_cooldown_until) {
+    const cooldownUntil = new Date(conn.dest_sync_cooldown_until).getTime();
+    if (cooldownUntil > now) {
+      const secsLeft = Math.ceil((cooldownUntil - now) / 1000);
+      const minutesLeft = Math.ceil(secsLeft / 60);
+      return Response.json({
+        success: false,
+        cooldown: true,
+        cooldown_until: conn.dest_sync_cooldown_until,
+        error: `Google API rate-limited. Cooldown active for ~${minutesLeft} more minute${minutesLeft !== 1 ? 's' : ''}.`,
+      });
+    }
   }
 
-  // Step-by-step diagnostics object — everything gets persisted
+  const syncAt = new Date().toISOString();
   const diag = {
     step: 'init',
     token_present: !!conn.access_token,
@@ -67,15 +74,16 @@ Deno.serve(async (req) => {
     account_api_error: null,
     account_api_error_class: null,
     accounts_returned: null,
-    account_sample: [],              // first 3 [{id, name}]
+    account_sample: [],
     location_api_attempted: false,
-    location_api_errors: [],         // per-account errors
+    location_api_errors: [],
     locations_returned: null,
-    location_sample: [],             // first 3 [{id, name, account}]
+    location_sample: [],
     destinations_saved: null,
     auto_selected: null,
     final_diagnosis: null,
-    synced_at: new Date().toISOString(),
+    synced_at: syncAt,
+    forced: force,
   };
 
   // ── Step 1: Token ────────────────────────────────────────────────────────
@@ -83,30 +91,27 @@ Deno.serve(async (req) => {
   if (!accessToken) {
     diag.step = 'token_missing';
     diag.final_diagnosis = 'no_token';
-    await persistDiag(base44, connection_id, diag, 'No access token stored — reconnect OAuth');
+    await persistDiag(base44, connection_id, conn, diag, 'No access token — reconnect OAuth');
     return Response.json({ success: false, diag, error: 'No access token' });
   }
 
-  // Refresh if needed
   if (conn.refresh_token) {
     const expiresAt = conn.expires_at ? new Date(conn.expires_at) : new Date(0);
-    if (expiresAt < new Date(Date.now() + 5 * 60 * 1000)) {
-      console.log('[fetchGBPLocations] refreshing token');
+    if (expiresAt < new Date(now + 5 * 60 * 1000)) {
       const refreshed = await refreshGoogleToken(conn.refresh_token);
       if (refreshed.access_token) {
         accessToken = refreshed.access_token;
         diag.token_refreshed = true;
-        const newExpiry = new Date(Date.now() + (refreshed.expires_in || 3600) * 1000).toISOString();
         await base44.asServiceRole.entities.ChannelConnection.update(connection_id, {
           access_token: accessToken,
-          expires_at: newExpiry,
+          expires_at: new Date(now + (refreshed.expires_in || 3600) * 1000).toISOString(),
         });
       } else {
         diag.step = 'token_refresh_failed';
         diag.token_refresh_error = `${refreshed.error}: ${refreshed.error_description || ''}`;
         diag.final_diagnosis = 'auth_failed';
         await base44.asServiceRole.entities.ChannelConnection.update(connection_id, { status: 'expired' });
-        await persistDiag(base44, connection_id, diag, `Token refresh failed: ${diag.token_refresh_error}`);
+        await persistDiag(base44, connection_id, conn, diag, `Token refresh failed: ${diag.token_refresh_error}`);
         return Response.json({ success: false, diag, error: diag.token_refresh_error });
       }
     }
@@ -114,11 +119,11 @@ Deno.serve(async (req) => {
 
   diag.step = 'accounts_api';
 
-  // ── Step 2: Account Management API ──────────────────────────────────────
+  // ── Step 2: Accounts API ─────────────────────────────────────────────────
   diag.account_api_attempted = true;
-  let accountRes, accountData;
+  let accountData;
   try {
-    accountRes = await fetch('https://mybusinessaccountmanagement.googleapis.com/v1/accounts', {
+    const accountRes = await fetch('https://mybusinessaccountmanagement.googleapis.com/v1/accounts', {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
     diag.account_api_http_status = accountRes.status;
@@ -127,27 +132,43 @@ Deno.serve(async (req) => {
     diag.step = 'accounts_network_error';
     diag.account_api_error = netErr.message;
     diag.final_diagnosis = 'network_error';
-    await persistDiag(base44, connection_id, diag, `Network error calling Accounts API: ${netErr.message}`);
+    await persistDiag(base44, connection_id, conn, diag, `Network error: ${netErr.message}`);
     return Response.json({ success: false, diag, error: netErr.message });
   }
 
-  console.log('[fetchGBPLocations] accounts API status:', accountRes.status, '| body preview:', JSON.stringify(accountData).slice(0, 400));
+  console.log('[fetchGBPLocations] accounts http:', diag.account_api_http_status, '| preview:', JSON.stringify(accountData).slice(0, 300));
 
   if (accountData.error) {
     diag.account_api_error = accountData.error.message || JSON.stringify(accountData.error);
     diag.account_api_error_class = classifyApiError(accountData.error);
     diag.final_diagnosis = diag.account_api_error_class;
 
+    const isQuota = diag.account_api_error_class === 'quota_exceeded';
+
     const humanMsg = {
-      api_disabled: 'My Business Account Management API is not enabled in Google Cloud Console for this project',
-      no_permission: 'This Google user lacks permission to access the Business Profile API',
-      auth_failed: 'OAuth token rejected — token may be expired or revoked',
-      quota_exceeded: 'API quota exceeded for this project',
-      api_error: `Accounts API error (${accountData.error.code}): ${accountData.error.message}`,
+      quota_exceeded:  'Google API quota exceeded — this project is being rate-limited',
+      api_disabled:    'My Business Account Management API is not enabled in Google Cloud Console',
+      no_permission:   'This Google user lacks permission to access the Business Profile API',
+      auth_failed:     'OAuth token rejected — token may be expired or revoked',
+      api_error:       `Accounts API error (${accountData.error.code}): ${accountData.error.message}`,
     }[diag.account_api_error_class] || diag.account_api_error;
 
-    await persistDiag(base44, connection_id, diag, humanMsg);
-    return Response.json({ success: false, diag, error: humanMsg });
+    // Set cooldown on quota errors; preserve existing destinations
+    const extraFields = {};
+    if (isQuota) {
+      extraFields.dest_sync_cooldown_until = new Date(now + QUOTA_COOLDOWN_MS).toISOString();
+      extraFields.dest_sync_last_quota_error = syncAt;
+      // Preserve existing destinations — do NOT wipe them
+    }
+
+    await persistDiag(base44, connection_id, conn, diag, humanMsg, extraFields, /* preserveDests */ isQuota);
+    return Response.json({
+      success: false,
+      diag,
+      error: humanMsg,
+      cooldown: isQuota,
+      cooldown_until: isQuota ? new Date(now + QUOTA_COOLDOWN_MS).toISOString() : null,
+    });
   }
 
   // ── Step 3: Parse accounts ───────────────────────────────────────────────
@@ -155,27 +176,20 @@ Deno.serve(async (req) => {
   diag.accounts_returned = accounts.length;
   diag.account_sample = accounts.slice(0, 3).map(a => ({ id: a.name, name: a.accountName || a.displayName || a.name }));
 
-  console.log('[fetchGBPLocations] accounts found:', accounts.length, '| sample:', JSON.stringify(diag.account_sample));
-
   if (!accounts.length) {
     diag.step = 'no_accounts';
     diag.locations_returned = 0;
     diag.destinations_saved = 0;
     diag.final_diagnosis = 'no_accounts';
-    await persistDiag(base44, connection_id, diag, 'Connected Google user has no accessible Business Profile accounts');
-    return Response.json({
-      success: false,
-      diag,
-      error: 'This Google account has no Business Profile accounts. The authenticated user may not own or manage any GBP listings.',
-    });
+    await persistDiag(base44, connection_id, conn, diag, 'Connected Google user has no accessible Business Profile accounts');
+    return Response.json({ success: false, diag, error: 'This Google account has no Business Profile accounts.' });
   }
 
   diag.step = 'locations_api';
-
-  // ── Step 4: Locations API for each account ───────────────────────────────
   diag.location_api_attempted = true;
   const allLocations = [];
 
+  // ── Step 4: Locations API ────────────────────────────────────────────────
   for (const account of accounts) {
     let locRes, locData;
     try {
@@ -186,11 +200,10 @@ Deno.serve(async (req) => {
       locData = await locRes.json();
     } catch (netErr) {
       diag.location_api_errors.push({ account: account.name, error: netErr.message, class: 'network_error' });
-      console.warn('[fetchGBPLocations] network error fetching locations for', account.name, ':', netErr.message);
       continue;
     }
 
-    console.log('[fetchGBPLocations] locations for', account.name, '| http:', locRes.status, '| body:', JSON.stringify(locData).slice(0, 400));
+    console.log('[fetchGBPLocations] locations for', account.name, 'http:', locRes.status, '| preview:', JSON.stringify(locData).slice(0, 300));
 
     if (locData.error) {
       const errClass = classifyApiError(locData.error);
@@ -201,12 +214,10 @@ Deno.serve(async (req) => {
         class: errClass,
         raw_code: locData.error.code,
       });
-      console.warn('[fetchGBPLocations] location error for', account.name, ':', locData.error.message);
       continue;
     }
 
-    const locs = locData.locations || [];
-    locs.forEach(loc => allLocations.push({
+    (locData.locations || []).forEach(loc => allLocations.push({
       id: loc.name,
       name: loc.title || loc.storeCode || loc.name,
       account_name: account.accountName || account.name,
@@ -217,40 +228,27 @@ Deno.serve(async (req) => {
   diag.locations_returned = allLocations.length;
   diag.location_sample = allLocations.slice(0, 3).map(l => ({ id: l.id, name: l.name, account: l.account_name }));
 
-  console.log('[fetchGBPLocations] total locations:', allLocations.length);
-
-  // ── Step 5: Diagnose zero locations ─────────────────────────────────────
+  // ── Step 5: Zero-location diagnosis ─────────────────────────────────────
   if (allLocations.length === 0) {
     diag.destinations_saved = 0;
-
-    // Determine why
     const locErrors = diag.location_api_errors;
-    const hasApiDisabled = locErrors.some(e => e.class === 'api_disabled');
-    const hasNoPermission = locErrors.some(e => e.class === 'no_permission');
-    const allErrored = locErrors.length === accounts.length;
-
-    if (hasApiDisabled) {
-      diag.final_diagnosis = 'locations_api_disabled';
-    } else if (hasNoPermission) {
-      diag.final_diagnosis = 'locations_no_permission';
-    } else if (allErrored) {
-      diag.final_diagnosis = 'locations_api_errors';
-    } else {
-      diag.final_diagnosis = 'accounts_exist_no_locations';
-    }
+    if (locErrors.some(e => e.class === 'api_disabled'))      diag.final_diagnosis = 'locations_api_disabled';
+    else if (locErrors.some(e => e.class === 'no_permission')) diag.final_diagnosis = 'locations_no_permission';
+    else if (locErrors.length === accounts.length)             diag.final_diagnosis = 'locations_api_errors';
+    else                                                       diag.final_diagnosis = 'accounts_exist_no_locations';
 
     const humanMsg = {
-      locations_api_disabled: 'My Business Business Information API is not enabled in Google Cloud Console',
-      locations_no_permission: 'OAuth token lacks permission to read locations — re-authenticate with business.manage scope',
-      locations_api_errors: `Locations API returned errors for all ${accounts.length} account(s) — see debug panel for details`,
-      accounts_exist_no_locations: `Found ${accounts.length} account(s) but zero locations. The account(s) may have no published/verified locations.`,
-    }[diag.final_diagnosis] || 'Zero locations returned for unknown reason';
+      locations_api_disabled:      'My Business Business Information API is not enabled in Google Cloud Console',
+      locations_no_permission:     'Token lacks permission to read locations — re-authenticate with business.manage scope',
+      locations_api_errors:        `Locations API errors on all ${accounts.length} account(s) — see step trace`,
+      accounts_exist_no_locations: `Found ${accounts.length} account(s) but zero locations — may have no verified listings`,
+    }[diag.final_diagnosis] || 'Zero locations returned';
 
-    await persistDiag(base44, connection_id, diag, humanMsg);
+    await persistDiag(base44, connection_id, conn, diag, humanMsg);
     return Response.json({ success: false, diag, error: humanMsg });
   }
 
-  // ── Step 6: Save ─────────────────────────────────────────────────────────
+  // ── Step 6: Save successfully ────────────────────────────────────────────
   diag.step = 'saving';
   const autoSelect = allLocations.length === 1 ? allLocations[0] : null;
   diag.auto_selected = autoSelect?.name || null;
@@ -259,10 +257,13 @@ Deno.serve(async (req) => {
 
   const updatePayload = {
     destinations_json: JSON.stringify(allLocations),
-    dest_sync_at: diag.synced_at,
+    dest_sync_at: syncAt,
     dest_sync_count: allLocations.length,
     dest_sync_error: null,
-    last_sync_at: diag.synced_at,
+    dest_sync_cooldown_until: null,           // clear cooldown on success
+    dest_sync_last_quota_error: conn.dest_sync_last_quota_error || null,
+    dest_sync_last_success: syncAt,           // track last successful sync
+    last_sync_at: syncAt,
     error_message: null,
     gbp_diag_json: JSON.stringify(diag),
   };
@@ -272,17 +273,23 @@ Deno.serve(async (req) => {
   }
 
   await base44.asServiceRole.entities.ChannelConnection.update(connection_id, updatePayload);
-
-  console.log('[fetchGBPLocations] SUCCESS — saved', allLocations.length, 'locations');
+  console.log('[fetchGBPLocations] SUCCESS —', allLocations.length, 'locations saved');
   return Response.json({ success: true, diag, locations: allLocations, auto_selected: autoSelect?.name || null });
 });
 
-async function persistDiag(base44, connection_id, diag, errorMessage) {
-  await base44.asServiceRole.entities.ChannelConnection.update(connection_id, {
+// Persist diagnostic fields without wiping stored destinations when preserveDests=true
+async function persistDiag(base44, connection_id, conn, diag, errorMessage, extraFields = {}, preserveDests = false) {
+  const update = {
     dest_sync_at: diag.synced_at,
-    dest_sync_count: diag.destinations_saved ?? 0,
+    dest_sync_count: preserveDests ? (conn.dest_sync_count ?? 0) : (diag.destinations_saved ?? 0),
     dest_sync_error: errorMessage,
     error_message: errorMessage,
     gbp_diag_json: JSON.stringify(diag),
-  });
+    ...extraFields,
+  };
+  // When preserving, explicitly keep existing destinations_json intact (don't set it)
+  if (!preserveDests) {
+    update.destinations_json = JSON.stringify([]);
+  }
+  await base44.asServiceRole.entities.ChannelConnection.update(connection_id, update);
 }

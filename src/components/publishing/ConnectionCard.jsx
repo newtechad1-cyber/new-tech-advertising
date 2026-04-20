@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AlertTriangle, RefreshCw, Unlink, Settings, ChevronDown, Star, MapPin, Info, CheckCircle2, XCircle, Circle } from 'lucide-react';
+import { AlertTriangle, RefreshCw, Unlink, Settings, ChevronDown, Star, MapPin, Circle, Clock } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const PROVIDER_CONFIG = {
@@ -21,9 +21,8 @@ const REQUIRES_DESTINATION = ['google_business_profile', 'youtube'];
 export default function ConnectionCard({ provider, connection, clientId, clientName, onConnect, onRefresh }) {
   const [showDests, setShowDests] = useState(false);
   const [refreshingLocations, setRefreshingLocations] = useState(false);
-  const [refreshResult, setRefreshResult] = useState(null); // { ok, msg, count }
+  const [refreshResult, setRefreshResult] = useState(null);
   const [disconnecting, setDisconnecting] = useState(false);
-  const [refreshingToken, setRefreshingToken] = useState(false);
   const [settingDefault, setSettingDefault] = useState(false);
   const [showDebug, setShowDebug] = useState(false);
   const [selectingDest, setSelectingDest] = useState(null);
@@ -34,7 +33,7 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
   const isGBP = provider === 'google_business_profile';
   const needsDest = REQUIRES_DESTINATION.includes(provider);
 
-  // Parse destinations stored on connection record (written by OAuth callback or fetchGBPLocations)
+  // Parse stored destinations (written by fetchGBPLocations or OAuth callback)
   const storedDestinations = (() => {
     if (!conn?.destinations_json) return [];
     try { return JSON.parse(conn.destinations_json); } catch { return []; }
@@ -50,19 +49,33 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
   const destSyncCount = conn?.dest_sync_count ?? storedDestinations.length;
   const destSyncAt = conn?.dest_sync_at || conn?.last_sync_at;
   const destSyncError = conn?.dest_sync_error;
-  const noLocationsAfterSync = needsDest && conn && status === 'connected' && destSyncCount === 0 && destSyncAt;
+  const lastSuccess = conn?.dest_sync_last_success;
+  const lastQuotaError = conn?.dest_sync_last_quota_error;
 
-  // Refresh GBP locations — calls backend which re-fetches and saves
-  const handleRefreshLocations = async () => {
-    if (!conn) return;
+  // Cooldown state
+  const cooldownUntil = conn?.dest_sync_cooldown_until ? new Date(conn.dest_sync_cooldown_until) : null;
+  const inCooldown = cooldownUntil && cooldownUntil > new Date();
+  const cooldownMinsLeft = inCooldown ? Math.ceil((cooldownUntil - Date.now()) / 60000) : 0;
+
+  // Whether we're showing cached (stale) destinations during an error
+  const isCached = storedDestinations.length > 0 && !!destSyncError;
+
+  // Show GBP diag panel when: synced at least once, no locations found currently
+  const showDiagPanel = isGBP && conn && status === 'connected' && destSyncAt && storedDestinations.length === 0;
+
+  // Refresh GBP locations
+  const handleRefreshLocations = async (force = false) => {
+    if (!conn || (inCooldown && !force)) return;
     setRefreshingLocations(true);
     setRefreshResult(null);
     try {
-      const res = await base44.functions.invoke('fetchGBPLocations', { connection_id: conn.id });
+      const res = await base44.functions.invoke('fetchGBPLocations', { connection_id: conn.id, force });
       const d = res?.data;
       if (d?.success) {
         setRefreshResult({ ok: true, msg: `Found ${d.locations?.length || 0} location${d.locations?.length !== 1 ? 's' : ''}${d.auto_selected ? ` — auto-selected: ${d.auto_selected}` : ''}` });
-        if (!showDests && d.locations?.length > 0) setShowDests(true);
+        if (d.locations?.length > 0) setShowDests(true);
+      } else if (d?.cooldown) {
+        setRefreshResult({ ok: false, cooldown: true, msg: d.error });
       } else {
         setRefreshResult({ ok: false, msg: d?.error || 'Location sync failed' });
       }
@@ -73,7 +86,6 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
     setRefreshingLocations(false);
   };
 
-  // Select a destination — direct DB update (no extra backend function needed)
   const handleSelectDestination = async (dest) => {
     if (!conn) return;
     setSelectingDest(dest.id);
@@ -90,29 +102,10 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
     if (!conn) return;
     setDisconnecting(true);
     await base44.entities.ChannelConnection.update(conn.id, {
-      status: 'disconnected',
-      access_token: null,
-      refresh_token: null,
+      status: 'disconnected', access_token: null, refresh_token: null,
     });
     onRefresh();
     setDisconnecting(false);
-  };
-
-  const handleRefreshToken = async () => {
-    if (!conn) return;
-    setRefreshingToken(true);
-    try {
-      // For GBP, just re-trigger location sync which also refreshes token
-      if (isGBP) {
-        await handleRefreshLocations();
-      } else {
-        await base44.functions.invoke('channelRefreshToken', { connection_id: conn.id });
-        onRefresh();
-      }
-    } catch (err) {
-      alert('Token refresh failed: ' + err.message);
-    }
-    setRefreshingToken(false);
   };
 
   const handleSetDefault = async () => {
@@ -123,7 +116,6 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
     setSettingDefault(false);
   };
 
-  // Determine badge label
   const badgeLabel = (() => {
     if (!conn || status === 'disconnected') return 'Not Connected';
     if (status === 'expired') return 'Expired';
@@ -137,6 +129,7 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
 
   return (
     <div className={`bg-slate-900 border ${conn ? cfg.border : 'border-slate-800'} rounded-xl p-4 space-y-3`}>
+
       {/* Header */}
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
@@ -167,7 +160,7 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
         </div>
       )}
 
-      {/* Destination Required warning */}
+      {/* Destination Required warning — with cached destinations note */}
       {conn && status === 'connected' && needsDest && !hasDestination && (
         <div className="flex items-start gap-1.5 bg-amber-900/20 border border-amber-800 rounded-lg px-3 py-2">
           <AlertTriangle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
@@ -182,22 +175,40 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
         </div>
       )}
 
-      {/* GBP Diagnostic panel */}
-      {isGBP && conn && status === 'connected' && destSyncAt && storedDestinations.length === 0 && (
-        <GBPDiagPanel diag={diag} syncError={destSyncError} syncAt={destSyncAt} />
+      {/* Cached destinations stale notice */}
+      {isCached && (
+        <div className="flex items-center gap-1.5 bg-slate-800/60 border border-slate-700 rounded-lg px-3 py-2">
+          <Clock className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" />
+          <p className="text-xs text-slate-500">
+            Showing {storedDestinations.length} cached location{storedDestinations.length !== 1 ? 's' : ''} from last successful sync
+            {lastSuccess ? ` (${new Date(lastSuccess).toLocaleDateString()})` : ''}
+          </p>
+        </div>
       )}
 
-      {/* Error */}
-      {conn?.error_message && !noLocationsAfterSync && (
-        <div className="flex items-start gap-2 bg-red-900/20 border border-red-800 rounded-lg px-3 py-2">
-          <AlertTriangle className="w-3.5 h-3.5 text-red-400 flex-shrink-0 mt-0.5" />
-          <p className="text-xs text-red-300">{conn.error_message}</p>
+      {/* Cooldown banner */}
+      {inCooldown && (
+        <div className="flex items-start gap-2 bg-amber-900/20 border border-amber-800 rounded-lg px-3 py-2">
+          <Clock className="w-3.5 h-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
+          <div>
+            <p className="text-xs font-semibold text-amber-400">Google temporarily rate-limited this project</p>
+            <p className="text-xs text-amber-600">Try again in ~{cooldownMinsLeft} minute{cooldownMinsLeft !== 1 ? 's' : ''}.</p>
+          </div>
         </div>
+      )}
+
+      {/* GBP Diagnostic panel (only when no stored destinations) */}
+      {showDiagPanel && (
+        <GBPDiagPanel diag={diag} syncError={destSyncError} syncAt={destSyncAt} />
       )}
 
       {/* Refresh result feedback */}
       {refreshResult && (
-        <div className={`text-xs px-3 py-2 rounded-lg border ${refreshResult.ok ? 'bg-emerald-900/30 border-emerald-700 text-emerald-300' : 'bg-red-900/20 border-red-800 text-red-300'}`}>
+        <div className={`text-xs px-3 py-2 rounded-lg border ${
+          refreshResult.ok      ? 'bg-emerald-900/30 border-emerald-700 text-emerald-300' :
+          refreshResult.cooldown? 'bg-amber-900/20 border-amber-800 text-amber-300' :
+                                  'bg-red-900/20 border-red-800 text-red-300'
+        }`}>
           {refreshResult.msg}
         </div>
       )}
@@ -221,22 +232,28 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
           )}
           {destSyncAt && (
             <div>
-              <p className="text-slate-600">Dest. Sync</p>
+              <p className="text-slate-600">Last Sync Attempt</p>
               <p className="text-slate-400">{new Date(destSyncAt).toLocaleDateString()}</p>
+            </div>
+          )}
+          {lastSuccess && (
+            <div>
+              <p className="text-slate-600">Last Successful Sync</p>
+              <p className="text-emerald-600">{new Date(lastSuccess).toLocaleDateString()}</p>
             </div>
           )}
           {needsDest && (
             <div>
               <p className="text-slate-600">Locations</p>
-              <p className={`font-medium ${destSyncCount === 0 && destSyncAt ? 'text-amber-400' : 'text-slate-400'}`}>
-                {destSyncAt ? `${destSyncCount} found` : 'Not synced'}
+              <p className={`font-medium ${storedDestinations.length === 0 && destSyncAt ? 'text-amber-400' : 'text-slate-400'}`}>
+                {destSyncAt ? `${storedDestinations.length} cached` : 'Not synced'}
               </p>
             </div>
           )}
         </div>
       )}
 
-      {/* GBP / YouTube: Destination selector */}
+      {/* Destination selector — always shown if we have stored destinations */}
       {conn && status === 'connected' && needsDest && storedDestinations.length > 0 && (
         <div>
           <button
@@ -280,18 +297,20 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
           </button>
         ) : (
           <>
-            {/* Refresh Locations — GBP primary action when no dest */}
             {isGBP && (
-              <button onClick={handleRefreshLocations} disabled={refreshingLocations}
-                className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 bg-blue-700 hover:bg-blue-600 disabled:opacity-50 text-white rounded-lg transition-colors">
+              <button
+                onClick={() => handleRefreshLocations(false)}
+                disabled={refreshingLocations || inCooldown}
+                title={inCooldown ? `Cooling down — retry in ~${cooldownMinsLeft} min` : 'Refresh GBP locations'}
+                className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 bg-blue-700 hover:bg-blue-600 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-lg transition-colors">
                 <RefreshCw className={`w-3.5 h-3.5 ${refreshingLocations ? 'animate-spin' : ''}`} />
-                {refreshingLocations ? 'Syncing…' : 'Refresh Locations'}
+                {refreshingLocations ? 'Syncing…' : inCooldown ? `Cooldown (~${cooldownMinsLeft}m)` : 'Refresh Locations'}
               </button>
             )}
 
             {conn.selected_destination_id && !conn.is_default && (
               <button onClick={handleSetDefault} disabled={settingDefault}
-                className="text-xs font-semibold px-3 py-2 bg-amber-900/30 hover:bg-amber-900/50 border border-amber-800 text-amber-400 rounded-lg transition-colors disabled:opacity-50 flex items-center gap-1.5 justify-center">
+                className="text-xs font-semibold px-3 py-2 bg-amber-900/30 hover:bg-amber-900/50 border border-amber-800 text-amber-400 rounded-lg transition-colors disabled:opacity-50 flex items-center gap-1.5">
                 <Star className="w-3.5 h-3.5" />
                 {settingDefault ? 'Saving…' : 'Set Default'}
               </button>
@@ -301,13 +320,6 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
               className="text-xs font-semibold px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 rounded-lg transition-colors">
               Reconnect
             </button>
-
-            {!isGBP && (provider === 'youtube') && (
-              <button onClick={handleRefreshToken} disabled={refreshingToken}
-                className="text-xs font-semibold px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-400 rounded-lg transition-colors disabled:opacity-50">
-                <RefreshCw className={`w-3.5 h-3.5 ${refreshingToken ? 'animate-spin' : ''}`} />
-              </button>
-            )}
 
             <button onClick={handleDisconnect} disabled={disconnecting}
               className="text-xs font-semibold px-3 py-2 bg-red-900/30 hover:bg-red-900/50 border border-red-800 text-red-400 rounded-lg transition-colors disabled:opacity-50">
@@ -334,12 +346,15 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
           <DebugRow label="account_email" value={conn.external_account_name || '—'} />
           <DebugRow label="dest_id" value={conn.selected_destination_id || '(none)'} />
           <DebugRow label="dest_name" value={conn.selected_destination_name || '(none)'} />
-          <DebugRow label="dest_count" value={String(destSyncCount)} />
+          <DebugRow label="cached_dests" value={`${storedDestinations.length} stored`} />
           <DebugRow label="dest_sync_at" value={destSyncAt ? new Date(destSyncAt).toLocaleString() : '—'} />
+          <DebugRow label="last_success" value={lastSuccess ? new Date(lastSuccess).toLocaleString() : '—'} />
+          <DebugRow label="last_quota_err" value={lastQuotaError ? new Date(lastQuotaError).toLocaleString() : '—'} />
+          <DebugRow label="cooldown_until" value={cooldownUntil ? cooldownUntil.toLocaleString() : '—'} highlight={inCooldown} />
+          <DebugRow label="in_cooldown" value={String(inCooldown)} highlight={inCooldown} />
           <DebugRow label="dest_sync_error" value={destSyncError || '—'} />
           <DebugRow label="is_default" value={String(!!conn.is_default)} />
           <DebugRow label="token_expires" value={conn.expires_at || '—'} />
-          <DebugRow label="stored_dests" value={`${storedDestinations.length} destinations in JSON`} />
           {storedDestinations.slice(0, 3).map((d, i) => (
             <DebugRow key={i} label={`  dest[${i}]`} value={`${d.name} — ${d.id}`} />
           ))}
@@ -347,6 +362,15 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
           {diag && <DebugRow label="diag_step" value={diag.step || '—'} />}
           {diag && <DebugRow label="diag_accts" value={String(diag.accounts_returned ?? '—')} />}
           {diag && <DebugRow label="diag_locs" value={String(diag.locations_returned ?? '—')} />}
+          {/* Force retry from debug mode */}
+          {isGBP && conn && status === 'connected' && (
+            <button
+              onClick={() => handleRefreshLocations(true)}
+              disabled={refreshingLocations}
+              className="mt-2 w-full text-xs font-bold text-amber-400 bg-amber-900/20 hover:bg-amber-900/40 border border-amber-800 rounded px-2 py-1.5 disabled:opacity-50">
+              ⚡ Force Refresh (bypass cooldown)
+            </button>
+          )}
         </div>
       )}
     </div>
@@ -356,33 +380,32 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
 function DebugRow({ label, value, highlight }) {
   return (
     <div className="flex gap-2">
-      <span className="text-slate-600 w-32 flex-shrink-0">{label}</span>
+      <span className="text-slate-600 w-36 flex-shrink-0">{label}</span>
       <span className={`break-all ${highlight ? 'text-amber-300' : 'text-slate-300'}`}>{value}</span>
     </div>
   );
 }
 
-// ── GBP Step-by-Step Diagnostic Panel ────────────────────────────────────────
+// ── GBP Diagnostic Panel ──────────────────────────────────────────────────────
 const DIAGNOSIS_MESSAGES = {
-  no_token:                   { color: 'text-red-400',    msg: 'No access token stored — OAuth must be redone' },
-  auth_failed:                { color: 'text-red-400',    msg: 'OAuth token was rejected — reconnect' },
-  api_disabled:               { color: 'text-red-400',    msg: 'My Business Account Management API is not enabled in Google Cloud Console for this project' },
+  no_token:                   { color: 'text-red-400',    msg: 'No access token stored — reconnect OAuth' },
+  auth_failed:                { color: 'text-red-400',    msg: 'OAuth token rejected — reconnect' },
+  api_disabled:               { color: 'text-red-400',    msg: 'My Business Account Management API is not enabled in Google Cloud Console' },
   no_permission:              { color: 'text-amber-400',  msg: 'Authenticated Google user lacks GBP API permissions' },
-  quota_exceeded:             { color: 'text-amber-400',  msg: 'API quota exceeded — try again later' },
+  quota_exceeded:             { color: 'text-amber-400',  msg: 'Google API quota exceeded — this Google Cloud project is being rate-limited. Check quota settings or wait before retrying.' },
   network_error:              { color: 'text-red-400',    msg: 'Network error reaching Google APIs' },
   no_accounts:                { color: 'text-amber-400',  msg: 'Connected Google user has no accessible Business Profile accounts' },
   locations_api_disabled:     { color: 'text-red-400',    msg: 'My Business Business Information API is not enabled in Google Cloud Console' },
   locations_no_permission:    { color: 'text-amber-400',  msg: 'Token scope missing — business.manage required for reading locations' },
-  locations_api_errors:       { color: 'text-red-400',    msg: 'Locations API returned errors for all accounts — see details below' },
-  accounts_exist_no_locations:{ color: 'text-amber-400',  msg: 'Account(s) found but no locations returned — may have no published/verified locations' },
+  locations_api_errors:       { color: 'text-red-400',    msg: 'Locations API returned errors for all accounts — see step trace' },
+  accounts_exist_no_locations:{ color: 'text-amber-400',  msg: 'Account(s) found but no locations returned — may have no verified listings' },
   success:                    { color: 'text-emerald-400', msg: 'Sync succeeded' },
 };
 
-function StepRow({ icon, label, value, valueClass = 'text-slate-300' }) {
-  const Icon = icon;
+function StepRow({ label, value, valueClass = 'text-slate-300' }) {
   return (
     <div className="flex items-start gap-2">
-      <Icon className="w-3 h-3 text-slate-600 flex-shrink-0 mt-0.5" />
+      <Circle className="w-3 h-3 text-slate-600 flex-shrink-0 mt-0.5" />
       <span className="text-slate-500 w-44 flex-shrink-0">{label}</span>
       <span className={`break-all text-xs ${valueClass}`}>{value}</span>
     </div>
@@ -393,20 +416,29 @@ function GBPDiagPanel({ diag, syncError, syncAt }) {
   const [open, setOpen] = useState(false);
   const diagnosis = diag?.final_diagnosis;
   const dm = DIAGNOSIS_MESSAGES[diagnosis] || { color: 'text-slate-400', msg: syncError || 'Unknown sync failure' };
+  const isQuota = diagnosis === 'quota_exceeded';
 
   return (
-    <div className="bg-slate-800/60 border border-slate-700 rounded-lg p-3 space-y-2">
-      {/* Plain-language blocker */}
+    <div className={`border rounded-lg p-3 space-y-2 ${isQuota ? 'bg-amber-950/20 border-amber-800/60' : 'bg-slate-800/60 border-slate-700'}`}>
       <div className={`flex items-start gap-2 ${dm.color}`}>
         <AlertTriangle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
-        <p className="text-xs font-semibold">{dm.msg}</p>
+        <div>
+          <p className="text-xs font-semibold">
+            {isQuota ? 'Google API quota exceeded' : 'Destination sync failed'}
+          </p>
+          <p className="text-xs mt-0.5 opacity-80">{dm.msg}</p>
+          {isQuota && (
+            <p className="text-xs mt-1 text-amber-600">
+              Go to Google Cloud Console → APIs &amp; Services → Quotas for <code>mybusinessaccountmanagement.googleapis.com</code> to request an increase.
+            </p>
+          )}
+        </div>
       </div>
 
       {syncAt && (
-        <p className="text-xs text-slate-600">Last sync: {new Date(syncAt).toLocaleString()}</p>
+        <p className="text-xs text-slate-600">Last attempted: {new Date(syncAt).toLocaleString()}</p>
       )}
 
-      {/* Expandable step trace */}
       {diag && (
         <button onClick={() => setOpen(p => !p)}
           className="text-xs text-slate-600 hover:text-slate-400 flex items-center gap-1">
@@ -417,34 +449,23 @@ function GBPDiagPanel({ diag, syncError, syncAt }) {
 
       {open && diag && (
         <div className="bg-slate-950 border border-slate-700 rounded-lg p-3 space-y-1.5 text-xs font-mono">
-          <StepRow icon={Circle} label="step_reached" value={diag.step || '—'} valueClass="text-amber-300" />
-          <StepRow icon={Circle} label="token_present" value={String(diag.token_present)} valueClass={diag.token_present ? 'text-emerald-400' : 'text-red-400'} />
-          {diag.token_refresh_error && (
-            <StepRow icon={Circle} label="token_refresh_err" value={diag.token_refresh_error} valueClass="text-red-400" />
-          )}
-          <StepRow icon={Circle} label="acct_api_attempted" value={String(diag.account_api_attempted)} />
-          <StepRow icon={Circle} label="acct_api_http" value={String(diag.account_api_http_status ?? '—')} valueClass={diag.account_api_http_status === 200 ? 'text-emerald-400' : 'text-red-400'} />
-          {diag.account_api_error && (
-            <StepRow icon={Circle} label="acct_api_error" value={diag.account_api_error} valueClass="text-red-400" />
-          )}
-          {diag.account_api_error_class && (
-            <StepRow icon={Circle} label="acct_error_class" value={diag.account_api_error_class} valueClass="text-amber-300" />
-          )}
-          <StepRow icon={Circle} label="accounts_returned" value={String(diag.accounts_returned ?? '—')} valueClass={diag.accounts_returned > 0 ? 'text-emerald-400' : 'text-amber-400'} />
-          {diag.account_sample?.map((a, i) => (
-            <StepRow key={i} icon={Circle} label={`  account[${i}]`} value={`${a.name} | ${a.id}`} />
-          ))}
-          <StepRow icon={Circle} label="loc_api_attempted" value={String(diag.location_api_attempted)} />
-          <StepRow icon={Circle} label="locations_returned" value={String(diag.locations_returned ?? '—')} valueClass={diag.locations_returned > 0 ? 'text-emerald-400' : 'text-amber-400'} />
-          {diag.location_sample?.map((l, i) => (
-            <StepRow key={i} icon={Circle} label={`  location[${i}]`} value={`${l.name} | ${l.id}`} />
-          ))}
-          {diag.location_api_errors?.map((e, i) => (
-            <StepRow key={i} icon={Circle} label={`  loc_err[${i}]`} value={`${e.class} (${e.http_status ?? '?'}) ${e.error}`} valueClass="text-red-400" />
-          ))}
-          <StepRow icon={Circle} label="destinations_saved" value={String(diag.destinations_saved ?? '—')} />
-          <StepRow icon={Circle} label="final_diagnosis" value={diag.final_diagnosis || '—'} valueClass="text-amber-300" />
-          <StepRow icon={Circle} label="synced_at" value={diag.synced_at || '—'} />
+          <StepRow label="step_reached" value={diag.step || '—'} valueClass="text-amber-300" />
+          <StepRow label="token_present" value={String(diag.token_present)} valueClass={diag.token_present ? 'text-emerald-400' : 'text-red-400'} />
+          {diag.token_refresh_error && <StepRow label="token_refresh_err" value={diag.token_refresh_error} valueClass="text-red-400" />}
+          <StepRow label="acct_api_attempted" value={String(diag.account_api_attempted)} />
+          <StepRow label="acct_api_http" value={String(diag.account_api_http_status ?? '—')} valueClass={diag.account_api_http_status === 200 ? 'text-emerald-400' : 'text-red-400'} />
+          {diag.account_api_error && <StepRow label="acct_api_error" value={diag.account_api_error} valueClass="text-red-400" />}
+          {diag.account_api_error_class && <StepRow label="acct_error_class" value={diag.account_api_error_class} valueClass="text-amber-300" />}
+          <StepRow label="accounts_returned" value={String(diag.accounts_returned ?? '—')} valueClass={diag.accounts_returned > 0 ? 'text-emerald-400' : 'text-amber-400'} />
+          {diag.account_sample?.map((a, i) => <StepRow key={i} label={`  account[${i}]`} value={`${a.name} | ${a.id}`} />)}
+          <StepRow label="loc_api_attempted" value={String(diag.location_api_attempted)} />
+          <StepRow label="locations_returned" value={String(diag.locations_returned ?? '—')} valueClass={diag.locations_returned > 0 ? 'text-emerald-400' : 'text-amber-400'} />
+          {diag.location_sample?.map((l, i) => <StepRow key={i} label={`  location[${i}]`} value={`${l.name} | ${l.id}`} />)}
+          {diag.location_api_errors?.map((e, i) => <StepRow key={i} label={`  loc_err[${i}]`} value={`${e.class} (${e.http_status ?? '?'}) ${e.error}`} valueClass="text-red-400" />)}
+          <StepRow label="destinations_saved" value={String(diag.destinations_saved ?? '—')} />
+          <StepRow label="final_diagnosis" value={diag.final_diagnosis || '—'} valueClass="text-amber-300" />
+          <StepRow label="synced_at" value={diag.synced_at || '—'} />
+          {diag.forced && <StepRow label="forced" value="true" valueClass="text-amber-300" />}
         </div>
       )}
     </div>
