@@ -1,8 +1,13 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
-const CALLBACK_URL = 'https://new-tech-advertising.base44.app/api/functions/facebookOAuthCallback';
-const APP_BASE = 'https://new-tech-advertising.base44.app';
-const RETURN_PAGE = `${APP_BASE}/agency/channel-connections`;
+// ── CANONICAL REDIRECT URI — must match Meta App Dashboard exactly ────────────
+const FACEBOOK_REDIRECT_URI = 'https://new-tech-advertising.base44.app/api/functions/facebookOAuthCallback';
+const RETURN_PAGE = 'https://new-tech-advertising.base44.app/agency/channel-connections';
+
+// Validate at module load time — fail fast if URI was accidentally modified
+if (FACEBOOK_REDIRECT_URI.split('https://').length - 1 > 1) {
+  throw new Error(`[facebookOAuthCallback] FATAL: FACEBOOK_REDIRECT_URI contains multiple "https://" — URI is malformed: ${FACEBOOK_REDIRECT_URI}`);
+}
 
 async function log(base44, data) {
   try {
@@ -17,6 +22,9 @@ async function log(base44, data) {
 
 // Exchange short-lived code for short-lived user access token
 async function exchangeCodeForToken(code) {
+  // Log before token exchange so we can see exact URI sent to Facebook
+  console.log(`[facebookOAuthCallback] token_exchange final_redirect_uri=${FACEBOOK_REDIRECT_URI}`);
+
   const res = await fetch('https://graph.facebook.com/v19.0/oauth/access_token', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -24,7 +32,7 @@ async function exchangeCodeForToken(code) {
       code,
       client_id: Deno.env.get('META_APP_ID'),
       client_secret: Deno.env.get('META_APP_SECRET'),
-      redirect_uri: CALLBACK_URL,
+      redirect_uri: FACEBOOK_REDIRECT_URI,
     }),
   });
   const body = await res.json();

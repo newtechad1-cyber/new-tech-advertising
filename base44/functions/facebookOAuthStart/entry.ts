@@ -1,6 +1,12 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
-const CALLBACK_URL = 'https://new-tech-advertising.base44.app/api/functions/facebookOAuthCallback';
+// ── CANONICAL REDIRECT URI — never change or concatenate ─────────────────────
+const FACEBOOK_REDIRECT_URI = 'https://new-tech-advertising.base44.app/api/functions/facebookOAuthCallback';
+
+// Validate at module load time — fail fast if URI was accidentally modified
+if (FACEBOOK_REDIRECT_URI.split('https://').length - 1 > 1) {
+  throw new Error(`[facebookOAuthStart] FATAL: FACEBOOK_REDIRECT_URI contains multiple "https://" — URI is malformed: ${FACEBOOK_REDIRECT_URI}`);
+}
 
 const FB_SCOPES = [
   'pages_show_list',
@@ -54,16 +60,28 @@ Deno.serve(async (req) => {
   });
   const state = btoa(statePayload);
 
+  // Validate redirect URI before building the auth URL
+  if (FACEBOOK_REDIRECT_URI !== 'https://new-tech-advertising.base44.app/api/functions/facebookOAuthCallback') {
+    console.error(`[facebookOAuthStart] FATAL: redirect_uri mismatch — got: ${FACEBOOK_REDIRECT_URI}`);
+    return Response.json({ error: 'redirect_uri_configuration_error' }, { status: 500 });
+  }
+
   const params = new URLSearchParams({
     client_id: Deno.env.get('META_APP_ID'),
-    redirect_uri: CALLBACK_URL,
+    redirect_uri: FACEBOOK_REDIRECT_URI,
     scope: scopes,
     response_type: 'code',
     state,
-    auth_type: 'rerequest', // re-request previously declined permissions
+    auth_type: 'rerequest',
   });
 
   const auth_url = `https://www.facebook.com/v19.0/dialog/oauth?${params}`;
+
+  // Required diagnostic logging
+  console.log(`[facebookOAuthStart] final_redirect_uri=${FACEBOOK_REDIRECT_URI}`);
+  console.log(`[facebookOAuthStart] scope_string=${scopes}`);
+  console.log(`[facebookOAuthStart] full_auth_url=${auth_url}`);
+  console.log(`[facebookOAuthStart] meta_app_id=${Deno.env.get('META_APP_ID')}`);
 
   await log(base44, {
     client_id,
@@ -74,12 +92,11 @@ Deno.serve(async (req) => {
     payload: JSON.stringify({
       client_id,
       client_name,
-      callback_url: CALLBACK_URL,
-      scopes,
+      final_redirect_uri: FACEBOOK_REDIRECT_URI,
+      scope_string: scopes,
       nonce,
     }),
   });
 
-  console.log(`[facebookOAuthStart] auth_url built for client_id=${client_id}`);
   return Response.json({ auth_url });
 });
