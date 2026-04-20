@@ -17,14 +17,28 @@ export default function AddLeadModal({ onClose, onSaved }) {
   const [form, setForm] = useState(BLANK);
   const [saving, setSaving] = useState(false);
   const [errors, setErrors] = useState({});
+  const [saveIncomplete, setSaveIncomplete] = useState(false);
 
-  const set = (k, v) => setForm(p => ({ ...p, [k]: v }));
+  const set = (k, v) => {
+    setForm(p => ({ ...p, [k]: v }));
+    if (saveIncomplete) setSaveIncomplete(false);
+  };
+
+  const hasName = !!(form.contact_name.trim() || form.first_name.trim() || form.last_name.trim());
+  const hasContact = !!(form.phone.trim() || form.email.trim());
+  const isIncomplete = !hasName || !hasContact;
 
   const validate = () => {
     const e = {};
     if (!form.business_name.trim()) e.business_name = 'Required';
     setErrors(e);
-    return Object.keys(e).length === 0;
+    if (Object.keys(e).length > 0) return false;
+    // Warn about incomplete but allow override
+    if (isIncomplete && !saveIncomplete) {
+      setSaveIncomplete(true);
+      return false;
+    }
+    return true;
   };
 
   const save = async () => {
@@ -137,14 +151,21 @@ export default function AddLeadModal({ onClose, onSaved }) {
         </div>
 
         {/* Footer */}
-        <div className="flex gap-3 px-5 py-4 border-t border-slate-800 flex-shrink-0">
-          <button onClick={save} disabled={saving}
-            className="flex-1 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-bold py-2.5 rounded-xl text-sm transition-colors">
-            {saving ? 'Saving...' : 'Add Lead & Create Deal'}
-          </button>
-          <button onClick={onClose} className="px-5 bg-slate-800 hover:bg-slate-700 text-white font-semibold py-2.5 rounded-xl text-sm">
-            Cancel
-          </button>
+        <div className="px-5 py-4 border-t border-slate-800 flex-shrink-0 space-y-2">
+          {saveIncomplete && isIncomplete && (
+            <div className="bg-amber-900/30 border border-amber-700/50 rounded-xl px-3 py-2.5 text-xs text-amber-400">
+              ⚠️ This lead is missing {!hasName ? 'a contact name' : ''}{!hasName && !hasContact ? ' and ' : ''}{!hasContact ? 'phone or email' : ''}. Save anyway as an incomplete lead?
+            </div>
+          )}
+          <div className="flex gap-3">
+            <button onClick={save} disabled={saving}
+              className={`flex-1 disabled:opacity-50 text-white font-bold py-2.5 rounded-xl text-sm transition-colors ${saveIncomplete && isIncomplete ? 'bg-amber-600 hover:bg-amber-500' : 'bg-blue-600 hover:bg-blue-500'}`}>
+              {saving ? 'Saving...' : saveIncomplete && isIncomplete ? 'Save Incomplete Lead' : 'Add Lead & Create Deal'}
+            </button>
+            <button onClick={onClose} className="px-5 bg-slate-800 hover:bg-slate-700 text-white font-semibold py-2.5 rounded-xl text-sm">
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
     </div>

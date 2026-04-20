@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Plus, Search, Phone, Mail, Calendar, ChevronDown, Trash2 } from 'lucide-react';
+import { Plus, Search, Phone, Mail, Calendar, ChevronDown, Trash2, AlertCircle } from 'lucide-react';
+
+function isIncomplete(lead) {
+  const hasName = !!(lead.contact_name || lead.first_name || lead.last_name);
+  const hasContact = !!(lead.phone || lead.email);
+  return !hasName || !hasContact;
+}
 import AgencyLayout from '../components/agency/AgencyLayout';
 import AddLeadModal from '../components/agency/AddLeadModal';
 import LeadDetailModal from '../components/agency/LeadDetailModal';
@@ -77,10 +83,6 @@ export default function AgencyLeads() {
     // If no deal exists, create a virtual one for the modal
     const virtualDeal = deal || { id: null, lead_id: lead.id, deal_name: lead.business_name, stage: 'New Lead' };
     setSelected({ lead, deal: virtualDeal });
-  };
-
-  const onLeadUpdated = (updatedLead) => {
-    setLeads(prev => prev.map(l => l.id === updatedLead?.id ? updatedLead : l));
   };
 
   const deleteLead = async (e, leadId) => {
@@ -168,11 +170,16 @@ export default function AgencyLeads() {
                       <p className="text-sm font-semibold text-white truncate group-hover:text-blue-300 transition-colors">
                         {lead.business_name || '(no name)'}
                       </p>
-                      <div className="flex items-center gap-2 mt-0.5">
+                      <div className="flex items-center gap-2 mt-0.5 flex-wrap">
                         <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full ${STATUS_COLORS[lead.status] || 'bg-slate-700 text-slate-300'} capitalize`}>
                           {lead.status || 'new'}
                         </span>
                         {displayName && <span className="text-xs text-slate-500 truncate">{displayName}</span>}
+                        {isIncomplete(lead) && (
+                          <span className="flex items-center gap-0.5 text-xs text-amber-500 font-semibold" title="Incomplete lead — missing contact name or contact info">
+                            <AlertCircle className="w-3 h-3" /> Incomplete
+                          </span>
+                        )}
                       </div>
                     </div>
 
@@ -241,9 +248,9 @@ export default function AgencyLeads() {
           deal={selected.deal}
           lead={selected.lead}
           onClose={() => setSelected(null)}
-          onUpdated={(updatedDeal) => {
-            onDealUpdated(updatedDeal);
-            setSelected(s => s ? { ...s, deal: updatedDeal } : null);
+          onUpdated={(updatedDeal, updatedLead) => {
+            onDealUpdated(updatedDeal, updatedLead);
+            setSelected(s => s ? { ...s, deal: updatedDeal, lead: updatedLead || s.lead } : null);
           }}
         />
       )}

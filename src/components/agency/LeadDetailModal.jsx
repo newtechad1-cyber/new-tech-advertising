@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Phone, Mail, Globe, MapPin, MessageSquare, Check, Edit, Save, ChevronDown, Calendar } from 'lucide-react';
+import { X, Phone, Mail, Globe, MapPin, MessageSquare, Check, Edit, Save, ChevronDown, Calendar, AlertCircle } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const STAGES = ['New Lead', 'Contacted', 'Demo Sent', 'Proposal', 'Closed Won', 'Closed Lost'];
@@ -27,6 +27,7 @@ export default function LeadDetailModal({ deal, lead: initialLead, onClose, onUp
   const [addingNote, setAddingNote] = useState(false);
   const [saving, setSaving] = useState(false);
   const [movingStage, setMovingStage] = useState(false);
+  const [saveError, setSaveError] = useState(null);
 
   const startEdit = () => {
     setEditForm({
@@ -48,7 +49,17 @@ export default function LeadDetailModal({ deal, lead: initialLead, onClose, onUp
     setEditMode(true);
   };
 
+  const editIsIncomplete = !!(editForm.business_name) && (
+    !(editForm.contact_name || editForm.first_name || editForm.last_name) ||
+    !(editForm.phone || editForm.email)
+  );
+
   const saveLead = async () => {
+    setSaveError(null);
+    if (!editForm.business_name?.trim()) {
+      setSaveError('Business name is required.');
+      return;
+    }
     setSaving(true);
     if (lead.id) {
       await base44.entities.SalesLead.update(lead.id, editForm);
@@ -171,12 +182,22 @@ export default function LeadDetailModal({ deal, lead: initialLead, onClose, onUp
                 <EF label="Next Follow-Up" value={editForm.next_follow_up} onChange={v => set('next_follow_up', v)} type="date" />
               </div>
 
+              {saveError && (
+                <div className="flex items-center gap-2 bg-red-900/30 border border-red-800/50 rounded-xl px-3 py-2 text-xs text-red-400">
+                  <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />{saveError}
+                </div>
+              )}
+              {editIsIncomplete && (
+                <div className="flex items-center gap-2 bg-amber-900/20 border border-amber-700/40 rounded-xl px-3 py-2 text-xs text-amber-400">
+                  <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />Missing contact name or phone/email — this lead will be flagged as incomplete.
+                </div>
+              )}
               <div className="flex gap-2 pt-1">
                 <button onClick={saveLead} disabled={saving}
                   className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-bold py-2.5 rounded-xl text-sm">
                   <Save className="w-4 h-4" />{saving ? 'Saving...' : 'Save Changes'}
                 </button>
-                <button onClick={() => setEditMode(false)}
+                <button onClick={() => { setEditMode(false); setSaveError(null); }}
                   className="px-4 bg-slate-800 hover:bg-slate-700 text-white font-semibold py-2.5 rounded-xl text-sm">
                   Cancel
                 </button>

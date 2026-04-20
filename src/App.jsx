@@ -314,7 +314,6 @@ const AuthenticatedApp = () => {
       <Route path="/channel-help" element={<LayoutWrapper currentPageName="ChannelHelpCenter"><ChannelHelpCenter /></LayoutWrapper>} />
       <Route path="/book-call" element={<LayoutWrapper currentPageName="BookCall"><BookCall /></LayoutWrapper>} />
       <Route path="/admin/hot-prospects" element={<LayoutWrapper currentPageName="AdminHotProspectsAlert"><AdminHotProspectsAlert /></LayoutWrapper>} />
-      <Route path="/admin/client-success" element={<LayoutWrapper currentPageName="AdminClientSuccess"><AdminClientSuccess /></LayoutWrapper>} />
       <Route path="/nta/diy-growth-system" element={<LayoutWrapper currentPageName="DIYGrowthSystemSales"><DIYGrowthSystemSales /></LayoutWrapper>} />
       <Route path="/nta/pricing-ladder" element={<LayoutWrapper currentPageName="NTAPricingLadderPage"><NTAPricingLadderPage /></LayoutWrapper>} />
       <Route path="/client/diy-onboarding" element={<LayoutWrapper currentPageName="DIYOnboarding"><DIYOnboarding /></LayoutWrapper>} />
@@ -354,7 +353,7 @@ const AuthenticatedApp = () => {
       <Route path="/content-center" element={<ContentCommandCenter />} />
       <Route path="/clients" element={<ClientManager />} />
       <Route path="/clients/:id" element={<ClientDetail />} />
-      <Route path="/agency" element={<NTACommandDashboard />} />
+      <Route path="/agency" element={<AgencyDashboard />} />
       <Route path="/agency/clients" element={<AgencyClients />} />
       <Route path="/agency/pipeline" element={<AgencyPipeline />} />
       <Route path="/agency/content" element={<AgencyContent />} />

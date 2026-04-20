@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { Plus, Phone, Mail, Trash2, Users } from 'lucide-react';
+import { Plus, Phone, Mail, Trash2, Users, AlertCircle } from 'lucide-react';
+
+function isIncomplete(lead) {
+  if (!lead) return false;
+  const hasName = !!(lead.contact_name || lead.first_name || lead.last_name);
+  const hasContact = !!(lead.phone || lead.email);
+  return !hasName || !hasContact;
+}
 import AgencyLayout from '../components/agency/AgencyLayout';
 import AddLeadModal from '../components/agency/AddLeadModal';
 import LeadDetailModal from '../components/agency/LeadDetailModal';
@@ -209,6 +216,11 @@ export default function AgencyPipeline() {
                                     {!lead && deal.lead_id && (
                                       <p className="text-xs text-amber-500 mt-1.5 flex items-center gap-1">
                                         <Users className="w-3 h-3" /> Lead not found
+                                      </p>
+                                    )}
+                                    {isIncomplete(lead) && (
+                                      <p className="text-xs text-amber-500 mt-1 flex items-center gap-1">
+                                        <AlertCircle className="w-3 h-3" /> Incomplete
                                       </p>
                                     )}
                                     </div>
