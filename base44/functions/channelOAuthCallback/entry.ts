@@ -235,6 +235,7 @@ Deno.serve(async (req) => {
     // ---- UPSERT ChannelConnection ----
     const autoSelectDest = destinations.length === 1 ? destinations[0] : null;
 
+    const syncAt = new Date().toISOString();
     const connPayload = {
       client_id: client_id || 'unknown',
       client_name: client_name || '',
@@ -245,8 +246,13 @@ Deno.serve(async (req) => {
       refresh_token: refreshToken,
       expires_at: expiresAt,
       status: 'connected',
-      last_sync_at: new Date().toISOString(),
+      last_sync_at: syncAt,
       destinations_json: JSON.stringify(destinations),
+      dest_sync_at: syncAt,
+      dest_sync_count: destinations.length,
+      dest_sync_error: destinations.length === 0 && (provider === 'google_business_profile' || provider === 'youtube')
+        ? 'Zero destinations returned at OAuth time — use Refresh Locations to retry'
+        : null,
       selected_destination_id: autoSelectDest?.id || null,
       selected_destination_name: autoSelectDest?.name || null,
       error_message: null,

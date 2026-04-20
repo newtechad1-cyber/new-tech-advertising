@@ -21,9 +21,32 @@ export default function ChannelConnections() {
     const oauthError = params.get('oauth_error');
     const account = params.get('account');
     if (oauthSuccess) {
-      showNotice('success', `Connected ${oauthSuccess}${account ? ` — ${account}` : ''}! Destinations are ready to select.`);
-      // Clean URL
+      showNotice('success', `Connected ${oauthSuccess}${account ? ` — ${account}` : ''}! Loading destinations…`);
       window.history.replaceState({}, '', window.location.pathname);
+      // Auto-refresh GBP locations after connect (slight delay to ensure connection is saved)
+      if (oauthSuccess === 'google_business_profile') {
+        setTimeout(async () => {
+          const [cn] = await Promise.all([base44.entities.ChannelConnection.list('-updated_date', 300)]);
+          setConnections(cn);
+          // Find the freshly connected GBP connection and trigger location sync
+          const freshConn = cn.find(c => c.provider === 'google_business_profile' && c.status === 'connected');
+          if (freshConn) {
+            try {
+              const res = await base44.functions.invoke('fetchGBPLocations', { connection_id: freshConn.id });
+              const d = res?.data;
+              if (d?.success) {
+                showNotice('success', `GBP connected — ${d.locations?.length || 0} location${d.locations?.length !== 1 ? 's' : ''} loaded${d.auto_selected ? `. Auto-selected: ${d.auto_selected}` : '. Select a destination below.'}`);
+              } else {
+                showNotice('error', `Connected but location sync failed: ${d?.error || 'unknown error'}. Use Refresh Locations to retry.`);
+              }
+              loadAll();
+            } catch (err) {
+              showNotice('error', `Connected but location sync failed: ${err.message}`);
+              loadAll();
+            }
+          }
+        }, 1500);
+      }
     } else if (oauthError) {
       showNotice('error', `OAuth failed: ${oauthError}`);
       window.history.replaceState({}, '', window.location.pathname);

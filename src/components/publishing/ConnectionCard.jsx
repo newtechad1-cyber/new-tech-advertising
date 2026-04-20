@@ -1,72 +1,112 @@
 import React, { useState } from 'react';
-import { CheckCircle2, XCircle, AlertTriangle, Clock, RefreshCw, Unlink, Settings, ChevronDown, Star } from 'lucide-react';
+import { CheckCircle2, XCircle, AlertTriangle, RefreshCw, Unlink, Settings, ChevronDown, Star, MapPin, Info } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const PROVIDER_CONFIG = {
   google_business_profile: { label: 'Google Business Profile', icon: '📍', color: 'text-blue-400', border: 'border-blue-800' },
-  youtube: { label: 'YouTube Channel', icon: '▶️', color: 'text-red-400', border: 'border-red-800' },
-  facebook: { label: 'Facebook Page', icon: '👥', color: 'text-blue-500', border: 'border-blue-700' },
-  instagram: { label: 'Instagram', icon: '📸', color: 'text-pink-400', border: 'border-pink-800' },
+  youtube:                  { label: 'YouTube Channel',         icon: '▶️', color: 'text-red-400',  border: 'border-red-800' },
+  facebook:                 { label: 'Facebook Page',           icon: '👥', color: 'text-blue-500', border: 'border-blue-700' },
+  instagram:                { label: 'Instagram',               icon: '📸', color: 'text-pink-400', border: 'border-pink-800' },
 };
 
 const STATUS_BADGE = {
-  connected: 'bg-emerald-900/40 text-emerald-400 border-emerald-700',
-  expired:   'bg-amber-900/40 text-amber-400 border-amber-700',
-  error:     'bg-red-900/40 text-red-400 border-red-700',
+  connected:    'bg-emerald-900/40 text-emerald-400 border-emerald-700',
+  expired:      'bg-amber-900/40 text-amber-400 border-amber-700',
+  error:        'bg-red-900/40 text-red-400 border-red-700',
   disconnected: 'bg-slate-800 text-slate-500 border-slate-700',
 };
 
+const REQUIRES_DESTINATION = ['google_business_profile', 'youtube'];
+
 export default function ConnectionCard({ provider, connection, clientId, clientName, onConnect, onRefresh }) {
   const [showDests, setShowDests] = useState(false);
-  const [destinations, setDestinations] = useState([]);
-  const [loadingDests, setLoadingDests] = useState(false);
+  const [refreshingLocations, setRefreshingLocations] = useState(false);
+  const [refreshResult, setRefreshResult] = useState(null); // { ok, msg, count }
   const [disconnecting, setDisconnecting] = useState(false);
-  const [refreshing, setRefreshing] = useState(false);
-  const [showDebug, setShowDebug] = useState(false);
+  const [refreshingToken, setRefreshingToken] = useState(false);
   const [settingDefault, setSettingDefault] = useState(false);
+  const [showDebug, setShowDebug] = useState(false);
+  const [selectingDest, setSelectingDest] = useState(null);
 
   const cfg = PROVIDER_CONFIG[provider];
   const conn = connection;
   const status = conn?.status || 'disconnected';
+  const isGBP = provider === 'google_business_profile';
+  const needsDest = REQUIRES_DESTINATION.includes(provider);
 
-  const handleLoadDestinations = async () => {
-    if (showDests) { setShowDests(false); return; }
-    setLoadingDests(true);
+  // Parse destinations stored on connection record (written by OAuth callback or fetchGBPLocations)
+  const storedDestinations = (() => {
+    if (!conn?.destinations_json) return [];
+    try { return JSON.parse(conn.destinations_json); } catch { return []; }
+  })();
+
+  const hasDestination = !!conn?.selected_destination_id;
+  const destSyncCount = conn?.dest_sync_count ?? storedDestinations.length;
+  const destSyncAt = conn?.dest_sync_at || conn?.last_sync_at;
+  const destSyncError = conn?.dest_sync_error;
+  const noLocationsAfterSync = needsDest && conn && status === 'connected' && destSyncCount === 0 && destSyncAt;
+
+  // Refresh GBP locations — calls backend which re-fetches and saves
+  const handleRefreshLocations = async () => {
+    if (!conn) return;
+    setRefreshingLocations(true);
+    setRefreshResult(null);
     try {
-      const res = await base44.functions.invoke('getChannelDestinations', { connection_id: conn.id });
-      setDestinations(res?.data?.destinations || []);
-    } catch { /* ignore */ }
-    setLoadingDests(false);
-    setShowDests(true);
+      const res = await base44.functions.invoke('fetchGBPLocations', { connection_id: conn.id });
+      const d = res?.data;
+      if (d?.success) {
+        setRefreshResult({ ok: true, msg: `Found ${d.locations?.length || 0} location${d.locations?.length !== 1 ? 's' : ''}${d.auto_selected ? ` — auto-selected: ${d.auto_selected}` : ''}` });
+        if (!showDests && d.locations?.length > 0) setShowDests(true);
+      } else {
+        setRefreshResult({ ok: false, msg: d?.error || 'Location sync failed' });
+      }
+      onRefresh();
+    } catch (err) {
+      setRefreshResult({ ok: false, msg: err.message });
+    }
+    setRefreshingLocations(false);
   };
 
+  // Select a destination — direct DB update (no extra backend function needed)
   const handleSelectDestination = async (dest) => {
-    await base44.functions.invoke('getChannelDestinations', {
-      connection_id: conn.id,
-      destination_id: dest.id,
-      destination_name: dest.name,
+    if (!conn) return;
+    setSelectingDest(dest.id);
+    await base44.entities.ChannelConnection.update(conn.id, {
+      selected_destination_id: dest.id,
+      selected_destination_name: dest.name,
     });
     onRefresh();
+    setSelectingDest(null);
+    setShowDests(false);
   };
 
   const handleDisconnect = async () => {
     if (!conn) return;
     setDisconnecting(true);
-    await base44.entities.ChannelConnection.update(conn.id, { status: 'disconnected', access_token: null, refresh_token: null });
+    await base44.entities.ChannelConnection.update(conn.id, {
+      status: 'disconnected',
+      access_token: null,
+      refresh_token: null,
+    });
     onRefresh();
     setDisconnecting(false);
   };
 
   const handleRefreshToken = async () => {
     if (!conn) return;
-    setRefreshing(true);
+    setRefreshingToken(true);
     try {
-      await base44.functions.invoke('channelRefreshToken', { connection_id: conn.id });
-      onRefresh();
+      // For GBP, just re-trigger location sync which also refreshes token
+      if (isGBP) {
+        await handleRefreshLocations();
+      } else {
+        await base44.functions.invoke('channelRefreshToken', { connection_id: conn.id });
+        onRefresh();
+      }
     } catch (err) {
       alert('Token refresh failed: ' + err.message);
     }
-    setRefreshing(false);
+    setRefreshingToken(false);
   };
 
   const handleSetDefault = async () => {
@@ -76,6 +116,18 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
     onRefresh();
     setSettingDefault(false);
   };
+
+  // Determine badge label
+  const badgeLabel = (() => {
+    if (!conn || status === 'disconnected') return 'Not Connected';
+    if (status === 'expired') return 'Expired';
+    if (status === 'error') return 'Error';
+    if (needsDest && !hasDestination) return '⚠ Dest. Required';
+    return '✓ Connected';
+  })();
+  const badgeClass = (status === 'connected' && needsDest && !hasDestination)
+    ? 'bg-amber-900/40 text-amber-400 border-amber-700'
+    : STATUS_BADGE[status] || STATUS_BADGE.disconnected;
 
   return (
     <div className={`bg-slate-900 border ${conn ? cfg.border : 'border-slate-800'} rounded-xl p-4 space-y-3`}>
@@ -90,51 +142,78 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
             )}
           </div>
         </div>
-        <span className={`text-xs font-bold px-2 py-1 rounded-full border ${
-          status === 'connected' && !conn?.selected_destination_id
-            ? 'bg-amber-900/40 text-amber-400 border-amber-700'
-            : STATUS_BADGE[status]
-        }`}>
-          {status === 'connected' && !conn?.selected_destination_id
-            ? '⚠ Dest. Required'
-            : status === 'connected' ? '✓ Connected'
-            : status === 'expired' ? 'Expired'
-            : status === 'error' ? 'Error'
-            : 'Not Connected'}
+        <span className={`text-xs font-bold px-2 py-1 rounded-full border ${badgeClass}`}>
+          {badgeLabel}
         </span>
       </div>
 
+      {/* Selected destination */}
+      {conn?.selected_destination_name && (
+        <div className="bg-slate-800/50 rounded-lg px-3 py-2 flex items-center justify-between">
+          <div className="flex items-center gap-2 min-w-0">
+            <MapPin className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
+            <div className="min-w-0">
+              <p className="text-xs text-slate-500">Publishing to</p>
+              <p className="text-xs font-semibold text-white truncate">{conn.selected_destination_name}</p>
+            </div>
+          </div>
+          {conn.is_default && <span className="text-xs text-amber-400 font-bold flex-shrink-0">★ Default</span>}
+        </div>
+      )}
+
       {/* Destination Required warning */}
-      {conn && status === 'connected' && !conn.selected_destination_id && (
-        <div className="flex items-center gap-1.5 bg-amber-900/20 border border-amber-800 rounded-lg px-3 py-2">
-          <AlertTriangle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
+      {conn && status === 'connected' && needsDest && !hasDestination && (
+        <div className="flex items-start gap-1.5 bg-amber-900/20 border border-amber-800 rounded-lg px-3 py-2">
+          <AlertTriangle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
           <div>
             <p className="text-xs font-semibold text-amber-400">Destination Required</p>
-            <p className="text-xs text-amber-600">Select a destination below before publishing</p>
+            <p className="text-xs text-amber-600">
+              {storedDestinations.length > 0
+                ? `${storedDestinations.length} location${storedDestinations.length !== 1 ? 's' : ''} available — select one below`
+                : 'No locations loaded yet. Use Refresh Locations below.'}
+            </p>
           </div>
         </div>
       )}
 
-      {/* Destination */}
-      {conn?.selected_destination_name && (
-        <div className="bg-slate-800/50 rounded-lg px-3 py-2 flex items-center justify-between">
-          <div>
-            <p className="text-xs text-slate-500">Selected Destination</p>
-            <p className="text-xs font-semibold text-white">{conn.selected_destination_name}</p>
-          </div>
-          {conn.is_default && <span className="text-xs text-amber-400 font-bold">★ Default</span>}
+      {/* Zero locations diagnostic */}
+      {noLocationsAfterSync && storedDestinations.length === 0 && (
+        <div className="bg-slate-800/60 border border-slate-700 rounded-lg px-3 py-2.5 space-y-1">
+          <p className="text-xs font-semibold text-slate-400 flex items-center gap-1.5">
+            <Info className="w-3.5 h-3.5" /> No locations found after sync
+          </p>
+          <p className="text-xs text-slate-500">Possible reasons:</p>
+          <ul className="text-xs text-slate-500 space-y-0.5 list-disc list-inside">
+            <li>This Google account doesn't manage any Business Profiles</li>
+            <li>Locations exist but are unverified or suspended</li>
+            <li>A different Google account owns the locations</li>
+          </ul>
+          {destSyncError && (
+            <details className="mt-1">
+              <summary className="text-xs text-slate-600 cursor-pointer hover:text-slate-400">Technical details</summary>
+              <p className="text-xs text-red-400 mt-1 break-all">{destSyncError}</p>
+            </details>
+          )}
+          <p className="text-xs text-slate-600">Last sync: {destSyncAt ? new Date(destSyncAt).toLocaleString() : '—'}</p>
         </div>
       )}
 
       {/* Error */}
-      {conn?.error_message && (
+      {conn?.error_message && !noLocationsAfterSync && (
         <div className="flex items-start gap-2 bg-red-900/20 border border-red-800 rounded-lg px-3 py-2">
           <AlertTriangle className="w-3.5 h-3.5 text-red-400 flex-shrink-0 mt-0.5" />
           <p className="text-xs text-red-300">{conn.error_message}</p>
         </div>
       )}
 
-      {/* Meta */}
+      {/* Refresh result feedback */}
+      {refreshResult && (
+        <div className={`text-xs px-3 py-2 rounded-lg border ${refreshResult.ok ? 'bg-emerald-900/30 border-emerald-700 text-emerald-300' : 'bg-red-900/20 border-red-800 text-red-300'}`}>
+          {refreshResult.msg}
+        </div>
+      )}
+
+      {/* Meta info */}
       {conn && (
         <div className="grid grid-cols-2 gap-2 text-xs">
           {conn.last_successful_post_at && (
@@ -145,81 +224,102 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
           )}
           {conn.expires_at && (
             <div>
-              <p className="text-slate-600">Expires</p>
+              <p className="text-slate-600">Token Expires</p>
               <p className={`font-medium ${new Date(conn.expires_at) < new Date() ? 'text-red-400' : 'text-slate-400'}`}>
                 {new Date(conn.expires_at).toLocaleDateString()}
               </p>
             </div>
           )}
-          {conn.last_sync_at && (
+          {destSyncAt && (
             <div>
-              <p className="text-slate-600">Last Sync</p>
-              <p className="text-slate-400">{new Date(conn.last_sync_at).toLocaleDateString()}</p>
+              <p className="text-slate-600">Dest. Sync</p>
+              <p className="text-slate-400">{new Date(destSyncAt).toLocaleDateString()}</p>
+            </div>
+          )}
+          {needsDest && (
+            <div>
+              <p className="text-slate-600">Locations</p>
+              <p className={`font-medium ${destSyncCount === 0 && destSyncAt ? 'text-amber-400' : 'text-slate-400'}`}>
+                {destSyncAt ? `${destSyncCount} found` : 'Not synced'}
+              </p>
             </div>
           )}
         </div>
       )}
 
-      {/* Destinations selector */}
-      {conn && status === 'connected' && (
+      {/* GBP / YouTube: Destination selector */}
+      {conn && status === 'connected' && needsDest && storedDestinations.length > 0 && (
         <div>
           <button
-            onClick={handleLoadDestinations}
+            onClick={() => setShowDests(p => !p)}
             className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-white transition-colors"
           >
             <Settings className="w-3.5 h-3.5" />
-            {loadingDests ? 'Loading...' : 'Select Destination'}
+            {hasDestination ? 'Change Destination' : 'Select Destination'}
             <ChevronDown className={`w-3.5 h-3.5 transition-transform ${showDests ? 'rotate-180' : ''}`} />
+            <span className="text-slate-600">({storedDestinations.length})</span>
           </button>
-          {showDests && destinations.length > 0 && (
-            <div className="mt-2 space-y-1 max-h-32 overflow-y-auto">
-              {destinations.map(d => (
+          {showDests && (
+            <div className="mt-2 space-y-1 max-h-36 overflow-y-auto">
+              {storedDestinations.map(d => (
                 <button
                   key={d.id}
                   onClick={() => handleSelectDestination(d)}
-                  className={`w-full text-left text-xs px-3 py-2 rounded-lg border transition-colors ${
+                  disabled={selectingDest === d.id}
+                  className={`w-full text-left text-xs px-3 py-2 rounded-lg border transition-colors disabled:opacity-60 ${
                     conn.selected_destination_id === d.id
                       ? 'bg-blue-600 border-blue-500 text-white'
-                      : 'bg-slate-800 border-slate-700 text-slate-300 hover:text-white'
+                      : 'bg-slate-800 border-slate-700 text-slate-300 hover:text-white hover:border-slate-500'
                   }`}
                 >
-                  {d.name}
+                  <span className="font-semibold">{d.name}</span>
+                  {d.account_name && <span className="text-slate-500 ml-2">({d.account_name})</span>}
+                  {selectingDest === d.id && ' — saving…'}
                 </button>
               ))}
             </div>
-          )}
-          {showDests && destinations.length === 0 && (
-            <p className="text-xs text-slate-600 mt-2">No destinations found.</p>
           )}
         </div>
       )}
 
       {/* Actions */}
       <div className="flex gap-2 flex-wrap pt-1">
-        {status === 'disconnected' || !conn ? (
+        {!conn || status === 'disconnected' ? (
           <button onClick={() => onConnect(provider)}
             className="flex-1 text-xs font-semibold px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors">
             Connect
           </button>
         ) : (
           <>
+            {/* Refresh Locations — GBP primary action when no dest */}
+            {isGBP && (
+              <button onClick={handleRefreshLocations} disabled={refreshingLocations}
+                className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 bg-blue-700 hover:bg-blue-600 disabled:opacity-50 text-white rounded-lg transition-colors">
+                <RefreshCw className={`w-3.5 h-3.5 ${refreshingLocations ? 'animate-spin' : ''}`} />
+                {refreshingLocations ? 'Syncing…' : 'Refresh Locations'}
+              </button>
+            )}
+
             {conn.selected_destination_id && !conn.is_default && (
               <button onClick={handleSetDefault} disabled={settingDefault}
-                className="flex-1 text-xs font-semibold px-3 py-2 bg-amber-900/30 hover:bg-amber-900/50 border border-amber-800 text-amber-400 rounded-lg transition-colors disabled:opacity-50 flex items-center gap-1.5 justify-center">
+                className="text-xs font-semibold px-3 py-2 bg-amber-900/30 hover:bg-amber-900/50 border border-amber-800 text-amber-400 rounded-lg transition-colors disabled:opacity-50 flex items-center gap-1.5 justify-center">
                 <Star className="w-3.5 h-3.5" />
                 {settingDefault ? 'Saving…' : 'Set Default'}
               </button>
             )}
+
             <button onClick={() => onConnect(provider)}
-              className="flex-1 text-xs font-semibold px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 rounded-lg transition-colors">
+              className="text-xs font-semibold px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 rounded-lg transition-colors">
               Reconnect
             </button>
-            {(provider === 'google_business_profile' || provider === 'youtube') && (
-              <button onClick={handleRefreshToken} disabled={refreshing}
+
+            {!isGBP && (provider === 'youtube') && (
+              <button onClick={handleRefreshToken} disabled={refreshingToken}
                 className="text-xs font-semibold px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-400 rounded-lg transition-colors disabled:opacity-50">
-                {refreshing ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <RefreshCw className="w-3.5 h-3.5" />}
+                <RefreshCw className={`w-3.5 h-3.5 ${refreshingToken ? 'animate-spin' : ''}`} />
               </button>
             )}
+
             <button onClick={handleDisconnect} disabled={disconnecting}
               className="text-xs font-semibold px-3 py-2 bg-red-900/30 hover:bg-red-900/50 border border-red-800 text-red-400 rounded-lg transition-colors disabled:opacity-50">
               {disconnecting ? '...' : <Unlink className="w-3.5 h-3.5" />}
@@ -239,14 +339,21 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
       {/* Debug panel */}
       {showDebug && conn && (
         <div className="bg-slate-950 border border-slate-700 rounded-lg p-3 space-y-1 text-xs font-mono">
-          <DebugRow label="id" value={conn.id} />
-          <DebugRow label="client_id" value={conn.client_id} />
+          <DebugRow label="conn_id" value={conn.id} />
           <DebugRow label="provider" value={conn.provider} highlight />
           <DebugRow label="status" value={conn.status} highlight />
-          <DebugRow label="destination_id" value={conn.selected_destination_id || '(none)'} />
-          <DebugRow label="destination_name" value={conn.selected_destination_name || '(none)'} />
+          <DebugRow label="account_email" value={conn.external_account_name || '—'} />
+          <DebugRow label="dest_id" value={conn.selected_destination_id || '(none)'} />
+          <DebugRow label="dest_name" value={conn.selected_destination_name || '(none)'} />
+          <DebugRow label="dest_count" value={String(destSyncCount)} />
+          <DebugRow label="dest_sync_at" value={destSyncAt ? new Date(destSyncAt).toLocaleString() : '—'} />
+          <DebugRow label="dest_sync_error" value={destSyncError || '—'} />
           <DebugRow label="is_default" value={String(!!conn.is_default)} />
-          <DebugRow label="expires_at" value={conn.expires_at || '—'} />
+          <DebugRow label="token_expires" value={conn.expires_at || '—'} />
+          <DebugRow label="stored_dests" value={`${storedDestinations.length} destinations in JSON`} />
+          {storedDestinations.slice(0, 3).map((d, i) => (
+            <DebugRow key={i} label={`  dest[${i}]`} value={`${d.name} — ${d.id}`} />
+          ))}
         </div>
       )}
     </div>
@@ -257,7 +364,7 @@ function DebugRow({ label, value, highlight }) {
   return (
     <div className="flex gap-2">
       <span className="text-slate-600 w-32 flex-shrink-0">{label}</span>
-      <span className={highlight ? 'text-amber-300' : 'text-slate-300'}>{value}</span>
+      <span className={`break-all ${highlight ? 'text-amber-300' : 'text-slate-300'}`}>{value}</span>
     </div>
   );
 }
