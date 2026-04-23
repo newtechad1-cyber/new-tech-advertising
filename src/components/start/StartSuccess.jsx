@@ -61,7 +61,7 @@ export default function StartSuccess({ trialId }) {
         <div className="space-y-3">
           {isReady ? (
             <Link
-              to={createPageUrl('Dashboard')}
+              to="/client/dashboard"
               className="flex items-center justify-center gap-2 w-full bg-violet-600 hover:bg-violet-500 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-violet-600/30"
             >
               <LayoutDashboard className="w-5 h-5" /> Go to Dashboard

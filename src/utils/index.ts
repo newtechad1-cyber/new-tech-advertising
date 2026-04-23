@@ -35,16 +35,28 @@ export const ROUTES = {
   clientResults: '/client/results',
 } as const;
 
+// Legacy aliases — map old ambiguous names to canonical routes
+const LEGACY_ALIASES: Record<string, string> = {
+  Dashboard: ROUTES.clientDashboard,
+  ClientDashboard: ROUTES.clientDashboard,
+  AdminDashboard: ROUTES.agencyDashboard,
+  AgencyDashboard: ROUTES.agencyDashboard,
+};
+
 /**
  * createPageUrl - Legacy helper kept for backward compatibility.
  * Prefer using ROUTES constants for new code.
  */
 export function createPageUrl(pageName: string): string {
-  // Check ROUTES map first for known pages (case-insensitive key match)
+  // Check legacy aliases first (exact match)
+  if (LEGACY_ALIASES[pageName]) return LEGACY_ALIASES[pageName];
+
+  // Check ROUTES map (camelCase key match)
   const key = pageName.charAt(0).toLowerCase() + pageName.slice(1);
   if (key in ROUTES) {
     return (ROUTES as Record<string, string>)[key];
   }
+
   // Fallback: lowercase + hyphenate
   return '/' + pageName.toLowerCase().replace(/ /g, '-');
 }

@@ -72,7 +72,7 @@ function PersonalizedPortal({ slug }) {
       <TrialHeader slug={slug} ctaLabel={showOnboarding ? "Complete Your Onboarding" : "Go to Your Dashboard"} />
       <MobileStickyBar
         ctaLabel={showOnboarding ? "Complete Your Onboarding" : "Go to Your Dashboard"}
-        onCTAClick={() => { window.location.href = showOnboarding ? onboardingPath : createPageUrl('Dashboard'); }}
+        onCTAClick={() => { window.location.href = showOnboarding ? onboardingPath : '/client/dashboard'; }}
       />
       <section className="pt-36 pb-16 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 to-purple-900/30" />
@@ -86,9 +86,9 @@ function PersonalizedPortal({ slug }) {
                 {showOnboarding ? (
                   <Link to={onboardingPath}><Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-10 py-6 font-bold shadow-xl">Complete Your Onboarding →</Button></Link>
                 ) : (
-                  <Link to={createPageUrl('Dashboard')}><Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-10 py-6 font-bold shadow-xl">Go to Your Dashboard →</Button></Link>
+                  <Link to="/client/dashboard"><Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-10 py-6 font-bold shadow-xl">Go to Your Dashboard →</Button></Link>
                 )}
-                <Link to={createPageUrl('Dashboard')}><Button variant="outline" className="border-white/30 text-white hover:bg-white/10 text-lg px-8 py-6 gap-2 bg-transparent"><UserCircle className="w-5 h-5" /> Existing Client Sign In</Button></Link>
+                <Link to="/client/dashboard"><Button variant="outline" className="border-white/30 text-white hover:bg-white/10 text-lg px-8 py-6 gap-2 bg-transparent"><UserCircle className="w-5 h-5" /> Existing Client Sign In</Button></Link>
               </div>
               <p className="text-sm text-slate-500 text-center lg:text-left mb-6">Takes 5 minutes. No credit card.</p>
               <div className="flex flex-wrap justify-center lg:justify-start gap-5 text-sm text-slate-400">
@@ -207,7 +207,7 @@ function PersonalizedPortal({ slug }) {
             {showOnboarding ? (
               <Link to={onboardingPath}><Button className="bg-white text-blue-700 hover:bg-blue-50 text-lg px-10 py-6 font-bold">Complete Your Onboarding →</Button></Link>
             ) : (
-              <Link to={createPageUrl('Dashboard')}><Button className="bg-white text-blue-700 hover:bg-blue-50 text-lg px-10 py-6 font-bold">Go to Your Dashboard →</Button></Link>
+              <Link to="/client/dashboard"><Button className="bg-white text-blue-700 hover:bg-blue-50 text-lg px-10 py-6 font-bold">Go to Your Dashboard →</Button></Link>
             )}
           </div>
         </div>
@@ -215,7 +215,7 @@ function PersonalizedPortal({ slug }) {
       <footer className="bg-slate-900 text-white py-10">
         <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8 mb-6">
           <div><h3 className="font-bold text-lg mb-3">New Tech Advertising</h3><p className="text-slate-400 text-sm leading-relaxed">{s.footer?.tagline || ''}</p></div>
-          <div><h4 className="font-semibold mb-4">Platform</h4><ul className="space-y-2 text-sm text-slate-400"><li><Link to="/start" className="hover:text-blue-400">Start Free Trial</Link></li><li><Link to={createPageUrl('Dashboard')} className="hover:text-blue-400">Client Sign In</Link></li></ul></div>
+          <div><h4 className="font-semibold mb-4">Platform</h4><ul className="space-y-2 text-sm text-slate-400"><li><Link to="/start" className="hover:text-blue-400">Start Free Trial</Link></li><li><Link to={'/client/dashboard'} className="hover:text-blue-400">Client Sign In</Link></li></ul></div>
           <div><h4 className="font-semibold mb-4">Company</h4><ul className="space-y-2 text-sm text-slate-400"><li><Link to={createPageUrl('Contact')} className="hover:text-blue-400">Contact Support</Link></li><li><Link to={createPageUrl('PrivacyPolicy')} className="hover:text-blue-400">Privacy Policy</Link></li></ul></div>
         </div>
         <div className="border-t border-slate-800 pt-6 text-center text-sm text-slate-500">&copy; {new Date().getFullYear()} New Tech Advertising. All rights reserved.</div>
@@ -452,7 +452,7 @@ export default function TrialStart() {
                 >
                   Start My 7-Day Free Trial
                 </Button>
-                <Link to={createPageUrl('Dashboard')}>
+                <Link to={'/client/dashboard'}>
                   <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 text-lg px-8 py-6 gap-2 bg-transparent">
                     <UserCircle className="w-5 h-5" />
                     Existing Client Sign In
@@ -673,7 +673,7 @@ export default function TrialStart() {
             <Button onClick={() => setShowModal(true)} className="bg-white text-blue-700 hover:bg-blue-50 text-lg px-10 py-6 font-bold">
               Start My 7-Day Free Trial
             </Button>
-            <Link to={createPageUrl('Dashboard')}>
+            <Link to={'/client/dashboard'}>
               <Button variant="outline" className="border-white/40 text-white hover:bg-white/10 text-lg px-8 py-6 bg-transparent gap-2">
                 <UserCircle className="w-5 h-5" /> Existing Client Sign In
               </Button>
@@ -693,7 +693,7 @@ export default function TrialStart() {
             <h4 className="font-semibold mb-4">Platform</h4>
             <ul className="space-y-2 text-sm text-slate-400">
               <li><button onClick={() => setShowModal(true)} className="hover:text-blue-400 transition-colors">Start Free Trial</button></li>
-              <li><Link to={createPageUrl('Dashboard')} className="hover:text-blue-400 transition-colors">Client Sign In</Link></li>
+              <li><Link to={'/client/dashboard'} className="hover:text-blue-400 transition-colors">Client Sign In</Link></li>
               <li><a href="#features" className="hover:text-blue-400 transition-colors">Platform Features</a></li>
               <li><a href="#how-it-works" className="hover:text-blue-400 transition-colors">How It Works</a></li>
             </ul>

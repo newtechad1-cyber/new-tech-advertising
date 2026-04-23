@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
 import { pagesConfig } from './pages.config'
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, useParams } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
@@ -436,11 +436,21 @@ const AuthenticatedApp = () => {
       <Route path="/portal/performance" element={<PortalPerformance />} />
       <Route path="/portal/messages" element={<PortalMessages />} />
       <Route path="/portal/account" element={<PortalAccount />} />
+      {/* Legacy route redirects — keep old URLs working */}
+      <Route path="/dashboard" element={<Navigate to="/agency" replace />} />
+      <Route path="/clients" element={<Navigate to="/agency/clients" replace />} />
+      <Route path="/clients/:id" element={<LegacyClientRedirect />} />
+
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 };
 
+
+function LegacyClientRedirect() {
+  const { id } = useParams();
+  return <Navigate to={`/agency/clients/${id}`} replace />;
+}
 
 function App() {
 
