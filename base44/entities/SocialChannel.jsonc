@@ -1,0 +1,62 @@
+{
+  "name": "SocialChannel",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "platform": {
+      "type": "string",
+      "enum": [
+        "Facebook",
+        "Instagram",
+        "LinkedIn",
+        "X",
+        "YouTube",
+        "Google Business Profile",
+        "TikTok"
+      ]
+    },
+    "channel_name": {
+      "type": "string"
+    },
+    "account_display_name": {
+      "type": "string"
+    },
+    "connection_status": {
+      "type": "string",
+      "enum": [
+        "Connected",
+        "Needs Reconnect",
+        "Destination Required",
+        "Error",
+        "Inactive"
+      ],
+      "default": "Inactive"
+    },
+    "destination_id": {
+      "type": "string"
+    },
+    "destination_label": {
+      "type": "string"
+    },
+    "last_sync": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_on": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "client_id",
+    "platform"
+  ]
+}

@@ -169,6 +169,7 @@ import LeadWizardDetail from './pages/LeadWizardDetail';
 import ChannelConnections from './pages/ChannelConnections';
 import PublishingQueuePage from './pages/PublishingQueue';
 import PublishingOps from './pages/PublishingOps';
+import AgencyCampaigns from './pages/AgencyCampaigns';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -387,6 +388,7 @@ const AuthenticatedApp = () => {
       <Route path="/agency/channel-connections" element={<LayoutWrapper currentPageName="ChannelConnections"><ChannelConnections /></LayoutWrapper>} />
       <Route path="/agency/publishing-queue" element={<LayoutWrapper currentPageName="PublishingQueuePage"><PublishingQueuePage /></LayoutWrapper>} />
       <Route path="/agency/publishing-ops" element={<LayoutWrapper currentPageName="PublishingOps"><PublishingOps /></LayoutWrapper>} />
+      <Route path="/agency/campaigns" element={<LayoutWrapper currentPageName="AgencyCampaigns"><AgencyCampaigns /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

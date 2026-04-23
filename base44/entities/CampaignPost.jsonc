@@ -1,0 +1,127 @@
+{
+  "name": "CampaignPost",
+  "type": "object",
+  "properties": {
+    "campaign_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "post_type": {
+      "type": "string",
+      "enum": [
+        "Image Post",
+        "Video Post",
+        "Reel / Short",
+        "Text Post",
+        "Carousel",
+        "Offer Post",
+        "Testimonial",
+        "Educational",
+        "Before/After"
+      ],
+      "default": "Image Post"
+    },
+    "platform": {
+      "type": "string",
+      "enum": [
+        "Facebook",
+        "Instagram",
+        "LinkedIn",
+        "X",
+        "YouTube",
+        "Google Business Profile",
+        "TikTok"
+      ]
+    },
+    "channel_id": {
+      "type": "string"
+    },
+    "content_caption": {
+      "type": "string"
+    },
+    "media_url": {
+      "type": "string"
+    },
+    "video_script": {
+      "type": "string"
+    },
+    "thumbnail_url": {
+      "type": "string"
+    },
+    "scheduled_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "scheduled_time": {
+      "type": "string"
+    },
+    "publishing_status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "Ready",
+        "Scheduled",
+        "Publishing",
+        "Published",
+        "Failed",
+        "Cancelled"
+      ],
+      "default": "Draft"
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": [
+        "Not Needed",
+        "Pending",
+        "Approved",
+        "Rejected",
+        "Revision Needed"
+      ],
+      "default": "Not Needed"
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approval_notes": {
+      "type": "string"
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "external_post_id": {
+      "type": "string"
+    },
+    "performance_views": {
+      "type": "integer",
+      "default": 0
+    },
+    "performance_clicks": {
+      "type": "integer",
+      "default": 0
+    },
+    "performance_engagement": {
+      "type": "integer",
+      "default": 0
+    },
+    "performance_leads": {
+      "type": "integer",
+      "default": 0
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "platform"
+  ]
+}
