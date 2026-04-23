@@ -1,0 +1,49 @@
+{
+  "name": "ClientPortalUser",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "full_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "Owner",
+        "Manager",
+        "Approver",
+        "Viewer"
+      ],
+      "default": "Approver"
+    },
+    "access_status": {
+      "type": "string",
+      "enum": [
+        "Invited",
+        "Active",
+        "Suspended",
+        "Revoked"
+      ],
+      "default": "Invited"
+    },
+    "last_login": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "client_id",
+    "email"
+  ]
+}

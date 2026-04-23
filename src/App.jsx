@@ -171,6 +171,16 @@ import PublishingQueuePage from './pages/PublishingQueue';
 import PublishingOps from './pages/PublishingOps';
 import AgencyCampaigns from './pages/AgencyCampaigns';
 import AgencyContentQueue from './pages/AgencyContentQueue';
+import AgencyApprovals from './pages/AgencyApprovals';
+import ClientApprovalSignoff from './pages/ClientApprovalSignoff';
+import AgencyPortalManager from './pages/AgencyPortalManager';
+import PortalDashboard from './pages/portal/PortalDashboard';
+import PortalApprovals from './pages/portal/PortalApprovals';
+import PortalCalendar from './pages/portal/PortalCalendar';
+import PortalContent from './pages/portal/PortalContent';
+import PortalPerformance from './pages/portal/PortalPerformance';
+import PortalMessages from './pages/portal/PortalMessages';
+import PortalAccount from './pages/portal/PortalAccount';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -391,6 +401,17 @@ const AuthenticatedApp = () => {
       <Route path="/agency/publishing-ops" element={<LayoutWrapper currentPageName="PublishingOps"><PublishingOps /></LayoutWrapper>} />
       <Route path="/agency/campaigns" element={<LayoutWrapper currentPageName="AgencyCampaigns"><AgencyCampaigns /></LayoutWrapper>} />
       <Route path="/agency/content-queue" element={<LayoutWrapper currentPageName="AgencyContentQueue"><AgencyContentQueue /></LayoutWrapper>} />
+      <Route path="/agency/approvals" element={<LayoutWrapper currentPageName="AgencyApprovals"><AgencyApprovals /></LayoutWrapper>} />
+      <Route path="/agency/portal-manager" element={<LayoutWrapper currentPageName="AgencyPortalManager"><AgencyPortalManager /></LayoutWrapper>} />
+      <Route path="/approval/:token" element={<ClientApprovalSignoff />} />
+      {/* Client Portal */}
+      <Route path="/portal" element={<PortalDashboard />} />
+      <Route path="/portal/approvals" element={<PortalApprovals />} />
+      <Route path="/portal/calendar" element={<PortalCalendar />} />
+      <Route path="/portal/content" element={<PortalContent />} />
+      <Route path="/portal/performance" element={<PortalPerformance />} />
+      <Route path="/portal/messages" element={<PortalMessages />} />
+      <Route path="/portal/account" element={<PortalAccount />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

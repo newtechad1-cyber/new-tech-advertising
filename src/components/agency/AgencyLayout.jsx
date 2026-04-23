@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Users, TrendingUp, FileText, BarChart2,
-  ChevronLeft, Menu, ChevronDown, ChevronRight, Target, Briefcase,
-  Wifi, Send, Settings2, Megaphone, Inbox
+  ChevronLeft, Menu, ChevronDown, ChevronRight, Target,
+  Send, Megaphone, Inbox, Shield, MonitorSmartphone
 } from 'lucide-react';
 
 const NAV = [
@@ -42,6 +42,16 @@ const NAV = [
     label: 'Content Queue',
     href: '/agency/content-queue',
     icon: Inbox,
+  },
+  {
+    label: 'Approvals',
+    href: '/agency/approvals',
+    icon: Shield,
+  },
+  {
+    label: 'Client Portal',
+    href: '/agency/portal-manager',
+    icon: MonitorSmartphone,
   },
   {
     label: 'Campaigns',

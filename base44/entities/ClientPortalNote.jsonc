@@ -1,0 +1,41 @@
+{
+  "name": "ClientPortalNote",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "message_body": {
+      "type": "string"
+    },
+    "visibility": {
+      "type": "string",
+      "enum": [
+        "Client Visible",
+        "Internal Only"
+      ],
+      "default": "Client Visible"
+    },
+    "created_by": {
+      "type": "string"
+    },
+    "acknowledged_by_client": {
+      "type": "boolean",
+      "default": false
+    },
+    "acknowledged_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "client_id",
+    "title"
+  ]
+}
