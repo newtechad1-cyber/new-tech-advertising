@@ -174,6 +174,7 @@ import AgencyContentQueue from './pages/AgencyContentQueue';
 import AgencyApprovals from './pages/AgencyApprovals';
 import ClientApprovalSignoff from './pages/ClientApprovalSignoff';
 import AgencyPortalManager from './pages/AgencyPortalManager';
+import AgencyClientDetail from './pages/AgencyClientDetail';
 import ClientSetupWizard from './pages/ClientSetupWizard';
 import AgencySpokeCampaigns from './pages/AgencySpokeCampaigns';
 import SpokeCampaignDetail from './pages/SpokeCampaignDetail';
@@ -380,6 +381,7 @@ const AuthenticatedApp = () => {
       <Route path="/agency/clients/:id/setup" element={<ClientSetupWizard />} />
       <Route path="/agency" element={<AgencyDashboard />} />
       <Route path="/agency/clients" element={<AgencyClients />} />
+      <Route path="/agency/clients/:id" element={<LayoutWrapper currentPageName="AgencyClientDetail"><AgencyClientDetail /></LayoutWrapper>} />
       <Route path="/agency/pipeline" element={<AgencyPipeline />} />
       <Route path="/agency/content" element={<AgencyContent />} />
       <Route path="/agency/websites" element={<AgencyWebsites />} />

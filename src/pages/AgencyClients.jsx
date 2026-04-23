@@ -292,7 +292,7 @@ export default function AgencyClients() {
                 {filtered.map(c => (
                   <tr key={c.id} className="hover:bg-slate-800/40 transition-colors group">
                     <td className="px-4 py-3">
-                      <Link to={`/clients/${c.id}`} className="font-semibold text-white hover:text-blue-300 transition-colors">{c.business_name}</Link>
+                      <Link to={`/agency/clients/${c.id}`} className="font-semibold text-white hover:text-blue-300 transition-colors">{c.business_name}</Link>
                       {c.email && <p className="text-xs text-slate-500 mt-0.5">{c.email}</p>}
                     </td>
                     <td className="px-4 py-3 text-slate-400 text-xs hidden md:table-cell">{c.city && c.state ? `${c.city}, ${c.state}` : c.city || '—'}</td>
@@ -304,7 +304,7 @@ export default function AgencyClients() {
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Link to={`/clients/${c.id}`} className="p-1.5 text-slate-500 hover:text-blue-400 rounded"><ExternalLink className="w-3.5 h-3.5" /></Link>
+                        <Link to={`/agency/clients/${c.id}`} className="p-1.5 text-slate-500 hover:text-blue-400 rounded"><ExternalLink className="w-3.5 h-3.5" /></Link>
                         <Link to={`/agency/clients/${c.id}/setup`} className="p-1.5 text-slate-500 hover:text-violet-400 rounded" title="Setup Wizard"><Settings2 className="w-3.5 h-3.5" /></Link>
                         <button onClick={() => openEdit(c)} className="p-1.5 text-slate-500 hover:text-white rounded"><Edit className="w-3.5 h-3.5" /></button>
                         <button onClick={() => archive(c.id, !c.archived)} className="p-1.5 text-slate-500 hover:text-amber-400 rounded"><Archive className="w-3.5 h-3.5" /></button>
