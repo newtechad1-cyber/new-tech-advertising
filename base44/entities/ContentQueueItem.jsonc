@@ -1,0 +1,167 @@
+{
+  "name": "ContentQueueItem",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "content_title": {
+      "type": "string"
+    },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "Caption",
+        "Script",
+        "Image",
+        "Video",
+        "Carousel",
+        "Reel / Short",
+        "Testimonial",
+        "Educational",
+        "Offer",
+        "FAQ",
+        "Blog Snippet",
+        "Email Copy",
+        "Ad Copy"
+      ],
+      "default": "Caption"
+    },
+    "topic": {
+      "type": "string"
+    },
+    "campaign_id": {
+      "type": "string"
+    },
+    "platform_recommended": {
+      "type": "string",
+      "enum": [
+        "Facebook",
+        "Instagram",
+        "LinkedIn",
+        "X",
+        "YouTube",
+        "Google Business Profile",
+        "TikTok",
+        "Multiple",
+        "Any"
+      ]
+    },
+    "funnel_stage": {
+      "type": "string",
+      "enum": [
+        "Awareness",
+        "Consideration",
+        "Conversion",
+        "Retention",
+        "Referral"
+      ]
+    },
+    "target_audience": {
+      "type": "string"
+    },
+    "primary_offer": {
+      "type": "string"
+    },
+    "hook": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string"
+    },
+    "script": {
+      "type": "string"
+    },
+    "cta": {
+      "type": "string"
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "video_url": {
+      "type": "string"
+    },
+    "thumbnail_url": {
+      "type": "string"
+    },
+    "source_agent": {
+      "type": "string"
+    },
+    "source_workflow": {
+      "type": "string"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "AI Generated",
+        "Manual Upload",
+        "Imported",
+        "Reworked Content",
+        "Repurposed Content"
+      ],
+      "default": "Manual Upload"
+    },
+    "asset_status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "Ready for Review",
+        "Approved Asset",
+        "Rejected Asset",
+        "Needs Revision",
+        "Archived"
+      ],
+      "default": "Draft"
+    },
+    "review_status": {
+      "type": "string",
+      "enum": [
+        "Unreviewed",
+        "In Review",
+        "Reviewed"
+      ],
+      "default": "Unreviewed"
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": [
+        "Pending",
+        "Approved",
+        "Rejected",
+        "Revision Needed",
+        "Not Needed"
+      ],
+      "default": "Pending"
+    },
+    "queue_status": {
+      "type": "string",
+      "enum": [
+        "Backlog",
+        "Ready to Schedule",
+        "Assigned to Campaign",
+        "Scheduled",
+        "Published",
+        "Archived"
+      ],
+      "default": "Backlog"
+    },
+    "scheduled_post_id": {
+      "type": "string"
+    },
+    "published_post_id": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "content_title"
+  ]
+}

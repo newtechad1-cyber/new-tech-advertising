@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Users, TrendingUp, FileText, BarChart2,
   ChevronLeft, Menu, ChevronDown, ChevronRight, Target, Briefcase,
-  Wifi, Send, Settings2, Megaphone
+  Wifi, Send, Settings2, Megaphone, Inbox
 } from 'lucide-react';
 
 const NAV = [
@@ -37,6 +37,11 @@ const NAV = [
       { label: 'New Topic', href: '/agency/content?tab=intake' },
       { label: 'Review Queue', href: '/agency/content?tab=review' },
     ],
+  },
+  {
+    label: 'Content Queue',
+    href: '/agency/content-queue',
+    icon: Inbox,
   },
   {
     label: 'Campaigns',
