@@ -163,6 +163,9 @@ export default function AgencySpokeCampaigns() {
                       <Link to={`/agency/insight-pages?campaign=${c.id}`} className="text-xs px-2 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-300 rounded-lg flex items-center gap-1">
                         <FileText className="w-3 h-3" /> Insights
                       </Link>
+                      <Link to={`/agency/spoke-campaigns/${c.id}`} className="text-xs px-2 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded-lg flex items-center gap-1">
+                        Open <ArrowRight className="w-3 h-3" />
+                      </Link>
                       <button onClick={() => openClone(c)} className="text-xs px-2 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-300 rounded-lg flex items-center gap-1">
                         <Copy className="w-3 h-3" /> Clone
                       </button>
