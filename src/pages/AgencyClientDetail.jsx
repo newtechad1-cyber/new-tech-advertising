@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AgencyLayout from '../components/agency/AgencyLayout';
+import ClientNextBestActions from '../components/agency/ClientNextBestActions';
 import {
   ArrowLeft, Settings2, Edit, Megaphone, FileText, Shield,
   Globe, Phone, Mail, MapPin, Building2, CheckCircle, Circle,
@@ -297,6 +298,20 @@ export default function AgencyClientDetail() {
             <Calendar className="w-4 h-4" /> Calendar
           </Link>
         </div>
+
+        {/* ── Next Best Actions ── */}
+        <ClientNextBestActions
+          clientId={id}
+          setup={setup}
+          connections={connections}
+          campaigns={campaigns}
+          spokeCampaigns={spokeCampaigns}
+          contentAssets={contentAssets}
+          approvalItems={approvalItems}
+          socialPosts={socialPosts}
+          onCreateCampaign={() => setCreateCampaignModal(true)}
+          onCreateSpoke={() => setCreateSpokeModal(true)}
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
