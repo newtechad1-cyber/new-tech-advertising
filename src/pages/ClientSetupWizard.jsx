@@ -168,7 +168,7 @@ export default function ClientSetupWizard() {
         {/* Header */}
         <div className="px-6 pt-5 pb-0 border-b border-slate-800 flex-shrink-0">
           <div className="flex items-center gap-3 mb-4">
-            <Link to={`/clients/${id}`} className="text-slate-500 hover:text-white transition-colors">
+            <Link to={`/agency/clients/${id}`} className="text-slate-500 hover:text-white transition-colors">
               <ArrowLeft className="w-4 h-4" />
             </Link>
             <div className="flex-1 min-w-0">
