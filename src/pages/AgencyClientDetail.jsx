@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AgencyLayout from '../components/agency/AgencyLayout';
 import ClientNextBestActions from '../components/agency/ClientNextBestActions';
+import ClientLaunchPanel from '../components/agency/ClientLaunchPanel';
 import {
   ArrowLeft, Settings2, Edit, Megaphone, FileText, Shield,
   Globe, Phone, Mail, MapPin, Building2, CheckCircle, Circle,
@@ -298,6 +299,21 @@ export default function AgencyClientDetail() {
             <Calendar className="w-4 h-4" /> Calendar
           </Link>
         </div>
+
+        {/* ── Launch Panel ── */}
+        <ClientLaunchPanel
+          clientId={id}
+          setup={setup}
+          connections={connections}
+          campaigns={campaigns}
+          spokeCampaigns={spokeCampaigns}
+          contentAssets={contentAssets}
+          approvalItems={approvalItems}
+          socialPosts={socialPosts}
+          onInitSetup={initializeSetup}
+          onCreateCampaign={() => setCreateCampaignModal(true)}
+          onCreateSpoke={() => setCreateSpokeModal(true)}
+        />
 
         {/* ── Next Best Actions ── */}
         <ClientNextBestActions
