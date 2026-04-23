@@ -27,6 +27,10 @@ const daysAgo = (dateStr) => {
   return Math.floor((Date.now() - new Date(dateStr).getTime()) / 86400000);
 };
 
+// LEGACY PAGE — DemoPipelineLead is deprecated as the canonical lead model.
+// Canonical lead/deal models are SalesLead + SalesDeal.
+// This page is READ-ONLY and preserved for historical reference only.
+// New lead creation is disabled here. Use /agency/leads instead.
 export default function CRMDashboard() {
   const [leads, setLeads] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,6 +39,7 @@ export default function CRMDashboard() {
   const [adding, setAdding] = useState(false);
 
   const loadLeads = async () => {
+    // LEGACY: DemoPipelineLead — read-only, do not add new records here
     const data = await base44.entities.DemoPipelineLead.filter({ archived: false });
     setLeads(data);
     setLoading(false);
@@ -109,6 +114,17 @@ export default function CRMDashboard() {
           <p className="text-slate-400 text-sm mt-1">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</p>
         </div>
 
+        {/* LEGACY BANNER */}
+        <div className="bg-amber-950/50 border border-amber-700/60 rounded-xl px-4 py-3 flex items-center justify-between gap-4">
+          <div>
+            <p className="text-sm font-bold text-amber-400">⚠️ Legacy Page — Read Only</p>
+            <p className="text-xs text-amber-600 mt-0.5">This dashboard uses the deprecated DemoPipelineLead model. New leads and deals are managed in the Agency CRM.</p>
+          </div>
+          <a href="/agency/leads" className="flex-shrink-0 text-xs font-bold text-white bg-amber-600 hover:bg-amber-500 px-3 py-1.5 rounded-lg transition-colors">
+            Go to Agency CRM →
+          </a>
+        </div>
+
         {/* Scoreboard */}
         <section>
           <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">Today's Scoreboard</h2>
@@ -139,33 +155,18 @@ export default function CRMDashboard() {
           </div>
         </section>
 
-        {/* Quick Add Lead */}
+        {/* Quick Add Lead — DISABLED (legacy model) */}
         <section>
-          <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">Quick Add Lead</h2>
-          <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
+          <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">Add Lead</h2>
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 opacity-50 pointer-events-none select-none">
+            <p className="text-xs text-amber-500 mb-3 font-semibold">⚠️ Disabled — new leads must be created in <span className="underline">/agency/leads</span></p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
-              {[
-                { key: 'business_name', placeholder: 'Business Name *' },
-                { key: 'website', placeholder: 'Website URL' },
-                { key: 'city', placeholder: 'City' },
-                { key: 'industry', placeholder: 'Industry' },
-              ].map(f => (
-                <input
-                  key={f.key}
-                  placeholder={f.placeholder}
-                  value={form[f.key]}
-                  onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))}
-                  onKeyDown={e => e.key === 'Enter' && addLead()}
-                  className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
-                />
+              {['Business Name', 'Website URL', 'City', 'Industry'].map(p => (
+                <input key={p} placeholder={p} disabled className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-600 placeholder-slate-600 cursor-not-allowed" />
               ))}
             </div>
-            <button
-              onClick={addLead}
-              disabled={adding || !form.business_name.trim()}
-              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors"
-            >
-              <Plus className="w-4 h-4" /> {adding ? 'Adding...' : 'Add Lead'}
+            <button disabled className="inline-flex items-center gap-2 bg-slate-700 text-slate-500 font-semibold text-sm px-5 py-2.5 rounded-lg cursor-not-allowed">
+              <Plus className="w-4 h-4" /> Add Lead (disabled)
             </button>
           </div>
         </section>

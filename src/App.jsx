@@ -371,9 +371,10 @@ const AuthenticatedApp = () => {
       <Route path="/admin/recruiting-candidates" element={<LayoutWrapper currentPageName="AdminRecruitingCandidates"><AdminRecruitingCandidates /></LayoutWrapper>} />
       <Route path="/admin/recent-ai-activity" element={<LayoutWrapper currentPageName="AdminRecentAIActivity"><AdminRecentAIActivity /></LayoutWrapper>} />
       <Route path="/audit/furniture-mattress-outlet" element={<AuditFurnitureMattressOutlet />} />
-      <Route path="/dashboard" element={<CRMDashboard />} />
-      <Route path="/dashboard/leads" element={<CRMDashboard />} />
-      <Route path="/dashboard/archived" element={<CRMArchivedLeads />} />
+      {/* LEGACY: /dashboard routes — redirect to canonical Agency CRM */}
+      <Route path="/dashboard" element={<Navigate to="/agency" replace />} />
+      <Route path="/dashboard/leads" element={<Navigate to="/agency/leads" replace />} />
+      <Route path="/dashboard/archived" element={<Navigate to="/agency/leads" replace />} />
       <Route path="/content-command" element={<ContentCommandDashboard />} />
       <Route path="/content-center" element={<ContentCommandCenter />} />
       <Route path="/clients" element={<ClientManager />} />
