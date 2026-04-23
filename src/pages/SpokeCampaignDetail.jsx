@@ -4,7 +4,7 @@ import { base44 } from '@/api/base44Client';
 import AgencyLayout from '../components/agency/AgencyLayout';
 import {
   ArrowLeft, FileText, Video, Film, Share2, Mail,
-  CheckCircle, Clock, Send, Plus, ExternalLink, Zap
+  CheckCircle, Clock, Send, Plus, ExternalLink, Zap, AlertCircle
 } from 'lucide-react';
 
 const IN = 'w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500';
@@ -38,6 +38,7 @@ export default function SpokeCampaignDetail() {
   const [insightPages, setInsightPages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [working, setWorking] = useState(false);
+  const [error, setError] = useState(null);
 
   // Insight page modal
   const [showInsightModal, setShowInsightModal] = useState(false);
@@ -61,11 +62,17 @@ export default function SpokeCampaignDetail() {
 
   // ── Action: Create Insight Page (modal pre-fill) ─────────────────────────────
   const openInsightModal = () => {
+    // If one already exists for this campaign, navigate directly to insight pages filtered view
+    if (insightPages.length > 0) {
+      navigate(`/agency/insight-pages`);
+      return;
+    }
     setInsightForm({
       title: campaign.campaign_name,
       headline: campaign.campaign_name,
       subheadline: campaign.core_theme || '',
       campaign_id: campaign.id,
+      client_id: campaign.client_id || '',
       cta_link: campaign.cta_url || '',
       cta_text: 'Get Started',
       publish_status: 'draft',
@@ -78,89 +85,150 @@ export default function SpokeCampaignDetail() {
 
   const saveInsight = async () => {
     setSavingInsight(true);
-    await base44.entities.InsightPage.create(insightForm);
-    setShowInsightModal(false);
-    setSavingInsight(false);
-    load();
+    setError(null);
+    try {
+      await base44.entities.InsightPage.create(insightForm);
+      setShowInsightModal(false);
+      load();
+    } catch (e) {
+      setError('Failed to create insight page: ' + e.message);
+    } finally {
+      setSavingInsight(false);
+    }
   };
 
   // ── Action: Create Anchor Video ──────────────────────────────────────────────
   const createAnchorVideo = async () => {
+    // If anchor video already exists, open the assets page for this campaign
+    if (groups.video.length > 0) {
+      navigate(`/agency/content-asset?campaign=${campaign.id}`);
+      return;
+    }
     setWorking(true);
-    await base44.entities.NTAContentAsset.create({
-      asset_name: `${campaign.campaign_name} — Anchor Video`,
-      asset_type: 'video',
-      platform: 'youtube',
-      campaign_id: campaign.id,
-      status: 'draft',
-      approval_status: 'draft',
-      headline: campaign.campaign_name,
-      cta: campaign.cta_url || '',
-      queued: false,
-    });
-    setWorking(false);
-    load();
+    setError(null);
+    try {
+      await base44.entities.NTAContentAsset.create({
+        asset_name: `${campaign.campaign_name} — Anchor Video`,
+        asset_type: 'video',
+        platform: 'youtube',
+        campaign_id: campaign.id,
+        client_id: campaign.client_id || '',
+        status: 'draft',
+        approval_status: 'draft',
+        headline: campaign.campaign_name,
+        body_copy: campaign.core_theme || '',
+        cta: campaign.cta_url || '',
+        queued: false,
+      });
+      load();
+    } catch (e) {
+      setError('Failed to create anchor video: ' + e.message);
+    } finally {
+      setWorking(false);
+    }
   };
 
   // ── Action: Create Short Video Assets ────────────────────────────────────────
   const createShortVideos = async () => {
+    // If short videos already exist, open the assets page
+    if (groups.short_video.length > 0) {
+      navigate(`/agency/content-asset?campaign=${campaign.id}`);
+      return;
+    }
     setWorking(true);
-    const platforms = ['tiktok', 'instagram', 'instagram', 'youtube', 'tiktok', 'instagram'];
-    await Promise.all(platforms.map((platform, i) =>
-      base44.entities.NTAContentAsset.create({
-        asset_name: `${campaign.campaign_name} — Short Video ${i + 1}`,
-        asset_type: 'short_video',
-        platform,
-        campaign_id: campaign.id,
-        status: 'draft',
-        approval_status: 'draft',
-        queued: false,
-      })
-    ));
-    setWorking(false);
-    load();
+    setError(null);
+    try {
+      const platforms = ['tiktok', 'instagram', 'instagram', 'youtube', 'tiktok', 'instagram'];
+      await Promise.all(platforms.map((platform, i) =>
+        base44.entities.NTAContentAsset.create({
+          asset_name: `${campaign.campaign_name} — Short Video ${i + 1}`,
+          asset_type: 'short_video',
+          platform,
+          campaign_id: campaign.id,
+          client_id: campaign.client_id || '',
+          status: 'draft',
+          approval_status: 'draft',
+          body_copy: campaign.core_theme || '',
+          queued: false,
+        })
+      ));
+      load();
+    } catch (e) {
+      setError('Failed to create short videos: ' + e.message);
+    } finally {
+      setWorking(false);
+    }
   };
 
   // ── Action: Create Social Post Set ───────────────────────────────────────────
   const createSocialPostSet = async () => {
+    // If social posts already exist, open the assets page
+    if (groups.social_post.length > 0) {
+      navigate(`/agency/content-asset?campaign=${campaign.id}`);
+      return;
+    }
     setWorking(true);
-    const platforms = ['facebook','instagram','linkedin','x','threads','google_business_profile','tiktok','facebook','instagram','linkedin'];
-    await Promise.all(platforms.map((platform, i) =>
-      base44.entities.NTAContentAsset.create({
-        asset_name: `${campaign.campaign_name} — Social Post ${i + 1} (${platform})`,
-        asset_type: 'social_post',
-        platform,
-        campaign_id: campaign.id,
-        status: 'draft',
-        approval_status: 'draft',
-        queued: false,
-      })
-    ));
-    setWorking(false);
-    load();
+    setError(null);
+    try {
+      const platforms = ['facebook','instagram','linkedin','x','threads','google_business_profile','tiktok','facebook','instagram','linkedin'];
+      await Promise.all(platforms.map((platform, i) =>
+        base44.entities.NTAContentAsset.create({
+          asset_name: `${campaign.campaign_name} — Social Post ${i + 1} (${platform})`,
+          asset_type: 'social_post',
+          platform,
+          campaign_id: campaign.id,
+          client_id: campaign.client_id || '',
+          caption_text: campaign.primary_offer || '',
+          body_copy: campaign.core_theme || '',
+          cta: campaign.cta_url || '',
+          status: 'draft',
+          approval_status: 'draft',
+          queued: false,
+        })
+      ));
+      load();
+    } catch (e) {
+      setError('Failed to create social post set: ' + e.message);
+    } finally {
+      setWorking(false);
+    }
   };
 
   // ── Action: Create Email Sequence ────────────────────────────────────────────
   const createEmailSequence = async () => {
+    // If email assets already exist, open the assets page
+    if (groups.email.length > 0) {
+      navigate(`/agency/content-asset?campaign=${campaign.id}`);
+      return;
+    }
     setWorking(true);
-    const emails = [
-      `${campaign.campaign_name} — Email 1: Introduction`,
-      `${campaign.campaign_name} — Email 2: Value & Proof`,
-      `${campaign.campaign_name} — Email 3: CTA & Offer`,
-    ];
-    await Promise.all(emails.map(name =>
-      base44.entities.NTAContentAsset.create({
-        asset_name: name,
-        asset_type: 'email',
-        platform: 'facebook', // fallback; email type
-        campaign_id: campaign.id,
-        status: 'draft',
-        approval_status: 'draft',
-        queued: false,
-      })
-    ));
-    setWorking(false);
-    load();
+    setError(null);
+    try {
+      const emails = [
+        { name: `${campaign.campaign_name} — Email 1: Introduction`, body: `Introduce ${campaign.campaign_name}. ${campaign.core_theme || ''}` },
+        { name: `${campaign.campaign_name} — Email 2: Value & Proof`, body: campaign.primary_offer || '' },
+        { name: `${campaign.campaign_name} — Email 3: CTA & Offer`, body: campaign.cta_url || '' },
+      ];
+      await Promise.all(emails.map(({ name, body }) =>
+        base44.entities.NTAContentAsset.create({
+          asset_name: name,
+          asset_type: 'email',
+          platform: 'facebook',
+          campaign_id: campaign.id,
+          client_id: campaign.client_id || '',
+          body_copy: body,
+          cta: campaign.cta_url || '',
+          status: 'draft',
+          approval_status: 'draft',
+          queued: false,
+        })
+      ));
+      load();
+    } catch (e) {
+      setError('Failed to create email sequence: ' + e.message);
+    } finally {
+      setWorking(false);
+    }
   };
 
   // ── Quick action: Approve all drafts ────────────────────────────────────────
@@ -276,52 +344,66 @@ export default function SpokeCampaignDetail() {
               icon={FileText}
               color="text-violet-400"
               bg="bg-violet-900/20 hover:bg-violet-900/30 border-violet-900/40"
-              title="Create Insight Page"
+              title={insightPages.length > 0 ? 'Open Insight Pages' : 'Create Insight Page'}
               desc="Build the authority landing page for this campaign"
               onClick={openInsightModal}
               disabled={working}
               badge={insightPages.length > 0 ? `${insightPages.length} existing` : null}
+              hasExisting={insightPages.length > 0}
             />
             <ActionCard
               icon={Video}
               color="text-red-400"
               bg="bg-red-900/20 hover:bg-red-900/30 border-red-900/40"
-              title="Create Anchor Video"
+              title={groups.video.length > 0 ? 'Open Anchor Video' : 'Create Anchor Video'}
               desc="YouTube long-form video asset for this campaign"
               onClick={createAnchorVideo}
               disabled={working}
               badge={groups.video.length > 0 ? `${groups.video.length} existing` : null}
+              hasExisting={groups.video.length > 0}
             />
             <ActionCard
               icon={Film}
               color="text-amber-400"
               bg="bg-amber-900/20 hover:bg-amber-900/30 border-amber-900/40"
-              title="Create Short Video Assets"
-              desc="Bulk create 6 short-form videos for TikTok, Reels & Shorts"
+              title={groups.short_video.length > 0 ? 'Open Short Videos' : 'Create Short Video Assets'}
+              desc="6 short-form videos for TikTok, Reels & Shorts"
               onClick={createShortVideos}
               disabled={working}
+              badge={groups.short_video.length > 0 ? `${groups.short_video.length} existing` : null}
+              hasExisting={groups.short_video.length > 0}
             />
             <ActionCard
               icon={Share2}
               color="text-blue-400"
               bg="bg-blue-900/20 hover:bg-blue-900/30 border-blue-900/40"
-              title="Create Social Post Set"
-              desc="Bulk create 10 posts across all major platforms"
+              title={groups.social_post.length > 0 ? 'Open Social Posts' : 'Create Social Post Set'}
+              desc="10 posts across all major platforms"
               onClick={createSocialPostSet}
               disabled={working}
+              badge={groups.social_post.length > 0 ? `${groups.social_post.length} existing` : null}
+              hasExisting={groups.social_post.length > 0}
             />
             <ActionCard
               icon={Mail}
               color="text-emerald-400"
               bg="bg-emerald-900/20 hover:bg-emerald-900/30 border-emerald-900/40"
-              title="Create Email Sequence"
+              title={groups.email.length > 0 ? 'Open Email Sequence' : 'Create Email Sequence'}
               desc="3-part email sequence: Intro, Value, CTA"
               onClick={createEmailSequence}
               disabled={working}
               badge={groups.email.length > 0 ? `${groups.email.length} existing` : null}
+              hasExisting={groups.email.length > 0}
             />
           </div>
           {working && <p className="text-xs text-slate-500 mt-2 animate-pulse">Creating assets…</p>}
+          {error && (
+            <div className="flex items-center gap-2 mt-2 text-xs text-red-400 bg-red-950/30 border border-red-900/40 rounded-lg px-3 py-2">
+              <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
+              {error}
+              <button onClick={() => setError(null)} className="ml-auto text-red-500 hover:text-red-300">✕</button>
+            </div>
+          )}
         </section>
 
         {/* Quick Actions */}
@@ -453,16 +535,21 @@ export default function SpokeCampaignDetail() {
   );
 }
 
-function ActionCard({ icon: Icon, color, bg, title, desc, onClick, disabled, badge }) {
+function ActionCard({ icon: Icon, color, bg, title, desc, onClick, disabled, badge, hasExisting }) {
   return (
     <button onClick={onClick} disabled={disabled}
       className={`text-left border rounded-xl p-4 transition-all disabled:opacity-50 disabled:cursor-not-allowed ${bg}`}>
       <div className="flex items-start justify-between mb-2">
         <Icon className={`w-5 h-5 ${color}`} />
-        {badge && <span className="text-xs text-slate-500 bg-slate-800 px-2 py-0.5 rounded-full">{badge}</span>}
+        {badge && (
+          <span className={`text-xs px-2 py-0.5 rounded-full ${hasExisting ? 'text-emerald-400 bg-emerald-900/40' : 'text-slate-500 bg-slate-800'}`}>
+            {badge}
+          </span>
+        )}
       </div>
       <p className="text-sm font-bold text-white">{title}</p>
       <p className="text-xs text-slate-500 mt-0.5">{desc}</p>
+      {hasExisting && <p className="text-xs text-emerald-500 mt-1.5 font-medium">→ Open existing</p>}
     </button>
   );
 }
