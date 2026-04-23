@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Users, TrendingUp, FileText, BarChart2,
   ChevronLeft, Menu, ChevronDown, ChevronRight, Target,
   Send, Megaphone, Inbox, Shield, MonitorSmartphone,
-  Video, Calendar, BarChart, Radio
+  Video, Calendar, BarChart, Radio, BookOpen
 } from 'lucide-react';
 
 const NAV = [
@@ -68,6 +68,11 @@ const NAV = [
     label: 'Spoke Campaigns',
     href: '/agency/spoke-campaigns',
     icon: Radio,
+  },
+  {
+    label: 'Insight Pages',
+    href: '/agency/insight-pages',
+    icon: BookOpen,
   },
   {
     label: 'Content Queue',

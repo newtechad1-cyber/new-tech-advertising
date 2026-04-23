@@ -68,6 +68,7 @@
       "enum": [
         "draft",
         "ready_for_review",
+        "needs_reapproval",
         "approved",
         "scheduled",
         "published",
@@ -79,10 +80,16 @@
       "type": "string",
       "enum": [
         "draft",
+        "pending_internal",
+        "pending_client",
         "approved",
-        "rejected"
+        "rejected",
+        "needs_reapproval"
       ],
       "default": "draft"
+    },
+    "rejection_feedback": {
+      "type": "string"
     },
     "scheduled_date": {
       "type": "string",
@@ -95,8 +102,18 @@
     "campaign_id": {
       "type": "string"
     },
+    "insight_page_id": {
+      "type": "string"
+    },
     "client_id": {
       "type": "string"
+    },
+    "lead_id": {
+      "type": "string"
+    },
+    "queued": {
+      "type": "boolean",
+      "default": false
     }
   },
   "required": [
