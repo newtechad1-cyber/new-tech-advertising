@@ -557,27 +557,55 @@ export default function LeadDetailModal({ deal, lead: initialLead, onClose, onUp
                 </div>
               )}
 
-              {/* ── CONVERT TO CLIENT ── */}
+              {/* ── CLIENT CONVERSION BLOCK ── */}
               {currentStage === 'Closed Won' && (
-                <div className="bg-emerald-950/40 border border-emerald-700/50 rounded-xl p-4 space-y-3">
-                  <div>
-                    <p className="text-sm font-bold text-emerald-300 flex items-center gap-1.5">
-                      <UserPlus className="w-4 h-4" /> Ready to Convert
-                    </p>
-                    <p className="text-xs text-emerald-600 mt-0.5">Create the client record and start the setup wizard.</p>
+                lead.converted_client_id ? (
+                  /* Already converted — show linked client actions */
+                  <div className="bg-emerald-950/30 border border-emerald-800/50 rounded-xl p-4 space-y-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-base">🏆</span>
+                      <div>
+                        <p className="text-sm font-bold text-emerald-300">Client Created</p>
+                        <p className="text-xs text-emerald-600 mt-0.5">This lead has already been converted.</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => { onClose(); navigate(`/agency/clients/${lead.converted_client_id}`); }}
+                        className="flex-1 flex items-center justify-center gap-1.5 bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs py-2 rounded-lg transition-colors"
+                      >
+                        <UserPlus className="w-3.5 h-3.5" /> Open Client
+                      </button>
+                      <button
+                        onClick={() => { onClose(); navigate(`/agency/clients/${lead.converted_client_id}/setup`); }}
+                        className="flex-1 flex items-center justify-center gap-1.5 bg-slate-700 hover:bg-slate-600 text-white font-bold text-xs py-2 rounded-lg transition-colors"
+                      >
+                        <ArrowRight className="w-3.5 h-3.5" /> Setup Wizard
+                      </button>
+                    </div>
                   </div>
-                  {convertError && (
-                    <p className="text-xs text-red-400 bg-red-900/30 border border-red-800/40 rounded-lg px-3 py-2">{convertError}</p>
-                  )}
-                  <button
-                    onClick={convertToClient}
-                    disabled={converting}
-                    className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-bold py-2.5 rounded-xl text-sm transition-colors"
-                  >
-                    {converting ? <Loader2 className="w-4 h-4 animate-spin" /> : <UserPlus className="w-4 h-4" />}
-                    {converting ? 'Converting...' : 'Convert to Client → Setup Wizard'}
-                  </button>
-                </div>
+                ) : (
+                  /* Not yet converted — show convert CTA */
+                  <div className="bg-emerald-950/40 border border-emerald-700/50 rounded-xl p-4 space-y-3">
+                    <div>
+                      <p className="text-sm font-bold text-emerald-300 flex items-center gap-1.5">
+                        <UserPlus className="w-4 h-4" /> Ready to Convert
+                      </p>
+                      <p className="text-xs text-emerald-600 mt-0.5">Create the client record and start the setup wizard.</p>
+                    </div>
+                    {convertError && (
+                      <p className="text-xs text-red-400 bg-red-900/30 border border-red-800/40 rounded-lg px-3 py-2">{convertError}</p>
+                    )}
+                    <button
+                      onClick={convertToClient}
+                      disabled={converting}
+                      className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-bold py-2.5 rounded-xl text-sm transition-colors"
+                    >
+                      {converting ? <Loader2 className="w-4 h-4 animate-spin" /> : <UserPlus className="w-4 h-4" />}
+                      {converting ? 'Converting...' : 'Convert to Client → Setup Wizard'}
+                    </button>
+                  </div>
+                )
               )}
 
               {/* ── PIPELINE STAGE ── */}
