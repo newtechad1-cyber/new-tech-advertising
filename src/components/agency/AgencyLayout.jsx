@@ -3,116 +3,23 @@ import { Link, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Users, TrendingUp, FileText, BarChart2,
   ChevronLeft, Menu, ChevronDown, ChevronRight, Target,
-  Send, Megaphone, Inbox, Shield, MonitorSmartphone,
-  Video, Calendar, BarChart, Radio, BookOpen
+  Send, Megaphone, Shield, Calendar, BarChart, Radio, BookOpen, Globe, Wifi
 } from 'lucide-react';
 
 const NAV = [
-  {
-    label: 'Dashboard',
-    href: '/agency',
-    icon: LayoutDashboard,
-    exact: true,
-  },
-  {
-    label: 'Pipeline',
-    href: '/agency/pipeline',
-    icon: TrendingUp,
-  },
-  {
-    label: 'Leads',
-    href: '/agency/leads',
-    icon: Target,
-  },
-  {
-    label: 'Clients',
-    href: '/agency/clients',
-    icon: Users,
-  },
-  {
-    label: 'Content',
-    icon: FileText,
-    children: [
-      { label: 'Content Center', href: '/agency/content' },
-      { label: 'Content Wizard', href: '/agency/content-wizard' },
-      { label: 'New Topic', href: '/agency/content?tab=intake' },
-      { label: 'Review Queue', href: '/agency/content?tab=review' },
-    ],
-  },
-  {
-    label: 'Content Queue',
-    href: '/agency/content-queue',
-    icon: Inbox,
-  },
-  {
-    label: 'Approvals',
-    href: '/agency/approvals',
-    icon: Shield,
-  },
-  {
-    label: 'Client Portal',
-    href: '/agency/portal-manager',
-    icon: MonitorSmartphone,
-  },
-  {
-    label: 'Campaigns',
-    href: '/agency/campaigns',
-    icon: Megaphone,
-  },
-  {
-    label: 'Websites',
-    href: '/agency/websites',
-    icon: BarChart2,
-  },
-  {
-    label: 'Spoke Campaigns',
-    href: '/agency/spoke-campaigns',
-    icon: Radio,
-  },
-  {
-    label: 'Insight Pages',
-    href: '/agency/insight-pages',
-    icon: BookOpen,
-  },
-  {
-    label: 'Content Queue',
-    href: '/agency/content-asset',
-    icon: Inbox,
-  },
-  {
-    label: 'Video Queue',
-    href: '/agency/video-queue',
-    icon: Video,
-  },
-  {
-    label: 'Social Queue',
-    href: '/agency/social-queue',
-    icon: Send,
-  },
-  {
-    label: 'Approval Center',
-    href: '/agency/approval-center',
-    icon: Shield,
-  },
-  {
-    label: 'Publishing Calendar',
-    href: '/agency/publishing-calendar',
-    icon: Calendar,
-  },
-  {
-    label: 'Performance',
-    href: '/agency/campaign-performance',
-    icon: BarChart,
-  },
-  {
-    label: 'Publishing',
-    icon: Send,
-    children: [
-      { label: 'Queue', href: '/agency/publishing-queue' },
-      { label: 'Channel Connections', href: '/agency/channel-connections' },
-      { label: 'Publishing Ops', href: '/agency/publishing-ops' },
-    ],
-  },
+  { label: 'Dashboard',           href: '/agency',                      icon: LayoutDashboard, exact: true },
+  { label: 'Pipeline',            href: '/agency/pipeline',             icon: TrendingUp },
+  { label: 'Leads',               href: '/agency/leads',                icon: Target },
+  { label: 'Clients',             href: '/agency/clients',              icon: Users },
+  { label: 'Content Center',      href: '/agency/content',              icon: FileText },
+  { label: 'Campaigns',           href: '/agency/campaigns',            icon: Megaphone },
+  { label: 'Spoke Campaigns',     href: '/agency/spoke-campaigns',      icon: Radio },
+  { label: 'Insight Pages',       href: '/agency/insight-pages',        icon: BookOpen },
+  { label: 'Approval Center',     href: '/agency/approval-center',      icon: Shield },
+  { label: 'Publishing Calendar', href: '/agency/publishing-calendar',  icon: Calendar },
+  { label: 'Channel Connections', href: '/agency/channel-connections',  icon: Wifi },
+  { label: 'Performance',         href: '/agency/campaign-performance', icon: BarChart },
+  { label: 'Websites',            href: '/agency/websites',             icon: Globe },
 ];
 
 export default function AgencyLayout({ children }) {
@@ -220,9 +127,8 @@ export default function AgencyLayout({ children }) {
 
         {/* Footer */}
         {!collapsed && (
-          <div className="px-3 py-3 border-t border-slate-800 space-y-1 flex-shrink-0">
+          <div className="px-3 py-3 border-t border-slate-800 flex-shrink-0">
             <a href="/" className="block text-xs text-slate-600 hover:text-slate-400 transition-colors">← Public Site</a>
-            <a href="/dashboard" className="block text-xs text-slate-700 hover:text-slate-500 transition-colors">Legacy CRM ↗</a>
           </div>
         )}
       </aside>
