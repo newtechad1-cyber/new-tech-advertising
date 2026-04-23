@@ -1,0 +1,54 @@
+{
+  "name": "SocialPostQueue",
+  "type": "object",
+  "properties": {
+    "platform": {
+      "type": "string",
+      "enum": [
+        "facebook",
+        "instagram",
+        "linkedin",
+        "x",
+        "threads",
+        "google_business_profile",
+        "youtube",
+        "tiktok"
+      ],
+      "default": "facebook"
+    },
+    "post_text": {
+      "type": "string"
+    },
+    "media_url": {
+      "type": "string"
+    },
+    "scheduled_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "publish_status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "scheduled",
+        "published",
+        "failed",
+        "cancelled"
+      ],
+      "default": "draft"
+    },
+    "asset_id": {
+      "type": "string"
+    },
+    "campaign_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "platform",
+    "post_text"
+  ]
+}

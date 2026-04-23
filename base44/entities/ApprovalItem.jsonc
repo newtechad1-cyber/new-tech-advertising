@@ -1,0 +1,39 @@
+{
+  "name": "ApprovalItem",
+  "type": "object",
+  "properties": {
+    "item_type": {
+      "type": "string",
+      "enum": [
+        "content_asset",
+        "video_asset",
+        "social_post",
+        "insight_page",
+        "campaign"
+      ],
+      "default": "content_asset"
+    },
+    "item_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected"
+      ],
+      "default": "pending"
+    },
+    "feedback": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "item_type",
+    "item_id"
+  ]
+}

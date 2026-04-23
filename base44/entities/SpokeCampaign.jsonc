@@ -1,0 +1,45 @@
+{
+  "name": "SpokeCampaign",
+  "type": "object",
+  "properties": {
+    "campaign_name": {
+      "type": "string"
+    },
+    "campaign_slug": {
+      "type": "string"
+    },
+    "pillar": {
+      "type": "string"
+    },
+    "core_theme": {
+      "type": "string"
+    },
+    "target_audience": {
+      "type": "string"
+    },
+    "primary_offer": {
+      "type": "string"
+    },
+    "cta_url": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "insight_page_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "completed"
+      ],
+      "default": "draft"
+    }
+  },
+  "required": [
+    "campaign_name"
+  ]
+}

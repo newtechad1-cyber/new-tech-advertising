@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { Users, FileText, AlertTriangle, CheckCircle, Clock, ArrowRight, Plus } from 'lucide-react';
+import { Users, FileText, AlertTriangle, CheckCircle, Clock, ArrowRight, Plus, Radio, Video, Send, Shield, Calendar, BarChart } from 'lucide-react';
 import AgencyLayout from '../components/agency/AgencyLayout';
 import TodaysCommand from '../components/agency/TodaysCommand.jsx';
 
@@ -12,6 +12,12 @@ export default function AgencyDashboard() {
   const [assets, setAssets] = useState([]);
   const [leads, setLeads] = useState([]);
   const [deals, setDeals] = useState([]);
+  const [spokeCampaigns, setSpokeCampaigns] = useState([]);
+  const [ntaAssets, setNtaAssets] = useState([]);
+  const [videoAssets, setVideoAssets] = useState([]);
+  const [socialPosts, setSocialPosts] = useState([]);
+  const [approvalItems, setApprovalItems] = useState([]);
+  const [perfMetrics, setPerfMetrics] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -22,13 +28,17 @@ export default function AgencyDashboard() {
       base44.entities.ContentAssets.list('-updated_date', 20),
       base44.entities.SalesLead.list('-created_date', 500),
       base44.entities.SalesDeal.filter({ archived: false }),
-    ]).then(([c, t, j, a, l, d]) => {
-      setClients(c);
-      setTopics(t);
-      setJobs(j);
-      setAssets(a);
-      setLeads(l);
-      setDeals(d);
+      base44.entities.SpokeCampaign.list('-created_date', 100),
+      base44.entities.NTAContentAsset.list('-created_date', 200),
+      base44.entities.NTAVideoAsset.list('-created_date', 100),
+      base44.entities.SocialPostQueue.list('-created_date', 200),
+      base44.entities.ApprovalItem.list('-created_date', 100),
+      base44.entities.PerformanceMetric.list('-date_logged', 200),
+    ]).then(([c, t, j, a, l, d, sc, na, va, sp, ai, pm]) => {
+      setClients(c); setTopics(t); setJobs(j); setAssets(a);
+      setLeads(l); setDeals(d);
+      setSpokeCampaigns(sc); setNtaAssets(na); setVideoAssets(va);
+      setSocialPosts(sp); setApprovalItems(ai); setPerfMetrics(pm);
       setLoading(false);
     });
   }, []);
@@ -49,6 +59,31 @@ export default function AgencyDashboard() {
   };
 
   const activeClients = clients.filter(c => c.status === 'active_client');
+
+  // New ops metrics
+  const activeCampaigns = spokeCampaigns.filter(c => c.status === 'active').length;
+  const weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate() - 7);
+  const campaignsGeneratingLeads = spokeCampaigns.filter(c =>
+    perfMetrics.some(m => m.campaign_id === c.id && m.leads > 0 && new Date(m.date_logged) >= weekAgo)
+  ).length;
+  const ntaDrafts = ntaAssets.filter(a => a.status === 'draft').length;
+  const ntaAwaitingApproval = ntaAssets.filter(a => a.status === 'ready_for_review').length;
+  const ntaReadyToSchedule = ntaAssets.filter(a => a.approval_status === 'approved' && !['scheduled','published'].includes(a.status)).length;
+  const scheduledThisWeek = ntaAssets.filter(a => {
+    if (a.status !== 'scheduled' || !a.scheduled_date) return false;
+    const d = new Date(a.scheduled_date); const now = new Date(); const w = new Date(); w.setDate(now.getDate() + 7);
+    return d >= now && d <= w;
+  }).length;
+  const scriptsReady = videoAssets.filter(v => v.render_status === 'script_ready').length;
+  const inProd = videoAssets.filter(v => v.render_status === 'in_production').length;
+  const videosCompleted = videoAssets.filter(v => v.render_status === 'completed').length;
+  const scheduledPosts = socialPosts.filter(p => p.publish_status === 'scheduled').length;
+  const publishedPosts = socialPosts.filter(p => p.publish_status === 'published').length;
+  const pendingApprovals = approvalItems.filter(i => i.status === 'pending').length + ntaAssets.filter(a => a.status === 'ready_for_review' && a.approval_status === 'draft').length;
+  const clientApprovals = approvalItems.filter(i => i.status === 'pending' && i.client_id).length;
+  const rejectedItems = approvalItems.filter(i => i.status === 'rejected').length;
+  const totalLeadsWeek = perfMetrics.filter(m => m.date_logged && new Date(m.date_logged) >= weekAgo).reduce((s,m) => s + (m.leads||0), 0);
+  const totalCallsWeek = perfMetrics.filter(m => m.date_logged && new Date(m.date_logged) >= weekAgo).reduce((s,m) => s + (m.booked_calls||0), 0);
   const inProgress = topics.filter(t => ['queued', 'processing'].includes(t.status));
   const forReview = assets.filter(a => a.status === 'ready_for_review');
   const failedJobs = jobs.filter(j => j.status === 'failed');
@@ -177,6 +212,25 @@ export default function AgencyDashboard() {
           </section>
         </div>
 
+        {/* Divider */}
+        <div className="border-t border-slate-800" />
+
+        {/* Ops sections grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+          <OpsCard icon={Radio} color="text-violet-400" title="Spoke Campaigns" href="/agency/spoke-campaigns"
+            rows={[['Total', spokeCampaigns.length], ['Active', activeCampaigns], ['Generating Leads', campaignsGeneratingLeads]]} />
+          <OpsCard icon={FileText} color="text-blue-400" title="Content Queue" href="/agency/content-asset"
+            rows={[['Drafts', ntaDrafts], ['Awaiting Approval', ntaAwaitingApproval], ['Ready to Schedule', ntaReadyToSchedule], ['Scheduled This Week', scheduledThisWeek]]} />
+          <OpsCard icon={Video} color="text-amber-400" title="Video Queue" href="/agency/video-queue"
+            rows={[['Scripts Ready', scriptsReady], ['In Production', inProd], ['Completed', videosCompleted]]} />
+          <OpsCard icon={Send} color="text-emerald-400" title="Social Queue" href="/agency/social-queue"
+            rows={[['Scheduled Posts', scheduledPosts], ['Published Posts', publishedPosts]]} />
+          <OpsCard icon={Shield} color="text-red-400" title="Approval Center" href="/agency/approval-center"
+            rows={[['Pending Approvals', pendingApprovals], ['Client Approvals', clientApprovals], ['Rejected Items', rejectedItems]]} />
+          <OpsCard icon={BarChart} color="text-teal-400" title="Campaign Performance" href="/agency/campaign-performance"
+            rows={[['Leads This Week', totalLeadsWeek], ['Booked Calls', totalCallsWeek]]} />
+        </div>
+
         {/* Failed jobs alert */}
         {!loading && failedJobs.length > 0 && (
           <section>
@@ -204,6 +258,26 @@ function StatCard({ icon: Icon, label, value, color, href }) {
       <div>
         <p className={`text-2xl font-black ${color}`}>{value}</p>
         <p className="text-slate-500 text-xs">{label}</p>
+      </div>
+    </Link>
+  );
+}
+
+function OpsCard({ icon: Icon, color, title, href, rows }) {
+  return (
+    <Link to={href} className="bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-xl p-4 block transition-all group">
+      <div className="flex items-center gap-2 mb-3">
+        <Icon className={`w-4 h-4 ${color}`} />
+        <p className="text-sm font-bold text-white">{title}</p>
+        <ArrowRight className="w-3.5 h-3.5 text-slate-600 group-hover:text-slate-400 ml-auto transition-colors" />
+      </div>
+      <div className="space-y-1.5">
+        {rows.map(([label, value]) => (
+          <div key={label} className="flex items-center justify-between">
+            <span className="text-xs text-slate-500">{label}</span>
+            <span className={`text-sm font-bold ${color}`}>{value}</span>
+          </div>
+        ))}
       </div>
     </Link>
   );

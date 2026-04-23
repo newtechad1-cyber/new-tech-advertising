@@ -1,0 +1,107 @@
+{
+  "name": "NTAContentAsset",
+  "type": "object",
+  "properties": {
+    "asset_name": {
+      "type": "string"
+    },
+    "asset_type": {
+      "type": "string",
+      "enum": [
+        "article",
+        "video",
+        "short_video",
+        "social_post",
+        "email"
+      ],
+      "default": "social_post"
+    },
+    "platform": {
+      "type": "string",
+      "enum": [
+        "facebook",
+        "instagram",
+        "linkedin",
+        "x",
+        "threads",
+        "google_business_profile",
+        "youtube",
+        "tiktok"
+      ],
+      "default": "facebook"
+    },
+    "headline": {
+      "type": "string"
+    },
+    "body_copy": {
+      "type": "string"
+    },
+    "script_text": {
+      "type": "string"
+    },
+    "caption_text": {
+      "type": "string"
+    },
+    "hook": {
+      "type": "string"
+    },
+    "cta": {
+      "type": "string"
+    },
+    "hashtags": {
+      "type": "string"
+    },
+    "video_hook": {
+      "type": "string"
+    },
+    "on_screen_text": {
+      "type": "string"
+    },
+    "video_duration": {
+      "type": "string"
+    },
+    "audio_type": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "ready_for_review",
+        "approved",
+        "scheduled",
+        "published",
+        "rejected"
+      ],
+      "default": "draft"
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "approved",
+        "rejected"
+      ],
+      "default": "draft"
+    },
+    "scheduled_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "campaign_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "asset_name",
+    "campaign_id",
+    "platform"
+  ]
+}

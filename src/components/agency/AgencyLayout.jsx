@@ -3,7 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Users, TrendingUp, FileText, BarChart2,
   ChevronLeft, Menu, ChevronDown, ChevronRight, Target,
-  Send, Megaphone, Inbox, Shield, MonitorSmartphone
+  Send, Megaphone, Inbox, Shield, MonitorSmartphone,
+  Video, Calendar, BarChart, Radio
 } from 'lucide-react';
 
 const NAV = [
@@ -62,6 +63,41 @@ const NAV = [
     label: 'Websites',
     href: '/agency/websites',
     icon: BarChart2,
+  },
+  {
+    label: 'Spoke Campaigns',
+    href: '/agency/spoke-campaigns',
+    icon: Radio,
+  },
+  {
+    label: 'Content Queue',
+    href: '/agency/content-asset',
+    icon: Inbox,
+  },
+  {
+    label: 'Video Queue',
+    href: '/agency/video-queue',
+    icon: Video,
+  },
+  {
+    label: 'Social Queue',
+    href: '/agency/social-queue',
+    icon: Send,
+  },
+  {
+    label: 'Approval Center',
+    href: '/agency/approval-center',
+    icon: Shield,
+  },
+  {
+    label: 'Publishing Calendar',
+    href: '/agency/publishing-calendar',
+    icon: Calendar,
+  },
+  {
+    label: 'Performance',
+    href: '/agency/campaign-performance',
+    icon: BarChart,
   },
   {
     label: 'Publishing',

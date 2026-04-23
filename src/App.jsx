@@ -175,6 +175,13 @@ import AgencyApprovals from './pages/AgencyApprovals';
 import ClientApprovalSignoff from './pages/ClientApprovalSignoff';
 import AgencyPortalManager from './pages/AgencyPortalManager';
 import ClientSetupWizard from './pages/ClientSetupWizard';
+import AgencySpokeCampaigns from './pages/AgencySpokeCampaigns';
+import AgencyContentAssets from './pages/AgencyContentAssets';
+import AgencyVideoQueue from './pages/AgencyVideoQueue';
+import AgencySocialQueue from './pages/AgencySocialQueue';
+import AgencyApprovalCenter from './pages/AgencyApprovalCenter';
+import AgencyPublishingCalendar from './pages/AgencyPublishingCalendar';
+import AgencyCampaignPerformance from './pages/AgencyCampaignPerformance';
 import PortalDashboard from './pages/portal/PortalDashboard';
 import PortalApprovals from './pages/portal/PortalApprovals';
 import PortalCalendar from './pages/portal/PortalCalendar';
@@ -404,6 +411,13 @@ const AuthenticatedApp = () => {
       <Route path="/agency/campaigns" element={<LayoutWrapper currentPageName="AgencyCampaigns"><AgencyCampaigns /></LayoutWrapper>} />
       <Route path="/agency/content-queue" element={<LayoutWrapper currentPageName="AgencyContentQueue"><AgencyContentQueue /></LayoutWrapper>} />
       <Route path="/agency/approvals" element={<LayoutWrapper currentPageName="AgencyApprovals"><AgencyApprovals /></LayoutWrapper>} />
+      <Route path="/agency/spoke-campaigns" element={<LayoutWrapper currentPageName="AgencySpokeCampaigns"><AgencySpokeCampaigns /></LayoutWrapper>} />
+      <Route path="/agency/content-asset" element={<LayoutWrapper currentPageName="AgencyContentAssets"><AgencyContentAssets /></LayoutWrapper>} />
+      <Route path="/agency/video-queue" element={<LayoutWrapper currentPageName="AgencyVideoQueue"><AgencyVideoQueue /></LayoutWrapper>} />
+      <Route path="/agency/social-queue" element={<LayoutWrapper currentPageName="AgencySocialQueue"><AgencySocialQueue /></LayoutWrapper>} />
+      <Route path="/agency/approval-center" element={<LayoutWrapper currentPageName="AgencyApprovalCenter"><AgencyApprovalCenter /></LayoutWrapper>} />
+      <Route path="/agency/publishing-calendar" element={<LayoutWrapper currentPageName="AgencyPublishingCalendar"><AgencyPublishingCalendar /></LayoutWrapper>} />
+      <Route path="/agency/campaign-performance" element={<LayoutWrapper currentPageName="AgencyCampaignPerformance"><AgencyCampaignPerformance /></LayoutWrapper>} />
       <Route path="/agency/portal-manager" element={<LayoutWrapper currentPageName="AgencyPortalManager"><AgencyPortalManager /></LayoutWrapper>} />
       <Route path="/approval/:token" element={<ClientApprovalSignoff />} />
       {/* Client Portal */}

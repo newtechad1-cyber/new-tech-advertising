@@ -1,0 +1,41 @@
+{
+  "name": "NTAVideoAsset",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "script": {
+      "type": "string"
+    },
+    "avatar_template": {
+      "type": "string"
+    },
+    "voice": {
+      "type": "string"
+    },
+    "render_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "script_ready",
+        "in_production",
+        "completed",
+        "failed"
+      ],
+      "default": "not_started"
+    },
+    "render_url": {
+      "type": "string"
+    },
+    "campaign_id": {
+      "type": "string"
+    },
+    "linked_content_asset_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}

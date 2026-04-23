@@ -1,0 +1,42 @@
+{
+  "name": "PerformanceMetric",
+  "type": "object",
+  "properties": {
+    "campaign_id": {
+      "type": "string"
+    },
+    "asset_id": {
+      "type": "string"
+    },
+    "channel": {
+      "type": "string"
+    },
+    "views": {
+      "type": "integer",
+      "default": 0
+    },
+    "clicks": {
+      "type": "integer",
+      "default": 0
+    },
+    "leads": {
+      "type": "integer",
+      "default": 0
+    },
+    "booked_calls": {
+      "type": "integer",
+      "default": 0
+    },
+    "revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "date_logged": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "campaign_id"
+  ]
+}
