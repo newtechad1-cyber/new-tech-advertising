@@ -41,7 +41,7 @@ const NAV_LINKS = [
       { label: 'Albert Lea, MN', href: '/website-rebuilds/albert-lea-mn', desc: 'Website rebuild services in Albert Lea' },
     ],
   },
-  { label: 'Blog', href: createPageUrl('Blog') },
+  { label: 'Insights', href: '/insights' },
   { label: 'Contact', href: '/Contact' },
 ];
 

@@ -27,7 +27,7 @@ export default function Header({ onCTAClick }) {
           <Link to={createPageUrl('StreamingTV')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Video Creation & TV Ads</Link>
           <Link to={createPageUrl('AdaAccessibility')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Website Accessibility & Rebuild</Link>
 
-          <Link to={createPageUrl('Blog')} className="hover:text-blue-600 transition-colors mt-4" onClick={() => setIsOpen(false)}>Articles</Link>
+          <Link to="/insights" className="hover:text-blue-600 transition-colors mt-4" onClick={() => setIsOpen(false)}>Insights</Link>
           <Link to={createPageUrl('About')} className="hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>About Us</Link>
           <Link to={createPageUrl('Contact')} className="hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>Contact</Link>
         </nav>
@@ -55,7 +55,7 @@ export default function Header({ onCTAClick }) {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Link to={createPageUrl('Blog')} className="hover:text-blue-600 transition-colors whitespace-nowrap">Articles</Link>
+        <Link to="/insights" className="hover:text-blue-600 transition-colors whitespace-nowrap">Insights</Link>
         <Link to={createPageUrl('About')} className="hover:text-blue-600 transition-colors whitespace-nowrap">About Us</Link>
         <Link to={createPageUrl('Contact')} className="hover:text-blue-600 transition-colors whitespace-nowrap">Contact</Link>
       </nav>
