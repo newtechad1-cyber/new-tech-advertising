@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   X, Phone, Mail, Globe, MapPin, MessageSquare, Check, Edit, Save,
   ChevronDown, Calendar, AlertCircle, ArrowRight, FileText, Trophy,
-  XCircle, Clock, Send, Activity, PhoneCall
+  XCircle, Clock, Send, Activity, PhoneCall, UserPlus, Loader2
 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
@@ -71,8 +72,11 @@ function buildEntry(type, text) {
 }
 
 export default function LeadDetailModal({ deal, lead: initialLead, onClose, onUpdated }) {
+  const navigate = useNavigate();
   const [lead, setLead] = useState(initialLead || {});
   const [currentDeal, setCurrentDeal] = useState(deal);
+  const [converting, setConverting] = useState(false);
+  const [convertError, setConvertError] = useState(null);
   const [currentStage, setCurrentStage] = useState(deal.stage);
   const [editMode, setEditMode] = useState(false);
   const [editForm, setEditForm] = useState({});
@@ -94,6 +98,24 @@ export default function LeadDetailModal({ deal, lead: initialLead, onClose, onUp
   const [closeValue, setCloseValue] = useState(currentDeal?.value ? String(currentDeal.value) : '');
   const [closeReason, setCloseReason] = useState('');
   const [closeSaving, setCloseSaving] = useState(false);
+
+  // Convert to client
+  const convertToClient = async () => {
+    if (!lead.id || converting) return;
+    setConverting(true);
+    setConvertError(null);
+    const res = await base44.functions.invoke('convertSalesLeadToClient', {
+      leadId: lead.id,
+      dealId: currentDeal?.id || null,
+    });
+    setConverting(false);
+    if (res.data?.success) {
+      onClose();
+      navigate(res.data.redirect_url);
+    } else {
+      setConvertError(res.data?.error || 'Conversion failed. Please try again.');
+    }
+  };
 
   // Proposal follow-up date
   const [editingProposalFollowUp, setEditingProposalFollowUp] = useState(false);
@@ -532,6 +554,29 @@ export default function LeadDetailModal({ deal, lead: initialLead, onClose, onUp
                   <p className={`text-xs font-bold mb-1 ${currentStage === 'Closed Won' ? 'text-emerald-400' : 'text-red-400'}`}>{currentStage}</p>
                   {currentDeal?.value && <p className="text-sm font-bold text-emerald-400">${Number(currentDeal.value).toLocaleString()}</p>}
                   <p className="text-xs text-slate-400 mt-0.5">{currentDeal.close_reason}</p>
+                </div>
+              )}
+
+              {/* ── CONVERT TO CLIENT ── */}
+              {currentStage === 'Closed Won' && (
+                <div className="bg-emerald-950/40 border border-emerald-700/50 rounded-xl p-4 space-y-3">
+                  <div>
+                    <p className="text-sm font-bold text-emerald-300 flex items-center gap-1.5">
+                      <UserPlus className="w-4 h-4" /> Ready to Convert
+                    </p>
+                    <p className="text-xs text-emerald-600 mt-0.5">Create the client record and start the setup wizard.</p>
+                  </div>
+                  {convertError && (
+                    <p className="text-xs text-red-400 bg-red-900/30 border border-red-800/40 rounded-lg px-3 py-2">{convertError}</p>
+                  )}
+                  <button
+                    onClick={convertToClient}
+                    disabled={converting}
+                    className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-bold py-2.5 rounded-xl text-sm transition-colors"
+                  >
+                    {converting ? <Loader2 className="w-4 h-4 animate-spin" /> : <UserPlus className="w-4 h-4" />}
+                    {converting ? 'Converting...' : 'Convert to Client → Setup Wizard'}
+                  </button>
                 </div>
               )}
 
