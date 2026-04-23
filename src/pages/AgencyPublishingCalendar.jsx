@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import AgencyLayout from '../components/agency/AgencyLayout';
-import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Calendar, ChevronLeft, ChevronRight, Filter } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const PLATFORMS = ['facebook','instagram','linkedin','x','threads','google_business_profile','youtube','tiktok'];
 const PLATFORM_EMOJI = { facebook:'📘', instagram:'📷', linkedin:'💼', x:'𝕏', threads:'🧵', google_business_profile:'🟢', youtube:'▶️', tiktok:'🎵' };
@@ -10,28 +11,45 @@ const PLATFORM_COLORS = { facebook:'bg-blue-900/40 text-blue-300', instagram:'bg
 export default function AgencyPublishingCalendar() {
   const [posts, setPosts] = useState([]);
   const [assets, setAssets] = useState([]);
+  const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterPlatform, setFilterPlatform] = useState('all');
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
+  // Canonical client filter — read from ?client=<Clients.id> in URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const clientIdFilter = urlParams.get('client') || '';
+
   useEffect(() => { load(); }, []);
 
   const load = async () => {
-    const [p, a] = await Promise.all([
+    const [p, a, cl] = await Promise.all([
       base44.entities.SocialPostQueue.filter({ publish_status: 'scheduled' }),
       base44.entities.NTAContentAsset.list('-created_date', 200),
+      base44.entities.Clients.list('-created_date', 200),
     ]);
     setPosts(p);
     setAssets(a.filter(a => a.scheduled_date));
+    setClients(cl);
     setLoading(false);
   };
 
+  const clientMap = Object.fromEntries(clients.map(c => [c.id, c]));
+
+  // Build events list. When ?client= is present, filter by canonical client_id.
+  // LEGACY FALLBACK NOTE: records without client_id are excluded from client-scoped views
+  // (they will still appear in the global "all clients" view).
   const allEvents = [
-    ...posts.map(p => ({ id: p.id, platform: p.platform, text: p.post_text, date: p.scheduled_time, type: 'post' })),
-    ...assets.map(a => ({ id: a.id, platform: a.platform, text: a.asset_name, date: a.scheduled_date, type: 'asset' })),
+    ...posts.map(p => ({ id: p.id, platform: p.platform, text: p.post_text, date: p.scheduled_time, type: 'post', client_id: p.client_id || '' })),
+    ...assets.map(a => ({ id: a.id, platform: a.platform, text: a.asset_name, date: a.scheduled_date, type: 'asset', client_id: a.client_id || '' })),
   ].filter(e => e.date);
 
-  const filtered = allEvents.filter(e => filterPlatform === 'all' || e.platform === filterPlatform);
+  // Apply canonical client_id filter
+  const clientScoped = clientIdFilter
+    ? allEvents.filter(e => e.client_id === clientIdFilter)
+    : allEvents;
+
+  const filtered = clientScoped.filter(e => filterPlatform === 'all' || e.platform === filterPlatform);
 
   // Build calendar grid
   const year = currentMonth.getFullYear();
@@ -58,10 +76,20 @@ export default function AgencyPublishingCalendar() {
   return (
     <AgencyLayout>
       <div className="p-6 space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between flex-wrap gap-3">
           <div>
             <h1 className="text-xl font-bold text-white">Publishing Calendar</h1>
-            <p className="text-slate-500 text-sm mt-0.5">All scheduled content across platforms</p>
+            {clientIdFilter ? (
+              <div className="flex items-center gap-2 mt-0.5">
+                <span className="text-xs font-semibold text-blue-400 bg-blue-900/30 border border-blue-700/40 px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <Filter className="w-3 h-3" /> {clientMap[clientIdFilter]?.business_name || clientIdFilter}
+                </span>
+                <Link to="/agency/publishing-calendar" className="text-xs text-slate-500 hover:text-white transition-colors">Clear filter →</Link>
+                <Link to={`/agency/clients/${clientIdFilter}`} className="text-xs text-slate-500 hover:text-white transition-colors">← Back to client</Link>
+              </div>
+            ) : (
+              <p className="text-slate-500 text-sm mt-0.5">All scheduled content across platforms</p>
+            )}
           </div>
           <div className="flex items-center gap-3">
             <button onClick={prevMonth} className="p-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-400"><ChevronLeft className="w-4 h-4" /></button>

@@ -30,6 +30,10 @@
     "campaign_id": {
       "type": "string"
     },
+    "client_id": {
+      "type": "string",
+      "description": "Canonical reference to Clients.id \u2014 use for all filtering by client"
+    },
     "publish_status": {
       "type": "string",
       "enum": [

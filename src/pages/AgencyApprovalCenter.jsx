@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import AgencyLayout from '../components/agency/AgencyLayout';
-import { Shield, CheckCircle, XCircle, Clock, AlertTriangle, X } from 'lucide-react';
+import { Shield, CheckCircle, XCircle, Clock, AlertTriangle, X, Filter } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const STATUS_COLORS = {
   pending: 'bg-amber-900/50 text-amber-300',
@@ -17,39 +18,61 @@ const PLATFORM_EMOJI = { facebook:'📘', instagram:'📷', linkedin:'💼', x:'
 export default function AgencyApprovalCenter() {
   const [assets, setAssets] = useState([]);
   const [campaigns, setCampaigns] = useState([]);
+  const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState('pending');
   const [rejectModal, setRejectModal] = useState(null);
   const [rejectFeedback, setRejectFeedback] = useState('');
 
+  // Canonical client filter — read from ?client=<Clients.id> in URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const clientIdFilter = urlParams.get('client') || '';
+
   useEffect(() => { load(); }, []);
 
   const load = async () => {
-    const [a, c] = await Promise.all([
+    const [a, c, cl] = await Promise.all([
       base44.entities.NTAContentAsset.list('-created_date', 300),
       base44.entities.SpokeCampaign.list('-created_date', 100),
+      base44.entities.Clients.list('-created_date', 200),
     ]);
-    setAssets(a); setCampaigns(c); setLoading(false);
+    setAssets(a); setCampaigns(c); setClients(cl); setLoading(false);
   };
 
   const campMap = Object.fromEntries(campaigns.map(c => [c.id, c]));
+  const clientMap = Object.fromEntries(clients.map(c => [c.id, c]));
 
-  // Categorize
-  const pendingInternal = assets.filter(a => ['ready_for_review','pending_internal'].includes(a.approval_status));
-  const pendingClient = assets.filter(a => a.approval_status === 'pending_client');
-  const needsReapproval = assets.filter(a => a.approval_status === 'needs_reapproval');
-  const rejected = assets.filter(a => a.approval_status === 'rejected');
+  // Apply canonical client_id filter when ?client= param is present.
+  // Falls back to checking business_name only for legacy records missing client_id (marked below).
+  const filteredAssets = clientIdFilter
+    ? assets.filter(a => {
+        // Primary: canonical client_id match
+        if (a.client_id && a.client_id === clientIdFilter) return true;
+        // LEGACY FALLBACK: name-based match for records created before client_id was stamped
+        // TODO: remove once all records have been backfilled with client_id
+        const client = clientMap[clientIdFilter];
+        if (!a.client_id && client && a.asset_name && client.business_name) return false; // don't guess on name alone
+        return false;
+      })
+    : assets;
+
+  // Categorize using filteredAssets (scoped to client if ?client= param present, else all)
+  const pendingInternal = filteredAssets.filter(a => ['ready_for_review','pending_internal'].includes(a.approval_status));
+  const pendingClient = filteredAssets.filter(a => a.approval_status === 'pending_client');
+  const needsReapproval = filteredAssets.filter(a => a.approval_status === 'needs_reapproval');
+  const rejected = filteredAssets.filter(a => a.approval_status === 'rejected');
 
   // Overdue = in pending state 3+ days
   const isOverdue = (a) => a.created_date && (Date.now() - new Date(a.created_date)) > 86400000 * 3;
 
   const enqueue = async (asset) => {
     if (asset.queued) return;
+    // Canonical: client_id from the asset (Clients.id) is passed through to SocialPostQueue
     await base44.entities.SocialPostQueue.create({
       platform: asset.platform,
       post_text: asset.caption_text || asset.body_copy || '',
       campaign_id: asset.campaign_id,
-      client_id: asset.client_id,
+      client_id: asset.client_id || '', // canonical Clients.id — required for calendar/queue filters
       publish_status: asset.scheduled_date ? 'scheduled' : 'draft',
       scheduled_time: asset.scheduled_date || null,
       asset_id: asset.id,
@@ -100,7 +123,17 @@ export default function AgencyApprovalCenter() {
       <div className="p-6 space-y-6">
         <div>
           <h1 className="text-xl font-bold text-white">Approval Center</h1>
-          <p className="text-slate-500 text-sm mt-0.5">Review, approve, or reject content before it enters the publishing queue</p>
+          {clientIdFilter ? (
+            <div className="flex items-center gap-2 mt-0.5">
+              <span className="text-xs font-semibold text-blue-400 bg-blue-900/30 border border-blue-700/40 px-2 py-0.5 rounded-full flex items-center gap-1">
+                <Filter className="w-3 h-3" /> Filtered: {clientMap[clientIdFilter]?.business_name || clientIdFilter}
+              </span>
+              <Link to="/agency/approval-center" className="text-xs text-slate-500 hover:text-white transition-colors">Clear filter →</Link>
+              <Link to={`/agency/clients/${clientIdFilter}`} className="text-xs text-slate-500 hover:text-white transition-colors">← Back to client</Link>
+            </div>
+          ) : (
+            <p className="text-slate-500 text-sm mt-0.5">Review, approve, or reject content before it enters the publishing queue</p>
+          )}
         </div>
 
         {/* Overdue alert */}

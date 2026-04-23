@@ -79,8 +79,11 @@ export default function AgencyClients() {
         active_client: clientRecord.status === 'active_client',
       };
 
-      // Find existing company by name
-      const existing = await base44.entities.NTACompany.filter({ company_name: clientRecord.business_name });
+      // Find existing company: prefer canonical company_id on the client record,
+      // fall back to name match for legacy records (LEGACY FALLBACK — name matching)
+      const existing = clientRecord.company_id
+        ? await base44.entities.NTACompany.get(clientRecord.company_id).then(r => r ? [r] : []).catch(() => [])
+        : await base44.entities.NTACompany.filter({ company_name: clientRecord.business_name }); // LEGACY FALLBACK
       let company;
       if (existing.length > 0) {
         company = existing[0];
@@ -101,6 +104,11 @@ export default function AgencyClients() {
           workflow_type: 'client_setup', workflow_stage: 'company_created', status: 'success',
           message: `New company created from client sync: ${clientRecord.business_name}`,
         });
+      }
+
+      // Write canonical company_id back to the Clients record so future lookups skip name-matching
+      if (clientRecord.id && clientRecord.company_id !== company.id) {
+        await base44.entities.Clients.update(clientRecord.id, { company_id: company.id });
       }
 
       // Create/update primary Contact if email or phone exists

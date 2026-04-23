@@ -88,14 +88,24 @@ export default function AgencyClientDetail() {
     setApprovalItems(approvals);
     setSocialPosts(posts);
 
-    // NTA company + contact (by business name or email)
-    if (c?.business_name || c?.email) {
+    // NTA company + contact lookup
+    // Priority 1: canonical company_id stored on the Clients record
+    // Priority 2 (LEGACY FALLBACK): email match — for records synced before company_id was stored
+    // Priority 3 (LEGACY FALLBACK): business_name text match — least reliable, avoid for new records
+    {
       let co = null;
-      if (c.email) {
+      if (c?.company_id) {
+        // Canonical path — direct ID lookup
+        const companyRecord = await base44.entities.NTACompany.get(c.company_id).catch(() => null);
+        co = companyRecord || null;
+      }
+      if (!co && c?.email) {
+        // LEGACY FALLBACK: email-based match for older synced records
         const res = await base44.entities.NTACompany.filter({ email: c.email });
         if (res.length > 0) co = res[0];
       }
-      if (!co && c.business_name) {
+      if (!co && c?.business_name) {
+        // LEGACY FALLBACK: name-based match — unreliable if names differ; do not use for new records
         const res = await base44.entities.NTACompany.filter({ company_name: c.business_name });
         if (res.length > 0) co = res[0];
       }
@@ -165,8 +175,13 @@ export default function AgencyClientDetail() {
     if (!insightForm.title.trim()) return;
     setCreating(true);
     const slug = insightForm.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+    // Always stamp client_id (canonical Clients.id) and campaign_id on new InsightPages
     await base44.entities.InsightPage.create({
-      ...insightForm, campaign_id: campaigns[0]?.id || '', publish_status: 'draft', slug,
+      ...insightForm,
+      campaign_id: campaigns[0]?.id || '',
+      client_id: id, // canonical: Clients.id
+      publish_status: 'draft',
+      slug,
     });
     setCreateInsightModal(false);
     setInsightForm({ title: '', headline: '' });

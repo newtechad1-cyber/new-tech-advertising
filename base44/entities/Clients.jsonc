@@ -65,6 +65,10 @@
     },
     "notes": {
       "type": "string"
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Canonical reference to NTACompany.id \u2014 set on creation/sync, use for company lookups instead of name matching"
     }
   },
   "required": [
