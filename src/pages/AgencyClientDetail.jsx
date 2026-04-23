@@ -6,7 +6,8 @@ import {
   ArrowLeft, Settings2, Edit, Megaphone, FileText, Shield,
   Globe, Phone, Mail, MapPin, Building2, CheckCircle, Circle,
   AlertTriangle, ExternalLink, Loader2, Plus, Share2, RefreshCw,
-  ChevronRight, Tag, Briefcase, UserCircle, Activity
+  ChevronRight, Tag, Briefcase, UserCircle, Activity, Radio,
+  BookOpen, Calendar, Send, Video, X
 } from 'lucide-react';
 
 const STATUS_COLORS = {
@@ -42,8 +43,21 @@ export default function AgencyClientDetail() {
   const [deal, setDeal] = useState(null);
   const [connections, setConnections] = useState([]);
   const [campaigns, setCampaigns] = useState([]);
+  const [spokeCampaigns, setSpokeCampaigns] = useState([]);
+  const [contentAssets, setContentAssets] = useState([]);
+  const [approvalItems, setApprovalItems] = useState([]);
+  const [socialPosts, setSocialPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [initializingSetup, setInitializingSetup] = useState(false);
+
+  // Create modals
+  const [createCampaignModal, setCreateCampaignModal] = useState(false);
+  const [createSpokeModal, setCreateSpokeModal] = useState(false);
+  const [createInsightModal, setCreateInsightModal] = useState(false);
+  const [campaignForm, setCampaignForm] = useState({ campaign_name: '', campaign_type: 'Social Posting', objective: '' });
+  const [spokeForm, setSpokeForm] = useState({ campaign_name: '', pillar: '', core_theme: '', target_audience: '' });
+  const [insightForm, setInsightForm] = useState({ title: '', headline: '' });
+  const [creating, setCreating] = useState(false);
 
   // Edit modal
   const [editModal, setEditModal] = useState(false);
@@ -56,15 +70,23 @@ export default function AgencyClientDetail() {
     setClient(c);
     setEditForm({ ...c });
 
-    const [setups, connections, campaigns] = await Promise.all([
+    const [setups, connections, campaigns, spoke, assets, approvals, posts] = await Promise.all([
       base44.entities.ClientSetupStatus.filter({ client_id: id }),
       base44.entities.ChannelConnection.filter({ client_id: id }),
       base44.entities.Campaign.filter({ client_id: id }),
+      base44.entities.SpokeCampaign.filter({ client_id: id }),
+      base44.entities.NTAContentAsset.filter({ client_id: id }),
+      base44.entities.ApprovalItem.filter({ client_id: id }),
+      base44.entities.SocialPostQueue.filter({ client_id: id }),
     ]);
 
     setSetup(setups[0] || null);
     setConnections(connections);
     setCampaigns(campaigns);
+    setSpokeCampaigns(spoke);
+    setContentAssets(assets);
+    setApprovalItems(approvals);
+    setSocialPosts(posts);
 
     // NTA company + contact (by business name or email)
     if (c?.business_name || c?.email) {
@@ -112,6 +134,44 @@ export default function AgencyClientDetail() {
     setSetup(created);
     setInitializingSetup(false);
     navigate(`/agency/clients/${id}/setup`);
+  };
+
+  const createCampaign = async () => {
+    if (!campaignForm.campaign_name.trim()) return;
+    setCreating(true);
+    const created = await base44.entities.Campaign.create({
+      ...campaignForm, client_id: id, business_name: client?.business_name || '', status: 'Draft',
+    });
+    setCampaigns(p => [created, ...p]);
+    setCreateCampaignModal(false);
+    setCampaignForm({ campaign_name: '', campaign_type: 'Social Posting', objective: '' });
+    setCreating(false);
+  };
+
+  const createSpoke = async () => {
+    if (!spokeForm.campaign_name.trim()) return;
+    setCreating(true);
+    const slug = spokeForm.campaign_name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+    const created = await base44.entities.SpokeCampaign.create({
+      ...spokeForm, client_id: id, campaign_slug: slug, status: 'draft',
+    });
+    setSpokeCampaigns(p => [created, ...p]);
+    setCreateSpokeModal(false);
+    setSpokeForm({ campaign_name: '', pillar: '', core_theme: '', target_audience: '' });
+    setCreating(false);
+  };
+
+  const createInsightPage = async () => {
+    if (!insightForm.title.trim()) return;
+    setCreating(true);
+    const slug = insightForm.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+    await base44.entities.InsightPage.create({
+      ...insightForm, campaign_id: campaigns[0]?.id || '', publish_status: 'draft', slug,
+    });
+    setCreateInsightModal(false);
+    setInsightForm({ title: '', headline: '' });
+    setCreating(false);
+    navigate('/agency/insight-pages');
   };
 
   const saveEdit = async () => {
@@ -182,45 +242,44 @@ export default function AgencyClientDetail() {
         {/* ── Primary Action Bar ── */}
         <div className="flex flex-wrap gap-2">
           {setup ? (
-            <Link
-              to={`/agency/clients/${id}/setup`}
-              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm px-4 py-2.5 rounded-xl transition-colors"
-            >
-              <Settings2 className="w-4 h-4" /> Open Setup Wizard
+            <Link to={`/agency/clients/${id}/setup`} className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm px-4 py-2.5 rounded-xl transition-colors">
+              <Settings2 className="w-4 h-4" /> Setup Wizard
             </Link>
           ) : (
-            <button
-              onClick={initializeSetup}
-              disabled={initializingSetup}
-              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-bold text-sm px-4 py-2.5 rounded-xl transition-colors"
-            >
+            <button onClick={initializeSetup} disabled={initializingSetup}
+              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-bold text-sm px-4 py-2.5 rounded-xl transition-colors">
               {initializingSetup ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
               {initializingSetup ? 'Initializing...' : 'Initialize Onboarding'}
             </button>
           )}
-          <button
-            onClick={() => { setEditForm({ ...client }); setEditModal(true); }}
-            className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white font-semibold text-sm px-4 py-2.5 rounded-xl transition-colors"
-          >
+          <button onClick={() => { setEditForm({ ...client }); setEditModal(true); }}
+            className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white font-semibold text-sm px-4 py-2.5 rounded-xl transition-colors">
             <Edit className="w-4 h-4" /> Edit Client
           </button>
-          <Link
-            to={`/agency/campaigns?client=${id}`}
-            className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white font-semibold text-sm px-4 py-2.5 rounded-xl transition-colors"
-          >
-            <Megaphone className="w-4 h-4" /> Campaigns
-          </Link>
-          <Link
-            to={`/agency/content-queue?client=${id}`}
-            className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white font-semibold text-sm px-4 py-2.5 rounded-xl transition-colors"
-          >
-            <FileText className="w-4 h-4" /> Content Queue
-          </Link>
-          <Link
-            to={`/agency/approval-center?client=${id}`}
-            className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white font-semibold text-sm px-4 py-2.5 rounded-xl transition-colors"
-          >
+          <button onClick={() => setCreateCampaignModal(true)}
+            className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white font-semibold text-sm px-4 py-2.5 rounded-xl transition-colors">
+            <Plus className="w-3.5 h-3.5" /><Megaphone className="w-4 h-4" /> Campaign
+          </button>
+          <button onClick={() => setCreateSpokeModal(true)}
+            className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white font-semibold text-sm px-4 py-2.5 rounded-xl transition-colors">
+            <Plus className="w-3.5 h-3.5" /><Radio className="w-4 h-4" /> Spoke
+          </button>
+          <button onClick={() => setCreateInsightModal(true)}
+            className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white font-semibold text-sm px-4 py-2.5 rounded-xl transition-colors">
+            <Plus className="w-3.5 h-3.5" /><BookOpen className="w-4 h-4" /> Insight Page
+          </button>
+          <Link to={`/agency/approval-center?client=${id}`}
+            className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white font-semibold text-sm px-4 py-2.5 rounded-xl transition-colors">
             <Shield className="w-4 h-4" /> Approvals
+            {approvalItems.filter(a => a.status === 'pending').length > 0 && (
+              <span className="bg-amber-500 text-black text-xs font-black px-1.5 py-0.5 rounded-full leading-none">
+                {approvalItems.filter(a => a.status === 'pending').length}
+              </span>
+            )}
+          </Link>
+          <Link to={`/agency/publishing-calendar?client=${id}`}
+            className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white font-semibold text-sm px-4 py-2.5 rounded-xl transition-colors">
+            <Calendar className="w-4 h-4" /> Calendar
           </Link>
         </div>
 
@@ -228,6 +287,19 @@ export default function AgencyClientDetail() {
 
           {/* ── LEFT COLUMN ── */}
           <div className="lg:col-span-2 space-y-5">
+
+            {/* ── Fulfillment Summary ── */}
+            <FulfillmentSection
+              clientId={id}
+              campaigns={campaigns}
+              spokeCampaigns={spokeCampaigns}
+              contentAssets={contentAssets}
+              approvalItems={approvalItems}
+              socialPosts={socialPosts}
+              onCreateCampaign={() => setCreateCampaignModal(true)}
+              onCreateSpoke={() => setCreateSpokeModal(true)}
+              onCreateInsight={() => setCreateInsightModal(true)}
+            />
 
             {/* Onboarding Status */}
             <Section title="Onboarding Status" icon={Activity}>
@@ -399,12 +471,15 @@ export default function AgencyClientDetail() {
           <div className="space-y-5">
 
             {/* Quick Links */}
-            <Section title="Content & Campaigns" icon={Megaphone}>
+            <Section title="Operations Links" icon={Megaphone}>
               <div className="space-y-1.5">
                 <QuickLink to={`/agency/campaigns?client=${id}`} icon={Megaphone} label="Campaigns" count={campaigns.length} />
-                <QuickLink to={`/agency/content-queue?client=${id}`} icon={FileText} label="Content Queue" />
-                <QuickLink to={`/agency/approval-center?client=${id}`} icon={Shield} label="Approval Center" />
-                <QuickLink to={`/agency/social-queue?client=${id}`} icon={Share2} label="Social Queue" />
+                <QuickLink to={`/agency/spoke-campaigns`} icon={Radio} label="Spoke Campaigns" count={spokeCampaigns.length} />
+                <QuickLink to={`/agency/content-asset?client=${id}`} icon={FileText} label="Content Assets" count={contentAssets.length} />
+                <QuickLink to={`/agency/approval-center?client=${id}`} icon={Shield} label="Approval Center" count={approvalItems.filter(a=>a.status==='pending').length || undefined} />
+                <QuickLink to={`/agency/publishing-calendar?client=${id}`} icon={Calendar} label="Publishing Calendar" />
+                <QuickLink to={`/agency/social-queue?client=${id}`} icon={Send} label="Social Queue" count={socialPosts.filter(p=>p.publish_status==='scheduled').length || undefined} />
+                <QuickLink to={`/agency/insight-pages`} icon={BookOpen} label="Insight Pages" />
                 <QuickLink to={`/agency/portal-manager?client=${id}`} icon={UserCircle} label="Client Portal" />
               </div>
             </Section>
@@ -476,6 +551,53 @@ export default function AgencyClientDetail() {
           </div>
         </div>
       </div>
+
+      {/* ── Create Campaign Modal ── */}
+      {createCampaignModal && (
+        <CreateModal title="Create Campaign" onClose={() => setCreateCampaignModal(false)} onSave={createCampaign} saving={creating} disabled={!campaignForm.campaign_name.trim()}>
+          <Field label="Campaign Name *">
+            <input value={campaignForm.campaign_name} onChange={e => setCampaignForm(p=>({...p,campaign_name:e.target.value}))} placeholder="e.g. Spring Promotion" className={INP} />
+          </Field>
+          <Field label="Type">
+            <select value={campaignForm.campaign_type} onChange={e => setCampaignForm(p=>({...p,campaign_type:e.target.value}))} className={INP}>
+              {['Social Posting','Promo Campaign','Seasonal Campaign','Lead Generation','Offer Launch','Video Campaign'].map(t=><option key={t}>{t}</option>)}
+            </select>
+          </Field>
+          <Field label="Objective">
+            <input value={campaignForm.objective} onChange={e => setCampaignForm(p=>({...p,objective:e.target.value}))} placeholder="e.g. Drive spring service calls" className={INP} />
+          </Field>
+        </CreateModal>
+      )}
+
+      {/* ── Create Spoke Campaign Modal ── */}
+      {createSpokeModal && (
+        <CreateModal title="Create Spoke Campaign" onClose={() => setCreateSpokeModal(false)} onSave={createSpoke} saving={creating} disabled={!spokeForm.campaign_name.trim()}>
+          <Field label="Campaign Name *">
+            <input value={spokeForm.campaign_name} onChange={e => setSpokeForm(p=>({...p,campaign_name:e.target.value}))} placeholder="e.g. HVAC Authority" className={INP} />
+          </Field>
+          <Field label="Pillar">
+            <input value={spokeForm.pillar} onChange={e => setSpokeForm(p=>({...p,pillar:e.target.value}))} placeholder="e.g. Local Authority" className={INP} />
+          </Field>
+          <Field label="Core Theme">
+            <input value={spokeForm.core_theme} onChange={e => setSpokeForm(p=>({...p,core_theme:e.target.value}))} placeholder="e.g. HVAC tips & trust" className={INP} />
+          </Field>
+          <Field label="Target Audience">
+            <input value={spokeForm.target_audience} onChange={e => setSpokeForm(p=>({...p,target_audience:e.target.value}))} placeholder="e.g. Homeowners in Mason City" className={INP} />
+          </Field>
+        </CreateModal>
+      )}
+
+      {/* ── Create Insight Page Modal ── */}
+      {createInsightModal && (
+        <CreateModal title="Create Insight Page" onClose={() => setCreateInsightModal(false)} onSave={createInsightPage} saving={creating} disabled={!insightForm.title.trim()}>
+          <Field label="Page Title *">
+            <input value={insightForm.title} onChange={e => setInsightForm(p=>({...p,title:e.target.value}))} placeholder="e.g. Why Local HVAC Matters" className={INP} />
+          </Field>
+          <Field label="Headline">
+            <input value={insightForm.headline} onChange={e => setInsightForm(p=>({...p,headline:e.target.value}))} placeholder="e.g. The Hidden Cost of Ignoring Your HVAC" className={INP} />
+          </Field>
+        </CreateModal>
+      )}
 
       {/* ── Edit Modal ── */}
       {editModal && (
@@ -592,9 +714,209 @@ function QuickLink({ to, icon: Icon, label, count }) {
         <span className="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">{label}</span>
       </div>
       <div className="flex items-center gap-1.5">
-        {count !== undefined && <span className="text-xs text-slate-500">{count}</span>}
+        {count !== undefined && count > 0 && (
+          <span className="text-xs font-bold bg-slate-700 text-slate-300 px-1.5 py-0.5 rounded-full">{count}</span>
+        )}
         <ChevronRight className="w-3.5 h-3.5 text-slate-600 group-hover:text-slate-400 transition-colors" />
       </div>
     </Link>
+  );
+}
+
+// ── Constants ─────────────────────────────────────────────────────────────────
+const INP = 'w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500';
+
+function Field({ label, children }) {
+  return (
+    <div>
+      <label className="text-xs font-semibold text-slate-400 block mb-1">{label}</label>
+      {children}
+    </div>
+  );
+}
+
+function CreateModal({ title, onClose, onSave, saving, disabled, children }) {
+  return (
+    <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+      <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-md">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-800">
+          <h3 className="font-bold text-white">{title}</h3>
+          <button onClick={onClose} className="text-slate-500 hover:text-white"><X className="w-4 h-4" /></button>
+        </div>
+        <div className="p-5 space-y-3">{children}</div>
+        <div className="px-5 py-4 border-t border-slate-800 flex gap-3">
+          <button onClick={onSave} disabled={saving || disabled}
+            className="flex-1 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-bold py-2 rounded-lg text-sm">
+            {saving ? 'Creating...' : 'Create'}
+          </button>
+          <button onClick={onClose} className="px-4 bg-slate-800 text-white font-semibold py-2 rounded-lg text-sm">Cancel</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Fulfillment Section ───────────────────────────────────────────────────────
+const STATUS_DOT = {
+  Draft: 'bg-slate-500', Planned: 'bg-blue-500', Active: 'bg-emerald-500',
+  Completed: 'bg-slate-400', Paused: 'bg-amber-500', Cancelled: 'bg-red-600',
+  draft: 'bg-slate-500', active: 'bg-emerald-500', completed: 'bg-slate-400',
+};
+
+function FulfillmentSection({ clientId, campaigns, spokeCampaigns, contentAssets, approvalItems, socialPosts, onCreateCampaign, onCreateSpoke, onCreateInsight }) {
+  const hasAnything = campaigns.length > 0 || spokeCampaigns.length > 0 || contentAssets.length > 0;
+  const pendingApprovals = approvalItems.filter(a => a.status === 'pending').length;
+  const scheduledPosts = socialPosts.filter(p => p.publish_status === 'scheduled').length;
+  const publishedPosts = socialPosts.filter(p => p.publish_status === 'published').length;
+  const draftAssets = contentAssets.filter(a => a.status === 'draft').length;
+  const approvedAssets = contentAssets.filter(a => a.approval_status === 'approved').length;
+
+  if (!hasAnything) {
+    return (
+      <div className="bg-slate-900 border border-dashed border-slate-700 rounded-2xl p-8 text-center">
+        <Megaphone className="w-10 h-10 text-slate-700 mx-auto mb-3" />
+        <p className="text-white font-semibold mb-1">No campaigns or content yet</p>
+        <p className="text-slate-500 text-sm mb-6">Start by creating a campaign, then build spoke campaigns and content assets.</p>
+        <div className="flex flex-wrap gap-2 justify-center">
+          <button onClick={onCreateCampaign}
+            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm px-4 py-2.5 rounded-xl transition-colors">
+            <Plus className="w-4 h-4" /><Megaphone className="w-4 h-4" /> Create Campaign
+          </button>
+          <button onClick={onCreateSpoke}
+            className="flex items-center gap-2 bg-violet-700 hover:bg-violet-600 text-white font-bold text-sm px-4 py-2.5 rounded-xl transition-colors">
+            <Plus className="w-4 h-4" /><Radio className="w-4 h-4" /> Spoke Campaign
+          </button>
+          <button onClick={onCreateInsight}
+            className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white font-bold text-sm px-4 py-2.5 rounded-xl transition-colors">
+            <Plus className="w-4 h-4" /><BookOpen className="w-4 h-4" /> Insight Page
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      {/* KPI Strip */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <KPITile icon={Megaphone} label="Campaigns" value={campaigns.length} color="text-blue-400" />
+        <KPITile icon={Radio} label="Spoke Campaigns" value={spokeCampaigns.length} color="text-violet-400" />
+        <KPITile icon={FileText} label="Content Assets" value={contentAssets.length} color="text-amber-400" sub={draftAssets > 0 ? `${draftAssets} draft` : approvedAssets > 0 ? `${approvedAssets} approved` : undefined} />
+        <KPITile icon={Send} label="Social Posts" value={scheduledPosts + publishedPosts} color="text-emerald-400" sub={scheduledPosts > 0 ? `${scheduledPosts} scheduled` : undefined} />
+      </div>
+
+      {/* Pending Approvals Alert */}
+      {pendingApprovals > 0 && (
+        <Link to={`/agency/approval-center?client=${clientId}`}
+          className="flex items-center justify-between bg-amber-950/40 border border-amber-700/50 rounded-xl px-4 py-3 hover:bg-amber-950/60 transition-colors">
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 text-amber-400" />
+            <p className="text-sm font-bold text-amber-300">{pendingApprovals} item{pendingApprovals > 1 ? 's' : ''} awaiting approval</p>
+          </div>
+          <ChevronRight className="w-4 h-4 text-amber-500" />
+        </Link>
+      )}
+
+      {/* Campaigns */}
+      {campaigns.length > 0 && (
+        <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+          <div className="flex items-center justify-between px-5 py-3 border-b border-slate-800">
+            <div className="flex items-center gap-2">
+              <Megaphone className="w-4 h-4 text-slate-500" />
+              <h3 className="text-sm font-bold text-white uppercase tracking-wider">Campaigns</h3>
+            </div>
+            <div className="flex items-center gap-2">
+              <Link to={`/agency/campaigns?client=${clientId}`} className="text-xs text-blue-400 hover:text-blue-300">View All →</Link>
+              <button onClick={onCreateCampaign} className="text-xs text-slate-500 hover:text-white flex items-center gap-1">
+                <Plus className="w-3 h-3" /> Add
+              </button>
+            </div>
+          </div>
+          <div className="divide-y divide-slate-800">
+            {campaigns.slice(0, 4).map(c => (
+              <div key={c.id} className="flex items-center justify-between px-5 py-3">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className={`w-2 h-2 rounded-full flex-shrink-0 ${STATUS_DOT[c.status] || 'bg-slate-600'}`} />
+                  <p className="text-sm text-white truncate">{c.campaign_name}</p>
+                  {c.campaign_type && <span className="text-xs text-slate-600 hidden sm:inline">{c.campaign_type}</span>}
+                </div>
+                <span className="text-xs text-slate-500 flex-shrink-0">{c.status}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Spoke Campaigns */}
+      {spokeCampaigns.length > 0 && (
+        <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+          <div className="flex items-center justify-between px-5 py-3 border-b border-slate-800">
+            <div className="flex items-center gap-2">
+              <Radio className="w-4 h-4 text-slate-500" />
+              <h3 className="text-sm font-bold text-white uppercase tracking-wider">Spoke Campaigns</h3>
+            </div>
+            <div className="flex items-center gap-2">
+              <Link to="/agency/spoke-campaigns" className="text-xs text-blue-400 hover:text-blue-300">View All →</Link>
+              <button onClick={onCreateSpoke} className="text-xs text-slate-500 hover:text-white flex items-center gap-1">
+                <Plus className="w-3 h-3" /> Add
+              </button>
+            </div>
+          </div>
+          <div className="divide-y divide-slate-800">
+            {spokeCampaigns.slice(0, 4).map(c => (
+              <Link key={c.id} to={`/agency/spoke-campaigns/${c.id}`} className="flex items-center justify-between px-5 py-3 hover:bg-slate-800/40 transition-colors">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className={`w-2 h-2 rounded-full flex-shrink-0 ${STATUS_DOT[c.status] || 'bg-slate-600'}`} />
+                  <p className="text-sm text-white truncate">{c.campaign_name}</p>
+                </div>
+                <ChevronRight className="w-3.5 h-3.5 text-slate-600 flex-shrink-0" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Content Assets */}
+      {contentAssets.length > 0 && (
+        <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+          <div className="flex items-center justify-between px-5 py-3 border-b border-slate-800">
+            <div className="flex items-center gap-2">
+              <FileText className="w-4 h-4 text-slate-500" />
+              <h3 className="text-sm font-bold text-white uppercase tracking-wider">Content Assets</h3>
+            </div>
+            <Link to={`/agency/content-asset?client=${clientId}`} className="text-xs text-blue-400 hover:text-blue-300">View All →</Link>
+          </div>
+          <div className="divide-y divide-slate-800">
+            {contentAssets.slice(0, 5).map(a => (
+              <div key={a.id} className="flex items-center justify-between px-5 py-2.5">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className={`w-2 h-2 rounded-full flex-shrink-0 ${STATUS_DOT[a.status] || 'bg-slate-600'}`} />
+                  <p className="text-sm text-white truncate">{a.asset_name}</p>
+                  {a.platform && <span className="text-xs text-slate-600">{a.platform}</span>}
+                </div>
+                <span className={`text-xs font-semibold px-2 py-0.5 rounded-full flex-shrink-0 ${
+                  a.approval_status === 'approved' ? 'bg-emerald-900/50 text-emerald-300' :
+                  a.approval_status === 'rejected' ? 'bg-red-900/50 text-red-300' :
+                  'bg-slate-800 text-slate-500'
+                }`}>{a.approval_status || a.status}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function KPITile({ icon: Icon, label, value, color, sub }) {
+  return (
+    <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
+      <div className="flex items-center gap-2 mb-1">
+        <Icon className={`w-4 h-4 ${color}`} />
+        <p className={`text-2xl font-black ${color}`}>{value}</p>
+      </div>
+      <p className="text-xs text-slate-500">{label}</p>
+      {sub && <p className="text-xs text-slate-600 mt-0.5">{sub}</p>}
+    </div>
   );
 }
