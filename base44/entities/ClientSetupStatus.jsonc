@@ -1,0 +1,178 @@
+{
+  "name": "ClientSetupStatus",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "onboarding_stage": {
+      "type": "string",
+      "enum": [
+        "Intake",
+        "Business Setup",
+        "Services Setup",
+        "Channel Setup",
+        "Approval Setup",
+        "Portal Setup",
+        "Campaign Defaults",
+        "Content Defaults",
+        "Kickoff Ready",
+        "Complete"
+      ],
+      "default": "Intake"
+    },
+    "setup_status": {
+      "type": "string",
+      "enum": [
+        "Not Started",
+        "In Progress",
+        "Waiting on Client",
+        "Internal Review",
+        "Ready for Kickoff",
+        "Completed",
+        "Blocked"
+      ],
+      "default": "Not Started"
+    },
+    "percent_complete": {
+      "type": "integer",
+      "default": 0
+    },
+    "intake_form_completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "services_defined": {
+      "type": "boolean",
+      "default": false
+    },
+    "website_info_completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "channels_connected": {
+      "type": "boolean",
+      "default": false
+    },
+    "approval_settings_completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "client_portal_ready": {
+      "type": "boolean",
+      "default": false
+    },
+    "campaign_defaults_completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "content_settings_completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "kickoff_notes_completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "assigned_owner": {
+      "type": "string"
+    },
+    "setup_notes": {
+      "type": "string"
+    },
+    "primary_services": {
+      "type": "string"
+    },
+    "secondary_services": {
+      "type": "string"
+    },
+    "top_offers": {
+      "type": "string"
+    },
+    "target_audience": {
+      "type": "string"
+    },
+    "service_locations": {
+      "type": "string"
+    },
+    "domain_status": {
+      "type": "string"
+    },
+    "hosting_notes": {
+      "type": "string"
+    },
+    "analytics_status": {
+      "type": "string"
+    },
+    "primary_brand_color": {
+      "type": "string"
+    },
+    "logo_url": {
+      "type": "string"
+    },
+    "brand_tagline": {
+      "type": "string"
+    },
+    "tone_of_voice": {
+      "type": "string"
+    },
+    "topics_to_avoid": {
+      "type": "string"
+    },
+    "topics_to_emphasize": {
+      "type": "string"
+    },
+    "preferred_post_mix": {
+      "type": "string"
+    },
+    "client_provides_media": {
+      "type": "boolean",
+      "default": false
+    },
+    "posting_frequency": {
+      "type": "string"
+    },
+    "preferred_platforms": {
+      "type": "string"
+    },
+    "content_types_preferred": {
+      "type": "string"
+    },
+    "geographic_targeting": {
+      "type": "string"
+    },
+    "cta_defaults": {
+      "type": "string"
+    },
+    "internal_blockers": {
+      "type": "string"
+    },
+    "missing_items": {
+      "type": "string"
+    },
+    "next_actions": {
+      "type": "string"
+    },
+    "kickoff_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "kickoff_notes": {
+      "type": "string"
+    },
+    "started_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_date": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "client_id"
+  ]
+}

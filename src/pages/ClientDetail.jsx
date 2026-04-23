@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { ArrowLeft, ExternalLink, Plus, FileText, Zap, Eye } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Plus, FileText, Zap, Eye, Settings2 } from 'lucide-react';
 import CRMLayout from '../components/crm-dashboard/CRMLayout';
+import ClientSetupStatusCard from '../components/onboarding/ClientSetupStatusCard';
 
 const STATUS_COLORS = {
   idea: 'bg-slate-700 text-slate-300', queued: 'bg-blue-900 text-blue-300',
@@ -24,6 +25,10 @@ export default function ClientDetail() {
   const [assets, setAssets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('topics');
+  const [setup, setSetup] = useState(null);
+  const [connections, setConnections] = useState([]);
+  const [portalUsers, setPortalUsers] = useState([]);
+  const [approval, setApproval] = useState(null);
 
   useEffect(() => {
     if (!id) return;
@@ -32,11 +37,19 @@ export default function ClientDetail() {
       base44.entities.ContentTopics.filter({ client_id: id }),
       base44.entities.AIJobs.filter({ client_id: id }),
       base44.entities.ContentAssets.filter({ client_id: id }),
-    ]).then(([c, t, j, a]) => {
+      base44.entities.ClientSetupStatus.filter({ client_id: id }),
+      base44.entities.ChannelConnection.filter({ client_id: id }),
+      base44.entities.ClientPortalUser.filter({ client_id: id }),
+      base44.entities.ClientApprovalPreference.filter({ client_id: id }),
+    ]).then(([c, t, j, a, s, conn, pu, appr]) => {
       setClient(c);
       setTopics(t);
       setJobs(j);
       setAssets(a);
+      setSetup(s[0] || null);
+      setConnections(conn);
+      setPortalUsers(pu);
+      setApproval(appr[0] || null);
       setLoading(false);
     });
   }, [id]);
@@ -70,7 +83,11 @@ export default function ClientDetail() {
                 )}
               </p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
+              <Link to={`/agency/clients/${id}/setup`}
+                className="inline-flex items-center gap-2 bg-slate-700 hover:bg-slate-600 border border-slate-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
+                <Settings2 className="w-4 h-4" /> Setup Wizard
+              </Link>
               <Link to={`/agency/content?client=${id}`}
                 className="inline-flex items-center gap-2 bg-violet-700 hover:bg-violet-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
                 <Zap className="w-4 h-4" /> Open Content Center
@@ -104,6 +121,22 @@ export default function ClientDetail() {
             <p className="text-sm text-slate-400">{client.target_keywords}</p>
           </div>
         )}
+
+        {/* Setup Status Card */}
+        {(() => {
+          const inferredStatus = {
+            intake_form_completed:       !!(client?.email && client?.phone),
+            services_defined:            !!(client?.core_services),
+            website_info_completed:      !!(client?.website),
+            channels_connected:          connections.some(c => c.status === 'connected'),
+            approval_settings_completed: !!(approval?.id),
+            client_portal_ready:         portalUsers.some(u => u.access_status === 'Active'),
+            campaign_defaults_completed: false,
+            content_settings_completed:  !!(client?.brand_voice),
+            kickoff_notes_completed:     false,
+          };
+          return <ClientSetupStatusCard clientId={id} setup={setup} inferredStatus={inferredStatus} />;
+        })()}
 
         {/* Stats */}
         <div className="grid grid-cols-3 gap-3">

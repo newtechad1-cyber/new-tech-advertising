@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { Plus, Search, Archive, Trash2, Edit, X, ChevronDown, ExternalLink } from 'lucide-react';
+import { Plus, Search, Archive, Trash2, Edit, X, ChevronDown, ExternalLink, Settings2 } from 'lucide-react';
 import AgencyLayout from '../components/agency/AgencyLayout';
 import { logSystemEvent } from '@/lib/logSystemEvent';
 
@@ -305,6 +305,7 @@ export default function AgencyClients() {
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                         <Link to={`/clients/${c.id}`} className="p-1.5 text-slate-500 hover:text-blue-400 rounded"><ExternalLink className="w-3.5 h-3.5" /></Link>
+                        <Link to={`/agency/clients/${c.id}/setup`} className="p-1.5 text-slate-500 hover:text-violet-400 rounded" title="Setup Wizard"><Settings2 className="w-3.5 h-3.5" /></Link>
                         <button onClick={() => openEdit(c)} className="p-1.5 text-slate-500 hover:text-white rounded"><Edit className="w-3.5 h-3.5" /></button>
                         <button onClick={() => archive(c.id, !c.archived)} className="p-1.5 text-slate-500 hover:text-amber-400 rounded"><Archive className="w-3.5 h-3.5" /></button>
                         <button onClick={() => setDeleteConfirm(c.id)} className="p-1.5 text-slate-500 hover:text-red-400 rounded"><Trash2 className="w-3.5 h-3.5" /></button>

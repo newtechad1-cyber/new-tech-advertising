@@ -174,6 +174,7 @@ import AgencyContentQueue from './pages/AgencyContentQueue';
 import AgencyApprovals from './pages/AgencyApprovals';
 import ClientApprovalSignoff from './pages/ClientApprovalSignoff';
 import AgencyPortalManager from './pages/AgencyPortalManager';
+import ClientSetupWizard from './pages/ClientSetupWizard';
 import PortalDashboard from './pages/portal/PortalDashboard';
 import PortalApprovals from './pages/portal/PortalApprovals';
 import PortalCalendar from './pages/portal/PortalCalendar';
@@ -365,6 +366,7 @@ const AuthenticatedApp = () => {
       <Route path="/content-center" element={<ContentCommandCenter />} />
       <Route path="/clients" element={<ClientManager />} />
       <Route path="/clients/:id" element={<ClientDetail />} />
+      <Route path="/agency/clients/:id/setup" element={<ClientSetupWizard />} />
       <Route path="/agency" element={<AgencyDashboard />} />
       <Route path="/agency/clients" element={<AgencyClients />} />
       <Route path="/agency/pipeline" element={<AgencyPipeline />} />
