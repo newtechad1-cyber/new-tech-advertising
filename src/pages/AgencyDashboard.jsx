@@ -4,6 +4,7 @@ import { base44 } from '@/api/base44Client';
 import { Users, FileText, AlertTriangle, CheckCircle, Clock, ArrowRight, Plus, Radio, Video, Send, Shield, Calendar, BarChart } from 'lucide-react';
 import AgencyLayout from '../components/agency/AgencyLayout';
 import TodaysCommand from '../components/agency/TodaysCommand.jsx';
+import DailyCommandPanel from '../components/agency/DailyCommandPanel.jsx';
 
 export default function AgencyDashboard() {
   const [clients, setClients] = useState([]);
@@ -104,6 +105,13 @@ export default function AgencyDashboard() {
           <h1 className="text-xl font-bold text-white">Operations Dashboard</h1>
           <p className="text-slate-500 text-sm mt-0.5">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</p>
         </div>
+
+        {/* DAILY COMMAND PANEL — Spoke campaign workflow driver */}
+        <DailyCommandPanel
+          spokeCampaigns={spokeCampaigns}
+          ntaAssets={ntaAssets}
+          loading={loading}
+        />
 
         {/* TODAY'S COMMAND — CRM daily operator layer */}
         {loading ? (
