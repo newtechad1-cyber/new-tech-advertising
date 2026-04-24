@@ -26,6 +26,10 @@ export default function AgencySocialQueue() {
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({ platform: 'facebook', post_text: '', media_url: '', scheduled_time: '', publish_status: 'draft', campaign_id: '', client_id: '' });
 
+  const params = new URLSearchParams(window.location.search);
+  const dateFilter = params.get('date'); // 'today' or null
+  const todayStr = new Date().toISOString().split('T')[0];
+
   useEffect(() => { load(); }, []);
 
   const load = async () => {
@@ -52,7 +56,12 @@ export default function AgencySocialQueue() {
 
   const f = (k, v) => setForm(p => ({ ...p, [k]: v }));
 
-  const filtered = posts.filter(p => filterPlatform === 'all' || p.platform === filterPlatform);
+  // If ?date=today, show only scheduled posts for today
+  const dateFiltered = dateFilter === 'today'
+    ? posts.filter(p => p.publish_status === 'scheduled' && p.scheduled_time?.startsWith(todayStr))
+    : posts;
+
+  const filtered = dateFiltered.filter(p => filterPlatform === 'all' || p.platform === filterPlatform);
   const scheduled = posts.filter(p => p.publish_status === 'scheduled').length;
   const published = posts.filter(p => p.publish_status === 'published').length;
 
@@ -62,7 +71,9 @@ export default function AgencySocialQueue() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-xl font-bold text-white">Social Queue</h1>
-            <p className="text-slate-500 text-sm mt-0.5">Scheduled and published posts across all platforms</p>
+            <p className="text-slate-500 text-sm mt-0.5">
+              {dateFilter === 'today' ? `Showing scheduled posts for today (${todayStr})` : 'Scheduled and published posts across all platforms'}
+            </p>
           </div>
           <button onClick={() => setShowModal(true)} className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold rounded-lg">
             <Plus className="w-4 h-4" /> Add Post
@@ -88,7 +99,17 @@ export default function AgencySocialQueue() {
         {/* Table */}
         <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
           {loading ? <p className="p-6 text-slate-600 text-sm">Loading...</p> : filtered.length === 0 ? (
-            <div className="p-10 text-center"><Send className="w-8 h-8 text-slate-700 mx-auto mb-2" /><p className="text-slate-600 text-sm">No posts in queue.</p></div>
+            <div className="p-10 text-center">
+              <Send className="w-8 h-8 text-slate-700 mx-auto mb-2" />
+              {dateFilter === 'today' ? (
+                <>
+                  <p className="text-slate-400 text-sm font-semibold mb-1">No posts scheduled for today in the Social Queue.</p>
+                  <p className="text-slate-600 text-xs max-w-sm mx-auto">Dashboard may show scheduled assets from Content Queue — those need to be approved and queued first. Go to <a href="/agency/approval-center" className="text-blue-400 hover:underline">Approval Center</a> to queue approved content.</p>
+                </>
+              ) : (
+                <p className="text-slate-600 text-sm">No posts in queue.</p>
+              )}
+            </div>
           ) : (
             <table className="w-full text-sm">
               <thead><tr className="border-b border-slate-800">{['Platform','Post Text','Scheduled','Status','Actions'].map(h => <th key={h} className="px-4 py-3 text-left text-xs font-bold text-slate-500 uppercase">{h}</th>)}</tr></thead>

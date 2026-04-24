@@ -6,7 +6,7 @@ import { Zap, Radio, FileText, Calendar, Clock, CheckCircle, ArrowRight, Send } 
  * DailyCommandPanel
  * Receives pre-computed data from AgencyDashboard — no extra fetches.
  */
-export default function DailyCommandPanel({ spokeCampaigns, ntaAssets, loading }) {
+export default function DailyCommandPanel({ spokeCampaigns, ntaAssets, socialPosts = [], loading }) {
   if (loading) return (
     <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3 animate-pulse">
       <div className="h-5 w-48 bg-slate-800 rounded" />
@@ -31,18 +31,17 @@ export default function DailyCommandPanel({ spokeCampaigns, ntaAssets, loading }
     !a.scheduled_date
   );
 
-  const todayStart = new Date(); todayStart.setHours(0, 0, 0, 0);
-  const todayEnd = new Date(); todayEnd.setHours(23, 59, 59, 999);
-  const goingOutToday = ntaAssets.filter(a => {
-    if (!a.scheduled_date) return false;
-    const d = new Date(a.scheduled_date);
-    return d >= todayStart && d <= todayEnd;
+  // "Going Out Today" — canonical source: SocialPostQueue.scheduled_time + publish_status === 'scheduled'
+  const todayStr = new Date().toISOString().split('T')[0];
+  const goingOutToday = socialPosts.filter(p => {
+    if (p.publish_status !== 'scheduled' || !p.scheduled_time) return false;
+    return p.scheduled_time.startsWith(todayStr);
   });
 
   // ── Next Best Action logic ───────────────────────────────────────────────────
   const nba = (() => {
     if (goingOutToday.length > 0)
-      return { label: `${goingOutToday.length} post${goingOutToday.length > 1 ? 's' : ''} going out today — confirm they're ready`, href: '/agency/social-queue', color: 'text-blue-400', bg: 'bg-blue-950/60 border-blue-800/60', icon: Send };
+      return { label: `${goingOutToday.length} post${goingOutToday.length > 1 ? 's' : ''} going out today — confirm they're ready`, href: '/agency/social-queue?date=today', color: 'text-blue-400', bg: 'bg-blue-950/60 border-blue-800/60', icon: Send };
     if (approvedNeedingSchedule.length > 0)
       return { label: `${approvedNeedingSchedule.length} approved asset${approvedNeedingSchedule.length > 1 ? 's' : ''} waiting to be scheduled`, href: '/agency/content-asset?status=approved', color: 'text-emerald-400', bg: 'bg-emerald-950/50 border-emerald-800/50', icon: Calendar };
     if (draftsNeedingReview.length > 0)
@@ -93,7 +92,7 @@ export default function DailyCommandPanel({ spokeCampaigns, ntaAssets, loading }
       label: "Going Out Today",
       value: goingOutToday.length,
       sub: goingOutToday.length > 0 ? 'Scheduled for today' : 'Nothing today',
-      href: '/agency/social-queue',
+      href: '/agency/social-queue?date=today',
       btnLabel: "View Today's Posts",
       btnColor: 'bg-blue-700 hover:bg-blue-600 text-white',
       icon: Send,

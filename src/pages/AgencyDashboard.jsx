@@ -110,6 +110,7 @@ export default function AgencyDashboard() {
         <DailyCommandPanel
           spokeCampaigns={spokeCampaigns}
           ntaAssets={ntaAssets}
+          socialPosts={socialPosts}
           loading={loading}
         />
 
