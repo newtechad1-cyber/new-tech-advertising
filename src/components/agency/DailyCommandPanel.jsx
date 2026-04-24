@@ -20,15 +20,17 @@ export default function DailyCommandPanel({ spokeCampaigns, ntaAssets, socialPos
   // ── Derived state ────────────────────────────────────────────────────────────
   const activeCampaign = spokeCampaigns.find(c => c.status === 'active') || spokeCampaigns[0] || null;
 
+  // Matches Approval Center "Internal" tab filter exactly
   const draftsNeedingReview = ntaAssets.filter(a =>
-    ['draft', 'ready_for_review', 'pending_internal'].includes(a.approval_status) &&
-    !['published', 'scheduled'].includes(a.status)
+    ['ready_for_review', 'pending_internal', 'draft'].includes(a.approval_status) ||
+    ['draft', 'ready_for_review'].includes(a.status)
   );
 
+  // Matches dashboard "Ready to Schedule" — approved but not yet queued into SocialPostQueue
   const approvedNeedingSchedule = ntaAssets.filter(a =>
     a.approval_status === 'approved' &&
-    !['scheduled', 'published'].includes(a.status) &&
-    !a.scheduled_date
+    a.queued !== true &&
+    !['published'].includes(a.status)
   );
 
   // "Going Out Today" — canonical source: SocialPostQueue.scheduled_time + publish_status === 'scheduled'

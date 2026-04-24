@@ -55,10 +55,31 @@ export default function AgencySocialQueue() {
     setPosts(p => p.map(post => post.id === id ? { ...post, publish_status } : post));
   };
 
-  const cancelPost = async (id, text) => {
-    if (!confirm(`Cancel this post? "${(text || '').slice(0, 40)}..."`)) return;
-    await base44.entities.SocialPostQueue.update(id, { publish_status: 'cancelled' });
-    setPosts(p => p.map(post => post.id === id ? { ...post, publish_status: 'cancelled' } : post));
+  const cancelPost = async (post) => {
+    if (!confirm(`Cancel this post? "${(post.post_text || '').slice(0, 40)}..."`)) return;
+    await base44.entities.SocialPostQueue.update(post.id, { publish_status: 'cancelled' });
+    // Unlink the source asset so it can be re-queued
+    if (post.asset_id) {
+      const assetUpdate = { queued: false };
+      // If asset was in scheduled status, revert to approved
+      const linked = await base44.entities.NTAContentAsset.filter({ id: post.asset_id }).catch(() => []);
+      if (linked[0]?.status === 'scheduled') assetUpdate.status = 'approved';
+      await base44.entities.NTAContentAsset.update(post.asset_id, assetUpdate).catch(() => {});
+    }
+    setPosts(p => p.map(p2 => p2.id === post.id ? { ...p2, publish_status: 'cancelled' } : p2));
+  };
+
+  const deletePost = async (post) => {
+    if (!confirm(`Delete this post permanently? This cannot be undone.`)) return;
+    await base44.entities.SocialPostQueue.delete(post.id);
+    // Unlink the source asset
+    if (post.asset_id) {
+      const assetUpdate = { queued: false };
+      const linked = await base44.entities.NTAContentAsset.filter({ id: post.asset_id }).catch(() => []);
+      if (linked[0]?.status === 'scheduled') assetUpdate.status = 'approved';
+      await base44.entities.NTAContentAsset.update(post.asset_id, assetUpdate).catch(() => {});
+    }
+    setPosts(p => p.filter(p2 => p2.id !== post.id));
   };
 
   const markPublished = async (id) => {
@@ -162,7 +183,10 @@ export default function AgencySocialQueue() {
                          <button onClick={() => markPublished(p.id)} title="Mark Published" className="p-1.5 text-slate-500 hover:text-emerald-400 bg-slate-800 hover:bg-slate-700 rounded-lg"><CheckCircle className="w-3.5 h-3.5" /></button>
                        )}
                        {!['cancelled','published'].includes(p.publish_status) && (
-                         <button onClick={() => cancelPost(p.id, p.post_text)} title="Cancel" className="p-1.5 text-slate-500 hover:text-red-400 bg-slate-800 hover:bg-slate-700 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
+                         <button onClick={() => cancelPost(p)} title="Cancel (unlinks asset)" className="p-1.5 text-slate-500 hover:text-amber-400 bg-slate-800 hover:bg-slate-700 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
+                       )}
+                       {p.publish_status === 'cancelled' && (
+                         <button onClick={() => deletePost(p)} title="Delete permanently" className="p-1.5 text-slate-500 hover:text-red-400 bg-slate-800 hover:bg-slate-700 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
                        )}
                      </div>
                     </td>

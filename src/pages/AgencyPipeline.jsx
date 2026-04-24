@@ -115,6 +115,21 @@ export default function AgencyPipeline() {
     await base44.entities.SalesDeal.update(deal.id, { stage: nextStage });
   };
 
+  const convertToClientFromPipeline = async (e, deal) => {
+    e.stopPropagation();
+    if (!confirm(`Convert "${deal.deal_name}" to a client record? This will open the client setup wizard.`)) return;
+    const lead = leadsMap[deal.lead_id];
+    const created = await base44.entities.Clients.create({
+      business_name: deal.deal_name,
+      email: lead?.email || '',
+      phone: lead?.phone || '',
+      city: lead?.city || '',
+      state: lead?.state || '',
+      status: 'active_client',
+    });
+    window.location.href = `/agency/clients/${created.id}/setup`;
+  };
+
   const openDetail = (deal) => {
     const lead = leadsMap[deal.lead_id] || null;
     setSelected({ deal, lead });
@@ -275,6 +290,15 @@ export default function AgencyPipeline() {
                                         className="mt-1.5 w-full flex items-center justify-center gap-1 text-xs font-semibold text-blue-400 bg-blue-900/20 hover:bg-blue-900/40 py-1 rounded-lg transition-colors"
                                       >
                                         Move Forward <ArrowRight className="w-3 h-3" />
+                                      </button>
+                                    )}
+                                    {/* Convert to Client button for Won deals */}
+                                    {deal.stage === 'Closed Won' && !leadsMap[deal.lead_id]?.converted_client_id && (
+                                      <button
+                                        onClick={e => convertToClientFromPipeline(e, deal)}
+                                        className="mt-1 w-full flex items-center justify-center gap-1 text-xs font-semibold text-emerald-400 bg-emerald-900/20 hover:bg-emerald-900/40 py-1 rounded-lg transition-colors"
+                                      >
+                                        → Convert to Client
                                       </button>
                                     )}
 

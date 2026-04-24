@@ -110,11 +110,27 @@ export default function AgencyLeads() {
     setSelected({ lead, deal: virtualDeal });
   };
 
-  const archiveLead = async (e, leadId) => {
+  const archiveLead = async (e, lead) => {
     e.stopPropagation();
-    if (!confirm('Archive this lead? It will be hidden from the list.')) return;
-    await base44.entities.SalesLead.update(leadId, { status: 'unresponsive' });
-    setLeads(prev => prev.filter(l => l.id !== leadId));
+    if (!confirm(`Archive "${lead.business_name}"? It will be hidden from the list. The related pipeline deal will also be archived.`)) return;
+    await base44.entities.SalesLead.update(lead.id, { status: 'unresponsive' });
+    // Also archive the related deal so it disappears from pipeline
+    const deal = dealsMap[lead.id];
+    if (deal?.id) {
+      await base44.entities.SalesDeal.update(deal.id, { archived: true }).catch(() => {});
+    }
+    setLeads(prev => prev.filter(l => l.id !== lead.id));
+  };
+
+  const deleteLead = async (e, lead) => {
+    e.stopPropagation();
+    if (!confirm(`Permanently delete "${lead.business_name}"? This cannot be undone. The related pipeline deal will also be deleted.`)) return;
+    await base44.entities.SalesLead.delete(lead.id);
+    const deal = dealsMap[lead.id];
+    if (deal?.id) {
+      await base44.entities.SalesDeal.delete(deal.id).catch(() => {});
+    }
+    setLeads(prev => prev.filter(l => l.id !== lead.id));
   };
 
   const editLead = (e, lead) => {
@@ -319,11 +335,18 @@ export default function AgencyLeads() {
                           <Pencil className="w-3.5 h-3.5" />
                         </button>
                         <button
-                          onClick={(e) => archiveLead(e, lead.id)}
-                          className="p-1.5 text-slate-600 hover:text-red-400 hover:bg-red-900/20 rounded-lg transition-all"
-                          title="Archive lead"
+                          onClick={(e) => archiveLead(e, lead)}
+                          className="p-1.5 text-slate-600 hover:text-amber-400 hover:bg-amber-900/20 rounded-lg transition-all"
+                          title="Archive lead + deal"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={(e) => deleteLead(e, lead)}
+                          className="p-1.5 text-slate-600 hover:text-red-400 hover:bg-red-900/20 rounded-lg transition-all"
+                          title="Delete lead permanently"
+                        >
+                          <span className="text-xs font-bold">×</span>
                         </button>
                       </div>
                     </div>

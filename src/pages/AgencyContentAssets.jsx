@@ -72,8 +72,14 @@ export default function AgencyContentAssets() {
   };
 
   const enqueue = async (asset) => {
-    // Prevent duplicate: check if already queued
     if (asset.queued) return;
+    // Deduplicate: skip if a SocialPostQueue record already exists for this asset_id
+    const existing = await base44.entities.SocialPostQueue.filter({ asset_id: asset.id }).catch(() => []);
+    if (existing.length > 0) {
+      // Just mark asset as queued if it was missed
+      await base44.entities.NTAContentAsset.update(asset.id, { queued: true });
+      return;
+    }
     await base44.entities.SocialPostQueue.create({
       platform: asset.platform,
       post_text: asset.caption_text || asset.body_copy || '',
@@ -83,7 +89,9 @@ export default function AgencyContentAssets() {
       scheduled_time: asset.scheduled_date || null,
       asset_id: asset.id,
     });
-    await base44.entities.NTAContentAsset.update(asset.id, { queued: true });
+    const statusUpdate = { queued: true };
+    if (asset.scheduled_date) statusUpdate.status = 'scheduled';
+    await base44.entities.NTAContentAsset.update(asset.id, statusUpdate);
   };
 
   const approve = async (asset) => {
@@ -211,8 +219,8 @@ export default function AgencyContentAssets() {
           </select>
         </div>
 
-        {/* Table */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-x-auto">
+        {/* Asset list — card layout avoids horizontal overflow */}
+        <div className="bg-slate-900 border border-slate-800 rounded-xl">
           {loading ? <p className="p-6 text-slate-600 text-sm">Loading...</p> : filtered.length === 0 ? (
             <div className="p-10 text-center">
               <CheckCircle className="w-8 h-8 text-slate-700 mx-auto mb-2" />
@@ -220,48 +228,57 @@ export default function AgencyContentAssets() {
               <button onClick={() => setShowModal(true)} className="mt-3 inline-flex items-center gap-2 text-xs px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold"><Plus className="w-3.5 h-3.5" /> New Asset</button>
             </div>
           ) : (
-            <table className="w-full text-sm">
-              <thead><tr className="border-b border-slate-800">{['Asset','Platform','Campaign','Status','Approval','Scheduled','Actions'].map(h => <th key={h} className="px-4 py-3 text-left text-xs font-bold text-slate-500 uppercase whitespace-nowrap">{h}</th>)}</tr></thead>
-              <tbody className="divide-y divide-slate-800">
-                {filtered.map(a => {
-                  const overdue = ['ready_for_review','pending_internal','pending_client'].includes(a.approval_status) && a.created_date && (Date.now() - new Date(a.created_date)) > 86400000 * 3;
-                  return (
-                    <tr key={a.id} className={`hover:bg-slate-800/30 ${overdue ? 'bg-red-950/10' : ''}`}>
-                      <td className="px-4 py-3">
-                        <p className="text-white font-medium truncate max-w-[160px]">{a.asset_name}</p>
-                        {a.rejection_feedback && <p className="text-xs text-red-400 truncate max-w-[160px]">↩ {a.rejection_feedback}</p>}
-                      </td>
-                      <td className="px-4 py-3 text-slate-400 text-xs whitespace-nowrap">{PLATFORM_EMOJI[a.platform]} {a.platform?.replace(/_/g,' ')}</td>
-                      <td className="px-4 py-3 text-xs text-slate-500">{campMap[a.campaign_id]?.campaign_name?.slice(0,20) || '—'}</td>
-                      <td className="px-4 py-3"><span className={`text-xs font-bold px-2 py-0.5 rounded-full ${STATUS_COLORS[a.status] || 'bg-slate-700 text-slate-400'}`}>{a.status?.replace(/_/g,' ')}</span></td>
-                      <td className="px-4 py-3"><span className={`text-xs font-bold px-2 py-0.5 rounded-full ${a.approval_status === 'approved' ? 'bg-emerald-900/50 text-emerald-300' : a.approval_status === 'rejected' ? 'bg-red-900/50 text-red-300' : a.approval_status === 'needs_reapproval' ? 'bg-orange-900/50 text-orange-300' : 'bg-slate-700 text-slate-400'}`}>{a.approval_status?.replace(/_/g,' ')}</span></td>
-                      <td className="px-4 py-3 text-xs text-slate-500">{a.scheduled_date ? new Date(a.scheduled_date).toLocaleDateString() : '—'}</td>
-                      <td className="px-4 py-3">
-                        <div className="flex gap-1 flex-wrap">
-                          {a.status === 'draft' && (
-                            <button onClick={() => submitForReview(a.id)} className="text-xs px-2 py-1 bg-violet-900/40 hover:bg-violet-900/70 text-violet-300 rounded-lg">Submit</button>
-                          )}
-                          {['ready_for_review','pending_internal','pending_client'].includes(a.approval_status) && (
-                            <>
-                              <button onClick={() => approve(a)} className="text-xs px-2 py-1 bg-emerald-800/40 hover:bg-emerald-800 text-emerald-300 rounded-lg">Approve</button>
-                              <button onClick={() => openReject(a)} className="text-xs px-2 py-1 bg-red-900/30 hover:bg-red-900/50 text-red-400 rounded-lg">Reject</button>
-                            </>
-                          )}
-                          {a.approval_status === 'approved' && ['approved'].includes(a.status) && (
-                            <button onClick={() => markNeedsReapproval(a.id)} className="text-xs px-2 py-1 bg-orange-900/30 hover:bg-orange-900/50 text-orange-400 rounded-lg">Re-Review</button>
-                          )}
-                          {a.approval_status === 'approved' && !a.queued && (
-                            <button onClick={() => sendToQueue(a)} className="text-xs px-2 py-1 bg-blue-900/40 hover:bg-blue-900/70 text-blue-300 rounded-lg flex items-center gap-1"><Send className="w-3 h-3" /> Queue</button>
-                          )}
-                          <button onClick={() => openEditAsset(a)} className="text-xs px-2 py-1 bg-slate-700 hover:bg-slate-600 text-slate-300 rounded-lg"><Pencil className="w-3 h-3" /></button>
-                          <button onClick={() => deleteAsset(a.id, a.asset_name)} className="text-xs px-2 py-1 bg-red-900/20 hover:bg-red-900/40 text-red-400 rounded-lg"><Trash2 className="w-3 h-3" /></button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+            <div className="divide-y divide-slate-800">
+              {/* Header row */}
+              <div className="grid grid-cols-12 px-4 py-2.5 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                <div className="col-span-4">Asset</div>
+                <div className="col-span-2 hidden sm:block">Platform</div>
+                <div className="col-span-2 hidden md:block">Status</div>
+                <div className="col-span-2 hidden md:block">Approval</div>
+                <div className="col-span-2 hidden lg:block">Scheduled</div>
+              </div>
+              {filtered.map(a => {
+                const overdue = ['ready_for_review','pending_internal','pending_client'].includes(a.approval_status) && a.created_date && (Date.now() - new Date(a.created_date)) > 86400000 * 3;
+                return (
+                  <div key={a.id} className={`px-4 py-3 ${overdue ? 'bg-red-950/10' : 'hover:bg-slate-800/30'}`}>
+                    <div className="grid grid-cols-12 items-center gap-2">
+                      <div className="col-span-4 min-w-0">
+                        <p className="text-white font-medium text-sm truncate">{a.asset_name}</p>
+                        {a.rejection_feedback && <p className="text-xs text-red-400 truncate">↩ {a.rejection_feedback}</p>}
+                        {overdue && <span className="text-xs font-bold text-red-400">Overdue</span>}
+                      </div>
+                      <div className="col-span-2 hidden sm:block text-xs text-slate-400">{PLATFORM_EMOJI[a.platform]} {a.platform?.replace(/_/g,' ')}</div>
+                      <div className="col-span-2 hidden md:block"><span className={`text-xs font-bold px-2 py-0.5 rounded-full ${STATUS_COLORS[a.status] || 'bg-slate-700 text-slate-400'}`}>{a.status?.replace(/_/g,' ')}</span></div>
+                      <div className="col-span-2 hidden md:block"><span className={`text-xs font-bold px-2 py-0.5 rounded-full ${a.approval_status === 'approved' ? 'bg-emerald-900/50 text-emerald-300' : a.approval_status === 'rejected' ? 'bg-red-900/50 text-red-300' : a.approval_status === 'needs_reapproval' ? 'bg-orange-900/50 text-orange-300' : 'bg-slate-700 text-slate-400'}`}>{a.approval_status?.replace(/_/g,' ')}</span></div>
+                      <div className="col-span-2 hidden lg:block text-xs text-slate-500">{a.scheduled_date ? new Date(a.scheduled_date).toLocaleDateString() : '—'}</div>
+                    </div>
+                    {/* Actions row — always visible, never hidden */}
+                    <div className="flex gap-1.5 flex-wrap mt-2">
+                      {a.status === 'draft' && (
+                        <button onClick={() => submitForReview(a.id)} className="text-xs px-2 py-1 bg-violet-900/40 hover:bg-violet-900/70 text-violet-300 rounded-lg">Submit for Review</button>
+                      )}
+                      {['ready_for_review','pending_internal','pending_client'].includes(a.approval_status) && (
+                        <>
+                          <button onClick={() => approve(a)} className="text-xs px-2 py-1 bg-emerald-800/40 hover:bg-emerald-800 text-emerald-300 rounded-lg">✓ Approve</button>
+                          <button onClick={() => openReject(a)} className="text-xs px-2 py-1 bg-red-900/30 hover:bg-red-900/50 text-red-400 rounded-lg">✗ Reject</button>
+                        </>
+                      )}
+                      {a.approval_status === 'approved' && !a.queued && (
+                        <button onClick={() => sendToQueue(a)} className="text-xs px-2 py-1 bg-blue-900/40 hover:bg-blue-900/70 text-blue-300 rounded-lg flex items-center gap-1"><Send className="w-3 h-3" /> Send to Queue</button>
+                      )}
+                      {a.approval_status === 'approved' && a.queued && (
+                        <span className="text-xs px-2 py-1 bg-emerald-900/20 text-emerald-600 rounded-lg">✓ Queued</span>
+                      )}
+                      {a.approval_status === 'approved' && ['approved'].includes(a.status) && (
+                        <button onClick={() => markNeedsReapproval(a.id)} className="text-xs px-2 py-1 bg-orange-900/30 hover:bg-orange-900/50 text-orange-400 rounded-lg">Re-Review</button>
+                      )}
+                      <button onClick={() => openEditAsset(a)} className="text-xs px-2 py-1 bg-slate-700 hover:bg-slate-600 text-slate-300 rounded-lg"><Pencil className="w-3 h-3" /></button>
+                      <button onClick={() => deleteAsset(a.id, a.asset_name)} className="text-xs px-2 py-1 bg-red-900/20 hover:bg-red-900/40 text-red-400 rounded-lg"><Trash2 className="w-3 h-3" /></button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           )}
         </div>
       </div>

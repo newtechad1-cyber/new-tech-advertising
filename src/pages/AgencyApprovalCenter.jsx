@@ -56,13 +56,16 @@ export default function AgencyApprovalCenter() {
       })
     : assets;
 
-  // Categorize using filteredAssets (scoped to client if ?client= param present, else all)
+  // Categorize — MUST match dashboard count formulas exactly
+  // pendingInternal matches dashboard "Pending Internal" / "Awaiting Approval"
   const pendingInternal = filteredAssets.filter(a =>
     ['ready_for_review', 'pending_internal', 'draft'].includes(a.approval_status) ||
     ['draft', 'ready_for_review'].includes(a.status)
   );
+  // pendingClient matches dashboard "Pending Client"
   const pendingClient = filteredAssets.filter(a => a.approval_status === 'pending_client');
   const needsReapproval = filteredAssets.filter(a => a.approval_status === 'needs_reapproval');
+  // rejected matches dashboard "Rejected"
   const rejected = filteredAssets.filter(a => a.approval_status === 'rejected');
 
   // Overdue = in pending state 3+ days

@@ -18,7 +18,7 @@ export default function AgencyDashboard() {
   const [ntaAssets, setNtaAssets] = useState([]);
   const [videoAssets, setVideoAssets] = useState([]);
   const [socialPosts, setSocialPosts] = useState([]);
-  const [approvalItems, setApprovalItems] = useState([]);
+  // approvalItems removed — approval counts now sourced from NTAContentAsset only
   const [perfMetrics, setPerfMetrics] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -34,13 +34,12 @@ export default function AgencyDashboard() {
       base44.entities.NTAContentAsset.list('-created_date', 200),
       base44.entities.NTAVideoAsset.list('-created_date', 100),
       base44.entities.SocialPostQueue.list('-created_date', 200),
-      base44.entities.ApprovalItem.list('-created_date', 100),
       base44.entities.PerformanceMetric.list('-date_logged', 200),
-    ]).then(([c, t, j, a, l, d, sc, na, va, sp, ai, pm]) => {
+    ]).then(([c, t, j, a, l, d, sc, na, va, sp, pm]) => {
       setClients(c); setTopics(t); setJobs(j); setAssets(a);
       setLeads(l); setDeals(d);
       setSpokeCampaigns(sc); setNtaAssets(na); setVideoAssets(va);
-      setSocialPosts(sp); setApprovalItems(ai); setPerfMetrics(pm);
+      setSocialPosts(sp); setPerfMetrics(pm);
       setLoading(false);
     });
   }, []);
@@ -69,21 +68,35 @@ export default function AgencyDashboard() {
     perfMetrics.some(m => m.campaign_id === c.id && m.leads > 0 && new Date(m.date_logged) >= weekAgo)
   ).length;
   const ntaDrafts = ntaAssets.filter(a => a.status === 'draft').length;
-  const ntaAwaitingApproval = ntaAssets.filter(a => a.status === 'ready_for_review').length;
-  const ntaReadyToSchedule = ntaAssets.filter(a => a.approval_status === 'approved' && !['scheduled','published'].includes(a.status)).length;
-  const scheduledThisWeek = ntaAssets.filter(a => {
-    if (a.status !== 'scheduled' || !a.scheduled_date) return false;
-    const d = new Date(a.scheduled_date); const now = new Date(); const w = new Date(); w.setDate(now.getDate() + 7);
-    return d >= now && d <= w;
+  // Awaiting Approval = matches Approval Center "Internal" tab exactly
+  const ntaAwaitingApproval = ntaAssets.filter(a =>
+    ['ready_for_review', 'pending_internal', 'draft'].includes(a.approval_status) ||
+    ['draft', 'ready_for_review'].includes(a.status)
+  ).length;
+  // Ready to Schedule = approved AND not yet queued into SocialPostQueue
+  const ntaReadyToSchedule = ntaAssets.filter(a => a.approval_status === 'approved' && a.queued !== true && !['published'].includes(a.status)).length;
+  // Scheduled This Week = SocialPostQueue records scheduled this calendar week
+  const now = new Date(); const weekEnd = new Date(); weekEnd.setDate(now.getDate() + 7);
+  const todayStr = now.toISOString().split('T')[0];
+  const scheduledThisWeek = socialPosts.filter(p => {
+    if (p.publish_status !== 'scheduled' || !p.scheduled_time) return false;
+    const d = new Date(p.scheduled_time);
+    return d >= now && d <= weekEnd;
   }).length;
+  // Going Out Today = SocialPostQueue scheduled today
+  const goingOutToday = socialPosts.filter(p => p.publish_status === 'scheduled' && p.scheduled_time?.startsWith(todayStr)).length;
   const scriptsReady = videoAssets.filter(v => v.render_status === 'script_ready').length;
   const inProd = videoAssets.filter(v => v.render_status === 'in_production').length;
   const videosCompleted = videoAssets.filter(v => v.render_status === 'completed').length;
   const scheduledPosts = socialPosts.filter(p => p.publish_status === 'scheduled').length;
   const publishedPosts = socialPosts.filter(p => p.publish_status === 'published').length;
-  const pendingApprovals = approvalItems.filter(i => i.status === 'pending').length + ntaAssets.filter(a => a.status === 'ready_for_review' && a.approval_status === 'draft').length;
-  const clientApprovals = approvalItems.filter(i => i.status === 'pending' && i.client_id).length;
-  const rejectedItems = approvalItems.filter(i => i.status === 'rejected').length;
+  // Approval Center counts — source of truth is NTAContentAsset only (ApprovalItem is legacy/unused)
+  const pendingApprovals = ntaAssets.filter(a =>
+    ['ready_for_review', 'pending_internal', 'draft'].includes(a.approval_status) ||
+    ['draft', 'ready_for_review'].includes(a.status)
+  ).length;
+  const clientApprovals = ntaAssets.filter(a => a.approval_status === 'pending_client').length;
+  const rejectedItems = ntaAssets.filter(a => a.approval_status === 'rejected').length;
   const totalLeadsWeek = perfMetrics.filter(m => m.date_logged && new Date(m.date_logged) >= weekAgo).reduce((s,m) => s + (m.leads||0), 0);
   const totalCallsWeek = perfMetrics.filter(m => m.date_logged && new Date(m.date_logged) >= weekAgo).reduce((s,m) => s + (m.booked_calls||0), 0);
   const inProgress = topics.filter(t => ['queued', 'processing'].includes(t.status));
@@ -189,7 +202,7 @@ export default function AgencyDashboard() {
                 </div>
               )}
               {activeClients.slice(0, 6).map(c => (
-                <Link key={c.id} to={`/clients/${c.id}`} className="flex items-center justify-between px-4 py-3 hover:bg-slate-800/50 transition-colors group">
+                <Link key={c.id} to={`/agency/clients/${c.id}`} className="flex items-center justify-between px-4 py-3 hover:bg-slate-800/50 transition-colors group">
                   <div>
                     <p className="text-sm font-medium text-white group-hover:text-blue-300 transition-colors">{c.business_name}</p>
                     <p className="text-xs text-slate-500">{c.city ? `${c.city}, ${c.state}` : c.core_services || '—'}</p>
@@ -251,15 +264,15 @@ export default function AgencyDashboard() {
         {/* Ops sections grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
           <OpsCard icon={Radio} color="text-violet-400" title="Spoke Campaigns" href="/agency/spoke-campaigns"
-            rows={[['Total', spokeCampaigns.length], ['Active', activeCampaigns], ['Generating Leads', campaignsGeneratingLeads]]} />
+            rows={[['Active', activeCampaigns], ['Generating Leads', campaignsGeneratingLeads]]} />
           <OpsCard icon={FileText} color="text-blue-400" title="Content Queue" href="/agency/content-asset"
-            rows={[['Drafts', ntaDrafts], ['Awaiting Approval', ntaAwaitingApproval], ['Ready to Schedule', ntaReadyToSchedule], ['Scheduled This Week', scheduledThisWeek]]} />
+            rows={[['Drafts', ntaDrafts], ['Awaiting Approval', ntaAwaitingApproval], ['Ready to Schedule', ntaReadyToSchedule], ['Going Out Today', goingOutToday], ['Scheduled This Week', scheduledThisWeek]]} />
           <OpsCard icon={Video} color="text-amber-400" title="Video Queue" href="/agency/video-queue"
             rows={[['Scripts Ready', scriptsReady], ['In Production', inProd], ['Completed', videosCompleted]]} />
           <OpsCard icon={Send} color="text-emerald-400" title="Social Queue" href="/agency/social-queue"
             rows={[['Scheduled Posts', scheduledPosts], ['Published Posts', publishedPosts]]} />
           <OpsCard icon={Shield} color="text-red-400" title="Approval Center" href="/agency/approval-center"
-            rows={[['Pending Approvals', pendingApprovals], ['Client Approvals', clientApprovals], ['Rejected Items', rejectedItems]]} />
+            rows={[['Pending Internal', pendingApprovals], ['Pending Client', clientApprovals], ['Rejected', rejectedItems]]} />
           <OpsCard icon={BarChart} color="text-teal-400" title="Campaign Performance" href="/agency/campaign-performance"
             rows={[['Leads This Week', totalLeadsWeek], ['Booked Calls', totalCallsWeek]]} />
         </div>
