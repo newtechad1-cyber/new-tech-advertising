@@ -57,7 +57,10 @@ export default function AgencyApprovalCenter() {
     : assets;
 
   // Categorize using filteredAssets (scoped to client if ?client= param present, else all)
-  const pendingInternal = filteredAssets.filter(a => ['ready_for_review','pending_internal'].includes(a.approval_status));
+  const pendingInternal = filteredAssets.filter(a =>
+    ['ready_for_review', 'pending_internal', 'draft'].includes(a.approval_status) ||
+    ['draft', 'ready_for_review'].includes(a.status)
+  );
   const pendingClient = filteredAssets.filter(a => a.approval_status === 'pending_client');
   const needsReapproval = filteredAssets.filter(a => a.approval_status === 'needs_reapproval');
   const rejected = filteredAssets.filter(a => a.approval_status === 'rejected');
