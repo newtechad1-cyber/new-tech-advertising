@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { base44 } from '@/api/base44Client';
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { Plus, Phone, Mail, Trash2, AlertCircle, RefreshCw, ChevronDown, Pencil, ArrowRight } from 'lucide-react';
+import { Plus, Phone, Mail, Trash2, AlertCircle, RefreshCw, ChevronDown, ArrowRight } from 'lucide-react';
 import AgencyLayout from '../components/agency/AgencyLayout';
 import { scoreLead, PRIORITY_STYLES } from '../lib/leadPriority.js';
 import AddLeadModal from '../components/agency/AddLeadModal';
@@ -68,12 +67,7 @@ export default function AgencyPipeline() {
     return acc;
   }, {});
 
-  const handleDragEnd = async ({ draggableId, destination, source }) => {
-    if (!destination || destination.droppableId === source.droppableId) return;
-    const newStage = destination.droppableId;
-    setDeals(prev => prev.map(d => d.id === draggableId ? { ...d, stage: newStage } : d));
-    await base44.entities.SalesDeal.update(draggableId, { stage: newStage });
-  };
+
 
   const quickMoveStage = async (e, deal, newStage) => {
     e.stopPropagation();
@@ -162,7 +156,6 @@ export default function AgencyPipeline() {
             <p className="text-slate-500 text-sm mt-0.5">
               {totalActive} active · {closedWon} closed won
               {totalValue > 0 && <span className="ml-2 text-emerald-400 font-semibold">· ${totalValue.toLocaleString()} pipeline value</span>}
-              <span className="ml-2 text-slate-600">· drag cards or use ↕ to move stages</span>
             </p>
           </div>
           <div className="flex gap-2">
@@ -178,175 +171,156 @@ export default function AgencyPipeline() {
           </div>
         </div>
 
-        {/* Kanban board */}
+        {/* Kanban board - plain columns (no drag/drop) */}
         <TutorialHighlight id="pipeline-board">
         {loading ? (
           <div className="flex gap-3 overflow-x-auto">
-            {STAGES.map(s => <div key={s} className="flex-shrink-0 w-60 h-64 bg-slate-900 rounded-xl animate-pulse" />)}
+            {STAGES.map(s => <div key={s} className="flex-shrink-0 w-72 h-64 bg-slate-900 rounded-xl animate-pulse" />)}
           </div>
         ) : (
-          <DragDropContext onDragEnd={handleDragEnd}>
-            <div className="flex gap-3 overflow-x-auto pb-4 flex-1">
-              {STAGES.map(stage => {
-                const style = STAGE_STYLES[stage];
-                const items = stageMap[stage];
-                return (
-                  <Droppable key={stage} droppableId={stage}>
-                    {(provided, snapshot) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.droppableProps}
-                        className={`flex-shrink-0 w-60 border rounded-xl p-3 flex flex-col transition-colors ${style.bg} ${
-                          snapshot.isDraggingOver ? 'border-blue-500 bg-blue-950/30' : style.border
-                        }`}
-                        style={{ minHeight: '300px' }}
-                      >
-                        {/* Column header */}
-                        <div className="flex items-center gap-2 mb-3 flex-shrink-0">
-                          <div className={`w-2 h-2 rounded-full flex-shrink-0 ${style.dot}`} />
-                          <p className={`text-xs font-bold ${style.header}`}>{stage}</p>
-                          <span className="ml-auto text-xs font-bold text-slate-600 bg-slate-800 px-1.5 py-0.5 rounded-full">{items.length}</span>
-                        </div>
+          <div className="flex gap-3 overflow-x-auto pb-4 flex-1">
+            {STAGES.map(stage => {
+              const style = STAGE_STYLES[stage];
+              const items = stageMap[stage];
+              return (
+                <div
+                  key={stage}
+                  className={`flex-shrink-0 w-72 border rounded-xl p-4 flex flex-col transition-colors ${style.bg} ${style.border}`}
+                  style={{ minHeight: '500px' }}
+                >
+                  {/* Column header */}
+                  <div className="flex items-center gap-2 mb-4 flex-shrink-0">
+                    <div className={`w-2 h-2 rounded-full flex-shrink-0 ${style.dot}`} />
+                    <p className={`text-xs font-bold ${style.header}`}>{stage}</p>
+                    <span className="ml-auto text-xs font-bold text-slate-600 bg-slate-800 px-2 py-0.5 rounded-full">{items.length}</span>
+                  </div>
 
-                        {/* Cards */}
-                        <div className="space-y-2 flex-1">
-                          {items.length === 0 && !snapshot.isDraggingOver && (
-                            <div className="text-center py-8">
-                              <p className="text-slate-700 text-xs">Drop cards here</p>
-                            </div>
-                          )}
-                          {items.map((deal, idx) => {
-                            const lead = leadsMap[deal.lead_id];
-                            const contactName = lead
-                              ? (lead.contact_name || [lead.first_name, lead.last_name].filter(Boolean).join(' ') || null)
-                              : 'No linked lead found';
-                            const businessName = lead?.business_name || deal.deal_name || 'Unknown Lead';
-                            const overdue = lead && isOverdue(lead.next_follow_up);
-                            const { label: pLabel } = scoreLead(lead, deal);
-                            const ps = PRIORITY_STYLES[pLabel];
-
-                            return (
-                              <Draggable key={deal.id} draggableId={deal.id} index={idx}>
-                                {(p, snap) => (
-                                  <div
-                                    ref={p.innerRef}
-                                    {...p.draggableProps}
-                                    {...p.dragHandleProps}
-                                    className={`bg-slate-800 border rounded-xl p-3 group cursor-pointer transition-colors ${
-                                      snap.isDragging ? 'border-blue-500 shadow-xl shadow-blue-900/40' : overdue ? 'border-red-800 hover:border-red-600' : 'border-slate-700 hover:border-slate-500'
-                                    }`}
-                                    onClick={() => openDetail(deal)}
-                                  >
-                                    {/* Business name */}
-                                     <p className="text-sm font-semibold text-white leading-tight truncate">
-                                       {businessName}
-                                     </p>
-
-                                     {/* Contact name */}
-                                     <p className={`text-xs ${lead ? 'text-slate-400' : 'text-slate-500'} mt-0.5 truncate`}>
-                                       {contactName}
-                                     </p>
-
-                                    {/* Quick call/email actions */}
-                                    {(lead?.phone || lead?.email) && (
-                                      <div className="flex gap-1.5 mt-2.5" onClick={e => e.stopPropagation()}>
-                                        {lead.phone && (
-                                          <a href={`tel:${lead.phone.replace(/\D/g, '')}`}
-                                            className="flex items-center gap-1 text-xs text-emerald-400 hover:text-emerald-300 bg-emerald-400/10 hover:bg-emerald-400/20 px-2 py-1 rounded-lg transition-colors"
-                                            title={`Call ${lead.phone}`}>
-                                            <Phone className="w-3 h-3" />
-                                            <span className="truncate max-w-[70px]">{lead.phone}</span>
-                                          </a>
-                                        )}
-                                        {lead.email && (
-                                          <a href={`mailto:${lead.email}`}
-                                            className="p-1.5 text-blue-400 hover:text-blue-300 bg-blue-400/10 hover:bg-blue-400/20 rounded-lg transition-colors flex-shrink-0"
-                                            title={`Email ${lead.email}`}>
-                                            <Mail className="w-3 h-3" />
-                                          </a>
-                                        )}
-                                      </div>
-                                    )}
-
-                                    {/* Follow-up date */}
-                                    {lead?.next_follow_up && (
-                                      <div className={`mt-2 text-xs flex items-center gap-1 ${overdue ? 'text-red-400 font-semibold' : 'text-slate-500'}`}>
-                                        📅 {fmtFollowUp(lead.next_follow_up)}{overdue ? ' — OVERDUE' : ''}
-                                      </div>
-                                    )}
-
-                                    {/* Quick stage move dropdown */}
-                                    <div className="mt-2.5 flex items-center justify-between" onClick={e => e.stopPropagation()}>
-                                      <div className="relative flex-1 mr-1">
-                                        <select
-                                          value={deal.stage}
-                                          onChange={e => quickMoveStage(e, deal, e.target.value)}
-                                          disabled={stageChanging === deal.id}
-                                          className="w-full bg-slate-700 hover:bg-slate-600 border border-slate-600 text-xs text-slate-300 rounded-lg px-2 py-1 appearance-none pr-5 cursor-pointer focus:outline-none focus:border-blue-500 disabled:opacity-50"
-                                        >
-                                          {STAGES.map(s => <option key={s} value={s}>{s}</option>)}
-                                        </select>
-                                        <ChevronDown className="absolute right-1.5 top-1 w-3 h-3 text-slate-500 pointer-events-none" />
-                                      </div>
-                                      <button
-                                        onClick={() => setDeleteConfirm(deal.id)}
-                                        className="p-1 text-slate-600 hover:text-red-400 rounded opacity-0 group-hover:opacity-100 transition-all flex-shrink-0">
-                                        <Trash2 className="w-3 h-3" />
-                                      </button>
-                                    </div>
-                                    {/* Move Forward button */}
-                                    {!['Closed Won','Closed Lost'].includes(deal.stage) && (
-                                      <button
-                                        onClick={e => moveForward(e, deal)}
-                                        className="mt-1.5 w-full flex items-center justify-center gap-1 text-xs font-semibold text-blue-400 bg-blue-900/20 hover:bg-blue-900/40 py-1 rounded-lg transition-colors"
-                                      >
-                                        Move Forward <ArrowRight className="w-3 h-3" />
-                                      </button>
-                                    )}
-                                    {/* Convert to Client button for Won deals */}
-                                    {deal.stage === 'Closed Won' && !leadsMap[deal.lead_id]?.converted_client_id && (
-                                      <button
-                                        onClick={e => convertToClientFromPipeline(e, deal)}
-                                        className="mt-1 w-full flex items-center justify-center gap-1 text-xs font-semibold text-emerald-400 bg-emerald-900/20 hover:bg-emerald-900/40 py-1 rounded-lg transition-colors"
-                                      >
-                                        → Convert to Client
-                                      </button>
-                                    )}
-
-                                    {/* Priority + Value */}
-                                    <div className="flex items-center justify-between mt-1.5">
-                                      <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full ${ps.badge}`}>{pLabel}</span>
-                                      {deal.value ? (
-                                        <span className="text-xs font-semibold text-emerald-400">${Number(deal.value).toLocaleString()}</span>
-                                      ) : null}
-                                    </div>
-
-                                    {/* Warnings */}
-                                    {!lead && deal.lead_id && (
-                                      <p className="text-xs text-amber-500 mt-1.5 flex items-center gap-1">
-                                        <AlertCircle className="w-3 h-3" /> Lead not found
-                                      </p>
-                                    )}
-                                    {isIncomplete(lead) && (
-                                      <p className="text-xs text-amber-500 mt-1 flex items-center gap-1">
-                                        <AlertCircle className="w-3 h-3" /> Incomplete info
-                                      </p>
-                                    )}
-                                  </div>
-                                )}
-                              </Draggable>
-                            );
-                          })}
-                        </div>
-
-                        {provided.placeholder}
+                  {/* Cards */}
+                  <div className="space-y-3 flex-1 overflow-y-auto">
+                    {items.length === 0 && (
+                      <div className="text-center py-12">
+                        <p className="text-slate-600 text-xs">No deals</p>
                       </div>
                     )}
-                  </Droppable>
-                );
-              })}
-            </div>
-          </DragDropContext>
+                    {items.map((deal) => {
+                      const lead = leadsMap[deal.lead_id];
+                      const contactName = lead
+                        ? (lead.contact_name || [lead.first_name, lead.last_name].filter(Boolean).join(' ') || null)
+                        : 'No linked lead';
+                      const businessName = lead?.business_name || deal.deal_name || 'Unknown';
+                      const overdue = lead && isOverdue(lead.next_follow_up);
+                      const { label: pLabel } = scoreLead(lead, deal);
+                      const ps = PRIORITY_STYLES[pLabel];
+
+                      return (
+                        <div
+                          key={deal.id}
+                          className={`bg-slate-800 border rounded-xl p-3 group cursor-pointer transition-colors ${
+                            overdue ? 'border-red-800 hover:border-red-600' : 'border-slate-700 hover:border-slate-500'
+                          }`}
+                          onClick={() => openDetail(deal)}
+                        >
+                          {/* Business name */}
+                          <p className="text-sm font-semibold text-white leading-tight truncate">
+                            {businessName}
+                          </p>
+
+                          {/* Contact name */}
+                          <p className={`text-xs ${lead ? 'text-slate-400' : 'text-slate-500'} mt-0.5 truncate`}>
+                            {contactName}
+                          </p>
+
+                          {/* Quick call/email actions */}
+                          {(lead?.phone || lead?.email) && (
+                            <div className="flex gap-1.5 mt-2" onClick={e => e.stopPropagation()}>
+                              {lead.phone && (
+                                <a href={`tel:${lead.phone.replace(/\D/g, '')}`}
+                                  className="flex items-center gap-1 text-xs text-emerald-400 hover:text-emerald-300 bg-emerald-400/10 hover:bg-emerald-400/20 px-2 py-1 rounded-lg transition-colors"
+                                  title={`Call ${lead.phone}`}>
+                                  <Phone className="w-3 h-3" />
+                                  <span className="truncate max-w-[60px]">{lead.phone}</span>
+                                </a>
+                              )}
+                              {lead.email && (
+                                <a href={`mailto:${lead.email}`}
+                                  className="p-1.5 text-blue-400 hover:text-blue-300 bg-blue-400/10 hover:bg-blue-400/20 rounded-lg transition-colors flex-shrink-0"
+                                  title={`Email ${lead.email}`}>
+                                  <Mail className="w-3 h-3" />
+                                </a>
+                              )}
+                            </div>
+                          )}
+
+                          {/* Follow-up date */}
+                          {lead?.next_follow_up && (
+                            <div className={`mt-2 text-xs flex items-center gap-1 ${overdue ? 'text-red-400 font-semibold' : 'text-slate-500'}`}>
+                              📅 {fmtFollowUp(lead.next_follow_up)}{overdue ? ' — OVERDUE' : ''}
+                            </div>
+                          )}
+
+                          {/* Stage dropdown */}
+                          <div className="mt-2.5 flex items-center justify-between gap-2" onClick={e => e.stopPropagation()}>
+                            <select
+                              value={deal.stage}
+                              onChange={e => quickMoveStage(e, deal, e.target.value)}
+                              disabled={stageChanging === deal.id}
+                              className="flex-1 bg-slate-700 hover:bg-slate-600 border border-slate-600 text-xs text-slate-300 rounded-lg px-2 py-1 appearance-none pr-5 cursor-pointer focus:outline-none focus:border-blue-500 disabled:opacity-50"
+                            >
+                              {STAGES.map(s => <option key={s} value={s}>{s}</option>)}
+                            </select>
+                            <button
+                              onClick={() => setDeleteConfirm(deal.id)}
+                              className="p-1 text-slate-600 hover:text-red-400 rounded opacity-0 group-hover:opacity-100 transition-all flex-shrink-0"
+                              title="Archive">
+                              <Trash2 className="w-3 h-3" />
+                            </button>
+                          </div>
+
+                          {/* Action buttons */}
+                          {!['Closed Won', 'Closed Lost'].includes(deal.stage) && (
+                            <button
+                              onClick={e => moveForward(e, deal)}
+                              className="mt-2 w-full flex items-center justify-center gap-1 text-xs font-semibold text-blue-400 bg-blue-900/20 hover:bg-blue-900/40 py-1 rounded-lg transition-colors"
+                            >
+                              Move Forward <ArrowRight className="w-3 h-3" />
+                            </button>
+                          )}
+                          {deal.stage === 'Closed Won' && !leadsMap[deal.lead_id]?.converted_client_id && (
+                            <button
+                              onClick={e => convertToClientFromPipeline(e, deal)}
+                              className="mt-1 w-full flex items-center justify-center gap-1 text-xs font-semibold text-emerald-400 bg-emerald-900/20 hover:bg-emerald-900/40 py-1 rounded-lg transition-colors"
+                            >
+                              → Convert to Client
+                            </button>
+                          )}
+
+                          {/* Priority + Value */}
+                          <div className="flex items-center justify-between mt-2">
+                            <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full ${ps.badge}`}>{pLabel}</span>
+                            {deal.value && (
+                              <span className="text-xs font-semibold text-emerald-400">${Number(deal.value).toLocaleString()}</span>
+                            )}
+                          </div>
+
+                          {/* Warnings */}
+                          {!lead && deal.lead_id && (
+                            <p className="text-xs text-amber-500 mt-1.5 flex items-center gap-1">
+                              <AlertCircle className="w-3 h-3" /> Lead not found
+                            </p>
+                          )}
+                          {isIncomplete(lead) && (
+                            <p className="text-xs text-amber-500 mt-1 flex items-center gap-1">
+                              <AlertCircle className="w-3 h-3" /> Incomplete info
+                            </p>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         )}
         </TutorialHighlight>
       </div>
