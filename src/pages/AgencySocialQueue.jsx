@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import AgencyLayout from '../components/agency/AgencyLayout';
+import TutorialHighlight from '../components/agency/TutorialHighlight.jsx';
 import { Plus, X, Send } from 'lucide-react';
 
 const IN = 'w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500';
@@ -97,6 +98,7 @@ export default function AgencySocialQueue() {
         </div>
 
         {/* Table */}
+        <TutorialHighlight id="social-queue-table">
         <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
           {loading ? <p className="p-6 text-slate-600 text-sm">Loading...</p> : filtered.length === 0 ? (
             <div className="p-10 text-center">
@@ -136,6 +138,7 @@ export default function AgencySocialQueue() {
             </table>
           )}
         </div>
+        </TutorialHighlight>
       </div>
 
       {showModal && (

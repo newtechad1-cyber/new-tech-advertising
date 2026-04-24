@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AgencyLayout from '../components/agency/AgencyLayout';
+import TutorialHighlight from '../components/agency/TutorialHighlight.jsx';
 import { Plus, Megaphone, ArrowRight, X, Copy, FileText, ExternalLink } from 'lucide-react';
 
 const IN = 'w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500';
@@ -120,6 +121,7 @@ export default function AgencySpokeCampaigns() {
         </div>
 
         {/* Campaign list */}
+        <TutorialHighlight id="campaign-list">
         {loading ? (
           <div className="space-y-2">{[...Array(3)].map((_, i) => <div key={i} className="h-20 bg-slate-800 rounded-xl animate-pulse" />)}</div>
         ) : campaigns.length === 0 ? (
@@ -176,6 +178,7 @@ export default function AgencySpokeCampaigns() {
             })}
           </div>
         )}
+        </TutorialHighlight>
       </div>
 
       {/* Create Modal */}

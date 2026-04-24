@@ -3,8 +3,11 @@ import { Link, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Users, TrendingUp, FileText, BarChart2,
   ChevronLeft, Menu, ChevronDown, ChevronRight, Target,
-  Send, Megaphone, Shield, Calendar, BarChart, Radio, BookOpen, Globe, Wifi
+  Send, Megaphone, Shield, Calendar, BarChart, Radio, BookOpen, Globe, Wifi,
+  BookOpenCheck, HelpCircle, X
 } from 'lucide-react';
+import { TutorialProvider, useTutorial } from './TutorialContext';
+import TutorialOverlay from './TutorialOverlay';
 
 const NAV = [
   { label: 'Dashboard',           href: '/agency',                      icon: LayoutDashboard, exact: true },
@@ -22,10 +25,11 @@ const NAV = [
   { label: 'Websites',            href: '/agency/websites',             icon: Globe },
 ];
 
-export default function AgencyLayout({ children }) {
+function AgencyLayoutInner({ children }) {
   const { pathname, search } = useLocation();
   const [collapsed, setCollapsed] = useState(false);
   const [openSections, setOpenSections] = useState({});
+  const { start, toggleHelp, helpMode, active: tutorialActive } = useTutorial();
 
   const toggleSection = (label) => {
     setOpenSections(prev => ({ ...prev, [label]: !prev[label] }));
@@ -126,17 +130,48 @@ export default function AgencyLayout({ children }) {
         </nav>
 
         {/* Footer */}
-        {!collapsed && (
-          <div className="px-3 py-3 border-t border-slate-800 flex-shrink-0">
+        <div className="px-3 py-3 border-t border-slate-800 flex-shrink-0 space-y-1">
+          {!collapsed && (
             <a href="/" className="block text-xs text-slate-600 hover:text-slate-400 transition-colors">← Public Site</a>
-          </div>
-        )}
+          )}
+          {/* Help mode toggle */}
+          <button
+            onClick={toggleHelp}
+            title="Toggle Help Mode"
+            className={`w-full flex items-center gap-2 px-2.5 py-2 rounded-lg text-xs font-semibold transition-colors ${
+              helpMode ? 'bg-blue-700/30 text-blue-300' : 'text-slate-500 hover:text-white hover:bg-slate-800'
+            }`}
+          >
+            <HelpCircle className="w-4 h-4 flex-shrink-0" />
+            {!collapsed && (helpMode ? 'Help On' : 'Help')}
+          </button>
+          {/* Start tutorial */}
+          <button
+            onClick={start}
+            title="Start Guided Workflow"
+            className="w-full flex items-center gap-2 px-2.5 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:text-white hover:bg-slate-800 transition-colors"
+          >
+            <BookOpenCheck className="w-4 h-4 flex-shrink-0" />
+            {!collapsed && 'Guided Workflow'}
+          </button>
+        </div>
       </aside>
 
       {/* Main content */}
       <main className="flex-1 overflow-y-auto bg-slate-950">
         {children}
       </main>
+
+      {/* Tutorial overlay rendered at layout level so it covers everything */}
+      <TutorialOverlay />
     </div>
+  );
+}
+
+export default function AgencyLayout({ children }) {
+  return (
+    <TutorialProvider>
+      <AgencyLayoutInner>{children}</AgencyLayoutInner>
+    </TutorialProvider>
   );
 }

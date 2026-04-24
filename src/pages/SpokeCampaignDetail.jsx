@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AgencyLayout from '../components/agency/AgencyLayout';
+import TutorialHighlight from '../components/agency/TutorialHighlight.jsx';
 import {
   ArrowLeft, FileText, Video, Film, Share2, Mail,
   CheckCircle, Clock, Send, Plus, ExternalLink, Zap, AlertCircle
@@ -365,7 +366,8 @@ export default function SpokeCampaignDetail() {
         </section>
 
         {/* Campaign Actions */}
-        <section>
+        <TutorialHighlight id="campaign-actions">
+        <div>
           <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">Campaign Actions</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             <ActionCard
@@ -432,11 +434,13 @@ export default function SpokeCampaignDetail() {
               <button onClick={() => setError(null)} className="ml-auto text-red-500 hover:text-red-300">✕</button>
             </div>
           )}
-        </section>
+        </div>
+        </TutorialHighlight>
 
         {/* Quick Actions */}
         <section>
           <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">Quick Actions</h2>
+          <TutorialHighlight id="schedule-approved-btn">
           <div className="flex flex-wrap gap-2">
             <Link to={`/agency/content-asset?campaign=${campaign.id}`}
               className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-semibold rounded-lg border border-slate-700">
@@ -455,6 +459,7 @@ export default function SpokeCampaignDetail() {
               <FileText className="w-3.5 h-3.5" /> Manage Insight Pages
             </Link>
           </div>
+          </TutorialHighlight>
         </section>
 
         {/* Insight Pages for this campaign */}
@@ -483,6 +488,7 @@ export default function SpokeCampaignDetail() {
         )}
 
         {/* Campaign Assets by Group */}
+        <TutorialHighlight id="campaign-assets">
         <section>
           <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">Campaign Assets</h2>
           {assets.length === 0 ? (
@@ -521,6 +527,7 @@ export default function SpokeCampaignDetail() {
             </div>
           )}
         </section>
+        </TutorialHighlight>
       </div>
 
       {/* Insight Page Modal */}

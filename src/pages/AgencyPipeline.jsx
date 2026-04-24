@@ -6,6 +6,7 @@ import AgencyLayout from '../components/agency/AgencyLayout';
 import { scoreLead, PRIORITY_STYLES } from '../lib/leadPriority.js';
 import AddLeadModal from '../components/agency/AddLeadModal';
 import LeadDetailModal from '../components/agency/LeadDetailModal.jsx';
+import TutorialHighlight from '../components/agency/TutorialHighlight.jsx';
 
 function isIncomplete(lead) {
   if (!lead) return false;
@@ -143,6 +144,7 @@ export default function AgencyPipeline() {
         </div>
 
         {/* Kanban board */}
+        <TutorialHighlight id="pipeline-board">
         {loading ? (
           <div className="flex gap-3 overflow-x-auto">
             {STAGES.map(s => <div key={s} className="flex-shrink-0 w-60 h-64 bg-slate-900 rounded-xl animate-pulse" />)}
@@ -292,6 +294,7 @@ export default function AgencyPipeline() {
             </div>
           </DragDropContext>
         )}
+        </TutorialHighlight>
       </div>
 
       {showAdd && <AddLeadModal onClose={() => setShowAdd(false)} onSaved={onLeadSaved} />}

@@ -5,6 +5,7 @@ import AgencyLayout from '../components/agency/AgencyLayout';
 import { scoreLead, PRIORITY_STYLES } from '../lib/leadPriority.js';
 import AddLeadModal from '../components/agency/AddLeadModal';
 import LeadDetailModal from '../components/agency/LeadDetailModal.jsx';
+import TutorialHighlight from '../components/agency/TutorialHighlight.jsx';
 
 function isIncomplete(lead) {
   const hasName = !!(lead.contact_name || lead.first_name || lead.last_name);
@@ -190,6 +191,7 @@ export default function AgencyLeads() {
         </div>
 
         {/* Table */}
+        <TutorialHighlight id="leads-table">
         {loading ? (
           <div className="space-y-2">{[...Array(6)].map((_, i) => <div key={i} className="h-14 bg-slate-900 rounded-xl animate-pulse" />)}</div>
         ) : filtered.length === 0 ? (
@@ -327,7 +329,8 @@ export default function AgencyLeads() {
             )}
           </div>
         )}
-      </div>
+        </TutorialHighlight>
+        </div>
 
       {showAdd && <AddLeadModal onClose={() => setShowAdd(false)} onSaved={onLeadSaved} />}
 
