@@ -116,7 +116,33 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
         is_high_intent: true,
       }).catch(err => console.warn('[StartForm] NTA mirror failed:', err.message));
 
-      // 1. Create TrialAccount record
+      // 1. Create SalesLead + SalesDeal FIRST — so they always land in /agency/leads
+      //    regardless of whether the trial provisioning pipeline succeeds.
+      try {
+        const salesLead = await base44.entities.SalesLead.create({
+          contact_name: form.full_name,
+          business_name: form.business_name,
+          email: form.email,
+          phone: form.phone,
+          website: form.website_url,
+          city: form.city,
+          state: form.state,
+          industry: form.industry,
+          lead_source: 'website',
+          status: 'new',
+          notes: `Goal: ${form.primary_goal}${form.notes ? ' | ' + form.notes : ''}`,
+        });
+        base44.entities.SalesDeal.create({
+          lead_id: salesLead.id,
+          deal_name: form.business_name,
+          stage: 'New Lead',
+          archived: false,
+        }).catch(err => console.warn('[StartForm] SalesDeal create failed:', err.message));
+      } catch (err) {
+        console.warn('[StartForm] SalesLead create failed:', err.message);
+      }
+
+      // 2. Create TrialAccount record
       const slug = form.business_name.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + Date.now();
       const trialData = {
         name: form.business_name,
@@ -140,7 +166,7 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
       };
       const trial = await base44.entities.TrialAccount.create(trialData);
 
-      // 2. Create Lead record for CRM
+      // 3b. Create Lead record for CRM
       await base44.entities.Lead.create({
         name: form.full_name,
         email: form.email,
@@ -155,27 +181,6 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
         status: 'new',
         source: 'website',
       });
-
-      // 2b. Create SalesLead + SalesDeal so submission appears in /agency/pipeline
-      const salesLead = await base44.entities.SalesLead.create({
-        contact_name: form.full_name,
-        business_name: form.business_name,
-        email: form.email,
-        phone: form.phone,
-        website: form.website_url,
-        city: form.city,
-        state: form.state,
-        industry: form.industry,
-        lead_source: 'website',
-        status: 'new',
-        notes: `Goal: ${form.primary_goal}${form.notes ? ' | ' + form.notes : ''}`,
-      });
-      base44.entities.SalesDeal.create({
-        lead_id: salesLead.id,
-        deal_name: form.business_name,
-        stage: 'New Lead',
-        archived: false,
-      }).catch(err => console.warn('[StartForm] SalesDeal create failed:', err.message));
 
       // 3. Create BusinessProfile
       const bp = await base44.entities.BusinessProfile.create({
