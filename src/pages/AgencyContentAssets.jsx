@@ -264,7 +264,7 @@ export default function AgencyContentAssets() {
                         </>
                       )}
                       {a.approval_status === 'approved' && !a.queued && (
-                        <button onClick={() => sendToQueue(a)} className="text-xs px-2 py-1 bg-blue-900/40 hover:bg-blue-900/70 text-blue-300 rounded-lg flex items-center gap-1"><Send className="w-3 h-3" /> Send to Queue</button>
+                        <button onClick={() => sendToQueue(a)} title={a.scheduled_date ? `Will appear on calendar: ${new Date(a.scheduled_date).toLocaleDateString()}` : 'No scheduled date — will be added as a draft post (edit to schedule)'} className="text-xs px-2 py-1 bg-blue-900/40 hover:bg-blue-900/70 text-blue-300 rounded-lg flex items-center gap-1"><Send className="w-3 h-3" /> {a.scheduled_date ? 'Queue & Schedule' : 'Send to Queue'}</button>
                       )}
                       {a.approval_status === 'approved' && a.queued && (
                         <span className="text-xs px-2 py-1 bg-emerald-900/20 text-emerald-600 rounded-lg">✓ Queued</span>
