@@ -58,7 +58,20 @@ export default function AgencyPipeline() {
     setLoading(false);
   };
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => {
+    load();
+    
+    // Subscribe to SalesDeal changes for real-time pipeline updates
+    const unsubscribe = base44.entities.SalesDeal.subscribe((event) => {
+      if (event.type === 'create' || event.type === 'update') {
+        load();
+      } else if (event.type === 'delete') {
+        setDeals(prev => prev.filter(d => d.id !== event.id));
+      }
+    });
+    
+    return unsubscribe;
+  }, []);
 
   const stageMap = STAGES.reduce((acc, s) => {
     acc[s] = deals.filter(d => d.stage === s);
