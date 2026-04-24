@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { Plus, Phone, Mail, Trash2, AlertCircle, RefreshCw, ChevronDown } from 'lucide-react';
