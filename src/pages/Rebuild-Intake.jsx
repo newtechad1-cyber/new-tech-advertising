@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
+import { createAgencyLead } from '@/lib/createAgencyLead';
 
 const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png';
 
@@ -48,9 +49,25 @@ export default function RebuildIntake() {
 
     setSubmitting(true);
     setPartialSuccess(null);
-    console.log('[RebuildIntake] Submit started for:', form.business_name, '| source:', sourcePage);
+    console.log('[REBUILD INTAKE FORM SUBMIT HIT]', form);
 
     try {
+      // STEP 1: Create SalesLead + SalesDeal for pipeline visibility
+      console.log('[RebuildIntake] Creating agency lead...');
+      const { salesLead, salesDeal } = await createAgencyLead({
+        business_name: form.business_name,
+        contact_name: form.name,
+        email: form.email,
+        phone: form.phone,
+        website: form.website,
+        city: form.city,
+        state: form.state,
+        lead_source: 'website',
+        notes: `Website Rebuild Intake | Service: ${form.service_type} | Pages: ${form.page_count} | ${form.notes || ''}`,
+      });
+      console.log('[RebuildIntake] Agency lead created:', { salesLead: salesLead.id, salesDeal: salesDeal.id, stage: salesDeal.stage, archived: salesDeal.archived });
+
+      // STEP 2: Call the original email/CRM function
       console.log('[RebuildIntake] Calling sendRebuildIntakeEmail...');
       const response = await base44.functions.invoke('sendRebuildIntakeEmail', {
         name: form.name,
