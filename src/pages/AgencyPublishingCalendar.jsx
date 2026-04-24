@@ -10,7 +10,6 @@ const PLATFORM_COLORS = { facebook:'bg-blue-900/40 text-blue-300', instagram:'bg
 
 export default function AgencyPublishingCalendar() {
   const [posts, setPosts] = useState([]);
-  const [assets, setAssets] = useState([]);
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterPlatform, setFilterPlatform] = useState('all');
@@ -23,13 +22,11 @@ export default function AgencyPublishingCalendar() {
   useEffect(() => { load(); }, []);
 
   const load = async () => {
-    const [p, a, cl] = await Promise.all([
+    const [p, cl] = await Promise.all([
       base44.entities.SocialPostQueue.filter({ publish_status: 'scheduled' }),
-      base44.entities.NTAContentAsset.list('-created_date', 200),
       base44.entities.Clients.list('-created_date', 200),
     ]);
     setPosts(p);
-    setAssets(a.filter(a => a.scheduled_date));
     setClients(cl);
     setLoading(false);
   };
@@ -39,10 +36,9 @@ export default function AgencyPublishingCalendar() {
   // Build events list. When ?client= is present, filter by canonical client_id.
   // LEGACY FALLBACK NOTE: records without client_id are excluded from client-scoped views
   // (they will still appear in the global "all clients" view).
-  const allEvents = [
-    ...posts.map(p => ({ id: p.id, platform: p.platform, text: p.post_text, date: p.scheduled_time, type: 'post', client_id: p.client_id || '' })),
-    ...assets.map(a => ({ id: a.id, platform: a.platform, text: a.asset_name, date: a.scheduled_date, type: 'asset', client_id: a.client_id || '' })),
-  ].filter(e => e.date);
+  const allEvents = posts
+    .filter(p => p.scheduled_time)
+    .map(p => ({ id: p.id, platform: p.platform, text: p.post_text, date: p.scheduled_time, type: 'post', client_id: p.client_id || '' }));
 
   // Apply canonical client_id filter
   const clientScoped = clientIdFilter
