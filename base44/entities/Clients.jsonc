@@ -69,6 +69,10 @@
     "company_id": {
       "type": "string",
       "description": "Canonical reference to NTACompany.id \u2014 set on creation/sync, use for company lookups instead of name matching"
+    },
+    "lead_id": {
+      "type": "string",
+      "description": "Reference to the originating SalesLead.id \u2014 set when converting a pipeline deal to a client"
     }
   },
   "required": [
