@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
+import { createAgencyLead } from '@/lib/createAgencyLead';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -93,7 +94,22 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
     try {
       const { base44 } = await import('@/api/base44Client');
 
-      // Mirror to NTA Unified Intake (non-blocking)
+      // STEP 1 — Create SalesLead + SalesDeal FIRST (canonical intake path)
+      const { salesLead, salesDeal } = await createAgencyLead({
+        business_name: form.business_name,
+        contact_name:  form.full_name,
+        email:         form.email,
+        phone:         form.phone,
+        website:       form.website_url,
+        city:          form.city,
+        state:         form.state,
+        industry:      form.industry,
+        lead_source:   'website',
+        notes:         `Goal: ${form.primary_goal}${form.notes ? ' | ' + form.notes : ''}`,
+      });
+      console.log('[StartForm] Lead created', salesLead.id, salesDeal.id);
+
+      // STEP 2 — Mirror to NTA Unified Intake (non-blocking)
       base44.functions.invoke('ntaUnifiedIntake', {
         submission_type: 'trial_signup',
         offer_type: 'trial_onboarding',
@@ -116,33 +132,7 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
         is_high_intent: true,
       }).catch(err => console.warn('[StartForm] NTA mirror failed:', err.message));
 
-      // 1. Create SalesLead + SalesDeal FIRST — so they always land in /agency/leads
-      //    regardless of whether the trial provisioning pipeline succeeds.
-      try {
-        const salesLead = await base44.entities.SalesLead.create({
-          contact_name: form.full_name,
-          business_name: form.business_name,
-          email: form.email,
-          phone: form.phone,
-          website: form.website_url,
-          city: form.city,
-          state: form.state,
-          industry: form.industry,
-          lead_source: 'website',
-          status: 'new',
-          notes: `Goal: ${form.primary_goal}${form.notes ? ' | ' + form.notes : ''}`,
-        });
-        base44.entities.SalesDeal.create({
-          lead_id: salesLead.id,
-          deal_name: form.business_name,
-          stage: 'New Lead',
-          archived: false,
-        }).catch(err => console.warn('[StartForm] SalesDeal create failed:', err.message));
-      } catch (err) {
-        console.warn('[StartForm] SalesLead create failed:', err.message);
-      }
-
-      // 2. Create TrialAccount record
+      // STEP 3 — Create TrialAccount record
       const slug = form.business_name.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + Date.now();
       const trialData = {
         name: form.business_name,

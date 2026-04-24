@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
+import { createAgencyLead } from '@/lib/createAgencyLead';
 import { ArrowRight, CheckCircle, Building2, Mail, Phone, User, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -33,7 +34,20 @@ export default function FreeAudit() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      // Mirror to NTA Unified Intake (non-blocking)
+      // STEP 1 — Create SalesLead + SalesDeal FIRST (canonical intake path)
+      const { salesLead, salesDeal } = await createAgencyLead({
+        business_name: form.business_name,
+        contact_name:  form.name,
+        email:         form.email,
+        phone:         form.phone,
+        website:       form.website,
+        industry:      form.industry,
+        lead_source:   'website',
+        notes:         'Requested free marketing audit',
+      });
+      console.log('[FreeAudit] Lead created', salesLead.id, salesDeal.id);
+
+      // STEP 2 — Mirror to NTA Unified Intake (non-blocking)
       base44.functions.invoke('ntaUnifiedIntake', {
         submission_type: 'free_audit_request',
         offer_type: 'marketing_audit',
@@ -53,7 +67,7 @@ export default function FreeAudit() {
         is_high_intent: true,
       }).catch(err => console.warn('[FreeAudit] NTA mirror failed:', err.message));
 
-      // Create Company
+      // STEP 3 — Create Company
       const company = await base44.entities.Company.create({
         business_name: form.business_name,
         website: form.website,
@@ -64,7 +78,7 @@ export default function FreeAudit() {
         source: 'website',
       });
 
-      // Create Lead tagged as audit request
+      // STEP 4 — Create Lead tagged as audit request
       await base44.entities.Lead.create({
         company_id: company.id,
         name: form.name,
@@ -79,26 +93,7 @@ export default function FreeAudit() {
         source: 'website',
       });
 
-      // Create SalesLead + SalesDeal so submission appears in /agency/pipeline
-      const salesLead = await base44.entities.SalesLead.create({
-        contact_name: form.name,
-        business_name: form.business_name,
-        email: form.email,
-        phone: form.phone,
-        website: form.website,
-        industry: form.industry,
-        lead_source: 'website',
-        status: 'new',
-        notes: 'Requested free marketing audit',
-      });
-      base44.entities.SalesDeal.create({
-        lead_id: salesLead.id,
-        deal_name: form.business_name,
-        stage: 'New Lead',
-        archived: false,
-      }).catch(err => console.warn('[FreeAudit] SalesDeal create failed:', err.message));
-
-      // Notify team
+      // STEP 5 — Notify team
       await base44.integrations.Core.SendEmail({
         from_name: 'NTA — Free Audit Request',
         to: 'rick@newtechadvertising.com',

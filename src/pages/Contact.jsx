@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { base44 } from '@/api/base44Client';
+import { createAgencyLead } from '@/lib/createAgencyLead';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -23,6 +24,18 @@ export default function Contact() {
     setLoading(true);
 
     try {
+      // STEP 1 — Create SalesLead + SalesDeal FIRST (canonical intake path)
+      const { salesLead, salesDeal } = await createAgencyLead({
+        business_name: formData.name, // contact page has no business_name field
+        contact_name:  formData.name,
+        email:         formData.email,
+        phone:         formData.phone,
+        lead_source:   'website',
+        notes:         formData.message || '',
+      });
+      console.log('[Contact] Lead created', salesLead.id, salesDeal.id);
+
+      // STEP 2 — Create Lead record
       await base44.entities.Lead.create({
         name: formData.name,
         email: formData.email,
@@ -31,23 +44,6 @@ export default function Contact() {
         message: formData.message,
         status: 'new'
       });
-
-      // Create SalesLead + SalesDeal so submission appears in /agency/pipeline
-      const salesLead = await base44.entities.SalesLead.create({
-        contact_name: formData.name,
-        business_name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        lead_source: 'website',
-        status: 'new',
-        notes: formData.message || '',
-      });
-      base44.entities.SalesDeal.create({
-        lead_id: salesLead.id,
-        deal_name: formData.name,
-        stage: 'New Lead',
-        archived: false,
-      }).catch(err => console.warn('[Contact] SalesDeal create failed:', err.message));
 
       setSubmitted(true);
       setFormData({ name: '', email: '', phone: '', message: '' });

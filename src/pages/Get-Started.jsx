@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
+import { createAgencyLead } from '@/lib/createAgencyLead';
 import { ArrowRight, CheckCircle, Building2, Mail, Phone, User, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -32,7 +33,19 @@ export default function GetStarted() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      // Mirror to NTA Unified Intake (non-blocking)
+      // STEP 1 — Create SalesLead + SalesDeal FIRST (canonical intake path)
+      const { salesLead, salesDeal } = await createAgencyLead({
+        business_name: form.business_name,
+        contact_name:  form.name,
+        email:         form.email,
+        phone:         form.phone,
+        industry:      form.industry,
+        lead_source:   'website',
+        notes:         form.message || '',
+      });
+      console.log('[GetStarted] Lead created', salesLead.id, salesDeal.id);
+
+      // STEP 2 — Mirror to NTA Unified Intake (non-blocking)
       base44.functions.invoke('ntaUnifiedIntake', {
         submission_type: 'get_started',
         mapping_confidence: 'hardcoded',
@@ -51,7 +64,7 @@ export default function GetStarted() {
         is_high_intent: true,
       }).catch(err => console.warn('[GetStarted] NTA mirror failed:', err.message));
 
-      // 1. Create or find Company
+      // STEP 3 — Create or find Company
       const company = await base44.entities.Company.create({
         business_name: form.business_name,
         industry: form.industry,
@@ -62,7 +75,7 @@ export default function GetStarted() {
         service_tracks: [form.service_interest].filter(s => s !== 'not_sure'),
       });
 
-      // 2. Create Lead
+      // STEP 4 — Create Lead
       await base44.entities.Lead.create({
         company_id: company.id,
         name: form.name,
@@ -76,25 +89,7 @@ export default function GetStarted() {
         source: 'website',
       });
 
-      // 2b. Create SalesLead + SalesDeal so submission appears in /agency/pipeline
-      const salesLead = await base44.entities.SalesLead.create({
-        contact_name: form.name,
-        business_name: form.business_name,
-        email: form.email,
-        phone: form.phone,
-        industry: form.industry,
-        lead_source: 'website',
-        status: 'new',
-        notes: form.message || '',
-      });
-      base44.entities.SalesDeal.create({
-        lead_id: salesLead.id,
-        deal_name: form.business_name,
-        stage: 'New Lead',
-        archived: false,
-      }).catch(err => console.warn('[GetStarted] SalesDeal create failed:', err.message));
-
-      // 3. Send notification email
+      // STEP 5 — Send notification email
       await base44.integrations.Core.SendEmail({
         from_name: 'NTA — New Trial Signup',
         to: 'rick@newtechadvertising.com',
