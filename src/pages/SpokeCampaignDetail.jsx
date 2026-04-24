@@ -242,20 +242,48 @@ export default function SpokeCampaignDetail() {
     load();
   };
 
-  // ── Quick action: Schedule approved assets (sets scheduled_date = now + 1 day) ─
+  // ── Quick action: Schedule approved assets ───────────────────────────────────
+  // Creates SocialPostQueue records as the canonical publishing source,
+  // then updates NTAContentAsset with scheduled_date + queued: true.
+  // Skips assets already queued to prevent duplicates.
   const scheduleApproved = async () => {
     setWorking(true);
-    const approved = assets.filter(a => a.approval_status === 'approved' && !['scheduled','published'].includes(a.status));
-    const base = new Date(); base.setDate(base.getDate() + 1);
-    await Promise.all(approved.map((a, i) => {
-      const d = new Date(base); d.setHours(9 + (i % 8));
-      return base44.entities.NTAContentAsset.update(a.id, {
-        status: 'scheduled',
-        scheduled_date: d.toISOString(),
-      });
-    }));
-    setWorking(false);
-    load();
+    setError(null);
+    try {
+      const approved = assets.filter(a =>
+        a.approval_status === 'approved' &&
+        !['scheduled', 'published'].includes(a.status) &&
+        !a.queued
+      );
+      const base = new Date(); base.setDate(base.getDate() + 1);
+      await Promise.all(approved.map((a, i) => {
+        const d = new Date(base); d.setHours(9 + (i % 8));
+        const scheduledTime = d.toISOString();
+        return Promise.all([
+          // Create canonical SocialPostQueue record
+          base44.entities.SocialPostQueue.create({
+            platform: a.platform,
+            post_text: a.caption_text || a.body_copy || a.headline || a.asset_name,
+            campaign_id: a.campaign_id,
+            client_id: a.client_id || '',
+            asset_id: a.id,
+            publish_status: 'scheduled',
+            scheduled_time: scheduledTime,
+          }),
+          // Update NTAContentAsset — mark scheduled + queued to prevent future duplicates
+          base44.entities.NTAContentAsset.update(a.id, {
+            status: 'scheduled',
+            scheduled_date: scheduledTime,
+            queued: true,
+          }),
+        ]);
+      }));
+    } catch (e) {
+      setError('Failed to schedule assets: ' + e.message);
+    } finally {
+      setWorking(false);
+      load();
+    }
   };
 
   // ── Asset grouping ───────────────────────────────────────────────────────────
