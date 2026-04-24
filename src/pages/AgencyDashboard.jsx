@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { Users, FileText, AlertTriangle, CheckCircle, Clock, ArrowRight, Plus, Radio, Video, Send, Shield, Calendar, BarChart } from 'lucide-react';
+import { Users, FileText, AlertTriangle, CheckCircle, Clock, ArrowRight, Plus, Radio, Video, Send, Shield, Calendar, BarChart, ClipboardList } from 'lucide-react';
 import AgencyLayout from '../components/agency/AgencyLayout';
 import TodaysCommand from '../components/agency/TodaysCommand.jsx';
 import DailyCommandPanel from '../components/agency/DailyCommandPanel.jsx';
@@ -223,6 +223,24 @@ export default function AgencyDashboard() {
 
         {/* Divider */}
         <div className="border-t border-slate-800" />
+
+        {/* Client Setup Wizard shortcut */}
+        <section>
+          <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">Client Onboarding</h2>
+          <Link
+            to="/agency/clients"
+            className="flex items-center gap-4 bg-slate-900 border border-slate-700 hover:border-blue-600 rounded-xl p-4 transition-all group"
+          >
+            <div className="w-10 h-10 bg-blue-700/30 rounded-xl flex items-center justify-center flex-shrink-0">
+              <ClipboardList className="w-5 h-5 text-blue-400" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-bold text-white group-hover:text-blue-300 transition-colors">Client Setup Wizard</p>
+              <p className="text-xs text-slate-500 mt-0.5">Open a client → click "Setup Wizard" to run the 10-step onboarding checklist</p>
+            </div>
+            <ArrowRight className="w-4 h-4 text-slate-600 group-hover:text-blue-400 flex-shrink-0 transition-colors" />
+          </Link>
+        </section>
 
         {/* Ops sections grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
