@@ -32,6 +32,23 @@ export default function Contact() {
         status: 'new'
       });
 
+      // Create SalesLead + SalesDeal so submission appears in /agency/pipeline
+      const salesLead = await base44.entities.SalesLead.create({
+        contact_name: formData.name,
+        business_name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        lead_source: 'website',
+        status: 'new',
+        notes: formData.message || '',
+      });
+      base44.entities.SalesDeal.create({
+        lead_id: salesLead.id,
+        deal_name: formData.name,
+        stage: 'New Lead',
+        archived: false,
+      }).catch(err => console.warn('[Contact] SalesDeal create failed:', err.message));
+
       setSubmitted(true);
       setFormData({ name: '', email: '', phone: '', message: '' });
     } catch (error) {

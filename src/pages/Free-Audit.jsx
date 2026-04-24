@@ -79,6 +79,25 @@ export default function FreeAudit() {
         source: 'website',
       });
 
+      // Create SalesLead + SalesDeal so submission appears in /agency/pipeline
+      const salesLead = await base44.entities.SalesLead.create({
+        contact_name: form.name,
+        business_name: form.business_name,
+        email: form.email,
+        phone: form.phone,
+        website: form.website,
+        industry: form.industry,
+        lead_source: 'website',
+        status: 'new',
+        notes: 'Requested free marketing audit',
+      });
+      base44.entities.SalesDeal.create({
+        lead_id: salesLead.id,
+        deal_name: form.business_name,
+        stage: 'New Lead',
+        archived: false,
+      }).catch(err => console.warn('[FreeAudit] SalesDeal create failed:', err.message));
+
       // Notify team
       await base44.integrations.Core.SendEmail({
         from_name: 'NTA — Free Audit Request',

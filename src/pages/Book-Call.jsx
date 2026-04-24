@@ -60,6 +60,24 @@ export default function BookCall() {
         source: 'website',
       });
 
+      // Create SalesLead + SalesDeal so submission appears in /agency/pipeline
+      const salesLead = await base44.entities.SalesLead.create({
+        contact_name: form.name,
+        business_name: form.business_name,
+        email: form.email,
+        phone: form.phone,
+        website: form.website_url,
+        lead_source: 'website',
+        status: 'new',
+        notes: `Best time to call: ${form.best_time}${form.message ? '\n\n' + form.message : ''}`,
+      });
+      base44.entities.SalesDeal.create({
+        lead_id: salesLead.id,
+        deal_name: form.business_name,
+        stage: 'New Lead',
+        archived: false,
+      }).catch(err => console.warn('[BookCall] SalesDeal create failed:', err.message));
+
       // Create Google Calendar event
       base44.functions.invoke('createDemoCalendarEvent', {
         name: form.name,

@@ -76,6 +76,24 @@ export default function GetStarted() {
         source: 'website',
       });
 
+      // 2b. Create SalesLead + SalesDeal so submission appears in /agency/pipeline
+      const salesLead = await base44.entities.SalesLead.create({
+        contact_name: form.name,
+        business_name: form.business_name,
+        email: form.email,
+        phone: form.phone,
+        industry: form.industry,
+        lead_source: 'website',
+        status: 'new',
+        notes: form.message || '',
+      });
+      base44.entities.SalesDeal.create({
+        lead_id: salesLead.id,
+        deal_name: form.business_name,
+        stage: 'New Lead',
+        archived: false,
+      }).catch(err => console.warn('[GetStarted] SalesDeal create failed:', err.message));
+
       // 3. Send notification email
       await base44.integrations.Core.SendEmail({
         from_name: 'NTA — New Trial Signup',

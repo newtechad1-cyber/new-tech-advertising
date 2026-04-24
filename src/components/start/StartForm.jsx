@@ -156,6 +156,27 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
         source: 'website',
       });
 
+      // 2b. Create SalesLead + SalesDeal so submission appears in /agency/pipeline
+      const salesLead = await base44.entities.SalesLead.create({
+        contact_name: form.full_name,
+        business_name: form.business_name,
+        email: form.email,
+        phone: form.phone,
+        website: form.website_url,
+        city: form.city,
+        state: form.state,
+        industry: form.industry,
+        lead_source: 'website',
+        status: 'new',
+        notes: `Goal: ${form.primary_goal}${form.notes ? ' | ' + form.notes : ''}`,
+      });
+      base44.entities.SalesDeal.create({
+        lead_id: salesLead.id,
+        deal_name: form.business_name,
+        stage: 'New Lead',
+        archived: false,
+      }).catch(err => console.warn('[StartForm] SalesDeal create failed:', err.message));
+
       // 3. Create BusinessProfile
       const bp = await base44.entities.BusinessProfile.create({
         business_name: form.business_name,
