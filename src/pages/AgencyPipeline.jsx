@@ -63,9 +63,26 @@ export default function AgencyPipeline() {
     
     // Subscribe to SalesDeal changes for real-time pipeline updates
     const unsubscribe = base44.entities.SalesDeal.subscribe((event) => {
-      if (event.type === 'create' || event.type === 'update') {
-        load();
+      console.log('[Pipeline] SalesDeal subscription event:', event.type, event);
+      
+      if (event.type === 'create') {
+        // Normalize stage and append new deal
+        const newDeal = {
+          ...event.data,
+          stage: (event.data?.stage || '').trim(),
+        };
+        console.log('[Pipeline] NEW DEAL', newDeal);
+        setDeals(prev => [newDeal, ...prev]);
+      } else if (event.type === 'update') {
+        // Update existing deal in state
+        const updatedDeal = {
+          ...event.data,
+          stage: (event.data?.stage || '').trim(),
+        };
+        console.log('[Pipeline] UPDATED DEAL', updatedDeal);
+        setDeals(prev => prev.map(d => d.id === updatedDeal.id ? updatedDeal : d));
       } else if (event.type === 'delete') {
+        console.log('[Pipeline] DELETED DEAL', event.id);
         setDeals(prev => prev.filter(d => d.id !== event.id));
       }
     });
@@ -74,7 +91,7 @@ export default function AgencyPipeline() {
   }, []);
 
   const stageMap = STAGES.reduce((acc, s) => {
-    acc[s] = deals.filter(d => d.stage === s);
+    acc[s] = deals.filter(d => (d.stage || '').trim() === s);
     return acc;
   }, {});
 
