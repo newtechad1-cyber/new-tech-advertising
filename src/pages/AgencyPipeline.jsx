@@ -125,8 +125,15 @@ export default function AgencyPipeline() {
       phone: lead?.phone || '',
       city: lead?.city || '',
       state: lead?.state || '',
+      website: lead?.website || '',
+      primary_contact: lead?.contact_name || [lead?.first_name, lead?.last_name].filter(Boolean).join(' ') || '',
       status: 'active_client',
+      lead_id: lead?.id || deal.lead_id || '',
     });
+    // Mark lead as converted
+    if (lead?.id) {
+      await base44.entities.SalesLead.update(lead.id, { converted_client_id: created.id }).catch(() => {});
+    }
     window.location.href = `/agency/clients/${created.id}/setup`;
   };
 

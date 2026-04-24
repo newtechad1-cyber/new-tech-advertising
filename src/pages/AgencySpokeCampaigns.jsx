@@ -29,7 +29,16 @@ export default function AgencySpokeCampaigns() {
   const [saving, setSaving] = useState(false);
   const [cloning, setCloning] = useState(false);
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => {
+    // Pre-fill client from ?client_id= URL param (set by wizard flow)
+    const params = new URLSearchParams(window.location.search);
+    const preClientId = params.get('client_id');
+    if (preClientId) {
+      setForm(p => ({ ...p, client_id: preClientId }));
+      setShowModal(true);
+    }
+    load();
+  }, []);
 
   const load = async () => {
     const [c, m, cl, a] = await Promise.all([

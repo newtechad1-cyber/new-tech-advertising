@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Zap, Radio, FileText, Calendar, Clock, CheckCircle, ArrowRight, Send } from 'lucide-react';
+import { Zap, Radio, FileText, Calendar, Clock, CheckCircle, ArrowRight, Send, TrendingUp, Users, Megaphone } from 'lucide-react';
 
 /**
  * DailyCommandPanel
  * Receives pre-computed data from AgencyDashboard — no extra fetches.
  */
-export default function DailyCommandPanel({ spokeCampaigns, ntaAssets, socialPosts = [], loading }) {
+export default function DailyCommandPanel({ spokeCampaigns, ntaAssets, socialPosts = [], deals = [], clients = [], loading }) {
   if (loading) return (
     <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3 animate-pulse">
       <div className="h-5 w-48 bg-slate-800 rounded" />
@@ -40,8 +40,26 @@ export default function DailyCommandPanel({ spokeCampaigns, ntaAssets, socialPos
     return p.scheduled_time.startsWith(todayStr);
   });
 
-  // ── Next Best Action logic ───────────────────────────────────────────────────
+  // ── Next Best Action priority logic ─────────────────────────────────────────
+  // Priority: Pipeline won deals → clients w/o campaigns → campaigns w/o assets → approve → schedule → social queue
+  const activeDeals = deals.filter(d => !['Closed Won','Closed Lost'].includes(d.stage));
+  const wonUnconverted = deals.filter(d => d.stage === 'Closed Won');
+  const clientsWithoutCampaigns = clients.filter(c =>
+    c.status === 'active_client' && !spokeCampaigns.some(sc => sc.client_id === c.id)
+  );
+  const campaignsWithoutAssets = spokeCampaigns.filter(c =>
+    c.status !== 'completed' && !ntaAssets.some(a => a.campaign_id === c.id)
+  );
+
   const nba = (() => {
+    if (wonUnconverted.length > 0)
+      return { label: `${wonUnconverted.length} won deal${wonUnconverted.length > 1 ? 's' : ''} ready to convert to client`, href: '/agency/pipeline', color: 'text-emerald-400', bg: 'bg-emerald-950/60 border-emerald-800/60', icon: TrendingUp };
+    if (activeDeals.length > 0 && clients.filter(c => c.status === 'active_client').length === 0)
+      return { label: `${activeDeals.length} active deal${activeDeals.length > 1 ? 's' : ''} in pipeline — move them forward`, href: '/agency/pipeline', color: 'text-blue-400', bg: 'bg-blue-950/50 border-blue-800/50', icon: TrendingUp };
+    if (clientsWithoutCampaigns.length > 0)
+      return { label: `${clientsWithoutCampaigns.length} client${clientsWithoutCampaigns.length > 1 ? 's' : ''} without a campaign yet — create one`, href: `/agency/spoke-campaigns?client_id=${clientsWithoutCampaigns[0].id}`, color: 'text-violet-400', bg: 'bg-violet-950/50 border-violet-800/50', icon: Megaphone };
+    if (campaignsWithoutAssets.length > 0)
+      return { label: `${campaignsWithoutAssets.length} campaign${campaignsWithoutAssets.length > 1 ? 's' : ''} have no content yet — generate assets`, href: `/agency/spoke-campaigns/${campaignsWithoutAssets[0].id}`, color: 'text-amber-400', bg: 'bg-amber-950/40 border-amber-800/40', icon: Radio };
     if (goingOutToday.length > 0)
       return { label: `${goingOutToday.length} post${goingOutToday.length > 1 ? 's' : ''} going out today — confirm they're ready`, href: '/agency/social-queue?date=today', color: 'text-blue-400', bg: 'bg-blue-950/60 border-blue-800/60', icon: Send };
     if (approvedNeedingSchedule.length > 0)
@@ -50,7 +68,7 @@ export default function DailyCommandPanel({ spokeCampaigns, ntaAssets, socialPos
       return { label: `${draftsNeedingReview.length} draft asset${draftsNeedingReview.length > 1 ? 's' : ''} need review and approval`, href: '/agency/approval-center', color: 'text-violet-400', bg: 'bg-violet-950/50 border-violet-800/50', icon: CheckCircle };
     if (activeCampaign)
       return { label: `Continue building "${activeCampaign.campaign_name}"`, href: `/agency/spoke-campaigns/${activeCampaign.id}`, color: 'text-amber-400', bg: 'bg-amber-950/40 border-amber-800/40', icon: Radio };
-    return { label: 'Create your first Spoke Campaign to get started', href: '/agency/spoke-campaigns', color: 'text-slate-400', bg: 'bg-slate-800/60 border-slate-700', icon: Zap };
+    return { label: 'Add your first lead to get started', href: '/agency/pipeline', color: 'text-slate-400', bg: 'bg-slate-800/60 border-slate-700', icon: Zap };
   })();
 
   const NBAIcon = nba.icon;

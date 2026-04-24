@@ -39,6 +39,7 @@ export default function ClientSetupWizard() {
   const [clientForm, setClientForm] = useState({});
   const [setupForm, setSetupForm] = useState({});
   const [approvalForm, setApprovalForm] = useState({});
+  const [showCampaignPrompt, setShowCampaignPrompt] = useState(false);
 
   useEffect(() => { load(); }, [id]);
 
@@ -148,6 +149,9 @@ export default function ClientSetupWizard() {
         await saveSetupForm({ kickoff_notes_completed: !!(setupForm.kickoff_notes) });
       } else if (step === 10) {
         await saveSetupForm({ setup_status: 'Completed', completed_date: new Date().toISOString(), percent_complete: 100 });
+        setShowCampaignPrompt(true);
+        setSaving(false);
+        return;
       } else {
         if (currentStep.key) await saveSetupForm({});
       }
@@ -245,6 +249,32 @@ export default function ClientSetupWizard() {
           </div>
         </div>
       </div>
+      {/* Post-setup campaign prompt */}
+      {showCampaignPrompt && (
+        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+          <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-md p-6 space-y-4">
+            <div className="text-center">
+              <p className="text-2xl mb-2">🎉</p>
+              <h2 className="text-lg font-bold text-white">Client setup complete!</h2>
+              <p className="text-sm text-slate-400 mt-1">Ready to create your first campaign for <span className="text-white font-semibold">{client?.business_name}</span>?</p>
+            </div>
+            <div className="flex flex-col gap-2 pt-2">
+              <button
+                onClick={() => navigate(`/agency/spoke-campaigns?client_id=${id}`)}
+                className="w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm rounded-xl transition-colors"
+              >
+                Create Campaign →
+              </button>
+              <button
+                onClick={() => navigate(`/agency/clients/${id}`)}
+                className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm rounded-xl transition-colors"
+              >
+                Later — Go to Client
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </AgencyLayout>
   );
 }

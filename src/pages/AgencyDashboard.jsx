@@ -120,7 +120,18 @@ export default function AgencyDashboard() {
             <h1 className="text-xl font-bold text-white">Operations Dashboard</h1>
             <p className="text-slate-500 text-sm mt-0.5">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</p>
           </div>
-          <GuidedWorkflowButton />
+          <div className="flex items-center gap-2 flex-wrap">
+            <Link to="/agency/pipeline" className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 rounded-lg transition-colors">
+              <Plus className="w-3.5 h-3.5" /> Add Lead
+            </Link>
+            <Link to="/agency/clients" className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 rounded-lg transition-colors">
+              <Plus className="w-3.5 h-3.5" /> Add Client
+            </Link>
+            <Link to="/agency/spoke-campaigns" className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 bg-blue-700 hover:bg-blue-600 border border-blue-600 text-white rounded-lg transition-colors">
+              <Plus className="w-3.5 h-3.5" /> Create Campaign
+            </Link>
+            <GuidedWorkflowButton />
+          </div>
         </div>
 
         {/* DAILY COMMAND PANEL — Spoke campaign workflow driver */}
@@ -129,6 +140,8 @@ export default function AgencyDashboard() {
           spokeCampaigns={spokeCampaigns}
           ntaAssets={ntaAssets}
           socialPosts={socialPosts}
+          deals={deals}
+          clients={clients}
           loading={loading}
         />
         </TutorialHighlight>
