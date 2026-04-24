@@ -515,6 +515,58 @@ Deno.serve(async (req) => {
       message: `Follow-up task created for ${business_name || name}: due ${dueDate}`,
     });
 
+    // ── Create SalesLead + SalesDeal for agency pipeline
+    let sales_lead_id = null;
+    let sales_deal_id = null;
+    try {
+      // Deduplicate: find existing SalesLead by email or business_name
+      let salesLead = null;
+      if (email || business_name) {
+        const existingLeads = await base44.asServiceRole.entities.SalesLead.filter(
+          email ? { email } : { business_name }
+        );
+        salesLead = existingLeads[0] || null;
+      }
+
+      if (!salesLead) {
+        salesLead = await base44.asServiceRole.entities.SalesLead.create({
+          contact_name: payload.contact_name || name || '',
+          business_name: business_name || payload.company_name || '',
+          email: email || '',
+          phone: phone || '',
+          website: website || payload.website_url || '',
+          city: city || '',
+          state: state || '',
+          industry: payload.industry || '',
+          lead_source: payload.source || source_system || 'website',
+          status: 'new',
+          notes: notes || payload.message || '',
+        });
+      }
+      sales_lead_id = salesLead.id;
+
+      // Deduplicate: find existing active SalesDeal for this lead
+      const existingDeals = await base44.asServiceRole.entities.SalesDeal.filter({
+        lead_id: salesLead.id,
+        archived: false,
+      });
+
+      if (existingDeals.length === 0) {
+        const deal = await base44.asServiceRole.entities.SalesDeal.create({
+          lead_id: salesLead.id,
+          deal_name: business_name || payload.company_name || name || 'Website Lead',
+          stage: 'New Lead',
+          archived: false,
+        });
+        sales_deal_id = deal.id;
+      } else {
+        sales_deal_id = existingDeals[0].id;
+      }
+    } catch (salesErr) {
+      // Non-blocking — don't fail the whole intake if pipeline creation fails
+      console.warn('[ntaUnifiedIntake] SalesLead/SalesDeal creation failed:', salesErr.message);
+    }
+
     // ── Webhooks
     let webhook_status = 'skipped';
 
@@ -640,6 +692,8 @@ Deno.serve(async (req) => {
       company_created,
       contact_id,
       opportunity_id,
+      sales_lead_id,
+      sales_deal_id,
       webhook_status,
       debug: { submission_type, offer_type, mapping_confidence, mapping_notes, detected_route, detected_component },
     });
