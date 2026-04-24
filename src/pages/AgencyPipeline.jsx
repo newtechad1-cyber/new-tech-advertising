@@ -51,8 +51,26 @@ export default function AgencyPipeline() {
       base44.entities.SalesDeal.filter({ archived: false }),
       base44.entities.SalesLead.list('-created_date', 500),
     ]);
+    console.log('[PIPELINE DEBUG] RAW SALES DEALS', d);
+    console.log('[PIPELINE DEBUG] RAW SALES LEADS', l);
+    console.log('[PIPELINE DEBUG] Deals count:', d.length, 'Leads count:', l.length);
+    
     const map = {};
     l.forEach(lead => { map[lead.id] = lead; });
+    
+    // Log deal-to-lead matching
+    d.forEach(deal => {
+      console.log('[PIPELINE DEBUG] PIPELINE DEAL CHECK', {
+        id: deal.id,
+        lead_id: deal.lead_id,
+        stage: deal.stage,
+        archived: deal.archived,
+        archived_type: typeof deal.archived,
+        matchedLead: !!map[deal.lead_id],
+        deal_raw: deal,
+      });
+    });
+    
     setDeals(d);
     setLeadsMap(map);
     setLoading(false);
@@ -91,7 +109,9 @@ export default function AgencyPipeline() {
   }, []);
 
   const stageMap = STAGES.reduce((acc, s) => {
-    acc[s] = deals.filter(d => (d.stage || '').trim() === s);
+    const columnDeals = deals.filter(d => (d.stage || '').trim() === s);
+    console.log('[PIPELINE DEBUG] COLUMN DEALS', s, columnDeals);
+    acc[s] = columnDeals;
     return acc;
   }, {});
 
@@ -244,6 +264,7 @@ export default function AgencyPipeline() {
                           )}
                           {items.map((deal, idx) => {
                             const lead = leadsMap[deal.lead_id];
+                            console.log('[PIPELINE DEBUG] RENDERING DEAL', deal.id, 'lead found:', !!lead, 'lead_id:', deal.lead_id);
                             const contactName = lead
                               ? (lead.contact_name || [lead.first_name, lead.last_name].filter(Boolean).join(' ') || null)
                               : null;
