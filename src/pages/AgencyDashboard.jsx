@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTutorial } from '../components/agency/TutorialContext.jsx';
 import { base44 } from '@/api/base44Client';
 import { Users, FileText, AlertTriangle, CheckCircle, Clock, ArrowRight, Plus, Radio, Video, Send, Shield, Calendar, BarChart, ClipboardList, BookOpenCheck } from 'lucide-react';
 import AgencyLayout from '../components/agency/AgencyLayout';
 import TodaysCommand from '../components/agency/TodaysCommand.jsx';
 import DailyCommandPanel from '../components/agency/DailyCommandPanel.jsx';
 import TutorialHighlight from '../components/agency/TutorialHighlight.jsx';
-import { useTutorial } from '../components/agency/TutorialContext.jsx';
-
 export default function AgencyDashboard() {
   const [clients, setClients] = useState([]);
   const [topics, setTopics] = useState([]);
@@ -100,8 +99,6 @@ export default function AgencyDashboard() {
     { step: '5', label: 'Publish', href: '/agency/content?tab=published', action: 'Published →' },
   ];
 
-  const { start } = useTutorial();
-
   return (
     <AgencyLayout>
       <div className="p-6 space-y-8">
@@ -110,12 +107,7 @@ export default function AgencyDashboard() {
             <h1 className="text-xl font-bold text-white">Operations Dashboard</h1>
             <p className="text-slate-500 text-sm mt-0.5">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</p>
           </div>
-          <button
-            onClick={start}
-            className="flex items-center gap-2 text-xs font-semibold px-3 py-2 bg-blue-700/20 hover:bg-blue-700/40 border border-blue-700/40 text-blue-300 rounded-lg transition-colors flex-shrink-0"
-          >
-            <BookOpenCheck className="w-3.5 h-3.5" /> Start Guided Workflow
-          </button>
+          <GuidedWorkflowButton />
         </div>
 
         {/* DAILY COMMAND PANEL — Spoke campaign workflow driver */}
@@ -335,5 +327,18 @@ function StatusDot({ status }) {
     <span className={`text-xs font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${map[status] || 'bg-slate-700 text-slate-400'}`}>
       {status?.replace('_', ' ')}
     </span>
+  );
+}
+
+// Rendered inside AgencyLayout so it has access to TutorialProvider context
+function GuidedWorkflowButton() {
+  const { start } = useTutorial();
+  return (
+    <button
+      onClick={start}
+      className="flex items-center gap-2 text-xs font-semibold px-3 py-2 bg-blue-700/20 hover:bg-blue-700/40 border border-blue-700/40 text-blue-300 rounded-lg transition-colors flex-shrink-0"
+    >
+      <BookOpenCheck className="w-3.5 h-3.5" /> Start Guided Workflow
+    </button>
   );
 }
