@@ -108,8 +108,8 @@ function matchAutomations(trigger_type, entity, { old_status, new_status, field 
   const transition = `${old_status}→${new_status}`;
 
   if (trigger_type === 'record_created') {
-    if (entity === 'SalesLeads')        matched.push('AUTO_001_new_lead_intake');
-    if (entity === 'SalesDeals')        matched.push('AUTO_003_lead_to_deal');
+    if (entity === 'SalesLead')         matched.push('AUTO_001_new_lead_intake');
+    if (entity === 'SalesDeal')         matched.push('AUTO_003_lead_to_deal');
     if (entity === 'ClientCompanies')   matched.push('AUTO_007_direct_signup', 'AUTO_008_reseller_signup_attribution');
     if (entity === 'Campaigns')         matched.push('AUTO_016_campaign_created');
     if (entity === 'SeoProjects')       matched.push('AUTO_022_seo_project_kickoff');
@@ -119,8 +119,8 @@ function matchAutomations(trigger_type, entity, { old_status, new_status, field 
   }
 
   if (trigger_type === 'record_updated') {
-    if (entity === 'SalesDeals' && new_status === 'closed_won')     matched.push('AUTO_005_deal_closed_won');
-    if (entity === 'SalesDeals' && new_status === 'closed_lost')    matched.push('AUTO_006_deal_closed_lost');
+    if (entity === 'SalesDeal' && new_status === 'closed_won')      matched.push('AUTO_005_deal_closed_won');
+    if (entity === 'SalesDeal' && new_status === 'closed_lost')     matched.push('AUTO_006_deal_closed_lost');
     if (entity === 'Proposals' && new_status === 'sent')             matched.push('AUTO_004_proposal_sent');
     if (entity === 'ClientCompanies' && field === 'onboarding_status' && new_status === 'completed') matched.push('AUTO_009_onboarding_completed');
     if (entity === 'ClientSubscriptions' && new_status === 'active')     matched.push('AUTO_010_subscription_activated');
@@ -147,20 +147,20 @@ function matchAutomations(trigger_type, entity, { old_status, new_status, field 
 // ─────────────────────────────────────────────────────────────────
 
 async function handleNewLeadIntake({ record_id, data }, base44) {
-  const lead = data || await base44.asServiceRole.entities.SalesLeads.get(record_id);
+  const lead = data || await base44.asServiceRole.entities.SalesLead.get(record_id);
 
   // Idempotency: check for existing activity
-  const existing = await base44.asServiceRole.entities.SalesActivities.filter({ deal_id: record_id });
+  const existing = await base44.asServiceRole.entities.SalesActivity.filter({ deal_id: record_id });
   if (existing.length > 0) return { skipped: true, reason: 'Activity already exists for this lead' };
 
-  await base44.asServiceRole.entities.SalesActivities.create({
+  await base44.asServiceRole.entities.SalesActivity.create({
     deal_id: record_id,
     activity_type: 'note',
     notes: 'New lead intake — assigned by automation',
     date: new Date().toISOString().split('T')[0],
   });
 
-  await base44.asServiceRole.entities.SalesLeads.update(record_id, {
+  await base44.asServiceRole.entities.SalesLead.update(record_id, {
     status: lead.status || 'new',
   });
 
@@ -168,28 +168,28 @@ async function handleNewLeadIntake({ record_id, data }, base44) {
 }
 
 async function handleDemoRequest({ record_id, data }, base44) {
-  const lead = data || await base44.asServiceRole.entities.SalesLeads.get(record_id);
+  const lead = data || await base44.asServiceRole.entities.SalesLead.get(record_id);
 
-  const existing = await base44.asServiceRole.entities.SalesActivities.filter({ deal_id: record_id, activity_type: 'demo' });
+  const existing = await base44.asServiceRole.entities.SalesActivity.filter({ deal_id: record_id, activity_type: 'demo' });
   if (existing.length > 0) return { skipped: true, reason: 'Demo activity already exists within window' };
 
-  await base44.asServiceRole.entities.SalesActivities.create({
+  await base44.asServiceRole.entities.SalesActivity.create({
     deal_id: record_id,
     activity_type: 'demo',
     notes: 'Demo requested via public form',
     date: new Date().toISOString().split('T')[0],
   });
 
-  await base44.asServiceRole.entities.SalesLeads.update(record_id, { status: 'contacted' });
+  await base44.asServiceRole.entities.SalesLead.update(record_id, { status: 'contacted' });
   return { success: true, action: 'Demo request logged' };
 }
 
 async function handleLeadToDeal({ record_id, data }, base44) {
-  const deal = data || await base44.asServiceRole.entities.SalesDeals.get(record_id);
+  const deal = data || await base44.asServiceRole.entities.SalesDeal.get(record_id);
   if (!deal.lead_id) return { skipped: true, reason: 'No lead_id on this deal' };
 
-  await base44.asServiceRole.entities.SalesLeads.update(deal.lead_id, { status: 'converted' });
-  await base44.asServiceRole.entities.SalesActivities.create({
+  await base44.asServiceRole.entities.SalesLead.update(deal.lead_id, { status: 'converted' });
+  await base44.asServiceRole.entities.SalesActivity.create({
     deal_id: record_id,
     activity_type: 'stage_change',
     notes: 'Lead converted to deal',
@@ -202,7 +202,7 @@ async function handleLeadToDeal({ record_id, data }, base44) {
 async function handleProposalSent({ record_id, data }, base44) {
   const proposal = data || await base44.asServiceRole.entities.Proposals.get(record_id);
 
-  await base44.asServiceRole.entities.SalesActivities.create({
+  await base44.asServiceRole.entities.SalesActivity.create({
     deal_id: proposal.deal_id || record_id,
     activity_type: 'proposal_sent',
     notes: 'Proposal sent to prospect',
@@ -210,14 +210,14 @@ async function handleProposalSent({ record_id, data }, base44) {
   });
 
   if (proposal.deal_id) {
-    await base44.asServiceRole.entities.SalesDeals.update(proposal.deal_id, { stage: 'proposal_sent' });
+    await base44.asServiceRole.entities.SalesDeal.update(proposal.deal_id, { stage: 'proposal_sent' });
   }
 
   return { success: true };
 }
 
 async function handleDealClosedWon({ record_id, data }, base44) {
-  const deal = data || await base44.asServiceRole.entities.SalesDeals.get(record_id);
+  const deal = data || await base44.asServiceRole.entities.SalesDeal.get(record_id);
 
   // HARD idempotency check
   if (deal.converted_company_id) {
@@ -264,21 +264,21 @@ async function handleDealClosedWon({ record_id, data }, base44) {
     logged_at: new Date().toISOString(),
   });
 
-  await base44.asServiceRole.entities.SalesDeals.update(record_id, {
+  await base44.asServiceRole.entities.SalesDeal.update(record_id, {
     converted_company_id: company.id,
   });
 
   if (deal.lead_id) {
-    await base44.asServiceRole.entities.SalesLeads.update(deal.lead_id, { status: 'converted' });
+    await base44.asServiceRole.entities.SalesLead.update(deal.lead_id, { status: 'converted' });
   }
 
   return { success: true, company_id: company.id };
 }
 
 async function handleDealClosedLost({ record_id, data }, base44) {
-  const deal = data || await base44.asServiceRole.entities.SalesDeals.get(record_id);
+  const deal = data || await base44.asServiceRole.entities.SalesDeal.get(record_id);
 
-  await base44.asServiceRole.entities.SalesActivities.create({
+  await base44.asServiceRole.entities.SalesActivity.create({
     deal_id: record_id,
     activity_type: 'stage_change',
     notes: `Deal closed lost. Reason: ${deal.lost_reason || 'Not specified'}`,
@@ -286,7 +286,7 @@ async function handleDealClosedLost({ record_id, data }, base44) {
   });
 
   if (deal.lead_id) {
-    await base44.asServiceRole.entities.SalesLeads.update(deal.lead_id, { status: 'disqualified' });
+    await base44.asServiceRole.entities.SalesLead.update(deal.lead_id, { status: 'disqualified' });
   }
 
   return { success: true };

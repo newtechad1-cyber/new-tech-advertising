@@ -34,11 +34,11 @@ export default function SalesLeads() {
 
   const { data: leads = [] } = useQuery({
     queryKey: ['sales_leads'],
-    queryFn: () => base44.asServiceRole.entities.SalesLeads.list('-created_date', 200)
+    queryFn: () => base44.asServiceRole.entities.SalesLead.list('-created_date', 200)
   });
 
   const createLead = useMutation({
-    mutationFn: (data) => base44.asServiceRole.entities.SalesLeads.create(data),
+    mutationFn: (data) => base44.asServiceRole.entities.SalesLead.create(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['sales_leads'] });
       setShowCreate(false);
@@ -48,7 +48,7 @@ export default function SalesLeads() {
 
   const convertToDeal = useMutation({
     mutationFn: async (lead) => {
-      const deal = await base44.asServiceRole.entities.SalesDeals.create({
+      const deal = await base44.asServiceRole.entities.SalesDeal.create({
         lead_id: lead.id,
         company_name: lead.company_name,
         contact_name: lead.contact_name,
@@ -56,7 +56,7 @@ export default function SalesLeads() {
         stage: 'new_lead',
         deal_value: 0
       });
-      await base44.asServiceRole.entities.SalesLeads.update(lead.id, { status: 'converted' });
+      await base44.asServiceRole.entities.SalesLead.update(lead.id, { status: 'converted' });
       return deal;
     },
     onSuccess: () => {

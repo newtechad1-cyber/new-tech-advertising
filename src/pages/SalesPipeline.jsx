@@ -27,11 +27,11 @@ export default function SalesPipeline() {
 
   const { data: deals = [] } = useQuery({
     queryKey: ['sales_deals'],
-    queryFn: () => base44.asServiceRole.entities.SalesDeals.list('-created_date', 300)
+    queryFn: () => base44.asServiceRole.entities.SalesDeal.list('-created_date', 300)
   });
 
   const updateDeal = useMutation({
-    mutationFn: ({ id, data }) => base44.asServiceRole.entities.SalesDeals.update(id, data),
+    mutationFn: ({ id, data }) => base44.asServiceRole.entities.SalesDeal.update(id, data),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['sales_deals'] })
   });
 
@@ -44,7 +44,7 @@ export default function SalesPipeline() {
     updateDeal.mutate({ id: draggableId, data: { stage: newStage } });
 
     // Auto-log stage change activity
-    base44.asServiceRole.entities.SalesActivities.create({
+    base44.asServiceRole.entities.SalesActivity.create({
       deal_id: draggableId,
       activity_type: 'stage_change',
       notes: `Moved to: ${STAGES.find(s => s.key === newStage)?.label}`,

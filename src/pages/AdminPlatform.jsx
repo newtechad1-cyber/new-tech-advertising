@@ -42,7 +42,7 @@ export default function AdminPlatform() {
 
   const { data: deals = [] } = useQuery({
     queryKey: ['sales_deals'],
-    queryFn: () => base44.asServiceRole.entities.SalesDeals.list('-created_date', 200)
+    queryFn: () => base44.asServiceRole.entities.SalesDeal.list('-created_date', 200)
   });
 
   // Platform Metrics

@@ -27,7 +27,7 @@ export default function AdminSales() {
   // Fetch deals
   const { data: deals = [], isLoading: dealsLoading } = useQuery({
     queryKey: ['sales-deals', refetchKey],
-    queryFn: () => base44.entities.SalesDeals.list('-created_date', 500),
+    queryFn: () => base44.entities.SalesDeal.list('-created_date', 500),
     refetchInterval: 30000,
   });
 

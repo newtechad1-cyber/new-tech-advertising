@@ -20,12 +20,12 @@ const SOURCE_COLORS = ['#60a5fa','#4ade80','#fb923c','#a78bfa','#facc15','#f8717
 export default function SalesDashboard() {
   const { data: deals = [] } = useQuery({
     queryKey: ['sales_deals'],
-    queryFn: () => base44.asServiceRole.entities.SalesDeals.list('-created_date', 200)
+    queryFn: () => base44.asServiceRole.entities.SalesDeal.list('-created_date', 200)
   });
 
   const { data: leads = [] } = useQuery({
     queryKey: ['sales_leads'],
-    queryFn: () => base44.asServiceRole.entities.SalesLeads.list('-created_date', 100)
+    queryFn: () => base44.asServiceRole.entities.SalesLead.list('-created_date', 100)
   });
 
   const now = new Date();

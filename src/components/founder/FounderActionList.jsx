@@ -33,7 +33,7 @@ export default function FounderActionList() {
   const { data: qaIssues = [] } = useQuery({ queryKey: ['action-qa-issues'], queryFn: () => base44.entities.QAIssues.filter({ status: 'Open' }) });
   const { data: clients = [] } = useQuery({ queryKey: ['action-clients'], queryFn: () => base44.entities.ClientCompanies.list() });
   const { data: tasks = [] } = useQuery({ queryKey: ['action-tasks'], queryFn: () => base44.entities.AgentTasks.list('-created_date', 200) });
-  const { data: deals = [] } = useQuery({ queryKey: ['action-deals'], queryFn: () => base44.entities.SalesDeals.list('-created_date', 100) });
+  const { data: deals = [] } = useQuery({ queryKey: ['action-deals'], queryFn: () => base44.entities.SalesDeal.list('-created_date', 100) });
   const { data: resellerRevenue = [] } = useQuery({ queryKey: ['action-reseller-rev'], queryFn: () => base44.entities.ResellerRevenue.list('-created_date', 50) });
   const { data: tickets = [] } = useQuery({ queryKey: ['action-tickets'], queryFn: () => base44.entities.SupportTickets.list('-created_date', 100) });
   const { data: activityLog = [] } = useQuery({ queryKey: ['action-activity-log'], queryFn: () => base44.entities.ClientActivityLog.list('-created_date', 300) });

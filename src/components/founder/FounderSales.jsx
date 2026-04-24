@@ -17,8 +17,8 @@ function Stat({ label, value, color = 'text-white' }) {
 }
 
 export default function FounderSales() {
-  const { data: leads = [] } = useQuery({ queryKey: ['founder-leads'], queryFn: () => base44.entities.SalesLeads.list('-created_date', 300) });
-  const { data: deals = [] } = useQuery({ queryKey: ['founder-deals'], queryFn: () => base44.entities.SalesDeals.list('-created_date', 200) });
+  const { data: leads = [] } = useQuery({ queryKey: ['founder-leads'], queryFn: () => base44.entities.SalesLead.list('-created_date', 300) });
+  const { data: deals = [] } = useQuery({ queryKey: ['founder-deals'], queryFn: () => base44.entities.SalesDeal.list('-created_date', 200) });
   const { data: activities = [] } = useQuery({ queryKey: ['founder-activities'], queryFn: () => base44.entities.SalesActivities.list('-created_date', 200) });
 
   const now = new Date();

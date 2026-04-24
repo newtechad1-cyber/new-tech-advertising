@@ -25,7 +25,7 @@ function KPICard({ icon: Icon, label, value, sub, status }) {
 
 export default function FounderKPIRow() {
   const { data: subs = [] } = useQuery({ queryKey: ['kpi-subs'], queryFn: () => base44.entities.ClientSubscriptions.filter({ status: 'active' }) });
-  const { data: leads = [] } = useQuery({ queryKey: ['kpi-leads'], queryFn: () => base44.entities.SalesLeads.list('-created_date', 200) });
+  const { data: leads = [] } = useQuery({ queryKey: ['kpi-leads'], queryFn: () => base44.entities.SalesLead.list('-created_date', 200) });
   const { data: qaRelease = [] } = useQuery({ queryKey: ['kpi-qa-release'], queryFn: () => base44.entities.QAReleaseStatus.list('-last_updated', 1) });
   const { data: qaIssues = [] } = useQuery({ queryKey: ['kpi-qa-issues'], queryFn: () => base44.entities.QAIssues.filter({ status: 'Open' }) });
   const { data: resellers = [] } = useQuery({ queryKey: ['kpi-resellers'], queryFn: () => base44.entities.ResellerAccounts.list() });
