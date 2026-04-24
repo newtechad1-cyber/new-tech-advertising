@@ -267,7 +267,8 @@ export default function AgencyPipeline() {
                             console.log('[PIPELINE DEBUG] RENDERING DEAL', deal.id, 'lead found:', !!lead, 'lead_id:', deal.lead_id);
                             const contactName = lead
                               ? (lead.contact_name || [lead.first_name, lead.last_name].filter(Boolean).join(' ') || null)
-                              : null;
+                              : 'No linked lead found';
+                            const businessName = lead?.business_name || deal.deal_name || 'Unknown Lead';
                             const overdue = lead && isOverdue(lead.next_follow_up);
                             const { label: pLabel } = scoreLead(lead, deal);
                             const ps = PRIORITY_STYLES[pLabel];
@@ -285,14 +286,14 @@ export default function AgencyPipeline() {
                                     onClick={() => openDetail(deal)}
                                   >
                                     {/* Business name */}
-                                    <p className="text-sm font-semibold text-white leading-tight truncate">
-                                      {deal.deal_name}
-                                    </p>
+                                     <p className="text-sm font-semibold text-white leading-tight truncate">
+                                       {businessName}
+                                     </p>
 
-                                    {/* Contact name */}
-                                    {contactName && (
-                                      <p className="text-xs text-slate-400 mt-0.5 truncate">{contactName}</p>
-                                    )}
+                                     {/* Contact name */}
+                                     <p className={`text-xs ${lead ? 'text-slate-400' : 'text-slate-500'} mt-0.5 truncate`}>
+                                       {contactName}
+                                     </p>
 
                                     {/* Quick call/email actions */}
                                     {(lead?.phone || lead?.email) && (
