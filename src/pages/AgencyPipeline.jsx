@@ -45,39 +45,14 @@ export default function AgencyPipeline() {
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [stageChanging, setStageChanging] = useState(null); // deal id being changed via dropdown
 
-  console.log('[PIPELINE] COMPONENT MOUNTED');
-
   const load = async () => {
     setLoading(true);
     const [d, l] = await Promise.all([
       base44.entities.SalesDeal.filter({ archived: false }),
       base44.entities.SalesLead.list('-created_date', 500),
     ]);
-    console.log("[PIPELINE DEBUG] RAW SALES DEALS", d);
-    console.log("[PIPELINE DEBUG] RAW SALES LEADS", l);
-    console.log('[PIPELINE DEBUG] Deals count:', d.length, 'Leads count:', l.length);
-    console.log("PIPELINE LOADED DEALS", d);
-    console.log("PIPELINE LOADED LEADS", l);
-    
     const map = {};
     l.forEach(lead => { map[lead.id] = lead; });
-    
-    // Log deal-to-lead matching
-    d.forEach(deal => {
-      console.log('[PIPELINE DEBUG] PIPELINE DEAL CHECK', {
-        id: deal.id,
-        lead_id: deal.lead_id,
-        stage: deal.stage,
-        archived: deal.archived,
-        archived_type: typeof deal.archived,
-        matchedLead: !!map[deal.lead_id],
-        deal_raw: deal,
-      });
-    });
-    
-    const newLeadDeals = d.filter(deal => (deal.stage || '').trim() === 'New Lead');
-    console.log("NEW LEAD COLUMN DEALS", newLeadDeals);
-    
     setDeals(d);
     setLeadsMap(map);
     setLoading(false);
@@ -85,39 +60,10 @@ export default function AgencyPipeline() {
 
   useEffect(() => {
     load();
-    
-    // Subscribe to SalesDeal changes for real-time pipeline updates
-    const unsubscribe = base44.entities.SalesDeal.subscribe((event) => {
-      console.log('[Pipeline] SalesDeal subscription event:', event.type, event);
-      
-      if (event.type === 'create') {
-        // Normalize stage and append new deal
-        const newDeal = {
-          ...event.data,
-          stage: (event.data?.stage || '').trim(),
-        };
-        console.log('[Pipeline] NEW DEAL', newDeal);
-        setDeals(prev => [newDeal, ...prev]);
-      } else if (event.type === 'update') {
-        // Update existing deal in state
-        const updatedDeal = {
-          ...event.data,
-          stage: (event.data?.stage || '').trim(),
-        };
-        console.log('[Pipeline] UPDATED DEAL', updatedDeal);
-        setDeals(prev => prev.map(d => d.id === updatedDeal.id ? updatedDeal : d));
-      } else if (event.type === 'delete') {
-        console.log('[Pipeline] DELETED DEAL', event.id);
-        setDeals(prev => prev.filter(d => d.id !== event.id));
-      }
-    });
-    
-    return unsubscribe;
   }, []);
 
   const stageMap = STAGES.reduce((acc, s) => {
     const columnDeals = deals.filter(d => (d.stage || '').trim() === s);
-    console.log('[PIPELINE DEBUG] COLUMN DEALS', s, columnDeals);
     acc[s] = columnDeals;
     return acc;
   }, {});
@@ -205,28 +151,9 @@ export default function AgencyPipeline() {
     .filter(d => d.stage !== 'Closed Lost' && d.value)
     .reduce((sum, d) => sum + (Number(d.value) || 0), 0);
 
-  const newLeadCount = deals.filter(d => (d.stage || '').trim() === 'New Lead').length;
-  const newestDeal = deals.length > 0 ? deals[0] : null;
-  const newestLeadMatch = newestDeal ? leadsMap[newestDeal.lead_id] : null;
-
   return (
     <AgencyLayout>
       <div className="p-6 flex flex-col" style={{ height: 'calc(100vh - 0px)' }}>
-
-        {/* DEBUG PANEL */}
-        <div className="mb-4 p-4 bg-yellow-950 border-2 border-yellow-600 rounded-lg text-xs text-yellow-100 font-mono">
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-            <div><span className="text-yellow-400">Total Deals:</span> {deals.length}</div>
-            <div><span className="text-yellow-400">Total Leads:</span> {Object.keys(leadsMap).length}</div>
-            <div><span className="text-yellow-400">New Lead Column:</span> {newLeadCount}</div>
-            <div><span className="text-yellow-400">Newest Deal:</span> {newestDeal?.id?.slice(0,8) || 'none'}</div>
-            <div><span className="text-yellow-400">Stage:</span> {newestDeal?.stage || 'N/A'}</div>
-            <div><span className="text-yellow-400">Archived:</span> {String(newestDeal?.archived)}</div>
-            <div><span className="text-yellow-400">Lead ID:</span> {newestDeal?.lead_id?.slice(0,8) || 'none'}</div>
-            <div><span className="text-yellow-400">Has Lead:</span> {newestLeadMatch ? 'YES' : 'NO'}</div>
-            <div><span className="text-yellow-400">Rick Store Found:</span> {deals.some(d => d.deal_name === 'Rick Store') ? '✓ YES' : '✗ NO'}</div>
-          </div>
-        </div>
 
         {/* Header */}
         <div className="flex items-center justify-between mb-4 flex-shrink-0 flex-wrap gap-3">
@@ -290,7 +217,6 @@ export default function AgencyPipeline() {
                           )}
                           {items.map((deal, idx) => {
                             const lead = leadsMap[deal.lead_id];
-                            console.log('[PIPELINE DEBUG] RENDERING DEAL', deal.id, 'lead found:', !!lead, 'lead_id:', deal.lead_id);
                             const contactName = lead
                               ? (lead.contact_name || [lead.first_name, lead.last_name].filter(Boolean).join(' ') || null)
                               : 'No linked lead found';
