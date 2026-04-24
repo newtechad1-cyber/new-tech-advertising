@@ -219,6 +219,12 @@ export default function AgencyContentAssets() {
           </select>
         </div>
 
+        {/* Queue visibility note */}
+        <div className="flex items-center gap-2 text-xs text-slate-500 bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5">
+          <Send className="w-3.5 h-3.5 flex-shrink-0 text-slate-600" />
+          Calendar only shows scheduled posts. Draft queue items appear in Social Queue only.
+        </div>
+
         {/* Asset list — card layout avoids horizontal overflow */}
         <div className="bg-slate-900 border border-slate-800 rounded-xl">
           {loading ? <p className="p-6 text-slate-600 text-sm">Loading...</p> : filtered.length === 0 ? (
@@ -264,7 +270,12 @@ export default function AgencyContentAssets() {
                         </>
                       )}
                       {a.approval_status === 'approved' && !a.queued && (
-                        <button onClick={() => sendToQueue(a)} title={a.scheduled_date ? `Will appear on calendar: ${new Date(a.scheduled_date).toLocaleDateString()}` : 'No scheduled date — will be added as a draft post (edit to schedule)'} className="text-xs px-2 py-1 bg-blue-900/40 hover:bg-blue-900/70 text-blue-300 rounded-lg flex items-center gap-1"><Send className="w-3 h-3" /> {a.scheduled_date ? 'Queue & Schedule' : 'Send to Queue'}</button>
+                        <div className="flex flex-col gap-0.5">
+                          <button onClick={() => sendToQueue(a)} className={`text-xs px-2 py-1 rounded-lg flex items-center gap-1 ${a.scheduled_date ? 'bg-emerald-900/40 hover:bg-emerald-900/70 text-emerald-300' : 'bg-blue-900/40 hover:bg-blue-900/70 text-blue-300'}`}>
+                            <Send className="w-3 h-3" /> {a.scheduled_date ? 'Queue & Schedule' : 'Send to Queue'}
+                          </button>
+                          <span className="text-xs text-slate-600">{a.scheduled_date ? `→ Social Queue + Calendar` : `→ Social Queue only (draft)`}</span>
+                        </div>
                       )}
                       {a.approval_status === 'approved' && a.queued && (
                         <span className="text-xs px-2 py-1 bg-emerald-900/20 text-emerald-600 rounded-lg">✓ Queued</span>

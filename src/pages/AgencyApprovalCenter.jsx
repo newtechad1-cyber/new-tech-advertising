@@ -189,6 +189,12 @@ export default function AgencyApprovalCenter() {
           ))}
         </div>
 
+        {/* Queue visibility note */}
+        <div className="flex items-center gap-2 text-xs text-slate-500 bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5">
+          <Shield className="w-3.5 h-3.5 flex-shrink-0 text-slate-600" />
+          Approving auto-queues to Social Queue. Calendar only shows posts with a scheduled date set.
+        </div>
+
         {/* Rows */}
         <div className="bg-slate-900 border border-slate-800 rounded-xl divide-y divide-slate-800">
           {loading ? <p className="p-6 text-slate-600 text-sm">Loading...</p> : rows.length === 0 ? (
