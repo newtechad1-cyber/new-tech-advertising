@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import AgencyLayout from '../components/agency/AgencyLayout';
 import TutorialHighlight from '../components/agency/TutorialHighlight.jsx';
-import { Plus, X, Send } from 'lucide-react';
+import { Plus, X, Send, Pencil, Trash2, CheckCircle } from 'lucide-react';
 
 const IN = 'w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500';
 const LBL = 'block text-xs font-medium text-slate-400 mb-1';
@@ -53,6 +53,31 @@ export default function AgencySocialQueue() {
   const updateStatus = async (id, publish_status) => {
     await base44.entities.SocialPostQueue.update(id, { publish_status });
     setPosts(p => p.map(post => post.id === id ? { ...post, publish_status } : post));
+  };
+
+  const cancelPost = async (id, text) => {
+    if (!confirm(`Cancel this post? "${(text || '').slice(0, 40)}..."`)) return;
+    await base44.entities.SocialPostQueue.update(id, { publish_status: 'cancelled' });
+    setPosts(p => p.map(post => post.id === id ? { ...post, publish_status: 'cancelled' } : post));
+  };
+
+  const markPublished = async (id) => {
+    await base44.entities.SocialPostQueue.update(id, { publish_status: 'published' });
+    setPosts(p => p.map(post => post.id === id ? { ...post, publish_status: 'published' } : post));
+  };
+
+  const [editPostModal, setEditPostModal] = useState(null);
+  const [editPostForm, setEditPostForm] = useState({});
+
+  const openEditPost = (post) => {
+    setEditPostForm({ post_text: post.post_text || '', scheduled_time: post.scheduled_time || '', media_url: post.media_url || '' });
+    setEditPostModal(post);
+  };
+
+  const saveEditPost = async () => {
+    await base44.entities.SocialPostQueue.update(editPostModal.id, editPostForm);
+    setPosts(p => p.map(post => post.id === editPostModal.id ? { ...post, ...editPostForm } : post));
+    setEditPostModal(null);
   };
 
   const f = (k, v) => setForm(p => ({ ...p, [k]: v }));
@@ -123,14 +148,23 @@ export default function AgencySocialQueue() {
                     <td className="px-4 py-3 text-xs text-slate-500">{p.scheduled_time ? new Date(p.scheduled_time).toLocaleString() : '—'}</td>
                     <td className="px-4 py-3"><span className={`text-xs font-bold px-2 py-0.5 rounded-full ${STATUS_COLORS[p.publish_status] || 'bg-slate-700 text-slate-400'}`}>{p.publish_status}</span></td>
                     <td className="px-4 py-3">
-                      <select value={p.publish_status} onChange={e => updateStatus(p.id, e.target.value)}
-                        className="text-xs bg-slate-800 border border-slate-700 text-slate-300 rounded-lg px-2 py-1.5">
-                        <option value="draft">Draft</option>
-                        <option value="scheduled">Scheduled</option>
-                        <option value="published">Published</option>
-                        <option value="failed">Failed</option>
-                        <option value="cancelled">Cancelled</option>
-                      </select>
+                     <div className="flex items-center gap-1 flex-wrap">
+                       <select value={p.publish_status} onChange={e => updateStatus(p.id, e.target.value)}
+                         className="text-xs bg-slate-800 border border-slate-700 text-slate-300 rounded-lg px-2 py-1.5">
+                         <option value="draft">Draft</option>
+                         <option value="scheduled">Scheduled</option>
+                         <option value="published">Published</option>
+                         <option value="failed">Failed</option>
+                         <option value="cancelled">Cancelled</option>
+                       </select>
+                       <button onClick={() => openEditPost(p)} title="Edit" className="p-1.5 text-slate-500 hover:text-blue-400 bg-slate-800 hover:bg-slate-700 rounded-lg"><Pencil className="w-3.5 h-3.5" /></button>
+                       {p.publish_status !== 'published' && (
+                         <button onClick={() => markPublished(p.id)} title="Mark Published" className="p-1.5 text-slate-500 hover:text-emerald-400 bg-slate-800 hover:bg-slate-700 rounded-lg"><CheckCircle className="w-3.5 h-3.5" /></button>
+                       )}
+                       {!['cancelled','published'].includes(p.publish_status) && (
+                         <button onClick={() => cancelPost(p.id, p.post_text)} title="Cancel" className="p-1.5 text-slate-500 hover:text-red-400 bg-slate-800 hover:bg-slate-700 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
+                       )}
+                     </div>
                     </td>
                   </tr>
                 ))}
@@ -140,6 +174,27 @@ export default function AgencySocialQueue() {
         </div>
         </TutorialHighlight>
       </div>
+
+      {/* Edit Post Modal */}
+      {editPostModal && (
+        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+          <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800">
+              <h2 className="text-base font-bold text-white">Edit Post</h2>
+              <button onClick={() => setEditPostModal(null)}><X className="w-4 h-4 text-slate-500" /></button>
+            </div>
+            <div className="p-6 space-y-4">
+              <div><label className={LBL}>Post Text</label><textarea value={editPostForm.post_text} onChange={e => setEditPostForm(p => ({ ...p, post_text: e.target.value }))} rows={4} className={IN} /></div>
+              <div><label className={LBL}>Media URL</label><input value={editPostForm.media_url} onChange={e => setEditPostForm(p => ({ ...p, media_url: e.target.value }))} className={IN} /></div>
+              <div><label className={LBL}>Scheduled Time</label><input type="datetime-local" value={editPostForm.scheduled_time} onChange={e => setEditPostForm(p => ({ ...p, scheduled_time: e.target.value }))} className={IN} /></div>
+            </div>
+            <div className="flex justify-end gap-2 px-6 pb-6">
+              <button onClick={() => setEditPostModal(null)} className="px-4 py-2 text-sm text-slate-400 bg-slate-800 rounded-lg">Cancel</button>
+              <button onClick={saveEditPost} className="px-4 py-2 text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white rounded-lg">Save</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {showModal && (
         <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">

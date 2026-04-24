@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Plus, Search, Phone, Mail, Calendar, Trash2, AlertCircle, RefreshCw, SlidersHorizontal } from 'lucide-react';
+import { Plus, Search, Phone, Mail, Calendar, Trash2, AlertCircle, RefreshCw, SlidersHorizontal, Pencil } from 'lucide-react';
 import AgencyLayout from '../components/agency/AgencyLayout';
 import { scoreLead, PRIORITY_STYLES } from '../lib/leadPriority.js';
 import AddLeadModal from '../components/agency/AddLeadModal';
@@ -110,11 +110,16 @@ export default function AgencyLeads() {
     setSelected({ lead, deal: virtualDeal });
   };
 
-  const deleteLead = async (e, leadId) => {
+  const archiveLead = async (e, leadId) => {
     e.stopPropagation();
-    if (!confirm('Delete this lead? This cannot be undone.')) return;
-    await base44.entities.SalesLead.delete(leadId);
+    if (!confirm('Archive this lead? It will be hidden from the list.')) return;
+    await base44.entities.SalesLead.update(leadId, { status: 'unresponsive' });
     setLeads(prev => prev.filter(l => l.id !== leadId));
+  };
+
+  const editLead = (e, lead) => {
+    e.stopPropagation();
+    openLead(lead); // opens the detail modal which has edit mode built in
   };
 
   const counts = {
@@ -305,13 +310,22 @@ export default function AgencyLeads() {
                           <span className="text-xs text-slate-700 italic">No follow-up</span>
                         )}
                       </div>
-                      <button
-                        onClick={(e) => deleteLead(e, lead.id)}
-                        className="opacity-0 group-hover:opacity-100 p-1.5 text-slate-600 hover:text-red-400 hover:bg-red-900/20 rounded-lg transition-all flex-shrink-0"
-                        title="Delete lead"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
+                      <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-all flex-shrink-0">
+                        <button
+                          onClick={(e) => editLead(e, lead)}
+                          className="p-1.5 text-slate-500 hover:text-blue-400 hover:bg-blue-900/20 rounded-lg transition-all"
+                          title="Edit lead"
+                        >
+                          <Pencil className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={(e) => archiveLead(e, lead.id)}
+                          className="p-1.5 text-slate-600 hover:text-red-400 hover:bg-red-900/20 rounded-lg transition-all"
+                          title="Archive lead"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 );

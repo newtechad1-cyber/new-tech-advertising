@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AgencyLayout from '../components/agency/AgencyLayout';
 import TutorialHighlight from '../components/agency/TutorialHighlight.jsx';
-import { Plus, Megaphone, ArrowRight, X, Copy, FileText, ExternalLink } from 'lucide-react';
+import { Plus, Megaphone, ArrowRight, X, Copy, FileText, ExternalLink, Pencil, Trash2 } from 'lucide-react';
 
 const IN = 'w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500';
 const LBL = 'block text-xs font-medium text-slate-400 mb-1';
@@ -76,6 +76,26 @@ export default function AgencySpokeCampaigns() {
   const updateStatus = async (id, status) => {
     await base44.entities.SpokeCampaign.update(id, { status });
     setCampaigns(p => p.map(c => c.id === id ? { ...c, status } : c));
+  };
+
+  const archiveCampaign = async (id, name) => {
+    if (!confirm(`Archive campaign "${name}"? It will be marked completed and hidden.`)) return;
+    await base44.entities.SpokeCampaign.update(id, { status: 'completed' });
+    setCampaigns(p => p.filter(c => c.id !== id));
+  };
+
+  const [editModal, setEditModal] = useState(null);
+  const [editForm, setEditForm] = useState({});
+
+  const openEdit = (c) => {
+    setEditForm({ campaign_name: c.campaign_name, pillar: c.pillar, core_theme: c.core_theme, target_audience: c.target_audience, primary_offer: c.primary_offer, cta_url: c.cta_url });
+    setEditModal(c);
+  };
+
+  const saveEdit = async () => {
+    await base44.entities.SpokeCampaign.update(editModal.id, editForm);
+    setCampaigns(p => p.map(c => c.id === editModal.id ? { ...c, ...editForm } : c));
+    setEditModal(null);
   };
 
   const getLeads = (id) => metrics.filter(m => m.campaign_id === id).reduce((s, m) => s + (m.leads || 0), 0);
@@ -171,6 +191,12 @@ export default function AgencySpokeCampaigns() {
                       <button onClick={() => openClone(c)} className="text-xs px-2 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-300 rounded-lg flex items-center gap-1">
                         <Copy className="w-3 h-3" /> Clone
                       </button>
+                      <button onClick={() => openEdit(c)} className="text-xs px-2 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-300 rounded-lg flex items-center gap-1">
+                        <Pencil className="w-3 h-3" /> Edit
+                      </button>
+                      <button onClick={() => archiveCampaign(c.id, c.campaign_name)} className="text-xs px-2 py-1.5 bg-red-900/30 hover:bg-red-900/50 text-red-400 rounded-lg flex items-center gap-1">
+                        <Trash2 className="w-3 h-3" /> Archive
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -205,6 +231,23 @@ export default function AgencySpokeCampaigns() {
           <div className="flex justify-end gap-2 mt-4">
             <button onClick={() => setShowModal(false)} className="px-4 py-2 text-sm text-slate-400 bg-slate-800 rounded-lg">Cancel</button>
             <button onClick={save} disabled={saving || !form.campaign_name} className="px-4 py-2 text-sm font-semibold bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white rounded-lg">{saving ? 'Saving...' : 'Create Campaign'}</button>
+          </div>
+        </Modal>
+      )}
+
+      {/* Edit Modal */}
+      {editModal && (
+        <Modal title={`Edit: ${editModal.campaign_name}`} onClose={() => setEditModal(null)}>
+          <div className="space-y-3">
+            {[['campaign_name','Campaign Name *'],['pillar','Pillar'],['core_theme','Core Theme'],['target_audience','Target Audience'],['primary_offer','Primary Offer'],['cta_url','CTA URL']].map(([k, label]) => (
+              <div key={k}><label className={LBL}>{label}</label>
+                <input value={editForm[k] || ''} onChange={e => setEditForm(p => ({ ...p, [k]: e.target.value }))} className={IN} />
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-end gap-2 mt-4">
+            <button onClick={() => setEditModal(null)} className="px-4 py-2 text-sm text-slate-400 bg-slate-800 rounded-lg">Cancel</button>
+            <button onClick={saveEdit} disabled={!editForm.campaign_name} className="px-4 py-2 text-sm font-semibold bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white rounded-lg">Save Changes</button>
           </div>
         </Modal>
       )}

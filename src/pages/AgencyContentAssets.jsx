@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import AgencyLayout from '../components/agency/AgencyLayout';
-import { Plus, X, AlertTriangle, CheckCircle } from 'lucide-react';
+import { Plus, X, AlertTriangle, CheckCircle, Pencil, Trash2, Send } from 'lucide-react';
 
 const IN = 'w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500';
 const LBL = 'block text-xs font-medium text-slate-400 mb-1';
@@ -103,6 +103,31 @@ export default function AgencyContentAssets() {
 
   const markNeedsReapproval = async (id) => {
     await base44.entities.NTAContentAsset.update(id, { approval_status: 'needs_reapproval', status: 'needs_reapproval', queued: false });
+    load();
+  };
+
+  const deleteAsset = async (id, name) => {
+    if (!confirm(`Delete asset "${name}"? This cannot be undone.`)) return;
+    await base44.entities.NTAContentAsset.delete(id);
+    setAssets(prev => prev.filter(a => a.id !== id));
+  };
+
+  const sendToQueue = async (asset) => {
+    await enqueue(asset);
+    load();
+  };
+
+  const [editAssetModal, setEditAssetModal] = useState(null);
+  const [editAssetForm, setEditAssetForm] = useState({});
+
+  const openEditAsset = (a) => {
+    setEditAssetForm({ asset_name: a.asset_name, headline: a.headline || '', caption_text: a.caption_text || '', hook: a.hook || '', cta: a.cta || '', hashtags: a.hashtags || '', scheduled_date: a.scheduled_date || '' });
+    setEditAssetModal(a);
+  };
+
+  const saveEditAsset = async () => {
+    await base44.entities.NTAContentAsset.update(editAssetModal.id, editAssetForm);
+    setEditAssetModal(null);
     load();
   };
 
@@ -225,6 +250,11 @@ export default function AgencyContentAssets() {
                           {a.approval_status === 'approved' && ['approved'].includes(a.status) && (
                             <button onClick={() => markNeedsReapproval(a.id)} className="text-xs px-2 py-1 bg-orange-900/30 hover:bg-orange-900/50 text-orange-400 rounded-lg">Re-Review</button>
                           )}
+                          {a.approval_status === 'approved' && !a.queued && (
+                            <button onClick={() => sendToQueue(a)} className="text-xs px-2 py-1 bg-blue-900/40 hover:bg-blue-900/70 text-blue-300 rounded-lg flex items-center gap-1"><Send className="w-3 h-3" /> Queue</button>
+                          )}
+                          <button onClick={() => openEditAsset(a)} className="text-xs px-2 py-1 bg-slate-700 hover:bg-slate-600 text-slate-300 rounded-lg"><Pencil className="w-3 h-3" /></button>
+                          <button onClick={() => deleteAsset(a.id, a.asset_name)} className="text-xs px-2 py-1 bg-red-900/20 hover:bg-red-900/40 text-red-400 rounded-lg"><Trash2 className="w-3 h-3" /></button>
                         </div>
                       </td>
                     </tr>
@@ -299,6 +329,32 @@ export default function AgencyContentAssets() {
             <div className="flex justify-end gap-2 px-6 pb-6">
               <button onClick={() => setShowModal(false)} className="px-4 py-2 text-sm text-slate-400 bg-slate-800 rounded-lg">Cancel</button>
               <button onClick={save} disabled={saving || !form.asset_name || !form.campaign_id} className="px-4 py-2 text-sm font-semibold bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white rounded-lg">{saving ? 'Saving...' : 'Create Asset'}</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Asset Modal */}
+      {editAssetModal && (
+        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+          <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800">
+              <h2 className="text-base font-bold text-white">Edit — {editAssetModal.asset_name}</h2>
+              <button onClick={() => setEditAssetModal(null)}><X className="w-4 h-4 text-slate-500" /></button>
+            </div>
+            <div className="p-6 space-y-3">
+              {[['asset_name','Asset Name'],['headline','Headline'],['caption_text','Caption'],['hook','Hook'],['cta','CTA'],['hashtags','Hashtags']].map(([k, label]) => (
+                <div key={k}><label className={LBL}>{label}</label>
+                  <input value={editAssetForm[k] || ''} onChange={e => setEditAssetForm(p => ({ ...p, [k]: e.target.value }))} className={IN} />
+                </div>
+              ))}
+              <div><label className={LBL}>Scheduled Date</label>
+                <input type="datetime-local" value={editAssetForm.scheduled_date || ''} onChange={e => setEditAssetForm(p => ({ ...p, scheduled_date: e.target.value }))} className={IN} />
+              </div>
+            </div>
+            <div className="flex justify-end gap-2 px-6 pb-6">
+              <button onClick={() => setEditAssetModal(null)} className="px-4 py-2 text-sm text-slate-400 bg-slate-800 rounded-lg">Cancel</button>
+              <button onClick={saveEditAsset} className="px-4 py-2 text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white rounded-lg">Save Changes</button>
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { Plus, Phone, Mail, Trash2, AlertCircle, RefreshCw, ChevronDown } from 'lucide-react';
+import { Plus, Phone, Mail, Trash2, AlertCircle, RefreshCw, ChevronDown, Pencil, ArrowRight } from 'lucide-react';
 import AgencyLayout from '../components/agency/AgencyLayout';
 import { scoreLead, PRIORITY_STYLES } from '../lib/leadPriority.js';
 import AddLeadModal from '../components/agency/AddLeadModal';
@@ -103,6 +103,16 @@ export default function AgencyPipeline() {
     await base44.entities.SalesDeal.update(id, { archived: true });
     setDeals(prev => prev.filter(d => d.id !== id));
     setDeleteConfirm(null);
+  };
+
+  const STAGE_ORDER = ['New Lead', 'Contacted', 'Demo Sent', 'Proposal', 'Closed Won'];
+  const moveForward = async (e, deal) => {
+    e.stopPropagation();
+    const idx = STAGE_ORDER.indexOf(deal.stage);
+    if (idx === -1 || idx >= STAGE_ORDER.length - 1) return;
+    const nextStage = STAGE_ORDER[idx + 1];
+    setDeals(prev => prev.map(d => d.id === deal.id ? { ...d, stage: nextStage } : d));
+    await base44.entities.SalesDeal.update(deal.id, { stage: nextStage });
   };
 
   const openDetail = (deal) => {
@@ -258,6 +268,15 @@ export default function AgencyPipeline() {
                                         <Trash2 className="w-3 h-3" />
                                       </button>
                                     </div>
+                                    {/* Move Forward button */}
+                                    {!['Closed Won','Closed Lost'].includes(deal.stage) && (
+                                      <button
+                                        onClick={e => moveForward(e, deal)}
+                                        className="mt-1.5 w-full flex items-center justify-center gap-1 text-xs font-semibold text-blue-400 bg-blue-900/20 hover:bg-blue-900/40 py-1 rounded-lg transition-colors"
+                                      >
+                                        Move Forward <ArrowRight className="w-3 h-3" />
+                                      </button>
+                                    )}
 
                                     {/* Priority + Value */}
                                     <div className="flex items-center justify-between mt-1.5">
