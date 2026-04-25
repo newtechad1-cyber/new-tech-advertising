@@ -109,12 +109,9 @@ export default function BookCall() {
           <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-5">
             <CheckCircle className="w-8 h-8 text-green-400" />
           </div>
-          <h1 className="text-2xl font-extrabold text-white mb-3">Call Requested!</h1>
-          <p className="text-slate-400 mb-2">
-            We'll reach out within <strong className="text-white">2 business hours</strong> to confirm your strategy call.
-          </p>
-          <p className="text-slate-500 text-sm mb-8">
-            We'll call <span className="text-white">{form.phone}</span> during {form.best_time || 'your preferred time'}.
+          <h1 className="text-2xl font-extrabold text-white mb-3">Request Received!</h1>
+          <p className="text-slate-400 mb-8">
+            Thanks — your request was received. We'll review your information and follow up shortly.
           </p>
           <div className="space-y-3">
             <Link
