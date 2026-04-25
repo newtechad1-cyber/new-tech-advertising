@@ -30,6 +30,8 @@ Deno.serve(async (req) => {
     token_present: true,
     permissions: [],   // { permission, status }
     permissions_error: null,
+    app_mode: null,    // 'development' | 'live' | null
+    app_mode_error: null,
     accounts_http_status: null,
     accounts_raw_error: null,
     pages: [],         // { id, name, has_ig_business_account, ig_id, ig_username, ig_error }
@@ -37,7 +39,7 @@ Deno.serve(async (req) => {
     checked_at: new Date().toISOString(),
   };
 
-  // Step 0: /me/permissions
+  // Step 0a: /me/permissions
   try {
     const permRes = await fetch(`https://graph.facebook.com/v19.0/me/permissions?access_token=${token}`);
     const permData = await permRes.json();
@@ -48,6 +50,24 @@ Deno.serve(async (req) => {
     }
   } catch (e) {
     diag.permissions_error = `Network error: ${e.message}`;
+  }
+
+  // Step 0b: app mode — fetch /app?fields=is_live from graph using app token
+  try {
+    const appId = Deno.env.get('META_APP_ID');
+    const appSecret = Deno.env.get('META_APP_SECRET');
+    if (appId && appSecret) {
+      const appToken = `${appId}|${appSecret}`;
+      const appRes = await fetch(`https://graph.facebook.com/v19.0/${appId}?fields=is_live&access_token=${appToken}`);
+      const appData = await appRes.json();
+      if (appData.error) {
+        diag.app_mode_error = appData.error.message;
+      } else {
+        diag.app_mode = appData.is_live ? 'live' : 'development';
+      }
+    }
+  } catch (e) {
+    diag.app_mode_error = `Network error: ${e.message}`;
   }
 
   // Step 1: /me/accounts
