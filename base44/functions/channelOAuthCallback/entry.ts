@@ -111,33 +111,64 @@ async function getYouTubeChannels(accessToken) {
   }));
 }
 
-async function getMetaPages(accessToken) {
+// Returns { pages, empty } — pages is array of { id, name, access_token }
+async function fetchMetaPages(accessToken, logFn) {
   const res = await fetch(`https://graph.facebook.com/v19.0/me/accounts?fields=id,name,access_token,category&access_token=${accessToken}`);
-  const data = await res.json();
-  return (data.data || []).map(p => ({ id: p.id, name: p.name, access_token: p.access_token, category: p.category }));
+  const raw = await res.text();
+  console.log(`[fetchMetaPages] HTTP=${res.status} raw=${raw.slice(0, 500)}`);
+  let data;
+  try { data = JSON.parse(raw); } catch { data = {}; }
+
+  const pages = (data.data || []).map(p => ({
+    id: p.id,
+    name: p.name,
+    access_token: p.access_token,
+    category: p.category || '',
+  }));
+
+  await logFn(pages.length > 0 ? 'meta_pages_fetch_success' : 'meta_pages_fetch_empty', pages.length);
+  return pages;
 }
 
-async function getInstagramAccounts(accessToken) {
-  // Fetch Facebook pages, then find linked Instagram Business accounts
-  const pagesRes = await fetch(`https://graph.facebook.com/v19.0/me/accounts?fields=id,name,access_token,instagram_business_account&access_token=${accessToken}`);
-  const pagesData = await pagesRes.json();
-  const pages = pagesData.data || [];
+// Builds Facebook destinations from pages
+function buildFacebookDestinations(pages) {
+  return pages.map(p => ({ id: p.id, name: p.name, access_token: p.access_token }));
+}
+
+// Builds Instagram destinations from pages — one IG account per linked page
+async function buildInstagramDestinations(pages, userToken, logFn) {
   const igAccounts = [];
   for (const page of pages) {
-    if (page.instagram_business_account?.id) {
-      // Fetch IG account details
-      const igRes = await fetch(`https://graph.facebook.com/v19.0/${page.instagram_business_account.id}?fields=id,name,username,profile_picture_url&access_token=${page.access_token || accessToken}`);
-      const igData = await igRes.json();
-      if (igData.id) {
-        igAccounts.push({
-          id: igData.id,
-          name: igData.name || igData.username || `@${igData.username}` || page.name,
-          username: igData.username || '',
-          facebook_page_id: page.id,
-          facebook_page_name: page.name,
-          access_token: page.access_token,
-        });
-      }
+    // Check if this page has a linked IG business account
+    const checkRes = await fetch(
+      `https://graph.facebook.com/v19.0/${page.id}?fields=instagram_business_account&access_token=${page.access_token || userToken}`
+    );
+    const checkData = await checkRes.json();
+    const igId = checkData.instagram_business_account?.id;
+
+    if (!igId) {
+      console.log(`[buildInstagramDestinations] page ${page.id} (${page.name}) — no IG business account`);
+      await logFn('instagram_account_missing', page.name);
+      continue;
+    }
+
+    // Fetch IG account details
+    const igRes = await fetch(
+      `https://graph.facebook.com/v19.0/${igId}?fields=id,name,username&access_token=${page.access_token || userToken}`
+    );
+    const igData = await igRes.json();
+    console.log(`[buildInstagramDestinations] page ${page.id} → IG ${igId} name=${igData.name || igData.username}`);
+
+    if (igData.id) {
+      igAccounts.push({
+        id: igData.id,
+        name: igData.name || `@${igData.username}` || page.name,
+        username: igData.username || '',
+        page_id: page.id,
+        page_name: page.name,
+        access_token: page.access_token,
+      });
+      await logFn('instagram_account_found', igData.name || igData.username || igId);
     }
   }
   return igAccounts;
@@ -306,14 +337,39 @@ Deno.serve(async (req) => {
 
       accessToken = tokenData.access_token;
 
-      if (provider === 'instagram') {
-        destinations = await getInstagramAccounts(accessToken);
-        accountName = destinations[0]?.name || destinations[0]?.username || 'Instagram Account';
+      // Helper to log Meta-specific events
+      const metaLog = async (event, detail) => {
+        await log(base44, {
+          client_id: client_id || null,
+          provider,
+          event_type: 'oauth_callback',
+          status: event.includes('missing') || event.includes('empty') ? 'warning' : 'success',
+          message: `${event} — ${detail}`,
+        });
+      };
+
+      // Always fetch pages first — both FB and IG need them
+      const pages = await fetchMetaPages(accessToken, metaLog);
+      accountName = pages[0]?.name || 'Meta Account';
+
+      if (provider === 'facebook') {
+        if (pages.length === 0) {
+          // Save connection in error state but don't lose the token
+          destinations = [];
+        } else {
+          destinations = buildFacebookDestinations(pages);
+        }
+        console.log(`[channelOAuthCallback] Facebook pages found: ${destinations.length}`);
+
+      } else if (provider === 'instagram') {
+        if (pages.length === 0) {
+          destinations = [];
+          accountName = 'Instagram Account';
+        } else {
+          destinations = await buildInstagramDestinations(pages, accessToken, metaLog);
+          accountName = destinations[0]?.name || pages[0]?.name || 'Instagram Account';
+        }
         console.log(`[channelOAuthCallback] Instagram accounts found: ${destinations.length}`);
-      } else {
-        const pages = await getMetaPages(accessToken);
-        accountName = pages[0]?.name || 'Meta Account';
-        destinations = pages;
       }
 
     } else {
@@ -346,8 +402,14 @@ Deno.serve(async (req) => {
     let connStatus;
     let connError = null;
     if (destinations.length === 0) {
-      connStatus = 'error';
-      connError = `No destinations found for ${provider}. Check your account has pages, channels, or locations.`;
+      connStatus = 'connected_no_destination';
+      connError = provider === 'facebook'
+        ? 'No Facebook Pages found for this account. Make sure you manage at least one Facebook Page.'
+        : provider === 'instagram'
+        ? 'No Instagram Business account connected to any Facebook Page. Link an Instagram Business account to a Facebook Page first.'
+        : provider === 'google_business_profile'
+        ? 'No GBP locations found. Make sure this Google account has a verified Business Profile.'
+        : `No destinations found for ${provider}.`;
     } else if (destinations.length === 1) {
       connStatus = 'ready';
     } else {
