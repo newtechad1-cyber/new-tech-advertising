@@ -1,0 +1,79 @@
+{
+  "name": "SocialAccount",
+  "type": "object",
+  "properties": {
+    "platform": {
+      "type": "string",
+      "enum": [
+        "facebook",
+        "instagram",
+        "youtube",
+        "google_my_business",
+        "tiktok",
+        "linkedin"
+      ],
+      "description": "The social media platform this account belongs to"
+    },
+    "account_name": {
+      "type": "string",
+      "description": "A user-friendly name for this social account"
+    },
+    "platform_user_id": {
+      "type": "string",
+      "description": "The unique ID of the account on the social media platform"
+    },
+    "profile_url": {
+      "type": "string"
+    },
+    "profile_image_url": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "connecting",
+        "connected_no_destination",
+        "ready",
+        "expired",
+        "error",
+        "disconnected"
+      ],
+      "default": "disconnected",
+      "description": "connecting=OAuth in progress, connected_no_destination=token OK but no destination selected, ready=fully configured for publishing, expired=token expired, error=something failed"
+    },
+    "error_message": {
+      "type": "string",
+      "description": "Human-readable error if status=error"
+    },
+    "destinations_json": {
+      "type": "string",
+      "description": "JSON array of available publishing destinations (pages, channels, locations)"
+    },
+    "selected_destination_id": {
+      "type": "string",
+      "description": "The chosen destination ID for publishing"
+    },
+    "selected_destination_name": {
+      "type": "string",
+      "description": "Human-readable name of the selected destination"
+    },
+    "last_synced_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Platform-specific data: tokens, scopes, etc."
+    },
+    "client_id": {
+      "type": "string",
+      "description": "Optional: ID of the client this account belongs to"
+    }
+  },
+  "required": [
+    "platform",
+    "account_name",
+    "platform_user_id"
+  ]
+}

@@ -38,7 +38,7 @@ export default function SocialAccounts() {
     return existing || { platform, status: 'disconnected', account_name: platformMeta[platform].name };
   });
 
-  const connected = platformSlots.filter(a => a.status === 'connected').length;
+  const connected = platformSlots.filter(a => a.status === 'ready').length;
 
   const handleConnect = (account) => {
     setConnectingAccount(account);
