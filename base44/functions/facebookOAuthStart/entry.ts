@@ -55,21 +55,31 @@ Deno.serve(async (req) => {
   };
   const state = btoa(JSON.stringify(statePayload));
 
-  // Explicit scope list — do NOT use config_id as it overrides scopes in the Meta dashboard
-  const SCOPE = 'public_profile,email,pages_show_list,pages_read_engagement,pages_manage_posts,business_management,instagram_basic,instagram_content_publish';
+  // Use only permissions already approved in the Meta app
+  const SCOPE = 'public_profile,pages_show_list,pages_read_engagement,pages_manage_posts';
 
-  const params = new URLSearchParams({
+  const configId = Deno.env.get('META_FACEBOOK_LOGIN_CONFIG_ID');
+
+  const oauthParams = {
     client_id: appId,
     redirect_uri: FACEBOOK_REDIRECT_URI,
     state,
     response_type: 'code',
     scope: SCOPE,
     auth_type: 'rerequest',
-  });
+  };
 
+  // If a Facebook Login for Business config_id is set, include it
+  // (it manages permissions in the Meta app dashboard instead of the scope param)
+  if (configId) {
+    oauthParams.config_id = configId;
+  }
+
+  const params = new URLSearchParams(oauthParams);
   const auth_url = `https://www.facebook.com/${META_OAUTH_VERSION}/dialog/oauth?${params.toString()}`;
 
   console.log(`[facebookOAuthStart] final_redirect_uri=${FACEBOOK_REDIRECT_URI}`);
+  console.log(`[facebookOAuthStart] config_id=${configId || '(none — using scope param)'}`);
   console.log(`[facebookOAuthStart] scope=${SCOPE}`);
   console.log(`[facebookOAuthStart] full_auth_url=${auth_url}`);
 

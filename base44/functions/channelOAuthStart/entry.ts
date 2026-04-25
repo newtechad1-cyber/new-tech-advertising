@@ -76,30 +76,39 @@ Deno.serve(async (req) => {
     auth_url = `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
 
   } else if (provider === 'instagram') {
-    const scopes = 'public_profile,email,pages_show_list,pages_read_engagement,pages_manage_posts,business_management,instagram_basic,instagram_content_publish';
-    const params = new URLSearchParams({
+    // Use only permissions already approved in the Meta app
+    const scopes = 'public_profile,pages_show_list,pages_read_engagement,pages_manage_posts';
+    const configId = Deno.env.get('META_FACEBOOK_LOGIN_CONFIG_ID');
+    const igParams = {
       client_id: Deno.env.get('META_APP_ID'),
       redirect_uri: CALLBACK_URL,
       scope: scopes,
       response_type: 'code',
       auth_type: 'rerequest',
       state,
-    });
-    console.log(`[channelOAuthStart] instagram scope=${scopes}`);
-    console.log(`[channelOAuthStart] instagram full_auth_url=https://www.facebook.com/v19.0/dialog/oauth?${params}`);
+    };
+    if (configId) igParams.config_id = configId;
+    const params = new URLSearchParams(igParams);
     auth_url = `https://www.facebook.com/v19.0/dialog/oauth?${params}`;
+    console.log(`[channelOAuthStart] instagram config_id=${configId || '(none)'} scope=${scopes}`);
+    console.log(`[channelOAuthStart] instagram full_auth_url=${auth_url}`);
 
   } else if (provider === 'facebook') {
-    const scopes = 'pages_show_list,pages_read_engagement,pages_manage_posts,business_management,instagram_basic,instagram_content_publish';
-    const params = new URLSearchParams({
+    const scopes = 'public_profile,pages_show_list,pages_read_engagement,pages_manage_posts';
+    const configId = Deno.env.get('META_FACEBOOK_LOGIN_CONFIG_ID');
+    const fbParams = {
       client_id: Deno.env.get('META_APP_ID'),
       redirect_uri: `${APP_BASE}/api/functions/facebookOAuthCallback`,
       scope: scopes,
       response_type: 'code',
       auth_type: 'rerequest',
       state,
-    });
+    };
+    if (configId) fbParams.config_id = configId;
+    const params = new URLSearchParams(fbParams);
     auth_url = `https://www.facebook.com/v19.0/dialog/oauth?${params}`;
+    console.log(`[channelOAuthStart] facebook config_id=${configId || '(none)'} scope=${scopes}`);
+    console.log(`[channelOAuthStart] facebook full_auth_url=${auth_url}`);
 
   } else {
     return Response.json({ error: `Unsupported provider: ${provider}` }, { status: 400 });
