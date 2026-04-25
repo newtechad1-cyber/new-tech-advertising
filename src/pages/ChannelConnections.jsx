@@ -3,6 +3,7 @@ import { base44 } from '@/api/base44Client';
 import AgencyLayout from '../components/agency/AgencyLayout';
 import ConnectionCard from '../components/publishing/ConnectionCard';
 import { RefreshCw, Plus, Search } from 'lucide-react';
+import OAuthHealthPanel from '../components/publishing/OAuthHealthPanel';
 
 const PROVIDERS = ['google_business_profile', 'youtube', 'facebook', 'instagram'];
 
@@ -184,6 +185,9 @@ export default function ChannelConnections() {
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search clients..."
             className="w-full bg-slate-800 border border-slate-700 rounded-lg pl-9 pr-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
         </div>
+
+        {/* OAuth Health Check Panel */}
+        <OAuthHealthPanel connections={connections} clients={clients} />
 
         {/* Client connection grids */}
         {loading ? (
