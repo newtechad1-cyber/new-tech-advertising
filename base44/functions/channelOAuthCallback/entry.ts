@@ -56,23 +56,46 @@ async function getGBPLocations(accessToken) {
   const accountRes = await fetch('https://mybusinessaccountmanagement.googleapis.com/v1/accounts', {
     headers: { Authorization: `Bearer ${accessToken}` },
   });
-  const accountData = await accountRes.json();
+  const accountRaw = await accountRes.text();
+  console.log(`[getGBPLocations] accounts HTTP=${accountRes.status} raw=${accountRaw.slice(0, 500)}`);
+  let accountData;
+  try { accountData = JSON.parse(accountRaw); } catch { accountData = {}; }
+
   const accounts = accountData.accounts || [];
-  if (!accounts.length) return [];
+  if (!accounts.length) {
+    const errMsg = accountData.error?.message || null;
+    throw Object.assign(
+      new Error(errMsg || 'No Google Business Profile accounts found for this Google login.'),
+      { gbp_step: 'accounts_empty', raw: accountRaw.slice(0, 300) }
+    );
+  }
 
   const allLocations = [];
   for (const account of accounts) {
-    const locRes = await fetch(`https://mybusinessbusinessinformation.googleapis.com/v1/${account.name}/locations?readMask=name,title,storeCode`, {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
-    const locData = await locRes.json();
+    const locRes = await fetch(
+      `https://mybusinessbusinessinformation.googleapis.com/v1/${account.name}/locations?readMask=name,title,storefrontAddress,metadata`,
+      { headers: { Authorization: `Bearer ${accessToken}` } }
+    );
+    const locRaw = await locRes.text();
+    console.log(`[getGBPLocations] locations for ${account.name} HTTP=${locRes.status} raw=${locRaw.slice(0, 500)}`);
+    let locData;
+    try { locData = JSON.parse(locRaw); } catch { locData = {}; }
     const locs = locData.locations || [];
     locs.forEach(loc => allLocations.push({
       id: loc.name,
-      name: loc.title || loc.storeCode || loc.name,
-      account_name: account.accountName,
+      name: loc.title || loc.name,
+      account_name: account.accountName || account.name,
+      account_id: account.name,
     }));
   }
+
+  if (!allLocations.length) {
+    throw Object.assign(
+      new Error('Google account found, but no GBP locations are accessible.'),
+      { gbp_step: 'locations_empty' }
+    );
+  }
+
   return allLocations;
 }
 
@@ -186,6 +209,7 @@ Deno.serve(async (req) => {
     let accessToken = null;
     let refreshToken = null;
     let expiresAt = null;
+    let grantedScopes = null;
     let accountName = '';
     let accountId = '';
     let destinations = [];
@@ -212,6 +236,10 @@ Deno.serve(async (req) => {
       accessToken = tokenData.access_token;
       refreshToken = tokenData.refresh_token || null;
       expiresAt = tokenData.expires_in ? new Date(Date.now() + tokenData.expires_in * 1000).toISOString() : null;
+      // Save scopes — use what Google returned, fall back to what we requested
+      const GBP_REQUESTED_SCOPES = 'https://www.googleapis.com/auth/business.manage https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email';
+      const YOUTUBE_REQUESTED_SCOPES = 'https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email';
+      grantedScopes = tokenData.scope || (provider === 'youtube' ? YOUTUBE_REQUESTED_SCOPES : GBP_REQUESTED_SCOPES);
 
       const profile = await getGoogleProfile(accessToken);
       accountName = profile.name || profile.email || 'Google Account';
@@ -219,8 +247,42 @@ Deno.serve(async (req) => {
 
       // Fetch destinations
       if (provider === 'google_business_profile') {
-        destinations = await getGBPLocations(accessToken);
-        console.log(`[channelOAuthCallback] GBP locations found: ${destinations.length}`);
+        try {
+          destinations = await getGBPLocations(accessToken);
+          console.log(`[channelOAuthCallback] GBP locations found: ${destinations.length}`);
+        } catch (gbpErr) {
+          console.error(`[channelOAuthCallback] GBP fetch error: ${gbpErr.message} step=${gbpErr.gbp_step || 'unknown'}`);
+          // Save the connection with what we have so the token isn't lost, then re-throw
+          const partialPayload = {
+            client_id: client_id || 'unknown',
+            client_name: client_name || '',
+            provider,
+            external_account_id: accountId,
+            external_account_name: accountName,
+            access_token: accessToken,
+            refresh_token: refreshToken,
+            expires_at: expiresAt,
+            scopes: grantedScopes || null,
+            status: 'connected_no_destination',
+            error_message: gbpErr.message,
+            last_sync_at: new Date().toISOString(),
+            destinations_json: JSON.stringify([]),
+            dest_sync_at: new Date().toISOString(),
+            dest_sync_count: 0,
+            dest_sync_error: gbpErr.message,
+          };
+          const existing = client_id ? await base44.asServiceRole.entities.ChannelConnection.filter({ client_id, provider }) : [];
+          if (existing.length > 0) {
+            await base44.asServiceRole.entities.ChannelConnection.update(existing[0].id, partialPayload);
+          } else {
+            await base44.asServiceRole.entities.ChannelConnection.create(partialPayload);
+          }
+          await log(base44, { client_id: client_id || null, provider, event_type: 'oauth_callback', status: 'warning', message: `gbp_destinations_failed — ${gbpErr.message}`, error_details: gbpErr.raw || null });
+          return new Response(null, {
+            status: 302,
+            headers: { Location: `${RETURN_PAGE}?oauth_success=${encodeURIComponent(provider)}&account=${encodeURIComponent(accountName)}&gbp_error=${encodeURIComponent(gbpErr.message)}` },
+          });
+        }
       } else if (provider === 'youtube') {
         destinations = await getYouTubeChannels(accessToken);
         console.log(`[channelOAuthCallback] YouTube channels found: ${destinations.length}`);
@@ -302,6 +364,7 @@ Deno.serve(async (req) => {
       access_token: accessToken,
       refresh_token: refreshToken,
       expires_at: expiresAt,
+      scopes: grantedScopes || null,
       status: connStatus,
       error_message: connError,
       last_sync_at: syncAt,

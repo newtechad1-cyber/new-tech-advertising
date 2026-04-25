@@ -51,6 +51,7 @@ Deno.serve(async (req) => {
       scope: scopes,
       access_type: 'offline',
       prompt: 'consent',
+      include_granted_scopes: 'true',
       state,
     });
     auth_url = `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
