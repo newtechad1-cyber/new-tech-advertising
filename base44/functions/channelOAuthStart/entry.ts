@@ -76,7 +76,7 @@ Deno.serve(async (req) => {
     auth_url = `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
 
   } else if (provider === 'instagram') {
-    const scopes = 'pages_show_list,pages_read_engagement,pages_manage_posts,business_management,instagram_basic,instagram_content_publish';
+    const scopes = 'public_profile,email,pages_show_list,pages_read_engagement,pages_manage_posts,business_management,instagram_basic,instagram_content_publish';
     const params = new URLSearchParams({
       client_id: Deno.env.get('META_APP_ID'),
       redirect_uri: CALLBACK_URL,
@@ -85,6 +85,8 @@ Deno.serve(async (req) => {
       auth_type: 'rerequest',
       state,
     });
+    console.log(`[channelOAuthStart] instagram scope=${scopes}`);
+    console.log(`[channelOAuthStart] instagram full_auth_url=https://www.facebook.com/v19.0/dialog/oauth?${params}`);
     auth_url = `https://www.facebook.com/v19.0/dialog/oauth?${params}`;
 
   } else if (provider === 'facebook') {

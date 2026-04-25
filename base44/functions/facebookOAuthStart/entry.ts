@@ -36,17 +36,13 @@ Deno.serve(async (req) => {
   }
 
   const appId = Deno.env.get('META_APP_ID');
-  const configId = Deno.env.get('META_FACEBOOK_LOGIN_CONFIG_ID');
 
   if (!appId) {
     return Response.json({ error: 'missing_meta_app_id' }, { status: 500 });
   }
 
-  if (!configId) {
-    return Response.json(
-      { error: 'missing_meta_facebook_login_config_id' },
-      { status: 500 }
-    );
+  if (FACEBOOK_REDIRECT_URI.split('https://').length - 1 > 1) {
+    return Response.json({ error: 'redirect_uri_malformed' }, { status: 500 });
   }
 
   const nonce = crypto.randomUUID();
@@ -57,28 +53,24 @@ Deno.serve(async (req) => {
     nonce,
     initiated_at: new Date().toISOString(),
   };
-
   const state = btoa(JSON.stringify(statePayload));
 
-  if (FACEBOOK_REDIRECT_URI.split('https://').length - 1 > 1) {
-    return Response.json(
-      { error: 'redirect_uri_malformed' },
-      { status: 500 }
-    );
-  }
+  // Explicit scope list — do NOT use config_id as it overrides scopes in the Meta dashboard
+  const SCOPE = 'public_profile,email,pages_show_list,pages_read_engagement,pages_manage_posts,business_management,instagram_basic,instagram_content_publish';
 
   const params = new URLSearchParams({
     client_id: appId,
     redirect_uri: FACEBOOK_REDIRECT_URI,
     state,
     response_type: 'code',
-    config_id: configId,
+    scope: SCOPE,
+    auth_type: 'rerequest',
   });
 
   const auth_url = `https://www.facebook.com/${META_OAUTH_VERSION}/dialog/oauth?${params.toString()}`;
 
   console.log(`[facebookOAuthStart] final_redirect_uri=${FACEBOOK_REDIRECT_URI}`);
-  console.log(`[facebookOAuthStart] config_id=${configId}`);
+  console.log(`[facebookOAuthStart] scope=${SCOPE}`);
   console.log(`[facebookOAuthStart] full_auth_url=${auth_url}`);
 
   await log(base44, {
@@ -91,7 +83,7 @@ Deno.serve(async (req) => {
       client_id,
       client_name,
       final_redirect_uri: FACEBOOK_REDIRECT_URI,
-      config_id: configId,
+      scope: SCOPE,
       nonce,
     }),
   });

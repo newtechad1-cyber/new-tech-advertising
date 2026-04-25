@@ -363,6 +363,36 @@ Deno.serve(async (req) => {
         payload: JSON.stringify({ granted: grantedPerms, declined: declinedPerms }),
       });
 
+      // Hard block: pages_show_list is required to continue
+      if (!grantedPerms.includes('pages_show_list')) {
+        const errMsg = 'Meta did not grant pages_show_list. OAuth scope request is wrong or the app lacks permission access.';
+        await log(base44, {
+          client_id: client_id || null, provider,
+          event_type: 'oauth_callback', status: 'failed',
+          message: `pages_show_list not granted — blocking destination sync`,
+          error_details: `granted=${grantedScopes || '(none)'}`,
+        });
+        // Save token so it's not lost but mark as error
+        const syncAt = new Date().toISOString();
+        const errPayload = {
+          client_id: client_id || 'unknown', client_name: client_name || '', provider,
+          access_token: accessToken, scopes: grantedScopes,
+          status: 'error', error_message: errMsg,
+          last_sync_at: syncAt, destinations_json: JSON.stringify([]),
+          dest_sync_at: syncAt, dest_sync_count: 0, dest_sync_error: errMsg,
+        };
+        const existing = client_id ? await base44.asServiceRole.entities.ChannelConnection.filter({ client_id, provider }) : [];
+        if (existing.length > 0) {
+          await base44.asServiceRole.entities.ChannelConnection.update(existing[0].id, errPayload);
+        } else {
+          await base44.asServiceRole.entities.ChannelConnection.create(errPayload);
+        }
+        return new Response(null, {
+          status: 302,
+          headers: { Location: `${RETURN_PAGE}?oauth_error=${encodeURIComponent(errMsg)}` },
+        });
+      }
+
       // Helper to log Meta-specific events
       const metaLog = async (event, detail) => {
         await log(base44, {

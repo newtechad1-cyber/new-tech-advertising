@@ -193,32 +193,65 @@ Deno.serve(async (req) => {
       console.warn('[facebookOAuthCallback] long-lived upgrade failed, using short-lived token');
     }
 
-    // ── Step 3: Inspect token (debug_token) ───────────────────────────────────
-    let tokenInfo = {};
+    // ── Step 3a: /me/permissions — primary source of truth for granted scopes ─
     let grantedScopes = '';
     let missingScopes = [];
-    const REQUIRED_SCOPES = ['pages_show_list', 'pages_read_engagement', 'pages_manage_posts'];
+    let metaPermissionsJson = null;
+    const REQUIRED_SCOPES = [
+      'pages_show_list', 'pages_read_engagement', 'pages_manage_posts',
+      'business_management', 'instagram_basic', 'instagram_content_publish',
+    ];
 
     try {
-      const { data } = await inspectToken(userAccessToken);
-      tokenInfo = data;
-      grantedScopes = (tokenInfo.scopes || []).join(',');
-      missingScopes = REQUIRED_SCOPES.filter(s => !(tokenInfo.scopes || []).includes(s));
+      const permRes = await fetch(`https://graph.facebook.com/v19.0/me/permissions?access_token=${userAccessToken}`);
+      const permData = await permRes.json();
+      const permList = permData.data || [];
+      metaPermissionsJson = JSON.stringify(permList);
+      const granted = permList.filter(p => p.status === 'granted').map(p => p.permission);
+      const declined = permList.filter(p => p.status === 'declined').map(p => p.permission);
+      grantedScopes = granted.join(',');
+      missingScopes = REQUIRED_SCOPES.filter(s => !granted.includes(s));
+
+      console.log(`[facebookOAuthCallback] permissions granted=${granted.join(',')} declined=${declined.join(',') || 'none'}`);
 
       await log(base44, {
         client_id: client_id || null, provider: 'facebook',
         event_type: 'oauth_callback',
-        status: !tokenInfo.is_valid ? 'failed' : missingScopes.length > 0 ? 'warning' : 'info',
-        message: `Token inspected — is_valid=${tokenInfo.is_valid} app_id=${tokenInfo.app_id || 'unknown'} user_id=${tokenInfo.user_id || 'unknown'} expires_at=${tokenInfo.expires_at || 'unknown'} scopes=${grantedScopes || 'none'} missing=${missingScopes.join(',') || 'none'}`,
-        payload: JSON.stringify({
-          is_valid: tokenInfo.is_valid,
-          app_id: tokenInfo.app_id,
-          user_id: tokenInfo.user_id,
-          expires_at: tokenInfo.expires_at,
-          scopes: tokenInfo.scopes,
-          granular_scopes: tokenInfo.granular_scopes,
-          missing_required: missingScopes,
-        }),
+        status: declined.length > 0 ? 'warning' : 'info',
+        message: `meta_permissions — granted=[${granted.join(',')}] declined=[${declined.join(',') || 'none'}] missing_required=[${missingScopes.join(',') || 'none'}]`,
+        payload: JSON.stringify({ granted, declined, missing_required: missingScopes }),
+      });
+    } catch (e) {
+      console.warn('[facebookOAuthCallback] /me/permissions fetch failed (non-fatal):', e.message);
+    }
+
+    // ── Hard block: pages_show_list is required to fetch any pages ────────────
+    if (!grantedScopes.includes('pages_show_list')) {
+      await log(base44, {
+        client_id: client_id || null, provider: 'facebook',
+        event_type: 'oauth_callback', status: 'failed',
+        message: 'pages_show_list not granted — blocking destination sync',
+        error_details: `granted_scopes=${grantedScopes || '(none)'}`,
+      });
+      // Save connection in error state with the permissions snapshot
+      await upsertConnectionError(base44, client_id, client_name, userAccessToken, tokenExpiry, grantedScopes, metaPermissionsJson,
+        'Meta did not grant pages_show_list. OAuth scope request is wrong or the app lacks permission access.'
+      );
+      return errorRedirect('Meta did not grant pages_show_list. OAuth scope request is wrong or the app lacks permission access.');
+    }
+
+    // ── Step 3b: Inspect token (debug_token) — for additional token metadata ──
+    let tokenInfo = {};
+    try {
+      const { data } = await inspectToken(userAccessToken);
+      tokenInfo = data;
+
+      await log(base44, {
+        client_id: client_id || null, provider: 'facebook',
+        event_type: 'oauth_callback',
+        status: !tokenInfo.is_valid ? 'failed' : 'info',
+        message: `Token inspected — is_valid=${tokenInfo.is_valid} app_id=${tokenInfo.app_id || 'unknown'} user_id=${tokenInfo.user_id || 'unknown'} expires_at=${tokenInfo.expires_at || 'unknown'}`,
+        payload: JSON.stringify({ is_valid: tokenInfo.is_valid, app_id: tokenInfo.app_id, user_id: tokenInfo.user_id }),
       });
 
       if (!tokenInfo.is_valid) {
@@ -289,17 +322,7 @@ Deno.serve(async (req) => {
       });
 
       // If missing the key scope, flag it in the redirect but don't block — let UI show the message
-      if (!grantedScopes.includes('pages_show_list')) {
-        const successParams = new URLSearchParams({
-          oauth_success: 'facebook',
-          account: fbUserName,
-          pages_count: '0',
-          missing_scopes: 'pages_show_list',
-        });
-        // Still upsert the connection so it's recorded
-        await upsertConnection(base44, client_id, client_name, fbUserId, fbUserName, userAccessToken, tokenExpiry, grantedScopes, pages, destSyncError);
-        return redirect(`${RETURN_PAGE}?${successParams}`);
-      }
+      // pages_show_list block is handled above — if we reach here it was granted
     } else {
       await log(base44, {
         client_id: client_id || null, provider: 'facebook',
@@ -310,7 +333,7 @@ Deno.serve(async (req) => {
     }
 
     // ── Step 7: Upsert ChannelConnection ─────────────────────────────────────
-    const savedConn = await upsertConnection(base44, client_id, client_name, fbUserId, fbUserName, userAccessToken, tokenExpiry, grantedScopes, pages, destSyncError);
+    const savedConn = await upsertConnection(base44, client_id, client_name, fbUserId, fbUserName, userAccessToken, tokenExpiry, grantedScopes, metaPermissionsJson, pages, destSyncError);
 
     await log(base44, {
       client_id: client_id || null, provider: 'facebook',
@@ -350,10 +373,9 @@ Deno.serve(async (req) => {
   }
 });
 
-async function upsertConnection(base44, client_id, client_name, fbUserId, fbUserName, userAccessToken, tokenExpiry, grantedScopes, pages, destSyncError) {
+async function upsertConnection(base44, client_id, client_name, fbUserId, fbUserName, userAccessToken, tokenExpiry, grantedScopes, metaPermissionsJson, pages, destSyncError) {
   const syncAt = new Date().toISOString();
 
-  // Determine status based on pages found
   let fbStatus;
   let fbError = null;
   if (pages.length === 0) {
@@ -386,6 +408,7 @@ async function upsertConnection(base44, client_id, client_name, fbUserId, fbUser
     dest_sync_error: destSyncError,
     selected_destination_id: pages.length === 1 ? pages[0].id : null,
     selected_destination_name: pages.length === 1 ? pages[0].name : null,
+    notes: metaPermissionsJson ? `meta_permissions_json=${metaPermissionsJson}` : null,
   };
 
   let existingConns = [];
@@ -393,6 +416,35 @@ async function upsertConnection(base44, client_id, client_name, fbUserId, fbUser
     existingConns = await base44.asServiceRole.entities.ChannelConnection.filter({ client_id, provider: 'facebook' });
   }
 
+  if (existingConns.length > 0) {
+    return base44.asServiceRole.entities.ChannelConnection.update(existingConns[0].id, connPayload);
+  }
+  return base44.asServiceRole.entities.ChannelConnection.create(connPayload);
+}
+
+// Saves a minimal error-state connection when pages_show_list is missing
+async function upsertConnectionError(base44, client_id, client_name, userAccessToken, tokenExpiry, grantedScopes, metaPermissionsJson, errorMessage) {
+  const syncAt = new Date().toISOString();
+  const connPayload = {
+    client_id: client_id || 'unknown',
+    client_name: client_name || '',
+    provider: 'facebook',
+    access_token: userAccessToken,
+    expires_at: tokenExpiry,
+    scopes: grantedScopes,
+    status: 'error',
+    error_message: errorMessage,
+    last_sync_at: syncAt,
+    destinations_json: JSON.stringify([]),
+    dest_sync_at: syncAt,
+    dest_sync_count: 0,
+    dest_sync_error: errorMessage,
+    notes: metaPermissionsJson ? `meta_permissions_json=${metaPermissionsJson}` : null,
+  };
+  let existingConns = [];
+  if (client_id) {
+    existingConns = await base44.asServiceRole.entities.ChannelConnection.filter({ client_id, provider: 'facebook' });
+  }
   if (existingConns.length > 0) {
     return base44.asServiceRole.entities.ChannelConnection.update(existingConns[0].id, connPayload);
   }
