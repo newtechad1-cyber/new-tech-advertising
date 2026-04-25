@@ -353,10 +353,21 @@ Deno.serve(async (req) => {
 });
 
 async function persistDiag(base44, connection_id, conn, diag, errorMessage, extraFields = {}, preserveDests = false) {
+  // Determine which API step failed and its HTTP status / raw response
+  const failedStep = diag.step_outcome || 'unknown';
+  const httpStatus = diag.account_api_http_status ?? diag.token_refresh_http_status ?? null;
+  const rawResponse = diag.account_api_raw_body
+    ?? diag.token_refresh_raw
+    ?? (diag.location_api_errors?.length ? JSON.stringify(diag.location_api_errors) : null)
+    ?? null;
+
   const update = {
     dest_sync_at: diag.synced_at,
     dest_sync_count: preserveDests ? (conn.dest_sync_count ?? 0) : (diag.destinations_saved ?? 0),
     dest_sync_error: errorMessage,
+    dest_sync_step: failedStep,
+    dest_sync_http_status: httpStatus !== null ? String(httpStatus) : null,
+    dest_sync_raw_response: rawResponse ? String(rawResponse).slice(0, 1000) : null,
     error_message: errorMessage,
     gbp_diag_json: JSON.stringify(diag),
     ...extraFields,
@@ -365,4 +376,27 @@ async function persistDiag(base44, connection_id, conn, diag, errorMessage, extr
     update.destinations_json = JSON.stringify([]);
   }
   await base44.asServiceRole.entities.ChannelConnection.update(connection_id, update);
+
+  // Also write a PostingLog entry so the health check panel picks it up immediately
+  try {
+    await base44.asServiceRole.entities.PostingLog.create({
+      client_id: conn.client_id || null,
+      provider: 'google_business_profile',
+      event_type: 'oauth_callback',
+      event_time: diag.synced_at,
+      status: 'failed',
+      message: `${failedStep} — ${errorMessage}`,
+      error_details: rawResponse ? String(rawResponse).slice(0, 500) : null,
+      payload: JSON.stringify({
+        step: failedStep,
+        http_status: httpStatus,
+        final_diagnosis: diag.final_diagnosis,
+        token_present: diag.token_present,
+        has_refresh_token: diag.has_refresh_token,
+        scopes: conn.scopes || null,
+      }),
+    });
+  } catch (_) {
+    // Non-fatal — log write failure should not break the main response
+  }
 }

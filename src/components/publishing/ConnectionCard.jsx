@@ -69,8 +69,13 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
   // Whether we're showing cached (stale) destinations during an error
   const isCached = storedDestinations.length > 0 && !!destSyncError;
 
-  // Show GBP diag panel when: error/connected state, synced at least once, no locations found
-  const showDiagPanel = isGBP && conn && (status === 'connected' || status === 'error' || status === 'connected_no_destination') && destSyncAt && storedDestinations.length === 0;
+  // Flat diagnostic fields written directly to the connection by persistDiag
+  const destSyncStep = conn?.dest_sync_step || null;
+  const destSyncHttpStatus = conn?.dest_sync_http_status || null;
+  const destSyncRawResponse = conn?.dest_sync_raw_response || null;
+
+  // Show GBP diag panel whenever there's a sync error OR zero destinations after a sync attempt
+  const showDiagPanel = isGBP && conn && destSyncAt && (!!destSyncError || storedDestinations.length === 0);
 
   // Refresh GBP locations
   const handleRefreshLocations = async (force = false) => {
@@ -271,11 +276,14 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
         </div>
       )}
 
-      {/* GBP Diagnostic panel (only when no stored destinations) */}
+      {/* GBP Diagnostic panel */}
       {showDiagPanel && (
         <GBPDiagPanel
           diag={diag}
           syncError={destSyncError}
+          syncStep={destSyncStep}
+          syncHttpStatus={destSyncHttpStatus}
+          syncRawResponse={destSyncRawResponse}
           syncAt={destSyncAt}
           onReconnect={() => onConnect(provider)}
         />
@@ -487,6 +495,9 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
           <DebugRow label="cooldown_until" value={cooldownUntil ? cooldownUntil.toLocaleString() : '—'} highlight={inCooldown} />
           <DebugRow label="in_cooldown" value={String(inCooldown)} highlight={inCooldown} />
           <DebugRow label="dest_sync_error" value={destSyncError || '—'} />
+          <DebugRow label="dest_sync_step" value={destSyncStep || '—'} highlight={!!destSyncStep} />
+          <DebugRow label="dest_sync_http" value={destSyncHttpStatus || '—'} highlight={!!destSyncHttpStatus && destSyncHttpStatus !== '200'} />
+          {destSyncRawResponse && <DebugRow label="dest_sync_raw" value={destSyncRawResponse.slice(0, 150)} />}
           <DebugRow label="is_default" value={String(!!conn.is_default)} />
           <DebugRow label="token_expires" value={conn.expires_at || '—'} />
           {storedDestinations.slice(0, 3).map((d, i) => (
@@ -569,33 +580,56 @@ function StepRow({ label, value, valueClass = 'text-slate-300' }) {
   );
 }
 
-function GBPDiagPanel({ diag, syncError, syncAt, onReconnect }) {
+function GBPDiagPanel({ diag, syncError, syncStep, syncHttpStatus, syncRawResponse, syncAt, onReconnect }) {
   const [open, setOpen] = useState(false);
   const diagnosis = diag?.final_diagnosis;
 
-  // Use human_message from diag if available (new format), fall back to DIAGNOSIS_CONFIG, fall back to syncError
-  const cfg = DIAGNOSIS_CONFIG[diagnosis] || { color: 'text-slate-400', title: 'Destination sync failed', detail: '' };
-  const displayDetail = diag?.human_message || cfg.detail || syncError || 'Unknown failure — enable step trace for details';
+  const cfg = DIAGNOSIS_CONFIG[diagnosis] || { color: 'text-red-400', title: 'Destination sync failed', detail: '' };
+
+  // Priority: diag.human_message > cfg.detail > flat syncError field — never "Unknown failure"
+  const displayDetail = diag?.human_message || cfg.detail || syncError || null;
+
+  // Step: prefer full diag, fall back to flat field written by persistDiag
+  const stepOutcome = diag?.step_outcome || diag?.step || syncStep || null;
+
+  // HTTP status: prefer diag, fall back to flat field
+  const httpStatus = diag?.account_api_http_status ?? diag?.token_refresh_http_status ?? (syncHttpStatus ? Number(syncHttpStatus) : null);
+
+  // Raw response: prefer diag account body, fall back to flat field
+  const rawBody = diag?.account_api_raw_body || syncRawResponse || null;
 
   const isQuota = cfg.isQuota;
   const needsReconnect = cfg.needsReconnect;
-
-  // Step outcome (new diag format) or legacy step field
-  const stepOutcome = diag?.step_outcome || diag?.step || '—';
+  const hasStepTrace = !!(diag || stepOutcome || httpStatus || rawBody);
 
   return (
     <div className={`border rounded-lg p-3 space-y-2 ${isQuota ? 'bg-amber-950/20 border-amber-800/60' : needsReconnect ? 'bg-red-950/20 border-red-900/60' : 'bg-slate-800/60 border-slate-700'}`}>
 
-      {/* Classified error title */}
+      {/* Classified error title + key diagnostic fields always visible */}
       <div className={`flex items-start gap-2 ${cfg.color}`}>
         <AlertTriangle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 space-y-1">
           <p className="text-xs font-semibold">{cfg.title}</p>
-          <p className="text-xs mt-0.5 opacity-80">{displayDetail}</p>
-          {/* Step where it failed */}
-          <p className="text-xs mt-1 text-slate-600">Step: <span className="text-slate-400 font-mono">{stepOutcome}</span>
-            {diag?.account_api_http_status && <span className="ml-2">HTTP <span className={diag.account_api_http_status === 200 ? 'text-emerald-400' : 'text-red-400'}>{diag.account_api_http_status}</span></span>}
-          </p>
+          {displayDetail && <p className="text-xs opacity-80">{displayDetail}</p>}
+
+          {/* Step + HTTP always shown when present — no more hidden behind toggle */}
+          {stepOutcome && (
+            <p className="text-xs text-slate-500 font-mono">
+              Step: <span className="text-slate-300">{stepOutcome}</span>
+              {httpStatus && (
+                <span className="ml-3">
+                  HTTP: <span className={httpStatus < 400 ? 'text-emerald-400' : 'text-red-400'}>{httpStatus}</span>
+                </span>
+              )}
+            </p>
+          )}
+
+          {/* Raw response excerpt always shown when present */}
+          {rawBody && (
+            <p className="text-xs text-red-300 font-mono break-all bg-red-950/20 rounded px-2 py-1 mt-1">
+              {rawBody.slice(0, 300)}
+            </p>
+          )}
         </div>
       </div>
 
@@ -632,18 +666,18 @@ function GBPDiagPanel({ diag, syncError, syncAt, onReconnect }) {
         <p className="text-xs text-slate-600">Last attempted: {new Date(syncAt).toLocaleString()}</p>
       )}
 
-      {/* Step trace toggle */}
+      {/* Full step trace toggle (only when diag JSON is available for deeper detail) */}
       {diag && (
         <button onClick={() => setOpen(p => !p)}
           className="text-xs text-slate-600 hover:text-slate-400 flex items-center gap-1">
           <ChevronDown className={`w-3 h-3 transition-transform ${open ? 'rotate-180' : ''}`} />
-          {open ? 'Hide step trace' : 'Show step trace'}
+          {open ? 'Hide full step trace' : 'Show full step trace'}
         </button>
       )}
 
       {open && diag && (
         <div className="bg-slate-950 border border-slate-700 rounded-lg p-3 space-y-1.5 text-xs font-mono">
-          <StepRow label="step_outcome" value={stepOutcome} valueClass="text-amber-300" />
+          <StepRow label="step_outcome" value={stepOutcome || '—'} valueClass="text-amber-300" />
           <StepRow label="final_diagnosis" value={diag.final_diagnosis || '—'} valueClass="text-amber-300" />
           <StepRow label="token_present" value={String(diag.token_present)} valueClass={diag.token_present ? 'text-emerald-400' : 'text-red-400'} />
           <StepRow label="has_refresh_token" value={String(diag.has_refresh_token ?? '—')} />
@@ -652,7 +686,7 @@ function GBPDiagPanel({ diag, syncError, syncAt, onReconnect }) {
           {diag.token_refresh_error && <StepRow label="token_refresh_error" value={diag.token_refresh_error} valueClass="text-red-400" />}
           {diag.token_refresh_raw && <StepRow label="token_refresh_raw" value={diag.token_refresh_raw} valueClass="text-red-300" />}
           <StepRow label="acct_api_attempted" value={String(diag.account_api_attempted)} />
-          <StepRow label="acct_api_http" value={String(diag.account_api_http_status ?? '—')} valueClass={diag.account_api_http_status === 200 ? 'text-emerald-400' : 'text-red-400'} />
+          <StepRow label="acct_api_http" value={String(diag.account_api_http_status ?? '—')} valueClass={diag.account_api_http_status >= 400 ? 'text-red-400' : 'text-emerald-400'} />
           {diag.account_api_error && <StepRow label="acct_api_error" value={diag.account_api_error} valueClass="text-red-400" />}
           {diag.account_api_error_class && <StepRow label="acct_error_class" value={diag.account_api_error_class} valueClass="text-amber-300" />}
           {diag.account_api_raw_body && <StepRow label="acct_raw_body" value={diag.account_api_raw_body} valueClass="text-red-300" />}

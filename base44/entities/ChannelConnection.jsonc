@@ -1,0 +1,137 @@
+{
+  "name": "ChannelConnection",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "provider": {
+      "type": "string",
+      "enum": [
+        "google_business_profile",
+        "facebook",
+        "instagram",
+        "youtube"
+      ],
+      "description": "OAuth provider"
+    },
+    "external_account_id": {
+      "type": "string"
+    },
+    "external_account_name": {
+      "type": "string"
+    },
+    "external_parent_id": {
+      "type": "string",
+      "description": "Location ID, Page ID, Channel ID"
+    },
+    "external_parent_name": {
+      "type": "string"
+    },
+    "access_token": {
+      "type": "string",
+      "description": "Stored access token"
+    },
+    "refresh_token": {
+      "type": "string"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scopes": {
+      "type": "string",
+      "description": "Comma-separated granted scopes"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "connected",
+        "expired",
+        "error",
+        "disconnected",
+        "connected_no_destination",
+        "ready"
+      ],
+      "default": "disconnected"
+    },
+    "last_sync_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_successful_post_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_failed_post_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "is_default": {
+      "type": "boolean",
+      "default": false
+    },
+    "destinations_json": {
+      "type": "string",
+      "description": "JSON array of available destinations"
+    },
+    "selected_destination_id": {
+      "type": "string"
+    },
+    "selected_destination_name": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "dest_sync_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "dest_sync_count": {
+      "type": "integer"
+    },
+    "dest_sync_error": {
+      "type": "string",
+      "description": "Human-readable error from last sync attempt"
+    },
+    "dest_sync_step": {
+      "type": "string",
+      "description": "The step label where the sync failed (e.g. gbp_accounts_request_failed)"
+    },
+    "dest_sync_http_status": {
+      "type": "string",
+      "description": "HTTP status code from the failed API call"
+    },
+    "dest_sync_raw_response": {
+      "type": "string",
+      "description": "Truncated raw API response body from the failed call"
+    },
+    "dest_sync_last_success": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "dest_sync_cooldown_until": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "dest_sync_last_quota_error": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "gbp_diag_json": {
+      "type": "string",
+      "description": "Full GBP diagnostic JSON blob from fetchGBPLocations"
+    }
+  },
+  "required": [
+    "client_id",
+    "provider"
+  ]
+}
