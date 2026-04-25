@@ -94,6 +94,32 @@ async function getMetaPages(accessToken) {
   return (data.data || []).map(p => ({ id: p.id, name: p.name, access_token: p.access_token, category: p.category }));
 }
 
+async function getInstagramAccounts(accessToken) {
+  // Fetch Facebook pages, then find linked Instagram Business accounts
+  const pagesRes = await fetch(`https://graph.facebook.com/v19.0/me/accounts?fields=id,name,access_token,instagram_business_account&access_token=${accessToken}`);
+  const pagesData = await pagesRes.json();
+  const pages = pagesData.data || [];
+  const igAccounts = [];
+  for (const page of pages) {
+    if (page.instagram_business_account?.id) {
+      // Fetch IG account details
+      const igRes = await fetch(`https://graph.facebook.com/v19.0/${page.instagram_business_account.id}?fields=id,name,username,profile_picture_url&access_token=${page.access_token || accessToken}`);
+      const igData = await igRes.json();
+      if (igData.id) {
+        igAccounts.push({
+          id: igData.id,
+          name: igData.name || igData.username || `@${igData.username}` || page.name,
+          username: igData.username || '',
+          facebook_page_id: page.id,
+          facebook_page_name: page.name,
+          access_token: page.access_token,
+        });
+      }
+    }
+  }
+  return igAccounts;
+}
+
 Deno.serve(async (req) => {
   const url = new URL(req.url);
 
@@ -215,9 +241,16 @@ Deno.serve(async (req) => {
       });
 
       accessToken = tokenData.access_token;
-      const pages = await getMetaPages(accessToken);
-      accountName = pages[0]?.name || 'Meta Account';
-      destinations = pages;
+
+      if (provider === 'instagram') {
+        destinations = await getInstagramAccounts(accessToken);
+        accountName = destinations[0]?.name || destinations[0]?.username || 'Instagram Account';
+        console.log(`[channelOAuthCallback] Instagram accounts found: ${destinations.length}`);
+      } else {
+        const pages = await getMetaPages(accessToken);
+        accountName = pages[0]?.name || 'Meta Account';
+        destinations = pages;
+      }
 
     } else {
       throw new Error(`Unsupported provider: ${provider}`);

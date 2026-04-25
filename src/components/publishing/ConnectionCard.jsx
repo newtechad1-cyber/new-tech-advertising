@@ -17,7 +17,7 @@ const STATUS_BADGE = {
   disconnected: 'bg-slate-800 text-slate-500 border-slate-700',
 };
 
-const REQUIRES_DESTINATION = ['google_business_profile', 'youtube', 'facebook'];
+const REQUIRES_DESTINATION = ['google_business_profile', 'youtube', 'facebook', 'instagram'];
 
 export default function ConnectionCard({ provider, connection, clientId, clientName, onConnect, onRefresh }) {
   const [showDests, setShowDests] = useState(false);
@@ -28,12 +28,16 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
   const [showDebug, setShowDebug] = useState(false);
   const [selectingDest, setSelectingDest] = useState(null);
   const [showFBPageModal, setShowFBPageModal] = useState(false);
+  const [syncingDests, setSyncingDests] = useState(false);
+  const [syncDestResult, setSyncDestResult] = useState(null);
 
   const cfg = PROVIDER_CONFIG[provider];
   const conn = connection;
   const status = conn?.status || 'disconnected';
   const isGBP = provider === 'google_business_profile';
   const isFacebook = provider === 'facebook';
+  const isYouTube = provider === 'youtube';
+  const isInstagram = provider === 'instagram';
   const needsDest = REQUIRES_DESTINATION.includes(provider);
 
   // Parse stored destinations (written by fetchGBPLocations or OAuth callback)
@@ -99,6 +103,26 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
     onRefresh();
     setSelectingDest(null);
     setShowDests(false);
+  };
+
+  const handleSyncDestinations = async () => {
+    if (!conn) return;
+    setSyncingDests(true);
+    setSyncDestResult(null);
+    try {
+      const res = await base44.functions.invoke('syncChannelDestinations', { connection_id: conn.id });
+      const d = res?.data;
+      if (d?.success) {
+        setSyncDestResult({ ok: true, msg: `Found ${d.count || 0} destination${d.count !== 1 ? 's' : ''}${d.auto_selected ? ` — auto-selected: ${d.auto_selected}` : ''}` });
+        if (d.count > 0) setShowDests(true);
+      } else {
+        setSyncDestResult({ ok: false, msg: d?.error || 'Sync failed' });
+      }
+      onRefresh();
+    } catch (err) {
+      setSyncDestResult({ ok: false, msg: err.message });
+    }
+    setSyncingDests(false);
   };
 
   const handleConnectFacebook = async () => {
@@ -187,12 +211,20 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
             <p className="text-xs font-semibold text-amber-400">Destination Required</p>
             <p className="text-xs text-amber-600">
               {isFacebook
-                ? storedDestinations.length > 0
-                  ? `${storedDestinations.length} Page${storedDestinations.length !== 1 ? 's' : ''} available — select a Page to enable publishing`
-                  : 'No Facebook Pages found. Reconnect to retry.'
-                : storedDestinations.length > 0
-                  ? `${storedDestinations.length} location${storedDestinations.length !== 1 ? 's' : ''} available — select one below`
-                  : 'No locations loaded yet. Use Refresh Locations below.'}
+                      ? storedDestinations.length > 0
+                        ? `${storedDestinations.length} Page${storedDestinations.length !== 1 ? 's' : ''} available — select a Page to enable publishing`
+                        : 'No Facebook Pages found. Reconnect to retry.'
+                      : isInstagram
+                      ? storedDestinations.length > 0
+                        ? `${storedDestinations.length} Instagram account${storedDestinations.length !== 1 ? 's' : ''} available — select one below`
+                        : 'No Instagram Business accounts found. Use Sync Destinations or reconnect.'
+                      : isYouTube
+                      ? storedDestinations.length > 0
+                        ? `${storedDestinations.length} channel${storedDestinations.length !== 1 ? 's' : ''} available — select one below`
+                        : 'No YouTube channels found. Use Sync Destinations or reconnect.'
+                      : storedDestinations.length > 0
+                        ? `${storedDestinations.length} location${storedDestinations.length !== 1 ? 's' : ''} available — select one below`
+                        : 'No locations loaded yet. Use Refresh Locations below.'}
             </p>
             {isFacebook && storedDestinations.length > 0 && (
               <button
@@ -235,6 +267,15 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
           syncAt={destSyncAt}
           onReconnect={() => onConnect(provider)}
         />
+      )}
+
+      {/* Sync destinations result feedback */}
+      {syncDestResult && (
+        <div className={`text-xs px-3 py-2 rounded-lg border ${
+          syncDestResult.ok ? 'bg-emerald-900/30 border-emerald-700 text-emerald-300' : 'bg-red-900/20 border-red-800 text-red-300'
+        }`}>
+          {syncDestResult.msg}
+        </div>
       )}
 
       {/* Refresh result feedback */}
@@ -342,6 +383,17 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
                 className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 bg-blue-700 hover:bg-blue-600 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-lg transition-colors">
                 <RefreshCw className={`w-3.5 h-3.5 ${refreshingLocations ? 'animate-spin' : ''}`} />
                 {refreshingLocations ? 'Syncing…' : inCooldown ? `Cooldown (~${cooldownMinsLeft}m)` : 'Refresh Locations'}
+              </button>
+            )}
+
+            {/* YouTube / Instagram: Sync Destinations */}
+            {(isYouTube || isInstagram) && (
+              <button
+                onClick={handleSyncDestinations}
+                disabled={syncingDests}
+                className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 bg-blue-700 hover:bg-blue-600 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-lg transition-colors">
+                <RefreshCw className={`w-3.5 h-3.5 ${syncingDests ? 'animate-spin' : ''}`} />
+                {syncingDests ? 'Syncing…' : 'Sync Destinations'}
               </button>
             )}
 

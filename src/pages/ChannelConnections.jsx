@@ -126,7 +126,16 @@ export default function ChannelConnections() {
     !search || c.business_name.toLowerCase().includes(search.toLowerCase())
   );
 
-  const totalConnected = connections.filter(c => c.status === 'connected').length;
+  const NEEDS_DEST_PROVIDERS = ['google_business_profile', 'youtube', 'facebook'];
+  const totalReady = connections.filter(c =>
+    c.status === 'connected' &&
+    (!NEEDS_DEST_PROVIDERS.includes(c.provider) || c.selected_destination_id)
+  ).length;
+  const totalNeedsDest = connections.filter(c =>
+    c.status === 'connected' &&
+    NEEDS_DEST_PROVIDERS.includes(c.provider) &&
+    !c.selected_destination_id
+  ).length;
   const totalExpired = connections.filter(c => c.status === 'expired').length;
   const totalErrors = connections.filter(c => c.status === 'error').length;
 
@@ -147,13 +156,17 @@ export default function ChannelConnections() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-4 gap-3">
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-center">
-            <p className="text-2xl font-black text-emerald-400">{totalConnected}</p>
-            <p className="text-slate-500 text-xs mt-0.5">Connected</p>
+            <p className="text-2xl font-black text-emerald-400">{totalReady}</p>
+            <p className="text-slate-500 text-xs mt-0.5">Publish-Ready</p>
           </div>
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-center">
-            <p className="text-2xl font-black text-amber-400">{totalExpired}</p>
+            <p className="text-2xl font-black text-amber-400">{totalNeedsDest}</p>
+            <p className="text-slate-500 text-xs mt-0.5">Need Destination</p>
+          </div>
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-center">
+            <p className="text-2xl font-black text-amber-300">{totalExpired}</p>
             <p className="text-slate-500 text-xs mt-0.5">Expired</p>
           </div>
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-center">
