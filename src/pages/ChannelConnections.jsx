@@ -42,42 +42,14 @@ export default function ChannelConnections() {
     }
 
     if (oauthSuccess) {
-      showNotice('success', `Connected ${oauthSuccess}${account ? ` — ${account}` : ''}! Loading destinations…`);
       window.history.replaceState({}, '', window.location.pathname);
-      // Auto-refresh GBP locations after connect (slight delay to ensure connection is saved)
       if (oauthSuccess === 'google_business_profile') {
-        setTimeout(async () => {
-          const [cn] = await Promise.all([base44.entities.ChannelConnection.list('-updated_date', 300)]);
-          setConnections(cn);
-          // Find the freshly connected GBP connection and trigger location sync (once only)
-          const freshConn = cn.find(c => c.provider === 'google_business_profile' && (c.status === 'connected' || c.status === 'connected_no_destination' || c.status === 'error'));
-          if (freshConn) {
-            // Skip auto-sync if an active cooldown is already on this connection
-            const cooldownUntil = freshConn.dest_sync_cooldown_until ? new Date(freshConn.dest_sync_cooldown_until) : null;
-            if (cooldownUntil && cooldownUntil > new Date()) {
-              const mins = Math.ceil((cooldownUntil - Date.now()) / 60000);
-              showNotice('info', `GBP connected. Rate-limit cooldown active (~${mins}m). Use Refresh Locations after cooldown expires.`);
-              loadAll();
-            } else {
-              try {
-                const res = await base44.functions.invoke('fetchGBPLocations', { connection_id: freshConn.id });
-                const d = res?.data;
-                if (d?.success) {
-                  showNotice('success', `GBP connected — ${d.locations?.length || 0} location${d.locations?.length !== 1 ? 's' : ''} loaded${d.auto_selected ? `. Auto-selected: ${d.auto_selected}` : '. Select a destination below.'}`);
-                } else if (d?.cooldown) {
-                  showNotice('info', `GBP connected. ${d.error} Use Refresh Locations to retry.`);
-                } else {
-                  showNotice('error', `Connected but location sync failed: ${d?.error || 'unknown error'}. Use Refresh Locations to retry.`);
-                }
-                loadAll();
-              } catch (err) {
-                showNotice('error', `Connected but location sync failed: ${err.message}`);
-                loadAll();
-              }
-            }
-          }
-        }, 1500);
+        // Do NOT auto-sync GBP — user must click "Refresh Locations" to avoid spamming Google API
+        showNotice('success', `Google Business Profile connected as ${account || 'unknown'}. Click "Refresh Locations" on the card below to load your GBP locations.`);
+      } else {
+        showNotice('success', `Connected ${oauthSuccess}${account ? ` — ${account}` : ''}!`);
       }
+      loadAll();
     } else if (oauthError) {
       showNotice('error', `OAuth failed: ${oauthError}`);
       window.history.replaceState({}, '', window.location.pathname);

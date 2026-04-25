@@ -61,10 +61,12 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
   const lastSuccess = conn?.dest_sync_last_success;
   const lastQuotaError = conn?.dest_sync_last_quota_error;
 
-  // Cooldown state
-  const cooldownUntil = conn?.dest_sync_cooldown_until ? new Date(conn.dest_sync_cooldown_until) : null;
+  // Lock / cooldown state — prefer dest_sync_locked_until (new), fall back to dest_sync_cooldown_until (legacy)
+  const lockedUntilRaw = conn?.dest_sync_locked_until || conn?.dest_sync_cooldown_until;
+  const cooldownUntil = lockedUntilRaw ? new Date(lockedUntilRaw) : null;
   const inCooldown = cooldownUntil && cooldownUntil > new Date();
   const cooldownMinsLeft = inCooldown ? Math.ceil((cooldownUntil - Date.now()) / 60000) : 0;
+  const isQuotaLocked = inCooldown && !!conn?.last_quota_error_at;
 
   // Whether we're showing cached (stale) destinations during an error
   const isCached = storedDestinations.length > 0 && !!destSyncError;
@@ -79,7 +81,7 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
 
   // Refresh GBP locations
   const handleRefreshLocations = async (force = false) => {
-    if (!conn || (inCooldown && !force)) return;
+    if (!conn) return;
     setRefreshingLocations(true);
     setRefreshResult(null);
     try {
@@ -88,7 +90,9 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
       if (d?.success) {
         setRefreshResult({ ok: true, msg: `Found ${d.locations?.length || 0} location${d.locations?.length !== 1 ? 's' : ''}${d.auto_selected ? ` — auto-selected: ${d.auto_selected}` : ''}` });
         if (d.locations?.length > 0) setShowDests(true);
-      } else if (d?.cooldown) {
+      } else if (d?.locked || d?.cooldown) {
+        setRefreshResult({ ok: false, cooldown: true, msg: d.error });
+      } else if (d?.too_soon) {
         setRefreshResult({ ok: false, cooldown: true, msg: d.error });
       } else {
         setRefreshResult({ ok: false, msg: d?.error || 'Location sync failed' });
@@ -265,13 +269,28 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
         </div>
       )}
 
-      {/* Cooldown banner */}
+      {/* Rate-limit / cooldown banner */}
       {inCooldown && (
         <div className="flex items-start gap-2 bg-amber-900/20 border border-amber-800 rounded-lg px-3 py-2">
           <Clock className="w-3.5 h-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
-          <div>
-            <p className="text-xs font-semibold text-amber-400">Google temporarily rate-limited this project</p>
-            <p className="text-xs text-amber-600">Try again in ~{cooldownMinsLeft} minute{cooldownMinsLeft !== 1 ? 's' : ''}.</p>
+          <div className="flex-1 min-w-0 space-y-1.5">
+            <p className="text-xs font-semibold text-amber-400">
+              {isQuotaLocked ? 'Google rate limit hit — sync paused' : 'Google temporarily rate-limited this project'}
+            </p>
+            <p className="text-xs text-amber-600">
+              {isQuotaLocked
+                ? `Sync paused until ${cooldownUntil.toLocaleTimeString()} (~${cooldownMinsLeft} min remaining).`
+                : `Try again in ~${cooldownMinsLeft} minute${cooldownMinsLeft !== 1 ? 's' : ''}.`}
+            </p>
+            {conn?.quota_error_message && (
+              <p className="text-xs text-amber-700 font-mono">{conn.quota_error_message.slice(0, 120)}</p>
+            )}
+            <button
+              onClick={() => handleRefreshLocations(true)}
+              disabled={refreshingLocations}
+              className="text-xs font-bold text-amber-300 hover:text-white underline underline-offset-2 disabled:opacity-50">
+              Force Sync Anyway
+            </button>
           </div>
         </div>
       )}
@@ -398,11 +417,11 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
             {isGBP && (
               <button
                 onClick={() => handleRefreshLocations(false)}
-                disabled={refreshingLocations || inCooldown}
-                title={inCooldown ? `Cooling down — retry in ~${cooldownMinsLeft} min` : 'Refresh GBP locations'}
+                disabled={refreshingLocations}
+                title={inCooldown ? `Rate-limited — sync paused ~${cooldownMinsLeft}m (use Force Sync to override)` : 'Refresh GBP locations'}
                 className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 bg-blue-700 hover:bg-blue-600 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-lg transition-colors">
                 <RefreshCw className={`w-3.5 h-3.5 ${refreshingLocations ? 'animate-spin' : ''}`} />
-                {refreshingLocations ? 'Syncing…' : inCooldown ? `Cooldown (~${cooldownMinsLeft}m)` : 'Refresh Locations'}
+                {refreshingLocations ? 'Syncing…' : 'Refresh Locations'}
               </button>
             )}
 
@@ -492,8 +511,11 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
           <DebugRow label="dest_sync_at" value={destSyncAt ? new Date(destSyncAt).toLocaleString() : '—'} />
           <DebugRow label="last_success" value={lastSuccess ? new Date(lastSuccess).toLocaleString() : '—'} />
           <DebugRow label="last_quota_err" value={lastQuotaError ? new Date(lastQuotaError).toLocaleString() : '—'} />
-          <DebugRow label="cooldown_until" value={cooldownUntil ? cooldownUntil.toLocaleString() : '—'} highlight={inCooldown} />
+          <DebugRow label="locked_until" value={conn?.dest_sync_locked_until ? new Date(conn.dest_sync_locked_until).toLocaleString() : '—'} highlight={inCooldown} />
           <DebugRow label="in_cooldown" value={String(inCooldown)} highlight={inCooldown} />
+          <DebugRow label="attempt_count" value={String(conn?.dest_sync_attempt_count ?? '—')} />
+          <DebugRow label="last_quota_err" value={conn?.last_quota_error_at ? new Date(conn.last_quota_error_at).toLocaleString() : '—'} highlight={!!conn?.last_quota_error_at} />
+          {conn?.quota_error_message && <DebugRow label="quota_msg" value={conn.quota_error_message.slice(0, 120)} />}
           <DebugRow label="dest_sync_error" value={destSyncError || '—'} />
           <DebugRow label="dest_sync_step" value={destSyncStep || '—'} highlight={!!destSyncStep} />
           <DebugRow label="dest_sync_http" value={destSyncHttpStatus || '—'} highlight={!!destSyncHttpStatus && destSyncHttpStatus !== '200'} />
@@ -510,12 +532,12 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
           {diag && <DebugRow label="diag_locs" value={String(diag.locations_returned ?? '—')} />}
           {diag?.account_api_raw_body && <DebugRow label="raw_body" value={diag.account_api_raw_body.slice(0, 120)} />}
           {/* Force retry from debug mode */}
-          {isGBP && conn && status === 'connected' && (
+          {isGBP && conn && (
             <button
               onClick={() => handleRefreshLocations(true)}
               disabled={refreshingLocations}
               className="mt-2 w-full text-xs font-bold text-amber-400 bg-amber-900/20 hover:bg-amber-900/40 border border-amber-800 rounded px-2 py-1.5 disabled:opacity-50">
-              ⚡ Force Refresh (bypass cooldown)
+              ⚡ Force Sync (bypass all rate-limit guards)
             </button>
           )}
         </div>

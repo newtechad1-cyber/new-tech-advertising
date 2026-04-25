@@ -103,7 +103,7 @@
     },
     "dest_sync_step": {
       "type": "string",
-      "description": "The step label where the sync failed (e.g. gbp_accounts_request_failed)"
+      "description": "The step label where the sync failed"
     },
     "dest_sync_http_status": {
       "type": "string",
@@ -119,11 +119,31 @@
     },
     "dest_sync_cooldown_until": {
       "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "description": "Legacy short cooldown \u2014 superseded by dest_sync_locked_until"
     },
     "dest_sync_last_quota_error": {
       "type": "string",
       "format": "date-time"
+    },
+    "dest_sync_locked_until": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Sync hard-locked until this time after quota/rate-limit error (60 min)"
+    },
+    "dest_sync_attempt_count": {
+      "type": "integer",
+      "default": 0,
+      "description": "Total number of sync attempts made"
+    },
+    "last_quota_error_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of most recent quota/rate-limit error"
+    },
+    "quota_error_message": {
+      "type": "string",
+      "description": "Exact Google quota error message"
     },
     "gbp_diag_json": {
       "type": "string",
