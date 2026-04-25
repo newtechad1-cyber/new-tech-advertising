@@ -76,29 +76,26 @@ Deno.serve(async (req) => {
     auth_url = `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
 
   } else if (provider === 'instagram') {
-    // Instagram uses same Meta OAuth as Facebook but with instagram scopes
-    const scopes = 'pages_show_list,pages_read_engagement,pages_manage_posts,instagram_basic,instagram_content_publish,public_profile';
+    const scopes = 'pages_show_list,pages_read_engagement,pages_manage_posts,business_management,instagram_basic,instagram_content_publish';
     const params = new URLSearchParams({
       client_id: Deno.env.get('META_APP_ID'),
       redirect_uri: CALLBACK_URL,
       scope: scopes,
       response_type: 'code',
+      auth_type: 'rerequest',
       state,
     });
     auth_url = `https://www.facebook.com/v19.0/dialog/oauth?${params}`;
 
   } else if (provider === 'facebook') {
-    // Facebook has a dedicated OAuth flow with long-lived token + page selection
-    // Callers should use /api/functions/facebookOAuthStart directly for facebook.
-    // This fallback still works but without long-lived token upgrade.
-    const scopes = 'pages_show_list,pages_read_engagement,pages_manage_posts,publish_video,public_profile';
+    const scopes = 'pages_show_list,pages_read_engagement,pages_manage_posts,business_management,instagram_basic,instagram_content_publish';
     const params = new URLSearchParams({
       client_id: Deno.env.get('META_APP_ID'),
       redirect_uri: `${APP_BASE}/api/functions/facebookOAuthCallback`,
       scope: scopes,
       response_type: 'code',
-      state,
       auth_type: 'rerequest',
+      state,
     });
     auth_url = `https://www.facebook.com/v19.0/dialog/oauth?${params}`;
 

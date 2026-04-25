@@ -111,6 +111,17 @@ async function getYouTubeChannels(accessToken) {
   }));
 }
 
+// Fetches /me/permissions — returns array of { permission, status }
+async function fetchMetaPermissions(accessToken) {
+  try {
+    const res = await fetch(`https://graph.facebook.com/v19.0/me/permissions?access_token=${accessToken}`);
+    const data = await res.json();
+    return data.data || [];
+  } catch (_) {
+    return [];
+  }
+}
+
 // Returns { pages, empty } — pages is array of { id, name, access_token }
 async function fetchMetaPages(accessToken, logFn) {
   const res = await fetch(`https://graph.facebook.com/v19.0/me/accounts?fields=id,name,access_token,category&access_token=${accessToken}`);
@@ -336,6 +347,21 @@ Deno.serve(async (req) => {
       });
 
       accessToken = tokenData.access_token;
+
+      // Fetch granted permissions and log them
+      const metaPermissions = await fetchMetaPermissions(accessToken);
+      const grantedPerms = metaPermissions.filter(p => p.status === 'granted').map(p => p.permission);
+      const declinedPerms = metaPermissions.filter(p => p.status === 'declined').map(p => p.permission);
+      grantedScopes = grantedPerms.join(',');
+      console.log(`[channelOAuthCallback] Meta permissions — granted=${grantedPerms.join(',')} declined=${declinedPerms.join(',') || 'none'}`);
+      await log(base44, {
+        client_id: client_id || null,
+        provider,
+        event_type: 'oauth_callback',
+        status: declinedPerms.length > 0 ? 'warning' : 'info',
+        message: `meta_permissions — granted=[${grantedPerms.join(',')}] declined=[${declinedPerms.join(',') || 'none'}]`,
+        payload: JSON.stringify({ granted: grantedPerms, declined: declinedPerms }),
+      });
 
       // Helper to log Meta-specific events
       const metaLog = async (event, detail) => {

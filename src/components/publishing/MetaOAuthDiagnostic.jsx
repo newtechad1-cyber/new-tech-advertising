@@ -68,6 +68,26 @@ export default function MetaOAuthDiagnostic({ connection }) {
             <>
               {/* Token row */}
               <DiagRow label="token_present" value={String(diag.token_present)} ok={diag.token_present} />
+
+              {/* Permissions */}
+              {(diag.permissions.length > 0 || diag.permissions_error) && (
+                <div className="border-t border-slate-800 pt-2 space-y-1">
+                  <p className="text-slate-500 uppercase tracking-wide text-xs font-bold mb-1">Permissions (/me/permissions)</p>
+                  {diag.permissions_error && (
+                    <p className="text-red-400 break-all">{diag.permissions_error}</p>
+                  )}
+                  {diag.permissions.map(p => (
+                    <div key={p.permission} className="flex items-center gap-2">
+                      {p.status === 'granted'
+                        ? <CheckCircle2 className="w-3 h-3 text-emerald-400 flex-shrink-0" />
+                        : <XCircle className="w-3 h-3 text-red-400 flex-shrink-0" />}
+                      <span className={p.status === 'granted' ? 'text-emerald-300' : 'text-red-300'}>{p.permission}</span>
+                      <span className={`ml-auto text-xs ${p.status === 'granted' ? 'text-emerald-600' : 'text-red-600'}`}>{p.status}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               <DiagRow label="accounts_http_status" value={String(diag.accounts_http_status ?? '—')} ok={diag.accounts_http_status === 200} />
 
               {diag.accounts_raw_error && (

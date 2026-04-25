@@ -28,12 +28,27 @@ Deno.serve(async (req) => {
     connection_id,
     provider: conn.provider,
     token_present: true,
+    permissions: [],   // { permission, status }
+    permissions_error: null,
     accounts_http_status: null,
     accounts_raw_error: null,
     pages: [],         // { id, name, has_ig_business_account, ig_id, ig_username, ig_error }
     summary: null,
     checked_at: new Date().toISOString(),
   };
+
+  // Step 0: /me/permissions
+  try {
+    const permRes = await fetch(`https://graph.facebook.com/v19.0/me/permissions?access_token=${token}`);
+    const permData = await permRes.json();
+    if (permData.error) {
+      diag.permissions_error = `code=${permData.error.code} type=${permData.error.type} message=${permData.error.message}`;
+    } else {
+      diag.permissions = permData.data || [];
+    }
+  } catch (e) {
+    diag.permissions_error = `Network error: ${e.message}`;
+  }
 
   // Step 1: /me/accounts
   let accountsRaw = '';
