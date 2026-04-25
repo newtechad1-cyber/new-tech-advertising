@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AlertTriangle, RefreshCw, Unlink, Settings, ChevronDown, Star, MapPin, Circle, Clock, Users } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import FacebookPageSelectModal from './FacebookPageSelectModal';
+import MetaOAuthDiagnostic from './MetaOAuthDiagnostic';
 
 const PROVIDER_CONFIG = {
   google_business_profile: { label: 'Google Business Profile', icon: '📍', color: 'text-blue-400', border: 'border-blue-800' },
@@ -488,6 +489,11 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
           }}
           onClose={() => setShowFBPageModal(false)}
         />
+      )}
+
+      {/* Meta OAuth Diagnostic */}
+      {conn && (isFacebook || isInstagram) && (
+        <MetaOAuthDiagnostic connection={conn} />
       )}
 
       {/* Debug toggle */}
