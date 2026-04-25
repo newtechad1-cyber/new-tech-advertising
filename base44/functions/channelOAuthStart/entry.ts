@@ -76,8 +76,7 @@ Deno.serve(async (req) => {
     auth_url = `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
 
   } else if (provider === 'instagram') {
-    // Use only permissions already approved in the Meta app
-    const scopes = 'public_profile,pages_show_list,pages_read_engagement,pages_manage_posts';
+    const scopes = Deno.env.get('META_OAUTH_SCOPES') || 'public_profile';
     const configId = Deno.env.get('META_FACEBOOK_LOGIN_CONFIG_ID');
     const igParams = {
       client_id: Deno.env.get('META_APP_ID'),
@@ -94,7 +93,7 @@ Deno.serve(async (req) => {
     console.log(`[channelOAuthStart] instagram full_auth_url=${auth_url}`);
 
   } else if (provider === 'facebook') {
-    const scopes = 'public_profile,pages_show_list,pages_read_engagement,pages_manage_posts';
+    const scopes = Deno.env.get('META_OAUTH_SCOPES') || 'public_profile';
     const configId = Deno.env.get('META_FACEBOOK_LOGIN_CONFIG_ID');
     const fbParams = {
       client_id: Deno.env.get('META_APP_ID'),

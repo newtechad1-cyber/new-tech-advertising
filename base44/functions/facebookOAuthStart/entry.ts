@@ -55,8 +55,8 @@ Deno.serve(async (req) => {
   };
   const state = btoa(JSON.stringify(statePayload));
 
-  // Use only permissions already approved in the Meta app
-  const SCOPE = 'public_profile,pages_show_list,pages_read_engagement,pages_manage_posts';
+  // Use env-driven scopes — default to public_profile until Meta app is approved for page scopes
+  const SCOPE = Deno.env.get('META_OAUTH_SCOPES') || 'public_profile';
 
   const configId = Deno.env.get('META_FACEBOOK_LOGIN_CONFIG_ID');
 
