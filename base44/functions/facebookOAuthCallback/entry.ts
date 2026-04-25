@@ -352,6 +352,21 @@ Deno.serve(async (req) => {
 
 async function upsertConnection(base44, client_id, client_name, fbUserId, fbUserName, userAccessToken, tokenExpiry, grantedScopes, pages, destSyncError) {
   const syncAt = new Date().toISOString();
+
+  // Determine status based on pages found
+  let fbStatus;
+  let fbError = null;
+  if (pages.length === 0) {
+    fbStatus = 'error';
+    fbError = destSyncError
+      ? `No Facebook Pages found — cause: ${destSyncError}`
+      : 'No Facebook Pages found. Make sure the connected account manages at least one Facebook Page.';
+  } else if (pages.length === 1) {
+    fbStatus = 'ready';
+  } else {
+    fbStatus = 'connected_no_destination';
+  }
+
   const connPayload = {
     client_id: client_id || 'unknown',
     client_name: client_name || '',
@@ -362,7 +377,8 @@ async function upsertConnection(base44, client_id, client_name, fbUserId, fbUser
     refresh_token: null,
     expires_at: tokenExpiry,
     scopes: grantedScopes,
-    status: 'connected',
+    status: fbStatus,
+    error_message: fbError,
     last_sync_at: syncAt,
     destinations_json: JSON.stringify(pages),
     dest_sync_at: syncAt,
@@ -370,7 +386,6 @@ async function upsertConnection(base44, client_id, client_name, fbUserId, fbUser
     dest_sync_error: destSyncError,
     selected_destination_id: pages.length === 1 ? pages[0].id : null,
     selected_destination_name: pages.length === 1 ? pages[0].name : null,
-    error_message: null,
   };
 
   let existingConns = [];

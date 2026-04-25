@@ -11,10 +11,12 @@ const PROVIDER_CONFIG = {
 };
 
 const STATUS_BADGE = {
-  connected:    'bg-emerald-900/40 text-emerald-400 border-emerald-700',
-  expired:      'bg-amber-900/40 text-amber-400 border-amber-700',
-  error:        'bg-red-900/40 text-red-400 border-red-700',
-  disconnected: 'bg-slate-800 text-slate-500 border-slate-700',
+  ready:                    'bg-emerald-900/40 text-emerald-400 border-emerald-700',
+  connected:                'bg-blue-900/40 text-blue-400 border-blue-700',
+  connected_no_destination: 'bg-amber-900/40 text-amber-400 border-amber-700',
+  expired:                  'bg-amber-900/40 text-amber-400 border-amber-700',
+  error:                    'bg-red-900/40 text-red-400 border-red-700',
+  disconnected:             'bg-slate-800 text-slate-500 border-slate-700',
 };
 
 const REQUIRES_DESTINATION = ['google_business_profile', 'youtube', 'facebook', 'instagram'];
@@ -67,8 +69,8 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
   // Whether we're showing cached (stale) destinations during an error
   const isCached = storedDestinations.length > 0 && !!destSyncError;
 
-  // Show GBP diag panel when: synced at least once, no locations found currently
-  const showDiagPanel = isGBP && conn && status === 'connected' && destSyncAt && storedDestinations.length === 0;
+  // Show GBP diag panel when: error/connected state, synced at least once, no locations found
+  const showDiagPanel = isGBP && conn && (status === 'connected' || status === 'error' || status === 'connected_no_destination') && destSyncAt && storedDestinations.length === 0;
 
   // Refresh GBP locations
   const handleRefreshLocations = async (force = false) => {
@@ -99,7 +101,17 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
     await base44.entities.ChannelConnection.update(conn.id, {
       selected_destination_id: dest.id,
       selected_destination_name: dest.name,
+      status: 'ready',
+      error_message: null,
     });
+    await base44.asServiceRole?.entities?.PostingLog?.create?.({
+      client_id: conn.client_id,
+      provider: conn.provider,
+      event_type: 'oauth_connect',
+      event_time: new Date().toISOString(),
+      status: 'success',
+      message: `destination_selected — ${dest.name} (${dest.id}) → channel_ready`,
+    }).catch(() => {});
     onRefresh();
     setSelectingDest(null);
     setShowDests(false);
@@ -161,14 +173,14 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
 
   const badgeLabel = (() => {
     if (!conn || status === 'disconnected') return 'Not Connected';
+    if (status === 'ready') return '✓ Ready';
+    if (status === 'connected_no_destination') return '⚠ Destination Required';
+    if (status === 'connected') return '⚠ Destination Required';
     if (status === 'expired') return 'Expired';
     if (status === 'error') return 'Error';
-    if (needsDest && !hasDestination) return '⚠ Dest. Required';
-    return '✓ Connected';
+    return status;
   })();
-  const badgeClass = (status === 'connected' && needsDest && !hasDestination)
-    ? 'bg-amber-900/40 text-amber-400 border-amber-700'
-    : STATUS_BADGE[status] || STATUS_BADGE.disconnected;
+  const badgeClass = STATUS_BADGE[status] || STATUS_BADGE.disconnected;
 
   return (
     <div className={`bg-slate-900 border ${conn ? cfg.border : 'border-slate-800'} rounded-xl p-4 space-y-3`}>
@@ -204,7 +216,7 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
       )}
 
       {/* Destination Required warning */}
-      {conn && status === 'connected' && needsDest && !hasDestination && (
+      {conn && (status === 'connected_no_destination' || (status === 'connected' && needsDest && !hasDestination)) && (
         <div className="flex items-start gap-1.5 bg-amber-900/20 border border-amber-800 rounded-lg px-3 py-2">
           <AlertTriangle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
           <div className="flex-1 min-w-0">
@@ -329,8 +341,8 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
         </div>
       )}
 
-      {/* Destination selector — always shown if we have stored destinations */}
-      {conn && status === 'connected' && needsDest && storedDestinations.length > 0 && (
+      {/* Destination selector — shown when we have stored destinations and need one or already have one (allow change) */}
+      {conn && (status === 'connected_no_destination' || status === 'connected' || status === 'ready') && needsDest && storedDestinations.length > 0 && (
         <div>
           <button
             onClick={() => setShowDests(p => !p)}
@@ -428,7 +440,7 @@ export default function ConnectionCard({ provider, connection, clientId, clientN
             <button
               onClick={() => isFacebook ? handleConnectFacebook() : onConnect(provider)}
               className="text-xs font-semibold px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 rounded-lg transition-colors">
-              Reconnect
+              {status === 'error' || status === 'expired' ? 'Reconnect' : 'Reconnect'}
             </button>
 
             <button onClick={handleDisconnect} disabled={disconnecting}

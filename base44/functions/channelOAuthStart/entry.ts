@@ -24,14 +24,14 @@ Deno.serve(async (req) => {
   const statePayload = JSON.stringify({ provider, client_id, client_name: client_name || '' });
   const state = btoa(statePayload);
 
-  // Log the start
+  // Log oauth_start
   await base44.asServiceRole.entities.PostingLog.create({
     client_id,
     provider,
     event_type: 'oauth_connect',
     event_time: new Date().toISOString(),
     status: 'info',
-    message: `OAuth flow started for ${provider} / client ${client_name || client_id}`,
+    message: `oauth_start — provider=${provider} client=${client_name || client_id}`,
     payload: JSON.stringify({ provider, client_id, client_name, callback_url: CALLBACK_URL }),
   });
 

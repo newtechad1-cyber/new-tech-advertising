@@ -49,7 +49,7 @@ export default function ChannelConnections() {
           const [cn] = await Promise.all([base44.entities.ChannelConnection.list('-updated_date', 300)]);
           setConnections(cn);
           // Find the freshly connected GBP connection and trigger location sync (once only)
-          const freshConn = cn.find(c => c.provider === 'google_business_profile' && c.status === 'connected');
+          const freshConn = cn.find(c => c.provider === 'google_business_profile' && (c.status === 'connected' || c.status === 'connected_no_destination' || c.status === 'error'));
           if (freshConn) {
             // Skip auto-sync if an active cooldown is already on this connection
             const cooldownUntil = freshConn.dest_sync_cooldown_until ? new Date(freshConn.dest_sync_cooldown_until) : null;
@@ -126,16 +126,8 @@ export default function ChannelConnections() {
     !search || c.business_name.toLowerCase().includes(search.toLowerCase())
   );
 
-  const NEEDS_DEST_PROVIDERS = ['google_business_profile', 'youtube', 'facebook'];
-  const totalReady = connections.filter(c =>
-    c.status === 'connected' &&
-    (!NEEDS_DEST_PROVIDERS.includes(c.provider) || c.selected_destination_id)
-  ).length;
-  const totalNeedsDest = connections.filter(c =>
-    c.status === 'connected' &&
-    NEEDS_DEST_PROVIDERS.includes(c.provider) &&
-    !c.selected_destination_id
-  ).length;
+  const totalReady = connections.filter(c => c.status === 'ready').length;
+  const totalNeedsDest = connections.filter(c => c.status === 'connected_no_destination' || (c.status === 'connected' && !c.selected_destination_id)).length;
   const totalExpired = connections.filter(c => c.status === 'expired').length;
   const totalErrors = connections.filter(c => c.status === 'error').length;
 
@@ -159,11 +151,11 @@ export default function ChannelConnections() {
         <div className="grid grid-cols-4 gap-3">
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-center">
             <p className="text-2xl font-black text-emerald-400">{totalReady}</p>
-            <p className="text-slate-500 text-xs mt-0.5">Publish-Ready</p>
+            <p className="text-slate-500 text-xs mt-0.5">Ready Channels</p>
           </div>
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-center">
             <p className="text-2xl font-black text-amber-400">{totalNeedsDest}</p>
-            <p className="text-slate-500 text-xs mt-0.5">Need Destination</p>
+            <p className="text-slate-500 text-xs mt-0.5">Needs Destination</p>
           </div>
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-3 text-center">
             <p className="text-2xl font-black text-amber-300">{totalExpired}</p>
@@ -212,10 +204,12 @@ export default function ChannelConnections() {
                   <div className="flex items-center gap-1">
                     {PROVIDERS.map(p => {
                       const conn = getConnection(client.id, p);
-                      const dot = conn?.status === 'connected' ? 'bg-emerald-500' :
-                                  conn?.status === 'expired'   ? 'bg-amber-500' :
-                                  conn?.status === 'error'     ? 'bg-red-500' : 'bg-slate-700';
-                      return <span key={p} className={`w-2 h-2 rounded-full ${dot}`} title={p} />;
+                      const dot = conn?.status === 'ready'                    ? 'bg-emerald-500' :
+                                  conn?.status === 'connected_no_destination' ? 'bg-amber-400' :
+                                  conn?.status === 'connected'                ? 'bg-amber-400' :
+                                  conn?.status === 'expired'                  ? 'bg-orange-500' :
+                                  conn?.status === 'error'                    ? 'bg-red-500' : 'bg-slate-700';
+                      return <span key={p} className={`w-2 h-2 rounded-full ${dot}`} title={`${p}: ${conn?.status || 'disconnected'}`} />;
                     })}
                   </div>
                 </div>

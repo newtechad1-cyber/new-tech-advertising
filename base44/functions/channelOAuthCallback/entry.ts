@@ -196,6 +196,7 @@ Deno.serve(async (req) => {
       console.log(`[channelOAuthCallback] Google token exchange — has_access_token=${!!tokenData.access_token} has_refresh_token=${!!tokenData.refresh_token} error=${tokenData.error || 'none'}`);
 
       if (tokenData.error) {
+        await log(base44, { client_id: client_id || null, provider, event_type: 'oauth_callback', status: 'failed', message: `token_exchange_failed — ${tokenData.error}: ${tokenData.error_description || ''}` });
         throw new Error(`Token exchange failed: ${tokenData.error} — ${tokenData.error_description || ''}`);
       }
 
@@ -204,8 +205,8 @@ Deno.serve(async (req) => {
         provider,
         event_type: 'oauth_callback',
         status: 'success',
-        message: `Token exchange success — has_refresh_token=${!!tokenData.refresh_token}`,
-        payload: JSON.stringify({ has_access_token: true, has_refresh_token: !!tokenData.refresh_token }),
+        message: `token_exchange_success — has_refresh_token=${!!tokenData.refresh_token} scopes=${tokenData.scope || 'n/a'}`,
+        payload: JSON.stringify({ has_access_token: true, has_refresh_token: !!tokenData.refresh_token, scope: tokenData.scope }),
       });
 
       accessToken = tokenData.access_token;
@@ -229,6 +230,7 @@ Deno.serve(async (req) => {
     } else if (isMeta) {
       const tokenData = await exchangeMetaCode(code);
       if (tokenData.error) {
+        await log(base44, { client_id: client_id || null, provider, event_type: 'oauth_callback', status: 'failed', message: `token_exchange_failed — ${JSON.stringify(tokenData.error)}` });
         throw new Error(`Meta token exchange failed: ${JSON.stringify(tokenData.error)}`);
       }
 
@@ -237,7 +239,7 @@ Deno.serve(async (req) => {
         provider,
         event_type: 'oauth_callback',
         status: 'success',
-        message: `Meta token exchange success`,
+        message: `token_exchange_success — provider=${provider}`,
       });
 
       accessToken = tokenData.access_token;
@@ -265,8 +267,30 @@ Deno.serve(async (req) => {
       payload: JSON.stringify(destinations.slice(0, 5)),
     });
 
-    // ---- UPSERT ChannelConnection ----
+    // Log destination fetch result
+    await log(base44, {
+      client_id: client_id || null,
+      provider,
+      event_type: destinations.length === 0 ? 'oauth_callback' : 'oauth_callback',
+      status: destinations.length === 0 ? 'warning' : 'success',
+      message: destinations.length === 0
+        ? `destinations_fetch_empty — provider=${provider} count=0`
+        : `destinations_fetch_success — provider=${provider} count=${destinations.length}`,
+      payload: JSON.stringify(destinations.slice(0, 5)),
+    });
+
+    // ---- STATUS LOGIC ----
     const autoSelectDest = destinations.length === 1 ? destinations[0] : null;
+    let connStatus;
+    let connError = null;
+    if (destinations.length === 0) {
+      connStatus = 'error';
+      connError = `No destinations found for ${provider}. Check your account has pages, channels, or locations.`;
+    } else if (destinations.length === 1) {
+      connStatus = 'ready';
+    } else {
+      connStatus = 'connected_no_destination';
+    }
 
     const syncAt = new Date().toISOString();
     const connPayload = {
@@ -278,17 +302,15 @@ Deno.serve(async (req) => {
       access_token: accessToken,
       refresh_token: refreshToken,
       expires_at: expiresAt,
-      status: 'connected',
+      status: connStatus,
+      error_message: connError,
       last_sync_at: syncAt,
       destinations_json: JSON.stringify(destinations),
       dest_sync_at: syncAt,
       dest_sync_count: destinations.length,
-      dest_sync_error: destinations.length === 0 && (provider === 'google_business_profile' || provider === 'youtube')
-        ? 'Zero destinations returned at OAuth time — use Refresh Locations to retry'
-        : null,
+      dest_sync_error: connStatus === 'error' ? connError : null,
       selected_destination_id: autoSelectDest?.id || null,
       selected_destination_name: autoSelectDest?.name || null,
-      error_message: null,
     };
 
     // Find existing connection for this client+provider
@@ -307,10 +329,14 @@ Deno.serve(async (req) => {
     await log(base44, {
       client_id: client_id || null,
       provider,
-      event_type: 'oauth_connect',
-      status: 'success',
-      message: `ChannelConnection upserted — id=${savedConn?.id} account=${accountName} destinations=${destinations.length}`,
-      payload: JSON.stringify({ connection_id: savedConn?.id, account_name: accountName, destinations_count: destinations.length }),
+      event_type: connStatus === 'ready' ? 'oauth_connect' : 'oauth_callback',
+      status: connStatus === 'error' ? 'failed' : 'success',
+      message: connStatus === 'ready'
+        ? `channel_ready — conn_id=${savedConn?.id} account=${accountName} dest=${autoSelectDest?.name}`
+        : connStatus === 'connected_no_destination'
+        ? `destination_required — conn_id=${savedConn?.id} account=${accountName} dests=${destinations.length}`
+        : `publish_blocked_no_destination — conn_id=${savedConn?.id} error=${connError}`,
+      payload: JSON.stringify({ connection_id: savedConn?.id, account_name: accountName, destinations_count: destinations.length, status: connStatus }),
     });
 
     console.log(`[channelOAuthCallback] SUCCESS — provider=${provider} client=${client_id} conn_id=${savedConn?.id}`);
