@@ -35,6 +35,7 @@ export default function Footer() {
             <div>
               <h4 className="font-semibold mb-4">Company</h4>
               <ul className="space-y-2 text-sm text-slate-400">
+                <li><Link to="/our-work" className="hover:text-blue-400 transition-colors">Our Work</Link></li>
                 <li><Link to={createPageUrl('About')} className="hover:text-blue-400 transition-colors">About Us</Link></li>
                 <li><Link to={createPageUrl('Home')} className="hover:text-blue-400 transition-colors">Home</Link></li>
                 <li><Link to={createPageUrl('Blog')} className="hover:text-blue-400 transition-colors">Blog</Link></li>

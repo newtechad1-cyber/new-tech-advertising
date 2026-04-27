@@ -187,6 +187,7 @@ import AgencyCampaignPerformance from './pages/AgencyCampaignPerformance';
 import AgencyInsightPages from './pages/AgencyInsightPages';
 import InsightsList from './pages/InsightsList';
 import InsightDetail from './pages/InsightDetail';
+import OurWork from './pages/OurWork';
 import PortalDashboard from './pages/portal/PortalDashboard';
 import PortalApprovals from './pages/portal/PortalApprovals';
 import PortalCalendar from './pages/portal/PortalCalendar';
@@ -427,6 +428,7 @@ const AuthenticatedApp = () => {
       <Route path="/agency/publishing-calendar" element={<LayoutWrapper currentPageName="AgencyPublishingCalendar"><AgencyPublishingCalendar /></LayoutWrapper>} />
       <Route path="/agency/campaign-performance" element={<LayoutWrapper currentPageName="AgencyCampaignPerformance"><AgencyCampaignPerformance /></LayoutWrapper>} />
       <Route path="/agency/insight-pages" element={<LayoutWrapper currentPageName="AgencyInsightPages"><AgencyInsightPages /></LayoutWrapper>} />
+      <Route path="/our-work" element={<OurWork />} />
       <Route path="/insights" element={<InsightsList />} />
       <Route path="/insights/:slug" element={<InsightDetail />} />
       <Route path="/agency/portal-manager" element={<LayoutWrapper currentPageName="AgencyPortalManager"><AgencyPortalManager /></LayoutWrapper>} />
