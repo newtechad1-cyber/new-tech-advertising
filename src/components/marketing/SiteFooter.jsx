@@ -45,10 +45,8 @@ export default function SiteFooter() {
           <p className="text-white font-semibold mb-3 text-sm">Resources</p>
           <ul className="space-y-2 text-sm">
             <li><a href="/Blog" className="hover:text-white transition-colors">All Articles</a></li>
-            <li><a href="/blog/5-signs-your-website-is-costing-you-customers" className="hover:text-white transition-colors">5 Signs Your Website Costs You Customers</a></li>
-            <li><a href="/blog/ai-websites-vs-traditional" className="hover:text-white transition-colors">AI Websites vs Traditional</a></li>
-            <li><a href="/blog/local-seo-for-small-business" className="hover:text-white transition-colors">Local SEO for Small Business</a></li>
-            <li><a href="/blog/website-rebuild-checklist" className="hover:text-white transition-colors">Website Rebuild Checklist</a></li>
+            <li><a href="/our-work" className="hover:text-white transition-colors">Our Work</a></li>
+            <li><a href="/rebuild-intake" className="hover:text-white transition-colors">Free Website Audit</a></li>
           </ul>
         </div>
 
@@ -57,7 +55,6 @@ export default function SiteFooter() {
           <p className="text-white font-semibold mb-3 text-sm">Support</p>
           <ul className="space-y-2 text-sm">
             <li><a href="/HelpAndSupport" className="hover:text-white transition-colors">Help &amp; Support</a></li>
-            <li><a href="/our-work" className="hover:text-white transition-colors">Our Work</a></li>
             <li><a href="/About" className="hover:text-white transition-colors">About NTA</a></li>
             <li><a href="/Contact" className="hover:text-white transition-colors">Contact Us</a></li>
             <li><a href="tel:6414208816" className="hover:text-white transition-colors">641-420-8816</a></li>
