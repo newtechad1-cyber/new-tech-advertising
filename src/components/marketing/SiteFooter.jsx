@@ -57,6 +57,7 @@ export default function SiteFooter() {
           <p className="text-white font-semibold mb-3 text-sm">Support</p>
           <ul className="space-y-2 text-sm">
             <li><a href="/HelpAndSupport" className="hover:text-white transition-colors">Help &amp; Support</a></li>
+            <li><a href="/our-work" className="hover:text-white transition-colors">Our Work</a></li>
             <li><a href="/About" className="hover:text-white transition-colors">About NTA</a></li>
             <li><a href="/Contact" className="hover:text-white transition-colors">Contact Us</a></li>
             <li><a href="tel:6414208816" className="hover:text-white transition-colors">641-420-8816</a></li>
