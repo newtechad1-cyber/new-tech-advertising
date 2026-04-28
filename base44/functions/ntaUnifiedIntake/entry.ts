@@ -567,6 +567,25 @@ Deno.serve(async (req) => {
       console.warn('[ntaUnifiedIntake] SalesLead/SalesDeal creation failed:', salesErr.message);
     }
 
+    // ── Backfill WebsiteAudit ↔ SalesLead link
+    if (sales_lead_id && email) {
+      try {
+        const unlinkedAudits = await base44.asServiceRole.entities.WebsiteAudit.filter({ lead_email: email });
+        const toLink = unlinkedAudits.filter(a => !a.lead_id && !a.sales_lead_id);
+        await Promise.all(toLink.map(a =>
+          base44.asServiceRole.entities.WebsiteAudit.update(a.id, {
+            lead_id: sales_lead_id,
+            sales_lead_id: sales_lead_id,
+          })
+        ));
+        if (toLink.length > 0) {
+          console.log(`[ntaUnifiedIntake] Backfilled ${toLink.length} WebsiteAudit(s) for lead ${sales_lead_id}`);
+        }
+      } catch (backfillErr) {
+        console.warn('[ntaUnifiedIntake] WebsiteAudit backfill failed (non-critical):', backfillErr.message);
+      }
+    }
+
     // ── Webhooks
     let webhook_status = 'skipped';
 

@@ -6,7 +6,7 @@ Deno.serve(async (req) => {
     const user = await base44.auth.me();
 
     const payload = await req.json();
-    const { website_url, lead_email, lead_phone, business_profile_id } = payload;
+    const { website_url, lead_email, lead_phone, business_profile_id, lead_id, sales_lead_id } = payload;
 
     if (!website_url) {
       return Response.json({ error: 'website_url required' }, { status: 400 });
@@ -47,7 +47,26 @@ Deno.serve(async (req) => {
       lead_source: 'ada-checker-tool',
       audit_date: new Date().toISOString(),
       business_profile_id,
+      lead_id: lead_id || null,
+      sales_lead_id: sales_lead_id || null,
     });
+
+    // If no lead_id was provided but we have an email, try to link to an existing SalesLead
+    if (!lead_id && lead_email) {
+      try {
+        const matchingLeads = await base44.asServiceRole.entities.SalesLead.filter({ email: lead_email });
+        if (matchingLeads.length > 0) {
+          const foundLeadId = matchingLeads[0].id;
+          await base44.asServiceRole.entities.WebsiteAudit.update(audit.id, {
+            lead_id: foundLeadId,
+            sales_lead_id: foundLeadId,
+          });
+          console.log(`[auditWebsiteAccessibility] Linked audit ${audit.id} to SalesLead ${foundLeadId} via email`);
+        }
+      } catch (linkErr) {
+        console.warn('[auditWebsiteAccessibility] SalesLead email lookup failed (non-critical):', linkErr.message);
+      }
+    }
 
     return Response.json({
       success: true,
