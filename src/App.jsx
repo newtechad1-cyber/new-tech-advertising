@@ -167,6 +167,7 @@ import ContentWizardDetail from './pages/ContentWizardDetail';
 import LeadWizardList from './pages/LeadWizardList';
 import LeadWizardDetail from './pages/LeadWizardDetail';
 import ChannelConnections from './pages/ChannelConnections';
+import ClientChannelSetup from './pages/ClientChannelSetup';
 import PublishingQueuePage from './pages/PublishingQueue';
 import PublishingOps from './pages/PublishingOps';
 import AgencyCampaigns from './pages/AgencyCampaigns';
@@ -413,6 +414,7 @@ const AuthenticatedApp = () => {
       <Route path="/agency/lead-wizard" element={<LeadWizardList />} />
       <Route path="/agency/lead-wizard/:id" element={<LeadWizardDetail />} />
       <Route path="/agency/channel-connections" element={<LayoutWrapper currentPageName="ChannelConnections"><ChannelConnections /></LayoutWrapper>} />
+      <Route path="/agency/channel-setup" element={<LayoutWrapper currentPageName="ClientChannelSetup"><ClientChannelSetup /></LayoutWrapper>} />
       <Route path="/agency/publishing-queue" element={<LayoutWrapper currentPageName="PublishingQueuePage"><PublishingQueuePage /></LayoutWrapper>} />
       <Route path="/agency/publishing-ops" element={<LayoutWrapper currentPageName="PublishingOps"><PublishingOps /></LayoutWrapper>} />
       <Route path="/agency/campaigns" element={<LayoutWrapper currentPageName="AgencyCampaigns"><AgencyCampaigns /></LayoutWrapper>} />

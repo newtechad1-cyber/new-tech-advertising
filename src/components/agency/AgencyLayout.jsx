@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Users, TrendingUp, FileText, BarChart2,
   ChevronLeft, Menu, ChevronDown, ChevronRight, Target,
-  Send, Megaphone, Shield, Calendar, BarChart, Radio, BookOpen, Globe, Wifi,
+  Send, Megaphone, Shield, Calendar, BarChart, Radio, BookOpen, Globe, Wifi, Link2,
   BookOpenCheck, HelpCircle, X
 } from 'lucide-react';
 import { TutorialProvider, useTutorial } from './TutorialContext';
@@ -21,6 +21,7 @@ const NAV = [
   { label: 'Approval Center',     href: '/agency/approval-center',      icon: Shield },
   { label: 'Publishing Calendar', href: '/agency/publishing-calendar',  icon: Calendar },
   { label: 'Channel Connections', href: '/agency/channel-connections',  icon: Wifi },
+  { label: 'Client Channel Setup', href: '/agency/channel-setup',       icon: Link2 },
   { label: 'Performance',         href: '/agency/campaign-performance', icon: BarChart },
   { label: 'Websites',            href: '/agency/websites',             icon: Globe },
 ];
