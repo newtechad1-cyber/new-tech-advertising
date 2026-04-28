@@ -51,6 +51,10 @@ export default function AgencySpokeCampaigns() {
   };
 
   const save = async () => {
+    if (!form.client_id) {
+      alert('Select a client before creating a campaign.');
+      return;
+    }
     setSaving(true);
     const slug = form.campaign_name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
     await base44.entities.SpokeCampaign.create({ ...form, campaign_slug: slug });
@@ -66,6 +70,10 @@ export default function AgencySpokeCampaigns() {
   };
 
   const clone = async () => {
+    if (!cloneForm.client_id) {
+      alert('Select a client before cloning a campaign.');
+      return;
+    }
     setCloning(true);
     const slug = cloneForm.campaign_name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
     const newCampaign = await base44.entities.SpokeCampaign.create({ ...cloneForm, campaign_slug: slug });
@@ -225,11 +233,13 @@ export default function AgencySpokeCampaigns() {
                 <input value={form[k] || ''} onChange={e => setForm(p => ({ ...p, [k]: e.target.value }))} className={IN} />
               </div>
             ))}
-            <div><label className={LBL}>Client (optional)</label>
-              <select value={form.client_id} onChange={e => setForm(p => ({ ...p, client_id: e.target.value }))} className={IN}>
-                <option value="">Internal / NTA</option>
+            <div>
+              <label className={LBL}>Client <span className="text-red-400">*</span></label>
+              <select value={form.client_id} onChange={e => setForm(p => ({ ...p, client_id: e.target.value }))} className={`${IN} ${!form.client_id ? 'border-red-500/60' : ''}`}>
+                <option value="">— Select a client —</option>
                 {clients.map(c => <option key={c.id} value={c.id}>{c.business_name}</option>)}
               </select>
+              {!form.client_id && <p className="text-xs text-red-400 mt-1">Select a client before creating a campaign.</p>}
             </div>
             <div><label className={LBL}>Status</label>
               <select value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value }))} className={IN}>
@@ -239,7 +249,7 @@ export default function AgencySpokeCampaigns() {
           </div>
           <div className="flex justify-end gap-2 mt-4">
             <button onClick={() => setShowModal(false)} className="px-4 py-2 text-sm text-slate-400 bg-slate-800 rounded-lg">Cancel</button>
-            <button onClick={save} disabled={saving || !form.campaign_name} className="px-4 py-2 text-sm font-semibold bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white rounded-lg">{saving ? 'Saving...' : 'Create Campaign'}</button>
+            <button onClick={save} disabled={saving || !form.campaign_name || !form.client_id} className="px-4 py-2 text-sm font-semibold bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white rounded-lg">{saving ? 'Saving...' : 'Create Campaign'}</button>
           </div>
         </Modal>
       )}
@@ -271,16 +281,18 @@ export default function AgencySpokeCampaigns() {
                 <input value={cloneForm[k] || ''} onChange={e => setCloneForm(p => ({ ...p, [k]: e.target.value }))} className={IN} />
               </div>
             ))}
-            <div><label className={LBL}>Client (optional)</label>
-              <select value={cloneForm.client_id || ''} onChange={e => setCloneForm(p => ({ ...p, client_id: e.target.value }))} className={IN}>
-                <option value="">Internal / NTA</option>
+            <div>
+              <label className={LBL}>Client <span className="text-red-400">*</span></label>
+              <select value={cloneForm.client_id || ''} onChange={e => setCloneForm(p => ({ ...p, client_id: e.target.value }))} className={`${IN} ${!cloneForm.client_id ? 'border-red-500/60' : ''}`}>
+                <option value="">— Select a client —</option>
                 {clients.map(c => <option key={c.id} value={c.id}>{c.business_name}</option>)}
               </select>
+              {!cloneForm.client_id && <p className="text-xs text-red-400 mt-1">Select a client before cloning a campaign.</p>}
             </div>
           </div>
           <div className="flex justify-end gap-2 mt-4">
             <button onClick={() => setCloneModal(null)} className="px-4 py-2 text-sm text-slate-400 bg-slate-800 rounded-lg">Cancel</button>
-            <button onClick={clone} disabled={cloning || !cloneForm.campaign_name} className="px-4 py-2 text-sm font-semibold bg-violet-600 hover:bg-violet-500 disabled:opacity-50 text-white rounded-lg">{cloning ? 'Cloning...' : 'Clone Campaign'}</button>
+            <button onClick={clone} disabled={cloning || !cloneForm.campaign_name || !cloneForm.client_id} className="px-4 py-2 text-sm font-semibold bg-violet-600 hover:bg-violet-500 disabled:opacity-50 text-white rounded-lg">{cloning ? 'Cloning...' : 'Clone Campaign'}</button>
           </div>
         </Modal>
       )}
