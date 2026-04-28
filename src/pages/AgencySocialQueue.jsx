@@ -50,9 +50,98 @@ export default function AgencySocialQueue() {
     load();
   };
 
+  const PUBLISHABLE_PROVIDERS = ['facebook', 'instagram', 'google_business_profile', 'youtube'];
+  const AUTO_PROMOTE_STATUSES = ['scheduled', 'queued'];
+
+  const sendToPublisher = async (post) => {
+    // Duplicate guard
+    if (post.sent_to_publisher || post.publishing_queue_id) {
+      alert(`Already sent to publisher.\nPublishingQueue ID: ${post.publishing_queue_id || '(unknown)'}\nGo to Publishing Ops to check status.`);
+      return;
+    }
+
+    // Eligibility checks
+    if (!post.client_id) {
+      await base44.entities.SocialPostQueue.update(post.id, { publisher_error: 'Missing client_id — cannot look up channel connection.' });
+      setPosts(p => p.map(x => x.id === post.id ? { ...x, publisher_error: 'Missing client_id' } : x));
+      return;
+    }
+    if (!post.post_text?.trim()) {
+      await base44.entities.SocialPostQueue.update(post.id, { publisher_error: 'Missing post text.' });
+      setPosts(p => p.map(x => x.id === post.id ? { ...x, publisher_error: 'Missing post text' } : x));
+      return;
+    }
+    if (!PUBLISHABLE_PROVIDERS.includes(post.platform)) {
+      const err = `Platform "${post.platform}" is not supported by the publishing engine (only Facebook, Instagram, GBP, YouTube).`;
+      await base44.entities.SocialPostQueue.update(post.id, { publisher_error: err });
+      setPosts(p => p.map(x => x.id === post.id ? { ...x, publisher_error: err } : x));
+      return;
+    }
+
+    setPromotingId(post.id);
+
+    const conns = await base44.entities.ChannelConnection.filter({ client_id: post.client_id, provider: post.platform });
+    const validConn = conns.find(c => ['ready', 'connected', 'connected_no_destination'].includes(c.status));
+
+    if (!validConn) {
+      const err = `No publishing connection found for this client + ${post.platform}. Go to Channel Connections to connect this channel.`;
+      await base44.entities.SocialPostQueue.update(post.id, { publisher_error: err });
+      setPosts(p => p.map(x => x.id === post.id ? { ...x, publisher_error: err } : x));
+      setPromotingId(null);
+      return;
+    }
+
+    const publishStatus = post.scheduled_time ? 'scheduled' : 'queued';
+    const pqRecord = await base44.entities.PublishingQueue.create({
+      client_id: post.client_id,
+      connection_id: validConn.id,
+      provider: post.platform,
+      content_type: post.media_url ? 'image_post' : 'text_post',
+      body_text: post.post_text,
+      caption: post.post_text,
+      media_urls: post.media_url ? [post.media_url] : [],
+      scheduled_for: post.scheduled_time || null,
+      approval_status: 'approved',
+      publish_status: publishStatus,
+      source_content_id: post.asset_id || post.id,
+      source_wizard: 'social_queue',
+      ...(post.campaign_id ? { notes: `campaign_id:${post.campaign_id}` } : {}),
+    });
+
+    await base44.entities.SocialPostQueue.update(post.id, {
+      publishing_queue_id: pqRecord.id,
+      sent_to_publisher: true,
+      publish_status: publishStatus,
+      publisher_error: null,
+    });
+
+    await base44.entities.PostingLog.create({
+      queue_id: pqRecord.id,
+      client_id: post.client_id,
+      provider: post.platform,
+      event_type: 'scheduled',
+      status: 'info',
+      event_time: new Date().toISOString(),
+      message: `SocialPostQueue promoted to PublishingQueue — social_queue_id=${post.id} publishing_queue_id=${pqRecord.id}`,
+      payload: JSON.stringify({ social_queue_id: post.id, publishing_queue_id: pqRecord.id, client_id: post.client_id, provider: post.platform }),
+    }).catch(() => {});
+
+    setPosts(p => p.map(x => x.id === post.id ? { ...x, sent_to_publisher: true, publishing_queue_id: pqRecord.id, publish_status: publishStatus, publisher_error: null } : x));
+    setPromotingId(null);
+  };
+
   const updateStatus = async (id, publish_status) => {
     await base44.entities.SocialPostQueue.update(id, { publish_status });
-    setPosts(p => p.map(post => post.id === id ? { ...post, publish_status } : post));
+    const updated = posts.map(post => post.id === id ? { ...post, publish_status } : post);
+    setPosts(updated);
+
+    // Auto-promote to publisher when status is set to scheduled/queued
+    if (AUTO_PROMOTE_STATUSES.includes(publish_status)) {
+      const post = updated.find(x => x.id === id);
+      if (post && !post.sent_to_publisher && !post.publishing_queue_id && post.client_id && post.post_text) {
+        await sendToPublisher(post);
+      }
+    }
   };
 
   const cancelPost = async (post) => {
@@ -87,93 +176,9 @@ export default function AgencySocialQueue() {
     setPosts(p => p.map(post => post.id === id ? { ...post, publish_status: 'published' } : post));
   };
 
-  const [promotingId, setPromotingId] = useState(null); // id of post currently being promoted
+  const [promotingId, setPromotingId] = useState(null);
   const [editPostModal, setEditPostModal] = useState(null);
   const [editPostForm, setEditPostForm] = useState({});
-
-  // Map platform → PublishingQueue provider (same values for supported platforms)
-  const PUBLISHABLE_PROVIDERS = ['facebook', 'instagram', 'google_business_profile', 'youtube'];
-
-  const sendToPublisher = async (post) => {
-    // Duplicate guard
-    if (post.sent_to_publisher || post.publishing_queue_id) {
-      alert(`Already sent to publisher.\nPublishingQueue ID: ${post.publishing_queue_id || '(unknown)'}\nGo to Publishing Ops to check status.`);
-      return;
-    }
-
-    // Eligibility checks
-    if (!post.client_id) {
-      await base44.entities.SocialPostQueue.update(post.id, { publisher_error: 'Missing client_id — cannot look up channel connection.' });
-      setPosts(p => p.map(x => x.id === post.id ? { ...x, publisher_error: 'Missing client_id' } : x));
-      return;
-    }
-    if (!post.post_text?.trim()) {
-      await base44.entities.SocialPostQueue.update(post.id, { publisher_error: 'Missing post text.' });
-      setPosts(p => p.map(x => x.id === post.id ? { ...x, publisher_error: 'Missing post text' } : x));
-      return;
-    }
-    if (!PUBLISHABLE_PROVIDERS.includes(post.platform)) {
-      const err = `Platform "${post.platform}" is not supported by the publishing engine (only Facebook, Instagram, GBP, YouTube).`;
-      await base44.entities.SocialPostQueue.update(post.id, { publisher_error: err });
-      setPosts(p => p.map(x => x.id === post.id ? { ...x, publisher_error: err } : x));
-      return;
-    }
-
-    setPromotingId(post.id);
-
-    // Look up ChannelConnection for this client + provider
-    const conns = await base44.entities.ChannelConnection.filter({ client_id: post.client_id, provider: post.platform });
-    const validConn = conns.find(c => ['ready', 'connected', 'connected_no_destination'].includes(c.status));
-
-    if (!validConn) {
-      const err = `No publishing connection found for this client + ${post.platform}. Go to Channel Connections to connect this channel.`;
-      await base44.entities.SocialPostQueue.update(post.id, { publisher_error: err });
-      setPosts(p => p.map(x => x.id === post.id ? { ...x, publisher_error: err } : x));
-      setPromotingId(null);
-      return;
-    }
-
-    // Build PublishingQueue record
-    const publishStatus = post.scheduled_time ? 'scheduled' : 'queued';
-    const pqRecord = await base44.entities.PublishingQueue.create({
-      client_id: post.client_id,
-      connection_id: validConn.id,
-      provider: post.platform,
-      content_type: post.media_url ? 'image_post' : 'text_post',
-      body_text: post.post_text,
-      caption: post.post_text,
-      media_urls: post.media_url ? [post.media_url] : [],
-      scheduled_for: post.scheduled_time || null,
-      approval_status: 'approved',
-      publish_status: publishStatus,
-      source_content_id: post.asset_id || post.id,
-      source_wizard: 'social_queue',
-      ...(post.campaign_id ? { notes: `campaign_id:${post.campaign_id}` } : {}),
-    });
-
-    // Stamp the SocialPostQueue item
-    await base44.entities.SocialPostQueue.update(post.id, {
-      publishing_queue_id: pqRecord.id,
-      sent_to_publisher: true,
-      publish_status: publishStatus,
-      publisher_error: null,
-    });
-
-    // Log the promotion
-    await base44.entities.PostingLog.create({
-      queue_id: pqRecord.id,
-      client_id: post.client_id,
-      provider: post.platform,
-      event_type: 'scheduled',
-      status: 'info',
-      event_time: new Date().toISOString(),
-      message: `SocialPostQueue promoted to PublishingQueue — social_queue_id=${post.id} publishing_queue_id=${pqRecord.id}`,
-      payload: JSON.stringify({ social_queue_id: post.id, publishing_queue_id: pqRecord.id, client_id: post.client_id, provider: post.platform }),
-    }).catch(() => {}); // non-blocking log
-
-    setPosts(p => p.map(x => x.id === post.id ? { ...x, sent_to_publisher: true, publishing_queue_id: pqRecord.id, publish_status: publishStatus, publisher_error: null } : x));
-    setPromotingId(null);
-  };
 
   const openEditPost = (post) => {
     setEditPostForm({ post_text: post.post_text || '', scheduled_time: post.scheduled_time || '', media_url: post.media_url || '' });
