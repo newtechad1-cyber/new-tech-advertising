@@ -227,7 +227,16 @@ export default function AgencyApprovalCenter() {
                     {PLATFORM_EMOJI[asset.platform]} {asset.platform?.replace(/_/g,' ')} · {asset.asset_type} · {campMap[asset.campaign_id]?.campaign_name || 'No campaign'}
                   </p>
                   {asset.rejection_feedback && <p className="text-xs text-red-400 mt-1">↩ Previous feedback: {asset.rejection_feedback}</p>}
-                  <span className={`inline-block mt-1.5 text-xs font-bold px-2 py-0.5 rounded-full ${STATUS_COLORS[asset.approval_status] || 'bg-slate-700 text-slate-400'}`}>{asset.approval_status?.replace(/_/g,' ')}</span>
+                  <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                    <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${STATUS_COLORS[asset.approval_status] || 'bg-slate-700 text-slate-400'}`}>
+                      Approval: {asset.approval_status?.replace(/_/g,' ') || 'unknown'}
+                    </span>
+                    {asset.status && asset.status !== asset.approval_status && (
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-500">
+                        Content status: {asset.status.replace(/_/g,' ')}
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <div className="flex items-center gap-2 flex-shrink-0 flex-wrap justify-end">
                   {tab !== 'rejected' && (
