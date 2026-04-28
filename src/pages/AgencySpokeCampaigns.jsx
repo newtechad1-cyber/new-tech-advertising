@@ -184,9 +184,26 @@ export default function AgencySpokeCampaigns() {
                       <p className="text-xs text-slate-500">{[c.pillar, c.core_theme, c.target_audience].filter(Boolean).join(' · ')}</p>
                       <div className="flex gap-4 mt-2 text-xs text-slate-600">
                         <span>{assetCount} assets</span>
-                        {r.leads > 0 && <span className="text-emerald-400">{r.leads} leads</span>}
-                        {r.calls > 0 && <span className="text-violet-400">{r.calls} calls</span>}
-                        {r.views > 0 && <span>{r.views.toLocaleString()} views</span>}
+                        {(() => {
+                          const campAssets = assets.filter(a => a.campaign_id === c.id);
+                          const approved = campAssets.filter(a => a.approval_status === 'approved').length;
+                          const queued = campAssets.filter(a => a.queued || ['scheduled','queued'].includes(a.status)).length;
+                          const recent = campAssets.slice(0, 2);
+                          return (
+                            <>
+                              {approved > 0 && <span className="text-emerald-400">{approved} approved</span>}
+                              {queued > 0 && <span className="text-blue-400">{queued} queued</span>}
+                              {r.leads > 0 && <span className="text-emerald-400">{r.leads} leads</span>}
+                              {r.calls > 0 && <span className="text-violet-400">{r.calls} calls</span>}
+                              {r.views > 0 && <span>{r.views.toLocaleString()} views</span>}
+                              {recent.length > 0 && (
+                                <span className="text-slate-700 truncate max-w-[260px]">
+                                  {recent.map(a => a.asset_name || a.caption_text || '—').join(' · ')}
+                                </span>
+                              )}
+                            </>
+                          );
+                        })()}
                       </div>
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0 flex-wrap justify-end">
