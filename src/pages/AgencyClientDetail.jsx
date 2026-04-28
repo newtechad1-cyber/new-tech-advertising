@@ -975,7 +975,7 @@ function FulfillmentSection({ clientId, campaigns, spokeCampaigns, contentAssets
 function CopyClientSetupLink({ clientId }) {
   const [copied, setCopied] = useState(false);
   const handleCopy = () => {
-    const url = `${window.location.origin}/agency/channel-setup?client=${clientId}`;
+    const url = `${window.location.origin}/client/channel-setup/${clientId}`;
     navigator.clipboard.writeText(url).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);

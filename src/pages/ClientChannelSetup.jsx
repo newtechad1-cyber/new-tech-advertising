@@ -139,7 +139,8 @@ function CopySetupLink({ clientId, clientName }) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    const url = `${window.location.origin}/agency/channel-setup?client=${clientId}`;
+    // Point to the client-safe route — no agency sidebar or admin tools
+    const url = `${window.location.origin}/client/channel-setup/${clientId}`;
     navigator.clipboard.writeText(url).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
