@@ -55,8 +55,19 @@ Deno.serve(async (req) => {
   };
   const state = btoa(JSON.stringify(statePayload));
 
-  // Use env-driven scopes — default to public_profile until Meta app is approved for page scopes
-  const SCOPE = Deno.env.get('META_OAUTH_SCOPES') || 'public_profile';
+  // Hardcoded correct Facebook OAuth scopes — NEVER use META_APP_SECRET here.
+  // META_OAUTH_SCOPES env var is validated below to ensure it only contains permission names.
+  const CORRECT_SCOPES = 'pages_show_list,pages_read_engagement,pages_manage_posts,pages_manage_metadata,business_management';
+
+  const envScopes = Deno.env.get('META_OAUTH_SCOPES') || '';
+  // Safety guard: if the env var looks like a secret (contains non-permission characters like $ or is very long),
+  // ignore it and fall back to the hardcoded correct scopes.
+  const scopeIsSafe = envScopes && /^[a-zA-Z0-9_,\s]+$/.test(envScopes) && envScopes.length < 300;
+  const SCOPE = scopeIsSafe ? envScopes.trim() : CORRECT_SCOPES;
+
+  if (envScopes && !scopeIsSafe) {
+    console.error(`[facebookOAuthStart] SCOPE_GUARD: META_OAUTH_SCOPES contains invalid characters or looks like a secret — ignoring it. Using hardcoded correct scopes instead. Value was: ${envScopes.slice(0, 30)}...`);
+  }
 
   const configId = Deno.env.get('META_FACEBOOK_LOGIN_CONFIG_ID');
 
@@ -78,9 +89,13 @@ Deno.serve(async (req) => {
   const params = new URLSearchParams(oauthParams);
   const auth_url = `https://www.facebook.com/${META_OAUTH_VERSION}/dialog/oauth?${params.toString()}`;
 
-  console.log(`[facebookOAuthStart] final_redirect_uri=${FACEBOOK_REDIRECT_URI}`);
-  console.log(`[facebookOAuthStart] config_id=${configId || '(none — using scope param)'}`);
+  // DEBUG: log all authorize URL parameters (never logs App Secret)
+  console.log(`[facebookOAuthStart] === AUTHORIZE URL PARAMS ===`);
+  console.log(`[facebookOAuthStart] client_id (app_id)=${appId}`);
+  console.log(`[facebookOAuthStart] redirect_uri=${FACEBOOK_REDIRECT_URI}`);
   console.log(`[facebookOAuthStart] scope=${SCOPE}`);
+  console.log(`[facebookOAuthStart] config_id=${configId || '(none — using scope param)'}`);
+  console.log(`[facebookOAuthStart] scope_source=${scopeIsSafe ? 'META_OAUTH_SCOPES env' : 'hardcoded_correct_scopes'}`);
   console.log(`[facebookOAuthStart] full_auth_url=${auth_url}`);
 
   await log(base44, {
