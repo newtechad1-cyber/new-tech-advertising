@@ -9,7 +9,7 @@ import {
   Globe, Phone, Mail, MapPin, Building2, CheckCircle, Circle,
   AlertTriangle, ExternalLink, Loader2, Plus, Share2, RefreshCw,
   ChevronRight, Tag, Briefcase, UserCircle, Activity, Radio,
-  BookOpen, Calendar, Send, Video, X
+  BookOpen, Calendar, Send, Video, X, Copy, Check, Link2
 } from 'lucide-react';
 
 const STATUS_COLORS = {
@@ -547,12 +547,21 @@ export default function AgencyClientDetail() {
                     </div>
                   );
                 })}
-                <Link
-                  to="/agency/channel-connections"
-                  className="inline-flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300 mt-1 transition-colors"
-                >
-                  <ExternalLink className="w-3 h-3" /> Manage Connections
-                </Link>
+                <div className="flex flex-wrap items-center gap-2 mt-1">
+                  <Link
+                    to="/agency/channel-connections"
+                    className="inline-flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300 transition-colors"
+                  >
+                    <ExternalLink className="w-3 h-3" /> Manage Connections
+                  </Link>
+                  <Link
+                    to={`/agency/channel-setup?client=${id}`}
+                    className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-white transition-colors"
+                  >
+                    <Link2 className="w-3 h-3" /> Channel Setup
+                  </Link>
+                  <CopyClientSetupLink clientId={id} />
+                </div>
               </div>
             </Section>
 
@@ -960,6 +969,27 @@ function FulfillmentSection({ clientId, campaigns, spokeCampaigns, contentAssets
         </div>
       )}
     </div>
+  );
+}
+
+function CopyClientSetupLink({ clientId }) {
+  const [copied, setCopied] = useState(false);
+  const handleCopy = () => {
+    const url = `${window.location.origin}/agency/channel-setup?client=${clientId}`;
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    });
+  };
+  return (
+    <button
+      onClick={handleCopy}
+      title="Copy a link to send to the client for channel setup"
+      className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-white transition-colors"
+    >
+      {copied ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+      {copied ? 'Copied!' : 'Copy Setup Link'}
+    </button>
   );
 }
 
