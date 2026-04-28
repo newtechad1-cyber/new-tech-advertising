@@ -4,6 +4,7 @@ import AgencyLayout from '../components/agency/AgencyLayout';
 import ConnectionCard from '../components/publishing/ConnectionCard';
 import { RefreshCw, Plus, Search } from 'lucide-react';
 import OAuthHealthPanel from '../components/publishing/OAuthHealthPanel';
+import MetaAppDebugPanel from '../components/publishing/MetaAppDebugPanel';
 
 const PROVIDERS = ['google_business_profile', 'youtube', 'facebook', 'instagram'];
 
@@ -160,6 +161,9 @@ export default function ChannelConnections() {
 
         {/* OAuth Health Check Panel */}
         <OAuthHealthPanel connections={connections} clients={clients} />
+
+        {/* Meta App Debug Panel */}
+        <MetaAppDebugPanel />
 
         {/* Client connection grids */}
         {loading ? (
