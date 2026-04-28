@@ -30,13 +30,29 @@ export default function AgencyApprovalCenter() {
 
   useEffect(() => { load(); }, []);
 
+  const ACTIONABLE_STATUSES = ['ready_for_review', 'pending_internal', 'pending_client', 'needs_reapproval', 'rejected'];
+
   const load = async () => {
-    const [a, c, cl] = await Promise.all([
-      base44.entities.NTAContentAsset.list('-created_date', 300),
+    const [allAssets, c, cl] = await Promise.all([
+      base44.entities.NTAContentAsset.list('-created_date', 500),
       base44.entities.SpokeCampaign.list('-created_date', 100),
       base44.entities.Clients.list('-created_date', 200),
     ]);
-    setAssets(a); setCampaigns(c); setClients(cl); setLoading(false);
+
+    // Hard filter: only keep actionable assets — never show draft or approved
+    const actionable = allAssets.filter(a => ACTIONABLE_STATUSES.includes(a.approval_status));
+
+    // Audit log — remove after confirming fix
+    console.log('[ApprovalCenter] Total fetched:', allAssets.length);
+    console.log('[ApprovalCenter] After filter:', actionable.length);
+    const excluded = allAssets.filter(a => !ACTIONABLE_STATUSES.includes(a.approval_status));
+    if (excluded.length) {
+      console.log('[ApprovalCenter] EXCLUDED (draft/approved/null):', excluded.map(a => ({
+        id: a.id, name: a.asset_name, approval_status: a.approval_status, status: a.status
+      })));
+    }
+
+    setAssets(actionable); setCampaigns(c); setClients(cl); setLoading(false);
   };
 
   const campMap = Object.fromEntries(campaigns.map(c => [c.id, c]));
@@ -56,16 +72,13 @@ export default function AgencyApprovalCenter() {
       })
     : assets;
 
-  // Only actionable statuses — drafts and approved never appear in any tab
-  const ACTIONABLE = ['ready_for_review', 'pending_internal', 'pending_client', 'needs_reapproval', 'rejected'];
-  const actionableAssets = filteredAssets.filter(a => ACTIONABLE.includes(a.approval_status));
-
-  const pendingInternal = actionableAssets.filter(a =>
+  // filteredAssets is already pre-filtered to ACTIONABLE_STATUSES at load time
+  const pendingInternal = filteredAssets.filter(a =>
     a.approval_status === 'ready_for_review' || a.approval_status === 'pending_internal'
   );
-  const pendingClient = actionableAssets.filter(a => a.approval_status === 'pending_client');
-  const needsReapproval = actionableAssets.filter(a => a.approval_status === 'needs_reapproval');
-  const rejected = actionableAssets.filter(a => a.approval_status === 'rejected');
+  const pendingClient = filteredAssets.filter(a => a.approval_status === 'pending_client');
+  const needsReapproval = filteredAssets.filter(a => a.approval_status === 'needs_reapproval');
+  const rejected = filteredAssets.filter(a => a.approval_status === 'rejected');
 
   // Overdue = in pending state 3+ days
   const isOverdue = (a) => a.created_date && (Date.now() - new Date(a.created_date)) > 86400000 * 3;
