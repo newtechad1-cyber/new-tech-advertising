@@ -57,10 +57,10 @@ export default function AgencyApprovalCenter() {
     : assets;
 
   // Categorize — MUST match dashboard count formulas exactly
-  // pendingInternal matches dashboard "Pending Internal" / "Awaiting Approval"
+  // pendingInternal: only assets explicitly submitted for review — drafts are excluded until submitted
   const pendingInternal = filteredAssets.filter(a =>
-    ['ready_for_review', 'pending_internal', 'draft'].includes(a.approval_status) ||
-    ['draft', 'ready_for_review'].includes(a.status)
+    ['ready_for_review', 'pending_internal'].includes(a.approval_status) ||
+    a.status === 'ready_for_review'
   );
   // pendingClient matches dashboard "Pending Client"
   const pendingClient = filteredAssets.filter(a => a.approval_status === 'pending_client');

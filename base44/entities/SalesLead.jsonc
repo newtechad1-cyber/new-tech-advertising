@@ -65,6 +65,10 @@
         "unresponsive"
       ],
       "default": "new"
+    },
+    "converted_client_id": {
+      "type": "string",
+      "description": "Clients.id of the converted client \u2014 set when lead is converted to active client"
     }
   },
   "required": [

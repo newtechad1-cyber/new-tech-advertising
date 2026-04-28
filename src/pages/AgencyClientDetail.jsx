@@ -177,10 +177,12 @@ export default function AgencyClientDetail() {
     if (!insightForm.title.trim()) return;
     setCreating(true);
     const slug = insightForm.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-    // Always stamp client_id (canonical Clients.id) and campaign_id on new InsightPages
+    // Use spoke campaign_id if available (canonical for insight page filtering), fall back to general campaign
+    const spokeId = insightForm.spoke_campaign_id || spokeCampaigns[0]?.id || '';
     await base44.entities.InsightPage.create({
-      ...insightForm,
-      campaign_id: campaigns[0]?.id || '',
+      title: insightForm.title,
+      headline: insightForm.headline || '',
+      campaign_id: spokeId,
       client_id: id, // canonical: Clients.id
       publish_status: 'draft',
       slug,
@@ -222,7 +224,7 @@ export default function AgencyClientDetail() {
 
   const pct = setup?.percent_complete ?? 0;
   const stageIndex = SETUP_STAGE_ORDER.indexOf(setup?.onboarding_stage || 'Intake');
-  const connectedChannels = connections.filter(c => c.status === 'connected');
+  const connectedChannels = connections.filter(c => ['ready', 'connected', 'connected_no_destination'].includes(c.status));
 
   return (
     <AgencyLayout>
@@ -535,7 +537,7 @@ export default function AgencyClientDetail() {
               <div className="space-y-2">
                 {CHANNEL_PROVIDERS.map(p => {
                   const conn = connections.find(c => c.provider === p.id);
-                  const isConnected = conn?.status === 'connected';
+                  const isConnected = ['ready', 'connected', 'connected_no_destination'].includes(conn?.status);
                   return (
                     <div key={p.id} className={`flex items-center justify-between rounded-lg px-3 py-2 ${isConnected ? 'bg-emerald-950/30' : 'bg-slate-800/50'}`}>
                       <span className="text-sm text-white">{p.emoji} {p.label}</span>
@@ -642,6 +644,13 @@ export default function AgencyClientDetail() {
           <Field label="Headline">
             <input value={insightForm.headline} onChange={e => setInsightForm(p=>({...p,headline:e.target.value}))} placeholder="e.g. The Hidden Cost of Ignoring Your HVAC" className={INP} />
           </Field>
+          {spokeCampaigns.length > 0 && (
+            <Field label="Link to Spoke Campaign">
+              <select value={insightForm.spoke_campaign_id || spokeCampaigns[0]?.id || ''} onChange={e => setInsightForm(p=>({...p,spoke_campaign_id:e.target.value}))} className={INP}>
+                {spokeCampaigns.map(sc => <option key={sc.id} value={sc.id}>{sc.campaign_name}</option>)}
+              </select>
+            </Field>
+          )}
         </CreateModal>
       )}
 

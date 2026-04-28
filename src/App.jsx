@@ -378,8 +378,7 @@ const AuthenticatedApp = () => {
       <Route path="/dashboard/archived" element={<Navigate to="/agency/leads" replace />} />
       <Route path="/content-command" element={<ContentCommandDashboard />} />
       <Route path="/content-center" element={<ContentCommandCenter />} />
-      <Route path="/clients" element={<ClientManager />} />
-      <Route path="/clients/:id" element={<ClientDetail />} />
+      {/* /clients and /clients/:id legacy redirects are defined below — ClientManager/ClientDetail accessible via /agency/clients */}
       <Route path="/agency/clients/:id/setup" element={<ClientSetupWizard />} />
       <Route path="/agency" element={<AgencyDashboard />} />
       <Route path="/agency/clients" element={<AgencyClients />} />
