@@ -31,6 +31,7 @@
       "enum": [
         "draft",
         "scheduled",
+        "queued",
         "published",
         "failed",
         "cancelled"
@@ -45,6 +46,19 @@
     },
     "client_id": {
       "type": "string"
+    },
+    "publishing_queue_id": {
+      "type": "string",
+      "description": "ID of the PublishingQueue record this item was promoted into"
+    },
+    "sent_to_publisher": {
+      "type": "boolean",
+      "default": false,
+      "description": "True once promoted to PublishingQueue"
+    },
+    "publisher_error": {
+      "type": "string",
+      "description": "Error message from last failed Send to Publisher attempt"
     }
   },
   "required": [

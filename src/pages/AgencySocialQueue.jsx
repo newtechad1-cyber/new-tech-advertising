@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import AgencyLayout from '../components/agency/AgencyLayout';
 import TutorialHighlight from '../components/agency/TutorialHighlight.jsx';
-import { Plus, X, Send, Pencil, Trash2, CheckCircle } from 'lucide-react';
+import { Plus, X, Send, Pencil, Trash2, CheckCircle, Zap, ExternalLink, AlertCircle } from 'lucide-react';
 
 const IN = 'w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500';
 const LBL = 'block text-xs font-medium text-slate-400 mb-1';
@@ -87,8 +87,93 @@ export default function AgencySocialQueue() {
     setPosts(p => p.map(post => post.id === id ? { ...post, publish_status: 'published' } : post));
   };
 
+  const [promotingId, setPromotingId] = useState(null); // id of post currently being promoted
   const [editPostModal, setEditPostModal] = useState(null);
   const [editPostForm, setEditPostForm] = useState({});
+
+  // Map platform → PublishingQueue provider (same values for supported platforms)
+  const PUBLISHABLE_PROVIDERS = ['facebook', 'instagram', 'google_business_profile', 'youtube'];
+
+  const sendToPublisher = async (post) => {
+    // Duplicate guard
+    if (post.sent_to_publisher || post.publishing_queue_id) {
+      alert(`Already sent to publisher.\nPublishingQueue ID: ${post.publishing_queue_id || '(unknown)'}\nGo to Publishing Ops to check status.`);
+      return;
+    }
+
+    // Eligibility checks
+    if (!post.client_id) {
+      await base44.entities.SocialPostQueue.update(post.id, { publisher_error: 'Missing client_id — cannot look up channel connection.' });
+      setPosts(p => p.map(x => x.id === post.id ? { ...x, publisher_error: 'Missing client_id' } : x));
+      return;
+    }
+    if (!post.post_text?.trim()) {
+      await base44.entities.SocialPostQueue.update(post.id, { publisher_error: 'Missing post text.' });
+      setPosts(p => p.map(x => x.id === post.id ? { ...x, publisher_error: 'Missing post text' } : x));
+      return;
+    }
+    if (!PUBLISHABLE_PROVIDERS.includes(post.platform)) {
+      const err = `Platform "${post.platform}" is not supported by the publishing engine (only Facebook, Instagram, GBP, YouTube).`;
+      await base44.entities.SocialPostQueue.update(post.id, { publisher_error: err });
+      setPosts(p => p.map(x => x.id === post.id ? { ...x, publisher_error: err } : x));
+      return;
+    }
+
+    setPromotingId(post.id);
+
+    // Look up ChannelConnection for this client + provider
+    const conns = await base44.entities.ChannelConnection.filter({ client_id: post.client_id, provider: post.platform });
+    const validConn = conns.find(c => ['ready', 'connected', 'connected_no_destination'].includes(c.status));
+
+    if (!validConn) {
+      const err = `No publishing connection found for this client + ${post.platform}. Go to Channel Connections to connect this channel.`;
+      await base44.entities.SocialPostQueue.update(post.id, { publisher_error: err });
+      setPosts(p => p.map(x => x.id === post.id ? { ...x, publisher_error: err } : x));
+      setPromotingId(null);
+      return;
+    }
+
+    // Build PublishingQueue record
+    const publishStatus = post.scheduled_time ? 'scheduled' : 'queued';
+    const pqRecord = await base44.entities.PublishingQueue.create({
+      client_id: post.client_id,
+      connection_id: validConn.id,
+      provider: post.platform,
+      content_type: post.media_url ? 'image_post' : 'text_post',
+      body_text: post.post_text,
+      caption: post.post_text,
+      media_urls: post.media_url ? [post.media_url] : [],
+      scheduled_for: post.scheduled_time || null,
+      approval_status: 'approved',
+      publish_status: publishStatus,
+      source_content_id: post.asset_id || post.id,
+      source_wizard: 'social_queue',
+      ...(post.campaign_id ? { notes: `campaign_id:${post.campaign_id}` } : {}),
+    });
+
+    // Stamp the SocialPostQueue item
+    await base44.entities.SocialPostQueue.update(post.id, {
+      publishing_queue_id: pqRecord.id,
+      sent_to_publisher: true,
+      publish_status: publishStatus,
+      publisher_error: null,
+    });
+
+    // Log the promotion
+    await base44.entities.PostingLog.create({
+      queue_id: pqRecord.id,
+      client_id: post.client_id,
+      provider: post.platform,
+      event_type: 'scheduled',
+      status: 'info',
+      event_time: new Date().toISOString(),
+      message: `SocialPostQueue promoted to PublishingQueue — social_queue_id=${post.id} publishing_queue_id=${pqRecord.id}`,
+      payload: JSON.stringify({ social_queue_id: post.id, publishing_queue_id: pqRecord.id, client_id: post.client_id, provider: post.platform }),
+    }).catch(() => {}); // non-blocking log
+
+    setPosts(p => p.map(x => x.id === post.id ? { ...x, sent_to_publisher: true, publishing_queue_id: pqRecord.id, publish_status: publishStatus, publisher_error: null } : x));
+    setPromotingId(null);
+  };
 
   const openEditPost = (post) => {
     setEditPostForm({ post_text: post.post_text || '', scheduled_time: post.scheduled_time || '', media_url: post.media_url || '' });
@@ -169,26 +254,55 @@ export default function AgencySocialQueue() {
                     <td className="px-4 py-3 text-xs text-slate-500">{p.scheduled_time ? new Date(p.scheduled_time).toLocaleString() : '—'}</td>
                     <td className="px-4 py-3"><span className={`text-xs font-bold px-2 py-0.5 rounded-full ${STATUS_COLORS[p.publish_status] || 'bg-slate-700 text-slate-400'}`}>{p.publish_status}</span></td>
                     <td className="px-4 py-3">
-                     <div className="flex items-center gap-1 flex-wrap">
-                       <select value={p.publish_status} onChange={e => updateStatus(p.id, e.target.value)}
-                         className="text-xs bg-slate-800 border border-slate-700 text-slate-300 rounded-lg px-2 py-1.5">
-                         <option value="draft">Draft</option>
-                         <option value="scheduled">Scheduled</option>
-                         <option value="published">Published</option>
-                         <option value="failed">Failed</option>
-                         <option value="cancelled">Cancelled</option>
-                       </select>
-                       <button onClick={() => openEditPost(p)} title="Edit" className="p-1.5 text-slate-500 hover:text-blue-400 bg-slate-800 hover:bg-slate-700 rounded-lg"><Pencil className="w-3.5 h-3.5" /></button>
-                       {p.publish_status !== 'published' && (
-                         <button onClick={() => markPublished(p.id)} title="Mark Published" className="p-1.5 text-slate-500 hover:text-emerald-400 bg-slate-800 hover:bg-slate-700 rounded-lg"><CheckCircle className="w-3.5 h-3.5" /></button>
-                       )}
-                       {!['cancelled','published'].includes(p.publish_status) && (
-                         <button onClick={() => cancelPost(p)} title="Cancel (unlinks asset)" className="p-1.5 text-slate-500 hover:text-amber-400 bg-slate-800 hover:bg-slate-700 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
-                       )}
-                       {p.publish_status === 'cancelled' && (
-                         <button onClick={() => deletePost(p)} title="Delete permanently" className="p-1.5 text-slate-500 hover:text-red-400 bg-slate-800 hover:bg-slate-700 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
-                       )}
-                     </div>
+                    <div className="flex flex-col gap-1.5">
+                      <div className="flex items-center gap-1 flex-wrap">
+                        <select value={p.publish_status} onChange={e => updateStatus(p.id, e.target.value)}
+                          className="text-xs bg-slate-800 border border-slate-700 text-slate-300 rounded-lg px-2 py-1.5">
+                          <option value="draft">Draft</option>
+                          <option value="scheduled">Scheduled</option>
+                          <option value="queued">Queued</option>
+                          <option value="published">Published</option>
+                          <option value="failed">Failed</option>
+                          <option value="cancelled">Cancelled</option>
+                        </select>
+                        <button onClick={() => openEditPost(p)} title="Edit" className="p-1.5 text-slate-500 hover:text-blue-400 bg-slate-800 hover:bg-slate-700 rounded-lg"><Pencil className="w-3.5 h-3.5" /></button>
+                        {p.publish_status !== 'published' && (
+                          <button onClick={() => markPublished(p.id)} title="Mark Published" className="p-1.5 text-slate-500 hover:text-emerald-400 bg-slate-800 hover:bg-slate-700 rounded-lg"><CheckCircle className="w-3.5 h-3.5" /></button>
+                        )}
+                        {!['cancelled','published'].includes(p.publish_status) && (
+                          <button onClick={() => cancelPost(p)} title="Cancel (unlinks asset)" className="p-1.5 text-slate-500 hover:text-amber-400 bg-slate-800 hover:bg-slate-700 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
+                        )}
+                        {p.publish_status === 'cancelled' && (
+                          <button onClick={() => deletePost(p)} title="Delete permanently" className="p-1.5 text-slate-500 hover:text-red-400 bg-slate-800 hover:bg-slate-700 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
+                        )}
+                      </div>
+                      {/* Send to Publisher bridge */}
+                      {!['cancelled','published'].includes(p.publish_status) && (
+                        p.sent_to_publisher || p.publishing_queue_id ? (
+                          <a href="/agency/publishing-ops" title="View in Publishing Ops"
+                            className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-400 hover:text-emerald-300">
+                            <ExternalLink className="w-3 h-3" /> In Publisher Queue
+                          </a>
+                        ) : (
+                          <button
+                            onClick={() => sendToPublisher(p)}
+                            disabled={promotingId === p.id || !p.client_id || !p.post_text}
+                            title={!p.client_id ? 'Set a client first' : !p.post_text ? 'Post text required' : 'Promote to PublishingQueue for real publishing'}
+                            className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-1 bg-violet-900/40 hover:bg-violet-900/70 text-violet-300 disabled:opacity-40 disabled:cursor-not-allowed rounded-lg transition-colors"
+                          >
+                            <Zap className="w-3 h-3" />
+                            {promotingId === p.id ? 'Sending...' : 'Send to Publisher'}
+                          </button>
+                        )
+                      )}
+                      {/* Publisher error */}
+                      {p.publisher_error && (
+                        <p className="text-xs text-red-400 flex items-start gap-1">
+                          <AlertCircle className="w-3 h-3 flex-shrink-0 mt-0.5" />
+                          {p.publisher_error}
+                        </p>
+                      )}
+                    </div>
                     </td>
                   </tr>
                 ))}
