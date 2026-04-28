@@ -56,17 +56,16 @@ export default function AgencyApprovalCenter() {
       })
     : assets;
 
-  // Categorize — drafts and approved are excluded; only actionable states shown
-  const pendingInternal = filteredAssets.filter(a =>
-    a.approval_status === 'ready_for_review' ||
-    a.approval_status === 'pending_internal' ||
-    (a.status === 'ready_for_review' && !['draft', 'approved'].includes(a.approval_status))
+  // Only actionable statuses — drafts and approved never appear in any tab
+  const ACTIONABLE = ['ready_for_review', 'pending_internal', 'pending_client', 'needs_reapproval', 'rejected'];
+  const actionableAssets = filteredAssets.filter(a => ACTIONABLE.includes(a.approval_status));
+
+  const pendingInternal = actionableAssets.filter(a =>
+    a.approval_status === 'ready_for_review' || a.approval_status === 'pending_internal'
   );
-  // pendingClient matches dashboard "Pending Client"
-  const pendingClient = filteredAssets.filter(a => a.approval_status === 'pending_client');
-  const needsReapproval = filteredAssets.filter(a => a.approval_status === 'needs_reapproval');
-  // rejected matches dashboard "Rejected"
-  const rejected = filteredAssets.filter(a => a.approval_status === 'rejected');
+  const pendingClient = actionableAssets.filter(a => a.approval_status === 'pending_client');
+  const needsReapproval = actionableAssets.filter(a => a.approval_status === 'needs_reapproval');
+  const rejected = actionableAssets.filter(a => a.approval_status === 'rejected');
 
   // Overdue = in pending state 3+ days
   const isOverdue = (a) => a.created_date && (Date.now() - new Date(a.created_date)) > 86400000 * 3;
