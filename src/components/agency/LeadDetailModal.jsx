@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   X, Phone, Mail, Globe, MapPin, MessageSquare, Check, Edit, Save,
   ChevronDown, Calendar, AlertCircle, ArrowRight, FileText, Trophy,
-  XCircle, Clock, Send, Activity, PhoneCall, UserPlus, Loader2
+  XCircle, Clock, Send, Activity, PhoneCall, UserPlus, Loader2, Search
 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
@@ -83,6 +83,27 @@ export default function LeadDetailModal({ deal, lead: initialLead, onClose, onUp
   const [saving, setSaving] = useState(false);
   const [movingStage, setMovingStage] = useState(false);
   const [saveError, setSaveError] = useState(null);
+
+  // Website Audit link
+  const [audits, setAudits] = useState([]);
+  const [auditsLoaded, setAuditsLoaded] = useState(false);
+
+  useEffect(() => {
+    if (!lead.id) return;
+    Promise.all([
+      base44.entities.WebsiteAudit.filter({ lead_id: lead.id }),
+      base44.entities.WebsiteAudit.filter({ sales_lead_id: lead.id }),
+    ]).then(([byLeadId, bySalesLeadId]) => {
+      const seen = new Set();
+      const merged = [...byLeadId, ...bySalesLeadId].filter(a => {
+        if (seen.has(a.id)) return false;
+        seen.add(a.id);
+        return true;
+      });
+      setAudits(merged);
+      setAuditsLoaded(true);
+    }).catch(() => setAuditsLoaded(true));
+  }, [lead.id]);
 
   // Quick follow-up
   const [editingFollowUp, setEditingFollowUp] = useState(false);
@@ -640,6 +661,55 @@ export default function LeadDetailModal({ deal, lead: initialLead, onClose, onUp
                 {lead.industry && <InfoRow icon={() => <span className="text-xs">🏢</span>} label={lead.industry} />}
                 {lead.lead_source && <InfoRow icon={() => <span className="text-xs">📌</span>} label={SOURCE_LABELS[lead.lead_source] || lead.lead_source} />}
                 {lead.last_contacted && <InfoRow icon={() => <span className="text-xs">📆</span>} label={`Last contacted: ${fmtDate(lead.last_contacted)}`} />}
+              </div>
+
+              {/* ── WEBSITE AUDIT ── */}
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <Search className="w-3.5 h-3.5 text-slate-500" />
+                  <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Website Audit</p>
+                </div>
+                {!auditsLoaded ? (
+                  <p className="text-xs text-slate-700 italic">Loading...</p>
+                ) : audits.length === 0 ? (
+                  <p className="text-xs text-slate-700 italic">No audit attached yet.</p>
+                ) : (
+                  <div className="space-y-2">
+                    {audits.map(audit => (
+                      <div key={audit.id} className="flex items-center justify-between gap-3 bg-slate-800/50 rounded-xl px-3 py-2.5">
+                        <div className="min-w-0">
+                          <p className="text-xs font-semibold text-slate-300 truncate">{audit.website_url}</p>
+                          <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                            {audit.status && (
+                              <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full ${audit.status === 'completed' ? 'bg-emerald-900/50 text-emerald-300' : 'bg-slate-700 text-slate-400'}`}>
+                                {audit.status}
+                              </span>
+                            )}
+                            {audit.risk_level && (
+                              <span className={`text-xs font-bold px-1.5 py-0.5 rounded-full ${audit.risk_level === 'critical' ? 'bg-red-900/50 text-red-300' : audit.risk_level === 'high' ? 'bg-orange-900/50 text-orange-300' : 'bg-slate-700 text-slate-400'}`}>
+                                {audit.risk_level} risk
+                              </span>
+                            )}
+                            {audit.compliance_score != null && (
+                              <span className="text-xs text-slate-500">Score: {audit.compliance_score}</span>
+                            )}
+                            {audit.audit_date && (
+                              <span className="text-xs text-slate-600">{new Date(audit.audit_date).toLocaleDateString()}</span>
+                            )}
+                          </div>
+                        </div>
+                        <a
+                          href={`/AiAccessibilityChecker?audit_id=${audit.id}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 text-xs font-semibold text-blue-400 hover:text-blue-300 bg-blue-400/10 hover:bg-blue-400/20 px-2.5 py-1.5 rounded-lg flex-shrink-0 transition-colors"
+                        >
+                          <ArrowRight className="w-3 h-3" /> Open Audit
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* ── ACTIVITY LOG ── */}

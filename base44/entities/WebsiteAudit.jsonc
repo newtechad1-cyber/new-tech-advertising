@@ -1,0 +1,147 @@
+{
+  "name": "WebsiteAudit",
+  "type": "object",
+  "properties": {
+    "business_profile_id": {
+      "type": "string",
+      "description": "Reference to BusinessProfile"
+    },
+    "lead_id": {
+      "type": "string",
+      "description": "Reference to SalesLead.id \u2014 set when audit is created from a lead flow"
+    },
+    "sales_lead_id": {
+      "type": "string",
+      "description": "Alias for lead_id \u2014 set for backward-compat lookups"
+    },
+    "website_url": {
+      "type": "string",
+      "description": "Website URL audited"
+    },
+    "audit_type": {
+      "type": "string",
+      "enum": [
+        "accessibility",
+        "seo",
+        "performance",
+        "comprehensive"
+      ],
+      "default": "accessibility"
+    },
+    "accessibility_issues": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of accessibility issues found"
+    },
+    "compliance_score": {
+      "type": "number",
+      "default": 0,
+      "description": "ADA compliance score 0-100"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "risk_score": {
+      "type": "number",
+      "default": 0,
+      "description": "Risk score for non-compliance"
+    },
+    "wcag_level": {
+      "type": "string",
+      "enum": [
+        "none",
+        "A",
+        "AA",
+        "AAA"
+      ],
+      "default": "none",
+      "description": "WCAG compliance level"
+    },
+    "color_contrast_issues": {
+      "type": "boolean",
+      "default": false
+    },
+    "alt_text_issues": {
+      "type": "boolean",
+      "default": false
+    },
+    "heading_structure_issues": {
+      "type": "boolean",
+      "default": false
+    },
+    "keyboard_navigation_issues": {
+      "type": "boolean",
+      "default": false
+    },
+    "form_label_issues": {
+      "type": "boolean",
+      "default": false
+    },
+    "video_caption_issues": {
+      "type": "boolean",
+      "default": false
+    },
+    "recommended_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Recommended fixes"
+    },
+    "audit_report": {
+      "type": "string",
+      "description": "Full audit report text"
+    },
+    "estimated_remediation_cost": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "description": "Estimated cost to fix"
+    },
+    "lawsuit_risk": {
+      "type": "string",
+      "description": "Notes on potential legal risk"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "completed",
+        "archived"
+      ],
+      "default": "completed"
+    },
+    "lead_email": {
+      "type": "string",
+      "description": "Email of person who requested audit"
+    },
+    "lead_phone": {
+      "type": "string",
+      "description": "Phone of person who requested audit"
+    },
+    "lead_source": {
+      "type": "string",
+      "description": "Where lead came from (ada-checker-tool, etc)"
+    },
+    "audit_date": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "website_url",
+    "audit_type"
+  ]
+}
