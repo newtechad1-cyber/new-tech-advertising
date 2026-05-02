@@ -3,10 +3,30 @@ import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const clients = [
-  { name: 'Monson Plumbing, Heating & Excavating', initials: 'MP' },
-  { name: 'Johnson Heating & AC', initials: 'JH' },
-  { name: "Papa Everett's Pizza", initials: 'PE' },
-  { name: 'Club Fitness – Fort Dodge', initials: 'CF' },
+  {
+    name: 'Monson Plumbing, Heating & Excavating',
+    logo: 'https://media.base44.com/images/public/691f41a18de4a7f498c8f884/35bc65203_MonsonPlumbingHeatingExcavating.png',
+    url: 'https://monsonplumbing.com/',
+    bg: 'bg-white',
+  },
+  {
+    name: 'Johnson Heating & Air Conditioning',
+    logo: 'https://media.base44.com/images/public/691f41a18de4a7f498c8f884/fa83faf2f_3Dlogo.png',
+    url: 'https://johnsonheatingandac.com/',
+    bg: 'bg-white',
+  },
+  {
+    name: "Papa Everett's Pizza",
+    logo: 'https://media.base44.com/images/public/691f41a18de4a7f498c8f884/da2bd4a73_Pappa-Everette-pizza.jpg',
+    url: 'https://pizzaclearlake.com/',
+    bg: 'bg-white',
+  },
+  {
+    name: 'Club Fitness – Fort Dodge',
+    logo: 'https://media.base44.com/images/public/691f41a18de4a7f498c8f884/b88c7c084_306090828_501907041940322_3593526891402694754_n.jpg',
+    url: 'https://clubfitnessfd.com/',
+    bg: 'bg-black',
+  },
 ];
 
 const testimonials = [
@@ -91,15 +111,19 @@ export default function WhoThisWorksFor() {
         {/* Client logo cards */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12">
           {clients.map(c => (
-            <div
+            <a
               key={c.name}
-              className="border border-slate-200 rounded-xl p-4 flex flex-col items-center justify-center gap-2 bg-slate-50 min-h-[90px]"
+              href={c.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`border border-slate-200 rounded-xl p-4 flex items-center justify-center min-h-[100px] hover:shadow-md transition-shadow ${c.bg}`}
             >
-              <div className="w-10 h-10 rounded-lg bg-slate-800 text-white flex items-center justify-center font-black text-sm flex-shrink-0">
-                {c.initials}
-              </div>
-              <p className="text-slate-700 text-xs font-semibold text-center leading-snug">{c.name}</p>
-            </div>
+              <img
+                src={c.logo}
+                alt={c.name}
+                className="max-h-16 max-w-full object-contain"
+              />
+            </a>
           ))}
         </div>
 
