@@ -1,53 +1,130 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const industries = [
-  'HVAC and service businesses',
-  'Plumbing and trades',
-  'Excavating and contractors',
-  'Restaurants and local businesses',
-  'Fitness and membership businesses',
+const clients = [
+  { name: 'Monson Plumbing, Heating & Excavating', initials: 'MP' },
+  { name: 'Johnson Heating & AC', initials: 'JH' },
+  { name: "Papa Everett's Pizza", initials: 'PE' },
+  { name: 'Club Fitness – Fort Dodge', initials: 'CF' },
 ];
+
+const testimonials = [
+  {
+    name: 'Jay Monson',
+    business: 'Monson Plumbing, Heating & Excavating',
+    quote: null,
+  },
+  {
+    name: 'Tony Johnson',
+    business: 'Johnson Heating & AC',
+    quote: null,
+  },
+  {
+    name: 'Sandy Mark',
+    business: "Papa Everett's Pizza",
+    quote: null,
+  },
+];
+
+function TestimonialSlider() {
+  const [index, setIndex] = useState(0);
+  const prev = () => setIndex(i => (i === 0 ? testimonials.length - 1 : i - 1));
+  const next = () => setIndex(i => (i === testimonials.length - 1 ? 0 : i + 1));
+  const t = testimonials[index];
+
+  return (
+    <div className="bg-slate-50 border border-slate-200 rounded-2xl p-8">
+      <div className="min-h-[80px] mb-6">
+        {t.quote ? (
+          <p className="text-slate-700 text-lg leading-relaxed italic">"{t.quote}"</p>
+        ) : (
+          <p className="text-slate-400 italic text-base">Client feedback coming soon.</p>
+        )}
+      </div>
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-slate-900 font-bold text-sm">{t.name}</p>
+          <p className="text-slate-500 text-xs">{t.business}</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={prev}
+            className="w-9 h-9 rounded-full border border-slate-300 hover:border-slate-500 flex items-center justify-center transition-colors"
+          >
+            <ChevronLeft className="w-4 h-4 text-slate-600" />
+          </button>
+          <span className="text-xs text-slate-400">{index + 1} / {testimonials.length}</span>
+          <button
+            onClick={next}
+            className="w-9 h-9 rounded-full border border-slate-300 hover:border-slate-500 flex items-center justify-center transition-colors"
+          >
+            <ChevronRight className="w-4 h-4 text-slate-600" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function WhoThisWorksFor() {
   return (
     <section className="bg-white py-20 px-6 border-t border-slate-100">
-      <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+      <div className="max-w-5xl mx-auto">
 
-        {/* LEFT: Image */}
-        <div className="rounded-2xl overflow-hidden shadow-lg aspect-[4/3] bg-slate-200">
-          <img
-            src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80"
-            alt="Local business owner"
-            className="w-full h-full object-cover"
-          />
-        </div>
-
-        {/* RIGHT: Text */}
-        <div>
+        {/* Header */}
+        <div className="max-w-2xl mb-12">
           <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-4">
             Real Work With Local Businesses
           </h2>
-          <p className="text-slate-500 mb-5 leading-relaxed text-sm">
-            I've worked with many types of businesses over the years, including service companies, restaurants, fitness businesses, and local trades.
+          <p className="text-slate-500 leading-relaxed text-sm mb-3">
+            I've worked with many types of local businesses over the years — including HVAC, plumbing, excavation, restaurants, fitness businesses, and local service companies.
           </p>
-          <ul className="space-y-3 mb-6">
-            {industries.map(item => (
-              <li key={item} className="flex items-center gap-3 text-slate-700 text-base">
-                <span className="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0" />
-                {item}
-              </li>
-            ))}
-          </ul>
-          <p className="text-slate-500 leading-relaxed text-sm">
-            Service businesses need calls and leads. Restaurants need customers walking in. Fitness businesses need members and inquiries.<br /><br />
+          <p className="text-slate-500 leading-relaxed text-sm mb-3">
+            Different businesses need different outcomes. Service businesses need calls and leads. Restaurants need customers walking in. Fitness businesses need members and inquiries.
+          </p>
+          <p className="text-slate-700 font-semibold text-sm">
             The goal is always the same: help people find you, understand you, and take action.
           </p>
-          <a
-            href="/our-work"
-            className="inline-flex items-center gap-2 mt-6 border border-slate-300 hover:border-slate-400 text-slate-800 font-bold px-5 py-3 rounded-xl transition-colors text-sm"
-          >
-            See My Work
-          </a>
+        </div>
+
+        {/* Client logo cards */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12">
+          {clients.map(c => (
+            <div
+              key={c.name}
+              className="border border-slate-200 rounded-xl p-4 flex flex-col items-center justify-center gap-2 bg-slate-50 min-h-[90px]"
+            >
+              <div className="w-10 h-10 rounded-lg bg-slate-800 text-white flex items-center justify-center font-black text-sm flex-shrink-0">
+                {c.initials}
+              </div>
+              <p className="text-slate-700 text-xs font-semibold text-center leading-snug">{c.name}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Testimonial slider */}
+        <div className="max-w-2xl mb-10">
+          <TestimonialSlider />
+        </div>
+
+        {/* CTA */}
+        <div className="border-t border-slate-100 pt-8 flex flex-col sm:flex-row sm:items-center gap-4">
+          <p className="text-slate-600 font-medium">Want your business shown clearly online?</p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <a
+              href="tel:+16414208816"
+              className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-5 py-3 rounded-xl transition-colors text-sm"
+            >
+              Call or Text 641-420-8816
+            </a>
+            <Link
+              to="/our-work"
+              className="inline-flex items-center justify-center gap-2 border border-slate-300 hover:border-slate-400 text-slate-800 font-bold px-5 py-3 rounded-xl transition-colors text-sm"
+            >
+              See My Work
+            </Link>
+          </div>
         </div>
 
       </div>
