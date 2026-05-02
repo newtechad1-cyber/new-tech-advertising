@@ -141,8 +141,8 @@ export default function OpsCampaignDetail() {
 
   const load = async () => {
     setLoading(true);
-    const list = await base44.entities.Campaign.filter({ id });
-    const c = list[0];
+    const list = await base44.entities.Campaign.list('-created_date', 500);
+    const c = list.find(x => x.id === id);
     if (!c) { navigate('/ops/campaigns'); return; }
     setCampaign(c);
 
@@ -153,7 +153,7 @@ export default function OpsCampaignDetail() {
       base44.entities.VideoScript.filter({ campaign_id: id }),
       base44.entities.SocialPost.filter({ campaign_id: id }),
       base44.entities.Lead.filter({ campaign_id: id }),
-      base44.entities.Report.filter({ campaign_id: id }),
+      base44.entities.Report.filter({ campaign_id: id }).catch(() => []),
     ]);
 
     setClients(clientList);

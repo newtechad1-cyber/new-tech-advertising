@@ -89,7 +89,7 @@ export default function HomeWhoWeServe() {
           <p className="text-slate-400 text-lg max-w-xl mx-auto mb-10">If you serve North Iowa customers, we can build a lead system for you.</p>
           <div className="flex flex-wrap justify-center gap-2">
             {INDUSTRIES.map(ind => (
-              <div key={ind.name} className="flex items-center gap-2 bg-white/8 hover:bg-white/12 border border-white/10 rounded-full px-4 py-2 text-sm text-slate-300 font-medium transition-colors">
+              <div key={ind.name} className="flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/10 rounded-full px-4 py-2 text-sm text-slate-300 font-medium transition-colors">
                 <span>{ind.icon}</span> {ind.name}
               </div>
             ))}

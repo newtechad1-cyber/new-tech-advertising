@@ -3,7 +3,7 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 Deno.serve(async (req) => {
   const base44 = createClientFromRequest(req);
   const body = await req.json();
-  const { business_name, contact_name, email, phone, website, industry, city } = body;
+  const { business_name, contact_name, email, phone, website, industry, city, notes } = body;
 
   if (!business_name) {
     return Response.json({ error: 'business_name is required' }, { status: 400 });
@@ -18,6 +18,7 @@ Deno.serve(async (req) => {
     website: website || '',
     industry: industry || '',
     city: city || '',
+    notes: notes || '',
     status: 'new',
     audit_status: 'requested',
   });

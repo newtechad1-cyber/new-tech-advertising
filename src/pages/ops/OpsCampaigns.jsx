@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import OpsLayout from '../../components/ops-dashboard/OpsLayout';
 import { base44 } from '@/api/base44Client';
 import { Link } from 'react-router-dom';
-import { Plus, RefreshCw, Zap, ChevronDown } from 'lucide-react';
+import { Plus, RefreshCw, Zap } from 'lucide-react';
 
 const STATUS_COLORS = { planning: 'bg-slate-700 text-slate-300', active: 'bg-emerald-900/40 text-emerald-300', paused: 'bg-yellow-900/40 text-yellow-300', completed: 'bg-blue-900/40 text-blue-300' };
 const SEASONS = ['spring', 'summer', 'fall', 'winter', 'year_round', 'custom'];
@@ -159,6 +159,8 @@ export default function OpsCampaigns() {
   const [modal, setModal] = useState(null);
   const [showSeasonal, setShowSeasonal] = useState(false);
   const [generating, setGenerating] = useState(null);
+  const [toast, setToast] = useState('');
+  const showToast = (msg) => { setToast(msg); setTimeout(() => setToast(''), 4000); };
 
   const load = async () => {
     setLoading(true);
@@ -177,13 +179,18 @@ export default function OpsCampaigns() {
     setGenerating(campaign.id);
     await base44.functions.invoke('ntaGenerateCampaignContent', { campaign_id: campaign.id });
     setGenerating(null);
-    alert('Content pack generated! Check Content Assets, Social Queue, and SEO Pages.');
+    showToast('✓ Content pack generated! Check Content Assets, Social Queue, and SEO Pages.');
   };
 
   const clientName = (id) => clients.find(c => c.id === id)?.business_name || 'Unknown';
 
   return (
     <OpsLayout>
+      {toast && (
+        <div className="fixed top-4 right-4 z-50 bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-lg text-sm font-semibold">
+          {toast}
+        </div>
+      )}
       <div className="p-6 space-y-5">
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div>

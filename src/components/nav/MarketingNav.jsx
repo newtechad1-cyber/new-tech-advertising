@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
 import { Menu, X, ChevronDown } from 'lucide-react';
 
 const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png';
@@ -87,7 +86,7 @@ export default function MarketingNav() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-6">
 
         {/* Logo */}
-        <Link to={createPageUrl('Home')} className="flex-shrink-0">
+        <Link to="/" className="flex-shrink-0">
           <img src={LOGO_URL} alt="New Tech Advertising" className="h-10 w-auto" />
         </Link>
 
@@ -198,26 +197,26 @@ export default function MarketingNav() {
               Book a Call
             </a>
             <Link
-              to={createPageUrl('Start')}
+              to="/gap-audit"
               onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-center w-full bg-violet-600 hover:bg-violet-500 text-white font-bold py-3 rounded-xl transition-all"
+              className="flex items-center justify-center w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl transition-all"
             >
-              Start Free Trial
+              Free Gap Audit
             </Link>
             <div className="flex gap-3">
               <Link
-                to={createPageUrl('ClientDashboard')}
+                to="/client/dashboard"
                 onClick={() => setMobileOpen(false)}
                 className="flex-1 flex items-center justify-center text-slate-400 hover:text-white text-sm py-2 border border-slate-700 rounded-lg transition-colors"
               >
                 Client Login
               </Link>
               <Link
-                to={createPageUrl('AdminDashboard')}
+                to="/ops"
                 onClick={() => setMobileOpen(false)}
                 className="flex-1 flex items-center justify-center text-slate-400 hover:text-white text-sm py-2 border border-slate-700 rounded-lg transition-colors"
               >
-                Admin Login
+                Ops →
               </Link>
             </div>
           </div>
