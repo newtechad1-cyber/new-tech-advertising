@@ -2,13 +2,10 @@ import React, { useEffect } from 'react';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import NTAGrowthGuideBot from '../components/nta-guide/NTAGrowthGuideBot';
-import HomeHeroV2 from '../components/home-v2/HomeHeroV2';
-import HomeLeadSystem from '../components/home-v2/HomeLeadSystem';
-import HomeWhoWeServe from '../components/home-v2/HomeWhoWeServe';
-import HomeClientExamples from '../components/home-v2/HomeClientExamples';
-import HomeGapAuditCTA from '../components/home-v2/HomeGapAuditCTA';
-import HomeFAQ from '../components/home-v2/HomeFAQ';
-import HomeFinalCTAV2 from '../components/home-v2/HomeFinalCTAV2';
+import HeroSplit from '../components/home-v3/HeroSplit';
+import WhatIHelpWith from '../components/home-v3/WhatIHelpWith';
+import HowItWorks from '../components/home-v3/HowItWorks';
+import GapAuditCenteredCTA from '../components/home-v3/GapAuditCenteredCTA';
 
 export default function Home() {
   useEffect(() => {
@@ -21,7 +18,6 @@ export default function Home() {
     }
     meta.setAttribute('content', 'NTA builds complete lead systems for local service businesses in North Iowa — HVAC, plumbing, excavating, lawn care, and more. Website rebuilds, SEO pages, seasonal campaigns, AI video, and follow-up systems.');
 
-    // Schema markup
     const schema = {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
@@ -45,13 +41,10 @@ export default function Home() {
   return (
     <div className="bg-white min-h-screen">
       <MarketingNav />
-      <HomeHeroV2 />
-      <HomeLeadSystem />
-      <HomeWhoWeServe />
-      <HomeClientExamples />
-      <HomeGapAuditCTA />
-      <HomeFAQ />
-      <HomeFinalCTAV2 />
+      <HeroSplit />
+      <WhatIHelpWith />
+      <HowItWorks />
+      <GapAuditCenteredCTA />
       <SiteFooter />
       <NTAGrowthGuideBot />
     </div>
