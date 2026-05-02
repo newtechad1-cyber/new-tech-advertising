@@ -20,29 +20,29 @@ const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/pub
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
-  { label: 'About', href: '/About' },
   {
     label: 'Services',
-    href: '/services/website-rebuilds',
+    href: '/local-lead-systems',
     children: [
-      { label: 'Website Rebuilds', href: '/services/website-rebuilds', desc: 'Modern websites built to rank and convert' },
-      { label: 'ADA Compliance', href: '/AdaWebsiteCompliance', desc: 'Protect your business and expand your reach' },
-      { label: 'Streaming TV Ads', href: '/StreamingTvAdvertising', desc: 'Local ads on Hulu, Roku, Paramount+' },
-      { label: 'AI SEO & Marketing', href: '/AiSeo', desc: 'Content and SEO systems that build authority' },
+      { label: 'Local Lead Systems', href: '/local-lead-systems', desc: 'Full system: site + SEO + campaigns + follow-up' },
+      { label: 'Website Rebuilds', href: '/website-rebuilds', desc: 'Modern sites built to rank and convert' },
+      { label: 'SEO Pages', href: '/seo-pages-for-local-businesses', desc: 'City & service pages that drive local traffic' },
+      { label: 'Seasonal Campaigns', href: '/seasonal-campaigns', desc: 'Timed marketing for peak demand' },
+      { label: 'Social Media Content', href: '/social-media-content-system', desc: 'Consistent social posts done-for-you' },
+      { label: 'AI Video Marketing', href: '/ai-video-marketing', desc: 'AI-produced video that builds trust' },
     ],
   },
   {
-    label: 'Locations',
-    href: '/services/website-rebuilds',
+    label: 'Industries',
+    href: '/hvac-marketing-north-iowa',
     children: [
-      { label: 'Mason City, IA', href: '/website-rebuilds/mason-city-ia', desc: 'Website rebuild services in Mason City' },
-      { label: 'Rochester, MN', href: '/website-rebuilds/rochester-mn', desc: 'Website rebuild services in Rochester' },
-      { label: 'Austin, MN', href: '/website-rebuilds/austin-mn', desc: 'Website rebuild services in Austin' },
-      { label: 'Albert Lea, MN', href: '/website-rebuilds/albert-lea-mn', desc: 'Website rebuild services in Albert Lea' },
+      { label: 'HVAC Marketing', href: '/hvac-marketing-north-iowa', desc: 'Heating & cooling contractors in North Iowa' },
+      { label: 'Contractor Marketing', href: '/contractor-marketing-north-iowa', desc: 'Home service pros & tradespeople' },
+      { label: 'Small Business Marketing', href: '/small-business-marketing-north-iowa', desc: 'Local retail, care, and service businesses' },
     ],
   },
-  { label: 'Insights', href: '/Blog' },
-  { label: 'Contact', href: '/Contact' },
+  { label: 'Our Work', href: '/our-work' },
+  { label: 'Free Gap Audit', href: '/gap-audit' },
 ];
 
 function DropdownMenu({ items, onClose }) {
@@ -117,12 +117,15 @@ export default function MarketingNav() {
 
         {/* Desktop CTAs */}
         <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
-          <Link to={createPageUrl('ClientDashboard')} className="text-xs text-slate-400 hover:text-white transition-colors font-medium whitespace-nowrap">
-            Client Login
+          <Link to="/ops" className="text-xs text-slate-500 hover:text-white transition-colors font-medium whitespace-nowrap border border-slate-800 hover:border-slate-600 px-2.5 py-1.5 rounded-lg">
+            Ops →
           </Link>
-          <Link to={createPageUrl('AdminDashboard')} className="text-xs text-slate-400 hover:text-white transition-colors font-medium border border-slate-700 hover:border-slate-500 px-2.5 py-1.5 rounded-lg whitespace-nowrap">
-            Admin Login
-          </Link>
+          <a
+            href="tel:+16413579932"
+            className="text-xs text-slate-400 hover:text-white transition-colors font-medium whitespace-nowrap"
+          >
+            (641) 357-9932
+          </a>
           <a
             href="https://calendar.app.google/p6ieYanvwhixXxZ67"
             target="_blank"
@@ -132,10 +135,10 @@ export default function MarketingNav() {
             Book a Call
           </a>
           <Link
-            to={createPageUrl('Start')}
-            className="bg-violet-600 hover:bg-violet-500 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-lg shadow-violet-600/20 whitespace-nowrap"
+            to="/gap-audit"
+            className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-lg shadow-emerald-600/20 whitespace-nowrap"
           >
-            Free Trial
+            Free Gap Audit
           </Link>
         </div>
 

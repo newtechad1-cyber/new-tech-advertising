@@ -207,6 +207,19 @@ import GapAuditPage from './pages/GapAuditPage';
 import HVACMarketingNorthIowa from './pages/HVACMarketingNorthIowa';
 import ContractorMarketingNorthIowa from './pages/ContractorMarketingNorthIowa';
 import SmallBusinessMarketingNorthIowa from './pages/SmallBusinessMarketingNorthIowa';
+import OpsDashboard from './pages/ops/OpsDashboard';
+import OpsProspects from './pages/ops/OpsProspects';
+import OpsClients from './pages/ops/OpsClients';
+import OpsAudits from './pages/ops/OpsAudits';
+import OpsCampaigns from './pages/ops/OpsCampaigns';
+import OpsSEOPages from './pages/ops/OpsSEOPages';
+import OpsContent from './pages/ops/OpsContent';
+import OpsVideos from './pages/ops/OpsVideos';
+import OpsSocial from './pages/ops/OpsSocial';
+import OpsApprovals from './pages/ops/OpsApprovals';
+import OpsLeads from './pages/ops/OpsLeads';
+import OpsFollowUps from './pages/ops/OpsFollowUps';
+import OpsReports from './pages/ops/OpsReports';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -470,6 +483,21 @@ const AuthenticatedApp = () => {
       <Route path="/hvac-marketing-north-iowa" element={<HVACMarketingNorthIowa />} />
       <Route path="/contractor-marketing-north-iowa" element={<ContractorMarketingNorthIowa />} />
       <Route path="/small-business-marketing-north-iowa" element={<SmallBusinessMarketingNorthIowa />} />
+
+      {/* NTA Ops Dashboard */}
+      <Route path="/ops" element={<OpsDashboard />} />
+      <Route path="/ops/prospects" element={<OpsProspects />} />
+      <Route path="/ops/clients" element={<OpsClients />} />
+      <Route path="/ops/audits" element={<OpsAudits />} />
+      <Route path="/ops/campaigns" element={<OpsCampaigns />} />
+      <Route path="/ops/seo-pages" element={<OpsSEOPages />} />
+      <Route path="/ops/content" element={<OpsContent />} />
+      <Route path="/ops/videos" element={<OpsVideos />} />
+      <Route path="/ops/social" element={<OpsSocial />} />
+      <Route path="/ops/approvals" element={<OpsApprovals />} />
+      <Route path="/ops/leads" element={<OpsLeads />} />
+      <Route path="/ops/followups" element={<OpsFollowUps />} />
+      <Route path="/ops/reports" element={<OpsReports />} />
 
       <Route path="*" element={<PageNotFound />} />
     </Routes>
