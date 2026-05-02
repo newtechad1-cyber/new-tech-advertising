@@ -208,6 +208,9 @@ import HVACMarketingNorthIowa from './pages/HVACMarketingNorthIowa';
 import ContractorMarketingNorthIowa from './pages/ContractorMarketingNorthIowa';
 import SmallBusinessMarketingNorthIowa from './pages/SmallBusinessMarketingNorthIowa';
 import OpsDashboard from './pages/ops/OpsDashboard';
+import AgencyGapAudits from './pages/AgencyGapAudits';
+import AgencyGapAuditDetail from './pages/AgencyGapAuditDetail';
+import GapAuditPublic from './pages/GapAuditPublic';
 import OpsProspects from './pages/ops/OpsProspects';
 import OpsClients from './pages/ops/OpsClients';
 import OpsAudits from './pages/ops/OpsAudits';
@@ -479,7 +482,9 @@ const AuthenticatedApp = () => {
       <Route path="/seasonal-campaigns" element={<SeasonalCampaigns />} />
       <Route path="/social-media-content-system" element={<SocialMediaContentSystem />} />
       <Route path="/ai-video-marketing" element={<AIVideoMarketing />} />
-      <Route path="/gap-audit" element={<GapAuditPage />} />
+      <Route path="/gap-audit" element={<GapAuditPublic />} />
+      <Route path="/agency/gap-audits" element={<LayoutWrapper currentPageName="AgencyGapAudits"><AgencyGapAudits /></LayoutWrapper>} />
+      <Route path="/agency/gap-audits/:id" element={<AgencyGapAuditDetail />} />
       <Route path="/hvac-marketing-north-iowa" element={<HVACMarketingNorthIowa />} />
       <Route path="/contractor-marketing-north-iowa" element={<ContractorMarketingNorthIowa />} />
       <Route path="/small-business-marketing-north-iowa" element={<SmallBusinessMarketingNorthIowa />} />
