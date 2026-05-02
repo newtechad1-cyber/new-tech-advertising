@@ -1,10 +1,10 @@
 import React from 'react';
 
 const steps = [
-  { num: '1', text: 'I look at your current website and setup' },
-  { num: '2', text: 'I find what\'s missing or not working' },
-  { num: '3', text: 'I show you what to fix first' },
-  { num: '4', text: 'If it makes sense, we build from there' },
+  { num: '1', text: 'Review what you already have' },
+  { num: '2', text: 'Identify gaps in visibility, messaging, and structure' },
+  { num: '3', text: 'Recommend practical improvements' },
+  { num: '4', text: 'Build from there only if it makes sense' },
 ];
 
 export default function HowItWorks() {
@@ -15,7 +15,7 @@ export default function HowItWorks() {
         {/* LEFT: Steps */}
         <div>
           <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-8">
-            How It Works
+            How I Work
           </h2>
           <div className="space-y-4 mb-6">
             {steps.map(step => (
@@ -27,7 +27,7 @@ export default function HowItWorks() {
               </div>
             ))}
           </div>
-          <p className="text-slate-500 text-sm">Simple. No pressure.</p>
+          <p className="text-slate-500 text-sm">Most of the time, it's not about doing more. It's about fixing the right things.</p>
         </div>
 
         {/* RIGHT: Image */}

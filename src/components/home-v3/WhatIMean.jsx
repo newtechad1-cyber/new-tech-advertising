@@ -2,16 +2,17 @@ import React from 'react';
 import { CheckCircle2 } from 'lucide-react';
 
 const problems = [
-  'Not showing up where people are searching',
-  'Messaging that isn\'t clear',
-  'A site that doesn\'t guide people to take action',
+  "What's already working",
+  "What should stay",
+  "What's not helping",
+  'What small changes could make the biggest difference',
 ];
 
 const solutions = [
-  'Website structure that actually makes sense',
-  'SEO pages built around real searches',
-  'Campaigns that give people a reason to act',
-  'Clear paths for customers to call or text',
+  'Smarter tools to move faster and create content more efficiently',
+  'Reduce unnecessary work and wasted spend',
+  '40+ years of real marketing experience guiding every decision',
+  'Knowing what to build, what to say, and what not to waste money on',
 ];
 
 export default function WhatIMean() {
@@ -22,10 +23,10 @@ export default function WhatIMean() {
         {/* LEFT: The Problem */}
         <div>
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-3">
-            What This Means for Your Business
+            Not Sure What's Working?
           </h2>
           <p className="text-slate-500 mb-5 leading-relaxed">
-            If your website isn't consistently bringing in calls or customers, it's usually not just one issue. It's a combination of:
+            Most businesses don't need everything torn apart. They need a clear look at what's helping, what's getting in the way, and what can be improved first. I'll look at your website and marketing and show you:
           </p>
           <ul className="space-y-3 mb-6">
             {problems.map(item => (
@@ -35,16 +36,16 @@ export default function WhatIMean() {
               </li>
             ))}
           </ul>
-          <p className="text-slate-800 font-semibold">That's what I help fix.</p>
+          <p className="text-slate-800 font-semibold">No obligation. Just a clear, honest look.</p>
         </div>
 
         {/* RIGHT: The Solution */}
         <div>
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-3">
-            What I Do
+            Smarter Tools. Real Marketing Experience.
           </h2>
           <p className="text-slate-500 mb-5 leading-relaxed">
-            I work with local businesses to build simple systems that connect everything:
+            There's a lot of noise around AI right now. I use it where it actually helps — but AI does not replace experience. The value comes from knowing what to build, where to focus, and what not to waste money on:
           </p>
           <ul className="space-y-3 mb-6">
             {solutions.map(item => (
@@ -55,8 +56,7 @@ export default function WhatIMean() {
             ))}
           </ul>
           <p className="text-slate-500 text-sm leading-relaxed">
-            This isn't about complicated marketing.<br />
-            It's about making your business easier to find and easier to contact.
+            That's where 40+ years of marketing experience matters.
           </p>
         </div>
 

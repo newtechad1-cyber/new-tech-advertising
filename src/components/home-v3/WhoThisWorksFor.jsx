@@ -24,10 +24,13 @@ export default function WhoThisWorksFor() {
 
         {/* RIGHT: Text */}
         <div>
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-6">
-            Who This Works For
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-4">
+            Real Work With Local Businesses
           </h2>
-          <ul className="space-y-3 mb-7">
+          <p className="text-slate-500 mb-5 leading-relaxed text-sm">
+            I've worked with many types of businesses over the years, including service companies, restaurants, fitness businesses, and local trades.
+          </p>
+          <ul className="space-y-3 mb-6">
             {industries.map(item => (
               <li key={item} className="flex items-center gap-3 text-slate-700 text-base">
                 <span className="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0" />
@@ -36,9 +39,15 @@ export default function WhoThisWorksFor() {
             ))}
           </ul>
           <p className="text-slate-500 leading-relaxed text-sm">
-            Some need leads. Some need customers walking through the door.<br />
-            The goal is the same: make it easier for people to find you and take the next step.
+            Service businesses need calls and leads. Restaurants need customers walking in. Fitness businesses need members and inquiries.<br /><br />
+            The goal is always the same: help people find you, understand you, and take action.
           </p>
+          <a
+            href="/our-work"
+            className="inline-flex items-center gap-2 mt-6 border border-slate-300 hover:border-slate-400 text-slate-800 font-bold px-5 py-3 rounded-xl transition-colors text-sm"
+          >
+            See My Work
+          </a>
         </div>
 
       </div>
