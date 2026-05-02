@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Users, UserCheck, Search, Megaphone, Globe, FileText,
   Video, Share2, CheckSquare, Target, Bell, BarChart2,
   ChevronLeft, Menu, ExternalLink, Home
 } from 'lucide-react';
+import { base44 } from '@/api/base44Client';
 
 const NAV = [
   { label: 'Dashboard', href: '/ops', icon: Home, exact: true },
@@ -25,6 +26,13 @@ const NAV = [
 export default function OpsLayout({ children }) {
   const { pathname } = useLocation();
   const [collapsed, setCollapsed] = useState(false);
+  const [pendingCount, setPendingCount] = useState(0);
+  const [newLeads, setNewLeads] = useState(0);
+
+  useEffect(() => {
+    base44.entities.ContentAsset.filter({ approval_status: 'pending' }).then(r => setPendingCount(r.length)).catch(() => {});
+    base44.entities.Lead.filter({ status: 'new' }).then(r => setNewLeads(r.length)).catch(() => {});
+  }, [pathname]);
 
   const isActive = (href, exact) => exact ? pathname === href : pathname === href || pathname.startsWith(href + '/');
 
@@ -53,12 +61,22 @@ export default function OpsLayout({ children }) {
                 key={item.href}
                 to={item.href}
                 title={collapsed ? item.label : undefined}
-                className={`flex items-center gap-2.5 px-2.5 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                className={`flex items-center gap-2.5 px-2.5 py-2.5 rounded-lg text-sm font-medium transition-colors relative ${
                   active ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
                 }`}
               >
                 <Icon className="w-4 h-4 flex-shrink-0" />
-                {!collapsed && item.label}
+                {!collapsed && <span className="flex-1">{item.label}</span>}
+                {item.href === '/ops/approvals' && pendingCount > 0 && (
+                  <span className={`${collapsed ? 'absolute -top-0.5 -right-0.5' : ''} bg-yellow-500 text-black text-xs font-black rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1 leading-none`}>
+                    {pendingCount}
+                  </span>
+                )}
+                {item.href === '/ops/leads' && newLeads > 0 && (
+                  <span className={`${collapsed ? 'absolute -top-0.5 -right-0.5' : ''} bg-blue-500 text-white text-xs font-black rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1 leading-none`}>
+                    {newLeads}
+                  </span>
+                )}
               </Link>
             );
           })}

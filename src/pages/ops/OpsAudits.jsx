@@ -1,82 +1,116 @@
 import React, { useState, useEffect } from 'react';
+import OpsLayout from '../../components/ops-dashboard/OpsLayout';
 import { base44 } from '@/api/base44Client';
-import OpsLayout from '@/components/ops-dashboard/OpsLayout';
-import { Plus, Search, RefreshCw, ExternalLink } from 'lucide-react';
+import { Plus, RefreshCw, Zap, Search, ChevronDown, ChevronUp } from 'lucide-react';
 
-const RISK_COLORS = {
-  low: 'bg-emerald-900/40 text-emerald-400',
-  medium: 'bg-amber-900/40 text-amber-400',
-  high: 'bg-orange-900/40 text-orange-400',
-  critical: 'bg-red-900/40 text-red-400',
+const STATUS_COLORS = {
+  draft: 'bg-slate-700 text-slate-300',
+  completed: 'bg-blue-900/40 text-blue-300',
+  delivered: 'bg-emerald-900/40 text-emerald-300',
+  archived: 'bg-slate-800 text-slate-500',
 };
 
-function AuditModal({ audit, onClose, onSave }) {
-  const [form, setForm] = useState(audit || {
-    website_url: '', audit_type: 'comprehensive', compliance_score: 0,
-    risk_level: 'medium', lead_email: '', lead_phone: '', audit_report: '', recommended_actions: []
-  });
+function AuditModal({ audit, onSave, onClose }) {
+  const [form, setForm] = useState(audit || { website_url: '', prospect_id: '', status: 'draft', summary: '', seo_score: '', conversion_score: '', mobile_score: '' });
   const [saving, setSaving] = useState(false);
+  const set = (k, v) => setForm(p => ({ ...p, [k]: v }));
 
-  const handleSave = async () => {
-    if (!form.website_url.trim()) return;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setSaving(true);
     if (audit?.id) {
-      await base44.entities.WebsiteAudit.update(audit.id, form);
+      await base44.entities.GapAudit.update(audit.id, form);
     } else {
-      await base44.entities.WebsiteAudit.create({ ...form, status: 'completed', audit_date: new Date().toISOString() });
+      await base44.entities.GapAudit.create(form);
     }
     setSaving(false);
     onSave();
   };
 
   return (
-    <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4" onClick={e => e.target === e.currentTarget && onClose()}>
-      <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-800">
-          <h2 className="font-bold text-white">{audit ? 'Edit Audit' : 'New Gap Audit'}</h2>
-          <button onClick={onClose} className="text-slate-500 hover:text-white text-xl">×</button>
-        </div>
-        <div className="p-5 space-y-3">
-          {[
-            { label: 'Website URL *', k: 'website_url', placeholder: 'https://example.com' },
-            { label: 'Lead Email', k: 'lead_email' },
-            { label: 'Lead Phone', k: 'lead_phone' },
-          ].map(f => (
-            <div key={f.k}>
-              <label className="block text-xs font-semibold text-slate-400 mb-1">{f.label}</label>
-              <input value={form[f.k] || ''} onChange={e => setForm(p => ({ ...p, [f.k]: e.target.value }))}
-                placeholder={f.placeholder}
-                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" />
-            </div>
-          ))}
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-xs font-semibold text-slate-400 mb-1">Risk Level</label>
-              <select value={form.risk_level} onChange={e => setForm(p => ({ ...p, risk_level: e.target.value }))}
-                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
-                {['low','medium','high','critical'].map(v => <option key={v} value={v}>{v}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-slate-400 mb-1">Compliance Score (0-100)</label>
-              <input type="number" min="0" max="100" value={form.compliance_score}
-                onChange={e => setForm(p => ({ ...p, compliance_score: Number(e.target.value) }))}
-                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" />
-            </div>
-          </div>
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+      <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto">
+        <h2 className="text-white font-bold text-lg mb-4">{audit?.id ? 'Edit Gap Audit' : 'New Gap Audit'}</h2>
+        <form onSubmit={handleSubmit} className="space-y-3">
           <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">Audit Report / Notes</label>
-            <textarea value={form.audit_report || ''} onChange={e => setForm(p => ({ ...p, audit_report: e.target.value }))} rows={5}
+            <label className="block text-xs text-slate-400 mb-1">Website URL *</label>
+            <input required value={form.website_url} onChange={e => set('website_url', e.target.value)} placeholder="https://example.com"
               className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" />
           </div>
+          <div className="grid grid-cols-3 gap-3">
+            {[['seo_score','SEO Score'],['conversion_score','Conv. Score'],['mobile_score','Mobile Score']].map(([k,l]) => (
+              <div key={k}>
+                <label className="block text-xs text-slate-400 mb-1">{l} (0-100)</label>
+                <input type="number" min="0" max="100" value={form[k] || ''} onChange={e => set(k, e.target.value)}
+                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white" />
+              </div>
+            ))}
+          </div>
+          <div>
+            <label className="block text-xs text-slate-400 mb-1">Status</label>
+            <select value={form.status} onChange={e => set('status', e.target.value)}
+              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
+              {['draft','completed','delivered','archived'].map(s => <option key={s} value={s}>{s}</option>)}
+            </select>
+          </div>
+          <div>
+            <label className="block text-xs text-slate-400 mb-1">Summary</label>
+            <textarea value={form.summary || ''} onChange={e => set('summary', e.target.value)} rows={3}
+              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white resize-none" />
+          </div>
+          <div className="flex gap-2 pt-1">
+            <button type="button" onClick={onClose} className="flex-1 py-2 text-sm text-slate-400 border border-slate-700 rounded-lg hover:bg-slate-800">Cancel</button>
+            <button type="submit" disabled={saving} className="flex-1 py-2 text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-lg disabled:opacity-50">
+              {saving ? 'Saving…' : 'Save'}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+function AuditDetail({ audit, onClose }) {
+  const scores = [
+    ['SEO', audit.seo_score], ['Conversion', audit.conversion_score], ['Mobile', audit.mobile_score],
+    ['Content', audit.content_score], ['Speed', audit.speed_score], ['Trust', audit.trust_score],
+  ].filter(([, v]) => v != null && v !== '');
+
+  return (
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+      <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-2xl p-6 max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-white font-bold text-lg">Gap Audit: {audit.website_url}</h2>
+          <button onClick={onClose} className="text-slate-500 hover:text-white text-sm">✕ Close</button>
         </div>
-        <div className="flex justify-end gap-3 px-5 py-4 border-t border-slate-800">
-          <button onClick={onClose} className="text-sm px-4 py-2 text-slate-400 hover:text-white">Cancel</button>
-          <button onClick={handleSave} disabled={saving || !form.website_url.trim()}
-            className="text-sm font-bold px-5 py-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white rounded-lg">
-            {saving ? 'Saving…' : 'Save'}
-          </button>
-        </div>
+        {scores.length > 0 && (
+          <div className="grid grid-cols-3 gap-3 mb-4">
+            {scores.map(([label, val]) => (
+              <div key={label} className="bg-slate-800 rounded-xl px-3 py-3 text-center">
+                <p className={`text-2xl font-black ${val >= 70 ? 'text-emerald-400' : val >= 40 ? 'text-yellow-400' : 'text-red-400'}`}>{val}</p>
+                <p className="text-xs text-slate-500 mt-0.5">{label}</p>
+              </div>
+            ))}
+          </div>
+        )}
+        {audit.summary && (
+          <div className="mb-4">
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Summary</p>
+            <p className="text-slate-300 text-sm leading-relaxed">{audit.summary}</p>
+          </div>
+        )}
+        {audit.issues_found?.length > 0 && (
+          <div className="mb-4">
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Issues Found</p>
+            <ul className="space-y-1">{audit.issues_found.map((i, idx) => <li key={idx} className="flex items-start gap-2 text-sm text-red-300"><span className="text-red-500 mt-0.5">✗</span>{i}</li>)}</ul>
+          </div>
+        )}
+        {audit.recommendations?.length > 0 && (
+          <div>
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Recommendations</p>
+            <ul className="space-y-1">{audit.recommendations.map((r, idx) => <li key={idx} className="flex items-start gap-2 text-sm text-emerald-300"><span className="text-emerald-500 mt-0.5">→</span>{r}</li>)}</ul>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -87,16 +121,26 @@ export default function OpsAudits() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [modal, setModal] = useState(null);
+  const [detail, setDetail] = useState(null);
+  const [generating, setGenerating] = useState(null);
 
   const load = async () => {
     setLoading(true);
-    const data = await base44.entities.WebsiteAudit.list('-created_date', 100);
+    const data = await base44.entities.GapAudit.list('-created_date', 200);
     setAudits(data);
     setLoading(false);
   };
+
   useEffect(() => { load(); }, []);
 
-  const filtered = audits.filter(a => !search || a.website_url?.toLowerCase().includes(search.toLowerCase()) || a.lead_email?.toLowerCase().includes(search.toLowerCase()));
+  const handleGenerate = async (audit) => {
+    setGenerating(audit.id);
+    await base44.functions.invoke('ntaGenerateGapAudit', { audit_id: audit.id });
+    setGenerating(null);
+    load();
+  };
+
+  const filtered = audits.filter(a => !search || a.website_url?.toLowerCase().includes(search.toLowerCase()) || a.summary?.toLowerCase().includes(search.toLowerCase()));
 
   return (
     <OpsLayout>
@@ -104,60 +148,53 @@ export default function OpsAudits() {
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div>
             <h1 className="text-xl font-bold text-white">Gap Audits</h1>
-            <p className="text-slate-500 text-sm">{filtered.length} audits</p>
+            <p className="text-slate-500 text-sm">{audits.length} total · {audits.filter(a => a.status === 'draft').length} open</p>
           </div>
-          <button onClick={() => setModal({})} className="flex items-center gap-2 text-sm font-bold px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg">
-            <Plus className="w-4 h-4" /> New Audit
-          </button>
-        </div>
-        <div className="flex gap-3">
-          <div className="relative flex-1 min-w-48">
-            <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-500" />
-            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by URL or email…"
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl pl-9 pr-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+          <div className="flex gap-2">
+            <button onClick={load} className="p-2 text-slate-500 hover:text-white bg-slate-800 rounded-lg"><RefreshCw className="w-4 h-4" /></button>
+            <button onClick={() => setModal({})} className="flex items-center gap-1.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-lg">
+              <Plus className="w-4 h-4" /> New Audit
+            </button>
           </div>
-          <button onClick={load} className="p-2 text-slate-500 hover:text-white bg-slate-800 rounded-xl">
-            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-          </button>
         </div>
-        <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
-          {loading ? <div className="p-8 text-center text-slate-500 text-sm">Loading…</div> :
-           filtered.length === 0 ? <div className="p-8 text-center text-slate-500 text-sm">No audits yet.</div> : (
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-slate-800">
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500">Website</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 hidden sm:table-cell">Lead Contact</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500">Risk</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 hidden md:table-cell">Score</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 hidden lg:table-cell">Date</th>
-                  <th className="px-4 py-3"></th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-800">
-                {filtered.map(a => (
-                  <tr key={a.id} className="hover:bg-slate-800/30 transition-colors">
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-2">
-                        <p className="font-semibold text-white text-sm truncate max-w-48">{a.website_url}</p>
-                        <a href={a.website_url} target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-blue-400"><ExternalLink className="w-3 h-3" /></a>
-                      </div>
-                    </td>
-                    <td className="px-4 py-3 text-slate-400 text-xs hidden sm:table-cell">{a.lead_email || a.lead_phone || '—'}</td>
-                    <td className="px-4 py-3"><span className={`text-xs font-bold px-2 py-0.5 rounded-full ${RISK_COLORS[a.risk_level] || RISK_COLORS.medium}`}>{a.risk_level}</span></td>
-                    <td className="px-4 py-3 hidden md:table-cell"><span className="text-white font-bold">{a.compliance_score ?? '—'}</span><span className="text-slate-500 text-xs">/100</span></td>
-                    <td className="px-4 py-3 text-slate-500 text-xs hidden lg:table-cell">{a.audit_date ? new Date(a.audit_date).toLocaleDateString() : '—'}</td>
-                    <td className="px-4 py-3 text-right">
-                      <button onClick={() => setModal(a)} className="text-xs text-slate-500 hover:text-white px-2 py-1 rounded hover:bg-slate-700">Edit</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+
+        <div className="relative max-w-sm">
+          <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-500" />
+          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search audits…"
+            className="w-full bg-slate-800 border border-slate-700 rounded-xl pl-9 pr-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
         </div>
+
+        {loading ? (
+          <div className="space-y-2">{[...Array(4)].map((_, i) => <div key={i} className="h-14 bg-slate-900 rounded-xl animate-pulse" />)}</div>
+        ) : (
+          <div className="space-y-2">
+            {filtered.map(a => (
+              <div key={a.id} className="bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 flex items-center justify-between gap-3 flex-wrap">
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <p className="text-white font-semibold text-sm truncate">{a.website_url || 'No URL'}</p>
+                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${STATUS_COLORS[a.status] || 'bg-slate-700 text-slate-400'}`}>{a.status}</span>
+                  </div>
+                  {a.summary && <p className="text-slate-500 text-xs mt-0.5 line-clamp-1">{a.summary}</p>}
+                </div>
+                <div className="flex gap-2">
+                  {a.website_url && (
+                    <button onClick={() => handleGenerate(a)} disabled={generating === a.id}
+                      className="flex items-center gap-1 text-xs font-bold px-3 py-1.5 bg-purple-700 hover:bg-purple-600 text-white rounded-lg disabled:opacity-50">
+                      <Zap className="w-3 h-3" /> {generating === a.id ? 'Generating…' : 'AI Generate'}
+                    </button>
+                  )}
+                  {a.summary && <button onClick={() => setDetail(a)} className="text-xs px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-300 rounded-lg">View</button>}
+                  <button onClick={() => setModal(a)} className="text-xs px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-300 rounded-lg">Edit</button>
+                </div>
+              </div>
+            ))}
+            {filtered.length === 0 && <div className="text-center text-slate-600 py-12 text-sm">No audits found.</div>}
+          </div>
+        )}
       </div>
-      {modal !== null && <AuditModal audit={modal?.id ? modal : null} onClose={() => setModal(null)} onSave={() => { setModal(null); load(); }} />}
+      {modal !== null && <AuditModal audit={modal?.id ? modal : null} onSave={() => { setModal(null); load(); }} onClose={() => setModal(null)} />}
+      {detail && <AuditDetail audit={detail} onClose={() => setDetail(null)} />}
     </OpsLayout>
   );
 }
