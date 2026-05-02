@@ -6,20 +6,28 @@ import { ArrowRight, ExternalLink } from 'lucide-react';
 
 const SITES = [
   {
-    name: 'Monson Plumbing, Heating & Excavating',
-    url: 'https://monsonplumbing.com/',
-    location: 'Mason City, IA',
-    industry: 'Plumbing · Heating · Excavating',
-    description: 'Full website rebuild with clear service pages, fast mobile load, and prominent call-to-action on every page. Focused on getting homeowners to call or text fast.',
-    screenshot: 'https://api.screenshotone.com/take?url=https://monsonplumbing.com&viewport_width=1280&viewport_height=800&format=jpg&image_quality=85&block_ads=true&block_cookie_banners=true',
-  },
-  {
     name: 'Johnson Heating & Air Conditioning',
     url: 'https://johnsonheatingandac.com/',
     location: 'Mason City, IA',
     industry: 'HVAC · Heating & Cooling',
     description: 'Website rebuild emphasizing emergency availability, social proof, and seasonal promotions. Structured to rank locally and convert visitors into booked service calls.',
-    screenshot: 'https://api.screenshotone.com/take?url=https://johnsonheatingandac.com&viewport_width=1280&viewport_height=800&format=jpg&image_quality=85&block_ads=true&block_cookie_banners=true',
+    screenshot: 'https://media.base44.com/images/public/691f41a18de4a7f498c8f884/2b82c0d3b_johnson.png',
+  },
+  {
+    name: 'Monson Plumbing, Heating & Excavating',
+    url: 'https://monsonplumbing.com/',
+    location: 'Mason City, IA',
+    industry: 'Plumbing · Heating · Excavating',
+    description: 'Full website rebuild with clear service pages, fast mobile load, and prominent call-to-action on every page. Focused on getting homeowners to call or text fast.',
+    screenshot: 'https://media.base44.com/images/public/691f41a18de4a7f498c8f884/cd337086e_monson.png',
+  },
+  {
+    name: 'Ladybug Travels – New Zealand Tour',
+    url: '#',
+    location: 'Senior Travel',
+    industry: 'Travel · Tour Operator',
+    description: 'Landing page built for a senior group travel tour to New Zealand. Focused on converting interested travelers with a clear itinerary, limited availability messaging, and a direct booking CTA.',
+    screenshot: 'https://media.base44.com/images/public/691f41a18de4a7f498c8f884/ce0acb58e_NewZealand.png',
   },
   {
     name: "Papa Everett's Pizza",
@@ -27,15 +35,7 @@ const SITES = [
     location: 'Clear Lake, IA',
     industry: 'Restaurant · Pizza',
     description: 'Clean, mobile-first site with easy menu navigation, online ordering info, and local search presence. Built to help customers find hours, menu, and contact quickly.',
-    screenshot: 'https://api.screenshotone.com/take?url=https://pizzaclearlake.com&viewport_width=1280&viewport_height=800&format=jpg&image_quality=85&block_ads=true&block_cookie_banners=true',
-  },
-  {
-    name: 'Club Fitness – Fort Dodge',
-    url: 'https://clubfitnessfd.com/',
-    location: 'Fort Dodge, IA',
-    industry: 'Fitness · Membership',
-    description: 'Website built around membership conversion with clear service descriptions, facility info, and multiple contact entry points for both new and returning members.',
-    screenshot: 'https://api.screenshotone.com/take?url=https://clubfitnessfd.com&viewport_width=1280&viewport_height=800&format=jpg&image_quality=85&block_ads=true&block_cookie_banners=true',
+    screenshot: 'https://media.base44.com/images/public/691f41a18de4a7f498c8f884/d33d47649_papaeveretts.png',
   },
 ];
 
@@ -53,17 +53,7 @@ function SiteCard({ site }) {
           src={site.screenshot}
           alt={`${site.name} website`}
           className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-          onError={e => {
-            e.target.style.display = 'none';
-            e.target.nextSibling.style.display = 'flex';
-          }}
         />
-        {/* Fallback if screenshot fails */}
-        <div
-          className="hidden w-full h-full items-center justify-center bg-slate-900 text-white text-lg font-bold absolute inset-0"
-        >
-          {site.name}
-        </div>
         <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/20 transition-colors duration-300 flex items-center justify-center">
           <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-white text-slate-900 font-bold px-4 py-2 rounded-lg text-sm flex items-center gap-2">
             Visit Site <ExternalLink className="w-3.5 h-3.5" />
