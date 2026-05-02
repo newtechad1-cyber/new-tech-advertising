@@ -1,0 +1,66 @@
+{
+  "name": "SocialPost",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string",
+      "description": "Reference to Client.id"
+    },
+    "campaign_id": {
+      "type": "string",
+      "description": "Reference to Campaign.id"
+    },
+    "platform": {
+      "type": "string",
+      "enum": [
+        "facebook",
+        "instagram",
+        "google_business_profile",
+        "linkedin",
+        "tiktok",
+        "youtube"
+      ],
+      "default": "facebook"
+    },
+    "post_text": {
+      "type": "string"
+    },
+    "image_overlay": {
+      "type": "string",
+      "description": "URL or description of image/graphic"
+    },
+    "video_script_id": {
+      "type": "string",
+      "description": "Reference to VideoScript.id if video post"
+    },
+    "scheduled_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "scheduled",
+        "published",
+        "failed",
+        "cancelled"
+      ],
+      "default": "draft"
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected"
+      ],
+      "default": "pending"
+    }
+  },
+  "required": [
+    "client_id",
+    "post_text",
+    "platform"
+  ]
+}

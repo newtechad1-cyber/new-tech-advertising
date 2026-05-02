@@ -1,0 +1,52 @@
+{
+  "name": "Lead",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string",
+      "description": "Reference to Client.id \u2014 which client this lead belongs to"
+    },
+    "campaign_id": {
+      "type": "string",
+      "description": "Reference to Campaign.id that generated this lead"
+    },
+    "name": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "service_needed": {
+      "type": "string"
+    },
+    "source_page": {
+      "type": "string",
+      "description": "URL or page title where lead was captured"
+    },
+    "source_campaign": {
+      "type": "string",
+      "description": "Campaign name or UTM source"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "contacted",
+        "qualified",
+        "booked",
+        "closed_won",
+        "closed_lost"
+      ],
+      "default": "new"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "client_id"
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "name": "ContentAsset",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string",
+      "description": "Reference to Client.id"
+    },
+    "campaign_id": {
+      "type": "string",
+      "description": "Reference to Campaign.id"
+    },
+    "asset_type": {
+      "type": "string",
+      "enum": [
+        "social_post",
+        "blog_post",
+        "email",
+        "ad_copy",
+        "landing_page",
+        "video_script",
+        "image",
+        "carousel"
+      ],
+      "default": "social_post"
+    },
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "platform": {
+      "type": "string",
+      "enum": [
+        "facebook",
+        "instagram",
+        "google_business_profile",
+        "linkedin",
+        "email",
+        "website",
+        "tiktok",
+        "youtube"
+      ],
+      "default": "facebook"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "ready",
+        "scheduled",
+        "published",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected",
+        "not_needed"
+      ],
+      "default": "pending"
+    },
+    "scheduled_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "posted_url": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "client_id"
+  ]
+}

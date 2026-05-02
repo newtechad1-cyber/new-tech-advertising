@@ -2,37 +2,49 @@
   "name": "Campaign",
   "type": "object",
   "properties": {
+    "client_id": {
+      "type": "string",
+      "description": "Reference to Client.id"
+    },
     "campaign_name": {
       "type": "string"
     },
-    "client_id": {
-      "type": "string"
-    },
-    "business_name": {
-      "type": "string"
-    },
-    "campaign_type": {
+    "season": {
       "type": "string",
       "enum": [
-        "Social Posting",
-        "Promo Campaign",
-        "Seasonal Campaign",
-        "Local SEO Support",
-        "Video Campaign",
-        "Reputation Campaign",
-        "Lead Generation",
-        "Offer Launch"
+        "spring",
+        "summer",
+        "fall",
+        "winter",
+        "year_round",
+        "custom"
       ],
-      "default": "Social Posting"
+      "default": "year_round"
     },
-    "objective": {
-      "type": "string"
+    "service_focus": {
+      "type": "string",
+      "description": "The primary service this campaign promotes"
+    },
+    "offer": {
+      "type": "string",
+      "description": "The specific offer or CTA (e.g. Free estimate, 10% off)"
+    },
+    "location": {
+      "type": "string",
+      "description": "Target city or region"
     },
     "target_audience": {
       "type": "string"
     },
-    "offer_or_message": {
-      "type": "string"
+    "status": {
+      "type": "string",
+      "enum": [
+        "planning",
+        "active",
+        "paused",
+        "completed"
+      ],
+      "default": "planning"
     },
     "start_date": {
       "type": "string",
@@ -42,29 +54,15 @@
       "type": "string",
       "format": "date"
     },
-    "status": {
-      "type": "string",
-      "enum": [
-        "Draft",
-        "Planned",
-        "Awaiting Approval",
-        "Approved",
-        "Scheduled",
-        "Active",
-        "Completed",
-        "Paused",
-        "Cancelled"
-      ],
-      "default": "Draft"
-    },
-    "budget": {
-      "type": "number"
+    "landing_page_url": {
+      "type": "string"
     },
     "notes": {
       "type": "string"
     }
   },
   "required": [
-    "campaign_name"
+    "campaign_name",
+    "client_id"
   ]
 }

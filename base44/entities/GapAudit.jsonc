@@ -1,0 +1,79 @@
+{
+  "name": "GapAudit",
+  "type": "object",
+  "properties": {
+    "prospect_id": {
+      "type": "string",
+      "description": "Reference to Prospect.id"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "Reference to Client.id (if already a client)"
+    },
+    "website_url": {
+      "type": "string"
+    },
+    "seo_score": {
+      "type": "number",
+      "description": "0-100"
+    },
+    "conversion_score": {
+      "type": "number",
+      "description": "0-100"
+    },
+    "mobile_score": {
+      "type": "number",
+      "description": "0-100"
+    },
+    "content_score": {
+      "type": "number",
+      "description": "0-100"
+    },
+    "speed_score": {
+      "type": "number",
+      "description": "0-100"
+    },
+    "trust_score": {
+      "type": "number",
+      "description": "0-100"
+    },
+    "issues_found": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of problems identified"
+    },
+    "missed_opportunities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Revenue or lead gaps identified"
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Prioritized action items"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Short narrative summary of findings"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "completed",
+        "delivered",
+        "archived"
+      ],
+      "default": "draft"
+    }
+  },
+  "required": [
+    "website_url"
+  ]
+}

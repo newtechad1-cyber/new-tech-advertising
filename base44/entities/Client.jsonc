@@ -1,0 +1,58 @@
+{
+  "name": "Client",
+  "type": "object",
+  "properties": {
+    "business_name": {
+      "type": "string"
+    },
+    "contact_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "service_area": {
+      "type": "string",
+      "description": "City, region, or county served"
+    },
+    "primary_services": {
+      "type": "string",
+      "description": "Comma-separated list of core services"
+    },
+    "call_number": {
+      "type": "string"
+    },
+    "text_number": {
+      "type": "string"
+    },
+    "brand_voice": {
+      "type": "string",
+      "description": "Tone and messaging guidelines"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "onboarding",
+        "paused",
+        "churned"
+      ],
+      "default": "onboarding"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "business_name"
+  ]
+}

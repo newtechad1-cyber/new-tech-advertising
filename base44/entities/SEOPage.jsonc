@@ -1,0 +1,59 @@
+{
+  "name": "SEOPage",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string",
+      "description": "Reference to Client.id"
+    },
+    "campaign_id": {
+      "type": "string",
+      "description": "Reference to Campaign.id"
+    },
+    "page_title": {
+      "type": "string"
+    },
+    "url_slug": {
+      "type": "string",
+      "description": "URL-safe slug, e.g. hvac-mason-city-ia"
+    },
+    "target_keyword": {
+      "type": "string",
+      "description": "Primary SEO keyword phrase"
+    },
+    "city": {
+      "type": "string"
+    },
+    "service": {
+      "type": "string"
+    },
+    "meta_title": {
+      "type": "string"
+    },
+    "meta_description": {
+      "type": "string"
+    },
+    "page_content": {
+      "type": "string",
+      "format": "markdown"
+    },
+    "faq_json": {
+      "type": "string",
+      "description": "JSON array of {q, a} objects"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "review",
+        "published",
+        "archived"
+      ],
+      "default": "draft"
+    }
+  },
+  "required": [
+    "page_title",
+    "client_id"
+  ]
+}

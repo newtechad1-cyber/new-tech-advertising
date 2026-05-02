@@ -1,0 +1,47 @@
+{
+  "name": "Report",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string",
+      "description": "Reference to Client.id"
+    },
+    "campaign_id": {
+      "type": "string",
+      "description": "Reference to Campaign.id"
+    },
+    "report_month": {
+      "type": "string",
+      "description": "e.g. 2026-05"
+    },
+    "leads_generated": {
+      "type": "integer",
+      "default": 0
+    },
+    "pages_created": {
+      "type": "integer",
+      "default": 0
+    },
+    "posts_published": {
+      "type": "integer",
+      "default": 0
+    },
+    "videos_created": {
+      "type": "integer",
+      "default": 0
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "summary": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "client_id",
+    "report_month"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "name": "FollowUp",
+  "type": "object",
+  "properties": {
+    "lead_id": {
+      "type": "string",
+      "description": "Reference to Lead.id"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "Reference to Client.id"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "call",
+        "text",
+        "email",
+        "dm",
+        "voicemail",
+        "in_person"
+      ],
+      "default": "call"
+    },
+    "message": {
+      "type": "string",
+      "description": "Script or message to send"
+    },
+    "scheduled_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "scheduled",
+        "sent",
+        "completed",
+        "skipped",
+        "failed"
+      ],
+      "default": "scheduled"
+    }
+  },
+  "required": [
+    "lead_id",
+    "client_id"
+  ]
+}

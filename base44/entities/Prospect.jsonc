@@ -1,0 +1,55 @@
+{
+  "name": "Prospect",
+  "type": "object",
+  "properties": {
+    "business_name": {
+      "type": "string"
+    },
+    "contact_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "contacted",
+        "audit_requested",
+        "qualified",
+        "converted",
+        "not_a_fit"
+      ],
+      "default": "new"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "audit_status": {
+      "type": "string",
+      "enum": [
+        "none",
+        "requested",
+        "in_progress",
+        "completed"
+      ],
+      "default": "none"
+    }
+  },
+  "required": [
+    "business_name"
+  ]
+}

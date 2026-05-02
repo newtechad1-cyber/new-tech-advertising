@@ -1,0 +1,59 @@
+{
+  "name": "VideoScript",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string",
+      "description": "Reference to Client.id"
+    },
+    "campaign_id": {
+      "type": "string",
+      "description": "Reference to Campaign.id"
+    },
+    "title": {
+      "type": "string"
+    },
+    "script": {
+      "type": "string",
+      "description": "Full spoken script text"
+    },
+    "scene_notes": {
+      "type": "string",
+      "description": "Visual direction and B-roll notes"
+    },
+    "overlay_text": {
+      "type": "string",
+      "description": "On-screen text, captions, or callouts"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "ready_for_production",
+        "in_production",
+        "completed",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "heygen_status": {
+      "type": "string",
+      "enum": [
+        "not_submitted",
+        "submitted",
+        "rendering",
+        "completed",
+        "failed"
+      ],
+      "default": "not_submitted"
+    },
+    "video_url": {
+      "type": "string",
+      "description": "Final rendered video URL"
+    }
+  },
+  "required": [
+    "title",
+    "client_id"
+  ]
+}
