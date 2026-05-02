@@ -1,96 +1,81 @@
 import React, { useState, useEffect } from 'react';
+import OpsLayout from '../../components/ops-dashboard/OpsLayout';
 import { base44 } from '@/api/base44Client';
-import OpsLayout from '@/components/ops-dashboard/OpsLayout';
-import { Plus, Search, Phone, Mail, Globe, RefreshCw, ChevronDown } from 'lucide-react';
+import { Plus, RefreshCw, Zap, ArrowRight, Search } from 'lucide-react';
 
 const STATUS_COLORS = {
-  new: 'bg-blue-900/50 text-blue-400 border-blue-800/60',
-  contacted: 'bg-amber-900/40 text-amber-400 border-amber-800/50',
-  qualified: 'bg-emerald-900/40 text-emerald-400 border-emerald-800/50',
-  unresponsive: 'bg-slate-800 text-slate-500 border-slate-700',
+  new: 'bg-blue-900/40 text-blue-300',
+  contacted: 'bg-yellow-900/40 text-yellow-300',
+  audit_requested: 'bg-purple-900/40 text-purple-300',
+  qualified: 'bg-emerald-900/40 text-emerald-300',
+  converted: 'bg-green-900/40 text-green-300',
+  not_a_fit: 'bg-red-900/40 text-red-300',
 };
 
-function ProspectModal({ prospect, onClose, onSave }) {
-  const [form, setForm] = useState(prospect || {
-    business_name: '', contact_name: '', phone: '', email: '',
-    website: '', city: '', state: '', industry: '', lead_source: 'other',
-    status: 'new', notes: ''
-  });
+function ProspectModal({ prospect, onSave, onClose }) {
+  const [form, setForm] = useState(prospect || { business_name: '', contact_name: '', email: '', phone: '', website: '', industry: '', city: '', status: 'new', notes: '', audit_status: 'none' });
   const [saving, setSaving] = useState(false);
 
-  const handleSave = async () => {
-    if (!form.business_name.trim()) return;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setSaving(true);
     if (prospect?.id) {
-      await base44.entities.SalesLead.update(prospect.id, form);
+      await base44.entities.Prospect.update(prospect.id, form);
     } else {
-      await base44.entities.SalesLead.create(form);
+      await base44.entities.Prospect.create(form);
     }
     setSaving(false);
     onSave();
   };
 
-  const F = ({ label, k, type = 'text', opts }) => (
-    <div>
-      <label className="block text-xs font-semibold text-slate-400 mb-1">{label}</label>
-      {opts ? (
-        <select value={form[k]} onChange={e => setForm(p => ({ ...p, [k]: e.target.value }))}
-          className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
-          {opts.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-        </select>
-      ) : type === 'textarea' ? (
-        <textarea value={form[k]} onChange={e => setForm(p => ({ ...p, [k]: e.target.value }))} rows={3}
-          className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" />
-      ) : (
-        <input type={type} value={form[k]} onChange={e => setForm(p => ({ ...p, [k]: e.target.value }))}
-          className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" />
-      )}
-    </div>
-  );
-
   return (
-    <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4" onClick={e => e.target === e.currentTarget && onClose()}>
-      <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-800">
-          <h2 className="font-bold text-white">{prospect ? 'Edit Prospect' : 'Add Prospect'}</h2>
-          <button onClick={onClose} className="text-slate-500 hover:text-white text-xl leading-none">×</button>
-        </div>
-        <div className="p-5 space-y-3">
-          <F label="Business Name *" k="business_name" />
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+      <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg p-6">
+        <h2 className="text-white font-bold text-lg mb-4">{prospect?.id ? 'Edit Prospect' : 'Add Prospect'}</h2>
+        <form onSubmit={handleSubmit} className="space-y-3">
+          {[
+            { key: 'business_name', label: 'Business Name *', required: true },
+            { key: 'contact_name', label: 'Contact Name' },
+            { key: 'email', label: 'Email' },
+            { key: 'phone', label: 'Phone' },
+            { key: 'website', label: 'Website' },
+            { key: 'industry', label: 'Industry' },
+            { key: 'city', label: 'City' },
+          ].map(f => (
+            <div key={f.key}>
+              <label className="block text-xs text-slate-400 mb-1">{f.label}</label>
+              <input required={f.required} value={form[f.key] || ''} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))}
+                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" />
+            </div>
+          ))}
           <div className="grid grid-cols-2 gap-3">
-            <F label="Contact Name" k="contact_name" />
-            <F label="Industry" k="industry" />
+            <div>
+              <label className="block text-xs text-slate-400 mb-1">Status</label>
+              <select value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value }))}
+                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
+                {['new','contacted','audit_requested','qualified','converted','not_a_fit'].map(s => <option key={s} value={s}>{s}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs text-slate-400 mb-1">Audit Status</label>
+              <select value={form.audit_status} onChange={e => setForm(p => ({ ...p, audit_status: e.target.value }))}
+                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
+                {['none','requested','in_progress','completed'].map(s => <option key={s} value={s}>{s}</option>)}
+              </select>
+            </div>
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            <F label="Phone" k="phone" />
-            <F label="Email" k="email" />
+          <div>
+            <label className="block text-xs text-slate-400 mb-1">Notes</label>
+            <textarea value={form.notes || ''} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} rows={2}
+              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white resize-none" />
           </div>
-          <F label="Website" k="website" />
-          <div className="grid grid-cols-2 gap-3">
-            <F label="City" k="city" />
-            <F label="State" k="state" />
+          <div className="flex gap-2 pt-2">
+            <button type="button" onClick={onClose} className="flex-1 py-2 text-sm text-slate-400 border border-slate-700 rounded-lg hover:bg-slate-800">Cancel</button>
+            <button type="submit" disabled={saving} className="flex-1 py-2 text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-lg disabled:opacity-50">
+              {saving ? 'Saving…' : 'Save'}
+            </button>
           </div>
-          <F label="Status" k="status" opts={[
-            { value: 'new', label: 'New' },
-            { value: 'contacted', label: 'Contacted' },
-            { value: 'qualified', label: 'Qualified' },
-            { value: 'unresponsive', label: 'Unresponsive' },
-          ]} />
-          <F label="Lead Source" k="lead_source" opts={[
-            { value: 'website', label: 'Website' },
-            { value: 'cold_outreach', label: 'Cold Outreach' },
-            { value: 'referral', label: 'Referral' },
-            { value: 'other', label: 'Other' },
-          ]} />
-          <F label="Notes" k="notes" type="textarea" />
-        </div>
-        <div className="flex justify-end gap-3 px-5 py-4 border-t border-slate-800">
-          <button onClick={onClose} className="text-sm px-4 py-2 text-slate-400 hover:text-white transition-colors">Cancel</button>
-          <button onClick={handleSave} disabled={saving || !form.business_name.trim()}
-            className="text-sm font-bold px-5 py-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white rounded-lg transition-colors">
-            {saving ? 'Saving…' : 'Save'}
-          </button>
-        </div>
+        </form>
       </div>
     </div>
   );
@@ -100,29 +85,40 @@ export default function OpsProspects() {
   const [prospects, setProspects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-  const [statusFilter, setStatusFilter] = useState('all');
   const [modal, setModal] = useState(null);
+  const [converting, setConverting] = useState(null);
 
   const load = async () => {
     setLoading(true);
-    const data = await base44.entities.SalesLead.list('-created_date', 200);
+    const data = await base44.entities.Prospect.list('-created_date', 200);
     setProspects(data);
     setLoading(false);
   };
 
   useEffect(() => { load(); }, []);
 
-  const filtered = prospects.filter(p => {
-    const matchSearch = !search || p.business_name?.toLowerCase().includes(search.toLowerCase()) || p.contact_name?.toLowerCase().includes(search.toLowerCase());
-    const matchStatus = statusFilter === 'all' || p.status === statusFilter;
-    return matchSearch && matchStatus;
-  });
-
-  const handleDelete = async (id) => {
-    if (!confirm('Delete this prospect?')) return;
-    await base44.entities.SalesLead.delete(id);
+  const handleConvert = async (prospect) => {
+    if (!confirm(`Convert ${prospect.business_name} to a Client?`)) return;
+    setConverting(prospect.id);
+    await base44.functions.invoke('ntaConvertProspectToClient', { prospect_id: prospect.id });
+    setConverting(null);
     load();
   };
+
+  const handleGenerateAudit = async (prospect) => {
+    // Find the gap audit for this prospect
+    const audits = await base44.entities.GapAudit.filter({ prospect_id: prospect.id });
+    if (audits.length === 0) {
+      // Create one first
+      const audit = await base44.entities.GapAudit.create({ prospect_id: prospect.id, website_url: prospect.website || '', status: 'draft' });
+      await base44.functions.invoke('ntaGenerateGapAudit', { audit_id: audit.id });
+    } else {
+      await base44.functions.invoke('ntaGenerateGapAudit', { audit_id: audits[0].id });
+    }
+    alert('Gap Audit generated! Check the Gap Audits section.');
+  };
+
+  const filtered = prospects.filter(p => !search || p.business_name?.toLowerCase().includes(search.toLowerCase()) || p.city?.toLowerCase().includes(search.toLowerCase()));
 
   return (
     <OpsLayout>
@@ -130,80 +126,56 @@ export default function OpsProspects() {
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div>
             <h1 className="text-xl font-bold text-white">Prospects</h1>
-            <p className="text-slate-500 text-sm">{filtered.length} records</p>
+            <p className="text-slate-500 text-sm">{prospects.length} total prospects</p>
           </div>
-          <button onClick={() => setModal({})} className="flex items-center gap-2 text-sm font-bold px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors">
-            <Plus className="w-4 h-4" /> Add Prospect
-          </button>
+          <div className="flex gap-2">
+            <button onClick={load} className="p-2 text-slate-500 hover:text-white bg-slate-800 rounded-lg"><RefreshCw className="w-4 h-4" /></button>
+            <button onClick={() => setModal({})} className="flex items-center gap-1.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-lg">
+              <Plus className="w-4 h-4" /> Add Prospect
+            </button>
+          </div>
         </div>
 
-        <div className="flex gap-3 flex-wrap">
-          <div className="relative flex-1 min-w-48">
-            <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-500" />
-            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search…"
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl pl-9 pr-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
-          </div>
-          <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)}
-            className="bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
-            <option value="all">All Statuses</option>
-            <option value="new">New</option>
-            <option value="contacted">Contacted</option>
-            <option value="qualified">Qualified</option>
-            <option value="unresponsive">Unresponsive</option>
-          </select>
-          <button onClick={load} className="p-2 text-slate-500 hover:text-white bg-slate-800 rounded-xl">
-            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-          </button>
+        <div className="relative max-w-sm">
+          <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-500" />
+          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search prospects…"
+            className="w-full bg-slate-800 border border-slate-700 rounded-xl pl-9 pr-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
-          {loading ? (
-            <div className="p-8 text-center text-slate-500 text-sm">Loading…</div>
-          ) : filtered.length === 0 ? (
-            <div className="p-8 text-center text-slate-500 text-sm">No prospects found. <button onClick={() => setModal({})} className="text-blue-400 hover:underline">Add the first one.</button></div>
-          ) : (
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-slate-800 bg-slate-900/80">
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500">Business</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 hidden sm:table-cell">Contact</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500">Status</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 hidden md:table-cell">Source</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 hidden lg:table-cell">Location</th>
-                  <th className="px-4 py-3"></th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-800">
-                {filtered.map(p => (
-                  <tr key={p.id} className="hover:bg-slate-800/30 transition-colors">
-                    <td className="px-4 py-3">
-                      <p className="font-semibold text-white">{p.business_name}</p>
-                      {p.industry && <p className="text-xs text-slate-500">{p.industry}</p>}
-                    </td>
-                    <td className="px-4 py-3 hidden sm:table-cell">
-                      <div className="space-y-0.5">
-                        {p.contact_name && <p className="text-slate-300 text-xs">{p.contact_name}</p>}
-                        {p.phone && <a href={`tel:${p.phone}`} className="text-xs text-blue-400 hover:underline flex items-center gap-1"><Phone className="w-3 h-3" />{p.phone}</a>}
-                        {p.email && <a href={`mailto:${p.email}`} className="text-xs text-blue-400 hover:underline flex items-center gap-1"><Mail className="w-3 h-3" />{p.email}</a>}
-                      </div>
-                    </td>
-                    <td className="px-4 py-3">
-                      <span className={`text-xs font-bold px-2 py-0.5 rounded-full border ${STATUS_COLORS[p.status] || STATUS_COLORS.new}`}>{p.status}</span>
-                    </td>
-                    <td className="px-4 py-3 text-slate-500 text-xs hidden md:table-cell">{p.lead_source || '—'}</td>
-                    <td className="px-4 py-3 text-slate-500 text-xs hidden lg:table-cell">{[p.city, p.state].filter(Boolean).join(', ') || '—'}</td>
-                    <td className="px-4 py-3 text-right">
-                      <button onClick={() => setModal(p)} className="text-xs text-slate-500 hover:text-white px-2 py-1 rounded hover:bg-slate-700 transition-colors mr-1">Edit</button>
-                      <button onClick={() => handleDelete(p.id)} className="text-xs text-slate-600 hover:text-red-400 px-2 py-1 rounded hover:bg-slate-700 transition-colors">Del</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
+        {loading ? (
+          <div className="space-y-2">{[...Array(5)].map((_, i) => <div key={i} className="h-14 bg-slate-900 rounded-xl animate-pulse" />)}</div>
+        ) : (
+          <div className="space-y-2">
+            {filtered.map(p => (
+              <div key={p.id} className="bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 flex items-center justify-between gap-3 flex-wrap">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <p className="text-white font-semibold text-sm">{p.business_name}</p>
+                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${STATUS_COLORS[p.status] || 'bg-slate-800 text-slate-400'}`}>{p.status}</span>
+                    {p.audit_status !== 'none' && <span className="text-xs px-2 py-0.5 rounded-full bg-purple-900/40 text-purple-300">{p.audit_status}</span>}
+                  </div>
+                  <p className="text-slate-500 text-xs mt-0.5">{[p.city, p.industry, p.email].filter(Boolean).join(' · ')}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button onClick={() => handleGenerateAudit(p)} title="Generate Gap Audit"
+                    className="text-xs px-3 py-1.5 bg-purple-700 hover:bg-purple-600 text-white rounded-lg font-medium flex items-center gap-1">
+                    <Zap className="w-3 h-3" /> Gap Audit
+                  </button>
+                  {p.status !== 'converted' && (
+                    <button onClick={() => handleConvert(p)} disabled={converting === p.id} title="Convert to Client"
+                      className="text-xs px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg font-medium flex items-center gap-1 disabled:opacity-50">
+                      <ArrowRight className="w-3 h-3" /> Convert
+                    </button>
+                  )}
+                  <button onClick={() => setModal(p)} className="text-xs px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-300 rounded-lg">Edit</button>
+                </div>
+              </div>
+            ))}
+            {filtered.length === 0 && <div className="text-center text-slate-600 py-12 text-sm">No prospects found.</div>}
+          </div>
+        )}
       </div>
-      {modal !== null && <ProspectModal prospect={modal?.id ? modal : null} onClose={() => setModal(null)} onSave={() => { setModal(null); load(); }} />}
+      {modal !== null && <ProspectModal prospect={modal?.id ? modal : null} onSave={() => { setModal(null); load(); }} onClose={() => setModal(null)} />}
     </OpsLayout>
   );
 }

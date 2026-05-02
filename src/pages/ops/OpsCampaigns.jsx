@@ -1,77 +1,151 @@
 import React, { useState, useEffect } from 'react';
+import OpsLayout from '../../components/ops-dashboard/OpsLayout';
 import { base44 } from '@/api/base44Client';
-import OpsLayout from '@/components/ops-dashboard/OpsLayout';
-import { Plus, Search, RefreshCw } from 'lucide-react';
+import { Plus, RefreshCw, Zap, ChevronDown } from 'lucide-react';
 
-const STATUS_COLORS = {
-  draft: 'bg-slate-800 text-slate-400',
-  active: 'bg-emerald-900/40 text-emerald-400',
-  completed: 'bg-blue-900/40 text-blue-400',
-};
+const STATUS_COLORS = { planning: 'bg-slate-700 text-slate-300', active: 'bg-emerald-900/40 text-emerald-300', paused: 'bg-yellow-900/40 text-yellow-300', completed: 'bg-blue-900/40 text-blue-300' };
+const SEASONS = ['spring', 'summer', 'fall', 'winter', 'year_round', 'custom'];
 
-function CampaignModal({ campaign, clients, onClose, onSave }) {
-  const [form, setForm] = useState(campaign || {
-    campaign_name: '', core_theme: '', target_audience: '',
-    primary_offer: '', cta_url: '', status: 'draft', client_id: '', pillar: ''
-  });
+function SeasonalGeneratorModal({ clients, onClose, onDone }) {
+  const [form, setForm] = useState({ client_id: '', season: 'spring', service_focus: '', offer: '', location: '' });
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState(null);
+
+  const handleGenerate = async () => {
+    if (!form.client_id || !form.season) return;
+    setLoading(true);
+    const res = await base44.functions.invoke('ntaSeasonalCampaignGenerator', form);
+    setResult(res.data);
+    setLoading(false);
+    onDone();
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+      <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg p-6">
+        <h2 className="text-white font-bold text-lg mb-1">Seasonal Campaign Generator</h2>
+        <p className="text-slate-400 text-sm mb-4">Generate a full campaign content pack in one click.</p>
+        {result ? (
+          <div className="space-y-3">
+            <div className="bg-emerald-900/20 border border-emerald-700 rounded-xl p-4">
+              <p className="text-emerald-300 font-bold text-sm mb-2">✓ Campaign Generated!</p>
+              <p className="text-slate-300 text-sm font-medium">{result.campaign_name}</p>
+              <div className="mt-2 grid grid-cols-3 gap-2 text-xs text-slate-400">
+                {Object.entries(result.assets_created || {}).map(([k, v]) => (
+                  <span key={k} className="bg-slate-800 rounded px-2 py-1">{v} {k.replace(/_/g, ' ')}</span>
+                ))}
+              </div>
+            </div>
+            <button onClick={onClose} className="w-full py-2 text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-lg">Done</button>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            <div>
+              <label className="block text-xs text-slate-400 mb-1">Client *</label>
+              <select value={form.client_id} onChange={e => setForm(p => ({ ...p, client_id: e.target.value }))}
+                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
+                <option value="">Select client…</option>
+                {clients.map(c => <option key={c.id} value={c.id}>{c.business_name}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs text-slate-400 mb-1">Season *</label>
+              <select value={form.season} onChange={e => setForm(p => ({ ...p, season: e.target.value }))}
+                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
+                {SEASONS.map(s => <option key={s} value={s}>{s}</option>)}
+              </select>
+            </div>
+            {[
+              { key: 'service_focus', label: 'Service Focus (e.g. AC Tune-Up)', placeholder: 'HVAC Maintenance' },
+              { key: 'offer', label: 'Offer / CTA (e.g. Free estimate)', placeholder: 'Free 21-Point Inspection' },
+              { key: 'location', label: 'Location (e.g. Mason City, IA)', placeholder: 'Mason City, IA' },
+            ].map(f => (
+              <div key={f.key}>
+                <label className="block text-xs text-slate-400 mb-1">{f.label}</label>
+                <input value={form[f.key]} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} placeholder={f.placeholder}
+                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" />
+              </div>
+            ))}
+            <div className="flex gap-2 pt-2">
+              <button onClick={onClose} className="flex-1 py-2 text-sm text-slate-400 border border-slate-700 rounded-lg hover:bg-slate-800">Cancel</button>
+              <button onClick={handleGenerate} disabled={loading || !form.client_id}
+                className="flex-1 py-2 text-sm font-bold text-white bg-purple-600 hover:bg-purple-500 rounded-lg disabled:opacity-50 flex items-center justify-center gap-2">
+                {loading ? <><div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" /> Generating…</> : <><Zap className="w-4 h-4" /> Generate Campaign</>}
+              </button>
+            </div>
+            {loading && <p className="text-slate-500 text-xs text-center">This may take 15-30 seconds. Generating full content pack…</p>}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function CampaignModal({ campaign, clients, onSave, onClose }) {
+  const [form, setForm] = useState(campaign || { campaign_name: '', client_id: '', season: 'year_round', service_focus: '', offer: '', location: '', target_audience: '', status: 'planning', notes: '' });
   const [saving, setSaving] = useState(false);
 
-  const handleSave = async () => {
-    if (!form.campaign_name.trim()) return;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setSaving(true);
     if (campaign?.id) {
-      await base44.entities.SpokeCampaign.update(campaign.id, form);
+      await base44.entities.Campaign.update(campaign.id, form);
     } else {
-      await base44.entities.SpokeCampaign.create(form);
+      await base44.entities.Campaign.create(form);
     }
     setSaving(false);
     onSave();
   };
 
-  const F = ({ label, k, type = 'text', opts }) => (
-    <div>
-      <label className="block text-xs font-semibold text-slate-400 mb-1">{label}</label>
-      {opts ? (
-        <select value={form[k] || ''} onChange={e => setForm(p => ({ ...p, [k]: e.target.value }))}
-          className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
-          <option value="">— Select —</option>
-          {opts.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-        </select>
-      ) : (
-        <input type={type} value={form[k] || ''} onChange={e => setForm(p => ({ ...p, [k]: e.target.value }))}
-          className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" />
-      )}
-    </div>
-  );
-
   return (
-    <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4" onClick={e => e.target === e.currentTarget && onClose()}>
-      <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-800">
-          <h2 className="font-bold text-white">{campaign ? 'Edit Campaign' : 'New Campaign'}</h2>
-          <button onClick={onClose} className="text-slate-500 hover:text-white text-xl">×</button>
-        </div>
-        <div className="p-5 space-y-3">
-          <F label="Campaign Name *" k="campaign_name" />
-          <F label="Client" k="client_id" opts={clients.map(c => ({ value: c.id, label: c.business_name }))} />
-          <F label="Core Theme" k="core_theme" />
-          <F label="Target Audience" k="target_audience" />
-          <F label="Primary Offer" k="primary_offer" />
-          <F label="CTA URL" k="cta_url" />
-          <F label="Pillar / Category" k="pillar" />
-          <F label="Status" k="status" opts={[
-            { value: 'draft', label: 'Draft' },
-            { value: 'active', label: 'Active' },
-            { value: 'completed', label: 'Completed' },
-          ]} />
-        </div>
-        <div className="flex justify-end gap-3 px-5 py-4 border-t border-slate-800">
-          <button onClick={onClose} className="text-sm px-4 py-2 text-slate-400 hover:text-white">Cancel</button>
-          <button onClick={handleSave} disabled={saving || !form.campaign_name.trim()}
-            className="text-sm font-bold px-5 py-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white rounded-lg">
-            {saving ? 'Saving…' : 'Save'}
-          </button>
-        </div>
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+      <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto">
+        <h2 className="text-white font-bold text-lg mb-4">{campaign?.id ? 'Edit Campaign' : 'New Campaign'}</h2>
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <div>
+            <label className="block text-xs text-slate-400 mb-1">Client *</label>
+            <select required value={form.client_id} onChange={e => setForm(p => ({ ...p, client_id: e.target.value }))}
+              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
+              <option value="">Select client…</option>
+              {clients.map(c => <option key={c.id} value={c.id}>{c.business_name}</option>)}
+            </select>
+          </div>
+          {[
+            { key: 'campaign_name', label: 'Campaign Name *', required: true },
+            { key: 'service_focus', label: 'Service Focus' },
+            { key: 'offer', label: 'Offer / CTA' },
+            { key: 'location', label: 'Location' },
+            { key: 'target_audience', label: 'Target Audience' },
+          ].map(f => (
+            <div key={f.key}>
+              <label className="block text-xs text-slate-400 mb-1">{f.label}</label>
+              <input required={f.required} value={form[f.key] || ''} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))}
+                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" />
+            </div>
+          ))}
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs text-slate-400 mb-1">Season</label>
+              <select value={form.season} onChange={e => setForm(p => ({ ...p, season: e.target.value }))}
+                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
+                {SEASONS.map(s => <option key={s} value={s}>{s}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs text-slate-400 mb-1">Status</label>
+              <select value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value }))}
+                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
+                {['planning','active','paused','completed'].map(s => <option key={s} value={s}>{s}</option>)}
+              </select>
+            </div>
+          </div>
+          <div className="flex gap-2 pt-2">
+            <button type="button" onClick={onClose} className="flex-1 py-2 text-sm text-slate-400 border border-slate-700 rounded-lg hover:bg-slate-800">Cancel</button>
+            <button type="submit" disabled={saving} className="flex-1 py-2 text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-lg disabled:opacity-50">
+              {saving ? 'Saving…' : 'Save Campaign'}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
@@ -81,23 +155,31 @@ export default function OpsCampaigns() {
   const [campaigns, setCampaigns] = useState([]);
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState('');
   const [modal, setModal] = useState(null);
+  const [showSeasonal, setShowSeasonal] = useState(false);
+  const [generating, setGenerating] = useState(null);
 
   const load = async () => {
     setLoading(true);
     const [c, cl] = await Promise.all([
-      base44.entities.SpokeCampaign.list('-created_date', 100),
-      base44.entities.Clients.filter({ archived: false }),
+      base44.entities.Campaign.list('-created_date', 200),
+      base44.entities.Client.list('-created_date', 100),
     ]);
     setCampaigns(c);
     setClients(cl);
     setLoading(false);
   };
+
   useEffect(() => { load(); }, []);
 
-  const filtered = campaigns.filter(c => !search || c.campaign_name?.toLowerCase().includes(search.toLowerCase()));
-  const clientMap = Object.fromEntries(clients.map(c => [c.id, c.business_name]));
+  const handleGenerate = async (campaign) => {
+    setGenerating(campaign.id);
+    await base44.functions.invoke('ntaGenerateCampaignContent', { campaign_id: campaign.id });
+    setGenerating(null);
+    alert('Content pack generated! Check Content Assets, Social Queue, and SEO Pages.');
+  };
+
+  const clientName = (id) => clients.find(c => c.id === id)?.business_name || 'Unknown';
 
   return (
     <OpsLayout>
@@ -105,42 +187,49 @@ export default function OpsCampaigns() {
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div>
             <h1 className="text-xl font-bold text-white">Campaigns</h1>
-            <p className="text-slate-500 text-sm">{filtered.length} campaigns</p>
+            <p className="text-slate-500 text-sm">{campaigns.length} total campaigns</p>
           </div>
-          <button onClick={() => setModal({})} className="flex items-center gap-2 text-sm font-bold px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg">
-            <Plus className="w-4 h-4" /> New Campaign
-          </button>
-        </div>
-        <div className="flex gap-3">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-500" />
-            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search campaigns…"
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl pl-9 pr-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+          <div className="flex gap-2">
+            <button onClick={load} className="p-2 text-slate-500 hover:text-white bg-slate-800 rounded-lg"><RefreshCw className="w-4 h-4" /></button>
+            <button onClick={() => setShowSeasonal(true)} className="flex items-center gap-1.5 text-sm font-bold text-white bg-purple-600 hover:bg-purple-500 px-4 py-2 rounded-lg">
+              <Zap className="w-4 h-4" /> Seasonal Generator
+            </button>
+            <button onClick={() => setModal({})} className="flex items-center gap-1.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-lg">
+              <Plus className="w-4 h-4" /> New Campaign
+            </button>
           </div>
-          <button onClick={load} className="p-2 text-slate-500 hover:text-white bg-slate-800 rounded-xl">
-            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-          </button>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {loading ? (
-            <div className="col-span-full p-8 text-center text-slate-500 text-sm">Loading…</div>
-          ) : filtered.length === 0 ? (
-            <div className="col-span-full p-8 text-center text-slate-500 text-sm">No campaigns yet.</div>
-          ) : filtered.map(c => (
-            <div key={c.id} className="bg-slate-900 border border-slate-800 rounded-xl p-4 hover:border-slate-600 transition-colors">
-              <div className="flex items-start justify-between mb-2">
-                <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${STATUS_COLORS[c.status] || STATUS_COLORS.draft}`}>{c.status}</span>
-                <button onClick={() => setModal(c)} className="text-xs text-slate-500 hover:text-white px-2 py-0.5 rounded hover:bg-slate-700">Edit</button>
+
+        {loading ? (
+          <div className="space-y-2">{[...Array(4)].map((_, i) => <div key={i} className="h-16 bg-slate-900 rounded-xl animate-pulse" />)}</div>
+        ) : (
+          <div className="space-y-2">
+            {campaigns.map(c => (
+              <div key={c.id} className="bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 flex items-center justify-between gap-3 flex-wrap">
+                <div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <p className="text-white font-semibold text-sm">{c.campaign_name}</p>
+                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${STATUS_COLORS[c.status] || 'bg-slate-700 text-slate-400'}`}>{c.status}</span>
+                    <span className="text-xs text-slate-500 bg-slate-800 px-2 py-0.5 rounded-full">{c.season}</span>
+                  </div>
+                  <p className="text-slate-500 text-xs mt-0.5">{clientName(c.client_id)} · {c.service_focus} · {c.location}</p>
+                </div>
+                <div className="flex gap-2">
+                  <button onClick={() => handleGenerate(c)} disabled={generating === c.id}
+                    className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 bg-purple-700 hover:bg-purple-600 text-white rounded-lg disabled:opacity-50">
+                    <Zap className="w-3 h-3" /> {generating === c.id ? 'Generating…' : 'Generate Content'}
+                  </button>
+                  <button onClick={() => setModal(c)} className="text-xs px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-300 rounded-lg">Edit</button>
+                </div>
               </div>
-              <h3 className="font-bold text-white text-sm mb-1">{c.campaign_name}</h3>
-              {c.client_id && <p className="text-xs text-blue-400 mb-1">{clientMap[c.client_id] || c.client_id}</p>}
-              {c.core_theme && <p className="text-xs text-slate-500 mb-1">{c.core_theme}</p>}
-              {c.primary_offer && <p className="text-xs text-slate-400">{c.primary_offer}</p>}
-            </div>
-          ))}
-        </div>
+            ))}
+            {campaigns.length === 0 && <div className="text-center text-slate-600 py-12 text-sm">No campaigns yet.</div>}
+          </div>
+        )}
       </div>
-      {modal !== null && <CampaignModal campaign={modal?.id ? modal : null} clients={clients} onClose={() => setModal(null)} onSave={() => { setModal(null); load(); }} />}
+
+      {modal !== null && <CampaignModal campaign={modal?.id ? modal : null} clients={clients} onSave={() => { setModal(null); load(); }} onClose={() => setModal(null)} />}
+      {showSeasonal && <SeasonalGeneratorModal clients={clients} onClose={() => { setShowSeasonal(false); load(); }} onDone={load} />}
     </OpsLayout>
   );
 }
