@@ -1,115 +1,119 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Search, Globe, Megaphone, Video, Share2, RefreshCw, ArrowRight } from 'lucide-react';
+import { Search, Globe, MapPin, Megaphone, Share2, Video, Bell } from 'lucide-react';
 
 const STEPS = [
   {
     icon: Search,
-    step: '01',
-    label: 'Gap Audit',
-    desc: "We look at your current site and online presence and identify where you're losing leads — usually 3–5 clear gaps we can fix.",
-    href: '/gap-audit/example-hvac-mason-city',
-    color: 'bg-violet-600',
-    linkLabel: 'See a Sample Audit',
+    label: 'Audit',
+    title: 'We Find the Gaps',
+    desc: 'A free gap audit shows exactly what\'s costing you leads — slow site, missing SEO, no follow-up. No guesswork.',
+    color: 'bg-purple-600',
   },
   {
     icon: Globe,
-    step: '02',
-    label: 'Website Rebuild',
-    desc: 'We rebuild or improve your site with the right structure, content, and conversion elements — designed specifically for local service businesses.',
-    href: '/services/website-rebuilds',
+    label: 'Rebuild',
+    title: 'Fast, Local Website',
+    desc: 'We rebuild your site so it loads fast, looks professional on mobile, and is built to convert visitors into calls.',
     color: 'bg-blue-600',
-    linkLabel: 'Website Rebuilds',
   },
   {
-    icon: Search,
-    step: '03',
+    icon: MapPin,
     label: 'SEO Pages',
-    desc: 'City and service-specific landing pages that target the exact searches your customers are making in your area.',
-    href: '/services/website-rebuilds',
-    color: 'bg-cyan-600',
-    linkLabel: 'SEO Pages',
+    title: 'Show Up in Local Searches',
+    desc: 'City + service pages that rank on Google. When someone searches "HVAC Mason City" — you show up.',
+    color: 'bg-indigo-600',
   },
   {
     icon: Megaphone,
-    step: '04',
     label: 'Seasonal Campaigns',
-    desc: 'Facebook and social campaigns timed to your busy seasons — spring tune-ups, fall clean-ups, winter emergency calls.',
-    href: '/our-work',
-    color: 'bg-orange-500',
-    linkLabel: 'See Campaign Examples',
+    title: 'Timely Ads & Offers',
+    desc: 'Spring tune-ups, fall cleanouts, holiday specials — we run campaigns at the right time so customers act now.',
+    color: 'bg-orange-600',
   },
   {
     icon: Share2,
-    step: '05',
     label: 'Social Content',
-    desc: 'Regular posts that keep your name in front of local customers — done for you so you don\'t have to think about it.',
-    href: '/services/social-media-management',
-    color: 'bg-pink-600',
-    linkLabel: 'Social Media',
+    title: 'Stay Top of Mind',
+    desc: 'Weekly posts, job photos, and local stories that keep your business visible on Facebook and Google Business Profile.',
+    color: 'bg-teal-600',
   },
   {
     icon: Video,
-    step: '06',
-    label: 'AI Video Marketing',
-    desc: 'Short videos, reels, and YouTube content that build trust and drive traffic — created with AI to keep costs low.',
-    href: '/AiSeo',
-    color: 'bg-emerald-600',
-    linkLabel: 'AI Video Marketing',
+    label: 'AI Video',
+    title: 'Video That Builds Trust',
+    desc: 'Short-form AI videos with your branding that explain your services, showcase your work, and earn clicks.',
+    color: 'bg-rose-600',
   },
   {
-    icon: RefreshCw,
-    step: '07',
-    label: 'Follow-Up System',
-    desc: "Automated follow-up so no lead falls through the cracks — text, email, or call reminders that work while you're on the job.",
-    href: '/book-call',
-    color: 'bg-slate-700',
-    linkLabel: 'Learn More',
+    icon: Bell,
+    label: 'Lead Follow-Up',
+    title: 'Never Lose a Lead',
+    desc: 'Automated texts and emails follow up with every inquiry — fast. Most businesses lose leads just from slow response.',
+    color: 'bg-emerald-600',
   },
 ];
 
 export default function HomeLeadSystem() {
   return (
-    <section className="py-20 px-6 bg-white" id="lead-system">
-      <div className="max-w-6xl mx-auto">
+    <section id="how-it-works" className="bg-white py-20 px-4">
+      <div className="max-w-5xl mx-auto">
+
+        {/* What is a Lead System */}
         <div className="text-center mb-14">
-          <span className="text-xs font-bold uppercase tracking-widest text-blue-600 block mb-3">The NTA Lead System</span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">
-            One System. All the Pieces.
-          </h2>
-          <p className="text-slate-600 text-lg max-w-2xl mx-auto">
-            Most agencies sell you one thing. We build the whole system — from the first Google search to a booked job — so every piece works together.
+          <p className="text-blue-600 font-bold text-sm uppercase tracking-widest mb-3">What We Build</p>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-4">What Is a Local Lead System?</h2>
+          <p className="text-slate-600 text-lg max-w-2xl mx-auto leading-relaxed">
+            It's everything working together — your website, SEO, ads, content, video, and follow-up — so local customers find you, trust you, and call you. Not just a website. A system.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-          {STEPS.map(s => {
-            const Icon = s.icon;
+        {/* Problem block */}
+        <div className="bg-slate-950 rounded-2xl p-8 mb-14 text-white">
+          <h3 className="text-xl font-black mb-2">The Problem With Most Small Business Websites</h3>
+          <p className="text-slate-400 mb-5 max-w-2xl">Most local business websites were built once and forgotten. They're slow, hard to find on Google, and don't give visitors a reason to call. Here's what that's actually costing you:</p>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {[
+              { stat: '75%', label: 'of people judge credibility by website design' },
+              { stat: '53%', label: 'of mobile users leave a page that takes 3+ seconds to load' },
+              { stat: '78%', label: 'of local mobile searches result in an offline purchase' },
+            ].map(item => (
+              <div key={item.label} className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
+                <p className="text-3xl font-black text-blue-400 mb-1">{item.stat}</p>
+                <p className="text-slate-400 text-sm leading-snug">{item.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* System steps */}
+        <h3 className="text-2xl font-black text-slate-900 mb-6 text-center">Our 7-Part System</h3>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {STEPS.map((step, i) => {
+            const Icon = step.icon;
             return (
-              <div key={s.step} className="bg-slate-50 border border-slate-200 rounded-2xl p-6 flex flex-col">
+              <div key={step.label} className="border border-slate-100 rounded-2xl p-5 hover:shadow-md transition-shadow">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className={`${s.color} w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0`}>
+                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${step.color}`}>
                     <Icon className="w-4 h-4 text-white" />
                   </div>
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Step {s.step}</span>
+                  <div>
+                    <p className="text-xs text-slate-400 font-semibold uppercase tracking-wide">Step {i + 1}</p>
+                    <p className="text-xs font-bold text-slate-600">{step.label}</p>
+                  </div>
                 </div>
-                <h3 className="text-base font-bold text-slate-900 mb-2">{s.label}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed flex-1">{s.desc}</p>
-                <Link to={s.href} className="mt-4 text-blue-600 hover:text-blue-800 text-xs font-semibold flex items-center gap-1">
-                  {s.linkLabel} <ArrowRight className="w-3 h-3" />
-                </Link>
+                <h4 className="font-black text-slate-900 text-base mb-1.5">{step.title}</h4>
+                <p className="text-slate-500 text-sm leading-relaxed">{step.desc}</p>
               </div>
             );
           })}
-        </div>
-
-        <div className="mt-12 text-center">
-          <Link
-            to="/rebuild-intake?source=lead-system"
-            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-xl text-base transition shadow-lg"
-          >
-            Build My Lead System <ArrowRight className="w-4 h-4" />
-          </Link>
+          {/* Final CTA card */}
+          <div className="border-2 border-blue-500 bg-blue-50 rounded-2xl p-5 flex flex-col justify-center items-center text-center">
+            <p className="text-blue-700 font-black text-lg mb-2">Ready to see what's missing?</p>
+            <p className="text-blue-600 text-sm mb-4">Get a free gap audit — we'll show you exactly what to fix.</p>
+            <a href="/gap-audit" className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-colors">
+              Get My Free Audit →
+            </a>
+          </div>
         </div>
       </div>
     </section>

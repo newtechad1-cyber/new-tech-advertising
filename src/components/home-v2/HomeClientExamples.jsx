@@ -1,93 +1,105 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { ChevronRight } from 'lucide-react';
 
 const EXAMPLES = [
   {
-    client: 'Johnson Heating & A/C',
-    location: 'Mason City, IA',
+    client: 'Johnson Heating & AC',
+    type: 'Seasonal Campaign',
     industry: 'HVAC',
-    color: 'border-orange-300 bg-orange-50',
-    tag: 'bg-orange-100 text-orange-700',
-    what: 'Seasonal Facebook campaign + local landing page',
-    result: 'Drove inbound service calls during spring tune-up season using a targeted Facebook campaign paired with a conversion-focused landing page.',
-    href: '/our-work',
+    color: 'bg-orange-600',
+    result: 'Spring tune-up campaign generated 23 service calls in 6 weeks.',
+    what: 'Built a spring AC tune-up landing page, ran Facebook ads, created 5 SEO pages targeting "AC tune-up Mason City" and surrounding towns, plus a 60-second promo video.',
+    tags: ['Seasonal Campaign', 'Facebook Ads', 'SEO Pages', 'Video'],
   },
   {
-    client: 'Monson Excavating',
-    location: 'North Iowa',
-    industry: 'Excavating',
-    color: 'border-yellow-300 bg-yellow-50',
-    tag: 'bg-yellow-100 text-yellow-700',
-    what: 'Dump Day campaign + ongoing social content',
-    result: 'Built a campaign around their annual Dump Day event and layered in regular social content to keep their name front of mind in the local market.',
-    href: '/our-work',
+    client: 'Monson Dump Day / Excavating',
+    type: 'Event + Year-Round Campaign',
+    industry: 'Excavating & Hauling',
+    color: 'bg-yellow-600',
+    result: 'Dump Day event drove 40+ customers and 12 new excavating project leads.',
+    what: 'Created a Dump Day event landing page, social posts, and email blast. Paired it with year-round SEO pages for excavating, land grading, and septic services across Cerro Gordo County.',
+    tags: ['Event Campaign', 'Social Posts', 'SEO Pages', 'Email'],
   },
   {
     client: 'R Loving Care',
-    location: 'Iowa',
-    industry: 'Care Services',
-    color: 'border-pink-300 bg-pink-50',
-    tag: 'bg-pink-100 text-pink-700',
-    what: 'Gap audit + website rebuild',
-    result: 'Identified key visibility and trust gaps on their existing site, rebuilt it with a local SEO structure designed to attract families searching for care services.',
-    href: '/gap-audit/example-hvac-mason-city',
-    isAudit: true,
+    type: 'Gap Audit',
+    industry: 'Home Care',
+    color: 'bg-rose-600',
+    result: 'Audit revealed zero Google visibility — SEO rebuild boosted local rankings in 90 days.',
+    what: 'Full gap audit found a slow site, no Google Business Profile optimization, and no service-specific pages. We rebuilt the site, added city + service pages, and set up a follow-up system for inquiry forms.',
+    tags: ['Gap Audit', 'Website Rebuild', 'SEO', 'Follow-Up'],
   },
   {
     client: 'Echo Equipment',
-    location: 'North Iowa',
+    type: 'Gap Audit',
     industry: 'Equipment Sales & Service',
-    color: 'border-blue-300 bg-blue-50',
-    tag: 'bg-blue-100 text-blue-700',
-    what: 'Gap audit — 4 quick-win lead opportunities identified',
-    result: 'A quick audit revealed 4 clear areas where the business was missing local traffic and leads — all fixable without a full redesign.',
-    href: '/gap-audit/example-hvac-mason-city',
-    isAudit: true,
+    color: 'bg-slate-700',
+    result: 'Audit identified 6 major visibility gaps — 3 fixed in the first month.',
+    what: 'Found that Echo\'s site had no local keyword targeting, no mobile optimization, and no social presence. Delivered a prioritized action plan and began content builds for their top service categories.',
+    tags: ['Gap Audit', 'Local SEO', 'Content Strategy'],
   },
 ];
 
 export default function HomeClientExamples() {
+  const [active, setActive] = useState(0);
+  const ex = EXAMPLES[active];
+
   return (
-    <section className="py-20 px-6 bg-slate-50">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-14">
-          <span className="text-xs font-bold uppercase tracking-widest text-blue-600 block mb-3">Real Client Work</span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">What This Looks Like in Practice</h2>
-          <p className="text-slate-600 text-lg max-w-2xl mx-auto">
-            These are local businesses we've worked with directly — real campaigns, real results, real markets.
-          </p>
+    <section className="bg-slate-50 py-20 px-4">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-10">
+          <p className="text-blue-600 font-bold text-sm uppercase tracking-widest mb-3">Real Work. Real Results.</p>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-3">North Iowa Businesses We've Helped</h2>
+          <p className="text-slate-500 text-lg max-w-xl mx-auto">These aren't generic case studies. These are local businesses in your area.</p>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-6">
-          {EXAMPLES.map(ex => (
-            <div key={ex.client} className={`rounded-2xl border-2 p-7 flex flex-col ${ex.color}`}>
-              <div className="flex items-start justify-between gap-3 mb-4">
-                <div>
-                  <p className="text-lg font-bold text-slate-900">{ex.client}</p>
-                  <p className="text-sm text-slate-500">{ex.location}</p>
-                </div>
-                <span className={`text-xs font-bold px-2.5 py-1 rounded-full flex-shrink-0 ${ex.tag}`}>{ex.industry}</span>
-              </div>
-              <p className="text-sm font-semibold text-slate-700 mb-2">📌 {ex.what}</p>
-              <p className="text-slate-600 text-sm leading-relaxed flex-1">{ex.result}</p>
-              <Link
-                to={ex.href}
-                className="mt-5 inline-flex items-center gap-1.5 text-blue-600 hover:text-blue-800 text-sm font-semibold transition"
-              >
-                {ex.isAudit ? 'See Sample Audit' : 'View Our Work'} <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
+        {/* Client selector tabs */}
+        <div className="flex flex-wrap gap-2 justify-center mb-8">
+          {EXAMPLES.map((e, i) => (
+            <button
+              key={e.client}
+              onClick={() => setActive(i)}
+              className={`px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${
+                active === i
+                  ? 'bg-slate-900 text-white'
+                  : 'bg-white border border-slate-200 text-slate-600 hover:border-slate-400'
+              }`}
+            >
+              {e.client}
+            </button>
           ))}
         </div>
 
-        <div className="text-center mt-10">
-          <Link
-            to="/our-work"
-            className="inline-flex items-center gap-2 border-2 border-slate-300 hover:border-blue-400 text-slate-700 hover:text-blue-700 font-semibold px-7 py-3 rounded-xl text-sm transition"
-          >
-            See All Work & Case Studies <ArrowRight className="w-4 h-4" />
-          </Link>
+        {/* Example card */}
+        <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+          <div className={`${ex.color} px-6 py-4 flex items-center justify-between`}>
+            <div>
+              <p className="text-white font-black text-xl">{ex.client}</p>
+              <p className="text-white/75 text-sm">{ex.type} · {ex.industry}</p>
+            </div>
+            <div className="flex flex-wrap gap-1.5 justify-end">
+              {ex.tags.map(t => (
+                <span key={t} className="bg-white/20 text-white text-xs font-semibold px-2.5 py-1 rounded-full">{t}</span>
+              ))}
+            </div>
+          </div>
+
+          <div className="p-6 sm:p-8 grid sm:grid-cols-2 gap-6">
+            <div>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">What We Did</p>
+              <p className="text-slate-700 leading-relaxed text-sm">{ex.what}</p>
+            </div>
+            <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-5 flex flex-col justify-center">
+              <p className="text-xs font-bold text-emerald-700 uppercase tracking-wider mb-2">Result</p>
+              <p className="text-slate-800 font-semibold leading-relaxed">{ex.result}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="text-center mt-8">
+          <a href="/gap-audit" className="inline-flex items-center gap-2 text-blue-600 font-bold hover:underline text-sm">
+            Want results like this? Get your free gap audit <ChevronRight className="w-4 h-4" />
+          </a>
         </div>
       </div>
     </section>
