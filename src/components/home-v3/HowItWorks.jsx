@@ -1,10 +1,10 @@
 import React from 'react';
 
 const steps = [
-  { num: '1', text: 'I look at your website' },
-  { num: '2', text: 'I find what\'s missing' },
-  { num: '3', text: 'I show you what to fix' },
-  { num: '4', text: 'We build from there if it makes sense' },
+  { num: '1', text: 'I look at your current website and setup' },
+  { num: '2', text: 'I find what\'s missing or not working' },
+  { num: '3', text: 'I show you what to fix first' },
+  { num: '4', text: 'If it makes sense, we build from there' },
 ];
 
 export default function HowItWorks() {
@@ -12,12 +12,12 @@ export default function HowItWorks() {
     <section className="bg-slate-50 py-20 px-6 border-t border-slate-100">
       <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
 
-        {/* LEFT: Text */}
+        {/* LEFT: Steps */}
         <div>
           <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-8">
             How It Works
           </h2>
-          <div className="space-y-4">
+          <div className="space-y-4 mb-6">
             {steps.map(step => (
               <div key={step.num} className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-sm flex-shrink-0">
@@ -27,13 +27,14 @@ export default function HowItWorks() {
               </div>
             ))}
           </div>
+          <p className="text-slate-500 text-sm">Simple. No pressure.</p>
         </div>
 
         {/* RIGHT: Image */}
-        <div className="rounded-2xl overflow-hidden shadow-lg bg-slate-100 aspect-[4/3]">
+        <div className="rounded-2xl overflow-hidden shadow-lg aspect-[4/3] bg-slate-200">
           <img
-            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
-            alt="Simple process illustration"
+            src="https://images.unsplash.com/photo-1553484771-371a605b060b?auto=format&fit=crop&w=800&q=80"
+            alt="Simple process"
             className="w-full h-full object-cover"
           />
         </div>

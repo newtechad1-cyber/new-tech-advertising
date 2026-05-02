@@ -3,8 +3,9 @@ import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import NTAGrowthGuideBot from '../components/nta-guide/NTAGrowthGuideBot';
 import HeroSplit from '../components/home-v3/HeroSplit';
-import WhatIHelpWith from '../components/home-v3/WhatIHelpWith';
+import WhatIMean from '../components/home-v3/WhatIMean';
 import HowItWorks from '../components/home-v3/HowItWorks';
+import WhoThisWorksFor from '../components/home-v3/WhoThisWorksFor';
 import GapAuditCenteredCTA from '../components/home-v3/GapAuditCenteredCTA';
 
 export default function Home() {
@@ -42,8 +43,9 @@ export default function Home() {
     <div className="bg-white min-h-screen">
       <MarketingNav />
       <HeroSplit />
-      <WhatIHelpWith />
+      <WhatIMean />
       <HowItWorks />
+      <WhoThisWorksFor />
       <GapAuditCenteredCTA />
       <SiteFooter />
       <NTAGrowthGuideBot />

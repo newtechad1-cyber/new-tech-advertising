@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Play } from 'lucide-react';
+import { Phone } from 'lucide-react';
 
 export default function HeroSplit() {
   return (
@@ -13,15 +13,16 @@ export default function HeroSplit() {
             Local Websites & Marketing That Actually Bring In Calls
           </h1>
           <p className="text-slate-300 text-lg mb-8 leading-relaxed">
-            Websites, SEO pages, and campaigns built for real local businesses.
+            We help local businesses get found, make sense, and turn interest into real calls, customers, and jobs.
           </p>
+          <p className="text-white font-bold text-lg mb-5">Call or Text: 641-420-8816</p>
           <div className="flex flex-col sm:flex-row gap-3">
-            <a
-              href="tel:+16414208816"
+            <Link
+              to="/gap-audit"
               className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-4 rounded-xl transition-colors text-base"
             >
-              <Phone className="w-4 h-4" /> Call or Text: 641-420-8816
-            </a>
+              Get My Free Gap Audit
+            </Link>
             <Link
               to="/our-work"
               className="inline-flex items-center justify-center gap-2 border border-white/20 hover:border-white/40 text-white font-bold px-6 py-4 rounded-xl transition-colors text-base"
