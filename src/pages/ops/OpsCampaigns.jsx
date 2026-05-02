@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import OpsLayout from '../../components/ops-dashboard/OpsLayout';
 import { base44 } from '@/api/base44Client';
+import { Link } from 'react-router-dom';
 import { Plus, RefreshCw, Zap, ChevronDown } from 'lucide-react';
 
 const STATUS_COLORS = { planning: 'bg-slate-700 text-slate-300', active: 'bg-emerald-900/40 text-emerald-300', paused: 'bg-yellow-900/40 text-yellow-300', completed: 'bg-blue-900/40 text-blue-300' };
@@ -219,6 +220,7 @@ export default function OpsCampaigns() {
                     className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 bg-purple-700 hover:bg-purple-600 text-white rounded-lg disabled:opacity-50">
                     <Zap className="w-3 h-3" /> {generating === c.id ? 'Generating…' : 'Generate Content'}
                   </button>
+                  <Link to={`/ops/campaigns/${c.id}`} className="text-xs px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold">Open →</Link>
                   <button onClick={() => setModal(c)} className="text-xs px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-300 rounded-lg">Edit</button>
                 </div>
               </div>

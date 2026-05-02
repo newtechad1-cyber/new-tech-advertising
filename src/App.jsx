@@ -208,6 +208,7 @@ import HVACMarketingNorthIowa from './pages/HVACMarketingNorthIowa';
 import ContractorMarketingNorthIowa from './pages/ContractorMarketingNorthIowa';
 import SmallBusinessMarketingNorthIowa from './pages/SmallBusinessMarketingNorthIowa';
 import OpsDashboard from './pages/ops/OpsDashboard';
+import OpsCampaignDetail from './pages/ops/OpsCampaignDetail';
 import AgencyGapAudits from './pages/AgencyGapAudits';
 import AgencyGapAuditDetail from './pages/AgencyGapAuditDetail';
 import GapAuditPublic from './pages/GapAuditPublic';
@@ -495,6 +496,7 @@ const AuthenticatedApp = () => {
       <Route path="/ops/clients" element={<OpsClients />} />
       <Route path="/ops/audits" element={<OpsAudits />} />
       <Route path="/ops/campaigns" element={<OpsCampaigns />} />
+      <Route path="/ops/campaigns/:id" element={<OpsCampaignDetail />} />
       <Route path="/ops/seo-pages" element={<OpsSEOPages />} />
       <Route path="/ops/content" element={<OpsContent />} />
       <Route path="/ops/videos" element={<OpsVideos />} />
