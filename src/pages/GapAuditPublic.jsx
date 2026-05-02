@@ -3,6 +3,7 @@ import { base44 } from '@/api/base44Client';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import { CheckCircle2 } from 'lucide-react';
+import TextMeButton from '../components/shared/TextMeButton';
 
 function ThankYou({ businessName }) {
   return (
@@ -183,8 +184,8 @@ export default function GapAuditPublic() {
         <section className="border-t border-slate-100 pt-10">
           <h2 className="text-xl font-bold text-slate-900 mb-2">Or Text Me Directly</h2>
           <p className="text-slate-600 mb-3">If you don't want to fill out the form, just text me:</p>
-          <p className="text-lg font-semibold text-slate-900">👉 Text: <a href="sms:3192900004" className="text-blue-600 hover:underline">319-290-0004</a></p>
-          <p className="text-slate-500 text-sm mt-1">I'll reply and take a look.</p>
+          <TextMeButton className="mb-3" />
+          <p className="text-slate-500 text-sm mt-2">I'll reply and take a look.</p>
         </section>
 
         {/* What Happens Next */}

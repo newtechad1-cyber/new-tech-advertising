@@ -1,4 +1,5 @@
 import React from 'react';
+import TextMeButton from '../shared/TextMeButton';
 
 export default function HomeFinalCTAV2() {
   return (
@@ -22,9 +23,10 @@ export default function HomeFinalCTAV2() {
               </li>
             ))}
           </ul>
-          <p className="text-slate-700 text-base font-semibold">
+          <p className="text-slate-700 text-base font-semibold mb-6">
             If that's not happening right now, we should fix it.
           </p>
+          <TextMeButton />
         </div>
       </div>
     </section>
