@@ -1,36 +1,31 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Phone, ArrowRight } from 'lucide-react';
 
 export default function HomeFinalCTAV2() {
   return (
-    <section className="bg-slate-950 py-20 px-4">
-      <div className="max-w-3xl mx-auto text-center">
-        <h2 className="text-3xl sm:text-4xl font-black text-white mb-4 leading-tight">
-          Ready to Stop Losing Leads<br className="hidden sm:block" /> to Competitors?
-        </h2>
-        <p className="text-slate-400 text-lg mb-8 max-w-xl mx-auto leading-relaxed">
-          Get a free Gap Audit and we'll show you exactly what's costing you customers — and exactly how to fix it.
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
-          <Link
-            to="/gap-audit"
-            className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-black px-8 py-4 rounded-xl text-base transition-colors"
-          >
-            Get a Free Gap Audit <ArrowRight className="w-4 h-4" />
-          </Link>
-          <a
-            href="tel:+16413579932"
-            className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold px-8 py-4 rounded-xl text-base transition-colors"
-          >
-            <Phone className="w-4 h-4" /> Call (641) 357-9932
-          </a>
+    <section className="bg-white py-20 px-4 border-t border-slate-100">
+      <div className="max-w-5xl mx-auto">
+        <div className="max-w-2xl">
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-5">
+            Simple. Practical. Built to Work.
+          </h2>
+          <p className="text-slate-600 text-lg leading-relaxed mb-6">
+            This isn't about chasing trends or overcomplicating things.
+          </p>
+          <p className="text-slate-600 text-base mb-4">
+            It's about making sure your business:
+          </p>
+          <ul className="space-y-2 mb-8">
+            {['Shows up', 'Makes sense', 'Gets contacted'].map(item => (
+              <li key={item} className="flex items-start gap-2 text-slate-700 text-base">
+                <span className="text-blue-500 font-bold mt-0.5">·</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <p className="text-slate-700 text-base font-semibold">
+            If that's not happening right now, we should fix it.
+          </p>
         </div>
-
-        <p className="text-slate-600 text-sm">
-          Based in Mason City, Iowa · Serving North Iowa & Southern Minnesota
-        </p>
       </div>
     </section>
   );

@@ -1,53 +1,57 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+
+// VIDEO PLACEHOLDER — swap src for real embed when ready
+function VideoPlaceholder({ label }) {
+  return (
+    <div className="w-full rounded-2xl bg-slate-800 border border-slate-700 overflow-hidden aspect-video flex flex-col items-center justify-center gap-3">
+      <div className="w-14 h-14 rounded-full bg-slate-700 border border-slate-600 flex items-center justify-center">
+        <svg className="w-6 h-6 text-slate-400 ml-1" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+      </div>
+      <p className="text-slate-500 text-sm font-medium text-center px-4">{label}</p>
+    </div>
+  );
+}
 
 export default function HomeHeroV2() {
   return (
-    <section className="bg-slate-950 text-white pt-24 pb-20 px-4 relative overflow-hidden">
-      {/* Background texture */}
-      <div className="absolute inset-0 opacity-5" style={{
-        backgroundImage: `radial-gradient(circle at 20% 50%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #10b981 0%, transparent 40%)`
-      }} />
+    <section className="bg-slate-950 text-white pt-20 pb-20 px-4">
+      <div className="max-w-5xl mx-auto">
 
-      <div className="max-w-5xl mx-auto relative">
-        <div className="inline-flex items-center gap-2 bg-blue-900/30 border border-blue-700/40 rounded-full px-4 py-1.5 text-xs font-semibold text-blue-300 mb-6">
-          <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" />
-          Serving North Iowa & Southern Minnesota
+        {/* Hero text */}
+        <div className="max-w-3xl mb-10">
+          <h1 className="text-4xl sm:text-5xl font-black leading-tight mb-5 text-white">
+            Local Lead Systems for North Iowa Businesses
+          </h1>
+          <p className="text-lg text-slate-300 leading-relaxed mb-4 max-w-2xl">
+            We help local businesses get found and turn interest into real calls, customers, and jobs.
+          </p>
+          <p className="text-slate-500 text-base leading-relaxed mb-8 max-w-2xl">
+            No inflated claims. No complicated systems.<br />
+            Just practical work that helps your business show up and get contacted.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Link
+              to="/gap-audit"
+              className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-7 py-4 rounded-xl text-base transition-colors"
+            >
+              Get a Free Gap Audit <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              to="/our-work"
+              className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold px-7 py-4 rounded-xl text-base transition-colors"
+            >
+              See Our Work
+            </Link>
+          </div>
         </div>
 
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6 max-w-4xl">
-          Local Lead Systems for{' '}
-          <span className="text-blue-400">North Iowa</span> Businesses
-        </h1>
+        {/* Hero video */}
+        <VideoPlaceholder label={`VIDEO — "Here's what I do and how I help local businesses get more calls and customers."`} />
 
-        <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mb-8 leading-relaxed">
-          We build the website, SEO pages, ads, content, video, and follow-up system your business needs to turn local searches into real leads.
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-3">
-          <Link
-            to="/gap-audit"
-            className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-7 py-4 rounded-xl text-base transition-colors"
-          >
-            Get a Free Gap Audit <ArrowRight className="w-4 h-4" />
-          </Link>
-          <a
-            href="#how-it-works"
-            className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold px-7 py-4 rounded-xl text-base transition-colors"
-          >
-            See How It Works <ChevronDown className="w-4 h-4" />
-          </a>
-        </div>
-
-        {/* Trust bar */}
-        <div className="mt-12 pt-8 border-t border-white/10 flex flex-wrap gap-6 text-sm text-slate-400">
-          {['HVAC & Plumbing', 'Excavating & Septic', 'Lawn & Landscaping', 'Retail & Service', 'Any Local Business'].map(item => (
-            <span key={item} className="flex items-center gap-1.5">
-              <span className="text-emerald-400">✓</span> {item}
-            </span>
-          ))}
-        </div>
       </div>
     </section>
   );

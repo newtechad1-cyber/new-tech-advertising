@@ -1,121 +1,90 @@
 import React from 'react';
-import { Search, Globe, MapPin, Megaphone, Share2, Video, Bell } from 'lucide-react';
+
+// VIDEO PLACEHOLDER
+function VideoPlaceholder({ label }) {
+  return (
+    <div className="w-full rounded-2xl bg-slate-800 border border-slate-700 overflow-hidden aspect-video flex flex-col items-center justify-center gap-3">
+      <div className="w-14 h-14 rounded-full bg-slate-700 border border-slate-600 flex items-center justify-center">
+        <svg className="w-6 h-6 text-slate-400 ml-1" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+      </div>
+      <p className="text-slate-500 text-sm font-medium text-center px-6">{label}</p>
+    </div>
+  );
+}
 
 const STEPS = [
-  {
-    icon: Search,
-    label: 'Audit',
-    title: 'We Find the Gaps',
-    desc: 'A free gap audit shows exactly what\'s costing you leads — slow site, missing SEO, no follow-up. No guesswork.',
-    color: 'bg-purple-600',
-  },
-  {
-    icon: Globe,
-    label: 'Rebuild',
-    title: 'Fast, Local Website',
-    desc: 'We rebuild your site so it loads fast, looks professional on mobile, and is built to convert visitors into calls.',
-    color: 'bg-blue-600',
-  },
-  {
-    icon: MapPin,
-    label: 'SEO Pages',
-    title: 'Show Up in Local Searches',
-    desc: 'City + service pages that rank on Google. When someone searches "HVAC Mason City" — you show up.',
-    color: 'bg-indigo-600',
-  },
-  {
-    icon: Megaphone,
-    label: 'Seasonal Campaigns',
-    title: 'Timely Ads & Offers',
-    desc: 'Spring tune-ups, fall cleanouts, holiday specials — we run campaigns at the right time so customers act now.',
-    color: 'bg-orange-600',
-  },
-  {
-    icon: Share2,
-    label: 'Social Content',
-    title: 'Stay Top of Mind',
-    desc: 'Weekly posts, job photos, and local stories that keep your business visible on Facebook and Google Business Profile.',
-    color: 'bg-teal-600',
-  },
-  {
-    icon: Video,
-    label: 'AI Video',
-    title: 'Video That Builds Trust',
-    desc: 'Short-form AI videos with your branding that explain your services, showcase your work, and earn clicks.',
-    color: 'bg-rose-600',
-  },
-  {
-    icon: Bell,
-    label: 'Lead Follow-Up',
-    title: 'Never Lose a Lead',
-    desc: 'Automated texts and emails follow up with every inquiry — fast. Most businesses lose leads just from slow response.',
-    color: 'bg-emerald-600',
-  },
+  { num: '1', title: 'Gap Audit', desc: 'We look at your website, SEO, messaging, and how leads actually come in.' },
+  { num: '2', title: 'Rebuild & Structure', desc: 'We fix what\'s confusing and simplify how your business is presented.' },
+  { num: '3', title: 'SEO Pages', desc: 'We build pages based on what people are actually searching for.' },
+  { num: '4', title: 'Campaigns', desc: 'Seasonal offers that give people a reason to act.' },
+  { num: '5', title: 'Content & Video', desc: 'Simple content that keeps your business showing up.' },
+  { num: '6', title: 'Follow-Up', desc: 'Making sure calls, messages, and opportunities don\'t slip through.' },
 ];
 
 export default function HomeLeadSystem() {
   return (
-    <section id="how-it-works" className="bg-white py-20 px-4">
-      <div className="max-w-5xl mx-auto">
+    <>
+      {/* What We Actually Do */}
+      <section className="bg-white py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="max-w-2xl mb-12">
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-5">What We Actually Do</h2>
+            <p className="text-slate-600 text-lg leading-relaxed mb-6">
+              Most local businesses don't have a traffic problem—they have a clarity and structure problem.
+            </p>
+            <p className="text-slate-600 text-base leading-relaxed mb-4">
+              We help fix that by building systems that connect everything:
+            </p>
+            <ul className="space-y-2">
+              {[
+                'Website structure that makes sense',
+                'SEO pages that match real searches',
+                'Campaigns that get attention',
+                'Content and video that keep you visible',
+                'Simple follow-up so opportunities don\'t get missed',
+              ].map(item => (
+                <li key={item} className="flex items-start gap-2 text-slate-700 text-base">
+                  <span className="text-blue-500 font-bold mt-0.5">·</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        {/* What is a Lead System */}
-        <div className="text-center mb-14">
-          <p className="text-blue-600 font-bold text-sm uppercase tracking-widest mb-3">What We Build</p>
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-4">What Is a Local Lead System?</h2>
-          <p className="text-slate-600 text-lg max-w-2xl mx-auto leading-relaxed">
-            It's everything working together — your website, SEO, ads, content, video, and follow-up — so local customers find you, trust you, and call you. Not just a website. A system.
-          </p>
+          {/* Lead System video */}
+          <VideoPlaceholder label={`VIDEO — "What a lead system actually is and why most businesses don't have one"`} />
         </div>
+      </section>
 
-        {/* Problem block */}
-        <div className="bg-slate-950 rounded-2xl p-8 mb-14 text-white">
-          <h3 className="text-xl font-black mb-2">The Problem With Most Small Business Websites</h3>
-          <p className="text-slate-400 mb-5 max-w-2xl">Most local business websites were built once and forgotten. They're slow, hard to find on Google, and don't give visitors a reason to call. Here's what that's actually costing you:</p>
-          <div className="grid sm:grid-cols-3 gap-4">
-            {[
-              { stat: '75%', label: 'of people judge credibility by website design' },
-              { stat: '53%', label: 'of mobile users leave a page that takes 3+ seconds to load' },
-              { stat: '78%', label: 'of local mobile searches result in an offline purchase' },
-            ].map(item => (
-              <div key={item.label} className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
-                <p className="text-3xl font-black text-blue-400 mb-1">{item.stat}</p>
-                <p className="text-slate-400 text-sm leading-snug">{item.label}</p>
+      {/* How It Works */}
+      <section id="how-it-works" className="bg-slate-950 text-white py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="max-w-xl mb-12">
+            <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">How It Works</h2>
+            <p className="text-slate-400 text-lg leading-relaxed">
+              We don't jump straight into design or ads.<br />
+              We start by figuring out what's missing.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-14">
+            {STEPS.map(step => (
+              <div key={step.num} className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+                <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white font-black text-sm mb-4">
+                  {step.num}
+                </div>
+                <h3 className="font-black text-white text-base mb-2">{step.title}</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">{step.desc}</p>
               </div>
             ))}
           </div>
-        </div>
 
-        {/* System steps */}
-        <h3 className="text-2xl font-black text-slate-900 mb-6 text-center">Our 7-Part System</h3>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {STEPS.map((step, i) => {
-            const Icon = step.icon;
-            return (
-              <div key={step.label} className="border border-slate-100 rounded-2xl p-5 hover:shadow-md transition-shadow">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${step.color}`}>
-                    <Icon className="w-4 h-4 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-400 font-semibold uppercase tracking-wide">Step {i + 1}</p>
-                    <p className="text-xs font-bold text-slate-600">{step.label}</p>
-                  </div>
-                </div>
-                <h4 className="font-black text-slate-900 text-base mb-1.5">{step.title}</h4>
-                <p className="text-slate-500 text-sm leading-relaxed">{step.desc}</p>
-              </div>
-            );
-          })}
-          {/* Final CTA card */}
-          <div className="border-2 border-blue-500 bg-blue-50 rounded-2xl p-5 flex flex-col justify-center items-center text-center">
-            <p className="text-blue-700 font-black text-lg mb-2">Ready to see what's missing?</p>
-            <p className="text-blue-600 text-sm mb-4">Get a free gap audit — we'll show you exactly what to fix.</p>
-            <a href="/gap-audit" className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-colors">
-              Get My Free Audit →
-            </a>
-          </div>
+          {/* Process video */}
+          <VideoPlaceholder label={`VIDEO — "Here's how I typically help a local business step-by-step"`} />
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
