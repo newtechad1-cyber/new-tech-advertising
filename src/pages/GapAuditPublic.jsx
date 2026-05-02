@@ -31,7 +31,7 @@ function ThankYou() {
 }
 
 export default function GapAuditPublic() {
-  const [form, setForm] = useState({ contact_name: '', business_name: '', website: '', phone: '' });
+  const [form, setForm] = useState({ contact_name: '', business_name: '', website: '', phone: '', email: '' });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -46,6 +46,7 @@ export default function GapAuditPublic() {
       contact_name: form.contact_name,
       website: form.website,
       phone: form.phone,
+      email: form.email,
     });
     setLoading(false);
     if (res.data?.success) {
@@ -128,6 +129,16 @@ export default function GapAuditPublic() {
                     placeholder="Your phone number"
                     value={form.phone}
                     onChange={e => setForm({ ...form, phone: e.target.value })}
+                    className="w-full border border-slate-300 rounded-xl px-4 py-3 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-1">Email</label>
+                  <input
+                    type="email"
+                    placeholder="Your email (optional)"
+                    value={form.email}
+                    onChange={e => setForm({ ...form, email: e.target.value })}
                     className="w-full border border-slate-300 rounded-xl px-4 py-3 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
