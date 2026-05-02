@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Phone } from 'lucide-react';
 
 export default function HomeHeroV2() {
   return (
@@ -15,19 +15,21 @@ export default function HomeHeroV2() {
           <p className="text-lg text-slate-300 leading-relaxed mb-8 max-w-2xl">
             We help local businesses get found and turn interest into real calls, customers, and jobs.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3">
+
+          {/* Strong CTA block */}
+          <div className="flex flex-col sm:flex-row gap-3 mb-5">
             <Link
               to="/gap-audit"
               className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-7 py-4 rounded-xl text-base transition-colors"
             >
-              Get a Free Gap Audit <ArrowRight className="w-4 h-4" />
+              Get My Free Gap Audit <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link
-              to="/our-work"
-              className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold px-7 py-4 rounded-xl text-base transition-colors"
+            <a
+              href="tel:+16414208816"
+              className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-bold px-7 py-4 rounded-xl text-base transition-colors"
             >
-              See Our Work
-            </Link>
+              <Phone className="w-4 h-4" /> Call or Text: 641-420-8816
+            </a>
           </div>
         </div>
 
