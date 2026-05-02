@@ -1,91 +1,132 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { base44 } from '@/api/base44Client';
-import Header from '../components/landing/Header';
-import Footer from '../components/landing/Footer';
-import { ExternalLink } from 'lucide-react';
+import MarketingNav from '../components/nav/MarketingNav';
+import SiteFooter from '../components/marketing/SiteFooter';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
+
+const CLIENTS = [
+  {
+    name: 'Johnson Heating',
+    work: 'Website structure, SEO pages, and seasonal campaigns.',
+    focus: 'Making it easier for homeowners to find services and reach out.',
+  },
+  {
+    name: 'Monson Plumbing & Heating + Excavating',
+    work: 'Service positioning, local campaigns, and landing pages.',
+    focus: 'Clear messaging and simple offers.',
+  },
+  {
+    name: "Papa Everett's Pizza",
+    work: 'Website updates, menu visibility, and local search presence.',
+    focus: 'Helping customers quickly find info and take action.',
+  },
+  {
+    name: 'Club Fitness – Fort Dodge',
+    work: 'Website structure and messaging improvements.',
+    focus: 'Clarity and making it easier for people to understand services.',
+  },
+];
+
+const AUDITS = [
+  {
+    name: 'R Loving Care',
+    desc: 'Website and messaging review focused on clarity and trust.',
+  },
+  {
+    name: 'Echo Equipment',
+    desc: 'SEO and structure review with practical improvement recommendations.',
+  },
+];
+
+const WHAT_MATTERS = [
+  'Being found locally',
+  'Clear messaging',
+  'Simple next steps',
+];
 
 export default function OurWork() {
-  const { data: portfolioItems = [], isLoading } = useQuery({
-    queryKey: ['portfolioItems'],
-    queryFn: () => base44.entities.PortfolioItem.list()
-  });
-
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
+    <div className="bg-white min-h-screen">
+      <MarketingNav />
 
-      <div className="pt-[153px] pb-20">
-        {/* Hero */}
-        <div className="bg-gradient-to-br from-blue-700 to-blue-900 text-white py-16 text-center px-4">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Work</h1>
-          <p className="text-blue-100 text-lg max-w-2xl mx-auto">
-            Real websites we've built and optimized for local businesses just like yours.
-          </p>
+      {/* Header */}
+      <section className="bg-slate-950 text-white pt-20 pb-16 px-4">
+        <div className="max-w-5xl mx-auto max-w-2xl">
+          <h1 className="text-4xl sm:text-5xl font-black mb-4">Our Work</h1>
+          <p className="text-slate-400 text-lg">Real businesses. Real work. No inflated claims.</p>
         </div>
+      </section>
 
-        {/* Grid */}
-        <div className="max-w-7xl mx-auto px-6 py-16">
-          {isLoading ? (
-            <div className="text-center text-gray-500 py-16">Loading...</div>
-          ) : portfolioItems.length === 0 ? (
-            <div className="text-center text-gray-500 py-16">
-              <p className="text-xl">Portfolio coming soon — check back shortly!</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {portfolioItems.map((item) => (
-                <div
-                  key={item.id}
-                  className="group rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-slate-100"
-                >
-                  {item.screenshot_url && (
-                    <div className="overflow-hidden h-52">
-                      <img
-                        src={item.screenshot_url}
-                        alt={item.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                  )}
-                  <div className="p-5">
-                    <div className="flex items-start justify-between gap-2 mb-2">
-                      <h3 className="font-bold text-lg text-slate-900">{item.title}</h3>
-                      <a
-                        href={item.website_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 flex-shrink-0 mt-1"
-                        title="Visit website"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
-                    </div>
-                    {item.industry && (
-                      <span className="inline-block bg-blue-50 text-blue-700 text-xs font-medium px-2 py-1 rounded-full mb-2">
-                        {item.industry}
-                      </span>
-                    )}
-                    {item.description && (
-                      <p className="text-slate-600 text-sm leading-relaxed">{item.description}</p>
-                    )}
-                    <a
-                      href={item.website_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-4 inline-block text-sm font-medium text-blue-600 hover:underline"
-                    >
-                      View Live Site →
-                    </a>
-                  </div>
-                </div>
+      {/* Client Projects */}
+      <section className="py-20 px-4 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid sm:grid-cols-2 gap-6">
+            {CLIENTS.map(client => (
+              <div key={client.name} className="border border-slate-200 rounded-2xl p-7">
+                <h2 className="text-xl font-black text-slate-900 mb-3">{client.name}</h2>
+                <p className="text-slate-600 mb-3 leading-relaxed">{client.work}</p>
+                <p className="text-sm text-slate-500">
+                  <span className="font-semibold text-slate-700">Focused on:</span> {client.focus}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Prospects & Audits */}
+      <section className="py-16 px-4 bg-slate-50 border-t border-slate-100">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl font-black text-slate-900 mb-2">Prospects & Audits</h2>
+          <p className="text-slate-500 text-sm mb-8">Website and gap reviews done for local businesses.</p>
+          <div className="grid sm:grid-cols-2 gap-5">
+            {AUDITS.map(item => (
+              <div key={item.name} className="bg-white border border-slate-200 rounded-2xl p-6">
+                <h3 className="font-black text-slate-900 mb-2">{item.name}</h3>
+                <p className="text-slate-600 text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* What Matters */}
+      <section className="py-20 px-4 bg-white border-t border-slate-100">
+        <div className="max-w-5xl mx-auto">
+          <div className="max-w-xl">
+            <h2 className="text-3xl font-black text-slate-900 mb-5">What Matters</h2>
+            <ul className="space-y-2 mb-8">
+              {WHAT_MATTERS.map(item => (
+                <li key={item} className="flex items-start gap-2 text-slate-700">
+                  <span className="text-blue-500 font-bold mt-0.5">·</span>
+                  {item}
+                </li>
               ))}
-            </div>
-          )}
+            </ul>
+            <p className="text-slate-600">That's what every project focuses on.</p>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <Footer />
+      {/* CTA */}
+      <section className="py-16 px-4 bg-slate-950 text-white">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row gap-3">
+          <Link
+            to="/gap-audit"
+            className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-7 py-4 rounded-xl text-base transition-colors"
+          >
+            Get My Free Gap Audit <ArrowRight className="w-4 h-4" />
+          </Link>
+          <a
+            href="tel:+16414208816"
+            className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-bold px-7 py-4 rounded-xl text-base transition-colors"
+          >
+            Call or Text: 641-420-8816
+          </a>
+        </div>
+      </section>
+
+      <SiteFooter />
     </div>
   );
 }
