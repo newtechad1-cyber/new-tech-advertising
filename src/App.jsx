@@ -197,6 +197,16 @@ import PortalContent from './pages/portal/PortalContent';
 import PortalPerformance from './pages/portal/PortalPerformance';
 import PortalMessages from './pages/portal/PortalMessages';
 import PortalAccount from './pages/portal/PortalAccount';
+import LocalLeadSystems from './pages/LocalLeadSystems';
+import WebsiteRebuildsNTA from './pages/WebsiteRebuildsNTA';
+import SEOPagesForLocalBusinesses from './pages/SEOPagesForLocalBusinesses';
+import SeasonalCampaigns from './pages/SeasonalCampaigns';
+import SocialMediaContentSystem from './pages/SocialMediaContentSystem';
+import AIVideoMarketing from './pages/AIVideoMarketing';
+import GapAuditPage from './pages/GapAuditPage';
+import HVACMarketingNorthIowa from './pages/HVACMarketingNorthIowa';
+import ContractorMarketingNorthIowa from './pages/ContractorMarketingNorthIowa';
+import SmallBusinessMarketingNorthIowa from './pages/SmallBusinessMarketingNorthIowa';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -448,6 +458,18 @@ const AuthenticatedApp = () => {
       <Route path="/dashboard" element={<Navigate to="/agency" replace />} />
       <Route path="/clients" element={<Navigate to="/agency/clients" replace />} />
       <Route path="/clients/:id" element={<LegacyClientRedirect />} />
+
+      {/* NTA Service Pages */}
+      <Route path="/local-lead-systems" element={<LocalLeadSystems />} />
+      <Route path="/website-rebuilds" element={<WebsiteRebuildsNTA />} />
+      <Route path="/seo-pages-for-local-businesses" element={<SEOPagesForLocalBusinesses />} />
+      <Route path="/seasonal-campaigns" element={<SeasonalCampaigns />} />
+      <Route path="/social-media-content-system" element={<SocialMediaContentSystem />} />
+      <Route path="/ai-video-marketing" element={<AIVideoMarketing />} />
+      <Route path="/gap-audit" element={<GapAuditPage />} />
+      <Route path="/hvac-marketing-north-iowa" element={<HVACMarketingNorthIowa />} />
+      <Route path="/contractor-marketing-north-iowa" element={<ContractorMarketingNorthIowa />} />
+      <Route path="/small-business-marketing-north-iowa" element={<SmallBusinessMarketingNorthIowa />} />
 
       <Route path="*" element={<PageNotFound />} />
     </Routes>
