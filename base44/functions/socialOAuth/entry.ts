@@ -22,6 +22,9 @@ function getGoogleAuthUrl(platform) {
   return `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
 }
 
+// HARDCODED — META_OAUTH_SCOPES env var is intentionally NOT read here.
+const OAUTH_SCOPE_VERSION = '2026-05-04-reduced-scopes';
+
 function getMetaAuthUrl(platform) {
   const scopes = platform === 'instagram'
     ? 'public_profile,email,pages_show_list,instagram_basic,instagram_content_publish'
@@ -31,9 +34,18 @@ function getMetaAuthUrl(platform) {
     redirect_uri: REDIRECT_URI,
     scope: scopes,
     response_type: 'code',
+    oauth_scope_version: OAUTH_SCOPE_VERSION,
     state: platform,
   });
-  return `https://www.facebook.com/v19.0/dialog/oauth?${params}`;
+  const url = `https://www.facebook.com/v21.0/dialog/oauth?${params}`;
+  console.log(`[socialOAuth] ===== DEBUG =====`);
+  console.log(`[socialOAuth] FUNCTION_NAME=socialOAuth`);
+  console.log(`[socialOAuth] OAUTH_SCOPE_VERSION=${OAUTH_SCOPE_VERSION}`);
+  console.log(`[socialOAuth] platform=${platform}`);
+  console.log(`[socialOAuth] SCOPE=${scopes}`);
+  console.log(`[socialOAuth] AUTH_URL=${url}`);
+  console.log(`[socialOAuth] =================`);
+  return url;
 }
 
 function getTikTokAuthUrl() {

@@ -1,9 +1,13 @@
 // OAUTH_SCOPE_VERSION=2026-05-04-reduced-scopes
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
-// This is the BACKEND callback URL registered in Google Cloud Console
 const CALLBACK_URL = 'https://new-tech-advertising.base44.app/api/functions/channelOAuthCallback';
 const APP_BASE = 'https://new-tech-advertising.base44.app';
+const OAUTH_SCOPE_VERSION = '2026-05-04-reduced-scopes';
+
+// HARDCODED — META_OAUTH_SCOPES env var is intentionally NOT read here.
+const META_SCOPES_FACEBOOK = 'public_profile,email,pages_show_list';
+const META_SCOPES_INSTAGRAM = 'public_profile,email,pages_show_list,instagram_basic,instagram_content_publish';
 
 Deno.serve(async (req) => {
   if (req.method !== 'POST') {
@@ -21,11 +25,9 @@ Deno.serve(async (req) => {
     return Response.json({ error: 'provider and client_id are required' }, { status: 400 });
   }
 
-  // Encode client_id and client_name in state so callback can upsert the right connection
   const statePayload = JSON.stringify({ provider, client_id, client_name: client_name || '' });
   const state = btoa(statePayload);
 
-  // Log oauth_start
   await base44.asServiceRole.entities.PostingLog.create({
     client_id,
     provider,
@@ -44,7 +46,6 @@ Deno.serve(async (req) => {
       'https://www.googleapis.com/auth/userinfo.profile',
       'https://www.googleapis.com/auth/userinfo.email',
     ].join(' ');
-
     const params = new URLSearchParams({
       client_id: Deno.env.get('GOOGLE_CLIENT_ID'),
       redirect_uri: CALLBACK_URL,
@@ -64,7 +65,6 @@ Deno.serve(async (req) => {
       'https://www.googleapis.com/auth/userinfo.profile',
       'https://www.googleapis.com/auth/userinfo.email',
     ].join(' ');
-
     const params = new URLSearchParams({
       client_id: Deno.env.get('GOOGLE_CLIENT_ID'),
       redirect_uri: CALLBACK_URL,
@@ -77,47 +77,43 @@ Deno.serve(async (req) => {
     auth_url = `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
 
   } else if (provider === 'instagram') {
-    const CORRECT_SCOPES = 'public_profile,email,pages_show_list,instagram_basic,instagram_content_publish';
-    const envScopes = Deno.env.get('META_OAUTH_SCOPES') || '';
-    const scopeIsSafe = envScopes && /^[a-zA-Z0-9_,\s]+$/.test(envScopes) && envScopes.length < 300;
-    const scopes = scopeIsSafe ? envScopes.trim() : CORRECT_SCOPES;
-    if (envScopes && !scopeIsSafe) console.error(`[channelOAuthStart] SCOPE_GUARD: META_OAUTH_SCOPES invalid — using hardcoded scopes. Value: ${envScopes.slice(0, 30)}...`);
-    const igParams = {
+    const params = new URLSearchParams({
       client_id: Deno.env.get('META_APP_ID'),
       redirect_uri: CALLBACK_URL,
-      scope: scopes,
+      scope: META_SCOPES_INSTAGRAM,
       response_type: 'code',
       auth_type: 'rerequest',
+      oauth_scope_version: OAUTH_SCOPE_VERSION,
       state,
-    };
-    const params = new URLSearchParams(igParams);
-    auth_url = `https://www.facebook.com/v19.0/dialog/oauth?${params}`;
-    console.log(`[channelOAuthStart] instagram scope=${scopes}`);
-    console.log(`[channelOAuthStart] instagram full_auth_url=${auth_url}`);
+    });
+    auth_url = `https://www.facebook.com/v21.0/dialog/oauth?${params}`;
 
   } else if (provider === 'facebook') {
-    const CORRECT_SCOPES_FB = 'public_profile,email,pages_show_list';
-    const envScopesFb = Deno.env.get('META_OAUTH_SCOPES') || '';
-    const scopeIsSafeFb = envScopesFb && /^[a-zA-Z0-9_,\s]+$/.test(envScopesFb) && envScopesFb.length < 300;
-    const scopes = scopeIsSafeFb ? envScopesFb.trim() : CORRECT_SCOPES_FB;
-    if (envScopesFb && !scopeIsSafeFb) console.error(`[channelOAuthStart] SCOPE_GUARD: META_OAUTH_SCOPES invalid — using hardcoded scopes. Value: ${envScopesFb.slice(0, 30)}...`);
-    const fbParams = {
+    const params = new URLSearchParams({
       client_id: Deno.env.get('META_APP_ID'),
       redirect_uri: `${APP_BASE}/api/functions/facebookOAuthCallback`,
-      scope: scopes,
+      scope: META_SCOPES_FACEBOOK,
       response_type: 'code',
       auth_type: 'rerequest',
+      oauth_scope_version: OAUTH_SCOPE_VERSION,
       state,
-    };
-    const params = new URLSearchParams(fbParams);
-    auth_url = `https://www.facebook.com/v19.0/dialog/oauth?${params}`;
-    console.log(`[channelOAuthStart] facebook scope=${scopes}`);
-    console.log(`[channelOAuthStart] facebook full_auth_url=${auth_url}`);
+    });
+    auth_url = `https://www.facebook.com/v21.0/dialog/oauth?${params}`;
 
   } else {
     return Response.json({ error: `Unsupported provider: ${provider}` }, { status: 400 });
   }
 
-  console.log(`[channelOAuthStart] provider=${provider} client_id=${client_id} auth_url_prefix=${auth_url.substring(0, 80)}`);
+  const isMeta = provider === 'facebook' || provider === 'instagram';
+  const scope = provider === 'facebook' ? META_SCOPES_FACEBOOK : provider === 'instagram' ? META_SCOPES_INSTAGRAM : 'google-scopes';
+
+  console.log(`[channelOAuthStart] ===== DEBUG =====`);
+  console.log(`[channelOAuthStart] FUNCTION_NAME=channelOAuthStart`);
+  console.log(`[channelOAuthStart] OAUTH_SCOPE_VERSION=${OAUTH_SCOPE_VERSION}`);
+  console.log(`[channelOAuthStart] provider=${provider}`);
+  console.log(`[channelOAuthStart] SCOPE=${scope}`);
+  console.log(`[channelOAuthStart] AUTH_URL=${auth_url}`);
+  console.log(`[channelOAuthStart] =================`);
+
   return Response.json({ auth_url });
 });
