@@ -51,6 +51,14 @@
     "hashtags": {
       "type": "string"
     },
+    "suggested_image_video": {
+      "type": "string",
+      "description": "URL or description of suggested image/video"
+    },
+    "suggested_publish_date": {
+      "type": "string",
+      "format": "date"
+    },
     "video_hook": {
       "type": "string"
     },
@@ -63,13 +71,16 @@
     "audio_type": {
       "type": "string"
     },
+    "notes": {
+      "type": "string"
+    },
     "status": {
       "type": "string",
       "enum": [
         "draft",
-        "ready_for_review",
-        "needs_reapproval",
+        "needs_review",
         "approved",
+        "exported",
         "scheduled",
         "published",
         "rejected"
@@ -114,6 +125,29 @@
     "queued": {
       "type": "boolean",
       "default": false
+    },
+    "exported_to_content360": {
+      "type": "boolean",
+      "default": false,
+      "description": "Manually marked as exported to Content360"
+    },
+    "scheduled_in_content360": {
+      "type": "boolean",
+      "default": false,
+      "description": "Manually marked as scheduled in Content360"
+    },
+    "content360_scheduled_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date scheduled inside Content360"
+    },
+    "content360_channel": {
+      "type": "string",
+      "description": "Channel/account it was scheduled on in Content360"
+    },
+    "external_notes": {
+      "type": "string",
+      "description": "Notes about scheduling or external actions taken"
     }
   },
   "required": [

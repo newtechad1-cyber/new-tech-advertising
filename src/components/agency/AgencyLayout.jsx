@@ -15,6 +15,7 @@ const NAV = [
   { label: 'Leads',               href: '/agency/leads',                icon: Target },
   { label: 'Gap Audits',          href: '/agency/gap-audits',           icon: Search },
   { label: 'Clients',             href: '/agency/clients',              icon: Users },
+  { label: 'Content Library',      href: '/agency/content-library',      icon: FileText },
   { label: 'Content Center',      href: '/agency/content',              icon: FileText },
   { label: 'Campaigns',           href: '/agency/campaigns',            icon: Megaphone },
   { label: 'Spoke Campaigns',     href: '/agency/spoke-campaigns',      icon: Radio },

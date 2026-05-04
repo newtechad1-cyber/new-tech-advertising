@@ -181,6 +181,7 @@ import ClientSetupWizard from './pages/ClientSetupWizard';
 import AgencySpokeCampaigns from './pages/AgencySpokeCampaigns';
 import SpokeCampaignDetail from './pages/SpokeCampaignDetail';
 import AgencyContentAssets from './pages/AgencyContentAssets';
+import ContentLibrary from './pages/ContentLibrary';
 import AgencyVideoQueue from './pages/AgencyVideoQueue';
 import AgencySocialQueue from './pages/AgencySocialQueue';
 import AgencyApprovalCenter from './pages/AgencyApprovalCenter';
@@ -452,6 +453,7 @@ const AuthenticatedApp = () => {
       <Route path="/agency/spoke-campaigns" element={<LayoutWrapper currentPageName="AgencySpokeCampaigns"><AgencySpokeCampaigns /></LayoutWrapper>} />
       <Route path="/agency/spoke-campaigns/:id" element={<LayoutWrapper currentPageName="SpokeCampaignDetail"><SpokeCampaignDetail /></LayoutWrapper>} />
       <Route path="/agency/content-asset" element={<LayoutWrapper currentPageName="AgencyContentAssets"><AgencyContentAssets /></LayoutWrapper>} />
+      <Route path="/agency/content-library" element={<LayoutWrapper currentPageName="ContentLibrary"><ContentLibrary /></LayoutWrapper>} />
       <Route path="/agency/video-queue" element={<LayoutWrapper currentPageName="AgencyVideoQueue"><AgencyVideoQueue /></LayoutWrapper>} />
       <Route path="/agency/social-queue" element={<LayoutWrapper currentPageName="AgencySocialQueue"><AgencySocialQueue /></LayoutWrapper>} />
       <Route path="/agency/approval-center" element={<LayoutWrapper currentPageName="AgencyApprovalCenter"><AgencyApprovalCenter /></LayoutWrapper>} />
