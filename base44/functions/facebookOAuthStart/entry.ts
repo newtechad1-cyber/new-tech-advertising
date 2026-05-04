@@ -69,8 +69,6 @@ Deno.serve(async (req) => {
     console.error(`[facebookOAuthStart] SCOPE_GUARD: META_OAUTH_SCOPES contains invalid characters or looks like a secret — ignoring it. Using hardcoded correct scopes instead. Value was: ${envScopes.slice(0, 30)}...`);
   }
 
-  const configId = Deno.env.get('META_FACEBOOK_LOGIN_CONFIG_ID');
-
   const oauthParams = {
     client_id: appId,
     redirect_uri: FACEBOOK_REDIRECT_URI,
@@ -80,12 +78,6 @@ Deno.serve(async (req) => {
     auth_type: 'rerequest',
   };
 
-  // If a Facebook Login for Business config_id is set, include it
-  // (it manages permissions in the Meta app dashboard instead of the scope param)
-  if (configId) {
-    oauthParams.config_id = configId;
-  }
-
   const params = new URLSearchParams(oauthParams);
   const auth_url = `https://www.facebook.com/${META_OAUTH_VERSION}/dialog/oauth?${params.toString()}`;
 
@@ -94,7 +86,6 @@ Deno.serve(async (req) => {
   console.log(`[facebookOAuthStart] client_id (app_id)=${appId}`);
   console.log(`[facebookOAuthStart] redirect_uri=${FACEBOOK_REDIRECT_URI}`);
   console.log(`[facebookOAuthStart] scope=${SCOPE}`);
-  console.log(`[facebookOAuthStart] config_id=${configId || '(none — using scope param)'}`);
   console.log(`[facebookOAuthStart] scope_source=${scopeIsSafe ? 'META_OAUTH_SCOPES env' : 'hardcoded_correct_scopes'}`);
   console.log(`[facebookOAuthStart] full_auth_url=${auth_url}`);
 

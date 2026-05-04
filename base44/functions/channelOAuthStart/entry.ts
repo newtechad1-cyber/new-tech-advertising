@@ -81,7 +81,6 @@ Deno.serve(async (req) => {
     const scopeIsSafe = envScopes && /^[a-zA-Z0-9_,\s]+$/.test(envScopes) && envScopes.length < 300;
     const scopes = scopeIsSafe ? envScopes.trim() : CORRECT_SCOPES;
     if (envScopes && !scopeIsSafe) console.error(`[channelOAuthStart] SCOPE_GUARD: META_OAUTH_SCOPES invalid — using hardcoded scopes. Value: ${envScopes.slice(0, 30)}...`);
-    const configId = Deno.env.get('META_FACEBOOK_LOGIN_CONFIG_ID');
     const igParams = {
       client_id: Deno.env.get('META_APP_ID'),
       redirect_uri: CALLBACK_URL,
@@ -90,10 +89,9 @@ Deno.serve(async (req) => {
       auth_type: 'rerequest',
       state,
     };
-    if (configId) igParams.config_id = configId;
     const params = new URLSearchParams(igParams);
     auth_url = `https://www.facebook.com/v19.0/dialog/oauth?${params}`;
-    console.log(`[channelOAuthStart] instagram config_id=${configId || '(none)'} scope=${scopes}`);
+    console.log(`[channelOAuthStart] instagram scope=${scopes}`);
     console.log(`[channelOAuthStart] instagram full_auth_url=${auth_url}`);
 
   } else if (provider === 'facebook') {
@@ -102,7 +100,6 @@ Deno.serve(async (req) => {
     const scopeIsSafeFb = envScopesFb && /^[a-zA-Z0-9_,\s]+$/.test(envScopesFb) && envScopesFb.length < 300;
     const scopes = scopeIsSafeFb ? envScopesFb.trim() : CORRECT_SCOPES_FB;
     if (envScopesFb && !scopeIsSafeFb) console.error(`[channelOAuthStart] SCOPE_GUARD: META_OAUTH_SCOPES invalid — using hardcoded scopes. Value: ${envScopesFb.slice(0, 30)}...`);
-    const configId = Deno.env.get('META_FACEBOOK_LOGIN_CONFIG_ID');
     const fbParams = {
       client_id: Deno.env.get('META_APP_ID'),
       redirect_uri: `${APP_BASE}/api/functions/facebookOAuthCallback`,
@@ -111,10 +108,9 @@ Deno.serve(async (req) => {
       auth_type: 'rerequest',
       state,
     };
-    if (configId) fbParams.config_id = configId;
     const params = new URLSearchParams(fbParams);
     auth_url = `https://www.facebook.com/v19.0/dialog/oauth?${params}`;
-    console.log(`[channelOAuthStart] facebook config_id=${configId || '(none)'} scope=${scopes}`);
+    console.log(`[channelOAuthStart] facebook scope=${scopes}`);
     console.log(`[channelOAuthStart] facebook full_auth_url=${auth_url}`);
 
   } else {
