@@ -76,7 +76,7 @@ Deno.serve(async (req) => {
     auth_url = `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
 
   } else if (provider === 'instagram') {
-    const CORRECT_SCOPES = 'pages_show_list,pages_read_engagement,pages_manage_posts,pages_manage_metadata,business_management,instagram_basic,instagram_content_publish';
+    const CORRECT_SCOPES = 'public_profile,email,pages_show_list,instagram_basic,instagram_content_publish';
     const envScopes = Deno.env.get('META_OAUTH_SCOPES') || '';
     const scopeIsSafe = envScopes && /^[a-zA-Z0-9_,\s]+$/.test(envScopes) && envScopes.length < 300;
     const scopes = scopeIsSafe ? envScopes.trim() : CORRECT_SCOPES;
@@ -95,7 +95,7 @@ Deno.serve(async (req) => {
     console.log(`[channelOAuthStart] instagram full_auth_url=${auth_url}`);
 
   } else if (provider === 'facebook') {
-    const CORRECT_SCOPES_FB = 'pages_show_list,pages_read_engagement,pages_manage_posts,pages_manage_metadata,business_management';
+    const CORRECT_SCOPES_FB = 'public_profile,email,pages_show_list';
     const envScopesFb = Deno.env.get('META_OAUTH_SCOPES') || '';
     const scopeIsSafeFb = envScopesFb && /^[a-zA-Z0-9_,\s]+$/.test(envScopesFb) && envScopesFb.length < 300;
     const scopes = scopeIsSafeFb ? envScopesFb.trim() : CORRECT_SCOPES_FB;

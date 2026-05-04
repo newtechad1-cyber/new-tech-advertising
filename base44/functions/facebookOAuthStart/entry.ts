@@ -57,7 +57,7 @@ Deno.serve(async (req) => {
 
   // Hardcoded correct Facebook OAuth scopes — NEVER use META_APP_SECRET here.
   // META_OAUTH_SCOPES env var is validated below to ensure it only contains permission names.
-  const CORRECT_SCOPES = 'pages_show_list,pages_read_engagement,pages_manage_posts,pages_manage_metadata,business_management';
+  const CORRECT_SCOPES = 'public_profile,email,pages_show_list';
 
   const envScopes = Deno.env.get('META_OAUTH_SCOPES') || '';
   // Safety guard: if the env var looks like a secret (contains non-permission characters like $ or is very long),
