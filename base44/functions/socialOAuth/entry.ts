@@ -22,7 +22,9 @@ function getGoogleAuthUrl(platform) {
 }
 
 function getMetaAuthUrl(platform) {
-  const scopes = 'pages_show_list,pages_read_engagement,pages_manage_posts,instagram_basic,instagram_content_publish,public_profile';
+  const scopes = platform === 'instagram'
+    ? 'public_profile,email,pages_show_list,instagram_basic,instagram_content_publish'
+    : 'public_profile,email,pages_show_list';
   const params = new URLSearchParams({
     client_id: Deno.env.get('META_APP_ID'),
     redirect_uri: REDIRECT_URI,

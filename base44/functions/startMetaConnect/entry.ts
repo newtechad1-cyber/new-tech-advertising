@@ -18,12 +18,9 @@ Deno.serve(async (req) => {
     }
 
     const scopes = [
-      'pages_show_list',
-      'pages_read_engagement',
-      'pages_manage_posts',
-      'instagram_basic',
-      'instagram_content_publish',
       'public_profile',
+      'email',
+      'pages_show_list',
     ].join(',');
 
     const state = accountId;
