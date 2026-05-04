@@ -4,8 +4,12 @@ import { Phone } from 'lucide-react';
 
 export default function HeroSplit() {
   return (
-    <section className="bg-slate-950 text-white py-20 px-6">
-      <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+    <section className="relative bg-slate-950 text-white py-20 px-6 overflow-hidden">
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
+        style={{ backgroundImage: `url('https://media.base44.com/images/public/691f41a18de4a7f498c8f884/fb7ea9a91_backgroundimage.png')` }}
+      />
+      <div className="relative max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
 
         {/* LEFT: Text */}
         <div>
