@@ -591,7 +591,7 @@ export default function ClientChannelSetup() {
     try {
       await writeLog({ client_id: clientId, provider, event_type: 'oauth_connect', ok: true, message: 'oauth_connect_started', meta: { clientName } });
       let res;
-      if (provider === 'facebook' || provider === 'instagram') {
+      if (provider === 'facebook') {
         res = await base44.functions.invoke('facebookOAuthStart', { client_id: clientId, client_name: clientName, enable_video: true });
       } else {
         res = await base44.functions.invoke('channelOAuthStart', { provider, client_id: clientId, client_name: clientName });
