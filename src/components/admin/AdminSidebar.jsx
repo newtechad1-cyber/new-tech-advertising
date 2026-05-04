@@ -51,7 +51,8 @@ const ADMIN_NAV_STRUCTURE = [
     icon: '📡',
     items: [
       { label: 'Publishing Queue', page: 'AdminVideoPublishing' },
-      { label: 'Channel Connections', page: 'AdminConnections' },
+      { label: 'Channel Connections', href: '/agency/channel-connections' },
+      { label: 'Client Channel Setup', href: '/agency/channel-setup' },
       { label: 'Meta Setup', page: 'AdminMetaSetup' },
       { label: 'YouTube Setup', page: 'AdminYouTubeSetup' },
     ],
@@ -207,8 +208,8 @@ function SidebarSection({ section, isOpen, onToggle, isActive, currentPageName, 
         <div className="ml-2 mt-1 space-y-0.5 border-l border-gray-200 pl-3">
           {section.items.map(item => (
             <Link
-              key={item.page}
-              to={createPageUrl(item.page)}
+              key={item.href || item.page}
+              to={item.href || createPageUrl(item.page)}
               className={cn(
                 'block px-3 py-2 text-xs rounded-md transition-colors',
                 currentPageName === item.page
