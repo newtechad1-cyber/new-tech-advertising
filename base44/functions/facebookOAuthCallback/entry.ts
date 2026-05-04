@@ -1,3 +1,4 @@
+// OAUTH_SCOPE_VERSION=2026-05-04-reduced-scopes
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
 const FACEBOOK_REDIRECT_URI = 'https://new-tech-advertising.base44.app/api/functions/facebookOAuthCallback';
