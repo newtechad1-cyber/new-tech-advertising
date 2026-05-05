@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Users, TrendingUp, FileText, BarChart2,
   ChevronLeft, Menu, ChevronDown, ChevronRight, Target,
   Send, Megaphone, Shield, Calendar, BarChart, Radio, BookOpen, Globe, Wifi, Link2,
-  BookOpenCheck, HelpCircle, X, Search, Zap
+  BookOpenCheck, HelpCircle, X, Search, Zap, Video
 } from 'lucide-react';
 import { TutorialProvider, useTutorial } from './TutorialContext';
 import TutorialOverlay from './TutorialOverlay';
@@ -15,6 +15,7 @@ const NAV = [
   { label: 'Leads',               href: '/agency/leads',                icon: Target },
   { label: 'Gap Audits',          href: '/agency/gap-audits',           icon: Search },
   { label: 'AI Gap Scanner',      href: '/agency/ai-gap-scanner',       icon: Zap },
+  { label: 'Video Engine',        href: '/agency/video-engine',         icon: Video },
   { label: 'Clients',             href: '/agency/clients',              icon: Users },
   { label: 'Content Library',      href: '/agency/content-library',      icon: FileText },
   { label: 'Content Center',      href: '/agency/content',              icon: FileText },

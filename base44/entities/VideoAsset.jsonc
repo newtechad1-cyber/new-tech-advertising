@@ -1,0 +1,99 @@
+{
+  "name": "VideoAsset",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "topic": {
+      "type": "string"
+    },
+    "video_type": {
+      "type": "string",
+      "enum": [
+        "Outreach",
+        "Educational",
+        "Follow-Up",
+        "Ad"
+      ],
+      "default": "Outreach"
+    },
+    "target_audience": {
+      "type": "string"
+    },
+    "script": {
+      "type": "string"
+    },
+    "hook": {
+      "type": "string"
+    },
+    "scene_breakdown": {
+      "type": "string"
+    },
+    "text_overlays": {
+      "type": "string"
+    },
+    "visual_suggestions": {
+      "type": "string"
+    },
+    "cta": {
+      "type": "string"
+    },
+    "duration_seconds": {
+      "type": "integer",
+      "default": 60
+    },
+    "platform_tags": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "Ready",
+        "Used"
+      ],
+      "default": "Draft"
+    },
+    "facebook_post": {
+      "type": "string"
+    },
+    "linkedin_post": {
+      "type": "string"
+    },
+    "short_caption": {
+      "type": "string"
+    },
+    "outreach_message": {
+      "type": "string"
+    },
+    "followup_message": {
+      "type": "string"
+    },
+    "email_version": {
+      "type": "string"
+    },
+    "content_generated": {
+      "type": "boolean",
+      "default": false
+    },
+    "times_used": {
+      "type": "integer",
+      "default": 0
+    },
+    "last_used_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "campaign_id": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "title"
+  ]
+}

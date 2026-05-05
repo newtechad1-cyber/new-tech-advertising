@@ -228,6 +228,8 @@ import OpsReports from './pages/ops/OpsReports';
 import LeadPipelineKanban from './pages/LeadPipelineKanban';
 import LeadDetailPage from './pages/LeadDetailPage';
 import AiGapScanner from './pages/AiGapScanner';
+import VideoEngineList from './pages/VideoEngineList';
+import VideoEngineDetail from './pages/VideoEngineDetail';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -423,6 +425,8 @@ const AuthenticatedApp = () => {
       <Route path="/agency/leads/pipeline" element={<LayoutWrapper currentPageName="LeadPipelineKanban"><LeadPipelineKanban /></LayoutWrapper>} />
       <Route path="/agency/leads/:id" element={<LayoutWrapper currentPageName="LeadDetailPage"><LeadDetailPage /></LayoutWrapper>} />
       <Route path="/agency/ai-gap-scanner" element={<LayoutWrapper currentPageName="AiGapScanner"><AiGapScanner /></LayoutWrapper>} />
+      <Route path="/agency/video-engine" element={<LayoutWrapper currentPageName="VideoEngineList"><VideoEngineList /></LayoutWrapper>} />
+      <Route path="/agency/video-engine/:id" element={<LayoutWrapper currentPageName="VideoEngineDetail"><VideoEngineDetail /></LayoutWrapper>} />
       <Route path="/nta/content-dashboard" element={<NTAContentDashboard />} />
       <Route path="/hvac-funnel/1" element={<HVACFunnel1 />} />
       <Route path="/hvac-funnel/2" element={<HVACFunnel2 />} />
