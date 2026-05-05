@@ -9,12 +9,13 @@ const BLANK = {
 };
 
 const SOURCE_LABELS = {
-  website: 'Website', cold_outreach: 'Cold Outreach', referral: 'Referral',
-  walk_in: 'Walk-In', other: 'Other',
+  google_maps: 'Google Maps', facebook: 'Facebook', linkedin: 'LinkedIn',
+  referral: 'Referral', website: 'Website', manual: 'Manual Entry',
+  cold_outreach: 'Cold Outreach', other: 'Other',
 };
 
 export default function AddLeadModal({ onClose, onSaved }) {
-  const [form, setForm] = useState(BLANK);
+  const [form, setForm] = useState({ ...BLANK, lead_source: 'manual', priority: 'medium' });
   const [saving, setSaving] = useState(false);
   const [errors, setErrors] = useState({});
   const [saveIncomplete, setSaveIncomplete] = useState(false);

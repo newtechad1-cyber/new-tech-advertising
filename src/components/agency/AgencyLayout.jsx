@@ -11,7 +11,7 @@ import TutorialOverlay from './TutorialOverlay';
 
 const NAV = [
   { label: 'Dashboard',           href: '/agency',                      icon: LayoutDashboard, exact: true },
-  { label: 'Pipeline',            href: '/agency/pipeline',             icon: TrendingUp },
+  { label: 'Lead Pipeline',       href: '/agency/leads/pipeline',       icon: TrendingUp },
   { label: 'Leads',               href: '/agency/leads',                icon: Target },
   { label: 'Gap Audits',          href: '/agency/gap-audits',           icon: Search },
   { label: 'Clients',             href: '/agency/clients',              icon: Users },

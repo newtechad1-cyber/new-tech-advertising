@@ -24,6 +24,16 @@
     "website": {
       "type": "string"
     },
+    "facebook_url": {
+      "type": "string"
+    },
+    "linkedin_url": {
+      "type": "string"
+    },
+    "gbp_url": {
+      "type": "string",
+      "description": "Google Business Profile URL"
+    },
     "city": {
       "type": "string"
     },
@@ -36,17 +46,56 @@
     "lead_source": {
       "type": "string",
       "enum": [
-        "website",
-        "cold_outreach",
+        "google_maps",
+        "facebook",
+        "linkedin",
         "referral",
-        "walk_in",
+        "website",
+        "manual",
         "other"
       ],
-      "default": "other"
+      "default": "manual"
     },
-    "notes": {
+    "priority": {
       "type": "string",
-      "description": "Timestamped note history (append-only)"
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "contacted",
+        "replied",
+        "audit_requested",
+        "audit_sent",
+        "interested",
+        "proposal_sent",
+        "closed_won",
+        "closed_lost",
+        "no_response"
+      ],
+      "default": "new"
+    },
+    "estimated_value": {
+      "type": "number"
+    },
+    "pain_points": {
+      "type": "string"
+    },
+    "opportunity_notes": {
+      "type": "string"
+    },
+    "final_outcome": {
+      "type": "string"
+    },
+    "date_first_contacted": {
+      "type": "string",
+      "format": "date"
     },
     "last_contacted": {
       "type": "string",
@@ -56,19 +105,112 @@
       "type": "string",
       "format": "date"
     },
-    "status": {
+    "outreach_sent": {
+      "type": "boolean",
+      "default": false
+    },
+    "outreach_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "outreach_platform": {
+      "type": "string"
+    },
+    "reply_received": {
+      "type": "boolean",
+      "default": false
+    },
+    "reply_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "followup1_sent": {
+      "type": "boolean",
+      "default": false
+    },
+    "followup1_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "followup2_sent": {
+      "type": "boolean",
+      "default": false
+    },
+    "followup2_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "followup3_sent": {
+      "type": "boolean",
+      "default": false
+    },
+    "followup3_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "audit_type": {
       "type": "string",
       "enum": [
-        "new",
-        "contacted",
-        "qualified",
-        "unresponsive"
+        "written",
+        "video",
+        "both"
       ],
-      "default": "new"
+      "default": "written"
+    },
+    "audit_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "requested",
+        "in_progress",
+        "sent",
+        "followed_up"
+      ],
+      "default": "not_started"
+    },
+    "audit_gap1": {
+      "type": "string"
+    },
+    "audit_gap2": {
+      "type": "string"
+    },
+    "audit_gap3": {
+      "type": "string"
+    },
+    "audit_cost_to_them": {
+      "type": "string"
+    },
+    "audit_recommended_fix": {
+      "type": "string"
+    },
+    "audit_url": {
+      "type": "string"
+    },
+    "audit_sent_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "audit_follow_up_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "audit_notes": {
+      "type": "string"
+    },
+    "internal_notes": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Timestamped note history (append-only)"
     },
     "converted_client_id": {
       "type": "string",
       "description": "Clients.id of the converted client \u2014 set when lead is converted to active client"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000
     }
   },
   "required": [

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Plus, Search, Phone, Mail, Calendar, Trash2, AlertCircle, RefreshCw, SlidersHorizontal, Pencil } from 'lucide-react';
+import { Plus, Search, Phone, Mail, Calendar, Trash2, AlertCircle, RefreshCw, SlidersHorizontal, Pencil, Upload, Kanban } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import AgencyLayout from '../components/agency/AgencyLayout';
 import { scoreLead, PRIORITY_STYLES } from '../lib/leadPriority.js';
 import AddLeadModal from '../components/agency/AddLeadModal';
@@ -14,14 +15,26 @@ function isIncomplete(lead) {
 }
 
 const STATUS_COLORS = {
-  new:          'bg-slate-700 text-slate-300',
-  contacted:    'bg-blue-900 text-blue-300',
-  qualified:    'bg-emerald-900 text-emerald-300',
-  unresponsive: 'bg-red-900 text-red-300',
+  new:             'bg-slate-700 text-slate-300',
+  contacted:       'bg-blue-900 text-blue-300',
+  replied:         'bg-violet-900 text-violet-300',
+  audit_requested: 'bg-amber-900 text-amber-300',
+  audit_sent:      'bg-orange-900 text-orange-300',
+  interested:      'bg-rose-900 text-rose-300',
+  proposal_sent:   'bg-cyan-900 text-cyan-300',
+  closed_won:      'bg-emerald-900 text-emerald-300',
+  closed_lost:     'bg-red-900 text-red-300',
+  no_response:     'bg-slate-800 text-slate-500',
+  qualified:       'bg-emerald-900 text-emerald-300',
+  unresponsive:    'bg-red-900 text-red-300',
 };
 
 const STATUS_LABELS = {
-  new: 'New', contacted: 'Contacted', qualified: 'Qualified', unresponsive: 'Unresponsive',
+  new: 'New', contacted: 'Contacted', replied: 'Replied',
+  audit_requested: 'Audit Req', audit_sent: 'Audit Sent',
+  interested: 'Interested 🔥', proposal_sent: 'Proposal Sent',
+  closed_won: 'Won ✅', closed_lost: 'Lost', no_response: 'No Response',
+  qualified: 'Qualified', unresponsive: 'Unresponsive',
 };
 
 function fmtDate(d) {
@@ -41,13 +54,13 @@ function isDueToday(d) {
 }
 
 export default function AgencyLeads() {
+  const navigate = useNavigate();
   const [leads, setLeads] = useState([]);
   const [dealsMap, setDealsMap] = useState({});
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [showAdd, setShowAdd] = useState(false);
-  const [selected, setSelected] = useState(null);
   const [sortBy, setSortBy] = useState('created'); // 'created' | 'followup' | 'name'
 
   const load = async () => {
@@ -95,19 +108,8 @@ export default function AgencyLeads() {
     setShowAdd(false);
   };
 
-  const onDealUpdated = (updatedDeal, updatedLead) => {
-    if (updatedDeal?.id) {
-      setDealsMap(prev => ({ ...prev, [updatedDeal.lead_id]: updatedDeal }));
-    }
-    if (updatedLead?.id) {
-      setLeads(prev => prev.map(l => l.id === updatedLead.id ? updatedLead : l));
-    }
-  };
-
   const openLead = (lead) => {
-    const deal = dealsMap[lead.id];
-    const virtualDeal = deal || { id: null, lead_id: lead.id, deal_name: lead.business_name, stage: 'New Lead' };
-    setSelected({ lead, deal: virtualDeal });
+    navigate(`/agency/leads/${lead.id}`);
   };
 
   const archiveLead = async (e, lead) => {
@@ -138,12 +140,58 @@ export default function AgencyLeads() {
     openLead(lead); // opens the detail modal which has edit mode built in
   };
 
+  const [showCSV, setShowCSV] = useState(false);
+  const [csvText, setCsvText] = useState('');
+  const [csvImporting, setCsvImporting] = useState(false);
+  const [csvResult, setCsvResult] = useState(null);
+
+  const importCSV = async () => {
+    if (!csvText.trim()) return;
+    setCsvImporting(true);
+    const lines = csvText.trim().split('\n').filter(Boolean);
+    const header = lines[0].toLowerCase().split(',').map(h => h.trim().replace(/"/g, ''));
+    const col = (name) => header.findIndex(h => h.includes(name));
+    const nameIdx = col('business') !== -1 ? col('business') : col('name');
+    const websiteIdx = col('website');
+    const phoneIdx = col('phone');
+    const cityIdx = col('city');
+    const industryIdx = col('industry');
+    const sourceIdx = col('source');
+    const notesIdx = col('notes');
+    const contactIdx = col('contact');
+
+    let imported = 0; let skipped = 0;
+    for (let i = 1; i < lines.length; i++) {
+      const parts = lines[i].split(',').map(p => p.trim().replace(/"/g, ''));
+      const bizName = nameIdx >= 0 ? parts[nameIdx] : '';
+      if (!bizName) { skipped++; continue; }
+      const leadData = {
+        business_name: bizName,
+        website: websiteIdx >= 0 ? parts[websiteIdx] : '',
+        phone: phoneIdx >= 0 ? parts[phoneIdx] : '',
+        city: cityIdx >= 0 ? parts[cityIdx] : '',
+        industry: industryIdx >= 0 ? parts[industryIdx] : '',
+        lead_source: sourceIdx >= 0 ? (parts[sourceIdx] || 'manual') : 'manual',
+        notes: notesIdx >= 0 ? parts[notesIdx] : '',
+        contact_name: contactIdx >= 0 ? parts[contactIdx] : '',
+        status: 'new',
+        priority: 'medium',
+      };
+      await base44.entities.SalesLead.create(leadData);
+      imported++;
+    }
+    setCsvImporting(false);
+    setCsvResult({ imported, skipped });
+    setCsvText('');
+    load();
+  };
+
   const counts = {
     all: leads.length,
     new: leads.filter(l => l.status === 'new').length,
     contacted: leads.filter(l => l.status === 'contacted').length,
-    qualified: leads.filter(l => l.status === 'qualified').length,
-    unresponsive: leads.filter(l => l.status === 'unresponsive').length,
+    interested: leads.filter(l => l.status === 'interested').length,
+    closed_won: leads.filter(l => l.status === 'closed_won').length,
   };
 
   const overdueCount = leads.filter(l => isOverdue(l.next_follow_up)).length;
@@ -161,10 +209,16 @@ export default function AgencyLeads() {
               {overdueCount > 0 && <span className="ml-2 text-red-400 font-semibold">· {overdueCount} overdue follow-up{overdueCount > 1 ? 's' : ''}</span>}
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             <button onClick={load} className="p-2 text-slate-500 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors" title="Refresh">
               <RefreshCw className="w-4 h-4" />
             </button>
+            <button onClick={() => setShowCSV(!showCSV)} className="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm px-4 py-2 rounded-lg transition-colors">
+              <Upload className="w-4 h-4" /> Import CSV
+            </button>
+            <Link to="/agency/leads/pipeline" className="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm px-4 py-2 rounded-lg transition-colors">
+              <Kanban className="w-4 h-4" /> Kanban
+            </Link>
             <button
               onClick={() => setShowAdd(true)}
               className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm px-4 py-2 rounded-lg transition-colors"
@@ -173,6 +227,33 @@ export default function AgencyLeads() {
             </button>
           </div>
         </div>
+
+        {/* CSV Import Panel */}
+        {showCSV && (
+          <div className="bg-slate-900 border border-slate-700 rounded-xl p-4 space-y-3">
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-bold text-white">Paste CSV Data</p>
+              <button onClick={() => { setShowCSV(false); setCsvResult(null); }} className="text-slate-500 hover:text-white text-xs">✕ Close</button>
+            </div>
+            <p className="text-xs text-slate-500">First row must be headers. Supported columns: <span className="text-slate-300">business_name, website, phone, city, industry, lead_source, notes, contact_name</span></p>
+            {csvResult && (
+              <div className="bg-emerald-900/30 border border-emerald-700/50 rounded-lg px-3 py-2 text-xs text-emerald-300">
+                ✅ Imported {csvResult.imported} leads. {csvResult.skipped > 0 ? `Skipped ${csvResult.skipped} (missing business name).` : ''}
+              </div>
+            )}
+            <textarea
+              value={csvText}
+              onChange={e => setCsvText(e.target.value)}
+              rows={6}
+              placeholder={`business_name,website,phone,city,industry,lead_source\nAcme HVAC,acmehvac.com,641-555-0100,Mason City,HVAC,google_maps`}
+              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white font-mono placeholder-slate-600 focus:outline-none focus:border-blue-500 resize-none"
+            />
+            <button onClick={importCSV} disabled={csvImporting || !csvText.trim()}
+              className="px-4 py-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white text-sm font-bold rounded-lg transition-colors">
+              {csvImporting ? 'Importing...' : 'Import Leads'}
+            </button>
+          </div>
+        )}
 
         {/* Search + Filters */}
         <div className="bg-slate-900 border border-slate-800 rounded-xl p-3 space-y-3">
@@ -190,12 +271,18 @@ export default function AgencyLeads() {
           <div className="flex items-center gap-2 flex-wrap">
             <SlidersHorizontal className="w-3.5 h-3.5 text-slate-600 flex-shrink-0" />
             <div className="flex gap-1.5 flex-wrap flex-1">
-              {(['all', 'new', 'contacted', 'qualified', 'unresponsive'] ).map(s => (
+              {([
+                ['all', `All (${counts.all})`],
+                ['new', `New (${counts.new})`],
+                ['contacted', `Contacted (${counts.contacted})`],
+                ['interested', `Interested 🔥 (${counts.interested})`],
+                ['closed_won', `Won (${counts.closed_won})`],
+              ]).map(([s, label]) => (
                 <button key={s} onClick={() => setStatusFilter(s)}
                   className={`px-3 py-1 rounded-lg text-xs font-semibold capitalize transition-colors ${
                     statusFilter === s ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'
                   }`}>
-                  {s === 'all' ? `All (${counts.all})` : `${STATUS_LABELS[s]} (${counts[s]})`}
+                  {label}
                 </button>
               ))}
             </div>
@@ -371,17 +458,7 @@ export default function AgencyLeads() {
 
       {showAdd && <AddLeadModal onClose={() => setShowAdd(false)} onSaved={onLeadSaved} />}
 
-      {selected && (
-        <LeadDetailModal
-          deal={selected.deal}
-          lead={selected.lead}
-          onClose={() => setSelected(null)}
-          onUpdated={(updatedDeal, updatedLead) => {
-            onDealUpdated(updatedDeal, updatedLead);
-            setSelected(s => s ? { ...s, deal: updatedDeal, lead: updatedLead || s.lead } : null);
-          }}
-        />
-      )}
+
     </AgencyLayout>
   );
 }

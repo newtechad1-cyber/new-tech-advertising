@@ -225,6 +225,8 @@ import OpsApprovals from './pages/ops/OpsApprovals';
 import OpsLeads from './pages/ops/OpsLeads';
 import OpsFollowUps from './pages/ops/OpsFollowUps';
 import OpsReports from './pages/ops/OpsReports';
+import LeadPipelineKanban from './pages/LeadPipelineKanban';
+import LeadDetailPage from './pages/LeadDetailPage';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -417,6 +419,8 @@ const AuthenticatedApp = () => {
       <Route path="/agency/content" element={<AgencyContent />} />
       <Route path="/agency/websites" element={<AgencyWebsites />} />
       <Route path="/agency/leads" element={<AgencyLeads />} />
+      <Route path="/agency/leads/pipeline" element={<LayoutWrapper currentPageName="LeadPipelineKanban"><LeadPipelineKanban /></LayoutWrapper>} />
+      <Route path="/agency/leads/:id" element={<LayoutWrapper currentPageName="LeadDetailPage"><LeadDetailPage /></LayoutWrapper>} />
       <Route path="/nta/content-dashboard" element={<NTAContentDashboard />} />
       <Route path="/hvac-funnel/1" element={<HVACFunnel1 />} />
       <Route path="/hvac-funnel/2" element={<HVACFunnel2 />} />

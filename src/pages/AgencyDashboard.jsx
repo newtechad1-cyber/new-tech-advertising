@@ -7,6 +7,7 @@ import AgencyLayout from '../components/agency/AgencyLayout';
 import TodaysCommand from '../components/agency/TodaysCommand.jsx';
 import DailyCommandPanel from '../components/agency/DailyCommandPanel.jsx';
 import TutorialHighlight from '../components/agency/TutorialHighlight.jsx';
+import TodaysLeadWork from '../components/leads/TodaysLeadWork.jsx';
 export default function AgencyDashboard() {
   const [clients, setClients] = useState([]);
   const [topics, setTopics] = useState([]);
@@ -163,6 +164,11 @@ export default function AgencyDashboard() {
             onLeadUpdated={handleLeadUpdated}
           />
         )}
+
+        {/* TODAY'S LEAD WORK */}
+        <div className="border-t border-slate-800 pt-8">
+          <TodaysLeadWork />
+        </div>
 
         {/* Divider */}
         <div className="border-t border-slate-800" />
