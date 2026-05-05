@@ -1,0 +1,128 @@
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
+
+Deno.serve(async (req) => {
+  try {
+    const base44 = createClientFromRequest(req);
+    const user = await base44.auth.me();
+    if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+
+    const { businessName, websiteUrl, industry, city, contactName, leadSource, notes, pastedContent } = await req.json();
+
+    if (!businessName || !websiteUrl) {
+      return Response.json({ error: 'Business name and website URL are required.' }, { status: 400 });
+    }
+
+    // Try to fetch the website content
+    let websiteContent = pastedContent || '';
+    if (!websiteContent && websiteUrl) {
+      try {
+        const fetchRes = await fetch(websiteUrl, {
+          headers: { 'User-Agent': 'Mozilla/5.0 (compatible; NTA-AuditBot/1.0)' },
+          signal: AbortSignal.timeout(8000),
+        });
+        if (fetchRes.ok) {
+          const html = await fetchRes.text();
+          // Strip HTML tags for cleaner text
+          websiteContent = html.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+            .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+            .replace(/<[^>]+>/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim()
+            .slice(0, 4000);
+        }
+      } catch (_e) {
+        websiteContent = '';
+      }
+    }
+
+    const contextInfo = [
+      websiteContent ? `Website content extracted:\n${websiteContent}` : `NOTE: Could not access website directly. Base analysis on URL pattern and business info only.`,
+      industry ? `Industry: ${industry}` : '',
+      city ? `City/Market: ${city}` : '',
+      contactName ? `Contact: ${contactName}` : '',
+      notes ? `Extra notes: ${notes}` : '',
+    ].filter(Boolean).join('\n');
+
+    const prompt = `You are Rick Hesse's AI assistant at New Tech Advertising, a local digital marketing agency in Mason City, Iowa. Your job is to analyze a local business's website and generate a practical, sales-focused gap audit report that Rick can send to a prospect.
+
+Business: ${businessName}
+Website: ${websiteUrl}
+${contextInfo}
+
+Analyze the website and generate a report in this EXACT JSON format (no markdown, just valid JSON):
+
+{
+  "quick_summary": "2-3 sentence plain-language summary of the website's current lead generation situation",
+  "doing_well": ["positive point 1", "positive point 2", "positive point 3"],
+  "gap_1": "Short title of gap 1",
+  "gap_1_why": "Why this gap is costing them leads (1-2 sentences, plain language)",
+  "gap_2": "Short title of gap 2",
+  "gap_2_why": "Why this gap is costing them leads",
+  "gap_3": "Short title of gap 3",
+  "gap_3_why": "Why this gap is costing them leads",
+  "costing_them": "Plain-language explanation of what these gaps may be costing them in leads/revenue (2-3 sentences, no made-up numbers, just realistic framing)",
+  "recommended_fixes": ["Fix 1", "Fix 2", "Fix 3", "Fix 4"],
+  "quick_wins": ["Quick win 1", "Quick win 2", "Quick win 3"],
+  "suggested_next_step": "A friendly, non-pushy next step suggestion",
+  "internal_notes": "Notes for Rick about this prospect — things to mention in the sales call, what services fit best, tone to use",
+  "categories": {
+    "first_impression": "brief note",
+    "offer_clarity": "brief note",
+    "cta_strength": "brief note",
+    "lead_capture": "brief note",
+    "local_seo": "brief note",
+    "trust_signals": "brief note",
+    "reviews": "brief note",
+    "mobile": "brief note",
+    "service_pages": "brief note",
+    "social_proof": "brief note",
+    "conversion_gaps": "brief note"
+  },
+  "score": {
+    "overall": 62,
+    "lead_generation": 55,
+    "local_visibility": 60,
+    "trust": 65,
+    "conversion": 50
+  }
+}
+
+Guidelines:
+- Use friendly, direct language a local business owner can understand
+- Focus on leads, calls, trust, and conversion — not technical SEO jargon
+- Be helpful and encouraging, not harsh
+- Scores should be realistic (40-85 range typically), not fake 90s or 30s
+- If you can't access the site, make reasonable inferences from the URL and business type
+- All text should sound like a helpful local marketing advisor, not a robot`;
+
+    const result = await base44.integrations.Core.InvokeLLM({
+      prompt,
+      response_json_schema: {
+        type: 'object',
+        properties: {
+          quick_summary: { type: 'string' },
+          doing_well: { type: 'array', items: { type: 'string' } },
+          gap_1: { type: 'string' },
+          gap_1_why: { type: 'string' },
+          gap_2: { type: 'string' },
+          gap_2_why: { type: 'string' },
+          gap_3: { type: 'string' },
+          gap_3_why: { type: 'string' },
+          costing_them: { type: 'string' },
+          recommended_fixes: { type: 'array', items: { type: 'string' } },
+          quick_wins: { type: 'array', items: { type: 'string' } },
+          suggested_next_step: { type: 'string' },
+          internal_notes: { type: 'string' },
+          categories: { type: 'object' },
+          score: { type: 'object' },
+        }
+      },
+      model: 'gpt_5_4',
+      add_context_from_internet: false,
+    });
+
+    return Response.json({ success: true, audit: result, websiteAccessible: !!websiteContent });
+  } catch (error) {
+    return Response.json({ error: error.message }, { status: 500 });
+  }
+});
