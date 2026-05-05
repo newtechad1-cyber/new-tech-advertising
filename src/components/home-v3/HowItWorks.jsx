@@ -33,8 +33,8 @@ export default function HowItWorks() {
         {/* RIGHT: Image */}
         <div className="rounded-2xl overflow-hidden shadow-lg aspect-[4/3] bg-slate-200">
           <img
-            src="https://images.unsplash.com/photo-1553484771-371a605b060b?auto=format&fit=crop&w=800&q=80"
-            alt="Simple process"
+            src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/07c407115_howaihaschangedmarketing.png"
+            alt="How AI has changed marketing"
             className="w-full h-full object-cover"
           />
         </div>
