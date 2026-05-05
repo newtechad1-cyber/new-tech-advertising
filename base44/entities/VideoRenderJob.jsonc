@@ -1,0 +1,97 @@
+{
+  "name": "VideoRenderJob",
+  "type": "object",
+  "properties": {
+    "project_title": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "format_type": {
+      "type": "string",
+      "enum": [
+        "short_form",
+        "long_form",
+        "ad_spot",
+        "testimonial",
+        "explainer",
+        "social_reel"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "rendering",
+        "review_ready",
+        "approved",
+        "published",
+        "failed"
+      ],
+      "default": "queued"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "urgent",
+        "normal",
+        "low"
+      ]
+    },
+    "scene_count": {
+      "type": "number"
+    },
+    "voiceover_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "generated",
+        "approved",
+        "failed"
+      ]
+    },
+    "branding_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "applied",
+        "approved",
+        "failed"
+      ]
+    },
+    "render_progress": {
+      "type": "number"
+    },
+    "duration_seconds": {
+      "type": "number"
+    },
+    "avg_render_minutes": {
+      "type": "number"
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "project_title",
+    "client_name",
+    "status"
+  ]
+}

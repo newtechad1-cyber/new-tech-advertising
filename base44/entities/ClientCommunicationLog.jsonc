@@ -1,0 +1,98 @@
+{
+  "name": "ClientCommunicationLog",
+  "type": "object",
+  "properties": {
+    "communicationId": {
+      "type": "string"
+    },
+    "organizationId": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "string"
+    },
+    "communicationType": {
+      "type": "string",
+      "enum": [
+        "weekly_summary",
+        "monthly_report",
+        "milestone",
+        "inactivity_nudge",
+        "billing_warning",
+        "upgrade_recommendation",
+        "account_review",
+        "success_highlight"
+      ]
+    },
+    "triggerSource": {
+      "type": "string",
+      "enum": [
+        "scheduled",
+        "activity_event",
+        "growth_threshold",
+        "inactivity_detected",
+        "billing_event",
+        "upgrade_readiness",
+        "anniversary",
+        "manual_trigger"
+      ]
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "email",
+        "in_app",
+        "sms",
+        "dashboard_widget",
+        "draft"
+      ],
+      "default": "draft"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "summaryText": {
+      "type": "string"
+    },
+    "fullContent": {
+      "type": "string"
+    },
+    "relatedMetricSnapshotId": {
+      "type": "string"
+    },
+    "relatedCampaignId": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "scheduled",
+        "sent",
+        "opened",
+        "clicked",
+        "bounced",
+        "failed"
+      ],
+      "default": "draft"
+    },
+    "sentAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "metadata": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "communicationId",
+    "organizationId",
+    "communicationType",
+    "subject"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "name": "FounderWeeklyPlan",
+  "type": "object",
+  "properties": {
+    "week_start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "primary_growth_focus": {
+      "type": "string"
+    },
+    "top_vertical_priority": {
+      "type": "string",
+      "description": "Industry vertical name"
+    },
+    "key_expansion_playbook": {
+      "type": "string",
+      "description": "Reference to ExpansionPlaybook name or id"
+    },
+    "revenue_target_week": {
+      "type": "number",
+      "default": 0
+    },
+    "strategic_notes": {
+      "type": "string"
+    },
+    "confidence_level": {
+      "type": "number",
+      "default": 70
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planning",
+        "active",
+        "completed"
+      ],
+      "default": "planning"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "week_start_date"
+  ]
+}

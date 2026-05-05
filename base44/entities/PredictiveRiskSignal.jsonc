@@ -1,0 +1,61 @@
+{
+  "name": "PredictiveRiskSignal",
+  "type": "object",
+  "properties": {
+    "risk_title": {
+      "type": "string"
+    },
+    "risk_category": {
+      "type": "string",
+      "enum": [
+        "revenue",
+        "churn",
+        "sales",
+        "operations",
+        "expansion",
+        "pricing"
+      ]
+    },
+    "probability_score": {
+      "type": "number",
+      "default": 50
+    },
+    "impact_severity": {
+      "type": "number",
+      "default": 50
+    },
+    "affected_vertical": {
+      "type": "string",
+      "description": "Vertical name if applicable"
+    },
+    "related_playbook": {
+      "type": "string",
+      "description": "Playbook name if applicable"
+    },
+    "recommended_preventive_action": {
+      "type": "string"
+    },
+    "monitoring_status": {
+      "type": "string",
+      "enum": [
+        "emerging",
+        "watch",
+        "intervention",
+        "stabilized"
+      ],
+      "default": "emerging"
+    },
+    "risk_reasoning": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "risk_title",
+    "risk_category"
+  ]
+}

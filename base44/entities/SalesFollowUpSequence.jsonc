@@ -1,0 +1,117 @@
+{
+  "name": "SalesFollowUpSequence",
+  "type": "object",
+  "properties": {
+    "opportunity_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "contact_name": {
+      "type": "string"
+    },
+    "contact_email": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "demo_completed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "current_phase": {
+      "type": "number",
+      "default": 1,
+      "description": "1=Recap, 2=Proof, 3=ROI, 4=Urgency, 5=CheckIn, 6=LongCycle"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused",
+        "won",
+        "lost",
+        "unresponsive",
+        "completed"
+      ],
+      "default": "active"
+    },
+    "engagement_score": {
+      "type": "number",
+      "default": 0
+    },
+    "engagement_tier": {
+      "type": "string",
+      "enum": [
+        "cold",
+        "warm",
+        "hot",
+        "burning"
+      ],
+      "default": "warm"
+    },
+    "proposal_viewed": {
+      "type": "boolean",
+      "default": false
+    },
+    "proposal_view_count": {
+      "type": "number",
+      "default": 0
+    },
+    "deal_room_visits": {
+      "type": "number",
+      "default": 0
+    },
+    "cta_clicks": {
+      "type": "number",
+      "default": 0
+    },
+    "last_engagement_date": {
+      "type": "string"
+    },
+    "next_follow_up_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "next_follow_up_action": {
+      "type": "string"
+    },
+    "assigned_owner": {
+      "type": "string"
+    },
+    "deal_value": {
+      "type": "number",
+      "default": 0
+    },
+    "priority_flag": {
+      "type": "string",
+      "enum": [
+        "normal",
+        "elevated",
+        "urgent",
+        "critical"
+      ],
+      "default": "normal"
+    },
+    "cadence_override": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "opportunity_id",
+    "contact_email"
+  ]
+}

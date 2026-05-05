@@ -1,0 +1,89 @@
+{
+  "name": "ClientLifecycleStage",
+  "type": "object",
+  "properties": {
+    "company_name": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "deal_closed",
+        "onboarding_initiated",
+        "assets_collected",
+        "strategy_approved",
+        "content_production",
+        "publishing_active",
+        "performance_optimization",
+        "expansion_opportunity",
+        "renewal_retention"
+      ],
+      "default": "deal_closed"
+    },
+    "onboarding_completion": {
+      "type": "number"
+    },
+    "content_output_score": {
+      "type": "number"
+    },
+    "satisfaction_signal": {
+      "type": "string",
+      "enum": [
+        "positive",
+        "neutral",
+        "at_risk",
+        "negative"
+      ]
+    },
+    "lifecycle_urgency": {
+      "type": "string",
+      "enum": [
+        "urgent",
+        "normal",
+        "on_track",
+        "stalled"
+      ]
+    },
+    "assigned_manager": {
+      "type": "string"
+    },
+    "mrr": {
+      "type": "number"
+    },
+    "deal_close_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "days_in_stage": {
+      "type": "number"
+    },
+    "upsell_probability": {
+      "type": "number"
+    },
+    "churn_risk_score": {
+      "type": "number"
+    },
+    "roi_confidence": {
+      "type": "number"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_name",
+    "vertical",
+    "stage"
+  ]
+}

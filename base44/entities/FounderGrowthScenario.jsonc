@@ -1,0 +1,56 @@
+{
+  "name": "FounderGrowthScenario",
+  "type": "object",
+  "properties": {
+    "scenario_name": {
+      "type": "string"
+    },
+    "focus_vertical": {
+      "type": "string",
+      "description": "Industry vertical name"
+    },
+    "expansion_playbook": {
+      "type": "string",
+      "description": "ExpansionPlaybook name or id"
+    },
+    "pricing_adjustment_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "sales_velocity_change_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "marketing_intensity_change_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "projected_new_mrr_90_days": {
+      "type": "number",
+      "default": 0
+    },
+    "projected_total_mrr_6_months": {
+      "type": "number",
+      "default": 0
+    },
+    "confidence_score": {
+      "type": "number",
+      "default": 60
+    },
+    "scenario_notes": {
+      "type": "string"
+    },
+    "is_priority": {
+      "type": "boolean",
+      "default": false
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "scenario_name"
+  ]
+}

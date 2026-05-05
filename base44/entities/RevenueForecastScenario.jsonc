@@ -1,0 +1,45 @@
+{
+  "name": "RevenueForecastScenario",
+  "type": "object",
+  "properties": {
+    "scenario_type": {
+      "type": "string",
+      "enum": [
+        "conservative",
+        "expected",
+        "aggressive"
+      ]
+    },
+    "period": {
+      "type": "string"
+    },
+    "projected_mrr": {
+      "type": "number"
+    },
+    "projected_arr": {
+      "type": "number"
+    },
+    "growth_rate_assumption": {
+      "type": "number"
+    },
+    "churn_assumption": {
+      "type": "number"
+    },
+    "expansion_assumption": {
+      "type": "number"
+    },
+    "new_client_assumption": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "scenario_type",
+    "period",
+    "projected_mrr"
+  ]
+}

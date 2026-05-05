@@ -1,0 +1,32 @@
+{
+  "name": "WeeklyRevenueMetric",
+  "type": "object",
+  "properties": {
+    "week_label": {
+      "type": "string"
+    },
+    "new_mrr": {
+      "type": "number"
+    },
+    "churned_mrr": {
+      "type": "number"
+    },
+    "expansion_mrr": {
+      "type": "number"
+    },
+    "cumulative_mrr": {
+      "type": "number"
+    },
+    "net_mrr_change": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "week_label"
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "name": "NTAPricingScenario",
+  "type": "object",
+  "properties": {
+    "opportunity_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "recommended_package_key": {
+      "type": "string",
+      "enum": [
+        "visibility_foundation",
+        "market_authority",
+        "market_domination"
+      ]
+    },
+    "selected_package_key": {
+      "type": "string"
+    },
+    "selected_addons": {
+      "type": "string"
+    },
+    "market_size_modifier": {
+      "type": "number",
+      "default": 1.0
+    },
+    "competition_modifier": {
+      "type": "number",
+      "default": 1.0
+    },
+    "content_velocity_modifier": {
+      "type": "number",
+      "default": 1.0
+    },
+    "video_intensity_modifier": {
+      "type": "number",
+      "default": 1.0
+    },
+    "base_setup_fee": {
+      "type": "number",
+      "default": 0
+    },
+    "base_monthly_fee": {
+      "type": "number",
+      "default": 0
+    },
+    "adjusted_setup_fee": {
+      "type": "number",
+      "default": 0
+    },
+    "adjusted_monthly_fee": {
+      "type": "number",
+      "default": 0
+    },
+    "addon_monthly_total": {
+      "type": "number",
+      "default": 0
+    },
+    "total_monthly_investment": {
+      "type": "number",
+      "default": 0
+    },
+    "annual_investment": {
+      "type": "number",
+      "default": 0
+    },
+    "estimated_roi_low": {
+      "type": "number",
+      "default": 0
+    },
+    "estimated_roi_high": {
+      "type": "number",
+      "default": 0
+    },
+    "recommendation_rationale": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "presented",
+        "accepted",
+        "revised",
+        "lost"
+      ],
+      "default": "draft"
+    },
+    "created_by": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "opportunity_id",
+    "recommended_package_key"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "name": "LocationRiskFlag",
+  "type": "object",
+  "properties": {
+    "location_id": {
+      "type": "string"
+    },
+    "enterprise_client_id": {
+      "type": "string"
+    },
+    "risk_type": {
+      "type": "string",
+      "enum": [
+        "low_content",
+        "campaign_gap",
+        "visibility_drop",
+        "branding_inconsistency",
+        "engagement_decline"
+      ]
+    },
+    "headline": {
+      "type": "string"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "critical",
+        "high",
+        "medium"
+      ]
+    },
+    "recommended_action": {
+      "type": "string"
+    },
+    "resolved": {
+      "type": "boolean",
+      "default": false
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "location_id",
+    "risk_type",
+    "headline"
+  ]
+}

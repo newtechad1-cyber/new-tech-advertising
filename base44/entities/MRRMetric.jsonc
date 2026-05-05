@@ -1,0 +1,39 @@
+{
+  "name": "MRRMetric",
+  "type": "object",
+  "properties": {
+    "period": {
+      "type": "string"
+    },
+    "total_mrr": {
+      "type": "number"
+    },
+    "new_mrr": {
+      "type": "number"
+    },
+    "expansion_mrr": {
+      "type": "number"
+    },
+    "churned_mrr": {
+      "type": "number"
+    },
+    "net_new_mrr": {
+      "type": "number"
+    },
+    "total_clients": {
+      "type": "number"
+    },
+    "avg_mrr_per_client": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "period",
+    "total_mrr"
+  ]
+}

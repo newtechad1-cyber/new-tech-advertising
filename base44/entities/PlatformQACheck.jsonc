@@ -1,0 +1,68 @@
+{
+  "name": "PlatformQACheck",
+  "type": "object",
+  "properties": {
+    "page_or_workflow_name": {
+      "type": "string"
+    },
+    "qa_category": {
+      "type": "string",
+      "enum": [
+        "public_page",
+        "onboarding_flow",
+        "client_portal_page",
+        "admin_page",
+        "publishing_flow",
+        "automation_flow",
+        "reporting_page",
+        "channel_connection_flow"
+      ]
+    },
+    "user_role_tested": {
+      "type": "string"
+    },
+    "navigation_verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "primary_action_verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "data_save_verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "error_handling_verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "mobile_layout_verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "qa_status": {
+      "type": "string",
+      "enum": [
+        "not_tested",
+        "failed",
+        "partial",
+        "verified"
+      ],
+      "default": "not_tested"
+    },
+    "last_tested_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "page_or_workflow_name",
+    "qa_category"
+  ]
+}

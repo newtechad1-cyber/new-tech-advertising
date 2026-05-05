@@ -1,0 +1,36 @@
+{
+  "name": "AgentQualityMetric",
+  "type": "object",
+  "properties": {
+    "agent_id": {
+      "type": "string"
+    },
+    "week_label": {
+      "type": "string"
+    },
+    "revision_rate": {
+      "type": "number"
+    },
+    "approval_rejection_rate": {
+      "type": "number"
+    },
+    "engagement_correlation": {
+      "type": "number"
+    },
+    "campaign_success_alignment": {
+      "type": "number"
+    },
+    "quality_score": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "agent_id",
+    "week_label"
+  ]
+}

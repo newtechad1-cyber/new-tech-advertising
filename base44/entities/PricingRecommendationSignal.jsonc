@@ -1,0 +1,62 @@
+{
+  "name": "PricingRecommendationSignal",
+  "type": "object",
+  "properties": {
+    "recommendation_title": {
+      "type": "string"
+    },
+    "target_pricing_plan": {
+      "type": "string",
+      "description": "Relation to PricingPlanPerformance id (optional)"
+    },
+    "recommendation_type": {
+      "type": "string",
+      "enum": [
+        "price_increase",
+        "price_decrease",
+        "bundle_offer",
+        "tier_simplification",
+        "premium_reposition",
+        "upgrade_incentive"
+      ]
+    },
+    "revenue_growth_potential_score": {
+      "type": "number",
+      "default": 0
+    },
+    "margin_improvement_score": {
+      "type": "number",
+      "default": 0
+    },
+    "churn_risk_impact_score": {
+      "type": "number",
+      "default": 0
+    },
+    "confidence_level": {
+      "type": "number",
+      "default": 0
+    },
+    "recommended_action_summary": {
+      "type": "string"
+    },
+    "recommendation_status": {
+      "type": "string",
+      "enum": [
+        "identified",
+        "reviewing",
+        "implementing",
+        "completed"
+      ],
+      "default": "identified"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "recommendation_title",
+    "recommendation_type"
+  ]
+}

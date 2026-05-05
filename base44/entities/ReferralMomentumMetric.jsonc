@@ -1,0 +1,50 @@
+{
+  "name": "ReferralMomentumMetric",
+  "type": "object",
+  "properties": {
+    "client_name": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "referral_status": {
+      "type": "string",
+      "enum": [
+        "eligible_client",
+        "invitation_sent",
+        "referral_engaged",
+        "referral_converted"
+      ],
+      "default": "eligible_client"
+    },
+    "invitations_sent": {
+      "type": "number"
+    },
+    "referral_leads_generated": {
+      "type": "number"
+    },
+    "referral_conversion_rate": {
+      "type": "number"
+    },
+    "revenue_from_referrals": {
+      "type": "number"
+    },
+    "partner_contribution": {
+      "type": "boolean",
+      "default": false
+    },
+    "region": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_name",
+    "referral_status"
+  ]
+}

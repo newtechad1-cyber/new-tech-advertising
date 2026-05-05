@@ -1,0 +1,44 @@
+{
+  "name": "CampaignApprovalStatus",
+  "type": "object",
+  "properties": {
+    "campaign_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "revision_requested",
+        "auto_approved"
+      ],
+      "default": "pending"
+    },
+    "client_note": {
+      "type": "string"
+    },
+    "approved_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "schedule_adjustment": {
+      "type": "string"
+    },
+    "special_offer_note": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "campaign_id",
+    "client_id"
+  ]
+}

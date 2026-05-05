@@ -1,0 +1,63 @@
+{
+  "name": "AuthorityCampaign",
+  "type": "object",
+  "properties": {
+    "campaign_name": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "geographic_targeting": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "content_in_production",
+        "scheduled",
+        "publishing_live",
+        "authority_saturation_reached"
+      ],
+      "default": "planned"
+    },
+    "content_volume": {
+      "type": "number"
+    },
+    "authority_score": {
+      "type": "number"
+    },
+    "expected_demand_impact": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "assigned_owner": {
+      "type": "string"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "pieces_published": {
+      "type": "number"
+    },
+    "inbound_leads_attributed": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "campaign_name",
+    "vertical",
+    "status"
+  ]
+}

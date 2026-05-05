@@ -1,0 +1,66 @@
+{
+  "name": "AutomationRoutingSignal",
+  "type": "object",
+  "properties": {
+    "signal_title": {
+      "type": "string"
+    },
+    "linked_task": {
+      "type": "string",
+      "description": "Optional relation to AIAgentTask id"
+    },
+    "recommended_agent": {
+      "type": "string",
+      "description": "Relation to AIAgentProfile id"
+    },
+    "routing_reason": {
+      "type": "string",
+      "enum": [
+        "revenue_impact",
+        "client_risk",
+        "expansion_opportunity",
+        "workload_balance",
+        "confidence_match",
+        "sla_pressure"
+      ]
+    },
+    "urgency_score": {
+      "type": "number",
+      "default": 0
+    },
+    "impact_score": {
+      "type": "number",
+      "default": 0
+    },
+    "routing_priority": {
+      "type": "string",
+      "enum": [
+        "deferred",
+        "normal",
+        "elevated",
+        "critical"
+      ],
+      "default": "normal"
+    },
+    "routing_status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "approved",
+        "queued",
+        "executed"
+      ],
+      "default": "proposed"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "signal_title",
+    "recommended_agent",
+    "routing_reason"
+  ]
+}

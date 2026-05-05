@@ -1,0 +1,64 @@
+{
+  "name": "SocialEngagementSignal",
+  "type": "object",
+  "properties": {
+    "client_name": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "platform": {
+      "type": "string",
+      "enum": [
+        "instagram",
+        "facebook",
+        "tiktok",
+        "youtube",
+        "google"
+      ]
+    },
+    "reach_this_period": {
+      "type": "number"
+    },
+    "reach_prior_period": {
+      "type": "number"
+    },
+    "reach_growth_pct": {
+      "type": "number"
+    },
+    "engagement_rate": {
+      "type": "number"
+    },
+    "engagement_trend": {
+      "type": "string",
+      "enum": [
+        "improving",
+        "stable",
+        "declining"
+      ]
+    },
+    "share_velocity": {
+      "type": "number"
+    },
+    "audience_growth": {
+      "type": "number"
+    },
+    "top_content_type": {
+      "type": "string"
+    },
+    "period": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_name",
+    "platform",
+    "reach_this_period"
+  ]
+}

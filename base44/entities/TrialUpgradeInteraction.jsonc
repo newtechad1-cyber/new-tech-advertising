@@ -1,0 +1,37 @@
+{
+  "name": "TrialUpgradeInteraction",
+  "type": "object",
+  "properties": {
+    "trial_signup_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "interaction_type": {
+      "type": "string",
+      "enum": [
+        "viewed_upgrade_page",
+        "clicked_plan",
+        "started_checkout",
+        "scheduled_call",
+        "completed_upgrade"
+      ]
+    },
+    "plan_viewed": {
+      "type": "string"
+    },
+    "session_duration_seconds": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "trial_signup_id",
+    "interaction_type"
+  ]
+}

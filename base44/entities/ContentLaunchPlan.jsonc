@@ -1,0 +1,56 @@
+{
+  "name": "ContentLaunchPlan",
+  "type": "object",
+  "properties": {
+    "onboarding_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "month_1_blog_topics": {
+      "type": "string"
+    },
+    "month_1_social_topics": {
+      "type": "string"
+    },
+    "month_1_video_topics": {
+      "type": "string"
+    },
+    "streaming_feature_week": {
+      "type": "number"
+    },
+    "article_cadence_per_week": {
+      "type": "number",
+      "default": 2
+    },
+    "social_posts_per_week": {
+      "type": "number",
+      "default": 5
+    },
+    "videos_per_month": {
+      "type": "number",
+      "default": 4
+    },
+    "approved_by_client": {
+      "type": "boolean",
+      "default": false
+    },
+    "approved_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "onboarding_id",
+    "company_name"
+  ]
+}

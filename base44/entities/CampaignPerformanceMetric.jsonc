@@ -1,0 +1,51 @@
+{
+  "name": "CampaignPerformanceMetric",
+  "type": "object",
+  "properties": {
+    "campaign_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "period": {
+      "type": "string"
+    },
+    "reach_total": {
+      "type": "number"
+    },
+    "engagement_score": {
+      "type": "number"
+    },
+    "engagement_change_pct": {
+      "type": "number"
+    },
+    "visibility_impact": {
+      "type": "number"
+    },
+    "consistency_score": {
+      "type": "number"
+    },
+    "lead_signal": {
+      "type": "string",
+      "enum": [
+        "strong",
+        "moderate",
+        "low"
+      ]
+    },
+    "summary_note": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "campaign_id",
+    "client_id",
+    "period"
+  ]
+}

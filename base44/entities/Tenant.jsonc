@@ -1,0 +1,54 @@
+{
+  "name": "Tenant",
+  "type": "object",
+  "properties": {
+    "tenantId": {
+      "type": "string"
+    },
+    "tenantType": {
+      "type": "string",
+      "enum": [
+        "master",
+        "reseller",
+        "white_label"
+      ]
+    },
+    "tenantName": {
+      "type": "string"
+    },
+    "parentTenantId": {
+      "type": "string"
+    },
+    "ownerUserId": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "suspended",
+        "pending_setup"
+      ],
+      "default": "pending_setup"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "metadata": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "tenantId",
+    "tenantType",
+    "tenantName",
+    "ownerUserId"
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "name": "SuccessHighlight",
+  "type": "object",
+  "properties": {
+    "highlightId": {
+      "type": "string"
+    },
+    "organizationId": {
+      "type": "string"
+    },
+    "highlightType": {
+      "type": "string",
+      "enum": [
+        "growth_milestone",
+        "revenue_result",
+        "content_win",
+        "lead_breakthrough",
+        "efficiency_gain",
+        "testimonial"
+      ]
+    },
+    "industry": {
+      "type": "string"
+    },
+    "summaryText": {
+      "type": "string"
+    },
+    "metricReference": {
+      "type": "string"
+    },
+    "testimonialQuote": {
+      "type": "string"
+    },
+    "approvalStatus": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "pending_review",
+        "approved",
+        "rejected"
+      ],
+      "default": "draft"
+    },
+    "visibility": {
+      "type": "string",
+      "enum": [
+        "internal",
+        "deal_room",
+        "upgrade_panels",
+        "all"
+      ],
+      "default": "internal"
+    },
+    "taggedForSales": {
+      "type": "boolean",
+      "default": false
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "highlightId",
+    "organizationId",
+    "highlightType",
+    "summaryText",
+    "approvalStatus"
+  ]
+}

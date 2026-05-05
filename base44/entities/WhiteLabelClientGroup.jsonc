@@ -1,0 +1,59 @@
+{
+  "name": "WhiteLabelClientGroup",
+  "type": "object",
+  "properties": {
+    "partner_name": {
+      "type": "string"
+    },
+    "managed_clients_count": {
+      "type": "number"
+    },
+    "mrr_contribution": {
+      "type": "number"
+    },
+    "churn_signal": {
+      "type": "string",
+      "enum": [
+        "stable",
+        "at_risk",
+        "churning",
+        "growing"
+      ]
+    },
+    "content_output_cadence": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        "stalled"
+      ]
+    },
+    "upsell_activity": {
+      "type": "number"
+    },
+    "client_growth_signal": {
+      "type": "string",
+      "enum": [
+        "growing",
+        "stable",
+        "declining"
+      ]
+    },
+    "avg_client_mrr": {
+      "type": "number"
+    },
+    "production_load_score": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "partner_name",
+    "managed_clients_count"
+  ]
+}

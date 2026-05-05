@@ -1,0 +1,97 @@
+{
+  "name": "NTAPricingPackage",
+  "type": "object",
+  "properties": {
+    "package_key": {
+      "type": "string",
+      "enum": [
+        "visibility_foundation",
+        "market_authority",
+        "market_domination"
+      ]
+    },
+    "package_name": {
+      "type": "string"
+    },
+    "positioning_tagline": {
+      "type": "string"
+    },
+    "positioning_description": {
+      "type": "string"
+    },
+    "ideal_client_profile": {
+      "type": "string"
+    },
+    "market_size_fit": {
+      "type": "string",
+      "enum": [
+        "emerging",
+        "established",
+        "competitive",
+        "any"
+      ]
+    },
+    "base_setup_fee": {
+      "type": "number",
+      "default": 0
+    },
+    "base_monthly_fee": {
+      "type": "number",
+      "default": 0
+    },
+    "content_articles_per_month": {
+      "type": "number",
+      "default": 0
+    },
+    "social_posts_per_month": {
+      "type": "number",
+      "default": 0
+    },
+    "videos_per_month": {
+      "type": "number",
+      "default": 0
+    },
+    "streaming_tv_included": {
+      "type": "boolean",
+      "default": false
+    },
+    "roi_dashboard_included": {
+      "type": "boolean",
+      "default": false
+    },
+    "dedicated_strategist": {
+      "type": "boolean",
+      "default": false
+    },
+    "locations_supported": {
+      "type": "number",
+      "default": 1
+    },
+    "capability_groups": {
+      "type": "string"
+    },
+    "authority_milestones": {
+      "type": "string"
+    },
+    "upgrade_path_key": {
+      "type": "string"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "sort_order": {
+      "type": "number",
+      "default": 1
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "package_key",
+    "package_name"
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "name": "GrowthMetricsSnapshot",
+  "type": "object",
+  "properties": {
+    "snapshotId": {
+      "type": "string"
+    },
+    "organizationId": {
+      "type": "string"
+    },
+    "snapshotDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "planKey": {
+      "type": "string",
+      "enum": [
+        "free_trial",
+        "diy",
+        "guided_growth",
+        "done_for_you",
+        "premium",
+        "enterprise"
+      ]
+    },
+    "growthScore": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "momentumScore": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "contentCreatedCount": {
+      "type": "number",
+      "default": 0
+    },
+    "contentPublishedCount": {
+      "type": "number",
+      "default": 0
+    },
+    "videosCreatedCount": {
+      "type": "number",
+      "default": 0
+    },
+    "pagesPublishedCount": {
+      "type": "number",
+      "default": 0
+    },
+    "leadsLoggedCount": {
+      "type": "number",
+      "default": 0
+    },
+    "dealsClosedCount": {
+      "type": "number",
+      "default": 0
+    },
+    "revenueAttributed": {
+      "type": "number",
+      "default": 0
+    },
+    "roiEstimate": {
+      "type": "number",
+      "default": 0
+    },
+    "roiConfidence": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "low"
+    },
+    "upgradeReadinessScore": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "churnRiskScore": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "activityIntelligence": {
+      "type": "string"
+    },
+    "visibilityIntelligence": {
+      "type": "string"
+    },
+    "leadIntelligence": {
+      "type": "string"
+    },
+    "revenueIntelligence": {
+      "type": "string"
+    },
+    "growthReadinessIntelligence": {
+      "type": "string"
+    },
+    "nextBestAction": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "snapshotId",
+    "organizationId",
+    "snapshotDate",
+    "planKey",
+    "growthScore"
+  ]
+}

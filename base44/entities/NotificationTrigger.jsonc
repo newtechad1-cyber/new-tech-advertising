@@ -1,0 +1,48 @@
+{
+  "name": "NotificationTrigger",
+  "type": "object",
+  "properties": {
+    "trigger_type": {
+      "type": "string",
+      "enum": [
+        "performance_threshold",
+        "approval_pending",
+        "report_ready",
+        "upsell_signal",
+        "campaign_launch",
+        "milestone_reached"
+      ]
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "source_entity": {
+      "type": "string"
+    },
+    "source_id": {
+      "type": "string"
+    },
+    "threshold_value": {
+      "type": "number"
+    },
+    "actual_value": {
+      "type": "number"
+    },
+    "fired": {
+      "type": "boolean",
+      "default": false
+    },
+    "notification_id": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "trigger_type",
+    "client_id"
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "name": "AIJobQueue",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "job_type": {
+      "type": "string",
+      "enum": [
+        "onboarding_campaign",
+        "weekly_content_plan",
+        "content_generation",
+        "video_script",
+        "social_posts",
+        "seo_article",
+        "retention_rescue",
+        "upgrade_campaign",
+        "content_refresh",
+        "optimization_pass"
+      ]
+    },
+    "job_category": {
+      "type": "string",
+      "enum": [
+        "content_creation",
+        "strategy",
+        "growth",
+        "retention"
+      ]
+    },
+    "trigger_source": {
+      "type": "string",
+      "enum": [
+        "onboarding_completion",
+        "weekly_schedule",
+        "manual_action",
+        "retention_engine",
+        "automation_engine",
+        "api_call",
+        "user_request"
+      ]
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "running",
+        "completed",
+        "failed",
+        "paused",
+        "cancelled"
+      ],
+      "default": "queued"
+    },
+    "scheduled_run_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created_by": {
+      "type": "string"
+    },
+    "assigned_agent": {
+      "type": "string"
+    },
+    "result_location": {
+      "type": "string"
+    },
+    "result_data": {
+      "type": "string"
+    },
+    "retry_count": {
+      "type": "number",
+      "default": 0
+    },
+    "max_retries": {
+      "type": "number",
+      "default": 3
+    },
+    "last_error": {
+      "type": "string"
+    },
+    "error_details": {
+      "type": "string"
+    },
+    "progress_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "estimated_completion_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "output_quality_score": {
+      "type": "number"
+    },
+    "user_feedback": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "string"
+    },
+    "notifications_sent": {
+      "type": "boolean",
+      "default": false
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_id",
+    "job_type",
+    "trigger_source",
+    "priority"
+  ]
+}

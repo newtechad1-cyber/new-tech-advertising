@@ -1,0 +1,44 @@
+{
+  "name": "ConversionLikelihoodScore",
+  "type": "object",
+  "properties": {
+    "trial_signup_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "score": {
+      "type": "number"
+    },
+    "score_label": {
+      "type": "string",
+      "enum": [
+        "hot",
+        "warm",
+        "cool",
+        "cold"
+      ]
+    },
+    "contributing_factors": {
+      "type": "string"
+    },
+    "recommended_action": {
+      "type": "string"
+    },
+    "last_calculated": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "trial_signup_id",
+    "company_name",
+    "score"
+  ]
+}

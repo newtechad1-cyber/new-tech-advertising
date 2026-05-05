@@ -1,0 +1,46 @@
+{
+  "name": "NotificationEngagementMetric",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "period": {
+      "type": "string"
+    },
+    "total_sent": {
+      "type": "number",
+      "default": 0
+    },
+    "total_opened": {
+      "type": "number",
+      "default": 0
+    },
+    "total_actions_taken": {
+      "type": "number",
+      "default": 0
+    },
+    "open_rate_pct": {
+      "type": "number"
+    },
+    "action_rate_pct": {
+      "type": "number"
+    },
+    "approval_speed_improvement_pct": {
+      "type": "number"
+    },
+    "upsell_clicks": {
+      "type": "number",
+      "default": 0
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_id",
+    "period"
+  ]
+}

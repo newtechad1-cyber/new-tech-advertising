@@ -1,0 +1,53 @@
+{
+  "name": "WorkforceInsight",
+  "type": "object",
+  "properties": {
+    "insight_type": {
+      "type": "string",
+      "enum": [
+        "capacity",
+        "quality",
+        "efficiency",
+        "bottleneck",
+        "opportunity"
+      ]
+    },
+    "headline": {
+      "type": "string"
+    },
+    "detail": {
+      "type": "string"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "positive",
+        "warning",
+        "critical",
+        "info"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "acknowledged",
+        "assigned",
+        "reviewed"
+      ],
+      "default": "new"
+    },
+    "week_label": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "insight_type",
+    "headline"
+  ]
+}

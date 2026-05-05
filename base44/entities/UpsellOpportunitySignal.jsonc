@@ -1,0 +1,74 @@
+{
+  "name": "UpsellOpportunitySignal",
+  "type": "object",
+  "properties": {
+    "client_name": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "opportunity_type": {
+      "type": "string",
+      "enum": [
+        "premium_video",
+        "multi_location",
+        "streaming_tv",
+        "authority_pack",
+        "annual_prepay",
+        "social_expansion"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "detected",
+        "outreach_sent",
+        "in_discussion",
+        "converted",
+        "declined"
+      ],
+      "default": "detected"
+    },
+    "projected_added_mrr": {
+      "type": "number"
+    },
+    "confidence_score": {
+      "type": "number"
+    },
+    "recommended_package": {
+      "type": "string"
+    },
+    "urgency": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "current_mrr": {
+      "type": "number"
+    },
+    "trigger_signal": {
+      "type": "string"
+    },
+    "assigned_rep": {
+      "type": "string"
+    },
+    "detected_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_name",
+    "opportunity_type",
+    "projected_added_mrr"
+  ]
+}

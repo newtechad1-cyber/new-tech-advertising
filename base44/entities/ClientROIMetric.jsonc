@@ -1,0 +1,60 @@
+{
+  "name": "ClientROIMetric",
+  "type": "object",
+  "properties": {
+    "client_profile_id": {
+      "type": "string",
+      "description": "Reference to ClientHealthProfile id"
+    },
+    "client_name": {
+      "type": "string",
+      "description": "Denormalized client name"
+    },
+    "report_month": {
+      "type": "string",
+      "format": "date"
+    },
+    "visibility_growth_score": {
+      "type": "number",
+      "default": 60
+    },
+    "engagement_growth_score": {
+      "type": "number",
+      "default": 60
+    },
+    "content_output_volume": {
+      "type": "number",
+      "default": 0
+    },
+    "video_views_estimate": {
+      "type": "number",
+      "default": 0
+    },
+    "campaign_activity_score": {
+      "type": "number",
+      "default": 60
+    },
+    "lead_signal_strength": {
+      "type": "number",
+      "default": 50
+    },
+    "roi_momentum_label": {
+      "type": "string",
+      "enum": [
+        "early_progress",
+        "steady_growth",
+        "strong_momentum",
+        "acceleration_phase"
+      ],
+      "default": "steady_growth"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "report_month"
+  ]
+}

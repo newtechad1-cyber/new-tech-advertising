@@ -1,0 +1,81 @@
+{
+  "name": "UserAccessAssignment",
+  "type": "object",
+  "properties": {
+    "assignmentId": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "string"
+    },
+    "organizationId": {
+      "type": "string"
+    },
+    "roleKey": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "suspended",
+        "pending_activation"
+      ],
+      "default": "active"
+    },
+    "assignedBy": {
+      "type": "string"
+    },
+    "assignedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "effectivePlan": {
+      "type": "string",
+      "enum": [
+        "free_trial",
+        "diy",
+        "guided_growth",
+        "done_for_you",
+        "premium",
+        "enterprise"
+      ]
+    },
+    "overridePermissions": {
+      "type": "string"
+    },
+    "deniedPermissions": {
+      "type": "string"
+    },
+    "scopeRestriction": {
+      "type": "string",
+      "enum": [
+        "none",
+        "own_content_only",
+        "team_only",
+        "read_only",
+        "limited_scope"
+      ],
+      "default": "none"
+    },
+    "expiresAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "assignmentId",
+    "userId",
+    "organizationId",
+    "roleKey"
+  ]
+}

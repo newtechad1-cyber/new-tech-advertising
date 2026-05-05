@@ -1,0 +1,53 @@
+{
+  "name": "SeasonalDemandSignal",
+  "type": "object",
+  "properties": {
+    "vertical": {
+      "type": "string"
+    },
+    "season": {
+      "type": "string"
+    },
+    "signal_type": {
+      "type": "string",
+      "enum": [
+        "search_spike",
+        "engagement_rise",
+        "inquiry_increase",
+        "competitor_activity"
+      ]
+    },
+    "intensity": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "headline": {
+      "type": "string"
+    },
+    "detail": {
+      "type": "string"
+    },
+    "action_window": {
+      "type": "string"
+    },
+    "detected_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "vertical",
+    "season",
+    "signal_type",
+    "headline"
+  ]
+}

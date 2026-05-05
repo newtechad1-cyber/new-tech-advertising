@@ -1,0 +1,51 @@
+{
+  "name": "FounderKPIRecord",
+  "type": "object",
+  "properties": {
+    "week_label": {
+      "type": "string"
+    },
+    "net_new_mrr": {
+      "type": "number"
+    },
+    "total_active_clients": {
+      "type": "number"
+    },
+    "sales_close_rate": {
+      "type": "number"
+    },
+    "client_health_score": {
+      "type": "number"
+    },
+    "content_production_volume": {
+      "type": "number"
+    },
+    "expansion_momentum_score": {
+      "type": "number"
+    },
+    "mrr_trend": {
+      "type": "string",
+      "enum": [
+        "up",
+        "stable",
+        "down"
+      ]
+    },
+    "health_trend": {
+      "type": "string",
+      "enum": [
+        "up",
+        "stable",
+        "down"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "week_label"
+  ]
+}

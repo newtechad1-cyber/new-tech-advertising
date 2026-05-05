@@ -1,0 +1,45 @@
+{
+  "name": "FounderPlanTask",
+  "type": "object",
+  "properties": {
+    "plan_id": {
+      "type": "string",
+      "description": "Reference to FounderWeeklyPlan id"
+    },
+    "week_start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "sales",
+        "expansion",
+        "operations",
+        "marketing",
+        "leadership",
+        "finance"
+      ],
+      "default": "sales"
+    },
+    "priority_order": {
+      "type": "number",
+      "default": 0
+    },
+    "completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}

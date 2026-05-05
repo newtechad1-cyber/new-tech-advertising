@@ -1,0 +1,55 @@
+{
+  "name": "ProductionCapacityMetric",
+  "type": "object",
+  "properties": {
+    "category": {
+      "type": "string",
+      "enum": [
+        "content_generation",
+        "video_rendering",
+        "approvals",
+        "publishing"
+      ]
+    },
+    "current_load": {
+      "type": "number"
+    },
+    "max_capacity": {
+      "type": "number"
+    },
+    "utilization_pct": {
+      "type": "number"
+    },
+    "queue_depth": {
+      "type": "number"
+    },
+    "avg_processing_time_minutes": {
+      "type": "number"
+    },
+    "warning_state": {
+      "type": "string",
+      "enum": [
+        "normal",
+        "nearing_capacity",
+        "bottleneck",
+        "underutilized"
+      ]
+    },
+    "throughput_per_hour": {
+      "type": "number"
+    },
+    "period": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "category",
+    "current_load",
+    "max_capacity"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "name": "DealForecast",
+  "type": "object",
+  "properties": {
+    "month_label": {
+      "type": "string"
+    },
+    "week_label": {
+      "type": "string"
+    },
+    "projected_closed": {
+      "type": "number"
+    },
+    "projected_revenue": {
+      "type": "number"
+    },
+    "actual_closed": {
+      "type": "number"
+    },
+    "actual_revenue": {
+      "type": "number"
+    },
+    "pipeline_entering": {
+      "type": "number"
+    },
+    "win_rate": {
+      "type": "number"
+    },
+    "period": {
+      "type": "string",
+      "enum": [
+        "weekly",
+        "monthly",
+        "quarterly"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "month_label",
+    "projected_revenue"
+  ]
+}

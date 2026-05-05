@@ -1,0 +1,57 @@
+{
+  "name": "ClientLifetimeValueMetric",
+  "type": "object",
+  "properties": {
+    "client_profile_id": {
+      "type": "string",
+      "description": "Reference to ClientHealthProfile id"
+    },
+    "client_name": {
+      "type": "string",
+      "description": "Denormalized for quick display"
+    },
+    "vertical": {
+      "type": "string",
+      "description": "Industry vertical name"
+    },
+    "months_active": {
+      "type": "number",
+      "default": 0
+    },
+    "total_revenue_generated": {
+      "type": "number",
+      "default": 0
+    },
+    "average_monthly_value": {
+      "type": "number",
+      "default": 0
+    },
+    "expansion_revenue_total": {
+      "type": "number",
+      "default": 0
+    },
+    "retention_probability_score": {
+      "type": "number",
+      "default": 70
+    },
+    "lifecycle_stage_projection": {
+      "type": "string",
+      "enum": [
+        "stabilizing",
+        "growth",
+        "mature",
+        "decline"
+      ],
+      "default": "growth"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_name",
+    "vertical"
+  ]
+}

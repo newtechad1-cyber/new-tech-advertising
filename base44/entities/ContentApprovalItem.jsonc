@@ -1,0 +1,100 @@
+{
+  "name": "ContentApprovalItem",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "post",
+        "video",
+        "blog",
+        "ad",
+        "reel",
+        "email",
+        "gbp_post"
+      ]
+    },
+    "platform": {
+      "type": "string",
+      "enum": [
+        "instagram",
+        "facebook",
+        "tiktok",
+        "youtube",
+        "website",
+        "google",
+        "email"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "awaiting_review",
+        "revision_suggested",
+        "approved",
+        "scheduled",
+        "published",
+        "rejected"
+      ],
+      "default": "awaiting_review"
+    },
+    "urgency": {
+      "type": "string",
+      "enum": [
+        "urgent",
+        "normal",
+        "low"
+      ],
+      "default": "normal"
+    },
+    "ai_confidence_score": {
+      "type": "number"
+    },
+    "caption": {
+      "type": "string"
+    },
+    "hashtags": {
+      "type": "string"
+    },
+    "cta": {
+      "type": "string"
+    },
+    "scheduled_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "thumbnail_emoji": {
+      "type": "string"
+    },
+    "campaign_theme": {
+      "type": "string"
+    },
+    "ai_note": {
+      "type": "string"
+    },
+    "revision_note": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_id",
+    "title",
+    "content_type",
+    "platform",
+    "status"
+  ]
+}

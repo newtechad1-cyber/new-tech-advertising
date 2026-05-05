@@ -1,0 +1,56 @@
+{
+  "name": "ProofAsset",
+  "type": "object",
+  "properties": {
+    "client_name": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "performance_milestone": {
+      "type": "string"
+    },
+    "content_format": {
+      "type": "string",
+      "enum": [
+        "video",
+        "article",
+        "social_clip",
+        "case_study",
+        "testimonial"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "candidate_identified",
+        "testimonial_requested",
+        "asset_in_production",
+        "published",
+        "repurposed"
+      ],
+      "default": "candidate_identified"
+    },
+    "amplification_reach": {
+      "type": "number"
+    },
+    "authority_contribution": {
+      "type": "number"
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_name",
+    "content_format",
+    "status"
+  ]
+}

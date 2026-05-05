@@ -1,0 +1,83 @@
+{
+  "name": "AIAgent",
+  "type": "object",
+  "properties": {
+    "agent_name": {
+      "type": "string"
+    },
+    "agent_type": {
+      "type": "string",
+      "enum": [
+        "content_writer",
+        "social_publisher",
+        "seo_optimizer",
+        "video_producer",
+        "review_monitor",
+        "ranking_tracker",
+        "email_marketer",
+        "lead_scorer",
+        "report_generator",
+        "campaign_launcher"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "idle",
+        "running",
+        "paused",
+        "error",
+        "offline"
+      ],
+      "default": "idle"
+    },
+    "current_task": {
+      "type": "string"
+    },
+    "assigned_client": {
+      "type": "string"
+    },
+    "assigned_vertical": {
+      "type": "string"
+    },
+    "assigned_territory": {
+      "type": "string"
+    },
+    "jobs_today": {
+      "type": "number",
+      "default": 0
+    },
+    "success_rate": {
+      "type": "number",
+      "default": 0
+    },
+    "load_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "last_active": {
+      "type": "string"
+    },
+    "avg_completion_seconds": {
+      "type": "number",
+      "default": 0
+    },
+    "impact_score": {
+      "type": "number",
+      "default": 0
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "agent_name",
+    "agent_type"
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "name": "AutomationCondition",
+  "type": "object",
+  "properties": {
+    "automation_rule": {
+      "type": "string",
+      "description": "Relation to AutomationRule id"
+    },
+    "condition_name": {
+      "type": "string"
+    },
+    "condition_type": {
+      "type": "string",
+      "enum": [
+        "threshold",
+        "status_change",
+        "metric_drop",
+        "metric_rise",
+        "time_elapsed",
+        "multi_signal_match"
+      ]
+    },
+    "monitored_metric": {
+      "type": "string"
+    },
+    "operator": {
+      "type": "string",
+      "enum": [
+        "greater_than",
+        "less_than",
+        "equals",
+        "not_equals",
+        "contains",
+        "between"
+      ]
+    },
+    "target_value": {
+      "type": "string"
+    },
+    "secondary_value": {
+      "type": "string"
+    },
+    "condition_priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium"
+    },
+    "condition_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "testing",
+        "paused"
+      ],
+      "default": "active"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "automation_rule",
+    "condition_name",
+    "condition_type",
+    "monitored_metric",
+    "operator",
+    "target_value"
+  ]
+}

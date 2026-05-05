@@ -1,0 +1,123 @@
+{
+  "name": "ApprovalRequest",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "related_content_queue_id": {
+      "type": "string"
+    },
+    "related_campaign_id": {
+      "type": "string"
+    },
+    "related_campaign_post_id": {
+      "type": "string"
+    },
+    "request_type": {
+      "type": "string",
+      "enum": [
+        "Content Review",
+        "Post Approval",
+        "Campaign Approval",
+        "Asset Approval"
+      ],
+      "default": "Post Approval"
+    },
+    "approval_stage": {
+      "type": "string",
+      "enum": [
+        "Internal Review",
+        "Client Review",
+        "Final Signoff"
+      ],
+      "default": "Internal Review"
+    },
+    "approval_target": {
+      "type": "string",
+      "enum": [
+        "Internal Team",
+        "Client",
+        "Client + Internal Final Check"
+      ],
+      "default": "Internal Team"
+    },
+    "title": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "content_snapshot": {
+      "type": "string"
+    },
+    "media_snapshot_urls": {
+      "type": "string"
+    },
+    "requested_by": {
+      "type": "string"
+    },
+    "requested_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "Pending Internal Review",
+        "Pending Client Review",
+        "Approved",
+        "Rejected",
+        "Revision Requested",
+        "Expired",
+        "Cancelled"
+      ],
+      "default": "Draft"
+    },
+    "signoff_token": {
+      "type": "string"
+    },
+    "client_contact_name": {
+      "type": "string"
+    },
+    "client_contact_email": {
+      "type": "string"
+    },
+    "client_contact_phone": {
+      "type": "string"
+    },
+    "internal_owner": {
+      "type": "string"
+    },
+    "revision_count": {
+      "type": "integer",
+      "default": 0
+    },
+    "latest_revision_notes": {
+      "type": "string"
+    },
+    "final_decision": {
+      "type": "string"
+    },
+    "decided_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}

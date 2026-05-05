@@ -1,0 +1,35 @@
+{
+  "name": "ClientHealthAggregate",
+  "type": "object",
+  "properties": {
+    "week_label": {
+      "type": "string"
+    },
+    "accelerating": {
+      "type": "number"
+    },
+    "stable": {
+      "type": "number"
+    },
+    "at_risk": {
+      "type": "number"
+    },
+    "expansion_ready": {
+      "type": "number"
+    },
+    "avg_health_score": {
+      "type": "number"
+    },
+    "churn_risk_count": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "week_label"
+  ]
+}

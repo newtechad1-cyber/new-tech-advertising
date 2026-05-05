@@ -3,8 +3,7 @@
   "type": "object",
   "properties": {
     "event_type": {
-      "type": "string",
-      "description": "Short machine-readable event name e.g. submission_saved, webhook_failed"
+      "type": "string"
     },
     "source_system": {
       "type": "string",
@@ -21,16 +20,13 @@
       "default": "website"
     },
     "source_route": {
-      "type": "string",
-      "description": "Page route if available e.g. /agency/content"
+      "type": "string"
     },
     "source_component": {
-      "type": "string",
-      "description": "Component or function name e.g. AgencyContent, ntaUnifiedIntake"
+      "type": "string"
     },
     "entity_type": {
-      "type": "string",
-      "description": "Primary entity type e.g. Submission, ContentWorkflow, AIJob"
+      "type": "string"
     },
     "entity_id": {
       "type": "string"
@@ -57,8 +53,7 @@
       "default": "system"
     },
     "workflow_stage": {
-      "type": "string",
-      "description": "Fine-grained step e.g. topic_created, company_matched, webhook_sent"
+      "type": "string"
     },
     "status": {
       "type": "string",
@@ -72,20 +67,16 @@
       "default": "success"
     },
     "message": {
-      "type": "string",
-      "description": "Short human-readable summary"
+      "type": "string"
     },
     "error_details": {
-      "type": "string",
-      "description": "Full error text or structured error JSON"
+      "type": "string"
     },
     "payload_snapshot": {
-      "type": "string",
-      "description": "Safe JSON summary of data involved - no secrets"
+      "type": "string"
     },
     "user_context": {
-      "type": "string",
-      "description": "Current user or operator if available"
+      "type": "string"
     },
     "log_level": {
       "type": "string",
@@ -96,6 +87,11 @@
         "critical"
       ],
       "default": "info"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

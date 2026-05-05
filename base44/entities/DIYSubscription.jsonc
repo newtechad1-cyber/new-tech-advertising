@@ -1,0 +1,196 @@
+{
+  "name": "DIYSubscription",
+  "type": "object",
+  "properties": {
+    "user_email": {
+      "type": "string",
+      "description": "Email of the user with DIY subscription"
+    },
+    "stripe_customer_id": {
+      "type": "string",
+      "description": "Stripe customer ID"
+    },
+    "stripe_subscription_id": {
+      "type": "string",
+      "description": "Stripe subscription ID"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "cancelled",
+        "past_due",
+        "paused"
+      ],
+      "default": "active",
+      "description": "Current subscription status"
+    },
+    "billing_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "trialing",
+        "past_due",
+        "cancelled",
+        "incomplete"
+      ],
+      "default": "active"
+    },
+    "plan_type": {
+      "type": "string",
+      "enum": [
+        "diy",
+        "guided_growth",
+        "done_for_you",
+        "premium"
+      ],
+      "default": "diy"
+    },
+    "current_plan": {
+      "type": "string",
+      "enum": [
+        "diy",
+        "guided_growth",
+        "done_for_you",
+        "premium"
+      ],
+      "default": "diy"
+    },
+    "billing_cycle_start": {
+      "type": "string",
+      "format": "date"
+    },
+    "billing_cycle_end": {
+      "type": "string",
+      "format": "date"
+    },
+    "next_renewal_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "onboarding_completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "onboarding_step": {
+      "type": "number",
+      "default": 0
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "business_services": {
+      "type": "string"
+    },
+    "service_area": {
+      "type": "string"
+    },
+    "marketing_goals": {
+      "type": "string"
+    },
+    "current_frustrations": {
+      "type": "string"
+    },
+    "primary_growth_goal": {
+      "type": "string",
+      "enum": [
+        "more_leads",
+        "higher_ticket_sales",
+        "brand_authority",
+        "beat_competitors",
+        "expand_locations",
+        "faster_growth"
+      ]
+    },
+    "revenue_growth_target": {
+      "type": "string",
+      "enum": [
+        "under_5k",
+        "5k_10k",
+        "10k_25k",
+        "25k_50k",
+        "50k_plus"
+      ]
+    },
+    "time_commitment_level": {
+      "type": "string",
+      "enum": [
+        "minimal",
+        "5_10_hours",
+        "10_15_hours",
+        "15_20_hours",
+        "20_plus_hours"
+      ]
+    },
+    "marketing_frustration": {
+      "type": "string",
+      "enum": [
+        "no_consistency",
+        "no_leads",
+        "low_roi",
+        "too_much_work",
+        "execution_gaps"
+      ]
+    },
+    "growth_speed_intent": {
+      "type": "string",
+      "enum": [
+        "slow_steady",
+        "moderate",
+        "aggressive",
+        "very_aggressive"
+      ]
+    },
+    "upgrade_readiness_score": {
+      "type": "number",
+      "default": 0
+    },
+    "recommended_next_plan": {
+      "type": "string",
+      "enum": [
+        "none",
+        "guided_growth",
+        "done_for_you",
+        "premium"
+      ]
+    },
+    "upsell_intent": {
+      "type": "string",
+      "enum": [
+        "diy_only",
+        "wants_guidance",
+        "wants_full_service"
+      ]
+    },
+    "website_url": {
+      "type": "string"
+    },
+    "social_links": {
+      "type": "string"
+    },
+    "campaign_id": {
+      "type": "string"
+    },
+    "billing_email": {
+      "type": "string"
+    },
+    "onboarding_completion_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "created_date_custom": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "user_email",
+    "stripe_customer_id",
+    "stripe_subscription_id"
+  ]
+}

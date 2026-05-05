@@ -1,0 +1,85 @@
+{
+  "name": "AIJob",
+  "type": "object",
+  "properties": {
+    "job_type": {
+      "type": "string",
+      "enum": [
+        "blog_article",
+        "social_post",
+        "video_script",
+        "email_campaign",
+        "seo_page",
+        "review_response",
+        "ranking_report",
+        "lead_score",
+        "monthly_report",
+        "campaign_launch",
+        "content_calendar"
+      ]
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "agent_id": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "normal",
+        "high",
+        "urgent"
+      ],
+      "default": "normal"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "running",
+        "completed",
+        "failed",
+        "paused",
+        "cancelled",
+        "retrying"
+      ],
+      "default": "queued"
+    },
+    "scheduled_at": {
+      "type": "string"
+    },
+    "started_at": {
+      "type": "string"
+    },
+    "completed_at": {
+      "type": "string"
+    },
+    "attempts": {
+      "type": "number",
+      "default": 0
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "output_summary": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "territory": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "job_type",
+    "client_name"
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "name": "FulfillmentSLAMetric",
+  "type": "object",
+  "properties": {
+    "production_job_id": {
+      "type": "string",
+      "description": "Reference to ProductionJob id"
+    },
+    "job_title": {
+      "type": "string",
+      "description": "Denormalized for quick display"
+    },
+    "client_profile_id": {
+      "type": "string",
+      "description": "Reference to ClientHealthProfile id"
+    },
+    "client_name": {
+      "type": "string",
+      "description": "Denormalized for quick display"
+    },
+    "sla_due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "actual_completion_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "sla_status": {
+      "type": "string",
+      "enum": [
+        "on_track",
+        "at_risk",
+        "overdue",
+        "delivered"
+      ],
+      "default": "on_track"
+    },
+    "delay_reason": {
+      "type": "string",
+      "enum": [
+        "capacity",
+        "client_delay",
+        "revision_cycle",
+        "priority_shift",
+        "technical_issue"
+      ],
+      "description": "Only populated if at_risk or overdue"
+    },
+    "impact_score": {
+      "type": "number",
+      "default": 50
+    },
+    "sla_notes": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "job_title",
+    "client_name",
+    "sla_due_date"
+  ]
+}

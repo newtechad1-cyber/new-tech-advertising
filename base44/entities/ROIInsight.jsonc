@@ -1,0 +1,66 @@
+{
+  "name": "ROIInsight",
+  "type": "object",
+  "properties": {
+    "insight_type": {
+      "type": "string",
+      "enum": [
+        "roi_curve",
+        "engagement_pattern",
+        "geographic_cluster",
+        "pricing_opportunity",
+        "vertical_trend",
+        "content_performance",
+        "churn_signal"
+      ]
+    },
+    "headline": {
+      "type": "string"
+    },
+    "narrative": {
+      "type": "string"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "info"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "acknowledged",
+        "assigned",
+        "converted_to_task",
+        "attached_to_review"
+      ],
+      "default": "new"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "related_client": {
+      "type": "string"
+    },
+    "related_vertical": {
+      "type": "string"
+    },
+    "impact_estimate": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "insight_type",
+    "headline",
+    "severity"
+  ]
+}

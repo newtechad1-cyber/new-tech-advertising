@@ -1,0 +1,99 @@
+{
+  "name": "Organization",
+  "type": "object",
+  "properties": {
+    "organizationId": {
+      "type": "string",
+      "description": "Unique organization identifier"
+    },
+    "businessName": {
+      "type": "string",
+      "description": "Official business name"
+    },
+    "brandName": {
+      "type": "string",
+      "description": "Marketing/brand name if different from business name"
+    },
+    "website": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string",
+      "enum": [
+        "hvac",
+        "plumbing",
+        "roofing",
+        "landscaping",
+        "electrical",
+        "painting",
+        "fitness",
+        "restaurant",
+        "real_estate",
+        "dental",
+        "law",
+        "med_spa",
+        "professional_services",
+        "e-commerce",
+        "saas",
+        "nonprofit",
+        "other"
+      ]
+    },
+    "serviceArea": {
+      "type": "string"
+    },
+    "subscriptionPlan": {
+      "type": "string",
+      "enum": [
+        "free_trial",
+        "diy",
+        "guided_growth",
+        "done_for_you",
+        "premium",
+        "enterprise"
+      ],
+      "default": "free_trial"
+    },
+    "lifecycleStage": {
+      "type": "string",
+      "enum": [
+        "prospect",
+        "trial",
+        "onboarding",
+        "active",
+        "at_risk",
+        "churned",
+        "suspended"
+      ],
+      "default": "prospect"
+    },
+    "ownerUserId": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "suspended",
+        "cancelled",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "metadata": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "organizationId",
+    "businessName",
+    "industry",
+    "ownerUserId"
+  ]
+}

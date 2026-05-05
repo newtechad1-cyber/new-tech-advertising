@@ -1,0 +1,38 @@
+{
+  "name": "TrialSessionState",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "current_step": {
+      "type": "number",
+      "default": 1
+    },
+    "partial_data": {
+      "type": "string"
+    },
+    "last_active": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "trial_signup_id": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "session_id"
+  ]
+}

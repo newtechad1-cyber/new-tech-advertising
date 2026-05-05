@@ -1,0 +1,58 @@
+{
+  "name": "CampaignTemplate",
+  "type": "object",
+  "properties": {
+    "template_name": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "season": {
+      "type": "string",
+      "enum": [
+        "spring",
+        "summer",
+        "fall",
+        "winter",
+        "holiday",
+        "evergreen"
+      ]
+    },
+    "timing_window": {
+      "type": "string"
+    },
+    "channels": {
+      "type": "string"
+    },
+    "content_mix": {
+      "type": "string"
+    },
+    "video_count": {
+      "type": "number"
+    },
+    "post_count": {
+      "type": "number"
+    },
+    "performance_history_label": {
+      "type": "string"
+    },
+    "avg_engagement_lift": {
+      "type": "number"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "template_name",
+    "vertical",
+    "season"
+  ]
+}

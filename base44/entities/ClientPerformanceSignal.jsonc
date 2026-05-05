@@ -1,0 +1,61 @@
+{
+  "name": "ClientPerformanceSignal",
+  "type": "object",
+  "properties": {
+    "client_name": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "ranking_trend": {
+      "type": "string",
+      "enum": [
+        "improving",
+        "stable",
+        "declining"
+      ]
+    },
+    "ranking_keywords_moved": {
+      "type": "number"
+    },
+    "social_reach_growth": {
+      "type": "number"
+    },
+    "lead_flow_signal": {
+      "type": "string",
+      "enum": [
+        "strong",
+        "moderate",
+        "weak"
+      ]
+    },
+    "engagement_velocity": {
+      "type": "number"
+    },
+    "insight_type": {
+      "type": "string",
+      "enum": [
+        "performance_surge",
+        "stagnation_detected",
+        "opportunity_cluster",
+        "normal"
+      ]
+    },
+    "insight_narrative": {
+      "type": "string"
+    },
+    "period": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_name",
+    "ranking_trend"
+  ]
+}

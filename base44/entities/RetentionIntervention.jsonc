@@ -1,0 +1,69 @@
+{
+  "name": "RetentionIntervention",
+  "type": "object",
+  "properties": {
+    "client_profile_id": {
+      "type": "string",
+      "description": "Reference to ClientHealthProfile id"
+    },
+    "client_name": {
+      "type": "string",
+      "description": "Denormalized for quick display"
+    },
+    "risk_reason": {
+      "type": "string",
+      "enum": [
+        "low_content_activity",
+        "slow_approvals",
+        "low_reporting_engagement",
+        "performance_concern",
+        "pricing_objection",
+        "competitor_pressure"
+      ],
+      "default": "low_content_activity"
+    },
+    "risk_severity": {
+      "type": "string",
+      "enum": [
+        "watch",
+        "moderate",
+        "high",
+        "critical"
+      ],
+      "default": "moderate"
+    },
+    "recommended_action": {
+      "type": "string"
+    },
+    "assigned_success_manager": {
+      "type": "string"
+    },
+    "intervention_status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "outreach_sent",
+        "in_discussion",
+        "resolved",
+        "escalated"
+      ],
+      "default": "planned"
+    },
+    "projected_mrr_at_risk": {
+      "type": "number",
+      "default": 0
+    },
+    "intervention_notes": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_name",
+    "risk_reason"
+  ]
+}

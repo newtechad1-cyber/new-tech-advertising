@@ -1,0 +1,46 @@
+{
+  "name": "ProductionCapacityProfile",
+  "type": "object",
+  "properties": {
+    "team_role": {
+      "type": "string"
+    },
+    "total_available_hours_week": {
+      "type": "number",
+      "default": 40
+    },
+    "assigned_hours_week": {
+      "type": "number",
+      "default": 0
+    },
+    "capacity_utilization_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "backlog_hours": {
+      "type": "number",
+      "default": 0
+    },
+    "efficiency_score": {
+      "type": "number",
+      "default": 75
+    },
+    "burnout_risk_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "moderate",
+        "high"
+      ],
+      "default": "low"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "team_role"
+  ]
+}

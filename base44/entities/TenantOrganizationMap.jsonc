@@ -1,0 +1,49 @@
+{
+  "name": "TenantOrganizationMap",
+  "type": "object",
+  "properties": {
+    "mapId": {
+      "type": "string"
+    },
+    "tenantId": {
+      "type": "string"
+    },
+    "organizationId": {
+      "type": "string"
+    },
+    "relationshipType": {
+      "type": "string",
+      "enum": [
+        "client",
+        "partner",
+        "internal"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "suspended",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "assignedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "metadata": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "mapId",
+    "tenantId",
+    "organizationId"
+  ]
+}

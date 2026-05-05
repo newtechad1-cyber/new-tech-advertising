@@ -1,0 +1,58 @@
+{
+  "name": "PackagingStructureSignal",
+  "type": "object",
+  "properties": {
+    "pricing_plan": {
+      "type": "string",
+      "description": "Relation to PricingPlanPerformance id"
+    },
+    "packaging_signal_title": {
+      "type": "string"
+    },
+    "packaging_issue_type": {
+      "type": "string",
+      "enum": [
+        "feature_overlap",
+        "feature_gap",
+        "tier_confusion",
+        "upgrade_barrier",
+        "bundle_opportunity",
+        "value_misalignment"
+      ]
+    },
+    "clarity_score": {
+      "type": "number",
+      "default": 0
+    },
+    "upgrade_friction_score": {
+      "type": "number",
+      "default": 0
+    },
+    "revenue_impact_estimate": {
+      "type": "number",
+      "default": 0
+    },
+    "recommended_packaging_adjustment": {
+      "type": "string"
+    },
+    "packaging_status": {
+      "type": "string",
+      "enum": [
+        "healthy",
+        "review",
+        "redesign",
+        "testing"
+      ],
+      "default": "healthy"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "packaging_signal_title",
+    "packaging_issue_type"
+  ]
+}

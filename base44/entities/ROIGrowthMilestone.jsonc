@@ -1,0 +1,50 @@
+{
+  "name": "ROIGrowthMilestone",
+  "type": "object",
+  "properties": {
+    "client_profile_id": {
+      "type": "string",
+      "description": "Reference to ClientHealthProfile id"
+    },
+    "client_name": {
+      "type": "string",
+      "description": "Denormalized client name"
+    },
+    "milestone_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "milestone_type": {
+      "type": "string",
+      "enum": [
+        "visibility_gain",
+        "engagement_jump",
+        "campaign_launch",
+        "video_success",
+        "content_consistency",
+        "lead_signal_increase",
+        "expansion_ready"
+      ]
+    },
+    "milestone_title": {
+      "type": "string"
+    },
+    "milestone_summary": {
+      "type": "string"
+    },
+    "milestone_impact_score": {
+      "type": "number",
+      "default": 60
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "milestone_date",
+    "milestone_type",
+    "milestone_title"
+  ]
+}

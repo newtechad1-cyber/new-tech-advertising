@@ -1,0 +1,57 @@
+{
+  "name": "ExpansionTerritory",
+  "type": "object",
+  "properties": {
+    "playbook_id": {
+      "type": "string",
+      "description": "Reference to ExpansionPlaybook record id"
+    },
+    "territory_name": {
+      "type": "string"
+    },
+    "region": {
+      "type": "string"
+    },
+    "vertical_focus": {
+      "type": "string",
+      "description": "Industry vertical name"
+    },
+    "opportunity_score": {
+      "type": "number",
+      "default": 50
+    },
+    "assigned_sales_rep": {
+      "type": "string"
+    },
+    "target_city_count": {
+      "type": "number",
+      "default": 0
+    },
+    "active_leads": {
+      "type": "number",
+      "default": 0
+    },
+    "expected_mrr_goal": {
+      "type": "number",
+      "default": 0
+    },
+    "activation_status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "active",
+        "gaining_traction",
+        "dominated"
+      ],
+      "default": "planned"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "territory_name"
+  ]
+}

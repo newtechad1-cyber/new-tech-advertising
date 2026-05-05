@@ -1,0 +1,45 @@
+{
+  "name": "SaaSUnitEconomicMetric",
+  "type": "object",
+  "properties": {
+    "period": {
+      "type": "string"
+    },
+    "cac_estimate": {
+      "type": "number"
+    },
+    "ltv_estimate": {
+      "type": "number"
+    },
+    "ltv_cac_ratio": {
+      "type": "number"
+    },
+    "payback_period_months": {
+      "type": "number"
+    },
+    "arpu": {
+      "type": "number"
+    },
+    "upsell_revenue_pct": {
+      "type": "number"
+    },
+    "margin_compression_flag": {
+      "type": "boolean",
+      "default": false
+    },
+    "cac_spike_flag": {
+      "type": "boolean",
+      "default": false
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "period",
+    "cac_estimate",
+    "ltv_estimate"
+  ]
+}

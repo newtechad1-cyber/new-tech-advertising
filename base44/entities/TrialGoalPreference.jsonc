@@ -1,0 +1,35 @@
+{
+  "name": "TrialGoalPreference",
+  "type": "object",
+  "properties": {
+    "trial_signup_id": {
+      "type": "string"
+    },
+    "primary_goal": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "wants_video": {
+      "type": "boolean"
+    },
+    "wants_social": {
+      "type": "boolean"
+    },
+    "wants_seo": {
+      "type": "boolean"
+    },
+    "priority_market": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "trial_signup_id"
+  ]
+}

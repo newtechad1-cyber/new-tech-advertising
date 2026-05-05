@@ -1,0 +1,64 @@
+{
+  "name": "ExecutiveInsightPanel",
+  "type": "object",
+  "properties": {
+    "insight_title": {
+      "type": "string"
+    },
+    "insight_category": {
+      "type": "string",
+      "enum": [
+        "revenue",
+        "sales",
+        "lifecycle",
+        "expansion",
+        "operations",
+        "vertical_strategy"
+      ]
+    },
+    "impact_score": {
+      "type": "number",
+      "default": 50
+    },
+    "urgency_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium"
+    },
+    "supporting_metric_summary": {
+      "type": "string"
+    },
+    "recommended_action": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "reviewed",
+        "action_planned"
+      ],
+      "default": "new"
+    },
+    "created_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "assigned_owner": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "insight_title",
+    "insight_category"
+  ]
+}

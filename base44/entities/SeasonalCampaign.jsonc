@@ -1,0 +1,90 @@
+{
+  "name": "SeasonalCampaign",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "campaign_title": {
+      "type": "string"
+    },
+    "season": {
+      "type": "string",
+      "enum": [
+        "spring",
+        "summer",
+        "fall",
+        "winter",
+        "holiday",
+        "evergreen"
+      ]
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "suggested",
+        "approved",
+        "in_production",
+        "publishing",
+        "completed",
+        "paused"
+      ],
+      "default": "suggested"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "marketing_goal": {
+      "type": "string"
+    },
+    "channels": {
+      "type": "string"
+    },
+    "content_volume": {
+      "type": "number"
+    },
+    "video_count": {
+      "type": "number"
+    },
+    "performance_confidence": {
+      "type": "number"
+    },
+    "urgency": {
+      "type": "string",
+      "enum": [
+        "urgent",
+        "normal",
+        "low"
+      ],
+      "default": "normal"
+    },
+    "ai_summary": {
+      "type": "string"
+    },
+    "template_id": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_id",
+    "campaign_title",
+    "season",
+    "status"
+  ]
+}

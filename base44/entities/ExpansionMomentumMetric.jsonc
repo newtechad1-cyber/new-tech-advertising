@@ -1,0 +1,32 @@
+{
+  "name": "ExpansionMomentumMetric",
+  "type": "object",
+  "properties": {
+    "week_label": {
+      "type": "string"
+    },
+    "new_markets_entered": {
+      "type": "number"
+    },
+    "markets_nearing_domination": {
+      "type": "number"
+    },
+    "vertical_growth_signals": {
+      "type": "number"
+    },
+    "expansion_mrr_contribution": {
+      "type": "number"
+    },
+    "top_expanding_vertical": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "week_label"
+  ]
+}

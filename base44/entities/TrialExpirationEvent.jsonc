@@ -1,0 +1,46 @@
+{
+  "name": "TrialExpirationEvent",
+  "type": "object",
+  "properties": {
+    "trial_signup_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "expiration_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "expired": {
+      "type": "boolean",
+      "default": false
+    },
+    "portal_paused": {
+      "type": "boolean",
+      "default": false
+    },
+    "reminder_3d_sent": {
+      "type": "boolean",
+      "default": false
+    },
+    "reminder_1d_sent": {
+      "type": "boolean",
+      "default": false
+    },
+    "reactivation_cta_shown": {
+      "type": "boolean",
+      "default": false
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "trial_signup_id",
+    "company_name",
+    "expiration_date"
+  ]
+}

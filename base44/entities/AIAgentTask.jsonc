@@ -1,0 +1,68 @@
+{
+  "name": "AIAgentTask",
+  "type": "object",
+  "properties": {
+    "task_title": {
+      "type": "string"
+    },
+    "assigned_agent": {
+      "type": "string",
+      "description": "Relation to AIAgentProfile id"
+    },
+    "task_category": {
+      "type": "string",
+      "enum": [
+        "content_batch",
+        "video_batch",
+        "campaign_setup",
+        "report_generation",
+        "lead_analysis",
+        "funnel_test",
+        "retention_scan",
+        "expansion_scan"
+      ]
+    },
+    "priority_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium"
+    },
+    "estimated_processing_time_minutes": {
+      "type": "number",
+      "default": 0
+    },
+    "execution_status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "running",
+        "review_required",
+        "completed",
+        "failed"
+      ],
+      "default": "queued"
+    },
+    "confidence_score": {
+      "type": "number",
+      "default": 0
+    },
+    "impact_score": {
+      "type": "number",
+      "default": 0
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "task_title",
+    "task_category"
+  ]
+}

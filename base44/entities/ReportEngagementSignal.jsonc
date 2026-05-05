@@ -1,0 +1,48 @@
+{
+  "name": "ReportEngagementSignal",
+  "type": "object",
+  "properties": {
+    "report_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "viewed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "pdf_downloaded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "video_watched_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "strategy_call_requested_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "engagement_score": {
+      "type": "number",
+      "default": 0
+    },
+    "next_followup_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "report_id",
+    "client_id"
+  ]
+}

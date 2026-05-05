@@ -1,0 +1,58 @@
+{
+  "name": "ExpansionPlaybook",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "target_vertical": {
+      "type": "string",
+      "description": "Industry vertical name"
+    },
+    "target_region": {
+      "type": "string"
+    },
+    "expansion_type": {
+      "type": "string",
+      "enum": [
+        "geographic",
+        "vertical_domination",
+        "enterprise",
+        "partner_channel"
+      ]
+    },
+    "difficulty_score": {
+      "type": "number",
+      "default": 50
+    },
+    "projected_mrr_goal": {
+      "type": "number",
+      "default": 0
+    },
+    "timeline_weeks": {
+      "type": "number",
+      "default": 12
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planning",
+        "active",
+        "scaling",
+        "completed"
+      ],
+      "default": "planning"
+    },
+    "strategic_notes": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

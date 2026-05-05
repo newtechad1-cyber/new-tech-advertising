@@ -1,0 +1,40 @@
+{
+  "name": "ApprovalInteractionLog",
+  "type": "object",
+  "properties": {
+    "approval_item_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "viewed",
+        "approved",
+        "revision_requested",
+        "caption_edited",
+        "date_changed",
+        "downloaded",
+        "quick_prompt_used"
+      ]
+    },
+    "detail": {
+      "type": "string"
+    },
+    "time_to_decision_minutes": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "approval_item_id",
+    "client_id",
+    "action"
+  ]
+}

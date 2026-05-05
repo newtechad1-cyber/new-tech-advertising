@@ -1,0 +1,49 @@
+{
+  "name": "MarketOpportunityScore",
+  "type": "object",
+  "properties": {
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "demand_index": {
+      "type": "number"
+    },
+    "competitor_density": {
+      "type": "number"
+    },
+    "population_score": {
+      "type": "number"
+    },
+    "nta_fit_score": {
+      "type": "number"
+    },
+    "composite_score": {
+      "type": "number"
+    },
+    "priority_tier": {
+      "type": "string",
+      "enum": [
+        "tier_1",
+        "tier_2",
+        "tier_3",
+        "watch"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "city",
+    "state",
+    "composite_score"
+  ]
+}

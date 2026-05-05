@@ -1,0 +1,67 @@
+{
+  "name": "PlatformRouteRegistry",
+  "type": "object",
+  "properties": {
+    "page_name": {
+      "type": "string"
+    },
+    "route_path": {
+      "type": "string"
+    },
+    "page_group": {
+      "type": "string",
+      "enum": [
+        "public_site",
+        "trial_flow",
+        "client_portal",
+        "admin_platform",
+        "sales",
+        "operations",
+        "partner_portal",
+        "reporting"
+      ]
+    },
+    "user_role_visibility": {
+      "type": "string"
+    },
+    "parent_navigation_group": {
+      "type": "string"
+    },
+    "page_purpose": {
+      "type": "string"
+    },
+    "primary_cta_label": {
+      "type": "string"
+    },
+    "primary_next_step": {
+      "type": "string"
+    },
+    "entry_path_summary": {
+      "type": "string"
+    },
+    "exit_path_summary": {
+      "type": "string"
+    },
+    "route_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "orphaned",
+        "duplicate",
+        "broken",
+        "review_needed"
+      ],
+      "default": "active"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "page_name",
+    "route_path",
+    "page_group"
+  ]
+}

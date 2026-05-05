@@ -1,0 +1,39 @@
+{
+  "name": "AgentDeploymentSuggestion",
+  "type": "object",
+  "properties": {
+    "agent_role": {
+      "type": "string"
+    },
+    "suggestion_headline": {
+      "type": "string"
+    },
+    "rationale": {
+      "type": "string"
+    },
+    "estimated_tasks_offloaded": {
+      "type": "number"
+    },
+    "estimated_cost_saving": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "deployed",
+        "dismissed"
+      ],
+      "default": "new"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "agent_role",
+    "suggestion_headline"
+  ]
+}

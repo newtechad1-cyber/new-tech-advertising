@@ -1,0 +1,53 @@
+{
+  "name": "FounderExecutionMetric",
+  "type": "object",
+  "properties": {
+    "week_plan_id": {
+      "type": "string",
+      "description": "Reference to FounderWeeklyPlan id"
+    },
+    "week_start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "execution_area": {
+      "type": "string",
+      "enum": [
+        "sales",
+        "expansion",
+        "marketing",
+        "operations",
+        "partnerships",
+        "product"
+      ],
+      "default": "sales"
+    },
+    "planned_focus": {
+      "type": "string"
+    },
+    "completion_percentage": {
+      "type": "number",
+      "default": 0
+    },
+    "revenue_impact_estimate": {
+      "type": "number",
+      "default": 0
+    },
+    "execution_confidence": {
+      "type": "number",
+      "default": 50
+    },
+    "notes": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "execution_area",
+    "planned_focus"
+  ]
+}

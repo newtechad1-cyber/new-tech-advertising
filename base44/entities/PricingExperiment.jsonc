@@ -1,0 +1,67 @@
+{
+  "name": "PricingExperiment",
+  "type": "object",
+  "properties": {
+    "experiment_name": {
+      "type": "string"
+    },
+    "target_pricing_plan": {
+      "type": "string",
+      "description": "Relation to PricingPlanPerformance id"
+    },
+    "vertical_focus": {
+      "type": "string",
+      "description": "Relation to IndustryVertical id (optional)"
+    },
+    "price_variation_type": {
+      "type": "string",
+      "enum": [
+        "increase",
+        "decrease",
+        "bundled_value",
+        "limited_discount",
+        "trial_extension",
+        "feature_addition"
+      ]
+    },
+    "baseline_price": {
+      "type": "number",
+      "default": 0
+    },
+    "test_price": {
+      "type": "number",
+      "default": 0
+    },
+    "conversion_rate_change_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "revenue_per_client_change_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "elasticity_score": {
+      "type": "number",
+      "default": 0
+    },
+    "experiment_status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "running",
+        "completed",
+        "paused"
+      ],
+      "default": "planned"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "experiment_name",
+    "price_variation_type"
+  ]
+}

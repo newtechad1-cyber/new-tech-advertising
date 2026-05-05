@@ -1,0 +1,59 @@
+{
+  "name": "UpsellAutomationTrigger",
+  "type": "object",
+  "properties": {
+    "client_name": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "trigger_type": {
+      "type": "string",
+      "enum": [
+        "performance_surge",
+        "content_saturation",
+        "multi_location_growth",
+        "premium_video_readiness",
+        "annual_prepay"
+      ]
+    },
+    "automation_status": {
+      "type": "string",
+      "enum": [
+        "detected",
+        "sequence_active",
+        "responded",
+        "converted",
+        "declined"
+      ],
+      "default": "detected"
+    },
+    "projected_added_mrr": {
+      "type": "number"
+    },
+    "conversion_confidence": {
+      "type": "number"
+    },
+    "suggested_offer": {
+      "type": "string"
+    },
+    "current_mrr": {
+      "type": "number"
+    },
+    "trigger_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_name",
+    "trigger_type",
+    "automation_status"
+  ]
+}

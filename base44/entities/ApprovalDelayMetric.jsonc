@@ -1,0 +1,46 @@
+{
+  "name": "ApprovalDelayMetric",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "pending_items": {
+      "type": "number"
+    },
+    "oldest_pending_days": {
+      "type": "number"
+    },
+    "campaign_impact_score": {
+      "type": "number"
+    },
+    "recommended_action": {
+      "type": "string"
+    },
+    "urgency_level": {
+      "type": "string",
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "last_activity_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_id",
+    "company_name"
+  ]
+}

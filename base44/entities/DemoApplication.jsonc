@@ -1,0 +1,109 @@
+{
+  "name": "DemoApplication",
+  "type": "object",
+  "properties": {
+    "business_name": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string",
+      "enum": [
+        "hvac",
+        "plumbing",
+        "roofing",
+        "landscaping",
+        "electrical",
+        "painting",
+        "fitness",
+        "restaurant",
+        "real_estate",
+        "dental",
+        "law",
+        "med_spa",
+        "other"
+      ]
+    },
+    "city": {
+      "type": "string"
+    },
+    "contact_name": {
+      "type": "string"
+    },
+    "contact_email": {
+      "type": "string"
+    },
+    "contact_phone": {
+      "type": "string"
+    },
+    "current_marketing": {
+      "type": "string"
+    },
+    "monthly_investment_range": {
+      "type": "string",
+      "enum": [
+        "under_1k",
+        "1k_3k",
+        "3k_5k",
+        "5k_10k",
+        "over_10k"
+      ]
+    },
+    "urgency": {
+      "type": "string",
+      "enum": [
+        "immediate",
+        "next_30_days",
+        "next_90_days",
+        "just_exploring"
+      ]
+    },
+    "primary_goal": {
+      "type": "string",
+      "enum": [
+        "more_leads",
+        "brand_authority",
+        "beat_competitors",
+        "expand_locations",
+        "reduce_marketing_cost",
+        "better_roi"
+      ]
+    },
+    "lead_score": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "started",
+        "qualified",
+        "insight_viewed",
+        "booked",
+        "no_show",
+        "completed"
+      ],
+      "default": "started"
+    },
+    "opportunity_id": {
+      "type": "string"
+    },
+    "booking_id": {
+      "type": "string"
+    },
+    "utm_source": {
+      "type": "string"
+    },
+    "utm_campaign": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "business_name",
+    "contact_email"
+  ]
+}

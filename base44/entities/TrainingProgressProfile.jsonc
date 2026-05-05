@@ -1,0 +1,59 @@
+{
+  "name": "TrainingProgressProfile",
+  "type": "object",
+  "properties": {
+    "team_member_name": {
+      "type": "string"
+    },
+    "role_category": {
+      "type": "string",
+      "enum": [
+        "sales",
+        "client_success",
+        "operations",
+        "marketing",
+        "leadership",
+        "partner"
+      ]
+    },
+    "assigned_workflows_count": {
+      "type": "number",
+      "default": 0
+    },
+    "completed_workflows_count": {
+      "type": "number",
+      "default": 0
+    },
+    "training_completion_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "certification_level": {
+      "type": "string",
+      "enum": [
+        "trainee",
+        "certified",
+        "advanced",
+        "expert"
+      ],
+      "default": "trainee"
+    },
+    "last_training_activity_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "competency_score": {
+      "type": "number",
+      "default": 0
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "team_member_name",
+    "role_category"
+  ]
+}

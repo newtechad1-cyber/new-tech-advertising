@@ -1,0 +1,53 @@
+{
+  "name": "VerticalPenetrationMetric",
+  "type": "object",
+  "properties": {
+    "vertical": {
+      "type": "string"
+    },
+    "active_clients": {
+      "type": "number"
+    },
+    "total_revenue": {
+      "type": "number"
+    },
+    "avg_mrr": {
+      "type": "number"
+    },
+    "close_rate": {
+      "type": "number"
+    },
+    "roi_performance": {
+      "type": "number"
+    },
+    "upsell_frequency": {
+      "type": "number"
+    },
+    "growth_velocity": {
+      "type": "string",
+      "enum": [
+        "accelerating",
+        "stable",
+        "declining"
+      ]
+    },
+    "authority_saturation": {
+      "type": "number"
+    },
+    "content_pieces_published": {
+      "type": "number"
+    },
+    "rank": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "vertical",
+    "active_clients"
+  ]
+}

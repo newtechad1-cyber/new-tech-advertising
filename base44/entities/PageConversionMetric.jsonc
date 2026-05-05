@@ -1,0 +1,49 @@
+{
+  "name": "PageConversionMetric",
+  "type": "object",
+  "properties": {
+    "page_name": {
+      "type": "string"
+    },
+    "page_route": {
+      "type": "string"
+    },
+    "visitors_count": {
+      "type": "number",
+      "default": 0
+    },
+    "avg_time_on_page_seconds": {
+      "type": "number",
+      "default": 0
+    },
+    "primary_cta_clicks": {
+      "type": "number",
+      "default": 0
+    },
+    "demo_clicks": {
+      "type": "number",
+      "default": 0
+    },
+    "trial_clicks": {
+      "type": "number",
+      "default": 0
+    },
+    "conversion_score": {
+      "type": "number",
+      "default": 50
+    },
+    "drop_off_rate": {
+      "type": "number",
+      "default": 0
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "page_name",
+    "page_route"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "name": "FollowUpEngagementSignal",
+  "type": "object",
+  "properties": {
+    "sequence_id": {
+      "type": "string"
+    },
+    "opportunity_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "signal_type": {
+      "type": "string",
+      "enum": [
+        "deal_room_visit",
+        "proposal_view",
+        "proposal_scroll_deep",
+        "cta_click",
+        "email_open",
+        "email_click",
+        "email_reply",
+        "call_answered",
+        "linkedin_view"
+      ]
+    },
+    "signal_strength": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "score_delta": {
+      "type": "number",
+      "default": 0
+    },
+    "metadata": {
+      "type": "string"
+    },
+    "triggered_action": {
+      "type": "string"
+    },
+    "recorded_at": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "sequence_id",
+    "signal_type"
+  ]
+}

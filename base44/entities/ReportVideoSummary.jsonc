@@ -1,0 +1,51 @@
+{
+  "name": "ReportVideoSummary",
+  "type": "object",
+  "properties": {
+    "report_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "video_url": {
+      "type": "string"
+    },
+    "thumbnail_url": {
+      "type": "string"
+    },
+    "duration_seconds": {
+      "type": "number"
+    },
+    "transcript_snippet": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "generating",
+        "ready",
+        "delivered"
+      ],
+      "default": "pending"
+    },
+    "client_watched": {
+      "type": "boolean",
+      "default": false
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "report_id",
+    "client_id",
+    "title"
+  ]
+}

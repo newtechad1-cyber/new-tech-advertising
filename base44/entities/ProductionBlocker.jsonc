@@ -1,0 +1,86 @@
+{
+  "name": "ProductionBlocker",
+  "type": "object",
+  "properties": {
+    "blocker_title": {
+      "type": "string"
+    },
+    "blocker_category": {
+      "type": "string",
+      "enum": [
+        "navigation",
+        "publishing",
+        "integration",
+        "automation",
+        "data_sync",
+        "permissions",
+        "ui_confusion",
+        "performance",
+        "routing"
+      ]
+    },
+    "affected_system_area": {
+      "type": "string",
+      "enum": [
+        "public_site",
+        "onboarding",
+        "client_portal",
+        "admin_platform",
+        "sales",
+        "operations",
+        "reporting",
+        "channels"
+      ]
+    },
+    "severity_level": {
+      "type": "string",
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "blocker_description": {
+      "type": "string"
+    },
+    "affected_user_role": {
+      "type": "string"
+    },
+    "workaround_available": {
+      "type": "boolean",
+      "default": false
+    },
+    "estimated_fix_complexity": {
+      "type": "string",
+      "enum": [
+        "quick_fix",
+        "moderate",
+        "major",
+        "unknown"
+      ],
+      "default": "unknown"
+    },
+    "blocker_status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "investigating",
+        "fixing",
+        "resolved"
+      ],
+      "default": "open"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "blocker_title",
+    "blocker_category",
+    "affected_system_area",
+    "severity_level"
+  ]
+}

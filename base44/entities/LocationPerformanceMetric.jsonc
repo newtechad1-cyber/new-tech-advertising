@@ -1,0 +1,47 @@
+{
+  "name": "LocationPerformanceMetric",
+  "type": "object",
+  "properties": {
+    "location_id": {
+      "type": "string"
+    },
+    "week_label": {
+      "type": "string"
+    },
+    "visibility_score": {
+      "type": "number"
+    },
+    "visibility_trend": {
+      "type": "string",
+      "enum": [
+        "up",
+        "stable",
+        "down"
+      ]
+    },
+    "engagement_score": {
+      "type": "number"
+    },
+    "content_pieces_published": {
+      "type": "number"
+    },
+    "lead_signals": {
+      "type": "number"
+    },
+    "campaign_participation_pct": {
+      "type": "number"
+    },
+    "ranking_position_avg": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "location_id",
+    "week_label"
+  ]
+}

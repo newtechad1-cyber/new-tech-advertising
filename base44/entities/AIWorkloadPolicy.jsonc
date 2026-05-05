@@ -1,0 +1,53 @@
+{
+  "name": "AIWorkloadPolicy",
+  "type": "object",
+  "properties": {
+    "policy_name": {
+      "type": "string"
+    },
+    "content_velocity": {
+      "type": "number",
+      "default": 70
+    },
+    "video_production_rate": {
+      "type": "number",
+      "default": 50
+    },
+    "ranking_expansion_level": {
+      "type": "number",
+      "default": 60
+    },
+    "social_posting_frequency": {
+      "type": "number",
+      "default": 80
+    },
+    "max_concurrent_jobs": {
+      "type": "number",
+      "default": 20
+    },
+    "auto_retry_failed": {
+      "type": "boolean",
+      "default": true
+    },
+    "auto_redistribute_on_spike": {
+      "type": "boolean",
+      "default": true
+    },
+    "auto_allocate_new_clients": {
+      "type": "boolean",
+      "default": true
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "policy_name"
+  ]
+}

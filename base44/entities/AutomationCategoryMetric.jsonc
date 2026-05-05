@@ -1,0 +1,41 @@
+{
+  "name": "AutomationCategoryMetric",
+  "type": "object",
+  "properties": {
+    "category": {
+      "type": "string",
+      "enum": [
+        "content_generation",
+        "video_production",
+        "publishing",
+        "reporting",
+        "lifecycle",
+        "referral"
+      ]
+    },
+    "week_label": {
+      "type": "string"
+    },
+    "throughput_volume": {
+      "type": "number"
+    },
+    "success_rate": {
+      "type": "number"
+    },
+    "delay_frequency": {
+      "type": "number"
+    },
+    "capacity_utilization": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "category",
+    "week_label"
+  ]
+}

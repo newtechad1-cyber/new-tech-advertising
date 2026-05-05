@@ -1,0 +1,48 @@
+{
+  "name": "RetentionCohort",
+  "type": "object",
+  "properties": {
+    "cohort_month": {
+      "type": "string"
+    },
+    "starting_clients": {
+      "type": "number"
+    },
+    "month_1_retention": {
+      "type": "number"
+    },
+    "month_3_retention": {
+      "type": "number"
+    },
+    "month_6_retention": {
+      "type": "number"
+    },
+    "month_12_retention": {
+      "type": "number"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "pricing_tier": {
+      "type": "string",
+      "enum": [
+        "starter",
+        "growth",
+        "professional",
+        "enterprise"
+      ]
+    },
+    "churn_rate": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "cohort_month",
+    "starting_clients"
+  ]
+}

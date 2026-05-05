@@ -1,0 +1,44 @@
+{
+  "name": "LeadSignalMetric",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "period": {
+      "type": "string"
+    },
+    "inquiry_trend": {
+      "type": "string",
+      "enum": [
+        "increasing",
+        "stable",
+        "decreasing"
+      ]
+    },
+    "call_activity_estimate": {
+      "type": "number"
+    },
+    "seasonal_demand_note": {
+      "type": "string"
+    },
+    "ai_suggestion": {
+      "type": "string"
+    },
+    "estimated_leads": {
+      "type": "number"
+    },
+    "lead_growth_pct": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_id",
+    "period"
+  ]
+}

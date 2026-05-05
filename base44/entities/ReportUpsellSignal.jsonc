@@ -1,0 +1,64 @@
+{
+  "name": "ReportUpsellSignal",
+  "type": "object",
+  "properties": {
+    "report_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "signal_type": {
+      "type": "string",
+      "enum": [
+        "retention_watch",
+        "stable_account",
+        "expansion_ready",
+        "premium_video_candidate",
+        "seasonal_campaign",
+        "annual_upgrade"
+      ]
+    },
+    "projected_value": {
+      "type": "string"
+    },
+    "urgency": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "recommended_offer": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "assigned",
+        "actioned",
+        "converted",
+        "dismissed"
+      ],
+      "default": "new"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "report_id",
+    "client_id",
+    "signal_type"
+  ]
+}

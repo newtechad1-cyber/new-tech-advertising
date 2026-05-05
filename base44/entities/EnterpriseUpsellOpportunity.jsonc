@@ -1,0 +1,51 @@
+{
+  "name": "EnterpriseUpsellOpportunity",
+  "type": "object",
+  "properties": {
+    "enterprise_client_id": {
+      "type": "string"
+    },
+    "opportunity_type": {
+      "type": "string",
+      "enum": [
+        "premium_video",
+        "streaming_tv",
+        "authority_pack",
+        "multi_year_contract",
+        "new_location"
+      ]
+    },
+    "headline": {
+      "type": "string"
+    },
+    "projected_mrr_increase": {
+      "type": "number"
+    },
+    "confidence_score": {
+      "type": "number"
+    },
+    "suggested_strategy": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "proposed",
+        "accepted",
+        "declined"
+      ],
+      "default": "new"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "enterprise_client_id",
+    "opportunity_type",
+    "headline"
+  ]
+}

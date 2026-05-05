@@ -1,0 +1,46 @@
+{
+  "name": "LocationGrowthSignal",
+  "type": "object",
+  "properties": {
+    "location_id": {
+      "type": "string"
+    },
+    "signal_type": {
+      "type": "string",
+      "enum": [
+        "visibility_spike",
+        "engagement_rise",
+        "lead_increase",
+        "ranking_jump"
+      ]
+    },
+    "headline": {
+      "type": "string"
+    },
+    "detail": {
+      "type": "string"
+    },
+    "intensity": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "detected_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "location_id",
+    "signal_type",
+    "headline"
+  ]
+}

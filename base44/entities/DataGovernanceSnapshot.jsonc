@@ -1,0 +1,54 @@
+{
+  "name": "DataGovernanceSnapshot",
+  "type": "object",
+  "properties": {
+    "snapshotId": {
+      "type": "string"
+    },
+    "snapshotDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "organizationId": {
+      "type": "string"
+    },
+    "entityCounts": {
+      "type": "string"
+    },
+    "healthScore": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "orphanRecords": {
+      "type": "number",
+      "default": 0
+    },
+    "duplicates": {
+      "type": "number",
+      "default": 0
+    },
+    "statusDistribution": {
+      "type": "string"
+    },
+    "relationshipHealth": {
+      "type": "string"
+    },
+    "violations": {
+      "type": "number",
+      "default": 0
+    },
+    "issues": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "snapshotId",
+    "snapshotDate"
+  ]
+}

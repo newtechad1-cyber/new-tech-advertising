@@ -1,0 +1,52 @@
+{
+  "name": "AutomationRuleLog",
+  "type": "object",
+  "properties": {
+    "rule_id": {
+      "type": "string",
+      "description": "Reference to AutomationRule"
+    },
+    "rule_name": {
+      "type": "string",
+      "description": "Name of the rule executed"
+    },
+    "entity_id": {
+      "type": "string",
+      "description": "Entity that triggered the rule"
+    },
+    "entity_type": {
+      "type": "string",
+      "description": "Type of entity"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "success",
+        "failed"
+      ],
+      "default": "pending"
+    },
+    "executed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "error": {
+      "type": "string"
+    },
+    "response_data": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "rule_id",
+    "rule_name",
+    "entity_id",
+    "status"
+  ]
+}

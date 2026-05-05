@@ -1,0 +1,57 @@
+{
+  "name": "SalesRepProfile",
+  "type": "object",
+  "properties": {
+    "rep_name": {
+      "type": "string"
+    },
+    "avatar_initial": {
+      "type": "string"
+    },
+    "deals_closed_month": {
+      "type": "number"
+    },
+    "revenue_generated_month": {
+      "type": "number"
+    },
+    "demos_completed_month": {
+      "type": "number"
+    },
+    "close_ratio": {
+      "type": "number"
+    },
+    "avg_deal_size": {
+      "type": "number"
+    },
+    "pipeline_value": {
+      "type": "number"
+    },
+    "quota": {
+      "type": "number"
+    },
+    "quota_attainment": {
+      "type": "number"
+    },
+    "trend": {
+      "type": "string",
+      "enum": [
+        "improving",
+        "stable",
+        "declining"
+      ]
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "rep_name",
+    "deals_closed_month"
+  ]
+}

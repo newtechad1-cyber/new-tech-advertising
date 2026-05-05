@@ -1,0 +1,101 @@
+{
+  "name": "LeadAttribution",
+  "type": "object",
+  "properties": {
+    "opportunity_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "contact_name": {
+      "type": "string"
+    },
+    "contact_email": {
+      "type": "string"
+    },
+    "primary_source_key": {
+      "type": "string",
+      "enum": [
+        "authority_content_seo",
+        "social_authority",
+        "outbound_prospecting",
+        "referral_expansion",
+        "territory_campaigns",
+        "demo_request",
+        "paid_amplification",
+        "partner",
+        "event",
+        "other"
+      ]
+    },
+    "campaign_id": {
+      "type": "string"
+    },
+    "referrer_company": {
+      "type": "string"
+    },
+    "referrer_contact": {
+      "type": "string"
+    },
+    "first_touch_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "demo_booked_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "opportunity_created_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "closed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "deal_value": {
+      "type": "number",
+      "default": 0
+    },
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "lead",
+        "demo_booked",
+        "opportunity",
+        "verbal_yes",
+        "closed_won",
+        "closed_lost"
+      ],
+      "default": "lead"
+    },
+    "days_to_demo": {
+      "type": "number"
+    },
+    "days_to_close": {
+      "type": "number"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "content_piece_credited": {
+      "type": "string"
+    },
+    "keyword_credited": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "primary_source_key",
+    "outcome"
+  ]
+}

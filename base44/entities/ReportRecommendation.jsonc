@@ -1,0 +1,58 @@
+{
+  "name": "ReportRecommendation",
+  "type": "object",
+  "properties": {
+    "report_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "keep_doing",
+        "improve_next",
+        "growth_opportunity"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "explanation": {
+      "type": "string"
+    },
+    "expected_benefit": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "default": "medium"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "acknowledged",
+        "actioned"
+      ],
+      "default": "new"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "report_id",
+    "client_id",
+    "category",
+    "title"
+  ]
+}

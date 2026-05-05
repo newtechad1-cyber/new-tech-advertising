@@ -1,0 +1,58 @@
+{
+  "name": "ExpansionRevenueMetric",
+  "type": "object",
+  "properties": {
+    "territory_id": {
+      "type": "string",
+      "description": "Reference to ExpansionTerritory record id"
+    },
+    "playbook_id": {
+      "type": "string",
+      "description": "Reference to ExpansionPlaybook record id"
+    },
+    "territory_name": {
+      "type": "string",
+      "description": "Denormalized for quick display"
+    },
+    "month": {
+      "type": "string",
+      "format": "date",
+      "description": "YYYY-MM-01"
+    },
+    "new_clients_acquired": {
+      "type": "number",
+      "default": 0
+    },
+    "new_mrr_generated": {
+      "type": "number",
+      "default": 0
+    },
+    "cumulative_mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "sales_cycle_days_avg": {
+      "type": "number",
+      "default": 0
+    },
+    "expansion_stage": {
+      "type": "string",
+      "enum": [
+        "early",
+        "traction",
+        "scaling",
+        "mature"
+      ],
+      "default": "early"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "territory_name",
+    "month"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "name": "RevenueShareRecord",
+  "type": "object",
+  "properties": {
+    "reseller_id": {
+      "type": "string"
+    },
+    "reseller_name": {
+      "type": "string"
+    },
+    "period_month": {
+      "type": "string"
+    },
+    "gross_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "platform_share_percent": {
+      "type": "number",
+      "default": 80
+    },
+    "partner_share_percent": {
+      "type": "number",
+      "default": 20
+    },
+    "platform_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "partner_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "deal_count": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "calculated",
+        "approved",
+        "paid",
+        "disputed"
+      ],
+      "default": "calculated"
+    },
+    "paid_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "reseller_id",
+    "period_month"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "name": "PricingPackage",
+  "type": "object",
+  "properties": {
+    "package_name": {
+      "type": "string"
+    },
+    "package_tier": {
+      "type": "string",
+      "enum": [
+        "starter",
+        "authority",
+        "domination"
+      ]
+    },
+    "base_setup_fee": {
+      "type": "number",
+      "default": 0
+    },
+    "base_monthly_fee": {
+      "type": "number",
+      "default": 0
+    },
+    "deliverables": {
+      "type": "string"
+    },
+    "positioning_message": {
+      "type": "string"
+    },
+    "ideal_market_size": {
+      "type": "string"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "package_name",
+    "package_tier"
+  ]
+}

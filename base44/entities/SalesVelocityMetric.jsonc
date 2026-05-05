@@ -1,0 +1,38 @@
+{
+  "name": "SalesVelocityMetric",
+  "type": "object",
+  "properties": {
+    "week_label": {
+      "type": "string"
+    },
+    "demos_booked": {
+      "type": "number"
+    },
+    "demos_completed": {
+      "type": "number"
+    },
+    "deals_closed": {
+      "type": "number"
+    },
+    "avg_deal_size": {
+      "type": "number"
+    },
+    "close_rate_pct": {
+      "type": "number"
+    },
+    "founder_assisted_closes": {
+      "type": "number"
+    },
+    "pipeline_value": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "week_label"
+  ]
+}

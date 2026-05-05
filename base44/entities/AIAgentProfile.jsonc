@@ -1,0 +1,61 @@
+{
+  "name": "AIAgentProfile",
+  "type": "object",
+  "properties": {
+    "agent_name": {
+      "type": "string"
+    },
+    "agent_function": {
+      "type": "string",
+      "enum": [
+        "content_generation",
+        "video_creation",
+        "campaign_planning",
+        "reporting",
+        "lead_scoring",
+        "funnel_optimization",
+        "retention_analysis",
+        "expansion_strategy"
+      ]
+    },
+    "automation_coverage_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "tasks_completed_this_week": {
+      "type": "number",
+      "default": 0
+    },
+    "avg_task_confidence_score": {
+      "type": "number",
+      "default": 0
+    },
+    "operational_impact_score": {
+      "type": "number",
+      "default": 0
+    },
+    "workload_status": {
+      "type": "string",
+      "enum": [
+        "idle",
+        "active",
+        "high_load",
+        "throttled"
+      ],
+      "default": "idle"
+    },
+    "reliability_rating": {
+      "type": "number",
+      "default": 0
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "agent_name",
+    "agent_function"
+  ]
+}

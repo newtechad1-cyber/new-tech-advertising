@@ -1,0 +1,58 @@
+{
+  "name": "SOPWorkflow",
+  "type": "object",
+  "properties": {
+    "workflow_name": {
+      "type": "string"
+    },
+    "workflow_category": {
+      "type": "string",
+      "enum": [
+        "sales_process",
+        "onboarding",
+        "content_production",
+        "campaign_launch",
+        "retention_intervention",
+        "expansion_execution",
+        "automation_flow"
+      ]
+    },
+    "related_article": {
+      "type": "string",
+      "description": "Relation to KnowledgeArticle id (optional)"
+    },
+    "step_sequence_summary": {
+      "type": "string"
+    },
+    "step_count": {
+      "type": "number",
+      "default": 0
+    },
+    "avg_completion_days": {
+      "type": "number",
+      "default": 0
+    },
+    "operational_importance_score": {
+      "type": "number",
+      "default": 0
+    },
+    "workflow_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "review_needed",
+        "deprecated"
+      ],
+      "default": "active"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "workflow_name",
+    "workflow_category"
+  ]
+}

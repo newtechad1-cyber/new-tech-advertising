@@ -1,0 +1,60 @@
+{
+  "name": "Territory",
+  "type": "object",
+  "properties": {
+    "territory_name": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "cities": {
+      "type": "string"
+    },
+    "assigned_reseller_id": {
+      "type": "string"
+    },
+    "vertical_focus": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "available",
+        "assigned",
+        "saturated",
+        "reserved"
+      ],
+      "default": "available"
+    },
+    "saturation_score": {
+      "type": "number",
+      "default": 0
+    },
+    "active_clients_in_territory": {
+      "type": "number",
+      "default": 0
+    },
+    "max_clients": {
+      "type": "number",
+      "default": 20
+    },
+    "monthly_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "expansion_opportunity": {
+      "type": "boolean",
+      "default": false
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "territory_name",
+    "state"
+  ]
+}

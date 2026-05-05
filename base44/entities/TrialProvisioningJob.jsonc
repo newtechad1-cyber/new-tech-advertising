@@ -1,0 +1,58 @@
+{
+  "name": "TrialProvisioningJob",
+  "type": "object",
+  "properties": {
+    "trial_signup_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "running",
+        "complete",
+        "failed"
+      ],
+      "default": "queued"
+    },
+    "progress_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "profile_created": {
+      "type": "boolean",
+      "default": false
+    },
+    "portal_configured": {
+      "type": "boolean",
+      "default": false
+    },
+    "dashboard_generated": {
+      "type": "boolean",
+      "default": false
+    },
+    "workspace_prepared": {
+      "type": "boolean",
+      "default": false
+    },
+    "review_center_activated": {
+      "type": "boolean",
+      "default": false
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "trial_signup_id",
+    "company_name"
+  ]
+}

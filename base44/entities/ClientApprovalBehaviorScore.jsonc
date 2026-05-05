@@ -1,0 +1,49 @@
+{
+  "name": "ClientApprovalBehaviorScore",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "responsiveness_score": {
+      "type": "number"
+    },
+    "avg_decision_hours": {
+      "type": "number"
+    },
+    "revision_frequency": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "approval_streak_days": {
+      "type": "number"
+    },
+    "engagement_correlation": {
+      "type": "number"
+    },
+    "risk_of_delay": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_id",
+    "company_name"
+  ]
+}

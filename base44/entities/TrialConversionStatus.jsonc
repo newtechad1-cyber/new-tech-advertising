@@ -1,0 +1,78 @@
+{
+  "name": "TrialConversionStatus",
+  "type": "object",
+  "properties": {
+    "trial_signup_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "new_trial",
+        "onboarding_active",
+        "momentum_building",
+        "upgrade_discussion",
+        "converted",
+        "expired"
+      ],
+      "default": "new_trial"
+    },
+    "trial_start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "trial_end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "days_remaining": {
+      "type": "number"
+    },
+    "momentum_score": {
+      "type": "number"
+    },
+    "activity_level": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "default": "medium"
+    },
+    "conversion_likelihood": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "default": "medium"
+    },
+    "selected_plan": {
+      "type": "string"
+    },
+    "converted_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "assigned_owner": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "trial_signup_id",
+    "company_name"
+  ]
+}

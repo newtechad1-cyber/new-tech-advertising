@@ -1,0 +1,51 @@
+{
+  "name": "RecruitingCandidate",
+  "type": "object",
+  "properties": {
+    "full_name": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "current_role": {
+      "type": "string"
+    },
+    "business_relationships": {
+      "type": "string"
+    },
+    "interest_reason": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "New Lead",
+        "Contacted",
+        "In Review",
+        "Qualified",
+        "Not a Fit"
+      ],
+      "default": "New Lead"
+    },
+    "submitted_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "full_name",
+    "email"
+  ]
+}

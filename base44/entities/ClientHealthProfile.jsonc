@@ -1,0 +1,65 @@
+{
+  "name": "ClientHealthProfile",
+  "type": "object",
+  "properties": {
+    "client_name": {
+      "type": "string"
+    },
+    "industry_vertical": {
+      "type": "string",
+      "description": "Industry vertical name"
+    },
+    "account_value_mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "health_score": {
+      "type": "number",
+      "default": 70
+    },
+    "content_activity_score": {
+      "type": "number",
+      "default": 60
+    },
+    "approval_responsiveness_score": {
+      "type": "number",
+      "default": 70
+    },
+    "reporting_engagement_score": {
+      "type": "number",
+      "default": 65
+    },
+    "expansion_readiness_score": {
+      "type": "number",
+      "default": 50
+    },
+    "churn_risk_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "low"
+    },
+    "lifecycle_stage": {
+      "type": "string",
+      "enum": [
+        "onboarding",
+        "stabilizing",
+        "growing",
+        "expansion_ready",
+        "at_risk"
+      ],
+      "default": "growing"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_name"
+  ]
+}

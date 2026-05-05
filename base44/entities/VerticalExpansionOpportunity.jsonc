@@ -1,0 +1,66 @@
+{
+  "name": "VerticalExpansionOpportunity",
+  "type": "object",
+  "properties": {
+    "vertical": {
+      "type": "string",
+      "description": "Industry vertical name"
+    },
+    "opportunity_type": {
+      "type": "string",
+      "enum": [
+        "geographic",
+        "authority",
+        "pricing",
+        "campaign",
+        "enterprise"
+      ]
+    },
+    "region": {
+      "type": "string"
+    },
+    "opportunity_score": {
+      "type": "number",
+      "default": 0
+    },
+    "projected_mrr_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "competition_intensity": {
+      "type": "number",
+      "default": 0
+    },
+    "urgency_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium"
+    },
+    "recommended_action": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "identified",
+        "planning",
+        "executing",
+        "completed"
+      ],
+      "default": "identified"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "vertical",
+    "opportunity_type"
+  ]
+}

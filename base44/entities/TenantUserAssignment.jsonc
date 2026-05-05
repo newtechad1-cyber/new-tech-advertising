@@ -1,0 +1,56 @@
+{
+  "name": "TenantUserAssignment",
+  "type": "object",
+  "properties": {
+    "tenantUserAssignmentId": {
+      "type": "string"
+    },
+    "tenantId": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "string"
+    },
+    "tenantRole": {
+      "type": "string",
+      "enum": [
+        "tenant_admin",
+        "tenant_manager",
+        "tenant_member",
+        "tenant_viewer"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "suspended",
+        "invited"
+      ],
+      "default": "active"
+    },
+    "permissionsOverride": {
+      "type": "string"
+    },
+    "assignedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expiresAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "tenantUserAssignmentId",
+    "tenantId",
+    "userId",
+    "tenantRole"
+  ]
+}

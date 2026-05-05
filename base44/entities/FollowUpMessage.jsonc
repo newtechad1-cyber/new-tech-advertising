@@ -1,0 +1,91 @@
+{
+  "name": "FollowUpMessage",
+  "type": "object",
+  "properties": {
+    "sequence_id": {
+      "type": "string"
+    },
+    "opportunity_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "contact_email": {
+      "type": "string"
+    },
+    "phase": {
+      "type": "number"
+    },
+    "phase_label": {
+      "type": "string",
+      "enum": [
+        "recap",
+        "authority_proof",
+        "roi_perspective",
+        "urgency",
+        "check_in",
+        "long_cycle"
+      ]
+    },
+    "subject": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "scheduled",
+        "sent",
+        "opened",
+        "clicked",
+        "replied",
+        "skipped"
+      ],
+      "default": "draft"
+    },
+    "scheduled_for": {
+      "type": "string"
+    },
+    "sent_at": {
+      "type": "string"
+    },
+    "opened_at": {
+      "type": "string"
+    },
+    "clicked_at": {
+      "type": "string"
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "email",
+        "sms",
+        "call_prompt",
+        "linkedin"
+      ],
+      "default": "email"
+    },
+    "is_ai_generated": {
+      "type": "boolean",
+      "default": true
+    },
+    "engagement_triggered": {
+      "type": "boolean",
+      "default": false
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "sequence_id",
+    "phase",
+    "contact_email"
+  ]
+}

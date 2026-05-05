@@ -1,0 +1,42 @@
+{
+  "name": "PartnerLeadMetric",
+  "type": "object",
+  "properties": {
+    "partner_name": {
+      "type": "string"
+    },
+    "partner_type": {
+      "type": "string"
+    },
+    "leads_generated": {
+      "type": "number"
+    },
+    "deals_closed": {
+      "type": "number"
+    },
+    "avg_deal_size": {
+      "type": "number"
+    },
+    "conversion_rate": {
+      "type": "number"
+    },
+    "lead_quality_score": {
+      "type": "number"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "period": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "partner_name",
+    "leads_generated"
+  ]
+}

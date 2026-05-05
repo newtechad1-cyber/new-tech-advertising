@@ -1,0 +1,46 @@
+{
+  "name": "FunnelPerformanceMetric",
+  "type": "object",
+  "properties": {
+    "metric_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "website_visitors": {
+      "type": "number",
+      "default": 0
+    },
+    "demo_starts": {
+      "type": "number",
+      "default": 0
+    },
+    "demo_completions": {
+      "type": "number",
+      "default": 0
+    },
+    "trial_signups": {
+      "type": "number",
+      "default": 0
+    },
+    "booked_strategy_calls": {
+      "type": "number",
+      "default": 0
+    },
+    "lead_form_submissions": {
+      "type": "number",
+      "default": 0
+    },
+    "conversion_rate_overall": {
+      "type": "number",
+      "default": 0
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "metric_date"
+  ]
+}

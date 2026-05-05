@@ -59,6 +59,11 @@
     "publisher_error": {
       "type": "string",
       "description": "Error message from last failed Send to Publisher attempt"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

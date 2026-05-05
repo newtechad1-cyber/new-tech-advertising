@@ -1,0 +1,88 @@
+{
+  "name": "PublishingReadyAsset",
+  "type": "object",
+  "properties": {
+    "asset_title": {
+      "type": "string"
+    },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "article",
+        "social_post",
+        "video",
+        "email",
+        "landing_page",
+        "ad_creative",
+        "gbp_post"
+      ]
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "destination": {
+      "type": "string",
+      "enum": [
+        "website",
+        "facebook",
+        "instagram",
+        "tiktok",
+        "youtube",
+        "gbp",
+        "email"
+      ]
+    },
+    "publish_schedule": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": [
+        "approved",
+        "pending",
+        "revision_needed"
+      ]
+    },
+    "campaign_tie_in": {
+      "type": "string"
+    },
+    "urgency": {
+      "type": "string",
+      "enum": [
+        "urgent",
+        "normal",
+        "scheduled"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "scheduled",
+        "published",
+        "held",
+        "returned"
+      ],
+      "default": "ready"
+    },
+    "assigned_agent": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "asset_title",
+    "content_type",
+    "client_name",
+    "destination",
+    "status"
+  ]
+}

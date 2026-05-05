@@ -1,0 +1,63 @@
+{
+  "name": "ExpansionExecutionStep",
+  "type": "object",
+  "properties": {
+    "playbook_id": {
+      "type": "string",
+      "description": "Reference to ExpansionPlaybook record id"
+    },
+    "step_name": {
+      "type": "string"
+    },
+    "step_category": {
+      "type": "string",
+      "enum": [
+        "research",
+        "sales",
+        "marketing",
+        "content",
+        "campaign",
+        "partnership",
+        "operations"
+      ]
+    },
+    "priority_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium"
+    },
+    "estimated_duration_days": {
+      "type": "number",
+      "default": 7
+    },
+    "completion_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "in_progress",
+        "completed",
+        "blocked"
+      ],
+      "default": "pending"
+    },
+    "assigned_role": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "step_name",
+    "step_category"
+  ]
+}

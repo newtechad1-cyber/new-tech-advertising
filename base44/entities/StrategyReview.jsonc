@@ -1,0 +1,91 @@
+{
+  "name": "StrategyReview",
+  "type": "object",
+  "properties": {
+    "growth_stage_id": {
+      "type": "string"
+    },
+    "onboarding_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "assigned_strategist": {
+      "type": "string"
+    },
+    "review_type": {
+      "type": "string",
+      "enum": [
+        "monthly_check_in",
+        "quarterly_growth_review",
+        "expansion_planning",
+        "risk_intervention",
+        "milestone_celebration"
+      ],
+      "default": "monthly_check_in"
+    },
+    "scheduled_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "completed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "scheduled",
+        "completed",
+        "cancelled",
+        "rescheduled"
+      ],
+      "default": "scheduled"
+    },
+    "visibility_score_at_review": {
+      "type": "number",
+      "default": 0
+    },
+    "roi_summary": {
+      "type": "string"
+    },
+    "growth_wins": {
+      "type": "string"
+    },
+    "strategic_focus_next_quarter": {
+      "type": "string"
+    },
+    "expansion_discussed": {
+      "type": "boolean",
+      "default": false
+    },
+    "client_sentiment": {
+      "type": "string",
+      "enum": [
+        "very_positive",
+        "positive",
+        "neutral",
+        "concerned",
+        "dissatisfied"
+      ]
+    },
+    "action_items": {
+      "type": "string"
+    },
+    "next_review_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "growth_stage_id",
+    "company_name",
+    "review_type"
+  ]
+}

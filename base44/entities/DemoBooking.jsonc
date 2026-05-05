@@ -1,0 +1,78 @@
+{
+  "name": "DemoBooking",
+  "type": "object",
+  "properties": {
+    "application_id": {
+      "type": "string"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "contact_name": {
+      "type": "string"
+    },
+    "contact_email": {
+      "type": "string"
+    },
+    "contact_phone": {
+      "type": "string"
+    },
+    "demo_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "demo_time": {
+      "type": "string"
+    },
+    "demo_timezone": {
+      "type": "string",
+      "default": "America/Chicago"
+    },
+    "assigned_strategist": {
+      "type": "string"
+    },
+    "meeting_link": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "confirmed",
+        "rescheduled",
+        "cancelled",
+        "completed",
+        "no_show"
+      ],
+      "default": "confirmed"
+    },
+    "reminder_sent": {
+      "type": "boolean",
+      "default": false
+    },
+    "warmup_sequence_started": {
+      "type": "boolean",
+      "default": false
+    },
+    "industry": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "lead_score": {
+      "type": "number",
+      "default": 0
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "application_id",
+    "contact_email",
+    "demo_date",
+    "demo_time"
+  ]
+}

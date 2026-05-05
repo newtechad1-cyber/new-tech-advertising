@@ -1,0 +1,56 @@
+{
+  "name": "PartnerOnboardingStage",
+  "type": "object",
+  "properties": {
+    "partner_name": {
+      "type": "string"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "application_received",
+        "qualification_review",
+        "onboarding_in_progress",
+        "certification_training",
+        "active_selling",
+        "scaling_partner",
+        "strategic_alliance"
+      ],
+      "default": "application_received"
+    },
+    "onboarding_completion": {
+      "type": "number"
+    },
+    "readiness_score": {
+      "type": "number"
+    },
+    "training_modules_completed": {
+      "type": "number"
+    },
+    "training_modules_total": {
+      "type": "number"
+    },
+    "first_deal_achieved": {
+      "type": "boolean",
+      "default": false
+    },
+    "assigned_manager": {
+      "type": "string"
+    },
+    "days_in_stage": {
+      "type": "number"
+    },
+    "vertical_focus": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "partner_name",
+    "stage"
+  ]
+}

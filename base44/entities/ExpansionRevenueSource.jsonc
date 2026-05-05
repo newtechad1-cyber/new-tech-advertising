@@ -1,0 +1,33 @@
+{
+  "name": "ExpansionRevenueSource",
+  "type": "object",
+  "properties": {
+    "period": {
+      "type": "string"
+    },
+    "upsell_revenue": {
+      "type": "number"
+    },
+    "new_market_revenue": {
+      "type": "number"
+    },
+    "partner_channel_revenue": {
+      "type": "number"
+    },
+    "premium_services_revenue": {
+      "type": "number"
+    },
+    "total_expansion_revenue": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "period",
+    "total_expansion_revenue"
+  ]
+}

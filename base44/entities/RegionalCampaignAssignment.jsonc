@@ -1,0 +1,52 @@
+{
+  "name": "RegionalCampaignAssignment",
+  "type": "object",
+  "properties": {
+    "enterprise_client_id": {
+      "type": "string"
+    },
+    "campaign_name": {
+      "type": "string"
+    },
+    "campaign_type": {
+      "type": "string",
+      "enum": [
+        "all_locations",
+        "regional",
+        "single_location"
+      ]
+    },
+    "region": {
+      "type": "string"
+    },
+    "location_ids": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "active",
+        "completed"
+      ],
+      "default": "planned"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "enterprise_client_id",
+    "campaign_name"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "name": "ROIExpansionTrigger",
+  "type": "object",
+  "properties": {
+    "client_profile_id": {
+      "type": "string",
+      "description": "Reference to ClientHealthProfile id"
+    },
+    "client_name": {
+      "type": "string",
+      "description": "Denormalized client name"
+    },
+    "trigger_type": {
+      "type": "string",
+      "enum": [
+        "premium_video",
+        "seasonal_campaign",
+        "authority_content",
+        "pricing_upgrade",
+        "multi_location",
+        "enterprise_package",
+        "strategy_review"
+      ]
+    },
+    "trigger_reason": {
+      "type": "string"
+    },
+    "readiness_score": {
+      "type": "number",
+      "default": 65
+    },
+    "momentum_score": {
+      "type": "number",
+      "default": 60
+    },
+    "projected_mrr_increase": {
+      "type": "number",
+      "default": 0
+    },
+    "recommended_timing": {
+      "type": "string"
+    },
+    "trigger_status": {
+      "type": "string",
+      "enum": [
+        "identified",
+        "reviewed",
+        "conversation_started",
+        "proposal_sent",
+        "converted",
+        "dismissed"
+      ],
+      "default": "identified"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_name",
+    "trigger_type"
+  ]
+}

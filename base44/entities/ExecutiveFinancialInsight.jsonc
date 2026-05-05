@@ -1,0 +1,60 @@
+{
+  "name": "ExecutiveFinancialInsight",
+  "type": "object",
+  "properties": {
+    "insight_type": {
+      "type": "string",
+      "enum": [
+        "valuation_lift",
+        "churn_impact",
+        "pricing_opportunity",
+        "capital_efficiency",
+        "margin_alert",
+        "expansion_signal",
+        "forecast_deviation"
+      ]
+    },
+    "headline": {
+      "type": "string"
+    },
+    "narrative": {
+      "type": "string"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "info"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "acknowledged",
+        "assigned",
+        "converted_to_task",
+        "exported_to_board"
+      ],
+      "default": "new"
+    },
+    "financial_impact_estimate": {
+      "type": "string"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "insight_type",
+    "headline",
+    "severity"
+  ]
+}

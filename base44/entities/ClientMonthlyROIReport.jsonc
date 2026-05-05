@@ -1,0 +1,53 @@
+{
+  "name": "ClientMonthlyROIReport",
+  "type": "object",
+  "properties": {
+    "client_profile_id": {
+      "type": "string",
+      "description": "Reference to ClientHealthProfile id"
+    },
+    "client_name": {
+      "type": "string",
+      "description": "Denormalized client name"
+    },
+    "report_month": {
+      "type": "string",
+      "format": "date"
+    },
+    "visibility_summary": {
+      "type": "string"
+    },
+    "engagement_summary": {
+      "type": "string"
+    },
+    "campaign_activity_summary": {
+      "type": "string"
+    },
+    "video_performance_summary": {
+      "type": "string"
+    },
+    "growth_highlight": {
+      "type": "string"
+    },
+    "next_focus_recommendation": {
+      "type": "string"
+    },
+    "report_status": {
+      "type": "string",
+      "enum": [
+        "generated",
+        "viewed",
+        "shared"
+      ],
+      "default": "generated"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "report_month"
+  ]
+}

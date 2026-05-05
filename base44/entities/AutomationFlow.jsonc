@@ -1,0 +1,62 @@
+{
+  "name": "AutomationFlow",
+  "type": "object",
+  "properties": {
+    "flow_name": {
+      "type": "string"
+    },
+    "flow_category": {
+      "type": "string",
+      "enum": [
+        "sales_to_onboarding",
+        "retention_recovery",
+        "roi_to_expansion",
+        "funnel_to_sales",
+        "ops_escalation",
+        "ai_routing_sequence",
+        "expansion_activation"
+      ]
+    },
+    "start_trigger": {
+      "type": "string"
+    },
+    "flow_summary": {
+      "type": "string"
+    },
+    "systems_involved": {
+      "type": "string"
+    },
+    "step_count": {
+      "type": "number",
+      "default": 0
+    },
+    "estimated_execution_frequency_monthly": {
+      "type": "number",
+      "default": 0
+    },
+    "avg_operational_impact_score": {
+      "type": "number",
+      "default": 0
+    },
+    "flow_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "testing",
+        "paused",
+        "deprecated"
+      ],
+      "default": "active"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "flow_name",
+    "flow_category",
+    "start_trigger"
+  ]
+}

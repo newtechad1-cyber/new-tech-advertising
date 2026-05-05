@@ -1,0 +1,72 @@
+{
+  "name": "CoMarketingCampaign",
+  "type": "object",
+  "properties": {
+    "campaign_name": {
+      "type": "string"
+    },
+    "partner_name": {
+      "type": "string"
+    },
+    "campaign_type": {
+      "type": "string",
+      "enum": [
+        "webinar",
+        "content_collab",
+        "social_push",
+        "local_event",
+        "email_sequence",
+        "joint_ad_campaign"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planning",
+        "content_production",
+        "campaign_live",
+        "performance_review",
+        "scaling",
+        "paused"
+      ],
+      "default": "planning"
+    },
+    "target_vertical": {
+      "type": "string"
+    },
+    "geographic_focus": {
+      "type": "string"
+    },
+    "lead_gen_score": {
+      "type": "number"
+    },
+    "roi_signal": {
+      "type": "string",
+      "enum": [
+        "strong",
+        "moderate",
+        "weak"
+      ]
+    },
+    "leads_generated": {
+      "type": "number"
+    },
+    "budget_estimate": {
+      "type": "number"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "campaign_name",
+    "partner_name",
+    "status"
+  ]
+}

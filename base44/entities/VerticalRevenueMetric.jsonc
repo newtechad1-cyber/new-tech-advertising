@@ -1,0 +1,52 @@
+{
+  "name": "VerticalRevenueMetric",
+  "type": "object",
+  "properties": {
+    "vertical": {
+      "type": "string",
+      "description": "Industry vertical name"
+    },
+    "month": {
+      "type": "string",
+      "format": "date",
+      "description": "Month of the metric (YYYY-MM-01)"
+    },
+    "new_mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "churned_mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "expansion_mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "total_mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "average_client_value": {
+      "type": "number",
+      "default": 0
+    },
+    "new_clients": {
+      "type": "number",
+      "default": 0
+    },
+    "lost_clients": {
+      "type": "number",
+      "default": 0
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "vertical",
+    "month"
+  ]
+}

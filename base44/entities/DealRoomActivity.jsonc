@@ -1,0 +1,43 @@
+{
+  "name": "DealRoomActivity",
+  "type": "object",
+  "properties": {
+    "deal_room_id": {
+      "type": "string"
+    },
+    "activity_type": {
+      "type": "string",
+      "enum": [
+        "viewed",
+        "section_viewed",
+        "cta_clicked",
+        "accepted",
+        "call_requested",
+        "changes_requested",
+        "shared"
+      ]
+    },
+    "section_name": {
+      "type": "string"
+    },
+    "cta_label": {
+      "type": "string"
+    },
+    "session_duration_seconds": {
+      "type": "number",
+      "default": 0
+    },
+    "device_type": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "deal_room_id",
+    "activity_type"
+  ]
+}

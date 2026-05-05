@@ -1,0 +1,65 @@
+{
+  "name": "KnowledgeGapSignal",
+  "type": "object",
+  "properties": {
+    "gap_title": {
+      "type": "string"
+    },
+    "gap_category": {
+      "type": "string",
+      "enum": [
+        "sales_process",
+        "onboarding",
+        "production",
+        "expansion",
+        "automation",
+        "reporting",
+        "partner_training"
+      ]
+    },
+    "related_workflow": {
+      "type": "string",
+      "description": "Relation to SOPWorkflow id (optional)"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "coverage_score": {
+      "type": "number",
+      "default": 0
+    },
+    "operational_impact_estimate": {
+      "type": "number",
+      "default": 0
+    },
+    "recommended_documentation_focus": {
+      "type": "string"
+    },
+    "resolution_status": {
+      "type": "string",
+      "enum": [
+        "identified",
+        "documenting",
+        "training_rollout",
+        "resolved"
+      ],
+      "default": "identified"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "gap_title",
+    "gap_category",
+    "risk_level"
+  ]
+}

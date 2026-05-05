@@ -1,0 +1,77 @@
+{
+  "name": "ProductionJob",
+  "type": "object",
+  "properties": {
+    "job_title": {
+      "type": "string"
+    },
+    "client_profile_id": {
+      "type": "string",
+      "description": "Reference to ClientHealthProfile id"
+    },
+    "client_name": {
+      "type": "string",
+      "description": "Denormalized for quick display"
+    },
+    "vertical": {
+      "type": "string",
+      "description": "Industry vertical name"
+    },
+    "job_type": {
+      "type": "string",
+      "enum": [
+        "content",
+        "video",
+        "campaign",
+        "authority_batch",
+        "reporting",
+        "onboarding_setup"
+      ],
+      "default": "content"
+    },
+    "priority_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium"
+    },
+    "assigned_team_role": {
+      "type": "string"
+    },
+    "estimated_hours": {
+      "type": "number",
+      "default": 0
+    },
+    "job_status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "in_progress",
+        "review",
+        "completed",
+        "blocked"
+      ],
+      "default": "queued"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "job_notes": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "job_title",
+    "job_type"
+  ]
+}

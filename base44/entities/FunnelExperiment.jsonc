@@ -1,0 +1,61 @@
+{
+  "name": "FunnelExperiment",
+  "type": "object",
+  "properties": {
+    "experiment_name": {
+      "type": "string"
+    },
+    "target_page": {
+      "type": "string"
+    },
+    "test_type": {
+      "type": "string",
+      "enum": [
+        "headline",
+        "cta",
+        "offer",
+        "pricing_message",
+        "layout",
+        "video_focus"
+      ]
+    },
+    "variant_a_description": {
+      "type": "string"
+    },
+    "variant_b_description": {
+      "type": "string"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "running",
+        "completed",
+        "paused"
+      ],
+      "default": "planned"
+    },
+    "conversion_lift_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "confidence_score": {
+      "type": "number",
+      "default": 0
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "experiment_name",
+    "target_page",
+    "test_type"
+  ]
+}

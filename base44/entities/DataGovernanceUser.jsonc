@@ -1,0 +1,71 @@
+{
+  "name": "DataGovernanceUser",
+  "type": "object",
+  "properties": {
+    "userId": {
+      "type": "string"
+    },
+    "organizationId": {
+      "type": "string"
+    },
+    "fullName": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "owner",
+        "admin",
+        "manager",
+        "contributor",
+        "viewer"
+      ]
+    },
+    "accessLevel": {
+      "type": "string",
+      "enum": [
+        "full_access",
+        "team_access",
+        "limited_access",
+        "readonly"
+      ],
+      "default": "limited_access"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "invited",
+        "suspended"
+      ],
+      "default": "active"
+    },
+    "lastLoginAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "invitedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "joinedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "userId",
+    "organizationId",
+    "email",
+    "role"
+  ]
+}

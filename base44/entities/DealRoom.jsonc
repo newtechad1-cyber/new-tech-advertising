@@ -1,0 +1,97 @@
+{
+  "name": "DealRoom",
+  "type": "object",
+  "properties": {
+    "opportunity_id": {
+      "type": "string"
+    },
+    "proposal_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "strategy_title": {
+      "type": "string",
+      "default": "Market Authority Growth Plan"
+    },
+    "package_tier": {
+      "type": "string",
+      "enum": [
+        "starter",
+        "authority",
+        "domination"
+      ]
+    },
+    "monthly_fee": {
+      "type": "number",
+      "default": 0
+    },
+    "setup_fee": {
+      "type": "number",
+      "default": 0
+    },
+    "contract_term_months": {
+      "type": "number",
+      "default": 12
+    },
+    "total_contract_value": {
+      "type": "number",
+      "default": 0
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "accepted",
+        "declined",
+        "expired"
+      ],
+      "default": "draft"
+    },
+    "view_count": {
+      "type": "number",
+      "default": 0
+    },
+    "last_viewed_at": {
+      "type": "string"
+    },
+    "sections_viewed": {
+      "type": "string"
+    },
+    "engagement_score": {
+      "type": "number",
+      "default": 0
+    },
+    "accepted_at": {
+      "type": "string"
+    },
+    "cta_clicks": {
+      "type": "number",
+      "default": 0
+    },
+    "operator_notes": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_name",
+    "package_tier"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "name": "CampaignROIInsight",
+  "type": "object",
+  "properties": {
+    "campaign_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "insight_type": {
+      "type": "string",
+      "enum": [
+        "upsell_signal",
+        "expansion_ready",
+        "premium_video_trigger",
+        "repeat_campaign_recommended"
+      ]
+    },
+    "headline": {
+      "type": "string"
+    },
+    "detail": {
+      "type": "string"
+    },
+    "estimated_revenue_impact": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "actioned",
+        "dismissed"
+      ],
+      "default": "new"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_id",
+    "insight_type",
+    "headline"
+  ]
+}

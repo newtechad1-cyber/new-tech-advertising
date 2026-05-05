@@ -1,0 +1,36 @@
+{
+  "name": "ProductionThroughputMetric",
+  "type": "object",
+  "properties": {
+    "week_label": {
+      "type": "string"
+    },
+    "content_jobs_completed": {
+      "type": "number"
+    },
+    "video_renders_completed": {
+      "type": "number"
+    },
+    "approval_delay_avg_hours": {
+      "type": "number"
+    },
+    "publishing_cadence_score": {
+      "type": "number"
+    },
+    "capacity_warning": {
+      "type": "boolean",
+      "default": false
+    },
+    "backlog_count": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "week_label"
+  ]
+}

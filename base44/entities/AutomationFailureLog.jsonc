@@ -1,0 +1,78 @@
+{
+  "name": "AutomationFailureLog",
+  "type": "object",
+  "properties": {
+    "failure_type": {
+      "type": "string",
+      "enum": [
+        "api_error",
+        "timeout",
+        "render_failure",
+        "publish_failure",
+        "generation_error",
+        "webhook_failure",
+        "auth_failure"
+      ]
+    },
+    "source_system": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "job_id": {
+      "type": "string"
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "error_code": {
+      "type": "string"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "retrying",
+        "resolved",
+        "ignored"
+      ],
+      "default": "open"
+    },
+    "retry_count": {
+      "type": "number",
+      "default": 0
+    },
+    "affected_destination": {
+      "type": "string"
+    },
+    "auto_recoverable": {
+      "type": "boolean",
+      "default": false
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "failure_type",
+    "source_system",
+    "severity",
+    "status"
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "name": "LocalAuthorityDeployment",
+  "type": "object",
+  "properties": {
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "landing_pages_published": {
+      "type": "number"
+    },
+    "video_campaigns_running": {
+      "type": "number"
+    },
+    "search_authority_index": {
+      "type": "number"
+    },
+    "social_ad_reach_estimate": {
+      "type": "number"
+    },
+    "warning_state": {
+      "type": "string",
+      "enum": [
+        "insufficient_coverage",
+        "building",
+        "healthy",
+        "saturation_achieved",
+        "competitor_surge"
+      ],
+      "default": "building"
+    },
+    "last_content_batch": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "city",
+    "state",
+    "vertical"
+  ]
+}

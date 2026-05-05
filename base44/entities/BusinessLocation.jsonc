@@ -1,0 +1,67 @@
+{
+  "name": "BusinessLocation",
+  "type": "object",
+  "properties": {
+    "enterprise_client_id": {
+      "type": "string"
+    },
+    "location_name": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "region": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "onboarding",
+        "paused",
+        "at_risk"
+      ],
+      "default": "active"
+    },
+    "momentum": {
+      "type": "string",
+      "enum": [
+        "strong",
+        "stable",
+        "needs_focus"
+      ],
+      "default": "stable"
+    },
+    "visibility_score": {
+      "type": "number"
+    },
+    "content_activity": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "campaign_status": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "enterprise_client_id",
+    "location_name",
+    "city"
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "name": "ClientMomentumSignal",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "period": {
+      "type": "string"
+    },
+    "growth_score": {
+      "type": "number"
+    },
+    "content_published": {
+      "type": "number"
+    },
+    "video_reach_trend": {
+      "type": "string",
+      "enum": [
+        "up",
+        "stable",
+        "down"
+      ]
+    },
+    "lead_activity_signal": {
+      "type": "string",
+      "enum": [
+        "strong",
+        "moderate",
+        "low"
+      ]
+    },
+    "search_trend": {
+      "type": "string",
+      "enum": [
+        "up",
+        "stable",
+        "down"
+      ]
+    },
+    "social_growth_pct": {
+      "type": "number"
+    },
+    "traffic_signal": {
+      "type": "string",
+      "enum": [
+        "increasing",
+        "stable",
+        "decreasing"
+      ]
+    },
+    "brand_momentum": {
+      "type": "number"
+    },
+    "ai_summary": {
+      "type": "string"
+    },
+    "latest_win": {
+      "type": "string"
+    },
+    "next_focus": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_id",
+    "period",
+    "growth_score"
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "name": "ClientExpansionOpportunity",
+  "type": "object",
+  "properties": {
+    "client_profile_id": {
+      "type": "string",
+      "description": "Reference to ClientHealthProfile id"
+    },
+    "client_name": {
+      "type": "string",
+      "description": "Denormalized for quick display"
+    },
+    "opportunity_type": {
+      "type": "string",
+      "enum": [
+        "premium_video",
+        "authority_content",
+        "multi_location",
+        "seasonal_campaign",
+        "pricing_upgrade",
+        "enterprise_package"
+      ],
+      "default": "premium_video"
+    },
+    "readiness_score": {
+      "type": "number",
+      "default": 60
+    },
+    "projected_mrr_increase": {
+      "type": "number",
+      "default": 0
+    },
+    "confidence_level": {
+      "type": "number",
+      "default": 60
+    },
+    "recommended_timing": {
+      "type": "string"
+    },
+    "success_manager_owner": {
+      "type": "string"
+    },
+    "expansion_status": {
+      "type": "string",
+      "enum": [
+        "identified",
+        "conversation_started",
+        "proposal_sent",
+        "converted",
+        "declined"
+      ],
+      "default": "identified"
+    },
+    "opportunity_notes": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_name",
+    "opportunity_type"
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "name": "TrialSignup",
+  "type": "object",
+  "properties": {
+    "company_name": {
+      "type": "string"
+    },
+    "owner_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "service_area": {
+      "type": "string"
+    },
+    "num_locations": {
+      "type": "number",
+      "default": 1
+    },
+    "current_channels": {
+      "type": "string"
+    },
+    "marketing_goal": {
+      "type": "string"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "main_services": {
+      "type": "string"
+    },
+    "content_style": {
+      "type": "string"
+    },
+    "wants_video": {
+      "type": "boolean",
+      "default": true
+    },
+    "wants_social": {
+      "type": "boolean",
+      "default": true
+    },
+    "wants_seo": {
+      "type": "boolean",
+      "default": true
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "incomplete",
+        "submitted",
+        "provisioning",
+        "ready",
+        "converted"
+      ],
+      "default": "submitted"
+    },
+    "provisioning_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "assigned_owner": {
+      "type": "string"
+    },
+    "portal_ready": {
+      "type": "boolean",
+      "default": false
+    },
+    "partial_data": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_name",
+    "email"
+  ]
+}

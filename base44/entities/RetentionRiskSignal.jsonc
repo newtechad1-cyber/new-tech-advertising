@@ -1,0 +1,76 @@
+{
+  "name": "RetentionRiskSignal",
+  "type": "object",
+  "properties": {
+    "client_name": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "churn_probability": {
+      "type": "number"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "declining_content_output": {
+      "type": "boolean",
+      "default": false
+    },
+    "falling_engagement": {
+      "type": "boolean",
+      "default": false
+    },
+    "ranking_stagnation": {
+      "type": "boolean",
+      "default": false
+    },
+    "low_login_activity": {
+      "type": "boolean",
+      "default": false
+    },
+    "negative_satisfaction": {
+      "type": "boolean",
+      "default": false
+    },
+    "primary_signal": {
+      "type": "string"
+    },
+    "days_until_renewal": {
+      "type": "number"
+    },
+    "mrr": {
+      "type": "number"
+    },
+    "intervention_status": {
+      "type": "string",
+      "enum": [
+        "none",
+        "triggered",
+        "in_progress",
+        "resolved"
+      ],
+      "default": "none"
+    },
+    "assigned_manager": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_name",
+    "churn_probability",
+    "risk_level"
+  ]
+}

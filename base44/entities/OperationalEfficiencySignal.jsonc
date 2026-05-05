@@ -1,0 +1,66 @@
+{
+  "name": "OperationalEfficiencySignal",
+  "type": "object",
+  "properties": {
+    "signal_title": {
+      "type": "string"
+    },
+    "workflow_area": {
+      "type": "string",
+      "enum": [
+        "content_production",
+        "video_production",
+        "campaign_setup",
+        "onboarding",
+        "reporting",
+        "approvals"
+      ]
+    },
+    "efficiency_gain_score": {
+      "type": "number",
+      "default": 50
+    },
+    "manual_hours_reduction_estimate": {
+      "type": "number",
+      "default": 0
+    },
+    "automation_complexity": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium"
+    },
+    "recommended_solution": {
+      "type": "string"
+    },
+    "implementation_status": {
+      "type": "string",
+      "enum": [
+        "identified",
+        "planning",
+        "building",
+        "deployed"
+      ],
+      "default": "identified"
+    },
+    "implementation_notes": {
+      "type": "string"
+    },
+    "estimated_margin_improvement": {
+      "type": "number",
+      "default": 0
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "signal_title",
+    "workflow_area"
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "name": "ExpansionOpportunity",
+  "type": "object",
+  "properties": {
+    "growth_stage_id": {
+      "type": "string"
+    },
+    "onboarding_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "opportunity_type": {
+      "type": "string",
+      "enum": [
+        "package_upgrade",
+        "location_expansion",
+        "seasonal_campaign",
+        "video_intensive",
+        "paid_amplification",
+        "reputation_acceleration",
+        "strategy_review"
+      ]
+    },
+    "trigger_reason": {
+      "type": "string"
+    },
+    "positioning_message": {
+      "type": "string"
+    },
+    "estimated_impact": {
+      "type": "string"
+    },
+    "urgency": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "identified",
+        "presented",
+        "interested",
+        "accepted",
+        "declined",
+        "deferred"
+      ],
+      "default": "identified"
+    },
+    "presented_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "response_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "growth_stage_id",
+    "opportunity_type"
+  ]
+}

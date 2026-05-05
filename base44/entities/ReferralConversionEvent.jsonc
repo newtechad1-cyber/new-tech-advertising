@@ -1,0 +1,40 @@
+{
+  "name": "ReferralConversionEvent",
+  "type": "object",
+  "properties": {
+    "invitation_id": {
+      "type": "string"
+    },
+    "referrer_client_id": {
+      "type": "string"
+    },
+    "referrer_company": {
+      "type": "string"
+    },
+    "referred_business": {
+      "type": "string"
+    },
+    "plan_selected": {
+      "type": "string"
+    },
+    "mrr_value": {
+      "type": "number"
+    },
+    "reward_triggered": {
+      "type": "boolean",
+      "default": false
+    },
+    "reward_id": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "referrer_client_id",
+    "referred_business"
+  ]
+}

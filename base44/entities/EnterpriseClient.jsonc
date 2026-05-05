@@ -1,0 +1,51 @@
+{
+  "name": "EnterpriseClient",
+  "type": "object",
+  "properties": {
+    "company_name": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "total_locations": {
+      "type": "number"
+    },
+    "mrr": {
+      "type": "number"
+    },
+    "revenue_tier": {
+      "type": "string",
+      "enum": [
+        "starter",
+        "growth",
+        "authority",
+        "enterprise"
+      ]
+    },
+    "account_manager": {
+      "type": "string"
+    },
+    "health_score": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "at_risk",
+        "expanding",
+        "churning"
+      ],
+      "default": "active"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_name"
+  ]
+}

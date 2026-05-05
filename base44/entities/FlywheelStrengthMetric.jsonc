@@ -1,0 +1,37 @@
+{
+  "name": "FlywheelStrengthMetric",
+  "type": "object",
+  "properties": {
+    "week_label": {
+      "type": "string"
+    },
+    "authority_content_output": {
+      "type": "number"
+    },
+    "inbound_lead_trend": {
+      "type": "string",
+      "enum": [
+        "up",
+        "stable",
+        "down"
+      ]
+    },
+    "referral_activity_score": {
+      "type": "number"
+    },
+    "upsell_activation_rate": {
+      "type": "number"
+    },
+    "flywheel_momentum_score": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "week_label"
+  ]
+}

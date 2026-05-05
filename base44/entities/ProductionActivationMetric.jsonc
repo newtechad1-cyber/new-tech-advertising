@@ -1,0 +1,48 @@
+{
+  "name": "ProductionActivationMetric",
+  "type": "object",
+  "properties": {
+    "client_name": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "content_jobs_triggered": {
+      "type": "number"
+    },
+    "publishing_frequency_per_week": {
+      "type": "number"
+    },
+    "videos_produced_month": {
+      "type": "number"
+    },
+    "approvals_pending": {
+      "type": "number"
+    },
+    "low_activity_flag": {
+      "type": "boolean",
+      "default": false
+    },
+    "stalled_automation_flag": {
+      "type": "boolean",
+      "default": false
+    },
+    "last_content_published": {
+      "type": "string",
+      "format": "date"
+    },
+    "period": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_name",
+    "content_jobs_triggered"
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "name": "FlywheelStagePerformance",
+  "type": "object",
+  "properties": {
+    "stage": {
+      "type": "string",
+      "enum": [
+        "authority_publishing",
+        "demand_capture",
+        "sales_conversion",
+        "ai_fulfillment",
+        "proof_amplification",
+        "expansion_monetization",
+        "market_momentum"
+      ]
+    },
+    "performance_score": {
+      "type": "number"
+    },
+    "momentum_trend": {
+      "type": "string",
+      "enum": [
+        "accelerating",
+        "stable",
+        "declining"
+      ]
+    },
+    "active_campaigns": {
+      "type": "number"
+    },
+    "bottleneck_detected": {
+      "type": "boolean",
+      "default": false
+    },
+    "bottleneck_description": {
+      "type": "string"
+    },
+    "top_recommendation": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "stage",
+    "performance_score"
+  ]
+}

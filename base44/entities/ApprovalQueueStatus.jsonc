@@ -1,0 +1,47 @@
+{
+  "name": "ApprovalQueueStatus",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "awaiting_count": {
+      "type": "number",
+      "default": 0
+    },
+    "approved_month": {
+      "type": "number",
+      "default": 0
+    },
+    "scheduled_count": {
+      "type": "number",
+      "default": 0
+    },
+    "urgent_count": {
+      "type": "number",
+      "default": 0
+    },
+    "last_approval_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "oldest_pending_days": {
+      "type": "number",
+      "default": 0
+    },
+    "approval_rate_pct": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_id"
+  ]
+}

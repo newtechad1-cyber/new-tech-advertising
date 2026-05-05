@@ -1,0 +1,78 @@
+{
+  "name": "ClientROIReport",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "report_period": {
+      "type": "string"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date"
+    },
+    "momentum_score": {
+      "type": "number"
+    },
+    "ai_summary": {
+      "type": "string"
+    },
+    "strongest_win": {
+      "type": "string"
+    },
+    "next_period_focus": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "in_review",
+        "approved",
+        "published",
+        "delivered"
+      ],
+      "default": "draft"
+    },
+    "pdf_url": {
+      "type": "string"
+    },
+    "video_summary_ready": {
+      "type": "boolean",
+      "default": false
+    },
+    "client_viewed": {
+      "type": "boolean",
+      "default": false
+    },
+    "pdf_downloaded": {
+      "type": "boolean",
+      "default": false
+    },
+    "strategy_call_requested": {
+      "type": "boolean",
+      "default": false
+    },
+    "assigned_owner": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_id",
+    "company_name",
+    "report_period"
+  ]
+}

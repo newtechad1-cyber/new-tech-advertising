@@ -1,0 +1,62 @@
+{
+  "name": "AutonomousGrowthLoop",
+  "type": "object",
+  "properties": {
+    "loop_name": {
+      "type": "string"
+    },
+    "loop_category": {
+      "type": "string",
+      "enum": [
+        "acquisition",
+        "retention",
+        "expansion",
+        "operations",
+        "funnel_optimization",
+        "content_authority"
+      ]
+    },
+    "trigger_event": {
+      "type": "string"
+    },
+    "automation_sequence_summary": {
+      "type": "string"
+    },
+    "frequency_per_month": {
+      "type": "number",
+      "default": 0
+    },
+    "avg_revenue_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "efficiency_gain_score": {
+      "type": "number",
+      "default": 0
+    },
+    "confidence_score": {
+      "type": "number",
+      "default": 0
+    },
+    "loop_status": {
+      "type": "string",
+      "enum": [
+        "observed",
+        "validated",
+        "scaling",
+        "optimized"
+      ],
+      "default": "observed"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "loop_name",
+    "loop_category",
+    "trigger_event"
+  ]
+}

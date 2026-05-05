@@ -1,0 +1,69 @@
+{
+  "name": "ReferralLead",
+  "type": "object",
+  "properties": {
+    "invitation_id": {
+      "type": "string"
+    },
+    "referrer_client_id": {
+      "type": "string"
+    },
+    "referrer_company": {
+      "type": "string"
+    },
+    "referred_business": {
+      "type": "string"
+    },
+    "referred_vertical": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "invited",
+        "trial_started",
+        "onboarding_active",
+        "converted",
+        "lost"
+      ],
+      "default": "invited"
+    },
+    "engagement_signal": {
+      "type": "string",
+      "enum": [
+        "strong",
+        "moderate",
+        "low"
+      ],
+      "default": "moderate"
+    },
+    "trial_start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "conversion_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "estimated_reward_value": {
+      "type": "number"
+    },
+    "conversion_likelihood": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "referrer_client_id",
+    "referred_business"
+  ]
+}

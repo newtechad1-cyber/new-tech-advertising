@@ -1,0 +1,55 @@
+{
+  "name": "PricingPlanPerformance",
+  "type": "object",
+  "properties": {
+    "pricing_plan_name": {
+      "type": "string"
+    },
+    "target_vertical": {
+      "type": "string",
+      "description": "Relation to IndustryVertical id (optional)"
+    },
+    "active_clients_count": {
+      "type": "number",
+      "default": 0
+    },
+    "average_monthly_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "expansion_upgrade_rate_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "churn_rate_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "perceived_value_score": {
+      "type": "number",
+      "default": 0
+    },
+    "margin_strength_score": {
+      "type": "number",
+      "default": 0
+    },
+    "packaging_status": {
+      "type": "string",
+      "enum": [
+        "strong",
+        "monitor",
+        "optimize",
+        "reposition"
+      ],
+      "default": "strong"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "pricing_plan_name"
+  ]
+}

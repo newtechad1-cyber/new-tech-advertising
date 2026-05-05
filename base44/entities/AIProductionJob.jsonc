@@ -1,0 +1,62 @@
+{
+  "name": "AIProductionJob",
+  "type": "object",
+  "properties": {
+    "job_type": {
+      "type": "string",
+      "enum": [
+        "video_generation",
+        "content_writing",
+        "seo_analysis",
+        "social_post",
+        "report_generation",
+        "website_audit",
+        "email_campaign"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "running",
+        "awaiting_approval",
+        "failed",
+        "completed"
+      ]
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "processing_time_seconds": {
+      "type": "number"
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "urgent",
+        "normal",
+        "low"
+      ]
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "job_type",
+    "status"
+  ]
+}

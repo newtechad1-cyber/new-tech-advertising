@@ -1,0 +1,60 @@
+{
+  "name": "UpgradeOpportunity",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "offer_name": {
+      "type": "string"
+    },
+    "offer_type": {
+      "type": "string",
+      "enum": [
+        "premium_video",
+        "multi_location",
+        "streaming_tv",
+        "authority_content",
+        "social_expansion",
+        "annual_prepay"
+      ]
+    },
+    "growth_benefit": {
+      "type": "string"
+    },
+    "timeline_impact": {
+      "type": "string"
+    },
+    "pricing_indicator": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "available",
+        "interested",
+        "converted",
+        "declined"
+      ],
+      "default": "available"
+    },
+    "urgency": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_id",
+    "offer_name",
+    "offer_type"
+  ]
+}

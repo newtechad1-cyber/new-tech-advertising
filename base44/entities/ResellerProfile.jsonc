@@ -1,0 +1,99 @@
+{
+  "name": "ResellerProfile",
+  "type": "object",
+  "properties": {
+    "resellerProfileId": {
+      "type": "string"
+    },
+    "tenantId": {
+      "type": "string"
+    },
+    "companyName": {
+      "type": "string"
+    },
+    "contactName": {
+      "type": "string"
+    },
+    "contactEmail": {
+      "type": "string"
+    },
+    "contactPhone": {
+      "type": "string"
+    },
+    "allowedPlanTypes": {
+      "type": "string"
+    },
+    "canManageClientBilling": {
+      "type": "boolean",
+      "default": false
+    },
+    "canManageClientUsers": {
+      "type": "boolean",
+      "default": false
+    },
+    "canViewAnalytics": {
+      "type": "boolean",
+      "default": true
+    },
+    "canUseWhiteLabelDomain": {
+      "type": "boolean",
+      "default": false
+    },
+    "revenueShareModel": {
+      "type": "string",
+      "enum": [
+        "percentage",
+        "fixed_margin",
+        "tiered"
+      ],
+      "default": "percentage"
+    },
+    "revenueShareValue": {
+      "type": "number",
+      "default": 30
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "suspended",
+        "onboarding"
+      ],
+      "default": "onboarding"
+    },
+    "clientCount": {
+      "type": "number",
+      "default": 0
+    },
+    "monthlyRecurringRevenue": {
+      "type": "number",
+      "default": 0
+    },
+    "tier": {
+      "type": "string",
+      "enum": [
+        "bronze",
+        "silver",
+        "gold",
+        "platinum"
+      ],
+      "default": "bronze"
+    },
+    "partnerSinceDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "resellerProfileId",
+    "tenantId",
+    "companyName",
+    "contactEmail"
+  ]
+}

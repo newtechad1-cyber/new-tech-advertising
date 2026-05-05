@@ -1,0 +1,57 @@
+{
+  "name": "NotificationDeliveryStatus",
+  "type": "object",
+  "properties": {
+    "notification_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "sending",
+        "delivered",
+        "viewed",
+        "action_taken",
+        "failed"
+      ],
+      "default": "queued"
+    },
+    "delivered_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "viewed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "in_app",
+        "email",
+        "sms"
+      ],
+      "default": "in_app"
+    },
+    "engagement_score": {
+      "type": "number",
+      "default": 0
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "notification_id",
+    "client_id"
+  ]
+}

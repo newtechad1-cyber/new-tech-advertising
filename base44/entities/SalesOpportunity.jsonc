@@ -1,0 +1,243 @@
+{
+  "name": "SalesOpportunity",
+  "type": "object",
+  "properties": {
+    "company_name": {
+      "type": "string",
+      "description": "Prospect company name"
+    },
+    "contact_name": {
+      "type": "string",
+      "description": "Primary contact person"
+    },
+    "contact_email": {
+      "type": "string",
+      "description": "Contact email"
+    },
+    "contact_phone": {
+      "type": "string",
+      "description": "Contact phone"
+    },
+    "industry": {
+      "type": "string",
+      "enum": [
+        "hvac",
+        "plumbing",
+        "roofing",
+        "landscaping",
+        "electrical",
+        "painting",
+        "fitness",
+        "restaurant",
+        "real_estate",
+        "dental",
+        "law",
+        "med_spa",
+        "other"
+      ],
+      "description": "Business industry"
+    },
+    "city": {
+      "type": "string",
+      "description": "Business location"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "new_lead",
+        "discovery",
+        "demo",
+        "proposal",
+        "decision",
+        "closed_won",
+        "closed_lost",
+        "delayed"
+      ],
+      "default": "new_lead",
+      "description": "Pipeline stage"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "authority_content_seo",
+        "social_authority",
+        "outbound_prospecting",
+        "referral_expansion",
+        "territory_campaigns",
+        "demo_request",
+        "paid_amplification",
+        "partner",
+        "event",
+        "other"
+      ],
+      "description": "Lead source"
+    },
+    "lead_score": {
+      "type": "number",
+      "default": 0,
+      "description": "0-100 qualification score"
+    },
+    "initial_interest_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "very_high"
+      ],
+      "default": "medium"
+    },
+    "target_plan": {
+      "type": "string",
+      "enum": [
+        "diy",
+        "guided_growth",
+        "done_for_you",
+        "premium",
+        "undecided"
+      ],
+      "default": "undecided"
+    },
+    "growth_goal": {
+      "type": "string",
+      "description": "Prospect's primary growth goal"
+    },
+    "revenue_ambition": {
+      "type": "string",
+      "enum": [
+        "under_5k",
+        "5k_10k",
+        "10k_25k",
+        "25k_50k",
+        "50k_plus"
+      ],
+      "description": "Monthly revenue growth target"
+    },
+    "marketing_challenges": {
+      "type": "string",
+      "description": "Current marketing pain points"
+    },
+    "time_availability": {
+      "type": "string",
+      "enum": [
+        "minimal",
+        "5_10_hours",
+        "10_15_hours",
+        "15_20_hours",
+        "20_plus_hours"
+      ],
+      "description": "Weekly time available"
+    },
+    "demo_scheduled_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "demo_completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "demo_completed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "engagement_score": {
+      "type": "number",
+      "default": 0,
+      "description": "Engagement with proposal/deal room"
+    },
+    "objection_notes": {
+      "type": "string",
+      "description": "Documented objections and concerns"
+    },
+    "decision_timeline": {
+      "type": "string",
+      "enum": [
+        "immediate",
+        "next_30_days",
+        "next_90_days",
+        "next_6_months",
+        "exploring"
+      ],
+      "default": "exploring"
+    },
+    "recommended_plan": {
+      "type": "string",
+      "enum": [
+        "visibility_foundation",
+        "market_authority",
+        "market_domination"
+      ]
+    },
+    "estimated_deal_value": {
+      "type": "number",
+      "default": 0,
+      "description": "Annual contract value estimate"
+    },
+    "proposal_status": {
+      "type": "string",
+      "enum": [
+        "not_sent",
+        "sent",
+        "viewed",
+        "discussed",
+        "accepted",
+        "rejected"
+      ],
+      "default": "not_sent"
+    },
+    "proposal_sent_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "proposal_viewed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "decision_status": {
+      "type": "string",
+      "enum": [
+        "undecided",
+        "verbal_yes",
+        "negotiating",
+        "closed_won",
+        "closed_lost",
+        "delayed"
+      ],
+      "default": "undecided"
+    },
+    "closed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "assigned_sales_rep": {
+      "type": "string",
+      "description": "Sales rep email assigned"
+    },
+    "internal_notes": {
+      "type": "string",
+      "description": "Internal team notes"
+    },
+    "deal_room_slug": {
+      "type": "string",
+      "description": "Unique slug for deal room URL"
+    },
+    "days_in_stage": {
+      "type": "number",
+      "default": 0,
+      "description": "Days since entering current stage"
+    },
+    "last_activity_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_name",
+    "contact_email"
+  ]
+}

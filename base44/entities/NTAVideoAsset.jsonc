@@ -33,6 +33,11 @@
     },
     "linked_content_asset_id": {
       "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

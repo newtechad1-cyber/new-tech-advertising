@@ -1,0 +1,50 @@
+{
+  "name": "NotificationInsight",
+  "type": "object",
+  "properties": {
+    "insight_type": {
+      "type": "string",
+      "enum": [
+        "engagement_pattern",
+        "ignore_signal",
+        "optimization_tip",
+        "strategy_recommendation"
+      ]
+    },
+    "headline": {
+      "type": "string"
+    },
+    "detail": {
+      "type": "string"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "info"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "acknowledged",
+        "actioned"
+      ],
+      "default": "new"
+    },
+    "recommended_action": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "insight_type",
+    "headline"
+  ]
+}

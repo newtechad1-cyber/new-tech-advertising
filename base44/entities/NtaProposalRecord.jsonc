@@ -1,0 +1,94 @@
+{
+  "name": "NtaProposalRecord",
+  "type": "object",
+  "properties": {
+    "opportunity_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "package_tier": {
+      "type": "string",
+      "enum": [
+        "starter",
+        "authority",
+        "domination"
+      ]
+    },
+    "setup_fee": {
+      "type": "number",
+      "default": 0
+    },
+    "monthly_fee": {
+      "type": "number",
+      "default": 0
+    },
+    "contract_term_months": {
+      "type": "number",
+      "default": 12
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "total_contract_value": {
+      "type": "number",
+      "default": 0
+    },
+    "add_ons": {
+      "type": "string"
+    },
+    "roi_projection_low": {
+      "type": "number",
+      "default": 0
+    },
+    "roi_projection_high": {
+      "type": "number",
+      "default": 0
+    },
+    "proposal_notes": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "sent",
+        "viewed",
+        "accepted",
+        "rejected",
+        "revision_requested"
+      ],
+      "default": "draft"
+    },
+    "sent_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "viewed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "accepted_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "view_count": {
+      "type": "number",
+      "default": 0
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_name",
+    "package_tier"
+  ]
+}

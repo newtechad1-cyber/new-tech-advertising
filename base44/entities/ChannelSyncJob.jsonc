@@ -1,0 +1,58 @@
+{
+  "name": "ChannelSyncJob",
+  "type": "object",
+  "properties": {
+    "channel_connection_id": {
+      "type": "string"
+    },
+    "platform": {
+      "type": "string"
+    },
+    "job_type": {
+      "type": "string",
+      "enum": [
+        "publish_post",
+        "sync_analytics",
+        "refresh_token",
+        "test_connection",
+        "fetch_pages"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "running",
+        "success",
+        "failed",
+        "retrying"
+      ],
+      "default": "queued"
+    },
+    "payload": {
+      "type": "string"
+    },
+    "result": {
+      "type": "string"
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "attempts": {
+      "type": "number",
+      "default": 0
+    },
+    "completed_at": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "platform",
+    "job_type"
+  ]
+}

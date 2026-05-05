@@ -1,0 +1,39 @@
+{
+  "name": "ContentApprovalHistory",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "period": {
+      "type": "string"
+    },
+    "total_submitted": {
+      "type": "number"
+    },
+    "total_approved": {
+      "type": "number"
+    },
+    "total_revised": {
+      "type": "number"
+    },
+    "avg_approval_days": {
+      "type": "number"
+    },
+    "revision_rate_pct": {
+      "type": "number"
+    },
+    "approval_rate_pct": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_id",
+    "period"
+  ]
+}

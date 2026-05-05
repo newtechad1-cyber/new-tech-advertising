@@ -1,0 +1,62 @@
+{
+  "name": "MobileContentApproval",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "social_post",
+        "video",
+        "website_page",
+        "blog_article",
+        "gbp_post",
+        "email"
+      ]
+    },
+    "channel": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "revision_requested",
+        "published"
+      ],
+      "default": "pending"
+    },
+    "scheduled_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "preview_emoji": {
+      "type": "string"
+    },
+    "result_indicator": {
+      "type": "string",
+      "enum": [
+        "high_impact",
+        "standard",
+        "boost_recommended"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_id",
+    "title",
+    "content_type",
+    "status"
+  ]
+}

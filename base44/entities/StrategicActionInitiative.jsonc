@@ -1,0 +1,75 @@
+{
+  "name": "StrategicActionInitiative",
+  "type": "object",
+  "properties": {
+    "initiative_title": {
+      "type": "string"
+    },
+    "action_category": {
+      "type": "string",
+      "enum": [
+        "expansion_activation",
+        "sales_push",
+        "retention_intervention",
+        "pricing_adjustment",
+        "operational_optimization",
+        "campaign_acceleration"
+      ]
+    },
+    "related_vertical": {
+      "type": "string",
+      "description": "Vertical name if applicable"
+    },
+    "related_playbook": {
+      "type": "string",
+      "description": "Playbook name if applicable"
+    },
+    "urgency_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "projected_revenue_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "assigned_owner_role": {
+      "type": "string"
+    },
+    "execution_status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "launched",
+        "in_progress",
+        "completed"
+      ],
+      "default": "planned"
+    },
+    "action_notes": {
+      "type": "string"
+    },
+    "launched_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "target_completion_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "initiative_title",
+    "action_category"
+  ]
+}

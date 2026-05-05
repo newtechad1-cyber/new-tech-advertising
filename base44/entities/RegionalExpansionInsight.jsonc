@@ -1,0 +1,49 @@
+{
+  "name": "RegionalExpansionInsight",
+  "type": "object",
+  "properties": {
+    "enterprise_client_id": {
+      "type": "string"
+    },
+    "insight_type": {
+      "type": "string",
+      "enum": [
+        "new_location",
+        "underserved_territory",
+        "authority_campaign",
+        "branding_consistency"
+      ]
+    },
+    "headline": {
+      "type": "string"
+    },
+    "detail": {
+      "type": "string"
+    },
+    "expected_benefit": {
+      "type": "string"
+    },
+    "suggested_timeline": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "actioned",
+        "dismissed"
+      ],
+      "default": "new"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "enterprise_client_id",
+    "insight_type",
+    "headline"
+  ]
+}

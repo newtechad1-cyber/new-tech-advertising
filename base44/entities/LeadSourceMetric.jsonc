@@ -1,0 +1,44 @@
+{
+  "name": "LeadSourceMetric",
+  "type": "object",
+  "properties": {
+    "source": {
+      "type": "string"
+    },
+    "leads_count": {
+      "type": "number"
+    },
+    "demo_rate": {
+      "type": "number"
+    },
+    "close_rate": {
+      "type": "number"
+    },
+    "avg_deal_value": {
+      "type": "number"
+    },
+    "cost_per_acquisition": {
+      "type": "number"
+    },
+    "period": {
+      "type": "string"
+    },
+    "trend": {
+      "type": "string",
+      "enum": [
+        "up",
+        "stable",
+        "down"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "source",
+    "leads_count"
+  ]
+}

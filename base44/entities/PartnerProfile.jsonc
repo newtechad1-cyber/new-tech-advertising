@@ -1,0 +1,95 @@
+{
+  "name": "PartnerProfile",
+  "type": "object",
+  "properties": {
+    "partner_name": {
+      "type": "string"
+    },
+    "partner_type": {
+      "type": "string",
+      "enum": [
+        "agency",
+        "consultant",
+        "influencer",
+        "referral_org",
+        "reseller",
+        "strategic_alliance"
+      ]
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "markets_covered": {
+      "type": "string"
+    },
+    "vertical_focus": {
+      "type": "string"
+    },
+    "performance_score": {
+      "type": "number"
+    },
+    "revenue_generated": {
+      "type": "number"
+    },
+    "lead_velocity": {
+      "type": "number"
+    },
+    "onboarding_status": {
+      "type": "string",
+      "enum": [
+        "application_received",
+        "qualification_review",
+        "onboarding_in_progress",
+        "certification_training",
+        "active_selling",
+        "scaling_partner",
+        "strategic_alliance"
+      ],
+      "default": "application_received"
+    },
+    "revenue_share_pct": {
+      "type": "number"
+    },
+    "referral_conversion_rate": {
+      "type": "number"
+    },
+    "satisfaction_signal": {
+      "type": "string",
+      "enum": [
+        "positive",
+        "neutral",
+        "at_risk",
+        "negative"
+      ]
+    },
+    "partner_manager": {
+      "type": "string"
+    },
+    "is_strategic": {
+      "type": "boolean",
+      "default": false
+    },
+    "deals_closed": {
+      "type": "number"
+    },
+    "active_campaigns": {
+      "type": "number"
+    },
+    "mrr_contribution": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "partner_name",
+    "partner_type",
+    "onboarding_status"
+  ]
+}

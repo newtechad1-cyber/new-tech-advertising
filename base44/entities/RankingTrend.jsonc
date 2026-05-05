@@ -1,0 +1,52 @@
+{
+  "name": "RankingTrend",
+  "type": "object",
+  "properties": {
+    "client_name": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "keyword": {
+      "type": "string"
+    },
+    "position_current": {
+      "type": "number"
+    },
+    "position_prior": {
+      "type": "number"
+    },
+    "position_change": {
+      "type": "number"
+    },
+    "search_volume": {
+      "type": "number"
+    },
+    "visibility_index": {
+      "type": "number"
+    },
+    "local_pack_present": {
+      "type": "boolean"
+    },
+    "period": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_name",
+    "keyword",
+    "position_current"
+  ]
+}

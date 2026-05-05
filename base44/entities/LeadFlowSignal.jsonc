@@ -1,0 +1,63 @@
+{
+  "name": "LeadFlowSignal",
+  "type": "object",
+  "properties": {
+    "client_name": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "estimated_leads": {
+      "type": "number"
+    },
+    "leads_prior_period": {
+      "type": "number"
+    },
+    "lead_growth_pct": {
+      "type": "number"
+    },
+    "inquiry_velocity": {
+      "type": "string",
+      "enum": [
+        "accelerating",
+        "stable",
+        "slowing"
+      ]
+    },
+    "conversion_signal": {
+      "type": "string",
+      "enum": [
+        "strong",
+        "moderate",
+        "weak"
+      ]
+    },
+    "seasonal_spike": {
+      "type": "boolean",
+      "default": false
+    },
+    "demand_category": {
+      "type": "string"
+    },
+    "period": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_name",
+    "vertical",
+    "estimated_leads"
+  ]
+}

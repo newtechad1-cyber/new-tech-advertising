@@ -1,0 +1,51 @@
+{
+  "name": "UpgradePlanOption",
+  "type": "object",
+  "properties": {
+    "plan_name": {
+      "type": "string"
+    },
+    "tier": {
+      "type": "string",
+      "enum": [
+        "starter",
+        "authority",
+        "dominator",
+        "enterprise"
+      ]
+    },
+    "monthly_price": {
+      "type": "number"
+    },
+    "annual_price": {
+      "type": "number"
+    },
+    "is_recommended": {
+      "type": "boolean",
+      "default": false
+    },
+    "tagline": {
+      "type": "string"
+    },
+    "expected_outcome": {
+      "type": "string"
+    },
+    "features_json": {
+      "type": "string"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "plan_name",
+    "tier",
+    "monthly_price"
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "name": "ReferrerPerformanceMetric",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "total_sent": {
+      "type": "number",
+      "default": 0
+    },
+    "total_conversions": {
+      "type": "number",
+      "default": 0
+    },
+    "revenue_generated": {
+      "type": "number",
+      "default": 0
+    },
+    "conversion_rate_pct": {
+      "type": "number"
+    },
+    "current_tier": {
+      "type": "string"
+    },
+    "rewards_earned": {
+      "type": "number",
+      "default": 0
+    },
+    "badge": {
+      "type": "string",
+      "enum": [
+        "Growth Ambassador",
+        "Market Influencer",
+        "Elite Referrer",
+        "none"
+      ],
+      "default": "none"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_id",
+    "company_name"
+  ]
+}

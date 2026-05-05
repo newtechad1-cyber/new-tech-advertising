@@ -1,0 +1,45 @@
+{
+  "name": "ReferralSuggestion",
+  "type": "object",
+  "properties": {
+    "for_client_id": {
+      "type": "string"
+    },
+    "suggested_business": {
+      "type": "string"
+    },
+    "suggested_vertical": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "relationship_type": {
+      "type": "string",
+      "enum": [
+        "similar_business",
+        "local_partner",
+        "industry_contact",
+        "networking"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "invited",
+        "dismissed"
+      ],
+      "default": "new"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "for_client_id",
+    "suggested_business"
+  ]
+}

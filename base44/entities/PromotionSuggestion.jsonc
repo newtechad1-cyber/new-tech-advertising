@@ -1,0 +1,53 @@
+{
+  "name": "PromotionSuggestion",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "promotion_type": {
+      "type": "string",
+      "enum": [
+        "holiday_offer",
+        "weather_push",
+        "local_event",
+        "limited_time",
+        "seasonal"
+      ]
+    },
+    "why_recommended": {
+      "type": "string"
+    },
+    "expected_benefit": {
+      "type": "string"
+    },
+    "urgency_window": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "launched",
+        "dismissed"
+      ],
+      "default": "new"
+    },
+    "emoji": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_id",
+    "title",
+    "promotion_type"
+  ]
+}

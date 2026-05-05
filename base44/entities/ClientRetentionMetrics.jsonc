@@ -1,0 +1,120 @@
+{
+  "name": "ClientRetentionMetrics",
+  "type": "object",
+  "properties": {
+    "subscription_id": {
+      "type": "string"
+    },
+    "user_email": {
+      "type": "string"
+    },
+    "streak_days": {
+      "type": "number",
+      "default": 0
+    },
+    "streak_weeks": {
+      "type": "number",
+      "default": 0
+    },
+    "longest_streak_days": {
+      "type": "number",
+      "default": 0
+    },
+    "tasks_completed_this_week": {
+      "type": "number",
+      "default": 0
+    },
+    "campaigns_launched": {
+      "type": "number",
+      "default": 0
+    },
+    "videos_created": {
+      "type": "number",
+      "default": 0
+    },
+    "seo_pages_published": {
+      "type": "number",
+      "default": 0
+    },
+    "leads_logged": {
+      "type": "number",
+      "default": 0
+    },
+    "posts_created": {
+      "type": "number",
+      "default": 0
+    },
+    "growth_score": {
+      "type": "number",
+      "default": 0
+    },
+    "growth_score_history": {
+      "type": "string"
+    },
+    "growth_trend": {
+      "type": "string",
+      "enum": [
+        "improving",
+        "stable",
+        "declining"
+      ],
+      "default": "stable"
+    },
+    "last_active_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "inactive_days": {
+      "type": "number",
+      "default": 0
+    },
+    "milestone_first_campaign": {
+      "type": "boolean",
+      "default": false
+    },
+    "milestone_first_video": {
+      "type": "boolean",
+      "default": false
+    },
+    "milestone_first_lead": {
+      "type": "boolean",
+      "default": false
+    },
+    "milestone_30_days": {
+      "type": "boolean",
+      "default": false
+    },
+    "milestone_growth_score_50": {
+      "type": "boolean",
+      "default": false
+    },
+    "milestone_growth_score_75": {
+      "type": "boolean",
+      "default": false
+    },
+    "inactivity_alert_sent": {
+      "type": "boolean",
+      "default": false
+    },
+    "weekly_focus_plan": {
+      "type": "string"
+    },
+    "days_since_signup": {
+      "type": "number",
+      "default": 0
+    },
+    "retention_health_score": {
+      "type": "number",
+      "default": 50
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "subscription_id",
+    "user_email"
+  ]
+}

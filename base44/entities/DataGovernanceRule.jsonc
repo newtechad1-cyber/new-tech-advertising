@@ -1,0 +1,69 @@
+{
+  "name": "DataGovernanceRule",
+  "type": "object",
+  "properties": {
+    "ruleId": {
+      "type": "string",
+      "description": "Unique rule identifier"
+    },
+    "entityType": {
+      "type": "string",
+      "enum": [
+        "Organization",
+        "DataGovernanceUser",
+        "Subscription",
+        "Campaign",
+        "ContentAsset",
+        "DataGovernanceLead",
+        "ActivityEvent",
+        "AutomationRule",
+        "AIJobQueue"
+      ]
+    },
+    "ruleName": {
+      "type": "string"
+    },
+    "ruleType": {
+      "type": "string",
+      "enum": [
+        "required_field",
+        "relationship_constraint",
+        "status_transition",
+        "permission_rule",
+        "lifecycle_rule",
+        "data_quality"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Rule description, rationale, and optional notes"
+    },
+    "condition": {
+      "type": "string",
+      "description": "Rule condition logic (JSON)"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "warning",
+        "error",
+        "critical"
+      ]
+    },
+    "violationCount": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "ruleId",
+    "entityType",
+    "ruleName",
+    "ruleType"
+  ]
+}

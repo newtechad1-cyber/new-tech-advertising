@@ -1,0 +1,47 @@
+{
+  "name": "RevenueForecast",
+  "type": "object",
+  "properties": {
+    "month_label": {
+      "type": "string"
+    },
+    "period": {
+      "type": "string",
+      "enum": [
+        "30_day",
+        "90_day",
+        "annual"
+      ]
+    },
+    "projected_revenue": {
+      "type": "number"
+    },
+    "actual_revenue": {
+      "type": "number"
+    },
+    "renewal_revenue": {
+      "type": "number"
+    },
+    "upsell_opportunities": {
+      "type": "number"
+    },
+    "reseller_contribution": {
+      "type": "number"
+    },
+    "confidence_score": {
+      "type": "number"
+    },
+    "new_client_revenue": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "month_label",
+    "projected_revenue"
+  ]
+}

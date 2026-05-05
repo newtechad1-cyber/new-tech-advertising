@@ -1,0 +1,47 @@
+{
+  "name": "ReferralRewardIssued",
+  "type": "object",
+  "properties": {
+    "referrer_client_id": {
+      "type": "string"
+    },
+    "referrer_company": {
+      "type": "string"
+    },
+    "reward_tier": {
+      "type": "string"
+    },
+    "reward_description": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "issued",
+        "disputed"
+      ],
+      "default": "pending"
+    },
+    "trigger_event": {
+      "type": "string"
+    },
+    "reward_value": {
+      "type": "number"
+    },
+    "issued_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "referrer_client_id",
+    "reward_tier"
+  ]
+}

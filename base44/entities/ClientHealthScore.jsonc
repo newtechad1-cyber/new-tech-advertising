@@ -1,0 +1,77 @@
+{
+  "name": "ClientHealthScore",
+  "type": "object",
+  "properties": {
+    "company_name": {
+      "type": "string"
+    },
+    "logo_initial": {
+      "type": "string"
+    },
+    "health_score": {
+      "type": "number"
+    },
+    "content_output_level": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "lead_flow_trend": {
+      "type": "string",
+      "enum": [
+        "up",
+        "stable",
+        "down"
+      ]
+    },
+    "roi_confidence": {
+      "type": "number"
+    },
+    "churn_risk": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "publishing_activity": {
+      "type": "number"
+    },
+    "ranking_trend": {
+      "type": "string",
+      "enum": [
+        "improving",
+        "stable",
+        "declining"
+      ]
+    },
+    "video_performance": {
+      "type": "number"
+    },
+    "upsell_signals": {
+      "type": "string"
+    },
+    "mrr": {
+      "type": "number"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "account_manager": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_name",
+    "health_score"
+  ]
+}

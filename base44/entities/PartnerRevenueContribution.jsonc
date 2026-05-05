@@ -1,0 +1,47 @@
+{
+  "name": "PartnerRevenueContribution",
+  "type": "object",
+  "properties": {
+    "partner_name": {
+      "type": "string"
+    },
+    "total_revenue": {
+      "type": "number"
+    },
+    "mrr_contribution": {
+      "type": "number"
+    },
+    "payout_amount": {
+      "type": "number"
+    },
+    "revenue_share_pct": {
+      "type": "number"
+    },
+    "profit_margin": {
+      "type": "number"
+    },
+    "performance_bonus": {
+      "type": "number"
+    },
+    "growth_trend": {
+      "type": "string",
+      "enum": [
+        "accelerating",
+        "stable",
+        "declining"
+      ]
+    },
+    "period": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "partner_name",
+    "total_revenue"
+  ]
+}

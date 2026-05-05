@@ -1,0 +1,51 @@
+{
+  "name": "DemandFunnelMetric",
+  "type": "object",
+  "properties": {
+    "campaign_name": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "visitors": {
+      "type": "number"
+    },
+    "leads": {
+      "type": "number"
+    },
+    "demos": {
+      "type": "number"
+    },
+    "clients": {
+      "type": "number"
+    },
+    "lead_engagement_score": {
+      "type": "number"
+    },
+    "demo_booking_velocity": {
+      "type": "number"
+    },
+    "conversion_trend": {
+      "type": "string",
+      "enum": [
+        "improving",
+        "stable",
+        "declining"
+      ]
+    },
+    "period": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "campaign_name",
+    "vertical",
+    "visitors"
+  ]
+}

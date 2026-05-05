@@ -1,0 +1,50 @@
+{
+  "name": "RevenueSharePlan",
+  "type": "object",
+  "properties": {
+    "plan_name": {
+      "type": "string"
+    },
+    "tier": {
+      "type": "string",
+      "enum": [
+        "starter",
+        "growth",
+        "premium",
+        "strategic"
+      ]
+    },
+    "base_share_pct": {
+      "type": "number"
+    },
+    "bonus_threshold_mrr": {
+      "type": "number"
+    },
+    "bonus_pct": {
+      "type": "number"
+    },
+    "min_deals_per_quarter": {
+      "type": "number"
+    },
+    "assigned_partners": {
+      "type": "number"
+    },
+    "total_payouts_this_month": {
+      "type": "number"
+    },
+    "underperforming_flag": {
+      "type": "boolean",
+      "default": false
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "plan_name",
+    "tier",
+    "base_share_pct"
+  ]
+}

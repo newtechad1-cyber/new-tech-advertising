@@ -1,0 +1,103 @@
+{
+  "name": "ClientOnboarding",
+  "type": "object",
+  "properties": {
+    "opportunity_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "package_tier": {
+      "type": "string",
+      "enum": [
+        "starter",
+        "authority",
+        "domination"
+      ]
+    },
+    "assigned_strategist": {
+      "type": "string"
+    },
+    "kickoff_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "target_launch_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "intake",
+        "website_build",
+        "channel_connections",
+        "content_strategy",
+        "ai_activation",
+        "streaming_launch",
+        "live"
+      ],
+      "default": "intake"
+    },
+    "readiness_score": {
+      "type": "number",
+      "default": 0
+    },
+    "intake_completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "website_approved": {
+      "type": "boolean",
+      "default": false
+    },
+    "channels_connected": {
+      "type": "boolean",
+      "default": false
+    },
+    "content_plan_approved": {
+      "type": "boolean",
+      "default": false
+    },
+    "ai_engine_active": {
+      "type": "boolean",
+      "default": false
+    },
+    "streaming_live": {
+      "type": "boolean",
+      "default": false
+    },
+    "roi_dashboard_live": {
+      "type": "boolean",
+      "default": false
+    },
+    "notes": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "on_hold",
+        "launched",
+        "cancelled"
+      ],
+      "default": "active"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_name"
+  ]
+}

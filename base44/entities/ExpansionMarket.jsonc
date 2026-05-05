@@ -1,0 +1,79 @@
+{
+  "name": "ExpansionMarket",
+  "type": "object",
+  "properties": {
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "lat": {
+      "type": "number"
+    },
+    "lng": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "dominated",
+        "active",
+        "opportunity",
+        "inactive"
+      ],
+      "default": "opportunity"
+    },
+    "vertical_focus": {
+      "type": "string"
+    },
+    "population_estimate": {
+      "type": "number"
+    },
+    "business_density_score": {
+      "type": "number"
+    },
+    "competitor_saturation": {
+      "type": "number"
+    },
+    "nta_visibility_score": {
+      "type": "number"
+    },
+    "projected_monthly_revenue": {
+      "type": "number"
+    },
+    "active_clients": {
+      "type": "number"
+    },
+    "domination_progress": {
+      "type": "number"
+    },
+    "opportunity_score": {
+      "type": "number"
+    },
+    "expansion_owner": {
+      "type": "string"
+    },
+    "campaign_status": {
+      "type": "string",
+      "enum": [
+        "none",
+        "planning",
+        "active",
+        "paused",
+        "completed"
+      ],
+      "default": "none"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "city",
+    "state",
+    "status"
+  ]
+}

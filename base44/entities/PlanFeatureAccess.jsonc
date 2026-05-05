@@ -1,0 +1,79 @@
+{
+  "name": "PlanFeatureAccess",
+  "type": "object",
+  "properties": {
+    "featureId": {
+      "type": "string"
+    },
+    "planKey": {
+      "type": "string",
+      "enum": [
+        "free_trial",
+        "diy",
+        "guided_growth",
+        "done_for_you",
+        "premium",
+        "enterprise"
+      ]
+    },
+    "featureKey": {
+      "type": "string"
+    },
+    "featureName": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "content_creation",
+        "publishing",
+        "analytics",
+        "integrations",
+        "team_collaboration",
+        "automation",
+        "ai_capabilities",
+        "support"
+      ]
+    },
+    "accessLevel": {
+      "type": "string",
+      "enum": [
+        "none",
+        "limited",
+        "standard",
+        "advanced",
+        "unlimited"
+      ],
+      "default": "none"
+    },
+    "limit": {
+      "type": "number"
+    },
+    "limitUnit": {
+      "type": "string",
+      "enum": [
+        "monthly",
+        "yearly",
+        "total",
+        "concurrent"
+      ]
+    },
+    "upgradePath": {
+      "type": "string"
+    },
+    "upgradeMessage": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "featureId",
+    "planKey",
+    "featureKey",
+    "accessLevel"
+  ]
+}

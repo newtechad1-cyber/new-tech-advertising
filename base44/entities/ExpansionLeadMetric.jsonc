@@ -1,0 +1,43 @@
+{
+  "name": "ExpansionLeadMetric",
+  "type": "object",
+  "properties": {
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "leads_generated": {
+      "type": "number"
+    },
+    "demos_scheduled": {
+      "type": "number"
+    },
+    "close_rate": {
+      "type": "number"
+    },
+    "revenue_generated": {
+      "type": "number"
+    },
+    "lead_growth_pct": {
+      "type": "number"
+    },
+    "period": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "city",
+    "state",
+    "leads_generated"
+  ]
+}

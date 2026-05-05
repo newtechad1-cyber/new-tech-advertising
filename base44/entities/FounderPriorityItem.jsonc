@@ -1,0 +1,56 @@
+{
+  "name": "FounderPriorityItem",
+  "type": "object",
+  "properties": {
+    "category": {
+      "type": "string",
+      "enum": [
+        "deal",
+        "upsell",
+        "market",
+        "client_risk"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "impact_label": {
+      "type": "string"
+    },
+    "impact_value": {
+      "type": "string"
+    },
+    "urgency": {
+      "type": "string",
+      "enum": [
+        "critical",
+        "high",
+        "medium"
+      ]
+    },
+    "recommended_action": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "actioned",
+        "dismissed"
+      ],
+      "default": "open"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "category",
+    "title"
+  ]
+}

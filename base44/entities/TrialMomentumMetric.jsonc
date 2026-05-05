@@ -1,0 +1,61 @@
+{
+  "name": "TrialMomentumMetric",
+  "type": "object",
+  "properties": {
+    "trial_signup_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "content_pieces_created": {
+      "type": "number",
+      "default": 0
+    },
+    "videos_generated": {
+      "type": "number",
+      "default": 0
+    },
+    "campaigns_started": {
+      "type": "number",
+      "default": 0
+    },
+    "visibility_signals": {
+      "type": "number",
+      "default": 0
+    },
+    "calendar_events_populated": {
+      "type": "number",
+      "default": 0
+    },
+    "portal_sessions": {
+      "type": "number",
+      "default": 0
+    },
+    "onboarding_pct": {
+      "type": "number",
+      "default": 0
+    },
+    "momentum_score": {
+      "type": "number",
+      "default": 0
+    },
+    "first_content_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "first_campaign_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "trial_signup_id",
+    "company_name"
+  ]
+}

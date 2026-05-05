@@ -1,0 +1,51 @@
+{
+  "name": "MarketExpansionZone",
+  "type": "object",
+  "properties": {
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "dominated",
+        "active",
+        "opportunity"
+      ]
+    },
+    "vertical_penetration": {
+      "type": "number"
+    },
+    "lead_demand_index": {
+      "type": "number"
+    },
+    "competitor_density_score": {
+      "type": "number"
+    },
+    "projected_market_value": {
+      "type": "number"
+    },
+    "active_clients": {
+      "type": "number"
+    },
+    "lat": {
+      "type": "number"
+    },
+    "lng": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "city",
+    "state",
+    "status"
+  ]
+}

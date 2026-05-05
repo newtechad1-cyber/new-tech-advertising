@@ -1,0 +1,105 @@
+{
+  "name": "ClientPerformanceMetric",
+  "type": "object",
+  "properties": {
+    "company_name": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "revenue_tier": {
+      "type": "string",
+      "enum": [
+        "starter",
+        "growth",
+        "professional",
+        "enterprise"
+      ]
+    },
+    "roi_score": {
+      "type": "number"
+    },
+    "growth_momentum": {
+      "type": "string",
+      "enum": [
+        "accelerating",
+        "stable",
+        "declining"
+      ]
+    },
+    "ranking_trend": {
+      "type": "string",
+      "enum": [
+        "improving",
+        "stable",
+        "declining"
+      ]
+    },
+    "social_reach_trend": {
+      "type": "string",
+      "enum": [
+        "up",
+        "stable",
+        "down"
+      ]
+    },
+    "lead_signal_strength": {
+      "type": "string",
+      "enum": [
+        "strong",
+        "moderate",
+        "weak"
+      ]
+    },
+    "roi_confidence": {
+      "type": "number"
+    },
+    "content_cadence_score": {
+      "type": "number"
+    },
+    "video_performance_score": {
+      "type": "number"
+    },
+    "engagement_velocity": {
+      "type": "number"
+    },
+    "keywords_improved": {
+      "type": "number"
+    },
+    "social_reach_growth_pct": {
+      "type": "number"
+    },
+    "estimated_leads_month": {
+      "type": "number"
+    },
+    "mrr": {
+      "type": "number"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "upsell_probability": {
+      "type": "number"
+    },
+    "churn_risk_score": {
+      "type": "number"
+    },
+    "account_manager": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_name",
+    "vertical",
+    "roi_score"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "name": "VerticalCampaignMetric",
+  "type": "object",
+  "properties": {
+    "vertical": {
+      "type": "string",
+      "description": "Industry vertical name"
+    },
+    "campaign_name": {
+      "type": "string"
+    },
+    "campaign_type": {
+      "type": "string",
+      "enum": [
+        "seasonal",
+        "authority",
+        "promotion",
+        "video",
+        "visibility"
+      ]
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "content_volume": {
+      "type": "number",
+      "default": 0
+    },
+    "engagement_score": {
+      "type": "number",
+      "default": 0
+    },
+    "visibility_impact_score": {
+      "type": "number",
+      "default": 0
+    },
+    "lead_signal_strength": {
+      "type": "number",
+      "default": 0
+    },
+    "overall_success_score": {
+      "type": "number",
+      "default": 0
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "vertical",
+    "campaign_name",
+    "campaign_type"
+  ]
+}

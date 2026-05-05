@@ -1,0 +1,82 @@
+{
+  "name": "ActivityEvent",
+  "type": "object",
+  "properties": {
+    "activityEventId": {
+      "type": "string"
+    },
+    "organizationId": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "string"
+    },
+    "eventType": {
+      "type": "string",
+      "enum": [
+        "entity_created",
+        "entity_updated",
+        "entity_deleted",
+        "user_action",
+        "automation_triggered",
+        "report_generated",
+        "campaign_launched",
+        "content_published",
+        "lead_status_changed",
+        "billing_event",
+        "system_event"
+      ]
+    },
+    "eventSource": {
+      "type": "string",
+      "enum": [
+        "user_interface",
+        "automation",
+        "api",
+        "webhook",
+        "system",
+        "ai_agent"
+      ]
+    },
+    "relatedEntityType": {
+      "type": "string",
+      "enum": [
+        "Organization",
+        "Campaign",
+        "ContentAsset",
+        "Lead",
+        "DataGovernanceUser",
+        "Subscription",
+        "OnboardingProfile",
+        "Other"
+      ]
+    },
+    "relatedEntityId": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "metadata": {
+      "type": "string"
+    },
+    "changes": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "activityEventId",
+    "organizationId",
+    "eventType",
+    "eventSource",
+    "relatedEntityType",
+    "relatedEntityId",
+    "timestamp"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "name": "ReportGenerationJob",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "report_period": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "data_gathering",
+        "ai_generating",
+        "visuals_ready",
+        "pending_review",
+        "client_ready",
+        "delivered",
+        "failed"
+      ],
+      "default": "data_gathering"
+    },
+    "data_confidence_score": {
+      "type": "number"
+    },
+    "follow_up_flag": {
+      "type": "boolean",
+      "default": false
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "report_id": {
+      "type": "string"
+    },
+    "assigned_reviewer": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_id",
+    "company_name",
+    "report_period"
+  ]
+}

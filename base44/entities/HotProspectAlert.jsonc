@@ -1,0 +1,97 @@
+{
+  "name": "HotProspectAlert",
+  "type": "object",
+  "properties": {
+    "subscription_id": {
+      "type": "string",
+      "description": "Reference to DIYSubscription record"
+    },
+    "user_email": {
+      "type": "string"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "signal_type": {
+      "type": "string",
+      "enum": [
+        "low_momentum_risk",
+        "high_effort_low_execution",
+        "lead_momentum",
+        "time_constraint_pattern",
+        "aggressive_growth_intent",
+        "multi_signal_opportunity"
+      ]
+    },
+    "readiness_score": {
+      "type": "number",
+      "default": 0
+    },
+    "recommended_plan": {
+      "type": "string",
+      "enum": [
+        "guided_growth",
+        "done_for_you",
+        "premium",
+        "none"
+      ]
+    },
+    "trigger_data": {
+      "type": "string"
+    },
+    "alert_priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "reviewed",
+        "contacted",
+        "converted",
+        "dismissed"
+      ],
+      "default": "new"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "contacted_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "converted_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "next_action_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "detected_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "subscription_id",
+    "user_email",
+    "signal_type",
+    "readiness_score"
+  ]
+}

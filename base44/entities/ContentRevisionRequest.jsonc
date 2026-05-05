@@ -1,0 +1,43 @@
+{
+  "name": "ContentRevisionRequest",
+  "type": "object",
+  "properties": {
+    "approval_item_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "revision_type": {
+      "type": "string",
+      "enum": [
+        "caption_change",
+        "tone_adjustment",
+        "visual_change",
+        "timing_change",
+        "other"
+      ]
+    },
+    "client_note": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "submitted",
+        "in_production",
+        "resolved"
+      ],
+      "default": "submitted"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "approval_item_id",
+    "client_id"
+  ]
+}

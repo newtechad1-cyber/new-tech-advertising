@@ -1,0 +1,51 @@
+{
+  "name": "MarketMomentumScore",
+  "type": "object",
+  "properties": {
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "authority_saturation": {
+      "type": "number"
+    },
+    "inbound_demand_trend": {
+      "type": "string",
+      "enum": [
+        "accelerating",
+        "stable",
+        "declining"
+      ]
+    },
+    "competitor_visibility": {
+      "type": "number"
+    },
+    "brand_momentum_index": {
+      "type": "number"
+    },
+    "momentum_signal": {
+      "type": "string",
+      "enum": [
+        "accelerating",
+        "stable",
+        "declining"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "city",
+    "state",
+    "vertical",
+    "brand_momentum_index"
+  ]
+}

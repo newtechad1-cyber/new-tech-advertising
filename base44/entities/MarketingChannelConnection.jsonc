@@ -1,0 +1,67 @@
+{
+  "name": "MarketingChannelConnection",
+  "type": "object",
+  "properties": {
+    "client_profile": {
+      "type": "string",
+      "description": "Relation to ClientHealthProfile id"
+    },
+    "channel_type": {
+      "type": "string",
+      "enum": [
+        "facebook",
+        "instagram",
+        "google_business",
+        "youtube",
+        "tiktok",
+        "website",
+        "email",
+        "sms"
+      ]
+    },
+    "connection_status": {
+      "type": "string",
+      "enum": [
+        "connected",
+        "disconnected",
+        "error",
+        "expired",
+        "pending"
+      ]
+    },
+    "connected_account_name": {
+      "type": "string"
+    },
+    "permission_level_summary": {
+      "type": "string"
+    },
+    "last_successful_sync": {
+      "type": "string",
+      "format": "date"
+    },
+    "last_error_message": {
+      "type": "string"
+    },
+    "reconnect_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "test_publish_status": {
+      "type": "string",
+      "enum": [
+        "not_tested",
+        "success",
+        "failed"
+      ],
+      "default": "not_tested"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "channel_type"
+  ]
+}

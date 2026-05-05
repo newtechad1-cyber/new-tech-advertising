@@ -1,0 +1,69 @@
+{
+  "name": "FunnelOpportunitySignal",
+  "type": "object",
+  "properties": {
+    "opportunity_title": {
+      "type": "string"
+    },
+    "opportunity_type": {
+      "type": "string",
+      "enum": [
+        "traffic_push",
+        "messaging_update",
+        "pricing_adjustment",
+        "demo_focus",
+        "trial_incentive",
+        "page_layout",
+        "video_emphasis"
+      ]
+    },
+    "target_page": {
+      "type": "string"
+    },
+    "opportunity_score": {
+      "type": "number",
+      "default": 50
+    },
+    "projected_conversion_lift": {
+      "type": "number",
+      "default": 0
+    },
+    "traffic_volume_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "urgency_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "recommended_action": {
+      "type": "string"
+    },
+    "implementation_status": {
+      "type": "string",
+      "enum": [
+        "identified",
+        "planning",
+        "executing",
+        "completed"
+      ],
+      "default": "identified"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "opportunity_title",
+    "opportunity_type",
+    "target_page"
+  ]
+}

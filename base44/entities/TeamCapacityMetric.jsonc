@@ -1,0 +1,48 @@
+{
+  "name": "TeamCapacityMetric",
+  "type": "object",
+  "properties": {
+    "team_name": {
+      "type": "string",
+      "enum": [
+        "sales",
+        "onboarding",
+        "support",
+        "content",
+        "development"
+      ]
+    },
+    "current_load": {
+      "type": "number"
+    },
+    "queue_volume": {
+      "type": "number"
+    },
+    "capacity_warning": {
+      "type": "boolean"
+    },
+    "trend": {
+      "type": "string",
+      "enum": [
+        "increasing",
+        "stable",
+        "decreasing"
+      ]
+    },
+    "avg_resolution_time_hours": {
+      "type": "number"
+    },
+    "team_size": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "team_name",
+    "current_load"
+  ]
+}

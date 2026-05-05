@@ -1,0 +1,36 @@
+{
+  "name": "ProfitabilityMetric",
+  "type": "object",
+  "properties": {
+    "period": {
+      "type": "string"
+    },
+    "gross_margin_pct": {
+      "type": "number"
+    },
+    "production_cost_ratio": {
+      "type": "number"
+    },
+    "partner_revenue_share_impact": {
+      "type": "number"
+    },
+    "operational_overhead_estimate": {
+      "type": "number"
+    },
+    "net_margin_pct": {
+      "type": "number"
+    },
+    "ebitda_estimate": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "period",
+    "gross_margin_pct"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "name": "ReferralRewardTier",
+  "type": "object",
+  "properties": {
+    "tier_name": {
+      "type": "string"
+    },
+    "referrals_required": {
+      "type": "number"
+    },
+    "reward_description": {
+      "type": "string"
+    },
+    "reward_emoji": {
+      "type": "string"
+    },
+    "reward_value_label": {
+      "type": "string"
+    },
+    "badge_label": {
+      "type": "string"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "tier_name",
+    "referrals_required",
+    "reward_description"
+  ]
+}

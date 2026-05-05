@@ -1,0 +1,56 @@
+{
+  "name": "LeadInsightPreview",
+  "type": "object",
+  "properties": {
+    "application_id": {
+      "type": "string"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "visibility_gap_score": {
+      "type": "number",
+      "default": 0
+    },
+    "competitor_count_active": {
+      "type": "number",
+      "default": 0
+    },
+    "content_opportunity_index": {
+      "type": "number",
+      "default": 0
+    },
+    "estimated_missed_leads_monthly": {
+      "type": "number",
+      "default": 0
+    },
+    "top_competitor_names": {
+      "type": "string"
+    },
+    "keywords_not_ranking": {
+      "type": "number",
+      "default": 0
+    },
+    "streaming_gap_present": {
+      "type": "boolean",
+      "default": true
+    },
+    "insight_viewed_at": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "application_id"
+  ]
+}

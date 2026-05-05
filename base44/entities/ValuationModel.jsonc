@@ -1,0 +1,45 @@
+{
+  "name": "ValuationModel",
+  "type": "object",
+  "properties": {
+    "as_of_period": {
+      "type": "string"
+    },
+    "current_arr": {
+      "type": "number"
+    },
+    "conservative_multiple": {
+      "type": "number"
+    },
+    "mid_multiple": {
+      "type": "number"
+    },
+    "aggressive_multiple": {
+      "type": "number"
+    },
+    "conservative_valuation": {
+      "type": "number"
+    },
+    "mid_valuation": {
+      "type": "number"
+    },
+    "aggressive_valuation": {
+      "type": "number"
+    },
+    "growth_rate": {
+      "type": "number"
+    },
+    "churn_rate": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "as_of_period",
+    "current_arr"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "name": "NotificationAutomationRule",
+  "type": "object",
+  "properties": {
+    "rule_name": {
+      "type": "string"
+    },
+    "trigger_type": {
+      "type": "string"
+    },
+    "condition_description": {
+      "type": "string"
+    },
+    "notification_template": {
+      "type": "string"
+    },
+    "urgency": {
+      "type": "string",
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low",
+        "info"
+      ]
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "fires_count": {
+      "type": "number",
+      "default": 0
+    },
+    "last_fired": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "rule_name",
+    "trigger_type"
+  ]
+}

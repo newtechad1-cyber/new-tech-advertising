@@ -1,0 +1,82 @@
+{
+  "name": "ClientGrowthMetric",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "period": {
+      "type": "string"
+    },
+    "growth_momentum_score": {
+      "type": "number"
+    },
+    "content_published_month": {
+      "type": "number"
+    },
+    "video_reach_trend": {
+      "type": "string",
+      "enum": [
+        "up",
+        "stable",
+        "down"
+      ]
+    },
+    "search_visibility_trend": {
+      "type": "string",
+      "enum": [
+        "up",
+        "stable",
+        "down"
+      ]
+    },
+    "leads_activity_signal": {
+      "type": "string",
+      "enum": [
+        "strong",
+        "moderate",
+        "low"
+      ]
+    },
+    "next_strategy_review": {
+      "type": "string",
+      "format": "date"
+    },
+    "ai_performance_summary": {
+      "type": "string"
+    },
+    "latest_win": {
+      "type": "string"
+    },
+    "upcoming_focus": {
+      "type": "string"
+    },
+    "search_ranking_improvement": {
+      "type": "number"
+    },
+    "social_engagement_score": {
+      "type": "number"
+    },
+    "brand_visibility_score": {
+      "type": "number"
+    },
+    "website_traffic_signal": {
+      "type": "string",
+      "enum": [
+        "increasing",
+        "stable",
+        "decreasing"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_id",
+    "period",
+    "growth_momentum_score"
+  ]
+}

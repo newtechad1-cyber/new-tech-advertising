@@ -1,0 +1,60 @@
+{
+  "name": "AutomationPerformanceMetric",
+  "type": "object",
+  "properties": {
+    "automation_rule": {
+      "type": "string",
+      "description": "Relation to AutomationRule id (optional)"
+    },
+    "automation_flow": {
+      "type": "string",
+      "description": "Relation to AutomationFlow id (optional)"
+    },
+    "metric_period_start": {
+      "type": "string",
+      "format": "date"
+    },
+    "executions_count": {
+      "type": "number",
+      "default": 0
+    },
+    "success_rate_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "avg_confidence_score": {
+      "type": "number",
+      "default": 0
+    },
+    "avg_response_time_seconds": {
+      "type": "number",
+      "default": 0
+    },
+    "business_impact_score": {
+      "type": "number",
+      "default": 0
+    },
+    "failure_rate_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "optimization_status": {
+      "type": "string",
+      "enum": [
+        "healthy",
+        "monitor",
+        "optimize",
+        "underperforming"
+      ],
+      "default": "healthy"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "metric_period_start"
+  ]
+}
