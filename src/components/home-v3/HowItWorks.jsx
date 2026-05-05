@@ -36,6 +36,8 @@ export default function HowItWorks() {
             src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/07c407115_howaihaschangedmarketing.png"
             alt="How AI has changed marketing"
             className="w-full h-full object-cover"
+            crossOrigin="anonymous"
+            onError={(e) => { e.target.style.display='none'; }}
           />
         </div>
 
