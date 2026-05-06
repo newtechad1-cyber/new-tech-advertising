@@ -13,18 +13,47 @@ import RestaurantMobileBar from '../components/restaurant-demo/RestaurantMobileB
 import RestaurantNTASection from '../components/restaurant-demo/RestaurantNTASection';
 
 const config = BAR_CONFIG;
+const DEMO_LABEL = 'Bar & Grill Demo (The Iron Rail — Garner, IA)';
 
 export default function RestaurantDemoBar() {
   useEffect(() => {
-    document.title = `${config.name} | ${config.city}, ${config.state}`;
+    document.title = `${config.name} | Sports Bar & Grill in ${config.city}, ${config.state} | NTA Demo`;
+
+    const setMeta = (name, content, isProperty = false) => {
+      const selector = isProperty ? `meta[property="${name}"]` : `meta[name="${name}"]`;
+      let tag = document.querySelector(selector);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute(isProperty ? 'property' : 'name', name);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    };
+
+    setMeta('description', `${config.name} is ${config.city}'s favorite sports bar — burgers, wings, cold beer, and every game on big screen. Happy hour Friday 4–6pm. ${config.phone}.`);
+    setMeta('keywords', config.seoKeywords.join(', '));
+    setMeta('og:title', `${config.name} | Best Sports Bar in ${config.city}`, true);
+    setMeta('og:description', `Cold drinks, great food, and every game on big screen in ${config.city}, Iowa. Half-price wings on Monday Night Football. View our menu.`, true);
+    setMeta('og:image', config.heroImage, true);
+
     const schema = {
       "@context": "https://schema.org",
       "@type": config.schemaType,
       "name": config.name,
-      "address": { "@type": "PostalAddress", "streetAddress": config.address, "addressLocality": config.city, "addressRegion": config.state },
+      "description": config.description,
+      "url": window.location.href,
       "telephone": config.phone,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": config.address,
+        "addressLocality": config.city,
+        "addressRegion": config.state,
+        "addressCountry": "US"
+      },
       "servesCuisine": config.cuisine,
+      "priceRange": "$$",
       "aggregateRating": { "@type": "AggregateRating", "ratingValue": config.rating, "reviewCount": config.reviewCount },
+      "openingHours": config.hours,
     };
     let tag = document.getElementById('restaurant-schema');
     if (!tag) { tag = document.createElement('script'); tag.id = 'restaurant-schema'; tag.type = 'application/ld+json'; document.head.appendChild(tag); }
@@ -42,7 +71,7 @@ export default function RestaurantDemoBar() {
       <RestaurantAbout config={config} />
       <RestaurantSocial config={config} />
       <RestaurantLocation config={config} />
-      <RestaurantNTASection config={config} />
+      <RestaurantNTASection config={config} demoLabel={DEMO_LABEL} />
       <RestaurantMobileBar config={config} />
     </div>
   );

@@ -13,18 +13,45 @@ import RestaurantMobileBar from '../components/restaurant-demo/RestaurantMobileB
 import RestaurantNTASection from '../components/restaurant-demo/RestaurantNTASection';
 
 const config = PIZZA_CONFIG;
+const DEMO_LABEL = 'Pizza Demo (Marco\'s Pizzeria — Mason City, IA)';
 
 export default function RestaurantDemoPizza() {
   useEffect(() => {
-    document.title = `${config.name} | ${config.city}, ${config.state}`;
-    // SEO schema
+    document.title = `${config.name} | Best Pizza in ${config.city}, ${config.state} | NTA Demo`;
+
+    const setMeta = (name, content, isProperty = false) => {
+      const selector = isProperty ? `meta[property="${name}"]` : `meta[name="${name}"]`;
+      let tag = document.querySelector(selector);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute(isProperty ? 'property' : 'name', name);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    };
+
+    setMeta('description', `${config.name} serves handcrafted pizza in ${config.city}, ${config.state}. Dine in, carry out, or delivery. View our menu, specials, and order online. ${config.phone}.`);
+    setMeta('keywords', config.seoKeywords.join(', '));
+    setMeta('og:title', `${config.name} | Best Pizza in ${config.city}`, true);
+    setMeta('og:description', `Fresh dough, local ingredients, and 35+ years of great pizza in ${config.city}, Iowa. View our menu and order online.`, true);
+    setMeta('og:image', config.heroImage, true);
+
     const schema = {
       "@context": "https://schema.org",
       "@type": config.schemaType,
       "name": config.name,
-      "address": { "@type": "PostalAddress", "streetAddress": config.address, "addressLocality": config.city, "addressRegion": config.state },
+      "description": config.description,
+      "url": window.location.href,
       "telephone": config.phone,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": config.address,
+        "addressLocality": config.city,
+        "addressRegion": config.state,
+        "addressCountry": "US"
+      },
       "servesCuisine": config.cuisine,
+      "priceRange": "$$",
       "aggregateRating": { "@type": "AggregateRating", "ratingValue": config.rating, "reviewCount": config.reviewCount },
       "openingHours": config.hours,
     };
@@ -44,7 +71,7 @@ export default function RestaurantDemoPizza() {
       <RestaurantAbout config={config} />
       <RestaurantSocial config={config} />
       <RestaurantLocation config={config} />
-      <RestaurantNTASection config={config} />
+      <RestaurantNTASection config={config} demoLabel={DEMO_LABEL} />
       <RestaurantMobileBar config={config} />
     </div>
   );

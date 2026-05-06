@@ -13,18 +13,47 @@ import RestaurantMobileBar from '../components/restaurant-demo/RestaurantMobileB
 import RestaurantNTASection from '../components/restaurant-demo/RestaurantNTASection';
 
 const config = MEXICAN_CONFIG;
+const DEMO_LABEL = 'Mexican Demo (Casa Fuego — Clear Lake, IA)';
 
 export default function RestaurantDemoMexican() {
   useEffect(() => {
-    document.title = `${config.name} | ${config.city}, ${config.state}`;
+    document.title = `${config.name} | Authentic Mexican Food in ${config.city}, ${config.state} | NTA Demo`;
+
+    const setMeta = (name, content, isProperty = false) => {
+      const selector = isProperty ? `meta[property="${name}"]` : `meta[name="${name}"]`;
+      let tag = document.querySelector(selector);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute(isProperty ? 'property' : 'name', name);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    };
+
+    setMeta('description', `${config.name} serves authentic Mexican food in ${config.city}, ${config.state}. Street tacos, sizzling fajitas, and bold flavors. View menu, specials, and Taco Tuesday deals. ${config.phone}.`);
+    setMeta('keywords', config.seoKeywords.join(', '));
+    setMeta('og:title', `${config.name} | Authentic Mexican in ${config.city}`, true);
+    setMeta('og:description', `Bold Mexican flavors, family recipes, and a warm atmosphere in ${config.city}, Iowa. Taco Tuesday every week. View our menu.`, true);
+    setMeta('og:image', config.heroImage, true);
+
     const schema = {
       "@context": "https://schema.org",
       "@type": config.schemaType,
       "name": config.name,
-      "address": { "@type": "PostalAddress", "streetAddress": config.address, "addressLocality": config.city, "addressRegion": config.state },
+      "description": config.description,
+      "url": window.location.href,
       "telephone": config.phone,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": config.address,
+        "addressLocality": config.city,
+        "addressRegion": config.state,
+        "addressCountry": "US"
+      },
       "servesCuisine": config.cuisine,
+      "priceRange": "$$",
       "aggregateRating": { "@type": "AggregateRating", "ratingValue": config.rating, "reviewCount": config.reviewCount },
+      "openingHours": config.hours,
     };
     let tag = document.getElementById('restaurant-schema');
     if (!tag) { tag = document.createElement('script'); tag.id = 'restaurant-schema'; tag.type = 'application/ld+json'; document.head.appendChild(tag); }
@@ -42,7 +71,7 @@ export default function RestaurantDemoMexican() {
       <RestaurantAbout config={config} />
       <RestaurantSocial config={config} />
       <RestaurantLocation config={config} />
-      <RestaurantNTASection config={config} />
+      <RestaurantNTASection config={config} demoLabel={DEMO_LABEL} />
       <RestaurantMobileBar config={config} />
     </div>
   );
