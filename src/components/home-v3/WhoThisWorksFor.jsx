@@ -23,7 +23,7 @@ const clients = [
   },
   {
     name: 'Club Fitness – Fort Dodge',
-    logo: 'https://media.base44.com/images/public/691f41a18de4a7f498c8f884/b88c7c084_306090828_501907041940322_3593526891402694754_n.jpg',
+    logo: 'https://media.base44.com/images/public/691f41a18de4a7f498c8f884/b5b9fadcd_306090828_501907041940322_3593526891402694754_n.jpg',
     url: 'https://clubfitnessfd.com/',
     bg: 'bg-white',
   },
@@ -121,7 +121,7 @@ export default function WhoThisWorksFor() {
               <img
                 src={c.logo}
                 alt={c.name}
-                className="max-h-16 max-w-full object-contain"
+                className={`max-h-16 max-w-full object-contain${c.name === 'Club Fitness – Fort Dodge' ? ' mix-blend-multiply' : ''}`}
               />
             </a>
           ))}
