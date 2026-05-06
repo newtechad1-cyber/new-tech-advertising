@@ -4,20 +4,22 @@ import SiteFooter from '../components/marketing/SiteFooter';
 import NTAGrowthGuideBot from '../components/nta-guide/NTAGrowthGuideBot';
 import HeroSplit from '../components/home-v3/HeroSplit';
 import WhatIMean from '../components/home-v3/WhatIMean';
+import NTAGrowthSystem from '../components/home-v3/NTAGrowthSystem';
+import IndustrySplit from '../components/home-v3/IndustrySplit';
 import HowItWorks from '../components/home-v3/HowItWorks';
 import WhoThisWorksFor from '../components/home-v3/WhoThisWorksFor';
 import GapAuditCenteredCTA from '../components/home-v3/GapAuditCenteredCTA';
 
 export default function Home() {
   useEffect(() => {
-    document.title = 'NTA | Local Lead Systems for Service Businesses in North Iowa';
+    document.title = 'NTA AI Growth System | More Leads, Customers & Repeat Business for Local Businesses';
     let meta = document.querySelector('meta[name="description"]');
     if (!meta) {
       meta = document.createElement('meta');
       meta.name = 'description';
       document.head.appendChild(meta);
     }
-    meta.setAttribute('content', 'NTA builds complete lead systems for local service businesses in North Iowa — HVAC, plumbing, excavating, lawn care, and more. Website rebuilds, SEO pages, seasonal campaigns, AI video, and follow-up systems.');
+    meta.setAttribute('content', 'NTA AI Growth System helps local service businesses and brands generate more leads, customers, and repeat business through better visibility, content, advertising, and follow-up. Serving North Iowa and Southern Minnesota.');
 
     const schema = {
       "@context": "https://schema.org",
@@ -44,6 +46,8 @@ export default function Home() {
       <MarketingNav />
       <HeroSplit />
       <WhatIMean />
+      <NTAGrowthSystem />
+      <IndustrySplit />
       <HowItWorks />
       <WhoThisWorksFor />
       <GapAuditCenteredCTA />

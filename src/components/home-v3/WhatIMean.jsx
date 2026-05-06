@@ -2,17 +2,16 @@ import React from 'react';
 import { CheckCircle2 } from 'lucide-react';
 
 const problems = [
-  "What's already working",
-  "What should stay",
-  "What's not helping",
-  'What small changes could make the biggest difference',
+  'Customers never find them online',
+  "Customers don't trust them yet",
+  'Nobody follows up consistently',
 ];
 
 const solutions = [
-  'Smarter tools to move faster and create content more efficiently',
-  'Reduce unnecessary work and wasted spend',
-  '40+ years of real marketing experience guiding every decision',
-  'Knowing what to build, what to say, and what not to waste money on',
+  'More calls, estimates, and booked jobs',
+  'Better visibility in local search and social',
+  'Content that builds trust before they even call',
+  'Consistent follow-up that brings customers back',
 ];
 
 export default function WhatIMean() {
@@ -23,29 +22,29 @@ export default function WhatIMean() {
         {/* LEFT: The Problem */}
         <div>
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-3">
-            Not Sure What's Working?
+            Most Local Businesses Lose Customers In 3 Places
           </h2>
           <p className="text-slate-500 mb-5 leading-relaxed">
-            Most businesses don't need everything torn apart. They need a clear look at what's helping, what's getting in the way, and what can be improved first. I'll look at your website and marketing and show you:
+            It's rarely one big problem. It's usually a few small gaps that add up to missed calls, lost trust, and customers going to a competitor instead.
           </p>
           <ul className="space-y-3 mb-6">
             {problems.map(item => (
-              <li key={item} className="flex items-start gap-3 text-slate-700">
+              <li key={item} className="flex items-start gap-3 text-slate-700 font-medium">
                 <span className="w-1.5 h-1.5 rounded-full bg-red-400 flex-shrink-0 mt-2" />
                 {item}
               </li>
             ))}
           </ul>
-          <p className="text-slate-800 font-semibold">No obligation. Just a clear, honest look.</p>
+          <p className="text-slate-800 font-semibold">NTA helps solve all three.</p>
         </div>
 
         {/* RIGHT: The Solution */}
         <div>
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-3">
-            Smarter Tools. Real Marketing Experience.
+            A Growth System Built Around Your Business
           </h2>
           <p className="text-slate-500 mb-5 leading-relaxed">
-            There's a lot of noise around AI right now. I use it where it actually helps — but AI does not replace experience. The value comes from knowing what to build, where to focus, and what not to waste money on:
+            We don't just build websites or run ads. We put together a complete system focused on getting your business found, trusted, and chosen — and keeping customers coming back:
           </p>
           <ul className="space-y-3 mb-6">
             {solutions.map(item => (
@@ -56,7 +55,7 @@ export default function WhatIMean() {
             ))}
           </ul>
           <p className="text-slate-500 text-sm leading-relaxed">
-            That's where 40+ years of marketing experience matters.
+            Built on 40+ years of real marketing experience — and the right tools to move faster.
           </p>
         </div>
 

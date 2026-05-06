@@ -98,13 +98,13 @@ export default function WhoThisWorksFor() {
             Real Work With Local Businesses
           </h2>
           <p className="text-slate-500 leading-relaxed text-sm mb-3">
-            I've worked with many types of local businesses over the years — including HVAC, plumbing, excavation, restaurants, fitness businesses, and local service companies.
+            We've worked with HVAC companies, plumbers, excavation contractors, restaurants, fitness businesses, and local service companies across North Iowa and Southern Minnesota.
           </p>
           <p className="text-slate-500 leading-relaxed text-sm mb-3">
-            Different businesses need different outcomes. Service businesses need calls and leads. Restaurants need customers walking in. Fitness businesses need members and inquiries.
+            Every business has different goals — more calls, more foot traffic, more repeat customers. We build around what matters for yours.
           </p>
           <p className="text-slate-700 font-semibold text-sm">
-            The goal is always the same: help people find you, understand you, and take action.
+            The goal is always the same: more leads, more customers, more growth.
           </p>
         </div>
 
