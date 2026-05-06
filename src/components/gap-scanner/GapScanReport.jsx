@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Copy, Check, Download, FileText, File } from 'lucide-react';
+import { Copy, Check, Download, FileText, File, CheckCircle, AlertCircle, Info } from 'lucide-react';
 
 const today = () => new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
@@ -7,6 +7,10 @@ function buildFullReport(audit, form) {
   const doingWell = (audit.doing_well || []).map(x => `  • ${x}`).join('\n');
   const fixes = (audit.recommended_fixes || []).map((x, i) => `  ${i + 1}. ${x}`).join('\n');
   const wins = (audit.quick_wins || []).map(x => `  • ${x}`).join('\n');
+
+  const a11y = audit.accessibility || {};
+  const a11yIssues = (a11y.issues || []).map(x => `  • ${x}`).join('\n');
+  const a11yWins = (a11y.quick_wins || []).map(x => `  • ${x}`).join('\n');
 
   return `AI Gap Audit for ${form.businessName}
 ${'='.repeat(50)}
@@ -45,6 +49,17 @@ TOP 3 GAPS COSTING YOU LEADS
 WHAT THIS MAY BE COSTING YOU
 ─────────────────────────────────────
 ${audit.costing_them}
+
+─────────────────────────────────────
+ACCESSIBILITY & MODERN USABILITY REVIEW
+─────────────────────────────────────
+Usability Score: ${a11y.score || '—'}/100
+
+${a11y.summary || ''}
+
+${a11yIssues ? 'Areas to improve:\n' + a11yIssues : ''}
+
+${a11yWins ? 'Quick wins:\n' + a11yWins : ''}
 
 ─────────────────────────────────────
 RECOMMENDED FIXES
@@ -293,6 +308,7 @@ ${audit.suggested_next_step}\\line
 
   const score = audit.score || {};
   const categories = audit.categories || {};
+  const a11y = audit.accessibility || {};
 
   return (
     <div className="space-y-6">
@@ -317,11 +333,13 @@ ${audit.suggested_next_step}\\line
 
       {/* Scores */}
       {score.overall && (
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 grid grid-cols-2 sm:grid-cols-3 gap-4">
           <ScoreBar label="Lead Generation" value={score.lead_generation} />
           <ScoreBar label="Local Visibility" value={score.local_visibility} />
           <ScoreBar label="Trust" value={score.trust} />
           <ScoreBar label="Conversion" value={score.conversion} />
+          <ScoreBar label="Website Structure" value={score.website_structure} />
+          {a11y.score && <ScoreBar label="Usability & Accessibility" value={a11y.score} />}
         </div>
       )}
 
@@ -390,6 +408,67 @@ ${audit.suggested_next_step}\\line
       <ReportSection title="What This May Be Costing You" color="amber">
         <p className="text-sm text-slate-300 leading-relaxed">{audit.costing_them}</p>
       </ReportSection>
+
+      {/* Accessibility & Modern Usability Section */}
+      {(a11y.summary || (a11y.issues && a11y.issues.length > 0)) && (
+        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-4">
+          <div className="flex items-start justify-between gap-3 flex-wrap">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wider text-cyan-400 mb-0.5">Accessibility & Modern Usability Review</p>
+              <p className="text-sm text-slate-300 leading-relaxed">{a11y.summary}</p>
+            </div>
+            {a11y.score && (
+              <div className={`flex-shrink-0 text-center px-3 py-1.5 rounded-xl border ${
+                a11y.score >= 70 ? 'bg-emerald-900/30 border-emerald-700/40 text-emerald-300' :
+                a11y.score >= 50 ? 'bg-amber-900/30 border-amber-700/40 text-amber-300' :
+                'bg-red-900/30 border-red-700/40 text-red-300'
+              }`}>
+                <p className="text-xl font-black">{a11y.score}</p>
+                <p className="text-xs opacity-70">Usability Score</p>
+              </div>
+            )}
+          </div>
+
+          {/* Why Accessibility Matters callout */}
+          <div className="bg-blue-950/40 border border-blue-800/30 rounded-xl p-3 flex gap-2.5">
+            <Info className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="text-xs font-bold text-blue-300 mb-0.5">Why Accessibility Matters</p>
+              <p className="text-xs text-blue-200/70 leading-relaxed">Accessibility and usability improvements help more customers successfully use your website while also improving SEO, mobile experience, readability, and overall trust with search engines and users.</p>
+            </div>
+          </div>
+
+          {/* Issues */}
+          {a11y.issues && a11y.issues.length > 0 && (
+            <div>
+              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Areas to Improve</p>
+              <ul className="space-y-1.5">
+                {a11y.issues.map((issue, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
+                    <AlertCircle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
+                    {issue}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Quick wins */}
+          {a11y.quick_wins && a11y.quick_wins.length > 0 && (
+            <div>
+              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Quick Usability Wins</p>
+              <ul className="space-y-1.5">
+                {a11y.quick_wins.map((win, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
+                    <CheckCircle className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0 mt-0.5" />
+                    {win}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
 
       <ReportSection title="Recommended Fixes">
         <ol className="space-y-1.5">

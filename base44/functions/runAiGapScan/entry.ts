@@ -14,6 +14,7 @@ Deno.serve(async (req) => {
 
     // Try to fetch the website content
     let websiteContent = pastedContent || '';
+    let rawHtml = '';
     if (!websiteContent && websiteUrl) {
       try {
         const fetchRes = await fetch(websiteUrl, {
@@ -21,9 +22,9 @@ Deno.serve(async (req) => {
           signal: AbortSignal.timeout(8000),
         });
         if (fetchRes.ok) {
-          const html = await fetchRes.text();
-          // Strip HTML tags for cleaner text
-          websiteContent = html.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+          rawHtml = await fetchRes.text();
+          websiteContent = rawHtml
+            .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
             .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
             .replace(/<[^>]+>/g, ' ')
             .replace(/\s+/g, ' ')
@@ -35,12 +36,23 @@ Deno.serve(async (req) => {
       }
     }
 
+    // Basic accessibility signal checks from raw HTML
+    const accessibilitySignals = [];
+    if (rawHtml) {
+      const imgsMissingAlt = (rawHtml.match(/<img(?![^>]*alt=)[^>]*>/gi) || []).length;
+      if (imgsMissingAlt > 0) accessibilitySignals.push(`${imgsMissingAlt} image(s) appear to be missing alt text`);
+      if (!/<h1[\s>]/i.test(rawHtml)) accessibilitySignals.push('No H1 heading tag detected');
+      if (!/<label[\s>]/i.test(rawHtml) && /<input/i.test(rawHtml)) accessibilitySignals.push('Form inputs may be missing labels');
+      if (!/<h2[\s>]/i.test(rawHtml)) accessibilitySignals.push('No H2 headings detected — heading structure may be weak');
+    }
+
     const contextInfo = [
       websiteContent ? `Website content extracted:\n${websiteContent}` : `NOTE: Could not access website directly. Base analysis on URL pattern and business info only.`,
       industry ? `Industry: ${industry}` : '',
       city ? `City/Market: ${city}` : '',
       contactName ? `Contact: ${contactName}` : '',
       notes ? `Extra notes: ${notes}` : '',
+      accessibilitySignals.length > 0 ? `Accessibility signals detected: ${accessibilitySignals.join('; ')}` : '',
     ].filter(Boolean).join('\n');
 
     const prompt = `You are Rick Hesse's AI assistant at New Tech Advertising, a local digital marketing agency in Mason City, Iowa. Your job is to analyze a local business's website and generate a practical, sales-focused gap audit report that Rick can send to a prospect.
@@ -65,6 +77,13 @@ Analyze the website and generate a report in this EXACT JSON format (no markdown
   "quick_wins": ["Quick win 1", "Quick win 2", "Quick win 3"],
   "suggested_next_step": "A friendly, non-pushy next step suggestion",
   "internal_notes": "Notes for Rick about this prospect — things to mention in the sales call, what services fit best, tone to use",
+  "accessibility": {
+    "score": 60,
+    "summary": "1-2 sentence plain-language summary of the website's usability and accessibility for all visitors",
+    "issues": ["Issue 1 described in business-friendly terms", "Issue 2", "Issue 3"],
+    "quick_wins": ["Quick accessibility win 1", "Quick accessibility win 2"],
+    "executive_note": "One sentence for the executive summary if accessibility is weak (optional, leave blank if score >= 70)"
+  },
   "categories": {
     "first_impression": "brief note",
     "offer_clarity": "brief note",
@@ -76,14 +95,16 @@ Analyze the website and generate a report in this EXACT JSON format (no markdown
     "mobile": "brief note",
     "service_pages": "brief note",
     "social_proof": "brief note",
-    "conversion_gaps": "brief note"
+    "conversion_gaps": "brief note",
+    "accessibility_usability": "brief note"
   },
   "score": {
     "overall": 62,
     "lead_generation": 55,
     "local_visibility": 60,
     "trust": 65,
-    "conversion": 50
+    "conversion": 50,
+    "website_structure": 58
   }
 }
 
@@ -93,7 +114,10 @@ Guidelines:
 - Be helpful and encouraging, not harsh
 - Scores should be realistic (40-85 range typically), not fake 90s or 30s
 - If you can't access the site, make reasonable inferences from the URL and business type
-- All text should sound like a helpful local marketing advisor, not a robot`;
+- All text should sound like a helpful local marketing advisor, not a robot
+- For accessibility section: NEVER use fear-based language like "ADA violation", "non-compliant", or "you could get sued". Instead frame as usability, mobile experience, and SEO impact. Example: "Several images are missing descriptive alt text, which may reduce accessibility for some visitors and slightly weaken SEO performance."
+- The website_structure score should factor in: mobile responsiveness, page speed, SEO structure, accessibility basics, conversion flow, CTA clarity, content organization, local SEO signals, AI discoverability, and trust indicators
+- Accessibility score: 70+ = generally good, 50-69 = some improvements recommended, below 50 = notable usability gaps worth addressing`;
 
     const result = await base44.integrations.Core.InvokeLLM({
       prompt,
@@ -113,6 +137,7 @@ Guidelines:
           quick_wins: { type: 'array', items: { type: 'string' } },
           suggested_next_step: { type: 'string' },
           internal_notes: { type: 'string' },
+          accessibility: { type: 'object' },
           categories: { type: 'object' },
           score: { type: 'object' },
         }
