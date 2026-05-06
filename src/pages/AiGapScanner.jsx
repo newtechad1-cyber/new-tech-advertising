@@ -20,13 +20,40 @@ export default function AiGapScanner() {
     base44.entities.SalesLead.list('-created_date', 200).then(setLeads);
   }, []);
 
-  const handleResult = (auditData, formData, accessible) => {
+  const handleResult = async (auditData, formData, accessible) => {
     setAudit(auditData);
     setForm(formData);
     setWebsiteAccessible(accessible);
     setSaved(false);
     setShowAttach(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Auto-save a GapAudit record so it appears on /agency/gap-audits
+    const score = auditData.score || {};
+    await base44.entities.GapAudit.create({
+      business_name: formData.businessName,
+      website_url: formData.websiteUrl,
+      contact_name: formData.contactName || '',
+      industry: formData.industry || '',
+      city: formData.city || '',
+      quick_summary: auditData.quick_summary || '',
+      gap_1: auditData.gap_1 || '',
+      gap_1_why: auditData.gap_1_why || '',
+      gap_2: auditData.gap_2 || '',
+      gap_2_why: auditData.gap_2_why || '',
+      gap_3: auditData.gap_3 || '',
+      gap_3_why: auditData.gap_3_why || '',
+      costing_them: auditData.costing_them || '',
+      recommendations: auditData.recommended_fixes || [],
+      quick_wins: auditData.quick_wins || [],
+      internal_notes: auditData.internal_notes || '',
+      overall_score: score.overall || 0,
+      seo_score: score.local_visibility || 0,
+      conversion_score: score.conversion || 0,
+      trust_score: score.trust || 0,
+      status: 'completed',
+      scan_source: 'ai_gap_scanner',
+    }).catch(() => {}); // non-blocking, fail silently
   };
 
   const saveToLead = async (leadId) => {
@@ -34,6 +61,7 @@ export default function AiGapScanner() {
     setSaving(true);
     const today = new Date().toISOString().split('T')[0];
     const fullText = buildFullText(audit, form);
+    const lead = leads.find(l => l.id === leadId);
     await base44.entities.SalesLead.update(leadId, {
       audit_gap1: audit.gap_1 || '',
       audit_gap2: audit.gap_2 || '',
@@ -45,6 +73,15 @@ export default function AiGapScanner() {
       audit_sent_date: today,
       internal_notes: fullText,
     });
+    // Link any recently created GapAudit record to this lead
+    const recentAudits = await base44.entities.GapAudit.filter({ website_url: form.websiteUrl });
+    const unlinked = recentAudits.find(a => !a.lead_id);
+    if (unlinked) {
+      await base44.entities.GapAudit.update(unlinked.id, {
+        lead_id: leadId,
+        business_name: lead?.business_name || form.businessName,
+      });
+    }
     setSaving(false);
     setSaved(true);
   };

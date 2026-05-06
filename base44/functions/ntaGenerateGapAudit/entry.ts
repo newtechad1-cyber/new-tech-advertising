@@ -5,20 +5,43 @@ Deno.serve(async (req) => {
   const user = await base44.auth.me();
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
 
-  const { audit_id } = await req.json();
+  const body = await req.json();
+  // Support being called from automation (payload.data.id) or directly (audit_id)
+  const audit_id = body.audit_id || body?.event?.entity_id || body?.data?.id;
   if (!audit_id) return Response.json({ error: 'audit_id required' }, { status: 400 });
 
   const audits = await base44.asServiceRole.entities.GapAudit.filter({ id: audit_id });
   const audit = audits[0];
   if (!audit) return Response.json({ error: 'Audit not found' }, { status: 404 });
 
-  // Fetch prospect info for context
-  let prospectContext = '';
-  if (audit.prospect_id) {
-    const prospects = await base44.asServiceRole.entities.Prospect.filter({ id: audit.prospect_id });
+  // If already completed (e.g. came from AI Gap Scanner), skip re-generation
+  if (audit.status === 'completed' && audit.quick_summary) {
+    return Response.json({ success: true, skipped: true, reason: 'Audit already completed' });
+  }
+
+  // Build context from audit record first, then enrich from linked lead/prospect
+  let businessName = audit.business_name || audit.website_url || 'Unknown Business';
+  let industry = audit.industry || 'service business';
+  let city = audit.city || 'North Iowa';
+  let contactName = audit.contact_name || '';
+
+  if (audit.lead_id) {
+    const leads = await base44.asServiceRole.entities.SalesLead.filter({ id: audit.lead_id }).catch(() => []);
+    const l = leads[0];
+    if (l) {
+      businessName = l.business_name || businessName;
+      industry = l.industry || industry;
+      city = l.city || city;
+      contactName = l.contact_name || contactName;
+    }
+  } else if (audit.prospect_id) {
+    const prospects = await base44.asServiceRole.entities.Prospect.filter({ id: audit.prospect_id }).catch(() => []);
     const p = prospects[0];
     if (p) {
-      prospectContext = `Business: ${p.business_name}, Industry: ${p.industry || 'unknown'}, City: ${p.city || 'unknown'}, Website: ${audit.website_url}`;
+      businessName = p.business_name || businessName;
+      industry = p.industry || industry;
+      city = p.city || city;
+      contactName = p.contact_name || contactName;
     }
   }
 
@@ -26,11 +49,14 @@ Deno.serve(async (req) => {
 
 Analyze this local service business and generate a Gap Audit report.
 
-Business Info: ${prospectContext || `Website: ${audit.website_url}`}
+Business: ${businessName}
+Industry: ${industry}
+City: ${city}
+Website: ${audit.website_url}
 
 Generate a comprehensive gap audit with:
 1. A compelling executive summary (2-3 sentences) explaining their biggest visibility gap
-2. Top 5 specific issues found (be specific to a local service business: missing SEO pages, no Google Business Profile posts, outdated website, no seasonal campaigns, weak CTAs, no video content, etc.)
+2. Top 5 specific issues found (be specific: missing SEO pages, no Google Business Profile posts, outdated website, no seasonal campaigns, weak CTAs, no video content, etc.)
 3. Top 5 missed revenue opportunities (leads they're losing to competitors right now)
 4. 5 prioritized recommended next steps
 5. A follow-up email draft from Rick at NTA to this business owner, friendly and consultative tone, with CTA "Build My Lead System"
@@ -51,21 +77,24 @@ Return as JSON with keys: summary, issues (array of strings), missed_opportuniti
     },
   });
 
-  // Update the GapAudit record
   await base44.asServiceRole.entities.GapAudit.update(audit_id, {
     summary: result.summary,
+    quick_summary: result.summary,
+    business_name: businessName,
+    industry,
+    city,
     issues_found: result.issues,
     missed_opportunities: result.missed_opportunities,
     recommendations: result.recommendations,
     status: 'completed',
   });
 
-  // Store follow-up email as a ContentAsset draft if client_id or prospect_id exists
+  // Store follow-up email as a ContentAsset draft
   const parts = (result.follow_up_email || '').split('|||');
-  const emailSubject = parts[0]?.trim() || `Follow-Up: Gap Audit for ${prospectContext}`;
+  const emailSubject = parts[0]?.trim() || `Follow-Up: Gap Audit for ${businessName}`;
   const emailBody = parts[1]?.trim() || result.follow_up_email;
 
-  if (audit.client_id || audit.prospect_id) {
+  if (audit.client_id || audit.lead_id || audit.prospect_id) {
     await base44.asServiceRole.entities.ContentAsset.create({
       client_id: audit.client_id || '',
       asset_type: 'email',
@@ -74,8 +103,8 @@ Return as JSON with keys: summary, issues (array of strings), missed_opportuniti
       platform: 'email',
       status: 'draft',
       approval_status: 'not_needed',
-      notes: 'Auto-generated follow-up from Gap Audit. CTA: Build My Lead System',
-    });
+      notes: `Auto-generated follow-up from Gap Audit for ${businessName}. CTA: Build My Lead System`,
+    }).catch(() => {});
   }
 
   return Response.json({ success: true, audit: result });

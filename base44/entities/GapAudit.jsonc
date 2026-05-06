@@ -2,13 +2,30 @@
   "name": "GapAudit",
   "type": "object",
   "properties": {
+    "lead_id": {
+      "type": "string",
+      "description": "Reference to SalesLead.id (primary link)"
+    },
     "prospect_id": {
       "type": "string",
-      "description": "Reference to Prospect.id"
+      "description": "Legacy reference to Prospect.id (kept for backward compatibility)"
     },
     "client_id": {
       "type": "string",
-      "description": "Reference to Client.id (if already a client)"
+      "description": "Reference to Client.id if already a client"
+    },
+    "business_name": {
+      "type": "string",
+      "description": "Business name (denormalized for quick display)"
+    },
+    "contact_name": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
     },
     "website_url": {
       "type": "string"
@@ -37,6 +54,34 @@
       "type": "number",
       "description": "0-100"
     },
+    "overall_score": {
+      "type": "number",
+      "description": "0-100 overall score"
+    },
+    "gap_1": {
+      "type": "string"
+    },
+    "gap_1_why": {
+      "type": "string"
+    },
+    "gap_2": {
+      "type": "string"
+    },
+    "gap_2_why": {
+      "type": "string"
+    },
+    "gap_3": {
+      "type": "string"
+    },
+    "gap_3_why": {
+      "type": "string"
+    },
+    "costing_them": {
+      "type": "string"
+    },
+    "quick_summary": {
+      "type": "string"
+    },
     "issues_found": {
       "type": "array",
       "items": {
@@ -58,9 +103,29 @@
       },
       "description": "Prioritized action items"
     },
+    "quick_wins": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "summary": {
       "type": "string",
       "description": "Short narrative summary of findings"
+    },
+    "internal_notes": {
+      "type": "string"
+    },
+    "scan_source": {
+      "type": "string",
+      "enum": [
+        "ai_gap_scanner",
+        "public_form",
+        "manual",
+        "auto"
+      ],
+      "default": "ai_gap_scanner",
+      "description": "Where this audit originated"
     },
     "status": {
       "type": "string",

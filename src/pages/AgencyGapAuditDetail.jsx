@@ -90,11 +90,33 @@ export default function AgencyGapAuditDetail() {
     const a = auditList[0];
     if (!a) { navigate('/agency/gap-audits'); return; }
     setAudit(a);
-    if (a.prospect_id) {
-      const ps = await base44.entities.Prospect.filter({ id: a.prospect_id });
+    // Try to load linked SalesLead first, fall back to Prospect for legacy records
+    if (a.lead_id) {
+      const leads = await base44.entities.SalesLead.filter({ id: a.lead_id });
+      if (leads[0]) {
+        const l = leads[0];
+        setProspect({
+          business_name: l.business_name,
+          industry: l.industry,
+          city: l.city,
+          contact_name: l.contact_name,
+          email: l.email,
+          phone: l.phone,
+        });
+      }
+    } else if (a.prospect_id) {
+      const ps = await base44.entities.Prospect.filter({ id: a.prospect_id }).catch(() => []);
       setProspect(ps[0] || null);
+    } else if (a.business_name) {
+      // Use denormalized data directly from the audit
+      setProspect({
+        business_name: a.business_name,
+        industry: a.industry,
+        city: a.city,
+        contact_name: a.contact_name,
+      });
     }
-    const clientList = await base44.entities.Client.list('-created_date', 100);
+    const clientList = await base44.entities.Client.list('-created_date', 100).catch(() => []);
     setClients(clientList);
     setLoading(false);
   };
@@ -177,31 +199,33 @@ Email should:
 
   if (!audit) return null;
 
-  // Build structured sections from audit data
+  // Build structured sections — support both AI Gap Scanner format (gap_1/2/3) and legacy ntaGenerateGapAudit format (issues_found)
+  const allIssues = audit.issues_found || [];
+
+  // If new format, synthesize issues list from gap fields
+  const gapIssues = [
+    audit.gap_1 ? `${audit.gap_1}${audit.gap_1_why ? ' — ' + audit.gap_1_why : ''}` : null,
+    audit.gap_2 ? `${audit.gap_2}${audit.gap_2_why ? ' — ' + audit.gap_2_why : ''}` : null,
+    audit.gap_3 ? `${audit.gap_3}${audit.gap_3_why ? ' — ' + audit.gap_3_why : ''}` : null,
+  ].filter(Boolean);
+
+  const combinedIssues = allIssues.length > 0 ? allIssues : gapIssues;
+  const summary = audit.quick_summary || audit.summary || '';
+
   const sectionData = {
-    first_impression: audit.summary ? [audit.summary] : [],
-    seo_gaps: (audit.issues_found || []).filter(i => /seo|search|rank|google|keyword|page|site/i.test(i)),
-    conversion_gaps: (audit.issues_found || []).filter(i => /cta|conver|form|call|lead|button|click/i.test(i)),
-    mobile_ux: (audit.issues_found || []).filter(i => /mobile|ux|speed|slow|design|responsive/i.test(i)),
-    content_gaps: (audit.issues_found || []).filter(i => /content|blog|video|post|social|copy|write/i.test(i)),
-    trust_proof: (audit.issues_found || []).filter(i => /review|trust|proof|testimonial|credential|award/i.test(i)),
+    first_impression: summary ? [summary] : [],
+    seo_gaps: combinedIssues.filter(i => /seo|search|rank|google|keyword|page|site/i.test(i)),
+    conversion_gaps: combinedIssues.filter(i => /cta|conver|form|call|lead|button|click/i.test(i)),
+    mobile_ux: combinedIssues.filter(i => /mobile|ux|speed|slow|design|responsive|access/i.test(i)),
+    content_gaps: combinedIssues.filter(i => /content|blog|video|post|social|copy|write/i.test(i)),
+    trust_proof: combinedIssues.filter(i => /review|trust|proof|testimonial|credential|award/i.test(i)),
     missed_revenue: audit.missed_opportunities || [],
-    recommended_fixes: audit.recommendations || [],
-    lead_system_package: audit.recommendations?.slice(0, 3).map(r => `• ${r}`) || [],
+    recommended_fixes: [...(audit.recommendations || []), ...(audit.quick_wins || [])],
+    lead_system_package: (audit.recommendations || []).slice(0, 3),
     followup_email: null,
   };
 
-  // Fallback: show all issues_found in first_impression if nothing else populated
-  const allIssues = audit.issues_found || [];
-  SECTIONS.forEach(s => {
-    if (s.key !== 'first_impression' && s.key !== 'missed_revenue' && s.key !== 'recommended_fixes' && s.key !== 'lead_system_package' && s.key !== 'followup_email') {
-      if (!sectionData[s.key]?.length && allIssues.length) {
-        sectionData[s.key] = [];
-      }
-    }
-  });
-
-  const hasData = audit.status !== 'draft';
+  const hasData = audit.status !== 'draft' || !!summary || gapIssues.length > 0;
 
   return (
     <div className="min-h-screen bg-slate-950">
@@ -294,8 +318,22 @@ Email should:
         <div className="space-y-3">
 
           <Section icon={SECTIONS[0].icon} label={SECTIONS[0].label} color={SECTIONS[0].color}>
-            {audit.summary ? (
-              <p className="text-slate-300 text-sm leading-relaxed">{audit.summary}</p>
+            {summary ? (
+              <div className="space-y-3">
+                <p className="text-slate-300 text-sm leading-relaxed">{summary}</p>
+                {gapIssues.length > 0 && (
+                  <div className="space-y-2 mt-3">
+                    {[audit.gap_1, audit.gap_2, audit.gap_3].filter(Boolean).map((gap, i) => (
+                      <div key={i} className="bg-slate-800/60 rounded-lg px-3 py-2">
+                        <p className="text-xs font-bold text-white">{i + 1}. {gap}</p>
+                        {[audit.gap_1_why, audit.gap_2_why, audit.gap_3_why][i] && (
+                          <p className="text-xs text-slate-400 mt-0.5">{[audit.gap_1_why, audit.gap_2_why, audit.gap_3_why][i]}</p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             ) : (
               <p className="text-slate-600 text-sm italic">Generate the audit to see the first impression analysis.</p>
             )}
