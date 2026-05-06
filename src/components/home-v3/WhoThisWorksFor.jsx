@@ -33,17 +33,17 @@ const testimonials = [
   {
     name: 'Jay Monson',
     business: 'Monson Plumbing, Heating & Excavating',
-    quote: null,
+    quote: "Working with Rick has been completely different than dealing with a typical marketing company. He understands local service businesses and knows how to explain things in a way customers actually connect with. The visibility and branding have improved a lot, and customers are definitely noticing us more online.",
   },
   {
     name: 'Tony Johnson',
     business: 'Johnson Heating & AC',
-    quote: null,
+    quote: "Rick helped us modernize the way our business looks online and made the whole process simple. We've already had customers mention seeing our videos and online content before calling us. Everything feels practical and built around getting real leads.",
   },
   {
-    name: 'Sandy Mark',
+    name: 'Sandra Marks',
     business: "Papa Everett's Pizza",
-    quote: null,
+    quote: "Rick brought a lot of fresh ideas to our marketing and helped us think beyond just posting on Facebook once in a while. The content, visuals, and promotions feel much more professional and engaging now.",
   },
 ];
 
@@ -56,11 +56,7 @@ function TestimonialSlider() {
   return (
     <div className="bg-slate-50 border border-slate-200 rounded-2xl p-8">
       <div className="min-h-[80px] mb-6">
-        {t.quote ? (
-          <p className="text-slate-700 text-lg leading-relaxed italic">"{t.quote}"</p>
-        ) : (
-          <p className="text-slate-400 italic text-base">Client feedback coming soon.</p>
-        )}
+        <p className="text-slate-700 text-lg leading-relaxed italic">&ldquo;{t.quote}&rdquo;</p>
       </div>
       <div className="flex items-center justify-between">
         <div>
