@@ -19,16 +19,16 @@ const testimonials = [
   },
 ];
 
-function TestimonialCard({ testimonial }) {
+function TestimonialCard({ t }) {
   return (
     <div className="bg-white border border-slate-200 rounded-2xl p-7 shadow-sm flex flex-col h-full">
       <Quote className="w-8 h-8 text-blue-500 mb-4 flex-shrink-0" />
       <p className="text-slate-700 text-sm leading-relaxed flex-1 mb-6">
-        "{testimonial.quote}"
+        &ldquo;{t.quote}&rdquo;
       </p>
       <div className="border-t border-slate-100 pt-4">
-        <p className="text-slate-900 font-bold text-sm">— {testimonial.name}</p>
-        <p className="text-slate-500 text-xs mt-0.5">{testimonial.company}</p>
+        <p className="text-slate-900 font-bold text-sm">— {t.name}</p>
+        <p className="text-slate-500 text-xs mt-0.5">{t.company}</p>
       </div>
     </div>
   );
@@ -37,29 +37,24 @@ function TestimonialCard({ testimonial }) {
 export default function TestimonialsSection() {
   const [index, setIndex] = useState(0);
 
-  // Auto-rotate every 6 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex(i => (i + 1) % testimonials.length);
-    }, 6000);
+    }, 7000);
     return () => clearInterval(timer);
   }, []);
 
   const prev = () => setIndex(i => (i === 0 ? testimonials.length - 1 : i - 1));
   const next = () => setIndex(i => (i + 1) % testimonials.length);
 
-  // Visible indices: current + next (wrapping)
-  const visible = [
-    testimonials[index],
-    testimonials[(index + 1) % testimonials.length],
-    testimonials[(index + 2) % testimonials.length],
-  ];
+  const t0 = testimonials[index];
+  const t1 = testimonials[(index + 1) % testimonials.length];
+  const t2 = testimonials[(index + 2) % testimonials.length];
 
   return (
     <section className="bg-slate-50 py-20 px-6 border-t border-slate-100">
       <div className="max-w-6xl mx-auto">
 
-        {/* Header */}
         <div className="max-w-2xl mb-12">
           <p className="text-blue-600 font-bold text-sm uppercase tracking-widest mb-2">Trusted By Local Businesses</p>
           <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-3">
@@ -72,21 +67,20 @@ export default function TestimonialsSection() {
 
         {/* Desktop: 3 cards */}
         <div className="hidden lg:grid grid-cols-3 gap-6 mb-8">
-          {visible.map((t, i) => (
-            <TestimonialCard key={i} testimonial={t} />
-          ))}
+          <TestimonialCard t={t0} />
+          <TestimonialCard t={t1} />
+          <TestimonialCard t={t2} />
         </div>
 
         {/* Tablet: 2 cards */}
         <div className="hidden sm:grid lg:hidden grid-cols-2 gap-6 mb-8">
-          {visible.slice(0, 2).map((t, i) => (
-            <TestimonialCard key={i} testimonial={t} />
-          ))}
+          <TestimonialCard t={t0} />
+          <TestimonialCard t={t1} />
         </div>
 
         {/* Mobile: 1 card */}
         <div className="sm:hidden mb-8">
-          <TestimonialCard testimonial={testimonials[index]} />
+          <TestimonialCard t={t0} />
         </div>
 
         {/* Navigation */}

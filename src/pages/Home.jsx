@@ -8,7 +8,7 @@ import NTAGrowthSystem from '../components/home-v3/NTAGrowthSystem';
 import IndustrySplit from '../components/home-v3/IndustrySplit';
 import HowItWorks from '../components/home-v3/HowItWorks';
 import WhoThisWorksFor from '../components/home-v3/WhoThisWorksFor';
-import TestimonialsSection from '../components/home-v3/TestimonialsSection';
+import TestimonialsSection from '../components/home-v3/TestimonialsSection.jsx';
 import GapAuditCenteredCTA from '../components/home-v3/GapAuditCenteredCTA';
 
 export default function Home() {
