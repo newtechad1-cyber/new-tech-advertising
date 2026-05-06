@@ -191,6 +191,10 @@ import AgencyInsightPages from './pages/AgencyInsightPages';
 import InsightsList from './pages/InsightsList';
 import InsightDetail from './pages/InsightDetail';
 import OurWork from './pages/OurWork';
+import RestaurantDemo from './pages/RestaurantDemo';
+import RestaurantDemoPizza from './pages/RestaurantDemoPizza';
+import RestaurantDemoMexican from './pages/RestaurantDemoMexican';
+import RestaurantDemoBar from './pages/RestaurantDemoBar';
 import PortalDashboard from './pages/portal/PortalDashboard';
 import PortalApprovals from './pages/portal/PortalApprovals';
 import PortalCalendar from './pages/portal/PortalCalendar';
@@ -492,6 +496,10 @@ const AuthenticatedApp = () => {
       <Route path="/agency/campaign-performance" element={<LayoutWrapper currentPageName="AgencyCampaignPerformance"><AgencyCampaignPerformance /></LayoutWrapper>} />
       <Route path="/agency/insight-pages" element={<LayoutWrapper currentPageName="AgencyInsightPages"><AgencyInsightPages /></LayoutWrapper>} />
       <Route path="/our-work" element={<OurWork />} />
+      <Route path="/restaurant-demo" element={<RestaurantDemo />} />
+      <Route path="/restaurant-demo/pizza" element={<RestaurantDemoPizza />} />
+      <Route path="/restaurant-demo/mexican" element={<RestaurantDemoMexican />} />
+      <Route path="/restaurant-demo/bar" element={<RestaurantDemoBar />} />
       <Route path="/insights" element={<InsightsList />} />
       <Route path="/insights/:slug" element={<InsightDetail />} />
       <Route path="/agency/portal-manager" element={<LayoutWrapper currentPageName="AgencyPortalManager"><AgencyPortalManager /></LayoutWrapper>} />
