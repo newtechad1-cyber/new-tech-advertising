@@ -58,7 +58,7 @@ export default function SiteFooter() {
             <li><a href="/About" className="hover:text-white transition-colors">About NTA</a></li>
             <li><a href="/Contact" className="hover:text-white transition-colors">Contact Us</a></li>
             <li><a href="tel:6414208816" className="hover:text-white transition-colors">641-420-8816</a></li>
-            <li><a href="mailto:rick@newtechadvertising.com" className="hover:text-white transition-colors">rick@newtechadvertising.com</a></li>
+            <li><a href="mailto:info@newtechadvertising.com" className="hover:text-white transition-colors">info@newtechadvertising.com</a></li>
           </ul>
         </div>
       </div>

@@ -95,8 +95,8 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg text-slate-900 mb-2">Email</h3>
-                  <a href="mailto:rick@newtechadvertising.com" className="text-blue-600 hover:text-blue-700 text-lg break-all">
-                    rick@newtechadvertising.com
+                  <a href="mailto:info@newtechadvertising.com" className="text-blue-600 hover:text-blue-700 text-lg break-all">
+                    info@newtechadvertising.com
                   </a>
                   <p className="text-sm text-slate-600 mt-2">
                     We'll respond within 24 hours
