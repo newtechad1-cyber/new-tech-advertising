@@ -20,10 +20,11 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       setUser(null);
       setIsAuthenticated(false);
-      if (error?.status === 401 || error?.status === 403) {
-        setAuthError({ type: 'auth_required', message: 'Authentication required' });
-      } else if (error?.data?.extra_data?.reason === 'user_not_registered') {
+      if (error?.data?.extra_data?.reason === 'user_not_registered') {
         setAuthError({ type: 'user_not_registered', message: 'User not registered for this app' });
+      } else if (error?.status === 401 || error?.status === 403) {
+        // Only mark as auth_required — AuthGate decides whether to redirect based on route
+        setAuthError({ type: 'auth_required', message: 'Authentication required' });
       }
     } finally {
       setIsLoadingAuth(false);

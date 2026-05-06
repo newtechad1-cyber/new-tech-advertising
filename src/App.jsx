@@ -239,10 +239,25 @@ const LayoutWrapper = ({ children, currentPageName }) => Layout ?
   <Layout currentPageName={currentPageName}>{children}</Layout>
   : <>{children}</>;
 
-const AuthenticatedApp = () => {
-  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
+// Routes that require authentication — any path starting with these prefixes
+const PROTECTED_PREFIXES = [
+  '/agency', '/admin', '/nta', '/portal', '/ops',
+  '/client/', '/reseller', '/sales', '/dashboard',
+  '/content-command', '/content-center',
+];
 
-  // Show loading spinner while auth is resolving
+const isProtectedPath = (pathname) =>
+  PROTECTED_PREFIXES.some(p => pathname === p || pathname.startsWith(p + '/') || pathname.startsWith(p));
+
+const AuthGate = ({ children }) => {
+  const { isLoadingAuth, authError, navigateToLogin } = useAuth();
+  const pathname = window.location.pathname;
+
+  // Public paths — never require auth
+  if (!isProtectedPath(pathname)) {
+    return <>{children}</>;
+  }
+
   if (isLoadingAuth) {
     return (
       <div className="fixed inset-0 flex items-center justify-center">
@@ -251,7 +266,6 @@ const AuthenticatedApp = () => {
     );
   }
 
-  // Handle authentication errors
   if (authError) {
     if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
@@ -261,8 +275,15 @@ const AuthenticatedApp = () => {
     }
   }
 
+  return <>{children}</>;
+};
+
+const AuthenticatedApp = () => {
+  const { authError } = useAuth();
+
   // Render the main app
   return (
+    <AuthGate>
     <Routes>
       <Route path="/" element={
         <LayoutWrapper currentPageName="Home">
@@ -520,6 +541,7 @@ const AuthenticatedApp = () => {
 
       <Route path="*" element={<PageNotFound />} />
     </Routes>
+    </AuthGate>
   );
 };
 
