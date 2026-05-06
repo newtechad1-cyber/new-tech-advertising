@@ -37,6 +37,30 @@ const SITES = [
     description: 'Clean, mobile-first site with easy menu navigation, online ordering info, and local search presence. Built to help customers find hours, menu, and contact quickly.',
     screenshot: 'https://media.base44.com/images/public/691f41a18de4a7f498c8f884/d33d47649_papaeveretts.png',
   },
+  {
+    name: 'Club Fitness – Fort Dodge',
+    url: 'https://clubfitnessfd.com/',
+    location: 'Fort Dodge, IA',
+    industry: 'Fitness · Gym',
+    description: 'Website and online presence work for a local gym focused on membership growth and community engagement. Built to convert visitors into members with clear offers and easy contact.',
+    screenshot: 'https://media.base44.com/images/public/691f41a18de4a7f498c8f884/b5b9fadcd_306090828_501907041940322_3593526891402694754_n.jpg',
+  },
+  {
+    name: "Cattleman's Steak House",
+    url: '#',
+    location: 'North Iowa',
+    industry: 'Restaurant · Steakhouse',
+    description: 'Website and marketing work for a local steakhouse focused on showcasing the dining experience, driving reservations, and building a loyal local customer base.',
+    screenshot: null,
+  },
+  {
+    name: 'Ladybug Travels – Alaska Cruise',
+    url: '#',
+    location: 'Senior Travel',
+    industry: 'Travel · Tour Operator',
+    description: 'Landing page for a senior group Alaska cruise tour. Built to capture interest with trip highlights, itinerary details, and a direct inquiry CTA for limited availability.',
+    screenshot: null,
+  },
 ];
 
 function SiteCard({ site }) {
@@ -49,11 +73,17 @@ function SiteCard({ site }) {
         rel="noopener noreferrer"
         className="block relative group overflow-hidden bg-slate-100 aspect-[16/9]"
       >
-        <img
-          src={site.screenshot}
-          alt={`${site.name} website`}
-          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-        />
+        {site.screenshot ? (
+          <img
+            src={site.screenshot}
+            alt={`${site.name} website`}
+            className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-slate-100">
+            <p className="text-slate-400 text-sm font-medium">Screenshot coming soon</p>
+          </div>
+        )}
         <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/20 transition-colors duration-300 flex items-center justify-center">
           <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-white text-slate-900 font-bold px-4 py-2 rounded-lg text-sm flex items-center gap-2">
             Visit Site <ExternalLink className="w-3.5 h-3.5" />
