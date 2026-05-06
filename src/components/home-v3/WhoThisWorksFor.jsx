@@ -25,7 +25,7 @@ const clients = [
     name: 'Club Fitness – Fort Dodge',
     logo: 'https://media.base44.com/images/public/691f41a18de4a7f498c8f884/b88c7c084_306090828_501907041940322_3593526891402694754_n.jpg',
     url: 'https://clubfitnessfd.com/',
-    bg: 'bg-black',
+    bg: 'bg-white',
   },
 ];
 
