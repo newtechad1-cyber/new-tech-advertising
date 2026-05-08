@@ -1,0 +1,139 @@
+{
+  "name": "SchoolEvents",
+  "type": "object",
+  "properties": {
+    "school_slug": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "game",
+        "concert",
+        "play",
+        "assembly",
+        "competition",
+        "celebration",
+        "academic",
+        "social",
+        "other"
+      ],
+      "default": "other"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "review",
+        "approved",
+        "published",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "publish_status": {
+      "type": "string",
+      "enum": [
+        "scheduled",
+        "published",
+        "unpublished"
+      ],
+      "default": "unpublished"
+    },
+    "visibility": {
+      "type": "string",
+      "enum": [
+        "public",
+        "staff",
+        "private"
+      ],
+      "default": "staff"
+    },
+    "event_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "event_time": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "cover_image_url": {
+      "type": "string"
+    },
+    "linked_season_id": {
+      "type": "string"
+    },
+    "linked_category_id": {
+      "type": "string"
+    },
+    "linked_story_ids": {
+      "type": "string",
+      "description": "JSON array of Story IDs"
+    },
+    "linked_gallery_ids": {
+      "type": "string",
+      "description": "JSON array of YearbookGallery IDs"
+    },
+    "linked_video_project_ids": {
+      "type": "string",
+      "description": "JSON array of VideoProject IDs"
+    },
+    "linked_submission_ids": {
+      "type": "string",
+      "description": "JSON array of StudentVideoSubmission IDs"
+    },
+    "linked_spotlight_ids": {
+      "type": "string",
+      "description": "JSON array of Spotlight IDs"
+    },
+    "ai_summary_draft": {
+      "type": "string"
+    },
+    "ai_job_id": {
+      "type": "string"
+    },
+    "ai_approval_status": {
+      "type": "string",
+      "enum": [
+        "pending_generation",
+        "pending_review",
+        "approved",
+        "rejected"
+      ]
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "public_url": {
+      "type": "string"
+    },
+    "canonical_route": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "school_slug",
+    "title",
+    "slug",
+    "event_date"
+  ]
+}

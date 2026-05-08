@@ -1,0 +1,124 @@
+{
+  "name": "MasterPageDefinition",
+  "type": "object",
+  "properties": {
+    "page_key": {
+      "type": "string",
+      "description": "Canonical page identifier (e.g., AdminDashboard, ClientApprovals)"
+    },
+    "page_name": {
+      "type": "string",
+      "description": "Display name"
+    },
+    "page_category": {
+      "type": "string",
+      "enum": [
+        "dashboard",
+        "explorer",
+        "workspace",
+        "settings",
+        "form",
+        "detail",
+        "list",
+        "command",
+        "other"
+      ],
+      "description": "Page functional category"
+    },
+    "description": {
+      "type": "string",
+      "description": "Purpose and primary use case"
+    },
+    "route_path": {
+      "type": "string",
+      "description": "React Router path (e.g., /admin/dashboard)"
+    },
+    "canonical_route": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is this the canonical route for this page"
+    },
+    "route_family": {
+      "type": "string",
+      "enum": [
+        "public",
+        "main_admin",
+        "school_admin",
+        "client_portal",
+        "reseller",
+        "governance",
+        "agent_ops"
+      ],
+      "description": "Route family this page belongs to"
+    },
+    "layout_key": {
+      "type": "string",
+      "description": "Required layout (e.g., AdminLayout, ClientLayout)"
+    },
+    "nav_family": {
+      "type": "string",
+      "description": "Navigation family this page is part of"
+    },
+    "parent_page_key": {
+      "type": "string",
+      "description": "Parent page if hierarchical"
+    },
+    "page_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "deprecated",
+        "experimental",
+        "archived"
+      ],
+      "default": "active",
+      "description": "Lifecycle status"
+    },
+    "source_of_truth": {
+      "type": "string",
+      "description": "System/team responsible for this page"
+    },
+    "owner_team": {
+      "type": "string",
+      "description": "Team owning this page"
+    },
+    "primary_entity_key": {
+      "type": "string",
+      "description": "Primary entity this page operates on (if any)"
+    },
+    "context_scope_json": {
+      "type": "string",
+      "description": "JSON: data isolation scopes (agency, reseller, client, school)"
+    },
+    "access_rules_json": {
+      "type": "string",
+      "description": "JSON: who can access {admin_only, role_based, public, etc}"
+    },
+    "feature_flag_key": {
+      "type": "string",
+      "description": "Feature flag controlling visibility (if any)"
+    },
+    "duplicate_of_page_key": {
+      "type": "string",
+      "description": "If duplicate, which page is canonical"
+    },
+    "deprecated": {
+      "type": "boolean",
+      "default": false,
+      "description": "Is this page deprecated"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is page active in registry"
+    }
+  },
+  "required": [
+    "page_key",
+    "page_name",
+    "route_path",
+    "route_family",
+    "layout_key",
+    "nav_family"
+  ]
+}

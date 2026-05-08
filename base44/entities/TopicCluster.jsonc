@@ -1,0 +1,65 @@
+{
+  "name": "TopicCluster",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "pillar_keyword": {
+      "type": "string",
+      "description": "Primary target keyword for this cluster"
+    },
+    "primary_page": {
+      "type": "string",
+      "description": "Page ID of the pillar page"
+    },
+    "supporting_keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "supporting_pages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Page IDs of supporting content"
+    },
+    "industry": {
+      "type": "string",
+      "description": "Industry ID (if industry-specific)"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "default": "medium"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "active",
+        "complete"
+      ],
+      "default": "planned"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "name",
+    "slug",
+    "pillar_keyword"
+  ]
+}

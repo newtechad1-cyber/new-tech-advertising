@@ -1,0 +1,79 @@
+{
+  "name": "SchoolVideoRenders",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string"
+    },
+    "script_id": {
+      "type": "string"
+    },
+    "render_name": {
+      "type": "string"
+    },
+    "render_engine": {
+      "type": "string",
+      "default": "internal"
+    },
+    "output_format": {
+      "type": "string",
+      "default": "mp4"
+    },
+    "resolution": {
+      "type": "string",
+      "default": "1920x1080"
+    },
+    "aspect_ratio": {
+      "type": "string",
+      "default": "16:9"
+    },
+    "estimated_duration": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "preparing",
+        "processing",
+        "rendering",
+        "completed",
+        "failed",
+        "cancelled"
+      ],
+      "default": "queued"
+    },
+    "queue_position": {
+      "type": "number",
+      "default": 0
+    },
+    "render_start": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "render_end": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "output_url": {
+      "type": "string"
+    },
+    "preview_url": {
+      "type": "string"
+    },
+    "thumbnail_url": {
+      "type": "string"
+    },
+    "error_log": {
+      "type": "string"
+    },
+    "retry_count": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "project_id",
+    "status"
+  ]
+}

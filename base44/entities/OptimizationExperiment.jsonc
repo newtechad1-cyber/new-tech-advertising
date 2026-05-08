@@ -1,0 +1,108 @@
+{
+  "name": "OptimizationExperiment",
+  "type": "object",
+  "properties": {
+    "experiment_key": {
+      "type": "string",
+      "description": "Unique experiment identifier"
+    },
+    "experiment_name": {
+      "type": "string",
+      "description": "Display name for experiment"
+    },
+    "optimization_category": {
+      "type": "string",
+      "enum": [
+        "publishing_performance",
+        "client_engagement",
+        "sales_conversion",
+        "onboarding_efficiency",
+        "automation_reliability",
+        "reseller_growth",
+        "reporting_effectiveness",
+        "workflow_throughput"
+      ],
+      "description": "Category of optimization"
+    },
+    "strategy_type": {
+      "type": "string",
+      "enum": [
+        "a_b_test",
+        "canary_rollout",
+        "full_rollout",
+        "scheduled_test",
+        "segment_test"
+      ],
+      "description": "Type of experiment strategy"
+    },
+    "target_system": {
+      "type": "string",
+      "description": "System being tested"
+    },
+    "baseline_config_json": {
+      "type": "string",
+      "description": "JSON: current/control configuration"
+    },
+    "test_config_json": {
+      "type": "string",
+      "description": "JSON: test/treatment configuration"
+    },
+    "context_scope_json": {
+      "type": "string",
+      "description": "JSON: {context_type, reseller_id, client_id, scope_percentage}"
+    },
+    "approval_required": {
+      "type": "boolean",
+      "default": true,
+      "description": "Does this require approval?"
+    },
+    "execution_mode": {
+      "type": "string",
+      "enum": [
+        "auto",
+        "semi_auto",
+        "manual"
+      ],
+      "description": "How experiment executes"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When experiment starts"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When experiment ends"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "running",
+        "paused",
+        "completed",
+        "rolled_back",
+        "failed"
+      ],
+      "default": "planned",
+      "description": "Current status"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When experiment was created"
+    }
+  },
+  "required": [
+    "experiment_key",
+    "experiment_name",
+    "optimization_category",
+    "strategy_type",
+    "target_system",
+    "baseline_config_json",
+    "test_config_json",
+    "context_scope_json",
+    "created_at"
+  ]
+}

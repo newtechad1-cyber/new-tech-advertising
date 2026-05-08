@@ -1,0 +1,42 @@
+{
+  "name": "MobileNotification",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "notification_type": {
+      "type": "string",
+      "enum": [
+        "video_ready",
+        "ranking_improvement",
+        "campaign_starting",
+        "growth_milestone",
+        "content_pending",
+        "lead_spike",
+        "strategy_reminder"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
+    "is_read": {
+      "type": "boolean",
+      "default": false
+    },
+    "action_url": {
+      "type": "string"
+    },
+    "icon_emoji": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "client_id",
+    "notification_type",
+    "title"
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "name": "RevenueSequenceSteps",
+  "type": "object",
+  "properties": {
+    "revenue_sequence_id": {
+      "type": "string",
+      "description": "Reference to RevenueSequences ID"
+    },
+    "step_order": {
+      "type": "number",
+      "description": "Order of step in sequence"
+    },
+    "step_type": {
+      "type": "string",
+      "enum": [
+        "create_task",
+        "create_proposal_draft",
+        "create_review",
+        "send_internal_prompt",
+        "create_message_thread",
+        "followup_check",
+        "escalate_owner",
+        "mark_stalled",
+        "refresh_recommendation",
+        "schedule_call"
+      ],
+      "description": "Type of action to execute"
+    },
+    "title": {
+      "type": "string",
+      "description": "Step title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description"
+    },
+    "action_target_type": {
+      "type": "string",
+      "description": "What entity this step targets (optional)"
+    },
+    "action_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "ready",
+        "executed",
+        "skipped",
+        "failed"
+      ],
+      "default": "pending",
+      "description": "Status of this step"
+    },
+    "due_offset_days": {
+      "type": "number",
+      "description": "Days after sequence start to execute (optional)"
+    },
+    "requires_human_approval": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether human approval is needed"
+    },
+    "executed_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this step was executed (optional)"
+    },
+    "related_task_id": {
+      "type": "string",
+      "description": "Reference to SalesTasks ID (optional)"
+    },
+    "related_message_thread_id": {
+      "type": "string",
+      "description": "Reference to MessageThreads ID (optional)"
+    },
+    "related_proposal_id": {
+      "type": "string",
+      "description": "Reference to Proposals ID (optional)"
+    }
+  },
+  "required": [
+    "revenue_sequence_id",
+    "step_order",
+    "step_type",
+    "title",
+    "description"
+  ]
+}

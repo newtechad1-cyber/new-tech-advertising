@@ -1,0 +1,62 @@
+{
+  "name": "AgentDefinitions",
+  "type": "object",
+  "properties": {
+    "agent_name": {
+      "type": "string"
+    },
+    "agent_key": {
+      "type": "string",
+      "description": "Unique machine key, e.g. seo_agent, social_agent"
+    },
+    "description": {
+      "type": "string"
+    },
+    "agent_type": {
+      "type": "string",
+      "enum": [
+        "seo",
+        "social",
+        "video",
+        "review",
+        "email",
+        "analytics",
+        "onboarding",
+        "general"
+      ]
+    },
+    "trigger_type": {
+      "type": "string",
+      "enum": [
+        "manual",
+        "scheduled",
+        "event_driven"
+      ],
+      "default": "scheduled"
+    },
+    "model": {
+      "type": "string",
+      "default": "gpt-4o-mini",
+      "description": "AI model to use"
+    },
+    "instructions": {
+      "type": "string",
+      "description": "System-level agent instructions"
+    },
+    "function_name": {
+      "type": "string",
+      "description": "Backend function to invoke"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "agent_name",
+    "agent_key",
+    "agent_type",
+    "trigger_type",
+    "active"
+  ]
+}

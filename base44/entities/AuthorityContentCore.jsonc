@@ -1,0 +1,58 @@
+{
+  "name": "AuthorityContentCore",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Content title / campaign name"
+    },
+    "primary_topic": {
+      "type": "string",
+      "description": "Core topic or keyword cluster"
+    },
+    "industry": {
+      "type": "string",
+      "description": "Target industry vertical"
+    },
+    "target_audience": {
+      "type": "string",
+      "description": "Who this content is for"
+    },
+    "local_market_focus": {
+      "type": "string",
+      "description": "City, region, or national"
+    },
+    "content_angle": {
+      "type": "string",
+      "description": "Unique POV or hook for this content"
+    },
+    "funnel_stage": {
+      "type": "string",
+      "enum": [
+        "Awareness",
+        "Consideration",
+        "Conversion",
+        "Authority"
+      ],
+      "default": "Awareness"
+    },
+    "longform_article": {
+      "type": "string",
+      "description": "Generated long-form authority article"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "generating",
+        "complete",
+        "published"
+      ],
+      "default": "draft"
+    }
+  },
+  "required": [
+    "title",
+    "primary_topic"
+  ]
+}

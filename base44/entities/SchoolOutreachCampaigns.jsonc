@@ -1,0 +1,64 @@
+{
+  "name": "SchoolOutreachCampaigns",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Campaign name (e.g., 'Spring 2026 California Schools')"
+    },
+    "campaign_type": {
+      "type": "string",
+      "enum": [
+        "email_sequence",
+        "cold_outreach",
+        "warm_introduction",
+        "follow_up",
+        "pilot_recruitment"
+      ],
+      "description": "Type of campaign"
+    },
+    "target_region": {
+      "type": "string",
+      "description": "Geographic region (state or region code)"
+    },
+    "audience_type": {
+      "type": "string",
+      "enum": [
+        "all_schools",
+        "high_schools",
+        "middle_schools",
+        "districts",
+        "charter_schools"
+      ],
+      "description": "Who is this campaign for"
+    },
+    "message_1": {
+      "type": "string",
+      "description": "First email template (intro)"
+    },
+    "message_2": {
+      "type": "string",
+      "description": "Second email template (follow-up)"
+    },
+    "message_3": {
+      "type": "string",
+      "description": "Third email template (final check-in)"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is this campaign currently active"
+    },
+    "created_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When campaign was created"
+    }
+  },
+  "required": [
+    "name",
+    "campaign_type",
+    "target_region",
+    "message_1"
+  ]
+}

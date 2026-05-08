@@ -1,0 +1,114 @@
+{
+  "name": "Stories",
+  "type": "object",
+  "properties": {
+    "school_slug": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "excerpt": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string",
+      "description": "Full story content (markdown supported)"
+    },
+    "featured_image_url": {
+      "type": "string"
+    },
+    "category_ids": {
+      "type": "string",
+      "description": "JSON array of StoryCategory IDs"
+    },
+    "author_ids": {
+      "type": "string",
+      "description": "JSON array of StoryAuthor IDs"
+    },
+    "media_link_ids": {
+      "type": "string",
+      "description": "JSON array of StoryMediaLink IDs"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "review",
+        "approved",
+        "published",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "publish_status": {
+      "type": "string",
+      "enum": [
+        "unpublished",
+        "scheduled",
+        "published"
+      ],
+      "default": "unpublished"
+    },
+    "visibility": {
+      "type": "string",
+      "enum": [
+        "public",
+        "staff",
+        "private"
+      ],
+      "default": "staff"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "sort_order": {
+      "type": "number",
+      "default": 0
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "public_url": {
+      "type": "string"
+    },
+    "canonical_route": {
+      "type": "string"
+    },
+    "ai_draft_text": {
+      "type": "string",
+      "description": "AI-generated story draft"
+    },
+    "ai_job_id": {
+      "type": "string"
+    },
+    "ai_approval_status": {
+      "type": "string",
+      "enum": [
+        "pending_generation",
+        "pending_review",
+        "approved",
+        "rejected"
+      ],
+      "description": "Status of AI-generated content"
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "school_slug",
+    "title",
+    "slug",
+    "status"
+  ]
+}

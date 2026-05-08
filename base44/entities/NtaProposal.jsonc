@@ -1,0 +1,85 @@
+{
+  "name": "NtaProposal",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Company ID"
+    },
+    "opportunity_id": {
+      "type": "string",
+      "description": "Reference to Opportunity ID"
+    },
+    "title": {
+      "type": "string",
+      "description": "Proposal title or reference"
+    },
+    "service_type": {
+      "type": "string",
+      "enum": [
+        "diy_saas",
+        "dfy_managed",
+        "ada_rebuild",
+        "streaming_tv",
+        "video_production",
+        "other"
+      ]
+    },
+    "scope_summary": {
+      "type": "string",
+      "description": "Plain language description of what is included"
+    },
+    "one_time_fee": {
+      "type": "number",
+      "description": "Setup or project fee"
+    },
+    "monthly_fee": {
+      "type": "number",
+      "description": "Recurring monthly amount"
+    },
+    "deposit_amount": {
+      "type": "number"
+    },
+    "deposit_payment_link": {
+      "type": "string"
+    },
+    "final_payment_link": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "sent",
+        "viewed",
+        "accepted",
+        "rejected",
+        "expired"
+      ],
+      "default": "draft"
+    },
+    "sent_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "accepted_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "signer_name": {
+      "type": "string"
+    },
+    "signed_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "company_id",
+    "title",
+    "service_type"
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "name": "PageGovernanceAuditLog",
+  "type": "object",
+  "properties": {
+    "page_key": {
+      "type": "string",
+      "description": "Page that changed"
+    },
+    "route_path": {
+      "type": "string",
+      "description": "Route path"
+    },
+    "change_type": {
+      "type": "string",
+      "enum": [
+        "page_created",
+        "page_updated",
+        "page_deprecated",
+        "route_added",
+        "route_changed",
+        "layout_changed",
+        "nav_family_changed",
+        "access_rules_updated",
+        "page_archived"
+      ],
+      "description": "Type of change"
+    },
+    "old_value_json": {
+      "type": "string",
+      "description": "Previous value"
+    },
+    "new_value_json": {
+      "type": "string",
+      "description": "New value"
+    },
+    "changed_by": {
+      "type": "string",
+      "description": "Email of who changed it"
+    },
+    "changed_by_role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "system",
+        "audit"
+      ],
+      "description": "Role of changer"
+    },
+    "reason": {
+      "type": "string",
+      "description": "Why change was made"
+    }
+  },
+  "required": [
+    "page_key",
+    "change_type",
+    "changed_by"
+  ]
+}

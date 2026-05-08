@@ -1,0 +1,67 @@
+{
+  "name": "AgentWorkflow",
+  "type": "object",
+  "properties": {
+    "workflow_key": {
+      "type": "string",
+      "description": "Unique workflow identifier"
+    },
+    "workflow_name": {
+      "type": "string",
+      "description": "Display name"
+    },
+    "workflow_category": {
+      "type": "string",
+      "enum": [
+        "Content Creation",
+        "Publishing",
+        "Reporting",
+        "Onboarding",
+        "Client Success",
+        "System Automation"
+      ],
+      "description": "Workflow category"
+    },
+    "trigger_type": {
+      "type": "string",
+      "enum": [
+        "manual",
+        "scheduled",
+        "event-based",
+        "api-triggered"
+      ],
+      "description": "How workflow is triggered"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is workflow enabled"
+    },
+    "context_scope": {
+      "type": "string",
+      "enum": [
+        "agency",
+        "reseller",
+        "client",
+        "school",
+        "universal"
+      ],
+      "default": "universal",
+      "description": "Scope of context this workflow operates in"
+    },
+    "step_definition_json": {
+      "type": "string",
+      "description": "JSON array of workflow steps with dependencies"
+    },
+    "description": {
+      "type": "string",
+      "description": "Workflow purpose and flow"
+    }
+  },
+  "required": [
+    "workflow_key",
+    "workflow_name",
+    "workflow_category",
+    "step_definition_json"
+  ]
+}

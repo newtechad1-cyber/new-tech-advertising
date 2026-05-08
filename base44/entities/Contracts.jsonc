@@ -1,0 +1,136 @@
+{
+  "name": "Contracts",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "client_account_id": {
+      "type": "string",
+      "description": "Reference to ClientAccounts ID (optional)"
+    },
+    "plan_id": {
+      "type": "string",
+      "description": "Reference to Plans ID (optional)"
+    },
+    "related_proposal_id": {
+      "type": "string",
+      "description": "Reference to Proposals ID (optional)"
+    },
+    "contract_name": {
+      "type": "string",
+      "description": "Name of contract"
+    },
+    "contract_type": {
+      "type": "string",
+      "enum": [
+        "monthly_retainer",
+        "annual_retainer",
+        "project",
+        "project_plus_retainer",
+        "trial",
+        "custom"
+      ],
+      "description": "Type of contract"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "pending_signature",
+        "active",
+        "paused",
+        "expiring",
+        "renewed",
+        "cancelled",
+        "completed"
+      ],
+      "default": "draft",
+      "description": "Contract status"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Start date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date",
+      "description": "End date (optional)"
+    },
+    "renewal_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Renewal date (optional)"
+    },
+    "auto_renew": {
+      "type": "boolean",
+      "default": false,
+      "description": "Auto-renewal enabled"
+    },
+    "billing_frequency": {
+      "type": "string",
+      "enum": [
+        "monthly",
+        "quarterly",
+        "annual",
+        "one_time",
+        "hybrid"
+      ],
+      "description": "Billing frequency"
+    },
+    "contract_term_months": {
+      "type": "number",
+      "description": "Contract term in months (optional)"
+    },
+    "monthly_value": {
+      "type": "number",
+      "description": "Monthly recurring value (optional)"
+    },
+    "one_time_value": {
+      "type": "number",
+      "description": "One-time value (optional)"
+    },
+    "expansion_value": {
+      "type": "number",
+      "description": "Expansion/add-on value (optional)"
+    },
+    "total_contract_value": {
+      "type": "number",
+      "description": "Total contract value (optional)"
+    },
+    "currency_code": {
+      "type": "string",
+      "default": "USD",
+      "description": "Currency code"
+    },
+    "scope_summary": {
+      "type": "string",
+      "description": "Summary of contract scope"
+    },
+    "cancellation_notice_days": {
+      "type": "number",
+      "description": "Days notice required for cancellation (optional)"
+    },
+    "signed_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When contract was signed (optional)"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_id",
+    "contract_name",
+    "contract_type",
+    "status",
+    "start_date",
+    "billing_frequency",
+    "scope_summary"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "name": "OptimizationPolicy",
+  "type": "object",
+  "properties": {
+    "policy_key": {
+      "type": "string",
+      "description": "Unique policy identifier"
+    },
+    "policy_name": {
+      "type": "string",
+      "description": "Display name"
+    },
+    "optimization_category": {
+      "type": "string",
+      "enum": [
+        "publishing_performance",
+        "client_engagement",
+        "sales_conversion",
+        "onboarding_efficiency",
+        "automation_reliability",
+        "reseller_growth",
+        "reporting_effectiveness",
+        "workflow_throughput"
+      ],
+      "description": "Category this policy governs"
+    },
+    "allowed_auto_apply": {
+      "type": "string",
+      "enum": [
+        "recommend_only",
+        "low_risk_auto_apply",
+        "approval_required",
+        "protected_never_auto"
+      ],
+      "description": "Can auto-apply optimizations in this category?"
+    },
+    "max_change_frequency": {
+      "type": "string",
+      "description": "How often can changes be made (e.g., 'once_per_week')"
+    },
+    "approval_threshold": {
+      "type": "number",
+      "description": "Confidence threshold for approval (0-100)"
+    },
+    "rollback_rules_json": {
+      "type": "string",
+      "description": "JSON: {auto_rollback_if_negative, rollback_window_hours, notification_required}"
+    },
+    "protected_targets_json": {
+      "type": "string",
+      "description": "JSON: array of target_config_keys that are protected"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is policy active?"
+    }
+  },
+  "required": [
+    "policy_key",
+    "policy_name",
+    "optimization_category",
+    "allowed_auto_apply"
+  ]
+}

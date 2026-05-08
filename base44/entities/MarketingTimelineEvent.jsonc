@@ -1,0 +1,48 @@
+{
+  "name": "MarketingTimelineEvent",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "event_title": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "post",
+        "video_release",
+        "promotion",
+        "seasonal",
+        "strategy_call",
+        "content_batch"
+      ]
+    },
+    "event_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "upcoming",
+        "needs_approval",
+        "live",
+        "completed"
+      ],
+      "default": "upcoming"
+    },
+    "channel_emoji": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "client_id",
+    "event_title",
+    "event_date"
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "name": "AutonomousOpportunity",
+  "type": "object",
+  "properties": {
+    "opportunity_type": {
+      "type": "string",
+      "enum": [
+        "client_retention",
+        "publishing_acceleration",
+        "deal_close",
+        "onboarding_speedup",
+        "reseller_expansion",
+        "automation_stabilization",
+        "engagement_reactivation",
+        "feature_upsell",
+        "content_optimization",
+        "workflow_improvement"
+      ],
+      "description": "Type of opportunity detected"
+    },
+    "context_type": {
+      "type": "string",
+      "enum": [
+        "global",
+        "agency",
+        "reseller",
+        "client",
+        "school"
+      ],
+      "description": "Execution context"
+    },
+    "reseller_id": {
+      "type": "string",
+      "description": "Reseller context (if applicable)"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "Client context (if applicable)"
+    },
+    "related_entity_type": {
+      "type": "string",
+      "description": "Entity type involved (Deal, Client, Content, etc)"
+    },
+    "related_entity_id": {
+      "type": "string",
+      "description": "Entity ID involved"
+    },
+    "opportunity_score": {
+      "type": "number",
+      "description": "Score indicating opportunity value/impact (0-100)"
+    },
+    "urgency_level": {
+      "type": "string",
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low"
+      ],
+      "description": "How urgent the opportunity is"
+    },
+    "detected_reason": {
+      "type": "string",
+      "description": "Narrative explaining why this opportunity was detected"
+    },
+    "recommended_strategy": {
+      "type": "string",
+      "description": "Recommended strategy key to execute"
+    },
+    "strategy_confidence": {
+      "type": "number",
+      "description": "Confidence that recommended strategy will succeed (0-100)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "detected",
+        "escalated",
+        "action_launched",
+        "completed",
+        "expired",
+        "blocked"
+      ],
+      "default": "detected",
+      "description": "Current status"
+    },
+    "governance_status": {
+      "type": "string",
+      "enum": [
+        "approved",
+        "pending_approval",
+        "blocked",
+        "auto_executed"
+      ],
+      "default": "pending_approval",
+      "description": "Governance decision"
+    },
+    "detected_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When opportunity was detected"
+    }
+  },
+  "required": [
+    "opportunity_type",
+    "context_type",
+    "opportunity_score",
+    "urgency_level",
+    "detected_at"
+  ]
+}

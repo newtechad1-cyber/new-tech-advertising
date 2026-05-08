@@ -1,0 +1,90 @@
+{
+  "name": "GovernanceAuditLog",
+  "type": "object",
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "description": "Type of governance event"
+    },
+    "action_type": {
+      "type": "string",
+      "description": "Type of action being governed"
+    },
+    "related_entity_type": {
+      "type": "string",
+      "description": "Type of affected entity (optional)"
+    },
+    "related_entity_id": {
+      "type": "string",
+      "description": "ID of affected entity (optional)"
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID (optional)"
+    },
+    "actor_type": {
+      "type": "string",
+      "enum": [
+        "user",
+        "ai",
+        "automation",
+        "system"
+      ],
+      "description": "Type of actor initiating action"
+    },
+    "actor_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID if actor is user (optional)"
+    },
+    "system_source": {
+      "type": "string",
+      "description": "System that triggered action (optional)"
+    },
+    "policy_applied": {
+      "type": "string",
+      "description": "Policy name that was applied (optional)"
+    },
+    "decision_result": {
+      "type": "string",
+      "enum": [
+        "allowed",
+        "blocked",
+        "approval_requested",
+        "approved",
+        "rejected",
+        "rolled_back",
+        "overridden",
+        "logged"
+      ],
+      "description": "Result of governance check"
+    },
+    "decision_reason": {
+      "type": "string",
+      "description": "Reason for decision (optional)"
+    },
+    "before_state": {
+      "type": "string",
+      "description": "State before action (optional)"
+    },
+    "after_state": {
+      "type": "string",
+      "description": "State after action (optional)"
+    },
+    "rollback_available": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether rollback is possible"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "event_type",
+    "action_type",
+    "actor_type",
+    "decision_result"
+  ]
+}

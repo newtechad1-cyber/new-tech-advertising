@@ -1,0 +1,63 @@
+{
+  "name": "PlatformConnectionAuditLog",
+  "type": "object",
+  "properties": {
+    "connection_id": {
+      "type": "string"
+    },
+    "platform_type": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "connection_verified",
+        "connection_failed",
+        "token_refreshed",
+        "token_expired",
+        "page_mapping_updated",
+        "publishing_enabled",
+        "publishing_disabled",
+        "test_publish_succeeded",
+        "test_publish_failed",
+        "reconnect_requested",
+        "settings_updated",
+        "connection_created",
+        "connection_disabled",
+        "connection_seeded"
+      ]
+    },
+    "event_label": {
+      "type": "string"
+    },
+    "event_details": {
+      "type": "string"
+    },
+    "status_before": {
+      "type": "string"
+    },
+    "status_after": {
+      "type": "string"
+    },
+    "logged_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "actor_type": {
+      "type": "string",
+      "enum": [
+        "system",
+        "admin",
+        "agent"
+      ],
+      "default": "system"
+    },
+    "actor_name": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "platform_type",
+    "event_type"
+  ]
+}

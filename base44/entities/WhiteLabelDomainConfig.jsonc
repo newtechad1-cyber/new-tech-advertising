@@ -1,0 +1,63 @@
+{
+  "name": "WhiteLabelDomainConfig",
+  "type": "object",
+  "properties": {
+    "reseller_id": {
+      "type": "string",
+      "description": "Reference to ResellerAccount"
+    },
+    "domain_type": {
+      "type": "string",
+      "enum": [
+        "subdomain",
+        "custom"
+      ],
+      "default": "subdomain"
+    },
+    "custom_domain": {
+      "type": "string",
+      "description": "Full domain e.g., app.reseller.com"
+    },
+    "subdomain": {
+      "type": "string",
+      "description": "Subdomain e.g., reseller.ntaplatform.com"
+    },
+    "ssl_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "provisioning",
+        "active",
+        "failed"
+      ],
+      "default": "pending"
+    },
+    "dns_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "configured",
+        "verified",
+        "error"
+      ],
+      "default": "pending"
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": [
+        "unverified",
+        "verifying",
+        "verified",
+        "failed"
+      ],
+      "default": "unverified"
+    },
+    "last_verified_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "reseller_id"
+  ]
+}

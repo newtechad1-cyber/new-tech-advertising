@@ -1,0 +1,54 @@
+{
+  "name": "EntityRelationshipDefinition",
+  "type": "object",
+  "properties": {
+    "parent_entity_key": {
+      "type": "string",
+      "description": "Parent entity key"
+    },
+    "child_entity_key": {
+      "type": "string",
+      "description": "Child entity key"
+    },
+    "relationship_type": {
+      "type": "string",
+      "enum": [
+        "one_to_many",
+        "many_to_many",
+        "one_to_one",
+        "self_referential"
+      ],
+      "description": "Type of relationship"
+    },
+    "cardinality": {
+      "type": "string",
+      "enum": [
+        "1:1",
+        "1:N",
+        "N:M"
+      ],
+      "description": "Cardinality"
+    },
+    "required": {
+      "type": "boolean",
+      "default": false,
+      "description": "Is relationship required"
+    },
+    "cascade_rules_json": {
+      "type": "string",
+      "description": "JSON: cascade_delete, cascade_update, restrict"
+    },
+    "description": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "parent_entity_key",
+    "child_entity_key",
+    "relationship_type"
+  ]
+}

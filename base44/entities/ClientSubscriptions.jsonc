@@ -1,0 +1,88 @@
+{
+  "name": "ClientSubscriptions",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID \u2014 subscriptions belong to companies, not users"
+    },
+    "plan_id": {
+      "type": "string",
+      "description": "Reference to Plans ID"
+    },
+    "plan_name": {
+      "type": "string",
+      "description": "Snapshot of plan name at time of subscription"
+    },
+    "stripe_subscription_id": {
+      "type": "string"
+    },
+    "stripe_customer_id": {
+      "type": "string"
+    },
+    "stripe_price_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "trialing",
+        "active",
+        "past_due",
+        "cancelled",
+        "paused",
+        "incomplete"
+      ],
+      "default": "trialing"
+    },
+    "billing_interval": {
+      "type": "string",
+      "enum": [
+        "monthly",
+        "quarterly",
+        "annual"
+      ],
+      "default": "monthly"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Billing amount in dollars"
+    },
+    "trial_start": {
+      "type": "string",
+      "format": "date"
+    },
+    "trial_end": {
+      "type": "string",
+      "format": "date"
+    },
+    "current_period_start": {
+      "type": "string",
+      "format": "date"
+    },
+    "current_period_end": {
+      "type": "string",
+      "format": "date"
+    },
+    "cancelled_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "cancel_at_period_end": {
+      "type": "boolean",
+      "default": false
+    },
+    "reseller_id": {
+      "type": "string",
+      "description": "If managed by a reseller"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "company_id",
+    "status",
+    "billing_interval"
+  ]
+}

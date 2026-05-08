@@ -1,0 +1,54 @@
+{
+  "name": "MarketingCalendarEvent",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "event_title": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "scheduled_post",
+        "video_release",
+        "promotion_campaign",
+        "seasonal_push",
+        "strategy_review",
+        "content_batch"
+      ]
+    },
+    "event_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "upcoming",
+        "needs_approval",
+        "approved",
+        "live",
+        "completed"
+      ],
+      "default": "upcoming"
+    },
+    "channel": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "client_suggested": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "client_id",
+    "event_title",
+    "event_date",
+    "status"
+  ]
+}

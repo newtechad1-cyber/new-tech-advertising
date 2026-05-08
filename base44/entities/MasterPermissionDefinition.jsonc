@@ -1,0 +1,72 @@
+{
+  "name": "MasterPermissionDefinition",
+  "type": "object",
+  "properties": {
+    "permission_key": {
+      "type": "string",
+      "description": "Unique permission identifier (e.g., 'publish_content', 'view_client_data')"
+    },
+    "permission_label": {
+      "type": "string",
+      "description": "Display label"
+    },
+    "permission_category": {
+      "type": "string",
+      "enum": [
+        "page_access",
+        "entity_crud",
+        "agent_execution",
+        "automation",
+        "reporting",
+        "billing",
+        "admin",
+        "system"
+      ],
+      "description": "Permission category"
+    },
+    "description": {
+      "type": "string",
+      "description": "What this permission grants"
+    },
+    "target_type": {
+      "type": "string",
+      "description": "Target (page, entity, agent, automation)"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "create",
+        "read",
+        "update",
+        "delete",
+        "execute",
+        "publish",
+        "approve",
+        "view"
+      ],
+      "description": "Action type"
+    },
+    "tenant_sensitive": {
+      "type": "boolean",
+      "default": false,
+      "description": "Does this permission access tenant data"
+    },
+    "high_risk": {
+      "type": "boolean",
+      "default": false,
+      "description": "Is this a high-risk permission"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is permission active"
+    }
+  },
+  "required": [
+    "permission_key",
+    "permission_label",
+    "permission_category",
+    "target_type",
+    "action_type"
+  ]
+}

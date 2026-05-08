@@ -1,0 +1,78 @@
+{
+  "name": "ServiceRequest",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Company ID"
+    },
+    "request_type": {
+      "type": "string",
+      "enum": [
+        "new_project",
+        "content_revision",
+        "upgrade",
+        "support",
+        "cancellation",
+        "other"
+      ],
+      "description": "Type of request"
+    },
+    "service_category": {
+      "type": "string",
+      "enum": [
+        "diy_saas",
+        "dfy_managed",
+        "ada_rebuild",
+        "streaming_tv",
+        "video_production",
+        "other"
+      ]
+    },
+    "subject": {
+      "type": "string",
+      "description": "Short description of the request"
+    },
+    "details": {
+      "type": "string",
+      "description": "Full details provided by client"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "submitted",
+        "reviewing",
+        "in_progress",
+        "completed",
+        "declined"
+      ],
+      "default": "submitted"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "normal",
+        "high",
+        "urgent"
+      ],
+      "default": "normal"
+    },
+    "assigned_to": {
+      "type": "string",
+      "description": "Team member handling this request"
+    },
+    "resolved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "internal_notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "company_id",
+    "request_type",
+    "subject"
+  ]
+}

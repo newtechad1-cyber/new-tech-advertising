@@ -1,0 +1,17 @@
+{
+  "name": "AppSettings",
+  "type": "object",
+  "properties": {
+    "test_mode_enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "When enabled, shows test mode banner and tags records with test metadata"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": []
+}

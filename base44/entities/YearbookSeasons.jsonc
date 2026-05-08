@@ -1,0 +1,73 @@
+{
+  "name": "YearbookSeasons",
+  "type": "object",
+  "properties": {
+    "school_slug": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "description": "e.g., 2025-2026"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "school_year": {
+      "type": "string",
+      "description": "e.g., 2026"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "in_progress",
+        "review",
+        "published",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "publish_status": {
+      "type": "string",
+      "enum": [
+        "unpublished",
+        "published"
+      ],
+      "default": "unpublished"
+    },
+    "cover_image_url": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "public_url": {
+      "type": "string"
+    },
+    "canonical_route": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "school_slug",
+    "name",
+    "slug",
+    "school_year"
+  ]
+}

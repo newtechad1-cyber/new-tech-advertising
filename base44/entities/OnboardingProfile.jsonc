@@ -1,0 +1,90 @@
+{
+  "name": "OnboardingProfile",
+  "type": "object",
+  "properties": {
+    "onboardingProfileId": {
+      "type": "string",
+      "description": "Unique onboarding profile identifier"
+    },
+    "organizationId": {
+      "type": "string",
+      "description": "Foreign key to Organization"
+    },
+    "primaryGrowthGoal": {
+      "type": "string",
+      "enum": [
+        "more_leads",
+        "higher_ticket_sales",
+        "brand_authority",
+        "beat_competitors",
+        "expand_locations",
+        "faster_growth"
+      ],
+      "description": "Primary growth objective"
+    },
+    "revenueGrowthTarget": {
+      "type": "string",
+      "enum": [
+        "under_5k",
+        "5k_10k",
+        "10k_25k",
+        "25k_50k",
+        "50k_plus"
+      ],
+      "description": "Monthly revenue growth target"
+    },
+    "timeCommitmentLevel": {
+      "type": "string",
+      "enum": [
+        "minimal",
+        "5_10_hours",
+        "10_15_hours",
+        "15_20_hours",
+        "20_plus_hours"
+      ],
+      "description": "Weekly time available for marketing"
+    },
+    "marketingFrustration": {
+      "type": "string",
+      "enum": [
+        "no_consistency",
+        "no_leads",
+        "low_roi",
+        "too_much_work",
+        "execution_gaps"
+      ],
+      "description": "Primary marketing pain point"
+    },
+    "growthSpeedIntent": {
+      "type": "string",
+      "enum": [
+        "slow_steady",
+        "moderate",
+        "aggressive",
+        "very_aggressive"
+      ],
+      "description": "Desired growth speed"
+    },
+    "upgradeReadinessScore": {
+      "type": "number",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Upgrade likelihood score 0-100"
+    },
+    "completedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When profile was completed"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "onboardingProfileId",
+    "organizationId"
+  ]
+}

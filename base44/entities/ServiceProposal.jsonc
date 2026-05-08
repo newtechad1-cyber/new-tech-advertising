@@ -1,0 +1,68 @@
+{
+  "name": "ServiceProposal",
+  "type": "object",
+  "properties": {
+    "lead_id": {
+      "type": "string",
+      "description": "Reference to Lead ID"
+    },
+    "service_type": {
+      "type": "string",
+      "enum": [
+        "website_new",
+        "website_rebuild",
+        "social_diy",
+        "social_dfy",
+        "ada_compliance",
+        "streaming_tv"
+      ],
+      "description": "Type of service being proposed"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "contact_name": {
+      "type": "string"
+    },
+    "contact_email": {
+      "type": "string"
+    },
+    "proposal_content": {
+      "type": "string",
+      "description": "AI-generated proposal text (markdown)"
+    },
+    "pricing_summary": {
+      "type": "string",
+      "description": "Pricing overview"
+    },
+    "setup_fee": {
+      "type": "number"
+    },
+    "monthly_fee": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "sent",
+        "viewed",
+        "accepted",
+        "declined"
+      ],
+      "default": "draft"
+    },
+    "sent_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "lead_id",
+    "service_type",
+    "business_name"
+  ]
+}

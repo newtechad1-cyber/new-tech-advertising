@@ -1,0 +1,47 @@
+{
+  "name": "SchemaHealthSnapshot",
+  "type": "object",
+  "properties": {
+    "entity_key": {
+      "type": "string",
+      "description": "Entity being evaluated"
+    },
+    "required_field_coverage_score": {
+      "type": "number",
+      "description": "0-100: % of fields with definitions"
+    },
+    "naming_consistency_score": {
+      "type": "number",
+      "description": "0-100: consistency of naming conventions"
+    },
+    "relationship_integrity_score": {
+      "type": "number",
+      "description": "0-100: integrity of relationships"
+    },
+    "lifecycle_consistency_score": {
+      "type": "number",
+      "description": "0-100: consistency of status field usage"
+    },
+    "orphan_record_risk_score": {
+      "type": "number",
+      "description": "0-100: risk of orphaned records"
+    },
+    "governance_health_score": {
+      "type": "number",
+      "description": "0-100: overall health (average of above)"
+    },
+    "issues_json": {
+      "type": "string",
+      "description": "JSON array of detected issues"
+    },
+    "snapshot_time": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "entity_key",
+    "governance_health_score",
+    "snapshot_time"
+  ]
+}

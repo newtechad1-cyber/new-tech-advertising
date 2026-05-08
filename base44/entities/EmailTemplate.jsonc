@@ -1,0 +1,42 @@
+{
+  "name": "EmailTemplate",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string",
+      "format": "markdown"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "broadcast",
+        "autoresponder"
+      ],
+      "default": "broadcast"
+    },
+    "sequence_day": {
+      "type": "integer",
+      "description": "For autoresponders: which day in the sequence (1, 2, 3...)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "sent",
+        "scheduled"
+      ],
+      "default": "draft"
+    }
+  },
+  "required": [
+    "name",
+    "subject",
+    "body"
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "name": "ClientIntake",
+  "type": "object",
+  "properties": {
+    "full_name": {
+      "type": "string",
+      "description": "Full name of the contact"
+    },
+    "business_name": {
+      "type": "string",
+      "description": "Name of the business"
+    },
+    "email": {
+      "type": "string",
+      "description": "Email address"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Phone number"
+    },
+    "current_website_url": {
+      "type": "string",
+      "description": "Current website URL (if any)"
+    },
+    "city": {
+      "type": "string",
+      "description": "City"
+    },
+    "state": {
+      "type": "string",
+      "description": "State"
+    },
+    "goals": {
+      "type": "string",
+      "description": "What the new website should accomplish"
+    },
+    "must_keep": {
+      "type": "string",
+      "description": "Pages or features that must be kept"
+    },
+    "brand_assets": {
+      "type": "string",
+      "description": "Links to logo/photos/brand kit"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes"
+    },
+    "service_type": {
+      "type": "string",
+      "description": "Type of service requested"
+    },
+    "services_requested": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of services requested"
+    },
+    "delivery_preference": {
+      "type": "string",
+      "enum": [
+        "HYBRID",
+        "DIY",
+        "DFY"
+      ],
+      "default": "HYBRID",
+      "description": "Delivery preference"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "submitted",
+        "reviewing",
+        "quoted",
+        "accepted",
+        "in_progress",
+        "completed"
+      ],
+      "default": "submitted",
+      "description": "Current status"
+    }
+  },
+  "required": [
+    "full_name",
+    "business_name",
+    "email",
+    "phone",
+    "goals"
+  ]
+}

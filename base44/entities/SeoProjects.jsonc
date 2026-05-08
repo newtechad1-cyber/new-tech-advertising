@@ -1,0 +1,52 @@
+{
+  "name": "SeoProjects",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID"
+    },
+    "campaign_id": {
+      "type": "string",
+      "description": "Reference to Campaigns ID (optional)"
+    },
+    "project_name": {
+      "type": "string"
+    },
+    "target_location": {
+      "type": "string",
+      "description": "City, state or region"
+    },
+    "target_industry": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "setup",
+        "active",
+        "paused",
+        "completed"
+      ],
+      "default": "setup"
+    },
+    "monthly_blog_quota": {
+      "type": "number",
+      "default": 4
+    },
+    "current_domain_authority": {
+      "type": "number"
+    },
+    "target_domain_authority": {
+      "type": "number"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "company_id",
+    "project_name",
+    "status"
+  ]
+}

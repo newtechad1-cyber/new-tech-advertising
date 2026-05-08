@@ -1,0 +1,75 @@
+{
+  "name": "MasterTriggerDefinition",
+  "type": "object",
+  "properties": {
+    "trigger_key": {
+      "type": "string",
+      "description": "Unique trigger identifier (e.g., 'approval_granted')"
+    },
+    "trigger_name": {
+      "type": "string",
+      "description": "Display name"
+    },
+    "trigger_type": {
+      "type": "string",
+      "enum": [
+        "entity_create",
+        "entity_update",
+        "entity_delete",
+        "entity_status_change",
+        "scheduled",
+        "webhook",
+        "manual"
+      ],
+      "description": "Trigger type"
+    },
+    "description": {
+      "type": "string",
+      "description": "What fires this trigger"
+    },
+    "source_entity_key": {
+      "type": "string",
+      "description": "Entity that fires this trigger"
+    },
+    "source_event_type": {
+      "type": "string",
+      "enum": [
+        "create",
+        "update",
+        "delete",
+        "status_change",
+        "field_change"
+      ],
+      "description": "Event type"
+    },
+    "source_field_key": {
+      "type": "string",
+      "description": "Field that triggers (if field-specific)"
+    },
+    "allowed_contexts_json": {
+      "type": "string",
+      "description": "JSON array: ['agency', 'reseller', 'client']"
+    },
+    "payload_schema_json": {
+      "type": "string",
+      "description": "JSON schema of trigger payload"
+    },
+    "duplicate_protection_supported": {
+      "type": "boolean",
+      "default": false,
+      "description": "Can this trigger be deduplicated"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is trigger active"
+    }
+  },
+  "required": [
+    "trigger_key",
+    "trigger_name",
+    "trigger_type",
+    "source_entity_key",
+    "source_event_type"
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "name": "AIPromptTemplates",
+  "type": "object",
+  "properties": {
+    "school_slug": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name"
+    },
+    "template_type": {
+      "type": "string",
+      "enum": [
+        "story_generator",
+        "story_rewriter",
+        "caption_generator",
+        "event_summary_generator",
+        "spotlight_summary",
+        "yearbook_blurb_generator",
+        "video_script_generator",
+        "headline_generator",
+        "interview_question_generator",
+        "moderation_guidance",
+        "tone_preset"
+      ]
+    },
+    "system_prompt": {
+      "type": "string",
+      "description": "System instructions for the AI model"
+    },
+    "user_prompt_template": {
+      "type": "string",
+      "description": "Template with placeholders like {title}, {description}, {submission_content}"
+    },
+    "output_format": {
+      "type": "string",
+      "enum": [
+        "text",
+        "array",
+        "json"
+      ],
+      "default": "text",
+      "description": "Format of expected output"
+    },
+    "output_schema": {
+      "type": "string",
+      "description": "JSON schema for output validation"
+    },
+    "example_output": {
+      "type": "string",
+      "description": "Example of expected output"
+    },
+    "tone": {
+      "type": "string",
+      "enum": [
+        "formal",
+        "warm",
+        "energetic",
+        "inspirational",
+        "professional"
+      ]
+    },
+    "max_tokens": {
+      "type": "number",
+      "default": 500
+    },
+    "temperature": {
+      "type": "number",
+      "default": 0.7
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "version": {
+      "type": "number",
+      "default": 1,
+      "description": "Increments each time the template is saved"
+    },
+    "usage_count": {
+      "type": "number",
+      "default": 0
+    },
+    "notes": {
+      "type": "string",
+      "description": "Admin notes about this template"
+    }
+  },
+  "required": [
+    "school_slug",
+    "name",
+    "template_type",
+    "system_prompt",
+    "user_prompt_template"
+  ]
+}

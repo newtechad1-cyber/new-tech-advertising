@@ -1,0 +1,104 @@
+{
+  "name": "OptimizationActions",
+  "type": "object",
+  "properties": {
+    "optimization_opportunity_id": {
+      "type": "string",
+      "description": "Reference to OptimizationOpportunities ID"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "create_task",
+        "adjust_content_plan",
+        "request_new_approval",
+        "create_landing_page",
+        "create_video",
+        "refresh_creative",
+        "schedule_strategy_review",
+        "create_proposal",
+        "review_cta",
+        "improve_followup",
+        "update_workflow",
+        "publish_more_content",
+        "reduce_bottleneck"
+      ],
+      "description": "Type of action to take"
+    },
+    "title": {
+      "type": "string",
+      "description": "Action title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the action"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium",
+      "description": "Action priority"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "in_progress",
+        "completed",
+        "blocked",
+        "skipped"
+      ],
+      "default": "pending",
+      "description": "Action status"
+    },
+    "owner_type": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "system",
+        "shared"
+      ],
+      "default": "admin",
+      "description": "Who owns this action"
+    },
+    "owner_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional)"
+    },
+    "related_task_id": {
+      "type": "string",
+      "description": "Reference to SalesTasks ID (optional)"
+    },
+    "related_proposal_id": {
+      "type": "string",
+      "description": "Reference to Proposals ID (optional)"
+    },
+    "related_strategy_review_id": {
+      "type": "string",
+      "description": "Reference to StrategyReviews ID (optional)"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When this action should be completed (optional)"
+    },
+    "sort_order": {
+      "type": "number",
+      "description": "Display order for actions"
+    }
+  },
+  "required": [
+    "optimization_opportunity_id",
+    "action_type",
+    "title",
+    "description",
+    "priority",
+    "owner_type",
+    "sort_order"
+  ]
+}

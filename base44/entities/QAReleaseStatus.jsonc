@@ -1,0 +1,75 @@
+{
+  "name": "QAReleaseStatus",
+  "type": "object",
+  "properties": {
+    "release_name": {
+      "type": "string"
+    },
+    "build_version": {
+      "type": "string"
+    },
+    "total_tests": {
+      "type": "number",
+      "default": 0
+    },
+    "passed_tests": {
+      "type": "number",
+      "default": 0
+    },
+    "failed_tests": {
+      "type": "number",
+      "default": 0
+    },
+    "blocked_tests": {
+      "type": "number",
+      "default": 0
+    },
+    "critical_failures": {
+      "type": "number",
+      "default": 0
+    },
+    "high_failures": {
+      "type": "number",
+      "default": 0
+    },
+    "must_pass_total": {
+      "type": "number",
+      "default": 0
+    },
+    "must_pass_passed": {
+      "type": "number",
+      "default": 0
+    },
+    "readiness_score": {
+      "type": "number",
+      "default": 0,
+      "description": "Weighted 0-100"
+    },
+    "go_live_status": {
+      "type": "string",
+      "enum": [
+        "Not Ready",
+        "At Risk",
+        "Ready for Internal Use",
+        "Ready for Beta",
+        "Ready for Sale"
+      ],
+      "default": "Not Ready"
+    },
+    "last_regression_run_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "release_name",
+    "go_live_status"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "name": "AgentLogs",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID"
+    },
+    "agent_run_id": {
+      "type": "string",
+      "description": "Reference to AgentRuns ID"
+    },
+    "log_level": {
+      "type": "string",
+      "enum": [
+        "info",
+        "warn",
+        "error",
+        "debug"
+      ],
+      "default": "info"
+    },
+    "message": {
+      "type": "string"
+    },
+    "data": {
+      "type": "string",
+      "description": "JSON serialized additional context"
+    },
+    "logged_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "company_id",
+    "agent_run_id",
+    "log_level",
+    "message",
+    "logged_at"
+  ]
+}

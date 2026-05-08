@@ -1,0 +1,87 @@
+{
+  "name": "QATestCases",
+  "type": "object",
+  "properties": {
+    "test_id": {
+      "type": "string",
+      "description": "Canonical ID e.g. QA-001"
+    },
+    "name": {
+      "type": "string"
+    },
+    "test_group": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "P0 Critical",
+        "P1 High",
+        "P2 Normal",
+        "P3 Low"
+      ],
+      "default": "P1 High"
+    },
+    "role": {
+      "type": "string"
+    },
+    "start_page": {
+      "type": "string"
+    },
+    "trigger": {
+      "type": "string"
+    },
+    "expected_records_created_json": {
+      "type": "string"
+    },
+    "expected_records_updated_json": {
+      "type": "string"
+    },
+    "expected_notifications_json": {
+      "type": "string"
+    },
+    "validation_pages_json": {
+      "type": "string"
+    },
+    "failure_conditions_json": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Ready",
+        "Draft",
+        "Deprecated"
+      ],
+      "default": "Ready"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "high_visibility": {
+      "type": "boolean",
+      "default": false,
+      "description": "Pin to high-visibility section"
+    },
+    "is_high_visibility": {
+      "type": "boolean",
+      "default": false
+    },
+    "owner": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "test_id",
+    "name",
+    "test_group",
+    "priority",
+    "trigger",
+    "status",
+    "is_active"
+  ]
+}

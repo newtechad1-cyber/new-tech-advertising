@@ -1,0 +1,45 @@
+{
+  "name": "Product",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "price": {
+      "type": "number"
+    },
+    "product_type": {
+      "type": "string",
+      "enum": [
+        "ebook",
+        "template",
+        "course",
+        "service",
+        "other"
+      ],
+      "default": "ebook"
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "file_url": {
+      "type": "string",
+      "description": "Download URL for digital product"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive"
+      ],
+      "default": "active"
+    }
+  },
+  "required": [
+    "name",
+    "price"
+  ]
+}

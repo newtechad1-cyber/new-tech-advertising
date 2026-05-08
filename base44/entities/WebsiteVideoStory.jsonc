@@ -1,0 +1,70 @@
+{
+  "name": "WebsiteVideoStory",
+  "type": "object",
+  "properties": {
+    "video_id": {
+      "type": "string"
+    },
+    "company_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "thumbnail_url": {
+      "type": "string"
+    },
+    "video_url": {
+      "type": "string"
+    },
+    "transcript_excerpt": {
+      "type": "string"
+    },
+    "seo_title": {
+      "type": "string"
+    },
+    "seo_description": {
+      "type": "string"
+    },
+    "cta_text": {
+      "type": "string"
+    },
+    "cta_url": {
+      "type": "string"
+    },
+    "publish_status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "scheduled",
+        "published",
+        "failed"
+      ],
+      "default": "draft"
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "public_url": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "video_id",
+    "title",
+    "slug"
+  ]
+}

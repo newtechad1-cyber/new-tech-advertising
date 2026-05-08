@@ -1,0 +1,83 @@
+{
+  "name": "AutopilotJobs",
+  "type": "object",
+  "properties": {
+    "job_name": {
+      "type": "string"
+    },
+    "job_type": {
+      "type": "string",
+      "enum": [
+        "Blog Generation",
+        "Social Content Generation",
+        "Video Script Generation",
+        "Lead Follow-Up",
+        "Case Study Promotion",
+        "City Page Generation",
+        "Authority Pack Expansion",
+        "Email Newsletter Creation",
+        "SEO Refresh"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "running",
+        "completed",
+        "failed",
+        "paused"
+      ],
+      "default": "pending"
+    },
+    "frequency": {
+      "type": "string",
+      "enum": [
+        "Daily",
+        "Weekly",
+        "Monthly",
+        "Hourly",
+        "Once"
+      ]
+    },
+    "last_run_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "next_run_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "related_service": {
+      "type": "string",
+      "description": "e.g. streaming-tv, local-seo, ada-rebuild"
+    },
+    "related_city": {
+      "type": "string",
+      "description": "e.g. Chicago, New York"
+    },
+    "related_case_study": {
+      "type": "string",
+      "description": "Reference to CaseStudy ID"
+    },
+    "output_summary": {
+      "type": "string",
+      "description": "Summary of content created, entities saved, success/failure, and timestamp"
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "job_name",
+    "job_type",
+    "frequency",
+    "enabled"
+  ]
+}

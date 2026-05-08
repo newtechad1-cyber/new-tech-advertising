@@ -1,0 +1,42 @@
+{
+  "name": "AiBudget",
+  "type": "object",
+  "properties": {
+    "account_id": {
+      "type": "string"
+    },
+    "month": {
+      "type": "string",
+      "description": "YYYY-MM format"
+    },
+    "monthly_budget_cents": {
+      "type": "integer",
+      "default": 1000
+    },
+    "soft_limit_cents": {
+      "type": "integer",
+      "default": 800
+    },
+    "hard_limit_cents": {
+      "type": "integer",
+      "default": 1000
+    },
+    "spent_cents": {
+      "type": "integer",
+      "default": 0
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "account_id",
+    "month"
+  ],
+  "unique": [
+    "account_id",
+    "month"
+  ]
+}

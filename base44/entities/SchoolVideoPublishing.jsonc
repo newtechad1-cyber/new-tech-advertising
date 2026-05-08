@@ -1,0 +1,52 @@
+{
+  "name": "SchoolVideoPublishing",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string"
+    },
+    "destination": {
+      "type": "string",
+      "enum": [
+        "gallery",
+        "youtube",
+        "facebook",
+        "instagram",
+        "website_download"
+      ],
+      "default": "gallery"
+    },
+    "destination_account": {
+      "type": "string"
+    },
+    "destination_status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "published",
+        "failed",
+        "skipped"
+      ],
+      "default": "queued"
+    },
+    "destination_url": {
+      "type": "string"
+    },
+    "scheduled_publish_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "error_log": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "destination",
+    "destination_status"
+  ]
+}

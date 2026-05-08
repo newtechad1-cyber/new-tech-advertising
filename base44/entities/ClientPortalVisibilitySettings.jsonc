@@ -1,0 +1,42 @@
+{
+  "name": "ClientPortalVisibilitySettings",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "section_key": {
+      "type": "string",
+      "enum": [
+        "dashboard",
+        "onboarding",
+        "fulfillment",
+        "results",
+        "strategy",
+        "commerce",
+        "messages",
+        "billing_status",
+        "usage",
+        "offers",
+        "proposals"
+      ],
+      "description": "Portal section key"
+    },
+    "visible": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this section is visible to the client"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_id",
+    "section_key",
+    "visible"
+  ]
+}

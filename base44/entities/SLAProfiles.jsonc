@@ -1,0 +1,46 @@
+{
+  "name": "SLAProfiles",
+  "type": "object",
+  "properties": {
+    "profile_name": {
+      "type": "string",
+      "description": "Name of the SLA profile"
+    },
+    "profile_type": {
+      "type": "string",
+      "enum": [
+        "onboarding",
+        "fulfillment",
+        "communication",
+        "approval",
+        "reporting",
+        "strategy_review",
+        "proposal_followup",
+        "support"
+      ],
+      "description": "Type of SLA profile"
+    },
+    "applies_to_service_type": {
+      "type": "string",
+      "description": "Optional service type this applies to"
+    },
+    "applies_to_workflow_type": {
+      "type": "string",
+      "description": "Optional workflow type this applies to"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the SLA profile"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this profile is active"
+    }
+  },
+  "required": [
+    "profile_name",
+    "profile_type",
+    "description"
+  ]
+}

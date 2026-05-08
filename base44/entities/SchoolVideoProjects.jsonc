@@ -1,0 +1,182 @@
+{
+  "name": "SchoolVideoProjects",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "project_type": {
+      "type": "string",
+      "enum": [
+        "weekly_recap",
+        "sports_highlight",
+        "classroom_spotlight",
+        "student_story",
+        "club_feature",
+        "arts_feature",
+        "event_recap",
+        "district_message",
+        "recruitment_video",
+        "community_pride",
+        "custom"
+      ],
+      "default": "weekly_recap"
+    },
+    "school": {
+      "type": "string"
+    },
+    "activity_type": {
+      "type": "string"
+    },
+    "team_or_group": {
+      "type": "string"
+    },
+    "event_name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "objective": {
+      "type": "string"
+    },
+    "target_audience": {
+      "type": "string"
+    },
+    "tone": {
+      "type": "string",
+      "enum": [
+        "inspiring",
+        "energetic",
+        "warm",
+        "proud",
+        "documentary",
+        "celebratory"
+      ],
+      "default": "warm"
+    },
+    "duration_target": {
+      "type": "string",
+      "default": "2-3 minutes"
+    },
+    "format_type": {
+      "type": "string",
+      "enum": [
+        "landscape",
+        "square",
+        "vertical"
+      ],
+      "default": "landscape"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "collecting_assets",
+        "ready_for_ai",
+        "script_generated",
+        "queued_for_render",
+        "rendering",
+        "review_ready",
+        "approved",
+        "published",
+        "failed"
+      ],
+      "default": "draft"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "high",
+        "normal",
+        "low"
+      ],
+      "default": "normal"
+    },
+    "cover_image": {
+      "type": "string"
+    },
+    "project_notes": {
+      "type": "string"
+    },
+    "ai_story_summary": {
+      "type": "string"
+    },
+    "generated_title": {
+      "type": "string"
+    },
+    "generated_description": {
+      "type": "string"
+    },
+    "selected_music_style": {
+      "type": "string"
+    },
+    "voiceover_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "captions_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "intro_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "outro_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "publish_to_gallery": {
+      "type": "boolean",
+      "default": true
+    },
+    "publish_to_youtube": {
+      "type": "boolean",
+      "default": false
+    },
+    "publish_to_facebook": {
+      "type": "boolean",
+      "default": false
+    },
+    "publish_to_instagram": {
+      "type": "boolean",
+      "default": false
+    },
+    "publish_status": {
+      "type": "string",
+      "enum": [
+        "not_ready",
+        "queued",
+        "published",
+        "partial",
+        "failed"
+      ],
+      "default": "not_ready"
+    },
+    "public_video_url": {
+      "type": "string"
+    },
+    "youtube_url": {
+      "type": "string"
+    },
+    "facebook_post_url": {
+      "type": "string"
+    },
+    "instagram_post_url": {
+      "type": "string"
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "title",
+    "project_type",
+    "status"
+  ]
+}

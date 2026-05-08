@@ -1,0 +1,61 @@
+{
+  "name": "ContractLineItems",
+  "type": "object",
+  "properties": {
+    "contract_id": {
+      "type": "string",
+      "description": "Reference to Contracts ID"
+    },
+    "item_type": {
+      "type": "string",
+      "enum": [
+        "setup_fee",
+        "monthly_service",
+        "add_on",
+        "overage",
+        "project_scope",
+        "upgrade",
+        "campaign",
+        "content_package"
+      ],
+      "description": "Type of line item"
+    },
+    "item_name": {
+      "type": "string",
+      "description": "Name of line item"
+    },
+    "quantity": {
+      "type": "number",
+      "description": "Quantity (optional)"
+    },
+    "unit_price": {
+      "type": "number",
+      "description": "Price per unit (optional)"
+    },
+    "recurring": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether recurring"
+    },
+    "included_in_plan": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether included in plan"
+    },
+    "related_entitlement_type": {
+      "type": "string",
+      "description": "Related entitlement type (optional)"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description"
+    }
+  },
+  "required": [
+    "contract_id",
+    "item_type",
+    "item_name",
+    "recurring",
+    "description"
+  ]
+}

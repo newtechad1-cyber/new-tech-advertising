@@ -1,0 +1,100 @@
+{
+  "name": "SalesNotification",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium"
+    },
+    "notification_type": {
+      "type": "string",
+      "enum": [
+        "hot_lead",
+        "proposal_viewed",
+        "proposal_viewed_multiple",
+        "proposal_followup",
+        "proposal_no_response",
+        "trial_started",
+        "trial_incomplete",
+        "followup_needed",
+        "client_request"
+      ],
+      "default": "hot_lead"
+    },
+    "related_lead_id": {
+      "type": "string",
+      "description": "Reference to Lead ID"
+    },
+    "related_proposal_id": {
+      "type": "string",
+      "description": "Reference to Proposal ID"
+    },
+    "related_trial_id": {
+      "type": "string",
+      "description": "Reference to TrialAccount ID"
+    },
+    "related_company_id": {
+      "type": "string",
+      "description": "Reference to Company/Trial name for display"
+    },
+    "company_name": {
+      "type": "string",
+      "description": "Denormalized for display"
+    },
+    "contact_name": {
+      "type": "string"
+    },
+    "contact_email": {
+      "type": "string"
+    },
+    "service_interest": {
+      "type": "string"
+    },
+    "assigned_admin_user_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "unread",
+        "read",
+        "actioned",
+        "snoozed",
+        "resolved",
+        "dismissed"
+      ],
+      "default": "unread"
+    },
+    "snooze_until": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "resolved_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "title",
+    "message",
+    "priority",
+    "notification_type"
+  ]
+}

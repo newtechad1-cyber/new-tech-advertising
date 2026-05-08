@@ -1,0 +1,68 @@
+{
+  "name": "MasterRouteDefinition",
+  "type": "object",
+  "properties": {
+    "route_path": {
+      "type": "string",
+      "description": "Route path (e.g., /admin/dashboard)"
+    },
+    "route_family": {
+      "type": "string",
+      "enum": [
+        "public",
+        "main_admin",
+        "school_admin",
+        "client_portal",
+        "reseller",
+        "governance",
+        "agent_ops"
+      ],
+      "description": "Route family"
+    },
+    "page_key": {
+      "type": "string",
+      "description": "Primary page this route maps to"
+    },
+    "canonical": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is this the canonical route"
+    },
+    "dynamic_route": {
+      "type": "boolean",
+      "default": false,
+      "description": "Does route have dynamic segments"
+    },
+    "query_param_rules_json": {
+      "type": "string",
+      "description": "JSON: allowed and required query parameters"
+    },
+    "fallback_route": {
+      "type": "string",
+      "description": "Fallback route if this fails"
+    },
+    "redirect_rules_json": {
+      "type": "string",
+      "description": "JSON: old routes that redirect to this"
+    },
+    "guard_rules_json": {
+      "type": "string",
+      "description": "JSON: access guards (auth, role, feature flag)"
+    },
+    "layout_key": {
+      "type": "string",
+      "description": "Layout that wraps this route"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is route active"
+    }
+  },
+  "required": [
+    "route_path",
+    "route_family",
+    "page_key",
+    "layout_key"
+  ]
+}

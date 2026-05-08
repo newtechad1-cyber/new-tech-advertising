@@ -1,0 +1,104 @@
+{
+  "name": "NavigationQACheck",
+  "type": "object",
+  "properties": {
+    "route": {
+      "type": "string",
+      "description": "Full route path (e.g., /admindashboard, /clientdashboard)"
+    },
+    "page_key": {
+      "type": "string",
+      "description": "Page component key from routeMap (e.g., AdminDashboard, ClientDashboard)"
+    },
+    "page_family": {
+      "type": "string",
+      "enum": [
+        "public",
+        "main_admin",
+        "school_admin",
+        "client_portal"
+      ],
+      "description": "Route family this page belongs to"
+    },
+    "layout_expected": {
+      "type": "string",
+      "description": "Expected layout wrapper (e.g., AdminNav, ClientGuard, PublicLayout)"
+    },
+    "tested": {
+      "type": "boolean",
+      "default": false,
+      "description": "Has this route been tested?"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "untested",
+        "pass",
+        "broken",
+        "redirect_issue",
+        "wrong_layout",
+        "wrong_data_context",
+        "timeout"
+      ],
+      "default": "untested",
+      "description": "QA test result"
+    },
+    "nav_source": {
+      "type": "string",
+      "enum": [
+        "MainSidebar",
+        "SchoolSidebar",
+        "ClientNav",
+        "CTAButton",
+        "TableRowLink",
+        "DirectURL",
+        "Unknown"
+      ],
+      "default": "Unknown",
+      "description": "Which nav component launched this route"
+    },
+    "load_time_ms": {
+      "type": "number",
+      "description": "Page load time in milliseconds"
+    },
+    "layout_detected": {
+      "type": "string",
+      "description": "Actual layout wrapper detected at runtime"
+    },
+    "actual_family_detected": {
+      "type": "string",
+      "description": "Route family actually detected (may differ from expected)"
+    },
+    "breadcrumb_parent": {
+      "type": "string",
+      "description": "Parent breadcrumb route (if applicable)"
+    },
+    "collision_detected": {
+      "type": "boolean",
+      "default": false,
+      "description": "Potential routing collision (page family mismatch)"
+    },
+    "notes": {
+      "type": "string",
+      "description": "QA notes and observations"
+    },
+    "tested_by": {
+      "type": "string",
+      "description": "Email of QA tester"
+    },
+    "tested_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When test was performed"
+    },
+    "issues_found": {
+      "type": "string",
+      "description": "Comma-separated list of issues (layout_mismatch, wrong_nav_source, missing_breadcrumb, etc.)"
+    }
+  },
+  "required": [
+    "route",
+    "page_key",
+    "page_family"
+  ]
+}

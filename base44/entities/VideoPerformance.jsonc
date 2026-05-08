@@ -1,0 +1,47 @@
+{
+  "name": "VideoPerformance",
+  "type": "object",
+  "properties": {
+    "video_request_id": {
+      "type": "string"
+    },
+    "views": {
+      "type": "number",
+      "default": 0
+    },
+    "watch_rate": {
+      "type": "number",
+      "default": 0,
+      "description": "Average % watched 0-100"
+    },
+    "completion_rate": {
+      "type": "number",
+      "default": 0,
+      "description": "% who watched to end"
+    },
+    "clicks": {
+      "type": "number",
+      "default": 0
+    },
+    "ctr": {
+      "type": "number",
+      "default": 0,
+      "description": "Click-through rate %"
+    },
+    "leads_generated": {
+      "type": "number",
+      "default": 0
+    },
+    "engagement_score": {
+      "type": "number",
+      "default": 0
+    },
+    "last_synced_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "video_request_id"
+  ]
+}

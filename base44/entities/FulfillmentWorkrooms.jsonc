@@ -1,0 +1,107 @@
+{
+  "name": "FulfillmentWorkrooms",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "client_account_id": {
+      "type": "string",
+      "description": "Reference to ClientAccounts ID (optional)"
+    },
+    "onboarding_workroom_id": {
+      "type": "string",
+      "description": "Reference to OnboardingWorkrooms ID (optional)"
+    },
+    "proposal_id": {
+      "type": "string",
+      "description": "Reference to Proposals ID (optional)"
+    },
+    "assigned_admin_user_id": {
+      "type": "string",
+      "description": "Assigned admin user ID"
+    },
+    "title": {
+      "type": "string"
+    },
+    "service_type": {
+      "type": "string",
+      "enum": [
+        "streaming_tv",
+        "website_rebuild",
+        "local_seo",
+        "video_marketing",
+        "social_media",
+        "ada_rebuild",
+        "general"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "waiting_on_client",
+        "in_production",
+        "in_review",
+        "scheduled",
+        "delivered",
+        "paused",
+        "completed",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "phase": {
+      "type": "string",
+      "enum": [
+        "setup",
+        "monthly_production",
+        "approval",
+        "scheduled",
+        "published",
+        "reporting",
+        "optimization"
+      ],
+      "default": "setup"
+    },
+    "progress_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "billing_cycle": {
+      "type": "string",
+      "enum": [
+        "one_time",
+        "monthly",
+        "quarterly"
+      ],
+      "default": "monthly"
+    },
+    "current_period_start": {
+      "type": "string",
+      "format": "date"
+    },
+    "current_period_end": {
+      "type": "string",
+      "format": "date"
+    },
+    "next_review_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "next_delivery_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "company_id",
+    "assigned_admin_user_id",
+    "title",
+    "service_type"
+  ]
+}

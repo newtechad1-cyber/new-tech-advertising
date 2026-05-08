@@ -1,0 +1,50 @@
+{
+  "name": "NavigationItemDefinition",
+  "type": "object",
+  "properties": {
+    "nav_key": {
+      "type": "string",
+      "description": "Parent navigation"
+    },
+    "label": {
+      "type": "string",
+      "description": "Display label"
+    },
+    "page_key": {
+      "type": "string",
+      "description": "Target page"
+    },
+    "route_path": {
+      "type": "string",
+      "description": "Route path"
+    },
+    "parent_nav_item": {
+      "type": "string",
+      "description": "Parent item for hierarchy"
+    },
+    "display_order": {
+      "type": "number",
+      "default": 0,
+      "description": "Sort order"
+    },
+    "icon_key": {
+      "type": "string",
+      "description": "Icon identifier"
+    },
+    "visibility_rules_json": {
+      "type": "string",
+      "description": "JSON: visibility conditions {role, feature_flag, etc}"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is item active"
+    }
+  },
+  "required": [
+    "nav_key",
+    "label",
+    "page_key",
+    "route_path"
+  ]
+}

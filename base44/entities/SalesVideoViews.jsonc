@@ -1,0 +1,42 @@
+{
+  "name": "SalesVideoViews",
+  "type": "object",
+  "properties": {
+    "prospect_id": {
+      "type": "string"
+    },
+    "session_id": {
+      "type": "string"
+    },
+    "asset_id": {
+      "type": "string",
+      "description": "Reference to SalesAssets ID"
+    },
+    "video_name": {
+      "type": "string"
+    },
+    "page_path": {
+      "type": "string"
+    },
+    "watch_percentage": {
+      "type": "number",
+      "default": 0
+    },
+    "watch_seconds": {
+      "type": "number",
+      "default": 0
+    },
+    "completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "viewed_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "video_name",
+    "viewed_at"
+  ]
+}

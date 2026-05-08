@@ -1,0 +1,75 @@
+{
+  "name": "AuthorityMap",
+  "type": "object",
+  "properties": {
+    "niche": {
+      "type": "string",
+      "default": "NTA AI marketing for small businesses",
+      "description": "Niche or industry focus"
+    },
+    "location": {
+      "type": "string",
+      "default": "Midwest",
+      "description": "Geographic focus"
+    },
+    "pillars": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "pillar_title": {
+            "type": "string"
+          },
+          "cluster_topics": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "description": "Topical authority pillars with cluster topics"
+    },
+    "internal_link_strategy": {
+      "type": "object",
+      "description": "Structured internal linking strategy",
+      "properties": {
+        "pillar_linking_rule": {
+          "type": "string"
+        },
+        "cluster_to_pillar_rule": {
+          "type": "string"
+        },
+        "service_page_linking_rule": {
+          "type": "string"
+        },
+        "cta_linking_rule": {
+          "type": "string"
+        },
+        "horizontal_linking_rule": {
+          "type": "string"
+        },
+        "anchor_style_guidelines": {
+          "type": "string"
+        },
+        "max_links_per_post": {
+          "type": "number"
+        }
+      }
+    },
+    "authority_positioning_summary": {
+      "type": "string",
+      "description": "Summary of authority positioning"
+    },
+    "is_archived": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this plan is archived"
+    }
+  },
+  "required": [
+    "niche",
+    "location",
+    "pillars"
+  ]
+}

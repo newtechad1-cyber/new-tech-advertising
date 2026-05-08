@@ -1,0 +1,47 @@
+{
+  "name": "DemoSessions",
+  "type": "object",
+  "properties": {
+    "prospect_id": {
+      "type": "string"
+    },
+    "session_key": {
+      "type": "string"
+    },
+    "demo_path_id": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "entry_page": {
+      "type": "string"
+    },
+    "current_step": {
+      "type": "string"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_activity_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "completion_percentage": {
+      "type": "number",
+      "default": 0
+    },
+    "lead_score": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "session_key"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "name": "ClientMilestoneEvent",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "milestone_type": {
+      "type": "string",
+      "enum": [
+        "onboarding_complete",
+        "first_campaign_launch",
+        "first_ranking_improvement",
+        "video_performance_highlight",
+        "expansion_phase",
+        "renewal_milestone",
+        "custom"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "event_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "is_highlight": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "client_id",
+    "milestone_type",
+    "title",
+    "event_date"
+  ]
+}

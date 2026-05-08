@@ -1,0 +1,103 @@
+{
+  "name": "WorkflowRuns",
+  "type": "object",
+  "properties": {
+    "workflow_orchestration_id": {
+      "type": "string",
+      "description": "Reference to WorkflowOrchestrations ID"
+    },
+    "related_company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID (optional)"
+    },
+    "related_entity_type": {
+      "type": "string",
+      "description": "Type of entity that triggered this run"
+    },
+    "related_entity_id": {
+      "type": "string",
+      "description": "ID of entity that triggered this run"
+    },
+    "trigger_source": {
+      "type": "string",
+      "description": "Where the trigger came from"
+    },
+    "trigger_event": {
+      "type": "string",
+      "description": "The event that triggered this run"
+    },
+    "run_status": {
+      "type": "string",
+      "enum": [
+        "started",
+        "completed",
+        "skipped",
+        "failed",
+        "partially_completed"
+      ],
+      "default": "started",
+      "description": "Status of this run"
+    },
+    "result_summary": {
+      "type": "string",
+      "description": "Summary of what happened during this run"
+    },
+    "actions_created_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of actions created"
+    },
+    "alerts_created_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of alerts created"
+    },
+    "tasks_created_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of tasks created"
+    },
+    "proposals_created_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of proposals created"
+    },
+    "reviews_created_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of reviews created"
+    },
+    "playbooks_created_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of playbooks created"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this run started"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this run completed"
+    },
+    "error_message": {
+      "type": "string",
+      "description": "Error message if run failed"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "workflow_orchestration_id",
+    "related_entity_type",
+    "related_entity_id",
+    "trigger_source",
+    "trigger_event",
+    "started_at"
+  ]
+}

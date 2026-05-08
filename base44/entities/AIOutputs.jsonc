@@ -1,0 +1,87 @@
+{
+  "name": "AIOutputs",
+  "type": "object",
+  "properties": {
+    "ai_job_id": {
+      "type": "string",
+      "description": "Reference to the AIJobs record"
+    },
+    "function_name": {
+      "type": "string",
+      "description": "Which AI function generated this output"
+    },
+    "output_type": {
+      "type": "string",
+      "enum": [
+        "story",
+        "video_script",
+        "blog_article",
+        "captions",
+        "headlines",
+        "questions",
+        "interview_questions",
+        "opportunity_signal",
+        "marketing_plan",
+        "content",
+        "other"
+      ],
+      "description": "Type of output generated"
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title of the output"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Brief summary of the content"
+    },
+    "content": {
+      "type": "string",
+      "description": "Full output content"
+    },
+    "related_entity_type": {
+      "type": "string",
+      "description": "Type of entity this output relates to (Story, BlogPost, VideoProject, etc.)"
+    },
+    "related_entity_id": {
+      "type": "string",
+      "description": "ID of the related entity"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "school_slug": {
+      "type": "string"
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": [
+        "pending_review",
+        "approved",
+        "rejected",
+        "archived"
+      ],
+      "default": "pending_review"
+    },
+    "approved_by": {
+      "type": "string",
+      "description": "Email of approver"
+    },
+    "approved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "rejection_reason": {
+      "type": "string"
+    },
+    "quality_score": {
+      "type": "number",
+      "description": "Human rating 0-100"
+    }
+  },
+  "required": [
+    "ai_job_id",
+    "function_name",
+    "output_type"
+  ]
+}

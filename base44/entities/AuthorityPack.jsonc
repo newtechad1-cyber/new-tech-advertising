@@ -1,0 +1,84 @@
+{
+  "name": "AuthorityPack",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "topic_slug": {
+      "type": "string",
+      "description": "URL-safe slug for the topic"
+    },
+    "pillar_page_id": {
+      "type": "string",
+      "description": "Page ID of the pillar page"
+    },
+    "cluster_article_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Page IDs of cluster articles"
+    },
+    "tool_id": {
+      "type": "string",
+      "description": "Tool ID"
+    },
+    "guide_page_id": {
+      "type": "string",
+      "description": "Page ID of the lead magnet guide"
+    },
+    "service_page_id": {
+      "type": "string",
+      "description": "Page ID of the service conversion page"
+    },
+    "city_page_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "LocationPage IDs for city programmatic pages"
+    },
+    "video_topic_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "VideoAsset IDs"
+    },
+    "email_sequence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "EmailTemplate IDs for the nurture sequence"
+    },
+    "social_post_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "SocialPost IDs"
+    },
+    "cta_offer": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planning",
+        "active",
+        "paused"
+      ],
+      "default": "planning"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Build summary after generation"
+    }
+  },
+  "required": [
+    "name",
+    "topic_slug"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "name": "SalesNotes",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Company ID"
+    },
+    "lead_id": {
+      "type": "string",
+      "description": "Reference to Lead ID"
+    },
+    "proposal_id": {
+      "type": "string",
+      "description": "Reference to Proposal ID"
+    },
+    "admin_user_id": {
+      "type": "string",
+      "description": "Author user ID"
+    },
+    "admin_user_name": {
+      "type": "string",
+      "description": "Denormalized author name"
+    },
+    "note_type": {
+      "type": "string",
+      "enum": [
+        "call_note",
+        "meeting_note",
+        "email_summary",
+        "strategy_note",
+        "objection_note",
+        "general"
+      ],
+      "default": "general"
+    },
+    "note_content": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string",
+      "description": "Denormalized company name"
+    }
+  },
+  "required": [
+    "note_content"
+  ]
+}

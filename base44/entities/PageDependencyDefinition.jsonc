@@ -1,0 +1,40 @@
+{
+  "name": "PageDependencyDefinition",
+  "type": "object",
+  "properties": {
+    "page_key": {
+      "type": "string",
+      "description": "Page with dependency"
+    },
+    "dependency_type": {
+      "type": "string",
+      "enum": [
+        "uses_entity",
+        "uses_integration",
+        "uses_agent",
+        "uses_function",
+        "depends_on_page",
+        "references_layout",
+        "requires_feature_flag"
+      ],
+      "description": "Type of dependency"
+    },
+    "dependency_name": {
+      "type": "string",
+      "description": "Name of dependency"
+    },
+    "dependency_target": {
+      "type": "string",
+      "description": "Specific target (entity key, function name, etc)"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional context"
+    }
+  },
+  "required": [
+    "page_key",
+    "dependency_type",
+    "dependency_name"
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "name": "ADAAudits",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID"
+    },
+    "website_url": {
+      "type": "string"
+    },
+    "audit_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "overall_score": {
+      "type": "number",
+      "description": "Compliance score 0-100"
+    },
+    "wcag_level": {
+      "type": "string",
+      "enum": [
+        "A",
+        "AA",
+        "AAA",
+        "fail"
+      ],
+      "description": "Highest WCAG level passed"
+    },
+    "total_issues": {
+      "type": "number"
+    },
+    "critical_issues": {
+      "type": "number"
+    },
+    "warnings": {
+      "type": "number"
+    },
+    "passed_checks": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "in_progress",
+        "completed",
+        "remediated"
+      ],
+      "default": "pending"
+    },
+    "report_url": {
+      "type": "string"
+    },
+    "issues_summary": {
+      "type": "string",
+      "description": "JSON or text summary of issues found"
+    },
+    "remediated_at": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "company_id",
+    "website_url",
+    "audit_date",
+    "status"
+  ]
+}

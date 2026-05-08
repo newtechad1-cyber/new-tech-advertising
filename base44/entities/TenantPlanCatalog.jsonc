@@ -1,0 +1,66 @@
+{
+  "name": "TenantPlanCatalog",
+  "type": "object",
+  "properties": {
+    "tenantPlanCatalogId": {
+      "type": "string",
+      "description": "Unique catalog entry identifier"
+    },
+    "tenantId": {
+      "type": "string",
+      "description": "Foreign key to Tenant"
+    },
+    "basePlanKey": {
+      "type": "string",
+      "enum": [
+        "free_trial",
+        "diy",
+        "guided_growth",
+        "done_for_you",
+        "premium",
+        "enterprise"
+      ],
+      "description": "Base plan this customizes"
+    },
+    "displayPlanName": {
+      "type": "string",
+      "description": "Tenant-specific plan display name"
+    },
+    "displayPrice": {
+      "type": "number",
+      "description": "Tenant-specific price in cents"
+    },
+    "description": {
+      "type": "string",
+      "description": "Tenant-specific plan description"
+    },
+    "visibleToClients": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether plan is visible in client portal"
+    },
+    "upgradeOrder": {
+      "type": "number",
+      "description": "Order for upgrade flow (1=first, 2=second, etc)"
+    },
+    "customFeatures": {
+      "type": "string",
+      "description": "JSON array of additional features for this plan"
+    },
+    "restrictions": {
+      "type": "string",
+      "description": "JSON array of features to remove/restrict"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When catalog entry was created"
+    }
+  },
+  "required": [
+    "tenantPlanCatalogId",
+    "tenantId",
+    "basePlanKey",
+    "displayPlanName"
+  ]
+}

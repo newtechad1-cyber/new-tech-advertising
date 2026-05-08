@@ -1,0 +1,58 @@
+{
+  "name": "ClientActivityLog",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID"
+    },
+    "user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional \u2014 null for system events)"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "login",
+        "page_view",
+        "content_approved",
+        "content_rejected",
+        "post_published",
+        "billing_updated",
+        "settings_changed",
+        "support_ticket_opened",
+        "proposal_viewed",
+        "onboarding_step_completed",
+        "agent_run",
+        "system_event"
+      ]
+    },
+    "event_label": {
+      "type": "string",
+      "description": "Human-readable description"
+    },
+    "entity_type": {
+      "type": "string",
+      "description": "e.g. SocialPost, BillingInvoice"
+    },
+    "entity_id": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "string",
+      "description": "JSON additional context"
+    },
+    "ip_address": {
+      "type": "string"
+    },
+    "logged_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "company_id",
+    "event_type",
+    "logged_at"
+  ]
+}

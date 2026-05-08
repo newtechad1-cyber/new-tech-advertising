@@ -1,0 +1,64 @@
+{
+  "name": "SchoolOutreachActivity",
+  "type": "object",
+  "properties": {
+    "school_lead_id": {
+      "type": "string",
+      "description": "Reference to SchoolLeads record"
+    },
+    "campaign_id": {
+      "type": "string",
+      "description": "Reference to SchoolOutreachCampaigns record (optional)"
+    },
+    "activity_type": {
+      "type": "string",
+      "enum": [
+        "email_sent",
+        "email_opened",
+        "link_clicked",
+        "reply_received",
+        "call_made",
+        "demo_scheduled",
+        "demo_completed",
+        "note_added",
+        "manual_contact"
+      ],
+      "description": "Type of activity"
+    },
+    "activity_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the activity occurred"
+    },
+    "subject": {
+      "type": "string",
+      "description": "Email subject or activity title"
+    },
+    "message": {
+      "type": "string",
+      "description": "Email body or activity details"
+    },
+    "response_status": {
+      "type": "string",
+      "enum": [
+        "sent",
+        "opened",
+        "clicked",
+        "replied",
+        "bounced",
+        "pending"
+      ],
+      "default": "pending",
+      "description": "Status of the outreach"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes about this activity"
+    }
+  },
+  "required": [
+    "school_lead_id",
+    "activity_type",
+    "activity_date"
+  ]
+}

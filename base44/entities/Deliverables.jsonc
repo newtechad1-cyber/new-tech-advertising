@@ -1,0 +1,85 @@
+{
+  "name": "Deliverables",
+  "type": "object",
+  "properties": {
+    "workroom_id": {
+      "type": "string",
+      "description": "Reference to FulfillmentWorkrooms ID"
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "deliverable_type": {
+      "type": "string",
+      "enum": [
+        "blog_article",
+        "video",
+        "social_post_set",
+        "landing_page",
+        "seo_page",
+        "website_update",
+        "ad_creative",
+        "report",
+        "proposal_revision",
+        "monthly_plan",
+        "strategy_doc",
+        "campaign_summary"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "content_url": {
+      "type": "string"
+    },
+    "file_url": {
+      "type": "string"
+    },
+    "preview_url": {
+      "type": "string"
+    },
+    "related_task_id": {
+      "type": "string",
+      "description": "Reference to FulfillmentTasks ID (optional)"
+    },
+    "visible_to_client": {
+      "type": "boolean",
+      "default": true
+    },
+    "approval_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "pending_review",
+        "approved",
+        "needs_changes",
+        "scheduled",
+        "published",
+        "delivered"
+      ],
+      "default": "draft"
+    },
+    "scheduled_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "workroom_id",
+    "company_id",
+    "deliverable_type",
+    "title"
+  ]
+}

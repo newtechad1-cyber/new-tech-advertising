@@ -1,0 +1,61 @@
+{
+  "name": "PlanEntitlements",
+  "type": "object",
+  "properties": {
+    "plan_id": {
+      "type": "string",
+      "description": "Reference to Plans ID"
+    },
+    "entitlement_type": {
+      "type": "string",
+      "description": "Type of entitlement"
+    },
+    "entitlement_name": {
+      "type": "string",
+      "description": "Name of entitlement"
+    },
+    "included_quantity": {
+      "type": "number",
+      "description": "Quantity included (optional)"
+    },
+    "unit_type": {
+      "type": "string",
+      "enum": [
+        "count",
+        "hours",
+        "campaigns",
+        "pages",
+        "reviews",
+        "requests",
+        "seats"
+      ],
+      "description": "Unit type (optional)"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of entitlement"
+    },
+    "overage_allowed": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether overage is allowed"
+    },
+    "overage_rate": {
+      "type": "number",
+      "description": "Rate per overage unit (optional)"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether entitlement is active"
+    }
+  },
+  "required": [
+    "plan_id",
+    "entitlement_type",
+    "entitlement_name",
+    "description",
+    "overage_allowed",
+    "active"
+  ]
+}

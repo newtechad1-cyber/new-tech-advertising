@@ -1,0 +1,62 @@
+{
+  "name": "PartnershipNetworkNode",
+  "type": "object",
+  "properties": {
+    "organization_name": {
+      "type": "string"
+    },
+    "org_type": {
+      "type": "string",
+      "enum": [
+        "chamber",
+        "agency",
+        "influencer",
+        "trade_assoc",
+        "referral_partner",
+        "strategic_alliance"
+      ]
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "target_identified",
+        "outreach_initiated",
+        "partnership_active",
+        "referral_producing",
+        "strategic_alliance"
+      ],
+      "default": "target_identified"
+    },
+    "market_coverage": {
+      "type": "string"
+    },
+    "referral_potential_score": {
+      "type": "number"
+    },
+    "revenue_generated": {
+      "type": "number"
+    },
+    "vertical_focus": {
+      "type": "string"
+    },
+    "contact_name": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "organization_name",
+    "org_type",
+    "city",
+    "state",
+    "status"
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "name": "AutonomousImpactSnapshot",
+  "type": "object",
+  "properties": {
+    "strategy_key": {
+      "type": "string",
+      "description": "Reference to strategy that was executed"
+    },
+    "action_id": {
+      "type": "string",
+      "description": "Reference to AutonomousGrowthAction"
+    },
+    "context_type": {
+      "type": "string",
+      "enum": [
+        "global",
+        "agency",
+        "reseller",
+        "client",
+        "school"
+      ],
+      "description": "Execution context"
+    },
+    "reseller_id": {
+      "type": "string",
+      "description": "Reseller context"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "Client context"
+    },
+    "related_entity_type": {
+      "type": "string",
+      "description": "Entity type involved"
+    },
+    "related_entity_id": {
+      "type": "string",
+      "description": "Entity ID involved"
+    },
+    "impact_metric": {
+      "type": "string",
+      "description": "Metric being measured (e.g., 'client_retention_score', 'publishing_cadence')"
+    },
+    "baseline_value": {
+      "type": "number",
+      "description": "Value before action"
+    },
+    "post_action_value": {
+      "type": "number",
+      "description": "Value after action"
+    },
+    "impact_percentage": {
+      "type": "number",
+      "description": "Percentage change"
+    },
+    "impact_trend": {
+      "type": "string",
+      "enum": [
+        "improving",
+        "neutral",
+        "declining"
+      ],
+      "description": "Direction of impact"
+    },
+    "measurement_window_days": {
+      "type": "number",
+      "description": "Days after action before measurement"
+    },
+    "measured_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When measurement was taken"
+    }
+  },
+  "required": [
+    "strategy_key",
+    "impact_metric",
+    "baseline_value",
+    "post_action_value",
+    "measured_at"
+  ]
+}

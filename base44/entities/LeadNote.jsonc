@@ -1,0 +1,34 @@
+{
+  "name": "LeadNote",
+  "type": "object",
+  "properties": {
+    "lead_id": {
+      "type": "string",
+      "description": "Reference to Lead ID"
+    },
+    "note": {
+      "type": "string",
+      "description": "Note content"
+    },
+    "note_type": {
+      "type": "string",
+      "enum": [
+        "call",
+        "email",
+        "meeting",
+        "follow_up",
+        "general"
+      ],
+      "default": "general",
+      "description": "Type of interaction"
+    },
+    "author": {
+      "type": "string",
+      "description": "Who wrote this note (email or name)"
+    }
+  },
+  "required": [
+    "lead_id",
+    "note"
+  ]
+}

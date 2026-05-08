@@ -1,0 +1,66 @@
+{
+  "name": "ContentCampaign",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Company ID"
+    },
+    "marketing_plan_id": {
+      "type": "string",
+      "description": "Reference to MarketingPlan ID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Campaign name or theme"
+    },
+    "goal": {
+      "type": "string",
+      "description": "Campaign objective (e.g. promote sale, build awareness)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "active",
+        "completed",
+        "cancelled"
+      ],
+      "default": "planned"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "channels": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "facebook",
+          "instagram",
+          "linkedin",
+          "tiktok",
+          "twitter",
+          "google_business",
+          "youtube"
+        ]
+      }
+    },
+    "total_items_planned": {
+      "type": "integer",
+      "default": 0
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "company_id",
+    "name"
+  ]
+}

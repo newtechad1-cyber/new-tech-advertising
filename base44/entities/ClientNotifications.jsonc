@@ -1,0 +1,65 @@
+{
+  "name": "ClientNotifications",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID"
+    },
+    "user_id": {
+      "type": "string",
+      "description": "Reference to Users ID \u2014 who the notification is for"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "new_post_ready",
+        "post_published",
+        "review_received",
+        "billing_due",
+        "payment_failed",
+        "report_ready",
+        "agent_completed",
+        "support_reply",
+        "proposal_ready",
+        "contract_expiring",
+        "system_alert"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string",
+      "description": "Internal page link"
+    },
+    "read": {
+      "type": "boolean",
+      "default": false
+    },
+    "sent_via_email": {
+      "type": "boolean",
+      "default": false
+    },
+    "entity_type": {
+      "type": "string"
+    },
+    "entity_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "company_id",
+    "user_id",
+    "type",
+    "title",
+    "read"
+  ]
+}

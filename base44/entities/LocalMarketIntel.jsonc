@@ -1,0 +1,216 @@
+{
+  "name": "LocalMarketIntel",
+  "type": "object",
+  "properties": {
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "region": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string",
+      "default": "USA"
+    },
+    "market_slug": {
+      "type": "string"
+    },
+    "industry_slug": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "paused",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "market_type": {
+      "type": "string",
+      "enum": [
+        "rural",
+        "suburban",
+        "urban",
+        "mixed"
+      ]
+    },
+    "population_band": {
+      "type": "string",
+      "enum": [
+        "very_small",
+        "small",
+        "medium",
+        "large"
+      ]
+    },
+    "competition_level": {
+      "type": "number",
+      "default": 50
+    },
+    "digital_maturity_estimate": {
+      "type": "number",
+      "default": 50
+    },
+    "review_competitiveness": {
+      "type": "number",
+      "default": 50
+    },
+    "top_service_intents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "top_problem_intents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "top_emergency_intents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "top_seasonal_intents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "top_offer_intents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "map_pack_priority_terms": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_local_topics": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_local_offers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_video_angles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_social_angles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_streaming_tv_angles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_landing_pages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "common_missing_pages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "common_missing_offers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "common_missing_content_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "common_reputation_gaps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "common_cta_gaps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "seasonal_patterns": {
+      "type": "string",
+      "description": "JSON object of seasonal patterns"
+    },
+    "weather_patterns": {
+      "type": "string",
+      "description": "JSON object of weather patterns"
+    },
+    "event_patterns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "local_relevance_notes": {
+      "type": "string"
+    },
+    "source_mix": {
+      "type": "string",
+      "description": "JSON object of source weights"
+    },
+    "confidence_score": {
+      "type": "number",
+      "default": 50
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "manual",
+        "seeded",
+        "inferred",
+        "observed",
+        "proven"
+      ],
+      "default": "seeded"
+    },
+    "last_refreshed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "version": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "city",
+    "state",
+    "market_slug",
+    "industry_slug"
+  ]
+}

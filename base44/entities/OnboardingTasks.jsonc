@@ -1,0 +1,86 @@
+{
+  "name": "OnboardingTasks",
+  "type": "object",
+  "properties": {
+    "workroom_id": {
+      "type": "string",
+      "description": "Reference to OnboardingWorkrooms ID"
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "assigned_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID, optional"
+    },
+    "visible_to_client": {
+      "type": "boolean",
+      "default": false
+    },
+    "task_title": {
+      "type": "string"
+    },
+    "task_type": {
+      "type": "string",
+      "enum": [
+        "intake_form",
+        "asset_upload",
+        "logo_upload",
+        "access_request",
+        "questionnaire",
+        "kickoff_call",
+        "content_approval",
+        "ad_account_setup",
+        "website_content",
+        "domain_dns",
+        "analytics_setup",
+        "launch_check",
+        "other"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "in_progress",
+        "submitted",
+        "approved",
+        "completed",
+        "blocked"
+      ],
+      "default": "pending"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium"
+    },
+    "required_for_launch": {
+      "type": "boolean",
+      "default": false
+    },
+    "completed_date": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "workroom_id",
+    "company_id",
+    "task_title",
+    "task_type"
+  ]
+}

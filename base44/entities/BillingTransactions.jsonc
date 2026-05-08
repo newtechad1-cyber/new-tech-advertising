@@ -1,0 +1,74 @@
+{
+  "name": "BillingTransactions",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID"
+    },
+    "subscription_id": {
+      "type": "string",
+      "description": "Reference to ClientSubscriptions ID"
+    },
+    "invoice_id": {
+      "type": "string",
+      "description": "Reference to BillingInvoices ID"
+    },
+    "stripe_payment_intent_id": {
+      "type": "string"
+    },
+    "stripe_charge_id": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Amount in dollars"
+    },
+    "currency": {
+      "type": "string",
+      "default": "usd"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "succeeded",
+        "pending",
+        "failed",
+        "refunded",
+        "disputed"
+      ],
+      "default": "pending"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "charge",
+        "refund",
+        "adjustment",
+        "credit"
+      ],
+      "default": "charge"
+    },
+    "description": {
+      "type": "string"
+    },
+    "failure_reason": {
+      "type": "string"
+    },
+    "transaction_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reseller_id": {
+      "type": "string",
+      "description": "If transaction is reseller-attributed"
+    }
+  },
+  "required": [
+    "company_id",
+    "amount",
+    "status",
+    "type",
+    "transaction_date"
+  ]
+}

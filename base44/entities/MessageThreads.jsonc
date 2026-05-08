@@ -1,0 +1,105 @@
+{
+  "name": "MessageThreads",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "workroom_type": {
+      "type": "string",
+      "enum": [
+        "onboarding",
+        "fulfillment"
+      ],
+      "description": "Type of workroom if linked"
+    },
+    "workroom_id": {
+      "type": "string",
+      "description": "Reference to OnboardingWorkrooms or FulfillmentWorkrooms ID (optional)"
+    },
+    "related_proposal_id": {
+      "type": "string",
+      "description": "Reference to Proposals ID (optional)"
+    },
+    "related_review_id": {
+      "type": "string",
+      "description": "Reference to StrategyReviews ID (optional)"
+    },
+    "related_request_id": {
+      "type": "string",
+      "description": "Reference to ClientRequests ID (optional)"
+    },
+    "thread_type": {
+      "type": "string",
+      "enum": [
+        "general",
+        "onboarding",
+        "fulfillment",
+        "approval",
+        "proposal",
+        "review",
+        "support",
+        "change_request",
+        "renewal",
+        "upsell"
+      ],
+      "description": "Type of message thread"
+    },
+    "title": {
+      "type": "string",
+      "description": "Thread title or subject"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "waiting_on_admin",
+        "waiting_on_client",
+        "resolved",
+        "closed"
+      ],
+      "default": "open",
+      "description": "Current status of the thread"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium",
+      "description": "Priority level"
+    },
+    "created_by_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional)"
+    },
+    "assigned_admin_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional)"
+    },
+    "visible_to_client": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether client can see this thread"
+    },
+    "last_message_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the last message was sent"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_id",
+    "thread_type",
+    "title"
+  ]
+}

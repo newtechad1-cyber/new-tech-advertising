@@ -1,0 +1,62 @@
+{
+  "name": "VideoScripts",
+  "type": "object",
+  "properties": {
+    "school_slug": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "script_text": {
+      "type": "string",
+      "description": "Full assembled script"
+    },
+    "duration": {
+      "type": "string"
+    },
+    "visual_notes": {
+      "type": "string"
+    },
+    "hook": {
+      "type": "string"
+    },
+    "call_to_action": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "review",
+        "approved",
+        "recording",
+        "complete"
+      ],
+      "default": "draft"
+    },
+    "generated_by_ai": {
+      "type": "boolean",
+      "default": false
+    },
+    "ai_job_id": {
+      "type": "string"
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "school_slug",
+    "project_id",
+    "title",
+    "script_text"
+  ]
+}

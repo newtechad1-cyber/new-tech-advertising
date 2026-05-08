@@ -1,0 +1,187 @@
+{
+  "name": "UnifiedRecommendations",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID (optional for platform-wide recommendations)"
+    },
+    "recommendation_type": {
+      "type": "string",
+      "enum": [
+        "renewal",
+        "upsell",
+        "rescue",
+        "optimization",
+        "review",
+        "proposal",
+        "communication",
+        "fulfillment",
+        "onboarding",
+        "reporting",
+        "operations",
+        "executive_attention",
+        "growth",
+        "retention",
+        "approval",
+        "followup"
+      ],
+      "description": "Primary recommendation category"
+    },
+    "recommendation_source": {
+      "type": "string",
+      "enum": [
+        "growth_engine",
+        "success_playbook",
+        "strategy_review",
+        "optimizer",
+        "executive_copilot",
+        "workflow_orchestrator",
+        "sla_engine",
+        "operations_engine",
+        "reporting_engine",
+        "manual_override"
+      ],
+      "description": "Which system generated this recommendation"
+    },
+    "source_entity_type": {
+      "type": "string",
+      "description": "Type of originating entity (e.g., GrowthOpportunities, OptimizationOpportunities)"
+    },
+    "source_entity_id": {
+      "type": "string",
+      "description": "ID of the originating entity"
+    },
+    "title": {
+      "type": "string",
+      "description": "Short title of the recommendation"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Executive summary of the recommendation"
+    },
+    "detailed_reasoning": {
+      "type": "string",
+      "description": "Detailed explanation of why this recommendation exists (optional)"
+    },
+    "recommended_action": {
+      "type": "string",
+      "description": "Specific action to take (e.g., 'Create renewal proposal', 'Schedule strategy review')"
+    },
+    "role_target": {
+      "type": "string",
+      "enum": [
+        "owner",
+        "admin",
+        "client_success",
+        "fulfillment",
+        "sales",
+        "operations",
+        "shared"
+      ],
+      "description": "Primary role responsible for action"
+    },
+    "urgency_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent",
+        "critical"
+      ],
+      "default": "medium",
+      "description": "How time-sensitive is this"
+    },
+    "impact_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "significant"
+      ],
+      "default": "medium",
+      "description": "Potential business impact"
+    },
+    "confidence_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Confidence in this recommendation (0-100)"
+    },
+    "priority_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Calculated priority score combining urgency, impact, confidence, and context (0-100)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "queued",
+        "acknowledged",
+        "in_progress",
+        "completed",
+        "dismissed",
+        "superseded",
+        "expired"
+      ],
+      "default": "new",
+      "description": "Current status of the recommendation"
+    },
+    "visible_to_client": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this can be shared with client"
+    },
+    "assigned_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional)"
+    },
+    "related_task_id": {
+      "type": "string",
+      "description": "Reference to SalesTasks ID (optional)"
+    },
+    "related_proposal_id": {
+      "type": "string",
+      "description": "Reference to Proposals ID (optional)"
+    },
+    "related_review_id": {
+      "type": "string",
+      "description": "Reference to StrategyReviews ID (optional)"
+    },
+    "related_playbook_id": {
+      "type": "string",
+      "description": "Reference to SuccessPlaybooks ID (optional)"
+    },
+    "related_optimization_id": {
+      "type": "string",
+      "description": "Reference to OptimizationOpportunities ID (optional)"
+    },
+    "related_growth_opportunity_id": {
+      "type": "string",
+      "description": "Reference to GrowthOpportunities ID (optional)"
+    },
+    "related_copilot_brief_id": {
+      "type": "string",
+      "description": "Reference to CopilotBriefs ID (optional)"
+    },
+    "expires_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When this recommendation should auto-expire (optional)"
+    }
+  },
+  "required": [
+    "recommendation_type",
+    "recommendation_source",
+    "title",
+    "summary",
+    "recommended_action",
+    "role_target",
+    "confidence_score",
+    "priority_score"
+  ]
+}

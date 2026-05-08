@@ -1,0 +1,70 @@
+{
+  "name": "BillingInvoices",
+  "type": "object",
+  "properties": {
+    "billing_customer_id": {
+      "type": "string",
+      "description": "Reference to BillingCustomers ID"
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID (optional)"
+    },
+    "stripe_invoice_id": {
+      "type": "string",
+      "description": "Stripe invoice ID (in_...)"
+    },
+    "stripe_subscription_id": {
+      "type": "string",
+      "description": "Stripe subscription ID"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Invoice amount in dollars"
+    },
+    "currency": {
+      "type": "string",
+      "default": "usd"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "open",
+        "paid",
+        "void",
+        "uncollectible"
+      ],
+      "default": "open"
+    },
+    "invoice_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "paid_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "invoice_pdf_url": {
+      "type": "string",
+      "description": "PDF download URL"
+    },
+    "hosted_invoice_url": {
+      "type": "string",
+      "description": "Stripe hosted invoice URL"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "stripe_invoice_id",
+    "amount",
+    "status",
+    "invoice_date"
+  ]
+}

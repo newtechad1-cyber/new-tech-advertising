@@ -1,0 +1,42 @@
+{
+  "name": "ChatbotKnowledge",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Short label for this knowledge entry"
+    },
+    "content": {
+      "type": "string",
+      "format": "long-text",
+      "description": "The actual text, FAQ, or document content"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "manual",
+        "document",
+        "ai_generated"
+      ],
+      "default": "manual",
+      "description": "How this knowledge entry was created"
+    },
+    "document_url": {
+      "type": "string",
+      "description": "URL of uploaded source document (if source_type is document)"
+    },
+    "category": {
+      "type": "string",
+      "description": "Category to organize entries (e.g. pricing, services, faq, policies)"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "If set, this entry is specific to that client. If null, it is shared globally."
+    }
+  },
+  "required": [
+    "title",
+    "content",
+    "source_type"
+  ]
+}

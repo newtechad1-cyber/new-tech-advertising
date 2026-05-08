@@ -1,0 +1,110 @@
+{
+  "name": "ContentExportBatch",
+  "type": "object",
+  "properties": {
+    "business_profile_id": {
+      "type": "string",
+      "description": "Reference to BusinessProfile"
+    },
+    "export_name": {
+      "type": "string",
+      "description": "User-friendly name for this export"
+    },
+    "export_type": {
+      "type": "string",
+      "enum": [
+        "single_post",
+        "selected_posts",
+        "weekly_plan",
+        "campaign_batch",
+        "full_batch"
+      ],
+      "description": "Type of export"
+    },
+    "file_format": {
+      "type": "string",
+      "enum": [
+        "csv",
+        "json",
+        "xlsx"
+      ],
+      "default": "csv",
+      "description": "Export file format"
+    },
+    "record_count": {
+      "type": "integer",
+      "default": 0,
+      "description": "Number of posts in this export"
+    },
+    "date_range_start": {
+      "type": "string",
+      "format": "date",
+      "description": "Start date for date-range exports"
+    },
+    "date_range_end": {
+      "type": "string",
+      "format": "date",
+      "description": "End date for date-range exports"
+    },
+    "platforms_included": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of platforms included in export"
+    },
+    "generated_by": {
+      "type": "string",
+      "description": "Email of user who initiated export"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the export was generated"
+    },
+    "file_url": {
+      "type": "string",
+      "description": "URL to download exported file"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "generating",
+        "ready",
+        "failed"
+      ],
+      "default": "generating",
+      "description": "Export generation status"
+    },
+    "error_message": {
+      "type": "string",
+      "description": "Error details if export failed"
+    },
+    "weekly_marketing_plan_id": {
+      "type": "string",
+      "description": "Reference to WeeklyMarketingPlan if exporting a week"
+    },
+    "campaign_id": {
+      "type": "string",
+      "description": "Reference to campaign if exporting a campaign"
+    },
+    "social_post_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "IDs of SocialPost records included"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes about this export"
+    }
+  },
+  "required": [
+    "business_profile_id",
+    "export_name",
+    "export_type",
+    "file_format",
+    "generated_by"
+  ]
+}

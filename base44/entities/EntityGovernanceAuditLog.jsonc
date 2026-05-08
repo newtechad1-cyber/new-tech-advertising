@@ -1,0 +1,59 @@
+{
+  "name": "EntityGovernanceAuditLog",
+  "type": "object",
+  "properties": {
+    "entity_key": {
+      "type": "string",
+      "description": "Entity that changed"
+    },
+    "field_key": {
+      "type": "string",
+      "description": "Field that changed (if applicable)"
+    },
+    "change_type": {
+      "type": "string",
+      "enum": [
+        "field_added",
+        "field_renamed",
+        "field_deprecated",
+        "field_modified",
+        "lifecycle_updated",
+        "relationship_added",
+        "relationship_modified",
+        "visibility_changed",
+        "edit_rules_changed"
+      ],
+      "description": "Type of governance change"
+    },
+    "old_value_json": {
+      "type": "string",
+      "description": "Previous value"
+    },
+    "new_value_json": {
+      "type": "string",
+      "description": "New value"
+    },
+    "changed_by": {
+      "type": "string",
+      "description": "Email of who made change"
+    },
+    "changed_by_role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "system",
+        "audit"
+      ],
+      "description": "Role of changer"
+    },
+    "reason": {
+      "type": "string",
+      "description": "Why change was made"
+    }
+  },
+  "required": [
+    "entity_key",
+    "change_type",
+    "changed_by"
+  ]
+}

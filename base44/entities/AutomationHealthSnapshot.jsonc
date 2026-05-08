@@ -1,0 +1,54 @@
+{
+  "name": "AutomationHealthSnapshot",
+  "type": "object",
+  "properties": {
+    "snapshot_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When snapshot was taken"
+    },
+    "rule_key": {
+      "type": "string",
+      "description": "Rule being evaluated"
+    },
+    "execution_success_rate": {
+      "type": "number",
+      "description": "% of executions that succeeded (0-100)"
+    },
+    "duplicate_fire_risk_score": {
+      "type": "number",
+      "description": "Risk of duplicate firing (0-100)"
+    },
+    "cooldown_conflict_score": {
+      "type": "number",
+      "description": "Risk from cooldown conflicts (0-100)"
+    },
+    "blocked_execution_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Executions blocked by guardrails"
+    },
+    "escalation_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Escalations triggered"
+    },
+    "avg_runtime": {
+      "type": "number",
+      "description": "Average execution time in seconds"
+    },
+    "health_score": {
+      "type": "number",
+      "description": "0-100 overall health"
+    },
+    "issues_json": {
+      "type": "string",
+      "description": "JSON array of detected issues"
+    }
+  },
+  "required": [
+    "snapshot_time",
+    "rule_key",
+    "health_score"
+  ]
+}

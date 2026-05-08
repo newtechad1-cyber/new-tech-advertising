@@ -1,0 +1,65 @@
+{
+  "name": "RebuildProposal",
+  "type": "object",
+  "properties": {
+    "client_name": {
+      "type": "string",
+      "description": "Client or business name"
+    },
+    "client_email": {
+      "type": "string",
+      "description": "Client email address"
+    },
+    "website_url": {
+      "type": "string",
+      "description": "Website URL"
+    },
+    "total_price": {
+      "type": "number",
+      "description": "Total project price"
+    },
+    "deposit_amount": {
+      "type": "number",
+      "description": "Deposit amount (50%)"
+    },
+    "final_amount": {
+      "type": "number",
+      "description": "Final payment amount (50%)"
+    },
+    "signer_name": {
+      "type": "string",
+      "description": "Name of person approving proposal"
+    },
+    "sign_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of approval"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "deposit_link_sent",
+        "deposit_paid",
+        "in_progress",
+        "ready_for_launch",
+        "final_payment_due",
+        "completed"
+      ],
+      "default": "deposit_link_sent",
+      "description": "Current proposal status"
+    },
+    "deposit_payment_link": {
+      "type": "string",
+      "description": "Stripe link for deposit payment"
+    },
+    "final_payment_link": {
+      "type": "string",
+      "description": "Stripe link for final payment"
+    }
+  },
+  "required": [
+    "client_name",
+    "signer_name",
+    "sign_date"
+  ]
+}

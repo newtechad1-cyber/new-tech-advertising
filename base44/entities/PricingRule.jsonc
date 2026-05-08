@@ -1,0 +1,56 @@
+{
+  "name": "PricingRule",
+  "type": "object",
+  "properties": {
+    "rule_name": {
+      "type": "string"
+    },
+    "applies_to": {
+      "type": "string",
+      "enum": [
+        "all",
+        "reseller",
+        "territory",
+        "vertical"
+      ]
+    },
+    "reseller_id": {
+      "type": "string"
+    },
+    "package_tier": {
+      "type": "string",
+      "enum": [
+        "starter",
+        "authority",
+        "domination",
+        "all"
+      ]
+    },
+    "min_monthly_fee": {
+      "type": "number",
+      "default": 0
+    },
+    "min_setup_fee": {
+      "type": "number",
+      "default": 0
+    },
+    "vertical_modifier_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "rule_name",
+    "applies_to"
+  ]
+}

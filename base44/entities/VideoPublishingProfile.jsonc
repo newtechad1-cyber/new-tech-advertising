@@ -1,0 +1,68 @@
+{
+  "name": "VideoPublishingProfile",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "auto_create_website_story": {
+      "type": "boolean",
+      "default": true
+    },
+    "default_facebook_enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "default_instagram_enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "default_youtube_enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "default_tiktok_enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "default_gbp_enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "approval_mode": {
+      "type": "string",
+      "enum": [
+        "admin_only",
+        "client_only",
+        "admin_or_client"
+      ],
+      "default": "admin_only"
+    },
+    "default_publish_timing": {
+      "type": "string",
+      "enum": [
+        "immediate",
+        "scheduled"
+      ],
+      "default": "immediate"
+    },
+    "default_caption_source": {
+      "type": "string",
+      "enum": [
+        "ai_generated",
+        "custom_per_channel"
+      ],
+      "default": "ai_generated"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "company_id"
+  ]
+}

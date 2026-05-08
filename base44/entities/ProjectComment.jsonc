@@ -1,0 +1,27 @@
+{
+  "name": "ProjectComment",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "description": "ID of the parent project"
+    },
+    "content": {
+      "type": "string",
+      "description": "Message content"
+    },
+    "sender_name": {
+      "type": "string",
+      "description": "Name of the sender"
+    },
+    "is_manager": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the sender is an account manager"
+    }
+  },
+  "required": [
+    "project_id",
+    "content"
+  ]
+}

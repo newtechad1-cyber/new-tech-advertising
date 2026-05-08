@@ -1,0 +1,82 @@
+{
+  "name": "AgentJob",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Company ID (if applicable)"
+    },
+    "job_type": {
+      "type": "string",
+      "enum": [
+        "content_generation",
+        "image_generation",
+        "video_generation",
+        "lead_scoring",
+        "report_generation",
+        "onboarding_setup",
+        "email_sequence",
+        "other"
+      ],
+      "description": "Type of AI/automation task"
+    },
+    "trigger": {
+      "type": "string",
+      "enum": [
+        "manual",
+        "scheduled",
+        "entity_event",
+        "webhook"
+      ],
+      "description": "What triggered this job"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "running",
+        "completed",
+        "failed"
+      ],
+      "default": "queued"
+    },
+    "input_params": {
+      "type": "string",
+      "description": "JSON string of input parameters"
+    },
+    "output_summary": {
+      "type": "string",
+      "description": "Summary of what was produced"
+    },
+    "output_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "IDs or URLs of created outputs"
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "estimated_cost_usd": {
+      "type": "number",
+      "description": "Estimated AI/API cost for this job"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "job_type"
+  ]
+}

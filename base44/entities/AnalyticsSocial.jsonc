@@ -1,0 +1,76 @@
+{
+  "name": "AnalyticsSocial",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID \u2014 required"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "period": {
+      "type": "string",
+      "enum": [
+        "daily",
+        "weekly",
+        "monthly"
+      ],
+      "default": "monthly"
+    },
+    "platform": {
+      "type": "string",
+      "enum": [
+        "facebook",
+        "instagram",
+        "linkedin",
+        "tiktok",
+        "youtube",
+        "google_business",
+        "all"
+      ]
+    },
+    "followers": {
+      "type": "number"
+    },
+    "follower_growth": {
+      "type": "number",
+      "description": "Net new followers this period"
+    },
+    "posts_published": {
+      "type": "number"
+    },
+    "total_impressions": {
+      "type": "number"
+    },
+    "total_reach": {
+      "type": "number"
+    },
+    "total_engagements": {
+      "type": "number"
+    },
+    "engagement_rate": {
+      "type": "number",
+      "description": "Percentage"
+    },
+    "clicks": {
+      "type": "number"
+    },
+    "shares": {
+      "type": "number"
+    },
+    "comments": {
+      "type": "number"
+    },
+    "top_post_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "company_id",
+    "date",
+    "period",
+    "platform"
+  ]
+}

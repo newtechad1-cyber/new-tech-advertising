@@ -1,0 +1,113 @@
+{
+  "name": "AdaLead",
+  "type": "object",
+  "properties": {
+    "full_name": {
+      "type": "string",
+      "description": "Full name of contact"
+    },
+    "business_name": {
+      "type": "string",
+      "description": "Business name"
+    },
+    "email": {
+      "type": "string",
+      "description": "Email address"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Phone number"
+    },
+    "website_url": {
+      "type": "string",
+      "description": "Website URL"
+    },
+    "city": {
+      "type": "string",
+      "description": "City"
+    },
+    "state": {
+      "type": "string",
+      "description": "State"
+    },
+    "nonprofit": {
+      "type": "boolean",
+      "default": false,
+      "description": "Is nonprofit organization"
+    },
+    "number_of_locations": {
+      "type": "string",
+      "description": "Number of business locations"
+    },
+    "site_type": {
+      "type": "string",
+      "description": "Type of website"
+    },
+    "approximate_pages": {
+      "type": "string",
+      "description": "Approximate number of pages"
+    },
+    "industry": {
+      "type": "string",
+      "description": "Business industry"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes"
+    },
+    "package": {
+      "type": "string",
+      "enum": [
+        "Starter",
+        "Growth",
+        "Authority"
+      ],
+      "description": "Selected package"
+    },
+    "setup_price": {
+      "type": "number",
+      "description": "Calculated setup price"
+    },
+    "monthly_price": {
+      "type": "number",
+      "description": "Calculated monthly price"
+    },
+    "multiplier": {
+      "type": "number",
+      "default": 1.0,
+      "description": "Market multiplier applied"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "quoted",
+        "paid",
+        "onboarded",
+        "active"
+      ],
+      "default": "new",
+      "description": "Lead status"
+    },
+    "lead_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "AI-calculated lead conversion score (0-100)"
+    },
+    "score_factors": {
+      "type": "string",
+      "description": "JSON string of scoring factors and reasoning"
+    }
+  },
+  "required": [
+    "full_name",
+    "business_name",
+    "email",
+    "phone",
+    "website_url",
+    "city",
+    "state",
+    "package"
+  ]
+}

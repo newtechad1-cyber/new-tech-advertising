@@ -1,0 +1,128 @@
+{
+  "name": "ClientGrowthStage",
+  "type": "object",
+  "properties": {
+    "onboarding_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "assigned_strategist": {
+      "type": "string"
+    },
+    "current_stage": {
+      "type": "string",
+      "enum": [
+        "launch_confidence",
+        "momentum_reinforcement",
+        "growth_expansion",
+        "market_leadership"
+      ],
+      "default": "launch_confidence"
+    },
+    "stage_entered_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "months_active": {
+      "type": "number",
+      "default": 0
+    },
+    "content_pieces_published": {
+      "type": "number",
+      "default": 0
+    },
+    "visibility_score": {
+      "type": "number",
+      "default": 0
+    },
+    "visibility_trend": {
+      "type": "string",
+      "enum": [
+        "rising",
+        "stable",
+        "declining"
+      ],
+      "default": "stable"
+    },
+    "portal_engagement_score": {
+      "type": "number",
+      "default": 0
+    },
+    "approval_rate": {
+      "type": "number",
+      "default": 0
+    },
+    "approval_avg_days": {
+      "type": "number",
+      "default": 0
+    },
+    "roi_trend": {
+      "type": "string",
+      "enum": [
+        "accelerating",
+        "stable",
+        "stagnating",
+        "declining"
+      ],
+      "default": "stable"
+    },
+    "support_tickets_30d": {
+      "type": "number",
+      "default": 0
+    },
+    "retention_risk_score": {
+      "type": "number",
+      "default": 0
+    },
+    "retention_risk_level": {
+      "type": "string",
+      "enum": [
+        "healthy",
+        "watch",
+        "at_risk",
+        "critical"
+      ],
+      "default": "healthy"
+    },
+    "last_strategist_touchpoint": {
+      "type": "string",
+      "format": "date"
+    },
+    "expansion_readiness_score": {
+      "type": "number",
+      "default": 0
+    },
+    "current_package": {
+      "type": "string",
+      "enum": [
+        "visibility_foundation",
+        "market_authority",
+        "market_domination"
+      ]
+    },
+    "milestone_messages_sent": {
+      "type": "number",
+      "default": 0
+    },
+    "upgrade_prompt_shown": {
+      "type": "boolean",
+      "default": false
+    },
+    "strategy_review_scheduled": {
+      "type": "boolean",
+      "default": false
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "onboarding_id",
+    "company_name"
+  ]
+}

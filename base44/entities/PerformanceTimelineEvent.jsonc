@@ -1,0 +1,63 @@
+{
+  "name": "PerformanceTimelineEvent",
+  "type": "object",
+  "properties": {
+    "client_name": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "revenue_tier": {
+      "type": "string",
+      "enum": [
+        "starter",
+        "growth",
+        "professional",
+        "enterprise"
+      ]
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "onboarding_complete",
+        "first_content",
+        "ranking_breakthrough",
+        "viral_post",
+        "upsell_accepted",
+        "renewal_milestone",
+        "performance_review",
+        "risk_flagged"
+      ]
+    },
+    "event_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "headline": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "milestone": {
+      "type": "boolean",
+      "default": false
+    },
+    "mrr_at_event": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "client_name",
+    "event_type",
+    "event_date",
+    "headline"
+  ]
+}

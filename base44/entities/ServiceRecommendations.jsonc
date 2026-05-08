@@ -1,0 +1,70 @@
+{
+  "name": "ServiceRecommendations",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "current_service_type": {
+      "type": "string",
+      "description": "Current service being used (optional)"
+    },
+    "recommended_service": {
+      "type": "string",
+      "description": "Service to recommend next"
+    },
+    "reason_code": {
+      "type": "string",
+      "enum": [
+        "traffic_without_conversion",
+        "good_results_expand_content",
+        "seo_without_video",
+        "video_without_distribution",
+        "website_without_seo",
+        "social_without_landing_pages",
+        "strong_engagement_expand_campaign",
+        "retention_save_with_strategy_call",
+        "other"
+      ],
+      "description": "Reason code for recommendation"
+    },
+    "reason_summary": {
+      "type": "string",
+      "description": "Plain English explanation of why this service is recommended"
+    },
+    "confidence_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Confidence score 0-100"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "proposed",
+        "accepted",
+        "dismissed"
+      ],
+      "default": "active",
+      "description": "Status of the recommendation"
+    },
+    "related_growth_opportunity_id": {
+      "type": "string",
+      "description": "Reference to GrowthOpportunities ID (optional)"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_id",
+    "recommended_service",
+    "reason_code",
+    "reason_summary",
+    "confidence_score"
+  ]
+}

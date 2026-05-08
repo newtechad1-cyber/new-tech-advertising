@@ -1,0 +1,46 @@
+{
+  "name": "VideoApprovals",
+  "type": "object",
+  "properties": {
+    "video_request_id": {
+      "type": "string"
+    },
+    "reviewer_type": {
+      "type": "string",
+      "enum": [
+        "internal",
+        "client"
+      ],
+      "default": "internal"
+    },
+    "reviewer_id": {
+      "type": "string"
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "changes_requested",
+        "approved",
+        "rejected"
+      ],
+      "default": "pending"
+    },
+    "feedback": {
+      "type": "string"
+    },
+    "revision_requested": {
+      "type": "boolean",
+      "default": false
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "video_request_id",
+    "reviewer_type",
+    "approval_status"
+  ]
+}

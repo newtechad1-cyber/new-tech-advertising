@@ -1,0 +1,80 @@
+{
+  "name": "PlaybookSignals",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "success_playbook_id": {
+      "type": "string",
+      "description": "Reference to SuccessPlaybooks ID (optional)"
+    },
+    "signal_type": {
+      "type": "string",
+      "enum": [
+        "declining_leads",
+        "rising_traffic",
+        "low_conversion",
+        "approval_delay",
+        "support_volume",
+        "missed_delivery",
+        "strong_engagement",
+        "review_due",
+        "renewal_window",
+        "expansion_ready",
+        "report_unpublished",
+        "no_recent_contact",
+        "stalled_onboarding",
+        "stalled_fulfillment"
+      ],
+      "description": "Type of signal"
+    },
+    "signal_label": {
+      "type": "string",
+      "description": "Human-readable signal label"
+    },
+    "signal_value": {
+      "type": "string",
+      "description": "Signal value or detail"
+    },
+    "impact_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "description": "Impact of this signal"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "kpi_trend",
+        "fulfillment_activity",
+        "communication",
+        "opportunities",
+        "approval",
+        "delivery",
+        "health",
+        "renewal",
+        "other"
+      ],
+      "description": "Source of the signal"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_id",
+    "signal_type",
+    "signal_label",
+    "signal_value",
+    "impact_level",
+    "source_type"
+  ]
+}

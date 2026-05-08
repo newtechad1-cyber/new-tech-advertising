@@ -1,0 +1,41 @@
+{
+  "name": "SalesAgentPrompts",
+  "type": "object",
+  "properties": {
+    "agent_type": {
+      "type": "string",
+      "enum": [
+        "sales_guide",
+        "sales_closer",
+        "objection_handler",
+        "plan_recommender",
+        "followup_agent"
+      ]
+    },
+    "prompt_name": {
+      "type": "string"
+    },
+    "industry_context": {
+      "type": "string"
+    },
+    "prompt_text": {
+      "type": "string"
+    },
+    "version_label": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "agent_type",
+    "prompt_name",
+    "prompt_text",
+    "active"
+  ]
+}

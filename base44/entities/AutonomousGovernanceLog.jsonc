@@ -1,0 +1,76 @@
+{
+  "name": "AutonomousGovernanceLog",
+  "type": "object",
+  "properties": {
+    "action_id": {
+      "type": "string",
+      "description": "Reference to AutonomousGrowthAction"
+    },
+    "opportunity_id": {
+      "type": "string",
+      "description": "Reference to AutonomousOpportunity"
+    },
+    "governance_decision": {
+      "type": "string",
+      "enum": [
+        "approved",
+        "blocked",
+        "auto_executed",
+        "requires_approval",
+        "escalated",
+        "override"
+      ],
+      "description": "Governance decision made"
+    },
+    "decision_reason": {
+      "type": "string",
+      "description": "Reason for decision"
+    },
+    "blocked_reason": {
+      "type": "string",
+      "description": "If blocked, why was it blocked?"
+    },
+    "blocked_by_rule": {
+      "type": "string",
+      "description": "Name of rule that triggered block"
+    },
+    "override_role": {
+      "type": "string",
+      "description": "Role that overrode decision (if applicable)"
+    },
+    "override_note": {
+      "type": "string",
+      "description": "Note about override"
+    },
+    "tenant_isolation_verified": {
+      "type": "boolean",
+      "description": "Was tenant boundary verified?"
+    },
+    "risk_assessment": {
+      "type": "string",
+      "description": "Risk assessment results"
+    },
+    "cooldown_checked": {
+      "type": "boolean",
+      "description": "Was cooldown checked?"
+    },
+    "frequency_checked": {
+      "type": "boolean",
+      "description": "Was max frequency checked?"
+    },
+    "created_by": {
+      "type": "string",
+      "description": "User/system that created decision"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When decision was made"
+    }
+  },
+  "required": [
+    "action_id",
+    "governance_decision",
+    "created_at"
+  ]
+}

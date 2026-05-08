@@ -1,0 +1,54 @@
+{
+  "name": "ClientProfile",
+  "type": "object",
+  "properties": {
+    "client_account_id": {
+      "type": "string"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "main_services": {
+      "type": "string"
+    },
+    "content_style": {
+      "type": "string"
+    },
+    "wants_video": {
+      "type": "boolean",
+      "default": true
+    },
+    "wants_social": {
+      "type": "boolean",
+      "default": true
+    },
+    "wants_seo": {
+      "type": "boolean",
+      "default": true
+    },
+    "service_area": {
+      "type": "string"
+    },
+    "num_locations": {
+      "type": "number",
+      "default": 1
+    },
+    "marketing_goal": {
+      "type": "string"
+    },
+    "current_channels": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "client_account_id"
+  ]
+}

@@ -1,0 +1,146 @@
+{
+  "name": "SchoolLeads",
+  "type": "object",
+  "properties": {
+    "school_name": {
+      "type": "string",
+      "description": "Name of the school"
+    },
+    "district_name": {
+      "type": "string",
+      "description": "School district name"
+    },
+    "school_type": {
+      "type": "string",
+      "enum": [
+        "public",
+        "charter",
+        "private",
+        "independent"
+      ],
+      "description": "School type"
+    },
+    "city": {
+      "type": "string",
+      "description": "City where school is located"
+    },
+    "state": {
+      "type": "string",
+      "description": "State abbreviation (e.g., CA, TX)"
+    },
+    "website": {
+      "type": "string",
+      "description": "School website URL"
+    },
+    "contact_name": {
+      "type": "string",
+      "description": "Primary contact name"
+    },
+    "contact_title": {
+      "type": "string",
+      "enum": [
+        "principal",
+        "superintendent",
+        "av_director",
+        "tech_director",
+        "marketing_director",
+        "other"
+      ],
+      "description": "Contact's job title"
+    },
+    "contact_email": {
+      "type": "string",
+      "description": "Contact email address"
+    },
+    "contact_phone": {
+      "type": "string",
+      "description": "Contact phone number"
+    },
+    "student_population": {
+      "type": "number",
+      "description": "Total number of students"
+    },
+    "lead_source": {
+      "type": "string",
+      "enum": [
+        "inbound",
+        "manual_research",
+        "referral",
+        "district_list",
+        "conference",
+        "social_media",
+        "other"
+      ],
+      "description": "How we found this lead"
+    },
+    "outreach_status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "researched",
+        "ready_for_outreach",
+        "contacted",
+        "opened",
+        "replied",
+        "demo_scheduled",
+        "demo_completed",
+        "pilot",
+        "won",
+        "lost"
+      ],
+      "default": "new",
+      "description": "Current outreach stage"
+    },
+    "outreach_stage": {
+      "type": "number",
+      "default": 0,
+      "description": "Stage in pipeline (0=new, 1=contacted, 2=replied, 3=demo, 4=pilot, 5=won/lost)"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Internal notes about this lead"
+    },
+    "last_contact_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When we last contacted them"
+    },
+    "next_followup_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When to follow up next"
+    },
+    "demo_booked": {
+      "type": "boolean",
+      "default": false,
+      "description": "Has a demo been scheduled"
+    },
+    "demo_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Scheduled demo date/time"
+    },
+    "pilot_interest": {
+      "type": "boolean",
+      "default": false,
+      "description": "Expressed interest in pilot"
+    },
+    "client_status": {
+      "type": "string",
+      "enum": [
+        "prospect",
+        "trial",
+        "customer",
+        "lost"
+      ],
+      "default": "prospect",
+      "description": "Current customer status"
+    }
+  },
+  "required": [
+    "school_name",
+    "district_name",
+    "city",
+    "state"
+  ]
+}

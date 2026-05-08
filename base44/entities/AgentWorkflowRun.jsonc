@@ -1,0 +1,84 @@
+{
+  "name": "AgentWorkflowRun",
+  "type": "object",
+  "properties": {
+    "workflow_key": {
+      "type": "string",
+      "description": "Reference to AgentWorkflow"
+    },
+    "run_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "running",
+        "completed",
+        "failed",
+        "cancelled"
+      ],
+      "default": "pending",
+      "description": "Overall workflow run status"
+    },
+    "trigger_source": {
+      "type": "string",
+      "description": "What triggered this run"
+    },
+    "context_type": {
+      "type": "string",
+      "enum": [
+        "agency",
+        "reseller",
+        "client",
+        "school",
+        "vertical"
+      ],
+      "description": "Operational context"
+    },
+    "reseller_id": {
+      "type": "string",
+      "description": "Reseller scope (if applicable)"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "Client scope (if applicable)"
+    },
+    "related_entity_type": {
+      "type": "string",
+      "description": "Entity type this workflow operates on"
+    },
+    "related_entity_id": {
+      "type": "string",
+      "description": "ID of related entity"
+    },
+    "current_step": {
+      "type": "number",
+      "default": 0,
+      "description": "Current step index (0-based)"
+    },
+    "total_steps": {
+      "type": "number",
+      "description": "Total steps in workflow"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Run start time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Run completion time"
+    },
+    "error_message": {
+      "type": "string",
+      "description": "Error message if failed"
+    },
+    "result_summary": {
+      "type": "string",
+      "description": "Summary of workflow result"
+    }
+  },
+  "required": [
+    "workflow_key",
+    "context_type"
+  ]
+}

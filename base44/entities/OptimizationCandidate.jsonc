@@ -1,0 +1,105 @@
+{
+  "name": "OptimizationCandidate",
+  "type": "object",
+  "properties": {
+    "candidate_key": {
+      "type": "string",
+      "description": "Unique candidate identifier"
+    },
+    "optimization_category": {
+      "type": "string",
+      "enum": [
+        "publishing_performance",
+        "client_engagement",
+        "sales_conversion",
+        "onboarding_efficiency",
+        "automation_reliability",
+        "reseller_growth",
+        "reporting_effectiveness",
+        "workflow_throughput"
+      ],
+      "description": "Category of optimization"
+    },
+    "context_type": {
+      "type": "string",
+      "enum": [
+        "global",
+        "agency",
+        "reseller",
+        "client",
+        "school"
+      ],
+      "description": "Context scope"
+    },
+    "reseller_id": {
+      "type": "string",
+      "description": "Reseller context if applicable"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "Client context if applicable"
+    },
+    "target_system": {
+      "type": "string",
+      "description": "System being optimized (e.g., 'publishing_scheduler', 'approval_workflow')"
+    },
+    "target_config_key": {
+      "type": "string",
+      "description": "Configuration key being optimized"
+    },
+    "current_value": {
+      "type": "string",
+      "description": "Current configuration value"
+    },
+    "proposed_value": {
+      "type": "string",
+      "description": "Proposed new value"
+    },
+    "reason_detected": {
+      "type": "string",
+      "description": "Why optimization was detected"
+    },
+    "confidence_score": {
+      "type": "number",
+      "description": "Confidence in improvement (0-100)"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "description": "Risk of applying this optimization"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "detected",
+        "approved",
+        "experiment_running",
+        "adopted",
+        "rejected",
+        "rolled_back"
+      ],
+      "default": "detected",
+      "description": "Current status"
+    },
+    "detected_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When candidate was detected"
+    }
+  },
+  "required": [
+    "candidate_key",
+    "optimization_category",
+    "context_type",
+    "target_system",
+    "reason_detected",
+    "confidence_score",
+    "risk_level",
+    "detected_at"
+  ]
+}

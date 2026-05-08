@@ -1,0 +1,40 @@
+{
+  "name": "AiMemory",
+  "type": "object",
+  "properties": {
+    "account_id": {
+      "type": "string"
+    },
+    "scope": {
+      "type": "string",
+      "description": "global | service_social_media | service_website | workflow_<key>",
+      "default": "global"
+    },
+    "key": {
+      "type": "string",
+      "description": "e.g. brand_voice, do_not_say, offers, target_audience"
+    },
+    "value": {
+      "type": "object"
+    },
+    "label": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "account_id",
+    "scope",
+    "key",
+    "value"
+  ],
+  "unique": [
+    "account_id",
+    "scope",
+    "key"
+  ]
+}

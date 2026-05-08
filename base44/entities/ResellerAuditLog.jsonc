@@ -1,0 +1,50 @@
+{
+  "name": "ResellerAuditLog",
+  "type": "object",
+  "properties": {
+    "reseller_id": {
+      "type": "string",
+      "description": "Reference to ResellerAccount"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "account_created",
+        "branding_updated",
+        "domain_configured",
+        "user_invited",
+        "feature_enabled",
+        "client_added",
+        "billing_updated",
+        "status_changed",
+        "suspended",
+        "activated"
+      ],
+      "description": "Type of event"
+    },
+    "event_label": {
+      "type": "string",
+      "description": "Human-readable event label"
+    },
+    "actor_name": {
+      "type": "string",
+      "description": "Who performed the action"
+    },
+    "actor_role": {
+      "type": "string",
+      "description": "Role of the actor"
+    },
+    "details": {
+      "type": "string",
+      "description": "JSON details of the event"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "reseller_id",
+    "event_type"
+  ]
+}

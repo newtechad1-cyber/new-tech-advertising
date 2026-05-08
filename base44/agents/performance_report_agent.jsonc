@@ -1,0 +1,44 @@
+{
+  "name": "performance_report_agent",
+  "description": "Generate reports weekly on Mondays at 9 AM",
+  "instructions": "When triggered, aggregate client marketing activity data (published content, videos created, campaigns, approvals) and generate a comprehensive performance report. Create highlights summarizing key achievements, generate a simple ROI narrative explaining value delivered, and prepare upcoming strategy summary. Save complete report to ClientPerformanceReport entity.",
+  "tool_configs": [
+    {
+      "entity_name": "ClientPerformanceReport",
+      "allowed_operations": [
+        "create",
+        "read",
+        "update"
+      ]
+    },
+    {
+      "entity_name": "VideoPublishJob",
+      "allowed_operations": [
+        "read"
+      ]
+    },
+    {
+      "entity_name": "VideoRequests",
+      "allowed_operations": [
+        "read"
+      ]
+    },
+    {
+      "entity_name": "ClientCompanies",
+      "allowed_operations": [
+        "read"
+      ]
+    },
+    {
+      "entity_name": "ReportingSchedule",
+      "allowed_operations": [
+        "read",
+        "update"
+      ]
+    }
+  ],
+  "trigger_type": "scheduled",
+  "schedule_mode": "recurring",
+  "schedule_type": "cron",
+  "cron_expression": "0 9 * * 1"
+}

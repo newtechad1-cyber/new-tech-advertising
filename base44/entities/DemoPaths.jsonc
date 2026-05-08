@@ -1,0 +1,49 @@
+{
+  "name": "DemoPaths",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string",
+      "enum": [
+        "general",
+        "hvac",
+        "restaurant",
+        "plumbing",
+        "contractor",
+        "retail",
+        "medical"
+      ],
+      "default": "general"
+    },
+    "audience_type": {
+      "type": "string",
+      "enum": [
+        "small_business_owner",
+        "marketing_manager",
+        "agency_partner"
+      ],
+      "default": "small_business_owner"
+    },
+    "entry_source": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "step_sequence": {
+      "type": "string",
+      "description": "JSON array of page slugs in order"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "name",
+    "active"
+  ]
+}

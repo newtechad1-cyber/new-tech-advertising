@@ -1,0 +1,134 @@
+{
+  "name": "SchoolSubmissions",
+  "type": "object",
+  "properties": {
+    "submission_title": {
+      "type": "string"
+    },
+    "contributor_name": {
+      "type": "string"
+    },
+    "contributor_email": {
+      "type": "string"
+    },
+    "contributor_role": {
+      "type": "string",
+      "enum": [
+        "student",
+        "teacher",
+        "coach",
+        "staff",
+        "parent",
+        "district_admin",
+        "other"
+      ],
+      "default": "student"
+    },
+    "school": {
+      "type": "string"
+    },
+    "grade_level": {
+      "type": "string"
+    },
+    "activity_type": {
+      "type": "string",
+      "enum": [
+        "sports",
+        "classroom",
+        "arts",
+        "music",
+        "clubs",
+        "student_life",
+        "academics",
+        "event",
+        "community",
+        "teacher_spotlight",
+        "district_message",
+        "other"
+      ],
+      "default": "student_life"
+    },
+    "team_or_group": {
+      "type": "string"
+    },
+    "event_name": {
+      "type": "string"
+    },
+    "event_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string"
+    },
+    "upload_type": {
+      "type": "string",
+      "enum": [
+        "video_only",
+        "photos_only",
+        "mixed_media"
+      ],
+      "default": "video_only"
+    },
+    "video_files": {
+      "type": "string",
+      "description": "JSON array of video URLs"
+    },
+    "photo_files": {
+      "type": "string",
+      "description": "JSON array of photo URLs"
+    },
+    "thumbnail": {
+      "type": "string"
+    },
+    "consent_confirmed": {
+      "type": "boolean",
+      "default": false
+    },
+    "legal_acknowledgement": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "under_review",
+        "approved",
+        "rejected",
+        "archived",
+        "assigned_to_project",
+        "processing"
+      ],
+      "default": "pending"
+    },
+    "moderation_notes": {
+      "type": "string"
+    },
+    "reviewed_by": {
+      "type": "string"
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ai_safety_flag": {
+      "type": "boolean",
+      "default": false
+    },
+    "ai_quality_score": {
+      "type": "number",
+      "default": 0
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Set when assigned to a project"
+    }
+  },
+  "required": [
+    "submission_title",
+    "contributor_name",
+    "consent_confirmed",
+    "status"
+  ]
+}

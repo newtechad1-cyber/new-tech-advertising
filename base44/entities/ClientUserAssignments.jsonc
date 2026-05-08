@@ -1,0 +1,52 @@
+{
+  "name": "ClientUserAssignments",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "user_id": {
+      "type": "string",
+      "description": "Reference to Users ID"
+    },
+    "client_portal_role_id": {
+      "type": "string",
+      "description": "Reference to ClientPortalRoles ID"
+    },
+    "is_primary_contact": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this user is primary contact"
+    },
+    "is_billing_contact": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this user is billing contact"
+    },
+    "can_receive_notifications": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this user can receive notifications"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this assignment is active"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_id",
+    "user_id",
+    "client_portal_role_id",
+    "is_primary_contact",
+    "is_billing_contact",
+    "can_receive_notifications",
+    "active"
+  ]
+}

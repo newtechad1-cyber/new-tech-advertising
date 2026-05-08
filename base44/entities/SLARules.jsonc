@@ -1,0 +1,107 @@
+{
+  "name": "SLARules",
+  "type": "object",
+  "properties": {
+    "sla_profile_id": {
+      "type": "string",
+      "description": "Reference to SLAProfiles ID"
+    },
+    "rule_name": {
+      "type": "string",
+      "description": "Name of the SLA rule"
+    },
+    "rule_type": {
+      "type": "string",
+      "enum": [
+        "response_time",
+        "completion_time",
+        "approval_wait_time",
+        "delivery_deadline",
+        "review_due",
+        "inactivity",
+        "publication_delay",
+        "followup_delay"
+      ],
+      "description": "Type of rule"
+    },
+    "applies_to_entity": {
+      "type": "string",
+      "enum": [
+        "OnboardingTasks",
+        "FulfillmentTasks",
+        "Deliverables",
+        "ClientRequests",
+        "MessageThreads",
+        "StrategyReviews",
+        "ExecutiveReports",
+        "SalesTasks",
+        "Proposals"
+      ],
+      "description": "Entity this rule applies to"
+    },
+    "target_status": {
+      "type": "string",
+      "description": "Specific status to monitor (optional)"
+    },
+    "threshold_value": {
+      "type": "number",
+      "description": "Numeric threshold value"
+    },
+    "threshold_unit": {
+      "type": "string",
+      "enum": [
+        "hours",
+        "days",
+        "weeks"
+      ],
+      "description": "Unit for threshold"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "description": "Severity level"
+    },
+    "breach_action": {
+      "type": "string",
+      "enum": [
+        "create_alert",
+        "create_task",
+        "escalate_owner",
+        "flag_account",
+        "notify_admin",
+        "notify_manager"
+      ],
+      "description": "Action to take on breach"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this rule is active"
+    },
+    "visible_in_dashboard": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to show in operations dashboard"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "sla_profile_id",
+    "rule_name",
+    "rule_type",
+    "applies_to_entity",
+    "threshold_value",
+    "threshold_unit",
+    "severity",
+    "breach_action"
+  ]
+}

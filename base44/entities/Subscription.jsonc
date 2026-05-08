@@ -1,0 +1,90 @@
+{
+  "name": "Subscription",
+  "type": "object",
+  "properties": {
+    "subscriptionId": {
+      "type": "string",
+      "description": "Unique subscription identifier"
+    },
+    "organizationId": {
+      "type": "string",
+      "description": "Foreign key to Organization"
+    },
+    "stripeCustomerId": {
+      "type": "string",
+      "description": "Stripe customer ID for billing"
+    },
+    "stripeSubscriptionId": {
+      "type": "string",
+      "description": "Stripe subscription ID"
+    },
+    "currentPlan": {
+      "type": "string",
+      "enum": [
+        "free_trial",
+        "diy",
+        "guided_growth",
+        "done_for_you",
+        "premium",
+        "enterprise"
+      ],
+      "description": "Current subscription plan"
+    },
+    "billingStatus": {
+      "type": "string",
+      "enum": [
+        "active",
+        "trialing",
+        "past_due",
+        "cancelled",
+        "incomplete",
+        "paused"
+      ],
+      "default": "active",
+      "description": "Billing status from Stripe"
+    },
+    "renewalDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Next renewal/billing date"
+    },
+    "cancelAtPeriodEnd": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether subscription is scheduled to cancel"
+    },
+    "cancelledAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When cancellation was requested"
+    },
+    "onboardingStatus": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "completed",
+        "skipped"
+      ],
+      "default": "not_started",
+      "description": "Onboarding completion status"
+    },
+    "monthlyRecurringRevenue": {
+      "type": "number",
+      "default": 0,
+      "description": "MRR in cents"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "subscriptionId",
+    "organizationId",
+    "stripeCustomerId",
+    "stripeSubscriptionId",
+    "currentPlan"
+  ]
+}

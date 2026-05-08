@@ -1,0 +1,39 @@
+{
+  "name": "EntityDependencyMap",
+  "type": "object",
+  "properties": {
+    "entity_key": {
+      "type": "string",
+      "description": "Source entity"
+    },
+    "dependency_type": {
+      "type": "string",
+      "enum": [
+        "used_by_page",
+        "used_by_dashboard",
+        "used_by_agent",
+        "used_by_workflow",
+        "used_by_report",
+        "used_by_integration"
+      ],
+      "description": "Type of dependency"
+    },
+    "dependency_name": {
+      "type": "string",
+      "description": "Name of dependent (page name, agent key, etc)"
+    },
+    "dependency_target": {
+      "type": "string",
+      "description": "Specific path/key of dependent"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional context"
+    }
+  },
+  "required": [
+    "entity_key",
+    "dependency_type",
+    "dependency_name"
+  ]
+}

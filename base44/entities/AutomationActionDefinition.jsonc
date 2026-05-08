@@ -1,0 +1,54 @@
+{
+  "name": "AutomationActionDefinition",
+  "type": "object",
+  "properties": {
+    "rule_key": {
+      "type": "string",
+      "description": "Reference to MasterAutomationRule"
+    },
+    "action_key": {
+      "type": "string",
+      "description": "Action identifier within rule (e.g., 'create_publish_job')"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "create_entity",
+        "update_entity",
+        "delete_entity",
+        "call_function",
+        "send_notification",
+        "trigger_workflow",
+        "schedule_task"
+      ],
+      "description": "Type of action"
+    },
+    "target_type": {
+      "type": "string",
+      "description": "Entity or function being targeted"
+    },
+    "target_key": {
+      "type": "string",
+      "description": "Specific target (entity key, function name, workflow key)"
+    },
+    "action_payload_json": {
+      "type": "string",
+      "description": "JSON: data to pass to action"
+    },
+    "sequence_order": {
+      "type": "number",
+      "description": "Execution order"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is action active"
+    }
+  },
+  "required": [
+    "rule_key",
+    "action_key",
+    "action_type",
+    "target_key"
+  ]
+}

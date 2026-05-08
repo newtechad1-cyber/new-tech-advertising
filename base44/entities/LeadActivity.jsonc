@@ -1,0 +1,62 @@
+{
+  "name": "LeadActivity",
+  "type": "object",
+  "properties": {
+    "lead_id": {
+      "type": "string",
+      "description": "Reference to Lead ID"
+    },
+    "company_name": {
+      "type": "string",
+      "description": "Denormalized company name"
+    },
+    "activity_type": {
+      "type": "string",
+      "enum": [
+        "form_submission",
+        "page_view",
+        "email_sent",
+        "email_opened",
+        "email_clicked",
+        "call_made",
+        "quote_viewed",
+        "payment_attempted",
+        "guide_download",
+        "demo_video_watch",
+        "pricing_page_visit",
+        "trial_started",
+        "proposal_viewed",
+        "client_request",
+        "support_request",
+        "revision_request",
+        "call_request"
+      ]
+    },
+    "page_url": {
+      "type": "string"
+    },
+    "page_visited": {
+      "type": "string"
+    },
+    "content_downloaded": {
+      "type": "string"
+    },
+    "video_watched": {
+      "type": "string"
+    },
+    "proposal_id": {
+      "type": "string",
+      "description": "Reference to Proposal ID if relevant"
+    },
+    "details": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "lead_id",
+    "activity_type"
+  ]
+}

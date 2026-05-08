@@ -1,0 +1,56 @@
+{
+  "name": "FounderInsight",
+  "type": "object",
+  "properties": {
+    "insight_type": {
+      "type": "string",
+      "enum": [
+        "growth_anomaly",
+        "upsell_cluster",
+        "vertical_demand_spike",
+        "pricing_optimization",
+        "churn_warning",
+        "market_opportunity"
+      ]
+    },
+    "headline": {
+      "type": "string"
+    },
+    "narrative": {
+      "type": "string"
+    },
+    "urgency": {
+      "type": "string",
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "acknowledged",
+        "assigned",
+        "converted"
+      ],
+      "default": "active"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "impact_estimate": {
+      "type": "string"
+    },
+    "data_points": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "insight_type",
+    "headline",
+    "urgency"
+  ]
+}

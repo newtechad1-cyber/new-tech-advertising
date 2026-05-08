@@ -1,0 +1,91 @@
+{
+  "name": "RouteHealthSnapshot",
+  "type": "object",
+  "properties": {
+    "snapshot_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When snapshot was taken"
+    },
+    "route_path": {
+      "type": "string",
+      "description": "Route path"
+    },
+    "page_key": {
+      "type": "string",
+      "description": "Primary page"
+    },
+    "layout_match_status": {
+      "type": "string",
+      "enum": [
+        "match",
+        "mismatch",
+        "missing",
+        "unknown"
+      ],
+      "description": "Layout alignment"
+    },
+    "nav_match_status": {
+      "type": "string",
+      "enum": [
+        "match",
+        "mismatch",
+        "missing",
+        "unknown"
+      ],
+      "description": "Nav family alignment"
+    },
+    "family_match_status": {
+      "type": "string",
+      "enum": [
+        "match",
+        "mismatch",
+        "unknown"
+      ],
+      "description": "Route family alignment"
+    },
+    "access_rule_status": {
+      "type": "string",
+      "enum": [
+        "defined",
+        "missing",
+        "ambiguous"
+      ],
+      "description": "Access rules defined"
+    },
+    "duplicate_risk_status": {
+      "type": "string",
+      "enum": [
+        "none",
+        "low",
+        "medium",
+        "high"
+      ],
+      "description": "Duplicate route risk"
+    },
+    "orphan_risk_status": {
+      "type": "string",
+      "enum": [
+        "none",
+        "low",
+        "medium",
+        "high"
+      ],
+      "description": "Orphan page risk"
+    },
+    "health_score": {
+      "type": "number",
+      "description": "0-100 overall health"
+    },
+    "issues_json": {
+      "type": "string",
+      "description": "JSON array of detected issues"
+    }
+  },
+  "required": [
+    "snapshot_time",
+    "route_path",
+    "page_key",
+    "health_score"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "SchoolCollections",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "activity_type": {
+      "type": "string"
+    },
+    "event_name": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "created_by": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

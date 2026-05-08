@@ -1,0 +1,164 @@
+{
+  "name": "RevenueOpportunities",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "lead_id": {
+      "type": "string",
+      "description": "Reference to Leads ID (optional)"
+    },
+    "related_growth_opportunity_id": {
+      "type": "string",
+      "description": "Reference to GrowthOpportunities ID (optional)"
+    },
+    "related_unified_recommendation_id": {
+      "type": "string",
+      "description": "Reference to UnifiedRecommendations ID (optional)"
+    },
+    "related_strategy_review_id": {
+      "type": "string",
+      "description": "Reference to StrategyReviews ID (optional)"
+    },
+    "related_playbook_id": {
+      "type": "string",
+      "description": "Reference to SuccessPlaybooks ID (optional)"
+    },
+    "related_proposal_id": {
+      "type": "string",
+      "description": "Reference to Proposals ID (optional)"
+    },
+    "opportunity_type": {
+      "type": "string",
+      "enum": [
+        "renewal",
+        "upsell",
+        "cross_sell",
+        "reactivation",
+        "proposal_followup",
+        "stalled_deal",
+        "expansion",
+        "rescue_recovery",
+        "optimization_offer"
+      ],
+      "description": "Type of revenue opportunity"
+    },
+    "revenue_motion_type": {
+      "type": "string",
+      "enum": [
+        "create_proposal",
+        "prepare_review",
+        "start_outreach",
+        "followup_sequence",
+        "escalate_owner",
+        "nurture",
+        "recovery",
+        "renewal_motion"
+      ],
+      "description": "What action should move this forward"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title of the opportunity"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Detailed summary of why this opportunity exists"
+    },
+    "recommended_offer": {
+      "type": "string",
+      "description": "What should be offered (optional)"
+    },
+    "estimated_value": {
+      "type": "number",
+      "description": "Estimated revenue value (optional)"
+    },
+    "probability_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Win probability 0-100"
+    },
+    "urgency_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent",
+        "critical"
+      ],
+      "default": "medium",
+      "description": "How urgent is this opportunity"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "qualified",
+        "active",
+        "awaiting_response",
+        "proposal_created",
+        "proposal_sent",
+        "negotiating",
+        "won",
+        "lost",
+        "paused",
+        "dismissed"
+      ],
+      "default": "new",
+      "description": "Current status"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "detected",
+        "prepared",
+        "contacted",
+        "proposal_draft",
+        "proposal_sent",
+        "followup_active",
+        "decision_pending",
+        "converted",
+        "closed"
+      ],
+      "default": "detected",
+      "description": "Current stage"
+    },
+    "assigned_admin_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional)"
+    },
+    "owner_action_required": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether owner approval is needed"
+    },
+    "auto_progression_enabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to auto-advance sequence steps"
+    },
+    "last_activity_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When last activity occurred (optional)"
+    },
+    "next_action_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When next action should occur (optional)"
+    }
+  },
+  "required": [
+    "company_id",
+    "opportunity_type",
+    "revenue_motion_type",
+    "title",
+    "summary",
+    "probability_score",
+    "urgency_level"
+  ]
+}

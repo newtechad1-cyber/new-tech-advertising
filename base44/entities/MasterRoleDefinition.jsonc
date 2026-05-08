@@ -1,0 +1,54 @@
+{
+  "name": "MasterRoleDefinition",
+  "type": "object",
+  "properties": {
+    "role_key": {
+      "type": "string",
+      "description": "Unique role identifier (e.g., 'platform_admin', 'reseller_owner')"
+    },
+    "role_name": {
+      "type": "string",
+      "description": "Display name"
+    },
+    "role_category": {
+      "type": "string",
+      "enum": [
+        "platform",
+        "reseller",
+        "client",
+        "school",
+        "system"
+      ],
+      "description": "Role category"
+    },
+    "description": {
+      "type": "string",
+      "description": "Role purpose and responsibilities"
+    },
+    "default_scope_type": {
+      "type": "string",
+      "enum": [
+        "global",
+        "tenant",
+        "context",
+        "limited"
+      ],
+      "description": "Default access scope"
+    },
+    "priority_level": {
+      "type": "number",
+      "description": "Role priority (higher = more privileged)"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is role active"
+    }
+  },
+  "required": [
+    "role_key",
+    "role_name",
+    "role_category",
+    "default_scope_type"
+  ]
+}

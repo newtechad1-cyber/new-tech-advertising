@@ -1,0 +1,26 @@
+{
+  "name": "QARunPresets",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Unique preset name"
+    },
+    "description": {
+      "type": "string"
+    },
+    "included_test_ids_json": {
+      "type": "string",
+      "description": "JSON array of test_id strings e.g. [\"QA-001\",\"QA-002\"]"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "name",
+    "included_test_ids_json",
+    "is_active"
+  ]
+}

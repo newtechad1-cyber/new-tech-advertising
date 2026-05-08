@@ -1,0 +1,113 @@
+{
+  "name": "GrowthOpportunities",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "fulfillment_workroom_id": {
+      "type": "string",
+      "description": "Reference to FulfillmentWorkrooms ID (optional)"
+    },
+    "executive_report_id": {
+      "type": "string",
+      "description": "Reference to ExecutiveReports ID (optional)"
+    },
+    "related_proposal_id": {
+      "type": "string",
+      "description": "Reference to Proposals ID (optional)"
+    },
+    "opportunity_type": {
+      "type": "string",
+      "enum": [
+        "renewal",
+        "upsell",
+        "cross_sell",
+        "expansion",
+        "retention_risk",
+        "optimization",
+        "reactivation"
+      ],
+      "description": "Type of opportunity"
+    },
+    "title": {
+      "type": "string",
+      "description": "Short title of the opportunity"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the opportunity"
+    },
+    "recommendation_summary": {
+      "type": "string",
+      "description": "What NTA should recommend or do next"
+    },
+    "recommended_service": {
+      "type": "string",
+      "description": "Specific service to recommend (optional)"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium",
+      "description": "Priority level"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "reviewing",
+        "proposed",
+        "contacted",
+        "won",
+        "lost",
+        "dismissed",
+        "snoozed"
+      ],
+      "default": "new",
+      "description": "Status of the opportunity"
+    },
+    "confidence_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Confidence score 0-100"
+    },
+    "potential_value_estimate": {
+      "type": "number",
+      "description": "Estimated monthly or one-time value if opportunity is won (optional)"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When action should be taken"
+    },
+    "assigned_admin_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional)"
+    },
+    "visible_to_client": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether client can see this opportunity"
+    },
+    "snoozed_until": {
+      "type": "string",
+      "format": "date",
+      "description": "Date to unsnoze this opportunity (optional)"
+    }
+  },
+  "required": [
+    "company_id",
+    "opportunity_type",
+    "title",
+    "description",
+    "confidence_score"
+  ]
+}

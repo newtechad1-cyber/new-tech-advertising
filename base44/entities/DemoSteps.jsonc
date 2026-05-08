@@ -1,0 +1,50 @@
+{
+  "name": "DemoSteps",
+  "type": "object",
+  "properties": {
+    "demo_path_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "step_order": {
+      "type": "number"
+    },
+    "video_asset_id": {
+      "type": "string"
+    },
+    "content_blocks": {
+      "type": "string",
+      "description": "JSON array of content block objects"
+    },
+    "cta_type": {
+      "type": "string",
+      "enum": [
+        "continue_demo",
+        "view_pricing",
+        "view_roi",
+        "view_proposal",
+        "start_trial",
+        "request_setup",
+        "book_call"
+      ],
+      "default": "continue_demo"
+    },
+    "next_step_id": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "title",
+    "step_order",
+    "active"
+  ]
+}

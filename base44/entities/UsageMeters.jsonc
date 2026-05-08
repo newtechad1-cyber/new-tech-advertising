@@ -1,0 +1,77 @@
+{
+  "name": "UsageMeters",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "contract_id": {
+      "type": "string",
+      "description": "Reference to Contracts ID (optional)"
+    },
+    "subscription_id": {
+      "type": "string",
+      "description": "Reference to Subscriptions ID (optional)"
+    },
+    "meter_type": {
+      "type": "string",
+      "enum": [
+        "blog_articles",
+        "videos",
+        "social_posts",
+        "landing_pages",
+        "reports",
+        "support_requests",
+        "revisions",
+        "strategy_reviews",
+        "campaigns",
+        "seats"
+      ],
+      "description": "Type of usage meter"
+    },
+    "period_label": {
+      "type": "string",
+      "description": "Label for period (e.g., 'March 2026')"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date",
+      "description": "Period start"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date",
+      "description": "Period end"
+    },
+    "used_quantity": {
+      "type": "number",
+      "description": "Quantity used"
+    },
+    "included_quantity": {
+      "type": "number",
+      "description": "Quantity included (optional)"
+    },
+    "overage_quantity": {
+      "type": "number",
+      "description": "Overage quantity (optional)"
+    },
+    "overage_value": {
+      "type": "number",
+      "description": "Overage value (optional)"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_id",
+    "meter_type",
+    "period_label",
+    "period_start",
+    "period_end",
+    "used_quantity"
+  ]
+}

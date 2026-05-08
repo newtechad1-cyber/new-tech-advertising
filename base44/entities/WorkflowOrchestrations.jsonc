@@ -1,0 +1,98 @@
+{
+  "name": "WorkflowOrchestrations",
+  "type": "object",
+  "properties": {
+    "orchestration_name": {
+      "type": "string",
+      "description": "Name of the orchestration"
+    },
+    "orchestration_type": {
+      "type": "string",
+      "enum": [
+        "sales_followup",
+        "onboarding",
+        "fulfillment",
+        "reporting",
+        "strategy",
+        "renewal",
+        "upsell",
+        "rescue",
+        "operations",
+        "communication",
+        "executive"
+      ],
+      "description": "Type of orchestration"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of what this orchestration does"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused",
+        "archived"
+      ],
+      "default": "active",
+      "description": "Status of the orchestration"
+    },
+    "trigger_type": {
+      "type": "string",
+      "enum": [
+        "event",
+        "scheduled",
+        "threshold",
+        "state_change",
+        "manual"
+      ],
+      "description": "What triggers this orchestration"
+    },
+    "trigger_source": {
+      "type": "string",
+      "description": "Where the trigger comes from (e.g., proposal_viewed, onboarding_stalled)"
+    },
+    "trigger_event": {
+      "type": "string",
+      "description": "The specific event that triggers this"
+    },
+    "rule_set_name": {
+      "type": "string",
+      "description": "Name of the rule set this orchestration uses"
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this orchestration is enabled"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium",
+      "description": "Execution priority"
+    },
+    "last_run_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this orchestration last ran"
+    },
+    "next_run_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this orchestration is scheduled to run next"
+    }
+  },
+  "required": [
+    "orchestration_name",
+    "orchestration_type",
+    "description",
+    "trigger_type",
+    "trigger_source",
+    "enabled"
+  ]
+}

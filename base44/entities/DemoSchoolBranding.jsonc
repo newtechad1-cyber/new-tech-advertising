@@ -1,0 +1,52 @@
+{
+  "name": "DemoSchoolBranding",
+  "type": "object",
+  "properties": {
+    "school_name": {
+      "type": "string",
+      "description": "Fictional school name"
+    },
+    "mascot": {
+      "type": "string",
+      "description": "School mascot"
+    },
+    "primary_color": {
+      "type": "string",
+      "description": "Primary brand color (hex code)"
+    },
+    "secondary_color": {
+      "type": "string",
+      "description": "Secondary brand color (hex code)"
+    },
+    "accent_color": {
+      "type": "string",
+      "description": "Accent color (hex code)"
+    },
+    "logo_url": {
+      "type": "string",
+      "description": "Logo image URL"
+    },
+    "banner_image_url": {
+      "type": "string",
+      "description": "Hero banner image URL"
+    },
+    "short_description": {
+      "type": "string",
+      "description": "School tagline or description"
+    },
+    "motto": {
+      "type": "string",
+      "description": "School motto"
+    },
+    "is_demo": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is this a demo school?"
+    }
+  },
+  "required": [
+    "school_name",
+    "mascot",
+    "primary_color"
+  ]
+}

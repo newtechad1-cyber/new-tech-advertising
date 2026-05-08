@@ -1,0 +1,156 @@
+{
+  "name": "StrategyReviews",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "fulfillment_workroom_id": {
+      "type": "string",
+      "description": "Reference to FulfillmentWorkrooms ID (optional)"
+    },
+    "executive_report_id": {
+      "type": "string",
+      "description": "Reference to ExecutiveReports ID (optional)"
+    },
+    "growth_opportunity_id": {
+      "type": "string",
+      "description": "Reference to GrowthOpportunities ID (optional)"
+    },
+    "review_title": {
+      "type": "string",
+      "description": "Title of the strategy review"
+    },
+    "review_type": {
+      "type": "string",
+      "enum": [
+        "monthly_review",
+        "quarterly_review",
+        "renewal_review",
+        "risk_review",
+        "upsell_review",
+        "strategy_call"
+      ],
+      "description": "Type of review"
+    },
+    "review_period_label": {
+      "type": "string",
+      "description": "Human-readable period (e.g., 'January 2026' or 'Q1 2026')"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date",
+      "description": "Start date of review period"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date",
+      "description": "End date of review period"
+    },
+    "scheduled_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When the review is/was scheduled"
+    },
+    "completed_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the review was completed"
+    },
+    "assigned_admin_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "scheduled",
+        "ready",
+        "completed",
+        "archived"
+      ],
+      "default": "draft",
+      "description": "Status of the review"
+    },
+    "review_outcome": {
+      "type": "string",
+      "enum": [
+        "continue_current_plan",
+        "renew",
+        "expand_services",
+        "revise_strategy",
+        "rescue_account",
+        "pending_decision"
+      ],
+      "description": "Outcome of the review"
+    },
+    "account_health_status": {
+      "type": "string",
+      "enum": [
+        "healthy",
+        "growing",
+        "at_risk",
+        "needs_attention",
+        "expansion_ready"
+      ],
+      "description": "Account health at time of review"
+    },
+    "renewal_outlook": {
+      "type": "string",
+      "enum": [
+        "strong",
+        "likely",
+        "uncertain",
+        "at_risk"
+      ],
+      "description": "Renewal likelihood"
+    },
+    "expansion_potential": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        "none"
+      ],
+      "description": "Opportunity for service expansion"
+    },
+    "executive_summary": {
+      "type": "string",
+      "description": "High-level summary of the review"
+    },
+    "wins_summary": {
+      "type": "string",
+      "description": "Key wins and achievements"
+    },
+    "challenges_summary": {
+      "type": "string",
+      "description": "Challenges and areas needing improvement"
+    },
+    "recommendations_summary": {
+      "type": "string",
+      "description": "Recommended next actions"
+    },
+    "decisions_summary": {
+      "type": "string",
+      "description": "Decisions made during review"
+    },
+    "next_steps_summary": {
+      "type": "string",
+      "description": "Agreed next steps with owners"
+    },
+    "visible_to_client": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether client can view this review"
+    }
+  },
+  "required": [
+    "company_id",
+    "review_title",
+    "review_type",
+    "review_period_label"
+  ]
+}

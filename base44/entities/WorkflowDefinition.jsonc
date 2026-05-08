@@ -1,0 +1,107 @@
+{
+  "name": "WorkflowDefinition",
+  "type": "object",
+  "properties": {
+    "workflowId": {
+      "type": "string",
+      "description": "Unique workflow identifier (camelCase, e.g. 'clientOnboarding')"
+    },
+    "workflowName": {
+      "type": "string",
+      "description": "Human-readable workflow name"
+    },
+    "workflowCategory": {
+      "type": "string",
+      "enum": [
+        "onboarding",
+        "marketing_execution",
+        "lead_management",
+        "sales_pipeline",
+        "retention",
+        "upgrade_conversion",
+        "content_production",
+        "team_operations"
+      ],
+      "description": "Workflow category"
+    },
+    "description": {
+      "type": "string",
+      "description": "Workflow purpose and business value"
+    },
+    "startTrigger": {
+      "type": "string",
+      "enum": [
+        "subscription_created",
+        "campaign_launched",
+        "lead_qualified",
+        "retention_signal",
+        "engagement_milestone",
+        "manual_trigger",
+        "scheduled_weekly",
+        "scheduled_daily",
+        "api_webhook"
+      ],
+      "description": "What triggers workflow start"
+    },
+    "stages": {
+      "type": "string",
+      "description": "JSON array of workflow stages with order, name, action, duration, gating logic"
+    },
+    "relatedEntities": {
+      "type": "string",
+      "description": "JSON array of entity types involved (e.g. Organization, Campaign, Lead)"
+    },
+    "relatedAgents": {
+      "type": "string",
+      "description": "JSON array of AI agents that participate in workflow"
+    },
+    "automationHooks": {
+      "type": "string",
+      "description": "JSON array of automation rules triggered at each stage"
+    },
+    "successMetrics": {
+      "type": "string",
+      "description": "JSON object defining KPIs (e.g. completion_rate, avg_duration, conversion)"
+    },
+    "avgDurationDays": {
+      "type": "number",
+      "default": 0,
+      "description": "Average duration from start to completion in days"
+    },
+    "activeStatus": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether workflow is currently active"
+    },
+    "executionCount": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of times workflow has been executed"
+    },
+    "completionRate": {
+      "type": "number",
+      "default": 0,
+      "description": "Percentage of completions (0-100)"
+    },
+    "lastExecutedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When workflow last ran"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "lastUpdatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "workflowId",
+    "workflowName",
+    "workflowCategory",
+    "startTrigger",
+    "stages"
+  ]
+}

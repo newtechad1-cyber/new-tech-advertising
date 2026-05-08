@@ -1,0 +1,59 @@
+{
+  "name": "ResellerBillingProfile",
+  "type": "object",
+  "properties": {
+    "reseller_id": {
+      "type": "string",
+      "description": "Reference to ResellerAccount"
+    },
+    "plan_name": {
+      "type": "string",
+      "enum": [
+        "starter",
+        "growth",
+        "enterprise"
+      ],
+      "default": "starter"
+    },
+    "billing_model": {
+      "type": "string",
+      "enum": [
+        "monthly",
+        "annual",
+        "usage_based"
+      ],
+      "default": "monthly"
+    },
+    "monthly_fee": {
+      "type": "number"
+    },
+    "usage_limits_json": {
+      "type": "string",
+      "description": "JSON with client limits, user limits, etc."
+    },
+    "overage_rules_json": {
+      "type": "string",
+      "description": "JSON with overage pricing rules"
+    },
+    "billing_contact": {
+      "type": "string"
+    },
+    "next_bill_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "invoice_status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "sent",
+        "paid",
+        "overdue"
+      ],
+      "default": "draft"
+    }
+  },
+  "required": [
+    "reseller_id"
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "name": "OptimizationOpportunities",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "fulfillment_workroom_id": {
+      "type": "string",
+      "description": "Reference to FulfillmentWorkrooms ID (optional)"
+    },
+    "executive_report_id": {
+      "type": "string",
+      "description": "Reference to ExecutiveReports ID (optional)"
+    },
+    "related_deliverable_id": {
+      "type": "string",
+      "description": "Reference to Deliverables ID (optional)"
+    },
+    "related_growth_opportunity_id": {
+      "type": "string",
+      "description": "Reference to GrowthOpportunities ID (optional)"
+    },
+    "optimization_type": {
+      "type": "string",
+      "enum": [
+        "conversion_optimization",
+        "content_mix_adjustment",
+        "video_expansion",
+        "seo_expansion",
+        "cta_improvement",
+        "approval_bottleneck_reduction",
+        "delivery_pacing_adjustment",
+        "report_followup_gap",
+        "landing_page_need",
+        "campaign_refresh",
+        "audience_targeting_review",
+        "creative_refresh",
+        "workflow_optimization"
+      ],
+      "description": "Type of optimization opportunity"
+    },
+    "title": {
+      "type": "string",
+      "description": "Short title of the opportunity"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the optimization opportunity"
+    },
+    "root_cause_summary": {
+      "type": "string",
+      "description": "Summary of why this opportunity exists (optional)"
+    },
+    "recommendation_summary": {
+      "type": "string",
+      "description": "What should be done to address this opportunity"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium",
+      "description": "Priority level"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "reviewing",
+        "accepted",
+        "in_progress",
+        "completed",
+        "dismissed",
+        "snoozed"
+      ],
+      "default": "new",
+      "description": "Status of the opportunity"
+    },
+    "confidence_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Confidence score 0-100 based on pattern strength"
+    },
+    "impact_potential": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "significant"
+      ],
+      "description": "Potential impact if addressed"
+    },
+    "recommended_service_area": {
+      "type": "string",
+      "description": "Suggested service area or scope (optional)"
+    },
+    "assigned_admin_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID for assigned owner (optional)"
+    },
+    "signals_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of supporting signals"
+    },
+    "last_analyzed_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this opportunity was last re-analyzed"
+    }
+  },
+  "required": [
+    "company_id",
+    "optimization_type",
+    "title",
+    "description",
+    "recommendation_summary",
+    "confidence_score",
+    "impact_potential"
+  ]
+}

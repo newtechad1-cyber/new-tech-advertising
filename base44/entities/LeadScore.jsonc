@@ -1,0 +1,49 @@
+{
+  "name": "LeadScore",
+  "type": "object",
+  "properties": {
+    "lead_id": {
+      "type": "string",
+      "description": "Reference to Lead ID",
+      "unique": true
+    },
+    "company_name": {
+      "type": "string",
+      "description": "Denormalized for display"
+    },
+    "score": {
+      "type": "number",
+      "default": 0
+    },
+    "score_breakdown": {
+      "type": "string",
+      "description": "JSON: {activity_type: points_added}"
+    },
+    "last_activity": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "cold",
+        "warm",
+        "hot"
+      ],
+      "default": "cold"
+    },
+    "hot_notified": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether a hot_lead notification has been created"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "lead_id"
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "name": "AgentHealthSnapshot",
+  "type": "object",
+  "properties": {
+    "agent_key": {
+      "type": "string",
+      "description": "Agent identifier"
+    },
+    "snapshot_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When snapshot was taken"
+    },
+    "queued_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Tasks waiting in queue"
+    },
+    "running_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Currently executing tasks"
+    },
+    "completed_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Tasks completed in period"
+    },
+    "failed_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Tasks failed in period"
+    },
+    "blocked_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Currently blocked tasks"
+    },
+    "avg_completion_time": {
+      "type": "number",
+      "description": "Average completion time in seconds"
+    },
+    "health_status": {
+      "type": "string",
+      "enum": [
+        "healthy",
+        "degraded",
+        "unhealthy",
+        "offline"
+      ],
+      "default": "healthy",
+      "description": "Overall agent health"
+    }
+  },
+  "required": [
+    "agent_key",
+    "snapshot_time"
+  ]
+}

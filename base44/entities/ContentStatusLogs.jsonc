@@ -1,0 +1,47 @@
+{
+  "name": "ContentStatusLogs",
+  "type": "object",
+  "properties": {
+    "school_slug": {
+      "type": "string"
+    },
+    "entity_type": {
+      "type": "string",
+      "enum": [
+        "StudentVideoSubmissions",
+        "Stories",
+        "YearbookPages",
+        "SchoolEvents",
+        "Spotlights",
+        "VideoProjects"
+      ],
+      "description": "Type of entity that changed"
+    },
+    "entity_id": {
+      "type": "string"
+    },
+    "previous_status": {
+      "type": "string"
+    },
+    "new_status": {
+      "type": "string"
+    },
+    "changed_by": {
+      "type": "string",
+      "description": "Email of user who made change"
+    },
+    "change_reason": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "string",
+      "description": "JSON object with additional context"
+    }
+  },
+  "required": [
+    "school_slug",
+    "entity_type",
+    "entity_id",
+    "new_status"
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "name": "ResellerAccounts",
+  "type": "object",
+  "properties": {
+    "reseller_name": {
+      "type": "string",
+      "description": "Reseller business name"
+    },
+    "contact_name": {
+      "type": "string",
+      "description": "Primary contact name"
+    },
+    "contact_email": {
+      "type": "string",
+      "description": "Primary contact email"
+    },
+    "company_website": {
+      "type": "string",
+      "description": "Reseller website (optional)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "pending",
+        "suspended",
+        "inactive"
+      ],
+      "default": "pending",
+      "description": "Account status"
+    },
+    "commission_rate": {
+      "type": "number",
+      "description": "Default commission percentage (e.g. 20 = 20%)"
+    },
+    "commission_model": {
+      "type": "string",
+      "enum": [
+        "revenue_share",
+        "flat_per_client",
+        "tiered"
+      ],
+      "default": "revenue_share",
+      "description": "How commissions are calculated"
+    },
+    "flat_commission_amount": {
+      "type": "number",
+      "description": "Flat amount per client if commission_model is flat_per_client (optional)"
+    },
+    "white_label_enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether white label branding is enabled"
+    },
+    "portal_subdomain": {
+      "type": "string",
+      "description": "Optional subdomain for white label portal"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Internal admin notes (optional)"
+    },
+    "onboarded_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When reseller was onboarded (optional)"
+    }
+  },
+  "required": [
+    "reseller_name",
+    "contact_email",
+    "status",
+    "commission_rate",
+    "commission_model",
+    "white_label_enabled"
+  ]
+}

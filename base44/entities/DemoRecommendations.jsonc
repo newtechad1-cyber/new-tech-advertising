@@ -1,0 +1,39 @@
+{
+  "name": "DemoRecommendations",
+  "type": "object",
+  "properties": {
+    "prospect_id": {
+      "type": "string"
+    },
+    "demo_session_id": {
+      "type": "string"
+    },
+    "recommendation_type": {
+      "type": "string",
+      "enum": [
+        "next_step",
+        "recommended_video",
+        "recommended_plan",
+        "recommended_action"
+      ],
+      "default": "next_step"
+    },
+    "recommendation_text": {
+      "type": "string"
+    },
+    "recommended_asset_id": {
+      "type": "string"
+    },
+    "recommended_path": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "recommendation_type",
+    "active"
+  ]
+}

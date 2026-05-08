@@ -1,0 +1,101 @@
+{
+  "name": "AccessAuditLog",
+  "type": "object",
+  "properties": {
+    "auditId": {
+      "type": "string",
+      "description": "Unique audit event identifier"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the action occurred (IMMUTABLE)"
+    },
+    "userId": {
+      "type": "string",
+      "description": "Who performed the action"
+    },
+    "organizationId": {
+      "type": "string",
+      "description": "Organization context"
+    },
+    "actionType": {
+      "type": "string",
+      "enum": [
+        "role_assigned",
+        "role_revoked",
+        "permission_overridden",
+        "permission_denied",
+        "scope_restricted",
+        "access_denied",
+        "plan_feature_gated",
+        "data_accessed",
+        "sensitive_resource_modified",
+        "user_suspended",
+        "export_performed",
+        "integration_connected"
+      ],
+      "description": "Type of access-related action"
+    },
+    "resourceType": {
+      "type": "string",
+      "description": "Entity type affected (User, Campaign, ContentAsset, etc.)"
+    },
+    "resourceId": {
+      "type": "string",
+      "description": "ID of affected resource"
+    },
+    "targetUserId": {
+      "type": "string",
+      "description": "User being acted upon (if applicable)"
+    },
+    "result": {
+      "type": "string",
+      "enum": [
+        "allowed",
+        "denied",
+        "requires_upgrade",
+        "out_of_scope",
+        "suspended"
+      ],
+      "description": "Result of the action"
+    },
+    "denialReason": {
+      "type": "string",
+      "enum": [
+        "insufficient_role",
+        "insufficient_plan",
+        "out_of_scope",
+        "user_suspended",
+        "permission_denied",
+        "feature_not_available",
+        "limit_exceeded"
+      ],
+      "description": "Why access was denied (if applicable)"
+    },
+    "details": {
+      "type": "string",
+      "description": "JSON object with additional context"
+    },
+    "ipAddress": {
+      "type": "string",
+      "description": "IP address of request"
+    },
+    "userAgent": {
+      "type": "string",
+      "description": "User agent of request"
+    },
+    "isSensitive": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this is a sensitive action requiring elevated review"
+    }
+  },
+  "required": [
+    "auditId",
+    "timestamp",
+    "userId",
+    "actionType",
+    "result"
+  ]
+}

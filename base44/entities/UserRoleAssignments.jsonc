@@ -1,0 +1,40 @@
+{
+  "name": "UserRoleAssignments",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "Reference to Users ID"
+    },
+    "role_id": {
+      "type": "string",
+      "description": "Reference to Roles ID"
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID \u2014 null for platform-wide roles"
+    },
+    "reseller_id": {
+      "type": "string",
+      "description": "Reference to ResellerAccounts ID \u2014 null for non-reseller roles"
+    },
+    "granted_by": {
+      "type": "string",
+      "description": "User email who granted this role"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Optional expiry"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "user_id",
+    "role_id",
+    "active"
+  ]
+}

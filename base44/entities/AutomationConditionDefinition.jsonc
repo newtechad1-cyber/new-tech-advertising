@@ -1,0 +1,44 @@
+{
+  "name": "AutomationConditionDefinition",
+  "type": "object",
+  "properties": {
+    "rule_key": {
+      "type": "string",
+      "description": "Reference to MasterAutomationRule"
+    },
+    "condition_key": {
+      "type": "string",
+      "description": "Condition identifier within rule (e.g., 'approval_is_final')"
+    },
+    "condition_type": {
+      "type": "string",
+      "enum": [
+        "field_equals",
+        "field_contains",
+        "field_range",
+        "status_is",
+        "exists",
+        "custom_logic"
+      ],
+      "description": "Type of condition"
+    },
+    "condition_logic_json": {
+      "type": "string",
+      "description": "JSON: {field, operator, value, custom_fn}"
+    },
+    "priority_order": {
+      "type": "number",
+      "description": "Evaluation order"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is condition active"
+    }
+  },
+  "required": [
+    "rule_key",
+    "condition_key",
+    "condition_type"
+  ]
+}

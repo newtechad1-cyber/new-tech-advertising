@@ -1,0 +1,49 @@
+{
+  "name": "StrategyReviewAgendaItems",
+  "type": "object",
+  "properties": {
+    "strategy_review_id": {
+      "type": "string",
+      "description": "Reference to StrategyReviews ID"
+    },
+    "item_type": {
+      "type": "string",
+      "enum": [
+        "kpi_review",
+        "campaign_review",
+        "deliverables_review",
+        "win",
+        "challenge",
+        "recommendation",
+        "renewal",
+        "upsell",
+        "risk",
+        "next_step"
+      ],
+      "description": "Type of agenda item"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title of the agenda item"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description"
+    },
+    "sort_order": {
+      "type": "number",
+      "description": "Display order in agenda"
+    },
+    "visible_to_client": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether client can see this item"
+    }
+  },
+  "required": [
+    "strategy_review_id",
+    "item_type",
+    "title",
+    "sort_order"
+  ]
+}

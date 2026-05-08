@@ -1,0 +1,81 @@
+{
+  "name": "NtaProject",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Company ID"
+    },
+    "proposal_id": {
+      "type": "string",
+      "description": "Reference to Proposal ID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Project name"
+    },
+    "project_type": {
+      "type": "string",
+      "enum": [
+        "ada_rebuild",
+        "website_rebuild",
+        "streaming_tv",
+        "video_production",
+        "other"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "review",
+        "ready_to_launch",
+        "completed",
+        "on_hold"
+      ],
+      "default": "not_started"
+    },
+    "assigned_to": {
+      "type": "string",
+      "description": "Team member or agent responsible"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "completed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "milestones": {
+      "type": "string",
+      "description": "JSON string of milestone steps and statuses"
+    },
+    "deliverable_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Links to delivered work"
+    },
+    "progress": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "company_id",
+    "name",
+    "project_type"
+  ]
+}

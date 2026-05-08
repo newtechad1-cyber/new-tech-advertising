@@ -1,0 +1,125 @@
+{
+  "name": "VideoDistributionConnection",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "platform_type": {
+      "type": "string",
+      "enum": [
+        "website",
+        "google",
+        "linkedin",
+        "facebook",
+        "instagram",
+        "youtube",
+        "tiktok",
+        "gbp"
+      ]
+    },
+    "connection_name": {
+      "type": "string"
+    },
+    "account_label": {
+      "type": "string"
+    },
+    "page_id_or_channel_id": {
+      "type": "string"
+    },
+    "profile_id": {
+      "type": "string"
+    },
+    "business_account_id": {
+      "type": "string"
+    },
+    "is_connected": {
+      "type": "boolean",
+      "default": false
+    },
+    "connection_status": {
+      "type": "string",
+      "enum": [
+        "connected",
+        "needs_connection",
+        "token_expired",
+        "error",
+        "disabled",
+        "pending_verification",
+        "incomplete"
+      ],
+      "default": "needs_connection"
+    },
+    "token_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "expired",
+        "not_set",
+        "invalid"
+      ],
+      "default": "not_set"
+    },
+    "token_expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "refresh_supported": {
+      "type": "boolean",
+      "default": false
+    },
+    "last_verified_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_sync_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_publish_success_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_publish_error_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_error": {
+      "type": "string"
+    },
+    "reconnect_url_or_action": {
+      "type": "string"
+    },
+    "settings_json": {
+      "type": "string"
+    },
+    "permissions_json": {
+      "type": "string"
+    },
+    "publishing_enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "publishing_priority": {
+      "type": "number",
+      "default": 0
+    },
+    "default_destination": {
+      "type": "boolean",
+      "default": false
+    },
+    "notes": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "platform_type"
+  ]
+}

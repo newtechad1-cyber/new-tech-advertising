@@ -1,0 +1,176 @@
+{
+  "name": "ExecutiveReports",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "fulfillment_workroom_id": {
+      "type": "string",
+      "description": "Reference to FulfillmentWorkrooms ID (optional)"
+    },
+    "report_title": {
+      "type": "string",
+      "description": "Title of the executive report"
+    },
+    "report_period_label": {
+      "type": "string",
+      "description": "Human-readable period label (e.g., 'January 2026' or 'Q1 2026')"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date",
+      "description": "Start date of reporting period"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date",
+      "description": "End date of reporting period"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "ready",
+        "published",
+        "archived"
+      ],
+      "default": "draft",
+      "description": "Workflow status of the report"
+    },
+    "summary_headline": {
+      "type": "string",
+      "description": "One-sentence headline capturing the period's outcome"
+    },
+    "executive_summary": {
+      "type": "string",
+      "description": "2-3 paragraph summary of the period's results and key themes"
+    },
+    "wins_summary": {
+      "type": "string",
+      "description": "Summary of key wins and achievements"
+    },
+    "opportunities_summary": {
+      "type": "string",
+      "description": "Summary of opportunities and areas for improvement"
+    },
+    "next_steps_summary": {
+      "type": "string",
+      "description": "Recommended next steps and focus areas"
+    },
+    "generated_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the report was generated"
+    },
+    "created_by_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional)"
+    },
+    "visible_to_client": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether client can view this report"
+    },
+    "report_url": {
+      "type": "string",
+      "description": "URL to downloadable/shareable report if available"
+    },
+    "leads_total": {
+      "type": "number",
+      "description": "Total leads generated during period"
+    },
+    "calls_total": {
+      "type": "number",
+      "description": "Total calls received during period"
+    },
+    "form_submissions_total": {
+      "type": "number",
+      "description": "Total form submissions during period"
+    },
+    "trial_signups_total": {
+      "type": "number",
+      "description": "Total trial signups during period"
+    },
+    "website_visits_total": {
+      "type": "number",
+      "description": "Total website visits/sessions during period"
+    },
+    "organic_traffic_total": {
+      "type": "number",
+      "description": "Total organic traffic during period"
+    },
+    "direct_traffic_total": {
+      "type": "number",
+      "description": "Total direct traffic during period"
+    },
+    "social_traffic_total": {
+      "type": "number",
+      "description": "Total social media referral traffic during period"
+    },
+    "ad_impressions_total": {
+      "type": "number",
+      "description": "Total ad impressions during period"
+    },
+    "ad_clicks_total": {
+      "type": "number",
+      "description": "Total ad clicks during period"
+    },
+    "ctr_value": {
+      "type": "number",
+      "description": "Click-through rate for ads"
+    },
+    "videos_created_total": {
+      "type": "number",
+      "description": "Total videos created during period"
+    },
+    "videos_published_total": {
+      "type": "number",
+      "description": "Total videos published during period"
+    },
+    "posts_published_total": {
+      "type": "number",
+      "description": "Total social posts published during period"
+    },
+    "pages_published_total": {
+      "type": "number",
+      "description": "Total website pages published during period"
+    },
+    "approvals_completed_total": {
+      "type": "number",
+      "description": "Total client approvals completed during period"
+    },
+    "leads_change_percent": {
+      "type": "number",
+      "description": "Percentage change in leads vs previous period"
+    },
+    "traffic_change_percent": {
+      "type": "number",
+      "description": "Percentage change in traffic vs previous period"
+    },
+    "calls_change_percent": {
+      "type": "number",
+      "description": "Percentage change in calls vs previous period"
+    },
+    "posts_change_percent": {
+      "type": "number",
+      "description": "Percentage change in posts published vs previous period"
+    },
+    "videos_change_percent": {
+      "type": "number",
+      "description": "Percentage change in videos vs previous period"
+    },
+    "conversions_change_percent": {
+      "type": "number",
+      "description": "Percentage change in conversions vs previous period"
+    }
+  },
+  "required": [
+    "company_id",
+    "report_title",
+    "report_period_label",
+    "period_start",
+    "period_end"
+  ]
+}

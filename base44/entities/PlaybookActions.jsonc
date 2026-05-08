@@ -1,0 +1,110 @@
+{
+  "name": "PlaybookActions",
+  "type": "object",
+  "properties": {
+    "success_playbook_id": {
+      "type": "string",
+      "description": "Reference to SuccessPlaybooks ID"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "schedule_call",
+        "create_proposal",
+        "publish_report",
+        "request_approval",
+        "fix_bottleneck",
+        "rescue_outreach",
+        "upsell_followup",
+        "renewal_conversation",
+        "review_results",
+        "launch_campaign",
+        "improve_conversion",
+        "request_testimonial",
+        "gather_assets",
+        "close_open_requests"
+      ],
+      "description": "Type of action"
+    },
+    "title": {
+      "type": "string",
+      "description": "Action title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the action"
+    },
+    "sort_order": {
+      "type": "number",
+      "description": "Display order"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium",
+      "description": "Action priority"
+    },
+    "owner_type": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "client",
+        "shared",
+        "system"
+      ],
+      "description": "Who should own this action"
+    },
+    "owner_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional)"
+    },
+    "visible_to_client": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether client can see this action"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "in_progress",
+        "completed",
+        "blocked",
+        "skipped"
+      ],
+      "default": "pending",
+      "description": "Action status"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When this action should be completed"
+    },
+    "related_task_id": {
+      "type": "string",
+      "description": "Reference to SalesTasks ID (optional)"
+    },
+    "related_proposal_id": {
+      "type": "string",
+      "description": "Reference to Proposals ID (optional)"
+    },
+    "related_review_id": {
+      "type": "string",
+      "description": "Reference to StrategyReviews ID (optional)"
+    }
+  },
+  "required": [
+    "success_playbook_id",
+    "action_type",
+    "title",
+    "description",
+    "sort_order",
+    "priority",
+    "owner_type"
+  ]
+}

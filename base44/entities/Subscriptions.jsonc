@@ -1,0 +1,100 @@
+{
+  "name": "Subscriptions",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "contract_id": {
+      "type": "string",
+      "description": "Reference to Contracts ID"
+    },
+    "plan_id": {
+      "type": "string",
+      "description": "Reference to Plans ID (optional)"
+    },
+    "subscription_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "trialing",
+        "paused",
+        "past_due",
+        "cancelled",
+        "completed"
+      ],
+      "default": "active",
+      "description": "Subscription status"
+    },
+    "billing_status": {
+      "type": "string",
+      "enum": [
+        "current",
+        "pending",
+        "overdue",
+        "error",
+        "cancelled"
+      ],
+      "default": "current",
+      "description": "Billing status"
+    },
+    "current_period_start": {
+      "type": "string",
+      "format": "date",
+      "description": "Current period start"
+    },
+    "current_period_end": {
+      "type": "string",
+      "format": "date",
+      "description": "Current period end"
+    },
+    "next_invoice_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Next invoice date (optional)"
+    },
+    "recurring_amount": {
+      "type": "number",
+      "description": "Recurring amount (optional)"
+    },
+    "setup_amount": {
+      "type": "number",
+      "description": "Setup amount (optional)"
+    },
+    "last_billed_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Last billed date (optional)"
+    },
+    "paused_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When paused (optional)"
+    },
+    "cancelled_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When cancelled (optional)"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether subscription is active"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_id",
+    "contract_id",
+    "subscription_status",
+    "billing_status",
+    "current_period_start",
+    "current_period_end",
+    "active"
+  ]
+}

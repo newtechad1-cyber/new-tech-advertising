@@ -1,0 +1,29 @@
+{
+  "name": "SalesEvents",
+  "type": "object",
+  "properties": {
+    "prospect_id": {
+      "type": "string"
+    },
+    "session_id": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string"
+    },
+    "page_path": {
+      "type": "string"
+    },
+    "metadata_json": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "event_type",
+    "created_at"
+  ]
+}

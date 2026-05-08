@@ -1,0 +1,66 @@
+{
+  "name": "SalesFollowups",
+  "type": "object",
+  "properties": {
+    "prospect_id": {
+      "type": "string"
+    },
+    "followup_type": {
+      "type": "string",
+      "enum": [
+        "email",
+        "sms",
+        "internal_alert"
+      ],
+      "default": "email"
+    },
+    "sequence_step": {
+      "type": "number",
+      "default": 1
+    },
+    "subject_line": {
+      "type": "string"
+    },
+    "message_body": {
+      "type": "string"
+    },
+    "scheduled_for": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sent_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "sent",
+        "opened",
+        "clicked",
+        "replied",
+        "failed",
+        "canceled"
+      ],
+      "default": "pending"
+    },
+    "opened": {
+      "type": "boolean",
+      "default": false
+    },
+    "clicked": {
+      "type": "boolean",
+      "default": false
+    },
+    "replied": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "prospect_id",
+    "followup_type",
+    "status"
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "name": "YouTubeConnectionProfile",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string"
+    },
+    "google_account_name": {
+      "type": "string"
+    },
+    "google_account_email": {
+      "type": "string"
+    },
+    "youtube_channel_name": {
+      "type": "string"
+    },
+    "youtube_channel_id": {
+      "type": "string"
+    },
+    "youtube_handle": {
+      "type": "string"
+    },
+    "youtube_channel_selected": {
+      "type": "boolean",
+      "default": false
+    },
+    "upload_access_verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "publish_permissions_ok": {
+      "type": "boolean",
+      "default": false
+    },
+    "shorts_publish_supported": {
+      "type": "boolean",
+      "default": false
+    },
+    "standard_video_publish_supported": {
+      "type": "boolean",
+      "default": false
+    },
+    "token_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "expired",
+        "not_set",
+        "invalid"
+      ],
+      "default": "not_set"
+    },
+    "token_expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "permissions_json": {
+      "type": "string"
+    },
+    "default_visibility": {
+      "type": "string",
+      "enum": [
+        "public",
+        "unlisted",
+        "private"
+      ],
+      "default": "private"
+    },
+    "default_category": {
+      "type": "string",
+      "default": "22"
+    },
+    "default_audience_setting": {
+      "type": "string",
+      "enum": [
+        "not_for_kids",
+        "for_kids"
+      ],
+      "default": "not_for_kids"
+    },
+    "auto_publish_shorts": {
+      "type": "boolean",
+      "default": false
+    },
+    "allow_scheduled_publishing": {
+      "type": "boolean",
+      "default": true
+    },
+    "append_branded_footer": {
+      "type": "boolean",
+      "default": false
+    },
+    "readiness_status": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "partially_ready",
+        "blocked",
+        "needs_connection",
+        "token_expired",
+        "connected_but_incomplete",
+        "error"
+      ],
+      "default": "needs_connection"
+    },
+    "readiness_score": {
+      "type": "number",
+      "default": 0
+    },
+    "last_verified_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_error": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": []
+}

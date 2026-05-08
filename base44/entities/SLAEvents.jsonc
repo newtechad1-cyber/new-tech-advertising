@@ -1,0 +1,103 @@
+{
+  "name": "SLAEvents",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID (optional)"
+    },
+    "user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional)"
+    },
+    "sla_rule_id": {
+      "type": "string",
+      "description": "Reference to SLARules ID"
+    },
+    "related_entity_type": {
+      "type": "string",
+      "description": "Type of related entity"
+    },
+    "related_entity_id": {
+      "type": "string",
+      "description": "ID of related entity"
+    },
+    "related_workroom_id": {
+      "type": "string",
+      "description": "Reference to workroom if applicable"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "response_due",
+        "response_breached",
+        "task_overdue",
+        "approval_blocked",
+        "delivery_missed",
+        "report_late",
+        "review_late",
+        "inactivity_breach",
+        "followup_late"
+      ],
+      "description": "Type of SLA event"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "description": "Severity level"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "breached",
+        "resolved",
+        "dismissed"
+      ],
+      "default": "active",
+      "description": "Event status"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the SLA clock started"
+    },
+    "due_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the deadline is"
+    },
+    "breached_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the SLA was breached"
+    },
+    "resolved_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the issue was resolved"
+    },
+    "duration_hours": {
+      "type": "number",
+      "description": "Total duration in hours (if resolved)"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes about the event"
+    }
+  },
+  "required": [
+    "sla_rule_id",
+    "related_entity_type",
+    "related_entity_id",
+    "event_type",
+    "severity",
+    "status",
+    "started_at"
+  ]
+}

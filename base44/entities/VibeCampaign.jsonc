@@ -1,0 +1,81 @@
+{
+  "name": "VibeCampaign",
+  "type": "object",
+  "properties": {
+    "advertiser_id": {
+      "type": "string",
+      "description": "Vibe.co advertiser ID"
+    },
+    "campaign_id": {
+      "type": "string",
+      "description": "Vibe.co campaign ID"
+    },
+    "campaign_name": {
+      "type": "string",
+      "description": "Name of the campaign"
+    },
+    "client_name": {
+      "type": "string",
+      "description": "Client business name for this campaign"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused",
+        "completed",
+        "draft"
+      ],
+      "default": "active",
+      "description": "Campaign status"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Campaign start date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Campaign end date"
+    },
+    "budget": {
+      "type": "number",
+      "description": "Total campaign budget in dollars"
+    },
+    "monthly_spend": {
+      "type": "number",
+      "description": "Monthly ad spend"
+    },
+    "notes": {
+      "type": "string",
+      "format": "long-text",
+      "description": "Internal notes"
+    },
+    "last_synced_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last time analytics were synced from Vibe"
+    },
+    "cached_impressions": {
+      "type": "number",
+      "description": "Cached total impressions from last sync"
+    },
+    "cached_reach": {
+      "type": "number",
+      "description": "Cached unique households reached"
+    },
+    "cached_spend": {
+      "type": "number",
+      "description": "Cached total spend"
+    },
+    "cached_cpm": {
+      "type": "number",
+      "description": "Cached average CPM"
+    }
+  },
+  "required": [
+    "campaign_name",
+    "advertiser_id"
+  ]
+}

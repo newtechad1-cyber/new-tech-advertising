@@ -1,0 +1,53 @@
+{
+  "name": "UserAccount",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Company ID"
+    },
+    "email": {
+      "type": "string",
+      "description": "Login email address"
+    },
+    "full_name": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "owner",
+        "team_member",
+        "viewer"
+      ],
+      "default": "owner"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "invited",
+        "suspended",
+        "deactivated"
+      ],
+      "default": "invited"
+    },
+    "last_login": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "invited_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_id",
+    "email"
+  ]
+}

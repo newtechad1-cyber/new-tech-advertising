@@ -1,0 +1,105 @@
+{
+  "name": "Messages",
+  "type": "object",
+  "properties": {
+    "thread_id": {
+      "type": "string",
+      "description": "Reference to MessageThreads ID"
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "sender_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional for system messages)"
+    },
+    "sender_type": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "client",
+        "system"
+      ],
+      "description": "Who sent the message"
+    },
+    "message_type": {
+      "type": "string",
+      "enum": [
+        "note",
+        "question",
+        "approval_request",
+        "approval_response",
+        "review_recap",
+        "proposal_followup",
+        "support_reply",
+        "status_update",
+        "change_request",
+        "reminder",
+        "alert_summary"
+      ],
+      "description": "Type of message"
+    },
+    "subject": {
+      "type": "string",
+      "description": "Message subject (optional)"
+    },
+    "message_body": {
+      "type": "string",
+      "description": "Full message content"
+    },
+    "internal_only": {
+      "type": "boolean",
+      "default": false,
+      "description": "Visible to admins only"
+    },
+    "visible_to_client": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether client can see this message"
+    },
+    "requires_response": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this message requires a reply"
+    },
+    "response_due_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When a response is due"
+    },
+    "read_by_client": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether client has read this message"
+    },
+    "read_by_admin": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether admin has read this message"
+    },
+    "related_deliverable_id": {
+      "type": "string",
+      "description": "Reference to Deliverables ID (optional)"
+    },
+    "related_task_id": {
+      "type": "string",
+      "description": "Reference to SalesTasks ID (optional)"
+    },
+    "related_proposal_id": {
+      "type": "string",
+      "description": "Reference to Proposals ID (optional)"
+    },
+    "related_review_id": {
+      "type": "string",
+      "description": "Reference to StrategyReviews ID (optional)"
+    }
+  },
+  "required": [
+    "thread_id",
+    "company_id",
+    "sender_type",
+    "message_type",
+    "message_body"
+  ]
+}

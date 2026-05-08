@@ -1,0 +1,463 @@
+{
+  "name": "VideoRequests",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "request_type": {
+      "type": "string",
+      "enum": [
+        "sales_demo",
+        "feature_explainer",
+        "industry_promo",
+        "offer_ad",
+        "onboarding",
+        "case_study",
+        "support",
+        "social_post_video",
+        "website_hero",
+        "faq"
+      ],
+      "default": "feature_explainer"
+    },
+    "goal": {
+      "type": "string"
+    },
+    "business_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "brand_profile_id": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "audience": {
+      "type": "string"
+    },
+    "offer": {
+      "type": "string"
+    },
+    "cta": {
+      "type": "string"
+    },
+    "script_mode": {
+      "type": "string",
+      "enum": [
+        "template",
+        "custom_prompt",
+        "blog_to_video",
+        "page_to_video",
+        "case_study_to_video",
+        "sales_library",
+        "knowledge_base"
+      ],
+      "default": "template"
+    },
+    "video_format": {
+      "type": "string",
+      "enum": [
+        "avatar",
+        "motion_promo",
+        "screen_demo",
+        "hybrid"
+      ],
+      "default": "hybrid"
+    },
+    "orientation": {
+      "type": "string",
+      "enum": [
+        "landscape",
+        "square",
+        "vertical"
+      ],
+      "default": "landscape"
+    },
+    "duration_target": {
+      "type": "string"
+    },
+    "avatar_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "voice_style": {
+      "type": "string"
+    },
+    "platform_destination": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "queued",
+        "script_ready",
+        "assets_ready",
+        "rendering",
+        "review",
+        "approved",
+        "published",
+        "failed",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "high",
+        "normal",
+        "low"
+      ],
+      "default": "normal"
+    },
+    "requested_by": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "script": {
+      "type": "string"
+    },
+    "shotlist": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string"
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": [
+        "Pending",
+        "Approved",
+        "Changes Requested"
+      ],
+      "default": "Pending"
+    },
+    "render_output_url": {
+      "type": "string"
+    },
+    "render_job_id": {
+      "type": "string"
+    },
+    "final_video": {
+      "type": "string"
+    },
+    "thumbnail_url": {
+      "type": "string"
+    },
+    "source_file_url": {
+      "type": "string"
+    },
+    "processing_status": {
+      "type": "string",
+      "enum": [
+        "uploaded",
+        "processing",
+        "branding_pending",
+        "rendering",
+        "ready_for_review",
+        "approved",
+        "scheduled",
+        "publishing",
+        "published",
+        "needs_changes",
+        "rejected",
+        "failed"
+      ],
+      "default": "uploaded"
+    },
+    "transcript_text": {
+      "type": "string"
+    },
+    "transcript_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "running",
+        "completed",
+        "failed"
+      ],
+      "default": "not_started"
+    },
+    "captions_json": {
+      "type": "string"
+    },
+    "caption_style": {
+      "type": "string",
+      "enum": [
+        "clean_minimal",
+        "bold_social",
+        "news_broadcast",
+        "promo_highlight"
+      ],
+      "default": "clean_minimal"
+    },
+    "caption_position": {
+      "type": "string",
+      "enum": [
+        "bottom",
+        "center",
+        "top"
+      ],
+      "default": "bottom"
+    },
+    "caption_size": {
+      "type": "string",
+      "enum": [
+        "small",
+        "medium",
+        "large"
+      ],
+      "default": "medium"
+    },
+    "caption_animation": {
+      "type": "string",
+      "enum": [
+        "none",
+        "word_by_word",
+        "line_fade",
+        "pop_in"
+      ],
+      "default": "none"
+    },
+    "captions_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "running",
+        "completed",
+        "failed"
+      ],
+      "default": "not_started"
+    },
+    "brand_name": {
+      "type": "string"
+    },
+    "tagline": {
+      "type": "string"
+    },
+    "primary_color": {
+      "type": "string"
+    },
+    "secondary_color": {
+      "type": "string"
+    },
+    "website_url": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "cta_text": {
+      "type": "string"
+    },
+    "primary_logo_url": {
+      "type": "string"
+    },
+    "secondary_logo_url": {
+      "type": "string"
+    },
+    "watermark_logo_url": {
+      "type": "string"
+    },
+    "intro_image_url": {
+      "type": "string"
+    },
+    "outro_image_url": {
+      "type": "string"
+    },
+    "branding_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "saved",
+        "applied"
+      ],
+      "default": "not_started"
+    },
+    "show_watermark": {
+      "type": "boolean",
+      "default": true
+    },
+    "show_lower_third": {
+      "type": "boolean",
+      "default": false
+    },
+    "show_closing_cta": {
+      "type": "boolean",
+      "default": false
+    },
+    "show_website": {
+      "type": "boolean",
+      "default": true
+    },
+    "show_phone": {
+      "type": "boolean",
+      "default": false
+    },
+    "show_cta_banner": {
+      "type": "boolean",
+      "default": false
+    },
+    "logo_position": {
+      "type": "string",
+      "enum": [
+        "top_left",
+        "top_right",
+        "bottom_left",
+        "bottom_right"
+      ],
+      "default": "top_right"
+    },
+    "logo_opacity": {
+      "type": "number",
+      "default": 80
+    },
+    "export_landscape": {
+      "type": "boolean",
+      "default": true
+    },
+    "export_square": {
+      "type": "boolean",
+      "default": false
+    },
+    "export_vertical": {
+      "type": "boolean",
+      "default": false
+    },
+    "render_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "queued",
+        "rendering",
+        "completed",
+        "failed"
+      ],
+      "default": "not_started"
+    },
+    "review_status": {
+      "type": "string",
+      "enum": [
+        "not_submitted",
+        "pending_review",
+        "in_review",
+        "approved",
+        "needs_changes",
+        "rejected"
+      ],
+      "default": "not_submitted"
+    },
+    "review_notes": {
+      "type": "string"
+    },
+    "reviewed_by": {
+      "type": "string"
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "rejected_by": {
+      "type": "string"
+    },
+    "rejected_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "changes_requested_by": {
+      "type": "string"
+    },
+    "changes_requested_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scheduled_publish_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "publish_immediately": {
+      "type": "boolean",
+      "default": false
+    },
+    "approval_mode": {
+      "type": "string",
+      "enum": [
+        "admin_only",
+        "client_only",
+        "admin_or_client"
+      ],
+      "default": "admin_only"
+    },
+    "website_publish_enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "facebook_publish_enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "instagram_publish_enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "youtube_publish_enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "tiktok_publish_enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "gbp_publish_enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "website_title": {
+      "type": "string"
+    },
+    "website_summary": {
+      "type": "string"
+    },
+    "website_body": {
+      "type": "string"
+    },
+    "facebook_caption": {
+      "type": "string"
+    },
+    "instagram_caption": {
+      "type": "string"
+    },
+    "youtube_title": {
+      "type": "string"
+    },
+    "youtube_description": {
+      "type": "string"
+    },
+    "tiktok_caption": {
+      "type": "string"
+    },
+    "gbp_post_text": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "request_type",
+    "status"
+  ]
+}

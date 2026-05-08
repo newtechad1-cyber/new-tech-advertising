@@ -1,0 +1,58 @@
+{
+  "name": "Tool",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string",
+      "description": "e.g. tv-commercial-script-generator"
+    },
+    "description": {
+      "type": "string"
+    },
+    "tool_type": {
+      "type": "string",
+      "enum": [
+        "generator",
+        "calculator",
+        "checker",
+        "planner",
+        "analyzer"
+      ]
+    },
+    "input_schema": {
+      "type": "string",
+      "description": "JSON string describing input fields"
+    },
+    "output_schema": {
+      "type": "string",
+      "description": "JSON string describing output structure"
+    },
+    "cta_after_use": {
+      "type": "string",
+      "description": "CTAOffer ID shown after tool use"
+    },
+    "related_cluster": {
+      "type": "string",
+      "description": "TopicCluster ID"
+    },
+    "related_pages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Page IDs"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "name",
+    "slug",
+    "tool_type"
+  ]
+}

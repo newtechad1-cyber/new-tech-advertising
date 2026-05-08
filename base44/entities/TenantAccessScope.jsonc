@@ -1,0 +1,47 @@
+{
+  "name": "TenantAccessScope",
+  "type": "object",
+  "properties": {
+    "role_key": {
+      "type": "string",
+      "description": "Reference to MasterRoleDefinition"
+    },
+    "tenant_level": {
+      "type": "string",
+      "enum": [
+        "global",
+        "agency",
+        "reseller",
+        "client",
+        "school",
+        "none"
+      ],
+      "description": "Tenant scope level"
+    },
+    "access_depth": {
+      "type": "string",
+      "enum": [
+        "full_access",
+        "parent_only",
+        "sibling_only",
+        "self_only",
+        "restricted"
+      ],
+      "description": "Access depth"
+    },
+    "data_visibility_rules_json": {
+      "type": "string",
+      "description": "JSON: visibility rules {can_see_parent, can_see_siblings, can_see_children, can_see_own_only, field_level_restrictions}"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is scope active"
+    }
+  },
+  "required": [
+    "role_key",
+    "tenant_level",
+    "access_depth"
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "name": "CalendarImportTemplate",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Human-friendly template name"
+    },
+    "template_slug": {
+      "type": "string",
+      "description": "Unique identifier slug",
+      "unique": true
+    },
+    "target_system": {
+      "type": "string",
+      "enum": [
+        "Base44 Posting Calendar",
+        "external_system"
+      ],
+      "description": "System this template targets"
+    },
+    "file_format": {
+      "type": "string",
+      "enum": [
+        "csv",
+        "json",
+        "xlsx"
+      ],
+      "default": "csv"
+    },
+    "column_schema": {
+      "type": "string",
+      "description": "JSON string defining canonical column order and names"
+    },
+    "column_mapping": {
+      "type": "string",
+      "description": "JSON object mapping CSV columns to SocialPost/Calendar fields"
+    },
+    "required_columns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Columns that must be present in import"
+    },
+    "default_values": {
+      "type": "string",
+      "description": "JSON object of default values for missing fields"
+    },
+    "validation_rules": {
+      "type": "string",
+      "description": "JSON object defining validation constraints"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "name",
+    "template_slug",
+    "target_system",
+    "file_format"
+  ]
+}

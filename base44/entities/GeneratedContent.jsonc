@@ -1,0 +1,67 @@
+{
+  "name": "GeneratedContent",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "blog",
+        "landing_page",
+        "video_script",
+        "social_series",
+        "email_sequence"
+      ]
+    },
+    "topic_id": {
+      "type": "string",
+      "description": "Reference to ContentTopics ID"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "target_city": {
+      "type": "string"
+    },
+    "keyword": {
+      "type": "string"
+    },
+    "content_text": {
+      "type": "string",
+      "description": "Full generated content body"
+    },
+    "word_count": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "review",
+        "approved",
+        "published",
+        "rejected"
+      ],
+      "default": "draft"
+    },
+    "assigned_to": {
+      "type": "string",
+      "description": "User email for review assignment"
+    },
+    "published_url": {
+      "type": "string"
+    },
+    "seo_score": {
+      "type": "number",
+      "description": "0-100 SEO quality score"
+    }
+  },
+  "required": [
+    "title",
+    "content_type",
+    "topic_id",
+    "status"
+  ]
+}

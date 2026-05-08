@@ -1,0 +1,81 @@
+{
+  "name": "StudentUsers",
+  "type": "object",
+  "properties": {
+    "school_slug": {
+      "type": "string",
+      "description": "School identifier - ties student to specific school"
+    },
+    "full_name": {
+      "type": "string",
+      "description": "Student's full name"
+    },
+    "email": {
+      "type": "string",
+      "description": "Student's school email"
+    },
+    "grade": {
+      "type": "string",
+      "enum": [
+        "9",
+        "10",
+        "11",
+        "12",
+        "faculty",
+        "other"
+      ],
+      "description": "Grade level"
+    },
+    "team_or_club": {
+      "type": "string",
+      "description": "Team, club, or class affiliation"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "student",
+        "contributor",
+        "athlete",
+        "club_member"
+      ],
+      "default": "student",
+      "description": "Student role type"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether student account is active"
+    },
+    "can_upload": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether student can submit uploads"
+    },
+    "last_login_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "auth_pin": {
+      "type": "string",
+      "description": "Optional PIN for school-scoped access (encrypted)"
+    },
+    "access_code": {
+      "type": "string",
+      "description": "Unique access code for this student (generated)"
+    },
+    "suspended_until": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Optional suspension end date"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Admin notes about this student"
+    }
+  },
+  "required": [
+    "school_slug",
+    "full_name",
+    "email"
+  ]
+}

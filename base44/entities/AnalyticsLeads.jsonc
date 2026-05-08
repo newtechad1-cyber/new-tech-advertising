@@ -1,0 +1,65 @@
+{
+  "name": "AnalyticsLeads",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID \u2014 required"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "period": {
+      "type": "string",
+      "enum": [
+        "daily",
+        "weekly",
+        "monthly"
+      ],
+      "default": "monthly"
+    },
+    "total_leads": {
+      "type": "number"
+    },
+    "leads_from_organic": {
+      "type": "number"
+    },
+    "leads_from_social": {
+      "type": "number"
+    },
+    "leads_from_referral": {
+      "type": "number"
+    },
+    "leads_from_paid": {
+      "type": "number"
+    },
+    "leads_from_direct": {
+      "type": "number"
+    },
+    "leads_contacted": {
+      "type": "number"
+    },
+    "leads_qualified": {
+      "type": "number"
+    },
+    "leads_converted": {
+      "type": "number"
+    },
+    "conversion_rate": {
+      "type": "number",
+      "description": "Percentage"
+    },
+    "cost_per_lead": {
+      "type": "number"
+    },
+    "revenue_from_leads": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "company_id",
+    "date",
+    "period"
+  ]
+}

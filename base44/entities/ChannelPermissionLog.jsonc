@@ -1,0 +1,36 @@
+{
+  "name": "ChannelPermissionLog",
+  "type": "object",
+  "properties": {
+    "channel_connection_id": {
+      "type": "string"
+    },
+    "platform": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "connected",
+        "disconnected",
+        "permission_error",
+        "token_expired",
+        "token_refreshed",
+        "account_mismatch",
+        "api_failure",
+        "reconnected"
+      ]
+    },
+    "details": {
+      "type": "string"
+    },
+    "resolved": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "platform",
+    "event_type"
+  ]
+}

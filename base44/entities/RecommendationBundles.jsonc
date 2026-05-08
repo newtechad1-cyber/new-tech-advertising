@@ -1,0 +1,68 @@
+{
+  "name": "RecommendationBundles",
+  "type": "object",
+  "properties": {
+    "bundle_name": {
+      "type": "string",
+      "description": "Name of the bundle (e.g., 'Owner Queue - March 8')"
+    },
+    "bundle_type": {
+      "type": "string",
+      "enum": [
+        "owner_queue",
+        "account_queue",
+        "sales_queue",
+        "operations_queue",
+        "fulfillment_queue",
+        "review_queue",
+        "daily_focus",
+        "weekly_focus"
+      ],
+      "description": "Type of bundle"
+    },
+    "role_target": {
+      "type": "string",
+      "enum": [
+        "owner",
+        "admin",
+        "client_success",
+        "fulfillment",
+        "sales",
+        "operations",
+        "shared"
+      ],
+      "description": "Primary role this bundle targets"
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID (optional, for account-specific bundles)"
+    },
+    "summary": {
+      "type": "string",
+      "description": "High-level summary of bundle contents"
+    },
+    "priority_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Aggregate priority of bundle"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived",
+        "superseded"
+      ],
+      "default": "active",
+      "description": "Status of the bundle"
+    }
+  },
+  "required": [
+    "bundle_name",
+    "bundle_type",
+    "role_target",
+    "summary",
+    "priority_score"
+  ]
+}

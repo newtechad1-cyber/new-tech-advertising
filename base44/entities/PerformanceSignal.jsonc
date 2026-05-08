@@ -1,0 +1,216 @@
+{
+  "name": "PerformanceSignal",
+  "type": "object",
+  "properties": {
+    "business_profile_id": {
+      "type": "string",
+      "description": "Reference to BusinessProfile ID"
+    },
+    "signal_type": {
+      "type": "string",
+      "enum": [
+        "content_performance",
+        "video_performance",
+        "campaign_performance",
+        "offer_performance",
+        "seo_performance",
+        "social_performance",
+        "email_performance",
+        "lead_performance",
+        "sales_performance"
+      ]
+    },
+    "signal_category": {
+      "type": "string",
+      "enum": [
+        "content",
+        "video",
+        "campaign",
+        "offer",
+        "seo",
+        "social",
+        "email",
+        "crm"
+      ]
+    },
+    "source_system": {
+      "type": "string"
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "industry_slug": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "campaign_type": {
+      "type": "string",
+      "enum": [
+        "social_campaign",
+        "email_campaign",
+        "seo_campaign",
+        "streaming_tv_campaign",
+        "paid_ads_campaign",
+        "review_campaign",
+        "offer_campaign",
+        "content_campaign"
+      ]
+    },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "pillar",
+        "article",
+        "problem_page",
+        "playbook",
+        "resource",
+        "landing_page",
+        "tool_page",
+        "video_page",
+        "social_post"
+      ]
+    },
+    "video_type": {
+      "type": "string",
+      "enum": [
+        "short_social_video",
+        "explainer_video",
+        "avatar_video",
+        "streaming_tv_ad",
+        "website_video",
+        "demo_video"
+      ]
+    },
+    "offer_type": {
+      "type": "string",
+      "enum": [
+        "discount",
+        "seasonal_special",
+        "free_estimate",
+        "free_consultation",
+        "free_trial",
+        "lead_magnet",
+        "bundle_offer"
+      ]
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "website",
+        "facebook",
+        "instagram",
+        "linkedin",
+        "youtube",
+        "email",
+        "streaming_tv",
+        "google_business_profile"
+      ]
+    },
+    "topic": {
+      "type": "string"
+    },
+    "keyword_target": {
+      "type": "string"
+    },
+    "cta_type": {
+      "type": "string"
+    },
+    "impressions": {
+      "type": "number",
+      "default": 0
+    },
+    "clicks": {
+      "type": "number",
+      "default": 0
+    },
+    "engagements": {
+      "type": "number",
+      "default": 0
+    },
+    "video_views": {
+      "type": "number",
+      "default": 0
+    },
+    "watch_time": {
+      "type": "number",
+      "default": 0
+    },
+    "form_submissions": {
+      "type": "number",
+      "default": 0
+    },
+    "calls": {
+      "type": "number",
+      "default": 0
+    },
+    "leads": {
+      "type": "number",
+      "default": 0
+    },
+    "appointments": {
+      "type": "number",
+      "default": 0
+    },
+    "sales": {
+      "type": "number",
+      "default": 0
+    },
+    "revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "conversion_rate": {
+      "type": "number",
+      "default": 0
+    },
+    "cost": {
+      "type": "number",
+      "default": 0
+    },
+    "cost_per_lead": {
+      "type": "number",
+      "default": 0
+    },
+    "attribution_confidence": {
+      "type": "number",
+      "default": 50
+    },
+    "signal_confidence_score": {
+      "type": "number",
+      "default": 50
+    },
+    "source_state": {
+      "type": "string",
+      "enum": [
+        "assumed",
+        "inferred",
+        "observed",
+        "proven"
+      ],
+      "default": "observed"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "business_profile_id",
+    "signal_type",
+    "signal_category",
+    "recorded_at"
+  ]
+}

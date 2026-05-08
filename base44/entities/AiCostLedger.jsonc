@@ -1,0 +1,41 @@
+{
+  "name": "AiCostLedger",
+  "type": "object",
+  "properties": {
+    "account_id": {
+      "type": "string"
+    },
+    "task_id": {
+      "type": "string"
+    },
+    "agent_key": {
+      "type": "string",
+      "description": "Includes attempt label, e.g. NTA_Agent:attempt1, NTA_Agent:repair"
+    },
+    "model": {
+      "type": "string"
+    },
+    "input_tokens": {
+      "type": "integer",
+      "default": 0
+    },
+    "output_tokens": {
+      "type": "integer",
+      "default": 0
+    },
+    "cost_cents": {
+      "type": "integer",
+      "default": 0
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "account_id",
+    "agent_key",
+    "cost_cents"
+  ]
+}

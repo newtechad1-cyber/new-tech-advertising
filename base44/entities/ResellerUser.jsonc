@@ -1,0 +1,49 @@
+{
+  "name": "ResellerUser",
+  "type": "object",
+  "properties": {
+    "reseller_id": {
+      "type": "string",
+      "description": "Reference to ResellerAccount"
+    },
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "owner",
+        "admin",
+        "sales",
+        "content_manager",
+        "support",
+        "analyst"
+      ],
+      "default": "analyst"
+    },
+    "permissions_json": {
+      "type": "string",
+      "description": "JSON array of permission strings"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "invited",
+        "active",
+        "suspended"
+      ],
+      "default": "invited"
+    },
+    "last_login_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "reseller_id",
+    "email"
+  ]
+}

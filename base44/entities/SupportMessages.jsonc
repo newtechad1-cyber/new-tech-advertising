@@ -1,0 +1,51 @@
+{
+  "name": "SupportMessages",
+  "type": "object",
+  "properties": {
+    "ticket_id": {
+      "type": "string",
+      "description": "Reference to SupportTickets ID"
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID"
+    },
+    "sender_email": {
+      "type": "string"
+    },
+    "sender_role": {
+      "type": "string",
+      "enum": [
+        "client",
+        "agent",
+        "system"
+      ],
+      "default": "client"
+    },
+    "message": {
+      "type": "string"
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Array of file URLs"
+    },
+    "is_internal_note": {
+      "type": "boolean",
+      "default": false
+    },
+    "sent_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "ticket_id",
+    "company_id",
+    "sender_email",
+    "message",
+    "sent_at"
+  ]
+}

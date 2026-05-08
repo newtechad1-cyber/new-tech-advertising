@@ -1,0 +1,70 @@
+{
+  "name": "ResellerBrandProfile",
+  "type": "object",
+  "properties": {
+    "reseller_id": {
+      "type": "string",
+      "description": "Reference to ResellerAccount"
+    },
+    "brand_name": {
+      "type": "string"
+    },
+    "logo_url": {
+      "type": "string"
+    },
+    "icon_url": {
+      "type": "string"
+    },
+    "primary_color": {
+      "type": "string"
+    },
+    "secondary_color": {
+      "type": "string"
+    },
+    "accent_color": {
+      "type": "string"
+    },
+    "font_preference": {
+      "type": "string",
+      "enum": [
+        "system",
+        "inter",
+        "poppins",
+        "dm-sans"
+      ],
+      "default": "system"
+    },
+    "support_email": {
+      "type": "string"
+    },
+    "support_phone": {
+      "type": "string"
+    },
+    "footer_text": {
+      "type": "string"
+    },
+    "login_page_title": {
+      "type": "string"
+    },
+    "portal_welcome_message": {
+      "type": "string"
+    },
+    "email_header_text": {
+      "type": "string"
+    },
+    "email_footer_text": {
+      "type": "string"
+    },
+    "custom_css_json": {
+      "type": "string",
+      "description": "Custom CSS overrides"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "reseller_id"
+  ]
+}

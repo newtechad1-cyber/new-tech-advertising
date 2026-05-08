@@ -1,0 +1,32 @@
+{
+  "name": "PortfolioItem",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Title or name of the website project"
+    },
+    "website_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Full URL of the live website"
+    },
+    "screenshot_url": {
+      "type": "string",
+      "description": "URL of the screenshot image for the website"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of the project and your involvement"
+    },
+    "industry": {
+      "type": "string",
+      "description": "Industry of the client"
+    }
+  },
+  "required": [
+    "title",
+    "website_url",
+    "screenshot_url"
+  ]
+}

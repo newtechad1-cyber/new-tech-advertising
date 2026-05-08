@@ -1,0 +1,51 @@
+{
+  "name": "ReportingSchedule",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies"
+    },
+    "frequency": {
+      "type": "string",
+      "enum": [
+        "weekly",
+        "monthly",
+        "quarterly"
+      ],
+      "default": "monthly"
+    },
+    "send_day": {
+      "type": "number",
+      "description": "Day of month (1-31) or day of week (0-6)"
+    },
+    "send_time": {
+      "type": "string",
+      "description": "Time in HH:MM format"
+    },
+    "timezone": {
+      "type": "string",
+      "default": "America/Chicago"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    },
+    "last_generated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "next_generation": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "report_recipients": {
+      "type": "string",
+      "description": "Comma-separated emails"
+    }
+  },
+  "required": [
+    "company_id",
+    "frequency"
+  ]
+}

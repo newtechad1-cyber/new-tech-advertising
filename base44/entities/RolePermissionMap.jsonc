@@ -1,0 +1,44 @@
+{
+  "name": "RolePermissionMap",
+  "type": "object",
+  "properties": {
+    "mapId": {
+      "type": "string",
+      "description": "Unique identifier"
+    },
+    "roleKey": {
+      "type": "string",
+      "description": "Foreign key to RoleDefinition"
+    },
+    "permissionKey": {
+      "type": "string",
+      "description": "Foreign key to PermissionDefinition"
+    },
+    "allowed": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this role has this permission"
+    },
+    "conditions": {
+      "type": "string",
+      "description": "JSON object with conditional logic (e.g. time restrictions)"
+    },
+    "scopeOverride": {
+      "type": "string",
+      "enum": [
+        "none",
+        "own_only",
+        "team_only",
+        "organization",
+        "global"
+      ],
+      "default": "none",
+      "description": "Override default scope for this permission"
+    }
+  },
+  "required": [
+    "mapId",
+    "roleKey",
+    "permissionKey"
+  ]
+}

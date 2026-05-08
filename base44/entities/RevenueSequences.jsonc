@@ -1,0 +1,66 @@
+{
+  "name": "RevenueSequences",
+  "type": "object",
+  "properties": {
+    "revenue_opportunity_id": {
+      "type": "string",
+      "description": "Reference to RevenueOpportunities ID"
+    },
+    "sequence_name": {
+      "type": "string",
+      "description": "Name of the sequence"
+    },
+    "sequence_type": {
+      "type": "string",
+      "enum": [
+        "renewal_sequence",
+        "upsell_sequence",
+        "proposal_followup_sequence",
+        "reactivation_sequence",
+        "rescue_revenue_sequence"
+      ],
+      "description": "Type of sequence"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused",
+        "completed",
+        "cancelled"
+      ],
+      "default": "active",
+      "description": "Current sequence status"
+    },
+    "step_count": {
+      "type": "number",
+      "description": "Total steps in sequence"
+    },
+    "current_step_index": {
+      "type": "number",
+      "default": 0,
+      "description": "Current step being executed"
+    },
+    "next_step_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When next step should run (optional)"
+    },
+    "auto_run_enabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to auto-run sequence steps"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "revenue_opportunity_id",
+    "sequence_name",
+    "sequence_type",
+    "step_count"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "name": "ResellerOnboardingProfile",
+  "type": "object",
+  "properties": {
+    "reseller_id": {
+      "type": "string",
+      "description": "Reference to ResellerAccount"
+    },
+    "onboarding_stage": {
+      "type": "string",
+      "enum": [
+        "setup_account",
+        "branding",
+        "domain",
+        "invite_team",
+        "first_client",
+        "configure_features",
+        "training",
+        "go_live",
+        "complete"
+      ],
+      "default": "setup_account"
+    },
+    "branding_complete": {
+      "type": "boolean",
+      "default": false
+    },
+    "domain_connected": {
+      "type": "boolean",
+      "default": false
+    },
+    "users_invited": {
+      "type": "boolean",
+      "default": false
+    },
+    "first_client_created": {
+      "type": "boolean",
+      "default": false
+    },
+    "first_publish_configured": {
+      "type": "boolean",
+      "default": false
+    },
+    "training_complete": {
+      "type": "boolean",
+      "default": false
+    },
+    "go_live_ready": {
+      "type": "boolean",
+      "default": false
+    },
+    "progress_percentage": {
+      "type": "number",
+      "default": 0,
+      "description": "0-100 overall progress"
+    }
+  },
+  "required": [
+    "reseller_id"
+  ]
+}

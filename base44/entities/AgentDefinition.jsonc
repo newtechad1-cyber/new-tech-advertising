@@ -1,0 +1,89 @@
+{
+  "name": "AgentDefinition",
+  "type": "object",
+  "properties": {
+    "agent_key": {
+      "type": "string",
+      "description": "Unique identifier for agent (e.g., videoTranscriptAgent)"
+    },
+    "agent_name": {
+      "type": "string",
+      "description": "Display name for agent"
+    },
+    "agent_category": {
+      "type": "string",
+      "enum": [
+        "Content Creation",
+        "Video Processing",
+        "Publishing",
+        "Reporting",
+        "Sales",
+        "Onboarding",
+        "Client Success",
+        "Reseller Operations",
+        "School Media",
+        "System Maintenance"
+      ],
+      "description": "Agent category for grouping"
+    },
+    "description": {
+      "type": "string",
+      "description": "Agent purpose and capabilities"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is agent accepting tasks"
+    },
+    "tenant_scope": {
+      "type": "string",
+      "enum": [
+        "agency",
+        "reseller",
+        "client",
+        "school",
+        "universal"
+      ],
+      "default": "universal",
+      "description": "Data isolation scope"
+    },
+    "supported_contexts_json": {
+      "type": "string",
+      "description": "JSON array of supported context types"
+    },
+    "supported_task_types_json": {
+      "type": "string",
+      "description": "JSON array of task types this agent handles"
+    },
+    "max_concurrency": {
+      "type": "number",
+      "default": 5,
+      "description": "Max concurrent executions"
+    },
+    "retry_policy_json": {
+      "type": "string",
+      "description": "JSON: {max_retries, backoff_ms, backoff_multiplier}"
+    },
+    "escalation_policy_json": {
+      "type": "string",
+      "description": "JSON: {failure_threshold, escalate_to_role, timeout_minutes}"
+    },
+    "permissions_required_json": {
+      "type": "string",
+      "description": "JSON array of required permissions"
+    },
+    "input_schema_json": {
+      "type": "string",
+      "description": "JSON schema for input validation"
+    },
+    "output_schema_json": {
+      "type": "string",
+      "description": "JSON schema for output format"
+    }
+  },
+  "required": [
+    "agent_key",
+    "agent_name",
+    "agent_category"
+  ]
+}

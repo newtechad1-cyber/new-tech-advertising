@@ -1,0 +1,70 @@
+{
+  "name": "AutomationPermissions",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID (optional)"
+    },
+    "client_account_id": {
+      "type": "string",
+      "description": "Reference to ClientAccounts ID (optional)"
+    },
+    "permission_scope": {
+      "type": "string",
+      "enum": [
+        "client",
+        "company",
+        "workflow",
+        "service",
+        "platform"
+      ],
+      "description": "Scope of permission"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "create_internal_task",
+        "create_review",
+        "create_proposal_draft",
+        "send_client_message",
+        "send_proposal",
+        "launch_sequence",
+        "escalate_owner",
+        "publish_report",
+        "publish_review",
+        "auto_assign_owner"
+      ],
+      "description": "Type of action"
+    },
+    "permission_level": {
+      "type": "string",
+      "enum": [
+        "allowed",
+        "restricted",
+        "approval_required",
+        "blocked"
+      ],
+      "description": "Permission level"
+    },
+    "approval_threshold_value": {
+      "type": "number",
+      "description": "Optional threshold (e.g., proposal value limit) (optional)"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Notes about this permission (optional)"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether permission is active"
+    }
+  },
+  "required": [
+    "permission_scope",
+    "action_type",
+    "permission_level",
+    "active"
+  ]
+}

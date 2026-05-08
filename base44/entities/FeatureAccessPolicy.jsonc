@@ -1,0 +1,53 @@
+{
+  "name": "FeatureAccessPolicy",
+  "type": "object",
+  "properties": {
+    "policy_key": {
+      "type": "string",
+      "description": "Unique policy identifier"
+    },
+    "feature_key": {
+      "type": "string",
+      "description": "Feature identifier (e.g., 'ai_video_generation', 'advanced_publishing')"
+    },
+    "tenant_level": {
+      "type": "string",
+      "enum": [
+        "global",
+        "agency",
+        "reseller",
+        "client",
+        "school"
+      ],
+      "description": "Tenant level for this policy"
+    },
+    "role_key": {
+      "type": "string",
+      "description": "Required role"
+    },
+    "plan_required": {
+      "type": "string",
+      "description": "Plan tier required (if any)"
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is policy enabled"
+    },
+    "usage_limits_json": {
+      "type": "string",
+      "description": "JSON: {daily_limit, monthly_limit, concurrent_limit, rate_limit}"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is policy active"
+    }
+  },
+  "required": [
+    "policy_key",
+    "feature_key",
+    "tenant_level",
+    "role_key"
+  ]
+}

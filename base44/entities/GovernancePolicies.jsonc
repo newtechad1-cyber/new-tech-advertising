@@ -1,0 +1,87 @@
+{
+  "name": "GovernancePolicies",
+  "type": "object",
+  "properties": {
+    "policy_name": {
+      "type": "string",
+      "description": "Name of the policy"
+    },
+    "policy_type": {
+      "type": "string",
+      "enum": [
+        "approval_policy",
+        "automation_policy",
+        "communication_policy",
+        "proposal_policy",
+        "revenue_policy",
+        "client_policy",
+        "escalation_policy",
+        "rollback_policy",
+        "safety_policy"
+      ],
+      "description": "Type of policy"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of policy"
+    },
+    "scope_type": {
+      "type": "string",
+      "enum": [
+        "global",
+        "company",
+        "client_account",
+        "workflow_type",
+        "action_type",
+        "user_role",
+        "service_type"
+      ],
+      "description": "Scope of policy application"
+    },
+    "scope_target_id": {
+      "type": "string",
+      "description": "Optional target ID if scope is specific (e.g., company_id)"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether policy is active"
+    },
+    "enforcement_mode": {
+      "type": "string",
+      "enum": [
+        "allow",
+        "restrict",
+        "require_approval",
+        "monitor_only",
+        "block"
+      ],
+      "default": "monitor_only",
+      "description": "How strictly to enforce"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium",
+      "description": "Policy priority"
+    },
+    "created_by_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional)"
+    }
+  },
+  "required": [
+    "policy_name",
+    "policy_type",
+    "description",
+    "scope_type",
+    "active",
+    "enforcement_mode",
+    "priority"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "name": "ImpersonationSession",
+  "type": "object",
+  "properties": {
+    "impersonator_user_email": {
+      "type": "string",
+      "description": "Admin's email"
+    },
+    "impersonator_role": {
+      "type": "string",
+      "description": "Admin's role"
+    },
+    "target_user_email": {
+      "type": "string",
+      "description": "User being impersonated"
+    },
+    "target_user_role": {
+      "type": "string",
+      "description": "Target user's role"
+    },
+    "tenant_scope": {
+      "type": "string",
+      "description": "Scope for this session"
+    },
+    "reason": {
+      "type": "string",
+      "description": "Reason for impersonation"
+    },
+    "start_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Session start"
+    },
+    "end_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Session end"
+    },
+    "audit_reference": {
+      "type": "string",
+      "description": "Reference to AccessAuditLog"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is session active"
+    }
+  },
+  "required": [
+    "impersonator_user_email",
+    "target_user_email",
+    "reason",
+    "start_time"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "name": "LifecycleTimelineEvent",
+  "type": "object",
+  "properties": {
+    "client_name": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "deal_closed",
+        "onboarding_started",
+        "assets_submitted",
+        "strategy_approved",
+        "first_content_published",
+        "first_ranking_improvement",
+        "upsell_converted",
+        "renewal_checkpoint",
+        "risk_flagged",
+        "intervention_triggered"
+      ]
+    },
+    "event_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string"
+    },
+    "milestone": {
+      "type": "boolean",
+      "default": false
+    },
+    "revenue_tier": {
+      "type": "string",
+      "enum": [
+        "starter",
+        "growth",
+        "professional",
+        "enterprise"
+      ]
+    },
+    "mrr_at_event": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "client_name",
+    "event_type",
+    "event_date"
+  ]
+}

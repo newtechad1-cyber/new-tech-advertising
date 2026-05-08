@@ -1,0 +1,69 @@
+{
+  "name": "MetaConnection",
+  "type": "object",
+  "properties": {
+    "account_id": {
+      "type": "string",
+      "description": "Reference to TrialAccount ID",
+      "unique": true
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "not_connected",
+        "connected",
+        "expired",
+        "blocked",
+        "error"
+      ],
+      "default": "not_connected"
+    },
+    "fb_user_id": {
+      "type": "string"
+    },
+    "facebook_page_id": {
+      "type": "string"
+    },
+    "facebook_page_name": {
+      "type": "string"
+    },
+    "instagram_business_account_id": {
+      "type": "string"
+    },
+    "instagram_username": {
+      "type": "string"
+    },
+    "page_access_token": {
+      "type": "string",
+      "description": "Server-only: page access token, never return to client"
+    },
+    "token_type": {
+      "type": "string"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scopes": {
+      "type": "string"
+    },
+    "available_pages": {
+      "type": "array",
+      "description": "List of pages fetched during OAuth, for page selection step",
+      "items": {
+        "type": "object"
+      }
+    },
+    "last_error": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "account_id"
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "name": "IntelligenceSignalSnapshot",
+  "type": "object",
+  "properties": {
+    "signal_type": {
+      "type": "string",
+      "enum": [
+        "publishing_cadence",
+        "approval_delay",
+        "report_engagement",
+        "onboarding_duration",
+        "deal_stage_movement",
+        "automation_failure",
+        "connection_health",
+        "campaign_activity",
+        "login_frequency",
+        "content_quality",
+        "customer_activity",
+        "revenue_velocity"
+      ],
+      "description": "Type of signal being captured"
+    },
+    "context_type": {
+      "type": "string",
+      "enum": [
+        "global",
+        "agency",
+        "reseller",
+        "client",
+        "school"
+      ],
+      "description": "Context scope"
+    },
+    "reseller_id": {
+      "type": "string",
+      "description": "Reseller ID (if applicable)"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "Client ID (if applicable)"
+    },
+    "related_entity_type": {
+      "type": "string",
+      "description": "Entity type involved (Deal, Content, Onboarding, etc)"
+    },
+    "related_entity_id": {
+      "type": "string",
+      "description": "Entity ID involved"
+    },
+    "signal_value": {
+      "type": "number",
+      "description": "Raw signal value"
+    },
+    "signal_trend": {
+      "type": "string",
+      "enum": [
+        "increasing",
+        "stable",
+        "decreasing"
+      ],
+      "description": "Direction of trend"
+    },
+    "signal_period": {
+      "type": "string",
+      "enum": [
+        "daily",
+        "weekly",
+        "monthly",
+        "quarterly"
+      ],
+      "description": "Time period for signal"
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When signal was captured"
+    }
+  },
+  "required": [
+    "signal_type",
+    "context_type",
+    "signal_value",
+    "captured_at"
+  ]
+}

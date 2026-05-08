@@ -1,0 +1,116 @@
+{
+  "name": "StudentUploads",
+  "type": "object",
+  "properties": {
+    "student_user_id": {
+      "type": "string",
+      "description": "Reference to StudentUsers - required for accountability"
+    },
+    "student_name": {
+      "type": "string",
+      "description": "Snapshot of student name at upload time"
+    },
+    "school_slug": {
+      "type": "string",
+      "description": "School identifier"
+    },
+    "title": {
+      "type": "string",
+      "description": "Upload title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of content"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "sports",
+        "classroom",
+        "arts",
+        "music",
+        "clubs",
+        "student_life",
+        "event",
+        "other"
+      ],
+      "description": "Content category"
+    },
+    "file_urls": {
+      "type": "string",
+      "description": "JSON array of uploaded file URLs"
+    },
+    "upload_type": {
+      "type": "string",
+      "enum": [
+        "video",
+        "photo",
+        "audio",
+        "document"
+      ],
+      "default": "video"
+    },
+    "file_size_total_mb": {
+      "type": "number",
+      "description": "Total size of all files in MB"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "submitted",
+        "under_review",
+        "needs_changes",
+        "approved",
+        "published",
+        "rejected"
+      ],
+      "default": "submitted",
+      "description": "Upload workflow status"
+    },
+    "moderation_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "flagged",
+        "safe",
+        "requires_review"
+      ],
+      "default": "pending",
+      "description": "Content safety/moderation flag"
+    },
+    "moderation_notes": {
+      "type": "string",
+      "description": "AI or admin notes about content"
+    },
+    "reviewed_by": {
+      "type": "string",
+      "description": "Email of admin who reviewed"
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "admin_notes": {
+      "type": "string",
+      "description": "Internal admin feedback"
+    },
+    "rejection_reason": {
+      "type": "string",
+      "description": "Why upload was rejected"
+    },
+    "consent_confirmed": {
+      "type": "boolean",
+      "default": false,
+      "description": "Student confirmed consent/release"
+    },
+    "ip_address": {
+      "type": "string",
+      "description": "Audit trail: IP of upload"
+    }
+  },
+  "required": [
+    "student_user_id",
+    "school_slug",
+    "title"
+  ]
+}

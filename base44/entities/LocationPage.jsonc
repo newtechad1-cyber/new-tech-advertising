@@ -1,0 +1,155 @@
+{
+  "name": "LocationPage",
+  "type": "object",
+  "properties": {
+    "service_slug": {
+      "type": "string",
+      "description": "e.g., ada-website-compliance, streaming-tv-advertising",
+      "index": true
+    },
+    "city": {
+      "type": "string",
+      "index": true
+    },
+    "state": {
+      "type": "string",
+      "index": true
+    },
+    "state_code": {
+      "type": "string",
+      "description": "Two-letter state code (e.g., CA, TX)"
+    },
+    "url_slug": {
+      "type": "string",
+      "description": "Full slug for page URL, e.g., ada-website-compliance-chicago",
+      "unique": true
+    },
+    "canonical_path": {
+      "type": "string",
+      "description": "Full canonical path, e.g., /services/ada-website-compliance/chicago"
+    },
+    "title": {
+      "type": "string",
+      "description": "Page title, SEO optimized"
+    },
+    "meta_description": {
+      "type": "string",
+      "description": "Meta description for SEO"
+    },
+    "h1": {
+      "type": "string",
+      "description": "Primary heading"
+    },
+    "intro_paragraph": {
+      "type": "string",
+      "description": "Localized introduction paragraph"
+    },
+    "service_overview": {
+      "type": "string",
+      "description": "What the service is and why it matters"
+    },
+    "local_market_context": {
+      "type": "string",
+      "description": "Information about the local market and opportunity"
+    },
+    "local_examples": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Local industry examples (e.g., HVAC, Plumbing for that city)"
+    },
+    "why_this_service_matters": {
+      "type": "string",
+      "description": "Why this service is important for the location"
+    },
+    "how_it_works": {
+      "type": "string",
+      "description": "How the service works explained"
+    },
+    "faq": {
+      "type": "string",
+      "description": "JSON string of FAQ array: [{question, answer}]"
+    },
+    "case_study_section": {
+      "type": "string",
+      "description": "Example case study or success story"
+    },
+    "cta_primary": {
+      "type": "string",
+      "description": "Primary CTA text"
+    },
+    "cta_primary_url": {
+      "type": "string",
+      "description": "Primary CTA URL"
+    },
+    "cta_secondary": {
+      "type": "string",
+      "description": "Secondary CTA text"
+    },
+    "cta_secondary_url": {
+      "type": "string",
+      "description": "Secondary CTA URL"
+    },
+    "video_embed_url": {
+      "type": "string",
+      "description": "Embedded video URL if applicable"
+    },
+    "video_title": {
+      "type": "string",
+      "description": "Video title/caption"
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Target keywords for this page"
+    },
+    "content_blocks": {
+      "type": "string",
+      "description": "JSON string of structured content blocks"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "published",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "generated_by": {
+      "type": "string",
+      "description": "System or user that generated the page"
+    },
+    "last_updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "local_market_intel_id": {
+      "type": "string",
+      "description": "Reference to LocalMarketIntel record"
+    },
+    "page_views": {
+      "type": "number",
+      "default": 0
+    },
+    "conversions": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "service_slug",
+    "city",
+    "state",
+    "url_slug",
+    "canonical_path",
+    "title"
+  ]
+}

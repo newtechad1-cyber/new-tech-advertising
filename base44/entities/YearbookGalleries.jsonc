@@ -1,0 +1,66 @@
+{
+  "name": "YearbookGalleries",
+  "type": "object",
+  "properties": {
+    "school_slug": {
+      "type": "string"
+    },
+    "season_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "gallery_type": {
+      "type": "string",
+      "enum": [
+        "event",
+        "class",
+        "team",
+        "theme",
+        "archive"
+      ],
+      "default": "event"
+    },
+    "image_urls": {
+      "type": "string",
+      "description": "JSON array of image URLs"
+    },
+    "submission_ids": {
+      "type": "string",
+      "description": "JSON array of StudentVideoSubmission IDs"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "published"
+      ],
+      "default": "draft"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "sort_order": {
+      "type": "number",
+      "default": 0
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "school_slug",
+    "season_id",
+    "name",
+    "slug"
+  ]
+}

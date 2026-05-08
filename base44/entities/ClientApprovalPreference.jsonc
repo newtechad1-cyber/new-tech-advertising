@@ -1,0 +1,58 @@
+{
+  "name": "ClientApprovalPreference",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "approvals_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "approval_mode": {
+      "type": "string",
+      "enum": [
+        "No Client Approval Needed",
+        "Approve Every Post",
+        "Approve Campaigns Only",
+        "Approve Only Promotional Content",
+        "Approve Only New Campaign Types",
+        "Manual Selection Per Post"
+      ],
+      "default": "No Client Approval Needed"
+    },
+    "default_approver_name": {
+      "type": "string"
+    },
+    "default_approver_email": {
+      "type": "string"
+    },
+    "default_approver_phone": {
+      "type": "string"
+    },
+    "approval_sla_days": {
+      "type": "integer",
+      "default": 3
+    },
+    "auto_approve_if_no_response": {
+      "type": "boolean",
+      "default": false
+    },
+    "auto_approve_delay_hours": {
+      "type": "integer"
+    },
+    "require_final_internal_check": {
+      "type": "boolean",
+      "default": false
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "client_id"
+  ]
+}

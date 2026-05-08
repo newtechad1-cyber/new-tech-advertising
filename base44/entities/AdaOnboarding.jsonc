@@ -1,0 +1,56 @@
+{
+  "name": "AdaOnboarding",
+  "type": "object",
+  "properties": {
+    "lead_id": {
+      "type": "string",
+      "description": "Reference to AdaLead ID"
+    },
+    "best_contact_method": {
+      "type": "string",
+      "enum": [
+        "email",
+        "sms",
+        "phone"
+      ],
+      "description": "Preferred contact method"
+    },
+    "preferred_contact_name": {
+      "type": "string",
+      "description": "Preferred name for contact"
+    },
+    "login_access_notes": {
+      "type": "string",
+      "description": "Notes about website login access"
+    },
+    "hosting_provider": {
+      "type": "string",
+      "description": "Website hosting provider"
+    },
+    "cms_platform": {
+      "type": "string",
+      "description": "CMS platform used"
+    },
+    "brand_assets_url": {
+      "type": "string",
+      "description": "URL to uploaded brand assets"
+    },
+    "priority_pages": {
+      "type": "string",
+      "description": "Priority pages to fix"
+    },
+    "deadlines": {
+      "type": "string",
+      "description": "Any deadlines or time constraints"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "lead_id",
+    "best_contact_method"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "subscription_package": {
+      "type": "string",
+      "enum": [
+        "diy",
+        "collaborative",
+        "done_for_you"
+      ],
+      "default": "collaborative",
+      "description": "Active subscription package"
+    }
+  },
+  "required": []
+}

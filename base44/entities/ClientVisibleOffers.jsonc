@@ -1,0 +1,73 @@
+{
+  "name": "ClientVisibleOffers",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "related_proposal_id": {
+      "type": "string",
+      "description": "Reference to Proposals ID (optional)"
+    },
+    "related_contract_id": {
+      "type": "string",
+      "description": "Reference to Contracts ID (optional)"
+    },
+    "offer_type": {
+      "type": "string",
+      "enum": [
+        "renewal",
+        "upgrade",
+        "add_on",
+        "conversion",
+        "expansion"
+      ],
+      "description": "Type of offer"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title of offer"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Client-friendly summary of offer"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "accepted",
+        "declined",
+        "expired",
+        "archived"
+      ],
+      "default": "draft",
+      "description": "Offer status"
+    },
+    "visible_to_client": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether visible to client"
+    },
+    "starts_at": {
+      "type": "string",
+      "format": "date",
+      "description": "When offer becomes active (optional)"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date",
+      "description": "When offer expires (optional)"
+    }
+  },
+  "required": [
+    "company_id",
+    "offer_type",
+    "title",
+    "summary",
+    "status",
+    "visible_to_client"
+  ]
+}

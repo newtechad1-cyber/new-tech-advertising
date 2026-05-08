@@ -1,0 +1,53 @@
+{
+  "name": "SalesSessions",
+  "type": "object",
+  "properties": {
+    "prospect_id": {
+      "type": "string",
+      "description": "Reference to SalesProspects ID"
+    },
+    "session_key": {
+      "type": "string",
+      "description": "UUID stored in localStorage"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_activity_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "page_count": {
+      "type": "number",
+      "default": 0
+    },
+    "total_time_seconds": {
+      "type": "number",
+      "default": 0
+    },
+    "pricing_views": {
+      "type": "number",
+      "default": 0
+    },
+    "proposal_views": {
+      "type": "number",
+      "default": 0
+    },
+    "roi_uses": {
+      "type": "number",
+      "default": 0
+    },
+    "cta_clicks": {
+      "type": "number",
+      "default": 0
+    },
+    "session_source": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "session_key",
+    "started_at"
+  ]
+}

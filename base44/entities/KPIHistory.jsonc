@@ -1,0 +1,71 @@
+{
+  "name": "KPIHistory",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "metric_name": {
+      "type": "string",
+      "description": "Machine-readable metric name (e.g., 'leads_total', 'website_visits_total')"
+    },
+    "metric_label": {
+      "type": "string",
+      "description": "Human-readable label (e.g., 'Leads Generated')"
+    },
+    "metric_value": {
+      "type": "number",
+      "description": "The numeric value for this period"
+    },
+    "period_label": {
+      "type": "string",
+      "description": "Human-readable period (e.g., 'January 2026')"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date",
+      "description": "Start date of the period"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date",
+      "description": "End date of the period"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "leads",
+        "calls",
+        "website_analytics",
+        "organic_traffic",
+        "ad_performance",
+        "content_output",
+        "social_metrics",
+        "video_metrics",
+        "campaign_metrics",
+        "other"
+      ],
+      "description": "Data source category"
+    },
+    "executive_report_id": {
+      "type": "string",
+      "description": "Reference to ExecutiveReports ID (optional, links to source report)"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_id",
+    "metric_name",
+    "metric_label",
+    "metric_value",
+    "period_label",
+    "period_start",
+    "period_end",
+    "source_type"
+  ]
+}

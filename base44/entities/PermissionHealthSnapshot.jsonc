@@ -1,0 +1,44 @@
+{
+  "name": "PermissionHealthSnapshot",
+  "type": "object",
+  "properties": {
+    "snapshot_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When snapshot was taken"
+    },
+    "role_key": {
+      "type": "string",
+      "description": "Role being evaluated"
+    },
+    "over_permission_risk_score": {
+      "type": "number",
+      "description": "Risk of over-permissioning (0-100)"
+    },
+    "missing_permission_conflict_score": {
+      "type": "number",
+      "description": "Risk of permission gaps causing conflicts (0-100)"
+    },
+    "tenant_leak_risk_score": {
+      "type": "number",
+      "description": "Risk of tenant data leakage (0-100)"
+    },
+    "agent_execution_risk_score": {
+      "type": "number",
+      "description": "Risk of unauthorized agent execution (0-100)"
+    },
+    "governance_health_score": {
+      "type": "number",
+      "description": "Overall governance health (0-100)"
+    },
+    "issues_json": {
+      "type": "string",
+      "description": "JSON array of detected issues"
+    }
+  },
+  "required": [
+    "snapshot_time",
+    "role_key",
+    "governance_health_score"
+  ]
+}

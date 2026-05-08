@@ -1,0 +1,81 @@
+{
+  "name": "SalesProspects",
+  "type": "object",
+  "properties": {
+    "full_name": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "business_size": {
+      "type": "string",
+      "enum": [
+        "solo",
+        "2-10",
+        "11-50",
+        "50+"
+      ],
+      "default": "2-10"
+    },
+    "source": {
+      "type": "string"
+    },
+    "campaign": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "watching_demo",
+        "engaged",
+        "pricing_viewed",
+        "proposal_viewed",
+        "trial_started",
+        "booked_call",
+        "closed",
+        "lost"
+      ],
+      "default": "new"
+    },
+    "lead_score": {
+      "type": "number",
+      "default": 0
+    },
+    "recommended_plan": {
+      "type": "string",
+      "enum": [
+        "starter",
+        "growth",
+        "pro",
+        ""
+      ]
+    },
+    "notes": {
+      "type": "string"
+    },
+    "first_seen_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_activity_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "email",
+    "status"
+  ]
+}

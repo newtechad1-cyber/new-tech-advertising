@@ -1,0 +1,82 @@
+{
+  "name": "Reseller",
+  "type": "object",
+  "properties": {
+    "company_name": {
+      "type": "string"
+    },
+    "contact_name": {
+      "type": "string"
+    },
+    "contact_email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "active",
+        "suspended",
+        "terminated"
+      ],
+      "default": "pending"
+    },
+    "tier": {
+      "type": "string",
+      "enum": [
+        "standard",
+        "preferred",
+        "elite"
+      ],
+      "default": "standard"
+    },
+    "territory_ids": {
+      "type": "string"
+    },
+    "revenue_share_percent": {
+      "type": "number",
+      "default": 20
+    },
+    "active_clients": {
+      "type": "number",
+      "default": 0
+    },
+    "monthly_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "pipeline_value": {
+      "type": "number",
+      "default": 0
+    },
+    "logo_url": {
+      "type": "string"
+    },
+    "brand_primary_color": {
+      "type": "string"
+    },
+    "brand_secondary_color": {
+      "type": "string"
+    },
+    "proposal_header_message": {
+      "type": "string"
+    },
+    "portal_url_slug": {
+      "type": "string"
+    },
+    "approved_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "company_name",
+    "contact_email"
+  ]
+}

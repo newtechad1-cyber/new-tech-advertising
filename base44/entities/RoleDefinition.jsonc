@@ -1,0 +1,95 @@
+{
+  "name": "RoleDefinition",
+  "type": "object",
+  "properties": {
+    "roleKey": {
+      "type": "string",
+      "description": "Unique identifier for role (snake_case)"
+    },
+    "roleName": {
+      "type": "string",
+      "description": "Display name for role"
+    },
+    "description": {
+      "type": "string",
+      "description": "Role description and responsibilities"
+    },
+    "roleType": {
+      "type": "string",
+      "enum": [
+        "internal",
+        "client_facing",
+        "reseller"
+      ],
+      "description": "Type of role"
+    },
+    "isDefault": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this is default role for new users"
+    },
+    "permissions": {
+      "type": "string",
+      "description": "JSON array of permission keys granted to this role"
+    },
+    "minPlanRequired": {
+      "type": "string",
+      "enum": [
+        "free_trial",
+        "diy",
+        "guided_growth",
+        "done_for_you",
+        "premium",
+        "enterprise",
+        "none"
+      ],
+      "default": "none",
+      "description": "Minimum plan tier required for this role"
+    },
+    "maxTeamMembersAllowed": {
+      "type": "number",
+      "default": -1,
+      "description": "Max users with this role per org (-1 = unlimited)"
+    },
+    "canManageUsers": {
+      "type": "boolean",
+      "default": false,
+      "description": "Can add/remove/manage users"
+    },
+    "canManageRoles": {
+      "type": "boolean",
+      "default": false,
+      "description": "Can assign roles to users"
+    },
+    "canViewAnalytics": {
+      "type": "boolean",
+      "default": false,
+      "description": "Can access analytics/reporting"
+    },
+    "canModifyContent": {
+      "type": "boolean",
+      "default": false,
+      "description": "Can create/edit content"
+    },
+    "canPublishContent": {
+      "type": "boolean",
+      "default": false,
+      "description": "Can publish content"
+    },
+    "canAccessBilling": {
+      "type": "boolean",
+      "default": false,
+      "description": "Can manage billing and payment"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether role is currently available"
+    }
+  },
+  "required": [
+    "roleKey",
+    "roleName",
+    "roleType"
+  ]
+}

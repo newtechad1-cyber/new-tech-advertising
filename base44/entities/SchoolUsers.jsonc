@@ -1,0 +1,56 @@
+{
+  "name": "SchoolUsers",
+  "type": "object",
+  "properties": {
+    "school_slug": {
+      "type": "string",
+      "description": "School identifier"
+    },
+    "user_email": {
+      "type": "string",
+      "description": "Email of the school user"
+    },
+    "full_name": {
+      "type": "string",
+      "description": "User's full name"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "school_admin",
+        "editor",
+        "content_reviewer",
+        "yearbook_manager",
+        "video_manager",
+        "viewer"
+      ],
+      "description": "User role within this school"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether user account is active"
+    },
+    "permissions": {
+      "type": "string",
+      "description": "JSON array of per-user permission overrides \u2014 takes precedence over role defaults"
+    },
+    "invited_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_login": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Admin notes about this user"
+    }
+  },
+  "required": [
+    "school_slug",
+    "user_email",
+    "role"
+  ]
+}

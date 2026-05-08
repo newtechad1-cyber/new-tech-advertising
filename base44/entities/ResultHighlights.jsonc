@@ -1,0 +1,61 @@
+{
+  "name": "ResultHighlights",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "executive_report_id": {
+      "type": "string",
+      "description": "Reference to ExecutiveReports ID"
+    },
+    "highlight_type": {
+      "type": "string",
+      "enum": [
+        "win",
+        "trend",
+        "deliverable",
+        "campaign",
+        "seo_growth",
+        "video_growth",
+        "opportunity",
+        "alert"
+      ],
+      "description": "Category of highlight"
+    },
+    "title": {
+      "type": "string",
+      "description": "Short title of the highlight"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the highlight"
+    },
+    "metric_value": {
+      "type": "string",
+      "description": "Associated metric value or statistic (optional)"
+    },
+    "comparison_text": {
+      "type": "string",
+      "description": "Comparison to previous period or context (e.g., '+18% vs last month')"
+    },
+    "sort_order": {
+      "type": "number",
+      "description": "Display order within report"
+    },
+    "visible_to_client": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether client can see this highlight"
+    }
+  },
+  "required": [
+    "company_id",
+    "executive_report_id",
+    "highlight_type",
+    "title",
+    "description",
+    "sort_order"
+  ]
+}

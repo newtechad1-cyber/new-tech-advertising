@@ -1,0 +1,58 @@
+{
+  "name": "ClientApprovalPolicies",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "approval_type": {
+      "type": "string",
+      "enum": [
+        "deliverable_approval",
+        "proposal_approval",
+        "renewal_approval",
+        "upgrade_offer",
+        "strategy_review_acknowledgement"
+      ],
+      "description": "Type of approval"
+    },
+    "requires_named_approver": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether a specific approver must be assigned"
+    },
+    "default_approver_user_id": {
+      "type": "string",
+      "description": "Default approver user ID (optional)"
+    },
+    "fallback_to_primary_contact": {
+      "type": "boolean",
+      "default": true,
+      "description": "Fall back to primary contact if approver not available"
+    },
+    "multiple_approvers_required": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether multiple approvers are required"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this policy is active"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_id",
+    "approval_type",
+    "requires_named_approver",
+    "fallback_to_primary_contact",
+    "multiple_approvers_required",
+    "active"
+  ]
+}

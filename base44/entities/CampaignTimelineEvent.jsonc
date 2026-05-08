@@ -1,0 +1,42 @@
+{
+  "name": "CampaignTimelineEvent",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "campaign_id": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "campaign_suggested",
+        "campaign_approved",
+        "production_started",
+        "first_post_live",
+        "campaign_completed",
+        "performance_reviewed"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "event_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "emoji": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "client_id",
+    "event_type",
+    "title",
+    "event_date"
+  ]
+}

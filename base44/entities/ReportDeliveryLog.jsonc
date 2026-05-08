@@ -1,0 +1,49 @@
+{
+  "name": "ReportDeliveryLog",
+  "type": "object",
+  "properties": {
+    "report_id": {
+      "type": "string",
+      "description": "Reference to ClientPerformanceReport"
+    },
+    "delivery_type": {
+      "type": "string",
+      "enum": [
+        "email",
+        "portal",
+        "pdf"
+      ],
+      "default": "email"
+    },
+    "delivery_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "sent",
+        "opened",
+        "failed",
+        "bounced"
+      ],
+      "default": "pending"
+    },
+    "recipient": {
+      "type": "string",
+      "description": "Email or recipient identifier"
+    },
+    "sent_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "opened_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "error_message": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "report_id",
+    "delivery_type"
+  ]
+}

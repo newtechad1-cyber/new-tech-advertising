@@ -1,0 +1,68 @@
+{
+  "name": "ContentVideoAssets",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "script_id": {
+      "type": "string",
+      "description": "Reference to VideoScripts ID"
+    },
+    "topic_id": {
+      "type": "string",
+      "description": "Reference to ContentTopics ID"
+    },
+    "video_url": {
+      "type": "string"
+    },
+    "thumbnail": {
+      "type": "string"
+    },
+    "embed_url": {
+      "type": "string"
+    },
+    "video_type": {
+      "type": "string",
+      "enum": [
+        "explainer",
+        "sales",
+        "case_study",
+        "social_short"
+      ],
+      "default": "explainer"
+    },
+    "duration_sec": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "rendering",
+        "ready",
+        "published",
+        "failed"
+      ],
+      "default": "rendering"
+    },
+    "distribution": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Where this video is assigned: website, sales_room, deal_room, social, blog"
+    },
+    "heygen_video_id": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "script_id",
+    "video_type",
+    "status"
+  ]
+}

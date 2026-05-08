@@ -1,0 +1,62 @@
+{
+  "name": "ReviewCampaigns",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID"
+    },
+    "campaign_name": {
+      "type": "string"
+    },
+    "platform": {
+      "type": "string",
+      "description": "Target review platform"
+    },
+    "request_method": {
+      "type": "string",
+      "enum": [
+        "sms",
+        "email",
+        "in_app",
+        "qr_code"
+      ],
+      "default": "email"
+    },
+    "message_template": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused",
+        "completed"
+      ],
+      "default": "active"
+    },
+    "requests_sent": {
+      "type": "number",
+      "default": 0
+    },
+    "reviews_received": {
+      "type": "number",
+      "default": 0
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "ended_at": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "company_id",
+    "campaign_name",
+    "platform",
+    "request_method",
+    "status"
+  ]
+}

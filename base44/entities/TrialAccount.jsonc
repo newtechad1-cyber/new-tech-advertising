@@ -1,0 +1,186 @@
+{
+  "name": "TrialAccount",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Business name"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-safe unique identifier"
+    },
+    "full_name": {
+      "type": "string",
+      "description": "Contact person full name"
+    },
+    "email": {
+      "type": "string",
+      "description": "Contact email"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Contact phone (optional)"
+    },
+    "industry": {
+      "type": "string",
+      "description": "Business industry"
+    },
+    "location_city": {
+      "type": "string",
+      "description": "City"
+    },
+    "location_state": {
+      "type": "string",
+      "description": "State"
+    },
+    "website_url": {
+      "type": "string",
+      "description": "Business website URL (optional)"
+    },
+    "primary_goal": {
+      "type": "string",
+      "enum": [
+        "leads",
+        "visibility",
+        "consistency",
+        "content_video",
+        "replace_marketing"
+      ],
+      "description": "Primary marketing goal"
+    },
+    "how_did_you_find_us": {
+      "type": "string",
+      "enum": [
+        "google",
+        "facebook",
+        "youtube",
+        "referral",
+        "email",
+        "demo_tool",
+        "other"
+      ],
+      "description": "Attribution source"
+    },
+    "source_page": {
+      "type": "string",
+      "description": "Which page/tool sent them to /start"
+    },
+    "source_campaign": {
+      "type": "string",
+      "description": "Campaign attribution"
+    },
+    "source_tool": {
+      "type": "string",
+      "description": "Tool that triggered signup"
+    },
+    "social_links": {
+      "type": "object",
+      "description": "Social media links (optional)"
+    },
+    "involvement_preference": {
+      "type": "string",
+      "enum": [
+        "hands_on",
+        "hands_off",
+        "undecided"
+      ],
+      "default": "undecided",
+      "description": "How hands-on the client wants to be"
+    },
+    "trial_status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "submitted",
+        "in_review",
+        "configured",
+        "ready",
+        "active"
+      ],
+      "default": "draft",
+      "description": "Overall trial status"
+    },
+    "onboarding_status": {
+      "type": "string",
+      "enum": [
+        "submitted",
+        "business_profile_linked",
+        "intelligence_generated",
+        "weekly_plan_generated",
+        "ready_for_dashboard",
+        "needs_review",
+        "failed"
+      ],
+      "default": "submitted",
+      "description": "Onboarding pipeline status"
+    },
+    "intelligence_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "generated",
+        "partial",
+        "failed"
+      ],
+      "default": "pending",
+      "description": "BusinessIntelProfile generation status"
+    },
+    "weekly_plan_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "generated",
+        "failed"
+      ],
+      "default": "pending",
+      "description": "WeeklyMarketingPlan generation status"
+    },
+    "provisioning_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "queued",
+        "ready",
+        "failed"
+      ],
+      "default": "pending",
+      "description": "Dashboard access provisioning status"
+    },
+    "crm_lead_id": {
+      "type": "string",
+      "description": "Linked Lead record ID"
+    },
+    "business_profile_id": {
+      "type": "string",
+      "description": "Linked BusinessProfile record ID"
+    },
+    "intel_profile_id": {
+      "type": "string",
+      "description": "Linked BusinessIntelProfile record ID"
+    },
+    "weekly_plan_id": {
+      "type": "string",
+      "description": "Linked WeeklyMarketingPlan record ID"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Optional notes from signup"
+    },
+    "trial_start_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "trial_end_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "name",
+    "email",
+    "industry",
+    "location_city",
+    "location_state"
+  ]
+}

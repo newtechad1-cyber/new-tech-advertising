@@ -1,0 +1,64 @@
+{
+  "name": "SalesQuestions",
+  "type": "object",
+  "properties": {
+    "prospect_id": {
+      "type": "string"
+    },
+    "session_id": {
+      "type": "string"
+    },
+    "question_text": {
+      "type": "string"
+    },
+    "question_category": {
+      "type": "string",
+      "enum": [
+        "pricing",
+        "features",
+        "setup",
+        "comparison",
+        "trust",
+        "technical",
+        "onboarding",
+        "other"
+      ],
+      "default": "other"
+    },
+    "objection_type": {
+      "type": "string",
+      "enum": [
+        "too_expensive",
+        "no_time",
+        "already_have_website",
+        "already_have_agency",
+        "not_technical",
+        "need_to_think",
+        "need_team_approval",
+        "not_sure_ai",
+        "setup_concern",
+        "other",
+        ""
+      ]
+    },
+    "ai_response": {
+      "type": "string"
+    },
+    "resolved": {
+      "type": "boolean",
+      "default": false
+    },
+    "escalated": {
+      "type": "boolean",
+      "default": false
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "question_text",
+    "created_at"
+  ]
+}

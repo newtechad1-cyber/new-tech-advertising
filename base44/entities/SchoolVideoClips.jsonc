@@ -1,0 +1,74 @@
+{
+  "name": "SchoolVideoClips",
+  "type": "object",
+  "properties": {
+    "submission_id": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "clip_title": {
+      "type": "string"
+    },
+    "media_type": {
+      "type": "string",
+      "enum": [
+        "video",
+        "photo"
+      ],
+      "default": "video"
+    },
+    "media_url": {
+      "type": "string"
+    },
+    "source_file_name": {
+      "type": "string"
+    },
+    "source_duration": {
+      "type": "string"
+    },
+    "ai_tags": {
+      "type": "string",
+      "description": "Comma-separated tags"
+    },
+    "scene_description": {
+      "type": "string"
+    },
+    "detected_activity": {
+      "type": "string"
+    },
+    "detected_location": {
+      "type": "string"
+    },
+    "transcript": {
+      "type": "string"
+    },
+    "quality_score": {
+      "type": "number",
+      "default": 0
+    },
+    "energy_score": {
+      "type": "number",
+      "default": 0
+    },
+    "emotional_tone": {
+      "type": "string"
+    },
+    "recommended_order": {
+      "type": "number",
+      "default": 0
+    },
+    "is_selected": {
+      "type": "boolean",
+      "default": true
+    },
+    "admin_notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "media_type"
+  ]
+}

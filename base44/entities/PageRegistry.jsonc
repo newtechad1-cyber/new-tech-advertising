@@ -1,0 +1,131 @@
+{
+  "name": "PageRegistry",
+  "type": "object",
+  "properties": {
+    "pageKey": {
+      "type": "string",
+      "description": "Unique page identifier (camelCase, e.g. 'adminTenantGovernance')"
+    },
+    "displayName": {
+      "type": "string",
+      "description": "Human-readable page name (e.g. 'Tenant Governance')"
+    },
+    "routePath": {
+      "type": "string",
+      "description": "URL route path (e.g. '/admin/tenant-governance')"
+    },
+    "pageType": {
+      "type": "string",
+      "enum": [
+        "public_marketing",
+        "public_landing",
+        "public_form",
+        "trial_onboarding",
+        "client_portal",
+        "client_dashboard",
+        "reseller_portal",
+        "admin_dashboard",
+        "admin_settings",
+        "system_page"
+      ],
+      "description": "Category of page"
+    },
+    "navGroup": {
+      "type": "string",
+      "enum": [
+        "marketing",
+        "trial",
+        "client",
+        "reseller",
+        "admin_sales",
+        "admin_operations",
+        "admin_governance",
+        "admin_settings",
+        "none"
+      ],
+      "description": "Navigation group for menu organization"
+    },
+    "parentPageKey": {
+      "type": "string",
+      "description": "Parent page for breadcrumb/hierarchy (optional, e.g. 'adminGovernance')"
+    },
+    "requiredRole": {
+      "type": "string",
+      "enum": [
+        "public",
+        "authenticated",
+        "user",
+        "tenant_member",
+        "tenant_manager",
+        "tenant_admin",
+        "reseller_admin",
+        "master_admin",
+        "super_admin"
+      ],
+      "default": "public",
+      "description": "Minimum role required to access"
+    },
+    "requiredPlan": {
+      "type": "string",
+      "enum": [
+        "none",
+        "free_trial",
+        "diy",
+        "guided_growth",
+        "done_for_you",
+        "premium",
+        "enterprise"
+      ],
+      "default": "none",
+      "description": "Minimum subscription plan required"
+    },
+    "requiredTenantScope": {
+      "type": "string",
+      "enum": [
+        "none",
+        "master",
+        "reseller",
+        "white_label",
+        "any"
+      ],
+      "default": "any",
+      "description": "Tenant scope access restriction"
+    },
+    "isPublic": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether page is publicly accessible (no auth required)"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether page should be included in navigation/routing"
+    },
+    "icon": {
+      "type": "string",
+      "description": "Lucide icon name for navigation display"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of page purpose"
+    },
+    "metadata": {
+      "type": "string",
+      "description": "JSON object for additional config (e.g. redirect rules, feature flags)"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "lastUpdatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "pageKey",
+    "displayName",
+    "routePath",
+    "pageType"
+  ]
+}

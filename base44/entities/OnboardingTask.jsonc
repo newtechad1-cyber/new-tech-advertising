@@ -1,0 +1,64 @@
+{
+  "name": "OnboardingTask",
+  "type": "object",
+  "properties": {
+    "onboarding_id": {
+      "type": "string"
+    },
+    "task_title": {
+      "type": "string"
+    },
+    "task_category": {
+      "type": "string",
+      "enum": [
+        "client_action",
+        "internal_fulfillment",
+        "channel_setup",
+        "content",
+        "technical"
+      ]
+    },
+    "assigned_to": {
+      "type": "string",
+      "enum": [
+        "client",
+        "operator",
+        "ai_agent"
+      ]
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "normal",
+        "high",
+        "urgent"
+      ],
+      "default": "normal"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "in_progress",
+        "needs_review",
+        "completed",
+        "blocked"
+      ],
+      "default": "pending"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "onboarding_id",
+    "task_title",
+    "task_category",
+    "assigned_to"
+  ]
+}

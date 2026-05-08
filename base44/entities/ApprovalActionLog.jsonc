@@ -1,0 +1,54 @@
+{
+  "name": "ApprovalActionLog",
+  "type": "object",
+  "properties": {
+    "approval_request_id": {
+      "type": "string"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "Created",
+        "Sent for Review",
+        "Viewed",
+        "Approved",
+        "Rejected",
+        "Revision Requested",
+        "Reminder Sent",
+        "Resubmitted",
+        "Cancelled",
+        "Auto-Blocked Publish"
+      ]
+    },
+    "action_by": {
+      "type": "string"
+    },
+    "action_by_role": {
+      "type": "string"
+    },
+    "action_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "old_status": {
+      "type": "string"
+    },
+    "new_status": {
+      "type": "string"
+    },
+    "revision_round": {
+      "type": "integer",
+      "default": 0
+    },
+    "metadata": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "approval_request_id",
+    "action_type"
+  ]
+}

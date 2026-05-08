@@ -1,0 +1,45 @@
+{
+  "name": "NavigationDefinition",
+  "type": "object",
+  "properties": {
+    "nav_key": {
+      "type": "string",
+      "description": "Navigation family identifier (e.g., AdminNav, ClientNav)"
+    },
+    "nav_name": {
+      "type": "string",
+      "description": "Display name"
+    },
+    "nav_family": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "school_admin",
+        "client",
+        "reseller",
+        "public",
+        "governance"
+      ],
+      "description": "Navigation family type"
+    },
+    "layout_key": {
+      "type": "string",
+      "description": "Layout this nav belongs to"
+    },
+    "description": {
+      "type": "string",
+      "description": "Purpose of this navigation"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is navigation active"
+    }
+  },
+  "required": [
+    "nav_key",
+    "nav_name",
+    "nav_family",
+    "layout_key"
+  ]
+}

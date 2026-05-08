@@ -1,0 +1,47 @@
+{
+  "name": "Industry",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string",
+      "description": "e.g. hvac-marketing"
+    },
+    "description": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "integer",
+      "default": 0
+    },
+    "playbook_page": {
+      "type": "string",
+      "description": "Page ID of the industry playbook"
+    },
+    "services_focus": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Which NTA services apply (e.g. social, streaming, ADA)"
+    },
+    "common_problems": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "content_angles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "name",
+    "slug"
+  ]
+}

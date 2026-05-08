@@ -1,0 +1,268 @@
+{
+  "name": "IndustryIntel",
+  "type": "object",
+  "properties": {
+    "industry_name": {
+      "type": "string"
+    },
+    "industry_slug": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "number",
+      "default": 50
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "paused",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "core_services": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "secondary_services": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "emergency_services": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "seasonal_services": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "high_margin_services": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "entry_offer_services": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "common_customer_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "common_buying_triggers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "common_pain_points": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "common_objections": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "common_urgency_patterns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "average_sales_cycle_type": {
+      "type": "string",
+      "enum": [
+        "immediate",
+        "short",
+        "medium",
+        "long"
+      ]
+    },
+    "top_content_angles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "top_problem_topics": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "top_education_topics": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "top_offer_topics": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "top_social_themes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "top_video_themes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "top_streaming_tv_angles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "primary_keyword_patterns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "local_keyword_patterns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "service_page_patterns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "location_page_patterns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "review_keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "competitor_page_patterns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_offers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_cta_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_campaign_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_landing_pages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_email_angles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_followup_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "seasonal_calendar": {
+      "type": "string",
+      "description": "JSON object of seasonal themes by month"
+    },
+    "peak_seasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "slow_seasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "weather_sensitive": {
+      "type": "boolean",
+      "default": false
+    },
+    "holiday_sensitive": {
+      "type": "boolean",
+      "default": false
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "manual",
+        "seeded",
+        "inferred",
+        "observed",
+        "proven"
+      ],
+      "default": "seeded"
+    },
+    "confidence_score": {
+      "type": "number",
+      "default": 60
+    },
+    "last_reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "version": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "industry_name",
+    "industry_slug"
+  ]
+}

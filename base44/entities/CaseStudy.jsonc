@@ -1,0 +1,87 @@
+{
+  "name": "CaseStudy",
+  "type": "object",
+  "properties": {
+    "business_name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL slug e.g. dallas-hvac-streaming-tv-ads",
+      "unique": true
+    },
+    "industry": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "service_used": {
+      "type": "string",
+      "enum": [
+        "streaming-tv",
+        "local-seo",
+        "ada-rebuild",
+        "ai-social-media",
+        "video-marketing",
+        "website-rebuild"
+      ]
+    },
+    "problem": {
+      "type": "string"
+    },
+    "solution": {
+      "type": "string"
+    },
+    "results": {
+      "type": "string"
+    },
+    "metrics": {
+      "type": "string",
+      "description": "JSON: [{label, value}]"
+    },
+    "video_script": {
+      "type": "string"
+    },
+    "blog_article": {
+      "type": "string"
+    },
+    "social_posts": {
+      "type": "string",
+      "description": "JSON: [{caption, image_prompt, video_prompt}]"
+    },
+    "seo_title": {
+      "type": "string"
+    },
+    "meta_description": {
+      "type": "string"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "published"
+      ],
+      "default": "draft"
+    },
+    "content_generated": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "business_name",
+    "slug",
+    "industry",
+    "city",
+    "state",
+    "service_used"
+  ]
+}

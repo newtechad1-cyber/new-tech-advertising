@@ -1,0 +1,115 @@
+{
+  "name": "AutonomousGrowthAction",
+  "type": "object",
+  "properties": {
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "launch_campaign",
+        "send_outreach",
+        "schedule_meeting",
+        "retry_publish",
+        "adjust_strategy",
+        "escalate_support",
+        "trigger_automation",
+        "queue_task",
+        "send_notification",
+        "adjust_resource"
+      ],
+      "description": "Type of action being executed"
+    },
+    "strategy_key": {
+      "type": "string",
+      "description": "Reference to AutonomousStrategyDefinition"
+    },
+    "context_type": {
+      "type": "string",
+      "enum": [
+        "global",
+        "agency",
+        "reseller",
+        "client",
+        "school"
+      ],
+      "description": "Execution context"
+    },
+    "reseller_id": {
+      "type": "string",
+      "description": "Reseller context (if applicable)"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "Client context (if applicable)"
+    },
+    "target_entity_type": {
+      "type": "string",
+      "description": "Entity type being targeted"
+    },
+    "target_entity_id": {
+      "type": "string",
+      "description": "Entity ID being targeted"
+    },
+    "execution_mode": {
+      "type": "string",
+      "enum": [
+        "autonomous",
+        "semi_autonomous",
+        "manual"
+      ],
+      "description": "How action is being executed"
+    },
+    "execution_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "in_progress",
+        "completed",
+        "failed",
+        "blocked",
+        "rolled_back"
+      ],
+      "default": "pending",
+      "description": "Current execution status"
+    },
+    "expected_impact": {
+      "type": "string",
+      "description": "Expected impact if successful"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "description": "Risk level of this action"
+    },
+    "execution_parameters_json": {
+      "type": "string",
+      "description": "JSON: parameters passed to action"
+    },
+    "error_message": {
+      "type": "string",
+      "description": "Error details if failed"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When action was created"
+    },
+    "executed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When action was executed"
+    }
+  },
+  "required": [
+    "action_type",
+    "strategy_key",
+    "context_type",
+    "target_entity_type",
+    "execution_mode",
+    "created_at"
+  ]
+}

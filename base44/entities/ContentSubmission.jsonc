@@ -1,0 +1,129 @@
+{
+  "name": "ContentSubmission",
+  "type": "object",
+  "properties": {
+    "submission_type": {
+      "type": "string",
+      "enum": [
+        "image_post",
+        "video_post",
+        "text_only"
+      ],
+      "description": "Type of content being submitted"
+    },
+    "social_channels": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "facebook",
+          "instagram",
+          "twitter",
+          "linkedin",
+          "tiktok"
+        ]
+      },
+      "description": "Social media platforms for posting"
+    },
+    "post_text": {
+      "type": "string",
+      "description": "Final post text provided by client (no editing)"
+    },
+    "media_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "URLs of uploaded images or video"
+    },
+    "scheduling_preference": {
+      "type": "string",
+      "enum": [
+        "asap",
+        "specific_date",
+        "team_decides"
+      ],
+      "description": "When to schedule this post"
+    },
+    "preferred_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Specific date/time if chosen"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "scheduled",
+        "posted",
+        "rejected"
+      ],
+      "default": "pending",
+      "description": "Current status of submission"
+    },
+    "quality_status": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "needs_clarification",
+        "recommend_upgrade"
+      ],
+      "default": "ready",
+      "description": "Quality control status for admin review"
+    },
+    "admin_notes": {
+      "type": "string",
+      "description": "Internal notes from admin team"
+    },
+    "upgrade_requested": {
+      "type": "boolean",
+      "default": false,
+      "description": "Client requested optional upgrade"
+    },
+    "upgrade_type": {
+      "type": "string",
+      "enum": [
+        "rewrite_text",
+        "edit_image",
+        "create_video"
+      ],
+      "description": "Type of upgrade requested"
+    },
+    "upgrade_status": {
+      "type": "string",
+      "enum": [
+        "none",
+        "client_requested",
+        "admin_recommended",
+        "approved",
+        "declined",
+        "completed"
+      ],
+      "default": "none",
+      "description": "Status of upgrade request"
+    },
+    "admin_upgrade_reason": {
+      "type": "string",
+      "description": "Why admin recommends an upgrade"
+    },
+    "upgrade_price": {
+      "type": "number",
+      "description": "One-time price for this upgrade"
+    },
+    "priority": {
+      "type": "integer",
+      "default": 2,
+      "description": "Priority level (1=highest, 3=lowest) based on package"
+    },
+    "template_used": {
+      "type": "string",
+      "description": "Which content template was used (if any)"
+    }
+  },
+  "required": [
+    "submission_type",
+    "social_channels",
+    "post_text",
+    "scheduling_preference"
+  ]
+}

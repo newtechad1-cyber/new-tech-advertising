@@ -1,0 +1,65 @@
+{
+  "name": "SeoPages",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID"
+    },
+    "seo_project_id": {
+      "type": "string",
+      "description": "Reference to SeoProjects ID"
+    },
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL path slug"
+    },
+    "target_keyword": {
+      "type": "string"
+    },
+    "page_type": {
+      "type": "string",
+      "enum": [
+        "location",
+        "service",
+        "blog",
+        "pillar",
+        "landing"
+      ],
+      "default": "location"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "published",
+        "needs_update",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "word_count": {
+      "type": "number"
+    },
+    "published_url": {
+      "type": "string"
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "last_updated_at": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "company_id",
+    "title",
+    "page_type",
+    "status"
+  ]
+}

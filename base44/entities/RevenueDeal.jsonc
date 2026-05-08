@@ -1,0 +1,60 @@
+{
+  "name": "RevenueDeal",
+  "type": "object",
+  "properties": {
+    "company_name": {
+      "type": "string"
+    },
+    "deal_value": {
+      "type": "number"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "prospect",
+        "qualified",
+        "proposal",
+        "negotiation",
+        "closed_won",
+        "closed_lost"
+      ]
+    },
+    "close_probability": {
+      "type": "number"
+    },
+    "assigned_rep": {
+      "type": "string"
+    },
+    "expected_close_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "urgency": {
+      "type": "string",
+      "enum": [
+        "hot",
+        "warm",
+        "cold"
+      ]
+    },
+    "deal_type": {
+      "type": "string",
+      "enum": [
+        "new",
+        "renewal",
+        "upsell"
+      ]
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "company_name",
+    "deal_value",
+    "stage"
+  ]
+}

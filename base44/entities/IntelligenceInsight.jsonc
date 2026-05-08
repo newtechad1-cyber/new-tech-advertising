@@ -1,0 +1,98 @@
+{
+  "name": "IntelligenceInsight",
+  "type": "object",
+  "properties": {
+    "insight_key": {
+      "type": "string",
+      "description": "Unique insight identifier"
+    },
+    "insight_category": {
+      "type": "string",
+      "enum": [
+        "retention_risk",
+        "growth_opportunity",
+        "operational_bottleneck",
+        "performance_trend",
+        "anomaly_detection",
+        "success_pattern",
+        "early_warning"
+      ],
+      "description": "Category of insight"
+    },
+    "context_type": {
+      "type": "string",
+      "enum": [
+        "global",
+        "agency",
+        "reseller",
+        "client",
+        "school"
+      ],
+      "description": "Context scope"
+    },
+    "reseller_id": {
+      "type": "string",
+      "description": "Reseller ID (if applicable)"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "Client ID (if applicable)"
+    },
+    "priority_level": {
+      "type": "string",
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low"
+      ],
+      "description": "Priority level"
+    },
+    "headline": {
+      "type": "string",
+      "description": "Short headline for the insight"
+    },
+    "narrative_text": {
+      "type": "string",
+      "description": "Detailed narrative explaining the insight"
+    },
+    "recommended_action": {
+      "type": "string",
+      "description": "Specific action recommended"
+    },
+    "related_entity_type": {
+      "type": "string",
+      "description": "Entity type involved (Deal, Client, Campaign, etc)"
+    },
+    "related_entity_id": {
+      "type": "string",
+      "description": "Entity ID involved"
+    },
+    "contributing_signals_json": {
+      "type": "string",
+      "description": "JSON: array of signals that generated this insight"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "acknowledged",
+        "acted_upon",
+        "resolved"
+      ],
+      "default": "active",
+      "description": "Status of the insight"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When insight was generated"
+    }
+  },
+  "required": [
+    "insight_key",
+    "insight_category",
+    "headline",
+    "generated_at"
+  ]
+}

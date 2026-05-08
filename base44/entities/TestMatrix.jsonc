@@ -1,0 +1,119 @@
+{
+  "name": "TestMatrix",
+  "type": "object",
+  "properties": {
+    "test_id": {
+      "type": "string",
+      "description": "Canonical ID e.g. AUTH-001"
+    },
+    "test_group": {
+      "type": "string",
+      "enum": [
+        "Authentication",
+        "Lead Capture",
+        "Lead to Deal",
+        "Proposal Workflow",
+        "Deal Closed Won",
+        "Deal Closed Lost",
+        "Direct Signup",
+        "Reseller Signup",
+        "Subscription Billing",
+        "Invoice and Payment",
+        "Onboarding",
+        "Campaign Creation",
+        "Content Generation",
+        "Content Approval",
+        "SEO",
+        "Website Project",
+        "ADA Audit",
+        "Reviews",
+        "Support",
+        "Analytics",
+        "Agent Failure",
+        "System Health",
+        "Data Isolation",
+        "Role Access"
+      ]
+    },
+    "test_name": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "description": "Role performing the test e.g. admin, client, reseller, public"
+    },
+    "start_page": {
+      "type": "string",
+      "description": "Page URL where test begins"
+    },
+    "trigger": {
+      "type": "string",
+      "description": "Action or event that starts the flow"
+    },
+    "expected_records_created": {
+      "type": "string",
+      "description": "Comma-separated list of entities expected to be created"
+    },
+    "expected_records_updated": {
+      "type": "string",
+      "description": "Comma-separated list of entity.field updates expected"
+    },
+    "expected_notifications": {
+      "type": "string",
+      "description": "Expected emails or in-app notifications"
+    },
+    "validation_pages": {
+      "type": "string",
+      "description": "Pages to check after trigger to confirm pass"
+    },
+    "automation_keys": {
+      "type": "string",
+      "description": "Automation IDs this test exercises e.g. AUTO_005"
+    },
+    "pass_fail_status": {
+      "type": "string",
+      "enum": [
+        "untested",
+        "pass",
+        "fail",
+        "blocked",
+        "skipped"
+      ],
+      "default": "untested"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "P0",
+        "P1",
+        "P2"
+      ],
+      "description": "P0=must pass before launch, P1=critical, P2=nice to have",
+      "default": "P1"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "owner": {
+      "type": "string",
+      "description": "Team member responsible for this test"
+    },
+    "date_tested": {
+      "type": "string",
+      "format": "date"
+    },
+    "failure_detail": {
+      "type": "string",
+      "description": "What broke if status=fail"
+    }
+  },
+  "required": [
+    "test_id",
+    "test_group",
+    "test_name",
+    "role",
+    "trigger",
+    "pass_fail_status",
+    "priority"
+  ]
+}

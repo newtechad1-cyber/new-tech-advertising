@@ -1,0 +1,134 @@
+{
+  "name": "Proposal",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Company ID"
+    },
+    "lead_id": {
+      "type": "string",
+      "description": "Reference to Lead ID"
+    },
+    "opportunity_id": {
+      "type": "string",
+      "description": "Reference to Opportunity ID"
+    },
+    "title": {
+      "type": "string",
+      "description": "Proposal title or reference"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "service_type": {
+      "type": "string",
+      "enum": [
+        "diy_saas",
+        "dfy_managed",
+        "ada_rebuild",
+        "streaming_tv",
+        "video_production",
+        "other"
+      ]
+    },
+    "scope_summary": {
+      "type": "string",
+      "description": "Plain language description of what is included"
+    },
+    "proposal_url": {
+      "type": "string",
+      "description": "URL to view the proposal"
+    },
+    "one_time_fee": {
+      "type": "number"
+    },
+    "monthly_fee": {
+      "type": "number"
+    },
+    "deposit_amount": {
+      "type": "number"
+    },
+    "estimated_value": {
+      "type": "number",
+      "description": "Total estimated deal value"
+    },
+    "deposit_payment_link": {
+      "type": "string"
+    },
+    "final_payment_link": {
+      "type": "string"
+    },
+    "views": {
+      "type": "number",
+      "default": 0,
+      "description": "How many times proposal has been viewed"
+    },
+    "last_viewed_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When it was last viewed"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "sent",
+        "viewed",
+        "accepted",
+        "rejected",
+        "expired"
+      ],
+      "default": "draft"
+    },
+    "pipeline_stage": {
+      "type": "string",
+      "enum": [
+        "lead",
+        "proposal_sent",
+        "proposal_viewed",
+        "negotiation",
+        "decision_pending",
+        "won",
+        "lost"
+      ],
+      "default": "lead"
+    },
+    "assigned_admin_user_id": {
+      "type": "string",
+      "description": "Assigned admin user ID"
+    },
+    "next_follow_up_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of next scheduled follow-up"
+    },
+    "last_contact_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of last contact"
+    },
+    "sent_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "accepted_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "signer_name": {
+      "type": "string"
+    },
+    "signed_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "service_type"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "name": "Tags",
+  "type": "object",
+  "properties": {
+    "school_slug": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "tag_type": {
+      "type": "string",
+      "enum": [
+        "activity",
+        "team",
+        "person",
+        "location",
+        "event",
+        "theme",
+        "general"
+      ],
+      "default": "general"
+    },
+    "color": {
+      "type": "string",
+      "description": "Hex color for UI display"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "school_slug",
+    "name",
+    "slug"
+  ]
+}

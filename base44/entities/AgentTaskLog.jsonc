@@ -1,0 +1,43 @@
+{
+  "name": "AgentTaskLog",
+  "type": "object",
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "description": "Reference to AgentTask"
+    },
+    "agent_key": {
+      "type": "string",
+      "description": "Agent that performed action"
+    },
+    "log_type": {
+      "type": "string",
+      "enum": [
+        "created",
+        "assigned",
+        "started",
+        "completed",
+        "failed",
+        "retried",
+        "escalated",
+        "resolved",
+        "cancelled"
+      ],
+      "description": "Type of log entry"
+    },
+    "log_message": {
+      "type": "string",
+      "description": "Human-readable log message"
+    },
+    "log_details": {
+      "type": "string",
+      "description": "JSON object with detailed information"
+    }
+  },
+  "required": [
+    "task_id",
+    "agent_key",
+    "log_type",
+    "log_message"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "name": "ReviewResponses",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID"
+    },
+    "review_id": {
+      "type": "string",
+      "description": "Reference to Reviews ID"
+    },
+    "response_text": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "ai_generated",
+        "human_written",
+        "template"
+      ],
+      "default": "ai_generated"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "approved",
+        "published",
+        "rejected"
+      ],
+      "default": "draft"
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "approved_by": {
+      "type": "string",
+      "description": "User email who approved"
+    }
+  },
+  "required": [
+    "company_id",
+    "review_id",
+    "response_text",
+    "status"
+  ]
+}

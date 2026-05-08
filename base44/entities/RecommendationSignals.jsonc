@@ -1,0 +1,54 @@
+{
+  "name": "RecommendationSignals",
+  "type": "object",
+  "properties": {
+    "unified_recommendation_id": {
+      "type": "string",
+      "description": "Reference to UnifiedRecommendations ID"
+    },
+    "signal_source": {
+      "type": "string",
+      "enum": [
+        "growth",
+        "playbook",
+        "strategy",
+        "optimizer",
+        "copilot",
+        "workflow",
+        "sla",
+        "communication",
+        "reporting"
+      ],
+      "description": "Which system provided this signal"
+    },
+    "signal_type": {
+      "type": "string",
+      "description": "Type of signal (e.g., 'renewal_window', 'approval_delay', 'content_gap')"
+    },
+    "signal_label": {
+      "type": "string",
+      "description": "Human-readable label for this signal"
+    },
+    "signal_value": {
+      "type": "string",
+      "description": "Specific value or measurement"
+    },
+    "weight_value": {
+      "type": "number",
+      "default": 1,
+      "description": "How much this signal contributes to the recommendation (0-10 scale)"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "unified_recommendation_id",
+    "signal_source",
+    "signal_type",
+    "signal_label",
+    "signal_value"
+  ]
+}

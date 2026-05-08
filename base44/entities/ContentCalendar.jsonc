@@ -1,0 +1,64 @@
+{
+  "name": "ContentCalendar",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID"
+    },
+    "campaign_id": {
+      "type": "string",
+      "description": "Reference to Campaigns ID (optional)"
+    },
+    "title": {
+      "type": "string"
+    },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "social_post",
+        "blog_post",
+        "video",
+        "email",
+        "ad",
+        "other"
+      ]
+    },
+    "content_id": {
+      "type": "string",
+      "description": "Reference to the specific content record ID"
+    },
+    "scheduled_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "scheduled_time": {
+      "type": "string",
+      "description": "HH:MM format"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "scheduled",
+        "published",
+        "cancelled"
+      ],
+      "default": "draft"
+    },
+    "platform": {
+      "type": "string",
+      "description": "e.g. instagram, facebook, blog, youtube"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "company_id",
+    "title",
+    "content_type",
+    "scheduled_date",
+    "status"
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "name": "PortalLanding",
+  "type": "object",
+  "properties": {
+    "account_id": {
+      "type": "string",
+      "description": "Reference to TrialAccount ID"
+    },
+    "headline": {
+      "type": "string",
+      "description": "Hero headline"
+    },
+    "subheadline": {
+      "type": "string",
+      "description": "Hero subheadline"
+    },
+    "hero_bullets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Trust points below hero CTA"
+    },
+    "sections_json": {
+      "type": "object",
+      "description": "Full landing page sections: features, how_involved, what_to_expect, how_it_works, testimonials, faq, footer"
+    },
+    "cta_primary": {
+      "type": "string",
+      "default": "Start My 7-Day Free Trial",
+      "description": "Primary CTA text"
+    },
+    "cta_secondary": {
+      "type": "string",
+      "default": "Existing Client Sign In",
+      "description": "Secondary CTA text"
+    },
+    "last_generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this was last generated"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "account_id",
+    "headline"
+  ]
+}

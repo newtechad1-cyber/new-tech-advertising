@@ -1,0 +1,58 @@
+{
+  "name": "SeoKeywords",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID"
+    },
+    "seo_project_id": {
+      "type": "string",
+      "description": "Reference to SeoProjects ID"
+    },
+    "keyword": {
+      "type": "string"
+    },
+    "search_volume": {
+      "type": "number"
+    },
+    "difficulty": {
+      "type": "number",
+      "description": "0-100 keyword difficulty score"
+    },
+    "current_rank": {
+      "type": "number"
+    },
+    "target_rank": {
+      "type": "number"
+    },
+    "intent": {
+      "type": "string",
+      "enum": [
+        "informational",
+        "navigational",
+        "transactional",
+        "commercial"
+      ],
+      "default": "commercial"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "tracking",
+        "paused",
+        "won"
+      ],
+      "default": "tracking"
+    },
+    "last_checked_at": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "company_id",
+    "keyword",
+    "status"
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "name": "BlogPost",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "excerpt": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string",
+      "format": "markdown"
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string"
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "meta_description": {
+      "type": "string"
+    },
+    "service": {
+      "type": "string",
+      "description": "Service slug e.g. streaming-tv, local-seo"
+    },
+    "industry": {
+      "type": "string",
+      "description": "Industry e.g. HVAC, Restaurant"
+    },
+    "city": {
+      "type": "string",
+      "description": "City if geo-targeted"
+    },
+    "featured_image_prompt": {
+      "type": "string",
+      "description": "AI image generation prompt"
+    },
+    "video_script": {
+      "type": "string",
+      "description": "30-60 sec video script"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "source": {
+      "type": "string",
+      "description": "How it was created: manual, ai-generated, case-study"
+    }
+  },
+  "required": [
+    "title",
+    "slug",
+    "content"
+  ]
+}

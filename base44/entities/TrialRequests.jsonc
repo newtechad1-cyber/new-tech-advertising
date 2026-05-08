@@ -1,0 +1,56 @@
+{
+  "name": "TrialRequests",
+  "type": "object",
+  "properties": {
+    "full_name": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "business_type": {
+      "type": "string"
+    },
+    "current_website": {
+      "type": "string"
+    },
+    "main_goal": {
+      "type": "string"
+    },
+    "selected_plan": {
+      "type": "string",
+      "enum": [
+        "starter",
+        "growth",
+        "pro",
+        ""
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "contacted",
+        "active",
+        "churned"
+      ],
+      "default": "new"
+    },
+    "prospect_id": {
+      "type": "string",
+      "description": "Linked SalesProspects ID"
+    }
+  },
+  "required": [
+    "full_name",
+    "email",
+    "status"
+  ]
+}

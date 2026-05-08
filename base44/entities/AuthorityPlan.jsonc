@@ -1,0 +1,66 @@
+{
+  "name": "AuthorityPlan",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Company ID"
+    },
+    "brand_profile_id": {
+      "type": "string",
+      "description": "Reference to BrandProfile ID"
+    },
+    "marketing_plan_id": {
+      "type": "string",
+      "description": "Reference to MarketingPlan ID (once generated)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "generating",
+        "active",
+        "archived"
+      ],
+      "default": "generating"
+    },
+    "plan_period": {
+      "type": "string",
+      "description": "e.g. Q1 2026 or 2026-03 through 2026-06"
+    },
+    "content_pillars": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Core content themes generated for this plan"
+    },
+    "weekly_themes": {
+      "type": "string",
+      "description": "JSON string of weekly theme schedule"
+    },
+    "campaign_count": {
+      "type": "integer",
+      "default": 0,
+      "description": "Number of ContentCampaigns generated"
+    },
+    "content_item_count": {
+      "type": "integer",
+      "default": 0,
+      "description": "Number of ContentItems generated"
+    },
+    "agent_job_id": {
+      "type": "string",
+      "description": "Reference to AgentJob that generated this plan"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "company_id"
+  ]
+}

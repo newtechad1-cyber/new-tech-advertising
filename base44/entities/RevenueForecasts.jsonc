@@ -1,0 +1,67 @@
+{
+  "name": "RevenueForecasts",
+  "type": "object",
+  "properties": {
+    "forecast_label": {
+      "type": "string",
+      "description": "Label for the forecast (e.g., 'March 2026 30-Day')"
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID (optional, for account-specific forecasts)"
+    },
+    "forecast_type": {
+      "type": "string",
+      "enum": [
+        "30_day",
+        "60_day",
+        "90_day",
+        "monthly",
+        "quarterly",
+        "account_forecast"
+      ],
+      "description": "Type of forecast"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date",
+      "description": "Start date of forecast period"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date",
+      "description": "End date of forecast period"
+    },
+    "estimated_pipeline_value": {
+      "type": "number",
+      "description": "Total estimated pipeline value (optional)"
+    },
+    "estimated_renewal_value": {
+      "type": "number",
+      "description": "Estimated renewal revenue (optional)"
+    },
+    "estimated_upsell_value": {
+      "type": "number",
+      "description": "Estimated upsell revenue (optional)"
+    },
+    "estimated_conversion_value": {
+      "type": "number",
+      "description": "Estimated conversion value (optional)"
+    },
+    "confidence_summary": {
+      "type": "string",
+      "description": "Summary of forecast confidence and risks (optional)"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "forecast_label",
+    "forecast_type",
+    "period_start",
+    "period_end"
+  ]
+}

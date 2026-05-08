@@ -1,0 +1,77 @@
+{
+  "name": "WhiteLabelBranding",
+  "type": "object",
+  "properties": {
+    "reseller_id": {
+      "type": "string",
+      "description": "Reference to ResellerAccounts ID"
+    },
+    "brand_name": {
+      "type": "string",
+      "description": "Brand name shown to clients"
+    },
+    "logo_url": {
+      "type": "string",
+      "description": "Logo image URL"
+    },
+    "favicon_url": {
+      "type": "string",
+      "description": "Favicon URL (optional)"
+    },
+    "primary_color": {
+      "type": "string",
+      "description": "Primary brand hex color (e.g. #1a56db)"
+    },
+    "secondary_color": {
+      "type": "string",
+      "description": "Secondary hex color (optional)"
+    },
+    "accent_color": {
+      "type": "string",
+      "description": "Accent hex color (optional)"
+    },
+    "background_color": {
+      "type": "string",
+      "description": "Background hex color (optional)"
+    },
+    "font_family": {
+      "type": "string",
+      "description": "Font preference (optional)"
+    },
+    "support_email": {
+      "type": "string",
+      "description": "Support email shown to clients (optional)"
+    },
+    "support_phone": {
+      "type": "string",
+      "description": "Support phone (optional)"
+    },
+    "portal_tagline": {
+      "type": "string",
+      "description": "Tagline shown on client portal (optional)"
+    },
+    "hide_powered_by": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to hide 'Powered by NTA' label"
+    },
+    "custom_css": {
+      "type": "string",
+      "description": "Optional custom CSS overrides"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "reseller_id",
+    "brand_name",
+    "active"
+  ]
+}

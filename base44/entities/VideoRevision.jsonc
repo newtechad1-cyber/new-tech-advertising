@@ -1,0 +1,39 @@
+{
+  "name": "VideoRevision",
+  "type": "object",
+  "properties": {
+    "video_request_id": {
+      "type": "string",
+      "description": "ID of the related VideoRequest"
+    },
+    "requested_by": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string",
+      "format": "long-text"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Open",
+        "In Progress",
+        "Completed"
+      ],
+      "default": "Open"
+    },
+    "resolved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "admin_notes": {
+      "type": "string",
+      "format": "long-text"
+    }
+  },
+  "required": [
+    "video_request_id",
+    "requested_by",
+    "notes"
+  ]
+}

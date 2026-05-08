@@ -1,0 +1,48 @@
+{
+  "name": "BookCallRequests",
+  "type": "object",
+  "properties": {
+    "full_name": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "business_type": {
+      "type": "string"
+    },
+    "preferred_time": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "contacted",
+        "scheduled",
+        "completed",
+        "lost"
+      ],
+      "default": "new"
+    },
+    "prospect_id": {
+      "type": "string",
+      "description": "Linked SalesProspects ID"
+    }
+  },
+  "required": [
+    "full_name",
+    "email",
+    "status"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "name": "ClientNotificationPreferences",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional for company defaults)"
+    },
+    "preference_scope": {
+      "type": "string",
+      "enum": [
+        "company_default",
+        "user_specific"
+      ],
+      "description": "Whether this is company-wide or user-specific"
+    },
+    "notification_type": {
+      "type": "string",
+      "enum": [
+        "new_message",
+        "approval_needed",
+        "proposal_ready",
+        "renewal_offer",
+        "report_published",
+        "strategy_review_published",
+        "deliverable_ready",
+        "support_reply",
+        "commerce_update"
+      ],
+      "description": "Type of notification"
+    },
+    "delivery_channel": {
+      "type": "string",
+      "enum": [
+        "in_app",
+        "email"
+      ],
+      "description": "How to deliver the notification"
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this notification is enabled"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_id",
+    "preference_scope",
+    "notification_type",
+    "delivery_channel",
+    "enabled"
+  ]
+}

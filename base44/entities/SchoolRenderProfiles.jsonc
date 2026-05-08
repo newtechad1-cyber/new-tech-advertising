@@ -1,0 +1,91 @@
+{
+  "name": "SchoolRenderProfiles",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "enum": [
+        "weekly_recap",
+        "sports_highlight",
+        "classroom_spotlight",
+        "event_recap"
+      ],
+      "description": "Profile type identifier"
+    },
+    "description": {
+      "type": "string",
+      "description": "Profile description and use case"
+    },
+    "default_duration": {
+      "type": "string",
+      "default": "2-3 minutes",
+      "description": "Target video duration"
+    },
+    "default_tone": {
+      "type": "string",
+      "enum": [
+        "inspiring",
+        "energetic",
+        "warm",
+        "proud",
+        "documentary",
+        "celebratory"
+      ],
+      "default": "warm"
+    },
+    "intro_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "outro_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "voiceover_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "captions_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "music_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "branding_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "highlight_scoring_weight": {
+      "type": "number",
+      "default": 0.5,
+      "description": "Weight for highlight detection (0-1)"
+    },
+    "music_style_preference": {
+      "type": "string",
+      "description": "Default music style category"
+    },
+    "caption_burn_in": {
+      "type": "boolean",
+      "default": false,
+      "description": "Burn captions directly into video"
+    },
+    "output_variants": {
+      "type": "string",
+      "description": "JSON array of output variants to always generate",
+      "default": "[\"landscape\", \"square\", \"vertical\"]"
+    },
+    "scene_template": {
+      "type": "string",
+      "description": "JSON template for scene structure and transitions"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

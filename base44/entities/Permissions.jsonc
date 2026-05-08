@@ -1,0 +1,38 @@
+{
+  "name": "Permissions",
+  "type": "object",
+  "properties": {
+    "permission_key": {
+      "type": "string",
+      "description": "Machine key, e.g. view_billing, manage_users"
+    },
+    "permission_label": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "dashboard",
+        "billing",
+        "content",
+        "analytics",
+        "settings",
+        "reseller",
+        "admin"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "permission_key",
+    "permission_label",
+    "category",
+    "active"
+  ]
+}

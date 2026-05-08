@@ -1,0 +1,28 @@
+{
+  "name": "DemoConversions",
+  "type": "object",
+  "properties": {
+    "prospect_id": {
+      "type": "string"
+    },
+    "demo_session_id": {
+      "type": "string"
+    },
+    "conversion_type": {
+      "type": "string",
+      "enum": [
+        "start_trial",
+        "request_setup",
+        "book_call",
+        "proposal_accept"
+      ],
+      "default": "start_trial"
+    },
+    "conversion_value": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "conversion_type"
+  ]
+}

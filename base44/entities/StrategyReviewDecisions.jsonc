@@ -1,0 +1,62 @@
+{
+  "name": "StrategyReviewDecisions",
+  "type": "object",
+  "properties": {
+    "strategy_review_id": {
+      "type": "string",
+      "description": "Reference to StrategyReviews ID"
+    },
+    "decision_type": {
+      "type": "string",
+      "enum": [
+        "continue",
+        "renew",
+        "upsell",
+        "cross_sell",
+        "pause",
+        "revise_strategy",
+        "follow_up",
+        "create_proposal",
+        "schedule_call"
+      ],
+      "description": "Type of decision"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title of the decision"
+    },
+    "description": {
+      "type": "string",
+      "description": "Details of the decision"
+    },
+    "related_service": {
+      "type": "string",
+      "description": "Related service if applicable"
+    },
+    "related_growth_opportunity_id": {
+      "type": "string",
+      "description": "Reference to GrowthOpportunities ID (optional)"
+    },
+    "related_proposal_id": {
+      "type": "string",
+      "description": "Reference to Proposals ID (optional)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "approved",
+        "declined",
+        "completed"
+      ],
+      "default": "proposed",
+      "description": "Status of the decision"
+    }
+  },
+  "required": [
+    "strategy_review_id",
+    "decision_type",
+    "title",
+    "description"
+  ]
+}

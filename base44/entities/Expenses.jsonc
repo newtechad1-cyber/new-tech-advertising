@@ -1,0 +1,62 @@
+{
+  "name": "Expenses",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID \u2014 null for internal platform expenses"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "ad_spend",
+        "tools_software",
+        "payroll",
+        "contractor",
+        "hosting",
+        "office",
+        "other"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string",
+      "default": "usd"
+    },
+    "expense_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "vendor": {
+      "type": "string"
+    },
+    "receipt_url": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "reimbursed",
+        "rejected"
+      ],
+      "default": "pending"
+    },
+    "submitted_by": {
+      "type": "string",
+      "description": "User email"
+    }
+  },
+  "required": [
+    "category",
+    "amount",
+    "expense_date",
+    "status"
+  ]
+}

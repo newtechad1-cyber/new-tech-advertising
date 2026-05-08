@@ -1,0 +1,34 @@
+{
+  "name": "AuthorityMapRunLog",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": [
+        "success",
+        "failed"
+      ],
+      "description": "Outcome of the automation run"
+    },
+    "message": {
+      "type": "string",
+      "description": "Summary message or error details"
+    },
+    "authority_map_id": {
+      "type": "string",
+      "description": "ID of the created AuthorityMap (if successful)"
+    },
+    "pillars_count": {
+      "type": "number",
+      "description": "Number of pillars generated"
+    },
+    "topics_scheduled": {
+      "type": "number",
+      "description": "Number of ContentQueue items created"
+    }
+  },
+  "required": [
+    "status",
+    "message"
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "name": "VideoProjects",
+  "type": "object",
+  "properties": {
+    "school_slug": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "project_type": {
+      "type": "string",
+      "enum": [
+        "weekly_recap",
+        "sports_highlight",
+        "classroom_spotlight",
+        "student_story",
+        "club_feature",
+        "event_recap",
+        "district_message",
+        "custom"
+      ],
+      "default": "custom"
+    },
+    "description": {
+      "type": "string"
+    },
+    "objective": {
+      "type": "string"
+    },
+    "target_audience": {
+      "type": "string"
+    },
+    "tone": {
+      "type": "string",
+      "enum": [
+        "inspiring",
+        "energetic",
+        "warm",
+        "proud",
+        "documentary",
+        "celebratory"
+      ],
+      "default": "warm"
+    },
+    "duration_target": {
+      "type": "string",
+      "default": "2-3 minutes"
+    },
+    "format_type": {
+      "type": "string",
+      "enum": [
+        "landscape",
+        "square",
+        "vertical"
+      ],
+      "default": "landscape"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "collecting_assets",
+        "ready_for_ai",
+        "script_generated",
+        "queued_for_render",
+        "rendering",
+        "review_ready",
+        "approved",
+        "published",
+        "failed"
+      ],
+      "default": "draft"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "high",
+        "normal",
+        "low"
+      ],
+      "default": "normal"
+    },
+    "cover_image_url": {
+      "type": "string"
+    },
+    "project_notes": {
+      "type": "string"
+    },
+    "clip_ids": {
+      "type": "string",
+      "description": "JSON array of VideoClip IDs"
+    },
+    "script_id": {
+      "type": "string"
+    },
+    "render_job_ids": {
+      "type": "string",
+      "description": "JSON array of VideoRenderJob IDs"
+    },
+    "publish_job_ids": {
+      "type": "string",
+      "description": "JSON array of VideoPublishingJob IDs"
+    },
+    "music_profile_id": {
+      "type": "string"
+    },
+    "voiceover_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "captions_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "intro_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "outro_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "ai_story_summary": {
+      "type": "string"
+    },
+    "publish_to_gallery": {
+      "type": "boolean",
+      "default": true
+    },
+    "public_video_url": {
+      "type": "string"
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "public_url": {
+      "type": "string"
+    },
+    "canonical_route": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "school_slug",
+    "title",
+    "slug",
+    "project_type"
+  ]
+}

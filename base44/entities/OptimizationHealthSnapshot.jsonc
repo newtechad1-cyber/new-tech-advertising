@@ -1,0 +1,58 @@
+{
+  "name": "OptimizationHealthSnapshot",
+  "type": "object",
+  "properties": {
+    "snapshot_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When snapshot was taken"
+    },
+    "optimization_category": {
+      "type": "string",
+      "enum": [
+        "publishing_performance",
+        "client_engagement",
+        "sales_conversion",
+        "onboarding_efficiency",
+        "automation_reliability",
+        "reseller_growth",
+        "reporting_effectiveness",
+        "workflow_throughput"
+      ],
+      "description": "Category being measured"
+    },
+    "active_candidates": {
+      "type": "number",
+      "description": "Count of active candidates"
+    },
+    "running_experiments": {
+      "type": "number",
+      "description": "Count of experiments in progress"
+    },
+    "successful_optimizations": {
+      "type": "number",
+      "description": "Count of successful optimizations adopted"
+    },
+    "failed_optimizations": {
+      "type": "number",
+      "description": "Count of failed optimizations"
+    },
+    "rollback_count": {
+      "type": "number",
+      "description": "Count of rollbacks triggered"
+    },
+    "health_score": {
+      "type": "number",
+      "description": "Overall health score (0-100)"
+    },
+    "issues_json": {
+      "type": "string",
+      "description": "JSON array of issues detected"
+    }
+  },
+  "required": [
+    "snapshot_time",
+    "optimization_category",
+    "health_score"
+  ]
+}

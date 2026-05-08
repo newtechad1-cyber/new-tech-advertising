@@ -1,0 +1,59 @@
+{
+  "name": "PaymentMethods",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID"
+    },
+    "stripe_payment_method_id": {
+      "type": "string"
+    },
+    "stripe_customer_id": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "card",
+        "bank_account",
+        "ach",
+        "other"
+      ],
+      "default": "card"
+    },
+    "brand": {
+      "type": "string",
+      "description": "e.g. Visa, Mastercard"
+    },
+    "last4": {
+      "type": "string"
+    },
+    "exp_month": {
+      "type": "number"
+    },
+    "exp_year": {
+      "type": "number"
+    },
+    "is_default": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "expired",
+        "failed",
+        "removed"
+      ],
+      "default": "active"
+    }
+  },
+  "required": [
+    "company_id",
+    "type",
+    "is_default",
+    "status"
+  ]
+}

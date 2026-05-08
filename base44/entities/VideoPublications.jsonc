@@ -1,0 +1,54 @@
+{
+  "name": "VideoPublications",
+  "type": "object",
+  "properties": {
+    "video_request_id": {
+      "type": "string"
+    },
+    "destination_type": {
+      "type": "string",
+      "enum": [
+        "sales_room",
+        "landing_page",
+        "website",
+        "social_calendar",
+        "client_portal",
+        "youtube",
+        "tiktok",
+        "facebook",
+        "instagram",
+        "asset_library"
+      ],
+      "default": "asset_library"
+    },
+    "destination_id": {
+      "type": "string"
+    },
+    "publish_status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "approved_internal",
+        "approved_client",
+        "published",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "published_url": {
+      "type": "string"
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "video_request_id",
+    "destination_type",
+    "publish_status"
+  ]
+}

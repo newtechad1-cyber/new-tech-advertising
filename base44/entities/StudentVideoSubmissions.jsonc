@@ -1,0 +1,132 @@
+{
+  "name": "StudentVideoSubmissions",
+  "type": "object",
+  "properties": {
+    "school_slug": {
+      "type": "string",
+      "description": "School identifier"
+    },
+    "submission_title": {
+      "type": "string"
+    },
+    "contributor_name": {
+      "type": "string"
+    },
+    "contributor_email": {
+      "type": "string"
+    },
+    "contributor_role": {
+      "type": "string",
+      "enum": [
+        "student",
+        "teacher",
+        "coach",
+        "staff",
+        "parent",
+        "other"
+      ],
+      "default": "student"
+    },
+    "submission_type": {
+      "type": "string",
+      "enum": [
+        "video",
+        "photo",
+        "mixed_media"
+      ],
+      "default": "video"
+    },
+    "activity_type": {
+      "type": "string",
+      "enum": [
+        "sports",
+        "classroom",
+        "arts",
+        "music",
+        "clubs",
+        "event",
+        "student_life",
+        "academic",
+        "other"
+      ],
+      "default": "student_life"
+    },
+    "team_or_group": {
+      "type": "string"
+    },
+    "event_name": {
+      "type": "string"
+    },
+    "event_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string"
+    },
+    "media_urls": {
+      "type": "string",
+      "description": "JSON array of file URLs"
+    },
+    "thumbnail_url": {
+      "type": "string"
+    },
+    "consent_confirmed": {
+      "type": "boolean",
+      "default": false
+    },
+    "legal_acknowledged": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "under_review",
+        "approved",
+        "rejected",
+        "archived",
+        "assigned_to_project"
+      ],
+      "default": "pending"
+    },
+    "moderation_notes": {
+      "type": "string"
+    },
+    "reviewed_by": {
+      "type": "string"
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ai_safety_flagged": {
+      "type": "boolean",
+      "default": false
+    },
+    "ai_quality_score": {
+      "type": "number",
+      "default": 0,
+      "description": "0-1 AI quality assessment"
+    },
+    "assigned_project_id": {
+      "type": "string"
+    },
+    "assigned_collection_id": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "string",
+      "description": "JSON array of tag IDs"
+    }
+  },
+  "required": [
+    "school_slug",
+    "submission_title",
+    "contributor_name",
+    "consent_confirmed",
+    "legal_acknowledged",
+    "status"
+  ]
+}

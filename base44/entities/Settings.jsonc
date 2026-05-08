@@ -1,0 +1,49 @@
+{
+  "name": "Settings",
+  "type": "object",
+  "properties": {
+    "business_name": {
+      "type": "string",
+      "description": "Business name used in AI automations"
+    },
+    "site_url": {
+      "type": "string",
+      "description": "Primary website URL"
+    },
+    "service_areas": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Geographic service areas"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Business phone number"
+    },
+    "cta": {
+      "type": "string",
+      "description": "Primary call-to-action text"
+    },
+    "brand_voice": {
+      "type": "string",
+      "description": "Brand voice guidelines for AI content generation"
+    },
+    "offers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Current offers or promotions"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "business_name",
+    "site_url"
+  ]
+}

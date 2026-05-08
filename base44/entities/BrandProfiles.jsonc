@@ -1,0 +1,86 @@
+{
+  "name": "BrandProfiles",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "owner_type": {
+      "type": "string",
+      "enum": [
+        "nta",
+        "client"
+      ],
+      "default": "client"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "logo_url": {
+      "type": "string"
+    },
+    "secondary_logo_url": {
+      "type": "string"
+    },
+    "tagline": {
+      "type": "string"
+    },
+    "primary_color": {
+      "type": "string",
+      "default": "#0a0a0a"
+    },
+    "secondary_color": {
+      "type": "string",
+      "default": "#3b82f6"
+    },
+    "accent_color": {
+      "type": "string",
+      "default": "#f59e0b"
+    },
+    "font_style": {
+      "type": "string",
+      "default": "modern"
+    },
+    "intro_template": {
+      "type": "string"
+    },
+    "outro_template": {
+      "type": "string"
+    },
+    "watermark_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "watermark_position": {
+      "type": "string",
+      "enum": [
+        "top_left",
+        "top_right",
+        "bottom_left",
+        "bottom_right"
+      ],
+      "default": "bottom_right"
+    },
+    "cta_style": {
+      "type": "string"
+    },
+    "voice_default": {
+      "type": "string"
+    },
+    "avatar_default": {
+      "type": "string"
+    },
+    "thumbnail_style": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "name",
+    "owner_type",
+    "active"
+  ]
+}

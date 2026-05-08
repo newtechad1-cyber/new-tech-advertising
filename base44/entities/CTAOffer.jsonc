@@ -1,0 +1,54 @@
+{
+  "name": "CTAOffer",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Internal reference name"
+    },
+    "cta_type": {
+      "type": "string",
+      "enum": [
+        "trial",
+        "demo",
+        "audit",
+        "call",
+        "download",
+        "tool",
+        "playbook"
+      ]
+    },
+    "headline": {
+      "type": "string"
+    },
+    "subtext": {
+      "type": "string"
+    },
+    "button_text": {
+      "type": "string"
+    },
+    "destination_url": {
+      "type": "string"
+    },
+    "trigger_context": {
+      "type": "string",
+      "description": "When/where to show this CTA (e.g. after tool use, end of article)"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "name",
+    "cta_type",
+    "headline",
+    "button_text",
+    "destination_url"
+  ]
+}

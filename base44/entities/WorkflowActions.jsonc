@@ -1,0 +1,63 @@
+{
+  "name": "WorkflowActions",
+  "type": "object",
+  "properties": {
+    "workflow_run_id": {
+      "type": "string",
+      "description": "Reference to WorkflowRuns ID"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "create_task",
+        "create_alert",
+        "create_proposal",
+        "create_review",
+        "create_playbook",
+        "create_message",
+        "create_request",
+        "assign_owner",
+        "update_status",
+        "escalate",
+        "schedule_followup",
+        "generate_report",
+        "generate_brief"
+      ],
+      "description": "Type of action"
+    },
+    "action_target_type": {
+      "type": "string",
+      "description": "What entity this action targets"
+    },
+    "action_target_id": {
+      "type": "string",
+      "description": "ID of the target entity"
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID (optional)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "completed",
+        "skipped",
+        "failed"
+      ],
+      "default": "queued",
+      "description": "Status of this action"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Summary of what this action did or why it was skipped"
+    }
+  },
+  "required": [
+    "workflow_run_id",
+    "action_type",
+    "action_target_type",
+    "status",
+    "summary"
+  ]
+}

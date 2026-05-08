@@ -1,0 +1,59 @@
+{
+  "name": "ActivityLog",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Company ID (if applicable)"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "lead_created",
+        "lead_updated",
+        "opportunity_created",
+        "proposal_sent",
+        "proposal_accepted",
+        "subscription_started",
+        "subscription_cancelled",
+        "payment_received",
+        "invoice_created",
+        "onboarding_completed",
+        "content_approved",
+        "post_published",
+        "post_failed",
+        "agent_job_completed",
+        "project_milestone",
+        "service_request_submitted",
+        "email_sent",
+        "note_added",
+        "other"
+      ],
+      "description": "Type of event"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Human-readable summary of what happened"
+    },
+    "entity_type": {
+      "type": "string",
+      "description": "The entity that triggered this log (e.g. Lead, Invoice)"
+    },
+    "entity_id": {
+      "type": "string",
+      "description": "ID of the related entity record"
+    },
+    "user_email": {
+      "type": "string",
+      "description": "User who triggered the event (if manual)"
+    },
+    "metadata": {
+      "type": "string",
+      "description": "JSON string of additional structured data"
+    }
+  },
+  "required": [
+    "event_type",
+    "summary"
+  ]
+}

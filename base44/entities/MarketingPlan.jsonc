@@ -1,0 +1,73 @@
+{
+  "name": "MarketingPlan",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Company ID"
+    },
+    "plan_name": {
+      "type": "string",
+      "description": "Label for this plan version"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "posting_frequency": {
+      "type": "string",
+      "description": "e.g. 3x per week, daily"
+    },
+    "active_channels": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "facebook",
+          "instagram",
+          "linkedin",
+          "tiktok",
+          "twitter",
+          "google_business",
+          "youtube"
+        ]
+      }
+    },
+    "content_mix": {
+      "type": "string",
+      "description": "Breakdown of content types (e.g. 40% educational, 30% promotional)"
+    },
+    "monthly_video_count": {
+      "type": "integer",
+      "default": 0
+    },
+    "monthly_image_count": {
+      "type": "integer",
+      "default": 0
+    },
+    "monthly_text_count": {
+      "type": "integer",
+      "default": 0
+    },
+    "campaign_themes": {
+      "type": "string",
+      "description": "Seasonal or ongoing campaign themes"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "effective_date": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "company_id",
+    "plan_name"
+  ]
+}

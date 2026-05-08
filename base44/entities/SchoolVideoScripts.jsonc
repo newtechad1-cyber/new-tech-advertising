@@ -1,0 +1,71 @@
+{
+  "name": "SchoolVideoScripts",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string"
+    },
+    "script_version": {
+      "type": "number",
+      "default": 1
+    },
+    "title": {
+      "type": "string"
+    },
+    "hook_line": {
+      "type": "string"
+    },
+    "short_description": {
+      "type": "string"
+    },
+    "story_summary": {
+      "type": "string"
+    },
+    "full_voiceover_script": {
+      "type": "string"
+    },
+    "scene_structure": {
+      "type": "string"
+    },
+    "on_screen_text": {
+      "type": "string"
+    },
+    "caption_text": {
+      "type": "string"
+    },
+    "intro_text": {
+      "type": "string"
+    },
+    "outro_text": {
+      "type": "string"
+    },
+    "music_direction": {
+      "type": "string"
+    },
+    "pacing_direction": {
+      "type": "string"
+    },
+    "call_to_action": {
+      "type": "string"
+    },
+    "generation_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "generated",
+        "reviewed",
+        "approved",
+        "rejected"
+      ],
+      "default": "pending"
+    },
+    "approved_version": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "project_id",
+    "generation_status"
+  ]
+}

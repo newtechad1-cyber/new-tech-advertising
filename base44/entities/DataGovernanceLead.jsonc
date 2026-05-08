@@ -1,0 +1,89 @@
+{
+  "name": "DataGovernanceLead",
+  "type": "object",
+  "properties": {
+    "leadId": {
+      "type": "string",
+      "description": "Unique lead identifier"
+    },
+    "organizationId": {
+      "type": "string",
+      "description": "Foreign key to Organization"
+    },
+    "firstName": {
+      "type": "string",
+      "description": "Lead first name"
+    },
+    "lastName": {
+      "type": "string",
+      "description": "Lead last name"
+    },
+    "email": {
+      "type": "string",
+      "description": "Lead email address"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Lead phone number"
+    },
+    "company": {
+      "type": "string",
+      "description": "Company name"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "organic_search",
+        "paid_ad",
+        "social_media",
+        "referral",
+        "direct",
+        "content_download",
+        "webinar",
+        "event",
+        "other"
+      ],
+      "description": "Lead source"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "contacted",
+        "qualified",
+        "proposal_sent",
+        "negotiating",
+        "won",
+        "lost",
+        "unqualified"
+      ],
+      "default": "new",
+      "description": "Lead status"
+    },
+    "estimatedValue": {
+      "type": "number",
+      "default": 0,
+      "description": "Estimated deal value in cents"
+    },
+    "closeDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Estimated or actual close date"
+    },
+    "revenueAttributed": {
+      "type": "number",
+      "default": 0,
+      "description": "Attributed revenue in cents"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Internal notes about lead"
+    }
+  },
+  "required": [
+    "leadId",
+    "organizationId",
+    "email",
+    "source"
+  ]
+}

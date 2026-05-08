@@ -1,0 +1,59 @@
+{
+  "name": "NTAPricingAddOn",
+  "type": "object",
+  "properties": {
+    "addon_key": {
+      "type": "string",
+      "enum": [
+        "seasonal_campaign",
+        "paid_amplification",
+        "reputation_acceleration",
+        "location_expansion",
+        "streaming_upgrade",
+        "video_intensive",
+        "authority_audit"
+      ]
+    },
+    "addon_name": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "growth_accelerator",
+        "visibility",
+        "content",
+        "reputation",
+        "expansion"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "positioning_value": {
+      "type": "string"
+    },
+    "base_monthly_fee": {
+      "type": "number",
+      "default": 0
+    },
+    "base_setup_fee": {
+      "type": "number",
+      "default": 0
+    },
+    "compatible_packages": {
+      "type": "string"
+    },
+    "recommended_for_industries": {
+      "type": "string"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "addon_key",
+    "addon_name"
+  ]
+}

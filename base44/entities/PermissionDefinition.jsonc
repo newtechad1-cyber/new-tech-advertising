@@ -1,0 +1,93 @@
+{
+  "name": "PermissionDefinition",
+  "type": "object",
+  "properties": {
+    "permissionKey": {
+      "type": "string",
+      "description": "Unique identifier for permission (snake_case)"
+    },
+    "permissionName": {
+      "type": "string",
+      "description": "Display name for permission"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "user_management",
+        "content_creation",
+        "publishing",
+        "analytics",
+        "billing",
+        "admin",
+        "organization",
+        "automation",
+        "integrations",
+        "client_access",
+        "reseller_management"
+      ],
+      "description": "Permission category for grouping"
+    },
+    "description": {
+      "type": "string",
+      "description": "What this permission grants access to"
+    },
+    "resourceType": {
+      "type": "string",
+      "description": "Entity or resource this applies to (e.g., Campaign, ContentAsset, User)"
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "create",
+        "read",
+        "update",
+        "delete",
+        "publish",
+        "export",
+        "manage"
+      ],
+      "description": "Action type"
+    },
+    "minPlanRequired": {
+      "type": "string",
+      "enum": [
+        "free_trial",
+        "diy",
+        "guided_growth",
+        "done_for_you",
+        "premium",
+        "enterprise",
+        "none"
+      ],
+      "default": "none",
+      "description": "Minimum plan to use this permission"
+    },
+    "scopeLevel": {
+      "type": "string",
+      "enum": [
+        "global",
+        "organization",
+        "team",
+        "personal"
+      ],
+      "default": "organization",
+      "description": "Scope level for this permission"
+    },
+    "isSensitive": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this action should be audit logged"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether permission is currently available"
+    }
+  },
+  "required": [
+    "permissionKey",
+    "permissionName",
+    "category",
+    "action"
+  ]
+}

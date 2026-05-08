@@ -1,0 +1,66 @@
+{
+  "name": "VideoTemplates",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "template_type": {
+      "type": "string",
+      "enum": [
+        "sales_demo",
+        "feature_explainer",
+        "industry_promo",
+        "offer_ad",
+        "onboarding",
+        "case_study",
+        "support",
+        "social_post_video"
+      ],
+      "default": "feature_explainer"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "goal": {
+      "type": "string"
+    },
+    "script_template": {
+      "type": "string"
+    },
+    "scene_template": {
+      "type": "string",
+      "description": "JSON array of scene definitions"
+    },
+    "default_duration": {
+      "type": "string"
+    },
+    "default_orientation": {
+      "type": "string",
+      "enum": [
+        "landscape",
+        "square",
+        "vertical"
+      ],
+      "default": "landscape"
+    },
+    "avatar_default": {
+      "type": "string"
+    },
+    "voice_default": {
+      "type": "string"
+    },
+    "cta_template": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "name",
+    "template_type",
+    "active"
+  ]
+}

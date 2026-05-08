@@ -1,0 +1,106 @@
+{
+  "name": "ApprovalRequests",
+  "type": "object",
+  "properties": {
+    "request_type": {
+      "type": "string",
+      "enum": [
+        "send_proposal",
+        "send_client_message",
+        "launch_revenue_sequence",
+        "escalate_owner",
+        "publish_review",
+        "publish_report",
+        "start_automation",
+        "override_policy",
+        "rollback_action"
+      ],
+      "description": "Type of approval requested"
+    },
+    "related_entity_type": {
+      "type": "string",
+      "description": "Type of related entity"
+    },
+    "related_entity_id": {
+      "type": "string",
+      "description": "ID of related entity"
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID (optional)"
+    },
+    "requested_by_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional)"
+    },
+    "assigned_approver_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID for approver"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title of approval request"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Summary of what is being requested"
+    },
+    "approval_reason": {
+      "type": "string",
+      "description": "Why approval is required (optional)"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent",
+        "critical"
+      ],
+      "default": "medium",
+      "description": "Priority level"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected",
+        "expired",
+        "cancelled"
+      ],
+      "default": "pending",
+      "description": "Status of request"
+    },
+    "decision_notes": {
+      "type": "string",
+      "description": "Approver notes (optional)"
+    },
+    "approved_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When approved (optional)"
+    },
+    "rejected_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When rejected (optional)"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When request expires (optional)"
+    }
+  },
+  "required": [
+    "request_type",
+    "related_entity_type",
+    "related_entity_id",
+    "assigned_approver_user_id",
+    "title",
+    "summary",
+    "priority",
+    "status"
+  ]
+}

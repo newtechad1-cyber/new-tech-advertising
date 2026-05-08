@@ -1,0 +1,107 @@
+{
+  "name": "WeeklyMarketingPlan",
+  "type": "object",
+  "properties": {
+    "business_profile_id": {
+      "type": "string",
+      "description": "Reference to BusinessProfile ID"
+    },
+    "business_intel_profile_id": {
+      "type": "string",
+      "description": "Reference to BusinessIntelProfile ID"
+    },
+    "week_start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "week_end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "paused",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "primary_theme": {
+      "type": "string"
+    },
+    "primary_offer": {
+      "type": "string"
+    },
+    "content_tasks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "JSON array of task objects"
+    },
+    "video_tasks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "JSON array of task objects"
+    },
+    "social_tasks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "JSON array of task objects"
+    },
+    "campaign_tasks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "JSON array of task objects"
+    },
+    "email_tasks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "JSON array of task objects"
+    },
+    "seo_tasks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "JSON array of task objects"
+    },
+    "quick_win_tasks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "JSON array of task objects"
+    },
+    "why_this_plan": {
+      "type": "string"
+    },
+    "source_mix_summary": {
+      "type": "string"
+    },
+    "confidence_score": {
+      "type": "number",
+      "default": 50
+    }
+  },
+  "required": [
+    "business_profile_id",
+    "business_intel_profile_id",
+    "week_start_date",
+    "week_end_date"
+  ]
+}

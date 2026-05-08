@@ -1,0 +1,46 @@
+{
+  "name": "Contact",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Company ID"
+    },
+    "full_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "description": "Their role at the business (e.g. Owner, Manager)"
+    },
+    "is_primary": {
+      "type": "boolean",
+      "default": true,
+      "description": "Primary contact for the company"
+    },
+    "preferred_contact_method": {
+      "type": "string",
+      "enum": [
+        "email",
+        "sms",
+        "phone",
+        "whatsapp"
+      ],
+      "default": "email"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "company_id",
+    "full_name",
+    "email"
+  ]
+}

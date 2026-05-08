@@ -1,0 +1,47 @@
+{
+  "name": "SalesKnowledgeBase",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "company",
+        "platform",
+        "feature",
+        "industry",
+        "messaging",
+        "objection",
+        "pricing",
+        "conversion"
+      ],
+      "default": "platform"
+    },
+    "content": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "string",
+      "description": "Comma-separated tags"
+    },
+    "version": {
+      "type": "string",
+      "default": "v1.0"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "title",
+    "category",
+    "content",
+    "active"
+  ]
+}

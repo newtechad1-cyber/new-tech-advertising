@@ -1,0 +1,41 @@
+{
+  "name": "SalesRecommendations",
+  "type": "object",
+  "properties": {
+    "prospect_id": {
+      "type": "string"
+    },
+    "recommended_plan": {
+      "type": "string",
+      "enum": [
+        "starter",
+        "growth",
+        "pro"
+      ]
+    },
+    "confidence_score": {
+      "type": "number",
+      "default": 50
+    },
+    "reason_summary": {
+      "type": "string"
+    },
+    "suggested_addons": {
+      "type": "string",
+      "description": "JSON array of addon suggestions"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "prospect_id",
+    "recommended_plan",
+    "active"
+  ]
+}

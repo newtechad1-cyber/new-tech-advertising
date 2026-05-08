@@ -1,0 +1,36 @@
+{
+  "name": "Roles",
+  "type": "object",
+  "properties": {
+    "role_name": {
+      "type": "string",
+      "description": "Display name of the role"
+    },
+    "role_key": {
+      "type": "string",
+      "description": "Unique machine key, e.g. admin, client_owner, reseller, viewer"
+    },
+    "scope": {
+      "type": "string",
+      "enum": [
+        "platform",
+        "company",
+        "reseller"
+      ],
+      "description": "Where this role applies"
+    },
+    "description": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "role_name",
+    "role_key",
+    "scope",
+    "active"
+  ]
+}

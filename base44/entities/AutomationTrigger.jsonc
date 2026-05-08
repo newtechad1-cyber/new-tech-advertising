@@ -1,0 +1,48 @@
+{
+  "name": "AutomationTrigger",
+  "type": "object",
+  "properties": {
+    "rule_name": {
+      "type": "string"
+    },
+    "trigger_type": {
+      "type": "string",
+      "enum": [
+        "scheduled",
+        "event_based",
+        "threshold",
+        "webhook"
+      ]
+    },
+    "fires_today": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused",
+        "error"
+      ],
+      "default": "active"
+    },
+    "last_fired_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "error_count": {
+      "type": "number"
+    },
+    "category": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "rule_name",
+    "trigger_type",
+    "status"
+  ]
+}

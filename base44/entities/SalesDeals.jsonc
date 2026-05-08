@@ -1,0 +1,79 @@
+{
+  "name": "SalesDeals",
+  "type": "object",
+  "properties": {
+    "lead_id": {
+      "type": "string",
+      "description": "Reference to SalesLeads ID (optional)"
+    },
+    "company_name": {
+      "type": "string",
+      "description": "Company name"
+    },
+    "contact_name": {
+      "type": "string",
+      "description": "Contact name"
+    },
+    "email": {
+      "type": "string",
+      "description": "Contact email (optional)"
+    },
+    "plan": {
+      "type": "string",
+      "description": "Plan or service package (optional)"
+    },
+    "deal_value": {
+      "type": "number",
+      "description": "Monthly or one-time deal value"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "new_lead",
+        "contacted",
+        "demo_scheduled",
+        "proposal_sent",
+        "negotiation",
+        "closed_won",
+        "closed_lost"
+      ],
+      "default": "new_lead",
+      "description": "Current pipeline stage"
+    },
+    "proposal_sent": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether proposal has been sent"
+    },
+    "closing_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Expected close date (optional)"
+    },
+    "assigned_to": {
+      "type": "string",
+      "description": "Assigned rep user email (optional)"
+    },
+    "probability": {
+      "type": "number",
+      "description": "Win probability 0-100 (optional)"
+    },
+    "lost_reason": {
+      "type": "string",
+      "description": "Reason if closed lost (optional)"
+    },
+    "converted_company_id": {
+      "type": "string",
+      "description": "Company ID if converted (optional)"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Notes (optional)"
+    }
+  },
+  "required": [
+    "company_name",
+    "deal_value",
+    "stage"
+  ]
+}

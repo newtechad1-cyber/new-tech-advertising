@@ -1,0 +1,70 @@
+{
+  "name": "BillingEvents",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "contract_id": {
+      "type": "string",
+      "description": "Reference to Contracts ID (optional)"
+    },
+    "subscription_id": {
+      "type": "string",
+      "description": "Reference to Subscriptions ID (optional)"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "subscription_started",
+        "invoice_due",
+        "invoice_paid",
+        "invoice_failed",
+        "renewal_due",
+        "contract_renewed",
+        "contract_paused",
+        "contract_cancelled",
+        "upgrade_applied",
+        "overage_logged",
+        "expansion_added"
+      ],
+      "description": "Type of event"
+    },
+    "event_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of event"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Amount (optional)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "scheduled",
+        "completed",
+        "failed",
+        "cancelled"
+      ],
+      "default": "scheduled",
+      "description": "Status"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Summary of event"
+    },
+    "related_invoice_reference": {
+      "type": "string",
+      "description": "Invoice reference (optional)"
+    }
+  },
+  "required": [
+    "company_id",
+    "event_type",
+    "event_date",
+    "status",
+    "summary"
+  ]
+}

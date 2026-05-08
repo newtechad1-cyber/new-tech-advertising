@@ -1,0 +1,80 @@
+{
+  "name": "SalesTasks",
+  "type": "object",
+  "properties": {
+    "task_title": {
+      "type": "string"
+    },
+    "task_type": {
+      "type": "string",
+      "enum": [
+        "call",
+        "email_followup",
+        "demo",
+        "proposal_revision",
+        "check_in",
+        "internal_review",
+        "other"
+      ],
+      "default": "call"
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Company ID"
+    },
+    "lead_id": {
+      "type": "string",
+      "description": "Reference to Lead ID"
+    },
+    "proposal_id": {
+      "type": "string",
+      "description": "Reference to Proposal ID"
+    },
+    "assigned_admin_user_id": {
+      "type": "string",
+      "description": "Assigned admin user ID"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "completed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "completed",
+        "cancelled"
+      ],
+      "default": "pending"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string",
+      "description": "Denormalized company name"
+    },
+    "alert_created": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether overdue alert has been created"
+    }
+  },
+  "required": [
+    "task_title"
+  ]
+}

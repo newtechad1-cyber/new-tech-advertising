@@ -1,0 +1,70 @@
+{
+  "name": "VideoPublishAuditLog",
+  "type": "object",
+  "properties": {
+    "video_id": {
+      "type": "string"
+    },
+    "publish_job_id": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "uploaded",
+        "transcript_generated",
+        "captions_generated",
+        "branding_saved",
+        "render_completed",
+        "marked_ready_for_review",
+        "approved",
+        "rejected",
+        "changes_requested",
+        "job_created",
+        "publish_pipeline_started",
+        "publish_started",
+        "publish_succeeded",
+        "publish_failed",
+        "retry_requested",
+        "retry_succeeded",
+        "retry_failed",
+        "scheduled_activated",
+        "destination_skipped",
+        "token_expired",
+        "needs_connection",
+        "republished",
+        "story_created"
+      ]
+    },
+    "event_label": {
+      "type": "string"
+    },
+    "event_details": {
+      "type": "string"
+    },
+    "destination": {
+      "type": "string"
+    },
+    "actor_type": {
+      "type": "string",
+      "enum": [
+        "system",
+        "admin",
+        "client",
+        "agent"
+      ],
+      "default": "system"
+    },
+    "actor_name": {
+      "type": "string"
+    },
+    "logged_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "video_id",
+    "event_type"
+  ]
+}

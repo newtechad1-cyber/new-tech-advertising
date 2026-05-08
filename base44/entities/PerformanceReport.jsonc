@@ -1,0 +1,76 @@
+{
+  "name": "PerformanceReport",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Company ID"
+    },
+    "report_period": {
+      "type": "string",
+      "description": "e.g. 2026-02 or Q1 2026"
+    },
+    "report_type": {
+      "type": "string",
+      "enum": [
+        "monthly",
+        "quarterly",
+        "campaign",
+        "custom"
+      ],
+      "default": "monthly"
+    },
+    "total_posts": {
+      "type": "integer",
+      "default": 0
+    },
+    "total_reach": {
+      "type": "integer",
+      "default": 0
+    },
+    "total_impressions": {
+      "type": "integer",
+      "default": 0
+    },
+    "total_engagements": {
+      "type": "integer",
+      "default": 0
+    },
+    "total_link_clicks": {
+      "type": "integer",
+      "default": 0
+    },
+    "new_followers": {
+      "type": "integer",
+      "default": 0
+    },
+    "top_performing_post_id": {
+      "type": "string",
+      "description": "ContentItem ID of best performer"
+    },
+    "channel_breakdown": {
+      "type": "string",
+      "description": "JSON string of per-channel metrics"
+    },
+    "summary_narrative": {
+      "type": "string",
+      "description": "AI-generated plain English summary"
+    },
+    "report_url": {
+      "type": "string",
+      "description": "Link to full report if exported"
+    },
+    "generated_by": {
+      "type": "string",
+      "enum": [
+        "ai",
+        "manual"
+      ],
+      "default": "ai"
+    }
+  },
+  "required": [
+    "company_id",
+    "report_period"
+  ]
+}

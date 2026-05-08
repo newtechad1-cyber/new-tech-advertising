@@ -1,0 +1,39 @@
+{
+  "name": "EbookChapter",
+  "type": "object",
+  "properties": {
+    "ebook_title": {
+      "type": "string",
+      "description": "Title of the ebook this chapter belongs to"
+    },
+    "chapter_number": {
+      "type": "integer",
+      "description": "Chapter order number"
+    },
+    "chapter_title": {
+      "type": "string",
+      "description": "Title of the chapter"
+    },
+    "content": {
+      "type": "string",
+      "format": "markdown",
+      "description": "Chapter content"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "complete"
+      ],
+      "default": "draft"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Internal notes for this chapter"
+    }
+  },
+  "required": [
+    "ebook_title",
+    "chapter_title"
+  ]
+}

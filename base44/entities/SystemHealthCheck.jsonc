@@ -1,0 +1,98 @@
+{
+  "name": "SystemHealthCheck",
+  "type": "object",
+  "properties": {
+    "run_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this health check was run"
+    },
+    "overall_status": {
+      "type": "string",
+      "enum": [
+        "healthy",
+        "degraded",
+        "critical"
+      ],
+      "description": "Overall platform status"
+    },
+    "auth_status": {
+      "type": "string",
+      "enum": [
+        "ok",
+        "warning",
+        "error"
+      ]
+    },
+    "auth_message": {
+      "type": "string"
+    },
+    "database_status": {
+      "type": "string",
+      "enum": [
+        "ok",
+        "warning",
+        "error"
+      ]
+    },
+    "database_message": {
+      "type": "string"
+    },
+    "stripe_status": {
+      "type": "string",
+      "enum": [
+        "ok",
+        "warning",
+        "error"
+      ]
+    },
+    "stripe_message": {
+      "type": "string"
+    },
+    "ai_status": {
+      "type": "string",
+      "enum": [
+        "ok",
+        "warning",
+        "error"
+      ]
+    },
+    "ai_message": {
+      "type": "string"
+    },
+    "email_status": {
+      "type": "string",
+      "enum": [
+        "ok",
+        "warning",
+        "error"
+      ]
+    },
+    "email_message": {
+      "type": "string"
+    },
+    "content_status": {
+      "type": "string",
+      "enum": [
+        "ok",
+        "warning",
+        "error"
+      ]
+    },
+    "content_message": {
+      "type": "string"
+    },
+    "duration_ms": {
+      "type": "number",
+      "description": "How long the check took in milliseconds"
+    },
+    "error_log": {
+      "type": "string",
+      "description": "Raw error details if any checks failed"
+    }
+  },
+  "required": [
+    "run_at",
+    "overall_status"
+  ]
+}

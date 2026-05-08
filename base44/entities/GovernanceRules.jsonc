@@ -1,0 +1,89 @@
+{
+  "name": "GovernanceRules",
+  "type": "object",
+  "properties": {
+    "governance_policy_id": {
+      "type": "string",
+      "description": "Reference to GovernancePolicies ID"
+    },
+    "rule_name": {
+      "type": "string",
+      "description": "Name of the rule"
+    },
+    "rule_category": {
+      "type": "string",
+      "enum": [
+        "proposal_sending",
+        "client_messaging",
+        "revenue_motion",
+        "workflow_execution",
+        "recommendation_action",
+        "task_creation",
+        "review_publication",
+        "optimization_execution",
+        "escalation",
+        "rollback"
+      ],
+      "description": "Category of rule"
+    },
+    "action_type": {
+      "type": "string",
+      "description": "Specific action type this rule applies to (optional)"
+    },
+    "entity_type": {
+      "type": "string",
+      "description": "Entity type this rule applies to (optional)"
+    },
+    "trigger_condition": {
+      "type": "string",
+      "description": "Condition that triggers this rule"
+    },
+    "rule_effect": {
+      "type": "string",
+      "enum": [
+        "allow",
+        "require_approval",
+        "block",
+        "log_only",
+        "escalate_owner"
+      ],
+      "description": "Effect of rule when triggered"
+    },
+    "human_approval_required": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether human approval is required"
+    },
+    "allowed_roles": {
+      "type": "string",
+      "description": "Comma-separated roles allowed (optional)"
+    },
+    "blocked_roles": {
+      "type": "string",
+      "description": "Comma-separated roles blocked (optional)"
+    },
+    "client_visible": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this rule is visible to clients"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether rule is active"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "governance_policy_id",
+    "rule_name",
+    "rule_category",
+    "trigger_condition",
+    "rule_effect",
+    "active"
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "name": "Payouts",
+  "type": "object",
+  "properties": {
+    "reseller_id": {
+      "type": "string",
+      "description": "Reference to ResellerAccounts ID"
+    },
+    "period_label": {
+      "type": "string",
+      "description": "e.g. March 2026"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date"
+    },
+    "gross_amount": {
+      "type": "number"
+    },
+    "commission_amount": {
+      "type": "number"
+    },
+    "net_amount": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string",
+      "default": "usd"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "processing",
+        "paid",
+        "failed",
+        "cancelled"
+      ],
+      "default": "pending"
+    },
+    "stripe_transfer_id": {
+      "type": "string"
+    },
+    "payout_method": {
+      "type": "string",
+      "enum": [
+        "stripe_connect",
+        "ach",
+        "check",
+        "manual"
+      ],
+      "default": "stripe_connect"
+    },
+    "paid_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "reseller_id",
+    "period_label",
+    "period_start",
+    "period_end",
+    "gross_amount",
+    "commission_amount",
+    "net_amount",
+    "status"
+  ]
+}

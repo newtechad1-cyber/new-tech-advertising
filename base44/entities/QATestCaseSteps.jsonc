@@ -1,0 +1,43 @@
+{
+  "name": "QATestCaseSteps",
+  "type": "object",
+  "properties": {
+    "test_case_id": {
+      "type": "string",
+      "description": "Reference to QATestCases ID"
+    },
+    "step_number": {
+      "type": "number"
+    },
+    "step_name": {
+      "type": "string"
+    },
+    "expected_result": {
+      "type": "string"
+    },
+    "failure_condition": {
+      "type": "string"
+    },
+    "validation_page": {
+      "type": "string",
+      "description": "Route to verify on e.g. /admin/billing"
+    },
+    "default_status": {
+      "type": "string",
+      "enum": [
+        "not_run",
+        "pass",
+        "fail",
+        "blocked",
+        "skipped"
+      ],
+      "default": "not_run"
+    }
+  },
+  "required": [
+    "test_case_id",
+    "step_number",
+    "step_name",
+    "default_status"
+  ]
+}

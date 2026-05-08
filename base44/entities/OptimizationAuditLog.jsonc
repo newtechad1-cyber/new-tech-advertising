@@ -1,0 +1,72 @@
+{
+  "name": "OptimizationAuditLog",
+  "type": "object",
+  "properties": {
+    "candidate_key": {
+      "type": "string",
+      "description": "Related candidate"
+    },
+    "experiment_key": {
+      "type": "string",
+      "description": "Related experiment"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "candidate_detected",
+        "candidate_approved",
+        "experiment_started",
+        "experiment_completed",
+        "optimization_applied",
+        "rollback_triggered",
+        "policy_change",
+        "recommendation_created"
+      ],
+      "description": "Type of action"
+    },
+    "old_value_json": {
+      "type": "string",
+      "description": "JSON: previous value"
+    },
+    "new_value_json": {
+      "type": "string",
+      "description": "JSON: new value"
+    },
+    "action_status": {
+      "type": "string",
+      "enum": [
+        "success",
+        "failed",
+        "pending",
+        "rolled_back"
+      ],
+      "description": "Status of action"
+    },
+    "changed_by": {
+      "type": "string",
+      "description": "User or system that made change"
+    },
+    "change_source": {
+      "type": "string",
+      "enum": [
+        "auto",
+        "manual",
+        "approval",
+        "rollback"
+      ],
+      "description": "Source of change"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When action occurred"
+    }
+  },
+  "required": [
+    "action_type",
+    "action_status",
+    "changed_by",
+    "change_source",
+    "created_at"
+  ]
+}

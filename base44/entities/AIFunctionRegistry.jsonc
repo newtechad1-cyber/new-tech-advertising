@@ -1,0 +1,103 @@
+{
+  "name": "AIFunctionRegistry",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Human-readable function name"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-safe identifier"
+    },
+    "description": {
+      "type": "string",
+      "description": "What this function does"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "content_generation",
+        "video",
+        "moderation",
+        "analysis",
+        "planning",
+        "reporting",
+        "sales_intelligence",
+        "utilities"
+      ],
+      "description": "Function category"
+    },
+    "function_name": {
+      "type": "string",
+      "description": "Backend function name to invoke"
+    },
+    "trigger_type": {
+      "type": "string",
+      "enum": [
+        "manual_only",
+        "automation_only",
+        "both"
+      ],
+      "default": "both"
+    },
+    "output_type": {
+      "type": "string",
+      "description": "Type of output (story, blog, video_script, etc.)"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "supports_manual_run": {
+      "type": "boolean",
+      "default": true
+    },
+    "requires_context": {
+      "type": "string",
+      "description": "What context is needed (client_id, school_slug, submission_id, etc.)"
+    },
+    "estimated_duration_sec": {
+      "type": "number",
+      "description": "Average execution time"
+    },
+    "last_run_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_run_status": {
+      "type": "string",
+      "enum": [
+        "success",
+        "failed"
+      ]
+    },
+    "total_runs": {
+      "type": "number",
+      "default": 0
+    },
+    "success_count": {
+      "type": "number",
+      "default": 0
+    },
+    "failure_count": {
+      "type": "number",
+      "default": 0
+    },
+    "avg_duration_ms": {
+      "type": "number"
+    },
+    "input_schema": {
+      "type": "string",
+      "description": "JSON schema for input parameters"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "slug",
+    "function_name"
+  ]
+}

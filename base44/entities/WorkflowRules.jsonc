@@ -1,0 +1,76 @@
+{
+  "name": "WorkflowRules",
+  "type": "object",
+  "properties": {
+    "workflow_orchestration_id": {
+      "type": "string",
+      "description": "Reference to WorkflowOrchestrations ID"
+    },
+    "rule_name": {
+      "type": "string",
+      "description": "Name of the rule"
+    },
+    "rule_category": {
+      "type": "string",
+      "enum": [
+        "sales",
+        "client_success",
+        "operations",
+        "renewal",
+        "upsell",
+        "review",
+        "proposal",
+        "approval",
+        "escalation",
+        "reporting"
+      ],
+      "description": "Category of rule"
+    },
+    "condition_logic": {
+      "type": "string",
+      "description": "Logic describing when this rule applies (plain text for audit)"
+    },
+    "action_logic": {
+      "type": "string",
+      "description": "Actions to take if condition is met (plain text for audit)"
+    },
+    "applies_to_entity": {
+      "type": "string",
+      "description": "Which entity this rule applies to (e.g., Proposals, Leads)"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this rule is active"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium",
+      "description": "Rule priority if multiple rules match"
+    },
+    "stop_after_success": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to stop processing other rules after this succeeds"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "workflow_orchestration_id",
+    "rule_name",
+    "rule_category",
+    "condition_logic",
+    "action_logic",
+    "applies_to_entity"
+  ]
+}

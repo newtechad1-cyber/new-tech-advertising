@@ -1,0 +1,73 @@
+{
+  "name": "RollbackActions",
+  "type": "object",
+  "properties": {
+    "related_entity_type": {
+      "type": "string",
+      "description": "Type of entity to rollback"
+    },
+    "related_entity_id": {
+      "type": "string",
+      "description": "ID of entity to rollback"
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID (optional)"
+    },
+    "rollback_type": {
+      "type": "string",
+      "enum": [
+        "revert_status_change",
+        "cancel_sequence",
+        "retract_message",
+        "revert_assignment",
+        "revert_recommendation_state",
+        "revert_task_creation",
+        "revert_proposal_state"
+      ],
+      "description": "Type of rollback"
+    },
+    "rollback_summary": {
+      "type": "string",
+      "description": "Summary of rollback action"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "available",
+        "requested",
+        "approved",
+        "executed",
+        "expired",
+        "cancelled"
+      ],
+      "default": "available",
+      "description": "Status of rollback"
+    },
+    "requested_by_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional)"
+    },
+    "approved_by_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional)"
+    },
+    "executed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When rollback was executed (optional)"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "related_entity_type",
+    "related_entity_id",
+    "rollback_type",
+    "rollback_summary",
+    "status"
+  ]
+}

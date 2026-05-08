@@ -1,0 +1,35 @@
+{
+  "name": "QAMustPassFlows",
+  "type": "object",
+  "properties": {
+    "flow_name": {
+      "type": "string",
+      "description": "Unique flow name"
+    },
+    "description": {
+      "type": "string"
+    },
+    "included_test_ids_json": {
+      "type": "string",
+      "description": "JSON array of test_id strings"
+    },
+    "display_order": {
+      "type": "number",
+      "default": 0
+    },
+    "color": {
+      "type": "string",
+      "description": "UI color: blue, red, purple, orange, slate",
+      "default": "blue"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "flow_name",
+    "included_test_ids_json",
+    "is_active"
+  ]
+}

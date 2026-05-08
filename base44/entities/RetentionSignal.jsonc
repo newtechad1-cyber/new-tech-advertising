@@ -1,0 +1,66 @@
+{
+  "name": "RetentionSignal",
+  "type": "object",
+  "properties": {
+    "growth_stage_id": {
+      "type": "string"
+    },
+    "onboarding_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "signal_type": {
+      "type": "string",
+      "enum": [
+        "portal_disengagement",
+        "approval_delay",
+        "roi_stagnation",
+        "support_friction",
+        "no_strategist_contact",
+        "content_backlog",
+        "low_engagement_streak",
+        "negative_feedback"
+      ]
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "low",
+        "moderate",
+        "high",
+        "critical"
+      ],
+      "default": "moderate"
+    },
+    "score_impact": {
+      "type": "number",
+      "default": 0
+    },
+    "description": {
+      "type": "string"
+    },
+    "intervention_triggered": {
+      "type": "boolean",
+      "default": false
+    },
+    "intervention_type": {
+      "type": "string"
+    },
+    "resolved": {
+      "type": "boolean",
+      "default": false
+    },
+    "resolved_at": {
+      "type": "string"
+    },
+    "detected_at": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "growth_stage_id",
+    "signal_type"
+  ]
+}

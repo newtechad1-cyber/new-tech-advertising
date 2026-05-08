@@ -1,0 +1,44 @@
+{
+  "name": "SalesActivities",
+  "type": "object",
+  "properties": {
+    "deal_id": {
+      "type": "string",
+      "description": "Reference to SalesDeals ID"
+    },
+    "activity_type": {
+      "type": "string",
+      "enum": [
+        "call",
+        "email",
+        "meeting",
+        "demo",
+        "proposal_sent",
+        "follow_up",
+        "note",
+        "stage_change",
+        "conversion"
+      ],
+      "description": "Type of activity"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Activity notes"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of activity"
+    },
+    "user": {
+      "type": "string",
+      "description": "User email who logged this activity (optional)"
+    }
+  },
+  "required": [
+    "deal_id",
+    "activity_type",
+    "notes",
+    "date"
+  ]
+}

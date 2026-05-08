@@ -1,0 +1,83 @@
+{
+  "name": "Plans",
+  "type": "object",
+  "properties": {
+    "plan_name": {
+      "type": "string"
+    },
+    "plan_key": {
+      "type": "string",
+      "description": "Machine key, e.g. starter, growth, pro"
+    },
+    "description": {
+      "type": "string"
+    },
+    "stripe_price_id": {
+      "type": "string"
+    },
+    "stripe_product_id": {
+      "type": "string"
+    },
+    "monthly_price": {
+      "type": "number"
+    },
+    "annual_price": {
+      "type": "number"
+    },
+    "billing_interval": {
+      "type": "string",
+      "enum": [
+        "monthly",
+        "quarterly",
+        "annual"
+      ],
+      "default": "monthly"
+    },
+    "social_posts_per_month": {
+      "type": "number"
+    },
+    "blog_posts_per_month": {
+      "type": "number"
+    },
+    "video_credits_per_month": {
+      "type": "number"
+    },
+    "social_channels_limit": {
+      "type": "number"
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "is_trial_eligible": {
+      "type": "boolean",
+      "default": true
+    },
+    "trial_days": {
+      "type": "number",
+      "default": 7
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    },
+    "display_order": {
+      "type": "number",
+      "default": 0
+    },
+    "is_public": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show on pricing page"
+    }
+  },
+  "required": [
+    "plan_name",
+    "plan_key",
+    "monthly_price",
+    "billing_interval",
+    "active"
+  ]
+}

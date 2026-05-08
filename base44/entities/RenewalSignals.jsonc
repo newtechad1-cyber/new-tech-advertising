@@ -1,0 +1,79 @@
+{
+  "name": "RenewalSignals",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "signal_type": {
+      "type": "string",
+      "enum": [
+        "improving_results",
+        "declining_results",
+        "low_engagement",
+        "high_engagement",
+        "approval_delays",
+        "high_request_volume",
+        "strong_output",
+        "poor_conversion",
+        "service_gap",
+        "renewal_date_approaching",
+        "missed_deliverables",
+        "positive_trend",
+        "client_inactive"
+      ],
+      "description": "Type of signal"
+    },
+    "signal_label": {
+      "type": "string",
+      "description": "Human-readable signal label"
+    },
+    "signal_value": {
+      "type": "string",
+      "description": "Value or detail of the signal"
+    },
+    "signal_score": {
+      "type": "number",
+      "minimum": -100,
+      "maximum": 100,
+      "description": "Signal strength: positive = good signal, negative = risk signal"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "kpi_trend",
+        "fulfillment_activity",
+        "engagement",
+        "support",
+        "reporting",
+        "proposal",
+        "approval",
+        "request_volume",
+        "other"
+      ],
+      "description": "Source of the signal"
+    },
+    "related_report_id": {
+      "type": "string",
+      "description": "Reference to ExecutiveReports ID (optional)"
+    },
+    "related_workroom_id": {
+      "type": "string",
+      "description": "Reference to FulfillmentWorkrooms ID (optional)"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_id",
+    "signal_type",
+    "signal_label",
+    "signal_value",
+    "signal_score",
+    "source_type"
+  ]
+}

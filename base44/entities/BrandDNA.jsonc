@@ -1,0 +1,84 @@
+{
+  "name": "BrandDNA",
+  "type": "object",
+  "properties": {
+    "account_id": {
+      "type": "string",
+      "description": "Reference to TrialAccount ID"
+    },
+    "voice_tone": {
+      "type": "string",
+      "description": "Brand voice and tone description"
+    },
+    "audience": {
+      "type": "string",
+      "description": "Target audience description"
+    },
+    "goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Marketing goals"
+    },
+    "offers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Products or services offered"
+    },
+    "differentiators": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "What makes the business unique"
+    },
+    "content_pillars": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Core content themes"
+    },
+    "do_not_use": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Words or phrases to avoid"
+    },
+    "cta_style": {
+      "type": "string",
+      "description": "Preferred call-to-action style"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes"
+    },
+    "facebook_url": {
+      "type": "string",
+      "description": "Facebook page URL"
+    },
+    "instagram_url": {
+      "type": "string",
+      "description": "Instagram profile URL"
+    },
+    "linkedin_url": {
+      "type": "string",
+      "description": "LinkedIn page URL"
+    },
+    "tiktok_url": {
+      "type": "string",
+      "description": "TikTok profile URL"
+    },
+    "asset_url": {
+      "type": "string",
+      "description": "Uploaded brand assets URL"
+    }
+  },
+  "required": [
+    "account_id"
+  ]
+}

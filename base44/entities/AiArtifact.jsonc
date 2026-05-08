@@ -1,0 +1,53 @@
+{
+  "name": "AiArtifact",
+  "type": "object",
+  "properties": {
+    "account_id": {
+      "type": "string"
+    },
+    "task_id": {
+      "type": "string"
+    },
+    "workflow_key": {
+      "type": "string"
+    },
+    "step_key": {
+      "type": "string"
+    },
+    "agent_key": {
+      "type": "string"
+    },
+    "artifact_type": {
+      "type": "string",
+      "enum": [
+        "intake",
+        "proposal",
+        "brand_profile",
+        "brand_voice",
+        "content",
+        "content_pack",
+        "other"
+      ],
+      "default": "other"
+    },
+    "label": {
+      "type": "string"
+    },
+    "content": {
+      "type": "object",
+      "description": "The artifact data/output"
+    },
+    "raw_content": {
+      "type": "string",
+      "description": "Raw LLM string output for audit"
+    },
+    "promoted_to_memory": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "account_id",
+    "agent_key"
+  ]
+}

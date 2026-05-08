@@ -1,0 +1,39 @@
+{
+  "name": "EntityLifecycleDefinition",
+  "type": "object",
+  "properties": {
+    "entity_key": {
+      "type": "string",
+      "description": "Reference to MasterEntityDefinition"
+    },
+    "lifecycle_name": {
+      "type": "string",
+      "description": "Name of lifecycle (e.g., 'Deal Lifecycle', 'Task Lifecycle')"
+    },
+    "allowed_statuses_json": {
+      "type": "string",
+      "description": "JSON array of valid status values"
+    },
+    "allowed_transitions_json": {
+      "type": "string",
+      "description": "JSON: {from: status, to: [statuses]} allowed state transitions"
+    },
+    "terminal_statuses_json": {
+      "type": "string",
+      "description": "JSON array: statuses that cannot transition to others"
+    },
+    "blocked_transition_rules_json": {
+      "type": "string",
+      "description": "JSON: rules that block specific transitions"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "entity_key",
+    "lifecycle_name",
+    "allowed_statuses_json"
+  ]
+}

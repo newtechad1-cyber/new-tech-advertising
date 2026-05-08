@@ -1,0 +1,39 @@
+{
+  "name": "StoryAuthors",
+  "type": "object",
+  "properties": {
+    "school_slug": {
+      "type": "string"
+    },
+    "story_id": {
+      "type": "string"
+    },
+    "author_name": {
+      "type": "string"
+    },
+    "author_email": {
+      "type": "string"
+    },
+    "author_type": {
+      "type": "string",
+      "enum": [
+        "student",
+        "staff",
+        "contributor"
+      ],
+      "default": "student"
+    },
+    "bio": {
+      "type": "string"
+    },
+    "order": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "school_slug",
+    "story_id",
+    "author_name"
+  ]
+}

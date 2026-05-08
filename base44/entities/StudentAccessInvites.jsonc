@@ -1,0 +1,51 @@
+{
+  "name": "StudentAccessInvites",
+  "type": "object",
+  "properties": {
+    "school_slug": {
+      "type": "string",
+      "description": "School identifier"
+    },
+    "email": {
+      "type": "string",
+      "description": "Email address of invited student"
+    },
+    "invite_code": {
+      "type": "string",
+      "description": "Unique code for claiming invite"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "student",
+        "contributor",
+        "athlete",
+        "club_member"
+      ],
+      "default": "student"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this invite expires"
+    },
+    "used_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When invite was claimed"
+    },
+    "student_user_id": {
+      "type": "string",
+      "description": "Reference to created StudentUsers record"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "school_slug",
+    "email",
+    "invite_code",
+    "expires_at"
+  ]
+}

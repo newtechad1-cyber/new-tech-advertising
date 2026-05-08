@@ -1,0 +1,32 @@
+{
+  "name": "ProjectFile",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "description": "ID of the parent project"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the file"
+    },
+    "url": {
+      "type": "string",
+      "description": "URL of the uploaded file"
+    },
+    "type": {
+      "type": "string",
+      "description": "File type/extension"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "project_id",
+    "name",
+    "url"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "name": "IndustryVertical",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "active_client_count": {
+      "type": "number",
+      "default": 0
+    },
+    "total_mrr": {
+      "type": "number",
+      "default": 0
+    },
+    "growth_velocity_score": {
+      "type": "number",
+      "default": 50
+    },
+    "retention_score": {
+      "type": "number",
+      "default": 50
+    },
+    "authority_score": {
+      "type": "number",
+      "default": 50
+    },
+    "demand_trend": {
+      "type": "string",
+      "enum": [
+        "rising",
+        "stable",
+        "declining"
+      ],
+      "default": "stable"
+    },
+    "primary_regions": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

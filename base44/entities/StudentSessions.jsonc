@@ -1,0 +1,56 @@
+{
+  "name": "StudentSessions",
+  "type": "object",
+  "properties": {
+    "student_user_id": {
+      "type": "string",
+      "description": "Reference to StudentUsers record"
+    },
+    "school_slug": {
+      "type": "string",
+      "description": "School identifier for scoped access"
+    },
+    "session_token_hash": {
+      "type": "string",
+      "description": "SHA256 hash of the session token (server-side only, not reversible)"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Session expiry time (default 24 hours)"
+    },
+    "last_seen_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last activity on this session"
+    },
+    "revoked_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When session was explicitly revoked (optional)"
+    },
+    "user_agent": {
+      "type": "string",
+      "description": "User agent for device tracking"
+    },
+    "ip_address": {
+      "type": "string",
+      "description": "IP address for audit trail"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether session is still valid"
+    }
+  },
+  "required": [
+    "student_user_id",
+    "school_slug",
+    "session_token_hash",
+    "expires_at"
+  ]
+}

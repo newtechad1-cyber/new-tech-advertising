@@ -1,0 +1,48 @@
+{
+  "name": "MusicProfiles",
+  "type": "object",
+  "properties": {
+    "school_slug": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "uplifting",
+        "dramatic",
+        "calm",
+        "energetic",
+        "playful",
+        "inspirational"
+      ],
+      "default": "uplifting"
+    },
+    "style_description": {
+      "type": "string"
+    },
+    "bpm_range": {
+      "type": "string"
+    },
+    "mood": {
+      "type": "string"
+    },
+    "usage_context": {
+      "type": "string"
+    },
+    "is_default": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "school_slug",
+    "name"
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "name": "WebsiteProjects",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID"
+    },
+    "project_name": {
+      "type": "string"
+    },
+    "project_type": {
+      "type": "string",
+      "enum": [
+        "new_build",
+        "rebuild",
+        "ada_remediation",
+        "seo_refresh",
+        "landing_page"
+      ],
+      "default": "new_build"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "intake",
+        "design",
+        "development",
+        "review",
+        "launched",
+        "on_hold"
+      ],
+      "default": "intake"
+    },
+    "current_site_url": {
+      "type": "string"
+    },
+    "new_site_url": {
+      "type": "string"
+    },
+    "platform": {
+      "type": "string",
+      "description": "e.g. WordPress, Webflow, Wix"
+    },
+    "launch_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "go_live_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "assigned_to": {
+      "type": "string",
+      "description": "User email of project manager"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "company_id",
+    "project_name",
+    "project_type",
+    "status"
+  ]
+}

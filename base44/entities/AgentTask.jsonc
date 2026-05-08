@@ -1,0 +1,58 @@
+{
+  "name": "AgentTask",
+  "type": "object",
+  "properties": {
+    "agent_id": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "task_type": {
+      "type": "string"
+    },
+    "campaign_context": {
+      "type": "string"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "processing",
+        "awaiting_dependency",
+        "completed",
+        "failed"
+      ],
+      "default": "queued"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "critical",
+        "high",
+        "normal",
+        "low"
+      ],
+      "default": "normal"
+    },
+    "estimated_minutes": {
+      "type": "number"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "error_note": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "agent_id",
+    "task_type",
+    "stage"
+  ]
+}

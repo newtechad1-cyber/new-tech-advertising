@@ -1,0 +1,71 @@
+{
+  "name": "OnboardingWorkrooms",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Company ID"
+    },
+    "client_account_id": {
+      "type": "string",
+      "description": "Reference to ClientAccounts ID, optional"
+    },
+    "proposal_id": {
+      "type": "string",
+      "description": "Reference to Proposals ID, optional"
+    },
+    "assigned_admin_user_id": {
+      "type": "string",
+      "description": "Assigned admin user ID"
+    },
+    "title": {
+      "type": "string"
+    },
+    "onboarding_type": {
+      "type": "string",
+      "enum": [
+        "streaming_tv",
+        "website_rebuild",
+        "local_seo",
+        "video_marketing",
+        "social_media",
+        "ada_rebuild",
+        "general_marketing"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "waiting_on_client",
+        "in_progress",
+        "review",
+        "ready_to_launch",
+        "launched",
+        "paused"
+      ],
+      "default": "not_started"
+    },
+    "progress_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "kickoff_call_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "launch_target_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "company_id",
+    "assigned_admin_user_id",
+    "title",
+    "onboarding_type"
+  ]
+}

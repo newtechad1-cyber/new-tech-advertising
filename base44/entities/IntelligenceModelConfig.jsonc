@@ -1,0 +1,58 @@
+{
+  "name": "IntelligenceModelConfig",
+  "type": "object",
+  "properties": {
+    "model_key": {
+      "type": "string",
+      "description": "Unique model identifier (e.g., 'client_retention_model_v1')"
+    },
+    "model_name": {
+      "type": "string",
+      "description": "Display name for the model"
+    },
+    "model_description": {
+      "type": "string",
+      "description": "What this model predicts"
+    },
+    "score_type": {
+      "type": "string",
+      "description": "Score type this model produces"
+    },
+    "signal_inputs_json": {
+      "type": "string",
+      "description": "JSON: array of {signal_type, weight, transform} inputs to the model"
+    },
+    "weighting_rules_json": {
+      "type": "string",
+      "description": "JSON: weights for combining signals into score"
+    },
+    "threshold_rules_json": {
+      "type": "string",
+      "description": "JSON: {critical_threshold, high_threshold, medium_threshold} for alerts"
+    },
+    "context_scope": {
+      "type": "string",
+      "enum": [
+        "global",
+        "reseller",
+        "client"
+      ],
+      "description": "Scope this model applies to"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is model active"
+    },
+    "version": {
+      "type": "string",
+      "description": "Model version"
+    }
+  },
+  "required": [
+    "model_key",
+    "model_name",
+    "score_type",
+    "signal_inputs_json"
+  ]
+}

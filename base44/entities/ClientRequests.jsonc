@@ -1,0 +1,77 @@
+{
+  "name": "ClientRequests",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "workroom_id": {
+      "type": "string",
+      "description": "Reference to FulfillmentWorkrooms ID (optional)"
+    },
+    "client_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional)"
+    },
+    "request_type": {
+      "type": "string",
+      "enum": [
+        "support",
+        "revision",
+        "strategy_question",
+        "content_request",
+        "call_request",
+        "bug_report",
+        "website_change",
+        "campaign_change"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "in_progress",
+        "waiting_on_client",
+        "resolved",
+        "closed"
+      ],
+      "default": "new"
+    },
+    "related_deliverable_id": {
+      "type": "string",
+      "description": "Reference to Deliverables ID (optional)"
+    },
+    "resolved_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_id",
+    "request_type",
+    "title",
+    "message"
+  ]
+}

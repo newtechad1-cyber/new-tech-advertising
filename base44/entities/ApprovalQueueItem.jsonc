@@ -1,0 +1,70 @@
+{
+  "name": "ApprovalQueueItem",
+  "type": "object",
+  "properties": {
+    "asset_title": {
+      "type": "string"
+    },
+    "asset_type": {
+      "type": "string",
+      "enum": [
+        "article",
+        "social_post",
+        "video",
+        "email",
+        "landing_page",
+        "ad_creative",
+        "video_script",
+        "gbp_post"
+      ]
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "awaiting_internal",
+        "awaiting_founder",
+        "awaiting_client",
+        "revision_requested",
+        "approved"
+      ],
+      "default": "awaiting_internal"
+    },
+    "review_urgency": {
+      "type": "string",
+      "enum": [
+        "urgent",
+        "normal",
+        "low"
+      ]
+    },
+    "revision_count": {
+      "type": "number",
+      "default": 0
+    },
+    "submitted_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "assigned_reviewer": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "job_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "asset_title",
+    "asset_type",
+    "client_name",
+    "status"
+  ]
+}

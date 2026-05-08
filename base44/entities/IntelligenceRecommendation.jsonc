@@ -1,0 +1,88 @@
+{
+  "name": "IntelligenceRecommendation",
+  "type": "object",
+  "properties": {
+    "recommendation_type": {
+      "type": "string",
+      "enum": [
+        "schedule_campaign",
+        "follow_up_deal",
+        "retry_publish",
+        "accelerate_onboarding",
+        "prioritize_opportunity",
+        "fix_automation",
+        "reactivate_client",
+        "scale_success",
+        "investigate_anomaly",
+        "optimize_resource"
+      ],
+      "description": "Type of recommendation"
+    },
+    "context_type": {
+      "type": "string",
+      "enum": [
+        "global",
+        "agency",
+        "reseller",
+        "client",
+        "school"
+      ],
+      "description": "Context scope"
+    },
+    "target_role": {
+      "type": "string",
+      "description": "Role this recommendation targets (e.g., 'reseller_owner', 'client_approver')"
+    },
+    "suggested_action": {
+      "type": "string",
+      "description": "Specific action to take"
+    },
+    "urgency": {
+      "type": "string",
+      "enum": [
+        "immediate",
+        "high",
+        "medium",
+        "low"
+      ],
+      "description": "Urgency level"
+    },
+    "impact_estimate": {
+      "type": "string",
+      "description": "Estimated impact if action taken"
+    },
+    "confidence_score": {
+      "type": "number",
+      "description": "Confidence in recommendation (0-100)"
+    },
+    "related_entity_type": {
+      "type": "string",
+      "description": "Entity type involved"
+    },
+    "related_entity_id": {
+      "type": "string",
+      "description": "Entity ID involved"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "dismissed",
+        "in_progress",
+        "completed"
+      ],
+      "default": "pending",
+      "description": "Status of recommendation"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When recommendation was created"
+    }
+  },
+  "required": [
+    "recommendation_type",
+    "suggested_action",
+    "created_at"
+  ]
+}

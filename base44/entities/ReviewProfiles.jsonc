@@ -1,0 +1,51 @@
+{
+  "name": "ReviewProfiles",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID"
+    },
+    "platform": {
+      "type": "string",
+      "enum": [
+        "google",
+        "yelp",
+        "facebook",
+        "tripadvisor",
+        "healthgrades",
+        "houzz",
+        "other"
+      ]
+    },
+    "profile_url": {
+      "type": "string"
+    },
+    "platform_business_id": {
+      "type": "string"
+    },
+    "average_rating": {
+      "type": "number"
+    },
+    "total_reviews": {
+      "type": "number"
+    },
+    "last_synced_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "monitoring_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "auto_respond_enabled": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "company_id",
+    "platform",
+    "monitoring_enabled"
+  ]
+}

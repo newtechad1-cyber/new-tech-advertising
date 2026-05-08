@@ -1,0 +1,96 @@
+{
+  "name": "Company",
+  "type": "object",
+  "properties": {
+    "business_name": {
+      "type": "string",
+      "description": "Legal or trade name of the business"
+    },
+    "website": {
+      "type": "string",
+      "description": "Primary website URL"
+    },
+    "industry": {
+      "type": "string",
+      "description": "Industry or niche"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string",
+      "description": "Primary contact email"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "prospect",
+        "lead",
+        "client",
+        "churned",
+        "inactive"
+      ],
+      "default": "prospect",
+      "description": "Lifecycle status of the company"
+    },
+    "service_tracks": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "diy_saas",
+          "dfy_managed",
+          "ada_rebuild",
+          "streaming_tv",
+          "video_production",
+          "other"
+        ]
+      },
+      "description": "Which NTA service tracks this company is engaged with"
+    },
+    "assigned_to": {
+      "type": "string",
+      "description": "Account manager email"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Internal notes"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "website",
+        "referral",
+        "social_media",
+        "cold_outreach",
+        "event",
+        "ad_campaign",
+        "other"
+      ],
+      "description": "Acquisition source"
+    },
+    "number_of_locations": {
+      "type": "integer",
+      "default": 1
+    },
+    "nonprofit": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "business_name"
+  ]
+}

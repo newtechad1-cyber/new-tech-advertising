@@ -1,0 +1,90 @@
+{
+  "name": "DemoSchoolContent",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Content headline"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-safe slug"
+    },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "school_news",
+        "sports_highlight",
+        "student_spotlight",
+        "club_feature",
+        "event_story",
+        "announcement"
+      ]
+    },
+    "category": {
+      "type": "string",
+      "description": "Content category (sports, academics, arts, clubs, etc)"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Short summary of content"
+    },
+    "script": {
+      "type": "string",
+      "description": "Full script or narrative text"
+    },
+    "thumbnail_url": {
+      "type": "string",
+      "description": "Thumbnail image URL"
+    },
+    "image_urls": {
+      "type": "string",
+      "description": "JSON array of image URLs"
+    },
+    "video_url": {
+      "type": "string",
+      "description": "Video URL if applicable"
+    },
+    "publish_status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "ready",
+        "published"
+      ],
+      "default": "draft"
+    },
+    "publish_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false,
+      "description": "Is this featured on the channel?"
+    },
+    "ai_generated": {
+      "type": "boolean",
+      "default": true,
+      "description": "Was this AI-generated?"
+    },
+    "fictional_school_name": {
+      "type": "string",
+      "default": "North Valley High School"
+    },
+    "tags": {
+      "type": "string",
+      "description": "Comma-separated tags"
+    },
+    "view_count": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "title",
+    "slug",
+    "content_type",
+    "summary"
+  ]
+}

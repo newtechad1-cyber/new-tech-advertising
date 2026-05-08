@@ -1,0 +1,130 @@
+{
+  "name": "QAIssues",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "Critical",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "default": "Medium"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "P0",
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "default": "P1"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Open",
+        "In Progress",
+        "Blocked",
+        "Resolved",
+        "Closed"
+      ],
+      "default": "Open"
+    },
+    "linked_test_case_id": {
+      "type": "string"
+    },
+    "linked_test_run_id": {
+      "type": "string"
+    },
+    "page_route": {
+      "type": "string"
+    },
+    "entity_name": {
+      "type": "string"
+    },
+    "issue_type": {
+      "type": "string",
+      "enum": [
+        "UI Bug",
+        "Entity Bug",
+        "Automation Bug",
+        "Permission Bug",
+        "Billing Bug",
+        "Agent Failure",
+        "Data Isolation Bug",
+        "Regression",
+        "Reporting Bug",
+        "Integration Bug"
+      ],
+      "default": "Regression"
+    },
+    "module_tag": {
+      "type": "string",
+      "enum": [
+        "Authentication",
+        "Sales",
+        "Signup",
+        "Billing",
+        "Finance",
+        "Onboarding",
+        "Content",
+        "SEO",
+        "Website",
+        "ADA",
+        "Reviews",
+        "Reseller",
+        "Support",
+        "Analytics",
+        "System Health",
+        "Security"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "expected_behavior": {
+      "type": "string"
+    },
+    "actual_behavior": {
+      "type": "string"
+    },
+    "reproduction_steps": {
+      "type": "string"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "opened_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "resolved_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "resolution_notes": {
+      "type": "string"
+    },
+    "root_cause_key": {
+      "type": "string",
+      "description": "Used for duplicate detection"
+    },
+    "auto_created": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "title",
+    "severity",
+    "priority",
+    "status",
+    "opened_date"
+  ]
+}

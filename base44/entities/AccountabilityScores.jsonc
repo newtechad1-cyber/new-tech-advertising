@@ -1,0 +1,65 @@
+{
+  "name": "AccountabilityScores",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID (optional)"
+    },
+    "user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional)"
+    },
+    "scope_type": {
+      "type": "string",
+      "enum": [
+        "company",
+        "admin_user",
+        "workflow",
+        "service_type"
+      ],
+      "description": "Scope of the score"
+    },
+    "score_label": {
+      "type": "string",
+      "description": "Label for what is being scored"
+    },
+    "score_value": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Score value 0-100"
+    },
+    "score_period_label": {
+      "type": "string",
+      "description": "Human-readable period (e.g., 'March 2026')"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date",
+      "description": "Start date of scoring period"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date",
+      "description": "End date of scoring period"
+    },
+    "factors_summary": {
+      "type": "string",
+      "description": "Summary of factors that affected the score"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "scope_type",
+    "score_label",
+    "score_value",
+    "period_start",
+    "period_end",
+    "factors_summary"
+  ]
+}

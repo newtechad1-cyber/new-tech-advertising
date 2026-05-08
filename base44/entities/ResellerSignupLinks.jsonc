@@ -1,0 +1,55 @@
+{
+  "name": "ResellerSignupLinks",
+  "type": "object",
+  "properties": {
+    "reseller_id": {
+      "type": "string",
+      "description": "Reference to ResellerAccounts ID"
+    },
+    "link_code": {
+      "type": "string",
+      "description": "Unique slug/code for the link (e.g. abc123)"
+    },
+    "label": {
+      "type": "string",
+      "description": "Internal label for the link (e.g. 'Instagram Ad June')"
+    },
+    "plan_id": {
+      "type": "string",
+      "description": "Reference to BillingPlans ID to auto-assign (optional)"
+    },
+    "plan_name": {
+      "type": "string",
+      "description": "Plan name snapshot"
+    },
+    "stripe_price_id": {
+      "type": "string",
+      "description": "Stripe price ID to use on signup (optional)"
+    },
+    "clicks": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of times link was clicked"
+    },
+    "conversions": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of clients who signed up"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date",
+      "description": "Optional expiry date"
+    }
+  },
+  "required": [
+    "reseller_id",
+    "link_code",
+    "label",
+    "active"
+  ]
+}

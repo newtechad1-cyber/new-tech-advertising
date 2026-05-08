@@ -1,0 +1,97 @@
+{
+  "name": "CopilotActionQueue",
+  "type": "object",
+  "properties": {
+    "copilot_brief_id": {
+      "type": "string",
+      "description": "Reference to CopilotBriefs ID"
+    },
+    "action_title": {
+      "type": "string",
+      "description": "Title of the action"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "review_account",
+        "call_client",
+        "send_message",
+        "create_task",
+        "create_proposal",
+        "schedule_review",
+        "review_report",
+        "resolve_breach",
+        "approve_deliverable",
+        "inspect_pipeline",
+        "follow_up_renewal",
+        "intervene_operations"
+      ],
+      "description": "Type of action"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of why this action matters"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium",
+      "description": "Priority level"
+    },
+    "owner_type": {
+      "type": "string",
+      "enum": [
+        "owner",
+        "admin",
+        "system"
+      ],
+      "description": "Who should own this action"
+    },
+    "related_company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID (optional)"
+    },
+    "related_entity_type": {
+      "type": "string",
+      "description": "Type of related entity (optional)"
+    },
+    "related_entity_id": {
+      "type": "string",
+      "description": "ID of related entity (optional)"
+    },
+    "recommended_due_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When this should be completed"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "acknowledged",
+        "completed",
+        "dismissed"
+      ],
+      "default": "pending",
+      "description": "Status of the action"
+    },
+    "sort_order": {
+      "type": "number",
+      "description": "Display order"
+    }
+  },
+  "required": [
+    "copilot_brief_id",
+    "action_title",
+    "action_type",
+    "description",
+    "priority",
+    "owner_type",
+    "sort_order"
+  ]
+}

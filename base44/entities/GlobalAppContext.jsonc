@@ -1,0 +1,113 @@
+{
+  "name": "GlobalAppContext",
+  "type": "object",
+  "properties": {
+    "active_context_type": {
+      "type": "string",
+      "enum": [
+        "agency",
+        "client",
+        "school",
+        "vertical_system"
+      ],
+      "default": "agency",
+      "description": "Current operating mode"
+    },
+    "active_company_id": {
+      "type": "string",
+      "description": "Active client company for client/agency contexts"
+    },
+    "active_company_name": {
+      "type": "string",
+      "description": "Name of active company"
+    },
+    "active_school_id": {
+      "type": "string",
+      "description": "Active school for school context"
+    },
+    "active_school_name": {
+      "type": "string",
+      "description": "Name of active school"
+    },
+    "active_vertical_type": {
+      "type": "string",
+      "enum": [
+        "hvac",
+        "restaurant",
+        "plumbing",
+        "roofing",
+        "medspa",
+        "dentist",
+        "nonprofit",
+        "professional",
+        "local"
+      ],
+      "description": "Active vertical system type"
+    },
+    "active_user_role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "manager",
+        "contributor",
+        "viewer"
+      ],
+      "default": "viewer",
+      "description": "User's role in active context"
+    },
+    "active_brand_profile_id": {
+      "type": "string",
+      "description": "Active branding profile to use"
+    },
+    "active_publishing_profile_id": {
+      "type": "string",
+      "description": "Active publishing defaults profile"
+    },
+    "active_connection_scope": {
+      "type": "string",
+      "enum": [
+        "agency",
+        "company",
+        "school"
+      ],
+      "default": "agency",
+      "description": "Which connection tokens/credentials to use"
+    },
+    "active_nav_family": {
+      "type": "string",
+      "enum": [
+        "main_admin",
+        "school_admin",
+        "client_portal",
+        "public"
+      ],
+      "default": "main_admin",
+      "description": "Which nav menu family to display"
+    },
+    "session_id": {
+      "type": "string",
+      "description": "Unique session identifier for context tracking"
+    },
+    "context_metadata": {
+      "type": "string",
+      "description": "JSON object with additional context details (brand colors, vertical styles, etc)"
+    },
+    "last_context_switch_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When context was last changed"
+    },
+    "last_context_switch_by": {
+      "type": "string",
+      "description": "Email of user who switched context"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is this context currently active"
+    }
+  },
+  "required": [
+    "active_context_type"
+  ]
+}

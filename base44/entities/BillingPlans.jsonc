@@ -1,0 +1,51 @@
+{
+  "name": "BillingPlans",
+  "type": "object",
+  "properties": {
+    "plan_name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "stripe_price_id": {
+      "type": "string",
+      "description": "Stripe price ID (price_...)"
+    },
+    "stripe_product_id": {
+      "type": "string",
+      "description": "Stripe product ID (prod_...)"
+    },
+    "monthly_price": {
+      "type": "number"
+    },
+    "billing_interval": {
+      "type": "string",
+      "enum": [
+        "monthly",
+        "quarterly",
+        "annual"
+      ],
+      "default": "monthly"
+    },
+    "features": {
+      "type": "string",
+      "description": "Comma-separated features"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    },
+    "display_order": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "plan_name",
+    "stripe_price_id",
+    "monthly_price",
+    "billing_interval",
+    "active"
+  ]
+}

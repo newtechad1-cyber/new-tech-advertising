@@ -1,0 +1,92 @@
+{
+  "name": "PageGenerationQueue",
+  "type": "object",
+  "properties": {
+    "city": {
+      "type": "string",
+      "index": true
+    },
+    "state": {
+      "type": "string",
+      "index": true
+    },
+    "state_code": {
+      "type": "string"
+    },
+    "tier": {
+      "type": "string",
+      "enum": [
+        "tier-1",
+        "tier-2",
+        "tier-3"
+      ],
+      "default": "tier-1",
+      "index": true
+    },
+    "services": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Array of service slugs to generate: ada-website-compliance, streaming-tv-advertising, small-business-marketing, hvac-marketing, plumbing-marketing"
+    },
+    "priority_order": {
+      "type": "number",
+      "default": 0,
+      "index": true,
+      "description": "Lower number = higher priority (0-499 for 500 pages)"
+    },
+    "generation_status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "in_progress",
+        "completed",
+        "failed",
+        "skipped"
+      ],
+      "default": "queued",
+      "index": true
+    },
+    "generated_pages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Array of LocationPage IDs generated from this queue entry"
+    },
+    "services_generated": {
+      "type": "number",
+      "default": 0,
+      "description": "Count of services successfully generated for this city"
+    },
+    "services_failed": {
+      "type": "number",
+      "default": 0,
+      "description": "Count of services that failed to generate"
+    },
+    "error_message": {
+      "type": "string",
+      "description": "Error details if generation failed"
+    },
+    "attempted_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "city",
+    "state",
+    "state_code",
+    "tier",
+    "services",
+    "priority_order"
+  ]
+}

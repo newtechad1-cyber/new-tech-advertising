@@ -1,0 +1,65 @@
+{
+  "name": "AIContentOutputs",
+  "type": "object",
+  "properties": {
+    "school_slug": {
+      "type": "string"
+    },
+    "ai_job_id": {
+      "type": "string",
+      "description": "Reference to the AIContentJobs record"
+    },
+    "output_type": {
+      "type": "string",
+      "description": "Type of output (story_generation, captions, etc)"
+    },
+    "source_entity_type": {
+      "type": "string",
+      "description": "Type of entity that triggered the AI job"
+    },
+    "source_entity_id": {
+      "type": "string",
+      "description": "ID of the source entity"
+    },
+    "output_data": {
+      "type": "string",
+      "description": "JSON string containing the AI output"
+    },
+    "edited_data": {
+      "type": "string",
+      "description": "Staff-edited version of the output (preserves original)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending_review",
+        "approved",
+        "rejected",
+        "used"
+      ],
+      "default": "pending_review"
+    },
+    "approved": {
+      "type": "boolean",
+      "default": false
+    },
+    "approved_by": {
+      "type": "string",
+      "description": "Email of staff member who approved"
+    },
+    "approved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "rejection_reason": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "school_slug",
+    "ai_job_id",
+    "output_type",
+    "source_entity_type",
+    "source_entity_id"
+  ]
+}

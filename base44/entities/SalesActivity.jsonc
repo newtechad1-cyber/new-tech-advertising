@@ -1,0 +1,64 @@
+{
+  "name": "SalesActivity",
+  "type": "object",
+  "properties": {
+    "activity_type": {
+      "type": "string",
+      "enum": [
+        "call_logged",
+        "demo_completed",
+        "proposal_sent",
+        "deal_closed",
+        "follow_up",
+        "email_sent",
+        "meeting_scheduled",
+        "note_added"
+      ]
+    },
+    "rep_name": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "deal_id": {
+      "type": "string"
+    },
+    "lead_id": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "deal_value": {
+      "type": "number"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "positive",
+        "neutral",
+        "negative"
+      ]
+    },
+    "follow_up_required": {
+      "type": "boolean"
+    },
+    "follow_up_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "overdue": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "activity_type",
+    "rep_name",
+    "company_name"
+  ]
+}

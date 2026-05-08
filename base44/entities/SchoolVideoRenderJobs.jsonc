@@ -1,0 +1,126 @@
+{
+  "name": "SchoolVideoRenderJobs",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "description": "Reference to SchoolVideoProjects"
+    },
+    "render_profile": {
+      "type": "string",
+      "enum": [
+        "weekly_recap",
+        "sports_highlight",
+        "classroom_spotlight",
+        "event_recap",
+        "custom"
+      ],
+      "default": "custom",
+      "description": "Render profile type"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "intake",
+        "normalizing",
+        "analyzing",
+        "planning",
+        "generating_assets",
+        "ready_for_render",
+        "rendering",
+        "completed",
+        "failed",
+        "cancelled"
+      ],
+      "default": "pending",
+      "description": "Render job lifecycle state"
+    },
+    "stage": {
+      "type": "string",
+      "description": "Current processing stage with timestamp"
+    },
+    "input_manifest": {
+      "type": "string",
+      "description": "JSON object listing all input assets with URLs and metadata"
+    },
+    "render_plan_json": {
+      "type": "string",
+      "description": "Machine-usable render plan (scene sequence, timings, effects, overlays)"
+    },
+    "output_variants": {
+      "type": "string",
+      "enum": [
+        "landscape",
+        "square",
+        "vertical",
+        "low_res_preview",
+        "all"
+      ],
+      "default": "all",
+      "description": "Output format variants to generate"
+    },
+    "render_config": {
+      "type": "string",
+      "description": "JSON rendering configuration (codecs, bitrate, quality settings)"
+    },
+    "output_manifest": {
+      "type": "string",
+      "description": "JSON object listing all generated outputs with URLs and specs"
+    },
+    "voiceover_config": {
+      "type": "string",
+      "description": "JSON config for voiceover service (provider, voice, speed, emphasis)"
+    },
+    "caption_config": {
+      "type": "string",
+      "description": "JSON config for captions (style, position, font, burn-in settings)"
+    },
+    "music_config": {
+      "type": "string",
+      "description": "JSON config for music (track selection, mixing, fade timings)"
+    },
+    "branding_config": {
+      "type": "string",
+      "description": "JSON config for branding overlays (logo, watermark, intro/outro)"
+    },
+    "retry_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of retry attempts"
+    },
+    "max_retries": {
+      "type": "number",
+      "default": 3,
+      "description": "Maximum retry attempts allowed"
+    },
+    "failure_reason": {
+      "type": "string",
+      "description": "Error message if job failed"
+    },
+    "failure_stage": {
+      "type": "string",
+      "description": "Stage where job failed (for retry logic)"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "processing_log": {
+      "type": "string",
+      "description": "JSON array of processing events and timestamps"
+    },
+    "quality_metrics": {
+      "type": "string",
+      "description": "JSON object with generated video quality metrics"
+    }
+  },
+  "required": [
+    "project_id",
+    "status"
+  ]
+}

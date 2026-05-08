@@ -1,0 +1,109 @@
+{
+  "name": "ClientPerformanceReport",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies"
+    },
+    "report_period": {
+      "type": "string",
+      "enum": [
+        "weekly",
+        "monthly",
+        "quarterly"
+      ],
+      "default": "monthly",
+      "description": "Report frequency"
+    },
+    "report_start_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "report_end_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "content_published_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Videos/posts published"
+    },
+    "website_stories_created": {
+      "type": "number",
+      "default": 0
+    },
+    "social_posts_published": {
+      "type": "number",
+      "default": 0
+    },
+    "videos_created": {
+      "type": "number",
+      "default": 0
+    },
+    "campaigns_active": {
+      "type": "number",
+      "default": 0
+    },
+    "scheduled_content_count": {
+      "type": "number",
+      "default": 0
+    },
+    "approval_activity_count": {
+      "type": "number",
+      "default": 0
+    },
+    "connection_health_score": {
+      "type": "number",
+      "description": "0-100 platform connection health"
+    },
+    "publishing_success_rate": {
+      "type": "number",
+      "description": "Percentage of successful publishes"
+    },
+    "engagement_signal_summary": {
+      "type": "string",
+      "description": "High-level engagement summary"
+    },
+    "roi_narrative_text": {
+      "type": "string",
+      "description": "AI-generated ROI explanation"
+    },
+    "highlights_json": {
+      "type": "string",
+      "description": "JSON array of highlights"
+    },
+    "upcoming_plan_json": {
+      "type": "string",
+      "description": "JSON object with next campaigns/strategy"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "generated_by_agent": {
+      "type": "boolean",
+      "default": false
+    },
+    "delivery_status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "ready",
+        "sent",
+        "failed"
+      ],
+      "default": "draft"
+    },
+    "last_sent_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "company_id",
+    "report_period",
+    "report_start_date",
+    "report_end_date"
+  ]
+}

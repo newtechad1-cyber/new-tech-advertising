@@ -1,0 +1,62 @@
+{
+  "name": "Reviews",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID"
+    },
+    "review_profile_id": {
+      "type": "string",
+      "description": "Reference to ReviewProfiles ID"
+    },
+    "platform": {
+      "type": "string"
+    },
+    "reviewer_name": {
+      "type": "string"
+    },
+    "rating": {
+      "type": "number",
+      "description": "1-5 star rating"
+    },
+    "review_text": {
+      "type": "string"
+    },
+    "review_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "platform_review_id": {
+      "type": "string",
+      "description": "External ID from the review platform"
+    },
+    "sentiment": {
+      "type": "string",
+      "enum": [
+        "positive",
+        "neutral",
+        "negative"
+      ],
+      "description": "AI-detected sentiment"
+    },
+    "responded": {
+      "type": "boolean",
+      "default": false
+    },
+    "response_id": {
+      "type": "string",
+      "description": "Reference to ReviewResponses ID"
+    },
+    "flagged": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "company_id",
+    "platform",
+    "rating",
+    "review_date"
+  ]
+}

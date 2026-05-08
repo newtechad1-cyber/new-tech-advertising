@@ -1,0 +1,141 @@
+{
+  "name": "OpportunitySignal",
+  "type": "object",
+  "properties": {
+    "business_profile_id": {
+      "type": "string",
+      "description": "Reference to BusinessProfile ID"
+    },
+    "industry_slug": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "opportunity_type": {
+      "type": "string",
+      "enum": [
+        "missing_service_page",
+        "missing_location_page",
+        "missing_offer",
+        "missing_video_type",
+        "missing_social_theme",
+        "review_gap",
+        "cta_gap",
+        "campaign_gap",
+        "seasonal_gap",
+        "streaming_tv_gap"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "number",
+      "default": 50
+    },
+    "demand_score": {
+      "type": "number",
+      "default": 0
+    },
+    "competition_score": {
+      "type": "number",
+      "default": 0
+    },
+    "readiness_score": {
+      "type": "number",
+      "default": 0
+    },
+    "revenue_potential_score": {
+      "type": "number",
+      "default": 0
+    },
+    "confidence_score": {
+      "type": "number",
+      "default": 0
+    },
+    "overall_opportunity_score": {
+      "type": "number",
+      "default": 0
+    },
+    "recommended_action_type": {
+      "type": "string",
+      "enum": [
+        "create_page",
+        "create_article",
+        "create_video",
+        "create_campaign",
+        "create_offer",
+        "create_social_series",
+        "create_email_sequence",
+        "improve_cta",
+        "improve_reviews"
+      ]
+    },
+    "recommended_page_type": {
+      "type": "string"
+    },
+    "recommended_content_type": {
+      "type": "string",
+      "enum": [
+        "pillar",
+        "article",
+        "problem_page",
+        "playbook",
+        "resource",
+        "landing_page",
+        "tool_page",
+        "video_page",
+        "social_post"
+      ]
+    },
+    "recommended_video_type": {
+      "type": "string",
+      "enum": [
+        "short_social_video",
+        "explainer_video",
+        "avatar_video",
+        "streaming_tv_ad",
+        "website_video",
+        "demo_video"
+      ]
+    },
+    "recommended_offer": {
+      "type": "string"
+    },
+    "recommended_cta": {
+      "type": "string"
+    },
+    "truth_state": {
+      "type": "string",
+      "enum": [
+        "assumed",
+        "inferred",
+        "observed",
+        "proven"
+      ],
+      "default": "assumed"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "paused",
+        "archived"
+      ],
+      "default": "active"
+    }
+  },
+  "required": [
+    "business_profile_id",
+    "opportunity_type",
+    "title"
+  ]
+}

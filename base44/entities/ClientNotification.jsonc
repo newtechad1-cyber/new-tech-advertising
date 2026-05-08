@@ -1,0 +1,76 @@
+{
+  "name": "ClientNotification",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "notification_type": {
+      "type": "string",
+      "enum": [
+        "growth_alert",
+        "action_required",
+        "opportunity",
+        "campaign_update",
+        "milestone",
+        "system"
+      ]
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "growth",
+        "approvals",
+        "campaigns",
+        "opportunities",
+        "system"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
+    "urgency": {
+      "type": "string",
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low",
+        "info"
+      ],
+      "default": "info"
+    },
+    "is_read": {
+      "type": "boolean",
+      "default": false
+    },
+    "action_label": {
+      "type": "string"
+    },
+    "action_url": {
+      "type": "string"
+    },
+    "icon_emoji": {
+      "type": "string"
+    },
+    "trigger_source": {
+      "type": "string"
+    },
+    "action_taken": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "client_id",
+    "notification_type",
+    "title",
+    "body"
+  ]
+}

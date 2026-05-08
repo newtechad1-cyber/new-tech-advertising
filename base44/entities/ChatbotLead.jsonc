@@ -1,0 +1,51 @@
+{
+  "name": "ChatbotLead",
+  "type": "object",
+  "properties": {
+    "chatbot_id": {
+      "type": "string",
+      "description": "ID of the chatbot that captured this lead"
+    },
+    "name": {
+      "type": "string",
+      "description": "Lead's full name"
+    },
+    "email": {
+      "type": "string",
+      "description": "Lead's email address"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Lead's phone number"
+    },
+    "business_name": {
+      "type": "string",
+      "description": "Lead's business name"
+    },
+    "conversation_summary": {
+      "type": "string",
+      "format": "long-text",
+      "description": "AI-generated summary of what the lead asked or wanted"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "contacted",
+        "converted"
+      ],
+      "default": "new",
+      "description": "Follow-up status for this lead"
+    },
+    "crm_synced": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this lead has been sent to the CRM webhook"
+    }
+  },
+  "required": [
+    "chatbot_id",
+    "name",
+    "email"
+  ]
+}

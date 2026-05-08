@@ -1,0 +1,36 @@
+{
+  "name": "SchoolMusicProfiles",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "style_description": {
+      "type": "string"
+    },
+    "bpm_range": {
+      "type": "string"
+    },
+    "mood": {
+      "type": "string"
+    },
+    "usage_context": {
+      "type": "string"
+    },
+    "is_default": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "name",
+    "is_active"
+  ]
+}

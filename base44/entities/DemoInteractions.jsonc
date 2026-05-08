@@ -1,0 +1,42 @@
+{
+  "name": "DemoInteractions",
+  "type": "object",
+  "properties": {
+    "demo_session_id": {
+      "type": "string"
+    },
+    "prospect_id": {
+      "type": "string"
+    },
+    "interaction_type": {
+      "type": "string",
+      "enum": [
+        "page_view",
+        "video_play",
+        "video_complete",
+        "question_asked",
+        "cta_click",
+        "form_submit",
+        "roi_use",
+        "proposal_view"
+      ],
+      "default": "page_view"
+    },
+    "page_path": {
+      "type": "string"
+    },
+    "asset_id": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "string",
+      "description": "JSON string of additional data"
+    }
+  },
+  "required": [
+    "interaction_type"
+  ]
+}

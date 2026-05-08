@@ -1,0 +1,45 @@
+{
+  "name": "MessageAttachments",
+  "type": "object",
+  "properties": {
+    "message_id": {
+      "type": "string",
+      "description": "Reference to Messages ID"
+    },
+    "attachment_type": {
+      "type": "string",
+      "enum": [
+        "file",
+        "image",
+        "video",
+        "proposal_link",
+        "report_link",
+        "deliverable_preview",
+        "review_link"
+      ],
+      "description": "Type of attachment"
+    },
+    "file_url": {
+      "type": "string",
+      "description": "URL to uploaded file (optional)"
+    },
+    "link_url": {
+      "type": "string",
+      "description": "URL to external link (optional)"
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title for the attachment"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "message_id",
+    "attachment_type",
+    "title"
+  ]
+}

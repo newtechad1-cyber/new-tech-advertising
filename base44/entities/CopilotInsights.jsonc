@@ -1,0 +1,103 @@
+{
+  "name": "CopilotInsights",
+  "type": "object",
+  "properties": {
+    "copilot_brief_id": {
+      "type": "string",
+      "description": "Reference to CopilotBriefs ID"
+    },
+    "insight_type": {
+      "type": "string",
+      "enum": [
+        "revenue_opportunity",
+        "churn_risk",
+        "operational_risk",
+        "communication_issue",
+        "renewal_window",
+        "upsell_ready",
+        "review_due",
+        "report_ready",
+        "client_momentum",
+        "proposal_movement",
+        "workload_warning",
+        "bottleneck",
+        "owner_attention",
+        "trend_shift"
+      ],
+      "description": "Type of insight"
+    },
+    "title": {
+      "type": "string",
+      "description": "Short title of the insight"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the insight"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium",
+      "description": "Priority level"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "informational",
+        "warning",
+        "critical"
+      ],
+      "default": "informational",
+      "description": "Severity level"
+    },
+    "related_company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID (optional)"
+    },
+    "related_proposal_id": {
+      "type": "string",
+      "description": "Reference to Proposals ID (optional)"
+    },
+    "related_playbook_id": {
+      "type": "string",
+      "description": "Reference to SuccessPlaybooks ID (optional)"
+    },
+    "related_growth_opportunity_id": {
+      "type": "string",
+      "description": "Reference to GrowthOpportunities ID (optional)"
+    },
+    "related_sla_event_id": {
+      "type": "string",
+      "description": "Reference to SLAEvents ID (optional)"
+    },
+    "related_review_id": {
+      "type": "string",
+      "description": "Reference to StrategyReviews ID (optional)"
+    },
+    "related_task_id": {
+      "type": "string",
+      "description": "Reference to SalesTasks ID (optional)"
+    },
+    "recommended_action": {
+      "type": "string",
+      "description": "What action is recommended (optional)"
+    },
+    "visible_in_brief": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to display in brief"
+    }
+  },
+  "required": [
+    "copilot_brief_id",
+    "insight_type",
+    "title",
+    "description",
+    "priority"
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "name": "OnboardingAssets",
+  "type": "object",
+  "properties": {
+    "workroom_id": {
+      "type": "string",
+      "description": "Reference to OnboardingWorkrooms ID"
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "asset_type": {
+      "type": "string",
+      "enum": [
+        "logo",
+        "brand_colors",
+        "brand_fonts",
+        "website_copy",
+        "service_list",
+        "service_area",
+        "testimonials",
+        "photos",
+        "videos",
+        "social_links",
+        "login_credentials_reference",
+        "tracking_id",
+        "ad_account_id",
+        "other"
+      ]
+    },
+    "asset_name": {
+      "type": "string"
+    },
+    "file_url": {
+      "type": "string"
+    },
+    "text_value": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "missing",
+        "submitted",
+        "approved",
+        "needs_revision"
+      ],
+      "default": "missing"
+    },
+    "uploaded_by_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID, optional"
+    },
+    "visible_to_client": {
+      "type": "boolean",
+      "default": false
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "workroom_id",
+    "company_id",
+    "asset_type",
+    "asset_name"
+  ]
+}

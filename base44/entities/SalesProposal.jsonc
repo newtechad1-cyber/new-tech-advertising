@@ -1,0 +1,75 @@
+{
+  "name": "SalesProposal",
+  "type": "object",
+  "properties": {
+    "company_name": {
+      "type": "string"
+    },
+    "deal_id": {
+      "type": "string"
+    },
+    "package_type": {
+      "type": "string",
+      "enum": [
+        "starter",
+        "growth",
+        "professional",
+        "enterprise",
+        "custom"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "sent",
+        "viewed",
+        "negotiating",
+        "accepted",
+        "expired"
+      ],
+      "default": "draft"
+    },
+    "base_price": {
+      "type": "number"
+    },
+    "setup_fee": {
+      "type": "number"
+    },
+    "expected_mrr": {
+      "type": "number"
+    },
+    "addons": {
+      "type": "string"
+    },
+    "roi_projection": {
+      "type": "string"
+    },
+    "sent_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "viewed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "expiry_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "assigned_rep": {
+      "type": "string"
+    },
+    "vertical": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "company_name",
+    "package_type",
+    "base_price"
+  ]
+}

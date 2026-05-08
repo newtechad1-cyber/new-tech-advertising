@@ -1,0 +1,57 @@
+{
+  "name": "AgentRuns",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID \u2014 always required"
+    },
+    "agent_id": {
+      "type": "string",
+      "description": "Reference to AgentDefinitions ID"
+    },
+    "task_id": {
+      "type": "string",
+      "description": "Reference to AgentTasks ID"
+    },
+    "run_status": {
+      "type": "string",
+      "enum": [
+        "started",
+        "completed",
+        "failed",
+        "timeout"
+      ],
+      "default": "started"
+    },
+    "input_summary": {
+      "type": "string"
+    },
+    "output_summary": {
+      "type": "string"
+    },
+    "tokens_used": {
+      "type": "number"
+    },
+    "duration_ms": {
+      "type": "number"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "error_details": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "company_id",
+    "agent_id",
+    "run_status",
+    "started_at"
+  ]
+}

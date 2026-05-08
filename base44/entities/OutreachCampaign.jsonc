@@ -1,0 +1,94 @@
+{
+  "name": "OutreachCampaign",
+  "type": "object",
+  "properties": {
+    "campaign_name": {
+      "type": "string"
+    },
+    "acquisition_source_key": {
+      "type": "string",
+      "enum": [
+        "authority_content_seo",
+        "social_authority",
+        "outbound_prospecting",
+        "referral_expansion",
+        "territory_campaigns",
+        "paid_amplification"
+      ]
+    },
+    "industry_vertical": {
+      "type": "string"
+    },
+    "territory": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planning",
+        "active",
+        "paused",
+        "completed",
+        "archived"
+      ],
+      "default": "planning"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "target_leads": {
+      "type": "number",
+      "default": 0
+    },
+    "target_demos": {
+      "type": "number",
+      "default": 0
+    },
+    "leads_generated": {
+      "type": "number",
+      "default": 0
+    },
+    "demos_booked": {
+      "type": "number",
+      "default": 0
+    },
+    "opportunities_created": {
+      "type": "number",
+      "default": 0
+    },
+    "closed_won": {
+      "type": "number",
+      "default": 0
+    },
+    "revenue_generated": {
+      "type": "number",
+      "default": 0
+    },
+    "budget_allocated": {
+      "type": "number",
+      "default": 0
+    },
+    "budget_spent": {
+      "type": "number",
+      "default": 0
+    },
+    "assigned_owner": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "performance_notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "campaign_name",
+    "acquisition_source_key"
+  ]
+}

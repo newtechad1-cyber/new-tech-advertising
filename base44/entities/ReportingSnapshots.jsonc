@@ -1,0 +1,67 @@
+{
+  "name": "ReportingSnapshots",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "workroom_id": {
+      "type": "string",
+      "description": "Reference to FulfillmentWorkrooms ID"
+    },
+    "report_period_label": {
+      "type": "string"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date"
+    },
+    "traffic_total": {
+      "type": "number"
+    },
+    "leads_total": {
+      "type": "number"
+    },
+    "calls_total": {
+      "type": "number"
+    },
+    "videos_created": {
+      "type": "number"
+    },
+    "posts_published": {
+      "type": "number"
+    },
+    "pages_published": {
+      "type": "number"
+    },
+    "ad_impressions": {
+      "type": "number"
+    },
+    "ad_clicks": {
+      "type": "number"
+    },
+    "notes_summary": {
+      "type": "string"
+    },
+    "report_url": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_id",
+    "workroom_id",
+    "report_period_label",
+    "period_start",
+    "period_end"
+  ]
+}

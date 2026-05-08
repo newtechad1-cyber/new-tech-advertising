@@ -1,0 +1,102 @@
+{
+  "name": "CopilotBriefs",
+  "type": "object",
+  "properties": {
+    "brief_title": {
+      "type": "string",
+      "description": "Title of the brief"
+    },
+    "brief_type": {
+      "type": "string",
+      "enum": [
+        "daily_brief",
+        "weekly_brief",
+        "monthly_brief",
+        "on_demand",
+        "account_brief",
+        "executive_snapshot"
+      ],
+      "description": "Type of brief"
+    },
+    "period_label": {
+      "type": "string",
+      "description": "Human-readable period (e.g., 'March 8, 2026' or 'Week of March 3-9')"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date",
+      "description": "Start date of the period"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date",
+      "description": "End date of the period"
+    },
+    "generated_for_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional)"
+    },
+    "generated_by_function": {
+      "type": "string",
+      "description": "Name of the function that generated this brief"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "ready",
+        "archived"
+      ],
+      "default": "draft",
+      "description": "Status of the brief"
+    },
+    "summary_headline": {
+      "type": "string",
+      "description": "One-line headline capturing the brief's key message"
+    },
+    "executive_summary": {
+      "type": "string",
+      "description": "High-level synthesis of business state"
+    },
+    "wins_summary": {
+      "type": "string",
+      "description": "Key wins and positive momentum"
+    },
+    "risks_summary": {
+      "type": "string",
+      "description": "Top risks and threats"
+    },
+    "opportunities_summary": {
+      "type": "string",
+      "description": "Best revenue and growth opportunities"
+    },
+    "action_recommendations": {
+      "type": "string",
+      "description": "What should be done"
+    },
+    "decisions_needed": {
+      "type": "string",
+      "description": "Key decisions the owner should make"
+    },
+    "revenue_outlook_summary": {
+      "type": "string",
+      "description": "Revenue outlook and pipeline analysis"
+    },
+    "operations_outlook_summary": {
+      "type": "string",
+      "description": "Operational health and risks"
+    },
+    "client_health_outlook_summary": {
+      "type": "string",
+      "description": "Client portfolio health and movement"
+    }
+  },
+  "required": [
+    "brief_title",
+    "brief_type",
+    "period_label",
+    "status",
+    "summary_headline",
+    "executive_summary"
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "name": "VideoScenes",
+  "type": "object",
+  "properties": {
+    "video_request_id": {
+      "type": "string"
+    },
+    "script_id": {
+      "type": "string"
+    },
+    "scene_number": {
+      "type": "number"
+    },
+    "scene_title": {
+      "type": "string"
+    },
+    "scene_purpose": {
+      "type": "string"
+    },
+    "narration_text": {
+      "type": "string"
+    },
+    "onscreen_text": {
+      "type": "string"
+    },
+    "visual_type": {
+      "type": "string",
+      "enum": [
+        "avatar",
+        "stock_scene",
+        "screen_recording",
+        "text_on_screen",
+        "image_slideshow",
+        "before_after",
+        "logo_intro",
+        "outro_cta"
+      ],
+      "default": "text_on_screen"
+    },
+    "asset_reference": {
+      "type": "string"
+    },
+    "duration_seconds": {
+      "type": "number",
+      "default": 10
+    },
+    "transition_type": {
+      "type": "string",
+      "enum": [
+        "cut",
+        "fade",
+        "slide",
+        "zoom"
+      ],
+      "default": "cut"
+    },
+    "cta_flag": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "video_request_id",
+    "scene_number",
+    "scene_purpose"
+  ]
+}

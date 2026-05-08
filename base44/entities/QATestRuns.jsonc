@@ -1,0 +1,78 @@
+{
+  "name": "QATestRuns",
+  "type": "object",
+  "properties": {
+    "test_case_id": {
+      "type": "string",
+      "description": "Reference to QATestCases ID"
+    },
+    "run_name": {
+      "type": "string"
+    },
+    "run_type": {
+      "type": "string",
+      "enum": [
+        "Manual",
+        "Preset",
+        "Retest",
+        "Smoke",
+        "Regression",
+        "Automated"
+      ],
+      "default": "Manual"
+    },
+    "environment": {
+      "type": "string",
+      "enum": [
+        "development",
+        "staging",
+        "production"
+      ],
+      "default": "staging"
+    },
+    "started_by": {
+      "type": "string"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "result": {
+      "type": "string",
+      "enum": [
+        "Pass",
+        "Fail",
+        "Blocked",
+        "Needs Review",
+        "Not Run"
+      ],
+      "default": "Not Run"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "build_version": {
+      "type": "string"
+    },
+    "company_id": {
+      "type": "string"
+    },
+    "reseller_id": {
+      "type": "string"
+    },
+    "linked_issue_id": {
+      "type": "string",
+      "description": "Reference to QAIssues ID"
+    }
+  },
+  "required": [
+    "test_case_id",
+    "environment",
+    "started_at",
+    "result"
+  ]
+}

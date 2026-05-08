@@ -1,0 +1,40 @@
+{
+  "name": "AutomationDependencyMap",
+  "type": "object",
+  "properties": {
+    "rule_key": {
+      "type": "string",
+      "description": "Rule with dependency"
+    },
+    "dependency_type": {
+      "type": "string",
+      "enum": [
+        "depends_on_entity",
+        "depends_on_lifecycle",
+        "depends_on_function",
+        "depends_on_workflow",
+        "depends_on_agent",
+        "depends_on_page",
+        "depends_on_integration"
+      ],
+      "description": "Type of dependency"
+    },
+    "dependency_name": {
+      "type": "string",
+      "description": "Name of dependency"
+    },
+    "dependency_target": {
+      "type": "string",
+      "description": "Specific target (entity key, function name, etc)"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional context"
+    }
+  },
+  "required": [
+    "rule_key",
+    "dependency_type",
+    "dependency_name"
+  ]
+}

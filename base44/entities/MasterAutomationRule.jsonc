@@ -1,0 +1,129 @@
+{
+  "name": "MasterAutomationRule",
+  "type": "object",
+  "properties": {
+    "rule_key": {
+      "type": "string",
+      "description": "Canonical rule identifier (e.g., 'approval_to_publish')"
+    },
+    "rule_name": {
+      "type": "string",
+      "description": "Display name"
+    },
+    "automation_category": {
+      "type": "string",
+      "enum": [
+        "publishing",
+        "onboarding",
+        "reporting",
+        "approval",
+        "notification",
+        "workflow",
+        "maintenance",
+        "escalation"
+      ],
+      "description": "Rule category"
+    },
+    "description": {
+      "type": "string",
+      "description": "Purpose and behavior"
+    },
+    "trigger_key": {
+      "type": "string",
+      "description": "Reference to MasterTriggerDefinition"
+    },
+    "trigger_type": {
+      "type": "string",
+      "enum": [
+        "entity_event",
+        "scheduled",
+        "webhook",
+        "manual",
+        "conditional"
+      ],
+      "description": "Type of trigger"
+    },
+    "context_scope_json": {
+      "type": "string",
+      "description": "JSON: {scopes: ['agency', 'reseller', 'client'], isolation: 'strict/loose'}"
+    },
+    "tenant_scope": {
+      "type": "string",
+      "enum": [
+        "universal",
+        "agency",
+        "reseller",
+        "client",
+        "mixed"
+      ],
+      "description": "Tenant isolation level"
+    },
+    "primary_entity_key": {
+      "type": "string",
+      "description": "Main entity this rule operates on"
+    },
+    "primary_status_field": {
+      "type": "string",
+      "description": "Status field triggering this (if applicable)"
+    },
+    "condition_rules_json": {
+      "type": "string",
+      "description": "JSON array of conditions that must be met"
+    },
+    "action_rules_json": {
+      "type": "string",
+      "description": "JSON array of actions to execute"
+    },
+    "guardrail_rules_json": {
+      "type": "string",
+      "description": "JSON: safety checks {max_per_day, max_per_hour, max_payload_size}"
+    },
+    "cooldown_rules_json": {
+      "type": "string",
+      "description": "JSON: {cooldown_minutes, duplicate_window_seconds}"
+    },
+    "retry_policy_json": {
+      "type": "string",
+      "description": "JSON: {max_retries, backoff_strategy, retry_on_statuses}"
+    },
+    "escalation_policy_json": {
+      "type": "string",
+      "description": "JSON: {escalate_after_failures, escalate_to_role}"
+    },
+    "execution_mode": {
+      "type": "string",
+      "enum": [
+        "sync",
+        "async",
+        "queued",
+        "scheduled"
+      ],
+      "description": "How rule executes"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is rule enabled"
+    },
+    "deprecated": {
+      "type": "boolean",
+      "default": false,
+      "description": "Is rule deprecated"
+    },
+    "owner_team": {
+      "type": "string",
+      "description": "Team responsible for this rule"
+    },
+    "source_of_truth": {
+      "type": "string",
+      "description": "System/team that owns this rule definition"
+    }
+  },
+  "required": [
+    "rule_key",
+    "rule_name",
+    "automation_category",
+    "trigger_key",
+    "primary_entity_key"
+  ]
+}

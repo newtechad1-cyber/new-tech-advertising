@@ -1,0 +1,110 @@
+{
+  "name": "VideoPublishingJobs",
+  "type": "object",
+  "properties": {
+    "school_slug": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Reference to VideoProjects"
+    },
+    "render_job_id": {
+      "type": "string",
+      "description": "Reference to VideoRenderJobs"
+    },
+    "video_url": {
+      "type": "string",
+      "description": "URL of the rendered video to publish"
+    },
+    "thumbnail_url": {
+      "type": "string",
+      "description": "Video thumbnail for social platforms"
+    },
+    "destination": {
+      "type": "string",
+      "enum": [
+        "bulldog_tv",
+        "youtube",
+        "facebook",
+        "instagram",
+        "website_download"
+      ],
+      "description": "Where to publish"
+    },
+    "destination_account": {
+      "type": "string",
+      "description": "Which account/channel on the platform"
+    },
+    "destination_status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "publishing",
+        "published",
+        "failed",
+        "skipped"
+      ],
+      "default": "queued"
+    },
+    "destination_url": {
+      "type": "string",
+      "description": "URL where video was published"
+    },
+    "destination_id": {
+      "type": "string",
+      "description": "External ID on the platform (post ID, video ID, etc)"
+    },
+    "scheduled_publish_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When to publish if scheduled"
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "error_log": {
+      "type": "string"
+    },
+    "retry_count": {
+      "type": "number",
+      "default": 0
+    },
+    "max_retries": {
+      "type": "number",
+      "default": 3
+    },
+    "video_title": {
+      "type": "string"
+    },
+    "video_description": {
+      "type": "string"
+    },
+    "video_tags": {
+      "type": "string",
+      "description": "Comma-separated or JSON array of tags"
+    },
+    "visibility": {
+      "type": "string",
+      "enum": [
+        "public",
+        "unlisted",
+        "private"
+      ],
+      "default": "public"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "school_slug",
+    "project_id",
+    "destination",
+    "destination_status"
+  ]
+}

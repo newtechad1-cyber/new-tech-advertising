@@ -1,0 +1,23 @@
+{
+  "name": "FounderPlanNote",
+  "type": "object",
+  "properties": {
+    "plan_id": {
+      "type": "string",
+      "description": "Reference to FounderWeeklyPlan id"
+    },
+    "note_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "content": {
+      "type": "string"
+    },
+    "vertical_reference": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "content"
+  ]
+}

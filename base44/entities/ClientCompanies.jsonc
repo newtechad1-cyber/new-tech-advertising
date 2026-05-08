@@ -1,0 +1,104 @@
+{
+  "name": "ClientCompanies",
+  "type": "object",
+  "properties": {
+    "company_name": {
+      "type": "string",
+      "description": "Legal or trade name of the business"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-safe unique identifier"
+    },
+    "industry": {
+      "type": "string",
+      "description": "Industry vertical"
+    },
+    "website": {
+      "type": "string",
+      "description": "Primary website URL"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string",
+      "description": "Primary contact email"
+    },
+    "address": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "zip": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string",
+      "default": "US"
+    },
+    "logo_url": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "trial",
+        "past_due",
+        "suspended",
+        "churned",
+        "prospect"
+      ],
+      "default": "prospect"
+    },
+    "owner_user_id": {
+      "type": "string",
+      "description": "Primary owner user ID"
+    },
+    "reseller_id": {
+      "type": "string",
+      "description": "Reference to ResellerAccounts ID if reseller-owned"
+    },
+    "plan_id": {
+      "type": "string",
+      "description": "Reference to Plans ID"
+    },
+    "subscription_id": {
+      "type": "string",
+      "description": "Reference to ClientSubscriptions ID"
+    },
+    "stripe_customer_id": {
+      "type": "string"
+    },
+    "trial_ends_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "onboarded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "churned_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "company_name",
+    "status"
+  ]
+}

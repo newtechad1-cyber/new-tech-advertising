@@ -1,0 +1,100 @@
+{
+  "name": "AutonomousStrategyDefinition",
+  "type": "object",
+  "properties": {
+    "strategy_key": {
+      "type": "string",
+      "description": "Unique strategy identifier (e.g., 'visibility_boost_v1')"
+    },
+    "strategy_name": {
+      "type": "string",
+      "description": "Display name (e.g., 'Visibility Boost Campaign')"
+    },
+    "strategy_category": {
+      "type": "string",
+      "enum": [
+        "retention",
+        "acceleration",
+        "expansion",
+        "stabilization",
+        "optimization",
+        "engagement"
+      ],
+      "description": "Strategy category"
+    },
+    "description": {
+      "type": "string",
+      "description": "What this strategy does and when to use it"
+    },
+    "trigger_conditions_json": {
+      "type": "string",
+      "description": "JSON: {signal_type, operator, threshold, duration} conditions"
+    },
+    "allowed_contexts_json": {
+      "type": "string",
+      "description": "JSON: array of allowed context types ['reseller', 'client', etc]"
+    },
+    "autonomy_level": {
+      "type": "string",
+      "enum": [
+        "fully_autonomous",
+        "semi_autonomous",
+        "approval_required",
+        "high_risk_approval"
+      ],
+      "description": "Whether strategy can execute without approval"
+    },
+    "approval_required": {
+      "type": "boolean",
+      "default": true,
+      "description": "Does this strategy require explicit approval?"
+    },
+    "approval_role": {
+      "type": "string",
+      "description": "Role required to approve (e.g., 'reseller_owner', 'admin')"
+    },
+    "cooldown_rules_json": {
+      "type": "string",
+      "description": "JSON: {cooldown_minutes, duplicate_window_seconds}"
+    },
+    "max_frequency_rules_json": {
+      "type": "string",
+      "description": "JSON: {max_per_day, max_per_week, max_per_month}"
+    },
+    "tenant_safe": {
+      "type": "boolean",
+      "default": true,
+      "description": "Does strategy respect tenant boundaries?"
+    },
+    "expected_impact_json": {
+      "type": "string",
+      "description": "JSON: {metric, expected_change, timeframe}"
+    },
+    "success_criteria_json": {
+      "type": "string",
+      "description": "JSON: {metric, target_value, measurement_window}"
+    },
+    "rollback_capable": {
+      "type": "boolean",
+      "default": false,
+      "description": "Can this action be rolled back?"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is strategy active?"
+    },
+    "version": {
+      "type": "string",
+      "description": "Strategy version"
+    }
+  },
+  "required": [
+    "strategy_key",
+    "strategy_name",
+    "strategy_category",
+    "trigger_conditions_json",
+    "allowed_contexts_json",
+    "autonomy_level"
+  ]
+}

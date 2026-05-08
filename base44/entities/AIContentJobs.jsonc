@@ -1,0 +1,92 @@
+{
+  "name": "AIContentJobs",
+  "type": "object",
+  "properties": {
+    "school_slug": {
+      "type": "string"
+    },
+    "job_type": {
+      "type": "string",
+      "enum": [
+        "story_generation",
+        "yearbook_generation",
+        "event_recap",
+        "spotlight_summary",
+        "video_script",
+        "caption_generation"
+      ],
+      "default": "story_generation"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "processing",
+        "completed",
+        "failed",
+        "pending_review",
+        "approved",
+        "rejected",
+        "archived"
+      ],
+      "default": "pending"
+    },
+    "source_entity_type": {
+      "type": "string",
+      "enum": [
+        "StudentVideoSubmissions",
+        "Stories",
+        "YearbookPages",
+        "SchoolEvents",
+        "Spotlights",
+        "VideoProjects"
+      ],
+      "description": "Which entity type this job is for"
+    },
+    "source_entity_id": {
+      "type": "string"
+    },
+    "prompt_template_id": {
+      "type": "string"
+    },
+    "input_data": {
+      "type": "string",
+      "description": "JSON object with input to AI"
+    },
+    "output_text": {
+      "type": "string",
+      "description": "AI-generated output"
+    },
+    "error_log": {
+      "type": "string"
+    },
+    "requested_by": {
+      "type": "string"
+    },
+    "requested_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reviewed_by": {
+      "type": "string"
+    },
+    "review_notes": {
+      "type": "string"
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "school_slug",
+    "job_type",
+    "status",
+    "source_entity_type",
+    "source_entity_id"
+  ]
+}

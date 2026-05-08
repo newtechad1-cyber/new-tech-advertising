@@ -1,0 +1,49 @@
+{
+  "name": "ReportMilestoneEvent",
+  "type": "object",
+  "properties": {
+    "report_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "milestone_type": {
+      "type": "string",
+      "enum": [
+        "first_video",
+        "ranking_improvement",
+        "posting_consistency",
+        "engagement_record",
+        "expansion_signal",
+        "campaign_launch",
+        "custom"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "event_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "impact_level": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    }
+  },
+  "required": [
+    "report_id",
+    "client_id",
+    "milestone_type",
+    "title",
+    "event_date"
+  ]
+}

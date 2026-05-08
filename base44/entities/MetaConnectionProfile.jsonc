@@ -1,0 +1,100 @@
+{
+  "name": "MetaConnectionProfile",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string"
+    },
+    "meta_business_name": {
+      "type": "string"
+    },
+    "meta_business_id": {
+      "type": "string"
+    },
+    "facebook_page_name": {
+      "type": "string"
+    },
+    "facebook_page_id": {
+      "type": "string"
+    },
+    "facebook_page_selected": {
+      "type": "boolean",
+      "default": false
+    },
+    "facebook_page_access_verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "facebook_publish_permissions_ok": {
+      "type": "boolean",
+      "default": false
+    },
+    "instagram_account_name": {
+      "type": "string"
+    },
+    "instagram_account_id": {
+      "type": "string"
+    },
+    "instagram_account_type": {
+      "type": "string"
+    },
+    "instagram_selected": {
+      "type": "boolean",
+      "default": false
+    },
+    "instagram_linked_to_facebook_page": {
+      "type": "boolean",
+      "default": false
+    },
+    "instagram_publish_permissions_ok": {
+      "type": "boolean",
+      "default": false
+    },
+    "token_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "expired",
+        "not_set",
+        "invalid"
+      ],
+      "default": "not_set"
+    },
+    "token_expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "permissions_json": {
+      "type": "string"
+    },
+    "readiness_status": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "partially_ready",
+        "blocked",
+        "needs_connection",
+        "token_expired",
+        "connected_but_incomplete",
+        "error"
+      ],
+      "default": "needs_connection"
+    },
+    "readiness_score": {
+      "type": "number",
+      "default": 0
+    },
+    "last_verified_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_error": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": []
+}

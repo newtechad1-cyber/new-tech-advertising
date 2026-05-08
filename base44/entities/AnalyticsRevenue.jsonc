@@ -1,0 +1,64 @@
+{
+  "name": "AnalyticsRevenue",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID \u2014 required"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "period": {
+      "type": "string",
+      "enum": [
+        "daily",
+        "weekly",
+        "monthly"
+      ],
+      "default": "monthly"
+    },
+    "mrr": {
+      "type": "number",
+      "description": "Monthly recurring revenue for this company"
+    },
+    "arr": {
+      "type": "number",
+      "description": "Annual recurring revenue"
+    },
+    "total_billed": {
+      "type": "number",
+      "description": "Total amount billed this period"
+    },
+    "total_collected": {
+      "type": "number"
+    },
+    "outstanding": {
+      "type": "number"
+    },
+    "refunds": {
+      "type": "number"
+    },
+    "churn_revenue": {
+      "type": "number"
+    },
+    "expansion_revenue": {
+      "type": "number",
+      "description": "Upgrades or add-ons"
+    },
+    "plan_id": {
+      "type": "string",
+      "description": "Reference to Plans ID at time of snapshot"
+    },
+    "reseller_id": {
+      "type": "string",
+      "description": "Reference to ResellerAccounts ID if reseller-attributed"
+    }
+  },
+  "required": [
+    "company_id",
+    "date",
+    "period"
+  ]
+}

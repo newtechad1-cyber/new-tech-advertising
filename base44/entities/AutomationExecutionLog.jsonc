@@ -1,0 +1,89 @@
+{
+  "name": "AutomationExecutionLog",
+  "type": "object",
+  "properties": {
+    "rule_key": {
+      "type": "string",
+      "description": "Rule that executed"
+    },
+    "trigger_key": {
+      "type": "string",
+      "description": "Trigger that fired"
+    },
+    "execution_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "running",
+        "completed",
+        "failed",
+        "blocked",
+        "escalated"
+      ],
+      "description": "Execution status"
+    },
+    "context_type": {
+      "type": "string",
+      "enum": [
+        "agency",
+        "reseller",
+        "client"
+      ],
+      "description": "Execution context"
+    },
+    "reseller_id": {
+      "type": "string",
+      "description": "Reseller scope (if applicable)"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "Client scope (if applicable)"
+    },
+    "related_entity_type": {
+      "type": "string",
+      "description": "Entity type involved in execution"
+    },
+    "related_entity_id": {
+      "type": "string",
+      "description": "Entity ID involved in execution"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When execution started"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When execution completed"
+    },
+    "result_summary": {
+      "type": "string",
+      "description": "Summary of execution result"
+    },
+    "error_message": {
+      "type": "string",
+      "description": "Error details if failed"
+    },
+    "duplicate_prevented": {
+      "type": "boolean",
+      "default": false,
+      "description": "Was this execution a duplicate?"
+    },
+    "escalated": {
+      "type": "boolean",
+      "default": false,
+      "description": "Was this escalated?"
+    },
+    "retry_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of retries"
+    }
+  },
+  "required": [
+    "rule_key",
+    "trigger_key",
+    "execution_status"
+  ]
+}

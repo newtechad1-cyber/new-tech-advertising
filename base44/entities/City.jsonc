@@ -1,0 +1,95 @@
+{
+  "name": "City",
+  "type": "object",
+  "properties": {
+    "city_name": {
+      "type": "string",
+      "description": "City name e.g. Chicago",
+      "index": true
+    },
+    "state": {
+      "type": "string",
+      "description": "Full state name e.g. Illinois"
+    },
+    "state_code": {
+      "type": "string",
+      "description": "Two-letter state code e.g. IL"
+    },
+    "seo_slug": {
+      "type": "string",
+      "description": "URL-safe slug e.g. chicago",
+      "unique": true
+    },
+    "population": {
+      "type": "number",
+      "description": "City population"
+    },
+    "population_band": {
+      "type": "string",
+      "enum": [
+        "small",
+        "medium",
+        "large",
+        "major"
+      ],
+      "description": "Population tier"
+    },
+    "major_industries": {
+      "type": "string",
+      "description": "Comma-separated major industries e.g. healthcare, finance, manufacturing"
+    },
+    "market_tier": {
+      "type": "string",
+      "enum": [
+        "tier-1",
+        "tier-2",
+        "tier-3"
+      ],
+      "default": "tier-2",
+      "description": "SEO priority tier"
+    },
+    "region": {
+      "type": "string",
+      "enum": [
+        "midwest",
+        "south",
+        "northeast",
+        "west",
+        "southwest",
+        "southeast"
+      ],
+      "description": "Geographic region"
+    },
+    "services_to_generate": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Service slugs to generate pages for"
+    },
+    "pages_generated": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "city_name",
+    "state",
+    "state_code",
+    "seo_slug"
+  ]
+}

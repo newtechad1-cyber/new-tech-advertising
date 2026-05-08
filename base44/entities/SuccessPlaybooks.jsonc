@@ -1,0 +1,150 @@
+{
+  "name": "SuccessPlaybooks",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "fulfillment_workroom_id": {
+      "type": "string",
+      "description": "Reference to FulfillmentWorkrooms ID (optional)"
+    },
+    "executive_report_id": {
+      "type": "string",
+      "description": "Reference to ExecutiveReports ID (optional)"
+    },
+    "growth_opportunity_id": {
+      "type": "string",
+      "description": "Reference to GrowthOpportunities ID (optional)"
+    },
+    "strategy_review_id": {
+      "type": "string",
+      "description": "Reference to StrategyReviews ID (optional)"
+    },
+    "playbook_type": {
+      "type": "string",
+      "enum": [
+        "retention",
+        "renewal",
+        "expansion",
+        "rescue",
+        "optimization",
+        "onboarding_recovery",
+        "fulfillment_stabilization",
+        "quarterly_growth",
+        "executive_followup"
+      ],
+      "description": "Type of success playbook"
+    },
+    "title": {
+      "type": "string",
+      "description": "Playbook title"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Executive summary of the playbook"
+    },
+    "account_health_status": {
+      "type": "string",
+      "enum": [
+        "healthy",
+        "growing",
+        "at_risk",
+        "needs_attention",
+        "expansion_ready"
+      ],
+      "description": "Current account health"
+    },
+    "primary_goal": {
+      "type": "string",
+      "description": "Main goal for this playbook"
+    },
+    "main_risk": {
+      "type": "string",
+      "description": "Primary risk or concern"
+    },
+    "main_opportunity": {
+      "type": "string",
+      "description": "Primary growth opportunity"
+    },
+    "recommended_actions_summary": {
+      "type": "string",
+      "description": "Summary of recommended actions"
+    },
+    "talking_points_summary": {
+      "type": "string",
+      "description": "Key talking points for calls and reviews"
+    },
+    "next_quarter_focus": {
+      "type": "string",
+      "description": "Recommended focus for next quarter"
+    },
+    "renewal_readiness": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "preparing",
+        "not_ready",
+        "at_risk"
+      ],
+      "description": "Renewal readiness status"
+    },
+    "upsell_readiness": {
+      "type": "string",
+      "enum": [
+        "strong",
+        "moderate",
+        "weak",
+        "not_applicable"
+      ],
+      "description": "Upsell opportunity readiness"
+    },
+    "churn_risk_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "description": "Risk of account churn"
+    },
+    "confidence_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Confidence in playbook recommendations (0-100)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "completed",
+        "archived",
+        "superseded"
+      ],
+      "default": "draft",
+      "description": "Playbook status"
+    },
+    "visible_to_client": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether client can view this playbook"
+    },
+    "assigned_admin_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional)"
+    }
+  },
+  "required": [
+    "company_id",
+    "playbook_type",
+    "title",
+    "summary",
+    "account_health_status",
+    "primary_goal",
+    "confidence_score"
+  ]
+}

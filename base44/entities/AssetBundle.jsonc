@@ -1,0 +1,52 @@
+{
+  "name": "AssetBundle",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Company ID"
+    },
+    "campaign_id": {
+      "type": "string",
+      "description": "Reference to ContentCampaign ID (optional)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Label for this bundle (e.g. March Brand Photos)"
+    },
+    "asset_type": {
+      "type": "string",
+      "enum": [
+        "images",
+        "videos",
+        "logos",
+        "brand_kit",
+        "mixed"
+      ],
+      "default": "mixed"
+    },
+    "asset_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "URLs of all assets in this bundle"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "client_uploaded",
+        "ai_generated",
+        "team_created"
+      ],
+      "default": "client_uploaded"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "company_id",
+    "name"
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "name": "ResellerClients",
+  "type": "object",
+  "properties": {
+    "reseller_id": {
+      "type": "string",
+      "description": "Reference to ResellerAccounts ID"
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID (the client company)"
+    },
+    "client_name": {
+      "type": "string",
+      "description": "Client company name"
+    },
+    "client_email": {
+      "type": "string",
+      "description": "Primary client contact email"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "trial",
+        "paused",
+        "churned"
+      ],
+      "default": "active",
+      "description": "Client status under this reseller"
+    },
+    "plan_type": {
+      "type": "string",
+      "description": "Plan/service package assigned to this client"
+    },
+    "monthly_value": {
+      "type": "number",
+      "description": "Monthly revenue from this client (optional)"
+    },
+    "commission_override_rate": {
+      "type": "number",
+      "description": "Per-client commission override (optional, overrides reseller default)"
+    },
+    "portal_access_enabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether client has portal access"
+    },
+    "branding_override_enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether white label branding applies to this client"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When client started"
+    },
+    "churned_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When client churned (optional)"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Internal notes (optional)"
+    }
+  },
+  "required": [
+    "reseller_id",
+    "client_name",
+    "client_email",
+    "status",
+    "portal_access_enabled",
+    "branding_override_enabled"
+  ]
+}

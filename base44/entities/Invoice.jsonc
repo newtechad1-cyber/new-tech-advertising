@@ -1,0 +1,73 @@
+{
+  "name": "Invoice",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Company ID"
+    },
+    "proposal_id": {
+      "type": "string",
+      "description": "Reference to NtaProposal ID (if project-based)"
+    },
+    "subscription_id": {
+      "type": "string",
+      "description": "Reference to Subscription ID (if recurring)"
+    },
+    "invoice_number": {
+      "type": "string"
+    },
+    "invoice_type": {
+      "type": "string",
+      "enum": [
+        "deposit",
+        "final_payment",
+        "recurring",
+        "one_time",
+        "refund"
+      ],
+      "default": "one_time"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Invoice amount in dollars"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "sent",
+        "paid",
+        "overdue",
+        "void"
+      ],
+      "default": "draft"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "paid_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "stripe_payment_intent_id": {
+      "type": "string"
+    },
+    "payment_link": {
+      "type": "string"
+    },
+    "line_items": {
+      "type": "string",
+      "description": "JSON string of itemized charges"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "company_id",
+    "invoice_type",
+    "amount"
+  ]
+}

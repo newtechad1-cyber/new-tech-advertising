@@ -1,0 +1,67 @@
+{
+  "name": "AgentTasks",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID \u2014 always required for company context"
+    },
+    "agent_id": {
+      "type": "string",
+      "description": "Reference to AgentDefinitions ID"
+    },
+    "campaign_id": {
+      "type": "string",
+      "description": "Reference to Campaigns ID (optional)"
+    },
+    "task_type": {
+      "type": "string",
+      "description": "e.g. generate_social_posts, write_blog, audit_seo"
+    },
+    "input_data": {
+      "type": "string",
+      "description": "JSON input payload for the task"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "running",
+        "completed",
+        "failed",
+        "cancelled"
+      ],
+      "default": "queued"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "normal",
+        "high"
+      ],
+      "default": "normal"
+    },
+    "scheduled_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "error_message": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "company_id",
+    "agent_id",
+    "task_type",
+    "status"
+  ]
+}

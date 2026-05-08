@@ -1,0 +1,92 @@
+{
+  "name": "FulfillmentTasks",
+  "type": "object",
+  "properties": {
+    "workroom_id": {
+      "type": "string",
+      "description": "Reference to FulfillmentWorkrooms ID"
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "assigned_user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional)"
+    },
+    "visible_to_client": {
+      "type": "boolean",
+      "default": false
+    },
+    "task_title": {
+      "type": "string"
+    },
+    "task_type": {
+      "type": "string",
+      "enum": [
+        "content_brief",
+        "blog_article",
+        "social_post_batch",
+        "video_script",
+        "video_production",
+        "client_approval",
+        "website_edit",
+        "seo_page",
+        "campaign_setup",
+        "campaign_optimization",
+        "report_review",
+        "monthly_checkin",
+        "revision",
+        "other"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "in_progress",
+        "submitted",
+        "approved",
+        "completed",
+        "blocked",
+        "cancelled"
+      ],
+      "default": "pending"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium"
+    },
+    "recurring": {
+      "type": "boolean",
+      "default": false
+    },
+    "required_for_delivery": {
+      "type": "boolean",
+      "default": false
+    },
+    "completed_date": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "workroom_id",
+    "company_id",
+    "task_title",
+    "task_type"
+  ]
+}

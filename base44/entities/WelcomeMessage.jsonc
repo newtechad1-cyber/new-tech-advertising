@@ -1,0 +1,31 @@
+{
+  "name": "WelcomeMessage",
+  "type": "object",
+  "properties": {
+    "trial_signup_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "headline": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
+    "first_action": {
+      "type": "string"
+    },
+    "second_action": {
+      "type": "string"
+    },
+    "third_action": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "trial_signup_id",
+    "company_name"
+  ]
+}

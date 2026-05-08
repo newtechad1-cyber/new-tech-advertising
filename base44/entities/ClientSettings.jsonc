@@ -1,0 +1,67 @@
+{
+  "name": "ClientSettings",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID \u2014 one record per company"
+    },
+    "timezone": {
+      "type": "string",
+      "default": "America/Chicago"
+    },
+    "posting_schedule": {
+      "type": "string",
+      "description": "JSON config for default posting times per platform"
+    },
+    "content_tone": {
+      "type": "string",
+      "enum": [
+        "professional",
+        "casual",
+        "playful",
+        "authoritative",
+        "friendly"
+      ],
+      "default": "professional"
+    },
+    "brand_voice_notes": {
+      "type": "string",
+      "description": "Free-text brand voice instructions for AI"
+    },
+    "primary_color": {
+      "type": "string"
+    },
+    "secondary_color": {
+      "type": "string"
+    },
+    "logo_url": {
+      "type": "string"
+    },
+    "portal_notifications_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "email_notifications_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "auto_approve_posts": {
+      "type": "boolean",
+      "default": false
+    },
+    "review_response_auto_publish": {
+      "type": "boolean",
+      "default": false
+    },
+    "preferred_platforms": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "company_id"
+  ]
+}

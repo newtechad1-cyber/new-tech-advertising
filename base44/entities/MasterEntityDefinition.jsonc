@@ -1,0 +1,102 @@
+{
+  "name": "MasterEntityDefinition",
+  "type": "object",
+  "properties": {
+    "entity_key": {
+      "type": "string",
+      "description": "Unique identifier for entity (e.g., 'Client', 'AgentTask')"
+    },
+    "entity_name": {
+      "type": "string",
+      "description": "Display name"
+    },
+    "entity_category": {
+      "type": "string",
+      "enum": [
+        "core",
+        "operational",
+        "ai_orchestration",
+        "publishing",
+        "onboarding",
+        "reporting",
+        "client_portal",
+        "reseller",
+        "school_media"
+      ],
+      "description": "Primary category"
+    },
+    "description": {
+      "type": "string",
+      "description": "Purpose and business logic"
+    },
+    "canonical_owner_type": {
+      "type": "string",
+      "enum": [
+        "agency",
+        "reseller",
+        "client",
+        "school",
+        "system"
+      ],
+      "description": "Primary owner context"
+    },
+    "tenant_scoped": {
+      "type": "boolean",
+      "default": false,
+      "description": "Is data isolated by tenant"
+    },
+    "context_scoped": {
+      "type": "boolean",
+      "default": false,
+      "description": "Is data isolated by context (agency/client/school)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "deprecated",
+        "experimental",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "source_of_truth": {
+      "type": "string",
+      "description": "System responsible for record creation"
+    },
+    "lifecycle_model_json": {
+      "type": "string",
+      "description": "JSON: lifecycle definition reference"
+    },
+    "visibility_rules_json": {
+      "type": "string",
+      "description": "JSON: who can see records {agency, reseller, client, admin, system}"
+    },
+    "edit_rules_json": {
+      "type": "string",
+      "description": "JSON: who can edit {admin_only, reseller_editable, client_editable, agent_writable}"
+    },
+    "automation_rules_json": {
+      "type": "string",
+      "description": "JSON: automation write access rules"
+    },
+    "dependent_dashboards_json": {
+      "type": "string",
+      "description": "JSON array: pages/dashboards that use this entity"
+    },
+    "dependent_agents_json": {
+      "type": "string",
+      "description": "JSON array: agents that operate on this entity"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "entity_key",
+    "entity_name",
+    "entity_category",
+    "canonical_owner_type"
+  ]
+}

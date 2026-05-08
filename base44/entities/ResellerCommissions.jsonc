@@ -1,0 +1,78 @@
+{
+  "name": "ResellerCommissions",
+  "type": "object",
+  "properties": {
+    "reseller_id": {
+      "type": "string",
+      "description": "Reference to ResellerAccounts ID"
+    },
+    "reseller_client_id": {
+      "type": "string",
+      "description": "Reference to ResellerClients ID (optional)"
+    },
+    "commission_type": {
+      "type": "string",
+      "enum": [
+        "monthly_recurring",
+        "one_time",
+        "bonus",
+        "adjustment"
+      ],
+      "description": "Type of commission"
+    },
+    "period_label": {
+      "type": "string",
+      "description": "Period label e.g. March 2026"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date"
+    },
+    "gross_revenue": {
+      "type": "number",
+      "description": "Gross client revenue this period"
+    },
+    "commission_rate": {
+      "type": "number",
+      "description": "Rate applied (percentage)"
+    },
+    "commission_amount": {
+      "type": "number",
+      "description": "Commission amount earned"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "paid",
+        "disputed",
+        "voided"
+      ],
+      "default": "pending",
+      "description": "Payment status"
+    },
+    "paid_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When commission was paid (optional)"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Notes (optional)"
+    }
+  },
+  "required": [
+    "reseller_id",
+    "commission_type",
+    "period_label",
+    "period_start",
+    "period_end",
+    "commission_amount",
+    "status"
+  ]
+}

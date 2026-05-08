@@ -1,0 +1,29 @@
+{
+  "name": "ClientPortalRoles",
+  "type": "object",
+  "properties": {
+    "role_name": {
+      "type": "string",
+      "description": "Name of the role"
+    },
+    "role_key": {
+      "type": "string",
+      "description": "Unique key for the role (e.g., owner, admin_contact, viewer)"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of what this role can do"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this role is active"
+    }
+  },
+  "required": [
+    "role_name",
+    "role_key",
+    "description",
+    "active"
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "name": "ExpansionCampaign",
+  "type": "object",
+  "properties": {
+    "campaign_name": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "vertical_focus": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planning",
+        "authority_publishing",
+        "paid_active",
+        "outbound_prospecting",
+        "partnership_outreach",
+        "domination_phase",
+        "paused"
+      ],
+      "default": "planning"
+    },
+    "budget_estimate": {
+      "type": "number"
+    },
+    "lead_velocity": {
+      "type": "number"
+    },
+    "conversion_trend": {
+      "type": "string",
+      "enum": [
+        "improving",
+        "stable",
+        "declining"
+      ]
+    },
+    "expansion_confidence": {
+      "type": "number"
+    },
+    "leads_generated": {
+      "type": "number"
+    },
+    "revenue_generated": {
+      "type": "number"
+    },
+    "assigned_owner": {
+      "type": "string"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "target_domination_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "campaign_name",
+    "city",
+    "state",
+    "status"
+  ]
+}

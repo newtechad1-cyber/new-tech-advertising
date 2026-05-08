@@ -1,0 +1,32 @@
+{
+  "name": "AiWorkflow",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "Unique slug key (e.g. social_onboarding)",
+      "unique": true
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "steps": {
+      "type": "array",
+      "description": "Ordered steps: [{step_key, agent_key, label, depends_on}]",
+      "items": {
+        "type": "object"
+      }
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "key",
+    "name"
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "name": "ContentItem",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "pillar",
+        "article",
+        "playbook",
+        "problem_page",
+        "resource",
+        "guide",
+        "comparison"
+      ]
+    },
+    "topic_cluster": {
+      "type": "string",
+      "description": "TopicCluster ID"
+    },
+    "target_keyword": {
+      "type": "string"
+    },
+    "search_intent": {
+      "type": "string",
+      "enum": [
+        "informational",
+        "navigational",
+        "commercial",
+        "transactional"
+      ]
+    },
+    "funnel_stage": {
+      "type": "string",
+      "enum": [
+        "awareness",
+        "consideration",
+        "decision",
+        "retention"
+      ]
+    },
+    "summary": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string",
+      "description": "Full article body (markdown or HTML)"
+    },
+    "excerpt": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "review",
+        "published",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "publish_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "related_video": {
+      "type": "string",
+      "description": "VideoAsset ID"
+    },
+    "related_tool": {
+      "type": "string",
+      "description": "Tool ID"
+    },
+    "related_cta": {
+      "type": "string",
+      "description": "CTAOffer ID"
+    },
+    "pillar_page": {
+      "type": "string",
+      "description": "Page ID of parent pillar"
+    },
+    "industry": {
+      "type": "string",
+      "description": "Industry ID"
+    }
+  },
+  "required": [
+    "title",
+    "slug",
+    "content_type"
+  ]
+}

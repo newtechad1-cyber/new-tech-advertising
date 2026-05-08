@@ -1,0 +1,88 @@
+{
+  "name": "MasterFieldDefinition",
+  "type": "object",
+  "properties": {
+    "entity_key": {
+      "type": "string",
+      "description": "Reference to MasterEntityDefinition"
+    },
+    "field_key": {
+      "type": "string",
+      "description": "Canonical field name (camelCase)"
+    },
+    "field_label": {
+      "type": "string",
+      "description": "Display label"
+    },
+    "data_type": {
+      "type": "string",
+      "enum": [
+        "string",
+        "number",
+        "boolean",
+        "date",
+        "datetime",
+        "json",
+        "array",
+        "reference",
+        "enum"
+      ],
+      "description": "Field data type"
+    },
+    "required": {
+      "type": "boolean",
+      "default": false
+    },
+    "default_value": {
+      "type": "string",
+      "description": "Default if not provided"
+    },
+    "allowed_values_json": {
+      "type": "string",
+      "description": "JSON array of valid values for enums"
+    },
+    "validation_rules_json": {
+      "type": "string",
+      "description": "JSON: min, max, pattern, custom rules"
+    },
+    "display_group": {
+      "type": "string",
+      "description": "Section grouping (e.g., 'Basic Info', 'Status', 'Branding')"
+    },
+    "tenant_sensitive": {
+      "type": "boolean",
+      "default": false,
+      "description": "Should be filtered by tenant"
+    },
+    "client_editable": {
+      "type": "boolean",
+      "default": false
+    },
+    "reseller_editable": {
+      "type": "boolean",
+      "default": false
+    },
+    "admin_only": {
+      "type": "boolean",
+      "default": false
+    },
+    "indexed": {
+      "type": "boolean",
+      "default": false,
+      "description": "Should be indexed for queries"
+    },
+    "deprecated": {
+      "type": "boolean",
+      "default": false
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "entity_key",
+    "field_key",
+    "field_label",
+    "data_type"
+  ]
+}

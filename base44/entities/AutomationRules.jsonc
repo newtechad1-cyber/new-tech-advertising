@@ -1,0 +1,65 @@
+{
+  "name": "AutomationRules",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID \u2014 null for platform-wide rules"
+    },
+    "rule_name": {
+      "type": "string"
+    },
+    "trigger_event": {
+      "type": "string",
+      "enum": [
+        "company_created",
+        "subscription_activated",
+        "trial_started",
+        "deal_closed_won",
+        "review_received",
+        "content_published",
+        "payment_failed",
+        "onboarding_completed",
+        "weekly_schedule",
+        "monthly_schedule"
+      ]
+    },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "run_agent",
+        "send_email",
+        "create_task",
+        "update_status",
+        "webhook",
+        "notify"
+      ]
+    },
+    "action_config": {
+      "type": "string",
+      "description": "JSON config for the action"
+    },
+    "conditions": {
+      "type": "string",
+      "description": "JSON conditions that must be met"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    },
+    "last_triggered_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "trigger_count": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "rule_name",
+    "trigger_event",
+    "action_type",
+    "active"
+  ]
+}

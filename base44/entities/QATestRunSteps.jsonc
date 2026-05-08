@@ -1,0 +1,55 @@
+{
+  "name": "QATestRunSteps",
+  "type": "object",
+  "properties": {
+    "test_run_id": {
+      "type": "string",
+      "description": "Reference to QATestRuns ID"
+    },
+    "step_template_id": {
+      "type": "string",
+      "description": "Reference to source QATestCaseSteps ID"
+    },
+    "step_number": {
+      "type": "number"
+    },
+    "step_name": {
+      "type": "string"
+    },
+    "expected_result": {
+      "type": "string"
+    },
+    "actual_result": {
+      "type": "string"
+    },
+    "failure_condition": {
+      "type": "string"
+    },
+    "validation_page": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Pass",
+        "Fail",
+        "Blocked",
+        "Needs Review",
+        "Not Run"
+      ],
+      "default": "Not Run"
+    },
+    "screenshot_url": {
+      "type": "string"
+    },
+    "error_log": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "test_run_id",
+    "step_number",
+    "step_name",
+    "status"
+  ]
+}

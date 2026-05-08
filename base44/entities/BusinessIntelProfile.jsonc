@@ -1,0 +1,230 @@
+{
+  "name": "BusinessIntelProfile",
+  "type": "object",
+  "properties": {
+    "business_profile_id": {
+      "type": "string",
+      "description": "Reference to BusinessProfile ID"
+    },
+    "industry_slug": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "paused",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "recommended_positioning": {
+      "type": "string"
+    },
+    "recommended_primary_offer": {
+      "type": "string"
+    },
+    "recommended_secondary_offers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_content_pillars": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_video_pillars": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_campaign_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_streaming_tv_angles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_cta_mix": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "priority_service_pages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "priority_location_pages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "priority_problem_articles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "priority_playbook_topics": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "priority_tool_page_topics": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "priority_video_topics": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "priority_social_series": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "top_opportunities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "top_gaps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "top_risks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "quick_win_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "industry_weight": {
+      "type": "number",
+      "default": 0.35
+    },
+    "local_market_weight": {
+      "type": "number",
+      "default": 0.25
+    },
+    "business_input_weight": {
+      "type": "number",
+      "default": 0.3
+    },
+    "performance_weight": {
+      "type": "number",
+      "default": 0.1
+    },
+    "overall_confidence_score": {
+      "type": "number",
+      "default": 50
+    },
+    "seo_confidence_score": {
+      "type": "number",
+      "default": 50
+    },
+    "content_confidence_score": {
+      "type": "number",
+      "default": 50
+    },
+    "offer_confidence_score": {
+      "type": "number",
+      "default": 50
+    },
+    "campaign_confidence_score": {
+      "type": "number",
+      "default": 50
+    },
+    "last_generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_refreshed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "version": {
+      "type": "string"
+    },
+    "positioning_source_state": {
+      "type": "string",
+      "enum": [
+        "assumed",
+        "inferred",
+        "observed",
+        "proven"
+      ],
+      "default": "assumed"
+    },
+    "offer_source_state": {
+      "type": "string",
+      "enum": [
+        "assumed",
+        "inferred",
+        "observed",
+        "proven"
+      ],
+      "default": "assumed"
+    },
+    "content_source_state": {
+      "type": "string",
+      "enum": [
+        "assumed",
+        "inferred",
+        "observed",
+        "proven"
+      ],
+      "default": "assumed"
+    },
+    "campaign_source_state": {
+      "type": "string",
+      "enum": [
+        "assumed",
+        "inferred",
+        "observed",
+        "proven"
+      ],
+      "default": "assumed"
+    }
+  },
+  "required": [
+    "business_profile_id",
+    "industry_slug",
+    "city",
+    "state"
+  ]
+}

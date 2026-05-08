@@ -1,0 +1,51 @@
+{
+  "name": "ClientPortalPermissions",
+  "type": "object",
+  "properties": {
+    "role_id": {
+      "type": "string",
+      "description": "Reference to ClientPortalRoles ID"
+    },
+    "permission_key": {
+      "type": "string",
+      "enum": [
+        "view_dashboard",
+        "view_fulfillment",
+        "view_results",
+        "view_strategy",
+        "view_commerce",
+        "view_messages",
+        "submit_requests",
+        "approve_deliverables",
+        "approve_proposals",
+        "approve_renewals",
+        "manage_portal_users",
+        "manage_notifications",
+        "view_billing_status",
+        "view_usage",
+        "request_upgrade"
+      ],
+      "description": "Permission key"
+    },
+    "permission_label": {
+      "type": "string",
+      "description": "Human-readable label for permission"
+    },
+    "allowed": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this role has this permission"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "role_id",
+    "permission_key",
+    "permission_label",
+    "allowed"
+  ]
+}

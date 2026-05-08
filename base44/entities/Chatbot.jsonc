@@ -1,0 +1,73 @@
+{
+  "name": "Chatbot",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of this chatbot"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "sales",
+        "support",
+        "general"
+      ],
+      "default": "general",
+      "description": "Purpose of this chatbot"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "draft"
+      ],
+      "default": "draft",
+      "description": "Current deployment status"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "ID of the client this chatbot belongs to (null = your own business)"
+    },
+    "website_url": {
+      "type": "string",
+      "description": "Website where this chatbot is deployed"
+    },
+    "greeting_message": {
+      "type": "string",
+      "description": "First message shown to visitors when chat opens"
+    },
+    "system_prompt": {
+      "type": "string",
+      "format": "long-text",
+      "description": "AI personality, instructions, and context for this chatbot"
+    },
+    "escalation_email": {
+      "type": "string",
+      "description": "Email address to notify when a lead is captured"
+    },
+    "color_theme": {
+      "type": "string",
+      "description": "Primary brand color for the chat widget (hex code)"
+    },
+    "avatar_url": {
+      "type": "string",
+      "description": "URL to the bot avatar image"
+    },
+    "embed_code": {
+      "type": "string",
+      "format": "long-text",
+      "description": "Auto-generated script snippet to embed on the website"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "name",
+    "type"
+  ]
+}

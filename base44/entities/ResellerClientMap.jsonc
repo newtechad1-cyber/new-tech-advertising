@@ -1,0 +1,59 @@
+{
+  "name": "ResellerClientMap",
+  "type": "object",
+  "properties": {
+    "reseller_id": {
+      "type": "string",
+      "description": "Reference to ResellerAccount"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies"
+    },
+    "assigned_on": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "prospect",
+        "onboarding",
+        "active",
+        "churned"
+      ],
+      "default": "active"
+    },
+    "package_name": {
+      "type": "string",
+      "enum": [
+        "starter",
+        "growth",
+        "enterprise"
+      ],
+      "default": "growth"
+    },
+    "monthly_value": {
+      "type": "number",
+      "description": "Monthly recurring value"
+    },
+    "onboarding_stage": {
+      "type": "string",
+      "enum": [
+        "deal_closed",
+        "welcome_sent",
+        "setup",
+        "launch",
+        "live"
+      ],
+      "default": "deal_closed"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "reseller_id",
+    "client_id"
+  ]
+}

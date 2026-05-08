@@ -1,0 +1,52 @@
+{
+  "name": "OptimizationRecommendation",
+  "type": "object",
+  "properties": {
+    "recommendation_key": {
+      "type": "string",
+      "description": "Unique recommendation identifier"
+    },
+    "related_candidate_key": {
+      "type": "string",
+      "description": "Reference to OptimizationCandidate"
+    },
+    "target_role": {
+      "type": "string",
+      "description": "Role this recommendation targets"
+    },
+    "recommendation_text": {
+      "type": "string",
+      "description": "Human-readable recommendation"
+    },
+    "suggested_action": {
+      "type": "string",
+      "description": "Specific action to take"
+    },
+    "expected_benefit": {
+      "type": "string",
+      "description": "Expected impact if implemented"
+    },
+    "urgency": {
+      "type": "string",
+      "enum": [
+        "immediate",
+        "high",
+        "medium",
+        "low"
+      ],
+      "description": "How urgent is this?"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When recommendation was created"
+    }
+  },
+  "required": [
+    "recommendation_key",
+    "target_role",
+    "recommendation_text",
+    "suggested_action",
+    "created_at"
+  ]
+}

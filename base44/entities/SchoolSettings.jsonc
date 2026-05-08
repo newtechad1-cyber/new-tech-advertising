@@ -1,0 +1,249 @@
+{
+  "name": "SchoolSettings",
+  "type": "object",
+  "properties": {
+    "school_slug": {
+      "type": "string",
+      "description": "School identifier \u2014 one record per school"
+    },
+    "enable_ai_tools": {
+      "type": "boolean",
+      "default": true,
+      "description": "Master switch \u2014 enable AI content generation tools"
+    },
+    "ai_tone_default": {
+      "type": "string",
+      "enum": [
+        "formal",
+        "warm",
+        "energetic",
+        "inspirational",
+        "professional"
+      ],
+      "default": "warm",
+      "description": "Default tone injected into AI generation prompts"
+    },
+    "ai_auto_generate_captions": {
+      "type": "boolean",
+      "default": true,
+      "description": "Auto-queue caption generation after submission approval"
+    },
+    "ai_auto_generate_story": {
+      "type": "boolean",
+      "default": false,
+      "description": "Auto-queue story generation after submission approval"
+    },
+    "ai_story_word_count_min": {
+      "type": "number",
+      "default": 120,
+      "description": "Minimum word count for AI-generated stories"
+    },
+    "ai_story_word_count_max": {
+      "type": "number",
+      "default": 200,
+      "description": "Maximum word count for AI-generated stories"
+    },
+    "ai_content_moderation": {
+      "type": "boolean",
+      "default": true,
+      "description": "Use AI to flag safety concerns on new submissions"
+    },
+    "moderation_strictness": {
+      "type": "string",
+      "enum": [
+        "relaxed",
+        "standard",
+        "strict"
+      ],
+      "default": "standard",
+      "description": "AI moderation sensitivity level"
+    },
+    "auto_approve_staff_submissions": {
+      "type": "boolean",
+      "default": false,
+      "description": "Skip review queue for teacher/staff submissions"
+    },
+    "require_consent": {
+      "type": "boolean",
+      "default": true,
+      "description": "Require consent checkbox on submissions"
+    },
+    "require_release_signature": {
+      "type": "boolean",
+      "default": true,
+      "description": "Require legal media release agreement"
+    },
+    "manual_publish_only": {
+      "type": "boolean",
+      "default": true,
+      "description": "Require manual approval before any content goes live"
+    },
+    "auto_publish": {
+      "type": "boolean",
+      "default": false,
+      "description": "Auto-publish content once approved"
+    },
+    "default_content_visibility": {
+      "type": "string",
+      "enum": [
+        "public",
+        "staff",
+        "private"
+      ],
+      "default": "staff",
+      "description": "Default visibility for newly created content"
+    },
+    "publish_to_gallery_default": {
+      "type": "boolean",
+      "default": true,
+      "description": "Pre-check Publish to School Gallery on new projects"
+    },
+    "publish_to_youtube_default": {
+      "type": "boolean",
+      "default": false,
+      "description": "Pre-check Publish to YouTube on new projects"
+    },
+    "publish_to_facebook_default": {
+      "type": "boolean",
+      "default": false,
+      "description": "Pre-check Publish to Facebook on new projects"
+    },
+    "publish_to_instagram_default": {
+      "type": "boolean",
+      "default": false,
+      "description": "Pre-check Publish to Instagram on new projects"
+    },
+    "enable_social_sharing": {
+      "type": "boolean",
+      "default": false,
+      "description": "Allow publishing to external social platforms"
+    },
+    "voiceover_enabled_default": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable voiceover by default on new video projects"
+    },
+    "captions_enabled_default": {
+      "type": "boolean",
+      "default": true,
+      "description": "Burn captions into video by default"
+    },
+    "intro_enabled_default": {
+      "type": "boolean",
+      "default": true,
+      "description": "Include branded intro by default"
+    },
+    "outro_enabled_default": {
+      "type": "boolean",
+      "default": true,
+      "description": "Include branded outro by default"
+    },
+    "video_format_default": {
+      "type": "string",
+      "enum": [
+        "landscape",
+        "square",
+        "vertical"
+      ],
+      "default": "landscape",
+      "description": "Default output format for video rendering"
+    },
+    "video_resolution_default": {
+      "type": "string",
+      "default": "1920x1080",
+      "description": "Default render resolution"
+    },
+    "video_duration_target": {
+      "type": "string",
+      "default": "2-3 minutes",
+      "description": "Target duration for generated videos"
+    },
+    "music_enabled_default": {
+      "type": "boolean",
+      "default": true,
+      "description": "Include background music by default"
+    },
+    "require_teacher_review": {
+      "type": "boolean",
+      "default": true,
+      "description": "Teachers must review and approve before admin can publish"
+    },
+    "approval_required_for_publish": {
+      "type": "boolean",
+      "default": true,
+      "description": "Content must pass explicit approval step before going live"
+    },
+    "min_approvals_required": {
+      "type": "number",
+      "default": 1,
+      "description": "Minimum number of approvals needed before publish"
+    },
+    "auto_archive_rejected": {
+      "type": "boolean",
+      "default": false,
+      "description": "Automatically archive rejected submissions"
+    },
+    "submission_review_deadline_days": {
+      "type": "number",
+      "default": 7,
+      "description": "Days staff have to review a submission before escalation"
+    },
+    "allow_public_submissions": {
+      "type": "boolean",
+      "default": false,
+      "description": "Allow non-authenticated users to submit content"
+    },
+    "max_file_size_mb": {
+      "type": "number",
+      "default": 500,
+      "description": "Maximum file size for submissions in MB"
+    },
+    "allowed_file_types": {
+      "type": "string",
+      "default": "mp4,mov,jpg,png,gif",
+      "description": "Comma-separated allowed file extensions"
+    },
+    "submission_deadline": {
+      "type": "string",
+      "format": "date",
+      "description": "Optional hard deadline for submissions"
+    },
+    "notify_on_new_submission": {
+      "type": "boolean",
+      "default": true,
+      "description": "Alert admins when a new submission arrives"
+    },
+    "notify_on_ai_completion": {
+      "type": "boolean",
+      "default": true,
+      "description": "Alert staff when AI content generation finishes"
+    },
+    "notify_on_render_complete": {
+      "type": "boolean",
+      "default": true,
+      "description": "Alert staff when video render completes"
+    },
+    "notify_on_publish": {
+      "type": "boolean",
+      "default": true,
+      "description": "Alert admins when content is published"
+    },
+    "notification_email": {
+      "type": "string",
+      "description": "Admin email for system notifications (falls back to branding contact_email)"
+    },
+    "notify_contributor_on_approval": {
+      "type": "boolean",
+      "default": true,
+      "description": "Email the contributor when their submission is approved"
+    },
+    "notify_contributor_on_rejection": {
+      "type": "boolean",
+      "default": true,
+      "description": "Email the contributor when their submission is rejected"
+    }
+  },
+  "required": [
+    "school_slug"
+  ]
+}

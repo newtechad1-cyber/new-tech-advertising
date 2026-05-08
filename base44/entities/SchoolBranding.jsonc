@@ -1,0 +1,92 @@
+{
+  "name": "SchoolBranding",
+  "type": "object",
+  "properties": {
+    "school_name": {
+      "type": "string",
+      "description": "Official school name"
+    },
+    "school_slug": {
+      "type": "string",
+      "description": "URL-safe school identifier"
+    },
+    "district_name": {
+      "type": "string",
+      "description": "District name"
+    },
+    "mascot_name": {
+      "type": "string",
+      "description": "School mascot"
+    },
+    "network_name": {
+      "type": "string",
+      "description": "Platform name for this school (e.g. 'Bulldog Story Lab')"
+    },
+    "logo": {
+      "type": "string",
+      "description": "Logo URL"
+    },
+    "primary_color": {
+      "type": "string",
+      "default": "#1e3a5f",
+      "description": "Primary brand color (hex)"
+    },
+    "secondary_color": {
+      "type": "string",
+      "default": "#f59e0b",
+      "description": "Secondary brand color (hex)"
+    },
+    "accent_color": {
+      "type": "string",
+      "default": "#ffffff",
+      "description": "Accent color (hex)"
+    },
+    "intro_text": {
+      "type": "string",
+      "description": "Intro/welcome text for video templates"
+    },
+    "outro_text": {
+      "type": "string",
+      "description": "Outro text for video templates"
+    },
+    "public_submission_page_title": {
+      "type": "string",
+      "description": "Title for public submission page"
+    },
+    "public_gallery_title": {
+      "type": "string",
+      "description": "Title for public gallery/media hub"
+    },
+    "upload_instructions": {
+      "type": "string",
+      "description": "Instructions shown to contributors on upload page"
+    },
+    "legal_release_text": {
+      "type": "string",
+      "description": "Legal release/consent text"
+    },
+    "contact_email": {
+      "type": "string",
+      "description": "School contact email"
+    },
+    "social_youtube_url": {
+      "type": "string"
+    },
+    "social_facebook_url": {
+      "type": "string"
+    },
+    "social_instagram_url": {
+      "type": "string"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "school_name",
+    "school_slug",
+    "network_name",
+    "is_active"
+  ]
+}

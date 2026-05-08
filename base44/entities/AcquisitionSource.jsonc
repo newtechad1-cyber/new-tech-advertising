@@ -1,0 +1,77 @@
+{
+  "name": "AcquisitionSource",
+  "type": "object",
+  "properties": {
+    "source_key": {
+      "type": "string",
+      "enum": [
+        "authority_content_seo",
+        "social_authority",
+        "outbound_prospecting",
+        "referral_expansion",
+        "territory_campaigns",
+        "demo_request",
+        "paid_amplification",
+        "partner",
+        "event",
+        "other"
+      ]
+    },
+    "source_name": {
+      "type": "string"
+    },
+    "channel_category": {
+      "type": "string",
+      "enum": [
+        "inbound",
+        "outbound",
+        "referral",
+        "paid",
+        "event"
+      ]
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "leads_total": {
+      "type": "number",
+      "default": 0
+    },
+    "demos_booked": {
+      "type": "number",
+      "default": 0
+    },
+    "opportunities_created": {
+      "type": "number",
+      "default": 0
+    },
+    "closed_won": {
+      "type": "number",
+      "default": 0
+    },
+    "revenue_attributed": {
+      "type": "number",
+      "default": 0
+    },
+    "avg_deal_value": {
+      "type": "number",
+      "default": 0
+    },
+    "close_rate_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "cost_per_lead": {
+      "type": "number",
+      "default": 0
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "source_key",
+    "source_name"
+  ]
+}

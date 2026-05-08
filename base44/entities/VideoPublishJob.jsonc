@@ -1,0 +1,106 @@
+{
+  "name": "VideoPublishJob",
+  "type": "object",
+  "properties": {
+    "video_id": {
+      "type": "string"
+    },
+    "video_title": {
+      "type": "string"
+    },
+    "company_id": {
+      "type": "string"
+    },
+    "brand_name": {
+      "type": "string"
+    },
+    "destination_type": {
+      "type": "string",
+      "enum": [
+        "website",
+        "facebook",
+        "instagram",
+        "youtube",
+        "tiktok",
+        "gbp"
+      ]
+    },
+    "job_status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "preparing",
+        "publishing",
+        "published",
+        "failed",
+        "skipped",
+        "scheduled",
+        "blocked"
+      ],
+      "default": "queued"
+    },
+    "review_gate_status": {
+      "type": "string",
+      "enum": [
+        "pending_review",
+        "approved",
+        "rejected",
+        "needs_changes"
+      ],
+      "default": "pending_review"
+    },
+    "scheduled_for": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "publish_started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "publish_completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "publish_url": {
+      "type": "string"
+    },
+    "external_post_id": {
+      "type": "string"
+    },
+    "payload_json": {
+      "type": "string"
+    },
+    "response_json": {
+      "type": "string"
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "retry_count": {
+      "type": "number",
+      "default": 0
+    },
+    "last_retry_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created_by": {
+      "type": "string"
+    },
+    "triggered_by": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "video_id",
+    "destination_type",
+    "job_status"
+  ]
+}

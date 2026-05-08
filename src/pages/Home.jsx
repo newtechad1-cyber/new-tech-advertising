@@ -10,6 +10,10 @@ import HowItWorks from '../components/home-v3/HowItWorks';
 import WhoThisWorksFor from '../components/home-v3/WhoThisWorksFor';
 import TestimonialsSection from '../components/home-v3/TestimonialsSection.jsx';
 import GapAuditCenteredCTA from '../components/home-v3/GapAuditCenteredCTA';
+import InternetChangedSection from '../components/home-v3/InternetChangedSection';
+import WhatWeFoundSection from '../components/home-v3/WhatWeFoundSection';
+import GrowthSystemSection from '../components/home-v3/GrowthSystemSection';
+import EducationCardsSection from '../components/home-v3/EducationCardsSection';
 
 export default function Home() {
   useEffect(() => {
@@ -46,6 +50,10 @@ export default function Home() {
     <div className="bg-white min-h-screen">
       <MarketingNav />
       <HeroSplit />
+      <InternetChangedSection />
+      <WhatWeFoundSection />
+      <GrowthSystemSection />
+      <EducationCardsSection />
       <WhatIMean />
       <NTAGrowthSystem />
       <IndustrySplit />

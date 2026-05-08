@@ -1,0 +1,70 @@
+{
+  "name": "Campaigns",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "campaign_type": {
+      "type": "string",
+      "enum": [
+        "social",
+        "seo",
+        "video",
+        "email",
+        "ads",
+        "multi_channel"
+      ],
+      "description": "Campaigns can own social posts, blog posts, and videos"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "paused",
+        "completed",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "budget": {
+      "type": "number"
+    },
+    "goal": {
+      "type": "string",
+      "description": "Primary campaign objective"
+    },
+    "target_platforms": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assigned_agent_id": {
+      "type": "string",
+      "description": "Reference to AgentDefinitions ID if AI-managed"
+    }
+  },
+  "required": [
+    "company_id",
+    "name",
+    "campaign_type",
+    "status"
+  ]
+}

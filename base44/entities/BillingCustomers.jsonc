@@ -1,0 +1,83 @@
+{
+  "name": "BillingCustomers",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "user_id": {
+      "type": "string",
+      "description": "Reference to Users ID (optional)"
+    },
+    "company_name": {
+      "type": "string",
+      "description": "Company name"
+    },
+    "email": {
+      "type": "string",
+      "description": "Billing email"
+    },
+    "stripe_customer_id": {
+      "type": "string",
+      "description": "Stripe customer ID (cus_...)"
+    },
+    "stripe_subscription_id": {
+      "type": "string",
+      "description": "Stripe subscription ID (sub_...)"
+    },
+    "stripe_payment_method_id": {
+      "type": "string",
+      "description": "Default payment method (pm_...)"
+    },
+    "plan_id": {
+      "type": "string",
+      "description": "Reference to BillingPlans ID (optional)"
+    },
+    "plan_name": {
+      "type": "string",
+      "description": "Plan name snapshot"
+    },
+    "billing_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "trialing",
+        "past_due",
+        "suspended",
+        "cancelled",
+        "incomplete"
+      ],
+      "default": "active"
+    },
+    "current_period_start": {
+      "type": "string",
+      "format": "date"
+    },
+    "current_period_end": {
+      "type": "string",
+      "format": "date"
+    },
+    "monthly_amount": {
+      "type": "number",
+      "description": "Monthly billing amount"
+    },
+    "failed_payment_count": {
+      "type": "number",
+      "default": 0
+    },
+    "last_payment_failed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "cancel_at_period_end": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "email",
+    "stripe_customer_id",
+    "billing_status"
+  ]
+}

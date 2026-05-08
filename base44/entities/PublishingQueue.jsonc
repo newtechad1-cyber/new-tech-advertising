@@ -1,0 +1,185 @@
+{
+  "name": "PublishingQueue",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "connection_id": {
+      "type": "string"
+    },
+    "provider": {
+      "type": "string",
+      "enum": [
+        "google_business_profile",
+        "facebook",
+        "instagram",
+        "youtube"
+      ]
+    },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "text_post",
+        "image_post",
+        "video_post",
+        "link_post",
+        "reel",
+        "carousel",
+        "gbp_event",
+        "gbp_offer",
+        "gbp_cta",
+        "youtube_video"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "body_text": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string"
+    },
+    "hashtags": {
+      "type": "string"
+    },
+    "media_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "video_url": {
+      "type": "string"
+    },
+    "thumbnail_url": {
+      "type": "string"
+    },
+    "link_url": {
+      "type": "string"
+    },
+    "scheduled_for": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "timezone": {
+      "type": "string",
+      "default": "America/Chicago"
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "needs_review",
+        "approved",
+        "rejected"
+      ],
+      "default": "draft"
+    },
+    "publish_status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "scheduled",
+        "publishing",
+        "posted",
+        "failed",
+        "paused",
+        "cancelled"
+      ],
+      "default": "queued"
+    },
+    "platform_post_id": {
+      "type": "string"
+    },
+    "platform_post_url": {
+      "type": "string"
+    },
+    "provider_response": {
+      "type": "string",
+      "description": "JSON string of provider response"
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "retry_count": {
+      "type": "integer",
+      "default": 0
+    },
+    "max_retries": {
+      "type": "integer",
+      "default": 3
+    },
+    "source_wizard": {
+      "type": "string",
+      "description": "content_wizard, lead_wizard, manual"
+    },
+    "source_content_id": {
+      "type": "string"
+    },
+    "created_by": {
+      "type": "string"
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "gbp_cta_type": {
+      "type": "string"
+    },
+    "gbp_cta_url": {
+      "type": "string"
+    },
+    "gbp_event_title": {
+      "type": "string"
+    },
+    "gbp_event_start": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "gbp_event_end": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "yt_description": {
+      "type": "string"
+    },
+    "yt_tags": {
+      "type": "string"
+    },
+    "yt_category_id": {
+      "type": "string"
+    },
+    "yt_privacy": {
+      "type": "string",
+      "enum": [
+        "public",
+        "unlisted",
+        "private"
+      ],
+      "default": "public"
+    },
+    "yt_made_for_kids": {
+      "type": "boolean",
+      "default": false
+    },
+    "yt_video_id": {
+      "type": "string"
+    },
+    "yt_upload_progress": {
+      "type": "integer",
+      "default": 0
+    }
+  },
+  "required": [
+    "client_id",
+    "provider",
+    "content_type"
+  ]
+}

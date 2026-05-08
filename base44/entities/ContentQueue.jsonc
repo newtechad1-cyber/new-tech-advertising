@@ -1,0 +1,66 @@
+{
+  "name": "ContentQueue",
+  "type": "object",
+  "properties": {
+    "publish_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Scheduled publish date"
+    },
+    "topic": {
+      "type": "string",
+      "description": "Content topic"
+    },
+    "pillar": {
+      "type": "string",
+      "description": "Authority pillar this content belongs to"
+    },
+    "keyword": {
+      "type": "string",
+      "description": "Target keyword"
+    },
+    "format": {
+      "type": "string",
+      "enum": [
+        "blog",
+        "social",
+        "video",
+        "email"
+      ],
+      "default": "blog",
+      "description": "Content format"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "generated",
+        "approved",
+        "published",
+        "failed"
+      ],
+      "default": "planned",
+      "description": "Current status"
+    },
+    "content": {
+      "type": "string",
+      "description": "Main content body"
+    },
+    "meta": {
+      "type": "object",
+      "description": "Metadata: meta_title, meta_description, faq_schema, internal_links, image_prompts, linkedin_post, facebook_post, video_script"
+    },
+    "publish_url": {
+      "type": "string",
+      "description": "Live URL after publishing"
+    },
+    "last_error": {
+      "type": "string",
+      "description": "Last error message if status is failed"
+    }
+  },
+  "required": [
+    "publish_date",
+    "topic"
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "name": "OptimizationOutcome",
+  "type": "object",
+  "properties": {
+    "experiment_key": {
+      "type": "string",
+      "description": "Reference to OptimizationExperiment"
+    },
+    "metric_name": {
+      "type": "string",
+      "description": "Metric being measured"
+    },
+    "baseline_value": {
+      "type": "number",
+      "description": "Control group value"
+    },
+    "observed_value": {
+      "type": "number",
+      "description": "Treatment group value"
+    },
+    "delta_value": {
+      "type": "number",
+      "description": "Difference (observed - baseline)"
+    },
+    "outcome_direction": {
+      "type": "string",
+      "enum": [
+        "positive",
+        "neutral",
+        "negative"
+      ],
+      "description": "Direction of outcome"
+    },
+    "confidence_level": {
+      "type": "number",
+      "description": "Statistical confidence (0-100)"
+    },
+    "measured_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When measurement was taken"
+    }
+  },
+  "required": [
+    "experiment_key",
+    "metric_name",
+    "baseline_value",
+    "observed_value",
+    "measured_at"
+  ]
+}

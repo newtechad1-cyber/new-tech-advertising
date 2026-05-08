@@ -1,0 +1,84 @@
+{
+  "name": "IntelligenceScore",
+  "type": "object",
+  "properties": {
+    "score_type": {
+      "type": "string",
+      "enum": [
+        "client_retention_risk",
+        "deal_close_probability",
+        "publishing_momentum",
+        "automation_reliability",
+        "onboarding_velocity",
+        "reseller_growth_potential",
+        "operational_health",
+        "customer_satisfaction",
+        "content_performance",
+        "campaign_effectiveness"
+      ],
+      "description": "Type of score being calculated"
+    },
+    "score_label": {
+      "type": "string",
+      "description": "Human-readable label for the score"
+    },
+    "context_type": {
+      "type": "string",
+      "enum": [
+        "global",
+        "agency",
+        "reseller",
+        "client",
+        "school"
+      ],
+      "description": "Context scope"
+    },
+    "reseller_id": {
+      "type": "string",
+      "description": "Reseller ID (if applicable)"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "Client ID (if applicable)"
+    },
+    "related_entity_type": {
+      "type": "string",
+      "description": "Related entity type"
+    },
+    "related_entity_id": {
+      "type": "string",
+      "description": "Related entity ID"
+    },
+    "score_value": {
+      "type": "number",
+      "description": "Score value (typically 0-100)"
+    },
+    "confidence_level": {
+      "type": "number",
+      "description": "Confidence in the score (0-100)"
+    },
+    "trend_direction": {
+      "type": "string",
+      "enum": [
+        "improving",
+        "stable",
+        "declining"
+      ],
+      "description": "Direction of trend"
+    },
+    "contributing_factors_json": {
+      "type": "string",
+      "description": "JSON: array of {factor, weight, value} contributing to score"
+    },
+    "calculated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When score was calculated"
+    }
+  },
+  "required": [
+    "score_type",
+    "score_value",
+    "calculated_at"
+  ]
+}

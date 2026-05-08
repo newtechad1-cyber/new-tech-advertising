@@ -1,0 +1,80 @@
+{
+  "name": "OptimizationSignals",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to Companies ID"
+    },
+    "optimization_opportunity_id": {
+      "type": "string",
+      "description": "Reference to OptimizationOpportunities ID (optional)"
+    },
+    "signal_type": {
+      "type": "string",
+      "enum": [
+        "traffic_up_leads_flat",
+        "content_output_high_results_flat",
+        "high_approvals_low_publish",
+        "slow_approval_cycle",
+        "low_video_output",
+        "no_cta_followup",
+        "high_delivery_effort_low_result",
+        "stale_creative",
+        "stalled_conversion_rate",
+        "campaign_fatigue",
+        "low_report_engagement",
+        "fulfillment_overhead",
+        "underused_service_gap"
+      ],
+      "description": "Type of signal detected"
+    },
+    "signal_label": {
+      "type": "string",
+      "description": "Human-readable label for the signal"
+    },
+    "signal_value": {
+      "type": "string",
+      "description": "Specific data point or measurement"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "reporting",
+        "fulfillment",
+        "deliverables",
+        "communications",
+        "approvals",
+        "strategy",
+        "growth",
+        "workflow",
+        "campaign",
+        "seo"
+      ],
+      "description": "Source system of the signal"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "informational",
+        "warning",
+        "critical"
+      ],
+      "default": "informational",
+      "description": "Severity level"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "company_id",
+    "signal_type",
+    "signal_label",
+    "signal_value",
+    "source_type",
+    "severity"
+  ]
+}

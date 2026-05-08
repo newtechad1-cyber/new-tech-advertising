@@ -1,0 +1,74 @@
+{
+  "name": "BrandProfile",
+  "type": "object",
+  "properties": {
+    "brandProfileId": {
+      "type": "string",
+      "description": "Unique brand profile identifier"
+    },
+    "tenantId": {
+      "type": "string",
+      "description": "Foreign key to Tenant"
+    },
+    "brandName": {
+      "type": "string",
+      "description": "Brand/company name"
+    },
+    "logoUrl": {
+      "type": "string",
+      "description": "URL to brand logo"
+    },
+    "faviconUrl": {
+      "type": "string",
+      "description": "URL to brand favicon"
+    },
+    "primaryColor": {
+      "type": "string",
+      "description": "Primary brand color (hex)"
+    },
+    "secondaryColor": {
+      "type": "string",
+      "description": "Secondary brand color (hex)"
+    },
+    "domain": {
+      "type": "string",
+      "description": "Custom domain for white-label (e.g., brand.example.com)"
+    },
+    "supportEmail": {
+      "type": "string",
+      "description": "Brand support email"
+    },
+    "supportPhone": {
+      "type": "string",
+      "description": "Brand support phone"
+    },
+    "bookingUrl": {
+      "type": "string",
+      "description": "Custom booking calendar URL"
+    },
+    "brandTagline": {
+      "type": "string",
+      "description": "Brand tagline/mission statement"
+    },
+    "faviconUploadedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When favicon was last updated"
+    },
+    "logoUploadedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When logo was last updated"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
+    }
+  },
+  "required": [
+    "brandProfileId",
+    "tenantId",
+    "brandName"
+  ]
+}

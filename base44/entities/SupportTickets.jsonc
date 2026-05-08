@@ -1,0 +1,72 @@
+{
+  "name": "SupportTickets",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID"
+    },
+    "submitted_by": {
+      "type": "string",
+      "description": "User email who opened the ticket"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "billing",
+        "technical",
+        "content",
+        "onboarding",
+        "feature_request",
+        "other"
+      ]
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "normal",
+        "high",
+        "urgent"
+      ],
+      "default": "normal"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "in_progress",
+        "waiting_on_client",
+        "resolved",
+        "closed"
+      ],
+      "default": "open"
+    },
+    "assigned_to": {
+      "type": "string",
+      "description": "Support agent user email"
+    },
+    "resolved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "satisfaction_rating": {
+      "type": "number",
+      "description": "1-5 CSAT score"
+    }
+  },
+  "required": [
+    "company_id",
+    "subject",
+    "description",
+    "category",
+    "priority",
+    "status"
+  ]
+}

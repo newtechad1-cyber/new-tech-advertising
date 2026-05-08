@@ -1,0 +1,82 @@
+{
+  "name": "CreativeAssets",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "type": "string",
+      "description": "Reference to ClientCompanies ID"
+    },
+    "campaign_id": {
+      "type": "string",
+      "description": "Reference to Campaigns ID (optional)"
+    },
+    "name": {
+      "type": "string"
+    },
+    "asset_type": {
+      "type": "string",
+      "enum": [
+        "image",
+        "video",
+        "audio",
+        "document",
+        "logo",
+        "banner",
+        "template",
+        "other"
+      ]
+    },
+    "file_url": {
+      "type": "string"
+    },
+    "thumbnail_url": {
+      "type": "string"
+    },
+    "file_size_kb": {
+      "type": "number"
+    },
+    "mime_type": {
+      "type": "string"
+    },
+    "width": {
+      "type": "number"
+    },
+    "height": {
+      "type": "number"
+    },
+    "duration_seconds": {
+      "type": "number",
+      "description": "For video/audio assets"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "uploaded",
+        "ai_generated",
+        "external"
+      ],
+      "default": "uploaded"
+    }
+  },
+  "required": [
+    "company_id",
+    "name",
+    "asset_type",
+    "file_url",
+    "status"
+  ]
+}

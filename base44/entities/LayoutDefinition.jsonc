@@ -1,0 +1,48 @@
+{
+  "name": "LayoutDefinition",
+  "type": "object",
+  "properties": {
+    "layout_key": {
+      "type": "string",
+      "description": "Layout identifier (e.g., AdminLayout, ClientLayout)"
+    },
+    "layout_name": {
+      "type": "string",
+      "description": "Display name"
+    },
+    "layout_family": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "school_admin",
+        "client",
+        "reseller",
+        "public",
+        "blank"
+      ],
+      "description": "Layout family"
+    },
+    "description": {
+      "type": "string",
+      "description": "Purpose and usage"
+    },
+    "allowed_route_families_json": {
+      "type": "string",
+      "description": "JSON array of allowed route families"
+    },
+    "allowed_page_categories_json": {
+      "type": "string",
+      "description": "JSON array of allowed page categories"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Is layout active"
+    }
+  },
+  "required": [
+    "layout_key",
+    "layout_name",
+    "layout_family"
+  ]
+}

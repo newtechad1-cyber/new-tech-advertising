@@ -1,0 +1,67 @@
+{
+  "name": "SalesLeads",
+  "type": "object",
+  "properties": {
+    "company_name": {
+      "type": "string",
+      "description": "Company name"
+    },
+    "contact_name": {
+      "type": "string",
+      "description": "Contact person's name"
+    },
+    "email": {
+      "type": "string",
+      "description": "Contact email"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Contact phone (optional)"
+    },
+    "industry": {
+      "type": "string",
+      "description": "Industry (optional)"
+    },
+    "lead_source": {
+      "type": "string",
+      "enum": [
+        "website",
+        "referral",
+        "cold_outreach",
+        "social_media",
+        "ad_campaign",
+        "event",
+        "partner",
+        "other"
+      ],
+      "description": "How the lead was acquired"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "contacted",
+        "qualified",
+        "converted",
+        "disqualified"
+      ],
+      "default": "new",
+      "description": "Lead status"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Notes (optional)"
+    },
+    "assigned_to": {
+      "type": "string",
+      "description": "Assigned user email (optional)"
+    }
+  },
+  "required": [
+    "company_name",
+    "contact_name",
+    "email",
+    "lead_source",
+    "status"
+  ]
+}

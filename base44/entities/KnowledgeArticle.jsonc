@@ -1,0 +1,57 @@
+{
+  "name": "KnowledgeArticle",
+  "type": "object",
+  "properties": {
+    "article_title": {
+      "type": "string"
+    },
+    "knowledge_category": {
+      "type": "string",
+      "enum": [
+        "sales",
+        "client_success",
+        "operations",
+        "marketing",
+        "automation",
+        "leadership",
+        "platform_training"
+      ]
+    },
+    "summary": {
+      "type": "string"
+    },
+    "content_body": {
+      "type": "string"
+    },
+    "difficulty_level": {
+      "type": "string",
+      "enum": [
+        "beginner",
+        "intermediate",
+        "advanced"
+      ],
+      "default": "beginner"
+    },
+    "estimated_read_time_minutes": {
+      "type": "number",
+      "default": 0
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date"
+    },
+    "article_status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "published",
+        "review_needed"
+      ],
+      "default": "draft"
+    }
+  },
+  "required": [
+    "article_title",
+    "knowledge_category"
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "name": "ServiceWorkflow",
+  "type": "object",
+  "properties": {
+    "lead_id": {
+      "type": "string",
+      "description": "Reference to Lead ID"
+    },
+    "proposal_id": {
+      "type": "string",
+      "description": "Reference to ServiceProposal ID"
+    },
+    "service_type": {
+      "type": "string",
+      "enum": [
+        "website_new",
+        "website_rebuild",
+        "social_diy",
+        "social_dfy",
+        "ada_compliance",
+        "streaming_tv"
+      ]
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "client_email": {
+      "type": "string"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "intake",
+        "proposal",
+        "onboarding",
+        "in_progress",
+        "review",
+        "delivered",
+        "complete"
+      ],
+      "default": "intake"
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "in_progress",
+              "complete",
+              "blocked"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          },
+          "completed_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "description": "Ordered fulfillment steps"
+    },
+    "intake_data": {
+      "type": "object",
+      "description": "Captured intake form data"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "lead_id",
+    "service_type",
+    "business_name"
+  ]
+}

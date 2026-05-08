@@ -1,0 +1,58 @@
+{
+  "name": "AgentEscalation",
+  "type": "object",
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "description": "Reference to AgentTask"
+    },
+    "escalation_type": {
+      "type": "string",
+      "enum": [
+        "task_failed",
+        "max_retries_exceeded",
+        "timeout",
+        "blocked_dependency",
+        "permission_denied",
+        "manual_escalation"
+      ],
+      "description": "Type of escalation"
+    },
+    "escalation_reason": {
+      "type": "string",
+      "description": "Detailed reason for escalation"
+    },
+    "assigned_to_role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "manager",
+        "ops_team",
+        "engineering"
+      ],
+      "description": "Role this escalation is assigned to"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "in_progress",
+        "resolved",
+        "dismissed"
+      ],
+      "default": "open",
+      "description": "Escalation status"
+    },
+    "resolved_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When resolved (if applicable)"
+    }
+  },
+  "required": [
+    "task_id",
+    "escalation_type",
+    "escalation_reason",
+    "assigned_to_role"
+  ]
+}

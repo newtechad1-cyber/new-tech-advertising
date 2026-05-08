@@ -1,0 +1,21 @@
+{
+  "name": "QAConfig",
+  "type": "object",
+  "properties": {
+    "config_key": {
+      "type": "string",
+      "description": "Unique config key e.g. issue_severities"
+    },
+    "config_value": {
+      "type": "string",
+      "description": "JSON array or string value"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "config_key",
+    "config_value"
+  ]
+}

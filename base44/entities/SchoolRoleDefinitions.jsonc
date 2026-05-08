@@ -1,0 +1,43 @@
+{
+  "name": "SchoolRoleDefinitions",
+  "type": "object",
+  "properties": {
+    "school_slug": {
+      "type": "string",
+      "description": "School identifier \u2014 one record per school+role combination"
+    },
+    "role_id": {
+      "type": "string",
+      "enum": [
+        "school_admin",
+        "editor",
+        "content_reviewer",
+        "yearbook_manager",
+        "video_manager",
+        "viewer"
+      ],
+      "description": "Role identifier"
+    },
+    "display_name": {
+      "type": "string",
+      "description": "Human-readable role name"
+    },
+    "description": {
+      "type": "string",
+      "description": "What this role can do"
+    },
+    "color": {
+      "type": "string",
+      "description": "UI badge color key"
+    },
+    "permissions": {
+      "type": "string",
+      "description": "JSON array of permission strings granted to this role"
+    }
+  },
+  "required": [
+    "school_slug",
+    "role_id",
+    "permissions"
+  ]
+}

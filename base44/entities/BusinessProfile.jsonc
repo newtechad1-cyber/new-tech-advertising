@@ -1,0 +1,187 @@
+{
+  "name": "BusinessProfile",
+  "type": "object",
+  "properties": {
+    "business_name": {
+      "type": "string"
+    },
+    "business_slug": {
+      "type": "string"
+    },
+    "website_url": {
+      "type": "string"
+    },
+    "industry_slug": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "service_area": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "timezone": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "paused",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "core_services": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "secondary_services": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "high_priority_services": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "target_customers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "brand_tone": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "preferred_channels": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "preferred_offer_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "business_stage": {
+      "type": "string",
+      "enum": [
+        "new",
+        "growing",
+        "established",
+        "mature"
+      ]
+    },
+    "team_size_band": {
+      "type": "string"
+    },
+    "marketing_maturity": {
+      "type": "number",
+      "default": 30
+    },
+    "content_capacity": {
+      "type": "number",
+      "default": 30
+    },
+    "video_capacity": {
+      "type": "number",
+      "default": 30
+    },
+    "sales_followup_capacity": {
+      "type": "number",
+      "default": 30
+    },
+    "has_blog": {
+      "type": "boolean",
+      "default": false
+    },
+    "has_video_assets": {
+      "type": "boolean",
+      "default": false
+    },
+    "has_email_list": {
+      "type": "boolean",
+      "default": false
+    },
+    "has_google_business_profile": {
+      "type": "boolean",
+      "default": false
+    },
+    "has_reviews": {
+      "type": "boolean",
+      "default": false
+    },
+    "has_location_pages": {
+      "type": "boolean",
+      "default": false
+    },
+    "has_service_pages": {
+      "type": "boolean",
+      "default": false
+    },
+    "has_social_presence": {
+      "type": "boolean",
+      "default": false
+    },
+    "primary_goal": {
+      "type": "string",
+      "enum": [
+        "leads",
+        "traffic",
+        "visibility",
+        "retention",
+        "authority"
+      ]
+    },
+    "secondary_goal": {
+      "type": "string",
+      "enum": [
+        "leads",
+        "traffic",
+        "visibility",
+        "retention",
+        "authority"
+      ]
+    },
+    "monthly_lead_goal": {
+      "type": "number"
+    },
+    "priority_services_goal": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "priority_locations_goal": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "business_name",
+    "business_slug",
+    "industry_slug",
+    "city",
+    "state"
+  ]
+}

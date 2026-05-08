@@ -1,0 +1,129 @@
+{
+  "name": "AiAgent",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "Unique slug key (e.g. lead_qualification_agent)",
+      "unique": true
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable agent name"
+    },
+    "description": {
+      "type": "string",
+      "description": "What this agent does"
+    },
+    "phase": {
+      "type": "integer",
+      "enum": [
+        1,
+        2
+      ],
+      "default": 1,
+      "description": "Rollout phase (1 = core, 2 = advanced)"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "lead_pipeline",
+        "onboarding",
+        "content_strategy",
+        "content_production",
+        "scheduling_publishing",
+        "reporting_insights",
+        "billing_retention"
+      ],
+      "description": "Business pipeline category"
+    },
+    "trigger_event": {
+      "type": "string",
+      "description": "Entity event or scheduled trigger that activates this agent (e.g. Lead.created, OnboardingProfile.status=completed)"
+    },
+    "input_entities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Entity names this agent reads as input"
+    },
+    "output_entities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Entity names this agent creates or updates as output"
+    },
+    "system_prompt": {
+      "type": "string",
+      "description": "Core system prompt / instructions for the agent"
+    },
+    "default_model": {
+      "type": "string",
+      "default": "gpt-4o-mini",
+      "description": "LLM model to use"
+    },
+    "is_enabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this agent is active and will be triggered"
+    },
+    "requires_human_review": {
+      "type": "boolean",
+      "default": false,
+      "description": "If true, outputs are held for human approval before being applied"
+    },
+    "job_type": {
+      "type": "string",
+      "enum": [
+        "lead_scoring",
+        "email_sequence",
+        "onboarding_setup",
+        "content_generation",
+        "image_generation",
+        "video_generation",
+        "report_generation",
+        "other"
+      ],
+      "description": "AgentJob job_type used when this agent creates a job"
+    },
+    "avg_run_time_seconds": {
+      "type": "integer",
+      "description": "Estimated average run time in seconds"
+    },
+    "estimated_cost_usd": {
+      "type": "number",
+      "description": "Estimated cost per run in USD"
+    },
+    "last_run_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of last execution"
+    },
+    "total_runs": {
+      "type": "integer",
+      "default": 0
+    },
+    "total_failures": {
+      "type": "integer",
+      "default": 0
+    },
+    "notes": {
+      "type": "string",
+      "description": "Internal notes or configuration hints"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "key",
+    "name",
+    "phase",
+    "category"
+  ]
+}

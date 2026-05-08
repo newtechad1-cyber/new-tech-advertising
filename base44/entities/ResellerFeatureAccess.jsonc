@@ -1,0 +1,40 @@
+{
+  "name": "ResellerFeatureAccess",
+  "type": "object",
+  "properties": {
+    "reseller_id": {
+      "type": "string",
+      "description": "Reference to ResellerAccount"
+    },
+    "module_name": {
+      "type": "string",
+      "enum": [
+        "publishing",
+        "approvals",
+        "reports",
+        "video",
+        "crm",
+        "onboarding",
+        "school_media",
+        "white_label",
+        "advanced_analytics"
+      ],
+      "description": "Feature module name"
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "limits_json": {
+      "type": "string",
+      "description": "JSON object with usage limits"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "reseller_id",
+    "module_name"
+  ]
+}
