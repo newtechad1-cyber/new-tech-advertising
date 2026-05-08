@@ -1,118 +1,79 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, Clock, CheckCircle2, Globe, Search, Video, Star, Megaphone, MapPin } from 'lucide-react';
+import { ArrowRight, BookOpen, Clock, Globe, Search, Video, Star, Megaphone, MapPin } from 'lucide-react';
 
 const topics = [
   {
-    title: "What Changed Online — And What It Means for Your Business",
-    problem: "Most local businesses are still using marketing playbooks from 2018. The internet doesn't work that way anymore.",
-    whyOldFailed: "Yellow Pages died. Facebook reach collapsed. Google added AI answers. The old \"just have a website\" approach stopped generating leads.",
-    focusNow: "Understand the new local search landscape so you know where to spend your time and money.",
-    href: "/what-changed-online",
-    available: true,
-    tag: "Start Here",
-  },
-  {
-    title: "AI Search & Visibility: How to Get Found in the New Era",
-    problem: "Google now shows AI-generated answers at the top of search results. Most local businesses never appear there.",
-    whyOldFailed: "Keyword stuffing and link building don't drive AI visibility. Google's AI pulls from authoritative, well-structured local content — something most business websites don't have.",
-    focusNow: "Build content and structure that signals local authority so AI search includes your business in its answers.",
-    href: null,
-    available: false,
     tag: "AI Search",
+    title: "AI Search & Visibility",
+    description: "Help your business show up when people ask ChatGPT, Gemini, Google AI Overviews, and voice assistants for local recommendations. Most local businesses have no presence in these results yet.",
   },
   {
-    title: "Website Lead Generation: Turn Visitors Into Phone Calls",
-    problem: "Most local business websites get visits but very few calls. The design looks fine — but the conversion strategy is missing.",
-    whyOldFailed: "A brochure-style website was enough in 2015. Today, customers compare you with competitors in seconds and leave if your site doesn't immediately answer their questions.",
-    focusNow: "Learn what local service websites need — trust signals, clear CTAs, fast load time, and mobile-first design — to actually generate leads.",
-    href: null,
-    available: false,
     tag: "Websites",
+    title: "Website Lead Generation",
+    description: "Turn your website from an online brochure into a system that explains your value, builds trust, and helps people take action — whether that's a call, a form, or a visit.",
   },
   {
-    title: "Local SEO & Google Business Profile: Get Found on Maps",
-    problem: "Customers search \"[service] near me\" and your business doesn't show up — even though you've been operating for years.",
-    whyOldFailed: "An unclaimed or outdated Google Business Profile leaves you invisible on Maps. Competitors who optimize consistently rank above businesses that ignore it.",
-    focusNow: "A complete, active Google Business Profile with photos, posts, reviews, and accurate information is now the #1 local visibility tool for service businesses.",
-    href: null,
-    available: false,
     tag: "Local SEO",
+    title: "Local SEO & Google Business Profile",
+    description: "Improve how your business appears in local search, maps, reviews, and \"near me\" searches. A complete, active Google Business Profile is now the #1 local visibility tool.",
   },
   {
-    title: "Video & Content Marketing: Build Trust Before They Call",
-    problem: "Customers don't know who to trust. They pick businesses that feel familiar — even if they've never met them.",
-    whyOldFailed: "Static websites and occasional Facebook posts don't build familiarity. Customers now expect to see you, hear from you, and understand your work before they call.",
-    focusNow: "Short videos explaining your work, answering common questions, and showing real jobs build trust faster than any ad — and they keep working long after you post them.",
-    href: null,
-    available: false,
     tag: "Video",
+    title: "Video & Content Marketing",
+    description: "Use short videos, helpful posts, and educational content to stay visible before people are ready to buy. Familiarity drives trust — and trust drives calls.",
   },
   {
-    title: "Reviews & Reputation: Your Best Salespeople Are Your Past Customers",
-    problem: "You do great work — but your competitors have 4x more reviews and consistently outrank you.",
-    whyOldFailed: "Happy customers rarely leave reviews on their own. Without a system for asking, collecting, and responding to reviews, your reputation stays invisible online.",
-    focusNow: "A simple, repeatable review generation system turns satisfied customers into social proof that drives new ones — and signals quality to both Google and AI search.",
-    href: null,
-    available: false,
     tag: "Reviews",
+    title: "Reviews & Reputation",
+    description: "Build trust with better review requests, testimonial content, and reputation signals that help people choose you over competitors with more stars and more reviews.",
   },
   {
-    title: "Advertising That Gets Leads — Not Just Impressions",
-    problem: "You've tried ads before. Maybe Facebook, maybe Google. It didn't work — or you couldn't tell if it did.",
-    whyOldFailed: "Running ads without a clear offer, proper targeting, or a landing page that converts is like pouring water into a leaky bucket. The platform isn't the problem — the strategy is.",
-    focusNow: "Effective local advertising requires the right audience, a compelling offer, a fast-loading landing page, and tracking that shows you what's actually generating calls.",
-    href: null,
-    available: false,
     tag: "Advertising",
+    title: "Advertising That Gets Leads",
+    description: "Connect paid advertising with landing pages, follow-up, tracking, and offers that create real calls, forms, and customers — not just impressions.",
   },
 ];
 
 const industries = [
-  { name: "HVAC", icon: "🌡️" },
-  { name: "Plumbers", icon: "🔧" },
-  { name: "Contractors", icon: "🏗️" },
-  { name: "Restaurants", icon: "🍽️" },
-  { name: "Gyms & Fitness", icon: "💪" },
-  { name: "Landscapers", icon: "🌿" },
-  { name: "Electricians", icon: "⚡" },
-  { name: "Auto Repair", icon: "🚗" },
-  { name: "Dental & Medical", icon: "🏥" },
-  { name: "Law Firms", icon: "⚖️" },
-  { name: "Salons & Spas", icon: "✂️" },
-  { name: "Pet Services", icon: "🐾" },
+  { name: "HVAC & Boiler Companies", icon: "🌡️" },
+  { name: "Plumbers & Contractors", icon: "🔧" },
+  { name: "Restaurants & Local Retail", icon: "🍽️" },
+  { name: "Gyms & Service Businesses", icon: "💪" },
+  { name: "Excavating & Home Services", icon: "🏗️" },
+  { name: "Professional Services", icon: "⚖️" },
 ];
 
 const howNTAHelps = [
   {
     icon: Globe,
-    title: "Website Rebuilds",
-    description: "We build fast, mobile-first websites designed to convert local visitors into phone calls and form submissions — not just look good.",
+    title: "Website Strategy",
+    description: "Fast, mobile-first websites built to explain your value clearly, earn trust, and convert local visitors into calls and form submissions.",
   },
   {
     icon: Search,
-    title: "AI & Local Search Visibility",
-    description: "We optimize your business to appear in AI-generated answers and local search results — where customers are actually looking now.",
+    title: "AI Search Visibility",
+    description: "We structure your content and online presence so AI tools like Google's AI Overviews, ChatGPT, and Gemini can find and recommend your business.",
   },
   {
     icon: MapPin,
-    title: "Google Business Profile Optimization",
-    description: "We manage and optimize your Google Business Profile so you consistently show up on Maps and in local results for your service area.",
+    title: "Google & Local SEO",
+    description: "We manage your Google Business Profile, local citations, and on-page SEO so you consistently show up in Maps and local search results.",
   },
   {
     icon: Video,
-    title: "Video & Content Marketing",
-    description: "We produce short-form video content and written guides that build trust with potential customers before they ever pick up the phone.",
+    title: "Video & Content",
+    description: "Short-form videos, written guides, and educational posts that keep your business visible and build trust before people are ready to call.",
   },
   {
     icon: Star,
-    title: "Review Generation",
-    description: "We set up systems that make it easy for your happy customers to leave reviews — and make sure those reviews work for your visibility.",
+    title: "Reviews & Reputation",
+    description: "We set up systems that make it easy for satisfied customers to leave reviews — then make those reviews work for your visibility and credibility.",
   },
   {
     icon: Megaphone,
-    title: "Lead Generation & Advertising",
-    description: "When you're ready to run ads, we set them up with proper targeting, offers, and tracking so you know what's actually driving results.",
+    title: "Advertising & Lead Generation",
+    description: "When you're ready to run ads, we set them up with proper targeting, landing pages, offers, and tracking so you know what's actually driving results.",
   },
 ];
 
@@ -130,17 +91,55 @@ export default function LearningCenter() {
           <h1 className="text-4xl md:text-5xl font-black mb-5 leading-tight">
             Learn How Local Businesses<br className="hidden sm:block" /> Get Found Now
           </h1>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
-            Practical, no-jargon guides from New Tech Advertising — covering what changed online, why old marketing stopped working, and what local service businesses should focus on today.
+          <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed mb-10">
+            Practical guides from New Tech Advertising about websites, AI search, Google visibility, video, reviews, content, and lead generation.
           </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link
+              to="/gap-audit"
+              className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3.5 rounded-xl transition-colors"
+            >
+              Request a Free AI Visibility Gap Audit <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              to="/what-changed-online"
+              className="inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold px-6 py-3.5 rounded-xl transition-colors"
+            >
+              Start With "What Changed Online"
+            </Link>
+          </div>
         </div>
       </header>
 
-      {/* Topic Cards */}
       <main>
-        <section className="max-w-6xl mx-auto px-6 py-16" aria-label="Learning topics">
-          <h2 className="text-2xl font-black text-slate-900 mb-2">Educational Guides</h2>
-          <p className="text-slate-500 mb-10 text-sm">Each guide explains the problem, why old approaches stopped working, and what to focus on now.</p>
+
+        {/* Featured Guide */}
+        <section className="max-w-5xl mx-auto px-6 pt-16 pb-4">
+          <p className="text-xs font-bold text-blue-600 uppercase tracking-widest mb-4">Featured Guide</p>
+          <div className="bg-slate-900 text-white rounded-2xl p-8 md:p-10 flex flex-col md:flex-row gap-8 items-start">
+            <div className="flex-1">
+              <span className="text-xs font-bold bg-blue-600 text-white px-3 py-1 rounded-full mb-4 inline-block">Start Here</span>
+              <h2 className="text-2xl md:text-3xl font-black mb-4 leading-snug">What Changed Online</h2>
+              <p className="text-slate-300 leading-relaxed mb-6 max-w-xl">
+                The way people find businesses has changed. Google, AI search, social media, reviews, websites, and local visibility now work together. This guide explains what changed and what local businesses should do next.
+              </p>
+              <Link
+                to="/what-changed-online"
+                className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl transition-colors"
+              >
+                Read the Guide <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+            <div className="hidden md:flex w-36 h-36 bg-slate-800 border border-slate-700 rounded-2xl items-center justify-center flex-shrink-0">
+              <BookOpen className="w-14 h-14 text-slate-600" />
+            </div>
+          </div>
+        </section>
+
+        {/* Topic Cards */}
+        <section className="max-w-6xl mx-auto px-6 py-14" aria-label="Learning topics">
+          <h2 className="text-2xl font-black text-slate-900 mb-2">More Guides Coming Soon</h2>
+          <p className="text-slate-500 mb-10 text-sm max-w-2xl">Each guide covers a specific part of local online visibility — what the problem is and what to focus on now.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {topics.map((topic) => (
               <TopicCard key={topic.title} topic={topic} />
@@ -151,11 +150,12 @@ export default function LearningCenter() {
         {/* Who This Is For */}
         <section className="bg-slate-50 border-y border-slate-200 py-16 px-6">
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-2xl font-black text-slate-900 mb-2 text-center">Who This Is For</h2>
-            <p className="text-slate-500 text-center mb-10 text-sm max-w-xl mx-auto">
-              These guides are written for local service businesses — the kind that rely on customers finding them online in their community.
+            <h2 className="text-2xl font-black text-slate-900 mb-3 text-center">Who This Helps</h2>
+            <p className="text-slate-500 text-center mb-2 max-w-2xl mx-auto leading-relaxed text-sm">
+              Different businesses need different kinds of leads. Service companies need calls. Restaurants need customers walking in. Fitness businesses need inquiries and members. The goal is the same: help people find you, understand you, trust you, and take action.
             </p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            <p className="text-slate-400 text-center text-xs mb-10">These guides are written with local service businesses in mind.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {industries.map((ind) => (
                 <div key={ind.name} className="bg-white border border-slate-200 rounded-xl px-4 py-4 flex items-center gap-3">
                   <span className="text-2xl">{ind.icon}</span>
@@ -190,20 +190,20 @@ export default function LearningCenter() {
           </div>
         </section>
 
-        {/* AI Visibility CTA */}
-        <section className="bg-blue-600 text-white py-16 px-6">
+        {/* Bottom CTA */}
+        <section className="bg-slate-900 text-white py-16 px-6">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-black mb-4">Want to See How Your Business Appears Online?</h2>
-            <p className="text-blue-100 text-lg mb-8 max-w-xl mx-auto leading-relaxed">
-              We'll run a free AI Visibility Gap Audit — showing you exactly where your business is missing in search, Maps, and AI-generated results. No cost, no pressure.
+            <h2 className="text-3xl font-black mb-4">Want to Know What Your Business Looks Like Online?</h2>
+            <p className="text-slate-300 text-lg mb-8 max-w-xl mx-auto leading-relaxed">
+              NTA can review how your business appears across Google, AI search, your website, reviews, and local visibility — then show you practical ways to improve it.
             </p>
             <Link
               to="/gap-audit"
-              className="inline-flex items-center gap-2 bg-white text-blue-700 hover:bg-blue-50 font-bold px-8 py-4 rounded-xl transition-colors text-base"
+              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-xl transition-colors text-base"
             >
               Request a Free AI Visibility Gap Audit <ArrowRight className="w-5 h-5" />
             </Link>
-            <p className="text-blue-200 text-xs mt-4">Takes less than 2 minutes to request. We'll follow up within 1 business day.</p>
+            <p className="text-slate-400 text-xs mt-4">No cost. No pressure. We'll follow up within 1 business day.</p>
           </div>
         </section>
 
@@ -242,60 +242,19 @@ export default function LearningCenter() {
 }
 
 function TopicCard({ topic }) {
-  const cardInner = (
-    <div className={`group h-full flex flex-col border rounded-2xl p-6 transition-all ${
-      topic.available
-        ? 'border-blue-200 bg-blue-50 hover:border-blue-400 hover:shadow-md'
-        : 'border-slate-200 bg-white hover:border-slate-300'
-    }`}>
+  return (
+    <div className="h-full flex flex-col border border-slate-200 bg-white rounded-2xl p-6 hover:border-slate-300 hover:shadow-sm transition-all">
       <div className="flex items-center justify-between mb-4">
-        <span className={`text-xs font-bold px-3 py-1 rounded-full ${
-          topic.available ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-500'
-        }`}>
-          {topic.tag}
+        <span className="text-xs font-bold bg-slate-100 text-slate-500 px-3 py-1 rounded-full">{topic.tag}</span>
+        <span className="flex items-center gap-1 text-xs text-slate-400 font-medium">
+          <Clock className="w-3 h-3" /> Coming soon
         </span>
-        {!topic.available && (
-          <span className="flex items-center gap-1 text-xs text-slate-400 font-medium">
-            <Clock className="w-3 h-3" /> Coming soon
-          </span>
-        )}
       </div>
-
-      <h3 className={`font-black text-base mb-4 leading-snug ${
-        topic.available ? 'text-slate-900' : 'text-slate-700'
-      }`}>
-        {topic.title}
-      </h3>
-
-      <div className="space-y-3 flex-1">
-        <div>
-          <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">The Problem</p>
-          <p className="text-sm text-slate-600 leading-relaxed">{topic.problem}</p>
-        </div>
-        <div>
-          <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Why Old Marketing Failed</p>
-          <p className="text-sm text-slate-500 leading-relaxed">{topic.whyOldFailed}</p>
-        </div>
-        <div>
-          <p className="text-xs font-bold text-blue-500 uppercase tracking-wider mb-1">What to Focus On Now</p>
-          <p className="text-sm text-slate-600 leading-relaxed">{topic.focusNow}</p>
-        </div>
-      </div>
-
-      <div className="mt-5 pt-4 border-t border-slate-200">
-        {topic.available ? (
-          <span className="inline-flex items-center gap-1.5 text-blue-600 text-sm font-bold group-hover:gap-2.5 transition-all">
-            Read the guide <ArrowRight className="w-4 h-4" />
-          </span>
-        ) : (
-          <span className="text-xs text-slate-400 italic">Guide coming soon — check back shortly.</span>
-        )}
+      <h3 className="font-black text-base text-slate-800 mb-3 leading-snug">{topic.title}</h3>
+      <p className="text-sm text-slate-500 leading-relaxed flex-1">{topic.description}</p>
+      <div className="mt-5 pt-4 border-t border-slate-100">
+        <span className="text-xs text-slate-400 italic">Guide coming soon — check back shortly.</span>
       </div>
     </div>
   );
-
-  if (topic.available && topic.href) {
-    return <Link to={topic.href} className="block h-full">{cardInner}</Link>;
-  }
-  return <div className="h-full">{cardInner}</div>;
 }
