@@ -234,6 +234,7 @@ import LeadDetailPage from './pages/LeadDetailPage';
 import AiGapScanner from './pages/AiGapScanner';
 import VideoEngineList from './pages/VideoEngineList';
 import VideoEngineDetail from './pages/VideoEngineDetail';
+import LearningCenter from './pages/LearningCenter';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -546,6 +547,8 @@ const AuthenticatedApp = () => {
       <Route path="/ops/leads" element={<OpsLeads />} />
       <Route path="/ops/followups" element={<OpsFollowUps />} />
       <Route path="/ops/reports" element={<OpsReports />} />
+
+      <Route path="/learning-center" element={<LearningCenter />} />
 
       <Route path="*" element={<PageNotFound />} />
     </Routes>
