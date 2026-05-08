@@ -550,6 +550,7 @@ import AdminGeographicCampaigns from './pages/AdminGeographicCampaigns';
 import AdminHVACTerritorialCampaign from './pages/AdminHVACTerritorialCampaign';
 import AdminAlbertLeaRestaurantCampaign from './pages/AdminAlbertLeaRestaurantCampaign';
 import AdminLiveOrchestration from './pages/AdminLiveOrchestration';
+import WhatChangedOnline from './pages/WhatChangedOnline';
 import __Layout from './Layout.jsx';
 
 
@@ -1057,6 +1058,7 @@ export const PAGES = {
     "AdminHVACTerritorialCampaign": AdminHVACTerritorialCampaign,
     "AdminAlbertLeaRestaurantCampaign": AdminAlbertLeaRestaurantCampaign,
     "AdminLiveOrchestration": AdminLiveOrchestration,
+    "what-changed-online": WhatChangedOnline,
 }
 
 export const pagesConfig = {
