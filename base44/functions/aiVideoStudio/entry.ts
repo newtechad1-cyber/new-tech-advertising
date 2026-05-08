@@ -200,51 +200,6 @@ ${userPrompt}`
       return Response.json({ script: result });
     }
 
-    if (action === "generate_ad_variations") {
-      const { userInput, format, campaignName, platform } = params;
-      const orientation = format === "9:16" ? "vertical short-form" : "horizontal promotional";
-      const structures = {
-        "15s": "Fast hook (0–3s) + quick CTA (3–15s). Ultra concise. Max 40 words.",
-        "30s": "Hook (0–5s) + problem (5–12s) + solution (12–22s) + CTA (22–30s). Max 75 words.",
-        "60s": "Hook (0–5s) + education/value (5–30s) + trust/social proof (30–50s) + CTA (50–60s). Max 150 words.",
-      };
-      const result = await base44.integrations.Core.InvokeLLM({
-        prompt: `You are an expert short-form video ad scriptwriter. Generate 3 ad script variations (15s, 30s, 60s) from the same core offer.
-Campaign: ${campaignName || "Ad Campaign"}
-Platform: ${platform || "Facebook"}
-Style: ${orientation}
-Core Offer/Topic: ${userInput}
-
-Rules:
-- Keep the same core offer, CTA theme, and campaign message across all versions.
-- Adapt pacing and length per duration.
-- 15s: ${structures["15s"]}
-- 30s: ${structures["30s"]}
-- 60s: ${structures["60s"]}
-- No stage directions. Spoken words only.
-
-Return JSON.`,
-        response_json_schema: {
-          type: "object",
-          properties: {
-            variations: {
-              type: "array",
-              items: {
-                type: "object",
-                properties: {
-                  duration: { type: "string" },
-                  hook: { type: "string" },
-                  script: { type: "string" },
-                  cta: { type: "string" },
-                }
-              }
-            }
-          }
-        }
-      });
-      return Response.json({ variations: result.variations || [] });
-    }
-
     if (action === "generate_slide_ideas") {
       const { script, slideCount = 5 } = params;
       const result = await base44.integrations.Core.InvokeLLM({
