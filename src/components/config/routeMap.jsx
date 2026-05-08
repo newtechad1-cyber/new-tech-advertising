@@ -141,6 +141,47 @@ export const PAGE_FAMILY_MAP = {
   AdminContentMultiplier:        'main_admin',    // /admincontentmultiplier
   AdminNavigationQA:             'main_admin',    // /adminqa/navigation (QA-only)
 
+  // ─── CONTROL TOWER ─────────────────────────────────────────────────────────
+  AdminControlTower:             'main_admin',
+  AdminControlTowerInsights:     'main_admin',
+  AdminControlTowerRisk:         'main_admin',
+  AdminControlTowerActions:      'main_admin',
+
+  // ─── OPERATIONS SUB-PAGES ──────────────────────────────────────────────────
+  AdminOperationsCapacity:       'main_admin',
+  AdminOperationsSLA:            'main_admin',
+  AdminOperationsEfficiency:     'main_admin',
+
+  // ─── FOUNDER PLANNER ───────────────────────────────────────────────────────
+  AdminFounderPlanner:           'main_admin',
+  FounderScorecard:              'main_admin',
+  AdminFounderPriorities:        'main_admin',
+  AdminFounderScorecardWeekly:   'main_admin',
+  AdminFounderScenarios:         'main_admin',
+
+  // ─── CLIENT SUCCESS ────────────────────────────────────────────────────────
+  AdminClientSuccess:            'main_admin',
+  AdminClientRetention:          'main_admin',
+  AdminClientExpansion:          'main_admin',
+  AdminClientLTV:                'main_admin',
+
+  // ─── VERTICAL INTELLIGENCE ─────────────────────────────────────────────────
+  AdminVerticalIntelligence:     'main_admin',
+  AdminVerticalRevenue:          'main_admin',
+  AdminVerticalCampaigns:        'main_admin',
+  AdminVerticalExpansion:        'main_admin',
+  AdminExpansionPlaybook:        'main_admin',
+  AdminExpansionExecution:       'main_admin',
+  AdminExpansionTerritories:     'main_admin',
+  AdminExpansionRevenue:         'main_admin',
+
+  // ─── EXECUTIVE / SALES ─────────────────────────────────────────────────────
+  AdminSalesCommand:             'main_admin',
+  AdminClientLifecycle:          'main_admin',
+  AdminAIOperations:             'main_admin',
+  AdminClientPerformance:        'main_admin',
+  AdminSalesDashboard:           'main_admin',
+
   // ─── SCHOOL ADMIN ─────────────────────────────────────────────────────────
   // All routes begin with /adminschool…
   AdminSchoolDashboard:          'school_admin',  // /adminschooldashboard

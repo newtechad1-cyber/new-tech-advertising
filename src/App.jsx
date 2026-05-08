@@ -20,6 +20,7 @@ import AdminVerticalIntelligence from './pages/AdminVerticalIntelligence';
 import AdminVerticalRevenue from './pages/AdminVerticalRevenue';
 import AdminVerticalCampaigns from './pages/AdminVerticalCampaigns';
 import AdminVerticalExpansion from './pages/AdminVerticalExpansion';
+import AdminExpansionPlaybook from './pages/AdminExpansionPlaybook';
 import AdminExpansionExecution from './pages/AdminExpansionExecution';
 import AdminExpansionTerritories from './pages/AdminExpansionTerritories';
 import AdminExpansionRevenue from './pages/AdminExpansionRevenue';
@@ -324,6 +325,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin/vertical-revenue" element={<LayoutWrapper currentPageName="AdminVerticalRevenue"><AdminVerticalRevenue /></LayoutWrapper>} />
       <Route path="/admin/vertical-campaigns" element={<LayoutWrapper currentPageName="AdminVerticalCampaigns"><AdminVerticalCampaigns /></LayoutWrapper>} />
       <Route path="/admin/vertical-expansion" element={<LayoutWrapper currentPageName="AdminVerticalExpansion"><AdminVerticalExpansion /></LayoutWrapper>} />
+      <Route path="/admin/expansion-playbook" element={<LayoutWrapper currentPageName="AdminExpansionPlaybook"><AdminExpansionPlaybook /></LayoutWrapper>} />
       <Route path="/admin/expansion-execution" element={<LayoutWrapper currentPageName="AdminExpansionExecution"><AdminExpansionExecution /></LayoutWrapper>} />
       <Route path="/admin/expansion-territories" element={<LayoutWrapper currentPageName="AdminExpansionTerritories"><AdminExpansionTerritories /></LayoutWrapper>} />
       <Route path="/admin/expansion-revenue" element={<LayoutWrapper currentPageName="AdminExpansionRevenue"><AdminExpansionRevenue /></LayoutWrapper>} />
