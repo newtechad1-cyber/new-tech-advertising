@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Wand2, RefreshCw, Loader2 } from "lucide-react";
+import AdVariationsPanel from "./AdVariationsPanel";
 
 export default function Step1Script({ state, setState, onGenerate, generating, onNext }) {
   const { inputMode, userInput, format, duration, script } = state;
@@ -87,6 +88,8 @@ export default function Step1Script({ state, setState, onGenerate, generating, o
         />
         {script && <p className="text-xs text-gray-400 mt-1">{script.split(" ").filter(Boolean).length} words</p>}
       </div>
+
+      <AdVariationsPanel userInput={userInput} format={format} />
 
       <div className="flex justify-end">
         <Button onClick={onNext} disabled={!script} className="bg-blue-600 hover:bg-blue-700">
