@@ -236,6 +236,10 @@ import AiGapScanner from './pages/AiGapScanner';
 import VideoEngineList from './pages/VideoEngineList';
 import VideoEngineDetail from './pages/VideoEngineDetail';
 import LearningCenter from './pages/LearningCenter';
+import WhatChangedOnline from './pages/WhatChangedOnline';
+import AIVisibilityBasics from './pages/AIVisibilityBasics';
+import PracticalAIForSmallBusinesses from './pages/PracticalAIForSmallBusinesses';
+import SEOVsAISearch from './pages/SEOVsAISearch';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -551,6 +555,10 @@ const AuthenticatedApp = () => {
       <Route path="/ops/reports" element={<OpsReports />} />
 
       <Route path="/learning-center" element={<LearningCenter />} />
+      <Route path="/what-changed-online" element={<LayoutWrapper currentPageName="WhatChangedOnline"><WhatChangedOnline /></LayoutWrapper>} />
+      <Route path="/ai-visibility-basics" element={<LayoutWrapper currentPageName="AIVisibilityBasics"><AIVisibilityBasics /></LayoutWrapper>} />
+      <Route path="/practical-ai-for-small-businesses" element={<LayoutWrapper currentPageName="PracticalAIForSmallBusinesses"><PracticalAIForSmallBusinesses /></LayoutWrapper>} />
+      <Route path="/seo-vs-ai-search" element={<LayoutWrapper currentPageName="SEOVsAISearch"><SEOVsAISearch /></LayoutWrapper>} />
 
       <Route path="*" element={<PageNotFound />} />
     </Routes>
