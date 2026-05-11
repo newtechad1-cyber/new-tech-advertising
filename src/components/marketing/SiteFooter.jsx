@@ -37,6 +37,7 @@ export default function SiteFooter() {
             <li><a href="/AdaWebsiteCompliance" className="hover:text-white transition-colors">ADA Compliance</a></li>
             <li><a href="/StreamingTvAdvertising" className="hover:text-white transition-colors">Streaming TV Ads</a></li>
             <li><a href="/AiSeo" className="hover:text-white transition-colors">AI SEO &amp; Marketing</a></li>
+            <li><a href="/learning-center" className="hover:text-white transition-colors">Learning Center</a></li>
           </ul>
         </div>
 
