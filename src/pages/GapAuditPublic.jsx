@@ -62,21 +62,33 @@ export default function GapAuditPublic() {
 
       {/* Hero */}
       <section className="bg-slate-950 text-white pt-20 pb-16 px-4">
-        <div className="max-w-5xl mx-auto max-w-2xl">
-          <h1 className="text-4xl sm:text-5xl font-black mb-4">Get a Free Gap Audit</h1>
-          <p className="text-slate-300 text-lg leading-relaxed mb-8">
-            If your website isn't bringing in calls or customers, I'll show you why.
-          </p>
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h1 className="text-4xl sm:text-5xl font-black mb-4">Get a Free Gap Audit</h1>
+            <p className="text-slate-300 text-lg leading-relaxed mb-8">
+              If your website isn't bringing in calls or customers, I'll show you why.
+            </p>
 
-          {/* Prominent phone */}
-          <div className="flex flex-col sm:flex-row gap-3">
-            <a
-              href={`tel:+1${PHONE}`}
-              className="inline-flex items-center justify-center gap-2 bg-white text-slate-900 font-black px-7 py-4 rounded-xl text-base transition-colors hover:bg-slate-100"
-            >
-              <Phone className="w-4 h-4" /> Call or Text: {PHONE_DISPLAY}
-            </a>
-            <TextMeButton />
+            {/* Prominent phone */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <a
+                href={`tel:+1${PHONE}`}
+                className="inline-flex items-center justify-center gap-2 bg-white text-slate-900 font-black px-7 py-4 rounded-xl text-base transition-colors hover:bg-slate-100"
+              >
+                <Phone className="w-4 h-4" /> Call or Text: {PHONE_DISPLAY}
+              </a>
+              <TextMeButton />
+            </div>
+          </div>
+          
+          {/* Video */}
+          <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900">
+            <iframe 
+              src="https://www.youtube.com/embed/T4FR9lSpaeY?rel=0" 
+              className="absolute top-0 left-0 w-full h-full border-0"
+              allow="autoplay; encrypted-media; fullscreen" 
+              title="Gap Audit Video"
+            />
           </div>
         </div>
       </section>
