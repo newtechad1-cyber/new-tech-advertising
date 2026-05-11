@@ -33,7 +33,7 @@ export default function LearningCenter() {
             Learn how AI is changing visibility, marketing, customer search, and business growth — without the confusion.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
             <a 
               href="#guides"
               className="inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-semibold px-8 py-4 rounded-xl transition-all w-full sm:w-auto text-lg"
@@ -47,6 +47,16 @@ export default function LearningCenter() {
               Get A Free AI Gap Audit <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
+
+          <div className="relative w-full max-w-3xl mx-auto aspect-video rounded-2xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900">
+            <iframe 
+              src="https://app.heygen.com/embeds/6d74ae416e5c43328e0856079bdd2a41" 
+              className="absolute top-0 left-0 w-full h-full border-0"
+              allow="autoplay; fullscreen" 
+              title="Welcome to the Learning Center"
+            />
+          </div>
+
         </div>
       </header>
 
