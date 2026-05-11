@@ -139,7 +139,7 @@ export default function LearningCenter() {
               Why Should Local Businesses Care About AI?
             </h2>
             <p className="text-lg text-slate-400 leading-relaxed mb-8">
-              The internet isn't what it was five years ago. Customers don't browse websites the same way, and they don't search the same way. If your marketing hasn't adapted, you are becoming invisible.
+              The internet isn't what it was even a year ago. Customers don't browse websites the same way, and they don't search the same way. If your marketing hasn't adapted, you are becoming invisible.
             </p>
             <div className="space-y-6">
               <MatterItem 
