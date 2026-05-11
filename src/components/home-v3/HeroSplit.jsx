@@ -39,7 +39,7 @@ export default function HeroSplit() {
         {/* RIGHT: Video */}
         <div className="w-full rounded-2xl overflow-hidden aspect-video shadow-2xl">
           <iframe
-            src="https://app.heygen.com/embeds/d6013cc5a88542999dedaafc9ed72800"
+            src="https://app.heygen.com/embeds/bcaf9f0cb98b4d9dbebd516d00c9c787"
             title="NTA — Local Lead Systems"
             allow="autoplay; fullscreen"
             allowFullScreen
