@@ -13,7 +13,7 @@ export default function SiteFooter() {
             src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png"
             alt="New Tech Advertising"
             style={{ height: '40px', width: 'auto', objectFit: 'contain', display: 'block' }}
-            className="mb-3 brightness-0 invert"
+            className="mb-3"
           />
           <p className="text-sm leading-relaxed">AI marketing tools built for small and mid-sized businesses. Create videos, images, and social posts in minutes.</p>
         </div>
