@@ -3,10 +3,14 @@ import LCHeader from '@/components/learning-center/LCHeader';
 import LCInsightBlock from '@/components/learning-center/LCInsightBlock';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
 import LCRelatedArticles from '@/components/learning-center/LCRelatedArticles';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 
 export default function AIVisibilityBasics() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-300 font-sans pb-20">
+    <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
+      <MarketingNav />
+      <div className="flex-grow">
       <LCHeader 
         title="AI Visibility Basics"
         subtitle="How ChatGPT, Gemini, and Google's AI Overview choose which local businesses to recommend."
@@ -77,6 +81,8 @@ export default function AIVisibilityBasics() {
           ]}
         />
       </main>
+      </div>
+      <SiteFooter />
     </div>
   );
 }

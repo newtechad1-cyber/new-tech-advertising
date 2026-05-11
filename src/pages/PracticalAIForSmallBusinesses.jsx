@@ -3,10 +3,14 @@ import LCHeader from '@/components/learning-center/LCHeader';
 import LCInsightBlock from '@/components/learning-center/LCInsightBlock';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
 import LCRelatedArticles from '@/components/learning-center/LCRelatedArticles';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 
 export default function PracticalAIForSmallBusinesses() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-300 font-sans pb-20">
+    <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
+      <MarketingNav />
+      <div className="flex-grow">
       <LCHeader 
         title="Practical AI For Small Businesses"
         subtitle="Real tools and strategies you can use today to save time, generate more leads, and punch above your weight class."
@@ -77,6 +81,8 @@ export default function PracticalAIForSmallBusinesses() {
           ]}
         />
       </main>
+      </div>
+      <SiteFooter />
     </div>
   );
 }

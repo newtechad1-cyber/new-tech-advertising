@@ -3,10 +3,14 @@ import LCHeader from '@/components/learning-center/LCHeader';
 import LCInsightBlock from '@/components/learning-center/LCInsightBlock';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
 import LCRelatedArticles from '@/components/learning-center/LCRelatedArticles';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 
 export default function SEOVsAISearch() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-300 font-sans pb-20">
+    <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
+      <MarketingNav />
+      <div className="flex-grow">
       <LCHeader 
         title="SEO vs AI Search: The Shift"
         subtitle="Why traditional SEO is dying and how AI Search Optimization (AISO) is replacing it as the main driver of local traffic."
@@ -101,6 +105,8 @@ export default function SEOVsAISearch() {
           ]}
         />
       </main>
+      </div>
+      <SiteFooter />
     </div>
   );
 }

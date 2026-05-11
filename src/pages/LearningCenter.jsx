@@ -5,12 +5,16 @@ import {
   Lightbulb, ShieldCheck, PlayCircle, BookOpen, Bot, LayoutTemplate
 } from 'lucide-react';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 import { cn } from '@/lib/utils';
 
 export default function LearningCenter() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-300 font-sans pb-20 overflow-hidden">
+    <div className="min-h-screen bg-slate-950 text-slate-300 font-sans overflow-hidden flex flex-col">
+      <MarketingNav />
       
+      <main className="flex-grow">
       {/* 1. Hero Section */}
       <header className="relative pt-24 pb-20 px-6 text-center border-b border-slate-800">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none" />
@@ -201,7 +205,9 @@ export default function LearningCenter() {
           buttonText="Get Your Free AI Audit"
         />
       </section>
+      </main>
 
+      <SiteFooter />
     </div>
   );
 }
