@@ -208,11 +208,11 @@ export default function LearningCenter() {
 
 // Subcomponents
 
-function GuideRowCard({ title, desc, icon: Icon, link = "#" }) {
+function GuideRowCard({ title, desc, icon: IconComponent, link = "#" }) {
   return (
     <Link to={link} className="group flex items-start sm:items-center gap-6 bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-blue-500/50 transition-colors h-full">
       <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-500/10 group-hover:border-blue-500/30 group-hover:text-blue-400 transition-colors">
-        <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-slate-400 group-hover:text-blue-400" />
+        <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-slate-400 group-hover:text-blue-400" />
       </div>
       <div>
         <h4 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">{title}</h4>
@@ -222,11 +222,11 @@ function GuideRowCard({ title, desc, icon: Icon, link = "#" }) {
   );
 }
 
-function CategoryCard({ title, icon: Icon }) {
+function CategoryCard({ title, icon: IconComponent }) {
   return (
     <Link to="#" className="group flex flex-col items-center text-center bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 hover:bg-slate-800 transition-all hover:-translate-y-1 hover:shadow-[0_10px_40px_-15px_rgba(37,99,235,0.3)] hover:border-blue-500/30">
       <div className="w-12 h-12 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center mb-4 group-hover:bg-blue-500/20 group-hover:text-blue-400 transition-colors">
-        <Icon className="w-5 h-5 text-slate-400 group-hover:text-blue-400" />
+        <IconComponent className="w-5 h-5 text-slate-400 group-hover:text-blue-400" />
       </div>
       <h3 className="text-white font-bold text-base sm:text-lg">{title}</h3>
     </Link>

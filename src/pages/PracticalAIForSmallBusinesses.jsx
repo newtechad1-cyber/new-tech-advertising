@@ -11,7 +11,7 @@ export default function PracticalAIForSmallBusinesses() {
         title="Practical AI For Small Businesses"
         subtitle="Real tools and strategies you can use today to save time, generate more leads, and punch above your weight class."
         breadcrumbs={[
-          { label: "Guides", link: "/learning-center" },
+          { label: "NTA Learning Center", link: "/learning-center" },
           { label: "Practical AI" }
         ]}
         category="Operations"
