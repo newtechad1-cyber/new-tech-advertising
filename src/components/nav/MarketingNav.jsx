@@ -41,6 +41,7 @@ const NAV_LINKS = [
     ],
   },
   { label: 'Our Work', href: '/our-work' },
+  { label: 'Learning Center', href: '/learning-center' },
   { label: 'Free Gap Audit', href: '/gap-audit' },
 ];
 
