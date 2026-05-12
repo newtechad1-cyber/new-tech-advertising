@@ -17,7 +17,8 @@ export const LEARNING_ARTICLES = [
   { id: 'a4', title: 'Practical AI For Small Businesses', category: 'AI Basics For Small Businesses', link: '/practical-ai-for-small-businesses', description: 'Real tools you can use today to save time and generate more leads.', status: 'published', priority: 'high', relatedArticleSlug: 'practical-ai-for-small-businesses', relatedVideoIds: ['v14'], youtubeUrl: null, thumbnailUrl: null },
   { id: 'a5', title: 'Growth Systems vs Campaigns', category: 'Modern Marketing Systems', link: '/growth-systems-vs-campaigns', description: 'How a true growth system scales predictably, while campaigns burn through cash.', status: 'published', priority: 'high', relatedArticleSlug: 'growth-systems-vs-campaigns', relatedVideoIds: ['v9'], youtubeUrl: null, thumbnailUrl: null },
   { id: 'a6', title: 'Reputation Is Now a Growth Engine', category: 'Digital Trust & Reputation', link: '/reputation-is-now-a-growth-engine', description: 'Turn your customer reviews into your most powerful local SEO asset.', status: 'published', priority: 'high', relatedArticleSlug: 'reputation-is-now-a-growth-engine', relatedVideoIds: ['v10'], youtubeUrl: null, thumbnailUrl: null },
-  { id: 'a7', title: 'The Hidden Cost of Outdated Marketing', category: 'Modern Marketing Systems', link: '/hidden-cost-of-outdated-marketing', description: 'How holding onto legacy SEO and traditional websites is slowly bleeding your business dry.', status: 'published', priority: 'high', relatedArticleSlug: 'hidden-cost-of-outdated-marketing', relatedVideoIds: ['v12'], youtubeUrl: null, thumbnailUrl: null }
+  { id: 'a7', title: 'The Hidden Cost of Outdated Marketing', category: 'Modern Marketing Systems', link: '/hidden-cost-of-outdated-marketing', description: 'How holding onto legacy SEO and traditional websites is slowly bleeding your business dry.', status: 'published', priority: 'high', relatedArticleSlug: 'hidden-cost-of-outdated-marketing', relatedVideoIds: ['v12'], youtubeUrl: null, thumbnailUrl: null },
+  { id: 'a8', title: 'The Role of AI in Local Marketing', category: 'AI Basics For Small Businesses', link: '/role-of-ai-in-local-marketing', description: 'A no-BS guide to how small businesses are actually using AI to generate more revenue.', status: 'published', priority: 'high', relatedArticleSlug: 'role-of-ai-in-local-marketing', relatedVideoIds: ['v14'], youtubeUrl: null, thumbnailUrl: null }
 ];
 
 export const LEARNING_VIDEOS = [
@@ -101,10 +102,11 @@ export const LEARNING_VIDEOS = [
     title: 'The Role of AI in Local Marketing',
     category: 'AI Basics For Small Businesses',
     duration: '7:15',
-    youtubeId: 'jNQXAC9IVRw',
+    youtubeId: 'scPcJSMFn-E',
     thumbnail: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800',
     description: 'A no-BS guide to how small businesses are actually using AI to generate more revenue.',
-    status: 'placeholder', priority: 'medium', relatedArticleSlug: 'practical-ai-for-small-businesses', relatedVideoIds: [], youtubeUrl: 'https://www.youtube.com/watch?v=jNQXAC9IVRw', thumbnailUrl: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800'
+    status: 'published', priority: 'high', relatedArticleSlug: 'role-of-ai-in-local-marketing', relatedVideoIds: [], youtubeUrl: 'https://youtu.be/scPcJSMFn-E', thumbnailUrl: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800',
+    tags: ['AI For Small Business', 'AI Visibility', 'Local Marketing', 'SEO', 'Digital Marketing', 'Small Business Growth', 'AI Search']
   },
   {
     id: 'v15',

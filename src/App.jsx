@@ -253,6 +253,7 @@ import SEOVsAISearch from './pages/SEOVsAISearch';
 import GrowthSystemsVsCampaigns from './pages/GrowthSystemsVsCampaigns';
 import ReputationIsNowAGrowthEngine from './pages/ReputationIsNowAGrowthEngine';
 import TheHiddenCostOfOutdatedMarketing from './pages/TheHiddenCostOfOutdatedMarketing';
+import TheRoleOfAIInLocalMarketing from './pages/TheRoleOfAIInLocalMarketing';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -585,6 +586,7 @@ const AuthenticatedApp = () => {
       <Route path="/growth-systems-vs-campaigns" element={<LayoutWrapper currentPageName="GrowthSystemsVsCampaigns"><GrowthSystemsVsCampaigns /></LayoutWrapper>} />
       <Route path="/reputation-is-now-a-growth-engine" element={<LayoutWrapper currentPageName="ReputationIsNowAGrowthEngine"><ReputationIsNowAGrowthEngine /></LayoutWrapper>} />
       <Route path="/hidden-cost-of-outdated-marketing" element={<LayoutWrapper currentPageName="TheHiddenCostOfOutdatedMarketing"><TheHiddenCostOfOutdatedMarketing /></LayoutWrapper>} />
+      <Route path="/role-of-ai-in-local-marketing" element={<LayoutWrapper currentPageName="TheRoleOfAIInLocalMarketing"><TheRoleOfAIInLocalMarketing /></LayoutWrapper>} />
 
       <Route path="*" element={<PageNotFound />} />
     </Routes>
