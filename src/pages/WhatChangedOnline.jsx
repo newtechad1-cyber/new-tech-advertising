@@ -3,6 +3,7 @@ import LCHeader from '@/components/learning-center/LCHeader';
 import LCInsightBlock from '@/components/learning-center/LCInsightBlock';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
 import LCRelatedArticles from '@/components/learning-center/LCRelatedArticles';
+import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 
@@ -62,6 +63,8 @@ export default function WhatChangedOnline() {
           </LCInsightBlock>
 
         </article>
+
+        <LCRelatedVideos category="SEO vs AI Search" />
 
         <LCCallToAction type="audit" className="mt-16" />
 

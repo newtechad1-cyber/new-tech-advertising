@@ -230,6 +230,7 @@ import OpsSocial from './pages/ops/OpsSocial';
 import OpsApprovals from './pages/ops/OpsApprovals';
 import OpsLeads from './pages/ops/OpsLeads';
 import OpsOnboarding from './pages/ops/OpsOnboarding';
+import OpsAIMonitor from './pages/ops/OpsAIMonitor';
 import OpsAgreements from './pages/ops/OpsAgreements';
 import OpsDocuments from './pages/ops/OpsDocuments';
 import ClientPortalV2 from './pages/client-portal-v2/ClientPortal';
@@ -242,6 +243,8 @@ import AiGapScanner from './pages/AiGapScanner';
 import VideoEngineList from './pages/VideoEngineList';
 import VideoEngineDetail from './pages/VideoEngineDetail';
 import LearningCenter from './pages/LearningCenter';
+import LCVideoLibrary from './pages/LCVideoLibrary';
+import LCVideoDetail from './pages/LCVideoDetail';
 import WhatChangedOnline from './pages/WhatChangedOnline';
 import AIVisibilityBasics from './pages/AIVisibilityBasics';
 import PracticalAIForSmallBusinesses from './pages/PracticalAIForSmallBusinesses';
@@ -559,6 +562,7 @@ const AuthenticatedApp = () => {
       <Route path="/ops/approvals" element={<OpsApprovals />} />
       <Route path="/ops/leads" element={<OpsLeads />} />
       <Route path="/ops/onboarding" element={<OpsOnboarding />} />
+      <Route path="/ops/ai-monitor" element={<OpsAIMonitor />} />
       <Route path="/ops/agreements" element={<OpsAgreements />} />
       <Route path="/ops/documents" element={<OpsDocuments />} />
       <Route path="/c/:clientId" element={<ClientPortalV2 />} />
@@ -567,6 +571,8 @@ const AuthenticatedApp = () => {
       <Route path="/ops/reports" element={<OpsReports />} />
 
       <Route path="/learning-center" element={<LearningCenter />} />
+      <Route path="/learning-center/videos" element={<LCVideoLibrary />} />
+      <Route path="/learning-center/videos/:id" element={<LCVideoDetail />} />
       <Route path="/what-changed-online" element={<LayoutWrapper currentPageName="WhatChangedOnline"><WhatChangedOnline /></LayoutWrapper>} />
       <Route path="/ai-visibility-basics" element={<LayoutWrapper currentPageName="AIVisibilityBasics"><AIVisibilityBasics /></LayoutWrapper>} />
       <Route path="/practical-ai-for-small-businesses" element={<LayoutWrapper currentPageName="PracticalAIForSmallBusinesses"><PracticalAIForSmallBusinesses /></LayoutWrapper>} />

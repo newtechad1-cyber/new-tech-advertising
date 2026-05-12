@@ -5,6 +5,8 @@ import {
   Lightbulb, ShieldCheck, PlayCircle, BookOpen, Bot, LayoutTemplate
 } from 'lucide-react';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
+import LCVideoCard from '@/components/learning-center/LCVideoCard';
+import { LEARNING_VIDEOS } from '@/utils/learningData';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import { cn } from '@/lib/utils';
@@ -174,6 +176,30 @@ export default function LearningCenter() {
                 "We built this learning center because small businesses are being sold snake oil by agencies using 'AI' as a buzzword. We want to show you exactly how it actually works, and how to use it practically to get more customers."
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Watch + Learn Section */}
+      <section className="bg-slate-950 py-24">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
+            <div>
+              <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold px-3 py-1 rounded-full mb-4 tracking-wide uppercase">
+                <PlayCircle className="w-3.5 h-3.5" />
+                Featured Video
+              </div>
+              <h2 className="text-3xl font-black text-white mb-4">Watch + Learn</h2>
+              <p className="text-slate-400 text-lg">Quick, actionable video training on modern visibility.</p>
+            </div>
+            <Link to="/learning-center/videos" className="inline-flex items-center text-blue-400 hover:text-blue-300 font-semibold gap-2 transition-colors pb-1">
+              View All Videos <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {LEARNING_VIDEOS.slice(0, 3).map(video => (
+              <LCVideoCard key={video.id} video={video} />
+            ))}
           </div>
         </div>
       </section>

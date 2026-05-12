@@ -4,12 +4,13 @@ import {
   Users, UserCheck, Search, Megaphone, Globe, FileText,
   Video, Share2, CheckSquare, Target, Bell, BarChart2,
   ChevronLeft, Menu, ExternalLink, Home,
-  ClipboardList, FileSignature, FolderOpen
+  ClipboardList, FileSignature, FolderOpen, Brain
 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const NAV = [
   { label: 'Dashboard', href: '/ops', icon: Home, exact: true },
+  { label: 'AI Monitor', href: '/ops/ai-monitor', icon: Brain },
   { label: 'Prospects', href: '/ops/prospects', icon: Target },
   { label: 'Clients', href: '/ops/clients', icon: UserCheck },
   { label: 'Onboarding', href: '/ops/onboarding', icon: ClipboardList },
