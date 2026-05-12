@@ -127,7 +127,7 @@ export default function LearningCenter() {
             <CategoryCard title="Digital Trust & Reputation" icon={ShieldCheck} link="/learning-center/category/digital-trust-reputation" />
             <CategoryCard title="Modern Marketing Systems" icon={LayoutTemplate} link="/learning-center/category/modern-marketing-systems" />
             <CategoryCard title="Video & CTV Marketing" icon={MonitorSmartphone} link="/learning-center/category/video-ctv-marketing" />
-            <CategoryCard title="AI Basics For Small Businesses" icon={Lightbulb} link="/learning-center/category/ai-basics" />
+            <CategoryCard title="AI Basics For Small Businesses" icon={Lightbulb} link="/learning-center/category/ai-basics-small-businesses" />
           </div>
         </div>
       </section>

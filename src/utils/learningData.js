@@ -3,7 +3,7 @@ export const LEARNING_CATEGORIES = [
   { id: 'digital-trust-reputation', title: 'Digital Trust & Reputation', description: 'Build a verifiable digital footprint that AI models trust.' },
   { id: 'modern-marketing-systems', title: 'Modern Marketing Systems', description: 'Stop buying random tactics and start building growth engines.' },
   { id: 'video-ctv-marketing', title: 'Video & CTV Marketing', description: 'Leverage authentic video and connected TV to drive local leads.' },
-  { id: 'ai-basics', title: 'AI Basics For Small Businesses', description: 'Practical AI applications to save time and punch above your weight.' }
+  { id: 'ai-basics-small-businesses', title: 'AI Basics For Small Businesses', description: 'Practical AI applications to save time and punch above your weight.' }
 ];
 
 export const VIDEO_CATEGORIES = [
