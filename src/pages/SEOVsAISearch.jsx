@@ -85,6 +85,8 @@ export default function SEOVsAISearch() {
 
         </article>
 
+        <LCRelatedVideos category="SEO vs AI Search" />
+
         <LCCallToAction type="audit" className="mt-16" />
 
         <LCRelatedArticles 

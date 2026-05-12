@@ -61,6 +61,8 @@ export default function AIVisibilityBasics() {
 
         </article>
 
+        <LCRelatedVideos category="AI Visibility" />
+
         <LCCallToAction type="ai_visibility" className="mt-16" />
 
         <LCRelatedArticles 

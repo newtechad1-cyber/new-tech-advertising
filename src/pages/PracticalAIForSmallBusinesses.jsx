@@ -61,6 +61,8 @@ export default function PracticalAIForSmallBusinesses() {
 
         </article>
 
+        <LCRelatedVideos category="Small Business Growth" />
+
         <LCCallToAction type="talk" className="mt-16" />
 
         <LCRelatedArticles 
