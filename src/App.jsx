@@ -245,6 +245,7 @@ import VideoEngineDetail from './pages/VideoEngineDetail';
 import LearningCenter from './pages/LearningCenter';
 import LCVideoLibrary from './pages/LCVideoLibrary';
 import LCVideoDetail from './pages/LCVideoDetail';
+import LCCategory from './pages/LCCategory';
 import WhatChangedOnline from './pages/WhatChangedOnline';
 import AIVisibilityBasics from './pages/AIVisibilityBasics';
 import PracticalAIForSmallBusinesses from './pages/PracticalAIForSmallBusinesses';
@@ -571,6 +572,7 @@ const AuthenticatedApp = () => {
       <Route path="/ops/reports" element={<OpsReports />} />
 
       <Route path="/learning-center" element={<LearningCenter />} />
+      <Route path="/learning-center/category/:id" element={<LCCategory />} />
       <Route path="/learning-center/videos" element={<LCVideoLibrary />} />
       <Route path="/learning-center/videos/:id" element={<LCVideoDetail />} />
       <Route path="/what-changed-online" element={<LayoutWrapper currentPageName="WhatChangedOnline"><WhatChangedOnline /></LayoutWrapper>} />

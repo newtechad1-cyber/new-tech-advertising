@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
 import LCVideoCard from '@/components/learning-center/LCVideoCard';
-import { LEARNING_VIDEOS } from '@/utils/learningData';
+import { LEARNING_VIDEOS, LEARNING_CATEGORIES } from '@/utils/learningData';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import { cn } from '@/lib/utils';
@@ -123,12 +123,11 @@ export default function LearningCenter() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6">
-            <CategoryCard title="AI Basics" icon={Lightbulb} />
-            <CategoryCard title="Visibility & SEO" icon={Search} />
-            <CategoryCard title="Practical AI Uses" icon={MonitorSmartphone} />
-            <CategoryCard title="Marketing & Content" icon={LayoutTemplate} />
-            <CategoryCard title="AI Tools" icon={Bot} />
-            <CategoryCard title="NTA Systems" icon={TrendingUp} />
+            <CategoryCard title="AI Visibility & Search" icon={Search} link="/learning-center/category/ai-visibility-search" />
+            <CategoryCard title="Digital Trust & Reputation" icon={ShieldCheck} link="/learning-center/category/digital-trust-reputation" />
+            <CategoryCard title="Modern Marketing Systems" icon={LayoutTemplate} link="/learning-center/category/modern-marketing-systems" />
+            <CategoryCard title="Video & CTV Marketing" icon={MonitorSmartphone} link="/learning-center/category/video-ctv-marketing" />
+            <CategoryCard title="AI Basics For Small Businesses" icon={Lightbulb} link="/learning-center/category/ai-basics" />
           </div>
         </div>
       </section>
@@ -264,9 +263,9 @@ function GuideRowCard({ title, desc, icon: IconComponent, link = "#" }) {
   );
 }
 
-function CategoryCard({ title, icon: IconComponent }) {
+function CategoryCard({ title, icon: IconComponent, link = "#" }) {
   return (
-    <Link to="#" className="group flex flex-col items-center text-center bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 hover:bg-slate-800 transition-all hover:-translate-y-1 hover:shadow-[0_10px_40px_-15px_rgba(37,99,235,0.3)] hover:border-blue-500/30">
+    <Link to={link} className="group flex flex-col items-center text-center bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 hover:bg-slate-800 transition-all hover:-translate-y-1 hover:shadow-[0_10px_40px_-15px_rgba(37,99,235,0.3)] hover:border-blue-500/30">
       <div className="w-12 h-12 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center mb-4 group-hover:bg-blue-500/20 group-hover:text-blue-400 transition-colors">
         <IconComponent className="w-5 h-5 text-slate-400 group-hover:text-blue-400" />
       </div>
