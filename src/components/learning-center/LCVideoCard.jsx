@@ -6,6 +6,14 @@ export default function LCVideoCard({ video }) {
   return (
     <Link to={`/learning-center/videos/${video.id}`} className="group flex flex-col bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-blue-500/50 transition-all hover:shadow-[0_10px_40px_-15px_rgba(37,99,235,0.3)] h-full">
       <div className="relative aspect-video bg-slate-800 overflow-hidden">
+        {(video.status === 'planned' || video.status === 'placeholder' || video.status === 'needs_video') && (
+          <div className="absolute inset-0 bg-slate-900/60 z-20 flex flex-col items-center justify-center backdrop-blur-[2px]">
+            <div className="bg-slate-900/90 border border-slate-700/50 px-4 py-2 rounded-xl backdrop-blur-md shadow-2xl flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+              <span className="text-sm font-semibold text-slate-200">Coming Soon</span>
+            </div>
+          </div>
+        )}
         {video.thumbnail ? (
           <img src={video.thumbnail} alt={video.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity group-hover:scale-105 duration-500" />
         ) : (

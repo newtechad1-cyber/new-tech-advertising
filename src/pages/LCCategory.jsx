@@ -71,15 +71,24 @@ export default function LCCategory() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {categoryArticles.map(article => (
-                  <Link key={article.id} to={article.link} className="group flex flex-col bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-blue-500/50 transition-colors h-full">
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">{article.title}</h3>
-                      <p className="text-slate-400 leading-relaxed">{article.description}</p>
-                    </div>
-                    <div className="mt-6 flex items-center text-blue-500 font-semibold group-hover:gap-2 transition-all">
-                      Read Guide <ArrowRight className="w-4 h-4 ml-1" />
-                    </div>
-                  </Link>
+                  <div key={article.id} className="relative h-full">
+                    <Link to={article.link} className={`group flex flex-col bg-slate-900 border border-slate-800 rounded-2xl p-6 transition-colors h-full ${(article.status === 'planned' || article.status === 'needs_article' || article.status === 'placeholder') ? 'opacity-70 pointer-events-none' : 'hover:border-blue-500/50'}`}>
+                      <div className="flex-1">
+                        <div className="flex items-start justify-between gap-4 mb-3">
+                          <h3 className={`text-xl font-bold text-white ${(article.status === 'planned' || article.status === 'needs_article' || article.status === 'placeholder') ? '' : 'group-hover:text-blue-400'} transition-colors`}>{article.title}</h3>
+                          {(article.status === 'planned' || article.status === 'needs_article' || article.status === 'placeholder') && (
+                            <span className="shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                              Coming Soon
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-slate-400 leading-relaxed">{article.description}</p>
+                      </div>
+                      <div className={`mt-6 flex items-center font-semibold transition-all ${(article.status === 'planned' || article.status === 'needs_article' || article.status === 'placeholder') ? 'text-slate-500' : 'text-blue-500 group-hover:gap-2'}`}>
+                        Read Guide <ArrowRight className="w-4 h-4 ml-1" />
+                      </div>
+                    </Link>
+                  </div>
                 ))}
               </div>
             </div>
