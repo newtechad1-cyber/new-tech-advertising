@@ -15,7 +15,8 @@ export const LEARNING_ARTICLES = [
   { id: 'a2', title: 'AI Visibility Basics', category: 'AI Visibility & Search', link: '/ai-visibility-basics', description: 'How ChatGPT and Gemini choose which local businesses to recommend.', status: 'published', priority: 'high', relatedArticleSlug: 'ai-visibility-basics', relatedVideoIds: ['v1'], youtubeUrl: null, thumbnailUrl: null },
   { id: 'a3', title: 'SEO vs AI Search', category: 'AI Visibility & Search', link: '/seo-vs-ai-search', description: 'Why traditional SEO is dying and how AI Search Optimization replaces it.', status: 'published', priority: 'high', relatedArticleSlug: 'seo-vs-ai-search', relatedVideoIds: ['v2'], youtubeUrl: null, thumbnailUrl: null },
   { id: 'a4', title: 'Practical AI For Small Businesses', category: 'AI Basics For Small Businesses', link: '/practical-ai-for-small-businesses', description: 'Real tools you can use today to save time and generate more leads.', status: 'published', priority: 'high', relatedArticleSlug: 'practical-ai-for-small-businesses', relatedVideoIds: ['v14'], youtubeUrl: null, thumbnailUrl: null },
-  { id: 'a5', title: 'Growth Systems vs Campaigns', category: 'Modern Marketing Systems', link: '/growth-systems-vs-campaigns', description: 'How a true growth system scales predictably, while campaigns burn through cash.', status: 'published', priority: 'high', relatedArticleSlug: 'growth-systems-vs-campaigns', relatedVideoIds: ['v9'], youtubeUrl: null, thumbnailUrl: null }
+  { id: 'a5', title: 'Growth Systems vs Campaigns', category: 'Modern Marketing Systems', link: '/growth-systems-vs-campaigns', description: 'How a true growth system scales predictably, while campaigns burn through cash.', status: 'published', priority: 'high', relatedArticleSlug: 'growth-systems-vs-campaigns', relatedVideoIds: ['v9'], youtubeUrl: null, thumbnailUrl: null },
+  { id: 'a6', title: 'Reputation Is Now a Growth Engine', category: 'Digital Trust & Reputation', link: '/reputation-is-now-a-growth-engine', description: 'Turn your customer reviews into your most powerful local SEO asset.', status: 'published', priority: 'high', relatedArticleSlug: 'reputation-is-now-a-growth-engine', relatedVideoIds: ['v10'], youtubeUrl: null, thumbnailUrl: null }
 ];
 
 export const LEARNING_VIDEOS = [
@@ -57,10 +58,11 @@ export const LEARNING_VIDEOS = [
     title: 'Reputation Is Now a Growth Engine',
     category: 'Digital Trust & Reputation',
     duration: '4:50',
-    youtubeId: 'jNQXAC9IVRw',
+    youtubeId: 'BT3WY2WdVDY',
     thumbnail: 'https://images.unsplash.com/photo-1563986768494-4dee2763ff0f?auto=format&fit=crop&q=80&w=800',
     description: 'Turn your customer reviews into your most powerful local SEO asset.',
-    status: 'placeholder', priority: 'medium', relatedArticleSlug: null, relatedVideoIds: ['v5', 'v7'], youtubeUrl: 'https://www.youtube.com/watch?v=jNQXAC9IVRw', thumbnailUrl: 'https://images.unsplash.com/photo-1563986768494-4dee2763ff0f?auto=format&fit=crop&q=80&w=800'
+    status: 'published', priority: 'high', relatedArticleSlug: 'reputation-is-now-a-growth-engine', relatedVideoIds: ['v5', 'v7'], youtubeUrl: 'https://youtu.be/BT3WY2WdVDY', thumbnailUrl: 'https://images.unsplash.com/photo-1563986768494-4dee2763ff0f?auto=format&fit=crop&q=80&w=800',
+    tags: ['Reputation Marketing', 'Digital Trust', 'AI Visibility', 'Reviews', 'Small Business Marketing', 'Customer Trust', 'Business Growth']
   },
   {
     id: 'v11',
