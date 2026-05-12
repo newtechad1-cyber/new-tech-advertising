@@ -231,6 +231,7 @@ import OpsLeads from './pages/ops/OpsLeads';
 import OpsOnboarding from './pages/ops/OpsOnboarding';
 import OpsAgreements from './pages/ops/OpsAgreements';
 import OpsDocuments from './pages/ops/OpsDocuments';
+import ClientPortalV2 from './pages/client-portal-v2/ClientPortal';
 import OpsFollowUps from './pages/ops/OpsFollowUps';
 import OpsReports from './pages/ops/OpsReports';
 import LeadPipelineKanban from './pages/LeadPipelineKanban';
@@ -557,6 +558,7 @@ const AuthenticatedApp = () => {
       <Route path="/ops/onboarding" element={<OpsOnboarding />} />
       <Route path="/ops/agreements" element={<OpsAgreements />} />
       <Route path="/ops/documents" element={<OpsDocuments />} />
+      <Route path="/c/:clientId" element={<ClientPortalV2 />} />
       <Route path="/ops/followups" element={<OpsFollowUps />} />
       <Route path="/ops/reports" element={<OpsReports />} />
 
