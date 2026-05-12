@@ -1,0 +1,37 @@
+{
+  "name": "ClientDocument",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "document_type": {
+      "type": "string",
+      "enum": [
+        "Intake Form",
+        "Brand Assets",
+        "Tax Form",
+        "Report",
+        "Other"
+      ],
+      "default": "Other"
+    },
+    "file_url": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "client_id",
+    "title",
+    "file_url"
+  ]
+}

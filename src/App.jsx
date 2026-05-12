@@ -228,6 +228,9 @@ import OpsVideos from './pages/ops/OpsVideos';
 import OpsSocial from './pages/ops/OpsSocial';
 import OpsApprovals from './pages/ops/OpsApprovals';
 import OpsLeads from './pages/ops/OpsLeads';
+import OpsOnboarding from './pages/ops/OpsOnboarding';
+import OpsAgreements from './pages/ops/OpsAgreements';
+import OpsDocuments from './pages/ops/OpsDocuments';
 import OpsFollowUps from './pages/ops/OpsFollowUps';
 import OpsReports from './pages/ops/OpsReports';
 import LeadPipelineKanban from './pages/LeadPipelineKanban';
@@ -551,6 +554,9 @@ const AuthenticatedApp = () => {
       <Route path="/ops/social" element={<OpsSocial />} />
       <Route path="/ops/approvals" element={<OpsApprovals />} />
       <Route path="/ops/leads" element={<OpsLeads />} />
+      <Route path="/ops/onboarding" element={<OpsOnboarding />} />
+      <Route path="/ops/agreements" element={<OpsAgreements />} />
+      <Route path="/ops/documents" element={<OpsDocuments />} />
       <Route path="/ops/followups" element={<OpsFollowUps />} />
       <Route path="/ops/reports" element={<OpsReports />} />
 

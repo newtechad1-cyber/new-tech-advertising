@@ -1,0 +1,67 @@
+{
+  "name": "ClientAgreement",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "agreement_type": {
+      "type": "string",
+      "enum": [
+        "MSA",
+        "SOW",
+        "NDA",
+        "Amendment",
+        "Other"
+      ],
+      "default": "SOW"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "Sent",
+        "Viewed",
+        "Signed",
+        "Cancelled"
+      ],
+      "default": "Draft"
+    },
+    "content": {
+      "type": "string"
+    },
+    "sent_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "signed_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "signer_name": {
+      "type": "string"
+    },
+    "signer_email": {
+      "type": "string"
+    },
+    "signature_data": {
+      "type": "string"
+    },
+    "file_url": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "client_id",
+    "title"
+  ]
+}

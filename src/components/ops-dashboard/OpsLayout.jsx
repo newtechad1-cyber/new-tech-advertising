@@ -3,7 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import {
   Users, UserCheck, Search, Megaphone, Globe, FileText,
   Video, Share2, CheckSquare, Target, Bell, BarChart2,
-  ChevronLeft, Menu, ExternalLink, Home
+  ChevronLeft, Menu, ExternalLink, Home,
+  ClipboardList, FileSignature, FolderOpen
 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
@@ -11,6 +12,9 @@ const NAV = [
   { label: 'Dashboard', href: '/ops', icon: Home, exact: true },
   { label: 'Prospects', href: '/ops/prospects', icon: Target },
   { label: 'Clients', href: '/ops/clients', icon: UserCheck },
+  { label: 'Onboarding', href: '/ops/onboarding', icon: ClipboardList },
+  { label: 'Agreements', href: '/ops/agreements', icon: FileSignature },
+  { label: 'Documents', href: '/ops/documents', icon: FolderOpen },
   { label: 'Gap Audits', href: '/ops/audits', icon: Search },
   { label: 'Campaigns', href: '/ops/campaigns', icon: Megaphone },
   { label: 'SEO Pages', href: '/ops/seo-pages', icon: Globe },
