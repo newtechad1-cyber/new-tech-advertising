@@ -144,6 +144,7 @@ import AgencyPipeline from './pages/AgencyPipeline';
 import AgencyContent from './pages/AgencyContent';
 import AgencyWebsites from './pages/AgencyWebsites';
 import AgencyLeads from './pages/AgencyLeads';
+import AgencyClientCMS from './pages/agency/AgencyClientCMS';
 import NTAContentDashboard from './pages/NTAContentDashboard';
 import HVACFunnel1 from './pages/HVACFunnel1';
 import HVACFunnel2 from './pages/HVACFunnel2';
@@ -455,6 +456,7 @@ const AuthenticatedApp = () => {
       <Route path="/agency" element={<AgencyDashboard />} />
       <Route path="/agency/clients" element={<AgencyClients />} />
       <Route path="/agency/clients/:id" element={<LayoutWrapper currentPageName="AgencyClientDetail"><AgencyClientDetail /></LayoutWrapper>} />
+      <Route path="/agency/clients/:id/cms" element={<AgencyClientCMS />} />
       <Route path="/agency/pipeline" element={<AgencyPipeline />} />
       <Route path="/agency/content" element={<AgencyContent />} />
       <Route path="/agency/websites" element={<AgencyWebsites />} />

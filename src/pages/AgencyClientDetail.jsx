@@ -9,7 +9,7 @@ import {
   Globe, Phone, Mail, MapPin, Building2, CheckCircle, Circle,
   AlertTriangle, ExternalLink, Loader2, Plus, Share2, RefreshCw,
   ChevronRight, Tag, Briefcase, UserCircle, Activity, Radio,
-  BookOpen, Calendar, Send, Video, X, Copy, Check, Link2
+  BookOpen, Calendar, Send, Video, X, Copy, Check, Link2, FolderOpen
 } from 'lucide-react';
 
 const STATUS_COLORS = {
@@ -523,6 +523,7 @@ export default function AgencyClientDetail() {
               <div className="space-y-1.5">
                 <QuickLink to={`/agency/campaigns?client=${id}`} icon={Megaphone} label="Campaigns" count={campaigns.length} />
                 <QuickLink to={`/agency/spoke-campaigns`} icon={Radio} label="Spoke Campaigns" count={spokeCampaigns.length} />
+                <QuickLink to={`/agency/clients/${id}/cms`} icon={FolderOpen} label="Asset Library & CMS" />
                 <QuickLink to={`/agency/content-asset?client=${id}`} icon={FileText} label="Content Assets" count={contentAssets.length} />
                 <QuickLink to={`/agency/approval-center?client=${id}`} icon={Shield} label="Approval Center" count={approvalItems.filter(a=>a.status==='pending').length || undefined} />
                 <QuickLink to={`/agency/publishing-calendar?client=${id}`} icon={Calendar} label="Publishing Calendar" />

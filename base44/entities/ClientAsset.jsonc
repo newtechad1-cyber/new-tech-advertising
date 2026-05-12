@@ -1,0 +1,86 @@
+{
+  "name": "ClientAsset",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "asset_name": {
+      "type": "string"
+    },
+    "asset_type": {
+      "type": "string",
+      "enum": [
+        "Business Profile",
+        "Logo",
+        "Brand Color",
+        "Photo/Image",
+        "Video",
+        "AI Content",
+        "Website Page",
+        "Social Post",
+        "Learning Asset",
+        "Signed Document",
+        "Proposal",
+        "Approval",
+        "Note",
+        "Service Delivery Checklist",
+        "Other"
+      ]
+    },
+    "campaign_id": {
+      "type": "string"
+    },
+    "platform": {
+      "type": "string",
+      "enum": [
+        "Facebook",
+        "Instagram",
+        "LinkedIn",
+        "TikTok",
+        "YouTube",
+        "Website",
+        "Email",
+        "Portal",
+        "None",
+        "Other"
+      ],
+      "default": "None"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "Needs Review",
+        "Approved",
+        "Exported",
+        "Delivered",
+        "Scheduled",
+        "Published",
+        "Archived"
+      ],
+      "default": "Draft"
+    },
+    "file_url": {
+      "type": "string"
+    },
+    "content_text": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "date_created": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "client_id",
+    "asset_name",
+    "asset_type"
+  ]
+}
