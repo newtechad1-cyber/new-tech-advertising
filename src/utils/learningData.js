@@ -83,10 +83,11 @@ export const LEARNING_VIDEOS = [
     title: 'Building Digital Trust',
     category: 'Digital Trust & Reputation',
     duration: '4:15',
-    youtubeId: 'jNQXAC9IVRw',
+    youtubeId: 'E5vE1kXlAhw',
     thumbnail: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800',
     description: 'How to proactively build a digital reputation that search engines and AI models trust implicitly.',
-    status: 'placeholder', priority: 'medium', relatedArticleSlug: null, relatedVideoIds: ['v5', 'v10', 'v13'], youtubeUrl: 'https://www.youtube.com/watch?v=jNQXAC9IVRw', thumbnailUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800'
+    status: 'published', priority: 'high', relatedArticleSlug: 'digital-trust-reputation', relatedVideoIds: ['v5', 'v10', 'v13'], youtubeUrl: 'https://youtu.be/E5vE1kXlAhw', thumbnailUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800',
+    tags: ['Digital Trust', 'Reputation', 'Small Business Marketing', 'AI Visibility', 'Reviews', 'Customer Confidence']
   },
   {
     id: 'v8',
