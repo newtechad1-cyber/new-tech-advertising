@@ -250,6 +250,7 @@ import WhatChangedOnline from './pages/WhatChangedOnline';
 import AIVisibilityBasics from './pages/AIVisibilityBasics';
 import PracticalAIForSmallBusinesses from './pages/PracticalAIForSmallBusinesses';
 import SEOVsAISearch from './pages/SEOVsAISearch';
+import GrowthSystemsVsCampaigns from './pages/GrowthSystemsVsCampaigns';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -579,6 +580,7 @@ const AuthenticatedApp = () => {
       <Route path="/ai-visibility-basics" element={<LayoutWrapper currentPageName="AIVisibilityBasics"><AIVisibilityBasics /></LayoutWrapper>} />
       <Route path="/practical-ai-for-small-businesses" element={<LayoutWrapper currentPageName="PracticalAIForSmallBusinesses"><PracticalAIForSmallBusinesses /></LayoutWrapper>} />
       <Route path="/seo-vs-ai-search" element={<LayoutWrapper currentPageName="SEOVsAISearch"><SEOVsAISearch /></LayoutWrapper>} />
+      <Route path="/growth-systems-vs-campaigns" element={<LayoutWrapper currentPageName="GrowthSystemsVsCampaigns"><GrowthSystemsVsCampaigns /></LayoutWrapper>} />
 
       <Route path="*" element={<PageNotFound />} />
     </Routes>

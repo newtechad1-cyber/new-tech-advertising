@@ -14,7 +14,8 @@ export const LEARNING_ARTICLES = [
   { id: 'a1', title: 'What Changed Online', category: 'AI Visibility & Search', link: '/what-changed-online', description: 'Understand zero-click searches, AI overviews, and what to do next.', status: 'published', priority: 'high', relatedArticleSlug: 'what-changed-online', relatedVideoIds: ['v1', 'v11'], youtubeUrl: null, thumbnailUrl: null },
   { id: 'a2', title: 'AI Visibility Basics', category: 'AI Visibility & Search', link: '/ai-visibility-basics', description: 'How ChatGPT and Gemini choose which local businesses to recommend.', status: 'published', priority: 'high', relatedArticleSlug: 'ai-visibility-basics', relatedVideoIds: ['v1'], youtubeUrl: null, thumbnailUrl: null },
   { id: 'a3', title: 'SEO vs AI Search', category: 'AI Visibility & Search', link: '/seo-vs-ai-search', description: 'Why traditional SEO is dying and how AI Search Optimization replaces it.', status: 'published', priority: 'high', relatedArticleSlug: 'seo-vs-ai-search', relatedVideoIds: ['v2'], youtubeUrl: null, thumbnailUrl: null },
-  { id: 'a4', title: 'Practical AI For Small Businesses', category: 'AI Basics For Small Businesses', link: '/practical-ai-for-small-businesses', description: 'Real tools you can use today to save time and generate more leads.', status: 'published', priority: 'high', relatedArticleSlug: 'practical-ai-for-small-businesses', relatedVideoIds: ['v14'], youtubeUrl: null, thumbnailUrl: null }
+  { id: 'a4', title: 'Practical AI For Small Businesses', category: 'AI Basics For Small Businesses', link: '/practical-ai-for-small-businesses', description: 'Real tools you can use today to save time and generate more leads.', status: 'published', priority: 'high', relatedArticleSlug: 'practical-ai-for-small-businesses', relatedVideoIds: ['v14'], youtubeUrl: null, thumbnailUrl: null },
+  { id: 'a5', title: 'Growth Systems vs Campaigns', category: 'Modern Marketing Systems', link: '/growth-systems-vs-campaigns', description: 'How a true growth system scales predictably, while campaigns burn through cash.', status: 'published', priority: 'high', relatedArticleSlug: 'growth-systems-vs-campaigns', relatedVideoIds: ['v9'], youtubeUrl: null, thumbnailUrl: null }
 ];
 
 export const LEARNING_VIDEOS = [
@@ -105,10 +106,11 @@ export const LEARNING_VIDEOS = [
     title: 'Growth Systems vs Campaigns',
     category: 'Modern Marketing Systems',
     duration: '5:45',
-    youtubeId: 'jNQXAC9IVRw',
+    youtubeId: '6kB55gnGGHo',
     thumbnail: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
     description: 'How a true growth system scales predictably, while campaigns burn through cash.',
-    status: 'needs_video', priority: 'high', relatedArticleSlug: null, relatedVideoIds: ['v6', 'v8'], youtubeUrl: null, thumbnailUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800'
+    status: 'published', priority: 'high', relatedArticleSlug: 'growth-systems-vs-campaigns', relatedVideoIds: ['v6', 'v8'], youtubeUrl: 'https://youtu.be/6kB55gnGGHo', thumbnailUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
+    tags: ['Growth Systems', 'Small Business Marketing', 'AI Visibility', 'Marketing Systems', 'SEO', 'Content Marketing', 'Business Growth']
   },
   {
     id: 'v10',
