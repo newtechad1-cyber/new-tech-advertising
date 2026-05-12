@@ -16,7 +16,8 @@ export const LEARNING_ARTICLES = [
   { id: 'a3', title: 'SEO vs AI Search', category: 'AI Visibility & Search', link: '/seo-vs-ai-search', description: 'Why traditional SEO is dying and how AI Search Optimization replaces it.', status: 'published', priority: 'high', relatedArticleSlug: 'seo-vs-ai-search', relatedVideoIds: ['v2'], youtubeUrl: null, thumbnailUrl: null },
   { id: 'a4', title: 'Practical AI For Small Businesses', category: 'AI Basics For Small Businesses', link: '/practical-ai-for-small-businesses', description: 'Real tools you can use today to save time and generate more leads.', status: 'published', priority: 'high', relatedArticleSlug: 'practical-ai-for-small-businesses', relatedVideoIds: ['v14'], youtubeUrl: null, thumbnailUrl: null },
   { id: 'a5', title: 'Growth Systems vs Campaigns', category: 'Modern Marketing Systems', link: '/growth-systems-vs-campaigns', description: 'How a true growth system scales predictably, while campaigns burn through cash.', status: 'published', priority: 'high', relatedArticleSlug: 'growth-systems-vs-campaigns', relatedVideoIds: ['v9'], youtubeUrl: null, thumbnailUrl: null },
-  { id: 'a6', title: 'Reputation Is Now a Growth Engine', category: 'Digital Trust & Reputation', link: '/reputation-is-now-a-growth-engine', description: 'Turn your customer reviews into your most powerful local SEO asset.', status: 'published', priority: 'high', relatedArticleSlug: 'reputation-is-now-a-growth-engine', relatedVideoIds: ['v10'], youtubeUrl: null, thumbnailUrl: null }
+  { id: 'a6', title: 'Reputation Is Now a Growth Engine', category: 'Digital Trust & Reputation', link: '/reputation-is-now-a-growth-engine', description: 'Turn your customer reviews into your most powerful local SEO asset.', status: 'published', priority: 'high', relatedArticleSlug: 'reputation-is-now-a-growth-engine', relatedVideoIds: ['v10'], youtubeUrl: null, thumbnailUrl: null },
+  { id: 'a7', title: 'The Hidden Cost of Outdated Marketing', category: 'Modern Marketing Systems', link: '/hidden-cost-of-outdated-marketing', description: 'How holding onto legacy SEO and traditional websites is slowly bleeding your business dry.', status: 'published', priority: 'high', relatedArticleSlug: 'hidden-cost-of-outdated-marketing', relatedVideoIds: ['v12'], youtubeUrl: null, thumbnailUrl: null }
 ];
 
 export const LEARNING_VIDEOS = [
@@ -79,10 +80,11 @@ export const LEARNING_VIDEOS = [
     title: 'The Hidden Cost of Outdated Marketing',
     category: 'Modern Marketing Systems',
     duration: '5:10',
-    youtubeId: 'jNQXAC9IVRw',
+    youtubeId: 'jU_2Wae-_14',
     thumbnail: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&q=80&w=800',
     description: 'How holding onto legacy SEO and traditional websites is slowly bleeding your business dry.',
-    status: 'placeholder', priority: 'high', relatedArticleSlug: null, relatedVideoIds: ['v8', 'v16'], youtubeUrl: 'https://www.youtube.com/watch?v=jNQXAC9IVRw', thumbnailUrl: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&q=80&w=800'
+    status: 'published', priority: 'high', relatedArticleSlug: 'hidden-cost-of-outdated-marketing', relatedVideoIds: ['v8', 'v16'], youtubeUrl: 'https://youtu.be/jU_2Wae-_14', thumbnailUrl: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&q=80&w=800',
+    tags: ['AI Visibility', 'Modern Marketing', 'SEO', 'Digital Marketing', 'Small Business Marketing', 'Business Growth', 'Content Marketing']
   },
   {
     id: 'v13',
