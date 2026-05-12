@@ -18,6 +18,11 @@
         "SOW",
         "NDA",
         "Amendment",
+        "Service Agreement",
+        "Monthly Marketing Agreement",
+        "AI Visibility Audit Agreement",
+        "Website Intake Form",
+        "Onboarding Form",
         "Other"
       ],
       "default": "SOW"
@@ -29,6 +34,7 @@
         "Sent",
         "Viewed",
         "Signed",
+        "Completed",
         "Cancelled"
       ],
       "default": "Draft"

@@ -21,6 +21,35 @@ export default function ClientPortal() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [selectedApproval, setSelectedApproval] = useState(null);
+  const [signerName, setSignerName] = useState('');
+  const [signerAgreed, setSignerAgreed] = useState(false);
+  const [approvalSubmitting, setApprovalSubmitting] = useState(false);
+
+  const handleApprove = async (e) => {
+    e.preventDefault();
+    if (!signerName || !signerAgreed) return;
+    setApprovalSubmitting(true);
+    try {
+      await base44.entities.ApprovalRequest.update(selectedApproval.id, {
+        status: 'Approved',
+        final_decision: 'Approved',
+        decided_at: new Date().toISOString(),
+        signer_name: signerName,
+        signature_data: `DIGITAL_APPROVAL|${new Date().getTime()}`
+      });
+      setApprovals(prev => prev.map(a => a.id === selectedApproval.id ? {
+        ...a, status: 'Approved', final_decision: 'Approved'
+      } : a));
+      setSelectedApproval(null);
+      setSignerName('');
+      setSignerAgreed(false);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setApprovalSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     const load = async () => {
@@ -321,8 +350,8 @@ export default function ClientPortal() {
                 {agreements.map(a => (
                   <div key={a.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 bg-slate-900 border border-slate-800 rounded-2xl">
                     <div className="flex items-start gap-4">
-                      <div className={`p-2.5 rounded-xl ${a.status === 'Signed' ? 'bg-emerald-500/10' : 'bg-amber-500/10'}`}>
-                        <FileSignature className={`w-5 h-5 ${a.status === 'Signed' ? 'text-emerald-500' : 'text-amber-500'}`} />
+                      <div className={`p-2.5 rounded-xl ${(a.status === 'Signed' || a.status === 'Completed') ? 'bg-emerald-500/10' : 'bg-amber-500/10'}`}>
+                        <FileSignature className={`w-5 h-5 ${(a.status === 'Signed' || a.status === 'Completed') ? 'text-emerald-500' : 'text-amber-500'}`} />
                       </div>
                       <div>
                         <p className="font-semibold text-white">{a.title}</p>
@@ -330,15 +359,14 @@ export default function ClientPortal() {
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
-                      {a.status !== 'Signed' && (
-                        <button className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold rounded-lg transition-colors">
+                      {(a.status !== 'Signed' && a.status !== 'Completed') ? (
+                        <Link to={`/c/${clientId}/agreement/${a.id}`} className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold rounded-lg transition-colors">
                           Review &amp; Sign
+                        </Link>
+                      ) : (
+                        <button onClick={() => window.open(`/api/functions/exportAgreementPDF?id=${a.id}`, '_blank')} className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-sm font-semibold rounded-lg transition-colors flex items-center gap-2">
+                          <Download className="w-4 h-4" /> Download PDF
                         </button>
-                      )}
-                      {a.file_url && (
-                        <a href={a.file_url} target="_blank" rel="noreferrer" className="p-2 text-slate-400 hover:text-white bg-slate-800 rounded-lg transition-colors">
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
                       )}
                     </div>
                   </div>
@@ -392,7 +420,7 @@ export default function ClientPortal() {
                       </div>
                     </div>
                     {a.status.includes('Pending') && (
-                      <button className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold rounded-lg transition-colors">
+                      <button onClick={() => setSelectedApproval(a)} className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold rounded-lg transition-colors">
                         Review Item
                       </button>
                     )}
@@ -460,6 +488,61 @@ export default function ClientPortal() {
 
         </div>
       </main>
+
+      {/* Approval Modal */}
+      {selectedApproval && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col">
+            <div className="p-5 border-b border-slate-800 flex items-center justify-between">
+              <h3 className="text-lg font-bold text-white">Review &amp; Approve</h3>
+              <button onClick={() => setSelectedApproval(null)} className="text-slate-400 hover:text-white"><X className="w-5 h-5" /></button>
+            </div>
+            <div className="p-6 space-y-6">
+              <div>
+                <p className="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-1">{selectedApproval.request_type}</p>
+                <h4 className="text-xl font-bold text-white mb-2">{selectedApproval.title}</h4>
+                <p className="text-sm text-slate-300 bg-slate-800/50 p-4 rounded-xl border border-slate-700/50">{selectedApproval.message || 'Please review this item for final approval.'}</p>
+              </div>
+
+              <form onSubmit={handleApprove} className="space-y-4">
+                <div>
+                  <label className="block text-xs font-medium text-slate-400 mb-1.5">Signer Name</label>
+                  <input 
+                    type="text" 
+                    required
+                    value={signerName}
+                    onChange={e => setSignerName(e.target.value)}
+                    placeholder="Your Full Name"
+                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-white placeholder-slate-600 focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <div className="relative flex items-center mt-0.5">
+                    <input 
+                      type="checkbox" 
+                      required
+                      checked={signerAgreed}
+                      onChange={e => setSignerAgreed(e.target.checked)}
+                      className="peer sr-only"
+                    />
+                    <div className="w-5 h-5 bg-slate-950 border border-slate-700 rounded transition-colors peer-checked:bg-blue-600 peer-checked:border-blue-600"></div>
+                    <CheckSquare className="w-3.5 h-3.5 text-white absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 peer-checked:opacity-100 pointer-events-none" />
+                  </div>
+                  <span className="text-xs text-slate-400 leading-relaxed">
+                    I approve this item. I understand that by providing my name, this acts as my digital signature.
+                  </span>
+                </label>
+                <div className="pt-4 flex items-center gap-3">
+                  <button type="button" onClick={() => setSelectedApproval(null)} className="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-xl transition-colors">Cancel</button>
+                  <button type="submit" disabled={approvalSubmitting || !signerAgreed || !signerName} className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-semibold rounded-xl transition-colors">
+                    {approvalSubmitting ? 'Processing...' : 'Confirm Approval'}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

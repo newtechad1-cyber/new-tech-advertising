@@ -23,7 +23,9 @@
         "Content Review",
         "Post Approval",
         "Campaign Approval",
-        "Asset Approval"
+        "Asset Approval",
+        "Proposal Approval",
+        "Video Approval"
       ],
       "default": "Post Approval"
     },
@@ -110,6 +112,12 @@
     "decided_at": {
       "type": "string",
       "format": "date-time"
+    },
+    "signer_name": {
+      "type": "string"
+    },
+    "signature_data": {
+      "type": "string"
     },
     "description": {
       "type": "string",
