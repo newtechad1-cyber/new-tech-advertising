@@ -92,12 +92,13 @@ export const LEARNING_VIDEOS = [
   {
     id: 'v8',
     title: 'Campaigns vs Authority',
-    category: 'Modern Marketing Systems',
+    category: 'AI Visibility & Search',
     duration: '6:30',
-    youtubeId: 'jNQXAC9IVRw',
+    youtubeId: '6Toyby7CTsA',
     thumbnail: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800',
     description: 'Stop running endless disconnected campaigns and start building compounding digital authority.',
-    status: 'planned', priority: 'medium', relatedArticleSlug: null, relatedVideoIds: ['v6', 'v9'], youtubeUrl: 'https://www.youtube.com/watch?v=jNQXAC9IVRw', thumbnailUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800'
+    status: 'published', priority: 'high', relatedArticleSlug: 'seo-vs-ai-search', relatedVideoIds: ['v6', 'v9'], youtubeUrl: 'https://youtu.be/6Toyby7CTsA', thumbnailUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800',
+    tags: ['AI Visibility', 'Authority Marketing', 'SEO', 'Content Marketing', 'Small Business Marketing', 'Digital Trust']
   },
   {
     id: 'v9',
