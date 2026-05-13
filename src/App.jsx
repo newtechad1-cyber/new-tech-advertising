@@ -256,7 +256,6 @@ import TheHiddenCostOfOutdatedMarketing from './pages/TheHiddenCostOfOutdatedMar
 import TheRoleOfAIInLocalMarketing from './pages/TheRoleOfAIInLocalMarketing';
 import AccessibleWebsites from './pages/AccessibleWebsites';
 import WebAccessibilityTrust from './pages/WebAccessibilityTrust';
-import BuildingDigitalTrust from './pages/BuildingDigitalTrust';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -592,7 +591,6 @@ const AuthenticatedApp = () => {
       <Route path="/role-of-ai-in-local-marketing" element={<LayoutWrapper currentPageName="TheRoleOfAIInLocalMarketing"><TheRoleOfAIInLocalMarketing /></LayoutWrapper>} />
       <Route path="/accessible-websites" element={<LayoutWrapper currentPageName="AccessibleWebsites"><AccessibleWebsites /></LayoutWrapper>} />
       <Route path="/web-accessibility-trust" element={<LayoutWrapper currentPageName="WebAccessibilityTrust"><WebAccessibilityTrust /></LayoutWrapper>} />
-      <Route path="/building-digital-trust" element={<LayoutWrapper currentPageName="BuildingDigitalTrust"><BuildingDigitalTrust /></LayoutWrapper>} />
       <Route path="/ada-compliance" element={<Navigate to="/accessible-websites" replace />} />
       <Route path="/ada-website-rebuild" element={<Navigate to="/accessible-websites" replace />} />
       <Route path="/ada-website-lawsuit-prevention" element={<Navigate to="/web-accessibility-trust" replace />} />

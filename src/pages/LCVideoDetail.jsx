@@ -6,6 +6,7 @@ import { LEARNING_VIDEOS } from '@/utils/learningData';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
 import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import { ArrowLeft, Clock, Tag } from 'lucide-react';
+import BuildingDigitalTrustArticle from '@/components/learning-center/articles/BuildingDigitalTrustArticle';
 
 export default function LCVideoDetail() {
   const { id } = useParams();
@@ -59,6 +60,12 @@ export default function LCVideoDetail() {
               title={video.title}
             />
           </div>
+
+          {video.id === 'v7' && (
+            <div className="mb-16">
+              <BuildingDigitalTrustArticle />
+            </div>
+          )}
 
           <LCRelatedVideos currentVideoId={video.id} category={video.category} />
 
