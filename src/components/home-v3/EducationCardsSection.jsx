@@ -45,26 +45,26 @@ const TOPICS = [
     desc: 'AI does not have to be complicated. Learn the specific tools local business owners can use today to save time, create content, and improve customer communication.',
     href: '/learning-center',
   },
+  {
+    icon: '🛡️',
+    title: 'Website Accessibility & ADA',
+    desc: 'Modern websites must be accessible to build trust and meet ADA standards. Accessible sites also feed AI search engines the structured data they need.',
+    href: '/accessible-websites',
+  },
 ];
 
 export default function EducationCardsSection() {
   return (
     <section className="py-20 px-6 bg-white border-t border-slate-100">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-14 max-w-3xl mx-auto">
+        <div className="text-center mb-14 max-w-2xl mx-auto">
           <p className="text-sm font-bold uppercase tracking-widest text-blue-600 mb-3">Learning Center</p>
           <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-4">
             Education That Actually Helps
           </h2>
-          <p className="text-slate-500 text-lg mb-5">
+          <p className="text-slate-500 text-lg max-w-2xl mx-auto">
             Plain-spoken, practical guides for local business owners who want to understand what is working online today.
           </p>
-          <p className="text-slate-500 text-lg leading-relaxed mb-6">
-            A key part of modern online success is ensuring your website is accessible and easy to use for everyone. Meeting accessibility and ADA standards is a core marker of website quality. An accessible website naturally improves customer experience, builds trust, and creates the structured data needed for strong SEO, usability, and AI readability.
-          </p>
-          <Link to="/accessible-websites" className="inline-flex items-center gap-1.5 text-blue-600 hover:text-blue-700 font-semibold transition-colors">
-            Learn About Modern Website Accessibility <ArrowRight className="w-4 h-4" />
-          </Link>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
