@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-export default function LCCallToAction({ type = 'audit', title, description, buttonText, className }) {
+export default function LCCallToAction({ type = 'audit', title, description, buttonText, link, className }) {
   const content = {
     audit: {
       title: "Ready to Fix Your Online Visibility?",
@@ -31,6 +31,7 @@ export default function LCCallToAction({ type = 'audit', title, description, but
   const displayTitle = title || content.title;
   const displayDesc = description || content.description;
   const displayBtn = buttonText || content.buttonText;
+  const displayLink = link || content.link;
 
   return (
     <div className={cn("relative overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 p-8 md:p-12 text-center", className)}>
@@ -50,7 +51,7 @@ export default function LCCallToAction({ type = 'audit', title, description, but
         </div>
 
         <Link
-          to={content.link}
+          to={displayLink}
           className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-[0_0_20px_-5px_rgba(37,99,235,0.4)] hover:shadow-[0_0_25px_-5px_rgba(37,99,235,0.6)] group w-full sm:w-auto"
         >
           {displayBtn} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
