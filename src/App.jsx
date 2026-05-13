@@ -254,6 +254,7 @@ import GrowthSystemsVsCampaigns from './pages/GrowthSystemsVsCampaigns';
 import ReputationIsNowAGrowthEngine from './pages/ReputationIsNowAGrowthEngine';
 import TheHiddenCostOfOutdatedMarketing from './pages/TheHiddenCostOfOutdatedMarketing';
 import TheRoleOfAIInLocalMarketing from './pages/TheRoleOfAIInLocalMarketing';
+import VideoStorytellingBuildsConfidence from './pages/VideoStorytellingBuildsConfidence';
 import AccessibleWebsites from './pages/AccessibleWebsites';
 import WebAccessibilityTrust from './pages/WebAccessibilityTrust';
 
@@ -589,6 +590,7 @@ const AuthenticatedApp = () => {
       <Route path="/reputation-is-now-a-growth-engine" element={<LayoutWrapper currentPageName="ReputationIsNowAGrowthEngine"><ReputationIsNowAGrowthEngine /></LayoutWrapper>} />
       <Route path="/hidden-cost-of-outdated-marketing" element={<LayoutWrapper currentPageName="TheHiddenCostOfOutdatedMarketing"><TheHiddenCostOfOutdatedMarketing /></LayoutWrapper>} />
       <Route path="/role-of-ai-in-local-marketing" element={<LayoutWrapper currentPageName="TheRoleOfAIInLocalMarketing"><TheRoleOfAIInLocalMarketing /></LayoutWrapper>} />
+      <Route path="/video-storytelling-builds-confidence" element={<LayoutWrapper currentPageName="VideoStorytellingBuildsConfidence"><VideoStorytellingBuildsConfidence /></LayoutWrapper>} />
       <Route path="/accessible-websites" element={<LayoutWrapper currentPageName="AccessibleWebsites"><AccessibleWebsites /></LayoutWrapper>} />
       <Route path="/web-accessibility-trust" element={<LayoutWrapper currentPageName="WebAccessibilityTrust"><WebAccessibilityTrust /></LayoutWrapper>} />
       <Route path="/ada-compliance" element={<Navigate to="/accessible-websites" replace />} />

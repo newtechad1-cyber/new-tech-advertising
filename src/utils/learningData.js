@@ -20,7 +20,8 @@ export const LEARNING_ARTICLES = [
   { id: 'a7', title: 'The Hidden Cost of Outdated Marketing', category: 'Modern Marketing Systems', link: '/hidden-cost-of-outdated-marketing', description: 'How holding onto legacy SEO and traditional websites is slowly bleeding your business dry.', status: 'published', priority: 'high', relatedArticleSlug: 'hidden-cost-of-outdated-marketing', relatedVideoIds: ['v12'], youtubeUrl: null, thumbnailUrl: null },
   { id: 'a8', title: 'The Role of AI in Local Marketing', category: 'AI Basics For Small Businesses', link: '/role-of-ai-in-local-marketing', description: 'A no-BS guide to how small businesses are actually using AI to generate more revenue.', status: 'published', priority: 'high', relatedArticleSlug: 'role-of-ai-in-local-marketing', relatedVideoIds: ['v14'], youtubeUrl: null, thumbnailUrl: null },
   { id: 'a9', title: 'Web Accessibility: The Foundation of Digital Trust', category: 'Digital Trust & Reputation', link: '/web-accessibility-trust', description: 'Why accessible websites rank better in AI search and build instant credibility.', status: 'published', priority: 'high', relatedArticleSlug: 'web-accessibility-trust', relatedVideoIds: ['v7'], youtubeUrl: null, thumbnailUrl: null },
-  { id: 'a10', title: 'Building Digital Trust', category: 'Digital Trust & Reputation', link: '/building-digital-trust', description: 'How to proactively build a digital reputation that search engines and AI models trust implicitly.', status: 'published', priority: 'high', relatedArticleSlug: 'building-digital-trust', relatedVideoIds: ['v7', 'v10'], youtubeUrl: null, thumbnailUrl: null }
+  { id: 'a10', title: 'Building Digital Trust', category: 'Digital Trust & Reputation', link: '/building-digital-trust', description: 'How to proactively build a digital reputation that search engines and AI models trust implicitly.', status: 'published', priority: 'high', relatedArticleSlug: 'building-digital-trust', relatedVideoIds: ['v7', 'v10'], youtubeUrl: null, thumbnailUrl: null },
+  { id: 'a11', title: 'Video Storytelling Builds Confidence', category: 'Video & CTV Marketing', link: '/video-storytelling-builds-confidence', description: 'Stop selling and start showing. How authentic video creates instant customer confidence.', status: 'published', priority: 'high', relatedArticleSlug: 'video-storytelling-builds-confidence', relatedVideoIds: ['v15'], youtubeUrl: null, thumbnailUrl: null }
 ];
 
 export const LEARNING_VIDEOS = [
@@ -115,10 +116,11 @@ export const LEARNING_VIDEOS = [
     title: 'Video Storytelling Builds Confidence',
     category: 'Video & CTV Marketing',
     duration: '6:05',
-    youtubeId: 'jNQXAC9IVRw',
+    youtubeId: '3_P36VrK9jc',
     thumbnail: 'https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&q=80&w=800',
     description: 'Stop selling and start showing. How authentic video creates instant customer confidence.',
-    status: 'placeholder', priority: 'medium', relatedArticleSlug: null, relatedVideoIds: ['v3'], youtubeUrl: 'https://www.youtube.com/watch?v=jNQXAC9IVRw', thumbnailUrl: 'https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&q=80&w=800'
+    status: 'published', priority: 'high', relatedArticleSlug: 'video-storytelling-builds-confidence', relatedVideoIds: ['v3'], youtubeUrl: 'https://youtu.be/3_P36VrK9jc', thumbnailUrl: 'https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&q=80&w=800',
+    tags: ['Video Marketing', 'Digital Trust', 'AI Visibility', 'CTV', 'Content Marketing', 'Small Business Marketing', 'Customer Confidence']
   },
   {
     id: 'v16',
