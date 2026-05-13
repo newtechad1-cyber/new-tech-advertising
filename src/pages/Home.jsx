@@ -15,6 +15,7 @@ import WhatWeFoundSection from '../components/home-v3/WhatWeFoundSection';
 import GrowthSystemSection from '../components/home-v3/GrowthSystemSection';
 import EducationCardsSection from '../components/home-v3/EducationCardsSection';
 import NTAVideoMessage from '../components/home-v3/NTAVideoMessage';
+import AccessibleWebsitesCTA from '../components/home-v3/AccessibleWebsitesCTA';
 
 export default function Home() {
   useEffect(() => {
@@ -61,6 +62,7 @@ export default function Home() {
       <IndustrySplit />
       <HowItWorks />
       <WhoThisWorksFor />
+      <AccessibleWebsitesCTA />
       <TestimonialsSection />
       <GapAuditCenteredCTA />
       <SiteFooter />
