@@ -215,7 +215,7 @@ export default function TheRoleOfAIInLocalMarketing() {
           </div>
 
           <div className="mt-20 pt-12 border-t border-slate-800">
-            <LCRelatedVideos currentVideoId="v14" limit={3} category="AI Basics For Small Businesses" />
+            <LCRelatedVideos currentVideoId="role-of-ai-in-local-marketing" limit={3} category="AI Basics For Small Businesses" />
           </div>
         </div>
       </main>

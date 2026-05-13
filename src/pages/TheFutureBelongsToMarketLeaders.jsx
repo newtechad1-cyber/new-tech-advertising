@@ -194,7 +194,7 @@ export default function TheFutureBelongsToMarketLeaders() {
           </div>
 
           <div className="mt-20 pt-12 border-t border-slate-800">
-            <LCRelatedVideos currentVideoId="v11" limit={3} category="AI Visibility & Search" />
+            <LCRelatedVideos currentVideoId="the-future-belongs-to-market-leaders" limit={3} category="AI Visibility & Search" />
           </div>
         </div>
       </main>

@@ -198,7 +198,7 @@ export default function GrowthSystemsVsCampaigns() {
           </div>
 
           <div className="mt-20 pt-12 border-t border-slate-800">
-            <LCRelatedVideos currentVideoId="v9" limit={3} category="Modern Marketing Systems" />
+            <LCRelatedVideos currentVideoId="growth-systems-vs-campaigns" limit={3} category="Modern Marketing Systems" />
           </div>
         </div>
       </main>

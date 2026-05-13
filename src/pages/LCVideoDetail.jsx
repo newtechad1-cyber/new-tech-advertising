@@ -43,9 +43,7 @@ export default function LCVideoDetail() {
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider">
                 <Tag className="w-3 h-3" /> {video.category}
               </span>
-              <span className="inline-flex items-center gap-1.5 text-slate-400 text-sm font-medium">
-                <Clock className="w-4 h-4" /> {video.duration}
-              </span>
+
             </div>
             <h1 className="text-3xl md:text-5xl font-black text-white leading-tight mb-6">{video.title}</h1>
             <p className="text-lg text-slate-400">{video.description}</p>
@@ -73,7 +71,7 @@ export default function LCVideoDetail() {
             </div>
           )}
 
-          {video.id === 'v7' && (
+          {video.id === 'building-digital-trust' && (
             <div className="mb-16">
               <BuildingDigitalTrustArticle />
             </div>

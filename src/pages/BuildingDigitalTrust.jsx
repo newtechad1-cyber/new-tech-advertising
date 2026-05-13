@@ -40,7 +40,7 @@ export default function BuildingDigitalTrust() {
           <BuildingDigitalTrustArticle />
 
           <div className="mt-20 pt-12 border-t border-slate-800">
-            <LCRelatedVideos currentVideoId="v7" limit={3} category="Digital Trust & Reputation" />
+            <LCRelatedVideos currentVideoId="building-digital-trust" limit={3} category="Digital Trust & Reputation" />
           </div>
         </div>
       </main>

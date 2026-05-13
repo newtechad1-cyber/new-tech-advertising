@@ -204,7 +204,7 @@ export default function CampaignsVsAuthority() {
           </div>
 
           <div className="mt-20 pt-12 border-t border-slate-800">
-            <LCRelatedVideos currentVideoId="v8" limit={3} category="AI Visibility & Search" />
+            <LCRelatedVideos currentVideoId="campaigns-vs-authority" limit={3} category="AI Visibility & Search" />
           </div>
         </div>
       </main>

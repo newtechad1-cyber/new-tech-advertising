@@ -223,7 +223,7 @@ export default function VideoStorytellingBuildsConfidence() {
           </div>
 
           <div className="mt-20 pt-12 border-t border-slate-800">
-            <LCRelatedVideos currentVideoId="v15" limit={3} category="Video & CTV Marketing" />
+            <LCRelatedVideos currentVideoId="video-storytelling-builds-confidence" limit={3} category="Video & CTV Marketing" />
           </div>
         </div>
       </main>

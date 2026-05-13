@@ -202,7 +202,7 @@ export default function ReputationIsNowAGrowthEngine() {
           </div>
 
           <div className="mt-20 pt-12 border-t border-slate-800">
-            <LCRelatedVideos currentVideoId="v10" limit={3} category="Digital Trust & Reputation" />
+            <LCRelatedVideos currentVideoId="reputation-is-now-a-growth-engine" limit={3} category="Digital Trust & Reputation" />
           </div>
         </div>
       </main>

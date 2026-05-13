@@ -81,7 +81,7 @@ export default function WebsitesAsSalespeople() {
           </div>
 
           <div className="mt-20 pt-12 border-t border-slate-800">
-            <LCRelatedVideos currentVideoId="v16" limit={3} category="Modern Marketing Systems" />
+            <LCRelatedVideos currentVideoId="websites-as-salespeople" limit={3} category="Modern Marketing Systems" />
           </div>
         </div>
       </main>

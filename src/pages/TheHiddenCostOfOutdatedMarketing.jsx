@@ -197,7 +197,7 @@ export default function TheHiddenCostOfOutdatedMarketing() {
           </div>
 
           <div className="mt-20 pt-12 border-t border-slate-800">
-            <LCRelatedVideos currentVideoId="v12" limit={3} category="Modern Marketing Systems" />
+            <LCRelatedVideos currentVideoId="hidden-cost-of-outdated-marketing" limit={3} category="Modern Marketing Systems" />
           </div>
         </div>
       </main>
