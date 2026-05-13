@@ -51,15 +51,27 @@ export default function LCVideoDetail() {
             <p className="text-lg text-slate-400">{video.description}</p>
           </div>
 
-          <div className="w-full aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl border border-slate-800 mb-16">
-            <iframe 
-              src={`https://www.youtube.com/embed/${video.youtubeId}`} 
-              className="w-full h-full border-0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowFullScreen
-              title={video.title}
-            />
-          </div>
+          {video.youtubeId ? (
+            <div className="w-full aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl border border-slate-800 mb-16">
+              <iframe 
+                src={`https://www.youtube.com/embed/${video.youtubeId}`} 
+                className="w-full h-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowFullScreen
+                title={video.title}
+              />
+            </div>
+          ) : (
+            <div className="w-full aspect-video rounded-2xl overflow-hidden bg-slate-900 shadow-2xl border border-slate-800 mb-16 flex items-center justify-center">
+              <div className="text-center p-6">
+                <div className="bg-slate-800/50 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                  <Clock className="w-10 h-10 text-slate-500" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-2">Video Coming Soon</h3>
+                <p className="text-slate-400">This video is currently in production and will be available shortly.</p>
+              </div>
+            </div>
+          )}
 
           {video.id === 'v7' && (
             <div className="mb-16">
