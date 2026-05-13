@@ -5,8 +5,7 @@ import SiteFooter from '@/components/marketing/SiteFooter';
 import { LEARNING_VIDEOS } from '@/utils/learningData';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
 import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
-import { ArrowLeft, Clock, Tag } from 'lucide-react';
-import BuildingDigitalTrustArticle from '@/components/learning-center/articles/BuildingDigitalTrustArticle';
+import { ArrowLeft, Clock, Tag, BookOpen } from 'lucide-react';
 
 export default function LCVideoDetail() {
   const { id } = useParams();
@@ -50,7 +49,7 @@ export default function LCVideoDetail() {
           </div>
 
           {video.youtubeId ? (
-            <div className="w-full aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl border border-slate-800 mb-16">
+            <div className="w-full aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl border border-slate-800 mb-10">
               <iframe 
                 src={`https://www.youtube.com/embed/${video.youtubeId}`} 
                 className="w-full h-full border-0"
@@ -60,7 +59,7 @@ export default function LCVideoDetail() {
               />
             </div>
           ) : (
-            <div className="w-full aspect-video rounded-2xl overflow-hidden bg-slate-900 shadow-2xl border border-slate-800 mb-16 flex items-center justify-center">
+            <div className="w-full aspect-video rounded-2xl overflow-hidden bg-slate-900 shadow-2xl border border-slate-800 mb-10 flex items-center justify-center">
               <div className="text-center p-6">
                 <div className="bg-slate-800/50 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
                   <Clock className="w-10 h-10 text-slate-500" />
@@ -71,11 +70,11 @@ export default function LCVideoDetail() {
             </div>
           )}
 
-          {video.id === 'building-digital-trust' && (
-            <div className="mb-16">
-              <BuildingDigitalTrustArticle />
-            </div>
-          )}
+          <div className="flex justify-center mb-16">
+            <Link to={`/${video.slug}`} className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-blue-600/20 text-lg w-full sm:w-auto">
+               <BookOpen className="w-5 h-5" /> Read The Full Article
+            </Link>
+          </div>
 
           <LCRelatedVideos currentVideoId={video.id} category={video.category} />
 

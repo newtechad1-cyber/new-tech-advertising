@@ -17,9 +17,11 @@ export default function LCVideoCard({ video }) {
         {video.thumbnail ? (
           <img src={video.thumbnail} alt={video.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity group-hover:scale-105 duration-500" />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 group-hover:from-slate-800 group-hover:to-slate-700 transition-colors relative overflow-hidden">
+          <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 group-hover:from-slate-800 group-hover:via-blue-900 group-hover:to-slate-800 transition-colors relative overflow-hidden p-6 text-center">
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
-            <PlayCircle className="w-16 h-16 text-slate-700 group-hover:text-blue-500/50 transition-colors" />
+            <div className="absolute inset-0 bg-blue-500/10 blur-3xl rounded-full"></div>
+            <h4 className="text-white font-black text-xl md:text-2xl mb-3 relative z-10 drop-shadow-lg leading-tight px-4">{video.title}</h4>
+            <div className="w-16 h-1.5 bg-blue-500 rounded-full mb-4 relative z-10 shadow-[0_0_10px_rgba(59,130,246,0.8)]"></div>
           </div>
         )}
         <div className="absolute inset-0 flex items-center justify-center">
