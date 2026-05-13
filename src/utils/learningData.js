@@ -21,7 +21,8 @@ export const LEARNING_ARTICLES = [
   { id: 'a8', title: 'The Role of AI in Local Marketing', category: 'AI Basics For Small Businesses', link: '/role-of-ai-in-local-marketing', description: 'A no-BS guide to how small businesses are actually using AI to generate more revenue.', status: 'published', priority: 'high', relatedArticleSlug: 'role-of-ai-in-local-marketing', relatedVideoIds: ['v14'], youtubeUrl: null, thumbnailUrl: null },
   { id: 'a9', title: 'Web Accessibility: The Foundation of Digital Trust', category: 'Digital Trust & Reputation', link: '/web-accessibility-trust', description: 'Why accessible websites rank better in AI search and build instant credibility.', status: 'published', priority: 'high', relatedArticleSlug: 'web-accessibility-trust', relatedVideoIds: ['v7'], youtubeUrl: null, thumbnailUrl: null },
   { id: 'a10', title: 'Building Digital Trust', category: 'Digital Trust & Reputation', link: '/building-digital-trust', description: 'How to proactively build a digital reputation that search engines and AI models trust implicitly.', status: 'published', priority: 'high', relatedArticleSlug: 'building-digital-trust', relatedVideoIds: ['v7', 'v10'], youtubeUrl: null, thumbnailUrl: null },
-  { id: 'a11', title: 'Video Storytelling Builds Confidence', category: 'Video & CTV Marketing', link: '/video-storytelling-builds-confidence', description: 'Stop selling and start showing. How authentic video creates instant customer confidence.', status: 'published', priority: 'high', relatedArticleSlug: 'video-storytelling-builds-confidence', relatedVideoIds: ['v15'], youtubeUrl: null, thumbnailUrl: null }
+  { id: 'a11', title: 'Video Storytelling Builds Confidence', category: 'Video & CTV Marketing', link: '/video-storytelling-builds-confidence', description: 'Stop selling and start showing. How authentic video creates instant customer confidence.', status: 'published', priority: 'high', relatedArticleSlug: 'video-storytelling-builds-confidence', relatedVideoIds: ['v15'], youtubeUrl: null, thumbnailUrl: null },
+  { id: 'a12', title: 'Campaigns vs Authority', category: 'AI Visibility & Search', link: '/campaigns-vs-authority', description: 'Stop running endless disconnected campaigns and start building compounding digital authority.', status: 'published', priority: 'high', relatedArticleSlug: 'campaigns-vs-authority', relatedVideoIds: ['v8'], youtubeUrl: null, thumbnailUrl: null }
 ];
 
 export const LEARNING_VIDEOS = [
@@ -44,7 +45,7 @@ export const LEARNING_VIDEOS = [
     youtubeId: '6Toyby7CTsA',
     thumbnail: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800',
     description: 'Stop running endless disconnected campaigns and start building compounding digital authority.',
-    status: 'published', priority: 'high', relatedArticleSlug: 'seo-vs-ai-search', relatedVideoIds: ['v6', 'v9'], youtubeUrl: 'https://youtu.be/6Toyby7CTsA', thumbnailUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800',
+    status: 'published', priority: 'high', relatedArticleSlug: 'campaigns-vs-authority', relatedVideoIds: ['v6', 'v9'], youtubeUrl: 'https://youtu.be/6Toyby7CTsA', thumbnailUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800',
     tags: ['AI Visibility', 'Authority Marketing', 'SEO', 'Content Marketing', 'Small Business Marketing', 'Digital Trust']
   },
   {
