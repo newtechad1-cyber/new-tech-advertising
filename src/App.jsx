@@ -254,6 +254,8 @@ import GrowthSystemsVsCampaigns from './pages/GrowthSystemsVsCampaigns';
 import ReputationIsNowAGrowthEngine from './pages/ReputationIsNowAGrowthEngine';
 import TheHiddenCostOfOutdatedMarketing from './pages/TheHiddenCostOfOutdatedMarketing';
 import TheRoleOfAIInLocalMarketing from './pages/TheRoleOfAIInLocalMarketing';
+import AccessibleWebsites from './pages/AccessibleWebsites';
+import WebAccessibilityTrust from './pages/WebAccessibilityTrust';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -587,6 +589,11 @@ const AuthenticatedApp = () => {
       <Route path="/reputation-is-now-a-growth-engine" element={<LayoutWrapper currentPageName="ReputationIsNowAGrowthEngine"><ReputationIsNowAGrowthEngine /></LayoutWrapper>} />
       <Route path="/hidden-cost-of-outdated-marketing" element={<LayoutWrapper currentPageName="TheHiddenCostOfOutdatedMarketing"><TheHiddenCostOfOutdatedMarketing /></LayoutWrapper>} />
       <Route path="/role-of-ai-in-local-marketing" element={<LayoutWrapper currentPageName="TheRoleOfAIInLocalMarketing"><TheRoleOfAIInLocalMarketing /></LayoutWrapper>} />
+      <Route path="/accessible-websites" element={<LayoutWrapper currentPageName="AccessibleWebsites"><AccessibleWebsites /></LayoutWrapper>} />
+      <Route path="/web-accessibility-trust" element={<LayoutWrapper currentPageName="WebAccessibilityTrust"><WebAccessibilityTrust /></LayoutWrapper>} />
+      <Route path="/ada-compliance" element={<Navigate to="/accessible-websites" replace />} />
+      <Route path="/ada-website-rebuild" element={<Navigate to="/accessible-websites" replace />} />
+      <Route path="/ada-website-lawsuit-prevention" element={<Navigate to="/web-accessibility-trust" replace />} />
 
       <Route path="*" element={<PageNotFound />} />
     </Routes>

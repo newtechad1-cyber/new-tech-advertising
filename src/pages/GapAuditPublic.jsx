@@ -170,7 +170,7 @@ export default function GapAuditPublic() {
           <div>
             <h2 className="text-2xl font-black text-slate-900 mb-5">What You'll Get</h2>
             <ul className="space-y-3 mb-6">
-              {["What's working", "What's not", "What to fix first"].map(item => (
+              {["What's working", "What's not", "Accessibility & ADA gaps", "AI visibility issues", "What to fix first"].map(item => (
                 <li key={item} className="flex items-center gap-3 text-slate-700">
                   <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />
                   <span>{item}</span>

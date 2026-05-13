@@ -25,6 +25,7 @@ const NAV_LINKS = [
     children: [
       { label: 'Local Lead Systems', href: '/local-lead-systems', desc: 'Full system: site + SEO + campaigns + follow-up' },
       { label: 'Website Rebuilds', href: '/website-rebuilds', desc: 'Modern sites built to rank and convert' },
+      { label: 'Accessible Websites', href: '/accessible-websites', desc: 'ADA compliant, AI-ready, modern sites' },
       { label: 'SEO Pages', href: '/seo-pages-for-local-businesses', desc: 'City & service pages that drive local traffic' },
       { label: 'Seasonal Campaigns', href: '/seasonal-campaigns', desc: 'Timed marketing for peak demand' },
       { label: 'Social Media Content', href: '/social-media-content-system', desc: 'Consistent social posts done-for-you' },
