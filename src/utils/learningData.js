@@ -19,7 +19,8 @@ export const LEARNING_ARTICLES = [
   { id: 'a6', title: 'Reputation Is Now a Growth Engine', category: 'Digital Trust & Reputation', link: '/reputation-is-now-a-growth-engine', description: 'Turn your customer reviews into your most powerful local SEO asset.', status: 'published', priority: 'high', relatedArticleSlug: 'reputation-is-now-a-growth-engine', relatedVideoIds: ['v10'], youtubeUrl: null, thumbnailUrl: null },
   { id: 'a7', title: 'The Hidden Cost of Outdated Marketing', category: 'Modern Marketing Systems', link: '/hidden-cost-of-outdated-marketing', description: 'How holding onto legacy SEO and traditional websites is slowly bleeding your business dry.', status: 'published', priority: 'high', relatedArticleSlug: 'hidden-cost-of-outdated-marketing', relatedVideoIds: ['v12'], youtubeUrl: null, thumbnailUrl: null },
   { id: 'a8', title: 'The Role of AI in Local Marketing', category: 'AI Basics For Small Businesses', link: '/role-of-ai-in-local-marketing', description: 'A no-BS guide to how small businesses are actually using AI to generate more revenue.', status: 'published', priority: 'high', relatedArticleSlug: 'role-of-ai-in-local-marketing', relatedVideoIds: ['v14'], youtubeUrl: null, thumbnailUrl: null },
-  { id: 'a9', title: 'Web Accessibility: The Foundation of Digital Trust', category: 'Digital Trust & Reputation', link: '/web-accessibility-trust', description: 'Why accessible websites rank better in AI search and build instant credibility.', status: 'published', priority: 'high', relatedArticleSlug: 'web-accessibility-trust', relatedVideoIds: ['v7'], youtubeUrl: null, thumbnailUrl: null }
+  { id: 'a9', title: 'Web Accessibility: The Foundation of Digital Trust', category: 'Digital Trust & Reputation', link: '/web-accessibility-trust', description: 'Why accessible websites rank better in AI search and build instant credibility.', status: 'published', priority: 'high', relatedArticleSlug: 'web-accessibility-trust', relatedVideoIds: ['v7'], youtubeUrl: null, thumbnailUrl: null },
+  { id: 'a10', title: 'Building Digital Trust', category: 'Digital Trust & Reputation', link: '/building-digital-trust', description: 'How to proactively build a digital reputation that search engines and AI models trust implicitly.', status: 'published', priority: 'high', relatedArticleSlug: 'building-digital-trust', relatedVideoIds: ['v7', 'v10'], youtubeUrl: null, thumbnailUrl: null }
 ];
 
 export const LEARNING_VIDEOS = [
@@ -31,7 +32,7 @@ export const LEARNING_VIDEOS = [
     youtubeId: 'E5vE1kXlAhw',
     thumbnail: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800',
     description: 'How to proactively build a digital reputation that search engines and AI models trust implicitly.',
-    status: 'published', priority: 'high', relatedArticleSlug: 'digital-trust-reputation', relatedVideoIds: ['v5', 'v10', 'v13'], youtubeUrl: 'https://youtu.be/E5vE1kXlAhw', thumbnailUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800',
+    status: 'published', priority: 'high', relatedArticleSlug: 'building-digital-trust', relatedVideoIds: ['v5', 'v10', 'v13'], youtubeUrl: 'https://youtu.be/E5vE1kXlAhw', thumbnailUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800',
     tags: ['Digital Trust', 'Reputation', 'Small Business Marketing', 'AI Visibility', 'Reviews', 'Customer Confidence']
   },
   {
