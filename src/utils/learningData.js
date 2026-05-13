@@ -22,7 +22,8 @@ export const LEARNING_ARTICLES = [
   { id: 'a9', title: 'Web Accessibility: The Foundation of Digital Trust', category: 'Digital Trust & Reputation', link: '/web-accessibility-trust', description: 'Why accessible websites rank better in AI search and build instant credibility.', status: 'published', priority: 'high', relatedArticleSlug: 'web-accessibility-trust', relatedVideoIds: ['v7'], youtubeUrl: null, thumbnailUrl: null },
   { id: 'a10', title: 'Building Digital Trust', category: 'Digital Trust & Reputation', link: '/building-digital-trust', description: 'How to proactively build a digital reputation that search engines and AI models trust implicitly.', status: 'published', priority: 'high', relatedArticleSlug: 'building-digital-trust', relatedVideoIds: ['v7', 'v10'], youtubeUrl: null, thumbnailUrl: null },
   { id: 'a11', title: 'Video Storytelling Builds Confidence', category: 'Video & CTV Marketing', link: '/video-storytelling-builds-confidence', description: 'Stop selling and start showing. How authentic video creates instant customer confidence.', status: 'published', priority: 'high', relatedArticleSlug: 'video-storytelling-builds-confidence', relatedVideoIds: ['v15'], youtubeUrl: null, thumbnailUrl: null },
-  { id: 'a12', title: 'Campaigns vs Authority', category: 'AI Visibility & Search', link: '/campaigns-vs-authority', description: 'Stop running endless disconnected campaigns and start building compounding digital authority.', status: 'published', priority: 'high', relatedArticleSlug: 'campaigns-vs-authority', relatedVideoIds: ['v8'], youtubeUrl: null, thumbnailUrl: null }
+  { id: 'a12', title: 'Campaigns vs Authority', category: 'AI Visibility & Search', link: '/campaigns-vs-authority', description: 'Stop running endless disconnected campaigns and start building compounding digital authority.', status: 'published', priority: 'high', relatedArticleSlug: 'campaigns-vs-authority', relatedVideoIds: ['v8'], youtubeUrl: null, thumbnailUrl: null },
+  { id: 'a13', title: 'The Future Belongs to Market Leaders', category: 'AI Visibility & Search', link: '/the-future-belongs-to-market-leaders', description: 'Why AI search, customer behavior, trust signals, and digital authority are increasingly favoring businesses that become recognized local market leaders.', status: 'published', priority: 'high', relatedArticleSlug: 'the-future-belongs-to-market-leaders', relatedVideoIds: ['v11'], youtubeUrl: null, thumbnailUrl: null }
 ];
 
 export const LEARNING_VIDEOS = [
@@ -78,7 +79,7 @@ export const LEARNING_VIDEOS = [
     youtubeId: 'jNQXAC9IVRw',
     thumbnail: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=800',
     description: 'Why AI overviews naturally create a winner-takes-all scenario in local markets.',
-    status: 'planned', priority: 'medium', relatedArticleSlug: null, relatedVideoIds: ['v1', 'v2'], youtubeUrl: 'https://www.youtube.com/watch?v=jNQXAC9IVRw', thumbnailUrl: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=800'
+    status: 'published', priority: 'high', relatedArticleSlug: 'the-future-belongs-to-market-leaders', relatedVideoIds: ['v1', 'v2'], youtubeUrl: 'https://www.youtube.com/watch?v=jNQXAC9IVRw', thumbnailUrl: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=800'
   },
   {
     id: 'v12',
