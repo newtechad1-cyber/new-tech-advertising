@@ -75,6 +75,7 @@ export function useLearningContent() {
         return { videos: fallbackVideos, categories: LEARNING_CATEGORIES, articles: LEARNING_CONTENT };
       }
     },
-    staleTime: 1000 * 60 * 60, // 1 hour cache
+    staleTime: 1000 * 60 * 15, // 15 minutes cache
+    refetchInterval: 1000 * 60 * 15, // Auto-refresh every 15 mins
   });
 }
