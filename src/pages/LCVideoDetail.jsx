@@ -66,7 +66,7 @@ export default function LCVideoDetail() {
 
             </div>
             <h1 className="text-3xl md:text-5xl font-black text-white leading-tight mb-6">{video.title}</h1>
-            <p className="text-lg text-slate-400">{video.description}</p>
+            <VideoDescription text={video.description} />
           </div>
 
           {video.youtubeId ? (
@@ -118,6 +118,61 @@ export default function LCVideoDetail() {
         </div>
       </main>
       <SiteFooter />
+    </div>
+  );
+}
+
+function VideoDescription({ text }) {
+  const [expanded, setExpanded] = React.useState(false);
+  
+  if (!text) return null;
+
+  const formatText = (content) => {
+    return content.split('\n').map((line, i) => {
+      if (!line.trim()) return <div key={i} className="h-2" />;
+      
+      const parts = line.split(/(https?:\/\/[^\s]+)/g);
+      return (
+        <p key={i} className="mb-3 last:mb-0 leading-relaxed">
+          {parts.map((part, j) => {
+            if (part.match(/^https?:\/\//)) {
+              return (
+                <a key={j} href={part} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 hover:underline transition-colors break-words">
+                  {part}
+                </a>
+              );
+            }
+            return <React.Fragment key={j}>{part}</React.Fragment>;
+          })}
+        </p>
+      );
+    });
+  };
+
+  const isLong = text.length > 350;
+  let displayText = text;
+  
+  if (!expanded && isLong) {
+    const lastSpace = text.lastIndexOf(' ', 350);
+    displayText = text.slice(0, lastSpace > 0 ? lastSpace : 350) + '...';
+  }
+
+  return (
+    <div className="text-lg text-slate-400">
+      <div className={expanded ? "" : "relative overflow-hidden"}>
+        {formatText(displayText)}
+        {!expanded && isLong && (
+          <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none" />
+        )}
+      </div>
+      {isLong && (
+        <button 
+          onClick={() => setExpanded(!expanded)}
+          className="text-blue-400 hover:text-blue-300 font-bold mt-2 focus:outline-none transition-colors"
+        >
+          {expanded ? 'Show less' : 'Read more'}
+        </button>
+      )}
     </div>
   );
 }
