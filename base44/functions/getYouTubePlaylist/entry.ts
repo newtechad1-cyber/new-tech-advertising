@@ -9,9 +9,13 @@ Deno.serve(async (req) => {
             return Response.json({ error: 'YouTube credentials not configured' }, { status: 500 });
         }
 
+        const headers = {
+            "Referer": "https://www.newtechadvertising.com/"
+        };
+
         // 1. Get playlist items
         const playlistUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&maxResults=50&playlistId=${playlistId}&key=${apiKey}`;
-        const playlistResponse = await fetch(playlistUrl);
+        const playlistResponse = await fetch(playlistUrl, { headers });
         const playlistData = await playlistResponse.json();
 
         if (playlistData.error) {
@@ -26,7 +30,7 @@ Deno.serve(async (req) => {
 
         // 2. Get video details (for duration and better snippets)
         const videosUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${videoIds}&key=${apiKey}`;
-        const videosResponse = await fetch(videosUrl);
+        const videosResponse = await fetch(videosUrl, { headers });
         const videosData = await videosResponse.json();
 
         if (videosData.error) {
