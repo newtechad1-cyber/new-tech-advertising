@@ -122,10 +122,10 @@ export default function MarketingNav() {
             Ops →
           </Link>
           <a
-            href="tel:+16413579932"
+            href="tel:6414208816"
             className="text-xs text-slate-400 hover:text-white transition-colors font-medium whitespace-nowrap"
           >
-            (641) 357-9932
+            641-420-8816
           </a>
           <a
             href="https://calendar.app.google/p6ieYanvwhixXxZ67"

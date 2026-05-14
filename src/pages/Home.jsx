@@ -33,7 +33,7 @@ export default function Home() {
       "name": "New Tech Advertising",
       "description": "Local lead generation systems for service businesses in North Iowa and Southern Minnesota.",
       "url": "https://newtechadvertising.com",
-      "telephone": "+16413579932",
+      "telephone": "+16414208816",
       "areaServed": ["Mason City IA", "North Iowa", "Southern Minnesota"],
       "serviceType": ["Website Rebuilds", "SEO", "Social Media Marketing", "Video Marketing", "Lead Generation"],
     };

@@ -118,8 +118,8 @@ export default function ServicePageLayout({
             <Link to="/rebuild-intake?source=service-page" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3.5 rounded-xl text-sm transition">
               Get a Free Gap Audit <ArrowRight className="w-4 h-4" />
             </Link>
-            <a href="tel:+16413579932" className="inline-flex items-center gap-2 border border-slate-600 hover:border-slate-400 text-slate-300 font-semibold px-6 py-3.5 rounded-xl text-sm transition">
-              <Phone className="w-4 h-4" /> (641) 357-9932
+            <a href="tel:6414208816" className="inline-flex items-center gap-2 border border-slate-600 hover:border-slate-400 text-slate-300 font-semibold px-6 py-3.5 rounded-xl text-sm transition">
+              <Phone className="w-4 h-4" /> 641-420-8816
             </a>
           </div>
         </div>
@@ -196,7 +196,7 @@ export default function ServicePageLayout({
             <div className="flex items-center gap-2 text-slate-500 text-sm">
               <Phone className="w-4 h-4" />
               <span>Prefer to call? </span>
-              <a href="tel:+16413579932" className="text-blue-600 font-semibold hover:underline">(641) 357-9932</a>
+              <a href="tel:6414208816" className="text-blue-600 font-semibold hover:underline">641-420-8816</a>
             </div>
           </div>
           <div className="bg-slate-50 border border-slate-200 rounded-2xl p-7">
