@@ -4,7 +4,7 @@ import { PlayCircle, Clock } from 'lucide-react';
 
 export default function LCVideoCard({ video }) {
   return (
-    <Link to={`/learning-center/videos/${video.id}`} className="group flex flex-col bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-blue-500/50 transition-all hover:shadow-[0_10px_40px_-15px_rgba(37,99,235,0.3)] h-full">
+    <Link to={`/learning-center/videos/${video.id}`} className="group flex flex-col bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-blue-500/50 transition-all hover:shadow-[0_10px_40px_-15px_rgba(37,99,235,0.3)] h-full relative">
       <div className="relative aspect-video bg-slate-800 overflow-hidden">
         {(video.status === 'planned' || video.status === 'placeholder' || video.status === 'needs_video') && (
           <div className="absolute inset-0 bg-slate-900/60 z-20 flex flex-col items-center justify-center backdrop-blur-[2px]">
@@ -33,6 +33,12 @@ export default function LCVideoCard({ video }) {
         <div className="absolute top-3 left-3 bg-blue-600/90 backdrop-blur-md px-2.5 py-1 rounded-full text-xs font-bold text-white border border-blue-400/30 shadow-lg">
           {video.category}
         </div>
+        
+        {video.duration && (
+          <div className="absolute bottom-3 right-3 bg-black/80 backdrop-blur-md px-2 py-1 rounded-md text-xs font-bold text-white shadow-lg">
+            {video.duration}
+          </div>
+        )}
       </div>
       <div className="p-6 flex flex-col flex-1">
         <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors line-clamp-2 leading-snug">{video.title}</h3>

@@ -3,20 +3,23 @@ import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import LCVideoCard from '@/components/learning-center/LCVideoCard';
-import { LEARNING_VIDEOS, VIDEO_CATEGORIES } from '@/utils/learningData';
-import { PlayCircle, Filter } from 'lucide-react';
+import { VIDEO_CATEGORIES } from '@/utils/learningData';
+import { PlayCircle, Filter, Loader2 } from 'lucide-react';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
+import { useLearningContent } from '@/hooks/useLearningContent';
 
 export default function LCVideoLibrary() {
   const [activeCategory, setActiveCategory] = useState('All');
+  const { data, isLoading } = useLearningContent();
+  const videos = data?.videos || [];
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   const filteredVideos = activeCategory === 'All' 
-    ? LEARNING_VIDEOS 
-    : LEARNING_VIDEOS.filter(v => v.category === activeCategory);
+    ? videos 
+    : videos.filter(v => v.category === activeCategory);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
@@ -53,17 +56,26 @@ export default function LCVideoLibrary() {
             </div>
 
             <div className="flex-1">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredVideos.map(video => (
-                  <LCVideoCard key={video.id} video={video} />
-                ))}
-              </div>
-              {filteredVideos.length === 0 && (
-                <div className="text-center py-24 bg-slate-900 border border-slate-800 rounded-2xl">
-                  <PlayCircle className="w-12 h-12 text-slate-700 mx-auto mb-4" />
-                  <h3 className="text-xl font-bold text-white mb-2">No videos found</h3>
-                  <p className="text-slate-400">We don't have any videos in this category yet.</p>
+              {isLoading ? (
+                <div className="flex flex-col items-center justify-center py-24 text-slate-400">
+                  <Loader2 className="w-8 h-8 animate-spin mb-4 text-blue-500" />
+                  <p>Loading video library...</p>
                 </div>
+              ) : (
+                <>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredVideos.map(video => (
+                      <LCVideoCard key={video.id} video={video} />
+                    ))}
+                  </div>
+                  {filteredVideos.length === 0 && (
+                    <div className="text-center py-24 bg-slate-900 border border-slate-800 rounded-2xl">
+                      <PlayCircle className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+                      <h3 className="text-xl font-bold text-white mb-2">No videos found</h3>
+                      <p className="text-slate-400">We don't have any videos in this category yet.</p>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>

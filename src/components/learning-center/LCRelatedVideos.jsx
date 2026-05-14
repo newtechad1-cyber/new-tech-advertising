@@ -1,10 +1,15 @@
 import React from 'react';
 import LCVideoCard from './LCVideoCard';
-import { LEARNING_VIDEOS } from '@/utils/learningData';
+import { useLearningContent } from '@/hooks/useLearningContent';
 
 export default function LCRelatedVideos({ currentVideoId, category, limit = 3 }) {
+  const { data, isLoading } = useLearningContent();
+  const videos = data?.videos || [];
+
+  if (isLoading) return null;
+
   // Filter out current, prioritize same category
-  let related = LEARNING_VIDEOS.filter(v => v.id !== currentVideoId);
+  let related = videos.filter(v => v.id !== currentVideoId);
   if (category) {
     const sameCat = related.filter(v => v.category === category);
     const otherCat = related.filter(v => v.category !== category);

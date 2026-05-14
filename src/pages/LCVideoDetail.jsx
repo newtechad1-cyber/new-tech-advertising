@@ -2,18 +2,39 @@ import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
-import { LEARNING_VIDEOS } from '@/utils/learningData';
+import { useLearningContent } from '@/hooks/useLearningContent';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
 import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
-import { ArrowLeft, Clock, Tag, BookOpen } from 'lucide-react';
+import { ArrowLeft, Clock, Tag, BookOpen, Loader2 } from 'lucide-react';
 
 export default function LCVideoDetail() {
   const { id } = useParams();
-  const video = LEARNING_VIDEOS.find(v => v.id === id);
+  const { data, isLoading } = useLearningContent();
+  const video = data?.videos?.find(v => v.id === id);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [id]);
+    if (video) {
+      document.title = `${video.title} | NTA Learning Center`;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute('content', video.description || 'NTA Learning Center Video');
+      }
+    }
+  }, [id, video]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
+        <MarketingNav />
+        <main className="flex-grow pt-32 flex flex-col items-center justify-center">
+          <Loader2 className="w-8 h-8 animate-spin mb-4 text-blue-500" />
+          <p>Loading video details...</p>
+        </main>
+        <SiteFooter />
+      </div>
+    );
+  }
 
   if (!video) {
     return (
@@ -70,11 +91,19 @@ export default function LCVideoDetail() {
             </div>
           )}
 
-          <div className="flex justify-center mb-16">
-            <Link to={`/${video.slug}`} className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-blue-600/20 text-lg w-full sm:w-auto">
-               <BookOpen className="w-5 h-5" /> Read The Full Article
-            </Link>
-          </div>
+          {video.hasArticle ? (
+            <div className="flex justify-center mb-16">
+              <Link to={`/${video.slug}`} className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-blue-600/20 text-lg w-full sm:w-auto">
+                 <BookOpen className="w-5 h-5" /> Read The Full Article
+              </Link>
+            </div>
+          ) : (
+            <div className="flex justify-center mb-16">
+              <div className="inline-flex items-center justify-center gap-2 bg-slate-800 text-slate-400 font-bold px-8 py-4 rounded-xl border border-slate-700 text-lg w-full sm:w-auto">
+                 <BookOpen className="w-5 h-5" /> Full Article Coming Soon
+              </div>
+            </div>
+          )}
 
           <LCRelatedVideos currentVideoId={video.id} category={video.category} />
 

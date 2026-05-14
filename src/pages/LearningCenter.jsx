@@ -6,12 +6,15 @@ import {
 } from 'lucide-react';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
 import LCVideoCard from '@/components/learning-center/LCVideoCard';
-import { LEARNING_VIDEOS, LEARNING_CATEGORIES } from '@/utils/learningData';
+import { useLearningContent } from '@/hooks/useLearningContent';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import { cn } from '@/lib/utils';
 
 export default function LearningCenter() {
+  const { data, isLoading } = useLearningContent();
+  const videos = data?.videos || [];
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans overflow-hidden flex flex-col">
       <MarketingNav />
@@ -196,9 +199,13 @@ export default function LearningCenter() {
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {LEARNING_VIDEOS.slice(0, 3).map(video => (
-              <LCVideoCard key={video.id} video={video} />
-            ))}
+            {isLoading ? (
+              <p className="text-slate-400">Loading videos...</p>
+            ) : (
+              videos.slice(0, 3).map(video => (
+                <LCVideoCard key={video.id} video={video} />
+              ))
+            )}
           </div>
         </div>
       </section>

@@ -3,17 +3,31 @@ import { useParams, Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import LCVideoCard from '@/components/learning-center/LCVideoCard';
-import { LEARNING_CATEGORIES, LEARNING_VIDEOS, LEARNING_ARTICLES } from '@/utils/learningData';
-import { PlayCircle, FileText, ArrowLeft, FolderOpen, ArrowRight } from 'lucide-react';
+import { useLearningContent } from '@/hooks/useLearningContent';
+import { PlayCircle, FileText, ArrowLeft, FolderOpen, ArrowRight, Loader2 } from 'lucide-react';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
 
 export default function LCCategory() {
   const { id } = useParams();
-  const category = LEARNING_CATEGORIES.find(c => c.id === id);
-
+  const { data, isLoading } = useLearningContent();
+  const category = data?.categories?.find(c => c.id === id);
+  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
+        <MarketingNav />
+        <main className="flex-grow pt-32 flex flex-col items-center justify-center">
+          <Loader2 className="w-8 h-8 animate-spin mb-4 text-blue-500" />
+          <p>Loading category...</p>
+        </main>
+        <SiteFooter />
+      </div>
+    );
+  }
 
   if (!category) {
     return (
@@ -28,8 +42,9 @@ export default function LCCategory() {
     );
   }
 
-  const categoryVideos = LEARNING_VIDEOS.filter(v => v.category === category.title);
-  const categoryArticles = LEARNING_ARTICLES.filter(a => a.category === category.title);
+  const categoryVideos = data?.videos?.filter(v => v.category === category.title) || [];
+  // For articles, we look at videos that have articles, or planned articles
+  const categoryArticles = data?.videos?.filter(a => a.category === category.title && a.hasArticle) || [];
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
