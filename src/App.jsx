@@ -9,11 +9,10 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 // — Eagerly loaded public pages (tiny, critical for first paint) —
 import Home from './pages/Home';
-import LearningCenter from './pages/LearningCenter';
-import GapAuditPage from './pages/GapAuditPage';
-import AiBroughtMeOutOfRetirement from './pages/AiBroughtMeOutOfRetirement';
-
 // — Lazy loaded: everything else —
+const LearningCenter = lazy(() => import('./pages/LearningCenter'));
+const GapAuditPage = lazy(() => import('./pages/GapAuditPage'));
+const AiBroughtMeOutOfRetirement = lazy(() => import('./pages/AiBroughtMeOutOfRetirement'));
 const AIWorkforce = lazy(() => import('./pages/AIWorkforce'));
 const FounderScorecard = lazy(() => import('./pages/FounderScorecard'));
 const ClientCampaigns = lazy(() => import('./pages/ClientCampaigns'));
@@ -271,6 +270,18 @@ const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
 const MainPage = mainPageKey ? Pages[mainPageKey] : <></>;
 
+const PageLoader = () => (
+  <>
+    <style>{`@keyframes custom-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ width: 40, height: 40, border: '3px solid #e5e7eb', borderTop: '3px solid #0a7cc4', borderRadius: '50%', animation: 'custom-spin 1s linear infinite', margin: '0 auto 12px' }}></div>
+        <p style={{ color: '#6b7280', fontSize: 14 }}>Loading...</p>
+      </div>
+    </div>
+  </>
+);
+
 const LayoutWrapper = ({ children, currentPageName }) => Layout ?
   <Layout currentPageName={currentPageName}>{children}</Layout>
   : <>{children}</>;
@@ -320,7 +331,7 @@ const AuthenticatedApp = () => {
   // Render the main app
   return (
     <AuthGate>
-      <Suspense fallback={<div className="flex h-screen w-full items-center justify-center"><div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin"></div></div>}>
+      <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route path="/" element={
         <LayoutWrapper currentPageName="Home">
