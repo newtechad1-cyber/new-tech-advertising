@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /client/
+Disallow: /agency/
+Disallow: /portal/
+Disallow: /ops/
+Disallow: /reseller/
+Disallow: /sales/
+Disallow: /dashboard/
+
+Sitemap: https://newtechadvertising.com/sitemap.xml

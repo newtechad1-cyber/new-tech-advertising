@@ -1062,7 +1062,7 @@ export const PAGES = {
 }
 
 export const pagesConfig = {
-    mainPage: "AdminOperationsCapacity",
+    mainPage: "Home",
     Pages: PAGES,
     Layout: __Layout,
 };
