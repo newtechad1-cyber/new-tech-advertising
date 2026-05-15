@@ -1,6 +1,7 @@
 import React from 'react';
 import VerticalPageTemplate from '@/components/verticals/VerticalPageTemplate';
 import { Zap, Search, Share2, Star, BarChart2, Video } from 'lucide-react';
+import SEOHead from '@/components/shared/SEOHead';
 
 const DATA = {
   industry: 'Plumbing',
@@ -51,8 +52,39 @@ const DATA = {
     author: 'Carlos R.',
     company: 'Rivera Plumbing Co., Austin TX',
   },
+  faqs: [
+    {
+      question: "How much does plumbing marketing cost?",
+      answer: "Plumbing marketing with NTA starts at $297/month including AI social media, local SEO, review management, and content creation designed specifically for plumbing businesses."
+    },
+    {
+      question: "How do plumbers get more customers online?",
+      answer: "The #1 driver is Google Business Profile optimization combined with consistent review generation. NTA automates both — plus creates location-specific content so you rank for 'plumber near me' in every city you serve."
+    },
+    {
+      question: "What marketing works best for plumbers?",
+      answer: "Local SEO and review management drive the most calls. 87% of consumers read online reviews before calling a plumber. NTA's AI ensures you have fresh reviews, optimized Google listings, and social proof across all platforms."
+    },
+    {
+      question: "Should plumbers be on social media?",
+      answer: "Absolutely. Before/after photos, emergency tips, and seasonal maintenance advice build trust and keep your business top-of-mind. NTA's AI creates and posts this content automatically."
+    },
+    {
+      question: "How do I get my plumbing business on Google's AI answers?",
+      answer: "Create FAQ content that directly answers questions people ask. NTA builds FAQ pages, learning center articles, and structured data markup that AI engines like Google AI Overview and ChatGPT pull from."
+    }
+  ]
 };
 
 export default function PlumbingMarketing() {
-  return <VerticalPageTemplate data={DATA} />;
+  return (
+    <>
+      <SEOHead 
+        title="Plumbing Marketing & SEO | New Tech Advertising"
+        description="Get found first for emergency calls. Our AI platform powers plumbing marketing with local SEO, social media, and Google reviews."
+        faqs={DATA.faqs}
+      />
+      <VerticalPageTemplate data={DATA} />
+    </>
+  );
 }

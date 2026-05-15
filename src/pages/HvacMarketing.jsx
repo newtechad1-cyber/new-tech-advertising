@@ -1,6 +1,7 @@
 import React from 'react';
 import VerticalPageTemplate from '@/components/verticals/VerticalPageTemplate';
 import { Zap, Search, Share2, Star, BarChart2, Video } from 'lucide-react';
+import SEOHead from '@/components/shared/SEOHead';
 
 const DATA = {
   industry: 'HVAC',
@@ -51,8 +52,39 @@ const DATA = {
     author: 'Mike T.',
     company: 'ProAir HVAC, Chicago IL',
   },
+  faqs: [
+    {
+      question: "How much does HVAC marketing cost?",
+      answer: "HVAC marketing with NTA starts at $297/month. This includes AI-automated social media posting, local SEO, Google review management, and content creation specifically designed for heating and cooling companies."
+    },
+    {
+      question: "How do HVAC companies get more Google reviews?",
+      answer: "NTA's AI review management system automatically sends review requests after service calls, monitors new reviews, and helps you respond quickly. Our HVAC clients average 3x more Google reviews within 90 days."
+    },
+    {
+      question: "What social media should an HVAC company use?",
+      answer: "Facebook and Instagram are the most effective for HVAC companies. NTA's AI creates seasonal content (AC prep in spring, furnace checks in fall), emergency service posts, and maintenance tip content that drives engagement and phone calls."
+    },
+    {
+      question: "Can AI write social media posts for my HVAC business?",
+      answer: "Yes. NTA's AI creates industry-specific HVAC content including seasonal maintenance tips, emergency service announcements, new installation spotlights, and energy-saving advice. Posts are automatically scheduled across all platforms."
+    },
+    {
+      question: "How do HVAC companies rank higher on Google?",
+      answer: "Local SEO is key. NTA optimizes your Google Business Profile, creates location-specific content for every city you serve, manages reviews, and publishes consistent blog content that Google's AI citations pull from."
+    }
+  ]
 };
 
 export default function HvacMarketing() {
-  return <VerticalPageTemplate data={DATA} />;
+  return (
+    <>
+      <SEOHead 
+        title="HVAC Marketing & Lead Generation | New Tech Advertising"
+        description="Fill your HVAC calendar year-round with our AI marketing platform. Local SEO, social media automation, and review generation."
+        faqs={DATA.faqs}
+      />
+      <VerticalPageTemplate data={DATA} />
+    </>
+  );
 }

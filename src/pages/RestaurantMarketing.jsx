@@ -1,6 +1,7 @@
 import React from 'react';
 import VerticalPageTemplate from '@/components/verticals/VerticalPageTemplate';
 import { Zap, Search, Share2, Star, BarChart2, Video } from 'lucide-react';
+import SEOHead from '@/components/shared/SEOHead';
 
 const DATA = {
   industry: 'Restaurant',
@@ -51,8 +52,39 @@ const DATA = {
     author: 'Maria L.',
     company: "Luigi's Trattoria, Denver CO",
   },
+  faqs: [
+    {
+      question: "How much does restaurant marketing cost?",
+      answer: "Restaurant marketing with NTA starts at $297/month. AI handles social media posting, review management, local SEO, and menu/event content creation automatically."
+    },
+    {
+      question: "How do restaurants get more Google reviews?",
+      answer: "NTA's AI sends review requests via text after dining visits, monitors all review platforms, and drafts responses. Restaurants using our system average 3x more reviews in 90 days."
+    },
+    {
+      question: "What social media is best for restaurants?",
+      answer: "Instagram and Facebook are essential. Instagram for food photography and Reels, Facebook for events, specials, and community engagement. NTA's AI creates content for both platforms automatically."
+    },
+    {
+      question: "How can a restaurant rank higher on Google Maps?",
+      answer: "Optimize your Google Business Profile with current hours, menus, photos, and respond to every review. NTA automates all of this plus posts weekly Google Business updates that boost local ranking."
+    },
+    {
+      question: "Can AI create restaurant social media content?",
+      answer: "Yes. NTA's AI creates daily specials posts, menu highlights, behind-the-scenes content, seasonal promotions, and event announcements. Each post is tailored to your restaurant's brand and cuisine."
+    }
+  ]
 };
 
 export default function RestaurantMarketing() {
-  return <VerticalPageTemplate data={DATA} />;
+  return (
+    <>
+      <SEOHead 
+        title="Restaurant Marketing & Social Media | New Tech Advertising"
+        description="Fill more tables with AI-powered restaurant marketing. We automate your social media, review management, and local SEO to keep your business top-of-mind."
+        faqs={DATA.faqs}
+      />
+      <VerticalPageTemplate data={DATA} />
+    </>
+  );
 }

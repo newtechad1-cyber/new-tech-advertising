@@ -4,6 +4,7 @@ import { createPageUrl } from '@/utils';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import { CheckCircle, ArrowRight, Star, Zap, BarChart2, Share2, Video, Search } from 'lucide-react';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const PLAN_FEATURES = {
   Starter: ['12 AI social posts/mo', 'AI blog generator', 'Review monitoring', 'Basic analytics', '$197/mo'],
@@ -152,6 +153,29 @@ export default function VerticalPageTemplate({ data }) {
           </div>
         </div>
       </section>
+
+      {/* FAQs */}
+      {data.faqs && data.faqs.length > 0 && (
+        <section className="py-16 px-4 border-t border-slate-800 bg-slate-900/50">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl font-extrabold text-white mb-4">Frequently Asked Questions</h2>
+            </div>
+            <Accordion type="single" collapsible className="w-full">
+              {data.faqs.map((faq, i) => (
+                <AccordionItem key={i} value={`faq-${i}`} className="border-slate-800">
+                  <AccordionTrigger className="text-left text-lg font-semibold text-white hover:text-slate-300">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-slate-400 leading-relaxed text-base pt-2 pb-4">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </section>
+      )}
 
       {/* Testimonial */}
       {testimonial && (
