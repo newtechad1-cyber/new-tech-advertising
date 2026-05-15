@@ -250,6 +250,22 @@ export const LEARNING_CONTENT = [
     seoKeywords: ['websites as salespeople', 'AI search websites', 'small business websites', 'modern website strategy', 'AI visibility', 'digital trust', 'local business marketing', 'Midwest business marketing', 'website conversion strategy'],
     tags: ['modern website strategy', 'AI visibility', 'digital trust'],
     status: 'published'
+  },
+  {
+    id: 'ai-brought-me-out-of-retirement',
+    title: 'AI Brought Me Out of Retirement',
+    slug: 'ai-brought-me-out-of-retirement',
+    category: 'Modern Marketing Systems',
+    categoryId: 'modern-marketing-systems',
+    shortDescription: 'After 45 years in business, NTA founder Rick Hesse came out of retirement to launch the region\'s first AI-powered marketing agency.',
+    articleContent: '',
+    youtubeId: null,
+    youtubeUrl: null,
+    thumbnailImage: null,
+    featuredImage: null,
+    seoKeywords: ['AI Marketing', 'Local Business Growth', 'Marketing Systems'],
+    tags: ['AI Marketing', 'Local Business Growth', 'Marketing Systems'],
+    status: 'published'
   }
 ];
 

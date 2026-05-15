@@ -261,6 +261,7 @@ import BuildingDigitalTrust from './pages/BuildingDigitalTrust';
 import AccessibleWebsites from './pages/AccessibleWebsites';
 import WebAccessibilityTrust from './pages/WebAccessibilityTrust';
 import WebsitesAsSalespeople from './pages/WebsitesAsSalespeople';
+import AiBroughtMeOutOfRetirement from './pages/AiBroughtMeOutOfRetirement';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -604,6 +605,7 @@ const AuthenticatedApp = () => {
       <Route path="/ada-website-rebuild" element={<Navigate to="/accessible-websites" replace />} />
       <Route path="/ada-website-lawsuit-prevention" element={<Navigate to="/web-accessibility-trust" replace />} />
       <Route path="/websites-as-salespeople" element={<LayoutWrapper currentPageName="WebsitesAsSalespeople"><WebsitesAsSalespeople /></LayoutWrapper>} />
+      <Route path="/ai-brought-me-out-of-retirement" element={<LayoutWrapper currentPageName="AiBroughtMeOutOfRetirement"><AiBroughtMeOutOfRetirement /></LayoutWrapper>} />
 
       <Route path="*" element={<PageNotFound />} />
     </Routes>
