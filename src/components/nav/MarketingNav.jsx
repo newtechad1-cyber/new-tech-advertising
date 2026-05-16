@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, LogOut } from 'lucide-react';
+import { base44 } from '@/api/base44Client';
+import { createPageUrl } from '@/utils';
 
 const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png';
 
@@ -69,6 +71,11 @@ export default function MarketingNav() {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [scrolled, setScrolled] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState(null);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    base44.auth.me().then(setUser).catch(() => setUser(null));
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -117,30 +124,33 @@ export default function MarketingNav() {
         </div>
 
         {/* Desktop CTAs */}
-        <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
-          <Link to="/ops" className="text-xs text-slate-500 hover:text-white transition-colors font-medium whitespace-nowrap border border-slate-800 hover:border-slate-600 px-2.5 py-1.5 rounded-lg">
-            Ops →
-          </Link>
-          <a
-            href="tel:6414208816"
-            className="text-xs text-slate-400 hover:text-white transition-colors font-medium whitespace-nowrap"
-          >
+        <div className="hidden lg:flex items-center gap-3 flex-shrink-0 ml-2">
+          <a href="tel:6414208816" className="text-xs text-slate-400 hover:text-white transition-colors font-medium whitespace-nowrap mr-2">
             641-420-8816
           </a>
-          <a
-            href="https://calendar.app.google/p6ieYanvwhixXxZ67"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap shadow-lg shadow-blue-600/20"
-          >
+          <a href="https://calendar.app.google/p6ieYanvwhixXxZ67" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap shadow-lg shadow-blue-600/20">
             Book a Call
           </a>
-          <Link
-            to="/gap-audit"
-            className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-lg shadow-emerald-600/20 whitespace-nowrap"
-          >
+          <Link to="/gap-audit" className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-lg shadow-emerald-600/20 whitespace-nowrap">
             Free Gap Audit
           </Link>
+          <div className="pl-3 border-l border-slate-800 flex items-center">
+            {user ? (
+              <div className="flex items-center gap-3">
+                <span className="text-slate-300 text-sm font-medium">{user.name || user.email}</span>
+                <Link to={user.role === 'admin' ? createPageUrl('AdminDashboard') : createPageUrl('ClientDashboard')} className="text-sm font-semibold bg-slate-800 hover:bg-slate-700 text-white px-3 py-1.5 rounded-lg transition-colors">
+                  Dashboard
+                </Link>
+                <button onClick={() => base44.auth.logout()} className="text-slate-400 hover:text-white transition-colors" title="Logout">
+                  <LogOut className="w-4 h-4" />
+                </button>
+              </div>
+            ) : (
+              <button onClick={() => base44.auth.login ? base44.auth.login() : base44.auth.redirectToLogin()} className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
+                Login
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Mobile: hamburger */}
@@ -205,21 +215,34 @@ export default function MarketingNav() {
             >
               Free Gap Audit
             </Link>
-            <div className="flex gap-3">
-              <Link
-                to="/client/dashboard"
-                onClick={() => setMobileOpen(false)}
-                className="flex-1 flex items-center justify-center text-slate-400 hover:text-white text-sm py-2 border border-slate-700 rounded-lg transition-colors"
-              >
-                Client Login
-              </Link>
-              <Link
-                to="/ops"
-                onClick={() => setMobileOpen(false)}
-                className="flex-1 flex items-center justify-center text-slate-400 hover:text-white text-sm py-2 border border-slate-700 rounded-lg transition-colors"
-              >
-                Ops →
-              </Link>
+            <div className="pt-2">
+              {user ? (
+                <div className="space-y-3">
+                  <div className="text-center text-slate-300 text-sm font-medium">{user.name || user.email}</div>
+                  <div className="flex gap-3">
+                    <Link
+                      to={user.role === 'admin' ? createPageUrl('AdminDashboard') : createPageUrl('ClientDashboard')}
+                      onClick={() => setMobileOpen(false)}
+                      className="flex-1 flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-white text-sm py-2 rounded-lg transition-colors"
+                    >
+                      Dashboard
+                    </Link>
+                    <button
+                      onClick={() => { setMobileOpen(false); base44.auth.logout(); }}
+                      className="flex-1 flex items-center justify-center text-slate-400 hover:text-white border border-slate-700 text-sm py-2 rounded-lg transition-colors gap-2"
+                    >
+                      <LogOut className="w-4 h-4" /> Logout
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <button
+                  onClick={() => { setMobileOpen(false); base44.auth.login ? base44.auth.login() : base44.auth.redirectToLogin(); }}
+                  className="w-full flex items-center justify-center text-slate-300 hover:text-white text-sm py-3 border border-slate-700 rounded-lg transition-colors font-medium"
+                >
+                  Login
+                </button>
+              )}
             </div>
           </div>
         </div>
