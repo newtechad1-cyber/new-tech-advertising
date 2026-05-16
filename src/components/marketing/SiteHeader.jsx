@@ -52,6 +52,9 @@ export default function SiteHeader() {
             {user ? (
               <div className="flex items-center gap-3">
                 <span className="text-blue-100 text-sm font-medium">{user.name || user.email}</span>
+                <Link to={user.role === 'client' ? createPageUrl('ClientDashboard') : '/operationshub'} className="text-blue-100 hover:text-white text-sm font-medium transition-colors">
+                  Dashboard
+                </Link>
                 <span className="text-blue-300">|</span>
                 <button onClick={() => base44.auth.logout()} className="text-blue-100 hover:text-white text-sm font-medium flex items-center gap-1 transition-colors">
                   <LogOut className="w-4 h-4" /> Logout

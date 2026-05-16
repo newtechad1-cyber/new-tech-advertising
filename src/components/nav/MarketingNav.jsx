@@ -128,29 +128,29 @@ export default function MarketingNav() {
           <a href="tel:6414208816" className="text-xs text-slate-400 hover:text-white transition-colors font-medium whitespace-nowrap mr-2">
             641-420-8816
           </a>
+          
+          {user ? (
+            <div className="flex items-center gap-3 mr-1">
+              <span className="text-slate-300 text-sm font-medium">{user.name || user.email}</span>
+              <Link to={user.role === 'client' ? createPageUrl('ClientDashboard') : '/operationshub'} className="text-sm font-semibold border border-slate-600 hover:bg-slate-800 text-white px-4 py-2 rounded-lg transition-colors">
+                Dashboard
+              </Link>
+              <button onClick={() => base44.auth.logout()} className="text-slate-400 hover:text-white transition-colors" title="Logout">
+                <LogOut className="w-4 h-4" />
+              </button>
+            </div>
+          ) : (
+            <button onClick={() => base44.auth.login ? base44.auth.login() : base44.auth.redirectToLogin()} className="text-sm font-semibold border border-slate-600 hover:bg-slate-800 text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap mr-1">
+              Login
+            </button>
+          )}
+
           <a href="https://calendar.app.google/p6ieYanvwhixXxZ67" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap shadow-lg shadow-blue-600/20">
             Book a Call
           </a>
           <Link to="/gap-audit" className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-lg shadow-emerald-600/20 whitespace-nowrap">
             Free Gap Audit
           </Link>
-          <div className="pl-3 border-l border-slate-800 flex items-center">
-            {user ? (
-              <div className="flex items-center gap-3">
-                <span className="text-slate-300 text-sm font-medium">{user.name || user.email}</span>
-                <Link to={user.role === 'admin' ? createPageUrl('AdminDashboard') : createPageUrl('ClientDashboard')} className="text-sm font-semibold bg-slate-800 hover:bg-slate-700 text-white px-3 py-1.5 rounded-lg transition-colors">
-                  Dashboard
-                </Link>
-                <button onClick={() => base44.auth.logout()} className="text-slate-400 hover:text-white transition-colors" title="Logout">
-                  <LogOut className="w-4 h-4" />
-                </button>
-              </div>
-            ) : (
-              <button onClick={() => base44.auth.login ? base44.auth.login() : base44.auth.redirectToLogin()} className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
-                Login
-              </button>
-            )}
-          </div>
         </div>
 
         {/* Mobile: hamburger */}
@@ -221,7 +221,7 @@ export default function MarketingNav() {
                   <div className="text-center text-slate-300 text-sm font-medium">{user.name || user.email}</div>
                   <div className="flex gap-3">
                     <Link
-                      to={user.role === 'admin' ? createPageUrl('AdminDashboard') : createPageUrl('ClientDashboard')}
+                      to={user.role === 'client' ? createPageUrl('ClientDashboard') : '/operationshub'}
                       onClick={() => setMobileOpen(false)}
                       className="flex-1 flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-white text-sm py-2 rounded-lg transition-colors"
                     >
