@@ -28,18 +28,26 @@ export default function Layout({ children, currentPageName }) {
       try {
         const authenticatedUser = await base44.auth.me();
         setUser(authenticatedUser);
-        console.log('[Layout] User loaded:', authenticatedUser?.email, 'Role:', authenticatedUser?.role);
+        console.log('[Layout] User loaded:', authenticatedUser?.email);
 
         if (window.location.pathname === '/') {
-          if (authenticatedUser?.role === 'admin') {
-            window.location.href = createPageUrl('AdminDashboard');
-          } else if (authenticatedUser?.role === 'client') {
-            window.location.href = createPageUrl('ClientDashboard');
-          } else if (authenticatedUser?.role === 'staff') {
-            window.location.href = createPageUrl('ClientDashboard');
-          } else if (authenticatedUser?.role === 'reseller') {
-            window.location.href = createPageUrl('ResellerDashboard');
+          const urlParams = new URLSearchParams(window.location.search);
+          const fromUrl = urlParams.get('from_url');
+          
+          if (fromUrl) {
+            window.location.href = fromUrl;
+            return;
           }
+
+          const userRecords = await base44.entities.User.filter({ email: authenticatedUser.email });
+          const dbRole = userRecords && userRecords.length > 0 ? userRecords[0].role : null;
+
+          if (dbRole === 'admin') {
+            window.location.href = '/operationshub';
+          } else if (dbRole === 'client') {
+            window.location.href = createPageUrl('ClientDashboard');
+          }
+          // For everyone else, remain on '/'
         }
       } catch (error) {
         console.log('[Layout] User not authenticated:', error.message);

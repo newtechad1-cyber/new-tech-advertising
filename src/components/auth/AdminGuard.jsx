@@ -5,10 +5,41 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils';
 
+import { useState, useEffect } from 'react';
+import { base44 } from '@/api/base44Client';
+
 export default function AdminGuard({ children }) {
   const { user, isLoadingAuth, authChecked, navigateToLogin } = useAuth();
+  const [isAdmin, setIsAdmin] = useState(null);
+  const [isVerifying, setIsVerifying] = useState(true);
 
-  if (isLoadingAuth || !authChecked) {
+  useEffect(() => {
+    async function verifyAdmin() {
+      if (!user) {
+        setIsVerifying(false);
+        return;
+      }
+      try {
+        const userRecords = await base44.entities.User.filter({ email: user.email });
+        if (userRecords && userRecords.length > 0) {
+          setIsAdmin(userRecords[0].role === 'admin');
+        } else {
+          setIsAdmin(false);
+        }
+      } catch (error) {
+        console.error("Failed to verify admin status:", error);
+        setIsAdmin(false);
+      } finally {
+        setIsVerifying(false);
+      }
+    }
+
+    if (authChecked && !isLoadingAuth) {
+      verifyAdmin();
+    }
+  }, [user, authChecked, isLoadingAuth]);
+
+  if (isLoadingAuth || !authChecked || isVerifying) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <p className="text-slate-600">Verifying access...</p>
@@ -21,7 +52,7 @@ export default function AdminGuard({ children }) {
     return null;
   }
 
-  if (user.role !== 'admin') {
+  if (!isAdmin) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
         <Card className="max-w-md w-full">
