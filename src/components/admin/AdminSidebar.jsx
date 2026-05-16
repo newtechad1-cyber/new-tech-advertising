@@ -35,17 +35,6 @@ const ADMIN_NAV_STRUCTURE = [
     ],
   },
   {
-    id: 'video-engine',
-    title: 'Video Engine',
-    icon: '🎬',
-    items: [
-      { label: 'AI Video Studio', page: 'AdminAIVideoStudio' },
-      { label: 'Video Requests', page: 'AdminVideoEngineRequests' },
-      { label: 'Video Renders', page: 'AdminVideoEngineRenders' },
-      { label: 'Video Library', page: 'AdminVideoLibrary' },
-    ],
-  },
-  {
     id: 'publishing',
     title: 'Publishing & Distribution',
     icon: '📡',
@@ -55,6 +44,54 @@ const ADMIN_NAV_STRUCTURE = [
       { label: 'Client Channel Setup', href: '/agency/channel-setup' },
       { label: 'Meta Setup', page: 'AdminMetaSetup' },
       { label: 'YouTube Setup', page: 'AdminYouTubeSetup' },
+    ],
+  },
+  {
+    id: 'sales-revenue',
+    title: 'Sales & Revenue',
+    icon: '💰',
+    items: [
+      { label: 'Leads', page: 'LeadsDashboard' },
+      { label: 'Sales Room', page: 'SalesRoom' },
+      { label: 'Deal Room', page: 'DealRoom' },
+      { label: 'Proposals', page: 'ProposalPipeline' },
+      { label: 'Clients', page: 'AdminClients' },
+      { label: 'Opportunities', page: 'AdminRevenueEngine' },
+    ],
+  },
+  {
+    id: 'analytics',
+    title: 'Analytics',
+    icon: '📊',
+    items: [
+      { label: 'Executive Dashboard', page: 'AdminExecutive' },
+      { label: 'Performance Reports', page: 'AdminAnalytics' },
+      { label: 'Client Performance', page: 'AdminAnalytics' },
+    ],
+  },
+  {
+    id: 'system',
+    title: 'System',
+    icon: '⚙️',
+    items: [
+      { label: 'QA Center', page: 'AdminQA' },
+      { label: 'Users & Permissions', page: 'AdminUsers' },
+      { label: 'Settings', page: 'AdminSettings' },
+      { label: 'System Health', page: 'AdminSystemHealth' },
+    ],
+  },
+];
+
+const HIDDEN_NAV_SECTIONS = [
+  {
+    id: 'video-engine',
+    title: 'Video Engine',
+    icon: '🎬',
+    items: [
+      { label: 'AI Video Studio', page: 'AdminAIVideoStudio' },
+      { label: 'Video Requests', page: 'AdminVideoEngineRequests' },
+      { label: 'Video Renders', page: 'AdminVideoEngineRenders' },
+      { label: 'Video Library', page: 'AdminVideoLibrary' },
     ],
   },
   {
@@ -74,19 +111,6 @@ const ADMIN_NAV_STRUCTURE = [
       { label: 'Render Queue', page: 'AdminSchoolRenderQueue', allowCrossFamily: true },
       { label: 'AI Dashboard', page: 'AdminSchoolAIDashboard', allowCrossFamily: true },
       { label: 'Settings', page: 'AdminSchoolSettings', allowCrossFamily: true },
-    ],
-  },
-  {
-    id: 'sales-revenue',
-    title: 'Sales & Revenue',
-    icon: '💰',
-    items: [
-      { label: 'Leads', page: 'LeadsDashboard' },
-      { label: 'Sales Room', page: 'SalesRoom' },
-      { label: 'Deal Room', page: 'DealRoom' },
-      { label: 'Proposals', page: 'ProposalPipeline' },
-      { label: 'Clients', page: 'AdminClients' },
-      { label: 'Opportunities', page: 'AdminRevenueEngine' },
     ],
   },
   {
@@ -111,16 +135,6 @@ const ADMIN_NAV_STRUCTURE = [
     items: [
       { label: 'Active Automations', page: 'ScheduledQueue' },
       { label: 'Triggers', page: 'AdminPlatform' },
-    ],
-  },
-  {
-    id: 'analytics',
-    title: 'Analytics',
-    icon: '📊',
-    items: [
-      { label: 'Executive Dashboard', page: 'AdminExecutive' },
-      { label: 'Performance Reports', page: 'AdminAnalytics' },
-      { label: 'Client Performance', page: 'AdminAnalytics' },
     ],
   },
   {
@@ -161,21 +175,10 @@ const ADMIN_NAV_STRUCTURE = [
       { label: 'Expansion Revenue', page: 'AdminExpansionRevenue' },
     ],
   },
-  {
-    id: 'system',
-    title: 'System',
-    icon: '⚙️',
-    items: [
-      { label: 'QA Center', page: 'AdminQA' },
-      { label: 'Users & Permissions', page: 'AdminUsers' },
-      { label: 'Settings', page: 'AdminSettings' },
-      { label: 'System Health', page: 'AdminSystemHealth' },
-    ],
-  },
 ];
 
 // ── Route validation — runs once at module load in dev ────────────────────────
-validateNavRoutes(ADMIN_NAV_STRUCTURE, ROUTE_FAMILIES.MAIN_ADMIN, 'AdminLayout/AdminSidebar');
+validateNavRoutes([...ADMIN_NAV_STRUCTURE, ...HIDDEN_NAV_SECTIONS], ROUTE_FAMILIES.MAIN_ADMIN, 'AdminLayout/AdminSidebar');
 
 function SidebarSection({ section, isOpen, onToggle, isActive, currentPageName, isCollapsed }) {
   const isExpanded = isOpen && !isCollapsed;
@@ -234,6 +237,19 @@ export default function AdminSidebar({
   currentPageName,
 }) {
   const [expandedSections, setExpandedSections] = useState(new Set(['command-center']));
+  const [showAllSections, setShowAllSections] = useState(() => {
+    return localStorage.getItem('nta_show_all_sections') === 'true';
+  });
+
+  const handleToggleSections = () => {
+    const nextState = !showAllSections;
+    setShowAllSections(nextState);
+    localStorage.setItem('nta_show_all_sections', String(nextState));
+  };
+
+  const displayedNavStructure = useMemo(() => {
+    return showAllSections ? [...ADMIN_NAV_STRUCTURE, ...HIDDEN_NAV_SECTIONS] : ADMIN_NAV_STRUCTURE;
+  }, [showAllSections]);
 
   const toggleSection = (sectionId) => {
     const newExpanded = new Set(expandedSections);
@@ -247,12 +263,12 @@ export default function AdminSidebar({
 
   // Auto-expand section containing current page
   useMemo(() => {
-    ADMIN_NAV_STRUCTURE.forEach(section => {
+    displayedNavStructure.forEach(section => {
       if (section.items.some(item => item.page === currentPageName)) {
         setExpandedSections(prev => new Set(prev).add(section.id));
       }
     });
-  }, [currentPageName]);
+  }, [currentPageName, displayedNavStructure]);
 
   return (
     <>
@@ -279,7 +295,7 @@ export default function AdminSidebar({
 
         {/* Navigation */}
         <div className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
-          {ADMIN_NAV_STRUCTURE.map(section => (
+          {displayedNavStructure.map(section => (
             <SidebarSection
               key={section.id}
               section={section}
@@ -290,6 +306,18 @@ export default function AdminSidebar({
               isCollapsed={isCollapsed}
             />
           ))}
+
+          <div className="pt-4 pb-2">
+            <button
+              onClick={handleToggleSections}
+              className={cn(
+                "w-full flex items-center justify-center gap-2 py-2 text-xs font-medium rounded-lg transition-colors text-gray-400 hover:text-white hover:bg-gray-800 border border-gray-800",
+                isCollapsed ? "px-1 text-[10px]" : "px-4"
+              )}
+            >
+              {isCollapsed ? (showAllSections ? '−' : '+') : (showAllSections ? 'Hide Extra Sections' : 'Show All Sections')}
+            </button>
+          </div>
         </div>
 
         {/* Footer */}
@@ -318,7 +346,7 @@ export default function AdminSidebar({
             </div>
 
             <div className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
-              {ADMIN_NAV_STRUCTURE.map(section => (
+              {displayedNavStructure.map(section => (
                 <SidebarSection
                   key={section.id}
                   section={section}
@@ -329,6 +357,15 @@ export default function AdminSidebar({
                   isCollapsed={false}
                 />
               ))}
+
+              <div className="pt-4 pb-2">
+                <button
+                  onClick={handleToggleSections}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2 text-xs font-medium rounded-lg transition-colors text-gray-400 hover:text-white hover:bg-gray-800 border border-gray-800"
+                >
+                  {showAllSections ? 'Hide Extra Sections' : 'Show All Sections'}
+                </button>
+              </div>
             </div>
           </div>
         </div>
