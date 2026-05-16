@@ -3,6 +3,7 @@ import { useAuth } from '@/lib/AuthContext';
 import { Lock } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { createPageUrl } from '@/utils';
 
 export default function AdminGuard({ children }) {
   const { user, isLoadingAuth, authChecked, navigateToLogin } = useAuth();
@@ -34,7 +35,7 @@ export default function AdminGuard({ children }) {
             <p className="text-slate-600">
               This page is only accessible to administrators. If you believe you should have access, please contact support.
             </p>
-            <Button onClick={() => window.location.href = '/client/dashboard'} className="w-full">
+            <Button onClick={() => window.location.href = createPageUrl('ClientDashboard')} className="w-full">
               Return to Dashboard
             </Button>
           </CardContent>

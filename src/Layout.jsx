@@ -14,6 +14,7 @@ export const useViewMode = () => {
 import ADAComplianceBanner from '@/components/marketing/ADAComplianceBanner';
 import RouteFamilyBadge from '@/components/admin/RouteFamilyBadge';
 import { PAGE_FAMILY_MAP } from '@/components/config/routeMap';
+import { createPageUrl } from '@/utils';
 
 export default function Layout({ children, currentPageName }) {
   const [user, setUser] = useState(null);
@@ -28,6 +29,16 @@ export default function Layout({ children, currentPageName }) {
         const authenticatedUser = await base44.auth.me();
         setUser(authenticatedUser);
         console.log('[Layout] User loaded:', authenticatedUser?.email, 'Role:', authenticatedUser?.role);
+
+        if (window.location.pathname === '/') {
+          if (authenticatedUser?.role === 'admin') {
+            window.location.href = createPageUrl('AdminDashboard');
+          } else if (authenticatedUser?.role === 'client' || authenticatedUser?.role === 'staff') {
+            window.location.href = createPageUrl('ClientDashboard');
+          } else if (authenticatedUser?.role === 'reseller') {
+            window.location.href = createPageUrl('ResellerDashboard');
+          }
+        }
       } catch (error) {
         console.log('[Layout] User not authenticated:', error.message);
         setUser(null);
