@@ -3,6 +3,7 @@ import { base44 } from '@/api/base44Client';
 import ClientGuard from '@/components/auth/ClientGuard';
 import { getAssetMeta } from '@/components/content-multiplier/AssetTypeIcon';
 import { FileText, Video, Share2, Globe, TrendingUp, Calendar, Play, ChevronRight, Zap } from 'lucide-react';
+import ClientNav from '@/components/nav/ClientNav';
 
 const ASSET_TYPE_GROUPS = [
   { label: 'SEO Content', types: ['seo_article', 'service_page', 'landing_page', 'ebook_chapter'], icon: Globe, color: 'text-blue-400', bg: 'bg-blue-500/10 border-blue-500/20' },
@@ -128,9 +129,11 @@ export default function ClientContentProduction() {
 
   return (
     <ClientGuard>
-      <div className="min-h-screen bg-slate-950 text-white">
-        {/* Header */}
-        <div className="border-b border-slate-800 bg-gradient-to-r from-slate-900 to-slate-950 px-6 py-6">
+      <div className="flex h-screen bg-slate-950 text-white overflow-hidden">
+        <ClientNav />
+        <div className="flex-1 overflow-y-auto">
+          {/* Header */}
+          <div className="border-b border-slate-800 bg-gradient-to-r from-slate-900 to-slate-950 px-6 py-6">
           <div className="max-w-6xl mx-auto">
             <div className="flex items-center gap-3 mb-1">
               <div className="p-2 rounded-xl bg-blue-600/20">
@@ -221,6 +224,7 @@ export default function ClientContentProduction() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </ClientGuard>
   );

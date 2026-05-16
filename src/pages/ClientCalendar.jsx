@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils';
+import ClientNav from '@/components/nav/ClientNav';
 
 import CalendarHeader from '@/components/client-calendar/CalendarHeader';
 import CalendarSummary from '@/components/client-calendar/CalendarSummary';
@@ -141,30 +142,10 @@ export default function ClientCalendar() {
 
   return (
     <ClientGuard>
-      <div className="min-h-screen bg-slate-50">
-        {/* Top Nav */}
-        <header className="bg-white border-b border-slate-200 sticky top-0 z-30">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
-            <img src={LOGO} alt="NTA" className="h-8 w-auto" />
-            <nav className="hidden md:flex items-center gap-6 text-sm text-slate-500">
-              <a href={createPageUrl('ClientDashboard')} className="hover:text-slate-800">Dashboard</a>
-              <span className="text-blue-600 font-semibold border-b-2 border-blue-600 pb-0.5">Calendar</span>
-              <a href={createPageUrl('ClientFulfillment')} className="hover:text-slate-800">Services</a>
-              <a href={createPageUrl('ClientSettings')} className="hover:text-slate-800">Settings</a>
-            </nav>
-            <div className="flex items-center gap-3">
-              <div className="text-right hidden sm:block">
-                <p className="text-sm font-medium text-slate-800">{user?.full_name}</p>
-                <p className="text-xs text-slate-400">{companyName}</p>
-              </div>
-              <button onClick={handleLogout} className="text-xs text-slate-400 hover:text-red-500 flex items-center gap-1">
-                <LogOut className="w-3.5 h-3.5" /> Logout
-              </button>
-            </div>
-          </div>
-        </header>
-
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <div className="flex h-screen bg-slate-50 overflow-hidden">
+        <ClientNav />
+        <div className="flex-1 overflow-y-auto">
+          <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
           {/* Header */}
           <CalendarHeader companyName={companyName} primaryColor="#3B82F6" />
 
@@ -227,7 +208,7 @@ export default function ClientCalendar() {
           </div>
         </main>
       </div>
-      <RouteFamilyBadge family="client_portal" />
+    </div>
     </ClientGuard>
   );
 }

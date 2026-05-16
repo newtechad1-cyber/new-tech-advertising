@@ -7,6 +7,8 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Toggle } from '@/components/ui/toggle';
 import { Users, Bell, Shield, Eye, Lock } from 'lucide-react';
+import ClientNav from '@/components/nav/ClientNav';
+import ClientGuard from '@/components/auth/ClientGuard';
 
 export default function ClientSettings() {
   const [user, setUser] = useState(null);
@@ -106,10 +108,13 @@ export default function ClientSettings() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-8">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
+    <ClientGuard>
+      <div className="flex h-screen bg-slate-50 overflow-hidden">
+        <ClientNav />
+        <div className="flex-1 overflow-y-auto p-8 bg-gradient-to-br from-slate-50 to-slate-100">
+          <div className="max-w-6xl mx-auto">
+            {/* Header */}
+            <div className="mb-8">
           <h1 className="text-4xl font-bold text-slate-900 mb-2">Account & Portal Settings</h1>
           <p className="text-slate-600">Manage your portal access, team, and preferences</p>
         </div>
@@ -351,9 +356,11 @@ export default function ClientSettings() {
                 </p>
               </CardContent>
             </Card>
-          </TabsContent>
-        </Tabs>
+              </TabsContent>
+            </Tabs>
+          </div>
+        </div>
       </div>
-    </div>
+    </ClientGuard>
   );
 }

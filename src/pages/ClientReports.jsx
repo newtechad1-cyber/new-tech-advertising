@@ -15,6 +15,8 @@ import ChannelPresenceSummary from '@/components/reporting/ChannelPresenceSummar
 import WhatThisMeansBlock from '@/components/reporting/WhatThisMeansBlock';
 import UpcomingPlanSection from '@/components/reporting/UpcomingPlanSection';
 import ROINarrativeBlock from '@/components/reporting/ROINarrativeBlock';
+import ClientNav from '@/components/nav/ClientNav';
+import ClientGuard from '@/components/auth/ClientGuard';
 
 export default function ClientReports() {
   const [user, setUser] = useState(null);
@@ -54,10 +56,12 @@ export default function ClientReports() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
-      
-      {/* Header */}
-      <div className="bg-gradient-to-r from-slate-900 to-slate-800 border-b border-slate-700 px-6 py-6">
+    <ClientGuard>
+      <div className="flex h-screen bg-slate-950 text-white overflow-hidden">
+        <ClientNav />
+        <div className="flex-1 overflow-y-auto">
+          {/* Header */}
+          <div className="bg-gradient-to-r from-slate-900 to-slate-800 border-b border-slate-700 px-6 py-6">
         <div className="max-w-4xl mx-auto flex items-center justify-between gap-4 flex-wrap">
           <div>
             <h1 className="text-2xl font-bold text-white">Your Performance Report</h1>
@@ -120,6 +124,8 @@ export default function ClientReports() {
         )}
 
       </div>
-    </div>
+        </div>
+      </div>
+    </ClientGuard>
   );
 }
