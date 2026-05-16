@@ -23,5 +23,8 @@
       "type": "boolean",
       "default": true
     }
-  }
+  },
+  "required": [
+    "name"
+  ]
 }
