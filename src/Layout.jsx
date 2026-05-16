@@ -21,7 +21,8 @@ export default function Layout({ children, currentPageName }) {
   const [isLoading, setIsLoading] = useState(false);
   const [viewMode, setViewMode] = useState('admin');
   
-  const isAdmin = user?.role === 'admin';
+  const ADMIN_EMAILS = ["info@newtechadvertising.com", "newtechad1@gmail.com"];
+  const isAdmin = user?.role === "admin" || ADMIN_EMAILS.includes(user?.email?.toLowerCase());
 
   useEffect(() => {
     const loadUser = async () => {
@@ -39,14 +40,14 @@ export default function Layout({ children, currentPageName }) {
             return;
           }
 
-          const userRecords = await base44.entities.User.filter({ email: authenticatedUser.email });
-          console.log("[Login] email:", authenticatedUser.email, "records:", userRecords?.length, "roles:", userRecords?.map(r => r.role));
-          const hasAdmin = userRecords && userRecords.some(record => record.role === "admin");
-          const hasClient = userRecords && userRecords.some(record => record.role === "client");
+          const ADMIN_EMAILS = ["info@newtechadvertising.com", "newtechad1@gmail.com"];
+          const adminByRole = authenticatedUser.role === "admin";
+          const adminByEmail = ADMIN_EMAILS.includes(authenticatedUser.email?.toLowerCase());
+          const isClient = authenticatedUser.role === "client";
 
-          if (hasAdmin) {
+          if (adminByRole || adminByEmail) {
             window.location.href = '/operationshub';
-          } else if (hasClient) {
+          } else if (isClient) {
             window.location.href = createPageUrl('ClientDashboard');
           }
           // For everyone else, remain on '/'

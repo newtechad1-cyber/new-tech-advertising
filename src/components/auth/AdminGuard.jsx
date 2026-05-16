@@ -20,13 +20,11 @@ export default function AdminGuard({ children }) {
         return;
       }
       try {
-        const userRecords = await base44.entities.User.filter({ email: user.email });
-        console.log("[AdminGuard] checking email:", user.email, "found records:", userRecords?.length, "roles:", userRecords?.map(r => r.role));
-        if (userRecords && userRecords.length > 0) {
-          setIsAdmin(userRecords.some(record => record.role === 'admin'));
-        } else {
-          setIsAdmin(false);
-        }
+        const ADMIN_EMAILS = ["info@newtechadvertising.com", "newtechad1@gmail.com"];
+        const adminByRole = user.role === "admin";
+        const adminByEmail = ADMIN_EMAILS.includes(user.email?.toLowerCase());
+        setIsAdmin(adminByRole || adminByEmail);
+        console.log("[AdminGuard] email:", user.email, "role:", user.role, "isAdmin:", adminByRole || adminByEmail);
       } catch (error) {
         console.error("Failed to verify admin status:", error);
         setIsAdmin(false);
