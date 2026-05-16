@@ -40,11 +40,13 @@ export default function Layout({ children, currentPageName }) {
           }
 
           const userRecords = await base44.entities.User.filter({ email: authenticatedUser.email });
-          const dbRole = userRecords && userRecords.length > 0 ? userRecords[0].role : null;
+          console.log("[Login] email:", authenticatedUser.email, "records:", userRecords?.length, "roles:", userRecords?.map(r => r.role));
+          const hasAdmin = userRecords && userRecords.some(record => record.role === "admin");
+          const hasClient = userRecords && userRecords.some(record => record.role === "client");
 
-          if (dbRole === 'admin') {
+          if (hasAdmin) {
             window.location.href = '/operationshub';
-          } else if (dbRole === 'client') {
+          } else if (hasClient) {
             window.location.href = createPageUrl('ClientDashboard');
           }
           // For everyone else, remain on '/'

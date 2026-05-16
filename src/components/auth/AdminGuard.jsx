@@ -21,8 +21,9 @@ export default function AdminGuard({ children }) {
       }
       try {
         const userRecords = await base44.entities.User.filter({ email: user.email });
+        console.log("[AdminGuard] checking email:", user.email, "found records:", userRecords?.length, "roles:", userRecords?.map(r => r.role));
         if (userRecords && userRecords.length > 0) {
-          setIsAdmin(userRecords[0].role === 'admin');
+          setIsAdmin(userRecords.some(record => record.role === 'admin'));
         } else {
           setIsAdmin(false);
         }
