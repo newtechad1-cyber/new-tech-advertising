@@ -33,7 +33,9 @@ export default function Layout({ children, currentPageName }) {
         if (window.location.pathname === '/') {
           if (authenticatedUser?.role === 'admin') {
             window.location.href = createPageUrl('AdminDashboard');
-          } else if (authenticatedUser?.role === 'client' || authenticatedUser?.role === 'staff') {
+          } else if (authenticatedUser?.role === 'client') {
+            window.location.href = createPageUrl('ClientDashboard');
+          } else if (authenticatedUser?.role === 'staff') {
             window.location.href = createPageUrl('ClientDashboard');
           } else if (authenticatedUser?.role === 'reseller') {
             window.location.href = createPageUrl('ResellerDashboard');

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { base44 } from '@/api/base44Client';
 
 const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
-const ADMIN_LOGIN_URL = createPageUrl('AdminDashboard');
-const CLIENT_LOGIN_URL = createPageUrl('Dashboard');
 
 const navLinks = [
   { label: 'Platform', href: createPageUrl('Home') },
@@ -20,11 +19,16 @@ const navLinks = [
 export default function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    base44.auth.me().then(setUser).catch(() => setUser(null));
   }, []);
 
   return (
@@ -45,13 +49,19 @@ export default function SiteHeader() {
 
           {/* Login links (desktop) */}
           <div className="hidden lg:flex items-center gap-3">
-            <a href={ADMIN_LOGIN_URL} className="text-blue-100 hover:text-white text-sm font-medium underline underline-offset-2 transition-colors">
-              Admin Login
-            </a>
-            <span className="text-blue-300">|</span>
-            <a href={CLIENT_LOGIN_URL} className="text-blue-100 hover:text-white text-sm font-medium underline underline-offset-2 transition-colors">
-              Client Login
-            </a>
+            {user ? (
+              <div className="flex items-center gap-3">
+                <span className="text-blue-100 text-sm font-medium">{user.name || user.email}</span>
+                <span className="text-blue-300">|</span>
+                <button onClick={() => base44.auth.logout()} className="text-blue-100 hover:text-white text-sm font-medium flex items-center gap-1 transition-colors">
+                  <LogOut className="w-4 h-4" /> Logout
+                </button>
+              </div>
+            ) : (
+              <button onClick={() => base44.auth.login ? base44.auth.login() : base44.auth.redirectToLogin()} className="text-blue-100 hover:text-white text-sm font-medium underline underline-offset-2 transition-colors">
+                Login
+              </button>
+            )}
           </div>
 
           {/* Mobile hamburger */}
@@ -79,10 +89,18 @@ export default function SiteHeader() {
             {navLinks.map(l => (
               <a key={l.label} href={l.href} className="block text-blue-100 hover:text-white py-1.5 text-sm font-medium" onClick={() => setOpen(false)}>{l.label}</a>
             ))}
-            <div className="flex gap-4 pt-1 border-t border-blue-600/40">
-              <a href={ADMIN_LOGIN_URL} className="text-blue-200 hover:text-white text-sm underline">Admin Login</a>
-              <a href={CLIENT_LOGIN_URL} className="text-blue-200 hover:text-white text-sm underline">Client Login</a>
-            </div>
+            {user ? (
+              <div className="pt-1 border-t border-blue-600/40">
+                <span className="block text-blue-200 text-sm mb-2">{user.name || user.email}</span>
+                <button onClick={() => base44.auth.logout()} className="flex items-center gap-2 text-blue-200 hover:text-white text-sm">
+                  <LogOut className="w-4 h-4" /> Logout
+                </button>
+              </div>
+            ) : (
+              <div className="pt-1 border-t border-blue-600/40">
+                <button onClick={() => base44.auth.login ? base44.auth.login() : base44.auth.redirectToLogin()} className="text-blue-200 hover:text-white text-sm underline">Login</button>
+              </div>
+            )}
             <a href={TRIAL_URL} className="block">
               <Button className="w-full bg-white text-blue-700 font-bold mt-1 hover:bg-blue-50">Start Free Trial</Button>
             </a>

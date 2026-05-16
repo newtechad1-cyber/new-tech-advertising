@@ -2,16 +2,26 @@
   "name": "User",
   "type": "object",
   "properties": {
-    "subscription_package": {
+    "role": {
       "type": "string",
       "enum": [
-        "diy",
-        "collaborative",
-        "done_for_you"
+        "admin",
+        "client",
+        "staff",
+        "reseller"
       ],
-      "default": "collaborative",
-      "description": "Active subscription package"
+      "default": "client"
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Relation to ClientCompanies entity"
+    },
+    "name": {
+      "type": "string"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
     }
-  },
-  "required": []
+  }
 }
