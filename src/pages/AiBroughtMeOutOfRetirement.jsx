@@ -35,6 +35,20 @@ export default function AiBroughtMeOutOfRetirement() {
         />
 
         <div className="max-w-3xl mx-auto px-6 mt-12 prose prose-invert prose-lg prose-blue">
+          
+          <div className="aspect-video w-full rounded-2xl overflow-hidden shadow-xl mb-12 not-prose">
+            <iframe 
+              width="100%" 
+              height="100%" 
+              src="https://www.youtube.com/embed/UPPqjOPkHGc" 
+              title="AI Brought Me Out of Retirement" 
+              frameBorder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              referrerPolicy="strict-origin-when-cross-origin" 
+              allowFullScreen
+            ></iframe>
+          </div>
+
           <h2>45 Years of Walking in Your Shoes</h2>
           <p>
             My entrepreneurial journey started in 1980 with Sleepy Hollow Waterbeds, a retail store right here in Mason City. After managing retail furniture operations, I spent a decade (1989–1999) selling television advertising at KAAL TV (ABC 6) in Rochester, Minnesota. I...
