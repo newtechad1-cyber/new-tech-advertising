@@ -20,6 +20,9 @@ export default function HeroSplit() {
           <p className="text-slate-300 text-lg mb-4 leading-relaxed">
             Helping service businesses and local brands generate more leads, customers, and repeat business through better visibility, content, advertising, and follow-up.
           </p>
+          <p className="text-slate-300 text-lg mb-8 leading-relaxed">
+            NTA is an AI-powered marketing platform created by a small business owner to help small businesses compete and grow in the AI era.
+          </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <Link
               to="/gap-audit"
