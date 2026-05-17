@@ -14,6 +14,7 @@ import InternetChangedSection from '../components/home-v3/InternetChangedSection
 import WhatWeFoundSection from '../components/home-v3/WhatWeFoundSection';
 import GrowthSystemSection from '../components/home-v3/GrowthSystemSection';
 import EducationCardsSection from '../components/home-v3/EducationCardsSection';
+import HomeYoutubeSection from '../components/home-v3/HomeYoutubeSection';
 import NTAVideoMessage from '../components/home-v3/NTAVideoMessage';
 import SEOHead from '../components/shared/SEOHead';
 
@@ -26,6 +27,7 @@ export default function Home() {
       <InternetChangedSection />
       <WhatWeFoundSection />
       <GrowthSystemSection />
+      <HomeYoutubeSection />
       <EducationCardsSection />
       <WhatIMean />
       <NTAVideoMessage />
