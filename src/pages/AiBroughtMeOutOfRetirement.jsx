@@ -36,17 +36,14 @@ export default function AiBroughtMeOutOfRetirement() {
 
         <div className="max-w-3xl mx-auto px-6 mt-12 prose prose-invert prose-lg prose-blue">
           
-          <div className="aspect-video w-full rounded-2xl overflow-hidden shadow-xl mb-12 not-prose">
+          <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900 mb-12 not-prose">
             <iframe 
-              width="100%" 
-              height="100%" 
               src="https://www.youtube.com/embed/UPPqjOPkHGc" 
-              title="AI Brought Me Out of Retirement" 
-              frameBorder="0" 
+              className="absolute top-0 left-0 w-full h-full border-0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-              referrerPolicy="strict-origin-when-cross-origin" 
               allowFullScreen
-            ></iframe>
+              title="AI Brought Me Out of Retirement" 
+            />
           </div>
 
           <h2>45 Years of Walking in Your Shoes</h2>

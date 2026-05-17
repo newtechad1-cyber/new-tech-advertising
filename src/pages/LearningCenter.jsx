@@ -116,6 +116,18 @@ export default function LearningCenter() {
           </div>
         </div>
 
+        <div className="mt-12 mb-6">
+          <div className="relative w-full max-w-4xl mx-auto aspect-video rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900">
+            <iframe 
+              src="https://www.youtube.com/embed/UPPqjOPkHGc" 
+              className="absolute top-0 left-0 w-full h-full border-0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowFullScreen
+              title="AI Brought Me Out of Retirement" 
+            />
+          </div>
+        </div>
+
         <div className="mt-6">
           <Link to="/ai-brought-me-out-of-retirement" className="group relative block bg-slate-900 border border-slate-800 rounded-3xl p-8 overflow-hidden hover:border-indigo-500/50 transition-colors">
             <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600/5 blur-[80px] rounded-full group-hover:bg-indigo-600/10 transition-colors" />
@@ -138,27 +150,7 @@ export default function LearningCenter() {
           </Link>
         </div>
 
-        <div className="mt-6">
-          <Link to="/ai-brought-me-out-of-retirement" className="group relative block bg-slate-900 border border-slate-800 rounded-3xl p-8 overflow-hidden hover:border-indigo-500/50 transition-colors">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600/5 blur-[80px] rounded-full group-hover:bg-indigo-600/10 transition-colors" />
-            <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 h-full">
-              <div>
-                <span className="inline-block text-xs font-bold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-full mb-4">
-                  Founder's Story
-                </span>
-                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">
-                  AI Brought Me Out of Retirement
-                </h3>
-                <p className="text-slate-400 leading-relaxed text-lg max-w-3xl">
-                  After 45 years in business, NTA founder Rick Hesse came out of retirement to launch the region's first AI-powered marketing agency. Here's why.
-                </p>
-              </div>
-              <div className="flex-shrink-0 flex items-center text-indigo-500 font-semibold group-hover:gap-2 transition-all">
-                Read Story <ArrowRight className="w-5 h-5 ml-1" />
-              </div>
-            </div>
-          </Link>
-        </div>
+
       </section>
 
       {/* 3. Learning Categories Section */}
