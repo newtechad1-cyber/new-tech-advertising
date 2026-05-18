@@ -26,6 +26,8 @@ const SERVICE_COLORS = {
   'website-rebuild': 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
 };
 
+import SEOHead from '@/components/shared/SEOHead';
+
 export default function CaseStudiesPage() {
   const [filterIndustry, setFilterIndustry] = useState('');
   const [filterService, setFilterService] = useState('');
@@ -48,6 +50,10 @@ export default function CaseStudiesPage() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
+      <SEOHead 
+        title="Case Studies | New Tech Advertising Results"
+        description="See real results from New Tech Advertising clients. AI marketing case studies for HVAC, plumbing & local businesses in North Iowa and beyond."
+      />
       <MarketingNav />
 
       {/* Hero */}

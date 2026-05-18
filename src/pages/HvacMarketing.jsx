@@ -80,8 +80,8 @@ export default function HvacMarketing() {
   return (
     <>
       <SEOHead 
-        title="HVAC Marketing & Lead Generation | New Tech Advertising"
-        description="Fill your HVAC calendar year-round with our AI marketing platform. Local SEO, social media automation, and review generation."
+        title="HVAC Marketing | AI Marketing for HVAC Companies"
+        description="AI-powered marketing for HVAC contractors. Google Business Profile, AI search optimization, social media & lead generation. Get more furnace and AC calls. New Tech Advertising."
         faqs={DATA.faqs}
       />
       <VerticalPageTemplate data={DATA} />

@@ -80,8 +80,8 @@ export default function PlumbingMarketing() {
   return (
     <>
       <SEOHead 
-        title="Plumbing Marketing & SEO | New Tech Advertising"
-        description="Get found first for emergency calls. Our AI platform powers plumbing marketing with local SEO, social media, and Google reviews."
+        title="Plumbing Marketing | AI Marketing for Plumbers"
+        description="AI-driven marketing for plumbing companies. Google Business Profile, local SEO, social media & lead generation. Get more service calls. New Tech Advertising."
         faqs={DATA.faqs}
       />
       <VerticalPageTemplate data={DATA} />

@@ -80,8 +80,8 @@ export default function RestaurantMarketing() {
   return (
     <>
       <SEOHead 
-        title="Restaurant Marketing & Social Media | New Tech Advertising"
-        description="Fill more tables with AI-powered restaurant marketing. We automate your social media, review management, and local SEO to keep your business top-of-mind."
+        title="Restaurant Marketing | AI Marketing for Restaurants"
+        description="AI-powered marketing for restaurants. Social media management, Google Business Profile, online ordering integration & customer engagement. New Tech Advertising."
         faqs={DATA.faqs}
       />
       <VerticalPageTemplate data={DATA} />

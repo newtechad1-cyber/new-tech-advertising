@@ -53,6 +53,16 @@ const DATA = {
   },
 };
 
+import SEOHead from '@/components/shared/SEOHead';
+
 export default function RoofingMarketing() {
-  return <VerticalPageTemplate data={DATA} />;
+  return (
+    <>
+      <SEOHead 
+        title="Roofing Marketing | AI Marketing for Roofers"
+        description="AI-powered marketing for roofing companies. Google Business Profile, local SEO, social media & lead generation. More roofing leads. New Tech Advertising."
+      />
+      <VerticalPageTemplate data={DATA} />
+    </>
+  );
 }

@@ -119,9 +119,15 @@ function SiteCard({ site }) {
   );
 }
 
+import SEOHead from '@/components/shared/SEOHead';
+
 export default function OurWork() {
   return (
     <div className="bg-white min-h-screen">
+      <SEOHead 
+        title="Portfolio | New Tech Advertising Work"
+        description="See our work. AI-powered websites, social media campaigns, video production & marketing for small businesses. New Tech Advertising, Mason City IA."
+      />
       <MarketingNav />
 
       {/* Header */}

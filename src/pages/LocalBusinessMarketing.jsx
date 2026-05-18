@@ -4,10 +4,15 @@ import SiteFooter from '../components/marketing/SiteFooter';
 import MarketingHero from '../components/marketing/MarketingHero';
 import { VideoSection, FeaturesSection, HowItWorksSection, PricingSection, CtaBanner } from '../components/marketing/PlatformSections';
 import { CheckCircle } from 'lucide-react';
+import SEOHead from '@/components/shared/SEOHead';
 
 export default function LocalBusinessMarketing() {
   return (
     <div className="bg-white">
+      <SEOHead 
+        title="Local Business Marketing | AI Marketing for Small Business"
+        description="AI-powered marketing for local businesses. Google Business Profile, social media, local SEO & AI search optimization. Grow your local customer base. New Tech Advertising."
+      />
       <SiteHeader />
       <main>
         <MarketingHero

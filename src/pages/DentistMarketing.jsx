@@ -53,6 +53,16 @@ const DATA = {
   },
 };
 
+import SEOHead from '@/components/shared/SEOHead';
+
 export default function DentistMarketing() {
-  return <VerticalPageTemplate data={DATA} />;
+  return (
+    <>
+      <SEOHead 
+        title="Dentist Marketing | AI Marketing for Dental Practices"
+        description="AI-driven marketing for dental practices. Patient acquisition, Google Business Profile, social media & review management. New Tech Advertising."
+      />
+      <VerticalPageTemplate data={DATA} />
+    </>
+  );
 }

@@ -53,6 +53,16 @@ const DATA = {
   },
 };
 
+import SEOHead from '@/components/shared/SEOHead';
+
 export default function MedSpaMarketing() {
-  return <VerticalPageTemplate data={DATA} />;
+  return (
+    <>
+      <SEOHead 
+        title="Med Spa Marketing | AI Marketing for Medical Spas"
+        description="AI-driven marketing for med spas and aesthetic practices. Patient acquisition, social media, Google Business Profile & online booking. New Tech Advertising."
+      />
+      <VerticalPageTemplate data={DATA} />
+    </>
+  );
 }
