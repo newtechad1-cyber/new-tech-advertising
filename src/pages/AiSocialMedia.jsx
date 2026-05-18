@@ -6,27 +6,17 @@ import Chatbot from '../components/Chatbot';
 import { motion } from 'framer-motion';
 import { Share2, Users, MessageCircle, TrendingUp, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import SEOHead from '@/components/shared/SEOHead';
 
 export default function AiSocialMedia() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  React.useEffect(() => {
-    document.title = 'AI Social Media Management Mason City Iowa & Minnesota | Facebook Instagram TikTok | New Tech';
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'AI social media management Mason City IA, Clear Lake, Rochester MN & Des Moines. Automated Facebook, Instagram, TikTok, LinkedIn posting. AI content creation & engagement. DIY $97/mo or DFY $197/mo.');
-    }
-    const metaKeywords = document.querySelector('meta[name="keywords"]');
-    if (!metaKeywords) {
-      const meta = document.createElement('meta');
-      meta.name = 'keywords';
-      meta.content = 'social media management Mason City Iowa, Facebook marketing Minnesota, Instagram management Iowa, TikTok marketing Clear Lake, LinkedIn marketing Rochester MN, AI social media Des Moines';
-      document.head.appendChild(meta);
-    }
-  }, []);
-
   return (
     <div className="bg-white min-h-screen flex flex-col">
+      <SEOHead 
+        title="AI Social Media Management | New Tech Advertising"
+        description="AI-powered social media management for small businesses. Automated content creation, scheduling & engagement. Facebook, Instagram & more. New Tech Advertising, Mason City IA."
+      />
       <Header onCTAClick={() => setIsModalOpen(true)} />
       
       <main className="flex-grow pt-20">

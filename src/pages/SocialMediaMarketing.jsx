@@ -12,20 +12,17 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import SEOHead from '@/components/shared/SEOHead';
 
 export default function SocialMediaMarketing() {
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    document.title = 'Social Media Marketing Management | New Tech Advertising';
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'Social media management for local businesses — content creation, scheduling, and strategic posting. DIY or fully managed.');
-    }
-  }, []);
-
   return (
     <div className="min-h-screen bg-white">
+      <SEOHead 
+        title="Social Media Marketing | New Tech Advertising"
+        description="Social media marketing for small businesses in North Iowa and beyond. Content creation, scheduling, engagement & growth strategies. New Tech Advertising."
+      />
       <Header onCTAClick={() => setShowModal(true)} />
 
       {/* Hero Section */}

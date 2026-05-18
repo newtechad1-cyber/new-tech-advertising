@@ -6,27 +6,17 @@ import Chatbot from '../components/Chatbot';
 import { motion } from 'framer-motion';
 import { Layout, Smartphone, Gauge, MousePointerClick } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import SEOHead from '@/components/shared/SEOHead';
 
 export default function AiWebsites() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  React.useEffect(() => {
-    document.title = 'AI Website Design Mason City Iowa & Minnesota | Professional Websites | New Tech Advertising';
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'AI-powered website design for Mason City IA, Clear Lake, Rochester MN & Des Moines businesses. Mobile-responsive, SEO-optimized, conversion-focused websites built in 48 hours. $297/month, no contracts.');
-    }
-    const metaKeywords = document.querySelector('meta[name="keywords"]');
-    if (!metaKeywords) {
-      const meta = document.createElement('meta');
-      meta.name = 'keywords';
-      meta.content = 'website design Mason City Iowa, web design Clear Lake IA, AI website builder Minnesota, website development Rochester MN, small business websites Iowa, mobile responsive design Mason City';
-      document.head.appendChild(meta);
-    }
-  }, []);
-
   return (
     <div className="bg-white min-h-screen flex flex-col">
+      <SEOHead 
+        title="AI Website Design & Rebuilds | New Tech Advertising"
+        description="Modern, mobile-first websites built with AI for small businesses. Fast load times, SEO-ready & conversion-optimized. New Tech Advertising, Mason City IA."
+      />
       <Header onCTAClick={() => setIsModalOpen(true)} />
       
       <main className="flex-grow pt-20">

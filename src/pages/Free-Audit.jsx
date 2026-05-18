@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
+import SEOHead from '@/components/shared/SEOHead';
 
 const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png';
 
@@ -113,6 +114,10 @@ export default function FreeAudit() {
   if (step === 2) {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
+        <SEOHead 
+          title="Free Marketing Audit | New Tech Advertising"
+          description="Get a free AI marketing audit for your small business. We analyze your Google presence, social media, website & AI visibility. New Tech Advertising, Mason City IA."
+        />
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-10 max-w-md w-full text-center">
           <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-5">
             <CheckCircle className="w-8 h-8 text-green-400" />
@@ -145,6 +150,10 @@ export default function FreeAudit() {
 
   return (
     <div className="min-h-screen bg-slate-950 flex flex-col">
+      <SEOHead 
+        title="Free Marketing Audit | New Tech Advertising"
+        description="Get a free AI marketing audit for your small business. We analyze your Google presence, social media, website & AI visibility. New Tech Advertising, Mason City IA."
+      />
       {/* Header */}
       <header className="border-b border-slate-800 py-4 px-6">
         <div className="max-w-5xl mx-auto flex items-center justify-between">

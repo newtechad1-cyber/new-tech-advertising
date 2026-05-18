@@ -6,27 +6,17 @@ import Chatbot from '../components/Chatbot';
 import { motion } from 'framer-motion';
 import { Video, Share2, TrendingUp, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import SEOHead from '@/components/shared/SEOHead';
 
 export default function AiVideos() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  React.useEffect(() => {
-    document.title = 'AI Video Marketing Mason City Iowa & Minnesota | Professional Business Videos | New Tech';
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'AI video marketing for Mason City IA, Clear Lake, Rochester MN & Des Moines businesses. Automated professional video production for social media, TikTok, Instagram, YouTube. 3x more engagement. $297/month.');
-    }
-    const metaKeywords = document.querySelector('meta[name="keywords"]');
-    if (!metaKeywords) {
-      const meta = document.createElement('meta');
-      meta.name = 'keywords';
-      meta.content = 'video marketing Mason City Iowa, AI video production Minnesota, business videos Iowa, TikTok marketing Clear Lake, Instagram Reels Rochester MN, YouTube marketing Des Moines';
-      document.head.appendChild(meta);
-    }
-  }, []);
-
   return (
     <div className="bg-white min-h-screen flex flex-col">
+      <SEOHead 
+        title="AI Video Production for Business | New Tech Advertising"
+        description="Professional AI-generated video content for small businesses. Social media videos, ads & brand stories. Fast turnaround. New Tech Advertising, Mason City IA."
+      />
       <Header onCTAClick={() => setIsModalOpen(true)} />
       
       <main className="flex-grow pt-20">

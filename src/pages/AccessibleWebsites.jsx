@@ -3,6 +3,7 @@ import { ArrowRight, CheckCircle2, ShieldCheck, Search, LayoutTemplate, Zap } fr
 import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
+import SEOHead from '@/components/shared/SEOHead';
 
 export default function AccessibleWebsites() {
   useEffect(() => {
@@ -11,6 +12,10 @@ export default function AccessibleWebsites() {
 
   return (
     <div className="bg-slate-950 min-h-screen text-slate-200 font-sans">
+      <SEOHead 
+        title="Accessible Website Design (ADA) | New Tech Advertising"
+        description="ADA-compliant website design and rebuilds for small businesses. Accessibility audits, remediation & WCAG compliance. New Tech Advertising, Mason City IA."
+      />
       <MarketingNav />
       <main>
         {/* Hero */}

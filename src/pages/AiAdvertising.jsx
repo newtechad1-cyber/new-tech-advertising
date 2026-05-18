@@ -6,27 +6,17 @@ import Chatbot from '../components/Chatbot';
 import { motion } from 'framer-motion';
 import { Target, PieChart, DollarSign, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import SEOHead from '@/components/shared/SEOHead';
 
 export default function AiAdvertising() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  React.useEffect(() => {
-    document.title = 'AI Advertising Mason City Iowa & Minnesota | Google Ads | Facebook Ads | New Tech Advertising';
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'AI advertising management Mason City IA, Clear Lake, Rochester MN & Des Moines. Google Ads, Facebook Ads, Instagram Ads optimized by AI. 72% lower cost per lead. Precision local targeting. $297/month.');
-    }
-    const metaKeywords = document.querySelector('meta[name="keywords"]');
-    if (!metaKeywords) {
-      const meta = document.createElement('meta');
-      meta.name = 'keywords';
-      meta.content = 'Google Ads Mason City Iowa, Facebook Ads Minnesota, AI advertising Iowa, digital advertising Clear Lake, PPC management Rochester MN, Instagram ads Des Moines, local advertising Iowa';
-      document.head.appendChild(meta);
-    }
-  }, []);
-
   return (
     <div className="bg-white min-h-screen flex flex-col">
+      <SEOHead 
+        title="AI Digital Advertising | New Tech Advertising"
+        description="Targeted digital advertising powered by AI. Facebook ads, Google ads & streaming TV for small businesses. Data-driven results. New Tech Advertising, Mason City IA."
+      />
       <Header onCTAClick={() => setIsModalOpen(true)} />
       
       <main className="flex-grow pt-20">
