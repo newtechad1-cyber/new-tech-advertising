@@ -21,7 +21,10 @@ import SEOHead from '../components/shared/SEOHead';
 export default function Home() {
   return (
     <div className="bg-white min-h-screen">
-      <SEOHead />
+      <SEOHead 
+        title="AI Marketing Agency Mason City Iowa | New Tech Advertising"
+        description="AI-powered marketing agency in Mason City, Iowa. AI search optimization, Google Business Profile management, social media & local SEO for small businesses. Call for a free audit."
+      />
       <MarketingNav />
       <HeroSplit />
       <InternetChangedSection />

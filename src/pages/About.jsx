@@ -8,18 +8,19 @@ import {
   CheckCircle, Building2, GraduationCap, Heart, Code2, Cpu,
   Video, TrendingUp, Sparkles, ChevronRight, Star
 } from 'lucide-react';
+import SEOHead from '@/components/shared/SEOHead';
 
 const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png';
 const HEADSHOT_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/c099addb0_headshot.png';
 const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
 
 export default function About() {
-  React.useEffect(() => {
-    document.title = 'About New Tech Advertising | Building the Platforms That Power Modern Marketing';
-  }, []);
-
   return (
     <div className="bg-slate-900 min-h-screen">
+      <SEOHead 
+        title="About New Tech Advertising | AI Marketing, Mason City IA"
+        description="Rick Hesse founded New Tech Advertising to bring AI-powered marketing to North Iowa small businesses. HVAC, plumbing & restaurant specialists. Mason City, Iowa."
+      />
       <MarketingNav />
 
       {/* ── 1. HERO ─────────────────────────────────────────── */}

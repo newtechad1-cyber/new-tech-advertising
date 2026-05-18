@@ -10,6 +10,7 @@ import { useLearningContent } from '@/hooks/useLearningContent';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import { cn } from '@/lib/utils';
+import SEOHead from '@/components/shared/SEOHead';
 
 export default function LearningCenter() {
   const { data, isLoading } = useLearningContent();
@@ -17,6 +18,10 @@ export default function LearningCenter() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans overflow-hidden flex flex-col">
+      <SEOHead 
+        title="Learning Center | New Tech Advertising"
+        description="Free marketing resources, guides & videos for small business owners. Learn about AI search optimization, social media, Google Business & more."
+      />
       <MarketingNav />
       
       <main className="flex-grow">

@@ -6,27 +6,17 @@ import Chatbot from '../components/Chatbot';
 import { motion } from 'framer-motion';
 import { Search, BarChart2, Globe, ArrowUpCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import SEOHead from '@/components/shared/SEOHead';
 
 export default function AiSeo() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  React.useEffect(() => {
-    document.title = 'Local SEO Mason City Iowa & Minnesota | AI SEO Services | Rank #1 on Google | New Tech';
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'Local SEO services Mason City IA, Clear Lake, Rochester MN, Des Moines, Minneapolis. AI-powered SEO gets you ranked #1 on Google. Automated content, smart keywords, review management. $297/month.');
-    }
-    const metaKeywords = document.querySelector('meta[name="keywords"]');
-    if (!metaKeywords) {
-      const meta = document.createElement('meta');
-      meta.name = 'keywords';
-      meta.content = 'SEO Mason City Iowa, local SEO Clear Lake IA, Google ranking Minnesota, SEO services Rochester MN, Iowa SEO agency, search engine optimization Des Moines, rank on Google Mason City';
-      document.head.appendChild(meta);
-    }
-  }, []);
-
   return (
     <div className="bg-white min-h-screen flex flex-col">
+      <SEOHead 
+        title="AI Search Engine Optimization (AISO) | New Tech Advertising"
+        description="Get found by ChatGPT, Google AI & Perplexity. AI Search Optimization builds your visibility where AI models pull answers. First in North Iowa. New Tech Advertising."
+      />
       <Header onCTAClick={() => setIsModalOpen(true)} />
       
       <main className="flex-grow pt-20">

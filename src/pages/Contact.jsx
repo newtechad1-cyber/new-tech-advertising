@@ -8,6 +8,7 @@ import { Card } from '@/components/ui/card';
 import { Mail, Phone, CheckCircle2, Loader2 } from 'lucide-react';
 import Header from '../components/landing/Header';
 import Footer from '../components/landing/Footer';
+import SEOHead from '@/components/shared/SEOHead';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -57,6 +58,10 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEOHead 
+        title="Contact New Tech Advertising | Mason City IA"
+        description="Get in touch with New Tech Advertising in Mason City, Iowa. Free marketing audit for local businesses. AI marketing, social media & SEO specialists."
+      />
       <Header onCTAClick={() => {}} />
       
       <section className="pt-32 pb-20 bg-gradient-to-b from-slate-50 to-white">

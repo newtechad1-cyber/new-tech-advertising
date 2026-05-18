@@ -6,6 +6,7 @@ import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import { createPageUrl } from '../utils';
 import { Calendar, ArrowRight, Loader2, BookOpen } from 'lucide-react';
+import SEOHead from '@/components/shared/SEOHead';
 
 const SERVICE_LABELS = {
   'streaming-tv': 'Streaming TV',
@@ -22,10 +23,6 @@ const SERVICE_LABELS = {
 export default function Blog() {
   const [filterService, setFilterService] = useState('');
   const [filterIndustry, setFilterIndustry] = useState('');
-
-  React.useEffect(() => {
-    document.title = 'Marketing Blog | NTA – New Tech Advertising';
-  }, []);
 
   const { data: posts = [], isLoading } = useQuery({
     queryKey: ['blogPosts'],
@@ -44,6 +41,10 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
+      <SEOHead 
+        title="Marketing Blog | New Tech Advertising"
+        description="AI marketing tips, local SEO strategies & social media guides for small businesses. Expert insights from New Tech Advertising in Mason City, Iowa."
+      />
       <MarketingNav />
 
       {/* Hero */}
