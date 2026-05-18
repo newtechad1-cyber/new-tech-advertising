@@ -4,8 +4,8 @@ import ServicePageLayout from '../components/service-pages/ServicePageLayout';
 export default function HVACMarketingNorthIowa() {
   return (
     <ServicePageLayout
-      seoTitle="HVAC Marketing North Iowa | Lead Generation for Heating & Cooling Companies"
-      seoDescription="NTA builds complete lead systems for HVAC companies in North Iowa — website rebuilds, seasonal campaigns, local SEO, and follow-up systems for heating and cooling businesses."
+      seoTitle="HVAC Marketing North Iowa | New Tech Advertising"
+      seoDescription="AI-powered HVAC marketing for North Iowa contractors. Get more furnace and AC calls with Google Business Profile, AI search optimization & social media."
       eyebrow="HVAC Marketing · North Iowa"
       headline="More Service Calls for Your HVAC Business in North Iowa"
       subheadline="We build complete lead systems for heating and cooling companies — from seasonal campaigns to local SEO pages to follow-up automation — so your phone keeps ringing."

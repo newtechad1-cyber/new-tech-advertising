@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MarketingNav from '../components/nav/MarketingNav';
+import SEOHead from '@/components/shared/SEOHead';
 import SiteFooter from '../components/marketing/SiteFooter';
 import {
   CheckCircle, AlertTriangle, Zap, TrendingUp, Shield, ArrowRight,
@@ -86,21 +87,12 @@ const FAQS = [
 ];
 
 export default function WebsiteRebuildsMasonCity() {
-  useEffect(() => {
-    document.title = 'Website Rebuild Services in Mason City IA | NTA';
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) {
-      meta.setAttribute('content', 'Need a better website in Mason City, IA? We rebuild websites for speed, SEO, and conversions. Get your free audit today.');
-    } else {
-      const newMeta = document.createElement('meta');
-      newMeta.name = 'description';
-      newMeta.content = 'Need a better website in Mason City, IA? We rebuild websites for speed, SEO, and conversions. Get your free audit today.';
-      document.head.appendChild(newMeta);
-    }
-  }, []);
-
   return (
     <div className="bg-white min-h-screen">
+      <SEOHead 
+        title="Website Rebuilds Mason City IA | New Tech Advertising"
+        description="Modern website design and rebuilds for Mason City, Iowa businesses. Mobile-first, SEO-ready & conversion-optimized. New Tech Advertising."
+      />
       <MarketingNav />
 
       {/* ── 1. HERO ── */}

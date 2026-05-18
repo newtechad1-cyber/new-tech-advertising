@@ -4,8 +4,8 @@ import ServicePageLayout from '../components/service-pages/ServicePageLayout';
 export default function SmallBusinessMarketingNorthIowa() {
   return (
     <ServicePageLayout
-      seoTitle="Small Business Marketing North Iowa | Local Lead Generation | NTA"
-      seoDescription="NTA provides complete marketing systems for small businesses in North Iowa — Mason City, Clear Lake, and surrounding communities. Websites, SEO, social content, video, and lead generation."
+      seoTitle="Small Business Marketing North Iowa | New Tech Advertising"
+      seoDescription="AI marketing for small businesses in Mason City, Clear Lake & North Iowa. Google, social media, AI search optimization & website design. Free audit."
       eyebrow="Small Business Marketing · North Iowa"
       headline="Practical Marketing for Small Businesses in North Iowa"
       subheadline="We help small local businesses compete online without a big-company budget — real systems, plain-English advice, and work that actually brings in leads."

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import MarketingNav from '@/components/nav/MarketingNav';
+import SEOHead from '@/components/shared/SEOHead';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import LCHeader from '@/components/learning-center/LCHeader';
 import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
@@ -8,18 +9,14 @@ import { Link } from 'react-router-dom';
 export default function AiBroughtMeOutOfRetirement() {
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "AI Brought Me Out of Retirement — Here's Why I'm Launching the Region's First AI-Powered Marketing Agency";
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) {
-      meta = document.createElement('meta');
-      meta.name = 'description';
-      document.head.appendChild(meta);
-    }
-    meta.setAttribute('content', "After 45 years in business, NTA founder Rick Hesse came out of retirement to launch the region's first AI-powered marketing agency.");
   }, []);
 
   return (
     <div className="min-h-screen bg-slate-950 font-sans text-slate-200">
+      <SEOHead 
+        title="AI Brought Me Out of Retirement | New Tech Advertising"
+        description="How AI transformed marketing and brought Rick Hesse back to the industry. The story behind New Tech Advertising and AI-powered small business marketing."
+      />
       <MarketingNav />
       
       <main className="pt-24 pb-20">

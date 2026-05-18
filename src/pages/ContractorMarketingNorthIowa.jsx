@@ -4,8 +4,8 @@ import ServicePageLayout from '../components/service-pages/ServicePageLayout';
 export default function ContractorMarketingNorthIowa() {
   return (
     <ServicePageLayout
-      seoTitle="Contractor Marketing North Iowa | Lead Generation for Local Contractors"
-      seoDescription="NTA builds lead systems for contractors in North Iowa — excavating, plumbing, lawn care, home services, and more. Websites, SEO, campaigns, and follow-up done for you."
+      seoTitle="Contractor Marketing North Iowa | New Tech Advertising"
+      seoDescription="Digital marketing for North Iowa contractors. HVAC, plumbing, roofing & trades. Google Business Profile, social media & AI search optimization. Free audit."
       eyebrow="Contractor Marketing · North Iowa"
       headline="Contractor Marketing That Gets You More Jobs in North Iowa"
       subheadline="We help local contractors — excavating, plumbing, lawn care, landscaping, and home service businesses — build lead systems that bring in consistent work."

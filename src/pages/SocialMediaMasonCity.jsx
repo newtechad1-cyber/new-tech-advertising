@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import MarketingNav from '../components/nav/MarketingNav';
+import SEOHead from '@/components/shared/SEOHead';
 import SiteFooter from '../components/marketing/SiteFooter';
 import { CheckCircle, ArrowRight, MapPin, Share2, BarChart2, Zap, Globe } from 'lucide-react';
 
@@ -23,15 +24,12 @@ const INCLUDED = [
 ];
 
 export default function SocialMediaMasonCity() {
-  useEffect(() => {
-    document.title = 'Social Media Management Mason City IA | NTA';
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) { meta = document.createElement('meta'); meta.name = 'description'; document.head.appendChild(meta); }
-    meta.setAttribute('content', 'Professional social media management for small businesses in Mason City, IA. Consistent posting, local strategy, and content built to drive business growth.');
-  }, []);
-
   return (
     <div className="bg-white min-h-screen">
+      <SEOHead 
+        title="Social Media Marketing Mason City IA | New Tech Advertising"
+        description="Social media management for Mason City, Iowa businesses. Content creation, scheduling & growth. Facebook, Instagram & more. New Tech Advertising."
+      />
       <MarketingNav />
 
       {/* HERO */}

@@ -5,11 +5,16 @@ import LCCallToAction from '@/components/learning-center/LCCallToAction';
 import LCRelatedArticles from '@/components/learning-center/LCRelatedArticles';
 import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import MarketingNav from '@/components/nav/MarketingNav';
+import SEOHead from '@/components/shared/SEOHead';
 import SiteFooter from '@/components/marketing/SiteFooter';
 
 export default function WhatChangedOnline() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
+      <SEOHead 
+        title="What Changed Online | New Tech Advertising"
+        description="The internet changed. AI is rewriting how customers find businesses. Learn what changed and what small businesses need to do now. New Tech Advertising."
+      />
       <MarketingNav />
       <div className="flex-grow">
       <LCHeader 
