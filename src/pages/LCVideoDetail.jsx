@@ -20,6 +20,31 @@ export default function LCVideoDetail() {
       if (metaDesc) {
         metaDesc.setAttribute('content', video.description || 'NTA Learning Center Video');
       }
+
+      // Inject VideoObject Schema for SEO
+      if (video.youtubeId) {
+        const schema = {
+          "@context": "https://schema.org",
+          "@type": "VideoObject",
+          "name": video.title,
+          "description": video.description || video.title,
+          "thumbnailUrl": `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`,
+          "uploadDate": video.date || new Date().toISOString().split('T')[0],
+          "embedUrl": `https://www.youtube.com/embed/${video.youtubeId}`
+        };
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.id = 'video-schema';
+        script.innerHTML = JSON.stringify(schema);
+        document.head.appendChild(script);
+
+        return () => {
+          const existingScript = document.getElementById('video-schema');
+          if (existingScript) {
+            existingScript.remove();
+          }
+        };
+      }
     }
   }, [id, video]);
 
