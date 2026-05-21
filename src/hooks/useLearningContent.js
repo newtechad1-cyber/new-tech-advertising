@@ -15,14 +15,37 @@ export function useLearningContent() {
           const localMatch = LEARNING_CONTENT.find(lc => 
             lc.slug === yt.slug || (lc.youtubeId && lc.youtubeId === yt.youtubeId)
           );
+
+          let autoCategory = 'Uncategorized';
+          let autoCategoryId = 'uncategorized';
+          
+          if (!localMatch) {
+             const title = yt.title.toLowerCase();
+             if (title.includes('seo') || title.includes('search') || title.includes('visibility') || title.includes('zero click')) {
+                 autoCategory = 'AI Visibility & Search';
+                 autoCategoryId = 'ai-visibility-search';
+             } else if (title.includes('trust') || title.includes('reputation') || title.includes('review') || title.includes('authority') || title.includes('recommending')) {
+                 autoCategory = 'Digital Trust & Reputation';
+                 autoCategoryId = 'digital-trust-reputation';
+             } else if (title.includes('system') || title.includes('website') || title.includes('outdated') || title.includes('campaign')) {
+                 autoCategory = 'Modern Marketing Systems';
+                 autoCategoryId = 'modern-marketing-systems';
+             } else if (title.includes('video') || title.includes('ctv') || title.includes('storytelling') || title.includes('tv')) {
+                 autoCategory = 'Video & CTV Marketing';
+                 autoCategoryId = 'video-ctv-marketing';
+             } else {
+                 autoCategory = 'AI Basics For Small Businesses';
+                 autoCategoryId = 'ai-basics-small-businesses';
+             }
+          }
           
           return {
             id: yt.youtubeId,
             title: yt.title,
             slug: localMatch ? localMatch.slug : yt.slug,
             description: yt.description || localMatch?.shortDescription || '',
-            category: localMatch?.category || 'Uncategorized',
-            categoryId: localMatch?.categoryId || 'uncategorized',
+            category: localMatch?.category || autoCategory,
+            categoryId: localMatch?.categoryId || autoCategoryId,
             youtubeId: yt.youtubeId,
             youtubeUrl: yt.youtubeUrl,
             embedUrl: yt.embedUrl,

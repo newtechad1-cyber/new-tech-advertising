@@ -266,6 +266,22 @@ export const LEARNING_CONTENT = [
     seoKeywords: ['AI Marketing', 'Local Business Growth', 'Marketing Systems'],
     tags: ['AI Marketing', 'Local Business Growth', 'Marketing Systems'],
     status: 'published'
+  },
+  {
+    id: 'i-was-early-again',
+    title: 'I Was Early Again: Why I Built North Iowa\'s First AI Marketing Agency',
+    slug: 'i-was-early-again',
+    category: 'Modern Marketing Systems',
+    categoryId: 'modern-marketing-systems',
+    shortDescription: 'Why Rick Hesse built New Tech Advertising. A story about seeing technology early, from QR codes to AI, and why small businesses in North Iowa need to act now.',
+    articleContent: '',
+    youtubeId: 'MsiyOAZrCNo',
+    youtubeUrl: 'https://youtu.be/MsiyOAZrCNo',
+    thumbnailImage: null,
+    featuredImage: null,
+    seoKeywords: ['AI Marketing', 'Local Business Growth', 'Marketing Systems'],
+    tags: ['AI Marketing', 'Local Business Growth', 'Marketing Systems'],
+    status: 'published'
   }
 ];
 
