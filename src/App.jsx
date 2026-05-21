@@ -13,6 +13,7 @@ import Home from './pages/Home';
 const LearningCenter = lazy(() => import('./pages/LearningCenter'));
 const GapAuditPage = lazy(() => import('./pages/GapAuditPage'));
 const AiBroughtMeOutOfRetirement = lazy(() => import('./pages/AiBroughtMeOutOfRetirement'));
+const IWasEarlyAgain = lazy(() => import('./pages/IWasEarlyAgain'));
 const AIWorkforce = lazy(() => import('./pages/AIWorkforce'));
 const FounderScorecard = lazy(() => import('./pages/FounderScorecard'));
 const ClientCampaigns = lazy(() => import('./pages/ClientCampaigns'));
@@ -622,6 +623,7 @@ const AuthenticatedApp = () => {
       <Route path="/ada-website-lawsuit-prevention" element={<Navigate to="/web-accessibility-trust" replace />} />
       <Route path="/websites-as-salespeople" element={<LayoutWrapper currentPageName="WebsitesAsSalespeople"><WebsitesAsSalespeople /></LayoutWrapper>} />
       <Route path="/ai-brought-me-out-of-retirement" element={<LayoutWrapper currentPageName="AiBroughtMeOutOfRetirement"><AiBroughtMeOutOfRetirement /></LayoutWrapper>} />
+      <Route path="/i-was-early-again" element={<LayoutWrapper currentPageName="IWasEarlyAgain"><IWasEarlyAgain /></LayoutWrapper>} />
 
       <Route path="*" element={<PageNotFound />} />
         </Routes>
