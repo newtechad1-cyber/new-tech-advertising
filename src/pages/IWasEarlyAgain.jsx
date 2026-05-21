@@ -31,9 +31,19 @@ export default function IWasEarlyAgain() {
           ]}
         />
 
-        <div className="max-w-3xl mx-auto px-6 mt-12 prose prose-invert prose-lg prose-blue">
+        <div className="relative w-full max-w-3xl mx-auto aspect-video rounded-2xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900 mb-16 mt-12 px-6">
+          <iframe 
+            src="https://www.youtube.com/embed/MsiyOAZrCNo" 
+            className="absolute top-0 left-0 w-full h-full border-0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowFullScreen
+            title="I Was Early Again: Why I Built North Iowa's First AI Marketing Agency"
+          />
+        </div>
+
+        <div className="max-w-3xl mx-auto px-6 prose prose-invert prose-lg prose-blue space-y-8">
           
-          <h2>A Habit of Seeing Things Early</h2>
+          <h2 className="mt-0 text-3xl font-black text-white">A Habit of Seeing Things Early</h2>
           <p>
             For most of my career, I've had a habit of seeing things early. Sometimes too early.
           </p>
@@ -47,7 +57,7 @@ export default function IWasEarlyAgain() {
             Now it's happening again with AI.
           </p>
 
-          <h2>The Realization: Nobody in North Iowa Was Building This</h2>
+          <h2 className="text-3xl font-black text-white mt-12">The Realization: Nobody in North Iowa Was Building This</h2>
           <p>
             After spending the past year deeply immersed in artificial intelligence and marketing systems, I realized something important: nobody in North Iowa was truly building an AI-first marketing agency for small businesses. Not local agencies. Not television stations. Not traditional marketing companies. Not anyone I could find through my own research.
           </p>
@@ -58,7 +68,7 @@ export default function IWasEarlyAgain() {
             And most businesses still don't realize how big this shift really is.
           </p>
 
-          <h2>From Television to AI: How I Got Here</h2>
+          <h2 className="text-3xl font-black text-white mt-12">From Television to AI: How I Got Here</h2>
           <p>
             I started in television sales back in 1989, and I genuinely believed television was the most powerful advertising medium available. Honestly, I still believe video remains the most impactful form of communication.
           </p>
@@ -86,7 +96,7 @@ export default function IWasEarlyAgain() {
             Everything began merging into digital systems. And now AI is accelerating that transformation faster than anything I've seen in my lifetime.
           </p>
 
-          <h2>What AI Really Changed (Spoiler: It's Not Just Text)</h2>
+          <h2 className="text-3xl font-black text-white mt-12">What AI Really Changed (Spoiler: It's Not Just Text)</h2>
           <p>
             Most people think AI is about writing text or making images.
           </p>
@@ -118,7 +128,7 @@ export default function IWasEarlyAgain() {
             <strong>Most business owners don't have the time or interest to learn all of this themselves.</strong> And honestly, I understand why.
           </p>
 
-          <h2>The Reality of Small Business in North Iowa</h2>
+          <h2 className="text-3xl font-black text-white mt-12">The Reality of Small Business in North Iowa</h2>
           <p>
             One thing I've noticed in North Iowa is that many businesses are still far behind digitally.
           </p>
@@ -141,7 +151,7 @@ export default function IWasEarlyAgain() {
             <strong>But the businesses that adapt now are going to have a massive advantage over the next few years.</strong>
           </p>
 
-          <h2>Why I Built This</h2>
+          <h2 className="text-3xl font-black text-white mt-12">Why I Built This</h2>
           <p>
             Over the last year, learning AI felt like earning a master's degree in modern marketing. It was intense. It was overwhelming at times. But I genuinely loved it.
           </p>
@@ -174,7 +184,7 @@ export default function IWasEarlyAgain() {
             Marketing today is about being remembered. Being visible. Being everywhere your customers are looking.
           </p>
 
-          <h2>Being Early Isn't Always Easy (But the Future Always Arrives)</h2>
+          <h2 className="text-3xl font-black text-white mt-12">Being Early Isn't Always Easy (But the Future Always Arrives)</h2>
           <p>
             The truth is, being early can be frustrating. When you see something before most people do, you spend years explaining why it matters. Sometimes people don't understand until much later.
           </p>
