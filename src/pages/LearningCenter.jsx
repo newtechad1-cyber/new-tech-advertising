@@ -125,17 +125,17 @@ export default function LearningCenter() {
         <div className="mt-12 mb-6">
           <div className="relative w-full max-w-4xl mx-auto aspect-video rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900">
             <iframe 
-              src="https://www.youtube.com/embed/UPPqjOPkHGc" 
+              src="https://www.youtube.com/embed/MsiyOAZrCNo" 
               className="absolute top-0 left-0 w-full h-full border-0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
               allowFullScreen
-              title="AI Brought Me Out of Retirement" 
+              title="I Was Early Again: Why I Built North Iowa's First AI Marketing Agency" 
             />
           </div>
         </div>
 
         <div className="mt-6">
-          <Link to="/ai-brought-me-out-of-retirement" className="group relative block bg-slate-900 border border-slate-800 rounded-3xl p-8 overflow-hidden hover:border-indigo-500/50 transition-colors">
+          <Link to="/i-was-early-again" className="group relative block bg-slate-900 border border-slate-800 rounded-3xl p-8 overflow-hidden hover:border-indigo-500/50 transition-colors">
             <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600/5 blur-[80px] rounded-full group-hover:bg-indigo-600/10 transition-colors" />
             <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 h-full">
               <div>
@@ -143,10 +143,10 @@ export default function LearningCenter() {
                   Founder's Story
                 </span>
                 <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">
-                  AI Brought Me Out of Retirement
+                  I Was Early Again: Why I Built North Iowa's First AI Marketing Agency
                 </h3>
                 <p className="text-slate-400 leading-relaxed text-lg max-w-3xl">
-                  After 45 years in business, NTA founder Rick Hesse came out of retirement to launch the region's first AI-powered marketing agency. Here's why.
+                  Why Rick Hesse built New Tech Advertising. A story about seeing technology early, from QR codes to AI, and why small businesses in North Iowa need to act now.
                 </p>
               </div>
               <div className="flex-shrink-0 flex items-center text-indigo-500 font-semibold group-hover:gap-2 transition-all">
@@ -160,19 +160,35 @@ export default function LearningCenter() {
       </section>
 
       {/* 3. Learning Categories Section */}
-      <section className="bg-slate-900/50 border-y border-slate-800 py-20">
+      <section className="bg-slate-900/50 border-y border-slate-800 py-24">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-black text-white mb-4">Browse By Category</h2>
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Marketing Topics &amp; Guides</h2>
             <p className="text-slate-400 text-lg">Find exactly what you need to grow your business.</p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6">
-            <CategoryCard title="AI Visibility & Search" icon={Search} link="/learning-center/category/ai-visibility-search" />
-            <CategoryCard title="Digital Trust & Reputation" icon={ShieldCheck} link="/learning-center/category/digital-trust-reputation" />
-            <CategoryCard title="Modern Marketing Systems" icon={LayoutTemplate} link="/learning-center/category/modern-marketing-systems" />
-            <CategoryCard title="Video & CTV Marketing" icon={MonitorSmartphone} link="/learning-center/category/video-ctv-marketing" />
-            <CategoryCard title="AI Basics For Small Businesses" icon={Lightbulb} link="/learning-center/category/ai-basics-small-businesses" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <TopicList title="AI Visibility & Search" icon={Search}>
+              <TopicLink title="AI Visibility Basics" to="/ai-visibility-basics" />
+              <TopicLink title="SEO vs AI Search" to="/seo-vs-ai-search" />
+              <TopicLink title="The Role of AI in Local Marketing" to="/role-of-ai-in-local-marketing" />
+              <TopicLink title="What Changed Online" to="/what-changed-online" />
+            </TopicList>
+
+            <TopicList title="Modern Marketing Systems" icon={LayoutTemplate}>
+              <TopicLink title="Growth Systems vs Campaigns" to="/growth-systems-vs-campaigns" />
+              <TopicLink title="Campaigns vs Authority" to="/campaigns-vs-authority" />
+              <TopicLink title="The Hidden Cost of Outdated Marketing" to="/hidden-cost-of-outdated-marketing" />
+              <TopicLink title="Websites as Salespeople" to="/websites-as-salespeople" />
+              <TopicLink title="I Was Early Again" to="/i-was-early-again" />
+            </TopicList>
+
+            <TopicList title="Digital Trust & Reputation" icon={ShieldCheck}>
+              <TopicLink title="Reputation is Now a Growth Engine" to="/reputation-is-now-a-growth-engine" />
+              <TopicLink title="Building Digital Trust" to="/building-digital-trust" />
+              <TopicLink title="Web Accessibility & Trust" to="/web-accessibility-trust" />
+              <TopicLink title="The Future Belongs to Market Leaders" to="/the-future-belongs-to-market-leaders" />
+            </TopicList>
           </div>
         </div>
       </section>
@@ -314,14 +330,30 @@ function GuideRowCard({ title, desc, icon: IconComponent, link = "#" }) {
   );
 }
 
-function CategoryCard({ title, icon: IconComponent, link = "#" }) {
+function TopicList({ title, icon: IconComponent, children }) {
   return (
-    <Link to={link} className="group flex flex-col items-center text-center bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 hover:bg-slate-800 transition-all hover:-translate-y-1 hover:shadow-[0_10px_40px_-15px_rgba(37,99,235,0.3)] hover:border-blue-500/30">
-      <div className="w-12 h-12 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center mb-4 group-hover:bg-blue-500/20 group-hover:text-blue-400 transition-colors">
-        <IconComponent className="w-5 h-5 text-slate-400 group-hover:text-blue-400" />
+    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8 hover:border-slate-700 transition-colors">
+      <div className="flex items-center gap-4 mb-6 pb-6 border-b border-slate-800">
+        <div className="w-12 h-12 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center flex-shrink-0 text-blue-400">
+          <IconComponent className="w-6 h-6" />
+        </div>
+        <h3 className="text-xl font-bold text-white">{title}</h3>
       </div>
-      <h3 className="text-white font-bold text-base sm:text-lg">{title}</h3>
-    </Link>
+      <ul className="space-y-4">
+        {children}
+      </ul>
+    </div>
+  );
+}
+
+function TopicLink({ title, to }) {
+  return (
+    <li>
+      <Link to={to} className="group flex items-start gap-3 text-slate-400 hover:text-blue-400 transition-colors">
+        <ArrowRight className="w-5 h-5 flex-shrink-0 mt-0.5 text-slate-600 group-hover:text-blue-400" />
+        <span className="leading-snug">{title}</span>
+      </Link>
+    </li>
   );
 }
 
