@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
 import LCVideoCard from '@/components/learning-center/LCVideoCard';
+import LCAIFaqSection from '@/components/learning-center/LCAIFaqSection';
 import { useLearningContent } from '@/hooks/useLearningContent';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -222,6 +223,8 @@ export default function LearningCenter() {
           </div>
         </div>
       </section>
+
+      <LCAIFaqSection />
 
       {/* Watch + Learn Section */}
       <section className="bg-slate-950 py-24">
