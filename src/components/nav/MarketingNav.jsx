@@ -142,7 +142,10 @@ export default function MarketingNav() {
           {user ? (
             <div className="flex items-center gap-3 mr-1">
               <span className="text-slate-300 text-sm font-medium">{user.name || user.email}</span>
-              <Link to={user.role === 'client' ? createPageUrl('ClientDashboard') : '/operationshub'} className="text-sm font-semibold border border-slate-600 hover:bg-slate-800 text-white px-4 py-2 rounded-lg transition-colors">
+              {(user.role === 'admin' || user.email === 'info@newtechadvertising.com') && (
+                <Link to="/admin-dashboard" className="text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors">Admin</Link>
+              )}
+              <Link to={user.role === 'admin' || user.email === 'info@newtechadvertising.com' ? '/admin-dashboard' : '/client-dashboard'} className="text-sm font-semibold border border-slate-600 hover:bg-slate-800 text-white px-4 py-2 rounded-lg transition-colors">
                 Dashboard
               </Link>
               <button onClick={() => base44.auth.logout()} className="text-slate-400 hover:text-white transition-colors" title="Logout">
@@ -150,9 +153,9 @@ export default function MarketingNav() {
               </button>
             </div>
           ) : (
-            <button onClick={() => base44.auth.login ? base44.auth.login() : base44.auth.redirectToLogin()} className="text-sm font-semibold border border-slate-600 hover:bg-slate-800 text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap mr-1">
+            <Link to="/Login" className="text-sm font-semibold border border-slate-600 hover:bg-slate-800 text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap mr-1">
               Login
-            </button>
+            </Link>
           )}
 
           <a href="https://calendar.app.google/p6ieYanvwhixXxZ67" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap shadow-lg shadow-blue-600/20">
@@ -229,9 +232,20 @@ export default function MarketingNav() {
               {user ? (
                 <div className="space-y-3">
                   <div className="text-center text-slate-300 text-sm font-medium">{user.name || user.email}</div>
+                  
+                  {(user.role === 'admin' || user.email === 'info@newtechadvertising.com') && (
+                    <Link 
+                      to="/admin-dashboard" 
+                      onClick={() => setMobileOpen(false)}
+                      className="flex w-full items-center justify-center bg-blue-900/30 text-blue-400 border border-blue-800 hover:bg-blue-900/50 text-sm py-2 rounded-lg transition-colors"
+                    >
+                      Admin Dashboard
+                    </Link>
+                  )}
+
                   <div className="flex gap-3">
                     <Link
-                      to={user.role === 'client' ? createPageUrl('ClientDashboard') : '/operationshub'}
+                      to={user.role === 'admin' || user.email === 'info@newtechadvertising.com' ? '/admin-dashboard' : '/client-dashboard'}
                       onClick={() => setMobileOpen(false)}
                       className="flex-1 flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-white text-sm py-2 rounded-lg transition-colors"
                     >
@@ -246,12 +260,13 @@ export default function MarketingNav() {
                   </div>
                 </div>
               ) : (
-                <button
-                  onClick={() => { setMobileOpen(false); base44.auth.login ? base44.auth.login() : base44.auth.redirectToLogin(); }}
+                <Link
+                  to="/Login"
+                  onClick={() => setMobileOpen(false)}
                   className="w-full flex items-center justify-center text-slate-300 hover:text-white text-sm py-3 border border-slate-700 rounded-lg transition-colors font-medium"
                 >
                   Login
-                </button>
+                </Link>
               )}
             </div>
           </div>

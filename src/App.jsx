@@ -7,8 +7,11 @@ import { BrowserRouter as Router, Route, Routes, Navigate, useParams } from 'rea
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
+import { AdminGuard, ClientGuard } from '@/components/auth/RoleGuard';
+import Login from './pages/Login';
 // — Eagerly loaded public pages (tiny, critical for first paint) —
 import Home from './pages/Home';
+import AdminDashboard from './pages/AdminDashboard';
 // — Lazy loaded: everything else —
 const LearningCenter = lazy(() => import('./pages/LearningCenter'));
 const GapAuditPage = lazy(() => import('./pages/GapAuditPage'));
@@ -341,7 +344,10 @@ const AuthenticatedApp = () => {
           <Home />
         </LayoutWrapper>
       } />
-      <Route path="/client/dashboard" element={<LayoutWrapper currentPageName="ClientDashboard"><ClientDashboard /></LayoutWrapper>} />
+      <Route path="/Login" element={<LayoutWrapper currentPageName="Login"><Login /></LayoutWrapper>} />
+      <Route path="/admin-dashboard" element={<AdminGuard><LayoutWrapper currentPageName="AdminDashboard"><AdminDashboard /></LayoutWrapper></AdminGuard>} />
+      <Route path="/client-dashboard" element={<ClientGuard><LayoutWrapper currentPageName="ClientDashboard"><ClientDashboard /></LayoutWrapper></ClientGuard>} />
+      <Route path="/client/dashboard" element={<Navigate to="/client-dashboard" replace />} />
       {Object.entries(Pages).map(([path, Page]) => (
         <Route
           key={path}

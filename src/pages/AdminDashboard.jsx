@@ -1,187 +1,155 @@
-/**
- * AdminDashboard — NTA Main Admin Dashboard
- *
- * ROOT CAUSE NOTE (2026-03-11):
- * This file was previously overwritten with School Admin content (AdminShell / Bulldog Story Lab).
- * That caused /admindashboard to render the School Admin interface.
- * Fixed: this page now renders the real NTA admin command center.
- * School admin must use AdminSchoolDashboard exclusively.
- */
 import React, { useState } from 'react';
-import AdminGuard from '@/components/auth/AdminGuard';
-import AdminNav from '@/components/nav/AdminNav';
-import { Link } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
+import { useQuery } from '@tanstack/react-query';
+import { base44 } from '@/api/base44Client';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import {
-  Cpu, FileText, Clapperboard, Zap, Users, Target, Bell,
-  BarChart3, Settings, PlayCircle, Link2, Video, AlertTriangle,
-  ArrowRight, Activity
-} from 'lucide-react';
-
-import ExecutiveKPIStrip from '@/components/operations/ExecutiveKPIStrip';
-import RevenueMomentumPanel from '@/components/operations/RevenueMomentumPanel';
-import PipelineSnapshot from '@/components/operations/PipelineSnapshot';
-import DeliveryWorkloadPanel from '@/components/operations/DeliveryWorkloadPanel';
-import ClientHealthPanel from '@/components/operations/ClientHealthPanel';
-import PublishingMomentumStrip from '@/components/operations/PublishingMomentumStrip';
-import OperationalRisksPanel from '@/components/operations/OperationalRisksPanel';
-import QuickCommandBar from '@/components/operations/QuickCommandBar';
-import BusinessHealthScore from '@/components/operations/BusinessHealthScore';
-import NextBestExecutiveAction from '@/components/operations/NextBestExecutiveAction';
-import ClosingThisMonthSpotlight from '@/components/operations/ClosingThisMonthSpotlight';
-import TeamPerformanceSnapshot from '@/components/operations/TeamPerformanceSnapshot';
-import ActivityFeed from '@/components/command/ActivityFeed';
-
-const QUICK_ACTIONS = [
-  { label: 'Command Center',    icon: Cpu,         page: 'AdminCommandCenter',      color: 'bg-violet-600 hover:bg-violet-700' },
-  { label: 'Generate Blog',     icon: FileText,    page: 'AdminBlog',               color: 'bg-rose-600 hover:bg-rose-700' },
-  { label: 'Content Engine',    icon: Zap,         page: 'ContentEngine',           color: 'bg-violet-600 hover:bg-violet-700' },
-  { label: 'Video Generator',   icon: Clapperboard,page: 'AiVideoStudio',           color: 'bg-purple-600 hover:bg-purple-700' },
-  { label: 'Alert Center',      icon: Bell,        page: 'AdminAlerts',             color: 'bg-red-600 hover:bg-red-700' },
-  { label: 'Pipeline',          icon: Users,       page: 'ProposalPipeline',        color: 'bg-indigo-600 hover:bg-indigo-700' },
-  { label: 'Video Publishing',  icon: PlayCircle,  page: 'AdminVideoPublishing',    color: 'bg-teal-600 hover:bg-teal-700' },
-  { label: 'Connections',       icon: Link2,       page: 'AdminConnections',        color: 'bg-cyan-600 hover:bg-cyan-700' },
-];
-
-const NAV_TILES = [
-  {
-    label: 'Publishing Queue',
-    desc: 'Monitor all video publishing jobs across Facebook, Instagram, YouTube, TikTok',
-    icon: Video,
-    page: 'AdminVideoPublishing',
-    color: 'border-violet-800/40 hover:border-violet-600',
-    iconColor: 'text-violet-400',
-  },
-  {
-    label: 'Channel Connections',
-    desc: 'Manage platform connections, token health, and publishing readiness',
-    icon: Link2,
-    page: 'AdminConnections',
-    color: 'border-cyan-800/40 hover:border-cyan-600',
-    iconColor: 'text-cyan-400',
-  },
-  {
-    label: 'Video Engine',
-    desc: 'AI video studio, requests, renders, and library',
-    icon: Clapperboard,
-    page: 'AdminAIVideoStudio',
-    color: 'border-purple-800/40 hover:border-purple-600',
-    iconColor: 'text-purple-400',
-  },
-  {
-    label: 'Sales & Revenue',
-    desc: 'Leads, proposals, deals, and client pipeline',
-    icon: Target,
-    page: 'AdminSalesDashboard',
-    color: 'border-amber-800/40 hover:border-amber-600',
-    iconColor: 'text-amber-400',
-  },
-  {
-    label: 'Analytics',
-    desc: 'Performance reports, traffic, and client metrics',
-    icon: BarChart3,
-    page: 'AdminAnalytics',
-    color: 'border-green-800/40 hover:border-green-600',
-    iconColor: 'text-green-400',
-  },
-  {
-    label: 'System Settings',
-    desc: 'Users, permissions, system health, and configuration',
-    icon: Settings,
-    page: 'AdminSettings',
-    color: 'border-slate-700 hover:border-slate-500',
-    iconColor: 'text-slate-400',
-  },
-];
+import { Building2, Users, Target, UserPlus, FileText } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function AdminDashboard() {
+  const [inviteEmail, setInviteEmail] = useState('');
+
+  const { data: clients } = useQuery({ queryKey: ['admin-clients'], queryFn: () => base44.entities.Company.list() });
+  const { data: leads } = useQuery({ queryKey: ['admin-leads'], queryFn: () => base44.entities.SalesLead.list() });
+  const { data: deals } = useQuery({ queryKey: ['admin-deals'], queryFn: () => base44.entities.SalesDeal.list() });
+  const { data: users } = useQuery({ queryKey: ['admin-users'], queryFn: () => base44.entities.User.list() });
+
+  const handleInvite = async (e) => {
+    e.preventDefault();
+    try {
+      // Invite as standard user. Since default role on User entity is 'client', 
+      // they will automatically be a client upon accepting the invite.
+      await base44.users.inviteUser(inviteEmail, 'user');
+      toast.success(`Invited ${inviteEmail} as a client.`);
+      setInviteEmail('');
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
   return (
-    <AdminGuard>
-      <AdminNav>
-        <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-screen bg-slate-950 p-6 md:p-10 text-slate-200">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-3xl font-bold text-white mb-8">Admin Dashboard</h1>
+        
+        <Tabs defaultValue="clients" className="w-full">
+          <TabsList className="mb-8 bg-slate-900 border border-slate-800 p-1 rounded-xl flex flex-wrap h-auto">
+            <TabsTrigger value="clients" className="rounded-lg data-[state=active]:bg-blue-600 data-[state=active]:text-white"><Building2 className="w-4 h-4 mr-2"/> Clients</TabsTrigger>
+            <TabsTrigger value="leads" className="rounded-lg data-[state=active]:bg-blue-600 data-[state=active]:text-white"><Target className="w-4 h-4 mr-2"/> Leads</TabsTrigger>
+            <TabsTrigger value="deals" className="rounded-lg data-[state=active]:bg-blue-600 data-[state=active]:text-white"><FileText className="w-4 h-4 mr-2"/> Deals</TabsTrigger>
+            <TabsTrigger value="users" className="rounded-lg data-[state=active]:bg-blue-600 data-[state=active]:text-white"><Users className="w-4 h-4 mr-2"/> Users & Invites</TabsTrigger>
+          </TabsList>
 
-          {/* Header */}
-           <div className="bg-gradient-to-r from-slate-900 to-slate-800 border-b border-slate-700 px-6 py-6 sticky top-0 z-10">
-             <div className="max-w-screen-2xl mx-auto flex items-center justify-between gap-4 flex-wrap">
-               <div>
-                 <div className="flex items-center gap-3">
-                   <div className="p-2 bg-violet-900/50 border border-violet-700 rounded-lg">
-                     <Zap className="w-5 h-5 text-violet-400" />
-                   </div>
-                   <div>
-                     <h1 className="text-2xl font-bold text-white">Agency Operations</h1>
-                     <p className="text-slate-400 text-sm mt-0.5">Real-time visibility into revenue, delivery, publishing, and client activity</p>
-                   </div>
-                 </div>
-               </div>
-               <div className="flex items-center gap-2 flex-wrap">
-                 <Link to={createPageUrl('AdminSales')}>
-                   <Button variant="outline" size="sm" className="border-slate-700 text-slate-300 hover:bg-slate-800 gap-1.5">
-                     <Target className="w-4 h-4" /> Sales Dashboard
-                   </Button>
-                 </Link>
-                 <Link to={createPageUrl('AdminVideoPublishing')}>
-                   <Button variant="outline" size="sm" className="border-slate-700 text-slate-300 hover:bg-slate-800 gap-1.5">
-                     <PlayCircle className="w-4 h-4" /> Publishing
-                   </Button>
-                 </Link>
-               </div>
-             </div>
-           </div>
+          <TabsContent value="clients">
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+              <h2 className="text-xl text-white font-semibold mb-4">Companies / Clients</h2>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-sm text-slate-400">
+                  <thead className="bg-slate-800/50 text-slate-300">
+                    <tr>
+                      <th className="p-3 rounded-tl-lg">Business Name</th>
+                      <th className="p-3">Industry</th>
+                      <th className="p-3">Status</th>
+                      <th className="p-3 rounded-tr-lg text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {clients?.length === 0 && (
+                      <tr><td colSpan={4} className="p-4 text-center">No clients found.</td></tr>
+                    )}
+                    {clients?.map(c => (
+                      <tr key={c.id} className="border-b border-slate-800/50">
+                        <td className="p-3 font-medium text-white">{c.business_name}</td>
+                        <td className="p-3">{c.industry || '-'}</td>
+                        <td className="p-3"><span className="px-2 py-1 bg-green-500/10 text-green-400 rounded-md text-xs">{c.status || 'Active'}</span></td>
+                        <td className="p-3 text-right">
+                          <Button variant="ghost" size="sm" className="text-blue-400 hover:text-blue-300">Edit</Button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </TabsContent>
 
-          <div className="max-w-screen-2xl mx-auto px-6 py-6 space-y-6">
-
-            {/* Quick Command Bar */}
-            <QuickCommandBar />
-
-            {/* Business Health Score & Next Best Action */}
+          <TabsContent value="users">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-2">
-                <BusinessHealthScore />
+              <div className="lg:col-span-1 bg-slate-900 border border-slate-800 rounded-2xl p-6 h-fit">
+                <h2 className="text-xl text-white font-semibold mb-4">Invite Client</h2>
+                <form onSubmit={handleInvite} className="space-y-4">
+                  <div>
+                    <label className="block text-sm text-slate-400 mb-1.5">Email Address</label>
+                    <input 
+                      type="email" 
+                      required 
+                      value={inviteEmail} 
+                      onChange={e=>setInviteEmail(e.target.value)} 
+                      placeholder="client@business.com" 
+                      className="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white placeholder:text-slate-500 outline-none focus:border-blue-500"
+                    />
+                  </div>
+                  <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-500 text-white py-6 rounded-lg">
+                    <UserPlus className="w-5 h-5 mr-2" /> Send Invite
+                  </Button>
+                </form>
               </div>
-              <NextBestExecutiveAction />
-            </div>
-
-            {/* Executive KPI Strip */}
-            <ExecutiveKPIStrip />
-
-            {/* Publishing Momentum */}
-            <PublishingMomentumStrip />
-
-            {/* Main 3-column Grid: Revenue + Pipeline + Closing Spotlight + Delivery + Client Health + Team */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-2 space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <RevenueMomentumPanel />
-                  <PipelineSnapshot />
+              <div className="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-6">
+                <h2 className="text-xl text-white font-semibold mb-4">System Users</h2>
+                <div className="space-y-3">
+                  {users?.length === 0 && <p className="text-slate-400">No users found.</p>}
+                  {users?.map(u => (
+                    <div key={u.id} className="p-4 bg-slate-800/50 rounded-xl border border-slate-700 flex justify-between items-center">
+                      <div>
+                        <div className="text-white font-medium">{u.email}</div>
+                        <div className="text-sm text-slate-400 mt-1 flex items-center gap-2">
+                          <span className={`px-2 py-0.5 rounded text-xs ${u.role === 'admin' ? 'bg-purple-500/20 text-purple-400' : 'bg-blue-500/20 text-blue-400'}`}>
+                            {u.role}
+                          </span>
+                          {u.company_name && <span>• {u.company_name}</span>}
+                          {u.client_id && <span className="text-slate-500">• ID Linked</span>}
+                        </div>
+                      </div>
+                      <Button variant="outline" size="sm" className="border-slate-600 text-slate-300 hover:text-white">Edit User</Button>
+                    </div>
+                  ))}
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <DeliveryWorkloadPanel />
-                  <ClientHealthPanel />
-                </div>
-              </div>
-              <div className="space-y-6">
-                <ClosingThisMonthSpotlight />
-                <TeamPerformanceSnapshot />
               </div>
             </div>
+          </TabsContent>
 
-            {/* Operational Risks */}
-            <OperationalRisksPanel />
-
-            {/* Activity Feed */}
-            <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
-              <h3 className="text-sm font-bold text-white mb-6 flex items-center gap-2">
-                <Activity className="w-5 h-5 text-slate-400" />
-                Recent Activity
-              </h3>
-              <ActivityFeed />
+          <TabsContent value="leads">
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+              <h2 className="text-xl text-white font-semibold mb-4">Sales Leads</h2>
+              <p className="text-slate-400 mb-4">Total Leads: {leads?.length || 0}</p>
+              <div className="space-y-2">
+                {leads?.map(l => (
+                  <div key={l.id} className="p-3 bg-slate-800/50 rounded-lg border border-slate-700">
+                    <div className="text-white font-medium">{l.business_name} <span className="text-slate-400 font-normal ml-2">({l.contact_name})</span></div>
+                    <div className="text-sm text-slate-500">{l.email}</div>
+                  </div>
+                ))}
+              </div>
             </div>
+          </TabsContent>
+          
+          <TabsContent value="deals">
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+              <h2 className="text-xl text-white font-semibold mb-4">Sales Deals</h2>
+              <p className="text-slate-400 mb-4">Total Deals: {deals?.length || 0}</p>
+              <div className="space-y-2">
+                {deals?.map(d => (
+                  <div key={d.id} className="p-3 bg-slate-800/50 rounded-lg border border-slate-700">
+                    <div className="text-white font-medium">{d.deal_name}</div>
+                    <div className="text-sm text-green-400">${d.value || 0}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </TabsContent>
 
-          </div>
-        </div>
-      </AdminNav>
-    </AdminGuard>
+        </Tabs>
+      </div>
+    </div>
   );
 }
