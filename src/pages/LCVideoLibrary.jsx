@@ -14,6 +14,11 @@ export default function LCVideoLibrary() {
   const videos = data?.videos || [];
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const cat = params.get('category');
+    if (cat && VIDEO_CATEGORIES.includes(cat)) {
+      setActiveCategory(cat);
+    }
     window.scrollTo(0, 0);
   }, []);
 

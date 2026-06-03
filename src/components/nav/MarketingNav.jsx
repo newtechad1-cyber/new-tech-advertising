@@ -45,7 +45,17 @@ const NAV_LINKS = [
   },
   { label: 'Our Work', href: '/our-work' },
   { label: 'About Us', href: '/about' },
-  { label: 'Learning Center', href: '/learning-center' },
+  { 
+    label: 'Learning Center', 
+    href: '/learning-center',
+    children: [
+      { label: 'All Resources', href: '/learning-center', desc: 'Browse all guides and videos' },
+      { label: 'Video Library', href: '/learning-center/videos', desc: 'Watch practical training videos' },
+      { label: 'AI Tools', href: '/learning-center/videos?category=AI Tools', desc: 'Practical AI tools for small business' },
+      { label: 'Local SEO', href: '/learning-center/videos?category=Local SEO', desc: 'Master zero-click search & reviews' },
+      { label: 'Marketing Strategy', href: '/learning-center/videos?category=Marketing Strategy', desc: 'Build predictable growth engines' }
+    ]
+  },
   { label: 'Free Gap Audit', href: '/gap-audit' },
 ];
 

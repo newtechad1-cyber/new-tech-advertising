@@ -168,26 +168,29 @@ export default function LearningCenter() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <TopicList title="AI Visibility & Search" icon={Search}>
+            <TopicList title="Local SEO" icon={Search}>
               <TopicLink title="AI Visibility Basics" to="/ai-visibility-basics" />
               <TopicLink title="SEO vs AI Search" to="/seo-vs-ai-search" />
-              <TopicLink title="The Role of AI in Local Marketing" to="/role-of-ai-in-local-marketing" />
               <TopicLink title="What Changed Online" to="/what-changed-online" />
+              <TopicLink title="Reputation is Now a Growth Engine" to="/reputation-is-now-a-growth-engine" />
+              <TopicLink title="Web Accessibility & Trust" to="/web-accessibility-trust" />
+              <TopicLink title="Building Digital Trust" to="/building-digital-trust" />
+              <TopicLink title="Campaigns vs Authority" to="/campaigns-vs-authority" />
+              <TopicLink title="The Future Belongs to Market Leaders" to="/the-future-belongs-to-market-leaders" />
             </TopicList>
 
-            <TopicList title="Modern Marketing Systems" icon={LayoutTemplate}>
+            <TopicList title="Marketing Strategy" icon={LayoutTemplate}>
               <TopicLink title="Growth Systems vs Campaigns" to="/growth-systems-vs-campaigns" />
-              <TopicLink title="Campaigns vs Authority" to="/campaigns-vs-authority" />
               <TopicLink title="The Hidden Cost of Outdated Marketing" to="/hidden-cost-of-outdated-marketing" />
+              <TopicLink title="Video Storytelling Builds Confidence" to="/video-storytelling-builds-confidence" />
               <TopicLink title="Websites as Salespeople" to="/websites-as-salespeople" />
+              <TopicLink title="AI Brought Me Out of Retirement" to="/ai-brought-me-out-of-retirement" />
               <TopicLink title="I Was Early Again" to="/i-was-early-again" />
             </TopicList>
 
-            <TopicList title="Digital Trust & Reputation" icon={ShieldCheck}>
-              <TopicLink title="Reputation is Now a Growth Engine" to="/reputation-is-now-a-growth-engine" />
-              <TopicLink title="Building Digital Trust" to="/building-digital-trust" />
-              <TopicLink title="Web Accessibility & Trust" to="/web-accessibility-trust" />
-              <TopicLink title="The Future Belongs to Market Leaders" to="/the-future-belongs-to-market-leaders" />
+            <TopicList title="AI Tools" icon={Bot}>
+              <TopicLink title="Practical AI For Small Businesses" to="/practical-ai-for-small-businesses" />
+              <TopicLink title="The Role of AI in Local Marketing" to="/role-of-ai-in-local-marketing" />
             </TopicList>
           </div>
         </div>
