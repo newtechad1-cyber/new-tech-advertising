@@ -14,6 +14,18 @@ export default function AdminGuard({ children }) {
   const [isVerifying, setIsVerifying] = useState(true);
 
   useEffect(() => {
+    const meta = document.createElement('meta');
+    meta.name = 'robots';
+    meta.content = 'noindex, nofollow';
+    document.head.appendChild(meta);
+    return () => {
+      if (document.head.contains(meta)) {
+        document.head.removeChild(meta);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     async function verifyAdmin() {
       if (!user) {
         setIsVerifying(false);
@@ -40,8 +52,8 @@ export default function AdminGuard({ children }) {
 
   if (isLoadingAuth || !authChecked || isVerifying) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <p className="text-slate-600">Verifying access...</p>
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-slate-800 border-t-violet-500 rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -53,19 +65,19 @@ export default function AdminGuard({ children }) {
 
   if (!isAdmin) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
-        <Card className="max-w-md w-full">
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
+        <Card className="max-w-md w-full bg-slate-900 border-slate-800">
           <CardHeader>
-            <div className="flex items-center gap-3 text-red-600">
+            <div className="flex items-center gap-3 text-red-500">
               <Lock className="w-6 h-6" />
-              <CardTitle>Admin Access Required</CardTitle>
+              <CardTitle className="text-white">Admin Access Required</CardTitle>
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
-            <p className="text-slate-600">
+            <p className="text-slate-400">
               This page is only accessible to administrators. If you believe you should have access, please contact support.
             </p>
-            <Button onClick={() => window.location.href = createPageUrl('ClientDashboard')} className="w-full">
+            <Button onClick={() => window.location.href = createPageUrl('ClientDashboard')} className="w-full bg-violet-600 hover:bg-violet-500 text-white">
               Return to Dashboard
             </Button>
           </CardContent>

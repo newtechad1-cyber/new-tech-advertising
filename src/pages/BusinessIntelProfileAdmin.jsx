@@ -3,6 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, RefreshCw, TrendingUp, AlertTriangle, Zap, Target, Video, BrainCircuit, BarChart2 } from 'lucide-react';
+import AdminGuard from '@/components/auth/AdminGuard';
 
 const STATE_COLOR = {
   assumed: 'bg-slate-700 text-slate-400',
@@ -81,6 +82,7 @@ export default function BusinessIntelProfileAdmin() {
   const business = businesses.find(b => b.id === selected);
 
   return (
+    <AdminGuard>
     <div className="min-h-screen bg-slate-950 p-6">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center gap-3 mb-6 flex-wrap">
@@ -203,5 +205,6 @@ export default function BusinessIntelProfileAdmin() {
           )}
       </div>
     </div>
+    </AdminGuard>
   );
 }

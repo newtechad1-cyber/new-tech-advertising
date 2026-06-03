@@ -3,6 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Calendar, ChevronDown, ChevronUp, RefreshCw } from 'lucide-react';
+import AdminGuard from '@/components/auth/AdminGuard';
 
 function TaskCard({ task, color }) {
   let parsed;
@@ -70,6 +71,7 @@ export default function WeeklyPlanAdmin() {
   };
 
   return (
+    <AdminGuard>
     <div className="min-h-screen bg-slate-950 p-6">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center gap-3 mb-6 flex-wrap">
@@ -147,5 +149,6 @@ export default function WeeklyPlanAdmin() {
         )}
       </div>
     </div>
+    </AdminGuard>
   );
 }
