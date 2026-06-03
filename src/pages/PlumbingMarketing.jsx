@@ -4,10 +4,7 @@ import { createPageUrl } from '@/utils';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
-import { 
-  CheckCircle, ArrowRight, Star, BarChart2, Share2, Video, Search,
-  AlertTriangle, DollarSign, ImageOff, MessageSquareWarning, MapPin, Settings
-} from 'lucide-react';
+import { CheckCircle, ArrowRight, Star, Zap, BarChart2, Share2, Video, Search, Droplets, ShieldAlert, Image as ImageIcon, MapPin, Wrench } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const DATA = {
@@ -47,33 +44,6 @@ const DATA = {
       comments: 6,
     },
   ],
-  testimonial: {
-    quote: 'I was spending $800/month on a social media manager doing the same thing this platform does automatically. Switching saved me $600/month.',
-    author: 'Carlos R.',
-    company: 'Rivera Plumbing Co., Austin TX',
-  },
-  faqs: [
-    {
-      question: "How much does plumbing marketing cost?",
-      answer: "Most local plumbing companies spend $500-$2,000/month on marketing. NTA focuses on organic visibility and reputation rather than expensive pay-per-click ads. The ROI on local SEO compounds over time, unlike paid ads that stop the moment you stop paying."
-    },
-    {
-      question: "How do I compete with HomeAdvisor and Angi?",
-      answer: "Those platforms sell shared leads to multiple competitors, creating a race to the bottom on price. Owning your own Google rankings means customers call you directly. Investing in your own digital presence builds an asset you control rather than renting visibility from third-party aggregators."
-    },
-    {
-      question: "Can you help me get more Google reviews?",
-      answer: "Yes, our automated review request system ensures you capture feedback while the experience is fresh by texting customers after service calls. Google reviews are the #1 factor in local map rankings, and consistency of new reviews matters much more than just sheer volume."
-    },
-    {
-      question: "I'm a plumber, not a marketer — how much of my time does this take?",
-      answer: "NTA handles everything. The only ask is occasionally sharing job photos from the field. The entire system is designed for plumbing business owners who have zero interest in learning marketing and want to focus on their trade."
-    },
-    {
-      question: "What if I already have a website? Do you rebuild it?",
-      answer: "It depends on your current site's foundation. Sometimes optimization is enough to get you ranking. However, if the site is outdated, slow, or built on a platform with severe SEO limitations, a fresh rebuild will produce much better long-term results."
-    }
-  ]
 };
 
 const PLAN_FEATURES = {
@@ -82,17 +52,39 @@ const PLAN_FEATURES = {
   Pro: ['AI video campaigns', 'Reputation automation', 'Advanced analytics', 'Priority support', '$497/mo'],
 };
 
+const FAQS = [
+  {
+    question: "How much does plumbing marketing cost?",
+    answer: "Most local plumbing companies spend $500-$2,000/month on marketing. We focus on organic visibility and reputation rather than expensive pay-per-click advertising. The ROI on local SEO compounds over time, building a permanent asset for your business, unlike paid ads that stop producing the moment you stop paying."
+  },
+  {
+    question: "How do I compete with HomeAdvisor and Angi?",
+    answer: "Those platforms sell shared leads to multiple competitors, creating a race to the bottom on price. Owning your own Google rankings means customers call you directly without interference. Investing in your own digital presence builds an asset you control, rather than renting access to leads from a third party."
+  },
+  {
+    question: "Can you help me get more Google reviews?",
+    answer: "Yes. We implement an automated review request system that gently prompts customers for feedback right after a completed job. Google reviews are the #1 factor in local map rankings. For local SEO, consistency matters more than volume — getting steady reviews week after week sends the strongest signal to Google."
+  },
+  {
+    question: "I'm a plumber, not a marketer — how much of my time does this take?",
+    answer: "NTA handles everything. The entire system is designed specifically for business owners who have zero interest in learning marketing. Our only ask is that you occasionally share photos of your jobs from your phone — we take care of the formatting, captions, posting, SEO, and strategy."
+  },
+  {
+    question: "What if I already have a website? Do you rebuild it?",
+    answer: "It depends entirely on your current site's technical foundation. Sometimes optimization is enough. However, if the site is outdated, slow, poorly designed for mobile, or built on a platform with SEO limitations, a fresh rebuild produces significantly better long-term results and higher conversion rates."
+  }
+];
+
 export default function PlumbingMarketing() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="bg-slate-950 min-h-screen">
+    <div className="bg-slate-950 min-h-screen font-sans text-slate-300">
       <SEOHead 
         title="Plumbing Marketing | AI Marketing for Plumbers"
         description="AI-driven marketing for plumbing companies. Google Business Profile, local SEO, social media & lead generation. Get more service calls. New Tech Advertising."
-        faqs={DATA.faqs}
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify({
@@ -104,7 +96,7 @@ export default function PlumbingMarketing() {
             "name": "New Tech Advertising",
             "address": {
               "@type": "PostalAddress",
-              "streetAddress": "123 Main St",
+              "streetAddress": "15 E State St, Suite 201",
               "addressLocality": "Mason City",
               "addressRegion": "IA",
               "postalCode": "50401",
@@ -140,7 +132,7 @@ export default function PlumbingMarketing() {
               <span className="text-sm font-semibold uppercase tracking-widest mb-4 block" style={{ color: DATA.color }}>
                 {DATA.industry} Marketing
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-5">
+              <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-5">
                 {DATA.headline}
               </h1>
               <p className="text-slate-400 text-lg leading-relaxed mb-8">
@@ -161,8 +153,8 @@ export default function PlumbingMarketing() {
             <div className="grid grid-cols-2 gap-4">
               {DATA.stats.map((s, i) => (
                 <div key={i} className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
-                  <p className="text-3xl md:text-4xl font-extrabold text-white mb-1" style={{ color: DATA.color }}>{s.value}</p>
-                  <p className="text-slate-400 text-sm font-medium">{s.label}</p>
+                  <p className="text-3xl font-extrabold text-white mb-1" style={{ color: DATA.color }}>{s.value}</p>
+                  <p className="text-slate-400 text-sm">{s.label}</p>
                 </div>
               ))}
             </div>
@@ -170,156 +162,110 @@ export default function PlumbingMarketing() {
         </div>
       </section>
 
-      {/* WHY PLUMBING COMPANIES GET BURIED ONLINE */}
+      {/* NEW: Why Plumbing Companies Get Buried Online */}
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl font-extrabold text-white mb-6">Why Plumbing Companies Get Buried Online</h2>
-            <p className="text-lg text-slate-400 leading-relaxed">
-              You provide great service, but if you aren't showing up correctly when customers search, your competition wins the job. Here is what is likely holding your business back right now:
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Why Plumbing Companies Get Buried Online</h2>
+            <p className="text-lg leading-relaxed text-slate-400">
+              The digital landscape for plumbers is ruthless. If your online presence is weak, you're not just missing out on leads — you're actively sending them to your competitors. Here's why most plumbers struggle online.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 mb-16">
             <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-lg">
-              <div className="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center mb-6">
-                <AlertTriangle className="w-6 h-6 text-red-500" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">Emergency searches happen 24/7</h3>
-              <p className="text-slate-400 leading-relaxed">A homeowner searching "burst pipe near me" at 3am goes to whoever ranks first in the map pack, not whoever is necessarily the best plumber in town.</p>
+              <Zap className="w-10 h-10 text-blue-500 mb-6" />
+              <h3 className="text-xl font-bold text-white mb-4">24/7 Emergency Demands</h3>
+              <p className="text-slate-400 leading-relaxed">Emergency searches happen 24/7. A homeowner searching "burst pipe near me" at 3am goes to whoever ranks first on Google Maps, not whoever is necessarily the most skilled. If you aren't visible instantly, you don't get the call.</p>
             </div>
-            
             <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-lg">
-              <div className="w-12 h-12 bg-amber-500/20 rounded-xl flex items-center justify-center mb-6">
-                <DollarSign className="w-6 h-6 text-amber-500" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">Predatory Lead Aggregators</h3>
-              <p className="text-slate-400 leading-relaxed">Platforms like HomeAdvisor, Angi, and Thumbtack charge $30–$75 per lead and simultaneously sell the exact same lead to 4 of your local competitors.</p>
+              <Share2 className="w-10 h-10 text-amber-500 mb-6" />
+              <h3 className="text-xl font-bold text-white mb-4">Predatory Lead Aggregators</h3>
+              <p className="text-slate-400 leading-relaxed">Lead aggregators like HomeAdvisor, Angi, and Thumbtack charge $30–$75 per lead, but they sell the exact same lead to 4 competitors. You end up racing to the bottom on price just to win a job you already paid to bid on.</p>
             </div>
-
             <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-lg">
-              <div className="w-12 h-12 bg-slate-700/50 rounded-xl flex items-center justify-center mb-6">
-                <ImageOff className="w-6 h-6 text-slate-300" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">Cookie-Cutter Websites</h3>
-              <p className="text-slate-400 leading-relaxed">Most plumbing websites look identical — packed with cheesy stock photos of pristine wrenches and blue trucks that fail to build any real trust with homeowners.</p>
+              <ImageIcon className="w-10 h-10 text-emerald-500 mb-6" />
+              <h3 className="text-xl font-bold text-white mb-4">Generic, Invisible Websites</h3>
+              <p className="text-slate-400 leading-relaxed">Most plumbing websites look identical — endless stock photos of shiny wrenches and clean blue trucks. They do nothing to build genuine trust with homeowners who are anxious about letting a stranger into their house to fix a mess.</p>
             </div>
-
             <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-lg">
-              <div className="w-12 h-12 bg-orange-500/20 rounded-xl flex items-center justify-center mb-6">
-                <MessageSquareWarning className="w-6 h-6 text-orange-400" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">Unmanaged Online Reputations</h3>
-              <p className="text-slate-400 leading-relaxed">Negative reviews from one bad day can tank years of hard-earned reputation if nobody is actively managing your online presence and balancing it with positive reviews.</p>
+              <ShieldAlert className="w-10 h-10 text-rose-500 mb-6" />
+              <h3 className="text-xl font-bold text-white mb-4">Reputation Fragility</h3>
+              <p className="text-slate-400 leading-relaxed">Negative reviews from one bad day can tank years of hard-earned reputation. If nobody is actively managing your online presence and generating new, positive reviews, a single 1-star rant stands out like a sore thumb.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* WHAT WE BUILD FOR PLUMBING COMPANIES */}
-      <section className="py-20 px-6 bg-slate-900 border-y border-slate-800">
+      {/* NEW: What We Build for Plumbing Companies */}
+      <section className="py-20 px-6 bg-slate-900/50 border-y border-slate-900">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl font-extrabold text-white mb-6">What We Build for Plumbing Companies</h2>
-            <p className="text-lg text-slate-400 leading-relaxed">
-              We don't just sell leads. We build a sustainable digital engine that positions you as the premier choice in your market, ensuring steady growth month over month.
-            </p>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">What We Build for Plumbing Companies</h2>
+            <p className="text-lg text-slate-400">Marketing systems engineered to dominate local search and build absolute trust.</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-slate-950 border border-slate-800 p-8 rounded-2xl">
-              <Search className="w-8 h-8 text-blue-500 mb-5" />
-              <h3 className="text-lg font-bold text-white mb-3">Emergency-First Local SEO</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">We optimize your Google presence so when someone in your service area searches "plumber near me" or "emergency plumber [city]," you appear in the top 3 map results. This includes real-time GBP management, local citation building, and review velocity strategies.</p>
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-lg hover:border-blue-500/50 transition-colors">
+              <Search className="w-8 h-8 text-blue-400 mb-5" />
+              <h3 className="text-xl font-bold text-white mb-3">Emergency-First Local SEO</h3>
+              <p className="text-slate-400 leading-relaxed text-sm">We optimize your Google presence so when someone in your service area searches "plumber near me" or "emergency plumber [city]," you appear in the top 3 map results. This includes real-time GBP management, local citation building, and review velocity strategies.</p>
             </div>
             
-            <div className="bg-slate-950 border border-slate-800 p-8 rounded-2xl">
-              <Star className="w-8 h-8 text-blue-500 mb-5" />
-              <h3 className="text-lg font-bold text-white mb-3">Automated Review Requests</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">Your techs finish a job, and the customer gets a friendly text asking for a review. No clipboard handoffs, no awkward asks. We've seen clients double their Google review count in 90 days with this system.</p>
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-lg hover:border-blue-500/50 transition-colors">
+              <Star className="w-8 h-8 text-blue-400 mb-5" />
+              <h3 className="text-xl font-bold text-white mb-3">Automated Review Requests After Every Job</h3>
+              <p className="text-slate-400 leading-relaxed text-sm">Your techs finish a job, and the customer gets a friendly text asking for a review. No clipboard handoffs, no awkward asks. We've seen clients double their Google review count in 90 days with this system.</p>
             </div>
-
-            <div className="bg-slate-950 border border-slate-800 p-8 rounded-2xl">
-              <Share2 className="w-8 h-8 text-blue-500 mb-5" />
-              <h3 className="text-lg font-bold text-white mb-3">Authentic Social Media</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">Nobody wants to see stock photos of a clean bathroom. We build content calendars around your actual jobs — before/after photos of sewer line replacements, boiler installs, and bathroom remodels.</p>
+            
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-lg hover:border-blue-500/50 transition-colors">
+              <Share2 className="w-8 h-8 text-blue-400 mb-5" />
+              <h3 className="text-xl font-bold text-white mb-3">Social Media That Shows Real Work</h3>
+              <p className="text-slate-400 leading-relaxed text-sm">Nobody wants to see stock photos of a clean bathroom. We build content calendars around your actual jobs — before/after photos of sewer line replacements, boiler installs, bathroom remodels — the kind of content homeowners share.</p>
             </div>
-
-            <div className="bg-slate-950 border border-slate-800 p-8 rounded-2xl">
-              <MapPin className="w-8 h-8 text-blue-500 mb-5" />
-              <h3 className="text-lg font-bold text-white mb-3">Google Business Domination</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">Weekly posts, service updates, photo uploads, and Q&A management. Your GBP becomes a living storefront, not a stale listing with a 2019 photo of your old office.</p>
+            
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-lg hover:border-blue-500/50 transition-colors">
+              <Wrench className="w-8 h-8 text-blue-400 mb-5" />
+              <h3 className="text-xl font-bold text-white mb-3">Google Business Profile Domination</h3>
+              <p className="text-slate-400 leading-relaxed text-sm">Weekly posts, service updates, photo uploads, and Q&A management. Your GBP becomes a living storefront, not a stale listing with a 2019 photo. This constant activity signals to Google that you are the most relevant result.</p>
             </div>
-
-            <div className="bg-slate-950 border border-slate-800 p-8 rounded-2xl">
-              <Video className="w-8 h-8 text-blue-500 mb-5" />
-              <h3 className="text-lg font-bold text-white mb-3">AI-Powered Content & Video</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">Short-form video tips like "How to prevent frozen pipes" and seasonal blog posts position your company as the local authority. AI helps us produce this at scale without eating into your busy schedule.</p>
+            
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-lg hover:border-blue-500/50 transition-colors">
+              <Video className="w-8 h-8 text-blue-400 mb-5" />
+              <h3 className="text-xl font-bold text-white mb-3">AI-Powered Content & Video</h3>
+              <p className="text-slate-400 leading-relaxed text-sm">Short-form video tips ("How to prevent frozen pipes") and seasonal blog posts that position your company as the local authority. AI helps us produce this at scale without eating your schedule.</p>
             </div>
-
-            <div className="bg-slate-950 border border-slate-800 p-8 rounded-2xl">
-              <BarChart2 className="w-8 h-8 text-blue-500 mb-5" />
-              <h3 className="text-lg font-bold text-white mb-3">Plain English Reporting</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">No confusing marketing jargon. You get a one-page summary: how many people found you, how many called for service, what is currently working, and what we are adjusting for next month.</p>
+            
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-lg hover:border-blue-500/50 transition-colors">
+              <BarChart2 className="w-8 h-8 text-blue-400 mb-5" />
+              <h3 className="text-xl font-bold text-white mb-3">Monthly Reporting in Plain English</h3>
+              <p className="text-slate-400 leading-relaxed text-sm">No marketing jargon. You get a one-page summary: how many people found you, how many called, what's working, what we're adjusting. Full transparency into exactly what your investment is doing.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* MINI CASE STUDY */}
+      {/* NEW: How It Works for a Plumbing Company */}
       <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto bg-gradient-to-br from-blue-900 to-slate-900 border border-blue-800/50 rounded-3xl p-10 md:p-14 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 p-8 opacity-10">
-            <Settings className="w-48 h-48 text-white" />
-          </div>
-          <div className="relative z-10">
-            <span className="text-blue-300 font-bold uppercase tracking-wider text-sm mb-4 block">How It Works</span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-6 leading-tight">From Zero Online Presence to First-Page Rankings</h2>
-            <p className="text-lg text-blue-100/90 leading-relaxed mb-8">
-              A North Iowa plumbing and excavating company came to us with a basic website that hadn't been updated in years. Within 6 months, we rebuilt their digital presence from scratch — optimized Google Business Profile, consistent NAP citations across 40+ directories, automated review generation, and a social media strategy built around their real fieldwork. They now rank in the top 3 map results for their primary service areas.
+        <div className="max-w-4xl mx-auto text-center">
+          <Droplets className="w-16 h-16 text-blue-500 mx-auto mb-6" />
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">How It Works for a Plumbing Company: <br/>From Zero Online Presence to First-Page Rankings</h2>
+          <div className="bg-blue-900/10 border border-blue-500/20 rounded-3xl p-8 md:p-12 text-left mt-10">
+            <p className="text-lg leading-relaxed text-slate-300">
+              A North Iowa plumbing and excavating company came to us with a basic website that hadn't been updated in years. They were relying almost entirely on word-of-mouth and legacy phone book listings, missing out on hundreds of local emergency searches every month.
             </p>
-            <div className="flex gap-4">
-              <Link to="/case-studies" className="inline-flex items-center gap-2 bg-white text-blue-900 font-bold px-6 py-3 rounded-xl hover:bg-slate-100 transition-colors">
-                View More Case Studies <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
+            <p className="text-lg leading-relaxed text-slate-300 mt-6">
+              Within 6 months, we rebuilt their digital presence from scratch. We deployed a high-conversion website, fully optimized their Google Business Profile, established consistent NAP (Name, Address, Phone) citations across 40+ local directories, and implemented an automated review generation system. We also launched a social media strategy built around their real fieldwork instead of stock images.
+            </p>
+            <p className="text-lg leading-relaxed text-slate-300 mt-6 font-semibold text-white">
+              The Result: They now rank dominantly in the top 3 map results for their primary service areas, capturing high-intent emergency traffic effortlessly.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* SERVICE AREAS */}
-      <section className="py-20 px-6 border-y border-slate-800 bg-slate-950">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl font-extrabold text-white mb-6">Service Areas</h2>
-              <p className="text-lg text-slate-400 leading-relaxed mb-6">
-                We work with plumbing contractors across North Iowa and Southern Minnesota. Whether you handle residential service calls or commercial excavation projects, we build marketing systems that keep your schedule full year-round.
-              </p>
-              <p className="text-lg text-slate-400 leading-relaxed font-semibold text-blue-400">
-                If you can drive to your customers, we can get those customers to find you online first.
-              </p>
-            </div>
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-lg">
-              <ul className="grid grid-cols-2 gap-y-4 gap-x-6 text-slate-300">
-                <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-blue-500" /> Mason City, IA</li>
-                <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-blue-500" /> Clear Lake, IA</li>
-                <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-blue-500" /> Charles City, IA</li>
-                <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-blue-500" /> Garner, IA</li>
-                <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-blue-500" /> Forest City, IA</li>
-                <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-blue-500" /> Northwood, IA</li>
-                <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-blue-500" /> Osage, IA</li>
-                <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-blue-500" /> Rochester, MN</li>
-                <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-blue-500" /> Albert Lea, MN</li>
-                <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-blue-500" /> Austin, MN</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Content Examples (Kept from original) */}
-      <section className="py-16 px-4">
+      {/* Content Examples (Kept from template) */}
+      <section className="py-16 px-4 border-t border-slate-800 bg-slate-900/30">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-extrabold text-white mb-3">
@@ -329,7 +275,7 @@ export default function PlumbingMarketing() {
           </div>
           <div className="grid md:grid-cols-3 gap-5">
             {DATA.contentExamples.map((ex, i) => (
-              <div key={i} className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+              <div key={i} className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-md">
                 <div className="flex items-center gap-2 mb-3">
                   <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white"
                     style={{ background: DATA.color }}>{DATA.industry[0]}</div>
@@ -350,89 +296,76 @@ export default function PlumbingMarketing() {
         </div>
       </section>
 
-      {/* Packages / Features Comparison */}
+      {/* Pricing Options (Kept from template logic) */}
       <section className="py-16 px-4 border-t border-slate-800">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl font-extrabold text-white mb-4">
-                Choose the right plan for your plumbing business
-              </h2>
-              <p className="text-slate-400 mb-8">
-                Our AI platform handles your marketing automatically — so you can focus on running your business. No hidden fees.
-              </p>
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
-                    style={{ background: `${DATA.color}22`, border: `1px solid ${DATA.color}44` }}>
-                    <Share2 className="w-4 h-4" style={{ color: DATA.color }} />
-                  </div>
-                  <div>
-                    <p className="text-white font-semibold text-sm">Seasonal Social Content</p>
-                    <p className="text-slate-500 text-xs mt-0.5">AI generates plumbing tips and emergency reminders.</p>
-                  </div>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-extrabold text-white mb-4">Choose Your Growth Plan</h2>
+            <p className="text-slate-400">Transparent pricing for local service contractors.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {Object.entries(PLAN_FEATURES).map(([name, feats], i) => (
+              <div key={name} className={`rounded-2xl p-6 border ${i === 1 ? 'border-blue-500/50 bg-blue-900/10 shadow-lg shadow-blue-900/20' : 'border-slate-800 bg-slate-900'}`}>
+                {i === 1 && <span className="text-xs font-bold text-blue-400 uppercase tracking-widest mb-3 block">Most Popular</span>}
+                <div className="flex items-center justify-between mb-4 border-b border-slate-800 pb-4">
+                  <p className="text-xl font-bold text-white">{name}</p>
+                  <p className="text-2xl font-black text-slate-100">{feats[feats.length - 1]}</p>
                 </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
-                    style={{ background: `${DATA.color}22`, border: `1px solid ${DATA.color}44` }}>
-                    <Search className="w-4 h-4" style={{ color: DATA.color }} />
-                  </div>
-                  <div>
-                    <p className="text-white font-semibold text-sm">Emergency SEO Keywords</p>
-                    <p className="text-slate-500 text-xs mt-0.5">Rank for high-intent searches like "emergency plumber near me".</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
-                    style={{ background: `${DATA.color}22`, border: `1px solid ${DATA.color}44` }}>
-                    <Star className="w-4 h-4" style={{ color: DATA.color }} />
-                  </div>
-                  <div>
-                    <p className="text-white font-semibold text-sm">Review Generation</p>
-                    <p className="text-slate-500 text-xs mt-0.5">Automatically follow up with customers post-job to capture 5-star reviews.</p>
-                  </div>
+                <div className="flex flex-col gap-3">
+                  {feats.slice(0, -1).map(f => (
+                    <span key={f} className="text-sm text-slate-300 flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-400 shrink-0" /> {f}
+                    </span>
+                  ))}
                 </div>
               </div>
-            </div>
-            <div className="space-y-4">
-              {Object.entries(PLAN_FEATURES).map(([name, feats], i) => (
-                <div key={name} className={`rounded-2xl p-5 border ${i === 1 ? 'border-blue-500/40 bg-blue-900/10' : 'border-slate-800 bg-slate-900'}`}>
-                  {i === 1 && <span className="text-xs font-bold text-blue-400 uppercase tracking-widest mb-2 block">Most Popular</span>}
-                  <div className="flex items-center justify-between mb-3">
-                    <p className="text-white font-bold">{name}</p>
-                    <p className="text-slate-300 font-bold">{feats[feats.length - 1]}</p>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {feats.slice(0, -1).map(f => (
-                      <span key={f} className="text-xs bg-slate-800 text-slate-400 px-2 py-1 rounded-full flex items-center gap-1">
-                        <CheckCircle className="w-3 h-3 text-green-400" /> {f}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-              <Link to={createPageUrl('Pricing')}
-                className="block text-center text-blue-400 hover:text-blue-300 text-sm underline">
-                View full plan comparison →
-              </Link>
-            </div>
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link to={createPageUrl('Pricing')} className="text-blue-400 hover:text-blue-300 font-semibold underline">
+              View full plan comparison →
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* FAQs */}
-      <section className="py-16 px-4 border-t border-slate-800 bg-slate-900/50">
-        <div className="max-w-3xl mx-auto">
+      {/* NEW: Service Areas */}
+      <section className="py-16 px-4 bg-slate-900 border-y border-slate-800">
+        <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
+            <MapPin className="w-12 h-12 text-blue-500 mx-auto mb-4" />
+            <h2 className="text-3xl font-bold text-white mb-4">Regional Service Areas</h2>
+            <p className="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
+              We work with plumbing contractors across North Iowa and Southern Minnesota. Whether you handle residential service calls or commercial excavation projects, we build marketing systems that keep your schedule full year-round.
+            </p>
+          </div>
+          <div className="flex flex-wrap justify-center gap-3">
+            {[
+              "Mason City, IA", "Clear Lake, IA", "Charles City, IA", "Garner, IA", 
+              "Forest City, IA", "Northwood, IA", "Osage, IA", 
+              "Rochester, MN", "Albert Lea, MN", "Austin, MN"
+            ].map((city) => (
+              <span key={city} className="bg-slate-950 border border-slate-800 text-slate-300 px-4 py-2 rounded-full text-sm font-medium">
+                {city}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* NEW: FAQs */}
+      <section className="py-20 px-4 border-t border-slate-800">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
             <h2 className="text-3xl font-extrabold text-white mb-4">Frequently Asked Questions</h2>
           </div>
           <Accordion type="single" collapsible className="w-full">
-            {DATA.faqs.map((faq, i) => (
+            {FAQS.map((faq, i) => (
               <AccordionItem key={i} value={`faq-${i}`} className="border-slate-800">
-                <AccordionTrigger className="text-left text-lg font-semibold text-white hover:text-slate-300">
+                <AccordionTrigger className="text-left text-lg font-semibold text-white hover:text-slate-300 py-4">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-slate-400 leading-relaxed text-base pt-2 pb-4">
+                <AccordionContent className="text-slate-400 leading-relaxed text-base pb-6">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -441,31 +374,21 @@ export default function PlumbingMarketing() {
         </div>
       </section>
 
-      {/* Testimonial */}
-      <section className="py-16 px-4 border-t border-slate-800">
-        <div className="max-w-2xl mx-auto text-center">
-          <div className="flex justify-center mb-4">
-            {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />)}
-          </div>
-          <blockquote className="text-xl text-white font-medium leading-relaxed mb-4">
-            "{DATA.testimonial.quote}"
-          </blockquote>
-          <p className="text-slate-400 text-sm">— {DATA.testimonial.author}, {DATA.testimonial.company}</p>
-        </div>
-      </section>
-
       {/* CTA */}
-      <section className="py-20 px-4 border-t border-slate-800">
-        <div className="max-w-xl mx-auto text-center">
-          <h2 className="text-3xl font-extrabold text-white mb-4">
-            Start growing your {DATA.industry.toLowerCase()} business today
+      <section className="py-24 px-4 border-t border-slate-800 text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-blue-900/10 pointer-events-none" />
+        <div className="relative z-10 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-6">
+            Stop losing emergency calls to competitors.
           </h2>
-          <p className="text-slate-400 mb-8">Stop paying aggregators for shared leads. Build your own pipeline.</p>
-          <Link to={createPageUrl('Book-Call')}
-            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-blue-600/20 text-lg">
-            Book a Demo <ArrowRight className="w-5 h-5" />
+          <p className="text-lg text-slate-400 mb-10 leading-relaxed">
+            Build a local marketing engine that keeps your dispatch board full. 7-day free trial. No credit card required. Cancel anytime.
+          </p>
+          <Link to={createPageUrl('Get-Started')}
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-10 py-5 rounded-xl transition-all shadow-xl shadow-blue-600/20 text-lg">
+            Get Started Free <ArrowRight className="w-5 h-5" />
           </Link>
-          <p className="text-slate-600 text-sm mt-4">Questions? Call us at 641-420-8816</p>
+          <p className="text-slate-500 text-sm mt-6">Starter plan from $197/mo after trial</p>
         </div>
       </section>
 

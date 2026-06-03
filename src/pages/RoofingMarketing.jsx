@@ -60,7 +60,7 @@ const PLAN_FEATURES = {
 const FAQS = [
   {
     question: "How much does roofing marketing cost?",
-    answer: "Most local roofing companies spend $1,000-$3,000/month on marketing. Considering the average roofing job is $8,000-$15,000, just one closed lead per month from organic search pays for the entire year of marketing. At NTA, we focus on building lasting organic visibility rather than running expensive PPC campaigns that stop producing the exact day you stop paying. This creates a compounding return on your investment over time."
+    answer: "Most local roofing companies spend $1,000-$3,000/month on marketing. Considering the average roofing job is $8,000-$15,000, just one closed lead per month from organic search pays for the entire year of marketing. At NTA, we focus on building lasting organic visibility rather than expensive PPC campaigns that stop producing the exact day you stop paying. This creates a compounding return on your investment over time."
   },
   {
     question: "How do I compete with storm chasers who flood the market?",
@@ -286,7 +286,7 @@ export default function RoofingMarketing() {
                   </div>
                 </div>
                 <p className="text-slate-300 text-sm leading-relaxed mb-3">{ex.caption}</p>
-                {ex.hashtags && <p className="text-blue-400 text-xs">{ex.hashtags}</p>}
+                {ex.hashtags && <p className="text-violet-400 text-xs">{ex.hashtags}</p>}
                 <div className="flex items-center gap-3 mt-3 pt-3 border-t border-slate-800">
                   <span className="text-xs text-slate-500">❤️ {ex.likes} likes</span>
                   <span className="text-xs text-slate-500">💬 {ex.comments} comments</span>

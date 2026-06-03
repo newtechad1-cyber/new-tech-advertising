@@ -4,11 +4,7 @@ import { createPageUrl } from '@/utils';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
-import { 
-  CheckCircle, ArrowRight, Star, BarChart2, Share2, Video, Search,
-  AlertTriangle, DollarSign, MessageSquareWarning, ImageOff, MapPin, 
-  Settings, Users, Clock
-} from 'lucide-react';
+import { CheckCircle, ArrowRight, Star, Zap, BarChart2, Share2, Video, Search, Smartphone, ShieldAlert, UtensilsCrossed, Calendar, MapPin } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const DATA = {
@@ -53,28 +49,6 @@ const DATA = {
     author: 'Maria L.',
     company: "Luigi's Trattoria, Denver CO",
   },
-  faqs: [
-    {
-      question: "How much does restaurant marketing cost?",
-      answer: "Most independent restaurants spend $500-$1,500/month on their digital presence. NTA focuses entirely on organic reach and reputation management rather than throwing money at expensive paid ads. The true ROI shows up as more Google searches, more direct calls for reservations, and more walk-ins who tell your hostess, 'I saw you online.'"
-    },
-    {
-      question: "I'm already on DoorDash and Uber Eats — isn't that enough?",
-      answer: "No, because delivery apps own the customer relationship — you don't get their email, phone number, or data, and they take a punishing 15-30% commission per order. Building your own online presence means customers come directly to you and you keep the margins. The apps are fine as a supplement, but they absolutely shouldn't be your entire digital strategy."
-    },
-    {
-      question: "We post on Facebook sometimes — why isn't it working?",
-      answer: "Facebook's organic reach for business pages is currently under 5% of your followers. Consistency and content quality matter significantly more than just posting randomly. A real restaurant strategy includes a healthy mix of platforms (Google Business, Instagram, Facebook) with content tailored specifically to each algorithm."
-    },
-    {
-      question: "Can you handle our social media completely so I don't have to think about it?",
-      answer: "Yes, completely. The only thing we ask of you is to share occasional photos of daily specials or events — a quick photo from your phone is perfectly fine. NTA builds the content calendar, writes the appetizing copy, schedules the updates, and handles the posting and engagement."
-    },
-    {
-      question: "How long until I see more customers from marketing?",
-      answer: "Google Business Profile optimization can show noticeable results in 30-60 days. Automated review generation compounds monthly. Comprehensive local SEO takes 3-6 months for significant ranking improvements, and social media builds steady momentum over time. The key is structural consistency."
-    }
-  ]
 };
 
 const PLAN_FEATURES = {
@@ -83,17 +57,39 @@ const PLAN_FEATURES = {
   Pro: ['AI video campaigns', 'Reputation automation', 'Advanced analytics', 'Priority support', '$497/mo'],
 };
 
+const FAQS = [
+  {
+    question: "How much does restaurant marketing cost?",
+    answer: "Most independent restaurants spend $500-$1,500/month on marketing. We focus intensely on organic reach and reputation management over expensive paid ads. Your ROI shows up directly in tangible results: more Google searches for your name, more calls for reservations, and more walk-ins who specifically mention \"I saw you online\" or \"I saw that dish on Instagram.\""
+  },
+  {
+    question: "I'm already on DoorDash and Uber Eats — isn't that enough?",
+    answer: "Delivery apps absolutely do not replace your own marketing. Those apps own the customer relationship completely — you don't even get the customer's email address or phone number. Furthermore, they take a massive 15-30% commission per order. Building your own digital presence means customers come directly to you, saving you margin. Third-party apps are fine as a supplement to capture lazy orders, but they should never be your entire digital strategy."
+  },
+  {
+    question: "We post on Facebook sometimes — why isn't it working?",
+    answer: "Facebook's organic reach for business pages has plummeted to under 5% of your followers. Simply posting sporadically won't move the needle anymore. Consistency, high-quality visuals, and localized tagging matter far more than frequency. A real strategy includes a dedicated mix of platforms (Google Business Profile, Instagram, and Facebook) with content tailored to how users interact on each specific network."
+  },
+  {
+    question: "Can you handle our social media completely so I don't have to think about it?",
+    answer: "Yes, completely. Our entire system is built for operators who have no time. The only ask we have is that you or your staff share photos of daily specials, events, or behind-the-scenes prep (a quick smartphone photo is perfectly fine). NTA takes those raw assets and builds the content calendar, writes engaging copy, adds the right local hashtags, and handles the actual posting and engagement."
+  },
+  {
+    question: "How long until I see more customers from marketing?",
+    answer: "Google Business Profile optimization can show noticeable results in local map pack views within 30-60 days. Automated review generation begins compounding monthly, providing steady social proof. On-site SEO takes 3-6 months for significant organic ranking improvements, while social media builds momentum over time. The key to restaurant marketing is relentless consistency, not overnight virality."
+  }
+];
+
 export default function RestaurantMarketing() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="bg-slate-950 min-h-screen">
+    <div className="bg-slate-950 min-h-screen font-sans text-slate-300">
       <SEOHead 
         title="Restaurant Marketing | AI Marketing for Restaurants"
         description="AI-powered marketing for restaurants. Social media management, Google Business Profile, online ordering integration & customer engagement. New Tech Advertising."
-        faqs={DATA.faqs}
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify({
@@ -105,7 +101,7 @@ export default function RestaurantMarketing() {
             "name": "New Tech Advertising",
             "address": {
               "@type": "PostalAddress",
-              "streetAddress": "123 Main St",
+              "streetAddress": "15 E State St, Suite 201",
               "addressLocality": "Mason City",
               "addressRegion": "IA",
               "postalCode": "50401",
@@ -141,7 +137,7 @@ export default function RestaurantMarketing() {
               <span className="text-sm font-semibold uppercase tracking-widest mb-4 block" style={{ color: DATA.color }}>
                 {DATA.industry} Marketing
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-5">
+              <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-5">
                 {DATA.headline}
               </h1>
               <p className="text-slate-400 text-lg leading-relaxed mb-8">
@@ -162,8 +158,8 @@ export default function RestaurantMarketing() {
             <div className="grid grid-cols-2 gap-4">
               {DATA.stats.map((s, i) => (
                 <div key={i} className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
-                  <p className="text-3xl md:text-4xl font-extrabold text-white mb-1" style={{ color: DATA.color }}>{s.value}</p>
-                  <p className="text-slate-400 text-sm font-medium">{s.label}</p>
+                  <p className="text-3xl font-extrabold text-white mb-1" style={{ color: DATA.color }}>{s.value}</p>
+                  <p className="text-slate-400 text-sm">{s.label}</p>
                 </div>
               ))}
             </div>
@@ -171,164 +167,115 @@ export default function RestaurantMarketing() {
         </div>
       </section>
 
-      {/* WHY RESTAURANTS LOSE CUSTOMERS ONLINE */}
+      {/* NEW: Why Restaurants Lose Customers Online */}
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl font-extrabold text-white mb-6">Why Restaurants Lose Customers Online</h2>
-            <p className="text-lg text-slate-400 leading-relaxed">
-              Your food might be the best in town, but if your digital presence is outdated, hungry diners will go to the place with the better photos and recent reviews. Here's what's costing you tables:
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Why Restaurants Lose Customers Online</h2>
+            <p className="text-lg leading-relaxed text-slate-400">
+              You know you have great food and great service, but potential diners are making decisions before they ever walk through the door. Here is exactly why tables sit empty.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 mb-16">
             <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-lg">
-              <div className="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center mb-6">
-                <Search className="w-6 h-6 text-red-500" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">Stale Google Business Profiles</h3>
-              <p className="text-slate-400 leading-relaxed">90% of diners check Google reviews and photos before choosing where to eat — a stale GBP with no recent photos is losing you covers every single night.</p>
+              <Search className="w-10 h-10 text-red-500 mb-6" />
+              <h3 className="text-xl font-bold text-white mb-4">The Google "Menu & Photo" Test</h3>
+              <p className="text-slate-400 leading-relaxed">90% of diners check Google reviews and photos before choosing where to eat. A stale Google Business Profile with no recent photos of your best dishes is losing you covers every single night as diners swipe to the next option.</p>
             </div>
-            
             <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-lg">
-              <div className="w-12 h-12 bg-amber-500/20 rounded-xl flex items-center justify-center mb-6">
-                <DollarSign className="w-6 h-6 text-amber-500" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">Predatory Delivery Apps</h3>
-              <p className="text-slate-400 leading-relaxed">Third-party delivery apps (DoorDash, Uber Eats, Grubhub) take 15–30% commission and own the customer relationship — you don't even get their email for future marketing.</p>
+              <Smartphone className="w-10 h-10 text-amber-500 mb-6" />
+              <h3 className="text-xl font-bold text-white mb-4">Surrendering to Delivery Apps</h3>
+              <p className="text-slate-400 leading-relaxed">Third-party delivery apps like DoorDash, Uber Eats, and Grubhub take a crushing 15–30% commission and entirely own the customer relationship. You fulfill the order, but you don't even get their email address to invite them back.</p>
             </div>
-
             <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-lg">
-              <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6">
-                <ImageOff className="w-6 h-6 text-blue-400" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">Inconsistent Social Media</h3>
-              <p className="text-slate-400 leading-relaxed">Posting on social media feels like screaming into the void when you're prepping for a Friday rush, and inconsistent posting kills your algorithm reach completely.</p>
+              <Share2 className="w-10 h-10 text-emerald-500 mb-6" />
+              <h3 className="text-xl font-bold text-white mb-4">The Social Media Time Sink</h3>
+              <p className="text-slate-400 leading-relaxed">Posting on social media feels like screaming into the void when you're busy prepping for a Friday rush. But inconsistent posting severely kills your algorithm reach, meaning your followers rarely even see your specials.</p>
             </div>
-
             <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-lg">
-              <div className="w-12 h-12 bg-orange-500/20 rounded-xl flex items-center justify-center mb-6">
-                <MessageSquareWarning className="w-6 h-6 text-orange-400" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">Unmanaged Negative Reviews</h3>
-              <p className="text-slate-400 leading-relaxed">Negative reviews travel faster than word of mouth — one bad Yelp review can undo months of great food if nobody responds professionally and resolves the issue publicly.</p>
+              <ShieldAlert className="w-10 h-10 text-cyan-500 mb-6" />
+              <h3 className="text-xl font-bold text-white mb-4">Reputational Damage Control</h3>
+              <p className="text-slate-400 leading-relaxed">Negative reviews travel significantly faster than word of mouth. One bad Yelp or Google review from an unreasonable customer can undo months of serving great food if nobody is actively monitoring and responding professionally.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* WHAT WE BUILD FOR RESTAURANTS */}
-      <section className="py-20 px-6 bg-slate-900 border-y border-slate-800">
+      {/* NEW: The Restaurant Marketing Problem Nobody Talks About */}
+      <section className="py-20 px-6 bg-slate-900/50 border-y border-slate-900">
+        <div className="max-w-4xl mx-auto text-center">
+          <UtensilsCrossed className="w-16 h-16 text-red-500 mx-auto mb-6" />
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">The Restaurant Marketing Problem Nobody Talks About:<br/>You're Competing Against Algorithms, Not Just Other Restaurants</h2>
+          <p className="text-lg leading-relaxed text-slate-300 text-left md:text-center">
+            Google, Yelp, DoorDash — they all use algorithms to decide who gets seen. A restaurant with 200 Google reviews and weekly photo updates will always outrank a restaurant with better food but 12 reviews from 2021.
+          </p>
+          <p className="text-lg leading-relaxed text-slate-300 text-left md:text-center mt-4">
+            The unfair truth is that online visibility is now a core operational function, not a marketing luxury. The restaurants that understand this are filling tables effortlessly. The ones that don't are left wondering why Tuesday nights are dead. We handle the algorithm side so you can handle the kitchen side.
+          </p>
+        </div>
+      </section>
+
+      {/* NEW: What We Build for Restaurants */}
+      <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl font-extrabold text-white mb-6">What We Build for Restaurants</h2>
-            <p className="text-lg text-slate-400 leading-relaxed">
-              We build end-to-end digital systems that keep your restaurant visible, engaged, and busy without adding to your daily plate.
-            </p>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">What We Build for Restaurants</h2>
+            <p className="text-lg text-slate-400">We implement the digital infrastructure required to fill dining rooms year-round.</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-slate-950 border border-slate-800 p-8 rounded-2xl">
-              <Search className="w-8 h-8 text-red-500 mb-5" />
-              <h3 className="text-lg font-bold text-white mb-3">Own Your Google Presence</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">We optimize your Google Business Profile so you show up first when locals search "restaurants near me" or "best [cuisine] in [city]." Weekly photo uploads of your actual dishes, updated hours for holidays, and menu highlights that make people click "Directions" instead of scrolling past.</p>
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-lg hover:border-red-500/50 transition-colors">
+              <Search className="w-8 h-8 text-red-400 mb-5" />
+              <h3 className="text-xl font-bold text-white mb-3">Own Your Google Presence</h3>
+              <p className="text-slate-400 leading-relaxed text-sm">We optimize your Google Business Profile so you show up first when locals search "restaurants near me" or "best [cuisine] in [city]." Weekly photo uploads of your actual dishes, updated hours for holidays, and menu highlights that make people click "Directions" instead of scrolling past.</p>
             </div>
             
-            <div className="bg-slate-950 border border-slate-800 p-8 rounded-2xl">
-              <Star className="w-8 h-8 text-red-500 mb-5" />
-              <h3 className="text-lg font-bold text-white mb-3">Automated Reputation Management</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">After every visit, your customers get a gentle prompt to leave a review. We monitor Google, Yelp, and Facebook reviews daily and draft professional responses — both to praise and complaints — so your reputation stays spotless without you checking your phone during service.</p>
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-lg hover:border-red-500/50 transition-colors">
+              <Star className="w-8 h-8 text-red-400 mb-5" />
+              <h3 className="text-xl font-bold text-white mb-3">Automated Review & Reputation Management</h3>
+              <p className="text-slate-400 leading-relaxed text-sm">After every visit, your customers get a gentle prompt to leave a review. We monitor Google, Yelp, and Facebook reviews daily and draft professional responses — both to praise and complaints — so your reputation stays spotless without you checking your phone during service.</p>
             </div>
-
-            <div className="bg-slate-950 border border-slate-800 p-8 rounded-2xl">
-              <Share2 className="w-8 h-8 text-red-500 mb-5" />
-              <h3 className="text-lg font-bold text-white mb-3">Social Media That Fills Seats</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">We build content calendars around your actual menu, specials, and events — not generic food stock photos. Daily/weekly posts featuring your dishes, your staff, your atmosphere. The kind of content that makes someone say "I need to go there tonight."</p>
+            
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-lg hover:border-red-500/50 transition-colors">
+              <Share2 className="w-8 h-8 text-red-400 mb-5" />
+              <h3 className="text-xl font-bold text-white mb-3">Social Media That Fills Seats</h3>
+              <p className="text-slate-400 leading-relaxed text-sm">We build content calendars around your actual menu, specials, and events — not generic food stock photos. Daily/weekly posts featuring your dishes, your staff, your atmosphere. The kind of content that makes someone say "I need to go there tonight."</p>
             </div>
-
-            <div className="bg-slate-950 border border-slate-800 p-8 rounded-2xl">
-              <MapPin className="w-8 h-8 text-red-500 mb-5" />
-              <h3 className="text-lg font-bold text-white mb-3">Event & Special Promotions</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">Holiday menus, live music nights, catering services, seasonal specials — we build targeted local campaigns so the right people in your area see your events before they make their weekend dining plans.</p>
+            
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-lg hover:border-red-500/50 transition-colors">
+              <Calendar className="w-8 h-8 text-red-400 mb-5" />
+              <h3 className="text-xl font-bold text-white mb-3">Event & Special Promotion Campaigns</h3>
+              <p className="text-slate-400 leading-relaxed text-sm">Holiday menus, live music nights, catering services, seasonal specials — we build targeted local campaigns so the right people in your area see your events before they make weekend plans.</p>
             </div>
-
-            <div className="bg-slate-950 border border-slate-800 p-8 rounded-2xl">
-              <Video className="w-8 h-8 text-red-500 mb-5" />
-              <h3 className="text-lg font-bold text-white mb-3">AI-Powered Menu & Content</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">Blog posts like "Best Date Night Restaurants in Mason City" or "What to Order at [Your Restaurant] — Staff Picks" that rank in Google and AI search results. This kind of content builds long-term authority and drives organic traffic.</p>
+            
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-lg hover:border-red-500/50 transition-colors">
+              <Video className="w-8 h-8 text-red-400 mb-5" />
+              <h3 className="text-xl font-bold text-white mb-3">AI-Powered Menu & Content Marketing</h3>
+              <p className="text-slate-400 leading-relaxed text-sm">Blog posts like "Best Date Night Restaurants in Mason City" or "What to Order at [Your Restaurant] — Staff Picks" that rank in Google and AI search results. This kind of content builds long-term authority and drives organic traffic directly to your site.</p>
             </div>
-
-            <div className="bg-slate-950 border border-slate-800 p-8 rounded-2xl">
-              <BarChart2 className="w-8 h-8 text-red-500 mb-5" />
-              <h3 className="text-lg font-bold text-white mb-3">Plain English Monthly Reports</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">How many people searched for you, how many clicked for directions, how many called for reservations. No marketing jargon. One page, once a month.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* THE RESTAURANT MARKETING PROBLEM NOBODY TALKS ABOUT */}
-      <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto bg-gradient-to-br from-red-900 to-slate-900 border border-red-800/50 rounded-3xl p-10 md:p-14 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 p-8 opacity-10">
-            <Settings className="w-48 h-48 text-white" />
-          </div>
-          <div className="relative z-10">
-            <span className="text-red-300 font-bold uppercase tracking-wider text-sm mb-4 block">The Hard Truth</span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-6 leading-tight">You're Competing Against Algorithms, Not Just Other Restaurants</h2>
-            <p className="text-lg text-red-100/90 leading-relaxed mb-6">
-              Google, Yelp, DoorDash — they all use algorithms to decide who gets seen. A restaurant with 200 Google reviews and weekly photo updates will always outrank a restaurant with better food but only 12 reviews from 2021.
-            </p>
-            <p className="text-lg text-red-100/90 leading-relaxed">
-              The unfair truth is that online visibility is now a core operational function, not a marketing luxury. The restaurants that understand this are filling tables. The ones that don't are wondering why Tuesday nights are dead. We handle the algorithm side so you can handle the kitchen side.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* SERVICE AREAS */}
-      <section className="py-20 px-6 border-y border-slate-800 bg-slate-950">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl font-extrabold text-white mb-6">Service Areas</h2>
-              <p className="text-lg text-slate-400 leading-relaxed mb-6">
-                We work with independent restaurants, bars, cafes, and catering companies across North Iowa and Southern Minnesota. 
-              </p>
-              <p className="text-lg text-slate-400 leading-relaxed font-semibold text-red-400">
-                Chain franchises have corporate marketing teams. You deserve the same firepower.
-              </p>
-            </div>
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-lg">
-              <ul className="grid grid-cols-2 gap-y-4 gap-x-6 text-slate-300">
-                <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-red-500" /> Mason City, IA</li>
-                <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-red-500" /> Clear Lake, IA</li>
-                <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-red-500" /> Charles City, IA</li>
-                <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-red-500" /> Garner, IA</li>
-                <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-red-500" /> Forest City, IA</li>
-                <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-red-500" /> Osage, IA</li>
-                <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-red-500" /> Northwood, IA</li>
-                <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-red-500" /> Waverly, IA</li>
-                <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-red-500" /> Rochester, MN</li>
-                <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-red-500" /> Albert Lea, MN</li>
-              </ul>
+            
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-lg hover:border-red-500/50 transition-colors">
+              <BarChart2 className="w-8 h-8 text-red-400 mb-5" />
+              <h3 className="text-xl font-bold text-white mb-3">Monthly Performance Reports in Plain English</h3>
+              <p className="text-slate-400 leading-relaxed text-sm">How many people searched for you, how many clicked for directions, how many called. No marketing jargon. One page, once a month. You always know exactly what your marketing dollars are accomplishing.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Content Examples (Kept from original) */}
-      <section className="py-16 px-4">
+      {/* Content Examples (Kept from template) */}
+      <section className="py-16 px-4 border-t border-slate-800 bg-slate-900/30">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-extrabold text-white mb-3">
               AI-Generated {DATA.industry} Content Examples
             </h2>
-            <p className="text-slate-400">Real examples of posts our AI creates for {DATA.industry.toLowerCase()}s</p>
+            <p className="text-slate-400">Real examples of posts our AI creates for {DATA.industry.toLowerCase()} businesses</p>
           </div>
           <div className="grid md:grid-cols-3 gap-5">
             {DATA.contentExamples.map((ex, i) => (
-              <div key={i} className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+              <div key={i} className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-md">
                 <div className="flex items-center gap-2 mb-3">
                   <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white"
                     style={{ background: DATA.color }}>{DATA.industry[0]}</div>
@@ -349,89 +296,76 @@ export default function RestaurantMarketing() {
         </div>
       </section>
 
-      {/* Packages / Features Comparison */}
+      {/* Pricing Options (Kept from template logic) */}
       <section className="py-16 px-4 border-t border-slate-800">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl font-extrabold text-white mb-4">
-                Choose the right plan for your restaurant
-              </h2>
-              <p className="text-slate-400 mb-8">
-                Our AI platform handles your marketing automatically — so you can focus on running your business. No hidden fees.
-              </p>
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
-                    style={{ background: `${DATA.color}22`, border: `1px solid ${DATA.color}44` }}>
-                    <Share2 className="w-4 h-4" style={{ color: DATA.color }} />
-                  </div>
-                  <div>
-                    <p className="text-white font-semibold text-sm">Food & Promo Content</p>
-                    <p className="text-slate-500 text-xs mt-0.5">AI creates drool-worthy menu posts, daily specials, and event announcements.</p>
-                  </div>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-extrabold text-white mb-4">Choose Your Growth Plan</h2>
+            <p className="text-slate-400">Transparent pricing for local restaurants and hospitality groups.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {Object.entries(PLAN_FEATURES).map(([name, feats], i) => (
+              <div key={name} className={`rounded-2xl p-6 border ${i === 1 ? 'border-red-500/50 bg-red-900/10 shadow-lg shadow-red-900/20' : 'border-slate-800 bg-slate-900'}`}>
+                {i === 1 && <span className="text-xs font-bold text-red-400 uppercase tracking-widest mb-3 block">Most Popular</span>}
+                <div className="flex items-center justify-between mb-4 border-b border-slate-800 pb-4">
+                  <p className="text-xl font-bold text-white">{name}</p>
+                  <p className="text-2xl font-black text-slate-100">{feats[feats.length - 1]}</p>
                 </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
-                    style={{ background: `${DATA.color}22`, border: `1px solid ${DATA.color}44` }}>
-                    <Search className="w-4 h-4" style={{ color: DATA.color }} />
-                  </div>
-                  <div>
-                    <p className="text-white font-semibold text-sm">Local Restaurant SEO</p>
-                    <p className="text-slate-500 text-xs mt-0.5">Get found when people search "best [cuisine] near me".</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
-                    style={{ background: `${DATA.color}22`, border: `1px solid ${DATA.color}44` }}>
-                    <Star className="w-4 h-4" style={{ color: DATA.color }} />
-                  </div>
-                  <div>
-                    <p className="text-white font-semibold text-sm">Review Management</p>
-                    <p className="text-slate-500 text-xs mt-0.5">Respond to reviews automatically and grow your rating.</p>
-                  </div>
+                <div className="flex flex-col gap-3">
+                  {feats.slice(0, -1).map(f => (
+                    <span key={f} className="text-sm text-slate-300 flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-400 shrink-0" /> {f}
+                    </span>
+                  ))}
                 </div>
               </div>
-            </div>
-            <div className="space-y-4">
-              {Object.entries(PLAN_FEATURES).map(([name, feats], i) => (
-                <div key={name} className={`rounded-2xl p-5 border ${i === 1 ? 'border-red-500/40 bg-red-900/10' : 'border-slate-800 bg-slate-900'}`}>
-                  {i === 1 && <span className="text-xs font-bold text-red-400 uppercase tracking-widest mb-2 block">Most Popular</span>}
-                  <div className="flex items-center justify-between mb-3">
-                    <p className="text-white font-bold">{name}</p>
-                    <p className="text-slate-300 font-bold">{feats[feats.length - 1]}</p>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {feats.slice(0, -1).map(f => (
-                      <span key={f} className="text-xs bg-slate-800 text-slate-400 px-2 py-1 rounded-full flex items-center gap-1">
-                        <CheckCircle className="w-3 h-3 text-green-400" /> {f}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-              <Link to={createPageUrl('Pricing')}
-                className="block text-center text-red-400 hover:text-red-300 text-sm underline">
-                View full plan comparison →
-              </Link>
-            </div>
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link to={createPageUrl('Pricing')} className="text-red-400 hover:text-red-300 font-semibold underline">
+              View full plan comparison →
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* FAQs */}
-      <section className="py-16 px-4 border-t border-slate-800 bg-slate-900/50">
-        <div className="max-w-3xl mx-auto">
+      {/* NEW: Service Areas */}
+      <section className="py-16 px-4 bg-slate-900 border-y border-slate-800">
+        <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
+            <MapPin className="w-12 h-12 text-red-500 mx-auto mb-4" />
+            <h2 className="text-3xl font-bold text-white mb-4">Regional Service Areas</h2>
+            <p className="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
+              We work with independent restaurants, bars, cafes, and catering companies across North Iowa and Southern Minnesota. Chain franchises have corporate marketing teams. You deserve the same firepower.
+            </p>
+          </div>
+          <div className="flex flex-wrap justify-center gap-3">
+            {[
+              "Mason City, IA", "Clear Lake, IA", "Charles City, IA", "Garner, IA", 
+              "Forest City, IA", "Osage, IA", "Northwood, IA", "Waverly, IA",
+              "Rochester, MN", "Albert Lea, MN"
+            ].map((city) => (
+              <span key={city} className="bg-slate-950 border border-slate-800 text-slate-300 px-4 py-2 rounded-full text-sm font-medium">
+                {city}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* NEW: FAQs */}
+      <section className="py-20 px-4 border-t border-slate-800">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
             <h2 className="text-3xl font-extrabold text-white mb-4">Frequently Asked Questions</h2>
           </div>
           <Accordion type="single" collapsible className="w-full">
-            {DATA.faqs.map((faq, i) => (
+            {FAQS.map((faq, i) => (
               <AccordionItem key={i} value={`faq-${i}`} className="border-slate-800">
-                <AccordionTrigger className="text-left text-lg font-semibold text-white hover:text-slate-300">
+                <AccordionTrigger className="text-left text-lg font-semibold text-white hover:text-slate-300 py-4">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-slate-400 leading-relaxed text-base pt-2 pb-4">
+                <AccordionContent className="text-slate-400 leading-relaxed text-base pb-6">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -440,31 +374,34 @@ export default function RestaurantMarketing() {
         </div>
       </section>
 
-      {/* Testimonial */}
-      <section className="py-16 px-4 border-t border-slate-800">
-        <div className="max-w-2xl mx-auto text-center">
-          <div className="flex justify-center mb-4">
-            {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />)}
+      {/* Testimonial (from template) */}
+      <section className="py-20 px-4 border-t border-slate-800 bg-slate-900/50">
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="flex justify-center mb-6">
+            {[...Array(5)].map((_, i) => <Star key={i} className="w-6 h-6 text-yellow-400 fill-yellow-400" />)}
           </div>
-          <blockquote className="text-xl text-white font-medium leading-relaxed mb-4">
+          <blockquote className="text-2xl text-white font-bold leading-relaxed mb-6 italic">
             "{DATA.testimonial.quote}"
           </blockquote>
-          <p className="text-slate-400 text-sm">— {DATA.testimonial.author}, {DATA.testimonial.company}</p>
+          <p className="text-slate-400 text-lg">— {DATA.testimonial.author}, {DATA.testimonial.company}</p>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-4 border-t border-slate-800">
-        <div className="max-w-xl mx-auto text-center">
-          <h2 className="text-3xl font-extrabold text-white mb-4">
-            Start filling your tables today
+      <section className="py-24 px-4 border-t border-slate-800 text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-red-900/10 pointer-events-none" />
+        <div className="relative z-10 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-6">
+            Start filling your dining room tonight.
           </h2>
-          <p className="text-slate-400 mb-8">Take control of your online presence. Don't let apps steal your margins.</p>
-          <Link to={createPageUrl('Book-Call')}
-            className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-red-600/20 text-lg">
-            Book a Demo <ArrowRight className="w-5 h-5" />
+          <p className="text-lg text-slate-400 mb-10 leading-relaxed">
+            Stop relying solely on foot traffic and third-party delivery apps. Take control of your online presence. 7-day free trial. No credit card required. Cancel anytime.
+          </p>
+          <Link to={createPageUrl('Get-Started')}
+            className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white font-bold px-10 py-5 rounded-xl transition-all shadow-xl shadow-red-600/20 text-lg">
+            Get Started Free <ArrowRight className="w-5 h-5" />
           </Link>
-          <p className="text-slate-600 text-sm mt-4">Questions? Call us at 641-420-8816</p>
+          <p className="text-slate-500 text-sm mt-6">Starter plan from $197/mo after trial</p>
         </div>
       </section>
 
