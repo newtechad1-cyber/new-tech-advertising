@@ -14,7 +14,7 @@ import Home from './pages/Home';
 import AdminDashboard from './pages/AdminDashboard';
 // — Lazy loaded: everything else —
 const LearningCenter = lazy(() => import('./pages/LearningCenter'));
-const GapAuditPage = lazy(() => import('./pages/GapAuditPage'));
+// GapAuditPage removed
 const AiBroughtMeOutOfRetirement = lazy(() => import('./pages/AiBroughtMeOutOfRetirement'));
 const IWasEarlyAgain = lazy(() => import('./pages/IWasEarlyAgain'));
 const AIWorkforce = lazy(() => import('./pages/AIWorkforce'));
@@ -229,7 +229,7 @@ const OpsDashboard = lazy(() => import('./pages/ops/OpsDashboard'));
 const OpsCampaignDetail = lazy(() => import('./pages/ops/OpsCampaignDetail'));
 const AgencyGapAudits = lazy(() => import('./pages/AgencyGapAudits'));
 const AgencyGapAuditDetail = lazy(() => import('./pages/AgencyGapAuditDetail'));
-const GapAuditPublic = lazy(() => import('./pages/GapAuditPublic'));
+// GapAuditPublic removed
 const OpsProspects = lazy(() => import('./pages/ops/OpsProspects'));
 const OpsClients = lazy(() => import('./pages/ops/OpsClients'));
 const OpsAudits = lazy(() => import('./pages/ops/OpsAudits'));
@@ -585,7 +585,8 @@ const AuthenticatedApp = () => {
       <Route path="/seasonal-campaigns" element={<SeasonalCampaigns />} />
       <Route path="/social-media-content-system" element={<SocialMediaContentSystem />} />
       <Route path="/ai-video-marketing" element={<AIVideoMarketing />} />
-      <Route path="/gap-audit" element={<GapAuditPublic />} />
+      <Route path="/gap-audit" element={<Navigate to="/free-audit" replace />} />
+      <Route path="/GapAuditPage" element={<Navigate to="/free-audit" replace />} />
       <Route path="/agency/gap-audits" element={<LayoutWrapper currentPageName="AgencyGapAudits"><AgencyGapAudits /></LayoutWrapper>} />
       <Route path="/agency/gap-audits/:id" element={<AgencyGapAuditDetail />} />
       <Route path="/hvac-marketing-north-iowa" element={<HVACMarketingNorthIowa />} />

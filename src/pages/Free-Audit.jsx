@@ -1,28 +1,45 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { base44 } from '@/api/base44Client';
 import { createAgencyLead } from '@/lib/createAgencyLead';
-import { ArrowRight, CheckCircle, Building2, Mail, Phone, User, Search } from 'lucide-react';
+import { base44 } from '@/api/base44Client';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
+import SEOHead from '@/components/shared/SEOHead';
+import { CheckCircle2, Phone, MessageSquare, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import SEOHead from '@/components/shared/SEOHead';
 
-const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png';
+const PHONE = '6414208816';
+const PHONE_DISPLAY = '641-420-8816';
+const SMS_BODY = encodeURIComponent("Hey, can you look at my website?");
 
 const AUDIT_ITEMS = [
   'Website speed & mobile performance',
+  'Local SEO & Google Business Profile analysis',
   'Social media presence & posting consistency',
-  'Local SEO & Google Business Profile',
-  'ADA compliance risk assessment',
+  'ADA & accessibility compliance check',
+  'AI visibility issues (how AI search engines see your site)',
   'Competitor content analysis',
-  'Recommended growth opportunities',
+  'What\'s working, what\'s not, and what to fix first',
 ];
 
+function TextMeButton() {
+  return (
+    <a
+      href={`sms:+1${PHONE}?body=${SMS_BODY}`}
+      className="inline-flex items-center justify-center gap-2 border border-slate-300 hover:border-slate-400 bg-white text-slate-800 font-bold px-6 py-4 rounded-xl text-base transition-colors w-full sm:w-auto"
+    >
+      <MessageSquare className="w-5 h-5 text-slate-600" />
+      Text Me: {PHONE_DISPLAY}
+    </a>
+  );
+}
+
 export default function FreeAudit() {
-  const [step, setStep] = useState(1); // 1=form, 2=success
+  const [step, setStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
     name: '', email: '', phone: '', business_name: '',
@@ -35,8 +52,8 @@ export default function FreeAudit() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      // STEP 1 — Create SalesLead + SalesDeal FIRST (canonical intake path)
-      const { salesLead, salesDeal } = await createAgencyLead({
+      // Create SalesLead
+      await createAgencyLead({
         business_name: form.business_name,
         contact_name:  form.name,
         email:         form.email,
@@ -46,31 +63,9 @@ export default function FreeAudit() {
         lead_source:   'website',
         notes:         'Requested free marketing audit',
       });
-      console.log('[FreeAudit] Lead created', salesLead.id, salesDeal.id);
 
-      // Wrap secondary actions in a separate try/catch so they never block the success UI
       try {
-        // STEP 2 — Mirror to NTA Unified Intake
-        await base44.functions.invoke('ntaUnifiedIntake', {
-          submission_type: 'free_audit_request',
-          offer_type: 'marketing_audit',
-          mapping_confidence: 'hardcoded',
-          mapping_notes: 'Free-Audit.jsx /free-audit hardcoded',
-          detected_route: '/free-audit',
-          detected_component: 'FreeAudit',
-          source_system: 'website',
-          source_page: '/free-audit',
-          name: form.name,
-          business_name: form.business_name,
-          email: form.email,
-          phone: form.phone,
-          website: form.website,
-          notes: `Industry: ${form.industry}`,
-          priority: 'high',
-          is_high_intent: true,
-        });
-
-        // STEP 3 — Notify team
+        // Notify team
         await base44.integrations.Core.SendEmail({
           from_name: 'NTA — Free Audit Request',
           to: 'rick@newtechadvertising.com',
@@ -78,148 +73,151 @@ export default function FreeAudit() {
           body: `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nBusiness: ${form.business_name}\nWebsite: ${form.website}\nIndustry: ${form.industry}`,
         });
       } catch (secondaryErr) {
-        console.warn('[FreeAudit] Secondary actions failed, but lead was created:', secondaryErr.message);
+        console.warn('Email notification failed, but lead was created:', secondaryErr);
       }
 
       setStep(2);
+      setForm({ name: '', email: '', phone: '', business_name: '', website: '', industry: '' });
     } catch (err) {
-      toast.error('Something went wrong. Please try again.');
+      toast.error('Something went wrong. Please call or text instead.');
       console.error(err);
     } finally {
       setSubmitting(false);
     }
   };
 
-  if (step === 2) {
-    return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
-        <SEOHead 
-          title="Free Marketing Audit | New Tech Advertising"
-          description="Get a free AI marketing audit for your small business. We analyze your Google presence, social media, website & AI visibility. New Tech Advertising, Mason City IA."
-        />
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-10 max-w-md w-full text-center">
-          <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-5">
-            <CheckCircle className="w-8 h-8 text-green-400" />
-          </div>
-          <h1 className="text-2xl font-extrabold text-white mb-3">Audit Requested!</h1>
-          <p className="text-slate-400 mb-6">
-            We'll analyze your online presence and send you a full report within <strong className="text-white">24–48 hours</strong>.
-          </p>
-          <div className="space-y-3">
-            <Link
-              to={createPageUrl('Get-Started')}
-              className="w-full flex items-center justify-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-bold py-3 rounded-xl transition-all text-sm"
-            >
-              Start free trial while you wait <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              to={createPageUrl('Book-Call')}
-              className="w-full flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 font-semibold py-3 rounded-xl transition-all text-sm"
-            >
-              Book a strategy call instead
-            </Link>
-          </div>
-          <p className="text-slate-600 text-xs mt-5">
-            Questions? <a href="tel:6414208816" className="text-violet-400">641-420-8816</a>
-          </p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col">
+    <div className="bg-slate-50 min-h-screen flex flex-col">
       <SEOHead 
-        title="Free Marketing Audit | New Tech Advertising"
-        description="Get a free AI marketing audit for your small business. We analyze your Google presence, social media, website & AI visibility. New Tech Advertising, Mason City IA."
+        title="Free Marketing & Gap Audit | New Tech Advertising"
+        description="Get a free marketing and gap audit. We identify exactly why your website isn't bringing in calls and what to fix first. NTA Mason City IA."
       />
-      {/* Header */}
-      <header className="border-b border-slate-800 py-4 px-6">
-        <div className="max-w-5xl mx-auto flex items-center justify-between">
-          <Link to={createPageUrl('Home')}>
-            <img src={LOGO_URL} alt="NTA" className="h-9 w-auto" />
-          </Link>
-          <Link to={createPageUrl('Get-Started')} className="text-slate-400 hover:text-white text-sm transition-colors">
-            Ready to start? →
-          </Link>
-        </div>
-      </header>
+      <MarketingNav />
 
-      <div className="flex-1 p-4 py-12">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-          {/* Left: What's included */}
+      {/* Hero Section */}
+      <section className="bg-slate-950 text-white pt-24 pb-20 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight">
+            Get a Free Marketing & Gap Audit
+          </h1>
+          <p className="text-slate-300 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl mx-auto">
+            If your website isn't bringing in calls or customers, I'll show you exactly why — and what to fix first.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button 
+              onClick={() => document.getElementById('audit-form').scrollIntoView({ behavior: 'smooth' })}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors"
+            >
+              Fill Out the Form Below
+            </button>
+            <a
+              href={`tel:+1${PHONE}`}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-800 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors hover:bg-slate-700 border border-slate-700"
+            >
+              <Phone className="w-5 h-5" /> Call or Text: {PHONE_DISPLAY}
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Content & Form */}
+      <section className="py-16 px-6 flex-1">
+        <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-16 items-start">
+          
+          {/* What Your Audit Includes */}
           <div>
-            <span className="inline-flex items-center gap-2 bg-amber-600/20 border border-amber-500/30 text-amber-300 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
-              <Search className="w-3.5 h-3.5" /> 100% Free · No strings attached
-            </span>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-4 leading-tight">
-              Get Your Free Marketing Audit
-            </h1>
-            <p className="text-slate-400 text-lg mb-8">
-              We'll analyze your business's online presence and send you a detailed report showing exactly where you're losing customers — and how to fix it.
-            </p>
-            <div className="space-y-3">
-              <p className="text-slate-500 text-sm font-semibold uppercase tracking-wide">Your audit includes:</p>
+            <h2 className="text-3xl font-black text-slate-900 mb-6">What Your Audit Includes</h2>
+            <ul className="space-y-4 mb-8">
               {AUDIT_ITEMS.map(item => (
-                <div key={item} className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-amber-400 flex-shrink-0" />
-                  <span className="text-slate-300 text-sm">{item}</span>
-                </div>
+                <li key={item} className="flex items-start gap-3 text-slate-700 text-lg">
+                  <CheckCircle2 className="w-6 h-6 text-emerald-500 flex-shrink-0 mt-0.5" />
+                  <span>{item}</span>
+                </li>
               ))}
+            </ul>
+            <div className="bg-blue-50 border border-blue-100 rounded-2xl p-6 text-slate-700 text-base leading-relaxed">
+              <strong className="text-blue-900 block mb-1">Delivered within 24–48 hours.</strong>
+              A real person audits your business and sends you a detailed PDF report with specific, actionable recommendations. No high-pressure sales pitch.
             </div>
-            <div className="mt-8 bg-slate-900 border border-slate-800 rounded-xl p-4 text-sm text-slate-400">
-              <strong className="text-white">Delivered within 24–48 hours.</strong> We do this manually — a real person on our team audits your business and sends you a PDF report with specific, actionable recommendations.
+            
+            <div className="mt-12 pt-8 border-t border-slate-200">
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Prefer to talk?</h3>
+              <p className="text-slate-600 mb-6">Call or text: {PHONE_DISPLAY}</p>
+              <TextMeButton />
             </div>
           </div>
 
-          {/* Right: Form */}
-          <form onSubmit={handleSubmit} className="bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-5">
-            <h2 className="text-white font-bold text-lg mb-2">Request Your Free Audit</h2>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div>
-                <Label className="text-slate-300 mb-1.5 flex items-center gap-1.5"><User className="w-3.5 h-3.5" /> Full Name *</Label>
-                <Input required value={form.name} onChange={e => set('name', e.target.value)} placeholder="Jane Smith" className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500" />
+          {/* Form Section */}
+          <div id="audit-form" className="bg-white border border-slate-200 rounded-3xl p-8 shadow-xl">
+            {step === 2 ? (
+              <div className="text-center py-10">
+                <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <CheckCircle2 className="w-10 h-10 text-emerald-500" />
+                </div>
+                <h2 className="text-2xl font-black text-slate-900 mb-3">Thank you!</h2>
+                <p className="text-slate-600 text-lg">
+                  We'll review your business and get back to you within 24–48 hours.
+                </p>
+                <Button onClick={() => setStep(1)} variant="outline" className="mt-8">
+                  Submit another request
+                </Button>
               </div>
-              <div>
-                <Label className="text-slate-300 mb-1.5 flex items-center gap-1.5"><Building2 className="w-3.5 h-3.5" /> Business Name *</Label>
-                <Input required value={form.business_name} onChange={e => set('business_name', e.target.value)} placeholder="Smith Plumbing" className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500" />
-              </div>
-              <div>
-                <Label className="text-slate-300 mb-1.5 flex items-center gap-1.5"><Mail className="w-3.5 h-3.5" /> Email *</Label>
-                <Input required type="email" value={form.email} onChange={e => set('email', e.target.value)} placeholder="jane@business.com" className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500" />
-              </div>
-              <div>
-                <Label className="text-slate-300 mb-1.5 flex items-center gap-1.5"><Phone className="w-3.5 h-3.5" /> Phone *</Label>
-                <Input required type="tel" value={form.phone} onChange={e => set('phone', e.target.value)} placeholder="(555) 123-4567" className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500" />
-              </div>
-            </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <h2 className="text-2xl font-black text-slate-900 mb-6">Request Your Free Audit</h2>
+                
+                <div className="space-y-1.5">
+                  <Label className="text-slate-700 text-sm font-semibold">Full Name <span className="text-red-500">*</span></Label>
+                  <Input required value={form.name} onChange={e => set('name', e.target.value)} placeholder="Jane Smith" className="bg-slate-50 border-slate-200 px-4 py-3 h-auto" />
+                </div>
+                
+                <div className="space-y-1.5">
+                  <Label className="text-slate-700 text-sm font-semibold">Business Name <span className="text-red-500">*</span></Label>
+                  <Input required value={form.business_name} onChange={e => set('business_name', e.target.value)} placeholder="Smith Plumbing" className="bg-slate-50 border-slate-200 px-4 py-3 h-auto" />
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="space-y-1.5">
+                    <Label className="text-slate-700 text-sm font-semibold">Email <span className="text-red-500">*</span></Label>
+                    <Input required type="email" value={form.email} onChange={e => set('email', e.target.value)} placeholder="jane@business.com" className="bg-slate-50 border-slate-200 px-4 py-3 h-auto" />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label className="text-slate-700 text-sm font-semibold">Phone <span className="text-red-500">*</span></Label>
+                    <Input required type="tel" value={form.phone} onChange={e => set('phone', e.target.value)} placeholder="(555) 123-4567" className="bg-slate-50 border-slate-200 px-4 py-3 h-auto" />
+                  </div>
+                </div>
 
-            <div>
-              <Label className="text-slate-300 mb-1.5">Business Website</Label>
-              <Input type="url" value={form.website} onChange={e => set('website', e.target.value)} placeholder="https://yourbusiness.com" className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500" />
-            </div>
+                <div className="space-y-1.5">
+                  <Label className="text-slate-700 text-sm font-semibold">Business Website (Optional)</Label>
+                  <Input type="url" value={form.website} onChange={e => set('website', e.target.value)} placeholder="https://yourbusiness.com" className="bg-slate-50 border-slate-200 px-4 py-3 h-auto" />
+                </div>
 
-            <div>
-              <Label className="text-slate-300 mb-1.5">Industry</Label>
-              <Input value={form.industry} onChange={e => set('industry', e.target.value)} placeholder="e.g. HVAC, Restaurant, Law Firm" className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500" />
-            </div>
+                <div className="space-y-1.5">
+                  <Label className="text-slate-700 text-sm font-semibold">Industry (Optional)</Label>
+                  <Input value={form.industry} onChange={e => set('industry', e.target.value)} placeholder="e.g. HVAC, Restaurant, Law Firm" className="bg-slate-50 border-slate-200 px-4 py-3 h-auto" />
+                </div>
 
-            <Button
-              type="submit"
-              disabled={submitting}
-              className="w-full bg-amber-500 hover:bg-amber-400 text-white font-bold py-3 h-auto text-base rounded-xl shadow-lg shadow-amber-500/20"
-            >
-              {submitting ? 'Submitting…' : 'Get My Free Audit'}
-              {!submitting && <ArrowRight className="w-5 h-5 ml-2" />}
-            </Button>
-
-            <p className="text-center text-slate-600 text-xs">
-              Free · No credit card · No spam · Delivered in 24–48 hours
-            </p>
-          </form>
+                <div className="pt-4">
+                  <Button
+                    type="submit"
+                    disabled={submitting}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 h-auto text-lg rounded-xl shadow-lg shadow-blue-600/20"
+                  >
+                    {submitting ? 'Submitting...' : 'Get My Free Audit'}
+                    {!submitting && <ArrowRight className="w-5 h-5 ml-2" />}
+                  </Button>
+                  <p className="text-center text-slate-500 text-sm mt-4">
+                    Free · No credit card · No spam · Delivered in 24–48 hours
+                  </p>
+                </div>
+              </form>
+            )}
+          </div>
         </div>
-      </div>
+      </section>
+
+      <SiteFooter />
     </div>
   );
 }
