@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { Building2, Search, ExternalLink, Mail, Globe, MapPin, Briefcase } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import { Building2, Search, ExternalLink, Mail, Globe, MapPin, Briefcase, Plus } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 
 export default function AgencyClients() {
   const { toast } = useToast();
+  const queryClient = useQueryClient();
   const [searchTerm, setSearchTerm] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newClient, setNewClient] = useState({ name: '', website: '', industry: '' });
 
   const { data: clients = [], isLoading } = useQuery({
     queryKey: ['agency-client-manager'],
@@ -19,6 +24,23 @@ export default function AgencyClients() {
       return res.data.companies || [];
     }
   });
+
+  const saveClientMutation = useMutation({
+    mutationFn: async (data) => {
+      return await base44.entities.Company.create(data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['agency-client-manager']);
+      toast({ title: 'Client onboarded successfully' });
+      setIsModalOpen(false);
+      setNewClient({ name: '', website: '', industry: '' });
+    }
+  });
+
+  const handleSaveClient = (e) => {
+    e.preventDefault();
+    saveClientMutation.mutate(newClient);
+  };
 
   const filtered = clients.filter(c => 
     c.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -35,14 +57,19 @@ export default function AgencyClients() {
           <h1 className="text-3xl font-bold mb-1">Client Manager</h1>
           <p className="text-muted-foreground">Centralized view of all active accounts and their operating statuses.</p>
         </div>
-        <div className="relative w-full md:w-80 shadow-sm">
-          <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input 
-            placeholder="Search by name, website, or industry..." 
-            className="pl-9 bg-white"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+        <div className="flex w-full md:w-auto items-center gap-3">
+          <div className="relative flex-1 md:w-80 shadow-sm">
+            <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input 
+              placeholder="Search by name, website, or industry..." 
+              className="pl-9 bg-white"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <Button onClick={() => setIsModalOpen(true)} className="gap-2 whitespace-nowrap">
+            <Plus className="w-4 h-4" /> New Client
+          </Button>
         </div>
       </div>
 
@@ -119,6 +146,34 @@ export default function AgencyClients() {
           </div>
         )}
       </div>
+
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Onboard New Client</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleSaveClient} className="space-y-4 pt-4">
+            <div className="space-y-2">
+              <Label>Company Name *</Label>
+              <Input required value={newClient.name} onChange={e => setNewClient({...newClient, name: e.target.value})} placeholder="Acme Corp" />
+            </div>
+            <div className="space-y-2">
+              <Label>Website</Label>
+              <Input type="url" value={newClient.website} onChange={e => setNewClient({...newClient, website: e.target.value})} placeholder="https://acme.com" />
+            </div>
+            <div className="space-y-2">
+              <Label>Industry</Label>
+              <Input value={newClient.industry} onChange={e => setNewClient({...newClient, industry: e.target.value})} placeholder="e.g. Real Estate, Healthcare" />
+            </div>
+            <DialogFooter className="pt-4">
+              <Button type="button" variant="outline" onClick={() => setIsModalOpen(false)}>Cancel</Button>
+              <Button type="submit" disabled={saveClientMutation.isPending}>
+                {saveClientMutation.isPending ? 'Saving...' : 'Create Client'}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

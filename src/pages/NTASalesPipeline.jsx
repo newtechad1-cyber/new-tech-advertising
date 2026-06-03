@@ -4,7 +4,11 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Mail, Phone, Building, User, Target } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import { Mail, Phone, Building, User, Target, Plus, DollarSign } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 
 const STAGES = [
@@ -37,7 +41,24 @@ export default function NTASalesPipeline() {
     }
   });
 
+  const saveLeadMutation = useMutation({
+    mutationFn: async (leadData) => {
+      if (leadData.id) {
+        return await base44.entities.SalesLead.update(leadData.id, leadData);
+      } else {
+        return await base44.entities.SalesLead.create(leadData);
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['admin-sales-leads']);
+      toast({ title: 'Lead saved successfully' });
+      setIsModalOpen(false);
+    }
+  });
+
   const [columns, setColumns] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedLead, setSelectedLead] = useState({});
 
   useEffect(() => {
     if (leads.length > 0) {
@@ -77,6 +98,16 @@ export default function NTASalesPipeline() {
     toast({ title: 'Lead status updated' });
   };
 
+  const handleOpenModal = (lead = null) => {
+    setSelectedLead(lead || { business_name: '', contact_name: '', email: '', estimated_value: '', status: 'new' });
+    setIsModalOpen(true);
+  };
+
+  const handleSaveLead = (e) => {
+    e.preventDefault();
+    saveLeadMutation.mutate(selectedLead);
+  };
+
   if (isLoading) return <div className="p-8 text-center text-muted-foreground">Loading pipeline...</div>;
 
   return (
@@ -86,6 +117,9 @@ export default function NTASalesPipeline() {
           <h1 className="text-3xl font-bold">Sales Pipeline</h1>
           <p className="text-muted-foreground">Manage lead progression through drag-and-drop stages.</p>
         </div>
+        <Button onClick={() => handleOpenModal()} className="gap-2">
+          <Plus className="w-4 h-4" /> Add Lead
+        </Button>
       </div>
 
       <DragDropContext onDragEnd={onDragEnd}>
@@ -113,6 +147,7 @@ export default function NTASalesPipeline() {
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
+                            onClick={() => handleOpenModal(lead)}
                             className={`shadow-sm border-l-4 ${stage.color} cursor-grab active:cursor-grabbing hover:shadow-md transition-shadow ${snapshot.isDragging ? 'shadow-xl ring-2 ring-primary/20 rotate-1' : ''}`}
                           >
                             <CardContent className="p-4">
@@ -155,6 +190,45 @@ export default function NTASalesPipeline() {
           ))}
         </div>
       </DragDropContext>
+
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{selectedLead.id ? 'Edit Lead' : 'New Lead'}</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleSaveLead} className="space-y-4 pt-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label>Business Name *</Label>
+                <Input required value={selectedLead.business_name || ''} onChange={e => setSelectedLead({...selectedLead, business_name: e.target.value})} />
+              </div>
+              <div className="space-y-2">
+                <Label>Contact Name</Label>
+                <Input value={selectedLead.contact_name || ''} onChange={e => setSelectedLead({...selectedLead, contact_name: e.target.value})} />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label>Email</Label>
+                <Input type="email" value={selectedLead.email || ''} onChange={e => setSelectedLead({...selectedLead, email: e.target.value})} />
+              </div>
+              <div className="space-y-2">
+                <Label>Estimated Value ($)</Label>
+                <div className="relative">
+                  <DollarSign className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
+                  <Input type="number" className="pl-9" value={selectedLead.estimated_value || ''} onChange={e => setSelectedLead({...selectedLead, estimated_value: parseFloat(e.target.value)})} />
+                </div>
+              </div>
+            </div>
+            <DialogFooter className="pt-4">
+              <Button type="button" variant="outline" onClick={() => setIsModalOpen(false)}>Cancel</Button>
+              <Button type="submit" disabled={saveLeadMutation.isPending}>
+                {saveLeadMutation.isPending ? 'Saving...' : 'Save Lead'}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
