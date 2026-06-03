@@ -17,6 +17,8 @@ import EducationCardsSection from '../components/home-v3/EducationCardsSection';
 import HomeYoutubeSection from '../components/home-v3/HomeYoutubeSection';
 import NTAVideoMessage from '../components/home-v3/NTAVideoMessage';
 import SEOHead from '../components/shared/SEOHead';
+import VoiceSearchQA from '../components/home-v3/VoiceSearchQA';
+import GoogleReviewsPlaceholder from '../components/home-v3/GoogleReviewsPlaceholder';
 
 export default function Home() {
   return (
@@ -39,6 +41,8 @@ export default function Home() {
       <HowItWorks />
       <WhoThisWorksFor />
       <TestimonialsSection />
+      <GoogleReviewsPlaceholder />
+      <VoiceSearchQA />
       <GapAuditCenteredCTA />
       <SiteFooter />
       <NTAGrowthGuideBot />

@@ -68,14 +68,19 @@ export default function SEOHead({
     elements.push(setMeta('twitter:description', description));
     elements.push(setMeta('twitter:image', "https://newtechadvertising.com/og-image.png"));
 
-    // 4. LOCAL BUSINESS SCHEMA
+    // 4. PROFESSIONAL SERVICE SCHEMA (Deep JSON-LD)
     const localBusinessSchema = {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
-      "name": "New Tech Advertising",
+      "name": "New Tech Advertising (NTA)",
+      "founder": {
+        "@type": "Person",
+        "name": "Rick A. Hesse"
+      },
       "telephone": "+1-641-420-8816",
       "email": "info@newtechadvertising.com",
       "url": "https://newtechadvertising.com",
+      "description": "AI-driven local marketing automation, CTV streaming ads, and automated high-converting CRM systems for small business contractors.",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Mason City",
@@ -83,13 +88,17 @@ export default function SEOHead({
         "postalCode": "50401",
         "addressCountry": "US"
       },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 43.1536,
+        "longitude": -93.2010
+      },
       "priceRange": "$$",
       "areaServed": [
-        { "@type": "City", "name": "Mason City", "containedInPlace": { "@type": "State", "name": "IA" } },
-        { "@type": "City", "name": "Clear Lake", "containedInPlace": { "@type": "State", "name": "IA" } },
-        { "@type": "City", "name": "Rochester", "containedInPlace": { "@type": "State", "name": "MN" } },
-        { "@type": "City", "name": "Austin", "containedInPlace": { "@type": "State", "name": "MN" } },
-        { "@type": "City", "name": "Albert Lea", "containedInPlace": { "@type": "State", "name": "MN" } }
+        { "@type": "City", "name": "North Iowa" },
+        { "@type": "City", "name": "Southern Minnesota" },
+        { "@type": "City", "name": "Mason City" },
+        { "@type": "City", "name": "Rochester" }
       ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
