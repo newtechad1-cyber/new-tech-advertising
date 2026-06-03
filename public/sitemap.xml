@@ -25,4 +25,9 @@
   <url><loc>https://newtechadvertising.com/what-changed-online</loc></url>
   <url><loc>https://newtechadvertising.com/PrivacyPolicy</loc></url>
   <url><loc>https://newtechadvertising.com/TermsOfService</loc></url>
+  <url>
+    <loc>https://newtechadvertising.com/case-studies/johnson-heating</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

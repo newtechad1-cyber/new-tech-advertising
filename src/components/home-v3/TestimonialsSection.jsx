@@ -1,11 +1,13 @@
 import React from 'react';
-import { Quote, Star } from 'lucide-react';
+import { Quote, Star, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const testimonials = [
   {
     quote: "I wanted a local expert I could talk to directly. I didn't want to manage software or track analytics dashboards — I needed a partner who treats my company like their own and just handles the technology. Rick has done exactly that for 14 years.",
     name: "Tony Johnson",
     company: "Johnson Heating & AC, Mason City, IA",
+    caseStudyLink: "/case-studies/johnson-heating"
   },
   {
     quote: "We went from barely showing up online to being the first result people see in our area. The best part is I don't have to think about any of it — everything just runs.",
@@ -33,7 +35,12 @@ function TestimonialCard({ t }) {
       </p>
       <div className="border-t border-slate-800 pt-5 mt-auto">
         <p className="text-white font-bold text-base">{t.name}</p>
-        <p className="text-slate-400 text-sm mt-1">{t.company}</p>
+        <p className="text-slate-400 text-sm mt-1 mb-3">{t.company}</p>
+        {t.caseStudyLink && (
+          <Link to={t.caseStudyLink} className="text-blue-400 hover:text-blue-300 text-sm font-semibold inline-flex items-center gap-1 transition-colors">
+            Read Full Case Study <ArrowRight className="w-4 h-4" />
+          </Link>
+        )}
       </div>
     </div>
   );

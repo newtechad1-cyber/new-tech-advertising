@@ -246,6 +246,7 @@ const OpsReports = lazy(() => import('./pages/ops/OpsReports'));
 const LeadPipelineKanban = lazy(() => import('./pages/LeadPipelineKanban'));
 const LeadDetailPage = lazy(() => import('./pages/LeadDetailPage'));
 const CaseStudyDetail = lazy(() => import('./pages/CaseStudyDetail'));
+const JohnsonHeatingCaseStudy = lazy(() => import('./pages/JohnsonHeatingCaseStudy'));
 const AiGapScanner = lazy(() => import('./pages/AiGapScanner'));
 const VideoEngineList = lazy(() => import('./pages/VideoEngineList'));
 const VideoEngineDetail = lazy(() => import('./pages/VideoEngineDetail'));
@@ -497,6 +498,7 @@ const AuthenticatedApp = () => {
       <Route path="/agency/leads" element={<AgencyLeads />} />
       <Route path="/agency/leads/pipeline" element={<LayoutWrapper currentPageName="LeadPipelineKanban"><LeadPipelineKanban /></LayoutWrapper>} />
       <Route path="/agency/leads/:id" element={<LayoutWrapper currentPageName="LeadDetailPage"><LeadDetailPage /></LayoutWrapper>} />
+      <Route path="/case-studies/johnson-heating" element={<LayoutWrapper currentPageName="JohnsonHeatingCaseStudy"><JohnsonHeatingCaseStudy /></LayoutWrapper>} />
       <Route path="/case-studies/:slug" element={<LayoutWrapper currentPageName="CaseStudyDetail"><CaseStudyDetail /></LayoutWrapper>} />
       <Route path="/agency/ai-gap-scanner" element={<LayoutWrapper currentPageName="AiGapScanner"><AiGapScanner /></LayoutWrapper>} />
       <Route path="/agency/video-engine" element={<LayoutWrapper currentPageName="VideoEngineList"><VideoEngineList /></LayoutWrapper>} />
