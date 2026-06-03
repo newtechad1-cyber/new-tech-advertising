@@ -31,11 +31,9 @@ export default function ClientApprovals() {
         setUser(authenticatedUser);
 
         // Load company data
-        if (authenticatedUser?.company_id) {
-          const companies = await base44.entities.ClientCompanies.filter({ 
-            id: authenticatedUser.company_id 
-          });
-          setCompany(companies[0] || null);
+        if (authenticatedUser?.client_id) {
+          const res = await base44.functions.invoke('getClientCompanies', {});
+          setCompany(res.data.companies?.[0] || null);
 
           const normalizeItem = (item, type) => {
             if (type === 'VideoRequests') return { ...item, _type: type };
@@ -67,27 +65,28 @@ export default function ClientApprovals() {
             return item;
           };
 
+          const cId = authenticatedUser.client_id;
           // Load items needing approval
           const [pendingVids, pendingAssets, pendingPosts] = await Promise.all([
-            base44.entities.VideoRequests.filter({ client_id: authenticatedUser.company_id, approval_status: 'Pending' }),
-            base44.entities.NTAContentAsset.filter({ client_id: authenticatedUser.company_id, approval_status: 'Pending' }),
-            base44.entities.SocialPostQueue.filter({ client_id: authenticatedUser.company_id, publish_status: 'pending' })
+            base44.entities.VideoRequests.filter({ client_id: cId, approval_status: 'Pending' }),
+            base44.entities.NTAContentAsset.filter({ client_id: cId, approval_status: 'Pending' }),
+            base44.entities.SocialPostQueue.filter({ client_id: cId, publish_status: 'pending' })
           ]);
           setPendingVideos([...pendingVids.map(v => normalizeItem(v, 'VideoRequests')), ...pendingAssets.map(a => normalizeItem(a, 'NTAContentAsset')), ...pendingPosts.map(p => normalizeItem(p, 'SocialPostQueue'))]);
 
           // Load scheduled items
           const [schedVids, schedAssets, schedPosts] = await Promise.all([
-            base44.entities.VideoRequests.filter({ client_id: authenticatedUser.company_id, approval_status: 'Approved' }),
-            base44.entities.NTAContentAsset.filter({ client_id: authenticatedUser.company_id, approval_status: 'Approved' }),
-            base44.entities.SocialPostQueue.filter({ client_id: authenticatedUser.company_id, approval_status: 'Approved' })
+            base44.entities.VideoRequests.filter({ client_id: cId, approval_status: 'Approved' }),
+            base44.entities.NTAContentAsset.filter({ client_id: cId, approval_status: 'Approved' }),
+            base44.entities.SocialPostQueue.filter({ client_id: cId, approval_status: 'Approved' })
           ]);
           setScheduledVideos([...schedVids.map(v => normalizeItem(v, 'VideoRequests')), ...schedAssets.map(a => normalizeItem(a, 'NTAContentAsset')), ...schedPosts.map(p => normalizeItem(p, 'SocialPostQueue'))]);
 
           // Load recently published
           const [pubVids, pubAssets, pubPosts] = await Promise.all([
-            base44.entities.VideoRequests.filter({ client_id: authenticatedUser.company_id, status: 'published' }, '-approved_at', 5),
-            base44.entities.NTAContentAsset.filter({ client_id: authenticatedUser.company_id, publish_status: 'published' }, '-updated_date', 5),
-            base44.entities.SocialPostQueue.filter({ client_id: authenticatedUser.company_id, publish_status: 'published' }, '-updated_date', 5)
+            base44.entities.VideoRequests.filter({ client_id: cId, status: 'published' }, '-approved_at', 5),
+            base44.entities.NTAContentAsset.filter({ client_id: cId, publish_status: 'published' }, '-updated_date', 5),
+            base44.entities.SocialPostQueue.filter({ client_id: cId, publish_status: 'published' }, '-updated_date', 5)
           ]);
           setPublishedVideos([...pubVids.map(v => normalizeItem(v, 'VideoRequests')), ...pubAssets.map(a => normalizeItem(a, 'NTAContentAsset')), ...pubPosts.map(p => normalizeItem(p, 'SocialPostQueue'))].slice(0, 10));
         }

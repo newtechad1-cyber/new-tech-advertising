@@ -48,26 +48,29 @@ export default function ClientCalendar() {
     })();
   }, []);
 
-  // Load trial account
-  const { data: trialAccounts = [] } = useQuery({
-    queryKey: ['client-trial', user?.email],
-    queryFn: () => base44.entities.TrialAccount.filter({ email: user.email }),
-    enabled: !!user?.email
+  // Load company
+  const { data: clientCompany } = useQuery({
+    queryKey: ['client-company', user?.client_id],
+    queryFn: async () => {
+      if (!user?.client_id) return null;
+      const res = await base44.functions.invoke('getClientCompanies', {});
+      return res.data.companies?.[0] || null;
+    },
+    enabled: !!user?.client_id
   });
-  const trial = trialAccounts[0];
 
   // Load video requests for approvals and scheduled content
   const { data: videoRequests = [] } = useQuery({
-    queryKey: ['client-videos', user?.email],
-    queryFn: () => base44.entities.VideoRequests.list('-created_date', 100),
-    enabled: !!user
+    queryKey: ['client-videos', user?.client_id],
+    queryFn: () => base44.entities.VideoRequests.filter({ client_id: user.client_id }, '-created_date', 100),
+    enabled: !!user?.client_id
   });
 
   // Load scheduled posts
   const { data: scheduledPosts = [] } = useQuery({
-    queryKey: ['client-posts', user?.email],
-    queryFn: () => base44.entities.ScheduledPost.list('-scheduled_for', 100),
-    enabled: !!user
+    queryKey: ['client-posts', user?.client_id],
+    queryFn: () => base44.entities.ScheduledPost.filter({ client_id: user.client_id }, '-scheduled_for', 100),
+    enabled: !!user?.client_id
   });
 
   // Transform data to calendar events
@@ -132,7 +135,7 @@ export default function ClientCalendar() {
     return eDate.getMonth() === thisMonth && eDate.getFullYear() === thisYear && e.status === 'published';
   }).length;
 
-  const companyName = trial?.name || user?.full_name || 'Your Company';
+  const companyName = clientCompany?.business_name || user?.full_name || 'Your Company';
 
   const handleLogout = () => base44.auth.logout();
 

@@ -76,6 +76,8 @@ const AdminNavigationAudit = lazy(() => import('./pages/AdminNavigationAudit'));
 const AdminChannels = lazy(() => import('./pages/AdminChannels'));
 const ClientChannels = lazy(() => import('./pages/ClientChannels'));
 const ClientResults = lazy(() => import('./pages/ClientResults'));
+const ClientApprovals = lazy(() => import('./pages/ClientApprovals'));
+const ClientCalendar = lazy(() => import('./pages/ClientCalendar'));
 const AdminProductionStability = lazy(() => import('./pages/AdminProductionStability'));
 const AdminPlatformQA = lazy(() => import('./pages/AdminPlatformQA'));
 const ClientROI = lazy(() => import('./pages/ClientROI'));
@@ -428,6 +430,8 @@ const AuthenticatedApp = () => {
       <Route path="/admin/channels" element={<LayoutWrapper currentPageName="AdminChannels"><AdminChannels /></LayoutWrapper>} />
       <Route path="/client/channels" element={<LayoutWrapper currentPageName="ClientChannels"><ClientChannels /></LayoutWrapper>} />
       <Route path="/client/results" element={<LayoutWrapper currentPageName="ClientResults"><ClientResults /></LayoutWrapper>} />
+      <Route path="/client/approvals" element={<LayoutWrapper currentPageName="ClientApprovals"><ClientApprovals /></LayoutWrapper>} />
+      <Route path="/client/calendar" element={<LayoutWrapper currentPageName="ClientCalendar"><ClientCalendar /></LayoutWrapper>} />
       <Route path="/admin/production-stability" element={<LayoutWrapper currentPageName="AdminProductionStability"><AdminProductionStability /></LayoutWrapper>} />
       <Route path="/admin/platform-qa" element={<LayoutWrapper currentPageName="AdminPlatformQA"><AdminPlatformQA /></LayoutWrapper>} />
       <Route path="/admin/sales-command" element={<LayoutWrapper currentPageName="AdminSalesCommand"><AdminSalesCommand /></LayoutWrapper>} />
