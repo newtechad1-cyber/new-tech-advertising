@@ -1,7 +1,7 @@
 User-agent: *
-Disallow: /weeklyplanadmin
-Disallow: /businessintelprofileadmin
-Disallow: /localmarketinteladmin
-Disallow: /Admin
+Allow: /
 
 Sitemap: https://newtechadvertising.com/sitemap.xml
+
+# IndexNow
+# Key: ce5c26f9246431cd84399706e3055e7c
