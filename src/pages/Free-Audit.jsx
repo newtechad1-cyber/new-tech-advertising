@@ -48,59 +48,38 @@ export default function FreeAudit() {
       });
       console.log('[FreeAudit] Lead created', salesLead.id, salesDeal.id);
 
-      // STEP 2 — Mirror to NTA Unified Intake (non-blocking)
-      base44.functions.invoke('ntaUnifiedIntake', {
-        submission_type: 'free_audit_request',
-        offer_type: 'marketing_audit',
-        mapping_confidence: 'hardcoded',
-        mapping_notes: 'Free-Audit.jsx /free-audit hardcoded',
-        detected_route: '/free-audit',
-        detected_component: 'FreeAudit',
-        source_system: 'website',
-        source_page: '/free-audit',
-        name: form.name,
-        business_name: form.business_name,
-        email: form.email,
-        phone: form.phone,
-        website: form.website,
-        notes: `Industry: ${form.industry}`,
-        priority: 'high',
-        is_high_intent: true,
-      }).catch(err => console.warn('[FreeAudit] NTA mirror failed:', err.message));
+      // Wrap secondary actions in a separate try/catch so they never block the success UI
+      try {
+        // STEP 2 — Mirror to NTA Unified Intake
+        await base44.functions.invoke('ntaUnifiedIntake', {
+          submission_type: 'free_audit_request',
+          offer_type: 'marketing_audit',
+          mapping_confidence: 'hardcoded',
+          mapping_notes: 'Free-Audit.jsx /free-audit hardcoded',
+          detected_route: '/free-audit',
+          detected_component: 'FreeAudit',
+          source_system: 'website',
+          source_page: '/free-audit',
+          name: form.name,
+          business_name: form.business_name,
+          email: form.email,
+          phone: form.phone,
+          website: form.website,
+          notes: `Industry: ${form.industry}`,
+          priority: 'high',
+          is_high_intent: true,
+        });
 
-      // STEP 3 — Create Company
-      const company = await base44.entities.Company.create({
-        business_name: form.business_name,
-        website: form.website,
-        industry: form.industry,
-        email: form.email,
-        phone: form.phone,
-        status: 'lead',
-        source: 'website',
-      });
-
-      // STEP 4 — Create Lead tagged as audit request
-      await base44.entities.Lead.create({
-        company_id: company.id,
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-        business_name: form.business_name,
-        website: form.website,
-        industry: form.industry,
-        service_interest: 'not_sure',
-        message: 'Requested free marketing audit',
-        status: 'new',
-        source: 'website',
-      });
-
-      // STEP 5 — Notify team
-      await base44.integrations.Core.SendEmail({
-        from_name: 'NTA — Free Audit Request',
-        to: 'rick@newtechadvertising.com',
-        subject: `Free Audit Request: ${form.business_name}`,
-        body: `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nBusiness: ${form.business_name}\nWebsite: ${form.website}\nIndustry: ${form.industry}`,
-      });
+        // STEP 3 — Notify team
+        await base44.integrations.Core.SendEmail({
+          from_name: 'NTA — Free Audit Request',
+          to: 'rick@newtechadvertising.com',
+          subject: `Free Audit Request: ${form.business_name}`,
+          body: `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nBusiness: ${form.business_name}\nWebsite: ${form.website}\nIndustry: ${form.industry}`,
+        });
+      } catch (secondaryErr) {
+        console.warn('[FreeAudit] Secondary actions failed, but lead was created:', secondaryErr.message);
+      }
 
       setStep(2);
     } catch (err) {
