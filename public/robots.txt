@@ -1,36 +1,15 @@
 User-agent: *
-Disallow: /weeklyplanadmin
-Disallow: /businessintelprofileadmin
-Disallow: /localmarketinteladmin
-Disallow: /Admin
-Disallow: /Demo
-Disallow: /school
-Disallow: /hvac
-Disallow: /plumbing
-Disallow: /restaurant
+Allow: /
 
 User-agent: OAI-SearchBot
-Disallow: /weeklyplanadmin
-Disallow: /businessintelprofileadmin
-Disallow: /localmarketinteladmin
-Disallow: /Admin
-Disallow: /Demo
-Disallow: /school
-Disallow: /hvac
-Disallow: /plumbing
-Disallow: /restaurant
+Disallow: /
 
 User-agent: PerplexityBot
+Disallow: /
+
 Disallow: /weeklyplanadmin
 Disallow: /businessintelprofileadmin
 Disallow: /localmarketinteladmin
 Disallow: /Admin
-Disallow: /Demo
-Disallow: /school
-Disallow: /hvac
-Disallow: /plumbing
-Disallow: /restaurant
-
-Allow: /
 
 Sitemap: https://newtechadvertising.com/sitemap.xml
