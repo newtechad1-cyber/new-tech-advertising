@@ -6,25 +6,17 @@
       "type": "string",
       "enum": [
         "admin",
-        "client",
-        "staff",
-        "reseller"
+        "client"
       ],
       "default": "client"
     },
-    "company_id": {
+    "company_name": {
       "type": "string",
-      "description": "Relation to ClientCompanies entity"
+      "description": "Optional: Name of the client's company"
     },
-    "name": {
-      "type": "string"
-    },
-    "is_active": {
-      "type": "boolean",
-      "default": true
+    "client_id": {
+      "type": "string",
+      "description": "Optional: Links to the Company or SalesLead entity for data scoping"
     }
-  },
-  "required": [
-    "name"
-  ]
+  }
 }
