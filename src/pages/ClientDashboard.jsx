@@ -13,7 +13,10 @@ export default function ClientDashboard() {
 
   const { data: allClients } = useQuery({
     queryKey: ['all-clients-dropdown'],
-    queryFn: () => base44.entities.Company.list(),
+    queryFn: async () => {
+      const res = await base44.functions.invoke('getClientCompanies', {});
+      return res.data.companies;
+    },
     enabled: !!isAdmin
   });
 
@@ -21,7 +24,11 @@ export default function ClientDashboard() {
 
   const { data: clientCompany } = useQuery({
     queryKey: ['client-company', effectiveClientId],
-    queryFn: () => base44.entities.Company.get(effectiveClientId),
+    queryFn: async () => {
+      if (!effectiveClientId) return null;
+      const res = await base44.functions.invoke('getClientCompanies', {});
+      return res.data.companies?.find(c => c.id === effectiveClientId) || null;
+    },
     enabled: !!effectiveClientId
   });
 

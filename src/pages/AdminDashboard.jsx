@@ -9,9 +9,27 @@ import { toast } from 'sonner';
 export default function AdminDashboard() {
   const [inviteEmail, setInviteEmail] = useState('');
 
-  const { data: clients } = useQuery({ queryKey: ['admin-clients'], queryFn: () => base44.entities.Company.list() });
-  const { data: leads } = useQuery({ queryKey: ['admin-leads'], queryFn: () => base44.entities.SalesLead.list() });
-  const { data: deals } = useQuery({ queryKey: ['admin-deals'], queryFn: () => base44.entities.SalesDeal.list() });
+  const { data: clients } = useQuery({ 
+    queryKey: ['admin-clients'], 
+    queryFn: async () => {
+      const res = await base44.functions.invoke('getClientCompanies', {});
+      return res.data.companies;
+    }
+  });
+  const { data: leads } = useQuery({ 
+    queryKey: ['admin-leads'], 
+    queryFn: async () => {
+      const res = await base44.functions.invoke('getClientLeads', {});
+      return res.data.leads;
+    }
+  });
+  const { data: deals } = useQuery({ 
+    queryKey: ['admin-deals'], 
+    queryFn: async () => {
+      const res = await base44.functions.invoke('getClientDeals', {});
+      return res.data.deals;
+    }
+  });
   const { data: users } = useQuery({ queryKey: ['admin-users'], queryFn: () => base44.entities.User.list() });
 
   const handleInvite = async (e) => {
