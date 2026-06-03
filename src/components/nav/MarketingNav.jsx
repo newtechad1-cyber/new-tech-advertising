@@ -55,8 +55,7 @@ const NAV_LINKS = [
       { label: 'Local SEO', href: '/learning-center/videos?category=Local SEO', desc: 'Master zero-click search & reviews' },
       { label: 'Marketing Strategy', href: '/learning-center/videos?category=Marketing Strategy', desc: 'Build predictable growth engines' }
     ]
-  },
-  { label: 'Free Gap Audit', href: '/gap-audit' },
+  }
 ];
 
 function DropdownMenu({ items, onClose }) {
@@ -111,7 +110,7 @@ export default function MarketingNav() {
         </Link>
 
         {/* Desktop nav links */}
-        <div className="hidden lg:flex items-center gap-0.5 flex-1">
+        <div className="hidden xl:flex items-center gap-0.5 flex-1">
           {NAV_LINKS.map(link => (
             <div key={link.label} className="relative">
               {link.children ? (
@@ -135,7 +134,7 @@ export default function MarketingNav() {
         </div>
 
         {/* Desktop CTAs */}
-        <div className="hidden lg:flex items-center gap-3 flex-shrink-0 ml-2">
+        <div className="hidden xl:flex items-center gap-3 flex-shrink-0 ml-2">
           <a href="tel:6414208816" className="text-xs text-slate-400 hover:text-white transition-colors font-medium whitespace-nowrap mr-2">
             641-420-8816
           </a>
@@ -166,7 +165,7 @@ export default function MarketingNav() {
 
         {/* Mobile: hamburger */}
         <button
-          className="lg:hidden p-2 text-slate-300 hover:text-white"
+          className="xl:hidden p-2 text-slate-300 hover:text-white"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
           {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -175,7 +174,7 @@ export default function MarketingNav() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden fixed inset-0 top-16 z-40 bg-slate-950 overflow-y-auto">
+        <div className="xl:hidden fixed inset-0 top-16 z-40 bg-slate-950 overflow-y-auto">
           <div className="px-4 py-4 space-y-1">
             {NAV_LINKS.map(link => (
               <div key={link.label}>
