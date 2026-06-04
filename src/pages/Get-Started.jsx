@@ -108,32 +108,110 @@ export default function GetStarted() {
 
   if (step === 2) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-10 max-w-md w-full text-center">
-          <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-5">
-            <CheckCircle className="w-8 h-8 text-green-400" />
-          </div>
-          <h1 className="text-2xl font-extrabold text-white mb-3">You're in!</h1>
-          <p className="text-slate-400 mb-6">
-            We've received your info and will reach out within a few hours to get your account set up.
-          </p>
-          <div className="space-y-3">
-            <Link
-              to={createPageUrl('ClientOnboarding')}
-              className="w-full flex items-center justify-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-bold py-3 rounded-xl transition-all"
-            >
-              Set Up My Account <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              to={createPageUrl('Book-Call')}
-              className="w-full flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold py-3 rounded-xl transition-all text-sm"
-            >
-              Book a strategy call instead
+      <div className="min-h-screen bg-slate-950 flex flex-col">
+        {/* Header */}
+        <header className="border-b border-slate-800 py-4 px-6">
+          <div className="max-w-xl mx-auto flex items-center justify-between">
+            <Link to={createPageUrl('Home')}>
+              <img src={LOGO_URL} alt="NTA" className="h-9 w-auto" />
             </Link>
           </div>
-          <p className="text-slate-600 text-xs mt-5">
-            Questions? Call <a href="tel:6414208816" className="text-violet-400">641-420-8816</a>
-          </p>
+        </header>
+
+        <div className="flex-1 flex flex-col items-center justify-center p-6 py-12">
+          <div className="w-full max-w-3xl text-center">
+            <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
+              <CheckCircle className="w-10 h-10 text-green-500" />
+            </div>
+            <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-4">Welcome to NTA! 🎉</h1>
+            <p className="text-slate-400 text-lg mb-12">
+              Your account is being set up. Here's what happens next:
+            </p>
+
+            {/* Stepper */}
+            <div className="relative flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-4 mb-16 text-left md:text-center mx-auto max-w-2xl">
+              {/* Line connector (desktop only) */}
+              <div className="hidden md:block absolute top-5 left-[10%] right-[10%] h-0.5 bg-slate-800 -z-10"></div>
+
+              {/* Step 1 */}
+              <div className="flex flex-row md:flex-col items-start md:items-center gap-4 flex-1">
+                <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 z-10">
+                  <CheckCircle className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-white font-bold mb-1">You signed up</h3>
+                  <p className="text-slate-500 text-sm">We got your info and we're building your profile</p>
+                </div>
+              </div>
+
+              {/* Step 2 */}
+              <div className="flex flex-row md:flex-col items-start md:items-center gap-4 flex-1">
+                <div className="w-10 h-10 rounded-full bg-violet-600 flex items-center justify-center flex-shrink-0 z-10 animate-pulse ring-4 ring-violet-600/30">
+                  <span className="text-white font-bold text-lg">2</span>
+                </div>
+                <div>
+                  <h3 className="text-white font-bold mb-1">We review your business</h3>
+                  <p className="text-slate-500 text-sm">We'll customize your dashboard based on your industry and goals</p>
+                </div>
+              </div>
+
+              {/* Step 3 */}
+              <div className="flex flex-row md:flex-col items-start md:items-center gap-4 flex-1">
+                <div className="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center flex-shrink-0 z-10">
+                  <span className="text-slate-500 font-bold text-lg">3</span>
+                </div>
+                <div>
+                  <h3 className="text-slate-400 font-bold mb-1">You're live</h3>
+                  <p className="text-slate-600 text-sm">Your marketing system is ready to use</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 text-left">
+              {/* Left Card */}
+              <div className="bg-slate-900 border border-slate-800 hover:border-slate-700 transition-colors rounded-2xl p-6 flex flex-col">
+                <div className="text-3xl mb-4">📅</div>
+                <h3 className="text-xl font-bold text-white mb-2">Get Set Up With Rick</h3>
+                <p className="text-slate-400 text-sm mb-6 flex-1">
+                  15-minute call to walk through your new system, answer questions, and make sure everything fits your business.
+                </p>
+                <div className="mt-auto">
+                  <a
+                    href="https://calendar.app.google/p6ieYanvwhixXxZ67"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full text-center bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded-xl transition-colors mb-2"
+                  >
+                    Book Kickoff Call →
+                  </a>
+                  <p className="text-center text-slate-500 text-xs">Recommended — gets you live faster</p>
+                </div>
+              </div>
+
+              {/* Right Card */}
+              <div className="bg-slate-900 border border-slate-800 hover:border-slate-700 transition-colors rounded-2xl p-6 flex flex-col">
+                <div className="text-3xl mb-4">💻</div>
+                <h3 className="text-xl font-bold text-white mb-2">Jump Into the Platform</h3>
+                <p className="text-slate-400 text-sm mb-6 flex-1">
+                  Log in and start exploring. Your dashboard, content tools, and campaign builder are ready.
+                </p>
+                <div className="mt-auto">
+                  <Link
+                    to="/Login"
+                    className="block w-full text-center bg-transparent border border-slate-700 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-colors mb-2"
+                  >
+                    Go to Dashboard →
+                  </Link>
+                  <p className="text-center text-slate-500 text-xs">We'll email your login details shortly</p>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-slate-500">
+              Questions anytime? Call or text Rick: <a href="tel:6414208816" className="text-violet-400 hover:text-violet-300 transition-colors">641-420-8816</a>
+            </p>
+          </div>
         </div>
       </div>
     );
