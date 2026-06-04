@@ -33,6 +33,7 @@ const NAV_LINKS = [
       { label: 'Social Media Content', href: '/social-media-content-system', desc: 'Consistent social posts done-for-you' },
       { label: 'AI Video Marketing', href: '/ai-video-marketing', desc: 'AI-produced video that builds trust' },
       { label: 'Business Software', href: '/back-office-solutions', desc: 'Dispatch, invoicing & operations built for service businesses', divider: true },
+      { label: 'Restaurant Solutions', href: '/restaurants', desc: 'Commission-free ordering & AI marketing for local dining' },
     ],
   },
   {

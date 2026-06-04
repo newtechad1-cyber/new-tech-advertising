@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, ArrowLeft, Menu, X, LayoutDashboard, ShoppingBag, CalendarDays, Star, BarChart3, CheckCircle2 } from 'lucide-react';
+import SiteFooter from '../components/marketing/SiteFooter';
 
 export default function RestaurantSolutions() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -222,7 +223,203 @@ export default function RestaurantSolutions() {
           </div>
         </section>
 
+        {/* THE MATH */}
+        <section className="mt-24 max-w-5xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <div className="inline-block px-3 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
+              THE MATH
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Keep More of What You Earn</h2>
+            <p className="text-slate-400 text-lg">Here's what third-party delivery apps actually cost a typical local restaurant.</p>
+          </div>
+
+          <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+            {/* VS Badge */}
+            <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-slate-900 border-4 border-[#0B1120] rounded-full items-center justify-center font-black text-slate-400 z-10">
+              VS
+            </div>
+
+            {/* Third Party Card */}
+            <div className="bg-slate-900/50 border border-red-500/20 rounded-2xl p-8 shadow-lg">
+              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center text-red-500 text-sm">✗</span>
+                WITH THIRD-PARTY APPS
+              </h3>
+              <ul className="space-y-4 mb-8">
+                <li className="flex items-start gap-3">
+                  <span className="text-red-500 mt-1">✗</span>
+                  <span className="text-slate-300">DoorDash/Grubhub commission (20-30%): <span className="text-red-400 font-medium">-$1,500/mo</span></span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-red-500 mt-1">✗</span>
+                  <span className="text-slate-300">Lost repeat customers: <span className="text-red-400 font-medium">Priceless</span></span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-red-500 mt-1">✗</span>
+                  <span className="text-slate-300">No customer data or emails</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-red-500 mt-1">✗</span>
+                  <span className="text-slate-300">Their branding, not yours</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-red-500 mt-1">✗</span>
+                  <span className="text-slate-300">You compete with every other restaurant</span>
+                </li>
+              </ul>
+              <div className="border-t border-slate-800 pt-6">
+                <div className="text-sm text-slate-400 mb-1">Annual Cost</div>
+                <div className="text-2xl font-bold text-red-400">~$18,000+/yr in commissions</div>
+              </div>
+            </div>
+
+            {/* NTA Card */}
+            <div className="bg-slate-900/80 border border-emerald-500/30 rounded-2xl p-8 shadow-xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-3xl -mr-10 -mt-10"></div>
+              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2 relative z-10">
+                <span className="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 text-sm">✓</span>
+                WITH NTA
+              </h3>
+              <ul className="space-y-4 mb-8 relative z-10">
+                <li className="flex items-start gap-3">
+                  <span className="text-emerald-400 mt-1">✓</span>
+                  <span className="text-slate-300">Online ordering: <span className="text-emerald-400 font-medium">0% commission</span></span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-emerald-400 mt-1">✓</span>
+                  <span className="text-slate-300">You own every customer</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-emerald-400 mt-1">✓</span>
+                  <span className="text-slate-300">Customer emails and order history</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-emerald-400 mt-1">✓</span>
+                  <span className="text-slate-300">Your brand, your website</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-emerald-400 mt-1">✓</span>
+                  <span className="text-slate-300">AI visibility that sends customers to YOU</span>
+                </li>
+              </ul>
+              <div className="border-t border-slate-800 pt-6 relative z-10">
+                <div className="text-sm text-slate-400 mb-1">Your Savings</div>
+                <div className="text-2xl font-bold text-emerald-400">$18,000+/yr back in your pocket</div>
+              </div>
+            </div>
+          </div>
+          
+          <p className="text-center text-xl md:text-2xl font-semibold text-white mt-12 max-w-3xl mx-auto">
+            That's <span className="text-emerald-400">$1,500/month</span> you're giving away to apps that put your competitor one swipe away.
+          </p>
+        </section>
+
+        {/* WHAT YOU GET */}
+        <section className="mt-32 max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <div className="inline-block px-3 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
+              WHAT YOU GET
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Everything a Modern Restaurant Needs Online</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { icon: "🛒", title: "Online Ordering", desc: "Commission-free ordering page, branded to your restaurant, with real-time kitchen notifications" },
+              { icon: "📋", title: "Menu Management", desc: "Update menu items, prices, photos, and daily specials from your phone in seconds" },
+              { icon: "🌟", title: "Review Management", desc: "Monitor Google, Yelp, and Facebook reviews. Respond fast with smart templates" },
+              { icon: "🔍", title: "Local Visibility", desc: "Show up in Google, AI assistants, and 'near me' searches when hungry locals are looking" },
+              { icon: "📧", title: "Customer Follow-Up", desc: "Build an email list from real orders. Send specials, events, and 'we miss you' messages" },
+              { icon: "⚡", title: "Custom Features", desc: "Table reservations, kitchen display, catering orders, loyalty programs — whatever you need" }
+            ].map((feature, idx) => (
+              <div key={idx} className="bg-slate-900/50 border border-slate-800 hover:border-amber-500/30 border-t-2 border-t-amber-500/50 rounded-xl p-6 transition-all hover:bg-slate-900">
+                <div className="text-3xl mb-4">{feature.icon}</div>
+                <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">{feature.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* HOW IT WORKS */}
+        <section className="mt-32 max-w-5xl mx-auto px-6" id="how-it-works-section">
+          <div className="text-center mb-16">
+            <div className="inline-block px-3 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
+              HOW IT WORKS
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">From Conversation to Customers in Days</h2>
+            <p className="text-slate-400 text-lg">No enterprise contracts. No 3-month rollout. No IT department needed.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+            {/* Connecting line for desktop */}
+            <div className="hidden md:block absolute top-6 left-[15%] right-[15%] h-0.5 bg-slate-800"></div>
+            
+            {[
+              { num: 1, title: "Tell Us About Your Restaurant", desc: "A quick call about your menu, your workflow, and what's not working. We'll show you exactly what we can build." },
+              { num: 2, title: "We Build Your System", desc: "Ordering page, menu management, visibility setup — built around how YOUR restaurant actually runs." },
+              { num: 3, title: "Start Taking Orders", desc: "Go live with your own branded ordering. Customers order from you, not DoorDash. You keep every dollar." }
+            ].map((step, idx) => (
+              <div key={idx} className="relative z-10 flex flex-col items-center text-center">
+                <div className="w-12 h-12 bg-slate-900 border-2 border-amber-500 text-amber-500 font-bold text-xl rounded-full flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(245,158,11,0.2)]">
+                  {step.num}
+                </div>
+                <h3 className="text-lg font-bold text-white mb-3">{step.title}</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="mt-32 max-w-3xl mx-auto px-6">
+          <h2 className="text-3xl font-bold text-white mb-10 text-center">Common Questions</h2>
+          <div className="space-y-4">
+            {[
+              { q: "Can this really replace DoorDash for my restaurant?", a: "For pickup and local delivery — absolutely. Your customers order directly from your website. You get the order notification, you keep 100% of the revenue, and you own the customer relationship. Many restaurants keep DoorDash for discovery but push regulars to their own ordering page where there are no fees." },
+              { q: "What if I already have a website?", a: "We can add the ordering system to your existing site, or build you a new AI-optimized site that actually shows up in search results. Either way, we work with what you have." },
+              { q: "Do customers have to download an app?", a: "No. It's a web page — they click a link or scan a QR code and order right from their phone's browser. No app store, no account creation required." },
+              { q: "How do I get order notifications?", a: "However you want — email, text, a tablet in the kitchen, or even a kitchen display screen. We set it up based on your workflow." },
+              { q: "What does it cost?", a: "A fraction of what you're paying in DoorDash commissions. We'll give you a straight answer after a quick call. Most restaurants save money immediately because they stop giving away 20-30% per order." },
+              { q: "I'm not tech-savvy. Can I manage this?", a: "If you can post to Facebook, you can manage your menu. We build everything to be dead simple. And we're local — you can call Rick directly if you ever need help." }
+            ].map((faq, idx) => (
+              <div key={idx} className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
+                <h3 className="text-lg font-bold text-white mb-2">{faq.q}</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* FINAL CTA */}
+        <section className="mt-32 max-w-4xl mx-auto px-6 text-center" id="cta-section">
+          <div className="bg-gradient-to-b from-slate-800/50 to-slate-900/50 border border-slate-700 rounded-3xl p-10 md:p-16 relative overflow-hidden">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-amber-500/10 blur-[100px] pointer-events-none"></div>
+            
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-6 relative z-10">
+              Ready to Stop Giving Away Your Profits?
+            </h2>
+            <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto relative z-10">
+              Let's talk about what your restaurant needs. 15-minute call, no pitch deck, no pressure.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8 relative z-10">
+              <a href="/Contact" className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-8 py-4 rounded-xl transition-all text-base shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+                Let's Talk →
+              </a>
+              <a href="tel:6414208816" className="inline-flex items-center justify-center gap-2 border border-slate-600 hover:border-slate-400 bg-slate-900 hover:bg-slate-800 text-white font-bold px-8 py-4 rounded-xl transition-all text-base">
+                Call 641-420-8816
+              </a>
+            </div>
+            
+            <p className="text-slate-500 text-sm relative z-10">
+              Mason City, Iowa - Serving restaurants across Iowa & Southern Minnesota
+            </p>
+          </div>
+        </section>
+
       </main>
+      <SiteFooter />
     </div>
   );
 }
