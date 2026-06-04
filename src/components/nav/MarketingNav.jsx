@@ -66,14 +66,14 @@ function DropdownMenu({ items, onClose }) {
       {items.map((item, idx) => (
         <React.Fragment key={item.label}>
           {item.divider && <div className="my-2 border-t border-slate-200"></div>}
-          <a
-            href={item.href}
+          <Link
+            to={item.href}
             onClick={onClose}
             className="flex flex-col px-4 py-3 hover:bg-slate-50 transition-colors"
           >
             <span className="text-sm font-semibold text-slate-900">{item.label}</span>
             {item.desc && <span className="text-xs text-slate-500 mt-0.5">{item.desc}</span>}
-          </a>
+          </Link>
         </React.Fragment>
       ))}
     </div>
@@ -126,9 +126,9 @@ export default function MarketingNav() {
                   <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeDropdown === link.label ? 'rotate-180' : ''}`} />
                 </button>
               ) : (
-                <a href={link.href} className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-lg transition-colors whitespace-nowrap block">
+                <Link to={link.href} className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-lg transition-colors whitespace-nowrap block">
                   {link.label}
-                </a>
+                </Link>
               )}
               {link.children && activeDropdown === link.label && (
                 <DropdownMenu items={link.children} onClose={() => setActiveDropdown(null)} />
@@ -197,18 +197,18 @@ export default function MarketingNav() {
                     {mobileExpanded === link.label && (
                       <div className="ml-4 border-l border-slate-800 pl-3 space-y-0.5 mb-1">
                         {link.children.map(child => (
-                          <a key={child.label} href={child.href} onClick={() => setMobileOpen(false)} className="block px-3 py-2.5 rounded-lg hover:bg-slate-800">
+                          <Link key={child.label} to={child.href} onClick={() => setMobileOpen(false)} className="block px-3 py-2.5 rounded-lg hover:bg-slate-800">
                             <div className="text-sm font-medium text-white">{child.label}</div>
                             {child.desc && <div className="text-xs text-slate-500 mt-0.5">{child.desc}</div>}
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     )}
                   </>
                 ) : (
-                  <a href={link.href} onClick={() => setMobileOpen(false)} className="block px-4 py-3 text-base font-semibold text-white rounded-lg hover:bg-slate-800">
+                  <Link to={link.href} onClick={() => setMobileOpen(false)} className="block px-4 py-3 text-base font-semibold text-white rounded-lg hover:bg-slate-800">
                     {link.label}
-                  </a>
+                  </Link>
                 )}
               </div>
             ))}

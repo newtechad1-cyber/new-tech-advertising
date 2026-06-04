@@ -641,6 +641,7 @@ const AuthenticatedApp = () => {
       <Route path="/websites-as-salespeople" element={<LayoutWrapper currentPageName="WebsitesAsSalespeople"><WebsitesAsSalespeople /></LayoutWrapper>} />
       <Route path="/ai-brought-me-out-of-retirement" element={<LayoutWrapper currentPageName="AiBroughtMeOutOfRetirement"><AiBroughtMeOutOfRetirement /></LayoutWrapper>} />
       <Route path="/i-was-early-again" element={<LayoutWrapper currentPageName="IWasEarlyAgain"><IWasEarlyAgain /></LayoutWrapper>} />
+      <Route path="/back-office" element={<Navigate to="/back-office-solutions" replace />} />
       <Route path="/back-office-solutions" element={<LayoutWrapper currentPageName="BackOfficeSolutions"><BackOfficeSolutions /></LayoutWrapper>} />
       <Route path="/restaurants" element={<LayoutWrapper currentPageName="RestaurantSolutions"><RestaurantSolutions /></LayoutWrapper>} />
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 
 const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
@@ -33,11 +34,11 @@ export default function SiteFooter() {
         <div>
           <p className="text-white font-semibold mb-3 text-sm">Solutions</p>
           <ul className="space-y-2 text-sm">
-            <li><a href="/" className="hover:text-white transition-colors">Main Site</a></li>
-            <li><a href="/local-lead-systems" className="hover:text-white transition-colors">Marketing Solutions</a></li>
-            <li><a href="/back-office-solutions" className="hover:text-white transition-colors">Back-Office Solutions</a></li>
-            <li><a href="/restaurants" className="hover:text-white transition-colors">Restaurant Solutions</a></li>
-            <li><a href="/Contact" className="hover:text-white transition-colors">Contact</a></li>
+            <li><Link to="/" className="hover:text-white transition-colors">Main Site</Link></li>
+            <li><Link to="/local-lead-systems" className="hover:text-white transition-colors">Marketing Solutions</Link></li>
+            <li><Link to="/back-office-solutions" className="hover:text-white transition-colors">Back-Office Solutions</Link></li>
+            <li><Link to="/restaurants" className="hover:text-white transition-colors">Restaurant Solutions</Link></li>
+            <li><Link to="/Contact" className="hover:text-white transition-colors">Contact</Link></li>
           </ul>
         </div>
 
