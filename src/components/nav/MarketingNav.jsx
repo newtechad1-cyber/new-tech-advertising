@@ -32,6 +32,7 @@ const NAV_LINKS = [
       { label: 'Seasonal Campaigns', href: '/seasonal-campaigns', desc: 'Timed marketing for peak demand' },
       { label: 'Social Media Content', href: '/social-media-content-system', desc: 'Consistent social posts done-for-you' },
       { label: 'AI Video Marketing', href: '/ai-video-marketing', desc: 'AI-produced video that builds trust' },
+      { label: 'Business Software', href: '/back-office-solutions', desc: 'Dispatch, invoicing & operations built for service businesses', divider: true },
     ],
   },
   {
@@ -61,16 +62,18 @@ const NAV_LINKS = [
 function DropdownMenu({ items, onClose }) {
   return (
     <div className="absolute top-full left-0 mt-1 w-72 bg-white rounded-xl shadow-xl border border-slate-100 py-2 z-50">
-      {items.map(item => (
-        <a
-          key={item.label}
-          href={item.href}
-          onClick={onClose}
-          className="flex flex-col px-4 py-3 hover:bg-slate-50 transition-colors"
-        >
-          <span className="text-sm font-semibold text-slate-900">{item.label}</span>
-          {item.desc && <span className="text-xs text-slate-500 mt-0.5">{item.desc}</span>}
-        </a>
+      {items.map((item, idx) => (
+        <React.Fragment key={item.label}>
+          {item.divider && <div className="my-2 border-t border-slate-200"></div>}
+          <a
+            href={item.href}
+            onClick={onClose}
+            className="flex flex-col px-4 py-3 hover:bg-slate-50 transition-colors"
+          >
+            <span className="text-sm font-semibold text-slate-900">{item.label}</span>
+            {item.desc && <span className="text-xs text-slate-500 mt-0.5">{item.desc}</span>}
+          </a>
+        </React.Fragment>
       ))}
     </div>
   );
