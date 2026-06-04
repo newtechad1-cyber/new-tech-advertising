@@ -3,6 +3,10 @@ import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import BackOfficeProblem from '../components/back-office/BackOfficeProblem';
 import BackOfficeFeatures from '../components/back-office/BackOfficeFeatures';
+import BOComparison from '../components/backoffice/BOComparison';
+import BOCaseStudy from '../components/backoffice/BOCaseStudy';
+import BOFeaturesGrid from '../components/backoffice/BOFeaturesGrid';
+import BOHowItWorks from '../components/backoffice/BOHowItWorks';
 import SEOHead from '../components/shared/SEOHead';
 import { Link } from 'react-router-dom';
 import { CheckCircle2 } from 'lucide-react';
@@ -84,6 +88,10 @@ export default function BackOfficeSolutions() {
       {/* The Two New Sections */}
       <BackOfficeProblem />
       <BackOfficeFeatures />
+      <BOComparison />
+      <BOCaseStudy />
+      <BOFeaturesGrid />
+      <BOHowItWorks />
 
       <SiteFooter />
     </div>
