@@ -274,6 +274,7 @@ const AccessibleWebsites = lazy(() => import('./pages/AccessibleWebsites'));
 const WebAccessibilityTrust = lazy(() => import('./pages/WebAccessibilityTrust'));
 const WebsitesAsSalespeople = lazy(() => import('./pages/WebsitesAsSalespeople'));
 const BackOfficeSolutions = lazy(() => import('./pages/BackOfficeSolutions'));
+const RestaurantSolutions = lazy(() => import('./pages/RestaurantSolutions'));
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -641,6 +642,7 @@ const AuthenticatedApp = () => {
       <Route path="/ai-brought-me-out-of-retirement" element={<LayoutWrapper currentPageName="AiBroughtMeOutOfRetirement"><AiBroughtMeOutOfRetirement /></LayoutWrapper>} />
       <Route path="/i-was-early-again" element={<LayoutWrapper currentPageName="IWasEarlyAgain"><IWasEarlyAgain /></LayoutWrapper>} />
       <Route path="/back-office-solutions" element={<LayoutWrapper currentPageName="BackOfficeSolutions"><BackOfficeSolutions /></LayoutWrapper>} />
+      <Route path="/restaurants" element={<LayoutWrapper currentPageName="RestaurantSolutions"><RestaurantSolutions /></LayoutWrapper>} />
 
       <Route path="*" element={<PageNotFound />} />
         </Routes>
