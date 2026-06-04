@@ -70,7 +70,7 @@ export default function TwoWaysWeGrow() {
               ))}
             </div>
             
-            <Link to="/back-office-solutions" className="mt-auto inline-flex items-center text-[#10B981] font-bold hover:text-emerald-400 transition-colors group-hover:gap-2">
+            <Link to="/back-office" className="mt-auto inline-flex items-center text-[#10B981] font-bold hover:text-emerald-400 transition-colors group-hover:gap-2">
               See Back-Office Solutions <span className="ml-1 transition-all group-hover:translate-x-1">→</span>
             </Link>
           </div>
