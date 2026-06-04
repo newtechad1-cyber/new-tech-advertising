@@ -151,17 +151,63 @@ export default function FreeAudit() {
           {/* Form Section */}
           <div id="audit-form" className="bg-white border border-slate-200 rounded-3xl p-8 shadow-xl">
             {step === 2 ? (
-              <div className="text-center py-10">
+              <div className="text-center py-8">
                 <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <CheckCircle2 className="w-10 h-10 text-emerald-500" />
+                  <CheckCircle2 className="w-10 h-10 text-emerald-600" />
                 </div>
-                <h2 className="text-2xl font-black text-slate-900 mb-3">Thank you!</h2>
-                <p className="text-slate-600 text-lg">
-                  We'll review your business and get back to you within 24–48 hours.
+                <h2 className="text-3xl font-black text-slate-900 mb-4">You're In! Your Gap Audit Is On the Way.</h2>
+                <p className="text-slate-600 text-lg mb-8 max-w-lg mx-auto">
+                  We're reviewing your business now. But why wait? Pick your next step:
                 </p>
-                <Button onClick={() => setStep(1)} variant="outline" className="mt-8">
-                  Submit another request
-                </Button>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                  {/* Left Card */}
+                  <div className="bg-slate-950 text-white rounded-2xl p-6 text-left border border-slate-800 hover:border-slate-700 transition-colors group flex flex-col h-full">
+                    <div className="text-3xl mb-4">📅</div>
+                    <h3 className="text-xl font-bold mb-3">Talk to Rick — 15 Minutes</h3>
+                    <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
+                      Get your audit results explained live, ask questions, and find out exactly what to fix first. No pitch, no pressure.
+                    </p>
+                    <div className="mt-auto">
+                      <a 
+                        href="https://calendar.app.google/p6ieYanvwhixXxZ67" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="block w-full text-center bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 rounded-xl transition-colors mb-3"
+                      >
+                        Pick a Time →
+                      </a>
+                      <p className="text-center text-slate-500 text-xs font-medium">Available Mon–Fri</p>
+                    </div>
+                  </div>
+
+                  {/* Right Card */}
+                  <div className="bg-slate-950 text-white rounded-2xl p-6 text-left border border-slate-800 hover:border-slate-700 transition-colors group flex flex-col h-full">
+                    <div className="text-3xl mb-4">🚀</div>
+                    <h3 className="text-xl font-bold mb-3">Try the DIY Tools</h3>
+                    <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
+                      Explore our marketing platform and start building your online presence while we prepare your audit.
+                    </p>
+                    <div className="mt-auto">
+                      <Link 
+                        to="/start" 
+                        className="block w-full text-center bg-transparent hover:bg-slate-800 border border-slate-700 text-white font-semibold py-3 rounded-xl transition-colors mb-3"
+                      >
+                        Start Free Trial →
+                      </Link>
+                      <p className="text-center text-slate-500 text-xs font-medium">No credit card required</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <p className="text-slate-500 text-sm">
+                    Either way, your personalized audit report will hit your inbox within 24 hours.
+                  </p>
+                  <p className="text-slate-600 font-medium">
+                    Questions? Call or text Rick directly: <a href="tel:6414208816" className="text-blue-600 hover:underline">641-420-8816</a>
+                  </p>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
