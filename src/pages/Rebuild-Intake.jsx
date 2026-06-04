@@ -98,10 +98,11 @@ export default function RebuildIntake() {
       }
 
       // Add the requested webhook call
-      fetch('WEBHOOK_URL_PLACEHOLDER', {
+      fetch('https://grateful-lynx-44.convex.site/api/webhook/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          secret: 'Y24RdJ7OjvX8lrcjPRDCYcusOnAspC9DbYkqJtY1Zb0',
           source: 'nta-website',
           form: '/rebuild-intake',
           name: form.name,
