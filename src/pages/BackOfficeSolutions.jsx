@@ -3,11 +3,12 @@ import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import BackOfficeProblem from '../components/back-office/BackOfficeProblem';
 import BackOfficeFeatures from '../components/back-office/BackOfficeFeatures';
-import BOMath from '../components/backoffice/BOMath';
-import BOCaseStudySection from '../components/backoffice/BOCaseStudySection';
-import BOScreens from '../components/backoffice/BOScreens';
+import BOPricing from '../components/backoffice/BOPricing';
+import BOCaseStudy from '../components/backoffice/BOCaseStudy';
+import BOWhatYouGet from '../components/backoffice/BOWhatYouGet';
 import BOHowItWorks from '../components/backoffice/BOHowItWorks';
-import BOFaq from '../components/backoffice/BOFaq';
+import BOFAQ from '../components/backoffice/BOFAQ';
+import BOFinalCTA from '../components/backoffice/BOFinalCTA';
 import SEOHead from '../components/shared/SEOHead';
 import { Link } from 'react-router-dom';
 import { CheckCircle2 } from 'lucide-react';
@@ -89,11 +90,12 @@ export default function BackOfficeSolutions() {
       {/* The Two New Sections */}
       <BackOfficeProblem />
       <BackOfficeFeatures />
-      <BOMath />
-      <BOCaseStudySection />
-      <BOScreens />
+      <BOPricing />
+      <BOCaseStudy />
+      <BOWhatYouGet />
       <BOHowItWorks />
-      <BOFaq />
+      <BOFAQ />
+      <BOFinalCTA />
 
       <SiteFooter />
     </div>
