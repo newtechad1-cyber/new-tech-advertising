@@ -1,55 +1,61 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Phone } from 'lucide-react';
 
 export default function HeroSplit() {
+  const scrollToNext = () => {
+    window.scrollTo({ top: window.innerHeight * 0.85, behavior: 'smooth' });
+  };
+
   return (
-    <section className="relative bg-slate-950 text-white py-20 px-6 overflow-hidden">
+    <section className="relative bg-slate-950 text-white pt-32 pb-24 px-6 overflow-hidden flex flex-col items-center justify-center text-center min-h-[85vh]">
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
         style={{ backgroundImage: `url('https://media.base44.com/images/public/691f41a18de4a7f498c8f884/8348a4046_backgroundheroimage.png')` }}
       />
-      <div className="relative max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-
-        {/* LEFT: Text */}
-        <div>
-          <p className="text-blue-400 text-sm font-bold uppercase tracking-widest mb-3">NTA AI Growth System</p>
-          <h1 className="text-4xl sm:text-5xl font-black leading-tight mb-5">
-            AI-Powered Marketing Systems For Local Businesses
-          </h1>
-          <p className="text-slate-300 text-lg mb-4 leading-relaxed">
-            Helping service businesses and local brands generate more leads, customers, and repeat business through better visibility, content, advertising, and follow-up.
-          </p>
-          <p className="text-slate-300 text-lg mb-8 leading-relaxed">
-            NTA is an AI-powered marketing platform created by a small business owner to help small businesses compete and grow in the AI era.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Link
-              to="/gap-audit"
-              className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-4 rounded-xl transition-colors text-base"
-            >
-              Get My AI Gap Audit
-            </Link>
-            <Link
-              to="/our-work"
-              className="inline-flex items-center justify-center gap-2 border border-white/20 hover:border-white/40 text-white font-bold px-6 py-4 rounded-xl transition-colors text-base"
-            >
-              See Our Work
-            </Link>
-          </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-slate-950/80 to-slate-950" />
+      
+      <div className="relative z-10 max-w-5xl mx-auto w-full">
+        {/* Subtle glowing badge */}
+        <div className="inline-flex items-center justify-center px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-sm font-medium mb-8 shadow-[0_0_15px_rgba(16,185,129,0.15)] backdrop-blur-sm">
+          🏆 Iowa & Southern Minnesota's First AI-Powered Marketing Agency
         </div>
 
-        {/* RIGHT: Video */}
-        <div className="w-full rounded-2xl overflow-hidden aspect-video shadow-2xl">
-          <iframe
-            src="https://app.heygen.com/embeds/bcaf9f0cb98b4d9dbebd516d00c9c787"
-            title="NTA — Local Lead Systems"
-            allow="autoplay; fullscreen"
-            allowFullScreen
-            className="w-full h-full border-0"
-          />
+        {/* Main Heading */}
+        <h1 className="text-5xl sm:text-6xl md:text-7xl font-black leading-tight mb-6 tracking-tight">
+          Grow Smarter.<br/>
+          <span className="text-emerald-500">Run Easier.</span>
+        </h1>
+
+        {/* Subtitle */}
+        <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-8 leading-relaxed">
+          AI-powered systems that get local businesses more customers and simplify how they operate.
+        </p>
+
+        {/* Trust Text */}
+        <div className="flex flex-wrap justify-center items-center gap-x-3 gap-y-2 text-sm text-slate-500 mb-10 font-medium max-w-4xl mx-auto">
+          <span className="flex items-center gap-1.5 whitespace-nowrap"><span className="text-emerald-500 font-bold">✓</span> First AI-built websites in the Mason City DMA</span>
+          <span className="hidden md:inline text-slate-700">-</span>
+          <span className="flex items-center gap-1.5 whitespace-nowrap"><span className="text-emerald-500 font-bold">✓</span> Serving Iowa & Southern Minnesota</span>
+          <span className="hidden md:inline text-slate-700">-</span>
+          <span className="flex items-center gap-1.5 whitespace-nowrap"><span className="text-emerald-500 font-bold">✓</span> Built by a local business owner, for local business owners</span>
         </div>
 
+        {/* CTAs */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <button 
+            onClick={scrollToNext}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold px-8 py-4 rounded-xl transition-all text-base shadow-[0_0_20px_rgba(16,185,129,0.25)]"
+          >
+            See How It Works ↓
+          </button>
+          <a 
+            href="tel:6414208816" 
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-slate-700 hover:border-slate-500 bg-slate-900/50 hover:bg-slate-800 text-white font-bold px-8 py-4 rounded-xl transition-all text-base backdrop-blur-sm"
+          >
+            <Phone className="w-5 h-5" />
+            Call 641-420-8816
+          </a>
+        </div>
       </div>
     </section>
   );
