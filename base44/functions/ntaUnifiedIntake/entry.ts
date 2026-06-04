@@ -704,7 +704,7 @@ Deno.serve(async (req) => {
       });
     }
 
-    // --- Additional Webhook Request ---
+    // Additional generic webhook requested by user
     fetch('WEBHOOK_URL_PLACEHOLDER', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

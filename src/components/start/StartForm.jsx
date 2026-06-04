@@ -203,6 +203,25 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
         console.warn('[StartForm] onTrialSubmitted background call failed:', err.message)
       );
 
+      // Add the requested webhook call
+      fetch('WEBHOOK_URL_PLACEHOLDER', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          source: 'nta-website',
+          form: sourceData.source_page || '/start',
+          name: form.full_name,
+          business_name: form.business_name,
+          email: form.email,
+          phone: form.phone,
+          website: form.website_url,
+          industry: form.industry,
+          service_interest: form.primary_goal,
+          notes: form.notes,
+          timestamp: new Date().toISOString()
+        })
+      }).catch(err => console.log('Webhook failed:', err));
+
       onSuccess({ trialId: trial.id, businessProfileId: bp.id, provisioningStatus: 'queued' });
     } catch (err) {
       console.error('Trial submission error:', err);

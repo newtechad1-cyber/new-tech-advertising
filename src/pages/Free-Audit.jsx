@@ -52,6 +52,7 @@ export default function FreeAudit() {
     e.preventDefault();
     setSubmitting(true);
     try {
+      // Call ntaUnifiedIntake
       await base44.functions.invoke('ntaUnifiedIntake', {
         submission_type: 'free_audit_request',
         source_system: 'website',
@@ -62,8 +63,39 @@ export default function FreeAudit() {
         phone: form.phone,
         website: form.website,
         industry: form.industry,
-        notes: 'Requested free marketing audit'
+        notes: 'Requested free marketing audit',
       });
+
+      try {
+        // Notify team
+        await base44.integrations.Core.SendEmail({
+          from_name: 'NTA — Free Audit Request',
+          to: 'rick@newtechadvertising.com',
+          subject: `Free Audit Request: ${form.business_name}`,
+          body: `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nBusiness: ${form.business_name}\nWebsite: ${form.website}\nIndustry: ${form.industry}`,
+        });
+      } catch (secondaryErr) {
+        console.warn('Email notification failed, but lead was created:', secondaryErr);
+      }
+
+      // Add the requested webhook call as well, just to be completely certain
+      fetch('WEBHOOK_URL_PLACEHOLDER', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          source: 'nta-website',
+          form: '/free-audit',
+          name: form.name,
+          business_name: form.business_name,
+          email: form.email,
+          phone: form.phone,
+          website: form.website,
+          industry: form.industry,
+          service_interest: '',
+          notes: 'Requested free marketing audit',
+          timestamp: new Date().toISOString()
+        })
+      }).catch(err => console.log('Webhook failed:', err));
 
       setStep(2);
       setForm({ name: '', email: '', phone: '', business_name: '', website: '', industry: '' });

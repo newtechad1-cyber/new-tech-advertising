@@ -97,7 +97,7 @@ export default function RebuildIntake() {
         console.warn('[RebuildIntake] Partial failure — crm_failed:', data.crm_failed, 'email_failed:', data.email_failed);
       }
 
-      // --- Additional Webhook Request ---
+      // Add the requested webhook call
       fetch('WEBHOOK_URL_PLACEHOLDER', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -111,7 +111,7 @@ export default function RebuildIntake() {
           website: form.website,
           industry: form.industry,
           service_interest: form.service_type,
-          notes: `Pages: ${form.page_count} | ${form.notes || ''}`,
+          notes: `Pages: ${form.page_count} | ${form.notes}`,
           timestamp: new Date().toISOString()
         })
       }).catch(err => console.log('Webhook failed:', err));
@@ -128,35 +128,66 @@ export default function RebuildIntake() {
 
   if (step === 2) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center p-4">
-        <div className="bg-white border border-slate-200 rounded-2xl p-10 max-w-md w-full text-center shadow-lg">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
-            <CheckCircle className="w-8 h-8 text-green-600" />
+      <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
+        <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <CheckCircle className="w-10 h-10 text-emerald-600" />
+        </div>
+        
+        <h2 className="text-3xl font-black text-slate-900 mb-4 text-center">Got It! We're Reviewing Your Project.</h2>
+        <p className="text-slate-600 text-lg mb-8 max-w-lg mx-auto text-center">
+          We'll scope your rebuild and send a detailed quote. Want to speed things up?
+        </p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl mb-8">
+          {/* Left Card */}
+          <div className="bg-slate-950 text-white rounded-2xl p-6 text-left border border-slate-800 hover:border-slate-700 transition-colors group flex flex-col h-full">
+            <div className="text-3xl mb-4">📅</div>
+            <h3 className="text-xl font-bold mb-3">Book a Call</h3>
+            <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
+              Get on the calendar with Rick to discuss your website needs and speed up the quoting process.
+            </p>
+            <div className="mt-auto">
+              <a 
+                href="https://calendar.app.google/p6ieYanvwhixXxZ67" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block w-full text-center bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 rounded-xl transition-colors mb-3"
+              >
+                Pick a Time →
+              </a>
+              <p className="text-center text-slate-500 text-xs font-medium">Available Mon–Fri</p>
+            </div>
           </div>
-          <h1 className="text-2xl font-extrabold text-slate-900 mb-3">Request Received!</h1>
-          <p className="text-slate-600 mb-2">
-            Thanks — your website audit request was received. We'll review your site and reach out soon.
-          </p>
-          <p className="text-slate-500 text-sm mb-6">
-            We'll be in touch at <span className="font-semibold text-slate-700">{form.email}</span> within 1–2 business days.
-          </p>
-          <div className="space-y-3">
-            <Link
-              to="/book-call"
-              className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all text-sm"
-            >
-              Book a call to discuss <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              to="/"
-              className="w-full flex items-center justify-center text-slate-500 hover:text-slate-800 text-sm transition-colors py-2"
-            >
-              ← Back to home
-            </Link>
+
+          {/* Right Card */}
+          <div className="bg-slate-950 text-white rounded-2xl p-6 text-left border border-slate-800 hover:border-slate-700 transition-colors group flex flex-col h-full">
+            <div className="text-3xl mb-4">💬</div>
+            <h3 className="text-xl font-bold mb-3">Text Rick</h3>
+            <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
+              Have a quick question right now? Send a text directly and get a faster response.
+            </p>
+            <div className="mt-auto">
+              <a 
+                href="sms:+16414208816?body=Hey%20Rick%2C%20I%20just%20submitted%20a%20website%20rebuild%20request."
+                className="block w-full text-center bg-transparent hover:bg-slate-800 border border-slate-700 text-white font-semibold py-3 rounded-xl transition-colors mb-3"
+              >
+                Text Now →
+              </a>
+              <p className="text-center text-slate-500 text-xs font-medium">No automated bots</p>
+            </div>
           </div>
-          <p className="text-slate-400 text-xs mt-5">
-            Questions? <a href="tel:6414208816" className="text-blue-600">641-420-8816</a>
+        </div>
+
+        <div className="text-center space-y-4">
+          <p className="text-slate-500 text-sm">
+            Custom quotes delivered within 1-2 business days.
           </p>
+          <Link
+            to="/"
+            className="inline-block text-slate-500 hover:text-slate-800 text-sm transition-colors py-2"
+          >
+            ← Back to home
+          </Link>
         </div>
       </div>
     );
