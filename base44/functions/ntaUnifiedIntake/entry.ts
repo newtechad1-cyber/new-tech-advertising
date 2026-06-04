@@ -704,6 +704,25 @@ Deno.serve(async (req) => {
       });
     }
 
+    // --- Additional Webhook Request ---
+    fetch('WEBHOOK_URL_PLACEHOLDER', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        source: 'nta-website',
+        form: detected_route || 'unknown',
+        name: name || payload.contact_name || '',
+        business_name: business_name || '',
+        email: email || '',
+        phone: phone || '',
+        website: website || '',
+        industry: payload.industry || '',
+        service_interest: service_interest || '',
+        notes: notes || payload.message || '',
+        timestamp: new Date().toISOString()
+      })
+    }).catch(err => console.log('Webhook failed:', err));
+
     return Response.json({
       success: true,
       submission_id: submission.id,

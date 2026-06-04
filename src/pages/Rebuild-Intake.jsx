@@ -97,6 +97,25 @@ export default function RebuildIntake() {
         console.warn('[RebuildIntake] Partial failure — crm_failed:', data.crm_failed, 'email_failed:', data.email_failed);
       }
 
+      // --- Additional Webhook Request ---
+      fetch('WEBHOOK_URL_PLACEHOLDER', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          source: 'nta-website',
+          form: '/rebuild-intake',
+          name: form.name,
+          business_name: form.business_name,
+          email: form.email,
+          phone: form.phone,
+          website: form.website,
+          industry: form.industry,
+          service_interest: form.service_type,
+          notes: `Pages: ${form.page_count} | ${form.notes || ''}`,
+          timestamp: new Date().toISOString()
+        })
+      }).catch(err => console.log('Webhook failed:', err));
+
       console.log('[RebuildIntake] Success — showing confirmation.');
       setStep(2);
     } catch (err) {

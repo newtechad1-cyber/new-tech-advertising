@@ -456,7 +456,7 @@ const AuthenticatedApp = () => {
       <Route path="/client/growth-journey" element={<LayoutWrapper currentPageName="ClientGrowthJourney"><ClientGrowthJourney /></LayoutWrapper>} />
       <Route path="/admin/retention-dashboard" element={<LayoutWrapper currentPageName="AdminRetentionDashboard"><AdminRetentionDashboard /></LayoutWrapper>} />
       <Route path="/nta/demo" element={<NTADemoFunnel />} />
-      <Route path="/getting-started" element={<LayoutWrapper currentPageName="GettingStarted"><GettingStarted /></LayoutWrapper>} />
+      <Route path="/getting-started" element={<Navigate to="/start" replace />} />
       <Route path="/channel-help" element={<LayoutWrapper currentPageName="ChannelHelpCenter"><ChannelHelpCenter /></LayoutWrapper>} />
       <Route path="/book-call" element={<LayoutWrapper currentPageName="BookCall"><BookCall /></LayoutWrapper>} />
       <Route path="/admin/hot-prospects" element={<LayoutWrapper currentPageName="AdminHotProspectsAlert"><AdminHotProspectsAlert /></LayoutWrapper>} />

@@ -52,29 +52,18 @@ export default function FreeAudit() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      // Create SalesLead
-      await createAgencyLead({
+      await base44.functions.invoke('ntaUnifiedIntake', {
+        submission_type: 'free_audit_request',
+        source_system: 'website',
+        source_page: '/free-audit',
+        name: form.name,
         business_name: form.business_name,
-        contact_name:  form.name,
-        email:         form.email,
-        phone:         form.phone,
-        website:       form.website,
-        industry:      form.industry,
-        lead_source:   'website',
-        notes:         'Requested free marketing audit',
+        email: form.email,
+        phone: form.phone,
+        website: form.website,
+        industry: form.industry,
+        notes: 'Requested free marketing audit'
       });
-
-      try {
-        // Notify team
-        await base44.integrations.Core.SendEmail({
-          from_name: 'NTA — Free Audit Request',
-          to: 'rick@newtechadvertising.com',
-          subject: `Free Audit Request: ${form.business_name}`,
-          body: `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nBusiness: ${form.business_name}\nWebsite: ${form.website}\nIndustry: ${form.industry}`,
-        });
-      } catch (secondaryErr) {
-        console.warn('Email notification failed, but lead was created:', secondaryErr);
-      }
 
       setStep(2);
       setForm({ name: '', email: '', phone: '', business_name: '', website: '', industry: '' });
