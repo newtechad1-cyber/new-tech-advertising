@@ -4,5 +4,17 @@
   "tool_configs": [],
   "whatsapp_greeting": "Hi there! I'm the NTA Growth Guide. I'm here to help you understand how New Tech Advertising can grow your local business and streamline operations. How can I help you today?",
   "telegram_greeting": "Hi there! I'm the NTA Growth Guide. I'm here to help you understand how New Tech Advertising can grow your local business and streamline operations. How can I help you today?",
+  "context_files": [],
+  "app_user_connector_configs": [],
+  "selected_skill_names": [],
+  "selected_workspace_skill_ids": [],
+  "model": "automatic",
+  "line_greeting": "",
+  "memory_config": {
+    "enabled": true,
+    "scope": "both",
+    "include_other_conversation_context": false,
+    "instructions": "Save the visitor's business type, location, and what they're looking for. Remember their name if they share it. Note which services interested them most."
+  },
   "name": "nta_growth_guide"
 }
