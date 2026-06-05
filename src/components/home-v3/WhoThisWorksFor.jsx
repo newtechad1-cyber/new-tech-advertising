@@ -33,7 +33,7 @@ const testimonials = [
   {
     name: 'Jay Monson',
     business: 'Monson Plumbing, Heating & Excavating',
-    quote: "Working with Rick has been completely different than dealing with a typical marketing company. He understands local service businesses and knows how to explain things in a way customers actually connect with. The visibility and branding have improved a lot, and customers are definitely noticing us more online.",
+    quote: "Rick doesn't just sell advertising — he takes the time to understand your business, your goals, and your vision. His marketing strategies are innovative, effective, and tailored to deliver real results. Five stars all the way.",
   },
   {
     name: 'Tony Johnson',

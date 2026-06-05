@@ -10,7 +10,7 @@ import NTAGrowthSystem from '../components/home-v3/NTAGrowthSystem';
 import IndustrySplit from '../components/home-v3/IndustrySplit';
 import HowItWorks from '../components/home-v3/HowItWorks';
 import WhoThisWorksFor from '../components/home-v3/WhoThisWorksFor';
-import TestimonialsSection from '../components/home-v3/TestimonialsSection.jsx';
+import CombinedReviewsSection from '../components/home-v3/CombinedReviewsSection';
 import GapAuditCenteredCTA from '../components/home-v3/GapAuditCenteredCTA';
 import InternetChangedSection from '../components/home-v3/InternetChangedSection';
 import WhatWeFoundSection from '../components/home-v3/WhatWeFoundSection';
@@ -20,7 +20,6 @@ import HomeYoutubeSection from '../components/home-v3/HomeYoutubeSection';
 import NTAVideoMessage from '../components/home-v3/NTAVideoMessage';
 import SEOHead from '../components/shared/SEOHead';
 import VoiceSearchQA from '../components/home-v3/VoiceSearchQA';
-import GoogleReviewsPlaceholder from '../components/home-v3/GoogleReviewsPlaceholder';
 
 export default function Home() {
   return (
@@ -44,8 +43,7 @@ export default function Home() {
       <IndustrySplit />
       <HowItWorks />
       <WhoThisWorksFor />
-      <TestimonialsSection />
-      <GoogleReviewsPlaceholder />
+      <CombinedReviewsSection />
       <VoiceSearchQA />
       <GapAuditCenteredCTA />
       <SiteFooter />
