@@ -38,9 +38,12 @@ export default function HomeHero() {
               >
                 Start Free Trial <ArrowRight className="w-4 h-4" />
               </a>
-              <button className="inline-flex items-center justify-center gap-2 border border-slate-600 hover:border-slate-400 text-slate-300 hover:text-white font-semibold px-6 py-4 rounded-xl text-base transition-all duration-200">
-                <Play className="w-4 h-4 fill-current" /> Watch Demo
-              </button>
+              <Link
+                to="/find-your-plan"
+                className="inline-flex items-center justify-center gap-2 bg-transparent border border-white hover:border-violet-400 hover:text-violet-400 text-white font-bold px-8 py-4 rounded-xl text-base transition-all duration-200 hover:-translate-y-0.5"
+              >
+                Find Your Plan <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
 
             <div className="mb-10">

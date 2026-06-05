@@ -205,19 +205,19 @@ export default function FreeAudit() {
 
                   {/* Right Card */}
                   <div className="bg-slate-950 text-white rounded-2xl p-6 text-left border border-slate-800 hover:border-slate-700 transition-colors group flex flex-col h-full">
-                    <div className="text-3xl mb-4">🚀</div>
-                    <h3 className="text-xl font-bold mb-3">Try the DIY Tools</h3>
+                    <div className="text-3xl mb-4">🎯</div>
+                    <h3 className="text-xl font-bold mb-3">Find Your Plan</h3>
                     <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
-                      Explore our marketing platform and start building your online presence while we prepare your audit.
+                      While you wait for your audit, find out which growth plan fits your business. Take our 90-second quiz to get a personalized recommendation.
                     </p>
                     <div className="mt-auto">
                       <Link 
-                        to="/start" 
+                        to="/find-your-plan" 
                         className="block w-full text-center bg-transparent hover:bg-slate-800 border border-slate-700 text-white font-semibold py-3 rounded-xl transition-colors mb-3"
                       >
-                        Start Free Trial →
+                        Find Your Plan →
                       </Link>
-                      <p className="text-center text-slate-500 text-xs font-medium">No credit card required</p>
+                      <p className="text-center text-slate-500 text-xs font-medium">Quick 90-second quiz</p>
                     </div>
                   </div>
                 </div>

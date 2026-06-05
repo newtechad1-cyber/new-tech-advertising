@@ -14,6 +14,11 @@ export default function Pricing() {
         description="Affordable AI marketing plans for small businesses. Social media, AISO, Google Business Profile & website rebuilds. Transparent pricing. New Tech Advertising, Mason City IA."
       />
       <MarketingNav />
+      <div className="bg-gradient-to-r from-violet-600 to-indigo-600 py-3 px-4 text-center">
+        <a href="/find-your-plan" className="text-white font-semibold text-sm hover:underline flex items-center justify-center gap-2">
+          Not sure which plan? Take our 90-second Growth Plan Quiz <span aria-hidden="true">→</span>
+        </a>
+      </div>
       <HomePricing />
       <FeatureMatrix />
       <HomeFinalCta />

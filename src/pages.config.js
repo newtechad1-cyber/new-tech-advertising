@@ -48,6 +48,7 @@
  * The mainPage value must match a key in the PAGES object exactly.
  */
 import AIWorkforce from './pages/AIWorkforce';
+import SignupPage from './pages/SignupPage';
 import PricingWizard from './pages/PricingWizard';
 import About from './pages/About';
 import adaCompliance from './pages/Ada-Compliance';
@@ -557,6 +558,7 @@ import __Layout from './Layout.jsx';
 
 export const PAGES = {
     "AIWorkforce": AIWorkforce,
+    "signup": SignupPage,
     "About": About,
     "Ada-Compliance": adaCompliance,
     "Ada": Ada,

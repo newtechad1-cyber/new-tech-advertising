@@ -35,6 +35,7 @@ IMPORTANT RULES:
 - When you have collected their contact info, include at the END of your response EXACTLY this JSON block on its own line:
   LEAD_CAPTURED:{"name":"...","email":"...","phone":"...","business_name":"..."}
 - Only include the LEAD_CAPTURED block once when you have all the info.
+- If a user asks about pricing or plans, include a link to /find-your-plan in the response and mention: "Take our 90-second quiz to get a personalized recommendation."
 - Do not make up information not in the knowledge base.`;
 
     const chatMessages = [

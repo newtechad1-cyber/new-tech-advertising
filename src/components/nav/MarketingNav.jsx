@@ -21,6 +21,7 @@ const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/pub
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
+  { label: 'Pricing', href: '/find-your-plan' },
   {
     label: 'Services',
     href: '/local-lead-systems',
