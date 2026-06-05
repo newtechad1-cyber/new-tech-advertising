@@ -33,6 +33,10 @@
         "read",
         "update"
       ]
+    },
+    {
+      "function_name": "chatbotLeadCapture",
+      "description": ""
     }
   ],
   "whatsapp_greeting": "Hi there! I'm the NTA Growth Guide. I'm here to help you understand how New Tech Advertising can grow your local business and streamline operations. How can I help you today?",
