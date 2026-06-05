@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
-import { Bot, X, Send, Loader2, User, Copy, FileText, CheckCircle2, AlertCircle, Clock, Zap, ChevronRight } from 'lucide-react';
+import { Bot, X, Send, Loader2, User, Copy, FileText, CheckCircle2, AlertCircle, Clock, Zap, ChevronRight, MessageCircle } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import ReactMarkdown from 'react-markdown';
@@ -177,11 +177,60 @@ const MessageBubble = ({ message }) => {
 
 export default function AgentChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
+  const [authStep, setAuthStep] = useState('loading'); // 'loading', 'connect', 'chat'
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [isAuthLoading, setIsAuthLoading] = useState(false);
+  
   const [conversation, setConversation] = useState(null);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    if (isOpen && authStep === 'loading') {
+      base44.auth.isAuthenticated().then(isAuth => {
+        if (isAuth) {
+          setAuthStep('chat');
+        } else {
+          setAuthStep('connect');
+        }
+      });
+    }
+  }, [isOpen, authStep]);
+
+  useEffect(() => {
+    if (isOpen && authStep === 'chat' && !conversation) {
+      initConversation();
+    }
+  }, [isOpen, authStep, conversation]);
+
+  const handleConnect = async (e) => {
+    e.preventDefault();
+    if (!email.trim() || !name.trim()) return;
+    setIsAuthLoading(true);
+    
+    let pass = localStorage.getItem('nta_chat_pass');
+    if (!pass) {
+        pass = crypto.randomUUID();
+        localStorage.setItem('nta_chat_pass', pass);
+    }
+    
+    try {
+        try {
+            await base44.auth.register({ email: email.trim(), password: pass, full_name: name.trim() });
+        } catch (regErr) {
+            // Might already exist, ignore and try to login
+        }
+        await base44.auth.loginViaEmailPassword(email.trim(), pass);
+        setAuthStep('chat');
+    } catch (e) {
+        toast.error("Could not connect. Please try again.");
+    } finally {
+        setIsAuthLoading(false);
+    }
+  };
 
   const initConversation = async () => {
     try {
@@ -199,12 +248,6 @@ export default function AgentChatWidget() {
         setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (isOpen && !conversation) {
-      initConversation();
-    }
-  }, [isOpen]);
 
   useEffect(() => {
       if (!conversation) return;
@@ -294,53 +337,106 @@ export default function AgentChatWidget() {
               </button>
             </div>
 
-            {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
-              {isLoading && messages.length === 0 && (
-                <div className="flex flex-col items-center justify-center h-full text-slate-500">
-                    <Loader2 className="w-6 h-6 animate-spin mb-2" />
-                    <p className="text-sm">Connecting to agent...</p>
+            {authStep === 'connect' ? (
+                <div className="flex-1 p-8 flex flex-col justify-center items-center bg-white">
+                    <h3 className="text-xl font-bold text-slate-800 mb-6">Quick connect to chat</h3>
+                    <form onSubmit={handleConnect} className="w-full space-y-4">
+                        <div>
+                            <Input 
+                                placeholder="Name" 
+                                value={name} 
+                                onChange={e => setName(e.target.value)}
+                                required
+                                className="w-full"
+                            />
+                        </div>
+                        <div>
+                            <Input 
+                                type="email"
+                                placeholder="Email" 
+                                value={email} 
+                                onChange={e => setEmail(e.target.value)}
+                                required
+                                className="w-full"
+                            />
+                        </div>
+                        <Button 
+                            type="submit" 
+                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 h-auto rounded-xl"
+                            disabled={isAuthLoading}
+                        >
+                            {isAuthLoading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : 'Start Chatting →'}
+                        </Button>
+                        <p className="text-center text-xs text-slate-500 mt-4">We'll remember you next time</p>
+                    </form>
                 </div>
-              )}
-              {messages.map((message, index) => (
-                <MessageBubble key={message.id || index} message={message} />
-              ))}
-              <div ref={messagesEndRef} />
-            </div>
+            ) : authStep === 'chat' ? (
+                <>
+                    {/* Messages */}
+                    <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                      {isLoading && messages.length === 0 && (
+                        <div className="flex flex-col items-center justify-center h-full text-slate-500">
+                            <Loader2 className="w-6 h-6 animate-spin mb-2" />
+                            <p className="text-sm">Connecting to agent...</p>
+                        </div>
+                      )}
+                      {messages.map((message, index) => (
+                        <MessageBubble key={message.id || index} message={message} />
+                      ))}
+                      <div ref={messagesEndRef} />
+                    </div>
 
-            {/* Quick Actions (only show if few messages or input empty) */}
-            {messages.length < 4 && (
-                <div className="px-4 pb-2 flex gap-2 overflow-x-auto scrollbar-hide snap-x">
-                    <button onClick={() => handleQuickAction("What services do you offer?")} className="snap-start flex-shrink-0 text-xs bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-full hover:bg-slate-50 hover:text-slate-900 transition-colors">
-                        What services do you offer?
-                    </button>
-                    <button onClick={() => handleQuickAction("Can I get a gap audit?")} className="snap-start flex-shrink-0 text-xs bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-full hover:bg-slate-50 hover:text-slate-900 transition-colors">
-                        Can I get a gap audit?
-                    </button>
-                    <button onClick={() => handleQuickAction("How much does it cost?")} className="snap-start flex-shrink-0 text-xs bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-full hover:bg-slate-50 hover:text-slate-900 transition-colors">
-                        How much does it cost?
-                    </button>
+                    {/* Quick Actions (only show if few messages or input empty) */}
+                    {messages.length < 4 && (
+                        <div className="px-4 pb-2 flex gap-2 overflow-x-auto scrollbar-hide snap-x">
+                            <button onClick={() => handleQuickAction("What services do you offer?")} className="snap-start flex-shrink-0 text-xs bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-full hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                                What services do you offer?
+                            </button>
+                            <button onClick={() => handleQuickAction("Can I get a gap audit?")} className="snap-start flex-shrink-0 text-xs bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-full hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                                Can I get a gap audit?
+                            </button>
+                            <button onClick={() => handleQuickAction("How much does it cost?")} className="snap-start flex-shrink-0 text-xs bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-full hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                                How much does it cost?
+                            </button>
+                        </div>
+                    )}
+
+                    {/* Input */}
+                    <div className="p-3 bg-white border-t border-slate-200">
+                        <form onSubmit={handleSend} className="relative">
+                            <Input
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                                placeholder="Ask me anything..."
+                                className="w-full pr-12 rounded-xl border-slate-200 bg-slate-50 focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:bg-white transition-all shadow-sm"
+                            />
+                            <Button
+                                type="submit"
+                                size="icon"
+                                disabled={!input.trim()}
+                                className="absolute right-1 top-1 bottom-1 h-auto w-8 rounded-lg bg-blue-600 hover:bg-blue-700 text-white disabled:bg-slate-200 disabled:text-slate-400"
+                            >
+                                <Send className="w-4 h-4" />
+                            </Button>
+                        </form>
+                    </div>
+                </>
+            ) : (
+                <div className="flex-1 flex justify-center items-center bg-white">
+                    <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
                 </div>
             )}
 
-            {/* Input */}
-            <div className="p-3 bg-white border-t border-slate-200">
-                <form onSubmit={handleSend} className="relative">
-                    <Input
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        placeholder="Ask me anything..."
-                        className="w-full pr-12 rounded-xl border-slate-200 bg-slate-50 focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:bg-white transition-all shadow-sm"
-                    />
-                    <Button
-                        type="submit"
-                        size="icon"
-                        disabled={!input.trim()}
-                        className="absolute right-1 top-1 bottom-1 h-auto w-8 rounded-lg bg-blue-600 hover:bg-blue-700 text-white disabled:bg-slate-200 disabled:text-slate-400"
-                    >
-                        <Send className="w-4 h-4" />
-                    </Button>
-                </form>
+            {/* WhatsApp button */}
+            <div className="bg-slate-50 p-2 text-center border-t border-slate-200 z-10">
+                <a 
+                    href={base44.agents.getWhatsAppConnectURL('nta_growth_guide')} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-xs font-medium text-slate-500 hover:text-green-600 flex items-center justify-center gap-1.5 transition-colors"
+                >
+                    <MessageCircle className="w-3.5 h-3.5" /> Continue on WhatsApp
+                </a>
             </div>
           </motion.div>
         )}
