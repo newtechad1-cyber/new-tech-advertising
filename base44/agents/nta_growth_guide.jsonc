@@ -7,8 +7,15 @@
       "allowed_operations": [
         "create",
         "read",
-        "update",
-        "delete"
+        "update"
+      ]
+    },
+    {
+      "entity_name": "ChatbotKnowledge",
+      "allowed_operations": [
+        "create",
+        "read",
+        "update"
       ]
     }
   ],
