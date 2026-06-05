@@ -68,27 +68,15 @@ Deno.serve(async (req) => {
           customer: customer.id,
           mode: 'subscription',
           payment_method_types: 'card',
-          line_items: JSON.stringify([
-            {
-              price_data: {
-                currency: 'usd',
-                product_data: {
-                  name: selectedPlan.name,
-                  description: 'AI-powered marketing tools and automation',
-                  metadata: {
-                    plan_type: plan,
-                  },
-                },
-                recurring: {
-                  interval: 'month',
-                  interval_count: 1,
-                },
-                unit_amount: selectedPlan.amount,
-              },
-              quantity: 1,
-            },
-          ]),
-          success_url: `${APP_URL}/client/diy-onboarding?session_id={CHECKOUT_SESSION_ID}`,
+          'line_items[0][price_data][currency]': 'usd',
+          'line_items[0][price_data][product_data][name]': selectedPlan.name,
+          'line_items[0][price_data][product_data][description]': 'AI-powered marketing tools and automation',
+          'line_items[0][price_data][product_data][metadata][plan_type]': plan,
+          'line_items[0][price_data][recurring][interval]': 'month',
+          'line_items[0][price_data][recurring][interval_count]': '1',
+          'line_items[0][price_data][unit_amount]': selectedPlan.amount,
+          'line_items[0][quantity]': '1',
+          success_url: `${APP_URL}/client/diy-onboarding?session_id={CHECKOUT_SESSION_ID}&plan=${plan}`,
           cancel_url: `${APP_URL}/nta/diy-growth-system`,
         }),
       }
