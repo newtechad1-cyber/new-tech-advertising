@@ -7,6 +7,15 @@ Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
     const user = await base44.auth.me();
+    const body = await req.json().catch(() => ({}));
+    const plan = body.plan || 'diy_social';
+
+    const planPrices = {
+      diy_social: { amount: 9700, name: 'DIY Social', label: 'DIY Social', monthly_price: 97 },
+      diy_suite: { amount: 19700, name: 'DIY Marketing Suite', label: 'DIY Marketing Suite', monthly_price: 197 },
+    };
+
+    const selectedPlan = planPrices[plan] || planPrices['diy_social'];
 
     if (!user) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
@@ -64,17 +73,17 @@ Deno.serve(async (req) => {
               price_data: {
                 currency: 'usd',
                 product_data: {
-                  name: 'NTA DIY Growth System',
+                  name: selectedPlan.name,
                   description: 'AI-powered marketing tools and automation',
                   metadata: {
-                    plan_type: 'diy_growth_system',
+                    plan_type: plan,
                   },
                 },
                 recurring: {
                   interval: 'month',
                   interval_count: 1,
                 },
-                unit_amount: 9900, // $99.00
+                unit_amount: selectedPlan.amount,
               },
               quantity: 1,
             },
@@ -97,7 +106,10 @@ Deno.serve(async (req) => {
       stripe_customer_id: customer.id,
       stripe_subscription_id: '',
       status: 'pending',
-      plan_type: 'diy_growth_system',
+      plan_type: plan,
+      current_plan: plan,
+      monthly_price: selectedPlan.monthly_price,
+      tier_label: selectedPlan.label,
       onboarding_completed: false,
       onboarding_step: 0,
     });
