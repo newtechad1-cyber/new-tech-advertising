@@ -39,22 +39,32 @@
     "plan_type": {
       "type": "string",
       "enum": [
-        "diy",
-        "guided_growth",
-        "done_for_you",
-        "premium"
+        "diy_social",
+        "diy_suite",
+        "growth_partner",
+        "growth_accelerator",
+        "full_stack"
       ],
-      "default": "diy"
+      "default": "diy_social"
     },
     "current_plan": {
       "type": "string",
       "enum": [
-        "diy",
-        "guided_growth",
-        "done_for_you",
-        "premium"
+        "diy_social",
+        "diy_suite",
+        "growth_partner",
+        "growth_accelerator",
+        "full_stack"
       ],
-      "default": "diy"
+      "default": "diy_social"
+    },
+    "monthly_price": {
+      "type": "number",
+      "default": 97
+    },
+    "tier_label": {
+      "type": "string",
+      "default": "DIY Social"
     },
     "billing_cycle_start": {
       "type": "string",
