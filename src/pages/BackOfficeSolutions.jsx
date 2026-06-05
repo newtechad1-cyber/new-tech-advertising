@@ -1,6 +1,7 @@
 import React from 'react';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
+import BOScreenshotShowcase from '../components/backoffice/BOScreenshotShowcase';
 import BackOfficeProblem from '../components/back-office/BackOfficeProblem';
 import BackOfficeFeatures from '../components/back-office/BackOfficeFeatures';
 import BOPricing from '../components/backoffice/BOPricing';
@@ -85,6 +86,8 @@ export default function BackOfficeSolutions() {
           </div>
         </div>
       </section>
+
+      <BOScreenshotShowcase />
 
       {/* The Two New Sections */}
       <BackOfficeProblem />
