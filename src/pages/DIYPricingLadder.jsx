@@ -10,15 +10,18 @@ const PLANS = [
     description: 'Manage your social media with AI tools',
     cta: 'Start DIY Social',
     ctaDestination: '/nta/diy-growth-system?plan=diy_social',
+    btnColor: 'bg-blue-500 hover:bg-blue-600',
+    badgeColor: 'bg-blue-500',
+    bgClass: 'bg-slate-900',
     features: [
-      'AI Content Gen (20 posts)',
+      'AI Content Generation (20 posts/mo)',
       'Social Media Planner',
       '3 Social Channels',
       'Content Calendar',
       'Growth Guide Chatbot',
       'Learning Center Access',
       'Email Support',
-      'Cancel Anytime',
+      'Cancel Anytime'
     ],
     notIncluded: [],
     featured: false,
@@ -27,14 +30,17 @@ const PLANS = [
     name: 'DIY Marketing Suite',
     price: 197,
     badge: 'Best for Solo Operators',
-    description: 'Full marketing + business tools',
+    description: 'Full marketing + business tools — run everything yourself',
     cta: 'Start Marketing Suite',
     ctaDestination: '/nta/diy-growth-system?plan=diy_suite',
+    btnColor: 'bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700',
+    badgeColor: 'bg-violet-600',
+    bgClass: 'bg-gradient-to-b from-violet-600/20 to-indigo-600/10 border-violet-600/50',
     features: [
-      'Everything in DIY Social',
-      'Full CRM & Management',
+      'Everything in DIY Social PLUS:',
+      'Full CRM & Client Management',
       'Leads Pipeline & Prospecting',
-      'Invoicing & Expenses',
+      'Invoicing & Expense Tracking',
       'Financial Reports (P&L)',
       'Project Tracking',
       '50 AI Posts/mo',
@@ -42,7 +48,7 @@ const PLANS = [
       'AI Video Studio',
       'Self-Service Gap Audit',
       'Monthly Live Q&A',
-      'Priority Support',
+      'Priority Support'
     ],
     notIncluded: [],
     featured: true,
@@ -51,17 +57,20 @@ const PLANS = [
     name: 'Growth Partner',
     price: 297,
     badge: 'Best for Accountability',
-    description: 'We handle social media + strategy',
+    description: 'We handle social media + strategy — you focus on your business',
     cta: 'Book a Call',
     ctaDestination: '/book-call',
+    btnColor: 'bg-emerald-600 hover:bg-emerald-700',
+    badgeColor: 'bg-emerald-600',
+    bgClass: 'bg-slate-900',
     features: [
-      '20 Done-For-You Posts/mo',
+      '20 Done-For-You Social Posts/mo',
       '7 Channels Managed',
       'Monthly Strategy Call',
-      'SEO + Google Business',
-      'Content Calendar DFY',
+      'SEO + Google Business Optimization',
+      'Content Calendar Done For You',
       'Monthly Performance Report',
-      'Dedicated Growth Strategist',
+      'Dedicated Growth Strategist'
     ],
     notIncluded: [],
     featured: false,
@@ -70,17 +79,20 @@ const PLANS = [
     name: 'Growth Accelerator',
     price: 497,
     badge: 'Best for Serious Growth',
-    description: 'Full content + video + reputation',
+    description: 'Full content + video + reputation managed for you',
     cta: 'Book a Call',
     ctaDestination: '/book-call',
+    btnColor: 'bg-amber-500 hover:bg-amber-600',
+    badgeColor: 'bg-amber-500',
+    bgClass: 'bg-slate-900',
     features: [
-      'Everything in Growth Partner',
+      'Everything in Growth Partner PLUS:',
       'AI Video Production',
-      'Reputation & Reviews',
+      'Reputation & Review Management',
       'Streaming TV Ad Scripts',
       'Bi-weekly Strategy Calls',
-      'Unlimited Channels',
-      'Competitor Analysis',
+      'Unlimited Social Channels',
+      'Competitor Analysis'
     ],
     notIncluded: [],
     featured: false,
@@ -89,17 +101,20 @@ const PLANS = [
     name: 'Full-Stack Growth',
     price: 797,
     badge: 'The Everything Plan',
-    description: 'Marketing + back-office systems',
+    description: 'Marketing + back-office systems + custom automations',
     cta: 'Book Strategy Call',
     ctaDestination: '/book-call',
+    btnColor: 'bg-rose-600 hover:bg-rose-700',
+    badgeColor: 'bg-rose-600',
+    bgClass: 'bg-slate-900',
     features: [
-      'Everything in Accelerator',
+      'Everything in Accelerator PLUS:',
       'Custom Back-Office App',
       'Automated Invoicing & Dispatch',
       'Weekly Strategy Calls',
       'Custom Automation Workflows',
       'Priority Everything',
-      'Quarterly Business Reviews',
+      'Quarterly Business Reviews'
     ],
     notIncluded: [],
     featured: false,
@@ -118,15 +133,15 @@ export default function DIYPricingLadder() {
       </div>
 
       {/* Pricing Cards */}
-      <div className="py-20 px-6 overflow-x-hidden">
-        <div className="max-w-[90rem] mx-auto">
-          <div className="flex lg:grid lg:grid-cols-5 gap-8 mb-12 overflow-x-auto pb-12 pt-4 px-4 snap-x snap-mandatory">
+      <div className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             {PLANS.map((plan, idx) => (
               <div
                 key={idx}
-                className={`min-w-[320px] lg:min-w-0 snap-center rounded-lg border transition-all flex flex-col ${
+                className={`rounded-lg border transition-all ${
                   plan.featured
-                    ? 'bg-gradient-to-b from-violet-600/20 to-indigo-600/10 border-violet-600/50 scale-105 shadow-2xl z-10'
+                    ? 'bg-gradient-to-b from-violet-600/20 to-indigo-600/10 border-violet-600/50 scale-105 shadow-2xl'
                     : 'bg-slate-900 border-slate-800 hover:border-slate-700'
                 }`}
               >
@@ -171,10 +186,10 @@ export default function DIYPricingLadder() {
                   </a>
 
                   {/* Features */}
-                  <div className="space-y-3 flex-1">
+                  <div className="space-y-3">
                     {plan.features.map((feature, fIdx) => (
-                      <div key={fIdx} className="flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                      <div key={fIdx} className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
                         <span className="text-slate-300 text-sm">{feature}</span>
                       </div>
                     ))}
@@ -200,7 +215,7 @@ export default function DIYPricingLadder() {
           </div>
 
           {/* Upgrade Paths */}
-          <div className="max-w-4xl mx-auto bg-gradient-to-r from-slate-800 to-slate-900 border border-slate-700 rounded-lg p-8 mt-16">
+          <div className="bg-gradient-to-r from-slate-800 to-slate-900 border border-slate-700 rounded-lg p-8 mt-16">
             <h3 className="text-2xl font-bold text-white mb-6">Upgrade Path</h3>
             <div className="space-y-4">
               <div className="flex items-center gap-4">

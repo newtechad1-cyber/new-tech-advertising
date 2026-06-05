@@ -9,6 +9,7 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import { AdminGuard, ClientGuard } from '@/components/auth/RoleGuard';
 import Login from './pages/Login';
+import SignupPage from './pages/SignupPage';
 // — Eagerly loaded public pages (tiny, critical for first paint) —
 import Home from './pages/Home';
 import AdminDashboard from './pages/AdminDashboard';
@@ -350,6 +351,7 @@ const AuthenticatedApp = () => {
         </LayoutWrapper>
       } />
       <Route path="/Login" element={<LayoutWrapper currentPageName="Login"><Login /></LayoutWrapper>} />
+      <Route path="/signup" element={<LayoutWrapper currentPageName="SignupPage"><SignupPage /></LayoutWrapper>} />
       <Route path="/admin-dashboard" element={<AdminGuard><LayoutWrapper currentPageName="AdminDashboard"><AdminDashboard /></LayoutWrapper></AdminGuard>} />
       <Route path="/client-dashboard" element={<ClientGuard><LayoutWrapper currentPageName="ClientDashboard"><ClientDashboard /></LayoutWrapper></ClientGuard>} />
       <Route path="/client/dashboard" element={<Navigate to="/client-dashboard" replace />} />
@@ -467,6 +469,7 @@ const AuthenticatedApp = () => {
       <Route path="/client/diy-dashboard" element={<LayoutWrapper currentPageName="DIYDashboard"><DIYDashboard /></LayoutWrapper>} />
       <Route path="/client/diy-billing" element={<LayoutWrapper currentPageName="DIYBillingSettings"><DIYBillingSettings /></LayoutWrapper>} />
       <Route path="/diy-checkout-success" element={<DIYCheckoutSuccess />} />
+      <Route path="/find-your-plan" element={<PricingWizard />} />
       {/* Demo Flow */}
       <Route path="/demo/flow" element={<LayoutWrapper currentPageName="DemoFlow"><DemoFlow /></LayoutWrapper>} />
 
