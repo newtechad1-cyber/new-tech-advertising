@@ -135,23 +135,22 @@ export default function DIYPricingLadder() {
       {/* Pricing Cards */}
       <div className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          <div className="flex overflow-x-auto pb-8 snap-x snap-mandatory gap-8 mb-12 md:grid md:grid-cols-2 lg:grid-cols-5 md:overflow-visible">
+            {/* Added styling to the children container below */}
             {PLANS.map((plan, idx) => (
               <div
                 key={idx}
-                className={`rounded-lg border transition-all ${
+                className={`rounded-lg border transition-all flex flex-col min-w-[300px] snap-center shrink-0 ${
                   plan.featured
-                    ? 'bg-gradient-to-b from-violet-600/20 to-indigo-600/10 border-violet-600/50 scale-105 shadow-2xl'
+                    ? 'bg-gradient-to-b from-violet-600/20 to-indigo-600/10 border-violet-600/50 scale-105 shadow-2xl z-10'
                     : 'bg-slate-900 border-slate-800 hover:border-slate-700'
                 }`}
               >
                 {/* Badge */}
                 {plan.badge && (
                   <div className="px-6 pt-6">
-                    <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${
-                      plan.featured
-                        ? 'bg-violet-600 text-white'
-                        : 'bg-slate-800 text-slate-400'
+                    <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-full text-white ${
+                      plan.badgeColor || 'bg-slate-800 text-slate-400'
                     }`}>
                       {plan.badge}
                     </span>
@@ -159,7 +158,7 @@ export default function DIYPricingLadder() {
                 )}
 
                 {/* Content */}
-                <div className="p-6">
+                <div className="p-6 flex flex-col flex-1">
                   <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
                   <p className="text-slate-400 text-sm mb-4">{plan.description}</p>
 
@@ -174,10 +173,8 @@ export default function DIYPricingLadder() {
                   {/* CTA */}
                   <a href={plan.ctaDestination}>
                     <Button
-                      className={`w-full mb-6 ${
-                        plan.featured
-                          ? 'bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white'
-                          : 'bg-slate-800 hover:bg-slate-700 text-white'
+                      className={`w-full mb-6 text-white border-none ${
+                        plan.btnColor || 'bg-slate-800 hover:bg-slate-700'
                       }`}
                     >
                       {plan.cta}

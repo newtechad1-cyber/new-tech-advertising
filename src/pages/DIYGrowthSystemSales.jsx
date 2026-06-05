@@ -22,8 +22,10 @@ export default function DIYGrowthSystemSales() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState('diy_social');
 
-  const handleStartDIYPlan = () => {
+  const handleStartDIYPlan = (plan = 'diy_social') => {
+    setSelectedPlan(plan);
     setShowCheckoutModal(true);
   };
 
@@ -31,7 +33,7 @@ export default function DIYGrowthSystemSales() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await base44.functions.invoke('createDIYCheckout', {});
+      const response = await base44.functions.invoke('createDIYCheckout', { plan: selectedPlan });
       if (response.data?.stripe_url) {
         window.location.href = response.data.stripe_url;
       } else {

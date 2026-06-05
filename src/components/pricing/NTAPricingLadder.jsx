@@ -7,7 +7,6 @@ const TIERS = [
     id: 'diy_social',
     name: 'DIY Social',
     price: 97,
-    priceTag: '',
     tag: 'Best Way to Start',
     phase: 'Start',
     icon: Target,
@@ -15,7 +14,7 @@ const TIERS = [
     tagText: 'text-blue-300',
     description: 'Manage your social media with AI tools',
     features: [
-      'AI Content Gen (20/mo)',
+      'AI Content Generation (20 posts/mo)',
       'Social Media Planner',
       '3 Social Channels',
       'Content Calendar',
@@ -25,28 +24,28 @@ const TIERS = [
       'Cancel Anytime'
     ],
     cta: 'Start DIY Social',
-    ctaVariant: 'outline',
+    ctaVariant: 'default',
     highlight: false,
   },
   {
     id: 'diy_suite',
     name: 'DIY Marketing Suite',
     price: 197,
-    priceTag: '',
     tag: 'Best for Solo Operators',
-    phase: 'Grow',
+    phase: 'Accelerate',
     icon: Zap,
     tagBg: 'bg-violet-500/10 border-violet-500/30',
     tagText: 'text-violet-300',
     description: 'Full marketing + business tools — run everything yourself',
     features: [
       'Everything in DIY Social',
-      'Full CRM & Management',
+      'Full CRM & Client Management',
       'Leads Pipeline & Prospecting',
-      'Invoicing & Expenses',
+      'Invoicing & Expense Tracking',
       'Financial Reports (P&L)',
       'Project Tracking',
-      '50 AI Posts/mo, 7 Channels',
+      '50 AI Posts/mo',
+      '7 Social Channels',
       'AI Video Studio',
       'Self-Service Gap Audit',
       'Monthly Live Q&A',
@@ -60,7 +59,6 @@ const TIERS = [
     id: 'growth_partner',
     name: 'Growth Partner',
     price: 297,
-    priceTag: '',
     tag: 'Best for Accountability',
     phase: 'Partner',
     icon: Rocket,
@@ -68,11 +66,11 @@ const TIERS = [
     tagText: 'text-emerald-300',
     description: 'We handle social media + strategy — you focus on your business',
     features: [
-      '20 Done-For-You Posts/mo',
+      '20 Done-For-You Social Posts/mo',
       '7 Channels Managed',
       'Monthly Strategy Call',
-      'SEO + Google Business',
-      'Content Calendar DFY',
+      'SEO + Google Business Optimization',
+      'Content Calendar Done For You',
       'Monthly Performance Report',
       'Dedicated Growth Strategist'
     ],
@@ -84,9 +82,8 @@ const TIERS = [
     id: 'growth_accelerator',
     name: 'Growth Accelerator',
     price: 497,
-    priceTag: '',
     tag: 'Best for Serious Growth',
-    phase: 'Accelerate',
+    phase: 'Dominate',
     icon: Crown,
     tagBg: 'bg-amber-500/10 border-amber-500/30',
     tagText: 'text-amber-300',
@@ -94,7 +91,7 @@ const TIERS = [
     features: [
       'Everything in Growth Partner',
       'AI Video Production',
-      'Reputation & Reviews',
+      'Reputation & Review Management',
       'Streaming TV Ad Scripts',
       'Bi-weekly Strategy Calls',
       'Unlimited Social Channels',
@@ -108,9 +105,8 @@ const TIERS = [
     id: 'full_stack',
     name: 'Full-Stack Growth',
     price: 797,
-    priceTag: '',
     tag: 'The Everything Plan',
-    phase: 'Dominate',
+    phase: 'Scale',
     icon: Crown,
     tagBg: 'bg-rose-500/10 border-rose-500/30',
     tagText: 'text-rose-300',
@@ -118,7 +114,7 @@ const TIERS = [
     features: [
       'Everything in Accelerator',
       'Custom Back-Office App',
-      'Automated Invoicing',
+      'Automated Invoicing & Dispatch',
       'Weekly Strategy Calls',
       'Custom Automation Workflows',
       'Priority Everything',
@@ -127,7 +123,7 @@ const TIERS = [
     cta: 'Book Strategy Call',
     ctaVariant: 'outline',
     highlight: false,
-  }
+  },
 ];
 
 export default function NTAPricingLadder({
@@ -199,15 +195,15 @@ export default function NTAPricingLadder({
       )}
 
       {/* Pricing Cards */}
-      <div className="flex lg:grid lg:grid-cols-5 gap-4 overflow-x-auto pb-4 snap-x snap-mandatory">
+      <div className="flex overflow-x-auto pb-6 snap-x snap-mandatory gap-4 md:grid md:grid-cols-5 md:overflow-visible">
         {TIERS.map((tier) => (
           <div
             key={tier.id}
             onMouseEnter={() => setHoveredTier(tier.id)}
             onMouseLeave={() => setHoveredTier(null)}
-            className={`min-w-[280px] lg:min-w-0 snap-center rounded-xl border transition-all duration-300 overflow-hidden flex flex-col ${
+            className={`rounded-xl border transition-all duration-300 overflow-hidden min-w-[280px] snap-center shrink-0 ${
               tier.highlight
-                ? 'bg-gradient-to-br from-slate-900 to-slate-800 border-violet-500/50 ring-2 ring-violet-500/20 scale-105 z-10 shadow-2xl shadow-violet-900/20'
+                ? 'bg-gradient-to-br from-slate-900 to-slate-800 border-violet-500/50 ring-2 ring-violet-500/20 scale-105'
                 : 'bg-slate-900/50 border-slate-800 hover:border-slate-700'
             } ${hoveredTier === tier.id && !tier.highlight ? 'border-slate-600' : ''}`}
           >
@@ -236,7 +232,7 @@ export default function NTAPricingLadder({
             </div>
 
             {/* Features */}
-            <div className="p-6 border-b border-slate-800 flex-1">
+            <div className="p-6 border-b border-slate-800">
               <ul className="space-y-3">
                 {tier.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-3 text-sm">
@@ -250,7 +246,7 @@ export default function NTAPricingLadder({
             </div>
 
             {/* CTA */}
-            <div className="p-6 mt-auto">
+            <div className="p-6">
               <Button
                 onClick={() => handleCTA(tier.id)}
                 className={`w-full flex items-center justify-center gap-2 py-3 font-bold rounded-lg transition-all ${
@@ -276,32 +272,27 @@ export default function NTAPricingLadder({
       </div>
 
       {/* ROI Guidance */}
-      <div className="mt-12 bg-slate-900/50 border border-slate-800 rounded-lg p-6">
+      <div className="mt-8 bg-slate-900/50 border border-slate-800 rounded-lg p-6">
         <h3 className="text-white font-bold mb-4">Why the pricing ladder?</h3>
-        <div className="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-4 gap-6">
           <div>
             <p className="text-slate-400 text-sm mb-2">
-              <span className="text-white font-semibold">DIY Social:</span> Perfect for starting out
+              <span className="text-white font-semibold">DIY:</span> Perfect for learning and testing
             </p>
           </div>
           <div>
             <p className="text-slate-400 text-sm mb-2">
-              <span className="text-white font-semibold">DIY Suite:</span> Full control for solo operators
+              <span className="text-white font-semibold">Guided:</span> For 2x growth with support
             </p>
           </div>
           <div>
             <p className="text-slate-400 text-sm mb-2">
-              <span className="text-white font-semibold">Growth Partner:</span> Accountability & strategy
+              <span className="text-white font-semibold">Done-For-You:</span> For 5x growth, we execute
             </p>
           </div>
           <div>
             <p className="text-slate-400 text-sm mb-2">
-              <span className="text-white font-semibold">Accelerator:</span> Serious growth managed for you
-            </p>
-          </div>
-          <div>
-            <p className="text-slate-400 text-sm mb-2">
-              <span className="text-white font-semibold">Full-Stack:</span> Comprehensive systems & growth
+              <span className="text-white font-semibold">Authority:</span> For market dominance
             </p>
           </div>
         </div>
