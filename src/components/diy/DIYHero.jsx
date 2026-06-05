@@ -22,7 +22,7 @@ export default function DIYHero({ onCTA, isLoading }) {
 
         {/* Subheadline */}
         <p className="text-xl text-slate-400 mb-8 max-w-3xl mx-auto leading-relaxed">
-          NTA gives small and mid-sized businesses the exact tools, structure, and marketing plan needed to generate more leads, create powerful video content, improve SEO visibility, and grow consistently — all for just $99/month.
+          NTA gives small and mid-sized businesses the exact tools, structure, and marketing plan needed to generate more leads, create powerful video content, improve SEO visibility, and grow consistently — starting at $97/mo.
         </p>
 
         {/* CTA Button */}

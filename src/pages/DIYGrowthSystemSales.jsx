@@ -22,7 +22,13 @@ export default function DIYGrowthSystemSales() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState('diy_social');
+  const [selectedPlan, setSelectedPlan] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('plan') === 'diy_suite') return 'diy_suite';
+    }
+    return 'diy_social';
+  });
 
   const handleStartDIYPlan = (plan = 'diy_social') => {
     setSelectedPlan(plan);
@@ -111,6 +117,7 @@ export default function DIYGrowthSystemSales() {
         onClose={() => setShowCheckoutModal(false)}
         onProceed={handleProceedToCheckout}
         isLoading={isLoading}
+        selectedPlan={selectedPlan}
       />
 
       {/* Error Message */}

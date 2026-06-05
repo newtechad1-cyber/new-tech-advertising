@@ -1,141 +1,253 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, CheckCircle2, Building2, Target, DollarSign, Clock, Users, ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2, Building2, Target, DollarSign, Clock, LayoutDashboard, ArrowUpRight, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { base44 } from '@/api/base44Client';
 
-// Questions
 const QUESTIONS = [
   {
     id: 'industry',
-    title: 'What industry are you in?',
+    title: 'What type of business do you run?',
     icon: Building2,
     options: [
-      { label: 'Home Services / Trades', value: 'trades' },
-      { label: 'Professional Services', value: 'professional' },
-      { label: 'Healthcare / Medical', value: 'healthcare' },
-      { label: 'Retail / Restaurant', value: 'retail' },
+      { label: 'HVAC / Plumbing / Trades', value: 'trades' },
+      { label: 'Restaurant / Bar / Cafe', value: 'restaurant' },
+      { label: 'Professional Services (law, dental, medical)', value: 'professional' },
+      { label: 'Retail / Local Shop', value: 'retail' },
       { label: 'Other', value: 'other' }
     ]
   },
   {
-    id: 'goal',
-    title: 'What is your primary marketing goal?',
-    icon: Target,
+    id: 'current_marketing',
+    title: 'How are you handling marketing today?',
+    icon: LayoutDashboard,
     options: [
-      { label: 'Get more leads quickly', value: 'leads' },
-      { label: 'Build brand awareness', value: 'brand' },
-      { label: 'Automate marketing tasks', value: 'automation' },
-      { label: 'Improve local SEO', value: 'seo' }
+      { label: "I'm not doing much — mostly word of mouth", value: 'word_of_mouth' },
+      { label: "I post on social media sometimes but not consistently", value: 'inconsistent_social' },
+      { label: "I have a website and do some social but want better results", value: 'website_some_social' },
+      { label: "I'm actively marketing but need to scale or get help", value: 'active_marketing' }
     ]
   },
   {
-    id: 'time',
-    title: 'How much time can you dedicate to marketing per week?',
+    id: 'time_available',
+    title: 'How much time can you spend on marketing each week?',
     icon: Clock,
     options: [
-      { label: 'Less than 1 hour (Do it for me)', value: 'none' },
-      { label: '1-3 hours (I need guidance)', value: 'some' },
-      { label: '4+ hours (I want to learn and do it)', value: 'lots' }
+      { label: 'Less than 1 hour — I barely have time', value: 'none' },
+      { label: '1–3 hours — I can learn and do it myself', value: 'some' },
+      { label: '3–5 hours — I\'m willing to put in the work', value: 'lots' },
+      { label: 'I don\'t want to do marketing at all — do it for me', value: 'dfy' }
     ]
   },
   {
-    id: 'team',
-    title: 'Who currently handles your marketing?',
-    icon: Users,
+    id: 'primary_goal',
+    title: 'What\'s the #1 thing you want right now?',
+    icon: Target,
     options: [
-      { label: 'Just me (Solo)', value: 'solo' },
-      { label: 'Internal team member', value: 'team' },
-      { label: 'An outside agency', value: 'agency' },
-      { label: 'Nobody right now', value: 'nobody' }
+      { label: 'Show up on Google when people search for what I do', value: 'google' },
+      { label: 'Get more leads and phone calls', value: 'leads' },
+      { label: 'Build a consistent social media presence', value: 'social' },
+      { label: 'Organize my business (invoicing, customers, scheduling)', value: 'organize' },
+      { label: 'All of the above — I need a complete system', value: 'all' }
     ]
   },
   {
-    id: 'budget',
-    title: 'What is your comfortable monthly marketing budget?',
+    id: 'budget_comfort',
+    title: 'What monthly investment feels comfortable?',
     icon: DollarSign,
     options: [
-      { label: 'Under $200 (DIY focus)', value: 'diy' },
-      { label: '$500 - $1,500 (Hybrid / Guided)', value: 'hybrid' },
-      { label: '$2,000+ (Full Service / DFY)', value: 'dfy' }
+      { label: 'Under $100/mo — I want to start small', value: 'under_100' },
+      { label: '$100–200/mo — I\'m ready to invest in real tools', value: '100_200' },
+      { label: '$200–500/mo — I want done-for-you help', value: '200_500' },
+      { label: '$500+/mo — I want the full package', value: '500_plus' }
     ]
   }
 ];
 
 export default function PricingWizard() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0); // Step 0 is Welcome
   const [answers, setAnswers] = useState({});
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   const handleSelect = (questionId, value) => {
     setAnswers(prev => ({ ...prev, [questionId]: value }));
-    if (step <= QUESTIONS.length) {
+    const currentQIdx = step - 1;
+    if (currentQIdx < QUESTIONS.length - 1) {
       setTimeout(() => {
-        if (step === QUESTIONS.length) {
-          setIsAnalyzing(true);
-          setTimeout(() => {
-            setIsAnalyzing(false);
-            setStep(step + 1);
-          }, 1500);
-        } else {
+        setStep(step + 1);
+      }, 300);
+    } else {
+      setTimeout(() => {
+        setIsAnalyzing(true);
+        submitResults();
+        setTimeout(() => {
+          setIsAnalyzing(false);
           setStep(step + 1);
-        }
+        }, 1500);
       }, 300);
     }
   };
 
-  const currentQuestion = QUESTIONS[step - 1];
-
   const getRecommendation = () => {
-    if (answers.time === 'none' || answers.budget === 'dfy') {
+    const { time_available, budget_comfort, primary_goal, industry } = answers;
+
+    if (time_available === 'none' && budget_comfort === 'under_100') {
       return {
-        name: 'Growth Accelerator',
-        price: 497,
-        tier: 'Guided Growth',
-        description: 'Perfect for businesses that need hands-on guidance and done-for-you execution.',
-        link: '/book-call'
-      };
-    } else if (answers.time === 'lots' || answers.budget === 'diy') {
-      return {
+        key: 'diy_social',
         name: 'DIY Social',
         price: 97,
         tier: 'Self-Service',
-        description: 'The best way to start building your marketing momentum using AI tools.',
-        link: '/nta/diy-growth-system?plan=diy_social'
+        description: 'The best way to start building your marketing momentum using AI tools. (Note: Growth Partner is ideal, but this fits your budget!)',
+        link: '/nta/diy-growth-system?plan=diy_social',
+        cta: 'Start DIY Social — $97/mo'
       };
-    } else {
+    }
+    
+    if (time_available === 'some' && budget_comfort === '100_200') {
       return {
+        key: 'diy_suite',
         name: 'DIY Marketing Suite',
         price: 197,
         tier: 'Advanced Tools',
         description: 'Everything you need to run your marketing AND your business from one place.',
-        link: '/nta/diy-growth-system?plan=diy_suite'
+        link: '/nta/diy-growth-system?plan=diy_suite',
+        cta: 'Start DIY Marketing Suite — $197/mo'
       };
+    }
+
+    if (time_available === 'dfy' || budget_comfort === '200_500') {
+      return {
+        key: 'growth_partner',
+        name: 'Growth Partner',
+        price: 297,
+        tier: 'Guided Growth',
+        description: 'We handle social media and strategy while you focus on running your business.',
+        link: '/book-call',
+        cta: 'Book a Free Strategy Call'
+      };
+    }
+
+    if (budget_comfort === '500_plus' || (primary_goal === 'all' && time_available === 'none')) {
+      return {
+        key: 'growth_accelerator',
+        name: 'Growth Accelerator',
+        price: 497,
+        tier: 'Done-For-You',
+        description: 'Full content, video, and reputation managed for you. Serious growth for serious businesses.',
+        link: '/book-call',
+        cta: 'Book a Free Strategy Call'
+      };
+    }
+
+    if (primary_goal === 'organize') {
+      return {
+        key: 'diy_suite',
+        name: 'DIY Marketing Suite',
+        price: 197,
+        tier: 'Advanced Tools',
+        description: 'Everything you need to run your marketing AND your business from one place.',
+        link: '/nta/diy-growth-system?plan=diy_suite',
+        cta: 'Start DIY Marketing Suite — $197/mo'
+      };
+    }
+
+    return {
+      key: 'diy_suite',
+      name: 'DIY Marketing Suite',
+      price: 197,
+      tier: 'Advanced Tools',
+      description: 'Everything you need to run your marketing AND your business from one place.',
+      link: '/nta/diy-growth-system?plan=diy_suite',
+      cta: 'Start DIY Marketing Suite — $197/mo'
+    };
+  };
+
+  const submitResults = async () => {
+    try {
+      let user_email = '';
+      try {
+        const user = await base44.auth.me();
+        if (user) user_email = user.email;
+      } catch (e) {}
+
+      const recommended = getRecommendation();
+      
+      const payload = {
+        ...answers,
+        recommended_plan: recommended.name,
+        user_email,
+        source_url: window.location.href
+      };
+
+      await base44.functions.invoke('notifyPricingWizardComplete', payload);
+    } catch (err) {
+      console.error('Failed to save wizard results:', err);
     }
   };
 
-  return (
-    <div className="min-h-screen bg-slate-950 text-white flex flex-col pt-20">
-      <div className="max-w-3xl mx-auto w-full px-6 flex-1 flex flex-col">
-        
-        {/* Progress Bar */}
-        <div className="mb-12">
-          <div className="flex justify-between text-sm text-slate-400 mb-2">
-            <span>Step {Math.min(step, QUESTIONS.length)} of {QUESTIONS.length}</span>
-            <span>{Math.round(((Math.min(step, QUESTIONS.length) - 1) / QUESTIONS.length) * 100)}%</span>
-          </div>
-          <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
-            <div 
-              className="h-full bg-violet-600 transition-all duration-500 ease-out"
-              style={{ width: `${((Math.min(step, QUESTIONS.length) - 1) / QUESTIONS.length) * 100}%` }}
-            />
-          </div>
-        </div>
+  const totalSteps = QUESTIONS.length;
+  const currentQuestion = step > 0 && step <= totalSteps ? QUESTIONS[step - 1] : null;
 
-        {/* Question Area */}
-        <div className="flex-1 flex flex-col justify-center pb-20">
+  return (
+    <div className="min-h-screen bg-slate-950 text-white flex flex-col relative pb-20">
+      
+      {/* Talk to Rick Fixed Button */}
+      <a 
+        href="tel:641-420-8816" 
+        className="fixed bottom-6 right-6 z-50 bg-violet-600 hover:bg-violet-700 text-white px-4 py-3 rounded-full shadow-lg shadow-violet-900/50 flex items-center gap-2 font-semibold transition-all hover:scale-105"
+      >
+        <Phone className="w-4 h-4" /> Talk to Rick
+      </a>
+
+      {/* Main Content Container */}
+      <div className="max-w-3xl mx-auto w-full px-6 pt-12 flex-1 flex flex-col">
+        
+        {step > 0 && step <= totalSteps && (
+          <div className="mb-12">
+            <div className="flex justify-between text-sm text-slate-400 mb-2">
+              <span>Step {step} of {totalSteps}</span>
+              <span>{Math.round(((step - 1) / totalSteps) * 100)}%</span>
+            </div>
+            <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-violet-600 transition-all duration-500 ease-out"
+                style={{ width: `${((step - 1) / totalSteps) * 100}%` }}
+              />
+            </div>
+          </div>
+        )}
+
+        <div className="flex-1 flex flex-col justify-center">
           <AnimatePresence mode="wait">
-            {step <= QUESTIONS.length ? (
+            
+            {step === 0 && (
+              <motion.div
+                key="welcome"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="text-center py-20"
+              >
+                <div className="mb-12 flex justify-center items-center gap-4 text-violet-400">
+                  <span className="font-bold tracking-widest uppercase text-sm border border-violet-500/30 px-3 py-1 rounded-full bg-violet-500/10">First AI Agency in Iowa</span>
+                </div>
+                <h1 className="text-4xl sm:text-6xl font-extrabold text-white mb-6 leading-tight">
+                  Let's Find the Right Growth Plan for Your Business
+                </h1>
+                <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
+                  Answer a few quick questions — we'll recommend exactly what fits. Takes about 90 seconds.
+                </p>
+                <Button 
+                  onClick={() => setStep(1)} 
+                  className="bg-violet-600 hover:bg-violet-700 text-white px-8 py-6 text-xl rounded-xl flex items-center gap-2 mx-auto"
+                >
+                  Let's Go <ArrowRight className="w-5 h-5" />
+                </Button>
+              </motion.div>
+            )}
+
+            {step > 0 && step <= totalSteps && (
               <motion.div
                 key={step}
                 initial={{ opacity: 0, x: 20 }}
@@ -171,16 +283,16 @@ export default function PricingWizard() {
                   ))}
                 </div>
 
-                {step > 1 && (
-                  <button 
-                    onClick={() => setStep(step - 1)}
-                    className="mt-8 flex items-center gap-2 text-slate-400 hover:text-white transition-colors"
-                  >
-                    <ArrowLeft className="w-4 h-4" /> Back
-                  </button>
-                )}
+                <button 
+                  onClick={() => setStep(step - 1)}
+                  className="mt-8 flex items-center gap-2 text-slate-400 hover:text-white transition-colors"
+                >
+                  <ArrowLeft className="w-4 h-4" /> Back
+                </button>
               </motion.div>
-            ) : isAnalyzing ? (
+            )}
+
+            {isAnalyzing && (
               <motion.div
                 key="analyzing"
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -191,7 +303,9 @@ export default function PricingWizard() {
                 <h2 className="text-2xl font-bold text-white mb-2">Analyzing your needs...</h2>
                 <p className="text-slate-400">Finding the perfect growth system for your business</p>
               </motion.div>
-            ) : (
+            )}
+
+            {step > totalSteps && !isAnalyzing && (
               <motion.div
                 key="result"
                 initial={{ opacity: 0, y: 20 }}
@@ -199,10 +313,12 @@ export default function PricingWizard() {
               >
                 <div className="text-center mb-10">
                   <div className="inline-block px-4 py-1.5 rounded-full bg-green-500/20 text-green-400 text-sm font-semibold mb-4">
-                    Analysis Complete
+                    Recommended for You
                   </div>
-                  <h2 className="text-4xl font-bold text-white mb-4">Your Recommended Plan</h2>
-                  <p className="text-slate-400 text-lg">Based on your business profile, here is the most effective path forward.</p>
+                  <h2 className="text-4xl font-bold text-white mb-4">Your Personalized Plan</h2>
+                  <p className="text-slate-400 text-lg max-w-xl mx-auto">
+                    Based on your answers, you're a {answers.industry === 'other' ? '' : answers.industry} business owner who wants {answers.primary_goal === 'all' ? 'a complete system' : 'results'} but only has {answers.time_available === 'none' ? 'very little time' : 'limited time'} each week. {getRecommendation().name} gives you exactly what you need.
+                  </p>
                 </div>
 
                 <Card className="bg-gradient-to-b from-slate-900 to-slate-900/50 border-slate-800 p-8 max-w-2xl mx-auto relative overflow-hidden">
@@ -223,10 +339,21 @@ export default function PricingWizard() {
                     </div>
 
                     <a href={getRecommendation().link}>
-                      <Button className="w-full bg-violet-600 hover:bg-violet-700 text-white py-6 text-lg rounded-xl flex items-center justify-center gap-2">
-                        Get Started <ArrowUpRight className="w-5 h-5" />
+                      <Button className="w-full bg-violet-600 hover:bg-violet-700 text-white py-6 text-lg rounded-xl flex items-center justify-center gap-2 mb-4">
+                        {getRecommendation().cta} <ArrowUpRight className="w-5 h-5" />
                       </Button>
                     </a>
+                    
+                    <a href="/nta/pricing-ladder" className="block text-center w-full">
+                      <Button variant="outline" className="w-full bg-slate-800 border-slate-700 hover:bg-slate-700 text-white py-6 text-lg rounded-xl">
+                        See All Plans
+                      </Button>
+                    </a>
+
+                    <div className="mt-8 text-center pt-8 border-t border-slate-800">
+                      <p className="text-slate-400 mb-2">Want to talk to a real person first?</p>
+                      <p className="text-white font-semibold">Call or text Rick at <a href="tel:641-420-8816" className="text-violet-400">641-420-8816</a></p>
+                    </div>
 
                     <div className="mt-6 text-center">
                       <button onClick={() => setStep(1)} className="text-slate-500 hover:text-slate-300 text-sm underline underline-offset-4">

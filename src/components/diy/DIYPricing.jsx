@@ -15,7 +15,7 @@ export default function DIYPricing({ onCTA, isLoading }) {
           {/* DIY Social */}
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-10 flex flex-col">
             <h3 className="text-2xl font-bold text-white mb-2">DIY Social</h3>
-            <p className="text-slate-400 text-sm mb-6">Manage your social media with AI tools</p>
+            <p className="text-slate-400 text-sm mb-6">Perfect for getting started with social media marketing</p>
             <div className="mb-8">
               <div className="text-5xl font-bold text-white">$97</div>
               <p className="text-slate-400 text-sm mt-2">per month</p>
@@ -45,10 +45,10 @@ export default function DIYPricing({ onCTA, isLoading }) {
           {/* DIY Suite */}
           <div className="bg-gradient-to-b from-violet-600/20 to-indigo-600/10 border border-violet-600/50 rounded-2xl p-10 flex flex-col relative scale-105 shadow-2xl">
             <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-violet-600 text-white text-xs font-bold px-4 py-1.5 rounded-full whitespace-nowrap">
-              Best for Solo Operators
+              BEST VALUE
             </div>
             <h3 className="text-2xl font-bold text-white mb-2">DIY Marketing Suite</h3>
-            <p className="text-slate-400 text-sm mb-6">Full marketing + business tools</p>
+            <p className="text-slate-400 text-sm mb-6">Everything you need to run marketing AND your business</p>
             <div className="mb-8">
               <div className="text-5xl font-bold text-white">$197</div>
               <p className="text-slate-400 text-sm mt-2">per month</p>
@@ -70,10 +70,11 @@ export default function DIYPricing({ onCTA, isLoading }) {
               <div className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-violet-400 shrink-0 mt-0.5" /> Invoicing & Expense Tracking</div>
               <div className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-violet-400 shrink-0 mt-0.5" /> Financial Reports (P&L)</div>
               <div className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-violet-400 shrink-0 mt-0.5" /> Project Tracking</div>
-              <div className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-violet-400 shrink-0 mt-0.5" /> 50 AI Posts/mo</div>
-              <div className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-violet-400 shrink-0 mt-0.5" /> 7 Social Channels</div>
+              <div className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-violet-400 shrink-0 mt-0.5" /> 50 AI Posts/mo, 7 Channels</div>
               <div className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-violet-400 shrink-0 mt-0.5" /> AI Video Studio</div>
               <div className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-violet-400 shrink-0 mt-0.5" /> Self-Service Gap Audit</div>
+              <div className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-violet-400 shrink-0 mt-0.5" /> Priority Support</div>
+              <div className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-violet-400 shrink-0 mt-0.5" /> Monthly Live Q&A</div>
             </div>
             
             <div className="border-t border-slate-600/30 pt-6 mt-auto">

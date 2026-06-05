@@ -49,6 +49,16 @@ Deno.serve(async (req) => {
 `
     });
 
+    await base44.asServiceRole.entities.SystemLog.create({
+      event_type: 'Pricing Wizard Completion',
+      status: 'success',
+      source_system: 'website',
+      source_route: '/find-your-plan',
+      workflow_type: 'intake',
+      message: `Pricing Wizard completed by ${user_email || 'anonymous'}. Recommended: ${recommended_plan}`,
+      payload_snapshot: JSON.stringify(body)
+    });
+
     return Response.json({ success: true, id: wizardLead.id });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });

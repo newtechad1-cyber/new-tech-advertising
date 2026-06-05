@@ -48,6 +48,7 @@
  * The mainPage value must match a key in the PAGES object exactly.
  */
 import AIWorkforce from './pages/AIWorkforce';
+import PricingWizard from './pages/PricingWizard';
 import About from './pages/About';
 import adaCompliance from './pages/Ada-Compliance';
 import Ada from './pages/Ada';

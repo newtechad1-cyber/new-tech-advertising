@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import { X, CheckCircle2, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export default function DIYCheckoutModal({ isOpen, onClose, onProceed, isLoading }) {
+export default function DIYCheckoutModal({ isOpen, onClose, onProceed, isLoading, selectedPlan = 'diy_social' }) {
   if (!isOpen) return null;
+
+  const isSuite = selectedPlan === 'diy_suite';
+  const planName = isSuite ? 'DIY Marketing Suite' : 'DIY Social';
+  const price = isSuite ? '$197' : '$97';
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
@@ -18,10 +22,10 @@ export default function DIYCheckoutModal({ isOpen, onClose, onProceed, isLoading
 
         {/* Headline */}
         <h2 className="text-3xl font-bold text-white mb-2">
-          Start Your Growth System
+          Start {planName}
         </h2>
         <p className="text-slate-400 mb-8">
-          Everything you need for $99/month
+          Everything you need for {price}/month
         </p>
 
         {/* What's Included */}
