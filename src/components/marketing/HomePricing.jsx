@@ -5,41 +5,100 @@ const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
 
 const PLANS = [
   {
-    name: 'Starter',
-    price: 99,
-    tagline: 'Everything you need to get started',
-    badge: null,
-    color: 'border-slate-200',
-    buttonStyle: 'bg-slate-900 hover:bg-slate-700 text-white',
+    name: 'DIY Social',
+    price: 97,
+    tagline: 'Manage your social media with AI tools',
+    badge: 'Best Way to Start',
+    color: 'border-blue-200 bg-white hover:border-blue-300',
+    buttonStyle: 'bg-blue-600 hover:bg-blue-700 text-white',
+    link: '/nta/diy-growth-system?plan=diy_social',
     features: [
-      'AI captions & hashtags',
-      '10 social posts/month',
-      'Image generation',
-      'Content calendar',
-      'Facebook & Instagram scheduling',
-      '1 social media account',
-      'Email support',
+      'AI Content Gen (20/mo)',
+      'Social Media Planner',
+      '3 Social Channels',
+      'Content Calendar',
+      'Growth Guide Chatbot',
+      'Learning Center Access',
+      'Email Support',
+      'Cancel Anytime'
     ],
   },
   {
-    name: 'Pro',
-    price: 199,
-    tagline: 'For businesses serious about growth',
-    badge: 'Most Popular',
-    color: 'border-blue-500 shadow-xl shadow-blue-600/10',
-    buttonStyle: 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30',
+    name: 'DIY Marketing Suite',
+    price: 197,
+    tagline: 'Full marketing + business tools',
+    badge: 'Best for Solo Operators',
+    color: 'border-violet-500 shadow-xl shadow-violet-600/10 bg-white scale-105 z-10',
+    buttonStyle: 'bg-violet-600 hover:bg-violet-500 text-white shadow-lg shadow-violet-600/30',
+    link: '/nta/diy-growth-system?plan=diy_suite',
     features: [
-      'Everything in Starter',
-      '30 social posts/month',
-      'AI video creation',
-      'Streaming TV ad scripts',
-      'LinkedIn scheduling included',
-      'Up to 3 social accounts',
-      'Priority support',
-      'Brand voice training',
-      'Analytics & reporting',
+      'Everything in DIY Social',
+      'Full CRM & Client Management',
+      'Leads Pipeline & Prospecting',
+      'Invoicing & Expenses',
+      'Financial Reports (P&L)',
+      'Project Tracking',
+      '50 AI Posts/mo, 7 Channels',
+      'AI Video Studio',
+      'Self-Service Gap Audit',
+      'Monthly Live Q&A',
+      'Priority Support'
     ],
   },
+  {
+    name: 'Growth Partner',
+    price: 297,
+    tagline: 'We handle social media + strategy',
+    badge: 'Best for Accountability',
+    color: 'border-emerald-200 bg-white hover:border-emerald-300',
+    buttonStyle: 'bg-emerald-600 hover:bg-emerald-700 text-white',
+    link: '/book-call',
+    features: [
+      '20 Done-For-You Posts/mo',
+      '7 Channels Managed',
+      'Monthly Strategy Call',
+      'SEO + Google Business',
+      'Content Calendar DFY',
+      'Monthly Performance Report',
+      'Dedicated Growth Strategist'
+    ],
+  },
+  {
+    name: 'Growth Accelerator',
+    price: 497,
+    tagline: 'Full content + video + reputation',
+    badge: 'Best for Serious Growth',
+    color: 'border-amber-200 bg-white hover:border-amber-300',
+    buttonStyle: 'bg-amber-600 hover:bg-amber-700 text-white',
+    link: '/book-call',
+    features: [
+      'Everything in Growth Partner',
+      'AI Video Production',
+      'Reputation & Review Management',
+      'Streaming TV Ad Scripts',
+      'Bi-weekly Strategy Calls',
+      'Unlimited Social Channels',
+      'Competitor Analysis'
+    ],
+  },
+  {
+    name: 'Full-Stack Growth',
+    price: 797,
+    tagline: 'Marketing + back-office systems',
+    badge: 'The Everything Plan',
+    color: 'border-rose-200 bg-white hover:border-rose-300',
+    buttonStyle: 'bg-rose-600 hover:bg-rose-700 text-white',
+    link: '/book-call',
+    features: [
+      'Everything in Accelerator',
+      'Custom Back-Office App',
+      'Automated Invoicing & Dispatch',
+      'Weekly Strategy Calls',
+      'Custom Automation Workflows',
+      'Priority Everything',
+      'Quarterly Business Reviews'
+    ],
+  }
 ];
 
 export default function HomePricing() {
@@ -56,11 +115,11 @@ export default function HomePricing() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+        <div className="flex lg:grid lg:grid-cols-5 gap-6 max-w-[90rem] mx-auto overflow-x-auto pb-8 snap-x snap-mandatory">
           {PLANS.map(plan => (
             <div
               key={plan.name}
-              className={`relative border-2 rounded-2xl p-8 flex flex-col ${plan.color}`}
+              className={`relative min-w-[320px] lg:min-w-0 snap-center border-2 rounded-2xl p-8 flex flex-col transition-all duration-300 ${plan.color}`}
             >
               {plan.badge && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-bold px-4 py-1.5 rounded-full flex items-center gap-1">
@@ -86,10 +145,10 @@ export default function HomePricing() {
               </ul>
 
               <a
-                href={TRIAL_URL}
-                className={`inline-flex items-center justify-center gap-2 font-bold px-6 py-3.5 rounded-xl text-sm transition-all ${plan.buttonStyle}`}
+                href={plan.link || TRIAL_URL}
+                className={`inline-flex items-center justify-center gap-2 font-bold px-6 py-3.5 rounded-xl text-sm transition-all mt-auto ${plan.buttonStyle}`}
               >
-                Start Free Trial <ArrowRight className="w-4 h-4" />
+                {plan.link?.includes('book-call') ? 'Book a Call' : 'Get Started'} <ArrowRight className="w-4 h-4" />
               </a>
             </div>
           ))}

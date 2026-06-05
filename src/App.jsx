@@ -126,6 +126,7 @@ const DIYDashboard = lazy(() => import('./pages/DIYDashboard'));
 const DIYPricingLadder = lazy(() => import('./pages/DIYPricingLadder'));
 const DIYBillingSettings = lazy(() => import('./pages/DIYBillingSettings'));
 const DIYCheckoutSuccess = lazy(() => import('./pages/DIYCheckoutSuccess'));
+const PricingWizard = lazy(() => import('./pages/PricingWizard'));
 const NTAPricingLadderPage = lazy(() => import('./pages/NTAPricingLadderPage'));
 const JoinNTA = lazy(() => import('./pages/JoinNTA'));
 const WebsiteRebuildService = lazy(() => import('./pages/WebsiteRebuildService'));

@@ -4,98 +4,130 @@ import { Button } from '@/components/ui/button';
 
 const TIERS = [
   {
-    id: 'diy',
-    name: 'DIY',
-    price: 99,
-    tag: 'Best way to start',
+    id: 'diy_social',
+    name: 'DIY Social',
+    price: 97,
+    priceTag: '',
+    tag: 'Best Way to Start',
     phase: 'Start',
     icon: Target,
     tagBg: 'bg-blue-500/10 border-blue-500/30',
     tagText: 'text-blue-300',
-    description: 'Build your own AI-powered marketing system',
+    description: 'Manage your social media with AI tools',
     features: [
-      'AI Website Growth Tools',
-      'AI Video Creation Studio',
+      'AI Content Gen (20/mo)',
       'Social Media Planner',
-      'Lead & ROI Tracker',
-      'Weekly Marketing Direction',
+      '3 Social Channels',
+      'Content Calendar',
+      'Growth Guide Chatbot',
+      'Learning Center Access',
       'Email Support',
+      'Cancel Anytime'
     ],
-    cta: 'Start DIY',
-    ctaVariant: 'default',
+    cta: 'Start DIY Social',
+    ctaVariant: 'outline',
     highlight: false,
   },
   {
-    id: 'guided',
-    name: 'Guided Growth',
-    price: 299,
-    tag: 'Best for accountability',
-    phase: 'Accelerate',
+    id: 'diy_suite',
+    name: 'DIY Marketing Suite',
+    price: 197,
+    priceTag: '',
+    tag: 'Best for Solo Operators',
+    phase: 'Grow',
     icon: Zap,
     tagBg: 'bg-violet-500/10 border-violet-500/30',
     tagText: 'text-violet-300',
-    description: 'Everything in DIY plus expert guidance and strategy support',
+    description: 'Full marketing + business tools — run everything yourself',
     features: [
-      'Everything in DIY',
-      'Dedicated Growth Strategist',
-      'Bi-weekly Strategy Calls',
-      'Custom Growth Plan',
-      'Priority Email Support',
-      'Advanced Analytics Dashboard',
-      'Monthly Performance Reviews',
+      'Everything in DIY Social',
+      'Full CRM & Management',
+      'Leads Pipeline & Prospecting',
+      'Invoicing & Expenses',
+      'Financial Reports (P&L)',
+      'Project Tracking',
+      '50 AI Posts/mo, 7 Channels',
+      'AI Video Studio',
+      'Self-Service Gap Audit',
+      'Monthly Live Q&A',
+      'Priority Support'
     ],
-    cta: 'Upgrade to Guided',
+    cta: 'Start Marketing Suite',
     ctaVariant: 'default',
     highlight: true,
   },
   {
-    id: 'done-for-you',
-    name: 'Done-For-You Marketing',
-    price: 1200,
-    priceTag: '/mo+',
-    tag: 'Best for busy owners',
-    phase: 'Delegate',
+    id: 'growth_partner',
+    name: 'Growth Partner',
+    price: 297,
+    priceTag: '',
+    tag: 'Best for Accountability',
+    phase: 'Partner',
     icon: Rocket,
-    tagBg: 'bg-amber-500/10 border-amber-500/30',
-    tagText: 'text-amber-300',
-    description: 'NTA handles execution for the client',
+    tagBg: 'bg-emerald-500/10 border-emerald-500/30',
+    tagText: 'text-emerald-300',
+    description: 'We handle social media + strategy — you focus on your business',
     features: [
-      'Everything in Guided Growth',
-      'Complete Content Execution',
-      'Weekly Published Content',
-      'Full Video Production',
-      'Social Media Management',
-      'Weekly Reporting & Adjustments',
-      'Dedicated Account Manager',
+      '20 Done-For-You Posts/mo',
+      '7 Channels Managed',
+      'Monthly Strategy Call',
+      'SEO + Google Business',
+      'Content Calendar DFY',
+      'Monthly Performance Report',
+      'Dedicated Growth Strategist'
     ],
-    cta: 'Talk With NTA',
+    cta: 'Book a Call',
     ctaVariant: 'outline',
     highlight: false,
   },
   {
-    id: 'premium',
-    name: 'Authority Growth',
-    price: 3000,
-    priceTag: '/mo+',
-    tag: 'Best for aggressive growth',
+    id: 'growth_accelerator',
+    name: 'Growth Accelerator',
+    price: 497,
+    priceTag: '',
+    tag: 'Best for Serious Growth',
+    phase: 'Accelerate',
+    icon: Crown,
+    tagBg: 'bg-amber-500/10 border-amber-500/30',
+    tagText: 'text-amber-300',
+    description: 'Full content + video + reputation managed for you',
+    features: [
+      'Everything in Growth Partner',
+      'AI Video Production',
+      'Reputation & Reviews',
+      'Streaming TV Ad Scripts',
+      'Bi-weekly Strategy Calls',
+      'Unlimited Social Channels',
+      'Competitor Analysis'
+    ],
+    cta: 'Book a Call',
+    ctaVariant: 'outline',
+    highlight: false,
+  },
+  {
+    id: 'full_stack',
+    name: 'Full-Stack Growth',
+    price: 797,
+    priceTag: '',
+    tag: 'The Everything Plan',
     phase: 'Dominate',
     icon: Crown,
-    tagBg: 'bg-emerald-500/10 border-emerald-500/30',
-    tagText: 'text-emerald-300',
-    description: 'Premium visibility, authority, and market-dominance support',
+    tagBg: 'bg-rose-500/10 border-rose-500/30',
+    tagText: 'text-rose-300',
+    description: 'Marketing + back-office systems + custom automations',
     features: [
-      'Everything in Done-For-You',
-      'Premium Authority Building',
-      'Streaming TV Campaigns',
-      'Market Expansion Support',
-      'Executive Level Strategy',
-      'Custom ROI Modeling',
-      'Quarterly Business Reviews',
+      'Everything in Accelerator',
+      'Custom Back-Office App',
+      'Automated Invoicing',
+      'Weekly Strategy Calls',
+      'Custom Automation Workflows',
+      'Priority Everything',
+      'Quarterly Business Reviews'
     ],
     cta: 'Book Strategy Call',
     ctaVariant: 'outline',
     highlight: false,
-  },
+  }
 ];
 
 export default function NTAPricingLadder({
@@ -167,15 +199,15 @@ export default function NTAPricingLadder({
       )}
 
       {/* Pricing Cards */}
-      <div className="grid md:grid-cols-4 gap-4">
+      <div className="flex lg:grid lg:grid-cols-5 gap-4 overflow-x-auto pb-4 snap-x snap-mandatory">
         {TIERS.map((tier) => (
           <div
             key={tier.id}
             onMouseEnter={() => setHoveredTier(tier.id)}
             onMouseLeave={() => setHoveredTier(null)}
-            className={`rounded-xl border transition-all duration-300 overflow-hidden ${
+            className={`min-w-[280px] lg:min-w-0 snap-center rounded-xl border transition-all duration-300 overflow-hidden flex flex-col ${
               tier.highlight
-                ? 'bg-gradient-to-br from-slate-900 to-slate-800 border-violet-500/50 ring-2 ring-violet-500/20 scale-105'
+                ? 'bg-gradient-to-br from-slate-900 to-slate-800 border-violet-500/50 ring-2 ring-violet-500/20 scale-105 z-10 shadow-2xl shadow-violet-900/20'
                 : 'bg-slate-900/50 border-slate-800 hover:border-slate-700'
             } ${hoveredTier === tier.id && !tier.highlight ? 'border-slate-600' : ''}`}
           >
@@ -204,7 +236,7 @@ export default function NTAPricingLadder({
             </div>
 
             {/* Features */}
-            <div className="p-6 border-b border-slate-800">
+            <div className="p-6 border-b border-slate-800 flex-1">
               <ul className="space-y-3">
                 {tier.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-3 text-sm">
@@ -218,7 +250,7 @@ export default function NTAPricingLadder({
             </div>
 
             {/* CTA */}
-            <div className="p-6">
+            <div className="p-6 mt-auto">
               <Button
                 onClick={() => handleCTA(tier.id)}
                 className={`w-full flex items-center justify-center gap-2 py-3 font-bold rounded-lg transition-all ${
@@ -244,27 +276,32 @@ export default function NTAPricingLadder({
       </div>
 
       {/* ROI Guidance */}
-      <div className="mt-8 bg-slate-900/50 border border-slate-800 rounded-lg p-6">
+      <div className="mt-12 bg-slate-900/50 border border-slate-800 rounded-lg p-6">
         <h3 className="text-white font-bold mb-4">Why the pricing ladder?</h3>
-        <div className="grid md:grid-cols-4 gap-6">
+        <div className="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-6">
           <div>
             <p className="text-slate-400 text-sm mb-2">
-              <span className="text-white font-semibold">DIY:</span> Perfect for learning and testing
+              <span className="text-white font-semibold">DIY Social:</span> Perfect for starting out
             </p>
           </div>
           <div>
             <p className="text-slate-400 text-sm mb-2">
-              <span className="text-white font-semibold">Guided:</span> For 2x growth with support
+              <span className="text-white font-semibold">DIY Suite:</span> Full control for solo operators
             </p>
           </div>
           <div>
             <p className="text-slate-400 text-sm mb-2">
-              <span className="text-white font-semibold">Done-For-You:</span> For 5x growth, we execute
+              <span className="text-white font-semibold">Growth Partner:</span> Accountability & strategy
             </p>
           </div>
           <div>
             <p className="text-slate-400 text-sm mb-2">
-              <span className="text-white font-semibold">Authority:</span> For market dominance
+              <span className="text-white font-semibold">Accelerator:</span> Serious growth managed for you
+            </p>
+          </div>
+          <div>
+            <p className="text-slate-400 text-sm mb-2">
+              <span className="text-white font-semibold">Full-Stack:</span> Comprehensive systems & growth
             </p>
           </div>
         </div>

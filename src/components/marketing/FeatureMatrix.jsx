@@ -5,10 +5,11 @@ import { CheckCircle, X, Minus, ArrowRight, BrainCircuit, Calendar, BarChart2, V
 
 // ── Plans ──────────────────────────────────────────────────────────────────────
 const PLANS = [
-  { key: 'starter',  name: 'DIY Starter', price: '$99',  period: '/mo', cta: 'Start Free Trial', link: 'Get-Started', highlight: false, badge: null },
-  { key: 'pro',      name: 'DIY Pro',     price: '$199', period: '/mo', cta: 'Start Free Trial', link: 'Get-Started', highlight: false, badge: null },
-  { key: 'dfy',      name: 'DFY Social',  price: '$399', period: '/mo', cta: 'Book a Call',       link: 'Book-Call',   highlight: true,  badge: 'Most Popular' },
-  { key: 'reach',    name: 'Total Reach', price: '$899', period: '/mo', cta: 'Book a Call',       link: 'Book-Call',   highlight: false, badge: 'Full Service' },
+  { key: 'diy_social', name: 'DIY Social', price: '$97', period: '/mo', cta: 'Start DIY Social', link: '/nta/diy-growth-system?plan=diy_social', highlight: false, badge: 'Best Way to Start' },
+  { key: 'diy_suite', name: 'DIY Suite', price: '$197', period: '/mo', cta: 'Start Marketing Suite', link: '/nta/diy-growth-system?plan=diy_suite', highlight: true, badge: 'Solo Operators' },
+  { key: 'growth_partner', name: 'Growth Partner', price: '$297', period: '/mo', cta: 'Book a Call', link: '/book-call', highlight: false, badge: 'Accountability' },
+  { key: 'growth_accelerator', name: 'Accelerator', price: '$497', period: '/mo', cta: 'Book a Call', link: '/book-call', highlight: false, badge: 'Serious Growth' },
+  { key: 'full_stack', name: 'Full-Stack', price: '$797', period: '/mo', cta: 'Book Strategy Call', link: '/book-call', highlight: false, badge: 'The Everything Plan' },
 ];
 
 // ── Feature Categories ─────────────────────────────────────────────────────────
@@ -18,12 +19,10 @@ const FEATURE_GROUPS = [
     icon: BrainCircuit,
     color: 'text-violet-400',
     features: [
-      { label: 'AI-generated posts/month',        starter: '20 posts',     pro: '50 posts',     dfy: 'Unlimited',    reach: 'Unlimited' },
-      { label: 'Brand-aligned captions',          starter: true,           pro: true,           dfy: true,           reach: true },
-      { label: 'Content pillar strategy',         starter: true,           pro: true,           dfy: true,           reach: true },
-      { label: 'Hashtag & SEO optimization',      starter: true,           pro: true,           dfy: true,           reach: true },
-      { label: 'AI image generation',             starter: false,          pro: true,           dfy: true,           reach: true },
-      { label: 'Content approval workflow',       starter: false,          pro: true,           dfy: true,           reach: true },
+      { label: 'AI-generated posts/month', diy_social: '20 posts', diy_suite: '50 posts', growth_partner: '20 DFY', growth_accelerator: 'Unlimited', full_stack: 'Unlimited' },
+      { label: 'Content Pillar Strategy', diy_social: true, diy_suite: true, growth_partner: 'DFY', growth_accelerator: 'DFY', full_stack: 'DFY' },
+      { label: 'Growth Guide Chatbot', diy_social: true, diy_suite: true, growth_partner: true, growth_accelerator: true, full_stack: true },
+      { label: 'Self-Service Gap Audit', diy_social: false, diy_suite: true, growth_partner: true, growth_accelerator: true, full_stack: true },
     ],
   },
   {
@@ -31,11 +30,9 @@ const FEATURE_GROUPS = [
     icon: Calendar,
     color: 'text-cyan-400',
     features: [
-      { label: 'Social channels',                 starter: '3 channels',   pro: '7 channels',   dfy: 'Unlimited',    reach: 'Unlimited' },
-      { label: 'Auto-scheduling',                 starter: true,           pro: true,           dfy: true,           reach: true },
-      { label: 'Peak-time optimization',          starter: false,          pro: true,           dfy: true,           reach: true },
-      { label: 'Content calendar view',           starter: true,           pro: true,           dfy: true,           reach: true },
-      { label: 'We post for you (DFY)',            starter: false,          pro: false,          dfy: true,           reach: true },
+      { label: 'Social Channels', diy_social: '3', diy_suite: '7', growth_partner: '7', growth_accelerator: 'Unlimited', full_stack: 'Unlimited' },
+      { label: 'Content Calendar', diy_social: true, diy_suite: true, growth_partner: 'DFY', growth_accelerator: 'DFY', full_stack: 'DFY' },
+      { label: 'We post for you (DFY)', diy_social: false, diy_suite: false, growth_partner: true, growth_accelerator: true, full_stack: true },
     ],
   },
   {
@@ -43,56 +40,41 @@ const FEATURE_GROUPS = [
     icon: Video,
     color: 'text-pink-400',
     features: [
-      { label: 'AI Video Studio',                 starter: false,          pro: true,           dfy: true,           reach: true },
-      { label: 'AI avatar videos',                starter: false,          pro: true,           dfy: true,           reach: true },
-      { label: 'Short-form video scripts',        starter: false,          pro: true,           dfy: true,           reach: true },
-      { label: 'Professional video production',   starter: false,          pro: false,          dfy: false,          reach: true },
-      { label: 'Streaming TV ads (Hulu/Roku)',    starter: false,          pro: false,          dfy: false,          reach: true },
+      { label: 'AI Video Studio', diy_social: false, diy_suite: true, growth_partner: true, growth_accelerator: 'DFY', full_stack: 'DFY' },
+      { label: 'Streaming TV Ad Scripts', diy_social: false, diy_suite: false, growth_partner: false, growth_accelerator: true, full_stack: true },
+      { label: 'AI Video Production', diy_social: false, diy_suite: false, growth_partner: false, growth_accelerator: true, full_stack: true },
     ],
   },
   {
-    label: 'Strategy & Planning',
-    icon: Globe,
-    color: 'text-sky-400',
-    features: [
-      { label: '90-Day Authority Plan',           starter: true,           pro: true,           dfy: true,           reach: true },
-      { label: 'Monthly strategy call',           starter: false,          pro: false,          dfy: true,           reach: true },
-      { label: 'Competitor analysis',             starter: false,          pro: true,           dfy: true,           reach: true },
-      { label: 'Campaign themes & calendars',     starter: true,           pro: true,           dfy: true,           reach: true },
-      { label: 'Dedicated account manager',       starter: false,          pro: false,          dfy: false,          reach: true },
-    ],
-  },
-  {
-    label: 'Analytics & Reporting',
-    icon: BarChart2,
-    color: 'text-amber-400',
-    features: [
-      { label: 'Basic analytics dashboard',       starter: true,           pro: true,           dfy: true,           reach: true },
-      { label: 'AI-generated monthly reports',    starter: false,          pro: true,           dfy: true,           reach: true },
-      { label: 'Per-platform breakdowns',         starter: false,          pro: true,           dfy: true,           reach: true },
-      { label: 'Custom reporting',                starter: false,          pro: false,          dfy: false,          reach: true },
-      { label: 'Google Business management',      starter: false,          pro: false,          dfy: false,          reach: true },
-    ],
-  },
-  {
-    label: 'Compliance & Reputation',
+    label: 'Business Tools',
     icon: Shield,
     color: 'text-green-400',
     features: [
-      { label: 'ADA compliance monitoring',       starter: false,          pro: false,          dfy: false,          reach: true },
-      { label: 'ADA auto-remediation',            starter: false,          pro: false,          dfy: false,          reach: true },
-      { label: 'Local SEO signals',               starter: false,          pro: true,           dfy: true,           reach: true },
+      { label: 'CRM & Client Management', diy_social: false, diy_suite: true, growth_partner: true, growth_accelerator: true, full_stack: true },
+      { label: 'Invoicing & Expenses', diy_social: false, diy_suite: true, growth_partner: true, growth_accelerator: true, full_stack: true },
+      { label: 'Custom Back-Office App', diy_social: false, diy_suite: false, growth_partner: false, growth_accelerator: false, full_stack: true },
+      { label: 'Custom Automations', diy_social: false, diy_suite: false, growth_partner: false, growth_accelerator: false, full_stack: true },
     ],
   },
   {
-    label: 'Support',
-    icon: MessageSquare,
-    color: 'text-slate-400',
+    label: 'Strategy & Support',
+    icon: Globe,
+    color: 'text-sky-400',
     features: [
-      { label: 'Email support',                   starter: true,           pro: true,           dfy: true,           reach: true },
-      { label: 'Priority support',                starter: false,          pro: true,           dfy: true,           reach: true },
-      { label: 'Dedicated content team',          starter: false,          pro: false,          dfy: true,           reach: true },
-      { label: 'Onboarding setup call',           starter: false,          pro: true,           dfy: true,           reach: true },
+      { label: 'Learning Center Access', diy_social: true, diy_suite: true, growth_partner: true, growth_accelerator: true, full_stack: true },
+      { label: 'Support Level', diy_social: 'Email', diy_suite: 'Priority', growth_partner: 'Dedicated', growth_accelerator: 'Dedicated', full_stack: 'Priority' },
+      { label: 'Strategy Calls', diy_social: false, diy_suite: 'Monthly Q&A', growth_partner: 'Monthly', growth_accelerator: 'Bi-weekly', full_stack: 'Weekly' },
+      { label: 'Quarterly Reviews', diy_social: false, diy_suite: false, growth_partner: false, growth_accelerator: false, full_stack: true },
+    ],
+  },
+  {
+    label: 'Compliance',
+    icon: BarChart2,
+    color: 'text-amber-400',
+    features: [
+      { label: 'Reputation & Reviews', diy_social: false, diy_suite: false, growth_partner: false, growth_accelerator: true, full_stack: true },
+      { label: 'SEO & Google Business', diy_social: false, diy_suite: false, growth_partner: true, growth_accelerator: true, full_stack: true },
+      { label: 'Competitor Analysis', diy_social: false, diy_suite: false, growth_partner: false, growth_accelerator: true, full_stack: true },
     ],
   },
 ];
@@ -198,7 +180,7 @@ export default function FeatureMatrix() {
                 {PLANS.map(plan => (
                   <td key={plan.key} className={`text-center px-3 py-5 ${plan.highlight ? 'bg-violet-900/30' : 'bg-slate-900'}`}>
                     <Link
-                      to={createPageUrl(plan.link)}
+                      to={plan.link.startsWith('/') ? plan.link : createPageUrl(plan.link)}
                       className={`inline-flex items-center gap-1.5 font-bold text-sm px-4 py-2.5 rounded-xl transition-all ${
                         plan.highlight
                           ? 'bg-violet-600 hover:bg-violet-500 text-white shadow-lg shadow-violet-600/30'

@@ -4,83 +4,101 @@ import { Button } from '@/components/ui/button';
 
 const PLANS = [
   {
-    name: 'DIY',
-    price: 99,
+    name: 'DIY Social',
+    price: 97,
     badge: 'Best Way to Start',
-    description: 'For businesses doing their own marketing with NTA tools',
-    cta: 'Start DIY Plan',
-    ctaDestination: '/nta/diy-growth-system',
+    description: 'Manage your social media with AI tools',
+    cta: 'Start DIY Social',
+    ctaDestination: '/nta/diy-growth-system?plan=diy_social',
     features: [
-      'AI Content Generation',
+      'AI Content Gen (20 posts)',
       'Social Media Planner',
-      'AI Video Studio',
-      'Lead Tracker',
-      'ROI Dashboard',
+      '3 Social Channels',
+      'Content Calendar',
+      'Growth Guide Chatbot',
+      'Learning Center Access',
       'Email Support',
       'Cancel Anytime',
-    ],
-    notIncluded: [
-      'Strategy Guidance',
-      'Priority Support',
-      'Dedicated Account Manager',
-    ],
-    featured: true,
-  },
-  {
-    name: 'Guided Growth',
-    price: 299,
-    badge: 'Best for Accountability',
-    description: 'DIY tools + monthly strategy help and coaching',
-    cta: 'Upgrade to Guided Growth',
-    ctaDestination: 'mailto:sales@newtechadvertising.com?subject=Guided Growth Plan',
-    features: [
-      'Everything in DIY',
-      'Monthly Strategy Calls',
-      'Personalized Growth Plan',
-      'Priority Email Support',
-      'Performance Reviews',
-      'Upgrade Path to DFY',
-    ],
-    notIncluded: [
-      'Content Execution',
-      'Video Production',
-      'Dedicated Team',
-    ],
-    featured: false,
-  },
-  {
-    name: 'Done-For-You',
-    price: 1200,
-    badge: 'Best for Busy Owners',
-    description: 'We handle all the marketing execution for you',
-    cta: 'Explore Done-For-You',
-    ctaDestination: 'mailto:sales@newtechadvertising.com?subject=Done-For-You Marketing',
-    features: [
-      'Content & Video Creation',
-      'Social Media Management',
-      'Website Optimization',
-      'SEO Strategy',
-      'Monthly Reports',
-      'Dedicated Account Manager',
-      'Strategy & Execution',
     ],
     notIncluded: [],
     featured: false,
   },
   {
-    name: 'Premium Authority',
-    price: 3000,
-    badge: 'Best for Aggressive Growth',
-    description: 'Full marketing dominance in your market',
-    cta: 'Schedule Consultation',
-    ctaDestination: 'https://calendar.app.google/p6ieYanvwhixXxZ67',
+    name: 'DIY Marketing Suite',
+    price: 197,
+    badge: 'Best for Solo Operators',
+    description: 'Full marketing + business tools',
+    cta: 'Start Marketing Suite',
+    ctaDestination: '/nta/diy-growth-system?plan=diy_suite',
     features: [
-      'Everything in Done-For-You',
-      'Streaming TV Advertising',
-      'Premium Visibility Stack',
-      'High-Authority Media Assets',
-      'Market Dominance Strategy',
-      'Dedicated Growth Team',
+      'Everything in DIY Social',
+      'Full CRM & Management',
+      'Leads Pipeline & Prospecting',
+      'Invoicing & Expenses',
+      'Financial Reports (P&L)',
+      'Project Tracking',
+      '50 AI Posts/mo',
+      '7 Social Channels',
+      'AI Video Studio',
+      'Self-Service Gap Audit',
+      'Monthly Live Q&A',
+      'Priority Support',
+    ],
+    notIncluded: [],
+    featured: true,
+  },
+  {
+    name: 'Growth Partner',
+    price: 297,
+    badge: 'Best for Accountability',
+    description: 'We handle social media + strategy',
+    cta: 'Book a Call',
+    ctaDestination: '/book-call',
+    features: [
+      '20 Done-For-You Posts/mo',
+      '7 Channels Managed',
+      'Monthly Strategy Call',
+      'SEO + Google Business',
+      'Content Calendar DFY',
+      'Monthly Performance Report',
+      'Dedicated Growth Strategist',
+    ],
+    notIncluded: [],
+    featured: false,
+  },
+  {
+    name: 'Growth Accelerator',
+    price: 497,
+    badge: 'Best for Serious Growth',
+    description: 'Full content + video + reputation',
+    cta: 'Book a Call',
+    ctaDestination: '/book-call',
+    features: [
+      'Everything in Growth Partner',
+      'AI Video Production',
+      'Reputation & Reviews',
+      'Streaming TV Ad Scripts',
+      'Bi-weekly Strategy Calls',
+      'Unlimited Channels',
+      'Competitor Analysis',
+    ],
+    notIncluded: [],
+    featured: false,
+  },
+  {
+    name: 'Full-Stack Growth',
+    price: 797,
+    badge: 'The Everything Plan',
+    description: 'Marketing + back-office systems',
+    cta: 'Book Strategy Call',
+    ctaDestination: '/book-call',
+    features: [
+      'Everything in Accelerator',
+      'Custom Back-Office App',
+      'Automated Invoicing & Dispatch',
+      'Weekly Strategy Calls',
+      'Custom Automation Workflows',
+      'Priority Everything',
       'Quarterly Business Reviews',
     ],
     notIncluded: [],
@@ -100,15 +118,15 @@ export default function DIYPricingLadder() {
       </div>
 
       {/* Pricing Cards */}
-      <div className="py-20 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+      <div className="py-20 px-6 overflow-x-hidden">
+        <div className="max-w-[90rem] mx-auto">
+          <div className="flex lg:grid lg:grid-cols-5 gap-8 mb-12 overflow-x-auto pb-12 pt-4 px-4 snap-x snap-mandatory">
             {PLANS.map((plan, idx) => (
               <div
                 key={idx}
-                className={`rounded-lg border transition-all ${
+                className={`min-w-[320px] lg:min-w-0 snap-center rounded-lg border transition-all flex flex-col ${
                   plan.featured
-                    ? 'bg-gradient-to-b from-violet-600/20 to-indigo-600/10 border-violet-600/50 scale-105 shadow-2xl'
+                    ? 'bg-gradient-to-b from-violet-600/20 to-indigo-600/10 border-violet-600/50 scale-105 shadow-2xl z-10'
                     : 'bg-slate-900 border-slate-800 hover:border-slate-700'
                 }`}
               >
@@ -153,10 +171,10 @@ export default function DIYPricingLadder() {
                   </a>
 
                   {/* Features */}
-                  <div className="space-y-3">
+                  <div className="space-y-3 flex-1">
                     {plan.features.map((feature, fIdx) => (
-                      <div key={fIdx} className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
+                      <div key={fIdx} className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
                         <span className="text-slate-300 text-sm">{feature}</span>
                       </div>
                     ))}
@@ -182,7 +200,7 @@ export default function DIYPricingLadder() {
           </div>
 
           {/* Upgrade Paths */}
-          <div className="bg-gradient-to-r from-slate-800 to-slate-900 border border-slate-700 rounded-lg p-8 mt-16">
+          <div className="max-w-4xl mx-auto bg-gradient-to-r from-slate-800 to-slate-900 border border-slate-700 rounded-lg p-8 mt-16">
             <h3 className="text-2xl font-bold text-white mb-6">Upgrade Path</h3>
             <div className="space-y-4">
               <div className="flex items-center gap-4">

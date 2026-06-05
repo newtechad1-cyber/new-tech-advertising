@@ -1,0 +1,38 @@
+{
+  "name": "PricingWizardLead",
+  "type": "object",
+  "properties": {
+    "industry": {
+      "type": "string"
+    },
+    "current_marketing": {
+      "type": "string"
+    },
+    "time_available": {
+      "type": "string"
+    },
+    "primary_goal": {
+      "type": "string"
+    },
+    "budget_comfort": {
+      "type": "string"
+    },
+    "recommended_plan": {
+      "type": "string"
+    },
+    "user_email": {
+      "type": "string"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_url": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "industry",
+    "primary_goal"
+  ]
+}
