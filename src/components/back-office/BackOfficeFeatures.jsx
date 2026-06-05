@@ -83,7 +83,7 @@ export default function BackOfficeFeatures() {
           </div>
           <div className="flex justify-center lg:justify-end">
             <img 
-              src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/d9fcdfe65_app-screen-field-view.png" 
+              src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/74571269b_app-screen-field-view-real.png" 
               alt="Mobile Field View screenshot" 
               className="rounded-3xl shadow-2xl w-full max-w-md object-cover"
             />
