@@ -131,8 +131,8 @@ const MessageBubble = ({ message }) => {
     return (
         <div className={cn("flex gap-3", isUser ? "justify-end" : "justify-start")}>
             {!isUser && (
-                <div className="h-7 w-7 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Bot className="w-4 h-4 text-blue-600" />
+                <div className="h-7 w-7 rounded-lg bg-black flex items-center justify-center flex-shrink-0 mt-0.5 overflow-hidden">
+                    <img src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/04e19b127_favicon_64x64.png" alt="Bot" className="w-full h-full object-cover" />
                 </div>
             )}
             <div className={cn("max-w-[85%]", isUser && "flex flex-col items-end")}>
@@ -206,30 +206,21 @@ export default function AgentChatWidget() {
     }
   }, [isOpen, authStep, conversation]);
 
-  const handleConnect = async (e) => {
-    e.preventDefault();
-    if (!email.trim() || !name.trim()) return;
-    setIsAuthLoading(true);
-    
-    let pass = localStorage.getItem('nta_chat_pass');
-    if (!pass) {
-        pass = crypto.randomUUID();
-        localStorage.setItem('nta_chat_pass', pass);
-    }
-    
-    try {
-        try {
-            await base44.auth.register({ email: email.trim(), password: pass, full_name: name.trim() });
-        } catch (regErr) {
-            // Might already exist, ignore and try to login
+  useEffect(() => {
+    if (localStorage.getItem('nta_open_chat') === 'true') {
+      base44.auth.isAuthenticated().then(isAuth => {
+        if (isAuth) {
+          localStorage.removeItem('nta_open_chat');
+          setIsOpen(true);
+          setAuthStep('chat');
         }
-        await base44.auth.loginViaEmailPassword(email.trim(), pass);
-        setAuthStep('chat');
-    } catch (e) {
-        toast.error("Could not connect. Please try again.");
-    } finally {
-        setIsAuthLoading(false);
+      });
     }
+  }, []);
+
+  const handleGoogleSignIn = () => {
+    localStorage.setItem('nta_open_chat', 'true');
+    base44.auth.redirectToLogin();
   };
 
   const initConversation = async () => {
@@ -294,9 +285,9 @@ export default function AgentChatWidget() {
           >
             <button
               onClick={() => setIsOpen(true)}
-              className="w-[50px] h-[50px] bg-slate-900 rounded-full shadow-lg flex items-center justify-center hover:bg-slate-800 transition-colors mb-2 mr-2"
+              className="w-[50px] h-[50px] bg-black rounded-full shadow-lg flex items-center justify-center hover:bg-slate-900 transition-colors mb-2 mr-2 overflow-hidden border border-slate-700"
             >
-              <Bot className="w-6 h-6 text-white" />
+              <img src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/04e19b127_favicon_64x64.png" alt="Bot" className="w-full h-full object-cover" />
             </button>
             <div className="pr-4">
                 <span className="text-[11px] font-medium text-slate-600 bg-white px-2.5 py-1 rounded-full shadow-sm border border-slate-200">
@@ -318,8 +309,8 @@ export default function AgentChatWidget() {
             {/* Header */}
             <div className="bg-slate-900 p-4 flex items-center justify-between shadow-sm z-10">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center">
-                  <Bot className="w-5 h-5 text-blue-400" />
+                <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center overflow-hidden border border-slate-700">
+                  <img src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/04e19b127_favicon_64x64.png" alt="Bot" className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <h3 className="text-white font-semibold text-sm">NTA Growth Guide</h3>
@@ -338,37 +329,29 @@ export default function AgentChatWidget() {
             </div>
 
             {authStep === 'connect' ? (
-                <div className="flex-1 p-8 flex flex-col justify-center items-center bg-white">
-                    <h3 className="text-xl font-bold text-slate-800 mb-6">Quick connect to chat</h3>
-                    <form onSubmit={handleConnect} className="w-full space-y-4">
-                        <div>
-                            <Input 
-                                placeholder="Name" 
-                                value={name} 
-                                onChange={e => setName(e.target.value)}
-                                required
-                                className="w-full"
-                            />
-                        </div>
-                        <div>
-                            <Input 
-                                type="email"
-                                placeholder="Email" 
-                                value={email} 
-                                onChange={e => setEmail(e.target.value)}
-                                required
-                                className="w-full"
-                            />
-                        </div>
+                <div className="flex-1 p-8 flex flex-col justify-center items-center bg-white text-center">
+                    <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center mb-6 overflow-hidden border border-slate-200 shadow-sm">
+                        <img src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/04e19b127_favicon_64x64.png" alt="Bot" className="w-full h-full object-cover" />
+                    </div>
+                    <p className="text-[15px] text-slate-700 leading-relaxed mb-8">
+                        Hi! I'm the NTA Growth Guide — your AI marketing advisor. Sign in to start chatting.
+                    </p>
+                    <div className="w-full space-y-4">
                         <Button 
-                            type="submit" 
-                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 h-auto rounded-xl"
-                            disabled={isAuthLoading}
+                            onClick={handleGoogleSignIn}
+                            variant="outline"
+                            className="w-full bg-white hover:bg-slate-50 text-slate-700 font-medium py-2.5 h-auto rounded-xl border border-slate-300 shadow-sm flex items-center justify-center transition-colors"
                         >
-                            {isAuthLoading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : 'Start Chatting →'}
+                            <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
+                                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                            </svg>
+                            Continue with Google
                         </Button>
-                        <p className="text-center text-xs text-slate-500 mt-4">We'll remember you next time</p>
-                    </form>
+                        <p className="text-center text-xs text-slate-500">Quick sign-in — we'll remember you next time</p>
+                    </div>
                 </div>
             ) : authStep === 'chat' ? (
                 <>
@@ -389,14 +372,14 @@ export default function AgentChatWidget() {
                     {/* Quick Actions (only show if few messages or input empty) */}
                     {messages.length < 4 && (
                         <div className="px-4 pb-2 flex gap-2 overflow-x-auto scrollbar-hide snap-x">
-                            <button onClick={() => handleQuickAction("What services do you offer?")} className="snap-start flex-shrink-0 text-xs bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-full hover:bg-slate-50 hover:text-slate-900 transition-colors">
-                                What services do you offer?
+                            <button onClick={() => handleQuickAction("Free Gap Audit")} className="snap-start flex-shrink-0 text-xs bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-full hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                                Free Gap Audit
                             </button>
-                            <button onClick={() => handleQuickAction("Can I get a gap audit?")} className="snap-start flex-shrink-0 text-xs bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-full hover:bg-slate-50 hover:text-slate-900 transition-colors">
-                                Can I get a gap audit?
+                            <button onClick={() => handleQuickAction("See Pricing")} className="snap-start flex-shrink-0 text-xs bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-full hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                                See Pricing
                             </button>
-                            <button onClick={() => handleQuickAction("How much does it cost?")} className="snap-start flex-shrink-0 text-xs bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-full hover:bg-slate-50 hover:text-slate-900 transition-colors">
-                                How much does it cost?
+                            <button onClick={() => handleQuickAction("Book a Call")} className="snap-start flex-shrink-0 text-xs bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-full hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                                Book a Call
                             </button>
                         </div>
                     )}
