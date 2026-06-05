@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
-import NTAGrowthGuideBot from '../components/nta-guide/NTAGrowthGuideBot';
 import HeroSplit from '../components/home-v3/HeroSplit';
 import ThreeWaysWeHelp from '../components/home-v3/ThreeWaysWeHelp';
 import TwoWaysWeGrow from '../components/home-v3/TwoWaysWeGrow';
@@ -47,7 +46,6 @@ export default function Home() {
       <VoiceSearchQA />
       <GapAuditCenteredCTA />
       <SiteFooter />
-      <NTAGrowthGuideBot />
       <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify({
           "@context": "https://schema.org",

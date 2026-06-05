@@ -14,6 +14,7 @@ export const useViewMode = () => {
 import ADAComplianceBanner from '@/components/marketing/ADAComplianceBanner';
 import RouteFamilyBadge from '@/components/admin/RouteFamilyBadge';
 import { PAGE_FAMILY_MAP } from '@/components/config/routeMap';
+import NTAAgentWidget from '@/components/nta-guide/NTAAgentWidget';
 import { createPageUrl } from '@/utils';
 
 export default function Layout({ children, currentPageName }) {
@@ -91,6 +92,7 @@ export default function Layout({ children, currentPageName }) {
       {children}
       <ADAComplianceBanner />
       {showBadge && <RouteFamilyBadge family={pageFamily} />}
+      <NTAAgentWidget />
     </ViewModeContext.Provider>
   );
 }

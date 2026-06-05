@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
-import NTAGrowthGuideBot from '../components/nta-guide/NTAGrowthGuideBot';
 import { Calendar, User, ArrowLeft, Loader2, Tag, Clock, ArrowRight } from 'lucide-react';
 import { applyInternalLinks } from '../utils/internalLinking';
 import { createPageUrl } from '../utils';
@@ -218,7 +217,6 @@ export default function BlogPost() {
       </main>
 
       <SiteFooter />
-      <NTAGrowthGuideBot />
     </div>
   );
 }
