@@ -118,7 +118,7 @@ export default function NTAAgentWidget() {
               className="relative w-14 h-14 rounded-full flex items-center justify-center shadow-2xl overflow-hidden border-2 border-slate-800 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all hover:scale-105 bg-white group"
               title="Chat here"
             >
-              <div className="absolute inset-0 rounded-full animate-ping opacity-20 bg-green-500 group-hover:opacity-40 transition-opacity"></div>
+              <div className="absolute inset-2 rounded-full animate-ping opacity-10 bg-green-500 group-hover:opacity-20 transition-opacity"></div>
               <img src={avatarUrl} alt="Growth Guide" className="w-full h-full object-cover z-10" />
             </button>
           </>
