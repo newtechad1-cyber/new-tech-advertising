@@ -57,30 +57,29 @@ export default function BackOfficeSolutions() {
           </div>
           
           {/* App Preview Image / Mockup Container */}
-          <div className="relative max-w-5xl mx-auto bg-slate-900 rounded-t-3xl border border-slate-800 p-2 shadow-2xl overflow-hidden">
-            <div className="bg-slate-950 rounded-t-2xl overflow-hidden aspect-[16/9] border border-slate-800 flex items-center justify-center relative">
-              {/* Fallback mockup since we don't have a real screenshot */}
-              <div className="absolute top-0 w-full h-12 bg-slate-900 border-b border-slate-800 flex items-center px-4 gap-2">
-                <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
-                <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
-                <div className="w-3 h-3 rounded-full bg-green-500/50"></div>
-                <div className="mx-auto w-1/3 h-6 bg-slate-800 rounded-md"></div>
-              </div>
-              <div className="w-full h-full pt-12 flex">
-                <div className="w-48 bg-slate-900/50 border-r border-slate-800 p-4 space-y-3">
-                  <div className="h-4 bg-slate-800 rounded w-full"></div>
-                  <div className="h-4 bg-slate-800 rounded w-3/4"></div>
-                  <div className="h-4 bg-slate-800 rounded w-5/6"></div>
-                  <div className="h-4 bg-slate-800 rounded w-full"></div>
-                </div>
-                <div className="flex-1 p-6 space-y-4">
-                  <div className="flex gap-4">
-                    <div className="h-24 bg-slate-800 rounded-xl flex-1 border border-slate-700/50"></div>
-                    <div className="h-24 bg-slate-800 rounded-xl flex-1 border border-slate-700/50"></div>
-                    <div className="h-24 bg-slate-800 rounded-xl flex-1 border border-slate-700/50"></div>
+          <div className="relative max-w-5xl mx-auto">
+            {/* Subtle green radial glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[120%] bg-emerald-500/20 rounded-full blur-[120px] pointer-events-none" />
+            
+            <div className="relative bg-slate-900 rounded-t-3xl border border-slate-800 p-2 shadow-2xl overflow-hidden z-10">
+              <div className="bg-slate-950 rounded-t-2xl overflow-hidden border border-slate-800 relative">
+                {/* Browser Header */}
+                <div className="w-full h-12 bg-slate-900 border-b border-slate-800 flex items-center px-4 gap-2 relative">
+                  <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                  
+                  {/* Centered URL bar */}
+                  <div className="absolute left-1/2 -translate-x-1/2 h-7 px-4 bg-slate-950 border border-slate-800 rounded-md flex items-center justify-center">
+                    <span className="text-xs text-slate-400 font-medium">johnson-backoffice.newtechadvertising.com</span>
                   </div>
-                  <div className="h-64 bg-slate-800 rounded-xl border border-slate-700/50 w-full mt-6"></div>
                 </div>
+                {/* Image Content */}
+                <img 
+                  src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/066ac9bbd_app-screen-dashboard.png" 
+                  alt="Johnson Heating & AC Back-Office Dashboard" 
+                  className="w-full h-auto object-cover block"
+                />
               </div>
             </div>
           </div>
