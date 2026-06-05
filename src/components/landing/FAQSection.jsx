@@ -12,7 +12,7 @@ export default function FAQSection() {
   const faqs = [
     {
       question: "What about your money-back guarantee?",
-      answer: "We do not offer a Money Back Guarantee because like you, we need to get paid for our labours. But if you're not happy, no problem, let's just part ways."
+      answer: "We don't offer money-back guarantees. Setup takes real time and effort, and our team deserves to be compensated for that work. But we'll never lock you into a contract — if it's not working, cancel anytime with no penalties or fees. We earn your business every month."
     },
     {
       question: "What exactly do I get for $297/month?",

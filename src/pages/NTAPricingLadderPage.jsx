@@ -161,7 +161,7 @@ export default function NTAPricingLadderPage() {
               <div>
                 <h3 className="text-white font-bold mb-2">What if I start DIY and it doesn't work?</h3>
                 <p className="text-slate-400">
-                  30-day money-back guarantee. If you're not seeing value, we'll refund your first month, no questions asked.
+                  We don't offer money-back guarantees — setup takes real time and our team deserves to be paid for that work. But we never lock you in. Cancel anytime, no penalties, no fees.
                 </p>
               </div>
               <div>

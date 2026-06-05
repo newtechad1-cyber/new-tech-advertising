@@ -195,20 +195,20 @@ export default function NTAPricingLadder({
       )}
 
       {/* Pricing Cards */}
-      <div className="flex overflow-x-auto pb-6 snap-x snap-mandatory gap-4 md:grid md:grid-cols-5 md:overflow-visible">
+      <div className="flex flex-col md:grid md:grid-cols-2 lg:flex lg:flex-row lg:flex-wrap lg:justify-center gap-6 pb-6 items-stretch">
         {TIERS.map((tier) => (
           <div
             key={tier.id}
             onMouseEnter={() => setHoveredTier(tier.id)}
             onMouseLeave={() => setHoveredTier(null)}
-            className={`rounded-xl border transition-all duration-300 overflow-hidden min-w-[280px] snap-center shrink-0 ${
+            className={`rounded-xl border transition-all duration-300 flex flex-col overflow-hidden w-full lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-19.2px)] ${
               tier.highlight
-                ? 'bg-gradient-to-br from-slate-900 to-slate-800 border-violet-500/50 ring-2 ring-violet-500/20 scale-105'
+                ? 'bg-gradient-to-br from-slate-900 to-slate-800 border-violet-500/50 ring-2 ring-violet-500/20 md:col-span-2 md:order-first lg:order-none lg:scale-105 z-10'
                 : 'bg-slate-900/50 border-slate-800 hover:border-slate-700'
             } ${hoveredTier === tier.id && !tier.highlight ? 'border-slate-600' : ''}`}
           >
             {/* Header */}
-            <div className="p-6 border-b border-slate-800">
+            <div className="p-5 border-b border-slate-800">
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <h3 className="text-xl font-bold text-white">{tier.name}</h3>
@@ -232,21 +232,21 @@ export default function NTAPricingLadder({
             </div>
 
             {/* Features */}
-            <div className="p-6 border-b border-slate-800">
+            <div className="p-5 border-b border-slate-800 flex-1">
               <ul className="space-y-3">
                 {tier.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-3 text-sm">
-                    <Check className={`w-5 h-5 flex-shrink-0 mt-0.5 ${
+                    <Check className={`w-4 h-4 flex-shrink-0 mt-0.5 ${
                       tier.highlight ? 'text-violet-400' : 'text-slate-400'
                     }`} />
-                    <span className="text-slate-300">{feature}</span>
+                    <span className="text-slate-300 leading-tight">{feature}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             {/* CTA */}
-            <div className="p-6">
+            <div className="p-5 mt-auto">
               <Button
                 onClick={() => handleCTA(tier.id)}
                 className={`w-full flex items-center justify-center gap-2 py-3 font-bold rounded-lg transition-all ${

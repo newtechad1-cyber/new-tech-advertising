@@ -58,7 +58,7 @@ export default function DIYCheckoutModal({ isOpen, onClose, onProceed, isLoading
         {/* Guarantee */}
         <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4 mb-8">
           <p className="text-slate-300 text-sm">
-            <span className="text-white font-semibold">30-day guarantee:</span> If you don't see value, we'll refund your first month.
+            <span className="text-white font-semibold">No contracts — cancel anytime if it's not the right fit.</span>
           </p>
         </div>
 
@@ -84,7 +84,7 @@ export default function DIYCheckoutModal({ isOpen, onClose, onProceed, isLoading
 
         {/* Security Footer */}
         <p className="text-slate-500 text-xs text-center mt-6">
-          💳 Payments secured by Stripe • 30-day money-back guarantee
+          💳 Payments secured by Stripe - No contracts, cancel anytime
         </p>
       </div>
     </div>

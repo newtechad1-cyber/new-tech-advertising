@@ -56,7 +56,7 @@ export default function DemoNext() {
             <h3 className="font-bold text-white">Our Promise to You</h3>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            {['No long-term contracts', 'Cancel anytime', 'Onboarding support included', '30-day satisfaction guarantee', 'Dedicated setup specialist', 'Results in first 30 days or we fix it'].map(g => (
+            {['No long-term contracts', 'Cancel anytime', 'Onboarding support included', 'No contracts — cancel anytime', 'Dedicated setup specialist', 'Results in first 30 days or we fix it'].map(g => (
               <div key={g} className="flex items-center gap-2 text-sm text-slate-300">
                 <CheckCircle className="w-4 h-4 text-green-400 shrink-0" /> {g}
               </div>

@@ -79,7 +79,7 @@ export default function DealRoomContract() {
                 'No long-term contracts required on trial',
                 'We build your website and first content before you pay month 2',
                 'Cancel any time — no penalty',
-                'If you\'re not satisfied after setup, we\'ll refund your first month',
+                'No long-term contracts. Cancel anytime with no penalties.',
               ].map(item => (
                 <div key={item} className="flex items-center gap-2 text-sm text-slate-300">
                   <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" /> {item}
