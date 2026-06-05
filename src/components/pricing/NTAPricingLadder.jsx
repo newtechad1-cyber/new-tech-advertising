@@ -38,7 +38,7 @@ const TIERS = [
     tagText: 'text-violet-300',
     description: 'Full marketing + business tools — run everything yourself',
     features: [
-      'Everything in DIY Social',
+      'Everything in DIY Social PLUS:',
       'Full CRM & Client Management',
       'Leads Pipeline & Prospecting',
       'Invoicing & Expense Tracking',
@@ -89,7 +89,7 @@ const TIERS = [
     tagText: 'text-amber-300',
     description: 'Full content + video + reputation managed for you',
     features: [
-      'Everything in Growth Partner',
+      'Everything in Growth Partner PLUS:',
       'AI Video Production',
       'Reputation & Review Management',
       'Streaming TV Ad Scripts',
@@ -112,7 +112,7 @@ const TIERS = [
     tagText: 'text-rose-300',
     description: 'Marketing + back-office systems + custom automations',
     features: [
-      'Everything in Accelerator',
+      'Everything in Accelerator PLUS:',
       'Custom Back-Office App',
       'Automated Invoicing & Dispatch',
       'Weekly Strategy Calls',

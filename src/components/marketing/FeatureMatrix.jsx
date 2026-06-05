@@ -5,11 +5,11 @@ import { CheckCircle, X, Minus, ArrowRight, BrainCircuit, Calendar, BarChart2, V
 
 // ── Plans ──────────────────────────────────────────────────────────────────────
 const PLANS = [
-  { key: 'diy_social', name: 'DIY Social', price: '$97', period: '/mo', cta: 'Start DIY', link: '/nta/diy-growth-system?plan=diy_social', highlight: false, badge: 'Best Way to Start' },
-  { key: 'diy_suite', name: 'DIY Suite', price: '$197', period: '/mo', cta: 'Start Suite', link: '/nta/diy-growth-system?plan=diy_suite', highlight: true, badge: 'Best for Solo Operators' },
+  { key: 'diy_social', name: 'DIY Social', price: '$97', period: '/mo', cta: 'Start DIY Social', link: '/nta/diy-growth-system?plan=diy_social', highlight: false, badge: 'Best Way to Start' },
+  { key: 'diy_suite', name: 'DIY Marketing Suite', price: '$197', period: '/mo', cta: 'Start Marketing Suite', link: '/nta/diy-growth-system?plan=diy_suite', highlight: true, badge: 'Best for Solo Operators' },
   { key: 'growth_partner', name: 'Growth Partner', price: '$297', period: '/mo', cta: 'Book a Call', link: '/book-call', highlight: false, badge: 'Best for Accountability' },
-  { key: 'growth_accelerator', name: 'Accelerator', price: '$497', period: '/mo', cta: 'Book a Call', link: '/book-call', highlight: false, badge: 'Best for Serious Growth' },
-  { key: 'full_stack', name: 'Full-Stack', price: '$797', period: '/mo', cta: 'Book Strategy Call', link: '/book-call', highlight: false, badge: 'The Everything Plan' },
+  { key: 'growth_accelerator', name: 'Growth Accelerator', price: '$497', period: '/mo', cta: 'Book a Call', link: '/book-call', highlight: false, badge: 'Best for Serious Growth' },
+  { key: 'full_stack', name: 'Full-Stack Growth', price: '$797', period: '/mo', cta: 'Book Strategy Call', link: '/book-call', highlight: false, badge: 'The Everything Plan' },
 ];
 
 // ── Feature Categories ─────────────────────────────────────────────────────────
@@ -51,8 +51,10 @@ const FEATURE_GROUPS = [
     color: 'text-amber-400',
     features: [
       { label: 'Full CRM & Client Management', diy_social: false, diy_suite: true, growth_partner: true, growth_accelerator: true, full_stack: true },
+      { label: 'Leads Pipeline & Prospecting', diy_social: false, diy_suite: true, growth_partner: true, growth_accelerator: true, full_stack: true },
       { label: 'Invoicing & Expense Tracking', diy_social: false, diy_suite: true, growth_partner: true, growth_accelerator: true, full_stack: true },
       { label: 'Financial Reports (P&L)', diy_social: false, diy_suite: true, growth_partner: true, growth_accelerator: true, full_stack: true },
+      { label: 'Project Tracking', diy_social: false, diy_suite: true, growth_partner: true, growth_accelerator: true, full_stack: true },
       { label: 'Custom Back-Office App', diy_social: false, diy_suite: false, growth_partner: false, growth_accelerator: false, full_stack: true },
       { label: 'Custom Automation Workflows', diy_social: false, diy_suite: false, growth_partner: false, growth_accelerator: false, full_stack: true },
     ],
@@ -64,6 +66,7 @@ const FEATURE_GROUPS = [
     features: [
       { label: 'Growth Guide Chatbot', diy_social: true, diy_suite: true, growth_partner: true, growth_accelerator: true, full_stack: true },
       { label: 'Learning Center Access', diy_social: true, diy_suite: true, growth_partner: true, growth_accelerator: true, full_stack: true },
+      { label: 'Self-Service Gap Audit', diy_social: false, diy_suite: true, growth_partner: true, growth_accelerator: true, full_stack: true },
       { label: 'Email Support', diy_social: true, diy_suite: true, growth_partner: true, growth_accelerator: true, full_stack: true },
       { label: 'Monthly Live Q&A', diy_social: false, diy_suite: true, growth_partner: true, growth_accelerator: true, full_stack: true },
       { label: 'Priority Support', diy_social: false, diy_suite: true, growth_partner: true, growth_accelerator: true, full_stack: true },

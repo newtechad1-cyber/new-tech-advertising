@@ -12,6 +12,7 @@ const PLANS = [
     badgeStyle: 'bg-blue-600',
     color: 'border-slate-200',
     buttonStyle: 'bg-blue-600 hover:bg-blue-500 text-white',
+    cta: 'Start DIY Social',
     features: [
       'AI Content Generation (20 posts/mo)',
       'Social Media Planner',
@@ -32,6 +33,7 @@ const PLANS = [
     badgeStyle: 'bg-violet-600',
     color: 'border-violet-500 shadow-xl shadow-violet-600/10 scale-105',
     buttonStyle: 'bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white shadow-lg shadow-violet-600/30',
+    cta: 'Start Marketing Suite',
     features: [
       'Everything in DIY Social PLUS:',
       'Full CRM & Client Management',
@@ -39,7 +41,8 @@ const PLANS = [
       'Invoicing & Expense Tracking',
       'Financial Reports (P&L)',
       'Project Tracking',
-      '50 AI Posts/mo & 7 Channels',
+      '50 AI Posts/mo',
+      '7 Social Channels',
       'AI Video Studio',
       'Self-Service Gap Audit',
       'Monthly Live Q&A',
@@ -55,6 +58,7 @@ const PLANS = [
     badgeStyle: 'bg-emerald-600',
     color: 'border-emerald-500/30 shadow-lg',
     buttonStyle: 'bg-emerald-600 hover:bg-emerald-500 text-white',
+    cta: 'Book a Call',
     features: [
       '20 Done-For-You Social Posts/mo',
       '7 Channels Managed',
@@ -74,6 +78,7 @@ const PLANS = [
     badgeStyle: 'bg-amber-500',
     color: 'border-amber-500/30 shadow-lg',
     buttonStyle: 'bg-amber-600 hover:bg-amber-500 text-white',
+    cta: 'Book a Call',
     features: [
       'Everything in Growth Partner PLUS:',
       'AI Video Production',
@@ -93,6 +98,7 @@ const PLANS = [
     badgeStyle: 'bg-rose-600',
     color: 'border-rose-500/30 shadow-lg',
     buttonStyle: 'bg-rose-600 hover:bg-rose-500 text-white',
+    cta: 'Book Strategy Call',
     features: [
       'Everything in Accelerator PLUS:',
       'Custom Back-Office App',
@@ -153,7 +159,7 @@ export default function HomePricing() {
                 href={plan.link}
                 className={`inline-flex items-center justify-center gap-2 font-bold px-6 py-3.5 rounded-xl text-sm transition-all ${plan.buttonStyle}`}
               >
-                {plan.name.includes('DIY') ? 'Start ' + plan.name : 'Book a Call'} <ArrowRight className="w-4 h-4" />
+                {plan.cta} <ArrowRight className="w-4 h-4" />
               </a>
             </div>
           ))}

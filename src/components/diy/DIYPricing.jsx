@@ -70,7 +70,8 @@ export default function DIYPricing({ onCTA, isLoading }) {
               <div className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-violet-400 shrink-0 mt-0.5" /> Invoicing & Expense Tracking</div>
               <div className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-violet-400 shrink-0 mt-0.5" /> Financial Reports (P&L)</div>
               <div className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-violet-400 shrink-0 mt-0.5" /> Project Tracking</div>
-              <div className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-violet-400 shrink-0 mt-0.5" /> 50 AI Posts/mo, 7 Channels</div>
+              <div className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-violet-400 shrink-0 mt-0.5" /> 50 AI Posts/mo</div>
+              <div className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-violet-400 shrink-0 mt-0.5" /> 7 Social Channels</div>
               <div className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-violet-400 shrink-0 mt-0.5" /> AI Video Studio</div>
               <div className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-violet-400 shrink-0 mt-0.5" /> Self-Service Gap Audit</div>
             </div>
