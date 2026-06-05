@@ -283,16 +283,18 @@ export default function AgentChatWidget() {
             exit={{ opacity: 0, y: 10 }}
             className="fixed bottom-8 right-6 z-50 flex flex-col items-end"
           >
-            <button
-              onClick={() => setIsOpen(true)}
-              className="w-[50px] h-[50px] bg-black rounded-full shadow-lg flex items-center justify-center hover:bg-slate-900 transition-colors mb-2 mr-2 overflow-hidden border border-slate-700"
-            >
-              <img src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/04e19b127_favicon_64x64.png" alt="Bot" className="w-full h-full object-cover" />
-            </button>
-            <div className="pr-4">
-                <span className="text-[11px] font-medium text-slate-600 bg-white px-2.5 py-1 rounded-full shadow-sm border border-slate-200">
-                    Ask the Growth Guide
-                </span>
+            <div className="flex items-start">
+                <div className="mt-4 mr-2">
+                    <span className="text-[11px] font-medium text-slate-600 bg-white px-2.5 py-1 rounded-full shadow-sm border border-slate-200 whitespace-nowrap">
+                        Ask the Growth Guide
+                    </span>
+                </div>
+                <button
+                  onClick={() => setIsOpen(true)}
+                  className="w-[50px] h-[50px] rounded-full shadow-lg flex items-center justify-center hover:opacity-90 transition-opacity overflow-hidden border border-slate-200 bg-white"
+                >
+                  <img src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/04e19b127_favicon_64x64.png" alt="Bot" className="w-full h-full object-cover" />
+                </button>
             </div>
           </motion.div>
         )}
