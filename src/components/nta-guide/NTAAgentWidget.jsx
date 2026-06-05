@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { base44 } from '@/api/base44Client';
-import { X, Send } from 'lucide-react';
+import { X, Send, MessageCircle } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
 export default function NTAAgentWidget() {
@@ -95,20 +95,33 @@ export default function NTAAgentWidget() {
 
   return (
     <>
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
         {!open && (
           <div className="bg-slate-900 border border-slate-700 text-white text-xs font-semibold px-3 py-2 rounded-2xl shadow-lg max-w-[180px] text-center leading-snug animate-bounce">
             Ask the Growth Guide
           </div>
         )}
         {!open && (
-          <button
-            onClick={handleOpen}
-            className="relative w-14 h-14 rounded-full flex items-center justify-center shadow-2xl overflow-hidden border-2 border-slate-800 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all hover:scale-105 bg-white group"
-          >
-            <div className="absolute inset-0 rounded-full animate-ping opacity-20 bg-green-500 group-hover:opacity-40 transition-opacity"></div>
-            <img src={avatarUrl} alt="Growth Guide" className="w-full h-full object-cover z-10" />
-          </button>
+          <>
+            <a
+              href={base44.agents.getWhatsAppConnectURL('nta_growth_guide')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-14 h-14 rounded-full flex items-center justify-center shadow-2xl overflow-hidden border-2 border-slate-800 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all hover:scale-105 bg-green-500 group"
+              title="Chat on WhatsApp"
+            >
+              <div className="absolute inset-0 rounded-full animate-pulse opacity-20 bg-white group-hover:opacity-40 transition-opacity"></div>
+              <MessageCircle className="w-7 h-7 text-white z-10" />
+            </a>
+            <button
+              onClick={handleOpen}
+              className="relative w-14 h-14 rounded-full flex items-center justify-center shadow-2xl overflow-hidden border-2 border-slate-800 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all hover:scale-105 bg-white group"
+              title="Chat here"
+            >
+              <div className="absolute inset-0 rounded-full animate-ping opacity-20 bg-green-500 group-hover:opacity-40 transition-opacity"></div>
+              <img src={avatarUrl} alt="Growth Guide" className="w-full h-full object-cover z-10" />
+            </button>
+          </>
         )}
       </div>
 
