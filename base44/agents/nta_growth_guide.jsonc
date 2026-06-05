@@ -20,7 +20,11 @@
     },
     {
       "entity_name": "SalesLead",
-      "allowed_operations": []
+      "allowed_operations": [
+        "create",
+        "read",
+        "update"
+      ]
     }
   ],
   "whatsapp_greeting": "Hi there! I'm the NTA Growth Guide. I'm here to help you understand how New Tech Advertising can grow your local business and streamline operations. How can I help you today?",
