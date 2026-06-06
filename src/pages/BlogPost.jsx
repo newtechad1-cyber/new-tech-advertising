@@ -159,7 +159,31 @@ export default function BlogPost() {
             prose-pre:bg-slate-900 prose-pre:rounded-xl prose-pre:shadow-lg
             [&>iframe]:w-full [&>iframe]:max-w-full [&>iframe]:rounded-xl [&>iframe]:my-6 [&>iframe]:aspect-video
           " style={{ fontFamily: "'Georgia', serif", lineHeight: '1.85' }}>
-            <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>{applyInternalLinks(post.content)}</ReactMarkdown>
+            <ReactMarkdown 
+              rehypePlugins={[rehypeRaw]} 
+              remarkPlugins={[remarkGfm]}
+              components={{
+                a: ({ href, children, ...props }) => {
+                  // Detect Google Calendar booking links
+                  if (href && href.includes('calendar.app.google')) {
+                    return (
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl text-base transition shadow-lg shadow-blue-200 no-underline my-4"
+                      >
+                        📅 Book a Free Call
+                      </a>
+                    );
+                  }
+                  // Default link rendering
+                  return <a href={href} {...props}>{children}</a>;
+                }
+              }}
+            >
+              {applyInternalLinks(post.content)}
+            </ReactMarkdown>
           </div>
 
           {/* Mid-content strategic callout */}
