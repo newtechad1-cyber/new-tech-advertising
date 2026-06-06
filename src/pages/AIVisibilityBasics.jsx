@@ -6,6 +6,7 @@ import LCRelatedArticles from '@/components/learning-center/LCRelatedArticles';
 import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
+import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 
 export default function AIVisibilityBasics() {
   return (
@@ -25,6 +26,7 @@ export default function AIVisibilityBasics() {
       />
 
       <main className="max-w-4xl mx-auto px-6 py-12">
+        <TrackProgress trackName="I'm New to AI" currentStep={2} totalSteps={5} color="emerald" />
         <article className="prose prose-invert prose-lg max-w-none prose-a:text-blue-400 hover:prose-a:text-blue-300">
           <p className="text-xl leading-relaxed text-slate-200">
             For years, search engines relied on keywords. If someone typed "plumber near me," the search engine looked for websites with the word "plumber." Today, AI models don't just look for words; they look for entities, context, and trust.
@@ -60,6 +62,14 @@ export default function AIVisibilityBasics() {
           </LCInsightBlock>
 
         </article>
+
+        <TrackBottomNav 
+          prevLink="/what-changed-online"
+          prevText="← Previous: What Changed Online"
+          nextLink="/seo-vs-ai-search"
+          nextText="Next: SEO vs AI Search →"
+          color="emerald"
+        />
 
         <LCRelatedVideos category="AI Visibility" />
 

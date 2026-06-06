@@ -6,6 +6,7 @@ import LCRelatedArticles from '@/components/learning-center/LCRelatedArticles';
 import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
+import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 
 export default function PracticalAIForSmallBusinesses() {
   return (
@@ -25,6 +26,7 @@ export default function PracticalAIForSmallBusinesses() {
       />
 
       <main className="max-w-4xl mx-auto px-6 py-12">
+        <TrackProgress trackName="I'm New to AI" currentStep={4} totalSteps={5} color="emerald" />
         <article className="prose prose-invert prose-lg max-w-none prose-a:text-blue-400 hover:prose-a:text-blue-300">
           <p className="text-xl leading-relaxed text-slate-200">
             Forget the sci-fi movies. For a local service business, AI isn't about robots taking over; it's about automation, efficiency, and scaling your marketing without hiring a massive team.
@@ -60,6 +62,14 @@ export default function PracticalAIForSmallBusinesses() {
           </LCInsightBlock>
 
         </article>
+
+        <TrackBottomNav 
+          prevLink="/seo-vs-ai-search"
+          prevText="← Previous"
+          nextLink="/role-of-ai-in-local-marketing"
+          nextText="Next: The Role of AI in Local Marketing →"
+          color="emerald"
+        />
 
         <LCRelatedVideos category="Small Business Growth" />
 

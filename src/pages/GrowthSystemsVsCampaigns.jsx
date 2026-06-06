@@ -6,6 +6,7 @@ import LCHeader from '@/components/learning-center/LCHeader';
 import LCInsightBlock from '@/components/learning-center/LCInsightBlock';
 import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
+import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 
 export default function GrowthSystemsVsCampaigns() {
   useEffect(() => {
@@ -29,6 +30,8 @@ export default function GrowthSystemsVsCampaigns() {
         />
 
         <div className="max-w-4xl mx-auto px-6 mt-12">
+          <TrackProgress trackName="Fix My Marketing" currentStep={1} totalSteps={6} color="blue" />
+
           {/* Featured Video */}
           <div className="mb-14 relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900">
             <iframe 
@@ -195,6 +198,12 @@ export default function GrowthSystemsVsCampaigns() {
                 description="Get a free AI gap audit to see if your current marketing is building long-term authority or just burning through cash." 
               />
             </div>
+
+            <TrackBottomNav 
+              nextLink="/websites-as-salespeople"
+              nextText="Next: Websites as Salespeople →"
+              color="blue"
+            />
           </div>
 
           <div className="mt-20 pt-12 border-t border-slate-800">

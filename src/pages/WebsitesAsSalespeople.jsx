@@ -4,6 +4,7 @@ import SiteFooter from '@/components/marketing/SiteFooter';
 import LCHeader from '@/components/learning-center/LCHeader';
 import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
+import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 
 export default function WebsitesAsSalespeople() {
   useEffect(() => {
@@ -27,6 +28,8 @@ export default function WebsitesAsSalespeople() {
         />
 
         <div className="max-w-4xl mx-auto px-6 mt-12">
+          <TrackProgress trackName="Fix My Marketing" currentStep={2} totalSteps={6} color="blue" />
+
           {/* Featured Video */}
           <div className="mb-14 relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900">
             <iframe 
@@ -78,6 +81,14 @@ export default function WebsitesAsSalespeople() {
                 link="/learning-center"
               />
             </div>
+
+            <TrackBottomNav 
+              prevLink="/growth-systems-vs-campaigns"
+              prevText="← Previous"
+              nextLink="/reputation-is-now-a-growth-engine"
+              nextText="Next: Reputation is Now a Growth Engine →"
+              color="blue"
+            />
           </div>
 
           <div className="mt-20 pt-12 border-t border-slate-800">

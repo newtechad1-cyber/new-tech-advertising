@@ -7,6 +7,7 @@ import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SEOHead from '@/components/shared/SEOHead';
 import SiteFooter from '@/components/marketing/SiteFooter';
+import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 
 export default function WhatChangedOnline() {
   return (
@@ -30,6 +31,7 @@ export default function WhatChangedOnline() {
       />
 
       <main className="max-w-4xl mx-auto px-6 py-12">
+        <TrackProgress trackName="I'm New to AI" currentStep={1} totalSteps={5} color="emerald" />
         <article className="prose prose-invert prose-lg max-w-none prose-a:text-blue-400 hover:prose-a:text-blue-300">
           <p className="text-xl leading-relaxed text-slate-200">
             For years, local marketing meant having a basic website and occasionally posting on Facebook. Today, that is no longer enough. The introduction of AI overviews, zero-click searches, and advanced local algorithms has completely shifted how customers find you.
@@ -68,6 +70,12 @@ export default function WhatChangedOnline() {
           </LCInsightBlock>
 
         </article>
+
+        <TrackBottomNav 
+          nextLink="/ai-visibility-basics"
+          nextText="Next: AI Visibility Basics →"
+          color="emerald"
+        />
 
         <LCRelatedVideos category="SEO vs AI Search" />
 

@@ -6,6 +6,7 @@ import LCHeader from '@/components/learning-center/LCHeader';
 import LCInsightBlock from '@/components/learning-center/LCInsightBlock';
 import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
+import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 
 export default function TheRoleOfAIInLocalMarketing() {
   useEffect(() => {
@@ -29,6 +30,8 @@ export default function TheRoleOfAIInLocalMarketing() {
         />
 
         <div className="max-w-4xl mx-auto px-6 mt-12">
+          <TrackProgress trackName="I'm New to AI" currentStep={5} totalSteps={5} color="emerald" />
+
           {/* Featured Video */}
           <div className="mb-14 relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900">
             <iframe 
@@ -212,6 +215,14 @@ export default function TheRoleOfAIInLocalMarketing() {
                 description="Get a free AI visibility audit to discover how AI search engines currently view your digital footprint compared to your local competitors." 
               />
             </div>
+
+            <TrackBottomNav 
+              prevLink="/practical-ai-for-small-businesses"
+              prevText="← Previous"
+              nextLink="/gap-audit"
+              nextText="🎉 Track Complete! Take the Free AI Audit →"
+              color="emerald"
+            />
           </div>
 
           <div className="mt-20 pt-12 border-t border-slate-800">

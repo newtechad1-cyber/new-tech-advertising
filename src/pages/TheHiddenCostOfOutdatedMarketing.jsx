@@ -6,6 +6,7 @@ import LCHeader from '@/components/learning-center/LCHeader';
 import LCInsightBlock from '@/components/learning-center/LCInsightBlock';
 import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
+import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 
 export default function TheHiddenCostOfOutdatedMarketing() {
   useEffect(() => {
@@ -29,6 +30,8 @@ export default function TheHiddenCostOfOutdatedMarketing() {
         />
 
         <div className="max-w-4xl mx-auto px-6 mt-12">
+          <TrackProgress trackName="Fix My Marketing" currentStep={6} totalSteps={6} color="blue" />
+
           {/* Featured Video */}
           <div className="mb-14 relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900">
             <iframe 
@@ -194,6 +197,14 @@ export default function TheHiddenCostOfOutdatedMarketing() {
                 description="Get a free AI visibility audit to see exactly where your digital footprint is leaking trust, traffic, and revenue compared to modern competitors." 
               />
             </div>
+
+            <TrackBottomNav 
+              prevLink="/campaigns-vs-authority"
+              prevText="← Previous"
+              nextLink="https://calendar.app.google/p6ieYanvwhixXxZ67"
+              nextText="🎉 Track Complete! Book a Free Call →"
+              color="blue"
+            />
           </div>
 
           <div className="mt-20 pt-12 border-t border-slate-800">

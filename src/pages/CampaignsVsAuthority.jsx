@@ -6,6 +6,7 @@ import LCHeader from '@/components/learning-center/LCHeader';
 import LCInsightBlock from '@/components/learning-center/LCInsightBlock';
 import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
+import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 
 export default function CampaignsVsAuthority() {
   useEffect(() => {
@@ -29,6 +30,8 @@ export default function CampaignsVsAuthority() {
         />
 
         <div className="max-w-4xl mx-auto px-6 mt-12">
+          <TrackProgress trackName="Fix My Marketing" currentStep={5} totalSteps={6} color="blue" />
+
           {/* Featured Video */}
           <div className="mb-14 relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900">
             <iframe 
@@ -201,6 +204,14 @@ export default function CampaignsVsAuthority() {
                 description="Get a free gap audit to discover how AI search engines and customers view your digital footprint compared to your competitors." 
               />
             </div>
+
+            <TrackBottomNav 
+              prevLink="/building-digital-trust"
+              prevText="← Previous"
+              nextLink="/hidden-cost-of-outdated-marketing"
+              nextText="Next: The Hidden Cost of Outdated Marketing →"
+              color="blue"
+            />
           </div>
 
           <div className="mt-20 pt-12 border-t border-slate-800">

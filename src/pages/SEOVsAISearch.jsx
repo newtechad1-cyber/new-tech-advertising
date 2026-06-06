@@ -6,6 +6,7 @@ import LCRelatedArticles from '@/components/learning-center/LCRelatedArticles';
 import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
+import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 
 export default function SEOVsAISearch() {
   return (
@@ -25,6 +26,7 @@ export default function SEOVsAISearch() {
       />
 
       <main className="max-w-4xl mx-auto px-6 py-12">
+        <TrackProgress trackName="I'm New to AI" currentStep={3} totalSteps={5} color="emerald" />
         <article className="prose prose-invert prose-lg max-w-none prose-a:text-blue-400 hover:prose-a:text-blue-300">
           <p className="text-xl leading-relaxed text-slate-200">
             For twenty years, Search Engine Optimization (SEO) was a game of keywords and backlinks. You put "best plumber in [City]" on your page 10 times, bought some links, and ranked #1. That era is over. Welcome to AI Search Optimization (AISO).
@@ -84,6 +86,14 @@ export default function SEOVsAISearch() {
           </LCInsightBlock>
 
         </article>
+
+        <TrackBottomNav 
+          prevLink="/ai-visibility-basics"
+          prevText="← Previous"
+          nextLink="/practical-ai-for-small-businesses"
+          nextText="Next: Practical AI For Small Businesses →"
+          color="emerald"
+        />
 
         <LCRelatedVideos category="SEO vs AI Search" />
 
