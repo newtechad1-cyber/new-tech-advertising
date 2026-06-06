@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import HeroSplit from '../components/home-v3/HeroSplit';
+import NewToAISection from '../components/home-v3/NewToAISection';
 import ThreeWaysWeHelp from '../components/home-v3/ThreeWaysWeHelp';
 import TwoWaysWeGrow from '../components/home-v3/TwoWaysWeGrow';
 import WhatIMean from '../components/home-v3/WhatIMean';
@@ -29,6 +30,7 @@ export default function Home() {
       />
       <MarketingNav />
       <HeroSplit />
+      <NewToAISection />
       <ThreeWaysWeHelp />
       <TwoWaysWeGrow />
       <InternetChangedSection />

@@ -33,6 +33,13 @@ export default function Blog() {
   const services = [...new Set(posts.map(p => p.service).filter(Boolean))];
   const industries = [...new Set(posts.map(p => p.industry).filter(Boolean))];
 
+  const featuredSeriesSlugs = [
+    'what-is-ai-really-a-no-bs-guide-for-business-owners',
+    'ai-chatbots-and-ai-agents-a-simple-guide-for-small-business',
+    'the-digital-tollbooth-how-software-empires-are-built-on-your-pennies'
+  ];
+  const seriesPosts = featuredSeriesSlugs.map(slug => posts.find(p => p.slug === slug)).filter(Boolean);
+
   const filtered = posts.filter(p => {
     if (filterService && p.service !== filterService) return false;
     if (filterIndustry && p.industry !== filterIndustry) return false;
@@ -60,30 +67,33 @@ export default function Blog() {
         </div>
       </section>
 
-      {/* Featured */}
-      {!filterService && !filterIndustry && featured.length > 0 && (
-        <section className="py-10 px-4 border-b border-slate-800">
+      {/* Featured Series */}
+      {!filterService && !filterIndustry && seriesPosts.length > 0 && (
+        <section className="py-12 px-4 border-b border-slate-800">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-5">Featured</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              {featured.slice(0, 2).map(post => (
+            <h2 className="text-2xl font-bold text-white mb-6">Featured Series</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              {seriesPosts.map((post, index) => (
                 <Link key={post.id} to={`${createPageUrl('BlogPost')}?id=${post.id}`}
-                  className="group bg-slate-900 border border-slate-700 hover:border-violet-500/50 rounded-2xl overflow-hidden flex flex-col transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-violet-500/10">
+                  className="group bg-slate-900 border border-slate-700 hover:border-violet-500/50 rounded-2xl overflow-hidden flex flex-col transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-violet-500/10 relative">
+                  {index === 0 && (
+                    <div className="absolute top-3 right-3 z-10 bg-violet-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg shadow-violet-600/30">
+                      START HERE
+                    </div>
+                  )}
                   {post.image_url && (
-                    <div className="h-48 overflow-hidden">
+                    <div className="h-40 overflow-hidden relative">
+                      <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors z-0"></div>
                       <img src={post.image_url} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     </div>
                   )}
-                  <div className="p-6 flex flex-col flex-1">
-                    <div className="flex items-center gap-2 mb-3 flex-wrap">
-                      {post.service && <span className="text-xs bg-violet-500/20 text-violet-300 border border-violet-500/30 px-2 py-0.5 rounded-full">{SERVICE_LABELS[post.service] || post.service}</span>}
-                      {post.industry && <span className="text-xs bg-blue-500/20 text-blue-300 border border-blue-500/30 px-2 py-0.5 rounded-full">{post.industry}</span>}
+                  <div className="p-5 flex flex-col flex-1">
+                    <h3 className="text-lg font-bold text-white group-hover:text-violet-300 transition-colors mb-2 line-clamp-2">{post.title}</h3>
+                    <div className="mt-auto pt-4">
+                      <span className="text-violet-400 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Read →
+                      </span>
                     </div>
-                    <h2 className="text-xl font-bold text-white group-hover:text-violet-300 transition-colors mb-2 line-clamp-2">{post.title}</h2>
-                    <p className="text-slate-400 text-sm line-clamp-2 mb-4 flex-1">{post.excerpt}</p>
-                    <span className="text-violet-400 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
-                      Read Article <ArrowRight className="w-4 h-4" />
-                    </span>
                   </div>
                 </Link>
               ))}
