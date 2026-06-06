@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
-import { Mail, Phone, CheckCircle2, Loader2 } from 'lucide-react';
+import { Mail, Phone, CheckCircle2, Loader2, MapPin } from 'lucide-react';
 import Header from '../components/landing/Header';
 import Footer from '../components/landing/Footer';
 import SEOHead from '@/components/shared/SEOHead';
@@ -60,7 +60,7 @@ export default function Contact() {
     <div className="min-h-screen bg-white">
       <SEOHead 
         title="Contact New Tech Advertising | Mason City IA"
-        description="Get in touch with New Tech Advertising in Mason City, Iowa. Free marketing audit for local businesses. AI marketing, social media & SEO specialists."
+        description="Contact New Tech Advertising in Mason City, Iowa. AI marketing agency serving Iowa & Southern Minnesota. Call (641) 420-8816. Monday–Friday 8am–5pm."
       />
       <Header onCTAClick={() => {}} />
       
@@ -68,10 +68,10 @@ export default function Contact() {
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-12">
             <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-              Contact New Tech Advertising
+              Contact New Tech Advertising - AI Marketing Agency
             </h1>
             <p className="text-xl text-slate-600">
-              Get in touch with us. We're here to help.
+              Mason City, Iowa | Serving Iowa & Southern Minnesota
             </p>
           </div>
 
@@ -87,7 +87,7 @@ export default function Contact() {
                     641-420-8816
                   </a>
                   <p className="text-sm text-slate-600 mt-2">
-                    Monday - Friday, 9am - 5pm CST
+                    Monday – Friday, 8:00 AM – 5:00 PM CST
                   </p>
                 </div>
               </div>
@@ -110,6 +110,23 @@ export default function Contact() {
               </div>
             </Card>
           </div>
+
+          <Card className="p-6 bg-white border-2 border-slate-200 mb-12">
+            <div className="flex items-start gap-4">
+              <div className="bg-blue-100 p-3 rounded-lg">
+                <MapPin className="w-6 h-6 text-blue-600" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg text-slate-900 mb-2">Location & Service Areas</h3>
+                <p className="text-sm text-slate-600">
+                  Based in Mason City, Iowa
+                </p>
+                <p className="text-sm text-slate-600 mt-1">
+                  Serving: Mason City - Rochester, MN - Austin, MN - Albert Lea, MN - Waterloo - Cedar Rapids - Des Moines - Ames — and all of Iowa & Southern Minnesota
+                </p>
+              </div>
+            </div>
+          </Card>
 
           <Card className="p-8 bg-white shadow-xl">
             {submitted ? (
