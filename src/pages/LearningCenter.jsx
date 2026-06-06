@@ -246,14 +246,14 @@ export default function LearningCenter() {
                 <p className="text-slate-400 mb-8 flex-grow">See how real local businesses in North Iowa transformed their marketing with NTA.</p>
                 
                 <div className="space-y-4 mb-8">
-                  <PathLink num="1" title="Johnson Heating & AC Case Study" to="/case-studies/johnson-heating" color="purple" />
-                  <PathLink num="2" title="Monson Plumbing Case Study" to="/case-studies/monson-plumbing" color="purple" />
-                  <PathLink num="3" title="Papa Everett's Pizza Case Study" to="/case-studies/papa-everetts" color="purple" />
+                  <PathLink num="1" title="Johnson Heating & AC Case Study" to="/case-study/johnson-heating" color="purple" />
+                  <PathLink num="2" title="Monson Plumbing Case Study" to="/case-study/monson-plumbing" color="purple" />
+                  <PathLink num="3" title="Papa Everett's Pizza Case Study" to="/case-study/papa-everetts" color="purple" />
                   <PathLink num="4" title="Founder's Story" to="/i-was-early-again" color="purple" />
                   <PathLink num="5" title="Video Storytelling Builds Confidence" to="/video-storytelling-builds-confidence" color="purple" />
                 </div>
                 
-                <Link to="/case-studies/johnson-heating" className="mt-auto block w-full text-center bg-slate-900 hover:bg-purple-900/30 text-purple-400 border border-purple-500/30 font-semibold py-3 rounded-xl transition-colors">
+                <Link to="/case-study/johnson-heating" className="mt-auto block w-full text-center bg-slate-900 hover:bg-purple-900/30 text-purple-400 border border-purple-500/30 font-semibold py-3 rounded-xl transition-colors">
                   Start Track →
                 </Link>
               </div>
@@ -352,16 +352,19 @@ export default function LearningCenter() {
               name="Johnson Heating & AC" 
               industry="HVAC"
               insight="Dominating local 'near me' AI recommendations through granular service pages and structured review density."
+              link="/case-study/johnson-heating"
             />
             <ExampleCard 
               name="Monson Plumbing" 
               industry="Home Services"
               insight="Captured 40% more emergency calls by optimizing their GBP for zero-click searches instead of just website clicks."
+              link="/case-study/monson-plumbing"
             />
             <ExampleCard 
               name="Papa Everett’s Pizza" 
               industry="Restaurant"
               insight="Using automated AI review management to build a massive trust moat against local competitors."
+              link="/case-study/papa-everetts"
             />
           </div>
         </div>
@@ -456,14 +459,14 @@ function MatterItem({ title, desc }) {
   );
 }
 
-function ExampleCard({ name, industry, insight }) {
+function ExampleCard({ name, industry, insight, link = "#" }) {
   return (
     <div className="bg-slate-950 border border-slate-800 rounded-3xl p-8 hover:border-slate-700 transition-colors flex flex-col h-full">
       <span className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">{industry}</span>
       <h3 className="text-xl font-bold text-white mb-4">{name}</h3>
       <p className="text-slate-400 leading-relaxed flex-1">"{insight}"</p>
       <div className="mt-6 pt-6 border-t border-slate-800">
-        <Link to="#" className="inline-flex items-center text-sm font-semibold text-blue-400 hover:text-blue-300 group">
+        <Link to={link} className="inline-flex items-center text-sm font-semibold text-blue-400 hover:text-blue-300 group">
           <PlayCircle className="w-4 h-4 mr-2 group-hover:text-blue-300" />
           View Case Study
         </Link>

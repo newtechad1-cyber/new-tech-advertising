@@ -14,6 +14,9 @@ import SignupPage from './pages/SignupPage';
 import Home from './pages/Home';
 import AdminDashboard from './pages/AdminDashboard';
 // — Lazy loaded: everything else —
+const CaseStudyJohnsonHeating = lazy(() => import('./pages/CaseStudyJohnsonHeating'));
+const CaseStudyMonsonPlumbing = lazy(() => import('./pages/CaseStudyMonsonPlumbing'));
+const CaseStudyPapaEveretts = lazy(() => import('./pages/CaseStudyPapaEveretts'));
 const LearningCenter = lazy(() => import('./pages/LearningCenter'));
 // GapAuditPage removed
 const AiBroughtMeOutOfRetirement = lazy(() => import('./pages/AiBroughtMeOutOfRetirement'));
@@ -516,6 +519,9 @@ const AuthenticatedApp = () => {
       <Route path="/agency/leads/:id" element={<LayoutWrapper currentPageName="LeadDetailPage"><LeadDetailPage /></LayoutWrapper>} />
       <Route path="/case-studies/johnson-heating" element={<LayoutWrapper currentPageName="JohnsonHeatingCaseStudy"><JohnsonHeatingCaseStudy /></LayoutWrapper>} />
       <Route path="/case-studies/:slug" element={<LayoutWrapper currentPageName="CaseStudyDetail"><CaseStudyDetail /></LayoutWrapper>} />
+      <Route path="/case-study/johnson-heating" element={<LayoutWrapper currentPageName="CaseStudyJohnsonHeating"><CaseStudyJohnsonHeating /></LayoutWrapper>} />
+      <Route path="/case-study/monson-plumbing" element={<LayoutWrapper currentPageName="CaseStudyMonsonPlumbing"><CaseStudyMonsonPlumbing /></LayoutWrapper>} />
+      <Route path="/case-study/papa-everetts" element={<LayoutWrapper currentPageName="CaseStudyPapaEveretts"><CaseStudyPapaEveretts /></LayoutWrapper>} />
       <Route path="/agency/ai-gap-scanner" element={<LayoutWrapper currentPageName="AiGapScanner"><AiGapScanner /></LayoutWrapper>} />
       <Route path="/agency/video-engine" element={<LayoutWrapper currentPageName="VideoEngineList"><VideoEngineList /></LayoutWrapper>} />
       <Route path="/agency/video-engine/:id" element={<LayoutWrapper currentPageName="VideoEngineDetail"><VideoEngineDetail /></LayoutWrapper>} />
