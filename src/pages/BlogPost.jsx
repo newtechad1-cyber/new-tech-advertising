@@ -157,6 +157,7 @@ export default function BlogPost() {
             prose-blockquote:border-l-4 prose-blockquote:border-blue-400 prose-blockquote:bg-blue-50 prose-blockquote:rounded-r-xl prose-blockquote:py-3 prose-blockquote:px-5 prose-blockquote:not-italic
             prose-code:bg-slate-100 prose-code:text-blue-700 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm
             prose-pre:bg-slate-900 prose-pre:rounded-xl prose-pre:shadow-lg
+            [&>iframe]:w-full [&>iframe]:max-w-full [&>iframe]:rounded-xl [&>iframe]:my-6 [&>iframe]:aspect-video
           " style={{ fontFamily: "'Georgia', serif", lineHeight: '1.85' }}>
             <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>{applyInternalLinks(post.content)}</ReactMarkdown>
           </div>
