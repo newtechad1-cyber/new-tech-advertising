@@ -6,6 +6,7 @@ import LCHeader from '@/components/learning-center/LCHeader';
 import LCInsightBlock from '@/components/learning-center/LCInsightBlock';
 import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
+import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 
 export default function VideoStorytellingBuildsConfidence() {
   useEffect(() => {
@@ -29,6 +30,8 @@ export default function VideoStorytellingBuildsConfidence() {
         />
 
         <div className="max-w-4xl mx-auto px-6 mt-12">
+          <TrackProgress trackName="Show Me Real Results" currentStep={5} totalSteps={5} color="purple" />
+
           {/* Featured Video */}
           <div className="mb-14 relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900">
             <iframe 
@@ -220,6 +223,14 @@ export default function VideoStorytellingBuildsConfidence() {
                 description="Get a free AI visibility audit to see how your digital presence and video strategy stack up against your top local competitors." 
               />
             </div>
+
+            <TrackBottomNav 
+              prevLink="/i-was-early-again"
+              prevText="← Previous: Founder's Story"
+              nextLink="https://calendar.app.google/p6ieYanvwhixXxZ67"
+              nextText="🎉 Track Complete! Book a Free Call →"
+              color="purple"
+            />
           </div>
 
           <div className="mt-20 pt-12 border-t border-slate-800">

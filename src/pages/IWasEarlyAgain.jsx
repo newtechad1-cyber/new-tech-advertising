@@ -5,6 +5,7 @@ import SiteFooter from '@/components/marketing/SiteFooter';
 import LCHeader from '@/components/learning-center/LCHeader';
 import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import { Link } from 'react-router-dom';
+import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 
 export default function IWasEarlyAgain() {
   useEffect(() => {
@@ -31,7 +32,11 @@ export default function IWasEarlyAgain() {
           ]}
         />
 
-        <div className="relative w-full max-w-3xl mx-auto aspect-video rounded-2xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900 mb-16 mt-12 px-6">
+        <div className="max-w-3xl mx-auto px-6 mt-12">
+          <TrackProgress trackName="Show Me Real Results" currentStep={4} totalSteps={5} color="purple" />
+        </div>
+
+        <div className="relative w-full max-w-3xl mx-auto aspect-video rounded-2xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900 mb-16 mt-8 px-6">
           <iframe 
             src="https://www.youtube.com/embed/MsiyOAZrCNo" 
             className="absolute top-0 left-0 w-full h-full border-0"
@@ -218,6 +223,16 @@ export default function IWasEarlyAgain() {
             <p className="text-slate-400 text-base mb-0">
               Rick A. Hesse is the founder of New Tech Advertising, North Iowa's first AI-powered marketing agency. With 45+ years of entrepreneurial experience spanning retail, television, and now AI-powered marketing, Rick helps local businesses grow with modern systems that actually work. <br/><br/>Contact: 641-420-8816 | info@newtechadvertising.com
             </p>
+          </div>
+
+          <div className="not-prose mt-16">
+            <TrackBottomNav 
+              prevLink="/case-study/papa-everetts"
+              prevText="← Previous: Papa Everett's Case Study"
+              nextLink="/video-storytelling-builds-confidence"
+              nextText="Next: Video Storytelling Builds Confidence →"
+              color="purple"
+            />
           </div>
 
           <div className="mt-20 pt-12 border-t border-slate-800 not-prose">

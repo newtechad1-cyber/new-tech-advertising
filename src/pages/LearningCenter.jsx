@@ -71,95 +71,7 @@ export default function LearningCenter() {
         </div>
       </header>
 
-      {/* 2. Featured Guides Section */}
-      <section id="guides" className="max-w-7xl mx-auto px-6 py-20">
-        <div className="mb-12">
-          <h2 className="text-3xl font-black text-white mb-4">Featured Guides</h2>
-          <p className="text-slate-400 text-lg">Essential reading to understand the new digital landscape.</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Featured Card 1 */}
-          <Link to="/what-changed-online" className="group relative block bg-slate-900 border border-slate-800 rounded-3xl p-8 overflow-hidden hover:border-blue-500/50 transition-colors">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 blur-[80px] rounded-full group-hover:bg-blue-600/10 transition-colors" />
-            <div className="relative z-10 flex flex-col h-full">
-              <div>
-                <span className="inline-block text-xs font-bold uppercase tracking-wider text-blue-400 bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-full mb-6">
-                  Start Here
-                </span>
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">
-                  What Changed Online
-                </h3>
-                <p className="text-slate-400 leading-relaxed mb-8 text-lg">
-                  The way people find businesses has fundamentally shifted. Understand zero-click searches, AI overviews, and what to do next.
-                </p>
-              </div>
-              <div className="mt-auto flex items-center text-blue-500 font-semibold group-hover:gap-2 transition-all">
-                Read Guide <ArrowRight className="w-5 h-5 ml-1" />
-              </div>
-            </div>
-          </Link>
-
-          <div className="grid grid-rows-3 gap-6">
-            <GuideRowCard 
-              title="AI Visibility Basics" 
-              desc="How ChatGPT and Gemini choose which local businesses to recommend."
-              icon={Sparkles}
-              link="/ai-visibility-basics"
-            />
-            <GuideRowCard 
-              title="Practical AI For Small Businesses" 
-              desc="Real tools you can use today to save time and generate more leads."
-              icon={Bot}
-              link="/practical-ai-for-small-businesses"
-            />
-            <GuideRowCard 
-              title="SEO vs AI Search" 
-              desc="Why traditional SEO is dying and how AI Search Optimization replaces it."
-              icon={Search}
-              link="/seo-vs-ai-search"
-            />
-          </div>
-        </div>
-
-        <div className="mt-12 mb-6">
-          <div className="relative w-full max-w-4xl mx-auto aspect-video rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900">
-            <iframe 
-              src="https://www.youtube.com/embed/MsiyOAZrCNo" 
-              className="absolute top-0 left-0 w-full h-full border-0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-              allowFullScreen
-              title="I Was Early Again: Why I Built North Iowa's First AI Marketing Agency" 
-            />
-          </div>
-        </div>
-
-        <div className="mt-6">
-          <Link to="/i-was-early-again" className="group relative block bg-slate-900 border border-slate-800 rounded-3xl p-8 overflow-hidden hover:border-indigo-500/50 transition-colors">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600/5 blur-[80px] rounded-full group-hover:bg-indigo-600/10 transition-colors" />
-            <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 h-full">
-              <div>
-                <span className="inline-block text-xs font-bold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-full mb-4">
-                  Founder's Story
-                </span>
-                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">
-                  I Was Early Again: Why I Built North Iowa's First AI Marketing Agency
-                </h3>
-                <p className="text-slate-400 leading-relaxed text-lg max-w-3xl">
-                  Why Rick Hesse built New Tech Advertising. A story about seeing technology early, from QR codes to AI, and why small businesses in North Iowa need to act now.
-                </p>
-              </div>
-              <div className="flex-shrink-0 flex items-center text-indigo-500 font-semibold group-hover:gap-2 transition-all">
-                Read Story <ArrowRight className="w-5 h-5 ml-1" />
-              </div>
-            </div>
-          </Link>
-        </div>
-
-
-      </section>
-
-      {/* 3. Learning Paths Section */}
+      {/* 2. Learning Paths Section */}
       <section className="bg-slate-900/50 border-y border-slate-800 py-24">
         <div className="max-w-7xl mx-auto px-6">
           {/* Growth Guide Prompt */}
@@ -259,6 +171,92 @@ export default function LearningCenter() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* 3. Featured Guides Section */}
+      <section id="guides" className="max-w-7xl mx-auto px-6 py-20">
+        <div className="mb-12">
+          <h2 className="text-3xl font-black text-white mb-4">Featured Guides</h2>
+          <p className="text-slate-400 text-lg">Essential reading to understand the new digital landscape.</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Featured Card 1 */}
+          <Link to="/what-changed-online" className="group relative block bg-slate-900 border border-slate-800 rounded-3xl p-8 overflow-hidden hover:border-blue-500/50 transition-colors">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 blur-[80px] rounded-full group-hover:bg-blue-600/10 transition-colors" />
+            <div className="relative z-10 flex flex-col h-full">
+              <div>
+                <span className="inline-block text-xs font-bold uppercase tracking-wider text-blue-400 bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-full mb-6">
+                  Start Here
+                </span>
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">
+                  What Changed Online
+                </h3>
+                <p className="text-slate-400 leading-relaxed mb-8 text-lg">
+                  The way people find businesses has fundamentally shifted. Understand zero-click searches, AI overviews, and what to do next.
+                </p>
+              </div>
+              <div className="mt-auto flex items-center text-blue-500 font-semibold group-hover:gap-2 transition-all">
+                Read Guide <ArrowRight className="w-5 h-5 ml-1" />
+              </div>
+            </div>
+          </Link>
+
+          <div className="grid grid-rows-3 gap-6">
+            <GuideRowCard 
+              title="AI Visibility Basics" 
+              desc="How ChatGPT and Gemini choose which local businesses to recommend."
+              icon={Sparkles}
+              link="/ai-visibility-basics"
+            />
+            <GuideRowCard 
+              title="Practical AI For Small Businesses" 
+              desc="Real tools you can use today to save time and generate more leads."
+              icon={Bot}
+              link="/practical-ai-for-small-businesses"
+            />
+            <GuideRowCard 
+              title="SEO vs AI Search" 
+              desc="Why traditional SEO is dying and how AI Search Optimization replaces it."
+              icon={Search}
+              link="/seo-vs-ai-search"
+            />
+          </div>
+        </div>
+
+        <div className="mt-12 mb-6">
+          <div className="relative w-full max-w-4xl mx-auto aspect-video rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900">
+            <iframe 
+              src="https://www.youtube.com/embed/MsiyOAZrCNo" 
+              className="absolute top-0 left-0 w-full h-full border-0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowFullScreen
+              title="I Was Early Again: Why I Built North Iowa's First AI Marketing Agency" 
+            />
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <Link to="/i-was-early-again" className="group relative block bg-slate-900 border border-slate-800 rounded-3xl p-8 overflow-hidden hover:border-indigo-500/50 transition-colors">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600/5 blur-[80px] rounded-full group-hover:bg-indigo-600/10 transition-colors" />
+            <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 h-full">
+              <div>
+                <span className="inline-block text-xs font-bold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-full mb-4">
+                  Founder's Story
+                </span>
+                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">
+                  I Was Early Again: Why I Built North Iowa's First AI Marketing Agency
+                </h3>
+                <p className="text-slate-400 leading-relaxed text-lg max-w-3xl">
+                  Why Rick Hesse built New Tech Advertising. A story about seeing technology early, from QR codes to AI, and why small businesses in North Iowa need to act now.
+                </p>
+              </div>
+              <div className="flex-shrink-0 flex items-center text-indigo-500 font-semibold group-hover:gap-2 transition-all">
+                Read Story <ArrowRight className="w-5 h-5 ml-1" />
+              </div>
+            </div>
+          </Link>
         </div>
       </section>
 
