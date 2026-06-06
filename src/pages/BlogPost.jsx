@@ -3,6 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
+import remarkGfm from 'remark-gfm';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import { Calendar, User, ArrowLeft, Loader2, Tag, Clock, ArrowRight, BookOpen } from 'lucide-react';
@@ -156,7 +158,7 @@ export default function BlogPost() {
             prose-code:bg-slate-100 prose-code:text-blue-700 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm
             prose-pre:bg-slate-900 prose-pre:rounded-xl prose-pre:shadow-lg
           " style={{ fontFamily: "'Georgia', serif", lineHeight: '1.85' }}>
-            <ReactMarkdown>{applyInternalLinks(post.content)}</ReactMarkdown>
+            <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>{applyInternalLinks(post.content)}</ReactMarkdown>
           </div>
 
           {/* Mid-content strategic callout */}
