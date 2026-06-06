@@ -12,10 +12,17 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import { cn } from '@/lib/utils';
 import SEOHead from '@/components/shared/SEOHead';
+import { useQuery } from '@tanstack/react-query';
+import { base44 } from '@/api/base44Client';
 
 export default function LearningCenter() {
   const { data, isLoading } = useLearningContent();
   const videos = data?.videos || [];
+
+  const { data: blogPosts } = useQuery({
+    queryKey: ['learningCenterBlogPosts'],
+    queryFn: () => base44.entities.BlogPost.list('-published_date', 6)
+  });
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans overflow-hidden flex flex-col">
@@ -309,8 +316,52 @@ export default function LearningCenter() {
 
       <LCAIFaqSection />
 
+      {/* Latest from the Blog Section */}
+      <section className="bg-slate-900 border-b border-slate-800 py-24">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-black text-white mb-4">Latest from the Blog</h2>
+            <p className="text-slate-400 text-lg">Deeper dives on specific industries, tools, and strategies.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {blogPosts?.map(post => (
+              <Link key={post.id} to={`/blogpost?slug=${post.slug || post.id}`} className="flex flex-col bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden hover:border-blue-500/50 hover:shadow-[0_0_30px_-5px_rgba(59,130,246,0.15)] transition-all h-full">
+                <div className="w-full aspect-[16/9] bg-slate-900 relative">
+                  {post.category && (
+                    <span className="absolute top-4 left-4 z-10 bg-blue-600 text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">
+                      {post.category}
+                    </span>
+                  )}
+                  {post.image_url ? (
+                    <img src={post.image_url} alt={post.title} className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full bg-slate-800 flex items-center justify-center">
+                      <LayoutTemplate className="w-10 h-10 text-slate-700" />
+                    </div>
+                  )}
+                </div>
+                <div className="p-8 flex-grow flex flex-col">
+                  <h3 className="text-xl font-bold text-white mb-3 line-clamp-2">{post.title}</h3>
+                  <p className="text-slate-400 leading-relaxed mb-6 flex-grow line-clamp-3">{post.excerpt}</p>
+                  <div className="mt-auto inline-flex items-center text-sm font-semibold text-blue-400 group-hover:text-blue-300">
+                    Read Article <ArrowRight className="w-4 h-4 ml-2" />
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link to="/Blog" className="inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-semibold px-8 py-4 rounded-xl transition-all text-lg">
+              View All Articles <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Watch + Learn Section */}
-      <section className="bg-slate-950 py-24">
+      <section id="videos" className="bg-slate-950 py-24">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
             <div>

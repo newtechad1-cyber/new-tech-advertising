@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
-import { Calendar, User, ArrowLeft, Loader2, Tag, Clock, ArrowRight } from 'lucide-react';
+import { Calendar, User, ArrowLeft, Loader2, Tag, Clock, ArrowRight, BookOpen } from 'lucide-react';
 import { applyInternalLinks } from '../utils/internalLinking';
 import { createPageUrl } from '../utils';
 
@@ -167,6 +167,22 @@ export default function BlogPost() {
               <Link to="/website-rebuilds/mason-city-ia" className="text-blue-600 font-semibold hover:underline">website rebuild services in Mason City</Link>{' '}
               are helping local companies turn their websites into lead machines.
             </p>
+          </div>
+
+          {/* Learning Center Banner */}
+          <div className="my-10 bg-slate-900 border border-slate-800 rounded-3xl p-8 sm:p-10 flex flex-col sm:flex-row items-center sm:items-start gap-6 shadow-xl">
+            <div className="w-16 h-16 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center flex-shrink-0">
+              <BookOpen className="w-8 h-8 text-blue-400" />
+            </div>
+            <div className="flex-1 text-center sm:text-left">
+              <h3 className="text-2xl font-bold text-white mb-2 font-sans">Want the full picture? Start with our Learning Tracks</h3>
+              <p className="text-slate-400 text-lg leading-relaxed mb-6 font-sans">
+                Guided paths that take you from basics to results — no fluff.
+              </p>
+              <Link to="/learning-center" className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-lg shadow-blue-600/20 font-sans">
+                Explore the Learning Center <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
           </div>
 
           {/* Divider */}

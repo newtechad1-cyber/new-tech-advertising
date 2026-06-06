@@ -52,11 +52,9 @@ const NAV_LINKS = [
     label: 'Learning Center', 
     href: '/learning-center',
     children: [
-      { label: 'All Resources', href: '/learning-center', desc: 'Browse all guides and videos' },
-      { label: 'Video Library', href: '/learning-center/videos', desc: 'Watch practical training videos' },
-      { label: 'AI Tools', href: '/learning-center/videos?category=AI Tools', desc: 'Practical AI tools for small business' },
-      { label: 'Local SEO', href: '/learning-center/videos?category=Local SEO', desc: 'Master zero-click search & reviews' },
-      { label: 'Marketing Strategy', href: '/learning-center/videos?category=Marketing Strategy', desc: 'Build predictable growth engines' }
+      { label: 'Learning Tracks', href: '/learning-center', desc: 'Guided paths that take you from basics to results' },
+      { label: 'Blog Articles', href: '/Blog', desc: 'Deeper dives on specific industries, tools, and strategies' },
+      { label: 'Video Library', href: '/learning-center#videos', desc: 'Watch practical training videos' }
     ]
   }
 ];
