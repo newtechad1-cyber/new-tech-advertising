@@ -1,0 +1,13 @@
+{
+  "name": "SyncState",
+  "type": "object",
+  "properties": {
+    "page_token": {
+      "type": "string",
+      "description": "Google Drive Changes API page token"
+    }
+  },
+  "required": [
+    "page_token"
+  ]
+}
