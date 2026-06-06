@@ -56,7 +56,8 @@ const NAV_LINKS = [
       { label: 'Blog Articles', href: '/Blog', desc: 'Deeper dives on specific industries, tools, and strategies' },
       { label: 'Video Library', href: '/learning-center#videos', desc: 'Watch practical training videos' }
     ]
-  }
+  },
+  { label: 'Contact', href: '/contact' }
 ];
 
 function DropdownMenu({ items, onClose }) {
