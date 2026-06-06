@@ -126,8 +126,8 @@ export default function About() {
       <section className="py-24 px-6 bg-gradient-to-b from-slate-900 to-slate-950">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <div className="text-blue-400 font-bold text-sm uppercase tracking-widest mb-3">The Founder's Perspective</div>
-            <h2 className="text-4xl font-extrabold text-white">Built from real-world experience</h2>
+            <div className="text-blue-400 font-bold text-sm uppercase tracking-widest mb-3">My Story</div>
+            <h2 className="text-4xl font-extrabold text-white">The Man Behind the Mission</h2>
           </div>
 
           <div className="bg-slate-800/50 border border-slate-700 rounded-3xl p-10 md:p-14 relative overflow-hidden">
@@ -156,29 +156,47 @@ export default function About() {
               {/* Story */}
               <div className="md:col-span-2 space-y-5 text-slate-300 leading-relaxed">
                 <p>
-                  New Tech Advertising was built from decades of real-world experience working with businesses that needed better ways to reach their customers.
+                  I grew up without a father. He left when I was four or five years old, and most of my memories from those early years are completely blacked out. What I do remember is the emptiness — a hollow space inside me that I didn't have a name for yet.
                 </p>
-                <p>Over the years, marketing has evolved dramatically:</p>
-
-                <div className="space-y-2 pl-4 border-l-2 border-blue-500/40">
-                  {[
-                    'Print advertising became websites.',
-                    'Websites became social media.',
-                    'Social media became video.',
-                    'Now artificial intelligence is transforming everything again.',
-                  ].map(line => (
-                    <p key={line} className="text-slate-400 text-sm">{line}</p>
-                  ))}
-                </div>
-
-                <p>Through all of these changes one lesson became clear:</p>
-                <p className="text-white font-bold text-xl">Most organizations don't need more marketing complexity. They need better systems.</p>
-
                 <p>
-                  New Tech Advertising focuses on building technology platforms that allow organizations to create content, automate marketing tasks, and improve their online visibility without requiring a large marketing staff.
+                  We lived in a small, cramped two-bedroom house. My mother raised four children entirely on her own, stretching government assistance and food programs to keep us alive. At school, the kids whose parents paid for their lunches carried white tickets. Mine was green. Standing in that lunch line holding that green ticket, I felt marked as different and less than everyone else.
                 </p>
-                <p className="text-blue-300 font-semibold">
-                  With decades of experience working with local businesses and community organizations, the focus has always remained the same: build tools that actually work in the real world.
+                <p>
+                  By sixteen, I was sitting in a parked car with friends, getting high every day just to numb reality. But somewhere in that haze, a question kept echoing: <span className="italic text-slate-400">There has to be more to my life than this.</span>
+                </p>
+                <p>There was.</p>
+                <p>
+                  At seventeen, everything changed. I found faith, direction, and the first real sense of purpose I'd ever known. By nineteen I was married. By twenty, I was a father. By twenty-two, I had three children and a retail business selling waterbeds — a kid trying to figure out how to make payroll, fix a house, and hold a family together all at the same time.
+                </p>
+                <p>
+                  The business went bankrupt. The marriage didn't survive. I found myself standing in the wreckage of everything I'd built, with three small children who needed a stable home.
+                </p>
+                <p>
+                  So I rebuilt. I took a job selling television advertising and stayed with it for the next ten years. My car became my classroom — what I call my <span className="italic text-slate-400">windshield university.</span> I spent thousands of hours on Iowa highways listening to every personal development tape I could find, learning how to think clearly, communicate honestly, and become the kind of man my kids could count on.
+                </p>
+                <p>
+                  I raised my children mostly on my own. I made mistakes — some I'm still working through with them. But I showed up. Every single day, I showed up.
+                </p>
+                <p>
+                  Over more than a decade in advertising, I sat across the table from hundreds of small business owners. I saw the same struggle over and over: good people doing honest work, getting crushed by marketing costs they couldn't afford and technology they couldn't keep up with. I knew that frustration because I'd lived it myself at twenty years old.
+                </p>
+                <p>
+                  In 2012, I started New Tech Advertising to do something about it. For over a decade, I've helped local businesses get their message out — learning every platform, every algorithm change, every new tool as it came along.
+                </p>
+                <p>
+                  Then, a couple of years ago, I started researching artificial intelligence. I didn't see a scary trend or a gimmick. I saw the thing I'd been waiting for my entire career: a way to finally give the little guy a real chance. The tools that used to require entire marketing departments and massive budgets were suddenly accessible to a one-person shop on Main Street.
+                </p>
+                <p>
+                  This year, it's all coming together. I've spent the past year working ten- to twelve-hour days mastering these tools — not because I'm running from poverty like I was in my twenties, but because I'm running toward something I've been preparing for my entire life.
+                </p>
+                <p>
+                  Everything I went through — the broken home, the failed business, the years of selling, the solitude — brought me here. I know what it feels like to build something with nothing. I know what it costs to start over. And I know exactly how to package modern technology so a local business owner can actually use it, at a price they can actually afford.
+                </p>
+                <p className="text-white font-bold">
+                  I'm nearly 68 years old. My heart is full. And I'm just getting started.
+                </p>
+                <p className="text-blue-400 font-semibold text-sm mt-4">
+                  — Rick Hesse, Founder
                 </p>
               </div>
             </div>
