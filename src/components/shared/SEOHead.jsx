@@ -34,7 +34,20 @@ export default function SEOHead({
     const elements = [];
 
     // 1. META TAGS
+    // Update document title directly
     document.title = title;
+    
+    // Also explicitly ensure <title> tag exists and is updated
+    let titleTag = document.querySelector('title');
+    if (!titleTag) {
+      titleTag = document.createElement('title');
+      document.head.appendChild(titleTag);
+    }
+    titleTag.textContent = title;
+
+    // Add meta title as a fallback
+    elements.push(setMeta('title', title));
+    
     elements.push(setMeta('description', description));
     elements.push(setMeta('keywords', "AI marketing Mason City Iowa, HVAC marketing, plumbing marketing, restaurant marketing, social media automation, AI SEO, local business marketing Iowa, small business marketing Minnesota"));
     elements.push(setMeta('robots', "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"));
@@ -44,14 +57,15 @@ export default function SEOHead({
     elements.push(setMeta('ICBM', "43.1537, -93.2010"));
 
     // Canonical link
-    let canonicalLink = document.querySelector(`link[rel="canonical"]`);
-    if (!canonicalLink) {
-      canonicalLink = document.createElement('link');
-      canonicalLink.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonicalLink);
-      elements.push(canonicalLink);
+    const oldCanonical = document.querySelector('link[rel="canonical"]');
+    if (oldCanonical) {
+      oldCanonical.remove();
     }
+    const canonicalLink = document.createElement('link');
+    canonicalLink.setAttribute('rel', 'canonical');
     canonicalLink.setAttribute('href', canonical);
+    document.head.appendChild(canonicalLink);
+    elements.push(canonicalLink);
 
     // 2. OPEN GRAPH
     elements.push(setMeta('og:type', 'website', true));
