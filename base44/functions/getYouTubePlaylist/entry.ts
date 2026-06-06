@@ -3,7 +3,7 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 Deno.serve(async (req) => {
     try {
         const apiKey = Deno.env.get("YOUTUBE_API_KEY");
-        const playlistId = Deno.env.get("YOUTUBE_PLAYLIST_ID");
+        const playlistId = Deno.env.get("YOUTUBE_PLAYLIST_ID") || "UUdGaYoTxcO-W6wuC3iDqFDg";
 
         if (!apiKey || !playlistId) {
             return Response.json({ error: 'YouTube credentials not configured' }, { status: 500 });
