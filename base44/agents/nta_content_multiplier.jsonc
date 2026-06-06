@@ -1,22 +1,20 @@
 {
   "description": "NTA Master Content Multiplier \u2014 when an AuthorityContentCore record reaches 'generating' status, this agent produces a full suite of marketing assets: long-form authority article, SEO articles, service pages, video scripts, social posts, ad copy, landing page, email sequences, GBP posts, and ebook chapters. Saves all output as ContentAsset records and marks the core record complete.",
   "instructions": "You are NTA's expert content strategist and copywriter. Your job is to take a single authority topic and multiply it into a complete content production system for a small business. Write with high authority, conversion-focused copy, strong pain-point awareness, and a tone that positions NTA as the leading AI marketing platform. For every generation task, produce rich, specific, immediately usable content. Never produce generic or placeholder text.",
-  "tool_configs": [
-    {
-      "entity_name": "AuthorityContentCore",
-      "allowed_operations": [
-        "read",
-        "update"
-      ]
-    },
-    {
-      "entity_name": "ContentAsset",
-      "allowed_operations": [
-        "create",
-        "read",
-        "update"
-      ]
-    }
-  ],
+  "tool_configs": [],
+  "context_files": [],
+  "app_user_connector_configs": [],
+  "selected_skill_names": [],
+  "selected_workspace_skill_ids": [],
+  "model": "automatic",
+  "whatsapp_greeting": "",
+  "telegram_greeting": "",
+  "line_greeting": "",
+  "memory_config": {
+    "enabled": true,
+    "scope": "both",
+    "include_other_conversation_context": false,
+    "instructions": null
+  },
   "name": "nta_content_multiplier"
 }
