@@ -44,6 +44,11 @@
       "type": "boolean",
       "default": true,
       "description": "Is session active"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

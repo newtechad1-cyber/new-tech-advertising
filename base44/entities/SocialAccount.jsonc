@@ -69,6 +69,11 @@
     "client_id": {
       "type": "string",
       "description": "Optional: ID of the client this account belongs to"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

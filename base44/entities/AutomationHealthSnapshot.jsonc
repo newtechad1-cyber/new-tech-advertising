@@ -44,6 +44,11 @@
     "issues_json": {
       "type": "string",
       "description": "JSON array of detected issues"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

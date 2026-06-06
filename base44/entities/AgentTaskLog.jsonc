@@ -32,6 +32,11 @@
     "log_details": {
       "type": "string",
       "description": "JSON object with detailed information"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

@@ -43,6 +43,11 @@
       "type": "boolean",
       "default": true,
       "description": "Is action active"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

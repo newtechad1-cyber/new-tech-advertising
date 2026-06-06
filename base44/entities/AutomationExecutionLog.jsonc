@@ -79,6 +79,11 @@
       "type": "number",
       "default": 0,
       "description": "Number of retries"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

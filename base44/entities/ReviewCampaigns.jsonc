@@ -50,6 +50,11 @@
     "ended_at": {
       "type": "string",
       "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

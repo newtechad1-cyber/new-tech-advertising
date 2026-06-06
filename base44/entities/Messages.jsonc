@@ -93,6 +93,11 @@
     "related_review_id": {
       "type": "string",
       "description": "Reference to StrategyReviews ID (optional)"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

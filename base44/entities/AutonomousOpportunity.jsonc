@@ -99,6 +99,11 @@
       "type": "string",
       "format": "date-time",
       "description": "When opportunity was detected"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

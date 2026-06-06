@@ -54,6 +54,11 @@
     "reseller_id": {
       "type": "string",
       "description": "Reference to ResellerAccounts ID if reseller-attributed"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

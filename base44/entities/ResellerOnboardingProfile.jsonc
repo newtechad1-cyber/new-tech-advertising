@@ -53,6 +53,11 @@
       "type": "number",
       "default": 0,
       "description": "0-100 overall progress"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

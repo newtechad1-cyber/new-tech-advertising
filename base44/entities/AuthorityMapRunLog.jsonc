@@ -25,6 +25,11 @@
     "topics_scheduled": {
       "type": "number",
       "description": "Number of ContentQueue items created"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

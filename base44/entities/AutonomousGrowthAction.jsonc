@@ -102,6 +102,11 @@
       "type": "string",
       "format": "date-time",
       "description": "When action was executed"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

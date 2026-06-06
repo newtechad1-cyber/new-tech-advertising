@@ -25,6 +25,11 @@
     "author": {
       "type": "string",
       "description": "Who wrote this note (email or name)"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

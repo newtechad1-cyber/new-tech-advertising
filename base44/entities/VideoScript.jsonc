@@ -50,6 +50,11 @@
     "video_url": {
       "type": "string",
       "description": "Final rendered video URL"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

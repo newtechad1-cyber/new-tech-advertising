@@ -241,6 +241,11 @@
       "type": "boolean",
       "default": true,
       "description": "Email the contributor when their submission is rejected"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

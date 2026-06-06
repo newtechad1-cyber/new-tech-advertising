@@ -89,6 +89,11 @@
     "client_health_outlook_summary": {
       "type": "string",
       "description": "Client portfolio health and movement"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

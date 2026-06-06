@@ -42,6 +42,11 @@
       "type": "boolean",
       "default": true,
       "description": "Is this a demo school?"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

@@ -45,6 +45,11 @@
       "type": "boolean",
       "default": true,
       "description": "Whether session is still valid"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

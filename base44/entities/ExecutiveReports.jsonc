@@ -164,6 +164,11 @@
     "conversions_change_percent": {
       "type": "number",
       "description": "Percentage change in conversions vs previous period"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

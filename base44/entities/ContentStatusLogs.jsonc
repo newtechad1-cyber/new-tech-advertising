@@ -36,6 +36,11 @@
     "metadata": {
       "type": "string",
       "description": "JSON object with additional context"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

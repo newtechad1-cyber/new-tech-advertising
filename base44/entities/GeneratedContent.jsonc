@@ -56,6 +56,11 @@
     "seo_score": {
       "type": "number",
       "description": "0-100 SEO quality score"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

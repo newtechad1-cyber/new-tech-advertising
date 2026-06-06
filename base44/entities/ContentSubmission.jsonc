@@ -118,6 +118,11 @@
     "template_used": {
       "type": "string",
       "description": "Which content template was used (if any)"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [

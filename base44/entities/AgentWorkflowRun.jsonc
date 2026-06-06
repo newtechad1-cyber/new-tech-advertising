@@ -75,6 +75,11 @@
     "result_summary": {
       "type": "string",
       "description": "Summary of workflow result"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional notes or description"
     }
   },
   "required": [
