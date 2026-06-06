@@ -216,6 +216,10 @@ export default function AgentChatWidget() {
         }
       });
     }
+    
+    const handleOpenChat = () => setIsOpen(true);
+    window.addEventListener('open-nta-guide', handleOpenChat);
+    return () => window.removeEventListener('open-nta-guide', handleOpenChat);
   }, []);
 
   const handleGoogleSignIn = () => {

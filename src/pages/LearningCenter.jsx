@@ -159,39 +159,105 @@ export default function LearningCenter() {
 
       </section>
 
-      {/* 3. Learning Categories Section */}
+      {/* 3. Learning Paths Section */}
       <section className="bg-slate-900/50 border-y border-slate-800 py-24">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Marketing Topics &amp; Guides</h2>
-            <p className="text-slate-400 text-lg">Find exactly what you need to grow your business.</p>
+          {/* Growth Guide Prompt */}
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 mb-16 shadow-lg">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center shrink-0 border border-slate-700 overflow-hidden">
+                  <img src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/04e19b127_favicon_64x64.png" alt="Growth Guide" className="w-full h-full object-cover" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-1">Not sure where to start?</h3>
+                  <p className="text-slate-400">Ask the Growth Guide — it'll recommend the right track based on your business.</p>
+                </div>
+              </div>
+              <button 
+                onClick={() => window.dispatchEvent(new CustomEvent('open-nta-guide'))}
+                className="w-full md:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-xl transition-all whitespace-nowrap"
+              >
+                Ask the Growth Guide <Bot className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <TopicList title="Local SEO" icon={Search}>
-              <TopicLink title="AI Visibility Basics" to="/ai-visibility-basics" />
-              <TopicLink title="SEO vs AI Search" to="/seo-vs-ai-search" />
-              <TopicLink title="What Changed Online" to="/what-changed-online" />
-              <TopicLink title="Reputation is Now a Growth Engine" to="/reputation-is-now-a-growth-engine" />
-              <TopicLink title="Web Accessibility & Trust" to="/web-accessibility-trust" />
-              <TopicLink title="Building Digital Trust" to="/building-digital-trust" />
-              <TopicLink title="Campaigns vs Authority" to="/campaigns-vs-authority" />
-              <TopicLink title="The Future Belongs to Market Leaders" to="/the-future-belongs-to-market-leaders" />
-            </TopicList>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Choose Your Learning Path</h2>
+            <p className="text-slate-400 text-lg">Pick the track that fits where you are. Each one builds on the last — just follow the steps.</p>
+          </div>
 
-            <TopicList title="Marketing Strategy" icon={LayoutTemplate}>
-              <TopicLink title="Growth Systems vs Campaigns" to="/growth-systems-vs-campaigns" />
-              <TopicLink title="The Hidden Cost of Outdated Marketing" to="/hidden-cost-of-outdated-marketing" />
-              <TopicLink title="Video Storytelling Builds Confidence" to="/video-storytelling-builds-confidence" />
-              <TopicLink title="Websites as Salespeople" to="/websites-as-salespeople" />
-              <TopicLink title="AI Brought Me Out of Retirement" to="/ai-brought-me-out-of-retirement" />
-              <TopicLink title="I Was Early Again" to="/i-was-early-again" />
-            </TopicList>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Card 1: Start Here */}
+            <div className="flex flex-col bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden hover:border-emerald-500/50 hover:shadow-[0_0_30px_-5px_rgba(16,185,129,0.15)] transition-all">
+              <div className="h-2 w-full bg-emerald-500" />
+              <div className="p-8 flex-grow flex flex-col">
+                <div className="text-4xl mb-4">🟢</div>
+                <h3 className="text-2xl font-bold text-white mb-2">I'm New to AI — Start Here</h3>
+                <p className="text-emerald-400 font-semibold text-sm mb-4">5 guides · ~25 min</p>
+                <p className="text-slate-400 mb-8 flex-grow">Understand what changed, how AI search works, and what tools actually matter for your business.</p>
+                
+                <div className="space-y-4 mb-8">
+                  <PathLink num="1" title="What Changed Online" to="/what-changed-online" color="emerald" />
+                  <PathLink num="2" title="AI Visibility Basics" to="/ai-visibility-basics" color="emerald" />
+                  <PathLink num="3" title="SEO vs AI Search" to="/seo-vs-ai-search" color="emerald" />
+                  <PathLink num="4" title="Practical AI For Small Businesses" to="/practical-ai-for-small-businesses" color="emerald" />
+                  <PathLink num="5" title="The Role of AI in Local Marketing" to="/role-of-ai-in-local-marketing" color="emerald" />
+                </div>
+                
+                <Link to="/what-changed-online" className="mt-auto block w-full text-center bg-slate-900 hover:bg-emerald-900/30 text-emerald-400 border border-emerald-500/30 font-semibold py-3 rounded-xl transition-colors">
+                  Start Track →
+                </Link>
+              </div>
+            </div>
 
-            <TopicList title="AI Tools" icon={Bot}>
-              <TopicLink title="Practical AI For Small Businesses" to="/practical-ai-for-small-businesses" />
-              <TopicLink title="The Role of AI in Local Marketing" to="/role-of-ai-in-local-marketing" />
-            </TopicList>
+            {/* Card 2: Fix My Marketing */}
+            <div className="flex flex-col bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden hover:border-blue-500/50 hover:shadow-[0_0_30px_-5px_rgba(59,130,246,0.15)] transition-all">
+              <div className="h-2 w-full bg-blue-500" />
+              <div className="p-8 flex-grow flex flex-col">
+                <div className="text-4xl mb-4">🔵</div>
+                <h3 className="text-2xl font-bold text-white mb-2">Fix My Marketing</h3>
+                <p className="text-blue-400 font-semibold text-sm mb-4">6 guides · ~30 min</p>
+                <p className="text-slate-400 mb-8 flex-grow">Stop wasting money on campaigns that don't work. Build systems that generate leads on autopilot.</p>
+                
+                <div className="space-y-4 mb-8">
+                  <PathLink num="1" title="Growth Systems vs Campaigns" to="/growth-systems-vs-campaigns" color="blue" />
+                  <PathLink num="2" title="Websites as Salespeople" to="/websites-as-salespeople" color="blue" />
+                  <PathLink num="3" title="Reputation is Now a Growth Engine" to="/reputation-is-now-a-growth-engine" color="blue" />
+                  <PathLink num="4" title="Building Digital Trust" to="/building-digital-trust" color="blue" />
+                  <PathLink num="5" title="Campaigns vs Authority" to="/campaigns-vs-authority" color="blue" />
+                  <PathLink num="6" title="The Hidden Cost of Outdated Marketing" to="/hidden-cost-of-outdated-marketing" color="blue" />
+                </div>
+                
+                <Link to="/growth-systems-vs-campaigns" className="mt-auto block w-full text-center bg-slate-900 hover:bg-blue-900/30 text-blue-400 border border-blue-500/30 font-semibold py-3 rounded-xl transition-colors">
+                  Start Track →
+                </Link>
+              </div>
+            </div>
+
+            {/* Card 3: Show Me Real Results */}
+            <div className="flex flex-col bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden hover:border-purple-500/50 hover:shadow-[0_0_30px_-5px_rgba(168,85,247,0.15)] transition-all">
+              <div className="h-2 w-full bg-purple-500" />
+              <div className="p-8 flex-grow flex flex-col">
+                <div className="text-4xl mb-4">🟣</div>
+                <h3 className="text-2xl font-bold text-white mb-2">Show Me Real Results</h3>
+                <p className="text-purple-400 font-semibold text-sm mb-4">5 stories · ~20 min</p>
+                <p className="text-slate-400 mb-8 flex-grow">See how real local businesses in North Iowa transformed their marketing with NTA.</p>
+                
+                <div className="space-y-4 mb-8">
+                  <PathLink num="1" title="Johnson Heating & AC Case Study" to="/case-studies/johnson-heating" color="purple" />
+                  <PathLink num="2" title="Monson Plumbing Case Study" to="/case-studies/monson-plumbing" color="purple" />
+                  <PathLink num="3" title="Papa Everett's Pizza Case Study" to="/case-studies/papa-everetts" color="purple" />
+                  <PathLink num="4" title="Founder's Story" to="/i-was-early-again" color="purple" />
+                  <PathLink num="5" title="Video Storytelling Builds Confidence" to="/video-storytelling-builds-confidence" color="purple" />
+                </div>
+                
+                <Link to="/case-studies/johnson-heating" className="mt-auto block w-full text-center bg-slate-900 hover:bg-purple-900/30 text-purple-400 border border-purple-500/30 font-semibold py-3 rounded-xl transition-colors">
+                  Start Track →
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -318,6 +384,22 @@ export default function LearningCenter() {
 }
 
 // Subcomponents
+
+function PathLink({ num, title, to, color }) {
+  const colorClass = 
+    color === 'emerald' ? 'text-emerald-400 group-hover:text-emerald-300 bg-emerald-500/10' :
+    color === 'blue' ? 'text-blue-400 group-hover:text-blue-300 bg-blue-500/10' :
+    'text-purple-400 group-hover:text-purple-300 bg-purple-500/10';
+
+  return (
+    <Link to={to} className="group flex items-start gap-3">
+      <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 text-xs font-bold ${colorClass}`}>
+        {num}
+      </div>
+      <span className="text-slate-300 group-hover:text-white transition-colors text-sm leading-snug">{title}</span>
+    </Link>
+  );
+}
 
 function GuideRowCard({ title, desc, icon: IconComponent, link = "#" }) {
   return (
