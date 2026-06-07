@@ -6,8 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
 import { Mail, Phone, CheckCircle2, Loader2, MapPin } from 'lucide-react';
-import Header from '../components/landing/Header';
-import Footer from '../components/landing/Footer';
+import MarketingNav from '../components/nav/MarketingNav';
+import SiteFooter from '../components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 
 export default function Contact() {
@@ -62,7 +62,7 @@ export default function Contact() {
         title="Contact New Tech Advertising | Mason City IA"
         description="Contact New Tech Advertising in Mason City, Iowa. AI marketing agency serving Iowa & Southern Minnesota. Call (641) 420-8816. Monday–Friday 8am–5pm."
       />
-      <Header onCTAClick={() => {}} />
+      <MarketingNav />
       
       <section className="pt-32 pb-20 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-4xl mx-auto px-6">
@@ -223,7 +223,7 @@ export default function Contact() {
         </div>
       </section>
 
-      <Footer />
+      <SiteFooter />
     </div>
   );
 }
