@@ -115,6 +115,17 @@ const LINK_RULES = [
     url: '/StreamingTvAdvertising',
     group: 'streaming',
   },
+  // Gap Audit / Free Audit
+  {
+    patterns: [
+      /\bfree AI Gap Audit\b/i,
+      /\bAI Gap Audit\b/i,
+      /\bGap Audit\b/i,
+      /\bfree audit\b/i,
+    ],
+    url: '/free-audit',
+    group: 'gap-audit',
+  },
 ];
 
 const MAX_LINKS = 4;
@@ -130,7 +141,7 @@ export function applyInternalLinks(markdown) {
   let linkCount = 0;
   let result = markdown;
 
-  // Strip code blocks and existing links from consideration (we'll restore them)
+  // Strip code blocks, existing links, and HTML tags from consideration (we'll restore them)
   // Strategy: replace them with placeholders, process, then restore
   const preserved = [];
   let processed = result
@@ -139,7 +150,11 @@ export function applyInternalLinks(markdown) {
     // Preserve inline code
     .replace(/`[^`]+`/g, (m) => { preserved.push(m); return `\x00PRESERVED_${preserved.length - 1}\x00`; })
     // Preserve existing markdown links
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, (m) => { preserved.push(m); return `\x00PRESERVED_${preserved.length - 1}\x00`; });
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, (m) => { preserved.push(m); return `\x00PRESERVED_${preserved.length - 1}\x00`; })
+    // Preserve HTML anchor tags (so we don't double-link)
+    .replace(/<a\b[^>]*>[\s\S]*?<\/a>/gi, (m) => { preserved.push(m); return `\x00PRESERVED_${preserved.length - 1}\x00`; })
+    // Preserve HTML tags that contain URLs (iframes, imgs, etc.)
+    .replace(/<(?:iframe|img|video|source)\b[^>]*>/gi, (m) => { preserved.push(m); return `\x00PRESERVED_${preserved.length - 1}\x00`; });
 
   for (const rule of LINK_RULES) {
     if (linkCount >= MAX_LINKS) break;
@@ -166,6 +181,18 @@ export function applyInternalLinks(markdown) {
       break; // move to next rule after first match
     }
   }
+
+  // Convert bare "newtechadvertising.com" text into a link (when not already inside a link/tag)
+  processed = processed.replace(
+    /(?<!\[|]\(|href="|\/\/)(?:at |at: )?((?:https?:\/\/)?newtechadvertising\.com)(?![/\w])/gi,
+    (full, url, offset) => {
+      // Skip if inside a preserved placeholder
+      const before = processed.slice(Math.max(0, offset - 20), offset);
+      if (before.includes('\x00PRESERVED_')) return full;
+      const prefix = full.slice(0, full.indexOf(url));
+      return `${prefix}[newtechadvertising.com](https://newtechadvertising.com)`;
+    }
+  );
 
   // Restore preserved blocks
   processed = processed.replace(/\x00PRESERVED_(\d+)\x00/g, (_, i) => preserved[parseInt(i)]);
