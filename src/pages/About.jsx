@@ -185,28 +185,50 @@ export default function About() {
                     <p>
                       The business went bankrupt. The marriage didn't survive. I found myself standing in the wreckage of everything I'd built, with three small children who needed a stable home.
                     </p>
+                    <p>So I rebuilt.</p>
                     <p>
-                      So I rebuilt. I took a job selling television advertising and stayed with it for the next ten years. My car became my classroom — what I call my <span className="italic text-slate-400">windshield university.</span> I spent thousands of hours on Iowa highways listening to every personal development tape I could find, learning how to think clearly, communicate honestly, and become the kind of man my kids could count on.
+                      I took a job selling television advertising in North Iowa and southern Minnesota. My car became my classroom — what I call my <span className="italic text-slate-400">windshield university.</span> I spent thousands of hours on Iowa highways listening to every personal development tape I could find, learning how to think clearly, communicate honestly, and become the kind of man my kids could count on.
                     </p>
                     <p>
                       I raised my children mostly on my own. I made mistakes — some I'm still working through with them. But I showed up. Every single day, I showed up.
                     </p>
                     <p>
-                      Over more than a decade in advertising, I sat across the table from hundreds of small business owners. I saw the same struggle over and over: good people doing honest work, getting crushed by marketing costs they couldn't afford and technology they couldn't keep up with. I knew that frustration because I'd lived it myself at twenty years old.
+                      For more than a decade, I sat across from business owners knowing I had the best product in the room. Television was the most memorable, most emotional, most impactful way to reach people. I believed that then, and I believe it now.
                     </p>
                     <p>
-                      In 2012, I started New Tech Advertising to do something about it. For over a decade, I've helped local businesses get their message out — learning every platform, every algorithm change, every new tool as it came along.
+                      But there was one thing that always ate at me — <span className="text-white font-semibold">I couldn't prove anyone actually saw it.</span>
+                    </p>
+                    <p>
+                      I had Nielsen numbers. I could match a car dealer to sports programming or a salon to daytime TV. But when a client asked me, <span className="italic text-slate-400">"Can you prove this is working?"</span> — I couldn't. Not really. And that bothered me for years.
+                    </p>
+                    <p>
+                      I saw the future coming. A designer friend told me twenty-some years ago that ads would become interactive someday. He was right. But the technology wasn't there yet.
+                    </p>
+                    <p>
+                      In 2012, I started New Tech Advertising to do something about it. For the next decade, I built everything I could with free WordPress tools and plugins, trying to connect the dots between advertising and actual results. I had the vision for deep data integration, but businesses weren't ready to invest in the premium tools needed to make it work. I was fighting the "cheap client" battle every single day — because I knew that battle from the inside. I'd been that broke business owner myself at twenty years old.
                     </p>
                     <p>
                       Then, a couple of years ago, I started researching artificial intelligence. I didn't see a scary trend or a gimmick. I saw the thing I'd been waiting for my entire career: a way to finally give the little guy a real chance. The tools that used to require entire marketing departments and massive budgets were suddenly accessible to a one-person shop on Main Street.
                     </p>
                     <p>
+                      And for the first time in thirty years, <span className="text-blue-400 font-semibold">advertising became provable.</span>
+                    </p>
+                    <p>
+                      Today, I can track a TV ad down to the household. I can show you who saw it, whether they engaged with it, and tie it back to real results. I build websites connected to AI and voice search — the way people actually find businesses now. I can break down your market demographically and show you exactly what I can do for your business.
+                    </p>
+                    <p>
                       This year, it's all coming together. I've spent the past year working ten- to twelve-hour days mastering these tools — not because I'm running from poverty like I was in my twenties, but because I'm running toward something I've been preparing for my entire life.
                     </p>
                     <p>
-                      Everything I went through — the broken home, the failed business, the years of selling, the solitude — brought me here. I know what it feels like to build something with nothing. I know what it costs to start over. And I know exactly how to package modern technology so a local business owner can actually use it, at a price they can actually afford.
+                      Everything I went through — the broken home, the failed business, the years of selling without proof, the solitude — brought me here. I know what it feels like to build something with nothing. I know what it costs to start over. And I know exactly how to package modern technology so a local business owner can actually use it, at a price they can actually afford.
                     </p>
-                    <p className="text-white font-bold">
+                    <p className="text-white font-bold text-lg">
+                      I spent thirty years waiting for advertising to become provable. It is now.
+                    </p>
+                    <p className="text-blue-400 font-bold text-xl mt-2">
+                      Let me prove it.
+                    </p>
+                    <p className="text-white font-bold mt-6">
                       I'm nearly 68 years old. My heart is full. And I'm just getting started.
                     </p>
                     <p className="text-blue-400 font-semibold text-sm mt-4">
