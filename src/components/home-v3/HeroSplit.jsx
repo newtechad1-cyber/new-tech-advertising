@@ -22,13 +22,13 @@ export default function HeroSplit() {
 
         {/* Main Heading */}
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-black leading-tight mb-6 tracking-tight">
-          Grow Smarter.<br/>
-          <span className="text-emerald-500">Run Easier.</span>
+          30 Years Ago, I Sold Television Ads on Blind Faith.<br/>
+          <span className="text-emerald-500">Today, I Build AI-Powered Websites with Absolute Proof.</span>
         </h1>
 
         {/* Subtitle */}
         <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-8 leading-relaxed">
-          AI-powered systems that get local businesses more customers and simplify how they operate.
+          I spent decades matching businesses to Nielsen ratings, wishing I could look a client in the eye and prove exactly how many dollars walked through their door. The technology has finally caught up to my vision. I build high-performance websites optimized for AI and voice search that don't just look pretty—they prove their ROI.
         </p>
 
         {/* Trust Text */}
@@ -46,7 +46,7 @@ export default function HeroSplit() {
             onClick={scrollToNext}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold px-8 py-4 rounded-xl transition-all text-base shadow-[0_0_20px_rgba(16,185,129,0.25)]"
           >
-            See How It Works ↓
+            Stop Guessing. Let Me Prove It.
           </button>
           <a 
             href="tel:6414208816" 
