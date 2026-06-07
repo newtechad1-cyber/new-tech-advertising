@@ -131,11 +131,26 @@ const LINK_RULES = [
 const MAX_LINKS = 4;
 
 /**
+ * YouTube video ID remapping — when old videos are replaced with new ones,
+ * add them here so embeds in existing blog posts auto-update.
+ */
+const YOUTUBE_ID_MAP = {
+  's1SiLHpk7dA': 'lgIkp0n1xTg',   // What Is AI, Really?
+  '0RmVVTWvG_c': '5piRs3x_rKY',   // AI, Chatbots & AI Agents
+  'eNLskDzVAXY': 'Y99EdMYJ190',   // The Digital Tollbooth
+};
+
+/**
  * Apply internal links to markdown content.
  * Skips content inside existing markdown links: [...](...) or code blocks.
  */
 export function applyInternalLinks(markdown) {
   if (!markdown) return markdown;
+
+  // Remap old YouTube video IDs to current ones
+  for (const [oldId, newId] of Object.entries(YOUTUBE_ID_MAP)) {
+    markdown = markdown.replaceAll(oldId, newId);
+  }
 
   const usedGroups = new Set();
   let linkCount = 0;
