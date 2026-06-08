@@ -168,6 +168,9 @@ export default function MarketingNav() {
           <Link to="/gap-audit" className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-lg shadow-emerald-600/20 whitespace-nowrap">
             Free Gap Audit
           </Link>
+          <Link to="/join-nta" className="bg-violet-600 hover:bg-violet-500 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all shadow-lg shadow-violet-600/20 whitespace-nowrap">
+            Join Our Team
+          </Link>
         </div>
 
         {/* Mobile: hamburger */}
@@ -231,6 +234,13 @@ export default function MarketingNav() {
               className="flex items-center justify-center w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl transition-all"
             >
               Free Gap Audit
+            </Link>
+            <Link
+              to="/join-nta"
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center justify-center w-full bg-violet-600 hover:bg-violet-500 text-white font-bold py-3 rounded-xl transition-all"
+            >
+              Join Our Team
             </Link>
             <div className="pt-2">
               {user ? (

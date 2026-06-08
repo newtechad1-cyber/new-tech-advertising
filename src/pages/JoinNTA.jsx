@@ -59,7 +59,52 @@ const EARNINGS = [
 
 const MARKETS = [
   'Rochester, MN', 'Austin, MN', 'Albert Lea, MN',
-  'Mason City, IA', 'Southern Minnesota', 'Northern Iowa',
+  'Mason City, IA', 'Mankato, MN', 'Winona, MN', 
+  'Owatonna, MN', 'Faribault, MN', 'Red Wing, MN', 
+  'Northfield, MN', 'Southern Minnesota', 'Northern Iowa',
+];
+
+const TERRITORIES = [
+  {
+    city: 'ROCHESTER, MN',
+    badge: 'Anchor Market',
+    population: '125K+',
+    businesses: '5,000+',
+    growth: 'Booming (Mayo-Fueled Growth)',
+    desc: "Rochester is the fastest-growing city in Minnesota. Mayo Clinic's $5B+ expansion is bringing thousands of new residents and hundreds of new businesses every year. Most don't have a digital marketing strategy — they just know they need one.",
+    nearby: ['Stewartville', 'Byron', 'Kasson', 'Dover', 'Pine Island', 'Chatfield', 'Eyota', 'Plainview', 'Zumbrota', 'Lake City'],
+    counties: 'Olmsted, Dodge, Wabasha, Fillmore, Mower, Winona'
+  },
+  {
+    city: 'MASON CITY, IA',
+    badge: 'Home Base',
+    population: '~28K',
+    businesses: '1,500+',
+    growth: 'Steady (Established Market)',
+    desc: "NTA's home base — 14 years of serving North Iowa businesses. The commercial hub of North Iowa anchoring Cerro Gordo County with manufacturing, healthcare, retail, and service businesses.",
+    nearby: ['Clear Lake', 'Charles City', 'Osage', 'Garner', 'Forest City', 'Northwood', 'Hampton', 'Sheffield', 'Nora Springs', 'Rockford'],
+    counties: 'Cerro Gordo, Floyd, Mitchell, Worth, Hancock, Franklin'
+  },
+  {
+    city: 'AUSTIN, MN',
+    badge: 'I-90 Corridor',
+    population: '~26K',
+    businesses: '1,200+',
+    growth: 'Stable (Emerging Digital Market)',
+    desc: "Home to Hormel and the heart of Mower County. A blue-collar town with serious buying power. The Austin-Albert Lea corridor serves 80,000 people and 3,000+ businesses almost entirely underserved by digital agencies.",
+    nearby: ['Albert Lea', 'Blooming Prairie', 'Hayfield', 'Adams', 'Lyle', 'Grand Meadow', 'Brownsdale'],
+    counties: 'Mower, Freeborn, Steele, Dodge'
+  },
+  {
+    city: 'MANKATO, MN',
+    badge: 'University Market',
+    population: '~44K',
+    businesses: '2,500+',
+    growth: 'Growing (University-Driven Growth)',
+    desc: "The largest metro between the Twin Cities and Sioux Falls. Minnesota State University brings 15,000+ students. The Greater Mankato area has seen 15% population growth since 2010.",
+    nearby: ['North Mankato', 'St. Peter', 'New Ulm', 'Waseca', 'Fairmont', 'Blue Earth', 'Le Sueur', 'Nicollet', 'Lake Crystal'],
+    counties: 'Blue Earth, Nicollet, Le Sueur, Brown, Waseca, Watonwan'
+  }
 ];
 
 const IDEAL = [
@@ -123,7 +168,7 @@ export default function JoinNTA() {
       <section className="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-24 px-6 text-center">
         <div className="max-w-3xl mx-auto">
           <span className="inline-block bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-semibold px-4 py-1.5 rounded-full mb-6 uppercase tracking-widest">
-            Sales Partner Opportunity — Rochester & Surrounding Markets
+            Sales Partner Opportunity — Rochester &amp; Surrounding Markets
           </span>
           <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-6">
             Build Your Income Helping<br className="hidden sm:block" /> Local Businesses Grow
@@ -248,6 +293,70 @@ export default function JoinNTA() {
         </div>
       </section>
 
+      {/* EXPLORE YOUR TERRITORY */}
+      <section className="py-20 px-6 bg-slate-100 border-t border-slate-200">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <MapPin className="w-10 h-10 text-blue-600 mx-auto mb-4" />
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Explore Your Territory</h2>
+            <p className="text-slate-600 text-lg max-w-2xl mx-auto">
+              We are aggressively expanding into these key regional hubs. Claim your market and build your network.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            {TERRITORIES.map((t, idx) => (
+              <div key={idx} className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm flex flex-col h-full hover:shadow-md transition">
+                <div className="flex justify-between items-start mb-6">
+                  <div>
+                    <h3 className="text-2xl font-bold text-slate-900 mb-2">{t.city}</h3>
+                    <span className="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+                      {t.badge}
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 mb-6">
+                  <div className="bg-slate-50 rounded-lg p-3 text-center border border-slate-100 flex flex-col justify-center">
+                    <div className="text-xs text-slate-500 font-semibold mb-1">POPULATION</div>
+                    <div className="font-bold text-slate-800">{t.population}</div>
+                  </div>
+                  <div className="bg-slate-50 rounded-lg p-3 text-center border border-slate-100 flex flex-col justify-center">
+                    <div className="text-xs text-slate-500 font-semibold mb-1">BUSINESSES</div>
+                    <div className="font-bold text-slate-800">{t.businesses}</div>
+                  </div>
+                  <div className="bg-slate-50 rounded-lg p-3 text-center border border-slate-100 flex flex-col justify-center">
+                    <div className="text-xs text-slate-500 font-semibold mb-1">GROWTH</div>
+                    <div className="font-bold text-slate-800 text-sm leading-tight">{t.growth}</div>
+                  </div>
+                </div>
+                
+                <p className="text-slate-700 leading-relaxed mb-6 flex-grow">{t.desc}</p>
+                
+                <div className="space-y-4 mb-8">
+                  <div>
+                    <div className="text-xs font-bold text-slate-400 uppercase mb-2">Nearby Markets</div>
+                    <div className="flex flex-wrap gap-2">
+                      {t.nearby.map(n => (
+                        <span key={n} className="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md">{n}</span>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-slate-400 uppercase mb-1">County Coverage</div>
+                    <div className="text-sm text-slate-600">{t.counties}</div>
+                  </div>
+                </div>
+                
+                <button onClick={scrollToForm} className="mt-auto w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 rounded-xl transition flex items-center justify-center gap-2">
+                  Apply for {t.city} <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* APPLICATION FORM */}
       <section ref={formRef} className="py-20 px-6 bg-slate-50">
         <div className="max-w-2xl mx-auto">
@@ -264,27 +373,48 @@ export default function JoinNTA() {
               <p className="text-green-700 text-lg">Thank you. We will review your information and reach out if there is a fit.</p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 space-y-5">
-              <div className="grid sm:grid-cols-2 gap-5">
-                <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-1.5">Full Name *</label>
-                  <input name="full_name" value={form.full_name} onChange={handleChange} required placeholder="Jane Smith" className="w-full border border-slate-300 rounded-lg px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-1.5">City</label>
-                  <input name="city" value={form.city} onChange={handleChange} placeholder="Rochester, MN" className="w-full border border-slate-300 rounded-lg px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" />
-                </div>
+            <>
+              <div className="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-r-2xl mb-8">
+                <h3 className="text-lg font-bold text-amber-900 mb-2">Important Requirement</h3>
+                <p className="text-amber-800 leading-relaxed">
+                  Before applying, please explore newtechadvertising.com to understand our vision, services, and approach. We're looking for people who catch the vision and want to build something meaningful — not just collect a paycheck.
+                </p>
               </div>
-              <div className="grid sm:grid-cols-2 gap-5">
-                <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-1.5">Phone</label>
-                  <input name="phone" value={form.phone} onChange={handleChange} placeholder="(507) 000-0000" className="w-full border border-slate-300 rounded-lg px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" />
+              <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 space-y-5">
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-1.5">Full Name *</label>
+                    <input name="full_name" value={form.full_name} onChange={handleChange} required placeholder="Jane Smith" className="w-full border border-slate-300 rounded-lg px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-1.5">Home City</label>
+                    <input name="city" value={form.city} onChange={handleChange} placeholder="Rochester, MN" className="w-full border border-slate-300 rounded-lg px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" />
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-1.5">Email *</label>
-                  <input name="email" value={form.email} onChange={handleChange} required type="email" placeholder="jane@example.com" className="w-full border border-slate-300 rounded-lg px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" />
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-1.5">Target Territory *</label>
+                    <select name="territory" value={form.territory} onChange={handleChange} required className="w-full border border-slate-300 rounded-lg px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white">
+                      <option value="" disabled>Select a territory</option>
+                      <option value="Rochester MN">Rochester, MN</option>
+                      <option value="Mason City IA">Mason City, IA</option>
+                      <option value="Austin MN">Austin, MN</option>
+                      <option value="Mankato MN">Mankato, MN</option>
+                      <option value="Other Southern MN">Other Southern MN</option>
+                      <option value="Other Northern Iowa">Other Northern Iowa</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-1.5">Phone</label>
+                    <input name="phone" value={form.phone} onChange={handleChange} placeholder="(507) 000-0000" className="w-full border border-slate-300 rounded-lg px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" />
+                  </div>
                 </div>
-              </div>
+                <div className="grid sm:grid-cols-1 gap-5">
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-1.5">Email *</label>
+                    <input name="email" value={form.email} onChange={handleChange} required type="email" placeholder="jane@example.com" className="w-full border border-slate-300 rounded-lg px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" />
+                  </div>
+                </div>
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-1.5">Current Role</label>
                 <input name="current_role" value={form.current_role} onChange={handleChange} placeholder="e.g. Insurance Sales, Account Manager, Business Owner..." className="w-full border border-slate-300 rounded-lg px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" />
@@ -325,6 +455,7 @@ export default function JoinNTA() {
                 {submitting ? 'Submitting...' : <><span>Explore Opportunity</span><ArrowRight className="w-5 h-5" /></>}
               </button>
             </form>
+            </>
           )}
         </div>
       </section>
