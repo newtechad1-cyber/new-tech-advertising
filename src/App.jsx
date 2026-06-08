@@ -627,10 +627,10 @@ const AuthenticatedApp = () => {
       <Route path="/ops/followups" element={<OpsFollowUps />} />
       <Route path="/ops/reports" element={<OpsReports />} />
 
-      <Route path="/learning-center" element={<LearningCenter />} />
-      <Route path="/learning-center/category/:id" element={<LCCategory />} />
-      <Route path="/learning-center/videos" element={<LCVideoLibrary />} />
-      <Route path="/learning-center/videos/:id" element={<LCVideoDetail />} />
+      <Route path="/learning-center" element={<LayoutWrapper currentPageName="LearningCenter"><LearningCenter /></LayoutWrapper>} />
+      <Route path="/learning-center/category/:id" element={<LayoutWrapper currentPageName="LCCategory"><LCCategory /></LayoutWrapper>} />
+      <Route path="/learning-center/videos" element={<LayoutWrapper currentPageName="LCVideoLibrary"><LCVideoLibrary /></LayoutWrapper>} />
+      <Route path="/learning-center/videos/:id" element={<LayoutWrapper currentPageName="LCVideoDetail"><LCVideoDetail /></LayoutWrapper>} />
       <Route path="/what-changed-online" element={<LayoutWrapper currentPageName="WhatChangedOnline"><WhatChangedOnline /></LayoutWrapper>} />
       <Route path="/ai-visibility-basics" element={<LayoutWrapper currentPageName="AIVisibilityBasics"><AIVisibilityBasics /></LayoutWrapper>} />
       <Route path="/practical-ai-for-small-businesses" element={<LayoutWrapper currentPageName="PracticalAIForSmallBusinesses"><PracticalAIForSmallBusinesses /></LayoutWrapper>} />
