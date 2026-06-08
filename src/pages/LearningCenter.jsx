@@ -27,7 +27,7 @@ export default function LearningCenter() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans overflow-hidden flex flex-col">
       <SEOHead 
-        title="Learning Center | New Tech Advertising"
+        title="AI Learning Center | New Tech Advertising"
         description="Free marketing resources, guides & videos for small business owners. Learn about AI search optimization, social media, Google Business & more."
       />
       <MarketingNav />
@@ -40,7 +40,7 @@ export default function LearningCenter() {
         <div className="max-w-4xl mx-auto relative z-10">
           <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-bold px-4 py-1.5 rounded-full mb-8 tracking-wide uppercase">
             <BookOpen className="w-4 h-4" />
-            NTA Learning Center
+            NTA AI Learning Center
           </div>
           
           <h1 className="text-4xl md:text-5xl lg:text-7xl font-black mb-6 leading-[1.1] text-white tracking-tight">
@@ -307,7 +307,7 @@ export default function LearningCenter() {
                 </div>
               </div>
               <p className="text-slate-300 italic text-lg leading-relaxed">
-                "We built this learning center because small businesses are being sold snake oil by agencies using 'AI' as a buzzword. We want to show you exactly how it actually works, and how to use it practically to get more customers."
+               "We built this AI learning center because small businesses are being sold snake oil by agencies using 'AI' as a buzzword. We want to show you exactly how it actually works, and how to use it practically to get more customers."
               </p>
             </div>
           </div>

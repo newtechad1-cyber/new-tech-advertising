@@ -49,7 +49,7 @@ const NAV_LINKS = [
   { label: 'Our Work', href: '/our-work' },
   { label: 'About Us', href: '/about' },
   { 
-    label: 'Learning Center', 
+    label: 'AI Learning Center', 
     href: '/learning-center',
     children: [
       { label: 'Learning Tracks', href: '/learning-center', desc: 'Guided paths that take you from basics to results' },
