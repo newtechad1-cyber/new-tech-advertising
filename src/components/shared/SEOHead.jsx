@@ -11,7 +11,7 @@ export default function SEOHead({
     const setMeta = (nameOrProperty, content, isProperty = false) => {
       if (!content) return null;
       const attr = isProperty ? 'property' : 'name';
-      let meta = document.querySelector(`meta[${attr}="${nameOrProperty}"]`);
+      let meta = document.head.querySelector(`meta[${attr}="${nameOrProperty}"]`);
       if (!meta) {
         meta = document.createElement('meta');
         meta.setAttribute(attr, nameOrProperty);
@@ -37,8 +37,8 @@ export default function SEOHead({
     // Update document title directly
     document.title = title;
     
-    // Also explicitly ensure <title> tag exists and is updated
-    let titleTag = document.querySelector('title');
+    // Also explicitly ensure <title> tag exists in HEAD and is updated
+    let titleTag = document.head.querySelector('title');
     if (!titleTag) {
       titleTag = document.createElement('title');
       document.head.appendChild(titleTag);
@@ -57,7 +57,7 @@ export default function SEOHead({
     elements.push(setMeta('ICBM', "43.1537, -93.2010"));
 
     // Canonical link
-    const oldCanonical = document.querySelector('link[rel="canonical"]');
+    const oldCanonical = document.head.querySelector('link[rel="canonical"]');
     if (oldCanonical) {
       oldCanonical.remove();
     }
