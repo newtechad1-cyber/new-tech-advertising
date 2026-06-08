@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { CheckCircle, DollarSign, MapPin, Users, Zap, TrendingUp, Star, ArrowRight, Building2, Paperclip } from 'lucide-react';
 
@@ -119,11 +119,22 @@ const IDEAL = [
 export default function JoinNTA() {
   const formRef = useRef(null);
   const [form, setForm] = useState({
-    full_name: '', city: '', phone: '', email: '',
+    full_name: '', city: '', territory: '', phone: '', email: '',
     current_role: '', business_relationships: '', interest_reason: '',
   });
   const [resume, setResume] = useState(null);
   const [coverLetter, setCoverLetter] = useState(null);
+
+  useEffect(() => {
+    if (form.city) {
+      const lowerCity = form.city.toLowerCase();
+      if (lowerCity.includes('rochester')) setForm(p => ({ ...p, territory: 'Rochester MN' }));
+      else if (lowerCity.includes('mason')) setForm(p => ({ ...p, territory: 'Mason City IA' }));
+      else if (lowerCity.includes('austin')) setForm(p => ({ ...p, territory: 'Austin MN' }));
+      else if (lowerCity.includes('mankato')) setForm(p => ({ ...p, territory: 'Mankato MN' }));
+      else if (lowerCity.includes('albert lea') || lowerCity.includes('owatonna')) setForm(p => ({ ...p, territory: 'Other Southern MN' }));
+    }
+  }, [form.city]);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -226,7 +237,9 @@ export default function JoinNTA() {
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-slate-900 text-center mb-14">Why Join NTA</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {BENEFITS.map(({ icon: BenefitIcon, title, desc }) => (
+            {BENEFITS.map(({ icon, title, desc }) => {
+              const BenefitIcon = icon;
+              return (
               <div key={title} className="border border-slate-200 rounded-2xl p-7 hover:shadow-md transition">
                 <div className="bg-blue-50 w-12 h-12 rounded-xl flex items-center justify-center mb-4">
                   <BenefitIcon className="w-6 h-6 text-blue-600" />
@@ -234,7 +247,8 @@ export default function JoinNTA() {
                 <h3 className="font-bold text-slate-900 text-lg mb-2">{title}</h3>
                 <p className="text-slate-600 text-sm leading-relaxed">{desc}</p>
               </div>
-            ))}
+            );
+            })}
           </div>
         </div>
       </section>

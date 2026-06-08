@@ -48,6 +48,7 @@
  * The mainPage value must match a key in the PAGES object exactly.
  */
 import AIWorkforce from './pages/AIWorkforce';
+import JoinNTA from './pages/JoinNTA';
 import SignupPage from './pages/SignupPage';
 import PricingWizard from './pages/PricingWizard';
 import About from './pages/About';
@@ -948,6 +949,7 @@ export const PAGES = {
     "NTAOnboardingCenter": NTAOnboardingCenter,
     "NTAOperatorCommand": NTAOperatorCommand,
     "NTAPricingLadderPage": NTAPricingLadderPage,
+    "JoinNTA": JoinNTA,
     "NTAPricingStack": NTAPricingStack,
     "NTAResellerCommand": NTAResellerCommand,
     "NTASalesFollowUp": NTASalesFollowUp,
