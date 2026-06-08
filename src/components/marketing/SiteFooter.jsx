@@ -1,13 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import NewsletterFooterSection from '@/components/newsletter/NewsletterFooterSection';
 
 const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
 
 export default function SiteFooter() {
   return (
-    <footer className="bg-slate-900 text-slate-400 py-12 px-6">
-      <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 mb-10">
+    <>
+      <NewsletterFooterSection />
+      <footer className="bg-slate-900 text-slate-400 py-12 px-6">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 mb-10">
         {/* Brand */}
         <div className="col-span-2 sm:col-span-3 lg:col-span-2">
           <img
@@ -73,5 +76,6 @@ export default function SiteFooter() {
         </div>
       </div>
     </footer>
+    </>
   );
 }

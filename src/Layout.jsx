@@ -15,6 +15,7 @@ import ADAComplianceBanner from '@/components/marketing/ADAComplianceBanner';
 import RouteFamilyBadge from '@/components/admin/RouteFamilyBadge';
 import { PAGE_FAMILY_MAP } from '@/components/config/routeMap';
 import AgentChatWidget from '@/components/nta-guide/AgentChatWidget';
+import NewsletterPopup from '@/components/newsletter/NewsletterPopup';
 import { createPageUrl } from '@/utils';
 
 export default function Layout({ children, currentPageName }) {
@@ -93,6 +94,7 @@ export default function Layout({ children, currentPageName }) {
       <ADAComplianceBanner />
       {showBadge && <RouteFamilyBadge family={pageFamily} />}
       <AgentChatWidget />
+      <NewsletterPopup />
     </ViewModeContext.Provider>
   );
 }
