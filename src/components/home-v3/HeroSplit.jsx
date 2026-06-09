@@ -23,7 +23,7 @@ export default function HeroSplit() {
         {/* Main Heading */}
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-black leading-tight mb-6 tracking-tight">
           30 Years Ago, I Sold Television Ads on Blind Faith.<br/>
-          <span className="text-emerald-500">Today, I Build AI-Powered Websites with Absolute Proof.</span>
+          <span className="text-emerald-500">I Build AI-Powered Websites & Campaigns with Absolute Proof.</span>
         </h1>
 
         {/* Subtitle */}
