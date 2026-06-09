@@ -9,9 +9,10 @@ export default function NTAVideoMessage() {
         </h2>
         <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-100">
           <iframe 
-            src="https://app.heygen.com/embeds/6d74ae416e5c43328e0856079bdd2a41" 
-            className="absolute top-0 left-0 w-full h-full"
-            allow="autoplay; fullscreen" 
+            src="https://www.youtube.com/embed/fb6dOHawJ04" 
+            className="absolute top-0 left-0 w-full h-full border-0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowFullScreen
             title="A Message from New Tech Advertising"
           />
         </div>
