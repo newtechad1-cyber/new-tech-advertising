@@ -223,6 +223,51 @@ export default function RestaurantSolutions() {
           </div>
         </section>
 
+        {/* LIVE DEMO */}
+        <section className="mt-24 max-w-5xl mx-auto px-6 text-center">
+          <div className="inline-block px-3 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
+            🚀 LIVE DEMO
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">See It Running — Right Now</h2>
+          <p className="text-slate-400 text-lg max-w-3xl mx-auto mb-12 leading-relaxed">
+            This isn't a mockup. It's a fully working AI-powered restaurant management system with real sample data. POS, kitchen display, menu management, payroll, reviews, marketing — all connected.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 text-left">
+            <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
+              <div className="text-3xl mb-3">🍕</div>
+              <h3 className="text-lg font-bold text-white mb-2">Full POS System</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">Ring up orders, manage tables, track tickets — replaces your cash register and tablet apps</p>
+            </div>
+            <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
+              <div className="text-3xl mb-3">📊</div>
+              <h3 className="text-lg font-bold text-white mb-2">Payroll & Staff</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">Track hours, calculate overtime, run payroll with tax withholdings — built right in</p>
+            </div>
+            <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
+              <div className="text-3xl mb-3">⭐</div>
+              <h3 className="text-lg font-bold text-white mb-2">AI Review Responses</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">AI drafts responses to Google, Yelp & Facebook reviews in your restaurant's voice</p>
+            </div>
+          </div>
+
+          <a 
+            href="https://restaurant-demo-7e61965c.viktor.space" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-block bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-10 py-4 rounded-xl shadow-[0_0_25px_rgba(245,158,11,0.3)] transition-all"
+          >
+            Explore the Live Demo →
+          </a>
+          
+          <p className="mt-6 text-slate-500 text-sm italic max-w-2xl mx-auto">
+            This demo uses Bella's Italian Kitchen — but we customize AI-OS for any restaurant: your menu, your branding, your workflow.
+          </p>
+
+          {/* Divider */}
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-amber-500/20 to-transparent mt-24"></div>
+        </section>
+
         {/* THE MATH */}
         <section className="mt-24 max-w-5xl mx-auto px-6">
           <div className="text-center mb-12">
