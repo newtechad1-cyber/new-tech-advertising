@@ -12,7 +12,7 @@ export default function RestCTA() {
           Let's talk about what your restaurant needs. 15-minute call, no pitch deck, no pressure.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-          <a href="tel:6414208816" className="inline-flex items-center justify-center bg-amber-500 hover:bg-amber-400 text-[#0B1120] font-bold px-8 py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+          <a href="https://calendar.app.google/p6ieYanvwhixXxZ67" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center bg-amber-500 hover:bg-amber-400 text-[#0B1120] font-bold px-8 py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(245,158,11,0.2)]">
             Let's Talk →
           </a>
           <a href="tel:6414208816" className="inline-flex items-center justify-center gap-2 border border-slate-700 hover:border-slate-500 bg-slate-900/50 hover:bg-slate-800 text-white font-bold px-8 py-4 rounded-xl transition-all">
