@@ -53,11 +53,11 @@ export default function CommunityPartnerProgram() {
             NTA Community Partner Program
           </div>
           <h1 className="text-4xl md:text-6xl font-black leading-tight mb-6 tracking-tight">
-            Empower Local Businesses.<br/>
-            <span className="text-blue-500">Create a New Revenue Stream.</span>
+            Help Local Businesses Grow.<br/>
+            <span className="text-blue-500">Create Sustainable Revenue For Your Organization.</span>
           </h1>
           <p className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
-            Partner with Iowa's premier AI-powered marketing agency. Offer your members exclusive access to cutting-edge growth technology while generating recurring revenue for your organization.
+            Partner with New Tech Advertising to help local businesses improve their visibility, reputation, and customer growth using affordable AI-powered marketing systems. Your members also gain access to practical AI training through the NTA AI Learning Center while your organization earns recurring revenue.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a 
@@ -111,7 +111,7 @@ export default function CommunityPartnerProgram() {
                   </div>
                   <div>
                     <h3 className="font-bold text-slate-900 text-lg">The Solution</h3>
-                    <p className="text-slate-600">NTA provides AI-powered, affordable marketing systems that guarantee visibility.</p>
+                    <p className="text-slate-600">NTA provides AI-powered, affordable marketing systems that help local businesses improve visibility, strengthen their reputation, attract more customers, and compete more effectively in today's digital economy.</p>
                   </div>
                 </div>
               </div>
@@ -132,7 +132,7 @@ export default function CommunityPartnerProgram() {
             <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 font-bold text-xl">1</div>
               <h3 className="text-xl font-bold text-slate-900 mb-3">Introduce Us</h3>
-              <p className="text-slate-600">Share exclusive NTA marketing resources, free audits, and special member pricing with your local business network.</p>
+              <p className="text-slate-600">Share free Digital Visibility Audits, practical AI training through the NTA AI Learning Center, and affordable AI-powered marketing solutions that help local businesses compete in today's digital economy.</p>
             </div>
             <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 font-bold text-xl">2</div>
@@ -142,7 +142,7 @@ export default function CommunityPartnerProgram() {
             <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 font-bold text-xl">3</div>
               <h3 className="text-xl font-bold text-slate-900 mb-3">You Earn Revenue</h3>
-              <p className="text-slate-600">Your organization receives a predictable, recurring monthly revenue share for the entire lifetime of the client relationship.</p>
+              <p className="text-slate-600">When businesses choose NTA through your partnership, your organization receives recurring revenue that can help fund programs, events, community initiatives, and member services.</p>
             </div>
           </div>
         </div>
@@ -153,14 +153,14 @@ export default function CommunityPartnerProgram() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">The Revenue Opportunity</h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">Generate sustainable, non-dues revenue to fund your organization's mission.</p>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">Generate sustainable non-dues revenue while helping local businesses succeed.</p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { clients: 10, revenue: "$1,500+", subtitle: "per month in recurring revenue" },
-              { clients: 25, revenue: "$3,750+", subtitle: "per month in recurring revenue", featured: true },
-              { clients: 50, revenue: "$7,500+", subtitle: "per month in recurring revenue" }
+              { clients: "Approximately 10 participating businesses", revenue: "$520+", subtitle: "Per Month" },
+              { clients: "Approximately 25 participating businesses", revenue: "$1,300+", subtitle: "Per Month", featured: true },
+              { clients: "Approximately 50 participating businesses", revenue: "$2,600+", subtitle: "Per Month" }
             ].map((tier, idx) => (
               <div key={idx} className={`p-8 rounded-3xl border ${tier.featured ? 'bg-blue-600 border-blue-500 shadow-[0_0_30px_rgba(37,99,235,0.3)]' : 'bg-slate-800 border-slate-700'} text-center relative`}>
                 {tier.featured && (
@@ -176,13 +176,13 @@ export default function CommunityPartnerProgram() {
                 </div>
                 <div className={`border-t pt-6 ${tier.featured ? 'border-blue-500' : 'border-slate-700'}`}>
                   <p className={`font-medium ${tier.featured ? 'text-white' : 'text-slate-300'}`}>
-                    Just <span className="font-bold text-xl">{tier.clients}</span> referred businesses
+                    {tier.clients}
                   </p>
                 </div>
               </div>
             ))}
           </div>
-          <p className="text-center text-slate-500 text-sm mt-8">* Revenue examples based on average client plan value. Actual payouts depend on specific services selected.</p>
+          <p className="text-center text-slate-500 text-sm mt-8">* Examples based on an average client value of approximately $347/month and a 15% recurring revenue share. Actual results vary based on participation and service mix.</p>
         </div>
       </section>
 
@@ -193,10 +193,11 @@ export default function CommunityPartnerProgram() {
             <h2 className="text-3xl font-bold text-slate-900 mb-8">Benefits For Your Organization</h2>
             <ul className="space-y-6">
               {[
-                { title: "Turnkey Member Benefit", text: "Provide exclusive pricing and cutting-edge tech to your members without managing the services." },
+                { title: "Turnkey Member Benefit", text: "Provide cutting-edge marketing tech to your members without managing the services yourself." },
                 { title: "Recurring Income", text: "Build a predictable revenue stream that compounds over time." },
                 { title: "No Tech Expertise Needed", text: "We handle 100% of the fulfillment, support, and technical execution." },
-                { title: "Community Growth", text: "When local businesses thrive online, the entire local economy benefits." }
+                { title: "Community Growth", text: "When local businesses thrive online, the entire local economy benefits." },
+                { title: "NTA AI Learning Center", text: "Provide your members with practical AI education, training, tools, tutorials, and business resources designed specifically for small and midsize businesses. Help local companies understand and adopt AI without needing technical expertise." }
               ].map((benefit, i) => (
                 <li key={i} className="flex gap-4">
                   <div className="mt-1 shrink-0"><CheckCircle2 className="w-6 h-6 text-blue-500" /></div>
@@ -209,7 +210,7 @@ export default function CommunityPartnerProgram() {
             </ul>
           </div>
           
-          <div className="bg-slate-50 p-10 rounded-3xl border border-slate-200">
+          <div className="bg-slate-50 p-10 rounded-3xl border border-slate-200 h-fit">
             <h2 className="text-3xl font-bold text-slate-900 mb-8">Who Should Apply?</h2>
             <div className="grid gap-4">
               {[
@@ -227,6 +228,32 @@ export default function CommunityPartnerProgram() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trust Section */}
+      <section className="py-20 px-6 bg-slate-50 border-t border-slate-200">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Why Community Organizations Partner With NTA</h2>
+            <p className="text-slate-600 text-lg">We are committed to helping local businesses thrive with practical, affordable solutions.</p>
+          </div>
+          
+          <div className="grid sm:grid-cols-2 gap-x-8 gap-y-6">
+            {[
+              "Founded in Mason City and serving local businesses for more than 14 years",
+              "AI-powered systems designed specifically for small and midsize businesses",
+              "Affordable alternatives to large agency solutions",
+              "Local support from a real team that understands Iowa and Southern Minnesota",
+              "Decades of marketing, advertising, and digital business experience",
+              "Proven systems that help businesses improve visibility, reputation, and growth"
+            ].map((item, i) => (
+              <div key={i} className="flex items-start gap-4">
+                <div className="mt-1 shrink-0"><ShieldCheck className="w-6 h-6 text-blue-500" /></div>
+                <p className="text-slate-700 font-medium leading-relaxed">{item}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
