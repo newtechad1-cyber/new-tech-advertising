@@ -140,6 +140,7 @@ const WebsiteRebuildsAustinMN = lazy(() => import('./pages/WebsiteRebuildsAustin
 const WebsiteRebuildsAlbertLeaMN = lazy(() => import('./pages/WebsiteRebuildsAlbertLeaMN'));
 const AdminRecruitingCandidates = lazy(() => import('./pages/AdminRecruitingCandidates'));
 const AuditFurnitureMattressOutlet = lazy(() => import('./pages/AuditFurnitureMattressOutlet'));
+const CommunityPartnerProgram = lazy(() => import('./pages/CommunityPartnerProgram'));
 const CRMDashboard = lazy(() => import('./pages/CRMDashboard'));
 const CRMArchivedLeads = lazy(() => import('./pages/CRMArchivedLeads'));
 const ContentCommandDashboard = lazy(() => import('./pages/ContentCommandDashboard'));
@@ -499,6 +500,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin/recruiting-candidates" element={<LayoutWrapper currentPageName="AdminRecruitingCandidates"><AdminRecruitingCandidates /></LayoutWrapper>} />
       <Route path="/admin/recent-ai-activity" element={<LayoutWrapper currentPageName="AdminRecentAIActivity"><AdminRecentAIActivity /></LayoutWrapper>} />
       <Route path="/audit/furniture-mattress-outlet" element={<AuditFurnitureMattressOutlet />} />
+      <Route path="/community-partner" element={<LayoutWrapper currentPageName="CommunityPartnerProgram"><CommunityPartnerProgram /></LayoutWrapper>} />
       {/* LEGACY: /dashboard routes — redirect to canonical Agency CRM */}
       <Route path="/dashboard" element={<Navigate to="/agency" replace />} />
       <Route path="/dashboard/leads" element={<Navigate to="/agency/leads" replace />} />
