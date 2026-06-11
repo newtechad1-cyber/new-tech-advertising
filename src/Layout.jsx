@@ -42,17 +42,7 @@ export default function Layout({ children, currentPageName }) {
             return;
           }
 
-          const ADMIN_EMAILS = ["info@newtechadvertising.com", "newtechad1@gmail.com"];
-          const adminByRole = authenticatedUser.role === "admin";
-          const adminByEmail = ADMIN_EMAILS.includes(authenticatedUser.email?.toLowerCase());
-          const isClient = authenticatedUser.role === "client";
-
-          if (adminByRole || adminByEmail) {
-            window.location.href = '/operationshub';
-          } else if (isClient) {
-            window.location.href = createPageUrl('ClientDashboard');
-          }
-          // For everyone else, remain on '/'
+          // Redirects removed so logged in users can still view the homepage.
         }
       } catch (error) {
         console.log('[Layout] User not authenticated:', error.message);
