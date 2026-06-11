@@ -78,6 +78,22 @@ export default function CommunityPartnerProgram() {
         </div>
       </section>
 
+      {/* Video Section */}
+      <section className="py-16 px-6 bg-white border-b border-slate-200">
+        <div className="max-w-4xl mx-auto">
+          <div className="relative w-full bg-black rounded-2xl overflow-hidden shadow-lg" style={{ paddingBottom: '56.25%' }}>
+            <iframe
+              className="absolute inset-0 w-full h-full"
+              src="https://www.youtube.com/embed/7hw3Fp-pV18"
+              title="NTA Community Partner Program"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Problem Section */}
       <section className="py-20 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
