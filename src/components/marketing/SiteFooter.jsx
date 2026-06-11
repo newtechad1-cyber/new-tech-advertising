@@ -90,7 +90,7 @@ export default function SiteFooter() {
           <a href="https://www.tiktok.com/@rick.hesse" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-slate-200 transition-colors">
             <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.68v13.67a2.4 2.4 0 0 1-2.4 2.4 2.4 2.4 0 0 1-2.4-2.4 2.4 2.4 0 0 1 2.4-2.4c.34 0 .67.05 1 .15V9.41a5.8 5.8 0 0 0-1-.08A5.8 5.8 0 0 0 5.5 19.35a5.8 5.8 0 0 0 5.8 5.8 5.8 5.8 0 0 0 5.81-5.8V11a7.7 7.7 0 0 0 4.58 1.53V9.86a4.77 4.77 0 0 1-1.3-.18Z"/></svg>
           </a>
-          <a href="https://www.instagram.com/rickahesse/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-pink-500 transition-colors">
+          <a href="https://www.instagram.com/hesse2882/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-pink-500 transition-colors">
             <Instagram className="w-4 h-4" />
           </a>
         </div>
