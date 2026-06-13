@@ -188,15 +188,11 @@ export default function AgentChatWidget() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
+  // Try to start chat immediately (anonymous or authenticated)
   useEffect(() => {
     if (isOpen && authStep === 'loading') {
-      base44.auth.isAuthenticated().then(isAuth => {
-        if (isAuth) {
-          setAuthStep('chat');
-        } else {
-          setAuthStep('connect');
-        }
-      });
+      // Skip auth check — go straight to chat and let initConversation handle it
+      setAuthStep('chat');
     }
   }, [isOpen, authStep]);
 
@@ -208,13 +204,9 @@ export default function AgentChatWidget() {
 
   useEffect(() => {
     if (localStorage.getItem('nta_open_chat') === 'true') {
-      base44.auth.isAuthenticated().then(isAuth => {
-        if (isAuth) {
-          localStorage.removeItem('nta_open_chat');
-          setIsOpen(true);
-          setAuthStep('chat');
-        }
-      });
+      localStorage.removeItem('nta_open_chat');
+      setIsOpen(true);
+      setAuthStep('chat');
     }
     
     const handleOpenChat = () => setIsOpen(true);
@@ -238,7 +230,8 @@ export default function AgentChatWidget() {
         setMessages(conv.messages || []);
     } catch (e) {
         console.error("Error creating conversation:", e);
-        toast.error("Failed to connect to agent.");
+        // If anonymous chat fails (auth required), fall back to sign-in screen
+        setAuthStep('connect');
     } finally {
         setIsLoading(false);
     }
