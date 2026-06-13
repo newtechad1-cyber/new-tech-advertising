@@ -106,5 +106,11 @@
     "sender_type",
     "message_type",
     "message_body"
-  ]
+  ],
+  "rls": {
+    "create": null,
+    "read": null,
+    "update": null,
+    "delete": null
+  }
 }
