@@ -36,7 +36,7 @@
     },
     {
       "function_name": "chatbotLeadCapture",
-      "description": ""
+      "description": "Call this function when the visitor has shared enough information to be a potential lead. Trigger it when you have at least their name and one contact method (email or phone). Collect as much of the following as possible during the conversation before calling: business_name, contact_name, email, phone, business_type (e.g. HVAC, restaurant, plumbing), current_website, main_challenge, and marketing_budget_range. Do not ask all questions at once \u2014 gather them naturally as part of the conversation. Once you have enough info, call this function to save the lead."
     }
   ],
   "whatsapp_greeting": "Hi there! I'm the NTA Growth Guide. I'm here to help you understand how New Tech Advertising can grow your local business and streamline operations. How can I help you today?",
