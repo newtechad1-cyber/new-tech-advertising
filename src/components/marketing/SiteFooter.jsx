@@ -74,9 +74,10 @@ export default function SiteFooter() {
           <div className="flex-1">
             <p className="text-xs">© {new Date().getFullYear()} New Tech Advertising. All rights reserved.</p>
           </div>
-          <div className="flex gap-4 text-xs">
+          <div className="flex flex-wrap gap-4 text-xs">
             <a href={createPageUrl('PrivacyPolicy')} className="hover:text-white transition-colors">Privacy Policy</a>
             <a href={createPageUrl('TermsOfService')} className="hover:text-white transition-colors">Terms of Service</a>
+            <a href={createPageUrl('AIPolicy')} className="hover:text-white transition-colors">AI Policy</a>
           </div>
         </div>
         <div className="flex items-center gap-4 pt-4 border-t border-slate-800">
