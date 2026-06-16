@@ -10,11 +10,16 @@ export default function ThreeWaysWeHelp() {
             WHAT DO YOU NEED?
           </p>
           <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
-            Three Ways We Help Local Businesses
+            Built for the Way You Run Your Business
           </h2>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
-            Every business is different. Pick your path — or let us build a system that covers all three.
-          </p>
+          <div className="text-slate-400 text-lg max-w-3xl mx-auto leading-relaxed">
+            <p className="mb-4">
+              No two local businesses operate the same way. That's why we don't do cookie-cutter software. We design custom systems tailored to your exact operational needs.
+            </p>
+            <p>
+              Want to lock down your front-end Customer Management & Tracking? We can build that. Need to optimize your Back Office Systems to eliminate chaos? We do that too. Pick your priority, or let us build a unified system that handles both seamlessly.
+            </p>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 mb-12">
