@@ -503,6 +503,7 @@ const AuthenticatedApp = () => {
       <Route path="/audit/furniture-mattress-outlet" element={<AuditFurnitureMattressOutlet />} />
       <Route path="/community-partner" element={<LayoutWrapper currentPageName="CommunityPartnerProgram"><CommunityPartnerProgram /></LayoutWrapper>} />
       <Route path="/ai-policy" element={<LayoutWrapper currentPageName="AIPolicy"><AIPolicy /></LayoutWrapper>} />
+      <Route path="/aipolicy" element={<Navigate to="/ai-policy" replace />} />
       {/* LEGACY: /dashboard routes — redirect to canonical Agency CRM */}
       <Route path="/dashboard" element={<Navigate to="/agency" replace />} />
       <Route path="/dashboard/leads" element={<Navigate to="/agency/leads" replace />} />
