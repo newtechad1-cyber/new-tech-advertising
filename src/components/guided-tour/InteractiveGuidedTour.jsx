@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronRight, ChevronLeft, Map, Cpu, Zap, LineChart, ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { X, ChevronRight, ChevronLeft, Map, Cpu, Zap, LineChart, ShieldCheck, CheckCircle2, Bot, Globe, Mail, BookOpen } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 const slides = [
@@ -27,6 +27,38 @@ const slides = [
     icon: <Cpu className="w-10 h-10 text-purple-500 mb-4" />,
     content: "Cookie-cutter SaaS platforms charge per-seat fees and force you to change how you work. We build custom, interconnected AI systems and automation that fit your exact operations. No monthly SaaS bloat—just smart technology built for you.",
     color: "bg-purple-50"
+  },
+  {
+    id: "agents",
+    title: "Chatbots vs. AI Agents",
+    subtitle: "Give your customers a 24/7 employee.",
+    icon: <Bot className="w-10 h-10 text-indigo-500 mb-4" />,
+    content: "A chatbot just answers FAQs. An AI Agent acts like a digital employee. Our Custom AI Agents can qualify leads, schedule appointments, search your knowledge base, and trigger backend automations for a personalized 24/7 experience.",
+    color: "bg-indigo-50"
+  },
+  {
+    id: "visibility",
+    title: "Dominating Local Visibility",
+    subtitle: "Be where your customers are looking.",
+    icon: <Globe className="w-10 h-10 text-teal-500 mb-4" />,
+    content: "Being found means more than just having a website. You need to dominate Maps, Voice Search, and AI engines like ChatGPT. We optimize your local profiles and build authority so you show up everywhere.",
+    color: "bg-teal-50"
+  },
+  {
+    id: "followup",
+    title: "Stopping Budget Leaks",
+    subtitle: "Don't let leads slip through the cracks.",
+    icon: <Mail className="w-10 h-10 text-orange-500 mb-4" />,
+    content: "Getting a lead is only half the battle. Without an automated follow-up system, potential customers are lost. We implement intelligent SMS and Email sequences to convert interest into booked revenue.",
+    color: "bg-orange-50"
+  },
+  {
+    id: "learning",
+    title: "The AI Learning Center",
+    subtitle: "We don't just build systems; we empower you.",
+    icon: <BookOpen className="w-10 h-10 text-pink-500 mb-4" />,
+    content: "As a partner, you gain access to our AI Learning Center—a hub of resources, videos, and guides to help you understand the technology and continuously grow your business.",
+    color: "bg-pink-50"
   },
   {
     id: "system",
