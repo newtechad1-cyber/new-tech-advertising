@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
-import { Bot, X, Send, Loader2, User, Copy, FileText, CheckCircle2, AlertCircle, Clock, Zap, ChevronRight, MessageCircle } from 'lucide-react';
+import { Bot, X, Send, Loader2, User, Copy, FileText, CheckCircle2, AlertCircle, Clock, Zap, ChevronRight, MessageCircle, Map } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import ReactMarkdown from 'react-markdown';
 import { toast } from 'sonner';
 import { cn } from "@/lib/utils";
+import InteractiveGuidedTour from '@/components/guided-tour/InteractiveGuidedTour';
 
 const FunctionDisplay = ({ toolCall }) => {
     const [expanded, setExpanded] = useState(false);
@@ -177,6 +178,7 @@ const MessageBubble = ({ message }) => {
 
 export default function AgentChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isTourOpen, setIsTourOpen] = useState(false);
   const [authStep, setAuthStep] = useState('loading'); // 'loading', 'connect', 'chat'
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -267,6 +269,11 @@ export default function AgentChatWidget() {
   };
 
   const handleQuickAction = (text) => {
+    if (text === "Guided Tour: The End of Blind Faith") {
+      setIsTourOpen(true);
+      setIsOpen(false); // Optionally hide the chat while tour is open
+      return;
+    }
     setInput(text);
   };
 
@@ -340,11 +347,18 @@ export default function AgentChatWidget() {
                     
                     {/* Preview of what the guide can help with */}
                     <div className="space-y-2 mb-5">
-                        <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">I can help you with:</p>
+                        <Button 
+                            onClick={() => { setIsTourOpen(true); setIsOpen(false); }}
+                            className="w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-6 rounded-xl flex flex-col items-center justify-center gap-1 shadow-sm transition-all mb-4"
+                        >
+                            <span className="flex items-center gap-2 text-sm"><Map className="w-4 h-4 text-blue-400" /> Start Interactive Tour</span>
+                            <span className="text-[11px] text-slate-400 font-normal">See how we grow local businesses</span>
+                        </Button>
+
+                        <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mt-4">Or ask me anything like:</p>
                         {[
                             '💡 "What marketing plan fits my budget?"',
                             '📊 "How does AI search affect my business?"',
-                            '🧭 "Give me a Guided Tour of The End of Blind Faith"',
                             '⭐ "How do I get more Google reviews?"',
                         ].map((q, i) => (
                             <div key={i} className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-[13px] text-slate-600">
@@ -445,6 +459,7 @@ export default function AgentChatWidget() {
           </motion.div>
         )}
       </AnimatePresence>
+      <InteractiveGuidedTour isOpen={isTourOpen} onClose={() => setIsTourOpen(false)} />
     </>
   );
 }
