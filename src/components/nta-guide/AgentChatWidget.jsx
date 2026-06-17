@@ -344,7 +344,7 @@ export default function AgentChatWidget() {
                         {[
                             '💡 "What marketing plan fits my budget?"',
                             '📊 "How does AI search affect my business?"',
-                            '🏗️ "What should my website actually do?"',
+                            '🧭 "Give me a Guided Tour of The End of Blind Faith"',
                             '⭐ "How do I get more Google reviews?"',
                         ].map((q, i) => (
                             <div key={i} className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-[13px] text-slate-600">
@@ -390,6 +390,9 @@ export default function AgentChatWidget() {
                     {/* Quick Actions (only show if few messages or input empty) */}
                     {messages.length < 4 && (
                         <div className="px-4 pb-2 flex gap-2 overflow-x-auto scrollbar-hide snap-x">
+                            <button onClick={() => handleQuickAction("Guided Tour: The End of Blind Faith")} className="snap-start flex-shrink-0 text-xs bg-blue-50 border border-blue-200 text-blue-700 font-medium px-3 py-1.5 rounded-full hover:bg-blue-100 transition-colors">
+                                Guided Tour: End of Blind Faith
+                            </button>
                             <button onClick={() => handleQuickAction("Free Gap Audit")} className="snap-start flex-shrink-0 text-xs bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-full hover:bg-slate-50 hover:text-slate-900 transition-colors">
                                 Free Gap Audit
                             </button>
