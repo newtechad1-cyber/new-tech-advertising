@@ -37,24 +37,22 @@ export default function About() {
             <Sparkles className="w-3.5 h-3.5" />
             About New Tech Advertising
           </div>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-8">
-            Building the Platforms That<br />
-            <span className="text-blue-400">Power Modern Marketing</span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-8">
+            I’ve Spent 46 Years Navigating the Tech Evolution.<br />
+            <span className="text-blue-400">You Can Have the Results in 46 Minutes.</span>
           </h1>
 
           <div className="max-w-3xl mx-auto text-left space-y-5 text-slate-300 text-lg leading-relaxed mb-12">
-            <p>Marketing has changed.</p>
-            <p>
-              For years businesses were told they needed complex strategies, expensive agencies, and endless marketing tools just to stay competitive.
-            </p>
-            <p className="font-semibold text-white">But technology has changed everything.</p>
-            <p>
-              Artificial intelligence, automation, and modern media platforms now allow businesses and organizations to do things that once required entire marketing departments.
-            </p>
-            <p className="text-blue-300 font-semibold text-xl">New Tech Advertising was built to make those tools accessible.</p>
-            <p>
-              We build platforms that help businesses, schools, and organizations create content, publish media, improve visibility, and connect with their communities using modern technology.
-            </p>
+            <p>In 1980, I was sitting in front of a flashing green-screen monitor, typing manual command lines into DOS just to execute a primitive mail merge. It required physical floppy disks, endless patience, and a lot of trial and error.</p>
+            <p>But even back then, I caught a glimpse of the future. I realized that if you could master the tools, you could give a business an unfair advantage.</p>
+            <p>I’m grateful for that early start because it gave me a front-row seat to the entire digital revolution. Over the last four decades, I didn't just watch the software world explode—I rolled up my sleeves and worked inside it.</p>
+            <p>I’ve written comprehensive business plans and marketing plans for almost every type of industry.</p>
+            <p>I’ve figured out the messy, hidden mechanics of how marketing connects to sales, and how sales connects to back-office operations.</p>
+            <p>I’ve watched tools fragment into a chaotic mess of apps that leave modern business owners feeling overwhelmed, exhausted, and stuck playing tech-support for their own companies.</p>
+            <p className="font-semibold text-white">Here is what I’ve learned: You shouldn't have to understand all this marketing stuff to benefit from it.</p>
+            <p>You didn’t start your business to become a software engineer, an AI prompt manager, or a data analyst. You started it to serve your customers and build a legacy.</p>
+            <p>I didn't build New Tech Advertising to sell you another piece of software you don't have time to learn. I built it to take the burden off your shoulders entirely. I’ve put in the decades of learning, testing, and connecting the dots so that you don't have to. You allow me and my company to handle the complex tech engine, while you focus on doing what you love.</p>
+            <p className="text-blue-300 font-semibold text-xl pt-4">Let’s stop wasting your time on the noise. Let me put 46 years of experience to work for you.</p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
