@@ -1,54 +1,32 @@
 import React, { useEffect } from 'react';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
-import HeroSplit from '../components/home-v3/HeroSplit';
-import NewToAISection from '../components/home-v3/NewToAISection';
-import ThreeWaysWeHelp from '../components/home-v3/ThreeWaysWeHelp';
-import TwoWaysWeGrow from '../components/home-v3/TwoWaysWeGrow';
-import WhatIMean from '../components/home-v3/WhatIMean';
-import NTAGrowthSystem from '../components/home-v3/NTAGrowthSystem';
-import IndustrySplit from '../components/home-v3/IndustrySplit';
-import HowItWorks from '../components/home-v3/HowItWorks';
-import WhoThisWorksFor from '../components/home-v3/WhoThisWorksFor';
-import CombinedReviewsSection from '../components/home-v3/CombinedReviewsSection';
-import GapAuditCenteredCTA from '../components/home-v3/GapAuditCenteredCTA';
-import InternetChangedSection from '../components/home-v3/InternetChangedSection';
-import WhatWeFoundSection from '../components/home-v3/WhatWeFoundSection';
-import GrowthSystemSection from '../components/home-v3/GrowthSystemSection';
-import EducationCardsSection from '../components/home-v3/EducationCardsSection';
-import CommunityPartnerSection from '../components/home-v3/CommunityPartnerSection';
-import HomeYoutubeSection from '../components/home-v3/HomeYoutubeSection';
-import NTAVideoMessage from '../components/home-v3/NTAVideoMessage';
 import SEOHead from '../components/shared/SEOHead';
-import VoiceSearchQA from '../components/home-v3/VoiceSearchQA';
+import HeroSection from '../components/home-conversion/HeroSection';
+import ProblemSection from '../components/home-conversion/ProblemSection';
+import SolutionSection from '../components/home-conversion/SolutionSection';
+import PathSection from '../components/home-conversion/PathSection';
+import FounderSection from '../components/home-conversion/FounderSection';
+import ProofSection from '../components/home-conversion/ProofSection';
 
 export default function Home() {
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-slate-950 min-h-screen">
       <SEOHead 
         title="AI Marketing Agency Mason City Iowa | New Tech Advertising"
         description="AI-powered marketing agency in Mason City, Iowa. AI search optimization, Google Business Profile management, social media & local SEO for small businesses. Call for a free audit."
       />
       <MarketingNav />
-      <HeroSplit />
-      <NewToAISection />
-      <ThreeWaysWeHelp />
-      <TwoWaysWeGrow />
-      <InternetChangedSection />
-      <WhatWeFoundSection />
-      <GrowthSystemSection />
-      <HomeYoutubeSection />
-      <EducationCardsSection />
-      <WhatIMean />
-      <NTAVideoMessage />
-      <NTAGrowthSystem />
-      <IndustrySplit />
-      <HowItWorks />
-      <WhoThisWorksFor />
-      <CombinedReviewsSection />
-      <VoiceSearchQA />
-      <CommunityPartnerSection />
-      <GapAuditCenteredCTA />
+      
+      <main>
+        <HeroSection />
+        <ProblemSection />
+        <SolutionSection />
+        <PathSection />
+        <FounderSection />
+        <ProofSection />
+      </main>
+
       <SiteFooter />
       <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify({
