@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Building2, Users, TrendingUp, Handshake, ChevronRight, CheckCircle2, 
-  ArrowRight, Phone, Globe, MapPin, BadgeDollarSign, ShieldCheck, PieChart, HeartHandshake
+  ArrowRight, Phone, Globe, MapPin, BadgeDollarSign, ShieldCheck, PieChart, HeartHandshake, UserCircle, GraduationCap
 } from 'lucide-react';
 
 export default function CommunityPartnerProgram() {
@@ -42,7 +42,7 @@ export default function CommunityPartnerProgram() {
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
-      {/* Hero Section */}
+      {/* SECTION 1: HERO */}
       <section className="relative bg-slate-950 text-white pt-32 pb-24 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 opacity-90" />
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-950/0 to-slate-950/0" />
@@ -53,18 +53,17 @@ export default function CommunityPartnerProgram() {
             NTA Community Partner Program
           </div>
           <h1 className="text-4xl md:text-6xl font-black leading-tight mb-6 tracking-tight">
-            Help Local Businesses Grow.<br/>
-            <span className="text-blue-500">Create Sustainable Revenue For Your Organization.</span>
+            NTA Community Partner Program
           </h1>
           <p className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
-            Partner with New Tech Advertising to help local businesses improve their visibility, reputation, and customer growth using affordable AI-powered marketing systems. Your members also gain access to practical AI training through the NTA AI Learning Center while your organization earns recurring revenue.
+            Help local businesses improve their digital visibility while creating new income and growth opportunities for yourself or your organization.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a 
               href="#apply"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg hover:shadow-blue-600/25"
             >
-              Apply To Become A Partner
+              Apply To Become A Community Partner
             </a>
             <a 
               href={calendarLink}
@@ -78,98 +77,127 @@ export default function CommunityPartnerProgram() {
         </div>
       </section>
 
-      {/* Video Section */}
-      <section className="py-16 px-6 bg-white border-b border-slate-200">
-        <div className="max-w-4xl mx-auto">
-          <div className="relative w-full bg-black rounded-2xl overflow-hidden shadow-lg" style={{ paddingBottom: '56.25%' }}>
-            <iframe
-              className="absolute inset-0 w-full h-full"
-              src="https://www.youtube.com/embed/7hw3Fp-pV18"
-              title="NTA Community Partner Program"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Problem Section */}
+      {/* SECTION 2: WHO THIS PROGRAM IS FOR */}
       <section className="py-20 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-6">
-                Local businesses are falling behind in the digital age.
-              </h2>
-              <p className="text-slate-600 text-lg mb-6 leading-relaxed">
-                As a community organization, you see it every day. Main Street businesses struggling to compete with corporate giants, lacking the visibility, SEO, and modern tools to capture local customers.
-              </p>
-              <p className="text-slate-600 text-lg leading-relaxed">
-                Meanwhile, your organization is constantly searching for non-dues revenue to fund your community initiatives. The NTA Community Partner Program solves both problems simultaneously.
-              </p>
-            </div>
-            <div className="bg-slate-50 p-8 rounded-3xl border border-slate-200 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl" />
-              <div className="relative z-10 space-y-6">
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center shrink-0">
-                    <TrendingUp className="w-6 h-6 text-red-600 rotate-180" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-slate-900 text-lg">The Challenge</h3>
-                    <p className="text-slate-600">Local businesses lack the budget and expertise for enterprise-grade marketing.</p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center shrink-0">
-                    <HeartHandshake className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-slate-900 text-lg">The Solution</h3>
-                    <p className="text-slate-600">NTA provides AI-powered, affordable marketing systems that help local businesses improve visibility, strengthen their reputation, attract more customers, and compete more effectively in today's digital economy.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section className="py-20 px-6 bg-slate-50">
-        <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">How The Partnership Works</h2>
-            <p className="text-slate-600 text-lg max-w-2xl mx-auto">We do the heavy lifting. You provide the connection. We both support the community.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Who This Program Is For</h2>
+            <p className="text-slate-600 text-lg max-w-2xl mx-auto">Designed to empower relationship-driven professionals and community-focused organizations.</p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 font-bold text-xl">1</div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Introduce Us</h3>
-              <p className="text-slate-600">Share free Digital Visibility Audits, practical AI training through the NTA AI Learning Center, and affordable AI-powered marketing solutions that help local businesses compete in today's digital economy.</p>
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Card 1: Individual */}
+            <div className="bg-slate-50 p-8 md:p-10 rounded-3xl border border-slate-200 flex flex-col h-full shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6">
+                <UserCircle className="w-7 h-7" />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-6">Individual Community Partners</h3>
+              
+              <div className="mb-8">
+                <h4 className="font-semibold text-slate-900 mb-4 text-lg">Ideal for:</h4>
+                <ul className="space-y-3 text-slate-600">
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" /> Current media sales professionals</li>
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" /> Former radio, TV, newspaper, or digital reps</li>
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" /> Retired media professionals</li>
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" /> Independent sales professionals</li>
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" /> Business networkers</li>
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" /> Relationship-driven professionals</li>
+                </ul>
+              </div>
+              
+              <p className="text-slate-600 mb-8 flex-grow leading-relaxed">
+                If you have built trust with local business owners and enjoy helping businesses grow, the Community Partner Program allows you to leverage those relationships while creating both upfront commission opportunities and recurring income.
+              </p>
+              
+              <a href="#apply" onClick={() => handleSelectChange('organizationType', 'Independent Professional')} className="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-100 border border-slate-200 text-slate-900 font-bold px-6 py-4 rounded-xl transition-all w-full text-center shadow-sm">
+                Explore Individual Partner Opportunities
+              </a>
             </div>
-            <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 font-bold text-xl">2</div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">We Deliver Results</h3>
-              <p className="text-slate-600">Our team consults with the business, builds their AI-powered marketing system, and manages their ongoing digital growth.</p>
-            </div>
-            <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 font-bold text-xl">3</div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">You Earn Revenue</h3>
-              <p className="text-slate-600">When businesses choose NTA through your partnership, your organization receives recurring revenue that can help fund programs, events, community initiatives, and member services.</p>
+
+            {/* Card 2: Organization */}
+            <div className="bg-slate-50 p-8 md:p-10 rounded-3xl border border-slate-200 flex flex-col h-full shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-14 h-14 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mb-6">
+                <Building2 className="w-7 h-7" />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-6">Organizational Community Partners</h3>
+              
+              <div className="mb-8">
+                <h4 className="font-semibold text-slate-900 mb-4 text-lg">Ideal for:</h4>
+                <ul className="space-y-3 text-slate-600">
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-indigo-500 shrink-0 mt-0.5" /> Chambers of Commerce</li>
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-indigo-500 shrink-0 mt-0.5" /> Economic Development Organizations</li>
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-indigo-500 shrink-0 mt-0.5" /> Main Street Programs</li>
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-indigo-500 shrink-0 mt-0.5" /> Business Associations</li>
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-indigo-500 shrink-0 mt-0.5" /> Community Development Groups</li>
+                </ul>
+              </div>
+              
+              <p className="text-slate-600 mb-8 flex-grow leading-relaxed">
+                Provide valuable resources to your members, help local businesses improve their digital visibility, and create new non-dues revenue opportunities through strategic partnership.
+              </p>
+              
+              <a href="#apply" onClick={() => handleSelectChange('organizationType', 'Chamber of Commerce')} className="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-100 border border-slate-200 text-slate-900 font-bold px-6 py-4 rounded-xl transition-all w-full text-center shadow-sm">
+                Explore Organizational Partnership Opportunities
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Revenue Opportunity Examples */}
-      <section className="py-20 px-6 bg-slate-900 text-white">
+      {/* SECTION 3: WHY MANY EXPERIENCED MEDIA PROFESSIONALS ARE LOOKING FOR A NEW MODEL */}
+      <section className="py-24 px-6 bg-slate-900 text-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-10 leading-tight">
+            Why Many Experienced Media Professionals Are Looking For A New Model
+          </h2>
+          <div className="space-y-8 text-lg md:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto text-left md:text-center">
+            <p>Many media professionals entered the industry because they enjoy helping local businesses succeed.</p>
+            <p>Today, many sales positions continue to offer compensation levels that have changed very little over the past several decades, while marketing has become increasingly complex.</p>
+            <p>The NTA Community Partner Program provides an opportunity to build long-term recurring income by helping businesses improve their digital visibility, marketing systems, and AI readiness.</p>
+            <p className="text-blue-400 font-medium">Instead of selling a single advertising product, partners can introduce businesses to solutions that continue creating value over time.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 4: HOW PARTNERS CREATE VALUE */}
+      <section className="py-20 px-6 bg-slate-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">How Partners Create Value</h2>
+            <p className="text-slate-600 text-lg max-w-2xl mx-auto">A simple, effective process that generates value for businesses while building your income.</p>
+          </div>
+          
+          <div className="space-y-4">
+            {[
+              "Introduce Businesses To NTA",
+              "Businesses Receive Digital Visibility Insights",
+              "Businesses Gain Access To AI Learning & Marketing Solutions",
+              "Partners Earn Upfront And Recurring Revenue",
+              "Local Businesses Improve Their Competitive Position"
+            ].map((step, idx) => (
+              <div key={idx} className="flex items-center gap-6 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:border-blue-200 transition-colors">
+                <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl shrink-0">
+                  {idx + 1}
+                </div>
+                <h3 className="text-lg md:text-xl font-semibold text-slate-800">{step}</h3>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 5: INCOME OPPORTUNITY (Keeps existing commission graphics) */}
+      <section className="py-24 px-6 bg-white border-t border-slate-200">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">The Revenue Opportunity</h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">Generate sustainable non-dues revenue while helping local businesses succeed.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Building Long-Term Relationship-Based Income</h2>
+            
+            <div className="flex flex-wrap justify-center gap-4 text-slate-700 font-medium mb-12">
+              <span className="flex items-center gap-2 bg-slate-50 px-5 py-3 rounded-full border border-slate-200"><BadgeDollarSign className="w-5 h-5 text-blue-500" /> Upfront project commissions</span>
+              <span className="flex items-center gap-2 bg-slate-50 px-5 py-3 rounded-full border border-slate-200"><TrendingUp className="w-5 h-5 text-blue-500" /> Recurring monthly income</span>
+              <span className="flex items-center gap-2 bg-slate-50 px-5 py-3 rounded-full border border-slate-200"><Users className="w-5 h-5 text-blue-500" /> Long-term client relationships</span>
+              <span className="flex items-center gap-2 bg-slate-50 px-5 py-3 rounded-full border border-slate-200"><MapPin className="w-5 h-5 text-blue-500" /> Territory growth potential</span>
+            </div>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -178,20 +206,20 @@ export default function CommunityPartnerProgram() {
               { clients: "Approximately 25 participating businesses", revenue: "$1,300+", subtitle: "Per Month", featured: true },
               { clients: "Approximately 50 participating businesses", revenue: "$2,600+", subtitle: "Per Month" }
             ].map((tier, idx) => (
-              <div key={idx} className={`p-8 rounded-3xl border ${tier.featured ? 'bg-blue-600 border-blue-500 shadow-[0_0_30px_rgba(37,99,235,0.3)]' : 'bg-slate-800 border-slate-700'} text-center relative`}>
+              <div key={idx} className={`p-8 rounded-3xl border ${tier.featured ? 'bg-blue-600 border-blue-500 shadow-xl shadow-blue-600/20' : 'bg-slate-50 border-slate-200'} text-center relative`}>
                 {tier.featured && (
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-400 text-blue-950 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-950 text-blue-400 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wide">
                     Average Goal
                   </div>
                 )}
-                <div className={`text-5xl font-black mb-2 ${tier.featured ? 'text-white' : 'text-blue-400'}`}>
+                <div className={`text-5xl font-black mb-2 ${tier.featured ? 'text-white' : 'text-blue-600'}`}>
                   {tier.revenue}
                 </div>
-                <div className={`text-sm font-medium mb-6 ${tier.featured ? 'text-blue-100' : 'text-slate-400'}`}>
+                <div className={`text-sm font-bold uppercase tracking-wider mb-6 ${tier.featured ? 'text-blue-200' : 'text-slate-500'}`}>
                   {tier.subtitle}
                 </div>
-                <div className={`border-t pt-6 ${tier.featured ? 'border-blue-500' : 'border-slate-700'}`}>
-                  <p className={`font-medium ${tier.featured ? 'text-white' : 'text-slate-300'}`}>
+                <div className={`border-t pt-6 ${tier.featured ? 'border-blue-500/50' : 'border-slate-200'}`}>
+                  <p className={`font-medium ${tier.featured ? 'text-white' : 'text-slate-700'}`}>
                     {tier.clients}
                   </p>
                 </div>
@@ -202,85 +230,86 @@ export default function CommunityPartnerProgram() {
         </div>
       </section>
 
-      {/* Benefits & Who Should Apply */}
-      <section className="py-20 px-6 bg-white">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16">
-          <div>
-            <h2 className="text-3xl font-bold text-slate-900 mb-8">Benefits For Your Organization</h2>
-            <ul className="space-y-6">
-              {[
-                { title: "Turnkey Member Benefit", text: "Provide cutting-edge marketing tech to your members without managing the services yourself." },
-                { title: "Recurring Income", text: "Build a predictable revenue stream that compounds over time." },
-                { title: "No Tech Expertise Needed", text: "We handle 100% of the fulfillment, support, and technical execution." },
-                { title: "Community Growth", text: "When local businesses thrive online, the entire local economy benefits." },
-                { title: "NTA AI Learning Center", text: "Provide your members with practical AI education, training, tools, tutorials, and business resources designed specifically for small and midsize businesses. Help local companies understand and adopt AI without needing technical expertise." }
-              ].map((benefit, i) => (
-                <li key={i} className="flex gap-4">
-                  <div className="mt-1 shrink-0"><CheckCircle2 className="w-6 h-6 text-blue-500" /></div>
-                  <div>
-                    <h4 className="font-bold text-slate-900">{benefit.title}</h4>
-                    <p className="text-slate-600">{benefit.text}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          <div className="bg-slate-50 p-10 rounded-3xl border border-slate-200 h-fit">
-            <h2 className="text-3xl font-bold text-slate-900 mb-8">Who Should Apply?</h2>
-            <div className="grid gap-4">
-              {[
-                { icon: Building2, text: "Chambers of Commerce" },
-                { icon: MapPin, text: "Main Street Organizations" },
-                { icon: PieChart, text: "Economic Development Groups" },
-                { icon: Users, text: "Merchant Associations" },
-                { icon: Globe, text: "Local Business Networks" }
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-4 p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
-                  <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
-                    <item.icon className="w-5 h-5 text-blue-600" />
-                  </div>
-                  <span className="font-semibold text-slate-700">{item.text}</span>
+      {/* SECTION 6: ORGANIZATIONAL PARTNER BENEFITS */}
+      <section className="py-20 px-6 bg-slate-50">
+        <div className="max-w-5xl mx-auto">
+          <div className="bg-slate-950 p-10 md:p-16 rounded-[2.5rem] text-white shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/20 rounded-full blur-[80px] pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-600/20 rounded-full blur-[80px] pointer-events-none" />
+            
+            <div className="text-center mb-12 relative z-10">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Organizational Partner Benefits</h2>
+              <p className="text-slate-400 text-lg">Empowering Chambers, Main Streets, and Associations</p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-x-12 gap-y-10 relative z-10">
+              <div className="flex gap-5">
+                <BadgeDollarSign className="w-8 h-8 text-blue-400 shrink-0" />
+                <div>
+                  <h3 className="font-bold text-xl mb-2">New Non-Dues Revenue</h3>
+                  <p className="text-slate-400 leading-relaxed">Create reliable, sustainable non-dues revenue streams for your organization through local participation.</p>
                 </div>
-              ))}
+              </div>
+              <div className="flex gap-5">
+                <Users className="w-8 h-8 text-blue-400 shrink-0" />
+                <div>
+                  <h3 className="font-bold text-xl mb-2">Additional Member Value</h3>
+                  <p className="text-slate-400 leading-relaxed">Offer an exclusive, high-value technical program to your members without managing any of the fulfillment.</p>
+                </div>
+              </div>
+              <div className="flex gap-5">
+                <Globe className="w-8 h-8 text-blue-400 shrink-0" />
+                <div>
+                  <h3 className="font-bold text-xl mb-2">Digital Visibility Resources</h3>
+                  <p className="text-slate-400 leading-relaxed">Equip local businesses with the tools, audits, and insights they need to dominate local search.</p>
+                </div>
+              </div>
+              <div className="flex gap-5">
+                <GraduationCap className="w-8 h-8 text-blue-400 shrink-0" />
+                <div>
+                  <h3 className="font-bold text-xl mb-2">AI Education</h3>
+                  <p className="text-slate-400 leading-relaxed">Provide direct access to practical, actionable AI training via the NTA AI Learning Center.</p>
+                </div>
+              </div>
+              <div className="flex gap-5 md:col-span-2 max-w-2xl mx-auto">
+                <Building2 className="w-8 h-8 text-blue-400 shrink-0" />
+                <div>
+                  <h3 className="font-bold text-xl mb-2">Stronger Local Communities</h3>
+                  <p className="text-slate-400 leading-relaxed">When local businesses thrive, adapt to technology, and capture market share, the entire community benefits economically.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Trust Section */}
-      <section className="py-20 px-6 bg-slate-50 border-t border-slate-200">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Why Community Organizations Partner With NTA</h2>
-            <p className="text-slate-600 text-lg">We are committed to helping local businesses thrive with practical, affordable solutions.</p>
-          </div>
-          
-          <div className="grid sm:grid-cols-2 gap-x-8 gap-y-6">
-            {[
-              "Founded in Mason City and serving local businesses for more than 14 years",
-              "AI-powered systems designed specifically for small and midsize businesses",
-              "Affordable alternatives to large agency solutions",
-              "Local support from a real team that understands Iowa and Southern Minnesota",
-              "Decades of marketing, advertising, and digital business experience",
-              "Proven systems that help businesses improve visibility, reputation, and growth"
-            ].map((item, i) => (
-              <div key={i} className="flex items-start gap-4">
-                <div className="mt-1 shrink-0"><ShieldCheck className="w-6 h-6 text-blue-500" /></div>
-                <p className="text-slate-700 font-medium leading-relaxed">{item}</p>
-              </div>
-            ))}
+      {/* SECTION 7: CHOOSE YOUR PARTNER PATH & Application Form */}
+      <section id="apply" className="py-24 px-6 bg-white border-t border-slate-200">
+        <div className="max-w-4xl mx-auto text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">Choose Your Partner Path</h2>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <a 
+              href="#apply-form" 
+              onClick={() => handleSelectChange('organizationType', 'Independent Professional')} 
+              className="w-full sm:w-auto inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg"
+            >
+              Become An Individual Community Partner
+            </a>
+            <a 
+              href="#apply-form" 
+              onClick={() => handleSelectChange('organizationType', 'Chamber of Commerce')} 
+              className="w-full sm:w-auto inline-flex items-center justify-center bg-slate-900 hover:bg-slate-800 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg"
+            >
+              Become An Organizational Community Partner
+            </a>
           </div>
         </div>
-      </section>
 
-      {/* Application Form */}
-      <section id="apply" className="py-24 px-6 bg-slate-100">
-        <div className="max-w-3xl mx-auto">
-          <div className="bg-white rounded-[2rem] shadow-xl p-8 md:p-12 border border-slate-200">
+        <div id="apply-form" className="max-w-3xl mx-auto">
+          <div className="bg-slate-50 rounded-[2rem] shadow-xl p-8 md:p-12 border border-slate-200">
             <div className="text-center mb-10">
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">Apply To Become A Partner</h2>
-              <p className="text-slate-600">Fill out the form below to express your interest. Our partnership team will review your application and contact you within one business day.</p>
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">Partner Application</h2>
+              <p className="text-slate-600">Fill out the form below to express your interest. Our partnership team will review your application and contact you shortly.</p>
             </div>
 
             {isSuccess ? (
@@ -301,8 +330,8 @@ export default function CommunityPartnerProgram() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-semibold text-slate-700">Organization Name *</label>
-                    <input required name="organizationName" value={formData.organizationName} onChange={handleChange} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="e.g. Mason City Chamber" />
+                    <label className="text-sm font-semibold text-slate-700">Organization Name * (or "Independent")</label>
+                    <input required name="organizationName" value={formData.organizationName} onChange={handleChange} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="e.g. Mason City Chamber / Independent" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-semibold text-slate-700">Contact Name *</label>
@@ -331,6 +360,7 @@ export default function CommunityPartnerProgram() {
                     <label className="text-sm font-semibold text-slate-700">Organization Type *</label>
                     <select required name="organizationType" value={formData.organizationType} onChange={handleChange} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white">
                       <option value="">Select an option</option>
+                      <option value="Independent Professional">Independent Professional / Individual</option>
                       <option value="Chamber of Commerce">Chamber of Commerce</option>
                       <option value="Main Street Organization">Main Street Organization</option>
                       <option value="Economic Development">Economic Development Group</option>
@@ -339,7 +369,7 @@ export default function CommunityPartnerProgram() {
                     </select>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-semibold text-slate-700">Number of Members</label>
+                    <label className="text-sm font-semibold text-slate-700">Number of Members (Or Network Size)</label>
                     <select name="memberCount" value={formData.memberCount} onChange={handleChange} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white">
                       <option value="">Select an option</option>
                       <option value="1-50">1 - 50</option>
@@ -357,7 +387,7 @@ export default function CommunityPartnerProgram() {
 
                 <div className="space-y-2">
                   <label className="text-sm font-semibold text-slate-700">Additional Comments (Optional)</label>
-                  <textarea name="comments" value={formData.comments} onChange={handleChange} rows="4" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all resize-none" placeholder="Tell us a little about your organization's goals..." />
+                  <textarea name="comments" value={formData.comments} onChange={handleChange} rows="4" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all resize-none" placeholder="Tell us a little about your goals..." />
                 </div>
 
                 <button 
@@ -376,30 +406,6 @@ export default function CommunityPartnerProgram() {
                 </p>
               </form>
             )}
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-20 px-6 bg-slate-900 text-center border-t border-slate-800">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to empower your local business community?</h2>
-          <p className="text-slate-400 text-lg mb-10">We do the work. You earn the revenue. The community thrives.</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a 
-              href="#apply"
-              className="w-full sm:w-auto inline-flex items-center justify-center bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-blue-600/20"
-            >
-              Apply Now
-            </a>
-            <a 
-              href={calendarLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-bold px-8 py-4 rounded-xl transition-all"
-            >
-              Schedule A Discovery Call
-            </a>
           </div>
         </div>
       </section>
