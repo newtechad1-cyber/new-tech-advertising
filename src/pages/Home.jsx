@@ -7,7 +7,7 @@ import ProblemSection from '../components/home-conversion/ProblemSection';
 import SolutionSection from '../components/home-conversion/SolutionSection';
 import PathSection from '../components/home-conversion/PathSection';
 import FounderSection from '../components/home-conversion/FounderSection';
-import ProofSection from '../components/home-conversion/ProofSection';
+import CombinedReviewsSection from '../components/home-v3/CombinedReviewsSection';
 
 export default function Home() {
   return (
@@ -24,7 +24,7 @@ export default function Home() {
         <SolutionSection />
         <PathSection />
         <FounderSection />
-        <ProofSection />
+        <CombinedReviewsSection />
       </main>
 
       <SiteFooter />

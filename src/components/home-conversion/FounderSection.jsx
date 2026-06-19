@@ -1,5 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { ArrowRight } from 'lucide-react';
 
 export default function FounderSection() {
   return (
@@ -9,9 +12,9 @@ export default function FounderSection() {
           <div className="flex flex-col md:flex-row">
             <div className="md:w-2/5 relative min-h-[300px] md:min-h-[400px] bg-slate-800">
               <img 
-                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop" 
+                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/c099addb0_headshot.png" 
                 alt="Rick Hesse - Founder" 
-                className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity opacity-80"
+                className="absolute inset-0 w-full h-full object-cover object-top mix-blend-luminosity opacity-80"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent md:bg-gradient-to-r" />
             </div>
@@ -29,9 +32,16 @@ export default function FounderSection() {
                 <p className="text-slate-400 leading-relaxed">
                   We don't just sell the latest shiny tools. We build practical systems that protect your business, elevate your reputation, and ensure you remain visible as consumer habits change. 
                 </p>
-                <div className="mt-8 pt-6 border-t border-slate-800">
-                  <p className="text-white font-medium">Rick Hesse</p>
-                  <p className="text-slate-500 text-sm">Founder, New Tech Advertising</p>
+                <div className="mt-8 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div>
+                    <p className="text-white font-medium">Rick Hesse</p>
+                    <p className="text-slate-500 text-sm">Founder, New Tech Advertising</p>
+                  </div>
+                  <Button asChild variant="outline" className="bg-slate-900 border-slate-700 hover:bg-slate-800 text-white">
+                    <Link to="/about">
+                      Read the Full Story <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
                 </div>
               </motion.div>
             </div>
