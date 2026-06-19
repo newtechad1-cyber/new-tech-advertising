@@ -4,6 +4,8 @@ import {
   Building2, Users, TrendingUp, Handshake, ChevronRight, CheckCircle2, 
   ArrowRight, Phone, Globe, MapPin, BadgeDollarSign, ShieldCheck, PieChart, HeartHandshake, UserCircle, GraduationCap
 } from 'lucide-react';
+import MarketingNav from '../components/nav/MarketingNav';
+import SiteFooter from '../components/marketing/SiteFooter';
 
 export default function CommunityPartnerProgram() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -42,6 +44,7 @@ export default function CommunityPartnerProgram() {
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
+      <MarketingNav />
       {/* SECTION 1: HERO */}
       <section className="relative bg-slate-950 text-white pt-32 pb-24 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 opacity-90" />
@@ -409,6 +412,7 @@ export default function CommunityPartnerProgram() {
           </div>
         </div>
       </section>
+      <SiteFooter />
     </div>
   );
 }
