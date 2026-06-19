@@ -148,6 +148,26 @@ Guidelines:
 
     return Response.json({ success: true, audit: result, websiteAccessible: !!websiteContent });
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    
+    fetch('https://grateful-lynx-44.convex.site/api/webhook/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        secret: 'Y24RdJ7OjvX8lrcjPRDCYcusOnAspC9DbYkqJtY1Zb0',
+        source: 'nta-website',
+        form: 'ai-gap-scanner',
+        name: contactName || '',
+        business_name: businessName || '',
+        email: '',
+        phone: '',
+        website: websiteUrl || '',
+        industry: industry || '',
+        service_interest: '',
+        notes: notes || '',
+        timestamp: new Date().toISOString()
+      })
+    }).catch(err => console.error('Webhook failed:', err));
+
+return Response.json({ error: error.message }, { status: 500 });
   }
 });

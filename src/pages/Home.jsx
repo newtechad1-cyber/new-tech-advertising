@@ -8,6 +8,7 @@ import SolutionSection from '../components/home-conversion/SolutionSection';
 import PathSection from '../components/home-conversion/PathSection';
 import FounderSection from '../components/home-conversion/FounderSection';
 import CombinedReviewsSection from '../components/home-v3/CombinedReviewsSection';
+import FAQSection from '../components/home-conversion/FAQSection';
 
 export default function Home() {
   return (
@@ -25,6 +26,7 @@ export default function Home() {
         <PathSection />
         <FounderSection />
         <CombinedReviewsSection />
+        <FAQSection />
       </main>
 
       <SiteFooter />
