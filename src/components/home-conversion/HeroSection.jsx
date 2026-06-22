@@ -43,13 +43,13 @@ export default function HeroSection() {
               Get a Free Digital Visibility Audit
             </Link>
           </Button>
-          <Button asChild size="lg" variant="outline" className="w-full sm:w-auto border-slate-700 hover:bg-slate-800 text-slate-100 bg-slate-900/50">
+          <Button asChild size="lg" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] border-0">
             <Link to="/learning-center">
               <BookOpen className="w-5 h-5 mr-2" />
               Explore the NTA AI Learning Center
             </Link>
           </Button>
-          <Button asChild size="lg" variant="ghost" className="w-full sm:w-auto hover:bg-slate-800 text-slate-300">
+          <Button asChild size="lg" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] border-0">
             <Link to="/community-partner">
               <Users className="w-5 h-5 mr-2" />
               Become a Community Partner
