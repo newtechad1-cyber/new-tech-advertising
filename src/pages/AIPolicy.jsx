@@ -1,10 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import MarketingNav from '../components/nav/MarketingNav';
+import SiteFooter from '../components/marketing/SiteFooter';
 
 export default function AIPolicy() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 py-24">
-      <div className="max-w-4xl mx-auto px-6">
+    <div className="min-h-screen bg-slate-950 text-slate-200 flex flex-col">
+      <MarketingNav />
+      <div className="flex-1 max-w-4xl mx-auto px-6 py-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -75,6 +78,7 @@ export default function AIPolicy() {
           </div>
         </motion.div>
       </div>
+      <SiteFooter />
     </div>
   );
 }

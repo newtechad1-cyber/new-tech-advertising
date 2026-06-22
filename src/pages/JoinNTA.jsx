@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { CheckCircle, DollarSign, MapPin, Users, Zap, TrendingUp, Star, ArrowRight, Building2, Paperclip } from 'lucide-react';
+import MarketingNav from '../components/nav/MarketingNav';
+import SiteFooter from '../components/marketing/SiteFooter';
 
 const BENEFITS = [
   {
@@ -166,14 +168,8 @@ export default function JoinNTA() {
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans">
-      {/* Nav */}
-      <header className="bg-white border-b border-slate-100 px-6 py-4 flex items-center justify-between sticky top-0 z-10 shadow-sm">
-        <a href="https://newtechadvertising.com"><img src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/62de67e4f_finalNTAlogo.png" alt="New Tech Advertising" className="h-10 w-auto object-contain" /></a>
-        <button onClick={scrollToForm} className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-5 py-2 rounded-lg transition">
-          Apply Now
-        </button>
-      </header>
+    <div className="min-h-screen bg-white font-sans flex flex-col">
+      <MarketingNav />
 
       {/* HERO */}
       <section className="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-24 px-6 text-center">
@@ -474,10 +470,7 @@ export default function JoinNTA() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-slate-900 text-slate-400 text-center py-8 px-6 text-sm">
-        © {new Date().getFullYear()} New Tech Advertising · Rochester, MN · <a href="/" className="hover:text-white transition">newtechadvertising.com</a>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

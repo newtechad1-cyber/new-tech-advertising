@@ -4,6 +4,8 @@ import { ArrowLeft, ArrowRight, CheckCircle2, Building2, Target, DollarSign, Clo
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { base44 } from '@/api/base44Client';
+import MarketingNav from '../components/nav/MarketingNav';
+import SiteFooter from '../components/marketing/SiteFooter';
 
 const QUESTIONS = [
   {
@@ -191,7 +193,7 @@ export default function PricingWizard() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white flex flex-col relative pb-20">
-      
+      <MarketingNav />
       {/* Talk to Rick Fixed Button */}
       <a 
         href="tel:641-420-8816" 
@@ -367,6 +369,7 @@ export default function PricingWizard() {
           </AnimatePresence>
         </div>
       </div>
+      <SiteFooter />
     </div>
   );
 }

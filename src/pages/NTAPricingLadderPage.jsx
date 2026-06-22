@@ -3,6 +3,7 @@ import { ArrowRight, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import NTAPricingLadder from '@/components/pricing/NTAPricingLadder';
 import SiteFooter from '@/components/marketing/SiteFooter';
+import MarketingNav from '../components/nav/MarketingNav';
 
 export default function NTAPricingLadderPage() {
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -20,18 +21,10 @@ export default function NTAPricingLadderPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900">
-      {/* Header */}
-      <header className="border-b border-slate-800 py-4 px-6 sticky top-0 z-50 bg-slate-950/95 backdrop-blur">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="text-xl font-bold text-white">NTA Pricing</div>
-          <a href="/" className="text-slate-400 hover:text-white text-sm transition-colors">
-            Back to Home
-          </a>
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 flex flex-col">
+      <MarketingNav />
 
-      <div className="py-16 px-6">
+      <div className="py-16 px-6 flex-1">
         <div className="max-w-7xl mx-auto">
           {/* Hero */}
           <div className="text-center mb-16">
