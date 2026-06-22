@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 import {
   ChevronDown, Zap, BarChart3, Globe, Shield, BookOpen, Lightbulb,
   Share2, Mail, Users, Image, Video, StickyNote, BrainCircuit,
@@ -118,7 +120,8 @@ export default function HelpAndSupport() {
   const [expandedSection, setExpandedSection] = useState(null);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex flex-col">
+      <MarketingNav />
       {/* Header */}
       <div className="bg-gradient-to-r from-slate-900 to-violet-900 text-white py-16 px-6">
         <div className="max-w-5xl mx-auto text-center">
@@ -266,7 +269,7 @@ export default function HelpAndSupport() {
         </section>
 
         {/* Support CTA */}
-        <section className="bg-gradient-to-r from-violet-600 to-indigo-600 rounded-2xl shadow-lg p-10 text-center text-white">
+        <section className="bg-gradient-to-r from-violet-600 to-indigo-600 rounded-2xl shadow-lg p-10 text-center text-white mb-12">
           <h2 className="text-3xl font-bold mb-3">Need Help?</h2>
           <p className="text-lg text-violet-100 mb-6">For technical issues, setup assistance, or feature requests — reach out to the support team.</p>
           <a href="mailto:support@newtechadvertising.com" className="inline-block bg-white text-violet-700 font-semibold px-8 py-3 rounded-xl hover:bg-violet-50 transition-colors">
@@ -274,6 +277,7 @@ export default function HelpAndSupport() {
           </a>
         </section>
       </div>
+      <SiteFooter />
     </div>
   );
 }
