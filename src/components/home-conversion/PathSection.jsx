@@ -61,7 +61,7 @@ export default function PathSection() {
               </p>
             </div>
             <div className="p-8 pt-0 mt-auto relative z-10">
-              <Button asChild variant="outline" className="w-full border-indigo-500/30 hover:bg-indigo-500/10 text-indigo-300">
+              <Button asChild className="w-full bg-blue-600 hover:bg-blue-700 text-white">
                 <Link to="/community-partner">
                   Partner Program
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -88,7 +88,7 @@ export default function PathSection() {
               </p>
             </div>
             <div className="p-8 pt-0 mt-auto">
-              <Button asChild variant="outline" className="w-full border-emerald-500/30 hover:bg-emerald-500/10 text-emerald-300">
+              <Button asChild className="w-full bg-blue-600 hover:bg-blue-700 text-white">
                 <Link to="/learning-center">
                   AI Learning Center
                   <ArrowRight className="w-4 h-4 ml-2" />
