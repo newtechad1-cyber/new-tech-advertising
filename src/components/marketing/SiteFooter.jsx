@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Linkedin, Youtube, Instagram } from 'lucide-react';
+import { Linkedin, Youtube, Instagram, Facebook } from 'lucide-react';
 import NewsletterFooterSection from '@/components/newsletter/NewsletterFooterSection';
 
 const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
@@ -82,6 +82,9 @@ export default function SiteFooter() {
         </div>
         <div className="flex items-center gap-4 pt-4 border-t border-slate-800">
           <span className="text-xs text-slate-500">Follow Rick:</span>
+          <a href="https://www.facebook.com/newtechadvertising" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-blue-600 transition-colors">
+            <Facebook className="w-4 h-4" />
+          </a>
           <a href="https://www.linkedin.com/in/rick-hesse-64755946/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-blue-400 transition-colors">
             <Linkedin className="w-4 h-4" />
           </a>
