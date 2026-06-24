@@ -60,6 +60,8 @@ export default function CommunityPartnerProgram() {
           </h1>
           <p className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
             Help local businesses improve their digital visibility while creating new income and growth opportunities for yourself or your organization.
+            <br /><br />
+            <span className="font-bold text-blue-400 text-xl md:text-2xl">You sell. We deliver.</span>
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a 
@@ -109,7 +111,7 @@ export default function CommunityPartnerProgram() {
               </div>
               
               <p className="text-slate-600 mb-8 flex-grow leading-relaxed">
-                If you have built trust with local business owners and enjoy helping businesses grow, the Community Partner Program allows you to leverage those relationships while creating both upfront commission opportunities and recurring income.
+                If you have built trust with local business owners and enjoy helping businesses grow, the Community Partner Program allows you to leverage those relationships while creating both upfront commission opportunities and recurring income. <strong className="text-blue-600">You sell. We deliver.</strong>
               </p>
               
               <a href="#apply" onClick={() => handleSelectChange('organizationType', 'Independent Professional')} className="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-100 border border-slate-200 text-slate-900 font-bold px-6 py-4 rounded-xl transition-all w-full text-center shadow-sm">
@@ -167,7 +169,7 @@ export default function CommunityPartnerProgram() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">How Partners Create Value</h2>
-            <p className="text-slate-600 text-lg max-w-2xl mx-auto">A simple, effective process that generates value for businesses while building your income.</p>
+            <p className="text-slate-600 text-lg max-w-2xl mx-auto">A simple, effective process that generates value for businesses while building your income. <strong className="text-blue-600">You sell. We deliver.</strong></p>
           </div>
           
           <div className="space-y-4">
@@ -286,7 +288,31 @@ export default function CommunityPartnerProgram() {
         </div>
       </section>
 
-      {/* SECTION 7: CHOOSE YOUR PARTNER PATH & Application Form */}
+      {/* SECTION 7: FREQUENTLY ASKED QUESTIONS */}
+      <section className="py-20 px-6 bg-slate-900 text-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-slate-800/50 p-8 md:p-12 rounded-[2rem] border border-slate-700 shadow-xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full blur-[80px] pointer-events-none" />
+            
+            <h2 className="text-3xl font-bold text-white mb-6 relative z-10">Do I need marketing or technical experience?</h2>
+            
+            <div className="text-slate-300 space-y-5 text-lg leading-relaxed relative z-10">
+              <p className="font-bold text-white text-xl">No.</p>
+              <p>
+                If you've worked in radio, television, newspaper, direct mail, digital advertising, chamber sales, or business development, you already have the most important skill: <strong className="text-white">building relationships with local businesses.</strong>
+              </p>
+              <p>
+                Your job is to introduce business owners to New Tech Advertising's visibility solutions. NTA handles the websites, marketing, content creation, automation, reporting, onboarding, and ongoing fulfillment.
+              </p>
+              <p className="text-blue-400 font-bold text-2xl pt-4">
+                You sell. We deliver.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 8: CHOOSE YOUR PARTNER PATH & Application Form */}
       <section id="apply" className="py-24 px-6 bg-white border-t border-slate-200">
         <div className="max-w-4xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">Choose Your Partner Path</h2>
