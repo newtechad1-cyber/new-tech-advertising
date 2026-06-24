@@ -25,12 +25,18 @@ export default function FounderSection() {
                 viewport={{ once: true }}
               >
                 <h2 className="text-sm font-bold tracking-widest text-blue-400 uppercase mb-3">Why Work With Us</h2>
-                <h3 className="text-3xl font-bold text-white mb-6">Decades of Adaptation</h3>
-                <p className="text-slate-400 mb-6 leading-relaxed">
-                  Founded by Rick Hesse, New Tech Advertising brings over four decades of experience helping local businesses navigate technological shifts. From the early days of radio and print to the rise of the internet, and now the AI revolution.
+                <h3 className="text-3xl font-bold text-white mb-6">Proven Through Every Wave of Change</h3>
+                <p className="text-slate-400 mb-4 leading-relaxed">
+                  Founded by Rick Hesse, New Tech Advertising combines decades of real-world marketing experience with today's AI-powered technology.
+                </p>
+                <p className="text-slate-400 mb-4 leading-relaxed">
+                  Rick has helped local businesses navigate every major shift in advertising—from traditional media and the early internet to search engines, social media, and now artificial intelligence.
+                </p>
+                <p className="text-slate-300 font-medium mb-4 leading-relaxed text-lg">
+                  The tools change. The goal doesn't.
                 </p>
                 <p className="text-slate-400 leading-relaxed">
-                  We don't just sell the latest shiny tools. We build practical systems that protect your business, elevate your reputation, and ensure you remain visible as consumer habits change. 
+                  Our focus is helping local businesses stay visible, build trust, and grow consistently as technology and consumer behavior continue to evolve.
                 </p>
                 <div className="mt-8 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div>
