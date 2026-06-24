@@ -384,26 +384,32 @@ export default function About() {
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
-                icon: Building2, color: 'text-blue-400', bg: 'bg-blue-500/10 border-blue-500/20',
+                icon: Building2, color: 'text-blue-400', bg: 'bg-blue-500/10 border-blue-500/20 hover:border-blue-500/40',
                 label: 'Small and Mid-Sized Businesses',
                 desc: 'Businesses that want modern marketing systems without hiring large agencies.',
+                link: createPageUrl('LocalBusinessMarketing')
               },
               {
-                icon: GraduationCap, color: 'text-purple-400', bg: 'bg-purple-500/10 border-purple-500/20',
+                icon: GraduationCap, color: 'text-purple-400', bg: 'bg-purple-500/10 border-purple-500/20 hover:border-purple-500/40',
                 label: 'Schools and School Districts',
                 desc: 'Schools using media platforms to highlight student achievements and connect with their communities.',
+                link: createPageUrl('SchoolTVDealRoom')
               },
               {
-                icon: Heart, color: 'text-pink-400', bg: 'bg-pink-500/10 border-pink-500/20',
+                icon: Heart, color: 'text-pink-400', bg: 'bg-pink-500/10 border-pink-500/20 hover:border-pink-500/40',
                 label: 'Community Organizations',
                 desc: 'Organizations that want to increase visibility and share their impact.',
+                link: createPageUrl('CommunityPartnerProgram')
               },
-            ].map(({ icon: Icon, color, bg, label, desc }) => (
-              <div key={label} className={`border rounded-2xl p-8 ${bg}`}>
+            ].map(({ icon: Icon, color, bg, label, desc, link }) => (
+              <Link key={label} to={link} className={`block border rounded-2xl p-8 transition-colors ${bg}`}>
                 <Icon className={`h-8 w-8 ${color} mb-4`} />
-                <h3 className="text-white font-bold text-lg mb-3">{label}</h3>
+                <h3 className="text-white font-bold text-lg mb-3 flex items-center justify-between">
+                  {label}
+                  <ArrowRight className={`h-5 w-5 ${color} opacity-0 group-hover:opacity-100 transition-opacity`} />
+                </h3>
                 <p className="text-slate-400 leading-relaxed">{desc}</p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
