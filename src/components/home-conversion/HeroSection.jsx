@@ -19,7 +19,7 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-8"
         >
-          Helping Local Businesses Improve Their <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Digital Visibility</span>
+          We help local businesses get found online, build trust, and <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">grow consistently</span> month after month.
         </motion.h1>
         
         <motion.p 
@@ -28,31 +28,31 @@ export default function HeroSection() {
           transition={{ delay: 0.1 }}
           className="text-lg md:text-xl text-slate-300 mb-12 max-w-3xl mx-auto leading-relaxed"
         >
-          Practical AI training, digital visibility audits, and affordable AI-powered marketing solutions that help local businesses compete in today's digital economy.
+          We use AI as our behind-the-scenes advantage to deliver high-quality marketing faster and more affordably. First we build or fix your foundation. Then we help more people find you. Then we build trust through consistent content and reputation. As your business grows, we use AI and automation to save time and improve follow-up.
         </motion.p>
 
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap"
         >
           <Button asChild size="lg" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] border-0">
             <Link to="/free-audit">
               <Search className="w-5 h-5 mr-2" />
-              Get a Free Digital Visibility Audit
+              Run a Free Visibility Audit
             </Link>
           </Button>
-          <Button asChild size="lg" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] border-0">
-            <Link to="/learning-center">
-              <BookOpen className="w-5 h-5 mr-2" />
-              Explore the NTA AI Learning Center
-            </Link>
-          </Button>
-          <Button asChild size="lg" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] border-0">
-            <Link to="/community-partner">
+          <Button asChild size="lg" className="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-white border border-slate-700">
+            <Link to="/book-call">
               <Users className="w-5 h-5 mr-2" />
-              Become a Community Partner
+              Schedule a Discovery Call
+            </Link>
+          </Button>
+          <Button asChild size="lg" className="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-white border border-slate-700">
+            <Link to="/nta/pricing-ladder">
+              <BookOpen className="w-5 h-5 mr-2" />
+              Start with Foundation Launch
             </Link>
           </Button>
         </motion.div>

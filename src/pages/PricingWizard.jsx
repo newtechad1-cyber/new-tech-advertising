@@ -21,25 +21,14 @@ const QUESTIONS = [
     ]
   },
   {
-    id: 'current_marketing',
-    title: 'How are you handling marketing today?',
+    id: 'website_status',
+    title: 'What is the current state of your website?',
     icon: LayoutDashboard,
     options: [
-      { label: "I'm not doing much — mostly word of mouth", value: 'word_of_mouth' },
-      { label: "I post on social media sometimes but not consistently", value: 'inconsistent_social' },
-      { label: "I have a website and do some social but want better results", value: 'website_some_social' },
-      { label: "I'm actively marketing but need to scale or get help", value: 'active_marketing' }
-    ]
-  },
-  {
-    id: 'time_available',
-    title: 'How much time can you spend on marketing each week?',
-    icon: Clock,
-    options: [
-      { label: 'Less than 1 hour — I barely have time', value: 'none' },
-      { label: '1–3 hours — I can learn and do it myself', value: 'some' },
-      { label: '3–5 hours — I\'m willing to put in the work', value: 'lots' },
-      { label: 'I don\'t want to do marketing at all — do it for me', value: 'dfy' }
+      { label: "I don't have a website yet", value: 'no_website' },
+      { label: "I have a website, but it's outdated or needs fixing", value: 'outdated_website' },
+      { label: "I have a good website, but I need more visibility/leads", value: 'good_website' },
+      { label: "I have a website and I'm dominating, but I want to scale/automate", value: 'scaling' }
     ]
   },
   {
@@ -47,22 +36,11 @@ const QUESTIONS = [
     title: 'What\'s the #1 thing you want right now?',
     icon: Target,
     options: [
-      { label: 'Show up on Google when people search for what I do', value: 'google' },
-      { label: 'Get more leads and phone calls', value: 'leads' },
-      { label: 'Build a consistent social media presence', value: 'social' },
-      { label: 'Organize my business (invoicing, customers, scheduling)', value: 'organize' },
-      { label: 'All of the above — I need a complete system', value: 'all' }
-    ]
-  },
-  {
-    id: 'budget_comfort',
-    title: 'What monthly investment feels comfortable?',
-    icon: DollarSign,
-    options: [
-      { label: 'Under $100/mo — I want to start small', value: 'under_100' },
-      { label: '$100–200/mo — I\'m ready to invest in real tools', value: '100_200' },
-      { label: '$200–500/mo — I want done-for-you help', value: '200_500' },
-      { label: '$500+/mo — I want the full package', value: '500_plus' }
+      { label: 'Get my basic online foundation set up right', value: 'foundation' },
+      { label: 'Show up on Google and get more consistent leads', value: 'visibility' },
+      { label: 'Build a strong reputation and dominate my service area', value: 'authority' },
+      { label: 'Become the undisputed market leader with video/streaming', value: 'leadership' },
+      { label: 'Automate my business, CRM, and sales follow-ups', value: 'automate' }
     ]
   }
 ];
@@ -92,76 +70,64 @@ export default function PricingWizard() {
   };
 
   const getRecommendation = () => {
-    const { time_available, budget_comfort, primary_goal, industry } = answers;
+    const { website_status, primary_goal } = answers;
 
-    if (time_available === 'none' && budget_comfort === 'under_100') {
+    if (website_status === 'no_website' || website_status === 'outdated_website' || primary_goal === 'foundation') {
       return {
-        key: 'diy_social',
-        name: 'DIY Social',
-        price: 97,
-        tier: 'Self-Service',
-        description: 'The best way to start building your marketing momentum using AI tools. (Note: Growth Partner is ideal, but this fits your budget!)',
-        link: '/nta/diy-growth-system?plan=diy_social',
-        cta: 'Start DIY Social — $97/mo'
+        key: 'foundation_launch',
+        name: 'Foundation Launch',
+        price: 297,
+        tier: 'Core Setup',
+        description: 'Perfect for businesses with no website or an outdated one. We build your foundation and get you on the map.',
+        link: '/book-call',
+        cta: 'Book a Strategy Call'
       };
     }
     
-    if (time_available === 'some' && budget_comfort === '100_200') {
+    if (primary_goal === 'automate') {
       return {
-        key: 'diy_suite',
-        name: 'DIY Marketing Suite',
-        price: 197,
-        tier: 'Advanced Tools',
-        description: 'Everything you need to run your marketing AND your business from one place.',
-        link: '/nta/diy-growth-system?plan=diy_suite',
-        cta: 'Start DIY Marketing Suite — $197/mo'
-      };
-    }
-
-    if (time_available === 'dfy' || budget_comfort === '200_500') {
-      return {
-        key: 'growth_partner',
-        name: 'Growth Partner',
-        price: 297,
-        tier: 'Guided Growth',
-        description: 'We handle social media and strategy while you focus on running your business.',
+        key: 'elevate',
+        name: 'Elevate',
+        price: 1497,
+        tier: 'Automation & CRM',
+        description: 'Custom AI workflows, CRM, internal process automation, and lead follow-up systems.',
         link: '/book-call',
-        cta: 'Book a Free Strategy Call'
+        cta: 'Book a Strategy Call'
       };
     }
 
-    if (budget_comfort === '500_plus' || (primary_goal === 'all' && time_available === 'none')) {
+    if (primary_goal === 'leadership' || website_status === 'scaling') {
       return {
-        key: 'growth_accelerator',
-        name: 'Growth Accelerator',
-        price: 497,
-        tier: 'Done-For-You',
-        description: 'Full content, video, and reputation managed for you. Serious growth for serious businesses.',
+        key: 'market_leader',
+        name: 'Market Leader',
+        price: 897,
+        tier: 'Category Dominance',
+        description: 'Competitive tracking, streaming/video strategy, advanced SEO, and campaign planning.',
         link: '/book-call',
-        cta: 'Book a Free Strategy Call'
+        cta: 'Book a Strategy Call'
       };
     }
 
-    if (primary_goal === 'organize') {
+    if (primary_goal === 'authority') {
       return {
-        key: 'diy_suite',
-        name: 'DIY Marketing Suite',
-        price: 197,
-        tier: 'Advanced Tools',
-        description: 'Everything you need to run your marketing AND your business from one place.',
-        link: '/nta/diy-growth-system?plan=diy_suite',
-        cta: 'Start DIY Marketing Suite — $197/mo'
+        key: 'authority_builder',
+        name: 'Authority Builder',
+        price: 597,
+        tier: 'Trust & Reputation',
+        description: 'Deeper content, review campaigns, service-area authority, and AI video assets.',
+        link: '/book-call',
+        cta: 'Book a Strategy Call'
       };
     }
 
     return {
-      key: 'diy_suite',
-      name: 'DIY Marketing Suite',
-      price: 197,
-      tier: 'Advanced Tools',
-      description: 'Everything you need to run your marketing AND your business from one place.',
-      link: '/nta/diy-growth-system?plan=diy_suite',
-      cta: 'Start DIY Marketing Suite — $197/mo'
+      key: 'visibility_growth',
+      name: 'Visibility Growth',
+      price: 397,
+      tier: 'Consistent Leads',
+      description: 'Visibility audit, SEO improvements, content, social posting, and review monitoring.',
+      link: '/book-call',
+      cta: 'Book a Strategy Call'
     };
   };
 
@@ -319,7 +285,7 @@ export default function PricingWizard() {
                   </div>
                   <h2 className="text-4xl font-bold text-white mb-4">Your Personalized Plan</h2>
                   <p className="text-slate-400 text-lg max-w-xl mx-auto">
-                    Based on your answers, you're a {answers.industry === 'other' ? '' : answers.industry} business owner who wants {answers.primary_goal === 'all' ? 'a complete system' : 'results'} but only has {answers.time_available === 'none' ? 'very little time' : 'limited time'} each week. {getRecommendation().name} gives you exactly what you need.
+                    Based on your answers, you're a {answers.industry === 'other' ? '' : answers.industry} business owner ready for growth. {getRecommendation().name} gives you exactly what you need.
                   </p>
                 </div>
 

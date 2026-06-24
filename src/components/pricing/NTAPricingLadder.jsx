@@ -4,121 +4,120 @@ import { Button } from '@/components/ui/button';
 
 const TIERS = [
   {
-    id: 'diy_social',
-    name: 'DIY Social',
-    price: 97,
+    id: 'foundation_launch',
+    name: 'Foundation Launch',
+    price: 297,
+    setupFee: 397,
     tag: 'Best Way to Start',
-    phase: 'Start',
+    phase: 'Foundation',
     icon: Target,
     tagBg: 'bg-blue-500/10 border-blue-500/30',
     tagText: 'text-blue-300',
-    description: 'Manage your social media with AI tools',
+    description: 'For businesses with no website or a weak online foundation.',
     features: [
-      'AI Content Generation (20 posts/mo)',
-      'Social Media Planner',
-      '3 Social Channels',
-      'Content Calendar',
-      'Growth Guide Chatbot',
-      'Learning Center Access',
-      'Email Support',
-      'Cancel Anytime'
+      'Website setup/rebuild',
+      'Domain & hosting guidance',
+      'Google Business Profile setup',
+      'Contact forms & core pages',
+      'Basic local SEO',
+      'Monthly website upkeep',
+      'Email support'
     ],
-    cta: 'Start DIY Social',
+    cta: 'Start Foundation Launch',
     ctaVariant: 'default',
     highlight: false,
   },
   {
-    id: 'diy_suite',
-    name: 'DIY Marketing Suite',
-    price: 197,
-    tag: 'Best for Solo Operators',
-    phase: 'Accelerate',
+    id: 'visibility_growth',
+    name: 'Visibility Growth',
+    price: 397,
+    setupFee: 497,
+    tag: 'Consistent Growth',
+    phase: 'Visibility',
     icon: Zap,
     tagBg: 'bg-violet-500/10 border-violet-500/30',
     tagText: 'text-violet-300',
-    description: 'Full marketing + business tools — run everything yourself',
+    description: 'For businesses with a website that need to be found consistently.',
     features: [
-      'Everything in DIY Social PLUS:',
-      'Full CRM & Client Management',
-      'Leads Pipeline & Prospecting',
-      'Invoicing & Expense Tracking',
-      'Financial Reports (P&L)',
-      'Project Tracking',
-      '50 AI Posts/mo',
-      '7 Social Channels',
-      'AI Video Studio',
-      'Self-Service Gap Audit',
-      'Monthly Live Q&A',
-      'Priority Support'
+      'Everything in Foundation PLUS:',
+      'Visibility Audit',
+      'SEO improvements',
+      'Monthly content & social posting',
+      'Review monitoring',
+      'Monthly reporting',
+      'Ongoing website improvements'
     ],
-    cta: 'Start Marketing Suite',
+    cta: 'Start Visibility Growth',
     ctaVariant: 'default',
     highlight: true,
   },
   {
-    id: 'growth_partner',
-    name: 'Growth Partner',
-    price: 297,
-    tag: 'Best for Accountability',
-    phase: 'Partner',
-    icon: Rocket,
+    id: 'authority_builder',
+    name: 'Authority Builder',
+    price: 597,
+    setupFee: 697,
+    tag: 'Build Trust',
+    phase: 'Authority',
+    icon: Crown,
     tagBg: 'bg-emerald-500/10 border-emerald-500/30',
     tagText: 'text-emerald-300',
-    description: 'We handle social media + strategy — you focus on your business',
+    description: 'Deeper content, reputation building, and community credibility.',
     features: [
-      '20 Done-For-You Social Posts/mo',
-      '7 Channels Managed',
-      'Monthly Strategy Call',
-      'SEO + Google Business Optimization',
-      'Content Calendar Done For You',
-      'Monthly Performance Report',
-      'Dedicated Growth Strategist'
+      'Everything in Visibility PLUS:',
+      'Deeper content strategy',
+      'Proactive review campaigns',
+      'Service-area authority',
+      'AI video & content assets',
+      'Community credibility building',
+      'Monthly strategy review'
     ],
-    cta: 'Book a Call',
+    cta: 'Build Your Authority',
     ctaVariant: 'outline',
     highlight: false,
   },
   {
-    id: 'growth_accelerator',
-    name: 'Growth Accelerator',
-    price: 497,
-    tag: 'Best for Serious Growth',
-    phase: 'Dominate',
-    icon: Crown,
+    id: 'market_leader',
+    name: 'Market Leader',
+    price: 897,
+    setupFee: 997,
+    tag: 'Dominate Market',
+    phase: 'Leadership',
+    icon: Rocket,
     tagBg: 'bg-amber-500/10 border-amber-500/30',
     tagText: 'text-amber-300',
-    description: 'Full content + video + reputation managed for you',
+    description: 'Competitive tracking, video strategy, and advanced local SEO.',
     features: [
-      'Everything in Growth Partner PLUS:',
-      'AI Video Production',
-      'Reputation & Review Management',
-      'Streaming TV Ad Scripts',
-      'Bi-weekly Strategy Calls',
-      'Unlimited Social Channels',
-      'Competitor Analysis'
+      'Everything in Authority PLUS:',
+      'Competitive tracking & analysis',
+      'Stronger content volume',
+      'Streaming/video strategy',
+      'Advanced local SEO campaigns',
+      'Quarterly campaign planning',
+      'Growth consulting'
     ],
-    cta: 'Book a Call',
+    cta: 'Become a Leader',
     ctaVariant: 'outline',
     highlight: false,
   },
   {
-    id: 'full_stack',
-    name: 'Full-Stack Growth',
-    price: 797,
-    tag: 'The Everything Plan',
-    phase: 'Scale',
+    id: 'elevate',
+    name: 'Elevate',
+    price: 1497,
+    setupFee: 1597,
+    tag: 'Full Automation',
+    phase: 'Elevate',
     icon: Crown,
     tagBg: 'bg-rose-500/10 border-rose-500/30',
     tagText: 'text-rose-300',
-    description: 'Marketing + back-office systems + custom automations',
+    description: 'Custom AI workflows, CRM, and sales automation.',
     features: [
-      'Everything in Accelerator PLUS:',
-      'Custom Back-Office App',
-      'Automated Invoicing & Dispatch',
-      'Weekly Strategy Calls',
-      'Custom Automation Workflows',
-      'Priority Everything',
-      'Quarterly Business Reviews'
+      'Everything in Market Leader PLUS:',
+      'Custom AI workflows',
+      'CRM & sales automation',
+      'Internal process automation',
+      'Lead follow-up systems',
+      'Strategic business consulting',
+      'Dedicated operations lead'
     ],
     cta: 'Book Strategy Call',
     ctaVariant: 'outline',
@@ -223,9 +222,12 @@ export default function NTAPricingLadder({
               </div>
 
               {/* Price */}
-              <div className="flex items-baseline gap-1 mb-2">
-                <span className="text-4xl font-bold text-white">${tier.price}</span>
-                <span className="text-slate-400 text-sm">/mo{tier.priceTag}</span>
+              <div className="flex flex-col gap-1 mb-2">
+                <div className="flex items-baseline gap-1">
+                  <span className="text-4xl font-bold text-white">${tier.price}</span>
+                  <span className="text-slate-400 text-sm">/mo{tier.priceTag}</span>
+                </div>
+                {tier.setupFee && <span className="text-slate-500 text-xs">+ ${tier.setupFee} setup</span>}
               </div>
 
               <p className="text-slate-400 text-sm">{tier.description}</p>
@@ -273,29 +275,9 @@ export default function NTAPricingLadder({
 
       {/* ROI Guidance */}
       <div className="mt-8 bg-slate-900/50 border border-slate-800 rounded-lg p-6">
-        <h3 className="text-white font-bold mb-4">Why the pricing ladder?</h3>
-        <div className="grid md:grid-cols-4 gap-6">
-          <div>
-            <p className="text-slate-400 text-sm mb-2">
-              <span className="text-white font-semibold">DIY:</span> Perfect for learning and testing
-            </p>
-          </div>
-          <div>
-            <p className="text-slate-400 text-sm mb-2">
-              <span className="text-white font-semibold">Guided:</span> For 2x growth with support
-            </p>
-          </div>
-          <div>
-            <p className="text-slate-400 text-sm mb-2">
-              <span className="text-white font-semibold">Done-For-You:</span> For 5x growth, we execute
-            </p>
-          </div>
-          <div>
-            <p className="text-slate-400 text-sm mb-2">
-              <span className="text-white font-semibold">Authority:</span> For market dominance
-            </p>
-          </div>
-        </div>
+        <p className="text-slate-300 font-medium">
+          <span className="text-white font-bold">A note on advertising:</span> Advertising is not a magic bullet. Growth comes from consistency, clear messaging, and a long-term commitment. Most clients should plan on at least 3 to 6 months, with 12 months being ideal for building real momentum.
+        </p>
       </div>
     </div>
   );

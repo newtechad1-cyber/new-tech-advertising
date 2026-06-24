@@ -156,7 +156,7 @@ export default function CommunityPartnerProgram() {
           <div className="space-y-8 text-lg md:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto text-left md:text-center">
             <p>Many media professionals entered the industry because they enjoy helping local businesses succeed.</p>
             <p>Today, many sales positions continue to offer compensation levels that have changed very little over the past several decades, while marketing has become increasingly complex.</p>
-            <p>The NTA Community Partner Program provides an opportunity to build long-term recurring income by helping businesses improve their digital visibility, marketing systems, and AI readiness.</p>
+            <p>The NTA Community Partner Program provides an opportunity to build long-term recurring income by helping businesses improve their digital visibility, build trust, and grow consistently month after month.</p>
             <p className="text-blue-400 font-medium">Instead of selling a single advertising product, partners can introduce businesses to solutions that continue creating value over time.</p>
           </div>
         </div>
@@ -205,9 +205,9 @@ export default function CommunityPartnerProgram() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { clients: "Approximately 10 participating businesses", revenue: "$520+", subtitle: "Per Month" },
-              { clients: "Approximately 25 participating businesses", revenue: "$1,300+", subtitle: "Per Month", featured: true },
-              { clients: "Approximately 50 participating businesses", revenue: "$2,600+", subtitle: "Per Month" }
+              { clients: "Approximately 10 Visibility Growth clients", revenue: "$595+", subtitle: "Per Month" },
+              { clients: "Approximately 25 Visibility Growth clients", revenue: "$1,485+", subtitle: "Per Month", featured: true },
+              { clients: "Approximately 50 Visibility Growth clients", revenue: "$2,975+", subtitle: "Per Month" }
             ].map((tier, idx) => (
               <div key={idx} className={`p-8 rounded-3xl border ${tier.featured ? 'bg-blue-600 border-blue-500 shadow-xl shadow-blue-600/20' : 'bg-slate-50 border-slate-200'} text-center relative`}>
                 {tier.featured && (
@@ -229,7 +229,7 @@ export default function CommunityPartnerProgram() {
               </div>
             ))}
           </div>
-          <p className="text-center text-slate-500 text-sm mt-8">* Examples based on an average client value of approximately $347/month and a 15% recurring revenue share. Actual results vary based on participation and service mix.</p>
+          <p className="text-center text-slate-500 text-sm mt-8">* Examples based on an average client value of our $397/month Visibility Growth package and a 15% recurring revenue share. Plus, you can earn upfront commission on setup fees (e.g. $497 setup). Actual results vary based on participation and service mix.</p>
         </div>
       </section>
 

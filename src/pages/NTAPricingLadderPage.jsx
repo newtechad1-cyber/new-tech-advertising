@@ -9,15 +9,7 @@ export default function NTAPricingLadderPage() {
   const [selectedPlan, setSelectedPlan] = useState(null);
 
   const handleSelectPlan = (planId) => {
-    if (planId === 'diy') {
-      window.location.href = '/nta/diy-growth-system';
-    } else if (planId === 'guided') {
-      window.location.href = 'mailto:sales@newtechadvertising.com?subject=Upgrade to Guided Growth';
-    } else if (planId === 'done-for-you') {
-      window.location.href = 'mailto:sales@newtechadvertising.com?subject=Explore Done-For-You';
-    } else if (planId === 'premium') {
-      window.location.href = 'mailto:sales@newtechadvertising.com?subject=Premium Authority Growth';
-    }
+    window.location.href = '/book-call';
   };
 
   return (
@@ -51,90 +43,90 @@ export default function NTAPricingLadderPage() {
             </h2>
 
             <div className="grid md:grid-cols-2 gap-8">
-              {/* DIY */}
+              {/* Foundation */}
               <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-8">
-                <h3 className="text-2xl font-bold text-white mb-4">Start With DIY</h3>
+                <h3 className="text-2xl font-bold text-white mb-4">Start With Foundation Launch</h3>
                 <p className="text-slate-400 mb-6">
-                  Perfect if you want to learn the system, test the market, and stay hands-on with your marketing.
+                  Perfect if you have no website, an outdated website, or a weak online presence. Let's fix the basics first.
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-300">You have time to invest in marketing</span>
+                    <span className="text-slate-300">Your current website is hard to use or update</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-300">You want to control the narrative</span>
+                    <span className="text-slate-300">You need a Google Business Profile setup</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-300">Budget is a primary concern</span>
+                    <span className="text-slate-300">You just need the foundational basics done right</span>
                   </li>
                 </ul>
               </div>
 
-              {/* Guided Growth */}
+              {/* Visibility Growth */}
               <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-8">
-                <h3 className="text-2xl font-bold text-white mb-4">Accelerate With Guided Growth</h3>
+                <h3 className="text-2xl font-bold text-white mb-4">Scale With Visibility Growth</h3>
                 <p className="text-slate-400 mb-6">
-                  Best if you want expert direction, accountability, and proven strategies without doing the execution.
+                  Best if you have a website but nobody is finding you. We'll start actively building your online presence.
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-300">You want 1-on-1 strategy support</span>
+                    <span className="text-slate-300">You need more consistent traffic and leads</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-300">You're ready to scale but need guidance</span>
+                    <span className="text-slate-300">You want regular content updates on your site and social media</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-300">You value accountability and results</span>
+                    <span className="text-slate-300">You need ongoing SEO improvements</span>
                   </li>
                 </ul>
               </div>
 
-              {/* Done-For-You */}
+              {/* Authority Builder */}
               <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-8">
-                <h3 className="text-2xl font-bold text-white mb-4">Delegate With Done-For-You</h3>
+                <h3 className="text-2xl font-bold text-white mb-4">Dominate With Authority Builder</h3>
                 <p className="text-slate-400 mb-6">
-                  Ideal if you've proven the model works and want NTA to handle all execution so you focus on sales.
+                  Ideal if you want to become the most trusted name in your service area through strong reputation and content.
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-300">You have proven business model</span>
+                    <span className="text-slate-300">You want proactive review generation</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-300">You want to focus on client delivery</span>
+                    <span className="text-slate-300">You need video content and deeper strategy</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-300">You need consistent, high-quality execution</span>
+                    <span className="text-slate-300">You want to clearly outpace local competitors</span>
                   </li>
                 </ul>
               </div>
 
-              {/* Premium */}
+              {/* Market Leader & Elevate */}
               <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-8">
-                <h3 className="text-2xl font-bold text-white mb-4">Dominate With Authority Growth</h3>
+                <h3 className="text-2xl font-bold text-white mb-4">Scale With Market Leader or Elevate</h3>
                 <p className="text-slate-400 mb-6">
-                  Perfect for aggressive growth and market dominance with premium support and advanced strategies.
+                  Perfect for aggressive growth, advanced streaming video strategies, and custom AI/CRM automations.
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-300">You're ready to own your market</span>
+                    <span className="text-slate-300">You're ready to own your market completely</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-300">You have multiple locations or markets</span>
+                    <span className="text-slate-300">You need custom AI workflows and sales automation</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-300">You want premium support and custom strategies</span>
+                    <span className="text-slate-300">You want premium support and strategic consulting</span>
                   </li>
                 </ul>
               </div>

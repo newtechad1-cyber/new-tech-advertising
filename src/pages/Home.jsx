@@ -21,6 +21,32 @@ export default function Home() {
       
       <main>
         <HeroSection />
+        
+        {/* Where Do You Start Section */}
+        <section className="py-20 px-6 bg-slate-900 border-t border-slate-800">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Where Do You Start?</h2>
+            <p className="text-slate-400 text-lg mb-12">Every business is different. Pick the path that matches where you are right now.</p>
+            
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 text-left hover:border-blue-500/50 transition-colors">
+                <h3 className="text-2xl font-bold text-white mb-4">"I need a website or my website is outdated"</h3>
+                <p className="text-slate-300 mb-8">Start with Foundation Launch. We'll build or fix your core online presence so you look professional and can actually be found.</p>
+                <a href="/nta/pricing-ladder" className="text-blue-400 font-semibold flex items-center gap-2 hover:text-blue-300">
+                  Start with Foundation Launch <span className="text-xl">→</span>
+                </a>
+              </div>
+              <div className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 text-left hover:border-blue-500/50 transition-colors">
+                <h3 className="text-2xl font-bold text-white mb-4">"I already have a website but need more visibility"</h3>
+                <p className="text-slate-300 mb-8">Start with Visibility Growth or higher. We'll optimize what you have and add the consistent content needed to grow your traffic.</p>
+                <a href="/nta/pricing-ladder" className="text-blue-400 font-semibold flex items-center gap-2 hover:text-blue-300">
+                  Improve My Existing Website <span className="text-xl">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <ProblemSection />
         <SolutionSection />
         <PathSection />
