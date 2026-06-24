@@ -138,27 +138,96 @@ export default function NTAPricingLadderPage() {
             <h2 className="text-2xl font-bold text-white mb-8">Common Questions</h2>
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h3 className="text-white font-bold mb-2">Can I upgrade later?</h3>
+                <h3 className="text-white font-bold mb-2">Why is there a setup fee?</h3>
                 <p className="text-slate-400">
-                  Yes! Start with DIY and upgrade to Guided Growth, Done-For-You, or Premium whenever you're ready.
+                  The setup fee covers the initial work required to build or improve your digital foundation. Depending on your business, this may include website setup, website updates, Google Business Profile optimization, social media setup, SEO configuration, content creation, and connecting the tools needed to support your growth.
+                  <br/><br/>
+                  Unlike many agencies that charge large upfront fees, our setup fee is designed to keep startup costs affordable while allowing us to begin delivering value immediately.
                 </p>
               </div>
               <div>
-                <h3 className="text-white font-bold mb-2">What if I start DIY and it doesn't work?</h3>
+                <h3 className="text-white font-bold mb-2">Why do I need a monthly plan?</h3>
                 <p className="text-slate-400">
-                  We don't offer money-back guarantees — setup takes real time and our team deserves to be paid for that work. But we never lock you in. Cancel anytime, no penalties, no fees.
+                  Building visibility online is not a one-time project.
+                  <br/><br/>
+                  Your website, search rankings, content, reviews, and online presence all require ongoing attention. Each month we continue building on the work completed previously, helping more customers find, trust, and choose your business.
+                  <br/><br/>
+                  Think of it as building a house. The foundation is important, but the value comes from continually improving and maintaining it over time.
                 </p>
               </div>
               <div>
-                <h3 className="text-white font-bold mb-2">How long does onboarding take?</h3>
+                <h3 className="text-white font-bold mb-2">How long should I expect to stay on a plan?</h3>
                 <p className="text-slate-400">
-                  DIY onboarding takes about 30 minutes. Guided Growth and Done-For-You include a strategy call to get aligned.
+                  Most businesses begin seeing meaningful improvements within the first few months, but long-term success comes from consistency.
+                  <br/><br/>
+                  We generally recommend a minimum commitment of 3 to 6 months, with many clients choosing to stay 12 months or longer because their online presence continues to grow and improve over time.
                 </p>
               </div>
               <div>
-                <h3 className="text-white font-bold mb-2">Can I cancel anytime?</h3>
+                <h3 className="text-white font-bold mb-2">Do I need a website to get started?</h3>
                 <p className="text-slate-400">
-                  Yes. All plans are month-to-month. Cancel anytime, and you'll have access through the end of your billing period.
+                  No.
+                  <br/><br/>
+                  Many businesses come to us without a website, while others have websites that are outdated or underperforming.
+                  <br/><br/>
+                  Our Foundation Launch package was specifically designed to help businesses create a professional online presence from the ground up.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-white font-bold mb-2">What if I already have a website?</h3>
+                <p className="text-slate-400">
+                  Perfect.
+                  <br/><br/>
+                  We'll evaluate your current website and determine whether it can be improved or whether rebuilding it would create a better customer experience and stronger online visibility.
+                  <br/><br/>
+                  Many clients begin with our Visibility Growth plan because they already have a website and simply need help attracting more customers.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-white font-bold mb-2">What does "visibility" mean?</h3>
+                <div className="text-slate-400">
+                  Visibility simply means how easily potential customers can find your business online.
+                  <br/><br/>
+                  This includes:
+                  <ul className="list-disc pl-5 mt-2 space-y-1 mb-2">
+                    <li>Google Search</li>
+                    <li>Google Maps</li>
+                    <li>Social media</li>
+                    <li>Online directories</li>
+                    <li>Reviews</li>
+                    <li>Website content</li>
+                  </ul>
+                  The more visible your business becomes, the more opportunities customers have to discover you.
+                </div>
+              </div>
+              <div>
+                <h3 className="text-white font-bold mb-2">Do I need to understand AI?</h3>
+                <p className="text-slate-400">
+                  Not at all.
+                  <br/><br/>
+                  Our job is to use the best tools available to help your business grow.
+                  <br/><br/>
+                  Whether that involves AI, automation, content creation, SEO, or social media management, we handle the technical side so you can focus on running your business.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-white font-bold mb-2">What makes New Tech Advertising different?</h3>
+                <p className="text-slate-400">
+                  Most marketing companies sell individual services.
+                  <br/><br/>
+                  We focus on helping local businesses build a stronger digital foundation, increase their visibility, and grow their reputation over time.
+                  <br/><br/>
+                  Our approach combines years of local marketing experience with modern technology to create affordable solutions that help small businesses compete in today's digital world.
+                </p>
+              </div>
+              <div className="md:col-span-2">
+                <h3 className="text-white font-bold mb-2">Can I upgrade my plan later?</h3>
+                <p className="text-slate-400">
+                  Absolutely.
+                  <br/><br/>
+                  Many clients begin with Foundation Launch or Visibility Growth and move into Authority Builder, Market Leader, or Elevate as their business grows.
+                  <br/><br/>
+                  Our services are designed to grow alongside your business.
                 </p>
               </div>
             </div>
@@ -168,21 +237,21 @@ export default function NTAPricingLadderPage() {
           <div className="mt-20 text-center">
             <h2 className="text-3xl font-bold text-white mb-6">Ready to get started?</h2>
             <p className="text-slate-400 mb-8">
-              Choose your plan above or book a free strategy call to find the right fit.
+              Choose a path below or book a free strategy call to find the right fit.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
-                onClick={() => window.location.href = '/nta/diy-growth-system'}
+                onClick={() => window.location.href = '/free-audit'}
                 className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-2"
               >
-                Start Free Trial
+                Run a Free Visibility Audit
                 <ArrowRight className="w-4 h-4" />
               </Button>
               <Button
-                onClick={() => window.location.href = 'mailto:sales@newtechadvertising.com?subject=Let\'s Chat About Pricing'}
+                onClick={() => window.location.href = '/book-call'}
                 className="bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-2"
               >
-                Talk to Sales
+                Schedule a Discovery Call
                 <ArrowRight className="w-4 h-4" />
               </Button>
             </div>
