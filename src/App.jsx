@@ -270,6 +270,7 @@ const AIVisibilityBasics = lazy(() => import('./pages/AIVisibilityBasics'));
 const PracticalAIForSmallBusinesses = lazy(() => import('./pages/PracticalAIForSmallBusinesses'));
 const SEOVsAISearch = lazy(() => import('./pages/SEOVsAISearch'));
 const GrowthSystemsVsCampaigns = lazy(() => import('./pages/GrowthSystemsVsCampaigns'));
+const DigitalRisks = lazy(() => import('./pages/DigitalRisks'));
 const ReputationIsNowAGrowthEngine = lazy(() => import('./pages/ReputationIsNowAGrowthEngine'));
 const TheHiddenCostOfOutdatedMarketing = lazy(() => import('./pages/TheHiddenCostOfOutdatedMarketing'));
 const TheRoleOfAIInLocalMarketing = lazy(() => import('./pages/TheRoleOfAIInLocalMarketing'));
@@ -641,6 +642,8 @@ const AuthenticatedApp = () => {
       <Route path="/practical-ai-for-small-businesses" element={<LayoutWrapper currentPageName="PracticalAIForSmallBusinesses"><PracticalAIForSmallBusinesses /></LayoutWrapper>} />
       <Route path="/seo-vs-ai-search" element={<LayoutWrapper currentPageName="SEOVsAISearch"><SEOVsAISearch /></LayoutWrapper>} />
       <Route path="/growth-systems-vs-campaigns" element={<LayoutWrapper currentPageName="GrowthSystemsVsCampaigns"><GrowthSystemsVsCampaigns /></LayoutWrapper>} />
+      <Route path="/digital-risks" element={<LayoutWrapper currentPageName="DigitalRisks"><DigitalRisks /></LayoutWrapper>} />
+      <Route path="/digital-risks" element={<LayoutWrapper currentPageName="DigitalRisks"><DigitalRisks /></LayoutWrapper>} />
       <Route path="/reputation-is-now-a-growth-engine" element={<LayoutWrapper currentPageName="ReputationIsNowAGrowthEngine"><ReputationIsNowAGrowthEngine /></LayoutWrapper>} />
       <Route path="/hidden-cost-of-outdated-marketing" element={<LayoutWrapper currentPageName="TheHiddenCostOfOutdatedMarketing"><TheHiddenCostOfOutdatedMarketing /></LayoutWrapper>} />
       <Route path="/role-of-ai-in-local-marketing" element={<LayoutWrapper currentPageName="TheRoleOfAIInLocalMarketing"><TheRoleOfAIInLocalMarketing /></LayoutWrapper>} />
