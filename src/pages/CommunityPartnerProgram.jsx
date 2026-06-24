@@ -231,7 +231,7 @@ export default function CommunityPartnerProgram() {
               </div>
             ))}
           </div>
-          <p className="text-center text-slate-500 text-sm mt-8">* Examples based on an average client value of our $397/month Visibility Growth package and a 15% recurring revenue share. Plus, you can earn upfront commission on setup fees (e.g. $497 setup). Actual results vary based on participation and service mix.</p>
+          <p className="text-center text-slate-500 text-sm mt-8">* Earnings examples are based on active client subscriptions and may include both recurring revenue shares and upfront setup commissions. New Tech Advertising offers services ranging from Foundation Launch ($297/month) to Elevate ($1,497/month), allowing partners to earn from businesses at every stage of growth. Actual earnings will vary based on the number of referrals, selected services, and client retention.</p>
         </div>
       </section>
 
