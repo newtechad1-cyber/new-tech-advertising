@@ -290,6 +290,7 @@ const NTAOperatingSystem = lazy(() => import('./pages/NTAOperatingSystem.jsx'));
 const NTABusinessScore = lazy(() => import('./pages/NTABusinessScore.jsx'));
 const NTAGrowthRoadmapGenerator = lazy(() => import('./pages/NTAGrowthRoadmapGenerator.jsx'));
 const NTAExecutiveDashboard = lazy(() => import('./pages/NTAExecutiveDashboard.jsx'));
+const PartnerPortal = lazy(() => import('./pages/PartnerPortal.jsx'));
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -674,6 +675,8 @@ const AuthenticatedApp = () => {
       <Route path="/community-growth-conversation" element={<LayoutWrapper currentPageName="CommunityGrowthConversation"><CommunityGrowthConversation /></LayoutWrapper>} />
       <Route path="/operating-system" element={<LayoutWrapper currentPageName="NTAOperatingSystem"><NTAOperatingSystem /></LayoutWrapper>} />
       <Route path="/business-score" element={<LayoutWrapper currentPageName="NTABusinessScore"><NTABusinessScore /></LayoutWrapper>} />
+      <Route path="/growth-roadmap-generator" element={<LayoutWrapper currentPageName="NTAGrowthRoadmapGenerator"><NTAGrowthRoadmapGenerator /></LayoutWrapper>} />
+      <Route path="/executive-dashboard" element={<LayoutWrapper currentPageName="NTAExecutiveDashboard"><NTAExecutiveDashboard /></LayoutWrapper>} />
 
       <Route path="*" element={<PageNotFound />} />
         </Routes>
