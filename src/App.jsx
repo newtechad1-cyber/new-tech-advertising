@@ -293,6 +293,7 @@ const NTAGrowthRoadmapGenerator = lazy(() => import('./pages/NTAGrowthRoadmapGen
 const NTAExecutiveDashboard = lazy(() => import('./pages/NTAExecutiveDashboard.jsx'));
 const PartnerPortal = lazy(() => import('./pages/PartnerPortal.jsx'));
 const CommunityIntelligence = lazy(() => import('./pages/CommunityIntelligence.jsx'));
+const NTADataHub = lazy(() => import('./pages/NTADataHub.jsx'));
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
