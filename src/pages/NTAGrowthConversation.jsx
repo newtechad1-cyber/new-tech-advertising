@@ -103,7 +103,7 @@ export default function NTAGrowthConversation() {
         </div>
         <div className="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
           <div className="text-white font-bold text-lg tracking-tight flex items-center gap-2">
-            <span className="w-6 h-6 rounded bg-blue-600 flex items-center justify-center text-xs">N</span>
+            <img src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/04e19b127_favicon_64x64.png" alt="NTA" className="w-6 h-6 rounded object-contain" />
             NTA Growth Conversation™
           </div>
           <Link to="/" className="text-slate-400 hover:text-white transition-colors p-2 rounded-full hover:bg-slate-800">
