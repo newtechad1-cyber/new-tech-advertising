@@ -301,6 +301,9 @@ const BusinessProfile = lazy(() => import('./pages/BusinessProfile.jsx'));
 const ProgressCenter = lazy(() => import('./pages/ProgressCenter.jsx'));
 const MyGrowthWorkspace = lazy(() => import('./pages/MyGrowthWorkspace.jsx'));
 const RickAdminCenter = lazy(() => import('./pages/RickAdminCenter.jsx'));
+const BillingCenter = lazy(() => import('./pages/BillingCenter.jsx'));
+const SupportCenter = lazy(() => import('./pages/SupportCenter.jsx'));
+const ClientOnboardingCenter = lazy(() => import('./pages/ClientOnboardingCenter.jsx'));
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -696,6 +699,10 @@ const AuthenticatedApp = () => {
       <Route path="/progress" element={<LayoutWrapper currentPageName="ProgressCenter"><ProgressCenter /></LayoutWrapper>} />
       <Route path="/workspace" element={<LayoutWrapper currentPageName="MyGrowthWorkspace"><MyGrowthWorkspace /></LayoutWrapper>} />
       <Route path="/admin-center" element={<AdminGuard><LayoutWrapper currentPageName="RickAdminCenter"><RickAdminCenter /></LayoutWrapper></AdminGuard>} />
+
+      <Route path="/billing" element={<LayoutWrapper currentPageName="BillingCenter"><BillingCenter /></LayoutWrapper>} />
+      <Route path="/support" element={<LayoutWrapper currentPageName="SupportCenter"><SupportCenter /></LayoutWrapper>} />
+      <Route path="/onboarding" element={<LayoutWrapper currentPageName="ClientOnboardingCenter"><ClientOnboardingCenter /></LayoutWrapper>} />
 
       <Route path="*" element={<PageNotFound />} />
         </Routes>
