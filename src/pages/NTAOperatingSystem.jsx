@@ -7,6 +7,7 @@ import {
   BarChart, ArrowUpRight, Cpu, Target
 } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
+import NextStepEngine from '@/components/recommendations/NextStepEngine';
 
 export default function NTAOperatingSystem() {
   const [activeStage, setActiveStage] = useState('Discover');
@@ -554,7 +555,8 @@ export default function NTAOperatingSystem() {
           </motion.div>
         </div>
       </section>
-
+      
+      <NextStepEngine />
     </div>
   );
 }

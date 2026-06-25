@@ -6,8 +6,16 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEOHead from '@/components/shared/SEOHead';
+import NextStepEngine from '@/components/recommendations/NextStepEngine';
 
 export default function NTAGrowthRoadmapGenerator() {
+  // Record this step in memory
+  React.useEffect(() => {
+    import('@/lib/journeyMemory').then(({ addRoadmap }) => {
+       addRoadmap({ type: 'digital_strategy', date: new Date().toISOString() });
+    });
+  }, []);
+
   // Reusable state holding all roadmap data for future PDF generation & API sync
   const [roadmapData] = useState({
     businessName: "Sample Business LLC",
@@ -291,6 +299,8 @@ export default function NTAGrowthRoadmapGenerator() {
         </div>
 
       </div>
+      
+      <NextStepEngine />
     </div>
   );
 }

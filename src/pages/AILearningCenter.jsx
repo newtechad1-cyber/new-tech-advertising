@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { CheckCircle, Clock, Lock, PlayCircle, Award, ArrowRight, BookOpen, Brain, Zap, Target, Users, Shield, Briefcase, Activity } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEOHead from '@/components/shared/SEOHead';
+import NextStepEngine from '@/components/recommendations/NextStepEngine';
 
 export default function AILearningCenter() {
   const [progress, setProgress] = useState({});
@@ -16,6 +17,11 @@ export default function AILearningCenter() {
     const newProgress = { ...progress, [lessonId]: true };
     setProgress(newProgress);
     localStorage.setItem('nta_learning_progress', JSON.stringify(newProgress));
+    
+    // Sync with Journey Memory
+    import('@/lib/journeyMemory').then(({ updateLearningProgress }) => {
+       updateLearningProgress(lessonId, true);
+    });
   };
 
   const paths = [
@@ -220,6 +226,7 @@ export default function AILearningCenter() {
           })}
         </div>
       </div>
+      <NextStepEngine />
     </div>
   );
 }

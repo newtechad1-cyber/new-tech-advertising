@@ -7,9 +7,17 @@ import {
   HeartHandshake, Presentation, BarChart, Settings, Share2, Award, Building2
 } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
+import NextStepEngine from '@/components/recommendations/NextStepEngine';
 
 export default function CommunityGrowthConversation() {
   const [step, setStep] = useState(0);
+
+  // Record this step in memory
+  React.useEffect(() => {
+    import('@/lib/journeyMemory').then(({ addCompletedConversation }) => {
+       addCompletedConversation('community_growth');
+    });
+  }, []);
   const [direction, setDirection] = useState(1);
 
   const totalSteps = 9;
@@ -374,6 +382,9 @@ export default function CommunityGrowthConversation() {
                     </div>
                     <ArrowRight className="w-8 h-8 text-slate-500 group-hover:text-white transform group-hover:translate-x-2 transition-transform" />
                   </Link>
+                </div>
+                <div className="mt-16">
+                   <NextStepEngine />
                 </div>
               </div>
             )}

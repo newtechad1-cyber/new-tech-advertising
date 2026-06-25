@@ -6,9 +6,17 @@ import {
   MapPin, Shield, Search, Users, TrendingUp, Zap, X
 } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
+import NextStepEngine from '@/components/recommendations/NextStepEngine';
 
 export default function NTAGrowthConversation() {
   const [step, setStep] = useState(0);
+
+  // Record this step in memory
+  React.useEffect(() => {
+    import('@/lib/journeyMemory').then(({ addCompletedConversation }) => {
+       addCompletedConversation('nta_growth');
+    });
+  }, []);
   const [direction, setDirection] = useState(1);
   const [answers, setAnswers] = useState({});
   const [discoveryQuestion, setDiscoveryQuestion] = useState(0);
@@ -547,6 +555,9 @@ export default function NTAGrowthConversation() {
                     </div>
                     <ArrowRight className="w-8 h-8 text-slate-500 group-hover:text-white transform group-hover:translate-x-2 transition-transform" />
                   </Link>
+                </div>
+                <div className="mt-16">
+                  <NextStepEngine />
                 </div>
               </div>
             )}

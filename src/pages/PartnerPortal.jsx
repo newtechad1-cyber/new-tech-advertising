@@ -7,6 +7,7 @@ import {
   Download, ExternalLink, Activity, BarChart, Target, Zap, LayoutDashboard, Brain
 } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
+import NextStepEngine from '@/components/recommendations/NextStepEngine';
 
 export default function PartnerPortal() {
   const [activeTab, setActiveTab] = useState('overview');
@@ -383,6 +384,7 @@ export default function PartnerPortal() {
           </AnimatePresence>
         </main>
       </div>
+      <NextStepEngine />
     </div>
   );
 }

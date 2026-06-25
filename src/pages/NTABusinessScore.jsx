@@ -7,6 +7,7 @@ import {
   Brain, Users, Cpu, Activity
 } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
+import NextStepEngine from '@/components/recommendations/NextStepEngine';
 
 export default function NTABusinessScore() {
   const navigate = useNavigate();
@@ -133,6 +134,12 @@ export default function NTABusinessScore() {
     const sorted = [...values].sort((a, b) => a.score - b.score);
     const lowest = sorted[0];
     const highest = sorted[sorted.length - 1];
+
+    // Record score in memory
+    import('@/lib/journeyMemory').then(({ setBusinessScore, setGrowthStage }) => {
+       setBusinessScore({ overall: overallScore, lowest: lowest.category, highest: highest.category });
+       setGrowthStage(overallScore >= 90 ? 'Elevate' : overallScore >= 75 ? 'Connect' : overallScore >= 60 ? 'Grow' : 'Build');
+    });
 
     // Stage
     let stage = "Discover";
@@ -444,6 +451,12 @@ export default function NTABusinessScore() {
               <ArrowLeft className="w-5 h-5" /> Back
             </button>
           </div>
+        </div>
+      )}
+
+      {(step === 0 || step > questions.length) && (
+        <div className="pb-12">
+          <NextStepEngine />
         </div>
       )}
     </div>
