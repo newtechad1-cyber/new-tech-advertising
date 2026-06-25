@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Compass, X, ChevronUp, Map, Brain, Users, Info } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
+
+const NTA_FAVICON = "https://media.base44.com/images/public/691f41a18de4a7f498c8f884/04e19b127_favicon_64x64.png";
 import { getJourneyMemory } from '@/lib/journeyMemory';
 
 export default function DigitalGrowthGuide() {
@@ -58,7 +60,7 @@ export default function DigitalGrowthGuide() {
           >
             <div className="p-4 border-b border-slate-700/50 bg-gradient-to-r from-blue-900/30 to-indigo-900/30 flex justify-between items-center">
               <div className="flex items-center gap-2">
-                <Compass className="w-5 h-5 text-blue-400" />
+                <img src={NTA_FAVICON} alt="NTA" className="w-5 h-5 object-contain" />
                 <h3 className="font-semibold text-white">Your Digital Growth Guide™</h3>
               </div>
               <button onClick={toggleOpen} className="text-slate-400 hover:text-white transition-colors">
@@ -98,9 +100,9 @@ export default function DigitalGrowthGuide() {
 
       <button
         onClick={toggleOpen}
-        className="w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center shadow-[0_0_20px_rgba(37,99,235,0.3)] transition-all hover:scale-105 relative"
+        className="w-14 h-14 rounded-full bg-slate-900 border border-slate-700 hover:bg-slate-800 text-white flex items-center justify-center shadow-[0_0_20px_rgba(37,99,235,0.3)] transition-all hover:scale-105 relative"
       >
-        {isOpen ? <ChevronUp className="w-6 h-6 rotate-180" /> : <Compass className="w-6 h-6" />}
+        {isOpen ? <ChevronUp className="w-6 h-6 rotate-180" /> : <img src={NTA_FAVICON} alt="Open Guide" className="w-8 h-8 object-contain" />}
       </button>
     </div>
   );

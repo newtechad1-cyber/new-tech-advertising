@@ -35,10 +35,10 @@ export default function PathSection() {
               </p>
             </div>
             <div className="p-8 pt-0 mt-auto">
-              <Button asChild className="w-full bg-blue-600 hover:bg-blue-500 text-white rounded-xl py-6 text-lg font-medium shadow-lg shadow-blue-600/20 group-hover:shadow-blue-500/40 transition-all">
-                <Link to="/growth-conversation" className="flex items-center justify-center">
-                  Start My Growth Conversation™
-                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              <Button asChild className="w-full h-auto bg-blue-600 hover:bg-blue-500 text-white rounded-xl py-4 sm:py-6 px-4 text-base sm:text-lg font-medium shadow-lg shadow-blue-600/20 group-hover:shadow-blue-500/40 transition-all whitespace-normal">
+                <Link to="/growth-conversation" className="flex items-center justify-center gap-2 text-center">
+                  <span>Start My Growth Conversation™</span>
+                  <ArrowRight className="w-5 h-5 shrink-0 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
             </div>
@@ -64,10 +64,10 @@ export default function PathSection() {
               </p>
             </div>
             <div className="p-8 pt-0 mt-auto relative z-10">
-              <Button asChild className="w-full bg-slate-800 hover:bg-slate-700 text-white rounded-xl py-6 text-lg font-medium border border-slate-700 hover:border-slate-600 transition-all">
-                <Link to="/community-partner" className="flex items-center justify-center">
-                  Explore Community Partnership™
-                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              <Button asChild className="w-full h-auto bg-slate-800 hover:bg-slate-700 text-white rounded-xl py-4 sm:py-6 px-4 text-base sm:text-lg font-medium border border-slate-700 hover:border-slate-600 transition-all whitespace-normal">
+                <Link to="/community-partner" className="flex items-center justify-center gap-2 text-center">
+                  <span>Explore Community Partnership™</span>
+                  <ArrowRight className="w-5 h-5 shrink-0 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
             </div>
@@ -92,10 +92,10 @@ export default function PathSection() {
               </p>
             </div>
             <div className="p-8 pt-0 mt-auto">
-              <Button asChild className="w-full bg-slate-800 hover:bg-slate-700 text-white rounded-xl py-6 text-lg font-medium border border-slate-700 hover:border-slate-600 transition-all">
-                <Link to="/learning-center" className="flex items-center justify-center">
-                  Enter the AI Learning Center™
-                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              <Button asChild className="w-full h-auto bg-slate-800 hover:bg-slate-700 text-white rounded-xl py-4 sm:py-6 px-4 text-base sm:text-lg font-medium border border-slate-700 hover:border-slate-600 transition-all whitespace-normal">
+                <Link to="/learning-center" className="flex items-center justify-center gap-2 text-center">
+                  <span>Enter the AI Learning Center™</span>
+                  <ArrowRight className="w-5 h-5 shrink-0 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
             </div>

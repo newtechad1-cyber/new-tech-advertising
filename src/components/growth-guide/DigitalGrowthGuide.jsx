@@ -5,6 +5,8 @@ import { base44 } from '@/api/base44Client';
 import { getJourneyMemory } from '@/lib/journeyMemory';
 import { X, Send, Loader2, User, FileText, CheckCircle2, AlertCircle, Clock, Zap, ChevronRight, MessageCircle, Map, Target, Compass, Sparkles, Navigation, BookOpen, Activity, ArrowRight, Users } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+
+const NTA_FAVICON = "https://media.base44.com/images/public/691f41a18de4a7f498c8f884/04e19b127_favicon_64x64.png";
 import { Input } from "@/components/ui/input";
 import ReactMarkdown from 'react-markdown';
 import { toast } from 'sonner';
@@ -134,8 +136,8 @@ const MessageBubble = ({ message }) => {
     return (
         <div className={cn("flex gap-3", isUser ? "justify-end" : "justify-start")}>
             {!isUser && (
-                <div className="h-7 w-7 rounded-lg bg-blue-600 flex items-center justify-center flex-shrink-0 mt-0.5 overflow-hidden">
-                    <Sparkles className="w-4 h-4 text-white" />
+                <div className="h-7 w-7 rounded-lg bg-slate-900 border border-slate-700 flex items-center justify-center flex-shrink-0 mt-0.5 overflow-hidden">
+                    <img src={NTA_FAVICON} alt="NTA Guide" className="w-4 h-4 object-contain" />
                 </div>
             )}
             <div className={cn("max-w-[85%]", isUser && "flex flex-col items-end")}>
@@ -347,14 +349,14 @@ export default function DigitalGrowthGuide() {
                         className="fixed bottom-8 right-8 z-50 flex items-center gap-3"
                     >
                         <div className="bg-slate-900/80 backdrop-blur-md border border-slate-700 shadow-lg px-4 py-2 rounded-full hidden md:flex items-center gap-2">
-                            <Sparkles className="w-4 h-4 text-blue-400" />
+                            <img src={NTA_FAVICON} alt="NTA" className="w-4 h-4 object-contain" />
                             <span className="text-sm font-medium text-slate-200">Your Digital Growth Guide™</span>
                         </div>
                         <button
                             onClick={() => { setIsOpen(true); setView('overview'); }}
-                            className="w-14 h-14 bg-blue-600 rounded-full shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center hover:bg-blue-500 transition-colors border border-blue-400/30"
+                            className="w-14 h-14 bg-slate-900 rounded-full shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center hover:scale-105 transition-transform overflow-hidden border border-slate-700"
                         >
-                            <Navigation className="w-6 h-6 text-white" />
+                            <img src={NTA_FAVICON} alt="Open Guide" className="w-8 h-8 object-contain" />
                         </button>
                     </motion.div>
                 )}
@@ -379,8 +381,8 @@ export default function DigitalGrowthGuide() {
                                         <ChevronRight className="w-5 h-5 rotate-180" />
                                     </button>
                                 )}
-                                <div className="w-10 h-10 bg-blue-600/20 rounded-full flex items-center justify-center border border-blue-500/30">
-                                    <Sparkles className="w-5 h-5 text-blue-400" />
+                                <div className="w-10 h-10 bg-slate-900 rounded-full flex items-center justify-center border border-slate-700">
+                                    <img src={NTA_FAVICON} alt="NTA" className="w-6 h-6 object-contain" />
                                 </div>
                                 <div>
                                     <h3 className="text-white font-semibold text-sm">Your Digital Growth Guide™</h3>
