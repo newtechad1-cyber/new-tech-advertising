@@ -287,6 +287,7 @@ const NTAGrowthConversation = lazy(() => import('./pages/NTAGrowthConversation')
 const NTARelationshipBuilder = lazy(() => import('./pages/NTARelationshipBuilder.jsx'));
 const CommunityGrowthConversation = lazy(() => import('./pages/CommunityGrowthConversation'));
 const NTAOperatingSystem = lazy(() => import('./pages/NTAOperatingSystem.jsx'));
+const NTABusinessScore = lazy(() => import('./pages/NTABusinessScore.jsx'));
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -670,6 +671,7 @@ const AuthenticatedApp = () => {
       <Route path="/relationship-builder" element={<LayoutWrapper currentPageName="NTARelationshipBuilder"><NTARelationshipBuilder /></LayoutWrapper>} />
       <Route path="/community-growth-conversation" element={<LayoutWrapper currentPageName="CommunityGrowthConversation"><CommunityGrowthConversation /></LayoutWrapper>} />
       <Route path="/operating-system" element={<LayoutWrapper currentPageName="NTAOperatingSystem"><NTAOperatingSystem /></LayoutWrapper>} />
+      <Route path="/business-score" element={<LayoutWrapper currentPageName="NTABusinessScore"><NTABusinessScore /></LayoutWrapper>} />
 
       <Route path="*" element={<PageNotFound />} />
         </Routes>

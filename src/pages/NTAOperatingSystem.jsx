@@ -55,6 +55,14 @@ export default function NTAOperatingSystem() {
       icon: Compass
     },
     {
+      title: "NTA Business Score™",
+      purpose: "Understand where your business stands across the six areas of digital growth.",
+      time: "5 mins",
+      who: "Business Owners",
+      link: "/business-score",
+      icon: BarChart
+    },
+    {
       title: "Relationship Builder™",
       purpose: "Discover simple systems for managing referrals and reviews.",
       time: "10 mins",
