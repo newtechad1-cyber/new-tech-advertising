@@ -75,7 +75,7 @@ export default function NTAOperatingSystem() {
       purpose: "An actionable plan to improve your visibility and conversion systems.",
       time: "15 mins",
       who: "Business Owners",
-      link: "/free-audit",
+      link: "/growth-roadmap-generator",
       icon: Layers
     },
     {

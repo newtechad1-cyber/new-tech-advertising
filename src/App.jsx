@@ -288,6 +288,8 @@ const NTARelationshipBuilder = lazy(() => import('./pages/NTARelationshipBuilder
 const CommunityGrowthConversation = lazy(() => import('./pages/CommunityGrowthConversation'));
 const NTAOperatingSystem = lazy(() => import('./pages/NTAOperatingSystem.jsx'));
 const NTABusinessScore = lazy(() => import('./pages/NTABusinessScore.jsx'));
+const NTAGrowthRoadmapGenerator = lazy(() => import('./pages/NTAGrowthRoadmapGenerator.jsx'));
+const NTAExecutiveDashboard = lazy(() => import('./pages/NTAExecutiveDashboard.jsx'));
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
