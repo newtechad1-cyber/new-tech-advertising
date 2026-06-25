@@ -289,6 +289,7 @@ const NTARelationshipBuilder = lazy(() => import('./pages/NTARelationshipBuilder
 const CommunityGrowthConversation = lazy(() => import('./pages/CommunityGrowthConversation'));
 const NTAOperatingSystem = lazy(() => import('./pages/NTAOperatingSystem.jsx'));
 const GrowthGuide = lazy(() => import('./pages/GrowthGuide.jsx'));
+const MyGrowthJourney = lazy(() => import('./pages/MyGrowthJourney.jsx'));
 const NTABusinessScore = lazy(() => import('./pages/NTABusinessScore.jsx'));
 const NTAGrowthRoadmapGenerator = lazy(() => import('./pages/NTAGrowthRoadmapGenerator.jsx'));
 const NTAExecutiveDashboard = lazy(() => import('./pages/NTAExecutiveDashboard.jsx'));
@@ -679,6 +680,7 @@ const AuthenticatedApp = () => {
       <Route path="/community-growth-conversation" element={<LayoutWrapper currentPageName="CommunityGrowthConversation"><CommunityGrowthConversation /></LayoutWrapper>} />
       <Route path="/operating-system" element={<LayoutWrapper currentPageName="NTAOperatingSystem"><NTAOperatingSystem /></LayoutWrapper>} />
       <Route path="/growth-guide" element={<GrowthGuide />} />
+      <Route path="/my-growth-journey" element={<LayoutWrapper currentPageName="MyGrowthJourney"><MyGrowthJourney /></LayoutWrapper>} />
       <Route path="/business-score" element={<LayoutWrapper currentPageName="NTABusinessScore"><NTABusinessScore /></LayoutWrapper>} />
       <Route path="/growth-roadmap-generator" element={<LayoutWrapper currentPageName="NTAGrowthRoadmapGenerator"><NTAGrowthRoadmapGenerator /></LayoutWrapper>} />
       <Route path="/executive-dashboard" element={<LayoutWrapper currentPageName="NTAExecutiveDashboard"><NTAExecutiveDashboard /></LayoutWrapper>} />

@@ -2,18 +2,40 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Compass, Target, Activity, Map, ArrowRight, LayoutDashboard, CheckCircle2, RotateCcw, Briefcase } from 'lucide-react';
+import { getJourneyMemory, updateJourneyMemory, resetJourneyMemory } from '@/lib/journeyMemory';
 
 export default function GrowthGuide() {
   const navigate = useNavigate();
   
-  // State is preserved in localStorage
+  // State is preserved via Journey Memory™ layer
   const [state, setState] = useState(() => {
-    const saved = localStorage.getItem('nta_growth_guide_state');
-    return saved ? JSON.parse(saved) : { step: 0, name: '', audience: '', challenge: '' };
+    const memory = getJourneyMemory();
+    
+    // Migrate from old local storage key if it exists
+    const legacySaved = localStorage.getItem('nta_growth_guide_state');
+    if (legacySaved && memory.guideState.step === 0 && !memory.visitor.name) {
+       const legacyData = JSON.parse(legacySaved);
+       return legacyData;
+    }
+
+    return { 
+      step: memory.guideState.step || 0, 
+      name: memory.visitor.name || '', 
+      audience: memory.visitor.role || '', 
+      challenge: memory.visitor.focus || '' 
+    };
   });
 
   useEffect(() => {
-    localStorage.setItem('nta_growth_guide_state', JSON.stringify(state));
+    // Save to Journey Memory layer automatically
+    updateJourneyMemory({
+      guideState: { step: state.step },
+      visitor: {
+        name: state.name,
+        role: state.audience,
+        focus: state.challenge
+      }
+    });
   }, [state]);
 
   const updateState = (updates) => {
@@ -22,6 +44,7 @@ export default function GrowthGuide() {
 
   const resetGuide = () => {
     if(window.confirm("Are you sure you want to reset your guided journey?")) {
+        resetJourneyMemory();
         setState({ step: 0, name: '', audience: '', challenge: '' });
     }
   };
