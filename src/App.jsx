@@ -682,6 +682,7 @@ const AuthenticatedApp = () => {
       <Route path="/executive-dashboard" element={<LayoutWrapper currentPageName="NTAExecutiveDashboard"><NTAExecutiveDashboard /></LayoutWrapper>} />
       <Route path="/partner-portal" element={<LayoutWrapper currentPageName="PartnerPortal"><PartnerPortal /></LayoutWrapper>} />
       <Route path="/community-intelligence" element={<LayoutWrapper currentPageName="CommunityIntelligence"><CommunityIntelligence /></LayoutWrapper>} />
+      <Route path="/nta/data-hub" element={<LayoutWrapper currentPageName="NTADataHub"><NTADataHub /></LayoutWrapper>} />
 
       <Route path="*" element={<PageNotFound />} />
         </Routes>
@@ -701,10 +702,12 @@ function App() {
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClientInstance}>
-        <Router>
-          <AuthenticatedApp />
-        </Router>
-        <Toaster />
+        <NTADataProvider>
+          <Router>
+            <AuthenticatedApp />
+          </Router>
+          <Toaster />
+        </NTADataProvider>
       </QueryClientProvider>
     </AuthProvider>
   )
