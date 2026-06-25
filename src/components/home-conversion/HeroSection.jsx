@@ -43,13 +43,13 @@ export default function HeroSection() {
               Run a Free Visibility Audit
             </Link>
           </Button>
-          <Button asChild size="lg" className="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-white border border-slate-700">
+          <Button asChild size="lg" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] border-0">
             <Link to="/book-call">
               <Users className="w-5 h-5 mr-2" />
               Schedule a Discovery Call
             </Link>
           </Button>
-          <Button asChild size="lg" className="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-white border border-slate-700">
+          <Button asChild size="lg" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] border-0">
             <Link to="/nta/pricing-ladder">
               <BookOpen className="w-5 h-5 mr-2" />
               Start with Foundation Launch
