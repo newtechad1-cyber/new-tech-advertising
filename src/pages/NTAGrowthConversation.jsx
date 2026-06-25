@@ -13,7 +13,7 @@ export default function NTAGrowthConversation() {
   const [answers, setAnswers] = useState({});
   const [discoveryQuestion, setDiscoveryQuestion] = useState(0);
 
-  const totalSteps = 10;
+  const totalSteps = 13; // Updated from 10 to 13
 
   const nextStep = () => {
     if (step < totalSteps - 1) {
@@ -116,7 +116,7 @@ export default function NTAGrowthConversation() {
             exit="exit"
             className="w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center"
           >
-            {/* --- STEP 1: Welcome --- */}
+            {/* --- STEP 0: Welcome --- */}
             {step === 0 && (
               <div className="max-w-4xl">
                 <motion.h1 
@@ -144,8 +144,38 @@ export default function NTAGrowthConversation() {
               </div>
             )}
 
-            {/* --- STEP 2: The Business Has Changed --- */}
+            {/* --- STEP 1: Why New Tech Advertising Exists --- */}
             {step === 1 && (
+              <div className="max-w-4xl text-left md:text-center">
+                <h2 className="text-4xl md:text-6xl font-bold text-white mb-10 tracking-tight leading-tight">
+                  Technology Changes.<br/> <span className="text-blue-400">People Don't.</span>
+                </h2>
+                <div className="space-y-6 text-xl md:text-2xl text-slate-300 leading-relaxed max-w-3xl mx-auto mb-12">
+                  <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+                    I didn't build New Tech Advertising because I love technology.
+                  </motion.p>
+                  <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+                    I built it because I watched too many great local businesses get left behind by it.
+                  </motion.p>
+                  <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
+                    Business owners shouldn't have to become experts in websites, Google, AI, automation, and digital marketing just to compete.
+                  </motion.p>
+                  <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} className="text-blue-300 font-medium">
+                    Our mission is helping local businesses confidently navigate the digital world by meeting them where they are and guiding them to where they want to be.
+                  </motion.p>
+                </div>
+                <motion.button 
+                  initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.2 }}
+                  onClick={nextStep}
+                  className="inline-flex items-center gap-3 bg-blue-600 text-white font-semibold px-8 py-4 rounded-full text-lg hover:bg-blue-500 transition-all shadow-[0_0_40px_-10px_rgba(59,130,246,0.5)] hover:scale-105 mx-auto"
+                >
+                  Show Me How <ArrowRight className="w-5 h-5" />
+                </motion.button>
+              </div>
+            )}
+
+            {/* --- STEP 2: The Business Has Changed --- */}
+            {step === 2 && (
               <div className="w-full">
                 <div className="grid md:grid-cols-2 gap-12 text-left mb-16">
                   <div className="bg-slate-900/50 p-8 rounded-3xl border border-slate-800">
@@ -176,7 +206,7 @@ export default function NTAGrowthConversation() {
             )}
 
             {/* --- STEP 3: The Problem --- */}
-            {step === 2 && (
+            {step === 3 && (
               <div className="max-w-4xl">
                 <h2 className="text-5xl md:text-6xl font-bold text-white mb-10 tracking-tight">
                   You already have a business to run.
@@ -201,8 +231,100 @@ export default function NTAGrowthConversation() {
               </div>
             )}
 
-            {/* --- STEP 4: NTA Philosophy --- */}
-            {step === 3 && (
+            {/* --- STEP 4: Business Growth Is A System --- */}
+            {step === 4 && (
+              <div className="max-w-4xl w-full flex flex-col items-center">
+                <h2 className="text-4xl md:text-6xl font-bold text-white mb-12 tracking-tight text-center">
+                  Growing A Business Isn't One Thing.<br/>
+                  <span className="text-blue-400">It's A System.</span>
+                </h2>
+                
+                <div className="flex flex-col items-center gap-4 mb-16">
+                  {[
+                    "Can people find you?",
+                    "Can they trust you?",
+                    "Will they choose you?",
+                    "Will they stay connected?",
+                    "Can your business grow without working harder?"
+                  ].map((q, i) => (
+                    <React.Fragment key={i}>
+                      <motion.div 
+                        initial={{ opacity: 0, y: -10 }} 
+                        animate={{ opacity: 1, y: 0 }} 
+                        transition={{ delay: i * 0.8, duration: 0.6 }}
+                        className="text-2xl md:text-3xl text-slate-200 font-medium text-center"
+                      >
+                        {q}
+                      </motion.div>
+                      {i < 4 && (
+                        <motion.div 
+                          initial={{ opacity: 0 }} 
+                          animate={{ opacity: 1 }} 
+                          transition={{ delay: i * 0.8 + 0.4, duration: 0.4 }}
+                        >
+                          <ArrowRight className="w-6 h-6 text-slate-600 rotate-90 my-2" />
+                        </motion.div>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </div>
+                
+                <motion.div 
+                  initial={{ opacity: 0 }} 
+                  animate={{ opacity: 1 }} 
+                  transition={{ delay: 4.5 }}
+                  className="text-xl md:text-2xl text-slate-400 font-medium text-center max-w-2xl border-t border-slate-800 pt-8"
+                >
+                  We don't sell marketing.<br/>
+                  <span className="text-white mt-2 block">We help business owners understand how to grow.</span>
+                </motion.div>
+              </div>
+            )}
+
+            {/* --- STEP 5: Your Greatest Business Asset --- */}
+            {step === 5 && (
+              <div className="max-w-5xl text-center">
+                <h2 className="text-4xl md:text-6xl font-bold text-white mb-10 tracking-tight leading-tight">
+                  Your Greatest Business Asset Isn't Your Building.<br/>
+                  <span className="text-blue-400">It's Your Relationships.</span>
+                </h2>
+                
+                <div className="flex flex-wrap justify-center gap-4 mb-12">
+                  {['Every customer.', 'Every referral.', 'Every review.', 'Every phone call.', 'Every conversation.', 'Every community connection.'].map((term, i) => (
+                    <motion.span 
+                      key={i}
+                      initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.15 }}
+                      className="px-6 py-3 bg-slate-900 border border-slate-800 rounded-full text-slate-300 text-lg font-medium"
+                    >
+                      {term}
+                    </motion.span>
+                  ))}
+                </div>
+                
+                <div className="space-y-6 text-xl md:text-2xl text-slate-400 leading-relaxed max-w-3xl mx-auto mb-12">
+                  <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 }}>
+                    Those relationships are the foundation of long-term business growth.
+                  </motion.p>
+                  <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.2 }}>
+                    Most businesses have no simple system for managing them.
+                  </motion.p>
+                  <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3.2 }} className="text-white font-medium">
+                    That's one of the biggest opportunities we help solve.
+                  </motion.p>
+                </div>
+
+                <motion.button 
+                  initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 4.2 }}
+                  onClick={nextStep}
+                  className="inline-flex items-center gap-3 bg-white text-slate-950 font-semibold px-8 py-4 rounded-full text-lg hover:bg-slate-200 transition-all hover:scale-105 mx-auto"
+                >
+                  Continue <ArrowRight className="w-5 h-5" />
+                </motion.button>
+              </div>
+            )}
+
+            {/* --- STEP 6: NTA Philosophy --- */}
+            {step === 6 && (
               <div className="w-full max-w-4xl text-left">
                 <h2 className="text-3xl md:text-5xl font-bold text-white mb-12 text-center tracking-tight">
                   Five Simple Questions
@@ -230,8 +352,8 @@ export default function NTAGrowthConversation() {
               </div>
             )}
 
-            {/* --- STEP 5: Growth Framework --- */}
-            {step === 4 && (
+            {/* --- STEP 7: Growth Framework --- */}
+            {step === 7 && (
               <div className="w-full max-w-5xl">
                 <h2 className="text-4xl md:text-5xl font-bold text-white mb-16 tracking-tight">NTA Growth Framework™</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-6 text-left">
@@ -257,8 +379,8 @@ export default function NTAGrowthConversation() {
               </div>
             )}
 
-            {/* --- STEP 6: Discovery Questions --- */}
-            {step === 5 && (
+            {/* --- STEP 8: Discovery Questions --- */}
+            {step === 8 && (
               <div className="max-w-3xl w-full">
                 <h2 className="text-4xl md:text-5xl font-bold text-white mb-12 tracking-tight">Let's find your starting point.</h2>
                 
@@ -313,8 +435,8 @@ export default function NTAGrowthConversation() {
               </div>
             )}
 
-            {/* --- STEP 7: Recommendation --- */}
-            {step === 6 && (
+            {/* --- STEP 9: Recommendation --- */}
+            {step === 9 && (
               <div className="max-w-4xl">
                 <h3 className="text-2xl text-slate-400 mb-6 font-medium">Based on your goals, your recommended Growth Stage is:</h3>
                 <motion.div 
@@ -331,8 +453,8 @@ export default function NTAGrowthConversation() {
               </div>
             )}
 
-            {/* --- STEP 8: Roadmap --- */}
-            {step === 7 && (
+            {/* --- STEP 10: Roadmap --- */}
+            {step === 10 && (
               <div className="w-full max-w-5xl">
                 <h2 className="text-4xl md:text-5xl font-bold text-white mb-16 tracking-tight">Your Growth Roadmap™</h2>
                 <div className="relative">
@@ -368,8 +490,8 @@ export default function NTAGrowthConversation() {
               </div>
             )}
 
-            {/* --- STEP 9: About NTA --- */}
-            {step === 8 && (
+            {/* --- STEP 11: About NTA --- */}
+            {step === 11 && (
               <div className="max-w-4xl text-left md:text-center">
                 <div className="w-20 h-20 bg-blue-600 rounded-3xl flex items-center justify-center mb-10 mx-auto transform rotate-3 shadow-[0_0_40px_rgba(37,99,235,0.4)]">
                   <Zap className="w-10 h-10 text-white" />
@@ -386,8 +508,8 @@ export default function NTAGrowthConversation() {
               </div>
             )}
 
-            {/* --- STEP 10: CTA --- */}
-            {step === 9 && (
+            {/* --- STEP 12: CTA --- */}
+            {step === 12 && (
               <div className="w-full max-w-4xl">
                 <h2 className="text-5xl md:text-7xl font-bold text-white mb-12 tracking-tight">
                   Ready to Elevate?
@@ -446,7 +568,7 @@ export default function NTAGrowthConversation() {
             )}
           </div>
           <div>
-            {step < totalSteps - 1 && step !== 5 && (
+            {step < totalSteps - 1 && step !== 1 && step !== 5 && step !== 8 && (
               <button 
                 onClick={nextStep}
                 className="flex items-center gap-2 bg-white text-slate-950 font-bold px-6 py-3 rounded-full hover:bg-slate-200 transition-colors shadow-lg"
