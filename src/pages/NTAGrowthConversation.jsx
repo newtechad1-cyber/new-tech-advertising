@@ -538,12 +538,12 @@ export default function NTAGrowthConversation() {
                   </Link>
 
                   <Link 
-                    to="/find-your-plan"
+                    to="/relationship-builder"
                     className="group bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-600 text-white p-6 md:p-8 rounded-3xl text-left transition-all flex items-center justify-between"
                   >
                     <div>
-                      <h3 className="text-2xl font-bold mb-2">Begin Building Your Roadmap</h3>
-                      <p className="text-slate-400 text-lg">Explore our growth stages and find the right fit.</p>
+                      <h3 className="text-2xl font-bold mb-2">Continue to Relationship Builder™</h3>
+                      <p className="text-slate-400 text-lg">See how to turn first-time customers into long-term growth.</p>
                     </div>
                     <ArrowRight className="w-8 h-8 text-slate-500 group-hover:text-white transform group-hover:translate-x-2 transition-transform" />
                   </Link>
