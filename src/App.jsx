@@ -283,6 +283,7 @@ const WebAccessibilityTrust = lazy(() => import('./pages/WebAccessibilityTrust')
 const WebsitesAsSalespeople = lazy(() => import('./pages/WebsitesAsSalespeople'));
 const BackOfficeSolutions = lazy(() => import('./pages/BackOfficeSolutions'));
 const RestaurantSolutions = lazy(() => import('./pages/RestaurantSolutions'));
+const NTAGrowthConversation = lazy(() => import('./pages/NTAGrowthConversation'));
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -662,6 +663,7 @@ const AuthenticatedApp = () => {
       <Route path="/back-office" element={<Navigate to="/back-office-solutions" replace />} />
       <Route path="/back-office-solutions" element={<LayoutWrapper currentPageName="BackOfficeSolutions"><BackOfficeSolutions /></LayoutWrapper>} />
       <Route path="/restaurants" element={<LayoutWrapper currentPageName="RestaurantSolutions"><RestaurantSolutions /></LayoutWrapper>} />
+      <Route path="/growth-conversation" element={<LayoutWrapper currentPageName="NTAGrowthConversation"><NTAGrowthConversation /></LayoutWrapper>} />
 
       <Route path="*" element={<PageNotFound />} />
         </Routes>
