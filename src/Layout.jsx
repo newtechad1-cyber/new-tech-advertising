@@ -17,6 +17,7 @@ import { PAGE_FAMILY_MAP } from '@/components/config/routeMap';
 import AgentChatWidget from '@/components/nta-guide/AgentChatWidget';
 import NewsletterPopup from '@/components/newsletter/NewsletterPopup';
 import { createPageUrl } from '@/utils';
+import DigitalGrowthGuide from '@/components/nta-guide/DigitalGrowthGuide';
 
 export default function Layout({ children, currentPageName }) {
   const [user, setUser] = useState(null);
@@ -83,7 +84,7 @@ export default function Layout({ children, currentPageName }) {
       {children}
       <ADAComplianceBanner />
       {showBadge && <RouteFamilyBadge family={pageFamily} />}
-      <AgentChatWidget />
+      <DigitalGrowthGuide />
       <NewsletterPopup />
     </ViewModeContext.Provider>
   );

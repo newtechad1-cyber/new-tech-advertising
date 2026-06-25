@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate, useParams } from 'rea
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import { NTADataProvider } from '@/lib/NTADataContext';
+import { ExperienceProvider } from '@/lib/ExperienceLayer';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import { AdminGuard, ClientGuard } from '@/components/auth/RoleGuard';
 import Login from './pages/Login';
@@ -296,6 +297,8 @@ const NTAExecutiveDashboard = lazy(() => import('./pages/NTAExecutiveDashboard.j
 const PartnerPortal = lazy(() => import('./pages/PartnerPortal.jsx'));
 const CommunityIntelligence = lazy(() => import('./pages/CommunityIntelligence.jsx'));
 const NTADataHub = lazy(() => import('./pages/NTADataHub.jsx'));
+const BusinessProfile = lazy(() => import('./pages/BusinessProfile.jsx'));
+const ProgressCenter = lazy(() => import('./pages/ProgressCenter.jsx'));
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -687,6 +690,8 @@ const AuthenticatedApp = () => {
       <Route path="/partner-portal" element={<LayoutWrapper currentPageName="PartnerPortal"><PartnerPortal /></LayoutWrapper>} />
       <Route path="/community-intelligence" element={<LayoutWrapper currentPageName="CommunityIntelligence"><CommunityIntelligence /></LayoutWrapper>} />
       <Route path="/nta/data-hub" element={<LayoutWrapper currentPageName="NTADataHub"><NTADataHub /></LayoutWrapper>} />
+      <Route path="/business-profile" element={<LayoutWrapper currentPageName="BusinessProfile"><BusinessProfile /></LayoutWrapper>} />
+      <Route path="/progress" element={<LayoutWrapper currentPageName="ProgressCenter"><ProgressCenter /></LayoutWrapper>} />
 
       <Route path="*" element={<PageNotFound />} />
         </Routes>
@@ -708,7 +713,9 @@ function App() {
       <QueryClientProvider client={queryClientInstance}>
         <NTADataProvider>
           <Router>
-            <AuthenticatedApp />
+            <ExperienceProvider>
+              <AuthenticatedApp />
+            </ExperienceProvider>
           </Router>
           <Toaster />
         </NTADataProvider>
