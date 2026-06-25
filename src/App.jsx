@@ -307,6 +307,7 @@ const ClientOnboardingCenter = lazy(() => import('./pages/ClientOnboardingCenter
 const CommunityGrowthAdvisor = lazy(() => import('./pages/CommunityGrowthAdvisor.jsx'));
 const PartnerQuickStart = lazy(() => import('./pages/PartnerQuickStart.jsx'));
 const BusinessJourney = lazy(() => import('./pages/BusinessJourney.jsx'));
+const OurStory = lazy(() => import('./pages/OurStory.jsx'));
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -709,6 +710,7 @@ const AuthenticatedApp = () => {
       <Route path="/community-growth-advisor" element={<LayoutWrapper currentPageName="CommunityGrowthAdvisor"><CommunityGrowthAdvisor /></LayoutWrapper>} />
       <Route path="/partner-quick-start" element={<LayoutWrapper currentPageName="PartnerQuickStart"><PartnerQuickStart /></LayoutWrapper>} />
       <Route path="/business-journey" element={<LayoutWrapper currentPageName="BusinessJourney"><BusinessJourney /></LayoutWrapper>} />
+      <Route path="/our-story" element={<LayoutWrapper currentPageName="OurStory"><OurStory /></LayoutWrapper>} />
 
       <Route path="*" element={<PageNotFound />} />
         </Routes>
