@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getJourneyMemory, recordModuleCompletion, updateLearningProgress } from '@/lib/journeyMemory';
+import { getJourneyMemory, addCompletedModule, updateLearningProgress } from '@/lib/journeyMemory';
 
 const ExperienceContext = createContext(null);
 
@@ -24,7 +24,7 @@ export function ExperienceProvider({ children }) {
   };
 
   const completeModule = (moduleId) => {
-    recordModuleCompletion(moduleId);
+    addCompletedModule(moduleId);
     updateMemory();
   };
 
