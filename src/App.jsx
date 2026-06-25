@@ -300,6 +300,7 @@ const NTADataHub = lazy(() => import('./pages/NTADataHub.jsx'));
 const BusinessProfile = lazy(() => import('./pages/BusinessProfile.jsx'));
 const ProgressCenter = lazy(() => import('./pages/ProgressCenter.jsx'));
 const MyGrowthWorkspace = lazy(() => import('./pages/MyGrowthWorkspace.jsx'));
+const RickAdminCenter = lazy(() => import('./pages/RickAdminCenter.jsx'));
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -694,6 +695,7 @@ const AuthenticatedApp = () => {
       <Route path="/business-profile" element={<LayoutWrapper currentPageName="BusinessProfile"><BusinessProfile /></LayoutWrapper>} />
       <Route path="/progress" element={<LayoutWrapper currentPageName="ProgressCenter"><ProgressCenter /></LayoutWrapper>} />
       <Route path="/workspace" element={<LayoutWrapper currentPageName="MyGrowthWorkspace"><MyGrowthWorkspace /></LayoutWrapper>} />
+      <Route path="/admin-center" element={<AdminGuard><LayoutWrapper currentPageName="RickAdminCenter"><RickAdminCenter /></LayoutWrapper></AdminGuard>} />
 
       <Route path="*" element={<PageNotFound />} />
         </Routes>
