@@ -8,6 +8,9 @@ import {
   MessageSquare, LayoutTemplate, Briefcase, FileText, Bot, 
   PlayCircle, Search, MonitorSmartphone
 } from 'lucide-react';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
+import SEOHead from '@/components/shared/SEOHead';
 
 export default function NTABrandBook() {
   // 10 Principles
@@ -57,6 +60,12 @@ export default function NTABrandBook() {
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans">
+      <SEOHead 
+        title="The NTA Brand Book™ | New Tech Advertising"
+        description="The foundation behind the NTA Operating System™ — built to help small businesses grow through education, AI, relationships, and practical systems."
+      />
+      <MarketingNav />
+
       {/* 1. Hero Section */}
       <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-slate-950 text-white">
         <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-50" />
@@ -341,6 +350,8 @@ export default function NTABrandBook() {
           </div>
         </div>
       </section>
+      
+      <SiteFooter />
     </div>
   );
 }
