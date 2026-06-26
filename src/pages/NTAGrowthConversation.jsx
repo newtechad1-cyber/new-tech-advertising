@@ -95,7 +95,7 @@ export default function NTAGrowthConversation() {
       <MarketingNav />
 
       {/* Progress Bar & Header */}
-      <div className="sticky top-[72px] md:top-[80px] left-0 w-full z-40 bg-slate-950/80 backdrop-blur-md">
+      <div className="relative z-40 bg-slate-950/80 backdrop-blur-md border-b border-slate-800">
         <div className="h-1.5 bg-slate-900 w-full">
           <motion.div 
             className="h-full bg-blue-500"
@@ -569,7 +569,7 @@ export default function NTAGrowthConversation() {
       </main>
 
       {/* Footer Navigation */}
-      <div className="fixed bottom-0 left-0 w-full p-6 md:p-8 z-40 bg-gradient-to-t from-slate-950 via-slate-950/90 to-slate-950/50 pointer-events-none pb-safe">
+      <div className="fixed bottom-0 left-0 w-full p-6 md:p-8 pt-32 z-40 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent pointer-events-none pb-safe">
         <div className="max-w-7xl mx-auto flex justify-between items-center pointer-events-auto pb-4">
           <div>
             {step > 0 && (

@@ -92,7 +92,7 @@ export default function MyGrowthJourney() {
       <MarketingNav />
 
       {/* Header */}
-      <div className="bg-slate-900/50 border-b border-slate-800/50 pt-8 pb-12 px-6 sticky top-[72px] md:top-[80px] z-30 backdrop-blur-xl">
+      <div className="bg-slate-900/50 border-b border-slate-800/50 pt-8 pb-12 px-6 relative z-30 backdrop-blur-xl">
         <div className="max-w-4xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <div className="flex items-center space-x-3 mb-4 text-blue-400">

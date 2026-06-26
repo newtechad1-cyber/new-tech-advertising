@@ -89,7 +89,7 @@ export default function NTAGrowthRoadmapGenerator() {
       <MarketingNav />
 
       {/* Header Bar */}
-      <div className="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-[72px] md:top-[80px] z-40">
+      <div className="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 relative z-40">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-blue-600/20 flex items-center justify-center border border-blue-500/30">
