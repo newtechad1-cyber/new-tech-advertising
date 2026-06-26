@@ -318,25 +318,25 @@ export default function YourDigitalGrowthGuide() {
                       {/* Input */}
                       <div className="p-4 pt-2">
                           <form onSubmit={(e) => handleSend(e)} className="relative">
-                              <Input
-                                  value={input}
-                                  onChange={(e) => setInput(e.target.value)}
-                                  placeholder="Ask a question or request guidance..."
-                                  className="w-full pr-14 pl-4 py-6 rounded-2xl border-slate-200 bg-slate-50 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:bg-white transition-all shadow-sm text-sm"
-                              />
-                              <Button
-                                  type="submit"
-                                  size="icon"
-                                  disabled={!input.trim()}
-                                  className="absolute right-2 top-2 bottom-2 h-auto w-10 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 text-white disabled:bg-slate-200 disabled:text-slate-400 shadow-md"
-                              >
-                                  <Send className="w-4 h-4" />
-                              </Button>
-                          </form>
+                            <Input
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                                placeholder="Ask a question or request guidance..."
+                                className="w-full pr-14 pl-4 py-6 rounded-2xl border-slate-200 bg-slate-50 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:bg-white transition-all shadow-sm text-sm"
+                            />
+                            <Button
+                                type="submit"
+                                size="icon"
+                                disabled={!input.trim()}
+                                className="absolute right-2 top-2 bottom-2 h-auto w-10 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 text-white disabled:bg-slate-200 disabled:text-slate-400 shadow-md"
+                            >
+                                <Send className="w-4 h-4" />
+                            </Button>
+                        </form>
                       </div>
-                      </div>
-                      </>
-                      ) : (
+                    </div>
+                </>
+            ) : (
                 <div className="flex-1 flex justify-center items-center bg-white/50">
                     <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
                 </div>
