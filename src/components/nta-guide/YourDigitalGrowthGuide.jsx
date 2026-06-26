@@ -86,44 +86,16 @@ export default function YourDigitalGrowthGuide() {
   const navigate = useNavigate();
   const dragControls = useDragControls();
 
-  // Context awareness
-  const getContextAwareHelp = () => {
-    const memory = getJourneyMemory();
-    const path = location.pathname;
-    
-    if (path.includes('/business-score')) {
-      return {
-        title: 'Business Score Context',
-        description: 'You are currently evaluating your business maturity. Be honest with your answers to get an accurate baseline.',
-        actions: ['What happens after the score?', 'How is the score calculated?']
-      };
-    }
-    
-    if (path.includes('/growth-roadmap-generator')) {
-      return {
-        title: 'Roadmap Generator',
-        description: 'This tool turns your Business Score into an actionable strategy.',
-        actions: ['Can I edit my roadmap later?', 'What if I need help executing?']
-      };
-    }
-    
-    if (path.includes('/progress')) {
-      return {
-        title: 'Progress Center',
-        description: 'You are viewing your overall momentum in the Operating System.',
-        actions: ['How do I improve my score?', 'Where should I go next?']
-      };
-    }
-    
-    // Default
-    return {
-      title: 'NTA Operating System™',
-      description: 'I am Your Digital Growth Guide™. I can help you navigate the system and understand our methodology.',
-      actions: ['What should my first step be?', 'Explain the Growth Journey', 'Resume my previous journey']
-    };
-  };
+  const quickActions = [
+    'What is the NTA Operating System™?',
+    'Run a Digital Visibility Audit™',
+    'Help me understand AI for my business',
+    'Show me the Growth Roadmap™',
+    'I’m interested in becoming a Community Partner',
+    'Schedule a Discovery Meeting'
+  ];
 
-  const contextData = getContextAwareHelp();
+  const [showKnowledgeBase, setShowKnowledgeBase] = useState(false);
 
   useEffect(() => {
     if (isOpen && authStep === 'loading') {
@@ -214,7 +186,7 @@ export default function YourDigitalGrowthGuide() {
                 <div className="hidden sm:block bg-white/90 backdrop-blur-sm border border-white/50 shadow-lg px-4 py-2 rounded-2xl pointer-events-none">
                     <p className="text-xs font-medium text-slate-700 flex items-center gap-2">
                         <img src={NTA_FAVICON} alt="NTA" className="w-4 h-4 object-contain" />
-                        Your Digital Growth Guide™
+                        The NTA Growth Guide™
                     </p>
                 </div>
                 <button
@@ -251,7 +223,7 @@ export default function YourDigitalGrowthGuide() {
                   <img src={NTA_FAVICON} alt="NTA Guide" className="w-7 h-7 object-contain" />
                 </div>
                 <div>
-                  <h3 className="text-white font-bold tracking-wide">Your Digital Growth Guide™</h3>
+                  <h3 className="text-white font-bold tracking-wide">The NTA Growth Guide™</h3>
                   <div className="flex items-center gap-1.5 mt-0.5">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.5)]"></span>
                     <span className="text-slate-300 text-xs font-medium">Ready to assist</span>
@@ -268,14 +240,6 @@ export default function YourDigitalGrowthGuide() {
 
             {authStep === 'chat' ? (
                 <>
-                    {/* Context Panel */}
-                    <div className="bg-blue-50/80 border-b border-blue-100/50 p-4">
-                        <p className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1 flex items-center gap-1">
-                            <Activity className="w-3 h-3" /> Page Context
-                        </p>
-                        <p className="text-sm text-slate-700">{contextData.description}</p>
-                    </div>
-
                     {/* Messages */}
                     <div className="flex-1 overflow-y-auto p-5 space-y-5 bg-gradient-to-b from-white/50 to-slate-50/50">
                       {isLoading && messages.length === 0 && (
@@ -288,14 +252,14 @@ export default function YourDigitalGrowthGuide() {
                         <MessageBubble key={message.id || index} message={message} />
                       ))}
                       
-                      {/* Context Actions */}
+                      {/* Quick Start Actions */}
                       {messages.length < 5 && (
                           <div className="flex flex-wrap gap-2 pt-2 pb-2">
-                              {contextData.actions.map((action, i) => (
+                              {quickActions.map((action, i) => (
                                   <button 
                                       key={i}
                                       onClick={() => handleSend(null, action)} 
-                                      className="text-xs bg-white border border-slate-200 shadow-sm text-slate-700 font-medium px-4 py-2 rounded-xl hover:border-blue-300 hover:text-blue-600 transition-colors text-left"
+                                      className="text-xs bg-white border border-slate-200 shadow-sm text-slate-700 font-medium px-3 py-1.5 rounded-xl hover:border-blue-300 hover:text-blue-600 transition-colors text-left"
                                   >
                                       {action}
                                   </button>
@@ -303,6 +267,26 @@ export default function YourDigitalGrowthGuide() {
                           </div>
                       )}
                       
+                      {/* Expandable Knowledge Base Info */}
+                      <div className="pt-2">
+                        <button 
+                          onClick={() => setShowKnowledgeBase(!showKnowledgeBase)}
+                          className="flex items-center gap-1.5 text-[11px] font-medium text-slate-400 hover:text-blue-600 transition-colors"
+                        >
+                          <Brain className="w-3 h-3" />
+                          Powered by the NTA Knowledge Base™
+                        </button>
+                        {showKnowledgeBase && (
+                          <motion.div 
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            className="mt-2 p-3 bg-blue-50/50 border border-blue-100 rounded-xl text-xs text-slate-600 leading-relaxed"
+                          >
+                            The NTA Knowledge Base™ is the living intelligence behind New Tech Advertising. It connects the Brand Book™, Operating System™, product library, partner materials, and approved messaging so every conversation reflects the same commitment to education, clarity, and sustainable growth.
+                          </motion.div>
+                        )}
+                      </div>
+
                       <div ref={messagesEndRef} />
                     </div>
 
