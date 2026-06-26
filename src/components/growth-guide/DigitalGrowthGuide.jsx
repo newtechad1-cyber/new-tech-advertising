@@ -196,6 +196,8 @@ export default function DigitalGrowthGuide() {
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef(null);
+    const scrollContainerRef = useRef(null);
+    const [autoScroll, setAutoScroll] = useState(true);
 
     // Context Generation
     useEffect(() => {
@@ -207,7 +209,7 @@ export default function DigitalGrowthGuide() {
             explanation: 'You are currently navigating the core NTA Operating System. This is your command center for accessing all digital growth and diagnostic tools.',
             related: [
                 { title: 'My Growth Journey', path: '/my-growth-journey', icon: Compass },
-                { title: 'AI Learning Center', path: '/ai-learning-center', icon: BookOpen }
+                { title: 'AI Learning Center', path: '/learning-center', icon: BookOpen }
             ]
         };
         
@@ -310,11 +312,18 @@ export default function DigitalGrowthGuide() {
         return () => unsubscribe();
     }, [conversation]);
 
+    const handleScroll = () => {
+        if (!scrollContainerRef.current) return;
+        const { scrollTop, scrollHeight, clientHeight } = scrollContainerRef.current;
+        const isNearBottom = scrollHeight - scrollTop - clientHeight < 100;
+        setAutoScroll(isNearBottom);
+    };
+
     useEffect(() => {
-        if (view === 'chat') {
-            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+        if (view === 'chat' && autoScroll) {
+            messagesEndRef.current?.scrollIntoView();
         }
-    }, [messages, view]);
+    }, [messages, view, autoScroll]);
 
     const handleSend = async (e) => {
         e.preventDefault();
@@ -322,6 +331,10 @@ export default function DigitalGrowthGuide() {
 
         const text = input.trim();
         setInput('');
+        setAutoScroll(true);
+        setTimeout(() => {
+            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }, 50);
         try {
             await base44.agents.addMessage(conversation, {
                 role: "user",
@@ -466,7 +479,11 @@ export default function DigitalGrowthGuide() {
                         ) : (
                             <div className="flex-1 flex flex-col overflow-hidden bg-slate-900">
                                 {/* Chat Messages */}
-                                <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
+                                <div 
+                                    ref={scrollContainerRef}
+                                    onScroll={handleScroll}
+                                    className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar"
+                                >
                                     {isLoading && messages.length === 0 && (
                                         <div className="flex flex-col items-center justify-center h-full text-slate-400">
                                             <Loader2 className="w-6 h-6 animate-spin mb-3 text-blue-500" />

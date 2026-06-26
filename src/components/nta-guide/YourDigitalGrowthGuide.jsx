@@ -82,6 +82,8 @@ export default function YourDigitalGrowthGuide() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
+  const scrollContainerRef = useRef(null);
+  const [autoScroll, setAutoScroll] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
   const dragControls = useDragControls();
@@ -134,9 +136,18 @@ export default function YourDigitalGrowthGuide() {
       return () => unsubscribe();
   }, [conversation]);
 
+  const handleScroll = () => {
+    if (!scrollContainerRef.current) return;
+    const { scrollTop, scrollHeight, clientHeight } = scrollContainerRef.current;
+    const isNearBottom = scrollHeight - scrollTop - clientHeight < 100;
+    setAutoScroll(isNearBottom);
+  };
+
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+    if (autoScroll && messagesEndRef.current) {
+        messagesEndRef.current.scrollIntoView();
+    }
+  }, [messages, autoScroll]);
 
   const handleSend = async (e, forcedText = null) => {
     if (e) e.preventDefault();
@@ -145,6 +156,11 @@ export default function YourDigitalGrowthGuide() {
 
     if (!forcedText) setInput('');
     
+    setAutoScroll(true);
+    setTimeout(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 50);
+
     if (text === 'Resume my previous journey') {
         const memory = getJourneyMemory();
         if (memory.roadmaps && memory.roadmaps.length > 0) {
@@ -241,7 +257,11 @@ export default function YourDigitalGrowthGuide() {
             {authStep === 'chat' ? (
                 <>
                     {/* Messages */}
-                    <div className="flex-1 overflow-y-auto p-5 space-y-5 bg-gradient-to-b from-white/50 to-slate-50/50">
+                    <div 
+                      ref={scrollContainerRef}
+                      onScroll={handleScroll}
+                      className="flex-1 overflow-y-auto p-5 space-y-5 bg-gradient-to-b from-white/50 to-slate-50/50 custom-scrollbar"
+                    >
                       {isLoading && messages.length === 0 && (
                         <div className="flex flex-col items-center justify-center h-full text-slate-500">
                             <Loader2 className="w-8 h-8 animate-spin mb-3 text-blue-500" />
@@ -252,23 +272,13 @@ export default function YourDigitalGrowthGuide() {
                         <MessageBubble key={message.id || index} message={message} />
                       ))}
                       
-                      {/* Quick Start Actions */}
-                      {messages.length < 5 && (
-                          <div className="flex flex-wrap gap-2 pt-2 pb-2">
-                              {quickActions.map((action, i) => (
-                                  <button 
-                                      key={i}
-                                      onClick={() => handleSend(null, action)} 
-                                      className="text-xs bg-white border border-slate-200 shadow-sm text-slate-700 font-medium px-3 py-1.5 rounded-xl hover:border-blue-300 hover:text-blue-600 transition-colors text-left"
-                                  >
-                                      {action}
-                                  </button>
-                              ))}
-                          </div>
-                      )}
-                      
+                      <div ref={messagesEndRef} className="h-1" />
+                    </div>
+
+                    {/* Footer Area */}
+                    <div className="bg-white border-t border-slate-100 flex flex-col shrink-0">
                       {/* Expandable Knowledge Base Info */}
-                      <div className="pt-2">
+                      <div className="px-4 py-2 border-b border-slate-50">
                         <button 
                           onClick={() => setShowKnowledgeBase(!showKnowledgeBase)}
                           className="flex items-center gap-1.5 text-[11px] font-medium text-slate-400 hover:text-blue-600 transition-colors"
@@ -276,41 +286,57 @@ export default function YourDigitalGrowthGuide() {
                           <Brain className="w-3 h-3" />
                           Powered by the NTA Knowledge Base™
                         </button>
-                        {showKnowledgeBase && (
-                          <motion.div 
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            className="mt-2 p-3 bg-blue-50/50 border border-blue-100 rounded-xl text-xs text-slate-600 leading-relaxed"
-                          >
-                            The NTA Knowledge Base™ is the living intelligence behind New Tech Advertising. It connects the Brand Book™, Operating System™, product library, partner materials, and approved messaging so every conversation reflects the same commitment to education, clarity, and sustainable growth.
-                          </motion.div>
-                        )}
+                        <AnimatePresence>
+                          {showKnowledgeBase && (
+                            <motion.div 
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: 'auto' }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="mt-2 p-3 bg-blue-50/50 border border-blue-100 rounded-xl text-xs text-slate-600 leading-relaxed overflow-hidden"
+                            >
+                              The NTA Knowledge Base™ is the living intelligence behind New Tech Advertising. It connects the Brand Book™, Operating System™, product library, partner materials, and approved messaging so every conversation reflects the same commitment to education, clarity, and sustainable growth.
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
 
-                      <div ref={messagesEndRef} />
-                    </div>
+                      {/* Quick Start Actions */}
+                      {messages.length < 5 && (
+                          <div className="px-4 pt-3 flex overflow-x-auto gap-2 pb-1" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                              {quickActions.map((action, i) => (
+                                  <button 
+                                      key={i}
+                                      onClick={() => handleSend(null, action)} 
+                                      className="shrink-0 text-xs bg-slate-50 border border-slate-200 shadow-sm text-slate-700 font-medium px-3 py-1.5 rounded-xl hover:border-blue-300 hover:text-blue-600 transition-colors"
+                                  >
+                                      {action}
+                                  </button>
+                              ))}
+                          </div>
+                      )}
 
-                    {/* Input */}
-                    <div className="p-4 bg-white border-t border-slate-100">
-                        <form onSubmit={(e) => handleSend(e)} className="relative">
-                            <Input
-                                value={input}
-                                onChange={(e) => setInput(e.target.value)}
-                                placeholder="Ask a question or request guidance..."
-                                className="w-full pr-14 pl-4 py-6 rounded-2xl border-slate-200 bg-slate-50 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:bg-white transition-all shadow-sm text-sm"
-                            />
-                            <Button
-                                type="submit"
-                                size="icon"
-                                disabled={!input.trim()}
-                                className="absolute right-2 top-2 bottom-2 h-auto w-10 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 text-white disabled:bg-slate-200 disabled:text-slate-400 shadow-md"
-                            >
-                                <Send className="w-4 h-4" />
-                            </Button>
-                        </form>
-                    </div>
-                </>
-            ) : (
+                      {/* Input */}
+                      <div className="p-4 pt-2">
+                          <form onSubmit={(e) => handleSend(e)} className="relative">
+                              <Input
+                                  value={input}
+                                  onChange={(e) => setInput(e.target.value)}
+                                  placeholder="Ask a question or request guidance..."
+                                  className="w-full pr-14 pl-4 py-6 rounded-2xl border-slate-200 bg-slate-50 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:bg-white transition-all shadow-sm text-sm"
+                              />
+                              <Button
+                                  type="submit"
+                                  size="icon"
+                                  disabled={!input.trim()}
+                                  className="absolute right-2 top-2 bottom-2 h-auto w-10 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 text-white disabled:bg-slate-200 disabled:text-slate-400 shadow-md"
+                              >
+                                  <Send className="w-4 h-4" />
+                              </Button>
+                          </form>
+                      </div>
+                      </div>
+                      </>
+                      ) : (
                 <div className="flex-1 flex justify-center items-center bg-white/50">
                     <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
                 </div>
