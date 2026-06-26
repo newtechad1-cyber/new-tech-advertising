@@ -48,6 +48,7 @@ const NAV_LINKS = [
   },
   { label: 'Our Work', href: '/our-work' },
   { label: 'About Us', href: '/about' },
+  { label: 'Brand Book', href: '/brand-book' },
   { label: 'Partners', href: '/community-partner' },
   { 
     label: 'AI Learning Center', 
