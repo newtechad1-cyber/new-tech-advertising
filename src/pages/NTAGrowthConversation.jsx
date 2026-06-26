@@ -7,6 +7,8 @@ import {
 } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
 import NextStepEngine from '@/components/recommendations/NextStepEngine';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 
 export default function NTAGrowthConversation() {
   const [step, setStep] = useState(0);
@@ -85,14 +87,15 @@ export default function NTAGrowthConversation() {
   };
 
   return (
-    <div className="bg-slate-950 min-h-screen text-slate-200 font-sans overflow-hidden flex flex-col relative selection:bg-blue-500/30">
+    <div className="bg-slate-950 min-h-screen text-slate-200 font-sans flex flex-col relative selection:bg-blue-500/30">
       <SEOHead 
         title="NTA Growth Conversation™ | New Tech Advertising"
         description="An interactive guided presentation to discover your business growth path."
       />
+      <MarketingNav />
 
       {/* Progress Bar & Header */}
-      <div className="fixed top-0 left-0 w-full z-50">
+      <div className="sticky top-[72px] md:top-[80px] left-0 w-full z-40 bg-slate-950/80 backdrop-blur-md">
         <div className="h-1.5 bg-slate-900 w-full">
           <motion.div 
             className="h-full bg-blue-500"
@@ -113,7 +116,7 @@ export default function NTAGrowthConversation() {
       </div>
 
       {/* Main Content Area */}
-      <main className="flex-1 flex items-center justify-center relative px-6 mt-16 pb-24">
+      <main className="flex-1 flex items-center justify-center relative px-6 py-24 min-h-[80vh]">
         <AnimatePresence initial={false} custom={direction} mode="wait">
           <motion.div
             key={step}
@@ -566,8 +569,8 @@ export default function NTAGrowthConversation() {
       </main>
 
       {/* Footer Navigation */}
-      <div className="fixed bottom-0 left-0 w-full p-6 md:p-8 z-40 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent pointer-events-none">
-        <div className="max-w-7xl mx-auto flex justify-between items-center pointer-events-auto">
+      <div className="fixed bottom-0 left-0 w-full p-6 md:p-8 z-40 bg-gradient-to-t from-slate-950 via-slate-950/90 to-slate-950/50 pointer-events-none pb-safe">
+        <div className="max-w-7xl mx-auto flex justify-between items-center pointer-events-auto pb-4">
           <div>
             {step > 0 && (
               <button 
@@ -589,6 +592,11 @@ export default function NTAGrowthConversation() {
             )}
           </div>
         </div>
+      </div>
+      
+      {/* Hide SiteFooter under fixed bottom nav but include it for consistency if needed, or render below */}
+      <div className="relative z-10 pt-20">
+        <SiteFooter />
       </div>
     </div>
   );

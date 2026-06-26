@@ -8,6 +8,8 @@ import {
 } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
 import NextStepEngine from '@/components/recommendations/NextStepEngine';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 
 export default function NTAOperatingSystem() {
   const [activeStage, setActiveStage] = useState('Discover');
@@ -151,6 +153,7 @@ export default function NTAOperatingSystem() {
         title="NTA Operating System™ | New Tech Advertising"
         description="The visual command center of the NTA Operating System. A system for continuous growth."
       />
+      <MarketingNav />
 
       {/* Opening Screen (Hero) */}
       <section className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-12 overflow-hidden">
@@ -557,6 +560,7 @@ export default function NTAOperatingSystem() {
       </section>
       
       <NextStepEngine />
+      <SiteFooter />
     </div>
   );
 }
