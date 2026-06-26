@@ -7,6 +7,8 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import SEOHead from '@/components/shared/SEOHead';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 
 export default function BusinessJourney() {
   const navigate = useNavigate();
@@ -106,11 +108,12 @@ export default function BusinessJourney() {
   ];
 
   return (
-    <div className="bg-slate-950 min-h-screen text-slate-200 font-sans selection:bg-indigo-500/30 overflow-hidden">
+    <div className="bg-slate-950 min-h-screen text-slate-200 font-sans selection:bg-indigo-500/30 flex flex-col">
       <SEOHead 
         title="The Business Journey™ | NTA"
         description="Explore the complete customer experience from first visit to long-term client growth."
       />
+      <MarketingNav />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-6 border-b border-slate-800/50">
@@ -231,6 +234,7 @@ export default function BusinessJourney() {
         </div>
       </section>
 
+      <SiteFooter />
     </div>
   );
 }

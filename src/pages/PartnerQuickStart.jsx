@@ -7,6 +7,8 @@ import {
 } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
 import { useNavigate } from 'react-router-dom';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 
 export default function PartnerQuickStart() {
   const navigate = useNavigate();
@@ -101,11 +103,12 @@ export default function PartnerQuickStart() {
   ];
 
   return (
-    <div className="bg-slate-950 min-h-screen text-slate-200 font-sans selection:bg-indigo-500/30 pb-20">
+    <div className="bg-slate-950 min-h-screen text-slate-200 font-sans selection:bg-indigo-500/30 pb-20 flex flex-col">
       <SEOHead 
         title="Partner Quick Start™ | NTA"
         description="Learn exactly how to begin your journey as a Community Growth Advisor."
       />
+      <MarketingNav />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-16 px-6 overflow-hidden border-b border-slate-800/50">
@@ -245,6 +248,7 @@ export default function PartnerQuickStart() {
         </div>
       </section>
 
+      <SiteFooter />
     </div>
   );
 }

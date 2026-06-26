@@ -5,6 +5,8 @@ import SEOHead from '@/components/shared/SEOHead';
 import NextStepEngine from '@/components/recommendations/NextStepEngine';
 import { getJourneyMemory } from '@/lib/journeyMemory';
 import { Link } from 'react-router-dom';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 
 export default function BusinessProfile() {
   const [memory, setMemory] = useState(null);
@@ -17,10 +19,11 @@ export default function BusinessProfile() {
   const stage = memory?.businessScore?.stage || 'Getting Started';
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 selection:bg-blue-500/30">
+    <div className="min-h-screen bg-slate-950 text-slate-200 selection:bg-blue-500/30 flex flex-col">
       <SEOHead title="Business Profile™ | NTA" description="Your business profile within the NTA Operating System." />
+      <MarketingNav />
       
-      <div className="max-w-7xl mx-auto px-6 py-12">
+      <div className="max-w-7xl mx-auto px-6 py-12 pt-32 flex-1 w-full">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium mb-4">
@@ -129,6 +132,7 @@ export default function BusinessProfile() {
           </div>
         </div>
       </div>
+      <SiteFooter />
     </div>
   );
 }

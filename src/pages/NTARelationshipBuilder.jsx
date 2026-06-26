@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react';
 import NextStepEngine from '@/components/recommendations/NextStepEngine';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
+import SEOHead from '@/components/shared/SEOHead';
 import { addCompletedModule } from '@/lib/journeyMemory';
 
 export default function NTARelationshipBuilder() {
@@ -10,7 +13,8 @@ export default function NTARelationshipBuilder() {
 
   return (
     <div className="bg-slate-950 min-h-screen text-slate-200 font-sans flex flex-col">
-      <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
+      <MarketingNav />
+      <div className="flex-1 flex flex-col items-center justify-center p-6 text-center pt-32">
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">NTA Relationship Builder™</h1>
         <p className="text-xl text-slate-400 max-w-2xl mx-auto">
           Discover simple systems for managing referrals and reviews. This module helps you transform local connections into sustainable digital growth.
@@ -20,6 +24,7 @@ export default function NTARelationshipBuilder() {
         </div>
       </div>
       <NextStepEngine />
+      <SiteFooter />
     </div>
   );
 }

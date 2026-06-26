@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { Target, TrendingUp, CheckCircle, BarChart3, Users, Brain, Map } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
 import NextStepEngine from '@/components/recommendations/NextStepEngine';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 import { getJourneyMemory } from '@/lib/journeyMemory';
 
 export default function ProgressCenter() {
@@ -20,10 +22,11 @@ export default function ProgressCenter() {
   const moduleCount = memory?.completedModules?.length || 0;
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 selection:bg-blue-500/30">
+    <div className="min-h-screen bg-slate-950 text-slate-200 selection:bg-blue-500/30 flex flex-col">
       <SEOHead title="Progress Center™ | NTA" description="Track your digital growth progress." />
+      <MarketingNav />
       
-      <div className="max-w-7xl mx-auto px-6 py-12">
+      <div className="max-w-7xl mx-auto px-6 py-12 pt-32 flex-1 w-full">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-medium mb-6">
             <Target className="w-4 h-4" /> Goal Tracking
@@ -111,6 +114,7 @@ export default function ProgressCenter() {
 
         <NextStepEngine />
       </div>
+      <SiteFooter />
     </div>
   );
 }

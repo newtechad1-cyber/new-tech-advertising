@@ -7,6 +7,8 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import SEOHead from '@/components/shared/SEOHead';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 
 export default function OurStory() {
   const navigate = useNavigate();
@@ -97,11 +99,12 @@ export default function OurStory() {
   ];
 
   return (
-    <div className="bg-slate-950 min-h-screen text-slate-200 font-sans selection:bg-indigo-500/30 overflow-hidden">
+    <div className="bg-slate-950 min-h-screen text-slate-200 font-sans selection:bg-indigo-500/30 flex flex-col">
       <SEOHead 
         title="Our Story | Building My Own Business First™ | NTA"
         description="Discover how Rick Hesse became the first client of the NTA Operating System™ and how we shifted from an agency to a business growth platform."
       />
+      <MarketingNav />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-6 border-b border-slate-800/50">
@@ -245,6 +248,7 @@ export default function OurStory() {
         </div>
       </section>
 
+      <SiteFooter />
     </div>
   );
 }

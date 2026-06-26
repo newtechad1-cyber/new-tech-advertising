@@ -8,6 +8,8 @@ import {
   TrendingUp, Star, Building2, Repeat, CheckCircle2
 } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 
 const SLIDES = [
   {
@@ -172,14 +174,15 @@ export default function CommunityGrowthAdvisor() {
   };
 
   return (
-    <div className="bg-slate-950 min-h-screen text-slate-200 font-sans selection:bg-indigo-500/30 overflow-hidden flex flex-col">
+    <div className="bg-slate-950 min-h-screen text-slate-200 font-sans selection:bg-indigo-500/30 flex flex-col">
       <SEOHead 
         title="Community Growth Advisor™ | NTA"
         description="Discover your role in helping local businesses thrive within the NTA Operating System™."
       />
+      <MarketingNav />
 
       {/* Progress Bar */}
-      <div className="fixed top-0 left-0 right-0 h-1 bg-slate-900 z-50">
+      <div className="sticky top-[72px] md:top-[80px] left-0 right-0 h-1 bg-slate-900 z-40">
         <motion.div 
           className="h-full bg-indigo-500"
           initial={{ width: 0 }}
@@ -353,8 +356,8 @@ export default function CommunityGrowthAdvisor() {
       </main>
 
       {/* Fixed Footer Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-950 via-slate-950/90 to-transparent z-40">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
+      <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-950 via-slate-950/90 to-slate-950/50 z-40 pb-safe">
+        <div className="max-w-6xl mx-auto flex items-center justify-between pb-4">
           <div className="flex items-center gap-2">
             <button
               onClick={prevSlide}
@@ -386,6 +389,10 @@ export default function CommunityGrowthAdvisor() {
             )}
           </div>
         </div>
+      </div>
+
+      <div className="relative z-10 pt-20">
+        <SiteFooter />
       </div>
     </div>
   );
