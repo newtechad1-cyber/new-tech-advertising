@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useDragControls } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import { X, Send, Loader2, User, FileText, CheckCircle2, AlertCircle, Clock, Zap, ChevronRight, MessageCircle, Map, Compass, Brain, Activity } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -84,6 +84,7 @@ export default function YourDigitalGrowthGuide() {
   const messagesEndRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const dragControls = useDragControls();
 
   // Context awareness
   const getContextAwareHelp = () => {
@@ -228,13 +229,20 @@ export default function YourDigitalGrowthGuide() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            drag
+            dragControls={dragControls}
+            dragListener={false}
+            dragMomentum={false}
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             className="fixed bottom-6 right-6 z-50 w-[400px] h-[650px] max-h-[85vh] bg-white/70 backdrop-blur-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] flex flex-col overflow-hidden border border-white/50"
           >
             {/* Header */}
-            <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-5 flex items-center justify-between shadow-sm z-10 relative overflow-hidden">
+            <div 
+              onPointerDown={(e) => dragControls.start(e)}
+              className="bg-gradient-to-br from-slate-900 to-slate-800 p-5 flex items-center justify-between shadow-sm z-10 relative overflow-hidden cursor-move touch-none"
+            >
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 blur-[50px] rounded-full pointer-events-none" />
               <div className="flex items-center gap-4 relative z-10">
                 <div className="w-12 h-12 bg-slate-900 border border-slate-700 rounded-xl flex items-center justify-center shadow-inner">
@@ -277,23 +285,24 @@ export default function YourDigitalGrowthGuide() {
                       {messages.map((message, index) => (
                         <MessageBubble key={message.id || index} message={message} />
                       ))}
+                      
+                      {/* Context Actions */}
+                      {messages.length < 5 && (
+                          <div className="flex flex-wrap gap-2 pt-2 pb-2">
+                              {contextData.actions.map((action, i) => (
+                                  <button 
+                                      key={i}
+                                      onClick={() => handleSend(null, action)} 
+                                      className="text-xs bg-white border border-slate-200 shadow-sm text-slate-700 font-medium px-4 py-2 rounded-xl hover:border-blue-300 hover:text-blue-600 transition-colors text-left"
+                                  >
+                                      {action}
+                                  </button>
+                              ))}
+                          </div>
+                      )}
+                      
                       <div ref={messagesEndRef} />
                     </div>
-
-                    {/* Context Actions */}
-                    {messages.length < 5 && (
-                        <div className="px-4 pb-3 flex flex-wrap gap-2 bg-slate-50/50 pt-2">
-                            {contextData.actions.map((action, i) => (
-                                <button 
-                                    key={i}
-                                    onClick={() => handleSend(null, action)} 
-                                    className="text-xs bg-white border border-slate-200 shadow-sm text-slate-700 font-medium px-4 py-2 rounded-xl hover:border-blue-300 hover:text-blue-600 transition-colors"
-                                >
-                                    {action}
-                                </button>
-                            ))}
-                        </div>
-                    )}
 
                     {/* Input */}
                     <div className="p-4 bg-white border-t border-slate-100">
