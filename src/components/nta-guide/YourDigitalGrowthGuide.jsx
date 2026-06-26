@@ -203,13 +203,15 @@ export default function YourDigitalGrowthGuide() {
       <AnimatePresence>
         {!isOpen && (
           <motion.div
+            drag
+            dragMomentum={false}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             className="fixed bottom-8 right-6 z-50 flex flex-col items-end"
           >
             <div className="flex items-center gap-3">
-                <div className="bg-white/90 backdrop-blur-sm border border-white/50 shadow-lg px-4 py-2 rounded-2xl">
+                <div className="hidden sm:block bg-white/90 backdrop-blur-sm border border-white/50 shadow-lg px-4 py-2 rounded-2xl pointer-events-none">
                     <p className="text-xs font-medium text-slate-700 flex items-center gap-2">
                         <img src={NTA_FAVICON} alt="NTA" className="w-4 h-4 object-contain" />
                         Your Digital Growth Guide™
@@ -217,9 +219,9 @@ export default function YourDigitalGrowthGuide() {
                 </div>
                 <button
                   onClick={() => setIsOpen(true)}
-                  className="w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-105 transition-transform overflow-hidden border border-white/20 bg-slate-900"
+                  className="w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-105 transition-transform overflow-hidden border border-white/20 bg-slate-900 cursor-grab active:cursor-grabbing"
                 >
-                  <img src={NTA_FAVICON} alt="Open Guide" className="w-8 h-8 object-contain" />
+                  <img src={NTA_FAVICON} alt="Open Guide" className="w-8 h-8 object-contain pointer-events-none" />
                 </button>
             </div>
           </motion.div>

@@ -578,7 +578,7 @@ export default function NTAGrowthConversation() {
               </button>
             )}
           </div>
-          <div>
+          <div className="pr-16 md:pr-24">
             {step < totalSteps - 1 && step !== 1 && step !== 5 && step !== 8 && (
               <button 
                 onClick={nextStep}
