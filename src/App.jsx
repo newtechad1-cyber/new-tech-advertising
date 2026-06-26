@@ -140,6 +140,7 @@ const WebsiteRebuildsMasonCity = lazy(() => import('./pages/WebsiteRebuildsMason
 const WebsiteRebuildsRochesterMN = lazy(() => import('./pages/WebsiteRebuildsRochesterMN'));
 const WebsiteRebuildsAustinMN = lazy(() => import('./pages/WebsiteRebuildsAustinMN'));
 const WebsiteRebuildsAlbertLeaMN = lazy(() => import('./pages/WebsiteRebuildsAlbertLeaMN'));
+const NTABrandBook = lazy(() => import('./pages/NTABrandBook'));
 const AdminRecruitingCandidates = lazy(() => import('./pages/AdminRecruitingCandidates'));
 const AuditFurnitureMattressOutlet = lazy(() => import('./pages/AuditFurnitureMattressOutlet'));
 const CommunityPartnerProgram = lazy(() => import('./pages/CommunityPartnerProgram'));
@@ -519,6 +520,8 @@ const AuthenticatedApp = () => {
       <Route path="/social-media/rochester-mn" element={<LayoutWrapper currentPageName="SocialMediaRochesterMN"><SocialMediaRochesterMN /></LayoutWrapper>} />
       <Route path="/social-media/austin-mn" element={<LayoutWrapper currentPageName="SocialMediaAustinMN"><SocialMediaAustinMN /></LayoutWrapper>} />
       <Route path="/social-media/albert-lea-mn" element={<LayoutWrapper currentPageName="SocialMediaAlbertLeaMN"><SocialMediaAlbertLeaMN /></LayoutWrapper>} />
+      <Route path="/knowledge" element={<LayoutWrapper currentPageName="NTABrandBook"><NTABrandBook /></LayoutWrapper>} />
+      <Route path="/brand-book" element={<LayoutWrapper currentPageName="NTABrandBook"><NTABrandBook /></LayoutWrapper>} />
       <Route path="/website-rebuilds/mason-city-ia" element={<LayoutWrapper currentPageName="WebsiteRebuildsMasonCity"><WebsiteRebuildsMasonCity /></LayoutWrapper>} />
       <Route path="/website-rebuilds/rochester-mn" element={<WebsiteRebuildsRochesterMN />} />
       <Route path="/website-rebuilds/austin-mn" element={<WebsiteRebuildsAustinMN />} />
