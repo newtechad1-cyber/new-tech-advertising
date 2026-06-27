@@ -33,8 +33,6 @@ const NAV_LINKS = [
       { label: 'Seasonal Campaigns', href: '/seasonal-campaigns', desc: 'Timed marketing for peak demand' },
       { label: 'Social Media Content', href: '/social-media-content-system', desc: 'Consistent social posts done-for-you' },
       { label: 'AI Video Marketing', href: '/ai-video-marketing', desc: 'AI-produced video that builds trust' },
-      { label: 'Business Software', href: '/back-office-solutions', desc: 'Dispatch, invoicing & operations built for service businesses', divider: true },
-      { label: 'Restaurant Solutions', href: '/restaurants', desc: 'Commission-free ordering & AI marketing for local dining' },
     ],
   },
   {
@@ -42,8 +40,12 @@ const NAV_LINKS = [
     href: '/hvac-marketing-north-iowa',
     children: [
       { label: 'HVAC Marketing', href: '/hvac-marketing-north-iowa', desc: 'Heating & cooling contractors in North Iowa' },
+      { label: 'Restaurant Solutions', href: '/restaurants', desc: 'Commission-free ordering & AI marketing' },
       { label: 'Contractor Marketing', href: '/contractor-marketing-north-iowa', desc: 'Home service pros & tradespeople' },
       { label: 'Small Business Marketing', href: '/small-business-marketing-north-iowa', desc: 'Local retail, care, and service businesses' },
+      { label: 'HVAC Playbook Demo', href: '/hvac-funnel/1', desc: 'Interactive HVAC lead generation funnel', divider: true },
+      { label: 'Restaurant Playbook Demo', href: '/restaurant-demo', desc: 'Interactive restaurant marketing & ordering demo' },
+      { label: 'Back Office Solutions Demo', href: '/back-office-solutions', desc: 'Dispatch, invoicing & operations built for service businesses' },
     ],
   },
   { label: 'Our Work', href: '/our-work' },
