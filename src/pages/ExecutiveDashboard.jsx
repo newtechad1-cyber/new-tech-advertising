@@ -8,7 +8,7 @@ import {
   Send, Phone, Star, ArrowRight, BarChart3, Sparkles,
   Megaphone, MessageSquare, Settings, BookOpen, Cpu,
   Heart, Play, Pause, AlertTriangle, Eye, Search,
-  PenSquare, ExternalLink, Sun, Moon, Coffee
+  PenSquare, ExternalLink, Sun, Moon, Coffee, Network
 } from 'lucide-react';
 
 // ─────────────────────────────────────────────────
@@ -725,6 +725,42 @@ export default function ExecutiveDashboard() {
           </div>
         </div>
 
+        {/* ── KNOWLEDGE CONNECTIONS (K-002) ── */}
+        <div className="bg-slate-800/40 border border-slate-700/50 rounded-2xl p-5">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Network className="w-4 h-4 text-blue-400" />
+              <h3 className="text-sm font-semibold text-slate-300">Knowledge Connections</h3>
+            </div>
+            <Link to="/admin/knowledge-navigator" className="text-[10px] text-blue-400 hover:text-blue-300 font-mono">
+              Open Navigator →
+            </Link>
+          </div>
+          <div className="grid grid-cols-5 gap-3">
+            <div className="bg-slate-900/50 rounded-xl p-3 text-center">
+              <p className="text-lg font-black text-blue-400">—</p>
+              <p className="text-[9px] font-mono text-slate-500 uppercase mt-0.5">Total Assets</p>
+            </div>
+            <div className="bg-slate-900/50 rounded-xl p-3 text-center">
+              <p className="text-lg font-black text-emerald-400">—</p>
+              <p className="text-[9px] font-mono text-slate-500 uppercase mt-0.5">Connected</p>
+            </div>
+            <div className="bg-slate-900/50 rounded-xl p-3 text-center">
+              <p className="text-lg font-black text-amber-400">—</p>
+              <p className="text-[9px] font-mono text-slate-500 uppercase mt-0.5">Pending Review</p>
+            </div>
+            <div className="bg-slate-900/50 rounded-xl p-3 text-center">
+              <p className="text-lg font-black text-red-400">—</p>
+              <p className="text-[9px] font-mono text-slate-500 uppercase mt-0.5">Unverified</p>
+            </div>
+            <div className="bg-slate-900/50 rounded-xl p-3 text-center">
+              <p className="text-lg font-black text-cyan-400">—%</p>
+              <p className="text-[9px] font-mono text-slate-500 uppercase mt-0.5">Health Score</p>
+            </div>
+          </div>
+          <p className="text-[10px] text-slate-600 mt-2 italic">Knowledge health metrics populate once Knowledge Navigator is deployed and connections are approved.</p>
+        </div>
+
         {/* ── NAVIGATION BUTTONS ── */}
         <div className="grid grid-cols-7 gap-3">
           {[
@@ -734,7 +770,7 @@ export default function ExecutiveDashboard() {
             { label: 'Client Success', icon: Heart, link: '/admin/clients', accent: 'bg-slate-800 hover:bg-slate-700 text-slate-300' },
             { label: 'Operations', icon: Settings, link: '/admin/operations', accent: 'bg-slate-800 hover:bg-slate-700 text-slate-300' },
             { label: 'AI Lab', icon: Bot, link: '/admin/ai-lab', accent: 'bg-slate-800 hover:bg-slate-700 text-slate-300' },
-            { label: 'Knowledge Library', icon: BookOpen, link: '/admin/knowledge', accent: 'bg-slate-800 hover:bg-slate-700 text-slate-300' },
+            { label: 'Knowledge Navigator', icon: BookOpen, link: '/admin/knowledge-navigator', accent: 'bg-slate-800 hover:bg-slate-700 text-slate-300' },
           ].map((btn, i) => {
             const inner = (
               <div className={`${btn.accent} rounded-xl px-4 py-3 flex items-center justify-center gap-2 transition-colors cursor-pointer`}>
