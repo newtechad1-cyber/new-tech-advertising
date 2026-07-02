@@ -8,7 +8,7 @@ import {
   Send, Phone, Star, ArrowRight, BarChart3, Sparkles,
   Megaphone, MessageSquare, Settings, BookOpen, Cpu,
   Heart, Play, Pause, AlertTriangle, Eye, Search,
-  PenSquare, ExternalLink, Sun, Moon, Coffee, Network
+  PenSquare, ExternalLink, Sun, Moon, Coffee, Network, Brain
 } from 'lucide-react';
 
 // ─────────────────────────────────────────────────
@@ -725,6 +725,60 @@ export default function ExecutiveDashboard() {
           </div>
         </div>
 
+        {/* ── INTELLIGENCE (R0.4) ── */}
+        <div className="bg-gradient-to-r from-cyan-900/20 to-violet-900/20 border border-cyan-800/30 rounded-2xl p-5">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <Brain className="w-4 h-4 text-cyan-400" />
+              <h2 className="text-white text-sm font-bold uppercase tracking-wider">Intelligence</h2>
+            </div>
+            <div className="flex items-center gap-2">
+              <Link to="/admin/knowledge-dependencies" className="text-[10px] text-violet-400 hover:text-violet-300 font-mono">
+                Dependencies →
+              </Link>
+              <Link to="/admin/sales-intelligence" className="text-[10px] text-cyan-400 hover:text-cyan-300 font-mono">
+                Sales Intel →
+              </Link>
+            </div>
+          </div>
+          <div className="grid grid-cols-4 gap-3 mb-4">
+            <div className="bg-slate-900/60 rounded-xl p-3 text-center">
+              <p className="text-lg font-black text-cyan-400">—</p>
+              <p className="text-[9px] font-mono text-slate-500 uppercase mt-0.5">Searches Today</p>
+            </div>
+            <div className="bg-slate-900/60 rounded-xl p-3 text-center">
+              <p className="text-lg font-black text-emerald-400">—</p>
+              <p className="text-[9px] font-mono text-slate-500 uppercase mt-0.5">New Connections</p>
+            </div>
+            <div className="bg-slate-900/60 rounded-xl p-3 text-center">
+              <p className="text-lg font-black text-amber-400">—</p>
+              <p className="text-[9px] font-mono text-slate-500 uppercase mt-0.5">High-Value Assets</p>
+            </div>
+            <div className="bg-slate-900/60 rounded-xl p-3 text-center">
+              <p className="text-lg font-black text-violet-400">—%</p>
+              <p className="text-[9px] font-mono text-slate-500 uppercase mt-0.5">Knowledge Health</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-3 gap-3 mb-3">
+            <div className="bg-slate-900/40 rounded-xl p-3">
+              <p className="text-[9px] font-mono text-slate-500 uppercase mb-1">Suggested Improvements</p>
+              <p className="text-xs text-slate-400 italic">Metrics populate once searchKnowledge() is deployed.</p>
+            </div>
+            <div className="bg-slate-900/40 rounded-xl p-3">
+              <p className="text-[9px] font-mono text-slate-500 uppercase mb-1">Unused Knowledge</p>
+              <p className="text-xs text-slate-400 italic">Assets with no relationships or searches.</p>
+            </div>
+            <div className="bg-slate-900/40 rounded-xl p-3">
+              <p className="text-[9px] font-mono text-slate-500 uppercase mb-1">Dependency Alerts</p>
+              <p className="text-xs text-slate-400 italic">No active dependency alerts.</p>
+            </div>
+          </div>
+          <div className="bg-slate-900/40 rounded-xl p-3">
+            <p className="text-[9px] font-mono text-slate-500 uppercase mb-1">AI Recommendations</p>
+            <p className="text-xs text-slate-400 italic">R0.4 Intelligence Layer active. Knowledge search, capture automation, dependency tracking, and sales intelligence ready for deployment.</p>
+          </div>
+        </div>
+
         {/* ── KNOWLEDGE CONNECTIONS (K-002) ── */}
         <div className="bg-slate-800/40 border border-slate-700/50 rounded-2xl p-5">
           <div className="flex items-center justify-between mb-3">
@@ -762,7 +816,7 @@ export default function ExecutiveDashboard() {
         </div>
 
         {/* ── NAVIGATION BUTTONS ── */}
-        <div className="grid grid-cols-7 gap-3">
+        <div className="grid grid-cols-9 gap-3">
           {[
             { label: 'Run Daily Review', icon: Play, action: handleGenerateBrief, accent: 'bg-violet-600 hover:bg-violet-500 text-white' },
             { label: 'Executive Notes', icon: PenSquare, link: '#notes', accent: 'bg-slate-800 hover:bg-slate-700 text-slate-300' },
@@ -771,6 +825,8 @@ export default function ExecutiveDashboard() {
             { label: 'Operations', icon: Settings, link: '/admin/operations', accent: 'bg-slate-800 hover:bg-slate-700 text-slate-300' },
             { label: 'AI Lab', icon: Bot, link: '/admin/ai-lab', accent: 'bg-slate-800 hover:bg-slate-700 text-slate-300' },
             { label: 'Knowledge Navigator', icon: BookOpen, link: '/admin/knowledge-navigator', accent: 'bg-slate-800 hover:bg-slate-700 text-slate-300' },
+            { label: 'Sales Intel', icon: Search, link: '/admin/sales-intelligence', accent: 'bg-cyan-900/50 hover:bg-cyan-800/50 text-cyan-300 border border-cyan-800/30' },
+            { label: 'Dependencies', icon: Network, link: '/admin/knowledge-dependencies', accent: 'bg-violet-900/50 hover:bg-violet-800/50 text-violet-300 border border-violet-800/30' },
           ].map((btn, i) => {
             const inner = (
               <div className={`${btn.accent} rounded-xl px-4 py-3 flex items-center justify-center gap-2 transition-colors cursor-pointer`}>

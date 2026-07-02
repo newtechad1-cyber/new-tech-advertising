@@ -4,7 +4,7 @@
 **Series:** E-Series (Executive)  
 **Document:** E-000  
 **Status:** Foundational  
-**Version:** 1.0  
+**Version:** 1.1 — Updated Release 0.4 (Intelligence Principle added)  
 **Date:** July 2, 2026  
 **Author:** Rick Hesse — CEO
 
@@ -153,6 +153,12 @@ NTA succeeds when:
 - Systems become simpler
 - Team members become more effective
 - Every release makes the operating system stronger
+
+---
+
+## The Intelligence Principle
+
+> *Every decision should be informed by what the company already knows. The Intelligence Layer exists to make organizational knowledge available at the moment it is needed, so experience becomes a competitive advantage rather than an archive.*
 
 ---
 
