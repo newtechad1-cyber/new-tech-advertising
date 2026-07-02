@@ -1,0 +1,301 @@
+{
+  "name": "DiscoveryCall",
+  "type": "object",
+  "properties": {
+
+    // ──────────────────────────────────────
+    // References
+    // ──────────────────────────────────────
+
+    "lead_id": {
+      "type": "string",
+      "description": "Reference to SalesLead.id"
+    },
+    "audit_id": {
+      "type": "string",
+      "description": "Reference to GapAudit.id (optional — may not exist yet)"
+    },
+    "proposal_id": {
+      "type": "string",
+      "description": "Reference to NtaProposal.id (set when proposal is generated)"
+    },
+
+    // ──────────────────────────────────────
+    // Call Metadata
+    // ──────────────────────────────────────
+
+    "business_name": {
+      "type": "string",
+      "description": "Denormalized from SalesLead for quick display"
+    },
+    "contact_name": {
+      "type": "string"
+    },
+    "call_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "call_duration_minutes": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "scheduled",
+        "in_progress",
+        "completed",
+        "proposal_requested",
+        "follow_up_needed",
+        "not_ready",
+        "lost_opportunity"
+      ],
+      "default": "in_progress"
+    },
+
+    // ──────────────────────────────────────
+    // Stage 1: Welcome
+    // ──────────────────────────────────────
+
+    "s1_greeting_done": {
+      "type": "boolean",
+      "default": false,
+      "description": "Stage 1: Greeting completed"
+    },
+    "s1_expectations_set": {
+      "type": "boolean",
+      "default": false,
+      "description": "Stage 1: Expectations set"
+    },
+    "s1_no_pressure_explained": {
+      "type": "boolean",
+      "default": false,
+      "description": "Stage 1: No-pressure conversation explained"
+    },
+
+    // ──────────────────────────────────────
+    // Stage 2: Learn Their Story
+    // ──────────────────────────────────────
+
+    "s2_business_story": {
+      "type": "string",
+      "description": "Their business story"
+    },
+    "s2_ideal_customer": {
+      "type": "string",
+      "description": "Who is their ideal customer"
+    },
+    "s2_current_marketing": {
+      "type": "string",
+      "description": "What marketing are they doing now"
+    },
+    "s2_current_frustrations": {
+      "type": "string",
+      "description": "What frustrates them about their current situation"
+    },
+    "s2_current_strengths": {
+      "type": "string",
+      "description": "What is working well for them"
+    },
+
+    // ──────────────────────────────────────
+    // Stage 3: Business Goals
+    // ──────────────────────────────────────
+
+    "s3_where_want_to_be": {
+      "type": "string",
+      "description": "Where do they want to be"
+    },
+    "s3_growth_goals": {
+      "type": "string",
+      "description": "Specific growth goals"
+    },
+    "s3_hiring_plans": {
+      "type": "string",
+      "description": "Any hiring plans"
+    },
+    "s3_revenue_goals": {
+      "type": "string",
+      "description": "Revenue targets"
+    },
+    "s3_personal_goals": {
+      "type": "string",
+      "description": "Personal goals — freedom, time, etc."
+    },
+
+    // ──────────────────────────────────────
+    // Stage 4: Audit Discussion
+    // ──────────────────────────────────────
+
+    "s4_website_visibility_discussed": {
+      "type": "boolean",
+      "default": false
+    },
+    "s4_trust_signals_discussed": {
+      "type": "boolean",
+      "default": false
+    },
+    "s4_local_search_discussed": {
+      "type": "boolean",
+      "default": false
+    },
+    "s4_ai_search_discussed": {
+      "type": "boolean",
+      "default": false
+    },
+    "s4_customer_journey_discussed": {
+      "type": "boolean",
+      "default": false
+    },
+    "s4_content_depth_discussed": {
+      "type": "boolean",
+      "default": false
+    },
+    "s4_follow_up_system_discussed": {
+      "type": "boolean",
+      "default": false
+    },
+
+    // ──────────────────────────────────────
+    // Stage 5: Connect The Dots
+    // ──────────────────────────────────────
+
+    "s5_complete": {
+      "type": "boolean",
+      "default": false,
+      "description": "Connected visibility + trust + AI + journey + follow-up"
+    },
+    "s5_notes": {
+      "type": "string",
+      "description": "Notes from connecting the dots"
+    },
+
+    // ──────────────────────────────────────
+    // Stage 6: Future Vision
+    // ──────────────────────────────────────
+
+    "s6_future_vision": {
+      "type": "string",
+      "description": "What would success look like one year from now?"
+    },
+
+    // ──────────────────────────────────────
+    // Stage 7: Recommendation
+    // ──────────────────────────────────────
+
+    "s7_recommendation": {
+      "type": "string",
+      "enum": [
+        "growth_conversation",
+        "growth_roadmap",
+        "starter_visibility_fix",
+        "relationship_builder",
+        "full_operating_system",
+        "custom_plan"
+      ],
+      "description": "Recommended next step from the discovery conversation"
+    },
+    "s7_recommendation_reason": {
+      "type": "string",
+      "description": "Why this recommendation was made"
+    },
+
+    // ──────────────────────────────────────
+    // Stage 8: Questions
+    // ──────────────────────────────────────
+
+    "s8_objections": {
+      "type": "string",
+      "description": "Objections raised"
+    },
+    "s8_concerns": {
+      "type": "string",
+      "description": "Concerns expressed"
+    },
+    "s8_opportunities": {
+      "type": "string",
+      "description": "Opportunities identified"
+    },
+
+    // ──────────────────────────────────────
+    // Stage 9: Close
+    // ──────────────────────────────────────
+
+    "s9_outcome": {
+      "type": "string",
+      "enum": [
+        "proposal_requested",
+        "follow_up_needed",
+        "not_ready",
+        "lost_opportunity"
+      ],
+      "description": "Final call outcome"
+    },
+    "s9_follow_up_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When to follow up (if follow_up_needed)"
+    },
+
+    // ──────────────────────────────────────
+    // AI & Summary
+    // ──────────────────────────────────────
+
+    "ai_live_notes": {
+      "type": "string",
+      "description": "AI-generated live notes during the call"
+    },
+    "ai_summary": {
+      "type": "string",
+      "description": "AI-generated call summary (on completion)"
+    },
+    "ai_suggested_services": {
+      "type": "string",
+      "description": "AI-recommended services based on conversation"
+    },
+    "ai_suggested_follow_up": {
+      "type": "string",
+      "description": "AI-suggested follow-up actions"
+    },
+    "ai_recommended_proposal": {
+      "type": "string",
+      "description": "AI-recommended proposal type and scope"
+    },
+
+    // ──────────────────────────────────────
+    // Future: Voice Transcription
+    // ──────────────────────────────────────
+
+    "transcript_source": {
+      "type": "string",
+      "enum": [
+        "manual",
+        "heygen",
+        "google_meet",
+        "phone",
+        "other"
+      ],
+      "default": "manual",
+      "description": "Future: where the transcript came from"
+    },
+    "transcript_raw": {
+      "type": "string",
+      "description": "Future: raw transcript text"
+    },
+
+    // ──────────────────────────────────────
+    // Internal
+    // ──────────────────────────────────────
+
+    "internal_notes": {
+      "type": "string",
+      "description": "Rick's private notes"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "lead_id"
+  ]
+}
