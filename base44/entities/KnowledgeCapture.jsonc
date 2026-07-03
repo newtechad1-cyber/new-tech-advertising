@@ -1,0 +1,245 @@
+{
+  // K-001 Knowledge Assetization System
+  // Entity: KnowledgeCapture
+  // Department: 90 Knowledge Library
+  // Version: v1.1 — Release 0.4 (A-006 Knowledge Capture Automation)
+  //
+  // Purpose: Captures Rick's ideas, lessons, frameworks, sales insights,
+  // client observations, wisdom, and OS improvements — turning them into
+  // reusable NTA intellectual property.
+  //
+  // NOT a notes app. This is the system that turns thinking into company assets.
+  //
+  // R0.4 additions: Automation trigger tracking, AI suggestions for cross-links,
+  // content derivatives, and knowledge domain classification.
+
+  "name": "KnowledgeCapture",
+  "type": "object",
+  "properties": {
+    // ── Core Capture Fields ──
+    "title": {
+      "type": "string",
+      "description": "Title of the knowledge capture (AI-generated or manual)"
+    },
+    "raw_capture": {
+      "type": "string",
+      "maxLength": 10000,
+      "description": "Original unedited capture — voice transcript, typed note, paste, etc."
+    },
+    "capture_type": {
+      "type": "string",
+      "enum": [
+        "idea",
+        "lesson",
+        "sales_insight",
+        "client_pattern",
+        "operating_principle",
+        "sop_improvement",
+        "story",
+        "framework",
+        "faq",
+        "training_note",
+        "content_seed"
+      ],
+      "description": "Type of knowledge being captured"
+    },
+    "source": {
+      "type": "string",
+      "description": "Where this came from — Slack, phone call, meeting, shower thought, etc."
+    },
+
+    // ── Classification ──
+    "department": {
+      "type": "string",
+      "enum": [
+        "00_executive_office",
+        "01_sales",
+        "02_client_success",
+        "03_content_production",
+        "04_operations",
+        "05_ai_automation",
+        "90_knowledge_library"
+      ],
+      "description": "NTA department this knowledge belongs to"
+    },
+    "knowledge_domain": {
+      "type": "string",
+      "enum": [
+        "thought_leadership",
+        "education_training",
+        "sales_intelligence",
+        "brand_creative",
+        "market_intelligence",
+        "operational_knowledge",
+        "founder_wisdom"
+      ],
+      "description": "R0.4: Primary knowledge domain classification"
+    },
+    "suggested_series": {
+      "type": "string",
+      "enum": [
+        "K-Series",
+        "E-Series",
+        "A-Series",
+        "M-Series"
+      ],
+      "description": "AI-suggested or manually assigned OS series"
+    },
+    "suggested_k_number": {
+      "type": "string",
+      "description": "Suggested asset number (e.g. K-002, E-004, A-007)"
+    },
+    "tags": {
+      "type": "string",
+      "description": "Comma-separated tags for search and organization"
+    },
+    "related_assets": {
+      "type": "string",
+      "description": "Comma-separated list of related asset IDs or names"
+    },
+
+    // ── AI-Organized Fields ──
+    "summary": {
+      "type": "string",
+      "maxLength": 2000,
+      "description": "AI-generated summary of the knowledge capture"
+    },
+    "key_idea": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "The core insight distilled to one statement"
+    },
+    "possible_uses": {
+      "type": "string",
+      "maxLength": 2000,
+      "description": "How this knowledge can be applied across NTA"
+    },
+
+    // ── R0.4: Automation Trigger Fields ──
+    "source_trigger": {
+      "type": "string",
+      "enum": [
+        "discovery_call_completed",
+        "ai_visibility_audit_completed",
+        "proposal_accepted",
+        "client_onboarding",
+        "slack_knowledge_tag",
+        "executive_note",
+        "meeting_transcript",
+        "voice_memo",
+        "manual"
+      ],
+      "default": "manual",
+      "description": "R0.4: What triggered this capture (automation source)"
+    },
+    "source_entity_type": {
+      "type": "string",
+      "description": "R0.4: Entity type that triggered this capture (e.g. DiscoveryCall, GapAudit)"
+    },
+    "source_entity_id": {
+      "type": "string",
+      "description": "R0.4: ID of the entity that triggered this capture"
+    },
+    "auto_captured": {
+      "type": "boolean",
+      "default": false,
+      "description": "R0.4: Whether this was automatically captured by the system"
+    },
+
+    // ── R0.4: AI Suggestion Fields ──
+    "ai_suggested_cross_links": {
+      "type": "string",
+      "maxLength": 2000,
+      "description": "R0.4: AI-suggested related assets for KnowledgeRelationship creation (JSON array)"
+    },
+    "ai_suggested_learning_center_lesson": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "R0.4: AI suggestion for a Learning Center lesson derived from this capture"
+    },
+    "ai_suggested_blog_post": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "R0.4: AI suggestion for a blog post derived from this capture"
+    },
+    "ai_suggested_sop": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "R0.4: AI suggestion for an SOP derived from this capture"
+    },
+    "ai_suggested_faq": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "R0.4: AI suggestion for a FAQ entry derived from this capture"
+    },
+
+    // ── Workflow ──
+    "status": {
+      "type": "string",
+      "enum": [
+        "captured",
+        "organized",
+        "drafted",
+        "needs_review",
+        "approved",
+        "archived"
+      ],
+      "default": "captured",
+      "description": "Workflow status of this knowledge capture"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium"
+    },
+    "reviewed_by": {
+      "type": "string",
+      "description": "Who reviewed/approved this asset"
+    },
+    "approved_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date this asset was approved"
+    },
+
+    // ── Source Tracking ──
+    "created_from_voice": {
+      "type": "boolean",
+      "default": false,
+      "description": "Was this captured from a voice message or transcription"
+    },
+    "created_from_file": {
+      "type": "boolean",
+      "default": false,
+      "description": "Was this captured from an uploaded file"
+    },
+    "created_from_chat": {
+      "type": "boolean",
+      "default": false,
+      "description": "Was this captured from a Slack/chat conversation"
+    },
+    "created_from_client_conversation": {
+      "type": "boolean",
+      "default": false,
+      "description": "Was this captured from a client interaction"
+    },
+
+    // ── AI Organization Output ──
+    "ai_suggested_document_type": {
+      "type": "string",
+      "description": "AI suggestion: SOP, article, framework doc, training module, etc."
+    },
+    "ai_suggested_next_action": {
+      "type": "string",
+      "description": "AI suggestion for what to do next with this capture"
+    }
+  },
+  "required": [
+    "raw_capture"
+  ]
+}

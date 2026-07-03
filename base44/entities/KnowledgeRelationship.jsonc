@@ -1,0 +1,197 @@
+{
+  "name": "KnowledgeRelationship",
+  "type": "object",
+  "description": "K-002 Knowledge Navigator — Stores directed relationships between any two knowledge assets in the NTA Operating System. The intelligence layer that connects everything.",
+  "properties": {
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "BlogPost",
+        "KnowledgeArticle",
+        "KnowledgeCapture",
+        "CaseStudy",
+        "GapAudit",
+        "DiscoveryCall",
+        "SalesKnowledgeBase",
+        "SalesAgentPrompts",
+        "SOPWorkflow",
+        "ChatbotKnowledge",
+        "BrandDNA",
+        "BrandProfile",
+        "VideoTemplate",
+        "VideoScript",
+        "AIPromptTemplates",
+        "TopicCluster",
+        "IndustryIntel",
+        "LocalMarketIntel",
+        "AuthorityMap",
+        "AuthorityPlan",
+        "ExecutiveBrief",
+        "KnowledgeGapSignal",
+        "TrainingProgressProfile",
+        "ContentTopics",
+        "ProofAsset",
+        "InsightPage",
+        "HardcodedPage",
+        "DiscoveryTool",
+        "AIAgent",
+        "ExternalDocument"
+      ],
+      "description": "Entity type of the source asset"
+    },
+    "source_id": {
+      "type": "string",
+      "description": "ID of the source asset (entity ID, page slug, or external reference)"
+    },
+    "source_label": {
+      "type": "string",
+      "description": "Human-readable label for the source asset (denormalized for display)"
+    },
+    "target_type": {
+      "type": "string",
+      "enum": [
+        "BlogPost",
+        "KnowledgeArticle",
+        "KnowledgeCapture",
+        "CaseStudy",
+        "GapAudit",
+        "DiscoveryCall",
+        "SalesKnowledgeBase",
+        "SalesAgentPrompts",
+        "SOPWorkflow",
+        "ChatbotKnowledge",
+        "BrandDNA",
+        "BrandProfile",
+        "VideoTemplate",
+        "VideoScript",
+        "AIPromptTemplates",
+        "TopicCluster",
+        "IndustryIntel",
+        "LocalMarketIntel",
+        "AuthorityMap",
+        "AuthorityPlan",
+        "ExecutiveBrief",
+        "KnowledgeGapSignal",
+        "TrainingProgressProfile",
+        "ContentTopics",
+        "ProofAsset",
+        "InsightPage",
+        "HardcodedPage",
+        "DiscoveryTool",
+        "AIAgent",
+        "ExternalDocument"
+      ],
+      "description": "Entity type of the target asset"
+    },
+    "target_id": {
+      "type": "string",
+      "description": "ID of the target asset"
+    },
+    "target_label": {
+      "type": "string",
+      "description": "Human-readable label for the target asset (denormalized for display)"
+    },
+    "relationship_type": {
+      "type": "string",
+      "enum": [
+        "supports",
+        "references",
+        "derived_from",
+        "feeds",
+        "related_to",
+        "replaces",
+        "duplicate_of",
+        "uses",
+        "required_by",
+        "generated_by",
+        "consumed_by",
+        "superseded_by",
+        "parent_of",
+        "child_of",
+        "training_source",
+        "knowledge_source"
+      ],
+      "description": "Type of relationship between source and target"
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50,
+      "description": "Confidence score for this relationship (0-100). AI-generated start at 50, human-verified at 90+."
+    },
+    "knowledge_domain": {
+      "type": "string",
+      "enum": [
+        "thought_leadership",
+        "education_training",
+        "sales_intelligence",
+        "brand_creative",
+        "market_intelligence",
+        "operational_knowledge",
+        "founder_wisdom"
+      ],
+      "description": "Primary knowledge domain this relationship belongs to"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "Human-readable description of why this relationship exists"
+    },
+    "created_by": {
+      "type": "string",
+      "enum": [
+        "ai_builder",
+        "rick",
+        "viktor",
+        "gemini",
+        "system",
+        "manual"
+      ],
+      "description": "Who or what created this relationship"
+    },
+    "created_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this relationship was created"
+    },
+    "last_verified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this relationship was last verified as still valid"
+    },
+    "ai_generated": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this relationship was suggested by AI"
+    },
+    "approved": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether Rick has approved this relationship"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "suggested",
+        "pending_review",
+        "approved",
+        "rejected",
+        "archived"
+      ],
+      "default": "suggested",
+      "description": "Workflow status of this relationship"
+    },
+    "tags": {
+      "type": "string",
+      "description": "Comma-separated tags for filtering (e.g., 'hvac,sales,priority')"
+    }
+  },
+  "required": [
+    "source_type",
+    "source_id",
+    "target_type",
+    "target_id",
+    "relationship_type"
+  ]
+}
