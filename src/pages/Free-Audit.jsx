@@ -45,6 +45,9 @@ export default function FreeAudit() {
     name: '', email: '', phone: '', business_name: '',
     website: '', industry: '',
   });
+  // Anti-spam: honeypot + page-load timestamp
+  const [_hp, setHp] = useState('');
+  const [pageLoadTs] = useState(() => Date.now());
 
   const set = (field, value) => setForm(prev => ({ ...prev, [field]: value }));
 
@@ -94,7 +97,9 @@ export default function FreeAudit() {
           industry: form.industry,
           service_interest: '',
           notes: 'Requested free marketing audit',
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
+          _hp,
+          _ts: pageLoadTs,
         })
       }).catch(err => console.log('Webhook failed:', err));
 
@@ -234,6 +239,11 @@ export default function FreeAudit() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <h2 className="text-2xl font-black text-slate-900 mb-6">Request Your Free Audit</h2>
+                {/* Anti-spam honeypot — hidden from real users */}
+                <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
+                  <label htmlFor="company_url">Company URL</label>
+                  <input id="company_url" name="company_url" type="text" tabIndex={-1} autoComplete="off" value={_hp} onChange={e => setHp(e.target.value)} />
+                </div>
                 
                 <div className="space-y-1.5">
                   <Label className="text-slate-700 text-sm font-semibold">Full Name <span className="text-red-500">*</span></Label>

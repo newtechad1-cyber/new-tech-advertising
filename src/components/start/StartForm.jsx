@@ -46,6 +46,9 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
   const [showExtra, setShowExtra] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
+  // Anti-spam: honeypot + page-load timestamp
+  const [_hp, setHp] = useState('');
+  const [pageLoadTs] = useState(() => Date.now());
 
   const [form, setForm] = useState({
     // Step 1
@@ -219,7 +222,9 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
           industry: form.industry,
           service_interest: form.primary_goal,
           notes: form.notes,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
+          _hp,
+          _ts: pageLoadTs,
         })
       }).catch(err => console.log('Webhook failed:', err));
 
@@ -254,6 +259,11 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
       </div>
 
       <form onSubmit={handleSubmit}>
+        {/* Anti-spam honeypot — hidden from real users */}
+        <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
+          <label htmlFor="company_url">Company URL</label>
+          <input id="company_url" name="company_url" type="text" tabIndex={-1} autoComplete="off" value={_hp} onChange={e => setHp(e.target.value)} />
+        </div>
         {/* ── STEP 1 ─────────────────────────────────── */}
         {step === 1 && (
           <div className="space-y-5">

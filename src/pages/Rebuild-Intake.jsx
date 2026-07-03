@@ -35,6 +35,9 @@ export default function RebuildIntake() {
     service_type: 'ada_rebuild', page_count: '1–10',
     notes: '',
   });
+  // Anti-spam: honeypot + page-load timestamp
+  const [_hp, setHp] = useState('');
+  const [pageLoadTs] = useState(() => Date.now());
 
   const set = (field, value) => setForm(prev => ({ ...prev, [field]: value }));
 
@@ -113,7 +116,9 @@ export default function RebuildIntake() {
           industry: form.industry,
           service_interest: form.service_type,
           notes: `Pages: ${form.page_count} | ${form.notes}`,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
+          _hp,
+          _ts: pageLoadTs,
         })
       }).catch(err => console.log('Webhook failed:', err));
 
@@ -239,6 +244,11 @@ export default function RebuildIntake() {
 
           {/* Right: Form */}
           <form onSubmit={handleSubmit} className="bg-white border border-slate-200 rounded-2xl p-8 space-y-5 shadow-sm">
+            {/* Anti-spam honeypot — hidden from real users */}
+            <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
+              <label htmlFor="company_url">Company URL</label>
+              <input id="company_url" name="company_url" type="text" tabIndex={-1} autoComplete="off" value={_hp} onChange={e => setHp(e.target.value)} />
+            </div>
             <h2 className="text-slate-900 font-bold text-lg">Tell Us About Your Project</h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
