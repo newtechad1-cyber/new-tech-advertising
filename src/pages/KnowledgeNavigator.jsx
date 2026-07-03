@@ -932,9 +932,9 @@ export default function KnowledgeNavigator() {
                 {selectedAsset && (
                   <RecommendationPanel
                     contextType="knowledge"
-                    contextDescription={`Viewing knowledge asset: "${selectedAsset.title || selectedAsset.name || 'Untitled'}". Domain: ${selectedAsset._domain || 'unknown'}. Looking for related knowledge and connections.`}
-                    currentAssetType={selectedAsset._type || ''}
-                    currentAssetId={selectedAsset.id || selectedAsset._id || ''}
+                    contextDescription={`Viewing knowledge asset: "${selectedAsset.title || selectedAsset.name || 'Untitled'}". Domain: ${selectedAsset.domain || 'unknown'}. Looking for related knowledge and connections.`}
+                    currentAssetType={selectedAsset.type || ''}
+                    currentAssetId={selectedAsset.id || ''}
                     maxResults={5}
                     compact={true}
                   />
