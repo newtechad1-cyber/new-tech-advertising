@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 export default function NewsletterFooterSection() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('idle'); // idle, loading, success, error
+  // Anti-spam: honeypot + page-load timestamp
+  const [_hp, setHp] = useState('');
+  const [pageLoadTs] = useState(() => Date.now());
 
   useEffect(() => {
     if (localStorage.getItem('nta_newsletter_subscribed')) {
@@ -22,7 +25,7 @@ export default function NewsletterFooterSection() {
       const response = await fetch('https://grateful-lynx-44.convex.site/api/webhook/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: '', email, source: 'Website Newsletter Footer' })
+        body: JSON.stringify({ name: '', email, source: 'Website Newsletter Footer', _hp, _ts: pageLoadTs })
       });
 
       if (response.ok) {
@@ -53,6 +56,11 @@ export default function NewsletterFooterSection() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row">
+              {/* Anti-spam honeypot — hidden from real users */}
+              <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
+                <label htmlFor="ft_company_url">Company URL</label>
+                <input id="ft_company_url" name="company_url" type="text" tabIndex={-1} autoComplete="off" value={_hp} onChange={e => setHp(e.target.value)} />
+              </div>
               <input
                 type="email"
                 value={email}
