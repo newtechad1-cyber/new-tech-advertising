@@ -15,8 +15,21 @@
 | 0.1 | Sales Engine | Released | `main` | — | — | 2026-06 | Viktor | Initial platform: Gap Audit, Proposals, CRM, Blog Engine, Learning Center, Video Integration |
 | 0.2 | Knowledge Engine | Released | `feature/r002-knowledge-engine` | PR #6 (superseded by #7) | — | 2026-07 | Viktor | K-001 Knowledge Capture, Knowledge Review Queue, Discovery Call Workspace (E-003), Executive Dashboard (M-001) |
 | 0.3 | Knowledge Navigator | Released | `feature/r003-knowledge-navigator` | — (included in #7) | — | 2026-07 | Viktor | K-002 Knowledge Navigator, Knowledge Relationships, E-000 Operating System Constitution |
-| 0.4 | Intelligence Layer | Pending Merge | `feature/r004-intelligence-layer` | PR #7 (consolidated) | — | — | Viktor | K-003 Knowledge Search API, A-006 Knowledge Capture Automation, E-004 Sales Intelligence, Knowledge Dependency Map, Release Notes Template, I-000 Intelligence Framework (architecture spec for R0.5), R-000 Release Governance, R-001 Release Registry |
-| 0.5 | Intelligence Automation | Planned | — | — | — | — | Viktor | I-001 through I-006 (planned) — governed by I-000 (delivered in R0.4) |
+| 0.4 | Intelligence Layer | Released | `feature/r004-intelligence-layer` | PR #7 (merged) | `v0.4.0` | 2026-07-03 | Viktor | K-003 Knowledge Search API, A-006 Knowledge Capture Automation, E-004 Sales Intelligence, Knowledge Dependency Map, Release Notes Template, I-000 Intelligence Framework, R-000 Release Governance, R-001 Release Registry. First governance-validated release. |
+| 0.5 | Intelligence Automation | In Progress | — | — | — | — | Viktor | I-001 through I-006 — governed by I-000 (delivered in R0.4) |
+
+---
+
+## R0.5 Build Tracker
+
+| Build | Module | Status | PR | Merge Commit | Date | Notes |
+|-------|--------|--------|-----|-------------|------|-------|
+| Build 1 | I-001 Recommendation Engine v1.0 | Merged | PR #8 | `a1b5adae` | 2026-07-03 | First intelligence module. generateRecommendations function + RecommendationPanel component. 4 workspace integrations. QA passed (3 fixes applied). CEO approved. |
+| Build 2 | I-002 Business Pattern Recognition | Planned | — | — | — | — |
+| Build 3 | I-003 Executive Daily Briefing | Planned | — | — | — | — |
+| Build 4 | I-004 Client Intelligence Timeline | Planned | — | — | — | — |
+| Build 5 | I-005 AI Mentor | Planned | — | — | — | — |
+| Build 6 | I-006 Knowledge Health Score | Planned | — | — | — | — |
 
 ---
 
@@ -25,13 +38,13 @@
 | Metric | Value |
 |--------|-------|
 | Total Releases | 5 |
-| Released | 3 |
-| Pending Merge | 1 |
-| Planned | 1 |
+| Released | 4 |
+| In Progress | 1 |
+| Planned | 0 |
 | Total Entities | 15+ |
-| Total Functions | 20+ |
+| Total Functions | 21+ |
 | Total Pages | 25+ |
-| Total Documents | 6 |
+| Total Documents | 7 |
 
 ---
 
@@ -41,8 +54,9 @@
 2026-06     R0.1 Sales Engine ...................... Released
 2026-07     R0.2 Knowledge Engine .................. Released
 2026-07     R0.3 Knowledge Navigator ............... Released
-2026-07     R0.4 Intelligence Layer ................ Pending Merge (PR #7)
-TBD         R0.5 Intelligence Automation ........... Planned
+2026-07-03  R0.4 Intelligence Layer ................ Released (v0.4.0)
+2026-07-03  R0.5 Build 1 — I-001 Recommendation ... Merged (in progress)
+TBD         R0.5 Intelligence Automation ........... In Progress
 TBD         R1.0 Production Release ................ Future
 ```
 
@@ -60,8 +74,8 @@ TBD         R1.0 Production Release ................ Future
 
 | PR | Original Title | Superseded By | Status |
 |----|---------------|--------------|--------|
-| #5 | feat: E-003 Discovery Call Workspace + M-001 Executive Dashboard | PR #7 | Open — close after #7 review |
-| #6 | feat: Release 0.2 — K-001 Knowledge Engine + Dashboard Updates | PR #7 | Open — close after #7 review |
+| #5 | feat: E-003 Discovery Call Workspace + M-001 Executive Dashboard | PR #7 | Closed |
+| #6 | feat: Release 0.2 — K-001 Knowledge Engine + Dashboard Updates | PR #7 | Closed |
 
 ---
 
@@ -70,9 +84,9 @@ TBD         R1.0 Production Release ................ Future
 | Status | Meaning |
 |--------|---------|
 | Released | Merged to `main`, tagged, deployed or ready to deploy |
+| In Progress | Engineering actively building |
 | Pending Merge | Code committed, PR open, awaiting review and CEO approval |
 | Planned | Specification exists, engineering not started |
-| In Progress | Engineering actively building |
 | Rolled Back | Was released but reverted due to issues |
 
 ---
