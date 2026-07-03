@@ -7,7 +7,7 @@
 **Owner:** CEO  
 **Implementation:** Viktor (Lead Systems Builder)  
 **QA:** Gemini  
-**Effective:** Release 0.5 forward  
+**Effective:** Release 0.4 forward  
 
 ---
 

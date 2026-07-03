@@ -2,12 +2,15 @@
 
 ## NTA Operating System
 
-**Release:** 0.5 — Intelligence Automation  
+**Authored:** Release 0.4 — Intelligence Layer  
+**Governs:** Release 0.5 forward — all I-Series modules (I-001 through I-006)  
 **Status:** Engineering Specification  
 **Owner:** COO / Systems Architecture  
 **Implementation:** Viktor  
 **QA:** Gemini  
 **Approval:** CEO  
+
+> *I-000 was delivered as a foundational architecture document during Release 0.4. It serves as the governing specification for Release 0.5 (Intelligence Automation) and all future I-Series modules.*  
 
 ---
 

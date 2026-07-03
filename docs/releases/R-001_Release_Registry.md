@@ -15,8 +15,8 @@
 | 0.1 | Sales Engine | Released | `main` | — | — | 2026-06 | Viktor | Initial platform: Gap Audit, Proposals, CRM, Blog Engine, Learning Center, Video Integration |
 | 0.2 | Knowledge Engine | Released | `feature/r002-knowledge-engine` | PR #6 (superseded by #7) | — | 2026-07 | Viktor | K-001 Knowledge Capture, Knowledge Review Queue, Discovery Call Workspace (E-003), Executive Dashboard (M-001) |
 | 0.3 | Knowledge Navigator | Released | `feature/r003-knowledge-navigator` | — (included in #7) | — | 2026-07 | Viktor | K-002 Knowledge Navigator, Knowledge Relationships, E-000 Operating System Constitution |
-| 0.4 | Intelligence Layer | Pending Merge | `feature/r004-intelligence-layer` | PR #7 (consolidated) | — | — | Viktor | K-003 Knowledge Search API, A-006 Knowledge Capture Automation, E-004 Sales Intelligence, Knowledge Dependency Map, Release Notes Template |
-| 0.5 | Intelligence Automation | Planned | — | — | — | — | Viktor | I-000 Intelligence Framework (committed), I-001 through I-006 (planned), R-000 Release Governance |
+| 0.4 | Intelligence Layer | Pending Merge | `feature/r004-intelligence-layer` | PR #7 (consolidated) | — | — | Viktor | K-003 Knowledge Search API, A-006 Knowledge Capture Automation, E-004 Sales Intelligence, Knowledge Dependency Map, Release Notes Template, I-000 Intelligence Framework (architecture spec for R0.5), R-000 Release Governance, R-001 Release Registry |
+| 0.5 | Intelligence Automation | Planned | — | — | — | — | Viktor | I-001 through I-006 (planned) — governed by I-000 (delivered in R0.4) |
 
 ---
 
@@ -86,6 +86,12 @@ TBD         R1.0 Production Release ................ Future
 | 1.0 | Production Release — full Operating System |
 
 *Reservations are tentative and may be reassigned by the CEO.*
+
+---
+
+## Pre-Governance Note
+
+Releases 0.1, 0.2, and 0.3 predate R-000 Release Governance (effective R0.4 forward). These releases are grandfathered and exempt from Git tag, PR template, and release notes requirements established by R-000. Git tags may be backfilled retroactively at the CEO's discretion.
 
 ---
 
