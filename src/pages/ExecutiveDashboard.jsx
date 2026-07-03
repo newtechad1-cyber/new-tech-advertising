@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import RecommendationPanel from '@/components/RecommendationPanel';
+import BusinessPatternPanel from '@/components/BusinessPatternPanel';
 import {
   Activity, TrendingUp, Users, Calendar, Briefcase, Zap,
   FileText, ChevronRight, Target, Bot, Shield, Globe,
@@ -774,6 +775,13 @@ export default function ExecutiveDashboard() {
               <p className="text-xs text-slate-400 italic">No active dependency alerts.</p>
             </div>
           </div>
+          {/* I-002 Business Pattern Panel — executive view */}
+          <BusinessPatternPanel
+            industry="digital advertising"
+            businessType="agency"
+            contextDescription="Executive overview. Show cross-client patterns, industry trends, and strategic insights across the NTA portfolio."
+            compact={true}
+          />
           {/* I-001 Recommendation Panel — replaces static placeholder */}
           <RecommendationPanel
             contextType="executive"
