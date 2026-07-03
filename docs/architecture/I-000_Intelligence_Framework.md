@@ -266,6 +266,38 @@ Future intelligence modules must conform to this framework to ensure consistent 
 
 ---
 
+## Governance Dependencies
+
+The Intelligence Framework operates within the governance structure of the NTA Operating System. All intelligence modules must comply with these governing documents:
+
+### E-000 Operating System Constitution
+- Defines the mission, principles, and build method for the entire Operating System.
+- Intelligence modules must align with the Constitution's stated purpose and values.
+- AI team roles (Viktor, Gemini) and CEO authority are defined here.
+- **Path:** `docs/E-000_NTA_Operating_System_Constitution.md`
+
+### R-000 Release Governance
+- Defines the release lifecycle, branch strategy, PR policy, and merge requirements.
+- Every intelligence module release must follow R-000 procedures.
+- QA, CEO approval, and Release Verification Checklist are mandatory.
+- **Path:** `docs/governance/R-000_Release_Governance.md`
+
+### R-001 Release Registry
+- The historical record of all Operating System releases.
+- Every intelligence module release must be registered here.
+- Version numbers, release names, and status are tracked permanently.
+- **Path:** `docs/releases/R-001_Release_Registry.md`
+
+### Compliance Rule
+
+No intelligence module (I-001 through I-006) may be merged to `main` without:
+1. Conforming to I-000 (this document) for architectural requirements.
+2. Following R-000 for release governance.
+3. Being recorded in R-001 as part of its parent release.
+4. Respecting E-000 for organizational authority and AI team roles.
+
+---
+
 ## Engineering Requirements
 
 Every intelligence module shall:
