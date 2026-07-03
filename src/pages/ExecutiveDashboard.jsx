@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
+import RecommendationPanel from '@/components/RecommendationPanel';
 import {
   Activity, TrendingUp, Users, Calendar, Briefcase, Zap,
   FileText, ChevronRight, Target, Bot, Shield, Globe,
@@ -773,10 +774,13 @@ export default function ExecutiveDashboard() {
               <p className="text-xs text-slate-400 italic">No active dependency alerts.</p>
             </div>
           </div>
-          <div className="bg-slate-900/40 rounded-xl p-3">
-            <p className="text-[9px] font-mono text-slate-500 uppercase mb-1">AI Recommendations</p>
-            <p className="text-xs text-slate-400 italic">R0.4 Intelligence Layer active. Knowledge search, capture automation, dependency tracking, and sales intelligence ready for deployment.</p>
-          </div>
+          {/* I-001 Recommendation Panel — replaces static placeholder */}
+          <RecommendationPanel
+            contextType="executive"
+            contextDescription="Executive morning brief. Show high-priority knowledge, recent captures, strategic insights, and operational recommendations for the CEO."
+            maxResults={5}
+            compact={true}
+          />
         </div>
 
         {/* ── KNOWLEDGE CONNECTIONS (K-002) ── */}

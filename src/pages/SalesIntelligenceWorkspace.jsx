@@ -22,6 +22,7 @@ import {
   Zap, Star, Clock, CheckCircle2, AlertCircle, Network,
   Briefcase, Video, PenSquare, Bot
 } from 'lucide-react';
+import RecommendationPanel from '@/components/RecommendationPanel';
 
 // ─────────────────────────────────────────────
 // Constants
@@ -400,6 +401,18 @@ export default function SalesIntelligenceWorkspace() {
                   </div>
                 )}
               </div>
+            )}
+
+            {/* I-001 Recommendation Panel */}
+            {lead && (
+              <RecommendationPanel
+                contextType="sales"
+                contextDescription={`Sales preparation for ${lead.business_name || 'prospect'}. Industry: ${lead.industry || 'unknown'}. Location: ${[lead.city, lead.state].filter(Boolean).join(', ') || 'unknown'}.`}
+                businessType={lead.industry || ''}
+                leadId={selectedLeadId || leadId || ''}
+                maxResults={5}
+                className="mt-6"
+              />
             )}
 
             {/* AI Suggestions Footer */}

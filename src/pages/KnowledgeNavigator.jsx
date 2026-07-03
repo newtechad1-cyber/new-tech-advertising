@@ -10,6 +10,7 @@ import {
   Database, Layers, GitBranch, Star, TrendingUp, Coffee,
   Bot, Brain, Cpu, Workflow, BookMarked, Compass
 } from 'lucide-react';
+import RecommendationPanel from '@/components/RecommendationPanel';
 
 // ─────────────────────────────────────────────────
 // Constants
@@ -917,15 +918,27 @@ export default function KnowledgeNavigator() {
               />
             </div>
 
-            {/* RIGHT — Relationships */}
-            <div className="w-80 flex-shrink-0">
-              <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-3 sticky top-20 max-h-[calc(100vh-100px)] overflow-y-auto">
+            {/* RIGHT — Relationships + Recommendations */}
+            <div className="w-80 flex-shrink-0 space-y-3">
+              <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-3 sticky top-20 max-h-[calc(100vh-100px)] overflow-y-auto space-y-3">
                 <RelationshipPanel
                   asset={selectedAsset}
                   relationships={relationships}
                   onApprove={approveRelationship}
                   onReject={rejectRelationship}
                 />
+
+                {/* I-001 Recommendation Panel */}
+                {selectedAsset && (
+                  <RecommendationPanel
+                    contextType="knowledge"
+                    contextDescription={`Viewing knowledge asset: "${selectedAsset.title || selectedAsset.name || 'Untitled'}". Domain: ${selectedAsset._domain || 'unknown'}. Looking for related knowledge and connections.`}
+                    currentAssetType={selectedAsset._type || ''}
+                    currentAssetId={selectedAsset.id || selectedAsset._id || ''}
+                    maxResults={5}
+                    compact={true}
+                  />
+                )}
               </div>
             </div>
           </div>

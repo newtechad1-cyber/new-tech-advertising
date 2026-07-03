@@ -8,6 +8,7 @@ import {
   AlertCircle, Star, TrendingUp, Users, Calendar, RefreshCw,
   Zap, Eye, Search, Sparkles, ClipboardCheck, ArrowRight
 } from 'lucide-react';
+import RecommendationPanel from '@/components/RecommendationPanel';
 
 // ─────────────────────────────────────────────────
 // Constants
@@ -379,6 +380,16 @@ function RightPanel({ call, onUpdateCall, lead, audit }) {
           <p className="text-white text-sm font-semibold">{audit.recommended_system_step.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</p>
         </div>
       )}
+
+      {/* I-001 Recommendation Panel */}
+      <RecommendationPanel
+        contextType="discovery"
+        contextDescription={`Discovery call with ${lead?.business_name || 'prospect'}. Industry: ${lead?.industry || 'unknown'}. Preparing questions and knowledge for the conversation.`}
+        businessType={lead?.industry || ''}
+        leadId={call?.lead_id || ''}
+        maxResults={5}
+        compact={true}
+      />
     </div>
   );
 }
