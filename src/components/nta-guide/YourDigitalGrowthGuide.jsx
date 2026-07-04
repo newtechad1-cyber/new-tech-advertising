@@ -130,7 +130,14 @@ export default function YourDigitalGrowthGuide() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const scrollContainerRef = useRef(null);
+  const quickActionsRef = useRef(null);
   const [autoScroll, setAutoScroll] = useState(true);
+
+  const scrollQuickActions = (dir) => {
+    if (quickActionsRef.current) {
+      quickActionsRef.current.scrollBy({ left: dir === 'left' ? -200 : 200, behavior: 'smooth' });
+    }
+  };
   const location = useLocation();
   const navigate = useNavigate();
   const dragControls = useDragControls();
@@ -349,16 +356,38 @@ export default function YourDigitalGrowthGuide() {
 
                       {/* Quick Start Actions */}
                       {messages.length < 5 && (
-                          <div className="px-4 pt-3 flex overflow-x-auto gap-2 pb-1" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-                              {quickActions.map((action, i) => (
-                                  <button 
-                                      key={i}
-                                      onClick={() => handleSend(null, action)} 
-                                      className="shrink-0 text-xs bg-slate-800 border border-slate-700 shadow-sm text-slate-300 font-medium px-3 py-1.5 rounded-xl hover:border-blue-500/50 hover:bg-slate-700 hover:text-white transition-colors"
-                                  >
-                                      {action}
-                                  </button>
-                              ))}
+                          <div className="relative pt-3 pb-1 flex items-center group">
+                              <button 
+                                type="button"
+                                onClick={() => scrollQuickActions('left')}
+                                className="absolute left-0 z-10 h-full pl-2 pr-6 flex items-center bg-gradient-to-r from-slate-900 via-slate-900/90 to-transparent text-slate-400 hover:text-white opacity-0 md:group-hover:opacity-100 transition-opacity pointer-events-none md:pointer-events-auto"
+                              >
+                                <ChevronRight className="w-5 h-5 rotate-180" />
+                              </button>
+                              
+                              <div 
+                                  ref={quickActionsRef}
+                                  className="px-4 flex overflow-x-auto gap-2 w-full scroll-smooth" 
+                                  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                              >
+                                  {quickActions.map((action, i) => (
+                                      <button 
+                                          key={i}
+                                          onClick={() => handleSend(null, action)} 
+                                          className="shrink-0 text-xs bg-slate-800 border border-slate-700 shadow-sm text-slate-300 font-medium px-3 py-1.5 rounded-xl hover:border-blue-500/50 hover:bg-slate-700 hover:text-white transition-colors"
+                                      >
+                                          {action}
+                                      </button>
+                                  ))}
+                              </div>
+
+                              <button 
+                                type="button"
+                                onClick={() => scrollQuickActions('right')}
+                                className="absolute right-0 z-10 h-full pr-2 pl-6 flex items-center bg-gradient-to-l from-slate-900 via-slate-900/90 to-transparent text-slate-400 hover:text-white opacity-0 md:group-hover:opacity-100 transition-opacity pointer-events-none md:pointer-events-auto"
+                              >
+                                <ChevronRight className="w-5 h-5" />
+                              </button>
                           </div>
                       )}
 
