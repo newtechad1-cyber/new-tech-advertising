@@ -72,6 +72,7 @@ export const PAGE_KEY_PREFIX_RULES = [
   { prefix: 'Deal',                  access: 'noindex' },      // DealRoom pages — semi-public but noindex
   { prefix: 'Proposal',              access: 'admin_only' },
   { prefix: 'Content',               access: 'admin_only' },
+  { prefix: 'Publishing',            access: 'admin_only' },
   { prefix: 'Streaming',             access: 'noindex' },      // Streaming intake/onboarding
   { prefix: 'DIY',                   access: 'client_only' },
   { prefix: 'Contributor',           access: 'auth_required' },
@@ -143,6 +144,8 @@ export const PUBLIC_PAGE_KEYS = new Set([
   'what-changed-online', 'AuthorityMap', 'GrowthSystem',
   // Case studies
   'CaseStudies', 'CaseStudyDetail',
+  // Journal
+  'JournalLanding', 'JournalIssueView',
   // School public pages
   'SchoolHome', 'SchoolAbout', 'SchoolEvents', 'SchoolEventDetail',
   'SchoolSpotlights', 'SchoolSpotlightDetail',
@@ -246,6 +249,8 @@ export const ROUTE_OVERRIDES = {
   '/start':                      'public',
   '/ai-brought-me-out-of-retirement': 'public',
   '/i-was-early-again':          'public',
+  '/journal':                    'public',
+  '/journal/:slug':              'public',
   '/what-changed-online':        'public',
   '/ai-visibility-basics':       'public',
   '/practical-ai-for-small-businesses': 'public',

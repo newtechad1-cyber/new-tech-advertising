@@ -1,0 +1,190 @@
+{
+  "name": "PublishingArticle",
+  "type": "object",
+  "description": "Master source article in the NTA Publishing Engine. One article becomes every marketing asset.",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Article headline"
+    },
+    "subtitle": {
+      "type": "string",
+      "description": "Optional subtitle or deck"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-safe slug for the website version"
+    },
+    "summary": {
+      "type": "string",
+      "description": "2-3 sentence summary for distribution and SEO"
+    },
+    "body": {
+      "type": "string",
+      "format": "markdown",
+      "description": "Full article content in markdown"
+    },
+    "author": {
+      "type": "string",
+      "default": "Rick Hesse"
+    },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "Article",
+        "Journal",
+        "Video",
+        "Learning Lesson",
+        "Case Study",
+        "Podcast",
+        "Interview",
+        "Announcement"
+      ],
+      "default": "Article"
+    },
+    "primary_theme": {
+      "type": "string",
+      "enum": [
+        "AI & Technology",
+        "Business Growth",
+        "Digital Trust",
+        "Local Marketing",
+        "Founder Wisdom",
+        "SEO & Visibility",
+        "Content Strategy",
+        "Client Success",
+        "Web Strategy",
+        "Industry Trends",
+        "NTA Philosophy",
+        "Leadership"
+      ]
+    },
+    "secondary_themes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Search keywords and tags"
+    },
+    "featured_image_url": {
+      "type": "string",
+      "description": "Primary image for the article"
+    },
+    "featured_image_prompt": {
+      "type": "string",
+      "description": "AI image generation prompt if needed"
+    },
+    "media_urls": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Additional media (images, videos)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "Review",
+        "Approved",
+        "Queued",
+        "Published",
+        "Archived"
+      ],
+      "default": "Draft"
+    },
+    "workflow_notes": {
+      "type": "string",
+      "description": "Internal notes about the article status"
+    },
+    "reviewer_notes": {
+      "type": "string",
+      "description": "Feedback from the review stage"
+    },
+    "series": {
+      "type": "string",
+      "description": "Content series this belongs to (e.g. NTA Journal, AI Explained)"
+    },
+    "canon_entry_id": {
+      "type": "string",
+      "description": "Link to Canon Library entry if applicable"
+    },
+    "related_services": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Related NTA services"
+    },
+    "related_articles": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "IDs of related PublishingArticle entries"
+    },
+    "cta_text": {
+      "type": "string",
+      "description": "Default call-to-action text"
+    },
+    "cta_url": {
+      "type": "string",
+      "description": "Default call-to-action URL"
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["Beginner", "Intermediate", "Advanced"],
+      "default": "Beginner"
+    },
+    "estimated_read_time": {
+      "type": "integer",
+      "description": "Minutes to read"
+    },
+    "default_schedule_day": {
+      "type": "string",
+      "enum": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      "default": "Monday"
+    },
+    "default_schedule_time": {
+      "type": "string",
+      "default": "07:00",
+      "description": "HH:MM format, default 07:00"
+    },
+    "publish_to_channels": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Website",
+          "Email",
+          "Facebook",
+          "LinkedIn",
+          "X",
+          "GBP",
+          "YouTube",
+          "LearningCenter",
+          "RSS",
+          "Archive"
+        ]
+      },
+      "description": "Which channels this article should be published to"
+    },
+    "created_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "updated_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "approved_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "title",
+    "content_type",
+    "status"
+  ]
+}

@@ -1,0 +1,164 @@
+{
+  "name": "YouTubeKnowledge",
+  "type": "object",
+  "description": "YouTube Knowledge Engine — connects every journal entry to YouTube with video metadata, scripts, and cross-links.",
+  "properties": {
+    "video_title": {
+      "type": "string",
+      "description": "YouTube video title"
+    },
+    "description": {
+      "type": "string",
+      "format": "markdown",
+      "description": "Full YouTube description with links, timestamps, keywords"
+    },
+    "transcript": {
+      "type": "string",
+      "format": "markdown",
+      "description": "Full video transcript"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "YouTube tags for discovery"
+    },
+    "thumbnail_url": {
+      "type": "string",
+      "description": "Thumbnail image URL"
+    },
+    "thumbnail_prompt": {
+      "type": "string",
+      "description": "AI prompt for generating the thumbnail"
+    },
+    "playlist": {
+      "type": "string",
+      "enum": [
+        "Start Here",
+        "NTA Journal",
+        "Marketing Lessons",
+        "AI Explained",
+        "Business Growth",
+        "Website Strategy",
+        "Local Business",
+        "Case Studies"
+      ],
+      "description": "YouTube playlist assignment"
+    },
+    "publish_status": {
+      "type": "string",
+      "enum": [
+        "Idea",
+        "Script Ready",
+        "Recording",
+        "Editing",
+        "Ready to Publish",
+        "Published",
+        "Archived"
+      ],
+      "default": "Idea"
+    },
+    "video_url": {
+      "type": "string",
+      "description": "Published YouTube URL"
+    },
+    "youtube_video_id": {
+      "type": "string",
+      "description": "YouTube video ID"
+    },
+    "video_script_long": {
+      "type": "string",
+      "format": "markdown",
+      "description": "Full long-form video script (5-15 min)"
+    },
+    "video_script_short": {
+      "type": "string",
+      "format": "markdown",
+      "description": "YouTube Shorts script (< 60 sec)"
+    },
+    "shorts_hook": {
+      "type": "string",
+      "description": "Opening hook for the Shorts version"
+    },
+    "related_journal_id": {
+      "type": "string",
+      "description": "FK to PublishingArticle (Journal entry)"
+    },
+    "related_journal_title": {
+      "type": "string",
+      "description": "Denormalized journal title"
+    },
+    "related_journal_url": {
+      "type": "string",
+      "description": "URL back to the journal entry on the website"
+    },
+    "related_learning_lesson_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "FKs to related Learning Lessons"
+    },
+    "related_service_slugs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Related NTA service page slugs"
+    },
+    "related_audit_id": {
+      "type": "string",
+      "description": "FK to related AI Visibility Audit / Gap Audit"
+    },
+    "related_case_study_slugs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Related case study slugs"
+    },
+    "related_canon_entry_id": {
+      "type": "string",
+      "description": "FK to CanonEntry if mapped"
+    },
+    "duration_seconds": {
+      "type": "integer",
+      "description": "Video duration in seconds"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Education",
+        "Howto & Style",
+        "Science & Technology",
+        "People & Blogs"
+      ],
+      "default": "Education"
+    },
+    "visibility": {
+      "type": "string",
+      "enum": ["Public", "Unlisted", "Private"],
+      "default": "Public"
+    },
+    "engagement_views": {
+      "type": "integer",
+      "default": 0
+    },
+    "engagement_likes": {
+      "type": "integer",
+      "default": 0
+    },
+    "engagement_comments": {
+      "type": "integer",
+      "default": 0
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "created_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "video_title",
+    "publish_status"
+  ]
+}

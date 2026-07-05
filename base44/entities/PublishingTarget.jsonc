@@ -1,0 +1,134 @@
+{
+  "name": "PublishingTarget",
+  "type": "object",
+  "description": "A channel-specific derivative of a PublishingArticle. One per channel per article.",
+  "properties": {
+    "article_id": {
+      "type": "string",
+      "description": "FK to PublishingArticle"
+    },
+    "article_title": {
+      "type": "string",
+      "description": "Denormalized title for display"
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "Website",
+        "Email",
+        "Facebook",
+        "LinkedIn",
+        "X",
+        "GBP",
+        "YouTube",
+        "LearningCenter",
+        "RSS",
+        "Archive"
+      ]
+    },
+    "adapted_title": {
+      "type": "string",
+      "description": "Channel-specific title (e.g. shorter for X, SEO-optimized for website)"
+    },
+    "adapted_body": {
+      "type": "string",
+      "format": "markdown",
+      "description": "Channel-specific content (full post for website, excerpt for social, newsletter copy for email)"
+    },
+    "adapted_summary": {
+      "type": "string",
+      "description": "Channel-specific summary/excerpt"
+    },
+    "hashtags": {
+      "type": "string",
+      "description": "Hashtags for social channels"
+    },
+    "cta_text": {
+      "type": "string"
+    },
+    "cta_url": {
+      "type": "string"
+    },
+    "media_url": {
+      "type": "string",
+      "description": "Primary media for this channel version"
+    },
+    "thumbnail_url": {
+      "type": "string",
+      "description": "Thumbnail for video/social channels"
+    },
+    "video_url": {
+      "type": "string",
+      "description": "Video URL for YouTube/video channels"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Pending",
+        "Adapted",
+        "Scheduled",
+        "Publishing",
+        "Published",
+        "Failed",
+        "Skipped"
+      ],
+      "default": "Pending"
+    },
+    "scheduled_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date to publish"
+    },
+    "scheduled_time": {
+      "type": "string",
+      "description": "HH:MM format"
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "published_time": {
+      "type": "string"
+    },
+    "platform_post_id": {
+      "type": "string",
+      "description": "ID returned by the platform after publishing"
+    },
+    "platform_url": {
+      "type": "string",
+      "description": "URL to the published asset on the platform"
+    },
+    "engagement_clicks": {
+      "type": "integer",
+      "default": 0
+    },
+    "engagement_impressions": {
+      "type": "integer",
+      "default": 0
+    },
+    "engagement_reactions": {
+      "type": "integer",
+      "default": 0
+    },
+    "error_message": {
+      "type": "string",
+      "description": "Error details if publishing failed"
+    },
+    "retry_count": {
+      "type": "integer",
+      "default": 0
+    },
+    "notes": {
+      "type": "string"
+    },
+    "created_date": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "article_id",
+    "channel",
+    "status"
+  ]
+}
