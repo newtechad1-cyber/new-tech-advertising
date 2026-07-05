@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import { CheckCircle, ArrowRight, MapPin } from 'lucide-react';
 
+import SEOHead from '@/components/shared/SEOHead';
 const INTENTS = [
   { title: 'Affordable Social Media Management in Austin, MN', desc: 'Professional social media at small business prices. No agency markups, no contracts — just consistent, strategic content that grows your Austin business.' },
   { title: 'Designed for Austin, MN Small Businesses', desc: 'We work exclusively with small and local businesses. Our content system is built around what Austin customers actually care about and how they search for local services.' },
@@ -22,15 +23,13 @@ const INCLUDED = [
 ];
 
 export default function SocialMediaAustinMN() {
-  useEffect(() => {
-    document.title = 'Social Media Management Austin MN | NTA';
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) { meta = document.createElement('meta'); meta.name = 'description'; document.head.appendChild(meta); }
-    meta.setAttribute('content', 'Social media management for small businesses in Austin, MN. Local content strategy, consistent posting, and growth-focused social media services.');
-  }, []);
 
   return (
     <div className="bg-white min-h-screen">
+      <SEOHead 
+        title="Social Media Marketing Austin MN | New Tech Advertising"
+        description="AI-powered social media marketing for businesses in Austin, Minnesota. Automated content creation, scheduling, and local engagement."
+      />
       <MarketingNav />
 
       {/* HERO */}

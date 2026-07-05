@@ -3,9 +3,14 @@ import { motion } from 'framer-motion';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function AIPolicy() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 flex flex-col">
+      <SEOHead 
+        title="AI Policy | New Tech Advertising"
+        description="New Tech Advertising's AI usage policy. How we use artificial intelligence responsibly in marketing services for local businesses."
+      />
       <MarketingNav />
       <div className="flex-1 max-w-4xl mx-auto px-6 py-24">
         <motion.div

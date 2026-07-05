@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { ArrowRight, BookOpen } from 'lucide-react';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function InsightsList() {
   const [pages, setPages] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,6 +17,10 @@ export default function InsightsList() {
 
   return (
     <div className="min-h-screen bg-slate-950">
+      <SEOHead 
+        title="Marketing Insights & Articles | New Tech Advertising"
+        description="AI marketing insights, tips, and articles for small businesses. Learn about local SEO, social media, and digital marketing strategies."
+      />
       {/* Header */}
       <header className="border-b border-slate-800">
         <div className="max-w-4xl mx-auto px-6 py-5 flex items-center justify-between">

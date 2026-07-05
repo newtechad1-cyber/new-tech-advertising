@@ -8,6 +8,7 @@ import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
 import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function TheHiddenCostOfOutdatedMarketing() {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -15,6 +16,10 @@ export default function TheHiddenCostOfOutdatedMarketing() {
 
   return (
     <div className="min-h-screen bg-slate-950 font-sans text-slate-200">
+      <SEOHead 
+        title="The Hidden Cost of Outdated Marketing | New Tech Advertising"
+        description="What outdated marketing is really costing your small business. The hidden expenses of not adopting AI-powered marketing."
+      />
       <MarketingNav />
       
       <main className="pt-24 pb-20">

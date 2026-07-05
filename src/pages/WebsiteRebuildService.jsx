@@ -4,6 +4,7 @@ import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import { CheckCircle, AlertTriangle, Zap, TrendingUp, Shield, ArrowRight, Clock, Search, Smartphone, MousePointer, BarChart2, ChevronRight, MapPin, BookOpen } from 'lucide-react';
 
+import SEOHead from '@/components/shared/SEOHead';
 const PROBLEMS = [
   { icon: Zap, text: 'Slow load speeds hurting Google rankings' },
   { icon: Smartphone, text: 'Poor mobile experience losing visitors' },
@@ -132,6 +133,10 @@ const RESOURCES = [
 export default function WebsiteRebuildService() {
   return (
     <div className="bg-white min-h-screen">
+      <SEOHead 
+        title="Website Rebuild Service | Modern Business Websites | NTA"
+        description="Professional website rebuild service for small businesses. Modern, mobile-responsive, SEO-optimized websites that convert visitors into customers."
+      />
       <title>Website Rebuild Services for Small Business | NTA</title>
 
       <MarketingNav />

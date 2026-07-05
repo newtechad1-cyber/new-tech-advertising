@@ -2,9 +2,14 @@ import React from 'react';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
+      <SEOHead 
+        title="Privacy Policy | New Tech Advertising"
+        description="Read the privacy policy for New Tech Advertising. Learn how we protect your data and information."
+      />
       <MarketingNav />
       <div className="flex-1 max-w-3xl mx-auto px-6 py-12 w-full">
         <h1 className="text-3xl font-bold mb-2">Privacy Policy</h1>

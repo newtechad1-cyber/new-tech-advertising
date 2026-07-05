@@ -1,6 +1,7 @@
 import React from 'react';
 import ServicePageLayout from '../components/service-pages/ServicePageLayout';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function LocalLeadSystems() {
   return (
     <ServicePageLayout
@@ -55,5 +56,9 @@ export default function LocalLeadSystems() {
       ]}
       formSource="LocalLeadSystems"
     />
+      <SEOHead 
+        title="Local Lead Generation Systems | New Tech Advertising"
+        description="Automated local lead generation systems for small businesses. AI-powered SEO, social media, and review management in Mason City, Iowa."
+      />
   );
 }

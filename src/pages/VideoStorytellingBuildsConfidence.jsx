@@ -8,6 +8,7 @@ import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
 import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function VideoStorytellingBuildsConfidence() {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -15,6 +16,10 @@ export default function VideoStorytellingBuildsConfidence() {
 
   return (
     <div className="min-h-screen bg-slate-950 font-sans text-slate-200">
+      <SEOHead 
+        title="Video Storytelling Builds Customer Confidence | New Tech Advertising"
+        description="How video storytelling builds trust and confidence with local customers. AI-powered video marketing for small businesses."
+      />
       <MarketingNav />
       
       <main className="pt-24 pb-20">

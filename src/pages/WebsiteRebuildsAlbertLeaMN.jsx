@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import { CheckCircle, AlertTriangle, Zap, Smartphone, MousePointer, Search, Shield, ArrowRight, ChevronRight, MapPin, TrendingUp, BarChart2 } from 'lucide-react';
 
+import SEOHead from '@/components/shared/SEOHead';
 const INTAKE_URL = '/rebuild-intake?source=website-rebuild-albert-lea-mn';
 
 const PROBLEMS = [
@@ -58,15 +59,13 @@ const TRUST_ITEMS = [
 export default function WebsiteRebuildsAlbertLeaMN() {
   const [openFaq, setOpenFaq] = useState(null);
 
-  useEffect(() => {
-    document.title = 'Website Rebuild Services in Albert Lea MN | NTA';
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) { meta = document.createElement('meta'); meta.name = 'description'; document.head.appendChild(meta); }
-    meta.setAttribute('content', 'Need a better website in Albert Lea, MN? We rebuild websites for speed, SEO, and conversions. Get your free audit today.');
-  }, []);
 
   return (
     <div className="bg-white min-h-screen">
+      <SEOHead 
+        title="Website Rebuilds Albert Lea MN | New Tech Advertising"
+        description="Professional website rebuilds for businesses in Albert Lea, Minnesota. Modern, mobile-responsive, AI-optimized websites."
+      />
       <MarketingNav />
 
       {/* ── 1. HERO ── */}

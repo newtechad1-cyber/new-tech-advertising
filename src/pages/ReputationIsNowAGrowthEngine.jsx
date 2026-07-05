@@ -8,6 +8,7 @@ import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
 import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function ReputationIsNowAGrowthEngine() {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -15,6 +16,10 @@ export default function ReputationIsNowAGrowthEngine() {
 
   return (
     <div className="min-h-screen bg-slate-950 font-sans text-slate-200">
+      <SEOHead 
+        title="Reputation Is Now a Growth Engine | New Tech Advertising"
+        description="How online reputation management drives growth for local businesses. AI-powered review management and brand building strategies."
+      />
       <MarketingNav />
       
       <main className="pt-24 pb-20">

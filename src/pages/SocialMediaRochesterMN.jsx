@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import { CheckCircle, ArrowRight, MapPin } from 'lucide-react';
 
+import SEOHead from '@/components/shared/SEOHead';
 const INTENTS = [
   { title: 'Affordable Social Media for Rochester Businesses', desc: 'Professional social media management priced for small businesses in Rochester — no agency overhead, no hidden fees. Predictable, transparent pricing that delivers real ROI.' },
   { title: 'Built for Small Businesses in Rochester, MN', desc: 'We specialize in local and small businesses. Our system is built around what Rochester business owners actually need — consistent visibility, local relevance, and lead-focused content.' },
@@ -22,15 +23,13 @@ const INCLUDED = [
 ];
 
 export default function SocialMediaRochesterMN() {
-  useEffect(() => {
-    document.title = 'Social Media Management Rochester MN | NTA';
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) { meta = document.createElement('meta'); meta.name = 'description'; document.head.appendChild(meta); }
-    meta.setAttribute('content', 'Social media management for small businesses in Rochester, MN. Consistent posting, local content strategy, and growth-focused social media services.');
-  }, []);
 
   return (
     <div className="bg-white min-h-screen">
+      <SEOHead 
+        title="Social Media Marketing Rochester MN | New Tech Advertising"
+        description="AI-powered social media marketing for businesses in Rochester, Minnesota. Automated content creation, scheduling, and local engagement."
+      />
       <MarketingNav />
 
       {/* HERO */}

@@ -1,6 +1,7 @@
 import React from 'react';
 import ServicePageLayout from '../components/service-pages/ServicePageLayout';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function AIVideoMarketing() {
   return (
     <ServicePageLayout
@@ -52,5 +53,9 @@ export default function AIVideoMarketing() {
       ]}
       formSource="AIVideoMarketing"
     />
+      <SEOHead 
+        title="AI Video Marketing for Small Business | New Tech Advertising"
+        description="AI-powered video content creation for small businesses. Automated video production, editing, and distribution for local marketing."
+      />
   );
 }

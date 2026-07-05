@@ -2,9 +2,14 @@ import React from 'react';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function TermsOfService() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
+      <SEOHead 
+        title="Terms of Service | New Tech Advertising"
+        description="Terms and conditions for using New Tech Advertising services. Read our full terms of service."
+      />
       <MarketingNav />
       <div className="flex-1 max-w-3xl mx-auto px-6 py-12 w-full">
         <h1 className="text-3xl font-bold mb-2">Terms of Service</h1>

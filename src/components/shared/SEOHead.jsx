@@ -1,12 +1,34 @@
 import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
+/**
+ * SEOHead — Unified SEO meta tag management for every page.
+ *
+ * Canonical URL logic (G-002):
+ *   1. If `canonical` prop is explicitly passed → use it.
+ *   2. Otherwise → auto-generate from current route path.
+ *   3. Always outputs full https://newtechadvertising.com/... URL.
+ *   4. Strips trailing slashes (except root /).
+ */
+const SITE_ORIGIN = 'https://newtechadvertising.com';
+
+function buildCanonical(pathname) {
+  // Normalize: strip trailing slash (except root)
+  const clean = pathname === '/' ? '/' : pathname.replace(/\/+$/, '');
+  return `${SITE_ORIGIN}${clean}`;
+}
 
 export default function SEOHead({
   title = "New Tech Advertising | AI Marketing for Small Business",
   description = "AI-powered marketing for HVAC, plumbing, and restaurant businesses in Iowa and Southern Minnesota. Automated social media, local SEO, review management, and AI video content.",
-  canonical = "https://newtechadvertising.com/",
+  canonical,
   faqs = [],
   noIndex = false
 }) {
+  const location = useLocation();
+  // Auto-generate canonical from current route if not explicitly provided
+  const resolvedCanonical = canonical || buildCanonical(location.pathname);
+
   useEffect(() => {
     // Helper to set or create meta tags
     const setMeta = (nameOrProperty, content, isProperty = false) => {
@@ -60,20 +82,20 @@ export default function SEOHead({
     elements.push(setMeta('geo.placename', "Mason City, Iowa"));
     elements.push(setMeta('ICBM', "43.1537, -93.2010"));
 
-    // Canonical link
+    // Canonical link — always outputs the resolved canonical URL
     const oldCanonical = document.head.querySelector('link[rel="canonical"]');
     if (oldCanonical) {
       oldCanonical.remove();
     }
     const canonicalLink = document.createElement('link');
     canonicalLink.setAttribute('rel', 'canonical');
-    canonicalLink.setAttribute('href', canonical);
+    canonicalLink.setAttribute('href', resolvedCanonical);
     document.head.appendChild(canonicalLink);
     elements.push(canonicalLink);
 
     // 2. OPEN GRAPH
     elements.push(setMeta('og:type', 'website', true));
-    elements.push(setMeta('og:url', canonical, true));
+    elements.push(setMeta('og:url', resolvedCanonical, true));
     elements.push(setMeta('og:title', title, true));
     elements.push(setMeta('og:description', description, true));
     elements.push(setMeta('og:image', "https://newtechadvertising.com/og-image.png", true));
@@ -140,7 +162,7 @@ export default function SEOHead({
         "@type": "SpeakableSpecification",
         "cssSelector": ["h1", "h2", ".speakable"]
       },
-      "url": canonical
+      "url": resolvedCanonical
     };
     elements.push(addSchema(speakableSchema));
 
@@ -221,7 +243,7 @@ export default function SEOHead({
         }
       });
     };
-  }, [title, description, canonical, faqs, noIndex]);
+  }, [title, description, resolvedCanonical, faqs, noIndex]);
 
   return null;
 }

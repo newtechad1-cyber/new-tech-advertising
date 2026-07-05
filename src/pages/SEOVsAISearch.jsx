@@ -8,9 +8,14 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function SEOVsAISearch() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
+      <SEOHead 
+        title="SEO vs AI Search: What Local Businesses Need to Know | NTA"
+        description="Traditional SEO vs AI-powered search optimization. What's changing and how local businesses should adapt their strategy."
+      />
       <MarketingNav />
       <div className="flex-grow">
       <LCHeader 

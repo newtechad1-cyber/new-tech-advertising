@@ -1,6 +1,7 @@
 import React from 'react';
 import ServicePageLayout from '../components/service-pages/ServicePageLayout';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function SeasonalCampaigns() {
   return (
     <ServicePageLayout
@@ -51,5 +52,9 @@ export default function SeasonalCampaigns() {
       ]}
       formSource="SeasonalCampaigns"
     />
+      <SEOHead 
+        title="Seasonal Marketing Campaigns for Small Business | New Tech Advertising"
+        description="How to plan seasonal marketing campaigns for HVAC, plumbing, and restaurant businesses. AI-powered seasonal content strategies."
+      />
   );
 }

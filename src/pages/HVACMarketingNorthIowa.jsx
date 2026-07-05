@@ -1,6 +1,7 @@
 import React from 'react';
 import ServicePageLayout from '../components/service-pages/ServicePageLayout';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function HVACMarketingNorthIowa() {
   return (
     <ServicePageLayout
@@ -51,5 +52,9 @@ export default function HVACMarketingNorthIowa() {
       ]}
       formSource="HVACMarketing"
     />
+      <SEOHead 
+        title="HVAC Marketing North Iowa | AI Marketing for HVAC Companies"
+        description="AI-powered marketing for HVAC companies in North Iowa. Automated social media, local SEO, and lead generation for heating and cooling businesses."
+      />
   );
 }

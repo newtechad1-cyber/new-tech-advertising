@@ -1,6 +1,7 @@
 import React from 'react';
 import ServicePageLayout from '../components/service-pages/ServicePageLayout';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function SmallBusinessMarketingNorthIowa() {
   return (
     <ServicePageLayout
@@ -52,5 +53,9 @@ export default function SmallBusinessMarketingNorthIowa() {
       ]}
       formSource="SmallBusinessMarketing"
     />
+      <SEOHead 
+        title="Small Business Marketing North Iowa | New Tech Advertising"
+        description="AI-powered marketing for small businesses in North Iowa. Social media, local SEO, Google Business Profile management, and website design."
+      />
   );
 }

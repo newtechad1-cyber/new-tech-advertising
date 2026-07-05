@@ -13,6 +13,10 @@ export default function NTARelationshipBuilder() {
 
   return (
     <div className="bg-slate-950 min-h-screen text-slate-200 font-sans flex flex-col">
+      <SEOHead 
+        title="Relationship Builder™ | Referral & Review Systems | NTA"
+        description="Build sustainable growth through referrals and reviews. The NTA Relationship Builder helps local businesses turn connections into consistent digital growth."
+      />
       <MarketingNav />
       <div className="flex-1 flex flex-col items-center justify-center p-6 text-center pt-32">
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">NTA Relationship Builder™</h1>

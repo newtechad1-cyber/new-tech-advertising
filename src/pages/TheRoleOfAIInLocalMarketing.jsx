@@ -8,6 +8,7 @@ import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
 import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function TheRoleOfAIInLocalMarketing() {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -15,6 +16,10 @@ export default function TheRoleOfAIInLocalMarketing() {
 
   return (
     <div className="min-h-screen bg-slate-950 font-sans text-slate-200">
+      <SEOHead 
+        title="The Role of AI in Local Marketing | New Tech Advertising"
+        description="How AI is transforming local marketing for small businesses. From automated content to intelligent optimization."
+      />
       <MarketingNav />
       
       <main className="pt-24 pb-20">

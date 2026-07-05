@@ -8,6 +8,7 @@ import LCInsightBlock from '@/components/learning-center/LCInsightBlock';
 import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function WebAccessibilityTrust() {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -15,6 +16,10 @@ export default function WebAccessibilityTrust() {
 
   return (
     <div className="min-h-screen bg-slate-950 font-sans text-slate-200">
+      <SEOHead 
+        title="Web Accessibility Builds Trust | New Tech Advertising"
+        description="How website accessibility compliance builds customer trust and protects your business. ADA compliance for small business websites."
+      />
       <MarketingNav />
       
       <main className="pt-24 pb-20">

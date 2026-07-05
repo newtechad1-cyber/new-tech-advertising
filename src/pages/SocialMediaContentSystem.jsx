@@ -1,6 +1,7 @@
 import React from 'react';
 import ServicePageLayout from '../components/service-pages/ServicePageLayout';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function SocialMediaContentSystem() {
   return (
     <ServicePageLayout
@@ -51,5 +52,9 @@ export default function SocialMediaContentSystem() {
       ]}
       formSource="SocialMediaContent"
     />
+      <SEOHead 
+        title="Social Media Content System | New Tech Advertising"
+        description="Automated social media content creation system for small businesses. AI-generated posts, scheduling, and engagement tracking."
+      />
   );
 }

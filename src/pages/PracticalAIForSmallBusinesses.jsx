@@ -8,9 +8,14 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function PracticalAIForSmallBusinesses() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
+      <SEOHead 
+        title="Practical AI for Small Businesses | New Tech Advertising"
+        description="Real-world AI applications for small businesses. No hype, just practical AI tools that save time and grow revenue."
+      />
       <MarketingNav />
       <div className="flex-grow">
       <LCHeader 
