@@ -72,6 +72,7 @@ export const PAGE_KEY_PREFIX_RULES = [
   { prefix: 'Deal',                  access: 'noindex' },      // DealRoom pages — semi-public but noindex
   { prefix: 'Proposal',              access: 'admin_only' },
   { prefix: 'Content',               access: 'admin_only' },
+  { prefix: 'Publishing',            access: 'admin_only' },
   { prefix: 'Streaming',             access: 'noindex' },      // Streaming intake/onboarding
   { prefix: 'DIY',                   access: 'client_only' },
   { prefix: 'Contributor',           access: 'auth_required' },

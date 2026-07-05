@@ -35,7 +35,10 @@
         "HardcodedPage",
         "DiscoveryTool",
         "AIAgent",
-        "ExternalDocument"
+        "ExternalDocument",
+        "PublishingArticle",
+        "PublishingTarget",
+        "YouTubeKnowledge"
       ],
       "description": "Entity type of the source asset"
     },
@@ -79,7 +82,10 @@
         "HardcodedPage",
         "DiscoveryTool",
         "AIAgent",
-        "ExternalDocument"
+        "ExternalDocument",
+        "PublishingArticle",
+        "PublishingTarget",
+        "YouTubeKnowledge"
       ],
       "description": "Entity type of the target asset"
     },
