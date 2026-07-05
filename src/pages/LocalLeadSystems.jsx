@@ -4,7 +4,12 @@ import ServicePageLayout from '../components/service-pages/ServicePageLayout';
 import SEOHead from '@/components/shared/SEOHead';
 export default function LocalLeadSystems() {
   return (
-    <ServicePageLayout
+    <>
+      <SEOHead
+        title="Local Lead Generation Systems | New Tech Advertising"
+        description="Automated local lead generation systems for small businesses. AI-powered SEO, social media, and review management in Mason City, Iowa."
+      />
+      <ServicePageLayout
       seoTitle="Local Lead Systems for Service Businesses | NTA North Iowa"
       seoDescription="NTA builds complete local lead systems for service businesses in North Iowa — websites, SEO pages, seasonal campaigns, social content, video, and follow-up automation."
       eyebrow="Local Lead Systems · North Iowa"
@@ -56,9 +61,6 @@ export default function LocalLeadSystems() {
       ]}
       formSource="LocalLeadSystems"
     />
-      <SEOHead 
-        title="Local Lead Generation Systems | New Tech Advertising"
-        description="Automated local lead generation systems for small businesses. AI-powered SEO, social media, and review management in Mason City, Iowa."
-      />
+    </>
   );
 }

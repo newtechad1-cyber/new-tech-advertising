@@ -4,7 +4,12 @@ import ServicePageLayout from '../components/service-pages/ServicePageLayout';
 import SEOHead from '@/components/shared/SEOHead';
 export default function HVACMarketingNorthIowa() {
   return (
-    <ServicePageLayout
+    <>
+      <SEOHead
+        title="HVAC Marketing North Iowa | AI Marketing for HVAC Companies"
+        description="AI-powered marketing for HVAC companies in North Iowa. Automated social media, local SEO, and lead generation for heating and cooling businesses."
+      />
+      <ServicePageLayout
       seoTitle="HVAC Marketing North Iowa | New Tech Advertising"
       seoDescription="AI-powered HVAC marketing for North Iowa contractors. Get more furnace and AC calls with Google Business Profile, AI search optimization & social media."
       eyebrow="HVAC Marketing · North Iowa"
@@ -52,9 +57,6 @@ export default function HVACMarketingNorthIowa() {
       ]}
       formSource="HVACMarketing"
     />
-      <SEOHead 
-        title="HVAC Marketing North Iowa | AI Marketing for HVAC Companies"
-        description="AI-powered marketing for HVAC companies in North Iowa. Automated social media, local SEO, and lead generation for heating and cooling businesses."
-      />
+    </>
   );
 }

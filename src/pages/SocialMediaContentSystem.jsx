@@ -4,7 +4,12 @@ import ServicePageLayout from '../components/service-pages/ServicePageLayout';
 import SEOHead from '@/components/shared/SEOHead';
 export default function SocialMediaContentSystem() {
   return (
-    <ServicePageLayout
+    <>
+      <SEOHead
+        title="Social Media Content System | New Tech Advertising"
+        description="Automated social media content creation system for small businesses. AI-generated posts, scheduling, and engagement tracking."
+      />
+      <ServicePageLayout
       seoTitle="Social Media Content for Local Service Businesses | NTA North Iowa"
       seoDescription="NTA creates and manages social media content for local service businesses in North Iowa — done-for-you posts, stories, and campaigns that keep you visible year-round."
       eyebrow="Social Media Content · North Iowa"
@@ -52,9 +57,6 @@ export default function SocialMediaContentSystem() {
       ]}
       formSource="SocialMediaContent"
     />
-      <SEOHead 
-        title="Social Media Content System | New Tech Advertising"
-        description="Automated social media content creation system for small businesses. AI-generated posts, scheduling, and engagement tracking."
-      />
+    </>
   );
 }

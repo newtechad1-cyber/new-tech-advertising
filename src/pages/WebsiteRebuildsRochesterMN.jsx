@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
-import {
 import SEOHead from '@/components/shared/SEOHead';
+import {
   ArrowRight, CheckCircle, AlertTriangle, Search, Smartphone,
   MousePointer, Clock, BarChart2, Zap, Globe, Shield, TrendingUp, MapPin, ChevronDown
 } from 'lucide-react';
