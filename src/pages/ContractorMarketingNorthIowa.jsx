@@ -1,6 +1,7 @@
 import React from 'react';
 import ServicePageLayout from '../components/service-pages/ServicePageLayout';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function ContractorMarketingNorthIowa() {
   return (
     <ServicePageLayout
@@ -52,5 +53,9 @@ export default function ContractorMarketingNorthIowa() {
       ]}
       formSource="ContractorMarketing"
     />
+      <SEOHead 
+        title="Contractor Marketing North Iowa | AI Marketing for Contractors"
+        description="AI-powered marketing for contractors in North Iowa. HVAC, plumbing, electrical, and construction marketing with automated social media and local SEO."
+      />
   );
 }

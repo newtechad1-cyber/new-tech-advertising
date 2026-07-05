@@ -6,6 +6,7 @@ import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
 import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function WebsitesAsSalespeople() {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -13,6 +14,10 @@ export default function WebsitesAsSalespeople() {
 
   return (
     <div className="min-h-screen bg-slate-950 font-sans text-slate-200">
+      <SEOHead 
+        title="Your Website Is Your Best Salesperson | New Tech Advertising"
+        description="Why your website should work as your 24/7 salesperson. AI-powered website design that converts visitors into customers."
+      />
       <MarketingNav />
       
       <main className="pt-24 pb-20">

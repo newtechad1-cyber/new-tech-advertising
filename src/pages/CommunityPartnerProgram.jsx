@@ -7,6 +7,7 @@ import {
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function CommunityPartnerProgram() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -44,6 +45,10 @@ export default function CommunityPartnerProgram() {
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
+      <SEOHead 
+        title="Community Partner Program | New Tech Advertising"
+        description="Join the NTA Community Partner Program. Refer local businesses and earn commissions while helping your community grow."
+      />
       <MarketingNav />
       {/* SECTION 1: HERO */}
       <section className="relative bg-slate-950 text-white pt-32 pb-24 px-6 overflow-hidden">

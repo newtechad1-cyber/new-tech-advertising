@@ -8,9 +8,14 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function AIVisibilityBasics() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
+      <SEOHead 
+        title="AI Visibility Basics for Small Business | New Tech Advertising"
+        description="Understanding AI search visibility for local businesses. How AI search engines find, evaluate, and recommend your business."
+      />
       <MarketingNav />
       <div className="flex-grow">
       <LCHeader 

@@ -8,6 +8,7 @@ import StartWhatHappensNext from '@/components/start/StartWhatHappensNext';
 import StartForm from '@/components/start/StartForm';
 import StartSuccess from '@/components/start/StartSuccess';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function Start() {
   const [submitted, setSubmitted] = useState(false);
   const [trialId, setTrialId] = useState(null);
@@ -33,6 +34,10 @@ export default function Start() {
 
   return (
     <div className="min-h-screen bg-slate-950 flex flex-col">
+      <SEOHead 
+        title="Get Started with AI Marketing | New Tech Advertising"
+        description="Start your AI-powered marketing journey. Free visibility audit, growth conversation, and custom marketing plan for your local business."
+      />
       {/* Minimal header */}
       <header className="border-b border-slate-800 py-4 px-6 flex-shrink-0">
         <div className="max-w-6xl mx-auto flex items-center justify-between">

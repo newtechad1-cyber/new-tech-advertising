@@ -4,6 +4,7 @@ import { CheckCircle, DollarSign, MapPin, Users, Zap, TrendingUp, Star, ArrowRig
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 
+import SEOHead from '@/components/shared/SEOHead';
 const BENEFITS = [
   {
     icon: MapPin,
@@ -169,6 +170,10 @@ export default function JoinNTA() {
 
   return (
     <div className="min-h-screen bg-white font-sans flex flex-col">
+      <SEOHead 
+        title="Join New Tech Advertising | Career Opportunities"
+        description="Join the New Tech Advertising team. Career opportunities in AI-powered marketing, sales, and technology."
+      />
       <MarketingNav />
 
       {/* HERO */}

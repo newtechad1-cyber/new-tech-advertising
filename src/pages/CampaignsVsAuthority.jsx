@@ -8,6 +8,7 @@ import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
 import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function CampaignsVsAuthority() {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -15,6 +16,10 @@ export default function CampaignsVsAuthority() {
 
   return (
     <div className="min-h-screen bg-slate-950 font-sans text-slate-200">
+      <SEOHead 
+        title="Marketing Campaigns vs. Authority Building | New Tech Advertising"
+        description="Why authority-based marketing outperforms campaign-based marketing for small businesses. Learn the sustainable approach to local growth."
+      />
       <MarketingNav />
       
       <main className="pt-24 pb-20">

@@ -647,6 +647,12 @@ const AuthenticatedApp = () => {
       <Route path="/portal/performance" element={<PortalPerformance />} />
       <Route path="/portal/messages" element={<PortalMessages />} />
       <Route path="/portal/account" element={<PortalAccount />} />
+      {/* G-002: Homepage consolidation — all variants → canonical / */}
+      <Route path="/home" element={<Navigate to="/" replace />} />
+      <Route path="/Home" element={<Navigate to="/" replace />} />
+      <Route path="/index.html" element={<Navigate to="/" replace />} />
+      <Route path="/HomePage" element={<Navigate to="/" replace />} />
+
       {/* Legacy route redirects — keep old URLs working */}
       <Route path="/dashboard" element={<Navigate to="/agency" replace />} />
       <Route path="/clients" element={<Navigate to="/agency/clients" replace />} />

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, Star, MapPin, CheckCircle2 } from 'lucide-react';
 
+import SEOHead from '@/components/shared/SEOHead';
 const DEMOS = [
   {
     id: 'pizza',
@@ -61,6 +62,10 @@ export default function RestaurantDemo() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
+      <SEOHead 
+        title="Restaurant Marketing Demo | AI Marketing for Restaurants"
+        description="See how AI-powered marketing works for restaurants. Automated social media, local SEO, and review management demo for restaurant owners."
+      />
       {/* Top bar */}
       <div className="bg-slate-900 border-b border-slate-800 px-6 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">

@@ -7,6 +7,7 @@ import { base44 } from '@/api/base44Client';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 
+import SEOHead from '@/components/shared/SEOHead';
 const QUESTIONS = [
   {
     id: 'industry',
@@ -159,6 +160,10 @@ export default function PricingWizard() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white flex flex-col relative pb-20">
+      <SEOHead 
+        title="Find Your Plan | New Tech Advertising Pricing"
+        description="Find the right AI marketing plan for your business. Interactive pricing wizard to match services with your growth goals."
+      />
       <MarketingNav />
       {/* Talk to Rick Fixed Button */}
       <a 

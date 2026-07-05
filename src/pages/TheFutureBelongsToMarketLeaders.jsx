@@ -7,6 +7,7 @@ import LCInsightBlock from '@/components/learning-center/LCInsightBlock';
 import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function TheFutureBelongsToMarketLeaders() {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -14,6 +15,10 @@ export default function TheFutureBelongsToMarketLeaders() {
 
   return (
     <div className="min-h-screen bg-slate-950 font-sans text-slate-200">
+      <SEOHead 
+        title="The Future Belongs to Market Leaders | New Tech Advertising"
+        description="Why early adoption of AI marketing separates market leaders from followers. Position your small business for the future of local marketing."
+      />
       <MarketingNav />
       
       <main className="pt-24 pb-20">

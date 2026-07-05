@@ -6,6 +6,7 @@ import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import BuildingDigitalTrustArticle from '@/components/learning-center/articles/BuildingDigitalTrustArticle';
 import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 
+import SEOHead from '@/components/shared/SEOHead';
 export default function BuildingDigitalTrust() {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -13,6 +14,10 @@ export default function BuildingDigitalTrust() {
 
   return (
     <div className="min-h-screen bg-slate-950 font-sans text-slate-200">
+      <SEOHead 
+        title="Building Digital Trust for Small Business | New Tech Advertising"
+        description="How local businesses build digital trust through consistent online presence, reviews, and AI-powered marketing. Mason City, Iowa."
+      />
       <MarketingNav />
       
       <main className="pt-24 pb-20">

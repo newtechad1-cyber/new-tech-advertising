@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import {
+import SEOHead from '@/components/shared/SEOHead';
   ArrowRight, CheckCircle, AlertTriangle, Search, Smartphone,
   MousePointer, Clock, BarChart2, Zap, Globe, Shield, TrendingUp, MapPin, ChevronDown
 } from 'lucide-react';
@@ -76,19 +77,12 @@ const FAQS = [
 export default function WebsiteRebuildsRochesterMN() {
   const [openFaq, setOpenFaq] = useState(null);
 
-  useEffect(() => {
-    document.title = 'Website Rebuild Services in Rochester MN | NTA';
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) {
-      meta = document.createElement('meta');
-      meta.name = 'description';
-      document.head.appendChild(meta);
-    }
-    meta.setAttribute('content', 'Need a better website in Rochester, MN? We rebuild websites for speed, SEO, and conversions. Get your free audit today.');
-  }, []);
-
   return (
     <div className="bg-white min-h-screen">
+      <SEOHead 
+        title="Website Rebuilds Rochester MN | New Tech Advertising"
+        description="Professional website rebuilds for businesses in Rochester, Minnesota. Modern, mobile-responsive, AI-optimized websites."
+      />
       <MarketingNav />
 
       {/* ── 1. HERO ── */}

@@ -4,6 +4,7 @@ import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import { CheckCircle, ArrowRight, AlertTriangle, Zap, Globe, Share2, BarChart2, MapPin, Calendar, Smartphone } from 'lucide-react';
 
+import SEOHead from '@/components/shared/SEOHead';
 const PROBLEMS = [
   { icon: Calendar, title: 'Inconsistent Posting', desc: 'Most businesses post once in a while, then go dark for weeks. Inconsistency kills momentum and trust with your audience.' },
   { icon: AlertTriangle, title: 'No Real Strategy', desc: 'Sharing random content with no plan behind it generates zero business results — just wasted time and effort.' },
@@ -36,6 +37,10 @@ const WHAT_YOU_GET = [
 export default function SocialMediaManagement() {
   return (
     <div className="bg-white min-h-screen">
+      <SEOHead 
+        title="Social Media Management | AI-Powered Social Media Marketing"
+        description="AI-powered social media management for small businesses. Automated posting, content creation, and engagement tracking across all platforms."
+      />
       <title>Social Media Management for Small Businesses | NTA</title>
 
       <MarketingNav />

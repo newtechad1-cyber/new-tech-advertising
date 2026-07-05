@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import { CheckCircle, ArrowRight, MapPin } from 'lucide-react';
 
+import SEOHead from '@/components/shared/SEOHead';
 const INTENTS = [
   { title: 'Affordable Social Media for Albert Lea Businesses', desc: 'Professional social media management at prices built for small business budgets. Predictable monthly cost, no hidden fees — and real results you can track.' },
   { title: 'Built for Small Businesses in Albert Lea, MN', desc: 'We exclusively serve small and local businesses. Everything we build is designed around what Albert Lea customers respond to and what drives them to take action.' },
@@ -22,15 +23,13 @@ const INCLUDED = [
 ];
 
 export default function SocialMediaAlbertLeaMN() {
-  useEffect(() => {
-    document.title = 'Social Media Management Albert Lea MN | NTA';
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) { meta = document.createElement('meta'); meta.name = 'description'; document.head.appendChild(meta); }
-    meta.setAttribute('content', 'Social media management for small businesses in Albert Lea, MN. Consistent posting, local content strategy, and social media services built for business growth.');
-  }, []);
 
   return (
     <div className="bg-white min-h-screen">
+      <SEOHead 
+        title="Social Media Marketing Albert Lea MN | New Tech Advertising"
+        description="AI-powered social media marketing for businesses in Albert Lea, Minnesota. Automated content creation, scheduling, and local engagement."
+      />
       <MarketingNav />
 
       {/* HERO */}
