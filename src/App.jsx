@@ -24,6 +24,8 @@ const CaseStudyPapaEveretts = lazy(() => import('./pages/CaseStudyPapaEveretts')
 const LearningCenter = lazy(() => import('./pages/LearningCenter'));
 // GapAuditPage removed
 const AiBroughtMeOutOfRetirement = lazy(() => import('./pages/AiBroughtMeOutOfRetirement'));
+const CanonExplorer = lazy(() => import('./pages/CanonExplorer'));
+const CanonCollectionView = lazy(() => import('./pages/CanonCollectionView'));
 const IWasEarlyAgain = lazy(() => import('./pages/IWasEarlyAgain'));
 const AIWorkforce = lazy(() => import('./pages/AIWorkforce'));
 const FounderScorecard = lazy(() => import('./pages/FounderScorecard'));
@@ -721,6 +723,8 @@ const AuthenticatedApp = () => {
       <Route path="/websites-as-salespeople" element={<LayoutWrapper currentPageName="WebsitesAsSalespeople"><WebsitesAsSalespeople /></LayoutWrapper>} />
       <Route path="/ai-brought-me-out-of-retirement" element={<LayoutWrapper currentPageName="AiBroughtMeOutOfRetirement"><AiBroughtMeOutOfRetirement /></LayoutWrapper>} />
       <Route path="/i-was-early-again" element={<LayoutWrapper currentPageName="IWasEarlyAgain"><IWasEarlyAgain /></LayoutWrapper>} />
+      <Route path="/canon" element={<LayoutWrapper currentPageName="CanonExplorer"><CanonExplorer /></LayoutWrapper>} />
+      <Route path="/canon/collection/:slug" element={<LayoutWrapper currentPageName="CanonCollectionView"><CanonCollectionView /></LayoutWrapper>} />
       <Route path="/back-office" element={<Navigate to="/back-office-solutions" replace />} />
       <Route path="/back-office-solutions" element={<LayoutWrapper currentPageName="BackOfficeSolutions"><BackOfficeSolutions /></LayoutWrapper>} />
       <Route path="/restaurants" element={<LayoutWrapper currentPageName="RestaurantSolutions"><RestaurantSolutions /></LayoutWrapper>} />

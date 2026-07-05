@@ -1,0 +1,94 @@
+{
+  // C-001 Canon Library
+  // Entity: CanonCollection
+  // Purpose: Curated reading journeys — each collection guides readers through
+  // Rick's thinking on a specific topic, like chapters in a book.
+
+  "name": "CanonCollection",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Collection title (e.g., 'Start Here', 'The NTA Principles')"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL slug for this collection",
+      "unique": true
+    },
+    "subtitle": {
+      "type": "string",
+      "description": "Brief subtitle or tagline"
+    },
+    "overview": {
+      "type": "string",
+      "format": "markdown",
+      "description": "Full overview/description of this collection"
+    },
+    "purpose": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Why this collection exists — what the reader will gain"
+    },
+    "icon": {
+      "type": "string",
+      "description": "Lucide icon name (e.g., 'BookOpen', 'Compass', 'Shield')"
+    },
+    "color": {
+      "type": "string",
+      "enum": [
+        "blue",
+        "emerald",
+        "purple",
+        "amber",
+        "rose",
+        "cyan",
+        "orange",
+        "indigo",
+        "teal",
+        "red"
+      ],
+      "default": "blue",
+      "description": "Theme color for this collection"
+    },
+    "cover_image_url": {
+      "type": "string",
+      "description": "Cover image for the collection"
+    },
+    "entry_ids": {
+      "type": "string",
+      "description": "Ordered comma-separated CanonEntry IDs (reading order)"
+    },
+    "total_read_time": {
+      "type": "number",
+      "description": "Total estimated reading time in minutes for the entire collection"
+    },
+    "entry_count": {
+      "type": "number",
+      "description": "Number of entries in this collection"
+    },
+    "display_order": {
+      "type": "number",
+      "description": "Order in which this collection appears on the Canon Explorer"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to feature this collection prominently"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "Published",
+        "Archived"
+      ],
+      "default": "Published"
+    }
+  },
+  "required": [
+    "title",
+    "slug",
+    "purpose"
+  ]
+}

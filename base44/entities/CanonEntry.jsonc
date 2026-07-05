@@ -1,0 +1,188 @@
+{
+  // C-001 Canon Library
+  // Entity: CanonEntry
+  // Purpose: Each piece of the Rick Hesse Canon — articles, journals, videos,
+  // lessons, case studies, podcasts, interviews. The structured publishing layer
+  // that transforms scattered content into an organized body of work.
+
+  "name": "CanonEntry",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Title of the canon entry"
+    },
+    "subtitle": {
+      "type": "string",
+      "description": "Optional subtitle or tagline"
+    },
+    "summary": {
+      "type": "string",
+      "maxLength": 2000,
+      "description": "Brief summary of the entry (2-3 sentences)"
+    },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "Article",
+        "Journal",
+        "Video",
+        "Learning Lesson",
+        "Case Study",
+        "Podcast",
+        "Interview"
+      ],
+      "description": "Type of content"
+    },
+    "primary_theme": {
+      "type": "string",
+      "enum": [
+        "AI & Technology",
+        "Digital Trust & Reputation",
+        "Growth Systems",
+        "Local Marketing",
+        "Business Philosophy",
+        "Founder Journey",
+        "Client Success",
+        "Web Accessibility",
+        "Video & Storytelling",
+        "Sales & Authority",
+        "Community Impact",
+        "Leadership"
+      ],
+      "description": "Primary theme of this entry"
+    },
+    "secondary_themes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "AI & Technology",
+          "Digital Trust & Reputation",
+          "Growth Systems",
+          "Local Marketing",
+          "Business Philosophy",
+          "Founder Journey",
+          "Client Success",
+          "Web Accessibility",
+          "Video & Storytelling",
+          "Sales & Authority",
+          "Community Impact",
+          "Leadership"
+        ]
+      },
+      "description": "Secondary themes this entry touches on"
+    },
+    "series": {
+      "type": "string",
+      "description": "Series name (e.g., 'Fix My Marketing', 'The NTA Principles')"
+    },
+    "volume": {
+      "type": "number",
+      "description": "Volume number within a series"
+    },
+    "issue_number": {
+      "type": "number",
+      "description": "Issue number within a volume"
+    },
+    "publication_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of publication"
+    },
+    "original_url": {
+      "type": "string",
+      "description": "Original page URL path (e.g., /ai-brought-me-out-of-retirement)"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL slug for direct canon access"
+    },
+    "cover_image_url": {
+      "type": "string",
+      "description": "Featured image URL"
+    },
+    "video_url": {
+      "type": "string",
+      "description": "YouTube embed URL if this entry has a video"
+    },
+
+    "related_content_ids": {
+      "type": "string",
+      "description": "Comma-separated IDs of related CanonEntry records"
+    },
+    "related_video_ids": {
+      "type": "string",
+      "description": "Comma-separated IDs of related video CanonEntry records"
+    },
+    "related_lesson_ids": {
+      "type": "string",
+      "description": "Comma-separated IDs of related Learning Lesson CanonEntry records"
+    },
+    "related_service_slugs": {
+      "type": "string",
+      "description": "Comma-separated service page slugs (e.g., AiSeo,SocialMediaMarketing)"
+    },
+    "related_case_study_ids": {
+      "type": "string",
+      "description": "Comma-separated IDs of related Case Study CanonEntry records"
+    },
+
+    "featured": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this entry is featured on the Canon Explorer"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "Published",
+        "Archived"
+      ],
+      "default": "Published",
+      "description": "Publication status"
+    },
+    "search_keywords": {
+      "type": "string",
+      "description": "Comma-separated keywords for Canon search"
+    },
+    "author_notes": {
+      "type": "string",
+      "maxLength": 2000,
+      "description": "Rick's personal notes about this entry"
+    },
+    "estimated_read_time": {
+      "type": "number",
+      "description": "Estimated read time in minutes"
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": [
+        "Beginner",
+        "Intermediate",
+        "Advanced"
+      ],
+      "default": "Beginner",
+      "description": "Difficulty level for the reader"
+    },
+    "call_to_action": {
+      "type": "string",
+      "description": "CTA text or path (e.g., 'Request a Free Gap Audit' or '/gap-audit')"
+    },
+    "collection_slugs": {
+      "type": "string",
+      "description": "Comma-separated collection slugs this entry belongs to"
+    },
+    "collection_order": {
+      "type": "string",
+      "description": "JSON map of collection_slug:order_number (e.g., {\"start-here\":1,\"nta-principles\":3})"
+    }
+  },
+  "required": [
+    "title",
+    "content_type",
+    "primary_theme",
+    "status"
+  ]
+}

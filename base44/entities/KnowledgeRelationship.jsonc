@@ -35,7 +35,9 @@
         "HardcodedPage",
         "DiscoveryTool",
         "AIAgent",
-        "ExternalDocument"
+        "ExternalDocument",
+        "CanonEntry",
+        "CanonCollection"
       ],
       "description": "Entity type of the source asset"
     },
@@ -79,7 +81,9 @@
         "HardcodedPage",
         "DiscoveryTool",
         "AIAgent",
-        "ExternalDocument"
+        "ExternalDocument",
+        "CanonEntry",
+        "CanonCollection"
       ],
       "description": "Entity type of the target asset"
     },

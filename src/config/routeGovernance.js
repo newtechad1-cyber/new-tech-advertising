@@ -143,6 +143,8 @@ export const PUBLIC_PAGE_KEYS = new Set([
   'what-changed-online', 'AuthorityMap', 'GrowthSystem',
   // Case studies
   'CaseStudies', 'CaseStudyDetail',
+  // Canon Library
+  'CanonExplorer', 'CanonCollectionView',
   // School public pages
   'SchoolHome', 'SchoolAbout', 'SchoolEvents', 'SchoolEventDetail',
   'SchoolSpotlights', 'SchoolSpotlightDetail',
@@ -246,6 +248,8 @@ export const ROUTE_OVERRIDES = {
   '/start':                      'public',
   '/ai-brought-me-out-of-retirement': 'public',
   '/i-was-early-again':          'public',
+  '/canon':                      'public',
+  '/canon/collection/:slug':     'public',
   '/what-changed-online':        'public',
   '/ai-visibility-basics':       'public',
   '/practical-ai-for-small-businesses': 'public',
