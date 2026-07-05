@@ -1,0 +1,176 @@
+{
+  "name": "JournalIssue",
+  "type": "object",
+  "description": "NTA Journal — weekly publication documenting the public building of New Tech Advertising.",
+  "properties": {
+    "issue_number": {
+      "type": "integer",
+      "description": "Sequential issue number"
+    },
+    "volume": {
+      "type": "integer",
+      "default": 1,
+      "description": "Volume number (resets yearly or by series)"
+    },
+    "title": {
+      "type": "string",
+      "description": "Issue title / headline"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-safe slug for the issue"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Publication date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "Review",
+        "Approved",
+        "Scheduled",
+        "Published",
+        "Archived"
+      ],
+      "default": "Draft"
+    },
+    "scheduled_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "scheduled_time": {
+      "type": "string",
+      "default": "07:00"
+    },
+    "from_ricks_desk": {
+      "type": "string",
+      "format": "markdown",
+      "description": "Personal note from Rick — the opening section"
+    },
+    "what_we_built": {
+      "type": "string",
+      "format": "markdown",
+      "description": "Technical/business progress this week"
+    },
+    "what_we_learned": {
+      "type": "string",
+      "format": "markdown",
+      "description": "Insights, discoveries, pivots"
+    },
+    "what_it_means_for_your_business": {
+      "type": "string",
+      "format": "markdown",
+      "description": "Practical takeaway for the reader"
+    },
+    "this_weeks_challenge": {
+      "type": "string",
+      "format": "markdown",
+      "description": "Challenge or question for the reader"
+    },
+    "summary": {
+      "type": "string",
+      "description": "2-3 sentence summary for SEO and social"
+    },
+    "featured_image_url": {
+      "type": "string"
+    },
+    "featured_image_prompt": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Building NTA",
+        "AI & Technology",
+        "Business Growth",
+        "Client Stories",
+        "Industry Insights",
+        "Founder Reflections",
+        "Marketing Strategy",
+        "Leadership"
+      ],
+      "default": "Building NTA"
+    },
+    "series": {
+      "type": "string",
+      "description": "Optional series this issue belongs to"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "related_article_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "FKs to related PublishingArticle entries"
+    },
+    "related_video_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "FKs to related YouTubeKnowledge entries"
+    },
+    "related_learning_lesson_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Related learning lesson page keys or IDs"
+    },
+    "related_service_slugs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Related service page slugs"
+    },
+    "publishing_article_id": {
+      "type": "string",
+      "description": "FK to PublishingArticle if cross-published"
+    },
+    "canon_entry_id": {
+      "type": "string",
+      "description": "FK to CanonEntry if mapped"
+    },
+    "newsletter_sent": {
+      "type": "boolean",
+      "default": false
+    },
+    "newsletter_subject": {
+      "type": "string"
+    },
+    "subscriber_count": {
+      "type": "integer",
+      "default": 0
+    },
+    "views": {
+      "type": "integer",
+      "default": 0
+    },
+    "shares": {
+      "type": "integer",
+      "default": 0
+    },
+    "author": {
+      "type": "string",
+      "default": "Rick Hesse"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "cta_text": {
+      "type": "string"
+    },
+    "cta_url": {
+      "type": "string"
+    },
+    "created_date": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "issue_number",
+    "title",
+    "status"
+  ]
+}

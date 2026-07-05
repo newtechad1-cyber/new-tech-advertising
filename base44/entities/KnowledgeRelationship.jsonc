@@ -38,7 +38,8 @@
         "ExternalDocument",
         "PublishingArticle",
         "PublishingTarget",
-        "YouTubeKnowledge"
+        "YouTubeKnowledge",
+        "JournalIssue"
       ],
       "description": "Entity type of the source asset"
     },
@@ -85,7 +86,8 @@
         "ExternalDocument",
         "PublishingArticle",
         "PublishingTarget",
-        "YouTubeKnowledge"
+        "YouTubeKnowledge",
+        "JournalIssue"
       ],
       "description": "Entity type of the target asset"
     },
