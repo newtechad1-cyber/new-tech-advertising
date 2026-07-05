@@ -298,8 +298,10 @@ export default async function recognizeBusinessPatterns(input: PatternInput) {
         if (audits?.length > 0) {
           const industryLower = (industry || business_type || '').toLowerCase();
           const similarAudits = audits.filter((a: any) =>
-            a.industry && a.industry.toLowerCase().includes(industryLower) ||
-            industryLower.includes((a.industry || '').toLowerCase())
+            a.industry && (
+              a.industry.toLowerCase().includes(industryLower) ||
+              industryLower.includes(a.industry.toLowerCase())
+            )
           );
 
           for (const audit of similarAudits.slice(0, 5)) {
@@ -349,7 +351,7 @@ export default async function recognizeBusinessPatterns(input: PatternInput) {
                   title: item.title || 'Untitled',
                   domain: item.domain || 'unclassified',
                   snippet: item.summary || '',
-                  source: 'challenge_match',
+                  source: 'knowledge_graph',
                   relevance_score: item.relevance_score || 0,
                   relationship_count: 0,
                   relationships: [],
