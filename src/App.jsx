@@ -10,6 +10,8 @@ import { NTADataProvider } from '@/lib/NTADataContext';
 import { ExperienceProvider } from '@/lib/ExperienceLayer';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import { AdminGuard, ClientGuard } from '@/components/auth/RoleGuard';
+import NoIndexMeta from '@/components/auth/NoIndexMeta';
+import { classifyRoute, classifyPageKey, requiresAuth, shouldNoIndex, userHasAccess } from '@/config/routeGovernance';
 import Login from './pages/Login';
 import SignupPage from './pages/SignupPage';
 // — Eagerly loaded public pages (tiny, critical for first paint) —
@@ -330,25 +332,28 @@ const LayoutWrapper = ({ children, currentPageName }) => Layout ?
   <Layout currentPageName={currentPageName}>{children}</Layout>
   : <>{children}</>;
 
-// Routes that require authentication — any path starting with these prefixes
-const PROTECTED_PREFIXES = [
-  '/agency', '/admin', '/nta', '/portal', '/ops',
-  '/client/', '/reseller', '/sales', '/dashboard',
-  '/content-command', '/content-center',
-];
-
-const isProtectedPath = (pathname) =>
-  PROTECTED_PREFIXES.some(p => pathname === p || pathname.startsWith(p + '/') || pathname.startsWith(p));
+// ─── Route Governance (R-002) ────────────────────────────────────────────────
+// Access control is driven by src/config/routeGovernance.js — the single source
+// of truth for which routes are public, auth-required, or role-restricted.
 
 const AuthGate = ({ children }) => {
-  const { isLoadingAuth, authError, navigateToLogin } = useAuth();
+  const { user, isLoadingAuth, authError, navigateToLogin } = useAuth();
   const pathname = window.location.pathname;
+  const access = classifyRoute(pathname);
+  const needsAuth = requiresAuth(access);
+  const needsNoIndex = shouldNoIndex(access);
 
-  // Public paths — never require auth
-  if (!isProtectedPath(pathname)) {
-    return <>{children}</>;
+  // Public / noindex paths — no auth needed
+  if (!needsAuth) {
+    return (
+      <>
+        {needsNoIndex && <NoIndexMeta />}
+        {children}
+      </>
+    );
   }
 
+  // Protected path — check auth
   if (isLoadingAuth) {
     return (
       <div className="fixed inset-0 flex items-center justify-center">
@@ -366,7 +371,25 @@ const AuthGate = ({ children }) => {
     }
   }
 
-  return <>{children}</>;
+  // User is authenticated — check role access
+  if (user && !userHasAccess(access, user)) {
+    // Redirect unauthorized users to appropriate dashboard
+    const ADMIN_EMAILS = ['info@newtechadvertising.com', 'newtechad1@gmail.com'];
+    const isAdmin = user.role === 'admin' || ADMIN_EMAILS.includes(user.email?.toLowerCase());
+    if (isAdmin) {
+      window.location.href = '/admin-dashboard';
+    } else {
+      window.location.href = '/client-dashboard';
+    }
+    return null;
+  }
+
+  return (
+    <>
+      <NoIndexMeta />
+      {children}
+    </>
+  );
 };
 
 const AuthenticatedApp = () => {
@@ -387,17 +410,22 @@ const AuthenticatedApp = () => {
       <Route path="/admin-dashboard" element={<AdminGuard><LayoutWrapper currentPageName="AdminDashboard"><AdminDashboard /></LayoutWrapper></AdminGuard>} />
       <Route path="/client-dashboard" element={<ClientGuard><LayoutWrapper currentPageName="ClientDashboard"><ClientDashboard /></LayoutWrapper></ClientGuard>} />
       <Route path="/client/dashboard" element={<Navigate to="/client-dashboard" replace />} />
-      {Object.entries(Pages).map(([path, Page]) => (
-        <Route
-          key={path}
-          path={`/${path}`}
-          element={
-            <LayoutWrapper currentPageName={path}>
-              <Page />
-            </LayoutWrapper>
-          }
-        />
-      ))}
+      {Object.entries(Pages).map(([path, Page]) => {
+        const pageAccess = classifyPageKey(path);
+        const noIndex = shouldNoIndex(pageAccess);
+        return (
+          <Route
+            key={path}
+            path={`/${path}`}
+            element={
+              <LayoutWrapper currentPageName={path}>
+                {noIndex && <NoIndexMeta />}
+                <Page />
+              </LayoutWrapper>
+            }
+          />
+        );
+      })}
       <Route path="/admin/ai-workforce-legacy" element={<LayoutWrapper currentPageName="AIWorkforce"><AIWorkforce /></LayoutWrapper>} />
       <Route path="/admin/founder-scorecard" element={<LayoutWrapper currentPageName="FounderScorecard"><FounderScorecard /></LayoutWrapper>} />
       <Route path="/client/campaigns" element={<LayoutWrapper currentPageName="ClientCampaigns"><ClientCampaigns /></LayoutWrapper>} />

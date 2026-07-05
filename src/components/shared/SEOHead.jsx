@@ -4,7 +4,8 @@ export default function SEOHead({
   title = "New Tech Advertising | AI Marketing for Small Business",
   description = "AI-powered marketing for HVAC, plumbing, and restaurant businesses in Iowa and Southern Minnesota. Automated social media, local SEO, review management, and AI video content.",
   canonical = "https://newtechadvertising.com/",
-  faqs = []
+  faqs = [],
+  noIndex = false
 }) {
   useEffect(() => {
     // Helper to set or create meta tags
@@ -50,7 +51,10 @@ export default function SEOHead({
     
     elements.push(setMeta('description', description));
     elements.push(setMeta('keywords', "AI marketing Mason City Iowa, HVAC marketing, plumbing marketing, restaurant marketing, social media automation, AI SEO, local business marketing Iowa, small business marketing Minnesota"));
-    elements.push(setMeta('robots', "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"));
+    elements.push(setMeta('robots', noIndex
+      ? "noindex, nofollow"
+      : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    ));
     elements.push(setMeta('author', "New Tech Advertising"));
     elements.push(setMeta('geo.region', "US-IA"));
     elements.push(setMeta('geo.placename', "Mason City, Iowa"));
@@ -217,7 +221,7 @@ export default function SEOHead({
         }
       });
     };
-  }, [title, description, canonical, faqs]);
+  }, [title, description, canonical, faqs, noIndex]);
 
   return null;
 }

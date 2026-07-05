@@ -1,29 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/AuthContext';
 import { Lock } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils';
-
-import { useState, useEffect } from 'react';
-import { base44 } from '@/api/base44Client';
+import NoIndexMeta from './NoIndexMeta';
 
 export default function AdminGuard({ children }) {
   const { user, isLoadingAuth, authChecked, navigateToLogin } = useAuth();
   const [isAdmin, setIsAdmin] = useState(null);
   const [isVerifying, setIsVerifying] = useState(true);
-
-  useEffect(() => {
-    const meta = document.createElement('meta');
-    meta.name = 'robots';
-    meta.content = 'noindex, nofollow';
-    document.head.appendChild(meta);
-    return () => {
-      if (document.head.contains(meta)) {
-        document.head.removeChild(meta);
-      }
-    };
-  }, []);
 
   useEffect(() => {
     async function verifyAdmin() {
@@ -66,6 +52,7 @@ export default function AdminGuard({ children }) {
   if (!isAdmin) {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
+        <NoIndexMeta />
         <Card className="max-w-md w-full bg-slate-900 border-slate-800">
           <CardHeader>
             <div className="flex items-center gap-3 text-red-500">
@@ -86,5 +73,10 @@ export default function AdminGuard({ children }) {
     );
   }
 
-  return children;
+  return (
+    <>
+      <NoIndexMeta />
+      {children}
+    </>
+  );
 }
