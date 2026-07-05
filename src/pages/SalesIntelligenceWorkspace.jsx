@@ -23,6 +23,7 @@ import {
   Briefcase, Video, PenSquare, Bot
 } from 'lucide-react';
 import RecommendationPanel from '@/components/RecommendationPanel';
+import BusinessPatternPanel from '@/components/BusinessPatternPanel';
 
 // ─────────────────────────────────────────────
 // Constants
@@ -401,6 +402,18 @@ export default function SalesIntelligenceWorkspace() {
                   </div>
                 )}
               </div>
+            )}
+
+            {/* I-002 Business Pattern Panel */}
+            {lead && (
+              <BusinessPatternPanel
+                businessName={lead.business_name || ''}
+                industry={lead.industry || ''}
+                location={[lead.city, lead.state].filter(Boolean).join(', ')}
+                websiteUrl={lead.website || ''}
+                contextDescription={`Sales preparation for ${lead.business_name || 'prospect'}. Evaluating fit and identifying patterns from prior engagements.`}
+                className="mt-6"
+              />
             )}
 
             {/* I-001 Recommendation Panel */}

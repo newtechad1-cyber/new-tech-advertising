@@ -9,6 +9,7 @@ import {
   Zap, Eye, Search, Sparkles, ClipboardCheck, ArrowRight
 } from 'lucide-react';
 import RecommendationPanel from '@/components/RecommendationPanel';
+import BusinessPatternPanel from '@/components/BusinessPatternPanel';
 
 // ─────────────────────────────────────────────────
 // Constants
@@ -380,6 +381,17 @@ function RightPanel({ call, onUpdateCall, lead, audit }) {
           <p className="text-white text-sm font-semibold">{audit.recommended_system_step.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</p>
         </div>
       )}
+
+      {/* I-002 Business Pattern Panel */}
+      <BusinessPatternPanel
+        businessName={lead?.business_name || ''}
+        industry={lead?.industry || ''}
+        location={[lead?.city, lead?.state].filter(Boolean).join(', ')}
+        websiteUrl={lead?.website || ''}
+        currentChallenge={call?.s2_current_marketing || ''}
+        contextDescription={`Discovery call preparation. Understanding business patterns to guide conversation.`}
+        compact={true}
+      />
 
       {/* I-001 Recommendation Panel */}
       <RecommendationPanel
