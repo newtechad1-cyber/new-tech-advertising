@@ -4,7 +4,12 @@ import ServicePageLayout from '../components/service-pages/ServicePageLayout';
 import SEOHead from '@/components/shared/SEOHead';
 export default function SEOPagesForLocalBusinesses() {
   return (
-    <ServicePageLayout
+    <>
+      <SEOHead
+        title="SEO Pages for Local Businesses | New Tech Advertising"
+        description="How local business SEO pages work. Geo-targeted landing pages that help customers find you in Mason City, Rochester, and beyond."
+      />
+      <ServicePageLayout
       seoTitle="SEO Pages for Local Service Businesses | NTA North Iowa"
       seoDescription="NTA creates city and service-specific SEO landing pages for local businesses in North Iowa. Get found when customers search for your services in your area."
       eyebrow="Local SEO Pages · North Iowa"
@@ -54,9 +59,6 @@ export default function SEOPagesForLocalBusinesses() {
       ]}
       formSource="SEOPages"
     />
-      <SEOHead 
-        title="SEO Pages for Local Businesses | New Tech Advertising"
-        description="How local business SEO pages work. Geo-targeted landing pages that help customers find you in Mason City, Rochester, and beyond."
-      />
+    </>
   );
 }

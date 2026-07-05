@@ -4,7 +4,12 @@ import ServicePageLayout from '../components/service-pages/ServicePageLayout';
 import SEOHead from '@/components/shared/SEOHead';
 export default function SeasonalCampaigns() {
   return (
-    <ServicePageLayout
+    <>
+      <SEOHead
+        title="Seasonal Marketing Campaigns for Small Business | New Tech Advertising"
+        description="How to plan seasonal marketing campaigns for HVAC, plumbing, and restaurant businesses. AI-powered seasonal content strategies."
+      />
+      <ServicePageLayout
       seoTitle="Seasonal Marketing Campaigns for Local Businesses | NTA North Iowa"
       seoDescription="NTA runs seasonal Facebook and social media campaigns for local service businesses in North Iowa — HVAC tune-ups, spring landscaping, fall clean-ups, and more."
       eyebrow="Seasonal Campaigns · North Iowa"
@@ -52,9 +57,6 @@ export default function SeasonalCampaigns() {
       ]}
       formSource="SeasonalCampaigns"
     />
-      <SEOHead 
-        title="Seasonal Marketing Campaigns for Small Business | New Tech Advertising"
-        description="How to plan seasonal marketing campaigns for HVAC, plumbing, and restaurant businesses. AI-powered seasonal content strategies."
-      />
+    </>
   );
 }

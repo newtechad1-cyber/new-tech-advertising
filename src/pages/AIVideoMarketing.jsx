@@ -4,7 +4,12 @@ import ServicePageLayout from '../components/service-pages/ServicePageLayout';
 import SEOHead from '@/components/shared/SEOHead';
 export default function AIVideoMarketing() {
   return (
-    <ServicePageLayout
+    <>
+      <SEOHead
+        title="AI Video Marketing for Small Business | New Tech Advertising"
+        description="AI-powered video content creation for small businesses. Automated video production, editing, and distribution for local marketing."
+      />
+      <ServicePageLayout
       seoTitle="AI Video Marketing for Local Businesses | NTA North Iowa"
       seoDescription="NTA creates AI-powered video content for local service businesses in North Iowa — affordable short videos, YouTube content, and social reels that build trust and drive leads."
       eyebrow="AI Video Marketing · North Iowa"
@@ -53,9 +58,6 @@ export default function AIVideoMarketing() {
       ]}
       formSource="AIVideoMarketing"
     />
-      <SEOHead 
-        title="AI Video Marketing for Small Business | New Tech Advertising"
-        description="AI-powered video content creation for small businesses. Automated video production, editing, and distribution for local marketing."
-      />
+    </>
   );
 }
