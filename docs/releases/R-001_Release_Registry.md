@@ -17,6 +17,7 @@
 | 0.3 | Knowledge Navigator | Released | `feature/r003-knowledge-navigator` | — (included in #7) | — | 2026-07 | Viktor | K-002 Knowledge Navigator, Knowledge Relationships, E-000 Operating System Constitution |
 | 0.4 | Intelligence Layer | Released | `feature/r004-intelligence-layer` | PR #7 (merged) | `v0.4.0` | 2026-07-03 | Viktor | K-003 Knowledge Search API, A-006 Knowledge Capture Automation, E-004 Sales Intelligence, Knowledge Dependency Map, Release Notes Template, I-000 Intelligence Framework, R-000 Release Governance, R-001 Release Registry. First governance-validated release. |
 | 0.5 | Intelligence Automation | In Progress | — | — | — | — | Viktor | I-001 through I-006 — governed by I-000 (delivered in R0.4) |
+| 0.5.1 | Access Governance & SEO Cleanup | Pending Merge | `emergency/r0.5.1-access-governance` | PR TBD | — | 2026-07-05 | Viktor | Emergency stabilization: Route Governance Registry, auth enforcement, SEO cleanup. R-002 policy. |
 
 ---
 
@@ -25,7 +26,7 @@
 | Build | Module | Status | PR | Merge Commit | Date | Notes |
 |-------|--------|--------|-----|-------------|------|-------|
 | Build 1 | I-001 Recommendation Engine v1.0 | Merged | PR #8 | `a1b5adae` | 2026-07-03 | First intelligence module. generateRecommendations function + RecommendationPanel component. 4 workspace integrations. QA passed (3 fixes applied). CEO approved. |
-| Build 2 | I-002 Business Pattern Recognition | Planned | — | — | — | — |
+| Build 2 | I-002 Business Pattern Recognition v1.0 | Merged | PR #9 | `039c2103` | 2026-07-03 | BusinessPatternPanel + GapAudit filter fix. QA passed. CEO approved. |
 | Build 3 | I-003 Executive Daily Briefing | Planned | — | — | — | — |
 | Build 4 | I-004 Client Intelligence Timeline | Planned | — | — | — | — |
 | Build 5 | I-005 AI Mentor | Planned | — | — | — | — |
@@ -44,7 +45,7 @@
 | Total Entities | 15+ |
 | Total Functions | 21+ |
 | Total Pages | 25+ |
-| Total Documents | 7 |
+| Total Documents | 8 |
 
 ---
 
@@ -56,6 +57,7 @@
 2026-07     R0.3 Knowledge Navigator ............... Released
 2026-07-03  R0.4 Intelligence Layer ................ Released (v0.4.0)
 2026-07-03  R0.5 Build 1 — I-001 Recommendation ... Merged (in progress)
+2026-07-05  R0.5.1 Access Governance & SEO ......... Pending Merge
 TBD         R0.5 Intelligence Automation ........... In Progress
 TBD         R1.0 Production Release ................ Future
 ```
@@ -67,6 +69,7 @@ TBD         R1.0 Production Release ................ Future
 | Version | Description | Branch | PR | Date | Notes |
 |---------|------------|--------|-----|------|-------|
 | — | Honeypot spam protection | `fix/honeypot-spam-protection` | Merged direct | 2026-07-03 | Pre-governance hotfix; synced into R0.4 branch |
+| 0.5.1 | Access Governance & SEO Cleanup | `emergency/r0.5.1-access-governance` | PR TBD | 2026-07-05 | Emergency: 508 PascalCase pages.config routes bypassing auth; SEO pollution from internal routes |
 
 ---
 
