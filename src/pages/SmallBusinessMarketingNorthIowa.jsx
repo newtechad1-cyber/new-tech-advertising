@@ -4,7 +4,12 @@ import ServicePageLayout from '../components/service-pages/ServicePageLayout';
 import SEOHead from '@/components/shared/SEOHead';
 export default function SmallBusinessMarketingNorthIowa() {
   return (
-    <ServicePageLayout
+    <>
+      <SEOHead
+        title="Small Business Marketing North Iowa | New Tech Advertising"
+        description="AI-powered marketing for small businesses in North Iowa. Social media, local SEO, Google Business Profile management, and website design."
+      />
+      <ServicePageLayout
       seoTitle="Small Business Marketing North Iowa | New Tech Advertising"
       seoDescription="AI marketing for small businesses in Mason City, Clear Lake & North Iowa. Google, social media, AI search optimization & website design. Free audit."
       eyebrow="Small Business Marketing · North Iowa"
@@ -53,9 +58,6 @@ export default function SmallBusinessMarketingNorthIowa() {
       ]}
       formSource="SmallBusinessMarketing"
     />
-      <SEOHead 
-        title="Small Business Marketing North Iowa | New Tech Advertising"
-        description="AI-powered marketing for small businesses in North Iowa. Social media, local SEO, Google Business Profile management, and website design."
-      />
+    </>
   );
 }
