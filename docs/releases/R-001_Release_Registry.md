@@ -17,7 +17,7 @@
 | 0.3 | Knowledge Navigator | Released | `feature/r003-knowledge-navigator` | — (included in #7) | — | 2026-07 | Viktor | K-002 Knowledge Navigator, Knowledge Relationships, E-000 Operating System Constitution |
 | 0.4 | Intelligence Layer | Released | `feature/r004-intelligence-layer` | PR #7 (merged) | `v0.4.0` | 2026-07-03 | Viktor | K-003 Knowledge Search API, A-006 Knowledge Capture Automation, E-004 Sales Intelligence, Knowledge Dependency Map, Release Notes Template, I-000 Intelligence Framework, R-000 Release Governance, R-001 Release Registry. First governance-validated release. |
 | 0.5 | Intelligence Automation | In Progress | — | — | — | — | Viktor | I-001 through I-006 — governed by I-000 (delivered in R0.4) |
-| 0.5.1 | Access Governance & SEO Cleanup | Pending Merge | `emergency/r0.5.1-access-governance` | PR TBD | — | 2026-07-05 | Viktor | Emergency stabilization: Route Governance Registry, auth enforcement, SEO cleanup. R-002 policy. |
+| 0.5.1 | Access Governance & SEO Cleanup | Released | `emergency/r0.5.1-access-governance` | PR #10 (merged) | `v0.5.1` | 2026-07-05 | Viktor | Emergency stabilization: Route Governance Registry, auth enforcement, SEO cleanup. R-002 policy. CEO approved. |
 
 ---
 
@@ -38,8 +38,8 @@
 
 | Metric | Value |
 |--------|-------|
-| Total Releases | 5 |
-| Released | 4 |
+| Total Releases | 6 |
+| Released | 5 |
 | In Progress | 1 |
 | Planned | 0 |
 | Total Entities | 15+ |
@@ -57,7 +57,7 @@
 2026-07     R0.3 Knowledge Navigator ............... Released
 2026-07-03  R0.4 Intelligence Layer ................ Released (v0.4.0)
 2026-07-03  R0.5 Build 1 — I-001 Recommendation ... Merged (in progress)
-2026-07-05  R0.5.1 Access Governance & SEO ......... Pending Merge
+2026-07-05  R0.5.1 Access Governance & SEO ......... Released (v0.5.1)
 TBD         R0.5 Intelligence Automation ........... In Progress
 TBD         R1.0 Production Release ................ Future
 ```
@@ -69,7 +69,7 @@ TBD         R1.0 Production Release ................ Future
 | Version | Description | Branch | PR | Date | Notes |
 |---------|------------|--------|-----|------|-------|
 | — | Honeypot spam protection | `fix/honeypot-spam-protection` | Merged direct | 2026-07-03 | Pre-governance hotfix; synced into R0.4 branch |
-| 0.5.1 | Access Governance & SEO Cleanup | `emergency/r0.5.1-access-governance` | PR TBD | 2026-07-05 | Emergency: 508 PascalCase pages.config routes bypassing auth; SEO pollution from internal routes |
+| 0.5.1 | Access Governance & SEO Cleanup | `emergency/r0.5.1-access-governance` | PR #10 (merged) | 2026-07-05 | Emergency: 508 PascalCase pages.config routes bypassing auth; SEO pollution from internal routes. Merged, tagged `v0.5.1`. |
 
 ---
 
@@ -103,6 +103,15 @@ TBD         R1.0 Production Release ................ Future
 | 1.0 | Production Release — full Operating System |
 
 *Reservations are tentative and may be reassigned by the CEO.*
+
+---
+
+## Future Hardening Backlog
+
+| # | Item | Priority | Origin | Notes |
+|---|------|----------|--------|-------|
+| 1 | Consolidate duplicate AdminGuard implementations | Low | R0.5.1 QA | Two files export `AdminGuard`: standalone `AdminGuard.jsx` (rich UI) and `RoleGuard.jsx` (named export, simple redirect). Both inject `NoIndexMeta`. Merge into single canonical implementation. |
+| 2 | Add default auth-required fallback for unknown page keys | Medium | R0.5.1 QA | `classifyPageKey()` defaults to `public` for unrecognized prefixes. Change to `auth_required` so new pages are locked by default and must be explicitly whitelisted. |
 
 ---
 
