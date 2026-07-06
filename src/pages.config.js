@@ -314,6 +314,7 @@ import AiSocialMediaSmallBusiness from './pages/AiSocialMediaSmallBusiness';
 import AiVideoStudio from './pages/AiVideoStudio';
 import AiVideos from './pages/AiVideos';
 import AiWebsites from './pages/AiWebsites';
+import AuthorityDashboard from './pages/AuthorityDashboard';
 import AuthorityMap from './pages/AuthorityMap';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
@@ -829,6 +830,7 @@ export const PAGES = {
     "AiVideoStudio": AiVideoStudio,
     "AiVideos": AiVideos,
     "AiWebsites": AiWebsites,
+    "AuthorityDashboard": AuthorityDashboard,
     "AuthorityMap": AuthorityMap,
     "Blog": Blog,
     "BlogPost": BlogPost,

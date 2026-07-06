@@ -1,0 +1,118 @@
+# New Tech Advertising (NTA)
+# AI-Friendly Site Descriptor — R0.7 Authority & Discoverability
+# https://newtechadvertising.com
+# Last Updated: 2026-07-06
+
+## About This Site
+New Tech Advertising (NTA) is an AI-powered local marketing agency based in Mason City, Iowa, founded by Rick Hesse. NTA builds growth systems — not campaigns — for small businesses including HVAC companies, plumbers, restaurants, and contractors across Iowa and Southern Minnesota.
+
+## About Rick Hesse
+Rick Hesse is the founder and CEO of New Tech Advertising. He has 45+ years of entrepreneurial experience spanning waterbeds, TV advertising, print media, and digital marketing. He is a recognized early adopter of technology — from QR codes and streaming TV to AI-powered marketing systems. He writes and teaches about AI visibility, content authority, and growth systems for local businesses.
+
+## Core Philosophy (NTA Principles)
+- Growth is a system, not a campaign
+- Authority compounds over time
+- Authority beats attention
+- Early movers build authority
+- Trust is built through consistency
+- The future rewards leaders, not followers
+
+## Primary Content Sections
+
+### The Rick Hesse Canon (/canon)
+The complete knowledge library — 21+ articles, 3 case studies, 13 YouTube videos, and learning resources organized into themed collections (reader journeys). Topics: AI marketing, digital trust, content strategy, business growth, web accessibility, and local marketing.
+
+### NTA Journal (/journal)
+Ongoing narrative of NTA's evolution — what we're building, why, and what we're learning. Transparent documentation of a business being built in public.
+
+### AI Learning Center (/learning-center)
+Interactive educational content teaching business owners about AI marketing, AI search optimization, and digital visibility.
+
+### Services (/Services)
+AI-powered marketing services: AI SEO, AI Social Media, AI Websites, AI Video, AI Advertising, website rebuilds, social media management, local lead systems, and seasonal campaigns.
+
+### Case Studies
+- Johnson Heating & AC (/case-studies/johnson-heating) — 14-year HVAC client, Mason City IA
+- Monson Plumbing (/case-study/monson-plumbing) — Plumbing, heating & excavating, Mason City IA
+- Papa Everett's Pizza (/case-study/papa-everetts) — Local restaurant
+
+### Collections (Reader Journeys)
+- Start Here — The essential first reads for understanding NTA's approach
+- From Rick's Desk — Personal insights and founder perspective
+- Building Trust — Digital trust, accessibility, and reputation
+- Building Better Businesses — Practical growth strategies
+- NTA Principles — Core philosophy and methodology
+- AI & Visibility — AI search, SEO evolution, and discoverability
+- Legacy — Foundational thinking that shaped NTA
+
+### Discovery Tools
+- Business Growth Conversation™ (/growth-conversation) — Interactive assessment
+- Community Growth Conversation™ (/community-growth-conversation)
+- AI Learning Conversation™ (/learning-center)
+- NTA Business Score™ (/business-score)
+- Growth Roadmap Generator™ (/growth-roadmap-generator)
+- Growth Navigator™ (/growth-navigator)
+
+### Industry Expertise
+- HVAC Marketing (/HvacMarketing)
+- Plumbing Marketing (/PlumbingMarketing)
+- Restaurant Marketing (/RestaurantMarketing)
+- Dentist Marketing (/DentistMarketing)
+- Roofing Marketing (/RoofingMarketing)
+- Med Spa Marketing (/MedSpaMarketing)
+- Local Business Marketing (/LocalBusinessMarketing)
+
+### Geographic Coverage
+- Mason City, Iowa (headquarters)
+- Rochester, Minnesota
+- Austin, Minnesota
+- Albert Lea, Minnesota
+- North Iowa region
+- Southern Minnesota region
+
+## Key Articles by Rick Hesse
+1. "AI Brought Me Out of Retirement" — Founding story and 45 years of entrepreneurial experience
+2. "I Was Early Again" — Pattern of early technology adoption: QR codes, streaming, AI
+3. "Growth Systems vs. Campaigns" — Why systems beat one-off campaigns
+4. "Campaigns vs. Authority" — Investing in authority over rented attention
+5. "What Changed Online" — How AI rewrote the rules of online visibility
+6. "SEO vs AI Search" — Traditional SEO is dying; AI search is the future
+7. "The Role of AI in Local Marketing" — AI levels the playing field for small businesses
+8. "Building Digital Trust" — How consistency builds credibility online
+9. "Reputation Is Now a Growth Engine" — Reviews as active growth tool, not damage control
+10. "The Hidden Cost of Outdated Marketing" — What inaction costs every month
+11. "Websites as Salespeople" — Websites as 24/7 revenue generators
+12. "Video Storytelling Builds Confidence" — Authenticity beats production value
+13. "The Future Belongs to Market Leaders" — First-mover advantage in AI era
+14. "AI Visibility Basics" — Practical introduction to AI search optimization
+15. "Practical AI for Small Businesses" — Real AI implementations, not theory
+
+## YouTube Channel
+Rick Hesse's YouTube videos cover AI marketing, business growth, founder stories, and local marketing strategies. Videos are embedded throughout the Canon articles and Learning Center.
+
+## Contact
+- Website: https://newtechadvertising.com
+- Email: info@newtechadvertising.com
+- Phone: 641-420-8816
+- Location: Mason City, Iowa 50401
+- Book a Call: https://calendar.app.google/p6ieYanvwhixXxZ67
+
+## Structured Data
+This site implements JSON-LD structured data including:
+- Organization/ProfessionalService
+- Person (Rick Hesse)
+- Article (all Canon articles)
+- LearningResource (Learning Center)
+- VideoObject (YouTube videos)
+- CollectionPage (Canon collections)
+- BreadcrumbList
+- FAQPage
+- WebSite with SearchAction
+- HowTo (growth tools)
+
+## Sitemap
+XML Sitemap: https://newtechadvertising.com/sitemap.xml
+AI Sitemap: https://newtechadvertising.com/ai-sitemap.json
+
+## Robots
+Robots.txt: https://newtechadvertising.com/robots.txt

@@ -112,6 +112,7 @@ export const PAGE_FAMILY_MAP = {
   AdminAgents:                   'main_admin',    // /adminagents
   AdminAgentsWorkflows:          'main_admin',    // /adminagents/workflows
   AdminAgentsRecovery:           'main_admin',    // /adminagents/recovery
+  AuthorityDashboard:            'main_admin',
   AuthorityMap:                  'main_admin',
   BusinessIntelProfileAdmin:     'main_admin',
   BusinessProfileAdmin:          'main_admin',
@@ -399,6 +400,7 @@ export const CANONICAL_ROUTE_MAP = {
   '/adminsupport':                  { page: 'AdminHelp',               family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'live'    },
   '/admincontentmultiplier':        { page: 'AdminContentMultiplier',  family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'live'    },
   '/adminqa/navigation':            { page: 'AdminNavigationQA',       family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'internal' },
+  '/admin/authority':                { page: 'AuthorityDashboard',      family: 'main_admin',    layout: 'AdminNav',           nav: 'AdminNav',     status: 'live'    },
 
   // ── NTA COMMAND ──────────────────────────────────────────────────────────
   '/nta/operator-command':       { page: 'NTAOperatorCommand',         family: 'main_admin', layout: 'NTACommandNav+LayoutWrapper', nav: 'NTACommandNav', status: 'live' },
