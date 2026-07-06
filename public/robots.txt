@@ -124,6 +124,11 @@ Disallow: /PerformanceSignal*
 # HVAC funnel (noindex landing pages)
 Disallow: /hvac-funnel
 
+# ── AI Crawl Optimization (R0.7) ───────────────────────────────────────────
+# LLM-friendly site descriptor
+Allow: /llms.txt
+Allow: /ai-sitemap.json
+
 # ── Sitemap ────────────────────────────────────────────────────────────────
 Sitemap: https://newtechadvertising.com/sitemap.xml
 

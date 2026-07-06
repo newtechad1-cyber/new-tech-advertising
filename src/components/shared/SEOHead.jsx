@@ -2,7 +2,19 @@ import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 /**
- * SEOHead — Unified SEO meta tag management for every page.
+ * SEOHead — Unified SEO & Structured Data management for every page.
+ *
+ * R0.7 Authority & Discoverability:
+ *   - WebSite + SearchAction schema (sitewide)
+ *   - Person schema (Rick Hesse — founder authority)
+ *   - Article schema (for canon articles / blog posts)
+ *   - LearningResource schema (for learning center content)
+ *   - VideoObject schema (for pages with embedded videos)
+ *   - CollectionPage schema (for canon collections)
+ *   - HowTo schema (for discovery tools / processes)
+ *   - BreadcrumbList (auto-generated from path)
+ *   - FAQPage (page-level or default)
+ *   - ProfessionalService (organization — sitewide)
  *
  * Canonical URL logic (G-002):
  *   1. If `canonical` prop is explicitly passed → use it.
@@ -11,26 +23,85 @@ import { useLocation } from 'react-router-dom';
  *   4. Strips trailing slashes (except root /).
  */
 const SITE_ORIGIN = 'https://newtechadvertising.com';
+const SITE_NAME = 'New Tech Advertising';
 
 function buildCanonical(pathname) {
-  // Normalize: strip trailing slash (except root)
   const clean = pathname === '/' ? '/' : pathname.replace(/\/+$/, '');
   return `${SITE_ORIGIN}${clean}`;
 }
+
+// ─── Rick Hesse Person Schema (founder authority) ─────────────────────────
+const PERSON_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${SITE_ORIGIN}/#rick-hesse`,
+  "name": "Rick Hesse",
+  "givenName": "Rick",
+  "familyName": "Hesse",
+  "jobTitle": "Founder & CEO",
+  "description": "Founder of New Tech Advertising with 45+ years of entrepreneurial experience. Early adopter of QR codes, streaming TV, and AI marketing. Teaches business owners to build growth systems through content authority.",
+  "url": `${SITE_ORIGIN}/About`,
+  "image": `${SITE_ORIGIN}/og-image.png`,
+  "worksFor": {
+    "@type": "Organization",
+    "@id": `${SITE_ORIGIN}/#organization`
+  },
+  "knowsAbout": [
+    "AI Marketing",
+    "Local Business Growth",
+    "Digital Trust",
+    "Content Strategy",
+    "AI Search Optimization",
+    "Small Business Marketing",
+    "Video Marketing",
+    "Social Media Automation"
+  ],
+  "sameAs": []
+};
+
+// ─── WebSite + SearchAction Schema (sitewide) ─────────────────────────────
+const WEBSITE_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE_ORIGIN}/#website`,
+  "name": SITE_NAME,
+  "url": SITE_ORIGIN,
+  "description": "AI-powered marketing for small businesses. Growth systems, not campaigns.",
+  "publisher": {
+    "@type": "Organization",
+    "@id": `${SITE_ORIGIN}/#organization`
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": `${SITE_ORIGIN}/canon?q={search_term_string}`
+    },
+    "query-input": "required name=search_term_string"
+  }
+};
 
 export default function SEOHead({
   title = "New Tech Advertising | AI Marketing for Small Business",
   description = "AI-powered marketing for HVAC, plumbing, and restaurant businesses in Iowa and Southern Minnesota. Automated social media, local SEO, review management, and AI video content.",
   canonical,
   faqs = [],
-  noIndex = false
+  noIndex = false,
+  // R0.7 — Article schema props
+  articleData = null,     // { title, author, datePublished, dateModified, description, image, slug }
+  // R0.7 — Video schema props
+  videoData = null,       // { name, description, thumbnailUrl, uploadDate, contentUrl, embedUrl, duration }
+  // R0.7 — LearningResource schema props
+  learningData = null,    // { name, description, educationalLevel, learningResourceType }
+  // R0.7 — CollectionPage schema props
+  collectionData = null,  // { name, description, numberOfItems, hasPart: [{name, url}] }
+  // R0.7 — HowTo schema props
+  howToData = null,        // { name, description, steps: [{name, text}] }
 }) {
   const location = useLocation();
-  // Auto-generate canonical from current route if not explicitly provided
   const resolvedCanonical = canonical || buildCanonical(location.pathname);
 
   useEffect(() => {
-    // Helper to set or create meta tags
     const setMeta = (nameOrProperty, content, isProperty = false) => {
       if (!content) return null;
       const attr = isProperty ? 'property' : 'name';
@@ -44,7 +115,6 @@ export default function SEOHead({
       return meta;
     };
 
-    // Helper to add JSON-LD schema
     const addSchema = (schemaObj) => {
       const script = document.createElement('script');
       script.type = 'application/ld+json';
@@ -56,11 +126,8 @@ export default function SEOHead({
 
     const elements = [];
 
-    // 1. META TAGS
-    // Update document title directly
+    // ── 1. META TAGS ──────────────────────────────────────────────────────
     document.title = title;
-    
-    // Also explicitly ensure <title> tag exists in HEAD and is updated
     let titleTag = document.head.querySelector('title');
     if (!titleTag) {
       titleTag = document.createElement('title');
@@ -68,58 +135,65 @@ export default function SEOHead({
     }
     titleTag.textContent = title;
 
-    // Add meta title as a fallback
     elements.push(setMeta('title', title));
-    
     elements.push(setMeta('description', description));
     elements.push(setMeta('keywords', "AI marketing Mason City Iowa, HVAC marketing, plumbing marketing, restaurant marketing, social media automation, AI SEO, local business marketing Iowa, small business marketing Minnesota"));
     elements.push(setMeta('robots', noIndex
       ? "noindex, nofollow"
       : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
     ));
-    elements.push(setMeta('author', "New Tech Advertising"));
+    elements.push(setMeta('author', "Rick Hesse"));
     elements.push(setMeta('geo.region', "US-IA"));
     elements.push(setMeta('geo.placename', "Mason City, Iowa"));
     elements.push(setMeta('ICBM', "43.1537, -93.2010"));
 
-    // Canonical link — always outputs the resolved canonical URL
+    // Canonical link
     const oldCanonical = document.head.querySelector('link[rel="canonical"]');
-    if (oldCanonical) {
-      oldCanonical.remove();
-    }
+    if (oldCanonical) oldCanonical.remove();
     const canonicalLink = document.createElement('link');
     canonicalLink.setAttribute('rel', 'canonical');
     canonicalLink.setAttribute('href', resolvedCanonical);
     document.head.appendChild(canonicalLink);
     elements.push(canonicalLink);
 
-    // 2. OPEN GRAPH
-    elements.push(setMeta('og:type', 'website', true));
+    // ── 2. OPEN GRAPH ─────────────────────────────────────────────────────
+    elements.push(setMeta('og:type', articleData ? 'article' : 'website', true));
     elements.push(setMeta('og:url', resolvedCanonical, true));
     elements.push(setMeta('og:title', title, true));
     elements.push(setMeta('og:description', description, true));
-    elements.push(setMeta('og:image', "https://newtechadvertising.com/og-image.png", true));
-    elements.push(setMeta('og:site_name', "New Tech Advertising", true));
+    elements.push(setMeta('og:image', `${SITE_ORIGIN}/og-image.png`, true));
+    elements.push(setMeta('og:site_name', SITE_NAME, true));
     elements.push(setMeta('og:locale', "en_US", true));
 
-    // 3. TWITTER CARD
+    // Article-specific OG tags
+    if (articleData) {
+      elements.push(setMeta('article:author', articleData.author || 'Rick Hesse', true));
+      if (articleData.datePublished) elements.push(setMeta('article:published_time', articleData.datePublished, true));
+      if (articleData.dateModified) elements.push(setMeta('article:modified_time', articleData.dateModified, true));
+    }
+
+    // ── 3. TWITTER CARD ───────────────────────────────────────────────────
     elements.push(setMeta('twitter:card', 'summary_large_image'));
     elements.push(setMeta('twitter:title', title));
     elements.push(setMeta('twitter:description', description));
-    elements.push(setMeta('twitter:image', "https://newtechadvertising.com/og-image.png"));
+    elements.push(setMeta('twitter:image', `${SITE_ORIGIN}/og-image.png`));
 
-    // 4. PROFESSIONAL SERVICE SCHEMA (Deep JSON-LD)
+    // ── 4. WEBSITE + SEARCH ACTION SCHEMA (sitewide) ──────────────────────
+    elements.push(addSchema(WEBSITE_SCHEMA));
+
+    // ── 5. PROFESSIONAL SERVICE SCHEMA ────────────────────────────────────
     const localBusinessSchema = {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
+      "@id": `${SITE_ORIGIN}/#organization`,
       "name": "New Tech Advertising (NTA)",
       "founder": {
         "@type": "Person",
-        "name": "Rick A. Hesse"
+        "@id": `${SITE_ORIGIN}/#rick-hesse`
       },
       "telephone": "+1-641-420-8816",
       "email": "info@newtechadvertising.com",
-      "url": "https://newtechadvertising.com",
+      "url": SITE_ORIGIN,
       "description": "AI-driven local marketing automation, CTV streaming ads, and automated high-converting CRM systems for small business contractors.",
       "address": {
         "@type": "PostalAddress",
@@ -135,10 +209,12 @@ export default function SEOHead({
       },
       "priceRange": "$$",
       "areaServed": [
-        { "@type": "City", "name": "North Iowa" },
-        { "@type": "City", "name": "Southern Minnesota" },
         { "@type": "City", "name": "Mason City" },
-        { "@type": "City", "name": "Rochester" }
+        { "@type": "City", "name": "Rochester" },
+        { "@type": "City", "name": "Austin" },
+        { "@type": "City", "name": "Albert Lea" },
+        { "@type": "State", "name": "Iowa" },
+        { "@type": "State", "name": "Minnesota" }
       ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
@@ -154,7 +230,10 @@ export default function SEOHead({
     };
     elements.push(addSchema(localBusinessSchema));
 
-    // 5. SPEAKABLE SCHEMA
+    // ── 6. PERSON SCHEMA (Rick Hesse — founder authority) ─────────────────
+    elements.push(addSchema(PERSON_SCHEMA));
+
+    // ── 7. SPEAKABLE SCHEMA ───────────────────────────────────────────────
     const speakableSchema = {
       "@context": "https://schema.org",
       "@type": "WebPage",
@@ -166,7 +245,129 @@ export default function SEOHead({
     };
     elements.push(addSchema(speakableSchema));
 
-    // 6. FAQ SCHEMA
+    // ── 8. ARTICLE SCHEMA (when articleData is provided) ──────────────────
+    if (articleData) {
+      const articleSchema = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": articleData.title || title,
+        "description": articleData.description || description,
+        "author": {
+          "@type": "Person",
+          "@id": `${SITE_ORIGIN}/#rick-hesse`,
+          "name": articleData.author || "Rick Hesse"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "@id": `${SITE_ORIGIN}/#organization`,
+          "name": SITE_NAME,
+          "logo": {
+            "@type": "ImageObject",
+            "url": `${SITE_ORIGIN}/og-image.png`
+          }
+        },
+        "datePublished": articleData.datePublished || "2026-01-01",
+        "dateModified": articleData.dateModified || articleData.datePublished || "2026-07-06",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": resolvedCanonical
+        },
+        "image": articleData.image || `${SITE_ORIGIN}/og-image.png`,
+        "url": resolvedCanonical
+      };
+      elements.push(addSchema(articleSchema));
+    }
+
+    // ── 9. VIDEO SCHEMA (when videoData is provided) ──────────────────────
+    if (videoData) {
+      const videoSchema = {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "name": videoData.name || title,
+        "description": videoData.description || description,
+        "thumbnailUrl": videoData.thumbnailUrl || `${SITE_ORIGIN}/og-image.png`,
+        "uploadDate": videoData.uploadDate || "2026-01-01",
+        "contentUrl": videoData.contentUrl || videoData.embedUrl,
+        "embedUrl": videoData.embedUrl,
+        "publisher": {
+          "@type": "Organization",
+          "@id": `${SITE_ORIGIN}/#organization`
+        },
+        "author": {
+          "@type": "Person",
+          "@id": `${SITE_ORIGIN}/#rick-hesse`
+        }
+      };
+      if (videoData.duration) videoSchema.duration = videoData.duration;
+      elements.push(addSchema(videoSchema));
+    }
+
+    // ── 10. LEARNING RESOURCE SCHEMA ──────────────────────────────────────
+    if (learningData) {
+      const learningSchema = {
+        "@context": "https://schema.org",
+        "@type": "LearningResource",
+        "name": learningData.name || title,
+        "description": learningData.description || description,
+        "educationalLevel": learningData.educationalLevel || "Beginner",
+        "learningResourceType": learningData.learningResourceType || "lesson",
+        "provider": {
+          "@type": "Organization",
+          "@id": `${SITE_ORIGIN}/#organization`
+        },
+        "author": {
+          "@type": "Person",
+          "@id": `${SITE_ORIGIN}/#rick-hesse`
+        },
+        "inLanguage": "en",
+        "url": resolvedCanonical
+      };
+      elements.push(addSchema(learningSchema));
+    }
+
+    // ── 11. COLLECTION PAGE SCHEMA ────────────────────────────────────────
+    if (collectionData) {
+      const collectionSchema = {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": collectionData.name || title,
+        "description": collectionData.description || description,
+        "url": resolvedCanonical,
+        "numberOfItems": collectionData.numberOfItems || 0,
+        "publisher": {
+          "@type": "Organization",
+          "@id": `${SITE_ORIGIN}/#organization`
+        }
+      };
+      if (collectionData.hasPart && collectionData.hasPart.length > 0) {
+        collectionSchema.hasPart = collectionData.hasPart.map((item, i) => ({
+          "@type": "CreativeWork",
+          "position": i + 1,
+          "name": item.name,
+          "url": item.url ? `${SITE_ORIGIN}${item.url}` : undefined
+        }));
+      }
+      elements.push(addSchema(collectionSchema));
+    }
+
+    // ── 12. HOWTO SCHEMA ──────────────────────────────────────────────────
+    if (howToData) {
+      const howToSchema = {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": howToData.name || title,
+        "description": howToData.description || description,
+        "step": (howToData.steps || []).map((step, i) => ({
+          "@type": "HowToStep",
+          "position": i + 1,
+          "name": step.name,
+          "text": step.text
+        }))
+      };
+      elements.push(addSchema(howToSchema));
+    }
+
+    // ── 13. FAQ SCHEMA ────────────────────────────────────────────────────
     const defaultFaqs = [
       {
         question: "What does New Tech Advertising do?",
@@ -205,7 +406,7 @@ export default function SEOHead({
     };
     elements.push(addSchema(faqSchema));
 
-    // 7. BREADCRUMB SCHEMA
+    // ── 14. BREADCRUMB SCHEMA ─────────────────────────────────────────────
     const pathParts = window.location.pathname.split('/').filter(Boolean);
     let breadcrumbUrl = window.location.origin;
     const breadcrumbItems = [
@@ -243,7 +444,7 @@ export default function SEOHead({
         }
       });
     };
-  }, [title, description, resolvedCanonical, faqs, noIndex]);
+  }, [title, description, resolvedCanonical, faqs, noIndex, articleData, videoData, learningData, collectionData, howToData]);
 
   return null;
 }

@@ -12,6 +12,7 @@ export const ROUTES = {
   adminAILab: '/admin/ai-lab',
   adminSettings: '/admin/settings',
   adminChannels: '/admin/channels',
+  adminAuthority: '/admin/authority',
 
   // Agency / CRM
   agencyDashboard: '/agency',

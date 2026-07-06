@@ -1,0 +1,198 @@
+{
+  "$schema": "https://newtechadvertising.com/ai-sitemap-schema.json",
+  "name": "New Tech Advertising",
+  "url": "https://newtechadvertising.com",
+  "description": "AI-powered local marketing agency building growth systems for small businesses. Founded by Rick Hesse in Mason City, Iowa.",
+  "last_updated": "2026-07-06",
+  "version": "R0.7",
+
+  "entity": {
+    "type": "ProfessionalService",
+    "name": "New Tech Advertising (NTA)",
+    "founder": "Rick Hesse",
+    "location": "Mason City, Iowa 50401",
+    "phone": "+1-641-420-8816",
+    "email": "info@newtechadvertising.com",
+    "service_area": ["North Iowa", "Southern Minnesota", "Mason City", "Rochester", "Austin", "Albert Lea"],
+    "specialties": ["AI Marketing", "Local SEO", "Social Media Automation", "AI Video Content", "Website Development", "Review Management"]
+  },
+
+  "founder": {
+    "name": "Rick Hesse",
+    "title": "Founder & CEO",
+    "expertise": ["AI Marketing", "Local Business Growth", "Digital Trust", "Content Strategy", "Early Technology Adoption"],
+    "experience_years": 45,
+    "notable_traits": ["Early adopter (QR codes, streaming TV, AI)", "45-year entrepreneurial career", "Teaches by building in public"],
+    "content_url": "/canon"
+  },
+
+  "principles": [
+    {"name": "Growth is a system, not a campaign", "description": "Sustainable growth comes from compounding systems, not one-off ad campaigns"},
+    {"name": "Authority compounds over time", "description": "Consistent content and expertise builds authority that accelerates growth"},
+    {"name": "Authority beats attention", "description": "Owning authority in your market is more valuable than renting attention through ads"},
+    {"name": "Early movers build authority", "description": "First-mover advantage in technology and content creates defensible market position"},
+    {"name": "Trust is built through consistency", "description": "Digital trust comes from consistent presence, reviews, and accessibility"},
+    {"name": "The future rewards leaders, not followers", "description": "Businesses that adopt AI marketing now will lead their markets"}
+  ],
+
+  "content_sections": {
+    "canon": {
+      "url": "/canon",
+      "title": "The Rick Hesse Canon",
+      "description": "Complete knowledge library — articles, case studies, videos, and learning resources organized into themed reader journeys",
+      "content_count": 96,
+      "content_types": ["articles", "case_studies", "videos", "learning_resources"]
+    },
+    "journal": {
+      "url": "/journal",
+      "title": "NTA Journal",
+      "description": "Transparent documentation of NTA being built in public — what we build, why, and what we learn"
+    },
+    "learning_center": {
+      "url": "/learning-center",
+      "title": "AI Learning Center",
+      "description": "Interactive educational content teaching business owners about AI marketing, search optimization, and digital visibility"
+    },
+    "services": {
+      "url": "/Services",
+      "title": "Marketing Services",
+      "description": "AI-powered marketing services for small businesses",
+      "items": [
+        {"name": "AI SEO", "url": "/AiSeo"},
+        {"name": "AI Social Media", "url": "/AiSocialMedia"},
+        {"name": "AI Websites", "url": "/AiWebsites"},
+        {"name": "AI Video Content", "url": "/AiVideos"},
+        {"name": "AI Advertising", "url": "/AiAdvertising"},
+        {"name": "Website Rebuilds", "url": "/services/website-rebuilds"},
+        {"name": "Social Media Management", "url": "/services/social-media-management"},
+        {"name": "Local Lead Systems", "url": "/local-lead-systems"},
+        {"name": "Accessible Websites", "url": "/accessible-websites"}
+      ]
+    },
+    "case_studies": {
+      "title": "Client Success Stories",
+      "items": [
+        {"name": "Johnson Heating & AC", "url": "/case-studies/johnson-heating", "industry": "HVAC", "location": "Mason City, IA", "relationship_years": 14},
+        {"name": "Monson Plumbing", "url": "/case-study/monson-plumbing", "industry": "Plumbing & Heating", "location": "Mason City, IA"},
+        {"name": "Papa Everett's Pizza", "url": "/case-study/papa-everetts", "industry": "Restaurant", "location": "Mason City, IA"}
+      ]
+    },
+    "industry_pages": {
+      "title": "Industry Expertise",
+      "items": [
+        {"name": "HVAC Marketing", "url": "/HvacMarketing"},
+        {"name": "Plumbing Marketing", "url": "/PlumbingMarketing"},
+        {"name": "Restaurant Marketing", "url": "/RestaurantMarketing"},
+        {"name": "Dentist Marketing", "url": "/DentistMarketing"},
+        {"name": "Roofing Marketing", "url": "/RoofingMarketing"},
+        {"name": "Med Spa Marketing", "url": "/MedSpaMarketing"},
+        {"name": "Local Business Marketing", "url": "/LocalBusinessMarketing"}
+      ]
+    },
+    "discovery_tools": {
+      "title": "Interactive Growth Tools",
+      "items": [
+        {"name": "Business Growth Conversation™", "url": "/growth-conversation", "description": "Interactive business assessment and growth planning tool"},
+        {"name": "Community Growth Conversation™", "url": "/community-growth-conversation"},
+        {"name": "NTA Business Score™", "url": "/business-score", "description": "Score your business's digital readiness"},
+        {"name": "Growth Roadmap Generator™", "url": "/growth-roadmap-generator", "description": "Generate a custom growth roadmap"}
+      ]
+    }
+  },
+
+  "collections": [
+    {"name": "Start Here", "slug": "start-here", "description": "Essential first reads for understanding NTA's approach", "type": "reader_journey"},
+    {"name": "From Rick's Desk", "slug": "from-ricks-desk", "description": "Personal insights and founder perspective from Rick Hesse", "type": "reader_journey"},
+    {"name": "Building Trust", "slug": "building-trust", "description": "Digital trust, web accessibility, and reputation management", "type": "topic"},
+    {"name": "Building Better Businesses", "slug": "building-better-businesses", "description": "Practical growth strategies for small businesses", "type": "topic"},
+    {"name": "NTA Principles", "slug": "nta-principles", "description": "Core philosophy and methodology behind NTA", "type": "topic"},
+    {"name": "AI & Visibility", "slug": "ai-visibility", "description": "AI search optimization, SEO evolution, and discoverability", "type": "topic"},
+    {"name": "Legacy", "slug": "legacy", "description": "Foundational thinking that shaped NTA", "type": "reader_journey"}
+  ],
+
+  "articles": [
+    {"title": "AI Brought Me Out of Retirement", "url": "/ai-brought-me-out-of-retirement", "author": "Rick Hesse", "theme": "AI & Technology", "buyer_stage": "Awareness", "has_video": true},
+    {"title": "I Was Early Again", "url": "/i-was-early-again", "author": "Rick Hesse", "theme": "AI & Technology", "buyer_stage": "Awareness", "has_video": true},
+    {"title": "Growth Systems vs. Campaigns", "url": "/growth-systems-vs-campaigns", "author": "Rick Hesse", "theme": "AI & Technology", "buyer_stage": "Consideration", "has_video": true},
+    {"title": "Campaigns vs. Authority", "url": "/campaigns-vs-authority", "author": "Rick Hesse", "theme": "AI & Technology", "buyer_stage": "Consideration", "has_video": true},
+    {"title": "The Future Belongs to Market Leaders", "url": "/the-future-belongs-to-market-leaders", "author": "Rick Hesse", "theme": "NTA Philosophy", "buyer_stage": "Decision", "has_video": true},
+    {"title": "Building Digital Trust", "url": "/building-digital-trust", "author": "Rick Hesse", "theme": "Digital Trust", "buyer_stage": "Awareness", "has_video": true},
+    {"title": "Reputation Is Now a Growth Engine", "url": "/reputation-is-now-a-growth-engine", "author": "Rick Hesse", "theme": "Business Growth", "buyer_stage": "Consideration", "has_video": true},
+    {"title": "Web Accessibility Builds Trust", "url": "/web-accessibility-trust", "author": "Rick Hesse", "theme": "Digital Trust", "buyer_stage": "Awareness"},
+    {"title": "What Changed Online", "url": "/what-changed-online", "author": "Rick Hesse", "theme": "NTA Philosophy", "buyer_stage": "Awareness"},
+    {"title": "SEO vs AI Search", "url": "/seo-vs-ai-search", "author": "Rick Hesse", "theme": "AI & Technology", "buyer_stage": "Consideration"},
+    {"title": "The Role of AI in Local Marketing", "url": "/role-of-ai-in-local-marketing", "author": "Rick Hesse", "theme": "AI & Technology", "buyer_stage": "Awareness", "has_video": true},
+    {"title": "Digital Risks Nobody Warns Small Businesses About", "url": "/digital-risks", "author": "Rick Hesse", "theme": "Business Growth", "buyer_stage": "Awareness"},
+    {"title": "The Hidden Cost of Outdated Marketing", "url": "/hidden-cost-of-outdated-marketing", "author": "Rick Hesse", "theme": "Business Growth", "buyer_stage": "Consideration", "has_video": true},
+    {"title": "Websites as Salespeople", "url": "/websites-as-salespeople", "author": "Rick Hesse", "theme": "Web Strategy", "buyer_stage": "Consideration", "has_video": true},
+    {"title": "Video Storytelling Builds Confidence", "url": "/video-storytelling-builds-confidence", "author": "Rick Hesse", "theme": "Content Strategy", "buyer_stage": "Consideration", "has_video": true},
+    {"title": "AI Visibility Basics", "url": "/ai-visibility-basics", "author": "Rick Hesse", "theme": "SEO & Visibility", "buyer_stage": "Awareness"},
+    {"title": "Practical AI for Small Businesses", "url": "/practical-ai-for-small-businesses", "author": "Rick Hesse", "theme": "AI & Technology", "buyer_stage": "Awareness"}
+  ],
+
+  "topic_clusters": [
+    {
+      "pillar": "AI Search & Visibility",
+      "pillar_url": "/seo-vs-ai-search",
+      "supporting": [
+        {"title": "What Changed Online", "url": "/what-changed-online"},
+        {"title": "AI Visibility Basics", "url": "/ai-visibility-basics"},
+        {"title": "The Future Belongs to Market Leaders", "url": "/the-future-belongs-to-market-leaders"},
+        {"title": "AI Learning Center", "url": "/learning-center"}
+      ]
+    },
+    {
+      "pillar": "Digital Trust & Authority",
+      "pillar_url": "/building-digital-trust",
+      "supporting": [
+        {"title": "Reputation Is Now a Growth Engine", "url": "/reputation-is-now-a-growth-engine"},
+        {"title": "Web Accessibility Builds Trust", "url": "/web-accessibility-trust"},
+        {"title": "Campaigns vs. Authority", "url": "/campaigns-vs-authority"},
+        {"title": "Websites as Salespeople", "url": "/websites-as-salespeople"}
+      ]
+    },
+    {
+      "pillar": "AI Marketing for Local Business",
+      "pillar_url": "/role-of-ai-in-local-marketing",
+      "supporting": [
+        {"title": "Practical AI for Small Businesses", "url": "/practical-ai-for-small-businesses"},
+        {"title": "Growth Systems vs. Campaigns", "url": "/growth-systems-vs-campaigns"},
+        {"title": "The Hidden Cost of Outdated Marketing", "url": "/hidden-cost-of-outdated-marketing"},
+        {"title": "AI SEO", "url": "/AiSeo"},
+        {"title": "AI Social Media", "url": "/AiSocialMedia"}
+      ]
+    },
+    {
+      "pillar": "Content & Video Strategy",
+      "pillar_url": "/video-storytelling-builds-confidence",
+      "supporting": [
+        {"title": "AI Video Marketing", "url": "/ai-video-marketing"},
+        {"title": "Social Media Content System", "url": "/social-media-content-system"},
+        {"title": "The Canon", "url": "/canon"},
+        {"title": "NTA Journal", "url": "/journal"}
+      ]
+    },
+    {
+      "pillar": "Small Business Growth",
+      "pillar_url": "/growth-systems-vs-campaigns",
+      "supporting": [
+        {"title": "Digital Risks Nobody Warns Small Businesses About", "url": "/digital-risks"},
+        {"title": "Business Score", "url": "/business-score"},
+        {"title": "Growth Roadmap Generator", "url": "/growth-roadmap-generator"},
+        {"title": "Local Lead Systems", "url": "/local-lead-systems"}
+      ]
+    }
+  ],
+
+  "geographic_pages": [
+    {"region": "Mason City, IA", "services": ["/website-rebuilds/mason-city-ia", "/social-media/mason-city-ia"]},
+    {"region": "Rochester, MN", "services": ["/website-rebuilds/rochester-mn", "/social-media/rochester-mn"]},
+    {"region": "Austin, MN", "services": ["/website-rebuilds/austin-mn", "/social-media/austin-mn"]},
+    {"region": "Albert Lea, MN", "services": ["/website-rebuilds/albert-lea-mn", "/social-media/albert-lea-mn"]}
+  ],
+
+  "sitemaps": {
+    "xml": "https://newtechadvertising.com/sitemap.xml",
+    "ai": "https://newtechadvertising.com/ai-sitemap.json"
+  }
+}
