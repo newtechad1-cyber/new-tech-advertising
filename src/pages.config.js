@@ -554,6 +554,12 @@ import AdminHVACTerritorialCampaign from './pages/AdminHVACTerritorialCampaign';
 import AdminAlbertLeaRestaurantCampaign from './pages/AdminAlbertLeaRestaurantCampaign';
 import AdminLiveOrchestration from './pages/AdminLiveOrchestration';
 import WhatChangedOnline from './pages/WhatChangedOnline';
+import CanonExplorer from './pages/CanonExplorer';
+import CanonCollectionView from './pages/CanonCollectionView';
+import AdminCanonMigration from './pages/AdminCanonMigration';
+import AdminCanonicalManagement from './pages/AdminCanonicalManagement';
+import JournalLanding from './pages/JournalLanding';
+import JournalIssueView from './pages/JournalIssueView';
 import __Layout from './Layout.jsx';
 
 
@@ -1064,6 +1070,12 @@ export const PAGES = {
     "AdminAlbertLeaRestaurantCampaign": AdminAlbertLeaRestaurantCampaign,
     "AdminLiveOrchestration": AdminLiveOrchestration,
     "what-changed-online": WhatChangedOnline,
+    "CanonExplorer": CanonExplorer,
+    "CanonCollectionView": CanonCollectionView,
+    "AdminCanonMigration": AdminCanonMigration,
+    "AdminCanonicalManagement": AdminCanonicalManagement,
+    "JournalLanding": JournalLanding,
+    "JournalIssueView": JournalIssueView,
 }
 
 export const pagesConfig = {
