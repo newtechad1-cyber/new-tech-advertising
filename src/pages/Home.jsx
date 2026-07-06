@@ -10,6 +10,7 @@ import FounderSection from '../components/home-conversion/FounderSection';
 import CombinedReviewsSection from '../components/home-v3/CombinedReviewsSection';
 import FAQSection from '../components/home-conversion/FAQSection';
 import BrandBookSection from '../components/home-conversion/BrandBookSection';
+import AuditFormSection from '../components/audit/AuditFormSection';
 
 export default function Home() {
   return (
@@ -54,6 +55,15 @@ export default function Home() {
         <FounderSection />
         <BrandBookSection />
         <CombinedReviewsSection />
+
+        {/* Free AI Visibility Audit CTA */}
+        <section className="bg-slate-950 border-t border-slate-800">
+          <AuditFormSection
+            heading="Not Sure Where You Stand? Get a Free AI Visibility Audit"
+            subheading="We'll show you exactly how customers and AI search engines see your business — and what to fix first. No cost, no pressure."
+          />
+        </section>
+
         <FAQSection />
       </main>
 
