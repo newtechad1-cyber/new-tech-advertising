@@ -52,6 +52,8 @@ const NAV_LINKS = [
   { label: 'About Us', href: '/about' },
   { label: 'Brand Book', href: '/brand-book' },
   { label: 'Partners', href: '/community-partner' },
+  { label: 'Knowledge Library', href: '/canon' },
+  { label: 'Journal', href: '/journal' },
   { 
     label: 'AI Learning Center', 
     href: '/learning-center',

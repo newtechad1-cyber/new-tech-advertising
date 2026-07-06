@@ -29,6 +29,10 @@ const PublishingArticleView = lazy(() => import('./pages/PublishingArticleView')
 const EditorialDashboard = lazy(() => import('./pages/EditorialDashboard'));
 const JournalLanding = lazy(() => import('./pages/JournalLanding'));
 const JournalIssueView = lazy(() => import('./pages/JournalIssueView'));
+const CanonExplorer = lazy(() => import('./pages/CanonExplorer'));
+const CanonCollectionView = lazy(() => import('./pages/CanonCollectionView'));
+const AdminCanonMigration = lazy(() => import('./pages/AdminCanonMigration'));
+const AdminCanonicalManagement = lazy(() => import('./pages/AdminCanonicalManagement'));
 const IWasEarlyAgain = lazy(() => import('./pages/IWasEarlyAgain'));
 const AIWorkforce = lazy(() => import('./pages/AIWorkforce'));
 const FounderScorecard = lazy(() => import('./pages/FounderScorecard'));
@@ -731,6 +735,10 @@ const AuthenticatedApp = () => {
       <Route path="/EditorialDashboard" element={<LayoutWrapper currentPageName="EditorialDashboard"><EditorialDashboard /></LayoutWrapper>} />
       <Route path="/journal" element={<LayoutWrapper currentPageName="JournalLanding"><JournalLanding /></LayoutWrapper>} />
       <Route path="/journal/:slug" element={<LayoutWrapper currentPageName="JournalIssueView"><JournalIssueView /></LayoutWrapper>} />
+      <Route path="/canon" element={<LayoutWrapper currentPageName="CanonExplorer"><CanonExplorer /></LayoutWrapper>} />
+      <Route path="/canon/collection/:slug" element={<LayoutWrapper currentPageName="CanonCollectionView"><CanonCollectionView /></LayoutWrapper>} />
+      <Route path="/AdminCanonMigration" element={<LayoutWrapper currentPageName="AdminCanonMigration"><AdminCanonMigration /></LayoutWrapper>} />
+      <Route path="/AdminCanonicalManagement" element={<LayoutWrapper currentPageName="AdminCanonicalManagement"><AdminCanonicalManagement /></LayoutWrapper>} />
       <Route path="/back-office" element={<Navigate to="/back-office-solutions" replace />} />
       <Route path="/back-office-solutions" element={<LayoutWrapper currentPageName="BackOfficeSolutions"><BackOfficeSolutions /></LayoutWrapper>} />
       <Route path="/restaurants" element={<LayoutWrapper currentPageName="RestaurantSolutions"><RestaurantSolutions /></LayoutWrapper>} />
