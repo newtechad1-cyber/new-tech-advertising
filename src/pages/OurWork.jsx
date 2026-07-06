@@ -31,7 +31,7 @@ const SITES = [
   },
   {
     name: "Papa Everett's Pizza",
-    url: 'https://pizzaclearlake.com/',
+    url: 'https://papa-everetts-pizza-co-7e81bea9.base44.app',
     location: 'Clear Lake, IA',
     industry: 'Restaurant · Pizza',
     description: 'Clean, mobile-first site with easy menu navigation, online ordering info, and local search presence. Built to help customers find hours, menu, and contact quickly.',
