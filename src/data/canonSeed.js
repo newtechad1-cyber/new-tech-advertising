@@ -98,7 +98,7 @@ export const SEED_YOUTUBE_VIDEOS = [
 
 // ─── Canon Collections (10) ────────────────────────────────────────────────
 export const SEED_COLLECTIONS = [
-  {"slug": "start-here", "title": "Start Here", "subtitle": "Meet Rick Hesse \u2014 the man behind the mission", "purpose": "If you're new, start here. Understand who Rick is, why he built NTA, and the pattern that drives everything.", "icon": "Compass", "color": "blue", "display_order": 1, "featured": true, "collection_type": "reader_journey", "entry_canon_ids": ["A-001", "A-002", "A-010"], "status": "Published"},
+  {"slug": "start-here", "title": "Start Here", "subtitle": "Meet Rick Hesse \u2014 the man behind the mission", "purpose": "If you're new, start here. Understand who Rick is, why he built NTA, and the pattern that drives everything.", "introduction": "Welcome to the Rick Hesse Canon. These five articles tell the complete story: who Rick is, why he came back, and the principles that drive everything NTA builds. Read them in order \u2014 each one builds on the last.", "icon": "Compass", "color": "blue", "display_order": 1, "featured": true, "collection_type": "reader_journey", "entry_canon_ids": ["A-001", "A-002", "A-003", "A-004", "A-005"], "estimated_total_time": 20, "entry_count": 5, "status": "Published"},
   {"slug": "nta-principles", "title": "The NTA Principles", "subtitle": "The philosophy behind everything we build", "purpose": "The foundational beliefs that guide NTA.", "icon": "Lightbulb", "color": "amber", "display_order": 2, "featured": true, "collection_type": "reader_journey", "entry_canon_ids": ["A-003", "A-004", "A-005"], "status": "Published"},
   {"slug": "building-trust", "title": "Building Trust", "subtitle": "Trust is the currency of modern business", "purpose": "How local businesses earn, build, and protect trust in a digital world.", "icon": "Shield", "color": "emerald", "display_order": 3, "featured": false, "collection_type": "reader_journey", "entry_canon_ids": ["A-006", "A-007", "A-008", "A-009"], "status": "Published"},
   {"slug": "future-of-marketing", "title": "The Future of Marketing", "subtitle": "Where marketing is headed \u2014 and how to get there first", "purpose": "AI is rewriting the rules. These entries explain what changed and how small businesses stay visible.", "icon": "Rocket", "color": "purple", "display_order": 4, "featured": true, "collection_type": "reader_journey", "entry_canon_ids": ["A-014", "A-010", "A-012", "A-013", "A-011"], "status": "Published"},
@@ -116,6 +116,31 @@ export const DUPLICATE_GROUPS = [
   {"canonical": "I-001", "canonical_title": "HVAC Marketing", "secondaries": [{"id": "I-002", "title": "HVAC Industry", "action": "merge"}], "reason": "Both target HVAC audience with overlapping keywords"},
   {"canonical": "S-008", "canonical_title": "Website Rebuild Service", "secondaries": [{"id": "S-009", "title": "Website Rebuilds NTA", "action": "redirect"}], "reason": "Three website rebuild pages dilute signals"},
 ];
+
+// ─── Journal Entries (derived from articles) ──────────────────────────────
+export const SEED_JOURNAL_ENTRIES = SEED_ARTICLES.map((a, i) => ({
+  id: `seed-journal-${i + 1}`,
+  issue_number: i + 1,
+  volume: 1,
+  title: a.title,
+  slug: a.slug,
+  summary: a.summary,
+  date: a.published_date || '2026-01-01',
+  category: a.primary_theme || 'Building NTA',
+  tags: a.tags || [],
+  status: 'Published',
+  canon_entry_id: a.canon_id,
+  collection_slugs: a.collection_slugs || [],
+  related_articles: a.related_articles || [],
+  author: a.author || 'Rick Hesse',
+  estimated_read_time: a.estimated_read_time || 4,
+  has_video: a.has_video || false,
+  video_url: a.video_url || null,
+  featured_image_url: null,
+  from_ricks_desk: null,
+  what_we_built: null,
+  views: 0,
+}));
 
 // ─── Combined seed ────────────────────────────────────────────────────────
 export const ALL_SEED_ASSETS = [

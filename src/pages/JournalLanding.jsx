@@ -3,10 +3,10 @@
  * Weekly publication documenting the public building of New Tech Advertising.
  * Route: /journal
  */
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { base44 } from '@/api/base44Client';
 import MarketingNav from '@/components/nav/MarketingNav';
+import { useKnowledgeGraph } from '@/lib/knowledgeGraph';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import {
@@ -92,26 +92,17 @@ function IssueCard({ issue, featured = false }) {
 }
 
 export default function JournalLanding() {
-  const [issues, setIssues] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const kg = useKnowledgeGraph();
+  const loading = kg.loading;
+  const issues = useMemo(() =>
+    (kg.journals || [])
+      .filter(i => i.status === 'Published')
+      .sort((a, b) => (b.issue_number || 0) - (a.issue_number || 0)),
+    [kg.journals]
+  );
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState(null);
   const [searchParams] = useSearchParams();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    async function load() {
-      try {
-        const data = await base44.entities.JournalIssue.list('-issue_number', 200);
-        setIssues(data.filter(i => i.status === 'Published'));
-      } catch (err) {
-        console.error('Failed to load journal:', err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    load();
-  }, []);
 
   const filtered = useMemo(() => {
     let result = [...issues];

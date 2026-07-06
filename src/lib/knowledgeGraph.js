@@ -17,6 +17,10 @@
  */
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { base44 } from '@/api/base44Client';
+import {
+  ALL_SEED_ASSETS, SEED_COLLECTIONS, SEED_YOUTUBE_VIDEOS,
+  SEED_JOURNAL_ENTRIES,
+} from '@/data/canonSeed';
 
 // ─── Cache Layer ────────────────────────────────────────────────────────────
 // Prevents redundant entity fetches within a session.
@@ -29,6 +33,13 @@ function isCacheFresh() {
 
 export function invalidateCache() {
   _cache = { articles: null, collections: null, videos: null, journals: null, ts: 0 };
+}
+
+// ─── Seed Data Defaults ─────────────────────────────────────────────────────
+// When entities are empty (migration not yet run), use canon seed data so
+// the public Knowledge Library, Journal, and Collections are immediately usable.
+function withSeedFallback(entities, seedData) {
+  return (entities && entities.length > 0) ? entities : seedData;
 }
 
 // ─── Data Loader ────────────────────────────────────────────────────────────
@@ -49,8 +60,16 @@ async function loadAll() {
     base44.entities.JournalIssue.list('-date', 200).catch(() => []),
   ]);
 
-  _cache = { articles, collections, videos, journals, ts: Date.now() };
-  return { articles, collections, videos, journals };
+  // Fallback to seed data when entities are empty (pre-migration state)
+  const result = {
+    articles: withSeedFallback(articles, ALL_SEED_ASSETS),
+    collections: withSeedFallback(collections, SEED_COLLECTIONS),
+    videos: withSeedFallback(videos, SEED_YOUTUBE_VIDEOS.map((v, i) => ({ id: `seed-vid-${i}`, ...v }))),
+    journals: withSeedFallback(journals, SEED_JOURNAL_ENTRIES),
+  };
+
+  _cache = { ...result, ts: Date.now() };
+  return result;
 }
 
 // ─── Index Builders ─────────────────────────────────────────────────────────
