@@ -19,6 +19,7 @@
 | 0.5 | Intelligence Automation | In Progress | — | — | — | — | Viktor | I-001 through I-006 — governed by I-000 (delivered in R0.4) |
 | 0.5.1 | Access Governance & SEO Cleanup | Released | `emergency/r0.5.1-access-governance` | PR #10 (merged) | `v0.5.1` | 2026-07-05 | Viktor | Emergency stabilization: Route Governance Registry, auth enforcement, SEO cleanup. R-002 policy. CEO approved. |
 | 0.6.0 | Growth Visibility Sprint — Search Foundation | Released | `build/g-002-search-foundation` | PR #11 (merged) | `v0.6.0` | 2026-07-05 | Viktor | G-001 Audit + G-002 Search Foundation. Canonical URLs, homepage consolidation, SEOHead 78/78, Services hub page, sitemap lastmod, deployment checklist. CEO approved — no QA hold (technical SEO, not business logic). |
+| 0.7.0 | Authority & Discoverability | Released | `build/r0.7-authority-discoverability` | PR #16 (merged) | `v0.7.0` | 2026-07-06 | Viktor | Growth release. AI Crawl Optimization (llms.txt, ai-sitemap.json), 11 JSON-LD schema types, 8 topic clusters, TopicalAuthorityMap, Authority Dashboard (/admin/authority). CEO vision: "Do not build another feature until the Knowledge System becomes measurable." CEO approved. |
 
 ---
 
@@ -39,14 +40,14 @@
 
 | Metric | Value |
 |--------|-------|
-| Total Releases | 7 |
-| Released | 6 |
+| Total Releases | 8 |
+| Released | 7 |
 | In Progress | 1 |
 | Planned | 0 |
 | Total Entities | 15+ |
 | Total Functions | 21+ |
-| Total Pages | 25+ |
-| Total Documents | 8 |
+| Total Pages | 26+ |
+| Total Documents | 9 |
 
 ---
 
@@ -60,6 +61,7 @@
 2026-07-03  R0.5 Build 1 — I-001 Recommendation ... Merged (in progress)
 2026-07-05  R0.5.1 Access Governance & SEO ......... Released (v0.5.1)
 2026-07-05  R0.6.0 Search Foundation ............... Released (v0.6.0)
+2026-07-06  R0.7.0 Authority & Discoverability ..... Released (v0.7.0)
 TBD         R0.5 Intelligence Automation ........... In Progress
 TBD         R1.0 Production Release ................ Future
 ```
@@ -101,7 +103,7 @@ TBD         R1.0 Production Release ................ Future
 | Version | Reserved For |
 |---------|-------------|
 | 0.6 | Growth Visibility Sprint (Released) |
-| 0.7 | Client Portal (tentative) |
+| 0.7 | Authority & Discoverability (Released) |
 | 1.0 | Production Release — full Operating System |
 
 *Reservations are tentative and may be reassigned by the CEO.*
