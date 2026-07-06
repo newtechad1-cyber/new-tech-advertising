@@ -45,6 +45,11 @@ export const ROUTE_PREFIX_RULES = [
   { prefix: '/reseller',             access: 'auth_required' },
 
   // ── Content management (internal) ─────────────────────────────────────────
+  // ── Canon & Journal (public) ──────────────────────────────────────────────
+  { prefix: '/canon',                access: 'public' },
+  { prefix: '/journal',              access: 'public' },
+
+  // ── Content management (internal) ─────────────────────────────────────────
   { prefix: '/content-command',      access: 'admin_only' },
   { prefix: '/content-center',       access: 'admin_only' },
 
@@ -146,6 +151,7 @@ export const PUBLIC_PAGE_KEYS = new Set([
   'CaseStudies', 'CaseStudyDetail',
   // Journal
   'JournalLanding', 'JournalIssueView',
+  'CanonExplorer', 'CanonCollectionView',
   // School public pages
   'SchoolHome', 'SchoolAbout', 'SchoolEvents', 'SchoolEventDetail',
   'SchoolSpotlights', 'SchoolSpotlightDetail',

@@ -39,7 +39,11 @@
         "PublishingArticle",
         "PublishingTarget",
         "YouTubeKnowledge",
-        "JournalIssue"
+        "JournalIssue",
+        "CanonCollection",
+        "ServicePage",
+        "IndustryPage",
+        "GeoPage"
       ],
       "description": "Entity type of the source asset"
     },
@@ -87,7 +91,11 @@
         "PublishingArticle",
         "PublishingTarget",
         "YouTubeKnowledge",
-        "JournalIssue"
+        "JournalIssue",
+        "CanonCollection",
+        "ServicePage",
+        "IndustryPage",
+        "GeoPage"
       ],
       "description": "Entity type of the target asset"
     },

@@ -1,11 +1,11 @@
 {
   "name": "PublishingArticle",
   "type": "object",
-  "description": "Master source article in the NTA Publishing Engine. One article becomes every marketing asset.",
+  "description": "Single source of truth for every content asset in the NTA Knowledge System. Articles, lessons, case studies, service pages, industry pages, geo pages — all governed here. The Publishing Engine IS the Canon.",
   "properties": {
     "title": {
       "type": "string",
-      "description": "Article headline"
+      "description": "Asset headline"
     },
     "subtitle": {
       "type": "string",
@@ -42,6 +42,22 @@
       ],
       "default": "Article"
     },
+    "asset_type": {
+      "type": "string",
+      "enum": [
+        "article",
+        "lesson",
+        "case_study",
+        "service_page",
+        "industry_page",
+        "geo_page",
+        "video",
+        "journal_entry",
+        "build_log"
+      ],
+      "default": "article",
+      "description": "Broad asset classification for the Knowledge Graph"
+    },
     "primary_theme": {
       "type": "string",
       "enum": [
@@ -70,7 +86,7 @@
     },
     "featured_image_url": {
       "type": "string",
-      "description": "Primary image for the article"
+      "description": "Primary image for the asset"
     },
     "featured_image_prompt": {
       "type": "string",
@@ -95,7 +111,7 @@
     },
     "workflow_notes": {
       "type": "string",
-      "description": "Internal notes about the article status"
+      "description": "Internal notes about the asset status"
     },
     "reviewer_notes": {
       "type": "string",
@@ -105,19 +121,150 @@
       "type": "string",
       "description": "Content series this belongs to (e.g. NTA Journal, AI Explained)"
     },
-    "canon_entry_id": {
+    "canon_id": {
       "type": "string",
-      "description": "Link to Canon Library entry if applicable"
+      "description": "Canonical knowledge graph ID (e.g. A-001, CS-001, S-001, I-001, G-001, V-001)"
+    },
+    "collection_slugs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Which Canon collections this asset belongs to (e.g. start-here, nta-principles)"
     },
     "related_services": {
       "type": "array",
       "items": { "type": "string" },
-      "description": "Related NTA services"
+      "description": "Related NTA service page slugs"
     },
     "related_articles": {
       "type": "array",
       "items": { "type": "string" },
-      "description": "IDs of related PublishingArticle entries"
+      "description": "Canon IDs of related articles (e.g. A-002, CS-001)"
+    },
+    "related_video_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "YouTube video IDs of related videos"
+    },
+    "related_case_study_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Canon IDs of related case studies (e.g. CS-001)"
+    },
+    "related_lesson_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Canon IDs of related lessons"
+    },
+    "related_industry_slugs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Related industry page slugs"
+    },
+    "related_geo_slugs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Related geo page slugs"
+    },
+    "buyer_stage": {
+      "type": "string",
+      "enum": ["Awareness", "Consideration", "Decision"],
+      "description": "Where this asset fits in the buyer journey"
+    },
+    "primary_audience": {
+      "type": "string",
+      "description": "Primary target audience for this asset"
+    },
+    "primary_question": {
+      "type": "string",
+      "description": "The main question this asset answers"
+    },
+    "primary_business_problem": {
+      "type": "string",
+      "description": "The business problem this asset addresses"
+    },
+    "primary_nta_principle": {
+      "type": "string",
+      "description": "The core NTA principle this asset teaches"
+    },
+    "google_search_intent": {
+      "type": "string",
+      "description": "What Google searchers would find this for"
+    },
+    "ai_search_intent": {
+      "type": "string",
+      "description": "What AI search engines would cite this for"
+    },
+    "search_keywords": {
+      "type": "string",
+      "description": "Comma-separated search keywords"
+    },
+    "evergreen_score": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10,
+      "description": "How timeless is this content (1-10)"
+    },
+    "authority_score": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10,
+      "description": "How authoritative is this content (1-10)"
+    },
+    "content_quality_score": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10,
+      "description": "Overall content quality (1-10)"
+    },
+    "canonical_url": {
+      "type": "string",
+      "description": "The definitive URL for this asset"
+    },
+    "original_page_key": {
+      "type": "string",
+      "description": "The pages.config.js key for the original page"
+    },
+    "index_status": {
+      "type": "string",
+      "enum": ["indexed", "not_indexed", "pending", "noindex", "unknown"],
+      "default": "unknown",
+      "description": "Google indexing status"
+    },
+    "canonical_status": {
+      "type": "string",
+      "enum": ["canonical", "secondary", "redirect", "merged"],
+      "default": "canonical",
+      "description": "Canonical management status for duplicate resolution"
+    },
+    "canonical_target": {
+      "type": "string",
+      "description": "If secondary/redirect, the canon_id of the canonical version"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false,
+      "description": "Featured on homepage or collection pages"
+    },
+    "suggested_reading_order": {
+      "type": "integer",
+      "description": "Global suggested reading order across all canon entries"
+    },
+    "has_video": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this asset has associated video content"
+    },
+    "video_url": {
+      "type": "string",
+      "description": "Embedded video URL if applicable"
+    },
+    "target_industry": {
+      "type": "string",
+      "description": "Target industry for industry/service pages"
+    },
+    "target_geo": {
+      "type": "string",
+      "description": "Target geography for geo pages"
     },
     "cta_text": {
       "type": "string",
@@ -163,7 +310,7 @@
           "Archive"
         ]
       },
-      "description": "Which channels this article should be published to"
+      "description": "Which channels this asset should be published to"
     },
     "created_date": {
       "type": "string",
