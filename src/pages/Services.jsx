@@ -7,6 +7,7 @@ import {
   Search, Share2, Globe, Video, Shield, BarChart3, 
   ArrowRight, MapPin, Smartphone, Star 
 } from 'lucide-react';
+import AuditFormSection from '@/components/audit/AuditFormSection';
 
 const SERVICES = [
   {
@@ -193,23 +194,12 @@ export default function Services() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Get Started?</h2>
-          <p className="text-slate-400 text-lg mb-8">
-            Not sure which services you need? Start with a free visibility audit. 
-            We'll analyze your current online presence and show you exactly where the opportunities are.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/Free-Audit" className="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-lg transition-colors text-lg">
-              Free Visibility Audit
-            </Link>
-            <a href="tel:+16414208816" className="px-8 py-4 border border-slate-600 hover:border-cyan-400 text-white rounded-lg transition-colors text-lg flex items-center justify-center gap-2">
-              <Smartphone className="w-5 h-5" /> (641) 420-8816
-            </a>
-          </div>
-        </div>
+      {/* Free Audit CTA Section */}
+      <section className="border-t border-slate-800">
+        <AuditFormSection
+          heading="Not Sure Where to Start? Get a Free Audit"
+          subheading="We'll analyze your online presence and show you exactly which services would have the biggest impact for your business."
+        />
       </section>
 
       <SiteFooter />
