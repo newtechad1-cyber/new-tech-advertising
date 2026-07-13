@@ -38,11 +38,22 @@ export default function FounderSection() {
                 <p className="text-slate-400 leading-relaxed">
                   Our focus is helping local businesses stay visible, build trust, and grow consistently as technology and consumer behavior continue to evolve.
                 </p>
-                <div className="mt-8 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                  <div>
-                    <p className="text-white font-medium">Rick Hesse</p>
-                    <p className="text-slate-500 text-sm">Founder, New Tech Advertising</p>
-                  </div>
+
+                <blockquote className="my-8 p-6 bg-slate-950/50 border border-slate-800 border-l-4 border-l-blue-500 rounded-r-xl shadow-lg">
+                  <p className="text-xl text-blue-100 font-medium italic mb-4 leading-relaxed">
+                    "If you can offer me enough trust to begin, I will work to earn enough trust to continue."
+                  </p>
+                  <footer>
+                    <span className="block text-white font-semibold">Rick Hesse</span>
+                    <span className="block text-slate-400 text-sm">Founder, New Tech Advertising</span>
+                  </footer>
+                </blockquote>
+
+                <p className="text-slate-400 leading-relaxed mb-6">
+                  NTA relationships begin with enough trust to have an honest conversation. From there, trust is earned through listening, teaching, useful work, and visible progress.
+                </p>
+
+                <div className="mt-2 pt-6 border-t border-slate-800 flex justify-end">
                   <Button asChild variant="outline" className="bg-slate-900 border-slate-700 hover:bg-slate-800 text-white">
                     <Link to="/about">
                       Read the Full Story <ArrowRight className="ml-2 h-4 w-4" />
