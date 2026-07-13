@@ -146,6 +146,8 @@ const DIYCheckoutSuccess = lazy(() => import('./pages/DIYCheckoutSuccess'));
 const PricingWizard = lazy(() => import('./pages/PricingWizard'));
 const NTAPricingLadderPage = lazy(() => import('./pages/NTAPricingLadderPage'));
 const JoinNTA = lazy(() => import('./pages/JoinNTA'));
+const BusinessFoundationsCollection = lazy(() => import('./pages/BusinessFoundationsCollection'));
+const BusinessFoundationsLesson = lazy(() => import('./pages/BusinessFoundationsLesson'));
 const WebsiteRebuildService = lazy(() => import('./pages/WebsiteRebuildService'));
 const WebsiteRebuildsMasonCity = lazy(() => import('./pages/WebsiteRebuildsMasonCity'));
 const WebsiteRebuildsRochesterMN = lazy(() => import('./pages/WebsiteRebuildsRochesterMN'));
@@ -563,6 +565,8 @@ const AuthenticatedApp = () => {
       <Route path="/social-media/albert-lea-mn" element={<LayoutWrapper currentPageName="SocialMediaAlbertLeaMN"><SocialMediaAlbertLeaMN /></LayoutWrapper>} />
       <Route path="/knowledge" element={<LayoutWrapper currentPageName="NTABrandBook"><NTABrandBook /></LayoutWrapper>} />
       <Route path="/why-nta" element={<LayoutWrapper currentPageName="WhyNTA"><WhyNTA /></LayoutWrapper>} />
+      <Route path="/knowledge/business-foundations" element={<LayoutWrapper currentPageName="BusinessFoundationsCollection"><BusinessFoundationsCollection /></LayoutWrapper>} />
+      <Route path="/knowledge/business-foundations/:slug" element={<LayoutWrapper currentPageName="BusinessFoundationsLesson"><BusinessFoundationsLesson /></LayoutWrapper>} />
       <Route path="/knowledge/prompts" element={<LayoutWrapper currentPageName="KnowledgePrompts"><KnowledgePrompts /></LayoutWrapper>} />
       <Route path="/knowledge/sales-conversations" element={<LayoutWrapper currentPageName="SalesConversations"><SalesConversations /></LayoutWrapper>} />
       <Route path="/knowledge/playbook" element={<LayoutWrapper currentPageName="NTAPlaybook"><NTAPlaybook /></LayoutWrapper>} />
