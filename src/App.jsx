@@ -148,6 +148,8 @@ const NTAPricingLadderPage = lazy(() => import('./pages/NTAPricingLadderPage'));
 const JoinNTA = lazy(() => import('./pages/JoinNTA'));
 const BusinessFoundationsCollection = lazy(() => import('./pages/BusinessFoundationsCollection'));
 const BusinessFoundationsLesson = lazy(() => import('./pages/BusinessFoundationsLesson'));
+const AIFoundationsCollection = lazy(() => import('./pages/AIFoundationsCollection'));
+const AIFoundationsLesson = lazy(() => import('./pages/AIFoundationsLesson'));
 const WebsiteRebuildService = lazy(() => import('./pages/WebsiteRebuildService'));
 const WebsiteRebuildsMasonCity = lazy(() => import('./pages/WebsiteRebuildsMasonCity'));
 const WebsiteRebuildsRochesterMN = lazy(() => import('./pages/WebsiteRebuildsRochesterMN'));
@@ -567,6 +569,8 @@ const AuthenticatedApp = () => {
       <Route path="/why-nta" element={<LayoutWrapper currentPageName="WhyNTA"><WhyNTA /></LayoutWrapper>} />
       <Route path="/knowledge/business-foundations" element={<LayoutWrapper currentPageName="BusinessFoundationsCollection"><BusinessFoundationsCollection /></LayoutWrapper>} />
       <Route path="/knowledge/business-foundations/:slug" element={<LayoutWrapper currentPageName="BusinessFoundationsLesson"><BusinessFoundationsLesson /></LayoutWrapper>} />
+      <Route path="/knowledge/ai-foundations" element={<LayoutWrapper currentPageName="AIFoundationsCollection"><AIFoundationsCollection /></LayoutWrapper>} />
+      <Route path="/knowledge/ai-foundations/:slug" element={<LayoutWrapper currentPageName="AIFoundationsLesson"><AIFoundationsLesson /></LayoutWrapper>} />
       <Route path="/knowledge/prompts" element={<LayoutWrapper currentPageName="KnowledgePrompts"><KnowledgePrompts /></LayoutWrapper>} />
       <Route path="/knowledge/sales-conversations" element={<LayoutWrapper currentPageName="SalesConversations"><SalesConversations /></LayoutWrapper>} />
       <Route path="/knowledge/playbook" element={<LayoutWrapper currentPageName="NTAPlaybook"><NTAPlaybook /></LayoutWrapper>} />
