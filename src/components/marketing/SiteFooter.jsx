@@ -60,6 +60,7 @@ export default function SiteFooter() {
         <div>
           <p className="text-white font-semibold mb-3 text-sm">Support</p>
           <ul className="space-y-2 text-sm">
+            <li><a href="/why-nta" className="hover:text-white transition-colors">Why NTA</a></li>
             <li><a href="/HelpAndSupport" className="hover:text-white transition-colors">Help &amp; Support</a></li>
             <li><a href="/About" className="hover:text-white transition-colors">About NTA</a></li>
             <li><a href="/Contact" className="hover:text-white transition-colors">Contact Us</a></li>

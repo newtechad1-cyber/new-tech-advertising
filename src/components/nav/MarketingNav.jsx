@@ -21,6 +21,7 @@ const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/pub
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
+  { label: 'Why NTA', href: '/why-nta' },
   { label: 'Pricing', href: '/find-your-plan' },
   {
     label: 'Services',
