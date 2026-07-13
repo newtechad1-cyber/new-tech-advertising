@@ -8,6 +8,8 @@ import {
 } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
 import { useNTAData } from '@/lib/NTADataContext';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 
 export default function NTADataHub() {
   const { data } = useNTAData();
@@ -37,6 +39,7 @@ export default function NTADataHub() {
         title="NTA Data Hub™ | Internal Architecture"
         description="Centralized data routing and state management for the NTA Operating System."
       />
+      <MarketingNav />
 
       {/* Internal Header */}
       <header className="bg-slate-900 border-b border-slate-800/80 sticky top-0 z-50">
@@ -184,6 +187,7 @@ export default function NTADataHub() {
 
         </div>
       </main>
+    <SiteFooter />
     </div>
   );
 }

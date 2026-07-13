@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Rocket, CheckCircle2, Circle, Upload, Link2, Calendar, Target, BookOpen, PlayCircle, ShieldAlert } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 
 export default function ClientOnboardingCenter() {
   const fadeIn = {
@@ -24,6 +26,7 @@ export default function ClientOnboardingCenter() {
         title="Client Onboarding™ | NTA Operating System"
         description="Welcome to NTA. Your journey to digital dominance starts here."
       />
+      <MarketingNav />
 
       {/* Header Section */}
       <section className="relative pt-32 pb-16 px-6 overflow-hidden border-b border-slate-800/50">
@@ -197,6 +200,7 @@ export default function ClientOnboardingCenter() {
           </div>
         </div>
       </section>
+    <SiteFooter />
     </div>
   );
 }

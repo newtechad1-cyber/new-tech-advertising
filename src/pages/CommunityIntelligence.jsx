@@ -9,6 +9,8 @@ import {
   Calendar, ArrowUpRight, BarChart2, ShieldCheck, MapPin, Briefcase
 } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 
 // Placeholder Datasets
 const growthData = [
@@ -52,6 +54,7 @@ export default function CommunityIntelligence() {
         title="Community Intelligence Center™ | NTA"
         description="Monitor the health, digital readiness, and growth trends of your local business ecosystem."
       />
+      <MarketingNav />
 
       {/* Header */}
       <header className="relative py-16 border-b border-slate-800/50 overflow-hidden bg-slate-900">
@@ -270,6 +273,7 @@ export default function CommunityIntelligence() {
         </div>
 
       </main>
+    <SiteFooter />
     </div>
   );
 }

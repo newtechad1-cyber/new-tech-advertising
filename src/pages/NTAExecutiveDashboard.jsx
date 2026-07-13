@@ -11,6 +11,8 @@ import {
 import { Link } from 'react-router-dom';
 import SEOHead from '@/components/shared/SEOHead';
 import { base44 } from '@/api/base44Client';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 
 export default function NTAExecutiveDashboard() {
   
@@ -64,6 +66,7 @@ export default function NTAExecutiveDashboard() {
         title="Executive Dashboard™ | New Tech Advertising"
         description="Rick's command center for operational metrics."
       />
+      <MarketingNav />
 
       {/* Header */}
       <div className="bg-slate-900 border-b border-slate-800 sticky top-0 z-40">
@@ -252,6 +255,7 @@ export default function NTAExecutiveDashboard() {
 
         </div>
       </div>
+    <SiteFooter />
     </div>
   );
 }

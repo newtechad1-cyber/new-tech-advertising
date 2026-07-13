@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Compass, Target, Activity, Map, ArrowRight, LayoutDashboard, CheckCircle2, RotateCcw, Briefcase } from 'lucide-react';
 import { getJourneyMemory, updateJourneyMemory, resetJourneyMemory } from '@/lib/journeyMemory';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 
 export default function GrowthGuide() {
   const navigate = useNavigate();
@@ -255,7 +257,8 @@ export default function GrowthGuide() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-slate-950 text-slate-50 font-sans absolute inset-0 z-50 overflow-hidden">
+    <div className="flex flex-col min-h-screen bg-slate-950 text-slate-50 font-sans relative z-40">
+      <div className="flex flex-col md:flex-row flex-1 overflow-hidden relative">
       
       {/* Sidebar / Timeline */}
       <div className="hidden md:flex w-80 bg-slate-900/30 border-r border-slate-800/50 p-8 flex-col shrink-0 z-10 backdrop-blur-xl">
@@ -319,6 +322,8 @@ export default function GrowthGuide() {
           </AnimatePresence>
         </div>
       </div>
+      </div>
+      <SiteFooter />
     </div>
   );
 }

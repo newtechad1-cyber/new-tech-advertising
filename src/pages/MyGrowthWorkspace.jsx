@@ -8,6 +8,8 @@ import {
 } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
 import NextStepEngine from '@/components/recommendations/NextStepEngine';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 
 export default function MyGrowthWorkspace() {
   const fadeIn = {
@@ -29,6 +31,7 @@ export default function MyGrowthWorkspace() {
         title="My Growth Workspace™ | NTA Operating System"
         description="Your private command center for business growth, education, and digital strategy."
       />
+      <MarketingNav />
 
       {/* Header Section */}
       <section className="relative pt-32 pb-16 px-6 overflow-hidden border-b border-slate-800/50">
@@ -258,6 +261,7 @@ export default function MyGrowthWorkspace() {
 
       {/* Recommended Next Steps */}
       <NextStepEngine />
+    <SiteFooter />
     </div>
   );
 }

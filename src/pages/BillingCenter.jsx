@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { CreditCard, Receipt, FileText, CheckCircle2, AlertCircle, RefreshCw, ArrowRight, ShieldCheck, Mail } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 
 export default function BillingCenter() {
   const fadeIn = {
@@ -23,6 +25,7 @@ export default function BillingCenter() {
         title="Billing Center™ | NTA Operating System"
         description="Manage your investment, invoices, and payment methods."
       />
+      <MarketingNav />
 
       {/* Header Section */}
       <section className="relative pt-32 pb-16 px-6 overflow-hidden border-b border-slate-800/50">
@@ -187,6 +190,7 @@ export default function BillingCenter() {
 
         </div>
       </section>
+    <SiteFooter />
     </div>
   );
 }
