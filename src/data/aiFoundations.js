@@ -724,6 +724,6 @@ Begin by understanding one piece of work.
     relatedModules: [
       { label: "Operational Bottleneck Finder", link: "/operating-system" }
     ],
-    nextLessonSlug: "ai-needs-context-before-it-can-be-helpful"
+    nextLessonSlug: null
   }
 ];
