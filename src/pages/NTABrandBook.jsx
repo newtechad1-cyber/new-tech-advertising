@@ -47,15 +47,78 @@ export default function NTABrandBook() {
   ];
 
   const kbNavigation = [
-    { title: "Brand Book", active: true, icon: <BookOpen className="w-5 h-5" /> },
-    { title: "NTA Operating System", icon: <MonitorSmartphone className="w-5 h-5" /> },
-    { title: "Founder's Handbook", icon: <Briefcase className="w-5 h-5" /> },
-    { title: "Partner Program", icon: <Users className="w-5 h-5" /> },
-    { title: "Media Partners", icon: <PlayCircle className="w-5 h-5" /> },
-    { title: "AI Learning Center", icon: <GraduationCap className="w-5 h-5" /> },
-    { title: "Sales Scripts", icon: <MessageSquare className="w-5 h-5" /> },
-    { title: "Prompt Library", icon: <FileText className="w-5 h-5" /> },
-    { title: "NTA Playbook", icon: <LayoutTemplate className="w-5 h-5" /> }
+    {
+      title: "Brand Book",
+      description: "The mission, principles, voice, visual identity, and philosophy that define New Tech Advertising.",
+      route: "/brand-book",
+      visibility: "public",
+      status: "live",
+      icon: <BookOpen className="w-6 h-6" />
+    },
+    {
+      title: "NTA Operating System",
+      description: "Explore the connected growth system NTA uses to help businesses understand, build, and improve.",
+      route: "/operating-system",
+      visibility: "public",
+      status: "live",
+      icon: <MonitorSmartphone className="w-6 h-6" />
+    },
+    {
+      title: "Founder’s Story",
+      description: "Learn how Rick Hesse’s business experience, successes, failures, and lessons shaped NTA.",
+      route: "/our-story",
+      visibility: "public",
+      status: "live",
+      icon: <Briefcase className="w-6 h-6" />
+    },
+    {
+      title: "Partner Program",
+      description: "Learn how chambers, media representatives, organizations, and community leaders can work with NTA.",
+      route: "/community-partner",
+      visibility: "public",
+      status: "live",
+      icon: <Users className="w-6 h-6" />
+    },
+    {
+      title: "Media & Growth Show",
+      description: "Watch the NTA Growth Show, educational videos, interviews, and business growth conversations.",
+      route: "/learning-center/videos",
+      visibility: "public",
+      status: "live",
+      icon: <PlayCircle className="w-6 h-6" />
+    },
+    {
+      title: "AI Learning Center",
+      description: "Practical education that helps business owners and professionals understand and use AI.",
+      route: "/learning-center",
+      visibility: "public",
+      status: "live",
+      icon: <GraduationCap className="w-6 h-6" />
+    },
+    {
+      title: "Sales Conversation Library",
+      description: "NTA’s teaching-first approach to outreach, discovery, follow-up, and client conversations.",
+      route: "/knowledge/sales-conversations",
+      visibility: "mixed",
+      status: "build",
+      icon: <MessageSquare className="w-6 h-6" />
+    },
+    {
+      title: "Prompt Library",
+      description: "Reusable AI prompts developed through real NTA business, content, research, and operational work.",
+      route: "/knowledge/prompts",
+      visibility: "mixed",
+      status: "build",
+      icon: <FileText className="w-6 h-6" />
+    },
+    {
+      title: "NTA Playbook",
+      description: "The processes, workflows, checklists, and operating practices that turn NTA principles into action.",
+      route: "/knowledge/playbook",
+      visibility: "mixed",
+      status: "build",
+      icon: <LayoutTemplate className="w-6 h-6" />
+    }
   ];
 
   return (
@@ -307,30 +370,91 @@ export default function NTABrandBook() {
         </div>
       </section>
 
-      {/* 11. Knowledge Base Navigation */}
-      <section className="py-24 bg-white border-t border-slate-100">
-        <div className="container mx-auto px-6 max-w-6xl">
+      {/* Founder Intro & Knowledge Base Navigation */}
+      <section className="py-24 bg-slate-50 border-t border-slate-200 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
+        
+        <div className="container mx-auto px-6 max-w-6xl relative z-10">
+          
+          {/* Founder Intro */}
+          <div className="max-w-4xl mx-auto mb-20 bg-white border border-slate-200 rounded-3xl p-8 md:p-12 shadow-sm flex flex-col md:flex-row items-center gap-8 md:gap-12">
+            <div className="w-32 h-32 md:w-48 md:h-48 rounded-full border-4 border-slate-50 flex-shrink-0 overflow-hidden shadow-lg shadow-slate-200">
+              <img 
+                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/c099addb0_headshot.png" 
+                alt="Rick Hesse" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div>
+              <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">Built From Experience. Organized to Help Others.</h3>
+              <p className="text-slate-600 mb-6 leading-relaxed">
+                The NTA Knowledge Center brings together the principles, prompts, conversations, systems, and lessons behind New Tech Advertising. Some resources are available to everyone. Others support the internal work required to serve clients well.
+              </p>
+              <blockquote className="border-l-4 border-blue-500 pl-4 py-1">
+                <p className="text-lg text-slate-800 font-medium italic mb-2">
+                  "Learn from my experience so you don't have to make all the mistakes I did."
+                </p>
+                <footer className="text-sm font-semibold text-slate-500">— Rick Hesse</footer>
+              </blockquote>
+            </div>
+          </div>
+
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Explore the Knowledge Base</h2>
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">NTA Knowledge Center</h2>
             <p className="text-slate-600">Access the core documentation, guides, and playbooks that power the NTA Operating System™.</p>
           </div>
           
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {kbNavigation.map((item, idx) => (
-              <div 
-                key={idx} 
-                className={`p-6 rounded-2xl border flex items-center gap-4 transition-all ${
-                  item.active 
-                  ? 'bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-600/20' 
-                  : 'bg-slate-50 border-slate-200 hover:border-blue-300 hover:shadow-md cursor-pointer text-slate-700 hover:text-blue-600'
-                }`}
-              >
-                <div className={`p-3 rounded-xl ${item.active ? 'bg-white/20' : 'bg-white border border-slate-200'}`}>
-                  {item.icon}
-                </div>
-                <div className="font-semibold">{item.title}</div>
-              </div>
-            ))}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {kbNavigation.map((item, idx) => {
+              const isBrandBook = item.route === '/brand-book';
+              
+              return (
+                <Link 
+                  key={idx} 
+                  to={item.route}
+                  aria-label={`Explore ${item.title}`}
+                  className={`relative group rounded-2xl border flex flex-col p-6 transition-all h-full outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${
+                    isBrandBook 
+                    ? 'bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-600/20' 
+                    : 'bg-white border-slate-200 hover:border-blue-300 hover:shadow-md text-slate-700'
+                  }`}
+                >
+                  <div className="flex justify-between items-start mb-4">
+                    <div className={`p-3 rounded-xl transition-colors ${
+                      isBrandBook ? 'bg-white/20 text-white' : 'bg-slate-50 border border-slate-100 text-blue-600 group-hover:bg-blue-50 group-hover:border-blue-100'
+                    }`}>
+                      {item.icon}
+                    </div>
+                    {isBrandBook && (
+                      <span className="text-xs font-semibold bg-white text-blue-700 px-2 py-1 rounded shadow-sm">
+                        You are here
+                      </span>
+                    )}
+                    {!isBrandBook && item.status === 'build' && (
+                      <span className="text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-100 px-2 py-1 rounded">
+                        Growing Library
+                      </span>
+                    )}
+                    {!isBrandBook && item.visibility === 'mixed' && item.status !== 'build' && (
+                      <span className="text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 px-2 py-1 rounded">
+                        Mixed Access
+                      </span>
+                    )}
+                  </div>
+                  
+                  <h3 className={`text-xl font-bold mb-2 ${isBrandBook ? 'text-white' : 'text-slate-900 group-hover:text-blue-600 transition-colors'}`}>
+                    {item.title}
+                  </h3>
+                  <p className={`text-sm mb-6 flex-1 ${isBrandBook ? 'text-blue-100' : 'text-slate-500'}`}>
+                    {item.description}
+                  </p>
+                  
+                  <div className={`flex items-center text-sm font-semibold mt-auto pt-4 border-t ${isBrandBook ? 'border-blue-500/50 text-white' : 'border-slate-100 text-blue-600'}`}>
+                    Explore <span className="ml-1 inline-block transition-transform group-hover:translate-x-1">→</span>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

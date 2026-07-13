@@ -153,6 +153,9 @@ const WebsiteRebuildsAustinMN = lazy(() => import('./pages/WebsiteRebuildsAustin
 const WebsiteRebuildsAlbertLeaMN = lazy(() => import('./pages/WebsiteRebuildsAlbertLeaMN'));
 const NTABrandBook = lazy(() => import('./pages/NTABrandBook'));
 const WhyNTA = lazy(() => import('./pages/WhyNTA'));
+const KnowledgePrompts = lazy(() => import('./pages/KnowledgePrompts'));
+const SalesConversations = lazy(() => import('./pages/SalesConversations'));
+const NTAPlaybook = lazy(() => import('./pages/NTAPlaybook'));
 const AdminRecruitingCandidates = lazy(() => import('./pages/AdminRecruitingCandidates'));
 const AuditFurnitureMattressOutlet = lazy(() => import('./pages/AuditFurnitureMattressOutlet'));
 const CommunityPartnerProgram = lazy(() => import('./pages/CommunityPartnerProgram'));
@@ -560,6 +563,9 @@ const AuthenticatedApp = () => {
       <Route path="/social-media/albert-lea-mn" element={<LayoutWrapper currentPageName="SocialMediaAlbertLeaMN"><SocialMediaAlbertLeaMN /></LayoutWrapper>} />
       <Route path="/knowledge" element={<LayoutWrapper currentPageName="NTABrandBook"><NTABrandBook /></LayoutWrapper>} />
       <Route path="/why-nta" element={<LayoutWrapper currentPageName="WhyNTA"><WhyNTA /></LayoutWrapper>} />
+      <Route path="/knowledge/prompts" element={<LayoutWrapper currentPageName="KnowledgePrompts"><KnowledgePrompts /></LayoutWrapper>} />
+      <Route path="/knowledge/sales-conversations" element={<LayoutWrapper currentPageName="SalesConversations"><SalesConversations /></LayoutWrapper>} />
+      <Route path="/knowledge/playbook" element={<LayoutWrapper currentPageName="NTAPlaybook"><NTAPlaybook /></LayoutWrapper>} />
       <Route path="/brand-book" element={<LayoutWrapper currentPageName="NTABrandBook"><NTABrandBook /></LayoutWrapper>} />
       <Route path="/website-rebuilds/mason-city-ia" element={<LayoutWrapper currentPageName="WebsiteRebuildsMasonCity"><WebsiteRebuildsMasonCity /></LayoutWrapper>} />
       <Route path="/website-rebuilds/rochester-mn" element={<WebsiteRebuildsRochesterMN />} />
