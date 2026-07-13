@@ -724,6 +724,427 @@ Begin by understanding one piece of work.
     relatedModules: [
       { label: "Operational Bottleneck Finder", link: "/operating-system" }
     ],
+    nextLessonSlug: "ai-needs-context-before-it-can-be-helpful"
+  },
+  {
+    id: 3,
+    slug: "ai-needs-context-before-it-can-be-helpful",
+    title: "AI Needs Context Before It Can Be Helpful",
+    description: "AI may know a great deal about business in general, but it does not automatically understand your business. Useful results begin by providing the right context.",
+    readingTime: "9–10 min read",
+    level: "Beginner",
+    takeaway: "AI cannot use business knowledge it has never been given. The more clearly you provide your purpose, voice, customers, examples, and expectations, the more useful your AI teammate can become.",
+    content: `
+### The First Answer Is Usually Too General
+
+One of the first disappointments people experience with AI happens after they ask it a question and receive an answer that sounds like it could have been written for anyone.
+
+The response may be polished.
+
+The grammar may be perfect.
+
+The ideas may even be reasonable.
+
+But something is missing.
+
+It doesn’t sound like them.
+
+It doesn’t understand their customers.
+
+It doesn’t recognize how their business is different.
+
+It gives advice that could apply to a heating company, a furniture store, a dentist, or a restaurant.
+
+Then the business owner says:
+
+“I tried AI. It wasn’t very helpful.”
+
+I understand why they feel that way.
+
+But the problem may not be that AI failed.
+
+The problem may be that AI didn’t know enough about the business to provide a useful answer.
+
+### General Knowledge Is Not Your Knowledge
+
+AI can know a great deal about business in general.
+
+It may understand common marketing strategies.
+
+Sales processes.
+
+Customer service principles.
+
+Industry terminology.
+
+Writing styles.
+
+Software.
+
+Advertising.
+
+Research.
+
+But it does not automatically know your business.
+
+It doesn’t know why you started.
+
+It doesn’t know which customers you serve best.
+
+It doesn’t know the promises you make.
+
+It doesn’t know which promises you refuse to make.
+
+It doesn’t know how your employees work.
+
+It doesn’t know what your customers repeatedly ask.
+
+It doesn’t know which ideas you tried before or why they failed.
+
+It doesn’t know what you mean when you say:
+
+“That doesn’t sound like us.”
+
+All of that is context.
+
+And context is what turns a general AI tool into something that can become genuinely helpful.
+
+### Think About a New Employee
+
+Imagine hiring a new employee on Monday morning.
+
+They may be intelligent.
+
+Experienced.
+
+Eager to help.
+
+But you would not hand them the keys, point toward the office, and say:
+
+“Go run the business.”
+
+They need an introduction.
+
+They need to understand what the company does.
+
+Who the customers are.
+
+How the phone should be answered.
+
+What good service looks like.
+
+Which decisions they may make.
+
+Which decisions require approval.
+
+They need examples.
+
+Corrections.
+
+Practice.
+
+Time.
+
+AI needs something similar.
+
+Not because it is a person.
+
+It isn’t.
+
+But because useful work still depends on useful direction.
+
+If you treat AI like a new teammate who needs orientation, examples, and clearly defined responsibilities, you will usually get better results than if you treat it like a machine that should somehow know everything you meant.
+
+### Your Business Already Contains the Context
+
+Most businesses already possess the knowledge AI needs.
+
+The problem is that the knowledge is scattered.
+
+Some of it is on the website.
+
+Some is inside old emails.
+
+Some is in brochures.
+
+Some lives in proposals.
+
+Some is buried in customer reviews.
+
+Some exists in recorded conversations.
+
+Some is written in employee notes.
+
+And much of the most valuable knowledge lives inside the owner’s head.
+
+You know why customers choose you.
+
+You know which questions reveal whether someone is a good fit.
+
+You know the difference between a promising opportunity and a problem waiting to happen.
+
+You know which words customers use when they describe their frustrations.
+
+You know what you have learned through years of mistakes.
+
+That knowledge has tremendous value.
+
+But AI cannot use knowledge it has never been given.
+
+### This Is What We’ve Been Building at NTA
+
+When people see what I am building with AI, they may think the AI produced New Tech Advertising.
+
+It didn’t.
+
+AI helped me build it.
+
+But the philosophy came from my life.
+
+The stories came from my experience.
+
+The lessons came from owning businesses, selling advertising, working with clients, making mistakes, and spending years trying to understand why some things produce results and others don’t.
+
+I have spent countless hours explaining those ideas.
+
+Correcting the language.
+
+Rejecting things that sounded too corporate.
+
+Removing claims that felt like marketing hype.
+
+Saying:
+
+“That may be technically correct, but it isn’t how I would say it.”
+
+Over time, the AI became more useful because I gave it more context.
+
+It began to understand that NTA teaches before it sells.
+
+That trust must be earned.
+
+That AI is a team, not a replacement.
+
+That every system produces something.
+
+That helping someone understand is valuable even if they never become a client.
+
+AI didn’t invent those principles.
+
+It learned to help me express and organize them.
+
+### Context Is More Than a Better Prompt
+
+People often hear that getting better results from AI requires writing better prompts.
+
+That is true, but it is only part of the story.
+
+A prompt tells AI what you want right now.
+
+Context helps it understand the larger world in which the work belongs.
+
+Suppose you ask:
+
+“Write a follow-up email for a prospect.”
+
+AI can do that.
+
+But the result becomes more useful when it also knows:
+
+Who the prospect is
+What they asked about
+What problem they are trying to solve
+What was discussed
+What you promised to send
+How you normally speak
+What you do not want the email to sound like
+What the appropriate next step should be
+
+The task did not change.
+
+The context did.
+
+And the difference between those two emails may be the difference between generic communication and a message that feels thoughtful and personal.
+
+### Examples Teach Better Than Adjectives
+
+You can tell AI:
+
+“Make this sound warm, professional, and conversational.”
+
+That may help.
+
+But those words can mean different things to different people.
+
+An example is often much clearer.
+
+Show it an email you wrote that sounds like you.
+
+Show it a proposal you are proud of.
+
+Show it how you answered a customer’s difficult question.
+
+Show it a paragraph you rejected and explain why it felt wrong.
+
+Examples make invisible expectations more visible.
+
+This is especially important with voice.
+
+Your voice is not merely whether you use short or long sentences.
+
+It includes what you notice.
+
+What you value.
+
+What you refuse to exaggerate.
+
+How you treat people.
+
+What you have learned.
+
+A few descriptive words cannot capture all of that.
+
+Examples begin to.
+
+### Corrections Become Part of the Teaching
+
+When AI gets something wrong, people sometimes become frustrated and start over.
+
+I usually do something different.
+
+I correct it.
+
+I explain what was wrong.
+
+Maybe it sounded too formal.
+
+Maybe it made a promise I would never make.
+
+Maybe it described NTA as a marketing agency when I am trying to build a school for business owners.
+
+Maybe it told people what to think instead of helping them see something differently.
+
+That correction has value.
+
+It clarifies what I believe.
+
+Sometimes I do not fully recognize my own voice until I hear something that doesn’t sound like me.
+
+The correction teaches the AI.
+
+It also teaches me.
+
+### Context Must Be Organized
+
+Giving AI more information does not mean dumping everything you have into one conversation and hoping it sorts itself out.
+
+Context should be useful.
+
+Accurate.
+
+Current.
+
+Relevant to the job.
+
+A customer follow-up assistant may need your communication style, common questions, service information, and follow-up process.
+
+It probably does not need every financial record in the company.
+
+A content assistant may need your voice guide, approved lessons, customer concerns, and examples of strong content.
+
+It should not need private employee information.
+
+Good context has boundaries.
+
+Part of using AI responsibly is deciding what information it needs, what information it does not need, and what sensitive information should never be entered into a tool without understanding how that information will be handled.
+
+More information is not always better.
+
+The right information is better.
+
+### Your Knowledge Is a Business Asset
+
+For years, small-business knowledge often disappeared when an employee left, the owner retired, or an old computer stopped working.
+
+AI gives us a new reason to organize that knowledge.
+
+Not simply so a machine can use it.
+
+So the business can preserve what it has learned.
+
+Customer questions can become a useful guide.
+
+Recorded conversations can reveal recurring concerns.
+
+Successful proposals can become examples.
+
+Mistakes can become instructions.
+
+Founder stories can become lessons.
+
+The process of preparing context for AI can make the business stronger even before AI does anything with it.
+
+Because now the knowledge is no longer trapped inside one person’s memory.
+
+It is becoming something the whole business can learn from.
+
+### The Lesson
+
+AI may have access to enormous amounts of general knowledge.
+
+But general knowledge is not the same as understanding your business.
+
+To become useful, AI needs context.
+
+It needs to know the job.
+
+The customer.
+
+The purpose.
+
+The voice.
+
+The boundaries.
+
+The examples.
+
+The desired outcome.
+
+It also needs correction when it gets those things wrong.
+
+You do not make AI more helpful by pretending it already understands you.
+
+You make it more helpful by teaching it what it needs to know.
+
+***
+
+### Reflection Questions
+
+Think about the knowledge already inside your business:
+
+* What important information currently exists only inside my head?
+* What questions do customers ask repeatedly?
+* Which emails, proposals, videos, or conversations best represent how we work?
+* What examples could help AI understand our voice?
+* What words, promises, or approaches do not fit our business?
+* What information would an AI teammate need to perform one clearly defined job?
+* What private or sensitive information should remain outside that system?
+* If an experienced employee left tomorrow, what valuable knowledge might leave with them?
+
+Organizing context is not merely preparation for AI.
+
+It is a way of recognizing what your business has already learned.
+`,
+    relatedPrompts: [
+      { label: "Business Context Builder", link: "/knowledge/prompts" }
+    ],
+    relatedVideos: [
+      { label: "AI Brought Me Out of Retirement", link: "/ai-brought-me-out-of-retirement" },
+      { label: "Why AI Doesn’t Understand Your Business Yet", link: "/knowledge/videos" }
+    ],
+    relatedModules: [
+      { label: "Knowledge Capture Workspace", link: "/operating-system" }
+    ],
     nextLessonSlug: null
   }
 ];
