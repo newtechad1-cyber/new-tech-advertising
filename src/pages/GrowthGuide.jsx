@@ -258,6 +258,7 @@ export default function GrowthGuide() {
 
   return (
     <div className="flex flex-col min-h-screen bg-slate-950 text-slate-50 font-sans relative z-40">
+      <MarketingNav />
       <div className="flex flex-col md:flex-row flex-1 overflow-hidden relative">
       
       {/* Sidebar / Timeline */}
