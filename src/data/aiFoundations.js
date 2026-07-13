@@ -1,3 +1,5 @@
+import { lesson7 } from './aiFoundationsLesson7';
+
 export const aiFoundationsLessons = [
   {
     id: 1,
@@ -2342,6 +2344,7 @@ The best automation begins with a process someone understands well enough to exp
       { label: "Automation Workflow", link: "/operating-system" },
       { label: "Human Approval System", link: "/operating-system" }
     ],
-    nextLessonSlug: null
-  }
+    nextLessonSlug: "building-your-first-ai-teammate"
+  },
+  lesson7
 ];
