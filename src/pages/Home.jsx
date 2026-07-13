@@ -3,6 +3,7 @@ import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import SEOHead from '../components/shared/SEOHead';
 import HeroSection from '../components/home-conversion/HeroSection';
+import PhilosophySection from '../components/home-conversion/PhilosophySection';
 import ProblemSection from '../components/home-conversion/ProblemSection';
 import SolutionSection from '../components/home-conversion/SolutionSection';
 import PathSection from '../components/home-conversion/PathSection';
@@ -22,6 +23,7 @@ export default function Home() {
       
       <main>
         <HeroSection />
+        <PhilosophySection />
         
         {/* Where Do You Start Section */}
         <section className="py-20 px-6 bg-slate-900 border-t border-slate-800">
