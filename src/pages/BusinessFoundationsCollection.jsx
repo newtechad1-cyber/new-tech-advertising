@@ -1,21 +1,36 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen, CheckCircle2, ChevronRight, PlayCircle } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import { businessFoundationsLessons } from '@/data/businessFoundations';
+import { getJourneyMemory } from '@/lib/journeyMemory';
 
 export default function BusinessFoundationsCollection() {
+  const [completedLessons, setCompletedLessons] = useState([]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    
+    // Read from Journey Memory
+    const memory = getJourneyMemory();
+    const progress = memory.learningProgress || {};
+    
+    const completed = businessFoundationsLessons
+      .filter(lesson => progress[`business-foundations:${lesson.slug}`])
+      .map(lesson => lesson.id);
+      
+    setCompletedLessons(completed);
   }, []);
 
-  // For a real app, this would come from a user profile or local storage.
-  // We'll simulate that the first lesson is completed.
-  const completedLessons = [1]; 
   const totalLessons = businessFoundationsLessons.length;
   const progressPercent = Math.round((completedLessons.length / totalLessons) * 100);
+  
+  const isAllComplete = completedLessons.length === totalLessons;
+  const firstIncompleteLesson = businessFoundationsLessons.find(l => !completedLessons.includes(l.id)) || businessFoundationsLessons[0];
+  const primaryButtonText = isAllComplete ? "Review Collection" : completedLessons.length > 0 ? "Continue Journey" : "Start Journey";
+  const primaryButtonLink = `/knowledge/business-foundations/${firstIncompleteLesson.slug}`;
 
   return (
     <div className="min-h-screen bg-slate-950 font-sans text-slate-200">
@@ -55,10 +70,10 @@ export default function BusinessFoundationsCollection() {
             </div>
             <div className="mt-6">
               <Link 
-                to={`/knowledge/business-foundations/${businessFoundationsLessons[0].slug}`}
+                to={primaryButtonLink}
                 className="block w-full py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-semibold transition-colors text-center"
               >
-                {completedLessons.length > 0 ? "Continue Journey" : "Start Journey"}
+                {primaryButtonText}
               </Link>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { ArrowLeft, BrainCircuit, PlayCircle, Layers, CheckCircle2, ChevronRight } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
@@ -7,9 +7,11 @@ import SEOHead from '@/components/shared/SEOHead';
 import ReactMarkdown from 'react-markdown';
 import { businessFoundationsLessons } from '@/data/businessFoundations';
 import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
+import { getJourneyMemory, updateLearningProgress } from '@/lib/journeyMemory';
 
 export default function BusinessFoundationsLesson() {
   const { slug } = useParams();
+  const [isCompleted, setIsCompleted] = useState(false);
 
   const lessonIndex = useMemo(() => {
     return businessFoundationsLessons.findIndex(l => l.slug === slug);
@@ -17,7 +19,17 @@ export default function BusinessFoundationsLesson() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    if (slug) {
+      const memory = getJourneyMemory();
+      const progress = memory.learningProgress || {};
+      setIsCompleted(!!progress[`business-foundations:${slug}`]);
+    }
   }, [slug]);
+
+  const handleMarkComplete = () => {
+    updateLearningProgress(`business-foundations:${slug}`, true);
+    setIsCompleted(true);
+  };
 
   if (lessonIndex === -1) {
     return <Navigate to="/knowledge/business-foundations" replace />;
@@ -156,11 +168,26 @@ export default function BusinessFoundationsLesson() {
             )}
           </div>
 
+          <div className="mt-12 flex justify-center">
+            {isCompleted ? (
+              <div className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-semibold">
+                <CheckCircle2 className="w-5 h-5" /> Lesson Complete
+              </div>
+            ) : (
+              <button
+                onClick={handleMarkComplete}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors font-semibold border border-slate-700 hover:border-slate-600"
+              >
+                <CheckCircle2 className="w-5 h-5 text-slate-400" /> Mark Lesson Complete
+              </button>
+            )}
+          </div>
+
           <TrackBottomNav 
             prevLink={lessonIndex > 0 ? `/knowledge/business-foundations/${businessFoundationsLessons[lessonIndex - 1].slug}` : null}
             prevText="← Previous Lesson"
-            nextLink={lesson.nextLessonSlug ? `/knowledge/business-foundations/${lesson.nextLessonSlug}` : null}
-            nextText={lesson.nextLessonSlug ? "Continue Learning →" : "Complete Collection"}
+            nextLink={lesson.nextLessonSlug ? `/knowledge/business-foundations/${lesson.nextLessonSlug}` : "/knowledge/business-foundations"}
+            nextText={lesson.nextLessonSlug ? "Continue Learning →" : "Complete Collection →"}
             color="blue"
           />
 

@@ -199,6 +199,20 @@ The principles that build healthy businesses won't.
 Those principles are what you'll learn throughout the NTA Knowledge Library.
 
 If they help you build a better business, then everything I've learned over the past fifty years will have been worth passing on.
+
+***
+
+### Reflection Questions
+
+Before moving to the next lesson, ask yourself:
+
+* What part of growing my business feels most confusing right now?
+* Am I looking for another marketing tactic—or trying to understand the larger system?
+* What decision would become easier if I understood the reason behind it?
+* Do the people helping my business take time to teach me, or do they mainly try to sell me something?
+* What would I like to understand better before I spend more money?
+
+You don't need to solve everything today. Clarity often begins by identifying the question you really need answered.
     `,
     relatedPrompts: [
       { label: "NTA Growth Readiness Check", link: "/knowledge/prompts" }
@@ -417,6 +431,21 @@ They grow because they consistently build systems that create visibility, unders
 Marketing supports those systems.
 
 It doesn't replace them.
+
+***
+
+### Reflection Questions
+
+Think about how someone experiences your business from beginning to end.
+
+* How do people first discover my business?
+* What helps them understand what we do?
+* Where do they begin to trust us?
+* What happens after someone contacts us?
+* Where does the journey from discovery to relationship currently break down?
+* Am I asking advertising to become the engine—or using it to accelerate a healthy system?
+
+You may not need more activity. You may need one part of the system to work more consistently.
     `,
     relatedPrompts: [
       { label: "Content Multiplication Strategy", link: "/knowledge/prompts" }
@@ -599,6 +628,20 @@ Marketing is not magic.
 It is one important part of a healthy business system.
 
 When your message, relationships, service, and follow-up work together, marketing becomes far more effective because it is supporting something solid instead of trying to compensate for something missing.
+
+***
+
+### Reflection Questions
+
+Before deciding that you need more marketing, ask yourself:
+
+* Am I asking marketing to solve a problem that exists somewhere else in the business?
+* What happens after a new prospect calls, emails, or visits the website?
+* Do we respond clearly and consistently?
+* Does our customer experience support the promises our marketing makes?
+* What part of the foundation should become stronger before we attract more attention?
+
+Marketing works best when it introduces people to a business that is ready to serve them well.
     `,
     relatedPrompts: [
       { label: "Business Value Clarification", link: "/knowledge/prompts" }
