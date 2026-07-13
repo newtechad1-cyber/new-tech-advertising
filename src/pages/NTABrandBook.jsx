@@ -392,7 +392,7 @@ export default function NTABrandBook() {
               </p>
               <blockquote className="border-l-4 border-blue-500 pl-4 py-1">
                 <p className="text-lg text-slate-800 font-medium italic mb-2">
-                  "Learn from my experience so you don't have to make all the mistakes I did."
+                  "If you can offer me enough trust to begin, I will work to earn enough trust to continue."
                 </p>
                 <footer className="text-sm font-semibold text-slate-500">— Rick Hesse</footer>
               </blockquote>
@@ -426,17 +426,17 @@ export default function NTABrandBook() {
                       {item.icon}
                     </div>
                     {isBrandBook && (
-                      <span className="text-xs font-semibold bg-white text-blue-700 px-2 py-1 rounded shadow-sm">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white text-blue-700 text-xs font-medium shadow-sm whitespace-nowrap">
                         You are here
                       </span>
                     )}
                     {!isBrandBook && item.status === 'build' && (
-                      <span className="text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-100 px-2 py-1 rounded">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-indigo-50 text-indigo-700 text-xs font-medium border border-indigo-100 whitespace-nowrap">
                         Growing Library
                       </span>
                     )}
                     {!isBrandBook && item.visibility === 'mixed' && item.status !== 'build' && (
-                      <span className="text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 px-2 py-1 rounded">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 text-xs font-medium border border-slate-200 whitespace-nowrap">
                         Mixed Access
                       </span>
                     )}

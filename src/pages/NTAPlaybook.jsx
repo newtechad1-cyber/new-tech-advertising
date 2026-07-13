@@ -147,12 +147,12 @@ export default function NTAPlaybook() {
                   {item.category}
                 </span>
                 {item.visibility === 'public' ? (
-                  <span className="inline-flex items-center gap-1 text-slate-500 text-xs font-medium">
-                    <Unlock className="w-3 h-3" /> Public Overview
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 text-xs font-medium border border-emerald-100 whitespace-nowrap">
+                    <Unlock className="w-3.5 h-3.5" /> Public Overview
                   </span>
                 ) : (
-                  <span className="inline-flex items-center gap-1 text-amber-600 text-xs font-medium">
-                    <Lock className="w-3 h-3" /> Internal Process
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 text-xs font-medium border border-slate-200 whitespace-nowrap">
+                    <Lock className="w-3.5 h-3.5" /> Internal Process
                   </span>
                 )}
               </div>

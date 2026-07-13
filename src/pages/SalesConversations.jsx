@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MessageSquare, HeartHandshake, ShieldCheck, Phone, BookOpen, AlertCircle, Users, CheckCircle2 } from 'lucide-react';
+import { MessageSquare, HeartHandshake, ShieldCheck, Phone, BookOpen, AlertCircle, Users, CheckCircle2, Unlock } from 'lucide-react';
 import KnowledgeLibraryLayout from '@/components/knowledge/KnowledgeLibraryLayout';
 
 const CONVERSATION_CATEGORIES = [
@@ -113,7 +113,9 @@ export default function SalesConversations() {
 
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-xl font-bold text-slate-900">Conversation Guides</h3>
-        <span className="text-sm text-slate-500 bg-slate-100 px-3 py-1 rounded-full font-medium">Public Educational Summaries</span>
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 text-sm font-medium border border-emerald-100">
+          <Unlock className="w-4 h-4" /> Public Educational Summaries
+        </span>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">

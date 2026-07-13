@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { ChevronRight, Search, Filter, Home, BookOpen } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
+import SEOHead from '@/components/shared/SEOHead';
 
 export default function KnowledgeLibraryLayout({ 
   title, 
@@ -13,12 +14,18 @@ export default function KnowledgeLibraryLayout({
   onCategoryChange,
   searchQuery,
   onSearchChange,
+  seoTitle,
+  seoDescription,
   children 
 }) {
   const [showFilters, setShowFilters] = useState(false);
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900 flex flex-col">
+      <SEOHead 
+        title={seoTitle || `${title} | NTA Knowledge Center`} 
+        description={seoDescription || subtitle} 
+      />
       <MarketingNav />
       
       {/* Header & Breadcrumbs */}

@@ -83,7 +83,7 @@ const seedPrompts = [
     summary: "System prompt for safely updating existing platform routes.",
     category: "Development",
     purpose: "Ensure no existing functionality is broken during platform updates.",
-    prompt_text: "I need to update [FILE_PATH]. My goal is to [GOAL]. Before providing code, outline the current state of the file, list any dependencies or state variables that might be affected, and write the minimal, surgical find_replace tool call necessary to achieve this without rewriting the entire file.",
+    prompt_text: "[RESTRICTED_INTERNAL_SYSTEM_PROMPT]",
     variables: ["[FILE_PATH]", "[GOAL]"],
     instructions: "Internal engineering prompt. Do not share publicly.",
     visibility: "internal"
