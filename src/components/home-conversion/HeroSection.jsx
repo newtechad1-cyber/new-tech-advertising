@@ -10,7 +10,7 @@ export default function HeroSection() {
       {/* Background Image */}
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url("https://media.base44.com/images/public/691f41a18de4a7f498c8f884/c68ef5fb1_backgroundheroimage2.png")' }}
+        style={{ backgroundImage: 'url("https://media.base44.com/images/public/691f41a18de4a7f498c8f884/edfc63215_Minimalisticrobotdeskworkspace.png")' }}
       >
         <div className="absolute inset-0 bg-slate-950/80" />
       </div>
