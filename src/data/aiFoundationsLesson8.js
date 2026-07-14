@@ -262,5 +262,5 @@ You are having a conversation with a tool that can help you discover what you we
   relatedModules: [
     { label: "Knowledge Capture Workspace", link: "/operating-system" }
   ],
-  nextLessonSlug: null
+  nextLessonSlug: "the-team-i-spent-my-life-trying-to-build"
 };
