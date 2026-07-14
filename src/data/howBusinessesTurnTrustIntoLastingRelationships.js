@@ -4,6 +4,7 @@ import { lesson3 } from './howBusinessesTurnTrustIntoLastingRelationshipsLesson3
 import { lesson4 } from './howBusinessesTurnTrustIntoLastingRelationshipsLesson4';
 import { lesson5 } from './howBusinessesTurnTrustIntoLastingRelationshipsLesson5';
 import { lesson6 } from './howBusinessesTurnTrustIntoLastingRelationshipsLesson6';
+import { lesson7 } from './howBusinessesTurnTrustIntoLastingRelationshipsLesson7';
 
 export const howBusinessesTurnTrustIntoLastingRelationshipsLessons = [
   lesson1,
@@ -11,5 +12,6 @@ export const howBusinessesTurnTrustIntoLastingRelationshipsLessons = [
   lesson3,
   lesson4,
   lesson5,
-  lesson6
+  lesson6,
+  lesson7
 ];
