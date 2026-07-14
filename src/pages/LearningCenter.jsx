@@ -8,7 +8,7 @@ import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import { getJourneyMemory } from '@/lib/journeyMemory';
 
-export default function KnowledgeLibrary() {
+export default function LearningCenter() {
   const memory = getJourneyMemory();
   const businessProgress = memory.learningProgress?.businessFoundations || { completed: [] };
   const aiProgress = memory.learningProgress?.aiFoundations || { completed: [] };

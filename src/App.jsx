@@ -766,18 +766,18 @@ const AuthenticatedApp = () => {
       <Route path="/my-growth-journey" element={<LayoutWrapper currentPageName="MyGrowthJourney"><MyGrowthJourney /></LayoutWrapper>} />
       <Route path="/business-score" element={<LayoutWrapper currentPageName="NTABusinessScore"><NTABusinessScore /></LayoutWrapper>} />
       <Route path="/growth-roadmap-generator" element={<LayoutWrapper currentPageName="NTAGrowthRoadmapGenerator"><NTAGrowthRoadmapGenerator /></LayoutWrapper>} />
-      <Route path="/executive-dashboard" element={<LayoutWrapper currentPageName="NTAExecutiveDashboard"><NTAExecutiveDashboard /></LayoutWrapper>} />
-      <Route path="/partner-portal" element={<LayoutWrapper currentPageName="PartnerPortal"><PartnerPortal /></LayoutWrapper>} />
-      <Route path="/community-intelligence" element={<LayoutWrapper currentPageName="CommunityIntelligence"><CommunityIntelligence /></LayoutWrapper>} />
-      <Route path="/nta/data-hub" element={<LayoutWrapper currentPageName="NTADataHub"><NTADataHub /></LayoutWrapper>} />
+      <Route path="/executive-dashboard" element={<AdminGuard><LayoutWrapper currentPageName="NTAExecutiveDashboard"><NTAExecutiveDashboard /></LayoutWrapper></AdminGuard>} />
+      <Route path="/partner-portal" element={<AdminGuard><LayoutWrapper currentPageName="PartnerPortal"><PartnerPortal /></LayoutWrapper></AdminGuard>} />
+      <Route path="/community-intelligence" element={<AdminGuard><LayoutWrapper currentPageName="CommunityIntelligence"><CommunityIntelligence /></LayoutWrapper></AdminGuard>} />
+      <Route path="/nta/data-hub" element={<AdminGuard><LayoutWrapper currentPageName="NTADataHub"><NTADataHub /></LayoutWrapper></AdminGuard>} />
       <Route path="/business-profile" element={<LayoutWrapper currentPageName="BusinessProfile"><BusinessProfile /></LayoutWrapper>} />
       <Route path="/progress" element={<LayoutWrapper currentPageName="ProgressCenter"><ProgressCenter /></LayoutWrapper>} />
-      <Route path="/workspace" element={<LayoutWrapper currentPageName="MyGrowthWorkspace"><MyGrowthWorkspace /></LayoutWrapper>} />
+      <Route path="/workspace" element={<AdminGuard><LayoutWrapper currentPageName="MyGrowthWorkspace"><MyGrowthWorkspace /></LayoutWrapper></AdminGuard>} />
       <Route path="/admin-center" element={<AdminGuard><LayoutWrapper currentPageName="RickAdminCenter"><RickAdminCenter /></LayoutWrapper></AdminGuard>} />
 
-      <Route path="/billing" element={<LayoutWrapper currentPageName="BillingCenter"><BillingCenter /></LayoutWrapper>} />
-      <Route path="/support" element={<LayoutWrapper currentPageName="SupportCenter"><SupportCenter /></LayoutWrapper>} />
-      <Route path="/onboarding" element={<LayoutWrapper currentPageName="ClientOnboardingCenter"><ClientOnboardingCenter /></LayoutWrapper>} />
+      <Route path="/billing" element={<AdminGuard><LayoutWrapper currentPageName="BillingCenter"><BillingCenter /></LayoutWrapper></AdminGuard>} />
+      <Route path="/support" element={<AdminGuard><LayoutWrapper currentPageName="SupportCenter"><SupportCenter /></LayoutWrapper></AdminGuard>} />
+      <Route path="/onboarding" element={<AdminGuard><LayoutWrapper currentPageName="ClientOnboardingCenter"><ClientOnboardingCenter /></LayoutWrapper></AdminGuard>} />
       <Route path="/community-growth-advisor" element={<LayoutWrapper currentPageName="CommunityGrowthAdvisor"><CommunityGrowthAdvisor /></LayoutWrapper>} />
       <Route path="/partner-quick-start" element={<LayoutWrapper currentPageName="PartnerQuickStart"><PartnerQuickStart /></LayoutWrapper>} />
       <Route path="/business-journey" element={<LayoutWrapper currentPageName="BusinessJourney"><BusinessJourney /></LayoutWrapper>} />

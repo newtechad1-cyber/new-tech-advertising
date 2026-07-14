@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import SEOHead from '../components/shared/SEOHead';
@@ -31,7 +32,7 @@ export default function Home() {
             <p className="text-slate-400 text-lg mb-12">Select the path that matches your current goal.</p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              <a href="/knowledge/business-foundations" className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 flex flex-col items-center text-center hover:border-emerald-500/50 hover:bg-slate-800 transition-colors group">
+              <Link to="/knowledge/business-foundations" className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 flex flex-col items-center text-center hover:border-emerald-500/50 hover:bg-slate-800 transition-colors group">
                 <div className="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center mb-6 text-emerald-400 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
                   <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
                 </div>
@@ -40,9 +41,9 @@ export default function Home() {
                 <span className="text-emerald-400 font-semibold flex items-center gap-1 group-hover:text-emerald-300 text-sm">
                   Business Foundations <span>→</span>
                 </span>
-              </a>
+              </Link>
 
-              <a href="/knowledge/ai-foundations" className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 flex flex-col items-center text-center hover:border-blue-500/50 hover:bg-slate-800 transition-colors group">
+              <Link to="/knowledge/ai-foundations" className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 flex flex-col items-center text-center hover:border-blue-500/50 hover:bg-slate-800 transition-colors group">
                 <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mb-6 text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-colors">
                   <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                 </div>
@@ -51,9 +52,9 @@ export default function Home() {
                 <span className="text-blue-400 font-semibold flex items-center gap-1 group-hover:text-blue-300 text-sm">
                   AI Foundations <span>→</span>
                 </span>
-              </a>
+              </Link>
 
-              <a href="/growth-conversation" className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 flex flex-col items-center text-center hover:border-purple-500/50 hover:bg-slate-800 transition-colors group">
+              <Link to="/growth-conversation" className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 flex flex-col items-center text-center hover:border-purple-500/50 hover:bg-slate-800 transition-colors group">
                 <div className="w-16 h-16 bg-purple-500/10 rounded-full flex items-center justify-center mb-6 text-purple-400 group-hover:bg-purple-500 group-hover:text-white transition-colors">
                   <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
                 </div>
@@ -62,9 +63,9 @@ export default function Home() {
                 <span className="text-purple-400 font-semibold flex items-center gap-1 group-hover:text-purple-300 text-sm">
                   Growth Conversation <span>→</span>
                 </span>
-              </a>
+              </Link>
 
-              <a href="/book-call" className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 flex flex-col items-center text-center hover:border-orange-500/50 hover:bg-slate-800 transition-colors group">
+              <Link to="/book-call" className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 flex flex-col items-center text-center hover:border-orange-500/50 hover:bg-slate-800 transition-colors group">
                 <div className="w-16 h-16 bg-orange-500/10 rounded-full flex items-center justify-center mb-6 text-orange-400 group-hover:bg-orange-500 group-hover:text-white transition-colors">
                   <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
                 </div>
@@ -73,7 +74,7 @@ export default function Home() {
                 <span className="text-orange-400 font-semibold flex items-center gap-1 group-hover:text-orange-300 text-sm">
                   Discovery Meeting <span>→</span>
                 </span>
-              </a>
+              </Link>
             </div>
           </div>
         </section>
