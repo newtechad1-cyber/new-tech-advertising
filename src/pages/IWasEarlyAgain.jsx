@@ -26,7 +26,7 @@ export default function IWasEarlyAgain() {
           category="Modern Marketing Systems"
           readingTime="7 min read"
           breadcrumbs={[
-            { label: 'Learning Center', path: '/learning-center' },
+            { label: "Knowledge Library", path: '/learning-center' },
             { label: 'Modern Marketing Systems', path: '/learning-center/category/modern-marketing-systems' },
             { label: 'I Was Early Again' }
           ]}

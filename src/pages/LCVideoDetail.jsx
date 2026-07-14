@@ -15,10 +15,10 @@ export default function LCVideoDetail() {
   useEffect(() => {
     window.scrollTo(0, 0);
     if (video) {
-      document.title = `${video.title} | NTA Learning Center`;
+      document.title = `${video.title} | Knowledge Library`;
       const metaDesc = document.querySelector('meta[name="description"]');
       if (metaDesc) {
-        metaDesc.setAttribute('content', video.description || 'NTA Learning Center Video');
+        metaDesc.setAttribute('content', video.description || 'Knowledge Library Video');
       }
 
       // Inject VideoObject Schema for SEO

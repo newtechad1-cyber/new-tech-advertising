@@ -26,7 +26,7 @@ export default function WebsitesAsSalespeople() {
           category="Modern Marketing Systems"
           readingTime="4 min read"
           breadcrumbs={[
-            { label: 'Learning Center', path: '/learning-center' },
+            { label: "Knowledge Library", path: '/learning-center' },
             { label: 'Modern Marketing Systems', path: '/learning-center/category/modern-marketing-systems' },
             { label: 'Websites as Salespeople' }
           ]}

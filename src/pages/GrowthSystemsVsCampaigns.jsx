@@ -28,7 +28,7 @@ export default function GrowthSystemsVsCampaigns() {
           category="Modern Marketing Systems"
           readingTime="10 min read"
           breadcrumbs={[
-            { label: 'Learning Center', path: '/learning-center' },
+            { label: "Knowledge Library", path: '/learning-center' },
             { label: 'Modern Marketing Systems', path: '/learning-center/category/modern-marketing-systems' },
             { label: 'Growth Systems vs Campaigns' }
           ]}

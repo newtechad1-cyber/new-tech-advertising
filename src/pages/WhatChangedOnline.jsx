@@ -22,7 +22,7 @@ export default function WhatChangedOnline() {
         title="What Changed Online: The New Rules of Local Visibility"
         subtitle="Search has fundamentally changed. If you're not optimized for AI recommendations, you're losing to competitors who are."
         breadcrumbs={[
-          { label: "NTA Learning Center", link: "/learning-center" },
+          { label: "Knowledge Library", link: "/learning-center" },
           { label: "What Changed Online" }
         ]}
         category="AI Search"

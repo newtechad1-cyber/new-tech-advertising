@@ -53,12 +53,13 @@ export default function BusinessFoundationsLesson() {
         {/* Lesson Header */}
         <header className="px-6 mb-12">
           <div className="max-w-4xl mx-auto">
-            <Link 
-              to="/knowledge/business-foundations" 
-              className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-medium mb-8"
-            >
-              <ArrowLeft className="w-4 h-4" /> Back to Business Foundations Collection
-            </Link>
+            <div className="flex items-center gap-2 text-sm font-medium text-slate-400 mb-8 overflow-x-auto whitespace-nowrap">
+              <Link to="/learning-center" className="hover:text-white transition-colors">Knowledge Library</Link>
+              <ChevronRight className="w-4 h-4 text-slate-600" />
+              <Link to="/knowledge/business-foundations" className="hover:text-white transition-colors">Business Foundations</Link>
+              <ChevronRight className="w-4 h-4 text-slate-600" />
+              <span className="text-blue-400">Lesson {currentStep}</span>
+            </div>
 
             <TrackProgress trackName="Business Foundations" currentStep={currentStep} totalSteps={totalLessons} color="blue" />
 

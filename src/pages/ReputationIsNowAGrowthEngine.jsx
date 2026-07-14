@@ -28,7 +28,7 @@ export default function ReputationIsNowAGrowthEngine() {
           category="Digital Trust & Reputation"
           readingTime="9 min read"
           breadcrumbs={[
-            { label: 'Learning Center', path: '/learning-center' },
+            { label: "Knowledge Library", path: '/learning-center' },
             { label: 'Digital Trust & Reputation', path: '/learning-center/category/digital-trust-reputation' },
             { label: 'Reputation Is Now a Growth Engine' }
           ]}

@@ -48,13 +48,15 @@ export default function AIFoundationsLesson() {
 
       {/* Collection Navigation Header */}
       <div className="pt-24 pb-6 px-6 border-b border-slate-800 bg-slate-900/80 sticky top-0 z-30 backdrop-blur-md">
-        <div className="max-w-3xl mx-auto flex items-center justify-between">
-          <Link to="/knowledge/ai-foundations" className="text-slate-400 hover:text-white flex items-center gap-2 transition-colors text-sm font-medium">
-            <ArrowLeft className="w-4 h-4" /> Back to Collection
-          </Link>
+        <div className="max-w-3xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-2 text-sm font-medium text-slate-400 overflow-x-auto whitespace-nowrap">
+            <Link to="/learning-center" className="hover:text-white transition-colors">Knowledge Library</Link>
+            <ChevronRight className="w-4 h-4 text-slate-600" />
+            <Link to="/knowledge/ai-foundations" className="hover:text-white transition-colors">AI Foundations</Link>
+            <ChevronRight className="w-4 h-4 text-slate-600" />
+            <span className="text-blue-400">Lesson {lessonIndex + 1}</span>
+          </div>
           <div className="flex items-center gap-3">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:inline-block">AI Foundations</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-slate-700 hidden sm:inline-block"></span>
             <span className="text-sm font-medium text-slate-300">Lesson {lessonIndex + 1} of {aiFoundationsLessons.length}</span>
           </div>
         </div>

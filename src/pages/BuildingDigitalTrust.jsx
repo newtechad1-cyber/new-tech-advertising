@@ -26,7 +26,7 @@ export default function BuildingDigitalTrust() {
           category="Digital Trust & Reputation"
           readingTime="6 min read"
           breadcrumbs={[
-            { label: 'Learning Center', path: '/learning-center' },
+            { label: "Knowledge Library", path: '/learning-center' },
             { label: 'Digital Trust & Reputation', path: '/learning-center/category/digital-trust-reputation' },
             { label: 'Building Digital Trust' }
           ]}

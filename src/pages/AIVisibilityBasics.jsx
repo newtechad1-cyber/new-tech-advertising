@@ -22,7 +22,7 @@ export default function AIVisibilityBasics() {
         title="AI Visibility Basics"
         subtitle="How ChatGPT, Gemini, and Google's AI Overview choose which local businesses to recommend."
         breadcrumbs={[
-          { label: "NTA Learning Center", link: "/learning-center" },
+          { label: "Knowledge Library", link: "/learning-center" },
           { label: "AI Visibility Basics" }
         ]}
         category="Visibility"

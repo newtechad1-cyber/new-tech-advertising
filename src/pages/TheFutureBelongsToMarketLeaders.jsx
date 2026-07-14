@@ -27,7 +27,7 @@ export default function TheFutureBelongsToMarketLeaders() {
           category="AI Visibility & Search"
           readingTime="8 min read"
           breadcrumbs={[
-            { label: 'Learning Center', path: '/learning-center' },
+            { label: "Knowledge Library", path: '/learning-center' },
             { label: 'AI Visibility & Search', path: '/learning-center/category/ai-visibility-search' },
             { label: 'The Future Belongs to Market Leaders' }
           ]}

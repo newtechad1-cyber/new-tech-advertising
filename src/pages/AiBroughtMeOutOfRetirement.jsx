@@ -25,7 +25,7 @@ export default function AiBroughtMeOutOfRetirement() {
           category="Modern Marketing Systems"
           readingTime="3 min read"
           breadcrumbs={[
-            { label: 'Learning Center', path: '/learning-center' },
+            { label: "Knowledge Library", path: '/learning-center' },
             { label: 'Modern Marketing Systems', path: '/learning-center/category/modern-marketing-systems' },
             { label: 'AI Brought Me Out of Retirement' }
           ]}

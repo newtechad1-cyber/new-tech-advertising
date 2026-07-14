@@ -28,7 +28,7 @@ export default function TheHiddenCostOfOutdatedMarketing() {
           category="Modern Marketing Systems"
           readingTime="9 min read"
           breadcrumbs={[
-            { label: 'Learning Center', path: '/learning-center' },
+            { label: "Knowledge Library", path: '/learning-center' },
             { label: 'Modern Marketing Systems', path: '/learning-center/category/modern-marketing-systems' },
             { label: 'The Hidden Cost of Outdated Marketing' }
           ]}

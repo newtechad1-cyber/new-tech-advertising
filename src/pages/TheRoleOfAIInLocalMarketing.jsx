@@ -28,7 +28,7 @@ export default function TheRoleOfAIInLocalMarketing() {
           category="AI Basics For Small Businesses"
           readingTime="8 min read"
           breadcrumbs={[
-            { label: 'Learning Center', path: '/learning-center' },
+            { label: "Knowledge Library", path: '/learning-center' },
             { label: 'AI Basics For Small Businesses', path: '/learning-center/category/ai-basics-small-businesses' },
             { label: 'The Role of AI in Local Marketing' }
           ]}

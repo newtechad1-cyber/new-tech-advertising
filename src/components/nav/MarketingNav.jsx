@@ -22,37 +22,35 @@ const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/pub
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { 
-    label: 'Learn', 
+    label: 'Solutions', 
+    href: '/local-lead-systems',
+    children: [
+      { label: 'Local Lead Systems', href: '/local-lead-systems', desc: 'Complete growth architecture' },
+      { label: 'Website Rebuilds', href: '/services/website-rebuilds', desc: 'Conversion-focused web design' },
+      { label: 'Social Media Management', href: '/services/social-media-management', desc: 'Content that builds trust' },
+      { label: 'AI Video Marketing', href: '/ai-video-marketing', desc: 'High-volume video production' },
+      { label: 'Back-Office Solutions', href: '/back-office-solutions', desc: 'Automation for your operations' },
+      { label: 'Restaurant Solutions', href: '/restaurants', desc: 'Growth systems for hospitality' }
+    ]
+  },
+  {
+    label: 'Learn',
     href: '/learning-center',
     children: [
       { label: 'NTA Knowledge Library', href: '/learning-center', desc: 'All educational collections' },
       { label: 'Business Foundations', href: '/knowledge/business-foundations', desc: 'Core principles of local business growth' },
       { label: 'AI Foundations', href: '/knowledge/ai-foundations', desc: 'Practical AI for small business' },
-      { label: 'Digital Visibility', href: '/what-changed-online', desc: 'How to get found today' },
-      { label: 'Growth Systems', href: '/growth-systems-vs-campaigns', desc: 'Building sustainable lead generation' },
-      { label: 'Trust & Relationships', href: '/building-digital-trust', desc: 'Reputation as a growth engine' },
-      { label: 'Founder Lessons', href: '/i-was-early-again', desc: 'Insights from Rick Hesse' }
+      { label: 'Growth Show', href: '/learning-center/videos', desc: 'Video insights' }
     ]
   },
-  { 
-    label: 'Apply', 
-    href: '/growth-conversation',
-    children: [
-      { label: 'Growth Conversation', href: '/growth-conversation', desc: 'Interactive discovery session' },
-      { label: 'AI Visibility Audit', href: '/gap-audit', desc: 'See how AI views your business' },
-      { label: 'Relationship Builder', href: '/relationship-builder', desc: 'Manage referrals and reviews' },
-      { label: 'Growth Roadmap', href: '/growth-roadmap-generator', desc: 'Generate your strategic plan' }
-    ]
-  },
-  { 
-    label: 'Build', 
+  {
+    label: 'Build',
     href: '/operating-system',
     children: [
       { label: 'NTA Operating System', href: '/operating-system', desc: 'Our core methodology' },
       { label: 'Visibility & Content', href: '/operating-system', desc: 'Foundation of the system' },
       { label: 'Trust & Reviews', href: '/operating-system', desc: 'Conversion accelerators' },
-      { label: 'AI & Automation', href: '/operating-system', desc: 'Operational efficiency' },
-      { label: 'Measurement', href: '/operating-system', desc: 'Continuous improvement' }
+      { label: 'AI & Automation', href: '/operating-system', desc: 'Operational efficiency' }
     ]
   },
   {
@@ -67,15 +65,15 @@ const NAV_LINKS = [
   },
   {
     label: 'About',
-    href: '/about',
+    href: '/why-nta',
     children: [
       { label: 'Why NTA Exists', href: '/why-nta', desc: 'Our mission and philosophy' },
       { label: 'Founder Story', href: '/i-was-early-again', desc: 'The journey of NTA' },
       { label: 'Brand Book', href: '/brand-book', desc: 'Our visual and strategic identity' },
-      { label: 'Community Partners', href: '/community-partner', desc: 'Network and alliances' },
-      { label: 'Growth Show', href: '/learning-center/videos', desc: 'Video insights' }
+      { label: 'Community Partners', href: '/community-partner', desc: 'Network and alliances' }
     ]
   },
+  { label: 'Pricing', href: '/find-your-plan' },
   { label: 'Contact', href: '/contact' }
 ];
 

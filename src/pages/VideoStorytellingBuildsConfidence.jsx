@@ -28,7 +28,7 @@ export default function VideoStorytellingBuildsConfidence() {
           category="Video & CTV Marketing"
           readingTime="8 min read"
           breadcrumbs={[
-            { label: 'Learning Center', path: '/learning-center' },
+            { label: "Knowledge Library", path: '/learning-center' },
             { label: 'Video & CTV Marketing', path: '/learning-center/category/video-ctv-marketing' },
             { label: 'Video Storytelling Builds Confidence' }
           ]}

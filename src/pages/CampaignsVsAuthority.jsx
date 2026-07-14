@@ -28,7 +28,7 @@ export default function CampaignsVsAuthority() {
           category="AI Visibility & Search"
           readingTime="8 min read"
           breadcrumbs={[
-            { label: 'Learning Center', path: '/learning-center' },
+            { label: "Knowledge Library", path: '/learning-center' },
             { label: 'AI Visibility & Search', path: '/learning-center/category/ai-visibility-search' },
             { label: 'Campaigns vs Authority' }
           ]}

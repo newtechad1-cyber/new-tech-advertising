@@ -22,7 +22,7 @@ export default function SEOVsAISearch() {
         title="SEO vs AI Search: The Shift"
         subtitle="Why traditional SEO is dying and how AI Search Optimization (AISO) is replacing it as the main driver of local traffic."
         breadcrumbs={[
-          { label: "NTA Learning Center", link: "/learning-center" },
+          { label: "Knowledge Library", link: "/learning-center" },
           { label: "SEO vs AI Search" }
         ]}
         category="Strategy"
