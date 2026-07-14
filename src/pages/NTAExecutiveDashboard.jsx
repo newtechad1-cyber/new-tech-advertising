@@ -11,8 +11,6 @@ import {
 import { Link } from 'react-router-dom';
 import SEOHead from '@/components/shared/SEOHead';
 import { base44 } from '@/api/base44Client';
-import MarketingNav from '@/components/nav/MarketingNav';
-import SiteFooter from '@/components/marketing/SiteFooter';
 
 export default function NTAExecutiveDashboard() {
   
@@ -61,14 +59,12 @@ export default function NTAExecutiveDashboard() {
   const barColors = ['#3b82f6', '#10b981', '#8b5cf6', '#f59e0b', '#ec4899', '#06b6d4'];
 
   return (
-    <div className="bg-slate-950 min-h-screen text-slate-200 font-sans pb-24 selection:bg-blue-500/30">
+    <div className="bg-slate-950 text-slate-200 font-sans pb-24 selection:bg-blue-500/30">
       <SEOHead 
         title="Executive Dashboard™ | New Tech Advertising"
         description="Rick's command center for operational metrics."
       />
-      <MarketingNav />
-
-      {/* Header */}
+{/* Header */}
       <div className="bg-slate-900 border-b border-slate-800 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -255,7 +251,6 @@ export default function NTAExecutiveDashboard() {
 
         </div>
       </div>
-    <SiteFooter />
-    </div>
+</div>
   );
 }

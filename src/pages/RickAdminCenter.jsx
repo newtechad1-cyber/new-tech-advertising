@@ -7,8 +7,6 @@ import {
   Activity, ArrowRight, Settings, BarChart, Eye, Search, Filter
 } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
-import MarketingNav from '@/components/nav/MarketingNav';
-import SiteFooter from '@/components/marketing/SiteFooter';
 
 export default function RickAdminCenter() {
   const fadeIn = {
@@ -25,14 +23,12 @@ export default function RickAdminCenter() {
   };
 
   return (
-    <div className="bg-slate-950 min-h-screen text-slate-200 font-sans selection:bg-blue-500/30">
+    <div className="bg-slate-950 text-slate-200 font-sans selection:bg-blue-500/30">
       <SEOHead 
         title="Rick Admin Center™ | NTA Operating System"
         description="Internal command center for operations and support."
       />
-      <MarketingNav />
-
-      {/* Header Section */}
+{/* Header Section */}
       <section className="relative pt-32 pb-16 px-6 overflow-hidden border-b border-slate-800/50">
         <div className="absolute inset-0 z-0">
           <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none"></div>
@@ -316,9 +312,6 @@ export default function RickAdminCenter() {
 
         </div>
       </section>
-
-    <SiteFooter />
-
-    </div>
+</div>
   );
 }

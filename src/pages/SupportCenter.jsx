@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { LifeBuoy, MessageSquare, Send, Clock, CheckCircle2, FileQuestion, BookOpen, AlertCircle } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
-import MarketingNav from '@/components/nav/MarketingNav';
-import SiteFooter from '@/components/marketing/SiteFooter';
 
 export default function SupportCenter() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,14 +29,12 @@ export default function SupportCenter() {
   };
 
   return (
-    <div className="bg-slate-950 min-h-screen text-slate-200 font-sans selection:bg-blue-500/30 pb-20">
+    <div className="bg-slate-950 text-slate-200 font-sans selection:bg-blue-500/30 pb-20">
       <SEOHead 
         title="Support Center™ | NTA Operating System"
         description="Get help, submit requests, and access resources from the NTA operations team."
       />
-      <MarketingNav />
-
-      {/* Header Section */}
+{/* Header Section */}
       <section className="relative pt-32 pb-16 px-6 overflow-hidden border-b border-slate-800/50">
         <div className="absolute inset-0 z-0">
           <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-rose-600/10 rounded-full blur-[100px] pointer-events-none"></div>
@@ -243,7 +239,6 @@ export default function SupportCenter() {
           </div>
         </div>
       </section>
-    <SiteFooter />
-    </div>
+</div>
   );
 }

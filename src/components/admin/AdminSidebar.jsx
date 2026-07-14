@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -67,6 +67,22 @@ const ADMIN_NAV_STRUCTURE = [
       { label: 'Executive Dashboard', page: 'AdminExecutive' },
       { label: 'Performance Reports', page: 'AdminAnalytics' },
       { label: 'Client Performance', page: 'AdminAnalytics' },
+    ],
+  },
+  {
+    id: 'admin-tools',
+    title: 'Admin Tools',
+    icon: '🛡️',
+    items: [
+      { label: 'Admin Center', href: '/admin-center' },
+      { label: 'Executive Dashboard', href: '/executive-dashboard' },
+      { label: 'Partner Portal', href: '/partner-portal' },
+      { label: 'Community Intelligence', href: '/community-intelligence' },
+      { label: 'Data Hub', href: '/nta/data-hub' },
+      { label: 'Billing', href: '/billing' },
+      { label: 'Support Center', href: '/support' },
+      { label: 'Client Onboarding', href: '/onboarding' },
+      { label: 'My Workspace', href: '/workspace' },
     ],
   },
   {
@@ -180,9 +196,10 @@ const HIDDEN_NAV_SECTIONS = [
 // ── Route validation — runs once at module load in dev ────────────────────────
 validateNavRoutes([...ADMIN_NAV_STRUCTURE, ...HIDDEN_NAV_SECTIONS], ROUTE_FAMILIES.MAIN_ADMIN, 'AdminLayout/AdminSidebar');
 
-function SidebarSection({ section, isOpen, onToggle, isActive, currentPageName, isCollapsed }) {
+function SidebarSection({ section, isOpen, onToggle, isActive, currentPageName, isCollapsed, pathname }) {
   const isExpanded = isOpen && !isCollapsed;
-  const sectionActive = isActive || section.items.some(item => item.page === currentPageName);
+  const isItemActive = (item) => item.page === currentPageName || (item.href && item.href === pathname);
+  const sectionActive = isActive || section.items.some(isItemActive);
 
   return (
     <div className="mb-1">
@@ -215,7 +232,7 @@ function SidebarSection({ section, isOpen, onToggle, isActive, currentPageName, 
               to={item.href || createPageUrl(item.page)}
               className={cn(
                 'block px-3 py-2 text-xs rounded-md transition-colors',
-                currentPageName === item.page
+                isItemActive(item)
                   ? 'bg-blue-100 text-blue-900 font-semibold'
                   : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
               )}
@@ -236,6 +253,7 @@ export default function AdminSidebar({
   onToggleCollapse,
   currentPageName,
 }) {
+  const location = useLocation();
   const [expandedSections, setExpandedSections] = useState(new Set(['command-center']));
   const [showAllSections, setShowAllSections] = useState(() => {
     return localStorage.getItem('nta_show_all_sections') === 'true';
@@ -264,11 +282,11 @@ export default function AdminSidebar({
   // Auto-expand section containing current page
   useMemo(() => {
     displayedNavStructure.forEach(section => {
-      if (section.items.some(item => item.page === currentPageName)) {
+      if (section.items.some(item => item.page === currentPageName || (item.href && item.href === location.pathname))) {
         setExpandedSections(prev => new Set(prev).add(section.id));
       }
     });
-  }, [currentPageName, displayedNavStructure]);
+  }, [currentPageName, displayedNavStructure, location.pathname]);
 
   return (
     <>
@@ -304,6 +322,7 @@ export default function AdminSidebar({
               isActive={false}
               currentPageName={currentPageName}
               isCollapsed={isCollapsed}
+              pathname={location.pathname}
             />
           ))}
 
@@ -355,6 +374,7 @@ export default function AdminSidebar({
                   isActive={false}
                   currentPageName={currentPageName}
                   isCollapsed={false}
+                  pathname={location.pathname}
                 />
               ))}
 

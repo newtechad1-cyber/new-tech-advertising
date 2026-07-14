@@ -9,8 +9,6 @@ import {
   Calendar, ArrowUpRight, BarChart2, ShieldCheck, MapPin, Briefcase
 } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
-import MarketingNav from '@/components/nav/MarketingNav';
-import SiteFooter from '@/components/marketing/SiteFooter';
 
 // Placeholder Datasets
 const growthData = [
@@ -49,14 +47,12 @@ export default function CommunityIntelligence() {
   const regions = ['All Regions', 'North Iowa', 'Southern MN', 'Des Moines Area'];
 
   return (
-    <div className="bg-slate-950 min-h-screen text-slate-200 font-sans selection:bg-blue-500/30">
+    <div className="bg-slate-950 text-slate-200 font-sans selection:bg-blue-500/30">
       <SEOHead 
         title="Community Intelligence Center™ | NTA"
         description="Monitor the health, digital readiness, and growth trends of your local business ecosystem."
       />
-      <MarketingNav />
-
-      {/* Header */}
+{/* Header */}
       <header className="relative py-16 border-b border-slate-800/50 overflow-hidden bg-slate-900">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-3xl transform translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
@@ -273,7 +269,6 @@ export default function CommunityIntelligence() {
         </div>
 
       </main>
-    <SiteFooter />
-    </div>
+</div>
   );
 }

@@ -8,8 +8,6 @@ import {
 } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
 import NextStepEngine from '@/components/recommendations/NextStepEngine';
-import MarketingNav from '@/components/nav/MarketingNav';
-import SiteFooter from '@/components/marketing/SiteFooter';
 
 export default function PartnerPortal() {
   const [activeTab, setActiveTab] = useState('overview');
@@ -70,14 +68,12 @@ export default function PartnerPortal() {
   };
 
   return (
-    <div className="bg-slate-950 min-h-screen text-slate-200 font-sans selection:bg-blue-500/30 overflow-hidden flex flex-col">
+    <div className="bg-slate-950 text-slate-200 font-sans selection:bg-blue-500/30 overflow-hidden flex flex-col">
       <SEOHead 
         title="Community Partner Portal™ | New Tech Advertising"
         description="Dedicated workspace for NTA community partners and media representatives."
       />
-      <MarketingNav />
-
-      {/* Top Header */}
+{/* Top Header */}
       <header className="bg-slate-900/80 backdrop-blur-xl border-b border-slate-800 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -388,7 +384,6 @@ export default function PartnerPortal() {
         </main>
       </div>
       <NextStepEngine />
-    <SiteFooter />
-    </div>
+</div>
   );
 }

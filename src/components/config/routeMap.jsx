@@ -42,6 +42,15 @@ export const PAGE_FAMILY_MAP = {
   // ─── MAIN NTA ADMIN ────────────────────────────────────────────────────────
   // Route: /admindashboard  → AdminDashboard  (NTA operations dashboard)
   AdminDashboard:                'main_admin',
+  RickAdminCenter:               'main_admin',
+  NTAExecutiveDashboard:         'main_admin',
+  PartnerPortal:                 'main_admin',
+  CommunityIntelligence:         'main_admin',
+  NTADataHub:                    'main_admin',
+  BillingCenter:                 'main_admin',
+  SupportCenter:                 'main_admin',
+  ClientOnboardingCenter:        'main_admin',
+  MyGrowthWorkspace:             'main_admin',
   AdminCommandCenter:            'main_admin',
   AdminAIControlCenter:          'main_admin',
   AdminAILab:                    'main_admin',
