@@ -503,5 +503,5 @@ One improvement at a time.
   relatedModules: [
     { label: "AI Workforce and Agent Architecture", link: "/operating-system" }
   ],
-  nextLessonSlug: null
+  nextLessonSlug: "when-ai-tells-you-youre-different"
 };
