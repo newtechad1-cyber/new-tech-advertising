@@ -4,6 +4,7 @@ import { lesson3 } from './turningWhatABusinessKnowsIntoAnAssetLesson3';
 import { lesson4 } from './turningWhatABusinessKnowsIntoAnAssetLesson4';
 import { lesson5 } from './turningWhatABusinessKnowsIntoAnAssetLesson5';
 import { lesson6 } from './turningWhatABusinessKnowsIntoAnAssetLesson6';
+import { lesson7 } from './turningWhatABusinessKnowsIntoAnAssetLesson7';
 
 export const turningWhatABusinessKnowsIntoAnAssetLessons = [
   lesson1,
@@ -11,5 +12,6 @@ export const turningWhatABusinessKnowsIntoAnAssetLessons = [
   lesson3,
   lesson4,
   lesson5,
-  lesson6
+  lesson6,
+  lesson7
 ];
