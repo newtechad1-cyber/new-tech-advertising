@@ -8,6 +8,7 @@ import ReactMarkdown from 'react-markdown';
 import { businessFoundationsLessons } from '@/data/businessFoundations';
 import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 import { getJourneyMemory, updateLearningProgress } from '@/lib/journeyMemory';
+import RelatedContent from '@/components/knowledge/RelatedContent';
 
 export default function BusinessFoundationsLesson() {
   const { slug } = useParams();
@@ -90,83 +91,7 @@ export default function BusinessFoundationsLesson() {
             <ReactMarkdown>{lesson.content}</ReactMarkdown>
           </article>
 
-          {/* Related Resources Sidebar / Bottom section */}
-          <div className="mt-16 pt-12 border-t border-slate-800 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            {/* Related Lessons */}
-            <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-              <h3 className="text-slate-300 font-bold flex items-center gap-2 mb-4">
-                <BrainCircuit className="w-5 h-5 text-blue-400" /> Collection Lessons
-              </h3>
-              <ul className="space-y-3">
-                {businessFoundationsLessons.map((l, i) => (
-                  <li key={i}>
-                    <Link 
-                      to={`/knowledge/business-foundations/${l.slug}`} 
-                      className={`text-sm flex items-start gap-2 ${
-                        l.id === lesson.id 
-                          ? 'text-white font-semibold' 
-                          : 'text-blue-400 hover:text-blue-300'
-                      }`}
-                    >
-                      <ChevronRight className="w-4 h-4 shrink-0 mt-0.5" /> 
-                      <span className="line-clamp-2">{l.title}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            {lesson.relatedPrompts?.length > 0 && (
-              <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-                <h3 className="text-slate-300 font-bold flex items-center gap-2 mb-4">
-                  <BrainCircuit className="w-5 h-5 text-indigo-400" /> Related Prompts
-                </h3>
-                <ul className="space-y-3">
-                  {lesson.relatedPrompts.map((p, i) => (
-                    <li key={i}>
-                      <Link to={p.link} className="text-indigo-400 hover:text-indigo-300 text-sm flex items-start gap-2">
-                        <ChevronRight className="w-4 h-4 shrink-0 mt-0.5" /> <span>{p.label}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {lesson.relatedVideos?.length > 0 && (
-              <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-                <h3 className="text-slate-300 font-bold flex items-center gap-2 mb-4">
-                  <PlayCircle className="w-5 h-5 text-rose-400" /> Related Videos
-                </h3>
-                <ul className="space-y-3">
-                  {lesson.relatedVideos.map((v, i) => (
-                    <li key={i}>
-                      <Link to={v.link} className="text-rose-400 hover:text-rose-300 text-sm flex items-start gap-2">
-                        <ChevronRight className="w-4 h-4 shrink-0 mt-0.5" /> <span>{v.label}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {lesson.relatedModules?.length > 0 && (
-              <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-                <h3 className="text-slate-300 font-bold flex items-center gap-2 mb-4">
-                  <Layers className="w-5 h-5 text-emerald-400" /> OS Modules
-                </h3>
-                <ul className="space-y-3">
-                  {lesson.relatedModules.map((m, i) => (
-                    <li key={i}>
-                      <Link to={m.link} className="text-emerald-400 hover:text-emerald-300 text-sm flex items-start gap-2">
-                        <ChevronRight className="w-4 h-4 shrink-0 mt-0.5" /> <span>{m.label}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
+          <RelatedContent lesson={lesson} />
 
           <div className="mt-12 flex justify-center">
             {isCompleted ? (

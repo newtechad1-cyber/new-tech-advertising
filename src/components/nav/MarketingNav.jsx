@@ -21,47 +21,59 @@ const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/pub
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
-  { label: 'Why NTA', href: '/why-nta' },
-  { label: 'Pricing', href: '/find-your-plan' },
-  {
-    label: 'Services',
-    href: '/local-lead-systems',
-    children: [
-      { label: 'Local Lead Systems', href: '/local-lead-systems', desc: 'Full system: site + SEO + campaigns + follow-up' },
-      { label: 'Website Rebuilds', href: '/website-rebuilds', desc: 'Modern sites built to rank and convert' },
-      { label: 'Accessible Websites', href: '/accessible-websites', desc: 'ADA compliant, AI-ready, modern sites' },
-      { label: 'SEO Pages', href: '/seo-pages-for-local-businesses', desc: 'City & service pages that drive local traffic' },
-      { label: 'Seasonal Campaigns', href: '/seasonal-campaigns', desc: 'Timed marketing for peak demand' },
-      { label: 'Social Media Content', href: '/social-media-content-system', desc: 'Consistent social posts done-for-you' },
-      { label: 'AI Video Marketing', href: '/ai-video-marketing', desc: 'AI-produced video that builds trust' },
-    ],
-  },
-  {
-    label: 'Industries',
-    href: '/hvac-marketing-north-iowa',
-    children: [
-      { label: 'HVAC Marketing', href: '/hvac-marketing-north-iowa', desc: 'Heating & cooling contractors in North Iowa' },
-      { label: 'Restaurant Solutions', href: '/restaurants', desc: 'Commission-free ordering & AI marketing' },
-      { label: 'Contractor Marketing', href: '/contractor-marketing-north-iowa', desc: 'Home service pros & tradespeople' },
-      { label: 'Small Business Marketing', href: '/small-business-marketing-north-iowa', desc: 'Local retail, care, and service businesses' },
-      { label: 'HVAC Playbook Demo', href: '/hvac-funnel/1', desc: 'Interactive HVAC lead generation funnel', divider: true },
-      { label: 'Restaurant Playbook Demo', href: '/restaurant-demo', desc: 'Interactive restaurant marketing & ordering demo' },
-      { label: 'Back Office Solutions Demo', href: '/back-office-solutions', desc: 'Dispatch, invoicing & operations built for service businesses' },
-    ],
-  },
-  { label: 'Our Work', href: '/our-work' },
-  { label: 'About Us', href: '/about' },
-  { label: 'Brand Book', href: '/brand-book' },
-  { label: 'Partners', href: '/community-partner' },
-  { label: 'Knowledge Library', href: '/canon' },
-  { label: 'Journal', href: '/journal' },
   { 
-    label: 'AI Learning Center', 
+    label: 'Learn', 
     href: '/learning-center',
     children: [
-      { label: 'Learning Tracks', href: '/learning-center', desc: 'Guided paths that take you from basics to results' },
-      { label: 'Blog Articles', href: '/Blog', desc: 'Deeper dives on specific industries, tools, and strategies' },
-      { label: 'Video Library', href: '/learning-center#videos', desc: 'Watch practical training videos' }
+      { label: 'NTA Knowledge Library', href: '/learning-center', desc: 'All educational collections' },
+      { label: 'Business Foundations', href: '/knowledge/business-foundations', desc: 'Core principles of local business growth' },
+      { label: 'AI Foundations', href: '/knowledge/ai-foundations', desc: 'Practical AI for small business' },
+      { label: 'Digital Visibility', href: '/what-changed-online', desc: 'How to get found today' },
+      { label: 'Growth Systems', href: '/growth-systems-vs-campaigns', desc: 'Building sustainable lead generation' },
+      { label: 'Trust & Relationships', href: '/building-digital-trust', desc: 'Reputation as a growth engine' },
+      { label: 'Founder Lessons', href: '/i-was-early-again', desc: 'Insights from Rick Hesse' }
+    ]
+  },
+  { 
+    label: 'Apply', 
+    href: '/growth-conversation',
+    children: [
+      { label: 'Growth Conversation', href: '/growth-conversation', desc: 'Interactive discovery session' },
+      { label: 'AI Visibility Audit', href: '/gap-audit', desc: 'See how AI views your business' },
+      { label: 'Relationship Builder', href: '/relationship-builder', desc: 'Manage referrals and reviews' },
+      { label: 'Growth Roadmap', href: '/growth-roadmap-generator', desc: 'Generate your strategic plan' }
+    ]
+  },
+  { 
+    label: 'Build', 
+    href: '/operating-system',
+    children: [
+      { label: 'NTA Operating System', href: '/operating-system', desc: 'Our core methodology' },
+      { label: 'Visibility & Content', href: '/operating-system', desc: 'Foundation of the system' },
+      { label: 'Trust & Reviews', href: '/operating-system', desc: 'Conversion accelerators' },
+      { label: 'AI & Automation', href: '/operating-system', desc: 'Operational efficiency' },
+      { label: 'Measurement', href: '/operating-system', desc: 'Continuous improvement' }
+    ]
+  },
+  {
+    label: 'Resources',
+    href: '/learning-center',
+    children: [
+      { label: 'Prompt Library', href: '/knowledge/prompts', desc: 'Ready-to-use AI prompts' },
+      { label: 'Sales Conversations', href: '/knowledge/sales-conversations', desc: 'Scripts and guides' },
+      { label: 'NTA Playbook', href: '/knowledge/playbook', desc: 'Standard operating procedures' },
+      { label: 'Downloads & Tools', href: '/learning-center', desc: 'Templates and checklists' }
+    ]
+  },
+  {
+    label: 'About',
+    href: '/about',
+    children: [
+      { label: 'Why NTA Exists', href: '/why-nta', desc: 'Our mission and philosophy' },
+      { label: 'Founder Story', href: '/i-was-early-again', desc: 'The journey of NTA' },
+      { label: 'Brand Book', href: '/brand-book', desc: 'Our visual and strategic identity' },
+      { label: 'Community Partners', href: '/community-partner', desc: 'Network and alliances' },
+      { label: 'Growth Show', href: '/learning-center/videos', desc: 'Video insights' }
     ]
   },
   { label: 'Contact', href: '/contact' }
