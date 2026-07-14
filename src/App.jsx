@@ -153,6 +153,8 @@ const TruthAboutBusinessGrowthCollection = lazy(() => import('./pages/TruthAbout
 const HowCustomersDecideWhoToTrustCollection = lazy(() => import('./pages/HowCustomersDecideWhoToTrustCollection'));
 const HowCustomersDecideWhoToTrustLesson = lazy(() => import('./pages/HowCustomersDecideWhoToTrustLesson'));
 const TruthAboutBusinessGrowthLesson = lazy(() => import('./pages/TruthAboutBusinessGrowthLesson'));
+const HowBusinessesTurnTrustIntoLastingRelationshipsCollection = lazy(() => import('./pages/HowBusinessesTurnTrustIntoLastingRelationshipsCollection'));
+const HowBusinessesTurnTrustIntoLastingRelationshipsLesson = lazy(() => import('./pages/HowBusinessesTurnTrustIntoLastingRelationshipsLesson'));
 const AIFoundationsCollection = lazy(() => import('./pages/AIFoundationsCollection'));
 const AIFoundationsLesson = lazy(() => import('./pages/AIFoundationsLesson'));
 const WebsiteRebuildService = lazy(() => import('./pages/WebsiteRebuildService'));
@@ -578,6 +580,8 @@ const AuthenticatedApp = () => {
       <Route path="/knowledge/truth-about-business-growth/:slug" element={<LayoutWrapper currentPageName="TruthAboutBusinessGrowthLesson"><TruthAboutBusinessGrowthLesson /></LayoutWrapper>} />
       <Route path="/knowledge/how-customers-decide-who-to-trust" element={<LayoutWrapper currentPageName="HowCustomersDecideWhoToTrustCollection"><HowCustomersDecideWhoToTrustCollection /></LayoutWrapper>} />
       <Route path="/knowledge/how-customers-decide-who-to-trust/:slug" element={<LayoutWrapper currentPageName="HowCustomersDecideWhoToTrustLesson"><HowCustomersDecideWhoToTrustLesson /></LayoutWrapper>} />
+      <Route path="/knowledge/how-businesses-turn-trust-into-lasting-relationships" element={<LayoutWrapper currentPageName="HowBusinessesTurnTrustIntoLastingRelationshipsCollection"><HowBusinessesTurnTrustIntoLastingRelationshipsCollection /></LayoutWrapper>} />
+      <Route path="/knowledge/how-businesses-turn-trust-into-lasting-relationships/:slug" element={<LayoutWrapper currentPageName="HowBusinessesTurnTrustIntoLastingRelationshipsLesson"><HowBusinessesTurnTrustIntoLastingRelationshipsLesson /></LayoutWrapper>} />
       <Route path="/knowledge/ai-foundations" element={<LayoutWrapper currentPageName="AIFoundationsCollection"><AIFoundationsCollection /></LayoutWrapper>} />
       <Route path="/knowledge/ai-foundations/:slug" element={<LayoutWrapper currentPageName="AIFoundationsLesson"><AIFoundationsLesson /></LayoutWrapper>} />
       <Route path="/knowledge/prompts" element={<LayoutWrapper currentPageName="KnowledgePrompts"><KnowledgePrompts /></LayoutWrapper>} />
