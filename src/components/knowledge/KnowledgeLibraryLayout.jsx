@@ -35,7 +35,7 @@ export default function KnowledgeLibraryLayout({
           <nav className="flex items-center text-sm text-slate-400 mb-8" aria-label="Breadcrumb">
             <Link to="/" className="hover:text-white transition-colors flex items-center gap-1"><Home className="w-4 h-4" /> Home</Link>
             <ChevronRight className="w-4 h-4 mx-2" />
-            <Link to="/brand-book" className="hover:text-white transition-colors flex items-center gap-1"><BookOpen className="w-4 h-4" /> Brand Book</Link>
+            <Link to="/learning-center" className="hover:text-white transition-colors flex items-center gap-1"><BookOpen className="w-4 h-4" /> Resources</Link>
             <ChevronRight className="w-4 h-4 mx-2" />
             <span className="text-white" aria-current="page">{breadcrumbCurrent}</span>
           </nav>
