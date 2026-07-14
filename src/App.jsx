@@ -149,6 +149,8 @@ const NTAPricingLadderPage = lazy(() => import('./pages/NTAPricingLadderPage'));
 const JoinNTA = lazy(() => import('./pages/JoinNTA'));
 const BusinessFoundationsCollection = lazy(() => import('./pages/BusinessFoundationsCollection'));
 const BusinessFoundationsLesson = lazy(() => import('./pages/BusinessFoundationsLesson'));
+const TruthAboutBusinessGrowthCollection = lazy(() => import('./pages/TruthAboutBusinessGrowthCollection'));
+const TruthAboutBusinessGrowthLesson = lazy(() => import('./pages/TruthAboutBusinessGrowthLesson'));
 const AIFoundationsCollection = lazy(() => import('./pages/AIFoundationsCollection'));
 const AIFoundationsLesson = lazy(() => import('./pages/AIFoundationsLesson'));
 const WebsiteRebuildService = lazy(() => import('./pages/WebsiteRebuildService'));
@@ -570,6 +572,8 @@ const AuthenticatedApp = () => {
       <Route path="/why-nta" element={<LayoutWrapper currentPageName="WhyNTA"><WhyNTA /></LayoutWrapper>} />
       <Route path="/knowledge/business-foundations" element={<LayoutWrapper currentPageName="BusinessFoundationsCollection"><BusinessFoundationsCollection /></LayoutWrapper>} />
       <Route path="/knowledge/business-foundations/:slug" element={<LayoutWrapper currentPageName="BusinessFoundationsLesson"><BusinessFoundationsLesson /></LayoutWrapper>} />
+      <Route path="/knowledge/truth-about-business-growth" element={<LayoutWrapper currentPageName="TruthAboutBusinessGrowthCollection"><TruthAboutBusinessGrowthCollection /></LayoutWrapper>} />
+      <Route path="/knowledge/truth-about-business-growth/:slug" element={<LayoutWrapper currentPageName="TruthAboutBusinessGrowthLesson"><TruthAboutBusinessGrowthLesson /></LayoutWrapper>} />
       <Route path="/knowledge/ai-foundations" element={<LayoutWrapper currentPageName="AIFoundationsCollection"><AIFoundationsCollection /></LayoutWrapper>} />
       <Route path="/knowledge/ai-foundations/:slug" element={<LayoutWrapper currentPageName="AIFoundationsLesson"><AIFoundationsLesson /></LayoutWrapper>} />
       <Route path="/knowledge/prompts" element={<LayoutWrapper currentPageName="KnowledgePrompts"><KnowledgePrompts /></LayoutWrapper>} />
