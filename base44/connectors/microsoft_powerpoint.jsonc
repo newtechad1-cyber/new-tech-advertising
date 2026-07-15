@@ -1,0 +1,8 @@
+{
+  "type": "microsoft_powerpoint",
+  "scopes": [
+    "offline_access",
+    "User.Read",
+    "Files.ReadWrite"
+  ]
+}
