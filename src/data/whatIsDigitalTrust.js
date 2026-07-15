@@ -4,6 +4,7 @@ import { lesson3 } from './whatIsDigitalTrustLesson3';
 import { lesson4 } from './whatIsDigitalTrustLesson4';
 import { lesson5 } from './whatIsDigitalTrustLesson5';
 import { lesson6 } from './whatIsDigitalTrustLesson6';
+import { lesson7 } from './whatIsDigitalTrustLesson7';
 
 export const whatIsDigitalTrustLessons = [
   lesson1,
@@ -11,5 +12,6 @@ export const whatIsDigitalTrustLessons = [
   lesson3,
   lesson4,
   lesson5,
-  lesson6
+  lesson6,
+  lesson7
 ];
