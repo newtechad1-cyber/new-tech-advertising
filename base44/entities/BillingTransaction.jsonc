@@ -3,7 +3,8 @@
   "type": "object",
   "properties": {
     "request_id": {
-      "type": "string"
+      "type": "string",
+      "unique": true
     },
     "app_user_id": {
       "type": "string"
