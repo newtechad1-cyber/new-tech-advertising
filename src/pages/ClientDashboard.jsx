@@ -3,7 +3,99 @@ import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { useAuth } from '@/lib/AuthContext';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Building2, Activity, FileText, BarChart3 } from 'lucide-react';
+import { Building2, Activity, FileText, BarChart3, Users, Heart, Video } from 'lucide-react';
+
+function TikTokStatsCard() {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['tiktok-stats'],
+    queryFn: async () => {
+      const res = await base44.functions.invoke('getTikTokStats', {});
+      if (res.data.error) throw new Error(res.data.error);
+      return res.data.data?.user || null;
+    },
+    retry: 1
+  });
+
+  if (isLoading) {
+    return (
+      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-lg flex items-center justify-center h-48">
+        <div className="w-8 h-8 border-4 border-slate-700 border-t-pink-500 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  if (error || !data) {
+    return (
+      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-lg">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="p-2.5 bg-pink-500/10 rounded-xl">
+            <Video className="w-6 h-6 text-pink-400" />
+          </div>
+          <h3 className="text-xl font-bold text-white">TikTok Profile</h3>
+        </div>
+        <div className="flex flex-col items-center justify-center h-24 text-center">
+          <p className="text-slate-500 text-sm">TikTok connection pending or unavailable.</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-lg">
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          {data.avatar_url ? (
+            <img src={data.avatar_url} alt="TikTok Avatar" className="w-12 h-12 rounded-full border-2 border-slate-800" />
+          ) : (
+            <div className="p-2.5 bg-pink-500/10 rounded-xl">
+              <Video className="w-6 h-6 text-pink-400" />
+            </div>
+          )}
+          <div>
+            <h3 className="text-xl font-bold text-white">{data.display_name || 'TikTok Profile'}</h3>
+            {data.profile_deep_link && (
+              <a href={data.profile_deep_link} target="_blank" rel="noopener noreferrer" className="text-xs text-pink-400 hover:text-pink-300">
+                View Profile &rarr;
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+      
+      <div className="grid grid-cols-2 gap-4">
+        <div className="bg-slate-950 p-4 rounded-xl border border-slate-800">
+          <div className="flex items-center gap-2 text-slate-400 mb-1">
+            <Users className="w-4 h-4" />
+            <span className="text-xs font-medium uppercase tracking-wider">Followers</span>
+          </div>
+          <div className="text-2xl font-bold text-white">
+            {data.follower_count?.toLocaleString() || '0'}
+          </div>
+        </div>
+        
+        <div className="bg-slate-950 p-4 rounded-xl border border-slate-800">
+          <div className="flex items-center gap-2 text-slate-400 mb-1">
+            <Heart className="w-4 h-4" />
+            <span className="text-xs font-medium uppercase tracking-wider">Likes</span>
+          </div>
+          <div className="text-2xl font-bold text-white">
+            {data.likes_count?.toLocaleString() || '0'}
+          </div>
+        </div>
+        
+        <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 col-span-2">
+          <div className="flex items-center gap-2 text-slate-400 mb-1">
+            <Video className="w-4 h-4" />
+            <span className="text-xs font-medium uppercase tracking-wider">Videos</span>
+          </div>
+          <div className="text-2xl font-bold text-white">
+            {data.video_count?.toLocaleString() || '0'}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function ClientDashboard() {
   const { user } = useAuth();
