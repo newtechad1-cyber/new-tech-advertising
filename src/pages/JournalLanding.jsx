@@ -263,6 +263,24 @@ export default function JournalLanding() {
           )}
         </div>
 
+        {/* ── Featured Perspective ────────────────────────────────────────── */}
+        <section className="border-t border-slate-800 py-12 px-6 bg-slate-900/30">
+          <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8">
+            <div className="flex-1">
+              <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-2 block">
+                Featured NTA Perspective
+              </span>
+              <h2 className="text-2xl font-black text-white mb-3">Tools vs. Systems: What Advertising and AI Cannot Do Alone</h2>
+              <p className="text-slate-400 text-sm leading-relaxed mb-4">
+                Business owners are sold tools every day. But access to another tool is not the same as having a system that makes it useful.
+              </p>
+              <Link to="/knowledge/articles/they-sold-me-the-tools-they-didnt-give-me-a-system" className="text-indigo-400 hover:text-indigo-300 font-bold text-sm">
+                Read the Flagship Article →
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* ── Subscribe CTA ──────────────────────────────────────────────── */}
         <section className="border-t border-slate-800 py-16 px-6">
           <div className="max-w-3xl mx-auto text-center">

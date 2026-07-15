@@ -1,198 +1,565 @@
 {
-  "$schema": "https://newtechadvertising.com/ai-sitemap-schema.json",
-  "name": "New Tech Advertising",
-  "url": "https://newtechadvertising.com",
-  "description": "AI-powered local marketing agency building growth systems for small businesses. Founded by Rick Hesse in Mason City, Iowa.",
-  "last_updated": "2026-07-06",
-  "version": "R0.7",
-
-  "entity": {
-    "type": "ProfessionalService",
-    "name": "New Tech Advertising (NTA)",
+  "organization": {
+    "name": "New Tech Advertising",
+    "abbreviation": "NTA",
     "founder": "Rick Hesse",
-    "location": "Mason City, Iowa 50401",
-    "phone": "+1-641-420-8816",
-    "email": "info@newtechadvertising.com",
-    "service_area": ["North Iowa", "Southern Minnesota", "Mason City", "Rochester", "Austin", "Albert Lea"],
-    "specialties": ["AI Marketing", "Local SEO", "Social Media Automation", "AI Video Content", "Website Development", "Review Management"]
+    "positioning": "Your Digital Growth Guide™",
+    "purpose": "NTA helps business owners understand how businesses really grow and use advertising, knowledge, relationships, systems, and artificial intelligence more wisely."
   },
-
-  "founder": {
-    "name": "Rick Hesse",
-    "title": "Founder & CEO",
-    "expertise": ["AI Marketing", "Local Business Growth", "Digital Trust", "Content Strategy", "Early Technology Adoption"],
-    "experience_years": 45,
-    "notable_traits": ["Early adopter (QR codes, streaming TV, AI)", "45-year entrepreneurial career", "Teaches by building in public"],
-    "content_url": "/canon"
+  "knowledgeLibrary": {
+    "homepageUrl": "https://newtechadvertising.com/knowledge",
+    "collections": [
+      {
+        "id": 1,
+        "title": "Business Foundations",
+        "canonicalUrl": "https://newtechadvertising.com/knowledge/business-foundations",
+        "lessons": [
+          {
+            "id": 1,
+            "slug": "why-nta-exists",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/business-foundations/why-nta-exists",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 2,
+            "slug": "how-businesses-really-grow",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/business-foundations/how-businesses-really-grow",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 3,
+            "slug": "marketing-is-not-magic",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/business-foundations/marketing-is-not-magic",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 4,
+            "slug": "the-cost-of-bad-marketing",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/business-foundations/the-cost-of-bad-marketing",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 5,
+            "slug": "why-most-small-business-marketing-fails",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/business-foundations/why-most-small-business-marketing-fails",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 6,
+            "slug": "the-power-of-digital-assets",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/business-foundations/the-power-of-digital-assets",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 7,
+            "slug": "the-nta-operating-system",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/business-foundations/the-nta-operating-system",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "The Truth About Business Growth",
+        "canonicalUrl": "https://newtechadvertising.com/knowledge/truth-about-business-growth",
+        "lessons": [
+          {
+            "id": 1,
+            "slug": "the-difference-between-activity-and-momentum",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/truth-about-business-growth/the-difference-between-activity-and-momentum",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 2,
+            "slug": "why-growth-is-a-system",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/truth-about-business-growth/why-growth-is-a-system",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 3,
+            "slug": "the-danger-of-renting-your-visibility",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/truth-about-business-growth/the-danger-of-renting-your-visibility",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 4,
+            "slug": "the-compounding-value-of-owned-assets",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/truth-about-business-growth/the-compounding-value-of-owned-assets",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 5,
+            "slug": "why-patience-is-a-competitive-advantage",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/truth-about-business-growth/why-patience-is-a-competitive-advantage",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 6,
+            "slug": "the-myth-of-passive-income-in-local-business",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/truth-about-business-growth/the-myth-of-passive-income-in-local-business",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 7,
+            "slug": "the-three-pillars-of-sustainable-growth",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/truth-about-business-growth/the-three-pillars-of-sustainable-growth",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "How Customers Decide Who to Trust",
+        "canonicalUrl": "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust",
+        "lessons": [
+          {
+            "id": 1,
+            "slug": "the-shift-in-customer-behavior",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/the-shift-in-customer-behavior",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 2,
+            "slug": "why-visibility-is-only-the-first-step",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/why-visibility-is-only-the-first-step",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 3,
+            "slug": "the-role-of-reviews-in-decision-making",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/the-role-of-reviews-in-decision-making",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 4,
+            "slug": "how-consistency-creates-confidence",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/how-consistency-creates-confidence",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 5,
+            "slug": "the-cost-of-digital-silence",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/the-cost-of-digital-silence",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 6,
+            "slug": "why-authenticity-beats-perfection",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/why-authenticity-beats-perfection",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 7,
+            "slug": "understanding-before-spending",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/understanding-before-spending",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "How Businesses Turn Trust Into Lasting Relationships",
+        "canonicalUrl": "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships",
+        "lessons": [
+          {
+            "id": 1,
+            "slug": "why-traditional-marketing-is-no-longer-enough",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/why-traditional-marketing-is-no-longer-enough",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 2,
+            "slug": "the-difference-between-a-transaction-and-a-relationship",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/the-difference-between-a-transaction-and-a-relationship",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 3,
+            "slug": "how-to-stay-top-of-mind-without-being-annoying",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/how-to-stay-top-of-mind-without-being-annoying",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 4,
+            "slug": "the-value-of-educational-content",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/the-value-of-educational-content",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 5,
+            "slug": "creating-a-customer-journey",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/creating-a-customer-journey",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 6,
+            "slug": "why-communication-is-the-new-marketing",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/why-communication-is-the-new-marketing",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 7,
+            "slug": "turning-customers-into-advocates",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/turning-customers-into-advocates",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Turning What a Business Knows Into an Asset",
+        "canonicalUrl": "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset",
+        "lessons": [
+          {
+            "id": 1,
+            "slug": "the-hidden-value-of-your-expertise",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/the-hidden-value-of-your-expertise",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 2,
+            "slug": "the-most-valuable-knowledge-lives-in-the-owners-head",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/the-most-valuable-knowledge-lives-in-the-owners-head",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 3,
+            "slug": "customer-questions-reveal-what-to-teach",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/customer-questions-reveal-what-to-teach",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 4,
+            "slug": "stories-turn-experience-into-understanding",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/stories-turn-experience-into-understanding",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 5,
+            "slug": "documenting-a-process-makes-knowledge-repeatable",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/documenting-a-process-makes-knowledge-repeatable",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 6,
+            "slug": "ai-becomes-more-valuable-when-it-learns-from-the-business",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/ai-becomes-more-valuable-when-it-learns-from-the-business",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 7,
+            "slug": "knowledge-becomes-an-asset-when-it-keeps-working-without-you",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/knowledge-becomes-an-asset-when-it-keeps-working-without-you",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "AI Foundations",
+        "canonicalUrl": "https://newtechadvertising.com/knowledge/ai-foundations",
+        "lessons": [
+          {
+            "id": 1,
+            "slug": "what-ai-actually-is",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/ai-foundations/what-ai-actually-is",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 2,
+            "slug": "the-difference-between-automation-and-intelligence",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/ai-foundations/the-difference-between-automation-and-intelligence",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 3,
+            "slug": "how-ai-changes-search",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/ai-foundations/how-ai-changes-search",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 4,
+            "slug": "the-limitations-of-ai",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/ai-foundations/the-limitations-of-ai",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 5,
+            "slug": "how-to-use-ai-safely-in-your-business",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/ai-foundations/how-to-use-ai-safely-in-your-business",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 6,
+            "slug": "why-human-oversight-remains-critical",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/ai-foundations/why-human-oversight-remains-critical",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 7,
+            "slug": "preparing-your-business-for-an-ai-driven-future",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/ai-foundations/preparing-your-business-for-an-ai-driven-future",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "What Is Digital Trust?",
+        "canonicalUrl": "https://newtechadvertising.com/knowledge/what-is-digital-trust",
+        "lessons": [
+          {
+            "id": 1,
+            "slug": "the-new-currency-of-the-internet",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/what-is-digital-trust/the-new-currency-of-the-internet",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 2,
+            "slug": "why-consumers-are-skeptical",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/what-is-digital-trust/why-consumers-are-skeptical",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 3,
+            "slug": "the-elements-of-digital-trust",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/what-is-digital-trust/the-elements-of-digital-trust",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 4,
+            "slug": "digital-assets-keep-working-after-the-advertising-stops",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/what-is-digital-trust/digital-assets-keep-working-after-the-advertising-stops",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 5,
+            "slug": "ai-is-changing-how-customers-find-businesses",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/what-is-digital-trust/ai-is-changing-how-customers-find-businesses",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 6,
+            "slug": "relationships-are-your-greatest-competitive-advantage",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/what-is-digital-trust/relationships-are-your-greatest-competitive-advantage",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          },
+          {
+            "id": 7,
+            "slug": "the-connected-business-is-the-future-of-small-business-growth",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/what-is-digital-trust/the-connected-business-is-the-future-of-small-business-growth",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-07-15"
+          }
+        ]
+      }
+    ]
   },
-
-  "principles": [
-    {"name": "Growth is a system, not a campaign", "description": "Sustainable growth comes from compounding systems, not one-off ad campaigns"},
-    {"name": "Authority compounds over time", "description": "Consistent content and expertise builds authority that accelerates growth"},
-    {"name": "Authority beats attention", "description": "Owning authority in your market is more valuable than renting attention through ads"},
-    {"name": "Early movers build authority", "description": "First-mover advantage in technology and content creates defensible market position"},
-    {"name": "Trust is built through consistency", "description": "Digital trust comes from consistent presence, reviews, and accessibility"},
-    {"name": "The future rewards leaders, not followers", "description": "Businesses that adopt AI marketing now will lead their markets"}
-  ],
-
-  "content_sections": {
-    "canon": {
-      "url": "/canon",
-      "title": "The Rick Hesse Canon",
-      "description": "Complete knowledge library — articles, case studies, videos, and learning resources organized into themed reader journeys",
-      "content_count": 96,
-      "content_types": ["articles", "case_studies", "videos", "learning_resources"]
-    },
-    "journal": {
-      "url": "/journal",
-      "title": "NTA Journal",
-      "description": "Transparent documentation of NTA being built in public — what we build, why, and what we learn"
-    },
-    "learning_center": {
-      "url": "/learning-center",
-      "title": "AI Learning Center",
-      "description": "Interactive educational content teaching business owners about AI marketing, search optimization, and digital visibility"
-    },
-    "services": {
-      "url": "/Services",
-      "title": "Marketing Services",
-      "description": "AI-powered marketing services for small businesses",
-      "items": [
-        {"name": "AI SEO", "url": "/AiSeo"},
-        {"name": "AI Social Media", "url": "/AiSocialMedia"},
-        {"name": "AI Websites", "url": "/AiWebsites"},
-        {"name": "AI Video Content", "url": "/AiVideos"},
-        {"name": "AI Advertising", "url": "/AiAdvertising"},
-        {"name": "Website Rebuilds", "url": "/services/website-rebuilds"},
-        {"name": "Social Media Management", "url": "/services/social-media-management"},
-        {"name": "Local Lead Systems", "url": "/local-lead-systems"},
-        {"name": "Accessible Websites", "url": "/accessible-websites"}
-      ]
-    },
-    "case_studies": {
-      "title": "Client Success Stories",
-      "items": [
-        {"name": "Johnson Heating & AC", "url": "/case-studies/johnson-heating", "industry": "HVAC", "location": "Mason City, IA", "relationship_years": 14},
-        {"name": "Monson Plumbing", "url": "/case-study/monson-plumbing", "industry": "Plumbing & Heating", "location": "Mason City, IA"},
-        {"name": "Papa Everett's Pizza", "url": "/case-study/papa-everetts", "industry": "Restaurant", "location": "Mason City, IA"}
-      ]
-    },
-    "industry_pages": {
-      "title": "Industry Expertise",
-      "items": [
-        {"name": "HVAC Marketing", "url": "/HvacMarketing"},
-        {"name": "Plumbing Marketing", "url": "/PlumbingMarketing"},
-        {"name": "Restaurant Marketing", "url": "/RestaurantMarketing"},
-        {"name": "Dentist Marketing", "url": "/DentistMarketing"},
-        {"name": "Roofing Marketing", "url": "/RoofingMarketing"},
-        {"name": "Med Spa Marketing", "url": "/MedSpaMarketing"},
-        {"name": "Local Business Marketing", "url": "/LocalBusinessMarketing"}
-      ]
-    },
-    "discovery_tools": {
-      "title": "Interactive Growth Tools",
-      "items": [
-        {"name": "Business Growth Conversation™", "url": "/growth-conversation", "description": "Interactive business assessment and growth planning tool"},
-        {"name": "Community Growth Conversation™", "url": "/community-growth-conversation"},
-        {"name": "NTA Business Score™", "url": "/business-score", "description": "Score your business's digital readiness"},
-        {"name": "Growth Roadmap Generator™", "url": "/growth-roadmap-generator", "description": "Generate a custom growth roadmap"}
-      ]
+  "flagshipArticles": [
+    {
+      "id": "tools-vs-systems",
+      "title": "Tools vs. Systems: What Advertising and AI Cannot Do Alone",
+      "canonicalUrl": "https://newtechadvertising.com/knowledge/articles/they-sold-me-the-tools-they-didnt-give-me-a-system",
+      "contentType": "Article",
+      "author": "Rick Hesse",
+      "publisher": "New Tech Advertising",
+      "publicStatus": "published",
+      "lastModified": "2026-07-15"
     }
-  },
-
-  "collections": [
-    {"name": "Start Here", "slug": "start-here", "description": "Essential first reads for understanding NTA's approach", "type": "reader_journey"},
-    {"name": "From Rick's Desk", "slug": "from-ricks-desk", "description": "Personal insights and founder perspective from Rick Hesse", "type": "reader_journey"},
-    {"name": "Building Trust", "slug": "building-trust", "description": "Digital trust, web accessibility, and reputation management", "type": "topic"},
-    {"name": "Building Better Businesses", "slug": "building-better-businesses", "description": "Practical growth strategies for small businesses", "type": "topic"},
-    {"name": "NTA Principles", "slug": "nta-principles", "description": "Core philosophy and methodology behind NTA", "type": "topic"},
-    {"name": "AI & Visibility", "slug": "ai-visibility", "description": "AI search optimization, SEO evolution, and discoverability", "type": "topic"},
-    {"name": "Legacy", "slug": "legacy", "description": "Foundational thinking that shaped NTA", "type": "reader_journey"}
-  ],
-
-  "articles": [
-    {"title": "AI Brought Me Out of Retirement", "url": "/ai-brought-me-out-of-retirement", "author": "Rick Hesse", "theme": "AI & Technology", "buyer_stage": "Awareness", "has_video": true},
-    {"title": "I Was Early Again", "url": "/i-was-early-again", "author": "Rick Hesse", "theme": "AI & Technology", "buyer_stage": "Awareness", "has_video": true},
-    {"title": "Growth Systems vs. Campaigns", "url": "/growth-systems-vs-campaigns", "author": "Rick Hesse", "theme": "AI & Technology", "buyer_stage": "Consideration", "has_video": true},
-    {"title": "Campaigns vs. Authority", "url": "/campaigns-vs-authority", "author": "Rick Hesse", "theme": "AI & Technology", "buyer_stage": "Consideration", "has_video": true},
-    {"title": "The Future Belongs to Market Leaders", "url": "/the-future-belongs-to-market-leaders", "author": "Rick Hesse", "theme": "NTA Philosophy", "buyer_stage": "Decision", "has_video": true},
-    {"title": "Building Digital Trust", "url": "/building-digital-trust", "author": "Rick Hesse", "theme": "Digital Trust", "buyer_stage": "Awareness", "has_video": true},
-    {"title": "Reputation Is Now a Growth Engine", "url": "/reputation-is-now-a-growth-engine", "author": "Rick Hesse", "theme": "Business Growth", "buyer_stage": "Consideration", "has_video": true},
-    {"title": "Web Accessibility Builds Trust", "url": "/web-accessibility-trust", "author": "Rick Hesse", "theme": "Digital Trust", "buyer_stage": "Awareness"},
-    {"title": "What Changed Online", "url": "/what-changed-online", "author": "Rick Hesse", "theme": "NTA Philosophy", "buyer_stage": "Awareness"},
-    {"title": "SEO vs AI Search", "url": "/seo-vs-ai-search", "author": "Rick Hesse", "theme": "AI & Technology", "buyer_stage": "Consideration"},
-    {"title": "The Role of AI in Local Marketing", "url": "/role-of-ai-in-local-marketing", "author": "Rick Hesse", "theme": "AI & Technology", "buyer_stage": "Awareness", "has_video": true},
-    {"title": "Digital Risks Nobody Warns Small Businesses About", "url": "/digital-risks", "author": "Rick Hesse", "theme": "Business Growth", "buyer_stage": "Awareness"},
-    {"title": "The Hidden Cost of Outdated Marketing", "url": "/hidden-cost-of-outdated-marketing", "author": "Rick Hesse", "theme": "Business Growth", "buyer_stage": "Consideration", "has_video": true},
-    {"title": "Websites as Salespeople", "url": "/websites-as-salespeople", "author": "Rick Hesse", "theme": "Web Strategy", "buyer_stage": "Consideration", "has_video": true},
-    {"title": "Video Storytelling Builds Confidence", "url": "/video-storytelling-builds-confidence", "author": "Rick Hesse", "theme": "Content Strategy", "buyer_stage": "Consideration", "has_video": true},
-    {"title": "AI Visibility Basics", "url": "/ai-visibility-basics", "author": "Rick Hesse", "theme": "SEO & Visibility", "buyer_stage": "Awareness"},
-    {"title": "Practical AI for Small Businesses", "url": "/practical-ai-for-small-businesses", "author": "Rick Hesse", "theme": "AI & Technology", "buyer_stage": "Awareness"}
-  ],
-
-  "topic_clusters": [
-    {
-      "pillar": "AI Search & Visibility",
-      "pillar_url": "/seo-vs-ai-search",
-      "supporting": [
-        {"title": "What Changed Online", "url": "/what-changed-online"},
-        {"title": "AI Visibility Basics", "url": "/ai-visibility-basics"},
-        {"title": "The Future Belongs to Market Leaders", "url": "/the-future-belongs-to-market-leaders"},
-        {"title": "AI Learning Center", "url": "/learning-center"}
-      ]
-    },
-    {
-      "pillar": "Digital Trust & Authority",
-      "pillar_url": "/building-digital-trust",
-      "supporting": [
-        {"title": "Reputation Is Now a Growth Engine", "url": "/reputation-is-now-a-growth-engine"},
-        {"title": "Web Accessibility Builds Trust", "url": "/web-accessibility-trust"},
-        {"title": "Campaigns vs. Authority", "url": "/campaigns-vs-authority"},
-        {"title": "Websites as Salespeople", "url": "/websites-as-salespeople"}
-      ]
-    },
-    {
-      "pillar": "AI Marketing for Local Business",
-      "pillar_url": "/role-of-ai-in-local-marketing",
-      "supporting": [
-        {"title": "Practical AI for Small Businesses", "url": "/practical-ai-for-small-businesses"},
-        {"title": "Growth Systems vs. Campaigns", "url": "/growth-systems-vs-campaigns"},
-        {"title": "The Hidden Cost of Outdated Marketing", "url": "/hidden-cost-of-outdated-marketing"},
-        {"title": "AI SEO", "url": "/AiSeo"},
-        {"title": "AI Social Media", "url": "/AiSocialMedia"}
-      ]
-    },
-    {
-      "pillar": "Content & Video Strategy",
-      "pillar_url": "/video-storytelling-builds-confidence",
-      "supporting": [
-        {"title": "AI Video Marketing", "url": "/ai-video-marketing"},
-        {"title": "Social Media Content System", "url": "/social-media-content-system"},
-        {"title": "The Canon", "url": "/canon"},
-        {"title": "NTA Journal", "url": "/journal"}
-      ]
-    },
-    {
-      "pillar": "Small Business Growth",
-      "pillar_url": "/growth-systems-vs-campaigns",
-      "supporting": [
-        {"title": "Digital Risks Nobody Warns Small Businesses About", "url": "/digital-risks"},
-        {"title": "Business Score", "url": "/business-score"},
-        {"title": "Growth Roadmap Generator", "url": "/growth-roadmap-generator"},
-        {"title": "Local Lead Systems", "url": "/local-lead-systems"}
-      ]
-    }
-  ],
-
-  "geographic_pages": [
-    {"region": "Mason City, IA", "services": ["/website-rebuilds/mason-city-ia", "/social-media/mason-city-ia"]},
-    {"region": "Rochester, MN", "services": ["/website-rebuilds/rochester-mn", "/social-media/rochester-mn"]},
-    {"region": "Austin, MN", "services": ["/website-rebuilds/austin-mn", "/social-media/austin-mn"]},
-    {"region": "Albert Lea, MN", "services": ["/website-rebuilds/albert-lea-mn", "/social-media/albert-lea-mn"]}
-  ],
-
-  "sitemaps": {
-    "xml": "https://newtechadvertising.com/sitemap.xml",
-    "ai": "https://newtechadvertising.com/ai-sitemap.json"
-  }
+  ]
 }

@@ -161,6 +161,10 @@ const AIFoundationsCollection = lazy(() => import('./pages/AIFoundationsCollecti
 const AIFoundationsLesson = lazy(() => import('./pages/AIFoundationsLesson'));
 const WhatIsDigitalTrustCollection = lazy(() => import('./pages/WhatIsDigitalTrustCollection'));
 const WhatIsDigitalTrustLesson = lazy(() => import('./pages/WhatIsDigitalTrustLesson'));
+const KnowledgeLibrary = lazy(() => import('./pages/KnowledgeLibrary'));
+const KnowledgeCollection = lazy(() => import('./pages/KnowledgeCollection'));
+const KnowledgeLesson = lazy(() => import('./pages/KnowledgeLesson'));
+const FlagshipArticle = lazy(() => import('./pages/FlagshipArticle'));
 const WebsiteRebuildService = lazy(() => import('./pages/WebsiteRebuildService'));
 const WebsiteRebuildsMasonCity = lazy(() => import('./pages/WebsiteRebuildsMasonCity'));
 const WebsiteRebuildsRochesterMN = lazy(() => import('./pages/WebsiteRebuildsRochesterMN'));
@@ -576,22 +580,13 @@ const AuthenticatedApp = () => {
       <Route path="/social-media/rochester-mn" element={<LayoutWrapper currentPageName="SocialMediaRochesterMN"><SocialMediaRochesterMN /></LayoutWrapper>} />
       <Route path="/social-media/austin-mn" element={<LayoutWrapper currentPageName="SocialMediaAustinMN"><SocialMediaAustinMN /></LayoutWrapper>} />
       <Route path="/social-media/albert-lea-mn" element={<LayoutWrapper currentPageName="SocialMediaAlbertLeaMN"><SocialMediaAlbertLeaMN /></LayoutWrapper>} />
-      <Route path="/knowledge" element={<LayoutWrapper currentPageName="NTABrandBook"><NTABrandBook /></LayoutWrapper>} />
+      {/* Knowledge Library App-Level Routing */}
+      <Route path="/knowledge" element={<LayoutWrapper currentPageName="KnowledgeLibrary"><KnowledgeLibrary /></LayoutWrapper>} />
+      <Route path="/knowledge/articles/:slug" element={<LayoutWrapper currentPageName="FlagshipArticle"><FlagshipArticle /></LayoutWrapper>} />
+      <Route path="/knowledge/:collectionSlug" element={<LayoutWrapper currentPageName="KnowledgeCollection"><KnowledgeCollection /></LayoutWrapper>} />
+      <Route path="/knowledge/:collectionSlug/:lessonSlug" element={<LayoutWrapper currentPageName="KnowledgeLesson"><KnowledgeLesson /></LayoutWrapper>} />
+      
       <Route path="/why-nta" element={<LayoutWrapper currentPageName="WhyNTA"><WhyNTA /></LayoutWrapper>} />
-      <Route path="/knowledge/business-foundations" element={<LayoutWrapper currentPageName="BusinessFoundationsCollection"><BusinessFoundationsCollection /></LayoutWrapper>} />
-      <Route path="/knowledge/business-foundations/:slug" element={<LayoutWrapper currentPageName="BusinessFoundationsLesson"><BusinessFoundationsLesson /></LayoutWrapper>} />
-      <Route path="/knowledge/truth-about-business-growth" element={<LayoutWrapper currentPageName="TruthAboutBusinessGrowthCollection"><TruthAboutBusinessGrowthCollection /></LayoutWrapper>} />
-      <Route path="/knowledge/truth-about-business-growth/:slug" element={<LayoutWrapper currentPageName="TruthAboutBusinessGrowthLesson"><TruthAboutBusinessGrowthLesson /></LayoutWrapper>} />
-      <Route path="/knowledge/how-customers-decide-who-to-trust" element={<LayoutWrapper currentPageName="HowCustomersDecideWhoToTrustCollection"><HowCustomersDecideWhoToTrustCollection /></LayoutWrapper>} />
-      <Route path="/knowledge/how-customers-decide-who-to-trust/:slug" element={<LayoutWrapper currentPageName="HowCustomersDecideWhoToTrustLesson"><HowCustomersDecideWhoToTrustLesson /></LayoutWrapper>} />
-      <Route path="/knowledge/how-businesses-turn-trust-into-lasting-relationships" element={<LayoutWrapper currentPageName="HowBusinessesTurnTrustIntoLastingRelationshipsCollection"><HowBusinessesTurnTrustIntoLastingRelationshipsCollection /></LayoutWrapper>} />
-      <Route path="/knowledge/how-businesses-turn-trust-into-lasting-relationships/:slug" element={<LayoutWrapper currentPageName="HowBusinessesTurnTrustIntoLastingRelationshipsLesson"><HowBusinessesTurnTrustIntoLastingRelationshipsLesson /></LayoutWrapper>} />
-      <Route path="/knowledge/turning-what-a-business-knows-into-an-asset" element={<LayoutWrapper currentPageName="TurningWhatABusinessKnowsIntoAnAssetCollection"><TurningWhatABusinessKnowsIntoAnAssetCollection /></LayoutWrapper>} />
-      <Route path="/knowledge/turning-what-a-business-knows-into-an-asset/:slug" element={<LayoutWrapper currentPageName="TurningWhatABusinessKnowsIntoAnAssetLesson"><TurningWhatABusinessKnowsIntoAnAssetLesson /></LayoutWrapper>} />
-      <Route path="/knowledge/ai-foundations" element={<LayoutWrapper currentPageName="AIFoundationsCollection"><AIFoundationsCollection /></LayoutWrapper>} />
-      <Route path="/knowledge/ai-foundations/:slug" element={<LayoutWrapper currentPageName="AIFoundationsLesson"><AIFoundationsLesson /></LayoutWrapper>} />
-      <Route path="/knowledge/what-is-digital-trust" element={<LayoutWrapper currentPageName="WhatIsDigitalTrustCollection"><WhatIsDigitalTrustCollection /></LayoutWrapper>} />
-      <Route path="/knowledge/what-is-digital-trust/:slug" element={<LayoutWrapper currentPageName="WhatIsDigitalTrustLesson"><WhatIsDigitalTrustLesson /></LayoutWrapper>} />
       <Route path="/knowledge/prompts" element={<LayoutWrapper currentPageName="KnowledgePrompts"><KnowledgePrompts /></LayoutWrapper>} />
       <Route path="/knowledge/sales-conversations" element={<LayoutWrapper currentPageName="SalesConversations"><SalesConversations /></LayoutWrapper>} />
       <Route path="/knowledge/playbook" element={<LayoutWrapper currentPageName="NTAPlaybook"><NTAPlaybook /></LayoutWrapper>} />

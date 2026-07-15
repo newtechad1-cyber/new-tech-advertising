@@ -1,118 +1,92 @@
 # New Tech Advertising (NTA)
-# AI-Friendly Site Descriptor — R0.7 Authority & Discoverability
-# https://newtechadvertising.com
-# Last Updated: 2026-07-06
 
-## About This Site
-New Tech Advertising (NTA) is an AI-powered local marketing agency based in Mason City, Iowa, founded by Rick Hesse. NTA builds growth systems — not campaigns — for small businesses including HVAC companies, plumbers, restaurants, and contractors across Iowa and Southern Minnesota.
+New Tech Advertising helps business owners understand how businesses really grow and use advertising, knowledge, relationships, systems, and artificial intelligence more wisely.
 
-## About Rick Hesse
-Rick Hesse is the founder and CEO of New Tech Advertising. He has 45+ years of entrepreneurial experience spanning waterbeds, TV advertising, print media, and digital marketing. He is a recognized early adopter of technology — from QR codes and streaming TV to AI-powered marketing systems. He writes and teaches about AI visibility, content authority, and growth systems for local businesses.
+**Founder & Digital Growth Guide™**: Rick Hesse
 
-## Core Philosophy (NTA Principles)
-- Growth is a system, not a campaign
-- Authority compounds over time
-- Authority beats attention
-- Early movers build authority
-- Trust is built through consistency
-- The future rewards leaders, not followers
+## NTA Knowledge Library
+The NTA Knowledge Library is a connected learning journey for business owners. It consists of 7 collections and 49 lessons that cover growth, trust, relationships, advertising, AI, and building a connected business system.
 
-## Primary Content Sections
+**Knowledge Library Homepage**: https://newtechadvertising.com/knowledge
 
-### The Rick Hesse Canon (/canon)
-The complete knowledge library — 21+ articles, 3 case studies, 13 YouTube videos, and learning resources organized into themed collections (reader journeys). Topics: AI marketing, digital trust, content strategy, business growth, web accessibility, and local marketing.
+### Collections and Lessons
 
-### NTA Journal (/journal)
-Ongoing narrative of NTA's evolution — what we're building, why, and what we're learning. Transparent documentation of a business being built in public.
+#### Business Foundations
+- Collection URL: https://newtechadvertising.com/knowledge/business-foundations
+  - Lesson: https://newtechadvertising.com/knowledge/business-foundations/why-nta-exists
+  - Lesson: https://newtechadvertising.com/knowledge/business-foundations/how-businesses-really-grow
+  - Lesson: https://newtechadvertising.com/knowledge/business-foundations/marketing-is-not-magic
+  - Lesson: https://newtechadvertising.com/knowledge/business-foundations/the-cost-of-bad-marketing
+  - Lesson: https://newtechadvertising.com/knowledge/business-foundations/why-most-small-business-marketing-fails
+  - Lesson: https://newtechadvertising.com/knowledge/business-foundations/the-power-of-digital-assets
+  - Lesson: https://newtechadvertising.com/knowledge/business-foundations/the-nta-operating-system
 
-### AI Learning Center (/learning-center)
-Interactive educational content teaching business owners about AI marketing, AI search optimization, and digital visibility.
+#### The Truth About Business Growth
+- Collection URL: https://newtechadvertising.com/knowledge/truth-about-business-growth
+  - Lesson: https://newtechadvertising.com/knowledge/truth-about-business-growth/the-difference-between-activity-and-momentum
+  - Lesson: https://newtechadvertising.com/knowledge/truth-about-business-growth/why-growth-is-a-system
+  - Lesson: https://newtechadvertising.com/knowledge/truth-about-business-growth/the-danger-of-renting-your-visibility
+  - Lesson: https://newtechadvertising.com/knowledge/truth-about-business-growth/the-compounding-value-of-owned-assets
+  - Lesson: https://newtechadvertising.com/knowledge/truth-about-business-growth/why-patience-is-a-competitive-advantage
+  - Lesson: https://newtechadvertising.com/knowledge/truth-about-business-growth/the-myth-of-passive-income-in-local-business
+  - Lesson: https://newtechadvertising.com/knowledge/truth-about-business-growth/the-three-pillars-of-sustainable-growth
 
-### Services (/Services)
-AI-powered marketing services: AI SEO, AI Social Media, AI Websites, AI Video, AI Advertising, website rebuilds, social media management, local lead systems, and seasonal campaigns.
+#### How Customers Decide Who to Trust
+- Collection URL: https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust
+  - Lesson: https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/the-shift-in-customer-behavior
+  - Lesson: https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/why-visibility-is-only-the-first-step
+  - Lesson: https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/the-role-of-reviews-in-decision-making
+  - Lesson: https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/how-consistency-creates-confidence
+  - Lesson: https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/the-cost-of-digital-silence
+  - Lesson: https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/why-authenticity-beats-perfection
+  - Lesson: https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/understanding-before-spending
 
-### Case Studies
-- Johnson Heating & AC (/case-studies/johnson-heating) — 14-year HVAC client, Mason City IA
-- Monson Plumbing (/case-study/monson-plumbing) — Plumbing, heating & excavating, Mason City IA
-- Papa Everett's Pizza (/case-study/papa-everetts) — Local restaurant
+#### How Businesses Turn Trust Into Lasting Relationships
+- Collection URL: https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships
+  - Lesson: https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/why-traditional-marketing-is-no-longer-enough
+  - Lesson: https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/the-difference-between-a-transaction-and-a-relationship
+  - Lesson: https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/how-to-stay-top-of-mind-without-being-annoying
+  - Lesson: https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/the-value-of-educational-content
+  - Lesson: https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/creating-a-customer-journey
+  - Lesson: https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/why-communication-is-the-new-marketing
+  - Lesson: https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/turning-customers-into-advocates
 
-### Collections (Reader Journeys)
-- Start Here — The essential first reads for understanding NTA's approach
-- From Rick's Desk — Personal insights and founder perspective
-- Building Trust — Digital trust, accessibility, and reputation
-- Building Better Businesses — Practical growth strategies
-- NTA Principles — Core philosophy and methodology
-- AI & Visibility — AI search, SEO evolution, and discoverability
-- Legacy — Foundational thinking that shaped NTA
+#### Turning What a Business Knows Into an Asset
+- Collection URL: https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset
+  - Lesson: https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/the-hidden-value-of-your-expertise
+  - Lesson: https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/the-most-valuable-knowledge-lives-in-the-owners-head
+  - Lesson: https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/customer-questions-reveal-what-to-teach
+  - Lesson: https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/stories-turn-experience-into-understanding
+  - Lesson: https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/documenting-a-process-makes-knowledge-repeatable
+  - Lesson: https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/ai-becomes-more-valuable-when-it-learns-from-the-business
+  - Lesson: https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/knowledge-becomes-an-asset-when-it-keeps-working-without-you
 
-### Discovery Tools
-- Business Growth Conversation™ (/growth-conversation) — Interactive assessment
-- Community Growth Conversation™ (/community-growth-conversation)
-- AI Learning Conversation™ (/learning-center)
-- NTA Business Score™ (/business-score)
-- Growth Roadmap Generator™ (/growth-roadmap-generator)
-- Growth Navigator™ (/growth-navigator)
+#### AI Foundations
+- Collection URL: https://newtechadvertising.com/knowledge/ai-foundations
+  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/what-ai-actually-is
+  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/the-difference-between-automation-and-intelligence
+  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/how-ai-changes-search
+  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/the-limitations-of-ai
+  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/how-to-use-ai-safely-in-your-business
+  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/why-human-oversight-remains-critical
+  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/preparing-your-business-for-an-ai-driven-future
 
-### Industry Expertise
-- HVAC Marketing (/HvacMarketing)
-- Plumbing Marketing (/PlumbingMarketing)
-- Restaurant Marketing (/RestaurantMarketing)
-- Dentist Marketing (/DentistMarketing)
-- Roofing Marketing (/RoofingMarketing)
-- Med Spa Marketing (/MedSpaMarketing)
-- Local Business Marketing (/LocalBusinessMarketing)
+#### What Is Digital Trust?
+- Collection URL: https://newtechadvertising.com/knowledge/what-is-digital-trust
+  - Lesson: https://newtechadvertising.com/knowledge/what-is-digital-trust/the-new-currency-of-the-internet
+  - Lesson: https://newtechadvertising.com/knowledge/what-is-digital-trust/why-consumers-are-skeptical
+  - Lesson: https://newtechadvertising.com/knowledge/what-is-digital-trust/the-elements-of-digital-trust
+  - Lesson: https://newtechadvertising.com/knowledge/what-is-digital-trust/digital-assets-keep-working-after-the-advertising-stops
+  - Lesson: https://newtechadvertising.com/knowledge/what-is-digital-trust/ai-is-changing-how-customers-find-businesses
+  - Lesson: https://newtechadvertising.com/knowledge/what-is-digital-trust/relationships-are-your-greatest-competitive-advantage
+  - Lesson: https://newtechadvertising.com/knowledge/what-is-digital-trust/the-connected-business-is-the-future-of-small-business-growth
 
-### Geographic Coverage
-- Mason City, Iowa (headquarters)
-- Rochester, Minnesota
-- Austin, Minnesota
-- Albert Lea, Minnesota
-- North Iowa region
-- Southern Minnesota region
+### Featured Perspectives (Flagship Articles)
+- Tools vs. Systems: What Advertising and AI Cannot Do Alone: https://newtechadvertising.com/knowledge/articles/they-sold-me-the-tools-they-didnt-give-me-a-system
 
-## Key Articles by Rick Hesse
-1. "AI Brought Me Out of Retirement" — Founding story and 45 years of entrepreneurial experience
-2. "I Was Early Again" — Pattern of early technology adoption: QR codes, streaming, AI
-3. "Growth Systems vs. Campaigns" — Why systems beat one-off campaigns
-4. "Campaigns vs. Authority" — Investing in authority over rented attention
-5. "What Changed Online" — How AI rewrote the rules of online visibility
-6. "SEO vs AI Search" — Traditional SEO is dying; AI search is the future
-7. "The Role of AI in Local Marketing" — AI levels the playing field for small businesses
-8. "Building Digital Trust" — How consistency builds credibility online
-9. "Reputation Is Now a Growth Engine" — Reviews as active growth tool, not damage control
-10. "The Hidden Cost of Outdated Marketing" — What inaction costs every month
-11. "Websites as Salespeople" — Websites as 24/7 revenue generators
-12. "Video Storytelling Builds Confidence" — Authenticity beats production value
-13. "The Future Belongs to Market Leaders" — First-mover advantage in AI era
-14. "AI Visibility Basics" — Practical introduction to AI search optimization
-15. "Practical AI for Small Businesses" — Real AI implementations, not theory
-
-## YouTube Channel
-Rick Hesse's YouTube videos cover AI marketing, business growth, founder stories, and local marketing strategies. Videos are embedded throughout the Canon articles and Learning Center.
-
-## Contact
-- Website: https://newtechadvertising.com
-- Email: info@newtechadvertising.com
-- Phone: 641-420-8816
-- Location: Mason City, Iowa 50401
-- Book a Call: https://calendar.app.google/p6ieYanvwhixXxZ67
-
-## Structured Data
-This site implements JSON-LD structured data including:
-- Organization/ProfessionalService
-- Person (Rick Hesse)
-- Article (all Canon articles)
-- LearningResource (Learning Center)
-- VideoObject (YouTube videos)
-- CollectionPage (Canon collections)
-- BreadcrumbList
-- FAQPage
-- WebSite with SearchAction
-- HowTo (growth tools)
-
-## Sitemap
-XML Sitemap: https://newtechadvertising.com/sitemap.xml
-AI Sitemap: https://newtechadvertising.com/ai-sitemap.json
-
-## Robots
-Robots.txt: https://newtechadvertising.com/robots.txt
+## Additional Resources
+- NTA Journal: https://newtechadvertising.com/journal
+- Growth Show: https://newtechadvertising.com/learning-center/videos
+- Start a Growth Conversation: https://newtechadvertising.com/book-call
+- NTA Operating System: https://newtechadvertising.com/operating-system
+- Free Gap Audit: https://newtechadvertising.com/Free-Audit

@@ -35,9 +35,9 @@ const NAV_LINKS = [
   },
   {
     label: 'Learn',
-    href: '/learning-center',
+    href: '/knowledge',
     children: [
-      { label: 'NTA Knowledge Library', href: '/learning-center', desc: 'All educational collections' },
+      { label: 'NTA Knowledge Library', href: '/knowledge', desc: 'All educational collections' },
       { label: 'Business Foundations', href: '/knowledge/business-foundations', desc: 'Core principles of local business growth' },
       { label: 'AI Foundations', href: '/knowledge/ai-foundations', desc: 'Practical AI for small business' },
       { label: 'Growth Show', href: '/learning-center/videos', desc: 'Video insights' }

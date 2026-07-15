@@ -388,6 +388,16 @@ It is to use today’s marketing activity to help build something the business w
 * Who is responsible for reviewing and maintaining your digital assets?
 * How could your next campaign meet an immediate need while also building long-term value?
 
+***
+
+### Featured Perspective
+
+If you want to understand the difference between temporary tools and compounding digital assets, read the flagship article:
+
+**[Tools vs. Systems: What Advertising and AI Cannot Do Alone](/knowledge/articles/they-sold-me-the-tools-they-didnt-give-me-a-system)**
+
+***
+
 ### Continue Your Journey
 
 Digital assets give a business something lasting to build upon.
