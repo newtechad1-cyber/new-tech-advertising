@@ -143,6 +143,38 @@ export default function AIFoundationsCollection() {
         </div>
       </section>
       
+      {/* Continue Exploring */}
+      <section className="py-20 px-6 border-t border-slate-800 bg-slate-900/30">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-white mb-8">
+            Continue Exploring
+          </h2>
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600/5 blur-[80px] rounded-full pointer-events-none" />
+            
+            <div className="relative z-10 flex flex-col md:flex-row gap-8 items-start md:items-center">
+              <div className="flex-1">
+                <span className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-3 block">
+                  AI, Humanity & Responsibility
+                </span>
+                <h3 className="text-3xl font-black text-white mb-4">
+                  AI Is a Mirror, Not a God
+                </h3>
+                <p className="text-slate-400 leading-relaxed mb-6">
+                  AI is more than a business tool. Explore what it reveals about human behavior, knowledge, faith, power, discernment, and the choices we make.
+                </p>
+                <Link 
+                  to="/knowledge/ai-humanity/ai-is-a-mirror-not-a-god"
+                  className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-xl transition-colors shadow-lg shadow-indigo-600/20"
+                >
+                  Read the Featured Perspective
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <SiteFooter />
     </div>
   );

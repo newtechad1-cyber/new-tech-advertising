@@ -343,7 +343,8 @@ You only need enough understanding to begin asking better questions.
       { label: "AI Isn’t Magic—It’s a Tool", link: "/knowledge/videos" } // Placeholder for Growth Show Episode
     ],
     relatedModules: [
-      { label: "AI Learning Conversation", link: "/learning-center" }
+      { label: "AI Learning Conversation", link: "/learning-center" },
+      { label: "Go Deeper: AI Is a Mirror, Not a God", link: "/knowledge/ai-humanity/ai-is-a-mirror-not-a-god" }
     ],
     nextLessonSlug: "start-with-the-work-not-the-tool"
   },

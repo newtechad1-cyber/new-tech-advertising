@@ -161,6 +161,8 @@ const AIFoundationsCollection = lazy(() => import('./pages/AIFoundationsCollecti
 const AIFoundationsLesson = lazy(() => import('./pages/AIFoundationsLesson'));
 const WhatIsDigitalTrustCollection = lazy(() => import('./pages/WhatIsDigitalTrustCollection'));
 const WhatIsDigitalTrustLesson = lazy(() => import('./pages/WhatIsDigitalTrustLesson'));
+const AIHumanityCollection = lazy(() => import('./pages/AIHumanityCollection'));
+const AIHumanityArticle = lazy(() => import('./pages/AIHumanityArticle'));
 const KnowledgeLibrary = lazy(() => import('./pages/KnowledgeLibrary'));
 const KnowledgeCollection = lazy(() => import('./pages/KnowledgeCollection'));
 const KnowledgeLesson = lazy(() => import('./pages/KnowledgeLesson'));
@@ -582,6 +584,8 @@ const AuthenticatedApp = () => {
       <Route path="/social-media/albert-lea-mn" element={<LayoutWrapper currentPageName="SocialMediaAlbertLeaMN"><SocialMediaAlbertLeaMN /></LayoutWrapper>} />
       {/* Knowledge Library App-Level Routing */}
       <Route path="/knowledge" element={<LayoutWrapper currentPageName="KnowledgeLibrary"><KnowledgeLibrary /></LayoutWrapper>} />
+      <Route path="/knowledge/ai-humanity" element={<LayoutWrapper currentPageName="AIHumanityCollection"><AIHumanityCollection /></LayoutWrapper>} />
+      <Route path="/knowledge/ai-humanity/ai-is-a-mirror-not-a-god" element={<LayoutWrapper currentPageName="AIHumanityArticle"><AIHumanityArticle /></LayoutWrapper>} />
       <Route path="/knowledge/articles/:slug" element={<LayoutWrapper currentPageName="FlagshipArticle"><FlagshipArticle /></LayoutWrapper>} />
       <Route path="/knowledge/:collectionSlug" element={<LayoutWrapper currentPageName="KnowledgeCollection"><KnowledgeCollection /></LayoutWrapper>} />
       <Route path="/knowledge/:collectionSlug/:lessonSlug" element={<LayoutWrapper currentPageName="KnowledgeLesson"><KnowledgeLesson /></LayoutWrapper>} />

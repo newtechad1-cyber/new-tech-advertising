@@ -225,9 +225,10 @@ export default function KnowledgeLibrary() {
                 const nextUnfinished = collectionLessons.find(l => !completedLessons.includes(l.id));
 
                 return (
-                  <div key={collection.id} className="relative group">
+                  <React.Fragment key={collection.id}>
+                  <div className="relative group">
                     {/* Connecting line */}
-                    {idx < collectionsOrder.length - 1 && (
+                    {(idx < collectionsOrder.length - 1 || collection.id === 6) && (
                       <div className="absolute left-6 top-20 bottom-[-24px] w-0.5 bg-slate-800 group-hover:bg-slate-700 transition-colors z-0 hidden sm:block" />
                     )}
 
@@ -279,6 +280,48 @@ export default function KnowledgeLibrary() {
                       </div>
                     </div>
                   </div>
+                  
+                  {/* INJECT: AI, Humanity & Responsibility Collection after AI Foundations */}
+                  {collection.id === 6 && (
+                    <div className="relative group mt-6">
+                      <div className="absolute left-6 top-20 bottom-[-24px] w-0.5 bg-slate-800 group-hover:bg-slate-700 transition-colors z-0 hidden sm:block" />
+
+                      <div className="relative z-10 bg-slate-900 border border-indigo-500/30 hover:border-indigo-500/60 transition-all rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row gap-6 sm:gap-8 items-start shadow-lg shadow-indigo-900/5">
+                        <div className="w-12 h-12 flex-shrink-0 rounded-full flex items-center justify-center border-2 bg-indigo-900/40 border-indigo-500/50 text-indigo-400">
+                          <BrainCircuit className="w-5 h-5" />
+                        </div>
+
+                        <div className="flex-1">
+                          <div className="flex flex-wrap items-center gap-3 mb-2">
+                            <h3 className="text-2xl font-bold text-white group-hover:text-indigo-400 transition-colors">
+                              AI, Humanity & Responsibility
+                            </h3>
+                            <span className="bg-indigo-900/40 text-indigo-300 border border-indigo-700/50 px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+                              Deeper Exploration
+                            </span>
+                          </div>
+                          
+                          <p className="text-slate-400 leading-relaxed mb-6">
+                            Explore what artificial intelligence reveals about human nature, knowledge, wisdom, power, faith, and personal responsibility.
+                          </p>
+
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-800/50 pt-6">
+                            <div className="flex items-center gap-4 text-sm font-medium text-slate-500">
+                              <span>Featured Perspective</span>
+                            </div>
+
+                            <Link 
+                              to="/knowledge/ai-humanity"
+                              className="px-6 py-2.5 rounded-lg font-bold text-sm text-center transition-all bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/20"
+                            >
+                              Begin Exploring
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  </React.Fragment>
                 );
               })}
             </div>

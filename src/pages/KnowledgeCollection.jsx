@@ -38,15 +38,15 @@ export default function KnowledgeCollection() {
     }
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [collectionSlug]);
+
   const getStatusText = () => {
     if (isComplete) return 'Review Collection';
     if (completedCount > 0) return 'Continue Journey';
     return 'Start Collection';
   };
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [collectionSlug]);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
