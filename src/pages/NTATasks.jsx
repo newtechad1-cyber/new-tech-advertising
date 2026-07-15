@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from 'sonner';
-import { CheckSquare, RefreshCw, Search, Plus, Loader2, CheckCircle2 } from 'lucide-react';
+import { CheckSquare, RefreshCw, Search, Plus, Loader2, CheckCircle2, Download } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const PRIORITY_COLORS = {
@@ -28,6 +28,26 @@ export default function NTATasks() {
   const [form, setForm] = useState({ title: '', description: '', task_type: 'follow_up', status: 'todo', priority: 'medium', assigned_to: '', due_date: '' });
   const [saving, setSaving] = useState(false);
   const [completing, setCompleting] = useState({});
+  const [exporting, setExporting] = useState(false);
+
+  const handleExport = async () => {
+    setExporting(true);
+    try {
+      const res = await base44.functions.invoke('generateTaskMetricsPresentation', {});
+      if (res.data.success) {
+        toast.success('Presentation generated and saved to OneDrive');
+        if (res.data.file && res.data.file.webUrl) {
+          window.open(res.data.file.webUrl, '_blank');
+        }
+      } else {
+        toast.error('Failed to generate presentation');
+      }
+    } catch (e) {
+      toast.error(e.message || 'Error generating presentation');
+    } finally {
+      setExporting(false);
+    }
+  };
 
   const load = async () => {
     setLoading(true);
@@ -94,6 +114,10 @@ export default function NTATasks() {
             </div>
           </div>
           <div className="flex gap-2">
+            <Button onClick={handleExport} disabled={exporting} variant="outline" size="sm" className="border-slate-700 text-slate-300">
+              {exporting ? <Loader2 className="w-3 h-3 animate-spin mr-1.5" /> : <Download className="w-3 h-3 mr-1.5" />}
+              Export PPTX
+            </Button>
             <Button onClick={load} variant="outline" size="sm" className="border-slate-700 text-slate-300"><RefreshCw className={`w-3 h-3 ${loading ? 'animate-spin' : ''}`} /></Button>
             <Button onClick={() => setShowCreate(true)} size="sm" className="bg-amber-700 hover:bg-amber-600"><Plus className="w-3 h-3 mr-1.5" />Add</Button>
           </div>
