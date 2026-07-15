@@ -19,6 +19,7 @@ import SignupPage from './pages/SignupPage';
 import Home from './pages/Home';
 import AdminDashboard from './pages/AdminDashboard';
 // — Lazy loaded: everything else —
+const FreshBooksInvoicing = lazy(() => import('./pages/FreshBooksInvoicing'));
 const CaseStudyJohnsonHeating = lazy(() => import('./pages/CaseStudyJohnsonHeating'));
 const CaseStudyMonsonPlumbing = lazy(() => import('./pages/CaseStudyMonsonPlumbing'));
 const CaseStudyPapaEveretts = lazy(() => import('./pages/CaseStudyPapaEveretts'));
@@ -444,6 +445,7 @@ const AuthenticatedApp = () => {
       <Route path="/admin-dashboard" element={<AdminGuard><AdminLayout currentPageName="AdminDashboard"><AdminDashboard /></AdminLayout></AdminGuard>} />
       <Route path="/client-dashboard" element={<ClientGuard><LayoutWrapper currentPageName="ClientDashboard"><ClientDashboard /></LayoutWrapper></ClientGuard>} />
       <Route path="/client/dashboard" element={<Navigate to="/client-dashboard" replace />} />
+      <Route path="/invoicing" element={<LayoutWrapper currentPageName="FreshBooksInvoicing"><FreshBooksInvoicing /></LayoutWrapper>} />
       {Object.entries(Pages).map(([path, Page]) => {
         const pageAccess = classifyPageKey(path);
         const noIndex = shouldNoIndex(pageAccess);
