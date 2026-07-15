@@ -2,28 +2,18 @@
   "name": "DiscoveryCall",
   "type": "object",
   "properties": {
-
-    // ──────────────────────────────────────
-    // References
-    // ──────────────────────────────────────
-
     "lead_id": {
       "type": "string",
       "description": "Reference to SalesLead.id"
     },
     "audit_id": {
       "type": "string",
-      "description": "Reference to GapAudit.id (optional — may not exist yet)"
+      "description": "Reference to GapAudit.id (optional \u2014 may not exist yet)"
     },
     "proposal_id": {
       "type": "string",
       "description": "Reference to NtaProposal.id (set when proposal is generated)"
     },
-
-    // ──────────────────────────────────────
-    // Call Metadata
-    // ──────────────────────────────────────
-
     "business_name": {
       "type": "string",
       "description": "Denormalized from SalesLead for quick display"
@@ -51,11 +41,6 @@
       ],
       "default": "in_progress"
     },
-
-    // ──────────────────────────────────────
-    // Stage 1: Welcome
-    // ──────────────────────────────────────
-
     "s1_greeting_done": {
       "type": "boolean",
       "default": false,
@@ -71,11 +56,6 @@
       "default": false,
       "description": "Stage 1: No-pressure conversation explained"
     },
-
-    // ──────────────────────────────────────
-    // Stage 2: Learn Their Story
-    // ──────────────────────────────────────
-
     "s2_business_story": {
       "type": "string",
       "description": "Their business story"
@@ -96,11 +76,6 @@
       "type": "string",
       "description": "What is working well for them"
     },
-
-    // ──────────────────────────────────────
-    // Stage 3: Business Goals
-    // ──────────────────────────────────────
-
     "s3_where_want_to_be": {
       "type": "string",
       "description": "Where do they want to be"
@@ -119,13 +94,8 @@
     },
     "s3_personal_goals": {
       "type": "string",
-      "description": "Personal goals — freedom, time, etc."
+      "description": "Personal goals \u2014 freedom, time, etc."
     },
-
-    // ──────────────────────────────────────
-    // Stage 4: Audit Discussion
-    // ──────────────────────────────────────
-
     "s4_website_visibility_discussed": {
       "type": "boolean",
       "default": false
@@ -154,11 +124,6 @@
       "type": "boolean",
       "default": false
     },
-
-    // ──────────────────────────────────────
-    // Stage 5: Connect The Dots
-    // ──────────────────────────────────────
-
     "s5_complete": {
       "type": "boolean",
       "default": false,
@@ -168,20 +133,10 @@
       "type": "string",
       "description": "Notes from connecting the dots"
     },
-
-    // ──────────────────────────────────────
-    // Stage 6: Future Vision
-    // ──────────────────────────────────────
-
     "s6_future_vision": {
       "type": "string",
       "description": "What would success look like one year from now?"
     },
-
-    // ──────────────────────────────────────
-    // Stage 7: Recommendation
-    // ──────────────────────────────────────
-
     "s7_recommendation": {
       "type": "string",
       "enum": [
@@ -198,11 +153,6 @@
       "type": "string",
       "description": "Why this recommendation was made"
     },
-
-    // ──────────────────────────────────────
-    // Stage 8: Questions
-    // ──────────────────────────────────────
-
     "s8_objections": {
       "type": "string",
       "description": "Objections raised"
@@ -215,11 +165,6 @@
       "type": "string",
       "description": "Opportunities identified"
     },
-
-    // ──────────────────────────────────────
-    // Stage 9: Close
-    // ──────────────────────────────────────
-
     "s9_outcome": {
       "type": "string",
       "enum": [
@@ -235,11 +180,6 @@
       "format": "date",
       "description": "When to follow up (if follow_up_needed)"
     },
-
-    // ──────────────────────────────────────
-    // AI & Summary
-    // ──────────────────────────────────────
-
     "ai_live_notes": {
       "type": "string",
       "description": "AI-generated live notes during the call"
@@ -260,11 +200,6 @@
       "type": "string",
       "description": "AI-recommended proposal type and scope"
     },
-
-    // ──────────────────────────────────────
-    // Future: Voice Transcription
-    // ──────────────────────────────────────
-
     "transcript_source": {
       "type": "string",
       "enum": [
@@ -281,11 +216,6 @@
       "type": "string",
       "description": "Future: raw transcript text"
     },
-
-    // ──────────────────────────────────────
-    // Internal
-    // ──────────────────────────────────────
-
     "internal_notes": {
       "type": "string",
       "description": "Rick's private notes"
@@ -293,6 +223,10 @@
     "completed_at": {
       "type": "string",
       "format": "date-time"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000
     }
   },
   "required": [

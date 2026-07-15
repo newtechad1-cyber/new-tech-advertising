@@ -1,7 +1,7 @@
 {
   "name": "CanonCollection",
   "type": "object",
-  "description": "Dynamic collections for the Rick Hesse Canon. Reader journeys, themed groupings, and curated paths through the NTA knowledge system. Everything data-driven — no hardcoded collections.",
+  "description": "Dynamic collections for the Rick Hesse Canon. Reader journeys, themed groupings, and curated paths through the NTA knowledge system. Everything data-driven \u2014 no hardcoded collections.",
   "properties": {
     "slug": {
       "type": "string",
@@ -17,7 +17,7 @@
     },
     "purpose": {
       "type": "string",
-      "description": "Why this collection exists — what the reader gains"
+      "description": "Why this collection exists \u2014 what the reader gains"
     },
     "introduction": {
       "type": "string",
@@ -30,7 +30,18 @@
     },
     "color": {
       "type": "string",
-      "enum": ["blue", "emerald", "purple", "amber", "rose", "cyan", "orange", "indigo", "teal", "red"],
+      "enum": [
+        "blue",
+        "emerald",
+        "purple",
+        "amber",
+        "rose",
+        "cyan",
+        "orange",
+        "indigo",
+        "teal",
+        "red"
+      ],
       "default": "blue"
     },
     "display_order": {
@@ -40,7 +51,9 @@
     },
     "entry_canon_ids": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "Ordered list of canon_ids (from PublishingArticle) in reading order"
     },
     "featured": {
@@ -50,7 +63,13 @@
     },
     "collection_type": {
       "type": "string",
-      "enum": ["reader_journey", "topic", "series", "service_guide", "industry_solution"],
+      "enum": [
+        "reader_journey",
+        "topic",
+        "series",
+        "service_guide",
+        "industry_solution"
+      ],
       "default": "reader_journey",
       "description": "What kind of collection this is"
     },
@@ -65,7 +84,11 @@
     },
     "status": {
       "type": "string",
-      "enum": ["Draft", "Published", "Archived"],
+      "enum": [
+        "Draft",
+        "Published",
+        "Archived"
+      ],
       "default": "Draft"
     },
     "created_date": {
@@ -75,6 +98,10 @@
     "updated_date": {
       "type": "string",
       "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000
     }
   },
   "required": [

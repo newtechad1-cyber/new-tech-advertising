@@ -5,6 +5,10 @@
     "page_token": {
       "type": "string",
       "description": "Google Drive Changes API page token"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000
     }
   },
   "required": [

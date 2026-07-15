@@ -11,6 +11,11 @@ import { getJourneyMemory } from '@/lib/journeyMemory';
 export default function KnowledgeCollection() {
   const { collectionSlug } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [collectionSlug]);
+
   const collection = getCollectionBySlug(collectionSlug);
   
   if (!collection) {
@@ -37,10 +42,6 @@ export default function KnowledgeCollection() {
       navigate(`/knowledge/${collection.slug}/${nextUnfinishedLesson.slug}`);
     }
   };
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [collectionSlug]);
 
   const getStatusText = () => {
     if (isComplete) return 'Review Collection';
