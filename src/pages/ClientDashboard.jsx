@@ -219,7 +219,7 @@ export default function ClientDashboard() {
             </div>
 
             {/* Reports */}
-            <div className="md:col-span-3 bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-lg">
+            <div className="md:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-lg">
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-2.5 bg-purple-500/10 rounded-xl">
                   <BarChart3 className="w-6 h-6 text-purple-400" />
@@ -231,6 +231,8 @@ export default function ClientDashboard() {
                 <p className="text-slate-500 font-medium">Analytics integration pending...</p>
               </div>
             </div>
+
+            <TikTokStatsCard />
           </div>
         )}
       </div>
