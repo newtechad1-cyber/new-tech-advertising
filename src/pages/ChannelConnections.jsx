@@ -90,6 +90,8 @@ export default function ChannelConnections() {
       }
       if (res?.data?.auth_url) {
         window.location.href = res.data.auth_url;
+      } else if (res?.data?.redirect_url) {
+        window.location.href = res.data.redirect_url;
       }
     } catch (err) {
       showNotice('error', 'Failed to start OAuth: ' + err.message);
