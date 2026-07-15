@@ -159,6 +159,8 @@ const TurningWhatABusinessKnowsIntoAnAssetCollection = lazy(() => import('./page
 const TurningWhatABusinessKnowsIntoAnAssetLesson = lazy(() => import('./pages/TurningWhatABusinessKnowsIntoAnAssetLesson'));
 const AIFoundationsCollection = lazy(() => import('./pages/AIFoundationsCollection'));
 const AIFoundationsLesson = lazy(() => import('./pages/AIFoundationsLesson'));
+const WhatIsDigitalTrustCollection = lazy(() => import('./pages/WhatIsDigitalTrustCollection'));
+const WhatIsDigitalTrustLesson = lazy(() => import('./pages/WhatIsDigitalTrustLesson'));
 const WebsiteRebuildService = lazy(() => import('./pages/WebsiteRebuildService'));
 const WebsiteRebuildsMasonCity = lazy(() => import('./pages/WebsiteRebuildsMasonCity'));
 const WebsiteRebuildsRochesterMN = lazy(() => import('./pages/WebsiteRebuildsRochesterMN'));
@@ -588,6 +590,8 @@ const AuthenticatedApp = () => {
       <Route path="/knowledge/turning-what-a-business-knows-into-an-asset/:slug" element={<LayoutWrapper currentPageName="TurningWhatABusinessKnowsIntoAnAssetLesson"><TurningWhatABusinessKnowsIntoAnAssetLesson /></LayoutWrapper>} />
       <Route path="/knowledge/ai-foundations" element={<LayoutWrapper currentPageName="AIFoundationsCollection"><AIFoundationsCollection /></LayoutWrapper>} />
       <Route path="/knowledge/ai-foundations/:slug" element={<LayoutWrapper currentPageName="AIFoundationsLesson"><AIFoundationsLesson /></LayoutWrapper>} />
+      <Route path="/knowledge/what-is-digital-trust" element={<LayoutWrapper currentPageName="WhatIsDigitalTrustCollection"><WhatIsDigitalTrustCollection /></LayoutWrapper>} />
+      <Route path="/knowledge/what-is-digital-trust/:slug" element={<LayoutWrapper currentPageName="WhatIsDigitalTrustLesson"><WhatIsDigitalTrustLesson /></LayoutWrapper>} />
       <Route path="/knowledge/prompts" element={<LayoutWrapper currentPageName="KnowledgePrompts"><KnowledgePrompts /></LayoutWrapper>} />
       <Route path="/knowledge/sales-conversations" element={<LayoutWrapper currentPageName="SalesConversations"><SalesConversations /></LayoutWrapper>} />
       <Route path="/knowledge/playbook" element={<LayoutWrapper currentPageName="NTAPlaybook"><NTAPlaybook /></LayoutWrapper>} />
