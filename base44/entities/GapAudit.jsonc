@@ -148,6 +148,24 @@
     },
     "paid_amount": {
       "type": "number"
+    },
+    "billing_status": {
+      "type": "string",
+      "enum": [
+        "unbilled",
+        "billed"
+      ],
+      "default": "unbilled"
+    },
+    "freshbooks_invoice_id": {
+      "type": "string"
+    },
+    "freshbooks_invoice_number": {
+      "type": "string"
+    },
+    "billed_date": {
+      "type": "string",
+      "format": "date-time"
     }
   },
   "required": [
