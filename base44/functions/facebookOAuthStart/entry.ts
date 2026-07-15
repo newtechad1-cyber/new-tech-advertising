@@ -36,57 +36,42 @@ Deno.serve(async (req) => {
     return Response.json({ error: 'client_id is required' }, { status: 400 });
   }
 
-  // Use the platform facebook_pages connector
-  let pages = [];
-  try {
-    const fbConn = await base44.asServiceRole.connectors.getConnection('facebook_pages');
-    if (fbConn && fbConn.accessToken) {
-      const pagesRes = await fetch("https://graph.facebook.com/v25.0/me/accounts?fields=id,name,access_token", {
-        headers: { "Authorization": `Bearer ${fbConn.accessToken}` }
-      });
-      const data = await pagesRes.json();
-      if (data.data) {
-        pages = data.data.map(p => ({
-          id: p.id,
-          name: p.name,
-          access_token: p.access_token
-        }));
-      }
-    } else {
-      throw new Error("Facebook Pages connector not authorized");
-    }
-  } catch(e) {
-    return Response.json({ error: "Failed to connect to Facebook. Please ensure Facebook Pages is connected in the chat. " + e.message }, { status: 400 });
+  const appId = Deno.env.get('META_APP_ID');
+  if (!appId) {
+    return Response.json({ error: 'missing_meta_app_id' }, { status: 500 });
   }
 
-  // Create ChannelConnection
-  const autoSelect = pages.length === 1 ? pages[0] : null;
-  await base44.asServiceRole.entities.ChannelConnection.create({
-    client_id,
-    provider: 'facebook',
-    status: autoSelect ? 'connected' : 'connected_no_destination',
-    external_account_name: 'Platform Shared Facebook',
-    external_account_id: 'platform_shared',
-    destinations_json: JSON.stringify(pages),
-    selected_destination_id: autoSelect ? autoSelect.id : undefined,
-    selected_destination_name: autoSelect ? autoSelect.name : undefined,
-    dest_sync_count: pages.length,
-    dest_sync_at: new Date().toISOString(),
-    last_sync_at: new Date().toISOString(),
-    access_token: 'platform_managed' // Marker, actual token fetched via connector at runtime
+  const nonce = crypto.randomUUID();
+  const statePayload = { provider: 'facebook', client_id, client_name: client_name || '', nonce, initiated_at: new Date().toISOString() };
+  const state = btoa(JSON.stringify(statePayload));
+
+  const params = new URLSearchParams({
+    client_id: appId,
+    redirect_uri: FACEBOOK_REDIRECT_URI,
+    state,
+    response_type: 'code',
+    scope: SCOPE,
+    auth_type: 'rerequest',
+    oauth_scope_version: OAUTH_SCOPE_VERSION,
   });
+
+  const auth_url = `https://www.facebook.com/${META_OAUTH_VERSION}/dialog/oauth?${params.toString()}`;
+
+  console.log(`[facebookOAuthStart] ===== DEBUG =====`);
+  console.log(`[facebookOAuthStart] FUNCTION_NAME=facebookOAuthStart`);
+  console.log(`[facebookOAuthStart] OAUTH_SCOPE_VERSION=${OAUTH_SCOPE_VERSION}`);
+  console.log(`[facebookOAuthStart] SCOPE=${SCOPE}`);
+  console.log(`[facebookOAuthStart] AUTH_URL=${auth_url}`);
+  console.log(`[facebookOAuthStart] =================`);
 
   await log(base44, {
     client_id,
     provider: 'facebook',
     event_type: 'oauth_connect',
     status: 'info',
-    message: `[facebookOAuthStart] Platform Connector synced ${pages.length} pages`,
+    message: `[facebookOAuthStart] FUNCTION_NAME=facebookOAuthStart OAUTH_SCOPE_VERSION=${OAUTH_SCOPE_VERSION} SCOPE=${SCOPE}`,
+    payload: JSON.stringify({ auth_url, scope: SCOPE, nonce }),
   });
 
-  // Return a success response that simulates the OAuth callback return params
-  return Response.json({ 
-    success: true, 
-    redirect_url: `?oauth_success=facebook&pages_count=${pages.length}${autoSelect ? '&auto_selected='+encodeURIComponent(autoSelect.name) : ''}`
-  });
+  return Response.json({ auth_url });
 });

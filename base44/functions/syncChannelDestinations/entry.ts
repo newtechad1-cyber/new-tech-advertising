@@ -65,10 +65,10 @@ Deno.serve(async (req) => {
   const conns = await base44.asServiceRole.entities.ChannelConnection.filter({ id: connection_id });
   const conn = conns[0];
   if (!conn) return Response.json({ error: 'Connection not found' }, { status: 404 });
-  if (!['youtube', 'instagram', 'facebook'].includes(conn.provider)) {
-    return Response.json({ error: 'For youtube, instagram, or facebook only' }, { status: 400 });
+  if (!['youtube', 'instagram'].includes(conn.provider)) {
+    return Response.json({ error: 'For youtube or instagram only' }, { status: 400 });
   }
-  if (!conn.access_token && conn.provider !== 'facebook') {
+  if (!conn.access_token) {
     return Response.json({ success: false, error: 'No access token — reconnect OAuth' });
   }
 
@@ -96,24 +96,6 @@ Deno.serve(async (req) => {
       destinations = await getYouTubeChannels(accessToken);
     } else if (conn.provider === 'instagram') {
       destinations = await getInstagramAccounts(accessToken);
-    } else if (conn.provider === 'facebook') {
-      // For facebook, the access token is managed via platform connector. 
-      const fbConn = await base44.asServiceRole.connectors.getConnection('facebook_pages');
-      if (fbConn && fbConn.accessToken) {
-        const pagesRes = await fetch("https://graph.facebook.com/v25.0/me/accounts?fields=id,name,access_token", {
-          headers: { "Authorization": `Bearer ${fbConn.accessToken}` }
-        });
-        const data = await pagesRes.json();
-        if (data.data) {
-          destinations = data.data.map(p => ({
-            id: p.id,
-            name: p.name,
-            access_token: p.access_token
-          }));
-        }
-      } else {
-        throw new Error("Facebook Pages connector not authorized");
-      }
     }
 
     const autoSelect = destinations.length === 1 ? destinations[0] : null;

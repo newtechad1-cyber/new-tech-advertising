@@ -8,51 +8,23 @@ Deno.serve(async (req) => {
 
     const { platform, message, image_url } = await req.json();
 
-    // Try getting the Platform OAuth connector first
-    let PAGE_ACCESS_TOKEN = null;
-    let pageData = { name: "Facebook Page" };
-    let PAGE_ID = Deno.env.get('META_PAGE_ID') || await req.json().then(b => b.page_id).catch(()=>null);
-    
-    try {
-      const fbConn = await base44.asServiceRole.connectors.getConnection('facebook_pages');
-      if (fbConn && fbConn.accessToken) {
-        // Fetch the page access token
-        const pagesRes = await fetch("https://graph.facebook.com/v25.0/me/accounts?fields=id,name,access_token", {
-          headers: { "Authorization": `Bearer ${fbConn.accessToken}` }
-        });
-        const accountsData = await pagesRes.json();
-        const page = accountsData?.data?.find(p => p.id === PAGE_ID) || accountsData?.data?.[0];
-        if (page) {
-          PAGE_ACCESS_TOKEN = page.access_token;
-          PAGE_ID = page.id;
-          pageData.name = page.name;
-        }
-      }
-    } catch(e) {
-      console.warn("Failed to use facebook_pages connector:", e.message);
-    }
-    
-    // Fallback to legacy env vars
-    if (!PAGE_ACCESS_TOKEN) {
-      const USER_ACCESS_TOKEN = Deno.env.get('META_USER_ACCESS_TOKEN');
-      PAGE_ID = Deno.env.get('META_PAGE_ID');
+    const USER_ACCESS_TOKEN = Deno.env.get('META_USER_ACCESS_TOKEN');
+    const PAGE_ID = Deno.env.get('META_PAGE_ID');
 
-      if (!USER_ACCESS_TOKEN) return Response.json({ error: 'META_USER_ACCESS_TOKEN is not set and facebook_pages connector not authorized' }, { status: 500 });
-      if (!PAGE_ID) return Response.json({ error: 'META_PAGE_ID is not set' }, { status: 500 });
+    if (!USER_ACCESS_TOKEN) return Response.json({ error: 'META_USER_ACCESS_TOKEN is not set' }, { status: 500 });
+    if (!PAGE_ID) return Response.json({ error: 'META_PAGE_ID is not set' }, { status: 500 });
 
-      // Exchange user token for the page token of the specific page
-      const pagesRes = await fetch(
-        `https://graph.facebook.com/v19.0/${PAGE_ID}?fields=access_token,name&access_token=${USER_ACCESS_TOKEN}`
-      );
-      pageData = await pagesRes.json();
+    // Exchange user token for the page token of the specific page
+    const pagesRes = await fetch(
+      `https://graph.facebook.com/v19.0/${PAGE_ID}?fields=access_token,name&access_token=${USER_ACCESS_TOKEN}`
+    );
+    const pageData = await pagesRes.json();
 
-      if (pageData.error) {
-        return Response.json({ error: `Could not get page token: ${pageData.error.message}` }, { status: 400 });
-      }
-
-      PAGE_ACCESS_TOKEN = pageData.access_token;
+    if (pageData.error) {
+      return Response.json({ error: `Could not get page token: ${pageData.error.message}` }, { status: 400 });
     }
 
+    const PAGE_ACCESS_TOKEN = pageData.access_token;
     if (!PAGE_ACCESS_TOKEN) {
       return Response.json({ error: 'Could not retrieve page access token. Make sure your user token has manage_pages or pages_manage_posts permission and you manage this page.' }, { status: 400 });
     }

@@ -238,25 +238,7 @@ Deno.serve(async (req) => {
     } else if (item.provider === 'facebook') {
       const pageId = destinationId || conn.external_parent_id;
       if (!pageId) throw new Error('No Facebook Page ID on connection');
-      
-      let tokenToUse = accessToken;
-      try {
-        const fbConn = await base44.asServiceRole.connectors.getConnection('facebook_pages');
-        if (fbConn && fbConn.accessToken) {
-          const pagesRes = await fetch("https://graph.facebook.com/v25.0/me/accounts?fields=id,name,access_token", {
-            headers: { "Authorization": `Bearer ${fbConn.accessToken}` }
-          });
-          const accountsData = await pagesRes.json();
-          const page = accountsData?.data?.find(p => p.id === pageId) || accountsData?.data?.[0];
-          if (page && page.access_token) {
-            tokenToUse = page.access_token;
-          }
-        }
-      } catch(e) {
-        console.warn("Could not fetch facebook_pages connection", e);
-      }
-      
-      providerResponse = await publishFacebook(tokenToUse, pageId, item);
+      providerResponse = await publishFacebook(accessToken, pageId, item);
       platformPostId = providerResponse?.id;
       if (platformPostId) platformPostUrl = `https://facebook.com/${platformPostId}`;
     } else if (item.provider === 'instagram') {
