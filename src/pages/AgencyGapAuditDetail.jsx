@@ -81,6 +81,8 @@ export default function AgencyGapAuditDetail() {
   const [toast, setToast] = useState('');
   const [followUpEmail, setFollowUpEmail] = useState('');
   const [emailGenerated, setEmailGenerated] = useState(false);
+  const [generatingPayment, setGeneratingPayment] = useState(false);
+  const [paymentLink, setPaymentLink] = useState('');
 
   const showToast = (msg) => { setToast(msg); setTimeout(() => setToast(''), 3500); };
 
@@ -166,6 +168,23 @@ Email should:
     showToast('✓ Converted to Client! Check the Clients module.');
     setConverting(false);
     load();
+  };
+
+  const handleGeneratePaymentLink = async () => {
+    setGeneratingPayment(true);
+    try {
+      const returnUrl = window.location.origin + window.location.pathname; // or a thank you page
+      const res = await base44.functions.invoke('createAuditCheckout', { auditId: id, returnUrl });
+      if (res.data?.url) {
+        setPaymentLink(res.data.url);
+        showToast('✓ Payment link generated!');
+      } else if (res.data?.error) {
+        showToast(`Error: ${res.data.error}`);
+      }
+    } catch (err) {
+      showToast('Failed to generate payment link.');
+    }
+    setGeneratingPayment(false);
   };
 
   const handleCreateCampaign = async () => {
@@ -259,6 +278,16 @@ Email should:
                   audit.status === 'delivered' ? 'bg-emerald-900/40 text-emerald-300' :
                   'bg-slate-700 text-slate-400'
                 }`}>{audit.status}</span>
+                {audit.payment_status === 'paid' && (
+                  <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-green-900/40 text-green-300">
+                    Paid ${audit.paid_amount}
+                  </span>
+                )}
+                {audit.payment_status === 'unpaid' && (
+                  <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-amber-900/40 text-amber-300">
+                    Unpaid
+                  </span>
+                )}
               </div>
               {prospect && (
                 <div className="flex items-center gap-4 mt-2 text-xs text-slate-500 flex-wrap">
@@ -284,8 +313,21 @@ Email should:
           </div>
         )}
 
+        {paymentLink && (
+          <div className="bg-blue-950/30 border border-blue-800/50 rounded-2xl px-5 py-4 flex flex-col sm:flex-row sm:items-center gap-3">
+            <div className="flex items-center gap-3">
+              <Globe className="w-5 h-5 text-blue-400 flex-shrink-0" />
+              <p className="text-blue-300 font-semibold text-sm whitespace-nowrap">Payment Link Generated</p>
+            </div>
+            <div className="flex items-center gap-2 w-full">
+              <input readOnly value={paymentLink} className="flex-1 min-w-0 bg-slate-900 border border-slate-700 text-slate-300 rounded px-2 py-1.5 text-xs" />
+              <button onClick={() => { navigator.clipboard.writeText(paymentLink); showToast('Link copied!'); }} className="text-xs bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded text-white font-medium whitespace-nowrap">Copy</button>
+            </div>
+          </div>
+        )}
+
         {/* Action buttons */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
           <button onClick={handleGenerate} disabled={generating}
             className="flex items-center justify-center gap-1.5 py-2.5 text-sm font-bold text-white bg-purple-600 hover:bg-purple-500 rounded-xl disabled:opacity-50 transition-colors">
             {generating ? <><span className="w-3.5 h-3.5 border-2 border-white/20 border-t-white rounded-full animate-spin" /> Generating…</> : <><Zap className="w-3.5 h-3.5" /> Generate Audit</>}
@@ -301,6 +343,10 @@ Email should:
           <button onClick={handleCreateCampaign} disabled={creatingCampaign || audit.status === 'draft'}
             className="flex items-center justify-center gap-1.5 py-2.5 text-sm font-bold text-white bg-orange-600 hover:bg-orange-500 rounded-xl disabled:opacity-50 transition-colors">
             {creatingCampaign ? <><span className="w-3.5 h-3.5 border-2 border-white/20 border-t-white rounded-full animate-spin" /> Creating…</> : <><Megaphone className="w-3.5 h-3.5" /> Create Campaign</>}
+          </button>
+          <button onClick={handleGeneratePaymentLink} disabled={generatingPayment}
+            className="flex items-center justify-center gap-1.5 py-2.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-xl disabled:opacity-50 transition-colors">
+            {generatingPayment ? <><span className="w-3.5 h-3.5 border-2 border-white/20 border-t-white rounded-full animate-spin" /> Generating…</> : <><Globe className="w-3.5 h-3.5" /> Payment Link</>}
           </button>
         </div>
 

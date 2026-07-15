@@ -136,6 +136,18 @@
         "archived"
       ],
       "default": "draft"
+    },
+    "payment_status": {
+      "type": "string",
+      "enum": [
+        "unpaid",
+        "paid",
+        "refunded"
+      ],
+      "default": "unpaid"
+    },
+    "paid_amount": {
+      "type": "number"
     }
   },
   "required": [
