@@ -1,0 +1,80 @@
+{
+  "name": "BillingTransaction",
+  "type": "object",
+  "properties": {
+    "request_id": {
+      "type": "string"
+    },
+    "app_user_id": {
+      "type": "string"
+    },
+    "freshbooks_business_id": {
+      "type": "string"
+    },
+    "freshbooks_account_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "source_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "invoice_payload_snapshot": {
+      "type": "string",
+      "maxLength": 10000
+    },
+    "calculated_subtotal": {
+      "type": "number"
+    },
+    "calculated_tax": {
+      "type": "number"
+    },
+    "calculated_total": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "creating",
+        "freshbooks_created",
+        "updating_sources",
+        "completed",
+        "recovery_required",
+        "failed"
+      ],
+      "default": "pending"
+    },
+    "freshbooks_invoice_id": {
+      "type": "string"
+    },
+    "freshbooks_invoice_number": {
+      "type": "string"
+    },
+    "error_stage": {
+      "type": "string"
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "completed_date": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "request_id"
+  ]
+}

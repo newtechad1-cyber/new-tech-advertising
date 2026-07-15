@@ -1,0 +1,28 @@
+{
+  "name": "BillingAuditLog",
+  "type": "object",
+  "properties": {
+    "request_id": {
+      "type": "string"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "action": {
+      "type": "string"
+    },
+    "freshbooks_business_id": {
+      "type": "string"
+    },
+    "freshbooks_invoice_id": {
+      "type": "string"
+    },
+    "details": {
+      "type": "string",
+      "maxLength": 5000
+    }
+  },
+  "required": [
+    "request_id"
+  ]
+}

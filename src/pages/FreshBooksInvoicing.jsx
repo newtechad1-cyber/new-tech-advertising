@@ -30,6 +30,8 @@ export default function FreshBooksInvoicing() {
   const [successMsg, setSuccessMsg] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [previewMode, setPreviewMode] = useState(false);
+  const [requestId, setRequestId] = useState(() => crypto.randomUUID());
+  const [recoveryRequired, setRecoveryRequired] = useState(false);
 
   const [form, setForm] = useState({
     clientid: '',
@@ -211,49 +213,61 @@ export default function FreshBooksInvoicing() {
     setGenerating(true);
     setErrorMsg(null);
     try {
-      const lines = getGeneratedLines();
-      
-      const invoicePayload = {
-        _method: 'POST',
-        customerid: parseInt(form.clientid),
-        create_date: new Date().toISOString().split('T')[0],
-        status: 1, // 1 = draft in FreshBooks usually
-        due_offset_days: 14,
+      const payload = {
+        request_id: requestId,
+        clientid: form.clientid,
+        due_date: form.due_date,
         notes: form.notes,
-        lines: lines.map(({ _source, ...l }) => l),
+        selected_tasks: form.selected_tasks,
+        selected_audits: form.selected_audits,
+        selected_subscriptions: form.selected_subscriptions,
+        manual_lines: form.manual_lines
       };
-      if (form.due_date) invoicePayload.due_date = form.due_date;
 
-      const invRes = await base44.functions.invoke('freshbooksInvoices', invoicePayload);
-      const invoiceData = invRes.data?.invoice || invRes.data;
+      const res = await base44.functions.invoke('createFreshbooksInvoice', payload);
+      const data = res.data;
       
-      if (!invoiceData || !invoiceData.id) {
-         throw new Error("Did not receive a valid invoice ID from FreshBooks");
+      if (data?.error) {
+        throw new Error(data.error);
       }
 
-      const fbId = String(invoiceData.id);
-      const fbNumber = String(invoiceData.invoice_number || fbId);
-      const billedDate = new Date().toISOString();
-
-      // Mark source items as billed
-      for (const line of lines) {
-        if (!line._source) continue;
-        const { type, id } = line._source;
-        await base44.entities[type].update(id, {
-          billing_status: 'billed',
-          freshbooks_invoice_id: fbId,
-          freshbooks_invoice_number: fbNumber,
-          billed_date: billedDate
-        });
+      if (data?.status === 'recovery_required') {
+        setRecoveryRequired(true);
+        setErrorMsg(`Invoice created in FreshBooks; Base44 synchronization needs recovery. (Invoice #${data.invoice_number})`);
+      } else if (data?.status === 'completed') {
+        setSuccessMsg(`Draft Invoice #${data.invoice_number} created successfully in FreshBooks!`);
+        setPreviewMode(false);
+        setShowForm(false);
+        setForm({ clientid: '', selected_tasks: [], selected_audits: [], selected_subscriptions: [], manual_lines: [], due_date: '', notes: '' });
+        setRequestId(crypto.randomUUID());
+        await fetchData();
       }
-
-      setSuccessMsg(`Draft Invoice #${fbNumber} created successfully in FreshBooks!`);
-      setPreviewMode(false);
-      setShowForm(false);
-      setForm({ clientid: '', selected_tasks: [], selected_audits: [], selected_subscriptions: [], manual_lines: [], due_date: '', notes: '' });
-      await fetchData();
     } catch (e) {
       setErrorMsg('Failed to create draft invoice: ' + (e?.message || 'Unknown error'));
+    }
+    setGenerating(false);
+  };
+
+  const handleRecovery = async () => {
+    setGenerating(true);
+    setErrorMsg(null);
+    try {
+      const res = await base44.functions.invoke('recoverFreshbooksInvoice', { request_id: requestId });
+      const data = res.data;
+      if (data?.error) throw new Error(data.error);
+      if (data?.status === 'completed') {
+        setSuccessMsg(`Synchronization recovered! Invoice #${data.invoice_number} is fully linked.`);
+        setRecoveryRequired(false);
+        setPreviewMode(false);
+        setShowForm(false);
+        setForm({ clientid: '', selected_tasks: [], selected_audits: [], selected_subscriptions: [], manual_lines: [], due_date: '', notes: '' });
+        setRequestId(crypto.randomUUID());
+        await fetchData();
+      } else if (data?.status === 'recovery_required') {
+        setErrorMsg(`Recovery attempted but failed again: ${data.error_message || 'Unknown error'}`);
+      }
+    } catch (e) {
+      setErrorMsg('Recovery failed: ' + e.message);
     }
     setGenerating(false);
   };
@@ -518,9 +532,15 @@ export default function FreshBooksInvoicing() {
               <p className="text-xs text-slate-500">Invoice will be created as a Draft in FreshBooks. It will not be sent automatically.</p>
               <div className="flex gap-2">
                  <Button variant="outline" className="bg-white" onClick={() => setPreviewMode(false)}>Edit</Button>
-                 <Button className="bg-blue-600 hover:bg-blue-700 text-white" onClick={handleCreateDraft} disabled={generating}>
-                    {generating ? 'Saving...' : 'Create Draft in FreshBooks'}
-                 </Button>
+                 {recoveryRequired ? (
+                   <Button className="bg-amber-600 hover:bg-amber-700 text-white" onClick={handleRecovery} disabled={generating}>
+                      {generating ? 'Resuming...' : 'Resume Synchronization'}
+                   </Button>
+                 ) : (
+                   <Button className="bg-blue-600 hover:bg-blue-700 text-white" onClick={handleCreateDraft} disabled={generating}>
+                      {generating ? 'Saving...' : 'Create Draft in FreshBooks'}
+                   </Button>
+                 )}
               </div>
            </div>
          </div>

@@ -90,6 +90,9 @@
     "billed_date": {
       "type": "string",
       "format": "date-time"
+    },
+    "billing_transaction_id": {
+      "type": "string"
     }
   },
   "required": [

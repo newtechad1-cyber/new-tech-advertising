@@ -1,0 +1,200 @@
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.39';
+
+Deno.serve(async (req) => {
+  try {
+    const base44 = createClientFromRequest(req);
+    const user = await base44.auth.me();
+    if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+
+    const payload = await req.json().catch(() => ({}));
+    const { request_id, clientid, selected_tasks, selected_audits, selected_subscriptions, manual_lines, due_date, notes } = payload;
+
+    if (!request_id) return Response.json({ error: "request_id is required" }, { status: 400 });
+
+    // 1. Idempotency Check
+    const existingTxList = await base44.asServiceRole.entities.BillingTransaction.filter({ request_id });
+    let transaction = existingTxList[0];
+    
+    if (transaction) {
+      if (transaction.status === 'completed') {
+        return Response.json({ status: 'completed', invoice_id: transaction.freshbooks_invoice_id, invoice_number: transaction.freshbooks_invoice_number });
+      }
+      if (transaction.status === 'freshbooks_created' || transaction.status === 'recovery_required' || transaction.status === 'updating_sources') {
+         return Response.json({ status: 'recovery_required', invoice_id: transaction.freshbooks_invoice_id, invoice_number: transaction.freshbooks_invoice_number });
+      }
+      if (transaction.status === 'pending' || transaction.status === 'creating') {
+         return Response.json({ error: 'Concurrent request in progress' }, { status: 409 });
+      }
+    }
+
+    // 2. Fetch FreshBooks Connection
+    const connectorId = "6a5803ed18a980baf5370db9";
+    let accessToken, accountId, businessId;
+    try {
+      const conn = await base44.connectors.getConnection(connectorId);
+      accessToken = conn.access_token;
+      
+      const meRes = await fetch("https://api.freshbooks.com/auth/api/v1/users/me", {
+        headers: { "Authorization": `Bearer ${accessToken}`, "Api-Version": "alpha", "Accept": "application/json" }
+      });
+      if (!meRes.ok) throw new Error("Failed to fetch FreshBooks identity");
+      const meData = await meRes.json();
+      const membership = meData.response?.business_memberships?.[0];
+      if (!membership) throw new Error("No business membership found.");
+      accountId = membership.business.account_id;
+      businessId = membership.business.id;
+    } catch (e) {
+      return Response.json({ error: "FreshBooks connection error: " + e.message }, { status: 400 });
+    }
+
+    // 3. Validate Source Records & Build Lines
+    let subtotalCents = 0;
+    let taxCents = 0;
+    const source_items = [];
+    const lines = [];
+
+    for (const tid of (selected_tasks || [])) {
+      const t = await base44.entities.NTATask.get(tid); // Implicitly checks ownership/access
+      if (!t) throw new Error(`Task ${tid} not found`);
+      if (t.billing_status === 'billed' || t.freshbooks_invoice_id) throw new Error(`Task ${tid} already billed`);
+      source_items.push({ type: 'NTATask', id: tid });
+      lines.push({ type: { code: 0 }, name: "Marketing Task", description: t.title + (t.description ? ` - ${t.description}` : ''), qty: "1", unit_cost: { amount: "0.00", code: "USD" }});
+    }
+
+    for (const aid of (selected_audits || [])) {
+      const a = await base44.entities.GapAudit.get(aid);
+      if (!a) throw new Error(`Audit ${aid} not found`);
+      if (a.billing_status === 'billed' || a.freshbooks_invoice_id) throw new Error(`Audit ${aid} already billed`);
+      source_items.push({ type: 'GapAudit', id: aid });
+      lines.push({ type: { code: 0 }, name: "Gap Audit", description: `Website Gap Audit for ${a.business_name || a.website_url}`, qty: "1", unit_cost: { amount: "199.00", code: "USD" }});
+      subtotalCents += 19900;
+    }
+
+    for (const sid of (selected_subscriptions || [])) {
+      const s = await base44.entities.ClientSubscriptions.get(sid);
+      if (!s) throw new Error(`Subscription ${sid} not found`);
+      if (s.billing_status === 'billed' || s.freshbooks_invoice_id) throw new Error(`Subscription ${sid} already billed`);
+      source_items.push({ type: 'ClientSubscriptions', id: sid });
+      const amt = Number(s.amount || 0);
+      lines.push({ type: { code: 0 }, name: "Recurring Service", description: `${s.plan_name || 'Service Plan'} (${s.billing_interval})`, qty: "1", unit_cost: { amount: amt.toFixed(2), code: "USD" }});
+      subtotalCents += Math.round(amt * 100);
+    }
+
+    for (const m of (manual_lines || [])) {
+      if (!m.name) continue;
+      const qty = Number(m.qty || 1);
+      const rate = Number(m.rate || 0);
+      if (isNaN(qty) || isNaN(rate) || qty < 0 || rate < 0) throw new Error("Invalid manual line values");
+      const line: any = { type: { code: 0 }, name: m.name, description: m.description || "", qty: String(qty), unit_cost: { amount: rate.toFixed(2), code: "USD" }};
+      let lineTotalCents = Math.round(qty * rate * 100);
+      subtotalCents += lineTotalCents;
+      if (m.taxName1 && m.taxAmount1) {
+        const taxPct = Number(m.taxAmount1);
+        if (isNaN(taxPct) || taxPct < 0) throw new Error("Invalid tax value");
+        line.taxName1 = m.taxName1;
+        line.taxAmount1 = String(taxPct);
+        taxCents += Math.round(lineTotalCents * (taxPct / 100));
+      }
+      lines.push(line);
+    }
+
+    const uniqueIds = new Set(source_items.map(s => s.id));
+    if (uniqueIds.size !== source_items.length) throw new Error("Duplicate source items provided");
+    if (lines.length === 0) throw new Error("No line items to invoice");
+
+    const totalCents = subtotalCents + taxCents;
+    const invoicePayload: any = {
+      customerid: parseInt(clientid),
+      create_date: new Date().toISOString().split('T')[0],
+      status: 1, // DRAFT STATUS ENFORCED
+      due_offset_days: 14,
+      notes: notes || "",
+      lines: lines
+    };
+    if (due_date) invoicePayload.due_date = due_date;
+
+    if (!transaction) {
+      transaction = await base44.asServiceRole.entities.BillingTransaction.create({
+        request_id,
+        app_user_id: user.id,
+        freshbooks_business_id: String(businessId),
+        freshbooks_account_id: String(accountId),
+        client_id: String(clientid),
+        source_items,
+        invoice_payload_snapshot: JSON.stringify(invoicePayload),
+        calculated_subtotal: subtotalCents,
+        calculated_tax: taxCents,
+        calculated_total: totalCents,
+        status: "creating"
+      });
+      await base44.asServiceRole.entities.BillingAuditLog.create({ request_id, user_id: user.id, action: "transaction_created", freshbooks_business_id: String(businessId), details: "Transaction initialized" });
+    }
+
+    // 4. Call FreshBooks
+    const fbRes = await fetch(`https://api.freshbooks.com/accounting/account/${accountId}/invoices/invoices`, {
+      method: "POST",
+      headers: { "Authorization": `Bearer ${accessToken}`, "Accept": "application/json", "Api-Version": "alpha", "Content-Type": "application/json" },
+      body: JSON.stringify({ invoice: invoicePayload })
+    });
+
+    if (!fbRes.ok) {
+       const errTxt = await fbRes.text();
+       await base44.asServiceRole.entities.BillingTransaction.update(transaction.id, { status: "failed", error_stage: "freshbooks_api", error_message: errTxt });
+       await base44.asServiceRole.entities.BillingAuditLog.create({ request_id, user_id: user.id, action: "freshbooks_api_failed", details: errTxt });
+       throw new Error("FreshBooks API Error: " + errTxt);
+    }
+
+    const fbData = await fbRes.json();
+    const invoiceData = fbData.response?.result?.invoice || fbData.response?.invoice || fbData.invoice;
+    if (!invoiceData || !invoiceData.id) throw new Error("FreshBooks did not return an invoice ID");
+
+    const fbId = String(invoiceData.id);
+    const fbNumber = String(invoiceData.invoice_number || fbId);
+
+    // 5. Persist FreshBooks Result Immediately
+    await base44.asServiceRole.entities.BillingTransaction.update(transaction.id, {
+       status: "freshbooks_created",
+       freshbooks_invoice_id: fbId,
+       freshbooks_invoice_number: fbNumber
+    });
+    await base44.asServiceRole.entities.BillingAuditLog.create({ request_id, user_id: user.id, action: "freshbooks_invoice_created", freshbooks_invoice_id: fbId, details: `Invoice ${fbNumber} created` });
+    transaction.freshbooks_invoice_id = fbId;
+    transaction.freshbooks_invoice_number = fbNumber;
+
+    // 6. Update Source Records Safe Loop
+    await base44.asServiceRole.entities.BillingTransaction.update(transaction.id, { status: "updating_sources" });
+    
+    let hasError = false;
+    for (const item of source_items) {
+       try {
+          const rec = await base44.asServiceRole.entities[item.type].get(item.id);
+          if (rec.billing_status !== 'billed') {
+             await base44.asServiceRole.entities[item.type].update(item.id, {
+                billing_status: "billed",
+                freshbooks_invoice_id: fbId,
+                freshbooks_invoice_number: fbNumber,
+                billed_date: new Date().toISOString(),
+                billing_transaction_id: transaction.id
+             });
+             await base44.asServiceRole.entities.BillingAuditLog.create({ request_id, user_id: user.id, action: "source_updated_success", details: `${item.type} ${item.id}` });
+          }
+       } catch (e) {
+          hasError = true;
+          await base44.asServiceRole.entities.BillingTransaction.update(transaction.id, { status: "recovery_required", error_stage: `update_source_${item.id}`, error_message: e.message });
+          await base44.asServiceRole.entities.BillingAuditLog.create({ request_id, user_id: user.id, action: "source_updated_failed", details: `${item.type} ${item.id}: ${e.message}` });
+          break;
+       }
+    }
+
+    if (hasError) {
+       return Response.json({ status: "recovery_required", invoice_id: fbId, invoice_number: fbNumber, error: "Partial failure during source record updates." });
+    }
+
+    await base44.asServiceRole.entities.BillingTransaction.update(transaction.id, { status: "completed", completed_date: new Date().toISOString() });
+    await base44.asServiceRole.entities.BillingAuditLog.create({ request_id, user_id: user.id, action: "transaction_completed", details: "All sources updated" });
+
+    return Response.json({ status: "completed", invoice_id: fbId, invoice_number: fbNumber });
+  } catch (error) {
+    return Response.json({ error: error.message }, { status: 500 });
+  }
+});
