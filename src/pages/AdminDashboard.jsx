@@ -3,8 +3,9 @@ import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { Building2, Users, Target, UserPlus, FileText } from 'lucide-react';
+import { Building2, Users, Target, UserPlus, FileText, Activity } from 'lucide-react';
 import { toast } from 'sonner';
+import GoogleAnalyticsView from '@/components/admin/GoogleAnalyticsView';
 
 export default function AdminDashboard() {
   const [inviteEmail, setInviteEmail] = useState('');
@@ -56,6 +57,7 @@ export default function AdminDashboard() {
             <TabsTrigger value="leads" className="rounded-lg data-[state=active]:bg-blue-600 data-[state=active]:text-white"><Target className="w-4 h-4 mr-2"/> Leads</TabsTrigger>
             <TabsTrigger value="deals" className="rounded-lg data-[state=active]:bg-blue-600 data-[state=active]:text-white"><FileText className="w-4 h-4 mr-2"/> Deals</TabsTrigger>
             <TabsTrigger value="users" className="rounded-lg data-[state=active]:bg-blue-600 data-[state=active]:text-white"><Users className="w-4 h-4 mr-2"/> Users & Invites</TabsTrigger>
+            <TabsTrigger value="analytics" className="rounded-lg data-[state=active]:bg-blue-600 data-[state=active]:text-white"><Activity className="w-4 h-4 mr-2"/> Analytics</TabsTrigger>
           </TabsList>
 
           <TabsContent value="clients">
@@ -164,6 +166,10 @@ export default function AdminDashboard() {
                 ))}
               </div>
             </div>
+          </TabsContent>
+
+          <TabsContent value="analytics">
+            <GoogleAnalyticsView />
           </TabsContent>
 
         </Tabs>
