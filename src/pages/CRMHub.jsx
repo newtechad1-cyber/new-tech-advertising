@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import AdminGuard from '../components/auth/AdminGuard';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Button } from '@/components/ui/button';
 import {
-  TrendingUp, Users, Mail, UserCheck, BarChart2,
+  TrendingUp, Users, Mail, UserCheck, Route,
   ArrowLeft, Zap, ChevronRight
 } from 'lucide-react';
 
@@ -13,15 +13,24 @@ import LeadDetailPanel from '../components/crm/LeadDetailPanel';
 import ClientsRoster from '../components/crm/ClientsRoster';
 import EmailCampaigns from '../components/crm/EmailCampaigns';
 import SubscribersManager from '../components/crm/SubscribersManager';
+import OnlineSalesJourney from '../components/crm/OnlineSalesJourney';
 
 const TABS = [
   {
+    id: 'journey',
+    label: 'Online Sales Journey',
+    icon: Route,
+    color: 'bg-violet-600',
+    activeColor: 'text-violet-400',
+    description: 'Your complete prospect-to-relationship process'
+  },
+  {
     id: 'leads',
-    label: 'Lead Pipeline',
+    label: 'Prospecting',
     icon: TrendingUp,
     color: 'bg-amber-600',
     activeColor: 'text-amber-400',
-    description: 'Find & manage prospects from first touch to close'
+    description: 'Find people, make contact & follow up'
   },
   {
     id: 'clients',
@@ -33,24 +42,24 @@ const TABS = [
   },
   {
     id: 'email',
-    label: 'Email Campaigns',
+    label: 'NTA Journal',
     icon: Mail,
     color: 'bg-blue-600',
     activeColor: 'text-blue-400',
-    description: 'Broadcasts & automated sequences'
+    description: 'Weekly teaching email & welcome sequence'
   },
   {
     id: 'subscribers',
-    label: 'Subscribers',
+    label: 'Journal Subscribers',
     icon: UserCheck,
     color: 'bg-orange-600',
     activeColor: 'text-orange-400',
-    description: 'Your email list & segments'
+    description: 'Permission-based list & interests'
   },
 ];
 
 export default function CRMHub() {
-  const [activeTab, setActiveTab] = useState('leads');
+  const [activeTab, setActiveTab] = useState('journey');
   const [selectedLead, setSelectedLead] = useState(null);
 
   const current = TABS.find(t => t.id === activeTab);
@@ -70,9 +79,9 @@ export default function CRMHub() {
               <div>
                 <div className="flex items-center gap-2">
                   <Zap className="w-5 h-5 text-amber-400" />
-                  <h1 className="text-xl font-bold">CRM & Marketing Hub</h1>
+                  <h1 className="text-xl font-bold">Prospecting & Relationship Hub</h1>
                 </div>
-                <p className="text-slate-400 text-sm">Find prospects → manage leads → serve clients → keep them engaged</p>
+                <p className="text-slate-400 text-sm">Your old relationship-based sales method, translated into one connected online process</p>
               </div>
             </div>
           </div>
@@ -82,24 +91,24 @@ export default function CRMHub() {
         <div className="bg-slate-900/50 border-b border-slate-800 px-6 py-3">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-center gap-2 text-xs text-slate-500 flex-wrap">
-              <span className="text-amber-400 font-medium">Prospect</span>
+              <span className="text-amber-400 font-medium">Prospect Identified</span>
               <ChevronRight className="w-3 h-3" />
-              <span className="text-blue-400 font-medium">New Lead</span>
+              <span className="text-blue-400 font-medium">Personal Introduction</span>
               <ChevronRight className="w-3 h-3" />
-              <span className="text-yellow-400 font-medium">Contacted</span>
+              <span className="text-orange-400 font-medium">Journal Relationship</span>
               <ChevronRight className="w-3 h-3" />
-              <span className="text-purple-400 font-medium">Proposal Sent</span>
+              <span className="text-violet-400 font-medium">Growth Conversation</span>
               <ChevronRight className="w-3 h-3" />
-              <span className="text-green-400 font-medium">Won → Active Client</span>
+              <span className="text-purple-400 font-medium">Roadmap / Sales Room</span>
               <ChevronRight className="w-3 h-3" />
-              <span className="text-orange-400 font-medium">Email Subscriber → Retained</span>
+              <span className="text-green-400 font-medium">Client → Lasting Relationship</span>
             </div>
           </div>
         </div>
 
         <div className="max-w-7xl mx-auto px-6 py-8">
           {/* Tab Navigation */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
             {TABS.map(tab => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -128,6 +137,7 @@ export default function CRMHub() {
                   onSelectLead={setSelectedLead}
                 />
               )}
+              {activeTab === 'journey' && <OnlineSalesJourney onNavigate={setActiveTab} />}
               {activeTab === 'clients' && <ClientsRoster />}
               {activeTab === 'email' && <EmailCampaigns />}
               {activeTab === 'subscribers' && <SubscribersManager />}
