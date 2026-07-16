@@ -61,11 +61,25 @@
       "type": "string",
       "maxLength": 1000,
       "description": "Optional notes or description"
+    },
+    "external_id": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "media_url": {
+      "type": "string"
+    },
+    "post_url": {
+      "type": "string"
+    },
+    "posted_at": {
+      "type": "string",
+      "format": "date-time"
     }
   },
   "required": [
-    "client_id",
-    "post_text",
     "platform"
   ]
 }

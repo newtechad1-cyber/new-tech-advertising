@@ -38,6 +38,8 @@ Deno.serve(async (req) => {
     // Step 3: Save to workspace database (SocialPost entity)
     const recordsToCreate = posts.map(post => ({
       platform: 'instagram',
+      client_id: 'system',
+      post_text: post.caption || '',
       external_id: post.id,
       content: post.caption || '',
       media_url: post.media_url || post.thumbnail_url || '',
