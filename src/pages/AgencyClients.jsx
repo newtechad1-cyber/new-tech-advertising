@@ -10,17 +10,14 @@ import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Building2, Search, Globe, MapPin, Plus, Pencil, Archive, RotateCcw, Trash2, ExternalLink } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
+import { isOperatingAccount } from '@/config/operatingAccounts';
 
 const EMPTY_CLIENT = {
   business_name: '', website: '', primary_contact: '', email: '', phone: '',
   city: '', state: 'IA', core_services: '', status: 'active_client', archived: false,
 };
 
-const normalizeName = (value = '') => value.toLowerCase().replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
-const isProtectedClient = (client) => {
-  const name = normalizeName(client.business_name);
-  return name === 'nta' || name.startsWith('new tech advertising') || name.startsWith('johnson heating') || name.startsWith('monson plumbing');
-};
+const isProtectedClient = isOperatingAccount;
 
 export default function AgencyClients() {
   const { toast } = useToast();
