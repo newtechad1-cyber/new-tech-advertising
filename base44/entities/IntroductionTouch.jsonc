@@ -1,0 +1,21 @@
+{
+  "name": "IntroductionTouch",
+  "type": "object",
+  "properties": {
+    "campaign_id": { "type": "string" },
+    "sales_lead_id": { "type": "string" },
+    "touch_number": { "type": "number" },
+    "touch_type": { "type": "string", "enum": ["introduction", "practical_lesson", "short_video", "industry_insight", "webinar_invitation", "journal_sample", "permission_question"] },
+    "purpose": { "type": "string" },
+    "subject": { "type": "string" },
+    "message_body": { "type": "string" },
+    "content_title": { "type": "string" },
+    "content_url": { "type": "string" },
+    "scheduled_date": { "type": "string", "format": "date" },
+    "sent_date": { "type": "string", "format": "date" },
+    "status": { "type": "string", "enum": ["draft", "ready", "sent", "replied", "skipped", "canceled"], "default": "draft" },
+    "channel": { "type": "string", "enum": ["email", "phone", "linkedin", "facebook", "in_person"], "default": "email" },
+    "personalization_notes": { "type": "string" }
+  },
+  "required": ["campaign_id", "sales_lead_id", "touch_number", "touch_type"]
+}
