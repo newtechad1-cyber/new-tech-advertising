@@ -52,11 +52,12 @@ function isReadyToPublish(item) {
 Deno.serve(async (req) => {
   const base44 = createClientFromRequest(req);
 
-  // Allow admin user or internal (bypass_auth from direct calls)
+  // Allow an admin user or a scheduled runner holding the server-side secret.
   let isInternal = false;
   let payload = {};
   try { payload = await req.json(); } catch (_) {}
-  isInternal = payload?.internal === true;
+  const runnerSecret = Deno.env.get('PUBLISHING_RUNNER_SECRET') || '';
+  isInternal = !!runnerSecret && payload?.internal_token === runnerSecret;
 
   if (!isInternal) {
     const user = await base44.auth.me();
@@ -205,7 +206,7 @@ Deno.serve(async (req) => {
     try {
       const res = await base44.asServiceRole.functions.invoke('publishQueueItem', {
         queue_id: item.id,
-        bypass_auth: true,
+        internal_token: runnerSecret,
       });
 
       if (res?.success === false || res?.error) {

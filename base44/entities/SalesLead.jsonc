@@ -211,6 +211,11 @@
     "description": {
       "type": "string",
       "maxLength": 1000
+    },
+    "archived": {
+      "type": "boolean",
+      "default": false,
+      "description": "Hides the prospect from active sales views without destroying its history"
     }
   },
   "required": [

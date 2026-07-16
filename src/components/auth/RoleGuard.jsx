@@ -1,4 +1,3 @@
-import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '@/lib/AuthContext';
 import NoIndexMeta from './NoIndexMeta';
@@ -21,14 +20,14 @@ const Spinner = () => (
 
 /**
  * AdminGuard — requires admin role. Redirects unauthenticated to /Login,
- * unauthorized to /client-dashboard. Adds noindex meta.
+ * unauthorized to /portal. Adds noindex meta.
  */
 export function AdminGuard({ children }) {
   const { user, isLoadingAuth } = useAuth();
 
   if (isLoadingAuth) return <Spinner />;
   if (!user) return <Navigate to="/Login" replace />;
-  if (!isAdminUser(user)) return <Navigate to="/client-dashboard" replace />;
+  if (!isAdminUser(user)) return <Navigate to="/portal" replace />;
 
   return (
     <>
@@ -46,7 +45,7 @@ export function OpsGuard({ children }) {
 
   if (isLoadingAuth) return <Spinner />;
   if (!user) return <Navigate to="/Login" replace />;
-  if (!isOpsUser(user)) return <Navigate to="/client-dashboard" replace />;
+  if (!isOpsUser(user)) return <Navigate to="/portal" replace />;
 
   return (
     <>

@@ -1,7 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { ChevronDown, Menu, X } from 'lucide-react';
+import { ChevronDown, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { validateNavRoutes, ROUTE_FAMILIES } from '@/components/config/routeMap';
 
@@ -75,7 +75,6 @@ const ADMIN_NAV_STRUCTURE = [
     icon: '🛡️',
     items: [
       { label: 'Admin Center', href: '/admin-center' },
-      { label: 'Executive Dashboard', href: '/executive-dashboard' },
       { label: 'Partner Portal', href: '/partner-portal' },
       { label: 'Community Intelligence', href: '/community-intelligence' },
       { label: 'Data Hub', href: '/nta/data-hub' },

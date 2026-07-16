@@ -28,8 +28,8 @@ export const ROUTES = {
   agencyLeadWizard: '/agency/lead-wizard',
 
   // Client portal
-  clientDashboard: '/client/dashboard',
-  clientCalendar: '/client/calendar',
+  clientDashboard: '/portal',
+  clientCalendar: '/portal/calendar',
   clientCampaigns: '/client/campaigns',
   clientROI: '/client/roi',
   clientChannels: '/client/channels',

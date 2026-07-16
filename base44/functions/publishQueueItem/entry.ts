@@ -140,16 +140,21 @@ Deno.serve(async (req) => {
 
   let payload = {};
   try { payload = await req.json(); } catch (_) {}
-  const { queue_id, bypass_auth = false } = payload;
+  const { queue_id, internal_token = '' } = payload;
 
   if (!queue_id) {
     return Response.json({ error: 'queue_id required' }, { status: 400 });
   }
 
-  // Auth check — allow bypass from job runner (internal), require admin otherwise
-  if (!bypass_auth) {
+  // Admins may publish manually. Scheduled runners must present a server-held secret;
+  // a caller-controlled boolean must never bypass authentication.
+  const runnerSecret = Deno.env.get('PUBLISHING_RUNNER_SECRET') || '';
+  const isInternal = !!runnerSecret && internal_token === runnerSecret;
+  if (!isInternal) {
     const user = await base44.auth.me();
+    const isAdmin = user?.role === 'admin' || ['info@newtechadvertising.com', 'newtechad1@gmail.com'].includes(user?.email?.toLowerCase());
     if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!isAdmin) return Response.json({ error: 'Admin only' }, { status: 403 });
   }
 
   console.log(`[publishQueueItem] starting — queue_id=${queue_id}`);

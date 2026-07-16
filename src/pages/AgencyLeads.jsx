@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Plus, Search, Phone, Mail, Calendar, Trash2, AlertCircle, RefreshCw, SlidersHorizontal, Pencil, Upload, Kanban } from 'lucide-react';
+import { Plus, Search, Phone, Mail, Calendar, Trash2, AlertCircle, RefreshCw, SlidersHorizontal, Pencil, Upload, Kanban, Archive, RotateCcw } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import AgencyLayout from '../components/agency/AgencyLayout';
 import { scoreLead, PRIORITY_STYLES } from '../lib/leadPriority.js';
 import AddLeadModal from '../components/agency/AddLeadModal';
-import LeadDetailModal from '../components/agency/LeadDetailModal.jsx';
 import TutorialHighlight from '../components/agency/TutorialHighlight.jsx';
 
 function isIncomplete(lead) {
@@ -60,6 +59,7 @@ export default function AgencyLeads() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [recordView, setRecordView] = useState('active');
   const [showAdd, setShowAdd] = useState(false);
   const [sortBy, setSortBy] = useState('created'); // 'created' | 'followup' | 'name'
 
@@ -80,6 +80,8 @@ export default function AgencyLeads() {
 
   const filtered = leads
     .filter(l => {
+      if (recordView === 'active' && l.archived) return false;
+      if (recordView === 'archived' && !l.archived) return false;
       if (statusFilter !== 'all' && l.status !== statusFilter) return false;
       if (search) {
         const q = search.toLowerCase();
@@ -115,18 +117,31 @@ export default function AgencyLeads() {
   const archiveLead = async (e, lead) => {
     e.stopPropagation();
     if (!confirm(`Archive "${lead.business_name}"? It will be hidden from the list. The related pipeline deal will also be archived.`)) return;
-    await base44.entities.SalesLead.update(lead.id, { status: 'unresponsive' });
+    await base44.entities.SalesLead.update(lead.id, { archived: true });
     // Also archive the related deal so it disappears from pipeline
     const deal = dealsMap[lead.id];
     if (deal?.id) {
       await base44.entities.SalesDeal.update(deal.id, { archived: true }).catch(() => {});
     }
-    setLeads(prev => prev.filter(l => l.id !== lead.id));
+    setLeads(prev => prev.map(l => l.id === lead.id ? { ...l, archived: true } : l));
+  };
+
+  const restoreLead = async (e, lead) => {
+    e.stopPropagation();
+    await base44.entities.SalesLead.update(lead.id, { archived: false });
+    const deal = dealsMap[lead.id];
+    if (deal?.id) await base44.entities.SalesDeal.update(deal.id, { archived: false }).catch(() => {});
+    setLeads(prev => prev.map(l => l.id === lead.id ? { ...l, archived: false } : l));
   };
 
   const deleteLead = async (e, lead) => {
     e.stopPropagation();
-    if (!confirm(`Permanently delete "${lead.business_name}"? This cannot be undone. The related pipeline deal will also be deleted.`)) return;
+    if (!lead.archived) {
+      alert('Archive this prospect before deleting it permanently.');
+      return;
+    }
+    const confirmation = prompt(`Permanent deletion cannot be undone. Type the business name exactly:\n\n${lead.business_name}`);
+    if (confirmation !== lead.business_name) return;
     await base44.entities.SalesLead.delete(lead.id);
     const deal = dealsMap[lead.id];
     if (deal?.id) {
@@ -295,6 +310,14 @@ export default function AgencyLeads() {
                 </button>
               ))}
             </div>
+            <div className="flex items-center gap-1 border-l border-slate-700 pl-2">
+              {[['active', 'Active'], ['archived', 'Archived'], ['all', 'All records']].map(([value, label]) => (
+                <button key={value} onClick={() => setRecordView(value)}
+                  className={`px-2 py-1 rounded text-xs font-semibold transition-colors ${recordView === value ? 'bg-amber-700 text-white' : 'text-slate-500 hover:text-white'}`}>
+                  {label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -413,7 +436,7 @@ export default function AgencyLeads() {
                           <span className="text-xs text-slate-700 italic">No follow-up</span>
                         )}
                       </div>
-                      <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-all flex-shrink-0">
+                      <div className="flex gap-1 flex-shrink-0">
                         <button
                           onClick={(e) => editLead(e, lead)}
                           className="p-1.5 text-slate-500 hover:text-blue-400 hover:bg-blue-900/20 rounded-lg transition-all"
@@ -421,20 +444,20 @@ export default function AgencyLeads() {
                         >
                           <Pencil className="w-3.5 h-3.5" />
                         </button>
-                        <button
-                          onClick={(e) => archiveLead(e, lead)}
-                          className="p-1.5 text-slate-600 hover:text-amber-400 hover:bg-amber-900/20 rounded-lg transition-all"
-                          title="Archive lead + deal"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                        <button
-                          onClick={(e) => deleteLead(e, lead)}
-                          className="p-1.5 text-slate-600 hover:text-red-400 hover:bg-red-900/20 rounded-lg transition-all"
-                          title="Delete lead permanently"
-                        >
-                          <span className="text-xs font-bold">×</span>
-                        </button>
+                        {lead.archived ? (
+                          <>
+                            <button onClick={(e) => restoreLead(e, lead)} className="p-1.5 text-slate-500 hover:text-emerald-400 hover:bg-emerald-900/20 rounded-lg" title="Restore prospect">
+                              <RotateCcw className="w-3.5 h-3.5" />
+                            </button>
+                            <button onClick={(e) => deleteLead(e, lead)} className="p-1.5 text-slate-500 hover:text-red-400 hover:bg-red-900/20 rounded-lg" title="Delete prospect permanently">
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </>
+                        ) : (
+                          <button onClick={(e) => archiveLead(e, lead)} className="p-1.5 text-slate-500 hover:text-amber-400 hover:bg-amber-900/20 rounded-lg" title="Archive prospect">
+                            <Archive className="w-3.5 h-3.5" />
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>

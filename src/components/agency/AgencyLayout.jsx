@@ -1,40 +1,65 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
-  LayoutDashboard, Users, TrendingUp, FileText, BarChart2,
-  ChevronLeft, Menu, ChevronDown, ChevronRight, Target,
-  Send, Megaphone, Shield, Calendar, BarChart, Radio, BookOpen, Globe, Wifi, Link2,
-  BookOpenCheck, HelpCircle, X, Search, Zap, Video
+  LayoutDashboard, Users, TrendingUp, FileText, DollarSign, MoreHorizontal,
+  ChevronLeft, Menu, ChevronDown, ChevronRight,
+  BookOpenCheck, HelpCircle, ExternalLink
 } from 'lucide-react';
 import { TutorialProvider, useTutorial } from './TutorialContext';
 import TutorialOverlay from './TutorialOverlay';
 
 const NAV = [
-  { label: 'Dashboard',           href: '/agency',                      icon: LayoutDashboard, exact: true },
-  { label: 'Lead Pipeline',       href: '/agency/leads/pipeline',       icon: TrendingUp },
-  { label: 'Leads',               href: '/agency/leads',                icon: Target },
-  { label: 'Gap Audits',          href: '/agency/gap-audits',           icon: Search },
-  { label: 'AI Gap Scanner',      href: '/agency/ai-gap-scanner',       icon: Zap },
-  { label: 'Video Engine',        href: '/agency/video-engine',         icon: Video },
-  { label: 'Clients',             href: '/agency/clients',              icon: Users },
-  { label: 'Content Library',      href: '/agency/content-library',      icon: FileText },
-  { label: 'Content Center',      href: '/agency/content',              icon: FileText },
-  { label: 'Campaigns',           href: '/agency/campaigns',            icon: Megaphone },
-  { label: 'Spoke Campaigns',     href: '/agency/spoke-campaigns',      icon: Radio },
-  { label: 'Insight Pages',       href: '/agency/insight-pages',        icon: BookOpen },
-  { label: 'Approval Center',     href: '/agency/approval-center',      icon: Shield },
-  { label: 'Publishing Calendar', href: '/agency/publishing-calendar',  icon: Calendar },
-  { label: 'Channel Connections', href: '/agency/channel-connections',  icon: Wifi },
-  { label: 'Client Channel Setup', href: '/agency/channel-setup',       icon: Link2 },
-  { label: 'Performance',         href: '/agency/campaign-performance', icon: BarChart },
-  { label: 'Websites',            href: '/agency/websites',             icon: Globe },
+  { label: 'Today', href: '/agency', icon: LayoutDashboard, exact: true },
+  {
+    label: 'Sales', icon: TrendingUp, children: [
+      { label: 'Lead Pipeline', href: '/agency/leads/pipeline' },
+      { label: 'All Leads', href: '/agency/leads' },
+      { label: 'Gap Audits', href: '/agency/gap-audits' },
+      { label: 'AI Gap Scanner', href: '/agency/ai-gap-scanner' },
+    ],
+  },
+  {
+    label: 'Clients', icon: Users, children: [
+      { label: 'All Clients', href: '/agency/clients' },
+      { label: 'Portal Manager', href: '/agency/portal-manager' },
+      { label: 'Client Channel Setup', href: '/agency/channel-setup' },
+      { label: 'Open Client Portal', href: '/portal' },
+    ],
+  },
+  {
+    label: 'Content & Marketing', icon: FileText, children: [
+      { label: 'Content Center', href: '/agency/content' },
+      { label: 'Content Library', href: '/agency/content-library' },
+      { label: 'Campaigns', href: '/agency/campaigns' },
+      { label: 'Approval Center', href: '/agency/approval-center' },
+      { label: 'Publishing Calendar', href: '/agency/publishing-calendar' },
+      { label: 'Video Engine', href: '/agency/video-engine' },
+      { label: 'Websites', href: '/agency/websites' },
+    ],
+  },
+  {
+    label: 'Money', icon: DollarSign, children: [
+      { label: 'Invoicing', href: '/invoicing' },
+      { label: 'Billing Center', href: '/billing' },
+      { label: 'Performance', href: '/agency/campaign-performance' },
+    ],
+  },
+  {
+    label: 'More', icon: MoreHorizontal, children: [
+      { label: 'Channel Connections', href: '/agency/channel-connections' },
+      { label: 'Spoke Campaigns', href: '/agency/spoke-campaigns' },
+      { label: 'Insight Pages', href: '/agency/insight-pages' },
+      { label: 'Operations', href: '/ops' },
+      { label: 'Admin Tools', href: '/admin-center' },
+    ],
+  },
 ];
 
 function AgencyLayoutInner({ children }) {
   const { pathname, search } = useLocation();
   const [collapsed, setCollapsed] = useState(false);
   const [openSections, setOpenSections] = useState({});
-  const { start, toggleHelp, helpMode, active: tutorialActive } = useTutorial();
+  const { start, toggleHelp, helpMode } = useTutorial();
 
   const toggleSection = (label) => {
     setOpenSections(prev => ({ ...prev, [label]: !prev[label] }));
@@ -61,7 +86,7 @@ function AgencyLayoutInner({ children }) {
           {!collapsed && (
             <div>
               <p className="font-black text-sm text-white leading-none">NTA</p>
-              <p className="text-xs text-slate-500 leading-none mt-0.5">Agency Command</p>
+              <p className="text-xs text-slate-500 leading-none mt-0.5">Back Office</p>
             </div>
           )}
           <button
@@ -137,7 +162,12 @@ function AgencyLayoutInner({ children }) {
         {/* Footer */}
         <div className="px-3 py-3 border-t border-slate-800 flex-shrink-0 space-y-1">
           {!collapsed && (
-            <a href="/" className="block text-xs text-slate-600 hover:text-slate-400 transition-colors">← Public Site</a>
+            <div className="space-y-1 pb-1">
+              <a href="/portal" className="flex items-center gap-1.5 text-xs text-blue-400 hover:text-blue-300 transition-colors">
+                <ExternalLink className="w-3 h-3" /> Client Portal
+              </a>
+              <a href="/" className="block text-xs text-slate-600 hover:text-slate-400 transition-colors">← Public Site</a>
+            </div>
           )}
           {/* Help mode toggle */}
           <button

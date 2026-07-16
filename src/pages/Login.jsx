@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { Navigate, Link } from 'react-router-dom';
 import { useAuth } from '@/lib/AuthContext';
 import { base44 } from '@/api/base44Client';
@@ -20,7 +19,7 @@ export default function Login() {
   // If already logged in, route them appropriately
   if (user) {
     const isAdmin = user.role === 'admin' || user.email === 'info@newtechadvertising.com';
-    return <Navigate to={isAdmin ? "/admin-dashboard" : "/client-dashboard"} replace />;
+    return <Navigate to={isAdmin ? "/agency" : "/portal"} replace />;
   }
 
   return (
