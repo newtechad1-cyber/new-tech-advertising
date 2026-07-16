@@ -1,0 +1,19 @@
+{
+  "name": "IntroductionCampaign",
+  "type": "object",
+  "properties": {
+    "sales_lead_id": { "type": "string", "description": "Canonical SalesLead.id" },
+    "business_name": { "type": "string" },
+    "contact_name": { "type": "string" },
+    "contact_email": { "type": "string" },
+    "industry": { "type": "string" },
+    "status": { "type": "string", "enum": ["draft", "active", "paused", "replied", "journal_subscriber", "completed", "stopped", "opted_out"], "default": "draft" },
+    "current_touch": { "type": "number", "default": 0 },
+    "started_date": { "type": "string", "format": "date" },
+    "next_touch_date": { "type": "string", "format": "date" },
+    "last_touch_date": { "type": "string", "format": "date" },
+    "stop_reason": { "type": "string" },
+    "notes": { "type": "string" }
+  },
+  "required": ["sales_lead_id", "business_name", "contact_email"]
+}
