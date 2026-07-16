@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Button } from '@/components/ui/button';
 import {
-  TrendingUp, Users, Mail, UserCheck, Route,
+  TrendingUp, Users, Mail, UserCheck, Route, Repeat2,
   ArrowLeft, Zap, ChevronRight
 } from 'lucide-react';
 
@@ -14,6 +14,7 @@ import ClientsRoster from '../components/crm/ClientsRoster';
 import EmailCampaigns from '../components/crm/EmailCampaigns';
 import SubscribersManager from '../components/crm/SubscribersManager';
 import OnlineSalesJourney from '../components/crm/OnlineSalesJourney';
+import IntroductionCampaigns from '../components/crm/IntroductionCampaigns';
 
 const TABS = [
   {
@@ -31,6 +32,14 @@ const TABS = [
     color: 'bg-amber-600',
     activeColor: 'text-amber-400',
     description: 'Find people, make contact & follow up'
+  },
+  {
+    id: 'introduction',
+    label: '7-Touch Campaign',
+    icon: Repeat2,
+    color: 'bg-cyan-600',
+    activeColor: 'text-cyan-400',
+    description: 'Seven useful contacts that earn permission'
   },
   {
     id: 'clients',
@@ -108,7 +117,7 @@ export default function CRMHub() {
 
         <div className="max-w-7xl mx-auto px-6 py-8">
           {/* Tab Navigation */}
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3 mb-8">
             {TABS.map(tab => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -138,6 +147,7 @@ export default function CRMHub() {
                 />
               )}
               {activeTab === 'journey' && <OnlineSalesJourney onNavigate={setActiveTab} />}
+              {activeTab === 'introduction' && <IntroductionCampaigns />}
               {activeTab === 'clients' && <ClientsRoster />}
               {activeTab === 'email' && <EmailCampaigns />}
               {activeTab === 'subscribers' && <SubscribersManager />}
