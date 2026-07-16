@@ -49,12 +49,43 @@
         "google_maps",
         "facebook",
         "linkedin",
+        "cold_email",
+        "phone_call",
+        "chamber",
+        "event",
         "referral",
         "website",
         "manual",
         "other"
       ],
       "default": "manual"
+    },
+    "first_contact_method": {
+      "type": "string",
+      "enum": ["not_contacted", "email", "phone", "linkedin", "facebook", "in_person", "website", "referral", "event", "other"],
+      "default": "not_contacted",
+      "description": "How Rick first introduced himself to this prospect"
+    },
+    "relationship_origin": {
+      "type": "string",
+      "description": "Human context for where or how the relationship began"
+    },
+    "journal_permission_status": {
+      "type": "string",
+      "enum": ["not_asked", "invited", "granted", "declined", "unsubscribed"],
+      "default": "not_asked"
+    },
+    "journal_permission_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "journal_permission_method": {
+      "type": "string",
+      "enum": ["website_form", "email_reply", "verbal", "written", "event_signup", "other"]
+    },
+    "journal_subscriber_id": {
+      "type": "string",
+      "description": "Subscriber.id created after the prospect gives permission"
     },
     "priority": {
       "type": "string",
