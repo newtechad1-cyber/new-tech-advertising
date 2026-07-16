@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTutorial } from '../components/agency/TutorialContext.jsx';
 import { base44 } from '@/api/base44Client';
-import { Users, FileText, AlertTriangle, CheckCircle, Clock, ArrowRight, Plus, Radio, Video, Send, Shield, Calendar, BarChart, ClipboardList, BookOpenCheck } from 'lucide-react';
+import { Users, FileText, AlertTriangle, CheckCircle, Clock, ArrowRight, Plus, Radio, Video, Send, Shield, BarChart, ClipboardList, BookOpenCheck } from 'lucide-react';
 import AgencyLayout from '../components/agency/AgencyLayout';
 import TodaysCommand from '../components/agency/TodaysCommand.jsx';
 import DailyCommandPanel from '../components/agency/DailyCommandPanel.jsx';
 import TutorialHighlight from '../components/agency/TutorialHighlight.jsx';
 import TodaysLeadWork from '../components/leads/TodaysLeadWork.jsx';
+import { OPERATING_ACCOUNTS, getOperatingAccount } from '@/config/operatingAccounts';
 export default function AgencyDashboard() {
   const [clients, setClients] = useState([]);
   const [topics, setTopics] = useState([]);
@@ -21,6 +22,7 @@ export default function AgencyDashboard() {
   const [socialPosts, setSocialPosts] = useState([]);
   // approvalItems removed — approval counts now sourced from NTAContentAsset only
   const [perfMetrics, setPerfMetrics] = useState([]);
+  const [channelConnections, setChannelConnections] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -36,11 +38,13 @@ export default function AgencyDashboard() {
       base44.entities.NTAVideoAsset.list('-created_date', 100),
       base44.entities.SocialPostQueue.list('-created_date', 200),
       base44.entities.PerformanceMetric.list('-date_logged', 200),
-    ]).then(([c, t, j, a, l, d, sc, na, va, sp, pm]) => {
+      base44.entities.ChannelConnection.list('-created_date', 200),
+    ]).then(([c, t, j, a, l, d, sc, na, va, sp, pm, cc]) => {
       setClients(c); setTopics(t); setJobs(j); setAssets(a);
       setLeads(l); setDeals(d);
       setSpokeCampaigns(sc); setNtaAssets(na); setVideoAssets(va);
       setSocialPosts(sp); setPerfMetrics(pm);
+      setChannelConnections(cc);
       setLoading(false);
     });
   }, []);
@@ -104,6 +108,29 @@ export default function AgencyDashboard() {
   const forReview = assets.filter(a => a.status === 'ready_for_review');
   const failedJobs = jobs.filter(j => j.status === 'failed');
   const recentAssets = assets.slice(0, 8);
+
+  const operatingAccounts = OPERATING_ACCOUNTS.map(definition => {
+    const client = clients.find(item => getOperatingAccount(item)?.key === definition.key);
+    const clientId = client?.id;
+    const accountCampaigns = clientId ? spokeCampaigns.filter(item => item.client_id === clientId) : [];
+    const campaignIds = new Set(accountCampaigns.map(item => item.id));
+    return {
+      ...definition,
+      client,
+      campaigns: accountCampaigns.length,
+      content: clientId ? ntaAssets.filter(item => item.client_id === clientId).length : 0,
+      connections: clientId ? channelConnections.filter(item => item.client_id === clientId && ['connected', 'ready'].includes(item.status)).length : 0,
+      scheduled: clientId ? socialPosts.filter(item => item.client_id === clientId && item.publish_status === 'scheduled').length : 0,
+      metrics: perfMetrics.filter(item => campaignIds.has(item.campaign_id)).length,
+    };
+  });
+  const knownClientIds = new Set(clients.map(client => client.id));
+  const unassignedRecords = [
+    ...spokeCampaigns.filter(item => !item.client_id || !knownClientIds.has(item.client_id)),
+    ...ntaAssets.filter(item => !item.client_id || !knownClientIds.has(item.client_id)),
+    ...socialPosts.filter(item => !item.client_id || !knownClientIds.has(item.client_id)),
+    ...channelConnections.filter(item => !item.client_id || !knownClientIds.has(item.client_id)),
+  ].length;
 
   const WORKFLOW = [
     { step: '1', label: 'Add Client', href: '/agency/clients', action: 'Go to Clients →' },
@@ -261,6 +288,55 @@ export default function AgencyDashboard() {
 
         {/* Divider */}
         <div className="border-t border-slate-800" />
+
+        {/* Canonical operating accounts — the bridge between NTA OS data and this dashboard */}
+        <section>
+          <div className="flex items-end justify-between gap-3 mb-3">
+            <div>
+              <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500">Operating Accounts</h2>
+              <p className="text-xs text-slate-600 mt-1">Live Base44 records connected to each NTA Operating System account.</p>
+            </div>
+            {!loading && unassignedRecords > 0 && (
+              <span className="text-xs font-semibold text-amber-300 bg-amber-950/50 border border-amber-900 px-2.5 py-1 rounded-full">
+                {unassignedRecords} unassigned record{unassignedRecords === 1 ? '' : 's'}
+              </span>
+            )}
+          </div>
+          <div className="grid md:grid-cols-3 gap-3">
+            {operatingAccounts.map(account => (
+              <Link
+                key={account.key}
+                to={account.client ? `/agency/clients/${account.client.id}` : '/agency/clients'}
+                className="bg-slate-900 border border-slate-800 hover:border-blue-700 rounded-xl p-4 transition-colors"
+              >
+                <div className="flex items-start justify-between gap-2 mb-4">
+                  <div>
+                    <p className="text-sm font-bold text-white">{account.label}</p>
+                    <p className="text-xs text-slate-500 mt-0.5">{account.client ? 'Connected live account' : 'Client record not found'}</p>
+                  </div>
+                  <span className={`w-2.5 h-2.5 mt-1 rounded-full ${account.client ? 'bg-emerald-400' : 'bg-red-400'}`} />
+                </div>
+                <div className="grid grid-cols-5 gap-2 text-center">
+                  {[
+                    ['Campaigns', account.campaigns],
+                    ['Content', account.content],
+                    ['Channels', account.connections],
+                    ['Scheduled', account.scheduled],
+                    ['Results', account.metrics],
+                  ].map(([label, value]) => (
+                    <div key={label}>
+                      <p className="text-base font-black text-blue-300">{value}</p>
+                      <p className="text-[10px] text-slate-600 leading-tight">{label}</p>
+                    </div>
+                  ))}
+                </div>
+              </Link>
+            ))}
+          </div>
+          {!loading && unassignedRecords > 0 && (
+            <p className="text-xs text-amber-400/80 mt-2">Unassigned records exist in Base44 but do not have a valid client ID. They will not be attributed to an account until reviewed and connected.</p>
+          )}
+        </section>
 
         {/* Client Setup Wizard shortcut */}
         <section>
