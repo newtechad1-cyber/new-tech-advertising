@@ -17,7 +17,6 @@ import Login from './pages/Login';
 import SignupPage from './pages/SignupPage';
 // — Eagerly loaded public pages (tiny, critical for first paint) —
 import Home from './pages/Home';
-import AdminDashboard from './pages/AdminDashboard';
 // — Lazy loaded: everything else —
 const FreshBooksInvoicing = lazy(() => import('./pages/FreshBooksInvoicing'));
 const CaseStudyJohnsonHeating = lazy(() => import('./pages/CaseStudyJohnsonHeating'));
@@ -102,7 +101,6 @@ const AdminPlatformQA = lazy(() => import('./pages/AdminPlatformQA'));
 const ClientROI = lazy(() => import('./pages/ClientROI'));
 const ClientROIReports = lazy(() => import('./pages/ClientROIReports'));
 const ClientROITimeline = lazy(() => import('./pages/ClientROITimeline'));
-const ClientDashboard = lazy(() => import('./pages/ClientDashboard'));
 const TrialWelcome = lazy(() => import('./pages/TrialWelcome'));
 const TrialBusiness = lazy(() => import('./pages/TrialBusiness'));
 const TrialChannels = lazy(() => import('./pages/TrialChannels'));
@@ -331,7 +329,6 @@ const GrowthGuide = lazy(() => import('./pages/GrowthGuide.jsx'));
 const MyGrowthJourney = lazy(() => import('./pages/MyGrowthJourney.jsx'));
 const NTABusinessScore = lazy(() => import('./pages/NTABusinessScore.jsx'));
 const NTAGrowthRoadmapGenerator = lazy(() => import('./pages/NTAGrowthRoadmapGenerator.jsx'));
-const NTAExecutiveDashboard = lazy(() => import('./pages/NTAExecutiveDashboard.jsx'));
 const PartnerPortal = lazy(() => import('./pages/PartnerPortal.jsx'));
 const CommunityIntelligence = lazy(() => import('./pages/CommunityIntelligence.jsx'));
 const NTADataHub = lazy(() => import('./pages/NTADataHub.jsx'));
@@ -412,9 +409,9 @@ const AuthGate = ({ children }) => {
     const ADMIN_EMAILS = ['info@newtechadvertising.com', 'newtechad1@gmail.com'];
     const isAdmin = user.role === 'admin' || ADMIN_EMAILS.includes(user.email?.toLowerCase());
     if (isAdmin) {
-      window.location.href = '/admin-dashboard';
+      window.location.href = '/agency';
     } else {
-      window.location.href = '/client-dashboard';
+      window.location.href = '/portal';
     }
     return null;
   }
@@ -442,9 +439,10 @@ const AuthenticatedApp = () => {
       } />
       <Route path="/Login" element={<LayoutWrapper currentPageName="Login"><Login /></LayoutWrapper>} />
       <Route path="/signup" element={<LayoutWrapper currentPageName="SignupPage"><SignupPage /></LayoutWrapper>} />
-      <Route path="/admin-dashboard" element={<AdminGuard><AdminLayout currentPageName="AdminDashboard"><AdminDashboard /></AdminLayout></AdminGuard>} />
-      <Route path="/client-dashboard" element={<ClientGuard><LayoutWrapper currentPageName="ClientDashboard"><ClientDashboard /></LayoutWrapper></ClientGuard>} />
-      <Route path="/client/dashboard" element={<Navigate to="/client-dashboard" replace />} />
+      {/* Canonical back-office entrances: Rick -> /agency, clients -> /portal. */}
+      <Route path="/admin-dashboard" element={<Navigate to="/agency" replace />} />
+      <Route path="/client-dashboard" element={<Navigate to="/portal" replace />} />
+      <Route path="/client/dashboard" element={<Navigate to="/portal" replace />} />
       <Route path="/invoicing" element={<LayoutWrapper currentPageName="FreshBooksInvoicing"><FreshBooksInvoicing /></LayoutWrapper>} />
       {Object.entries(Pages).map(([path, Page]) => {
         const pageAccess = classifyPageKey(path);
@@ -788,7 +786,8 @@ const AuthenticatedApp = () => {
       <Route path="/my-growth-journey" element={<LayoutWrapper currentPageName="MyGrowthJourney"><MyGrowthJourney /></LayoutWrapper>} />
       <Route path="/business-score" element={<LayoutWrapper currentPageName="NTABusinessScore"><NTABusinessScore /></LayoutWrapper>} />
       <Route path="/growth-roadmap-generator" element={<LayoutWrapper currentPageName="NTAGrowthRoadmapGenerator"><NTAGrowthRoadmapGenerator /></LayoutWrapper>} />
-      <Route path="/executive-dashboard" element={<AdminGuard><AdminLayout currentPageName="NTAExecutiveDashboard"><NTAExecutiveDashboard /></AdminLayout></AdminGuard>} />
+      {/* Retired duplicate dashboard: it displayed hardcoded demonstration metrics. */}
+      <Route path="/executive-dashboard" element={<Navigate to="/agency" replace />} />
       <Route path="/partner-portal" element={<AdminGuard><AdminLayout currentPageName="PartnerPortal"><PartnerPortal /></AdminLayout></AdminGuard>} />
       <Route path="/community-intelligence" element={<AdminGuard><AdminLayout currentPageName="CommunityIntelligence"><CommunityIntelligence /></AdminLayout></AdminGuard>} />
       <Route path="/nta/data-hub" element={<AdminGuard><AdminLayout currentPageName="NTADataHub"><NTADataHub /></AdminLayout></AdminGuard>} />

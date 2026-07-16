@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import AgencyLayout from '../components/agency/AgencyLayout';
 import { RefreshCw, Play, AlertTriangle, CheckCircle2, XCircle, Clock, Info, RotateCcw } from 'lucide-react';
@@ -59,6 +59,10 @@ export default function PublishingOps() {
   const [running, setRunning] = useState(false);
   const [runResult, setRunResult] = useState(null);
   const [activeTab, setActiveTab] = useState('logs');
+  const [showFacebookTest, setShowFacebookTest] = useState(false);
+  const [publishingTest, setPublishingTest] = useState(false);
+  const [facebookTest, setFacebookTest] = useState({ connection_id: '', body_text: '', link_url: '' });
+  const [facebookTestResult, setFacebookTestResult] = useState(null);
 
   useEffect(() => { loadAll(); }, []);
 
@@ -90,36 +94,49 @@ export default function PublishingOps() {
     loadAll();
   };
 
-  const createTestQueueItem = async () => {
-    // Find first active GBP connection
-    const gbpConn = connections.find(c => c.provider === 'google_business_profile' && c.status === 'connected')
-      || connections.find(c => c.status === 'connected');
-    if (!gbpConn) {
-      alert('No active connections found. Connect a channel first in Channel Connections.');
-      return;
-    }
-    const scheduledFor = new Date(Date.now() - 60 * 1000).toISOString(); // 1 min ago
+  const readyFacebookConnections = connections.filter(c =>
+    c.provider === 'facebook' &&
+    ['ready', 'connected'].includes(c.status) &&
+    (c.selected_destination_id || c.external_parent_id)
+  );
+
+  const publishFacebookTest = async () => {
+    const connection = readyFacebookConnections.find(c => c.id === facebookTest.connection_id);
+    if (!connection || !facebookTest.body_text.trim()) return;
+    const pageName = connection.selected_destination_name || connection.external_parent_name || 'selected Facebook Page';
+    if (!confirm(`Publish this test post publicly to Facebook Page "${pageName}" now?`)) return;
+    setPublishingTest(true);
+    setFacebookTestResult(null);
     try {
       const item = await base44.entities.PublishingQueue.create({
-        client_id: gbpConn.client_id,
-        client_name: gbpConn.client_name || '',
-        connection_id: gbpConn.id,
-        provider: gbpConn.provider,
-        content_type: gbpConn.provider === 'google_business_profile' ? 'gbp_cta' : 'text_post',
-        title: '[TEST] Auto-created diagnostic post',
-        body_text: 'This is a test queue item created from Publishing Ops diagnostics.',
-        caption: 'Test post from Publishing Ops.',
-        scheduled_for: scheduledFor,
+        client_id: connection.client_id,
+        client_name: connection.client_name || '',
+        connection_id: connection.id,
+        provider: 'facebook',
+        content_type: facebookTest.link_url ? 'link_post' : 'text_post',
+        title: '[MANUAL TEST] Facebook publishing verification',
+        body_text: facebookTest.body_text.trim(),
+        caption: facebookTest.body_text.trim(),
+        link_url: facebookTest.link_url.trim() || null,
+        scheduled_for: new Date().toISOString(),
         timezone: 'America/Chicago',
         approval_status: 'approved',
         publish_status: 'queued',
         source_wizard: 'manual',
+        notes: 'Manually reviewed and approved Facebook connection test',
       });
-      alert(`Test queue item created! ID: ${item.id}\nProvider: ${item.provider}\nScheduled: ${scheduledFor}\nRun the job runner to attempt publishing.`);
+      const response = await base44.functions.invoke('publishQueueItem', { queue_id: item.id });
+      const result = response?.data || response;
+      if (result?.success) {
+        setFacebookTestResult({ success: true, message: `Facebook confirmed the post${result.platform_post_id ? ` — ID ${result.platform_post_id}` : ''}.`, url: result.platform_post_url });
+      } else {
+        setFacebookTestResult({ success: false, message: result?.error || 'Facebook publishing failed.' });
+      }
       loadAll();
     } catch (err) {
-      alert(`Failed to create test item: ${err.message}`);
+      setFacebookTestResult({ success: false, message: err.message });
     }
+    setPublishingTest(false);
   };
 
   const manualRetry = async (queueId) => {
@@ -198,9 +215,9 @@ export default function PublishingOps() {
             <button onClick={loadAll} className="p-2 text-slate-500 hover:text-white bg-slate-800 rounded-lg">
               <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
             </button>
-            <button onClick={createTestQueueItem}
+            <button onClick={() => { setFacebookTestResult(null); setShowFacebookTest(true); }}
               className="inline-flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white text-sm font-semibold px-4 py-2 rounded-lg">
-              <Info className="w-4 h-4" /> Create Test Item
+              <Info className="w-4 h-4" /> Test Facebook
             </button>
             <button onClick={runJobRunner} disabled={running}
               className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-600 disabled:opacity-50 text-white text-sm font-semibold px-4 py-2 rounded-lg">
@@ -208,6 +225,62 @@ export default function PublishingOps() {
             </button>
           </div>
         </div>
+
+        {showFacebookTest && (
+          <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+            <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-xl">
+              <div className="px-6 py-4 border-b border-slate-800">
+                <h2 className="font-bold text-white">Manual Facebook Publishing Test</h2>
+                <p className="text-xs text-slate-500 mt-1">You choose the exact Page and approve the exact text before anything is published.</p>
+              </div>
+              <div className="p-6 space-y-4">
+                {readyFacebookConnections.length === 0 ? (
+                  <div className="bg-amber-900/20 border border-amber-800 rounded-lg p-3 text-sm text-amber-300">
+                    No Facebook connection is ready. Go to Channel Connections and select a Facebook Page first.
+                  </div>
+                ) : (
+                  <>
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-400 mb-1">Facebook Page *</label>
+                      <select value={facebookTest.connection_id} onChange={e => setFacebookTest(p => ({ ...p, connection_id: e.target.value }))}
+                        className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
+                        <option value="">Choose the exact Page…</option>
+                        {readyFacebookConnections.map(c => (
+                          <option key={c.id} value={c.id}>{c.client_name || 'NTA'} — {c.selected_destination_name || c.external_parent_name}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-400 mb-1">Post text *</label>
+                      <textarea rows={5} value={facebookTest.body_text} onChange={e => setFacebookTest(p => ({ ...p, body_text: e.target.value }))}
+                        placeholder="Write the exact test message that will appear publicly…"
+                        className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500" />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-400 mb-1">Optional link</label>
+                      <input value={facebookTest.link_url} onChange={e => setFacebookTest(p => ({ ...p, link_url: e.target.value }))} placeholder="https://newtechadvertising.com/..."
+                        className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500" />
+                    </div>
+                  </>
+                )}
+
+                {facebookTestResult && (
+                  <div className={`rounded-lg border p-3 text-sm ${facebookTestResult.success ? 'bg-emerald-900/30 border-emerald-700 text-emerald-300' : 'bg-red-900/30 border-red-800 text-red-300'}`}>
+                    {facebookTestResult.message}
+                    {facebookTestResult.url && <a href={facebookTestResult.url} target="_blank" rel="noreferrer" className="block underline mt-1">Open Facebook post →</a>}
+                  </div>
+                )}
+              </div>
+              <div className="px-6 pb-6 flex justify-end gap-2">
+                <button onClick={() => setShowFacebookTest(false)} className="px-4 py-2 bg-slate-800 text-slate-300 rounded-lg text-sm">Close</button>
+                <button onClick={publishFacebookTest} disabled={publishingTest || !facebookTest.connection_id || !facebookTest.body_text.trim()}
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-40 text-white font-semibold rounded-lg text-sm">
+                  {publishingTest ? 'Publishing…' : 'Review & Publish Now'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Run result */}
         {runResult && (
