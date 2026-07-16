@@ -29,6 +29,31 @@
       "type": "string",
       "description": "Where they subscribed from"
     },
+    "consent_status": {
+      "type": "string",
+      "enum": ["confirmed", "withdrawn"],
+      "default": "confirmed"
+    },
+    "consent_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the subscriber gave permission to receive the NTA Journal"
+    },
+    "consent_method": {
+      "type": "string",
+      "enum": ["website_form", "email_reply", "verbal", "written", "event_signup", "other"]
+    },
+    "consent_context": {
+      "type": "string",
+      "description": "Where the permission came from and any useful human context"
+    },
+    "sales_lead_id": {
+      "type": "string",
+      "description": "Canonical SalesLead.id when this subscriber began as a prospect"
+    },
+    "business_name": {
+      "type": "string"
+    },
     "description": {
       "type": "string",
       "maxLength": 1000,
