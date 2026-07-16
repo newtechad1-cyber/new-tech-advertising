@@ -5,10 +5,11 @@ import { ChevronRight, Clock, User, BookOpen, ArrowLeft } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
-import { flagshipArticleToolsVsSystem } from '@/data/flagshipArticles';
+import { flagshipArticleToolsVsSystem, flagshipArticleDIYToDFY } from '@/data/flagshipArticles';
 
 const articlesMap = {
-  [flagshipArticleToolsVsSystem.slug]: flagshipArticleToolsVsSystem
+  [flagshipArticleToolsVsSystem.slug]: flagshipArticleToolsVsSystem,
+  [flagshipArticleDIYToDFY.slug]: flagshipArticleDIYToDFY
 };
 
 export default function FlagshipArticle() {

@@ -5,7 +5,7 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import { getCollectionBySlug } from '@/data/masterCurriculum';
-import { flagshipArticleToolsVsSystem } from '@/data/flagshipArticles';
+import { flagshipArticleToolsVsSystem, flagshipArticleDIYToDFY } from '@/data/flagshipArticles';
 import { getJourneyMemory } from '@/lib/journeyMemory';
 
 export default function KnowledgeCollection() {
@@ -214,7 +214,7 @@ export default function KnowledgeCollection() {
             </div>
 
             {/* RELATED FLAGSHIP (If it's the 6th or 7th collection, feature the flagship article) */}
-            {(collection.id === 6 || collection.id === 7) && (
+            {collection.id === 6 && (
               <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-indigo-900/20 to-slate-900 border border-indigo-500/20 text-center">
                 <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-2 block">
                   Featured NTA Perspective
@@ -224,6 +224,21 @@ export default function KnowledgeCollection() {
                   {flagshipArticleToolsVsSystem.primaryAudience}
                 </p>
                 <Link to={`/knowledge/articles/${flagshipArticleToolsVsSystem.slug}`} className="inline-flex bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-xl transition-colors">
+                  Read the Flagship Article
+                </Link>
+              </div>
+            )}
+            
+            {collection.id === 7 && (
+              <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-indigo-900/20 to-slate-900 border border-indigo-500/20 text-center">
+                <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-2 block">
+                  Featured NTA Perspective
+                </span>
+                <h3 className="text-2xl font-black text-white mb-4">{flagshipArticleDIYToDFY.title}</h3>
+                <p className="text-slate-400 max-w-2xl mx-auto mb-6">
+                  {flagshipArticleDIYToDFY.primaryAudience}
+                </p>
+                <Link to={`/knowledge/articles/${flagshipArticleDIYToDFY.slug}`} className="inline-flex bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-xl transition-colors">
                   Read the Flagship Article
                 </Link>
               </div>

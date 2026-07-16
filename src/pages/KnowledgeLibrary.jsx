@@ -5,7 +5,7 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import { masterCurriculumMap, collectionsOrder } from '@/data/masterCurriculum';
-import { flagshipArticleToolsVsSystem } from '@/data/flagshipArticles';
+import { flagshipArticleToolsVsSystem, flagshipArticleDIYToDFY } from '@/data/flagshipArticles';
 import { getJourneyMemory, resetJourneyMemory } from '@/lib/journeyMemory';
 
 export default function KnowledgeLibrary() {
@@ -176,34 +176,64 @@ export default function KnowledgeLibrary() {
           </div>
         </section>
 
-        {/* FLAGSHIP ARTICLE BANNER */}
+        {/* FLAGSHIP PERSPECTIVES BANNER */}
         <section className="py-12 px-6 border-y border-slate-800 bg-slate-900/30">
-          <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-10 items-center">
-            <div className="flex-1">
-              <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-2 block">
-                Featured NTA Perspective
-              </span>
-              <h2 className="text-3xl font-black text-white mb-4">
-                {flagshipArticleToolsVsSystem.title}
-              </h2>
-              <p className="text-slate-400 leading-relaxed mb-6">
-                Business owners are sold advertising campaigns, AI tools, lead-generation platforms, and automation every day. But access to another tool is not the same as having a system that makes it useful.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link to={`/knowledge/articles/${flagshipArticleToolsVsSystem.slug}`} className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-xl transition-colors text-center">
-                  Read the Flagship Article
-                </Link>
-                {/* Secondary Button: Watch the Growth Show Episode - hidden until a real URL exists */}
-                {/* <button className="border border-slate-700 bg-slate-800 text-slate-300 font-semibold px-6 py-3 rounded-xl hover:bg-slate-700 hover:text-white transition-colors text-center">Watch the Growth Show Episode</button> */}
+          <div className="max-w-5xl mx-auto flex flex-col gap-16">
+            
+            {/* Perspective 1 */}
+            <div className="flex flex-col md:flex-row gap-10 items-center">
+              <div className="flex-1">
+                <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-2 block">
+                  Featured NTA Perspective
+                </span>
+                <h2 className="text-3xl font-black text-white mb-4">
+                  {flagshipArticleToolsVsSystem.title}
+                </h2>
+                <p className="text-slate-400 leading-relaxed mb-6">
+                  Business owners are sold advertising campaigns, AI tools, lead-generation platforms, and automation every day. But access to another tool is not the same as having a system that makes it useful.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link to={`/knowledge/articles/${flagshipArticleToolsVsSystem.slug}`} className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-xl transition-colors text-center">
+                    Read the Flagship Article
+                  </Link>
+                </div>
+              </div>
+              <div className="w-full md:w-1/3 flex-shrink-0 relative">
+                <div className="aspect-square bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden flex items-center justify-center p-8 text-center relative group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/20 to-transparent" />
+                  <BrainCircuit className="w-16 h-16 text-indigo-500/50 mb-4 mx-auto" />
+                  <p className="text-sm font-bold text-white relative z-10 italic">"A tool gives you a capability. A system gives that capability direction."</p>
+                </div>
               </div>
             </div>
-            <div className="w-full md:w-1/3 flex-shrink-0 relative">
-              <div className="aspect-square bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden flex items-center justify-center p-8 text-center relative group">
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/20 to-transparent" />
-                <BrainCircuit className="w-16 h-16 text-indigo-500/50 mb-4 mx-auto" />
-                <p className="text-sm font-bold text-white relative z-10 italic">"A tool gives you a capability. A system gives that capability direction."</p>
+
+            {/* Perspective 2 */}
+            <div className="flex flex-col md:flex-row-reverse gap-10 items-center">
+              <div className="flex-1">
+                <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-2 block">
+                  Featured NTA Perspective
+                </span>
+                <h2 className="text-3xl font-black text-white mb-4">
+                  {flagshipArticleDIYToDFY.title}
+                </h2>
+                <p className="text-slate-400 leading-relaxed mb-6">
+                  {flagshipArticleDIYToDFY.primaryAudience}
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link to={`/knowledge/articles/${flagshipArticleDIYToDFY.slug}`} className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-xl transition-colors text-center">
+                    Read the Flagship Article
+                  </Link>
+                </div>
+              </div>
+              <div className="w-full md:w-1/3 flex-shrink-0 relative">
+                <div className="aspect-square bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden flex items-center justify-center p-8 text-center relative group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/20 to-transparent" />
+                  <BrainCircuit className="w-16 h-16 text-indigo-500/50 mb-4 mx-auto" />
+                  <p className="text-sm font-bold text-white relative z-10 italic">"{flagshipArticleDIYToDFY.primaryPrinciple}"</p>
+                </div>
               </div>
             </div>
+
           </div>
         </section>
 
