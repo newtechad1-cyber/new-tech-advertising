@@ -153,8 +153,8 @@ export default function NTABusinessScore() {
     if (overallScore >= 90) stage = "Strengthening for Scale";
 
     const recommendations = {
-      'Visibility': { name: 'Growth Roadmap™', route: '/free-audit' },
-      'Digital Foundation': { name: 'Growth Roadmap™', route: '/free-audit' },
+      'Visibility': { name: 'Growth Roadmap™', route: '/growth-roadmap-generator' },
+      'Digital Foundation': { name: 'Growth Roadmap™', route: '/growth-roadmap-generator' },
       'Customer Relationships': { name: 'Relationship Builder™', route: '/relationship-builder' },
       'AI Readiness': { name: 'AI Learning Conversation™', route: '/learning-center' },
       'Community Presence': { name: 'Community Growth Conversation™', route: '/community-growth-conversation' },
@@ -546,10 +546,10 @@ export default function NTABusinessScore() {
                               <span className="text-indigo-400 font-medium text-sm flex items-center gap-1">Explore System <ArrowRight className="w-4 h-4" /></span>
                             </Link>
 
-                            <Link to="/free-audit" className="bg-slate-900 border border-slate-800 hover:border-purple-500 p-8 rounded-2xl group transition-all">
+                            <Link to="/growth-roadmap-generator" className="bg-slate-900 border border-slate-800 hover:border-purple-500 p-8 rounded-2xl group transition-all">
                               <h3 className="text-xl font-bold text-white mb-3 group-hover:text-purple-400 transition-colors">Create a Growth Roadmap</h3>
-                              <p className="text-sm text-slate-400 mb-6">Turn the result into a clearer sequence of priorities, immediate actions, and longer-term improvements.</p>
-                              <span className="text-purple-400 font-medium text-sm flex items-center gap-1">Get Roadmap <ArrowRight className="w-4 h-4" /></span>
+                              <p className="text-sm text-slate-400 mb-6">Turn your score into a clearer sequence of priorities, immediate actions, and longer-term improvements.</p>
+                              <span className="text-purple-400 font-medium text-sm flex items-center gap-1">Build Your Growth Roadmap <ArrowRight className="w-4 h-4" /></span>
                             </Link>
 
                             <Link to="/book-call" className="bg-slate-900 border border-slate-800 hover:border-emerald-500 p-8 rounded-2xl group transition-all">
