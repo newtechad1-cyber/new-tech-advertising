@@ -122,27 +122,34 @@ export default function CRMHub() {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 py-8">
-          {/* Tab Navigation */}
-          <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-7 gap-3 mb-8">
-            {TABS.map(tab => {
-              const Icon = tab.icon;
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => { setActiveTab(tab.id); if (tab.id !== 'leads') setSelectedLead(null); }}
-                  className={`rounded-xl p-4 text-left transition-all border ${isActive ? 'bg-slate-800 border-slate-600 shadow-lg' : 'bg-slate-900 border-slate-800 hover:border-slate-700'}`}
-                >
-                  <div className={`${tab.color} w-9 h-9 rounded-lg flex items-center justify-center mb-3`}>
-                    <Icon className="w-5 h-5 text-white" />
-                  </div>
-                  <p className={`font-semibold text-sm ${isActive ? 'text-white' : 'text-slate-300'}`}>{tab.label}</p>
-                  <p className="text-slate-500 text-xs mt-0.5 leading-snug">{tab.description}</p>
-                </button>
-              );
-            })}
+        {/* Sticky section navigation */}
+        <div className="sticky top-0 z-40 border-b border-slate-800 bg-slate-950/95 backdrop-blur-xl shadow-lg shadow-black/20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5">
+            <div className="flex items-center gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" role="navigation" aria-label="Relationship Hub sections">
+              {TABS.map(tab => {
+                const Icon = tab.icon;
+                const isActive = activeTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    title={tab.description}
+                    aria-current={isActive ? 'page' : undefined}
+                    onClick={() => { setActiveTab(tab.id); if (tab.id !== 'leads') setSelectedLead(null); }}
+                    className={`group flex flex-shrink-0 items-center gap-2 rounded-lg border px-3 py-2 text-sm font-semibold transition-all ${isActive ? 'border-slate-600 bg-slate-800 text-white shadow-sm' : 'border-transparent text-slate-400 hover:border-slate-700 hover:bg-slate-900 hover:text-white'}`}
+                  >
+                    <span className={`${tab.color} flex h-7 w-7 items-center justify-center rounded-md`}>
+                      <Icon className="h-4 w-4 text-white" />
+                    </span>
+                    <span className="whitespace-nowrap">{tab.label}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 py-8">
 
           {/* Content area */}
           <div className={`${selectedLead && activeTab === 'leads' ? 'flex gap-6' : ''}`}>
