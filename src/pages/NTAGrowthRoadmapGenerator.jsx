@@ -1,91 +1,269 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Download, Lock, Calendar, Target, Map, 
   ShieldAlert, Cpu, Users, ArrowRight, CheckCircle2, TrendingUp, 
   MessageSquare, Globe, ArrowDown, Activity, Lightbulb, Shield,
-  Brain, FileText, CheckCircle
+  Brain, FileText, CheckCircle, ChevronRight, Copy, Printer, RefreshCw
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEOHead from '@/components/shared/SEOHead';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
+import { getJourneyMemory } from '@/lib/journeyMemory';
 
 export default function NTAGrowthRoadmapGenerator() {
   const roadmapRef = useRef(null);
 
-  // Record this step in memory
-  useEffect(() => {
-    import('@/lib/journeyMemory').then(({ addRoadmap }) => {
-       addRoadmap({ type: 'digital_strategy', date: new Date().toISOString() });
-    });
-  }, []);
+  // States
+  const [hasScore, setHasScore] = useState(false);
+  const [scoreData, setScoreData] = useState(null);
+  const [savedRoadmap, setSavedRoadmap] = useState(null);
+  const [viewState, setViewState] = useState('START'); // START, WIZARD, RESULT
+  const [wizardStep, setWizardStep] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [useScore, setUseScore] = useState(true);
+  const [copyFeedback, setCopyFeedback] = useState('');
 
-  // Reusable state holding all roadmap data for future PDF generation & API sync
-  const [roadmapData] = useState({
-    businessName: "Sample Business LLC",
-    growthStage: "Build",
-    overallScore: 42,
-    audienceType: "Local Business Owner",
-    dateGenerated: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
-    priorities: [
-      "Establish foundational digital trust across key local directories.",
-      "Fix inconsistent business listings and claim missing profiles.",
-      "Launch an automated review capture system to build reputation."
-    ],
-    recommendedModules: [
-      { name: "NTA Business Score™", status: "Completed", icon: <Target className="w-5 h-5"/> },
-      { name: "Growth Roadmap™", status: "Current", icon: <Map className="w-5 h-5"/> },
-      { name: "Visibility Audit™", status: "Next Step", icon: <ShieldAlert className="w-5 h-5"/> },
-      { name: "Relationship Builder™", status: "Upcoming", icon: <Users className="w-5 h-5"/> }
-    ],
-    actionPlan90: [
-      {
-        month: "Month 1: Foundation",
-        tasks: [
-          "Claim and optimize Google Business Profile.",
-          "Standardize Name, Address, Phone (NAP) across top 50 directories.",
-          "Ensure website meets basic mobile and speed compliance."
-        ]
-      },
-      {
-        month: "Month 2: Trust & Reputation",
-        tasks: [
-          "Implement automated SMS review requests for new customers.",
-          "Draft initial 'Founder Story' messaging for social proof.",
-          "Connect core analytics to track baseline traffic."
-        ]
-      },
-      {
-        month: "Month 3: Content Baseline",
-        tasks: [
-          "Publish 3 foundational SEO service pages.",
-          "Launch basic social media presence (2 posts/week).",
-          "Conduct first 90-day review and strategy adjustment."
-        ]
+  // Setup: Check memory for score and saved roadmap
+  useEffect(() => {
+    import('@/lib/journeyMemory').then(({ getJourneyMemory }) => {
+      const memory = getJourneyMemory();
+      if (memory.businessScore && memory.businessScore.overall !== null) {
+        setHasScore(true);
+        setScoreData(memory.businessScore);
       }
-    ],
-    vision6Month: "Transition from unpredictable word-of-mouth to a reliable, search-driven lead engine with a self-sustaining review capture system.",
-    vision12Month: "Become the undisputed market leader in your local service category, completely automating foundational relationship building and lead nurturing.",
-    opportunities: {
-      community: {
-        title: "Community Partner Integrations",
-        desc: "Partner with the local Chamber of Commerce to cross-promote services and leverage their domain authority."
-      },
-      ai: {
-        title: "AI & Automation",
-        desc: "Deploy an AI-powered conversational agent to capture after-hours leads and answer common service questions automatically."
-      },
-      relationship: {
-        title: "Relationship Nurturing",
-        desc: "Implement a VIP customer follow-up sequence to encourage repeat business and high-value referrals."
+    });
+
+    const stored = localStorage.getItem('nta_growth_roadmap');
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        setSavedRoadmap(parsed);
+      } catch (e) {
+        // ignore invalid json
       }
     }
-  });
+  }, []);
 
   const scrollToRoadmap = () => {
     roadmapRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
+
+  const handleStartWizard = () => {
+    setViewState('WIZARD');
+    setWizardStep(0);
+    setAnswers({});
+    scrollToRoadmap();
+  };
+
+  const handleUseScore = (use) => {
+    setUseScore(use);
+    handleStartWizard();
+  };
+
+  const handleAnswer = (questionIndex, value) => {
+    const newAnswers = { ...answers, [questionIndex]: value };
+    setAnswers(newAnswers);
+
+    if (wizardStep < wizardQuestions.length - 1) {
+      setWizardStep(prev => prev + 1);
+    } else {
+      generateRoadmap(newAnswers);
+    }
+  };
+
+  // Generate logic
+  const generateRoadmap = (finalAnswers) => {
+    const q1 = finalAnswers[0] || '';
+    const q4 = finalAnswers[3] || ''; // Urgency
+    const q6 = finalAnswers[5] || ''; // Protect
+
+    // Mappings
+    let priority1 = { category: 'Visibility', title: 'Improve Search & Local Visibility', route: '/free-audit', reason: 'Getting found consistently is the first requirement.', action: 'Audit current business listings and search presence.', progress: 'Increase in organic local search impressions.' };
+    let priority2 = { category: 'Trust', title: 'Strengthen Reviews and Proof', route: '/relationship-builder', reason: 'Once found, people need to trust the business before calling.', action: 'Implement a systematic way to request and display reviews.', progress: 'Consistent monthly growth in 5-star reviews.' };
+    let priority3 = { category: 'Operations', title: 'Organize Operations and Reduce Owner Dependency', route: '/operating-system', reason: 'To handle more trust and visibility without owner burnout, operations must be documented.', action: 'Document the most common repeated process.', progress: 'One key daily task successfully delegated or automated.' };
+
+    // Simple heuristic
+    if (q1.includes('Getting found')) {
+      // default is fine
+    } else if (q1.includes('trust')) {
+      priority1 = { category: 'Trust', title: 'Strengthen Reviews and Proof', route: '/relationship-builder', reason: 'You identified building trust as the most critical bottleneck.', action: 'Implement an automated review request system.', progress: 'A visible increase in recent customer reviews.' };
+      priority2 = { category: 'Leads', title: 'Create One Reliable Inquiry Process', route: '/growth-conversation', reason: 'Once trusted, leads must be captured and organized reliably.', action: 'Consolidate all incoming lead sources into one tracker.', progress: 'Zero missed lead follow-ups.' };
+    } else if (q1.includes('following up')) {
+      priority1 = { category: 'Leads', title: 'Organize Lead Information and Follow-Up', route: '/operating-system', reason: 'You identified capturing leads as the biggest current challenge.', action: 'Establish clear response expectations and a tracking system.', progress: 'Increase in lead-to-appointment conversion rate.' };
+      priority2 = { category: 'Relationships', title: 'Establish Ongoing Communication', route: '/relationship-builder', reason: 'After capturing leads, keeping them connected builds lifetime value.', action: 'Deploy a post-sale or check-in follow-up sequence.', progress: 'More repeat purchases or referrals.' };
+    } else if (q1.includes('Operations') || q1.includes('Connecting tools')) {
+      priority1 = { category: 'Operations', title: 'Document One Repeated Process and Reduce Data Entry', route: '/back-office-solutions', reason: 'You identified owner dependency and scattered tools as the bottleneck.', action: 'Determine the single source of truth for customer information.', progress: 'Reduction in hours spent on administrative tasks.' };
+      priority2 = { category: 'Visibility', title: 'Clarify Website Messaging', route: '/services/website-rebuilds', reason: 'Once operations are stable, ensure your public message is clear.', action: 'Update website to clearly state what you do and who you serve.', progress: 'Lower website bounce rate.' };
+    }
+
+    // Blend Score if used
+    if (useScore && hasScore && scoreData) {
+      if (scoreData.lowest === 'Customer Relationships') {
+        priority2 = { category: 'Customer Relationships', title: 'Create a Review and Communication Process', route: '/relationship-builder', reason: 'Your Business Score identified this as an area of vulnerability.', action: 'Start asking for referrals consistently.', progress: 'Growth in active customer communication.' };
+      } else if (scoreData.lowest === 'Digital Foundation') {
+        priority2 = { category: 'Digital Foundation', title: 'Strengthen the Core Website', route: '/free-audit', reason: 'Your Business Score identified foundational vulnerabilities.', action: 'Ensure website is fast, accessible, and clear.', progress: 'Higher engagement on the core website.' };
+      }
+    }
+
+    let p1Pace = 'Next 30 Days';
+    let p2Pace = 'Next 60–90 Days';
+    if (q4.includes('Immediately')) {
+      p1Pace = 'Next 14 Days';
+    } else if (q4.includes('6–12 months')) {
+      p1Pace = 'Next 60 Days';
+      p2Pace = 'Next 3-6 Months';
+    }
+
+    const generated = {
+      timestamp: new Date().toISOString(),
+      version: '1.0',
+      answers: finalAnswers,
+      scoreUsed: useScore ? scoreData : null,
+      protect: q6,
+      now: {
+        label: p1Pace,
+        title: priority1.title,
+        category: priority1.category,
+        reason: priority1.reason,
+        action: priority1.action,
+        progress: priority1.progress,
+        route: priority1.route
+      },
+      next: {
+        label: p2Pace,
+        title: priority2.title,
+        category: priority2.category,
+        reason: priority2.reason,
+        action: priority2.action,
+        progress: priority2.progress,
+        route: priority2.route
+      },
+      later: {
+        label: 'Next 3–12 Months',
+        title: priority3.title,
+        category: priority3.category,
+        reason: 'This longer-term capability becomes valuable after the foundation is stronger.',
+        action: priority3.action,
+        progress: priority3.progress,
+        route: priority3.route
+      }
+    };
+
+    localStorage.setItem('nta_growth_roadmap', JSON.stringify(generated));
+    setSavedRoadmap(generated);
+    setViewState('RESULT');
+
+    // Trigger journey memory completion
+    import('@/lib/journeyMemory').then(({ addRoadmap }) => {
+      addRoadmap({ type: 'digital_strategy', date: new Date().toISOString() });
+    });
+  };
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const handleCopy = () => {
+    if (!savedRoadmap) return;
+    const text = `NTA Growth Roadmap™
+Generated: ${new Date(savedRoadmap.timestamp).toLocaleDateString()}
+
+PROTECT:
+${savedRoadmap.protect || 'Existing systems'}
+
+NOW (${savedRoadmap.now.label}):
+Priority: ${savedRoadmap.now.title}
+Action: ${savedRoadmap.now.action}
+
+NEXT (${savedRoadmap.next.label}):
+Priority: ${savedRoadmap.next.title}
+Action: ${savedRoadmap.next.action}
+
+LATER (${savedRoadmap.later.label}):
+Priority: ${savedRoadmap.later.title}
+Action: ${savedRoadmap.later.action}
+`;
+    navigator.clipboard.writeText(text).then(() => {
+      setCopyFeedback('Copied!');
+      setTimeout(() => setCopyFeedback(''), 2000);
+    }).catch(() => {
+      setCopyFeedback('Failed to copy');
+    });
+  };
+
+  const wizardQuestions = [
+    {
+      q: "What needs the most attention right now?",
+      options: [
+        "Getting found by more customers",
+        "Building trust and credibility",
+        "Capturing and following up with leads",
+        "Staying connected with customers",
+        "Organizing operations and reducing owner dependency",
+        "Connecting tools, data, and AI",
+        "I am not sure yet"
+      ]
+    },
+    {
+      q: "What is causing the most frustration?",
+      options: [
+        "Not enough good leads",
+        "Leads are not followed up consistently",
+        "Too much depends on me",
+        "Information is scattered or entered more than once",
+        "Customers do not stay connected",
+        "Marketing and content are inconsistent",
+        "We have tools but no clear system"
+      ]
+    },
+    {
+      q: "What would create the greatest relief?",
+      options: [
+        "More consistent customer inquiries",
+        "Clearer priorities",
+        "Better follow-up",
+        "Fewer repetitive tasks",
+        "Better organization",
+        "Less owner involvement in everyday work",
+        "A clearer plan for using AI"
+      ]
+    },
+    {
+      q: "How quickly does something need to change?",
+      options: [
+        "Immediately",
+        "Within the next 30 days",
+        "Within the next 90 days",
+        "Over the next 6–12 months",
+        "I am still exploring"
+      ]
+    },
+    {
+      q: "What can the business realistically support now?",
+      options: [
+        "One small immediate improvement",
+        "One focused project",
+        "Several connected improvements",
+        "A broader system build",
+        "I am not sure yet"
+      ]
+    },
+    {
+      q: "What should not be disrupted?",
+      options: [
+        "Strong customer relationships",
+        "Trusted employees",
+        "Current website",
+        "Existing lead sources",
+        "Current software",
+        "Community reputation",
+        "A process that already works",
+        "Nothing specific"
+      ]
+    }
+  ];
 
   return (
     <div className="bg-slate-950 min-h-screen text-slate-200 font-sans selection:bg-blue-500/30 flex flex-col">
@@ -260,121 +438,256 @@ export default function NTAGrowthRoadmapGenerator() {
         </div>
       </section>
 
-      {/* 5, 6, 10. The Roadmap Result Container */}
+      {/* 5, 6, 10. The Roadmap Result Container / Wizard */}
       <section ref={roadmapRef} className="py-16 px-6 bg-slate-950 border-t border-slate-800">
-        <div className="max-w-6xl mx-auto">
-          {/* Header Bar within Result */}
-          <div className="bg-slate-900 border border-slate-800 rounded-t-3xl overflow-hidden">
-            <div className="px-6 py-6 border-b border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-blue-600/20 flex items-center justify-center border border-blue-500/30">
-                  <Map className="w-6 h-6 text-blue-400" />
+        <div className="max-w-4xl mx-auto">
+          
+          {viewState === 'START' && (
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-10 text-center">
+              {savedRoadmap ? (
+                <>
+                  <h2 className="text-3xl font-bold text-white mb-6">You Have a Saved Roadmap</h2>
+                  <p className="text-slate-400 mb-8">We found a roadmap generated on {new Date(savedRoadmap.timestamp).toLocaleDateString()}.</p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onClick={() => setViewState('RESULT')} className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all">
+                      View Saved Roadmap
+                    </button>
+                    <button onClick={handleStartWizard} className="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 rounded-xl transition-all">
+                      Build a New Roadmap
+                    </button>
+                  </div>
+                </>
+              ) : hasScore ? (
+                <>
+                  <h2 className="text-3xl font-bold text-white mb-6">We Found Your Business Score</h2>
+                  <p className="text-slate-400 mb-8">We can use your recent NTA Business Score result (Overall: {scoreData.overall}) to help organize this roadmap.</p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onClick={() => handleUseScore(true)} className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all">
+                      Use My Business Score
+                    </button>
+                    <button onClick={() => handleUseScore(false)} className="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 rounded-xl transition-all">
+                      Build Without It
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <h2 className="text-3xl font-bold text-white mb-6">Start Your Roadmap</h2>
+                  <p className="text-slate-400 mb-8">The Business Score provides the strongest foundation for creating a useful roadmap.</p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Link to="/business-score" className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all">
+                      Take the Business Score First
+                    </Link>
+                    <button onClick={handleStartWizard} className="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 rounded-xl transition-all">
+                      Continue Without a Score
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+
+          {viewState === 'WIZARD' && (
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8 md:p-12 relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-1 bg-slate-800">
+                <div 
+                  className="h-full bg-blue-500 transition-all duration-300" 
+                  style={{ width: `${(wizardStep / wizardQuestions.length) * 100}%` }}
+                />
+              </div>
+              <div className="mb-6 text-blue-400 font-medium tracking-widest uppercase text-sm">
+                Question {wizardStep + 1} of {wizardQuestions.length}
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-8">{wizardQuestions[wizardStep].q}</h3>
+              <div className="space-y-3">
+                {wizardQuestions[wizardStep].options.map((opt, i) => (
+                  <button 
+                    key={i} 
+                    onClick={() => handleAnswer(wizardStep, opt)}
+                    className="w-full text-left p-5 rounded-2xl border border-slate-700 bg-slate-800/50 hover:bg-slate-800 hover:border-blue-500 transition-all text-lg text-slate-200 flex justify-between items-center group focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    <span>{opt}</span>
+                    <ChevronRight className="w-6 h-6 text-slate-500 group-hover:text-blue-400 transition-colors" />
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {viewState === 'RESULT' && savedRoadmap && (
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl">
+              <div className="bg-slate-950 px-6 py-6 border-b border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-blue-600/20 flex items-center justify-center border border-blue-500/30">
+                    <Map className="w-5 h-5 text-blue-400" />
+                  </div>
+                  <div>
+                    <h2 className="font-bold text-white text-xl">Your Growth Roadmap™</h2>
+                    <p className="text-sm text-slate-400">Generated {new Date(savedRoadmap.timestamp).toLocaleDateString()}</p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="font-bold text-white text-xl md:text-2xl leading-tight">Growth Roadmap™</h2>
-                  <p className="text-sm text-slate-400">For {roadmapData.businessName} • Generated {roadmapData.dateGenerated}</p>
+                <div className="flex items-center gap-3 w-full sm:w-auto">
+                  <button onClick={handlePrint} className="flex-1 sm:flex-none justify-center items-center gap-2 text-sm font-medium text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg transition-colors border border-slate-700 flex">
+                    <Printer className="w-4 h-4" /> Print
+                  </button>
+                  <button onClick={handleCopy} className="flex-1 sm:flex-none justify-center items-center gap-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-lg transition-colors flex relative">
+                    <Copy className="w-4 h-4" /> {copyFeedback || 'Copy Roadmap'}
+                  </button>
                 </div>
               </div>
               
-              <div className="flex items-center gap-3 w-full md:w-auto">
-                <button className="flex-1 md:flex-none justify-center items-center gap-2 text-sm font-medium text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 px-4 py-3 rounded-xl transition-colors border border-slate-700 flex">
-                  <Download className="w-4 h-4" /> <span className="hidden sm:inline">Download</span> Public Version
-                </button>
-                <button className="flex-1 md:flex-none justify-center items-center gap-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-500 px-4 py-3 rounded-xl transition-colors shadow-[0_0_15px_rgba(37,99,235,0.4)] flex">
-                  <Lock className="w-4 h-4" /> Unlock Full Roadmap
-                </button>
-              </div>
-            </div>
-
-            <div className="p-8 md:p-10">
-              {/* Executive Summary in Roadmap */}
-              <div className="grid md:grid-cols-3 gap-8 mb-12">
-                <div className="md:col-span-1 bg-slate-950 border border-slate-800 rounded-2xl p-6 text-center">
-                  <p className="text-slate-500 uppercase tracking-widest text-xs font-bold mb-2">Overall Score</p>
-                  <div className="text-6xl font-black text-white mb-2">
-                    {roadmapData.overallScore}<span className="text-2xl text-slate-600">/100</span>
-                  </div>
-                  <div className="inline-flex items-center gap-1.5 text-blue-400 bg-blue-900/20 px-3 py-1 rounded-full text-sm font-medium border border-blue-500/20">
-                    <TrendingUp className="w-4 h-4" /> Stage: {roadmapData.growthStage}
-                  </div>
+              <div className="p-8 md:p-10 space-y-10">
+                {/* Protect */}
+                <div className="bg-emerald-900/10 border border-emerald-500/20 p-6 rounded-2xl">
+                  <h3 className="text-emerald-400 font-bold mb-2 flex items-center gap-2">
+                    <Shield className="w-5 h-5" /> Do Not Break What Is Already Working
+                  </h3>
+                  <p className="text-slate-300 text-lg">
+                    <strong>Protect:</strong> {savedRoadmap.protect}
+                  </p>
+                  <p className="text-slate-400 text-sm mt-2">
+                    Growth planning should actively identify and protect strong points. Progress should enhance your existing strengths, not erase them.
+                  </p>
                 </div>
-                <div className="md:col-span-2 bg-slate-950 border border-slate-800 rounded-2xl p-6">
-                  <h3 className="text-white font-bold text-lg mb-4">Initial Priorities</h3>
-                  <ul className="space-y-3">
-                    {roadmapData.priorities.map((priority, idx) => (
-                      <li key={idx} className="flex gap-3 text-slate-300 text-sm">
-                        <CheckCircle2 className="w-5 h-5 text-blue-400 shrink-0" />
-                        <span>{priority}</span>
-                      </li>
-                    ))}
+
+                {/* Horizons */}
+                <div className="space-y-6 relative before:absolute before:inset-0 before:ml-[1.4rem] before:h-full before:w-0.5 before:bg-slate-800">
+                  
+                  {/* NOW */}
+                  <div className="relative flex items-start gap-6">
+                    <div className={`w-11 h-11 rounded-full border-4 border-slate-900 bg-rose-500 flex items-center justify-center shadow shrink-0 z-10 text-white font-bold text-sm`}>
+                      1
+                    </div>
+                    <div className="flex-1 p-6 md:p-8 rounded-2xl bg-slate-950 border border-slate-800">
+                      <h4 className="font-bold text-white text-xl mb-1">Now</h4>
+                      <p className="text-sm font-semibold uppercase tracking-wider text-rose-400 mb-6">{savedRoadmap.now.label}</p>
+                      
+                      <div className="space-y-4">
+                        <div>
+                          <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">Primary Priority</p>
+                          <p className="text-white text-lg font-medium">{savedRoadmap.now.title}</p>
+                        </div>
+                        <div>
+                          <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">Why it matters</p>
+                          <p className="text-slate-300">{savedRoadmap.now.reason}</p>
+                        </div>
+                        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                          <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">Practical First Action</p>
+                          <p className="text-slate-300">{savedRoadmap.now.action}</p>
+                        </div>
+                        <div>
+                          <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">Sign of Progress</p>
+                          <p className="text-slate-300">{savedRoadmap.now.progress}</p>
+                        </div>
+                        {savedRoadmap.now.route && (
+                          <div className="pt-4">
+                            <Link to={savedRoadmap.now.route} className="text-rose-400 hover:text-rose-300 font-medium text-sm flex items-center gap-1">
+                              View Related Resource <ArrowRight className="w-4 h-4" />
+                            </Link>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* NEXT */}
+                  <div className="relative flex items-start gap-6">
+                    <div className={`w-11 h-11 rounded-full border-4 border-slate-900 bg-amber-500 flex items-center justify-center shadow shrink-0 z-10 text-white font-bold text-sm`}>
+                      2
+                    </div>
+                    <div className="flex-1 p-6 md:p-8 rounded-2xl bg-slate-950 border border-slate-800">
+                      <h4 className="font-bold text-white text-xl mb-1">Next</h4>
+                      <p className="text-sm font-semibold uppercase tracking-wider text-amber-400 mb-6">{savedRoadmap.next.label}</p>
+                      
+                      <div className="space-y-4">
+                        <div>
+                          <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">System Improvement</p>
+                          <p className="text-white text-lg font-medium">{savedRoadmap.next.title}</p>
+                        </div>
+                        <div>
+                          <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">Why it follows</p>
+                          <p className="text-slate-300">{savedRoadmap.next.reason}</p>
+                        </div>
+                        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                          <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">Implementation Step</p>
+                          <p className="text-slate-300">{savedRoadmap.next.action}</p>
+                        </div>
+                        <div>
+                          <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">Sign of Progress</p>
+                          <p className="text-slate-300">{savedRoadmap.next.progress}</p>
+                        </div>
+                        {savedRoadmap.next.route && (
+                          <div className="pt-4">
+                            <Link to={savedRoadmap.next.route} className="text-amber-400 hover:text-amber-300 font-medium text-sm flex items-center gap-1">
+                              View Related Resource <ArrowRight className="w-4 h-4" />
+                            </Link>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* LATER */}
+                  <div className="relative flex items-start gap-6">
+                    <div className={`w-11 h-11 rounded-full border-4 border-slate-900 bg-blue-500 flex items-center justify-center shadow shrink-0 z-10 text-white font-bold text-sm`}>
+                      3
+                    </div>
+                    <div className="flex-1 p-6 md:p-8 rounded-2xl bg-slate-950 border border-slate-800">
+                      <h4 className="font-bold text-white text-xl mb-1">Later</h4>
+                      <p className="text-sm font-semibold uppercase tracking-wider text-blue-400 mb-6">{savedRoadmap.later.label}</p>
+                      
+                      <div className="space-y-4">
+                        <div>
+                          <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">Long-term Capability</p>
+                          <p className="text-white text-lg font-medium">{savedRoadmap.later.title}</p>
+                        </div>
+                        <div>
+                          <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">Why it should wait</p>
+                          <p className="text-slate-300">{savedRoadmap.later.reason}</p>
+                        </div>
+                        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                          <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">Preparation Step</p>
+                          <p className="text-slate-300">{savedRoadmap.later.action}</p>
+                        </div>
+                        <div>
+                          <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">Sign of Progress</p>
+                          <p className="text-slate-300">{savedRoadmap.later.progress}</p>
+                        </div>
+                        {savedRoadmap.later.route && (
+                          <div className="pt-4">
+                            <Link to={savedRoadmap.later.route} className="text-blue-400 hover:text-blue-300 font-medium text-sm flex items-center gap-1">
+                              View Related Resource <ArrowRight className="w-4 h-4" />
+                            </Link>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* How to use the roadmap */}
+                <div className="mt-12 bg-blue-900/10 border border-blue-500/20 rounded-2xl p-8">
+                  <h3 className="text-xl font-bold text-white mb-4">How to Use This Roadmap</h3>
+                  <ul className="space-y-3 text-slate-300 text-sm">
+                    <li className="flex gap-3"><CheckCircle className="w-5 h-5 text-blue-400 shrink-0" /> <strong>Review it:</strong> Share and discuss this sequence with your leadership team.</li>
+                    <li className="flex gap-3"><CheckCircle className="w-5 h-5 text-blue-400 shrink-0" /> <strong>Choose one immediate priority:</strong> Start with the "Now" phase. Focus beats volume.</li>
+                    <li className="flex gap-3"><CheckCircle className="w-5 h-5 text-blue-400 shrink-0" /> <strong>Assign responsibility:</strong> Determine who owns the execution of the first step.</li>
+                    <li className="flex gap-3"><CheckCircle className="w-5 h-5 text-blue-400 shrink-0" /> <strong>Decide what should wait:</strong> Explicitly delay the "Next" and "Later" phases until the foundation is secure.</li>
+                    <li className="flex gap-3"><CheckCircle className="w-5 h-5 text-blue-400 shrink-0" /> <strong>Revisit:</strong> Return to this plan and update it as the business changes and grows.</li>
                   </ul>
                 </div>
-              </div>
 
-              {/* Time Horizons: Now, Next, Later */}
-              <h3 className="text-2xl font-bold text-white mb-8 border-b border-slate-800 pb-4">Recommended Sequence</h3>
-              <div className="space-y-6 relative before:absolute before:inset-0 before:ml-[1.4rem] before:h-full before:w-0.5 before:bg-slate-800">
-                {[
-                  { label: "Now", timeframe: "Next 30 Days", data: roadmapData.actionPlan90[0], color: "text-rose-400", bg: "bg-rose-500", border: "border-rose-500/30", bgLight: "bg-rose-500/10" },
-                  { label: "Next", timeframe: "Next 60–90 Days", data: roadmapData.actionPlan90[1], color: "text-amber-400", bg: "bg-amber-500", border: "border-amber-500/30", bgLight: "bg-amber-500/10" },
-                  { label: "Later", timeframe: "Next 3–12 Months", data: roadmapData.actionPlan90[2], color: "text-blue-400", bg: "bg-blue-500", border: "border-blue-500/30", bgLight: "bg-blue-500/10" }
-                ].map((phase, idx) => (
-                  <div key={idx} className="relative flex items-start gap-6">
-                    <div className={`w-11 h-11 rounded-full border-4 border-slate-900 ${phase.bg} flex items-center justify-center shadow shrink-0 z-10 text-white font-bold text-sm`}>
-                      {idx + 1}
-                    </div>
-                    <div className={`flex-1 p-6 md:p-8 rounded-2xl bg-slate-950 border border-slate-800`}>
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
-                        <div>
-                          <h4 className="font-bold text-white text-xl flex items-center gap-3">
-                            {phase.label} <span className="text-slate-500 font-normal text-base">| {phase.data.month}</span>
-                          </h4>
-                          <p className={`text-sm font-semibold uppercase tracking-wider ${phase.color} mt-1`}>
-                            Timeframe: {phase.timeframe}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="bg-slate-900/50 rounded-xl p-5 border border-slate-800/50">
-                        <h5 className="text-white font-medium mb-3 text-sm">Focus Objectives:</h5>
-                        <ul className="space-y-3">
-                          {phase.data.tasks.map((task, tIdx) => (
-                            <li key={tIdx} className="text-slate-300 text-sm flex gap-3 items-start">
-                              <span className={`${phase.color} mt-0.5`}>•</span> {task}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Long Term Vision / Capabilities */}
-              <div className="mt-12 grid md:grid-cols-2 gap-6">
-                <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6">
-                  <h4 className="text-slate-400 uppercase tracking-widest text-xs font-bold mb-3">6-Month Vision</h4>
-                  <p className="text-slate-200 text-base leading-relaxed">{roadmapData.vision6Month}</p>
+                <div className="pt-8 border-t border-slate-800 text-center">
+                  <button onClick={handleStartWizard} className="flex items-center gap-2 mx-auto text-slate-400 hover:text-white transition-colors">
+                    <RefreshCw className="w-4 h-4" /> Start Over
+                  </button>
                 </div>
-                <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6">
-                  <h4 className="text-slate-400 uppercase tracking-widest text-xs font-bold mb-3">12-Month Vision</h4>
-                  <p className="text-slate-200 text-base leading-relaxed">{roadmapData.vision12Month}</p>
-                </div>
-              </div>
 
-              {/* How to use the roadmap */}
-              <div className="mt-12 bg-blue-900/10 border border-blue-500/20 rounded-2xl p-8">
-                <h3 className="text-xl font-bold text-white mb-4">How to Use This Roadmap</h3>
-                <ul className="space-y-3 text-slate-300 text-sm">
-                  <li className="flex gap-3"><CheckCircle className="w-5 h-5 text-blue-400 shrink-0" /> <strong>Review it:</strong> Share and discuss this sequence with your leadership team.</li>
-                  <li className="flex gap-3"><CheckCircle className="w-5 h-5 text-blue-400 shrink-0" /> <strong>Choose one immediate priority:</strong> Start with the "Now" phase. Focus beats volume.</li>
-                  <li className="flex gap-3"><CheckCircle className="w-5 h-5 text-blue-400 shrink-0" /> <strong>Assign responsibility:</strong> Determine who owns the execution of the first step.</li>
-                  <li className="flex gap-3"><CheckCircle className="w-5 h-5 text-blue-400 shrink-0" /> <strong>Decide what should wait:</strong> Explicitly delay the "Next" and "Later" phases until the foundation is secure.</li>
-                  <li className="flex gap-3"><CheckCircle className="w-5 h-5 text-blue-400 shrink-0" /> <strong>Revisit:</strong> Return to this plan and update it as the business changes and grows.</li>
-                </ul>
               </div>
-
             </div>
-          </div>
+          )}
+
         </div>
       </section>
 
@@ -460,7 +773,7 @@ export default function NTAGrowthRoadmapGenerator() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button 
-              onClick={scrollToRoadmap}
+              onClick={handleStartWizard}
               className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all text-lg shadow-[0_0_20px_rgba(37,99,235,0.3)]"
             >
               Build Your Growth Roadmap
