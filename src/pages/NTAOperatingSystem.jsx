@@ -139,9 +139,9 @@ export default function NTAOperatingSystem() {
             <Link to="/growth-conversation" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all shadow-lg hover:shadow-blue-500/25">
               Start Your Growth Conversation
             </Link>
-            <a href="#method" className="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all border border-slate-700 hover:border-slate-600">
-              Explore the Operating System
-            </a>
+            <Link to="/digital-growth-office-preview" className="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all border border-slate-700 hover:border-slate-600">
+              See the Digital Growth Office in Action
+            </Link>
           </motion.div>
 
           {/* Visual System Map */}
