@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { ChevronLeft, Save, Send, Eye, FileText, LayoutList, MessageSquare, Plus, Trash2, Star, Check, AlertTriangle, Loader2 } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
@@ -9,8 +9,6 @@ import { normalizeJournalArticle } from './normalizeJournalArticle';
 
 const flagshipArticles = [flagshipArticleToolsVsSystem, flagshipArticleDIYToDFY];
 import JournalPreviewModal from './JournalPreviewModal';
-
-import EmailBodyEditor from '@/components/crm/EmailBodyEditor';
 
 export default function JournalEditionBuilder({ issue, onClose }) {
   const [formData, setFormData] = useState(issue || {});

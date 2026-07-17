@@ -3,7 +3,7 @@
  * Individual journal issue with all sections, navigation, and cross-links.
  * Route: /journal/:slug
  */
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import MarketingNav from '@/components/nav/MarketingNav';
@@ -11,8 +11,8 @@ import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import {
   Newspaper, ArrowLeft, ArrowRight, BookOpen, Clock, Calendar,
-  ChevronRight, Mail, Share2, Pen, Hammer, Lightbulb, Target,
-  Rocket, Eye, Tag, Loader2, ExternalLink
+  ChevronRight, Mail, Pen, Hammer, Lightbulb, Target,
+  Rocket, Eye, Tag, Loader2
 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
