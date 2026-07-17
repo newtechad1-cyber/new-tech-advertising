@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { ArrowRight, ArrowLeft, BookOpen, Brain, PlayCircle, Library, Activity } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 import SEOHead from '@/components/shared/SEOHead';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -72,13 +73,7 @@ export default function POVArticleView() {
       {/* Article Content */}
       <section className="py-16 px-6">
         <div className="max-w-3xl mx-auto prose prose-invert prose-lg prose-headings:text-white prose-a:text-blue-400 hover:prose-a:text-blue-300 prose-p:text-slate-300 prose-strong:text-white prose-li:text-slate-300">
-          {article.content.split('\n').map((paragraph, idx) => {
-            if (paragraph.startsWith('### ')) {
-              return <h3 key={idx} className="text-2xl font-bold text-white mt-12 mb-6">{paragraph.replace('### ', '')}</h3>;
-            }
-            if (paragraph.trim() === '') return null;
-            return <p key={idx} className="mb-6">{paragraph}</p>;
-          })}
+          <ReactMarkdown>{article.content}</ReactMarkdown>
         </div>
       </section>
 

@@ -611,7 +611,6 @@ const AuthenticatedApp = () => {
       <Route path="/ai-policy" element={<LayoutWrapper currentPageName="AIPolicy"><AIPolicy /></LayoutWrapper>} />
       <Route path="/aipolicy" element={<Navigate to="/ai-policy" replace />} />
       {/* LEGACY: /dashboard routes — redirect to canonical Agency CRM */}
-      <Route path="/dashboard" element={<Navigate to="/agency" replace />} />
       <Route path="/dashboard/leads" element={<Navigate to="/agency/leads" replace />} />
       <Route path="/dashboard/archived" element={<Navigate to="/agency/leads" replace />} />
       <Route path="/content-command" element={<ContentCommandDashboard />} />
@@ -753,7 +752,6 @@ const AuthenticatedApp = () => {
       <Route path="/practical-ai-for-small-businesses" element={<LayoutWrapper currentPageName="PracticalAIForSmallBusinesses"><PracticalAIForSmallBusinesses /></LayoutWrapper>} />
       <Route path="/seo-vs-ai-search" element={<LayoutWrapper currentPageName="SEOVsAISearch"><SEOVsAISearch /></LayoutWrapper>} />
       <Route path="/growth-systems-vs-campaigns" element={<LayoutWrapper currentPageName="GrowthSystemsVsCampaigns"><GrowthSystemsVsCampaigns /></LayoutWrapper>} />
-      <Route path="/digital-risks" element={<LayoutWrapper currentPageName="DigitalRisks"><DigitalRisks /></LayoutWrapper>} />
       <Route path="/digital-risks" element={<LayoutWrapper currentPageName="DigitalRisks"><DigitalRisks /></LayoutWrapper>} />
       <Route path="/reputation-is-now-a-growth-engine" element={<LayoutWrapper currentPageName="ReputationIsNowAGrowthEngine"><ReputationIsNowAGrowthEngine /></LayoutWrapper>} />
       <Route path="/hidden-cost-of-outdated-marketing" element={<LayoutWrapper currentPageName="TheHiddenCostOfOutdatedMarketing"><TheHiddenCostOfOutdatedMarketing /></LayoutWrapper>} />
