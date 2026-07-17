@@ -5,7 +5,7 @@ import { createPageUrl } from '@/utils';
 import { Button } from '@/components/ui/button';
 import {
   TrendingUp, Users, Mail, UserCheck, Route, Repeat2,
-  ArrowLeft, Zap, ChevronRight
+  ArrowLeft, Zap, ChevronRight, WandSparkles
 } from 'lucide-react';
 
 import LeadPipeline from '../components/crm/LeadPipeline';
@@ -15,8 +15,17 @@ import EmailCampaigns from '../components/crm/EmailCampaigns';
 import SubscribersManager from '../components/crm/SubscribersManager';
 import OnlineSalesJourney from '../components/crm/OnlineSalesJourney';
 import IntroductionCampaigns from '../components/crm/IntroductionCampaigns';
+import ProspectingWizard from '../components/crm/ProspectingWizard';
 
 const TABS = [
+  {
+    id: 'wizard',
+    label: 'Start Here',
+    icon: WandSparkles,
+    color: 'bg-violet-600',
+    activeColor: 'text-violet-300',
+    description: 'Guided prospect-to-first-touch setup'
+  },
   {
     id: 'journey',
     label: 'Online Sales Journey',
@@ -68,10 +77,8 @@ const TABS = [
 ];
 
 export default function CRMHub() {
-  const [activeTab, setActiveTab] = useState('journey');
+  const [activeTab, setActiveTab] = useState('wizard');
   const [selectedLead, setSelectedLead] = useState(null);
-
-  const current = TABS.find(t => t.id === activeTab);
 
   return (
     <AdminGuard>
@@ -117,7 +124,7 @@ export default function CRMHub() {
 
         <div className="max-w-7xl mx-auto px-6 py-8">
           {/* Tab Navigation */}
-          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-7 gap-3 mb-8">
             {TABS.map(tab => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -146,6 +153,7 @@ export default function CRMHub() {
                   onSelectLead={setSelectedLead}
                 />
               )}
+              {activeTab === 'wizard' && <ProspectingWizard onNavigate={setActiveTab} />}
               {activeTab === 'journey' && <OnlineSalesJourney onNavigate={setActiveTab} />}
               {activeTab === 'introduction' && <IntroductionCampaigns />}
               {activeTab === 'clients' && <ClientsRoster />}
