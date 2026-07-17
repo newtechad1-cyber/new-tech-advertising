@@ -30,6 +30,7 @@ const NAV = [
     label: 'Content & Marketing', icon: FileText, children: [
       { label: 'Content Center', href: '/agency/content' },
       { label: 'Content Library', href: '/agency/content-library' },
+      { label: 'NTA Journal', href: '/admin/journal' },
       { label: 'Campaigns', href: '/agency/campaigns' },
       { label: 'Approval Center', href: '/agency/approval-center' },
       { label: 'Publishing Calendar', href: '/agency/publishing-calendar' },
