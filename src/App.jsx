@@ -330,6 +330,8 @@ const MyGrowthJourney = lazy(() => import('./pages/MyGrowthJourney.jsx'));
 const NTABusinessScore = lazy(() => import('./pages/NTABusinessScore.jsx'));
 const NTAGrowthRoadmapGenerator = lazy(() => import('./pages/NTAGrowthRoadmapGenerator.jsx'));
 const DigitalGrowthOfficePreview = lazy(() => import('./pages/DigitalGrowthOfficePreview.jsx'));
+const POVCollection = lazy(() => import('./pages/POVCollection.jsx'));
+const POVArticleView = lazy(() => import('./pages/POVArticleView.jsx'));
 const PartnerPortal = lazy(() => import('./pages/PartnerPortal.jsx'));
 const CommunityIntelligence = lazy(() => import('./pages/CommunityIntelligence.jsx'));
 const NTADataHub = lazy(() => import('./pages/NTADataHub.jsx'));
@@ -788,6 +790,8 @@ const AuthenticatedApp = () => {
       <Route path="/business-score" element={<LayoutWrapper currentPageName="NTABusinessScore"><NTABusinessScore /></LayoutWrapper>} />
       <Route path="/growth-roadmap-generator" element={<LayoutWrapper currentPageName="NTAGrowthRoadmapGenerator"><NTAGrowthRoadmapGenerator /></LayoutWrapper>} />
       <Route path="/digital-growth-office-preview" element={<LayoutWrapper currentPageName="DigitalGrowthOfficePreview"><DigitalGrowthOfficePreview /></LayoutWrapper>} />
+      <Route path="/point-of-view" element={<LayoutWrapper currentPageName="POVCollection"><POVCollection /></LayoutWrapper>} />
+      <Route path="/point-of-view/:slug" element={<LayoutWrapper currentPageName="POVArticleView"><POVArticleView /></LayoutWrapper>} />
       {/* Retired duplicate dashboard: it displayed hardcoded demonstration metrics. */}
       <Route path="/executive-dashboard" element={<Navigate to="/agency" replace />} />
       <Route path="/partner-portal" element={<AdminGuard><AdminLayout currentPageName="PartnerPortal"><PartnerPortal /></AdminLayout></AdminGuard>} />
