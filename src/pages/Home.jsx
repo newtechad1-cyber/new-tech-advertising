@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { ArrowRight, Globe, Users, FolderKanban } from 'lucide-react';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import SEOHead from '../components/shared/SEOHead';
@@ -80,6 +81,104 @@ export default function Home() {
         </section>
 
         <ProblemSection />
+
+        {/* NTA Digital Growth Office Introduction */}
+        <section className="py-24 px-6 bg-slate-950 border-t border-slate-800/50">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/80 border border-slate-800 text-blue-400 text-sm font-medium tracking-wide uppercase mb-6">
+                The NTA Digital Growth Office™
+              </div>
+              <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+                Your Business Does Not Need More Disconnected Tools
+              </h2>
+              <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+                Most business owners already have a website, social media accounts, customer information, software, advertising, and more tools than they know what to do with. The real problem is that none of it works together as one clear system.
+                <br /><br />
+                The NTA Digital Growth Office brings the important parts of the business together so the owner, team, NTA, and practical AI assistance can work from the same direction.
+              </p>
+            </div>
+
+            {/* Journey Visual */}
+            <div className="mb-20">
+              <div className="flex flex-col lg:flex-row items-stretch justify-between gap-4">
+                {[
+                  { stage: 'Discover', desc: 'Understand the business, goals, bottlenecks, and opportunities.' },
+                  { stage: 'Plan', desc: 'Establish priorities and create a practical Growth Roadmap.' },
+                  { stage: 'Build', desc: 'Connect the website, content, customer systems, and operations.' },
+                  { stage: 'Operate', desc: 'Give the owner and team a clearer way to manage the work.' },
+                  { stage: 'Grow', desc: 'Measure progress and improve the system over time.' }
+                ].map((item, idx, arr) => (
+                  <React.Fragment key={item.stage}>
+                    <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 flex-1 relative text-center">
+                      <div className="text-lg font-bold text-blue-400 mb-2">{item.stage}</div>
+                      <p className="text-slate-400 text-sm">{item.desc}</p>
+                    </div>
+                    {idx < arr.length - 1 && (
+                      <div className="hidden lg:flex items-center justify-center text-slate-600">
+                        <ArrowRight className="w-6 h-6" />
+                      </div>
+                    )}
+                    {idx < arr.length - 1 && (
+                      <div className="flex lg:hidden items-center justify-center py-2">
+                        <div className="w-px h-6 bg-slate-700"></div>
+                      </div>
+                    )}
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+
+            {/* Three System Areas */}
+            <div className="grid md:grid-cols-3 gap-8 mb-16">
+              <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 hover:border-slate-700 transition-colors">
+                <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 mb-6 border border-blue-500/20">
+                  <Globe className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-4">Growth Foundation</h3>
+                <p className="text-slate-400 leading-relaxed">
+                  Website, visibility, content, trust, reviews, and the information customers need to confidently choose the business.
+                </p>
+              </div>
+
+              <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 hover:border-slate-700 transition-colors">
+                <div className="w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center text-indigo-400 mb-6 border border-indigo-500/20">
+                  <Users className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-4">Customer and Relationship System</h3>
+                <p className="text-slate-400 leading-relaxed">
+                  Lead capture, customer information, follow-up, communication, referrals, and long-term relationships.
+                </p>
+              </div>
+
+              <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 hover:border-slate-700 transition-colors">
+                <div className="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center text-purple-400 mb-6 border border-purple-500/20">
+                  <FolderKanban className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-4">Connected Operations</h3>
+                <p className="text-slate-400 leading-relaxed">
+                  Tasks, business knowledge, automation, reporting, back-office workflows, and practical AI assistance.
+                </p>
+              </div>
+            </div>
+
+            {/* Reassurance and CTAs */}
+            <div className="text-center">
+              <p className="text-xl md:text-2xl text-slate-300 font-medium mb-10 max-w-3xl mx-auto">
+                We do not force every business into the same package. We build the right system in the right order.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Link to="/operating-system" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)]">
+                  Explore the Digital Growth Office
+                </Link>
+                <Link to="/growth-conversation" className="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all border border-slate-700 hover:border-slate-600">
+                  Start a Growth Conversation
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <SolutionSection />
         <PathSection />
         <FounderSection />

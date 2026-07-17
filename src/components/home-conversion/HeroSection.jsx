@@ -36,7 +36,7 @@ export default function HeroSection() {
           transition={{ delay: 0.1 }}
           className="text-lg md:text-xl text-slate-300 mb-12 max-w-3xl mx-auto leading-relaxed"
         >
-          We use AI as our behind-the-scenes advantage to deliver high-quality marketing faster and more affordably. First we build or fix your foundation. Then we help more people find you. Then we build trust through consistent content and reputation. As your business grows, we use AI and automation to save time and improve follow-up.
+          As Your Digital Growth Guide™, we help connect marketing, customer relationships, knowledge, AI, and operations into one practical system. First we build or fix your foundation. Then we help more people find you. Then we build trust through consistent content and reputation. As your business grows, we use automation to save time and improve follow-up.
         </motion.p>
 
         <motion.div 
