@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from 'sonner';
 import {
   X, Phone, Mail, Globe, MapPin, Tag, Calendar,
-  DollarSign, User, MessageSquare, Plus, Send, UserCheck,
-  StickyNote, Clock, CheckCircle, Activity
+  DollarSign, User, MessageSquare, Plus, UserCheck, Activity
 } from 'lucide-react';
 
 const NOTE_TYPES = [
@@ -26,7 +24,13 @@ export default function LeadDetailPanel({ lead, onClose, onSubscribeToEmail }) {
   const [showNoteForm, setShowNoteForm] = useState(false);
   const [noteForm, setNoteForm] = useState({ note: '', note_type: 'general' });
   const [savingNote, setSavingNote] = useState(false);
-  const [showEmailModal, setShowEmailModal] = useState(false);
+  const [showJournalPermission, setShowJournalPermission] = useState(false);
+  const [journalForm, setJournalForm] = useState({
+    consent_method: 'verbal',
+    consent_date: new Date().toISOString().slice(0, 10),
+    consent_context: '',
+    confirmed: false,
+  });
 
   useEffect(() => {
     if (lead?.id) loadNotes();
@@ -56,22 +60,48 @@ export default function LeadDetailPanel({ lead, onClose, onSubscribeToEmail }) {
   };
 
   const handleSubscribe = async () => {
-    // Check if already a subscriber
-    const existing = await base44.entities.Subscriber.filter({ email: lead.email });
-    if (existing.length > 0) {
-      toast.info(`${lead.email} is already a subscriber`);
+    if (!lead.email) {
+      toast.error('Add an email address before recording Journal permission');
       return;
     }
-    await base44.entities.Subscriber.create({
+    setShowJournalPermission(true);
+  };
+
+  const confirmJournalPermission = async () => {
+    if (!journalForm.confirmed) {
+      toast.error('Confirm that this person gave permission');
+      return;
+    }
+    const existing = await base44.entities.Subscriber.filter({ email: lead.email });
+    const nameParts = (lead.contact_name || '').trim().split(/\s+/).filter(Boolean);
+    const subscriberPayload = {
       email: lead.email,
-      first_name: lead.name?.split(' ')[0] || '',
-      last_name: lead.name?.split(' ').slice(1).join(' ') || '',
-      tags: [lead.industry, lead.source].filter(Boolean),
-      source: 'crm_lead',
-      status: 'active'
+      first_name: lead.first_name || nameParts[0] || '',
+      last_name: lead.last_name || nameParts.slice(1).join(' '),
+      business_name: lead.business_name,
+      tags: [lead.industry, 'nta-journal'].filter(Boolean),
+      source: lead.lead_source || 'crm_prospect',
+      status: 'active',
+      consent_status: 'confirmed',
+      consent_date: journalForm.consent_date,
+      consent_method: journalForm.consent_method,
+      consent_context: journalForm.consent_context || lead.relationship_origin || '',
+      sales_lead_id: lead.id,
+    };
+    let subscriber;
+    if (existing.length > 0) {
+      subscriber = await base44.entities.Subscriber.update(existing[0].id, subscriberPayload);
+    } else {
+      subscriber = await base44.entities.Subscriber.create(subscriberPayload);
+    }
+    await base44.entities.SalesLead.update(lead.id, {
+      journal_permission_status: 'granted',
+      journal_permission_date: journalForm.consent_date,
+      journal_permission_method: journalForm.consent_method,
+      journal_subscriber_id: subscriber.id || existing[0]?.id,
     });
-    await base44.entities.Lead.update(lead.id, { converted_to_subscriber: true });
-    toast.success(`${lead.name} added to email list!`);
+    setShowJournalPermission(false);
+    toast.success(`Journal permission recorded for ${lead.contact_name || lead.business_name}`);
     if (onSubscribeToEmail) onSubscribeToEmail();
   };
 
@@ -110,10 +140,10 @@ export default function LeadDetailPanel({ lead, onClose, onSubscribeToEmail }) {
           )}
           <button
             onClick={handleSubscribe}
-            className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg transition-colors ${lead.converted_to_subscriber ? 'bg-emerald-900/50 text-emerald-400 cursor-default' : 'bg-orange-900/50 hover:bg-orange-900 text-orange-300 cursor-pointer'}`}
+            className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg transition-colors ${lead.journal_permission_status === 'granted' ? 'bg-emerald-900/50 text-emerald-400' : 'bg-orange-900/50 hover:bg-orange-900 text-orange-300 cursor-pointer'}`}
           >
             <UserCheck className="w-3 h-3" />
-            {lead.converted_to_subscriber ? 'On Email List' : 'Add to Email List'}
+            {lead.journal_permission_status === 'granted' ? 'Journal Permission Recorded' : 'Record Journal Permission'}
           </button>
         </div>
       </div>
@@ -128,7 +158,10 @@ export default function LeadDetailPanel({ lead, onClose, onSubscribeToEmail }) {
           {lead.deal_value > 0 && <div className="flex items-center gap-2 text-emerald-400 font-semibold"><DollarSign className="w-4 h-4 text-emerald-500 flex-shrink-0" />${lead.deal_value.toLocaleString()} deal value</div>}
           {lead.next_follow_up && <div className="flex items-center gap-2 text-orange-300"><Calendar className="w-4 h-4 text-orange-500 flex-shrink-0" />Follow up: {lead.next_follow_up}</div>}
           {lead.assigned_to && <div className="flex items-center gap-2 text-slate-300"><User className="w-4 h-4 text-slate-500 flex-shrink-0" />Assigned: {lead.assigned_to}</div>}
-          {lead.source && <div className="flex items-center gap-2 text-slate-400 text-xs">Source: {lead.source.replace('_', ' ')}</div>}
+          {lead.lead_source && <div className="flex items-center gap-2 text-slate-400 text-xs">Found through: {lead.lead_source.replaceAll('_', ' ')}</div>}
+          {lead.first_contact_method && lead.first_contact_method !== 'not_contacted' && <div className="flex items-center gap-2 text-slate-400 text-xs">First contact: {lead.first_contact_method.replaceAll('_', ' ')}</div>}
+          {lead.relationship_origin && <div className="flex items-start gap-2 text-slate-300 text-xs"><MessageSquare className="w-4 h-4 text-slate-500 flex-shrink-0" />{lead.relationship_origin}</div>}
+          {lead.journal_permission_status === 'granted' && <div className="flex items-center gap-2 text-orange-300 text-xs"><UserCheck className="w-4 h-4 text-orange-500" />Journal permission: {lead.journal_permission_date || 'recorded'} via {(lead.journal_permission_method || 'other').replaceAll('_', ' ')}</div>}
         </div>
 
         {lead.tags?.length > 0 && (
@@ -216,8 +249,22 @@ export default function LeadDetailPanel({ lead, onClose, onSubscribeToEmail }) {
           )}
         </div>
 
-        <p className="text-slate-600 text-xs text-center">Lead added: {new Date(lead.created_date).toLocaleDateString()}</p>
+        <p className="text-slate-600 text-xs text-center">Prospect added: {new Date(lead.created_date).toLocaleDateString()}</p>
       </div>
+
+      <Dialog open={showJournalPermission} onOpenChange={setShowJournalPermission}>
+        <DialogContent className="bg-slate-900 border-slate-700 text-white">
+          <DialogHeader><DialogTitle>Record NTA Journal Permission</DialogTitle></DialogHeader>
+          <p className="text-slate-400 text-sm">This records that {lead.contact_name || lead.business_name} agreed to receive the weekly NTA Journal. It does not treat a cold contact as a subscriber.</p>
+          <div className="space-y-4 pt-2">
+            <div><label className="text-slate-400 text-xs mb-1 block">How permission was given</label><Select value={journalForm.consent_method} onValueChange={value => setJournalForm(current => ({ ...current, consent_method: value }))}><SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue /></SelectTrigger><SelectContent>{['website_form', 'email_reply', 'verbal', 'written', 'event_signup', 'other'].map(method => <SelectItem key={method} value={method}>{method.replaceAll('_', ' ')}</SelectItem>)}</SelectContent></Select></div>
+            <div><label className="text-slate-400 text-xs mb-1 block">Permission date</label><Input type="date" value={journalForm.consent_date} onChange={event => setJournalForm(current => ({ ...current, consent_date: event.target.value }))} className="bg-slate-800 border-slate-700" /></div>
+            <div><label className="text-slate-400 text-xs mb-1 block">Context</label><textarea value={journalForm.consent_context} onChange={event => setJournalForm(current => ({ ...current, consent_context: event.target.value }))} placeholder="Replied yes by email, signed up after chamber webinar…" rows={3} className="w-full bg-slate-800 border border-slate-700 rounded-md px-3 py-2 text-sm" /></div>
+            <label className="flex items-start gap-3 bg-slate-800 rounded-lg p-3 cursor-pointer"><input type="checkbox" checked={journalForm.confirmed} onChange={event => setJournalForm(current => ({ ...current, confirmed: event.target.checked }))} className="mt-0.5" /><span className="text-sm text-slate-300">I confirm this person gave permission to receive the NTA Journal.</span></label>
+            <div className="flex gap-3"><Button onClick={confirmJournalPermission} className="bg-orange-600 hover:bg-orange-700 flex-1">Save Permission & Subscribe</Button><Button variant="ghost" onClick={() => setShowJournalPermission(false)} className="text-slate-400">Cancel</Button></div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
