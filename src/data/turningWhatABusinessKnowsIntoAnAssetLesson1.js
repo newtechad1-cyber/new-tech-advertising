@@ -40,16 +40,7 @@ That may sound simple, but it has enormous implications.
 
 A business doesn’t accumulate only customers and revenue. It also accumulates understanding.
 
-Over time, you begin to understand:
-
-What customers are really worried about
-Which questions they ask before making a decision
-What causes projects to go wrong
-What separates a good result from a disappointing one
-Which solutions work in different situations
-What customers often misunderstand about your industry
-How to recognize a problem before it becomes expensive
-What you would do differently if you were starting again
+Over time, you begin to understand what customers are really worried about, which questions they ask before making a decision, what causes projects to go wrong, what separates a good result from a disappointing one, which solutions work in different situations, what customers often misunderstand about your industry, how to recognize a problem before it becomes expensive, and what you would do differently if you were starting again.
 
 That understanding is valuable because it was earned through experience.
 
@@ -139,18 +130,7 @@ We identify recurring problems, decisions, misunderstandings, processes, and sto
 
 Then we begin organizing that knowledge into a connected body of information the business can use.
 
-One conversation may contain the beginning of:
-
-A Knowledge Library lesson
-A Journal article
-A Growth Show episode
-A sales explanation
-A customer email
-A social media campaign
-A training resource
-A frequently asked question
-A future book chapter
-Instructions an AI assistant can use
+One conversation may contain the beginning of a Knowledge Library lesson, a Journal article, a Growth Show episode, a sales explanation, a customer email, a social media campaign, a training resource, a frequently asked question, a future book chapter, or instructions an AI assistant can use.
 
 This is why I see the NTA Knowledge Library as more than a collection of articles.
 
