@@ -70,6 +70,7 @@ const NAV_GROUPS = [
       { label: 'Content Queue', icon: Share2, page: 'ContentQueue' },
       { label: 'Content Studio', icon: Bot, page: 'ContentStudio' },
       { label: 'AI Operations', icon: Bot, page: 'AiOperations' },
+      { label: 'NTA Journal', icon: FileText, href: '/admin/journal' },
       { label: 'Video Queue', icon: Globe, page: 'AdminVideoQueue' },
     ],
   },

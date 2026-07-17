@@ -34,6 +34,7 @@ const CanonExplorer = lazy(() => import('./pages/CanonExplorer'));
 const CanonCollectionView = lazy(() => import('./pages/CanonCollectionView'));
 const AdminCanonMigration = lazy(() => import('./pages/AdminCanonMigration'));
 const AdminCanonicalManagement = lazy(() => import('./pages/AdminCanonicalManagement'));
+const AdminJournalDashboard = lazy(() => import('./pages/AdminJournalDashboard'));
 const IWasEarlyAgain = lazy(() => import('./pages/IWasEarlyAgain'));
 const AIWorkforce = lazy(() => import('./pages/AIWorkforce'));
 const FounderScorecard = lazy(() => import('./pages/FounderScorecard'));
@@ -778,6 +779,7 @@ const AuthenticatedApp = () => {
       <Route path="/canon/collection/:slug" element={<LayoutWrapper currentPageName="CanonCollectionView"><CanonCollectionView /></LayoutWrapper>} />
       <Route path="/AdminCanonMigration" element={<LayoutWrapper currentPageName="AdminCanonMigration"><AdminCanonMigration /></LayoutWrapper>} />
       <Route path="/AdminCanonicalManagement" element={<LayoutWrapper currentPageName="AdminCanonicalManagement"><AdminCanonicalManagement /></LayoutWrapper>} />
+      <Route path="/admin/journal" element={<AdminGuard><AdminLayout currentPageName="AdminJournalDashboard"><AdminJournalDashboard /></AdminLayout></AdminGuard>} />
       <Route path="/back-office" element={<Navigate to="/back-office-solutions" replace />} />
       <Route path="/back-office-solutions" element={<LayoutWrapper currentPageName="BackOfficeSolutions"><BackOfficeSolutions /></LayoutWrapper>} />
       <Route path="/restaurants" element={<LayoutWrapper currentPageName="RestaurantSolutions"><RestaurantSolutions /></LayoutWrapper>} />

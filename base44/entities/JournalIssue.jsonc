@@ -3,6 +3,43 @@
   "type": "object",
   "description": "NTA Journal — weekly publication documenting the public building of New Tech Advertising.",
   "properties": {
+    "subtitle": {
+      "type": "string"
+    },
+    "estimated_reading_time": {
+      "type": "string"
+    },
+    "introduction_headline": {
+      "type": "string"
+    },
+    "introductory_message": {
+      "type": "string",
+      "format": "markdown"
+    },
+    "closing_message": {
+      "type": "string",
+      "format": "markdown"
+    },
+    "editor_signature": {
+      "type": "string"
+    },
+    "selected_articles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source_type": { "type": "string" },
+          "source_id": { "type": "string" },
+          "title": { "type": "string" },
+          "url": { "type": "string" },
+          "excerpt": { "type": "string" },
+          "reading_time": { "type": "string" },
+          "featured_image_url": { "type": "string" },
+          "is_lead": { "type": "boolean", "default": false },
+          "display_order": { "type": "integer" }
+        }
+      }
+    },
     "issue_number": {
       "type": "integer",
       "description": "Sequential issue number"
