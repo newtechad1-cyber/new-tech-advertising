@@ -24,7 +24,7 @@ export default function AdminJournalDashboard() {
     }
   };
 
-  const handleCreateNew = async (isFirst = false) => {
+  const handleCreateNew = (isFirst = false) => {
     const payload = isFirst ? {
       issue_number: 1,
       title: "Your Business Is an Experience",
@@ -41,28 +41,21 @@ export default function AdminJournalDashboard() {
       author: "Rick Hesse"
     };
 
-    try {
-      const newIssue = await base44.entities.JournalIssue.create(payload);
-      setIssues([newIssue, ...issues]);
-      setEditingIssue(newIssue);
-    } catch (err) {
-      console.error('Failed to create new issue', err);
-    }
+    // Lazy create: just set the editing issue, don't save to DB yet.
+    setEditingIssue(payload);
   };
 
-  const handleDuplicate = async (issue) => {
-    try {
-      const payload = { ...issue, id: undefined, created_date: undefined, updated_date: undefined };
-      payload.title = payload.title + ' (Copy)';
-      payload.slug = payload.slug + '-copy-' + Date.now();
-      payload.issue_number = (issues[0]?.issue_number || 0) + 1;
-      payload.status = 'Draft';
-      
-      const newIssue = await base44.entities.JournalIssue.create(payload);
-      setIssues([newIssue, ...issues]);
-    } catch (err) {
-      console.error('Failed to duplicate issue', err);
-    }
+  const handleDuplicate = (issue) => {
+    const payload = { ...issue, id: undefined, created_date: undefined, updated_date: undefined };
+    payload.title = payload.title + ' (Copy)';
+    payload.slug = payload.slug + '-copy-' + Date.now();
+    payload.issue_number = (issues[0]?.issue_number || 0) + 1;
+    payload.status = 'Draft';
+    // Clear out publication date for duplicate
+    payload.date = '';
+    
+    // Lazy create: open builder without saving to DB yet.
+    setEditingIssue(payload);
   };
 
   if (editingIssue) {

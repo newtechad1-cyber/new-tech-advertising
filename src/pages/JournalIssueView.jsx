@@ -9,12 +9,14 @@ import { base44 } from '@/api/base44Client';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
-import * as LucideIcons from 'lucide-react';
 import {
   Newspaper, ArrowLeft, ArrowRight, BookOpen, Clock, Calendar,
   ChevronRight, Mail, Share2, Pen, Hammer, Lightbulb, Target,
   Rocket, Eye, Tag, Loader2, ExternalLink
 } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+
+const LucideIcons = { Pen, Hammer, Lightbulb, Target, Rocket, BookOpen };
 import {
   CATEGORY_COLORS, SECTION_LABELS, SECTION_ICONS, SECTION_ORDER,
   formatIssueDate, estimateReadTime
@@ -165,6 +167,12 @@ export default function JournalIssueView() {
                   <p className="text-lg text-slate-400 leading-relaxed mb-6">{issue.summary}</p>
                 )}
 
+                {issue.introductory_message && (
+                  <div className="prose prose-invert prose-slate max-w-none text-slate-300 mt-8 mb-6">
+                    <ReactMarkdown>{issue.introductory_message}</ReactMarkdown>
+                  </div>
+                )}
+
                 {/* Author + Stats */}
                 <div className="flex flex-wrap items-center gap-6 text-sm text-slate-500">
                   <span className="font-semibold text-white">{issue.author || 'Rick Hesse'}</span>
@@ -214,6 +222,12 @@ export default function JournalIssueView() {
                   <JournalSection sectionKey={key} content={issue[key]} />
                 </div>
               ))}
+              
+              {issue.closing_message && (
+                <div className="prose prose-invert prose-slate max-w-none text-slate-300 mt-8 mb-6">
+                  <ReactMarkdown>{issue.closing_message}</ReactMarkdown>
+                </div>
+              )}
 
               {/* Tags */}
               {issue.tags?.length > 0 && (

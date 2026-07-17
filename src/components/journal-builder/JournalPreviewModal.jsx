@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Newspaper, Mail, X } from 'lucide-react';
 import { formatShortDate } from '@/components/journal/journalData';
+import ReactMarkdown from 'react-markdown';
 
 export default function JournalPreviewModal({ isOpen, onClose, issue }) {
   const [activeTab, setActiveTab] = useState('web');
@@ -58,10 +59,9 @@ export default function JournalPreviewModal({ isOpen, onClose, issue }) {
               )}
 
               {issue.introductory_message && (
-                <div 
-                  className="prose prose-invert prose-slate max-w-none mb-12 prose-p:leading-relaxed prose-p:text-slate-300"
-                  dangerouslySetInnerHTML={{ __html: issue.introductory_message }} 
-                />
+                <div className="prose prose-invert prose-slate max-w-none mb-12 prose-p:leading-relaxed prose-p:text-slate-300">
+                  <ReactMarkdown>{issue.introductory_message}</ReactMarkdown>
+                </div>
               )}
 
               {leadArticle && (
@@ -100,10 +100,9 @@ export default function JournalPreviewModal({ isOpen, onClose, issue }) {
               {(issue.closing_message || issue.editor_signature) && (
                 <div className="mt-12 pt-8 border-t border-slate-800">
                   {issue.closing_message && (
-                    <div 
-                      className="prose prose-invert prose-slate max-w-none mb-6 prose-p:leading-relaxed prose-p:text-slate-300"
-                      dangerouslySetInnerHTML={{ __html: issue.closing_message }} 
-                    />
+                    <div className="prose prose-invert prose-slate max-w-none mb-6 prose-p:leading-relaxed prose-p:text-slate-300">
+                      <ReactMarkdown>{issue.closing_message}</ReactMarkdown>
+                    </div>
                   )}
                   {issue.editor_signature && (
                     <p className="text-slate-400 italic">
@@ -132,10 +131,9 @@ export default function JournalPreviewModal({ isOpen, onClose, issue }) {
               )}
 
               {issue.introductory_message && (
-                <div 
-                  className="prose prose-slate max-w-none mb-8 text-base text-slate-700"
-                  dangerouslySetInnerHTML={{ __html: issue.introductory_message }} 
-                />
+                <div className="prose prose-slate max-w-none mb-8 text-base text-slate-700">
+                  <ReactMarkdown>{issue.introductory_message}</ReactMarkdown>
+                </div>
               )}
 
               {leadArticle && (
@@ -164,10 +162,9 @@ export default function JournalPreviewModal({ isOpen, onClose, issue }) {
               {(issue.closing_message || issue.editor_signature) && (
                 <div className="mt-8 pt-8 border-t border-slate-200">
                   {issue.closing_message && (
-                    <div 
-                      className="prose prose-slate max-w-none mb-4 text-base text-slate-700"
-                      dangerouslySetInnerHTML={{ __html: issue.closing_message }} 
-                    />
+                    <div className="prose prose-slate max-w-none mb-4 text-base text-slate-700">
+                      <ReactMarkdown>{issue.closing_message}</ReactMarkdown>
+                    </div>
                   )}
                   {issue.editor_signature && (
                     <p className="text-slate-600 italic">

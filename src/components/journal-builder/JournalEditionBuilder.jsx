@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { ChevronLeft, Save, Send, Eye, FileText, LayoutList, MessageSquare, Plus, Trash2, Star, Check } from 'lucide-react';
+import { ChevronLeft, Save, Send, Eye, FileText, LayoutList, MessageSquare, Plus, Trash2, Star, Check, AlertTriangle, Loader2 } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { pointOfViewArticles } from '@/data/povArticles';
 import { flagshipArticleToolsVsSystem, flagshipArticleDIYToDFY } from '@/data/flagshipArticles';
+import { normalizeJournalArticle } from './normalizeJournalArticle';
 
 const flagshipArticles = [flagshipArticleToolsVsSystem, flagshipArticleDIYToDFY];
 import JournalPreviewModal from './JournalPreviewModal';
@@ -16,9 +18,11 @@ export default function JournalEditionBuilder({ issue, onClose }) {
   const [isSaving, setIsSaving] = useState(false);
   const [saveStatus, setSaveStatus] = useState('');
   const [previewOpen, setPreviewOpen] = useState(false);
+  const [publishDialogOpen, setPublishDialogOpen] = useState(false);
   const [articleLibrary, setArticleLibrary] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [sourceFilter, setSourceFilter] = useState('All');
+  const [validationErrors, setValidationErrors] = useState([]);
 
   useEffect(() => {
     loadArticleLibrary();
@@ -29,116 +33,136 @@ export default function JournalEditionBuilder({ issue, onClose }) {
     
     // Static POV
     pointOfViewArticles.forEach(a => {
-      library.push({
-        source_type: 'POV',
-        source_id: a.id,
-        title: a.title,
-        url: `/point-of-view/${a.slug}`,
-        excerpt: a.description || a.subtitle,
-        reading_time: a.readingTime || '5 min read'
-      });
+      library.push(normalizeJournalArticle(a, 'POV'));
     });
 
     // Static Flagship
     flagshipArticles.forEach(a => {
-      library.push({
-        source_type: 'Flagship',
-        source_id: a.id,
-        title: a.title,
-        url: `/knowledge/articles/${a.slug}`,
-        excerpt: a.description || a.subtitle,
-        reading_time: a.readingTime || '5 min read'
-      });
+      library.push(normalizeJournalArticle(a, 'Flagship'));
     });
 
     try {
       const pArticles = await base44.entities.PublishingArticle.list('-created_date', 50);
       pArticles.forEach(a => {
-        library.push({
-          source_type: 'PublishingArticle',
-          source_id: a.id,
-          title: a.title,
-          url: `/article/${a.slug}`, // Generic fallback
-          excerpt: a.excerpt || '',
-          reading_time: '5 min read'
-        });
+        library.push(normalizeJournalArticle(a, 'PublishingArticle'));
       });
     } catch(err) { console.warn(err); }
 
     try {
       const kArticles = await base44.entities.KnowledgeArticle.list('-created_date', 50);
       kArticles.forEach(a => {
-        library.push({
-          source_type: 'KnowledgeArticle',
-          source_id: a.id,
-          title: a.title,
-          url: `/knowledge/${a.slug}`,
-          excerpt: a.excerpt || '',
-          reading_time: '5 min read'
-        });
+        library.push(normalizeJournalArticle(a, 'KnowledgeArticle'));
       });
     } catch(err) { console.warn(err); }
 
     setArticleLibrary(library);
   };
 
-  const handleSave = async (status = null) => {
-    setIsSaving(true);
-    setSaveStatus('Saving...');
+  const checkSlugDuplicate = async (slug) => {
+    if (!slug) return false;
+    const normalizedSlug = slug.trim().toLowerCase();
     try {
-      const payload = { ...formData };
-      if (status) payload.status = status;
-      
-      const updated = await base44.entities.JournalIssue.update(issue.id, payload);
-      setFormData(updated);
-      setSaveStatus('Draft saved');
-      setTimeout(() => setSaveStatus(''), 3000);
+      const matches = await base44.entities.JournalIssue.filter({ slug: normalizedSlug });
+      // Exclude current issue if saving
+      const duplicates = matches.filter(m => m.id !== formData.id);
+      return duplicates.length > 0;
     } catch (err) {
-      console.error(err);
-      setSaveStatus('Save failed');
-    } finally {
-      setIsSaving(false);
+      console.warn("Failed checking slug", err);
+      return false;
     }
   };
 
-  const handlePublish = async () => {
-    if (!formData.title || !formData.slug || !formData.issue_number) {
-      alert("Missing required fields (Title, Slug, Issue Number).");
-      return;
+  const reindexArticles = (articles) => {
+    return articles.map((a, i) => ({ ...a, display_order: i + 1 }));
+  };
+
+  const handleSave = async (status = null) => {
+    setIsSaving(true);
+    setSaveStatus(status === 'Published' ? 'Publishing...' : 'Saving...');
+    try {
+      const payload = { ...formData };
+      
+      if (status) {
+        payload.status = status;
+        if (status === 'Published' && !payload.date) {
+          payload.date = new Date().toISOString().split('T')[0];
+        }
+      }
+
+      if (payload.slug) {
+        payload.slug = payload.slug.trim().toLowerCase();
+        const isDupe = await checkSlugDuplicate(payload.slug);
+        if (isDupe) {
+          setSaveStatus('Slug conflict');
+          setValidationErrors(['This Journal slug is already in use. Choose a different slug before continuing.']);
+          return false;
+        }
+      }
+
+      let updated;
+      if (payload.id) {
+        updated = await base44.entities.JournalIssue.update(payload.id, payload);
+      } else {
+        updated = await base44.entities.JournalIssue.create(payload);
+      }
+
+      setFormData(updated);
+      setSaveStatus(status === 'Published' ? 'Published' : 'Draft saved');
+      setValidationErrors([]);
+      setTimeout(() => setSaveStatus(''), 3000);
+      return true;
+    } catch (err) {
+      console.error(err);
+      setSaveStatus('Save failed');
+      return false;
+    } finally {
+      setIsSaving(false);
+      setPublishDialogOpen(false);
     }
+  };
+
+  const validateForPublish = () => {
+    const errors = [];
+    if (!formData.issue_number) errors.push('Missing issue number');
+    if (!formData.title) errors.push('Missing title');
+    if (!formData.slug) errors.push('Missing slug');
     if (!formData.selected_articles || formData.selected_articles.length === 0) {
-      alert("Please select at least one article.");
-      return;
-    }
-    if (!formData.selected_articles.some(a => a.is_lead)) {
-      alert("Please select a lead article.");
-      return;
+      errors.push('Please select at least one article');
+    } else if (!formData.selected_articles.some(a => a.is_lead)) {
+      errors.push('Please select exactly one lead article');
     }
 
-    if (window.confirm("Publish this Journal edition?\n\nThis will make the edition available in the public NTA Journal archive.")) {
-      await handleSave('Published');
+    setValidationErrors(errors);
+    return errors.length === 0;
+  };
+
+  const tryPublish = () => {
+    if (validateForPublish()) {
+      setPublishDialogOpen(true);
     }
   };
 
   const addArticle = (article) => {
-    const current = formData.selected_articles || [];
-    if (current.find(a => a.source_id === article.source_id)) return;
-    const newArticles = [...current, { ...article, is_lead: current.length === 0, display_order: current.length }];
+    let current = formData.selected_articles || [];
+    if (current.find(a => a.source_id === article.source_id && a.source_type === article.source_type)) return;
+    
+    let newArticles = [...current, { ...article, is_lead: current.length === 0 }];
+    newArticles = reindexArticles(newArticles);
     setFormData({ ...formData, selected_articles: newArticles });
   };
 
   const removeArticle = (index) => {
-    const newArticles = [...(formData.selected_articles || [])];
+    let newArticles = [...(formData.selected_articles || [])];
     newArticles.splice(index, 1);
-    // Ensure one lead
-    if (newArticles.length > 0 && !newArticles.some(a => a.is_lead)) {
-      newArticles[0].is_lead = true;
-    }
+    
+    // Explicitly leaving it without a lead if the lead was removed. Validation will catch it.
+    
+    newArticles = reindexArticles(newArticles);
     setFormData({ ...formData, selected_articles: newArticles });
   };
 
   const setLeadArticle = (index) => {
-    const newArticles = (formData.selected_articles || []).map((a, i) => ({
+    let newArticles = (formData.selected_articles || []).map((a, i) => ({
       ...a,
       is_lead: i === index
     }));
@@ -146,7 +170,7 @@ export default function JournalEditionBuilder({ issue, onClose }) {
   };
 
   const moveArticle = (index, direction) => {
-    const newArticles = [...(formData.selected_articles || [])];
+    let newArticles = [...(formData.selected_articles || [])];
     if (direction === 'up' && index > 0) {
       const temp = newArticles[index - 1];
       newArticles[index - 1] = newArticles[index];
@@ -156,6 +180,7 @@ export default function JournalEditionBuilder({ issue, onClose }) {
       newArticles[index + 1] = newArticles[index];
       newArticles[index] = temp;
     }
+    newArticles = reindexArticles(newArticles);
     setFormData({ ...formData, selected_articles: newArticles });
   };
 
@@ -180,20 +205,36 @@ export default function JournalEditionBuilder({ issue, onClose }) {
         </div>
         
         <div className="flex items-center gap-3">
-          <span className="text-sm font-medium text-slate-400">{saveStatus}</span>
+          <span className="text-sm font-medium text-slate-400">
+            {isSaving && <Loader2 className="w-4 h-4 inline mr-2 animate-spin" />}
+            {saveStatus}
+          </span>
           <button onClick={() => setPreviewOpen(true)} className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-sm font-bold flex items-center gap-2 transition-colors">
             <Eye className="w-4 h-4" /> Preview
           </button>
-          <button onClick={() => handleSave('Draft')} disabled={isSaving} className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-sm font-bold flex items-center gap-2 transition-colors">
+          <button onClick={() => handleSave('Draft')} disabled={isSaving} className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-sm font-bold flex items-center gap-2 transition-colors disabled:opacity-50">
             <Save className="w-4 h-4" /> Save Draft
           </button>
-          <button onClick={handlePublish} className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-sm font-bold flex items-center gap-2 transition-colors shadow-lg shadow-indigo-600/20">
+          <button onClick={tryPublish} disabled={isSaving} className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-sm font-bold flex items-center gap-2 transition-colors shadow-lg shadow-indigo-600/20 disabled:opacity-50">
             <Send className="w-4 h-4" /> Publish
           </button>
         </div>
       </header>
 
       <div className="flex-1 max-w-5xl mx-auto w-full p-6">
+        
+        {validationErrors.length > 0 && (
+          <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 mb-6 flex items-start gap-3 text-red-400">
+            <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+            <div>
+              <h4 className="font-bold mb-1 text-red-300">Complete these items before publishing:</h4>
+              <ul className="list-disc ml-5 space-y-1 text-sm">
+                {validationErrors.map((err, i) => <li key={i}>{err}</li>)}
+              </ul>
+            </div>
+          </div>
+        )}
+
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="bg-slate-900 border border-slate-800 w-full justify-start rounded-xl p-1 mb-8">
             <TabsTrigger value="details" className="data-[state=active]:bg-slate-800 data-[state=active]:text-white flex-1"><FileText className="w-4 h-4 mr-2" /> Details</TabsTrigger>
@@ -358,23 +399,25 @@ export default function JournalEditionBuilder({ issue, onClose }) {
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-slate-400 mb-2">Introductory Message</label>
-                <div className="bg-white rounded-xl overflow-hidden border border-slate-800 text-slate-900">
-                  <EmailBodyEditor 
-                    value={formData.introductory_message || ''}
-                    onChange={v => setFormData({...formData, introductory_message: v})}
-                  />
-                </div>
+                <label className="block text-sm font-bold text-slate-400 mb-2">Introductory Message (Markdown)</label>
+                <textarea 
+                  rows={8}
+                  value={formData.introductory_message || ''}
+                  onChange={e => setFormData({...formData, introductory_message: e.target.value})}
+                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 font-mono text-sm"
+                  placeholder="Enter introduction in Markdown format..."
+                />
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-slate-400 mb-2">Closing Message</label>
-                <div className="bg-white rounded-xl overflow-hidden border border-slate-800 text-slate-900">
-                  <EmailBodyEditor 
-                    value={formData.closing_message || ''}
-                    onChange={v => setFormData({...formData, closing_message: v})}
-                  />
-                </div>
+                <label className="block text-sm font-bold text-slate-400 mb-2">Closing Message (Markdown)</label>
+                <textarea 
+                  rows={6}
+                  value={formData.closing_message || ''}
+                  onChange={e => setFormData({...formData, closing_message: e.target.value})}
+                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 font-mono text-sm"
+                  placeholder="Enter closing message in Markdown format..."
+                />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -399,6 +442,24 @@ export default function JournalEditionBuilder({ issue, onClose }) {
         onClose={() => setPreviewOpen(false)} 
         issue={formData} 
       />
+
+      <AlertDialog open={publishDialogOpen} onOpenChange={setPublishDialogOpen}>
+        <AlertDialogContent className="bg-slate-900 border-slate-800 text-white">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Publish this Journal edition?</AlertDialogTitle>
+            <AlertDialogDescription className="text-slate-400">
+              This will make the edition available in the public NTA Journal archive.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isSaving} className="bg-slate-800 text-white border-slate-700 hover:bg-slate-700 hover:text-white">Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={() => handleSave('Published')} disabled={isSaving} className="bg-indigo-600 hover:bg-indigo-500 text-white">
+              {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
+              Publish Edition
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
