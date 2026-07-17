@@ -24,7 +24,6 @@ export default function LeadDetailPanel({ lead, onClose, onSubscribeToEmail }) {
   const [showNoteForm, setShowNoteForm] = useState(false);
   const [noteForm, setNoteForm] = useState({ note: '', note_type: 'general' });
   const [savingNote, setSavingNote] = useState(false);
-  const [showEmailModal, setShowEmailModal] = useState(false);
   const [showJournalPermission, setShowJournalPermission] = useState(false);
   const [journalForm, setJournalForm] = useState({
     consent_method: 'verbal',
