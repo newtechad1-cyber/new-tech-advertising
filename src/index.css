@@ -156,3 +156,9 @@ button:focus-visible {
     @apply bg-background text-foreground;
   }
 }
+
+/* Hide the Growth Guide when mobile navigation is open */
+body.mobile-nav-open #nta-guide-container,
+body.mobile-nav-open .nta-guide-widget {
+  display: none !important;
+}

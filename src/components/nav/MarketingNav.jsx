@@ -61,7 +61,6 @@ const NAV_LINKS = [
     ],
   },
   { label: 'Pricing', href: '/find-your-plan' },
-  { label: 'Contact', href: '/contact' },
 ];
 
 function DropdownMenu({ items, onClose }) {
@@ -107,9 +106,16 @@ export default function MarketingNav() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+      document.body.classList.add('mobile-nav-open');
+    } else {
+      document.body.style.overflow = '';
+      document.body.classList.remove('mobile-nav-open');
+    }
     return () => {
       document.body.style.overflow = '';
+      document.body.classList.remove('mobile-nav-open');
     };
   }, [mobileOpen]);
 
@@ -133,7 +139,7 @@ export default function MarketingNav() {
             <img src={LOGO_URL} alt="New Tech Advertising" className="h-10 w-auto" />
           </Link>
 
-          <div className="hidden flex-1 items-center gap-0.5 xl:flex">
+          <div className="hidden flex-1 items-center justify-center gap-1 xl:flex">
             {NAV_LINKS.map(link => (
               <div key={link.label} className="relative">
                 {link.children ? (
@@ -165,36 +171,41 @@ export default function MarketingNav() {
           </div>
 
           <div className="hidden flex-shrink-0 items-center gap-3 xl:flex">
-            <a href="tel:6414208816" className="mr-2 whitespace-nowrap text-xs font-medium text-slate-400 transition-colors hover:text-white">
-              641-420-8816
-            </a>
+            <div className="flex items-center gap-4 border-r border-slate-800 pr-4">
+              <a href="tel:6414208816" className="text-xs font-medium text-slate-500 hover:text-slate-300 transition-colors">
+                641-420-8816
+              </a>
+              <Link to="/contact" className="text-xs font-medium text-slate-500 hover:text-slate-300 transition-colors">
+                Support
+              </Link>
+            </div>
 
             {user ? (
-              <div className="mr-1 flex items-center gap-3">
-                <span className="text-sm font-medium text-slate-300">{user.name || user.email}</span>
-                {isAdmin && <Link to="/admin-dashboard" className="text-sm font-medium text-blue-400 hover:text-blue-300">Admin</Link>}
-                <Link to={dashboardHref} className="rounded-lg border border-slate-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-slate-800">
-                  Dashboard
+              <div className="flex items-center gap-3 px-1">
+                <Link to={dashboardHref} className="rounded-lg border border-slate-700 px-3 py-1.5 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-800 hover:text-white">
+                  {isAdmin ? 'Admin Dashboard' : 'Dashboard'}
                 </Link>
-                <button type="button" onClick={() => base44.auth.logout()} className="text-slate-400 transition-colors hover:text-white" title="Logout">
+                <button type="button" onClick={() => base44.auth.logout()} className="text-slate-500 transition-colors hover:text-white" title="Logout">
                   <LogOut className="h-4 w-4" />
                 </button>
               </div>
             ) : (
-              <Link to="/Login" className="mr-1 whitespace-nowrap rounded-lg border border-slate-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-slate-800">
-                Login
+              <Link to="/Login" className="whitespace-nowrap px-3 py-1.5 text-sm font-medium text-slate-400 transition-colors hover:text-white">
+                Client Login
               </Link>
             )}
 
-            <a href="https://calendar.app.google/p6ieYanvwhixXxZ67" target="_blank" rel="noopener noreferrer" className="whitespace-nowrap rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition-colors hover:bg-blue-500">
-              Book a Call
-            </a>
-            <Link to="/gap-audit" className="whitespace-nowrap rounded-lg bg-emerald-600 px-4 py-2 text-sm font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-500">
-              Free Gap Audit
-            </Link>
-            <Link to="/join-nta" className="whitespace-nowrap rounded-lg bg-violet-600 px-4 py-2 text-sm font-bold text-white shadow-lg shadow-violet-600/20 transition-all hover:bg-violet-500">
-              Join Our Team
-            </Link>
+            <div className="flex items-center gap-2 pl-2">
+              <a href="https://calendar.app.google/p6ieYanvwhixXxZ67" target="_blank" rel="noopener noreferrer" className="whitespace-nowrap rounded-lg bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition-all hover:bg-blue-500">
+                Book Call
+              </a>
+              <Link to="/gap-audit" className="whitespace-nowrap rounded-lg bg-emerald-600 px-4 py-2 text-sm font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-500">
+                Free Audit
+              </Link>
+              <Link to="/join-nta" className="whitespace-nowrap rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-sm font-bold text-white transition-all hover:bg-slate-800 hover:text-white">
+                Join Team
+              </Link>
+            </div>
           </div>
 
           <button
@@ -251,7 +262,7 @@ export default function MarketingNav() {
               <Link to="/gap-audit" onClick={closeMobile} className="flex w-full items-center justify-center rounded-xl bg-emerald-600 py-3 font-bold text-white transition-all hover:bg-emerald-500">
                 Free Gap Audit
               </Link>
-              <Link to="/join-nta" onClick={closeMobile} className="flex w-full items-center justify-center rounded-xl bg-violet-600 py-3 font-bold text-white transition-all hover:bg-violet-500">
+              <Link to="/join-nta" onClick={closeMobile} className="flex w-full items-center justify-center rounded-xl border border-slate-700 bg-slate-900 py-3 font-bold text-white transition-all hover:bg-slate-800">
                 Join Our Team
               </Link>
 
@@ -259,14 +270,9 @@ export default function MarketingNav() {
                 {user ? (
                   <div className="space-y-3">
                     <div className="text-center text-sm font-medium text-slate-300">{user.name || user.email}</div>
-                    {isAdmin && (
-                      <Link to="/admin-dashboard" onClick={closeMobile} className="flex w-full items-center justify-center rounded-lg border border-blue-800 bg-blue-900/30 py-2 text-sm text-blue-400 transition-colors hover:bg-blue-900/50">
-                        Admin Dashboard
-                      </Link>
-                    )}
                     <div className="flex gap-3">
                       <Link to={dashboardHref} onClick={closeMobile} className="flex flex-1 items-center justify-center rounded-lg bg-slate-800 py-2 text-sm text-white transition-colors hover:bg-slate-700">
-                        Dashboard
+                        {isAdmin ? 'Admin Dashboard' : 'Dashboard'}
                       </Link>
                       <button type="button" onClick={() => { closeMobile(); base44.auth.logout(); }} className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-slate-700 py-2 text-sm text-slate-400 transition-colors hover:text-white">
                         <LogOut className="h-4 w-4" /> Logout
@@ -275,9 +281,14 @@ export default function MarketingNav() {
                   </div>
                 ) : (
                   <Link to="/Login" onClick={closeMobile} className="flex w-full items-center justify-center rounded-lg border border-slate-700 py-3 text-sm font-medium text-slate-300 transition-colors hover:text-white">
-                    Login
+                    Client Login
                   </Link>
                 )}
+              </div>
+              
+              <div className="flex justify-center gap-6 pt-4 text-sm text-slate-500 border-t border-slate-800 mt-4">
+                <a href="tel:6414208816" className="hover:text-slate-300 transition-colors">641-420-8816</a>
+                <Link to="/contact" className="hover:text-slate-300 transition-colors" onClick={closeMobile}>Support</Link>
               </div>
             </div>
           </div>

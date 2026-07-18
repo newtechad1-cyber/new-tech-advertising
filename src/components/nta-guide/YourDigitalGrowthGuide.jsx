@@ -241,7 +241,7 @@ export default function YourDigitalGrowthGuide() {
   };
 
   return (
-    <>
+    <div id="nta-guide-container">
       <AnimatePresence>
         {!isOpen && (
           <motion.div
@@ -250,6 +250,7 @@ export default function YourDigitalGrowthGuide() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
+            id="nta-guide-container"
             className="fixed bottom-8 right-6 z-50 flex flex-col items-end"
           >
             <div className="flex items-center gap-3">
@@ -420,6 +421,6 @@ export default function YourDigitalGrowthGuide() {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 }
