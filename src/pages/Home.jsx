@@ -18,7 +18,7 @@ export default function Home() {
     <div className="bg-slate-950 min-h-screen">
       <SEOHead 
         title="AI Marketing Agency Mason City Iowa | New Tech Advertising"
-        description="AI-powered marketing agency in Mason City, Iowa. AI search optimization, Google Business Profile management, social media & local SEO for small businesses. Call for a free audit."
+        description="AI-powered marketing agency in Mason City, Iowa. AI search optimization, Google Business Profile management, social media & local SEO for small businesses. Start with a free Growth Conversation."
       />
       <MarketingNav />
       
@@ -77,7 +77,7 @@ export default function Home() {
                   <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3">I Want to Grow</h3>
-                <p className="text-slate-400 mb-6 flex-grow text-sm">Identify gaps in your digital presence with a free interactive audit.</p>
+                <p className="text-slate-400 mb-6 flex-grow text-sm">Talk through what is happening in your business and confirm what needs attention first.</p>
                 <span className="text-purple-400 font-semibold flex items-center gap-1 group-hover:text-purple-300 text-sm">
                   Growth Conversation <span>→</span>
                 </span>
@@ -227,10 +227,10 @@ export default function Home() {
             },
             {
               "@type": "Question",
-              "name": "What is an AI Gap Audit?",
+              "name": "What is the NTA Growth Conversation?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Our free AI Gap Audit analyzes how AI search engines currently see your business. We check your visibility on ChatGPT, Google AI, and Perplexity, review your website structure, schema markup, business listings, and online reviews, then provide a prioritized action plan showing exactly what to fix first for maximum AI visibility."
+                "text": "The NTA Growth Conversation is a free discovery process that helps us understand your goals, what is happening now, and what you are ready to change. We confirm what we heard before recommending next steps. A detailed Business Gap Audit is a separate paid service and is only proposed when deeper evidence is useful."
               }
             },
             {
