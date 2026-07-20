@@ -44,7 +44,7 @@ export default function FreeAudit() {
     name: '', email: '', phone: '', business_name: '',
     website: '', industry: '',
   });
-  // Anti-spam: honeypot + page-load timestamp
+  // Anti-spam honeypot
   const [_hp, setHp] = useState('');
 
   const set = (field, value) => setForm(prev => ({ ...prev, [field]: value }));
