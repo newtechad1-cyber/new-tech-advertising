@@ -51,6 +51,7 @@ export default function FreeAudit() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (_hp.trim()) return;
     setSubmitting(true);
     try {
       // Call ntaUnifiedIntake
@@ -188,18 +189,18 @@ export default function FreeAudit() {
                   {/* Right Card */}
                   <div className="bg-slate-950 text-white rounded-2xl p-6 text-left border border-slate-800 hover:border-slate-700 transition-colors group flex flex-col h-full">
                     <div className="text-3xl mb-4">🎯</div>
-                    <h3 className="text-xl font-bold mb-3">Find Your Plan</h3>
+                    <h3 className="text-xl font-bold mb-3">Continue Online</h3>
                     <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
-                      If you prefer to continue online, answer a few questions about your goals and what is happening now.
+                      Continue the Growth Conversation online and tell us—in your own words—what is happening now.
                     </p>
                     <div className="mt-auto">
                       <Link 
-                        to="/find-your-plan" 
+                        to="/growth-conversation" 
                         className="block w-full text-center bg-transparent hover:bg-slate-800 border border-slate-700 text-white font-semibold py-3 rounded-xl transition-colors mb-3"
                       >
-                        Find Your Plan →
+                        Continue Online →
                       </Link>
-                      <p className="text-center text-slate-500 text-xs font-medium">Quick 90-second quiz</p>
+                      <p className="text-center text-slate-500 text-xs font-medium">Continue at your own pace</p>
                     </div>
                   </div>
                 </div>
