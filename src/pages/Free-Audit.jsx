@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { createAgencyLead } from '@/lib/createAgencyLead';
 import { base44 } from '@/api/base44Client';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -16,14 +15,14 @@ const PHONE = '6414208816';
 const PHONE_DISPLAY = '641-420-8816';
 const SMS_BODY = encodeURIComponent("Hey, can you look at my website?");
 
-const AUDIT_ITEMS = [
-  'Website speed & mobile performance',
-  'Local SEO & Google Business Profile analysis',
-  'Social media presence & posting consistency',
-  'ADA & accessibility compliance check',
-  'AI visibility issues (how AI search engines see your site)',
-  'Competitor content analysis',
-  'What\'s working, what\'s not, and what to fix first',
+const DISCOVERY_ITEMS = [
+  'What you want to change or accomplish',
+  'What is happening in the business now',
+  'Where time, customers, or opportunities are getting stuck',
+  'The tools and processes you already use',
+  'What has worked and what has not',
+  'What you are ready to change first',
+  'A confirmed summary of what we heard',
 ];
 
 function TextMeButton() {
@@ -47,7 +46,6 @@ export default function FreeAudit() {
   });
   // Anti-spam: honeypot + page-load timestamp
   const [_hp, setHp] = useState('');
-  const [pageLoadTs] = useState(() => Date.now());
 
   const set = (field, value) => setForm(prev => ({ ...prev, [field]: value }));
 
@@ -66,42 +64,21 @@ export default function FreeAudit() {
         phone: form.phone,
         website: form.website,
         industry: form.industry,
-        notes: 'Requested free marketing audit',
+        notes: 'Requested a free Growth Discovery',
       });
 
       try {
         // Notify team
         await base44.integrations.Core.SendEmail({
-          from_name: 'NTA — Free Audit Request',
+          from_name: 'NTA — Growth Discovery Request',
           to: 'rick@newtechadvertising.com',
-          subject: `Free Audit Request: ${form.business_name}`,
+          subject: `Growth Discovery Request: ${form.business_name}`,
           body: `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nBusiness: ${form.business_name}\nWebsite: ${form.website}\nIndustry: ${form.industry}`,
         });
       } catch (secondaryErr) {
         console.warn('Email notification failed, but lead was created:', secondaryErr);
       }
 
-      // Add the requested webhook call as well, just to be completely certain
-      fetch('https://grateful-lynx-44.convex.site/api/webhook/lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          secret: 'Y24RdJ7OjvX8lrcjPRDCYcusOnAspC9DbYkqJtY1Zb0',
-          source: 'nta-website',
-          form: '/free-audit',
-          name: form.name,
-          business_name: form.business_name,
-          email: form.email,
-          phone: form.phone,
-          website: form.website,
-          industry: form.industry,
-          service_interest: '',
-          notes: 'Requested free marketing audit',
-          timestamp: new Date().toISOString(),
-          _hp,
-          _ts: pageLoadTs,
-        })
-      }).catch(err => console.log('Webhook failed:', err));
 
       setStep(2);
       setForm({ name: '', email: '', phone: '', business_name: '', website: '', industry: '' });
@@ -116,8 +93,8 @@ export default function FreeAudit() {
   return (
     <div className="bg-slate-50 min-h-screen flex flex-col">
       <SEOHead 
-        title="Free Marketing & Gap Audit | New Tech Advertising"
-        description="Get a free marketing and gap audit. We identify exactly why your website isn't bringing in calls and what to fix first. NTA Mason City IA."
+        title="Free Growth Discovery | New Tech Advertising"
+        description="Start a free Growth Discovery to clarify what is happening in your business, what needs to change, and whether NTA can help."
       />
       <MarketingNav />
 
@@ -125,10 +102,10 @@ export default function FreeAudit() {
       <section className="bg-slate-950 text-white pt-24 pb-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight">
-            Get a Free Marketing & Gap Audit
+            Start a Free Growth Discovery
           </h1>
           <p className="text-slate-300 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl mx-auto">
-            If your website isn't bringing in calls or customers, I'll show you exactly why — and what to fix first.
+            Tell us what is happening in your business. We’ll listen, ask useful questions, and reflect back what we heard before recommending a next step.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -136,7 +113,7 @@ export default function FreeAudit() {
               onClick={() => document.getElementById('audit-form').scrollIntoView({ behavior: 'smooth' })}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors"
             >
-              Fill Out the Form Below
+              Start Below
             </button>
             <a
               href={`tel:+1${PHONE}`}
@@ -152,11 +129,11 @@ export default function FreeAudit() {
       <section className="py-16 px-6 flex-1">
         <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-16 items-start">
           
-          {/* What Your Audit Includes */}
+          {/* What Growth Discovery Covers */}
           <div>
-            <h2 className="text-3xl font-black text-slate-900 mb-6">What Your Audit Includes</h2>
+            <h2 className="text-3xl font-black text-slate-900 mb-6">What Growth Discovery Covers</h2>
             <ul className="space-y-4 mb-8">
-              {AUDIT_ITEMS.map(item => (
+              {DISCOVERY_ITEMS.map(item => (
                 <li key={item} className="flex items-start gap-3 text-slate-700 text-lg">
                   <CheckCircle2 className="w-6 h-6 text-emerald-500 flex-shrink-0 mt-0.5" />
                   <span>{item}</span>
@@ -164,8 +141,8 @@ export default function FreeAudit() {
               ))}
             </ul>
             <div className="bg-blue-50 border border-blue-100 rounded-2xl p-6 text-slate-700 text-base leading-relaxed">
-              <strong className="text-blue-900 block mb-1">Delivered within 24–48 hours.</strong>
-              A real person audits your business and sends you a detailed PDF report with specific, actionable recommendations. No high-pressure sales pitch.
+              <strong className="text-blue-900 block mb-1">Discovery comes before diagnosis.</strong>
+              This free step helps us understand your goals and present situation. It does not promise a detailed audit or implementation plan. If deeper evidence is needed, we will explain the separate Business Gap Audit before any paid work begins.
             </div>
             
             <div className="mt-12 pt-8 border-t border-slate-200">
@@ -182,9 +159,9 @@ export default function FreeAudit() {
                 <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <CheckCircle2 className="w-10 h-10 text-emerald-600" />
                 </div>
-                <h2 className="text-3xl font-black text-slate-900 mb-4">You're In! Your Gap Audit Is On the Way.</h2>
+                <h2 className="text-3xl font-black text-slate-900 mb-4">Thank You. Your Growth Discovery Request Is Ready.</h2>
                 <p className="text-slate-600 text-lg mb-8 max-w-lg mx-auto">
-                  We're reviewing your business now. But why wait? Pick your next step:
+                  We have your starting information. Choose how you would like to continue:
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -193,7 +170,7 @@ export default function FreeAudit() {
                     <div className="text-3xl mb-4">📅</div>
                     <h3 className="text-xl font-bold mb-3">Talk to Rick — 15 Minutes</h3>
                     <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
-                      Get your audit results explained live, ask questions, and find out exactly what to fix first. No pitch, no pressure.
+                      Talk through what is happening, confirm what we heard, and decide together whether there is a useful next step. No pitch, no pressure.
                     </p>
                     <div className="mt-auto">
                       <a 
@@ -213,7 +190,7 @@ export default function FreeAudit() {
                     <div className="text-3xl mb-4">🎯</div>
                     <h3 className="text-xl font-bold mb-3">Find Your Plan</h3>
                     <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
-                      While you wait for your audit, find out which growth plan fits your business. Take our 90-second quiz to get a personalized recommendation.
+                      If you prefer to continue online, answer a few questions about your goals and what is happening now.
                     </p>
                     <div className="mt-auto">
                       <Link 
@@ -229,7 +206,7 @@ export default function FreeAudit() {
 
                 <div className="space-y-4">
                   <p className="text-slate-500 text-sm">
-                    Either way, your personalized audit report will hit your inbox within 24 hours.
+                    We will not begin an audit or paid work unless the scope and next step are clearly agreed.
                   </p>
                   <p className="text-slate-600 font-medium">
                     Questions? Call or text Rick directly: <a href="tel:6414208816" className="text-blue-600 hover:underline">641-420-8816</a>
@@ -238,7 +215,7 @@ export default function FreeAudit() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
-                <h2 className="text-2xl font-black text-slate-900 mb-6">Request Your Free Audit</h2>
+                <h2 className="text-2xl font-black text-slate-900 mb-6">Request Your Free Growth Discovery</h2>
                 {/* Anti-spam honeypot — hidden from real users */}
                 <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
                   <label htmlFor="company_url">Company URL</label>
@@ -282,11 +259,11 @@ export default function FreeAudit() {
                     disabled={submitting}
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 h-auto text-lg rounded-xl shadow-lg shadow-blue-600/20"
                   >
-                    {submitting ? 'Submitting...' : 'Get My Free Audit'}
+                    {submitting ? 'Submitting...' : 'Start My Free Growth Discovery'}
                     {!submitting && <ArrowRight className="w-5 h-5 ml-2" />}
                   </Button>
                   <p className="text-center text-slate-500 text-sm mt-4">
-                    Free · No credit card · No spam · Delivered in 24–48 hours
+                    Free · No credit card · No pressure
                   </p>
                 </div>
               </form>
