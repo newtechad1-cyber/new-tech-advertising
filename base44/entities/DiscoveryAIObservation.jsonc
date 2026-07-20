@@ -47,5 +47,11 @@
     "observation",
     "reason",
     "uncertainty"
-  ]
+  ],
+  "rls": {
+    "create": false,
+    "read": false,
+    "update": false,
+    "delete": false
+  }
 }

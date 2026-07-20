@@ -56,5 +56,11 @@
     "consent_type",
     "notice_version",
     "source"
-  ]
+  ],
+  "rls": {
+    "create": false,
+    "read": false,
+    "update": false,
+    "delete": false
+  }
 }

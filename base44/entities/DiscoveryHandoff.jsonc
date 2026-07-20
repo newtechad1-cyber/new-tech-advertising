@@ -57,5 +57,11 @@
     "session_id",
     "handoff_type",
     "requested_at"
-  ]
+  ],
+  "rls": {
+    "create": false,
+    "read": false,
+    "update": false,
+    "delete": false
+  }
 }

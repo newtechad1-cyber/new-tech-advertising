@@ -67,5 +67,11 @@
     "action",
     "requested_by",
     "requested_at"
-  ]
+  ],
+  "rls": {
+    "create": false,
+    "read": false,
+    "update": false,
+    "delete": false
+  }
 }

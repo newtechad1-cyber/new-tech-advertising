@@ -57,5 +57,11 @@
     "actor_type",
     "occurred_at",
     "target_record_type"
-  ]
+  ],
+  "rls": {
+    "create": false,
+    "read": false,
+    "update": false,
+    "delete": false
+  }
 }

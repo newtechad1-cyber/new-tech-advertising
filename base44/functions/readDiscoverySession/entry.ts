@@ -1,25 +1,38 @@
 
 import { base44 } from '@base44/sdk';
+import { authenticateSession } from '../discoveryAuthHelper/entry.ts';
 
 export default async function(req, res) {
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
   const { session_id, public_session_key } = req.body;
-  if (!session_id || !public_session_key) return res.status(401).json({ error: 'Unauthorized' });
-
-  const session = await base44.asServiceRole.entities.DiscoverySession.get(session_id);
-  if (!session || session.public_session_key !== public_session_key) return res.status(401).json({ error: 'Unauthorized' });
-  if (['deleted', 'expired'].includes(session.status)) return res.status(403).json({ error: 'Session no longer active' });
-  if (new Date(session.expires_at) < new Date()) return res.status(403).json({ error: 'Session expired' });
-
+  
+  const auth = await authenticateSession(session_id, public_session_key);
+  if (auth.error) return res.status(auth.status).json({ error: auth.error });
+  const { session } = auth;
+  
+  const now = new Date().toISOString();
   await base44.asServiceRole.entities.DiscoverySession.update(session_id, {
-    last_activity_at: new Date().toISOString()
+    last_activity_at: now
   });
 
-  const [entries, categories, consents] = await Promise.all([
+  const [entries, categories, consents, summaries] = await Promise.all([
     base44.asServiceRole.entities.DiscoveryConversationEntry.filter({ session_id }),
     base44.asServiceRole.entities.DiscoveryCategory.filter({ session_id }),
     base44.asServiceRole.entities.DiscoveryConsent.filter({ session_id }),
+    base44.asServiceRole.entities.DiscoveryConfirmedSummary.filter({ session_id }),
   ]);
 
-  return res.json({ session, entries, categories, consents });
+  // Strip sensitive internal fields before returning
+  const safeSession = {
+    id: session.id,
+    mode: session.mode,
+    stage: session.stage,
+    status: session.status,
+    created_at: session.created_at,
+    last_activity_at: session.last_activity_at,
+    expires_at: session.expires_at,
+  };
+
+  return res.json({ session: safeSession, entries, categories, consents, summaries });
 }
-  

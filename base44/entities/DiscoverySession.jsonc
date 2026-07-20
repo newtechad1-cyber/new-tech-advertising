@@ -82,5 +82,11 @@
     "created_at",
     "last_activity_at",
     "expires_at"
-  ]
+  ],
+  "rls": {
+    "create": false,
+    "read": false,
+    "update": false,
+    "delete": false
+  }
 }

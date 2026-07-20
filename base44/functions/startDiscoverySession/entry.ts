@@ -1,14 +1,14 @@
-
 import { base44 } from '@base44/sdk';
-import crypto from 'crypto';
 
 export default async function(req, res) {
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
   const { mode = 'text' } = req.body;
   if (!['text', 'voice', 'mixed'].includes(mode)) return res.status(400).json({ error: 'Invalid mode' });
 
-  const sessionKey = crypto.randomBytes(32).toString('hex');
+  const sessionKey = crypto.randomUUID().replace(/-/g, '') + crypto.randomUUID().replace(/-/g, '');
   const now = new Date();
-  const expiresAt = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+  const expiresAt = new Date(now.getTime() + 24 * 60 * 60 * 1000); // 24 hours
 
   const session = await base44.asServiceRole.entities.DiscoverySession.create({
     model_version: 1,
@@ -50,4 +50,3 @@ export default async function(req, res) {
 
   return res.json({ session_id: session.id, public_session_key: sessionKey, expires_at: expiresAt.toISOString() });
 }
-  

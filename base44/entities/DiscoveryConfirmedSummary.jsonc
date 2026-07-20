@@ -73,5 +73,11 @@
     "information_still_needed",
     "confirmation_state",
     "created_at"
-  ]
+  ],
+  "rls": {
+    "create": false,
+    "read": false,
+    "update": false,
+    "delete": false
+  }
 }

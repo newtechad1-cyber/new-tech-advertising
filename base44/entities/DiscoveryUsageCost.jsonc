@@ -56,5 +56,11 @@
     "model_or_service",
     "approximate_cost_usd",
     "completion_outcome"
-  ]
+  ],
+  "rls": {
+    "create": false,
+    "read": false,
+    "update": false,
+    "delete": false
+  }
 }
