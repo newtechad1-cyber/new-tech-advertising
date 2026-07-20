@@ -1,0 +1,71 @@
+{
+  "name": "DiscoveryRetentionInstruction",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string"
+    },
+    "target": {
+      "type": "string",
+      "enum": [
+        "raw_audio",
+        "working_transcript",
+        "working_discovery",
+        "confirmed_summary",
+        "relationship_record"
+      ]
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "delete",
+        "save"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "scheduled",
+        "completed",
+        "failed",
+        "cancelled"
+      ],
+      "default": "pending"
+    },
+    "requested_by": {
+      "type": "string",
+      "enum": [
+        "default_policy",
+        "owner",
+        "rick",
+        "system"
+      ]
+    },
+    "requested_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "execute_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "deletion_proof": {
+      "type": "string"
+    },
+    "failure_reason": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "session_id",
+    "target",
+    "action",
+    "requested_by",
+    "requested_at"
+  ]
+}

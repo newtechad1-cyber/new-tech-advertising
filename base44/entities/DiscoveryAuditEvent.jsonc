@@ -1,0 +1,61 @@
+{
+  "name": "DiscoveryAuditEvent",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "created",
+        "accessed",
+        "exported",
+        "corrected",
+        "status_changed",
+        "consent_changed",
+        "retention_changed",
+        "deletion_requested",
+        "deletion_completed",
+        "deletion_failed"
+      ]
+    },
+    "actor_type": {
+      "type": "string",
+      "enum": [
+        "owner",
+        "rick",
+        "authorized_nta",
+        "ai_service",
+        "system"
+      ]
+    },
+    "actor_id": {
+      "type": "string"
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "target_record_type": {
+      "type": "string"
+    },
+    "target_record_id": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "object",
+      "default": {}
+    }
+  },
+  "required": [
+    "session_id",
+    "event_type",
+    "actor_type",
+    "occurred_at",
+    "target_record_type"
+  ]
+}

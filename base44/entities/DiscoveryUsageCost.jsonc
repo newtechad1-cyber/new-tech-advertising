@@ -1,0 +1,60 @@
+{
+  "name": "DiscoveryUsageCost",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string"
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "provider": {
+      "type": "string"
+    },
+    "operation": {
+      "type": "string",
+      "enum": [
+        "conversation",
+        "transcription",
+        "summary",
+        "workflow"
+      ]
+    },
+    "model_or_service": {
+      "type": "string"
+    },
+    "input_units": {
+      "type": "number",
+      "default": 0
+    },
+    "output_units": {
+      "type": "number",
+      "default": 0
+    },
+    "audio_seconds": {
+      "type": "number",
+      "default": 0
+    },
+    "approximate_cost_usd": {
+      "type": "number"
+    },
+    "completion_outcome": {
+      "type": "string",
+      "enum": [
+        "completed",
+        "failed",
+        "cancelled"
+      ]
+    }
+  },
+  "required": [
+    "session_id",
+    "occurred_at",
+    "provider",
+    "operation",
+    "model_or_service",
+    "approximate_cost_usd",
+    "completion_outcome"
+  ]
+}

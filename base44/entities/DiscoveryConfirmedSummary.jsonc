@@ -1,0 +1,77 @@
+{
+  "name": "DiscoveryConfirmedSummary",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "integer"
+    },
+    "why_owner_came": {
+      "type": "string"
+    },
+    "owner_goal": {
+      "type": "string"
+    },
+    "greatest_difficulty": {
+      "type": "string"
+    },
+    "present_process": {
+      "type": "string"
+    },
+    "what_is_working": {
+      "type": "string"
+    },
+    "possibly_missing_or_disconnected": {
+      "type": "string"
+    },
+    "desired_improvement": {
+      "type": "string"
+    },
+    "readiness": {
+      "type": "string"
+    },
+    "information_still_needed": {
+      "type": "string"
+    },
+    "owner_corrections": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "confirmation_state": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "correction_requested",
+        "confirmed"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "confirmed_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "session_id",
+    "version",
+    "why_owner_came",
+    "owner_goal",
+    "greatest_difficulty",
+    "present_process",
+    "what_is_working",
+    "possibly_missing_or_disconnected",
+    "desired_improvement",
+    "readiness",
+    "information_still_needed",
+    "confirmation_state",
+    "created_at"
+  ]
+}

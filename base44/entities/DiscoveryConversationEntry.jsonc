@@ -1,0 +1,57 @@
+{
+  "name": "DiscoveryConversationEntry",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string"
+    },
+    "speaker": {
+      "type": "string",
+      "enum": [
+        "owner",
+        "growth_guide",
+        "rick",
+        "system"
+      ]
+    },
+    "text": {
+      "type": "string"
+    },
+    "source_mode": {
+      "type": "string",
+      "enum": [
+        "text",
+        "voice_transcript",
+        "human_note",
+        "system"
+      ]
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "confidence": {
+      "type": "number"
+    },
+    "uncertainty": {
+      "type": "string"
+    },
+    "corrects_entry_id": {
+      "type": "string"
+    },
+    "correction_reason": {
+      "type": "string"
+    },
+    "superseded_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "session_id",
+    "speaker",
+    "text",
+    "source_mode",
+    "occurred_at"
+  ]
+}

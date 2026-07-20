@@ -1,0 +1,86 @@
+{
+  "name": "DiscoverySession",
+  "type": "object",
+  "properties": {
+    "model_version": {
+      "type": "integer",
+      "default": 1
+    },
+    "public_session_key": {
+      "type": "string"
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "text",
+        "voice",
+        "mixed"
+      ]
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "your_goal",
+        "what_is_happening_now",
+        "what_needs_to_change",
+        "review_what_we_heard"
+      ],
+      "default": "your_goal"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "started",
+        "in_progress",
+        "paused",
+        "saved",
+        "summary_ready",
+        "confirmed",
+        "needs_rick_review",
+        "handoff_requested",
+        "completed",
+        "deletion_requested",
+        "deleted",
+        "expired"
+      ],
+      "default": "started"
+    },
+    "anonymous_visitor_id": {
+      "type": "string"
+    },
+    "sales_lead_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_activity_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "saved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "confirmed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "deleted_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "public_session_key",
+    "mode",
+    "created_at",
+    "last_activity_at",
+    "expires_at"
+  ]
+}

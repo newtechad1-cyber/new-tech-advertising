@@ -1,0 +1,61 @@
+{
+  "name": "DiscoveryHandoff",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string"
+    },
+    "handoff_type": {
+      "type": "string",
+      "enum": [
+        "schedule_growth_conversation",
+        "call_nta",
+        "request_callback",
+        "continue_by_email",
+        "receive_summary",
+        "save_and_return"
+      ]
+    },
+    "requested_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "rick_review_state": {
+      "type": "string",
+      "enum": [
+        "not_requested",
+        "needs_review",
+        "in_review",
+        "reviewed"
+      ],
+      "default": "not_requested"
+    },
+    "confirmed_summary_id": {
+      "type": "string"
+    },
+    "contact_preference_id": {
+      "type": "string"
+    },
+    "suggested_follow_up_questions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "task_id": {
+      "type": "string"
+    },
+    "appointment_id": {
+      "type": "string"
+    },
+    "sales_lead_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "session_id",
+    "handoff_type",
+    "requested_at"
+  ]
+}

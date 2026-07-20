@@ -1,0 +1,63 @@
+{
+  "name": "DiscoveryCategory",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string"
+    },
+    "category_key": {
+      "type": "string",
+      "enum": [
+        "reason_for_conversation",
+        "owner_goals",
+        "stated_pain",
+        "present_process",
+        "existing_tools_and_information",
+        "what_works_and_must_be_protected",
+        "missing_or_disconnected_pieces",
+        "desired_improvement",
+        "growth_readiness",
+        "operational_capacity",
+        "financial_considerations",
+        "nta_fit",
+        "potential_first_priority",
+        "information_still_needed",
+        "promises_and_representations",
+        "agreed_next_step"
+      ]
+    },
+    "owner_supported_facts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "supporting_entry_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "completion_state": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "complete",
+        "not_yet_known"
+      ],
+      "default": "not_started"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "session_id",
+    "category_key",
+    "updated_at"
+  ]
+}

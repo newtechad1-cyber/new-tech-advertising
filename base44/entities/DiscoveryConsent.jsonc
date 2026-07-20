@@ -1,0 +1,60 @@
+{
+  "name": "DiscoveryConsent",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string"
+    },
+    "consent_type": {
+      "type": "string",
+      "enum": [
+        "microphone",
+        "transcription",
+        "raw_audio_retention",
+        "save_and_return",
+        "personal_follow_up",
+        "journal"
+      ]
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "not_asked",
+        "granted",
+        "declined",
+        "withdrawn"
+      ],
+      "default": "not_asked"
+    },
+    "affirmative_action": {
+      "type": "boolean",
+      "default": false
+    },
+    "notice_version": {
+      "type": "string"
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "withdrawn_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "website_text",
+        "website_voice",
+        "rick_recorded",
+        "rick_written"
+      ]
+    }
+  },
+  "required": [
+    "session_id",
+    "consent_type",
+    "notice_version",
+    "source"
+  ]
+}

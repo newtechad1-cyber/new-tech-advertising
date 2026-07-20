@@ -1,0 +1,51 @@
+{
+  "name": "DiscoveryAIObservation",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string"
+    },
+    "observation": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "supporting_entry_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "uncertainty": {
+      "type": "string"
+    },
+    "review_state": {
+      "type": "string",
+      "enum": [
+        "unreviewed",
+        "accepted",
+        "corrected",
+        "rejected"
+      ],
+      "default": "unreviewed"
+    },
+    "reviewed_by": {
+      "type": "string"
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "corrected_observation": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "session_id",
+    "observation",
+    "reason",
+    "uncertainty"
+  ]
+}
