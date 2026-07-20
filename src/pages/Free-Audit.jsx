@@ -189,18 +189,18 @@ export default function FreeAudit() {
                   {/* Right Card */}
                   <div className="bg-slate-950 text-white rounded-2xl p-6 text-left border border-slate-800 hover:border-slate-700 transition-colors group flex flex-col h-full">
                     <div className="text-3xl mb-4">🎯</div>
-                    <h3 className="text-xl font-bold mb-3">Continue Online</h3>
+                    <h3 className="text-xl font-bold mb-3">Continue by Email</h3>
                     <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
-                      Continue the Growth Conversation online and tell us—in your own words—what is happening now.
+                      Send Rick anything you want to add about what is happening, what you need, or what you want to accomplish.
                     </p>
                     <div className="mt-auto">
-                      <Link 
-                        to="/growth-conversation" 
+                      <a 
+                        href="mailto:rick@newtechadvertising.com?subject=My%20Growth%20Discovery" 
                         className="block w-full text-center bg-transparent hover:bg-slate-800 border border-slate-700 text-white font-semibold py-3 rounded-xl transition-colors mb-3"
                       >
-                        Continue Online →
-                      </Link>
-                      <p className="text-center text-slate-500 text-xs font-medium">Continue at your own pace</p>
+                        Continue by Email →
+                      </a>
+                      <p className="text-center text-slate-500 text-xs font-medium">Write in your own words</p>
                     </div>
                   </div>
                 </div>
