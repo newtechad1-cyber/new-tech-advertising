@@ -1,6 +1,5 @@
-
 import { base44 } from '@base44/sdk';
-import { authenticateSession } from '../discoveryAuthHelper/entry.ts';
+import { authenticateSession } from '../../lib/discoveryAuth.ts';
 
 export default async function(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });

@@ -1,4 +1,3 @@
-
 import { base44 } from '@base44/sdk';
 import { authenticateSession } from '../discoveryAuthHelper/entry.ts';
 

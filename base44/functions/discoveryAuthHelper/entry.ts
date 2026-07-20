@@ -1,6 +1,6 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.38';
 
-export async function authenticateSession(base44, session_id, public_session_key) {
+export async function authenticateSession(session_id, public_session_key, allowDeletionRequested = false) {
   if (!session_id || !public_session_key) {
     return { error: 'Unauthorized', status: 401 };
   }
@@ -12,18 +12,17 @@ export async function authenticateSession(base44, session_id, public_session_key
 
   // Check expiration
   if (session.expires_at && new Date(session.expires_at) < new Date()) {
-    return { error: 'Unauthorized', status: 401 }; // Return generic 401
+    return { error: 'Session expired', status: 403 };
   }
 
   // Check status
-  if (['deleted', 'expired', 'deletion_requested'].includes(session.status)) {
-    return { error: 'Unauthorized', status: 401 }; // Generic 401
+  if (['deleted', 'expired'].includes(session.status)) {
+    return { error: 'Session no longer active', status: 403 };
+  }
+  
+  if (!allowDeletionRequested && session.status === 'deletion_requested') {
+    return { error: 'Session no longer active', status: 403 };
   }
 
   return { session, error: null };
 }
-
-// To satisfy the deployment engine if it tries to boot this file directly
-Deno.serve(async (req) => {
-  return Response.json({ error: 'This is an internal helper module.' }, { status: 403 });
-});
