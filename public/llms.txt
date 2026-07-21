@@ -5,7 +5,7 @@ New Tech Advertising helps business owners understand how businesses really grow
 **Founder & Digital Growth Guide™**: Rick Hesse
 
 ## NTA Knowledge Library
-The NTA Knowledge Library is a connected learning journey for business owners. It consists of 7 collections and 49 lessons that cover growth, trust, relationships, advertising, AI, and building a connected business system.
+The NTA Knowledge Library is a connected curriculum for business owners. It currently contains 7 core collections and 52 lessons covering growth, trust, relationships, owner knowledge, practical AI, advertising, and connected business systems.
 
 **Knowledge Library Homepage**: https://newtechadvertising.com/knowledge
 
@@ -63,13 +63,16 @@ The NTA Knowledge Library is a connected learning journey for business owners. I
 
 #### AI Foundations
 - Collection URL: https://newtechadvertising.com/knowledge/ai-foundations
-  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/what-ai-actually-is
-  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/the-difference-between-automation-and-intelligence
-  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/how-ai-changes-search
-  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/the-limitations-of-ai
-  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/how-to-use-ai-safely-in-your-business
-  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/why-human-oversight-remains-critical
-  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/preparing-your-business-for-an-ai-driven-future
+  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/ai-isnt-magic-either
+  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/start-with-the-work-not-the-tool
+  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/ai-needs-context-before-it-can-be-helpful
+  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/ai-can-assist-judgment-it-cannot-own-it
+  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/a-prompt-is-the-beginning-of-a-conversation
+  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/automation-comes-after-understanding
+  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/building-your-first-ai-teammate
+  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/when-ai-tells-you-youre-different
+  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/the-team-i-spent-my-life-trying-to-build
+  - Lesson: https://newtechadvertising.com/knowledge/ai-foundations/ai-makes-complicated-work-easier
 
 #### What Is Digital Trust?
 - Collection URL: https://newtechadvertising.com/knowledge/what-is-digital-trust
