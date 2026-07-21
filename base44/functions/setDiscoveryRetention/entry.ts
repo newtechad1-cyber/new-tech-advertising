@@ -70,7 +70,6 @@ Deno.serve(async (req) => {
       expiresAt = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
       sessionUpdates.expires_at = expiresAt.toISOString();
     }
-    }
 
     // 4. Create Canonical Retention Instruction
     const instruction = await base44.asServiceRole.entities.DiscoveryRetentionInstruction.create({
