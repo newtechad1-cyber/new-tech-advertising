@@ -1,107 +1,186 @@
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.38';
 
-import { base44 } from '@base44/sdk';
+Deno.serve(async (req) => {
+  if (req.method !== 'POST') {
+    return Response.json({ error: 'Method Not Allowed' }, { status: 405 });
+  }
 
-export default async function(req, res) {
-  // This function is triggered by the "Discovery Retention Sweep" scheduled automation.
-  // We restrict this by requiring a secret token passed from the automation webhook config,
-  // or by verifying the automation caller context.
-  const authHeader = req.headers.get?.('authorization') || req.headers.authorization;
-  const cronSecret = Deno.env.get('AGENT_WEBHOOK_KEY'); 
-  
+  // Internal Authorization
+  const authHeader = req.headers.get('authorization');
+  const cronSecret = Deno.env.get('AGENT_WEBHOOK_KEY');
+
   if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
-    return res.status(403).json({ error: 'Forbidden. Scheduled automation use only.' });
+    return Response.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const now = new Date();
-  
-  // 1. Expire unsaved anonymous sessions after 24h
-  const activeSessions = await base44.asServiceRole.entities.DiscoverySession.filter({ status: { $in: ['started', 'in_progress', 'paused'] } });
-  for (const s of activeSessions) {
-    if (s.expires_at && new Date(s.expires_at) < now) {
-      await base44.asServiceRole.entities.DiscoverySession.update(s.id, { status: 'expired' });
+  let body = {};
+  try {
+    const rawBody = await req.text();
+    if (rawBody) {
+      body = JSON.parse(rawBody);
     }
+  } catch (e) {
+    // Ignore invalid JSON body, proceed with defaults
   }
 
-  // 2. Process pending retention instructions
-  const pendingInstructions = await base44.asServiceRole.entities.DiscoveryRetentionInstruction.filter({ status: 'pending' });
-  
-  for (const inst of pendingInstructions) {
-    if (inst.execute_at && new Date(inst.execute_at) > now) continue;
+  const isDryRun = body.dry_run === true;
+  const batchLimit = Math.min(Math.max(parseInt(body.batch_limit, 10) || 10, 1), 50);
 
-    const { session_id, target, action } = inst;
-    let success = false;
-    let counts = {};
-    let errorMsg = null;
+  const base44 = createClientFromRequest(req);
+  const now = new Date();
+
+  // Find eligible sessions
+  const results = {
+    processed: 0,
+    deleted: 0,
+    failed: 0,
+    dry_run: isDryRun,
+    details: []
+  };
+
+  // 1. Owner-requested deletions
+  const requestedSessions = await base44.asServiceRole.entities.DiscoverySession.filter(
+    { status: 'deletion_requested' },
+    null,
+    batchLimit
+  );
+
+  // 2. Expiration-based deletions (only started, in_progress, paused)
+  const expiringSessions = await base44.asServiceRole.entities.DiscoverySession.filter(
+    { status: { $in: ['started', 'in_progress', 'paused'] } },
+    null,
+    batchLimit
+  );
+
+  // Combine and enforce batch limit across both streams
+  const candidates = [...requestedSessions, ...expiringSessions].slice(0, batchLimit);
+
+  for (const s of candidates) {
+    let eligible = false;
+    let deletionReason = '';
+
+    if (s.status === 'deletion_requested') {
+      const audits = await base44.asServiceRole.entities.DiscoveryAuditEvent.filter({
+        session_id: s.id,
+        event_type: 'deletion_requested',
+        target_record_type: 'DiscoverySession'
+      });
+      if (audits.length > 0) {
+        eligible = true;
+        deletionReason = 'owner_requested';
+      }
+    } else if (['started', 'in_progress', 'paused'].includes(s.status)) {
+      if (s.expires_at && new Date(s.expires_at) < now && !s.saved_at) {
+        // Confirm no active save_and_return retention instruction protects it
+        const protectConsents = await base44.asServiceRole.entities.DiscoveryConsent.filter({
+          session_id: s.id,
+          consent_type: 'save_and_return',
+          state: 'granted',
+          affirmative_action: true
+        });
+        if (protectConsents.length === 0) {
+          eligible = true;
+          deletionReason = 'expired_unsaved';
+        }
+      }
+    }
+
+    if (!eligible) continue;
+
+    results.processed++;
+
+    if (isDryRun) {
+      results.deleted++;
+      results.details.push({ session_id: s.id, reason: deletionReason, status: 'dry_run_eligible' });
+      continue;
+    }
 
     try {
-      if (action === 'delete') {
-        if (target === 'working_discovery') {
-          // Delete conversation entries
-          const entries = await base44.asServiceRole.entities.DiscoveryConversationEntry.filter({ session_id });
-          for (const e of entries) await base44.asServiceRole.entities.DiscoveryConversationEntry.delete(e.id);
-          counts.entries = entries.length;
-
-          // Delete unconfirmed summaries
-          const summaries = await base44.asServiceRole.entities.DiscoveryConfirmedSummary.filter({ session_id, confirmation_state: { $ne: 'confirmed' } });
-          for (const sum of summaries) await base44.asServiceRole.entities.DiscoveryConfirmedSummary.delete(sum.id);
-          counts.unconfirmed_summaries = summaries.length;
-
-          // Clear working categories (anonymize/reset to not_started without facts)
-          const categories = await base44.asServiceRole.entities.DiscoveryCategory.filter({ session_id });
-          for (const c of categories) {
-             await base44.asServiceRole.entities.DiscoveryCategory.update(c.id, { 
-                owner_supported_facts: [],
-                supporting_entry_ids: [],
-                completion_state: 'not_started'
-             });
-          }
-          counts.categories_cleared = categories.length;
-
-          // Delete AI observations
-          const obs = await base44.asServiceRole.entities.DiscoveryAIObservation.filter({ session_id });
-          for (const o of obs) await base44.asServiceRole.entities.DiscoveryAIObservation.delete(o.id);
-          counts.ai_observations = obs.length;
-          
-          // Verify
-          const checkEntries = await base44.asServiceRole.entities.DiscoveryConversationEntry.filter({ session_id });
-          if (checkEntries.length > 0) throw new Error('Verification failed: Entries still exist');
-        } else if (target === 'raw_audio') {
-          // Implement raw audio cleanup if stored (e.g. via file API)
-          counts.raw_audio = 1;
-        }
-
-        success = true;
+      const sid = s.id;
+      if (!sid || typeof sid !== 'string') {
+        throw new Error('Invalid session ID');
       }
+
+      // Re-verify session hasn't changed right before deletion
+      const currentSession = await base44.asServiceRole.entities.DiscoverySession.get(sid);
+      if (currentSession.status !== s.status) {
+        throw new Error('Session state changed prior to deletion');
+      }
+
+      // Safe, scoped sequential deletion. 
+      // If partial failure occurs, retrying is idempotent because deleteMany ignores empty matches.
+      const toDelete = [
+        'DiscoveryConversationEntry',
+        'DiscoveryCategory',
+        'DiscoveryConsent',
+        'DiscoveryConfirmedSummary',
+        'DiscoveryContactPreference',
+        'DiscoveryHandoff',
+        'DiscoveryRetentionInstruction',
+        'DiscoveryAIObservation',
+        'DiscoveryUsageCost'
+      ];
+
+      for (const entityName of toDelete) {
+        await base44.asServiceRole.entities[entityName].deleteMany({ session_id: sid });
+      }
+
+      // Clean up non-essential AuditEvents, preserving proof of deletion
+      await base44.asServiceRole.entities.DiscoveryAuditEvent.deleteMany({
+        session_id: sid,
+        event_type: { $nin: ['deletion_requested', 'deletion_completed', 'deletion_failed'] }
+      });
+
+      // Neutralize public session key & set tombstone on parent session
+      await base44.asServiceRole.entities.DiscoverySession.update(sid, {
+        public_session_key: '[DELETED]',
+        status: 'deleted',
+        deleted_at: now.toISOString(),
+        anonymous_visitor_id: null,
+        sales_lead_id: null // Unlink independent business records without deleting them
+      });
+
+      // Log successful deletion proof safely
+      await base44.asServiceRole.entities.DiscoveryAuditEvent.create({
+        session_id: sid,
+        event_type: 'deletion_completed',
+        actor_type: 'system',
+        actor_id: 'retention_sweep',
+        occurred_at: new Date().toISOString(),
+        target_record_type: 'DiscoverySession',
+        target_record_id: sid,
+        reason: `Processed deletion for reason: ${deletionReason}`
+      });
+
+      results.deleted++;
+      results.details.push({ session_id: sid, status: 'deleted' });
+
     } catch (err) {
-      errorMsg = err.message;
-    }
+      results.failed++;
+      results.details.push({ session_id: s.id, status: 'failed' });
 
-    if (success) {
-      await base44.asServiceRole.entities.DiscoveryRetentionInstruction.update(inst.id, {
-        status: 'completed',
-        completed_at: now.toISOString(),
-        deletion_proof: JSON.stringify({ target, completed_at: now.toISOString(), counts, verification: 'passed' })
-      });
-      
-      // Update session status to deleted if all instructions complete
-      if (target === 'working_discovery') {
-         await base44.asServiceRole.entities.DiscoverySession.update(session_id, { status: 'deleted', deleted_at: now.toISOString() });
+      // Record safe internal failure state
+      try {
+        await base44.asServiceRole.entities.DiscoveryAuditEvent.create({
+          session_id: s.id,
+          event_type: 'deletion_failed',
+          actor_type: 'system',
+          actor_id: 'retention_sweep',
+          occurred_at: new Date().toISOString(),
+          target_record_type: 'DiscoverySession',
+          target_record_id: s.id,
+          reason: 'Internal deletion sweep failed to complete all stages'
+        });
+      } catch (logErr) {
+        // Do not expose database error internally
       }
-    } else {
-      await base44.asServiceRole.entities.DiscoveryRetentionInstruction.update(inst.id, {
-        status: 'failed',
-        failure_reason: errorMsg
-      });
-      // Create admin task
-      await base44.asServiceRole.entities.NTATask.create({
-        title: 'Growth Guide Deletion Failed',
-        description: `Failed to process deletion for session ${session_id}: ${errorMsg}`,
-        task_type: 'system',
-        priority: 'high',
-        status: 'todo'
-      });
     }
   }
 
-  return res.json({ success: true, processed: pendingInstructions.length });
-}
+  return Response.json({
+    processed: results.processed,
+    deleted: results.deleted,
+    failed: results.failed,
+    dry_run: results.dry_run
+  });
+});
