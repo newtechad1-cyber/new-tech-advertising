@@ -40,9 +40,11 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Invalid consent type' }, { status: 400 });
     }
 
-    const validStates = ['not_asked', 'granted', 'declined', 'withdrawn'];
-    if (!validStates.includes(state)) {
-      return Response.json({ error: 'Invalid state' }, { status: 400 });
+    // "not_asked" is an internal/default state, not an owner decision. Allowing a
+    // public caller to submit it would erase a recorded choice without an audit event.
+    const validOwnerStates = ['granted', 'declined', 'withdrawn'];
+    if (!validOwnerStates.includes(state)) {
+      return Response.json({ error: 'Invalid owner consent state' }, { status: 400 });
     }
 
     // Public callers can only use owner-controlled sources
@@ -64,8 +66,8 @@ Deno.serve(async (req) => {
     });
     const existing = existingConsents.length > 0 ? existingConsents[0] : null;
 
-    if (state === 'withdrawn' && !existing) {
-      return Response.json({ error: 'Cannot withdraw non-existent consent' }, { status: 400 });
+    if (state === 'withdrawn' && (!existing || existing.state !== 'granted')) {
+      return Response.json({ error: 'Only granted consent can be withdrawn' }, { status: 400 });
     }
 
     const isStateChange = !existing || existing.state !== state;
