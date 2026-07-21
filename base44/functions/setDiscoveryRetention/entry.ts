@@ -42,6 +42,12 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Invalid retention instruction' }, { status: 400 });
     }
 
+    // Whole-session deletion must go through requestDiscoveryDeletion, which requires
+    // explicit owner confirmation and creates the canonical deletion-request audit proof.
+    if (action === 'delete') {
+      return Response.json({ error: 'Use the confirmed deletion-request flow' }, { status: 400 });
+    }
+
     const now = new Date();
     const nowIso = now.toISOString();
 
