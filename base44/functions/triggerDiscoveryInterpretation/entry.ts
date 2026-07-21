@@ -62,18 +62,20 @@ Deno.serve(async (req) => {
       return Response.json({ status: 'already_accepted', entry_id: entryId });
     }
 
-    const coordinatorUrl = new URL(req.url);
-    coordinatorUrl.pathname = '/functions/coordinateDiscoveryInterpretation';
-    coordinatorUrl.search = '';
-
-    const coordinatorResponse = await fetch(coordinatorUrl, {
-      method: 'POST',
-      headers: {
-        'authorization': `Bearer ${secret}`,
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({ event: payload.event })
-    });
+    // Use the SDK's service-role function transport instead of deriving a URL from
+    // req.url. Base44's isolated function tester does not mount sibling functions
+    // on the request's local origin, while functions.fetch targets the deployed app.
+    const coordinatorResponse = await base44.asServiceRole.functions.fetch(
+      '/coordinateDiscoveryInterpretation',
+      {
+        method: 'POST',
+        headers: {
+          'authorization': `Bearer ${secret}`,
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({ event: payload.event })
+      }
+    );
 
     const responseText = await coordinatorResponse.text();
     let responseBody: unknown;
