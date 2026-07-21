@@ -1,6 +1,7 @@
 import { lesson7 } from './aiFoundationsLesson7';
 import { lesson8 } from './aiFoundationsLesson8';
 import { lesson9 } from './aiFoundationsLesson9';
+import { lesson10 } from './aiFoundationsLesson10';
 
 export const aiFoundationsLessons = [
   {
@@ -2351,5 +2352,6 @@ The best automation begins with a process someone understands well enough to exp
   },
   lesson7,
   lesson8,
-  lesson9
+  lesson9,
+  lesson10
 ];

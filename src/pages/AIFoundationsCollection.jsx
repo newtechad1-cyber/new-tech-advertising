@@ -7,6 +7,21 @@ import SEOHead from '@/components/shared/SEOHead';
 import { aiFoundationsLessons } from '@/data/aiFoundations';
 import { getJourneyMemory } from '@/lib/journeyMemory';
 
+const learningSections = {
+  0: {
+    title: 'Understand AI',
+    description: 'Remove the fear, hype, and confusion before choosing tools.'
+  },
+  3: {
+    title: 'Learn to Collaborate',
+    description: 'Use context, conversation, reflection, and human judgment.'
+  },
+  7: {
+    title: 'Build Something Useful',
+    description: 'Turn experience and approved understanding into practical systems.'
+  }
+};
+
 export default function AIFoundationsCollection() {
   const [completedLessons, setCompletedLessons] = useState([]);
 
@@ -55,7 +70,7 @@ export default function AIFoundationsCollection() {
             AI Foundations
           </h1>
           <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-10">
-            A practical guide to understanding and applying artificial intelligence in your business.
+            Learn how to turn your experience, ideas, and everyday work into useful business systems—without surrendering your judgment or control.
           </p>
           
           {/* Progress Indicator */}
@@ -97,7 +112,17 @@ export default function AIFoundationsCollection() {
               const isCompleted = completedLessons.includes(lesson.id);
               const isNext = !isCompleted && (index === 0 || completedLessons.includes(aiFoundationsLessons[index - 1].id));
               
+              const section = learningSections[index];
+
               return (
+                <React.Fragment key={lesson.id}>
+                {section && (
+                  <div className={index === 0 ? 'pb-2' : 'pt-10 pb-2'}>
+                    <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-2">Part {Object.keys(learningSections).indexOf(String(index)) + 1}</p>
+                    <h3 className="text-2xl font-bold text-white mb-2">{section.title}</h3>
+                    <p className="text-slate-400">{section.description}</p>
+                  </div>
+                )}
                 <Link 
                   key={lesson.id}
                   to={`/knowledge/ai-foundations/${lesson.slug}`}
@@ -137,6 +162,7 @@ export default function AIFoundationsCollection() {
                     </div>
                   </div>
                 </Link>
+                </React.Fragment>
               )
             })}
           </div>

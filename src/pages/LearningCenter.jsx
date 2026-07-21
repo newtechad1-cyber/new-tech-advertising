@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
   ArrowRight, BookOpen, Compass, ShieldCheck, TrendingUp, MonitorSmartphone, Target
@@ -7,6 +6,7 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import { getJourneyMemory } from '@/lib/journeyMemory';
+import { aiFoundationsLessons } from '@/data/aiFoundations';
 
 export default function LearningCenter() {
   const memory = getJourneyMemory();
@@ -33,10 +33,10 @@ export default function LearningCenter() {
       icon: MonitorSmartphone,
       color: 'blue',
       path: '/knowledge/ai-foundations',
-      lessons: 7,
+      lessons: aiFoundationsLessons.length,
       difficulty: 'Beginner',
-      time: '35 min',
-      progress: Math.round((aiProgress.completed.length / 7) * 100) || 0
+      time: 'About 90 min',
+      progress: Math.round((aiProgress.completed.length / aiFoundationsLessons.length) * 100) || 0
     },
     {
       id: 'digital-visibility',
