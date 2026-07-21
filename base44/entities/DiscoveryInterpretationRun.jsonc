@@ -1,0 +1,21 @@
+{
+  "name": "DiscoveryInterpretationRun",
+  "type": "object",
+  "properties": {
+    "session_id": { "type": "string" },
+    "interpretation_version": { "type": "integer" },
+    "status": {
+      "type": "string",
+      "enum": ["staging", "ready", "promoted", "failed"],
+      "default": "staging"
+    },
+    "expected_entry_count": { "type": "integer", "default": 0 },
+    "completed_entry_count": { "type": "integer", "default": 0 },
+    "safe_error": { "type": "string" },
+    "started_at": { "type": "string", "format": "date-time" },
+    "completed_at": { "type": "string", "format": "date-time" },
+    "promoted_at": { "type": "string", "format": "date-time" }
+  },
+  "required": ["session_id", "interpretation_version", "status", "started_at"],
+  "rls": { "create": false, "read": false, "update": false, "delete": false }
+}
