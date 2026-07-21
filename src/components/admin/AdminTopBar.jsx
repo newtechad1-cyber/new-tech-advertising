@@ -104,9 +104,14 @@ export default function AdminTopBar({ onMenuClick, sidebarOpen, sidebarCollapsed
               <div className="px-2 py-1.5 text-xs font-semibold text-gray-900">
                 {user?.full_name || 'User'}
               </div>
-              <div className="px-2 text-xs text-gray-500 mb-2">
-                {user?.email}
-              </div>
+              {user?.email && (
+                <a
+                  href={`mailto:${user.email}`}
+                  className="mx-2 mb-2 block text-xs text-blue-600 underline-offset-2 hover:underline"
+                >
+                  {user.email}
+                </a>
+              )}
               <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <Settings className="w-4 h-4 mr-2" />
