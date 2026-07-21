@@ -91,8 +91,14 @@ export default function LearningCenter() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans overflow-hidden flex flex-col">
       <SEOHead 
-        title="NTA Knowledge Library | New Tech Advertising"
-        description="Educational collections for local businesses. Learn about Business Foundations, AI, Digital Visibility, and Growth Systems."
+        title="Practical AI and Business Growth Lessons | NTA Knowledge Library"
+        description="A connected curriculum for small-business owners: practical AI, business foundations, customer trust, durable relationships, owner knowledge, digital visibility, and growth systems."
+        collectionData={{
+          name: 'NTA Knowledge Library',
+          description: 'Connected lessons that help small-business owners understand growth, preserve their knowledge, and use AI under human direction.',
+          numberOfItems: collections.length,
+          hasPart: collections.map(({ title: name, path: url }) => ({ name, url }))
+        }}
       />
       <MarketingNav />
       
@@ -111,7 +117,7 @@ export default function LearningCenter() {
             </h1>
             
             <p className="text-lg md:text-xl text-slate-400 leading-relaxed max-w-2xl mx-auto mb-10 font-medium">
-              Structured educational collections designed to help you understand the new digital landscape and apply it to your business.
+              Learn how businesses really grow, how customers decide who to trust, and how to turn your experience and judgment into useful systems with AI—without giving up control of your business.
             </p>
           </div>
         </header>
