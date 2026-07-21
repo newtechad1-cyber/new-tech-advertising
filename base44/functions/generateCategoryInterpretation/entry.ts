@@ -2,34 +2,73 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
 
 Deno.serve(async (req) => {
   if (req.method !== 'POST') {
-    return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    return Response.json({ error: 'Method Not Allowed' }, { status: 405 });
+  }
+
+  const expectedToken = Deno.env.get('AGENT_WEBHOOK_KEY');
+  const authHeader = req.headers.get('Authorization');
+  
+  if (!expectedToken || authHeader !== `Bearer ${expectedToken}`) {
+    return Response.json({ error: 'AUTHORIZATION_FAILED' }, { status: 401 });
   }
 
   const base44 = createClientFromRequest(req);
+  
+  let payload;
+  try {
+    payload = await req.json();
+  } catch (e) {
+    return Response.json({ error: 'INVALID_PAYLOAD' }, { status: 400 });
+  }
+
+  // Handle both automation payload format and direct rebuilding
+  let entryId = payload.entry_id;
+  if (!entryId && payload.event && payload.event.entity_name === 'DiscoveryConversationEntry') {
+    if (payload.event.type !== 'create') {
+      return Response.json({ status: 'ignored', reason: 'NOT_CREATE_EVENT' }, { status: 200 });
+    }
+    entryId = payload.event.entity_id;
+  }
+
+  if (!entryId) {
+    return Response.json({ error: 'ENTRY_NOT_FOUND' }, { status: 400 });
+  }
+
+  const targetVersion = payload.interpretation_version || 1;
   let jobId = null;
 
   try {
-    const { session_id, entry_id } = await req.json();
-
-    if (!session_id || !entry_id) {
-      return Response.json({ error: 'Missing session_id or entry_id' }, { status: 400 });
+    const entry = await base44.asServiceRole.entities.DiscoveryConversationEntry.get(entryId);
+    if (!entry) {
+      return Response.json({ error: 'ENTRY_NOT_FOUND' }, { status: 404 });
     }
 
-    // 1. Idempotency Check
-    // Note: Base44 lacks a confirmed database-level uniqueness constraint. 
-    // Query-before-create alone is not fully atomic.
+    if (entry.speaker !== 'owner') {
+      return Response.json({ status: 'skipped', reason: 'NON_OWNER_ENTRY' }, { status: 200 });
+    }
+
+    const session = await base44.asServiceRole.entities.DiscoverySession.get(entry.session_id);
+    if (!session) {
+      return Response.json({ error: 'SESSION_NOT_FOUND' }, { status: 404 });
+    }
+
+    const ineligibleStates = ['deleted', 'deletion_requested', 'expired', 'completed', 'handoff_requested'];
+    if (ineligibleStates.includes(session.status)) {
+      return Response.json({ error: 'SESSION_INELIGIBLE' }, { status: 400 });
+    }
+
+    // Job idempotency check (query-before-create concurrency race acknowledged)
     const existingJobs = await base44.asServiceRole.entities.CategoryInterpretationJob.filter({
-      session_id,
-      entry_id
+      session_id: session.id,
+      entry_id: entryId,
+      interpretation_version: targetVersion
     });
 
-    let job;
     if (existingJobs.length > 0) {
-      job = existingJobs[0];
+      const job = existingJobs[0];
       if (job.status === 'completed' || job.status === 'processing') {
-        return Response.json({ status: 'skipped', reason: 'already processed or processing' });
+        return Response.json({ status: 'skipped', reason: 'JOB_ALREADY_PROCESSED' }, { status: 200 });
       }
-      // If failed, we retry
       await base44.asServiceRole.entities.CategoryInterpretationJob.update(job.id, {
         status: 'processing',
         retry_count: (job.retry_count || 0) + 1,
@@ -38,53 +77,36 @@ Deno.serve(async (req) => {
       jobId = job.id;
     } else {
       const newJob = await base44.asServiceRole.entities.CategoryInterpretationJob.create({
-        session_id,
-        entry_id,
+        session_id: session.id,
+        entry_id: entryId,
+        interpretation_version: targetVersion,
         status: 'processing',
         started_at: new Date().toISOString()
       });
       jobId = newJob.id;
     }
 
-    // 2. Load the referenced entry and verify it belongs to the session
-    const entry = await base44.asServiceRole.entities.DiscoveryConversationEntry.get(entry_id);
-    if (!entry || entry.session_id !== session_id) {
-      throw new Error("Invalid or mismatched entry");
-    }
-
-    // 3. Load session context
-    const session = await base44.asServiceRole.entities.DiscoverySession.get(session_id);
-    if (!session) {
-      throw new Error("Session not found");
-    }
-
-    const categories = await base44.asServiceRole.entities.DiscoveryCategory.filter({ session_id });
-    
-    // Load recent entries (bounded context) to help AI understand
-    const recentEntries = await base44.asServiceRole.entities.DiscoveryConversationEntry.list(
-      '-occurred_at', 
-      10, 
-      0, 
-      { session_id }
+    // Gather context (owner entries only)
+    const recentEntries = await base44.asServiceRole.entities.DiscoveryConversationEntry.filter(
+      { session_id: session.id, speaker: 'owner' },
+      '-occurred_at',
+      10
     );
-    // Sort chronological
-    const contextEntries = recentEntries.sort((a: any, b: any) => new Date(a.occurred_at).getTime() - new Date(b.occurred_at).getTime());
 
-    // 4. Construct AI Prompt
+    const allowlist = new Set(recentEntries.map((e: any) => String(e.id)));
+    allowlist.add(String(entry.id));
+
     const prompt = `
-You are extracting structured facts from a business discovery conversation.
-Review the new conversation entry and the recent context, and extract any new facts or updates for the Discovery Categories.
+Extract facts from this specific new entry based on the ongoing conversation.
+Focus solely on statements representing the business owner's facts, pain points, or goals.
 
 Context Entries:
-${contextEntries.map((e: any) => `[Entry ID: ${e.id}] ${e.speaker}: ${e.text}`).join('\n')}
+${recentEntries.map((e: any) => `[Entry ID: ${e.id}]: ${e.text}`).join('\n')}
 
 New Entry to Analyze (Entry ID: ${entry.id}):
-${entry.speaker}: ${entry.text}
+${entry.text}
 
-Existing Categories:
-${categories.map((c: any) => `- ${c.category_key} (${c.completion_state})`).join('\n')}
-
-Based on the New Entry, update the categories. For any new fact identified, provide the statement and the exact Evidence Entry ID(s) that support it. If there are conflicts, list them.
+If there are no meaningful new facts in the New Entry, return empty arrays.
 `;
 
     const schema = {
@@ -101,58 +123,39 @@ Based on the New Entry, update the categories. For any new fact identified, prov
                 "items": {
                   "type": "object",
                   "properties": {
-                    "statement": { "type": "string" },
-                    "evidence_entry_ids": {
-                      "type": "array",
-                      "items": { "type": "string" }
-                    }
+                    "statement": { "type": "string" }
                   },
-                  "required": ["statement", "evidence_entry_ids"]
+                  "required": ["statement"]
                 }
               },
               "completion_state": {
                 "type": "string",
-                "enum": ["in_progress", "complete"]
-              },
-              "uncertainty": { "type": "string" },
-              "conflicts": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "statement": { "type": "string" },
-                    "conflicting_entry_ids": {
-                      "type": "array",
-                      "items": { "type": "string" }
-                    }
-                  },
-                  "required": ["statement", "conflicting_entry_ids"]
-                }
+                "enum": ["not_started", "in_progress", "complete", "not_yet_known"]
               }
             },
-            "required": [
-              "category_key",
-              "facts",
-              "completion_state",
-              "uncertainty",
-              "conflicts"
-            ]
+            "required": ["category_key", "facts", "completion_state"]
           }
         }
       },
       "required": ["interpretations"]
     };
 
-    // 5. Invoke LLM
     const aiResponse = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt,
       response_json_schema: schema
     });
 
+    if (!aiResponse) {
+      throw new Error('INVALID_AI_OUTPUT');
+    }
+
     const parsed = typeof aiResponse === 'string' ? JSON.parse(aiResponse) : aiResponse;
     const interpretations = parsed?.output?.interpretations || parsed?.interpretations || [];
 
-    // 6. Update Categories via invoke
+    if (interpretations.length === 0 && entry.text.length > 20) {
+      throw new Error('INVALID_AI_OUTPUT');
+    }
+
     const validCategoryKeys = [
       "reason_for_conversation", "owner_goals", "stated_pain", "present_process",
       "existing_tools_and_information", "what_works_and_must_be_protected",
@@ -162,22 +165,40 @@ Based on the New Entry, update the categories. For any new fact identified, prov
       "promises_and_representations", "agreed_next_step"
     ];
 
+    const apiUrl = new URL(`/api/functions/updateDiscoveryCategory`, req.url).href;
+
     for (const interp of interpretations) {
       if (!validCategoryKeys.includes(interp.category_key)) continue;
 
-      // Ensure evidence contains the new entry id if missing, though we trust the AI
-      await base44.asServiceRole.functions.invoke('updateDiscoveryCategory', {
-        session_id,
-        public_session_key: session.public_session_key,
-        category_key: interp.category_key,
-        completion_state: interp.completion_state,
-        interpreted_facts: interp.facts,
-        uncertainty: interp.uncertainty,
-        conflicts: interp.conflicts
-      });
+      const validFacts = (interp.facts || []).map((f: any) => ({
+        statement: f.statement,
+        provenance_entry_id: String(entry.id),
+        interpretation_version: targetVersion
+      })).filter((f: any) => f.statement);
+
+      if (validFacts.length > 0) {
+        const updateRes = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${expectedToken}`
+          },
+          body: JSON.stringify({
+            session_id: session.id,
+            category_key: interp.category_key,
+            completion_state: interp.completion_state,
+            interpreted_facts: validFacts,
+            provenance_entry_id: entry.id,
+            interpretation_version: targetVersion
+          })
+        });
+
+        if (!updateRes.ok) {
+          throw new Error('CATEGORY_PROMOTION_FAILED');
+        }
+      }
     }
 
-    // 7. Mark Job Completed
     await base44.asServiceRole.entities.CategoryInterpretationJob.update(jobId, {
       status: 'completed',
       completed_at: new Date().toISOString()
@@ -187,12 +208,15 @@ Based on the New Entry, update the categories. For any new fact identified, prov
 
   } catch (error) {
     if (jobId) {
+      let errorCode = 'LLM_INVOCATION_FAILED';
+      if (error instanceof Error && ['INVALID_AI_OUTPUT', 'CATEGORY_PROMOTION_FAILED'].includes(error.message)) {
+        errorCode = error.message;
+      }
       await base44.asServiceRole.entities.CategoryInterpretationJob.update(jobId, {
         status: 'failed',
-        last_error: String(error.message).substring(0, 500)
+        last_error: errorCode
       });
     }
-    // Record safe failure status without exposing private internal errors to visitors
-    return Response.json({ status: 'failed', error: 'Interpretation failed to process.' }, { status: 500 });
+    return Response.json({ error: 'PROCESSING_FAILED' }, { status: 500 });
   }
 });

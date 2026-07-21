@@ -54,6 +54,10 @@
       "type": "string",
       "format": "date-time"
     },
+    "active_interpretation_version": {
+      "type": "integer",
+      "default": 1
+    },
     "interpreted_facts": {
       "type": "array",
       "items": {
@@ -62,16 +66,18 @@
           "statement": {
             "type": "string"
           },
-          "evidence_entry_ids": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+          "provenance_entry_id": {
+            "type": "string"
+          },
+          "interpretation_version": {
+            "type": "integer",
+            "default": 1
           }
         },
         "required": [
           "statement",
-          "evidence_entry_ids"
+          "provenance_entry_id",
+          "interpretation_version"
         ]
       },
       "default": []
@@ -87,16 +93,18 @@
           "statement": {
             "type": "string"
           },
-          "conflicting_entry_ids": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+          "provenance_entry_id": {
+            "type": "string"
+          },
+          "interpretation_version": {
+            "type": "integer",
+            "default": 1
           }
         },
         "required": [
           "statement",
-          "conflicting_entry_ids"
+          "provenance_entry_id",
+          "interpretation_version"
         ]
       },
       "default": []

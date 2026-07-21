@@ -8,6 +8,10 @@
     "entry_id": {
       "type": "string"
     },
+    "interpretation_version": {
+      "type": "integer",
+      "default": 1
+    },
     "status": {
       "type": "string",
       "enum": [
@@ -32,10 +36,6 @@
     "completed_at": {
       "type": "string",
       "format": "date-time"
-    },
-    "interpretation_version": {
-      "type": "integer",
-      "default": 1
     }
   },
   "required": [

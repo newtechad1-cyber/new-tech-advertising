@@ -2,66 +2,80 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
 
 Deno.serve(async (req) => {
   if (req.method !== 'POST') {
-    return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    return Response.json({ error: 'Method Not Allowed' }, { status: 405 });
+  }
+
+  const expectedToken = Deno.env.get('AGENT_WEBHOOK_KEY');
+  const authHeader = req.headers.get('Authorization');
+  
+  if (!expectedToken || authHeader !== `Bearer ${expectedToken}`) {
+    return Response.json({ error: 'AUTHORIZATION_FAILED' }, { status: 401 });
   }
 
   const base44 = createClientFromRequest(req);
-
+  let payload;
   try {
-    const { session_id, public_session_key } = await req.json();
-
-    if (!session_id || !public_session_key) {
-      return Response.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const session = await base44.asServiceRole.entities.DiscoverySession.get(session_id);
-    if (!session || session.public_session_key !== public_session_key) {
-      return Response.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    // 1. Fetch all durable entries for the session
-    // We assume < 500 for a single session, or we could paginate. For rebuild, we'll fetch up to 500.
-    const allEntries = await base44.asServiceRole.entities.DiscoveryConversationEntry.list(
-      'occurred_at', 
-      500, 
-      0, 
-      { session_id }
-    );
-
-    // 2. We can clear or reset existing derived category data (interpreted_facts, conflicts, supporting_entry_ids).
-    // Because updateDiscoveryCategory merges uniquely, we can just wipe them and re-run.
-    const categories = await base44.asServiceRole.entities.DiscoveryCategory.filter({ session_id });
-    for (const cat of categories) {
-      await base44.asServiceRole.entities.DiscoveryCategory.update(cat.id, {
-        interpreted_facts: [],
-        conflicts: [],
-        supporting_entry_ids: [],
-        completion_state: 'not_started',
-        uncertainty: ''
-      });
-    }
-
-    // Also clear existing jobs so they can be re-run cleanly, or just bypass them.
-    // For rebuild, we will just invoke `generateCategoryInterpretation` sequentially.
-    for (const entry of allEntries) {
-      // Create or reset the job
-      const existingJobs = await base44.asServiceRole.entities.CategoryInterpretationJob.filter({
-        session_id,
-        entry_id: entry.id
-      });
-      if (existingJobs.length > 0) {
-        await base44.asServiceRole.entities.CategoryInterpretationJob.delete(existingJobs[0].id);
-      }
-
-      await base44.asServiceRole.functions.invoke('generateCategoryInterpretation', {
-        session_id,
-        entry_id: entry.id
-      });
-    }
-
-    return Response.json({ status: 'success', rebuilt_entries: allEntries.length });
-
-  } catch (error) {
-    return Response.json({ status: 'failed', error: 'Rebuild failed' }, { status: 500 });
+    payload = await req.json();
+  } catch (e) {
+    return Response.json({ error: 'INVALID_PAYLOAD' }, { status: 400 });
   }
+
+  const { session_id } = payload;
+  if (!session_id) {
+    return Response.json({ error: 'SESSION_NOT_FOUND' }, { status: 400 });
+  }
+
+  // 1. Determine staging target version
+  const categories = await base44.asServiceRole.entities.DiscoveryCategory.filter({ session_id });
+  let currentActiveVersion = 1;
+  if (categories.length > 0) {
+    currentActiveVersion = Math.max(...categories.map((c: any) => c.active_interpretation_version || 1));
+  }
+  
+  const newVersion = currentActiveVersion + 1;
+
+  // 2. Fetch all immutable evidence for the owner
+  const allOwnerEntries = await base44.asServiceRole.entities.DiscoveryConversationEntry.filter(
+    { session_id, speaker: 'owner' },
+    'occurred_at',
+    500
+  );
+
+  // 3. Staging process (Sequential processing into target interpretation_version)
+  const workerUrl = new URL(`/api/functions/generateCategoryInterpretation`, req.url).href;
+  
+  for (const entry of allOwnerEntries) {
+    const res = await fetch(workerUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${expectedToken}`
+      },
+      body: JSON.stringify({
+        entry_id: entry.id,
+        interpretation_version: newVersion
+      })
+    });
+    
+    // Fail closed: Any error halts promotion; the active view remains intact.
+    if (!res.ok) {
+      return Response.json({ error: 'REBUILD_FAILED_DURING_STAGING' }, { status: 500 });
+    }
+  }
+
+  // 4. Atomic-equivalent promotion
+  // Updates the active pointer on all categories sequentially.
+  const updatedCategories = await base44.asServiceRole.entities.DiscoveryCategory.filter({ session_id });
+  for (const cat of updatedCategories) {
+    await base44.asServiceRole.entities.DiscoveryCategory.update(cat.id, {
+      active_interpretation_version: newVersion,
+      updated_at: new Date().toISOString()
+    });
+  }
+
+  return Response.json({ 
+    status: 'success', 
+    promoted_version: newVersion, 
+    rebuilt_entries: allOwnerEntries.length 
+  });
 });
