@@ -62,9 +62,14 @@ Deno.serve(async (req) => {
       validSummaryId = summary.id;
     }
 
-    // 4. Validate Contact Info (if provided)
+    // 4. Validate Contact Info
+    const requiresContact = ['request_callback', 'continue_by_email'].includes(handoff_type);
+    if (requiresContact && (!contact || typeof contact !== 'object' || Array.isArray(contact))) {
+      return Response.json({ error: 'Contact information required for this handoff' }, { status: 400 });
+    }
+
     let contactPrefId = null;
-    if (contact && typeof contact === 'object') {
+    if (contact && typeof contact === 'object' && !Array.isArray(contact)) {
       const { preferred_channel, name, email, phone, best_time } = contact;
       
       const validChannels = ['phone', 'text_message', 'email', 'meeting'];
@@ -78,6 +83,13 @@ Deno.serve(async (req) => {
       
       if (!followUpConsent || followUpConsent.state !== 'granted' || followUpConsent.affirmative_action !== true) {
         return Response.json({ error: 'Missing personal_follow_up consent' }, { status: 403 });
+      }
+
+      if (handoff_type === 'request_callback' && (typeof phone !== 'string' || !phone.trim())) {
+        return Response.json({ error: 'Phone number required for callback requests' }, { status: 400 });
+      }
+      if (handoff_type === 'continue_by_email' && (typeof email !== 'string' || !email.trim())) {
+        return Response.json({ error: 'Email address required for email handoffs' }, { status: 400 });
       }
 
       // Sanitize and validate lengths
