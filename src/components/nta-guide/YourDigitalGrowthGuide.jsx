@@ -135,6 +135,7 @@ export default function YourDigitalGrowthGuide() {
   const [pendingSubmission, setPendingSubmission] = useState(false);
   const [failedSubmission, setFailedSubmission] = useState(null);
   const [pendingAIResponse, setPendingAIResponse] = useState(null);
+  const submissionLockRef = useRef(false);
   const messagesEndRef = useRef(null);
   const scrollContainerRef = useRef(null);
   const quickActionsRef = useRef(null);
@@ -236,6 +237,8 @@ export default function YourDigitalGrowthGuide() {
   };
 
   const startDiscovery = async () => {
+    if (submissionLockRef.current) return;
+    submissionLockRef.current = true;
     setPendingSubmission(true);
     setFailedSubmission(null);
 
@@ -266,6 +269,7 @@ export default function YourDigitalGrowthGuide() {
     } catch {
       toast.error('Unable to start the audit. Please try again.');
     } finally {
+      submissionLockRef.current = false;
       setPendingSubmission(false);
     }
   };
@@ -283,6 +287,8 @@ export default function YourDigitalGrowthGuide() {
   };
 
   const submitDiscoveryAnswer = async (submission) => {
+    if (submissionLockRef.current) return;
+    submissionLockRef.current = true;
     setPendingSubmission(true);
 
     try {
@@ -300,13 +306,15 @@ export default function YourDigitalGrowthGuide() {
       setFailedSubmission(submission);
       toast.error('Your answer was not saved. Retry before continuing.');
     } finally {
+      submissionLockRef.current = false;
       setPendingSubmission(false);
     }
   };
 
   const retryAIResponse = async () => {
-    if (!pendingAIResponse || pendingSubmission) return;
+    if (!pendingAIResponse || pendingSubmission || submissionLockRef.current) return;
 
+    submissionLockRef.current = true;
     setPendingSubmission(true);
     try {
       await sendToAgent(pendingAIResponse.text);
@@ -314,6 +322,7 @@ export default function YourDigitalGrowthGuide() {
     } catch {
       toast.error("The Guide still couldn't respond. Your saved answer is safe.");
     } finally {
+      submissionLockRef.current = false;
       setPendingSubmission(false);
     }
   };
@@ -321,12 +330,13 @@ export default function YourDigitalGrowthGuide() {
   const handleSend = async (e, forcedText = null) => {
     if (e) e.preventDefault();
     const text = forcedText || input.trim();
-    if (!text || !conversation || pendingSubmission) return;
+    if (!text || !conversation || pendingSubmission || submissionLockRef.current) return;
 
     if (text === DISCOVERY_ACTION) {
       if (!discoveryMode) {
         await startDiscovery();
       } else {
+        submissionLockRef.current = true;
         setPendingSubmission(true);
         try {
           await sendToAgent(DISCOVERY_ACTION);
@@ -334,6 +344,7 @@ export default function YourDigitalGrowthGuide() {
           setPendingAIResponse({ text: DISCOVERY_ACTION });
           toast.error("The Guide didn't respond. Retry below.");
         } finally {
+          submissionLockRef.current = false;
           setPendingSubmission(false);
         }
       }
