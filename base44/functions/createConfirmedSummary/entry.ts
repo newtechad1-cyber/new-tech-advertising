@@ -38,6 +38,11 @@ Deno.serve(async (req) => {
 
     // 2. Action: create_draft
     if (action === 'create_draft') {
+      const draftableStatuses = ['started', 'in_progress', 'paused', 'summary_ready'];
+      if (!draftableStatuses.includes(session.status)) {
+        return Response.json({ error: 'Session is not accepting summary drafts' }, { status: 409 });
+      }
+
       if (!summary_data || typeof summary_data !== 'object') {
         return Response.json({ error: 'Invalid summary data' }, { status: 400 });
       }
@@ -67,6 +72,12 @@ Deno.serve(async (req) => {
         created_at: now
       });
 
+      await base44.asServiceRole.entities.DiscoverySession.update(session_id, {
+        status: 'summary_ready',
+        stage: 'review_what_we_heard',
+        last_activity_at: now
+      });
+
       return Response.json({
         id: newSummary.id,
         session_id: newSummary.session_id,
@@ -88,6 +99,10 @@ Deno.serve(async (req) => {
 
     // 3. Action: confirm_draft
     if (action === 'confirm_draft') {
+      if (session.status !== 'summary_ready') {
+        return Response.json({ error: 'Session is not ready for summary confirmation' }, { status: 409 });
+      }
+
       if (!summary_id) {
         return Response.json({ error: 'Missing summary id' }, { status: 400 });
       }
