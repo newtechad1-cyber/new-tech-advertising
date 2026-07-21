@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Globe, Users, FolderKanban } from 'lucide-react';
 import MarketingNav from '../components/nav/MarketingNav';
@@ -17,8 +17,8 @@ export default function Home() {
   return (
     <div className="bg-slate-950 min-h-screen">
       <SEOHead 
-        title="AI Marketing Agency Mason City Iowa | New Tech Advertising"
-        description="AI-powered marketing agency in Mason City, Iowa. AI search optimization, Google Business Profile management, social media & local SEO for small businesses. Start with a free Growth Conversation."
+        title="Practical AI and Growth Systems for Small Business | NTA"
+        description="New Tech Advertising helps small-business owners turn their experience, judgment, and everyday work into practical growth systems with AI—without losing control of the business."
       />
       <MarketingNav />
       

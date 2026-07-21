@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import {
-  ArrowRight, Play, Zap, Globe, Tv, Users, Shield, BarChart3,
-  CheckCircle, Building2, GraduationCap, Heart, Code2, Cpu,
+  ArrowRight, Play, Zap, Globe, Users, BarChart3,
+  CheckCircle, Building2, GraduationCap, Heart, Cpu,
   Video, TrendingUp, Sparkles, ChevronRight, Star
 } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
@@ -20,8 +20,8 @@ export default function About() {
   return (
     <div className="bg-slate-900 min-h-screen">
       <SEOHead 
-        title="About New Tech Advertising | AI Marketing, Mason City IA"
-        description="Rick Hesse founded New Tech Advertising to bring AI-powered marketing to North Iowa small businesses. HVAC, plumbing & restaurant specialists. Mason City, Iowa."
+        title="Rick Hesse and the NTA Practical AI Method | About NTA"
+        description="Rick Hesse brings more than 45 years of business, advertising, sales, and technology experience to teaching owners how to use AI and build practical growth systems."
       />
       <MarketingNav />
 
@@ -38,8 +38,8 @@ export default function About() {
             About New Tech Advertising
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-8">
-            I’ve Spent 46 Years Navigating the Tech Evolution.<br />
-            <span className="text-blue-400">You Can Have the Results in 46 Minutes.</span>
+            More Than 45 Years of Business Experience.<br />
+            <span className="text-blue-400">Practical AI That Keeps the Owner in Authority.</span>
           </h1>
 
           <div className="max-w-3xl mx-auto text-left space-y-5 text-slate-300 text-lg leading-relaxed mb-12">

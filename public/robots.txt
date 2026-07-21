@@ -2,10 +2,19 @@ User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /admin-dashboard
+Disallow: /agency
+Disallow: /client
 Disallow: /client-dashboard
 Disallow: /Login
+Disallow: /login
 Disallow: /portal
 Disallow: /ops
+Disallow: /settings
+Disallow: /billing
+Disallow: /crm
+Disallow: /automations
+Disallow: /workflows
+Disallow: /approvals
 
 Sitemap: https://newtechadvertising.com/sitemap.xml
 Sitemap: https://newtechadvertising.com/ai-sitemap.json

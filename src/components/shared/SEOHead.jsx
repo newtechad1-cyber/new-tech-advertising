@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 /**
@@ -38,16 +38,19 @@ const PERSON_SCHEMA = {
   "name": "Rick Hesse",
   "givenName": "Rick",
   "familyName": "Hesse",
-  "jobTitle": "Founder & CEO",
-  "description": "Founder of New Tech Advertising with 45+ years of entrepreneurial experience. Early adopter of QR codes, streaming TV, and AI marketing. Teaches business owners to build growth systems through content authority.",
-  "url": `${SITE_ORIGIN}/About`,
+  "jobTitle": "Founder and Digital Growth Guide",
+  "description": "Founder of New Tech Advertising with more than 45 years of experience in business ownership, advertising, sales, and technology. Teaches small-business owners to use AI collaboratively while keeping human judgment and authority.",
+  "url": `${SITE_ORIGIN}/about`,
   "image": `${SITE_ORIGIN}/og-image.png`,
   "worksFor": {
     "@type": "Organization",
     "@id": `${SITE_ORIGIN}/#organization`
   },
   "knowsAbout": [
-    "AI Marketing",
+    "Practical Artificial Intelligence for Small Business",
+    "Human-AI Collaboration",
+    "Business Process Design",
+    "Business Knowledge Systems",
     "Local Business Growth",
     "Digital Trust",
     "Content Strategy",
@@ -66,7 +69,7 @@ const WEBSITE_SCHEMA = {
   "@id": `${SITE_ORIGIN}/#website`,
   "name": SITE_NAME,
   "url": SITE_ORIGIN,
-  "description": "AI-powered marketing for small businesses. Growth systems, not campaigns.",
+  "description": "Practical AI education and connected growth systems that help small-business owners turn their knowledge, judgment, and everyday work into repeatable business assets.",
   "publisher": {
     "@type": "Organization",
     "@id": `${SITE_ORIGIN}/#organization`
@@ -82,8 +85,8 @@ const WEBSITE_SCHEMA = {
 };
 
 export default function SEOHead({
-  title = "New Tech Advertising | AI Marketing for Small Business",
-  description = "AI-powered marketing for HVAC, plumbing, and restaurant businesses in Iowa and Southern Minnesota. Automated social media, local SEO, review management, and AI video content.",
+  title = "Practical AI and Growth Systems for Small Business | NTA",
+  description = "New Tech Advertising teaches small-business owners to use AI collaboratively and turn their experience into practical growth systems without surrendering judgment or control.",
   canonical,
   faqs = [],
   noIndex = false,
@@ -137,7 +140,7 @@ export default function SEOHead({
 
     elements.push(setMeta('title', title));
     elements.push(setMeta('description', description));
-    elements.push(setMeta('keywords', "AI marketing Mason City Iowa, HVAC marketing, plumbing marketing, restaurant marketing, social media automation, AI SEO, local business marketing Iowa, small business marketing Minnesota"));
+    elements.push(setMeta('keywords', "practical AI for small business, AI education for business owners, human AI collaboration, small business growth systems, owner knowledge systems, AI marketing Mason City Iowa"));
     elements.push(setMeta('robots', noIndex
       ? "noindex, nofollow"
       : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
@@ -194,7 +197,7 @@ export default function SEOHead({
       "telephone": "+1-641-420-8816",
       "email": "info@newtechadvertising.com",
       "url": SITE_ORIGIN,
-      "description": "AI-driven local marketing automation, CTV streaming ads, and automated high-converting CRM systems for small business contractors.",
+      "description": "Practical AI education, marketing, and connected growth systems for small-business owners. NTA helps owners turn their experience and judgment into useful processes, content, customer systems, and software.",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Mason City",
