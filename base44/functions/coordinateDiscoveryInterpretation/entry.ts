@@ -71,6 +71,7 @@ Deno.serve(async (req) => {
 
   const base44 = createClientFromRequest(req);
   let run: any = null;
+  let pointerPromoted = false;
 
   try {
     let sessionId = payload.session_id as string | undefined;
@@ -380,11 +381,18 @@ target entry contains substantive owner content.\n\nOwner evidence:\n${evidence}
         updated_at: completedAt
       });
     }
+    pointerPromoted = true;
 
-    await base44.asServiceRole.entities.DiscoveryInterpretationRun.update(run.id, {
-      status: 'promoted',
-      promoted_at: completedAt
-    });
+    // The pointer is authoritative. A bookkeeping failure after this point must not
+    // mark the now-active run failed or roll readers back to a partial candidate.
+    try {
+      await base44.asServiceRole.entities.DiscoveryInterpretationRun.update(run.id, {
+        status: 'promoted',
+        promoted_at: completedAt
+      });
+    } catch {
+      // A later reconciliation may move the informational run status from ready.
+    }
 
     return Response.json({
       status: 'promoted',
@@ -394,7 +402,7 @@ target entry contains substantive owner content.\n\nOwner evidence:\n${evidence}
     });
   } catch (error) {
     const errorCode = safeFailure(error);
-    if (run) {
+    if (run && !pointerPromoted) {
       try {
         await base44.asServiceRole.entities.DiscoveryInterpretationRun.update(run.id, {
           status: 'failed',
