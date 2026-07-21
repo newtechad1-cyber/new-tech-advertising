@@ -81,7 +81,7 @@ export const masterCurriculumMap = collectionsOrder.flatMap(collection =>
     lessonSlug: lesson.slug,
     lessonNumber: lesson.id,
     canonicalUrl: '/knowledge/' + collection.slug + '/' + lesson.slug,
-    isImplemented: true, // Based on audit, all 49 are implemented in src/data
+    isImplemented: true,
     previousLessonSlug: lesson.id > 1 ? collection.lessons[lesson.id - 2].slug : null,
     nextLessonSlug: lesson.nextLessonSlug,
     readingTime: lesson.readingTime,
