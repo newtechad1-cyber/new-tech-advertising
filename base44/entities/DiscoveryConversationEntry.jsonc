@@ -5,6 +5,9 @@
     "session_id": {
       "type": "string"
     },
+    "client_request_id": {
+      "type": "string"
+    },
     "speaker": {
       "type": "string",
       "enum": [
