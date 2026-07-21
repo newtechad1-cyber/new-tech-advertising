@@ -1,12 +1,12 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { ArrowLeft, BrainCircuit, PlayCircle, Layers, CheckCircle2, ChevronRight } from 'lucide-react';
+import { BrainCircuit, CheckCircle2, ChevronRight } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
-import ReactMarkdown from 'react-markdown';
+import LessonArticle from '@/components/knowledge/LessonArticle';
 import { aiFoundationsLessons } from '@/data/aiFoundations';
-import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
+import { TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 import { getJourneyMemory, updateLearningProgress } from '@/lib/journeyMemory';
 import RelatedContent from '@/components/knowledge/RelatedContent';
 
@@ -87,9 +87,7 @@ export default function AIFoundationsLesson() {
           </div>
 
           {/* Content */}
-          <div className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-p:text-slate-300 prose-a:text-blue-400 hover:prose-a:text-blue-300 prose-strong:text-white prose-ul:text-slate-300 mb-16">
-            <ReactMarkdown>{lesson.content}</ReactMarkdown>
-          </div>
+          <LessonArticle content={lesson.content} className="mb-16" />
 
           <RelatedContent lesson={lesson} />
 
