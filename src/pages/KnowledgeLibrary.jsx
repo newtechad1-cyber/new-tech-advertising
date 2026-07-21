@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, CheckCircle, Circle, PlayCircle, BookMarked, BrainCircuit, Lightbulb, Users, Target, Search } from 'lucide-react';
+import { BookOpen, CheckCircle, PlayCircle, BookMarked, BrainCircuit, Lightbulb, Users, Target, Search } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
@@ -14,7 +14,7 @@ export default function KnowledgeLibrary() {
   
   // Calculate progress
   const completedCount = completedLessons.filter(id => typeof id === 'number').length;
-  const totalLessons = 49;
+  const totalLessons = masterCurriculumMap.length;
   
   // Determine overall status
   const lastVisitedLessonId = memory.lastVisitedLessonId || null;
@@ -242,18 +242,16 @@ export default function KnowledgeLibrary() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-black text-white mb-4">The Complete Curriculum</h2>
-              <p className="text-slate-400">Seven collections. 49 lessons. One connected system.</p>
+              <p className="text-slate-400">Seven collections. {totalLessons} lessons. One connected system.</p>
             </div>
 
             <div className="space-y-6">
               {collectionsOrder.map((collection, idx) => {
                 const collectionLessons = collection.lessons;
                 const collCompleted = collectionLessons.filter(l => completedLessons.includes(l.id)).length;
-                const isComplete = collCompleted === 7;
+                const lessonCount = collectionLessons.length;
+                const isComplete = collCompleted === lessonCount;
                 
-                // Next unfinished lesson
-                const nextUnfinished = collectionLessons.find(l => !completedLessons.includes(l.id));
-
                 return (
                   <React.Fragment key={collection.id}>
                   <div className="relative group">
@@ -287,11 +285,11 @@ export default function KnowledgeLibrary() {
                         {/* Progress and actions */}
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-800/50 pt-6">
                           <div className="flex items-center gap-4 text-sm font-medium text-slate-500">
-                            <span>7 lessons</span>
+                            <span>{lessonCount} lessons</span>
                             <span>•</span>
                             <span>~1 hour total</span>
                             <span>•</span>
-                            <span className={collCompleted > 0 ? 'text-blue-400' : ''}>{collCompleted}/7 finished</span>
+                            <span className={collCompleted > 0 ? 'text-blue-400' : ''}>{collCompleted}/{lessonCount} finished</span>
                           </div>
 
                           <Link 
