@@ -68,29 +68,7 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Contact information required for this handoff' }, { status: 400 });
     }
 
-    // Return the existing canonical record for safe client retries.
-    // This check happens before any contact preference or audit event is created.
-    const existingHandoffs = await base44.asServiceRole.entities.DiscoveryHandoff.filter({
-      session_id,
-      handoff_type
-    });
-    const existingHandoff = existingHandoffs.find((candidate) =>
-      (candidate.confirmed_summary_id || null) === (validSummaryId || null)
-    );
-
-    if (existingHandoff) {
-      return Response.json({
-        id: existingHandoff.id,
-        session_id: existingHandoff.session_id,
-        handoff_type: existingHandoff.handoff_type,
-        requested_at: existingHandoff.requested_at,
-        rick_review_state: existingHandoff.rick_review_state,
-        confirmed_summary_id: existingHandoff.confirmed_summary_id,
-        contact_preference_id: existingHandoff.contact_preference_id
-      });
-    }
-
-    let contactPrefId = null;
+    let pendingContactPreference = null;
     if (contact && typeof contact === 'object' && !Array.isArray(contact)) {
       const { preferred_channel, name, email, phone, best_time } = contact;
       
@@ -128,7 +106,7 @@ Deno.serve(async (req) => {
         return Response.json({ error: 'Invalid best_time' }, { status: 400 });
       }
       
-      const pref = await base44.asServiceRole.entities.DiscoveryContactPreference.create({
+      pendingContactPreference = {
         session_id,
         preferred_channel,
         name: name ? name.trim() : undefined,
@@ -136,7 +114,34 @@ Deno.serve(async (req) => {
         phone: phone ? phone.trim() : undefined,
         best_time: best_time ? best_time.trim() : undefined,
         follow_up_consent_id: followUpConsent.id
+      };
+    }
+
+    // Return the existing canonical record for safe client retries.
+    // Validation above still applies to every submitted request.
+    const existingHandoffs = await base44.asServiceRole.entities.DiscoveryHandoff.filter({
+      session_id,
+      handoff_type
+    });
+    const existingHandoff = existingHandoffs.find((candidate) =>
+      (candidate.confirmed_summary_id || null) === (validSummaryId || null)
+    );
+
+    if (existingHandoff) {
+      return Response.json({
+        id: existingHandoff.id,
+        session_id: existingHandoff.session_id,
+        handoff_type: existingHandoff.handoff_type,
+        requested_at: existingHandoff.requested_at,
+        rick_review_state: existingHandoff.rick_review_state,
+        confirmed_summary_id: existingHandoff.confirmed_summary_id,
+        contact_preference_id: existingHandoff.contact_preference_id
       });
+    }
+
+    let contactPrefId = null;
+    if (pendingContactPreference) {
+      const pref = await base44.asServiceRole.entities.DiscoveryContactPreference.create(pendingContactPreference);
       contactPrefId = pref.id;
     }
 
