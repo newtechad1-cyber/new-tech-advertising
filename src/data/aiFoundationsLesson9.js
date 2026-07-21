@@ -289,5 +289,5 @@ Then see whether the conversation helps you recognize what might finally be poss
   relatedModules: [
     { label: "Knowledge Capture Workspace", link: "/operating-system" }
   ],
-  nextLessonSlug: null
+  nextLessonSlug: "ai-makes-complicated-work-easier"
 };
