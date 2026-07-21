@@ -53,6 +53,53 @@
     "updated_at": {
       "type": "string",
       "format": "date-time"
+    },
+    "interpreted_facts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "statement": {
+            "type": "string"
+          },
+          "evidence_entry_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "statement",
+          "evidence_entry_ids"
+        ]
+      },
+      "default": []
+    },
+    "uncertainty": {
+      "type": "string"
+    },
+    "conflicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "statement": {
+            "type": "string"
+          },
+          "conflicting_entry_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "statement",
+          "conflicting_entry_ids"
+        ]
+      },
+      "default": []
     }
   },
   "required": [

@@ -1,0 +1,9 @@
+{
+  "name": "processNewDiscoveryEntry",
+  "automation_type": "entity",
+  "entity_name": "DiscoveryConversationEntry",
+  "event_types": ["create"],
+  "function_name": "generateCategoryInterpretation",
+  "is_active": false,
+  "description": "Asynchronously processes new durable Discovery entries to update category progress."
+}

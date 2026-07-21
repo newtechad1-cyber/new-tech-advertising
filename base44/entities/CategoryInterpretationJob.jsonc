@@ -1,0 +1,46 @@
+{
+  "name": "CategoryInterpretationJob",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string"
+    },
+    "entry_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "processing",
+        "completed",
+        "failed"
+      ],
+      "default": "pending"
+    },
+    "retry_count": {
+      "type": "integer",
+      "default": 0
+    },
+    "last_error": {
+      "type": "string"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "interpretation_version": {
+      "type": "integer",
+      "default": 1
+    }
+  },
+  "required": [
+    "session_id",
+    "entry_id",
+    "status"
+  ]
+}
