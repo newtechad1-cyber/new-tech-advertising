@@ -5,6 +5,8 @@ import { X, Send, Loader2, User, FileText, CheckCircle2, AlertCircle, Clock, Zap
 import { Button } from "@/components/ui/button";
 
 const NTA_FAVICON = "https://media.base44.com/images/public/691f41a18de4a7f498c8f884/04e19b127_favicon_64x64.png";
+const DISCOVERY_ACTION = 'Run a Digital Visibility Audit™';
+const DISCOVERY_STORAGE_KEY = 'nta_discovery_session';
 import { Input } from "@/components/ui/input";
 import ReactMarkdown from 'react-markdown';
 import { toast } from 'sonner';
@@ -128,6 +130,11 @@ export default function YourDigitalGrowthGuide() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [discoveryMode, setDiscoveryMode] = useState(false);
+  const [discoveryCreds, setDiscoveryCreds] = useState(null);
+  const [pendingSubmission, setPendingSubmission] = useState(false);
+  const [failedSubmission, setFailedSubmission] = useState(null);
+  const [pendingAIResponse, setPendingAIResponse] = useState(null);
   const messagesEndRef = useRef(null);
   const scrollContainerRef = useRef(null);
   const quickActionsRef = useRef(null);
@@ -152,6 +159,21 @@ export default function YourDigitalGrowthGuide() {
   ];
 
   const [showKnowledgeBase, setShowKnowledgeBase] = useState(false);
+
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem(DISCOVERY_STORAGE_KEY);
+      if (!saved) return;
+
+      const parsed = JSON.parse(saved);
+      if (parsed?.session_id && parsed?.public_session_key) {
+        setDiscoveryCreds(parsed);
+        setDiscoveryMode(true);
+      }
+    } catch {
+      sessionStorage.removeItem(DISCOVERY_STORAGE_KEY);
+    }
+  }, []);
 
   useEffect(() => {
     if (isOpen && authStep === 'loading') {
@@ -203,40 +225,141 @@ export default function YourDigitalGrowthGuide() {
     }
   }, [messages, autoScroll]);
 
+  const sendToAgent = async (text) => {
+    await base44.agents.addMessage(conversation, {
+      role: "user",
+      content: text + ` (Context: Currently on ${location.pathname})`
+    });
+  };
+
+  const startDiscovery = async () => {
+    setPendingSubmission(true);
+    setFailedSubmission(null);
+
+    try {
+      const response = await base44.functions.invoke('startDiscoverySession', { mode: 'text' });
+      const creds = response?.data ?? response;
+
+      if (!creds?.session_id || !creds?.public_session_key) {
+        throw new Error('Discovery session credentials were not returned');
+      }
+
+      const storedCreds = {
+        session_id: creds.session_id,
+        public_session_key: creds.public_session_key,
+        expires_at: creds.expires_at
+      };
+
+      sessionStorage.setItem(DISCOVERY_STORAGE_KEY, JSON.stringify(storedCreds));
+      setDiscoveryCreds(storedCreds);
+      setDiscoveryMode(true);
+
+      try {
+        await sendToAgent(DISCOVERY_ACTION);
+      } catch {
+        setPendingAIResponse({ text: DISCOVERY_ACTION });
+        toast.error("Your audit is ready, but the Guide didn't respond. Retry below.");
+      }
+    } catch {
+      toast.error('Unable to start the audit. Please try again.');
+    } finally {
+      setPendingSubmission(false);
+    }
+  };
+
+  const persistDiscoveryAnswer = async (submission) => {
+    const response = await base44.functions.invoke('appendDiscoveryEntry', {
+      session_id: discoveryCreds.session_id,
+      public_session_key: discoveryCreds.public_session_key,
+      client_request_id: submission.clientRequestId,
+      text: submission.text,
+      speaker: 'owner',
+      source_mode: 'text'
+    });
+    return response?.data ?? response;
+  };
+
+  const submitDiscoveryAnswer = async (submission) => {
+    setPendingSubmission(true);
+
+    try {
+      await persistDiscoveryAnswer(submission);
+      setFailedSubmission(null);
+
+      try {
+        await sendToAgent(submission.text);
+        setPendingAIResponse(null);
+      } catch {
+        setPendingAIResponse({ text: submission.text });
+        toast.error("Your answer was saved, but the Guide didn't respond. Retry below.");
+      }
+    } catch {
+      setFailedSubmission(submission);
+      toast.error('Your answer was not saved. Retry before continuing.');
+    } finally {
+      setPendingSubmission(false);
+    }
+  };
+
+  const retryAIResponse = async () => {
+    if (!pendingAIResponse || pendingSubmission) return;
+
+    setPendingSubmission(true);
+    try {
+      await sendToAgent(pendingAIResponse.text);
+      setPendingAIResponse(null);
+    } catch {
+      toast.error("The Guide still couldn't respond. Your saved answer is safe.");
+    } finally {
+      setPendingSubmission(false);
+    }
+  };
+
   const handleSend = async (e, forcedText = null) => {
     if (e) e.preventDefault();
     const text = forcedText || input.trim();
-    if (!text || !conversation) return;
+    if (!text || !conversation || pendingSubmission) return;
+
+    if (text === DISCOVERY_ACTION && !discoveryMode) {
+      await startDiscovery();
+      return;
+    }
 
     if (!forcedText) setInput('');
-    
+
     setAutoScroll(true);
     setTimeout(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, 50);
 
     if (text === 'Resume my previous journey') {
-        const memory = getJourneyMemory();
-        if (memory.roadmaps && memory.roadmaps.length > 0) {
-            navigate('/progress');
-            setIsOpen(false);
-        } else if (memory.businessScore) {
-            navigate('/growth-roadmap-generator');
-            setIsOpen(false);
-        } else {
-            navigate('/business-score');
-            setIsOpen(false);
-        }
-        return;
+      const memory = getJourneyMemory();
+      if (memory.roadmaps && memory.roadmaps.length > 0) {
+        navigate('/progress');
+        setIsOpen(false);
+      } else if (memory.businessScore) {
+        navigate('/growth-roadmap-generator');
+        setIsOpen(false);
+      } else {
+        navigate('/business-score');
+        setIsOpen(false);
+      }
+      return;
+    }
+
+    if (discoveryMode) {
+      const submission = {
+        text,
+        clientRequestId: crypto.randomUUID()
+      };
+      await submitDiscoveryAnswer(submission);
+      return;
     }
 
     try {
-        await base44.agents.addMessage(conversation, {
-            role: "user",
-            content: text + ` (Context: Currently on ${location.pathname})`
-        });
-    } catch (err) {
-        toast.error("Failed to send message.");
+      await sendToAgent(text);
+    } catch {
+      toast.error("Failed to send message.");
     }
   };
 
@@ -312,6 +435,11 @@ export default function YourDigitalGrowthGuide() {
             {authStep === 'chat' ? (
                 <>
                     {/* Messages */}
+                    {discoveryMode && (
+                      <div className="px-5 py-2 bg-blue-950/40 border-b border-blue-800/50 text-xs text-blue-200">
+                        Discovery Mode · Your audit answers are being saved for this browser session.
+                      </div>
+                    )}
                     <div 
                       ref={scrollContainerRef}
                       onScroll={handleScroll}
@@ -374,7 +502,8 @@ export default function YourDigitalGrowthGuide() {
                                   {quickActions.map((action, i) => (
                                       <button 
                                           key={i}
-                                          onClick={() => handleSend(null, action)} 
+                                          onClick={() => handleSend(null, action)}
+                                          disabled={pendingSubmission}
                                           className="shrink-0 text-xs bg-slate-800 border border-slate-700 shadow-sm text-slate-300 font-medium px-3 py-1.5 rounded-xl hover:border-blue-500/50 hover:bg-slate-700 hover:text-white transition-colors"
                                       >
                                           {action}
@@ -392,19 +521,47 @@ export default function YourDigitalGrowthGuide() {
                           </div>
                       )}
 
+                      {(failedSubmission || pendingAIResponse) && (
+                        <div className="px-4 pt-3 flex gap-2">
+                          {failedSubmission && (
+                            <Button
+                              type="button"
+                              size="sm"
+                              disabled={pendingSubmission}
+                              onClick={() => submitDiscoveryAnswer(failedSubmission)}
+                              className="bg-amber-600 hover:bg-amber-500 text-white"
+                            >
+                              Retry saving answer
+                            </Button>
+                          )}
+                          {pendingAIResponse && (
+                            <Button
+                              type="button"
+                              size="sm"
+                              disabled={pendingSubmission}
+                              onClick={retryAIResponse}
+                              className="bg-blue-600 hover:bg-blue-500 text-white"
+                            >
+                              Retry AI response
+                            </Button>
+                          )}
+                        </div>
+                      )}
+
                       {/* Input */}
                       <div className="p-4 pt-2">
                           <form onSubmit={(e) => handleSend(e)} className="relative">
                             <Input
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
-                                placeholder="Ask a question or request guidance..."
+                                placeholder={discoveryMode ? "Answer the next audit question..." : "Ask a question or request guidance..."}
+                                disabled={pendingSubmission || Boolean(failedSubmission) || Boolean(pendingAIResponse)}
                                 className="w-full pr-14 pl-4 py-6 rounded-2xl border-slate-700 bg-slate-800 text-white placeholder:text-slate-400 focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:bg-slate-800 transition-all shadow-sm text-sm"
                             />
                             <Button
                                 type="submit"
                                 size="icon"
-                                disabled={!input.trim()}
+                                disabled={!input.trim() || pendingSubmission || Boolean(failedSubmission) || Boolean(pendingAIResponse)}
                                 className="absolute right-2 top-2 bottom-2 h-auto w-10 rounded-xl bg-blue-600 hover:bg-blue-500 text-white disabled:bg-slate-700 disabled:text-slate-500 shadow-md transition-colors"
                             >
                                 <Send className="w-4 h-4" />
