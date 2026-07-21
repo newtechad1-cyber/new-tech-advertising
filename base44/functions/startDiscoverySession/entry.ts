@@ -95,7 +95,7 @@ Deno.serve(async (req) => {
       public_session_key: sessionKey,
       mode,
       stage: 'your_goal',
-      status: 'started',
+      status: 'initializing',
       created_at: now.toISOString(),
       last_activity_at: now.toISOString(),
       expires_at: expiresAt.toISOString(),
@@ -119,6 +119,19 @@ Deno.serve(async (req) => {
       }))
     );
 
+    const persistedCategories = await base44.asServiceRole.entities.DiscoveryCategory.filter({
+      session_id: session.id
+    });
+    const persistedCategoryKeys = new Set(
+      persistedCategories.map(category => category.category_key)
+    );
+    if (
+      persistedCategories.length !== categories.length ||
+      categories.some(categoryKey => !persistedCategoryKeys.has(categoryKey))
+    ) {
+      throw new Error('Session category initialization incomplete');
+    }
+
     await base44.asServiceRole.entities.DiscoveryAuditEvent.create({
       session_id: session.id,
       event_type: 'created',
@@ -130,14 +143,19 @@ Deno.serve(async (req) => {
       metadata: { mode }
     });
 
+    const initializedSession = await base44.asServiceRole.entities.DiscoverySession.update(
+      session.id,
+      { status: 'started' }
+    );
+
     // Return only the specified fields, hiding internal database structure
     return Response.json({
       session_id: session.id,
       public_session_key: sessionKey,
-      mode: session.mode,
-      stage: session.stage,
-      status: session.status,
-      expires_at: session.expires_at
+      mode: initializedSession.mode,
+      stage: initializedSession.stage,
+      status: initializedSession.status,
+      expires_at: initializedSession.expires_at
     });
   } catch (error) {
     if (error instanceof RequestValidationError) {
