@@ -1,222 +1,292 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
 
+const CATEGORY_KEYS = [
+  'reason_for_conversation', 'owner_goals', 'stated_pain', 'present_process',
+  'existing_tools_and_information', 'what_works_and_must_be_protected',
+  'missing_or_disconnected_pieces', 'desired_improvement', 'growth_readiness',
+  'operational_capacity', 'financial_considerations', 'nta_fit',
+  'potential_first_priority', 'information_still_needed',
+  'promises_and_representations', 'agreed_next_step'
+] as const;
+
+const INELIGIBLE_SESSION_STATUSES = [
+  'deleted', 'deletion_requested', 'expired', 'completed', 'handoff_requested'
+];
+
+function authorized(req: Request): boolean {
+  const secret = Deno.env.get('AGENT_WEBHOOK_KEY');
+  return Boolean(secret) && req.headers.get('authorization') === `Bearer ${secret}`;
+}
+
+function json(error: string, status: number): Response {
+  return Response.json({ error }, { status });
+}
+
 Deno.serve(async (req) => {
-  if (req.method !== 'POST') {
-    return Response.json({ error: 'Method Not Allowed' }, { status: 405 });
+  if (req.method !== 'POST') return json('METHOD_NOT_ALLOWED', 405);
+  if (!authorized(req)) return json('AUTHORIZATION_FAILED', 401);
+
+  let payload: Record<string, any>;
+  try {
+    payload = await req.json();
+  } catch {
+    return json('INVALID_PAYLOAD', 400);
   }
 
-  const expectedToken = Deno.env.get('AGENT_WEBHOOK_KEY');
-  const authHeader = req.headers.get('Authorization');
-  
-  if (!expectedToken || authHeader !== `Bearer ${expectedToken}`) {
-    return Response.json({ error: 'AUTHORIZATION_FAILED' }, { status: 401 });
+  // A raw entity-create event has no safe interpretation version or rebuild run.
+  // It must eventually be routed through an approved coordinator.
+  if (payload.event) {
+    if (
+      payload.event.type !== 'create' ||
+      payload.event.entity_name !== 'DiscoveryConversationEntry' ||
+      !payload.event.entity_id
+    ) {
+      return json('INVALID_AUTOMATION_EVENT', 400);
+    }
+    return json('INTERPRETATION_COORDINATOR_REQUIRED', 409);
+  }
+
+  const entryId = payload.entry_id;
+  const runId = payload.run_id;
+  if (typeof entryId !== 'string' || typeof runId !== 'string') {
+    return json('INVALID_PAYLOAD', 400);
   }
 
   const base44 = createClientFromRequest(req);
-  
-  let payload;
-  try {
-    payload = await req.json();
-  } catch (e) {
-    return Response.json({ error: 'INVALID_PAYLOAD' }, { status: 400 });
-  }
-
-  // Handle both automation payload format and direct rebuilding
-  let entryId = payload.entry_id;
-  if (!entryId && payload.event && payload.event.entity_name === 'DiscoveryConversationEntry') {
-    if (payload.event.type !== 'create') {
-      return Response.json({ status: 'ignored', reason: 'NOT_CREATE_EVENT' }, { status: 200 });
-    }
-    entryId = payload.event.entity_id;
-  }
-
-  if (!entryId) {
-    return Response.json({ error: 'ENTRY_NOT_FOUND' }, { status: 400 });
-  }
-
-  const targetVersion = payload.interpretation_version || 1;
-  let jobId = null;
+  let job: any = null;
 
   try {
     const entry = await base44.asServiceRole.entities.DiscoveryConversationEntry.get(entryId);
-    if (!entry) {
-      return Response.json({ error: 'ENTRY_NOT_FOUND' }, { status: 404 });
-    }
-
-    if (entry.speaker !== 'owner') {
-      return Response.json({ status: 'skipped', reason: 'NON_OWNER_ENTRY' }, { status: 200 });
-    }
+    if (!entry || entry.speaker !== 'owner') return json('ENTRY_NOT_FOUND', 404);
 
     const session = await base44.asServiceRole.entities.DiscoverySession.get(entry.session_id);
-    if (!session) {
-      return Response.json({ error: 'SESSION_NOT_FOUND' }, { status: 404 });
+    if (!session || INELIGIBLE_SESSION_STATUSES.includes(session.status)) {
+      return json('SESSION_INELIGIBLE', 409);
     }
 
-    const ineligibleStates = ['deleted', 'deletion_requested', 'expired', 'completed', 'handoff_requested'];
-    if (ineligibleStates.includes(session.status)) {
-      return Response.json({ error: 'SESSION_INELIGIBLE' }, { status: 400 });
+    const run = await base44.asServiceRole.entities.DiscoveryInterpretationRun.get(runId);
+    if (
+      !run ||
+      run.session_id !== session.id ||
+      run.status !== 'staging' ||
+      !Number.isInteger(run.interpretation_version)
+    ) {
+      return json('INVALID_INTERPRETATION_RUN', 409);
     }
 
-    // Job idempotency check (query-before-create concurrency race acknowledged)
-    const existingJobs = await base44.asServiceRole.entities.CategoryInterpretationJob.filter({
+    const priorAttempts = await base44.asServiceRole.entities.CategoryInterpretationJob.filter({
       session_id: session.id,
-      entry_id: entryId,
-      interpretation_version: targetVersion
+      entry_id: entry.id,
+      run_id: run.id
     });
 
-    if (existingJobs.length > 0) {
-      const job = existingJobs[0];
-      if (job.status === 'completed' || job.status === 'processing') {
-        return Response.json({ status: 'skipped', reason: 'JOB_ALREADY_PROCESSED' }, { status: 200 });
-      }
-      await base44.asServiceRole.entities.CategoryInterpretationJob.update(job.id, {
-        status: 'processing',
-        retry_count: (job.retry_count || 0) + 1,
-        started_at: new Date().toISOString()
-      });
-      jobId = job.id;
-    } else {
-      const newJob = await base44.asServiceRole.entities.CategoryInterpretationJob.create({
-        session_id: session.id,
-        entry_id: entryId,
-        interpretation_version: targetVersion,
-        status: 'processing',
-        started_at: new Date().toISOString()
-      });
-      jobId = newJob.id;
-    }
+    job = await base44.asServiceRole.entities.CategoryInterpretationJob.create({
+      session_id: session.id,
+      entry_id: entry.id,
+      run_id: run.id,
+      attempt_number: priorAttempts.length + 1,
+      interpretation_version: run.interpretation_version,
+      status: 'processing',
+      started_at: new Date().toISOString()
+    });
 
-    // Gather context (owner entries only)
-    const recentEntries = await base44.asServiceRole.entities.DiscoveryConversationEntry.filter(
+    const ownerEntries = await base44.asServiceRole.entities.DiscoveryConversationEntry.filter(
       { session_id: session.id, speaker: 'owner' },
       '-occurred_at',
-      10
+      50
     );
+    if (!ownerEntries.some((candidate: any) => candidate.id === entry.id)) {
+      ownerEntries.push(entry);
+    }
 
-    const allowlist = new Set(recentEntries.map((e: any) => String(e.id)));
-    allowlist.add(String(entry.id));
-
-    const prompt = `
-Extract facts from this specific new entry based on the ongoing conversation.
-Focus solely on statements representing the business owner's facts, pain points, or goals.
-
-Context Entries:
-${recentEntries.map((e: any) => `[Entry ID: ${e.id}]: ${e.text}`).join('\n')}
-
-New Entry to Analyze (Entry ID: ${entry.id}):
-${entry.text}
-
-If there are no meaningful new facts in the New Entry, return empty arrays.
-`;
+    const allowedEvidenceIds = new Set(ownerEntries.map((candidate: any) => String(candidate.id)));
+    const evidence = ownerEntries
+      .map((candidate: any) => `[Entry ID: ${candidate.id}] ${candidate.text}`)
+      .join('\n');
 
     const schema = {
-      "type": "object",
-      "properties": {
-        "interpretations": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "category_key": { "type": "string" },
-              "facts": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "statement": { "type": "string" }
+      type: 'object',
+      properties: {
+        interpretations: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              category_key: { type: 'string', enum: CATEGORY_KEYS },
+              facts: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    statement: { type: 'string' },
+                    evidence_entry_ids: { type: 'array', items: { type: 'string' } }
                   },
-                  "required": ["statement"]
+                  required: ['statement', 'evidence_entry_ids']
                 }
               },
-              "completion_state": {
-                "type": "string",
-                "enum": ["not_started", "in_progress", "complete", "not_yet_known"]
+              completion_state: {
+                type: 'string',
+                enum: ['not_started', 'in_progress', 'complete', 'not_yet_known']
+              },
+              uncertainty: { type: 'string' },
+              conflicts: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    statement: { type: 'string' },
+                    conflicting_entry_ids: { type: 'array', items: { type: 'string' } }
+                  },
+                  required: ['statement', 'conflicting_entry_ids']
+                }
               }
             },
-            "required": ["category_key", "facts", "completion_state"]
+            required: ['category_key', 'facts', 'completion_state', 'uncertainty', 'conflicts']
           }
         }
       },
-      "required": ["interpretations"]
+      required: ['interpretations']
     };
 
-    const aiResponse = await base44.asServiceRole.integrations.Core.InvokeLLM({
-      prompt,
-      response_json_schema: schema
-    });
+    let aiResponse: any;
+    try {
+      aiResponse = await base44.asServiceRole.integrations.Core.InvokeLLM({
+        prompt: `Interpret only explicit owner evidence. Analyze Entry ID ${entry.id}.
+Do not treat an inference as owner-confirmed. Every fact extracted from the target
+entry must cite that entry. Use only the supplied IDs.
 
-    if (!aiResponse) {
-      throw new Error('INVALID_AI_OUTPUT');
+Owner evidence:
+${evidence}`,
+        response_json_schema: schema
+      });
+    } catch {
+      throw new Error('LLM_INVOCATION_FAILED');
     }
 
     const parsed = typeof aiResponse === 'string' ? JSON.parse(aiResponse) : aiResponse;
-    const interpretations = parsed?.output?.interpretations || parsed?.interpretations || [];
-
-    if (interpretations.length === 0 && entry.text.length > 20) {
+    const interpretations = parsed?.output?.interpretations ?? parsed?.interpretations;
+    if (!Array.isArray(interpretations) || interpretations.length === 0) {
       throw new Error('INVALID_AI_OUTPUT');
     }
 
-    const validCategoryKeys = [
-      "reason_for_conversation", "owner_goals", "stated_pain", "present_process",
-      "existing_tools_and_information", "what_works_and_must_be_protected",
-      "missing_or_disconnected_pieces", "desired_improvement", "growth_readiness",
-      "operational_capacity", "financial_considerations", "nta_fit",
-      "potential_first_priority", "information_still_needed",
-      "promises_and_representations", "agreed_next_step"
-    ];
+    const validated = interpretations.map((interpretation: any) => {
+      if (!CATEGORY_KEYS.includes(interpretation.category_key)) {
+        throw new Error('INVALID_AI_OUTPUT');
+      }
 
-    const apiUrl = new URL(`/api/functions/updateDiscoveryCategory`, req.url).href;
-
-    for (const interp of interpretations) {
-      if (!validCategoryKeys.includes(interp.category_key)) continue;
-
-      const validFacts = (interp.facts || []).map((f: any) => ({
-        statement: f.statement,
-        provenance_entry_id: String(entry.id),
-        interpretation_version: targetVersion
-      })).filter((f: any) => f.statement);
-
-      if (validFacts.length > 0) {
-        const updateRes = await fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${expectedToken}`
-          },
-          body: JSON.stringify({
-            session_id: session.id,
-            category_key: interp.category_key,
-            completion_state: interp.completion_state,
-            interpreted_facts: validFacts,
-            provenance_entry_id: entry.id,
-            interpretation_version: targetVersion
-          })
-        });
-
-        if (!updateRes.ok) {
-          throw new Error('CATEGORY_PROMOTION_FAILED');
+      const facts = interpretation.facts.map((fact: any) => {
+        const ids = fact.evidence_entry_ids.map(String);
+        if (
+          typeof fact.statement !== 'string' ||
+          !fact.statement.trim() ||
+          !ids.includes(String(entry.id)) ||
+          ids.some((id: string) => !allowedEvidenceIds.has(id))
+        ) {
+          throw new Error('INVALID_AI_OUTPUT');
         }
+        return {
+          statement: fact.statement.trim(),
+          provenance_entry_id: String(entry.id),
+          evidence_entry_ids: [...new Set(ids)]
+        };
+      });
+
+      const conflicts = interpretation.conflicts.map((conflict: any) => {
+        const ids = conflict.conflicting_entry_ids.map(String);
+        if (
+          typeof conflict.statement !== 'string' ||
+          !conflict.statement.trim() ||
+          ids.some((id: string) => !allowedEvidenceIds.has(id))
+        ) {
+          throw new Error('INVALID_AI_OUTPUT');
+        }
+        return {
+          statement: conflict.statement.trim(),
+          provenance_entry_id: String(entry.id),
+          conflicting_entry_ids: [...new Set(ids)]
+        };
+      });
+
+      return {
+        category_key: interpretation.category_key,
+        completion_state: interpretation.completion_state,
+        facts,
+        uncertainty: String(interpretation.uncertainty || '').trim(),
+        conflicts
+      };
+    });
+
+    for (const interpretation of validated) {
+      const matches = await base44.asServiceRole.entities.DiscoveryCategoryInterpretation.filter({
+        session_id: session.id,
+        run_id: run.id,
+        interpretation_version: run.interpretation_version,
+        category_key: interpretation.category_key
+      });
+
+      const existing = matches[0];
+      const priorFacts = (existing?.interpreted_facts || []).filter(
+        (fact: any) => fact.provenance_entry_id !== String(entry.id)
+      );
+      const priorUncertainties = (existing?.uncertainties || []).filter(
+        (item: any) => item.provenance_entry_id !== String(entry.id)
+      );
+      const priorConflicts = (existing?.conflicts || []).filter(
+        (item: any) => item.provenance_entry_id !== String(entry.id)
+      );
+      const now = new Date().toISOString();
+      const data = {
+        session_id: session.id,
+        run_id: run.id,
+        interpretation_version: run.interpretation_version,
+        category_key: interpretation.category_key,
+        completion_state: interpretation.completion_state,
+        interpreted_facts: [...priorFacts, ...interpretation.facts],
+        uncertainties: interpretation.uncertainty
+          ? [...priorUncertainties, {
+              statement: interpretation.uncertainty,
+              provenance_entry_id: String(entry.id)
+            }]
+          : priorUncertainties,
+        conflicts: [...priorConflicts, ...interpretation.conflicts],
+        updated_at: now
+      };
+
+      if (existing) {
+        await base44.asServiceRole.entities.DiscoveryCategoryInterpretation.update(existing.id, data);
+      } else {
+        await base44.asServiceRole.entities.DiscoveryCategoryInterpretation.create({
+          ...data,
+          created_at: now
+        });
       }
     }
 
-    await base44.asServiceRole.entities.CategoryInterpretationJob.update(jobId, {
+    await base44.asServiceRole.entities.CategoryInterpretationJob.update(job.id, {
       status: 'completed',
       completed_at: new Date().toISOString()
     });
 
-    return Response.json({ status: 'success' });
-
+    return Response.json({
+      status: 'completed',
+      run_id: run.id,
+      entry_id: entry.id,
+      interpretation_version: run.interpretation_version
+    });
   } catch (error) {
-    if (jobId) {
-      let errorCode = 'LLM_INVOCATION_FAILED';
-      if (error instanceof Error && ['INVALID_AI_OUTPUT', 'CATEGORY_PROMOTION_FAILED'].includes(error.message)) {
-        errorCode = error.message;
-      }
-      await base44.asServiceRole.entities.CategoryInterpretationJob.update(jobId, {
+    const safeError =
+      error instanceof Error &&
+      ['INVALID_AI_OUTPUT', 'LLM_INVOCATION_FAILED', 'CATEGORY_STAGING_FAILED'].includes(error.message)
+        ? error.message
+        : 'CATEGORY_STAGING_FAILED';
+
+    if (job) {
+      await base44.asServiceRole.entities.CategoryInterpretationJob.update(job.id, {
         status: 'failed',
-        last_error: errorCode
+        last_error: safeError,
+        completed_at: new Date().toISOString()
       });
     }
-    return Response.json({ error: 'PROCESSING_FAILED' }, { status: 500 });
+    return json('PROCESSING_FAILED', 500);
   }
 });
