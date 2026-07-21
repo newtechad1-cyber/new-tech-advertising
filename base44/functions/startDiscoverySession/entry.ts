@@ -1,5 +1,73 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.38';
 
+const MAX_REQUEST_BODY_BYTES = 1024;
+
+class RequestValidationError extends Error {
+  status: number;
+
+  constructor(message: string, status: number) {
+    super(message);
+    this.status = status;
+  }
+}
+
+async function readLimitedJsonObject(req: Request): Promise<Record<string, unknown>> {
+  const declaredLength = req.headers.get('content-length');
+  if (declaredLength !== null) {
+    const parsedLength = Number(declaredLength);
+    if (Number.isFinite(parsedLength) && parsedLength > MAX_REQUEST_BODY_BYTES) {
+      throw new RequestValidationError('Request body too large', 413);
+    }
+  }
+
+  if (!req.body) {
+    return {};
+  }
+
+  const reader = req.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let totalBytes = 0;
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) {
+      break;
+    }
+
+    totalBytes += value.byteLength;
+    if (totalBytes > MAX_REQUEST_BODY_BYTES) {
+      await reader.cancel();
+      throw new RequestValidationError('Request body too large', 413);
+    }
+
+    chunks.push(value);
+  }
+
+  if (totalBytes === 0) {
+    return {};
+  }
+
+  const bytes = new Uint8Array(totalBytes);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+
+  let body: unknown;
+  try {
+    body = JSON.parse(new TextDecoder().decode(bytes));
+  } catch {
+    throw new RequestValidationError('Invalid JSON body', 400);
+  }
+
+  if (body === null || Array.isArray(body) || typeof body !== 'object') {
+    throw new RequestValidationError('Request body must be a JSON object', 400);
+  }
+
+  return body as Record<string, unknown>;
+}
+
 Deno.serve(async (req) => {
   if (req.method !== 'POST') {
     return Response.json({ error: 'Method not allowed' }, { status: 405 });
@@ -7,10 +75,10 @@ Deno.serve(async (req) => {
 
   try {
     const base44 = createClientFromRequest(req);
-    const body = await req.json().catch(() => ({}));
+    const body = await readLimitedJsonObject(req);
     const { mode = 'text' } = body;
     
-    if (!['text', 'voice', 'mixed'].includes(mode)) {
+    if (!['text', 'voice', 'mixed'].includes(mode as string)) {
       return Response.json({ error: 'Invalid mode' }, { status: 400 });
     }
 
@@ -72,6 +140,10 @@ Deno.serve(async (req) => {
       expires_at: session.expires_at
     });
   } catch (error) {
+    if (error instanceof RequestValidationError) {
+      return Response.json({ error: error.message }, { status: error.status });
+    }
+
     return Response.json({ error: 'An internal server error occurred' }, { status: 500 });
   }
 });
