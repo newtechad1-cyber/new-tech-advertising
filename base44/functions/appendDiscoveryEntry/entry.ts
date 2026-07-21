@@ -30,8 +30,9 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    if (['deleted', 'expired', 'deletion_requested'].includes(session.status)) {
-      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    const answerableStatuses = ['started', 'in_progress', 'paused'];
+    if (!answerableStatuses.includes(session.status)) {
+      return Response.json({ error: 'Session is not accepting answers' }, { status: 409 });
     }
 
     // 2. Input Validation
