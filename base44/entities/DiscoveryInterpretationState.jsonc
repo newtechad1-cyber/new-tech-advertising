@@ -1,0 +1,12 @@
+{
+  "name": "DiscoveryInterpretationState",
+  "type": "object",
+  "properties": {
+    "session_id": { "type": "string" },
+    "active_interpretation_version": { "type": "integer", "default": 0 },
+    "active_run_id": { "type": "string" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  },
+  "required": ["session_id", "active_interpretation_version", "updated_at"],
+  "rls": { "create": false, "read": false, "update": false, "delete": false }
+}
