@@ -109,7 +109,7 @@ Deno.serve(async (req) => {
     const now = new Date().toISOString();
     
     // Server-side Rick Review State Logic
-    const rick_review_state = requiresSummary || handoff_type === 'request_callback' ? 'needs_review' : 'not_requested';
+    const rick_review_state = requiresSummary ? 'needs_review' : 'not_requested';
 
     // 5. Create Canonical Handoff Record
     const handoff = await base44.asServiceRole.entities.DiscoveryHandoff.create({
