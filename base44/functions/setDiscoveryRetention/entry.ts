@@ -54,7 +54,7 @@ Deno.serve(async (req) => {
     let sessionUpdates: any = { last_activity_at: nowIso };
     let expiresAt = new Date(session.expires_at);
 
-    // 3. Process Save vs Delete
+    // 3. Process Save
     if (action === 'save') {
       // Require existing granted save_and_return consent
       const consents = await base44.asServiceRole.entities.DiscoveryConsent.filter({ session_id, consent_type: 'save_and_return' });
@@ -68,10 +68,6 @@ Deno.serve(async (req) => {
       sessionUpdates.status = 'saved';
       // Server-side timestamp: Extend expiration by 30 days
       expiresAt = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
-      sessionUpdates.expires_at = expiresAt.toISOString();
-    } else if (action === 'delete') {
-      sessionUpdates.status = 'deletion_requested';
-      expiresAt = now; // Expire immediately for the cleanup sweep
       sessionUpdates.expires_at = expiresAt.toISOString();
     }
 
