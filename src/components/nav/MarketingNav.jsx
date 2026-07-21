@@ -269,7 +269,16 @@ export default function MarketingNav() {
               <div className="pt-2">
                 {user ? (
                   <div className="space-y-3">
-                    <div className="text-center text-sm font-medium text-slate-300">{user.name || user.email}</div>
+                    {user.email ? (
+                      <a
+                        href={`mailto:${user.email}`}
+                        className="block text-center text-sm font-medium text-blue-400 underline-offset-2 hover:text-blue-300 hover:underline"
+                      >
+                        {user.name || user.email}
+                      </a>
+                    ) : (
+                      <div className="text-center text-sm font-medium text-slate-300">{user.name}</div>
+                    )}
                     <div className="flex gap-3">
                       <Link to={dashboardHref} onClick={closeMobile} className="flex flex-1 items-center justify-center rounded-lg bg-slate-800 py-2 text-sm text-white transition-colors hover:bg-slate-700">
                         {isAdmin ? 'Admin Dashboard' : 'Dashboard'}
