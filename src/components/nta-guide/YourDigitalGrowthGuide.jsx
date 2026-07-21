@@ -166,9 +166,12 @@ export default function YourDigitalGrowthGuide() {
       if (!saved) return;
 
       const parsed = JSON.parse(saved);
-      if (parsed?.session_id && parsed?.public_session_key) {
+      const isUnexpired = !parsed?.expires_at || new Date(parsed.expires_at) > new Date();
+      if (parsed?.session_id && parsed?.public_session_key && isUnexpired) {
         setDiscoveryCreds(parsed);
         setDiscoveryMode(true);
+      } else {
+        sessionStorage.removeItem(DISCOVERY_STORAGE_KEY);
       }
     } catch {
       sessionStorage.removeItem(DISCOVERY_STORAGE_KEY);
@@ -320,8 +323,20 @@ export default function YourDigitalGrowthGuide() {
     const text = forcedText || input.trim();
     if (!text || !conversation || pendingSubmission) return;
 
-    if (text === DISCOVERY_ACTION && !discoveryMode) {
-      await startDiscovery();
+    if (text === DISCOVERY_ACTION) {
+      if (!discoveryMode) {
+        await startDiscovery();
+      } else {
+        setPendingSubmission(true);
+        try {
+          await sendToAgent(DISCOVERY_ACTION);
+        } catch {
+          setPendingAIResponse({ text: DISCOVERY_ACTION });
+          toast.error("The Guide didn't respond. Retry below.");
+        } finally {
+          setPendingSubmission(false);
+        }
+      }
       return;
     }
 
