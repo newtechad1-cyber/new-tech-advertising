@@ -11,11 +11,22 @@
     },
     "expected_entry_count": { "type": "integer", "default": 0 },
     "completed_entry_count": { "type": "integer", "default": 0 },
-    "safe_error": { "type": "string" },
+    "entry_ids": { "type": "array", "items": { "type": "string" }, "default": [] },
+    "triggering_entry_id": { "type": "string" },
+    "safe_error": {
+      "type": "string",
+      "enum": [
+        "INVALID_AI_OUTPUT", "LLM_INVOCATION_FAILED", "CATEGORY_STAGING_FAILED",
+        "STALE_INTERPRETATION_RUN"
+      ]
+    },
     "started_at": { "type": "string", "format": "date-time" },
     "completed_at": { "type": "string", "format": "date-time" },
     "promoted_at": { "type": "string", "format": "date-time" }
   },
-  "required": ["session_id", "interpretation_version", "status", "started_at"],
+  "required": [
+    "session_id", "interpretation_version", "status", "expected_entry_count",
+    "completed_entry_count", "entry_ids", "started_at"
+  ],
   "rls": { "create": false, "read": false, "update": false, "delete": false }
 }
