@@ -1,0 +1,14 @@
+{
+  "name": "triggerDiscoveryInterpretation",
+  "entry": "entry.ts",
+  "automations": [
+    {
+      "type": "entity",
+      "name": "on_owner_discovery_entry_create",
+      "description": "Safely routes new Discovery conversation entries to the protected interpretation coordinator.",
+      "is_active": false,
+      "entity_name": "DiscoveryConversationEntry",
+      "event_types": ["create"]
+    }
+  ]
+}
