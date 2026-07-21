@@ -2,45 +2,29 @@
   "name": "CategoryInterpretationJob",
   "type": "object",
   "properties": {
-    "session_id": {
-      "type": "string"
-    },
-    "entry_id": {
-      "type": "string"
-    },
-    "interpretation_version": {
-      "type": "integer",
-      "default": 1
-    },
+    "session_id": { "type": "string" },
+    "entry_id": { "type": "string" },
+    "run_id": { "type": "string" },
+    "attempt_number": { "type": "integer", "default": 1 },
+    "interpretation_version": { "type": "integer" },
     "status": {
       "type": "string",
-      "enum": [
-        "pending",
-        "processing",
-        "completed",
-        "failed"
-      ],
-      "default": "pending"
-    },
-    "retry_count": {
-      "type": "integer",
-      "default": 0
+      "enum": ["processing", "completed", "failed"],
+      "default": "processing"
     },
     "last_error": {
-      "type": "string"
-    },
-    "started_at": {
       "type": "string",
-      "format": "date-time"
+      "enum": [
+        "ENTRY_NOT_FOUND", "SESSION_INELIGIBLE", "INVALID_AI_OUTPUT",
+        "LLM_INVOCATION_FAILED", "CATEGORY_STAGING_FAILED"
+      ]
     },
-    "completed_at": {
-      "type": "string",
-      "format": "date-time"
-    }
+    "started_at": { "type": "string", "format": "date-time" },
+    "completed_at": { "type": "string", "format": "date-time" }
   },
   "required": [
-    "session_id",
-    "entry_id",
-    "status"
-  ]
+    "session_id", "entry_id", "run_id", "attempt_number",
+    "interpretation_version", "status", "started_at"
+  ],
+  "rls": { "create": false, "read": false, "update": false, "delete": false }
 }
