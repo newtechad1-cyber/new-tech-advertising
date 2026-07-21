@@ -15,11 +15,6 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // 2. Require Explicit Confirmation
-    if (confirm_deletion !== true) {
-      return Response.json({ error: 'Explicit owner confirmation required to process deletion' }, { status: 400 });
-    }
-
     let session;
     try {
       session = await base44.asServiceRole.entities.DiscoverySession.get(session_id);
@@ -36,11 +31,25 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Require explicit confirmation only after authentication succeeds.
+    // This keeps malformed or mismatched credentials behind the same generic 401 boundary.
+    if (confirm_deletion !== true) {
+      return Response.json({ error: 'Explicit owner confirmation required to process deletion' }, { status: 400 });
+    }
+
     // 3. Idempotent Return for Already Requested
     if (session.status === 'deletion_requested') {
       // Find original audit event for accurate timestamp
-      const auditEvents = await base44.asServiceRole.entities.DiscoveryAuditEvent.filter({ session_id, event_type: 'deletion_requested' });
-      const originalTime = auditEvents.length > 0 && auditEvents[0].occurred_at ? auditEvents[0].occurred_at : session.last_activity_at;
+      const auditEvents = await base44.asServiceRole.entities.DiscoveryAuditEvent.filter({
+        session_id,
+        event_type: 'deletion_requested',
+        actor_type: 'owner',
+        target_record_type: 'DiscoverySession'
+      });
+      const originalEvent = auditEvents
+        .filter((event: any) => event.occurred_at)
+        .sort((left: any, right: any) => new Date(left.occurred_at).getTime() - new Date(right.occurred_at).getTime())[0];
+      const originalTime = originalEvent?.occurred_at || session.last_activity_at;
       
       return Response.json({
         session_id: session.id,
