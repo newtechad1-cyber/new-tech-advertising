@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import ReactMarkdown from 'react-markdown';
+import ArticleRenderer from '@/components/shared/ArticleRenderer';
 import { ArrowLeft, ArrowRight, BookOpen } from 'lucide-react';
 
 export default function InsightDetail() {
@@ -82,14 +82,8 @@ export default function InsightDetail() {
 
         {/* Article body */}
         {page.article_body && (
-          <div className="prose prose-invert prose-slate max-w-none mb-12
-            prose-h2:text-2xl prose-h2:font-bold prose-h2:text-white
-            prose-h3:text-xl prose-h3:font-semibold prose-h3:text-slate-200
-            prose-p:text-slate-300 prose-p:leading-relaxed
-            prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
-            prose-strong:text-white prose-li:text-slate-300
-            prose-blockquote:border-blue-600 prose-blockquote:text-slate-400">
-            <ReactMarkdown>{page.article_body}</ReactMarkdown>
+          <div className="mb-12">
+            <ArticleRenderer content={page.article_body} />
           </div>
         )}
 
