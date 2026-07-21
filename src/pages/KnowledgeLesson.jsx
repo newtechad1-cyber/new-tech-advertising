@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link, useParams, Navigate, useNavigate } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
+import LessonArticle from '@/components/knowledge/LessonArticle';
 import { ChevronRight, Clock, CheckCircle, ArrowLeft, ArrowRight, User, BookOpen } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -130,8 +130,8 @@ export default function KnowledgeLesson() {
 
         {/* CONTENT */}
         <article className="py-12 px-6">
-          <div className="max-w-3xl mx-auto prose prose-invert prose-blue max-w-none prose-headings:font-black prose-p:leading-relaxed prose-a:text-blue-400 hover:prose-a:text-blue-300">
-            <ReactMarkdown>{lesson.content}</ReactMarkdown>
+          <div className="max-w-3xl mx-auto">
+            <LessonArticle content={lesson.content} />
           </div>
         </article>
 
