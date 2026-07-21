@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { ArrowLeft, BrainCircuit, PlayCircle, Layers, CheckCircle2, ChevronRight } from 'lucide-react';
+import { BrainCircuit, CheckCircle2, ChevronRight } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
-import ReactMarkdown from 'react-markdown';
+import LessonArticle from '@/components/knowledge/LessonArticle';
 import { businessFoundationsLessons } from '@/data/businessFoundations';
 import { TrackProgress, TrackBottomNav } from '@/components/learning-center/TrackNavigation';
 import { getJourneyMemory, updateLearningProgress } from '@/lib/journeyMemory';
@@ -88,9 +88,7 @@ export default function BusinessFoundationsLesson() {
           </div>
 
           {/* Lesson Content */}
-          <article className="prose prose-invert prose-lg prose-blue max-w-none prose-headings:text-white prose-p:text-slate-300 prose-p:leading-relaxed prose-a:text-blue-400 hover:prose-a:text-blue-300 prose-strong:text-white prose-ul:text-slate-300">
-            <ReactMarkdown>{lesson.content}</ReactMarkdown>
-          </article>
+          <LessonArticle content={lesson.content} />
 
           <RelatedContent lesson={lesson} />
 
