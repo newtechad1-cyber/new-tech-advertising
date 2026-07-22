@@ -66,6 +66,7 @@ export const OBSERVATION_REVIEW_STATES = [
 ];
 
 export const CONSENT_TYPES = [
+  'discovery_processing',
   'microphone',
   'transcription',
   'raw_audio_retention',

@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useDragControls } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
-import { X, Send, Loader2, User, FileText, CheckCircle2, AlertCircle, Clock, Zap, ChevronRight, MessageCircle, Map, Compass, Brain, Activity } from 'lucide-react';
+import { X, Send, Loader2, AlertCircle, Zap, ChevronRight, Brain } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 const NTA_FAVICON = "https://media.base44.com/images/public/691f41a18de4a7f498c8f884/04e19b127_favicon_64x64.png";
-const DISCOVERY_ACTION = 'Run a Digital Visibility Audit™';
+const DISCOVERY_ACTION = 'Walk through my business growth';
 const DISCOVERY_STORAGE_KEY = 'nta_discovery_session';
 import { Input } from "@/components/ui/input";
 import ReactMarkdown from 'react-markdown';
@@ -13,6 +13,7 @@ import { toast } from 'sonner';
 import { cn } from "@/lib/utils";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { getJourneyMemory } from '@/lib/journeyMemory';
+import DiscoveryWalkthrough from './DiscoveryWalkthrough';
 
 const FunctionDisplay = ({ toolCall }) => {
     const [expanded, setExpanded] = useState(false);
@@ -23,7 +24,7 @@ const FunctionDisplay = ({ toolCall }) => {
         try {
             parsedResults = typeof toolCall.results === 'string' ? JSON.parse(toolCall.results) : toolCall.results;
             if (parsedResults?.success === false) isFailed = true;
-        } catch (e) {
+        } catch {
             parsedResults = toolCall.results;
         }
     }
@@ -152,7 +153,7 @@ export default function YourDigitalGrowthGuide() {
 
   const quickActions = [
     'What is the NTA Operating System™?',
-    'Run a Digital Visibility Audit™',
+    DISCOVERY_ACTION,
     'Help me understand AI for my business',
     'Show me the Growth Roadmap™',
     'I’m interested in becoming a Community Partner',
@@ -160,6 +161,12 @@ export default function YourDigitalGrowthGuide() {
   ];
 
   const [showKnowledgeBase, setShowKnowledgeBase] = useState(false);
+
+  const exitDiscovery = () => {
+    sessionStorage.removeItem(DISCOVERY_STORAGE_KEY);
+    setDiscoveryCreds(null);
+    setDiscoveryMode(false);
+  };
 
   useEffect(() => {
     try {
@@ -459,6 +466,9 @@ export default function YourDigitalGrowthGuide() {
             </div>
 
             {authStep === 'chat' ? (
+                discoveryMode && discoveryCreds ? (
+                  <DiscoveryWalkthrough credentials={discoveryCreds} onExit={exitDiscovery} />
+                ) : (
                 <>
                     {/* Messages */}
                     {discoveryMode && (
@@ -596,6 +606,7 @@ export default function YourDigitalGrowthGuide() {
                       </div>
                     </div>
                 </>
+                )
             ) : (
                 <div className="flex-1 flex justify-center items-center bg-slate-950">
                     <Loader2 className="w-8 h-8 animate-spin text-blue-500" />

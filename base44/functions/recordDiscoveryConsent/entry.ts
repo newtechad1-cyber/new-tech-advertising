@@ -35,7 +35,7 @@ Deno.serve(async (req) => {
     }
 
     // 2. Consent Specific Validations
-    const validTypes = ['microphone', 'transcription', 'raw_audio_retention', 'save_and_return', 'personal_follow_up', 'journal'];
+    const validTypes = ['discovery_processing', 'microphone', 'transcription', 'raw_audio_retention', 'save_and_return', 'personal_follow_up', 'journal'];
     if (!validTypes.includes(consent_type)) {
       return Response.json({ error: 'Invalid consent type' }, { status: 400 });
     }
