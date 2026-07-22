@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { getReassuringProgress, selectNextQuestion } from './walkthrough.js';
+import { buildSummaryFromInterpretation, describeOwnerCorrections, hasUsefulSummary } from './summaryReview.js';
 
 test('starts with the owner reason', () => {
   assert.equal(selectNextQuestion()?.category, 'reason_for_conversation');
@@ -25,4 +26,33 @@ test('progress uses reassuring language instead of question counts', () => {
     { category_key: 'owner_goals', completion_state: 'complete' },
     { category_key: 'stated_pain', completion_state: 'complete' },
   ] }), { label: 'Understanding what is happening now', percent: 52 });
+});
+
+test('builds the owner review only from promoted interpreted facts', () => {
+  const summary = buildSummaryFromInterpretation([
+    { category_key: 'reason_for_conversation', interpreted_facts: [{ statement: 'The owner wants steadier leads.' }] },
+    { category_key: 'present_process', interpreted_facts: [{ statement: 'Follow-up is handled manually.' }] },
+    { category_key: 'existing_tools_and_information', interpreted_facts: [{ statement: 'The business uses a CRM.' }] },
+    { category_key: 'desired_improvement', interpreted_facts: [{ statement: 'A consistent follow-up process is desired.' }] },
+  ]);
+
+  assert.equal(summary.why_owner_came, 'The owner wants steadier leads.');
+  assert.equal(summary.present_process, 'Follow-up is handled manually.\nThe business uses a CRM.');
+  assert.equal(summary.desired_improvement, 'A consistent follow-up process is desired.');
+  assert.equal(hasUsefulSummary(summary), true);
+});
+
+test('brings interpretation uncertainty into the review', () => {
+  const summary = buildSummaryFromInterpretation([
+    { category_key: 'owner_goals', uncertainties: [{ statement: 'The desired timing is not yet clear.' }] },
+  ]);
+  assert.equal(summary.information_still_needed, 'The desired timing is not yet clear.');
+});
+
+test('records which review sections the owner corrected without storing old text', () => {
+  const original = { owner_goal: 'Grow quickly', greatest_difficulty: 'Lead flow' };
+  const edited = { owner_goal: 'Grow steadily', greatest_difficulty: 'Lead flow' };
+  assert.deepEqual(describeOwnerCorrections(original, edited), [
+    'What you want to accomplish was corrected by the owner during review.',
+  ]);
 });

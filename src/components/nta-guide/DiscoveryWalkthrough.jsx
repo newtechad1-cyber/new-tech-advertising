@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { CheckCircle2, Loader2, Send, ShieldCheck } from 'lucide-react';
+import { Loader2, Send, ShieldCheck } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,6 +10,7 @@ import {
   getReassuringProgress,
   selectNextQuestion,
 } from '@/lib/growth-guide/walkthrough';
+import DiscoverySummaryReview from './DiscoverySummaryReview';
 
 const askedStorageKey = sessionId => `nta_discovery_asked_${sessionId}`;
 const unwrap = response => response?.data ?? response;
@@ -124,6 +125,10 @@ export default function DiscoveryWalkthrough({ credentials, onExit }) {
     return <div className="flex-1 p-6 text-sm leading-6 text-slate-300">That’s completely fine. Your choice was recorded, and no discovery answers will be requested.<Button onClick={onExit} variant="outline" className="mt-5 w-full border-slate-700">Return to general guidance</Button></div>;
   }
 
+  if (!nextQuestion || snapshot?.session?.status === 'summary_ready' || snapshot?.session?.status === 'confirmed') {
+    return <DiscoverySummaryReview snapshot={snapshot} invoke={invoke} refresh={refresh} />;
+  }
+
   return (
     <>
       <div className="border-b border-slate-800 bg-slate-900/70 px-5 py-3">
@@ -134,23 +139,20 @@ export default function DiscoveryWalkthrough({ credentials, onExit }) {
         <div className="flex gap-3">
           <div className="mt-1 h-8 w-8 shrink-0 rounded-xl bg-slate-800 p-2"><ShieldCheck className="h-4 w-4 text-blue-400" /></div>
           <div className="rounded-2xl border border-slate-700 bg-slate-800 px-4 py-3 text-sm leading-6 text-slate-100">
-            {nextQuestion?.prompt || 'You have given me enough to prepare the review. The next phase will let you correct and confirm what NTA understood.'}
+            {nextQuestion.prompt}
           </div>
         </div>
         {snapshot?.entries?.filter(item => item.speaker === 'owner').slice(-3).map(entry => (
           <div key={entry.id} className="ml-auto mt-4 max-w-[85%] rounded-2xl bg-blue-600 px-4 py-3 text-sm leading-6 text-white">{entry.text}</div>
         ))}
-        {!nextQuestion && <div className="mt-6 flex items-center gap-2 text-sm text-emerald-300"><CheckCircle2 className="h-4 w-4" />Your answers are saved and ready for review.</div>}
       </div>
-      {nextQuestion && (
-        <form onSubmit={submitAnswer} className="border-t border-slate-800 bg-slate-900 p-4">
+      <form onSubmit={submitAnswer} className="border-t border-slate-800 bg-slate-900 p-4">
           <div className="relative">
             <Input value={answer} onChange={event => setAnswer(event.target.value)} disabled={busy} placeholder="Answer in your own words…" className="bg-slate-800 py-6 pl-4 pr-14 text-white" />
             <Button type="submit" size="icon" disabled={busy || !answer.trim()} className="absolute bottom-2 right-2 top-2 h-auto w-10 bg-blue-600"><Send className="h-4 w-4" /></Button>
           </div>
           <p className="mt-2 text-center text-[11px] text-slate-500">One question at a time. There are no wrong answers.</p>
-        </form>
-      )}
+      </form>
     </>
   );
 }
