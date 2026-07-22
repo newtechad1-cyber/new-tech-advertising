@@ -7,6 +7,7 @@ import { toast } from 'sonner';
 import {
   DISCOVERY_INTRO,
   DISCOVERY_NOTICE_VERSION,
+  getContextualQuestion,
   getReassuringProgress,
   selectNextQuestion,
 } from '@/lib/growth-guide/walkthrough';
@@ -24,6 +25,7 @@ export default function DiscoveryWalkthrough({ credentials, onExit, onSaved, onS
   const [answerMode, setAnswerMode] = useState(null);
   const [listening, setListening] = useState(false);
   const [submissionStatus, setSubmissionStatus] = useState('');
+  const [localOwnerEntries, setLocalOwnerEntries] = useState([]);
   const submissionRef = useRef(false);
   const recognitionRef = useRef(null);
   const shouldListenRef = useRef(false);
@@ -71,11 +73,20 @@ export default function DiscoveryWalkthrough({ credentials, onExit, onSaved, onS
   const hasDecision = ['granted', 'declined'].includes(textConsent?.state);
   const voiceReady = microphoneConsent?.state === 'granted' && transcriptionConsent?.state === 'granted';
   const interpretations = snapshot?.interpretation?.categories || [];
-  const nextQuestion = useMemo(() => selectNextQuestion({
+  const selectedQuestion = useMemo(() => selectNextQuestion({
     interpretations,
     categories: snapshot?.categories || [],
     askedCategories,
   }), [interpretations, snapshot?.categories, askedCategories]);
+  const ownerEntries = useMemo(() => {
+    const saved = snapshot?.entries?.filter(item => item.speaker === 'owner') || [];
+    const savedIds = new Set(saved.map(item => item.id).filter(Boolean));
+    return [...saved, ...localOwnerEntries.filter(item => !item.id || !savedIds.has(item.id))];
+  }, [snapshot?.entries, localOwnerEntries]);
+  const nextQuestion = useMemo(
+    () => getContextualQuestion(selectedQuestion, ownerEntries),
+    [selectedQuestion, ownerEntries],
+  );
   const progress = getReassuringProgress({ interpretations, categories: snapshot?.categories || [] });
   const confirmedSummary = snapshot?.summaries?.some(item => item.confirmation_state === 'confirmed');
 
@@ -232,8 +243,19 @@ export default function DiscoveryWalkthrough({ credentials, onExit, onSaved, onS
         source_mode: answerMode === 'voice' ? 'voice_transcript' : 'text',
       });
       const nextAsked = [...new Set([...askedCategories, answeredCategory])];
-      sessionStorage.setItem(askedStorageKey(credentials.session_id), JSON.stringify(nextAsked));
       setAskedCategories(nextAsked);
+      setLocalOwnerEntries(current => [...current, {
+        client_request_id: crypto.randomUUID(),
+        speaker: 'owner',
+        text,
+      }]);
+      // Browser storage is only resume assistance. It must never prevent the
+      // live conversation from advancing after the backend accepted an answer.
+      try {
+        sessionStorage.setItem(askedStorageKey(credentials.session_id), JSON.stringify(nextAsked));
+      } catch {
+        // Continue in memory when privacy settings disable session storage.
+      }
       answerRef.current = '';
       setAnswer('');
       setSubmissionStatus('Answer saved. Here is the next question.');
@@ -295,15 +317,14 @@ export default function DiscoveryWalkthrough({ credentials, onExit, onSaved, onS
         <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-slate-800"><div className="h-full rounded-full bg-blue-500 transition-all" style={{ width: `${progress.percent}%` }} /></div>
       </div>
       <div className="flex-1 overflow-y-auto p-5">
-        <div className="flex gap-3">
+        <p className="mb-3 text-xs font-medium uppercase tracking-wide text-blue-300">Your current question</p>
+        <div className="flex gap-3" key={nextQuestion.category}>
           <div className="mt-1 h-8 w-8 shrink-0 rounded-xl bg-slate-800 p-2"><ShieldCheck className="h-4 w-4 text-blue-400" /></div>
           <div className="rounded-2xl border border-slate-700 bg-slate-800 px-4 py-3 text-sm leading-6 text-slate-100">
             {nextQuestion.prompt}
           </div>
         </div>
-        {snapshot?.entries?.filter(item => item.speaker === 'owner').slice(-3).map(entry => (
-          <div key={entry.id} className="ml-auto mt-4 max-w-[85%] rounded-2xl bg-blue-600 px-4 py-3 text-sm leading-6 text-white">{entry.text}</div>
-        ))}
+        <p className="mt-4 text-xs leading-5 text-slate-500">Your previous answer has been saved. This question replaces the last one.</p>
       </div>
       <form onSubmit={submitAnswer} className="border-t border-slate-800 bg-slate-900 p-4">
           <div className="relative">

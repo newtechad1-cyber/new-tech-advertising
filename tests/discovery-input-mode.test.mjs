@@ -41,3 +41,10 @@ test('a dictated answer advances immediately after save while interpretation ref
   assert.match(source, /Answer saved\. Here is the next question\./);
   assert.match(source, /role="status"/);
 });
+
+test('browser storage cannot block the next question after an answer is saved', async () => {
+  const source = await read('src/components/nta-guide/DiscoveryWalkthrough.jsx');
+  const submitAnswer = source.slice(source.indexOf('const submitAnswer'), source.indexOf('if (busy && !snapshot)'));
+  assert.ok(submitAnswer.indexOf('setAskedCategories(nextAsked)') < submitAnswer.indexOf('sessionStorage.setItem'));
+  assert.match(submitAnswer, /try \{\s*sessionStorage\.setItem/);
+});
