@@ -25,6 +25,9 @@ export default function DiscoveryWalkthrough({ credentials, onExit, onSaved, onS
   const [listening, setListening] = useState(false);
   const submissionRef = useRef(false);
   const recognitionRef = useRef(null);
+  const shouldListenRef = useRef(false);
+  const answerRef = useRef('');
+  const restartTimerRef = useRef(null);
 
   const SpeechRecognition = typeof window !== 'undefined'
     ? window.SpeechRecognition || window.webkitSpeechRecognition
@@ -51,7 +54,15 @@ export default function DiscoveryWalkthrough({ credentials, onExit, onSaved, onS
     refresh().catch(() => toast.error('We could not resume this discovery safely.')).finally(() => setBusy(false));
   }, [credentials.session_id]);
 
-  useEffect(() => () => recognitionRef.current?.abort(), []);
+  useEffect(() => {
+    answerRef.current = answer;
+  }, [answer]);
+
+  useEffect(() => () => {
+    shouldListenRef.current = false;
+    clearTimeout(restartTimerRef.current);
+    recognitionRef.current?.abort();
+  }, []);
 
   const textConsent = snapshot?.consents?.find(item => item.consent_type === 'discovery_processing');
   const microphoneConsent = snapshot?.consents?.find(item => item.consent_type === 'microphone');
@@ -119,31 +130,86 @@ export default function DiscoveryWalkthrough({ credentials, onExit, onSaved, onS
     }
   };
 
-  const toggleListening = () => {
+  const stopListening = () => {
+    shouldListenRef.current = false;
+    clearTimeout(restartTimerRef.current);
+    recognitionRef.current?.stop();
+    setListening(false);
+  };
+
+  const toggleListening = async () => {
     if (!SpeechRecognition) {
       toast.error('Voice answers are not supported by this browser. You can still type your answer.');
       return;
     }
     if (listening) {
-      recognitionRef.current?.stop();
+      stopListening();
       return;
     }
+
+    if (navigator.mediaDevices?.getUserMedia) {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        stream.getTracks().forEach(track => track.stop());
+      } catch {
+        toast.error('The microphone is blocked. Allow microphone access in your browser, then try again.');
+        return;
+      }
+    }
+
     const recognition = new SpeechRecognition();
     recognition.lang = 'en-US';
     recognition.interimResults = true;
-    recognition.continuous = true;
+    // Short recognition sessions are more reliable across Chrome, Android, and
+    // embedded webviews. We restart an ended session while the visitor still
+    // wants to dictate instead of making the microphone appear to shut off.
+    recognition.continuous = false;
+    let startingText = answerRef.current.trim();
     recognition.onresult = event => {
-      const transcript = Array.from(event.results).map(result => result[0].transcript).join(' ');
-      setAnswer(transcript.trim());
+      const transcript = Array.from(event.results).map(result => result[0].transcript).join(' ').trim();
+      const nextAnswer = [startingText, transcript].filter(Boolean).join(' ');
+      answerRef.current = nextAnswer;
+      setAnswer(nextAnswer);
     };
-    recognition.onerror = () => {
+    recognition.onerror = event => {
+      if (event.error === 'no-speech') return;
+
+      shouldListenRef.current = false;
       setListening(false);
-      toast.error('I could not hear that clearly. You can try again or type your answer.');
+      const messages = {
+        'not-allowed': 'The microphone is blocked. Allow microphone access in your browser, then try again.',
+        'service-not-allowed': 'Voice recognition is blocked by this browser. You can still type your answer.',
+        'audio-capture': 'Your browser could not find a working microphone. Check the microphone and try again.',
+        network: 'The browser could not reach its voice-recognition service. Please try again or type your answer.',
+      };
+      toast.error(messages[event.error] || 'Voice recognition stopped unexpectedly. Please try again or type your answer.');
     };
-    recognition.onend = () => setListening(false);
+    recognition.onend = () => {
+      if (!shouldListenRef.current) {
+        setListening(false);
+        return;
+      }
+      startingText = answerRef.current.trim();
+      restartTimerRef.current = setTimeout(() => {
+        if (!shouldListenRef.current) return;
+        try {
+          recognition.start();
+        } catch {
+          shouldListenRef.current = false;
+          setListening(false);
+          toast.error('Voice recognition could not restart. Please try again or type your answer.');
+        }
+      }, 250);
+    };
     recognitionRef.current = recognition;
-    recognition.start();
-    setListening(true);
+    shouldListenRef.current = true;
+    try {
+      recognition.start();
+      setListening(true);
+    } catch {
+      shouldListenRef.current = false;
+      toast.error('Voice recognition could not start. Please try again or type your answer.');
+    }
   };
 
   const submitAnswer = async event => {
@@ -230,7 +296,7 @@ export default function DiscoveryWalkthrough({ credentials, onExit, onSaved, onS
             {answerMode === 'voice' && <Button type="button" size="icon" onClick={toggleListening} disabled={busy} aria-label={listening ? 'Stop listening' : 'Start voice answer'} className={`absolute bottom-2 right-12 top-2 h-auto w-10 ${listening ? 'bg-red-600 hover:bg-red-500' : 'bg-slate-700 hover:bg-slate-600'}`}>{listening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}</Button>}
             <Button type="submit" size="icon" disabled={busy || !answer.trim()} className="absolute bottom-2 right-2 top-2 h-auto w-10 bg-blue-600"><Send className="h-4 w-4" /></Button>
           </div>
-          <div className="mt-2 flex items-center justify-between text-[11px] text-slate-500"><span>One question at a time. There are no wrong answers.</span>{(answerMode === 'voice' || SpeechRecognition) && <button type="button" className="text-blue-400 hover:text-blue-300" onClick={() => { recognitionRef.current?.abort(); setListening(false); if (answerMode === 'voice') setAnswerMode('text'); else chooseMode('voice'); }}>{answerMode === 'voice' ? 'Use typing' : 'Use voice'}</button>}</div>
+          <div className="mt-2 flex items-center justify-between text-[11px] text-slate-500"><span>One question at a time. There are no wrong answers.</span>{(answerMode === 'voice' || SpeechRecognition) && <button type="button" className="text-blue-400 hover:text-blue-300" onClick={() => { stopListening(); recognitionRef.current?.abort(); if (answerMode === 'voice') setAnswerMode('text'); else chooseMode('voice'); }}>{answerMode === 'voice' ? 'Use typing' : 'Use voice'}</button>}</div>
       </form>
     </>
   );
