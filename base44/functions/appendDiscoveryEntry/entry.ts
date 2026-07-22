@@ -59,8 +59,26 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Cannot impersonate restricted speakers' }, { status: 403 });
     }
     
-    if (source_mode !== 'text') {
+    if (!['text', 'voice_transcript'].includes(source_mode)) {
       return Response.json({ error: 'Invalid source mode' }, { status: 403 });
+    }
+
+    // Answers may only be stored after the owner has explicitly allowed
+    // Discovery processing. Voice transcripts additionally require the two
+    // voice-specific permissions; browser microphone permission alone is not
+    // treated as consent to transcribe or save the words.
+    const consents = await base44.asServiceRole.entities.DiscoveryConsent.filter({ session_id });
+    const granted = new Set(
+      consents.filter(consent => consent.state === 'granted').map(consent => consent.consent_type)
+    );
+    if (!granted.has('discovery_processing')) {
+      return Response.json({ error: 'Discovery processing consent required' }, { status: 403 });
+    }
+    if (
+      source_mode === 'voice_transcript' &&
+      (!granted.has('microphone') || !granted.has('transcription'))
+    ) {
+      return Response.json({ error: 'Voice consent required' }, { status: 403 });
     }
 
     const safeFields = (entry: any) => ({
@@ -93,7 +111,7 @@ Deno.serve(async (req) => {
       client_request_id,
       speaker: 'owner',
       text: text.trim(),
-      source_mode: 'text',
+      source_mode,
       occurred_at: now
     });
 
