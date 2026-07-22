@@ -12,6 +12,16 @@ test('visitor is offered explicit voice and text answer modes', async () => {
   assert.match(source, /voice_transcript/);
 });
 
+test('voice capture verifies the microphone and recovers from unintended browser stops', async () => {
+  const source = await read('src/components/nta-guide/DiscoveryWalkthrough.jsx');
+  assert.match(source, /getUserMedia\(\{ audio: true \}\)/);
+  assert.match(source, /shouldListenRef/);
+  assert.match(source, /recognition\.continuous = false/);
+  assert.match(source, /recognition\.start\(\)/);
+  assert.match(source, /event\.error === 'no-speech'/);
+  assert.match(source, /microphone is blocked/i);
+});
+
 test('voice transcripts require processing, microphone, and transcription consent', async () => {
   const source = await read('base44/functions/appendDiscoveryEntry/entry.ts');
   assert.match(source, /granted\.has\('discovery_processing'\)/);
