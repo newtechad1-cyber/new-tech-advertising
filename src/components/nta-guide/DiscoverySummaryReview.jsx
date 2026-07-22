@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
-import { CheckCircle2, Loader2, PencilLine, RefreshCw } from 'lucide-react';
+import { CheckCircle2, Loader2, PencilLine } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import {
   SUMMARY_SECTIONS,
-  buildSummaryFromInterpretation,
+  buildReviewSummary,
   describeOwnerCorrections,
   hasUsefulSummary,
 } from '@/lib/growth-guide/summaryReview';
@@ -15,9 +15,20 @@ const newestSummary = summaries => [...(summaries || [])].sort((a, b) => b.versi
 
 export default function DiscoverySummaryReview({ snapshot, invoke, refresh }) {
   const savedSummary = newestSummary(snapshot?.summaries);
+  const askedCategories = useMemo(() => {
+    try {
+      return JSON.parse(sessionStorage.getItem(`nta_discovery_asked_${snapshot?.session?.id}`)) || [];
+    } catch {
+      return [];
+    }
+  }, [snapshot?.session?.id]);
   const interpretedDraft = useMemo(
-    () => buildSummaryFromInterpretation(snapshot?.interpretation?.categories || []),
-    [snapshot?.interpretation?.active_version, snapshot?.interpretation?.categories],
+    () => buildReviewSummary(
+      snapshot?.interpretation?.categories || [],
+      snapshot?.entries || [],
+      askedCategories,
+    ),
+    [snapshot?.interpretation?.active_version, snapshot?.interpretation?.categories, snapshot?.entries, askedCategories],
   );
   const original = savedSummary || interpretedDraft;
   const [edited, setEdited] = useState(original);
@@ -73,17 +84,6 @@ export default function DiscoverySummaryReview({ snapshot, invoke, refresh }) {
             </div>
           ))}
         </div>
-      </div>
-    );
-  }
-
-  if (!hasUsefulSummary(interpretedDraft) && !savedSummary) {
-    return (
-      <div className="flex-1 p-6 text-center">
-        <RefreshCw className="mx-auto h-8 w-8 text-blue-400" />
-        <h4 className="mt-4 font-semibold text-white">Preparing what we understood</h4>
-        <p className="mt-2 text-sm leading-6 text-slate-400">Your answers are saved. The Growth Guide is organizing them for your review.</p>
-        <Button onClick={refresh} variant="outline" className="mt-5 border-slate-700" disabled={busy}>Check again</Button>
       </div>
     );
   }
