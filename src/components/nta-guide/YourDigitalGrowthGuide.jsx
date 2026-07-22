@@ -258,7 +258,7 @@ export default function YourDigitalGrowthGuide() {
     setFailedSubmission(null);
 
     try {
-      const response = await base44.functions.invoke('startDiscoverySession', { mode: 'text' });
+      const response = await base44.functions.invoke('startDiscoverySession', { mode: 'mixed' });
       const creds = response?.data ?? response;
 
       if (!creds?.session_id || !creds?.public_session_key) {
