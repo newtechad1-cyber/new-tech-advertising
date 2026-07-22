@@ -1,0 +1,18 @@
+{
+  "name": "DiscoveryAdminWorkspace",
+  "type": "object",
+  "properties": {
+    "session_id": { "type": "string" },
+    "workflow_status": {
+      "type": "string",
+      "enum": ["new", "reviewing", "waiting_on_owner", "roadmap_in_progress", "ready_to_follow_up", "completed"],
+      "default": "new"
+    },
+    "internal_notes": { "type": "string", "default": "" },
+    "roadmap_draft": { "type": "string", "default": "" },
+    "updated_by": { "type": "string" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  },
+  "required": ["session_id", "workflow_status"],
+  "rls": { "create": false, "read": false, "update": false, "delete": false }
+}
