@@ -196,6 +196,7 @@ const SocialMediaRochesterMN = lazy(() => import('./pages/SocialMediaRochesterMN
 const SocialMediaAustinMN = lazy(() => import('./pages/SocialMediaAustinMN'));
 const SocialMediaAlbertLeaMN = lazy(() => import('./pages/SocialMediaAlbertLeaMN'));
 const AgencyDashboard = lazy(() => import('./pages/AgencyDashboard'));
+const AgencyGrowthDiscoveries = lazy(() => import('./pages/AgencyGrowthDiscoveries'));
 const NTACommandDashboard = lazy(() => import('./pages/NTACommandDashboard'));
 const AgencyClients = lazy(() => import('./pages/AgencyClients'));
 const AgencyPipeline = lazy(() => import('./pages/AgencyPipeline'));
@@ -618,6 +619,7 @@ const AuthenticatedApp = () => {
       {/* /clients and /clients/:id legacy redirects are defined below — ClientManager/ClientDetail accessible via /agency/clients */}
       <Route path="/agency/clients/:id/setup" element={<ClientSetupWizard />} />
       <Route path="/agency" element={<AgencyDashboard />} />
+      <Route path="/agency/growth-discoveries" element={<AdminGuard><AgencyGrowthDiscoveries /></AdminGuard>} />
       <Route path="/agency/clients" element={<AgencyClients />} />
       <Route path="/agency/clients/:id" element={<LayoutWrapper currentPageName="AgencyClientDetail"><AgencyClientDetail /></LayoutWrapper>} />
       <Route path="/agency/clients/:id/cms" element={<AgencyClientCMS />} />
