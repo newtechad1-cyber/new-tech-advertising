@@ -8,6 +8,7 @@
     "consent_type": {
       "type": "string",
       "enum": [
+        "discovery_processing",
         "microphone",
         "transcription",
         "raw_audio_retention",
