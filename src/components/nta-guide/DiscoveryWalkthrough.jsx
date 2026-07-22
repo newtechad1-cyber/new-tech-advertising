@@ -23,6 +23,7 @@ export default function DiscoveryWalkthrough({ credentials, onExit, onSaved, onS
   const [askedCategories, setAskedCategories] = useState([]);
   const [answerMode, setAnswerMode] = useState(null);
   const [listening, setListening] = useState(false);
+  const [submissionStatus, setSubmissionStatus] = useState('');
   const submissionRef = useRef(false);
   const recognitionRef = useRef(null);
   const shouldListenRef = useRef(false);
@@ -214,10 +215,15 @@ export default function DiscoveryWalkthrough({ credentials, onExit, onSaved, onS
 
   const submitAnswer = async event => {
     event.preventDefault();
-    const text = answer.trim();
+    // Speech recognition can update its ref a fraction before React paints the
+    // transcript. Use the ref so clicking Send never drops the final words.
+    const text = answerRef.current.trim();
     if (!text || !nextQuestion || submissionRef.current) return;
+    const answeredCategory = nextQuestion.category;
+    stopListening();
     submissionRef.current = true;
     setBusy(true);
+    setSubmissionStatus('Saving your answer…');
     try {
       await invoke('appendDiscoveryEntry', {
         client_request_id: crypto.randomUUID(),
@@ -225,12 +231,21 @@ export default function DiscoveryWalkthrough({ credentials, onExit, onSaved, onS
         speaker: 'owner',
         source_mode: answerMode === 'voice' ? 'voice_transcript' : 'text',
       });
-      const nextAsked = [...new Set([...askedCategories, nextQuestion.category])];
+      const nextAsked = [...new Set([...askedCategories, answeredCategory])];
       sessionStorage.setItem(askedStorageKey(credentials.session_id), JSON.stringify(nextAsked));
       setAskedCategories(nextAsked);
+      answerRef.current = '';
       setAnswer('');
-      await refresh();
+      setSubmissionStatus('Answer saved. Here is the next question.');
+
+      // The next deterministic question can render from nextAsked immediately.
+      // Interpretation may take longer, so refresh it in the background instead
+      // of leaving the visitor trapped behind a disabled form.
+      refresh().catch(() => {
+        toast.error('Your answer was saved, but the latest interpretation is still catching up. You can continue.');
+      });
     } catch {
+      setSubmissionStatus('Your answer is still here. Please try sending it again.');
       toast.error('Your answer was not saved. Nothing has been lost—please try again.');
     } finally {
       submissionRef.current = false;
@@ -297,6 +312,7 @@ export default function DiscoveryWalkthrough({ credentials, onExit, onSaved, onS
             <Button type="submit" size="icon" disabled={busy || !answer.trim()} className="absolute bottom-2 right-2 top-2 h-auto w-10 bg-blue-600"><Send className="h-4 w-4" /></Button>
           </div>
           <div className="mt-2 flex items-center justify-between text-[11px] text-slate-500"><span>One question at a time. There are no wrong answers.</span>{(answerMode === 'voice' || SpeechRecognition) && <button type="button" className="text-blue-400 hover:text-blue-300" onClick={() => { stopListening(); recognitionRef.current?.abort(); if (answerMode === 'voice') setAnswerMode('text'); else chooseMode('voice'); }}>{answerMode === 'voice' ? 'Use typing' : 'Use voice'}</button>}</div>
+          {submissionStatus && <p role="status" aria-live="polite" className="mt-2 text-xs text-blue-300">{submissionStatus}</p>}
       </form>
     </>
   );
