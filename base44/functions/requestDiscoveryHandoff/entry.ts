@@ -63,7 +63,7 @@ Deno.serve(async (req) => {
     }
 
     // 4. Validate Contact Info
-    const requiresContact = ['request_callback', 'continue_by_email'].includes(handoff_type);
+    const requiresContact = ['request_callback', 'continue_by_email', 'receive_summary'].includes(handoff_type);
     if (requiresContact && (!contact || typeof contact !== 'object' || Array.isArray(contact))) {
       return Response.json({ error: 'Contact information required for this handoff' }, { status: 400 });
     }
@@ -90,6 +90,9 @@ Deno.serve(async (req) => {
       }
       if (handoff_type === 'continue_by_email' && (typeof email !== 'string' || !email.trim())) {
         return Response.json({ error: 'Email address required for email handoffs' }, { status: 400 });
+      }
+      if (handoff_type === 'receive_summary' && (typeof email !== 'string' || !email.trim())) {
+        return Response.json({ error: 'Email address required for summary delivery' }, { status: 400 });
       }
 
       // Sanitize and validate lengths

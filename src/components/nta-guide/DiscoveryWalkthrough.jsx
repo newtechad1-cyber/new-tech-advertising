@@ -11,11 +11,12 @@ import {
   selectNextQuestion,
 } from '@/lib/growth-guide/walkthrough';
 import DiscoverySummaryReview from './DiscoverySummaryReview';
+import DiscoveryHandoff from './DiscoveryHandoff';
 
 const askedStorageKey = sessionId => `nta_discovery_asked_${sessionId}`;
 const unwrap = response => response?.data ?? response;
 
-export default function DiscoveryWalkthrough({ credentials, onExit }) {
+export default function DiscoveryWalkthrough({ credentials, onExit, onSaved, onSchedule }) {
   const [snapshot, setSnapshot] = useState(null);
   const [answer, setAnswer] = useState('');
   const [busy, setBusy] = useState(true);
@@ -52,6 +53,7 @@ export default function DiscoveryWalkthrough({ credentials, onExit }) {
     askedCategories,
   }), [interpretations, snapshot?.categories, askedCategories]);
   const progress = getReassuringProgress({ interpretations, categories: snapshot?.categories || [] });
+  const confirmedSummary = snapshot?.summaries?.some(item => item.confirmation_state === 'confirmed');
 
   const decideConsent = async state => {
     if (submissionRef.current) return;
@@ -123,6 +125,10 @@ export default function DiscoveryWalkthrough({ credentials, onExit }) {
 
   if (textConsent.state === 'declined') {
     return <div className="flex-1 p-6 text-sm leading-6 text-slate-300">That’s completely fine. Your choice was recorded, and no discovery answers will be requested.<Button onClick={onExit} variant="outline" className="mt-5 w-full border-slate-700">Return to general guidance</Button></div>;
+  }
+
+  if (confirmedSummary) {
+    return <DiscoveryHandoff snapshot={snapshot} invoke={invoke} refresh={refresh} onSaved={onSaved} onSchedule={onSchedule} />;
   }
 
   if (!nextQuestion || snapshot?.session?.status === 'summary_ready' || snapshot?.session?.status === 'confirmed') {
