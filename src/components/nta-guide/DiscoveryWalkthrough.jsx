@@ -232,8 +232,14 @@ export default function DiscoveryWalkthrough({ credentials, onExit, onSaved, onS
         source_mode: answerMode === 'voice' ? 'voice_transcript' : 'text',
       });
       const nextAsked = [...new Set([...askedCategories, answeredCategory])];
-      sessionStorage.setItem(askedStorageKey(credentials.session_id), JSON.stringify(nextAsked));
       setAskedCategories(nextAsked);
+      // Browser storage is only resume assistance. It must never prevent the
+      // live conversation from advancing after the backend accepted an answer.
+      try {
+        sessionStorage.setItem(askedStorageKey(credentials.session_id), JSON.stringify(nextAsked));
+      } catch {
+        // Continue in memory when privacy settings disable session storage.
+      }
       answerRef.current = '';
       setAnswer('');
       setSubmissionStatus('Answer saved. Here is the next question.');
