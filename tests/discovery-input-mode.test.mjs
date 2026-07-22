@@ -29,3 +29,15 @@ test('voice transcripts require processing, microphone, and transcription consen
   assert.match(source, /granted\.has\('transcription'\)/);
   assert.match(source, /source_mode: 'voice_transcript'|source_mode,/);
 });
+
+test('a dictated answer advances immediately after save while interpretation refreshes in the background', async () => {
+  const source = await read('src/components/nta-guide/DiscoveryWalkthrough.jsx');
+  const submitAnswer = source.slice(source.indexOf('const submitAnswer'), source.indexOf('if (busy && !snapshot)'));
+  assert.match(source, /answerRef\.current\.trim\(\)/);
+  assert.match(submitAnswer, /stopListening\(\)/);
+  assert.match(submitAnswer, /setAskedCategories\(nextAsked\)/);
+  assert.doesNotMatch(submitAnswer, /await refresh\(\)/);
+  assert.match(submitAnswer, /refresh\(\)\.catch/);
+  assert.match(source, /Answer saved\. Here is the next question\./);
+  assert.match(source, /role="status"/);
+});
