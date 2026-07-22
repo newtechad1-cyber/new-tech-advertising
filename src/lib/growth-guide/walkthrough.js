@@ -33,7 +33,11 @@ export function selectNextQuestion({ interpretations = [], categories = [], aske
       const completionState = interpretationState || canonicalState || 'not_started';
       return { question, index, rank: stateRank[completionState] ?? 0 };
     })
-    .filter(candidate => candidate.rank < stateRank.complete)
+    // Interpretation controls which unasked topic is most useful next, but it
+    // must not silently end the visitor conversation. One broad owner answer
+    // can legitimately provide evidence for several categories. Those topics
+    // still need an explicit, understandable question so the owner can confirm
+    // or correct what the Guide inferred before summary review begins.
     .sort((a, b) => a.rank - b.rank || a.index - b.index)[0]?.question || null;
 }
 
