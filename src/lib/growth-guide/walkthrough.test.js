@@ -1,10 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { getReassuringProgress, selectNextQuestion } from './walkthrough.js';
+import { getContextualQuestion, getReassuringProgress, identifyConversationFocus, selectNextQuestion } from './walkthrough.js';
 import { buildSummaryFromInterpretation, describeOwnerCorrections, hasUsefulSummary } from './summaryReview.js';
 
 test('starts with the owner reason', () => {
   assert.equal(selectNextQuestion()?.category, 'reason_for_conversation');
+});
+
+test('carries an advertising focus into the next question', () => {
+  const question = selectNextQuestion({ askedCategories: ['reason_for_conversation'] });
+  const contextual = getContextualQuestion(question, [
+    { speaker: 'owner', text: 'I need help understanding what advertising will work.' },
+  ]);
+
+  assert.equal(identifyConversationFocus([{ speaker: 'owner', text: 'We need better advertising.' }]), 'advertising');
+  assert.match(contextual.prompt, /advertising/i);
+  assert.match(contextual.prompt, /accomplish/i);
 });
 
 test('skips categories the promoted interpretation says are complete', () => {
