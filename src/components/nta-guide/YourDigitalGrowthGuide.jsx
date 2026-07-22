@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 const NTA_FAVICON = "https://media.base44.com/images/public/691f41a18de4a7f498c8f884/04e19b127_favicon_64x64.png";
 const DISCOVERY_ACTION = 'Walk through my business growth';
 const DISCOVERY_STORAGE_KEY = 'nta_discovery_session';
+const SAVED_DISCOVERY_STORAGE_KEY = 'nta_saved_discovery_session';
 import { Input } from "@/components/ui/input";
 import ReactMarkdown from 'react-markdown';
 import { toast } from 'sonner';
@@ -168,9 +169,16 @@ export default function YourDigitalGrowthGuide() {
     setDiscoveryMode(false);
   };
 
+  const rememberSavedDiscovery = sessionUpdates => {
+    const saved = { ...discoveryCreds, expires_at: sessionUpdates?.expires_at || discoveryCreds?.expires_at };
+    localStorage.setItem(SAVED_DISCOVERY_STORAGE_KEY, JSON.stringify(saved));
+    sessionStorage.setItem(DISCOVERY_STORAGE_KEY, JSON.stringify(saved));
+    setDiscoveryCreds(saved);
+  };
+
   useEffect(() => {
     try {
-      const saved = sessionStorage.getItem(DISCOVERY_STORAGE_KEY);
+      const saved = sessionStorage.getItem(DISCOVERY_STORAGE_KEY) || localStorage.getItem(SAVED_DISCOVERY_STORAGE_KEY);
       if (!saved) return;
 
       const parsed = JSON.parse(saved);
@@ -250,7 +258,7 @@ export default function YourDigitalGrowthGuide() {
     setFailedSubmission(null);
 
     try {
-      const response = await base44.functions.invoke('startDiscoverySession', { mode: 'text' });
+      const response = await base44.functions.invoke('startDiscoverySession', { mode: 'mixed' });
       const creds = response?.data ?? response;
 
       if (!creds?.session_id || !creds?.public_session_key) {
@@ -467,7 +475,7 @@ export default function YourDigitalGrowthGuide() {
 
             {authStep === 'chat' ? (
                 discoveryMode && discoveryCreds ? (
-                  <DiscoveryWalkthrough credentials={discoveryCreds} onExit={exitDiscovery} />
+                  <DiscoveryWalkthrough credentials={discoveryCreds} onExit={exitDiscovery} onSaved={rememberSavedDiscovery} onSchedule={() => { setIsOpen(false); navigate('/growth-conversation'); }} />
                 ) : (
                 <>
                     {/* Messages */}
