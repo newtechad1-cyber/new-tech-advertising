@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { getContextualQuestion, getReassuringProgress, identifyConversationFocus, selectNextQuestion } from './walkthrough.js';
-import { buildSummaryFromInterpretation, describeOwnerCorrections, hasUsefulSummary } from './summaryReview.js';
+import { buildReviewSummary, buildSummaryFromInterpretation, buildSummaryFromOwnerAnswers, describeOwnerCorrections, hasUsefulSummary } from './summaryReview.js';
 
 test('starts with the owner reason', () => {
   assert.equal(selectNextQuestion()?.category, 'reason_for_conversation');
@@ -66,4 +66,40 @@ test('records which review sections the owner corrected without storing old text
   assert.deepEqual(describeOwnerCorrections(original, edited), [
     'What you want to accomplish was corrected by the owner during review.',
   ]);
+});
+
+test('builds a review from saved owner answers when interpretation is unavailable', () => {
+  const summary = buildSummaryFromOwnerAnswers([
+    { speaker: 'owner', text: 'I want help with advertising.' },
+    { speaker: 'owner', text: 'I want more qualified calls.' },
+    { speaker: 'owner', text: 'I do not know which advertising works.' },
+  ]);
+
+  assert.equal(summary.why_owner_came, 'I want help with advertising.');
+  assert.equal(summary.owner_goal, 'I want more qualified calls.');
+  assert.equal(summary.greatest_difficulty, 'I do not know which advertising works.');
+  assert.equal(hasUsefulSummary(summary), true);
+});
+
+test('uses interpretation when ready and saved answers as a reliable fallback', () => {
+  const summary = buildReviewSummary(
+    [{ category_key: 'reason_for_conversation', interpreted_facts: [{ statement: 'The owner wants advertising guidance.' }] }],
+    [
+      { speaker: 'owner', text: 'Help me understand advertising.' },
+      { speaker: 'owner', text: 'I want more qualified calls.' },
+    ],
+  );
+
+  assert.equal(summary.why_owner_came, 'The owner wants advertising guidance.');
+  assert.equal(summary.owner_goal, 'I want more qualified calls.');
+});
+
+test('maps answers correctly when adaptive questioning changes their order', () => {
+  const summary = buildSummaryFromOwnerAnswers([
+    { speaker: 'owner', text: 'Advertising is confusing.' },
+    { speaker: 'owner', text: 'I want a clearer first priority.' },
+  ], ['stated_pain', 'potential_first_priority']);
+
+  assert.equal(summary.greatest_difficulty, 'Advertising is confusing.');
+  assert.equal(summary.readiness, 'I want a clearer first priority.');
 });
