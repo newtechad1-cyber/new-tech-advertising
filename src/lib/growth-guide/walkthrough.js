@@ -19,20 +19,33 @@ export const DISCOVERY_QUESTIONS = [
 ];
 
 const FOCUS_PATTERNS = [
-  { label: 'advertising', pattern: /\b(advertis(?:e|ing|ement|ements)|marketing|campaigns?|ads?)\b/i },
+  // Put specific owner needs before broad marketing language. A visitor who
+  // says "social media instead of advertising" should stay on social media,
+  // not be routed to the first broad marketing keyword we recognize.
+  { label: 'social media', pattern: /\b(social media|facebook|instagram|linkedin|tiktok|youtube|social posts?|posting)\b/i },
   { label: 'website', pattern: /\b(website|web site|online presence|landing page)\b/i },
-  { label: 'sales process', pattern: /\b(sales?|leads?|prospects?|customers?|follow[ -]?up)\b/i },
+  { label: 'reviews and reputation', pattern: /\b(reviews?|reputation|testimonials?|google business profile|google profile)\b/i },
+  { label: 'search visibility', pattern: /\b(seo|search results?|search visibility|found online|google search)\b/i },
+  { label: 'content', pattern: /\b(content|articles?|blogs?|newsletter|videos?)\b/i },
+  { label: 'sales and follow-up', pattern: /\b(sales?|leads?|prospects?|follow[ -]?up|estimates?|quotes?)\b/i },
   { label: 'customer communication', pattern: /\b(messages?|email|texting|phone calls?|communication)\b/i },
   { label: 'daily operations', pattern: /\b(operations?|workflow|process|scheduling|dispatch|inventory)\b/i },
+  { label: 'advertising', pattern: /\b(advertis(?:e|ing|ement|ements)|campaigns?|paid ads?|commercials?)\b/i },
+  { label: 'marketing', pattern: /\b(marketing|promotion|promoting)\b/i },
 ];
 
 export function identifyConversationFocus(entries = []) {
-  const ownerText = entries
-    .filter(entry => entry.speaker === 'owner')
-    .map(entry => entry.text || '')
-    .join(' ');
+  // The earliest answer that states a recognizable need establishes the
+  // conversation's subject. Later answers add detail but must not silently
+  // switch the whole walkthrough to another subject merely because they
+  // mention a related word.
+  for (const entry of entries.filter(item => item.speaker === 'owner')) {
+    const ownerText = entry.text || '';
+    const focus = FOCUS_PATTERNS.find(item => item.pattern.test(ownerText));
+    if (focus) return focus.label;
+  }
 
-  return FOCUS_PATTERNS.find(item => item.pattern.test(ownerText))?.label || '';
+  return '';
 }
 
 export function getContextualQuestion(question, entries = []) {
