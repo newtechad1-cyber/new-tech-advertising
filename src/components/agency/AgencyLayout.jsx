@@ -14,6 +14,7 @@ const NAV = [
     label: 'Sales', icon: TrendingUp, children: [
       { label: 'Lead Pipeline', href: '/agency/leads/pipeline' },
       { label: 'All Leads', href: '/agency/leads' },
+      { label: 'Growth Discoveries', href: '/agency/growth-discoveries' },
       { label: 'Gap Audits', href: '/agency/gap-audits' },
       { label: 'AI Gap Scanner', href: '/agency/ai-gap-scanner' },
     ],
