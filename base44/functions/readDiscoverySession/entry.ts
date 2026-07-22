@@ -38,14 +38,34 @@ Deno.serve(async (req) => {
       last_activity_at: now
     });
 
-    const [entries, categories, consents, summaries, contactPreferences, handoffs] = await Promise.all([
+    const [entries, categories, consents, summaries, contactPreferences, handoffs, interpretationStates] = await Promise.all([
       base44.asServiceRole.entities.DiscoveryConversationEntry.filter({ session_id }),
       base44.asServiceRole.entities.DiscoveryCategory.filter({ session_id }),
       base44.asServiceRole.entities.DiscoveryConsent.filter({ session_id }),
       base44.asServiceRole.entities.DiscoveryConfirmedSummary.filter({ session_id }),
       base44.asServiceRole.entities.DiscoveryContactPreference.filter({ session_id }),
-      base44.asServiceRole.entities.DiscoveryHandoff.filter({ session_id })
+      base44.asServiceRole.entities.DiscoveryHandoff.filter({ session_id }),
+      base44.asServiceRole.entities.DiscoveryInterpretationState.filter({ session_id })
     ]);
+
+    const activeInterpretationVersion = interpretationStates[0]?.active_interpretation_version || 0;
+    const activeInterpretations = activeInterpretationVersion > 0
+      ? await base44.asServiceRole.entities.DiscoveryCategoryInterpretation.filter({
+          session_id,
+          interpretation_version: activeInterpretationVersion
+        })
+      : [];
+
+    const safeInterpretations = activeInterpretations.map((interpretation: any) => ({
+      category_key: interpretation.category_key,
+      completion_state: interpretation.completion_state,
+      interpreted_facts: (interpretation.interpreted_facts || []).map((fact: any) => ({
+        statement: fact.statement,
+        evidence_entry_ids: fact.evidence_entry_ids || []
+      })),
+      uncertainties: (interpretation.uncertainties || []).map((item: any) => ({ statement: item.statement })),
+      conflicts: (interpretation.conflicts || []).map((item: any) => ({ statement: item.statement }))
+    }));
 
     const safeSession = {
       id: session.id,
@@ -144,7 +164,11 @@ Deno.serve(async (req) => {
       consents: safeConsents,
       summaries: safeSummaries,
       contactPreferences: safeContactPreferences,
-      handoffs: safeHandoffs
+      handoffs: safeHandoffs,
+      interpretation: {
+        active_version: activeInterpretationVersion,
+        categories: safeInterpretations
+      }
     });
 
   } catch (e) {
