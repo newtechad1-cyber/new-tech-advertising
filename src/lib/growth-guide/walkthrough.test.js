@@ -18,6 +18,40 @@ test('carries an advertising focus into the next question', () => {
   assert.match(contextual.prompt, /accomplish/i);
 });
 
+test('follows a social media plan instead of falling back to advertising', () => {
+  const question = selectNextQuestion({ askedCategories: ['reason_for_conversation'] });
+  const entries = [
+    { speaker: 'owner', text: 'I want help with social media instead of advertising.' },
+  ];
+  const contextual = getContextualQuestion(question, entries);
+
+  assert.equal(identifyConversationFocus(entries), 'social media');
+  assert.match(contextual.prompt, /social media/i);
+  assert.doesNotMatch(contextual.prompt, /advertising/i);
+});
+
+test('keeps the original owner subject when later answers mention advertising', () => {
+  const entries = [
+    { speaker: 'owner', text: 'I need help making my website clearer.' },
+    { speaker: 'owner', text: 'I have also tried some advertising.' },
+  ];
+
+  assert.equal(identifyConversationFocus(entries), 'website');
+});
+
+test('supports distinct discovery subjects beyond advertising', () => {
+  const examples = [
+    ['Our Google reviews need attention.', 'reviews and reputation'],
+    ['Customers cannot find us in search results.', 'search visibility'],
+    ['Our estimates never get followed up.', 'sales and follow-up'],
+    ['Scheduling and dispatch are difficult.', 'daily operations'],
+  ];
+
+  examples.forEach(([text, expected]) => {
+    assert.equal(identifyConversationFocus([{ speaker: 'owner', text }]), expected);
+  });
+});
+
 test('skips categories the promoted interpretation says are complete', () => {
   const next = selectNextQuestion({
     interpretations: [{ category_key: 'reason_for_conversation', completion_state: 'complete' }],
