@@ -29,16 +29,12 @@ export default function KnowledgeCollection() {
   const totalCount = collection.lessons.length;
   const isComplete = completedCount === totalCount;
   
-  // Find first unfinished lesson for "Start/Continue" logic
   const nextUnfinishedLesson = collection.lessons.find(l => !completedLessons.includes(l.id));
 
-  // Determine what happens when user clicks the main CTA button
   const handlePrimaryCTA = () => {
     if (isComplete) {
-      // Review mode: start from lesson 1 again
       navigate(`/knowledge/${collection.slug}/${collection.lessons[0].slug}`);
     } else if (nextUnfinishedLesson) {
-      // Continue or Start
       navigate(`/knowledge/${collection.slug}/${nextUnfinishedLesson.slug}`);
     }
   };
@@ -67,14 +63,12 @@ export default function KnowledgeCollection() {
       <MarketingNav />
 
       <main className="flex-grow">
-        {/* HERO SECTION */}
         <section className="relative pt-24 pb-16 px-6 border-b border-slate-800">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-blue-600/5 blur-[120px] rounded-full" />
           </div>
 
           <div className="max-w-4xl mx-auto relative z-10">
-            {/* Breadcrumbs */}
             <nav className="flex items-center gap-2 text-sm text-slate-500 mb-8 overflow-x-auto whitespace-nowrap pb-2">
               <Link to="/knowledge" className="hover:text-white transition-colors flex items-center gap-1">
                 <BookOpen className="w-4 h-4" /> Knowledge Library
@@ -85,7 +79,7 @@ export default function KnowledgeCollection() {
 
             <div className="flex flex-wrap items-center gap-3 mb-4">
               <span className="bg-slate-800 text-slate-300 border border-slate-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
-                Collection {collection.id} of 7
+                Collection {collection.id} of 7 Collections
               </span>
               {isComplete && (
                 <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest flex items-center gap-1">
@@ -123,7 +117,7 @@ export default function KnowledgeCollection() {
                   <span className={completedCount > 0 ? 'text-blue-400' : ''}>{Math.round((completedCount / totalCount) * 100)}%</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span>{completedCount} of {totalCount} lessons completed</span>
+                  <span>Lesson progress: {completedCount} of {totalCount} completed</span>
                   <span>•</span>
                   <span>~1 hour total</span>
                 </div>
@@ -132,7 +126,6 @@ export default function KnowledgeCollection() {
           </div>
         </section>
 
-        {/* LESSONS LIST */}
         <section className="py-16 px-6 bg-slate-950">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl font-bold text-white mb-8">Lessons in this Collection</h2>
@@ -189,14 +182,13 @@ export default function KnowledgeCollection() {
               })}
             </div>
 
-            {/* END OF COLLECTION TRANSITIONS */}
             <div className="mt-16 pt-12 border-t border-slate-800 flex flex-col md:flex-row gap-6 justify-between items-center">
               {collection.previousCollectionSlug ? (
                 <Link to={`/knowledge/${collection.previousCollectionSlug}`} className="text-sm font-medium text-slate-400 hover:text-white transition-colors flex items-center gap-2">
                   ← Previous Collection
                 </Link>
               ) : (
-                <div /> // Spacing
+                <div />
               )}
 
               {collection.nextCollectionSlug ? (
@@ -213,7 +205,6 @@ export default function KnowledgeCollection() {
               )}
             </div>
 
-            {/* RELATED FLAGSHIP (If it's the 6th or 7th collection, feature the flagship article) */}
             {collection.id === 6 && (
               <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-indigo-900/20 to-slate-900 border border-indigo-500/20 text-center">
                 <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-2 block">
