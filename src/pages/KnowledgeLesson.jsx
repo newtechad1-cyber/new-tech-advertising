@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link, useParams, Navigate, useNavigate } from 'react-router-dom';
 import LessonArticle from '@/components/knowledge/LessonArticle';
-import { ChevronRight, Clock, CheckCircle, ArrowLeft, ArrowRight, User, BookOpen } from 'lucide-react';
+import { ChevronRight, Clock, CheckCircle, ArrowLeft, ArrowRight, User, BookOpen, List } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
@@ -15,7 +15,6 @@ export default function KnowledgeLesson() {
   const collection = getCollectionBySlug(collectionSlug);
   const lesson = getLessonBySlug(collectionSlug, lessonSlug);
   
-  // Auto-record last visited without forcing completion
   useEffect(() => {
     if (lesson) {
       updateJourneyMemory({ lastVisitedLessonId: lesson.id });
@@ -30,10 +29,12 @@ export default function KnowledgeLesson() {
   const memory = getJourneyMemory();
   const completedLessons = memory.completedModules || [];
   const isComplete = completedLessons.includes(lesson.id);
+  const lessonIndex = collection.lessons.findIndex(item => item.slug === lesson.slug);
+  const lessonPosition = lessonIndex >= 0 ? lessonIndex + 1 : lesson.id;
+  const totalLessons = collection.lessons.length;
 
   const markComplete = () => {
     addCompletedModule(lesson.id);
-    // Find next lesson to automatically route
     if (lesson.nextLessonSlug) {
       navigate(`/knowledge/${collection.slug}/${lesson.nextLessonSlug}`);
     } else if (collection.nextCollectionSlug) {
@@ -41,22 +42,10 @@ export default function KnowledgeLesson() {
     }
   };
 
-  const getPrevLesson = () => {
-    if (lesson.id > 1) {
-      return collection.lessons[lesson.id - 2];
-    }
-    return null;
-  };
-
-  const getNextLesson = () => {
-    if (lesson.nextLessonSlug) {
-      return collection.lessons.find(l => l.slug === lesson.nextLessonSlug);
-    }
-    return null;
-  };
-
-  const prevLesson = getPrevLesson();
-  const nextLesson = getNextLesson();
+  const prevLesson = lessonIndex > 0 ? collection.lessons[lessonIndex - 1] : null;
+  const nextLesson = lessonIndex >= 0 && lessonIndex < totalLessons - 1
+    ? collection.lessons[lessonIndex + 1]
+    : null;
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
@@ -68,7 +57,7 @@ export default function KnowledgeLesson() {
           description: lesson.description,
           author: "Rick Hesse",
           datePublished: "2026-07-15",
-          dateModified: "2026-07-15",
+          dateModified: "2026-07-23",
           slug: `/knowledge/${collection.slug}/${lesson.slug}`
         }}
         learningData={{
@@ -81,25 +70,27 @@ export default function KnowledgeLesson() {
       <MarketingNav />
 
       <main className="flex-grow">
-        {/* BREADCRUMBS & HEADER */}
         <header className="pt-24 pb-12 px-6 border-b border-slate-800 bg-slate-900/30">
           <div className="max-w-3xl mx-auto">
-            <nav className="flex items-center gap-2 text-sm text-slate-500 mb-8 overflow-x-auto whitespace-nowrap pb-2">
+            <nav className="flex items-center gap-2 text-sm text-slate-500 mb-8 overflow-x-auto whitespace-nowrap pb-2" aria-label="Breadcrumb">
               <Link to="/knowledge" className="hover:text-white transition-colors flex items-center gap-1">
-                <BookOpen className="w-4 h-4" /> Library
+                <BookOpen className="w-4 h-4" /> Knowledge Library
               </Link>
               <ChevronRight className="w-3 h-3 flex-shrink-0" />
               <Link to={`/knowledge/${collection.slug}`} className="hover:text-white transition-colors">
                 {collection.title}
               </Link>
               <ChevronRight className="w-3 h-3 flex-shrink-0" />
-              <span className="text-white font-medium">Lesson {lesson.id}</span>
+              <span className="text-white font-medium">Lesson {lessonPosition}</span>
             </nav>
 
             <div className="flex flex-wrap items-center gap-3 mb-6">
-              <span className="text-blue-400 font-bold text-xs uppercase tracking-widest">
-                Lesson {lesson.id} of 7
-              </span>
+              <Link
+                to={`/knowledge/${collection.slug}`}
+                className="inline-flex items-center gap-1.5 rounded-full border border-blue-500/25 bg-blue-500/10 px-3 py-1.5 text-blue-300 font-bold text-xs uppercase tracking-widest hover:bg-blue-500/20 transition-colors"
+              >
+                <List className="w-3.5 h-3.5" /> Lesson {lessonPosition} of {totalLessons}
+              </Link>
               <span className="text-slate-600">•</span>
               <span className="flex items-center gap-1 text-xs text-slate-400 font-medium">
                 <Clock className="w-3.5 h-3.5" /> {lesson.readingTime}
@@ -116,26 +107,29 @@ export default function KnowledgeLesson() {
               {lesson.description}
             </p>
 
-            <div className="flex items-center gap-3 border-t border-slate-800 pt-6">
-              <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center border border-slate-700 text-slate-400">
-                <User className="w-5 h-5" />
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 border-t border-slate-800 pt-6">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center border border-slate-700 text-slate-400">
+                  <User className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-white">Rick Hesse</p>
+                  <p className="text-xs text-slate-500">Your Digital Growth Guide™</p>
+                </div>
               </div>
-              <div>
-                <p className="text-sm font-bold text-white">Rick Hesse</p>
-                <p className="text-xs text-slate-500">Your Digital Growth Guide™</p>
-              </div>
+              <Link to={`/knowledge/${collection.slug}`} className="inline-flex items-center gap-2 text-sm font-bold text-blue-400 hover:text-blue-300">
+                <List className="w-4 h-4" /> View all {totalLessons} {collection.title} lessons
+              </Link>
             </div>
           </div>
         </header>
 
-        {/* CONTENT */}
         <article className="py-12 px-6">
           <div className="max-w-3xl mx-auto">
             <LessonArticle content={lesson.content} />
           </div>
         </article>
 
-        {/* KEY TAKEAWAY & ACTIONS */}
         <section className="py-12 px-6 bg-slate-900 border-t border-slate-800">
           <div className="max-w-3xl mx-auto">
             <div className="bg-gradient-to-br from-blue-900/20 to-slate-900 border border-blue-500/20 rounded-2xl p-8 mb-12">
@@ -166,11 +160,9 @@ export default function KnowledgeLesson() {
           </div>
         </section>
 
-        {/* RELATIONSHIP PATHWAYS / RELATED RESOURCES */}
         <section className="py-12 px-6">
           <div className="max-w-3xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Dynamic relationship invite based on collection context */}
               {collection.id < 4 ? (
                 <div className="p-6 rounded-2xl border border-slate-800 bg-slate-900/50">
                   <h4 className="font-bold text-white mb-2">Have a specific question?</h4>
@@ -194,8 +186,7 @@ export default function KnowledgeLesson() {
           </div>
         </section>
 
-        {/* NAVIGATION BOTTOM */}
-        <nav className="border-t border-slate-800 bg-slate-950 py-8 px-6">
+        <nav className="border-t border-slate-800 bg-slate-950 py-8 px-6" aria-label="Lesson navigation">
           <div className="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between gap-6">
             {prevLesson ? (
               <Link to={`/knowledge/${collection.slug}/${prevLesson.slug}`} className="group flex flex-1 items-center gap-4 p-4 rounded-xl hover:bg-slate-900 border border-transparent hover:border-slate-800 transition-all">
@@ -208,7 +199,15 @@ export default function KnowledgeLesson() {
                 </div>
               </Link>
             ) : (
-              <div className="flex-1" />
+              <Link to={`/knowledge/${collection.slug}`} className="group flex flex-1 items-center gap-4 p-4 rounded-xl hover:bg-slate-900 border border-transparent hover:border-slate-800 transition-all">
+                <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 group-hover:text-white transition-colors flex-shrink-0">
+                  <List className="w-5 h-5" />
+                </div>
+                <div>
+                  <span className="text-xs text-slate-500 uppercase tracking-wider block mb-1">All Lessons</span>
+                  <span className="text-sm font-bold text-slate-300 group-hover:text-white transition-colors">Back to {collection.title}</span>
+                </div>
+              </Link>
             )}
 
             {nextLesson ? (
@@ -224,7 +223,7 @@ export default function KnowledgeLesson() {
             ) : collection.nextCollectionSlug ? (
               <Link to={`/knowledge/${collection.nextCollectionSlug}`} className="group flex flex-1 items-center justify-end gap-4 p-4 rounded-xl hover:bg-slate-900 border border-transparent hover:border-slate-800 transition-all text-right">
                 <div>
-                  <span className="text-xs text-blue-400 uppercase tracking-wider block mb-1">Next Collection</span>
+                  <span className="text-xs text-blue-400 uppercase tracking-wider block mb-1">Next Learning Series</span>
                   <span className="text-sm font-bold text-slate-300 group-hover:text-white transition-colors line-clamp-1">Continue Journey</span>
                 </div>
                 <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center group-hover:bg-blue-500 transition-colors flex-shrink-0">
@@ -232,7 +231,15 @@ export default function KnowledgeLesson() {
                 </div>
               </Link>
             ) : (
-               <div className="flex-1" />
+              <Link to={`/knowledge/${collection.slug}`} className="group flex flex-1 items-center justify-end gap-4 p-4 rounded-xl hover:bg-slate-900 border border-transparent hover:border-slate-800 transition-all text-right">
+                <div>
+                  <span className="text-xs text-blue-400 uppercase tracking-wider block mb-1">Series Complete</span>
+                  <span className="text-sm font-bold text-slate-300 group-hover:text-white transition-colors">Review all lessons</span>
+                </div>
+                <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center group-hover:bg-blue-500 transition-colors flex-shrink-0">
+                  <List className="w-5 h-5" />
+                </div>
+              </Link>
             )}
           </div>
         </nav>

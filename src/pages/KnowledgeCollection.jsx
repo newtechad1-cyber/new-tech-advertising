@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useParams, Navigate, useNavigate } from 'react-router-dom';
-import { ChevronRight, Clock, CheckCircle, Circle, PlayCircle, BookOpen, FileText } from 'lucide-react';
+import { ChevronRight, Clock, CheckCircle, Circle, PlayCircle, BookOpen, FileText, Layers3 } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
@@ -24,12 +24,10 @@ export default function KnowledgeCollection() {
 
   const memory = getJourneyMemory();
   const completedLessons = memory.completedModules || [];
-  
-  const completedCount = collection.lessons.filter(l => completedLessons.includes(l.id)).length;
+  const completedCount = collection.lessons.filter(lesson => completedLessons.includes(lesson.id)).length;
   const totalCount = collection.lessons.length;
   const isComplete = completedCount === totalCount;
-  
-  const nextUnfinishedLesson = collection.lessons.find(l => !completedLessons.includes(l.id));
+  const nextUnfinishedLesson = collection.lessons.find(lesson => !completedLessons.includes(lesson.id));
 
   const handlePrimaryCTA = () => {
     if (isComplete) {
@@ -40,10 +38,12 @@ export default function KnowledgeCollection() {
   };
 
   const getStatusText = () => {
-    if (isComplete) return 'Review Collection';
-    if (completedCount > 0) return 'Continue Journey';
-    return 'Start Collection';
+    if (isComplete) return 'Review Lessons';
+    if (completedCount > 0) return 'Continue Learning';
+    return 'Start with Lesson 1';
   };
+
+  const progressPercent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
@@ -69,7 +69,7 @@ export default function KnowledgeCollection() {
           </div>
 
           <div className="max-w-4xl mx-auto relative z-10">
-            <nav className="flex items-center gap-2 text-sm text-slate-500 mb-8 overflow-x-auto whitespace-nowrap pb-2">
+            <nav className="flex items-center gap-2 text-sm text-slate-500 mb-8 overflow-x-auto whitespace-nowrap pb-2" aria-label="Breadcrumb">
               <Link to="/knowledge" className="hover:text-white transition-colors flex items-center gap-1">
                 <BookOpen className="w-4 h-4" /> Knowledge Library
               </Link>
@@ -78,9 +78,10 @@ export default function KnowledgeCollection() {
             </nav>
 
             <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span className="bg-slate-800 text-slate-300 border border-slate-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
-                Collection {collection.id} of 7 Collections
+              <span className="inline-flex items-center gap-2 bg-blue-500/10 text-blue-300 border border-blue-500/20 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest">
+                <Layers3 className="w-3.5 h-3.5" /> Learning Series
               </span>
+              <span className="text-sm font-medium text-slate-400">{totalCount} lessons</span>
               {isComplete && (
                 <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest flex items-center gap-1">
                   <CheckCircle className="w-3 h-3" /> Completed
@@ -92,8 +93,11 @@ export default function KnowledgeCollection() {
               {collection.title}
             </h1>
 
-            <p className="text-xl text-slate-400 max-w-2xl leading-relaxed mb-10">
+            <p className="text-xl text-slate-400 max-w-2xl leading-relaxed mb-4">
               {collection.description}
+            </p>
+            <p className="text-sm text-slate-500 mb-10">
+              A learning series is a group of related lessons. Choose any lesson below, or begin with Lesson 1 and work through them in order.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-6">
@@ -112,15 +116,11 @@ export default function KnowledgeCollection() {
               <div className="flex flex-col items-center sm:items-start text-sm text-slate-500 font-medium">
                 <div className="flex items-center gap-2 mb-1">
                   <div className="w-32 bg-slate-800 rounded-full h-1.5">
-                    <div className="bg-blue-500 h-1.5 rounded-full transition-all" style={{ width: `${(completedCount / totalCount) * 100}%` }}></div>
+                    <div className="bg-blue-500 h-1.5 rounded-full transition-all" style={{ width: `${progressPercent}%` }}></div>
                   </div>
-                  <span className={completedCount > 0 ? 'text-blue-400' : ''}>{Math.round((completedCount / totalCount) * 100)}%</span>
+                  <span className={completedCount > 0 ? 'text-blue-400' : ''}>{progressPercent}%</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <span>Lesson progress: {completedCount} of {totalCount} completed</span>
-                  <span>•</span>
-                  <span>~1 hour total</span>
-                </div>
+                <span>Lesson progress: {completedCount} of {totalCount} completed</span>
               </div>
             </div>
           </div>
@@ -128,16 +128,24 @@ export default function KnowledgeCollection() {
 
         <section className="py-16 px-6 bg-slate-950">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl font-bold text-white mb-8">Lessons in this Collection</h2>
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-2">{collection.title}</p>
+                <h2 className="text-2xl font-bold text-white">All {totalCount} Lessons</h2>
+              </div>
+              <Link to="/knowledge" className="text-sm font-bold text-slate-400 hover:text-white transition-colors">
+                View all learning series →
+              </Link>
+            </div>
             
             <div className="space-y-4">
               {collection.lessons.map((lesson, idx) => {
                 const isLessonComplete = completedLessons.includes(lesson.id);
-                const isNextUnfinished = nextUnfinishedLesson && lesson.id === nextUnfinishedLesson.id;
+                const isNextUnfinished = nextUnfinishedLesson && lesson.slug === nextUnfinishedLesson.slug;
 
                 return (
                   <Link 
-                    key={lesson.id} 
+                    key={lesson.slug} 
                     to={`/knowledge/${collection.slug}/${lesson.slug}`}
                     className={`group block p-6 rounded-2xl border transition-all ${
                       isLessonComplete 
@@ -161,7 +169,7 @@ export default function KnowledgeCollection() {
                         
                         <div>
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Lesson {lesson.id}</span>
+                            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Lesson {idx + 1} of {totalCount}</span>
                             <span className="text-slate-600">•</span>
                             <span className="text-xs text-slate-500 flex items-center gap-1"><Clock className="w-3 h-3" /> {lesson.readingTime}</span>
                           </div>
@@ -185,21 +193,21 @@ export default function KnowledgeCollection() {
             <div className="mt-16 pt-12 border-t border-slate-800 flex flex-col md:flex-row gap-6 justify-between items-center">
               {collection.previousCollectionSlug ? (
                 <Link to={`/knowledge/${collection.previousCollectionSlug}`} className="text-sm font-medium text-slate-400 hover:text-white transition-colors flex items-center gap-2">
-                  ← Previous Collection
+                  ← Previous Learning Series
                 </Link>
               ) : (
-                <div />
+                <Link to="/knowledge" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">← Knowledge Library</Link>
               )}
 
               {collection.nextCollectionSlug ? (
                 <Link to={`/knowledge/${collection.nextCollectionSlug}`} className="bg-slate-900 hover:bg-slate-800 text-white font-bold border border-slate-700 px-6 py-3 rounded-xl transition-colors flex items-center gap-2">
-                  Next Collection <ChevronRight className="w-4 h-4" />
+                  Next Learning Series <ChevronRight className="w-4 h-4" />
                 </Link>
               ) : (
                 <div className="flex flex-col sm:flex-row gap-4 items-center">
                   <span className="text-slate-400 text-sm font-medium">You've reached the end of the current curriculum.</span>
-                  <Link to="/gap-audit" className="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl transition-colors shadow-lg shadow-blue-600/20">
-                    Run a Free Visibility Audit
+                  <Link to="/free-audit" className="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl transition-colors shadow-lg shadow-blue-600/20">
+                    Run a Free Business Gap Audit
                   </Link>
                 </div>
               )}
