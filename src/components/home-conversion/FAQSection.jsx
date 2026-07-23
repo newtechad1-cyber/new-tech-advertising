@@ -1,40 +1,44 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { HelpCircle } from 'lucide-react';
+import { ArrowRight, HelpCircle } from 'lucide-react';
 
 export default function FAQSection() {
   const faqs = [
     {
-      question: "What is AI Search Optimization (AISO)?",
-      answer: "AI Search Optimization is the process of making your business visible and recommended by AI search engines like ChatGPT, Google AI Overviews, and Perplexity. Unlike traditional SEO which focuses on Google rankings, AISO focuses on the signals AI uses to recommend businesses — including reviews, structured data, certifications, and consistent business information across the web."
+      question: "What is the NTA Growth Conversation?",
+      answer: "The Growth Conversation is a free discovery process that helps us understand what is happening in your business, what you want to change, and what may need attention first. We confirm what we heard before recommending a next step."
     },
     {
-      question: "How much does AI marketing cost for a small business?",
-      answer: "New Tech Advertising offers AI marketing packages starting at affordable rates for small businesses. We believe every main street business deserves access to modern marketing technology. Contact us at 641-420-8816 for a free consultation and custom quote based on your needs."
+      question: "What is the free Business Gap Audit?",
+      answer: "The free Business Gap Audit is a useful first-pass assessment. It helps identify visible gaps, immediate priorities, and practical next steps without requiring you to purchase a full consulting engagement."
     },
     {
-      question: "What is an AI Gap Audit?",
-      answer: "Our free AI Gap Audit analyzes how AI search engines currently see your business. We check your visibility on ChatGPT, Google AI, and Perplexity, review your website structure, schema markup, business listings, and online reviews, then provide a prioritized action plan showing exactly what to fix first for maximum AI visibility."
+      question: "Is there a deeper paid audit?",
+      answer: "Yes. When a business needs more evidence, detailed analysis, interviews, system review, or a complete Growth Roadmap, NTA may recommend a separate paid deep-dive audit. The scope and price are explained before any paid work begins."
+    },
+    {
+      question: "How does New Tech Advertising help a local business grow?",
+      answer: "NTA helps local businesses strengthen their website and growth foundation, improve visibility, build trust, strengthen customer follow-up, and connect practical AI and automation into one useful system."
     },
     {
       question: "Does New Tech Advertising serve businesses outside Iowa?",
-      answer: "Yes! While we're based in Mason City, Iowa and primarily serve businesses across Iowa and southern Minnesota, our AI marketing services can help any local business in the United States get found by AI search engines."
+      answer: "Yes. New Tech Advertising is based in Mason City, Iowa and can work with local businesses and organizations in other parts of the United States."
     },
     {
       question: "What types of businesses does NTA work with?",
-      answer: "We specialize in helping local service businesses including HVAC contractors, plumbers, restaurants, retail stores, and other small businesses. Our founder Rick Hesse has decades of experience in advertising and understands the unique challenges main street businesses face with marketing."
+      answer: "NTA primarily helps local service businesses, restaurants, retailers, contractors, and other small businesses that need clearer marketing, stronger customer relationships, better follow-up, and practical growth systems."
     }
   ];
 
   return (
-    <section className="py-24 bg-slate-950 relative border-t border-slate-900 overflow-hidden">
-      {/* Background Effects */}
+    <section className="py-20 bg-slate-950 relative border-t border-slate-900 overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-blue-900/10 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-4xl mx-auto px-6 relative z-10">
@@ -43,7 +47,7 @@ export default function FAQSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <div className="inline-flex items-center justify-center p-3 bg-blue-900/30 rounded-xl mb-6 border border-blue-800/50 shadow-[0_0_30px_rgba(59,130,246,0.2)]">
             <HelpCircle className="w-6 h-6 text-blue-400" />
@@ -52,7 +56,7 @@ export default function FAQSection() {
             Frequently Asked Questions
           </h2>
           <p className="text-xl text-slate-400 font-light">
-            Answers to common questions about AI optimization and our services.
+            Clear answers about how NTA begins, evaluates, and recommends next steps.
           </p>
         </motion.div>
 
@@ -65,7 +69,7 @@ export default function FAQSection() {
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, index) => (
               <AccordionItem
-                key={index}
+                key={faq.question}
                 value={`item-${index}`}
                 className="bg-slate-900/50 border border-slate-800 rounded-xl px-6 data-[state=open]:bg-slate-900 data-[state=open]:border-slate-700 transition-all shadow-lg"
               >
@@ -78,6 +82,15 @@ export default function FAQSection() {
               </AccordionItem>
             ))}
           </Accordion>
+
+          <div className="text-center mt-10">
+            <Link
+              to="/free-audit"
+              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-7 py-3 rounded-xl transition-all"
+            >
+              Take the Free Business Gap Audit <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
         </motion.div>
       </div>
     </section>
