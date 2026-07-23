@@ -5,11 +5,23 @@ import { howBusinessesTurnTrustIntoLastingRelationshipsLessons } from './howBusi
 import { turningWhatABusinessKnowsIntoAnAssetLessons } from './turningWhatABusinessKnowsIntoAnAsset';
 import { aiFoundationsLessons } from './aiFoundations';
 import { lesson11 as aiFoundationsLesson11 } from './aiFoundationsLesson11';
+import { lesson12 as aiFoundationsLesson12 } from './aiFoundationsLesson12';
 import { whatIsDigitalTrustLessons } from './whatIsDigitalTrust';
 
-const completeAiFoundationsLessons = [...aiFoundationsLessons, aiFoundationsLesson11];
+const withDerivedLessonNavigation = (lessons) => lessons.map((lesson, index) => ({
+  ...lesson,
+  displayNumber: index + 1,
+  previousLessonSlug: index > 0 ? lessons[index - 1].slug : null,
+  nextLessonSlug: index < lessons.length - 1 ? lessons[index + 1].slug : null
+}));
 
-export const collectionsOrder = [
+const completeAiFoundationsLessons = [
+  ...aiFoundationsLessons,
+  aiFoundationsLesson11,
+  aiFoundationsLesson12
+];
+
+const collectionDefinitions = [
   {
     id: 1,
     slug: 'business-foundations',
@@ -75,21 +87,26 @@ export const collectionsOrder = [
   }
 ];
 
-export const masterCurriculumMap = collectionsOrder.flatMap(collection => 
+export const collectionsOrder = collectionDefinitions.map(collection => ({
+  ...collection,
+  lessons: withDerivedLessonNavigation(collection.lessons)
+}));
+
+export const masterCurriculumMap = collectionsOrder.flatMap(collection =>
   collection.lessons.map(lesson => ({
     collectionTitle: collection.title,
     collectionSlug: collection.slug,
     collectionNumber: collection.id,
     lessonTitle: lesson.title,
     lessonSlug: lesson.slug,
-    lessonNumber: lesson.id,
+    lessonNumber: lesson.displayNumber,
     canonicalUrl: '/knowledge/' + collection.slug + '/' + lesson.slug,
     isImplemented: true,
-    previousLessonSlug: lesson.id > 1 ? collection.lessons[lesson.id - 2].slug : null,
+    previousLessonSlug: lesson.previousLessonSlug,
     nextLessonSlug: lesson.nextLessonSlug,
     readingTime: lesson.readingTime,
     level: lesson.level,
-    takeaway: lesson.takeaway,
+    takeaway: lesson.takeaway
   }))
 );
 
