@@ -74,12 +74,23 @@ export default function Home() {
               <p className="text-lg text-slate-300 font-medium mb-6">
                 We build the right pieces in the right order—not another disconnected package.
               </p>
-              <Link
-                to="/growth-conversation"
-                className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)]"
-              >
-                Start a Growth Conversation <ArrowRight className="w-5 h-5" />
-              </Link>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Link
+                  to="/growth-conversation"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)]"
+                >
+                  Start a Growth Conversation <ArrowRight className="w-5 h-5" />
+                </Link>
+                <Link
+                  to="/free-audit"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all border border-slate-700"
+                >
+                  Take the Free Business Gap Audit <ArrowRight className="w-5 h-5" />
+                </Link>
+              </div>
+              <p className="text-sm text-slate-500 mt-4 max-w-2xl mx-auto">
+                The free audit provides a useful first-pass assessment. A deeper paid diagnostic is available only when more evidence and a detailed roadmap would help.
+              </p>
             </div>
           </div>
         </section>
@@ -120,6 +131,14 @@ export default function Home() {
                 acceptedAnswer: {
                   '@type': 'Answer',
                   text: 'The NTA Growth Conversation is a free discovery process that helps us understand your goals, what is happening now, and what you are ready to change. We confirm what we heard before recommending next steps.'
+                }
+              },
+              {
+                '@type': 'Question',
+                name: 'What is the free Business Gap Audit?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'The free Business Gap Audit is a first-pass assessment that helps identify visible gaps, immediate priorities, and useful next steps. When a business needs deeper evidence, analysis, and a detailed Growth Roadmap, NTA may offer a separate paid deep-dive audit before implementation begins.'
                 }
               },
               {
