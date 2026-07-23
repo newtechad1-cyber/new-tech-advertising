@@ -10,17 +10,28 @@ import BCFAQ from '@/components/book-call/BCFAQ';
 import BCBookingSection from '@/components/book-call/BCBookingSection';
 import SEOHead from '@/components/shared/SEOHead';
 import { CheckCircle2 } from 'lucide-react';
+import { trackJourneyEvent } from '@/lib/journeyAnalytics';
 
 export default function BookCall() {
   const [handoff, setHandoff] = useState(null);
 
   useEffect(() => {
+    let savedHandoff = null;
     try {
       const saved = sessionStorage.getItem('nta_growth_conversation_handoff');
-      if (saved) setHandoff(JSON.parse(saved));
+      if (saved) {
+        savedHandoff = JSON.parse(saved);
+        setHandoff(savedHandoff);
+      }
     } catch (error) {
       console.warn('Growth Conversation handoff could not be loaded:', error);
     }
+
+    trackJourneyEvent('booking_page_viewed', {
+      route: '/book-call',
+      step: savedHandoff ? 'after_growth_conversation' : 'direct_booking',
+      source: new URLSearchParams(globalThis.location?.search || '').get('source') || 'unknown',
+    });
   }, []);
 
   return (
