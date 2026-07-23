@@ -5,10 +5,8 @@ import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import SEOHead from '../components/shared/SEOHead';
 import HeroSection from '../components/home-conversion/HeroSection';
-import PhilosophySection from '../components/home-conversion/PhilosophySection';
 import ProblemSection from '../components/home-conversion/ProblemSection';
 import SolutionSection from '../components/home-conversion/SolutionSection';
-import PathSection from '../components/home-conversion/PathSection';
 import FounderSection from '../components/home-conversion/FounderSection';
 import CombinedReviewsSection from '../components/home-v3/CombinedReviewsSection';
 import FAQSection from '../components/home-conversion/FAQSection';
@@ -16,242 +14,142 @@ import FAQSection from '../components/home-conversion/FAQSection';
 export default function Home() {
   return (
     <div className="bg-slate-950 min-h-screen">
-      <SEOHead 
+      <SEOHead
         title="Practical AI and Growth Systems for Small Business | NTA"
-        description="New Tech Advertising helps small-business owners turn their experience, judgment, and everyday work into practical growth systems with AI—without losing control of the business."
+        description="New Tech Advertising helps local businesses strengthen their foundation, get found, build trust, improve follow-up, and grow through practical systems and AI."
       />
       <MarketingNav />
-      
+
       <main>
         <HeroSection />
-        <section className="py-24 bg-slate-900/50 border-y border-slate-800/50">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Understand What New Tech Advertising Is Really Building</h2>
-          <p className="text-xl text-slate-400 mb-12 max-w-4xl mx-auto leading-relaxed">
-            New Tech Advertising grew out of a lifetime of learning how businesses, customers, technology, and relationships actually work together. The NTA Point of View explains what Rick has learned, why NTA was built this way, and what it means for small businesses navigating AI and a changing business world.
-          </p>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-            <Link to="/point-of-view" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all text-lg shadow-[0_0_20px_rgba(37,99,235,0.3)]">
-              Explore the NTA Point of View <ArrowRight className="w-5 h-5" />
-            </Link>
-            <div className="flex items-center gap-3 text-slate-500 text-sm font-medium">
-              <span className="w-6 h-6 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-blue-400">1</span>
-              Begins a 6-article journey
-            </div>
-          </div>
-        </div>
-      </section>
-      <PhilosophySection />
-        
-        {/* Choose Your Journey Section */}
-        <section className="py-20 px-6 bg-slate-900 border-t border-slate-800">
-          <div className="max-w-6xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Choose Your Journey</h2>
-            <p className="text-slate-400 text-lg mb-12">Select the path that matches your current goal.</p>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Link to="/knowledge/business-foundations" className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 flex flex-col items-center text-center hover:border-emerald-500/50 hover:bg-slate-800 transition-colors group">
-                <div className="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center mb-6 text-emerald-400 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
-                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3">I'm New Here</h3>
-                <p className="text-slate-400 mb-6 flex-grow text-sm">Start with Business Foundations to understand modern growth.</p>
-                <span className="text-emerald-400 font-semibold flex items-center gap-1 group-hover:text-emerald-300 text-sm">
-                  Business Foundations <span>→</span>
-                </span>
-              </Link>
-
-              <Link to="/knowledge/ai-foundations" className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 flex flex-col items-center text-center hover:border-blue-500/50 hover:bg-slate-800 transition-colors group">
-                <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mb-6 text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-colors">
-                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3">I Want to Learn AI</h3>
-                <p className="text-slate-400 mb-6 flex-grow text-sm">Explore AI Foundations to see how AI impacts local search.</p>
-                <span className="text-blue-400 font-semibold flex items-center gap-1 group-hover:text-blue-300 text-sm">
-                  AI Foundations <span>→</span>
-                </span>
-              </Link>
-
-              <Link to="/growth-conversation" className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 flex flex-col items-center text-center hover:border-purple-500/50 hover:bg-slate-800 transition-colors group">
-                <div className="w-16 h-16 bg-purple-500/10 rounded-full flex items-center justify-center mb-6 text-purple-400 group-hover:bg-purple-500 group-hover:text-white transition-colors">
-                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3">I Want to Grow</h3>
-                <p className="text-slate-400 mb-6 flex-grow text-sm">Talk through what is happening in your business and confirm what needs attention first.</p>
-                <span className="text-purple-400 font-semibold flex items-center gap-1 group-hover:text-purple-300 text-sm">
-                  Growth Conversation <span>→</span>
-                </span>
-              </Link>
-
-              <Link to="/book-call" className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 flex flex-col items-center text-center hover:border-orange-500/50 hover:bg-slate-800 transition-colors group">
-                <div className="w-16 h-16 bg-orange-500/10 rounded-full flex items-center justify-center mb-6 text-orange-400 group-hover:bg-orange-500 group-hover:text-white transition-colors">
-                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3">I Want to Work</h3>
-                <p className="text-slate-400 mb-6 flex-grow text-sm">Ready to implement? Schedule a discovery meeting with our team.</p>
-                <span className="text-orange-400 font-semibold flex items-center gap-1 group-hover:text-orange-300 text-sm">
-                  Discovery Meeting <span>→</span>
-                </span>
-              </Link>
-            </div>
-          </div>
-        </section>
-
         <ProblemSection />
 
-        {/* NTA Digital Growth Office Introduction */}
-        <section className="py-24 px-6 bg-slate-950 border-t border-slate-800/50">
+        <section className="py-20 px-6 bg-slate-950 border-t border-slate-800/50">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/80 border border-slate-800 text-blue-400 text-sm font-medium tracking-wide uppercase mb-6">
+            <div className="text-center max-w-4xl mx-auto mb-12">
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-slate-900/80 border border-slate-800 text-blue-400 text-sm font-medium tracking-wide uppercase mb-5">
                 The NTA Digital Growth Office™
               </div>
-              <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-                Your Business Does Not Need More Disconnected Tools
+              <h2 className="text-3xl md:text-5xl font-bold text-white mb-5">
+                Bring the important parts of your business into one practical system.
               </h2>
-              <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-                Most business owners already have a website, social media accounts, customer information, software, advertising, and more tools than they know what to do with. The real problem is that none of it works together as one clear system.
-                <br /><br />
-                The NTA Digital Growth Office brings the important parts of the business together so the owner, team, NTA, and practical AI assistance can work from the same direction.
+              <p className="text-lg md:text-xl text-slate-300 leading-relaxed">
+                NTA connects the parts that influence growth so your website, customer relationships, business knowledge, everyday work, and practical AI support move in the same direction.
               </p>
             </div>
 
-            {/* Journey Visual */}
-            <div className="mb-20">
-              <div className="flex flex-col lg:flex-row items-stretch justify-between gap-4">
-                {[
-                  { stage: 'Discover', desc: 'Understand the business, goals, bottlenecks, and opportunities.' },
-                  { stage: 'Plan', desc: 'Establish priorities and create a practical Growth Roadmap.' },
-                  { stage: 'Build', desc: 'Connect the website, content, customer systems, and operations.' },
-                  { stage: 'Operate', desc: 'Give the owner and team a clearer way to manage the work.' },
-                  { stage: 'Grow', desc: 'Measure progress and improve the system over time.' }
-                ].map((item, idx, arr) => (
-                  <React.Fragment key={item.stage}>
-                    <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 flex-1 relative text-center">
-                      <div className="text-lg font-bold text-blue-400 mb-2">{item.stage}</div>
-                      <p className="text-slate-400 text-sm">{item.desc}</p>
-                    </div>
-                    {idx < arr.length - 1 && (
-                      <div className="hidden lg:flex items-center justify-center text-slate-600">
-                        <ArrowRight className="w-6 h-6" />
-                      </div>
-                    )}
-                    {idx < arr.length - 1 && (
-                      <div className="flex lg:hidden items-center justify-center py-2">
-                        <div className="w-px h-6 bg-slate-700"></div>
-                      </div>
-                    )}
-                  </React.Fragment>
-                ))}
-              </div>
-            </div>
-
-            {/* Three System Areas */}
-            <div className="grid md:grid-cols-3 gap-8 mb-16">
-              <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 hover:border-slate-700 transition-colors">
-                <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 mb-6 border border-blue-500/20">
-                  <Globe className="w-6 h-6" />
+            <div className="grid md:grid-cols-3 gap-6 mb-10">
+              <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-7">
+                <div className="w-11 h-11 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 mb-5">
+                  <Globe className="w-5 h-5" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4">Growth Foundation</h3>
+                <h3 className="text-xl font-bold text-white mb-3">Growth Foundation</h3>
                 <p className="text-slate-400 leading-relaxed">
-                  Website, visibility, content, trust, reviews, and the information customers need to confidently choose the business.
+                  Website, visibility, content, reviews, and the information customers need to choose your business confidently.
                 </p>
               </div>
 
-              <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 hover:border-slate-700 transition-colors">
-                <div className="w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center text-indigo-400 mb-6 border border-indigo-500/20">
-                  <Users className="w-6 h-6" />
+              <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-7">
+                <div className="w-11 h-11 bg-indigo-500/10 rounded-xl flex items-center justify-center text-indigo-400 mb-5">
+                  <Users className="w-5 h-5" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4">Customer and Relationship System</h3>
+                <h3 className="text-xl font-bold text-white mb-3">Customer Relationships</h3>
                 <p className="text-slate-400 leading-relaxed">
-                  Lead capture, customer information, follow-up, communication, referrals, and long-term relationships.
+                  Lead capture, customer information, communication, follow-up, referrals, and long-term relationship building.
                 </p>
               </div>
 
-              <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 hover:border-slate-700 transition-colors">
-                <div className="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center text-purple-400 mb-6 border border-purple-500/20">
-                  <FolderKanban className="w-6 h-6" />
+              <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-7">
+                <div className="w-11 h-11 bg-purple-500/10 rounded-xl flex items-center justify-center text-purple-400 mb-5">
+                  <FolderKanban className="w-5 h-5" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4">Connected Operations</h3>
+                <h3 className="text-xl font-bold text-white mb-3">Connected Operations</h3>
                 <p className="text-slate-400 leading-relaxed">
-                  Tasks, business knowledge, automation, reporting, back-office workflows, and practical AI assistance.
+                  Business knowledge, tasks, reporting, useful automation, and practical AI assistance built around how you work.
                 </p>
               </div>
             </div>
 
-            {/* Reassurance and CTAs */}
             <div className="text-center">
-              <p className="text-xl md:text-2xl text-slate-300 font-medium mb-10 max-w-3xl mx-auto">
-                We do not force every business into the same package. We build the right system in the right order.
+              <p className="text-lg text-slate-300 font-medium mb-6">
+                We build the right pieces in the right order—not another disconnected package.
               </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link to="/operating-system" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)]">
-                  Explore the Digital Growth Office
-                </Link>
-                <Link to="/growth-conversation" className="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all border border-slate-700 hover:border-slate-600">
-                  Start a Growth Conversation
-                </Link>
-              </div>
+              <Link
+                to="/growth-conversation"
+                className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)]"
+              >
+                Start a Growth Conversation <ArrowRight className="w-5 h-5" />
+              </Link>
             </div>
           </div>
         </section>
 
         <SolutionSection />
-        <PathSection />
         <FounderSection />
         <CombinedReviewsSection />
+
+        <section className="py-16 bg-slate-900/50 border-y border-slate-800/50">
+          <div className="max-w-5xl mx-auto px-6 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-5">Want to understand the thinking behind NTA?</h2>
+            <p className="text-lg text-slate-400 mb-8 max-w-3xl mx-auto leading-relaxed">
+              The NTA Point of View explains the business experience, principles, and practical approach behind the systems we build.
+            </p>
+            <Link
+              to="/point-of-view"
+              className="inline-flex items-center gap-2 px-7 py-3 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-xl transition-all border border-slate-700"
+            >
+              Explore the NTA Point of View <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
+        </section>
+
         <FAQSection />
       </main>
 
       <SiteFooter />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "What is AI Search Optimization (AISO)?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "AI Search Optimization is the process of making your business visible and recommended by AI search engines like ChatGPT, Google AI Overviews, and Perplexity. Unlike traditional SEO which focuses on Google rankings, AISO focuses on the signals AI uses to recommend businesses — including reviews, structured data, certifications, and consistent business information across the web."
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: 'What is the NTA Growth Conversation?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'The NTA Growth Conversation is a free discovery process that helps us understand your goals, what is happening now, and what you are ready to change. We confirm what we heard before recommending next steps.'
+                }
+              },
+              {
+                '@type': 'Question',
+                name: 'How does New Tech Advertising help a local business grow?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'NTA helps local businesses strengthen their website and growth foundation, improve visibility, build trust, strengthen customer follow-up, and connect practical AI and automation into one useful system.'
+                }
+              },
+              {
+                '@type': 'Question',
+                name: 'Does New Tech Advertising serve businesses outside Iowa?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Yes. New Tech Advertising is based in Mason City, Iowa and can work with local businesses and organizations in other parts of the United States.'
+                }
+              },
+              {
+                '@type': 'Question',
+                name: 'What types of businesses does NTA work with?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'NTA primarily helps local service businesses, restaurants, retailers, contractors, and other small businesses that need clearer marketing, stronger customer relationships, better follow-up, and practical growth systems.'
+                }
               }
-            },
-            {
-              "@type": "Question",
-              "name": "How much does AI marketing cost for a small business?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "New Tech Advertising offers AI marketing packages starting at affordable rates for small businesses. We believe every main street business deserves access to modern marketing technology. Contact us at 641-420-8816 for a free consultation and custom quote based on your needs."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "What is the NTA Growth Conversation?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "The NTA Growth Conversation is a free discovery process that helps us understand your goals, what is happening now, and what you are ready to change. We confirm what we heard before recommending next steps. A detailed Business Gap Audit is a separate paid service and is only proposed when deeper evidence is useful."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Does New Tech Advertising serve businesses outside Iowa?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes! While we're based in Mason City, Iowa and primarily serve businesses across Iowa and southern Minnesota, our AI marketing services can help any local business in the United States get found by AI search engines."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "What types of businesses does NTA work with?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "We specialize in helping local service businesses including HVAC contractors, plumbers, restaurants, retail stores, and other small businesses. Our founder Rick Hesse has decades of experience in advertising and understands the unique challenges main street businesses face with marketing"
-              }
-            }
-          ]
-        })
-      }} />
+            ]
+          })
+        }}
+      />
     </div>
   );
 }
