@@ -1,220 +1,112 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Shield, Target, Users, CheckCircle2, XCircle, ArrowRight, Lightbulb, Compass, Award } from 'lucide-react';
+import { ArrowRight, Brain, Compass, Heart, Shield, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import SEOHead from '@/components/shared/SEOHead';
 
+const principles = [
+  {
+    icon: Shield,
+    title: 'Trust Before Technology',
+    text: 'People deserve to understand what is being recommended, how technology will be used, and who remains responsible for the result.'
+  },
+  {
+    icon: Brain,
+    title: 'The Big Picture First',
+    text: 'I begin with the business, the people, the work, and the desired outcome before choosing tools, platforms, automation, or AI.'
+  },
+  {
+    icon: Users,
+    title: 'Systems Should Serve People',
+    text: 'Technology should make a business clearer, more capable, and more human—not force owners, employees, or customers to serve the system.'
+  }
+];
+
 export default function WhyNTA() {
   const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+    hidden: { opacity: 0, y: 18 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.55 } }
   };
 
   return (
-    <div className="bg-slate-950 min-h-screen text-slate-200 font-sans selection:bg-blue-500/30 overflow-hidden pb-20">
-      <SEOHead 
-        title="Why NTA | New Tech Advertising"
-        description="Learn about the New Tech Advertising philosophy, who we work with, and how we build trust with local businesses."
+    <div className="min-h-screen bg-slate-950 text-slate-200 pb-24">
+      <SEOHead
+        title="Why I Do This Work | New Tech Advertising"
+        description="Meet Rick Hesse and understand the human-centered philosophy connecting New Tech Advertising, practical AI, trust, and lifelong learning."
       />
 
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-6 border-b border-slate-800/50">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
-        </div>
-        
-        <div className="max-w-4xl mx-auto relative z-10 text-center">
-          <motion.div initial="hidden" animate="visible" variants={fadeIn}>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-blue-400 text-xs font-semibold tracking-wide uppercase mb-6 shadow-lg">
-              <Compass className="w-4 h-4" /> Our Philosophy
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
-              A Different Kind of <br className="hidden md:block"/> Growth Partner
-            </h1>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-              We aren't a typical marketing agency. We are an education-first growth partner that believes in earning trust through visible progress and honest conversations.
-            </p>
-          </motion.div>
+      <section className="relative border-b border-slate-800/70 px-6 pb-20 pt-32 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.16),transparent_38%)]" />
+        <motion.div initial="hidden" animate="visible" variants={fadeIn} className="relative mx-auto max-w-4xl">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-blue-300">
+            <Compass className="h-4 w-4" /> The person behind the work
+          </div>
+          <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-white md:text-6xl">Why I Do This Work</h1>
+          <p className="mt-7 max-w-3xl text-xl leading-relaxed text-slate-300">
+            New Tech Advertising is more than a collection of marketing and AI services. It is the practical expression of a lifetime spent studying how businesses grow, how people build trust, why systems fail, and how complicated ideas can become useful.
+          </p>
+        </motion.div>
+      </section>
+
+      <section className="px-6 py-20">
+        <div className="mx-auto max-w-4xl space-y-8 text-lg leading-8 text-slate-300">
+          <p>I have spent much of my life trying to understand how things work.</p>
+          <p>Why do some businesses grow while others struggle? Why do hardworking owners become buried beneath disconnected tools? Why do useful technologies so often create more confusion instead of making life simpler?</p>
+          <p>Those questions led me to build New Tech Advertising.</p>
+          <p>I want to help small-business owners see the larger picture—not simply buy another website, platform, automation, or AI subscription. Before recommending technology, I want to understand the business, protect what already works, preserve what the owner and employees know, and determine what will genuinely improve the experience for the people involved.</p>
+          <blockquote className="my-12 border-l-4 border-blue-500 bg-slate-900/70 px-7 py-6 text-2xl font-medium italic leading-relaxed text-blue-100">
+            Technology changes. Human principles endure. My work is helping people use new technology without abandoning those enduring principles.
+          </blockquote>
         </div>
       </section>
 
-      {/* Core Principles */}
-      <section className="py-24 px-6 relative z-10">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Core Principles</h2>
-            <p className="text-slate-400">The foundation of everything we do at New Tech Advertising.</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <motion.div variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-slate-900 border border-slate-800 rounded-3xl p-8">
-              <div className="w-14 h-14 bg-blue-500/10 border border-blue-500/20 rounded-2xl flex items-center justify-center mb-6">
-                <Shield className="w-7 h-7 text-blue-400" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">Trust Above All</h3>
-              <p className="text-slate-400 leading-relaxed">We don't ask for blind faith. We ask for just enough trust to begin, and we prove our value every step of the way to earn the right to continue.</p>
-            </motion.div>
-            
-            <motion.div variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} transition={{ delay: 0.1 }} className="bg-slate-900 border border-slate-800 rounded-3xl p-8">
-              <div className="w-14 h-14 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl flex items-center justify-center mb-6">
-                <Lightbulb className="w-7 h-7 text-indigo-400" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">Education First</h3>
-              <p className="text-slate-400 leading-relaxed">We believe an educated client is our best partner. We take the time to explain the 'why' behind every strategy, demystifying the complex world of digital growth.</p>
-            </motion.div>
-            
-            <motion.div variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} transition={{ delay: 0.2 }} className="bg-slate-900 border border-slate-800 rounded-3xl p-8">
-              <div className="w-14 h-14 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl flex items-center justify-center mb-6">
-                <Target className="w-7 h-7 text-emerald-400" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">Long-Term Vision</h3>
-              <p className="text-slate-400 leading-relaxed">We don't chase quick hacks or fleeting trends. We build resilient, automated growth systems designed to establish true market authority over time.</p>
-            </motion.div>
+      <section className="border-y border-slate-800 bg-slate-900/40 px-6 py-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-7 md:grid-cols-3">
+            {principles.map(({ icon: Icon, title, text }) => (
+              <motion.article key={title} variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true }} className="rounded-3xl border border-slate-800 bg-slate-950 p-8">
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-300"><Icon className="h-6 w-6" /></div>
+                <h2 className="text-xl font-bold text-white">{title}</h2>
+                <p className="mt-3 leading-7 text-slate-400">{text}</p>
+              </motion.article>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* The Right Client vs Wrong Client */}
-      <section className="py-24 px-6 relative z-10 bg-slate-900/30 border-y border-slate-800/50">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Who We Work With</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">We are deeply invested in our clients' success, which means we are highly selective about who we partner with. A great partnership requires alignment.</p>
+      <section className="px-6 py-20">
+        <div className="mx-auto grid max-w-5xl gap-12 md:grid-cols-[1.1fr_.9fr] md:items-start">
+          <div className="space-y-7 text-lg leading-8 text-slate-300">
+            <h2 className="text-3xl font-bold text-white md:text-4xl">I See Artificial Intelligence Differently</h2>
+            <p>Many people in the AI world begin with code, tools, models, applications, and what can be built next. That work matters, but my mind usually goes somewhere else.</p>
+            <p>I begin with the human problem. Who are we trying to help? What knowledge might disappear? What relationship could be strengthened or harmed? What already works and must be protected? What decisions must remain human?</p>
+            <p>I do not believe AI is the source of wisdom. Wisdom comes from life—from experience, failure, work, relationships, faith, questions, love, and time. AI can help us gather that wisdom, organize it, connect it, and make it useful.</p>
+            <Button asChild className="mt-3 bg-blue-600 hover:bg-blue-500">
+              <Link to="/knowledge/ai-foundations/i-see-artificial-intelligence-differently">Read the AI Foundations lesson <ArrowRight className="ml-2 h-4 w-4" /></Link>
+            </Button>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-            {/* The Right Client */}
-            <motion.div variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-slate-900 rounded-3xl p-8 md:p-10 border border-blue-500/20 shadow-[0_0_30px_-10px_rgba(59,130,246,0.15)] relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-6 opacity-10">
-                <CheckCircle2 className="w-32 h-32 text-blue-500" />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
-                <Users className="text-blue-400" /> The Right Client
-              </h3>
-              <ul className="space-y-6 relative z-10">
-                <li className="flex gap-4">
-                  <CheckCircle2 className="w-6 h-6 text-blue-400 shrink-0" />
-                  <div>
-                    <span className="text-white font-medium block mb-1">Growth-Minded</span>
-                    <span className="text-slate-400 text-sm">You view marketing as a long-term investment, not a short-term expense.</span>
-                  </div>
-                </li>
-                <li className="flex gap-4">
-                  <CheckCircle2 className="w-6 h-6 text-blue-400 shrink-0" />
-                  <div>
-                    <span className="text-white font-medium block mb-1">Open to Learning</span>
-                    <span className="text-slate-400 text-sm">You are willing to understand the 'why' behind the strategies we implement.</span>
-                  </div>
-                </li>
-                <li className="flex gap-4">
-                  <CheckCircle2 className="w-6 h-6 text-blue-400 shrink-0" />
-                  <div>
-                    <span className="text-white font-medium block mb-1">Patient & Realistic</span>
-                    <span className="text-slate-400 text-sm">You understand that true market authority takes time, effort, and consistency to build.</span>
-                  </div>
-                </li>
-                <li className="flex gap-4">
-                  <CheckCircle2 className="w-6 h-6 text-blue-400 shrink-0" />
-                  <div>
-                    <span className="text-white font-medium block mb-1">Partnership Oriented</span>
-                    <span className="text-slate-400 text-sm">You want an expert team to collaborate with, not just a vendor to bark orders at.</span>
-                  </div>
-                </li>
-              </ul>
-            </motion.div>
 
-            {/* The Wrong Client */}
-            <motion.div variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.2 }} className="bg-slate-950 rounded-3xl p-8 md:p-10 border border-slate-800 relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-6 opacity-5">
-                <XCircle className="w-32 h-32 text-slate-500" />
-              </div>
-              <h3 className="text-2xl font-bold text-slate-300 mb-8 flex items-center gap-3">
-                <XCircle className="text-slate-500" /> Not A Good Fit
-              </h3>
-              <ul className="space-y-6 relative z-10">
-                <li className="flex gap-4 opacity-70">
-                  <XCircle className="w-6 h-6 text-slate-500 shrink-0" />
-                  <div>
-                    <span className="text-slate-300 font-medium block mb-1">Looking for Magic Pills</span>
-                    <span className="text-slate-500 text-sm">You want overnight success and expect immediate, unrealistic results from Day 1.</span>
-                  </div>
-                </li>
-                <li className="flex gap-4 opacity-70">
-                  <XCircle className="w-6 h-6 text-slate-500 shrink-0" />
-                  <div>
-                    <span className="text-slate-300 font-medium block mb-1">Micromanagers</span>
-                    <span className="text-slate-500 text-sm">You want to dictate the exact tactics without trusting our proven systems or expertise.</span>
-                  </div>
-                </li>
-                <li className="flex gap-4 opacity-70">
-                  <XCircle className="w-6 h-6 text-slate-500 shrink-0" />
-                  <div>
-                    <span className="text-slate-300 font-medium block mb-1">Unresponsive</span>
-                    <span className="text-slate-500 text-sm">You don't have the time or willingness to review work or provide the necessary inputs.</span>
-                  </div>
-                </li>
-                <li className="flex gap-4 opacity-70">
-                  <XCircle className="w-6 h-6 text-slate-500 shrink-0" />
-                  <div>
-                    <span className="text-slate-300 font-medium block mb-1">Race to the Bottom</span>
-                    <span className="text-slate-500 text-sm">You are only shopping for the cheapest price, regardless of quality or strategy.</span>
-                  </div>
-                </li>
-              </ul>
-            </motion.div>
-          </div>
+          <aside className="rounded-3xl border border-amber-400/20 bg-amber-400/5 p-8">
+            <Heart className="h-8 w-8 text-amber-300" />
+            <h2 className="mt-5 text-2xl font-bold text-white">The other expression of the same life</h2>
+            <p className="mt-4 leading-7 text-slate-300">Talking About Jesus may appear unrelated to my business work, but both grew from the same desire: helping people move from confusion to understanding, from fear to clarity, and from being treated as a transaction to being treated as a person.</p>
+            <a href="https://talkingaboutjesus.net/why-i-do-this-work" className="mt-6 inline-flex items-center font-semibold text-amber-200 hover:text-amber-100">Visit Talking About Jesus <ArrowRight className="ml-2 h-4 w-4" /></a>
+          </aside>
         </div>
       </section>
 
-      {/* Founder Quote */}
-      <section className="py-24 px-6 relative z-10">
-        <div className="max-w-4xl mx-auto">
-          <motion.div variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true }} className="relative bg-slate-900 border border-slate-800 rounded-3xl p-10 md:p-16 text-center overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"></div>
-            
-            <Award className="w-12 h-12 text-blue-500 mx-auto mb-8 opacity-50" />
-            
-            <blockquote className="text-2xl md:text-3xl text-blue-50 font-medium italic mb-10 leading-relaxed max-w-3xl mx-auto">
-              "If you can offer me enough trust to begin, I will work to earn enough trust to continue."
-            </blockquote>
-            
-            <div className="flex items-center justify-center gap-4">
-              <img 
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/c099addb0_headshot.png" 
-                alt="Rick Hesse" 
-                className="w-16 h-16 rounded-full border-2 border-slate-700 object-cover"
-              />
-              <div className="text-left">
-                <span className="block text-white font-bold text-lg">Rick Hesse</span>
-                <span className="block text-slate-400 text-sm">Founder, New Tech Advertising</span>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-24 px-6 relative z-10 bg-slate-900/50 border-t border-slate-800">
-        <div className="max-w-3xl mx-auto text-center">
-          <motion.div variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to see if we're a good fit?</h2>
-            <p className="text-xl text-slate-400 mb-10">
-              Let's have an honest conversation about your goals and see how the NTA Operating System™ can help you achieve them.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-500 text-white w-full sm:w-auto text-lg h-14 px-8">
-                <Link to="/book-call">
-                  Book a Discovery Call
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="bg-slate-900 border-slate-700 hover:bg-slate-800 text-white w-full sm:w-auto text-lg h-14 px-8">
-                <Link to="/about">
-                  Read Our Story
-                </Link>
-              </Button>
-            </div>
-          </motion.div>
+      <section className="px-6 py-20">
+        <div className="mx-auto max-w-4xl rounded-3xl border border-slate-800 bg-slate-900 p-9 md:p-14">
+          <h2 className="text-3xl font-bold text-white">Why this matters if we work together</h2>
+          <div className="mt-7 space-y-5 text-lg leading-8 text-slate-300">
+            <p>You do not need to share every belief I hold to work with me. But you deserve to know the person and principles behind the work.</p>
+            <p>I want to understand before I recommend. I want to preserve what is already good. I want to be honest about what technology can and cannot do. I want the people I serve to understand what we are building together.</p>
+            <p>That does not make me better or wiser than anyone else. It simply explains why I approach business this way—and why trust is the foundation of everything I build.</p>
+          </div>
+          <Button asChild size="lg" className="mt-9 bg-blue-600 hover:bg-blue-500">
+            <Link to="/book-call">Start an honest conversation <ArrowRight className="ml-2 h-4 w-4" /></Link>
+          </Button>
         </div>
       </section>
     </div>
