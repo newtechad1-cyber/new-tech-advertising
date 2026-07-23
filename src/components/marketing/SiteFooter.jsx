@@ -20,7 +20,7 @@ export default function SiteFooter() {
             style={{ height: '40px', width: 'auto', objectFit: 'contain', display: 'block' }}
             className="mb-3"
           />
-          <p className="text-sm leading-relaxed">AI marketing tools built for small and mid-sized businesses. Create videos, images, and social posts in minutes.</p>
+          <p className="text-sm leading-relaxed">Helping local businesses build stronger foundations, attract more customers, and grow with practical AI and proven business systems.</p>
         </div>
 
         {/* Service Areas */}
