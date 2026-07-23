@@ -4,7 +4,7 @@ import { BookOpen, CheckCircle2, ChevronRight, PlayCircle } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
-import { aiFoundationsLessons } from '@/data/aiFoundations';
+import { getCollectionBySlug } from '@/data/masterCurriculum';
 import { getJourneyMemory } from '@/lib/journeyMemory';
 
 const learningSections = {
@@ -22,13 +22,14 @@ const learningSections = {
   }
 };
 
+const aiFoundationsLessons = getCollectionBySlug('ai-foundations')?.lessons || [];
+
 export default function AIFoundationsCollection() {
   const [completedLessons, setCompletedLessons] = useState([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     
-    // Read from Journey Memory
     const memory = getJourneyMemory();
     const progress = memory.learningProgress || {};
     
@@ -55,7 +56,6 @@ export default function AIFoundationsCollection() {
       />
       <MarketingNav />
       
-      {/* Hero Section */}
       <section className="pt-32 pb-16 px-6 border-b border-slate-800 bg-slate-900/50">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center gap-2 text-sm font-medium text-slate-400 mb-8 overflow-x-auto whitespace-nowrap">
@@ -73,7 +73,6 @@ export default function AIFoundationsCollection() {
             Learn how to turn your experience, ideas, and everyday work into useful business systems—without surrendering your judgment or control.
           </p>
           
-          {/* Progress Indicator */}
           <div className="max-w-md mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
             <div className="flex justify-between items-end mb-3">
               <div className="text-left">
@@ -100,7 +99,6 @@ export default function AIFoundationsCollection() {
         </div>
       </section>
 
-      {/* Lesson List */}
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
@@ -111,65 +109,62 @@ export default function AIFoundationsCollection() {
             {aiFoundationsLessons.map((lesson, index) => {
               const isCompleted = completedLessons.includes(lesson.id);
               const isNext = !isCompleted && (index === 0 || completedLessons.includes(aiFoundationsLessons[index - 1].id));
-              
               const section = learningSections[index];
 
               return (
                 <React.Fragment key={lesson.id}>
-                {section && (
-                  <div className={index === 0 ? 'pb-2' : 'pt-10 pb-2'}>
-                    <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-2">Part {Object.keys(learningSections).indexOf(String(index)) + 1}</p>
-                    <h3 className="text-2xl font-bold text-white mb-2">{section.title}</h3>
-                    <p className="text-slate-400">{section.description}</p>
-                  </div>
-                )}
-                <Link 
-                  key={lesson.id}
-                  to={`/knowledge/ai-foundations/${lesson.slug}`}
-                  className={`block p-6 rounded-2xl border transition-all duration-300 ${
-                    isNext 
-                      ? 'bg-blue-900/10 border-blue-500/30 hover:border-blue-500/60 shadow-[0_0_20px_rgba(59,130,246,0.05)]' 
-                      : 'bg-slate-900 border-slate-800 hover:border-slate-700 hover:bg-slate-800/80'
-                  }`}
-                >
-                  <div className="flex items-start gap-6">
-                    <div className="flex-shrink-0 mt-1">
-                      {isCompleted ? (
-                        <CheckCircle2 className="w-8 h-8 text-emerald-500" />
-                      ) : (
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 font-bold text-sm ${
-                          isNext ? 'border-blue-500 text-blue-400 bg-blue-500/10' : 'border-slate-700 text-slate-500'
-                        }`}>
-                          {index + 1}
-                        </div>
-                      )}
+                  {section && (
+                    <div className={index === 0 ? 'pb-2' : 'pt-10 pb-2'}>
+                      <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-2">Part {Object.keys(learningSections).indexOf(String(index)) + 1}</p>
+                      <h3 className="text-2xl font-bold text-white mb-2">{section.title}</h3>
+                      <p className="text-slate-400">{section.description}</p>
                     </div>
-                    
-                    <div className="flex-1">
-                      <div className="flex flex-wrap items-center gap-3 mb-2">
-                        <h3 className="text-xl font-bold text-white">{lesson.title}</h3>
-                        <span className="text-xs font-medium px-2.5 py-1 bg-slate-800 text-slate-300 rounded-md">
-                          {lesson.readingTime}
-                        </span>
+                  )}
+                  <Link 
+                    to={`/knowledge/ai-foundations/${lesson.slug}`}
+                    className={`block p-6 rounded-2xl border transition-all duration-300 ${
+                      isNext 
+                        ? 'bg-blue-900/10 border-blue-500/30 hover:border-blue-500/60 shadow-[0_0_20px_rgba(59,130,246,0.05)]' 
+                        : 'bg-slate-900 border-slate-800 hover:border-slate-700 hover:bg-slate-800/80'
+                    }`}
+                  >
+                    <div className="flex items-start gap-6">
+                      <div className="flex-shrink-0 mt-1">
+                        {isCompleted ? (
+                          <CheckCircle2 className="w-8 h-8 text-emerald-500" />
+                        ) : (
+                          <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 font-bold text-sm ${
+                            isNext ? 'border-blue-500 text-blue-400 bg-blue-500/10' : 'border-slate-700 text-slate-500'
+                          }`}>
+                            {index + 1}
+                          </div>
+                        )}
                       </div>
-                      <p className="text-slate-400 leading-relaxed line-clamp-2">
-                        {lesson.description}
-                      </p>
+                      
+                      <div className="flex-1">
+                        <div className="flex flex-wrap items-center gap-3 mb-2">
+                          <h3 className="text-xl font-bold text-white">{lesson.title}</h3>
+                          <span className="text-xs font-medium px-2.5 py-1 bg-slate-800 text-slate-300 rounded-md">
+                            {lesson.readingTime}
+                          </span>
+                        </div>
+                        <p className="text-slate-400 leading-relaxed line-clamp-2">
+                          {lesson.description}
+                        </p>
+                      </div>
+                      
+                      <div className="hidden sm:flex flex-shrink-0 items-center justify-center w-10 h-10 rounded-full bg-slate-800 group-hover:bg-slate-700 transition-colors">
+                        <ChevronRight className="w-5 h-5 text-slate-400" />
+                      </div>
                     </div>
-                    
-                    <div className="hidden sm:flex flex-shrink-0 items-center justify-center w-10 h-10 rounded-full bg-slate-800 group-hover:bg-slate-700 transition-colors">
-                      <ChevronRight className="w-5 h-5 text-slate-400" />
-                    </div>
-                  </div>
-                </Link>
+                  </Link>
                 </React.Fragment>
-              )
+              );
             })}
           </div>
         </div>
       </section>
       
-      {/* Continue Exploring */}
       <section className="py-20 px-6 border-t border-slate-800 bg-slate-900/30">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-8">
