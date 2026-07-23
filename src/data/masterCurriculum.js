@@ -4,7 +4,10 @@ import { howCustomersDecideWhoToTrustLessons } from './howCustomersDecideWhoToTr
 import { howBusinessesTurnTrustIntoLastingRelationshipsLessons } from './howBusinessesTurnTrustIntoLastingRelationships';
 import { turningWhatABusinessKnowsIntoAnAssetLessons } from './turningWhatABusinessKnowsIntoAnAsset';
 import { aiFoundationsLessons } from './aiFoundations';
+import { lesson11 as aiFoundationsLesson11 } from './aiFoundationsLesson11';
 import { whatIsDigitalTrustLessons } from './whatIsDigitalTrust';
+
+const completeAiFoundationsLessons = [...aiFoundationsLessons, aiFoundationsLesson11];
 
 export const collectionsOrder = [
   {
@@ -57,7 +60,7 @@ export const collectionsOrder = [
     slug: 'ai-foundations',
     title: 'AI Foundations',
     description: 'A practical, hype-free introduction to using artificial intelligence in a local business.',
-    lessons: aiFoundationsLessons,
+    lessons: completeAiFoundationsLessons,
     nextCollectionSlug: 'what-is-digital-trust',
     previousCollectionSlug: 'turning-what-a-business-knows-into-an-asset'
   },
