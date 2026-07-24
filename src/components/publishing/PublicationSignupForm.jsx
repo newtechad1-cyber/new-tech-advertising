@@ -33,13 +33,15 @@ export default function PublicationSignupForm({
     try {
       const email = formData.email.trim().toLowerCase();
       const { firstName, lastName } = splitName(formData.name);
-      const consentDate = new Date().toISOString().slice(0, 10);
+      const now = new Date();
+      const consentDate = now.toISOString().slice(0, 10);
       const existing = await base44.entities.Subscriber.filter({ email });
       const existingSubscriber = Array.isArray(existing) ? existing[0] : null;
+      let subscriber;
 
       if (existingSubscriber) {
         const tags = Array.from(new Set([...(existingSubscriber.tags || []), publicationTag, 'publishing']));
-        await base44.entities.Subscriber.update(existingSubscriber.id, {
+        subscriber = await base44.entities.Subscriber.update(existingSubscriber.id, {
           first_name: firstName || existingSubscriber.first_name || '',
           last_name: lastName || existingSubscriber.last_name || '',
           tags,
@@ -51,7 +53,7 @@ export default function PublicationSignupForm({
           consent_context: `Requested ${publicationTitle} and agreed to receive NTA publication updates.`,
         });
       } else {
-        await base44.entities.Subscriber.create({
+        subscriber = await base44.entities.Subscriber.create({
           email,
           first_name: firstName,
           last_name: lastName,
@@ -66,11 +68,34 @@ export default function PublicationSignupForm({
         });
       }
 
+      const queuedRequests = await base44.entities.PublicationDeliveryRequest.filter({
+        email,
+        publication_tag: publicationTag,
+        status: 'queued',
+      });
+
+      if (!Array.isArray(queuedRequests) || queuedRequests.length === 0) {
+        await base44.entities.PublicationDeliveryRequest.create({
+          subscriber_id: subscriber?.id || existingSubscriber?.id || '',
+          email,
+          first_name: firstName,
+          publication_tag: publicationTag,
+          publication_title: publicationTitle,
+          source,
+          status: 'queued',
+          requested_at: now.toISOString(),
+          sent_at: '',
+          delivery_url: '',
+          error_message: '',
+          delivery_attempts: 0,
+        });
+      }
+
       setSubmitted(true);
       setFormData({ name: '', email: '', consent: false });
     } catch (submissionError) {
       console.error('[PublicationSignupForm] Subscription failed', submissionError);
-      setError('We could not save your request. Please try again or contact NTA directly.');
+      setError('We could not save your request. Please try again or email info@newtechadvertising.com.');
     } finally {
       setLoading(false);
     }
@@ -82,9 +107,12 @@ export default function PublicationSignupForm({
         <div className="flex items-start gap-4">
           <CheckCircle2 className="mt-1 h-7 w-7 flex-shrink-0 text-emerald-400" />
           <div>
-            <h3 className="text-xl font-bold text-white">Your request is saved.</h3>
+            <h3 className="text-xl font-bold text-white">Your request is saved and queued.</h3>
             <p className="mt-2 leading-7 text-slate-300">
-              We will use this email to send {publicationTitle} when it is ready and to share related NTA publication updates.
+              We will use this email to send {publicationTitle} when its delivery link is ready and to share related NTA publication updates.
+            </p>
+            <p className="mt-2 text-sm leading-6 text-slate-400">
+              Questions can be sent to info@newtechadvertising.com.
             </p>
             <button
               type="button"
