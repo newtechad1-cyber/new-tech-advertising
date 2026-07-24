@@ -1,0 +1,39 @@
+{
+  "name": "PublicationDeliveryRequest",
+  "type": "object",
+  "properties": {
+    "subscriber_id": {
+      "type": "string"
+    },
+    "publication_title": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "sent",
+        "failed"
+      ],
+      "default": "pending"
+    },
+    "sent_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "delivery_url": {
+      "type": "string"
+    },
+    "attempt_count": {
+      "type": "integer",
+      "default": 0
+    },
+    "error_details": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "subscriber_id",
+    "publication_title"
+  ]
+}
