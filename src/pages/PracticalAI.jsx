@@ -4,6 +4,7 @@ import { ArrowRight, BrainCircuit, CheckCircle2, Compass, ShieldCheck, Users } f
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
+import PublicationSignupForm from '@/components/publishing/PublicationSignupForm';
 
 const lessons = [
   {
@@ -71,7 +72,7 @@ export default function PracticalAI() {
               </p>
               <div className="mt-9 flex flex-col gap-4 sm:flex-row">
                 <a href="#availability" className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-7 py-4 font-bold text-white hover:bg-indigo-500">
-                  Get publication updates <ArrowRight className="h-5 w-5" />
+                  Request the book <ArrowRight className="h-5 w-5" />
                 </a>
                 <Link to="/knowledge/ai-foundations" className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-900 px-7 py-4 font-bold text-white hover:bg-slate-800">
                   Explore AI Foundations
@@ -135,10 +136,18 @@ export default function PracticalAI() {
         </section>
 
         <section id="availability" className="border-t border-slate-800 bg-indigo-950/25 px-6 py-20">
-          <div className="mx-auto max-w-4xl text-center">
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-300">Publication updates</p>
-            <h2 className="mt-4 text-3xl font-bold text-white md:text-4xl">Practical AI is being prepared for release.</h2>
-            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300">The existing NTA subscriber and contact system will be connected here in a focused follow-up PR so readers can request the book and receive it by email when delivery is ready.</p>
+          <div className="mx-auto max-w-4xl rounded-3xl border border-indigo-400/20 bg-indigo-500/5 p-9 text-center md:p-14">
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-300">Book request</p>
+            <h2 className="mt-4 text-3xl font-bold text-white md:text-4xl">Receive Practical AI by email.</h2>
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300">
+              Add your name and email below. Your request will be saved in the existing NTA subscriber system, and the book will be sent when the email-delivery workflow is activated.
+            </p>
+            <PublicationSignupForm
+              publicationTitle="Practical AI"
+              publicationTag="practical-ai"
+              source="practical_ai_page"
+              accent="indigo"
+            />
             <Link to="/growth-conversation" className="mt-8 inline-flex items-center gap-2 font-bold text-indigo-300 hover:text-indigo-200">Talk with NTA about practical AI now <ArrowRight className="h-4 w-4" /></Link>
           </div>
         </section>
