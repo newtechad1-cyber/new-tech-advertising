@@ -9,6 +9,7 @@ import ProblemSection from '../components/home-conversion/ProblemSection';
 import SolutionSection from '../components/home-conversion/SolutionSection';
 import FounderSection from '../components/home-conversion/FounderSection';
 import CombinedReviewsSection from '../components/home-v3/CombinedReviewsSection';
+import PublicationsSection from '../components/home-v3/PublicationsSection';
 import FAQSection from '../components/home-conversion/FAQSection';
 import { trackJourneyEvent } from '@/lib/journeyAnalytics';
 
@@ -167,6 +168,8 @@ export default function Home() {
         <SolutionSection />
         <FounderSection />
         <CombinedReviewsSection />
+        
+        <PublicationsSection />
 
         <section className="py-16 bg-slate-900/50 border-y border-slate-800/50">
           <div className="max-w-5xl mx-auto px-6 text-center">
