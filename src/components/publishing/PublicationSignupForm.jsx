@@ -15,8 +15,10 @@ export default function PublicationSignupForm({
   publicationTag,
   source,
   accent = 'blue',
+  showBusinessName = false,
+  successMessage,
 }) {
-  const [formData, setFormData] = useState({ name: '', email: '', consent: false });
+  const [formData, setFormData] = useState({ name: '', email: '', businessName: '', consent: false });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -37,32 +39,42 @@ export default function PublicationSignupForm({
       const existing = await base44.entities.Subscriber.filter({ email });
       const existingSubscriber = Array.isArray(existing) ? existing[0] : null;
 
+      let subscriberId = existingSubscriber?.id;
+
+      const subscriberData = {
+        first_name: firstName || existingSubscriber?.first_name || '',
+        last_name: lastName || existingSubscriber?.last_name || '',
+        status: 'active',
+        source,
+        consent_status: 'confirmed',
+        consent_date: consentDate,
+        consent_method: 'website_form',
+        consent_context: `Requested ${publicationTitle} and agreed to receive NTA publication updates.`,
+      };
+
+      if (showBusinessName && formData.businessName) {
+        subscriberData.business_name = formData.businessName;
+      }
+
       if (existingSubscriber) {
         const tags = Array.from(new Set([...(existingSubscriber.tags || []), publicationTag, 'publishing']));
-        await base44.entities.Subscriber.update(existingSubscriber.id, {
-          first_name: firstName || existingSubscriber.first_name || '',
-          last_name: lastName || existingSubscriber.last_name || '',
-          tags,
-          status: 'active',
-          source,
-          consent_status: 'confirmed',
-          consent_date: consentDate,
-          consent_method: 'website_form',
-          consent_context: `Requested ${publicationTitle} and agreed to receive NTA publication updates.`,
-        });
+        await base44.entities.Subscriber.update(existingSubscriber.id, { ...subscriberData, tags });
       } else {
-        await base44.entities.Subscriber.create({
+        const newSub = await base44.entities.Subscriber.create({
+          ...subscriberData,
           email,
-          first_name: firstName,
-          last_name: lastName,
           tags: [publicationTag, 'publishing'],
-          status: 'active',
-          source,
-          consent_status: 'confirmed',
-          consent_date: consentDate,
-          consent_method: 'website_form',
-          consent_context: `Requested ${publicationTitle} and agreed to receive NTA publication updates.`,
           description: `Interested in receiving ${publicationTitle} by email when available.`,
+        });
+        subscriberId = newSub.id;
+      }
+
+      // Create PublicationDeliveryRequest
+      if (subscriberId) {
+        await base44.entities.PublicationDeliveryRequest.create({
+          subscriber_id: subscriberId,
+          publication_title: publicationTitle,
+          status: 'pending'
         });
       }
 
@@ -84,7 +96,7 @@ export default function PublicationSignupForm({
           <div>
             <h3 className="text-xl font-bold text-white">Your request is saved.</h3>
             <p className="mt-2 leading-7 text-slate-300">
-              We will use this email to send {publicationTitle} when it is ready and to share related NTA publication updates.
+              {successMessage || `We will use this email to send ${publicationTitle} when it is ready and to share related NTA publication updates.`}
             </p>
             <button
               type="button"
@@ -127,6 +139,20 @@ export default function PublicationSignupForm({
           />
         </div>
       </div>
+      
+      {showBusinessName && (
+        <div>
+          <label htmlFor={`${publicationTag}-business`} className="mb-2 block text-sm font-semibold text-slate-200">Business Name</label>
+          <input
+            id={`${publicationTag}-business`}
+            type="text"
+            value={formData.businessName}
+            onChange={(event) => setFormData({ ...formData, businessName: event.target.value })}
+            placeholder="Your company name"
+            className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-white/10"
+          />
+        </div>
+      )}
 
       <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-800 bg-slate-950/60 p-4">
         <input

@@ -1,154 +1,150 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, BrainCircuit, CheckCircle2, Compass, ShieldCheck, Users } from 'lucide-react';
+import { ArrowRight, CheckCircle2, BookOpen, Users, Compass } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import PublicationSignupForm from '@/components/publishing/PublicationSignupForm';
-
-const lessons = [
-  {
-    icon: Compass,
-    title: 'Begin With the Business Problem',
-    text: 'Choose AI only after you understand the work, the people involved, what already works, and the result you are trying to create.',
-  },
-  {
-    icon: BrainCircuit,
-    title: 'Use AI as a Practical Tool',
-    text: 'Learn how AI can help organize information, clarify ideas, preserve knowledge, simplify work, and support better decisions.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Keep Human Judgment in Charge',
-    text: 'Understand where verification, responsibility, privacy, approval, and real human relationships must remain part of the process.',
-  },
-];
-
-const readerOutcomes = [
-  'Understand what modern AI can and cannot do without learning technical jargon.',
-  'Recognize useful starting points inside an ordinary small business.',
-  'Avoid buying tools before identifying the real problem they are supposed to solve.',
-  'Use AI to strengthen human knowledge, judgment, communication, and customer relationships.',
-  'Create practical boundaries for privacy, accuracy, approval, and accountability.',
-  'Move from confusion and pressure to one useful experiment at a time.',
-];
 
 export default function PracticalAI() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200">
       <SEOHead
         title="Practical AI for Small Business | New Tech Advertising"
-        description="Practical AI is Rick Hesse's plainspoken, nontechnical guide to using artificial intelligence as a useful small-business tool while keeping people, judgment, trust, and responsibility in charge."
+        description="A plainspoken guide for business owners who want to understand AI without the hype, jargon, or confusion."
       />
       <MarketingNav />
 
       <main>
+        {/* 1. Hero section */}
         <section className="relative overflow-hidden border-b border-slate-800 px-6 pb-20 pt-32">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(79,70,229,0.2),transparent_42%)]" />
-          <div className="relative mx-auto grid max-w-6xl gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
-            <div className="mx-auto w-full max-w-sm rounded-[2rem] border border-indigo-400/25 bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-950 p-8 shadow-2xl shadow-indigo-950/50">
-              <div className="flex min-h-[470px] flex-col justify-between rounded-2xl border border-white/10 p-8">
-                <div>
-                  <p className="text-sm font-bold uppercase tracking-[0.24em] text-indigo-300">New Tech Advertising</p>
-                  <h1 className="mt-12 text-5xl font-black leading-[0.98] text-white">Practical<br />AI</h1>
-                  <p className="mt-7 text-lg leading-7 text-indigo-100">A clear, human guide to using artificial intelligence in a real business.</p>
-                </div>
-                <div>
-                  <div className="mb-5 h-px bg-indigo-300/30" />
-                  <p className="font-semibold text-white">Rick Hesse</p>
-                  <p className="mt-1 text-sm text-slate-400">Your Digital Growth Guide™</p>
-                </div>
+          <div className="relative mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1.05fr_.95fr] lg:items-center">
+            <div>
+              <p className="mb-5 text-sm font-bold uppercase tracking-[0.22em] text-indigo-400">Business education first. AI second.</p>
+              <h1 className="text-4xl font-bold tracking-tight text-white md:text-6xl">Practical AI for Small Business</h1>
+              <p className="mt-5 text-2xl font-medium leading-relaxed text-indigo-100">
+                A plainspoken guide for business owners who want to understand AI without the hype, jargon, or confusion.
+              </p>
+              <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-300">
+                AI can help a small business, but only when it serves a real business purpose. This guide starts with business first — customers, trust, communication, follow-up, systems, and decision-making — then shows where AI can genuinely support the work.
+              </p>
+              <p className="mt-5 text-lg font-semibold text-indigo-300">
+                People Always. AI Where It Genuinely Helps.
+              </p>
+              <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+                <a href="#guide-request" className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-7 py-4 font-bold text-white hover:bg-indigo-500 transition-colors">
+                  Get the Practical AI Guide <ArrowRight className="h-4 w-4" />
+                </a>
               </div>
             </div>
 
-            <div>
-              <p className="text-sm font-bold uppercase tracking-[0.22em] text-indigo-300">The second NTA book</p>
-              <h2 className="mt-5 text-4xl font-bold tracking-tight text-white md:text-6xl">AI is not the strategy. It is a tool.</h2>
-              <p className="mt-7 max-w-3xl text-xl leading-8 text-slate-300">
-                Practical AI is written for owners who are tired of hype, technical language, constant pressure, and expensive tools that arrive without a clear business purpose.
+            <div className="mx-auto w-full max-w-md rounded-[2rem] border border-indigo-500/25 bg-gradient-to-br from-indigo-950 to-slate-900 p-10 shadow-2xl shadow-indigo-950/40">
+              <BookOpen className="h-12 w-12 text-indigo-300" />
+              <p className="mt-16 text-sm font-bold uppercase tracking-[0.24em] text-indigo-300">New Tech Advertising</p>
+              <h2 className="mt-4 text-4xl font-black leading-tight text-white">Practical AI<br />for Small Business</h2>
+              <p className="mt-6 border-t border-indigo-400/20 pt-6 text-lg leading-7 text-indigo-100">
+                People Always. AI Where It Genuinely Helps.
               </p>
-              <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-400">
-                This book explains artificial intelligence through real business situations. It starts with the owner, the customer, the work, and the knowledge worth protecting—then shows where AI may help without pretending it should control everything.
-              </p>
-              <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-                <a href="#availability" className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-7 py-4 font-bold text-white hover:bg-indigo-500">
-                  Request the book <ArrowRight className="h-5 w-5" />
-                </a>
-                <Link to="/knowledge/ai-foundations" className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-900 px-7 py-4 font-bold text-white hover:bg-slate-800">
-                  Explore AI Foundations
-                </Link>
-              </div>
             </div>
           </div>
         </section>
 
+        {/* 2. Why this guide exists */}
         <section className="px-6 py-20">
+          <div className="mx-auto max-w-4xl text-center">
+            <h2 className="text-3xl font-bold text-white md:text-4xl">AI Is Not the Starting Point</h2>
+            <p className="mt-6 text-lg leading-8 text-slate-300">
+              Most small business owners are being told they need AI, but they are not being shown how it fits into the way a real business actually works. This guide was created to clear up the confusion. It explains AI in practical business language and helps owners see where AI can support their work without replacing the human relationships their business depends on.
+            </p>
+          </div>
+        </section>
+
+        {/* 3. What the guide helps business owners understand */}
+        <section className="border-t border-slate-800 bg-slate-900/40 px-6 py-20">
           <div className="mx-auto max-w-6xl">
             <div className="mx-auto mb-12 max-w-3xl text-center">
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-300">What the book teaches</p>
-              <h2 className="mt-4 text-3xl font-bold text-white md:text-4xl">Business principles first. Technology second.</h2>
-              <p className="mt-5 text-lg leading-8 text-slate-400">The goal is not to turn a business owner into a programmer. The goal is to help the owner make clearer, safer, and more useful decisions about AI.</p>
+              <h2 className="text-3xl font-bold text-white md:text-4xl">What the guide helps business owners understand</h2>
             </div>
-            <div className="grid gap-7 md:grid-cols-3">
-              {lessons.map(({ icon: Icon, title, text }) => (
-                <article key={title} className="rounded-3xl border border-slate-800 bg-slate-900/70 p-8">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-300"><Icon className="h-6 w-6" /></div>
-                  <h3 className="mt-6 text-xl font-bold text-white">{title}</h3>
-                  <p className="mt-4 leading-7 text-slate-400">{text}</p>
-                </article>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {[
+                "What AI is and what it is not",
+                "Why AI should support business strategy, not replace it",
+                "Where AI can save time in everyday business operations",
+                "How AI can help with communication, follow-up, content, and customer education",
+                "Why human judgment, trust, and relationships still matter most",
+                "How to avoid wasting money on tools before building the right system"
+              ].map((item, i) => (
+                <div key={i} className="rounded-3xl border border-slate-800 bg-slate-900/70 p-8">
+                  <CheckCircle2 className="h-8 w-8 text-emerald-400" />
+                  <p className="mt-5 text-lg leading-7 text-slate-300">{item}</p>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="border-y border-slate-800 bg-slate-900/40 px-6 py-20">
-          <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-2 lg:items-start">
+        {/* 4. The NTA point of view */}
+        <section className="border-t border-slate-800 px-6 py-20">
+          <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-2 lg:items-center">
             <div>
-              <Users className="h-9 w-9 text-indigo-300" />
-              <h2 className="mt-5 text-3xl font-bold text-white md:text-4xl">Written for ordinary business owners</h2>
-              <p className="mt-6 text-lg leading-8 text-slate-300">You do not need to understand models, coding, or every new AI product. You need enough understanding to ask better questions, protect what matters, and choose one useful application at a time.</p>
-              <p className="mt-5 text-lg leading-8 text-slate-400">Rick draws from decades of owning businesses, working with owners, learning from mistakes, and helping people make complicated ideas practical. The technology is new. The business responsibilities are not.</p>
+              <Compass className="h-10 w-10 text-indigo-400" />
+              <h2 className="mt-6 text-3xl font-bold text-white md:text-4xl">Business First. Technology Second.</h2>
+              <p className="mt-6 text-lg leading-8 text-slate-300">
+                At New Tech Advertising, we believe technology should make business clearer, not more confusing. Practical AI is not about chasing every new tool. It is about helping owners build better systems, communicate more clearly, serve customers better, and protect the human trust that makes a business valuable.
+              </p>
             </div>
-
-            <div className="rounded-3xl border border-slate-800 bg-slate-950 p-8">
-              <h3 className="text-2xl font-bold text-white">After reading Practical AI, you should be able to:</h3>
-              <ul className="mt-7 space-y-4">
-                {readerOutcomes.map(outcome => (
-                  <li key={outcome} className="flex gap-3 leading-7 text-slate-300">
-                    <CheckCircle2 className="mt-1 h-5 w-5 flex-shrink-0 text-emerald-400" />
-                    <span>{outcome}</span>
-                  </li>
-                ))}
-              </ul>
+            <div className="rounded-3xl border border-indigo-500/20 bg-indigo-500/5 p-10 text-center">
+              <h3 className="text-2xl font-bold text-indigo-300 lg:text-3xl">
+                People Always. AI Where It Genuinely Helps.
+              </h3>
             </div>
           </div>
         </section>
 
-        <section className="px-6 py-20">
+        {/* 5. Who this guide is for */}
+        <section className="border-t border-slate-800 bg-slate-900/40 px-6 py-20">
           <div className="mx-auto max-w-4xl text-center">
-            <h2 className="text-3xl font-bold text-white md:text-4xl">Part of one connected NTA education system</h2>
-            <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-300">Practical AI continues the business foundation established in The Better Business Book. It also organizes and expands the practical AI lessons already being taught through the NTA Knowledge Library.</p>
-            <div className="mt-9 flex flex-col justify-center gap-4 sm:flex-row">
-              <Link to="/better-business-book" className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-900 px-7 py-3 font-bold text-white hover:bg-slate-800">Explore The Better Business Book</Link>
-              <Link to="/books" className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-900 px-7 py-3 font-bold text-white hover:bg-slate-800">View all NTA publications</Link>
-            </div>
+            <Users className="mx-auto h-12 w-12 text-indigo-300" />
+            <h2 className="mt-6 text-3xl font-bold text-white md:text-4xl">Built for Real Small Business Owners</h2>
+            <p className="mt-6 text-lg leading-8 text-slate-300">
+              This guide is for owners, entrepreneurs, startups, local businesses, and service companies who know AI matters but do not want to get lost in technical language or online hype. It is for people who want practical understanding, not another confusing sales pitch.
+            </p>
           </div>
         </section>
 
-        <section id="availability" className="border-t border-slate-800 bg-indigo-950/25 px-6 py-20">
+        {/* 6. Form section */}
+        <section id="guide-request" className="border-t border-slate-800 px-6 py-20">
           <div className="mx-auto max-w-4xl rounded-3xl border border-indigo-400/20 bg-indigo-500/5 p-9 text-center md:p-14">
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-300">Book request</p>
-            <h2 className="mt-4 text-3xl font-bold text-white md:text-4xl">Receive Practical AI by email.</h2>
-            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300">
-              Add your name and email below. Your request will be saved in the existing NTA subscriber system, and the book will be sent when the email-delivery workflow is activated.
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-300">Guide Request</p>
+            <h2 className="mt-4 text-3xl font-bold text-white md:text-4xl">Get the Practical AI for Small Business Guide</h2>
+            <p className="mx-auto mt-5 mb-8 max-w-2xl text-lg leading-8 text-slate-300">
+              Enter your details below to receive the guide. Delivery will be handled through the NTA publishing system.
             </p>
             <PublicationSignupForm
-              publicationTitle="Practical AI"
-              publicationTag="practical-ai"
-              source="practical_ai_page"
+              publicationTitle="Practical AI for Small Business"
+              publicationTag="practical-ai-for-small-business"
+              source="practical_ai_landing_page"
               accent="indigo"
+              showBusinessName={true}
+              successMessage="Thanks. Your request for the Practical AI for Small Business guide has been received. Delivery will be handled through the NTA publishing system."
             />
-            <Link to="/growth-conversation" className="mt-8 inline-flex items-center gap-2 font-bold text-indigo-300 hover:text-indigo-200">Talk with NTA about practical AI now <ArrowRight className="h-4 w-4" /></Link>
+          </div>
+        </section>
+
+        {/* 7. Footer/next-step section */}
+        <section className="border-t border-slate-800 bg-slate-950 px-6 py-16">
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-lg leading-8 text-slate-400">
+              This guide is part of the NTA Publishing Platform, created to help small business owners build stronger foundations, clearer systems, and more trustworthy digital growth.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-6">
+              <Link to="/books" className="font-bold text-indigo-400 hover:text-indigo-300">Books</Link>
+              <span className="text-slate-700">•</span>
+              <Link to="/journal" className="font-bold text-indigo-400 hover:text-indigo-300">Journal</Link>
+              <span className="text-slate-700">•</span>
+              <Link to="/" className="font-bold text-indigo-400 hover:text-indigo-300">Home</Link>
+            </div>
           </div>
         </section>
       </main>

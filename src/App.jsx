@@ -25,6 +25,8 @@ const CaseStudyPapaEveretts = lazy(() => import('./pages/CaseStudyPapaEveretts')
 const LearningCenter = lazy(() => import('./pages/LearningCenter'));
 // GapAuditPage removed
 const AiBroughtMeOutOfRetirement = lazy(() => import('./pages/AiBroughtMeOutOfRetirement'));
+const PracticalAI = lazy(() => import('./pages/PracticalAI'));
+const BetterBusinessBook = lazy(() => import('./pages/BetterBusinessBook'));
 const PublishingEngine = lazy(() => import('./pages/PublishingEngine'));
 const PublishingArticleView = lazy(() => import('./pages/PublishingArticleView'));
 const EditorialDashboard = lazy(() => import('./pages/EditorialDashboard'));
@@ -771,6 +773,8 @@ const AuthenticatedApp = () => {
       <Route path="/ai-brought-me-out-of-retirement" element={<LayoutWrapper currentPageName="AiBroughtMeOutOfRetirement"><AiBroughtMeOutOfRetirement /></LayoutWrapper>} />
       <Route path="/i-was-early-again" element={<LayoutWrapper currentPageName="IWasEarlyAgain"><IWasEarlyAgain /></LayoutWrapper>} />
       <Route path="/PublishingEngine" element={<LayoutWrapper currentPageName="PublishingEngine"><PublishingEngine /></LayoutWrapper>} />
+      <Route path="/practical-ai-for-small-business" element={<LayoutWrapper currentPageName="PracticalAI"><PracticalAI /></LayoutWrapper>} />
+      <Route path="/better-business-book" element={<LayoutWrapper currentPageName="BetterBusinessBook"><BetterBusinessBook /></LayoutWrapper>} />
       <Route path="/PublishingArticleView" element={<LayoutWrapper currentPageName="PublishingArticleView"><PublishingArticleView /></LayoutWrapper>} />
       <Route path="/EditorialDashboard" element={<LayoutWrapper currentPageName="EditorialDashboard"><EditorialDashboard /></LayoutWrapper>} />
       <Route path="/journal" element={<LayoutWrapper currentPageName="JournalLanding"><JournalLanding /></LayoutWrapper>} />
