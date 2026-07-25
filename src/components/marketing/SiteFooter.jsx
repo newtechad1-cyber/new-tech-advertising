@@ -50,6 +50,7 @@ export default function SiteFooter() {
         <div>
           <p className="text-white font-semibold mb-3 text-sm">Resources</p>
           <ul className="space-y-2 text-sm">
+            <li><Link to="/books" className="hover:text-white transition-colors">Free Business Books</Link></li>
             <li><a href="/Blog" className="hover:text-white transition-colors">All Articles</a></li>
             <li><a href="/our-work" className="hover:text-white transition-colors">Our Work</a></li>
             <li><a href="/rebuild-intake" className="hover:text-white transition-colors">Free Website Audit</a></li>

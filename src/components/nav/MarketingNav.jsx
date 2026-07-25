@@ -25,6 +25,7 @@ const NAV_LINKS = [
     children: [
       { label: 'The NTA Point of View', href: '/point-of-view', desc: 'Our philosophy and experience' },
       { label: 'NTA Knowledge Library', href: '/knowledge', desc: 'All educational collections' },
+      { label: 'Free Business Books', href: '/books', desc: 'Practical guides for owners' },
       { label: 'Business Foundations', href: '/knowledge/business-foundations', desc: 'Core principles of local business growth' },
       { label: 'AI Foundations', href: '/knowledge/ai-foundations', desc: 'Practical AI for small business' },
       { label: 'Growth Show', href: '/learning-center/videos', desc: 'Video insights' },
