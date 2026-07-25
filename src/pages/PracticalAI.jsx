@@ -19,7 +19,7 @@ export default function PracticalAI() {
         {/* 1. Hero section */}
         <section className="relative overflow-hidden border-b border-slate-800 px-6 pb-20 pt-32">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(79,70,229,0.2),transparent_42%)]" />
-          <div className="relative mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1.05fr_.95fr] lg:items-center">
+          <div className="relative mx-auto grid max-w-6xl grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(280px,420px)] gap-10 lg:gap-14 items-center">
             <div>
               <p className="mb-5 text-sm font-bold uppercase tracking-[0.22em] text-indigo-400">Business education first. AI second.</p>
               <h1 className="text-4xl font-bold tracking-tight text-white md:text-6xl">Practical AI for Small Business</h1>
@@ -39,11 +39,11 @@ export default function PracticalAI() {
               </div>
             </div>
 
-            <div className="mx-auto w-full max-w-[320px] lg:max-w-md shrink-0">
+            <div className="flex justify-center lg:justify-end">
               <img 
                 src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/919f0b245_Practical_AI_for_Small_BusinessBookFrontCover.png" 
                 alt="Practical AI for Small Business book cover by Rick Hesse" 
-                className="w-full h-auto rounded-xl shadow-2xl shadow-indigo-950/40 object-cover"
+                className="w-full max-w-[260px] sm:max-w-[320px] lg:max-w-[380px] xl:max-w-[420px] h-auto object-contain rounded-xl shadow-2xl shadow-indigo-950/40"
                 loading="lazy"
               />
             </div>

@@ -27,7 +27,7 @@ export default function BetterBusinessBook() {
       <main>
         <section className="relative overflow-hidden border-b border-slate-800 px-6 pb-20 pt-32">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.18),transparent_38%)]" />
-          <div className="relative mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1.05fr_.95fr] lg:items-center">
+          <div className="relative mx-auto grid max-w-6xl grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(280px,420px)] gap-10 lg:gap-14 items-center">
             <div>
               <p className="mb-5 text-sm font-bold uppercase tracking-[0.22em] text-blue-400">An NTA Business Guide</p>
               <h1 className="text-4xl font-bold tracking-tight text-white md:text-6xl">The Better Business Book</h1>
@@ -45,11 +45,11 @@ export default function BetterBusinessBook() {
               </div>
             </div>
 
-            <div className="mx-auto w-full max-w-[320px] lg:max-w-md shrink-0">
+            <div className="flex justify-center lg:justify-end">
               <img 
                 src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/9671c51cd_TheBetterBusinessBookFront.png" 
                 alt="The Better Business Book cover by Rick Hesse" 
-                className="w-full h-auto rounded-xl shadow-2xl shadow-blue-950/40 object-cover"
+                className="w-full max-w-[260px] sm:max-w-[320px] lg:max-w-[380px] xl:max-w-[420px] h-auto object-contain rounded-xl shadow-2xl shadow-blue-950/40"
                 loading="lazy"
               />
             </div>
