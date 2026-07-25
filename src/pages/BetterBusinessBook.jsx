@@ -105,15 +105,22 @@ export default function BetterBusinessBook() {
         <section id="book-updates" className="px-6 py-20">
           <div className="mx-auto max-w-4xl rounded-3xl border border-blue-500/20 bg-blue-500/5 p-9 text-center md:p-14">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-300">Book request</p>
-            <h2 className="mt-4 text-3xl font-bold text-white md:text-4xl">Receive The Better Business Book by email.</h2>
+            <h2 className="mt-4 text-3xl font-bold text-white md:text-4xl">Download The Better Business Book</h2>
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300">
-              Add your name and email below. Your request will be saved in the existing NTA subscriber system, and the book will be sent when the email-delivery workflow is activated.
+              Add your name and email below to access the full 116-page guide. Your request will be saved in the NTA subscriber system, and you will receive instant access to download the book.
             </p>
             <PublicationSignupForm
               publicationTitle="The Better Business Book"
               publicationTag="better-business-book"
-              source="better_business_book_page"
+              source="better_business_book_free_download"
               accent="blue"
+              showBusinessName={true}
+              extraTags={['free-book-download']}
+              consentContext="Requested free download of The Better Business Book and agreed to receive related NTA publication updates."
+              consentCheckboxText="I want to download The Better Business Book and receive related NTA publication updates. I can unsubscribe at any time."
+              successMessage="Thanks. Your request has been saved. You can download The Better Business Book below."
+              downloadUrl="https://drive.google.com/file/d/1SSpBnObRHrt0SGtVmHhOAdzazmLql-M9/view?usp=sharing"
+              downloadButtonLabel="Download The Better Business Book"
             />
             <Link to="/books" className="mt-8 inline-flex items-center gap-2 font-bold text-blue-300 hover:text-blue-200">
               View all NTA publications <ArrowRight className="h-4 w-4" />

@@ -17,6 +17,11 @@ export default function PublicationSignupForm({
   accent = 'blue',
   showBusinessName = false,
   successMessage,
+  downloadUrl,
+  downloadButtonLabel,
+  extraTags = [],
+  consentContext,
+  consentCheckboxText,
 }) {
   const [formData, setFormData] = useState({ name: '', email: '', businessName: '', consent: false });
   const [loading, setLoading] = useState(false);
@@ -49,28 +54,30 @@ export default function PublicationSignupForm({
         consent_status: 'confirmed',
         consent_date: consentDate,
         consent_method: 'website_form',
-        consent_context: `Requested ${publicationTitle} and agreed to receive NTA publication updates.`,
+        consent_context: consentContext || `Requested ${publicationTitle} and agreed to receive NTA publication updates.`,
       };
 
       if (showBusinessName && formData.businessName) {
         subscriberData.business_name = formData.businessName;
       }
 
+      const allTags = [publicationTag, 'publishing', ...extraTags];
+
       if (existingSubscriber) {
-        const tags = Array.from(new Set([...(existingSubscriber.tags || []), publicationTag, 'publishing']));
+        const tags = Array.from(new Set([...(existingSubscriber.tags || []), ...allTags]));
         await base44.entities.Subscriber.update(existingSubscriber.id, { ...subscriberData, tags });
       } else {
         const newSub = await base44.entities.Subscriber.create({
           ...subscriberData,
           email,
-          tags: [publicationTag, 'publishing'],
-          description: `Interested in receiving ${publicationTitle} by email when available.`,
+          tags: allTags,
+          description: downloadUrl ? `Downloaded ${publicationTitle} from the website.` : `Interested in receiving ${publicationTitle} by email when available.`,
         });
         subscriberId = newSub.id;
       }
 
-      // Create PublicationDeliveryRequest
-      if (subscriberId) {
+      // Create PublicationDeliveryRequest only if no direct downloadUrl is provided
+      if (subscriberId && !downloadUrl) {
         await base44.entities.PublicationDeliveryRequest.create({
           subscriber_id: subscriberId,
           publication_title: publicationTitle,
@@ -98,13 +105,27 @@ export default function PublicationSignupForm({
             <p className="mt-2 leading-7 text-slate-300">
               {successMessage || `We will use this email to send ${publicationTitle} when it is ready and to share related NTA publication updates.`}
             </p>
-            <button
-              type="button"
-              onClick={() => setSubmitted(false)}
-              className="mt-4 font-semibold text-emerald-300 hover:text-emerald-200"
-            >
-              Use another email
-            </button>
+            
+            {downloadUrl && (
+              <a
+                href={downloadUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`mt-5 inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 font-bold text-white transition ${accentClasses}`}
+              >
+                {downloadButtonLabel || `Download ${publicationTitle}`}
+              </a>
+            )}
+
+            <div className="mt-4">
+              <button
+                type="button"
+                onClick={() => setSubmitted(false)}
+                className="font-semibold text-emerald-300 hover:text-emerald-200"
+              >
+                Use another email
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -163,7 +184,7 @@ export default function PublicationSignupForm({
           className="mt-1 h-4 w-4 rounded border-slate-600"
         />
         <span className="text-sm leading-6 text-slate-400">
-          I want to receive {publicationTitle} by email when available and related NTA publication updates. I can unsubscribe at any time.
+          {consentCheckboxText || `I want to receive ${publicationTitle} by email when available and related NTA publication updates. I can unsubscribe at any time.`}
         </span>
       </label>
 

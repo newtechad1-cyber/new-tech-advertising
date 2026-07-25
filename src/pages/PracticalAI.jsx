@@ -120,18 +120,23 @@ export default function PracticalAI() {
         {/* 6. Form section */}
         <section id="guide-request" className="border-t border-slate-800 px-6 py-20">
           <div className="mx-auto max-w-4xl rounded-3xl border border-indigo-400/20 bg-indigo-500/5 p-9 text-center md:p-14">
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-300">Guide Request</p>
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-300">Free Download</p>
             <h2 className="mt-4 text-3xl font-bold text-white md:text-4xl">Get the Practical AI for Small Business Guide</h2>
             <p className="mx-auto mt-5 mb-8 max-w-2xl text-lg leading-8 text-slate-300">
-              Enter your details below to receive the guide. Delivery will be handled through the NTA publishing system.
+              Enter your details below for instant access to the guide. Your request will be saved in the NTA subscriber system, and you will be able to download the PDF immediately.
             </p>
             <PublicationSignupForm
               publicationTitle="Practical AI for Small Business"
               publicationTag="practical-ai-for-small-business"
-              source="practical_ai_landing_page"
+              source="practical_ai_free_download"
               accent="indigo"
               showBusinessName={true}
-              successMessage="Thanks. Your request for the Practical AI for Small Business guide has been received. Delivery will be handled through the NTA publishing system."
+              extraTags={['free-book-download']}
+              consentContext="Requested free download of Practical AI for Small Business and agreed to receive related NTA publication updates."
+              consentCheckboxText="I want to download Practical AI for Small Business and receive related NTA publication updates. I can unsubscribe at any time."
+              successMessage="Thanks. Your request has been saved. You can download Practical AI for Small Business below."
+              downloadUrl="https://drive.google.com/file/d/11nq430-bcstci_fuOP8Fm9g2xTk2n0yl/view?usp=sharing"
+              downloadButtonLabel="Download Practical AI for Small Business"
             />
           </div>
         </section>
