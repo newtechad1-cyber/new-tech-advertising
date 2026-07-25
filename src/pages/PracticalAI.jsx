@@ -39,13 +39,13 @@ export default function PracticalAI() {
               </div>
             </div>
 
-            <div className="mx-auto w-full max-w-md rounded-[2rem] border border-indigo-500/25 bg-gradient-to-br from-indigo-950 to-slate-900 p-10 shadow-2xl shadow-indigo-950/40">
-              <BookOpen className="h-12 w-12 text-indigo-300" />
-              <p className="mt-16 text-sm font-bold uppercase tracking-[0.24em] text-indigo-300">New Tech Advertising</p>
-              <h2 className="mt-4 text-4xl font-black leading-tight text-white">Practical AI<br />for Small Business</h2>
-              <p className="mt-6 border-t border-indigo-400/20 pt-6 text-lg leading-7 text-indigo-100">
-                People Always. AI Where It Genuinely Helps.
-              </p>
+            <div className="mx-auto w-full max-w-[320px] lg:max-w-md shrink-0">
+              <img 
+                src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/919f0b245_Practical_AI_for_Small_BusinessBookFrontCover.png" 
+                alt="Practical AI for Small Business book cover by Rick Hesse" 
+                className="w-full h-auto rounded-xl shadow-2xl shadow-indigo-950/40 object-cover"
+                loading="lazy"
+              />
             </div>
           </div>
         </section>

@@ -45,11 +45,13 @@ export default function BetterBusinessBook() {
               </div>
             </div>
 
-            <div className="mx-auto w-full max-w-md rounded-[2rem] border border-blue-500/25 bg-gradient-to-br from-blue-950 to-slate-900 p-10 shadow-2xl shadow-blue-950/40">
-              <BookOpen className="h-12 w-12 text-blue-300" />
-              <p className="mt-16 text-sm font-bold uppercase tracking-[0.24em] text-blue-300">Rick Hesse</p>
-              <h2 className="mt-4 text-4xl font-black leading-tight text-white">The Better<br />Business Book</h2>
-              <p className="mt-6 border-t border-blue-400/20 pt-6 text-lg leading-7 text-blue-100">Practical principles for building a business people can understand, trust, and sustain.</p>
+            <div className="mx-auto w-full max-w-[320px] lg:max-w-md shrink-0">
+              <img 
+                src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/9671c51cd_TheBetterBusinessBookFront.png" 
+                alt="The Better Business Book cover by Rick Hesse" 
+                className="w-full h-auto rounded-xl shadow-2xl shadow-blue-950/40 object-cover"
+                loading="lazy"
+              />
             </div>
           </div>
         </section>

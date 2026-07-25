@@ -12,23 +12,25 @@ const publications = [
     description: 'A plainspoken guide to foundations, trust, customer relationships, systems, and the real work of growing a healthy small business.',
     href: '/better-business-book',
     label: 'Explore the book',
-    icon: BookOpen,
+    coverImage: 'https://media.base44.com/images/public/691f41a18de4a7f498c8f884/9671c51cd_TheBetterBusinessBookFront.png',
+    alt: 'The Better Business Book cover by Rick Hesse',
     status: 'Coming soon',
   },
   {
-    title: 'Practical AI',
+    title: 'Practical AI for Small Business',
     subtitle: 'A clear, nontechnical guide to using AI in a real business.',
     description: 'Learn where AI is useful, where human judgment still matters, and how to avoid turning another powerful tool into another source of confusion.',
-    href: '/practical-ai',
+    href: '/practical-ai-for-small-business',
     label: 'Explore Practical AI',
-    icon: BrainCircuit,
+    coverImage: 'https://media.base44.com/images/public/691f41a18de4a7f498c8f884/919f0b245_Practical_AI_for_Small_BusinessBookFrontCover.png',
+    alt: 'Practical AI for Small Business book cover by Rick Hesse',
     status: 'Coming soon',
   },
   {
     title: 'The NTA Journal',
     subtitle: 'Ongoing lessons for business owners navigating change.',
     description: 'Short, practical articles connecting business fundamentals, digital trust, customer relationships, and useful AI.',
-    href: '/nta-journal',
+    href: '/journal',
     label: 'Visit the Journal',
     icon: Newspaper,
     status: 'Publishing platform',
@@ -58,14 +60,25 @@ export default function Books() {
 
         <section className="px-6 py-20">
           <div className="mx-auto grid max-w-6xl gap-7 lg:grid-cols-3">
-            {publications.map(({ title, subtitle, description, href, label, icon: Icon, status }) => (
-              <article key={title} className="flex h-full flex-col rounded-3xl border border-slate-800 bg-slate-900/70 p-8">
-                <div className="mb-6 flex items-center justify-between gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-300">
-                    <Icon className="h-6 w-6" />
-                  </div>
+            {publications.map(({ title, subtitle, description, href, label, coverImage, alt, icon: Icon, status }) => (
+              <article key={title} className="flex h-full flex-col rounded-3xl border border-slate-800 bg-slate-900/70 p-6">
+                <div className="mb-4 flex items-center justify-end">
                   <span className="rounded-full border border-slate-700 bg-slate-950 px-3 py-1 text-xs font-bold uppercase tracking-wider text-slate-400">{status}</span>
                 </div>
+                {coverImage ? (
+                  <div className="mb-6 overflow-hidden rounded-xl bg-slate-900 aspect-[3/4] flex items-center justify-center relative shadow-lg">
+                    <img 
+                      src={coverImage} 
+                      alt={alt} 
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+                ) : (
+                  <div className="mb-6 overflow-hidden rounded-xl bg-emerald-500/10 aspect-[3/4] flex items-center justify-center text-emerald-400 shadow-lg">
+                    <Icon className="w-16 h-16 hover:scale-110 transition-transform duration-500" />
+                  </div>
+                )}
                 <h2 className="text-2xl font-bold text-white">{title}</h2>
                 <p className="mt-3 font-medium text-blue-200">{subtitle}</p>
                 <p className="mt-5 flex-1 leading-7 text-slate-400">{description}</p>
