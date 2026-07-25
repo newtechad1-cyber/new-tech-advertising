@@ -32,7 +32,8 @@ const publications = [
     description: 'Short, practical articles connecting business fundamentals, digital trust, customer relationships, and useful AI.',
     href: '/journal',
     label: 'Visit the Journal',
-    icon: Newspaper,
+    coverImage: 'https://media.base44.com/images/public/691f41a18de4a7f498c8f884/01b890ce2_NTAJournal.png',
+    alt: 'NTA Journal cover',
     status: 'Publishing platform',
   },
 ];

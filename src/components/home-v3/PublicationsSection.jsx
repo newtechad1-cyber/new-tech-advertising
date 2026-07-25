@@ -53,15 +53,20 @@ export default function PublicationsSection() {
 
           {/* NTA Journal */}
           <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 flex flex-col group hover:border-slate-700 transition-colors shadow-sm">
-            <div className="mb-6 overflow-hidden rounded-xl bg-emerald-500/10 aspect-[3/4] flex items-center justify-center text-emerald-400 shadow-lg group-hover:bg-emerald-500/20 transition-colors">
-              <Newspaper className="w-16 h-16 group-hover:scale-110 transition-transform duration-500" />
+            <div className="mb-6 overflow-hidden rounded-xl bg-slate-900 aspect-[3/4] flex items-center justify-center relative shadow-lg">
+              <img 
+                src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/01b890ce2_NTAJournal.png" 
+                alt="NTA Journal cover" 
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
             </div>
             <h3 className="text-xl font-bold text-white mb-2">NTA Journal</h3>
             <p className="text-sm text-slate-400 leading-relaxed mb-6 flex-1">
-              The official publication of New Tech Advertising, covering digital systems, authority building, market trends, and practical operational tactics.
+              Practical business, growth, and AI insights for small business owners.
             </p>
             <Link to="/journal" className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg border border-slate-800 transition-colors text-sm">
-              Read the Journal <ArrowRight className="w-4 h-4" />
+              View the Journal <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
