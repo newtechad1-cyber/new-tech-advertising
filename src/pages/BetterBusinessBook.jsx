@@ -27,7 +27,7 @@ export default function BetterBusinessBook() {
       <main>
         <section className="relative overflow-hidden border-b border-slate-800 px-6 pb-20 pt-32">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.18),transparent_38%)]" />
-          <div className="relative mx-auto grid max-w-6xl grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(280px,420px)] gap-10 lg:gap-14 items-center">
+          <div className="relative mx-auto grid max-w-6xl grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             <div>
               <p className="mb-5 text-sm font-bold uppercase tracking-[0.22em] text-blue-400">An NTA Business Guide</p>
               <h1 className="text-4xl font-bold tracking-tight text-white md:text-6xl">The Better Business Book</h1>

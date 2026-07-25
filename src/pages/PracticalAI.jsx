@@ -19,7 +19,7 @@ export default function PracticalAI() {
         {/* 1. Hero section */}
         <section className="relative overflow-hidden border-b border-slate-800 px-6 pb-20 pt-32">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(79,70,229,0.2),transparent_42%)]" />
-          <div className="relative mx-auto grid max-w-6xl grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(280px,420px)] gap-10 lg:gap-14 items-center">
+          <div className="relative mx-auto grid max-w-6xl grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             <div>
               <p className="mb-5 text-sm font-bold uppercase tracking-[0.22em] text-indigo-400">Business education first. AI second.</p>
               <h1 className="text-4xl font-bold tracking-tight text-white md:text-6xl">Practical AI for Small Business</h1>
