@@ -17,35 +17,39 @@ export default function PracticalAI() {
 
       <main>
         {/* 1. Hero section */}
-        <section className="relative overflow-hidden border-b border-slate-800 px-6 pb-20 pt-32">
+        <section className="relative overflow-hidden border-b border-slate-800">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(79,70,229,0.2),transparent_42%)]" />
-          <div className="relative mx-auto grid max-w-6xl grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-            <div>
-              <p className="mb-5 text-sm font-bold uppercase tracking-[0.22em] text-indigo-400">Business education first. AI second.</p>
-              <h1 className="text-4xl font-bold tracking-tight text-white md:text-6xl">Practical AI for Small Business</h1>
-              <p className="mt-5 text-2xl font-medium leading-relaxed text-indigo-100">
-                A plainspoken guide for business owners who want to understand AI without the hype, jargon, or confusion.
-              </p>
-              <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-300">
-                AI can help a small business, but only when it serves a real business purpose. This guide starts with business first — customers, trust, communication, follow-up, systems, and decision-making — then shows where AI can genuinely support the work.
-              </p>
-              <p className="mt-5 text-lg font-semibold text-indigo-300">
-                People Always. AI Where It Genuinely Helps.
-              </p>
-              <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-                <a href="#guide-request" className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-7 py-4 font-bold text-white hover:bg-indigo-500 transition-colors">
-                  Get the Practical AI Guide <ArrowRight className="h-4 w-4" />
-                </a>
+          <div className="relative mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 lg:gap-16">
+              
+              <div className="w-full lg:w-1/2 xl:w-[55%]">
+                <p className="mb-5 text-sm font-bold uppercase tracking-[0.22em] text-indigo-400">Business education first. AI second.</p>
+                <h1 className="text-4xl font-bold tracking-tight text-white md:text-6xl">Practical AI for Small Business</h1>
+                <p className="mt-5 text-2xl font-medium leading-relaxed text-indigo-100">
+                  A plainspoken guide for business owners who want to understand AI without the hype, jargon, or confusion.
+                </p>
+                <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-300">
+                  AI can help a small business, but only when it serves a real business purpose. This guide starts with business first — customers, trust, communication, follow-up, systems, and decision-making — then shows where AI can genuinely support the work.
+                </p>
+                <p className="mt-5 text-lg font-semibold text-indigo-300">
+                  People Always. AI Where It Genuinely Helps.
+                </p>
+                <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+                  <a href="#guide-request" className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-7 py-4 font-bold text-white hover:bg-indigo-500 transition-colors">
+                    Get the Practical AI Guide <ArrowRight className="h-4 w-4" />
+                  </a>
+                </div>
               </div>
-            </div>
 
-            <div className="flex justify-center lg:justify-end">
-              <img 
-                src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/919f0b245_Practical_AI_for_Small_BusinessBookFrontCover.png" 
-                alt="Practical AI for Small Business book cover by Rick Hesse" 
-                className="w-full max-w-[260px] sm:max-w-[320px] lg:max-w-[380px] xl:max-w-[420px] h-auto object-contain rounded-xl shadow-2xl shadow-indigo-950/40"
-                loading="lazy"
-              />
+              <div className="w-full lg:w-1/2 xl:w-[45%] flex justify-center lg:justify-end">
+                <img 
+                  src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/919f0b245_Practical_AI_for_Small_BusinessBookFrontCover.png" 
+                  alt="Practical AI for Small Business book cover by Rick Hesse" 
+                  className="w-full max-w-[260px] sm:max-w-[320px] lg:max-w-[360px] xl:max-w-[400px] h-auto object-contain rounded-xl shadow-2xl shadow-indigo-950/40"
+                  loading="eager"
+                />
+              </div>
+
             </div>
           </div>
         </section>

@@ -25,33 +25,37 @@ export default function BetterBusinessBook() {
       <MarketingNav />
 
       <main>
-        <section className="relative overflow-hidden border-b border-slate-800 px-6 pb-20 pt-32">
+        <section className="relative overflow-hidden border-b border-slate-800">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.18),transparent_38%)]" />
-          <div className="relative mx-auto grid max-w-6xl grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-            <div>
-              <p className="mb-5 text-sm font-bold uppercase tracking-[0.22em] text-blue-400">An NTA Business Guide</p>
-              <h1 className="text-4xl font-bold tracking-tight text-white md:text-6xl">The Better Business Book</h1>
-              <p className="mt-5 text-2xl font-medium leading-relaxed text-blue-100">What decades of business experience taught me about building something that works.</p>
-              <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-300">
-                This is not a book about shortcuts, hype, or the newest marketing trick. It is a practical guide to the principles beneath a healthy business: a strong foundation, customer trust, lasting relationships, useful systems, and steady improvement.
-              </p>
-              <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-                <a href="#book-updates" className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-7 py-4 font-bold text-white hover:bg-blue-500">
-                  Request the book <ArrowRight className="h-4 w-4" />
-                </a>
-                <Link to="/knowledge/business-foundations" className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-900 px-7 py-4 font-bold text-white hover:bg-slate-800">
-                  Read Business Foundations <Library className="h-4 w-4" />
-                </Link>
+          <div className="relative mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 lg:gap-16">
+              
+              <div className="w-full lg:w-1/2 xl:w-[55%]">
+                <p className="mb-5 text-sm font-bold uppercase tracking-[0.22em] text-blue-400">An NTA Business Guide</p>
+                <h1 className="text-4xl font-bold tracking-tight text-white md:text-6xl">The Better Business Book</h1>
+                <p className="mt-5 text-2xl font-medium leading-relaxed text-blue-100">What decades of business experience taught me about building something that works.</p>
+                <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-300">
+                  This is not a book about shortcuts, hype, or the newest marketing trick. It is a practical guide to the principles beneath a healthy business: a strong foundation, customer trust, lasting relationships, useful systems, and steady improvement.
+                </p>
+                <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+                  <a href="#book-updates" className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-7 py-4 font-bold text-white hover:bg-blue-500">
+                    Request the book <ArrowRight className="h-4 w-4" />
+                  </a>
+                  <Link to="/knowledge/business-foundations" className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-900 px-7 py-4 font-bold text-white hover:bg-slate-800">
+                    Read Business Foundations <Library className="h-4 w-4" />
+                  </Link>
+                </div>
               </div>
-            </div>
 
-            <div className="flex justify-center lg:justify-end">
-              <img 
-                src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/9671c51cd_TheBetterBusinessBookFront.png" 
-                alt="The Better Business Book cover by Rick Hesse" 
-                className="w-full max-w-[260px] sm:max-w-[320px] lg:max-w-[380px] xl:max-w-[420px] h-auto object-contain rounded-xl shadow-2xl shadow-blue-950/40"
-                loading="lazy"
-              />
+              <div className="w-full lg:w-1/2 xl:w-[45%] flex justify-center lg:justify-end">
+                <img 
+                  src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/9671c51cd_TheBetterBusinessBookFront.png" 
+                  alt="The Better Business Book cover by Rick Hesse" 
+                  className="w-full max-w-[260px] sm:max-w-[320px] lg:max-w-[360px] xl:max-w-[400px] h-auto object-contain rounded-xl shadow-2xl shadow-blue-950/40"
+                  loading="eager"
+                />
+              </div>
+
             </div>
           </div>
         </section>
