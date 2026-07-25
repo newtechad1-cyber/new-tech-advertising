@@ -27,7 +27,7 @@ export default function BetterBusinessBook() {
       <main>
         <section className="relative overflow-hidden border-b border-slate-800">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.18),transparent_38%)]" />
-          <div className="relative mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40">
+          <div className="relative mx-auto max-w-7xl px-6 py-16 sm:py-20 lg:px-8 lg:py-24 pt-32 sm:pt-32 lg:pt-32">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 lg:gap-16">
               
               <div className="w-full lg:w-1/2 xl:w-[55%]">
@@ -51,7 +51,7 @@ export default function BetterBusinessBook() {
                 <img 
                   src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/9671c51cd_TheBetterBusinessBookFront.png" 
                   alt="The Better Business Book cover by Rick Hesse" 
-                  className="w-full max-w-[260px] sm:max-w-[320px] lg:max-w-[360px] xl:max-w-[400px] h-auto object-contain rounded-xl shadow-2xl shadow-blue-950/40"
+                  className="w-full max-w-[260px] sm:max-w-[320px] lg:max-w-[360px] xl:max-w-[400px] h-auto object-contain rounded-xl shadow-2xl"
                   loading="eager"
                 />
               </div>
