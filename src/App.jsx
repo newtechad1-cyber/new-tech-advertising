@@ -13,6 +13,7 @@ import { AdminGuard, ClientGuard } from '@/components/auth/RoleGuard';
 import AdminLayout from '@/components/admin/AdminLayout';
 import NoIndexMeta from '@/components/auth/NoIndexMeta';
 import { classifyAppRoute, classifyPageKey, requiresAuth, shouldNoIndex, userHasAccess } from '@/config/routeGovernance';
+import { filterPagesForSurface, getSurfaceRedirectUrl, resolveAppSurface } from '@/config/surfaceGovernance';
 import Login from './pages/Login';
 import SignupPage from './pages/SignupPage';
 // — Eagerly loaded public pages (tiny, critical for first paint) —
@@ -352,7 +353,12 @@ const PartnerQuickStart = lazy(() => import('./pages/PartnerQuickStart.jsx'));
 const BusinessJourney = lazy(() => import('./pages/BusinessJourney.jsx'));
 const OurStory = lazy(() => import('./pages/OurStory.jsx'));
 
-const { Pages, Layout, mainPage } = pagesConfig;
+const { Layout, mainPage } = pagesConfig;
+const appSurface = resolveAppSurface(
+  typeof window === 'undefined' ? '' : window.location.hostname,
+  import.meta.env.VITE_APP_SURFACE
+);
+const Pages = filterPagesForSurface(pagesConfig.Pages, appSurface);
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
 const MainPage = mainPageKey ? Pages[mainPageKey] : <></>;
 
@@ -382,6 +388,18 @@ const AuthGate = ({ children }) => {
   const access = classifyAppRoute(pathname, Object.keys(Pages));
   const needsAuth = requiresAuth(access);
   const needsNoIndex = shouldNoIndex(access);
+  const surfaceRedirect = getSurfaceRedirectUrl({
+    hostname: window.location.hostname,
+    pathname,
+    search: window.location.search,
+    hash: window.location.hash,
+    access,
+  });
+
+  if (surfaceRedirect) {
+    window.location.replace(surfaceRedirect);
+    return null;
+  }
 
   // Public / noindex paths — no auth needed
   if (!needsAuth) {
