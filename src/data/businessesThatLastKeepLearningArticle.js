@@ -32,6 +32,10 @@ export const businessesThatLastKeepLearningArticle = {
     {
       title: "I Was Early Again",
       url: "/i-was-early-again"
+    },
+    {
+      title: "The Small Business Advantage: You Can Move Faster Than the Giants",
+      url: "/knowledge/articles/the-small-business-advantage-you-can-move-faster-than-the-giants"
     }
   ],
   facebookPost: "Change is hard. I understand why a business owner says, “We’ve always done it this way.” But the market keeps moving even when we do not. The businesses that last are not the ones that chase every trend. They are the ones that protect their values, keep learning, and adapt their methods when customers and circumstances change. I wrote a new NTA lesson about how to approach change without losing what made the business worth building.",
@@ -312,6 +316,7 @@ It is how we protect it.
 
 ### Related NTA Lessons
 
+- [The Small Business Advantage: You Can Move Faster Than the Giants](/knowledge/articles/the-small-business-advantage-you-can-move-faster-than-the-giants)
 - [How Businesses Really Grow](/knowledge/business-foundations/how-businesses-really-grow)
 - [Every System Produces Exactly What It Was Designed to Produce](/knowledge/business-foundations/every-system-produces-exactly-what-it-was-designed-to-produce)
 - [Understanding Before Spending](/knowledge/business-foundations/understanding-before-spending)
