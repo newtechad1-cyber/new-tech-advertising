@@ -6,10 +6,12 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import { flagshipArticleToolsVsSystem, flagshipArticleDIYToDFY } from '@/data/flagshipArticles';
+import { businessesThatLastKeepLearningArticle } from '@/data/businessesThatLastKeepLearningArticle';
 
 const articlesMap = {
   [flagshipArticleToolsVsSystem.slug]: flagshipArticleToolsVsSystem,
-  [flagshipArticleDIYToDFY.slug]: flagshipArticleDIYToDFY
+  [flagshipArticleDIYToDFY.slug]: flagshipArticleDIYToDFY,
+  [businessesThatLastKeepLearningArticle.slug]: businessesThatLastKeepLearningArticle
 };
 
 export default function FlagshipArticle() {
@@ -29,14 +31,14 @@ export default function FlagshipArticle() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
       <SEOHead
-        title={article.title + " | NTA Perspectives"}
-        description={article.primaryAudience}
+        title={article.pageTitle || article.title + " | NTA Perspectives"}
+        description={article.searchDescription || article.primaryAudience}
         articleData={{
           title: article.title,
-          description: article.primaryAudience,
+          description: article.searchDescription || article.primaryAudience,
           author: article.author || "Rick Hesse",
-          datePublished: "2026-07-15",
-          dateModified: "2026-07-15",
+          datePublished: article.datePublished || "2026-07-15",
+          dateModified: article.dateModified || article.datePublished || "2026-07-15",
           slug: `/knowledge/articles/${article.slug}`
         }}
       />
