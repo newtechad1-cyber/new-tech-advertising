@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:public": "VITE_APP_SURFACE=public vite build",
+    "build:private": "VITE_APP_SURFACE=private vite build",
     "lint": "eslint .",
     "test:growth-guide": "node --test src/lib/growth-guide/*.test.js",
     "test:route-governance": "node --test tests/route-governance.test.mjs",
