@@ -17,6 +17,7 @@ test('dynamic route overrides match real parameter values', () => {
 test('static public routes remain public and case-insensitive', () => {
   assert.equal(classifyRoute('/books'), 'public');
   assert.equal(classifyRoute('/BOOKS/'), 'public');
+  assert.equal(classifyRoute('/start-a-business'), 'public');
   assert.equal(classifyRoute('/growth-guide?source=home'), 'public');
 });
 
