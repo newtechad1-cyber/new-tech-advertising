@@ -7,6 +7,7 @@ import SEOHead from '@/components/shared/SEOHead';
 import { masterCurriculumMap, collectionsOrder } from '@/data/masterCurriculum';
 import { flagshipArticleToolsVsSystem, flagshipArticleDIYToDFY } from '@/data/flagshipArticles';
 import { businessesThatLastKeepLearningArticle } from '@/data/businessesThatLastKeepLearningArticle';
+import { smallBusinessSpeedAdvantageArticle } from '@/data/smallBusinessSpeedAdvantageArticle';
 import { getJourneyMemory, resetJourneyMemory } from '@/lib/journeyMemory';
 
 export default function KnowledgeLibrary() {
@@ -258,6 +259,33 @@ export default function KnowledgeLibrary() {
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-transparent" />
                   <Lightbulb className="w-16 h-16 text-blue-500/50 mb-4 mx-auto" />
                   <p className="text-sm font-bold text-white relative z-10 italic">"{businessesThatLastKeepLearningArticle.primaryPrinciple}"</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Perspective 4 */}
+            <div className="flex flex-col md:flex-row-reverse gap-10 items-center">
+              <div className="flex-1">
+                <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-2 block">
+                  New NTA Perspective
+                </span>
+                <h2 className="text-3xl font-black text-white mb-4">
+                  {smallBusinessSpeedAdvantageArticle.title}
+                </h2>
+                <p className="text-slate-400 leading-relaxed mb-6">
+                  {smallBusinessSpeedAdvantageArticle.searchDescription}
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link to={`/knowledge/articles/${smallBusinessSpeedAdvantageArticle.slug}`} className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-xl transition-colors text-center">
+                    Read the Article
+                  </Link>
+                </div>
+              </div>
+              <div className="w-full md:w-1/3 flex-shrink-0 relative">
+                <div className="aspect-square bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden flex items-center justify-center p-8 text-center relative group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/20 to-transparent" />
+                  <Target className="w-16 h-16 text-emerald-500/50 mb-4 mx-auto" />
+                  <p className="text-sm font-bold text-white relative z-10 italic">"{smallBusinessSpeedAdvantageArticle.primaryPrinciple}"</p>
                 </div>
               </div>
             </div>
