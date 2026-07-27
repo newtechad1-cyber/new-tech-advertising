@@ -1,20 +1,5 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
-const TWIN_WEBHOOK = 'https://build.twin.so/triggers/66e7b5d6-5948-4eae-90e7-5b040999c124/webhook';
-
-async function fireTwinWebhook(payload) {
-  const webhookKey = Deno.env.get('TWIN_WEBHOOK_KEY');
-  if (!webhookKey) throw new Error('TWIN_WEBHOOK_KEY is not configured');
-
-  const res = await fetch(TWIN_WEBHOOK, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'X-NTA-KEY': webhookKey },
-    body: JSON.stringify(payload),
-  });
-  if (!res.ok) throw new Error(`Webhook failed: ${res.status}`);
-  return await res.json().catch(() => ({}));
-}
-
 function normalize(str) {
   return (str || '').toLowerCase().trim().replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
 }
@@ -119,63 +104,11 @@ Deno.serve(async (req) => {
     });
   }
 
-  // Fire Twin webhook
-  let webhookStatus = 'skipped';
-  let webhookResponse = null;
-  if (auto_process) {
-    try {
-      const result = await fireTwinWebhook({
-        submission_id: sub.id,
-        company_id: company?.id,
-        opportunity_id: opportunity?.id,
-        submission_type: sub.submission_type,
-        source_system: sub.source_system,
-        business_name: sub.business_name || sub.name,
-        email: sub.email,
-        phone: sub.phone,
-        website: sub.website,
-      });
-      webhookStatus = 'success';
-      webhookResponse = JSON.stringify(result);
-
-      await base44.asServiceRole.entities.NTAActivity.create({
-        submission_id: sub.id,
-        company_id: company?.id,
-        activity_type: 'webhook_sent',
-        title: `Twin webhook sent for: ${sub.business_name || sub.name}`,
-        source_system: 'process_submission',
-      });
-    } catch (err) {
-      webhookStatus = 'failed';
-      webhookResponse = err.message;
-
-      await base44.asServiceRole.entities.NTAActivity.create({
-        submission_id: sub.id,
-        company_id: company?.id,
-        activity_type: 'webhook_failed',
-        title: `Twin webhook failed for: ${sub.business_name || sub.name}`,
-        details: err.message,
-        source_system: 'process_submission',
-      });
-
-      // Create urgent retry task
-      await base44.asServiceRole.entities.NTATask.create({
-        company_id: company?.id,
-        submission_id: sub.id,
-        task_type: 'webhook_retry',
-        title: `Retry webhook for: ${sub.business_name || sub.name}`,
-        status: 'todo',
-        priority: 'urgent',
-        due_date: new Date().toISOString().slice(0, 10),
-        source_system: 'process_submission',
-      });
-    }
-
-    await base44.asServiceRole.entities.Submission.update(sub.id, {
-      webhook_status: webhookStatus,
-      webhook_response: webhookResponse,
-    });
-  }
+  const webhookStatus = 'skipped';
+  await base44.asServiceRole.entities.Submission.update(sub.id, {
+    webhook_status: webhookStatus,
+    webhook_response: null,
+  });
 
   return Response.json({
     success: true,
