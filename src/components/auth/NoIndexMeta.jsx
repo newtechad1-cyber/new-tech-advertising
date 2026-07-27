@@ -6,20 +6,49 @@ import { useEffect } from 'react';
  */
 export default function NoIndexMeta() {
   useEffect(() => {
-    const meta = document.createElement('meta');
-    meta.name = 'robots';
-    meta.content = 'noindex, nofollow';
-    document.head.appendChild(meta);
+    let meta = document.head.querySelector('meta[name="robots"]');
+    const created = !meta;
 
-    // Also override any existing robots meta that says "index, follow"
-    const existing = document.head.querySelector('meta[name="robots"]');
-    if (existing && existing !== meta) {
-      existing.setAttribute('content', 'noindex, nofollow');
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.name = 'robots';
+      document.head.appendChild(meta);
     }
 
+    const count = Number(meta.dataset.ntaNoindexGuardCount || 0);
+    if (count === 0) {
+      meta.dataset.ntaNoindexPreviousContent = meta.getAttribute('content') || '';
+      meta.dataset.ntaNoindexCreated = created ? 'true' : 'false';
+    }
+
+    meta.dataset.ntaNoindexGuardCount = String(count + 1);
+    meta.setAttribute('content', 'noindex, nofollow');
+
     return () => {
-      if (document.head.contains(meta)) {
-        document.head.removeChild(meta);
+      if (!document.head.contains(meta)) return;
+
+      const remaining = Math.max(
+        0,
+        Number(meta.dataset.ntaNoindexGuardCount || 1) - 1
+      );
+
+      if (remaining > 0) {
+        meta.dataset.ntaNoindexGuardCount = String(remaining);
+        return;
+      }
+
+      const wasCreated = meta.dataset.ntaNoindexCreated === 'true';
+      const previousContent = meta.dataset.ntaNoindexPreviousContent;
+      delete meta.dataset.ntaNoindexGuardCount;
+      delete meta.dataset.ntaNoindexPreviousContent;
+      delete meta.dataset.ntaNoindexCreated;
+
+      if (wasCreated) {
+        meta.remove();
+      } else if (previousContent) {
+        meta.setAttribute('content', previousContent);
+      } else {
+        meta.removeAttribute('content');
       }
     };
   }, []);
