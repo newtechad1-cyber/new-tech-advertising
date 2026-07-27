@@ -12,7 +12,7 @@ import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import { AdminGuard, ClientGuard } from '@/components/auth/RoleGuard';
 import AdminLayout from '@/components/admin/AdminLayout';
 import NoIndexMeta from '@/components/auth/NoIndexMeta';
-import { classifyRoute, classifyPageKey, requiresAuth, shouldNoIndex, userHasAccess } from '@/config/routeGovernance';
+import { classifyAppRoute, classifyPageKey, requiresAuth, shouldNoIndex, userHasAccess } from '@/config/routeGovernance';
 import Login from './pages/Login';
 import SignupPage from './pages/SignupPage';
 // — Eagerly loaded public pages (tiny, critical for first paint) —
@@ -379,7 +379,7 @@ const LayoutWrapper = ({ children, currentPageName }) => Layout ?
 const AuthGate = ({ children }) => {
   const { user, isLoadingAuth, authError, navigateToLogin } = useAuth();
   const pathname = window.location.pathname;
-  const access = classifyRoute(pathname);
+  const access = classifyAppRoute(pathname, Object.keys(Pages));
   const needsAuth = requiresAuth(access);
   const needsNoIndex = shouldNoIndex(access);
 

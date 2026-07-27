@@ -374,6 +374,30 @@ export const PRIVATE_ROUTE_PREFIXES = [
 
 // ─── Route classification engine ─────────────────────────────────────────────
 
+function normalizePathname(pathname) {
+  const withoutQuery = String(pathname || '/').split(/[?#]/, 1)[0];
+  return withoutQuery.replace(/\/+$/, '') || '/';
+}
+
+/**
+ * Match an explicit route override, including React Router-style `:param`
+ * segments. Static segments are matched case-insensitively.
+ */
+export function matchesRoutePattern(pathname, pattern) {
+  const pathSegments = normalizePathname(pathname).split('/').filter(Boolean);
+  const patternSegments = normalizePathname(pattern).split('/').filter(Boolean);
+
+  if (pathSegments.length !== patternSegments.length) {
+    return false;
+  }
+
+  return patternSegments.every((segment, index) => (
+    segment.startsWith(':')
+      ? pathSegments[index].length > 0
+      : segment.toLowerCase() === pathSegments[index].toLowerCase()
+  ));
+}
+
 /**
  * Classify a URL pathname into an access level.
  * @param {string} pathname - The URL pathname (e.g. '/admin/billing')
@@ -381,16 +405,18 @@ export const PRIVATE_ROUTE_PREFIXES = [
  */
 export function classifyRoute(pathname) {
   // 1. Check explicit overrides first
-  const normalized = pathname.replace(/\/$/, '') || '/';
-  if (ROUTE_OVERRIDES[normalized]) {
-    return ROUTE_OVERRIDES[normalized];
+  const normalized = normalizePathname(pathname);
+  for (const [pattern, access] of Object.entries(ROUTE_OVERRIDES)) {
+    if (matchesRoutePattern(normalized, pattern)) {
+      return access;
+    }
   }
 
   // 2. Check prefix rules (case-insensitive, most specific first)
   const lower = normalized.toLowerCase();
   for (const rule of ROUTE_PREFIX_RULES) {
     const prefix = rule.prefix.toLowerCase();
-    if (lower === prefix || lower.startsWith(prefix + '/') || lower.startsWith(prefix)) {
+    if (lower === prefix || lower.startsWith(prefix.endsWith('/') ? prefix : `${prefix}/`)) {
       return rule.access;
     }
   }
@@ -419,6 +445,29 @@ export function classifyPageKey(pageKey) {
 
   // 3. Fall back to URL-based classification (/{pageKey})
   return classifyRoute(`/${pageKey}`);
+}
+
+/**
+ * Classify a browser pathname using both the explicit route registry and the
+ * auto-generated pages.config registry. This prevents a direct route such as
+ * `/LeadPipelineKanban` from bypassing the page-key access policy.
+ */
+export function classifyAppRoute(pathname, registeredPageKeys = []) {
+  const normalized = normalizePathname(pathname);
+  const segments = normalized.split('/').filter(Boolean);
+
+  if (segments.length === 1) {
+    const requestedKey = decodeURIComponent(segments[0]).toLowerCase();
+    const registeredKey = registeredPageKeys.find(
+      pageKey => pageKey.toLowerCase() === requestedKey
+    );
+
+    if (registeredKey) {
+      return classifyPageKey(registeredKey);
+    }
+  }
+
+  return classifyRoute(normalized);
 }
 
 /**
