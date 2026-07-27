@@ -48,6 +48,7 @@ export const ROUTE_PREFIX_RULES = [
   // ── Canon & Journal (public) ──────────────────────────────────────────────
   { prefix: '/canon',                access: 'public' },
   { prefix: '/journal',              access: 'public' },
+  { prefix: '/knowledge',            access: 'public' },
 
   // ── Content management (internal) ─────────────────────────────────────────
   { prefix: '/content-command',      access: 'admin_only' },
@@ -124,7 +125,8 @@ export const PUBLIC_PAGE_KEYS = new Set([
   'PrivacyPolicy', 'TermsOfService', 'SiteMap',
   // Publications and primary public discovery
   'Books', 'BetterBusinessBook', 'PracticalAI', 'JournalLanding',
-  'JournalIssueView', 'GrowthGuide', 'NTAGrowthConversation',
+  'JournalIssueView', 'GrowthGuide', 'NTAGrowthConversation', 'OurWork',
+  'KnowledgeLibrary', 'KnowledgeCollection', 'KnowledgeLesson', 'FlagshipArticle',
   // Industry / vertical marketing pages
   'HvacMarketing', 'HvacIndustry', 'DentistMarketing', 'PlumbingMarketing',
   'RoofingMarketing', 'MedSpaMarketing', 'RestaurantMarketing', 'LocalBusinessMarketing',
@@ -218,6 +220,9 @@ export const ROUTE_OVERRIDES = {
   '/our-work':                   'public',
   '/our-story':                  'public',
   '/knowledge':                  'public',
+  '/knowledge/prompts':          'admin_only',
+  '/knowledge/sales-conversations': 'admin_only',
+  '/knowledge/playbook':         'admin_only',
   '/brand-book':                 'public',
   '/insights':                   'public',
   '/insights/:slug':             'public',
@@ -421,8 +426,10 @@ export function classifyRoute(pathname) {
     }
   }
 
-  // 3. Default: public
-  return 'public';
+  // 3. Unknown URL paths are private by default. Public routes must be
+  // explicitly governed above so a newly added operating page cannot become
+  // public merely because its name does not match a known private prefix.
+  return 'admin_only';
 }
 
 /**
@@ -443,7 +450,9 @@ export function classifyPageKey(pageKey) {
     }
   }
 
-  // 3. Fall back to URL-based classification (/{pageKey})
+  // 3. Fall back to URL-based classification (/{pageKey}). classifyRoute is
+  // private-by-default, so new auto-generated Base44 pages are protected until
+  // they are deliberately added to PUBLIC_PAGE_KEYS or ROUTE_OVERRIDES.
   return classifyRoute(`/${pageKey}`);
 }
 
