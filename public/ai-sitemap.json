@@ -580,6 +580,63 @@
       }
     ]
   },
+  "publicResources": [
+    {
+      "id": "books",
+      "title": "Free Practical Business Books",
+      "canonicalUrl": "https://newtechadvertising.com/books",
+      "contentType": "CollectionPage",
+      "publicStatus": "published",
+      "lastModified": "2026-07-27"
+    },
+    {
+      "id": "better-business-book",
+      "title": "The Better Business Book",
+      "canonicalUrl": "https://newtechadvertising.com/better-business-book",
+      "contentType": "Book",
+      "author": "Rick Hesse",
+      "publisher": "New Tech Advertising",
+      "publicStatus": "published",
+      "lastModified": "2026-07-27"
+    },
+    {
+      "id": "practical-ai-for-small-business",
+      "title": "Practical AI for Small Business",
+      "canonicalUrl": "https://newtechadvertising.com/practical-ai-for-small-business",
+      "contentType": "Book",
+      "author": "Rick Hesse",
+      "publisher": "New Tech Advertising",
+      "publicStatus": "published",
+      "lastModified": "2026-07-27"
+    },
+    {
+      "id": "nta-journal",
+      "title": "NTA Journal",
+      "canonicalUrl": "https://newtechadvertising.com/journal",
+      "contentType": "CollectionPage",
+      "publisher": "New Tech Advertising",
+      "publicStatus": "published",
+      "lastModified": "2026-07-27"
+    },
+    {
+      "id": "growth-guide",
+      "title": "NTA Growth Guide",
+      "canonicalUrl": "https://newtechadvertising.com/growth-guide",
+      "contentType": "WebApplication",
+      "publisher": "New Tech Advertising",
+      "publicStatus": "published",
+      "lastModified": "2026-07-27"
+    },
+    {
+      "id": "growth-conversation",
+      "title": "NTA Growth Conversation",
+      "canonicalUrl": "https://newtechadvertising.com/growth-conversation",
+      "contentType": "Service",
+      "publisher": "New Tech Advertising",
+      "publicStatus": "published",
+      "lastModified": "2026-07-27"
+    }
+  ],
   "flagshipArticles": [
     {
       "id": "tools-vs-systems",
