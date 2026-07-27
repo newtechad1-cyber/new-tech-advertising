@@ -1,12 +1,14 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
 const TWIN_WEBHOOK = 'https://build.twin.so/triggers/66e7b5d6-5948-4eae-90e7-5b040999c124/webhook';
-const NTA_KEY = 'e762e17c5dafa164dcae394bb01324ed2eef644edd45e621389666be4fbb4910';
 
 async function fireTwinWebhook(payload) {
+  const webhookKey = Deno.env.get('TWIN_WEBHOOK_KEY');
+  if (!webhookKey) throw new Error('TWIN_WEBHOOK_KEY is not configured');
+
   const res = await fetch(TWIN_WEBHOOK, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'X-NTA-KEY': NTA_KEY },
+    headers: { 'Content-Type': 'application/json', 'X-NTA-KEY': webhookKey },
     body: JSON.stringify(payload),
   });
   if (!res.ok) throw new Error(`Webhook failed: ${res.status}`);
