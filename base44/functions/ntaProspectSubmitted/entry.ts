@@ -1,13 +1,14 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
-const NTA_KEY = 'e762e17c5dafa164dcae394bb01324ed2eef644edd45e621389666be4fbb4910';
-
 async function callTwin(webhookUrl, payload) {
+  const webhookKey = Deno.env.get('TWIN_WEBHOOK_KEY');
+  if (!webhookKey) throw new Error('TWIN_WEBHOOK_KEY is not configured');
+
   const response = await fetch(webhookUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'X-NTA-KEY': NTA_KEY,
+      'X-NTA-KEY': webhookKey,
     },
     body: JSON.stringify(payload),
   });
