@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import AdminGuard from '../components/auth/AdminGuard';
 import { base44 } from '@/api/base44Client';
-import { triggerTwinAgent } from '@/api/twinClient';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -9,10 +8,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from 'sonner';
 import {
-  ArrowLeft, BrainCircuit, Zap, Loader2, Play, RefreshCw,
+  ArrowLeft, BrainCircuit, Loader2, Play, RefreshCw,
   DollarSign, BarChart2, Lock, CheckCircle2, XCircle, Clock,
-  AlertTriangle, Pencil, Database, Cpu, Eye, ChevronDown, Plus,
-  Archive, FileText, Sparkles, ExternalLink
+  AlertTriangle, Pencil, Database, Cpu, Eye, Plus,
+  Archive, Sparkles, ExternalLink
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -27,42 +26,10 @@ const STEP_STATUS_CONFIG = {
 
 const PAGE_SIZE = 25;
 
-// Category → webhook URL mapping
-const CATEGORY_WEBHOOKS = {
-  Sales:       'https://build.twin.so/triggers/66e7b5d6-5948-4eae-90e7-5b040999c124/webhook',
-  Proposal:    'https://build.twin.so/triggers/nta-audit-external-trigger/webhook',
-  Close:       'https://build.twin.so/triggers/4a66977d-84e7-4f95-8770-1999a92fc988/webhook',
-  Fulfillment: 'https://build.twin.so/triggers/nta-posting-webhook/webhook',
-  Video:       'https://build.twin.so/triggers/f1a32572-0dfc-4152-9ef9-c9ea24961cf8/webhook',
-};
-
-// Build the payload based on task category
-function buildTwinPayload(task) {
-  const category = task.category || task.agent_key;
-  if (category === 'Sales') {
-    return { category, lead_data: task.inputs ?? task.outputs ?? {}, task_id: task.id };
-  }
-  if (category === 'Proposal') {
-    const markdown = task.outputs?.markdown ?? task.outputs?.content ?? task.inputs?.markdown ?? '';
-    return { category, markdown, task_id: task.id };
-  }
-  if (category === 'Fulfillment') {
-    const production_tasks = task.outputs?.production_tasks ?? task.inputs?.production_tasks ?? [];
-    return { category, production_tasks, task_id: task.id };
-  }
-  return { category, task };
-}
-
 function TasksTab({ onNavigateToLedger }) {
-  const getTwinWebhook = (task) => {
-    const category = task.category || task.agent_key;
-    return CATEGORY_WEBHOOKS[category] ?? null;
-  };
-
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [running, setRunning] = useState({});
-  const [twinRunning, setTwinRunning] = useState({});
   const [viewTask, setViewTask] = useState(null);
   const [taskLedger, setTaskLedger] = useState([]);
   const [ledgerLoading, setLedgerLoading] = useState(false);
@@ -86,24 +53,6 @@ function TasksTab({ onNavigateToLedger }) {
     const entries = await base44.entities.AiCostLedger.filter({ task_id: task.id }, '-created_date', 10);
     setTaskLedger(entries);
     setLedgerLoading(false);
-  };
-
-  const executeTwin = async (task) => {
-    const webhookUrl = getTwinWebhook(task);
-    if (!webhookUrl) {
-      toast.error(`No twin webhook configured for category: ${task.category || task.agent_key}`);
-      return;
-    }
-    setTwinRunning(r => ({ ...r, [task.id]: true }));
-    setTasks(prev => prev.map(t => t.id === task.id ? { ...t, step_status: 'running' } : t));
-    try {
-      await triggerTwinAgent(webhookUrl, buildTwinPayload(task));
-      toast.success('Twin agent triggered successfully');
-    } catch (err) {
-      toast.error(err.message || 'Twin agent trigger failed');
-    } finally {
-      setTwinRunning(r => ({ ...r, [task.id]: false }));
-    }
   };
 
   const runStep = async (task) => {
@@ -196,11 +145,6 @@ function TasksTab({ onNavigateToLedger }) {
                     className="bg-violet-700 hover:bg-violet-600 h-8 text-xs">
                     {running[task.id] ? <Loader2 className="w-3 h-3 animate-spin mr-1" /> : <Play className="w-3 h-3 mr-1" />}
                     Run Step
-                  </Button>
-                  <Button size="sm" onClick={() => executeTwin(task)} disabled={twinRunning[task.id]}
-                    className="bg-cyan-800 hover:bg-cyan-700 h-8 text-xs">
-                    {twinRunning[task.id] ? <Loader2 className="w-3 h-3 animate-spin mr-1" /> : <Zap className="w-3 h-3 mr-1" />}
-                    Trigger Twin Execution
                   </Button>
                 </div>
               </div>

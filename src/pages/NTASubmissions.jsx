@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -6,8 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from 'sonner';
-import { Inbox, RefreshCw, Loader2, Search, Zap, Building2, Target, Archive, Eye } from 'lucide-react';
-import { triggerTwinAgent } from '@/api/twinClient';
+import { Inbox, RefreshCw, Loader2, Search, Building2, Archive, Eye } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const STATUS_COLORS = {
@@ -55,16 +54,6 @@ export default function NTASubmissions() {
   const act = (id, key, fn) => {
     setActing(a => ({ ...a, [`${id}_${key}`]: true }));
     fn().finally(() => setActing(a => ({ ...a, [`${id}_${key}`]: false })));
-  };
-
-  const resendWebhook = async (sub) => {
-    act(sub.id, 'webhook', async () => {
-      const WEBHOOK = 'https://build.twin.so/triggers/66e7b5d6-5948-4eae-90e7-5b040999c124/webhook';
-      await triggerTwinAgent(WEBHOOK, { submission_id: sub.id, ...sub });
-      await base44.entities.Submission.update(sub.id, { webhook_status: 'sent' });
-      toast.success('Webhook resent');
-      load();
-    });
   };
 
   const createCompany = async (sub) => {
@@ -189,13 +178,6 @@ export default function NTASubmissions() {
                         className="bg-emerald-800 hover:bg-emerald-700 h-7 text-xs">
                         {acting[`${s.id}_company`] ? <Loader2 className="w-3 h-3 animate-spin mr-1" /> : <Building2 className="w-3 h-3 mr-1" />}
                         Create Company
-                      </Button>
-                    )}
-                    {s.webhook_status === 'failed' && (
-                      <Button size="sm" onClick={() => resendWebhook(s)} disabled={acting[`${s.id}_webhook`]}
-                        className="bg-blue-800 hover:bg-blue-700 h-7 text-xs">
-                        {acting[`${s.id}_webhook`] ? <Loader2 className="w-3 h-3 animate-spin mr-1" /> : <Zap className="w-3 h-3 mr-1" />}
-                        Resend
                       </Button>
                     )}
                     <Button size="sm" variant="ghost" onClick={() => markSpam(s)} disabled={acting[`${s.id}_spam`]}
