@@ -7,11 +7,13 @@ import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import { flagshipArticleToolsVsSystem, flagshipArticleDIYToDFY } from '@/data/flagshipArticles';
 import { businessesThatLastKeepLearningArticle } from '@/data/businessesThatLastKeepLearningArticle';
+import { smallBusinessSpeedAdvantageArticle } from '@/data/smallBusinessSpeedAdvantageArticle';
 
 const articlesMap = {
   [flagshipArticleToolsVsSystem.slug]: flagshipArticleToolsVsSystem,
   [flagshipArticleDIYToDFY.slug]: flagshipArticleDIYToDFY,
-  [businessesThatLastKeepLearningArticle.slug]: businessesThatLastKeepLearningArticle
+  [businessesThatLastKeepLearningArticle.slug]: businessesThatLastKeepLearningArticle,
+  [smallBusinessSpeedAdvantageArticle.slug]: smallBusinessSpeedAdvantageArticle
 };
 
 export default function FlagshipArticle() {
