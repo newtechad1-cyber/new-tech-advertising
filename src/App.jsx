@@ -27,6 +27,7 @@ const LearningCenter = lazy(() => import('./pages/LearningCenter'));
 const AiBroughtMeOutOfRetirement = lazy(() => import('./pages/AiBroughtMeOutOfRetirement'));
 const PracticalAI = lazy(() => import('./pages/PracticalAI'));
 const BetterBusinessBook = lazy(() => import('./pages/BetterBusinessBook'));
+const StartABusiness = lazy(() => import('./pages/StartABusiness'));
 const PublishingEngine = lazy(() => import('./pages/PublishingEngine'));
 const PublishingArticleView = lazy(() => import('./pages/PublishingArticleView'));
 const EditorialDashboard = lazy(() => import('./pages/EditorialDashboard'));
@@ -585,6 +586,7 @@ const AuthenticatedApp = () => {
       <Route path="/trial/activation" element={<LayoutWrapper currentPageName="TrialActivation"><TrialActivation /></LayoutWrapper>} />
       <Route path="/join-nta" element={<JoinNTA />} />
       <Route path="/books" element={<LayoutWrapper currentPageName="Books"><Books /></LayoutWrapper>} />
+      <Route path="/start-a-business" element={<LayoutWrapper currentPageName="StartABusiness"><StartABusiness /></LayoutWrapper>} />
       <Route path="/practical-ai" element={<Navigate to="/practical-ai-for-small-business" replace />} />
       <Route path="/services/website-rebuilds" element={<LayoutWrapper currentPageName="WebsiteRebuildService"><WebsiteRebuildService /></LayoutWrapper>} />
       <Route path="/services/social-media-management" element={<LayoutWrapper currentPageName="SocialMediaManagement"><SocialMediaManagement /></LayoutWrapper>} />

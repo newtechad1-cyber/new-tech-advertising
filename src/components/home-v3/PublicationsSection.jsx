@@ -1,6 +1,5 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, Newspaper, BrainCircuit } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export default function PublicationsSection() {
   return (
@@ -44,7 +43,7 @@ export default function PublicationsSection() {
             </div>
             <h3 className="text-xl font-bold text-white mb-2">Practical AI for Small Business</h3>
             <p className="text-sm text-slate-400 leading-relaxed mb-6 flex-1">
-              A clear guide separating real artificial intelligence utility from noise and hype, showing exactly how small businesses can use AI to grow today.
+              A plainspoken guide to where artificial intelligence genuinely helps—and where business judgment, trust, and human relationships still matter most.
             </p>
             <Link to="/practical-ai-for-small-business" className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg border border-slate-800 transition-colors text-sm">
               Learn More <ArrowRight className="w-4 h-4" />

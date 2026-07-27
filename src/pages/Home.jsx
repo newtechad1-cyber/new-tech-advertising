@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, CalendarDays, ClipboardCheck, FolderKanban, Globe, MessageCircle, Users } from 'lucide-react';
+import { ArrowRight, BookOpen, CalendarDays, ClipboardCheck, Compass, FolderKanban, Globe, GraduationCap, Hammer, MessageCircle, Users } from 'lucide-react';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import SEOHead from '../components/shared/SEOHead';
@@ -25,6 +25,10 @@ const HOMEPAGE_FAQS = [
   {
     question: 'How does New Tech Advertising help a local business grow?',
     answer: 'NTA helps local businesses strengthen their foundation, improve visibility and trust, organize customer follow-up, and connect practical AI and business systems into one useful growth approach.',
+  },
+  {
+    question: 'Can NTA help me start a business or turn an idea into something real?',
+    answer: 'Yes. NTA provides practical business education for aspiring entrepreneurs and first-time owners, including help clarifying the customer, problem, offer, growth foundation, and systems an idea needs before more money is spent on tools, marketing, or an app.',
   },
   {
     question: 'Does New Tech Advertising serve businesses outside Iowa?',
@@ -87,8 +91,8 @@ export default function Home() {
   return (
     <div className="bg-slate-950 min-h-screen">
       <SEOHead
-        title="Practical AI and Growth Systems for Small Business | NTA"
-        description="New Tech Advertising helps local businesses strengthen their foundation, attract more customers, improve follow-up, and grow with practical AI and proven business systems."
+        title="Practical Business Education, AI & Growth Systems | NTA"
+        description="New Tech Advertising helps small-business owners and aspiring entrepreneurs understand how businesses grow, use AI practically, and build connected marketing, customer, and operating systems."
         faqs={HOMEPAGE_FAQS}
       />
       <MarketingNav />
@@ -96,6 +100,47 @@ export default function Home() {
       <main>
         <HeroSection />
         <ProblemSection />
+
+        <section className="border-t border-slate-800/50 bg-slate-950 px-6 py-20">
+          <div className="mx-auto max-w-6xl">
+            <div className="mx-auto mb-12 max-w-4xl text-center">
+              <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-blue-400">Education, guidance, and implementation</p>
+              <h2 className="mb-5 text-3xl font-bold text-white md:text-5xl">Learn what works. Understand what comes next. Build the right system.</h2>
+              <p className="text-lg leading-relaxed text-slate-300 md:text-xl">
+                New Tech Advertising is a practical business education and growth company. We teach owners and aspiring entrepreneurs how business growth works, help them understand what their situation needs next, and build the right pieces in the right order.
+              </p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-3">
+              <article className="flex flex-col rounded-2xl border border-slate-800 bg-slate-900/60 p-7">
+                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400"><GraduationCap className="h-5 w-5" /></div>
+                <h3 className="mb-3 text-xl font-bold text-white">Learn from real business experience</h3>
+                <p className="mb-6 flex-1 leading-relaxed text-slate-400">Use the free books, Journal, and Knowledge Library to understand growth, trust, customer relationships, business systems, and practical AI before buying more tools.</p>
+                <Link to="/knowledge" className="inline-flex items-center gap-2 font-semibold text-blue-400 hover:text-blue-300">Explore the Knowledge Library <ArrowRight className="h-4 w-4" /></Link>
+              </article>
+
+              <article className="flex flex-col rounded-2xl border border-slate-800 bg-slate-900/60 p-7">
+                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-400"><Compass className="h-5 w-5" /></div>
+                <h3 className="mb-3 text-xl font-bold text-white">Find the right starting point</h3>
+                <p className="mb-6 flex-1 leading-relaxed text-slate-400">Whether you are improving an existing company or trying to start a business, the Growth Guide helps turn scattered ideas into clearer priorities and a practical next step.</p>
+                <Link to="/growth-guide" className="inline-flex items-center gap-2 font-semibold text-indigo-400 hover:text-indigo-300">Use the Growth Guide <ArrowRight className="h-4 w-4" /></Link>
+              </article>
+
+              <article className="flex flex-col rounded-2xl border border-slate-800 bg-slate-900/60 p-7">
+                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-purple-500/10 text-purple-400"><Hammer className="h-5 w-5" /></div>
+                <h3 className="mb-3 text-xl font-bold text-white">Build what the business actually needs</h3>
+                <p className="mb-6 flex-1 leading-relaxed text-slate-400">NTA can help plan and build the website, customer path, follow-up, knowledge, automation, or custom business system—without forcing every owner into the same package.</p>
+                <Link to="/operating-system" className="inline-flex items-center gap-2 font-semibold text-purple-400 hover:text-purple-300">See how the system works <ArrowRight className="h-4 w-4" /></Link>
+              </article>
+            </div>
+
+            <div className="mt-10 text-center">
+              <Link to="/start-a-business" className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-900 px-7 py-3 font-bold text-white transition-colors hover:bg-slate-800">
+                Starting something new? Begin here <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
 
         <section className="py-20 px-6 bg-slate-950 border-t border-slate-800/50">
           <div className="max-w-6xl mx-auto">
