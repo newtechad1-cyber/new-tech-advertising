@@ -13,6 +13,9 @@
     "name": {
       "type": "string"
     },
+    "business_name": {
+      "type": "string"
+    },
     "phone": {
       "type": "string"
     },
@@ -25,6 +28,19 @@
     "source_page": {
       "type": "string",
       "description": "URL or page title where lead was captured"
+    },
+    "source_url": {
+      "type": "string",
+      "description": "Complete URL where the lead was captured"
+    },
+    "form_type": {
+      "type": "string",
+      "description": "Specific public form that captured the lead"
+    },
+    "unified_intake_processed": {
+      "type": "boolean",
+      "default": false,
+      "description": "Prevents the Lead-created automation from reprocessing a record already created by ntaUnifiedIntake"
     },
     "source_campaign": {
       "type": "string",
