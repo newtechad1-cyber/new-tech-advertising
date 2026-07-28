@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { ArrowRight, CheckCircle, Building2, Mail, Phone, User, Globe, Wrench } from 'lucide-react';
@@ -20,10 +20,9 @@ const SERVICE_TYPES = [
 const PAGE_COUNTS = ['1–10', '11–20', '21–50', '50+'];
 
 export default function RebuildIntake() {
-  const navigate = useNavigate();
   const [step, setStep] = useState(1); // 1=form, 2=success
   const [submitting, setSubmitting] = useState(false);
-  const [partialSuccess, setPartialSuccess] = useState(null); // tracks which step failed
+  const [, setPartialSuccess] = useState(null); // tracks which step failed
 
   // Detect source from URL param e.g. ?source=mason-city or ?source=website-rebuild-service
   const urlParams = new URLSearchParams(window.location.search);
@@ -83,9 +82,13 @@ export default function RebuildIntake() {
         city: form.city,
         state: form.state,
         industry: form.industry,
-        notes: form.notes,
-        source: sourcePage,
-      });
+      notes: form.notes,
+      source: sourcePage,
+      anti_spam: {
+        honeypot: _hp,
+        form_started_at: pageLoadTs,
+      },
+    });
 
       const data = response.data;
       console.log('[RebuildIntake] Response:', data);
@@ -99,28 +102,6 @@ export default function RebuildIntake() {
         setPartialSuccess({ crmFailed: !!data.crm_failed, emailFailed: !!data.email_failed });
         console.warn('[RebuildIntake] Partial failure — crm_failed:', data.crm_failed, 'email_failed:', data.email_failed);
       }
-
-      // Add the requested webhook call
-      fetch('https://grateful-lynx-44.convex.site/api/webhook/lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          secret: 'Y24RdJ7OjvX8lrcjPRDCYcusOnAspC9DbYkqJtY1Zb0',
-          source: 'nta-website',
-          form: '/rebuild-intake',
-          name: form.name,
-          business_name: form.business_name,
-          email: form.email,
-          phone: form.phone,
-          website: form.website,
-          industry: form.industry,
-          service_interest: form.service_type,
-          notes: `Pages: ${form.page_count} | ${form.notes}`,
-          timestamp: new Date().toISOString(),
-          _hp,
-          _ts: pageLoadTs,
-        })
-      }).catch(err => console.log('Webhook failed:', err));
 
       console.log('[RebuildIntake] Success — showing confirmation.');
       setStep(2);
