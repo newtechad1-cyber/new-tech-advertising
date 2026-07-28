@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -62,6 +62,10 @@ export default function FreeAudit() {
         website: form.website,
         industry: form.industry,
         notes: 'Requested a free Business Gap Audit',
+        skip_webhook: true,
+        anti_spam: {
+          honeypot: _hp,
+        },
       });
 
       try {
