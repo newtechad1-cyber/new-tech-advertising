@@ -88,6 +88,17 @@ export default function PublicationSignupForm({
         });
       }
 
+      if (publicationTag === 'nta-journal') {
+        // The Base44 Subscriber record remains authoritative. Brevo sync is a
+        // separate, non-critical delivery step so an email-provider problem
+        // can never erase or reject the subscriber's consent record.
+        try {
+          await base44.functions.invoke('syncJournalSubscriber', { email });
+        } catch (syncError) {
+          console.warn('[PublicationSignupForm] Journal subscriber saved; Brevo sync needs attention', syncError);
+        }
+      }
+
       setSubmitted(true);
       setFormData({ name: '', email: '', businessName: '', consent: false });
     } catch (submissionError) {
