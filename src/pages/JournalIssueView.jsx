@@ -8,11 +8,10 @@ import { Link, useParams, Navigate } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
-import PublicationSignupForm from '@/components/publishing/PublicationSignupForm';
 import { useKnowledgeGraph } from '@/lib/knowledgeGraph';
 import {
   Newspaper, ArrowLeft, ArrowRight, BookOpen, Clock, Calendar,
-  ChevronRight, Pen, Hammer, Lightbulb, Target,
+  ChevronRight, Mail, Pen, Hammer, Lightbulb, Target,
   Rocket, Eye, Tag, Loader2
 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
@@ -277,17 +276,12 @@ export default function JournalIssueView() {
               <div className="max-w-3xl mx-auto text-center">
                 <h2 className="text-xl font-bold text-white mb-3">Enjoyed This Issue?</h2>
                 <p className="text-slate-400 text-sm mb-6">Get The NTA Journal in your inbox every Monday morning.</p>
-                <PublicationSignupForm
-                  publicationTitle="The NTA Journal"
-                  publicationTag="nta-journal"
-                  source={`nta_journal_issue_${issue.issue_number}`}
-                  accent="indigo"
-                  submitLabel="Subscribe to The NTA Journal"
-                  createDeliveryRequest={false}
-                  successMessage="You are subscribed. Future editions of The NTA Journal will be sent to this address."
-                  consentContext={`Subscribed to The NTA Journal from issue ${issue.issue_number}.`}
-                  consentCheckboxText="I want to receive The NTA Journal and related NTA publication updates by email. I can unsubscribe at any time."
-                />
+                <Link
+                  to="/nta-journal#subscribe"
+                  className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 font-bold text-white transition-colors hover:bg-indigo-500"
+                >
+                  <Mail className="h-4 w-4" /> Learn More & Subscribe
+                </Link>
               </div>
             </section>
           </>
