@@ -18,6 +18,7 @@ test('static public routes remain public and case-insensitive', () => {
   assert.equal(classifyRoute('/books'), 'public');
   assert.equal(classifyRoute('/BOOKS/'), 'public');
   assert.equal(classifyRoute('/growth-guide?source=home'), 'public');
+  assert.equal(classifyRoute('/nta-journal'), 'public');
 });
 
 test('prefix rules use path boundaries', () => {
@@ -26,9 +27,10 @@ test('prefix rules use path boundaries', () => {
 });
 
 test('auto-generated page keys cannot bypass page access governance', () => {
-  const pageKeys = ['Home', 'AdminOptimizer', 'LeadPipelineKanban'];
+  const pageKeys = ['Home', 'NtaJournal', 'AdminOptimizer', 'LeadPipelineKanban'];
 
   assert.equal(classifyAppRoute('/Home', pageKeys), 'public');
+  assert.equal(classifyAppRoute('/NtaJournal', pageKeys), 'public');
   assert.equal(classifyAppRoute('/AdminOptimizer', pageKeys), 'admin_only');
   assert.equal(classifyAppRoute('/leadpipelinekanban', pageKeys), 'admin_only');
   assert.equal(shouldNoIndex(classifyAppRoute('/AdminOptimizer', pageKeys)), true);
