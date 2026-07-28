@@ -42,6 +42,33 @@ function withSeedFallback(entities, seedData) {
   return (entities && entities.length > 0) ? entities : seedData;
 }
 
+function isCompleteJournalIssue(issue) {
+  return Boolean(
+    issue?.from_ricks_desk ||
+    issue?.what_we_built ||
+    issue?.what_we_learned ||
+    issue?.what_it_means_for_your_business ||
+    issue?.this_weeks_challenge
+  );
+}
+
+function mergeJournalIssues(entities, seedData) {
+  const byIssue = new Map(seedData.map(issue => [issue.issue_number, issue]));
+
+  for (const issue of (entities || [])) {
+    // Older migrations created "Journal" records by aliasing ordinary
+    // articles. Only complete weekly editions belong in the public archive.
+    if (!isCompleteJournalIssue(issue)) continue;
+
+    const existing = byIssue.get(issue.issue_number);
+    if (!existing || issue.status === 'Published') {
+      byIssue.set(issue.issue_number, issue);
+    }
+  }
+
+  return Array.from(byIssue.values());
+}
+
 // ─── Data Loader ────────────────────────────────────────────────────────────
 async function loadAll() {
   if (isCacheFresh()) {
@@ -65,7 +92,7 @@ async function loadAll() {
     articles: withSeedFallback(articles, ALL_SEED_ASSETS),
     collections: withSeedFallback(collections, SEED_COLLECTIONS),
     videos: withSeedFallback(videos, SEED_YOUTUBE_VIDEOS.map((v, i) => ({ id: `seed-vid-${i}`, ...v }))),
-    journals: withSeedFallback(journals, SEED_JOURNAL_ENTRIES),
+    journals: mergeJournalIssues(journals, SEED_JOURNAL_ENTRIES),
   };
 
   _cache = { ...result, ts: Date.now() };
