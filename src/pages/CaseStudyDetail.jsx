@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -8,7 +8,7 @@ import SiteFooter from '../components/marketing/SiteFooter';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ArrowRight, CheckCircle, MapPin, TrendingUp, Users, Phone } from 'lucide-react';
+import { ArrowRight, CheckCircle, MapPin, TrendingUp, Users } from 'lucide-react';
 import { toast } from 'sonner';
 
 const SERVICE_LABELS = {
@@ -31,15 +31,8 @@ function LeadForm({ city, service }) {
     e.preventDefault();
     setLoading(true);
     try {
-      await base44.entities.Lead.create({
-        ...form,
-        source: 'case-study',
-        service_interest: service,
-        status: 'new',
-      });
-
-      // Mirror to NTA Unified Intake (non-blocking)
-      base44.functions.invoke('ntaUnifiedIntake', {
+      // Save the complete submission through NTA Unified Intake
+      await base44.functions.invoke('ntaUnifiedIntake', {
         submission_type: 'case_study_inquiry',
         mapping_confidence: 'hardcoded',
         mapping_notes: `CaseStudyDetail.jsx; service_used=${service}`,
@@ -55,7 +48,7 @@ function LeadForm({ city, service }) {
         notes: `Inquired from case study: ${service}`,
         priority: 'medium',
         is_high_intent: true,
-      }).catch(err => console.warn('[CaseStudyDetail] NTA mirror failed:', err.message));
+      });
 
       await base44.integrations.Core.SendEmail({
         from_name: 'NTA Case Study Lead',
@@ -112,7 +105,6 @@ function LeadForm({ city, service }) {
 }
 
 export default function CaseStudyDetail() {
-  const urlParams = new URLSearchParams(window.location.search);
   const slug = window.location.pathname.split('/').pop();
 
   const { data: studies = [], isLoading } = useQuery({
