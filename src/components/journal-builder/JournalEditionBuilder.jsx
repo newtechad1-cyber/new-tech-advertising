@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { ChevronLeft, Save, Send, Eye, FileText, LayoutList, MessageSquare, Plus, Trash2, Star, Check, AlertTriangle, Loader2 } from 'lucide-react';
+import { ChevronLeft, Save, Send, Eye, FileText, LayoutList, MessageSquare, Plus, Trash2, Star, Check, AlertTriangle, Loader2, Mail } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { pointOfViewArticles } from '@/data/povArticles';
@@ -21,6 +21,8 @@ export default function JournalEditionBuilder({ issue, onClose }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [sourceFilter, setSourceFilter] = useState('All');
   const [validationErrors, setValidationErrors] = useState([]);
+  const [emailStatus, setEmailStatus] = useState('');
+  const [sendDialogOpen, setSendDialogOpen] = useState(false);
 
   useEffect(() => {
     loadArticleLibrary();
@@ -98,9 +100,10 @@ export default function JournalEditionBuilder({ issue, onClose }) {
       }
 
       let updated;
-      if (payload.id) {
+      if (payload.id && !String(payload.id).startsWith('seed-')) {
         updated = await base44.entities.JournalIssue.update(payload.id, payload);
       } else {
+        delete payload.id;
         updated = await base44.entities.JournalIssue.create(payload);
       }
 
@@ -137,6 +140,41 @@ export default function JournalEditionBuilder({ issue, onClose }) {
   const tryPublish = () => {
     if (validateForPublish()) {
       setPublishDialogOpen(true);
+    }
+  };
+
+  const sendEmailTest = async () => {
+    setEmailStatus('Sending test...');
+    try {
+      const response = await base44.functions.invoke('sendJournalEdition', {
+        action: 'test',
+        issue: formData,
+      });
+      if (response?.data?.error) throw new Error(response.data.error);
+      setEmailStatus('Test email sent');
+    } catch (error) {
+      console.error('[JournalEditionBuilder] Test email failed', error);
+      setEmailStatus(error?.response?.data?.error || error?.message || 'Test email failed');
+    }
+  };
+
+  const sendToSubscribers = async () => {
+    setEmailStatus('Starting subscriber delivery...');
+    try {
+      const response = await base44.functions.invoke('sendJournalEdition', {
+        action: 'send',
+        issue: formData,
+        confirm_send: true,
+        confirm_issue_slug: formData.slug,
+      });
+      if (response?.data?.error) throw new Error(response.data.error);
+      setEmailStatus('Subscriber delivery started');
+      setFormData((current) => ({ ...current, newsletter_sent: true }));
+    } catch (error) {
+      console.error('[JournalEditionBuilder] Subscriber delivery failed', error);
+      setEmailStatus(error?.response?.data?.error || error?.message || 'Subscriber delivery failed');
+    } finally {
+      setSendDialogOpen(false);
     }
   };
 
@@ -205,8 +243,22 @@ export default function JournalEditionBuilder({ issue, onClose }) {
         <div className="flex items-center gap-3">
           <span className="text-sm font-medium text-slate-400">
             {isSaving && <Loader2 className="w-4 h-4 inline mr-2 animate-spin" />}
-            {saveStatus}
+            {emailStatus || saveStatus}
           </span>
+          {formData.status === 'Published' && (
+            <>
+              <button onClick={sendEmailTest} className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-sm font-bold flex items-center gap-2 transition-colors">
+                <Mail className="w-4 h-4" /> Send Test
+              </button>
+              <button
+                onClick={() => setSendDialogOpen(true)}
+                disabled={formData.newsletter_sent}
+                className="px-4 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded-lg text-sm font-bold flex items-center gap-2 transition-colors disabled:opacity-50"
+              >
+                <Send className="w-4 h-4" /> {formData.newsletter_sent ? 'Email Sent' : 'Email Subscribers'}
+              </button>
+            </>
+          )}
           <button onClick={() => setPreviewOpen(true)} className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-sm font-bold flex items-center gap-2 transition-colors">
             <Eye className="w-4 h-4" /> Preview
           </button>
@@ -454,6 +506,23 @@ export default function JournalEditionBuilder({ issue, onClose }) {
             <AlertDialogAction onClick={() => handleSave('Published')} disabled={isSaving} className="bg-indigo-600 hover:bg-indigo-500 text-white">
               {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
               Publish Edition
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog open={sendDialogOpen} onOpenChange={setSendDialogOpen}>
+        <AlertDialogContent className="bg-slate-900 border-slate-800 text-white">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Email this edition to Journal subscribers?</AlertDialogTitle>
+            <AlertDialogDescription className="text-slate-400">
+              This is a live campaign send. Send and review a test email first. The delivery log prevents the same edition from being sent twice.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="bg-slate-800 text-white border-slate-700 hover:bg-slate-700 hover:text-white">Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={sendToSubscribers} className="bg-blue-700 hover:bg-blue-600 text-white">
+              Email Subscribers
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
