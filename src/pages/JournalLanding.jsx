@@ -3,20 +3,21 @@
  * Weekly publication documenting the public building of New Tech Advertising.
  * Route: /journal
  */
-import React, { useState, useMemo } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import { useKnowledgeGraph } from '@/lib/knowledgeGraph';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
+import PublicationSignupForm from '@/components/publishing/PublicationSignupForm';
 import {
-  Newspaper, Search, Clock, ArrowRight, BookOpen,
-  ChevronRight, Calendar, Tag, Filter, X, Rss, Mail,
+  Newspaper, Search, Clock, BookOpen,
+  Calendar, X, Rss, Mail,
   Loader2, Eye
 } from 'lucide-react';
 import {
-  JOURNAL_CATEGORIES, CATEGORY_COLORS, SECTION_LABELS,
-  formatIssueDate, formatShortDate, estimateReadTime
+  JOURNAL_CATEGORIES, CATEGORY_COLORS,
+  formatShortDate, estimateReadTime
 } from '../components/journal/journalData';
 
 function IssueCard({ issue, featured = false }) {
@@ -102,7 +103,6 @@ export default function JournalLanding() {
   );
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState(null);
-  const [searchParams] = useSearchParams();
 
   const filtered = useMemo(() => {
     let result = [...issues];
@@ -290,16 +290,21 @@ export default function JournalLanding() {
               Get The NTA Journal delivered to your inbox every Monday morning.
               Real stories from building a modern advertising agency.
             </p>
-            <div className="flex items-center justify-center gap-4">
-              <Link
-                to="/gap-audit"
-                className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-8 py-4 rounded-xl transition-colors shadow-lg shadow-indigo-600/20"
-              >
-                <Mail className="w-5 h-5" /> Subscribe
-              </Link>
+            <PublicationSignupForm
+              publicationTitle="The NTA Journal"
+              publicationTag="nta-journal"
+              source="nta_journal_landing"
+              accent="indigo"
+              submitLabel="Subscribe to The NTA Journal"
+              createDeliveryRequest={false}
+              successMessage="You are subscribed. Future editions of The NTA Journal will be sent to this address."
+              consentContext="Subscribed to The NTA Journal from the Journal landing page."
+              consentCheckboxText="I want to receive The NTA Journal and related NTA publication updates by email. I can unsubscribe at any time."
+            />
+            <div className="mt-5 flex items-center justify-center">
               <a
                 href="/rss"
-                className="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold px-6 py-4 rounded-xl transition-colors"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-slate-400 transition-colors hover:text-white"
               >
                 <Rss className="w-4 h-4 text-orange-400" /> RSS
               </a>
