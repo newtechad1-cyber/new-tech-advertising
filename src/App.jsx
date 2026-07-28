@@ -30,6 +30,7 @@ const BetterBusinessBook = lazy(() => import('./pages/BetterBusinessBook'));
 const PublishingEngine = lazy(() => import('./pages/PublishingEngine'));
 const PublishingArticleView = lazy(() => import('./pages/PublishingArticleView'));
 const EditorialDashboard = lazy(() => import('./pages/EditorialDashboard'));
+const NtaJournal = lazy(() => import('./pages/NtaJournal'));
 const JournalLanding = lazy(() => import('./pages/JournalLanding'));
 const JournalIssueView = lazy(() => import('./pages/JournalIssueView'));
 const CanonExplorer = lazy(() => import('./pages/CanonExplorer'));
@@ -780,6 +781,7 @@ const AuthenticatedApp = () => {
       <Route path="/better-business-book" element={<LayoutWrapper currentPageName="BetterBusinessBook"><BetterBusinessBook /></LayoutWrapper>} />
       <Route path="/PublishingArticleView" element={<LayoutWrapper currentPageName="PublishingArticleView"><PublishingArticleView /></LayoutWrapper>} />
       <Route path="/EditorialDashboard" element={<LayoutWrapper currentPageName="EditorialDashboard"><EditorialDashboard /></LayoutWrapper>} />
+      <Route path="/nta-journal" element={<LayoutWrapper currentPageName="NtaJournal"><NtaJournal /></LayoutWrapper>} />
       <Route path="/journal" element={<LayoutWrapper currentPageName="JournalLanding"><JournalLanding /></LayoutWrapper>} />
       <Route path="/journal/:slug" element={<LayoutWrapper currentPageName="JournalIssueView"><JournalIssueView /></LayoutWrapper>} />
       <Route path="/canon" element={<LayoutWrapper currentPageName="CanonExplorer"><CanonExplorer /></LayoutWrapper>} />
