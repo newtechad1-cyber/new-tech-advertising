@@ -180,7 +180,7 @@ export default function KnowledgeLesson() {
               <div className="p-6 rounded-2xl border border-slate-800 bg-slate-900/50">
                 <h4 className="font-bold text-white mb-2">Never miss a lesson</h4>
                 <p className="text-sm text-slate-400 mb-4">Get the NTA Journal delivered to your inbox every Monday.</p>
-                <Link to="/journal" className="text-sm font-bold text-indigo-400 hover:text-indigo-300">Subscribe to the Journal →</Link>
+                <Link to="/nta-journal" className="text-sm font-bold text-indigo-400 hover:text-indigo-300">Subscribe to the Journal →</Link>
               </div>
             </div>
           </div>
