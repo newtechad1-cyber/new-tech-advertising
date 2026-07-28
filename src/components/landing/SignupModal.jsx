@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ArrowRight, Loader2, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -49,8 +49,8 @@ export default function SignupModal({ isOpen, onClose, submissionType, offerType
       const resolvedSubType = submissionType || 'landing_signup';
       const routeMatched = offerType ? 'prop_override' : inferOfferTypeFromRoute(currentRoute) ? 'route_inferred' : 'fallback';
 
-      // Mirror to NTA Unified Intake (non-blocking)
-      base44.functions.invoke('ntaUnifiedIntake', {
+      // Save the complete submission through NTA Unified Intake
+      await base44.functions.invoke('ntaUnifiedIntake', {
         submission_type: resolvedSubType,
         offer_type: resolvedOfferType,
         mapping_confidence: routeMatched === 'fallback' ? 'fallback' : 'hardcoded',
@@ -67,22 +67,11 @@ export default function SignupModal({ isOpen, onClose, submissionType, offerType
         website: formData.websiteUrl,
         notes: formData.message || '',
         priority: 'medium',
-      }).catch(err => console.warn('[SignupModal] NTA mirror failed:', err.message));
-
-      // Create lead record
-      const lead = await base44.entities.Lead.create({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        business_name: formData.businessName,
-        website_url: formData.websiteUrl,
-        message: formData.message,
-        status: 'new'
       });
 
       // Track lead submission with analytics
       trackLeadSubmit(formData);
-      console.log('SIGNUP_SUCCESS', { leadId: lead.id });
+      console.log('SIGNUP_SUCCESS');
 
       try {
         await base44.integrations.Core.SendEmail({
