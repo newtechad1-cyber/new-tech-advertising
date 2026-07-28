@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
-import { createAgencyLead } from '@/lib/createAgencyLead';
 import { ArrowRight, CheckCircle, Building2, Mail, Phone, User, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -33,20 +32,8 @@ export default function GetStarted() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      // STEP 1 — Create SalesLead + SalesDeal FIRST (canonical intake path)
-      const { salesLead, salesDeal } = await createAgencyLead({
-        business_name: form.business_name,
-        contact_name:  form.name,
-        email:         form.email,
-        phone:         form.phone,
-        industry:      form.industry,
-        lead_source:   'website',
-        notes:         form.message || '',
-      });
-      console.log('[GetStarted] Lead created', salesLead.id, salesDeal.id);
-
-      // STEP 2 — Mirror to NTA Unified Intake (non-blocking)
-      base44.functions.invoke('ntaUnifiedIntake', {
+      // STEP 1 — Save the complete submission and CRM records atomically
+      await base44.functions.invoke('ntaUnifiedIntake', {
         submission_type: 'get_started',
         mapping_confidence: 'hardcoded',
         mapping_notes: 'Get-Started.jsx /get-started; offer_type derived from service_interest',
@@ -62,10 +49,10 @@ export default function GetStarted() {
         notes: form.message || '',
         priority: 'high',
         is_high_intent: true,
-      }).catch(err => console.warn('[GetStarted] NTA mirror failed:', err.message));
+      });
 
-      // STEP 3 — Create or find Company
-      const company = await base44.entities.Company.create({
+      // STEP 2 — Create the onboarding Company used by this legacy flow
+      await base44.entities.Company.create({
         business_name: form.business_name,
         industry: form.industry,
         email: form.email,
@@ -75,21 +62,7 @@ export default function GetStarted() {
         service_tracks: [form.service_interest].filter(s => s !== 'not_sure'),
       });
 
-      // STEP 4 — Create Lead
-      await base44.entities.Lead.create({
-        company_id: company.id,
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-        business_name: form.business_name,
-        industry: form.industry,
-        service_interest: form.service_interest,
-        message: form.message,
-        status: 'new',
-        source: 'website',
-      });
-
-      // STEP 5 — Send notification email
+      // STEP 3 — Keep the existing secondary notification during transition
       await base44.integrations.Core.SendEmail({
         from_name: 'NTA — New Trial Signup',
         to: 'rick@newtechadvertising.com',
