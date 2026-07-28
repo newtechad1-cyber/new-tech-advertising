@@ -1562,12 +1562,110 @@ AI should help you become a more thoughtful decision-maker—not remove you from
   {
     id: 5,
     slug: "a-prompt-is-the-beginning-of-a-conversation",
-    title: "A Prompt Is the Beginning of a Conversation",
-    description: "Good AI results rarely come from finding one perfect instruction. They develop through questions, clarification, examples, correction, and continued conversation.",
-    readingTime: "9–10 min read",
+    title: "Why AI Sometimes Gives You the Wrong Answer",
+    searchTitle: "Why AI Sometimes Gives You the Wrong Answer | NTA",
+    searchDescription: "AI can sound confident and still be wrong. Learn how to question, correct, guide, and verify AI instead of trusting its first answer.",
+    description: "AI can sound confident and still be wrong. Learn how to question, correct, guide, and verify AI through conversation instead of trusting its first answer.",
+    conversationalHook: "Have You Ever Met Someone Who Thinks They Know Everything? AI Can Be Like That.",
+    primarySearchPhrase: "why AI gives wrong answers",
+    relatedSearchPhrases: [
+      "how to correct AI answers",
+      "how to question AI",
+      "AI conversation instead of prompts",
+      "AI for small-business owners",
+      "how to verify AI information",
+      "AI confidence versus accuracy"
+    ],
+    excerpt: "AI may have enormous amounts of information, but information is not the same as wisdom. The owner brings the experience, judgment, context, and responsibility that turn an AI response into useful work.",
+    publishedDate: "2026-07-15",
+    modifiedDate: "2026-07-28",
+    suggestedBookPlacement: "Practical AI for Small Business — after the introduction to context and before the chapter on automation.",
+    suggestedCollectionPlacement: "AI Foundations — Lesson 5, following AI Can Assist Judgment—It Cannot Own It.",
+    socialPackage: {
+      facebook: "Have you ever met someone who always has an answer—even when the answer is wrong? AI can sound that way. It may respond with confidence while missing your experience, your customer, or the facts that matter most. The answer is not to reject AI. Keep the conversation going. Question it, correct it, give it context, and verify anything important before you act. My updated NTA lesson explains a practical way to do that.",
+      linkedin: "A confident answer is not necessarily a wise answer. That is true of people, and it is especially important to remember when using AI in business. AI can organize enormous amounts of information, but the owner still brings lived experience, context, judgment, relationships, and responsibility. The practical skill is not writing one perfect prompt. It is learning to question, correct, guide, and verify the work through conversation. I have strengthened this NTA AI Foundations lesson with a simple method any small-business owner can use.",
+      youtubeTitle: "Why AI Sometimes Gives You the Wrong Answer",
+      youtubeDescription: "AI can sound certain even when it lacks context, makes a weak assumption, or gives an incomplete answer. In this practical lesson for small-business owners, Rick Hesse explains why information is not the same as wisdom and how to question, correct, guide, and verify AI through conversation. Read the complete NTA lesson: https://newtechadvertising.com/knowledge/ai-foundations/a-prompt-is-the-beginning-of-a-conversation",
+      youtubeShortsHooks: [
+        "AI can sound like it knows everything. That does not mean it is right.",
+        "The best AI skill is not the perfect prompt. It is knowing what to question next."
+      ],
+      pinnedYouTubeComment: "What is one AI answer you questioned, corrected, or refused to accept—and what did you learn by continuing the conversation?"
+    },
+    readingTime: "13–15 min read",
     level: "Beginner",
-    takeaway: "A prompt does not need to contain every answer. It needs to begin a useful conversation in which you provide direction, evaluate the result, and continue teaching AI what you need.",
+    takeaway: "AI may have knowledge, but the business owner brings experience, judgment, context, and wisdom. Treat AI as a knowledgeable assistant: question it, correct it, and verify important facts before you act.",
     content: `
+### Have You Ever Met Someone Who Thinks They Know Everything?
+
+Have you ever talked to someone who seems to have all the answers?
+
+They always have an answer.
+
+They always have an opinion.
+
+And they often speak with confidence, whether they understand the whole situation or not.
+
+People who act as though they know everything are not usually the people we trust most. Confidence may make an answer sound impressive, but confidence is not the same thing as wisdom.
+
+AI can come across in a similar way.
+
+I do not mean that AI has an attitude, pride, feelings, or a human mind. It does not. But the answer it produces can resemble the behavior of a person who thinks they know everything.
+
+AI is designed to respond. When we ask it a question, it usually tries to give us an answer. It may state that answer clearly and confidently even when it lacks important context, misunderstands what we mean, relies on a weak assumption, or is simply wrong.
+
+That confidence can fool us.
+
+A polished answer looks finished. A detailed answer looks researched. A fast answer can feel authoritative.
+
+But none of those things prove that the answer is right.
+
+### Information Is Not the Same as Wisdom
+
+AI can work with an enormous amount of information. That is one of the things that makes it useful.
+
+But information is not the same as wisdom.
+
+AI has not spent years serving your customers. It has not watched a trusted employee handle a difficult conversation. It has not lived through a bad business decision, repaired a damaged relationship, or learned why one solution works in theory but fails in your town, your industry, or your company.
+
+It can describe business experience.
+
+It does not possess your lived business experience.
+
+It can identify patterns in language and information.
+
+It does not understand emotion, relationships, responsibility, or common sense in the same way a human being does.
+
+That is why I keep coming back to this distinction:
+
+**AI may have knowledge, but the business owner brings experience, judgment, context, and wisdom.**
+
+The two can work together. But they are not interchangeable.
+
+### Why a Confident AI Answer Can Still Be Wrong
+
+Sometimes AI gives a poor answer because the question was too general.
+
+Sometimes it did not receive enough information about the business.
+
+Sometimes it misunderstood what a word, goal, or situation meant.
+
+Sometimes the available information is incomplete, outdated, disputed, or unreliable.
+
+Sometimes it fills in a missing detail with something that sounds reasonable but is not true.
+
+And sometimes it gives a technically correct answer that still does not fit the people, values, risk, timing, or relationships involved in the real decision.
+
+This is especially important in business. A suggestion about a headline is one thing. Advice that affects money, employees, customers, contracts, health, law, or reputation deserves a much higher level of care.
+
+AI should not be treated as an unquestionable authority.
+
+I think of it as a knowledgeable assistant. It can help me gather ideas, organize information, compare options, find gaps, and see something from another direction. But I remain responsible for deciding whether the answer fits the facts, the business, and the people involved.
+
+The answer is not to reject AI.
+
+The answer is to keep the conversation going.
+
 ### People Are Afraid of Saying the Wrong Thing
 
 When people first begin using AI, they often worry about prompts.
@@ -1778,11 +1876,53 @@ Clear correction improves the work.
 
 It also protects your voice.
 
-AI is not offended when you reject a draft.
-
-You are not hurting its feelings.
+AI does not have feelings to hurt when you reject a draft.
 
 You are providing direction.
+
+### What to Say When an AI Answer Does Not Feel Right
+
+You do not need technical language to challenge an AI answer. Talk to it in the same plain language you would use with a knowledgeable assistant whose work needs to be reviewed.
+
+Here are useful ways to continue the conversation:
+
+* **“What assumptions are you making?”**
+* **“What information might you be missing?”**
+* **“Explain why you reached that conclusion.”**
+* **“Give me another interpretation.”**
+* **“What would an experienced small-business owner question about this?”**
+* **“How confident are you in this answer?”**
+* **“Separate what you know from what you are assuming.”**
+* **“This does not fit my experience. Let’s reconsider it.”**
+
+You can also ask:
+
+* “Which parts of this should I verify before acting?”
+* “What evidence would change your conclusion?”
+* “Show me the strongest argument against this recommendation.”
+* “Ask me the questions you need before giving me another answer.”
+
+These are not tricks or magic prompt formulas. They are normal questions.
+
+They turn a one-way answer into a working conversation.
+
+They also slow us down long enough to think.
+
+The smartest people I know keep asking questions. The people who think they know everything usually stop asking them.
+
+That applies to the person using AI too. Our responsibility is not only to question the machine. We should be willing to question our own assumptions, admit what we do not know, and change direction when the evidence tells us we should.
+
+### Verify What Matters Before You Act
+
+Not every AI response needs a research project.
+
+If AI gives you five possible names for a newsletter section, you can use your judgment and choose one.
+
+If it gives you a legal requirement, medical statement, financial figure, product specification, quotation, statistic, customer record, or claim that could affect an important decision, verify it with the original or authoritative source.
+
+Ask AI to identify its sources when that is useful, but do not assume a source exists merely because the answer includes a link or citation. Open the source. Read the relevant part. Check the date. Make sure the source actually supports the claim.
+
+Important decisions still belong to a person.
 
 ### Don’t Let AI Replace Your Thinking
 
@@ -1938,6 +2078,16 @@ The quality of the result does not depend only on how cleverly you wrote the fir
 
 It depends on how thoughtfully you participated in the conversation that followed.
 
+### Continue Learning
+
+This lesson works together with three other parts of the NTA Knowledge Library:
+
+* [AI Needs Context Before It Can Be Helpful](/knowledge/ai-foundations/ai-needs-context-before-it-can-be-helpful)
+* [AI Can Assist Judgment—It Cannot Own It](/knowledge/ai-foundations/ai-can-assist-judgment-it-cannot-own-it)
+* [AI Does Not Have to Be a Monster](/knowledge/ai-foundations/ai-does-not-have-to-be-a-monster)
+
+You can also explore the complete [AI Foundations collection](/knowledge/ai-foundations) or learn how this teaching fits the [Practical AI for Small Business book](/practical-ai-for-small-business).
+
 ***
 
 ### Reflection Questions
@@ -1964,9 +2114,14 @@ You need to remain an active participant in the work.
       { label: "How to Talk to AI About Your Business", link: "/knowledge/videos" },
       { label: "You Don’t Need the Perfect Prompt", link: "/knowledge/videos" }
     ],
+    relatedLessons: [
+      { label: "AI Needs Context Before It Can Be Helpful", link: "/knowledge/ai-foundations/ai-needs-context-before-it-can-be-helpful" },
+      { label: "AI Can Assist Judgment—It Cannot Own It", link: "/knowledge/ai-foundations/ai-can-assist-judgment-it-cannot-own-it" },
+      { label: "AI Does Not Have to Be a Monster", link: "/knowledge/ai-foundations/ai-does-not-have-to-be-a-monster" }
+    ],
     relatedModules: [
-      { label: "NTA Prompt Library", link: "/knowledge/prompts" },
-      { label: "Knowledge Capture Workspace", link: "/operating-system" }
+      { label: "Practical AI for Small Business", link: "/practical-ai-for-small-business" },
+      { label: "NTA Operating System", link: "/operating-system" }
     ],
     nextLessonSlug: "automation-comes-after-understanding"
   },
