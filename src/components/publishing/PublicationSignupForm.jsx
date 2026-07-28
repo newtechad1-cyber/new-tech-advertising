@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { CheckCircle2, Loader2, Mail } from 'lucide-react';
 
@@ -22,6 +22,8 @@ export default function PublicationSignupForm({
   extraTags = [],
   consentContext,
   consentCheckboxText,
+  submitLabel,
+  createDeliveryRequest = true,
 }) {
   const [formData, setFormData] = useState({ name: '', email: '', businessName: '', consent: false });
   const [loading, setLoading] = useState(false);
@@ -76,8 +78,9 @@ export default function PublicationSignupForm({
         subscriberId = newSub.id;
       }
 
-      // Create PublicationDeliveryRequest only if no direct downloadUrl is provided
-      if (subscriberId && !downloadUrl) {
+      // One-time publications can create a delivery request. Recurring
+      // publications such as the Journal only need the Subscriber record.
+      if (subscriberId && !downloadUrl && createDeliveryRequest) {
         await base44.entities.PublicationDeliveryRequest.create({
           subscriber_id: subscriberId,
           publication_title: publicationTitle,
@@ -86,7 +89,7 @@ export default function PublicationSignupForm({
       }
 
       setSubmitted(true);
-      setFormData({ name: '', email: '', consent: false });
+      setFormData({ name: '', email: '', businessName: '', consent: false });
     } catch (submissionError) {
       console.error('[PublicationSignupForm] Subscription failed', submissionError);
       setError('We could not save your request. Please try again or contact NTA directly.');
@@ -196,7 +199,7 @@ export default function PublicationSignupForm({
         className={`inline-flex w-full items-center justify-center gap-2 rounded-xl px-7 py-4 font-bold text-white transition focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-60 ${accentClasses}`}
       >
         {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Mail className="h-5 w-5" />}
-        {loading ? 'Saving your request...' : `Request ${publicationTitle}`}
+        {loading ? 'Saving your request...' : (submitLabel || `Request ${publicationTitle}`)}
       </button>
     </form>
   );

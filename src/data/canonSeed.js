@@ -117,30 +117,106 @@ export const DUPLICATE_GROUPS = [
   {"canonical": "S-008", "canonical_title": "Website Rebuild Service", "secondaries": [{"id": "S-009", "title": "Website Rebuilds NTA", "action": "redirect"}], "reason": "Three website rebuild pages dilute signals"},
 ];
 
-// ─── Journal Entries (derived from articles) ──────────────────────────────
-export const SEED_JOURNAL_ENTRIES = SEED_ARTICLES.map((a, i) => ({
-  id: `seed-journal-${i + 1}`,
-  issue_number: i + 1,
+// ─── NTA Journal Editions ─────────────────────────────────────────────────
+// A Journal edition is a complete weekly publication, not an article alias.
+// Keeping the launch edition here guarantees that the public archive remains
+// available even before Base44 contains its first JournalIssue record.
+export const SEED_JOURNAL_ENTRIES = [{
+  id: 'seed-journal-issue-1',
+  issue_number: 1,
   volume: 1,
-  title: a.title,
-  slug: a.slug,
-  summary: a.summary,
-  date: a.published_date || '2026-01-01',
-  category: a.primary_theme || 'Building NTA',
-  tags: a.tags || [],
+  title: 'The System Behind the Work',
+  slug: 'issue-1-the-system-behind-the-work',
+  summary: 'The first NTA Journal explains why New Tech Advertising is being built as a connected business system, what changed this week, and why dependable follow-up matters more than adding another tool.',
+  date: '2026-07-28',
   status: 'Published',
-  canon_entry_id: a.canon_id,
-  collection_slugs: a.collection_slugs || [],
-  related_articles: a.related_articles || [],
-  author: a.author || 'Rick Hesse',
-  estimated_read_time: a.estimated_read_time || 4,
-  has_video: a.has_video || false,
-  video_url: a.video_url || null,
+  category: 'Building NTA',
+  series: 'Launch Edition',
+  tags: ['building NTA', 'business systems', 'practical AI', 'digital trust', 'small business'],
+  author: 'Rick Hesse',
+  featured: true,
   featured_image_url: null,
-  from_ricks_desk: null,
-  what_we_built: null,
   views: 0,
-}));
+  newsletter_sent: false,
+  newsletter_subject: 'The NTA Journal #1 — The System Behind the Work',
+  from_ricks_desk: `For a long time, I thought the biggest problem in marketing was finding the right tool. I have bought plenty of them. I have also watched business owners buy websites, advertising, software, automation, and now AI—only to discover that having the tool did not mean they had a working system.
+
+That lesson has shaped the way I am building New Tech Advertising.
+
+NTA is not supposed to be another company that sells a business owner one more disconnected piece. I want it to help the whole business work together: the website, the knowledge a business has earned, the way leads are handled, the follow-up, the customer relationship, and the practical use of AI.
+
+This first edition of The NTA Journal is part of that system. It is where I will share what we are building, what I am learning, what did not work as expected, and what those lessons may mean for another small-business owner.
+
+I do not have a large subscriber list waiting for this first issue. That is all right. Every useful business asset has to begin somewhere. The important thing is to build it correctly, publish it, learn from it, and keep going.`,
+  what_we_built: `This week we worked on the foundation behind NTA's publishing and follow-up systems.
+
+The NTA Knowledge Library has grown into a substantial collection of practical business and AI education. We have also been preparing two books—The Better Business Book and Practical AI for Small Business—so the lessons can be used as complete resources instead of remaining scattered across individual pages.
+
+We built the public Books and Journal sections so those resources have a permanent home. The Journal now has a real first edition and an archive, rather than a page that only says an issue is coming someday.
+
+We also repaired one of the most important parts of the business: what happens when somebody reaches out.
+
+A website form had captured a person's name and email, but it did not preserve enough information to tell me why she contacted NTA. The follow-up also depended too much on outside tools and available AI credits. That is not dependable enough.
+
+The repaired system now preserves the form, page, message, source, contact, opportunity, and follow-up task in the NTA CRM. It sends a direct notification and acknowledgment through Brevo without depending on Victor, Slack, or AI credits. AI can still help research and personalize the next response, but it is no longer responsible for whether a lead is saved or acknowledged in the first place.`,
+  what_we_learned: `The biggest lesson was simple: automation is only valuable when the basic process is dependable.
+
+It is easy to become impressed with what AI can do. It can write, research, organize, analyze, and help build software. I use it every day, and it has allowed me to do work that would once have taken weeks or required several different people.
+
+But AI should not be placed in the middle of a basic business promise unless it belongs there.
+
+If someone fills out a form, the business should save the information. If the person expects a response, the business should acknowledge the message. If the owner needs to follow up, the task should be recorded. None of those things should stop because an AI account ran out of credits.
+
+The right order is:
+
+- Build the dependable business process.
+- Automate the repeatable parts.
+- Use AI where judgment, research, adaptation, or creativity adds value.
+- Keep a clear record so a person can see what happened.
+
+That is practical AI. It supports the business instead of becoming another fragile dependency.`,
+  what_it_means_for_your_business: `Most small businesses do not need more disconnected tools. They need to know whether the tools they already have form a complete path for the customer.
+
+Take one ordinary customer action—filling out a form, calling for an estimate, requesting information, making an appointment, or buying something—and follow it all the way through.
+
+Ask:
+
+- Is the information saved in one dependable place?
+- Can I tell exactly where the person came from and what they wanted?
+- Does the customer receive a clear acknowledgment?
+- Does somebody have a specific follow-up responsibility?
+- Can the process keep working if an AI service, automation service, or employee is temporarily unavailable?
+- Can I look back later and understand what happened?
+
+If the answer is no at any point, that gap matters more than buying another marketing tool.
+
+A business grows when it keeps promises consistently. The website makes a promise. The form makes a promise. The response makes a promise. The follow-up either builds trust or weakens it.
+
+That is why NTA begins with the system behind the marketing. Better advertising cannot repair a broken path after the lead arrives.`,
+  this_weeks_challenge: `Choose one way a new customer enters your business this week.
+
+It might be your website contact form, Facebook message, phone call, referral, online order, or appointment request.
+
+Walk through the process yourself from beginning to end. Use a test name and email if necessary. Then write down:
+
+1. What information was collected?
+2. Where was it saved?
+3. What notification did the business receive?
+4. What response did the customer receive?
+5. Who is responsible for the next step?
+6. What could quietly fail?
+
+Do not start by shopping for software. Start by finding the gap.
+
+Once you can see the whole path, you can decide what should be fixed, what should be automated, and where AI can genuinely help.`,
+  closing_message: `The NTA Journal will continue each week with a plainspoken look at what we are building and what small-business owners can use from it.
+
+No hype. No pretending every experiment works the first time. Just practical lessons from doing the work.`,
+  related_service_slugs: ['growth-conversation', 'operating-system'],
+  related_learning_lesson_ids: ['business-foundations', 'ai-foundations', 'what-is-digital-trust'],
+  cta_text: 'Start Your Growth Conversation',
+  cta_url: '/growth-conversation',
+}];
 
 // ─── Combined seed ────────────────────────────────────────────────────────
 export const ALL_SEED_ASSETS = [

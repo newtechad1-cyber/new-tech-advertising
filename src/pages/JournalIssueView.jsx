@@ -3,15 +3,16 @@
  * Individual journal issue with all sections, navigation, and cross-links.
  * Route: /journal/:slug
  */
-import { useState, useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
-import { base44 } from '@/api/base44Client';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
+import PublicationSignupForm from '@/components/publishing/PublicationSignupForm';
+import { useKnowledgeGraph } from '@/lib/knowledgeGraph';
 import {
   Newspaper, ArrowLeft, ArrowRight, BookOpen, Clock, Calendar,
-  ChevronRight, Mail, Pen, Hammer, Lightbulb, Target,
+  ChevronRight, Pen, Hammer, Lightbulb, Target,
   Rocket, Eye, Tag, Loader2
 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
@@ -65,49 +66,36 @@ function JournalSection({ sectionKey, content }) {
 
 export default function JournalIssueView() {
   const { slug } = useParams();
-  const [issue, setIssue] = useState(null);
-  const [prevIssue, setPrevIssue] = useState(null);
-  const [nextIssue, setNextIssue] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [notFound, setNotFound] = useState(false);
+  const kg = useKnowledgeGraph();
+  const loading = kg.loading;
+  const published = useMemo(() =>
+    (kg.journals || [])
+      .filter(item => item.status === 'Published')
+      .sort((a, b) => (b.issue_number || 0) - (a.issue_number || 0)),
+    [kg.journals]
+  );
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    async function load() {
-      try {
-        const all = await base44.entities.JournalIssue.list('-issue_number', 200);
-        const published = all.filter(i => i.status === 'Published');
-
-        // Find by slug or issue number
-        let found = published.find(i => i.slug === slug);
-        if (!found) {
-          // Try matching issue-N pattern
-          const match = slug.match(/^issue-(\d+)/);
-          if (match) {
-            const num = parseInt(match[1], 10);
-            found = published.find(i => i.issue_number === num);
-          }
-        }
-
-        if (found) {
-          setIssue(found);
-          const idx = published.indexOf(found);
-          if (idx > 0) setNextIssue(published[idx - 1]); // newer
-          if (idx < published.length - 1) setPrevIssue(published[idx + 1]); // older
-        } else {
-          setNotFound(true);
-        }
-      } catch (err) {
-        console.error('Failed to load issue:', err);
-        setNotFound(true);
-      } finally {
-        setLoading(false);
-      }
-    }
-    load();
   }, [slug]);
 
-  if (notFound) return <Navigate to="/journal" replace />;
+  const issue = useMemo(() => {
+    const exact = published.find(item => item.slug === slug);
+    if (exact) return exact;
+
+    const match = slug?.match(/^issue-(\d+)/);
+    if (!match) return null;
+    const issueNumber = Number.parseInt(match[1], 10);
+    return published.find(item => item.issue_number === issueNumber) || null;
+  }, [published, slug]);
+
+  const issueIndex = issue ? published.indexOf(issue) : -1;
+  const nextIssue = issueIndex > 0 ? published[issueIndex - 1] : null;
+  const prevIssue = issueIndex >= 0 && issueIndex < published.length - 1
+    ? published[issueIndex + 1]
+    : null;
+
+  if (!loading && !issue) return <Navigate to="/journal" replace />;
 
   const catColor = issue ? (CATEGORY_COLORS[issue.category] || CATEGORY_COLORS['Building NTA']) : {};
   const readTime = issue ? estimateReadTime(issue) : 0;
@@ -289,12 +277,17 @@ export default function JournalIssueView() {
               <div className="max-w-3xl mx-auto text-center">
                 <h2 className="text-xl font-bold text-white mb-3">Enjoyed This Issue?</h2>
                 <p className="text-slate-400 text-sm mb-6">Get The NTA Journal in your inbox every Monday morning.</p>
-                <Link
-                  to="/gap-audit"
-                  className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-xl transition-colors"
-                >
-                  <Mail className="w-4 h-4" /> Subscribe
-                </Link>
+                <PublicationSignupForm
+                  publicationTitle="The NTA Journal"
+                  publicationTag="nta-journal"
+                  source={`nta_journal_issue_${issue.issue_number}`}
+                  accent="indigo"
+                  submitLabel="Subscribe to The NTA Journal"
+                  createDeliveryRequest={false}
+                  successMessage="You are subscribed. Future editions of The NTA Journal will be sent to this address."
+                  consentContext={`Subscribed to The NTA Journal from issue ${issue.issue_number}.`}
+                  consentCheckboxText="I want to receive The NTA Journal and related NTA publication updates by email. I can unsubscribe at any time."
+                />
               </div>
             </section>
           </>
