@@ -559,6 +559,7 @@ import CanonExplorer from './pages/CanonExplorer';
 import CanonCollectionView from './pages/CanonCollectionView';
 import AdminCanonMigration from './pages/AdminCanonMigration';
 import AdminCanonicalManagement from './pages/AdminCanonicalManagement';
+import NtaJournal from './pages/NtaJournal';
 import JournalLanding from './pages/JournalLanding';
 import JournalIssueView from './pages/JournalIssueView';
 import __Layout from './Layout.jsx';
@@ -1076,6 +1077,7 @@ export const PAGES = {
     "CanonCollectionView": CanonCollectionView,
     "AdminCanonMigration": AdminCanonMigration,
     "AdminCanonicalManagement": AdminCanonicalManagement,
+    "NtaJournal": NtaJournal,
     "JournalLanding": JournalLanding,
     "JournalIssueView": JournalIssueView,
 }
