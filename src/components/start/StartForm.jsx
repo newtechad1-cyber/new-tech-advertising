@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
-import { createAgencyLead } from '@/lib/createAgencyLead';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -97,23 +96,8 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
     try {
       const { base44 } = await import('@/api/base44Client');
 
-      // STEP 1 — Create SalesLead + SalesDeal FIRST (canonical intake path)
-      const { salesLead, salesDeal } = await createAgencyLead({
-        business_name: form.business_name,
-        contact_name:  form.full_name,
-        email:         form.email,
-        phone:         form.phone,
-        website:       form.website_url,
-        city:          form.city,
-        state:         form.state,
-        industry:      form.industry,
-        lead_source:   'website',
-        notes:         `Goal: ${form.primary_goal}${form.notes ? ' | ' + form.notes : ''}`,
-      });
-      console.log('[StartForm] Lead created', salesLead.id, salesDeal.id);
-
-      // STEP 2 — Mirror to NTA Unified Intake (non-blocking)
-      base44.functions.invoke('ntaUnifiedIntake', {
+      // STEP 1 — Save the complete submission and CRM records atomically
+      await base44.functions.invoke('ntaUnifiedIntake', {
         submission_type: 'trial_signup',
         offer_type: 'trial_onboarding',
         mapping_confidence: 'hardcoded',
@@ -133,7 +117,12 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
         notes: `Industry: ${form.industry} | Goal: ${form.primary_goal}${form.notes ? ' | ' + form.notes : ''}`,
         priority: 'high',
         is_high_intent: true,
-      }).catch(err => console.warn('[StartForm] NTA mirror failed:', err.message));
+        skip_webhook: true,
+        anti_spam: {
+          honeypot: _hp,
+          form_started_at: pageLoadTs,
+        },
+      });
 
       // STEP 3 — Create TrialAccount record
       const slug = form.business_name.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + Date.now();
@@ -158,22 +147,6 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
         trial_end_at: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
       };
       const trial = await base44.entities.TrialAccount.create(trialData);
-
-      // 3b. Create Lead record for CRM
-      await base44.entities.Lead.create({
-        name: form.full_name,
-        email: form.email,
-        phone: form.phone,
-        business_name: form.business_name,
-        website: form.website_url,
-        industry: form.industry,
-        city: form.city,
-        state: form.state,
-        service_interest: 'diy_saas',
-        message: form.notes || '',
-        status: 'new',
-        source: 'website',
-      });
 
       // 3. Create BusinessProfile
       const bp = await base44.entities.BusinessProfile.create({
@@ -205,28 +178,6 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
       base44.functions.invoke('onTrialSubmitted', { trial_id: trial.id }).catch(err =>
         console.warn('[StartForm] onTrialSubmitted background call failed:', err.message)
       );
-
-      // Add the requested webhook call
-      fetch('https://grateful-lynx-44.convex.site/api/webhook/lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          secret: 'Y24RdJ7OjvX8lrcjPRDCYcusOnAspC9DbYkqJtY1Zb0',
-          source: 'nta-website',
-          form: sourceData.source_page || '/start',
-          name: form.full_name,
-          business_name: form.business_name,
-          email: form.email,
-          phone: form.phone,
-          website: form.website_url,
-          industry: form.industry,
-          service_interest: form.primary_goal,
-          notes: form.notes,
-          timestamp: new Date().toISOString(),
-          _hp,
-          _ts: pageLoadTs,
-        })
-      }).catch(err => console.log('Webhook failed:', err));
 
       onSuccess({ trialId: trial.id, businessProfileId: bp.id, provisioningStatus: 'queued' });
     } catch (err) {

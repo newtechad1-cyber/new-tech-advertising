@@ -90,6 +90,127 @@ const SERVICE_SLUG_TO_OFFER_TYPE = {
 
 // ── Normalization helpers ─────────────────────────────────────────────────────
 
+function escapeHtml(value) {
+  return String(value || '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
+}
+
+function plainText(value, maxLength = 4000) {
+  return String(value || '').trim().slice(0, maxLength);
+}
+
+function isPlausibleEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
+}
+
+async function sendBrevoMessage(apiKey, message) {
+  const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'api-key': apiKey,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(message),
+  });
+
+  if (!response.ok) {
+    const detail = await response.text();
+    throw new Error(`Brevo returned ${response.status}: ${detail.slice(0, 300)}`);
+  }
+
+  return response.json();
+}
+
+async function sendLeadEmails(base44, context) {
+  const enabled = Deno.env.get('BREVO_LEAD_EMAIL_ENABLED') === 'true';
+  if (!enabled) return { status: 'disabled' };
+
+  const apiKey = Deno.env.get('BREVO_API_KEY');
+  const senderEmail = Deno.env.get('BREVO_FROM_EMAIL');
+  const senderName = Deno.env.get('BREVO_FROM_NAME') || 'New Tech Advertising';
+  const notificationTo = Deno.env.get('LEAD_NOTIFICATION_TO') || 'rick@newtechadvertising.com';
+  const replyToEmail = Deno.env.get('LEAD_REPLY_TO_EMAIL') || notificationTo;
+
+  if (!apiKey || !senderEmail) {
+    return { status: 'not_configured', error: 'Brevo lead email is enabled but required settings are missing.' };
+  }
+
+  const {
+    name, business_name, email, phone, notes, source_page, source_url,
+    source_campaign, submission_type, offer_type, submission_id,
+  } = context;
+
+  const rows = [
+    ['Name', name],
+    ['Business', business_name],
+    ['Email', email],
+    ['Phone', phone],
+    ['Form', submission_type],
+    ['Interest', offer_type?.replaceAll('_', ' ')],
+    ['Page', source_page],
+    ['Full URL', source_url],
+    ['Campaign', source_campaign],
+    ['Message', notes],
+    ['Submission ID', submission_id],
+  ].filter(([, value]) => value);
+
+  const adminText = rows.map(([label, value]) => `${label}: ${value}`).join('\n');
+  const adminHtml = rows
+    .map(([label, value]) => `<p><strong>${escapeHtml(label)}:</strong> ${escapeHtml(value)}</p>`)
+    .join('');
+
+  try {
+    await sendBrevoMessage(apiKey, {
+      sender: { email: senderEmail, name: senderName },
+      to: [{ email: notificationTo, name: 'Rick Hesse' }],
+      replyTo: email ? { email, name: name || business_name || email } : { email: replyToEmail, name: senderName },
+      subject: `New NTA ${submission_type.replaceAll('_', ' ')}: ${business_name || name || email}`,
+      textContent: adminText,
+      htmlContent: `<h2>New NTA website submission</h2>${adminHtml}`,
+    });
+
+    if (isPlausibleEmail(email)) {
+      const firstName = plainText(name, 100).split(/\s+/)[0] || 'there';
+      const acknowledgementText =
+        `Hi ${firstName},\n\n` +
+        `Thank you for contacting New Tech Advertising. We received your message and will review it personally.\n\n` +
+        `Rick Hesse\nNew Tech Advertising\nYour Digital Growth Guide™`;
+
+      await sendBrevoMessage(apiKey, {
+        sender: { email: senderEmail, name: senderName },
+        to: [{ email, name: name || email }],
+        replyTo: { email: replyToEmail, name: 'Rick Hesse' },
+        subject: 'We received your message — New Tech Advertising',
+        textContent: acknowledgementText,
+        htmlContent:
+          `<p>Hi ${escapeHtml(firstName)},</p>` +
+          '<p>Thank you for contacting New Tech Advertising. We received your message and will review it personally.</p>' +
+          '<p>Rick Hesse<br>New Tech Advertising<br>Your Digital Growth Guide™</p>',
+      });
+    }
+
+    return { status: 'sent' };
+  } catch (error) {
+    await logEvent(base44, {
+      event_type: 'lead_email_failed',
+      source_system: 'brevo',
+      entity_type: 'Submission',
+      entity_id: submission_id,
+      workflow_type: 'email',
+      workflow_stage: 'delivery_failed',
+      status: 'failed',
+      message: `Lead email delivery failed for ${business_name || name || email}`,
+      error_details: error.message,
+    });
+    return { status: 'failed', error: error.message };
+  }
+}
+
 function normalizeUrl(str) {
   return (str || '').toLowerCase().trim()
     .replace(/^https?:\/\/(www\.)?/, '')
@@ -181,6 +302,7 @@ function resolveMapping(payload) {
   }
 
   const HARDCODED = {
+    contact:                  'consultation',
     free_audit_request:       'marketing_audit',
     trial_signup:             'trial_onboarding',
     hvac_funnel_lead:         'hvac_marketing',
@@ -211,32 +333,61 @@ Deno.serve(async (req) => {
     const base44 = createClientFromRequest(req);
     const payload = await req.json();
 
+    const honeypot = plainText(payload?.anti_spam?.honeypot, 200);
+    const formStartedAt = Number(payload?.anti_spam?.form_started_at || 0);
+    const elapsedMs = formStartedAt ? Date.now() - formStartedAt : null;
+
+    if (honeypot || (elapsedMs !== null && (elapsedMs < 1500 || elapsedMs > 24 * 60 * 60 * 1000))) {
+      console.warn('[ntaUnifiedIntake] Spam submission rejected', {
+        detected_component: plainText(payload?.detected_component, 100),
+        has_honeypot: Boolean(honeypot),
+        elapsed_ms: elapsedMs,
+      });
+      // Return a normal response so bots do not learn how the filter works.
+      return Response.json({ success: true, accepted: false });
+    }
+
     const {
       source_system = 'website',
-      source_page = '',
-      source_campaign = '',
-      source_url = '',
-      name = '',
-      business_name = '',
-      email = '',
-      phone = '',
-      website = '',
-      city = '',
-      state = '',
-      notes = '',
+      source_page: rawSourcePage = '',
+      name: rawName = '',
+      business_name: rawBusinessName = '',
+      email: rawEmail = '',
+      phone: rawPhone = '',
+      website: rawWebsite = '',
+      notes: rawNotes = '',
       priority = 'medium',
       is_high_intent = false,
-      skip_webhook = false,
+      skip_webhook = true,
       raw_payload,
       service_interest,
       service_used,
       service_slug,
       selected_service,
-      detected_route = source_page || '',
+      detected_route = '',
       detected_component = '',
       selected_package,
       package: packageField,
     } = payload;
+
+    const source_page = plainText(rawSourcePage || detected_route, 500);
+    const source_url = plainText(payload.source_url || source_page, 1500);
+    const source_campaign = plainText(payload.source_campaign, 300);
+    const name = plainText(rawName, 200);
+    const business_name = plainText(rawBusinessName, 300);
+    const email = plainText(rawEmail, 320).toLowerCase();
+    const phone = plainText(rawPhone, 100);
+    const website = plainText(rawWebsite, 1000);
+    const city = plainText(payload.city, 200);
+    const state = plainText(payload.state, 100);
+    const notes = plainText(rawNotes || payload.message, 4000);
+
+    if (!email && !phone && source_system !== 'crm_manual') {
+      return Response.json({ error: 'An email address or phone number is required.' }, { status: 400 });
+    }
+    if (email && !isPlausibleEmail(email)) {
+      return Response.json({ error: 'Please enter a valid email address.' }, { status: 400 });
+    }
 
     const { submission_type, offer_type, mapping_confidence, mapping_notes } = resolveMapping({
       ...payload,
@@ -531,7 +682,7 @@ Deno.serve(async (req) => {
       if (!salesLead) {
         salesLead = await base44.asServiceRole.entities.SalesLead.create({
           contact_name: payload.contact_name || name || '',
-          business_name: business_name || payload.company_name || '',
+          business_name: business_name || payload.company_name || name || 'Unknown Business',
           email: email || '',
           phone: phone || '',
           website: website || payload.website_url || '',
@@ -540,7 +691,33 @@ Deno.serve(async (req) => {
           industry: payload.industry || '',
           lead_source: payload.source || source_system || 'website',
           status: 'new',
-          notes: notes || payload.message || '',
+          notes: [
+            notes || payload.message || '',
+            `Form: ${submission_type}`,
+            `Page: ${source_page || 'unknown'}`,
+            source_campaign ? `Campaign: ${source_campaign}` : '',
+          ].filter(Boolean).join('\n'),
+        });
+      } else {
+        const latestContext = [
+          notes || payload.message || '',
+          `Form: ${submission_type}`,
+          `Page: ${source_page || 'unknown'}`,
+          source_campaign ? `Campaign: ${source_campaign}` : '',
+        ].filter(Boolean).join('\n');
+        const timestamp = new Date().toISOString();
+
+        salesLead = await base44.asServiceRole.entities.SalesLead.update(salesLead.id, {
+          contact_name: salesLead.contact_name || payload.contact_name || name || '',
+          business_name: salesLead.business_name || business_name || payload.company_name || name || 'Unknown Business',
+          phone: salesLead.phone || phone || '',
+          website: salesLead.website || website || payload.website_url || '',
+          notes: [
+            salesLead.notes || '',
+            `[${timestamp}] New website submission`,
+            latestContext,
+          ].filter(Boolean).join('\n'),
+          status: salesLead.status === 'closed_lost' ? 'new' : salesLead.status,
         });
       }
       sales_lead_id = salesLead.id;
@@ -583,6 +760,31 @@ Deno.serve(async (req) => {
         }
       } catch (backfillErr) {
         console.warn('[ntaUnifiedIntake] WebsiteAudit backfill failed (non-critical):', backfillErr.message);
+      }
+    }
+
+    // Compatibility Lead record: preserves the existing Base44 direct email
+    // notification while the unified CRM remains authoritative.
+    let lead_record_id = null;
+    if (detected_component !== 'onLeadCreated') {
+      try {
+        const leadRecord = await base44.asServiceRole.entities.Lead.create({
+          name: name || business_name || '',
+          business_name: business_name || '',
+          email,
+          phone,
+          service_needed: offer_type.replaceAll('_', ' '),
+          source_page: source_page || detected_route || 'website',
+          source_url,
+          source_campaign,
+          form_type: submission_type,
+          unified_intake_processed: true,
+          status: 'new',
+          notes: notes || 'No message provided.',
+        });
+        lead_record_id = leadRecord.id;
+      } catch (leadErr) {
+        console.warn('[ntaUnifiedIntake] Compatibility Lead creation failed (non-critical):', leadErr.message);
       }
     }
 
@@ -704,25 +906,25 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Additional generic webhook requested by user
-    fetch('https://grateful-lynx-44.convex.site/api/webhook/lead', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        secret: 'Y24RdJ7OjvX8lrcjPRDCYcusOnAspC9DbYkqJtY1Zb0',
-        source: 'nta-website',
-        form: detected_route || 'unknown',
-        name: name || payload.contact_name || '',
-        business_name: business_name || '',
-        email: email || '',
-        phone: phone || '',
-        website: website || '',
-        industry: payload.industry || '',
-        service_interest: service_interest || '',
-        notes: notes || payload.message || '',
-        timestamp: new Date().toISOString()
-      })
-    }).catch(err => console.log('Webhook failed:', err));
+    const email_delivery = await sendLeadEmails(base44, {
+      name, business_name, email, phone, notes, source_page, source_url,
+      source_campaign, submission_type, offer_type, submission_id: submission.id,
+    });
+
+    if (email_delivery.status === 'failed' || email_delivery.status === 'not_configured') {
+      await base44.asServiceRole.entities.NTATask.create({
+        company_id: company.id,
+        opportunity_id: opportunity_id || null,
+        submission_id: submission.id,
+        task_type: 'email_delivery_retry',
+        title: `Retry lead email: ${business_name || name || email}`,
+        description: email_delivery.error || 'Brevo lead email settings are incomplete.',
+        status: 'todo',
+        priority: 'urgent',
+        due_date: new Date().toISOString().split('T')[0],
+        source_system,
+      });
+    }
 
     return Response.json({
       success: true,
@@ -733,7 +935,9 @@ Deno.serve(async (req) => {
       opportunity_id,
       sales_lead_id,
       sales_deal_id,
+      lead_record_id,
       webhook_status,
+      email_status: email_delivery.status,
       debug: { submission_type, offer_type, mapping_confidence, mapping_notes, detected_route, detected_component },
     });
 

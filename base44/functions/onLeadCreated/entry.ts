@@ -18,11 +18,21 @@ Deno.serve(async (req) => {
     return Response.json({ error: 'Lead not found in payload' }, { status: 400 });
   }
 
-  // ── NTA Unified Intake Mirror (non-blocking) ──────────────────────────
-  base44.asServiceRole.functions.invoke('ntaUnifiedIntake', {
-    submission_type: 'lead',
+  // ntaUnifiedIntake creates a compatibility Lead record for the existing
+  // direct notification. Do not feed that record back into intake or AI.
+  if (lead.unified_intake_processed) {
+    return Response.json({ success: true, skipped: 'already_processed' });
+  }
+
+  // ── NTA Unified Intake (authoritative and credit-free) ─────────────────
+  const intakeResult = await base44.asServiceRole.functions.invoke('ntaUnifiedIntake', {
+    submission_type: lead.form_type || 'lead',
     source_system: lead.source || 'website',
-    source_page: lead.page_url || '',
+    source_page: lead.source_page || lead.lead_source_page || lead.page_url || '',
+    source_url: lead.source_url || lead.page_url || '',
+    source_campaign: lead.source_campaign || '',
+    detected_route: lead.source_page || lead.lead_source_page || lead.page_url || '',
+    detected_component: 'onLeadCreated',
     name: lead.name,
     business_name: lead.business_name,
     email: lead.email,
@@ -33,9 +43,19 @@ Deno.serve(async (req) => {
     notes: lead.message || lead.notes || '',
     priority: 'medium',
     raw_payload: lead,
-    skip_webhook: false,
-  }).catch(err => console.warn('[onLeadCreated] NTA mirror failed (non-critical):', err.message));
+    skip_webhook: true,
+  });
   // ─────────────────────────────────────────────────────────────────────
+
+  // AI scoring is optional. Basic capture, CRM preservation, follow-up tasks,
+  // and notification must never depend on AI or Victor credits.
+  if (Deno.env.get('AI_LEAD_SCORING_ENABLED') !== 'true') {
+    return Response.json({
+      success: true,
+      intake_submission_id: intakeResult?.data?.submission_id || intakeResult?.submission_id || null,
+      ai_scoring: 'disabled',
+    });
+  }
 
   // Build an AiTask for sales_agent.qualify_lead
   const task = await base44.asServiceRole.entities.AiTask.create({

@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import { useRef, useState } from 'react';
 import { base44 } from '@/api/base44Client';
-import { createAgencyLead } from '@/lib/createAgencyLead';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -13,10 +12,13 @@ import SEOHead from '@/components/shared/SEOHead';
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
+    business_name: '',
     email: '',
     phone: '',
-    message: ''
+    message: '',
+    company_fax: '',
   });
+  const formStartedAt = useRef(Date.now());
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -25,29 +27,48 @@ export default function Contact() {
     setLoading(true);
 
     try {
-      // STEP 1 — Create SalesLead + SalesDeal FIRST (canonical intake path)
-      const { salesLead, salesDeal } = await createAgencyLead({
-        business_name: formData.name, // contact page has no business_name field
-        contact_name:  formData.name,
-        email:         formData.email,
-        phone:         formData.phone,
-        lead_source:   'website',
-        notes:         formData.message || '',
-      });
-      console.log('[Contact] Lead created', salesLead.id, salesDeal.id);
+      const params = new URLSearchParams(window.location.search);
+      const sourceCampaign = params.get('utm_campaign') || params.get('campaign') || '';
 
-      // STEP 2 — Create Lead record
-      await base44.entities.Lead.create({
+      // Single authoritative path: Submission → CRM contact/opportunity/deal/task.
+      // The server also creates the compatibility Lead record that powers the
+      // existing direct email alert, with complete source details.
+      await base44.functions.invoke('ntaUnifiedIntake', {
+        submission_type: 'contact',
+        offer_type: 'consultation',
+        mapping_confidence: 'hardcoded',
+        mapping_notes: 'Contact.jsx /contact',
+        detected_route: window.location.pathname,
+        detected_component: 'Contact',
+        source_system: 'website',
+        source_page: window.location.pathname,
+        source_url: window.location.href,
+        source_campaign: sourceCampaign,
         name: formData.name,
+        business_name: formData.business_name,
         email: formData.email,
         phone: formData.phone,
-        business_name: '',
-        message: formData.message,
-        status: 'new'
+        notes: formData.message,
+        priority: 'high',
+        is_high_intent: true,
+        skip_webhook: true,
+        anti_spam: {
+          honeypot: formData.company_fax,
+          form_started_at: formStartedAt.current,
+        },
+        raw_payload: {
+          referrer: document.referrer || '',
+          utm_source: params.get('utm_source') || '',
+          utm_medium: params.get('utm_medium') || '',
+          utm_campaign: params.get('utm_campaign') || '',
+          utm_content: params.get('utm_content') || '',
+          utm_term: params.get('utm_term') || '',
+        },
       });
 
       setSubmitted(true);
-      setFormData({ name: '', email: '', phone: '', message: '' });
+      setFormData({ name: '', business_name: '', email: '', phone: '', message: '', company_fax: '' });
+      formStartedAt.current = Date.now();
     } catch (error) {
       console.error('Error submitting contact form:', error);
       alert('There was an error submitting your message. Please try again or call us directly.');
@@ -162,6 +183,19 @@ export default function Contact() {
                   />
                 </div>
 
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Business or Organization <span className="text-slate-400">(optional)</span>
+                  </label>
+                  <Input
+                    type="text"
+                    value={formData.business_name}
+                    onChange={(e) => setFormData({ ...formData, business_name: e.target.value })}
+                    placeholder="Your business name"
+                    autoComplete="organization"
+                  />
+                </div>
+
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-2">
@@ -200,6 +234,22 @@ export default function Contact() {
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     rows={6}
                     placeholder="Tell us how we can help you..."
+                  />
+                </div>
+
+                <div
+                  aria-hidden="true"
+                  className="absolute -left-[10000px] h-px w-px overflow-hidden"
+                >
+                  <label htmlFor="contact-company-fax">Company fax (leave blank)</label>
+                  <input
+                    id="contact-company-fax"
+                    type="text"
+                    name="company_fax"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formData.company_fax}
+                    onChange={(e) => setFormData({ ...formData, company_fax: e.target.value })}
                   />
                 </div>
 
