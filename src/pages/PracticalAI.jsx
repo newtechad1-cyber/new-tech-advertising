@@ -1,6 +1,5 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle2, BookOpen, Users, Compass } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Users, Compass } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
@@ -150,7 +149,7 @@ export default function PracticalAI() {
             <div className="mt-8 flex flex-wrap justify-center gap-6">
               <Link to="/books" className="font-bold text-indigo-400 hover:text-indigo-300">Books</Link>
               <span className="text-slate-700">•</span>
-              <Link to="/journal" className="font-bold text-indigo-400 hover:text-indigo-300">Journal</Link>
+              <Link to="/nta-journal" className="font-bold text-indigo-400 hover:text-indigo-300">Journal</Link>
               <span className="text-slate-700">•</span>
               <Link to="/" className="font-bold text-indigo-400 hover:text-indigo-300">Home</Link>
             </div>
