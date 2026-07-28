@@ -142,50 +142,68 @@ export default function KnowledgeCollection() {
               {collection.lessons.map((lesson, idx) => {
                 const isLessonComplete = completedLessons.includes(lesson.id);
                 const isNextUnfinished = nextUnfinishedLesson && lesson.slug === nextUnfinishedLesson.slug;
+                const isAiCoreStart = collection.slug === 'ai-foundations' && idx === 0;
+                const isAiPracticeStart = collection.slug === 'ai-foundations' && idx === 7;
 
                 return (
-                  <Link 
-                    key={lesson.slug} 
-                    to={`/knowledge/${collection.slug}/${lesson.slug}`}
-                    className={`group block p-6 rounded-2xl border transition-all ${
-                      isLessonComplete 
-                        ? 'bg-slate-900/50 border-slate-800 hover:border-slate-700' 
-                        : isNextUnfinished
-                          ? 'bg-slate-900 border-blue-500/30 hover:border-blue-500/60 shadow-lg shadow-blue-900/5'
-                          : 'bg-slate-900 border-slate-800 hover:border-slate-700'
-                    }`}
-                  >
-                    <div className="flex flex-col md:flex-row gap-4 md:items-center">
-                      <div className="flex items-center gap-4 flex-1">
-                        <div className="flex-shrink-0 mt-1 md:mt-0">
-                          {isLessonComplete ? (
-                            <CheckCircle className="w-6 h-6 text-emerald-500" />
-                          ) : isNextUnfinished ? (
-                            <PlayCircle className="w-6 h-6 text-blue-500" />
-                          ) : (
-                            <Circle className="w-6 h-6 text-slate-700" />
-                          )}
+                  <React.Fragment key={lesson.slug}>
+                    {(isAiCoreStart || isAiPracticeStart) && (
+                      <div className={isAiPracticeStart ? 'pt-10 pb-2' : 'pb-2'}>
+                        <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-2">
+                          {isAiPracticeStart ? 'Part Two' : 'Part One'}
+                        </p>
+                        <h3 className="text-xl font-bold text-white">
+                          {isAiPracticeStart ? 'AI in Practice: Rick’s Experience and Perspective' : 'The Seven Core Foundations'}
+                        </h3>
+                        <p className="text-sm text-slate-400 mt-2 max-w-2xl">
+                          {isAiPracticeStart
+                            ? 'Five personal and practical lessons about discovery, support, systems, purpose, and moving beyond fear.'
+                            : 'Seven lessons that move from understanding AI to testing one dependable AI teammate.'}
+                        </p>
+                      </div>
+                    )}
+                    <Link 
+                      to={`/knowledge/${collection.slug}/${lesson.slug}`}
+                      className={`group block p-6 rounded-2xl border transition-all ${
+                        isLessonComplete 
+                          ? 'bg-slate-900/50 border-slate-800 hover:border-slate-700' 
+                          : isNextUnfinished
+                            ? 'bg-slate-900 border-blue-500/30 hover:border-blue-500/60 shadow-lg shadow-blue-900/5'
+                            : 'bg-slate-900 border-slate-800 hover:border-slate-700'
+                      }`}
+                    >
+                      <div className="flex flex-col md:flex-row gap-4 md:items-center">
+                        <div className="flex items-center gap-4 flex-1">
+                          <div className="flex-shrink-0 mt-1 md:mt-0">
+                            {isLessonComplete ? (
+                              <CheckCircle className="w-6 h-6 text-emerald-500" />
+                            ) : isNextUnfinished ? (
+                              <PlayCircle className="w-6 h-6 text-blue-500" />
+                            ) : (
+                              <Circle className="w-6 h-6 text-slate-700" />
+                            )}
+                          </div>
+                          
+                          <div>
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Lesson {idx + 1} of {totalCount}</span>
+                              <span className="text-slate-600">•</span>
+                              <span className="text-xs text-slate-500 flex items-center gap-1"><Clock className="w-3 h-3" /> {lesson.readingTime}</span>
+                            </div>
+                            <h3 className={`text-lg font-bold transition-colors ${
+                              isLessonComplete ? 'text-slate-300 group-hover:text-white' : 'text-white group-hover:text-blue-400'
+                            }`}>
+                              {lesson.title}
+                            </h3>
+                          </div>
                         </div>
                         
-                        <div>
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Lesson {idx + 1} of {totalCount}</span>
-                            <span className="text-slate-600">•</span>
-                            <span className="text-xs text-slate-500 flex items-center gap-1"><Clock className="w-3 h-3" /> {lesson.readingTime}</span>
-                          </div>
-                          <h3 className={`text-lg font-bold transition-colors ${
-                            isLessonComplete ? 'text-slate-300 group-hover:text-white' : 'text-white group-hover:text-blue-400'
-                          }`}>
-                            {lesson.title}
-                          </h3>
+                        <div className="md:w-1/3 flex-shrink-0 text-sm text-slate-400 leading-relaxed md:border-l md:border-slate-800 md:pl-6">
+                          {lesson.takeaway}
                         </div>
                       </div>
-                      
-                      <div className="md:w-1/3 flex-shrink-0 text-sm text-slate-400 leading-relaxed md:border-l md:border-slate-800 md:pl-6">
-                        {lesson.takeaway}
-                      </div>
-                    </div>
-                  </Link>
+                    </Link>
+                  </React.Fragment>
                 );
               })}
             </div>

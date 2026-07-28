@@ -41,6 +41,8 @@ I begin with the person who knows something important but has never been able to
 
 That is why I see artificial intelligence differently.
 
+This is not another lesson about how to prompt, correct, or supervise AI. It is my point of view about what the technology should be for.
+
 ### I Am More Interested in the Big Picture
 
 Many people in the AI world are naturally interested in the technology itself.
@@ -68,65 +70,21 @@ I am not primarily fascinated by code.
 
 I am fascinated by how all the pieces fit together.
 
-### A Tool Is Not a Strategy
+### The Five Tests I Use
 
-One of the greatest mistakes businesses make is confusing a tool with a strategy.
+I do not judge an AI idea by how advanced it sounds. I use five practical tests:
 
-This happened long before artificial intelligence.
+1. **Purpose:** Does it solve a problem people actually have?
+2. **Clarity:** Will the people using it understand what it does and what happens next?
+3. **Trust:** Does it communicate honestly and preserve accountability?
+4. **Relationship:** Does it help the business listen, remember, and respond—or merely produce more messages?
+5. **Burden:** Does it remove needless work, or create another system the owner must feed and manage?
 
-Businesses bought websites without knowing what the website needed to accomplish.
+An idea can be technically impressive and still fail all five tests. It can also be simple and pass them beautifully.
 
-They bought customer-management software without having a relationship process.
+For example, an automatic follow-up that sends a generic sales sequence may create more activity while weakening trust. A smaller system that reminds the owner what was promised and prepares a personal draft may save less time, but create a much better relationship.
 
-They joined social platforms without knowing what they wanted to communicate.
-
-They purchased automation without understanding the work they were automating.
-
-Artificial intelligence can make the same mistake much larger and much faster.
-
-A business can now create more content, more software, more messages, and more activity than ever before.
-
-But producing more things does not automatically create understanding.
-
-It does not create trust.
-
-It does not create a healthy business.
-
-It does not create meaningful relationships.
-
-And it does not create a strategy.
-
-Artificial intelligence is a powerful tool. But before choosing the tool, we must understand the business, the people, the purpose, and the desired result.
-
-### Technology Should Serve People
-
-I do not believe businesses exist to serve technology.
-
-Technology exists to serve people.
-
-That sounds obvious, but it is easy to forget.
-
-Every new platform comes with its own processes, demands, subscriptions, updates, and promises. Before long, an owner can spend more time managing technology than serving customers or running the business.
-
-Artificial intelligence should reduce that burden, not add to it.
-
-It should help us understand a business more clearly.
-
-It should help preserve what the owner and employees already know.
-
-It should make follow-up more thoughtful and consistent.
-
-It should make useful information easier to find.
-
-It should help people make better decisions.
-
-It should remove repetitive work without removing human responsibility.
-
-It should strengthen relationships rather than pretending to replace them.
-
-The goal should not be to make a business appear more advanced.
-
-The goal should be to help the business become more capable, more understandable, and more useful to the people it serves.
+That is the difference between using technology because it is available and using it because it serves a worthwhile purpose.
 
 ### Why Trust Matters More Now
 
