@@ -5,7 +5,14 @@ const NOTIFY_EMAIL = 'rick@newtechadvertising.com';
 Deno.serve(async (req) => {
   try {
     const body = await req.json();
-    const { name, email, phone, business_name, website, service_type, page_count, city, state, industry, notes, source } = body;
+    const { name, email, phone, business_name, website, service_type, page_count, city, state, industry, notes, source, anti_spam } = body;
+    const honeypot = String(anti_spam?.honeypot || '').trim();
+    const formStartedAt = Number(anti_spam?.form_started_at || 0);
+    const elapsedMs = formStartedAt ? Date.now() - formStartedAt : null;
+
+    if (honeypot || (elapsedMs !== null && (elapsedMs < 1500 || elapsedMs > 24 * 60 * 60 * 1000))) {
+      return Response.json({ success: true, accepted: false });
+    }
 
     if (!name || !email || !business_name) {
       return Response.json({ error: 'Missing required fields: name, email, business_name' }, { status: 400 });
@@ -43,7 +50,7 @@ Deno.serve(async (req) => {
     let crmFailed = false;
     let emailFailed = false;
 
-    // ── NTA Unified Intake Mirror (non-blocking) ──────────────────────────
+    // ── NTA Unified Intake (authoritative) ────────────────────────────────
     // Map service_type to offer_type
     const rebuildOfferMap = {
       ada_rebuild:    'ada_compliance',
@@ -52,7 +59,7 @@ Deno.serve(async (req) => {
     };
     const rebuildOfferType = rebuildOfferMap[service_type] || 'website_rebuild';
 
-    base44.asServiceRole.functions.invoke('ntaUnifiedIntake', {
+    await base44.asServiceRole.functions.invoke('ntaUnifiedIntake', {
       submission_type: 'website_rebuild_intake',
       offer_type: rebuildOfferType,
       mapping_confidence: 'hardcoded',
@@ -71,7 +78,9 @@ Deno.serve(async (req) => {
       notes: `Service: ${service_type} | Pages: ${page_count}${notes ? ' | ' + notes : ''}`,
       priority: 'high',
       is_high_intent: true,
-    }).catch(err => console.warn('[sendRebuildIntakeEmail] NTA mirror failed:', err.message));
+      skip_webhook: true,
+      anti_spam,
+    });
     // ─────────────────────────────────────────────────────────────────────
 
     // ── STEP 1: Save Lead to CRM ──────────────────────────────────────────
@@ -189,21 +198,6 @@ Deno.serve(async (req) => {
     } catch (_) {
       // Non-critical — visitor may not be a registered app user
       console.log('[sendRebuildIntakeEmail] Visitor confirmation skipped (not a registered user)');
-    }
-
-    // ── STEP 4: CRM webhook (optional, non-blocking) ──────────────────────
-    const crmWebhookUrl = Deno.env.get('CRM_WEBHOOK_URL');
-    if (crmWebhookUrl) {
-      try {
-        await fetch(crmWebhookUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ type: 'rebuild_intake', name, email, phone, business_name, website, service_type, page_count, city, state, industry, notes, source, lead_id: leadId }),
-        });
-        console.log('[sendRebuildIntakeEmail] CRM webhook triggered');
-      } catch (webhookErr) {
-        console.warn('[sendRebuildIntakeEmail] CRM webhook failed (non-critical):', webhookErr.message);
-      }
     }
 
     // ── FINAL: Determine overall success ─────────────────────────────────
