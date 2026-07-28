@@ -1,6 +1,6 @@
 /**
  * J-001 NTA Journal — Landing Page (Public)
- * Weekly publication documenting the public building of New Tech Advertising.
+ * Public archive for complete NTA Journal newsletter editions.
  * Route: /journal
  */
 import { useState, useMemo } from 'react';
@@ -9,10 +9,9 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import { useKnowledgeGraph } from '@/lib/knowledgeGraph';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
-import PublicationSignupForm from '@/components/publishing/PublicationSignupForm';
 import {
   Newspaper, Search, Clock, BookOpen,
-  Calendar, X, Rss, Mail,
+  Calendar, X, Rss, Mail, ArrowRight,
   Loader2, Eye
 } from 'lucide-react';
 import {
@@ -128,8 +127,8 @@ export default function JournalLanding() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
       <SEOHead
-        title="The NTA Journal | New Tech Advertising"
-        description="Weekly dispatches from the front lines of building a modern advertising agency. Rick Hesse documents what we build, what we learn, and what it means for your business."
+        title="The NTA Journal Archive | New Tech Advertising"
+        description="Browse complete editions of The NTA Journal, with practical business, growth, customer trust, and useful AI guidance from Rick Hesse."
       />
       <MarketingNav />
 
@@ -141,16 +140,16 @@ export default function JournalLanding() {
           <div className="max-w-4xl mx-auto relative z-10">
             <div className="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-bold px-4 py-1.5 rounded-full mb-6 tracking-wide uppercase">
               <Newspaper className="w-4 h-4" />
-              The NTA Journal
+              Journal Archive
             </div>
 
             <h1 className="text-4xl md:text-5xl font-black mb-4 leading-[1.1] text-white tracking-tight">
-              Building in <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-blue-400">Public</span>
+              Complete editions of <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-blue-400">The NTA Journal</span>
             </h1>
 
             <p className="text-lg text-slate-400 leading-relaxed max-w-2xl mx-auto mb-8">
-              Weekly dispatches from Rick Hesse documenting what we build, what we learn,
-              and what it means for your business. New issues every Monday at 7:00 AM.
+              Read past issues of NTA's free weekly publication for practical business thinking,
+              useful AI guidance, and honest lessons from doing the work.
             </p>
 
             {/* Stats */}
@@ -185,6 +184,12 @@ export default function JournalLanding() {
                 </button>
               )}
             </div>
+            <Link
+              to="/nta-journal#subscribe"
+              className="mt-6 inline-flex items-center gap-2 font-bold text-indigo-400 hover:text-indigo-300"
+            >
+              Learn about the Journal and subscribe <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </header>
 
@@ -281,26 +286,21 @@ export default function JournalLanding() {
           </div>
         </section>
 
-        {/* ── Subscribe CTA ──────────────────────────────────────────────── */}
+        {/* ── Newsletter landing CTA ────────────────────────────────────── */}
         <section className="border-t border-slate-800 py-16 px-6">
           <div className="max-w-3xl mx-auto text-center">
             <Mail className="w-10 h-10 text-indigo-400 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-white mb-3">Never Miss an Issue</h2>
+            <h2 className="text-2xl font-bold text-white mb-3">Want the Journal in Your Inbox?</h2>
             <p className="text-slate-400 mb-6">
-              Get The NTA Journal delivered to your inbox every Monday morning.
-              Real stories from building a modern advertising agency.
+              Visit the Journal subscription page to see what each edition includes,
+              read the first issue, and join the free Monday email.
             </p>
-            <PublicationSignupForm
-              publicationTitle="The NTA Journal"
-              publicationTag="nta-journal"
-              source="nta_journal_landing"
-              accent="indigo"
-              submitLabel="Subscribe to The NTA Journal"
-              createDeliveryRequest={false}
-              successMessage="You are subscribed. Future editions of The NTA Journal will be sent to this address."
-              consentContext="Subscribed to The NTA Journal from the Journal landing page."
-              consentCheckboxText="I want to receive The NTA Journal and related NTA publication updates by email. I can unsubscribe at any time."
-            />
+            <Link
+              to="/nta-journal#subscribe"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-8 py-4 font-bold text-white shadow-lg shadow-indigo-600/20 transition-colors hover:bg-indigo-500"
+            >
+              Learn More & Subscribe <ArrowRight className="h-5 w-5" />
+            </Link>
             <div className="mt-5 flex items-center justify-center">
               <a
                 href="/rss"
