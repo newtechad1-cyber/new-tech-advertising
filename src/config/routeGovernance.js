@@ -123,7 +123,7 @@ export const PUBLIC_PAGE_KEYS = new Set([
   'BlogPost', 'Start', 'Free-Audit', 'GettingStarted', 'Get-Started',
   'PrivacyPolicy', 'TermsOfService', 'SiteMap',
   // Publications and primary public discovery
-  'Books', 'BetterBusinessBook', 'PracticalAI', 'JournalLanding',
+  'Books', 'BetterBusinessBook', 'PracticalAI', 'NtaJournal', 'JournalLanding',
   'JournalIssueView', 'GrowthGuide', 'NTAGrowthConversation',
   // Industry / vertical marketing pages
   'HvacMarketing', 'HvacIndustry', 'DentistMarketing', 'PlumbingMarketing',
@@ -215,6 +215,7 @@ export const ROUTE_OVERRIDES = {
   '/books':                      'public',
   '/better-business-book':       'public',
   '/practical-ai-for-small-business': 'public',
+  '/nta-journal':                 'public',
   '/our-work':                   'public',
   '/our-story':                  'public',
   '/knowledge':                  'public',
