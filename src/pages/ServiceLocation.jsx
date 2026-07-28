@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
@@ -37,18 +37,8 @@ function LeadForm({ city, service }) {
     e.preventDefault();
     setSubmitting(true);
     try {
-      await base44.entities.Lead.create({
-        name: form.business_name,
-        email: form.email,
-        phone: form.phone,
-        location_city: form.city,
-        source_page: `service-location:${service}:${city}`,
-        status: 'new',
-        lead_type: 'inbound',
-      });
-
-      // Mirror to NTA Unified Intake (non-blocking)
-      base44.functions.invoke('ntaUnifiedIntake', {
+      // Save the complete submission through NTA Unified Intake
+      await base44.functions.invoke('ntaUnifiedIntake', {
         submission_type: 'service_location_inquiry',
         mapping_confidence: 'hardcoded',
         mapping_notes: `ServiceLocation.jsx; service_slug=${service}`,
@@ -64,7 +54,7 @@ function LeadForm({ city, service }) {
         notes: `Service: ${service}`,
         priority: 'medium',
         is_high_intent: true,
-      }).catch(err => console.warn('[ServiceLocation] NTA mirror failed:', err.message));
+      });
 
       setSubmitted(true);
     } catch (err) {
