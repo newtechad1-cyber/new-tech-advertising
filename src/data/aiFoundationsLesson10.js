@@ -1,13 +1,15 @@
 export const lesson10 = {
   id: 10,
   slug: "ai-makes-complicated-work-easier",
-  title: "AI Makes Complicated Work Easier",
-  description: "A practical six-step method for using AI to organize your knowledge, improve your business, and accomplish real work without giving up control.",
+  title: "From Conversation to a Working Business System",
+  description: "See how an owner’s spoken knowledge can be clarified, approved, and turned into a practical business system without taking authority away from the owner.",
   readingTime: "12–14 min read",
   level: "Beginner",
-  takeaway: "AI makes complicated work easier without taking the business away from the owner. Begin with real work, explain it naturally, correct the reflection, and turn the approved understanding into a system.",
+  takeaway: "Conversation can uncover knowledge that has never been documented. AI can help organize it, but the owner approves the meaning before it becomes a process, page, lesson, or working system.",
   content: `
-### AI Makes Complicated Work Easier
+### From Conversation to a Working Business System
+
+The first seven lessons taught the principles. This lesson shows what those principles can produce when they are applied together.
 
 Artificial intelligence is often presented to small-business owners as another complicated technology they need to understand.
 
@@ -183,7 +185,7 @@ That is how experience becomes a business asset.
 
 That is how ideas become working systems.
 
-### AI Makes the Complicated Manageable
+### The Result Is Not Merely a Document
 
 Small-business owners are surrounded by disconnected tools. They are told one tool will solve marketing, another customer service, another the website, and another content. Adding tools does not necessarily create a better business. Sometimes it creates more work.
 
@@ -214,9 +216,9 @@ That is the practical use of AI—and where its real value begins.
 
 ### Companion Lessons
 
-Before buying another platform, read **[They Sold Me the Tools. They Didn’t Give Me a System.](/knowledge/articles/they-sold-me-the-tools-they-didnt-give-me-a-system)**
+Before buying another platform, read **[They Sold Me the Tools. They Didn’t Give Me a System.](/knowledge/articles/they-sold-me-the-tools-they-didnt-give-me-a-system)**.
 
-To understand why control does not mean doing every task yourself, continue with **[DIY Was the Idea. Done-for-You Became the Answer.](/knowledge/articles/diy-was-the-idea-done-for-you-became-the-answer)**
+To understand why control does not mean doing every task yourself, continue with **[DIY Was the Idea. Done-for-You Became the Answer.](/knowledge/articles/diy-was-the-idea-done-for-you-became-the-answer)**.
 
 ***
 

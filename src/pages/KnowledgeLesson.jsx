@@ -50,19 +50,19 @@ export default function KnowledgeLesson() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
       <SEOHead
-        title={`${lesson.title} | NTA Knowledge Library`}
-        description={lesson.description}
+        title={lesson.searchTitle || `${lesson.title} | NTA Knowledge Library`}
+        description={lesson.searchDescription || lesson.description}
         articleData={{
           title: lesson.title,
-          description: lesson.description,
+          description: lesson.searchDescription || lesson.description,
           author: "Rick Hesse",
-          datePublished: "2026-07-15",
-          dateModified: "2026-07-23",
+          datePublished: lesson.publishedDate || "2026-07-15",
+          dateModified: lesson.modifiedDate || "2026-07-23",
           slug: `/knowledge/${collection.slug}/${lesson.slug}`
         }}
         learningData={{
           name: lesson.title,
-          description: lesson.description,
+          description: lesson.searchDescription || lesson.description,
           educationalLevel: lesson.level || "Beginner",
           learningResourceType: "lesson"
         }}

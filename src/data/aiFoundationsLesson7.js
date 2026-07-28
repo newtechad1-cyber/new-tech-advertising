@@ -3,7 +3,7 @@ export const lesson7 = {
   slug: "building-your-first-ai-teammate",
   title: "Building Your First AI Teammate",
   description: "Bring the principles of AI Foundations together by giving AI one clear, useful job with the right context, boundaries, and human oversight.",
-  readingTime: "10–12 min read",
+  readingTime: "7–9 min read",
   level: "Beginner",
   takeaway: "Your first AI teammate does not need to transform your entire business. Give it one useful job, teach it what it needs to know, keep human judgment involved, and improve the process through experience.",
   content: `
@@ -138,225 +138,54 @@ A clear outcome helps you decide whether the AI is helping.
 
 Without that, you may produce more activity without knowing whether anything improved.
 
-### Gather the Right Context
+### Create a One-Page Pilot Brief
 
-Once the job is clear, ask what the teammate needs to know.
+The earlier lessons explain context, boundaries, conversation, judgment, and automation separately. This lesson is where you put them together. Do not write another long strategy document. Create a one-page pilot brief with six answers:
 
-A follow-up assistant may need:
+1. **Job:** What single task will the AI help perform?
+2. **Input:** What approved information will it receive?
+3. **Output:** What exactly should it prepare?
+4. **Boundary:** What must it never decide, send, or publish?
+5. **Reviewer:** Who checks the work and owns the result?
+6. **Measure:** What improvement are you looking for?
 
-* Notes or a transcript from the conversation
-* Basic information about the prospect
-* Your normal follow-up style
-* Examples of good emails
-* Services or next steps you discussed
-* Words or promises it should avoid
-* Instructions to identify missing information
-* A requirement that nothing be sent without approval
+For a follow-up assistant, the brief might say that AI receives an approved conversation transcript, prepares a summary and email draft, never sends anything, and is reviewed by the owner. Success might mean fewer missed promises and twenty minutes saved after each meeting.
 
-A content assistant may need something different:
+That is enough structure to begin a real pilot.
 
-* Your voice guide
-* Approved articles or lessons
-* The audience
-* The principle being taught
-* Founder stories connected to the topic
-* Examples of language that sounds like you
-* A list of claims that require verification
+### Run Ten Real Tests
 
-Give AI the context needed for the job.
+Imaginary examples are useful for setup, but they do not reveal how the process behaves in daily work. Run the teammate on ten real tasks you already understand.
 
-Do not give it every piece of information your business possesses.
+Keep a simple scorecard for each test:
 
-### Establish the Boundaries
+* Did it capture the important information?
+* Did it invent, assume, or omit anything?
+* Did the result sound appropriate for the business?
+* How much review or rewriting was required?
+* Did it save time or create more work?
+* Would the result have caused a problem if nobody had checked it?
 
-Every useful AI teammate should know what it may and may not do.
+Ten tests are usually enough to expose a pattern. One poor result may be an unusual case. The same mistake three times points to a problem in the job, information, instruction, or boundary.
 
-It may prepare a draft.
+### Keep an Exception List
 
-It may organize information.
+Do not try to force every situation into the normal process. Write down the cases that need a person.
 
-It may suggest questions.
+An emotional customer, a missing promise, conflicting information, a legal or financial claim, an unusual price request, or a situation involving private information may belong on the exception list. When one appears, the teammate should stop and flag it.
 
-It may identify something that appears to be missing.
+This list is one of the most valuable results of the pilot. It tells you where routine assistance ends and human attention begins.
 
-But perhaps it may not:
+### Review the Pilot Before You Expand It
 
-* Send a message without approval
-* Make promises about pricing or results
-* Publish content automatically
-* Make employment decisions
-* Give professional advice
-* Use sensitive customer information unnecessarily
-* Pretend to be a person
-* Guess when information is missing
-* Make a final decision on behalf of the business
+At the end of the pilot, decide among four honest outcomes:
 
-Boundaries protect the customer.
+* **Keep it:** The job is useful and dependable with the current review.
+* **Improve it:** The job is useful, but one recurring weakness needs correction.
+* **Narrow it:** Part of the job works, but the original scope was too broad.
+* **Stop it:** The process adds risk or effort without enough benefit.
 
-They protect the business.
-
-They also make the AI easier to trust because its role is clear.
-
-### Let It Ask Questions
-
-A good teammate does not pretend to understand when something important is missing.
-
-Your AI teammate should be allowed—even encouraged—to ask questions.
-
-If the customer’s goal is unclear, ask.
-
-If the notes do not show what was promised, ask.
-
-If the tone could be misunderstood, ask.
-
-If information appears inconsistent, flag it.
-
-If the request falls outside the assigned job, stop.
-
-An AI system that always produces an answer may look efficient.
-
-An AI system that recognizes uncertainty is often more useful.
-
-Sometimes the best response is:
-
-“I don’t have enough information yet.”
-
-### Test It on Real Work
-
-Do not judge your AI teammate using only an imaginary example.
-
-Give it a real task you already understand.
-
-Then examine the result.
-
-Did it capture what mattered?
-
-Did it miss anything?
-
-Did it sound like your business?
-
-Did it make an assumption?
-
-Did it save time?
-
-Did it create additional work?
-
-Would you feel comfortable using the result with a customer?
-
-Correct what is wrong.
-
-Explain why.
-
-Try again.
-
-The first test is not a final exam.
-
-It is the beginning of training.
-
-### Keep a Human in the Process
-
-At first, review everything.
-
-Read every draft.
-
-Check every fact.
-
-Look for promises you did not make.
-
-Notice language that does not sound like you.
-
-Pay attention to what the AI consistently misunderstands.
-
-Over time, some parts of the process may prove dependable.
-
-Other parts may always require judgment.
-
-That is fine.
-
-Success does not mean removing yourself from the system.
-
-Success means knowing where your attention adds the most value.
-
-### Improve One Thing at a Time
-
-When a result is disappointing, do not rebuild the entire system immediately.
-
-Find the specific problem.
-
-Was the job unclear?
-
-Was context missing?
-
-Did the AI need an example?
-
-Was the expected output poorly defined?
-
-Did it make a decision that should have remained human?
-
-Did we try to automate too much too soon?
-
-Correct one part.
-
-Then test again.
-
-That is how dependable systems are built.
-
-Not through one perfect setup.
-
-Through observation and continuous improvement.
-
-### Write Down What You Learn
-
-As the process improves, document it.
-
-Record:
-
-* The teammate’s job
-* The information it needs
-* The instructions that work
-* The examples that help
-* The actions it may take
-* The actions requiring approval
-* Common mistakes
-* Situations that need a person
-* How success is measured
-* Who is responsible for reviewing the system
-
-Now you are not merely experimenting with AI.
-
-You are building organizational knowledge.
-
-Someone else can understand the process.
-
-The business becomes less dependent on memory.
-
-The AI teammate becomes part of a system instead of another disconnected tool.
-
-### Add Automation Carefully
-
-Once the process works consistently with human involvement, you may decide to automate part of it.
-
-A transcript could be delivered automatically.
-
-A summary could be prepared.
-
-A task could be added to a list.
-
-A draft could be placed in an approval queue.
-
-A reminder could be scheduled.
-
-But keep the same principle:
-
-Automate what is predictable.
-
-Review what requires judgment.
-
-Escalate what is unusual.
-
-Measure what the system produces.
-
-Automation should be earned through understanding.
+Stopping a poor pilot is not failure. It prevents a weak process from becoming an expensive system. If the pilot works, document the brief, examples, exception list, scorecard, and approval step before adding another job or any automation.
 
 ### What I Built First
 
@@ -463,15 +292,9 @@ Begin by asking where one thoughtful teammate could make the work better.
 
 ***
 
-### Completing AI Foundations
+### Completing the Core Foundations
 
-You have now completed the second collection in the NTA Knowledge Library.
-
-Business Foundations helped you understand how healthy businesses grow through systems, relationships, trust, and continuous learning.
-
-AI Foundations helped you understand how artificial intelligence can support that business without replacing human experience, judgment, or responsibility.
-
-You now have a practical foundation:
+You have now completed the seven core lessons in AI Foundations. They give you a practical base:
 
 * AI is powerful, but it is not magic.
 * The work comes before the tool.
@@ -481,17 +304,11 @@ You now have a practical foundation:
 * Automation follows understanding.
 * A dependable AI teammate begins with one clearly defined job.
 
-You do not need to master every AI tool.
+You do not need to master every AI tool. Begin thoughtfully with one job, one measured pilot, and one improvement at a time.
 
-You need to begin thoughtfully.
+The next five lessons form **AI in Practice**. They move from instruction into Rick’s experience, perspective, and the larger human questions that appeared while he was building with AI.
 
-One job.
-
-One conversation.
-
-One improvement at a time.
-
-**Next Step:** Complete the AI Teammate Builder or begin an NTA Growth Conversation
+**Next step:** Complete the AI Teammate Builder, begin an NTA Growth Conversation, or continue to AI in Practice.
 `,
   relatedPrompts: [
     { label: "Build Your First AI Teammate", link: "/knowledge/prompts" }
