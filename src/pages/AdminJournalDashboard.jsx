@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Plus, Newspaper, FileEdit, Eye, Copy, ArrowRight, BookOpen, Loader2 } from 'lucide-react';
 import JournalEditionBuilder from '../components/journal-builder/JournalEditionBuilder';
+import { SEED_JOURNAL_ENTRIES } from '@/data/canonSeed';
 
 export default function AdminJournalDashboard() {
   const [issues, setIssues] = useState([]);
@@ -16,7 +17,11 @@ export default function AdminJournalDashboard() {
     setLoading(true);
     try {
       const data = await base44.entities.JournalIssue.list('-issue_number', 50);
-      setIssues(data || []);
+      const byIssueNumber = new Map(SEED_JOURNAL_ENTRIES.map((entry) => [entry.issue_number, entry]));
+      for (const issue of (data || [])) {
+        byIssueNumber.set(issue.issue_number, issue);
+      }
+      setIssues(Array.from(byIssueNumber.values()).sort((a, b) => b.issue_number - a.issue_number));
     } catch (err) {
       console.error('Failed to load issues', err);
     } finally {

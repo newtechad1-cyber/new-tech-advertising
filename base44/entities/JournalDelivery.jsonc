@@ -1,0 +1,46 @@
+{
+  "name": "JournalDelivery",
+  "type": "object",
+  "description": "Audit record for controlled NTA Journal test and subscriber email deliveries.",
+  "properties": {
+    "issue_id": {
+      "type": "string"
+    },
+    "issue_slug": {
+      "type": "string"
+    },
+    "issue_number": {
+      "type": "integer"
+    },
+    "issue_title": {
+      "type": "string"
+    },
+    "delivery_mode": {
+      "type": "string",
+      "enum": ["test", "subscribers"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["preparing", "sent", "failed"],
+      "default": "preparing"
+    },
+    "brevo_campaign_id": {
+      "type": "string"
+    },
+    "test_recipient": {
+      "type": "string"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "error_details": {
+      "type": "string"
+    }
+  },
+  "required": ["issue_slug", "issue_number", "issue_title", "delivery_mode", "status"]
+}
