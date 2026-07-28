@@ -1,6 +1,5 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, Newspaper, BrainCircuit } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export default function PublicationsSection() {
   return (
@@ -65,8 +64,8 @@ export default function PublicationsSection() {
             <p className="text-sm text-slate-400 leading-relaxed mb-6 flex-1">
               Practical business, growth, and AI insights for small business owners.
             </p>
-            <Link to="/journal" className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg border border-slate-800 transition-colors text-sm">
-              View the Journal <ArrowRight className="w-4 h-4" />
+            <Link to="/nta-journal" className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg border border-slate-800 transition-colors text-sm">
+              Learn More & Subscribe <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
