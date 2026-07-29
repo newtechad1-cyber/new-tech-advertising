@@ -1,20 +1,22 @@
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { LEARNING_CONTENT, LEARNING_CATEGORIES } from '@/utils/learningData';
+import { findCanonicalLearningMatch } from '@/lib/youtubeLearningIdentity';
 
 export function useLearningContent() {
   return useQuery({
     queryKey: ['learning-content-youtube'],
     queryFn: async () => {
       try {
-        const response = await base44.functions.invoke('getYouTubePlaylist', {});
+        const [response, youtubeKnowledge] = await Promise.all([
+          base44.functions.invoke('getYouTubePlaylist', {}),
+          base44.entities.YouTubeKnowledge.list('-created_date', 200).catch(() => []),
+        ]);
         const ytVideos = response.data.videos || [];
 
         const mergedVideos = ytVideos.map(yt => {
-          // Find matching local content by slug or exact youtube ID
-          const localMatch = LEARNING_CONTENT.find(lc => 
-            lc.slug === yt.slug || (lc.youtubeId && lc.youtubeId === yt.youtubeId)
-          );
+          const identityMatch = findCanonicalLearningMatch(yt, LEARNING_CONTENT, youtubeKnowledge);
+          const localMatch = identityMatch.content;
 
           let autoCategory = 'Uncategorized';
           let autoCategoryId = 'uncategorized';
@@ -41,6 +43,7 @@ export function useLearningContent() {
           
           return {
             id: yt.youtubeId,
+            canonId: localMatch?.canonId || identityMatch.knowledgeRecord?.source_canon_id || null,
             title: yt.title,
             slug: localMatch ? localMatch.slug : yt.slug,
             description: yt.description || localMatch?.shortDescription || '',
@@ -53,13 +56,15 @@ export function useLearningContent() {
             duration: yt.duration,
             status: 'published',
             tags: localMatch?.tags || [],
-            hasArticle: !!localMatch
+            hasArticle: !!localMatch,
+            matchedBy: identityMatch.matchedBy
           };
         });
 
         // Add local planned/placeholder videos that aren't on YouTube yet
         const plannedVideos = LEARNING_CONTENT.filter(lc => !lc.youtubeId).map(item => ({
             id: item.id,
+            canonId: item.canonId || null,
             title: item.title,
             slug: item.slug,
             category: item.category,
@@ -83,6 +88,7 @@ export function useLearningContent() {
         // Fallback to local data if API fails
         const fallbackVideos = LEARNING_CONTENT.map(item => ({
           id: item.youtubeId || item.id,
+          canonId: item.canonId || null,
           title: item.title,
           slug: item.slug,
           category: item.category,

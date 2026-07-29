@@ -35,6 +35,11 @@
       "enum": [
         "Start Here",
         "NTA Journal",
+        "NTA Principles",
+        "Building Trust",
+        "Building Better Businesses",
+        "Future of Marketing",
+        "Services",
         "Marketing Lessons",
         "AI Explained",
         "Business Growth",
@@ -42,7 +47,36 @@
         "Local Business",
         "Case Studies"
       ],
-      "description": "YouTube playlist assignment"
+      "description": "Reader-facing playlist title retained for backward compatibility"
+    },
+    "playlist_slug": {
+      "type": "string",
+      "description": "Stable FK to YouTubePlaylist.slug"
+    },
+    "youtube_playlist_id": {
+      "type": "string",
+      "description": "Verified YouTube playlist ID, copied at publication time for traceability"
+    },
+    "source_canon_id": {
+      "type": "string",
+      "description": "Permanent Canon identity of the parent PublishingArticle"
+    },
+    "source_article_id": {
+      "type": "string",
+      "description": "FK to the parent PublishingArticle record"
+    },
+    "source_asset_slug": {
+      "type": "string",
+      "description": "Parent website slug retained as a migration and display aid"
+    },
+    "asset_format": {
+      "type": "string",
+      "enum": ["Long Form", "Short"],
+      "default": "Long Form"
+    },
+    "parent_youtube_knowledge_id": {
+      "type": "string",
+      "description": "For a Short, FK to its parent long-form YouTubeKnowledge record"
     },
     "publish_status": {
       "type": "string",

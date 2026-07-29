@@ -3,17 +3,11 @@
  * Manages YouTube metadata, scripts, playlists, and cross-links for a journal entry.
  * Used inside the Publishing Article View to connect every Journal → YouTube.
  */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
-  Youtube, Film, FileText, Hash, Image, ListVideo,
-  Clock, Eye, ExternalLink, ChevronDown, ChevronRight,
-  Sparkles, Scissors, BookOpen
+  Youtube, Film, FileText, Image, ChevronDown, ChevronRight, BookOpen
 } from 'lucide-react';
-
-const PLAYLISTS = [
-  'Start Here', 'NTA Journal', 'Marketing Lessons', 'AI Explained',
-  'Business Growth', 'Website Strategy', 'Local Business', 'Case Studies'
-];
+import { YOUTUBE_PLAYLISTS, getYouTubePlaylistBySlug, getYouTubePlaylistByTitle } from '@/config/youtubePlaylists';
 
 const PUBLISH_STATUSES = [
   'Idea', 'Script Ready', 'Recording', 'Editing',
@@ -60,6 +54,19 @@ export default function YouTubePanel({ youtubeData, onChange, articleTitle }) {
     onChange({ ...data, [field]: value });
   }
 
+  function updatePlaylist(slug) {
+    const playlist = getYouTubePlaylistBySlug(slug);
+    onChange({
+      ...data,
+      playlist_slug: slug,
+      playlist: playlist?.title || '',
+    });
+  }
+
+  const selectedPlaylistSlug = data.playlist_slug
+    || getYouTubePlaylistByTitle(data.playlist)?.slug
+    || '';
+
   return (
     <div className="space-y-3">
       {/* Header */}
@@ -83,9 +90,11 @@ export default function YouTubePanel({ youtubeData, onChange, articleTitle }) {
         </div>
         <div>
           <label className={labelCls}>Playlist</label>
-          <select value={data.playlist || ''} onChange={(e) => update('playlist', e.target.value)} className={inputCls}>
+          <select value={selectedPlaylistSlug} onChange={(e) => updatePlaylist(e.target.value)} className={inputCls}>
             <option value="">Select playlist...</option>
-            {PLAYLISTS.map(p => <option key={p} value={p}>{p}</option>)}
+            {YOUTUBE_PLAYLISTS.map(playlist => (
+              <option key={playlist.slug} value={playlist.slug}>{playlist.title}</option>
+            ))}
           </select>
         </div>
       </div>

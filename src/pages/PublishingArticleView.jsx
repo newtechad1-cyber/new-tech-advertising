@@ -4,15 +4,15 @@
  * YouTube Knowledge Engine, scheduling.
  * Route: /admin/publishing-engine/article/:id?
  */
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import AdminGuard from '../components/auth/AdminGuard';
 import NoIndexMeta from '@/components/auth/NoIndexMeta';
 import { toast } from 'sonner';
 import {
-  ArrowLeft, Newspaper, Save, Loader2, Trash2,
-  FileEdit, Share2, Youtube, BookOpen, Clock
+  ArrowLeft, Save, Loader2, Trash2,
+  FileEdit, Share2, Youtube, Clock
 } from 'lucide-react';
 import { CHANNEL_LIST, formatDate } from '../components/publishing-engine/publishingData';
 import ArticleEditor from '../components/publishing-engine/ArticleEditor';
@@ -54,9 +54,12 @@ export default function PublishingArticleView() {
 
       // Load YouTube data if it exists
       try {
-        const ytData = await base44.entities.YouTubeKnowledge.filter({ related_journal_id: articleId });
+        let ytData = await base44.entities.YouTubeKnowledge.filter({ source_article_id: articleId });
+        if (!ytData[0]) {
+          ytData = await base44.entities.YouTubeKnowledge.filter({ related_journal_id: articleId });
+        }
         if (ytData[0]) setYoutubeData(ytData[0]);
-      } catch (e) {
+      } catch {
         // Entity may not exist yet
       }
     } catch (err) {
@@ -179,6 +182,10 @@ export default function PublishingArticleView() {
       } else {
         const created = await base44.entities.YouTubeKnowledge.create({
           ...data,
+          source_canon_id: article?.canon_id || '',
+          source_article_id: articleId,
+          source_asset_slug: article?.slug || '',
+          asset_format: data.asset_format || 'Long Form',
           related_journal_id: articleId,
           related_journal_title: article?.title || '',
           video_title: data.video_title || article?.title || '',

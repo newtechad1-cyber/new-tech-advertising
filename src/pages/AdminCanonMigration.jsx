@@ -7,26 +7,26 @@
  * This page is run ONCE to seed the entities. After that,
  * the Publishing Engine is the source of truth.
  */
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { base44 } from '@/api/base44Client';
 import AdminGuard from '../components/auth/AdminGuard';
 import NoIndexMeta from '@/components/auth/NoIndexMeta';
 import { toast } from 'sonner';
 import {
   Database, Play, CheckCircle2, AlertCircle, Loader2,
-  FileText, BookOpen, Youtube, FolderOpen, ArrowRight,
-  RefreshCw, Trash2, Shield
+  FileText, BookOpen, Youtube, FolderOpen, Shield
 } from 'lucide-react';
 import {
   ALL_SEED_ASSETS, SEED_COLLECTIONS, SEED_YOUTUBE_VIDEOS,
-  SEED_ARTICLES, SEED_SERVICE_PAGES, SEED_INDUSTRY_PAGES, SEED_GEO_PAGES,
+  SEED_YOUTUBE_PLAYLISTS,
+  SEED_ARTICLES,
   DUPLICATE_GROUPS
 } from '../data/canonSeed';
 
 const STEPS = [
   { id: 'articles', label: 'Populate Publishing Engine', desc: `${ALL_SEED_ASSETS.length} assets (articles, services, industries, geos)`, icon: FileText, count: ALL_SEED_ASSETS.length },
   { id: 'collections', label: 'Populate Canon Collections', desc: `${SEED_COLLECTIONS.length} reader journeys`, icon: FolderOpen, count: SEED_COLLECTIONS.length },
-  { id: 'videos', label: 'Populate YouTube Knowledge', desc: `${SEED_YOUTUBE_VIDEOS.length} videos`, icon: Youtube, count: SEED_YOUTUBE_VIDEOS.length },
+  { id: 'videos', label: 'Populate YouTube Knowledge', desc: `${SEED_YOUTUBE_VIDEOS.length} videos + ${SEED_YOUTUBE_PLAYLISTS.length} playlists`, icon: Youtube, count: SEED_YOUTUBE_VIDEOS.length },
   { id: 'journals', label: 'Create Journal Records', desc: 'Journal entries from articles', icon: BookOpen, count: SEED_ARTICLES.length },
   { id: 'duplicates', label: 'Mark Duplicate Assets', desc: `${DUPLICATE_GROUPS.length} duplicate groups`, icon: Shield, count: DUPLICATE_GROUPS.length },
 ];
@@ -118,25 +118,52 @@ export default function AdminCanonMigration() {
     let created = 0;
     let skipped = 0;
 
-    const existing = await base44.entities.YouTubeKnowledge.list('-created_date', 200).catch(() => []);
-    const existingIds = new Set(existing.map(v => v.youtube_video_id).filter(Boolean));
+    const now = new Date().toISOString().split('T')[0];
+    const [existing, existingPlaylists, articles] = await Promise.all([
+      base44.entities.YouTubeKnowledge.list('-created_date', 200).catch(() => []),
+      base44.entities.YouTubePlaylist.list('display_order', 100).catch(() => []),
+      base44.entities.PublishingArticle.list('-created_date', 500).catch(() => []),
+    ]);
+    const existingByVideoId = new Map(existing.map(v => [v.youtube_video_id, v]).filter(([id]) => id));
+    const articleIdByCanonId = new Map(articles.map(article => [article.canon_id, article.id]).filter(([id]) => id));
+    const existingPlaylistSlugs = new Set(existingPlaylists.map(playlist => playlist.slug));
+
+    for (const playlist of SEED_YOUTUBE_PLAYLISTS) {
+      if (existingPlaylistSlugs.has(playlist.slug)) continue;
+      try {
+        await base44.entities.YouTubePlaylist.create({ ...playlist, created_date: now });
+      } catch (err) {
+        log(`  ⚠ Playlist failed: ${playlist.title} — ${err.message}`);
+      }
+    }
 
     for (const vid of SEED_YOUTUBE_VIDEOS) {
-      if (existingIds.has(vid.youtube_video_id)) {
-        skipped++;
-        continue;
-      }
+      const existingVideo = existingByVideoId.get(vid.youtube_video_id);
+      const canonicalFields = {
+        source_canon_id: vid.source_canon_id,
+        source_article_id: articleIdByCanonId.get(vid.source_canon_id) || existingVideo?.source_article_id || '',
+        source_asset_slug: vid.source_asset_slug,
+        asset_format: vid.asset_format,
+        playlist: vid.playlist,
+        playlist_slug: vid.playlist_slug,
+      };
       try {
-        await base44.entities.YouTubeKnowledge.create({
-          ...vid,
-          created_date: new Date().toISOString().split('T')[0],
-        });
-        created++;
+        if (existingVideo) {
+          await base44.entities.YouTubeKnowledge.update(existingVideo.id, canonicalFields);
+          skipped++;
+        } else {
+          await base44.entities.YouTubeKnowledge.create({
+            ...vid,
+            ...canonicalFields,
+            created_date: now,
+          });
+          created++;
+        }
       } catch (err) {
         log(`  ⚠ Failed: ${vid.video_title} — ${err.message}`);
       }
     }
-    log(`  ✓ Created ${created} YouTube records, skipped ${skipped} existing`);
+    log(`  ✓ Created ${created} YouTube records, reconciled ${skipped} existing records`);
     setCounts(prev => ({ ...prev, videos: created }));
     setStep('videos', 'done');
   }
