@@ -11,6 +11,7 @@ export const VIDEO_CATEGORIES = [
 export const LEARNING_CONTENT = [
   {
     id: 'what-changed-online',
+    canonId: 'A-010',
     title: 'What Changed Online',
     slug: 'what-changed-online',
     category: 'Local SEO',
@@ -27,6 +28,7 @@ export const LEARNING_CONTENT = [
   },
   {
     id: 'ai-visibility-basics',
+    canonId: 'A-018',
     title: 'AI Visibility Basics',
     slug: 'ai-visibility-basics',
     category: 'Local SEO',
@@ -43,6 +45,7 @@ export const LEARNING_CONTENT = [
   },
   {
     id: 'seo-vs-ai-search',
+    canonId: 'A-011',
     title: 'SEO vs AI Search',
     slug: 'seo-vs-ai-search',
     category: 'Local SEO',
@@ -75,6 +78,7 @@ export const LEARNING_CONTENT = [
   },
   {
     id: 'growth-systems-vs-campaigns',
+    canonId: 'A-003',
     title: 'Growth Systems vs Campaigns',
     slug: 'growth-systems-vs-campaigns',
     category: 'Marketing Strategy',
@@ -91,6 +95,7 @@ export const LEARNING_CONTENT = [
   },
   {
     id: 'reputation-is-now-a-growth-engine',
+    canonId: 'A-007',
     title: 'Reputation Is Now a Growth Engine',
     slug: 'reputation-is-now-a-growth-engine',
     category: 'Local SEO',
@@ -107,6 +112,7 @@ export const LEARNING_CONTENT = [
   },
   {
     id: 'hidden-cost-of-outdated-marketing',
+    canonId: 'A-014',
     title: 'The Hidden Cost of Outdated Marketing',
     slug: 'hidden-cost-of-outdated-marketing',
     category: 'Marketing Strategy',
@@ -123,6 +129,7 @@ export const LEARNING_CONTENT = [
   },
   {
     id: 'role-of-ai-in-local-marketing',
+    canonId: 'A-012',
     title: 'The Role of AI in Local Marketing',
     slug: 'role-of-ai-in-local-marketing',
     category: 'AI Tools',
@@ -139,6 +146,7 @@ export const LEARNING_CONTENT = [
   },
   {
     id: 'web-accessibility-trust',
+    canonId: 'A-008',
     title: 'Web Accessibility: The Foundation of Digital Trust',
     slug: 'web-accessibility-trust',
     category: 'Local SEO',
@@ -155,6 +163,7 @@ export const LEARNING_CONTENT = [
   },
   {
     id: 'building-digital-trust',
+    canonId: 'A-006',
     title: 'Building Digital Trust',
     slug: 'building-digital-trust',
     category: 'Local SEO',
@@ -171,6 +180,7 @@ export const LEARNING_CONTENT = [
   },
   {
     id: 'video-storytelling-builds-confidence',
+    canonId: 'A-016',
     title: 'Video Storytelling Builds Confidence',
     slug: 'video-storytelling-builds-confidence',
     category: 'Marketing Strategy',
@@ -187,6 +197,7 @@ export const LEARNING_CONTENT = [
   },
   {
     id: 'campaigns-vs-authority',
+    canonId: 'A-004',
     title: 'Campaigns vs Authority',
     slug: 'campaigns-vs-authority',
     category: 'Local SEO',
@@ -203,6 +214,7 @@ export const LEARNING_CONTENT = [
   },
   {
     id: 'the-future-belongs-to-market-leaders',
+    canonId: 'A-005',
     title: 'The Future Belongs to Market Leaders',
     slug: 'the-future-belongs-to-market-leaders',
     category: 'Local SEO',
@@ -235,6 +247,7 @@ export const LEARNING_CONTENT = [
   },
   {
     id: 'websites-as-salespeople',
+    canonId: 'A-015',
     title: 'Websites as Salespeople',
     slug: 'websites-as-salespeople',
     category: 'Marketing Strategy',
@@ -251,6 +264,7 @@ export const LEARNING_CONTENT = [
   },
   {
     id: 'ai-brought-me-out-of-retirement',
+    canonId: 'A-001',
     title: 'AI Brought Me Out of Retirement',
     slug: 'ai-brought-me-out-of-retirement',
     category: 'Marketing Strategy',
@@ -267,6 +281,7 @@ export const LEARNING_CONTENT = [
   },
   {
     id: 'i-was-early-again',
+    canonId: 'A-002',
     title: 'I Was Early Again: Why I Built North Iowa\'s First AI Marketing Agency',
     slug: 'i-was-early-again',
     category: 'Marketing Strategy',

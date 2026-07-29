@@ -21,6 +21,7 @@ import {
   ALL_SEED_ASSETS, SEED_COLLECTIONS, SEED_YOUTUBE_VIDEOS,
   SEED_JOURNAL_ENTRIES,
 } from '@/data/canonSeed';
+import { getCanonicalVideosForArticle } from '@/lib/youtubeLearningIdentity';
 
 // ─── Cache Layer ────────────────────────────────────────────────────────────
 // Prevents redundant entity fetches within a session.
@@ -134,19 +135,23 @@ function buildIndexes(articles) {
 }
 
 // ─── Relationship Engine ────────────────────────────────────────────────────
-function resolveRelated(article, byCanonId) {
+function resolveRelated(article, byCanonId, videos = []) {
   if (!article) return { reading: [], watching: [], learning: [], services: [], caseStudies: [], industries: [], geos: [], journal: [] };
 
   const reading = (article.related_articles || [])
     .map(id => byCanonId[id])
     .filter(Boolean);
 
-  const watching = (article.related_video_ids || [])
+  const canonicalVideos = getCanonicalVideosForArticle(article, videos);
+  const canonicalVideoIds = new Set(canonicalVideos.map(video => video.youtube_video_id).filter(Boolean));
+  const legacyVideos = (article.related_video_ids || [])
+    .filter(videoId => !canonicalVideoIds.has(videoId))
     .map(vid => {
       // Find article with this video
       const match = Object.values(byCanonId).find(a => a.video_url?.includes(vid));
       return match || { title: `Video ${vid}`, video_url: `https://www.youtube.com/embed/${vid}`, canon_id: vid };
     });
+  const watching = [...canonicalVideos, ...legacyVideos];
 
   const learning = (article.related_lesson_ids || [])
     .map(id => byCanonId[id])
@@ -383,7 +388,7 @@ export function useKnowledgeGraph() {
     getPublishedByType: (type) => (indexes.byAssetType[type] || []).filter(a => a.status === 'Published'),
 
     // Relationships
-    getRelatedContent: (canonId) => resolveRelated(indexes.byCanonId[canonId], indexes.byCanonId),
+    getRelatedContent: (canonId) => resolveRelated(indexes.byCanonId[canonId], indexes.byCanonId, data.videos),
 
     // Collections with resolved entries
     getCollectionWithEntries: (slug) => {

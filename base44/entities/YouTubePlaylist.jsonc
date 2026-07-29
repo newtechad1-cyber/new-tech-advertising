@@ -1,0 +1,43 @@
+{
+  "name": "YouTubePlaylist",
+  "type": "object",
+  "description": "Stable playlist configuration connecting a YouTube playlist to the NTA Knowledge Graph.",
+  "properties": {
+    "slug": {
+      "type": "string",
+      "description": "Permanent internal playlist identity"
+    },
+    "title": {
+      "type": "string",
+      "description": "Reader-facing playlist title"
+    },
+    "youtube_playlist_id": {
+      "type": "string",
+      "description": "YouTube playlist ID after the live playlist is verified"
+    },
+    "description": {
+      "type": "string"
+    },
+    "related_collection_slug": {
+      "type": "string",
+      "description": "Matching Canon collection slug"
+    },
+    "display_order": {
+      "type": "integer"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    },
+    "created_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "updated_date": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": ["slug", "title", "active"]
+}
+
