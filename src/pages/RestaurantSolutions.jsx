@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, ArrowLeft, Menu, X, LayoutDashboard, ShoppingBag, CalendarDays, Star, BarChart3, CheckCircle2 } from 'lucide-react';
 import SiteFooter from '../components/marketing/SiteFooter';
@@ -113,7 +113,7 @@ export default function RestaurantSolutions() {
         <section className="mt-20 max-w-4xl mx-auto px-6 text-center">
           <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 shadow-xl backdrop-blur-sm">
             <div className="inline-block px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-xs font-bold mb-3 uppercase tracking-wider">
-              🏆 Iowa & Southern Minnesota's First AI-Powered Marketing Agency
+              Practical AI Education and Business Growth Systems
             </div>
             <p className="text-slate-400 text-sm">
               We've built AI-powered websites and systems for local businesses before anyone else in the region.

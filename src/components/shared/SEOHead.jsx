@@ -14,7 +14,7 @@ import { useLocation } from 'react-router-dom';
  *   - HowTo schema (for discovery tools / processes)
  *   - BreadcrumbList (auto-generated from path)
  *   - FAQPage (page-level or default)
- *   - ProfessionalService (organization — sitewide)
+ *   - EducationalOrganization + ProfessionalService (organization — sitewide)
  *
  * Canonical URL logic (G-002):
  *   1. If `canonical` prop is explicitly passed → use it.
@@ -85,8 +85,8 @@ const WEBSITE_SCHEMA = {
 };
 
 export default function SEOHead({
-  title = "Practical AI and Growth Systems for Small Business | NTA",
-  description = "New Tech Advertising teaches small-business owners to use AI collaboratively and turn their experience into practical growth systems without surrendering judgment or control.",
+  title = "Practical AI Education for Small Business | NTA",
+  description = "New Tech Advertising is a practical AI education and business growth platform helping owners use AI collaboratively and turn experience into useful systems.",
   canonical,
   faqs = [],
   noIndex = false,
@@ -184,10 +184,10 @@ export default function SEOHead({
     // ── 4. WEBSITE + SEARCH ACTION SCHEMA (sitewide) ──────────────────────
     elements.push(addSchema(WEBSITE_SCHEMA));
 
-    // ── 5. PROFESSIONAL SERVICE SCHEMA ────────────────────────────────────
+    // ── 5. EDUCATION PLATFORM + PROFESSIONAL SERVICE SCHEMA ───────────────
     const localBusinessSchema = {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
+      "@type": ["Organization", "EducationalOrganization", "ProfessionalService"],
       "@id": `${SITE_ORIGIN}/#organization`,
       "name": "New Tech Advertising (NTA)",
       "founder": {
@@ -197,7 +197,7 @@ export default function SEOHead({
       "telephone": "+1-641-420-8816",
       "email": "info@newtechadvertising.com",
       "url": SITE_ORIGIN,
-      "description": "Practical AI education, marketing, and connected growth systems for small-business owners. NTA helps owners turn their experience and judgment into useful processes, content, customer systems, and software.",
+      "description": "A practical AI education and business growth platform for small-business owners. NTA helps owners learn to collaborate with AI, preserve human judgment, and turn experience into useful processes, content, customer systems, and software.",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Mason City",
@@ -221,13 +221,13 @@ export default function SEOHead({
       ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
-        "name": "Marketing Services",
+        "name": "Practical AI Education and Business Growth",
         "itemListElement": [
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI Social Media Marketing" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Local SEO Optimization" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Review Management" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI Video Content" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Website Development" } }
+          { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "Practical AI Education for Small Business" } },
+          { "@type": "Offer", "itemOffered": { "@type": "LearningResource", "name": "NTA Knowledge Library" } },
+          { "@type": "Offer", "itemOffered": { "@type": "CreativeWorkSeries", "name": "The NTA Growth Show" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Business Growth Guidance" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Done-for-You Digital Growth Systems" } }
         ]
       }
     };

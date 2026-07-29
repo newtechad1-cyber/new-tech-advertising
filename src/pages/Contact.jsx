@@ -80,8 +80,8 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead 
-        title="Contact New Tech Advertising | Mason City IA"
-        description="Contact New Tech Advertising in Mason City, Iowa. AI marketing agency serving Iowa & Southern Minnesota. Call (641) 420-8816. Monday–Friday 8am–5pm."
+        title="Contact NTA | Practical AI Education for Small Business"
+        description="Contact New Tech Advertising in Mason City, Iowa for practical AI education, business growth guidance, and connected systems for small-business owners."
       />
       <MarketingNav />
       
@@ -89,10 +89,10 @@ export default function Contact() {
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-12">
             <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-              Contact New Tech Advertising - AI Marketing Agency
+              Contact New Tech Advertising
             </h1>
             <p className="text-xl text-slate-600">
-              Mason City, Iowa | Serving Iowa & Southern Minnesota
+              Practical AI Education and Business Growth | Mason City, Iowa
             </p>
           </div>
 

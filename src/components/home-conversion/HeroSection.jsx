@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Check, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -47,7 +46,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-8"
           >
-            We help local businesses get found online, build trust, and <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">grow consistently</span> month after month.
+            Practical AI Education for Small Business—<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Built Around Real Work, Not Hype.</span>
           </motion.h1>
 
           <motion.div
@@ -57,10 +56,10 @@ export default function HeroSection() {
             className="text-lg md:text-xl text-slate-300 max-w-4xl mx-auto leading-relaxed space-y-5"
           >
             <p>
-              As Your Digital Growth Guide™, we bring your marketing, customer relationships, business knowledge, AI, and day-to-day operations together into one practical growth system.
+              New Tech Advertising is a practical AI education and business growth platform. We help owners learn to work with AI through conversation, keep human judgment in control, and turn real business experience into useful systems.
             </p>
             <p>
-              We start by strengthening your foundation. Then we help more people find your business. Next we build trust through helpful content and a strong reputation. As your business grows, we use practical AI and automation to save time, improve follow-up, and keep your growth moving forward.
+              The Knowledge Library, NTA Growth Show, books, Journal, practical tools, and Growth Conversations all work together. You can learn at your own pace, get guidance, or ask NTA to help build and operate the right system with you.
             </p>
           </motion.div>
         </div>
@@ -72,8 +71,8 @@ export default function HeroSection() {
           className="mt-14"
         >
           <div className="text-center mb-8">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400 mb-3">A clear path forward</p>
-            <h2 className="text-2xl md:text-4xl font-bold text-white">How We Help You Grow</h2>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400 mb-3">Learn it. Apply it. Build with it.</p>
+            <h2 className="text-2xl md:text-4xl font-bold text-white">How Practical AI Becomes Useful</h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">

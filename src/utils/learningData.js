@@ -269,7 +269,7 @@ export const LEARNING_CONTENT = [
     slug: 'ai-brought-me-out-of-retirement',
     category: 'Marketing Strategy',
     categoryId: 'marketing-strategy',
-    shortDescription: 'After 45 years in business, NTA founder Rick Hesse came out of retirement to launch the region\'s first AI-powered marketing agency.',
+    shortDescription: 'After 45 years in business, NTA founder Rick Hesse came out of retirement to help small-business owners understand and use AI practically.',
     articleContent: '',
     youtubeId: null,
     youtubeUrl: null,
@@ -282,7 +282,7 @@ export const LEARNING_CONTENT = [
   {
     id: 'i-was-early-again',
     canonId: 'A-002',
-    title: 'I Was Early Again: Why I Built North Iowa\'s First AI Marketing Agency',
+    title: 'I Was Early Again: Why I Built a Practical AI Education Platform',
     slug: 'i-was-early-again',
     category: 'Marketing Strategy',
     categoryId: 'marketing-strategy',

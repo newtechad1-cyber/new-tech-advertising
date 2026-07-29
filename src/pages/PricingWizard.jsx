@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, CheckCircle2, Building2, Target, DollarSign, Clock, LayoutDashboard, ArrowUpRight, Phone } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2, Building2, Target, LayoutDashboard, ArrowUpRight, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { base44 } from '@/api/base44Client';
@@ -138,7 +138,7 @@ export default function PricingWizard() {
       try {
         const user = await base44.auth.me();
         if (user) user_email = user.email;
-      } catch (e) {}
+      } catch {}
 
       const recommended = getRecommendation();
       
@@ -203,7 +203,7 @@ export default function PricingWizard() {
                 className="text-center py-20"
               >
                 <div className="mb-12 flex justify-center items-center gap-4 text-violet-400">
-                  <span className="font-bold tracking-widest uppercase text-sm border border-violet-500/30 px-3 py-1 rounded-full bg-violet-500/10">First AI Agency in Iowa</span>
+                  <span className="font-bold tracking-widest uppercase text-sm border border-violet-500/30 px-3 py-1 rounded-full bg-violet-500/10">Practical AI for Small Business</span>
                 </div>
                 <h1 className="text-4xl sm:text-6xl font-extrabold text-white mb-6 leading-tight">
                   Let's Find the Right Growth Plan for Your Business
