@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SEOHead from '@/components/shared/SEOHead';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -14,14 +14,14 @@ export default function AiBroughtMeOutOfRetirement() {
   return (
     <div className="min-h-screen bg-slate-950 font-sans text-slate-200">
       <SEOHead 
-        title="AI Brought Me Out of Retirement | New Tech Advertising"
-        description="How AI transformed marketing and brought Rick Hesse back to the industry. The story behind New Tech Advertising and AI-powered small business marketing."
+        title="AI Brought Me Out of Retirement and Into Practical AI Education | NTA"
+        description="How AI brought Rick Hesse back to help small-business owners understand and use artificial intelligence through practical, nontechnical education."
       />
       <MarketingNav />
       
       <main className="pt-24 pb-20">
         <LCHeader 
-          title="AI Brought Me Out of Retirement — Here's Why I'm Launching the Region's First AI-Powered Marketing Agency"
+          title="AI Brought Me Out of Retirement—and Into Practical AI Education"
           category="Modern Marketing Systems"
           readingTime="3 min read"
           breadcrumbs={[
@@ -79,7 +79,7 @@ export default function AiBroughtMeOutOfRetirement() {
           <div className="mt-16 p-8 bg-slate-900 border border-slate-800 rounded-2xl not-prose">
             <h3 className="text-xl font-bold text-white mb-2 mt-0">About the Author</h3>
             <p className="text-slate-400 text-base mb-0">
-              Rick A. Hesse is the founder of New Tech Advertising, the first AI-powered marketing agency in the North Iowa and Southern Minnesota region. With 45+ years of entrepreneurial experience, Rick helps local businesses grow with AI-powered marketing systems. <br/><br/>Contact: 641-420-8816 | info@newtechadvertising.com
+              Rick A. Hesse is the founder of New Tech Advertising, a practical AI education and business growth platform for small-business owners. With more than 45 years of entrepreneurial experience, Rick helps owners understand AI, apply it to real work, and keep human judgment in control. <br/><br/>Contact: 641-420-8816 | info@newtechadvertising.com
             </p>
           </div>
 

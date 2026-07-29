@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SEOHead from '@/components/shared/SEOHead';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -15,14 +15,14 @@ export default function IWasEarlyAgain() {
   return (
     <div className="min-h-screen bg-slate-950 font-sans text-slate-200">
       <SEOHead 
-        title="I Was Early Again: Why I Built North Iowa's First AI Marketing Agency | New Tech Advertising"
-        description="Why Rick Hesse built New Tech Advertising. A story about seeing technology early, from QR codes to AI, and why small businesses in North Iowa need to act now."
+        title="I Was Early Again: Why I Built a Practical AI Education Platform | NTA"
+        description="Why Rick Hesse built New Tech Advertising as a practical AI education and business growth platform for small-business owners."
       />
       <MarketingNav />
       
       <main className="pt-24 pb-20">
         <LCHeader 
-          title="I Was Early Again: Why I Built North Iowa's First AI Marketing Agency"
+          title="I Was Early Again: Why I Built a Practical AI Education Platform"
           category="Modern Marketing Systems"
           readingTime="7 min read"
           breadcrumbs={[
@@ -42,7 +42,7 @@ export default function IWasEarlyAgain() {
             className="absolute top-0 left-0 w-full h-full border-0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
             allowFullScreen
-            title="I Was Early Again: Why I Built North Iowa's First AI Marketing Agency"
+            title="I Was Early Again: Why I Built a Practical AI Education Platform"
           />
         </div>
 
@@ -64,7 +64,7 @@ export default function IWasEarlyAgain() {
 
           <h2 className="text-3xl font-black text-white mt-12">The Realization: Nobody in North Iowa Was Building This</h2>
           <p>
-            After spending the past year deeply immersed in artificial intelligence and marketing systems, I realized something important: nobody in North Iowa was truly building an AI-first marketing agency for small businesses. Not local agencies. Not television stations. Not traditional marketing companies. Not anyone I could find through my own research.
+            After spending the past year deeply immersed in artificial intelligence and marketing systems, I first believed the opportunity was to build an AI-first marketing agency for small businesses. That was the beginning, but the work kept teaching me something larger: owners did not simply need another agency. They needed practical education, a way to collaborate with AI, and a connected system for applying what they learned.
           </p>
           <p>
             AI has changed everything about marketing.
@@ -221,7 +221,7 @@ export default function IWasEarlyAgain() {
           <div className="mt-16 p-8 bg-slate-900 border border-slate-800 rounded-2xl not-prose">
             <h3 className="text-xl font-bold text-white mb-2 mt-0">About the Author</h3>
             <p className="text-slate-400 text-base mb-0">
-              Rick A. Hesse is the founder of New Tech Advertising, North Iowa's first AI-powered marketing agency. With 45+ years of entrepreneurial experience spanning retail, television, and now AI-powered marketing, Rick helps local businesses grow with modern systems that actually work. <br/><br/>Contact: 641-420-8816 | info@newtechadvertising.com
+              Rick A. Hesse is the founder of New Tech Advertising, a practical AI education and business growth platform for small-business owners. With more than 45 years of entrepreneurial experience spanning retail, television, technology, and AI, Rick helps owners turn what they know into useful modern systems. <br/><br/>Contact: 641-420-8816 | info@newtechadvertising.com
             </p>
           </div>
 

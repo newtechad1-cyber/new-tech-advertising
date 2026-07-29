@@ -21,7 +21,7 @@ export default function About() {
     <div className="bg-slate-900 min-h-screen">
       <SEOHead 
         title="Rick Hesse and the NTA Practical AI Method | About NTA"
-        description="Rick Hesse brings more than 45 years of business, advertising, sales, and technology experience to teaching owners how to use AI and build practical growth systems."
+        description="Rick Hesse brings more than 45 years of business, advertising, sales, and technology experience to practical AI education and connected growth systems for small-business owners."
       />
       <MarketingNav />
 
@@ -88,15 +88,15 @@ export default function About() {
                 Our mission is simple
               </h2>
               <p className="text-slate-300 text-xl leading-relaxed mb-4 font-medium">
-                Give organizations the technology they need to compete in a modern digital world.
+                Help small-business owners understand AI and use it wisely in the real world.
               </p>
               <p className="text-slate-500 mb-2">Not complicated marketing strategies.</p>
               <p className="text-slate-500 mb-8">Not expensive agency retainers.</p>
               <p className="text-slate-400 text-lg leading-relaxed mb-6">
-                Instead, we build systems that work automatically in the background — helping organizations accomplish more with less effort.
+                Instead, we teach the principles, show the practical applications, and collaborate with owners to build systems around their real work.
               </p>
-              <p className="text-slate-300 font-semibold mt-6">The goal is not just marketing.</p>
-              <p className="text-blue-400 font-bold text-lg">The goal is building long-term digital infrastructure.</p>
+              <p className="text-slate-300 font-semibold mt-6">The goal is not to turn owners into technicians.</p>
+              <p className="text-blue-400 font-bold text-lg">The goal is understanding, useful application, and long-term business capability.</p>
             </div>
 
             <div className="space-y-4">
@@ -253,9 +253,9 @@ export default function About() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <div className="text-blue-400 font-bold text-sm uppercase tracking-widest mb-3">Our Approach</div>
-            <h2 className="text-4xl font-extrabold text-white mb-4">A Platform Approach — Not a Traditional Agency</h2>
+            <h2 className="text-4xl font-extrabold text-white mb-4">An Education Platform — With Help Applying What You Learn</h2>
             <p className="text-slate-400 text-lg max-w-3xl mx-auto">
-              New Tech Advertising is not a traditional marketing agency. We focus on building technology platforms that organizations can use to manage their own content, media, and digital presence.
+              New Tech Advertising is not a traditional marketing agency. It is a connected learning system where lessons, videos, books, conversations, tools, and done-for-you help turn practical AI understanding into better business systems.
             </p>
           </div>
 
@@ -280,7 +280,7 @@ export default function About() {
 
           <div className="bg-gradient-to-r from-blue-600/10 to-indigo-600/10 border border-blue-500/20 rounded-2xl p-8 text-center">
             <p className="text-white font-bold text-xl mb-2">
-              These systems allow organizations to produce a continuous stream of content without needing a large marketing team.
+              Education comes first. Technology and services support the owner’s goals after the owner understands what should be built and why.
             </p>
           </div>
         </div>

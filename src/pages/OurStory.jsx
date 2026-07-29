@@ -1,9 +1,8 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { 
   Building, AlertTriangle, RefreshCw, Compass, 
   Target, Map, LayoutDashboard, CheckCircle2, 
-  Users, Rocket, ArrowRight, BookOpen
+  Users, ArrowRight, BookOpen
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import SEOHead from '@/components/shared/SEOHead';
@@ -34,8 +33,8 @@ export default function OurStory() {
     },
     {
       id: 3,
-      title: 'The Shift From Marketing Agency To Business Growth Platform',
-      desc: 'We made a hard pivot. Instead of selling services, we focused on solving business problems. The goal shifted to creating an end-to-end environment that educated, assessed, and guided owners toward market leadership.',
+      title: 'The Shift From Marketing Agency To Practical AI Education Platform',
+      desc: 'We made a hard pivot. Instead of leading with services, we focused on teaching owners how AI and connected business systems actually work. Guidance, tools, and done-for-you help now grow from that educational foundation.',
       icon: RefreshCw,
       color: 'text-indigo-400',
       bg: 'bg-indigo-500/10',
@@ -101,8 +100,8 @@ export default function OurStory() {
   return (
     <div className="bg-slate-950 min-h-screen text-slate-200 font-sans selection:bg-indigo-500/30 flex flex-col">
       <SEOHead 
-        title="Our Story | Building My Own Business First™ | NTA"
-        description="Discover how Rick Hesse became the first client of the NTA Operating System™ and how we shifted from an agency to a business growth platform."
+        title="Our Story | From Agency to Practical AI Education Platform | NTA"
+        description="Discover how Rick Hesse became the first client of the NTA Operating System™ and how New Tech Advertising evolved into a practical AI education and business growth platform."
       />
       <MarketingNav />
 
@@ -125,7 +124,7 @@ export default function OurStory() {
               Building My Own Business First™
             </h1>
             <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-              How New Tech Advertising evolved from a traditional marketing agency into a comprehensive Business Growth Platform by solving our own operational challenges.
+              How New Tech Advertising evolved from a traditional marketing agency into a practical AI education and business growth platform by solving real operational challenges.
             </p>
           </motion.div>
         </div>

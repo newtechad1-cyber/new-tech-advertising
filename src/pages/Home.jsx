@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, CalendarDays, ClipboardCheck, FolderKanban, Globe, MessageCircle, Users } from 'lucide-react';
 import MarketingNav from '../components/nav/MarketingNav';
@@ -15,6 +15,10 @@ import { trackJourneyEvent } from '@/lib/journeyAnalytics';
 
 const HOMEPAGE_FAQS = [
   {
+    question: 'What is New Tech Advertising now?',
+    answer: 'New Tech Advertising is a practical AI education and business growth platform for small-business owners. The Knowledge Library, NTA Growth Show, books, Journal, tools, and guided conversations help owners understand AI and apply it to real work without surrendering human judgment.',
+  },
+  {
     question: 'What is the NTA Growth Conversation?',
     answer: 'The NTA Growth Conversation is a free guided starting point that helps identify your goals, present situation, and most useful next step. Your answers can be saved directly to NTA’s contact and opportunity system before you book a time to talk.',
   },
@@ -24,7 +28,7 @@ const HOMEPAGE_FAQS = [
   },
   {
     question: 'How does New Tech Advertising help a local business grow?',
-    answer: 'NTA helps local businesses strengthen their foundation, improve visibility and trust, organize customer follow-up, and connect practical AI and business systems into one useful growth approach.',
+    answer: 'NTA teaches owners how AI fits into the complete business, then helps them strengthen their foundation, improve visibility and trust, organize customer follow-up, and connect practical AI with useful business systems.',
   },
   {
     question: 'Does New Tech Advertising serve businesses outside Iowa?',
@@ -87,8 +91,8 @@ export default function Home() {
   return (
     <div className="bg-slate-950 min-h-screen">
       <SEOHead
-        title="Practical AI and Growth Systems for Small Business | NTA"
-        description="New Tech Advertising helps local businesses strengthen their foundation, attract more customers, improve follow-up, and grow with practical AI and proven business systems."
+        title="Practical AI Education for Small Business | NTA"
+        description="New Tech Advertising is a practical AI education and business growth platform helping owners use AI through conversation, preserve human judgment, and build useful systems."
         faqs={HOMEPAGE_FAQS}
       />
       <MarketingNav />
