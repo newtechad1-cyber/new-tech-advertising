@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown, LogOut, Menu, X } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
@@ -28,7 +28,7 @@ const NAV_LINKS = [
       { label: 'Free Business Books', href: '/books', desc: 'Practical guides for owners' },
       { label: 'Business Foundations', href: '/knowledge/business-foundations', desc: 'Core principles of local business growth' },
       { label: 'AI Foundations', href: '/knowledge/ai-foundations', desc: 'Practical AI for small business' },
-      { label: 'Growth Show', href: '/learning-center/videos', desc: 'Video insights' },
+      { label: 'NTA Growth Show', href: '/growth-show', desc: 'Connected business and AI conversations' },
     ],
   },
   {

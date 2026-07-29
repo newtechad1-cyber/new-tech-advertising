@@ -1,0 +1,104 @@
+{
+  "name": "GrowthShowEpisode",
+  "type": "object",
+  "description": "Public NTA Growth Show episode record. Connects one episode to its canonical lesson, YouTube video, Journal material, social distribution, books, downloads, podcast, and Publishing Engine records.",
+  "properties": {
+    "episode_number": {
+      "type": "integer",
+      "description": "Optional public episode number"
+    },
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string",
+      "description": "Permanent public slug used at /growth-show/:slug"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Draft", "Review", "Approved", "Scheduled", "Published", "Archived"],
+      "default": "Draft"
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "thumbnail_url": {
+      "type": "string"
+    },
+    "youtube_knowledge_id": {
+      "type": "string",
+      "description": "FK to the YouTubeKnowledge record"
+    },
+    "youtube_video_id": {
+      "type": "string",
+      "description": "Published YouTube video ID retained for public rendering and reconciliation"
+    },
+    "source_canon_id": {
+      "type": "string",
+      "description": "Permanent Canon ID of the primary lesson or article"
+    },
+    "publishing_article_id": {
+      "type": "string",
+      "description": "FK to the canonical PublishingArticle record"
+    },
+    "related_lesson_canon_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "related_journal_issue_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "related_book_slugs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "social_assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "platform": { "type": "string" },
+          "label": { "type": "string" },
+          "url": { "type": "string" },
+          "asset_id": { "type": "string" }
+        }
+      }
+    },
+    "downloadable_resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "url": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "podcast_url": {
+      "type": "string"
+    },
+    "cta_text": {
+      "type": "string",
+      "default": "Start a Growth Conversation"
+    },
+    "cta_url": {
+      "type": "string",
+      "default": "/growth-conversation"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Internal publishing notes"
+    }
+  },
+  "required": ["title", "slug", "status"]
+}

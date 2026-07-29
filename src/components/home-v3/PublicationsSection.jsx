@@ -11,7 +11,7 @@ export default function PublicationsSection() {
           <p className="text-lg text-slate-400 leading-relaxed">Read our flagship publications on business growth, applied artificial intelligence, and operating systems.</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
           {/* Better Business Book */}
           <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 flex flex-col group hover:border-slate-700 transition-colors shadow-sm">
             <div className="mb-6 overflow-hidden rounded-xl bg-slate-900 aspect-[3/4] flex items-center justify-center relative shadow-lg">
@@ -66,6 +66,26 @@ export default function PublicationsSection() {
             </p>
             <Link to="/nta-journal" className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg border border-slate-800 transition-colors text-sm">
               Learn More & Subscribe <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          {/* NTA Growth Show */}
+          <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 flex flex-col group hover:border-blue-500/30 transition-colors shadow-sm">
+            <Link to="/growth-show" className="mb-6 overflow-hidden rounded-xl bg-gradient-to-br from-blue-950 to-slate-900 aspect-[3/4] flex flex-col items-center justify-center relative shadow-lg border border-blue-500/10">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(37,99,235,0.22),transparent_58%)]" />
+              <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-blue-600 text-white shadow-2xl transition-transform duration-500 group-hover:scale-110">
+                <span className="ml-1 text-4xl">▶</span>
+              </div>
+              <p className="relative mt-8 text-center text-xs font-bold uppercase tracking-[0.24em] text-blue-300">New Tech Advertising</p>
+              <p className="relative mt-3 px-5 text-center text-3xl font-black leading-tight text-white">The NTA<br />Growth Show</p>
+              <p className="relative mt-4 px-6 text-center text-sm text-slate-400">Watch. Learn. Continue.</p>
+            </Link>
+            <h3 className="text-xl font-bold text-white mb-2">The NTA Growth Show</h3>
+            <p className="text-sm text-slate-400 leading-relaxed mb-6 flex-1">
+              Practical conversations connected to YouTube, Knowledge Library lessons, Journal material, books, and social content.
+            </p>
+            <Link to="/growth-show" className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg transition-colors text-sm">
+              Watch the Show <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
