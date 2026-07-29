@@ -1,10 +1,7 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Linkedin, Youtube, Instagram, Facebook } from 'lucide-react';
 import NewsletterFooterSection from '@/components/newsletter/NewsletterFooterSection';
-
-const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
 
 export default function SiteFooter() {
   return (
@@ -50,6 +47,8 @@ export default function SiteFooter() {
         <div>
           <p className="text-white font-semibold mb-3 text-sm">Resources</p>
           <ul className="space-y-2 text-sm">
+            <li><Link to="/growth-show" className="hover:text-white transition-colors">NTA Growth Show</Link></li>
+            <li><Link to="/journal" className="hover:text-white transition-colors">NTA Journal</Link></li>
             <li><Link to="/books" className="hover:text-white transition-colors">Free Business Books</Link></li>
             <li><a href="/Blog" className="hover:text-white transition-colors">All Articles</a></li>
             <li><a href="/our-work" className="hover:text-white transition-colors">Our Work</a></li>

@@ -124,7 +124,7 @@ export const PUBLIC_PAGE_KEYS = new Set([
   'PrivacyPolicy', 'TermsOfService', 'SiteMap',
   // Publications and primary public discovery
   'Books', 'BetterBusinessBook', 'PracticalAI', 'NtaJournal', 'JournalLanding',
-  'JournalIssueView', 'GrowthGuide', 'NTAGrowthConversation',
+  'JournalIssueView', 'GrowthShow', 'GrowthShowEpisode', 'GrowthGuide', 'NTAGrowthConversation',
   // Industry / vertical marketing pages
   'HvacMarketing', 'HvacIndustry', 'DentistMarketing', 'PlumbingMarketing',
   'RoofingMarketing', 'MedSpaMarketing', 'RestaurantMarketing', 'LocalBusinessMarketing',
@@ -264,6 +264,8 @@ export const ROUTE_OVERRIDES = {
   '/i-was-early-again':          'public',
   '/journal':                    'public',
   '/journal/:slug':              'public',
+  '/growth-show':                'public',
+  '/growth-show/:slug':          'public',
   '/what-changed-online':        'public',
   '/ai-visibility-basics':       'public',
   '/practical-ai-for-small-businesses': 'public',

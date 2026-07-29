@@ -23,6 +23,8 @@ const CaseStudyJohnsonHeating = lazy(() => import('./pages/CaseStudyJohnsonHeati
 const CaseStudyMonsonPlumbing = lazy(() => import('./pages/CaseStudyMonsonPlumbing'));
 const CaseStudyPapaEveretts = lazy(() => import('./pages/CaseStudyPapaEveretts'));
 const LearningCenter = lazy(() => import('./pages/LearningCenter'));
+const GrowthShow = lazy(() => import('./pages/GrowthShow'));
+const GrowthShowEpisode = lazy(() => import('./pages/GrowthShowEpisode'));
 // GapAuditPage removed
 const AiBroughtMeOutOfRetirement = lazy(() => import('./pages/AiBroughtMeOutOfRetirement'));
 const PracticalAI = lazy(() => import('./pages/PracticalAI'));
@@ -752,6 +754,8 @@ const AuthenticatedApp = () => {
       <Route path="/ops/reports" element={<OpsReports />} />
 
       <Route path="/learning-center" element={<LayoutWrapper currentPageName="LearningCenter"><LearningCenter /></LayoutWrapper>} />
+      <Route path="/growth-show" element={<LayoutWrapper currentPageName="GrowthShow"><GrowthShow /></LayoutWrapper>} />
+      <Route path="/growth-show/:slug" element={<LayoutWrapper currentPageName="GrowthShowEpisode"><GrowthShowEpisode /></LayoutWrapper>} />
       <Route path="/learning-center/category/:id" element={<LayoutWrapper currentPageName="LCCategory"><LCCategory /></LayoutWrapper>} />
       <Route path="/learning-center/videos" element={<LayoutWrapper currentPageName="LCVideoLibrary"><LCVideoLibrary /></LayoutWrapper>} />
       <Route path="/learning-center/videos/:id" element={<LayoutWrapper currentPageName="LCVideoDetail"><LCVideoDetail /></LayoutWrapper>} />
