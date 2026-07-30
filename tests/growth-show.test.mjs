@@ -23,12 +23,9 @@ const article = {
   status: 'Published',
 };
 
-test('published long-form videos become public Growth Show episodes', () => {
-  const [episode] = buildGrowthShowEpisodes({ videos: [video], articles: [article] });
-  assert.equal(episode.slug, 'a-better-way-to-grow');
-  assert.equal(episode.youtubeVideoId, 'abc123');
-  assert.equal(episode.lessons[0].canon_id, 'A-100');
-  assert.equal(episode.status, 'Published');
+test('ordinary published videos do not become Growth Show episodes without explicit classification', () => {
+  const episodes = buildGrowthShowEpisodes({ videos: [video], articles: [article] });
+  assert.equal(episodes.length, 0);
 });
 
 test('episode records add publishing-system relationships without replacing video identity', () => {
@@ -54,19 +51,41 @@ test('episode records add publishing-system relationships without replacing vide
   assert.equal(episode.socialAssets[0].label, 'Episode post');
 });
 
-test('shorts and private videos do not become show episodes', () => {
-  const episodes = buildGrowthShowEpisodes({
-    videos: [
-      { ...video, youtube_video_id: 'short1', asset_format: 'Short' },
-      { ...video, youtube_video_id: 'private1', visibility: 'Private' },
-    ],
+test('an explicit episode can render before its YouTubeKnowledge record is migrated', () => {
+  const [episode] = buildGrowthShowEpisodes({
+    videos: [],
     articles: [article],
+    episodeRecords: [{
+      id: 'episode-1',
+      episode_number: 1,
+      title: 'Growth Show: A Better Way to Grow',
+      slug: 'a-better-way-to-grow',
+      summary: 'A connected business conversation.',
+      status: 'Published',
+      published_date: '2026-07-25',
+      featured: true,
+      youtube_video_id: 'abc123',
+      source_canon_id: 'A-100',
+      playlist_slug: 'nta-growth-show',
+    }],
   });
-  assert.equal(episodes.length, 0);
+  assert.equal(episode.youtubeVideoId, 'abc123');
+  assert.equal(episode.youtubeUrl, 'https://www.youtube.com/watch?v=abc123');
+  assert.equal(episode.video.playlist_slug, 'nta-growth-show');
+  assert.equal(episode.lessons[0].canon_id, 'A-100');
 });
 
 test('episode lookup accepts canonical slug and YouTube ID', () => {
-  const episodes = buildGrowthShowEpisodes({ videos: [video], articles: [article] });
+  const episodes = buildGrowthShowEpisodes({
+    videos: [video],
+    articles: [article],
+    episodeRecords: [{
+      status: 'Published',
+      slug: 'a-better-way-to-grow',
+      youtube_video_id: 'abc123',
+      source_canon_id: 'A-100',
+    }],
+  });
   assert.equal(findGrowthShowEpisode(episodes, 'a-better-way-to-grow')?.youtubeVideoId, 'abc123');
   assert.equal(findGrowthShowEpisode(episodes, 'abc123')?.slug, 'a-better-way-to-grow');
 });
