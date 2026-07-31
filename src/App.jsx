@@ -13,6 +13,7 @@ import { AdminGuard, ClientGuard } from '@/components/auth/RoleGuard';
 import AdminLayout from '@/components/admin/AdminLayout';
 import NoIndexMeta from '@/components/auth/NoIndexMeta';
 import { classifyAppRoute, classifyPageKey, requiresAuth, shouldNoIndex, userHasAccess } from '@/config/routeGovernance';
+import { wrongHostRedirect } from '@/config/hostGovernance';
 import Login from './pages/Login';
 import SignupPage from './pages/SignupPage';
 // — Eagerly loaded public pages (tiny, critical for first paint) —
@@ -385,6 +386,12 @@ const AuthGate = ({ children }) => {
   const access = classifyAppRoute(pathname, Object.keys(Pages));
   const needsAuth = requiresAuth(access);
   const needsNoIndex = shouldNoIndex(access);
+  const hostRedirect = wrongHostRedirect(window.location, Object.keys(Pages));
+
+  if (hostRedirect) {
+    window.location.replace(hostRedirect);
+    return null;
+  }
 
   // Public / noindex paths — no auth needed
   if (!needsAuth) {
