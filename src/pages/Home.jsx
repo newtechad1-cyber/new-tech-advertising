@@ -136,7 +136,7 @@ export default function Home() {
               <p className="text-lg text-slate-300 font-medium mb-6">We build the right pieces in the right order—not another disconnected package.</p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link onClick={() => trackStep('growth_conversation_primary')} to="/growth-conversation" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)]">
-                  Start a Growth Conversation <ArrowRight className="w-5 h-5" />
+                  Talk to My Office™ <ArrowRight className="w-5 h-5" />
                 </Link>
                 <Link onClick={() => trackStep('gap_audit_primary')} to="/free-audit" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all border border-slate-700">
                   Take the Free Business Gap Audit <ArrowRight className="w-5 h-5" />
