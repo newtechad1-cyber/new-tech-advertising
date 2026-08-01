@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import growthGuideSurfer from '@/assets/brand/nta-growth-guide-surfer.webp';
 
 const growthSteps = [
   {
@@ -111,8 +112,8 @@ export default function HeroSection() {
           className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Button type="button" onClick={openGrowthGuide} size="lg" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] border-0 px-8">
-            <img src="/brand/nta-growth-guide-surfer.webp" alt="" className="w-9 h-9 -ml-3 mr-2 object-contain" />
-            Talk with the Digital Growth Guide
+            <img src={growthGuideSurfer} alt="" className="w-9 h-9 -ml-3 mr-2 object-contain" />
+            Talk with My Office™
           </Button>
           <Button asChild size="lg" variant="outline" className="w-full sm:w-auto bg-slate-950/40 border-slate-600 text-white hover:bg-slate-800 hover:text-white px-8">
             <Link to="/operating-system">
