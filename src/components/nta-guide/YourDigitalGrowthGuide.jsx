@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useDragControls } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
-import { X, Send, Loader2, AlertCircle, Zap, ChevronRight, Brain, Mic, MicOff } from 'lucide-react';
+import { X, Send, Loader2, AlertCircle, Zap, ChevronRight, Brain, Mic, MicOff, RotateCcw } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import growthGuideSurfer from "@/assets/brand/nta-growth-guide-surfer.webp";
 const DISCOVERY_ACTION = 'Walk through my business growth';
@@ -146,6 +146,9 @@ export default function YourDigitalGrowthGuide() {
   const [isListening, setIsListening] = useState(false);
   const submissionLockRef = useRef(false);
   const recognitionRef = useRef(null);
+  const shouldListenRef = useRef(false);
+  const voiceRestartTimerRef = useRef(null);
+  const inputRef = useRef('');
   const messagesEndRef = useRef(null);
   const scrollContainerRef = useRef(null);
   const quickActionsRef = useRef(null);
@@ -166,12 +169,26 @@ export default function YourDigitalGrowthGuide() {
     return () => window.removeEventListener('nta:open-growth-guide', openGuide);
   }, []);
 
-  useEffect(() => () => recognitionRef.current?.stop(), []);
+  useEffect(() => {
+    inputRef.current = input;
+  }, [input]);
 
-  const toggleVoiceInput = () => {
+  const stopVoiceInput = () => {
+    shouldListenRef.current = false;
+    clearTimeout(voiceRestartTimerRef.current);
+    recognitionRef.current?.stop();
+    setIsListening(false);
+  };
+
+  useEffect(() => () => {
+    shouldListenRef.current = false;
+    clearTimeout(voiceRestartTimerRef.current);
+    recognitionRef.current?.abort();
+  }, []);
+
+  const toggleVoiceInput = async () => {
     if (isListening) {
-      recognitionRef.current?.stop();
-      setIsListening(false);
+      stopVoiceInput();
       return;
     }
 
@@ -181,29 +198,73 @@ export default function YourDigitalGrowthGuide() {
       return;
     }
 
+    if (navigator.mediaDevices?.getUserMedia) {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        stream.getTracks().forEach(track => track.stop());
+      } catch {
+        toast.error('Your microphone is blocked. Allow microphone access in your browser, then try again.');
+        return;
+      }
+    }
+
     const recognition = new SpeechRecognition();
     recognition.lang = 'en-US';
     recognition.interimResults = true;
+    // Browser speech recognition often ends short sessions on its own. Keep
+    // restarting while the visitor still wants to dictate so the red button
+    // does not flash and immediately turn itself off.
     recognition.continuous = false;
+    let startingText = inputRef.current.trim();
     recognition.onstart = () => setIsListening(true);
     recognition.onresult = event => {
       const transcript = Array.from(event.results)
         .map(result => result[0]?.transcript || '')
         .join(' ')
         .trim();
-      setInput(transcript);
+      const nextInput = [startingText, transcript].filter(Boolean).join(' ');
+      inputRef.current = nextInput;
+      setInput(nextInput);
     };
     recognition.onerror = event => {
+      if (event.error === 'no-speech') return;
+
+      shouldListenRef.current = false;
       setIsListening(false);
-      if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
-        toast.error('Your microphone is blocked. Allow microphone access or type your message.');
-      } else if (event.error !== 'no-speech') {
-        toast.error('I could not hear that clearly. Please try again or type your message.');
-      }
+      const messages = {
+        'not-allowed': 'Your microphone is blocked. Allow microphone access in your browser, then try again.',
+        'service-not-allowed': 'Voice recognition is blocked by this browser. You can still type your message.',
+        'audio-capture': 'Your browser could not find a working microphone. Check the microphone and try again.',
+        network: 'The browser could not reach its voice-recognition service. Please try again or type your message.'
+      };
+      toast.error(messages[event.error] || 'Voice recognition stopped unexpectedly. Please try again or type your message.');
     };
-    recognition.onend = () => setIsListening(false);
+    recognition.onend = () => {
+      if (!shouldListenRef.current) {
+        setIsListening(false);
+        return;
+      }
+
+      startingText = inputRef.current.trim();
+      voiceRestartTimerRef.current = setTimeout(() => {
+        if (!shouldListenRef.current) return;
+        try {
+          recognition.start();
+        } catch {
+          shouldListenRef.current = false;
+          setIsListening(false);
+          toast.error('Voice recognition could not restart. Please try again or type your message.');
+        }
+      }, 250);
+    };
     recognitionRef.current = recognition;
-    recognition.start();
+    shouldListenRef.current = true;
+    try {
+      recognition.start();
+    } catch {
+      shouldListenRef.current = false;
+      toast.error('Voice recognition could not start. Please try again or type your message.');
+    }
   };
 
   const quickActions = [
@@ -223,6 +284,29 @@ export default function YourDigitalGrowthGuide() {
     setDiscoveryMode(false);
   };
 
+  const startFreshConversation = () => {
+    stopVoiceInput();
+    if (discoveryCreds?.session_id) {
+      sessionStorage.removeItem(`nta_discovery_asked_${discoveryCreds.session_id}`);
+    }
+    sessionStorage.removeItem(DISCOVERY_STORAGE_KEY);
+    localStorage.removeItem(SAVED_DISCOVERY_STORAGE_KEY);
+    setDiscoveryCreds(null);
+    setDiscoveryMode(false);
+    setMessages([{
+      id: crypto.randomUUID(),
+      role: 'assistant',
+      content: "Hi, I’m the NTA Digital Growth Guide. This is a fresh conversation. Tell me what is happening in your business, and we’ll find a practical next step together."
+    }]);
+    inputRef.current = '';
+    setInput('');
+    setIsLoading(false);
+    setPendingSubmission(false);
+    setFailedSubmission(null);
+    setPendingAIResponse(null);
+    setShowKnowledgeBase(false);
+  };
+
   const rememberSavedDiscovery = sessionUpdates => {
     const saved = { ...discoveryCreds, expires_at: sessionUpdates?.expires_at || discoveryCreds?.expires_at };
     localStorage.setItem(SAVED_DISCOVERY_STORAGE_KEY, JSON.stringify(saved));
@@ -232,7 +316,9 @@ export default function YourDigitalGrowthGuide() {
 
   useEffect(() => {
     try {
-      const saved = sessionStorage.getItem(DISCOVERY_STORAGE_KEY) || localStorage.getItem(SAVED_DISCOVERY_STORAGE_KEY);
+      // Only resume a discovery that is active in this browser tab. A saved
+      // session must never make a later visit unexpectedly open an old chat.
+      const saved = sessionStorage.getItem(DISCOVERY_STORAGE_KEY);
       if (!saved) return;
 
       const parsed = JSON.parse(saved);
@@ -517,12 +603,25 @@ export default function YourDigitalGrowthGuide() {
                   </div>
                 </div>
               </div>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="text-slate-400 hover:text-white transition-colors relative z-10 bg-slate-800/50 p-2 rounded-full"
-              >
-                <X className="w-5 h-5" />
-              </button>
+              <div className="relative z-10 flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={startFreshConversation}
+                  aria-label="Start a fresh conversation"
+                  title="Start a fresh conversation"
+                  className="text-slate-400 hover:text-white transition-colors bg-slate-800/50 p-2 rounded-full"
+                >
+                  <RotateCcw className="w-4 h-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { stopVoiceInput(); setIsOpen(false); }}
+                  aria-label="Close Talk to My Office"
+                  className="text-slate-400 hover:text-white transition-colors bg-slate-800/50 p-2 rounded-full"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
             </div>
 
             {authStep === 'chat' ? (
@@ -681,6 +780,11 @@ export default function YourDigitalGrowthGuide() {
                                 <Send className="w-4 h-4" />
                             </Button>
                         </form>
+                        {isListening && (
+                          <p role="status" aria-live="polite" className="mt-2 text-xs text-red-300">
+                            Listening… speak naturally, then click the red microphone when you are finished.
+                          </p>
+                        )}
                       </div>
                     </div>
                 </>
