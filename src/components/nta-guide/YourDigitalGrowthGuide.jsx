@@ -127,9 +127,12 @@ const MessageBubble = ({ message }) => {
 
 export default function YourDigitalGrowthGuide() {
   const [isOpen, setIsOpen] = useState(false);
-  const [authStep, setAuthStep] = useState('loading');
-  const [conversation, setConversation] = useState(null);
-  const [messages, setMessages] = useState([]);
+  const [authStep] = useState('chat');
+  const [messages, setMessages] = useState([{
+    id: 'welcome',
+    role: 'assistant',
+    content: "Hi, I’m the NTA Digital Growth Guide. Tell me what is happening in your business, and we’ll find a practical next step together."
+  }]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [discoveryMode, setDiscoveryMode] = useState(false);
@@ -242,43 +245,6 @@ export default function YourDigitalGrowthGuide() {
     }
   }, []);
 
-  useEffect(() => {
-    if (isOpen && authStep === 'loading') {
-      setAuthStep('chat');
-    }
-  }, [isOpen, authStep]);
-
-  useEffect(() => {
-    if (isOpen && authStep === 'chat' && !conversation) {
-      initConversation();
-    }
-  }, [isOpen, authStep, conversation]);
-
-  const initConversation = async () => {
-    try {
-        setIsLoading(true);
-        const conv = await base44.agents.createConversation({
-            agent_name: "nta_growth_guide",
-            metadata: { name: "Digital Growth Guide Session" }
-        });
-        setConversation(conv);
-        setMessages(conv.messages || []);
-    } catch (e) {
-        console.error("Error creating conversation:", e);
-        setAuthStep('connect');
-    } finally {
-        setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-      if (!conversation) return;
-      const unsubscribe = base44.agents.subscribeToConversation(conversation.id, (data) => {
-          setMessages(data.messages || []);
-      });
-      return () => unsubscribe();
-  }, [conversation]);
-
   const handleScroll = () => {
     if (!scrollContainerRef.current) return;
     const { scrollTop, scrollHeight, clientHeight } = scrollContainerRef.current;
@@ -292,11 +258,33 @@ export default function YourDigitalGrowthGuide() {
     }
   }, [messages, autoScroll]);
 
-  const sendToAgent = async (text) => {
-    await base44.agents.addMessage(conversation, {
-      role: "user",
-      content: text + ` (Context: Currently on ${location.pathname})`
-    });
+  const sendToAgent = async (text, addUserMessage = true) => {
+    const userMessage = {
+      id: crypto.randomUUID(),
+      role: 'user',
+      content: text
+    };
+    const nextMessages = addUserMessage ? [...messages, userMessage] : messages;
+
+    if (addUserMessage) setMessages(nextMessages);
+    setIsLoading(true);
+
+    try {
+      const response = await base44.functions.invoke('growthGuideChat', {
+        messages: nextMessages.map(({ role, content }) => ({ role, content })),
+        page_path: location.pathname
+      });
+      const result = response?.data ?? response;
+      if (!result?.reply) throw new Error('The Guide returned an empty response');
+
+      setMessages(current => [...current, {
+        id: crypto.randomUUID(),
+        role: 'assistant',
+        content: result.reply
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const startDiscovery = async () => {
@@ -380,7 +368,7 @@ export default function YourDigitalGrowthGuide() {
     submissionLockRef.current = true;
     setPendingSubmission(true);
     try {
-      await sendToAgent(pendingAIResponse.text);
+      await sendToAgent(pendingAIResponse.text, false);
       setPendingAIResponse(null);
     } catch {
       toast.error("The Guide still couldn't respond. Your saved answer is safe.");
@@ -393,7 +381,7 @@ export default function YourDigitalGrowthGuide() {
   const handleSend = async (e, forcedText = null) => {
     if (e) e.preventDefault();
     const text = forcedText || input.trim();
-    if (!text || !conversation || pendingSubmission || submissionLockRef.current) return;
+    if (!text || isLoading || pendingSubmission || submissionLockRef.current) return;
 
     if (text === DISCOVERY_ACTION) {
       if (!discoveryMode) {
@@ -546,6 +534,12 @@ export default function YourDigitalGrowthGuide() {
                       {messages.map((message, index) => (
                         <MessageBubble key={message.id || index} message={message} />
                       ))}
+                      {isLoading && messages.length > 0 && (
+                        <div className="flex items-center gap-2 text-sm text-slate-400">
+                          <Loader2 className="h-4 w-4 animate-spin text-blue-400" />
+                          The Guide is thinking…
+                        </div>
+                      )}
                       
                       <div ref={messagesEndRef} className="h-1" />
                     </div>
@@ -595,7 +589,7 @@ export default function YourDigitalGrowthGuide() {
                                       <button 
                                           key={i}
                                           onClick={() => handleSend(null, action)}
-                                          disabled={pendingSubmission}
+                                          disabled={isLoading || pendingSubmission}
                                           className="shrink-0 text-xs bg-slate-800 border border-slate-700 shadow-sm text-slate-300 font-medium px-3 py-1.5 rounded-xl hover:border-blue-500/50 hover:bg-slate-700 hover:text-white transition-colors"
                                       >
                                           {action}
@@ -647,7 +641,7 @@ export default function YourDigitalGrowthGuide() {
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 placeholder={discoveryMode ? "Answer the next audit question..." : "Speak or type what you need help with..."}
-                                disabled={pendingSubmission || Boolean(failedSubmission) || Boolean(pendingAIResponse)}
+                                disabled={isLoading || pendingSubmission || Boolean(failedSubmission) || Boolean(pendingAIResponse)}
                                 className="w-full pr-24 pl-4 py-6 rounded-2xl border-slate-700 bg-slate-800 text-white placeholder:text-slate-400 focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:bg-slate-800 transition-all shadow-sm text-sm"
                             />
                             <Button
@@ -665,7 +659,7 @@ export default function YourDigitalGrowthGuide() {
                             <Button
                                 type="submit"
                                 size="icon"
-                                disabled={!input.trim() || pendingSubmission || Boolean(failedSubmission) || Boolean(pendingAIResponse)}
+                                disabled={!input.trim() || isLoading || pendingSubmission || Boolean(failedSubmission) || Boolean(pendingAIResponse)}
                                 className="absolute right-2 top-2 bottom-2 h-auto w-10 rounded-xl bg-blue-600 hover:bg-blue-500 text-white disabled:bg-slate-700 disabled:text-slate-500 shadow-md transition-colors"
                             >
                                 <Send className="w-4 h-4" />

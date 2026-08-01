@@ -14,6 +14,14 @@ test('homepage opens the existing Digital Growth Guide as its conversational fro
   assert.match(guide, /addEventListener\('nta:open-growth-guide'/);
 });
 
+test('public guide has a working response path instead of a silent agent-loading state', async () => {
+  const guide = await read('src/components/nta-guide/YourDigitalGrowthGuide.jsx');
+
+  assert.match(guide, /functions\.invoke\('growthGuideChat'/);
+  assert.match(guide, /Retry AI response/);
+  assert.doesNotMatch(guide, /setAuthStep\('connect'\)/);
+});
+
 test('public guide accepts voice input without silently sending the transcript', async () => {
   const guide = await read('src/components/nta-guide/YourDigitalGrowthGuide.jsx');
 
