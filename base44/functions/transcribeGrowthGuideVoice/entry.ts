@@ -41,10 +41,13 @@ Deno.serve(async (req) => {
       `talk-to-my-office.${extension}`,
       { type: mimeType }
     );
+    if (audioFile.size < 1_000) {
+      return Response.json({ error: 'The recording did not contain enough audio to transcribe.' }, { status: 422 });
+    }
     const openai = new OpenAI({ apiKey });
     const transcription = await openai.audio.transcriptions.create({
       file: audioFile,
-      model: 'gpt-transcribe',
+      model: 'whisper-1',
       language: 'en',
       prompt: 'New Tech Advertising, NTA, Talk to My Office, Digital Growth Guide, Growth Roadmap, Knowledge Library.'
     });
@@ -58,7 +61,9 @@ Deno.serve(async (req) => {
   } catch (error) {
     console.error('transcribeGrowthGuideVoice failed', error);
     return Response.json({
-      error: 'The recording could not be transcribed. Please try again.'
+      error: error instanceof Error && error.message.includes('configured')
+        ? 'Voice transcription is not configured in Base44 yet.'
+        : 'The recording reached NTA, but could not be transcribed. Please try again.'
     }, { status: 500 });
   }
 });
