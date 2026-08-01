@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Check, MessageCircle } from 'lucide-react';
+import { ArrowRight, Check, Mic } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
@@ -23,6 +23,12 @@ const growthSteps = [
 ];
 
 export default function HeroSection() {
+  const openGrowthGuide = () => {
+    window.dispatchEvent(new CustomEvent('nta:open-growth-guide', {
+      detail: { source: 'homepage_hero' }
+    }));
+  };
+
   return (
     <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden text-white">
       {/* Background Image */}
@@ -41,12 +47,19 @@ export default function HeroSection() {
 
       <div className="container mx-auto px-4 relative z-10 max-w-6xl">
         <div className="text-center max-w-5xl mx-auto">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400 mb-5"
+          >
+            Welcome to the NTA Digital Growth Office™
+          </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-8"
           >
-            Practical AI Education for Small Business—<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Built Around Real Work, Not Hype.</span>
+            Work with AI without changing how you work.
           </motion.h1>
 
           <motion.div
@@ -56,10 +69,10 @@ export default function HeroSection() {
             className="text-lg md:text-xl text-slate-300 max-w-4xl mx-auto leading-relaxed space-y-5"
           >
             <p>
-              New Tech Advertising is a practical AI education and business growth platform. We help owners learn to work with AI through conversation, keep human judgment in control, and turn real business experience into useful systems.
+              Speak naturally or type a note. The Digital Growth Guide helps you explain your business, organize what matters, and find the right next step—with human judgment still in control.
             </p>
             <p>
-              The Knowledge Library, NTA Growth Show, books, Journal, practical tools, and Growth Conversations all work together. You can learn at your own pace, get guidance, or ask NTA to help build and operate the right system with you.
+              Behind the conversation is NTA's practical AI education, business knowledge, and hands-on help. You can learn at your own pace, talk through a problem, or ask Rick to join when a human conversation would help.
             </p>
           </motion.div>
         </div>
@@ -97,11 +110,9 @@ export default function HeroSection() {
           transition={{ delay: 0.3 }}
           className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <Button asChild size="lg" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] border-0 px-8">
-            <Link to="/growth-conversation">
-              <MessageCircle className="w-5 h-5 mr-2" />
-              Start Your Growth Conversation
-            </Link>
+          <Button type="button" onClick={openGrowthGuide} size="lg" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] border-0 px-8">
+            <Mic className="w-5 h-5 mr-2" />
+            Talk with the Digital Growth Guide
           </Button>
           <Button asChild size="lg" variant="outline" className="w-full sm:w-auto bg-slate-950/40 border-slate-600 text-white hover:bg-slate-800 hover:text-white px-8">
             <Link to="/operating-system">
@@ -112,7 +123,7 @@ export default function HeroSection() {
         </motion.div>
 
         <p className="mt-6 text-center text-sm text-slate-400">
-          No one-size-fits-all package. We help you identify what needs attention first and build in the right order.
+          Start by talking. The Guide can help you think it through, and Rick can join when you want a person involved.
         </p>
       </div>
     </section>
