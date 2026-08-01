@@ -113,7 +113,7 @@ export default function HeroSection() {
         >
           <Button type="button" onClick={openGrowthGuide} size="lg" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] border-0 px-8">
             <img src={growthGuideSurfer} alt="" className="w-9 h-9 -ml-3 mr-2 object-contain" />
-            Talk with My Office™
+            Talk to My Office™
           </Button>
           <Button asChild size="lg" variant="outline" className="w-full sm:w-auto bg-slate-950/40 border-slate-600 text-white hover:bg-slate-800 hover:text-white px-8">
             <Link to="/operating-system">

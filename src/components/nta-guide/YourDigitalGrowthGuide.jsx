@@ -14,6 +14,10 @@ import { cn } from "@/lib/utils";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { getJourneyMemory } from '@/lib/journeyMemory';
 import DiscoveryWalkthrough from './DiscoveryWalkthrough';
+import {
+  buildPublicKnowledgeContext,
+  buildPublicKnowledgeFallback
+} from '@/lib/growth-guide/publicKnowledge';
 
 const FunctionDisplay = ({ toolCall }) => {
     const [expanded, setExpanded] = useState(false);
@@ -271,7 +275,8 @@ export default function YourDigitalGrowthGuide() {
     try {
       const response = await base44.functions.invoke('growthGuideChat', {
         messages: nextMessages.map(({ role, content }) => ({ role, content })),
-        page_path: location.pathname
+        page_path: location.pathname,
+        knowledge_context: buildPublicKnowledgeContext(text)
       });
       const result = response?.data ?? response;
       if (!result?.reply) throw new Error('The Guide returned an empty response');
@@ -280,6 +285,13 @@ export default function YourDigitalGrowthGuide() {
         id: crypto.randomUUID(),
         role: 'assistant',
         content: result.reply
+      }]);
+    } catch (error) {
+      console.warn('The live Growth Guide response was unavailable; using published NTA knowledge.', error);
+      setMessages(current => [...current, {
+        id: crypto.randomUUID(),
+        role: 'assistant',
+        content: buildPublicKnowledgeFallback(text)
       }]);
     } finally {
       setIsLoading(false);
@@ -317,6 +329,11 @@ export default function YourDigitalGrowthGuide() {
         toast.error("Your audit is ready, but the Guide didn't respond. Retry below.");
       }
     } catch {
+      setMessages(current => [...current, {
+        id: crypto.randomUUID(),
+        role: 'assistant',
+        content: buildPublicKnowledgeFallback(DISCOVERY_ACTION)
+      }]);
       toast.error('Unable to start the audit. Please try again.');
     } finally {
       submissionLockRef.current = false;
@@ -456,7 +473,7 @@ export default function YourDigitalGrowthGuide() {
                 <div className="hidden sm:block bg-slate-900/95 backdrop-blur-sm border border-slate-700/50 shadow-lg px-4 py-2 rounded-2xl pointer-events-none">
                     <p className="text-xs font-medium text-slate-200 flex items-center gap-2">
                         <img src={growthGuideSurfer} alt="" className="w-7 h-7 object-contain" />
-                        Talk with My Office™
+                        Talk to My Office™
                     </p>
                 </div>
                 <button
