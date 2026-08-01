@@ -144,10 +144,13 @@ export default function YourDigitalGrowthGuide() {
   const [failedSubmission, setFailedSubmission] = useState(null);
   const [pendingAIResponse, setPendingAIResponse] = useState(null);
   const [isListening, setIsListening] = useState(false);
+  const [isTranscribing, setIsTranscribing] = useState(false);
   const submissionLockRef = useRef(false);
-  const recognitionRef = useRef(null);
-  const shouldListenRef = useRef(false);
-  const voiceRestartTimerRef = useRef(null);
+  const mediaRecorderRef = useRef(null);
+  const mediaStreamRef = useRef(null);
+  const recordingChunksRef = useRef([]);
+  const recordingTimerRef = useRef(null);
+  const recordingStartTextRef = useRef('');
   const inputRef = useRef('');
   const messagesEndRef = useRef(null);
   const scrollContainerRef = useRef(null);
@@ -173,18 +176,45 @@ export default function YourDigitalGrowthGuide() {
     inputRef.current = input;
   }, [input]);
 
+  const releaseMicrophone = () => {
+    clearTimeout(recordingTimerRef.current);
+    mediaStreamRef.current?.getTracks().forEach(track => track.stop());
+    mediaStreamRef.current = null;
+  };
+
   const stopVoiceInput = () => {
-    shouldListenRef.current = false;
-    clearTimeout(voiceRestartTimerRef.current);
-    recognitionRef.current?.stop();
+    clearTimeout(recordingTimerRef.current);
+    const recorder = mediaRecorderRef.current;
+    if (recorder?.state === 'recording') recorder.stop();
+    else releaseMicrophone();
     setIsListening(false);
   };
 
-  useEffect(() => () => {
-    shouldListenRef.current = false;
-    clearTimeout(voiceRestartTimerRef.current);
-    recognitionRef.current?.abort();
-  }, []);
+  const cancelVoiceInput = () => {
+    clearTimeout(recordingTimerRef.current);
+    const recorder = mediaRecorderRef.current;
+    if (recorder) {
+      recorder.ondataavailable = null;
+      recorder.onstop = null;
+      recorder.onerror = null;
+    }
+    if (recorder?.state === 'recording') recorder.stop();
+    recordingChunksRef.current = [];
+    releaseMicrophone();
+    setIsListening(false);
+  };
+
+  useEffect(() => () => cancelVoiceInput(), []);
+
+  const blobToBase64 = async blob => {
+    const bytes = new Uint8Array(await blob.arrayBuffer());
+    let binary = '';
+    const chunkSize = 0x8000;
+    for (let index = 0; index < bytes.length; index += chunkSize) {
+      binary += String.fromCharCode(...bytes.subarray(index, index + chunkSize));
+    }
+    return btoa(binary);
+  };
 
   const toggleVoiceInput = async () => {
     if (isListening) {
@@ -192,78 +222,74 @@ export default function YourDigitalGrowthGuide() {
       return;
     }
 
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-      toast.error('Voice input is not available in this browser. You can still type your message.');
+    if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) {
+      toast.error('Audio recording is not available in this browser. You can still type your message.');
       return;
     }
 
-    if (navigator.mediaDevices?.getUserMedia) {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        stream.getTracks().forEach(track => track.stop());
-      } catch {
-        toast.error('Your microphone is blocked. Allow microphone access in your browser, then try again.');
-        return;
-      }
-    }
-
-    const recognition = new SpeechRecognition();
-    recognition.lang = 'en-US';
-    recognition.interimResults = true;
-    // Browser speech recognition often ends short sessions on its own. Keep
-    // restarting while the visitor still wants to dictate so the red button
-    // does not flash and immediately turn itself off.
-    recognition.continuous = false;
-    let startingText = inputRef.current.trim();
-    recognition.onstart = () => setIsListening(true);
-    recognition.onresult = event => {
-      const transcript = Array.from(event.results)
-        .map(result => result[0]?.transcript || '')
-        .join(' ')
-        .trim();
-      const nextInput = [startingText, transcript].filter(Boolean).join(' ');
-      inputRef.current = nextInput;
-      setInput(nextInput);
-    };
-    recognition.onerror = event => {
-      if (event.error === 'no-speech') return;
-
-      shouldListenRef.current = false;
-      setIsListening(false);
-      const messages = {
-        'not-allowed': 'Your microphone is blocked. Allow microphone access in your browser, then try again.',
-        'service-not-allowed': 'Voice recognition is blocked by this browser. You can still type your message.',
-        'audio-capture': 'Your browser could not find a working microphone. Check the microphone and try again.',
-        network: 'The browser could not reach its voice-recognition service. Please try again or type your message.'
-      };
-      toast.error(messages[event.error] || 'Voice recognition stopped unexpectedly. Please try again or type your message.');
-    };
-    recognition.onend = () => {
-      if (!shouldListenRef.current) {
-        setIsListening(false);
-        return;
-      }
-
-      startingText = inputRef.current.trim();
-      voiceRestartTimerRef.current = setTimeout(() => {
-        if (!shouldListenRef.current) return;
-        try {
-          recognition.start();
-        } catch {
-          shouldListenRef.current = false;
-          setIsListening(false);
-          toast.error('Voice recognition could not restart. Please try again or type your message.');
-        }
-      }, 250);
-    };
-    recognitionRef.current = recognition;
-    shouldListenRef.current = true;
     try {
-      recognition.start();
-    } catch {
-      shouldListenRef.current = false;
-      toast.error('Voice recognition could not start. Please try again or type your message.');
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true }
+      });
+      const mimeCandidates = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4'];
+      const mimeType = mimeCandidates.find(type => MediaRecorder.isTypeSupported(type));
+      const recorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
+
+      mediaStreamRef.current = stream;
+      mediaRecorderRef.current = recorder;
+      recordingChunksRef.current = [];
+      recordingStartTextRef.current = inputRef.current.trim();
+
+      recorder.ondataavailable = event => {
+        if (event.data?.size) recordingChunksRef.current.push(event.data);
+      };
+      recorder.onerror = () => {
+        releaseMicrophone();
+        setIsListening(false);
+        setIsTranscribing(false);
+        toast.error('The microphone stopped unexpectedly. Please try again or type your message.');
+      };
+      recorder.onstop = async () => {
+        releaseMicrophone();
+        setIsListening(false);
+        const audio = new Blob(recordingChunksRef.current, { type: recorder.mimeType || 'audio/webm' });
+        recordingChunksRef.current = [];
+
+        if (!audio.size) {
+          toast.error('No audio was recorded. Please try again or type your message.');
+          return;
+        }
+
+        setIsTranscribing(true);
+        try {
+          const response = await base44.functions.invoke('transcribeGrowthGuideVoice', {
+            audio_base64: await blobToBase64(audio),
+            mime_type: audio.type
+          });
+          const result = response?.data ?? response;
+          const transcript = String(result?.transcript || '').trim();
+          if (!transcript) throw new Error('No transcript returned');
+
+          const nextInput = [recordingStartTextRef.current, transcript].filter(Boolean).join(' ');
+          inputRef.current = nextInput;
+          setInput(nextInput);
+        } catch (error) {
+          console.warn('Talk to My Office voice transcription failed.', error);
+          toast.error('I recorded you, but could not turn it into text. Please try again or type your message.');
+        } finally {
+          setIsTranscribing(false);
+        }
+      };
+
+      recorder.start(250);
+      setIsListening(true);
+      recordingTimerRef.current = setTimeout(() => stopVoiceInput(), 60_000);
+    } catch (error) {
+      releaseMicrophone();
+      const blocked = error?.name === 'NotAllowedError' || error?.name === 'SecurityError';
+      toast.error(blocked
+        ? 'Your microphone is blocked. Allow microphone access in your browser, then try again.'
+        : 'Your browser could not open a working microphone. Check the microphone and try again.');
     }
   };
 
@@ -285,7 +311,7 @@ export default function YourDigitalGrowthGuide() {
   };
 
   const startFreshConversation = () => {
-    stopVoiceInput();
+    cancelVoiceInput();
     if (discoveryCreds?.session_id) {
       sessionStorage.removeItem(`nta_discovery_asked_${discoveryCreds.session_id}`);
     }
@@ -615,7 +641,7 @@ export default function YourDigitalGrowthGuide() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => { stopVoiceInput(); setIsOpen(false); }}
+                  onClick={() => { cancelVoiceInput(); setIsOpen(false); }}
                   aria-label="Close Talk to My Office"
                   className="text-slate-400 hover:text-white transition-colors bg-slate-800/50 p-2 rounded-full"
                 >
@@ -756,25 +782,31 @@ export default function YourDigitalGrowthGuide() {
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 placeholder={discoveryMode ? "Answer the next audit question..." : "Speak or type what you need help with..."}
-                                disabled={isLoading || pendingSubmission || Boolean(failedSubmission) || Boolean(pendingAIResponse)}
+                                disabled={isLoading || isTranscribing || pendingSubmission || Boolean(failedSubmission) || Boolean(pendingAIResponse)}
                                 className="w-full pr-24 pl-4 py-6 rounded-2xl border-slate-700 bg-slate-800 text-white placeholder:text-slate-400 focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:bg-slate-800 transition-all shadow-sm text-sm"
                             />
                             <Button
                                 type="button"
                                 size="icon"
                                 onClick={toggleVoiceInput}
-                                aria-label={isListening ? 'Stop listening' : 'Speak your message'}
+                                disabled={isTranscribing}
+                                aria-label={isListening ? 'Stop recording' : isTranscribing ? 'Transcribing your recording' : 'Record your message'}
                                 className={cn(
                                   "absolute right-14 top-2 bottom-2 h-auto w-10 rounded-xl text-white shadow-md transition-colors",
-                                  isListening ? "bg-red-600 hover:bg-red-500" : "bg-slate-700 hover:bg-slate-600"
+                                  isListening ? "bg-red-600 hover:bg-red-500" : "bg-slate-700 hover:bg-slate-600",
+                                  isTranscribing && "cursor-wait"
                                 )}
                             >
-                                {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+                                {isTranscribing
+                                  ? <Loader2 className="w-4 h-4 animate-spin" />
+                                  : isListening
+                                    ? <MicOff className="w-4 h-4" />
+                                    : <Mic className="w-4 h-4" />}
                             </Button>
                             <Button
                                 type="submit"
                                 size="icon"
-                                disabled={!input.trim() || isLoading || pendingSubmission || Boolean(failedSubmission) || Boolean(pendingAIResponse)}
+                                disabled={!input.trim() || isListening || isTranscribing || isLoading || pendingSubmission || Boolean(failedSubmission) || Boolean(pendingAIResponse)}
                                 className="absolute right-2 top-2 bottom-2 h-auto w-10 rounded-xl bg-blue-600 hover:bg-blue-500 text-white disabled:bg-slate-700 disabled:text-slate-500 shadow-md transition-colors"
                             >
                                 <Send className="w-4 h-4" />
@@ -782,7 +814,12 @@ export default function YourDigitalGrowthGuide() {
                         </form>
                         {isListening && (
                           <p role="status" aria-live="polite" className="mt-2 text-xs text-red-300">
-                            Listening… speak naturally, then click the red microphone when you are finished.
+                            Recording… speak naturally, then click the red microphone when you are finished.
+                          </p>
+                        )}
+                        {isTranscribing && (
+                          <p role="status" aria-live="polite" className="mt-2 text-xs text-blue-300">
+                            Turning your recording into editable text…
                           </p>
                         )}
                       </div>
