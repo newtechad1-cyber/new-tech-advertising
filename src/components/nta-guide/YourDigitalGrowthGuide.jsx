@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useDragControls } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
-import { X, Send, Loader2, AlertCircle, Zap, ChevronRight, Brain } from 'lucide-react';
+import { X, Send, Loader2, AlertCircle, Zap, ChevronRight, Brain, Mic, MicOff } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 const NTA_FAVICON = "https://media.base44.com/images/public/691f41a18de4a7f498c8f884/04e19b127_favicon_64x64.png";
@@ -137,7 +137,9 @@ export default function YourDigitalGrowthGuide() {
   const [pendingSubmission, setPendingSubmission] = useState(false);
   const [failedSubmission, setFailedSubmission] = useState(null);
   const [pendingAIResponse, setPendingAIResponse] = useState(null);
+  const [isListening, setIsListening] = useState(false);
   const submissionLockRef = useRef(false);
+  const recognitionRef = useRef(null);
   const messagesEndRef = useRef(null);
   const scrollContainerRef = useRef(null);
   const quickActionsRef = useRef(null);
@@ -151,6 +153,52 @@ export default function YourDigitalGrowthGuide() {
   const location = useLocation();
   const navigate = useNavigate();
   const dragControls = useDragControls();
+
+  useEffect(() => {
+    const openGuide = () => setIsOpen(true);
+    window.addEventListener('nta:open-growth-guide', openGuide);
+    return () => window.removeEventListener('nta:open-growth-guide', openGuide);
+  }, []);
+
+  useEffect(() => () => recognitionRef.current?.stop(), []);
+
+  const toggleVoiceInput = () => {
+    if (isListening) {
+      recognitionRef.current?.stop();
+      setIsListening(false);
+      return;
+    }
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      toast.error('Voice input is not available in this browser. You can still type your message.');
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.interimResults = true;
+    recognition.continuous = false;
+    recognition.onstart = () => setIsListening(true);
+    recognition.onresult = event => {
+      const transcript = Array.from(event.results)
+        .map(result => result[0]?.transcript || '')
+        .join(' ')
+        .trim();
+      setInput(transcript);
+    };
+    recognition.onerror = event => {
+      setIsListening(false);
+      if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+        toast.error('Your microphone is blocked. Allow microphone access or type your message.');
+      } else if (event.error !== 'no-speech') {
+        toast.error('I could not hear that clearly. Please try again or type your message.');
+      }
+    };
+    recognition.onend = () => setIsListening(false);
+    recognitionRef.current = recognition;
+    recognition.start();
+  };
 
   const quickActions = [
     'What is the NTA Operating System™?',
@@ -421,7 +469,7 @@ export default function YourDigitalGrowthGuide() {
                 <div className="hidden sm:block bg-slate-900/95 backdrop-blur-sm border border-slate-700/50 shadow-lg px-4 py-2 rounded-2xl pointer-events-none">
                     <p className="text-xs font-medium text-slate-200 flex items-center gap-2">
                         <img src={NTA_FAVICON} alt="NTA" className="w-4 h-4 object-contain" />
-                        The NTA Growth Guide™
+                        Talk with the Digital Growth Guide™
                     </p>
                 </div>
                 <button
@@ -445,7 +493,7 @@ export default function YourDigitalGrowthGuide() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-6 right-6 z-50 w-[400px] h-[650px] max-h-[85vh] bg-slate-950 backdrop-blur-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden border border-slate-700/50"
+            className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[400px] h-[650px] max-h-[85vh] bg-slate-950 backdrop-blur-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden border border-slate-700/50"
           >
             {/* Header */}
             <div 
@@ -458,7 +506,7 @@ export default function YourDigitalGrowthGuide() {
                   <img src={NTA_FAVICON} alt="NTA Guide" className="w-7 h-7 object-contain" />
                 </div>
                 <div>
-                  <h3 className="text-white font-bold tracking-wide">The NTA Growth Guide™</h3>
+                  <h3 className="text-white font-bold tracking-wide">Your Digital Growth Guide™</h3>
                   <div className="flex items-center gap-1.5 mt-0.5">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.5)]"></span>
                     <span className="text-slate-300 text-xs font-medium">Ready to assist</span>
@@ -598,10 +646,22 @@ export default function YourDigitalGrowthGuide() {
                             <Input
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
-                                placeholder={discoveryMode ? "Answer the next audit question..." : "Ask a question or request guidance..."}
+                                placeholder={discoveryMode ? "Answer the next audit question..." : "Speak or type what you need help with..."}
                                 disabled={pendingSubmission || Boolean(failedSubmission) || Boolean(pendingAIResponse)}
-                                className="w-full pr-14 pl-4 py-6 rounded-2xl border-slate-700 bg-slate-800 text-white placeholder:text-slate-400 focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:bg-slate-800 transition-all shadow-sm text-sm"
+                                className="w-full pr-24 pl-4 py-6 rounded-2xl border-slate-700 bg-slate-800 text-white placeholder:text-slate-400 focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:bg-slate-800 transition-all shadow-sm text-sm"
                             />
+                            <Button
+                                type="button"
+                                size="icon"
+                                onClick={toggleVoiceInput}
+                                aria-label={isListening ? 'Stop listening' : 'Speak your message'}
+                                className={cn(
+                                  "absolute right-14 top-2 bottom-2 h-auto w-10 rounded-xl text-white shadow-md transition-colors",
+                                  isListening ? "bg-red-600 hover:bg-red-500" : "bg-slate-700 hover:bg-slate-600"
+                                )}
+                            >
+                                {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+                            </Button>
                             <Button
                                 type="submit"
                                 size="icon"
