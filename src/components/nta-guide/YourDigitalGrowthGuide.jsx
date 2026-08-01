@@ -145,23 +145,23 @@ export default function YourDigitalGrowthGuide() {
   const [pendingAIResponse, setPendingAIResponse] = useState(null);
   const [isListening, setIsListening] = useState(false);
   const [isTranscribing, setIsTranscribing] = useState(false);
+  const [recordingSeconds, setRecordingSeconds] = useState(0);
+  const [audioLevel, setAudioLevel] = useState(0);
+  const [voiceStatus, setVoiceStatus] = useState('idle');
+  const [voiceError, setVoiceError] = useState('');
   const submissionLockRef = useRef(false);
   const mediaRecorderRef = useRef(null);
   const mediaStreamRef = useRef(null);
   const recordingChunksRef = useRef([]);
   const recordingTimerRef = useRef(null);
+  const recordingClockRef = useRef(null);
+  const audioContextRef = useRef(null);
+  const audioAnimationRef = useRef(null);
   const recordingStartTextRef = useRef('');
   const inputRef = useRef('');
   const messagesEndRef = useRef(null);
   const scrollContainerRef = useRef(null);
-  const quickActionsRef = useRef(null);
   const [autoScroll, setAutoScroll] = useState(true);
-
-  const scrollQuickActions = (dir) => {
-    if (quickActionsRef.current) {
-      quickActionsRef.current.scrollBy({ left: dir === 'left' ? -200 : 200, behavior: 'smooth' });
-    }
-  };
   const location = useLocation();
   const navigate = useNavigate();
   const dragControls = useDragControls();
@@ -178,8 +178,13 @@ export default function YourDigitalGrowthGuide() {
 
   const releaseMicrophone = () => {
     clearTimeout(recordingTimerRef.current);
+    clearInterval(recordingClockRef.current);
+    cancelAnimationFrame(audioAnimationRef.current);
+    audioContextRef.current?.close().catch(() => {});
+    audioContextRef.current = null;
     mediaStreamRef.current?.getTracks().forEach(track => track.stop());
     mediaStreamRef.current = null;
+    setAudioLevel(0);
   };
 
   const stopVoiceInput = () => {
@@ -228,6 +233,8 @@ export default function YourDigitalGrowthGuide() {
     }
 
     try {
+      setVoiceError('');
+      setVoiceStatus('requesting');
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true }
       });
@@ -240,6 +247,20 @@ export default function YourDigitalGrowthGuide() {
       recordingChunksRef.current = [];
       recordingStartTextRef.current = inputRef.current.trim();
 
+      const audioContext = new AudioContext();
+      const analyser = audioContext.createAnalyser();
+      analyser.fftSize = 256;
+      audioContext.createMediaStreamSource(stream).connect(analyser);
+      audioContextRef.current = audioContext;
+      const levels = new Uint8Array(analyser.frequencyBinCount);
+      const readAudioLevel = () => {
+        analyser.getByteFrequencyData(levels);
+        const average = levels.reduce((sum, value) => sum + value, 0) / levels.length;
+        setAudioLevel(Math.min(100, Math.round(average * 1.6)));
+        audioAnimationRef.current = requestAnimationFrame(readAudioLevel);
+      };
+      readAudioLevel();
+
       recorder.ondataavailable = event => {
         if (event.data?.size) recordingChunksRef.current.push(event.data);
       };
@@ -247,7 +268,8 @@ export default function YourDigitalGrowthGuide() {
         releaseMicrophone();
         setIsListening(false);
         setIsTranscribing(false);
-        toast.error('The microphone stopped unexpectedly. Please try again or type your message.');
+        setVoiceStatus('error');
+        setVoiceError('The microphone stopped unexpectedly. Please check the selected microphone and try again.');
       };
       recorder.onstop = async () => {
         releaseMicrophone();
@@ -256,50 +278,58 @@ export default function YourDigitalGrowthGuide() {
         recordingChunksRef.current = [];
 
         if (!audio.size) {
-          toast.error('No audio was recorded. Please try again or type your message.');
+          setVoiceStatus('error');
+          setVoiceError('No audio reached the recorder. Check the microphone selected for this site, then try again.');
           return;
         }
 
         setIsTranscribing(true);
+        setVoiceStatus('transcribing');
         try {
           const response = await base44.functions.invoke('transcribeGrowthGuideVoice', {
             audio_base64: await blobToBase64(audio),
             mime_type: audio.type
           });
           const result = response?.data ?? response;
+          if (result?.error) throw new Error(result.error);
           const transcript = String(result?.transcript || '').trim();
           if (!transcript) throw new Error('No transcript returned');
 
           const nextInput = [recordingStartTextRef.current, transcript].filter(Boolean).join(' ');
           inputRef.current = nextInput;
           setInput(nextInput);
+          setVoiceStatus('ready');
         } catch (error) {
           console.warn('Talk to My Office voice transcription failed.', error);
-          toast.error('I recorded you, but could not turn it into text. Please try again or type your message.');
+          setVoiceStatus('error');
+          setVoiceError(error?.message || 'Your audio was recorded, but transcription failed. Please try once more.');
         } finally {
           setIsTranscribing(false);
         }
       };
 
-      recorder.start(250);
+      recorder.start(1000);
       setIsListening(true);
+      setRecordingSeconds(0);
+      setVoiceStatus('recording');
+      recordingClockRef.current = setInterval(() => {
+        setRecordingSeconds(seconds => seconds + 1);
+      }, 1000);
       recordingTimerRef.current = setTimeout(() => stopVoiceInput(), 60_000);
     } catch (error) {
       releaseMicrophone();
+      setVoiceStatus('error');
       const blocked = error?.name === 'NotAllowedError' || error?.name === 'SecurityError';
-      toast.error(blocked
+      setVoiceError(blocked
         ? 'Your microphone is blocked. Allow microphone access in your browser, then try again.'
         : 'Your browser could not open a working microphone. Check the microphone and try again.');
     }
   };
 
-  const quickActions = [
-    'What is the NTA Operating System™?',
-    DISCOVERY_ACTION,
-    'Help me understand AI for my business',
-    'Show me the Growth Roadmap™',
-    'I’m interested in becoming a Community Partner',
-    'Schedule a Discovery Meeting'
+  const suggestedQuestions = [
+    'Where is my business losing growth?',
+    'How could AI help my business?',
+    'What should I improve first?'
   ];
 
   const [showKnowledgeBase, setShowKnowledgeBase] = useState(false);
@@ -331,6 +361,9 @@ export default function YourDigitalGrowthGuide() {
     setFailedSubmission(null);
     setPendingAIResponse(null);
     setShowKnowledgeBase(false);
+    setVoiceStatus('idle');
+    setVoiceError('');
+    setRecordingSeconds(0);
   };
 
   const rememberSavedDiscovery = sessionUpdates => {
@@ -609,12 +642,12 @@ export default function YourDigitalGrowthGuide() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[400px] h-[650px] max-h-[85vh] bg-slate-950 backdrop-blur-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden border border-slate-700/50"
+            className="fixed inset-2 sm:inset-auto sm:bottom-5 sm:right-5 z-50 sm:w-[min(560px,calc(100vw-2.5rem))] sm:h-[min(780px,calc(100vh-2.5rem))] bg-slate-950 backdrop-blur-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden border border-slate-700/50"
           >
             {/* Header */}
             <div 
               onPointerDown={(e) => dragControls.start(e)}
-              className="bg-slate-900 border-b border-slate-800 p-5 flex items-center justify-between shadow-sm z-10 relative overflow-hidden cursor-move touch-none"
+              className="bg-slate-900 border-b border-slate-800 p-4 sm:p-5 flex items-center justify-between shadow-sm z-10 relative overflow-hidden cursor-move touch-none"
             >
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 blur-[50px] rounded-full pointer-events-none" />
               <div className="flex items-center gap-4 relative z-10">
@@ -634,10 +667,10 @@ export default function YourDigitalGrowthGuide() {
                   type="button"
                   onClick={startFreshConversation}
                   aria-label="Start a fresh conversation"
-                  title="Start a fresh conversation"
-                  className="text-slate-400 hover:text-white transition-colors bg-slate-800/50 p-2 rounded-full"
+                  className="text-slate-300 hover:text-white transition-colors bg-slate-800/70 px-3 py-2 rounded-xl flex items-center gap-2 text-xs font-medium"
                 >
                   <RotateCcw className="w-4 h-4" />
+                  <span className="hidden sm:inline">Start fresh</span>
                 </button>
                 <button
                   type="button"
@@ -675,6 +708,23 @@ export default function YourDigitalGrowthGuide() {
                       {messages.map((message, index) => (
                         <MessageBubble key={message.id || index} message={message} />
                       ))}
+                      {messages.length === 1 && !isLoading && (
+                        <div className="pt-2 pl-11">
+                          <p className="text-[11px] uppercase tracking-wider text-slate-500 mb-2">A few ways to begin</p>
+                          <div className="space-y-1.5">
+                            {suggestedQuestions.map(question => (
+                              <button
+                                key={question}
+                                type="button"
+                                onClick={() => handleSend(null, question)}
+                                className="block text-left text-sm text-blue-300 hover:text-blue-200 hover:underline underline-offset-4"
+                              >
+                                {question}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                       {isLoading && messages.length > 0 && (
                         <div className="flex items-center gap-2 text-sm text-slate-400">
                           <Loader2 className="h-4 w-4 animate-spin text-blue-400" />
@@ -710,44 +760,6 @@ export default function YourDigitalGrowthGuide() {
                         </AnimatePresence>
                       </div>
 
-                      {/* Quick Start Actions */}
-                      {messages.length < 5 && (
-                          <div className="relative pt-3 pb-1 flex items-center group">
-                              <button 
-                                type="button"
-                                onClick={() => scrollQuickActions('left')}
-                                className="absolute left-0 z-10 h-full pl-2 pr-6 flex items-center bg-gradient-to-r from-slate-900 via-slate-900/90 to-transparent text-slate-400 hover:text-white opacity-0 md:group-hover:opacity-100 transition-opacity pointer-events-none md:pointer-events-auto"
-                              >
-                                <ChevronRight className="w-5 h-5 rotate-180" />
-                              </button>
-                              
-                              <div 
-                                  ref={quickActionsRef}
-                                  className="px-4 flex overflow-x-auto gap-2 w-full scroll-smooth" 
-                                  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-                              >
-                                  {quickActions.map((action, i) => (
-                                      <button 
-                                          key={i}
-                                          onClick={() => handleSend(null, action)}
-                                          disabled={isLoading || pendingSubmission}
-                                          className="shrink-0 text-xs bg-slate-800 border border-slate-700 shadow-sm text-slate-300 font-medium px-3 py-1.5 rounded-xl hover:border-blue-500/50 hover:bg-slate-700 hover:text-white transition-colors"
-                                      >
-                                          {action}
-                                      </button>
-                                  ))}
-                              </div>
-
-                              <button 
-                                type="button"
-                                onClick={() => scrollQuickActions('right')}
-                                className="absolute right-0 z-10 h-full pr-2 pl-6 flex items-center bg-gradient-to-l from-slate-900 via-slate-900/90 to-transparent text-slate-400 hover:text-white opacity-0 md:group-hover:opacity-100 transition-opacity pointer-events-none md:pointer-events-auto"
-                              >
-                                <ChevronRight className="w-5 h-5" />
-                              </button>
-                          </div>
-                      )}
-
                       {(failedSubmission || pendingAIResponse) && (
                         <div className="px-4 pt-3 flex gap-2">
                           {failedSubmission && (
@@ -781,7 +793,7 @@ export default function YourDigitalGrowthGuide() {
                             <Input
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
-                                placeholder={discoveryMode ? "Answer the next audit question..." : "Speak or type what you need help with..."}
+                                placeholder={discoveryMode ? "Answer the next audit question..." : "Ask about growth, websites, AI, trust, or your next step…"}
                                 disabled={isLoading || isTranscribing || pendingSubmission || Boolean(failedSubmission) || Boolean(pendingAIResponse)}
                                 className="w-full pr-24 pl-4 py-6 rounded-2xl border-slate-700 bg-slate-800 text-white placeholder:text-slate-400 focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:bg-slate-800 transition-all shadow-sm text-sm"
                             />
@@ -813,14 +825,33 @@ export default function YourDigitalGrowthGuide() {
                             </Button>
                         </form>
                         {isListening && (
-                          <p role="status" aria-live="polite" className="mt-2 text-xs text-red-300">
-                            Recording… speak naturally, then click the red microphone when you are finished.
-                          </p>
+                          <div role="status" aria-live="polite" className="mt-3 rounded-xl border border-red-500/30 bg-red-950/30 px-3 py-2">
+                            <div className="flex items-center justify-between text-xs text-red-200">
+                              <span className="font-medium">Recording · 0:{String(recordingSeconds).padStart(2, '0')}</span>
+                              <span>Click the red microphone to finish</span>
+                            </div>
+                            <div className="mt-2 h-1.5 rounded-full bg-slate-800 overflow-hidden">
+                              <div className="h-full bg-red-500 transition-[width] duration-100" style={{ width: `${Math.max(3, audioLevel)}%` }} />
+                            </div>
+                            {audioLevel < 4 && recordingSeconds >= 3 && (
+                              <p className="mt-2 text-xs text-amber-300">I’m not detecting sound. Check that the correct microphone is selected.</p>
+                            )}
+                          </div>
                         )}
                         {isTranscribing && (
                           <p role="status" aria-live="polite" className="mt-2 text-xs text-blue-300">
                             Turning your recording into editable text…
                           </p>
+                        )}
+                        {voiceStatus === 'ready' && !isTranscribing && (
+                          <p role="status" aria-live="polite" className="mt-2 text-xs text-emerald-300">
+                            Transcript ready below. Edit it if needed, then press Send.
+                          </p>
+                        )}
+                        {voiceError && (
+                          <div role="alert" className="mt-2 rounded-xl border border-amber-500/30 bg-amber-950/30 px-3 py-2 text-xs text-amber-200">
+                            {voiceError}
+                          </div>
                         )}
                       </div>
                     </div>
