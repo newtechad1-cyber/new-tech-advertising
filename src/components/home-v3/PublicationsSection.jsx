@@ -1,14 +1,18 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Play } from 'lucide-react';
+import { useGrowthShow } from '@/hooks/useGrowthShow';
 
 export default function PublicationsSection() {
+  const { episodes } = useGrowthShow();
+  const featuredShow = episodes[0];
+
   return (
     <section className="py-20 px-6 bg-slate-900/30 border-y border-slate-800/50">
       <div className="max-w-6xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <p className="text-blue-400 text-sm font-semibold uppercase tracking-widest mb-4">NTA Publications</p>
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-5">Practical knowledge for local business growth.</h2>
-          <p className="text-lg text-slate-400 leading-relaxed">Read our flagship publications on business growth, applied artificial intelligence, and operating systems.</p>
+          <p className="text-blue-400 text-sm font-semibold uppercase tracking-widest mb-4">Books, Journal &amp; Growth Show</p>
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-5">Keep learning in the format that fits you.</h2>
+          <p className="text-lg text-slate-400 leading-relaxed">Read the books, follow practical ideas in the Journal, or watch the NTA Growth Show and continue the conversation.</p>
         </div>
 
         <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
@@ -71,14 +75,26 @@ export default function PublicationsSection() {
 
           {/* NTA Growth Show */}
           <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 flex flex-col group hover:border-blue-500/30 transition-colors shadow-sm">
-            <Link to="/growth-show" className="mb-6 overflow-hidden rounded-xl bg-gradient-to-br from-blue-950 to-slate-900 aspect-[3/4] flex flex-col items-center justify-center relative shadow-lg border border-blue-500/10">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(37,99,235,0.22),transparent_58%)]" />
-              <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-blue-600 text-white shadow-2xl transition-transform duration-500 group-hover:scale-110">
-                <span className="ml-1 text-4xl">▶</span>
+            <Link to={featuredShow ? `/growth-show/${featuredShow.slug}` : '/growth-show'} className="mb-6 overflow-hidden rounded-xl bg-gradient-to-br from-blue-950 to-slate-900 aspect-[3/4] relative shadow-lg border border-blue-500/20">
+              {featuredShow?.thumbnailUrl ? (
+                <img
+                  src={featuredShow.thumbnailUrl}
+                  alt={featuredShow.title ? `${featuredShow.title} — NTA Growth Show` : 'Featured NTA Growth Show episode'}
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+              ) : (
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(37,99,235,0.3),transparent_58%)]" />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/25 to-slate-950/25" />
+              <p className="absolute left-4 top-4 rounded-full border border-blue-300/30 bg-slate-950/85 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-blue-300 backdrop-blur-sm">New Tech Advertising</p>
+              <div className="absolute inset-x-0 bottom-0 p-5">
+                <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-blue-600 text-white shadow-2xl transition-transform duration-500 group-hover:scale-110">
+                  <Play className="ml-1 h-6 w-6 fill-current" />
+                </div>
+                <p className="text-2xl font-black leading-tight text-white">The NTA Growth Show</p>
+                <p className="mt-2 text-xs font-bold uppercase tracking-[0.18em] text-blue-300">Watch · Learn · Continue</p>
               </div>
-              <p className="relative mt-8 text-center text-xs font-bold uppercase tracking-[0.24em] text-blue-300">New Tech Advertising</p>
-              <p className="relative mt-3 px-5 text-center text-3xl font-black leading-tight text-white">The NTA<br />Growth Show</p>
-              <p className="relative mt-4 px-6 text-center text-sm text-slate-400">Watch. Learn. Continue.</p>
             </Link>
             <h3 className="text-xl font-bold text-white mb-2">The NTA Growth Show</h3>
             <p className="text-sm text-slate-400 leading-relaxed mb-6 flex-1">
