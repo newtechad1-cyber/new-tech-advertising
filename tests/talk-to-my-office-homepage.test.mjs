@@ -25,13 +25,18 @@ test('public guide has a working response path instead of a silent agent-loading
   assert.doesNotMatch(guide, /setAuthStep\('connect'\)/);
 });
 
-test('public guide accepts voice input without silently sending the transcript', async () => {
+test('public guide records and transcribes voice without silently sending it', async () => {
   const guide = await read('src/components/nta-guide/YourDigitalGrowthGuide.jsx');
+  const transcriber = await read('base44/functions/transcribeGrowthGuideVoice/entry.ts');
 
-  assert.match(guide, /SpeechRecognition \|\| window\.webkitSpeechRecognition/);
-  assert.match(guide, /setInput\(transcript\)/);
+  assert.match(guide, /new MediaRecorder/);
+  assert.match(guide, /functions\.invoke\('transcribeGrowthGuideVoice'/);
+  assert.match(guide, /setInput\(nextInput\)/);
   assert.match(guide, /Speak or type what you need help with/);
-  assert.doesNotMatch(guide, /onresult[\s\S]{0,500}sendToAgent/);
+  assert.doesNotMatch(guide, /onstop[\s\S]{0,2000}sendToAgent/);
+  assert.match(transcriber, /audio\.transcriptions\.create/);
+  assert.match(transcriber, /model: 'gpt-transcribe'/);
+  assert.match(transcriber, /MAX_BASE64_LENGTH/);
 });
 
 test('Talk to My Office is introduced as a confirm-before-action approach', async () => {
