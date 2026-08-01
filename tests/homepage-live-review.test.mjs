@@ -12,13 +12,23 @@ test('books, Journal, and Growth Show appear before testimonials without the fou
   assert.doesNotMatch(home, /point_of_view_secondary/);
 });
 
-test('Growth Show card uses the current featured episode artwork with NTA branding', async () => {
+test('Growth Show card uses permanent branded show artwork and one correct destination', async () => {
   const publications = await read('src/components/home-v3/PublicationsSection.jsx');
 
-  assert.match(publications, /useGrowthShow/);
-  assert.match(publications, /featuredShow\.thumbnailUrl/);
+  assert.match(publications, /nta-growth-show-cover\.webp/);
+  assert.match(publications, /to="\/growth-show"/);
+  assert.doesNotMatch(publications, /featuredShow/);
   assert.match(publications, /New Tech Advertising/);
   assert.match(publications, /Watch · Learn · Continue/);
+});
+
+test('Growth Guide uses the surfing robot as its visual identity', async () => {
+  const hero = await read('src/components/home-conversion/HeroSection.jsx');
+  const guide = await read('src/components/nta-guide/YourDigitalGrowthGuide.jsx');
+
+  assert.match(hero, /nta-growth-guide-surfer\.webp/);
+  assert.match(guide, /nta-growth-guide-surfer\.webp/);
+  assert.match(guide, /Open the Digital Growth Guide/);
 });
 
 test('public Digital Growth Guide uses the resilient public chat function', async () => {
