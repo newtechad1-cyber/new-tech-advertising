@@ -1,11 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Play } from 'lucide-react';
-import { useGrowthShow } from '@/hooks/useGrowthShow';
 
 export default function PublicationsSection() {
-  const { episodes } = useGrowthShow();
-  const featuredShow = episodes[0];
-
   return (
     <section className="py-20 px-6 bg-slate-900/30 border-y border-slate-800/50">
       <div className="max-w-6xl mx-auto">
@@ -75,18 +71,14 @@ export default function PublicationsSection() {
 
           {/* NTA Growth Show */}
           <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 flex flex-col group hover:border-blue-500/30 transition-colors shadow-sm">
-            <Link to={featuredShow ? `/growth-show/${featuredShow.slug}` : '/growth-show'} className="mb-6 overflow-hidden rounded-xl bg-gradient-to-br from-blue-950 to-slate-900 aspect-[3/4] relative shadow-lg border border-blue-500/20">
-              {featuredShow?.thumbnailUrl ? (
-                <img
-                  src={featuredShow.thumbnailUrl}
-                  alt={featuredShow.title ? `${featuredShow.title} — NTA Growth Show` : 'Featured NTA Growth Show episode'}
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                />
-              ) : (
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(37,99,235,0.3),transparent_58%)]" />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/25 to-slate-950/25" />
+            <Link to="/growth-show" className="mb-6 overflow-hidden rounded-xl bg-gradient-to-br from-blue-950 to-slate-900 aspect-[3/4] relative shadow-lg border border-blue-500/20">
+              <img
+                src="/brand/nta-growth-show-cover.webp"
+                alt="The NTA Growth Show conversation studio"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/45" />
               <p className="absolute left-4 top-4 rounded-full border border-blue-300/30 bg-slate-950/85 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-blue-300 backdrop-blur-sm">New Tech Advertising</p>
               <div className="absolute inset-x-0 bottom-0 p-5">
                 <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-blue-600 text-white shadow-2xl transition-transform duration-500 group-hover:scale-110">
