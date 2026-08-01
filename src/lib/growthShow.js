@@ -38,34 +38,56 @@ function resolveJournalLinks(overlay, journals, video) {
 }
 
 export function buildGrowthShowEpisodes({ videos = [], articles = [], journals = [], episodeRecords = [] }) {
-  const byCanonId = new Map(articles.map(article => [article.canon_id, article]));
-  const overlaysByVideo = new Map();
-  const overlaysByCanon = new Map();
+  const byCanonId = new Map();
+  const bySlug = new Map();
+  const videosById = new Map();
+  const videosByCanon = new Map();
 
-  for (const record of episodeRecords) {
-    if (record.youtube_video_id) overlaysByVideo.set(record.youtube_video_id, record);
-    if (record.source_canon_id) overlaysByCanon.set(record.source_canon_id, record);
+  for (const article of articles) {
+    if (article.canon_id) byCanonId.set(article.canon_id, article);
+    if (article.id) byCanonId.set(article.id, article);
+    if (article.slug) bySlug.set(article.slug, article);
   }
 
-  return videos
-    .filter(video => (
-      video.publish_status === 'Published' &&
-      video.visibility !== 'Private' &&
-      video.asset_format !== 'Short' &&
-      video.youtube_video_id
-    ))
-    .map((video, index) => {
-      const overlay = overlaysByVideo.get(video.youtube_video_id) || overlaysByCanon.get(video.source_canon_id);
-      const article = byCanonId.get(overlay?.source_canon_id || video.source_canon_id) || null;
+  for (const video of videos) {
+    if (video.youtube_video_id) videosById.set(video.youtube_video_id, video);
+    if (video.source_canon_id) videosByCanon.set(video.source_canon_id, video);
+  }
+
+  // A public show episode must be explicitly classified. Ordinary long-form
+  // videos remain in the Learning Center and cannot become show episodes just
+  // because they happen to be published on YouTube.
+  return episodeRecords
+    .filter(record => record.status === 'Published' && record.youtube_video_id)
+    .map((overlay) => {
+      const matchedVideo = videosById.get(overlay.youtube_video_id) ||
+        videosByCanon.get(overlay.source_canon_id);
+      const video = matchedVideo || {
+        id: `growth-show-video-${overlay.youtube_video_id}`,
+        video_title: overlay.title,
+        description: overlay.summary,
+        youtube_video_id: overlay.youtube_video_id,
+        video_url: `https://www.youtube.com/watch?v=${overlay.youtube_video_id}`,
+        source_canon_id: overlay.source_canon_id,
+        source_asset_slug: overlay.source_article_slug || overlay.slug,
+        asset_format: 'Long Form',
+        playlist_slug: overlay.playlist_slug || 'nta-growth-show',
+        publish_status: 'Published',
+        visibility: 'Public',
+        published_date: overlay.published_date,
+      };
+      const article = byCanonId.get(overlay.source_canon_id || video.source_canon_id) ||
+        bySlug.get(overlay.source_article_slug || video.source_asset_slug) ||
+        null;
       const lessonIds = unique([
-        overlay?.source_canon_id,
+        overlay.source_canon_id,
         video.source_canon_id,
-        ...(overlay?.related_lesson_canon_ids || []),
+        ...(overlay.related_lesson_canon_ids || []),
         ...(article?.related_lesson_ids || []),
       ]);
       const lessons = lessonIds.map(id => byCanonId.get(id)).filter(Boolean);
       const journalsForEpisode = resolveJournalLinks(overlay, journals, video);
-      const bookSlugs = overlay?.related_book_slugs?.length
+      const bookSlugs = overlay.related_book_slugs?.length
         ? overlay.related_book_slugs
         : DEFAULT_BOOKS.map(book => book.slug);
       const books = bookSlugs.map(slug => DEFAULT_BOOKS.find(book => book.slug === slug) || {
@@ -75,15 +97,15 @@ export function buildGrowthShowEpisodes({ videos = [], articles = [], journals =
       });
 
       return {
-        id: overlay?.id || video.id || `growth-show-${video.youtube_video_id}`,
-        episodeNumber: overlay?.episode_number || null,
-        title: overlay?.title || video.video_title || article?.title,
+        id: overlay.id || video.id || `growth-show-${video.youtube_video_id}`,
+        episodeNumber: overlay.episode_number || null,
+        title: overlay.title || video.video_title || article?.title,
         slug: episodeSlug(video, article, overlay),
-        summary: overlay?.summary || article?.summary || video.description || 'A practical NTA Growth Show conversation for small business owners.',
-        status: overlay?.status || 'Published',
-        publishedDate: overlay?.published_date || video.published_date || article?.published_date || '',
-        featured: Boolean(overlay?.featured) || index === 0,
-        thumbnailUrl: overlay?.thumbnail_url || video.thumbnail_url || `https://i.ytimg.com/vi/${video.youtube_video_id}/hqdefault.jpg`,
+        summary: overlay.summary || article?.summary || video.description || 'A practical NTA Growth Show conversation for small business owners.',
+        status: overlay.status,
+        publishedDate: overlay.published_date || video.published_date || article?.published_date || '',
+        featured: Boolean(overlay.featured),
+        thumbnailUrl: overlay.thumbnail_url || video.thumbnail_url || `https://i.ytimg.com/vi/${video.youtube_video_id}/hqdefault.jpg`,
         youtubeVideoId: video.youtube_video_id,
         youtubeUrl: video.video_url || `https://www.youtube.com/watch?v=${video.youtube_video_id}`,
         video,
@@ -91,16 +113,15 @@ export function buildGrowthShowEpisodes({ videos = [], articles = [], journals =
         lessons,
         journals: journalsForEpisode,
         books,
-        socialAssets: overlay?.social_assets?.length ? overlay.social_assets : DEFAULT_SOCIAL_LINKS,
-        downloadableResources: overlay?.downloadable_resources || [],
-        podcastUrl: overlay?.podcast_url || '',
-        ctaText: overlay?.cta_text || article?.cta_text || 'Start a Growth Conversation',
-        ctaUrl: overlay?.cta_url || article?.cta_url || '/growth-conversation',
-        publishingArticleId: overlay?.publishing_article_id || video.source_article_id || article?.id || '',
-        sourceCanonId: overlay?.source_canon_id || video.source_canon_id || article?.canon_id || '',
+        socialAssets: overlay.social_assets?.length ? overlay.social_assets : DEFAULT_SOCIAL_LINKS,
+        downloadableResources: overlay.downloadable_resources || [],
+        podcastUrl: overlay.podcast_url || '',
+        ctaText: overlay.cta_text || article?.cta_text || 'Start a Growth Conversation',
+        ctaUrl: overlay.cta_url || article?.cta_url || '/growth-conversation',
+        publishingArticleId: overlay.publishing_article_id || video.source_article_id || article?.id || '',
+        sourceCanonId: overlay.source_canon_id || video.source_canon_id || article?.canon_id || '',
       };
     })
-    .filter(episode => episode.status === 'Published')
     .sort((a, b) => {
       if (a.featured !== b.featured) return a.featured ? -1 : 1;
       if (a.publishedDate !== b.publishedDate) return (b.publishedDate || '').localeCompare(a.publishedDate || '');

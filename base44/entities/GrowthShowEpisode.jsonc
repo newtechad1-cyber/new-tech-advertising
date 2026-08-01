@@ -45,6 +45,15 @@
       "type": "string",
       "description": "Permanent Canon ID of the primary lesson or article"
     },
+    "source_article_slug": {
+      "type": "string",
+      "description": "Stable article slug used when reconciling an older source that predates its Canon record"
+    },
+    "playlist_slug": {
+      "type": "string",
+      "description": "Permanent internal identity of the YouTube playlist for this episode",
+      "default": "nta-growth-show"
+    },
     "publishing_article_id": {
       "type": "string",
       "description": "FK to the canonical PublishingArticle record"
