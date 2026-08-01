@@ -7,7 +7,6 @@ import SEOHead from '../components/shared/SEOHead';
 import HeroSection from '../components/home-conversion/HeroSection';
 import ProblemSection from '../components/home-conversion/ProblemSection';
 import SolutionSection from '../components/home-conversion/SolutionSection';
-import FounderSection from '../components/home-conversion/FounderSection';
 import CombinedReviewsSection from '../components/home-v3/CombinedReviewsSection';
 import PublicationsSection from '../components/home-v3/PublicationsSection';
 import FAQSection from '../components/home-conversion/FAQSection';
@@ -174,20 +173,8 @@ export default function Home() {
         </section>
 
         <SolutionSection />
-        <FounderSection />
-        <CombinedReviewsSection />
-        
         <PublicationsSection />
-
-        <section className="py-16 bg-slate-900/50 border-y border-slate-800/50">
-          <div className="max-w-5xl mx-auto px-6 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-5">Want to understand the thinking behind NTA?</h2>
-            <p className="text-lg text-slate-400 mb-8 max-w-3xl mx-auto leading-relaxed">The NTA Point of View explains the business experience, principles, and practical approach behind the systems we build.</p>
-            <Link onClick={() => trackStep('point_of_view_secondary')} to="/point-of-view" className="inline-flex items-center gap-2 px-7 py-3 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-xl transition-all border border-slate-700">
-              Explore the NTA Point of View <ArrowRight className="w-5 h-5" />
-            </Link>
-          </div>
-        </section>
+        <CombinedReviewsSection />
 
         <FAQSection />
       </main>
