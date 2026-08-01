@@ -23,6 +23,10 @@ const HOMEPAGE_FAQS = [
     answer: 'The NTA Growth Conversation is a free guided starting point that helps identify your goals, present situation, and most useful next step. Your answers can be saved directly to NTA’s contact and opportunity system before you book a time to talk.',
   },
   {
+    question: 'What is Talk to My Office™?',
+    answer: 'Talk to My Office is NTA’s voice-first approach to working with AI. Instead of learning complicated software, a business owner can speak naturally, type, or share a photo or file. The system helps understand the request, confirms what it heard, and organizes the next step before anything important happens.',
+  },
+  {
     question: 'What is the free Business Gap Audit?',
     answer: 'The free Business Gap Audit is a first-pass assessment that identifies visible gaps, immediate priorities, and practical next steps. A deeper paid diagnostic is offered only when more evidence and a detailed Growth Roadmap would help.',
   },
