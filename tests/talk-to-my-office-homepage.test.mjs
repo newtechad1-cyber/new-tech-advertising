@@ -6,11 +6,14 @@ const read = path => readFile(new URL(`../${path}`, import.meta.url), 'utf8');
 
 test('homepage opens the existing Digital Growth Guide as its conversational front door', async () => {
   const hero = await read('src/components/home-conversion/HeroSection.jsx');
+  const home = await read('src/pages/Home.jsx');
   const guide = await read('src/components/nta-guide/YourDigitalGrowthGuide.jsx');
 
   assert.match(hero, /Work with AI without changing how you work/);
-  assert.match(hero, /Talk with the Digital Growth Guide/);
+  assert.match(hero, /Talk to My Office™/);
   assert.match(hero, /nta:open-growth-guide/);
+  assert.match(home, /talk_to_my_office_primary/);
+  assert.match(home, /dispatchEvent\(new CustomEvent\('nta:open-growth-guide'\)\)/);
   assert.match(guide, /addEventListener\('nta:open-growth-guide'/);
 });
 

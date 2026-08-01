@@ -22,8 +22,8 @@ const HOMEPAGE_FAQS = [
     answer: 'The NTA Growth Conversation is a free guided starting point that helps identify your goals, present situation, and most useful next step. Your answers can be saved directly to NTA’s contact and opportunity system before you book a time to talk.',
   },
   {
-    question: 'What is Talk with My Office™?',
-    answer: 'Talk with My Office is NTA’s voice-first approach to working with AI. Instead of learning complicated software, a business owner can speak naturally, type, or share a photo or file. The system helps understand the request, confirms what it heard, and organizes the next step before anything important happens.',
+    question: 'What is Talk to My Office™?',
+    answer: 'Talk to My Office is NTA’s voice-first approach to working with AI. Instead of learning complicated software, a business owner can speak naturally, type, or share a photo or file. The system helps understand the request, confirms what it heard, and organizes the next step before anything important happens.',
   },
   {
     question: 'What is the free Business Gap Audit?',
@@ -91,6 +91,11 @@ export default function Home() {
     trackJourneyEvent('trust_step_clicked', { route: '/', step, source: 'homepage_trust_ladder' });
   };
 
+  const openGrowthGuide = () => {
+    trackStep('talk_to_my_office_primary');
+    window.dispatchEvent(new CustomEvent('nta:open-growth-guide'));
+  };
+
   return (
     <div className="bg-slate-950 min-h-screen">
       <SEOHead
@@ -135,9 +140,9 @@ export default function Home() {
             <div className="text-center">
               <p className="text-lg text-slate-300 font-medium mb-6">We build the right pieces in the right order—not another disconnected package.</p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link onClick={() => trackStep('growth_conversation_primary')} to="/growth-conversation" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)]">
+                <button type="button" onClick={openGrowthGuide} className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)]">
                   Talk to My Office™ <ArrowRight className="w-5 h-5" />
-                </Link>
+                </button>
                 <Link onClick={() => trackStep('gap_audit_primary')} to="/free-audit" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all border border-slate-700">
                   Take the Free Business Gap Audit <ArrowRight className="w-5 h-5" />
                 </Link>

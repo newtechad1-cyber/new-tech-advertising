@@ -29,8 +29,8 @@ test('Growth Guide uses the surfing robot as its visual identity', async () => {
   assert.match(hero, /nta-growth-guide-surfer\.webp/);
   assert.match(guide, /nta-growth-guide-surfer\.webp/);
   assert.match(guide, /Open the Digital Growth Guide/);
-  assert.match(hero, /Talk with My Office™/);
-  assert.match(guide, /Talk with My Office™/);
+  assert.match(hero, /Talk to My Office™/);
+  assert.match(guide, /Talk to My Office™/);
   assert.doesNotMatch(hero, /src="\/brand\//);
   assert.doesNotMatch(guide, /src="\/brand\//);
 });
@@ -38,10 +38,17 @@ test('Growth Guide uses the surfing robot as its visual identity', async () => {
 test('public Digital Growth Guide uses the resilient public chat function', async () => {
   const guide = await read('src/components/nta-guide/YourDigitalGrowthGuide.jsx');
   const chatFunction = await read('base44/functions/growthGuideChat/entry.ts');
+  const publicKnowledge = await read('src/lib/growth-guide/publicKnowledge.js');
 
   assert.match(guide, /functions\.invoke\('growthGuideChat'/);
+  assert.match(guide, /buildPublicKnowledgeFallback/);
+  assert.match(guide, /knowledge_context: buildPublicKnowledgeContext/);
   assert.doesNotMatch(guide, /agents\.createConversation/);
   assert.match(guide, /The Guide is thinking/);
   assert.match(chatFunction, /asServiceRole\.integrations\.Core\.InvokeLLM/);
+  assert.match(chatFunction, /Relevant published NTA lessons/);
   assert.match(chatFunction, /Work with AI without changing how you work/);
+  assert.match(publicKnowledge, /collectionsOrder/);
+  assert.match(publicKnowledge, /relevantExcerpt/);
+  assert.match(publicKnowledge, /buildPublicKnowledgeFallback/);
 });
