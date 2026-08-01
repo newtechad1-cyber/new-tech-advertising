@@ -29,6 +29,10 @@ test('Growth Guide uses the surfing robot as its visual identity', async () => {
   assert.match(hero, /nta-growth-guide-surfer\.webp/);
   assert.match(guide, /nta-growth-guide-surfer\.webp/);
   assert.match(guide, /Open the Digital Growth Guide/);
+  assert.match(hero, /Talk with My Office™/);
+  assert.match(guide, /Talk with My Office™/);
+  assert.doesNotMatch(hero, /src="\/brand\//);
+  assert.doesNotMatch(guide, /src="\/brand\//);
 });
 
 test('public Digital Growth Guide uses the resilient public chat function', async () => {

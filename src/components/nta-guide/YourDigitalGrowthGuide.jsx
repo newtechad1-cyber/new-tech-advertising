@@ -3,8 +3,7 @@ import { motion, AnimatePresence, useDragControls } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import { X, Send, Loader2, AlertCircle, Zap, ChevronRight, Brain, Mic, MicOff } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-
-const GROWTH_GUIDE_MARK = "/brand/nta-growth-guide-surfer.webp";
+import growthGuideSurfer from "@/assets/brand/nta-growth-guide-surfer.webp";
 const DISCOVERY_ACTION = 'Walk through my business growth';
 const DISCOVERY_STORAGE_KEY = 'nta_discovery_session';
 const SAVED_DISCOVERY_STORAGE_KEY = 'nta_saved_discovery_session';
@@ -92,7 +91,7 @@ const MessageBubble = ({ message }) => {
         <div className={cn("flex gap-3", isUser ? "justify-end" : "justify-start")}>
             {!isUser && (
                 <div className="h-8 w-8 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm overflow-hidden">
-                    <img src={GROWTH_GUIDE_MARK} alt="NTA Growth Guide" className="w-7 h-7 object-contain" />
+                    <img src={growthGuideSurfer} alt="NTA Growth Guide" className="w-7 h-7 object-contain" />
                 </div>
             )}
             <div className={cn("max-w-[85%]", isUser && "flex flex-col items-end")}>
@@ -456,15 +455,15 @@ export default function YourDigitalGrowthGuide() {
             <div className="flex items-center gap-3">
                 <div className="hidden sm:block bg-slate-900/95 backdrop-blur-sm border border-slate-700/50 shadow-lg px-4 py-2 rounded-2xl pointer-events-none">
                     <p className="text-xs font-medium text-slate-200 flex items-center gap-2">
-                        <img src={GROWTH_GUIDE_MARK} alt="" className="w-7 h-7 object-contain" />
-                        Talk with the Digital Growth Guide™
+                        <img src={growthGuideSurfer} alt="" className="w-7 h-7 object-contain" />
+                        Talk with My Office™
                     </p>
                 </div>
                 <button
                   onClick={() => setIsOpen(true)}
                   className="w-16 h-16 rounded-full shadow-2xl flex items-center justify-center hover:scale-105 transition-transform overflow-hidden border border-blue-300/30 bg-slate-900 cursor-grab active:cursor-grabbing"
                 >
-                  <img src={GROWTH_GUIDE_MARK} alt="Open the Digital Growth Guide" className="w-14 h-14 object-contain pointer-events-none" />
+                  <img src={growthGuideSurfer} alt="Open the Digital Growth Guide" className="w-14 h-14 object-contain pointer-events-none" />
                 </button>
             </div>
           </motion.div>
@@ -491,7 +490,7 @@ export default function YourDigitalGrowthGuide() {
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 blur-[50px] rounded-full pointer-events-none" />
               <div className="flex items-center gap-4 relative z-10">
                 <div className="w-14 h-14 bg-slate-950 border border-slate-700 rounded-xl flex items-center justify-center shadow-inner overflow-hidden">
-                  <img src={GROWTH_GUIDE_MARK} alt="NTA Growth Guide" className="w-12 h-12 object-contain" />
+                  <img src={growthGuideSurfer} alt="NTA Growth Guide" className="w-12 h-12 object-contain" />
                 </div>
                 <div>
                   <h3 className="text-white font-bold tracking-wide">Your Digital Growth Guide™</h3>

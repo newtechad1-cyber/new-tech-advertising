@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Play } from 'lucide-react';
+import growthShowCover from '@/assets/brand/nta-growth-show-cover.webp';
 
 export default function PublicationsSection() {
   return (
@@ -73,7 +74,7 @@ export default function PublicationsSection() {
           <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 flex flex-col group hover:border-blue-500/30 transition-colors shadow-sm">
             <Link to="/growth-show" className="mb-6 overflow-hidden rounded-xl bg-gradient-to-br from-blue-950 to-slate-900 aspect-[3/4] relative shadow-lg border border-blue-500/20">
               <img
-                src="/brand/nta-growth-show-cover.webp"
+                src={growthShowCover}
                 alt="The NTA Growth Show conversation studio"
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 loading="lazy"
