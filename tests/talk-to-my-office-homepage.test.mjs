@@ -32,11 +32,22 @@ test('public guide records and transcribes voice without silently sending it', a
   assert.match(guide, /new MediaRecorder/);
   assert.match(guide, /functions\.invoke\('transcribeGrowthGuideVoice'/);
   assert.match(guide, /setInput\(nextInput\)/);
-  assert.match(guide, /Speak or type what you need help with/);
+  assert.match(guide, /Ask about growth, websites, AI, trust, or your next step/);
   assert.doesNotMatch(guide, /onstop[\s\S]{0,2000}sendToAgent/);
   assert.match(transcriber, /audio\.transcriptions\.create/);
-  assert.match(transcriber, /model: 'gpt-transcribe'/);
+  assert.match(transcriber, /model: 'whisper-1'/);
   assert.match(transcriber, /MAX_BASE64_LENGTH/);
+});
+
+test('public guide makes recording and fresh-session state visible', async () => {
+  const guide = await read('src/components/nta-guide/YourDigitalGrowthGuide.jsx');
+
+  assert.match(guide, /Start fresh/);
+  assert.match(guide, /Recording ·/);
+  assert.match(guide, /audioLevel/);
+  assert.match(guide, /Transcript ready below/);
+  assert.match(guide, /I’m not detecting sound/);
+  assert.doesNotMatch(guide, /scrollQuickActions/);
 });
 
 test('Talk to My Office is introduced as a confirm-before-action approach', async () => {
