@@ -1,4 +1,5 @@
 import OpenAI from 'npm:openai';
+import { secrets } from 'base44:runtime';
 
 const MAX_BASE64_LENGTH = 8_000_000;
 const ALLOWED_AUDIO_TYPES: Record<string, string> = {
@@ -33,7 +34,7 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'The recording is too long. Please keep it under one minute.' }, { status: 413 });
     }
 
-    const apiKey = Deno.env.get('OPENAI_API_KEY') || Deno.env.get('OpenAI');
+    const apiKey = secrets.get('OPENAI_API_KEY') || secrets.get('OpenAI');
     if (!apiKey) throw new Error('OpenAI transcription is not configured');
 
     const audioFile = new File(
