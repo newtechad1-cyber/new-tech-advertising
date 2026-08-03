@@ -217,8 +217,7 @@ export default function YourDigitalGrowthGuide() {
     const chunkSize = 0x8000;
     for (let index = 0; index < bytes.length; index += chunkSize) {
       binary += String.fromCharCode(...bytes.subarray(index, index + chunkSize));
-    }
-    return btoa(binary);
+    }    return btoa(binary);
   };
 
   const toggleVoiceInput = async () => {
@@ -286,7 +285,7 @@ export default function YourDigitalGrowthGuide() {
         setIsTranscribing(true);
         setVoiceStatus('transcribing');
         try {
-          const response = await base44.functions.invoke('transcribeGrowthGuideVoice', {
+          const response = await base44.functions.invoke('transcribeGrowthGuideVoiceV2', {
             audio_base64: await blobToBase64(audio),
             mime_type: audio.type
           });
@@ -437,8 +436,7 @@ export default function YourDigitalGrowthGuide() {
       setMessages(current => [...current, {
         id: crypto.randomUUID(),
         role: 'assistant',
-        content: buildPublicKnowledgeFallback(text)
-      }]);
+        content: buildPublicKnowledgeFallback(text)      }]);
     } finally {
       setIsLoading(false);
     }
@@ -657,8 +655,7 @@ export default function YourDigitalGrowthGuide() {
                 </div>
                 <div>
                   <h3 className="text-white font-bold tracking-wide">Your Digital Growth Guide™</h3>
-                  <div className="flex items-center gap-1.5 mt-0.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.5)]"></span>
+                  <div className="flex items-center gap-1.5 mt-0.5">                    <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.5)]"></span>
                     <span className="text-slate-300 text-xs font-medium">Ready to assist</span>
                   </div>
                 </div>
