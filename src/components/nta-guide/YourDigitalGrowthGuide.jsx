@@ -286,7 +286,7 @@ export default function YourDigitalGrowthGuide() {
         setIsTranscribing(true);
         setVoiceStatus('transcribing');
         try {
-          const response = await base44.functions.invoke('transcribeGrowthGuideVoice', {
+          const response = await base44.functions.invoke('transcribeGrowthGuideVoiceV2', {
             audio_base64: await blobToBase64(audio),
             mime_type: audio.type
           });
