@@ -20,7 +20,7 @@ const decodeBase64 = (value: string) => {
   return bytes;
 };
 
-Deno.serve(async (req) => {
+export default async function (req: Request): Promise<Response> {
   try {
     const body = await req.json();
     const audioBase64 = typeof body?.audio_base64 === 'string' ? body.audio_base64 : '';
@@ -67,4 +67,4 @@ Deno.serve(async (req) => {
         : 'The recording reached NTA, but could not be transcribed. Please try again.'
     }, { status: 500 });
   }
-});
+}
