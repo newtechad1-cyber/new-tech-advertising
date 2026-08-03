@@ -61,7 +61,7 @@ const cleanKnowledgeContext = (value: unknown): KnowledgeItem[] => {
     ));
 };
 
-Deno.serve(async (req) => {
+export default async function (req: Request): Promise<Response> {
   try {
     const base44 = createClientFromRequest(req);
     const body = await req.json();
@@ -97,4 +97,4 @@ Deno.serve(async (req) => {
       error: 'The Digital Growth Guide is temporarily unavailable. Please try again.'
     }, { status: 500 });
   }
-});
+}
