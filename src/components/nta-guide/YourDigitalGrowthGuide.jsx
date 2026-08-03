@@ -302,7 +302,8 @@ export default function YourDigitalGrowthGuide() {
         } catch (error) {
           console.warn('Talk to My Office voice transcription failed.', error);
           setVoiceStatus('error');
-          setVoiceError(error?.message || 'Your audio was recorded, but transcription failed. Please try once more.');
+          const serverMessage = error?.response?.data?.error;
+          setVoiceError(serverMessage || error?.message || 'Your audio was recorded, but transcription failed. Please try once more.');
         } finally {
           setIsTranscribing(false);
         }
