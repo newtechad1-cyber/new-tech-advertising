@@ -1,4 +1,3 @@
-import OpenAI from 'npm:openai';
 import { secrets } from 'base44:runtime';
 
 const MAX_BASE64_LENGTH = 8_000_000;
@@ -20,6 +19,27 @@ const decodeBase64 = (value: string) => {
   return bytes;
 };
 
+const transcriptionFailure = (status: number) => {
+  if (status === 401 || status === 403) {
+    return Response.json({
+      error: 'Voice transcription could not authenticate with OpenAI. Check the OPENAI_API_KEY secret in Base44.'
+    }, { status: 502 });
+  }
+  if (status === 429) {
+    return Response.json({
+      error: 'Voice transcription is temporarily busy. Please wait a moment and try again.'
+    }, { status: 503 });
+  }
+  if (status === 400 || status === 415 || status === 422) {
+    return Response.json({
+      error: 'OpenAI could not read this recording format. Please record again or type your message.'
+    }, { status: 422 });
+  }
+  return Response.json({
+    error: 'OpenAI did not complete the transcription. Please try again.'
+  }, { status: 502 });
+};
+
 export default async function (req: Request): Promise<Response> {
   try {
     const body = await req.json();
@@ -35,7 +55,11 @@ export default async function (req: Request): Promise<Response> {
     }
 
     const apiKey = secrets.get('OPENAI_API_KEY') || secrets.get('OpenAI');
-    if (!apiKey) throw new Error('OpenAI transcription is not configured');
+    if (!apiKey) {
+      return Response.json({
+        error: 'Voice transcription is not configured. Add the OPENAI_API_KEY secret in Base44.'
+      }, { status: 503 });
+    }
 
     const audioFile = new File(
       [decodeBase64(audioBase64)],
@@ -45,13 +69,31 @@ export default async function (req: Request): Promise<Response> {
     if (audioFile.size < 1_000) {
       return Response.json({ error: 'The recording did not contain enough audio to transcribe.' }, { status: 422 });
     }
-    const openai = new OpenAI({ apiKey });
-    const transcription = await openai.audio.transcriptions.create({
-      file: audioFile,
-      model: 'whisper-1',
-      language: 'en',
-      prompt: 'New Tech Advertising, NTA, Talk to My Office, Digital Growth Guide, Growth Roadmap, Knowledge Library.'
+
+    const formData = new FormData();
+    formData.append('file', audioFile);
+    formData.append('model', 'whisper-1');
+    formData.append('language', 'en');
+    formData.append(
+      'prompt',
+      'New Tech Advertising, NTA, Talk to My Office, Digital Growth Guide, Growth Roadmap, Knowledge Library.'
+    );
+
+    const openAIResponse = await fetch('https://api.openai.com/v1/audio/transcriptions', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${apiKey}` },
+      body: formData
     });
+
+    if (!openAIResponse.ok) {
+      console.error('OpenAI transcription request failed', {
+        status: openAIResponse.status,
+        requestId: openAIResponse.headers.get('x-request-id')
+      });
+      return transcriptionFailure(openAIResponse.status);
+    }
+
+    const transcription = await openAIResponse.json();
     const transcript = String(transcription?.text || '').trim();
 
     if (!transcript) {
@@ -62,9 +104,7 @@ export default async function (req: Request): Promise<Response> {
   } catch (error) {
     console.error('transcribeGrowthGuideVoice failed', error);
     return Response.json({
-      error: error instanceof Error && error.message.includes('configured')
-        ? 'Voice transcription is not configured in Base44 yet.'
-        : 'The recording reached NTA, but could not be transcribed. Please try again.'
+      error: 'The recording reached NTA, but the transcription function could not complete it.'
     }, { status: 500 });
   }
 }
