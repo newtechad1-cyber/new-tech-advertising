@@ -296,9 +296,14 @@ export default function YourDigitalGrowthGuide() {
             response = await base44.functions.invoke('transcribeGrowthGuideVoiceV2', payload);
           } catch (primaryError) {
             const status = primaryError?.response?.status || primaryError?.status;
-            if (status !== 404) throw primaryError;
-            console.warn('Voice transcription V2 is not deployed yet; falling back to the stable function.');
-            response = await base44.functions.invoke('transcribeGrowthGuideVoice', payload);
+            if (status === 404) {
+              const deploymentError = new Error(
+                'The voice-transcription service is not deployed yet. Publish the current NTA app, then try again.'
+              );
+              deploymentError.diagnostic_code = 'TRANSCRIPTION_V2_NOT_DEPLOYED';
+              throw deploymentError;
+            }
+            throw primaryError;
           }
 
           const result = response?.data ?? response;
