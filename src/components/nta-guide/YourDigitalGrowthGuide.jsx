@@ -291,20 +291,9 @@ export default function YourDigitalGrowthGuide() {
             mime_type: audio.type
           };
 
-          let response;
-          try {
-            response = await base44.functions.invoke('transcribeGrowthGuideVoiceV2', payload);
-          } catch (primaryError) {
-            const status = primaryError?.response?.status || primaryError?.status;
-            if (status === 404) {
-              const deploymentError = new Error(
-                'The voice-transcription service is not deployed yet. Publish the current NTA app, then try again.'
-              );
-              deploymentError.diagnostic_code = 'TRANSCRIPTION_V2_NOT_DEPLOYED';
-              throw deploymentError;
-            }
-            throw primaryError;
-          }
+          // The established service is registered in production. Keep this path
+          // single-service until Base44 independently confirms V2 registration.
+          const response = await base44.functions.invoke('transcribeGrowthGuideVoice', payload);
 
           const result = response?.data ?? response;
           if (result?.error) {
