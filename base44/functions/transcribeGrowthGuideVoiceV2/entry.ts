@@ -1,5 +1,6 @@
 import { secrets } from 'base44:runtime';
 
+const FUNCTION_VERSION = 'v2-2026-08-04';
 const MAX_BASE64_LENGTH = 8_000_000;
 const ALLOWED_AUDIO_TYPES: Record<string, string> = {
   'audio/webm': 'webm',
@@ -127,7 +128,7 @@ export default async function (req: Request): Promise<Response> {
       return Response.json({ error: 'No speech was detected in the recording.' }, { status: 422 });
     }
 
-    return Response.json({ transcript });
+    return Response.json({ transcript, function_version: FUNCTION_VERSION });
   } catch (error) {
     console.error('transcribeGrowthGuideVoiceV2 failed', {
       stage,
@@ -135,7 +136,8 @@ export default async function (req: Request): Promise<Response> {
     });
     return Response.json({
       error: `Voice transcription stopped during ${stage.toLowerCase().replaceAll('_', ' ')}.`,
-      diagnostic_code: `${stage}_FAILED`
+      diagnostic_code: `${stage}_FAILED`,
+      function_version: FUNCTION_VERSION
     }, { status: 500 });
   }
 }
