@@ -1,6 +1,7 @@
 import { secrets } from 'base44:runtime';
 
-const FUNCTION_VERSION = 'v2-direct-2026-08-04-deploy-sync';
+// Deployment stamp: re-sync V2 voice function to the production resource registry.
+const FUNCTION_VERSION = 'v2-direct-2026-08-04-production-sync';
 const MAX_BASE64_LENGTH = 8_000_000;
 const ALLOWED_AUDIO_TYPES: Record<string, string> = {
   'audio/webm': 'webm',
