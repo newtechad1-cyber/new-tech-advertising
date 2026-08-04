@@ -450,11 +450,8 @@ const AuthenticatedApp = () => {
       } />
       <Route path="/Login" element={<LayoutWrapper currentPageName="Login"><Login /></LayoutWrapper>} />
       <Route path="/signup" element={<LayoutWrapper currentPageName="SignupPage"><SignupPage /></LayoutWrapper>} />
-      {/* Canonical back-office entrances: Rick -> /agency, clients -> /portal. */}
-      <Route path="/admin-dashboard" element={<Navigate to="/agency" replace />} />
-      <Route path="/client-dashboard" element={<Navigate to="/portal" replace />} />
-      <Route path="/client/dashboard" element={<Navigate to="/portal" replace />} />
-      <Route path="/invoicing" element={<LayoutWrapper currentPageName="FreshBooksInvoicing"><FreshBooksInvoicing /></LayoutWrapper>} />
+      } />
+      </LayoutWrapper>} />
       {Object.entries(Pages).map(([path, Page]) => {
         const pageAccess = classifyPageKey(path);
         const noIndex = shouldNoIndex(pageAccess);
@@ -471,108 +468,108 @@ const AuthenticatedApp = () => {
           />
         );
       })}
-      <Route path="/admin/ai-workforce-legacy" element={<AdminGuard><AdminLayout currentPageName="AIWorkforce"><AIWorkforce /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/founder-scorecard" element={<AdminGuard><AdminLayout currentPageName="FounderScorecard"><FounderScorecard /></AdminLayout></AdminGuard>} />
-      <Route path="/client/campaigns" element={<LayoutWrapper currentPageName="ClientCampaigns"><ClientCampaigns /></LayoutWrapper>} />
-      <Route path="/admin/campaigns" element={<AdminGuard><AdminLayout currentPageName="AdminCampaigns"><AdminCampaigns /></AdminLayout></AdminGuard>} />
-      <Route path="/client/referrals" element={<LayoutWrapper currentPageName="ClientReferrals"><ClientReferrals /></LayoutWrapper>} />
-      <Route path="/client/referral-status" element={<LayoutWrapper currentPageName="ClientReferralStatus"><ClientReferralStatus /></LayoutWrapper>} />
-      <Route path="/client/roi" element={<LayoutWrapper currentPageName="ClientROI"><ClientROI /></LayoutWrapper>} />
-      <Route path="/client/roi-reports" element={<LayoutWrapper currentPageName="ClientROIReports"><ClientROIReports /></LayoutWrapper>} />
-      <Route path="/client/roi-timeline" element={<LayoutWrapper currentPageName="ClientROITimeline"><ClientROITimeline /></LayoutWrapper>} />
-      <Route path="/admin/referrals" element={<AdminGuard><AdminLayout currentPageName="AdminReferrals"><AdminReferrals /></AdminLayout></AdminGuard>} />
-      <Route path="/client/locations" element={<LayoutWrapper currentPageName="ClientLocations"><ClientLocations /></LayoutWrapper>} />
-      <Route path="/admin/enterprise-accounts" element={<AdminGuard><AdminLayout currentPageName="AdminEnterpriseAccounts"><AdminEnterpriseAccounts /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/location-performance" element={<AdminGuard><AdminLayout currentPageName="AdminLocationPerformance"><AdminLocationPerformance /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/vertical-intelligence" element={<AdminGuard><AdminLayout currentPageName="AdminVerticalIntelligence"><AdminVerticalIntelligence /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/vertical-revenue" element={<AdminGuard><AdminLayout currentPageName="AdminVerticalRevenue"><AdminVerticalRevenue /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/vertical-campaigns" element={<AdminGuard><AdminLayout currentPageName="AdminVerticalCampaigns"><AdminVerticalCampaigns /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/vertical-expansion" element={<AdminGuard><AdminLayout currentPageName="AdminVerticalExpansion"><AdminVerticalExpansion /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/expansion-playbook" element={<AdminGuard><AdminLayout currentPageName="AdminExpansionPlaybook"><AdminExpansionPlaybook /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/expansion-execution" element={<AdminGuard><AdminLayout currentPageName="AdminExpansionExecution"><AdminExpansionExecution /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/expansion-territories" element={<AdminGuard><AdminLayout currentPageName="AdminExpansionTerritories"><AdminExpansionTerritories /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/expansion-revenue" element={<AdminGuard><AdminLayout currentPageName="AdminExpansionRevenue"><AdminExpansionRevenue /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/founder-planner" element={<AdminGuard><AdminLayout currentPageName="AdminFounderPlanner"><AdminFounderPlanner /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/founder-priorities" element={<AdminGuard><AdminLayout currentPageName="AdminFounderPriorities"><AdminFounderPriorities /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/founder-scorecard-weekly" element={<AdminGuard><AdminLayout currentPageName="AdminFounderScorecardWeekly"><AdminFounderScorecardWeekly /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/founder-scenarios" element={<AdminGuard><AdminLayout currentPageName="AdminFounderScenarios"><AdminFounderScenarios /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/client-success" element={<AdminGuard><AdminLayout currentPageName="AdminClientSuccess"><AdminClientSuccess /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/client-retention" element={<AdminGuard><AdminLayout currentPageName="AdminClientRetention"><AdminClientRetention /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/client-expansion" element={<AdminGuard><AdminLayout currentPageName="AdminClientExpansion"><AdminClientExpansion /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/client-ltv" element={<AdminGuard><AdminLayout currentPageName="AdminClientLTV"><AdminClientLTV /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/operations" element={<AdminGuard><AdminLayout currentPageName="AdminOperations"><AdminOperations /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/operations-capacity" element={<AdminGuard><AdminLayout currentPageName="AdminOperationsCapacity"><AdminOperationsCapacity /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/operations-sla" element={<AdminGuard><AdminLayout currentPageName="AdminOperationsSLA"><AdminOperationsSLA /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/operations-efficiency" element={<AdminGuard><AdminLayout currentPageName="AdminOperationsEfficiency"><AdminOperationsEfficiency /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/control-tower" element={<AdminGuard><AdminLayout currentPageName="AdminControlTower"><AdminControlTower /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/control-tower-insights" element={<AdminGuard><AdminLayout currentPageName="AdminControlTowerInsights"><AdminControlTowerInsights /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/control-tower-risk" element={<AdminGuard><AdminLayout currentPageName="AdminControlTowerRisk"><AdminControlTowerRisk /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/control-tower-actions" element={<AdminGuard><AdminLayout currentPageName="AdminControlTowerActions"><AdminControlTowerActions /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/roi-expansion" element={<AdminGuard><AdminLayout currentPageName="AdminROIExpansion"><AdminROIExpansion /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/funnel-optimization" element={<AdminGuard><AdminLayout currentPageName="AdminFunnelOptimization"><AdminFunnelOptimization /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/funnel-pages" element={<AdminGuard><AdminLayout currentPageName="AdminFunnelPages"><AdminFunnelPages /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/funnel-tests" element={<AdminGuard><AdminLayout currentPageName="AdminFunnelTests"><AdminFunnelTests /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/funnel-opportunities" element={<AdminGuard><AdminLayout currentPageName="AdminFunnelOpportunities"><AdminFunnelOpportunities /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/ai-workforce" element={<AdminGuard><AdminLayout currentPageName="AdminAIWorkforce"><AdminAIWorkforce /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/ai-orchestration" element={<AdminGuard><AdminLayout currentPageName="AdminAIOrchestration"><AdminAIOrchestration /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/ai-routing" element={<AdminGuard><AdminLayout currentPageName="AdminAIRouting"><AdminAIRouting /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/ai-growth-loops" element={<AdminGuard><AdminLayout currentPageName="AdminAIGrowthLoops"><AdminAIGrowthLoops /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/ai-operations" element={<AdminGuard><AdminLayout currentPageName="AdminAIOperations"><AdminAIOperations /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/data-governance" element={<AdminGuard><AdminLayout currentPageName="AdminDataGovernance"><AdminDataGovernance /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/access-governance" element={<AdminGuard><AdminLayout currentPageName="AdminAccessGovernance"><AdminAccessGovernance /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/tenant-governance" element={<AdminGuard><AdminLayout currentPageName="AdminTenantGovernance"><AdminTenantGovernance /></AdminLayout></AdminGuard>} />
-      <Route path="/reseller/dashboard" element={<LayoutWrapper currentPageName="ResellerDashboard"><ResellerDashboard /></LayoutWrapper>} />
-      <Route path="/admin/page-registry" element={<AdminGuard><AdminLayout currentPageName="AdminPageRegistry"><AdminPageRegistry /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/workflows" element={<AdminGuard><AdminLayout currentPageName="AdminWorkflows"><AdminWorkflows /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/automation-rules" element={<AdminGuard><AdminLayout currentPageName="AdminAutomationRules"><AdminAutomationRules /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/automation-conditions" element={<AdminGuard><AdminLayout currentPageName="AdminAutomationConditions"><AdminAutomationConditions /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/automation-flows" element={<AdminGuard><AdminLayout currentPageName="AdminAutomationFlows"><AdminAutomationFlows /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/automation-performance" element={<AdminGuard><AdminLayout currentPageName="AdminAutomationPerformance"><AdminAutomationPerformance /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/knowledge" element={<AdminGuard><AdminLayout currentPageName="AdminKnowledge"><AdminKnowledge /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/knowledge-workflows" element={<AdminGuard><AdminLayout currentPageName="AdminKnowledgeWorkflows"><AdminKnowledgeWorkflows /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/knowledge-training" element={<AdminGuard><AdminLayout currentPageName="AdminKnowledgeTraining"><AdminKnowledgeTraining /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/knowledge-intelligence" element={<AdminGuard><AdminLayout currentPageName="AdminKnowledgeIntelligence"><AdminKnowledgeIntelligence /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/pricing-intelligence" element={<AdminGuard><AdminLayout currentPageName="AdminPricingIntelligence"><AdminPricingIntelligence /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/pricing-packaging" element={<AdminGuard><AdminLayout currentPageName="AdminPricingPackaging"><AdminPricingPackaging /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/pricing-experiments" element={<AdminGuard><AdminLayout currentPageName="AdminPricingExperiments"><AdminPricingExperiments /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/pricing-recommendations" element={<AdminGuard><AdminLayout currentPageName="AdminPricingRecommendations"><AdminPricingRecommendations /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/navigation-audit" element={<AdminGuard><AdminLayout currentPageName="AdminNavigationAudit"><AdminNavigationAudit /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/channels" element={<AdminGuard><AdminLayout currentPageName="AdminChannels"><AdminChannels /></AdminLayout></AdminGuard>} />
-      <Route path="/client/channels" element={<LayoutWrapper currentPageName="ClientChannels"><ClientChannels /></LayoutWrapper>} />
-      <Route path="/client/results" element={<LayoutWrapper currentPageName="ClientResults"><ClientResults /></LayoutWrapper>} />
-      <Route path="/client/approvals" element={<LayoutWrapper currentPageName="ClientApprovals"><ClientApprovals /></LayoutWrapper>} />
-      <Route path="/client/calendar" element={<LayoutWrapper currentPageName="ClientCalendar"><ClientCalendar /></LayoutWrapper>} />
-      <Route path="/admin/production-stability" element={<AdminGuard><AdminLayout currentPageName="AdminProductionStability"><AdminProductionStability /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/platform-qa" element={<AdminGuard><AdminLayout currentPageName="AdminPlatformQA"><AdminPlatformQA /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/sales-command" element={<AdminGuard><AdminLayout currentPageName="AdminSalesCommand"><AdminSalesCommand /></AdminLayout></AdminGuard>} />
-      <Route path="/sales/command-center" element={<LayoutWrapper currentPageName="SalesCommandCenter"><SalesCommandCenter /></LayoutWrapper>} />
-      <Route path="/admin/sales-pipeline" element={<AdminGuard><AdminLayout currentPageName="NTASalesPipeline"><NTASalesPipeline /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/demo-machine" element={<AdminGuard><AdminLayout currentPageName="NTADemoMachine"><NTADemoMachine /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/proposal-generator" element={<AdminGuard><AdminLayout currentPageName="AdminProposalGenerator"><AdminProposalGenerator /></AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </LayoutWrapper>} />
+      </AdminLayout></AdminGuard>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </AdminLayout></AdminGuard>} />
+      </LayoutWrapper>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </LayoutWrapper>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </LayoutWrapper>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
       <Route path="/nta/deal-room/:prospectId" element={<LayoutWrapper currentPageName="NTADealRoom"><NTADealRoom /></LayoutWrapper>} />
       <Route path="/nta/onboarding" element={<LayoutWrapper currentPageName="NTAOnboardingCenter"><NTAOnboardingCenter /></LayoutWrapper>} />
       <Route path="/nta/channels" element={<LayoutWrapper currentPageName="NTAChannelHub"><NTAChannelHub /></LayoutWrapper>} />
       <Route path="/nta/reseller-command" element={<LayoutWrapper currentPageName="NTAResellerCommand"><NTAResellerCommand /></LayoutWrapper>} />
       <Route path="/nta/ai-workforce" element={<LayoutWrapper currentPageName="NTAAIWorkforceOrchestrator"><NTAAIWorkforceOrchestrator /></LayoutWrapper>} />
-      <Route path="/nta" element={<Navigate to="/nta/operator-command" replace />} />
-      <Route path="/nta/home" element={<NTAHomepage />} />
+      } />
+      } />
       <Route path="/nta/sales-followup" element={<LayoutWrapper currentPageName="NTASalesFollowUp"><NTASalesFollowUp /></LayoutWrapper>} />
       <Route path="/nta/pricing-stack" element={<LayoutWrapper currentPageName="NTAPricingStack"><NTAPricingStack /></LayoutWrapper>} />
       <Route path="/nta/acquisition-command" element={<LayoutWrapper currentPageName="NTAAcquisitionCommand"><NTAAcquisitionCommand /></LayoutWrapper>} />
       <Route path="/nta/automation-command" element={<LayoutWrapper currentPageName="AutomationCommandCenter"><AutomationCommandCenter /></LayoutWrapper>} />
       <Route path="/nta/operator-command" element={<LayoutWrapper currentPageName="NTAOperatorCommand"><NTAOperatorCommand /></LayoutWrapper>} />
-      <Route path="/client/growth-journey" element={<LayoutWrapper currentPageName="ClientGrowthJourney"><ClientGrowthJourney /></LayoutWrapper>} />
-      <Route path="/admin/retention-dashboard" element={<AdminGuard><AdminLayout currentPageName="AdminRetentionDashboard"><AdminRetentionDashboard /></AdminLayout></AdminGuard>} />
+      </LayoutWrapper>} />
+      </AdminLayout></AdminGuard>} />
       <Route path="/nta/demo" element={<NTADemoFunnel />} />
       <Route path="/getting-started" element={<Navigate to="/start" replace />} />
       <Route path="/channel-help" element={<LayoutWrapper currentPageName="ChannelHelpCenter"><ChannelHelpCenter /></LayoutWrapper>} />
       <Route path="/book-call" element={<LayoutWrapper currentPageName="BookCall"><BookCall /></LayoutWrapper>} />
-      <Route path="/admin/hot-prospects" element={<AdminGuard><AdminLayout currentPageName="AdminHotProspectsAlert"><AdminHotProspectsAlert /></AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
       <Route path="/nta/diy-growth-system" element={<LayoutWrapper currentPageName="DIYGrowthSystemSales"><DIYGrowthSystemSales /></LayoutWrapper>} />
       <Route path="/nta/pricing-ladder" element={<LayoutWrapper currentPageName="NTAPricingLadderPage"><NTAPricingLadderPage /></LayoutWrapper>} />
-      <Route path="/client/diy-onboarding" element={<LayoutWrapper currentPageName="DIYOnboarding"><DIYOnboarding /></LayoutWrapper>} />
-      <Route path="/client/diy-dashboard" element={<LayoutWrapper currentPageName="DIYDashboard"><DIYDashboard /></LayoutWrapper>} />
-      <Route path="/client/diy-billing" element={<LayoutWrapper currentPageName="DIYBillingSettings"><DIYBillingSettings /></LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
       <Route path="/diy-checkout-success" element={<DIYCheckoutSuccess />} />
       <Route path="/find-your-plan" element={<PricingWizard />} />
       {/* Demo Flow */}
@@ -613,38 +610,38 @@ const AuthenticatedApp = () => {
       <Route path="/website-rebuilds/austin-mn" element={<WebsiteRebuildsAustinMN />} />
       <Route path="/website-rebuilds/albert-lea-mn" element={<WebsiteRebuildsAlbertLeaMN />} />
       <Route path="/rebuild-intake" element={<RebuildIntake />} />
-      <Route path="/admin/recruiting-candidates" element={<AdminGuard><AdminLayout currentPageName="AdminRecruitingCandidates"><AdminRecruitingCandidates /></AdminLayout></AdminGuard>} />
-      <Route path="/admin/recent-ai-activity" element={<AdminGuard><AdminLayout currentPageName="AdminRecentAIActivity"><AdminRecentAIActivity /></AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
       <Route path="/audit/furniture-mattress-outlet" element={<AuditFurnitureMattressOutlet />} />
       <Route path="/community-partner" element={<LayoutWrapper currentPageName="CommunityPartnerProgram"><CommunityPartnerProgram /></LayoutWrapper>} />
       <Route path="/ai-policy" element={<LayoutWrapper currentPageName="AIPolicy"><AIPolicy /></LayoutWrapper>} />
       <Route path="/aipolicy" element={<Navigate to="/ai-policy" replace />} />
       {/* LEGACY: /dashboard routes — redirect to canonical Agency CRM */}
-      <Route path="/dashboard/leads" element={<Navigate to="/agency/leads" replace />} />
-      <Route path="/dashboard/archived" element={<Navigate to="/agency/leads" replace />} />
-      <Route path="/content-command" element={<ContentCommandDashboard />} />
-      <Route path="/content-center" element={<ContentCommandCenter />} />
+      } />
+      } />
+      } />
+      } />
       {/* /clients and /clients/:id legacy redirects are defined below — ClientManager/ClientDetail accessible via /agency/clients */}
-      <Route path="/agency/clients/:id/setup" element={<ClientSetupWizard />} />
-      <Route path="/agency" element={<AgencyDashboard />} />
-      <Route path="/agency/growth-discoveries" element={<AdminGuard><AgencyGrowthDiscoveries /></AdminGuard>} />
-      <Route path="/agency/clients" element={<AgencyClients />} />
-      <Route path="/agency/clients/:id" element={<LayoutWrapper currentPageName="AgencyClientDetail"><AgencyClientDetail /></LayoutWrapper>} />
-      <Route path="/agency/clients/:id/cms" element={<AgencyClientCMS />} />
-      <Route path="/agency/pipeline" element={<AgencyPipeline />} />
-      <Route path="/agency/content" element={<AgencyContent />} />
-      <Route path="/agency/websites" element={<AgencyWebsites />} />
-      <Route path="/agency/leads" element={<AgencyLeads />} />
-      <Route path="/agency/leads/pipeline" element={<LayoutWrapper currentPageName="LeadPipelineKanban"><LeadPipelineKanban /></LayoutWrapper>} />
-      <Route path="/agency/leads/:id" element={<LayoutWrapper currentPageName="LeadDetailPage"><LeadDetailPage /></LayoutWrapper>} />
+      } />
+      } />
+      </AdminGuard>} />
+      } />
+      </LayoutWrapper>} />
+      } />
+      } />
+      } />
+      } />
+      } />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
       <Route path="/case-studies/johnson-heating" element={<LayoutWrapper currentPageName="JohnsonHeatingCaseStudy"><JohnsonHeatingCaseStudy /></LayoutWrapper>} />
       <Route path="/case-studies/:slug" element={<LayoutWrapper currentPageName="CaseStudyDetail"><CaseStudyDetail /></LayoutWrapper>} />
       <Route path="/case-study/johnson-heating" element={<LayoutWrapper currentPageName="CaseStudyJohnsonHeating"><CaseStudyJohnsonHeating /></LayoutWrapper>} />
       <Route path="/case-study/monson-plumbing" element={<LayoutWrapper currentPageName="CaseStudyMonsonPlumbing"><CaseStudyMonsonPlumbing /></LayoutWrapper>} />
       <Route path="/case-study/papa-everetts" element={<LayoutWrapper currentPageName="CaseStudyPapaEveretts"><CaseStudyPapaEveretts /></LayoutWrapper>} />
-      <Route path="/agency/ai-gap-scanner" element={<LayoutWrapper currentPageName="AiGapScanner"><AiGapScanner /></LayoutWrapper>} />
-      <Route path="/agency/video-engine" element={<LayoutWrapper currentPageName="VideoEngineList"><VideoEngineList /></LayoutWrapper>} />
-      <Route path="/agency/video-engine/:id" element={<LayoutWrapper currentPageName="VideoEngineDetail"><VideoEngineDetail /></LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
       <Route path="/nta/content-dashboard" element={<NTAContentDashboard />} />
       <Route path="/hvac-funnel/1" element={<HVACFunnel1 />} />
       <Route path="/hvac-funnel/2" element={<HVACFunnel2 />} />
@@ -666,28 +663,28 @@ const AuthenticatedApp = () => {
       <Route path="/nta/activity" element={<LayoutWrapper currentPageName="NTAActivityLog"><NTAActivityLog /></LayoutWrapper>} />
       <Route path="/nta/system-health" element={<LayoutWrapper currentPageName="NTASystemHealth"><NTASystemHealth /></LayoutWrapper>} />
       <Route path="/nta/migration" element={<LayoutWrapper currentPageName="NTAMigration"><NTAMigration /></LayoutWrapper>} />
-      <Route path="/agency/content-wizard" element={<ContentWizardList />} />
-      <Route path="/agency/content-wizard/:id" element={<ContentWizardDetail />} />
-      <Route path="/agency/lead-wizard" element={<LeadWizardList />} />
-      <Route path="/agency/lead-wizard/:id" element={<LeadWizardDetail />} />
-      <Route path="/agency/channel-connections" element={<LayoutWrapper currentPageName="ChannelConnections"><ChannelConnections /></LayoutWrapper>} />
-      <Route path="/agency/channel-setup" element={<LayoutWrapper currentPageName="ClientChannelSetup"><ClientChannelSetup /></LayoutWrapper>} />
-      <Route path="/client/channel-setup/:clientId" element={<ClientChannelSetupPublic />} />
-      <Route path="/agency/publishing-queue" element={<LayoutWrapper currentPageName="PublishingQueuePage"><PublishingQueuePage /></LayoutWrapper>} />
-      <Route path="/agency/publishing-ops" element={<LayoutWrapper currentPageName="PublishingOps"><PublishingOps /></LayoutWrapper>} />
-      <Route path="/agency/campaigns" element={<LayoutWrapper currentPageName="AgencyCampaigns"><AgencyCampaigns /></LayoutWrapper>} />
-      <Route path="/agency/content-queue" element={<LayoutWrapper currentPageName="AgencyContentQueue"><AgencyContentQueue /></LayoutWrapper>} />
-      <Route path="/agency/approvals" element={<LayoutWrapper currentPageName="AgencyApprovals"><AgencyApprovals /></LayoutWrapper>} />
-      <Route path="/agency/spoke-campaigns" element={<LayoutWrapper currentPageName="AgencySpokeCampaigns"><AgencySpokeCampaigns /></LayoutWrapper>} />
-      <Route path="/agency/spoke-campaigns/:id" element={<LayoutWrapper currentPageName="SpokeCampaignDetail"><SpokeCampaignDetail /></LayoutWrapper>} />
-      <Route path="/agency/content-asset" element={<LayoutWrapper currentPageName="AgencyContentAssets"><AgencyContentAssets /></LayoutWrapper>} />
-      <Route path="/agency/content-library" element={<LayoutWrapper currentPageName="ContentLibrary"><ContentLibrary /></LayoutWrapper>} />
-      <Route path="/agency/video-queue" element={<LayoutWrapper currentPageName="AgencyVideoQueue"><AgencyVideoQueue /></LayoutWrapper>} />
-      <Route path="/agency/social-queue" element={<LayoutWrapper currentPageName="AgencySocialQueue"><AgencySocialQueue /></LayoutWrapper>} />
-      <Route path="/agency/approval-center" element={<LayoutWrapper currentPageName="AgencyApprovalCenter"><AgencyApprovalCenter /></LayoutWrapper>} />
-      <Route path="/agency/publishing-calendar" element={<LayoutWrapper currentPageName="AgencyPublishingCalendar"><AgencyPublishingCalendar /></LayoutWrapper>} />
-      <Route path="/agency/campaign-performance" element={<LayoutWrapper currentPageName="AgencyCampaignPerformance"><AgencyCampaignPerformance /></LayoutWrapper>} />
-      <Route path="/agency/insight-pages" element={<LayoutWrapper currentPageName="AgencyInsightPages"><AgencyInsightPages /></LayoutWrapper>} />
+      } />
+      } />
+      } />
+      } />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      } />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
       <Route path="/our-work" element={<OurWork />} />
       <Route path="/restaurant-demo" element={<RestaurantDemo />} />
       <Route path="/restaurant-demo/pizza" element={<RestaurantDemoPizza />} />
@@ -695,16 +692,16 @@ const AuthenticatedApp = () => {
       <Route path="/restaurant-demo/bar" element={<RestaurantDemoBar />} />
       <Route path="/insights" element={<InsightsList />} />
       <Route path="/insights/:slug" element={<InsightDetail />} />
-      <Route path="/agency/portal-manager" element={<LayoutWrapper currentPageName="AgencyPortalManager"><AgencyPortalManager /></LayoutWrapper>} />
+      </LayoutWrapper>} />
       <Route path="/approval/:token" element={<ClientApprovalSignoff />} />
       {/* Client Portal */}
-      <Route path="/portal" element={<PortalDashboard />} />
-      <Route path="/portal/approvals" element={<PortalApprovals />} />
-      <Route path="/portal/calendar" element={<PortalCalendar />} />
-      <Route path="/portal/content" element={<PortalContent />} />
-      <Route path="/portal/performance" element={<PortalPerformance />} />
-      <Route path="/portal/messages" element={<PortalMessages />} />
-      <Route path="/portal/account" element={<PortalAccount />} />
+      } />
+      } />
+      } />
+      } />
+      } />
+      } />
+      } />
       {/* G-002: Homepage consolidation — all variants → canonical / */}
       <Route path="/home" element={<Navigate to="/" replace />} />
       <Route path="/Home" element={<Navigate to="/" replace />} />
@@ -712,7 +709,7 @@ const AuthenticatedApp = () => {
       <Route path="/HomePage" element={<Navigate to="/" replace />} />
 
       {/* Legacy route redirects — keep old URLs working */}
-      <Route path="/dashboard" element={<Navigate to="/agency" replace />} />
+      } />
       <Route path="/clients" element={<Navigate to="/agency/clients" replace />} />
       <Route path="/clients/:id" element={<LegacyClientRedirect />} />
 
@@ -725,33 +722,33 @@ const AuthenticatedApp = () => {
       <Route path="/ai-video-marketing" element={<AIVideoMarketing />} />
       <Route path="/gap-audit" element={<Navigate to="/free-audit" replace />} />
       <Route path="/GapAuditPage" element={<Navigate to="/free-audit" replace />} />
-      <Route path="/agency/gap-audits" element={<LayoutWrapper currentPageName="AgencyGapAudits"><AgencyGapAudits /></LayoutWrapper>} />
-      <Route path="/agency/gap-audits/:id" element={<AgencyGapAuditDetail />} />
+      </LayoutWrapper>} />
+      } />
       <Route path="/hvac-marketing-north-iowa" element={<HVACMarketingNorthIowa />} />
       <Route path="/contractor-marketing-north-iowa" element={<ContractorMarketingNorthIowa />} />
       <Route path="/small-business-marketing-north-iowa" element={<SmallBusinessMarketingNorthIowa />} />
 
       {/* NTA Ops Dashboard */}
-      <Route path="/ops" element={<OpsDashboard />} />
-      <Route path="/ops/prospects" element={<OpsProspects />} />
-      <Route path="/ops/clients" element={<OpsClients />} />
-      <Route path="/ops/audits" element={<OpsAudits />} />
-      <Route path="/ops/campaigns" element={<OpsCampaigns />} />
-      <Route path="/ops/campaigns/:id" element={<OpsCampaignDetail />} />
-      <Route path="/ops/seo-pages" element={<OpsSEOPages />} />
-      <Route path="/ops/content" element={<OpsContent />} />
-      <Route path="/ops/videos" element={<OpsVideos />} />
-      <Route path="/ops/social" element={<OpsSocial />} />
-      <Route path="/ops/approvals" element={<OpsApprovals />} />
-      <Route path="/ops/leads" element={<OpsLeads />} />
-      <Route path="/ops/onboarding" element={<OpsOnboarding />} />
-      <Route path="/ops/ai-monitor" element={<OpsAIMonitor />} />
-      <Route path="/ops/agreements" element={<OpsAgreements />} />
-      <Route path="/ops/documents" element={<OpsDocuments />} />
+      } />
+      } />
+      } />
+      } />
+      } />
+      } />
+      } />
+      } />
+      } />
+      } />
+      } />
+      } />
+      } />
+      } />
+      } />
+      } />
       <Route path="/c/:clientId" element={<ClientPortalV2 />} />
       <Route path="/c/:clientId/agreement/:agreementId" element={<DocumentSigner />} />
-      <Route path="/ops/followups" element={<OpsFollowUps />} />
-      <Route path="/ops/reports" element={<OpsReports />} />
+      } />
+      } />
 
       <Route path="/learning-center" element={<LayoutWrapper currentPageName="LearningCenter"><LearningCenter /></LayoutWrapper>} />
       <Route path="/growth-show" element={<LayoutWrapper currentPageName="GrowthShow"><GrowthShow /></LayoutWrapper>} />
@@ -780,19 +777,19 @@ const AuthenticatedApp = () => {
       <Route path="/websites-as-salespeople" element={<LayoutWrapper currentPageName="WebsitesAsSalespeople"><WebsitesAsSalespeople /></LayoutWrapper>} />
       <Route path="/ai-brought-me-out-of-retirement" element={<LayoutWrapper currentPageName="AiBroughtMeOutOfRetirement"><AiBroughtMeOutOfRetirement /></LayoutWrapper>} />
       <Route path="/i-was-early-again" element={<LayoutWrapper currentPageName="IWasEarlyAgain"><IWasEarlyAgain /></LayoutWrapper>} />
-      <Route path="/PublishingEngine" element={<LayoutWrapper currentPageName="PublishingEngine"><PublishingEngine /></LayoutWrapper>} />
+      </LayoutWrapper>} />
       <Route path="/practical-ai-for-small-business" element={<LayoutWrapper currentPageName="PracticalAI"><PracticalAI /></LayoutWrapper>} />
       <Route path="/better-business-book" element={<LayoutWrapper currentPageName="BetterBusinessBook"><BetterBusinessBook /></LayoutWrapper>} />
-      <Route path="/PublishingArticleView" element={<LayoutWrapper currentPageName="PublishingArticleView"><PublishingArticleView /></LayoutWrapper>} />
-      <Route path="/EditorialDashboard" element={<LayoutWrapper currentPageName="EditorialDashboard"><EditorialDashboard /></LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
       <Route path="/nta-journal" element={<LayoutWrapper currentPageName="NtaJournal"><NtaJournal /></LayoutWrapper>} />
       <Route path="/journal" element={<LayoutWrapper currentPageName="JournalLanding"><JournalLanding /></LayoutWrapper>} />
       <Route path="/journal/:slug" element={<LayoutWrapper currentPageName="JournalIssueView"><JournalIssueView /></LayoutWrapper>} />
       <Route path="/canon" element={<LayoutWrapper currentPageName="CanonExplorer"><CanonExplorer /></LayoutWrapper>} />
       <Route path="/canon/collection/:slug" element={<LayoutWrapper currentPageName="CanonCollectionView"><CanonCollectionView /></LayoutWrapper>} />
-      <Route path="/AdminCanonMigration" element={<LayoutWrapper currentPageName="AdminCanonMigration"><AdminCanonMigration /></LayoutWrapper>} />
-      <Route path="/AdminCanonicalManagement" element={<LayoutWrapper currentPageName="AdminCanonicalManagement"><AdminCanonicalManagement /></LayoutWrapper>} />
-      <Route path="/admin/journal" element={<AdminGuard><AdminLayout currentPageName="AdminJournalDashboard"><AdminJournalDashboard /></AdminLayout></AdminGuard>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </AdminLayout></AdminGuard>} />
       <Route path="/back-office" element={<Navigate to="/back-office-solutions" replace />} />
       <Route path="/back-office-solutions" element={<LayoutWrapper currentPageName="BackOfficeSolutions"><BackOfficeSolutions /></LayoutWrapper>} />
       <Route path="/restaurants" element={<LayoutWrapper currentPageName="RestaurantSolutions"><RestaurantSolutions /></LayoutWrapper>} />
@@ -801,27 +798,27 @@ const AuthenticatedApp = () => {
       <Route path="/community-growth-conversation" element={<LayoutWrapper currentPageName="CommunityGrowthConversation"><CommunityGrowthConversation /></LayoutWrapper>} />
       <Route path="/operating-system" element={<LayoutWrapper currentPageName="NTAOperatingSystem"><NTAOperatingSystem /></LayoutWrapper>} />
       <Route path="/growth-guide" element={<GrowthGuide />} />
-      <Route path="/my-growth-journey" element={<LayoutWrapper currentPageName="MyGrowthJourney"><MyGrowthJourney /></LayoutWrapper>} />
+      </LayoutWrapper>} />
       <Route path="/business-score" element={<LayoutWrapper currentPageName="NTABusinessScore"><NTABusinessScore /></LayoutWrapper>} />
       <Route path="/growth-roadmap-generator" element={<LayoutWrapper currentPageName="NTAGrowthRoadmapGenerator"><NTAGrowthRoadmapGenerator /></LayoutWrapper>} />
       <Route path="/digital-growth-office-preview" element={<LayoutWrapper currentPageName="DigitalGrowthOfficePreview"><DigitalGrowthOfficePreview /></LayoutWrapper>} />
       <Route path="/point-of-view" element={<LayoutWrapper currentPageName="POVCollection"><POVCollection /></LayoutWrapper>} />
       <Route path="/point-of-view/:slug" element={<LayoutWrapper currentPageName="POVArticleView"><POVArticleView /></LayoutWrapper>} />
       {/* Retired duplicate dashboard: it displayed hardcoded demonstration metrics. */}
-      <Route path="/executive-dashboard" element={<Navigate to="/agency" replace />} />
-      <Route path="/partner-portal" element={<AdminGuard><AdminLayout currentPageName="PartnerPortal"><PartnerPortal /></AdminLayout></AdminGuard>} />
-      <Route path="/community-intelligence" element={<AdminGuard><AdminLayout currentPageName="CommunityIntelligence"><CommunityIntelligence /></AdminLayout></AdminGuard>} />
+      } />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
       <Route path="/nta/data-hub" element={<AdminGuard><AdminLayout currentPageName="NTADataHub"><NTADataHub /></AdminLayout></AdminGuard>} />
-      <Route path="/business-profile" element={<LayoutWrapper currentPageName="BusinessProfile"><BusinessProfile /></LayoutWrapper>} />
-      <Route path="/progress" element={<LayoutWrapper currentPageName="ProgressCenter"><ProgressCenter /></LayoutWrapper>} />
-      <Route path="/workspace" element={<AdminGuard><AdminLayout currentPageName="MyGrowthWorkspace"><MyGrowthWorkspace /></AdminLayout></AdminGuard>} />
+      </LayoutWrapper>} />
+      </LayoutWrapper>} />
+      </AdminLayout></AdminGuard>} />
       <Route path="/admin-center" element={<AdminGuard><AdminLayout currentPageName="RickAdminCenter"><RickAdminCenter /></AdminLayout></AdminGuard>} />
 
-      <Route path="/billing" element={<AdminGuard><AdminLayout currentPageName="BillingCenter"><BillingCenter /></AdminLayout></AdminGuard>} />
-      <Route path="/support" element={<AdminGuard><AdminLayout currentPageName="SupportCenter"><SupportCenter /></AdminLayout></AdminGuard>} />
-      <Route path="/onboarding" element={<AdminGuard><AdminLayout currentPageName="ClientOnboardingCenter"><ClientOnboardingCenter /></AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
+      </AdminLayout></AdminGuard>} />
       <Route path="/community-growth-advisor" element={<LayoutWrapper currentPageName="CommunityGrowthAdvisor"><CommunityGrowthAdvisor /></LayoutWrapper>} />
-      <Route path="/partner-quick-start" element={<LayoutWrapper currentPageName="PartnerQuickStart"><PartnerQuickStart /></LayoutWrapper>} />
+      </LayoutWrapper>} />
       <Route path="/business-journey" element={<LayoutWrapper currentPageName="BusinessJourney"><BusinessJourney /></LayoutWrapper>} />
       <Route path="/our-story" element={<LayoutWrapper currentPageName="OurStory"><OurStory /></LayoutWrapper>} />
 
