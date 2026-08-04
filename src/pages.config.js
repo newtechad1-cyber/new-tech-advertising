@@ -47,6 +47,7 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
+import { PUBLIC_PAGE_KEYS } from './config/routeGovernance';
 import AIWorkforce from './pages/AIWorkforce';
 import JoinNTA from './pages/JoinNTA';
 import SignupPage from './pages/SignupPage';
@@ -565,7 +566,7 @@ import JournalIssueView from './pages/JournalIssueView';
 import __Layout from './Layout.jsx';
 
 
-export const PAGES = {
+const ALL_PAGES = {
     "AIWorkforce": AIWorkforce,
     "signup": SignupPage,
     "About": About,
@@ -1081,6 +1082,12 @@ export const PAGES = {
     "JournalLanding": JournalLanding,
     "JournalIssueView": JournalIssueView,
 }
+
+// The public app must only register public-facing pages. Admin, client, portal,
+// and operating-system pages now live in the separate Admin Hub application.
+export const PAGES = Object.fromEntries(
+    Object.entries(ALL_PAGES).filter(([pageKey]) => PUBLIC_PAGE_KEYS.has(pageKey))
+);
 
 export const pagesConfig = {
     mainPage: "Home",
