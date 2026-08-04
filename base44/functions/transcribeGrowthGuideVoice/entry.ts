@@ -28,29 +28,49 @@ const decodeBase64 = (value: string) => {
   return bytes;
 };
 
-const transcriptionFailure = (status: number) => {
+// Base44's client wraps non-2xx function responses in an opaque exception.
+// Keep expected operational failures in a 200 JSON envelope so the visitor
+// always receives the actual, safe diagnostic rather than a generic error.
+const voiceError = (error: string, diagnosticCode: string, providerMessage = '') => {
+  const safeProviderMessage = providerMessage
+    .replace(/sk-[A-Za-z0-9_-]+/g, '[redacted-key]')
+    .replace(/Bearer\s+\S+/gi, 'Bearer [redacted]')
+    .slice(0, 240);
+
+  return Response.json({
+    error,
+    diagnostic_code: diagnosticCode,
+    provider_message: safeProviderMessage || undefined
+  });
+};
+
+const transcriptionFailure = (status: number, providerMessage = '') => {
   if (status === 401 || status === 403) {
-    return Response.json({
-      error: 'Voice transcription could not authenticate with OpenAI. Check the OPENAI_API_KEY secret in Base44.',
-      diagnostic_code: 'OPENAI_AUTH_FAILED'
-    }, { status: 502 });
+    return voiceError(
+      'Voice transcription could not authenticate with OpenAI. The configured Base44 secret was rejected.',
+      'OPENAI_AUTH_FAILED',
+      providerMessage
+    );
   }
   if (status === 429) {
-    return Response.json({
-      error: 'Voice transcription is temporarily busy. Please wait a moment and try again.',
-      diagnostic_code: 'OPENAI_RATE_LIMITED'
-    }, { status: 503 });
+    return voiceError(
+      'Voice transcription is temporarily unavailable because OpenAI is rate-limited or billing is unavailable.',
+      'OPENAI_RATE_LIMITED',
+      providerMessage
+    );
   }
   if (status === 400 || status === 415 || status === 422) {
-    return Response.json({
-      error: 'OpenAI could not read this recording format. Please record again or type your message.',
-      diagnostic_code: 'OPENAI_AUDIO_REJECTED'
-    }, { status: 422 });
+    return voiceError(
+      'OpenAI could not read this recording format. Please record again or type your message.',
+      'OPENAI_AUDIO_REJECTED',
+      providerMessage
+    );
   }
-  return Response.json({
-    error: 'OpenAI did not complete the transcription. Please try again.',
-    diagnostic_code: `OPENAI_HTTP_${status}`
-  }, { status: 502 });
+  return voiceError(
+    'OpenAI did not complete the transcription.',
+    `OPENAI_HTTP_${status}`,
+    providerMessage
+  );
 };
 
 export default async function (req: Request): Promise<Response> {
@@ -63,10 +83,10 @@ export default async function (req: Request): Promise<Response> {
     const extension = ALLOWED_AUDIO_TYPES[mimeType];
 
     if (!audioBase64 || !extension) {
-      return Response.json({ error: 'A supported audio recording is required.' }, { status: 400 });
+      return voiceError('A supported audio recording is required.', 'AUDIO_FORMAT_UNSUPPORTED');
     }
     if (audioBase64.length > MAX_BASE64_LENGTH) {
-      return Response.json({ error: 'The recording is too long. Please keep it under one minute.' }, { status: 413 });
+      return voiceError('The recording is too long. Please keep it under one minute.', 'AUDIO_TOO_LARGE');
     }
 
     stage = 'SECRET_ACCESS';
@@ -75,10 +95,10 @@ export default async function (req: Request): Promise<Response> {
       apiKey = await Promise.resolve(secrets.get('OpenAI'));
     }
     if (!apiKey) {
-      return Response.json({
-        error: 'Voice transcription is not configured. Add the OPENAI_API_KEY secret in Base44.',
-        diagnostic_code: 'OPENAI_KEY_MISSING'
-      }, { status: 503 });
+      return voiceError(
+        'Voice transcription is not configured. Add the OPENAI_API_KEY secret in Base44.',
+        'OPENAI_KEY_MISSING'
+      );
     }
 
     stage = 'AUDIO_DECODING';
@@ -91,7 +111,10 @@ export default async function (req: Request): Promise<Response> {
       { type: mimeType }
     );
     if (audioFile.size < 1_000) {
-      return Response.json({ error: 'The recording did not contain enough audio to transcribe.' }, { status: 422 });
+      return voiceError(
+        'The recording did not contain enough audio to transcribe.',
+        'AUDIO_TOO_SHORT'
+      );
     }
 
     stage = 'MULTIPART_CREATION';
@@ -116,7 +139,16 @@ export default async function (req: Request): Promise<Response> {
         status: openAIResponse.status,
         requestId: openAIResponse.headers.get('x-request-id')
       });
-      return transcriptionFailure(openAIResponse.status);
+      let providerMessage = '';
+      try {
+        const providerError = await openAIResponse.clone().json();
+        providerMessage = typeof providerError?.error?.message === 'string'
+          ? providerError.error.message
+          : '';
+      } catch {
+        // Preserve the stable diagnostic when OpenAI does not return JSON.
+      }
+      return transcriptionFailure(openAIResponse.status, providerMessage);
     }
 
     stage = 'OPENAI_RESPONSE';
@@ -124,7 +156,7 @@ export default async function (req: Request): Promise<Response> {
     const transcript = String(transcription?.text || '').trim();
 
     if (!transcript) {
-      return Response.json({ error: 'No speech was detected in the recording.' }, { status: 422 });
+      return voiceError('No speech was detected in the recording.', 'NO_SPEECH_DETECTED');
     }
 
     return Response.json({ transcript });
@@ -133,9 +165,9 @@ export default async function (req: Request): Promise<Response> {
       stage,
       name: error instanceof Error ? error.name : 'UnknownError'
     });
-    return Response.json({
-      error: `Voice transcription stopped during ${stage.toLowerCase().replaceAll('_', ' ')}.`,
-      diagnostic_code: `${stage}_FAILED`
-    }, { status: 500 });
+    return voiceError(
+      `Voice transcription stopped during ${stage.toLowerCase().replaceAll('_', ' ')}.`,
+      `${stage}_FAILED`
+    );
   }
 }
