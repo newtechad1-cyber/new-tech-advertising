@@ -790,6 +790,9 @@ export default function YourDigitalGrowthGuide() {
 
                       {/* Input */}
                       <div className="p-4 pt-2">
+                          <p className="mb-2 text-xs text-slate-300">
+                            Talk or type your question below—or choose one of the suggestions to get started.
+                          </p>
                           <form onSubmit={(e) => handleSend(e)} className="relative">
                             <Input
                                 value={input}
