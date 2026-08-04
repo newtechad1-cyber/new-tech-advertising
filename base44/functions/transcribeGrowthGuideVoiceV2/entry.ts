@@ -29,11 +29,17 @@ const decodeBase64 = (value: string) => {
   return bytes;
 };
 
-const transcriptionFailure = (status: number) => {
+const transcriptionFailure = (status: number, providerMessage = '') => {
+  const safeMessage = providerMessage
+    .replace(/sk-[A-Za-z0-9_-]+/g, '[redacted-key]')
+    .replace(/Bearer\\s+\\S+/gi, 'Bearer [redacted]')
+    .slice(0, 240);
+
   if (status === 401 || status === 403) {
     return Response.json({
       error: 'Voice transcription could not authenticate with OpenAI. Check the OPENAI_API_KEY secret in Base44.',
-      diagnostic_code: 'OPENAI_AUTH_FAILED'
+      diagnostic_code: 'OPENAI_AUTH_FAILED',
+      provider_message: safeMessage || undefined
     }, { status: 502 });
   }
   if (status === 429) {
@@ -117,7 +123,16 @@ export default async function (req: Request): Promise<Response> {
         status: openAIResponse.status,
         requestId: openAIResponse.headers.get('x-request-id')
       });
-      return transcriptionFailure(openAIResponse.status);
+      let providerMessage = '';
+      try {
+        const providerError = await openAIResponse.clone().json();
+        providerMessage = typeof providerError?.error?.message === 'string'
+          ? providerError.error.message
+          : '';
+      } catch {
+        // Keep the stable diagnostic response if OpenAI did not return JSON.
+      }
+      return transcriptionFailure(openAIResponse.status, providerMessage);
     }
 
     stage = 'OPENAI_RESPONSE';
