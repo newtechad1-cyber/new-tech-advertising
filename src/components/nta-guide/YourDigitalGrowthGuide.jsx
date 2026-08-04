@@ -302,7 +302,13 @@ export default function YourDigitalGrowthGuide() {
           }
 
           const result = response?.data ?? response;
-          if (result?.error) throw new Error(result.error);
+          if (result?.error) {
+            const diagnosticCode = result.diagnostic_code ? ` [${result.diagnostic_code}]` : '';
+            const providerMessage = result.provider_message ? ` OpenAI: ${result.provider_message}` : '';
+            const diagnosticError = new Error(`${result.error}${diagnosticCode}${providerMessage}`);
+            diagnosticError.diagnostic_code = result.diagnostic_code;
+            throw diagnosticError;
+          }
           const transcript = String(result?.transcript || '').trim();
           if (!transcript) throw new Error('No transcript returned');
 
@@ -313,7 +319,12 @@ export default function YourDigitalGrowthGuide() {
         } catch (error) {
           console.warn('Talk to My Office voice transcription failed.', error);
           setVoiceStatus('error');
-          const serverMessage = error?.response?.data?.error;
+          const responseData = error?.response?.data ?? error?.data;
+          const diagnosticCode = responseData?.diagnostic_code ? ` [${responseData.diagnostic_code}]` : '';
+          const providerMessage = responseData?.provider_message ? ` OpenAI: ${responseData.provider_message}` : '';
+          const serverMessage = responseData?.error
+            ? `${responseData.error}${diagnosticCode}${providerMessage}`
+            : '';
           setVoiceError(serverMessage || error?.message || 'Your audio was recorded, but transcription failed. Please try once more.');
         } finally {
           setIsTranscribing(false);
