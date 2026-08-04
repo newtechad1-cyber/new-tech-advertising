@@ -1,5 +1,7 @@
 import { secrets } from 'base44:runtime';
 
+// Deployment stamp for the registered production transcription service.
+const FUNCTION_VERSION = 'v1-direct-2026-08-04-production-sync-r1';
 const MAX_BASE64_LENGTH = 8_000_000;
 const ALLOWED_AUDIO_TYPES: Record<string, string> = {
   'audio/webm': 'webm',
@@ -40,7 +42,8 @@ const voiceError = (error: string, diagnosticCode: string, providerMessage = '')
   return Response.json({
     error,
     diagnostic_code: diagnosticCode,
-    provider_message: safeProviderMessage || undefined
+    provider_message: safeProviderMessage || undefined,
+    function_version: FUNCTION_VERSION
   });
 };
 
@@ -159,7 +162,7 @@ export default async function (req: Request): Promise<Response> {
       return voiceError('No speech was detected in the recording.', 'NO_SPEECH_DETECTED');
     }
 
-    return Response.json({ transcript });
+    return Response.json({ transcript, function_version: FUNCTION_VERSION });
   } catch (error) {
     console.error('transcribeGrowthGuideVoice failed', {
       stage,
