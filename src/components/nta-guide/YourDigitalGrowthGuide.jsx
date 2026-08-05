@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useDragControls } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
+import { appParams } from '@/lib/app-params';
 import { X, Send, Loader2, AlertCircle, Zap, ChevronRight, Brain, Mic, MicOff, RotateCcw } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import growthGuideSurfer from "@/assets/brand/nta-growth-guide-surfer.webp";
@@ -291,11 +292,30 @@ export default function YourDigitalGrowthGuide() {
             mime_type: audio.type
           };
 
-          // The established service is registered in production. Keep this path
-          // single-service until Base44 independently confirms V2 registration.
-          const response = await base44.functions.invoke('transcribeGrowthGuideVoice', payload);
-
-          const result = response?.data ?? response;
+          // Use the registered production endpoint directly for voice transcription.
+          // This avoids stale SDK functions-version state in browser localStorage.
+          const functionBaseUrl = appParams.serverUrl || 'https://base44.app';
+          const functionUrl = `${functionBaseUrl.replace(/\\/$/, '')}/api/apps/${appParams.appId}/functions/transcribeGrowthGuideVoice`;
+          const functionResponse = await fetch(functionUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-App-Id': String(appParams.appId)
+            },
+            body: JSON.stringify(payload)
+          });
+          let result;
+          try {
+            result = await functionResponse.json();
+          } catch {
+            result = null;
+          }
+          if (!functionResponse.ok) {
+            const serverError = result?.error || result?.detail || `Transcription request failed (${functionResponse.status}).`;
+            const requestError = new Error(serverError);
+            requestError.response = { data: result };
+            throw requestError;
+          }
           if (result?.error) {
             const diagnosticCode = result.diagnostic_code ? ` [${result.diagnostic_code}]` : '';
             const providerMessage = result.provider_message ? ` OpenAI: ${result.provider_message}` : '';
