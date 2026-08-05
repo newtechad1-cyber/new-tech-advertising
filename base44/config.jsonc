@@ -1,5 +1,6 @@
 {
   "name": "New Tech Advertising",
+  "description": "New Tech Advertising is a practical AI education platform for small-business owners. We help owners work with AI through conversation, keep human judgment in control, and build clear, connected systems for lasting growth.",
   "site": {
     "installCommand": "npm install",
     "buildCommand": "npm run build",
