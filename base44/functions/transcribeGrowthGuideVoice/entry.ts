@@ -181,4 +181,4 @@ export default async function transcribeGrowthGuideVoice(req: Request): Promise<
       `${stage}_FAILED`
     );
   }
-});
+}
