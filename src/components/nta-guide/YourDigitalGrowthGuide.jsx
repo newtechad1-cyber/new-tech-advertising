@@ -294,8 +294,9 @@ export default function YourDigitalGrowthGuide() {
 
           // Use the registered production endpoint directly for voice transcription.
           // This avoids stale SDK functions-version state in browser localStorage.
-          const functionBaseUrl = appParams.serverUrl || 'https://base44.app';
-          const functionUrl = `${functionBaseUrl.replace(/\/$/, '')}/api/apps/${appParams.appId}/functions/transcribeGrowthGuideVoice`;
+          // Use the current site origin so the browser does not depend on
+          // cross-origin function routing or a stale SDK functions-version URL.
+          const functionUrl = `/api/apps/${appParams.appId}/functions/transcribeGrowthGuideVoice`;
           const functionResponse = await fetch(functionUrl, {
             method: 'POST',
             headers: {
