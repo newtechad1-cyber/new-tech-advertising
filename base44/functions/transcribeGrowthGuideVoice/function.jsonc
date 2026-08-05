@@ -1,4 +1,4 @@
 {
   "name": "transcribeGrowthGuideVoice",
-  "entry": "entry.ts"
+  "entry": "index.ts"
 }
