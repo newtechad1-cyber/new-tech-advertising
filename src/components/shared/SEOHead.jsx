@@ -371,30 +371,10 @@ export default function SEOHead({
     }
 
     // ── 13. FAQ SCHEMA ────────────────────────────────────────────────────
-    const defaultFaqs = [
-      {
-        question: "What does New Tech Advertising do?",
-        answer: "New Tech Advertising provides AI-powered marketing for small businesses including HVAC companies, plumbers, and restaurants. We automate social media posting, local SEO, Google review management, and AI video content creation. Based in Mason City, Iowa, we serve businesses across Iowa and Southern Minnesota."
-      },
-      {
-        question: "How much does AI marketing cost for a small business?",
-        answer: "NTA's AI marketing plans start at $297 per month and include automated social media posting, local SEO optimization, review management, and content creation. No contracts, cancel anytime."
-      },
-      {
-        question: "Can AI really manage my business's social media?",
-        answer: "Yes. NTA's AI creates industry-specific content, schedules posts across Facebook, Instagram, and LinkedIn, and monitors engagement. Our HVAC clients see an average 3x increase in Google reviews and consistent lead generation."
-      },
-      {
-        question: "Does NTA work with businesses outside Iowa?",
-        answer: "Yes. While based in Mason City, Iowa, NTA serves businesses across Iowa and Southern Minnesota including Rochester, Austin, and Albert Lea. Our AI-powered services work for any location."
-      },
-      {
-        question: "What industries does New Tech Advertising specialize in?",
-        answer: "NTA specializes in marketing for HVAC companies, plumbing businesses, and restaurants. We understand the seasonal patterns, local search behavior, and content needs unique to each industry."
-      }
-    ];
-
-    const finalFaqs = faqs && faqs.length > 0 ? faqs : defaultFaqs;
+    // Emit FAQ structured data only when the page supplies matching, visible FAQs.
+    // This prevents stale legacy pricing, service, and performance claims from
+    // being repeated across pages that do not have page-specific FAQ content.
+    const finalFaqs = Array.isArray(faqs) ? faqs : [];
     const faqSchema = {
       "@context": "https://schema.org",
       "@type": "FAQPage",
@@ -407,7 +387,9 @@ export default function SEOHead({
         }
       }))
     };
-    elements.push(addSchema(faqSchema));
+    if (finalFaqs.length > 0) {
+      elements.push(addSchema(faqSchema));
+    }
 
     // ── 14. BREADCRUMB SCHEMA ─────────────────────────────────────────────
     const pathParts = window.location.pathname.split('/').filter(Boolean);
