@@ -75,7 +75,7 @@ const transcriptionFailure = (status: number, providerMessage = '') => {
   );
 };
 
-Deno.serve(async (req: Request): Promise<Response> => {
+export default async function transcribeGrowthGuideVoice(req: Request): Promise<Response> {
   let stage: FailureStage = 'REQUEST_DECODING';
 
   try {
