@@ -1,7 +1,7 @@
 import { secrets } from 'base44:runtime';
 
 // Deployment stamp for the registered production transcription service.
-const FUNCTION_VERSION = 'v1-direct-2026-08-05-production-sync-r2';
+const FUNCTION_VERSION = 'v1-direct-2026-08-05-production-sync-r3';
 const MAX_BASE64_LENGTH = 8_000_000;
 const OPENAI_TIMEOUT_MS = 25_000;
 const ALLOWED_AUDIO_TYPES: Record<string, string> = {
