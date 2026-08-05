@@ -77,7 +77,7 @@ const transcriptionFailure = (status: number, providerMessage = '') => {
   );
 };
 
-export default async function (req: Request): Promise<Response> {
+Deno.serve(async (req: Request): Promise<Response> => {
   let stage: FailureStage = 'REQUEST_DECODING';
 
   try {
@@ -186,4 +186,4 @@ export default async function (req: Request): Promise<Response> {
       `${stage}_FAILED`
     );
   }
-}
+});
