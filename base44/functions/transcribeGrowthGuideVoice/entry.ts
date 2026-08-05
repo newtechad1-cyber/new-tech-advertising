@@ -3,6 +3,7 @@ import { secrets } from 'base44:runtime';
 // Deployment stamp for the registered production transcription service.
 const FUNCTION_VERSION = 'v1-direct-2026-08-04-production-sync-r1';
 const MAX_BASE64_LENGTH = 8_000_000;
+const OPENAI_TIMEOUT_MS = 25_000;
 const ALLOWED_AUDIO_TYPES: Record<string, string> = {
   'audio/webm': 'webm',
   'audio/mp4': 'm4a',
@@ -131,11 +132,23 @@ export default async function (req: Request): Promise<Response> {
     );
 
     stage = 'OPENAI_REQUEST';
-    const openAIResponse = await fetch('https://api.openai.com/v1/audio/transcriptions', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${apiKey}` },
-      body: formData
-    });
+    let openAIResponse: Response;
+    try {
+      openAIResponse = await fetch('https://api.openai.com/v1/audio/transcriptions', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${apiKey}` },
+        body: formData,
+        signal: AbortSignal.timeout(OPENAI_TIMEOUT_MS)
+      });
+    } catch (error) {
+      if (error instanceof Error && (error.name === 'TimeoutError' || error.name === 'AbortError')) {
+        return voiceError(
+          'Voice transcription timed out while waiting for OpenAI. Please try again or type your message.',
+          'OPENAI_REQUEST_TIMED_OUT'
+        );
+      }
+      throw error;
+    }
 
     if (!openAIResponse.ok) {
       console.error('OpenAI transcription request failed', {
