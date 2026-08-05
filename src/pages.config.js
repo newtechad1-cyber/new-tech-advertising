@@ -8,7 +8,6 @@ import AdaAccessibility from './pages/AdaAccessibility';
 import AdaIntake from './pages/AdaIntake';
 import AdaOnboarding from './pages/AdaOnboarding';
 import AdaQuote from './pages/AdaQuote';
-import AdaSalesAssistant from './pages/AdaSalesAssistant';
 import AdaSuccess from './pages/AdaSuccess';
 import AdaThankYou from './pages/AdaThankYou';
 import AdaWebsiteCompliance from './pages/AdaWebsiteCompliance';
@@ -166,7 +165,6 @@ export const PAGES = {
   "AdaIntake": AdaIntake,
   "AdaOnboarding": AdaOnboarding,
   "AdaQuote": AdaQuote,
-  "AdaSalesAssistant": AdaSalesAssistant,
   "AdaSuccess": AdaSuccess,
   "AdaThankYou": AdaThankYou,
   "AdaWebsiteCompliance": AdaWebsiteCompliance,
