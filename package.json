@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "test:growth-guide": "node --test src/lib/growth-guide/*.test.js",
     "test:route-governance": "node --test tests/route-governance.test.mjs",
+    "test:host-governance": "node --test tests/host-governance.test.mjs",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc -p ./jsconfig.json",
     "preview": "vite preview"
