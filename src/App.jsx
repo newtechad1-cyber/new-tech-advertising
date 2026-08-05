@@ -8,10 +8,14 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider } from '@/lib/AuthContext';
 import { NTADataProvider } from '@/lib/NTADataContext';
 import { ExperienceProvider } from '@/lib/ExperienceLayer';
+import { PUBLIC_PAGE_KEYS } from '@/config/routeGovernance';
 
 const { Pages, Layout, mainPage } = pagesConfig;
-const mainPageKey = mainPage ?? Object.keys(Pages)[0];
-const MainPage = mainPageKey ? Pages[mainPageKey] : null;
+const PublicPages = Object.fromEntries(
+  Object.entries(Pages).filter(([pageKey]) => PUBLIC_PAGE_KEYS.has(pageKey))
+);
+const mainPageKey = mainPage ?? Object.keys(PublicPages)[0];
+const MainPage = mainPageKey ? PublicPages[mainPageKey] : null;
 
 const LayoutWrapper = ({ children, currentPageName }) =>
   Layout ? <Layout currentPageName={currentPageName}>{children}</Layout> : <>{children}</>;
@@ -35,7 +39,7 @@ function PublicRoutes() {
           </LayoutWrapper>
         }
       />
-      {Object.entries(Pages)
+      {Object.entries(PublicPages)
         .filter(([pageKey]) => pageKey !== mainPageKey)
         .map(([pageKey, Page]) => (
           <Route
@@ -50,9 +54,23 @@ function PublicRoutes() {
         ))}
       <Route path="/Login" element={<CoreHubRedirect />} />
       <Route path="/login" element={<CoreHubRedirect />} />
-      <Route path="/portal" element={<Navigate to="/Login" replace />} />
+      <Route path="/portal/*" element={<Navigate to="/Login" replace />} />
       <Route path="/agency/*" element={<Navigate to="/Login" replace />} />
       <Route path="/admin/*" element={<Navigate to="/Login" replace />} />
+      <Route path="/client/*" element={<Navigate to="/Login" replace />} />
+      <Route path="/ops/*" element={<Navigate to="/Login" replace />} />
+      <Route path="/sales/*" element={<Navigate to="/Login" replace />} />
+      <Route path="/reseller/*" element={<Navigate to="/Login" replace />} />
+      <Route path="/dashboard/*" element={<Navigate to="/Login" replace />} />
+      <Route path="/crm/*" element={<Navigate to="/Login" replace />} />
+      <Route path="/leads/*" element={<Navigate to="/Login" replace />} />
+      <Route path="/content-command/*" element={<Navigate to="/Login" replace />} />
+      <Route path="/content-center/*" element={<Navigate to="/Login" replace />} />
+      <Route path="/billing/*" element={<Navigate to="/Login" replace />} />
+      <Route path="/settings/*" element={<Navigate to="/Login" replace />} />
+      <Route path="/workspace/*" element={<Navigate to="/Login" replace />} />
+      <Route path="/executive-dashboard/*" element={<Navigate to="/Login" replace />} />
+      <Route path="/nta/*" element={<Navigate to="/Login" replace />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
