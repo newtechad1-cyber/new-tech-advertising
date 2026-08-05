@@ -1,5 +1,3 @@
-import { secrets } from 'base44:runtime';
-
 // Deployment stamp for the registered production transcription service.
 const FUNCTION_VERSION = 'v1-direct-2026-08-05-production-sync-r3';
 const MAX_BASE64_LENGTH = 8_000_000;
@@ -94,10 +92,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
     }
 
     stage = 'SECRET_ACCESS';
-    let apiKey = await Promise.resolve(secrets.get('OPENAI_API_KEY'));
-    if (!apiKey) {
-      apiKey = await Promise.resolve(secrets.get('OpenAI'));
-    }
+    const apiKey = Deno.env.get('OPENAI_API_KEY') || Deno.env.get('OpenAI') || '';
     if (!apiKey) {
       return voiceError(
         'Voice transcription is not configured. Add the OPENAI_API_KEY secret in Base44.',
