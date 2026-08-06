@@ -53,33 +53,60 @@ export default function StreamingIntake() {
     setLoading(true);
 
     try {
-      const leadData = {
+      const response = await base44.functions.invoke('ntaUnifiedIntake', {
+        submission_type: 'streaming_tv_intake',
+        offer_type: 'streaming_tv',
+        mapping_confidence: 'hardcoded',
+        mapping_notes: 'StreamingIntake.jsx',
+        detected_route: '/streaming-intake',
+        detected_component: 'StreamingIntake',
+        source_system: 'website',
+        source_page: '/streaming-intake',
+        source_url: window.location.href,
         name: formData.full_name,
         business_name: formData.business_name,
         email: formData.email,
         phone: formData.phone,
-        message: formData.notes || "",
-        status: "new"
-      };
-
-      const lead = await base44.entities.Lead.create(leadData);
-
-      await base44.entities.LeadActivity.create({
-        lead_id: lead.id,
-        activity_type: "form_submission",
-        page_url: window.location.href,
-        details: "Streaming TV intake submitted",
-        metadata: {
-          service_type: "streaming_tv",
-          lead_source: "streaming_tv_page",
-          website_url: formData.website_url,
-          city: formData.city,
-          state: formData.state,
+        website: formData.website_url,
+        city: formData.city,
+        state: formData.state,
+        notes: [
+          formData.notes || '',
+          formData.primary_goal ? `Primary goal: ${formData.primary_goal}` : '',
+          formData.monthly_budget_range ? `Monthly budget: ${formData.monthly_budget_range}` : '',
+          isTestMode ? 'Submitted while test mode was enabled' : '',
+        ].filter(Boolean).join(' | '),
+        raw_payload: {
+          service_type: 'streaming_tv',
           primary_goal: formData.primary_goal,
           monthly_budget_range: formData.monthly_budget_range,
-          test_mode: isTestMode
-        }
+          test_mode: isTestMode,
+        },
+        skip_webhook: true,
       });
+      const intake = response?.data;
+      if (!intake?.success) {
+        throw new Error(intake?.error || 'Unable to save your request');
+      }
+
+      if (intake.lead_record_id) {
+        await base44.entities.LeadActivity.create({
+          lead_id: intake.lead_record_id,
+          activity_type: "form_submission",
+          page_url: window.location.href,
+          details: "Streaming TV intake submitted",
+          metadata: {
+            service_type: "streaming_tv",
+            lead_source: "streaming_tv_page",
+            website_url: formData.website_url,
+            city: formData.city,
+            state: formData.state,
+            primary_goal: formData.primary_goal,
+            monthly_budget_range: formData.monthly_budget_range,
+            test_mode: isTestMode
+          }
+        });
+      }
 
       navigate(createPageUrl("StreamingThankYou"));
     } catch (error) {
