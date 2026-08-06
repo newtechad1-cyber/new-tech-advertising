@@ -292,19 +292,26 @@ export default function YourDigitalGrowthGuide() {
             mime_type: audio.type
           };
 
-          // Use the registered production endpoint directly for voice transcription.
-          // This avoids stale SDK functions-version state in browser localStorage.
-          // Use the current site origin so the browser does not depend on
-          // cross-origin function routing or a stale SDK functions-version URL.
-          const functionUrl = `/api/apps/${appParams.appId}/functions/transcribeGrowthGuideVoice`;
-          const functionResponse = await fetch(functionUrl, {
+          // Use the current site first so normal requests stay same-origin.
+          // If a custom-domain edge returns 404, retry the same request through
+          // Base44's direct app endpoint before reporting failure.
+          const requestOptions = {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
               'X-App-Id': String(appParams.appId)
             },
             body: JSON.stringify(payload)
-          });
+          };
+          const siteFunctionUrl = `/api/apps/${appParams.appId}/functions/transcribeGrowthGuideVoice`;
+          const directFunctionUrl = `https://base44.app/api/apps/${appParams.appId}/functions/transcribeGrowthGuideVoice`;
+          let functionUrl = siteFunctionUrl;
+          let functionResponse = await fetch(functionUrl, requestOptions);
+          if (functionResponse.status === 404) {
+            functionUrl = directFunctionUrl;
+            functionResponse = await fetch(functionUrl, requestOptions);
+          }
+
           let result;
           try {
             result = await functionResponse.json();
@@ -312,7 +319,7 @@ export default function YourDigitalGrowthGuide() {
             result = null;
           }
           if (!functionResponse.ok) {
-            const serverError = result?.error || result?.detail || `Transcription request failed (${functionResponse.status}).`;
+            const serverError = result?.error || result?.detail || `Transcription request failed (${functionResponse.status}) at ${functionUrl}.`;
             const requestError = new Error(serverError);
             requestError.response = { data: result };
             throw requestError;
