@@ -166,13 +166,7 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
       // 4. Update TrialAccount with BusinessProfile ID
       await base44.entities.TrialAccount.update(trial.id, { business_profile_id: bp.id });
 
-      // 5. Send internal notification email
-      await base44.integrations.Core.SendEmail({
-        from_name: 'NTA — New Trial Signup',
-        to: 'rick@newtechadvertising.com',
-        subject: `🚀 New Trial: ${form.business_name} (${form.industry})`,
-        body: `New trial started!\n\nBusiness: ${form.business_name}\nContact: ${form.full_name}\nEmail: ${form.email}\nPhone: ${form.phone}\nIndustry: ${form.industry}\nLocation: ${form.city}, ${form.state}\nGoal: ${form.primary_goal}\nWebsite: ${form.website_url}\nSource: ${sourceData.source_page || 'start'}\nNotes: ${form.notes}`,
-      });
+      // ntaUnifiedIntake already sent the internal notification through info@newtechadvertising.com Gmail.
 
       // 6. Kick off the intelligence + provisioning pipeline
       base44.functions.invoke('onTrialSubmitted', { trial_id: trial.id }).catch(err =>
