@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle, ArrowRight, ChevronDown, Phone } from 'lucide-react';
 import MarketingNav from '../nav/MarketingNav';
@@ -22,24 +22,49 @@ function LeadForm({ source }) {
   const [form, setForm] = useState({ name: '', business: '', website: '', phone: '' });
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [pageLoadTs] = useState(() => Date.now());
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.business.trim()) return;
+    if (!form.business.trim() || !form.phone.trim()) return;
     setSubmitting(true);
+
     try {
-      await base44.entities.SalesLead.create({
+      const contactValue = form.phone.trim();
+      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactValue);
+      const response = await base44.functions.invoke('ntaUnifiedIntake', {
+        submission_type: 'free_audit_request',
+        offer_type: 'marketing_audit',
+        mapping_confidence: 'hardcoded',
+        mapping_notes: 'ServicePageLayout lead form',
+        detected_route: window.location.pathname,
+        detected_component: 'ServicePageLayout',
+        source_system: 'website',
+        source_page: window.location.pathname,
+        source_url: window.location.href,
+        name: form.name,
         business_name: form.business,
-        contact_name: form.name,
+        email: isEmail ? contactValue : '',
+        phone: isEmail ? '' : contactValue,
         website: form.website,
-        phone: form.phone,
-        lead_source: 'website',
-        status: 'new',
-        notes: `Gap Audit Request — ${source} — ${new Date().toLocaleDateString()}`,
+        notes: 'Gap Audit Request — ' + source,
+        priority: 'high',
+        is_high_intent: true,
+        skip_webhook: true,
+        anti_spam: {
+          honeypot: '',
+          form_started_at: pageLoadTs,
+        },
       });
-    } catch (_) {}
-    setSubmitting(false);
-    setSubmitted(true);
+      if (!response?.data?.success) {
+        throw new Error(response?.data?.error || 'Unable to save your request');
+      }
+      setSubmitted(true);
+    } catch (error) {
+      console.error('[ServicePageLayout] Lead submission failed:', error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -58,7 +83,7 @@ function LeadForm({ source }) {
         { key: 'name', label: 'Your Name', placeholder: 'Rick Johnson' },
         { key: 'business', label: 'Business Name *', placeholder: 'Johnson Heating & A/C', required: true },
         { key: 'website', label: 'Website URL', placeholder: 'yourbusiness.com' },
-        { key: 'phone', label: 'Phone or Email', placeholder: '(641) 555-0100' },
+        { key: 'phone', label: 'Phone or Email *', placeholder: '(641) 555-0100', required: true },
       ].map(f => (
         <div key={f.key}>
           <label className="block text-xs font-semibold text-slate-600 mb-1">{f.label}</label>
