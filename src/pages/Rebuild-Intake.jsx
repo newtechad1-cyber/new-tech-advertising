@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
+import SEOHead from '@/components/shared/SEOHead';
 
 const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png';
 
@@ -105,9 +106,17 @@ export default function RebuildIntake() {
     }
   };
 
+  const seoHead = (
+    <SEOHead
+      title="Website Rebuild & ADA Compliance Quote | New Tech Advertising"
+      description="Tell New Tech Advertising about your current website and request a practical website rebuild or ADA compliance quote with no commitment."
+    />
+  );
+
   if (step === 2) {
     return (
       <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
+        {seoHead}
         <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
           <CheckCircle className="w-10 h-10 text-emerald-600" />
         </div>
@@ -174,6 +183,7 @@ export default function RebuildIntake() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
+      {seoHead}
       {/* Header */}
       <header className="border-b border-slate-200 py-4 px-6">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
