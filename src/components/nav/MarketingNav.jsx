@@ -23,6 +23,7 @@ const NAV_LINKS = [
     label: 'Learn',
     href: '/point-of-view',
     children: [
+      { label: 'Free AI Education', href: '/knowledge/ai-foundations', desc: 'Practical AI for real businesses' },
       { label: 'The NTA Point of View', href: '/point-of-view', desc: 'Our philosophy and experience' },
       { label: 'NTA Knowledge Library', href: '/knowledge', desc: 'All educational collections' },
       { label: 'Free Business Books', href: '/books', desc: 'Practical guides for owners' },
@@ -309,3 +310,4 @@ export default function MarketingNav() {
     </>
   );
 }
+
