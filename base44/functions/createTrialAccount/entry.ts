@@ -161,24 +161,28 @@ Deno.serve(async (req) => {
       trial_end_at: trialEnd.toISOString(),
     });
 
-    // Create Lead in internal CRM
-    const existingLeads = await base44.asServiceRole.entities.Lead.filter({ email });
-    if (!existingLeads.length) {
-      await base44.asServiceRole.entities.Lead.create({
-        name: name,
-        email: email,
-        phone: phone || '',
-        business_name: name,
-        website: website_url || '',
-        industry: industry,
-        city: location_city,
-        state: location_state,
-        service_interest: 'diy_saas',
-        message: `Trial signup via createTrialAccount. Involvement: ${involvement_preference || 'undecided'}`,
-        status: 'new',
-        source: 'website',
-      });
-    }
+    // Route the trial signup to the private office's canonical prospect pipeline.
+    await base44.asServiceRole.functions.invoke('ntaUnifiedIntake', {
+      submission_type: 'trial_signup',
+      offer_type: 'trial_onboarding',
+      mapping_confidence: 'hardcoded',
+      mapping_notes: 'createTrialAccount routed to the canonical private office intake',
+      detected_route: '/trial',
+      detected_component: 'createTrialAccount',
+      source_system: 'website',
+      source_page: '/trial',
+      name,
+      business_name: name,
+      email,
+      phone: phone || '',
+      website: website_url || '',
+      city: location_city,
+      state: location_state,
+      industry,
+      notes: `Trial signup. Involvement: ${involvement_preference || 'undecided'}`,
+      priority: 'medium',
+      raw_payload: body,
+    });
 
     // Create personalized PortalLanding
     const landingData = buildPortalLanding({ name, industry, location_city, location_state });
