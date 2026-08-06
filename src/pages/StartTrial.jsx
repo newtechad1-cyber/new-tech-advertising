@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
+import SEOHead from '@/components/shared/SEOHead';
 
 const LOGO = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png';
 
@@ -100,9 +101,17 @@ export default function StartTrial() {
     }
   };
 
+  const seoHead = (
+    <SEOHead
+      title="Start Your Free 14-Day Trial | New Tech Advertising"
+      description="Start a free 14-day consultative trial with New Tech Advertising. We learn your business, share practical insight, and shape the right next step together."
+    />
+  );
+
   if (step === 3) {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
+        {seoHead}
         <div className="bg-slate-900 border border-slate-700 rounded-2xl p-10 max-w-md w-full text-center">
           <div className="w-16 h-16 bg-green-500/10 border border-green-700 rounded-full flex items-center justify-center mx-auto mb-5">
             <CheckCircle className="w-8 h-8 text-green-400" />
@@ -122,6 +131,7 @@ export default function StartTrial() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
+      {seoHead}
       <header className="border-b border-slate-800 py-4 px-6 flex items-center justify-between">
         <Link to={createPageUrl('Home')}><img src={LOGO} alt="NTA" className="h-9 w-auto" /></Link>
         <span className="text-slate-500 text-sm">Already a customer? <a href="#" className="text-violet-400">Sign in</a></span>
