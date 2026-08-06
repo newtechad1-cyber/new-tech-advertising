@@ -21,90 +21,51 @@ Deno.serve(async (req) => {
     const base44 = createClientFromRequest(req);
     const submittedAt = new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' });
 
-    // Map raw source param → valid Lead.source enum value
-    const sourceEnumMap = {
-      'homepage': 'website',
-      'website-rebuild-service': 'seo_page',
-      'website-rebuild-mason-city-ia': 'seo_page',
-      'website-rebuild-rochester-mn': 'seo_page',
-      'rebuild-intake': 'website',
-      'book-call': 'website',
-      'funnel': 'funnel_page',
-      'blog': 'blog_article',
-    };
-    const crmSource = sourceEnumMap[source] || 'website';
-
-    // Map service_type → valid Lead.service_interest enum value
-    const serviceEnumMap = {
-      'ada_rebuild': 'ada_rebuild',
-      'website_rebuild': 'dfy_managed',
-      'both': 'ada_rebuild',
-      'streaming-tv-advertising': 'streaming_tv',
-      'local-seo': 'local_seo',
-    };
-    const crmServiceInterest = serviceEnumMap[service_type] || 'not_sure';
-
-    console.log('[sendRebuildIntakeEmail] Processing submission:', business_name, email, '| source:', source || 'unknown', '→ crmSource:', crmSource);
+    console.log('[sendRebuildIntakeEmail] Processing submission:', business_name, email, '| source:', source || 'unknown');
 
     let leadId = null;
     let crmFailed = false;
     let emailFailed = false;
 
-    // ── NTA Unified Intake (authoritative) ────────────────────────────────
-    // Map service_type to offer_type
+    // ── Canonical office intake ────────────────────────────────────────────
     const rebuildOfferMap = {
-      ada_rebuild:    'ada_compliance',
+      ada_rebuild: 'ada_compliance',
       website_rebuild: 'website_rebuild',
-      both:           'website_rebuild',
+      both: 'website_rebuild',
     };
     const rebuildOfferType = rebuildOfferMap[service_type] || 'website_rebuild';
+    let intakeResult = null;
 
-    await base44.asServiceRole.functions.invoke('ntaUnifiedIntake', {
-      submission_type: 'website_rebuild_intake',
-      offer_type: rebuildOfferType,
-      mapping_confidence: 'hardcoded',
-      mapping_notes: `sendRebuildIntakeEmail; service_type=${service_type}`,
-      detected_route: '/rebuild-intake',
-      detected_component: 'RebuildIntake',
-      source_system: 'rebuild_intake',
-      source_page: source || '/rebuild-intake',
-      name,
-      business_name,
-      email,
-      phone: phone || '',
-      website: website || '',
-      city: city || '',
-      state: state || '',
-      notes: `Service: ${service_type} | Pages: ${page_count}${notes ? ' | ' + notes : ''}`,
-      priority: 'high',
-      is_high_intent: true,
-      skip_webhook: true,
-      anti_spam,
-    });
-    // ─────────────────────────────────────────────────────────────────────
-
-    // ── STEP 1: Save Lead to CRM ──────────────────────────────────────────
     try {
-      console.log('[sendRebuildIntakeEmail] CRM save started...');
-      const lead = await base44.asServiceRole.entities.Lead.create({
+      const intakeResponse = await base44.asServiceRole.functions.invoke('ntaUnifiedIntake', {
+        submission_type: 'website_rebuild_intake',
+        offer_type: rebuildOfferType,
+        mapping_confidence: 'hardcoded',
+        mapping_notes: `sendRebuildIntakeEmail; service_type=${service_type}`,
+        detected_route: '/rebuild-intake',
+        detected_component: 'RebuildIntake',
+        source_system: 'rebuild_intake',
+        source_page: source || '/rebuild-intake',
         name,
+        business_name,
         email,
         phone: phone || '',
-        business_name,
         website: website || '',
-        industry: industry || '',
-        service_interest: crmServiceInterest,
-        message: `Rebuild Intake | Service: ${service_type} | Pages: ${page_count} | City: ${city || ''}, ${state || ''} | Source: ${source || 'unknown'} | Notes: ${notes || 'none'}`,
-        status: 'new',
-        source: crmSource,
-        lead_source_page: source || 'unknown',
+        city: city || '',
+        state: state || '',
+        notes: `Service: ${service_type} | Pages: ${page_count}${notes ? ' | ' + notes : ''}`,
+        priority: 'high',
+        is_high_intent: true,
+        skip_webhook: true,
+        anti_spam,
       });
-      leadId = lead.id;
-      console.log('[sendRebuildIntakeEmail] CRM save SUCCESS — lead ID:', leadId);
+      intakeResult = intakeResponse?.data ?? intakeResponse;
+      leadId = intakeResult?.sales_lead_id || null;
+      console.log('[sendRebuildIntakeEmail] Canonical CRM save SUCCESS — SalesLead ID:', leadId);
     } catch (crmErr) {
       crmFailed = true;
-      console.error('[sendRebuildIntakeEmail] CRM save FAILED:', crmErr.message);
-      // Do NOT return — continue to send email regardless
+      console.error('[sendRebuildIntakeEmail] Canonical CRM save FAILED:', crmErr.message);
+      // Do NOT return — continue to send email regardless.
     }
 
     // ── STEP 2: Send email notification to Rick via Resend ─────────────────
@@ -217,6 +178,7 @@ Deno.serve(async (req) => {
     return Response.json({
       success: true,
       lead_id: leadId,
+      sales_lead_id: leadId,
       crm_failed: crmFailed,
       email_failed: emailFailed,
     });
