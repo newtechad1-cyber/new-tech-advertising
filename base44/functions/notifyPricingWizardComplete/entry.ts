@@ -29,25 +29,31 @@ Deno.serve(async (req) => {
       source_url
     });
 
-    // Create a corresponding Lead record
+    // Route the completed wizard to the private office's canonical pipeline.
     const name = user_email ? user_email.split('@')[0] : 'Anonymous Wizard User';
-    
-    await base44.asServiceRole.entities.Lead.create({
+    const intakeResponse = await base44.asServiceRole.functions.invoke('ntaUnifiedIntake', {
+      submission_type: 'pricing_wizard',
+      offer_type: 'consultation',
+      mapping_confidence: 'hardcoded',
+      mapping_notes: 'Pricing Wizard completion; recommended plan preserved in notes',
+      detected_route: '/find-your-plan',
+      detected_component: 'notifyPricingWizardComplete',
+      source_system: 'website',
+      source_page: source_url || '/find-your-plan',
+      source_url: source_url || '/find-your-plan',
       name,
       email: user_email || '',
-      service_needed: recommended_plan,
-      source_page: source_url || '/find-your-plan',
-      source_campaign: 'pricing_wizard',
-      status: 'new',
       notes: `Pricing Wizard Results:
 - Industry: ${industry}
 - Current Marketing: ${current_marketing}
 - Time Available: ${time_available}
 - Primary Goal: ${primary_goal}
 - Budget Comfort: ${budget_comfort}
-- Recommended Plan: ${recommended_plan}
-`
+- Recommended Plan: ${recommended_plan}`,
+      selected_package: recommended_plan || '',
+      raw_payload: body,
     });
+    const intakeResult = intakeResponse?.data ?? intakeResponse;
 
     await base44.asServiceRole.entities.SystemLog.create({
       event_type: 'Pricing Wizard Completion',
