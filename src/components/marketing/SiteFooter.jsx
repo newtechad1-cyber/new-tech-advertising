@@ -47,6 +47,7 @@ export default function SiteFooter() {
         <div>
           <p className="text-white font-semibold mb-3 text-sm">Resources</p>
           <ul className="space-y-2 text-sm">
+            <li><Link to="/knowledge/ai-foundations" className="hover:text-white transition-colors">Free AI Education</Link></li>
             <li><Link to="/growth-show" className="hover:text-white transition-colors">NTA Growth Show</Link></li>
             <li><Link to="/journal" className="hover:text-white transition-colors">NTA Journal</Link></li>
             <li><Link to="/books" className="hover:text-white transition-colors">Free Business Books</Link></li>
@@ -104,3 +105,4 @@ export default function SiteFooter() {
     </>
   );
 }
+
