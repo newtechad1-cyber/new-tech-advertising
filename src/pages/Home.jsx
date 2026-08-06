@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, CalendarDays, ClipboardCheck, FolderKanban, Globe, MessageCircle, Users } from 'lucide-react';
+import { ArrowRight, BookOpen, ClipboardCheck, FolderKanban, Globe, MessageCircle, Users } from 'lucide-react';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import SEOHead from '../components/shared/SEOHead';
@@ -15,7 +15,15 @@ import { trackJourneyEvent } from '@/lib/journeyAnalytics';
 const HOMEPAGE_FAQS = [
   {
     question: 'What is New Tech Advertising now?',
-    answer: 'New Tech Advertising is a practical AI education and business growth platform for small-business owners. The Knowledge Library, NTA Growth Show, books, Journal, tools, and guided conversations help owners understand AI and apply it to real work without surrendering human judgment.',
+    answer: 'New Tech Advertising is a practical AI education and business growth platform for small-business owners. Free AI Education is the public front door, the Free AI Guy is the friendly guide inside it, and Talk to My Office connects learning to practical business help when you want NTA involved.',
+  },
+  {
+    question: 'What is Free AI Education?',
+    answer: 'Free AI Education is NTA’s public teaching experience for business owners who want to understand AI without hype or technical language. The lessons are free to access; tools, implementation, and ongoing services are explained separately when they become useful.',
+  },
+  {
+    question: 'Who is the Free AI Guy?',
+    answer: 'The Free AI Guy is the friendly teaching identity inside NTA’s free education experience. He helps you ask questions, talk through a business problem, and find a useful next step. NTA and Rick remain the real people and company behind the experience.',
   },
   {
     question: 'What is the NTA Growth Conversation?',
@@ -46,20 +54,20 @@ const HOMEPAGE_FAQS = [
 const TRUST_STEPS = [
   {
     number: '1',
-    title: 'Understand the Approach',
-    text: 'See why NTA starts with the business system before recommending another tool or campaign.',
-    label: 'Explore the NTA Point of View',
-    to: '/point-of-view',
-    step: 'point_of_view',
+    title: 'Start with Free AI Education',
+    text: 'Learn what AI can actually do for a real business before deciding what you need.',
+    label: 'Start a Free Lesson',
+    to: '/knowledge/ai-foundations',
+    step: 'free_ai_education',
     icon: BookOpen,
   },
   {
     number: '2',
-    title: 'Talk Through the Situation',
-    text: 'Answer three practical questions and save the result so nothing is lost between steps.',
-    label: 'Start the Growth Conversation',
-    to: '/growth-conversation',
-    step: 'growth_conversation',
+    title: 'Meet the Free AI Guy',
+    text: 'Ask a practical question or talk through a business problem in a natural conversation.',
+    label: 'Ask the Free AI Guy',
+    action: 'guide',
+    step: 'free_ai_guy',
     icon: MessageCircle,
   },
   {
@@ -73,12 +81,12 @@ const TRUST_STEPS = [
   },
   {
     number: '4',
-    title: 'Choose the Next Step',
-    text: 'Schedule a no-pressure conversation after you have enough context to make the time useful.',
-    label: 'Book a Conversation',
-    to: '/book-call',
-    step: 'book_call',
-    icon: CalendarDays,
+    title: 'Talk to My Office™',
+    text: 'When you want NTA involved, move from learning into a useful human conversation about your business.',
+    label: 'Talk to My Office™',
+    action: 'guide',
+    step: 'talk_to_my_office',
+    icon: Users,
   },
 ];
 
@@ -91,16 +99,16 @@ export default function Home() {
     trackJourneyEvent('trust_step_clicked', { route: '/', step, source: 'homepage_trust_ladder' });
   };
 
-  const openGrowthGuide = () => {
-    trackStep('talk_to_my_office_primary');
+  const openGrowthGuide = (step = 'talk_to_my_office_primary') => {
+    trackStep(step);
     window.dispatchEvent(new CustomEvent('nta:open-growth-guide'));
   };
 
   return (
     <div className="bg-slate-950 min-h-screen">
       <SEOHead
-        title="Practical AI Education for Small Business | NTA"
-        description="New Tech Advertising is a practical AI education and business growth platform helping owners use AI through conversation, preserve human judgment, and build useful systems."
+        title="Free AI Education for Small Business | NTA"
+        description="Free, practical AI education for small-business owners from New Tech Advertising. Learn what AI can do, meet the Free AI Guy, and talk to NTA when you are ready for practical help."
         faqs={HOMEPAGE_FAQS}
       />
       <MarketingNav />
@@ -113,10 +121,10 @@ export default function Home() {
           <div className="max-w-6xl mx-auto">
             <div className="text-center max-w-4xl mx-auto mb-12">
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-slate-900/80 border border-slate-800 text-blue-400 text-sm font-medium tracking-wide uppercase mb-5">
-                The NTA Digital Growth Office™
+                From education to action
               </div>
-              <h2 className="text-3xl md:text-5xl font-bold text-white mb-5">Bring the important parts of your business into one practical system.</h2>
-              <p className="text-lg md:text-xl text-slate-300 leading-relaxed">NTA connects the parts that influence growth so your website, customer relationships, business knowledge, everyday work, and practical AI support move in the same direction.</p>
+              <h2 className="text-3xl md:text-5xl font-bold text-white mb-5">When you are ready to apply what you learn, NTA can help.</h2>
+              <p className="text-lg md:text-xl text-slate-300 leading-relaxed">Free AI Education helps you understand the possibilities. The NTA Digital Growth Office™ helps connect the parts of your business so your website, customer relationships, knowledge, everyday work, and practical AI support move in the same direction.</p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6 mb-10">
@@ -160,7 +168,7 @@ export default function Home() {
               <p className="text-lg text-slate-400 leading-relaxed">Start wherever you are comfortable. Each step gives you more clarity without forcing you into the next one.</p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-              {TRUST_STEPS.map(({ number, title, text, label, to, step, icon: Icon }) => (
+              {TRUST_STEPS.map(({ number, title, text, label, to, action, step, icon: Icon }) => (
                 <div key={step} className="bg-slate-950 border border-slate-800 rounded-2xl p-6 flex flex-col">
                   <div className="flex items-center justify-between mb-5">
                     <div className="w-11 h-11 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center"><Icon className="w-5 h-5" /></div>
@@ -168,9 +176,15 @@ export default function Home() {
                   </div>
                   <h3 className="text-xl font-bold text-white mb-3">{title}</h3>
                   <p className="text-slate-400 leading-relaxed mb-6 flex-1">{text}</p>
-                  <Link onClick={() => trackStep(step)} to={to} className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold">
-                    {label} <ArrowRight className="w-4 h-4" />
-                  </Link>
+                  {action === 'guide' ? (
+                    <button type="button" onClick={() => openGrowthGuide(step)} className="inline-flex items-center gap-2 text-left text-blue-400 hover:text-blue-300 font-semibold">
+                      {label} <ArrowRight className="w-4 h-4" />
+                    </button>
+                  ) : (
+                    <Link onClick={() => trackStep(step)} to={to} className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold">
+                      {label} <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  )}
                 </div>
               ))}
             </div>
@@ -188,3 +202,4 @@ export default function Home() {
     </div>
   );
 }
+
