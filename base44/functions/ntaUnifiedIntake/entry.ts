@@ -126,26 +126,64 @@ async function sendBrevoMessage(apiKey, message) {
   return response.json();
 }
 
-async function sendLeadEmails(base44, context) {
-  const enabled = Deno.env.get('BREVO_LEAD_EMAIL_ENABLED') === 'true';
-  if (!enabled) return { status: 'disabled' };
+const GMAIL_SENDER = 'info@newtechadvertising.com';
 
-  const apiKey = Deno.env.get('BREVO_API_KEY');
-  const senderEmail = Deno.env.get('BREVO_FROM_EMAIL');
-  const senderName = Deno.env.get('BREVO_FROM_NAME') || 'New Tech Advertising';
-  const notificationTo = Deno.env.get('LEAD_NOTIFICATION_TO') || 'rick@newtechadvertising.com';
-  const replyToEmail = Deno.env.get('LEAD_REPLY_TO_EMAIL') || notificationTo;
+function sanitizeHeader(value) {
+  return String(value || '').replace(/[\r\n]+/g, ' ').trim().slice(0, 300);
+}
 
-  if (!apiKey || !senderEmail) {
-    return { status: 'not_configured', error: 'Brevo lead email is enabled but required settings are missing.' };
+function encodeBase64Url(value) {
+  const bytes = new TextEncoder().encode(String(value || ''));
+  let binary = '';
+  const chunkSize = 0x8000;
+  for (let index = 0; index < bytes.length; index += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(index, index + chunkSize));
+  }
+  return btoa(binary)
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/g, '');
+}
+
+function buildMimeMessage({ to, replyTo, subject, body }) {
+  const headers = [
+    'From: New Tech Advertising <' + GMAIL_SENDER + '>',
+    'To: ' + sanitizeHeader(to),
+    replyTo ? 'Reply-To: ' + sanitizeHeader(replyTo) : '',
+    'Subject: ' + sanitizeHeader(subject),
+    'MIME-Version: 1.0',
+    'Content-Type: text/plain; charset="UTF-8"',
+    'Content-Transfer-Encoding: 8bit',
+  ].filter(Boolean);
+  return headers.join('\r\n') + '\r\n\r\n' + String(body || '');
+}
+
+async function sendGmailMessage(base44, message) {
+  const { accessToken } = await base44.asServiceRole.connectors.getConnection('gmail');
+  const response = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + accessToken,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ raw: encodeBase64Url(buildMimeMessage(message)) }),
+  });
+
+  if (!response.ok) {
+    const detail = await response.text();
+    throw new Error('Gmail returned ' + response.status + ': ' + detail.slice(0, 300));
   }
 
+  return response.json();
+}
+
+function buildLeadRows(context) {
   const {
     name, business_name, email, phone, notes, source_page, source_url,
     source_campaign, submission_type, offer_type, submission_id,
   } = context;
 
-  const rows = [
+  return [
     ['Name', name],
     ['Business', business_name],
     ['Email', email],
@@ -158,59 +196,165 @@ async function sendLeadEmails(base44, context) {
     ['Message', notes],
     ['Submission ID', submission_id],
   ].filter(([, value]) => value);
+}
 
-  const adminText = rows.map(([label, value]) => `${label}: ${value}`).join('\n');
-  const adminHtml = rows
-    .map(([label, value]) => `<p><strong>${escapeHtml(label)}:</strong> ${escapeHtml(value)}</p>`)
-    .join('');
+async function sendCoreLeadMessages(base44, { adminSubject, adminText, email, name }) {
+  await base44.asServiceRole.integrations.Core.SendEmail({
+    from_name: 'New Tech Advertising',
+    to: GMAIL_SENDER,
+    subject: adminSubject,
+    body: adminText,
+  });
 
-  try {
-    await sendBrevoMessage(apiKey, {
-      sender: { email: senderEmail, name: senderName },
-      to: [{ email: notificationTo, name: 'Rick Hesse' }],
-      replyTo: email ? { email, name: name || business_name || email } : { email: replyToEmail, name: senderName },
-      subject: `New NTA ${submission_type.replaceAll('_', ' ')}: ${business_name || name || email}`,
-      textContent: adminText,
-      htmlContent: `<h2>New NTA website submission</h2>${adminHtml}`,
+  if (isPlausibleEmail(email)) {
+    const firstName = plainText(name, 100).split(/\s+/)[0] || 'there';
+    await base44.asServiceRole.integrations.Core.SendEmail({
+      from_name: 'New Tech Advertising',
+      to: email,
+      subject: 'We received your message — New Tech Advertising',
+      body:
+        'Hi ' + firstName + ',\n\n' +
+        'Thank you for contacting New Tech Advertising. We received your message and will review it personally.\n\n' +
+        'Rick Hesse\nNew Tech Advertising\nYour Digital Growth Guide™',
     });
-
-    if (isPlausibleEmail(email)) {
-      const firstName = plainText(name, 100).split(/\s+/)[0] || 'there';
-      const acknowledgementText =
-        `Hi ${firstName},\n\n` +
-        `Thank you for contacting New Tech Advertising. We received your message and will review it personally.\n\n` +
-        `Rick Hesse\nNew Tech Advertising\nYour Digital Growth Guide™`;
-
-      await sendBrevoMessage(apiKey, {
-        sender: { email: senderEmail, name: senderName },
-        to: [{ email, name: name || email }],
-        replyTo: { email: replyToEmail, name: 'Rick Hesse' },
-        subject: 'We received your message — New Tech Advertising',
-        textContent: acknowledgementText,
-        htmlContent:
-          `<p>Hi ${escapeHtml(firstName)},</p>` +
-          '<p>Thank you for contacting New Tech Advertising. We received your message and will review it personally.</p>' +
-          '<p>Rick Hesse<br>New Tech Advertising<br>Your Digital Growth Guide™</p>',
-      });
-    }
-
-    return { status: 'sent' };
-  } catch (error) {
-    await logEvent(base44, {
-      event_type: 'lead_email_failed',
-      source_system: 'brevo',
-      entity_type: 'Submission',
-      entity_id: submission_id,
-      workflow_type: 'email',
-      workflow_stage: 'delivery_failed',
-      status: 'failed',
-      message: `Lead email delivery failed for ${business_name || name || email}`,
-      error_details: error.message,
-    });
-    return { status: 'failed', error: error.message };
   }
 }
 
+async function sendLeadEmails(base44, context) {
+  const {
+    name, business_name, email, submission_type, offer_type, submission_id,
+  } = context;
+  const notificationTo = GMAIL_SENDER;
+  const rows = buildLeadRows(context);
+  const adminText = rows.map(([label, value]) => label + ': ' + value).join('\n');
+  const adminSubject = 'New NTA ' +
+    String(submission_type || 'website submission').replaceAll('_', ' ') +
+    ': ' + (business_name || name || email || 'Website visitor');
+
+  const firstName = plainText(name, 100).split(/\s+/)[0] || 'there';
+  const acknowledgement = {
+    to: email,
+    replyTo: notificationTo,
+    subject: 'We received your message — New Tech Advertising',
+    body:
+      'Hi ' + firstName + ',\n\n' +
+      'Thank you for contacting New Tech Advertising. We received your message and will review it personally.\n\n' +
+      'Rick Hesse\nNew Tech Advertising\nYour Digital Growth Guide™',
+  };
+
+  try {
+    await sendGmailMessage(base44, {
+      to: notificationTo,
+      replyTo: isPlausibleEmail(email) ? email : notificationTo,
+      subject: adminSubject,
+      body: adminText,
+    });
+
+    if (isPlausibleEmail(email)) {
+      await sendGmailMessage(base44, acknowledgement);
+    }
+
+    await logEvent(base44, {
+      event_type: 'lead_email_sent',
+      source_system: 'gmail',
+      entity_type: 'Submission',
+      entity_id: submission_id,
+      workflow_type: 'email',
+      workflow_stage: 'delivered',
+      status: 'success',
+      message: 'Lead notification sent through info@newtechadvertising.com Gmail connector.',
+    });
+    return { status: 'gmail_sent' };
+  } catch (gmailError) {
+    await logEvent(base44, {
+      event_type: 'lead_email_fallback',
+      source_system: 'gmail',
+      entity_type: 'Submission',
+      entity_id: submission_id,
+      workflow_type: 'email',
+      workflow_stage: 'primary_failed',
+      status: 'warning',
+      message: 'Gmail lead notification failed; trying Base44 fallback.',
+      error_details: gmailError.message,
+    });
+  }
+
+  try {
+    await sendCoreLeadMessages(base44, {
+      adminSubject,
+      adminText,
+      email,
+      name,
+    });
+
+    await logEvent(base44, {
+      event_type: 'lead_email_sent',
+      source_system: 'base44_core_fallback',
+      entity_type: 'Submission',
+      entity_id: submission_id,
+      workflow_type: 'email',
+      workflow_stage: 'fallback_delivered',
+      status: 'success',
+      message: 'Lead notification sent through the Base44 email fallback to info@newtechadvertising.com.',
+    });
+    return { status: 'core_sent' };
+  } catch (coreError) {
+    const brevoEnabled = Deno.env.get('BREVO_LEAD_EMAIL_ENABLED') === 'true';
+    const apiKey = Deno.env.get('BREVO_API_KEY');
+    const senderEmail = Deno.env.get('BREVO_FROM_EMAIL');
+    if (brevoEnabled && apiKey && senderEmail) {
+      try {
+        const senderName = Deno.env.get('BREVO_FROM_NAME') || 'New Tech Advertising';
+        const rowsHtml = rows
+          .map(([label, value]) => '<p><strong>' + escapeHtml(label) + ':</strong> ' + escapeHtml(value) + '</p>')
+          .join('');
+        await sendBrevoMessage(apiKey, {
+          sender: { email: senderEmail, name: senderName },
+          to: [{ email: notificationTo, name: 'New Tech Advertising' }],
+          replyTo: isPlausibleEmail(email)
+            ? { email, name: name || business_name || email }
+            : { email: notificationTo, name: senderName },
+          subject: adminSubject,
+          textContent: adminText,
+          htmlContent: '<h2>New NTA website submission</h2>' + rowsHtml,
+        });
+        if (isPlausibleEmail(email)) {
+          await sendBrevoMessage(apiKey, {
+            sender: { email: senderEmail, name: senderName },
+            to: [{ email, name: name || email }],
+            replyTo: { email: notificationTo, name: 'Rick Hesse' },
+            subject: acknowledgement.subject,
+            textContent: acknowledgement.body,
+            htmlContent: '<p>Hi ' + escapeHtml(firstName) + ',</p>' +
+              '<p>Thank you for contacting New Tech Advertising. We received your message and will review it personally.</p>' +
+              '<p>Rick Hesse<br>New Tech Advertising<br>Your Digital Growth Guide™</p>',
+          });
+        }
+        await logEvent(base44, {
+          event_type: 'lead_email_sent',
+          source_system: 'brevo_fallback',
+          entity_type: 'Submission',
+          entity_id: submission_id,
+          workflow_type: 'email',
+          workflow_stage: 'fallback_delivered',
+          status: 'success',
+          message: 'Lead notification sent through the Brevo fallback to info@newtechadvertising.com.',
+        });
+        return { status: 'brevo_sent' };
+      } catch (brevoError) {
+        return {
+          status: 'failed',
+          error: 'Gmail: primary failed; Core: ' + coreError.message + '; Brevo: ' + brevoError.message,
+        };
+      }
+    }
+
+    return {
+      status: 'failed',
+      error: 'Gmail: primary failed; Core: ' + coreError.message,
+    };
+  }
+}
 function normalizeUrl(str) {
   return (str || '').toLowerCase().trim()
     .replace(/^https?:\/\/(www\.)?/, '')
