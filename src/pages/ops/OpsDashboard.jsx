@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  AlertCircle, ArrowRight, BarChart2, CalendarClock, CheckSquare,
+  AlertCircle, BarChart2, CalendarClock, CheckSquare,
   ChevronRight, Clock3, Mail, MapPin, Phone, Plus, RefreshCw,
   Search, Share2, Target, UserCheck, Users
 } from 'lucide-react';
