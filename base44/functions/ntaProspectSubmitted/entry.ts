@@ -1,48 +1,49 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
+/**
+ * Legacy prospect endpoint.
+ * Manual prospects are written directly into the private office pipeline.
+ */
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
 
 Deno.serve(async (req) => {
-  const base44 = createClientFromRequest(req);
-  const body = await req.json();
-  const { business_name, contact_name, website, phone, email } = body;
+  try {
+    const base44 = createClientFromRequest(req);
+    const body = await req.json();
+    const { business_name, contact_name, website, phone, email, industry, city } = body;
 
-  if (!business_name) {
-    return Response.json({ error: 'business_name is required' }, { status: 400 });
+    if (!business_name) {
+      return Response.json({ error: 'business_name is required' }, { status: 400 });
+    }
+
+    const response = await base44.asServiceRole.functions.invoke('ntaUnifiedIntake', {
+      submission_type: 'free_audit_request',
+      offer_type: 'marketing_audit',
+      mapping_confidence: 'hardcoded',
+      mapping_notes: 'Legacy ntaProspectSubmitted routed to canonical office intake',
+      detected_route: '/ops/quick-action/prospect',
+      detected_component: 'ntaProspectSubmitted',
+      source_system: 'crm_manual',
+      source_page: '/ops/quick-action/prospect',
+      name: contact_name || business_name,
+      business_name,
+      email: email || '',
+      phone: phone || '',
+      website: website || '',
+      city: city || '',
+      industry: industry || '',
+      notes: 'Manual prospect added from the office quick action.',
+      raw_payload: body,
+    });
+    const data = response?.data ?? response;
+    return Response.json({
+      success: true,
+      prospect_id: data?.sales_lead_id || null,
+      sales_lead_id: data?.sales_lead_id || null,
+      canonical: data,
+    });
+  } catch (error) {
+    const status = error?.response?.status || 500;
+    const detail = error?.response?.data || { error: error?.message || 'Canonical intake failed' };
+    console.error('[ntaProspectSubmitted] Canonical office intake failed:', detail);
+    return Response.json(detail, { status });
   }
-
-  const submitted = new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' });
-
-  // 1. Create Prospect record
-  const prospect = await base44.asServiceRole.entities.Prospect.create({
-    business_name,
-    contact_name: contact_name || '',
-    phone: phone || '',
-    website: website || '',
-    email: email || '',
-    status: 'new',
-    audit_status: 'requested',
-    notes: `Gap Audit form submission — ${submitted}\nSource: Gap Audit form`,
-  });
-
-  // 2. Create linked GapAudit record
-  const audit = await base44.asServiceRole.entities.GapAudit.create({
-    prospect_id: prospect.id,
-    website_url: website || '',
-    status: 'draft',
-  });
-
-  // 3. Email Rick
-  await base44.asServiceRole.integrations.Core.SendEmail({
-    to: 'rick@newtechadvertising.com',
-    subject: `New Gap Audit Request — ${business_name}`,
-    body:
-      `New Gap Audit request from ${business_name}.\n\n` +
-      `Contact: ${contact_name || 'N/A'}\n` +
-      `Phone: ${phone || 'N/A'}\n` +
-      `Email: ${email || 'N/A'}\n` +
-      `Website: ${website || 'N/A'}\n` +
-      `Submitted: ${submitted}\n\n` +
-      `Review at: https://newtechadvertising.com/ops/audits`,
-  });
-
-  return Response.json({ success: true, prospect_id: prospect.id });
 });
