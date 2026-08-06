@@ -100,7 +100,12 @@ Data has been sent to CRM automatically.
       console.error('Admin email failed (non-critical):', emailErr);
     }
 
-    return Response.json({ success: true, crm: 'internal_lead_saved' });
+    return Response.json({
+      success: true,
+      crm: 'canonical_sales_lead_saved',
+      sales_lead_id: intakeResult?.sales_lead_id || null,
+      submission_id: intakeResult?.submission_id || null,
+    });
   } catch (error) {
     console.error('sendTrialToCRM error:', error);
     return Response.json({ error: error.message }, { status: 500 });
