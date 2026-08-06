@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
-import { createAgencyLead } from '@/lib/createAgencyLead';
 import { ArrowRight, CheckCircle, Building2, Mail, Phone, User, Calendar, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,6 +25,7 @@ const BEST_TIMES = [
 export default function BookCall() {
   const [step, setStep] = useState(1); // 1=form, 2=success
   const [submitting, setSubmitting] = useState(false);
+  const [pageLoadTs] = useState(() => Date.now());
   const [form, setForm] = useState({
     name: '', email: '', phone: '', business_name: '', website_url: '',
     service_interest: 'not_sure', best_time: '', message: '',
@@ -37,41 +37,40 @@ export default function BookCall() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      // STEP 1 — Create SalesLead + SalesDeal FIRST (canonical intake path)
-      const { salesLead, salesDeal } = await createAgencyLead({
-        business_name: form.business_name,
-        contact_name:  form.name,
-        email:         form.email,
-        phone:         form.phone,
-        website:       form.website_url,
-        lead_source:   'website',
-        notes:         `Best time to call: ${form.best_time}${form.message ? '\n\n' + form.message : ''}`,
-      });
-      console.log('[BookCall] Lead created', salesLead.id, salesDeal.id);
-
-      // STEP 2 — Create Company record
-      const company = await base44.entities.Company.create({
-        business_name: form.business_name,
-        email: form.email,
-        phone: form.phone,
-        website_url: form.website_url,
-        status: 'lead',
-        source: 'website',
-      });
-
-      // STEP 3 — Create Lead
-      await base44.entities.Lead.create({
-        company_id: company.id,
+      // STEP 1 — Save the complete submission through the canonical intake path
+      const intakeResponse = await base44.functions.invoke('ntaUnifiedIntake', {
+        submission_type: 'contact',
+        offer_type: 'consultation',
+        mapping_confidence: 'hardcoded',
+        mapping_notes: 'Book-Call.jsx /book-call',
+        detected_route: '/book-call',
+        detected_component: 'BookCall',
+        source_system: 'website',
+        source_page: '/book-call',
+        source_url: window.location.href,
         name: form.name,
+        business_name: form.business_name,
         email: form.email,
         phone: form.phone,
-        business_name: form.business_name,
-        website_url: form.website_url,
+        website: form.website_url,
+        notes: [
+          'Requested a strategy call',
+          'Best time to call: ' + form.best_time,
+          form.service_interest ? 'Service interest: ' + form.service_interest : '',
+          form.message || '',
+        ].filter(Boolean).join('\n\n'),
         service_interest: form.service_interest,
-        message: `Best time to call: ${form.best_time}\n\n${form.message}`,
-        status: 'new',
-        source: 'website',
+        priority: 'high',
+        is_high_intent: true,
+        skip_webhook: true,
+        anti_spam: {
+          honeypot: '',
+          form_started_at: pageLoadTs,
+        },
       });
+      if (!intakeResponse?.data?.success) {
+        throw new Error(intakeResponse?.data?.error || 'Unable to save your request');
+      }
 
       // STEP 4 — Create Google Calendar event
       base44.functions.invoke('createDemoCalendarEvent', {
@@ -85,13 +84,7 @@ export default function BookCall() {
         message: form.message,
       }).catch(err => console.warn('[BookCall] Calendar event creation failed:', err.message));
 
-      // Notify team
-      await base44.integrations.Core.SendEmail({
-        from_name: 'NTA — Strategy Call Request',
-        to: 'rick@newtechadvertising.com',
-        subject: `Strategy Call Request: ${form.business_name}`,
-        body: `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nBusiness: ${form.business_name}\nWebsite: ${form.website_url || 'Not provided'}\nService: ${form.service_interest}\nBest Time: ${form.best_time}\nMessage: ${form.message}`,
-      });
+      // ntaUnifiedIntake sends the internal notification through info@newtechadvertising.com Gmail.
 
       setStep(2);
     } catch (err) {
