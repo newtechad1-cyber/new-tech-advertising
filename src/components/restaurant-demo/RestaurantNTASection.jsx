@@ -24,29 +24,47 @@ export default function RestaurantNTASection({ config, demoLabel }) {
   const [form, setForm] = useState({ contactName: '', phone: '', email: '', restaurant: '', city: '' });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [pageLoadTs] = useState(() => Date.now());
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await base44.entities.SalesLead.create({
-        business_name: form.restaurant || `${form.contactName}'s Restaurant`,
-        contact_name: form.contactName,
-        phone: form.phone,
+      const response = await base44.functions.invoke('ntaUnifiedIntake', {
+        submission_type: 'free_audit_request',
+        offer_type: 'marketing_audit',
+        mapping_confidence: 'hardcoded',
+        mapping_notes: 'RestaurantNTASection',
+        detected_route: window.location.pathname,
+        detected_component: 'RestaurantNTASection',
+        source_system: 'website',
+        source_page: window.location.pathname,
+        source_url: window.location.href,
+        name: form.contactName,
+        business_name: form.restaurant || (form.contactName + "'s Restaurant"),
         email: form.email,
+        phone: form.phone,
         city: form.city || city,
-        industry: 'Restaurant',
-        lead_source: 'website',
-        status: 'new',
+        notes: [
+          'Restaurant visibility audit',
+          'Demo: ' + (demoLabel || name),
+          'Industry: Restaurant',
+        ].join(' | '),
         priority: 'high',
-        audit_status: 'not_started',
-        internal_notes: `[Restaurant Demo Lead]\nSource: ${demoLabel || name} Demo Page\nVertical: Restaurant\nLead Source: Restaurant Demo\nAudit Status: Not Started\nPipeline Status: New Lead\n\nRequested free restaurant visibility audit via the NTA demo system.`,
-        pain_points: 'Restaurant owner interested in improving online visibility, local SEO, and customer acquisition.',
-        opportunity_notes: `Came from NTA Restaurant Demo — ${demoLabel || name}. High intent prospect.`,
+        is_high_intent: true,
+        skip_webhook: true,
+        raw_payload: { ...form, demo_label: demoLabel || name },
+        anti_spam: {
+          honeypot: '',
+          form_started_at: pageLoadTs,
+        },
       });
+      if (!response?.data?.success) {
+        throw new Error(response?.data?.error || 'Unable to save your request');
+      }
       setSubmitted(true);
     } catch (err) {
-      console.error(err);
+      console.error('[RestaurantNTASection] Submission failed:', err);
     } finally {
       setLoading(false);
     }
