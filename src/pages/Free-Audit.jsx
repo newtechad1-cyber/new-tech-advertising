@@ -68,16 +68,7 @@ export default function FreeAudit() {
         },
       });
 
-      try {
-        await base44.integrations.Core.SendEmail({
-          from_name: 'NTA — Free Business Gap Audit',
-          to: 'rick@newtechadvertising.com',
-          subject: `Free Business Gap Audit Request: ${form.business_name}`,
-          body: `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nBusiness: ${form.business_name}\nWebsite: ${form.website}\nIndustry: ${form.industry}`,
-        });
-      } catch (secondaryErr) {
-        console.warn('Email notification failed, but lead was created:', secondaryErr);
-      }
+      // The unified intake owns CRM storage and the Gmail notification.
 
       setStep(2);
       setForm({ name: '', email: '', phone: '', business_name: '', website: '', industry: '' });
