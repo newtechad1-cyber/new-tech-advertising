@@ -65,7 +65,12 @@ Deno.serve(async (req) => {
       payload_snapshot: JSON.stringify(body)
     });
 
-    return Response.json({ success: true, id: wizardLead.id });
+    return Response.json({
+      success: true,
+      id: wizardLead.id,
+      submission_id: intakeResult?.submission_id || null,
+      sales_lead_id: intakeResult?.sales_lead_id || null,
+    });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
   }
