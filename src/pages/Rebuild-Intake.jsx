@@ -21,7 +21,6 @@ const PAGE_COUNTS = ['1–10', '11–20', '21–50', '50+'];
 export default function RebuildIntake() {
   const [step, setStep] = useState(1); // 1=form, 2=success
   const [submitting, setSubmitting] = useState(false);
-  const [, setPartialSuccess] = useState(null); // tracks which step failed
 
   // Detect source from URL param e.g. ?source=mason-city or ?source=website-rebuild-service
   const urlParams = new URLSearchParams(window.location.search);
@@ -49,7 +48,6 @@ export default function RebuildIntake() {
     }
 
     setSubmitting(true);
-    setPartialSuccess(null);
     console.log('[REBUILD INTAKE FORM SUBMIT HIT]', form);
 
     try {
