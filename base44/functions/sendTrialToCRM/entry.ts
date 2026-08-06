@@ -22,9 +22,14 @@ Deno.serve(async (req) => {
     const dnaList = await base44.asServiceRole.entities.BrandDNA.filter({ account_id });
     const dna = dnaList[0] || null;
 
-    // ── NTA Unified Intake Mirror (non-blocking) ──────────────────────────
-    base44.asServiceRole.functions.invoke('ntaUnifiedIntake', {
+    // Route the trial to the private office's canonical prospect pipeline.
+    const intakeResponse = await base44.asServiceRole.functions.invoke('ntaUnifiedIntake', {
       submission_type: 'trial',
+      offer_type: 'diy_growth_system',
+      mapping_confidence: 'hardcoded',
+      mapping_notes: 'sendTrialToCRM routed to the canonical private office intake',
+      detected_route: '/trial',
+      detected_component: 'sendTrialToCRM',
       source_system: 'website',
       source_page: '/trial',
       name: account.full_name || account.name,
@@ -34,34 +39,13 @@ Deno.serve(async (req) => {
       website: account.website_url || '',
       city: account.location_city,
       state: account.location_state,
-      notes: `Trial signup. Goal: ${account.primary_goal || 'N/A'}`,
+      industry: account.industry,
+      notes: `Trial signup. Involvement: ${account.involvement_preference || 'undecided'}. Notes: ${dna?.notes || ''}`,
       priority: 'medium',
       raw_payload: { account_id: account.id, ...account },
-    }).catch(err => console.warn('[sendTrialToCRM] NTA mirror failed (non-critical):', err.message));
-    // ─────────────────────────────────────────────────────────────────────
-
-    // Upsert Lead record into the internal CRM (Base44 Lead entity)
-    // Check if a lead with this email already exists to avoid duplicates
-    const existingLeads = await base44.asServiceRole.entities.Lead.filter({ email: account.email });
-    if (!existingLeads.length) {
-      await base44.asServiceRole.entities.Lead.create({
-        name: account.full_name || account.name,
-        email: account.email,
-        phone: account.phone || '',
-        business_name: account.name,
-        website: account.website_url || '',
-        industry: account.industry,
-        city: account.location_city,
-        state: account.location_state,
-        service_interest: 'diy_saas',
-        message: `Trial signup. Involvement: ${account.involvement_preference || 'undecided'}. Notes: ${dna?.notes || ''}`,
-        status: 'new',
-        source: 'website',
-      });
-      console.log(`[sendTrialToCRM] Lead created in internal CRM for ${account.email}`);
-    } else {
-      console.log(`[sendTrialToCRM] Lead already exists for ${account.email}, skipping duplicate`);
-    }
+    });
+    const intakeResult = intakeResponse?.data ?? intakeResponse;
+    console.log(`[sendTrialToCRM] Canonical intake completed for ${account.email}; SalesLead: ${intakeResult?.sales_lead_id || 'unknown'}`);
 
     // Also fire external CRM webhook if configured (best-effort, non-blocking)
     const crmWebhookUrl = Deno.env.get('CRM_WEBHOOK_URL');
