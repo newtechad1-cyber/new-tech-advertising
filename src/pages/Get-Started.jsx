@@ -51,24 +51,7 @@ export default function GetStarted() {
         is_high_intent: true,
       });
 
-      // STEP 2 — Create the onboarding Company used by this legacy flow
-      await base44.entities.Company.create({
-        business_name: form.business_name,
-        industry: form.industry,
-        email: form.email,
-        phone: form.phone,
-        status: 'lead',
-        source: 'website',
-        service_tracks: [form.service_interest].filter(s => s !== 'not_sure'),
-      });
-
-      // STEP 3 — Keep the existing secondary notification during transition
-      await base44.integrations.Core.SendEmail({
-        from_name: 'NTA — New Trial Signup',
-        to: 'rick@newtechadvertising.com',
-        subject: `New Trial Signup: ${form.business_name}`,
-        body: `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nBusiness: ${form.business_name}\nIndustry: ${form.industry}\nService: ${form.service_interest}\nMessage: ${form.message}`,
-      });
+      // The unified intake owns the canonical CRM record and Gmail notification.
 
       setStep(2);
     } catch (err) {
