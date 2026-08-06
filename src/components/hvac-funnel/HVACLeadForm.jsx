@@ -7,6 +7,7 @@ export default function HVACLeadForm({ ctaLabel = 'Request Your Free HVAC Demo S
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: '', phone: '', email: '', business_name: '' });
   const [loading, setLoading] = useState(false);
+  const [pageLoadTs] = useState(() => Date.now());
 
   const set = (k, v) => setForm(p => ({ ...p, [k]: v }));
 
@@ -16,96 +17,38 @@ export default function HVACLeadForm({ ctaLabel = 'Request Your Free HVAC Demo S
     setLoading(true);
 
     try {
-      // 1. Create Submission
-      const submission = await base44.entities.Submission.create({
+      const response = await base44.functions.invoke('ntaUnifiedIntake', {
         submission_type: 'hvac_funnel_lead',
-        source_system: 'hvac_funnel',
+        offer_type: 'hvac_marketing',
+        mapping_confidence: 'hardcoded',
+        mapping_notes: 'HVACLeadForm',
+        detected_route: window.location.pathname,
+        detected_component: 'HVACLeadForm',
+        source_system: 'website',
         source_page: window.location.pathname,
+        source_url: window.location.href,
         name: form.name,
         business_name: form.business_name,
         email: form.email,
         phone: form.phone,
         notes: 'HVAC Growth System funnel lead',
-        processing_status: 'processing',
         priority: 'high',
-        raw_payload: JSON.stringify({ ...form, _nta_debug: { detected_component: 'HVACLeadForm', offer_type: 'hvac_marketing' } }),
+        is_high_intent: true,
+        skip_webhook: true,
+        raw_payload: { ...form },
+        anti_spam: {
+          honeypot: '',
+          form_started_at: pageLoadTs,
+        },
       });
-
-      // 2. Create Company
-      const company = await base44.entities.NTACompany.create({
-        company_name: form.business_name,
-        email: form.email,
-        phone: form.phone,
-        source: 'hvac_funnel',
-        owner_name: form.name,
-        primary_contact_name: form.name,
-        primary_contact_email: form.email,
-        primary_contact_phone: form.phone,
-        status: 'prospect',
-        lifecycle_stage: 'lead',
-      });
-
-      // 3. Create Opportunity
-      const opportunity = await base44.entities.NTAOpportunity.create({
-        company_id: company.id,
-        submission_id: submission.id,
-        opportunity_name: `${form.business_name} — HVAC Marketing`,
-        offer_type: 'hvac_marketing',
-        stage: 'new',
-        status: 'open',
-        source: 'website',
-        notes: 'HVAC Growth System funnel lead',
-      });
-
-      // 4. Create Activity
-      await base44.entities.NTAActivity.create({
-        company_id: company.id,
-        opportunity_id: opportunity.id,
-        submission_id: submission.id,
-        activity_type: 'submission',
-        title: `HVAC funnel lead: ${form.business_name}`,
-        details: `Name: ${form.name} | Phone: ${form.phone} | Email: ${form.email}`,
-        source_system: 'hvac_funnel',
-      });
-
-      // 5. Create follow-up Task
-      await base44.entities.NTATask.create({
-        company_id: company.id,
-        opportunity_id: opportunity.id,
-        submission_id: submission.id,
-        task_type: 'follow_up',
-        title: `Follow up with ${form.business_name}`,
-        description: `HVAC funnel lead. Contact: ${form.name} | ${form.phone} | ${form.email}`,
-        status: 'todo',
-        priority: 'high',
-        source_system: 'hvac_funnel',
-      });
-
-      // 6. Update submission status
-      await base44.entities.Submission.update(submission.id, {
-        matched_company_id: company.id,
-        processing_status: 'completed',
-      });
+      if (!response?.data?.success) {
+        throw new Error(response?.data?.error || 'Unable to save your request');
+      }
     } catch (err) {
-      console.warn('[HVACLeadForm] NTA record creation failed:', err.message);
+      console.warn('[HVACLeadForm] Submission failed:', err.message);
+      setLoading(false);
+      return;
     }
-
-    // Keep legacy SalesLead for backward compat
-    await base44.entities.SalesLead.create({
-      contact_name: form.name,
-      phone: form.phone,
-      email: form.email,
-      business_name: form.business_name,
-      lead_source: 'website',
-      status: 'new',
-      notes: 'HVAC Growth System funnel lead',
-    });
-
-    await base44.integrations.Core.SendEmail({
-      to: 'newtechad1@gmail.com',
-      subject: `New HVAC Funnel Lead: ${form.business_name}`,
-      body: `New lead from the HVAC Growth System funnel:\n\nName: ${form.name}\nBusiness: ${form.business_name}\nPhone: ${form.phone}\nEmail: ${form.email}`,
-    });
 
     setLoading(false);
     navigate('/hvac-funnel/thank-you');
