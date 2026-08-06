@@ -34,6 +34,7 @@ export default function SignupModal({ isOpen, onClose, submissionType, offerType
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [checkoutUrl, setCheckoutUrl] = useState('');
+  const [pageLoadTs] = useState(() => Date.now());
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,31 +68,17 @@ export default function SignupModal({ isOpen, onClose, submissionType, offerType
         website: formData.websiteUrl,
         notes: formData.message || '',
         priority: 'medium',
+        anti_spam: {
+          honeypot: '',
+          form_started_at: pageLoadTs,
+        },
       });
 
       // Track lead submission with analytics
       trackLeadSubmit(formData);
       console.log('SIGNUP_SUCCESS');
 
-      try {
-        await base44.integrations.Core.SendEmail({
-          to: 'newtechad1@gmail.com',
-          subject: `New Lead: ${formData.businessName || formData.name}`,
-          body: `New Lead Submission
-
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Business Name: ${formData.businessName}
-Website: ${formData.websiteUrl || 'Not provided'}
-Message: ${formData.message || 'N/A'}
-
----
-Submitted from AI Marketing Landing Page`
-        });
-      } catch (emailError) {
-        console.log('Email notification failed (lead saved):', emailError);
-      }
+      // ntaUnifiedIntake sends the internal notification through info@newtechadvertising.com Gmail.
 
       // Preserve UTM parameters
       const currentParams = new URLSearchParams(window.location.search);
