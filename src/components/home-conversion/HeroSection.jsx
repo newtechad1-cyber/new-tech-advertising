@@ -1,25 +1,27 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Check } from 'lucide-react';
+import { ArrowRight, BookOpen, Check, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import growthGuideSurfer from '@/assets/brand/nta-growth-guide-surfer.webp';
 
-const growthSteps = [
+const entrySteps = [
   {
-    title: 'Build a Strong Foundation',
-    description: 'Strengthen your website, message, and essential systems before spending more on promotion.'
+    number: '01',
+    title: 'Free AI Education',
+    description: 'Learn what AI can actually do for a real business—without hype, pressure, or technical language.',
+    icon: BookOpen,
   },
   {
-    title: 'Help More Customers Find You',
-    description: 'Improve visibility so the right local customers can discover and understand your business.'
+    number: '02',
+    title: 'Meet the Free AI Guy',
+    description: 'Ask a question, talk through a problem, and find a useful next step in a natural conversation.',
+    icon: MessageCircle,
   },
   {
-    title: 'Build Trust and Relationships',
-    description: 'Use helpful content, reputation, and consistent follow-up to turn attention into confidence.'
-  },
-  {
-    title: 'Save Time with Practical AI',
-    description: 'Automate repetitive work and improve follow-up without losing the human judgment that makes your business valuable.'
+    number: '03',
+    title: 'Talk to My Office™',
+    description: 'When you want NTA involved, the conversation can move from learning into practical business help.',
+    icon: Check,
   }
 ];
 
@@ -31,102 +33,134 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden text-white">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url("https://media.base44.com/images/public/691f41a18de4a7f498c8f884/edfc63215_Minimalisticrobotdeskworkspace.png")' }}
-      >
-        <div className="absolute inset-0 bg-slate-950/85" />
+    <section className="relative overflow-hidden bg-slate-950 pb-20 pt-20 text-white lg:pb-28 lg:pt-28">
+      <div className="pointer-events-none absolute inset-0 z-0">
+        <div className="absolute -left-24 top-20 h-96 w-96 rounded-full bg-blue-600/10 blur-3xl" />
+        <div className="absolute right-0 top-0 h-[34rem] w-[34rem] rounded-full bg-cyan-500/10 blur-3xl" />
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent" />
       </div>
 
-      {/* Background glow effects */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-full opacity-30 pointer-events-none blur-3xl z-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/30 rounded-full mix-blend-screen filter blur-[100px]" />
-        <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-indigo-500/20 rounded-full mix-blend-screen filter blur-[100px]" />
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10 max-w-6xl">
-        <div className="text-center max-w-5xl mx-auto">
+      <div className="container relative z-10 mx-auto max-w-6xl px-4">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_.95fr] lg:gap-16">
+          <div className="max-w-3xl">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400 mb-5"
+            className="mb-5 text-sm font-semibold uppercase tracking-[0.2em] text-blue-400"
           >
-            Welcome to the NTA Digital Growth Office™
+            Free AI Education · From New Tech Advertising
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-8"
+            className="mb-7 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl"
           >
-            Work with AI without changing how you work.
+            Understand AI. Use it in the real world.
           </motion.h1>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-lg md:text-xl text-slate-300 max-w-4xl mx-auto leading-relaxed space-y-5"
+            className="max-w-2xl space-y-5 text-lg leading-relaxed text-slate-300 md:text-xl"
           >
             <p>
-              Speak naturally or type a note. The Digital Growth Guide helps you explain your business, organize what matters, and find the right next step—with human judgment still in control.
+              Work with AI without changing how you work. Practical AI education helps you understand what AI can do, where it fits, and how to use it in a real business.
             </p>
             <p>
-              Behind the conversation is NTA's practical AI education, business knowledge, and hands-on help. You can learn at your own pace, talk through a problem, or ask Rick to join when a human conversation would help.
+              Start with a free lesson. When you want to talk it through, meet the Free AI Guy inside the experience. When a human conversation would help, Talk to My Office™.
             </p>
           </motion.div>
-        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mt-14"
-        >
-          <div className="text-center mb-8">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400 mb-3">Learn it. Apply it. Build with it.</p>
-            <h2 className="text-2xl md:text-4xl font-bold text-white">How Practical AI Becomes Useful</h2>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="mt-9 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center"
+            >
+              <Button asChild size="lg" className="bg-blue-600 px-7 text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:bg-blue-500">
+                <Link to="/knowledge/ai-foundations">
+                  Start with Free AI Education
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button type="button" onClick={openGrowthGuide} size="lg" variant="outline" className="border-slate-600 bg-slate-950/40 px-7 text-white hover:bg-slate-800 hover:text-white">
+                <MessageCircle className="mr-2 h-5 w-5" />
+                Ask the Free AI Guy
+              </Button>
+            </motion.div>
+
+            <p className="mt-5 max-w-xl text-sm leading-relaxed text-slate-500">
+              The education is free. Tools, implementation, and ongoing services may have a cost—but you will always know what you are choosing and why.
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {growthSteps.map((step, index) => (
-              <div key={step.title} className="bg-slate-900/75 border border-slate-700/80 rounded-2xl p-6 text-left backdrop-blur-sm">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="w-9 h-9 rounded-full bg-blue-500/15 border border-blue-400/30 flex items-center justify-center text-blue-300 font-bold">
-                    {index + 1}
-                  </span>
-                  <Check className="w-5 h-5 text-emerald-400" />
-                </div>
-                <h3 className="text-lg font-bold text-white mb-3">{step.title}</h3>
-                <p className="text-sm text-slate-400 leading-relaxed">{step.description}</p>
+          <motion.aside
+            initial={{ opacity: 0, x: 24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.15 }}
+            className="relative overflow-hidden rounded-3xl border border-slate-700/80 bg-slate-900/80 p-6 shadow-2xl shadow-cyan-950/20 backdrop-blur-sm sm:p-8"
+            aria-label="Meet the Free AI Guy"
+          >
+            <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-cyan-400/10 blur-3xl" />
+            <div className="relative flex items-start justify-between gap-5">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">Inside Free AI Education</p>
+                <h2 className="mt-3 text-3xl font-bold text-white">Meet the Free AI Guy.</h2>
+                <p className="mt-4 max-w-sm text-base leading-relaxed text-slate-300">
+                  A friendly guide for practical questions—not a gimmick, and not a replacement for your judgment.
+                </p>
               </div>
-            ))}
-          </div>
-        </motion.div>
+              <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-semibold text-cyan-200">Guide</span>
+            </div>
+
+            <div className="relative my-7 flex justify-center">
+              <div className="absolute inset-x-8 bottom-2 h-20 rounded-full bg-cyan-400/20 blur-2xl" />
+              <img src={growthGuideSurfer} alt="The Free AI Guy, NTA's surfer-bot guide" className="relative h-56 w-56 object-contain drop-shadow-[0_18px_24px_rgba(34,211,238,0.22)] sm:h-64 sm:w-64" />
+            </div>
+
+            <div className="relative space-y-3 border-t border-slate-700/80 pt-5">
+              {['Ask a practical question', 'Talk through a business problem', 'Find the next useful step'].map(item => (
+                <div key={item} className="flex items-center gap-3 text-sm text-slate-300">
+                  <Check className="h-4 w-4 shrink-0 text-emerald-400" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+
+            <button type="button" onClick={openGrowthGuide} className="relative mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 transition-colors hover:text-cyan-200">
+              Talk to My Office™
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </motion.aside>
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="mt-16 border-t border-slate-800/80 pt-8"
         >
-          <Button type="button" onClick={openGrowthGuide} size="lg" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] border-0 px-8">
-            <img src={growthGuideSurfer} alt="" className="w-9 h-9 -ml-3 mr-2 object-contain" />
-            Talk to My Office™
-          </Button>
-          <Button asChild size="lg" variant="outline" className="w-full sm:w-auto bg-slate-950/40 border-slate-600 text-white hover:bg-slate-800 hover:text-white px-8">
-            <Link to="/operating-system">
-              See How the System Works
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Link>
-          </Button>
-        </motion.div>
+          <div className="mb-6 text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">A simple way in</p>
+            <h2 className="mt-2 text-2xl font-bold text-white md:text-3xl">Learn first. Talk when you are ready.</h2>
+          </div>
 
-        <p className="mt-6 text-center text-sm text-slate-400">
-          Start by talking. The Guide can help you think it through, and Rick can join when you want a person involved.
-        </p>
+          <div className="grid gap-4 md:grid-cols-3">
+            {entrySteps.map(({ number, title, description, icon: Icon }) => (
+              <div key={title} className="rounded-2xl border border-slate-800 bg-slate-900/45 p-5">
+                <div className="mb-4 flex items-center justify-between">
+                  <Icon className="h-5 w-5 text-blue-400" />
+                  <span className="text-xs font-bold tracking-[0.2em] text-slate-600">{number}</span>
+                </div>
+                <h3 className="mb-2 text-lg font-bold text-white">{title}</h3>
+                <p className="text-sm leading-relaxed text-slate-400">{description}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );
 }
+
