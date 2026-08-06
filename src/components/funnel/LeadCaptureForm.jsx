@@ -24,18 +24,39 @@ export default function LeadCaptureForm({
     }
     setLoading(true);
     try {
-      await base44.entities.Lead.create({
-        ...form,
-        source: 'funnel_page',
-        funnel_service: serviceSlug,
-        lead_source_page: sourcePage,
-        guide_downloaded: true,
-        status: 'new'
+      const response = await base44.functions.invoke('ntaUnifiedIntake', {
+        submission_type: 'lead_magnet_download',
+        source_system: 'website',
+        source_page: sourcePage || '/lead-magnet',
+        source_url: window.location.href,
+        name: form.name,
+        business_name: form.business_name,
+        email: form.email,
+        phone: form.phone,
+        city: form.city,
+        notes: [
+          'Downloaded a free guide',
+          serviceSlug ? `Funnel service: ${serviceSlug}` : '',
+          sourcePage ? `Source page: ${sourcePage}` : '',
+        ].filter(Boolean).join(' | '),
+        raw_payload: {
+          service_slug: serviceSlug,
+          source_page: sourcePage,
+          guide_downloaded: true,
+        },
+        skip_webhook: true,
       });
+      const intake = response?.data;
+      if (!intake?.success) {
+        throw new Error(intake?.error || 'Unable to save your request');
+      }
 
-      // Trigger step 1 follow-up email
-      base44.functions.invoke('sendLeadFollowUpEmail', { lead_id: undefined, step: 1 })
-        .catch(() => {}); // Fire and forget
+      // Keep the existing welcome email, but use the compatibility Lead record
+      // created by the same intake transaction.
+      if (intake.lead_record_id) {
+        base44.functions.invoke('sendLeadFollowUpEmail', { lead_id: intake.lead_record_id, step: 1 })
+          .catch(() => {}); // Fire and forget
+      }
 
       setSubmitted(true);
       toast.success('Success! Check your email.');
