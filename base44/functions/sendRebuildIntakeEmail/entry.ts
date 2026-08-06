@@ -117,33 +117,24 @@ Deno.serve(async (req) => {
       console.error('[sendRebuildIntakeEmail] Email send FAILED:', emailErr.message);
 
       // ── BACKUP ALERT: flag lead + create activity record ──────────────────
-      if (leadId) {
-        const alertNote = `ALERT: Email notification failed for this lead. Source: ${source || 'unknown'}. Business: ${business_name}. Contact: ${name} | ${email} | ${phone || 'no phone'}. Submitted: ${submittedAt} CT. Reason: ${emailErr.message}`;
-        try {
-          await base44.asServiceRole.entities.Lead.update(leadId, {
-            internal_notes: alertNote,
-            status: 'new',
-          });
-          console.log('[sendRebuildIntakeEmail] BACKUP: Lead flagged with email failure note, lead ID:', leadId);
-        } catch (flagErr) {
-          console.error('[sendRebuildIntakeEmail] BACKUP: Failed to flag lead:', flagErr.message);
-        }
-
-        try {
-          await base44.asServiceRole.entities.LeadActivity.create({
-            lead_id: leadId,
-            company_name: business_name,
-            activity_type: 'form_submission',
-            page_url: source || 'rebuild-intake',
-            page_visited: `Rebuild Intake — ${source || 'unknown'}`,
-            details: `BACKUP ALERT — Email notification failed. Manual follow-up required.\n\nLead Details:\n- Business: ${business_name}\n- Contact: ${name}\n- Email: ${email}\n- Phone: ${phone || 'not provided'}\n- Website: ${website || 'not provided'}\n- Source: ${source || 'unknown'}\n- Submitted: ${submittedAt} CT\n- Error: ${emailErr.message}`,
-          });
-          console.log('[sendRebuildIntakeEmail] BACKUP: LeadActivity alert record created for lead ID:', leadId);
-        } catch (actErr) {
-          console.error('[sendRebuildIntakeEmail] BACKUP: Failed to create LeadActivity alert:', actErr.message);
-        }
-      } else {
-        console.error('[sendRebuildIntakeEmail] BACKUP: Cannot create alert — no lead ID (CRM also failed). Full details:', { name, email, business_name, phone, source, submittedAt });
+      // ── BACKUP ALERT: log the failure without creating a second lead ────
+      try {
+        await base44.asServiceRole.entities.SystemLog.create({
+          event_type: 'Rebuild Intake Email Failure',
+          status: 'warning',
+          source_system: 'rebuild_intake',
+          source_route: source || '/rebuild-intake',
+          workflow_type: 'email',
+          message: `Email notification failed for ${business_name}. Manual follow-up required.`,
+          payload_snapshot: JSON.stringify({
+            name, email, phone, business_name, website, service_type, page_count,
+            city, state, source, submittedAt, sales_lead_id: leadId,
+            error: emailErr.message,
+          }),
+        });
+        console.log('[sendRebuildIntakeEmail] BACKUP: failure logged; SalesLead ID:', leadId || 'none');
+      } catch (logErr) {
+        console.error('[sendRebuildIntakeEmail] BACKUP: failed to log email failure:', logErr.message);
       }
     }
 
