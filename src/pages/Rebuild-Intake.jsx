@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import { createAgencyLead } from '@/lib/createAgencyLead';
 
 const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png';
 
@@ -54,53 +53,48 @@ export default function RebuildIntake() {
     console.log('[REBUILD INTAKE FORM SUBMIT HIT]', form);
 
     try {
-      // STEP 1: Create SalesLead + SalesDeal for pipeline visibility
-      console.log('[RebuildIntake] Creating agency lead...');
-      const { salesLead, salesDeal } = await createAgencyLead({
-        business_name: form.business_name,
-        contact_name: form.name,
-        email: form.email,
-        phone: form.phone,
-        website: form.website,
-        city: form.city,
-        state: form.state,
-        lead_source: 'website',
-        notes: `Website Rebuild Intake | Service: ${form.service_type} | Pages: ${form.page_count} | ${form.notes || ''}`,
-      });
-      console.log('[RebuildIntake] Agency lead created:', { salesLead: salesLead.id, salesDeal: salesDeal.id, stage: salesDeal.stage, archived: salesDeal.archived });
-
-      // STEP 2: Call the original email/CRM function
-      console.log('[RebuildIntake] Calling sendRebuildIntakeEmail...');
-      const response = await base44.functions.invoke('sendRebuildIntakeEmail', {
+      // Save one canonical CRM submission and let the backend send the Gmail notification.
+      const response = await base44.functions.invoke('ntaUnifiedIntake', {
+        submission_type: 'website_rebuild_intake',
+        offer_type: form.service_type === 'ada_rebuild' ? 'ada_compliance' : 'website_rebuild',
+        mapping_confidence: 'hardcoded',
+        mapping_notes: 'RebuildIntake.jsx /rebuild-intake',
+        detected_route: '/rebuild-intake',
+        detected_component: 'RebuildIntake',
+        source_system: 'website',
+        source_page: sourcePage || '/rebuild-intake',
+        source_url: window.location.href,
         name: form.name,
+        business_name: form.business_name,
         email: form.email,
         phone: form.phone,
-        business_name: form.business_name,
         website: form.website,
-        service_type: form.service_type,
-        page_count: form.page_count,
         city: form.city,
         state: form.state,
-        industry: form.industry,
-      notes: form.notes,
-      source: sourcePage,
-      anti_spam: {
-        honeypot: _hp,
-        form_started_at: pageLoadTs,
-      },
-    });
+        notes: [
+          'Service: ' + form.service_type,
+          'Pages: ' + form.page_count,
+          form.industry ? 'Industry: ' + form.industry : '',
+          form.notes || '',
+        ].filter(Boolean).join(' | '),
+        priority: 'high',
+        is_high_intent: true,
+        skip_webhook: true,
+        raw_payload: {
+          service_type: form.service_type,
+          page_count: form.page_count,
+          industry: form.industry,
+          source: sourcePage,
+        },
+        anti_spam: {
+          honeypot: _hp,
+          form_started_at: pageLoadTs,
+        },
+      });
 
-      const data = response.data;
-      console.log('[RebuildIntake] Response:', data);
-
+      const data = response?.data;
       if (!data?.success) {
-        throw new Error(data?.error || 'Unknown error from backend');
-      }
-
-      // Check partial failures
-      if (data.crm_failed || data.email_failed) {
-        setPartialSuccess({ crmFailed: !!data.crm_failed, emailFailed: !!data.email_failed });
-        console.warn('[RebuildIntake] Partial failure — crm_failed:', data.crm_failed, 'email_failed:', data.email_failed);
+        throw new Error(data?.error || 'Unable to save your request');
       }
 
       console.log('[RebuildIntake] Success — showing confirmation.');
