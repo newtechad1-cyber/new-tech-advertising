@@ -16,6 +16,7 @@ const PLANS = [{ key: 'starter', label: 'Starter — $297/mo' }, { key: 'growth'
 export default function StartTrial() {
   const [step, setStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
+  const [pageLoadTs] = useState(() => Date.now());
   const [form, setForm] = useState({ full_name: '', company_name: '', email: '', phone: '', business_type: '', current_website: '', main_goal: '', selected_plan: 'growth' });
   const set = (k, v) => setForm(p => ({ ...p, [k]: v }));
 
@@ -24,6 +25,30 @@ export default function StartTrial() {
     setSubmitting(true);
     try {
       const sessionKey = localStorage.getItem('nta_session') || crypto.randomUUID();
+
+      // Send the canonical CRM record and Gmail notification first.
+      await base44.functions.invoke('ntaUnifiedIntake', {
+        submission_type: 'trial_signup',
+        offer_type: 'trial_onboarding',
+        mapping_confidence: 'hardcoded',
+        mapping_notes: 'StartTrial.jsx /start-trial hardcoded',
+        detected_route: window.location.pathname,
+        detected_component: 'StartTrial',
+        source_system: 'website',
+        source_page: window.location.pathname,
+        name: form.full_name,
+        business_name: form.company_name,
+        email: form.email,
+        phone: form.phone,
+        website: form.current_website,
+        notes: `Business type: ${form.business_type} | Main goal: ${form.main_goal || 'Not specified'} | Plan: ${form.selected_plan}`,
+        priority: 'high',
+        is_high_intent: true,
+        anti_spam: {
+          honeypot: '',
+          form_started_at: pageLoadTs,
+        },
+      });
 
       // Upsert prospect
       const existingProspects = await base44.entities.SalesProspects.filter({ email: form.email });
@@ -65,13 +90,7 @@ export default function StartTrial() {
         prospect_id: prospectId,
       });
 
-      // Notify team
-      base44.integrations.Core.SendEmail({
-        from_name: 'NTA — New Trial Request',
-        to: 'rick@newtechadvertising.com',
-        subject: `New Trial Request: ${form.company_name}`,
-        body: `Name: ${form.full_name}\nEmail: ${form.email}\nPhone: ${form.phone}\nBusiness: ${form.company_name}\nType: ${form.business_type}\nWebsite: ${form.current_website}\nGoal: ${form.main_goal}\nPlan: ${form.selected_plan}`,
-      }).catch(() => {});
+      // ntaUnifiedIntake already sent the internal notification through info@newtechadvertising.com Gmail.
 
       setStep(3);
     } catch (err) {
