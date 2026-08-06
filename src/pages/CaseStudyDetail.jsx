@@ -24,6 +24,7 @@ function LeadForm({ city, service }) {
   const [form, setForm] = useState({ business_name: '', city: city || '', phone: '', email: '' });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [pageLoadTs] = useState(() => Date.now());
 
   const set = (f, v) => setForm(p => ({ ...p, [f]: v }));
 
@@ -48,14 +49,13 @@ function LeadForm({ city, service }) {
         notes: `Inquired from case study: ${service}`,
         priority: 'medium',
         is_high_intent: true,
+        anti_spam: {
+          honeypot: '',
+          form_started_at: pageLoadTs,
+        },
       });
 
-      await base44.integrations.Core.SendEmail({
-        from_name: 'NTA Case Study Lead',
-        to: 'rick@newtechadvertising.com',
-        subject: `Case Study Lead: ${form.business_name}`,
-        body: `Business: ${form.business_name}\nCity: ${form.city}\nPhone: ${form.phone}\nEmail: ${form.email}\nService: ${service}`,
-      });
+      // ntaUnifiedIntake already sent the internal notification through info@newtechadvertising.com Gmail.
       setSubmitted(true);
     } catch {
       toast.error('Something went wrong. Please try again.');
