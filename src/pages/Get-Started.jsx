@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
+import SEOHead from '@/components/shared/SEOHead';
 
 const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png';
 
@@ -62,9 +63,17 @@ export default function GetStarted() {
     }
   };
 
+  const seoHead = (
+    <SEOHead
+      title="Start Your Free Trial | New Tech Advertising"
+      description="Start a free 14-day trial with New Tech Advertising. We set up a practical marketing system around your business, goals, and next steps."
+    />
+  );
+
   if (step === 2) {
     return (
       <div className="min-h-screen bg-slate-950 flex flex-col">
+        {seoHead}
         {/* Header */}
         <header className="border-b border-slate-800 py-4 px-6">
           <div className="max-w-xl mx-auto flex items-center justify-between">
@@ -175,6 +184,7 @@ export default function GetStarted() {
 
   return (
     <div className="min-h-screen bg-slate-950 flex flex-col">
+      {seoHead}
       {/* Header */}
       <header className="border-b border-slate-800 py-4 px-6">
         <div className="max-w-xl mx-auto flex items-center justify-between">
