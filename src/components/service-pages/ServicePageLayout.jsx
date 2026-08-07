@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle, ArrowRight, ChevronDown, Phone } from 'lucide-react';
 import MarketingNav from '../nav/MarketingNav';
