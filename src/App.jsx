@@ -4,6 +4,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 import { queryClientInstance } from '@/lib/query-client';
 import { pagesConfig } from './pages.config';
+import { PUBLIC_ROUTE_ALIASES } from '@/config/publicRoutes';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider } from '@/lib/AuthContext';
 import { NTADataProvider } from '@/lib/NTADataContext';
@@ -52,6 +53,17 @@ function PublicRoutes() {
             }
           />
         ))}
+      {PUBLIC_ROUTE_ALIASES.map(({ path, Page }) => (
+        <Route
+          key={`public-alias:${path}`}
+          path={path}
+          element={
+            <LayoutWrapper currentPageName={path}>
+              <Page />
+            </LayoutWrapper>
+          }
+        />
+      ))}
       <Route path="/Login" element={<CoreHubRedirect />} />
       <Route path="/login" element={<CoreHubRedirect />} />
       <Route path="/portal/*" element={<Navigate to="/Login" replace />} />
