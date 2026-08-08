@@ -6,7 +6,7 @@ export const lesson13 = {
   readingTime: "8–10 min read",
   level: "Beginner",
   takeaway: "You can learn to build the whole system yourself, but you should not have to. The value is in knowing what matters, simplifying the choices, and implementing only what a real small business needs.",
-  content: \`
+  content: `
 ### The Two Years Your Business Does Not Have
 
 A business owner could spend two years learning AI, websites, automation, and connected tools.
@@ -95,7 +95,7 @@ It is knowing what is enough.
 * Am I buying tools because I need them, or because I am excited about what they can do?
 * Would a smaller, clearer system help me more than a larger one?
 * What would it mean to work with AI without changing how I work?
-\`,
+`,
   relatedPrompts: [
     { label: "Small Business AI Readiness Check", link: "/knowledge/prompts" }
   ],
