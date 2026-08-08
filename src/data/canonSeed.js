@@ -226,6 +226,79 @@ No hype. No pretending every experiment works the first time. Just practical les
   related_learning_lesson_ids: ['business-foundations', 'ai-foundations', 'what-is-digital-trust'],
   cta_text: 'Start Your Growth Conversation',
   cta_url: '/growth-conversation',
+}, {
+  id: 'seed-journal-issue-2',
+  issue_number: 2,
+  volume: 1,
+  title: 'What I Learned While Rebuilding NTA',
+  slug: 'issue-2-what-i-learned-while-rebuilding-nta',
+  summary: 'This week I learned that a modern website is more than a visible page, that NTA needs a clear public front office and private back office, and that the right AI model is the least expensive one that reliably does the job.',
+  date: '2026-08-08',
+  status: 'Published',
+  category: 'Building NTA',
+  series: 'Building in Public',
+  tags: ['building in public', 'website architecture', 'public and private systems', 'AI model pricing', 'practical AI', 'small business'],
+  author: 'Rick Hesse',
+  featured: true,
+  featured_image_url: null,
+  views: 0,
+  newsletter_sent: false,
+  newsletter_subject: 'The NTA Journal #2 — What I Learned While Rebuilding NTA',
+  from_ricks_desk: `This week I spent a lot of time making NTA easier for people—and for search engines—to understand.
+
+I worked on website optimization and indexing. I submitted the site and sitemap to Google, looked more carefully at how the public website is organized, and clarified the difference between the public side of NTA and the private office behind it.
+
+That may sound like technical housekeeping. It is more than that. I am learning that building a business system means making the visible parts and the invisible parts agree about what the business is trying to do.
+
+The public website is the front office. It is where people learn, build trust, read the Journal, explore the Knowledge Library, and decide whether NTA may be useful to them. The private office at app.newtechadvertising.com is the back office. It is where client work, conversations, operations, and the systems behind the business are handled.
+
+Those are different jobs, but they are not unrelated businesses. They are two sides of the larger Digital Growth Office I am building.`,
+  what_we_built: `We continued repairing and clarifying the public side of NTA.
+
+The work included website optimization, indexing and sitemap work, and a clearer public/private architecture. The public site is being shaped as the education and trust side of NTA: the front door for practical AI education, the Knowledge Library, the NTA Journal, books, and public explanations of what we do.
+
+The private app is being treated as the operating office behind that front door. It holds client communication, lead and prospect work, follow-up, operations, and the working systems that should not be exposed as public pages.
+
+The important change is not merely moving menu items around. It is giving each environment a clear responsibility while keeping them connected to a shared source of truth.`,
+  what_we_learned: `I learned that a modern website is much more than what a visitor sees on the screen.
+
+Pages, domains, indexing, sitemaps, data, workflows, forms, permissions, and the office behind the site all affect whether the whole system works. The visible page is only one layer.
+
+I also learned an important lesson about software and AI pricing. The newest model is not automatically the right model for every job. An older model may still do the work very well and cost less to use.
+
+Free tools can also be useful, but free usually has a tradeoff: limits, usage caps, fewer features, weaker models, ads, or less control. The smart question is not simply, “What is the latest model?” or even, “What is free?” It is, “What level of capability does this job require, what does it cost, and what result will it produce?”
+
+The practical rule I am learning is simple: use the least expensive model that reliably gets the job done, then move up when the work genuinely justifies the additional cost.`,
+  what_it_means_for_your_business: `Small-business owners do not need to win a contest for owning the newest software.
+
+They need to know what a tool or model is supposed to accomplish, what its limits are, what it costs when used repeatedly, and whether the result is valuable enough to justify that cost.
+
+Before buying another AI subscription or choosing the most powerful model, identify the job:
+
+- What outcome are we trying to produce?
+- Does this task require the strongest available model?
+- Would a less expensive model produce a reliable result?
+- What are the usage limits and hidden tradeoffs?
+- Who will verify the work and use the result?
+- Does the tool fit into a dependable business process?
+
+This is not about using cheap tools for everything. It is about matching the tool and the cost to the job. Good judgment is part of the system.`,
+  this_weeks_challenge: `Choose one recurring AI or software task in your business.
+
+Write down what the task actually requires, what model or tool you use now, what it costs, and what a successful result looks like. Then compare it with one less expensive option.
+
+Do not judge the cheaper option by its name or by the excitement around the latest release. Test it on the real job. If it works reliably, you may have found a way to reduce cost without reducing the result.
+
+If it does not work, that is useful information too. You will know why the stronger option is justified instead of paying for it simply because it is newer.`,
+  closing_message: `Building in public means showing the decisions behind the work—not pretending NTA appeared fully formed.
+
+This week the work looked like indexing, architecture, and model selection. Those details matter because they determine whether the business can be understood, operated, and improved.
+
+I am still learning the system while I build it. That is the point of this Journal.`,
+  related_service_slugs: ['growth-conversation', 'operating-system'],
+  related_learning_lesson_ids: ['ai-foundations', 'business-foundations', 'what-is-digital-trust'],
+  cta_text: 'Read the NTA Journal Archive',
+  cta_url: '/journal',
 }];
 
 // ─── Combined seed ────────────────────────────────────────────────────────
