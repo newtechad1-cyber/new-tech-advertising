@@ -6,7 +6,7 @@ export const lesson14 = {
   readingTime: "8–10 min read",
   level: "Beginner",
   takeaway: "Choose the least expensive model that reliably does the job, then move up when the work genuinely justifies the additional cost.",
-  content: \`
+  content: `
 ### Latest Is Not Automatically Best
 
 One of the most useful lessons I have learned about AI is also one of the simplest:
@@ -96,7 +96,7 @@ The goal is to produce a useful result at a cost that makes sense.
 * How will I test whether the cheaper option is reliable?
 * What result would justify paying for more capability?
 * Am I measuring the value of the result, or just comparing subscription prices?
-\`,
+`,
   relatedPrompts: [
     { label: "AI Tool Cost Check", link: "/knowledge/prompts" }
   ],
