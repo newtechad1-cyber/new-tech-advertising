@@ -6,6 +6,8 @@ import { turningWhatABusinessKnowsIntoAnAssetLessons } from './turningWhatABusin
 import { aiFoundationsLessons } from './aiFoundations';
 import { lesson11 as aiFoundationsLesson11 } from './aiFoundationsLesson11';
 import { lesson12 as aiFoundationsLesson12 } from './aiFoundationsLesson12';
+import { lesson13 as aiFoundationsLesson13 } from './aiFoundationsLesson13';
+import { lesson14 as aiFoundationsLesson14 } from './aiFoundationsLesson14';
 import { whatIsDigitalTrustLessons } from './whatIsDigitalTrust';
 
 const withDerivedLessonNavigation = (lessons) => lessons.map((lesson, index) => ({
@@ -18,7 +20,9 @@ const withDerivedLessonNavigation = (lessons) => lessons.map((lesson, index) => 
 const completeAiFoundationsLessons = [
   ...aiFoundationsLessons,
   aiFoundationsLesson11,
-  aiFoundationsLesson12
+  aiFoundationsLesson12,
+  aiFoundationsLesson13,
+  aiFoundationsLesson14
 ];
 
 const collectionDefinitions = [
