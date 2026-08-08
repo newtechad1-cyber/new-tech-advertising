@@ -19,6 +19,7 @@ const NAV_LINKS = [
       { label: 'Restaurant Solutions', href: '/restaurants', desc: 'Growth systems for hospitality' },
     ],
   },
+  { label: 'The Journal', href: '/journal' },
   {
     label: 'Learn',
     href: '/point-of-view',
