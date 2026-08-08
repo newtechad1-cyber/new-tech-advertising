@@ -2,9 +2,20 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useDragControls } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import { appParams } from '@/lib/app-params';
-import { X, Send, Loader2, AlertCircle, Zap, ChevronRight, Brain, Mic, MicOff, RotateCcw } from 'lucide-react';
+import { X, Send, Loader2, AlertCircle, Zap, ChevronRight, Brain, Mic, MicOff, RotateCcw, Phone, MessageSquare } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import growthGuideSurfer from "@/assets/brand/nta-growth-guide-surfer.webp";
+
+const RICK_PHONE_DISPLAY = '641-420-8816';
+const RICK_PHONE_DIGITS = '16414208816';
+const TEXT_TOPICS = [
+  { value: 'websites', label: 'My website' },
+  { value: 'seo', label: 'SEO' },
+  { value: 'advertising', label: 'Advertising' },
+  { value: 'ai', label: 'AI for my business' },
+  { value: 'general question', label: 'A general question' },
+];
+
 const DISCOVERY_ACTION = 'Walk through my business growth';
 const DISCOVERY_STORAGE_KEY = 'nta_discovery_session';
 const SAVED_DISCOVERY_STORAGE_KEY = 'nta_saved_discovery_session';
@@ -378,6 +389,13 @@ export default function YourDigitalGrowthGuide() {
   ];
 
   const [showKnowledgeBase, setShowKnowledgeBase] = useState(false);
+  const [showContactOptions, setShowContactOptions] = useState(false);
+  const [contactName, setContactName] = useState('');
+  const [contactTopic, setContactTopic] = useState('websites');
+
+  const selectedTopic = TEXT_TOPICS.find(topic => topic.value === contactTopic)?.label || contactTopic;
+  const textMessage = `Hi Rick, my name is ${contactName.trim() || '[your name]'}. I’d like to talk about ${selectedTopic.toLowerCase()}.`;
+  const textLink = `sms:${RICK_PHONE_DIGITS}?body=${encodeURIComponent(textMessage)}`;
 
   const exitDiscovery = () => {
     sessionStorage.removeItem(DISCOVERY_STORAGE_KEY);
@@ -406,6 +424,9 @@ export default function YourDigitalGrowthGuide() {
     setFailedSubmission(null);
     setPendingAIResponse(null);
     setShowKnowledgeBase(false);
+    setShowContactOptions(false);
+    setContactName('');
+    setContactTopic('websites');
     setVoiceStatus('idle');
     setVoiceError('');
     setRecordingSeconds(0);
@@ -726,6 +747,77 @@ export default function YourDigitalGrowthGuide() {
                   <X className="w-5 h-5" />
                 </button>
               </div>
+            </div>
+
+            <div className="px-4 py-3 bg-slate-900/95 border-b border-slate-800 shrink-0">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <div>
+                  <p className="text-xs font-semibold text-slate-200">Want to talk with Rick directly?</p>
+                  <p className="text-[11px] text-slate-400">Call or text New Tech Advertising at {RICK_PHONE_DISPLAY}.</p>
+                </div>
+                <div className="flex gap-2 shrink-0">
+                  <a
+                    href={`tel:${RICK_PHONE_DIGITS}`}
+                    className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-emerald-500"
+                  >
+                    <Phone className="w-3.5 h-3.5" />
+                    Call Rick
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => setShowContactOptions(current => !current)}
+                    aria-expanded={showContactOptions}
+                    className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-blue-600 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-blue-500"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5" />
+                    Text Rick
+                  </button>
+                </div>
+              </div>
+              <AnimatePresence>
+                {showContactOptions && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="mt-3 rounded-xl border border-blue-800/60 bg-slate-950/70 p-3 overflow-hidden"
+                  >
+                    <p className="text-xs leading-relaxed text-slate-300 mb-2">Add your name and choose a topic. Your phone will open a text addressed to Rick with this information already filled in.</p>
+                    <Input
+                      value={contactName}
+                      onChange={event => setContactName(event.target.value)}
+                      placeholder="Your name"
+                      aria-label="Your name for the text message"
+                      className="h-9 border-slate-700 bg-slate-800 text-white placeholder:text-slate-500 text-xs"
+                    />
+                    <div className="flex flex-wrap gap-1.5 mt-2">
+                      {TEXT_TOPICS.map(topic => (
+                        <button
+                          key={topic.value}
+                          type="button"
+                          onClick={() => setContactTopic(topic.value)}
+                          className={cn(
+                            "rounded-full border px-2.5 py-1 text-[11px] transition-colors",
+                            contactTopic === topic.value
+                              ? "border-blue-400 bg-blue-600 text-white"
+                              : "border-slate-700 bg-slate-800 text-slate-300 hover:border-blue-500 hover:text-white"
+                          )}
+                        >
+                          {topic.label}
+                        </button>
+                      ))}
+                    </div>
+                    <a
+                      href={textLink}
+                      onClick={() => setShowContactOptions(false)}
+                      className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-blue-500"
+                    >
+                      <MessageSquare className="w-3.5 h-3.5" />
+                      Open my text message
+                    </a>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             {authStep === 'chat' ? (
