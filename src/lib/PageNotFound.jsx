@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
@@ -6,6 +7,28 @@ import { useQuery } from '@tanstack/react-query';
 export default function PageNotFound({}) {
     const location = useLocation();
     const pageName = location.pathname.substring(1);
+
+    useEffect(() => {
+        const existingRobots = document.querySelector('meta[name="robots"]');
+        const previousRobots = existingRobots?.getAttribute('content');
+        const robotsMeta = existingRobots || document.createElement('meta');
+
+        robotsMeta.setAttribute('name', 'robots');
+        robotsMeta.setAttribute('content', 'noindex, nofollow');
+        if (!existingRobots) document.head.appendChild(robotsMeta);
+
+        const previousTitle = document.title;
+        document.title = 'Page Not Found | New Tech Advertising';
+
+        return () => {
+            if (existingRobots && previousRobots !== null) {
+                existingRobots.setAttribute('content', previousRobots);
+            } else {
+                robotsMeta.remove();
+            }
+            document.title = previousTitle;
+        };
+    }, []);
 
     const { data: authData, isFetched } = useQuery({
         queryKey: ['user'],
