@@ -261,6 +261,24 @@ export default function LearningCenter() {
             ))}
           </div>
         </section>
+
+        <section className="max-w-7xl mx-auto px-6 pb-24">
+          <div className="flex flex-col gap-6 rounded-3xl border border-slate-800 bg-slate-900/80 p-8 md:flex-row md:items-center md:justify-between md:p-10">
+            <div className="max-w-2xl">
+              <p className="text-sm font-bold uppercase tracking-widest text-blue-400">Watch + Learn</p>
+              <h2 className="mt-3 text-3xl font-black text-white">New video lessons, connected to the library</h2>
+              <p className="mt-3 text-lg leading-relaxed text-slate-400">
+                Browse practical lessons from the NTA YouTube channel, with new uploads appearing here automatically.
+              </p>
+            </div>
+            <Link
+              to="/learning-center/videos"
+              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3 font-bold text-white transition-colors hover:bg-blue-500"
+            >
+              Browse Video Lessons <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </section>
       </main>
 
       <SiteFooter />
