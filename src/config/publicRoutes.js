@@ -55,6 +55,9 @@ import KnowledgeCollection from '@/pages/KnowledgeCollection';
 import KnowledgeLesson from '@/pages/KnowledgeLesson';
 import KnowledgeLibrary from '@/pages/KnowledgeLibrary';
 import KnowledgePrompts from '@/pages/KnowledgePrompts';
+import LCCategory from '@/legacy-page-components/LCCategory';
+import LCVideoDetail from '@/legacy-page-components/LCVideoDetail';
+import LCVideoLibrary from '@/legacy-page-components/LCVideoLibrary';
 import LearningCenter from '@/pages/LearningCenter';
 import LocalLeadSystems from '@/pages/LocalLeadSystems';
 import NTAOperatingSystem from '@/pages/NTAOperatingSystem';
@@ -143,6 +146,9 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/journal/subscribe', NtaJournal),
   alias('/journal/:slug', JournalIssueView),
   alias('/learning-center', LearningCenter),
+  alias('/learning-center/videos', LCVideoLibrary),
+  alias('/learning-center/videos/:id', LCVideoDetail),
+  alias('/learning-center/category/:id', LCCategory),
   alias('/why-nta', WhyNTA),
   alias('/i-was-early-again', IWasEarlyAgain),
   alias('/brand-book', NTABrandBook),
