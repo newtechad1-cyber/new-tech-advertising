@@ -15,7 +15,61 @@ async function refreshAccessToken(clientId, clientSecret, refreshToken) {
   if (!data.access_token) {
     throw new Error(`Token refresh failed: ${data.error} — ${data.error_description}`);
   }
-  return data.access_token;
+  return {
+    access_token: data.access_token,
+    expires_at: data.expires_in
+      ? new Date(Date.now() + Number(data.expires_in) * 1000).toISOString()
+      : null,
+  };
+}
+
+async function getUploadAccessToken(base44) {
+  const accounts = await base44.asServiceRole.entities.SocialAccount.filter({ platform: 'youtube' });
+  const account = accounts?.[0] || null;
+  const connectionCandidates = await base44.asServiceRole.entities.ChannelConnection.filter({ provider: 'youtube' });
+  const connection = connectionCandidates
+    .filter(item => item.status !== 'disconnected')
+    .sort((a, b) => (
+      (b.is_default ? 100 : 0) - (a.is_default ? 100 : 0) ||
+      new Date(b.updated_date || b.last_sync_at || 0).getTime() -
+      new Date(a.updated_date || a.last_sync_at || 0).getTime()
+    ))[0] || null;
+
+  const metadata = account?.metadata || {};
+  const directToken = metadata.access_token || connection?.access_token;
+  const expiresAt = metadata.expires_at || connection?.expires_at;
+  if (directToken && (!expiresAt || Date.parse(expiresAt) > Date.now() + 60_000)) {
+    return directToken;
+  }
+
+  const refreshToken = metadata.refresh_token || connection?.refresh_token;
+  if (!refreshToken) {
+    throw new Error('No YouTube OAuth connection is available. Connect YouTube through Channel Connections first.');
+  }
+
+  const clientId = Deno.env.get('GOOGLE_CLIENT_ID');
+  const clientSecret = Deno.env.get('GOOGLE_CLIENT_SECRET');
+  const refreshed = await refreshAccessToken(clientId, clientSecret, refreshToken);
+
+  if (connection) {
+    await base44.asServiceRole.entities.ChannelConnection.update(connection.id, {
+      access_token: refreshed.access_token,
+      expires_at: refreshed.expires_at,
+      status: 'ready',
+      last_sync_at: new Date().toISOString(),
+      error_message: null,
+    });
+  }
+
+  if (account) {
+    await base44.asServiceRole.entities.SocialAccount.update(account.id, {
+      metadata: { ...metadata, access_token: refreshed.access_token, refresh_token: refreshToken, expires_at: refreshed.expires_at },
+      status: 'ready',
+      last_synced_at: new Date().toISOString(),
+    });
+  }
+
+  return refreshed.access_token;
 }
 
 Deno.serve(async (req) => {
@@ -31,23 +85,8 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'video_url is required' }, { status: 400 });
     }
 
-    // Get stored YouTube connection
-    const accounts = await base44.asServiceRole.entities.SocialAccount.filter({ platform: 'youtube' });
-    if (!accounts || accounts.length === 0) {
-      return Response.json({ error: 'No YouTube account connected. Please connect YouTube first.' }, { status: 400 });
-    }
-    const account = accounts[0];
-    const meta = account.metadata || {};
-
-    if (!meta.refresh_token) {
-      return Response.json({ error: 'No refresh_token stored. Re-authenticate YouTube with offline access.' }, { status: 400 });
-    }
-
-    const clientId = Deno.env.get('GOOGLE_CLIENT_ID');
-    const clientSecret = Deno.env.get('GOOGLE_CLIENT_SECRET');
-
-    // Get fresh access token
-    const accessToken = await refreshAccessToken(clientId, clientSecret, meta.refresh_token);
+    // Use the same OAuth connection that Channel Connections and YouTube Setup verify.
+    const accessToken = await getUploadAccessToken(base44);
     console.log('[youtubeUploadTest] Got fresh access token');
 
     // Download the video from the provided URL
