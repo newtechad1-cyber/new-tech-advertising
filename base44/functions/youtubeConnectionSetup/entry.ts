@@ -4,6 +4,89 @@ const GV = (k) => Deno.env.get(k);
 
 const YT_API = 'https://www.googleapis.com/youtube/v3';
 
+async function getStoredYouTubeConnection(base44) {
+  const connections = await base44.asServiceRole.entities.ChannelConnection.filter({ provider: 'youtube' });
+  const rank = (connection) => (
+    (connection.is_default ? 100 : 0) +
+    (connection.status === 'ready' ? 20 : connection.status === 'connected' ? 10 : 0)
+  );
+  return connections.sort((a, b) => (
+    rank(b) - rank(a) ||
+    new Date(b.updated_date || b.last_sync_at || 0).getTime() -
+    new Date(a.updated_date || a.last_sync_at || 0).getTime()
+  ))[0] || null;
+}
+
+async function refreshStoredYouTubeToken(base44, connection) {
+  const clientId = GV('GOOGLE_CLIENT_ID');
+  const clientSecret = GV('GOOGLE_CLIENT_SECRET');
+  if (!connection?.refresh_token || !clientId || !clientSecret) return null;
+
+  const response = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      client_id: clientId,
+      client_secret: clientSecret,
+      refresh_token: connection.refresh_token,
+      grant_type: 'refresh_token',
+    }),
+  });
+  const data = await response.json();
+  if (!data.access_token) return null;
+
+  const expiresAt = data.expires_in
+    ? new Date(Date.now() + Number(data.expires_in) * 1000).toISOString()
+    : connection.expires_at || null;
+
+  await base44.asServiceRole.entities.ChannelConnection.update(connection.id, {
+    access_token: data.access_token,
+    expires_at: expiresAt,
+    status: 'ready',
+    last_sync_at: new Date().toISOString(),
+    error_message: null,
+  });
+
+  return { access_token: data.access_token, expires_at: expiresAt };
+}
+
+async function getYouTubeTokenContext(base44) {
+  const environmentToken = GV('GOOGLE_ACCESS_TOKEN') || GV('YOUTUBE_ACCESS_TOKEN');
+  if (environmentToken) {
+    return { token: environmentToken, source: 'environment', connection: null, expires_at: null };
+  }
+
+  const connection = await getStoredYouTubeConnection(base44);
+  if (!connection) {
+    return { token: null, source: 'none', connection: null, expires_at: null };
+  }
+
+  const expiresAt = connection.expires_at ? Date.parse(connection.expires_at) : 0;
+  const directTokenUsable = connection.access_token &&
+    (!expiresAt || expiresAt > Date.now() + 60_000);
+
+  if (directTokenUsable) {
+    return {
+      token: connection.access_token,
+      source: 'channel_connection',
+      connection,
+      expires_at: connection.expires_at || null,
+    };
+  }
+
+  const refreshed = await refreshStoredYouTubeToken(base44, connection);
+  if (!refreshed) {
+    return { token: null, source: 'channel_connection', connection, expires_at: connection.expires_at || null };
+  }
+
+  return {
+    token: refreshed.access_token,
+    source: 'channel_connection',
+    connection: { ...connection, access_token: refreshed.access_token, expires_at: refreshed.expires_at },
+    expires_at: refreshed.expires_at,
+  };
+}
+
 async function auditLog(base44, { event_type, event_label, event_details, status_after, actor }) {
   await base44.asServiceRole.entities.PlatformConnectionAuditLog.create({
     platform_type: 'youtube',
@@ -13,8 +96,8 @@ async function auditLog(base44, { event_type, event_label, event_details, status
   });
 }
 
-async function verifyToken() {
-  const token = GV('GOOGLE_ACCESS_TOKEN') || GV('YOUTUBE_ACCESS_TOKEN');
+async function verifyToken(context) {
+  const token = context?.token;
   if (!token) {
     return { valid: false, status: 'not_set', error: 'No YouTube/Google access token found. Set YOUTUBE_ACCESS_TOKEN in environment secrets.' };
   }
@@ -40,12 +123,12 @@ async function verifyToken() {
     return { valid: false, status: 'invalid', error: 'Token does not include YouTube scope. Reconnect with youtube.upload or youtube scope.', scopes, email };
   }
 
-  return { valid: true, status: 'active', scopes, email, expires_in: expiresIn };
+  return { valid: true, status: 'active', scopes, email, expires_in: expiresIn, source: context?.source || 'unknown' };
 }
 
-async function getChannel() {
-  const token = GV('GOOGLE_ACCESS_TOKEN') || GV('YOUTUBE_ACCESS_TOKEN');
-  const channelId = GV('YOUTUBE_CHANNEL_ID');
+async function getChannel(context) {
+  const token = context?.token;
+  const channelId = GV('YOUTUBE_CHANNEL_ID') || context?.connection?.selected_destination_id;
 
   if (!token) return { channel: null, error: 'No access token configured.' };
 
@@ -73,8 +156,8 @@ async function getChannel() {
   };
 }
 
-async function checkUploadCapability() {
-  const token = GV('GOOGLE_ACCESS_TOKEN') || GV('YOUTUBE_ACCESS_TOKEN');
+async function checkUploadCapability(context) {
+  const token = context?.token;
   if (!token) return { can_upload: false, error: 'No access token.' };
 
   // Check scopes from tokeninfo
@@ -120,10 +203,11 @@ async function getOrCreateProfile(base44) {
 }
 
 async function refreshAll(base44, profileId, actorEmail) {
+  const tokenContext = await getYouTubeTokenContext(base44);
   const [tokenResult, channelResult, capResult] = await Promise.all([
-    verifyToken(),
-    getChannel(),
-    checkUploadCapability()
+    verifyToken(tokenContext),
+    getChannel(tokenContext),
+    checkUploadCapability(tokenContext)
   ]);
 
   const score = computeScore(
@@ -146,6 +230,7 @@ async function refreshAll(base44, profileId, actorEmail) {
     shorts_publish_supported: capResult.shorts_supported || false,
     standard_video_publish_supported: capResult.can_upload || false,
     token_status: tokenResult.status,
+    token_expires_at: tokenContext.expires_at || null,
     permissions_json: JSON.stringify(tokenResult.scopes || capResult.scopes || []),
     readiness_status: status,
     readiness_score: score,
@@ -181,7 +266,8 @@ async function refreshAll(base44, profileId, actorEmail) {
 }
 
 async function runConnectionTest(base44, profileId, actorEmail) {
-  const token = GV('GOOGLE_ACCESS_TOKEN') || GV('YOUTUBE_ACCESS_TOKEN');
+  const tokenContext = await getYouTubeTokenContext(base44);
+  const token = tokenContext.token;
   if (!token) {
     return { success: false, blocked: true, error: 'No YouTube access token configured. Set YOUTUBE_ACCESS_TOKEN in environment secrets.' };
   }
@@ -200,10 +286,11 @@ async function runConnectionTest(base44, profileId, actorEmail) {
 }
 
 async function runCapabilityTest(base44, profileId, actorEmail) {
-  const token = GV('GOOGLE_ACCESS_TOKEN') || GV('YOUTUBE_ACCESS_TOKEN');
+  const tokenContext = await getYouTubeTokenContext(base44);
+  const token = tokenContext.token;
   if (!token) return { success: false, blocked: true, error: 'No access token configured.' };
 
-  const cap = await checkUploadCapability();
+  const cap = await checkUploadCapability(tokenContext);
   const eventType = cap.can_upload ? 'test_publish_succeeded' : 'test_publish_failed';
   await auditLog(base44, {
     event_type: eventType,
