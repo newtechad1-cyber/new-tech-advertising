@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Toaster } from '@/components/ui/toaster';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { queryClientInstance } from '@/lib/query-client';
 import { pagesConfig } from './pages.config';
 import { PUBLIC_ROUTE_ALIASES } from '@/config/publicRoutes';
@@ -23,7 +23,28 @@ const LayoutWrapper = ({ children, currentPageName }) =>
 
 function CoreHubRedirect() {
   useEffect(() => {
+    const existingRobotsMeta = document.querySelector('meta[name="robots"]');
+    const previousRobotsContent = existingRobotsMeta?.getAttribute('content');
+    const previousTitle = document.title;
+    const robotsMeta = existingRobotsMeta || document.createElement('meta');
+
+    if (!existingRobotsMeta) {
+      robotsMeta.setAttribute('name', 'robots');
+      document.head.appendChild(robotsMeta);
+    }
+
+    robotsMeta.setAttribute('content', 'noindex, nofollow');
+    document.title = 'Redirecting to NTA';
     window.location.replace('https://app.newtechadvertising.com/Login');
+
+    return () => {
+      if (previousRobotsContent === null || previousRobotsContent === undefined) {
+        robotsMeta.remove();
+      } else {
+        robotsMeta.setAttribute('content', previousRobotsContent);
+      }
+      document.title = previousTitle;
+    };
   }, []);
 
   return null;
@@ -66,23 +87,23 @@ function PublicRoutes() {
       ))}
       <Route path="/Login" element={<CoreHubRedirect />} />
       <Route path="/login" element={<CoreHubRedirect />} />
-      <Route path="/portal/*" element={<Navigate to="/Login" replace />} />
-      <Route path="/agency/*" element={<Navigate to="/Login" replace />} />
-      <Route path="/admin/*" element={<Navigate to="/Login" replace />} />
-      <Route path="/client/*" element={<Navigate to="/Login" replace />} />
-      <Route path="/ops/*" element={<Navigate to="/Login" replace />} />
-      <Route path="/sales/*" element={<Navigate to="/Login" replace />} />
-      <Route path="/reseller/*" element={<Navigate to="/Login" replace />} />
-      <Route path="/dashboard/*" element={<Navigate to="/Login" replace />} />
-      <Route path="/crm/*" element={<Navigate to="/Login" replace />} />
-      <Route path="/leads/*" element={<Navigate to="/Login" replace />} />
-      <Route path="/content-command/*" element={<Navigate to="/Login" replace />} />
-      <Route path="/content-center/*" element={<Navigate to="/Login" replace />} />
-      <Route path="/billing/*" element={<Navigate to="/Login" replace />} />
-      <Route path="/settings/*" element={<Navigate to="/Login" replace />} />
-      <Route path="/workspace/*" element={<Navigate to="/Login" replace />} />
-      <Route path="/executive-dashboard/*" element={<Navigate to="/Login" replace />} />
-      <Route path="/nta/*" element={<Navigate to="/Login" replace />} />
+      <Route path="/portal/*" element={<CoreHubRedirect />} />
+      <Route path="/agency/*" element={<CoreHubRedirect />} />
+      <Route path="/admin/*" element={<CoreHubRedirect />} />
+      <Route path="/client/*" element={<CoreHubRedirect />} />
+      <Route path="/ops/*" element={<CoreHubRedirect />} />
+      <Route path="/sales/*" element={<CoreHubRedirect />} />
+      <Route path="/reseller/*" element={<CoreHubRedirect />} />
+      <Route path="/dashboard/*" element={<CoreHubRedirect />} />
+      <Route path="/crm/*" element={<CoreHubRedirect />} />
+      <Route path="/leads/*" element={<CoreHubRedirect />} />
+      <Route path="/content-command/*" element={<CoreHubRedirect />} />
+      <Route path="/content-center/*" element={<CoreHubRedirect />} />
+      <Route path="/billing/*" element={<CoreHubRedirect />} />
+      <Route path="/settings/*" element={<CoreHubRedirect />} />
+      <Route path="/workspace/*" element={<CoreHubRedirect />} />
+      <Route path="/executive-dashboard/*" element={<CoreHubRedirect />} />
+      <Route path="/nta/*" element={<CoreHubRedirect />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
