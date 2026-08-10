@@ -98,6 +98,7 @@ import TheHiddenCostOfOutdatedMarketing from '@/pages/TheHiddenCostOfOutdatedMar
 import TheRoleOfAIInLocalMarketing from '@/pages/TheRoleOfAIInLocalMarketing';
 import TruthAboutBusinessGrowthCollection from '@/pages/TruthAboutBusinessGrowthCollection';
 import TurningWhatABusinessKnowsIntoAnAssetCollection from '@/pages/TurningWhatABusinessKnowsIntoAnAssetCollection';
+import VideoStory from '@/pages/VideoStory';
 import VideoStorytellingBuildsConfidence from '@/pages/VideoStorytellingBuildsConfidence';
 import WebAccessibilityTrust from '@/pages/WebAccessibilityTrust';
 import WebsitesAsSalespeople from '@/pages/WebsitesAsSalespeople';
@@ -142,6 +143,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/practical-ai-for-small-businesses', PracticalAI),
   alias('/growth-show', GrowthShow),
   alias('/growth-show/:slug', GrowthShowEpisode),
+  alias('/video-story', VideoStory),
   alias('/journal', JournalLanding),
   alias('/journal/subscribe', NtaJournal),
   alias('/journal/:slug', JournalIssueView),
