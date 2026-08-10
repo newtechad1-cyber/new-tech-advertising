@@ -37,7 +37,7 @@ function resolveJournalLinks(overlay, journals, video) {
   ));
 }
 
-export function buildGrowthShowEpisodes({ videos = [], articles = [], journals = [], episodeRecords = [] }) {
+export function buildGrowthShowEpisodes({ videos = [], articles = [], journals = [], episodeRecords = [], websiteStories = [] }) {
   const byCanonId = new Map();
   const bySlug = new Map();
   const videosById = new Map();
@@ -54,11 +54,25 @@ export function buildGrowthShowEpisodes({ videos = [], articles = [], journals =
     if (video.source_canon_id) videosByCanon.set(video.source_canon_id, video);
   }
 
+  const websiteOnlyRecords = (websiteStories || []).map(story => ({
+    id: story.id,
+    title: story.title,
+    summary: story.summary,
+    slug: story.slug,
+    status: story.publish_status === 'published' ? 'Published' : story.publish_status,
+    published_date: story.published_at || story.created_date,
+    website_video_url: story.video_url,
+    thumbnail_url: story.thumbnail_url,
+    website_story_id: story.id,
+  }));
+
   // A public show episode must be explicitly classified. Ordinary long-form
   // videos remain in the Learning Center and cannot become show episodes just
-  // because they happen to be published on YouTube.
-  return episodeRecords
-    .filter(record => record.status === 'Published' && record.youtube_video_id)
+  // because they happen to be published on YouTube. A published WebsiteVideoStory
+  // is also eligible so the website can go live before YouTube distribution.
+  const allRecords = [...episodeRecords, ...websiteOnlyRecords];
+  return allRecords
+    .filter(record => record.status === 'Published' && (record.youtube_video_id || record.website_video_url))
     .map((overlay) => {
       const matchedVideo = videosById.get(overlay.youtube_video_id) ||
         videosByCanon.get(overlay.source_canon_id);
@@ -67,7 +81,7 @@ export function buildGrowthShowEpisodes({ videos = [], articles = [], journals =
         video_title: overlay.title,
         description: overlay.summary,
         youtube_video_id: overlay.youtube_video_id,
-        video_url: `https://www.youtube.com/watch?v=${overlay.youtube_video_id}`,
+        video_url: overlay.website_video_url || `https://www.youtube.com/watch?v=${overlay.youtube_video_id}`,
         source_canon_id: overlay.source_canon_id,
         source_asset_slug: overlay.source_article_slug || overlay.slug,
         asset_format: 'Long Form',
@@ -105,9 +119,10 @@ export function buildGrowthShowEpisodes({ videos = [], articles = [], journals =
         status: overlay.status,
         publishedDate: overlay.published_date || video.published_date || article?.published_date || '',
         featured: Boolean(overlay.featured),
-        thumbnailUrl: overlay.thumbnail_url || video.thumbnail_url || `https://i.ytimg.com/vi/${video.youtube_video_id}/hqdefault.jpg`,
-        youtubeVideoId: video.youtube_video_id,
-        youtubeUrl: video.video_url || `https://www.youtube.com/watch?v=${video.youtube_video_id}`,
+        thumbnailUrl: overlay.thumbnail_url || video.thumbnail_url || (video.youtube_video_id ? `https://i.ytimg.com/vi/${video.youtube_video_id}/hqdefault.jpg` : ''),
+        youtubeVideoId: video.youtube_video_id || null,
+        youtubeUrl: video.youtube_video_id ? (video.video_url || `https://www.youtube.com/watch?v=${video.youtube_video_id}`) : '',
+        videoUrl: video.video_url || overlay.website_video_url || '',
         video,
         article,
         lessons,
