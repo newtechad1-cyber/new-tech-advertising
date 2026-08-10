@@ -204,12 +204,287 @@ async function publishInstagram(base44, video, job) {
   }
 }
 
-async function publishYoutube(base44, video, job) {
-  await base44.asServiceRole.entities.VideoPublishJob.update(job.id, {
-    job_status: 'blocked',
-    error_message: 'YouTube OAuth channel connection not configured. Add YouTube OAuth credentials and connect the channel in Distribution Settings.'
+async function refreshYouTubeAccessToken(clientId, clientSecret, refreshToken) {
+  if (!clientId || !clientSecret || !refreshToken) {
+    throw new Error('YouTube OAuth refresh is not configured. Reconnect the YouTube channel with upload permission.');
+  }
+
+  const response = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      client_id: clientId,
+      client_secret: clientSecret,
+      refresh_token: refreshToken,
+      grant_type: 'refresh_token',
+    }),
   });
-  return { success: false, reason: 'needs_connection', platform: 'youtube' };
+  const data = await response.json();
+
+  if (!response.ok || !data.access_token) {
+    throw new Error('YouTube OAuth refresh failed: ' + (data.error_description || data.error || 'unknown error'));
+  }
+
+  return {
+    access_token: data.access_token,
+    expires_at: data.expires_in
+      ? new Date(Date.now() + Number(data.expires_in) * 1000).toISOString()
+      : null,
+  };
+}
+
+async function getYouTubeUploadContext(base44) {
+  const environmentToken = Deno.env.get('GOOGLE_ACCESS_TOKEN') || Deno.env.get('YOUTUBE_ACCESS_TOKEN');
+  if (environmentToken) {
+    return { accessToken: environmentToken, connection: null, expiresAt: null };
+  }
+
+  const connections = await base44.asServiceRole.entities.ChannelConnection.filter({ provider: 'youtube' });
+  const connection = (connections || [])
+    .filter(item => item.status !== 'disconnected')
+    .sort((a, b) => (
+      (b.is_default ? 100 : 0) - (a.is_default ? 100 : 0) ||
+      (b.status === 'ready' ? 20 : 0) - (a.status === 'ready' ? 20 : 0) ||
+      new Date(b.updated_date || b.last_sync_at || 0).getTime() -
+      new Date(a.updated_date || a.last_sync_at || 0).getTime()
+    ))[0] || null;
+
+  if (!connection) {
+    throw new Error('No YouTube channel connection is available. Connect the YouTube channel before publishing.');
+  }
+
+  const expiresAt = connection.expires_at ? Date.parse(connection.expires_at) : 0;
+  if (connection.access_token && (!expiresAt || expiresAt > Date.now() + 60000)) {
+    return { accessToken: connection.access_token, connection, expiresAt: connection.expires_at || null };
+  }
+
+  if (!connection.refresh_token) {
+    throw new Error('The YouTube channel authorization has expired and has no refresh token. Reconnect YouTube with upload permission.');
+  }
+
+  try {
+    const refreshed = await refreshYouTubeAccessToken(
+      Deno.env.get('GOOGLE_CLIENT_ID'),
+      Deno.env.get('GOOGLE_CLIENT_SECRET'),
+      connection.refresh_token
+    );
+
+    await base44.asServiceRole.entities.ChannelConnection.update(connection.id, {
+      access_token: refreshed.access_token,
+      expires_at: refreshed.expires_at,
+      status: 'ready',
+      last_sync_at: new Date().toISOString(),
+      error_message: null,
+    });
+
+    return {
+      accessToken: refreshed.access_token,
+      connection: { ...connection, access_token: refreshed.access_token, expires_at: refreshed.expires_at },
+      expiresAt: refreshed.expires_at,
+    };
+  } catch (error) {
+    await base44.asServiceRole.entities.ChannelConnection.update(connection.id, {
+      status: 'expired',
+      error_message: error.message,
+      last_sync_at: new Date().toISOString(),
+    });
+    throw error;
+  }
+}
+
+function stableVideoSlug(title) {
+  return (title || 'video')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 80) || 'video';
+}
+
+function extractEpisodeNumber(title) {
+  const match = String(title || '').match(/episode\s*(\d+)/i);
+  return match ? Number(match[1]) : null;
+}
+
+async function upsertGrowthShowEpisode(base44, video, youtubeVideoId, youtubeUrl) {
+  const title = video.website_title || video.title || 'NTA Growth Show episode';
+  const slug = video.website_slug || stableVideoSlug(title);
+  const existing = await base44.asServiceRole.entities.GrowthShowEpisode.filter({ slug });
+  const payload = {
+    episode_number: video.episode_number || extractEpisodeNumber(title) || null,
+    title,
+    slug,
+    summary: video.website_summary || video.youtube_description || '',
+    status: 'Published',
+    published_date: new Date().toISOString().slice(0, 10),
+    featured: false,
+    thumbnail_url: video.thumbnail_url || '',
+    youtube_video_id: youtubeVideoId,
+    playlist_slug: 'nta-growth-show',
+    cta_text: video.cta_text || video.cta || 'Start a Growth Conversation',
+    cta_url: video.website_url || '/growth-conversation',
+    notes: JSON.stringify({ youtube_url: youtubeUrl, source_video_id: video.id }),
+  };
+
+  if (existing?.[0]) {
+    await base44.asServiceRole.entities.GrowthShowEpisode.update(existing[0].id, payload);
+    return { ...existing[0], ...payload };
+  }
+
+  return base44.asServiceRole.entities.GrowthShowEpisode.create(payload);
+}
+
+async function publishYoutube(base44, video, job) {
+  const videoUrl = video.render_output_url || video.final_video || video.source_file_url || '';
+  if (!videoUrl || !/^https:\/\//i.test(videoUrl)) {
+    await base44.asServiceRole.entities.VideoPublishJob.update(job.id, {
+      job_status: 'blocked',
+      error_message: 'The video needs a public HTTPS source URL before YouTube can download it.'
+    });
+    return { success: false, reason: 'no_public_url', platform: 'youtube' };
+  }
+
+  await base44.asServiceRole.entities.VideoPublishJob.update(job.id, {
+    job_status: 'publishing',
+    publish_started_at: new Date().toISOString(),
+    error_message: null,
+  });
+
+  try {
+    const { accessToken } = await getYouTubeUploadContext(base44);
+    const videoResponse = await fetch(videoUrl);
+    if (!videoResponse.ok) {
+      throw new Error('Video download failed: ' + videoResponse.status + ' ' + videoResponse.statusText);
+    }
+
+    const videoBytes = new Uint8Array(await videoResponse.arrayBuffer());
+    if (!videoBytes.length) throw new Error('The video source returned an empty file.');
+
+    const privacyStatus = ['private', 'unlisted', 'public'].includes(video.youtube_privacy_status)
+      ? video.youtube_privacy_status
+      : 'unlisted';
+    const metadata = {
+      snippet: {
+        title: String(video.youtube_title || video.title || 'NTA Growth Show').slice(0, 100),
+        description: String(video.youtube_description || video.website_summary || video.title || '').slice(0, 5000),
+        categoryId: String(video.youtube_category_id || '22'),
+      },
+      status: {
+        privacyStatus,
+        selfDeclaredMadeForKids: Boolean(video.youtube_made_for_kids),
+        embeddable: true,
+      },
+    };
+
+    const initResponse = await fetch(
+      'https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status',
+      {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + accessToken,
+          'Content-Type': 'application/json',
+          'X-Upload-Content-Type': 'video/mp4',
+          'X-Upload-Content-Length': String(videoBytes.length),
+        },
+        body: JSON.stringify(metadata),
+      }
+    );
+
+    if (!initResponse.ok) {
+      throw new Error('YouTube upload initialization failed: ' + initResponse.status + ' ' + await initResponse.text());
+    }
+
+    const uploadUrl = initResponse.headers.get('Location');
+    if (!uploadUrl) throw new Error('YouTube did not return a resumable upload URL.');
+
+    const chunkSize = 8 * 1024 * 1024;
+    let start = 0;
+    let uploadData = null;
+
+    while (start < videoBytes.length) {
+      const end = Math.min(start + chunkSize, videoBytes.length) - 1;
+      const chunk = videoBytes.slice(start, end + 1);
+      const uploadResponse = await fetch(uploadUrl, {
+        method: 'PUT',
+        headers: {
+          Authorization: 'Bearer ' + accessToken,
+          'Content-Type': 'video/mp4',
+          'Content-Length': String(chunk.length),
+          'Content-Range': 'bytes ' + start + '-' + end + '/' + videoBytes.length,
+        },
+        body: chunk,
+      });
+
+      if (uploadResponse.status === 308) {
+        const range = uploadResponse.headers.get('Range');
+        const lastMatch = range ? range.match(/-(\d+)$/) : null;
+        const lastByte = lastMatch ? Number(lastMatch[1]) : end;
+        start = Number.isFinite(lastByte) ? lastByte + 1 : end + 1;
+        continue;
+      }
+
+      if (!uploadResponse.ok) {
+        throw new Error('YouTube video upload failed: ' + uploadResponse.status + ' ' + await uploadResponse.text());
+      }
+
+      uploadData = await uploadResponse.json();
+      break;
+    }
+
+    if (!uploadData?.id) throw new Error('YouTube completed the upload without returning a video ID.');
+
+    const youtubeVideoId = uploadData.id;
+    const youtubeUrl = 'https://www.youtube.com/watch?v=' + youtubeVideoId;
+    let growthEpisode = null;
+    let growthEpisodeError = null;
+
+    try {
+      growthEpisode = await upsertGrowthShowEpisode(base44, video, youtubeVideoId, youtubeUrl);
+    } catch (error) {
+      growthEpisodeError = error.message;
+      console.error('[videoPublishingAgent] Growth Show record update failed:', error.message);
+    }
+
+    const completedAt = new Date().toISOString();
+    await base44.asServiceRole.entities.VideoPublishJob.update(job.id, {
+      job_status: 'published',
+      publish_completed_at: completedAt,
+      published_at: completedAt,
+      publish_url: youtubeUrl,
+      external_post_id: youtubeVideoId,
+      response_json: JSON.stringify({
+        youtube_video_id: youtubeVideoId,
+        youtube_url: youtubeUrl,
+        privacy_status: privacyStatus,
+        growth_show_episode_id: growthEpisode?.id || null,
+        growth_show_episode_error: growthEpisodeError,
+      }),
+      notes: growthEpisodeError
+        ? 'YouTube upload succeeded, but the Growth Show record needs repair: ' + growthEpisodeError
+        : 'YouTube upload completed and the Growth Show record was synchronized.',
+    });
+
+    return {
+      success: true,
+      platform: 'youtube',
+      video_id: youtubeVideoId,
+      url: youtubeUrl,
+      growth_show_episode_id: growthEpisode?.id || null,
+    };
+  } catch (error) {
+    const message = error.message || 'YouTube publishing failed.';
+    const isConnectionProblem = /OAuth|authorization|refresh|connection|permission|scope/i.test(message);
+    await base44.asServiceRole.entities.VideoPublishJob.update(job.id, {
+      job_status: isConnectionProblem ? 'blocked' : 'failed',
+      error_message: message,
+      response_json: JSON.stringify({ error: message }),
+    });
+    return {
+      success: false,
+      platform: 'youtube',
+      reason: isConnectionProblem ? 'needs_connection' : 'upload_failed',
+      error: message,
+    };
+  }
 }
 
 async function publishTikTok(base44, video, job) {
