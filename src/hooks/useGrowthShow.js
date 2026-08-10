@@ -26,12 +26,22 @@ function mergeSourceArticles(articles, sourceArticles) {
 export function useGrowthShow() {
   const knowledge = useKnowledgeGraph();
   const [episodeRecords, setEpisodeRecords] = useState([]);
+  const [websiteStories, setWebsiteStories] = useState([]);
   const [episodeRecordsLoading, setEpisodeRecordsLoading] = useState(true);
 
   useEffect(() => {
-    base44.entities.GrowthShowEpisode.list('-published_date', 200)
-      .then(setEpisodeRecords)
-      .catch(() => setEpisodeRecords([]))
+    Promise.all([
+      base44.entities.GrowthShowEpisode.list('-published_date', 200),
+      base44.entities.WebsiteVideoStory.filter({ publish_status: 'published' }),
+    ])
+      .then(([episodes, stories]) => {
+        setEpisodeRecords(episodes || []);
+        setWebsiteStories(stories || []);
+      })
+      .catch(() => {
+        setEpisodeRecords([]);
+        setWebsiteStories([]);
+      })
       .finally(() => setEpisodeRecordsLoading(false));
   }, []);
 
@@ -40,7 +50,8 @@ export function useGrowthShow() {
     articles: mergeSourceArticles(knowledge.articles, GROWTH_SHOW_SOURCE_ARTICLES),
     journals: knowledge.journals,
     episodeRecords: mergeEpisodeRecords(SEED_GROWTH_SHOW_EPISODES, episodeRecords),
-  }), [knowledge.videos, knowledge.articles, knowledge.journals, episodeRecords]);
+    websiteStories,
+  }), [knowledge.videos, knowledge.articles, knowledge.journals, episodeRecords, websiteStories]);
 
   return {
     episodes,
