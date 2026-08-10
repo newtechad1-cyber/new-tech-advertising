@@ -3,8 +3,6 @@ import { ArrowRight, BookOpen, Check, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
-const FREE_AI_GUY_VIDEO_URL = 'https://drive.google.com/uc?export=download&id=1UO4ov3GzducOndL-Py9TfNH-S5toSIO7';
-
 const entrySteps = [
   {
     number: '01',
@@ -117,13 +115,13 @@ export default function HeroSection() {
             </div>
 
             <div className="relative my-7 overflow-hidden rounded-2xl border border-slate-700 bg-black shadow-xl">
-              <video
-                src={FREE_AI_GUY_VIDEO_URL}
-                controls
-                playsInline
-                preload="metadata"
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/hjYvPeBcaxk?rel=0"
+                title="Meet the Free AI Guy — Practical AI Education"
+                loading="eager"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
                 className="aspect-video w-full"
-                aria-label="Meet the Free AI Guy — Practical AI Education"
               />
             </div>
 
