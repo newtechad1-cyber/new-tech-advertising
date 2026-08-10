@@ -3,7 +3,7 @@ import { ArrowRight, BookOpen, Check, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
-const FREE_AI_GUY_VIDEO_URL = 'https://static.metricool.com/planner/202608/6613716-file-8942274907299959414.mp4';
+const FREE_AI_GUY_VIDEO_URL = 'https://drive.google.com/uc?export=download&id=1UO4ov3GzducOndL-Py9TfNH-S5toSIO7';
 
 const entrySteps = [
   {
