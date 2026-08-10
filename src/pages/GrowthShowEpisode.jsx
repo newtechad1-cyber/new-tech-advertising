@@ -72,20 +72,33 @@ export default function GrowthShowEpisode() {
 
         <section className="mx-auto max-w-5xl px-6 py-12">
           <div className="aspect-video overflow-hidden rounded-2xl border border-slate-800 bg-black shadow-2xl">
-            <iframe
-              className="h-full w-full"
-              src={`https://www.youtube-nocookie.com/embed/${episode.youtubeVideoId}`}
-              title={episode.title}
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
+            {episode.youtubeVideoId ? (
+              <iframe
+                className="h-full w-full"
+                src={`https://www.youtube-nocookie.com/embed/${episode.youtubeVideoId}`}
+                title={episode.title}
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            ) : (
+              <video
+                className="h-full w-full object-contain"
+                src={episode.videoUrl}
+                title={episode.title}
+                controls
+                playsInline
+                preload="metadata"
+              />
+            )}
           </div>
-          <div className="mt-4 flex justify-end">
-            <a href={episode.youtubeUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-white">
-              Watch on YouTube <ExternalLink className="h-4 w-4" />
-            </a>
-          </div>
+          {episode.youtubeUrl && (
+            <div className="mt-4 flex justify-end">
+              <a href={episode.youtubeUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-white">
+                Watch on YouTube <ExternalLink className="h-4 w-4" />
+              </a>
+            </div>
+          )}
         </section>
 
         <section className="mx-auto max-w-5xl px-6 pb-16">
