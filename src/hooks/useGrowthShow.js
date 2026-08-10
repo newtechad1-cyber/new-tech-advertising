@@ -32,7 +32,10 @@ export function useGrowthShow() {
   useEffect(() => {
     Promise.all([
       base44.entities.GrowthShowEpisode.list('-published_date', 200),
-      base44.entities.WebsiteVideoStory.filter({ publish_status: 'published' }),
+      base44.entities.WebsiteVideoStory.filter({
+        publish_status: 'published',
+        category: 'NTA Growth Show',
+      }),
     ])
       .then(([episodes, stories]) => {
         setEpisodeRecords(episodes || []);
