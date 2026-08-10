@@ -725,6 +725,31 @@ async function processScheduled(base44) {
   return Response.json({ processed: results.length, results });
 }
 
+async function handleVideoRequestAutomation(base44, body, actorEmail) {
+  const event = body.event || {};
+  if (event.entity_name !== 'VideoRequests') {
+    return Response.json({ success: true, skipped: true, reason: 'unhandled_entity' });
+  }
+
+  const video = body.data || await base44.asServiceRole.entities.VideoRequests.get(event.entity_id);
+  if (!video) return Response.json({ success: true, skipped: true, reason: 'video_not_found' });
+
+  // A manually linked YouTube video is already complete; do not upload it again.
+  if (video.youtube_video_id) {
+    return Response.json({ success: true, skipped: true, reason: 'youtube_already_linked' });
+  }
+
+  if (video.review_status !== 'approved') {
+    return Response.json({ success: true, skipped: true, reason: 'awaiting_approval' });
+  }
+
+  if (!video.website_publish_enabled && !video.youtube_publish_enabled) {
+    return Response.json({ success: true, skipped: true, reason: 'no_enabled_destinations' });
+  }
+
+  return createJobs(base44, video.id, actorEmail, { automatic: true });
+}
+
 // ─── Main Handler ─────────────────────────────────────────────────────────────
 
 Deno.serve(async (req) => {
@@ -736,11 +761,14 @@ Deno.serve(async (req) => {
     const body = await req.json();
     const { action, video_id, job_id } = body;
 
+    if (body.event?.entity_name === 'VideoRequests') {
+      return handleVideoRequestAutomation(base44, body, user.email);
+    }
     if (action === 'create_jobs') return createJobs(base44, video_id, user.email);
     if (action === 'retry_job') return retryJob(base44, job_id, user.email);
     if (action === 'process_scheduled') return processScheduled(base44);
 
-    return Response.json({ error: `Unknown action: ${action}` }, { status: 400 });
+    return Response.json({ error: 'Unknown action: ' + action }, { status: 400 });
   } catch (err) {
     return Response.json({ error: err.message }, { status: 500 });
   }
