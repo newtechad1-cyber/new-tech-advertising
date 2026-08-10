@@ -146,6 +146,7 @@ import TvCommercialScriptGenerator from './pages/TvCommercialScriptGenerator';
 import TvVideo from './pages/TvVideo';
 import VideoDetail from './pages/VideoDetail';
 import VideoIndex from './pages/VideoIndex';
+import VideoStory from './pages/VideoStory';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
 import WhatChangedOnline from './pages/WhatChangedOnline';
@@ -304,6 +305,7 @@ export const PAGES = {
   "TvVideo": TvVideo,
   "VideoDetail": VideoDetail,
   "VideoIndex": VideoIndex,
+  "VideoStory": VideoStory,
   "Website-Rebuild": websiteRebuild,
   "WebsiteRebuild": WebsiteRebuild,
   "what-changed-online": WhatChangedOnline,
