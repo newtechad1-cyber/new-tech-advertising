@@ -1,0 +1,26 @@
+{
+  "name": "videoPublishingAgent",
+  "entry": "entry.ts",
+  "automations": [
+    {
+      "name": "Auto-publish approved video requests",
+      "type": "entity",
+      "entity_name": "VideoRequests",
+      "event_types": ["create", "update"],
+      "is_active": true,
+      "description": "Creates the website and YouTube publishing jobs when an approved video request is ready."
+    },
+    {
+      "name": "Process scheduled video publishing jobs",
+      "type": "scheduled",
+      "schedule_mode": "recurring",
+      "schedule_type": "cron",
+      "cron_expression": "*/5 * * * *",
+      "function_args": {
+        "action": "process_scheduled"
+      },
+      "is_active": true,
+      "description": "Checks approved scheduled video jobs every five minutes and publishes due items."
+    }
+  ]
+}
