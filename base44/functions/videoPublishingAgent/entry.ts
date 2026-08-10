@@ -33,10 +33,10 @@ async function writeAudit(base44, data) {
 
 async function publishWebsite(base44, video, job) {
   const title = video.website_title || video.title || 'Video';
-  const slug = slugify(title);
-  const publicUrl = `/video-story/${slug}`;
+  const slug = video.website_slug || stableVideoSlug(title);
+  const publicUrl = '/growth-show/' + slug;
 
-  const story = await base44.asServiceRole.entities.WebsiteVideoStory.create({
+  const storyPayload = {
     video_id: video.id,
     company_id: video.client_id || video.business_id,
     title,
@@ -54,7 +54,16 @@ async function publishWebsite(base44, video, job) {
     publish_status: 'published',
     published_at: new Date().toISOString(),
     public_url: publicUrl
-  });
+  };
+
+  const existingStories = await base44.asServiceRole.entities.WebsiteVideoStory.filter({ video_id: video.id });
+  let story;
+  if (existingStories?.[0]) {
+    await base44.asServiceRole.entities.WebsiteVideoStory.update(existingStories[0].id, storyPayload);
+    story = { ...existingStories[0], ...storyPayload };
+  } else {
+    story = await base44.asServiceRole.entities.WebsiteVideoStory.create(storyPayload);
+  }
 
   await base44.asServiceRole.entities.VideoPublishJob.update(job.id, {
     job_status: 'published',
