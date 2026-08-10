@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Download, CheckCircle, MessageSquare, Video } from "lucide-react";
+import PublishJobsPanel from "@/components/video-workspace/PublishJobsPanel";
 
 const statusColors = {
   "Draft": "bg-gray-100 text-gray-700",
@@ -198,6 +199,11 @@ export default function VideoDetail() {
           <p className="text-sm">Video not yet available</p>
         </div>
       )}
+
+      {/* Distribution & publishing */}
+      <div className="mb-8">
+        <PublishJobsPanel video={video} />
+      </div>
 
       {/* Details */}
       <div className="grid gap-4 mb-8">
