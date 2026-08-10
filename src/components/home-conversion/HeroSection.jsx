@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { ArrowRight, BookOpen, Check, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import growthGuideSurfer from '@/assets/brand/nta-growth-guide-surfer.webp';
 
 const FREE_AI_GUY_VIDEO_URL = 'https://drive.google.com/uc?export=download&id=1UO4ov3GzducOndL-Py9TfNH-S5toSIO7';
 
