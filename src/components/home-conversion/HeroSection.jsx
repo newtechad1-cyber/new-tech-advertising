@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import growthGuideSurfer from '@/assets/brand/nta-growth-guide-surfer.webp';
 
+const FREE_AI_GUY_VIDEO_URL = 'https://drive.google.com/uc?export=download&id=1UO4ov3GzducOndL-Py9TfNH-S5toSIO7';
+
 const entrySteps = [
   {
     number: '01',
@@ -100,6 +102,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.15 }}
             className="relative overflow-hidden rounded-3xl border border-slate-700/80 bg-slate-900/80 p-6 shadow-2xl shadow-cyan-950/20 backdrop-blur-sm sm:p-8"
+            id="free-ai-guy-video"
             aria-label="Meet the Free AI Guy"
           >
             <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-cyan-400/10 blur-3xl" />
@@ -114,9 +117,15 @@ export default function HeroSection() {
               <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-semibold text-cyan-200">Guide</span>
             </div>
 
-            <div className="relative my-7 flex justify-center">
-              <div className="absolute inset-x-8 bottom-2 h-20 rounded-full bg-cyan-400/20 blur-2xl" />
-              <img src={growthGuideSurfer} alt="The Free AI Guy, NTA's surfer-bot guide" className="relative h-56 w-56 object-contain drop-shadow-[0_18px_24px_rgba(34,211,238,0.22)] sm:h-64 sm:w-64" />
+            <div className="relative my-7 overflow-hidden rounded-2xl border border-slate-700 bg-black shadow-xl">
+              <video
+                src={FREE_AI_GUY_VIDEO_URL}
+                controls
+                playsInline
+                preload="metadata"
+                className="aspect-video w-full"
+                aria-label="Meet the Free AI Guy — Practical AI Education"
+              />
             </div>
 
             <div className="relative space-y-3 border-t border-slate-700/80 pt-5">
