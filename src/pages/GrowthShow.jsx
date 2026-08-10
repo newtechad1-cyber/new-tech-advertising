@@ -12,13 +12,19 @@ function EpisodeCard({ episode }) {
       to={`/growth-show/${episode.slug}`}
       className="group overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/50 transition-all hover:-translate-y-1 hover:border-blue-500/40"
     >
-      <div className="relative aspect-video overflow-hidden bg-slate-900">
-        <img
-          src={episode.thumbnailUrl}
-          alt=""
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-          loading="lazy"
-        />
+      <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-blue-950 via-slate-900 to-slate-950">
+        {episode.thumbnailUrl ? (
+          <img
+            src={episode.thumbnailUrl}
+            alt=""
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center">
+            <Play className="h-16 w-16 text-blue-400/70" />
+          </div>
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
         <span className="absolute bottom-4 left-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg">
           <Play className="h-5 w-5 fill-current" />
@@ -97,8 +103,14 @@ export default function GrowthShow() {
           ) : featured ? (
             <>
               <Link to={`/growth-show/${featured.slug}`} className="group grid overflow-hidden rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-950/40 to-slate-900 lg:grid-cols-2">
-                <div className="relative aspect-video overflow-hidden lg:aspect-auto">
-                  <img src={featured.thumbnailUrl} alt="" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-blue-950 via-slate-900 to-slate-950 lg:aspect-auto">
+                  {featured.thumbnailUrl ? (
+                    <img src={featured.thumbnailUrl} alt="" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  ) : (
+                    <div className="flex h-full min-h-64 items-center justify-center">
+                      <Play className="h-20 w-20 text-blue-400/70" />
+                    </div>
+                  )}
                   <div className="absolute inset-0 flex items-center justify-center bg-slate-950/20">
                     <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-blue-600 text-white shadow-2xl">
                       <Play className="h-7 w-7 fill-current" />
