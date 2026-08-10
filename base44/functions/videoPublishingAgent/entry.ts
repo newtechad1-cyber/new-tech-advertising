@@ -527,7 +527,8 @@ async function processJobByType(base44, video, job, destType) {
 
 // ─── Action: Create Publish Jobs ─────────────────────────────────────────────
 
-async function createJobs(base44, videoId, actorEmail) {
+async function createJobs(base44, videoId, actorEmail, options = {}) {
+  const automatic = Boolean(options.automatic);
   const video = await base44.asServiceRole.entities.VideoRequests.get(videoId);
   if (!video) return Response.json({ error: 'Video not found' }, { status: 404 });
 
@@ -549,15 +550,31 @@ async function createJobs(base44, videoId, actorEmail) {
     return Response.json({ error: 'No publish destinations selected on this video.' }, { status: 400 });
   }
 
-  // Prevent duplicate published jobs
+  // Prevent duplicate jobs, especially when an entity hook sees our own status updates.
   const existingJobs = await base44.asServiceRole.entities.VideoPublishJob.filter({ video_id: videoId });
-  const alreadyPublishedDests = existingJobs.filter(j => j.job_status === 'published').map(j => j.destination_type);
+  const existingByDestination = new Map();
+  for (const existingJob of existingJobs) {
+    const current = existingByDestination.get(existingJob.destination_type);
+    if (!current || new Date(existingJob.created_date || 0) > new Date(current.created_date || 0)) {
+      existingByDestination.set(existingJob.destination_type, existingJob);
+    }
+  }
 
   const results = [];
 
   for (const destType of enabledDests) {
-    if (alreadyPublishedDests.includes(destType)) {
-      results.push({ destination: destType, status: 'skipped', reason: 'already_published' });
+    const existingJob = existingByDestination.get(destType);
+    if (existingJob && (
+      automatic ||
+      existingJob.job_status === 'published' ||
+      ['queued', 'scheduled', 'preparing', 'publishing'].includes(existingJob.job_status)
+    )) {
+      results.push({
+        destination: destType,
+        status: 'skipped',
+        reason: automatic ? 'existing_job' : 'already_published',
+        job_id: existingJob.id,
+      });
       continue;
     }
 
@@ -607,6 +624,12 @@ async function createJobs(base44, videoId, actorEmail) {
     } else {
       results.push({ destination: destType, status: 'scheduled', scheduled_for: scheduledFor });
     }
+  }
+
+  // If this was an entity-hook re-entry and every destination already had a job,
+  // stop without updating VideoRequests again (which would retrigger the hook).
+  if (!results.some(r => r.status !== 'skipped')) {
+    return Response.json({ success: true, results, jobs_created: 0, skipped: true });
   }
 
   // Update video processing_status
