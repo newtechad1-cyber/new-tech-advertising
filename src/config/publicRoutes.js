@@ -145,6 +145,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/growth-show/:slug', GrowthShowEpisode),
   alias('/video-story', VideoStory),
   alias('/journal', JournalLanding),
+  alias('/nta-journal', NtaJournal),
   alias('/journal/subscribe', NtaJournal),
   alias('/journal/:slug', JournalIssueView),
   alias('/learning-center', LearningCenter),
