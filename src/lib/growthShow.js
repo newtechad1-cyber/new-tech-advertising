@@ -71,8 +71,17 @@ export function buildGrowthShowEpisodes({ videos = [], articles = [], journals =
   // because they happen to be published on YouTube. A published WebsiteVideoStory
   // is also eligible so the website can go live before YouTube distribution.
   const allRecords = [...episodeRecords, ...websiteOnlyRecords];
-  return allRecords
-    .filter(record => record.status === 'Published' && (record.youtube_video_id || record.website_video_url))
+  const recordByKey = new Map();
+  for (const record of allRecords) {
+    if (record.status !== 'Published' || (!record.youtube_video_id && !record.website_video_url)) continue;
+    const key = record.slug || record.youtube_video_id || record.id;
+    const existing = recordByKey.get(key);
+    if (!existing || record.youtube_video_id || !existing.youtube_video_id) {
+      recordByKey.set(key, record);
+    }
+  }
+
+  return [...recordByKey.values()]
     .map((overlay) => {
       const matchedVideo = videosById.get(overlay.youtube_video_id) ||
         videosByCanon.get(overlay.source_canon_id);
