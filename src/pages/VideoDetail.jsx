@@ -53,9 +53,17 @@ export default function VideoDetail() {
     setSubmitting(true);
     await base44.entities.VideoRequests.update(id, {
       approval_status: "Approved",
+      review_status: "approved",
+      processing_status: "approved",
       status: "Delivered",
     });
-    setVideo((v) => ({ ...v, approval_status: "Approved", status: "Delivered" }));
+    setVideo((v) => ({
+      ...v,
+      approval_status: "Approved",
+      review_status: "approved",
+      processing_status: "approved",
+      status: "Delivered",
+    }));
     setSubmitting(false);
   };
 
