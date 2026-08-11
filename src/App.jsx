@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Toaster } from '@/components/ui/toaster';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { queryClientInstance } from '@/lib/query-client';
 import { pagesConfig } from './pages.config';
 import { PUBLIC_ROUTE_ALIASES } from '@/config/publicRoutes';
@@ -9,12 +9,12 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider } from '@/lib/AuthContext';
 import { NTADataProvider } from '@/lib/NTADataContext';
 import { ExperienceProvider } from '@/lib/ExperienceLayer';
-import { PUBLIC_PAGE_KEYS } from '@/config/routeGovernance';
 
 const { Pages, Layout, mainPage } = pagesConfig;
-const PublicPages = Object.fromEntries(
-  Object.entries(Pages).filter(([pageKey]) => PUBLIC_PAGE_KEYS.has(pageKey))
-);
+// pages.config.js is intentionally public-only. Keeping this as a direct
+// reference makes the public/private boundary fail closed if a private page
+// is accidentally added to the registry later.
+const PublicPages = Pages;
 const mainPageKey = mainPage ?? Object.keys(PublicPages)[0];
 const MainPage = mainPageKey ? PublicPages[mainPageKey] : null;
 
@@ -48,6 +48,36 @@ function CoreHubRedirect() {
   }, []);
 
   return null;
+}
+
+// Legacy private pages used PascalCase URLs before the public/private split.
+// They are not registered here and must never fall through to a public 404 or
+// a public page. Send only these known private families to the private app.
+const LEGACY_PRIVATE_PAGE_PREFIXES = [
+  'admin', 'agency', 'client', 'portal', 'ops', 'sales', 'reseller',
+  'dashboard', 'crm', 'lead', 'content', 'publishing', 'proposal',
+  'setting', 'businessintel', 'businessprofile', 'inteladmin',
+  'industryintel', 'localmarketintel', 'locationpage', 'opportunitysignal',
+  'performancesignal', 'programmatic', 'scheduledqueue', 'socialaccounts',
+  'weeklyplan', 'websitevideo', 'workflowmap', 'youtube', 'founderscorecard',
+  'aiworkforce', 'aioperations', 'agentarchitecture', 'marketingplan',
+  'chatwidget', 'operationshub', 'ntacommand', 'ntaoperator', 'ntasales',
+  'ntadashboard', 'ntadeal', 'ntaonboarding', 'ntachannel', 'ntareseller',
+  'ntaaiforce', 'ntaacquisition', 'ntasubmissions', 'ntacompany',
+  'ntaopportunit', 'ntaclient', 'ntaproject', 'ntacampaign', 'ntatask',
+  'ntaactivity', 'ntasystem', 'ntamigration', 'schoolstudentdashboard',
+  'schoolstudentprofile', 'schoolstudentupload',
+];
+
+function isLegacyPrivatePageKey(value) {
+  const normalized = String(value || '').toLowerCase();
+  return LEGACY_PRIVATE_PAGE_PREFIXES.some(prefix => normalized.startsWith(prefix));
+}
+
+function LegacyPrivateRouteRedirect() {
+  const { pathname } = useLocation();
+  const firstSegment = pathname.split('/').filter(Boolean)[0] || '';
+  return isLegacyPrivatePageKey(firstSegment) ? <CoreHubRedirect /> : <PageNotFound />;
 }
 
 function PublicRoutes() {
@@ -104,7 +134,7 @@ function PublicRoutes() {
       <Route path="/workspace/*" element={<CoreHubRedirect />} />
       <Route path="/executive-dashboard/*" element={<CoreHubRedirect />} />
       <Route path="/nta/*" element={<CoreHubRedirect />} />
-      <Route path="*" element={<PageNotFound />} />
+      <Route path="*" element={<LegacyPrivateRouteRedirect />} />
     </Routes>
   );
 }
