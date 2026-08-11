@@ -22,11 +22,12 @@ test('Growth Show card uses permanent branded show artwork and one correct desti
   assert.match(publications, /Watch · Learn · Continue/);
 });
 
-test('Growth Guide uses the surfing robot as its visual identity', async () => {
+test('public guide keeps its branded identity while the hero uses the current Free AI Guy experience', async () => {
   const hero = await read('src/components/home-conversion/HeroSection.jsx');
   const guide = await read('src/components/nta-guide/YourDigitalGrowthGuide.jsx');
 
-  assert.match(hero, /nta-growth-guide-surfer\.webp/);
+  assert.match(hero, /free-ai-guy-video/);
+  assert.match(hero, /youtube-nocookie\.com\/embed/);
   assert.match(guide, /nta-growth-guide-surfer\.webp/);
   assert.match(guide, /Open the Digital Growth Guide/);
   assert.match(hero, /Talk to My Office™/);
