@@ -1,0 +1,14 @@
+{
+  "name": "importApprovedMedia",
+  "entry": "entry.ts",
+  "automations": [
+    {
+      "type": "entity",
+      "name": "on_approved_media_import_request",
+      "description": "Copies an approved ChatGPT or external media file into permanent Base44 storage and creates its Media Library record.",
+      "is_active": true,
+      "entity_name": "MediaImportRequest",
+      "event_types": ["create", "update"]
+    }
+  ]
+}
