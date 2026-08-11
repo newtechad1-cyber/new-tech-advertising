@@ -39,10 +39,10 @@ export default function LearningCenter() {
       icon: Target,
       color: 'emerald',
       path: '/knowledge/business-foundations',
-      lessons: 7,
+      lessons: 8,
       difficulty: 'Beginner',
-      time: '35 min',
-      progress: Math.round((businessProgress.completed.length / 7) * 100) || 0
+      time: '45 min',
+      progress: Math.round((businessProgress.completed.length / 8) * 100) || 0
     },
     {
       id: 'ai-foundations',
