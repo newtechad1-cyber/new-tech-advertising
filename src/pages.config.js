@@ -1,5 +1,11 @@
-/** Public NTA route registry. Admin Hub, client, and operations pages belong to the separate private app. */
-import JoinNTA from './pages/JoinNTA';
+/**
+ * Public-only route registry.
+ *
+ * This file is the only page-key registry imported by the public app.
+ * Private Admin Hub, client portal, CRM, ops, billing, and agency page
+ * components must not be added here. Use src/config/publicRoutes.js for
+ * human-readable public aliases.
+ */
 import SignupPage from './pages/SignupPage';
 import About from './pages/About';
 import adaCompliance from './pages/Ada-Compliance';
@@ -22,7 +28,6 @@ import AiSocialMediaSmallBusiness from './pages/AiSocialMediaSmallBusiness';
 import AiVideoStudio from './pages/AiVideoStudio';
 import AiVideos from './pages/AiVideos';
 import AiWebsites from './pages/AiWebsites';
-import AuthorityMap from './pages/AuthorityMap';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import bookCall from './pages/Book-Call';
@@ -79,6 +84,7 @@ import IndustryTrades from './pages/IndustryTrades';
 import LocalBusinessMarketing from './pages/LocalBusinessMarketing';
 import LocalVisibility from './pages/LocalVisibility';
 import MedSpaMarketing from './pages/MedSpaMarketing';
+import JoinNTA from './pages/JoinNTA';
 import OnboardThankYou from './pages/OnboardThankYou';
 import Onboarding from './pages/Onboarding';
 import OnboardingStart from './pages/OnboardingStart';
@@ -86,12 +92,10 @@ import Platform from './pages/Platform';
 import PlumbingMarketing from './pages/PlumbingMarketing';
 import Pricing from './pages/Pricing';
 import PrivacyPolicy from './pages/PrivacyPolicy';
-import PublicProposal from './pages/PublicProposal';
 import rebuildIntake from './pages/Rebuild-Intake';
 import Rebuild from './pages/Rebuild';
 import RebuildIntake from './pages/RebuildIntake';
 import RebuildIntakePretty from './pages/RebuildIntakePretty';
-import RebuildProposal from './pages/RebuildProposal';
 import RestaurantMarketing from './pages/RestaurantMarketing';
 import RestaurantSocialMedia from './pages/RestaurantSocialMedia';
 import RoofingMarketing from './pages/RoofingMarketing';
@@ -105,11 +109,7 @@ import SchoolStories from './pages/SchoolStories';
 import SchoolStoryDetail from './pages/SchoolStoryDetail';
 import SchoolStoryLab from './pages/SchoolStoryLab';
 import SchoolStoryLabPresentation from './pages/SchoolStoryLabPresentation';
-import SchoolStudentDashboard from './pages/SchoolStudentDashboard';
 import SchoolStudentLogin from './pages/SchoolStudentLogin';
-import SchoolStudentProfile from './pages/SchoolStudentProfile';
-import SchoolStudentUploadNew from './pages/SchoolStudentUploadNew';
-import SchoolStudentUploads from './pages/SchoolStudentUploads';
 import SchoolSubmit from './pages/SchoolSubmit';
 import SchoolSubmitGuide from './pages/SchoolSubmitGuide';
 import SchoolTV from './pages/SchoolTV';
@@ -124,7 +124,6 @@ import SchoolYearbookSeason from './pages/SchoolYearbookSeason';
 import ServiceLocation from './pages/ServiceLocation';
 import Services from './pages/Services';
 import SetupComplete from './pages/SetupComplete';
-import SiteMap from './pages/SiteMap';
 import SocialMediaManagement from './pages/SocialMediaManagement';
 import SocialMediaMarketing from './pages/SocialMediaMarketing';
 import Start from './pages/Start';
@@ -146,7 +145,6 @@ import TvCommercialScriptGenerator from './pages/TvCommercialScriptGenerator';
 import TvVideo from './pages/TvVideo';
 import VideoDetail from './pages/VideoDetail';
 import VideoIndex from './pages/VideoIndex';
-import VideoStory from './pages/VideoStory';
 import websiteRebuild from './pages/Website-Rebuild';
 import WebsiteRebuild from './pages/WebsiteRebuild';
 import WhatChangedOnline from './pages/WhatChangedOnline';
@@ -180,7 +178,6 @@ export const PAGES = {
   "AiVideoStudio": AiVideoStudio,
   "AiVideos": AiVideos,
   "AiWebsites": AiWebsites,
-  "AuthorityMap": AuthorityMap,
   "Blog": Blog,
   "BlogPost": BlogPost,
   "Book-Call": bookCall,
@@ -245,12 +242,10 @@ export const PAGES = {
   "PlumbingMarketing": PlumbingMarketing,
   "Pricing": Pricing,
   "PrivacyPolicy": PrivacyPolicy,
-  "PublicProposal": PublicProposal,
   "Rebuild-Intake": rebuildIntake,
   "Rebuild": Rebuild,
   "RebuildIntake": RebuildIntake,
   "RebuildIntakePretty": RebuildIntakePretty,
-  "RebuildProposal": RebuildProposal,
   "RestaurantMarketing": RestaurantMarketing,
   "RestaurantSocialMedia": RestaurantSocialMedia,
   "RoofingMarketing": RoofingMarketing,
@@ -264,11 +259,7 @@ export const PAGES = {
   "SchoolStoryDetail": SchoolStoryDetail,
   "SchoolStoryLab": SchoolStoryLab,
   "SchoolStoryLabPresentation": SchoolStoryLabPresentation,
-  "SchoolStudentDashboard": SchoolStudentDashboard,
   "SchoolStudentLogin": SchoolStudentLogin,
-  "SchoolStudentProfile": SchoolStudentProfile,
-  "SchoolStudentUploadNew": SchoolStudentUploadNew,
-  "SchoolStudentUploads": SchoolStudentUploads,
   "SchoolSubmit": SchoolSubmit,
   "SchoolSubmitGuide": SchoolSubmitGuide,
   "SchoolTV": SchoolTV,
@@ -283,7 +274,6 @@ export const PAGES = {
   "ServiceLocation": ServiceLocation,
   "Services": Services,
   "SetupComplete": SetupComplete,
-  "SiteMap": SiteMap,
   "SocialMediaManagement": SocialMediaManagement,
   "SocialMediaMarketing": SocialMediaMarketing,
   "Start": Start,
@@ -305,7 +295,6 @@ export const PAGES = {
   "TvVideo": TvVideo,
   "VideoDetail": VideoDetail,
   "VideoIndex": VideoIndex,
-  "VideoStory": VideoStory,
   "Website-Rebuild": websiteRebuild,
   "WebsiteRebuild": WebsiteRebuild,
   "what-changed-online": WhatChangedOnline,
