@@ -34,7 +34,7 @@ export default function DemoOverview() {
   return (
     <div className="min-h-screen bg-slate-950 text-white pb-24">
       <header className="border-b border-slate-800 px-6 py-4 flex items-center justify-between sticky top-0 z-30 bg-slate-950/95 backdrop-blur">
-        <Link to={createPageUrl('SalesRoom')}><img src={LOGO} alt="NTA" className="h-8 w-auto" /></Link>
+        <Link to="/"><img src={LOGO} alt="NTA" className="h-8 w-auto" /></Link>
         <SalesProgressSteps currentStep="DemoOverview" />
         <Link to={createPageUrl('DemoPlatform')}>
           <Button size="sm" className="bg-violet-600 hover:bg-violet-500">Next <ArrowRight className="w-4 h-4 ml-1" /></Button>
