@@ -8,62 +8,59 @@ const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/pub
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
   {
-    label: 'Solutions',
-    href: '/local-lead-systems',
+    label: 'Free AI Education',
+    href: '/knowledge/ai-foundations',
     children: [
-      { label: 'Local Lead Systems', href: '/local-lead-systems', desc: 'Complete growth architecture' },
-      { label: 'Website Rebuilds', href: '/services/website-rebuilds', desc: 'Conversion-focused web design' },
-      { label: 'Social Media Management', href: '/services/social-media-management', desc: 'Content that builds trust' },
-      { label: 'AI Video Marketing', href: '/ai-video-marketing', desc: 'High-volume video production' },
-      { label: 'Back-Office Solutions', href: '/back-office-solutions', desc: 'Automation for your operations' },
-      { label: 'Restaurant Solutions', href: '/restaurants', desc: 'Growth systems for hospitality' },
-    ],
-  },
-  { label: 'The Journal', href: '/journal' },
-  {
-    label: 'Learn',
-    href: '/point-of-view',
-    children: [
-      { label: 'Free AI Education', href: '/knowledge/ai-foundations', desc: 'Practical AI for real businesses' },
-      { label: 'The NTA Point of View', href: '/point-of-view', desc: 'Our philosophy and experience' },
-      { label: 'NTA Knowledge Library', href: '/knowledge', desc: 'All educational collections' },
-      { label: 'Free Business Books', href: '/books', desc: 'Practical guides for owners' },
-      { label: 'Business Foundations', href: '/knowledge/business-foundations', desc: 'Core principles of local business growth' },
-      { label: 'AI Foundations', href: '/knowledge/ai-foundations', desc: 'Practical AI for small business' },
-      { label: 'NTA Growth Show', href: '/growth-show', desc: 'Connected business and AI conversations' },
+      { label: 'AI Foundations', href: '/knowledge/ai-foundations', desc: 'Practical AI for real businesses' },
+      { label: 'Business Foundations', href: '/knowledge/business-foundations', desc: 'Clear principles for stronger growth' },
+      { label: 'Knowledge Library', href: '/knowledge', desc: 'Lessons organized around real business questions' },
+      { label: 'Free Business Books', href: '/books', desc: 'Practical guides for business owners' },
+      { label: 'Prompt Library', href: '/knowledge/prompts', desc: 'Ready-to-use prompts with practical context' },
     ],
   },
   {
-    label: 'Build',
+    label: 'Digital Growth Office',
     href: '/operating-system',
     children: [
-      { label: 'NTA Operating System', href: '/operating-system', desc: 'Our core methodology' },
-      { label: 'Visibility & Content', href: '/operating-system', desc: 'Foundation of the system' },
-      { label: 'Trust & Reviews', href: '/operating-system', desc: 'Conversion accelerators' },
-      { label: 'AI & Automation', href: '/operating-system', desc: 'Operational efficiency' },
+      { label: 'Digital Growth Office', href: '/operating-system', desc: 'See how the connected system works' },
+      { label: 'Your Digital Growth Guide™', href: '/growth-guide', desc: 'Start with a guided business conversation' },
+      { label: 'Growth Roadmap', href: '/growth-roadmap-generator', desc: 'Turn discovery into a practical next step' },
+      { label: 'Relationship Builder', href: '/relationship-builder', desc: 'Keep conversations and follow-up connected' },
+      { label: 'Back-Office Capabilities', href: '/back-office-solutions', desc: 'Organize the work behind the public experience' },
     ],
   },
   {
-    label: 'Resources',
-    href: '/learning-center',
+    label: 'How NTA Helps',
+    href: '/services',
     children: [
-      { label: 'Prompt Library', href: '/knowledge/prompts', desc: 'Ready-to-use AI prompts' },
-      { label: 'Sales Conversations', href: '/knowledge/sales-conversations', desc: 'Scripts and guides' },
-      { label: 'NTA Playbook', href: '/knowledge/playbook', desc: 'Standard operating procedures' },
-      { label: 'Downloads & Tools', href: '/learning-center', desc: 'Templates and checklists' },
+      { label: 'How NTA Helps', href: '/services', desc: 'Start with the business need, not a package' },
+      { label: 'Websites', href: '/services/website-rebuilds', desc: 'Build a useful online business experience' },
+      { label: 'Social Media', href: '/services/social-media-management', desc: 'Create consistent content that earns trust' },
+      { label: 'Video', href: '/ai-video-marketing', desc: 'Turn knowledge and stories into useful video' },
+      { label: 'Local Visibility', href: '/local-visibility', desc: 'Help nearby customers find and understand you' },
+      { label: 'Restaurant Solutions', href: '/restaurants', desc: 'Connected growth support for hospitality' },
+    ],
+  },
+  { label: 'Case Studies', href: '/case-studies' },
+  {
+    label: 'The Journal',
+    href: '/journal',
+    children: [
+      { label: 'NTA Journal', href: '/journal', desc: 'Current lessons, stories, and practical guidance' },
+      { label: 'NTA Growth Show', href: '/growth-show', desc: 'Business, marketing, and AI conversations' },
+      { label: 'NTA Point of View', href: '/point-of-view', desc: 'What experience has taught us about growth' },
     ],
   },
   {
     label: 'About',
     href: '/why-nta',
     children: [
-      { label: 'Why NTA Exists', href: '/why-nta', desc: 'Our mission and philosophy' },
-      { label: 'Founder Story', href: '/i-was-early-again', desc: 'The journey of NTA' },
-      { label: 'Brand Book', href: '/brand-book', desc: 'Our visual and strategic identity' },
-      { label: 'Community Partners', href: '/community-partner', desc: 'Network and alliances' },
+      { label: 'Why NTA Exists', href: '/why-nta', desc: 'The purpose behind the Digital Growth Office' },
+      { label: 'Rick’s Story', href: '/i-was-early-again', desc: 'The experience behind NTA' },
+      { label: 'Community Partners', href: '/community-partner', desc: 'Working with people who help businesses grow' },
+      { label: 'Contact', href: '/contact', desc: 'Call, text, or send NTA a message' },
     ],
   },
-  { label: 'Pricing', href: '/find-your-plan' },
 ];
 
 function DropdownMenu({ items, onClose }) {
@@ -198,17 +195,13 @@ export default function MarketingNav() {
               </Link>
             )}
 
-            <div className="flex items-center gap-2 pl-2">
-              <a href="https://calendar.app.google/p6ieYanvwhixXxZ67" target="_blank" rel="noopener noreferrer" className="whitespace-nowrap rounded-lg bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition-all hover:bg-blue-500">
-                Book Call
-              </a>
-              <Link to="/gap-audit" className="whitespace-nowrap rounded-lg bg-emerald-600 px-4 py-2 text-sm font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:bg-emerald-500">
-                Free Audit
-              </Link>
-              <Link to="/join-nta" className="whitespace-nowrap rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-sm font-bold text-white transition-all hover:bg-slate-800 hover:text-white">
-                Join Team
-              </Link>
-            </div>
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent('nta:open-growth-guide', { detail: { source: 'main_navigation' } }))}
+              className="whitespace-nowrap rounded-lg bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition-all hover:bg-blue-500"
+            >
+              Talk to My Office™
+            </button>
           </div>
 
           <button
@@ -259,15 +252,16 @@ export default function MarketingNav() {
             </div>
 
             <div className="space-y-3 border-t border-slate-800 px-4 py-6">
-              <a href="https://calendar.app.google/p6ieYanvwhixXxZ67" target="_blank" rel="noopener noreferrer" onClick={closeMobile} className="flex w-full items-center justify-center rounded-xl bg-blue-600 py-3 font-bold text-white transition-all hover:bg-blue-500">
-                Book a Call
-              </a>
-              <Link to="/gap-audit" onClick={closeMobile} className="flex w-full items-center justify-center rounded-xl bg-emerald-600 py-3 font-bold text-white transition-all hover:bg-emerald-500">
-                Free Gap Audit
-              </Link>
-              <Link to="/join-nta" onClick={closeMobile} className="flex w-full items-center justify-center rounded-xl border border-slate-700 bg-slate-900 py-3 font-bold text-white transition-all hover:bg-slate-800">
-                Join Our Team
-              </Link>
+              <button
+                type="button"
+                onClick={() => {
+                  closeMobile();
+                  window.dispatchEvent(new CustomEvent('nta:open-growth-guide', { detail: { source: 'mobile_navigation' } }));
+                }}
+                className="flex w-full items-center justify-center rounded-xl bg-blue-600 py-3 font-bold text-white transition-all hover:bg-blue-500"
+              >
+                Talk to My Office™
+              </button>
 
               <div className="pt-2">
                 {user ? (
