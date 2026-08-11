@@ -8,7 +8,6 @@ import {
   MessageSquareText,
   MonitorSmartphone,
   Route,
-  Video,
 } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -17,67 +16,54 @@ import SEOHead from '@/components/shared/SEOHead';
 const serviceRanges = [
   {
     icon: MapPin,
-    title: 'Local Visibility & Search',
-    range: '$300–$750/month',
-    description: 'For businesses that need to be easier to find and easier to understand in the communities they serve.',
+    title: 'Focused Monthly Support',
+    range: '$300–$700/month',
+    description: 'A manageable starting point built around one clear priority instead of an oversized package.',
     includes: [
-      'Google Business Profile guidance and updates',
-      'Local search and service-area improvements',
-      'Business information consistency',
-      'Review and reputation support',
-      'Practical visibility reporting',
+      'Local visibility and Google Business Profile work',
+      'A focused content or social media plan',
+      'Website care and practical improvements',
+      'Review, reputation, or follow-up support',
+      'A clear monthly scope and approval process',
     ],
   },
   {
     icon: MessageSquareText,
-    title: 'Content & Social Media',
-    range: '$300–$900/month',
-    description: 'For businesses that need a steady, useful presence without asking the owner to become the marketing department.',
+    title: 'Connected Growth',
+    range: '$700–$1,500/month',
+    description: 'For a business ready to connect several channels and build useful digital assets month after month.',
     includes: [
-      'Content planning around the real business',
-      'Writing, creative development, and publishing support',
-      'Social media and Google Business Profile content',
-      'Approval before public posting',
-      'A consistent voice across channels',
-    ],
-  },
-  {
-    icon: Video,
-    title: 'Video & Business Storytelling',
-    range: '$300–$1,200+',
-    description: 'For a focused video, a short series, or an ongoing storytelling plan using real people, knowledge, and approved assets.',
-    includes: [
-      'Planning, scripts, and storyboards',
-      'Website, social, educational, or promotional video',
-      'AI-assisted production when it serves the story',
-      'Captions, calls to action, and channel-ready versions',
-      'Final review and approval before publication',
-    ],
-  },
-  {
-    icon: MonitorSmartphone,
-    title: 'Website & Digital Foundation',
-    range: '$1,500–$6,000+ project',
-    description: 'For a new website, a rebuild, or a stronger digital foundation that helps customers understand what makes the business worth choosing.',
-    includes: [
-      'Discovery, structure, writing, and design',
-      'Mobile-friendly website development',
-      'Search, accessibility, analytics, and trust foundations',
-      'Clear customer paths and calls to action',
-      'Launch support and practical follow-up',
+      'Monthly planning and shared approvals',
+      'Content, social media, graphics, and short-form video',
+      'Local search and AI-readiness improvements',
+      'Landing pages or Knowledge Library development',
+      'Performance review and next-step recommendations',
     ],
   },
   {
     icon: Globe2,
-    title: 'Connected Digital Growth Office',
-    range: '$750–$2,500+/month',
-    description: 'For businesses that need several pieces working together instead of a collection of disconnected marketing projects.',
+    title: 'Digital Growth Office',
+    range: '$1,500–$2,500+/month',
+    description: 'A broader working relationship in which NTA helps coordinate the business’s connected digital growth system.',
     includes: [
-      'A practical Growth Roadmap',
-      'Website, visibility, content, social, video, and follow-up',
+      'Website and landing-page management',
+      'Content, video, social media, visibility, and follow-up',
+      'Knowledge Library and approved source-of-truth development',
       'Your Digital Growth Guide™ and direct access to Rick',
-      'Connected client communication and approvals',
-      'Ongoing priorities shaped around the business',
+      'Priority planning, reporting, and strategic support',
+    ],
+  },
+  {
+    icon: MonitorSmartphone,
+    title: 'Pilots, Websites & Larger Projects',
+    range: '$750–$1,500+ to begin',
+    description: 'A defined one-time project can establish the foundation, test the working relationship, or solve a specific need before ongoing work begins.',
+    includes: [
+      '30-day pilot or focused campaign',
+      'Website planning, rebuilds, and new digital foundations',
+      'Video series, launch materials, or seasonal campaigns',
+      'Scope, timeline, and deliverables agreed in writing',
+      'Larger builds quoted separately before work begins',
     ],
   },
 ];
@@ -152,10 +138,10 @@ export default function Pricing() {
         <section className="bg-slate-50 px-6 py-20">
           <div className="mx-auto max-w-6xl">
             <div className="mx-auto mb-12 max-w-3xl text-center">
-              <p className="mb-3 text-sm font-bold uppercase tracking-widest text-blue-700">Typical investment ranges</p>
-              <h2 className="text-3xl font-extrabold md:text-4xl">Begin with one need—or connect several</h2>
+              <p className="mb-3 text-sm font-bold uppercase tracking-widest text-blue-700">Typical working ranges</p>
+              <h2 className="text-3xl font-extrabold md:text-4xl">Begin with one priority—or connect the whole system</h2>
               <p className="mt-4 text-lg leading-relaxed text-slate-600">
-                These ranges are planning guides. Your written recommendation will explain the agreed work and price before anything begins.
+                These ranges use a phased approach: start with a focused priority, connect more pieces when it is useful, and agree on the scope before work begins. Your written recommendation will explain the work and price clearly.
               </p>
             </div>
 
