@@ -10,7 +10,7 @@ test('public router is fail-closed and does not import private page registries',
 
   assert.match(app, /const PublicPages = Pages;/);
   assert.match(app, /LegacyPrivateRouteRedirect/);
-  assert.match(app, /path="\\*" element={<LegacyPrivateRouteRedirect \/>}/);
+  assert.ok(app.includes('path="*" element={<LegacyPrivateRouteRedirect />}'));
   assert.doesNotMatch(registry, /AdminDashboard|ClientDashboard|OpsDashboard|PortalDashboard/);
   assert.doesNotMatch(registry, /SchoolStudentDashboard|SchoolStudentProfile|SchoolStudentUpload/);
 });
