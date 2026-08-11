@@ -84,6 +84,18 @@
             "publisher": "New Tech Advertising",
             "publicStatus": "published",
             "lastModified": "2026-07-15"
+          },
+          {
+            "id": 8,
+            "slug": "what-building-my-own-digital-growth-office-taught-me",
+            "title": "What Building My Own Digital Growth Office Taught Me",
+            "summary": "Why a business's public website and private operating system should be separate, connected foundations that grow with the business.",
+            "canonicalUrl": "https://newtechadvertising.com/knowledge/business-foundations/what-building-my-own-digital-growth-office-taught-me",
+            "contentType": "LearningResource",
+            "author": "Rick Hesse",
+            "publisher": "New Tech Advertising",
+            "publicStatus": "published",
+            "lastModified": "2026-08-11"
           }
         ]
       },
