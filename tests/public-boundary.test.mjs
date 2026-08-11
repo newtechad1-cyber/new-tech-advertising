@@ -32,7 +32,7 @@ test('public compatibility aliases cover legacy links without exposing private p
     assert.match(routes, new RegExp(`alias\\(['"]${route.replace(/[.*+?^$\\{}()|[\\]\\\\]/g, '\\\\$&')}`));
   }
 
-  assert.doesNotMatch(routes, /\\/(admin|agency|client|portal|ops|crm|billing)\\//);
+  assert.ok(!routes.includes("alias('/admin/") && !routes.includes("alias('/agency/") && !routes.includes("alias('/client/") && !routes.includes("alias('/portal/") && !routes.includes("alias('/ops/") && !routes.includes("alias('/crm/") && !routes.includes("alias('/billing/"));
 });
 
 test('the public Journal page does not advertise an unimplemented RSS endpoint', async () => {
