@@ -30,7 +30,10 @@ test('public guide records and transcribes voice without silently sending it', a
   const transcriber = await read('base44/functions/transcribeGrowthGuideVoice/entry.ts');
 
   assert.match(guide, /new MediaRecorder/);
-  assert.match(guide, /functions\.invoke\('transcribeGrowthGuideVoice'/);
+  assert.match(guide, /siteFunctionUrl[\s\S]*transcribeGrowthGuideVoice/);
+  assert.match(guide, /directFunctionUrl[\s\S]*transcribeGrowthGuideVoice/);
+  assert.match(guide, /method: 'POST'/);
+  assert.match(guide, /audio_base64/);
   assert.match(guide, /setInput\(nextInput\)/);
   assert.match(guide, /Ask about growth, websites, AI, trust, or your next step/);
   assert.doesNotMatch(guide, /onstop[\s\S]{0,2000}sendToAgent/);
