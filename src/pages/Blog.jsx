@@ -48,9 +48,9 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
-      <SEOHead 
-        title="Marketing Blog | New Tech Advertising"
-        description="AI marketing tips, local SEO strategies & social media guides for small businesses. Expert insights from New Tech Advertising in Mason City, Iowa."
+      <SEOHead
+        title="Small Business Insights | New Tech Advertising"
+        description="Practical AI education, business growth, local visibility, and customer-trust insights for small-business owners from New Tech Advertising."
       />
       <MarketingNav />
 
