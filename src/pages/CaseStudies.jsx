@@ -1,208 +1,127 @@
-import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { base44 } from '@/api/base44Client';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
+import { ArrowRight, BookOpen, Building2, MapPin, Wrench } from 'lucide-react';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
-import { Badge } from '@/components/ui/badge';
-import { ArrowRight, TrendingUp, MapPin, Briefcase } from 'lucide-react';
-
-const SERVICE_LABELS = {
-  'streaming-tv': 'Streaming TV Ads',
-  'local-seo': 'Local SEO',
-  'ada-rebuild': 'ADA Website Rebuild',
-  'ai-social-media': 'AI Social Media',
-  'video-marketing': 'Video Marketing',
-  'website-rebuild': 'Website Rebuild',
-};
-
-const SERVICE_COLORS = {
-  'streaming-tv': 'bg-violet-500/20 text-violet-300 border-violet-500/30',
-  'local-seo': 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
-  'ada-rebuild': 'bg-blue-500/20 text-blue-300 border-blue-500/30',
-  'ai-social-media': 'bg-pink-500/20 text-pink-300 border-pink-500/30',
-  'video-marketing': 'bg-red-500/20 text-red-300 border-red-500/30',
-  'website-rebuild': 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
-};
-
 import SEOHead from '@/components/shared/SEOHead';
 
+const caseStudies = [
+  {
+    title: 'Johnson Heating & AC — 14 Years of Consistent Growth',
+    description: 'How a long-term relationship grew from traditional advertising into a connected website, local visibility, content, and business-support system.',
+    href: '/case-studies/johnson-heating',
+    label: 'Long-Term Client Relationship',
+    location: 'Mason City, Iowa',
+    icon: Wrench,
+    accent: 'purple',
+  },
+  {
+    title: 'Monson Plumbing, Heating & Excavating — Building a Digital Presence',
+    description: 'How NTA helped an established, multi-generation local business bring its real-world reputation online with a professional website and connected visibility.',
+    href: '/case-studies/monson-plumbing',
+    label: 'Website & Local Visibility',
+    location: 'Mason City, Iowa',
+    icon: Building2,
+    accent: 'cyan',
+  },
+  {
+    title: "Papa Everett's Pizza — Competing with the Big Chains",
+    description: 'How a local restaurant used its authenticity, community connection, web presence, video, and social content to stand apart from national competitors.',
+    href: '/case-studies/papa-everetts',
+    label: 'Restaurant Marketing',
+    location: 'North Iowa',
+    icon: Building2,
+    accent: 'orange',
+  },
+  {
+    title: 'How NTA Became a Digital Growth Office',
+    description: 'How Rick Hesse organized more than 45 years of business, advertising, sales, and client-service experience into a connected system for education, discovery, and practical growth.',
+    href: '/case-studies/how-nta-became-a-digital-growth-office',
+    label: 'NTA Building-and-Discovery Case Study',
+    location: 'North Iowa & Southern Minnesota',
+    icon: BookOpen,
+    accent: 'violet',
+  },
+];
+
+const accents = {
+  purple: 'border-purple-500/30 bg-purple-500/10 text-purple-300',
+  cyan: 'border-cyan-500/30 bg-cyan-500/10 text-cyan-300',
+  orange: 'border-orange-500/30 bg-orange-500/10 text-orange-300',
+  violet: 'border-violet-500/30 bg-violet-500/10 text-violet-300',
+};
+
 export default function CaseStudiesPage() {
-  const [filterIndustry, setFilterIndustry] = useState('');
-  const [filterService, setFilterService] = useState('');
-  const [filterCity, setFilterCity] = useState('');
-
-  const { data: studies = [] } = useQuery({
-    queryKey: ['case-studies-public'],
-    queryFn: () => base44.entities.CaseStudy.filter({ status: 'published' }, '-created_date', 50),
-  });
-
-  const industries = [...new Set(studies.map(s => s.industry).filter(Boolean))];
-  const cities = [...new Set(studies.map(s => s.city).filter(Boolean))];
-
-  const filtered = studies.filter(s => {
-    if (filterIndustry && s.industry !== filterIndustry) return false;
-    if (filterService && s.service_used !== filterService) return false;
-    if (filterCity && s.city !== filterCity) return false;
-    return true;
-  });
-
   return (
     <div className="min-h-screen bg-slate-950 text-white">
-      <SEOHead 
-        title="Case Studies | New Tech Advertising Results"
-        description="See real results from New Tech Advertising clients. AI marketing case studies for HVAC, plumbing & local businesses in North Iowa and beyond."
+      <SEOHead
+        title="Case Studies | New Tech Advertising"
+        description="Real NTA client work and building-and-discovery case studies showing how websites, visibility, content, and practical business systems work together."
       />
       <MarketingNav />
 
-      {/* Hero */}
-      <section className="py-20 px-4 text-center bg-gradient-to-b from-slate-900 to-slate-950 border-b border-slate-800">
-        <div className="max-w-3xl mx-auto">
-          <span className="inline-flex items-center gap-2 bg-violet-600/20 border border-violet-500/30 text-violet-300 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
-            <TrendingUp className="w-3.5 h-3.5" /> Real Results from Real Businesses
-          </span>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4">
-            Client Case Studies
-          </h1>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-            See how local businesses across the country are growing with NTA's marketing technology.
-          </p>
-        </div>
-      </section>
+      <main>
+        <section className="border-b border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950 px-4 py-20 text-center">
+          <div className="mx-auto max-w-3xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-600/15 px-4 py-1.5 text-sm font-medium text-violet-300">
+              <BookOpen className="h-4 w-4" /> Real Work. Honest Lessons.
+            </span>
+            <h1 className="mt-6 text-4xl font-extrabold sm:text-5xl">NTA Case Studies</h1>
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-slate-300">
+              These stories show what NTA has built with real businesses—and what Rick has learned while building NTA's own Digital Growth Office. The goal is not to make oversized promises. It is to show the work, explain the thinking, and share what another business owner can learn from it.
+            </p>
+          </div>
+        </section>
 
-      {/* Filters */}
-      <section className="py-6 px-4 border-b border-slate-800 bg-slate-900/50">
-        <div className="max-w-6xl mx-auto flex flex-wrap gap-3 items-center">
-          <span className="text-slate-400 text-sm font-medium">Filter by:</span>
-          <select
-            value={filterService}
-            onChange={e => setFilterService(e.target.value)}
-            className="bg-slate-800 border border-slate-700 text-white text-sm rounded-lg px-3 py-2 focus:outline-none"
-          >
-            <option value="">All Services</option>
-            {Object.entries(SERVICE_LABELS).map(([v, l]) => (
-              <option key={v} value={v}>{l}</option>
-            ))}
-          </select>
-          <select
-            value={filterIndustry}
-            onChange={e => setFilterIndustry(e.target.value)}
-            className="bg-slate-800 border border-slate-700 text-white text-sm rounded-lg px-3 py-2 focus:outline-none"
-          >
-            <option value="">All Industries</option>
-            {industries.map(i => <option key={i} value={i}>{i}</option>)}
-          </select>
-          <select
-            value={filterCity}
-            onChange={e => setFilterCity(e.target.value)}
-            className="bg-slate-800 border border-slate-700 text-white text-sm rounded-lg px-3 py-2 focus:outline-none"
-          >
-            <option value="">All Cities</option>
-            {cities.map(c => <option key={c} value={c}>{c}</option>)}
-          </select>
-          {(filterService || filterIndustry || filterCity) && (
-            <button onClick={() => { setFilterService(''); setFilterIndustry(''); setFilterCity(''); }}
-              className="text-slate-400 hover:text-white text-sm underline">Clear filters</button>
-          )}
-          <span className="ml-auto text-slate-500 text-sm">{filtered.length} case {filtered.length === 1 ? 'study' : 'studies'}</span>
-        </div>
-      </section>
-
-      {/* Featured NTA case study */}
-      <section className="px-4 pt-12">
-        <div className="max-w-6xl mx-auto">
-          <Link
-            to="/case-studies/how-nta-became-a-digital-growth-office"
-            className="group block rounded-2xl border border-violet-500/30 bg-gradient-to-br from-violet-500/15 via-slate-900 to-cyan-500/10 p-7 sm:p-9 transition-all hover:border-violet-400/60 hover:shadow-xl hover:shadow-violet-500/10"
-          >
-            <div className="flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
-              <div className="max-w-3xl">
-                <span className="inline-block rounded-full border border-violet-500/30 bg-violet-500/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-violet-300">
-                  NTA Building-and-Discovery Case Study
-                </span>
-                <h2 className="mt-4 text-2xl font-bold text-white transition-colors group-hover:text-violet-200 sm:text-3xl">
-                  How NTA Became a Digital Growth Office
-                </h2>
-                <p className="mt-3 text-base leading-relaxed text-slate-300">
-                  How Rick Hesse organized more than 45 years of business, advertising, sales, and client-service experience into a connected system for education, discovery, and practical growth.
-                </p>
-              </div>
-              <span className="flex shrink-0 items-center gap-2 font-semibold text-violet-300">
-                Read the Case Study <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </span>
-            </div>
-          </Link>
-        </div>
-      </section>
-
-      {/* Grid */}
-      <section className="py-12 px-4">
-        <div className="max-w-6xl mx-auto">
-          {filtered.length === 0 ? (
-            <div className="text-center py-20 text-slate-500">
-              <TrendingUp className="w-12 h-12 mx-auto mb-4 opacity-30" />
-              <p className="text-lg">No case studies found. Check back soon.</p>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.map(cs => {
-                let metrics = [];
-                try { metrics = JSON.parse(cs.metrics || '[]'); } catch {}
-                return (
-                  <Link
-                    key={cs.id}
-                    to={`/case-study/${cs.slug}`}
-                    className="group bg-slate-900 border border-slate-800 hover:border-violet-500/50 rounded-2xl p-6 flex flex-col transition-all hover:shadow-xl hover:shadow-violet-500/10 hover:-translate-y-1"
-                  >
-                    {cs.featured && (
-                      <span className="self-start mb-3 text-xs font-bold bg-yellow-500/20 text-yellow-300 border border-yellow-500/30 px-2 py-0.5 rounded-full">⭐ Featured</span>
-                    )}
-                    <span className={`self-start text-xs font-semibold border px-2.5 py-1 rounded-full mb-4 ${SERVICE_COLORS[cs.service_used] || 'bg-slate-700 text-slate-300 border-slate-600'}`}>
-                      {SERVICE_LABELS[cs.service_used] || cs.service_used}
+        <section className="px-4 py-14 sm:py-20">
+          <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2">
+            {caseStudies.map(study => {
+              const Icon = study.icon;
+              return (
+                <Link
+                  key={study.href}
+                  to={study.href}
+                  className="group flex flex-col rounded-2xl border border-slate-800 bg-slate-900 p-6 transition hover:-translate-y-1 hover:border-violet-500/50 hover:shadow-xl hover:shadow-violet-500/10 sm:p-7"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <span className={`inline-flex rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wider ${accents[study.accent]}`}>
+                      {study.label}
                     </span>
-                    <h3 className="text-lg font-bold text-white group-hover:text-violet-300 transition-colors mb-2">{cs.business_name}</h3>
-                    <div className="flex items-center gap-3 text-slate-500 text-sm mb-3">
-                      <span className="flex items-center gap-1"><Briefcase className="w-3.5 h-3.5" />{cs.industry}</span>
-                      <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" />{cs.city}, {cs.state}</span>
-                    </div>
-                    {metrics.length > 0 && (
-                      <div className="grid grid-cols-2 gap-2 my-3">
-                        {metrics.slice(0, 4).map((m, i) => (
-                          <div key={i} className="bg-slate-800 rounded-lg p-2 text-center">
-                            <div className="text-white font-bold text-sm">{m.value}</div>
-                            <div className="text-slate-500 text-xs">{m.label}</div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                    <p className="text-slate-400 text-sm line-clamp-2 mt-auto mb-4">{cs.results}</p>
-                    <span className="text-violet-400 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
-                      Read Case Study <ArrowRight className="w-4 h-4" />
+                    <Icon className="h-6 w-6 shrink-0 text-slate-500 transition group-hover:text-violet-300" />
+                  </div>
+                  <h2 className="mt-5 text-2xl font-bold leading-snug text-white transition group-hover:text-violet-200">
+                    {study.title}
+                  </h2>
+                  <p className="mt-3 flex-1 leading-relaxed text-slate-400">{study.description}</p>
+                  <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+                    <span className="flex items-center gap-1.5 text-sm text-slate-500">
+                      <MapPin className="h-4 w-4" /> {study.location}
                     </span>
-                  </Link>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      </section>
+                    <span className="flex items-center gap-2 font-semibold text-violet-300">
+                      Read Case Study <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
 
-      {/* CTA */}
-      <section className="py-20 px-4 bg-slate-900 border-t border-slate-800">
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl font-extrabold text-white mb-3">Ready to Be the Next Success Story?</h2>
-          <p className="text-slate-400 mb-8">Join local businesses across the country growing with NTA's marketing system.</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to={createPageUrl('Book-Call')} className="bg-violet-600 hover:bg-violet-500 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-violet-600/20">
-              Book a Strategy Call
-            </Link>
-            <Link to={createPageUrl('Start')} className="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold px-8 py-4 rounded-xl transition-all">
-              Start Free Trial
+        <section className="border-t border-slate-800 bg-slate-900 px-4 py-16">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold">Your business will have its own story.</h2>
+            <p className="mt-4 leading-relaxed text-slate-300">
+              NTA starts by understanding the business, the owner, and what is already working. From there, we can decide what deserves attention first.
+            </p>
+            <Link
+              to="/growth-guide"
+              className="mt-7 inline-flex items-center gap-2 rounded-xl bg-violet-600 px-7 py-3.5 font-bold text-white transition hover:bg-violet-500"
+            >
+              Talk to My Office™ <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
       <SiteFooter />
     </div>
