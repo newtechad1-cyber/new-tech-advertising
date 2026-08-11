@@ -100,7 +100,7 @@ export const JOURNAL_CATEGORY_GUIDES = {
     collectionLabel: 'Turning What a Business Knows Into an Asset',
     collectionUrl: '/knowledge/turning-what-a-business-knows-into-an-asset',
     resources: [
-      { title: 'Your Business Knows More Than It Has Documented', url: '/knowledge/turning-what-a-business-knows-into-an-asset/your-business-knows-more-than-it-has-documented' }
+      { title: 'Your Business Knows More Than It Has Documented', url: '/knowledge/turning-what-a-business-knows-into-an-asset/your-business-knows-more-than-it-has-documented' },
       { title: 'Documenting a Process Makes Knowledge Repeatable', url: '/knowledge/turning-what-a-business-knows-into-an-asset/documenting-a-process-makes-knowledge-repeatable' },
       { title: 'AI Can Assist Judgment; It Cannot Own It', url: '/knowledge/ai-foundations/ai-can-assist-judgment-it-cannot-own-it' },
     ],
