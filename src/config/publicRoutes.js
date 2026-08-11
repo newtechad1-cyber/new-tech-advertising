@@ -104,6 +104,7 @@ import SocialMediaAlbertLeaMN from '@/pages/SocialMediaAlbertLeaMN';
 import SchoolTVDealRoom from '@/pages/SchoolTVDealRoom';
 import SchoolTVDemo from '@/pages/SchoolTVDemo';
 import SmallBusinessMarketingNorthIowa from '@/pages/SmallBusinessMarketingNorthIowa';
+import SmallBusinessesNationwide from '@/pages/SmallBusinessesNationwide';
 import TermsOfService from '@/pages/TermsOfService';
 import TheFutureBelongsToMarketLeaders from '@/pages/TheFutureBelongsToMarketLeaders';
 import TheHiddenCostOfOutdatedMarketing from '@/pages/TheHiddenCostOfOutdatedMarketing';
@@ -222,6 +223,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/hvac-marketing-north-iowa', HVACMarketingNorthIowa),
   alias('/contractor-marketing-north-iowa', ContractorMarketingNorthIowa),
   alias('/small-business-marketing-north-iowa', SmallBusinessMarketingNorthIowa),
+  alias('/small-businesses-nationwide', SmallBusinessesNationwide),
   alias('/social-media/mason-city-ia', SocialMediaMasonCity),
   alias('/social-media/rochester-mn', SocialMediaRochesterMN),
   alias('/social-media/austin-mn', SocialMediaAustinMN),
