@@ -109,8 +109,35 @@ export default function CaseStudiesPage() {
         </div>
       </section>
 
+      {/* Featured NTA case study */}
+      <section className="px-4 pt-12">
+        <div className="max-w-6xl mx-auto">
+          <Link
+            to="/case-studies/how-nta-became-a-digital-growth-office"
+            className="group block rounded-2xl border border-violet-500/30 bg-gradient-to-br from-violet-500/15 via-slate-900 to-cyan-500/10 p-7 sm:p-9 transition-all hover:border-violet-400/60 hover:shadow-xl hover:shadow-violet-500/10"
+          >
+            <div className="flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
+              <div className="max-w-3xl">
+                <span className="inline-block rounded-full border border-violet-500/30 bg-violet-500/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-violet-300">
+                  NTA Building-and-Discovery Case Study
+                </span>
+                <h2 className="mt-4 text-2xl font-bold text-white transition-colors group-hover:text-violet-200 sm:text-3xl">
+                  How NTA Became a Digital Growth Office
+                </h2>
+                <p className="mt-3 text-base leading-relaxed text-slate-300">
+                  How Rick Hesse organized more than 45 years of business, advertising, sales, and client-service experience into a connected system for education, discovery, and practical growth.
+                </p>
+              </div>
+              <span className="flex shrink-0 items-center gap-2 font-semibold text-violet-300">
+                Read the Case Study <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </span>
+            </div>
+          </Link>
+        </div>
+      </section>
+
       {/* Grid */}
-      <section className="py-16 px-4">
+      <section className="py-12 px-4">
         <div className="max-w-6xl mx-auto">
           {filtered.length === 0 ? (
             <div className="text-center py-20 text-slate-500">
