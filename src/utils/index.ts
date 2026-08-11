@@ -4,6 +4,12 @@
 export const ROUTES = {
   // Public
   home: '/',
+  tools: '/free-audit',
+  services: '/services',
+  blogPost: '/blogpost',
+  communityPartnerProgram: '/community-partner',
+  ourWork: '/our-work',
+  marketingPlanGenerator: '/marketing-plan-generator',
 
   // Admin
   adminDashboard: '/agency',
