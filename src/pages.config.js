@@ -156,6 +156,8 @@ import JournalIssueView from './pages/JournalIssueView';
 import __Layout from './Layout.jsx';
 
 export const PAGES = {
+  // The homepage is the public app's main route and must remain explicit.
+  "Home": Home,
   "signup": SignupPage,
   "About": About,
   "Ada-Compliance": adaCompliance,
