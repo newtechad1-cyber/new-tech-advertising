@@ -17,7 +17,7 @@ export default function SiteFooter() {
             style={{ height: '40px', width: 'auto', objectFit: 'contain', display: 'block' }}
             className="mb-3"
           />
-          <p className="text-sm leading-relaxed">Helping local businesses build stronger foundations, attract more customers, and grow with practical AI and proven business systems.</p>
+          <p className="text-sm leading-relaxed">Based in North Iowa, NTA works with businesses throughout North Iowa and southern Minnesota—including the growing Rochester market—while serving clients nationally.</p>
         </div>
 
         {/* Service Areas */}
@@ -31,15 +31,16 @@ export default function SiteFooter() {
           </ul>
         </div>
 
-        {/* Solutions */}
+        {/* How NTA Helps */}
         <div>
-          <p className="text-white font-semibold mb-3 text-sm">Solutions</p>
+          <p className="text-white font-semibold mb-3 text-sm">How NTA Helps</p>
           <ul className="space-y-2 text-sm">
-            <li><Link to="/" className="hover:text-white transition-colors">Main Site</Link></li>
-            <li><Link to="/local-lead-systems" className="hover:text-white transition-colors">Marketing Solutions</Link></li>
-            <li><Link to="/back-office-solutions" className="hover:text-white transition-colors">Back-Office Solutions</Link></li>
-            <li><Link to="/restaurants" className="hover:text-white transition-colors">Restaurant Solutions</Link></li>
-            <li><Link to="/Contact" className="hover:text-white transition-colors">Contact</Link></li>
+            <li><Link to="/operating-system" className="hover:text-white transition-colors">Digital Growth Office</Link></li>
+            <li><Link to="/services" className="hover:text-white transition-colors">Services Overview</Link></li>
+            <li><Link to="/services/website-rebuilds" className="hover:text-white transition-colors">Websites</Link></li>
+            <li><Link to="/services/social-media-management" className="hover:text-white transition-colors">Social Media</Link></li>
+            <li><Link to="/ai-video-marketing" className="hover:text-white transition-colors">Video</Link></li>
+            <li><Link to="/local-visibility" className="hover:text-white transition-colors">Local Visibility</Link></li>
           </ul>
         </div>
 
@@ -52,7 +53,7 @@ export default function SiteFooter() {
             <li><Link to="/journal" className="hover:text-white transition-colors">NTA Journal</Link></li>
             <li><Link to="/books" className="hover:text-white transition-colors">Free Business Books</Link></li>
             <li><a href="/Blog" className="hover:text-white transition-colors">All Articles</a></li>
-            <li><a href="/our-work" className="hover:text-white transition-colors">Our Work</a></li>
+            <li><Link to="/case-studies" className="hover:text-white transition-colors">Case Studies</Link></li>
             <li><a href="/rebuild-intake" className="hover:text-white transition-colors">Free Website Audit</a></li>
           </ul>
         </div>
@@ -65,6 +66,9 @@ export default function SiteFooter() {
             <li><a href="/HelpAndSupport" className="hover:text-white transition-colors">Help &amp; Support</a></li>
             <li><a href="/About" className="hover:text-white transition-colors">About NTA</a></li>
             <li><a href="/Contact" className="hover:text-white transition-colors">Contact Us</a></li>
+            <li><a href="https://calendar.app.google/p6ieYanvwhixXxZ67" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Book a Call</a></li>
+            <li><Link to="/find-your-plan" className="hover:text-white transition-colors">Pricing</Link></li>
+            <li><Link to="/join-nta" className="hover:text-white transition-colors">Join the Team</Link></li>
             <li><a href="tel:6414208816" className="hover:text-white transition-colors">641-420-8816</a></li>
             <li><a href="mailto:info@newtechadvertising.com" className="hover:text-white transition-colors">info@newtechadvertising.com</a></li>
           </ul>
