@@ -121,7 +121,7 @@ export const PAGE_KEY_PREFIX_RULES = [
 export const PUBLIC_PAGE_KEYS = new Set([
   'Home', 'HomePage', 'About', 'Services', 'Pricing', 'Contact', 'Blog',
   'BlogPost', 'Start', 'Free-Audit', 'GettingStarted', 'Get-Started',
-  'PrivacyPolicy', 'TermsOfService', 'SiteMap',
+  'PrivacyPolicy', 'TermsOfService',
   // Publications and primary public discovery
   'Books', 'BetterBusinessBook', 'PracticalAI', 'NtaJournal', 'JournalLanding',
   'JournalIssueView', 'GrowthShow', 'GrowthShowEpisode', 'GrowthGuide', 'NTAGrowthConversation',
@@ -163,8 +163,7 @@ export const PUBLIC_PAGE_KEYS = new Set([
   'SchoolTV', 'SchoolVideoDetail', 'SchoolYearbook',
   'SchoolYearbookCategory', 'SchoolYearbookGallery',
   'SchoolYearbookPage', 'SchoolYearbookSeason',
-  'SchoolStudentLogin', 'SchoolStudentDashboard',
-  'SchoolStudentProfile', 'SchoolStudentUploadNew', 'SchoolStudentUploads',
+  'SchoolStudentLogin',
   // BulldogTV public
   'BulldogTV', 'BulldogTVSpotlights', 'BulldogTVStories',
   'BulldogTVSubmissions', 'BulldogTVSubmit', 'BulldogTVVideos',
@@ -434,14 +433,19 @@ export function classifyRoute(pathname) {
  * @returns {'public'|'auth_required'|'client_only'|'ops_only'|'admin_only'|'noindex'}
  */
 export function classifyPageKey(pageKey) {
-  // 1. Check if explicitly public
-  if (PUBLIC_PAGE_KEYS.has(pageKey)) {
+  const normalizedKey = String(pageKey || '').toLowerCase();
+
+  // 1. Check if explicitly public, case-insensitively.
+  const publicKey = [...PUBLIC_PAGE_KEYS].find(
+    key => key.toLowerCase() === normalizedKey
+  );
+  if (publicKey) {
     return 'public';
   }
 
-  // 2. Check page key prefix rules
+  // 2. Check page key prefix rules, case-insensitively.
   for (const rule of PAGE_KEY_PREFIX_RULES) {
-    if (pageKey.startsWith(rule.prefix)) {
+    if (normalizedKey.startsWith(rule.prefix.toLowerCase())) {
       return rule.access;
     }
   }
