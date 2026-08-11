@@ -28,6 +28,7 @@ export default function SiteFooter() {
             <li><a href="/website-rebuilds/rochester-mn" className="hover:text-white transition-colors">Rochester, MN</a></li>
             <li><a href="/website-rebuilds/austin-mn" className="hover:text-white transition-colors">Austin, MN</a></li>
             <li><a href="/website-rebuilds/albert-lea-mn" className="hover:text-white transition-colors">Albert Lea, MN</a></li>
+            <li className="text-slate-300">Small Businesses Nationwide</li>
           </ul>
         </div>
 
