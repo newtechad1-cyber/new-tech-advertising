@@ -55,15 +55,15 @@ const serviceRanges = [
   },
   {
     icon: MonitorSmartphone,
-    title: 'Pilots, Websites & Larger Projects',
-    range: '$750–$1,500+ to begin',
-    description: 'A defined one-time project can establish the foundation, test the working relationship, or solve a specific need before ongoing work begins.',
+    title: 'Setup & Onboarding',
+    range: '$750–$1,500+ one time',
+    description: 'Most businesses need meaningful foundation work before the monthly relationship can run well. This one-time fee covers the initial setup, connections, and practical building work required to get started properly.',
     includes: [
-      '30-day pilot or focused campaign',
-      'Website planning, rebuilds, and new digital foundations',
-      'Video series, launch materials, or seasonal campaigns',
-      'Scope, timeline, and deliverables agreed in writing',
-      'Larger builds quoted separately before work begins',
+      'Website setup, focused rebuild work, or a new digital foundation when needed',
+      'Accounts, access, tracking, listings, and essential platform connections',
+      'Brand materials, content organization, and back-office setup',
+      'Initial priorities, responsibilities, and approval process',
+      'A written scope based on what is already in place and what must be built',
     ],
   },
 ];
@@ -141,7 +141,7 @@ export default function Pricing() {
               <p className="mb-3 text-sm font-bold uppercase tracking-widest text-blue-700">Typical working ranges</p>
               <h2 className="text-3xl font-extrabold md:text-4xl">Begin with one priority—or connect the whole system</h2>
               <p className="mt-4 text-lg leading-relaxed text-slate-600">
-                These ranges use a phased approach: start with a focused priority, connect more pieces when it is useful, and agree on the scope before work begins. Your written recommendation will explain the work and price clearly.
+                These ranges use a phased approach: complete the setup the business needs, begin with a focused monthly priority, and connect more pieces when they become useful. Your written recommendation will explain the one-time setup and ongoing work clearly.
               </p>
             </div>
 
@@ -171,7 +171,7 @@ export default function Pricing() {
             </div>
 
             <p className="mx-auto mt-8 max-w-3xl text-center text-sm leading-relaxed text-slate-500">
-              Advertising media, specialty software, travel, printing, and unusually large production needs are quoted separately when required. Nothing is added without discussion and approval.
+              Advertising media, specialty software, travel, printing, and unusually large production needs are separate when required. Website work is normally planned as part of the setup and ongoing relationship—not treated as the only thing a business keeps paying for. Nothing is added without discussion and approval.
             </p>
           </div>
         </section>
