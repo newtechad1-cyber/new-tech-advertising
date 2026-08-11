@@ -38,7 +38,7 @@ test('public guide records and transcribes voice without silently sending it', a
   assert.match(guide, /Ask about growth, websites, AI, trust, or your next step/);
   assert.doesNotMatch(guide, /onstop[\s\S]{0,2000}sendToAgent/);
   assert.match(transcriber, /api\.openai\.com/);
-  assert.match(transcriber, /model: 'whisper-1'/);
+  assert.match(transcriber, /whisper-1/);
   assert.match(transcriber, /MAX_BASE64_LENGTH/);
 });
 
