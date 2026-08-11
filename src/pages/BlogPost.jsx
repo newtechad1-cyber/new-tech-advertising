@@ -20,7 +20,11 @@ function estimateReadTime(content) {
 export default function BlogPost() {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
-  const slug = urlParams.get('slug');
+  const pathSegments = window.location.pathname.split('/').filter(Boolean);
+  const pathSlug = pathSegments[0]?.toLowerCase() === 'insights' && pathSegments[1]
+    ? decodeURIComponent(pathSegments[1])
+    : null;
+  const slug = urlParams.get('slug') || pathSlug;
 
   const { data: posts, isLoading } = useQuery({
     queryKey: ['blogPost', id, slug],
