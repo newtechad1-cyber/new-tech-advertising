@@ -8,6 +8,105 @@ export const JOURNAL_CATEGORIES = [
   'Industry Insights', 'Founder Reflections', 'Marketing Strategy', 'Leadership'
 ];
 
+export const JOURNAL_CATEGORY_GUIDES = {
+  'Building NTA': {
+    eyebrow: 'Start with the foundation',
+    title: 'How NTA is being built as a connected growth system',
+    description: 'Read the ideas behind NTA, the Digital Growth Office, and the practical business systems being built in public.',
+    collectionLabel: 'Business Foundations',
+    collectionUrl: '/knowledge/business-foundations',
+    resources: [
+      { title: 'Why NTA Exists', url: '/knowledge/business-foundations/why-nta-exists' },
+      { title: 'The NTA Operating System', url: '/knowledge/business-foundations/the-nta-operating-system' },
+      { title: 'Our Story', url: '/our-story' },
+    ],
+  },
+  'AI & Technology': {
+    eyebrow: 'Learn before adding another tool',
+    title: 'Practical AI for small-business owners',
+    description: 'Understand where AI can help, where human judgment still matters, and how to begin with the work instead of the technology.',
+    collectionLabel: 'AI Foundations',
+    collectionUrl: '/knowledge/ai-foundations',
+    resources: [
+      { title: 'Start With the Work, Not the Tool', url: '/knowledge/ai-foundations/start-with-the-work-not-the-tool' },
+      { title: 'AI Needs Context Before It Can Be Helpful', url: '/knowledge/ai-foundations/ai-needs-context-before-it-can-be-helpful' },
+      { title: 'Practical AI for Small Business', url: '/practical-ai-for-small-business' },
+    ],
+  },
+  'Business Growth': {
+    eyebrow: 'Build momentum that lasts',
+    title: 'Growth is a system, not a collection of campaigns',
+    description: 'Explore the lessons about sustainable growth, owned assets, patience, and the difference between activity and real momentum.',
+    collectionLabel: 'The Truth About Business Growth',
+    collectionUrl: '/knowledge/truth-about-business-growth',
+    resources: [
+      { title: 'Why Growth Is a System', url: '/knowledge/truth-about-business-growth/why-growth-is-a-system' },
+      { title: 'The Difference Between Activity and Momentum', url: '/knowledge/truth-about-business-growth/the-difference-between-activity-and-momentum' },
+      { title: 'The Three Pillars of Sustainable Growth', url: '/knowledge/truth-about-business-growth/the-three-pillars-of-sustainable-growth' },
+    ],
+  },
+  'Client Stories': {
+    eyebrow: 'See the ideas in practice',
+    title: 'Stories from businesses doing the work',
+    description: 'These case studies show how connected digital systems can support established local businesses over time.',
+    collectionLabel: 'Case Studies',
+    collectionUrl: '/case-studies',
+    resources: [
+      { title: 'Johnson Heating & AC', url: '/case-studies/johnson-heating' },
+      { title: 'Monson Plumbing', url: '/case-study/monson-plumbing' },
+      { title: "Papa Everett's Pizza", url: '/case-study/papa-everetts' },
+    ],
+  },
+  'Industry Insights': {
+    eyebrow: 'Understand the market around you',
+    title: 'What customers notice, trust, and remember',
+    description: 'Read the lessons about customer behavior, digital trust, and the signals that shape decisions before a sales conversation.',
+    collectionLabel: 'What Is Digital Trust?',
+    collectionUrl: '/knowledge/what-is-digital-trust',
+    resources: [
+      { title: 'The Elements of Digital Trust', url: '/knowledge/what-is-digital-trust/the-elements-of-digital-trust' },
+      { title: 'AI Is Changing How Customers Find Businesses', url: '/knowledge/what-is-digital-trust/ai-is-changing-how-customers-find-businesses' },
+      { title: 'How Customers Decide Who to Trust', url: '/knowledge/how-customers-decide-who-to-trust' },
+    ],
+  },
+  'Founder Reflections': {
+    eyebrow: 'The founder journey',
+    title: 'What Rick is learning while building NTA',
+    description: 'A plainspoken look at the experiences, decisions, and lessons shaping the work behind New Tech Advertising.',
+    collectionLabel: 'Business Foundations',
+    collectionUrl: '/knowledge/business-foundations',
+    resources: [
+      { title: 'Why NTA Exists', url: '/knowledge/business-foundations/why-nta-exists' },
+      { title: 'The Most Valuable Knowledge Lives in the Owner’s Head', url: '/knowledge/turning-what-a-business-knows-into-an-asset/the-most-valuable-knowledge-lives-in-the-owners-head' },
+      { title: 'Our Story', url: '/our-story' },
+    ],
+  },
+  'Marketing Strategy': {
+    eyebrow: 'Replace disconnected tactics with understanding',
+    title: 'Marketing that connects to the whole business',
+    description: 'Explore why clear communication, trust, owned digital assets, and customer relationships matter more than adding isolated tactics.',
+    collectionLabel: 'How Businesses Turn Trust Into Lasting Relationships',
+    collectionUrl: '/knowledge/how-businesses-turn-trust-into-lasting-relationships',
+    resources: [
+      { title: 'Marketing Is Not Magic', url: '/knowledge/business-foundations/marketing-is-not-magic' },
+      { title: 'Why Traditional Marketing Is No Longer Enough', url: '/knowledge/how-businesses-turn-trust-into-lasting-relationships/why-traditional-marketing-is-no-longer-enough' },
+      { title: 'The Value of Educational Content', url: '/knowledge/how-businesses-turn-trust-into-lasting-relationships/the-value-of-educational-content' },
+    ],
+  },
+  'Leadership': {
+    eyebrow: 'Make knowledge useful beyond one person',
+    title: 'Turn experience into something the business can use',
+    description: 'Learn how owners can preserve judgment, organize what they know, and build systems that support people without replacing leadership.',
+    collectionLabel: 'Turning What a Business Knows Into an Asset',
+    collectionUrl: '/knowledge/turning-what-a-business-knows-into-an-asset',
+    resources: [
+      { title: 'The Hidden Value of Your Expertise', url: '/knowledge/turning-what-a-business-knows-into-an-asset/the-hidden-value-of-your-expertise' },
+      { title: 'Documenting a Process Makes Knowledge Repeatable', url: '/knowledge/turning-what-a-business-knows-into-an-asset/documenting-a-process-makes-knowledge-repeatable' },
+      { title: 'AI Can Assist Judgment; It Cannot Own It', url: '/knowledge/ai-foundations/ai-can-assist-judgment-it-cannot-own-it' },
+    ],
+  },
+};
+
 export const CATEGORY_COLORS = {
   'Building NTA':         { bg: 'bg-blue-500/10',   text: 'text-blue-400',   border: 'border-blue-500/20' },
   'AI & Technology':      { bg: 'bg-purple-500/10', text: 'text-purple-400', border: 'border-purple-500/20' },
