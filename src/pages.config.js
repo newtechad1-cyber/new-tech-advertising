@@ -47,7 +47,7 @@ import WhyNTA from './pages/WhyNTA';
 import __Layout from './Layout.jsx';
 
 const PAGES = {
-  Home,
+  "Home": Home,
   signup: SignupPage,
   About,
   Services,
