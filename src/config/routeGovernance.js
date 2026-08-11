@@ -289,6 +289,7 @@ export const ROUTE_OVERRIDES = {
   '/hvac-marketing-north-iowa':  'public',
   '/contractor-marketing-north-iowa': 'public',
   '/small-business-marketing-north-iowa': 'public',
+  '/small-businesses-nationwide': 'public',
   '/services/website-rebuilds':  'public',
   '/services/social-media-management': 'public',
   '/social-media/mason-city-ia': 'public',
