@@ -15,7 +15,7 @@ import {
   Loader2, Eye
 } from 'lucide-react';
 import {
-  JOURNAL_CATEGORIES, CATEGORY_COLORS,
+  JOURNAL_CATEGORIES, CATEGORY_COLORS, JOURNAL_CATEGORY_GUIDES,
   formatShortDate, estimateReadTime
 } from '../components/journal/journalData';
 
@@ -123,6 +123,7 @@ export default function JournalLanding() {
 
   const latestIssue = issues[0];
   const olderIssues = filtered.slice(latestIssue && !searchQuery && !activeCategory ? 1 : 0);
+  const activeCategoryGuide = activeCategory ? JOURNAL_CATEGORY_GUIDES[activeCategory] : null;
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
@@ -206,19 +207,64 @@ export default function JournalLanding() {
             </button>
             {JOURNAL_CATEGORIES.map(cat => {
               const c = CATEGORY_COLORS[cat];
+              const issueCount = issues.filter(issue => issue.category === cat).length;
               return (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(activeCategory === cat ? null : cat)}
+                  aria-pressed={activeCategory === cat}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
                     activeCategory === cat ? `${c.bg} ${c.border} ${c.text}` : 'bg-slate-800/50 border-slate-700 text-slate-400 hover:text-white'
                   }`}
                 >
-                  {cat}
+                  {cat} <span className="ml-1 opacity-60">({issueCount})</span>
                 </button>
               );
             })}
           </div>
+          <p className="mt-3 text-xs text-slate-500">
+            Browse by topic. Existing lessons are available now, and future Journal issues will be added to these same topics.
+          </p>
+
+          {activeCategoryGuide && (
+            <section className="mb-10 rounded-2xl border border-indigo-500/20 bg-gradient-to-br from-indigo-500/10 via-slate-900/60 to-slate-900/30 p-6 md:p-8" aria-live="polite">
+              <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+                <div className="max-w-2xl">
+                  <p className="mb-2 text-xs font-bold uppercase tracking-wider text-indigo-400">{activeCategoryGuide.eyebrow}</p>
+                  <h2 className="mb-3 text-2xl font-black text-white">{activeCategoryGuide.title}</h2>
+                  <p className="text-sm leading-relaxed text-slate-400">{activeCategoryGuide.description}</p>
+                  <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    {olderIssues.length > 0 ? (
+                      <>{olderIssues.length} Journal issue{olderIssues.length === 1 ? '' : 's'} in this topic</>
+                    ) : 'No Journal issue in this topic yet'}
+                  </p>
+                </div>
+                <Link
+                  to={activeCategoryGuide.collectionUrl}
+                  className="inline-flex shrink-0 items-center justify-center rounded-xl border border-indigo-500/30 bg-indigo-500/10 px-4 py-3 text-sm font-bold text-indigo-300 transition-colors hover:bg-indigo-500/20"
+                >
+                  Explore {activeCategoryGuide.collectionLabel}
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </div>
+
+              <div className="mt-6 border-t border-slate-800/80 pt-5">
+                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-500">Related reading now</p>
+                <div className="grid gap-3 sm:grid-cols-3">
+                  {activeCategoryGuide.resources.map(resource => (
+                    <Link
+                      key={resource.url}
+                      to={resource.url}
+                      className="rounded-xl border border-slate-800 bg-slate-950/40 p-4 transition-colors hover:border-indigo-500/40 hover:bg-slate-950/70"
+                    >
+                      <span className="text-sm font-semibold leading-snug text-white">{resource.title}</span>
+                      <span className="mt-2 block text-xs font-bold text-indigo-400">Read now <ArrowRight className="ml-1 inline h-3 w-3" /></span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
 
           {loading ? (
             <div className="flex items-center justify-center py-20">
