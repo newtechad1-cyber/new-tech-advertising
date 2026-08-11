@@ -16,6 +16,8 @@ import AIHumanityCollection from '@/pages/AIHumanityCollection';
 import AIPolicy from '@/pages/AIPolicy';
 import AIVideoMarketing from '@/pages/AIVideoMarketing';
 import AccessibleWebsites from '@/pages/AccessibleWebsites';
+import CanonCollectionView from '@/pages/CanonCollectionView';
+import CanonExplorer from '@/pages/CanonExplorer';
 import BackOfficeSolutions from '@/pages/BackOfficeSolutions';
 import BetterBusinessBook from '@/pages/BetterBusinessBook';
 import Blog from '@/pages/Blog';
@@ -37,6 +39,7 @@ import CommunityPartnerProgram from '@/pages/CommunityPartnerProgram';
 import Contact from '@/pages/Contact';
 import ContractorMarketingNorthIowa from '@/pages/ContractorMarketingNorthIowa';
 import DigitalRisks from '@/pages/DigitalRisks';
+import DemoSchoolChannel from '@/pages/DemoSchoolChannel';
 import FreeAudit from '@/pages/Free-Audit';
 import GettingStarted from '@/pages/GettingStarted';
 import GrowthGuide from '@/pages/GrowthGuide';
@@ -60,7 +63,9 @@ import LCVideoDetail from '@/legacy-page-components/LCVideoDetail';
 import LCVideoLibrary from '@/legacy-page-components/LCVideoLibrary';
 import LearningCenter from '@/pages/LearningCenter';
 import LocalLeadSystems from '@/pages/LocalLeadSystems';
+import LocalVisibility from '@/pages/LocalVisibility';
 import NTAOperatingSystem from '@/pages/NTAOperatingSystem';
+import OnboardThankYou from '@/pages/OnboardThankYou';
 import NTABrandBook from '@/pages/NTABrandBook';
 import NTABusinessScore from '@/pages/NTABusinessScore';
 import NTAPlaybook from '@/pages/NTAPlaybook';
@@ -91,6 +96,8 @@ import SocialMediaMasonCity from '@/pages/SocialMediaMasonCity';
 import SocialMediaRochesterMN from '@/pages/SocialMediaRochesterMN';
 import SocialMediaAustinMN from '@/pages/SocialMediaAustinMN';
 import SocialMediaAlbertLeaMN from '@/pages/SocialMediaAlbertLeaMN';
+import SchoolTVDealRoom from '@/pages/SchoolTVDealRoom';
+import SchoolTVDemo from '@/pages/SchoolTVDemo';
 import SmallBusinessMarketingNorthIowa from '@/pages/SmallBusinessMarketingNorthIowa';
 import TermsOfService from '@/pages/TermsOfService';
 import TheFutureBelongsToMarketLeaders from '@/pages/TheFutureBelongsToMarketLeaders';
@@ -119,9 +126,12 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/contact', Contact),
   alias('/help-and-support', HelpAndSupport),
   alias('/operating-system', NTAOperatingSystem),
+  alias('/digital-growth-office-preview', NTAOperatingSystem),
   alias('/point-of-view', POVCollection),
   alias('/point-of-view/:slug', POVArticleView),
   alias('/knowledge', KnowledgeLibrary),
+  alias('/canon', CanonExplorer),
+  alias('/canon/collection/:slug', CanonCollectionView),
   alias('/knowledge/ai-foundations', AIFoundationsCollection),
   alias('/knowledge/business-foundations', BusinessFoundationsCollection),
   alias('/knowledge/truth-about-business-growth', TruthAboutBusinessGrowthCollection),
@@ -166,8 +176,10 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/privacy-policy', PrivacyPolicy),
   alias('/terms-of-service', TermsOfService),
   alias('/book-call', BookCall),
+  alias('/book-a-call', BookCall),
   alias('/channel-help', ChannelHelpCenter),
   alias('/getting-started', GettingStarted),
+  alias('/onboard/thank-you', OnboardThankYou),
   alias('/find-your-plan', Pricing),
   alias('/pricing', Pricing),
   alias('/gap-audit', FreeAudit),
@@ -185,6 +197,9 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/back-office', BackOfficeSolutions),
   alias('/back-office-solutions', BackOfficeSolutions),
   alias('/restaurants', RestaurantSolutions),
+  alias('/demo-school-channel', DemoSchoolChannel),
+  alias('/schooltv-deal-room', SchoolTVDealRoom),
+  alias('/schooltv-demo', SchoolTVDemo),
   alias('/restaurant-demo', RestaurantDemo),
   alias('/restaurant-demo/pizza', RestaurantDemoPizza),
   alias('/restaurant-demo/mexican', RestaurantDemoMexican),
@@ -214,6 +229,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/campaigns-vs-authority', CampaignsVsAuthority),
   alias('/the-future-belongs-to-market-leaders', TheFutureBelongsToMarketLeaders),
   alias('/accessible-websites', AccessibleWebsites),
+  alias('/local-visibility', LocalVisibility),
   alias('/web-accessibility-trust', WebAccessibilityTrust),
   alias('/websites-as-salespeople', WebsitesAsSalespeople),
   alias('/growth-guide', GrowthGuide),
