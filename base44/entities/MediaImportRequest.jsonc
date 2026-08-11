@@ -1,0 +1,118 @@
+{
+  "name": "MediaImportRequest",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "source_url": {
+      "type": "string"
+    },
+    "asset_type": {
+      "type": "string",
+      "enum": [
+        "image",
+        "video"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "used_for": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "social",
+          "video",
+          "blog",
+          "email",
+          "website"
+        ]
+      }
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "brand_name": {
+      "type": "string"
+    },
+    "metricool_brand_id": {
+      "type": "string"
+    },
+    "approved": {
+      "type": "boolean",
+      "default": false
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "awaiting_approval",
+        "queued",
+        "processing",
+        "ready",
+        "failed"
+      ],
+      "default": "awaiting_approval"
+    },
+    "media_asset_id": {
+      "type": "string"
+    },
+    "permanent_url": {
+      "type": "string"
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "processed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_system": {
+      "type": "string",
+      "default": "chatgpt"
+    }
+  },
+  "required": [
+    "name",
+    "source_url",
+    "asset_type",
+    "approved",
+    "status"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
