@@ -1,3 +1,4 @@
+// Public production entry point: the private app remains at app.newtechadvertising.com.
 import React, { useEffect } from 'react';
 import { Toaster } from '@/components/ui/toaster';
 import { QueryClientProvider } from '@tanstack/react-query';
