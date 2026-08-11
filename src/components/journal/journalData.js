@@ -17,7 +17,7 @@ export const JOURNAL_CATEGORY_GUIDES = {
     collectionUrl: '/knowledge/business-foundations',
     resources: [
       { title: 'Why NTA Exists', url: '/knowledge/business-foundations/why-nta-exists' },
-      { title: 'The NTA Operating System', url: '/knowledge/business-foundations/the-nta-operating-system' },
+      { title: 'How Businesses Really Grow', url: '/knowledge/business-foundations/how-businesses-really-grow' },
       { title: 'Our Story', url: '/our-story' },
     ],
   },
@@ -42,7 +42,7 @@ export const JOURNAL_CATEGORY_GUIDES = {
     resources: [
       { title: 'Why Growth Is a System', url: '/knowledge/truth-about-business-growth/why-growth-is-a-system' },
       { title: 'The Difference Between Activity and Momentum', url: '/knowledge/truth-about-business-growth/the-difference-between-activity-and-momentum' },
-      { title: 'The Three Pillars of Sustainable Growth', url: '/knowledge/truth-about-business-growth/the-three-pillars-of-sustainable-growth' },
+      { title: "Businesses Don't Need More Marketing", url: '/knowledge/truth-about-business-growth/businesses-dont-need-more-marketing-they-need-a-better-growth-system' },
     ],
   },
   'Client Stories': {
@@ -53,8 +53,8 @@ export const JOURNAL_CATEGORY_GUIDES = {
     collectionUrl: '/case-studies',
     resources: [
       { title: 'Johnson Heating & AC', url: '/case-studies/johnson-heating' },
-      { title: 'Monson Plumbing', url: '/case-study/monson-plumbing' },
-      { title: "Papa Everett's Pizza", url: '/case-study/papa-everetts' },
+      { title: 'Monson Plumbing', url: '/case-studies/monson-plumbing' },
+      { title: "Papa Everett's Pizza", url: '/case-studies/papa-everetts' },
     ],
   },
   'Industry Insights': {
@@ -64,7 +64,7 @@ export const JOURNAL_CATEGORY_GUIDES = {
     collectionLabel: 'What Is Digital Trust?',
     collectionUrl: '/knowledge/what-is-digital-trust',
     resources: [
-      { title: 'The Elements of Digital Trust', url: '/knowledge/what-is-digital-trust/the-elements-of-digital-trust' },
+      { title: 'Trust Begins Before the First Conversation', url: '/knowledge/how-customers-decide-who-to-trust/trust-begins-before-the-first-conversation' },
       { title: 'AI Is Changing How Customers Find Businesses', url: '/knowledge/what-is-digital-trust/ai-is-changing-how-customers-find-businesses' },
       { title: 'How Customers Decide Who to Trust', url: '/knowledge/how-customers-decide-who-to-trust' },
     ],
@@ -77,7 +77,7 @@ export const JOURNAL_CATEGORY_GUIDES = {
     collectionUrl: '/knowledge/business-foundations',
     resources: [
       { title: 'Why NTA Exists', url: '/knowledge/business-foundations/why-nta-exists' },
-      { title: 'The Most Valuable Knowledge Lives in the Owner’s Head', url: '/knowledge/turning-what-a-business-knows-into-an-asset/the-most-valuable-knowledge-lives-in-the-owners-head' },
+      { title: 'The Most Valuable Knowledge Usually Lives in the Owner’s Head', url: '/knowledge/turning-what-a-business-knows-into-an-asset/the-most-valuable-knowledge-usually-lives-in-the-owners-head' },
       { title: 'Our Story', url: '/our-story' },
     ],
   },
@@ -88,9 +88,9 @@ export const JOURNAL_CATEGORY_GUIDES = {
     collectionLabel: 'How Businesses Turn Trust Into Lasting Relationships',
     collectionUrl: '/knowledge/how-businesses-turn-trust-into-lasting-relationships',
     resources: [
-      { title: 'Marketing Is Not Magic', url: '/knowledge/business-foundations/marketing-is-not-magic' },
+      { title: "Marketing Isn't Magic", url: '/knowledge/business-foundations/marketing-isnt-magic' },
       { title: 'Why Traditional Marketing Is No Longer Enough', url: '/knowledge/how-businesses-turn-trust-into-lasting-relationships/why-traditional-marketing-is-no-longer-enough' },
-      { title: 'The Value of Educational Content', url: '/knowledge/how-businesses-turn-trust-into-lasting-relationships/the-value-of-educational-content' },
+      { title: 'Staying Connected Without Always Selling', url: '/knowledge/how-businesses-turn-trust-into-lasting-relationships/staying-connected-without-always-selling' },
     ],
   },
   'Leadership': {
@@ -100,7 +100,7 @@ export const JOURNAL_CATEGORY_GUIDES = {
     collectionLabel: 'Turning What a Business Knows Into an Asset',
     collectionUrl: '/knowledge/turning-what-a-business-knows-into-an-asset',
     resources: [
-      { title: 'The Hidden Value of Your Expertise', url: '/knowledge/turning-what-a-business-knows-into-an-asset/the-hidden-value-of-your-expertise' },
+      { title: 'Your Business Knows More Than It Has Documented', url: '/knowledge/turning-what-a-business-knows-into-an-asset/your-business-knows-more-than-it-has-documented' }
       { title: 'Documenting a Process Makes Knowledge Repeatable', url: '/knowledge/turning-what-a-business-knows-into-an-asset/documenting-a-process-makes-knowledge-repeatable' },
       { title: 'AI Can Assist Judgment; It Cannot Own It', url: '/knowledge/ai-foundations/ai-can-assist-judgment-it-cannot-own-it' },
     ],
