@@ -21,6 +21,7 @@ import CanonExplorer from '@/pages/CanonExplorer';
 import BackOfficeSolutions from '@/pages/BackOfficeSolutions';
 import BetterBusinessBook from '@/pages/BetterBusinessBook';
 import Blog from '@/pages/Blog';
+import BlogPost from '@/pages/BlogPost';
 import Books from '@/pages/Books';
 import BookCall from '@/pages/BookCall';
 import BusinessFoundationsCollection from '@/pages/BusinessFoundationsCollection';
@@ -47,6 +48,7 @@ import GrowthShow from '@/pages/GrowthShow';
 import GrowthShowEpisode from '@/pages/GrowthShowEpisode';
 import GrowthSystemsVsCampaigns from '@/pages/GrowthSystemsVsCampaigns';
 import HelpAndSupport from '@/pages/HelpAndSupport';
+import Home from '@/pages/Home';
 import HVACMarketingNorthIowa from '@/pages/HVACMarketingNorthIowa';
 import HowBusinessesTurnTrustIntoLastingRelationshipsCollection from '@/pages/HowBusinessesTurnTrustIntoLastingRelationshipsCollection';
 import HowCustomersDecideWhoToTrustCollection from '@/pages/HowCustomersDecideWhoToTrustCollection';
@@ -63,6 +65,7 @@ import LCVideoDetail from '@/legacy-page-components/LCVideoDetail';
 import LCVideoLibrary from '@/legacy-page-components/LCVideoLibrary';
 import LearningCenter from '@/pages/LearningCenter';
 import LocalLeadSystems from '@/pages/LocalLeadSystems';
+import MarketingPlanGenerator from '@/legacy-page-components/MarketingPlanGenerator';
 import LocalVisibility from '@/pages/LocalVisibility';
 import NTAOperatingSystem from '@/pages/NTAOperatingSystem';
 import OnboardThankYou from '@/pages/OnboardThankYou';
@@ -89,6 +92,7 @@ import ReputationIsNowAGrowthEngine from '@/pages/ReputationIsNowAGrowthEngine';
 import RebuildIntake from '@/pages/RebuildIntake';
 import SalesConversations from '@/pages/SalesConversations';
 import SeasonalCampaigns from '@/pages/SeasonalCampaigns';
+import Services from '@/pages/Services';
 import SEOPageForLocalBusinesses from '@/pages/SEOPagesForLocalBusinesses';
 import SocialMediaContentSystem from '@/pages/SocialMediaContentSystem';
 import SocialMediaManagement from '@/pages/SocialMediaManagement';
@@ -122,7 +126,10 @@ const alias = (path, Page) => ({ path, Page });
 
 export const PUBLIC_ROUTE_ALIASES = [
   // Main navigation and footer destinations
+  alias('/home', Home),
   alias('/about', About),
+  alias('/insights', Blog),
+  alias('/insights/:slug', BlogPost),
   alias('/contact', Contact),
   alias('/help-and-support', HelpAndSupport),
   alias('/operating-system', NTAOperatingSystem),
@@ -166,11 +173,13 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/i-was-early-again', IWasEarlyAgain),
   alias('/brand-book', NTABrandBook),
   alias('/community-partner', CommunityPartnerProgram),
+  alias('/communitypartnerprogram', CommunityPartnerProgram),
   alias('/community-growth-conversation', CommunityGrowthConversation),
   alias('/community-growth-advisor', CommunityGrowthAdvisor),
   alias('/community-intelligence', CommunityIntelligence),
   alias('/our-story', OurStory),
   alias('/our-work', OurWork),
+  alias('/ourwork', OurWork),
   alias('/ai-policy', AIPolicy),
   alias('/aipolicy', AIPolicy),
   alias('/privacy-policy', PrivacyPolicy),
@@ -184,11 +193,14 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/pricing', Pricing),
   alias('/gap-audit', FreeAudit),
   alias('/free-audit', FreeAudit),
+  alias('/tools', FreeAudit),
   alias('/join-nta', JoinNTA),
   alias('/rebuild-intake', RebuildIntake),
 
   // Public solution and service destinations
+  alias('/services', Services),
   alias('/local-lead-systems', LocalLeadSystems),
+  alias('/marketing-plan-generator', MarketingPlanGenerator),
   alias('/services/website-rebuilds', WebsiteRebuildService),
   alias('/website-rebuilds', WebsiteRebuildService),
   alias('/services/social-media-management', SocialMediaManagement),
@@ -251,4 +263,5 @@ export const PUBLIC_ROUTE_ALIASES = [
 
   // Legacy / case-insensitive-friendly paths
   alias('/blog', Blog),
+  alias('/blogpost', BlogPost),
 ];
