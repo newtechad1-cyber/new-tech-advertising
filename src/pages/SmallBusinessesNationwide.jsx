@@ -45,6 +45,7 @@ export default function SmallBusinessesNationwide() {
       <SEOHead
         title="Digital Growth Help for Small Businesses Nationwide | NTA"
         description="New Tech Advertising helps small businesses nationwide understand and build connected websites, content, visibility, and digital growth systems."
+        canonical="/small-businesses-nationwide"
       />
 
       <MarketingNav />
