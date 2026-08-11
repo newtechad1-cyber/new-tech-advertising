@@ -302,12 +302,12 @@ export default function JournalLanding() {
               Learn More & Subscribe <ArrowRight className="h-5 w-5" />
             </Link>
             <div className="mt-5 flex items-center justify-center">
-              <a
-                href="/rss"
+              <Link
+                to="/journal"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-slate-400 transition-colors hover:text-white"
               >
-                <Rss className="w-4 h-4 text-orange-400" /> RSS
-              </a>
+                <Rss className="w-4 h-4 text-orange-400" /> Browse the Journal
+              </Link>
             </div>
           </div>
         </section>
