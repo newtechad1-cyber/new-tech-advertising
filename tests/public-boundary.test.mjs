@@ -37,6 +37,6 @@ test('public compatibility aliases cover legacy links without exposing private p
 
 test('the public Journal page does not advertise an unimplemented RSS endpoint', async () => {
   const journal = await read('src/pages/JournalLanding.jsx');
-  assert.doesNotMatch(journal, /href=["']\\/rss["']/);
-  assert.match(journal, /to=["']\\/journal["']/);
+  assert.ok(!journal.includes('href="/rss"') && !journal.includes("href='/rss'"));
+  assert.ok(journal.includes('to="/journal"') || journal.includes("to='/journal'"));
 });
