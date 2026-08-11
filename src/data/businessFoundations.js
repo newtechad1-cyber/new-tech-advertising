@@ -1,3 +1,5 @@
+import { frontBackOfficeLesson } from './frontBackOfficeLesson';
+
 export const businessFoundationsLessons = [
   {
     id: 1,
@@ -1558,6 +1560,7 @@ In the next collection, we'll begin exploring how artificial intelligence fits i
     relatedModules: [
       { label: "Relationship Builder", link: "/relationship-builder" }
     ],
-    nextLessonSlug: null
-  }
+    nextLessonSlug: "what-building-my-own-digital-growth-office-taught-me"
+  },
+  frontBackOfficeLesson
 ];
