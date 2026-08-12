@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, CheckCircle2, Clock3, Monitor, Store, Workflow, Wrench } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2, Clock3, Monitor, Workflow, Wrench } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
@@ -13,9 +13,9 @@ const workAreas = [
     description: 'NTA has been updating the Monson website to better explain the company’s plumbing, heating, and excavating work and to reflect current business direction.',
   },
   {
-    icon: Store,
-    title: 'Brothers Ace relationship development',
-    description: 'NTA has developed signs, brand concepts, and supporting materials for a working relationship in which Brothers Ace displays relevant products and Monson provides installation and service.',
+    icon: Clock3,
+    title: 'Practical adoption and training',
+    description: 'Jay likes the back-office idea and wants to use it, but his workload has made it difficult to set aside time to learn a system that still feels unfamiliar. NTA is working to make adoption simpler and more comfortable.',
   },
   {
     icon: Wrench,
@@ -65,7 +65,7 @@ export default function CaseStudyMonsonPlumbing() {
               The challenge was not to manufacture a new story for Monson. It was to organize a real business with several service lines, existing local relationships, field employees, equipment, and a growing set of opportunities.
             </p>
             <p>
-              That requires more than putting up a website. The public message, current services, photographs, logos, partnership materials, and future operating tools all need to agree—and the work has to remain practical for the people using it.
+              That requires more than putting up a website. The public message, current services, photographs, logos, and future operating tools all need to agree—and the work has to remain practical for the people using it.
             </p>
 
             <h2>What NTA is building with Monson</h2>
@@ -89,10 +89,10 @@ export default function CaseStudyMonsonPlumbing() {
             {[
               'The updated website is live and is already bringing Monson new business, according to Jay Monson.',
               'Google Business Profile setup remains unresolved after repeated attempts to complete Google’s verification process.',
-              'New photography and business assets have been organized so Randy Mitchell, Sawyer Mishak, and their roles are represented accurately.',
-              'Partnership sign concepts have been developed with equal, respectful billing for Monson and Brothers Ace.',
+              'Current photography and business assets have been organized to represent Monson’s real people, equipment, and work accurately.',
               'The exact Monson pipe-and-droplet symbol is the approved brand reference; substitutes or redrawn versions should not be used.',
-              'Partnership landing-page, water-treatment, video, tracking, analytics, and back-office work remain in development.',
+              'Video, tracking, analytics, and back-office work remain in development.',
+              'Jay wants to use the new back office, but training and regular adoption have not happened yet because his workload makes it difficult to set aside the necessary time.',
             ].map(item => (
               <div key={item} className="flex items-start gap-3 bg-slate-900/60 border border-slate-800 p-4 rounded-lg">
                 <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
@@ -117,14 +117,14 @@ export default function CaseStudyMonsonPlumbing() {
           <div className="bg-amber-500/10 border border-amber-400/30 rounded-xl p-6 my-10">
             <div className="flex items-center gap-2 text-amber-300 font-semibold mb-2"><Clock3 className="w-5 h-5" /> Why this is labeled “in development”</div>
             <p className="text-slate-300 leading-relaxed">
-              The Google Business Profile still needs to be approved, and final partnership wording and specific product or service claims still require confirmation from Jay Monson and Sawyer Mishak. NTA is not claiming verified rankings or assigning an exact number of leads to the website. The supported result is Jay’s report that the website is bringing him business and that the company is busier than it has been since restarting.
+              The Google Business Profile still needs to be approved, and the back office has not yet become part of Jay’s regular workflow. NTA is not claiming verified rankings or assigning an exact number of leads to the website. The supported result is Jay’s report that the website is bringing him business and that the company is busier than it has been since restarting.
             </p>
           </div>
 
           <article className="prose prose-invert prose-lg max-w-none">
             <h2>The lesson so far</h2>
             <p>
-              A useful digital system can begin creating value before every piece is finished. For Monson, the website is already helping generate business while the Google profile, retail relationship, tracking, content, and back-office ideas continue to develop. The lesson is not to wait for a perfect system before helping the business—it is to build the right foundation in a practical order, learn from real use, and keep improving it around the way Jay works.
+              A useful digital system can begin creating value before every piece is finished. For Monson, the website is already helping generate business while the Google profile, tracking, content, and back-office work continue to develop. Jay wants the back-office capability, but a new system can still feel unfamiliar or intimidating when an owner is already busy doing the work. The next step is not to pressure him—it is to make the learning process simpler, work around his available time, and help the system become useful in the way he actually runs the business.
             </p>
           </article>
 
