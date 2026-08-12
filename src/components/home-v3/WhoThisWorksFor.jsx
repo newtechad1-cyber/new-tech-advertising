@@ -16,12 +16,6 @@ const clients = [
     bg: 'bg-white',
   },
   {
-    name: "Papa Everett's Pizza",
-    logo: 'https://media.base44.com/images/public/691f41a18de4a7f498c8f884/da2bd4a73_Pappa-Everette-pizza.jpg',
-    url: 'https://pizzaclearlake.com/',
-    bg: 'bg-white',
-  },
-  {
     name: 'Club Fitness – Fort Dodge',
     logo: 'https://media.base44.com/images/public/691f41a18de4a7f498c8f884/b5b9fadcd_306090828_501907041940322_3593526891402694754_n.jpg',
     url: 'https://clubfitnessfd.com/',
@@ -39,11 +33,6 @@ const testimonials = [
     name: 'Tony Johnson',
     business: 'Johnson Heating & AC',
     quote: "Rick helped us modernize the way our business looks online and made the whole process simple. We've already had customers mention seeing our videos and online content before calling us. Everything feels practical and built around getting real leads.",
-  },
-  {
-    name: 'Sandra Marks',
-    business: "Papa Everett's Pizza",
-    quote: "Rick brought a lot of fresh ideas to our marketing and helped us think beyond just posting on Facebook once in a while. The content, visuals, and promotions feel much more professional and engaging now.",
   },
 ];
 
