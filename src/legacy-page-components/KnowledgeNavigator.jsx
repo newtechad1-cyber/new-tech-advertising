@@ -104,7 +104,6 @@ const STATIC_ASSETS = [
   // Hardcoded Case Studies
   { type: 'HardcodedPage', id: 'case-study-johnson-heating', title: 'Johnson Heating Case Study', domain: 'sales_intelligence', tags: 'hvac,case-study,johnson' },
   { type: 'HardcodedPage', id: 'case-study-monson-plumbing', title: 'Monson Plumbing Case Study', domain: 'sales_intelligence', tags: 'plumbing,case-study,monson' },
-  { type: 'HardcodedPage', id: 'case-study-papa-everetts', title: "Papa Everett's Case Study", domain: 'sales_intelligence', tags: 'restaurant,case-study,papa-everetts' },
 
   // Discovery Tools
   { type: 'DiscoveryTool', id: 'business-growth-conversation', title: 'Business Growth Conversation™', domain: 'sales_intelligence', tags: 'discovery,lead-gen' },
