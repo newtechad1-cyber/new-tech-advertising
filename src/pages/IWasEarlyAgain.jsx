@@ -228,7 +228,7 @@ export default function IWasEarlyAgain() {
           <div className="not-prose mt-16">
             <TrackBottomNav 
               prevLink="/case-study/papa-everetts"
-              prevText="← Previous: Papa Everett's Case Study"
+              prevText="← Previous: Monson Plumbing Case Study"
               nextLink="/video-storytelling-builds-confidence"
               nextText="Next: Video Storytelling Builds Confidence →"
               color="purple"
