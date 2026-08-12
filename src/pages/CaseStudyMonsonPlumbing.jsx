@@ -36,7 +36,7 @@ export default function CaseStudyMonsonPlumbing() {
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
       <SEOHead
         title="Monson Plumbing | Building a Connected Digital Presence | NTA"
-        description="How NTA is helping Monson Plumbing, Heating & Excavating connect its website, branding, partnership materials, and practical back-office ideas."
+        description="How Monson Plumbing’s new website began bringing in business even while its Google Business Profile setup remained unresolved."
       />
       <MarketingNav />
       <div className="flex-grow pt-24 pb-12">
@@ -50,12 +50,12 @@ export default function CaseStudyMonsonPlumbing() {
           </div>
 
           <header className="mb-12">
-            <span className="text-cyan-400 font-bold uppercase tracking-wider text-sm">Client Work in Development</span>
+            <span className="text-cyan-400 font-bold uppercase tracking-wider text-sm">Early Results · Work Still in Development</span>
             <h1 className="text-4xl md:text-5xl font-black text-white mt-3 mb-5 leading-tight">
-              Monson Plumbing — Bringing the Real Business Into One Connected System
+              Monson Plumbing — A Website Producing Business Before the Full Setup Is Finished
             </h1>
             <p className="text-xl text-slate-400 leading-relaxed">
-              Monson Plumbing, Heating & Excavating is an established Mason City trades business. NTA’s work has focused on making its website, brand, developing retail relationship, and future back-office tools reflect how Jay Monson’s business actually operates.
+              Monson Plumbing, Heating & Excavating is a Mason City trades business rebuilding its momentum. The complete digital foundation is not finished, but Jay Monson says the new website is already bringing him business—and he credits NTA’s work with helping make the business busier than it has been since he restarted it.
             </p>
           </header>
 
@@ -87,7 +87,8 @@ export default function CaseStudyMonsonPlumbing() {
 
           <div className="space-y-3 my-8">
             {[
-              'Website revisions have been approved and merged; live deployment still needs to be checked against the intended changes.',
+              'The updated website is live and is already bringing Monson new business, according to Jay Monson.',
+              'Google Business Profile setup remains unresolved after repeated attempts to complete Google’s verification process.',
               'New photography and business assets have been organized so Randy Mitchell, Sawyer Mishak, and their roles are represented accurately.',
               'Partnership sign concepts have been developed with equal, respectful billing for Monson and Brothers Ace.',
               'The exact Monson pipe-and-droplet symbol is the approved brand reference; substitutes or redrawn versions should not be used.',
@@ -100,17 +101,30 @@ export default function CaseStudyMonsonPlumbing() {
             ))}
           </div>
 
+          <article className="prose prose-invert prose-lg max-w-none">
+            <h2>Early evidence before the full foundation is complete</h2>
+            <p>
+              The most important result so far is straightforward: Jay says the website is bringing him business. He reports that Monson is busier than it has been since he restarted the company, and he credits NTA’s work with helping create that momentum.
+            </p>
+            <p>
+              That result is especially meaningful because one major part of the local-visibility setup is still missing. NTA and Jay have tried repeatedly to complete the Google Business Profile process using Google’s instructions, but the profile has not yet been approved. The website is producing value even without the full Google setup, additional tracking, or the planned connected back-office system in place.
+            </p>
+            <p>
+              This is Jay’s account of what is happening in his business, not a claim that every new job can be traced to one website metric. It is credible early evidence that a clearer, more useful digital presence is already helping.
+            </p>
+          </article>
+
           <div className="bg-amber-500/10 border border-amber-400/30 rounded-xl p-6 my-10">
             <div className="flex items-center gap-2 text-amber-300 font-semibold mb-2"><Clock3 className="w-5 h-5" /> Why this is labeled “in development”</div>
             <p className="text-slate-300 leading-relaxed">
-              Final public partnership wording and specific product or service claims still require confirmation from Jay Monson and Sawyer Mishak. NTA is not presenting Monson as “dominant online,” claiming verified search rankings, or claiming lead results that have not been documented.
+              The Google Business Profile still needs to be approved, and final partnership wording and specific product or service claims still require confirmation from Jay Monson and Sawyer Mishak. NTA is not claiming verified rankings or assigning an exact number of leads to the website. The supported result is Jay’s report that the website is bringing him business and that the company is busier than it has been since restarting.
             </p>
           </div>
 
           <article className="prose prose-invert prose-lg max-w-none">
             <h2>The lesson so far</h2>
             <p>
-              A useful digital system begins with the real business. For Monson, that means the website, field identity, retail relationship, content, and back-office ideas should reinforce one another. The technology matters, but the collaboration—listening to how Jay works and building around it—is the more important part.
+              A useful digital system can begin creating value before every piece is finished. For Monson, the website is already helping generate business while the Google profile, retail relationship, tracking, content, and back-office ideas continue to develop. The lesson is not to wait for a perfect system before helping the business—it is to build the right foundation in a practical order, learn from real use, and keep improving it around the way Jay works.
             </p>
           </article>
 
