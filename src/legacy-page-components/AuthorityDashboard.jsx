@@ -79,7 +79,6 @@ const SITEMAP_PAGES = [
   // Case studies
   { url: '/case-studies/johnson-heating', title: 'Johnson Heating Case Study', type: 'case_study', cluster: 'industry-hvac' },
   { url: '/case-study/monson-plumbing', title: 'Monson Plumbing Case Study', type: 'case_study', cluster: 'industry-plumbing' },
-  { url: '/case-study/papa-everetts', title: "Papa Everett's Case Study", type: 'case_study', cluster: null },
   // Discovery tools
   { url: '/growth-conversation', title: 'Growth Conversation', type: 'tool', cluster: 'small-business-growth' },
   { url: '/business-score', title: 'Business Score', type: 'tool', cluster: 'small-business-growth' },
