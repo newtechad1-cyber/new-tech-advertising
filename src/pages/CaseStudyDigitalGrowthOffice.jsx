@@ -54,7 +54,7 @@ export default function CaseStudyDigitalGrowthOffice() {
             </Link>
             <div className="mb-5 flex flex-wrap items-center gap-3">
               <span className="rounded-full border border-violet-500/30 bg-violet-500/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-violet-300">
-                Building-and-Discovery Case Study
+                NTA's Own Case Study
               </span>
               <span className="flex items-center gap-1.5 text-sm text-slate-400">
                 <MapPin className="h-4 w-4" /> Mason City, Iowa
@@ -132,11 +132,12 @@ export default function CaseStudyDigitalGrowthOffice() {
               </div>
             </section>
 
-            <Section title="What Has Been Proven—and What Has Not">
-              <p className="font-semibold text-white">This is currently a building-and-discovery case study, not a performance case study.</p>
-              <p>The work has established the structure, clarified NTA’s point of view, organized a growing body of knowledge, and created a connected path from public education to private client work.</p>
-              <p>What has not yet been proven is the full market result. Visitor behavior, Growth Guide conversations, organic search visibility, qualified leads, client adoption, and measurable business outcomes still need to be observed over time.</p>
-              <p>That evidence will become the next chapter. I would rather say clearly what has been built and what remains to be measured than turn an unfinished story into a marketing claim.</p>
+            <Section title="Why I Proved It Before I Sold It">
+              <p className="font-semibold text-white">I have learned not to sell a system and hope it works later. I wanted to build this one, use it, and prove the setup to myself before asking another business owner to trust it.</p>
+              <p>That is what I have done. The Digital Growth Office is working. I know how to operate it, and I am already using parts of the system to fulfill real client services—from websites and visibility work to content, reporting, organization, and connected back-office support.</p>
+              <p>I am no longer asking whether the setup works. I have proven that it does, and I know enough about working with AI to use it responsibly alongside my own experience and judgment for clients. NTA is ready for business.</p>
+              <p>That does not mean every client will need the same tools or receive the same result. Discovery still comes first, and each relationship has to fit the owner, the business, and the work. It means the foundation is no longer theoretical: it has been built, tested, refined, and put to use.</p>
+              <p className="font-semibold text-white">My principle is simple: prove it first, then sell it. I do not want another owner paying to become the test case for something I have not learned how to deliver.</p>
             </Section>
 
             <Section title="Why This Matters for Other Business Owners">
@@ -153,7 +154,7 @@ export default function CaseStudyDigitalGrowthOffice() {
               </div>
               <p className="text-xl leading-relaxed text-slate-100">A business does not need more disconnected tools. It needs a clearer understanding of what it knows, whom it serves, how it creates trust, and what it is trying to become.</p>
               <p className="mt-5 text-xl leading-relaxed text-slate-100">The website should make that understanding visible. Your Digital Growth Guide™ should help people explore it. The private office should help the business act on it. AI should support the owner’s experience and judgment, not erase them.</p>
-              <p className="mt-5 text-xl font-semibold leading-relaxed text-white">That is what New Tech Advertising is building: a Digital Growth Office where experience becomes knowledge, knowledge becomes guidance, and guidance becomes practical growth.</p>
+              <p className="mt-5 text-xl font-semibold leading-relaxed text-white">That is what New Tech Advertising has built: a working Digital Growth Office where experience becomes knowledge, knowledge becomes guidance, and guidance becomes practical growth.</p>
             </section>
           </article>
 
