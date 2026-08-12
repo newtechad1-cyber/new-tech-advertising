@@ -25,15 +25,6 @@ const caseStudies = [
     accent: 'cyan',
   },
   {
-    title: "Papa Everett's Pizza — Competing with the Big Chains",
-    description: 'How a local restaurant used its authenticity, community connection, web presence, video, and social content to stand apart from national competitors.',
-    href: '/case-studies/papa-everetts',
-    label: 'Restaurant Marketing',
-    location: 'North Iowa',
-    icon: Building2,
-    accent: 'orange',
-  },
-  {
     title: 'How NTA Became a Digital Growth Office',
     description: 'How Rick Hesse organized more than 45 years of business, advertising, sales, and client-service experience into a connected system for education, discovery, and practical growth.',
     href: '/case-studies/how-nta-became-a-digital-growth-office',
