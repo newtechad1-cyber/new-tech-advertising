@@ -26,6 +26,10 @@ const lessons = [
     title: 'The website is never really finished.',
     body: 'Customer questions create new lessons. Client work produces new evidence. Search behavior changes. AI discovery changes. The system has to keep learning without losing the principles that hold it together.',
   },
+  {
+    title: 'A case study should help an owner understand the work.',
+    body: 'The purpose is not to overwhelm people with technical detail. A useful case study explains the real situation, what was done, what changed, what remains unfinished, and what another business owner can learn from the experience.',
+  },
 ];
 
 function Section({ title, children }) {
@@ -93,7 +97,7 @@ export default function CaseStudyDigitalGrowthOffice() {
             </Section>
 
             <Section title="From a Website to a Connected System">
-              <p>The Knowledge Library became the organized body of lessons and principles behind the business. The NTA Journal created a way to publish timely teaching and observations. The Growth Show added a conversational video format. Case studies could show what happened, what was learned, and how the lesson might help another owner.</p>
+              <p>The Knowledge Library became the organized body of lessons and principles behind the business. The NTA Journal created a way to publish timely teaching and observations. The Growth Show added a conversational video format. Case studies could show what happened, what was learned, and how the lesson might help another owner—without turning real client work into a long, technical document few owners have time to read.</p>
               <p>Your Digital Growth Guide™ created a different kind of entry point. Instead of forcing a visitor to understand NTA’s services first, it could begin with the visitor’s questions, help clarify the situation, and guide the person toward useful information or a practical next step.</p>
               <p>The Growth Roadmap gave discovery an outcome: not a generic sales pitch, but a clear summary of what the owner wants, what may be getting in the way, and which realistic path deserves attention first.</p>
               <p>Behind the public experience, the private Digital Growth Office could organize conversations, files, approvals, tasks, content, and follow-up. The public side would help people find, understand, and trust the business. The private side would help NTA and the client deliver the work.</p>
