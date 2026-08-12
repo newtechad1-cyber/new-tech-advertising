@@ -147,7 +147,6 @@ export default function RickAdminCenter() {
                   {[
                     { client: "Johnson Heating", action: "Updated Business Score", time: "2 hours ago", status: "Score: 72" },
                     { client: "Monson Plumbing", action: "Completed AI Module", time: "4 hours ago", status: "Module: Local SEO" },
-                    { client: "Papa Everett's", action: "Requested Support", time: "5 hours ago", status: "Urgent" },
                     { client: "North Iowa Roofing", action: "Generated Growth Roadmap", time: "1 day ago", status: "Ready for Review" }
                   ].map((item, idx) => (
                     <div key={idx} className="flex items-center justify-between p-4 bg-slate-950/50 border border-slate-800 rounded-xl hover:border-slate-700 transition-colors cursor-pointer group">
