@@ -31,7 +31,6 @@ import CaseStudies from '@/pages/CaseStudies';
 import CaseStudyDetail from '@/pages/CaseStudyDetail';
 import CaseStudyJohnsonHeating from '@/pages/CaseStudyJohnsonHeating';
 import CaseStudyMonsonPlumbing from '@/pages/CaseStudyMonsonPlumbing';
-import CaseStudyPapaEveretts from '@/pages/CaseStudyPapaEveretts';
 import CaseStudyDigitalGrowthOffice from '@/pages/CaseStudyDigitalGrowthOffice';
 import ChannelHelpCenter from '@/pages/ChannelHelpCenter';
 import CommunityGrowthAdvisor from '@/pages/CommunityGrowthAdvisor';
@@ -258,12 +257,10 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/case-studies', CaseStudies),
   alias('/case-studies/johnson-heating', CaseStudyJohnsonHeating),
   alias('/case-studies/monson-plumbing', CaseStudyMonsonPlumbing),
-  alias('/case-studies/papa-everetts', CaseStudyPapaEveretts),
   alias('/case-studies/how-nta-became-a-digital-growth-office', CaseStudyDigitalGrowthOffice),
   alias('/case-studies/:slug', CaseStudyDetail),
   alias('/case-study/johnson-heating', CaseStudyJohnsonHeating),
   alias('/case-study/monson-plumbing', CaseStudyMonsonPlumbing),
-  alias('/case-study/papa-everetts', CaseStudyPapaEveretts),
 
   // Legacy / case-insensitive-friendly paths
   alias('/blog', Blog),
