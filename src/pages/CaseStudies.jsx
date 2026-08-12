@@ -16,10 +16,10 @@ const caseStudies = [
     accent: 'purple',
   },
   {
-    title: 'Monson Plumbing, Heating & Excavating — Building a Digital Presence',
-    description: 'How NTA helped an established, multi-generation local business bring its real-world reputation online with a professional website and connected visibility.',
+    title: 'Monson Plumbing — Business Before the Full Setup Is Finished',
+    description: 'How a new website began bringing in business even while Google profile approval, tracking, and back-office adoption remained unfinished.',
     href: '/case-studies/monson-plumbing',
-    label: 'Website & Local Visibility',
+    label: 'Early Results · Ongoing Work',
     location: 'Mason City, Iowa',
     icon: Building2,
     accent: 'cyan',
@@ -28,7 +28,7 @@ const caseStudies = [
     title: 'How NTA Became a Digital Growth Office',
     description: 'How Rick Hesse organized more than 45 years of business, advertising, sales, and client-service experience into a connected system for education, discovery, and practical growth.',
     href: '/case-studies/how-nta-became-a-digital-growth-office',
-    label: 'NTA Building-and-Discovery Case Study',
+    label: "NTA's Own Case Study",
     location: 'North Iowa & Southern Minnesota',
     icon: BookOpen,
     accent: 'violet',
@@ -47,7 +47,7 @@ export default function CaseStudiesPage() {
     <div className="min-h-screen bg-slate-950 text-white">
       <SEOHead
         title="Case Studies | New Tech Advertising"
-        description="Real NTA client work and building-and-discovery case studies showing how websites, visibility, content, and practical business systems work together."
+        description="Practical NTA case studies showing real client situations, useful work, honest results, unfinished challenges, and lessons other business owners can understand."
       />
       <MarketingNav />
 
@@ -59,7 +59,7 @@ export default function CaseStudiesPage() {
             </span>
             <h1 className="mt-6 text-4xl font-extrabold sm:text-5xl">NTA Case Studies</h1>
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-slate-300">
-              These stories show what NTA has built with real businesses—and what Rick has learned while building NTA's own Digital Growth Office. The goal is not to make oversized promises. It is to show the work, explain the thinking, and share what another business owner can learn from it.
+              These are practical stories about working with real businesses. They explain what the owner was facing, what NTA did, what changed, what is still unfinished, and what another owner can learn—without burying the useful lesson under technical detail.
             </p>
           </div>
         </section>
