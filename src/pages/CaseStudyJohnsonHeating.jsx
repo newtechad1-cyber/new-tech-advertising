@@ -63,7 +63,7 @@ export default function CaseStudyJohnsonHeating() {
             {[
               { value: 'Since 1996', label: 'Johnson Heating in business' },
               { value: 'About 14 Years', label: 'Working relationship with NTA' },
-              { value: 'Ongoing', label: 'Website, visibility, and reporting work' },
+              { value: '+33%', label: 'Website visits from Google profile, July 2026' },
             ].map(item => (
               <div key={item.label} className="bg-slate-900 border border-slate-800 rounded-2xl p-5 text-center">
                 <div className="text-xl font-bold text-white">{item.value}</div>
@@ -95,6 +95,34 @@ export default function CaseStudyJohnsonHeating() {
           </div>
 
           <article className="prose prose-invert prose-lg max-w-none">
+            <h2>What Google measured after the new website</h2>
+            <p>
+              Johnson’s current website was rebuilt with AI-assisted tools as part of NTA’s ongoing work to modernize the company’s digital foundation. Google’s July 2026 Business Profile report provides an early, independently reported signal that more people were finding and using that online presence.
+            </p>
+          </article>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 my-8">
+            {[
+              { value: '508', label: 'Business Profile interactions' },
+              { value: '127', change: '+33%', label: 'Website visits from the profile' },
+              { value: '1,640', change: '+41%', label: 'Business Profile views' },
+              { value: '310', change: '+189%', label: 'Searches that showed the profile' },
+            ].map(item => (
+              <div key={item.label} className="bg-emerald-500/10 border border-emerald-400/30 rounded-xl p-5">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-2xl font-black text-white">{item.value}</span>
+                  {item.change && <span className="text-emerald-400 font-bold">{item.change}</span>}
+                </div>
+                <div className="text-slate-400 text-sm mt-2">{item.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <article className="prose prose-invert prose-lg max-w-none">
+            <p>
+              Google compared July with the previous month. The same report also recorded 309 calls, up 58%, and 72 direction requests, up 1%. These are Business Profile results, not total website analytics, and one monthly report cannot isolate a single cause. The timing does, however, give NTA and Johnson a useful baseline: after the website rebuild and related visibility work, Google measured meaningful month-over-month growth in discovery and action.
+            </p>
+
             <h2>What is established—and what is still being built</h2>
             <p>
               The established result is the relationship itself and the body of work behind it: Johnson has a current website foundation, NTA has continued correcting and improving that foundation, and the work is becoming better documented.
@@ -107,7 +135,7 @@ export default function CaseStudyJohnsonHeating() {
               'Current business information is being reconciled across the website, metadata, schema, and listings.',
               'Duplicate pages, sitemap issues, and indexing conflicts are being reviewed instead of assuming that publication alone solves visibility.',
               'Branded campaign and social-sharing materials have been developed using Johnson and Bryant identity where appropriate.',
-              'Form notifications and recurring analytics reporting remain active improvement work and should be verified before being described as completed results.',
+              'Google’s July 2026 Business Profile report now provides verified month-over-month visibility and interaction data; recurring website analytics and form testing remain active improvement work.',
             ].map(item => (
               <div key={item} className="flex items-start gap-3 bg-slate-900/60 border border-slate-800 p-4 rounded-lg">
                 <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
@@ -119,7 +147,7 @@ export default function CaseStudyJohnsonHeating() {
           <div className="bg-amber-500/10 border border-amber-400/30 rounded-xl p-6 my-10">
             <div className="flex items-center gap-2 text-amber-300 font-semibold mb-2"><Clock3 className="w-5 h-5" /> An honest case study in progress</div>
             <p className="text-slate-300 leading-relaxed">
-              NTA is not publishing an unsupported “number one,” lead-growth, software-savings, or AI-recommendation claim here. The next evidence should come from verified analytics, search data, form testing, and Johnson’s own approved feedback.
+              NTA is not turning one strong month into an unsupported “number one,” guaranteed-growth, or AI-recommendation claim. Google’s July 2026 report is credible evidence of increased Business Profile visibility and website visits from that profile. The longer-term story should continue to be measured through recurring analytics, search data, form testing, and Johnson’s own approved feedback.
             </p>
           </div>
 
