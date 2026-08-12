@@ -54,7 +54,6 @@ export const JOURNAL_CATEGORY_GUIDES = {
     resources: [
       { title: 'Johnson Heating & AC', url: '/case-studies/johnson-heating' },
       { title: 'Monson Plumbing', url: '/case-studies/monson-plumbing' },
-      { title: "Papa Everett's Pizza", url: '/case-studies/papa-everetts' },
     ],
   },
   'Industry Insights': {
