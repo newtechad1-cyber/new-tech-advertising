@@ -257,6 +257,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/case-studies', CaseStudies),
   alias('/case-studies/johnson-heating', CaseStudyJohnsonHeating),
   alias('/case-studies/monson-plumbing', CaseStudyMonsonPlumbing),
+  alias('/case-studies/papa-everetts', CaseStudies),
   alias('/case-studies/how-nta-became-a-digital-growth-office', CaseStudyDigitalGrowthOffice),
   alias('/case-studies/:slug', CaseStudyDetail),
   alias('/case-study/johnson-heating', CaseStudyJohnsonHeating),
