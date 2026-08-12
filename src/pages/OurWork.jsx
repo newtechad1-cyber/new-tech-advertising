@@ -30,14 +30,6 @@ const SITES = [
     screenshot: 'https://media.base44.com/images/public/691f41a18de4a7f498c8f884/ce0acb58e_NewZealand.png',
   },
   {
-    name: "Papa Everett's Pizza",
-    url: 'https://papa-everetts-pizza-co-7e81bea9.base44.app',
-    location: 'Clear Lake, IA',
-    industry: 'Restaurant · Pizza',
-    description: 'Clean, mobile-first site with easy menu navigation, online ordering info, and local search presence. Built to help customers find hours, menu, and contact quickly.',
-    screenshot: 'https://media.base44.com/images/public/691f41a18de4a7f498c8f884/d33d47649_papaeveretts.png',
-  },
-  {
     name: 'Club Fitness – Fort Dodge',
     url: 'https://clubfitnessfd.com/',
     location: 'Fort Dodge, IA',
