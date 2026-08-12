@@ -225,7 +225,6 @@ export const ROUTE_OVERRIDES = {
   '/case-studies/johnson-heating': 'public',
   '/case-study/johnson-heating': 'public',
   '/case-study/monson-plumbing': 'public',
-  '/case-study/papa-everetts':   'public',
   '/approval/:token':            'noindex',
   '/diy-checkout-success':       'noindex',
   '/demo/flow':                  'noindex',
