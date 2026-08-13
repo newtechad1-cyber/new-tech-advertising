@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import LessonArticle from '@/components/knowledge/LessonArticle';
 import {
   ArrowLeft,
   ArrowRight,
@@ -161,7 +162,7 @@ export default function CanonArticleView() {
           </div>
         </header>
 
-        <article className="py-14 px-6">
+        <section className="py-14 px-6">
           <div className="max-w-3xl mx-auto">
             {article.summary && (
               <p className="text-xl text-slate-300 leading-relaxed mb-10 font-medium">
@@ -169,11 +170,15 @@ export default function CanonArticleView() {
               </p>
             )}
 
-            <div className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-headings:font-black prose-p:text-slate-300 prose-p:leading-relaxed prose-strong:text-white prose-li:text-slate-300 prose-a:text-blue-400 hover:prose-a:text-blue-300">
-              <ReactMarkdown>{article.body || ''}</ReactMarkdown>
-            </div>
+            {isLesson ? (
+              <LessonArticle content={article.body || ''} accent="blue" />
+            ) : (
+              <div className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-headings:font-black prose-p:text-slate-300 prose-p:leading-relaxed prose-strong:text-white prose-li:text-slate-300 prose-a:text-blue-400 hover:prose-a:text-blue-300">
+                <ReactMarkdown>{article.body || ''}</ReactMarkdown>
+              </div>
+            )}
           </div>
-        </article>
+        </section>
 
         {(action || collectionSlug) && (
           <section className="border-t border-slate-800 bg-slate-900/30 py-12 px-6">
