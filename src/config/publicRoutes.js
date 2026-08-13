@@ -43,6 +43,7 @@ import ContractorMarketingNorthIowa from '@/pages/ContractorMarketingNorthIowa';
 import DigitalRisks from '@/pages/DigitalRisks';
 import DemoSchoolChannel from '@/pages/DemoSchoolChannel';
 import FreeAudit from '@/pages/Free-Audit';
+import FlagshipArticle from '@/legacy-page-components/FlagshipArticle';
 import GettingStarted from '@/pages/GettingStarted';
 import GrowthGuide from '@/pages/GrowthGuide';
 import GrowthShow from '@/pages/GrowthShow';
@@ -154,6 +155,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/knowledge/prompts', KnowledgePrompts),
   alias('/knowledge/sales-conversations', SalesConversations),
   alias('/knowledge/playbook', NTAPlaybook),
+  alias('/knowledge/articles/:slug', FlagshipArticle),
   alias('/knowledge/:collectionSlug/:lessonSlug', KnowledgeLesson),
   alias('/knowledge/:collectionSlug', KnowledgeCollection),
   alias('/books', Books),
