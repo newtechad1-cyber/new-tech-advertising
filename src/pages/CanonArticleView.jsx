@@ -78,6 +78,7 @@ export default function CanonArticleView() {
 
   const isLesson = article.asset_type === 'lesson' || article.content_type === 'Learning Lesson';
   const canonicalPath = article.canonical_url || '/canon/' + article.slug;
+  const canonicalUrl = 'https://newtechadvertising.com' + canonicalPath;
   const description = article.summary || article.subtitle || 'An NTA Knowledge Library lesson from Rick Hesse.';
   const publishedDate = article.published_date || article.approved_date || article.created_date;
   const modifiedDate = article.updated_date || publishedDate;
@@ -95,7 +96,7 @@ export default function CanonArticleView() {
       <SEOHead
         title={article.title + ' | NTA Knowledge Library'}
         description={description}
-        canonical={canonicalPath}
+        canonical={canonicalUrl}
         articleData={{
           title: article.title,
           description,
