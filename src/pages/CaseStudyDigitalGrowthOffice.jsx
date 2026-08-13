@@ -112,6 +112,14 @@ export default function CaseStudyDigitalGrowthOffice() {
               <p className="font-semibold text-white">AI did not replace my point of view. It finally gave that point of view somewhere to go.</p>
             </Section>
 
+            <Section title="The Work Behind What Looks Simple">
+              <p>Someone may eventually see a website, one dashboard, a form, a text message, Your Digital Growth Guide™, a client workspace, or a simple way to begin. That simplicity is intentional. The simpler the result, the more complicated the setup probably was.</p>
+              <p>This did not come together in a few prompts or a few late nights. Most days for months, I have been putting in ten-hour days—thinking, building, testing, rearranging, learning, and going back through what did not quite work. I am not saying that for sympathy. I love this work. I am building the kind of office and the kind of help I spent decades wishing a business owner could have.</p>
+              <p>I wanted NTA to be proven from the inside before I asked a client to trust it. That means the discovery questions, knowledge, content, workflows, client spaces, analytics, follow-up, and AI guidance have to fit together in a way that makes sense to a real person—not just look impressive in a demo.</p>
+              <p>The job is not to hand an owner more technology or expect them to become a website developer, AI expert, or database specialist. The job is to absorb the complexity, connect the pieces, and give the person something understandable and usable. That is why the free way to begin matters: a business owner should be able to start with a conversation, not a technical learning curve.</p>
+              <p>That is also the lesson behind <Link to="/canon/the-work-you-dont-see-why-setup-matters" className="font-semibold text-cyan-300 hover:text-white">The Work You Don’t See: Why Setup Matters</Link>.</p>
+            </Section>
+
             <Section title="What the Comparison Revealed">
               <p>As part of this work, I compared NTA with agency, consulting, business-education, assessment, and founder-led websites in Iowa, the Midwest, and beyond.</p>
               <p>I found many of the individual pieces elsewhere: resource libraries, podcasts, assessments, advisory services, founder frameworks, dashboards, and AI assistants. I found organizations doing valuable work in each of those areas.</p>
