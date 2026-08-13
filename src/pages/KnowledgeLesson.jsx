@@ -5,7 +5,7 @@ import { ChevronRight, Clock, CheckCircle, ArrowLeft, ArrowRight, User, BookOpen
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
-import { getLessonBySlug, getCollectionBySlug } from '@/data/masterCurriculum';
+import { getLessonBySlug, getCollectionBySlug, getConnectedLessonResources } from '@/data/masterCurriculum';
 import { getJourneyMemory, updateJourneyMemory, addCompletedModule } from '@/lib/journeyMemory';
 
 export default function KnowledgeLesson() {
@@ -32,6 +32,7 @@ export default function KnowledgeLesson() {
   const lessonIndex = collection.lessons.findIndex(item => item.slug === lesson.slug);
   const lessonPosition = lessonIndex >= 0 ? lessonIndex + 1 : lesson.id;
   const totalLessons = collection.lessons.length;
+  const connectedResources = getConnectedLessonResources(collectionSlug, lessonSlug);
 
   const markComplete = () => {
     addCompletedModule(lesson.id);
@@ -127,6 +128,40 @@ export default function KnowledgeLesson() {
         <article className="py-12 px-6">
           <div className="max-w-3xl mx-auto">
             <LessonArticle content={lesson.content} />
+
+            {connectedResources.length > 0 && (
+              <aside className="mt-16 border-t border-slate-800 pt-10" aria-labelledby="keep-exploring-heading">
+                <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-3">Continue Learning</p>
+                <h2 id="keep-exploring-heading" className="text-2xl font-black text-white mb-3">
+                  Keep exploring this idea
+                </h2>
+                <p className="text-slate-400 leading-relaxed mb-6">
+                  If this raised a useful question, these are the next few lessons worth reading.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {connectedResources.map(resource => (
+                    <Link
+                      key={resource.path}
+                      to={resource.path}
+                      className="group rounded-2xl border border-slate-800 bg-slate-900/55 p-5 transition-colors hover:border-blue-500/60 hover:bg-slate-900"
+                    >
+                      <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
+                        {resource.type}{resource.collectionTitle ? ` · ${resource.collectionTitle}` : ''}
+                      </p>
+                      <h3 className="text-lg font-bold text-white leading-snug group-hover:text-blue-300 transition-colors mb-2">
+                        {resource.title}
+                      </h3>
+                      <p className="text-sm leading-6 text-slate-400">
+                        {resource.description}
+                      </p>
+                      <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-blue-400 group-hover:text-blue-300">
+                        Read this next <ArrowRight className="w-4 h-4" />
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </aside>
+            )}
           </div>
         </article>
 
