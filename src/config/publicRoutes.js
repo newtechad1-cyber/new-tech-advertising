@@ -16,6 +16,7 @@ import AIHumanityCollection from '@/pages/AIHumanityCollection';
 import AIPolicy from '@/pages/AIPolicy';
 import AIVideoMarketing from '@/pages/AIVideoMarketing';
 import AccessibleWebsites from '@/pages/AccessibleWebsites';
+import CanonArticleView from '@/pages/CanonArticleView';
 import CanonCollectionView from '@/pages/CanonCollectionView';
 import CanonExplorer from '@/pages/CanonExplorer';
 import BackOfficeSolutions from '@/pages/BackOfficeSolutions';
@@ -140,6 +141,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/knowledge', KnowledgeLibrary),
   alias('/canon', CanonExplorer),
   alias('/canon/collection/:slug', CanonCollectionView),
+  alias('/canon/:slug', CanonArticleView),
   alias('/knowledge/ai-foundations', AIFoundationsCollection),
   alias('/knowledge/business-foundations', BusinessFoundationsCollection),
   alias('/knowledge/truth-about-business-growth', TruthAboutBusinessGrowthCollection),
