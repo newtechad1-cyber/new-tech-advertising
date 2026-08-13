@@ -13,7 +13,7 @@ import { pointOfViewArticles } from '@/data/povArticles';
 // be imported from a central lesson catalog.
 const relatedLessonsCatalog = {
   "business-foundations": { title: "Business Foundations", path: "/knowledge/business-foundations" },
-  "digital-trust": { title: "Building Digital Trust", path: "/knowledge/digital-trust" },
+  "digital-trust": { title: "What Is Digital Trust?", path: "/knowledge/what-is-digital-trust" },
   "truth-about-growth": { title: "The Truth About Business Growth", path: "/knowledge/truth-about-business-growth" },
   "ai-foundations": { title: "AI Foundations for Small Business", path: "/knowledge/ai-foundations" },
 };
