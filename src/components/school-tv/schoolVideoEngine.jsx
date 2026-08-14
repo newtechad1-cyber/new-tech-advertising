@@ -259,7 +259,7 @@ export const SchoolVideoEngine = {
  */
 function calculateProgress(project, clips, scripts, renders, publishing) {
   let progress = 0;
-  let totalSteps = 0;
+  let _totalSteps = 0;
 
   // Clips analysis (20%)
   if (clips.length > 0) {
@@ -271,10 +271,10 @@ function calculateProgress(project, clips, scripts, renders, publishing) {
   // Script generation (20%)
   if (scripts.length > 0 && scripts[0].generation_status === 'generated') {
     progress += 20;
-    totalSteps += 20;
+    _totalSteps += 20;
   } else if (project.status === 'script_generated') {
     progress += 20;
-    totalSteps += 20;
+    _totalSteps += 20;
   }
 
   // Rendering (30%)
