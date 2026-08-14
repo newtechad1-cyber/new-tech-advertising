@@ -107,8 +107,8 @@ export default function Home() {
   return (
     <div className="bg-slate-950 min-h-screen">
       <SEOHead
-        title="Free AI Education for Small Business | NTA"
-        description="Free, practical AI education for small-business owners from New Tech Advertising. Learn what AI can do, meet the Free AI Guy, and talk to NTA when you are ready for practical help."
+        title="Practical AI Education for Small Business Owners | New Tech Advertising"
+        description="Free, practical AI education for small-business owners from New Tech Advertising. Learn how AI can support real work, keep human judgment in control, and help a business grow."
         faqs={HOMEPAGE_FAQS}
       />
       <MarketingNav />
