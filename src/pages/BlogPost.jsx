@@ -7,6 +7,7 @@ import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
+import SEOHead from '../components/shared/SEOHead';
 import { Calendar, User, ArrowLeft, Loader2, Tag, Clock, ArrowRight, BookOpen } from 'lucide-react';
 import { applyInternalLinks } from '../utils/internalLinking';
 import { createPageUrl } from '../utils';
@@ -64,6 +65,19 @@ export default function BlogPost() {
 
   return (
     <div className="bg-white min-h-screen flex flex-col">
+      <SEOHead
+        title={post.search_title || `${post.title} | NTA Insights`}
+        description={post.excerpt || post.content?.slice(0, 158)}
+        canonical={post.slug ? `https://newtechadvertising.com/insights/${post.slug}` : undefined}
+        articleData={{
+          title: post.title,
+          description: post.excerpt || post.content?.slice(0, 158),
+          author: post.author || 'Rick Hesse',
+          datePublished: post.published_date,
+          dateModified: post.updated_date || post.published_date,
+          slug: post.slug ? `/insights/${post.slug}` : undefined
+        }}
+      />
       <MarketingNav />
 
       {/* ── Hero ── */}
