@@ -104,8 +104,9 @@ export default function SEOHead({
 }) {
   const location = useLocation();
   const routeMetadata = getSeoMetadata(location.pathname);
-  const resolvedTitle = title || routeMetadata.title;
-  const resolvedDescription = description || routeMetadata.description;
+  const preferRouteMetadata = routeMetadata.routeSpecific === true;
+  const resolvedTitle = preferRouteMetadata ? routeMetadata.title : (title || routeMetadata.title);
+  const resolvedDescription = preferRouteMetadata ? routeMetadata.description : (description || routeMetadata.description);
   const resolvedCanonical = canonical || routeMetadata.canonical || buildCanonical(location.pathname);
   const resolvedNoIndex = noIndex || routeMetadata.noIndex;
 
