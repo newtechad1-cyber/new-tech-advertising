@@ -119,7 +119,8 @@ export default function BetterBusinessBook() {
               consentContext="Requested free download of The Better Business Book and agreed to receive related NTA publication updates."
               consentCheckboxText="I want to download The Better Business Book and receive related NTA publication updates. I can unsubscribe at any time."
               successMessage="Thanks. Your request has been saved. You can download The Better Business Book below."
-              downloadUrl="https://drive.google.com/file/d/1SSpBnObRHrt0SGtVmHhOAdzazmLql-M9/view?usp=sharing"
+              downloadUrl="https://drive.usercontent.google.com/download?id=1SSpBnObRHrt0SGtVmHhOAdzazmLql-M9&export=download"
+              viewerUrl="https://drive.google.com/file/d/1SSpBnObRHrt0SGtVmHhOAdzazmLql-M9/view?usp=sharing"
               downloadButtonLabel="Download The Better Business Book"
             />
             <Link to="/books" className="mt-8 inline-flex items-center gap-2 font-bold text-blue-300 hover:text-blue-200">
