@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
+import SEOHead from '../components/shared/SEOHead';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -135,9 +136,17 @@ export default function CaseStudyDetail() {
   }
 
   const serviceLabel = SERVICE_LABELS[cs.service_used] || cs.service_used;
+  const pageTitle = `Small Business Growth Case Study: ${cs.industry} in ${cs.city} | NTA`;
+  const pageDescription = cs.problem || `See how a ${cs.industry} business in ${cs.city} approached growth with New Tech Advertising.`;
+  const pageCanonical = `https://newtechadvertising.com/case-studies/${cs.slug || slug}`;
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
+      <SEOHead
+        title={pageTitle}
+        description={pageDescription}
+        canonical={pageCanonical}
+      />
       <MarketingNav />
 
       {/* Hero */}
