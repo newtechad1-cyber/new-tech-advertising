@@ -28,9 +28,9 @@ jobs:
         env:
           INDEXNOW_ENDPOINT: https://api.indexnow.org/indexnow
         run: |
-          node <<'NODE'
-          const fs = require("node:fs");
-          const path = require("node:path");
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          import path from "node:path";
 
           const sitemap = fs.readFileSync("public/sitemap.xml", "utf8");
           const urls = [...sitemap.matchAll(/<loc>([^<]+)<\\/loc>/g)]
