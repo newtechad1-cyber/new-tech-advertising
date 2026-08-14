@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { getSeoMetadata } from '@/config/seoMetadata';
 
 /**
  * SEOHead — Unified SEO & Structured Data management for every page.
@@ -102,7 +103,11 @@ export default function SEOHead({
   howToData = null,        // { name, description, steps: [{name, text}] }
 }) {
   const location = useLocation();
-  const resolvedCanonical = canonical || buildCanonical(location.pathname);
+  const routeMetadata = getSeoMetadata(location.pathname);
+  const resolvedTitle = title || routeMetadata.title;
+  const resolvedDescription = description || routeMetadata.description;
+  const resolvedCanonical = canonical || routeMetadata.canonical || buildCanonical(location.pathname);
+  const resolvedNoIndex = noIndex || routeMetadata.noIndex;
 
   useEffect(() => {
     const setMeta = (nameOrProperty, content, isProperty = false) => {
@@ -130,18 +135,18 @@ export default function SEOHead({
     const elements = [];
 
     // ── 1. META TAGS ──────────────────────────────────────────────────────
-    document.title = title;
+    document.title = resolvedTitle;
     let titleTag = document.head.querySelector('title');
     if (!titleTag) {
       titleTag = document.createElement('title');
       document.head.appendChild(titleTag);
     }
-    titleTag.textContent = title;
+    titleTag.textContent = resolvedTitle;
 
-    elements.push(setMeta('title', title));
-    elements.push(setMeta('description', description));
+    elements.push(setMeta('title', resolvedTitle));
+    elements.push(setMeta('description', resolvedDescription));
     elements.push(setMeta('keywords', "practical AI for small business, AI education for business owners, human AI collaboration, small business growth systems, owner knowledge systems, AI marketing Mason City Iowa"));
-    elements.push(setMeta('robots', noIndex
+    elements.push(setMeta('robots', resolvedNoIndex
       ? "noindex, nofollow"
       : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
     ));
@@ -162,8 +167,8 @@ export default function SEOHead({
     // ── 2. OPEN GRAPH ─────────────────────────────────────────────────────
     elements.push(setMeta('og:type', articleData ? 'article' : 'website', true));
     elements.push(setMeta('og:url', resolvedCanonical, true));
-    elements.push(setMeta('og:title', title, true));
-    elements.push(setMeta('og:description', description, true));
+    elements.push(setMeta('og:title', resolvedTitle, true));
+    elements.push(setMeta('og:description', resolvedDescription, true));
     elements.push(setMeta('og:image', `${SITE_ORIGIN}/og-image.png`, true));
     elements.push(setMeta('og:site_name', SITE_NAME, true));
     elements.push(setMeta('og:locale', "en_US", true));
@@ -177,8 +182,8 @@ export default function SEOHead({
 
     // ── 3. TWITTER CARD ───────────────────────────────────────────────────
     elements.push(setMeta('twitter:card', 'summary_large_image'));
-    elements.push(setMeta('twitter:title', title));
-    elements.push(setMeta('twitter:description', description));
+    elements.push(setMeta('twitter:title', resolvedTitle));
+    elements.push(setMeta('twitter:description', resolvedDescription));
     elements.push(setMeta('twitter:image', `${SITE_ORIGIN}/og-image.png`));
 
     // ── 4. WEBSITE + SEARCH ACTION SCHEMA (sitewide) ──────────────────────
@@ -253,8 +258,8 @@ export default function SEOHead({
       const articleSchema = {
         "@context": "https://schema.org",
         "@type": "Article",
-        "headline": articleData.title || title,
-        "description": articleData.description || description,
+        "headline": articleData.title || resolvedTitle,
+        "description": articleData.description || resolvedDescription,
         "author": {
           "@type": "Person",
           "@id": `${SITE_ORIGIN}/#rick-hesse`,
@@ -286,8 +291,8 @@ export default function SEOHead({
       const videoSchema = {
         "@context": "https://schema.org",
         "@type": "VideoObject",
-        "name": videoData.name || title,
-        "description": videoData.description || description,
+        "name": videoData.name || resolvedTitle,
+        "description": videoData.description || resolvedDescription,
         "thumbnailUrl": videoData.thumbnailUrl || `${SITE_ORIGIN}/og-image.png`,
         "uploadDate": videoData.uploadDate || "2026-01-01",
         "contentUrl": videoData.contentUrl || videoData.embedUrl,
@@ -310,8 +315,8 @@ export default function SEOHead({
       const learningSchema = {
         "@context": "https://schema.org",
         "@type": "LearningResource",
-        "name": learningData.name || title,
-        "description": learningData.description || description,
+        "name": learningData.name || resolvedTitle,
+        "description": learningData.description || resolvedDescription,
         "educationalLevel": learningData.educationalLevel || "Beginner",
         "learningResourceType": learningData.learningResourceType || "lesson",
         "provider": {
@@ -333,8 +338,8 @@ export default function SEOHead({
       const collectionSchema = {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        "name": collectionData.name || title,
-        "description": collectionData.description || description,
+        "name": collectionData.name || resolvedTitle,
+        "description": collectionData.description || resolvedDescription,
         "url": resolvedCanonical,
         "numberOfItems": collectionData.numberOfItems || 0,
         "publisher": {
@@ -358,8 +363,8 @@ export default function SEOHead({
       const howToSchema = {
         "@context": "https://schema.org",
         "@type": "HowTo",
-        "name": howToData.name || title,
-        "description": howToData.description || description,
+        "name": howToData.name || resolvedTitle,
+        "description": howToData.description || resolvedDescription,
         "step": (howToData.steps || []).map((step, i) => ({
           "@type": "HowToStep",
           "position": i + 1,
@@ -429,7 +434,7 @@ export default function SEOHead({
         }
       });
     };
-  }, [title, description, resolvedCanonical, faqs, noIndex, articleData, videoData, learningData, collectionData, howToData]);
+  }, [resolvedTitle, resolvedDescription, resolvedCanonical, resolvedNoIndex, faqs, articleData, videoData, learningData, collectionData, howToData]);
 
   return null;
 }
