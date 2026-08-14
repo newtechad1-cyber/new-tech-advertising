@@ -5,6 +5,7 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import { getCollectionBySlug } from '@/data/masterCurriculum';
+import { getCollectionSearchMetadata } from '@/config/seoMetadata';
 import { flagshipArticleToolsVsSystem, flagshipArticleDIYToDFY } from '@/data/flagshipArticles';
 import { getJourneyMemory } from '@/lib/journeyMemory';
 
@@ -22,6 +23,7 @@ export default function KnowledgeCollection() {
     return <Navigate to="/knowledge" replace />;
   }
 
+  const collectionSeo = getCollectionSearchMetadata(collectionSlug, collection);
   const memory = getJourneyMemory();
   const completedLessons = memory.completedModules || [];
   const completedCount = collection.lessons.filter(lesson => completedLessons.includes(lesson.id)).length;
@@ -48,8 +50,9 @@ export default function KnowledgeCollection() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
       <SEOHead
-        title={`${collection.title} | NTA Knowledge Library`}
-        description={collection.description}
+        title={collectionSeo.title}
+        description={collectionSeo.description}
+        canonical={collectionSeo.canonical}
         collectionData={{
           name: collection.title,
           description: collection.description,
