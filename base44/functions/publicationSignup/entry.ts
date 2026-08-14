@@ -1,4 +1,6 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
+import { createClient, createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
+
+const OFFICE_APP_ID = '6a7215451eb90dc843a94546';
 
 function value(input, length = 500) {
   return String(input || '').trim().slice(0, length);
@@ -49,6 +51,17 @@ Deno.serve(async (req) => {
           delivery_url: deliveryUrl, attempt_count: 0,
         })
       : null;
+
+    try {
+      const office = createClient({ appId: OFFICE_APP_ID });
+      await office.functions.invoke('trackBookEvent', {
+        book_key: publicationTag,
+        event_type: 'access_request',
+      });
+    } catch (trackingError) {
+      console.warn('[publicationSignup] Book access event could not be recorded:', trackingError);
+    }
+
     return Response.json({ success: true, subscriber_id: subscriber.id, delivery_request_id: deliveryRequest?.id || null });
   } catch (error) {
     console.error('[publicationSignup]', error);
