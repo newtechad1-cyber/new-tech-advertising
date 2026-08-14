@@ -12,8 +12,8 @@ export default function Services() {
   return (
     <div className="bg-slate-950 min-h-screen text-white">
       <SEOHead
-        title="Business Growth Solutions | New Tech Advertising"
-        description="Explore connected business growth solutions for visibility, trust, leads, customer relationships, operations, AI, and automation—built in the right order for your business."
+        title="AI and Digital Growth Services for Small Business | NTA"
+        description="Practical AI education, local visibility, websites, content, customer follow-up, and connected growth systems for small-business owners."
       />
       <MarketingNav />
 
