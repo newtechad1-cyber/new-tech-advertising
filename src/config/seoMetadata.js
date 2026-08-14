@@ -413,6 +413,7 @@ export function getSeoMetadata(pathname) {
       ...DEFAULT_SEO,
       ...STATIC_SEO[canonicalPath],
       canonical: canonicalUrl(canonicalPath),
+      routeSpecific: true,
     };
   }
 
@@ -425,6 +426,7 @@ export function getSeoMetadata(pathname) {
         description: clip(collection.description, 158),
         canonical: canonicalUrl(canonicalPath),
         noIndex: false,
+        routeSpecific: true,
       };
     }
     if (segments.length === 3 && COLLECTION_SEARCH[segments[1]]) {
@@ -434,6 +436,7 @@ export function getSeoMetadata(pathname) {
         description: "A practical lesson for small-business owners about AI, growth, customer trust, and useful business systems.",
         canonical: canonicalUrl(canonicalPath),
         noIndex: false,
+        routeSpecific: true,
       };
     }
   }
@@ -444,6 +447,7 @@ export function getSeoMetadata(pathname) {
       description: "This NTA workspace is not part of the public website.",
       canonical: canonicalUrl(canonicalPath),
       noIndex: true,
+      routeSpecific: true,
     };
   }
 
