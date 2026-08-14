@@ -10,6 +10,7 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider } from '@/lib/AuthContext';
 import { NTADataProvider } from '@/lib/NTADataContext';
 import { ExperienceProvider } from '@/lib/ExperienceLayer';
+import RouteMeta from '@/components/shared/RouteMeta';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 // pages.config.js is intentionally public-only. Keeping this as a direct
@@ -146,6 +147,7 @@ export default function App() {
       <QueryClientProvider client={queryClientInstance}>
         <NTADataProvider>
           <Router>
+            <RouteMeta />
             <ExperienceProvider>
               <PublicRoutes />
             </ExperienceProvider>
