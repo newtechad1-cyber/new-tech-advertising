@@ -33,7 +33,7 @@ jobs:
           import path from "node:path";
 
           const sitemap = fs.readFileSync("public/sitemap.xml", "utf8");
-          const urls = [...sitemap.matchAll(/<loc>([^<]+)<\\/loc>/g)]
+          const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)]
             .map(([, url]) => url.trim())
             .filter(Boolean);
 
