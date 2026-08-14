@@ -54,7 +54,7 @@ jobs:
           }
 
           const candidates = fs.readdirSync("public")
-            .filter(name => /^[A-Za-z0-9-]{8,128}\\.txt$/.test(name));
+            .filter(name => /^[A-Za-z0-9-]{8,128}\.txt$/.test(name));
           const keyFiles = candidates.filter(name => {
             const keyName = name.slice(0, -4);
             const fileKey = fs.readFileSync(path.join("public", name), "utf8").trim();
