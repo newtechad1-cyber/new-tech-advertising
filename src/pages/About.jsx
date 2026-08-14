@@ -20,8 +20,8 @@ export default function About() {
   return (
     <div className="bg-slate-900 min-h-screen">
       <SEOHead 
-        title="Rick Hesse and the NTA Practical AI Method | About NTA"
-        description="Rick Hesse brings more than 45 years of business, advertising, sales, and technology experience to practical AI education and connected growth systems for small-business owners."
+        title="Practical AI for Small Business Owners | About Rick Hesse & NTA"
+        description="Meet Rick Hesse, founder of New Tech Advertising. Learn how decades of business, advertising, sales, and technology experience shaped NTA's practical AI method."
       />
       <MarketingNav />
 
