@@ -109,8 +109,8 @@ export default function LearningCenter() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans overflow-hidden flex flex-col">
       <SEOHead 
-        title="Practical AI and Business Growth Lessons | NTA Knowledge Library"
-        description="A connected curriculum for small-business owners: practical AI, business foundations, customer trust, durable relationships, owner knowledge, digital visibility, and growth systems."
+        title="AI Learning Center for Small Business Owners | NTA"
+        description="Free AI lessons and small-business education on AI search, digital trust, local visibility, and connected growth systems."
         collectionData={{
           name: 'NTA Knowledge Library',
           description: 'Connected lessons that help small-business owners understand growth, preserve their knowledge, and use AI under human direction.',
