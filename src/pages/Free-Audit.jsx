@@ -83,8 +83,8 @@ export default function FreeAudit() {
   return (
     <div className="bg-slate-50 min-h-screen flex flex-col">
       <SEOHead
-        title="Free Business Gap Audit | New Tech Advertising"
-        description="Start a free first-pass Business Gap Audit to identify visible gaps, immediate priorities, and useful next steps for your business."
+        title="Free Small Business Marketing and AI Gap Audit | NTA"
+        description="Start a free small-business gap audit to identify what is working, what is missing, and what deserves attention next."
       />
       <MarketingNav />
 
