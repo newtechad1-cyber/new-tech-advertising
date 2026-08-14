@@ -58,7 +58,7 @@ export default function ImageEditor({ imageUrl, onSave, onClose }) {
         const image = await loadFromSrc(objectUrl).catch(() => null);
         if (image) return setImageFromElement(image);
       }
-    } catch (e) {
+    } catch {
       // proxy failed, fall through
     }
 

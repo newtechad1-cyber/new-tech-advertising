@@ -31,7 +31,7 @@ export default function ManualRunControls() {
         related_city: city
       });
       toast.success(`${job_type} triggered successfully`);
-    } catch (err) {
+    } catch {
       toast.error(`Failed to run ${job_type}`);
     }
     setRunning(null);

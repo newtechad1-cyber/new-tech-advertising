@@ -21,7 +21,7 @@ export function useDemoTrack() {
         page_path: window.location.pathname,
         ...extra,
       });
-    } catch (e) {
+    } catch {
       // silent
     }
   };

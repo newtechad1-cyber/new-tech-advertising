@@ -50,7 +50,7 @@ export default function PublicProposalContent({ proposal, isAdminPreview }) {
         setModalAction(null);
         toast.success(`${action === 'accept' ? 'Proposal approved!' : action === 'revision' ? 'Revision request sent!' : 'Call request sent!'} We'll be in touch shortly.`);
       }
-    } catch (err) {
+    } catch {
       toast.error('Failed to submit. Please try again.');
     }
   };

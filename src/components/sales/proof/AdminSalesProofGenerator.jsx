@@ -42,7 +42,7 @@ export default function AdminSalesProofGenerator({ organizationId, onGenerated }
         if (snapshots.length > 0) {
           setSnapshot(snapshots[0]);
         }
-      } catch (err) {
+      } catch {
         setError('Failed to load metrics');
       } finally {
         setIsLoading(false);
@@ -93,7 +93,7 @@ export default function AdminSalesProofGenerator({ organizationId, onGenerated }
       setGenerated(prev =>
         prev.map(h => h.id === highlightId ? { ...h, status: 'approved' } : h)
       );
-    } catch (err) {
+    } catch {
       setError('Failed to approve highlight');
     }
   };

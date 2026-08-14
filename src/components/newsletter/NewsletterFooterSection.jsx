@@ -34,7 +34,7 @@ export default function NewsletterFooterSection() {
       } else {
         setStatus('error');
       }
-    } catch (err) {
+    } catch {
       setStatus('error');
     }
   };

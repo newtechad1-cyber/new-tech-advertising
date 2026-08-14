@@ -19,7 +19,7 @@ function getYouTubeEmbedUrl(urlOrId) {
         if (id) return `https://www.youtube.com/embed/${id}`;
       }
     }
-  } catch (e) {
+  } catch {
     return '';
   }
   return '';

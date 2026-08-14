@@ -37,7 +37,7 @@ export default function NTAGrowthRoadmapGenerator() {
       try {
         const parsed = JSON.parse(stored);
         setSavedRoadmap(parsed);
-      } catch (e) {
+      } catch {
         // ignore invalid json
       }
     }

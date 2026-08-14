@@ -123,7 +123,7 @@ export default function ConnectModal({ account, open, onClose, onSaved }) {
         setErrorMsg(found.error_message || 'Connection failed. No destinations found.');
         return;
       }
-    } catch (_) {
+    } catch {
       // ignore poll errors
     }
   };

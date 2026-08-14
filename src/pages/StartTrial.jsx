@@ -94,7 +94,7 @@ export default function StartTrial() {
       // ntaUnifiedIntake already sent the internal notification through info@newtechadvertising.com Gmail.
 
       setStep(3);
-    } catch (err) {
+    } catch {
       toast.error('Something went wrong. Please try again.');
     } finally {
       setSubmitting(false);

@@ -34,7 +34,7 @@ export default function ContentSubmissionsView() {
       });
       toast.success(approve ? 'Upgrade approved!' : 'Upgrade declined');
       loadSubmissions();
-    } catch (error) {
+    } catch {
       toast.error('Failed to update upgrade status');
     }
   };

@@ -42,7 +42,7 @@ export default function TrialSlug() {
         setAccount(acct);
         const landings = await base44.entities.PortalLanding.filter({ account_id: acct.id });
         if (landings.length) setLanding(landings[0]);
-      } catch (e) {
+      } catch {
         setNotFound(true);
       } finally {
         setLoading(false);

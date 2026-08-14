@@ -27,7 +27,7 @@ export function SystemHealthBar({ compact = false }) {
           content: recent.filter(l => l.workflow_type === 'content' && l.status === 'failed').length,
           clients: recent.filter(l => l.event_type === 'client_sync_failed').length,
         });
-      } catch (_) {
+      } catch {
         setCounts({ failures: 0, warnings: 0, webhooks: 0, content: 0, clients: 0 });
       }
     };

@@ -71,7 +71,7 @@ export default function NewsletterPopup() {
       } else {
         setStatus('error');
       }
-    } catch (err) {
+    } catch {
       setStatus('error');
     }
   };

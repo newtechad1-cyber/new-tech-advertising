@@ -137,7 +137,7 @@ export default function SubmitContentWizard({ onClose, onSubmitSuccess, prefill 
       toast.success('Upgrade request added! Our team will provide a quote.');
       if (onSubmitSuccess) onSubmitSuccess();
       if (onClose) onClose();
-    } catch (error) {
+    } catch {
       toast.error('Failed to request upgrade');
     }
   };

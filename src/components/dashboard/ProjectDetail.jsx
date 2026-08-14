@@ -56,7 +56,7 @@ export default function ProjectDetail({ project, onBack }) {
       });
       setComments([...comments, comment]);
       setNewMessage('');
-    } catch (error) {
+    } catch {
       toast.error("Failed to send message");
     }
   };

@@ -87,7 +87,7 @@ export default function NextBestAutomationAction({ rule, health, triggers, rules
             impact: 'Prevent execution failures',
           });
         }
-      } catch (e) {
+      } catch {
         // Parse error, skip
       }
     }

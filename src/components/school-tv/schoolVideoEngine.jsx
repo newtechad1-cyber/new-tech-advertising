@@ -281,7 +281,7 @@ function calculateProgress(project, clips, scripts, renders, publishing) {
   if (renders.length > 0) {
     const completedRenders = renders.filter(r => r.status === 'completed').length;
     progress += (completedRenders / renders.length) * 30;
-    totalSteps += 30;
+    _totalSteps += 30;
   }
 
   // Publishing (30%)

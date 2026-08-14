@@ -197,7 +197,7 @@ export default function AuditModal({ rule, logs, onClose, onRuleUpdate }) {
         notes: (rule.notes || '') + `\n[Audit ${new Date().toLocaleDateString()}] Last error: ${latestLog.error_message}`,
       });
       onRuleUpdate?.();
-    } catch (_) {}
+    } catch {}
     setFixing(false);
   };
 
