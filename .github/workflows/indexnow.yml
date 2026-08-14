@@ -1,0 +1,91 @@
+name: Notify IndexNow
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "public/sitemap.xml"
+      - "public/ai-sitemap.json"
+      - "public/robots.txt"
+      - "public/*.txt"
+      - "index.html"
+      - "src/**"
+      - "scripts/generate-seo-pages.mjs"
+      - "base44/functions/listPages/entry.ts"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Submit public sitemap URLs to IndexNow
+        env:
+          INDEXNOW_ENDPOINT: https://api.indexnow.org/indexnow
+        run: |
+          node <<'NODE'
+          const fs = require("node:fs");
+          const path = require("node:path");
+
+          const sitemap = fs.readFileSync("public/sitemap.xml", "utf8");
+          const urls = [...sitemap.matchAll(/<loc>([^<]+)<\\/loc>/g)]
+            .map(([, url]) => url.trim())
+            .filter(Boolean);
+
+          if (urls.length === 0) {
+            throw new Error("No URLs found in public/sitemap.xml");
+          }
+
+          const host = new URL(urls[0]).host;
+          if (host !== "newtechadvertising.com") {
+            throw new Error(`Unexpected sitemap host: ${host}`);
+          }
+
+          for (const url of urls) {
+            if (new URL(url).host !== host) {
+              throw new Error(`Sitemap contains a URL outside ${host}: ${url}`);
+            }
+          }
+
+          const candidates = fs.readdirSync("public")
+            .filter(name => /^[A-Za-z0-9-]{8,128}\\.txt$/.test(name));
+          const keyFiles = candidates.filter(name => {
+            const keyName = name.slice(0, -4);
+            const fileKey = fs.readFileSync(path.join("public", name), "utf8").trim();
+            return fileKey === keyName;
+          });
+
+          if (keyFiles.length !== 1) {
+            throw new Error(`Expected one IndexNow key file; found ${keyFiles.length}`);
+          }
+
+          const keyFile = keyFiles[0];
+          const key = keyFile.slice(0, -4);
+          const payload = {
+            host,
+            key,
+            keyLocation: `https://${host}/${key}.txt`,
+            urlList: [...new Set(urls)]
+          };
+
+          const response = await fetch(process.env.INDEXNOW_ENDPOINT, {
+            method: "POST",
+            headers: {
+              "content-type": "application/json; charset=utf-8"
+            },
+            body: JSON.stringify(payload)
+          });
+          const responseBody = await response.text();
+
+          console.log(`IndexNow submission: ${response.status} (${payload.urlList.length} URLs)`);
+          if (responseBody) console.log(responseBody);
+
+          if (![200, 202].includes(response.status)) {
+            process.exit(1);
+          }
+          NODE
