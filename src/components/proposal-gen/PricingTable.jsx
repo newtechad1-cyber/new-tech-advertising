@@ -1,5 +1,4 @@
-import React from 'react';
-import { Plus, Minus, CheckSquare, Square } from 'lucide-react';
+import { CheckSquare, Square } from 'lucide-react';
 import { PACKAGES } from './PackageSelector';
 
 const ADD_ONS = [

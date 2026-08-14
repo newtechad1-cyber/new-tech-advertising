@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Building2, Users, TrendingUp, Handshake, ChevronRight, CheckCircle2, 
-  ArrowRight, Phone, Globe, MapPin, BadgeDollarSign, ShieldCheck, PieChart, HeartHandshake, UserCircle, GraduationCap
+  Building2, Users, TrendingUp, Handshake, CheckCircle2, 
+  ArrowRight, Globe, MapPin, BadgeDollarSign, UserCircle, GraduationCap
 } from 'lucide-react';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';

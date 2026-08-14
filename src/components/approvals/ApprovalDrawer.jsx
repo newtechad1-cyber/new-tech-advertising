@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { X, CheckCircle, XCircle, RotateCcw, Send, Copy } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { StatusBadge, fmtDate, isOverdue } from './ApprovalUtils';

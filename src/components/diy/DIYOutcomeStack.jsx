@@ -1,4 +1,3 @@
-import React from 'react';
 import { Search, Zap, BarChart3, Share2, TrendingUp } from 'lucide-react';
 
 const OUTCOMES = [

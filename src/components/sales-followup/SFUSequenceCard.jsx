@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ChevronDown, ChevronUp, Mail, MessageSquare, Eye, MousePointer, Building2, MapPin, Zap, ArrowRight } from 'lucide-react';
 import SFUPhaseTimeline from './SFUPhaseTimeline';
 import { EngagementBadge, PriorityBadge } from './SFUEngagementBadge';

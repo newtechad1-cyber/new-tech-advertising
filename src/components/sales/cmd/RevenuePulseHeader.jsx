@@ -1,4 +1,3 @@
-import React from 'react';
 import { TrendingUp, Target, Zap, DollarSign } from 'lucide-react';
 
 export default function RevenuePulseHeader() {

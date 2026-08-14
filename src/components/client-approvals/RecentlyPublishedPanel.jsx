@@ -1,8 +1,6 @@
-import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ExternalLink, Facebook, Instagram, Youtube, Music, Globe } from 'lucide-react';
-import { format } from 'date-fns';
 
 export default function RecentlyPublishedPanel({ videos }) {
   const platformIcons = {

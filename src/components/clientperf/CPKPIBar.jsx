@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { TrendingUp, TrendingDown, ChevronDown, FileText, Calendar, Megaphone, AlertTriangle, Search, Minus } from 'lucide-react';
 
 const KPITile = ({ label, value, trend, sub, color, urgent, onClick }) => (

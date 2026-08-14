@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Plus, X, Save, Phone, Mail, Globe, ChevronDown } from 'lucide-react';
+import { Plus, X, ChevronDown } from 'lucide-react';
 
 const STAGES = ['New Lead', 'Audit Sent', 'Demo Built', 'Follow-Up', 'Closed'];
 

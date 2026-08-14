@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Check, ChevronRight } from 'lucide-react';
 import { createPortal } from 'react-dom';
 
 export default function ApprovalConfirmation({ type, onViewNext }) {

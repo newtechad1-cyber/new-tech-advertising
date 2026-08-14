@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle
 } from '@/components/ui/dialog';
-import { Calendar, DollarSign, Zap, Plus } from 'lucide-react';
+import { Zap, Plus } from 'lucide-react';
 
 const STAGES = [
   { key: 'new_lead', label: 'New Lead' },

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { base44 } from "@/api/base44Client";
 import { CheckCircle2, XCircle, AlertTriangle, RefreshCw, Settings, Wifi, Clock, Loader2 } from "lucide-react";

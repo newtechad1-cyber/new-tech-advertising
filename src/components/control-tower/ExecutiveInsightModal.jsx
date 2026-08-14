@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { X, CheckCircle2, ArrowRight, User } from 'lucide-react';
 
 const CATEGORY_LABELS = {

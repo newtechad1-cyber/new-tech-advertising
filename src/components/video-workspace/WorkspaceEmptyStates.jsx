@@ -1,6 +1,5 @@
-import React from 'react';
 import { Button } from '@/components/ui/button';
-import { FileText, Zap, Package, CheckCircle2 } from 'lucide-react';
+import { Zap, Package, CheckCircle2 } from 'lucide-react';
 
 export function NoCaptionsEmptyState({ onGenerate }) {
   return (

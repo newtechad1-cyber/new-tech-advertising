@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Plus, Map, DollarSign, BarChart2, ExternalLink, ChevronDown } from 'lucide-react';
+import { Plus, Map, DollarSign, BarChart2, ExternalLink } from 'lucide-react';
 
 export default function RSHeader({ stats, onAddReseller, onAssignTerritory }) {
   return (

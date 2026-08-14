@@ -1,7 +1,6 @@
-import React from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { AlertTriangle, Clock, XCircle, Mail, Eye } from 'lucide-react';
+import { Clock, XCircle, Mail, Eye } from 'lucide-react';
 
 function Alert({ icon: Icon, label, items, emptyMsg, colorClass }) {
   if (items.length === 0) return null;

@@ -1,5 +1,4 @@
-import React from 'react';
-import { AlertTriangle, ChevronRight } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 const CATEGORY_CONFIG = {
   revenue: { label: '💰 Revenue', color: 'text-blue-400' },

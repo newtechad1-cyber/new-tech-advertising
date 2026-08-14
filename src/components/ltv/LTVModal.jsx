@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, AlertTriangle, Zap, MessageSquare } from 'lucide-react';
+import { useState } from 'react';
+import { X, AlertTriangle, Zap } from 'lucide-react';
 
 const STAGE_CONFIG = {
   stabilizing: 'Stabilizing Phase',

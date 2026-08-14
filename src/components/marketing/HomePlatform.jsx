@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Captions, Video, Image, Calendar, Clock, ArrowRight, CheckCircle } from 'lucide-react';
 
 const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';

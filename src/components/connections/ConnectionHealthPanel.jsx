@@ -1,7 +1,5 @@
-import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { AlertTriangle, CheckCircle2, ArrowRight, Link as LinkIcon } from "lucide-react";
-import { createPageUrl } from "@/utils";
+import { AlertTriangle, CheckCircle2, ArrowRight } from "lucide-react";
 
 const ISSUE_MAP = {
   facebook: {

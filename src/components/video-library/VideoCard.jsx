@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Card } from '@/components/ui/card';
@@ -13,10 +12,8 @@ import {
   Play, 
   Clock, 
   AlertTriangle, 
-  CheckCircle2, 
   MoreVertical,
   ExternalLink,
-  Share2,
 } from 'lucide-react';
 import { getVideoIssues, formatDate } from '@/components/video-library/videoLibraryUtils';
 import WorkflowProgressBar from '@/components/video-library/WorkflowProgressBar';

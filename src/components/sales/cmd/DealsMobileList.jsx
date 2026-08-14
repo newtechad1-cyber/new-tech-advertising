@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ChevronDown, Phone, Send, AlertTriangle } from 'lucide-react';
 
 export default function DealsMobileList({ deals = [] }) {

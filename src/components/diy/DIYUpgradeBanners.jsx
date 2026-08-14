@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { X, AlertCircle, TrendingUp, Zap, Clock, Target } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {

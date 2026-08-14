@@ -1,4 +1,3 @@
-import React from 'react';
 import { Star, TrendingUp, Zap, Award } from 'lucide-react';
 
 const WIN_TYPES = {

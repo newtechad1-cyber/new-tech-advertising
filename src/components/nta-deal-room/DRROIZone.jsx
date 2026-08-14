@@ -1,4 +1,3 @@
-import React from 'react';
 import { TrendingUp, DollarSign, Users, Star, Quote } from 'lucide-react';
 
 const INDUSTRY_BASE = {

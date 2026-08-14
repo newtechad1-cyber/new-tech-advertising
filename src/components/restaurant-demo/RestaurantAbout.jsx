@@ -1,4 +1,3 @@
-import React from 'react';
 
 export default function RestaurantAbout({ config }) {
   const { name, description, ownerName, ownerStory, ownerImage, city, state, primaryColor, heroImage } = config;

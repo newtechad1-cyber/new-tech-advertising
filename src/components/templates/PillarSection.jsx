@@ -1,4 +1,3 @@
-import React from 'react';
 
 export default function PillarSection({ badge, heading, subheading, children, dark = false }) {
   return (

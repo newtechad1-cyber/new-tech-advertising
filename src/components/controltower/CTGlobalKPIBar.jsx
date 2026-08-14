@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { TrendingUp, TrendingDown, Plus, FileText, Rocket, BarChart2, Users, AlertTriangle, ChevronDown } from 'lucide-react';
+import { useState } from 'react';
+import { TrendingUp, TrendingDown, Plus, FileText, Rocket, BarChart2, Users, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const KPITile = ({ label, value, trend, trendLabel, color, onClick }) => {

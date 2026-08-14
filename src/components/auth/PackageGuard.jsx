@@ -1,5 +1,4 @@
-import React from 'react';
-import { AlertCircle, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 

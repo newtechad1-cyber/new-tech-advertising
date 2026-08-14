@@ -1,4 +1,3 @@
-import React from 'react';
 import { AlertCircle, Clock, Zap, Target } from 'lucide-react';
 
 const HEALTH_INDICATORS = {

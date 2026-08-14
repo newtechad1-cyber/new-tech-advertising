@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { RotateCcw, Pause, X, ArrowUp, Loader2, CheckCircle2, Clock, AlertCircle, XCircle, PauseCircle } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 

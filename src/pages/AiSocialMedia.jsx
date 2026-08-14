@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Header from '../components/landing/Header';
 import Footer from '../components/landing/Footer';
 import SignupModal from '../components/landing/SignupModal';
 import Chatbot from '../components/Chatbot';
 import { motion } from 'framer-motion';
-import { Share2, Users, MessageCircle, TrendingUp, Check } from 'lucide-react';
+import { Share2, MessageCircle, TrendingUp, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import SEOHead from '@/components/shared/SEOHead';
 

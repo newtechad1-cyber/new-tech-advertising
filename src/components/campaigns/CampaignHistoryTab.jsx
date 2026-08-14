@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { PLATFORM_ICON, PostStatusBadge } from './CampaignUtils';
 
 export default function CampaignHistoryTab({ posts, campaigns, clients }) {

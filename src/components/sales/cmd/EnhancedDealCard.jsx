@@ -1,5 +1,4 @@
-import React from 'react';
-import { AlertCircle, Clock, Zap, Target, MessageCircle } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 
 export default function EnhancedDealCard({ deal, onOpen }) {
   const now = new Date();

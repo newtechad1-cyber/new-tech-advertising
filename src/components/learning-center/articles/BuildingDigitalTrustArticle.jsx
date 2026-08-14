@@ -1,4 +1,3 @@
-import React from 'react';
 import { ChevronDown } from 'lucide-react';
 import LCInsightBlock from '@/components/learning-center/LCInsightBlock';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';

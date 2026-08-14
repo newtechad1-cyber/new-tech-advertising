@@ -1,4 +1,3 @@
-import React from 'react';
 import { createPageUrl } from '@/utils';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -6,7 +5,7 @@ import PillarHero from '@/components/templates/PillarHero';
 import PillarSection from '@/components/templates/PillarSection';
 import PillarCTA from '@/components/templates/PillarCTA';
 import InternalLinks from '@/components/templates/InternalLinks';
-import { Tv, Target, MapPin, DollarSign, TrendingUp, PlayCircle, CheckCircle } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 
 const PLATFORMS = [
   'Hulu', 'Roku', 'Paramount+', 'Pluto TV', 'Tubi', 'Amazon Fire TV',

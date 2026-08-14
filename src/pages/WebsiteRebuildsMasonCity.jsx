@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MarketingNav from '../components/nav/MarketingNav';
 import SEOHead from '@/components/shared/SEOHead';
 import SiteFooter from '../components/marketing/SiteFooter';
 import {
-  CheckCircle, AlertTriangle, Zap, TrendingUp, Shield, ArrowRight,
-  Search, Smartphone, MousePointer, BarChart2, ChevronRight, MapPin
+  CheckCircle, AlertTriangle, Zap, Shield, ArrowRight,
+  Search, Smartphone, MousePointer, ChevronRight, MapPin
 } from 'lucide-react';
 
 const PROBLEMS = [

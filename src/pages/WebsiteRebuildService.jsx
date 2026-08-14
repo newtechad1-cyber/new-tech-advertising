@@ -1,8 +1,7 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
-import { CheckCircle, AlertTriangle, Zap, TrendingUp, Shield, ArrowRight, Clock, Search, Smartphone, MousePointer, BarChart2, ChevronRight, MapPin, BookOpen } from 'lucide-react';
+import { CheckCircle, AlertTriangle, Zap, TrendingUp, Shield, ArrowRight, Search, Smartphone, MousePointer, BarChart2, ChevronRight, MapPin, BookOpen } from 'lucide-react';
 
 import SEOHead from '@/components/shared/SEOHead';
 const PROBLEMS = [

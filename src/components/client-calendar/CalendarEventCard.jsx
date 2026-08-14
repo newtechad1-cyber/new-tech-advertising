@@ -1,4 +1,3 @@
-import React from 'react';
 import CalendarStatusBadge from './CalendarStatusBadge';
 import ChannelPills from './ChannelPills';
 

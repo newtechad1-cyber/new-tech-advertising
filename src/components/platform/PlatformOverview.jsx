@@ -1,4 +1,3 @@
-import React from 'react';
 import { ArrowRight, Sparkles, Calendar, Video, BarChart2, Tv } from 'lucide-react';
 
 const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';

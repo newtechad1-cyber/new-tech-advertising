@@ -1,4 +1,3 @@
-import React from 'react';
 import { TrendingUp, Globe, Video, MessageSquare, BarChart3 } from 'lucide-react';
 import { CheckCircle2 } from 'lucide-react';
 

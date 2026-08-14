@@ -1,4 +1,3 @@
-import React from 'react';
 import { ArrowUpRight, Package, MapPin, Zap, TrendingUp, Star, Tv, Video } from 'lucide-react';
 
 const OPP_META = {

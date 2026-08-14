@@ -1,4 +1,3 @@
-import React from 'react';
 import { Lightbulb, TrendingUp } from 'lucide-react';
 
 export default function WhatThisMeansBlock({ report }) {

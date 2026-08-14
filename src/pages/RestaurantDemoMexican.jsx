@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { MEXICAN_CONFIG } from '../components/restaurant-demo/RestaurantConfig';
 import RestaurantNav from '../components/restaurant-demo/RestaurantNav';
 import RestaurantHero from '../components/restaurant-demo/RestaurantHero';

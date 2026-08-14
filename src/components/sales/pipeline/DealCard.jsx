@@ -1,4 +1,3 @@
-import React from 'react';
 import { Calendar, TrendingUp, AlertCircle } from 'lucide-react';
 
 const stageBadges = {

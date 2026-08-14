@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Play, Monitor } from 'lucide-react';
 
 // Placeholder thumbnail — swap src for real embed URL when video is ready

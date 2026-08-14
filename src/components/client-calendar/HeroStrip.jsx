@@ -1,4 +1,3 @@
-import React from 'react';
 import { Clock, AlertCircle, Zap, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils';

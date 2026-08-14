@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Map, AlertCircle, CheckCircle2, TrendingUp, Plus } from 'lucide-react';
+import { useState } from 'react';
+import { Map, AlertCircle, TrendingUp, Plus } from 'lucide-react';
 
 const MOCK_TERRITORIES = [
   { id: 't1', name: 'Denver Metro', state: 'CO', reseller: 'Peak Media Group', clients: 14, max: 20, saturation: 70, verticals: ['HVAC', 'Plumbing'], status: 'assigned', opportunity: false },

@@ -1,6 +1,5 @@
-import React from 'react';
 import { Card } from '@/components/ui/card';
-import { CheckCircle2, Circle, AlertCircle, Zap } from 'lucide-react';
+import { Zap } from 'lucide-react';
 
 export default function HeroStatusStrip({ video, publishJobs }) {
   // Calculate workflow completion %

@@ -1,5 +1,4 @@
-import React from 'react';
-import { TrendingDown, Clock, MessageSquare, Globe, Video, Search } from 'lucide-react';
+import { TrendingDown, MessageSquare, Globe, Video, Search } from 'lucide-react';
 
 const PAIN_POINTS = [
   {

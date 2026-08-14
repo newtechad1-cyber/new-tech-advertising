@@ -1,5 +1,4 @@
-import React from 'react';
-import { ArrowRight, TrendingUp, Zap } from 'lucide-react';
+import { ArrowRight, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { getUpgradeCTA, getPlanTransitionDescription } from './PricingLadderUpgradeLogic';
 

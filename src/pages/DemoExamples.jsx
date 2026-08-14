@@ -5,7 +5,7 @@ import StickyCTA from '@/components/demo-machine/StickyCTA';
 import DemoAIPanel from '@/components/demo-machine/DemoAIPanel';
 import DemoConversionBlock from '@/components/demo-machine/DemoConversionBlock';
 import { useDemoPageView } from '@/components/demo-machine/useDemoSession';
-import { ArrowRight, TrendingUp } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 const CASE_STUDIES = [
   { industry: 'HVAC', name: 'Metro Comfort Systems', location: 'Dallas, TX', result: '3x more organic calls in 90 days', detail: 'After NTA built their local SEO pages and automated seasonal content, they went from page 3 to top 3 on Google for "AC repair Dallas" — without running a single ad.', metric: '+247%', metricLabel: 'Organic Traffic' },

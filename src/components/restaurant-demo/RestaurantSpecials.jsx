@@ -1,4 +1,3 @@
-import React from 'react';
 
 export default function RestaurantSpecials({ config }) {
   const { specials, primaryColor, name } = config;

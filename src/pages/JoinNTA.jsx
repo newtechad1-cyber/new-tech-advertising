@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { CheckCircle, DollarSign, MapPin, Users, Zap, TrendingUp, Star, ArrowRight, Building2, Paperclip } from 'lucide-react';
 import MarketingNav from '../components/nav/MarketingNav';

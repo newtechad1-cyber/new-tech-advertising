@@ -1,4 +1,3 @@
-import React from 'react';
 import { Plus, Send, Eye, Calendar } from 'lucide-react';
 import { CQStatusBadge, CQApprovalBadge } from './CQUtils';
 

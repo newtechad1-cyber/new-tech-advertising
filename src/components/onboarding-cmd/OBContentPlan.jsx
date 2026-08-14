@@ -1,4 +1,3 @@
-import React from 'react';
 import { FileText, Video, Tv, Share2, Calendar } from 'lucide-react';
 
 const INDUSTRY_TOPICS = {

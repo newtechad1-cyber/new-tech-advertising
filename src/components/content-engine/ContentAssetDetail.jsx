@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, FileText, Youtube, Music2, Linkedin, Facebook, Mail, BookOpen, Image, Video, CheckCircle2, Loader2 } from 'lucide-react';

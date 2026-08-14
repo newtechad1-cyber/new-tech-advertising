@@ -1,5 +1,4 @@
-import React from 'react';
-import { AlertCircle, Target, Zap, TrendingUp } from 'lucide-react';
+import { AlertCircle, Target, TrendingUp } from 'lucide-react';
 
 export default function StrategyBlock() {
   return (

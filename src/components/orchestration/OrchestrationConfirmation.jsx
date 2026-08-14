@@ -1,7 +1,6 @@
-import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { CheckCircle2, AlertCircle, Clock, Zap } from 'lucide-react';
+import { CheckCircle2, Clock, Zap } from 'lucide-react';
 
 export default function OrchestrationConfirmation({ orchestrationData }) {
   if (!orchestrationData) return null;

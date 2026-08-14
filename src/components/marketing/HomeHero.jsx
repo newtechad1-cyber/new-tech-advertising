@@ -1,5 +1,4 @@
-import React from 'react';
-import { ArrowRight, CheckCircle, Play } from 'lucide-react';
+import { ArrowRight, CheckCircle } from 'lucide-react';
 import VideoSystem from '../VideoSystem';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';

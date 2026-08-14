@@ -1,4 +1,3 @@
-import React from 'react';
 import { MessageCircle, Heart, Share2, Clock } from 'lucide-react';
 
 const momentumCards = [

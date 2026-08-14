@@ -1,4 +1,3 @@
-import React from 'react';
 import { Layout, Zap, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 

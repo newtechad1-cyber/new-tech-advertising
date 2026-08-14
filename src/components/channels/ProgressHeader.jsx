@@ -1,4 +1,3 @@
-import React from 'react';
 
 export default function ProgressHeader({ step = 3, totalSteps = 4 }) {
   const progress = (step / totalSteps) * 100;

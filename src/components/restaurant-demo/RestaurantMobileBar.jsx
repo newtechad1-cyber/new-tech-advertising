@@ -1,4 +1,3 @@
-import React from 'react';
 import { Phone, MapPin, ShoppingBag, UtensilsCrossed } from 'lucide-react';
 
 export default function RestaurantMobileBar({ config }) {

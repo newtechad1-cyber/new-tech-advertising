@@ -1,8 +1,6 @@
-import React from 'react';
-import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
-import { Eye, Zap, Clock, DollarSign, AlertTriangle } from 'lucide-react';
+import { Eye, Zap, DollarSign, AlertTriangle } from 'lucide-react';
 
 const CATEGORY_COLORS = {
   lead_pipeline: 'bg-blue-500/20 text-blue-300 border-blue-500/30',

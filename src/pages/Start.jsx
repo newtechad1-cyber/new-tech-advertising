@@ -1,7 +1,6 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import StartHero from '@/components/start/StartHero';
 import StartWhatHappensNext from '@/components/start/StartWhatHappensNext';

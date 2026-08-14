@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
-import { CheckCircle, ArrowRight, Star, Zap, BarChart2, Share2, Video, Search, ThermometerSnowflake, ShieldAlert, BadgeCheck, MapPin, Wrench } from 'lucide-react';
+import { CheckCircle, ArrowRight, Star, Zap, BarChart2, Share2, Video, Search, ThermometerSnowflake, BadgeCheck, MapPin, Wrench } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const DATA = {

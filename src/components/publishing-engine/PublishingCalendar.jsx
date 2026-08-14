@@ -3,11 +3,10 @@
  * Calendar view of scheduled content across all channels.
  * Shows upcoming publishes with channel indicators.
  */
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import * as LucideIcons from 'lucide-react';
 import {
-  ChevronLeft, ChevronRight, Calendar, Clock,
-  ExternalLink
+  ChevronLeft, ChevronRight, Calendar
 } from 'lucide-react';
 import {
   CHANNELS, TARGET_STATES, STATUS_COLORS, formatDate

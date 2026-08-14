@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Sliders, Save, RefreshCw, ToggleLeft, ToggleRight } from 'lucide-react';
+import { useState } from 'react';
+import { Sliders, Save, ToggleLeft, ToggleRight } from 'lucide-react';
 
 const SLIDERS = [
   { key: 'content_velocity',        label: 'Content Velocity',         desc: 'Articles, blogs, and copy generation rate', color: '#3b82f6', icon: '📝' },

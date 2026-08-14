@@ -1,4 +1,3 @@
-import React from 'react';
 import { AlertTriangle, AlertCircle, AlertOctagon, ChevronRight } from 'lucide-react';
 
 const RISK_REASON_CONFIG = {

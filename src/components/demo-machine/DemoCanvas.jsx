@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { TrendingUp, Globe, Zap, BarChart2, ArrowRight, Star, Eye, Users, Activity } from 'lucide-react';
+import { Globe, Zap, BarChart2, ArrowRight, Star, Eye } from 'lucide-react';
 
 const MODULES = [
   { id: 'visibility', label: 'Market Visibility', icon: Eye },

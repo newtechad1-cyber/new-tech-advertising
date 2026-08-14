@@ -1,5 +1,4 @@
-import React from 'react';
-import { AlertCircle, RefreshCw, ExternalLink, CheckCircle2 } from 'lucide-react';
+import { AlertCircle, RefreshCw } from 'lucide-react';
 
 const STEPS = [
   'Open TikTok on your mobile device',

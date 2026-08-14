@@ -1,4 +1,3 @@
-import React from 'react';
 import { CheckCircle, Sparkles } from 'lucide-react';
 
 export default function MilestoneMessage({ report, previousReport }) {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Flame, TrendingUp, Minus, Snowflake } from 'lucide-react';
 
 const TIER_CONFIG = {

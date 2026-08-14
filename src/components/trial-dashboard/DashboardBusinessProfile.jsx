@@ -1,6 +1,3 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
 import { Building2, MapPin, Target, ArrowRight } from 'lucide-react';
 
 export default function DashboardBusinessProfile({ businessProfile }) {

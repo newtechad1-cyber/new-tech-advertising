@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Loader2, Zap, AlertCircle } from 'lucide-react';
 
 const INDUSTRIES = ['HVAC', 'Plumbing', 'Roofing', 'Landscaping', 'Dental', 'Chiropractic', 'Restaurant', 'Retail', 'Auto Repair', 'Real Estate', 'Law', 'Accounting', 'Cleaning Services', 'Electrician', 'Construction', 'Salon/Spa', 'Fitness', 'Other'];

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Flame, TrendingUp, Clock, CheckCircle2, AlertTriangle } from 'lucide-react';
 
 export default function SFUKPIBar({ sequences = [] }) {

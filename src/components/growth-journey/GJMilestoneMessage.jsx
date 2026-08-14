@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { MessageSquare, X, TrendingUp, Zap, Rocket, Crown } from 'lucide-react';
+import { useState } from 'react';
+import { X, TrendingUp, Zap, Rocket, Crown } from 'lucide-react';
 
 const STAGE_ICONS = { launch_confidence: Zap, momentum_reinforcement: TrendingUp, growth_expansion: Rocket, market_leadership: Crown };
 const STAGE_COLORS = { launch_confidence: '#3b82f6', momentum_reinforcement: '#8b5cf6', growth_expansion: '#f59e0b', market_leadership: '#10b981' };

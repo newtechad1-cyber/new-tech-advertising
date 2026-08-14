@@ -1,5 +1,3 @@
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { AlertTriangle, UserCheck, Calendar, Gift, TrendingDown, Eye, BarChart2, LogIn } from 'lucide-react';
 import { base44 } from '@/api/base44Client';

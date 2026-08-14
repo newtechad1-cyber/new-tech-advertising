@@ -1,4 +1,3 @@
-import React from 'react';
 import { Users } from 'lucide-react';
 
 const VERTICALS = ['HVAC', 'Plumbing', 'Roofing', 'Landscaping', 'Electrical', 'Painting', 'Restaurant'];

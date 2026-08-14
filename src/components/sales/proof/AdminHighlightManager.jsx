@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { CheckCircle, XCircle, Eye, EyeOff, Trash2, Edit2 } from 'lucide-react';
+import { CheckCircle, XCircle, Eye, EyeOff, Trash2 } from 'lucide-react';
 
 const STATUS_COLORS = {
   draft: 'bg-gray-100 text-gray-900',

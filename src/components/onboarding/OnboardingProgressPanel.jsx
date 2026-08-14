@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card } from '@/components/ui/card';
 import { AlertCircle, CheckCircle2 } from 'lucide-react';
 

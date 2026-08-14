@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { CheckCircle2, Circle, Star } from 'lucide-react';
 import { generateWeeklyFocusPlan } from './ntaRetentionEngine';
 

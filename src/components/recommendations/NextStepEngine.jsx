@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Compass, Activity, Map, Users, Brain, Target, ArrowRight, ShieldCheck } from 'lucide-react';
 import { getJourneyMemory } from '@/lib/journeyMemory';

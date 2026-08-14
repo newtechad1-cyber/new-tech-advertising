@@ -1,5 +1,4 @@
-import React from 'react';
-import { TrendingUp, Calendar } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 
 export default function ClosingSoonSection({ deals = [] }) {
   const now = new Date();

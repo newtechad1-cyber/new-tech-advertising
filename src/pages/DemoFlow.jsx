@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import DemoFlowStep from '@/components/demo/DemoFlowStep.jsx';
 import DemoNarrativeContent from '@/components/demo/DemoNarrativeContent.jsx';
 import DemoScreenShowcase from '@/components/demo/DemoScreenShowcase.jsx';

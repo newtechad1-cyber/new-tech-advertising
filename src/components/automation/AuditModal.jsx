@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import {
   X, CheckCircle, XCircle, AlertTriangle, Loader2,
-  ShieldCheck, Link2, Database, Code2, ArrowRight,
-  FileText, Wrench, ExternalLink
+  ShieldCheck, Wrench, ExternalLink
 } from 'lucide-react';
 
 const VALID_TRIGGER_EVENTS = [

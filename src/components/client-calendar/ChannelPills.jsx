@@ -1,4 +1,3 @@
-import React from 'react';
 import { Facebook, Instagram, Globe, Youtube, Linkedin } from 'lucide-react';
 
 const CHANNEL_CONFIG = {

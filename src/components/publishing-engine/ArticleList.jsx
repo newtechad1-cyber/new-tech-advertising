@@ -2,11 +2,10 @@
  * P-001 Publishing Engine — Article List
  * Filterable list of all publishing articles with channel status indicators.
  */
-import React, { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useMemo } from 'react';
 import * as LucideIcons from 'lucide-react';
 import {
-  Search, Filter, Plus, ChevronRight, SlidersHorizontal, X, ExternalLink
+  Search, Plus, ChevronRight, SlidersHorizontal, X
 } from 'lucide-react';
 import {
   WORKFLOW_STATES, CHANNELS, CHANNEL_LIST, TARGET_STATES,

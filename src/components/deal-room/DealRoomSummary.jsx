@@ -1,4 +1,3 @@
-import React from 'react';
 import { CheckCircle, TrendingUp, Target } from 'lucide-react';
 
 export default function DealRoomSummary({ opportunity }) {

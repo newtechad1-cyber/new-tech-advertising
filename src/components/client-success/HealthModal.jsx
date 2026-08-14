@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { X, Calendar, AlertTriangle, TrendingUp, MessageSquare } from 'lucide-react';
 
 function scoreColor(score) {

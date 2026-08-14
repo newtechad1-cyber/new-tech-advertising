@@ -1,4 +1,3 @@
-import React from 'react';
 import { Loader2, CheckCircle2, PauseCircle, AlertCircle, WifiOff, Zap } from 'lucide-react';
 
 const STATUS_CFG = {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Video, Film, Mic } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Plus, FolderKanban, Calendar, MoreVertical, Loader2 } from 'lucide-react';
+import { Plus, FolderKanban, Calendar, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
 import ProjectDetail from './ProjectDetail';
 import EmptyState from './EmptyState';

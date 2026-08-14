@@ -1,16 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Download, Lock, Calendar, Target, Map, 
-  ShieldAlert, Cpu, Users, ArrowRight, CheckCircle2, TrendingUp, 
-  MessageSquare, Globe, ArrowDown, Activity, Lightbulb, Shield,
+import { useState, useEffect, useRef } from 'react';
+import { Target, Map, 
+  ShieldAlert, Cpu, Users, ArrowRight, TrendingUp, 
+  MessageSquare, Globe, ArrowDown, Activity, Shield,
   Brain, FileText, CheckCircle, ChevronRight, Copy, Printer, RefreshCw
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEOHead from '@/components/shared/SEOHead';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
-import { getJourneyMemory } from '@/lib/journeyMemory';
 
 export default function NTAGrowthRoadmapGenerator() {
   const roadmapRef = useRef(null);

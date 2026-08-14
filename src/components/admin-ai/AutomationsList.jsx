@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { base44 } from '@/api/base44Client';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useState } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Loader2, CheckCircle, AlertCircle, Clock } from 'lucide-react';
+import { CheckCircle, Clock } from 'lucide-react';
 
 const AUTOMATIONS = [
   {

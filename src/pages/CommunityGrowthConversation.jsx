@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { 
   ArrowRight, ArrowLeft, CheckCircle2, 
-  MapPin, Shield, Search, Users, TrendingUp, Zap, X, 
-  HeartHandshake, Presentation, BarChart, Settings, Share2, Award, Building2
+  MapPin, Shield, Search, Zap, X, 
+  HeartHandshake, Presentation, BarChart, Share2, Award, Building2
 } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
 import NextStepEngine from '@/components/recommendations/NextStepEngine';

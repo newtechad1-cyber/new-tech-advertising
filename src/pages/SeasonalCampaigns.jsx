@@ -1,4 +1,3 @@
-import React from 'react';
 import ServicePageLayout from '../components/service-pages/ServicePageLayout';
 
 import SEOHead from '@/components/shared/SEOHead';

@@ -1,5 +1,4 @@
-import React from 'react';
-import { CheckCircle2, BarChart3, Video, Share2, Globe, Zap } from 'lucide-react';
+import { BarChart3, Video, Share2, Globe, Zap } from 'lucide-react';
 
 export default function BCWhatWeCover() {
   const topics = [

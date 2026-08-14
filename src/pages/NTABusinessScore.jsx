@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { 
   ArrowRight, ArrowLeft, ChevronRight, X, 
   BarChart2, Target, Globe, MessageSquare, 
-  Brain, Users, Cpu, Activity, Lightbulb
+  Brain, Users, Cpu, Lightbulb
 } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
 import NextStepEngine from '@/components/recommendations/NextStepEngine';

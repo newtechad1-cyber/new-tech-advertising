@@ -1,6 +1,4 @@
-import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Users, DollarSign, TrendingUp, AlertTriangle, CheckCircle2, Clock } from 'lucide-react';
 export default function ExecutiveSummaryCards({ data }) {
   if (!data || !data.summary) return null;

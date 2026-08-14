@@ -1,7 +1,6 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { AlertTriangle } from 'lucide-react';
 
 export default function DuplicateFirePanel({ rules = [], health = [], triggers = [] }) {
   const riskyRules = useMemo(() => {

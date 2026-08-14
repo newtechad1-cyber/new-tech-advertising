@@ -1,6 +1,5 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { PlayCircle, Clock } from 'lucide-react';
+import { PlayCircle } from 'lucide-react';
 
 export default function LCVideoCard({ video }) {
   return (

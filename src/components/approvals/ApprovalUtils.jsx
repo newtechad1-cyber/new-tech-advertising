@@ -1,4 +1,3 @@
-import React from 'react';
 
 export const STATUS_COLORS = {
   'Draft':                    'bg-slate-700 text-slate-400',

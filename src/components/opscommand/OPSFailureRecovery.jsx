@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { AlertTriangle, RefreshCw, PauseCircle, Bell, Shield, Zap, Wifi, Video, FileText, Globe } from 'lucide-react';
+import { AlertTriangle, RefreshCw, PauseCircle, Bell, Wifi, Video, FileText, Globe } from 'lucide-react';
 
 const SEVERITY_CONFIG = {
   critical: { badge: 'bg-red-950 text-red-300', border: 'border-red-700/40', dot: 'bg-red-500 animate-pulse' },

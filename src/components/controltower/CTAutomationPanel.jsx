@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Zap, AlertTriangle, Play, Pause, CheckCircle2, XCircle } from 'lucide-react';
-import { base44 } from '@/api/base44Client';
+import { AlertTriangle, Play, Pause, CheckCircle2, XCircle } from 'lucide-react';
 
 const STATUS_CONFIG = {
   active: { color: 'text-emerald-400', badge: 'bg-emerald-950 text-emerald-300', icon: CheckCircle2 },

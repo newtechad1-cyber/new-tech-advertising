@@ -1,4 +1,3 @@
-import React from 'react';
 import { Facebook, Globe, Instagram, CheckCircle2, AlertCircle, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 

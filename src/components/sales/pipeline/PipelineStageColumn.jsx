@@ -1,4 +1,3 @@
-import React from 'react';
 import { Draggable, Droppable } from '@hello-pangea/dnd';
 import DealCard from './DealCard';
 import { Plus } from 'lucide-react';

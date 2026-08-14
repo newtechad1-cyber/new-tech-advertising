@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
 import { Plus, Pencil, Trash2, RefreshCw, Users, Send, ChevronDown, ChevronUp, CheckCircle, Loader2 } from 'lucide-react';
 import ReactQuill from 'react-quill';
 

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Plus, Search, CheckCircle, Archive, Send, Copy } from 'lucide-react';
+import { useState } from 'react';
+import { Plus, Search, CheckCircle, Archive, Send } from 'lucide-react';
 import { CQStatusBadge, CQApprovalBadge } from './CQUtils';
 import ContentQueueDrawer from './ContentQueueDrawer';
 import { base44 } from '@/api/base44Client';

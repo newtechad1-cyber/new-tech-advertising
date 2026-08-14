@@ -1,7 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { BrainCircuit, ArrowRight, Target, Calendar, Layers, TrendingUp } from 'lucide-react';
+import { ArrowRight, Target, Calendar, Layers, TrendingUp } from 'lucide-react';
 
 const STEPS = [
   { icon: Target, label: 'Brand Intake', desc: 'AI analyzes your business, audience, competitors, and goals to build your brand DNA.' },

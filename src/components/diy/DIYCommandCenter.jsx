@@ -1,5 +1,4 @@
-import React from 'react';
-import { TrendingUp, Target, Calendar, AlertCircle } from 'lucide-react';
+import { Target, Calendar } from 'lucide-react';
 
 export default function DIYCommandCenter({ subscription }) {
   return (

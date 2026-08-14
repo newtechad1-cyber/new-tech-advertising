@@ -1,4 +1,3 @@
-import React from 'react';
 import { LayoutDashboard, Users, Truck, FileText, Receipt, Package, Smartphone, PenTool } from 'lucide-react';
 
 export default function BOFeaturesGrid() {

@@ -1,6 +1,5 @@
-import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { GitCommit, AlertCircle, CheckCircle2, Edit2, Plus } from 'lucide-react';
+import { GitCommit, AlertCircle, Edit2, Plus } from 'lucide-react';
 
 export default function RecentPageGovernanceChanges({ audits = [] }) {
   const changeIcons = {

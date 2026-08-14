@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Share2, Globe, Shield, Tv, MapPin, ArrowRight } from 'lucide-react';

@@ -1,5 +1,3 @@
-import React from 'react';
-import { TrendingUp } from 'lucide-react';
 
 export default function ClientProgressScore({ client }) {
   // Calculate progress based on onboarding stage

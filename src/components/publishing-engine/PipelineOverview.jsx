@@ -6,7 +6,7 @@ import React from 'react';
 import * as LucideIcons from 'lucide-react';
 import {
   WORKFLOW_STATES, WORKFLOW_ORDER, CHANNELS, CHANNEL_LIST,
-  STATUS_COLORS, TARGET_STATES, formatDate
+  STATUS_COLORS, formatDate
 } from './publishingData';
 
 function StatCard({ icon, label, value, color = 'blue', sub }) {

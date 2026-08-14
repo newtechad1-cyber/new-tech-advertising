@@ -1,4 +1,3 @@
-import React from 'react';
 
 export default function NTAGuideAvatar({ size = 44, pulse = false, onClick }) {
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { X, Loader2, CheckCircle2 } from 'lucide-react';
 
 export default function RSAddResellerModal({ onClose, onSave }) {

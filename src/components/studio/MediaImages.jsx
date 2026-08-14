@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { Plus, Trash2, Upload, Search, Copy, Sparkles, Pencil, Loader2 } from 'lucide-react';
+import { Trash2, Upload, Search, Copy, Sparkles, Pencil, Loader2 } from 'lucide-react';
 import ImageEditor from './ImageEditor';
 import { toast } from 'sonner';
 

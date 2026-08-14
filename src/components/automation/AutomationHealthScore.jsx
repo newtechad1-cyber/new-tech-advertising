@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { TrendingUp, AlertTriangle } from 'lucide-react';
+import { TrendingUp } from 'lucide-react';
 
 export default function AutomationHealthScore({ rule, health, executions = [] }) {
   const ruleHealth = useMemo(() => {

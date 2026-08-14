@@ -1,5 +1,4 @@
-import React from 'react';
-import { CheckCircle, Star, Zap, ArrowRight } from 'lucide-react';
+import { CheckCircle, Star, ArrowRight } from 'lucide-react';
 
 const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
 const STRATEGY_URL = 'https://app.newtechadvertising.com/book-call';

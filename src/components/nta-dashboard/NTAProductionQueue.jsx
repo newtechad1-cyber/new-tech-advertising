@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { base44 } from '@/api/base44Client';
 
 const COLS = ['Idea Ready', 'Script Ready', 'In HeyGen', 'Video Created', 'Needs Posting', 'Posted'];

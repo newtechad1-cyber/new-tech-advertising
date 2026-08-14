@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import AIStatusBadge from './AIStatusBadge';
 import {
   Sparkles,
   ArrowRight,
-  Copy,
   Check,
   Loader2,
-  AlertCircle,
 } from 'lucide-react';
 
 export default function AIIntegrationPanel({ 

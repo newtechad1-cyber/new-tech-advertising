@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrainCircuit, Video, Share2, Tv, CalendarDays } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Plus, Zap, Calendar, TrendingUp } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { goToBookingPage } from '@/components/config/bookingConfig';

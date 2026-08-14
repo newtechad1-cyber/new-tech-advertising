@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, ArrowRight, MapPin, Star, Phone } from 'lucide-react';
 import Header from '../components/landing/Header';

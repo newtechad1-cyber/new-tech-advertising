@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Crown, Flame, TrendingUp, Building2, Users2, X, Star, ChevronRight } from 'lucide-react';
+import { Crown, Flame, Building2, Users2, X, Star, ChevronRight } from 'lucide-react';
 
 const WorkspaceModal = ({ deals, onClose }) => (
   <div className="fixed inset-0 z-50 flex items-center justify-center p-4">

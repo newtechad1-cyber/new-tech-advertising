@@ -1,4 +1,3 @@
-import React from 'react';
 import { ArrowRight, Phone } from 'lucide-react';
 import { createPageUrl } from '@/utils';
 import { Link } from 'react-router-dom';

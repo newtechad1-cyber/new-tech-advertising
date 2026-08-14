@@ -1,4 +1,3 @@
-import React from 'react';
 import { Calendar, Facebook, Instagram, Youtube, Globe } from 'lucide-react';
 import { formatDate } from 'date-fns';
 import { createPageUrl } from '@/utils';

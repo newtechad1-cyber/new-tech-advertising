@@ -1,4 +1,3 @@
-import React from 'react';
 import { TrendingUp, Quote } from 'lucide-react';
 
 const CASE_STUDIES = [

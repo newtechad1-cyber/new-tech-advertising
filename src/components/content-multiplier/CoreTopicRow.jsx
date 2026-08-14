@@ -1,4 +1,3 @@
-import React from 'react';
 import { Loader2, CheckCircle2, Clock, Globe, RefreshCw, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';

@@ -1,5 +1,4 @@
-import React from 'react';
-import { Sparkles, Calendar } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 export default function MarketingPlanEmptyState() {
   return (

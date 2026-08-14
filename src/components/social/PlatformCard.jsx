@@ -1,4 +1,3 @@
-import React from 'react';
 import { CheckCircle, AlertCircle, WifiOff, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 

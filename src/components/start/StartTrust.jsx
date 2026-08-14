@@ -1,4 +1,3 @@
-import React from 'react';
 import { ShieldCheck, Users, Zap, Link } from 'lucide-react';
 
 const POINTS = [

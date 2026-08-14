@@ -1,6 +1,4 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Plus, AlertTriangle, Clock, CheckSquare, Wifi, Calendar } from 'lucide-react';
+import { Plus, AlertTriangle, CheckSquare, Calendar } from 'lucide-react';
 import { CampaignStatusBadge, PostStatusBadge, ApprovalBadge, PLATFORM_ICON } from './CampaignUtils';
 
 export default function CampaignOverviewTab({ campaigns, posts, clients, connections, onNewCampaign, onNewPost, onTabChange }) {

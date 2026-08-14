@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { CheckCircle, X, Minus, ArrowRight, BrainCircuit, Calendar, BarChart2, Video, Zap, Globe, Shield, Users, MessageSquare, Tv, ChevronDown } from 'lucide-react';
+import { CheckCircle, X, Minus, ArrowRight, BrainCircuit, Calendar, Video, Globe, Shield, MessageSquare, ChevronDown } from 'lucide-react';
 
 // ── Plans ──────────────────────────────────────────────────────────────────────
 const PLANS = [

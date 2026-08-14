@@ -1,5 +1,4 @@
-import React from 'react';
-import { CheckCircle2, AlertCircle, Clock, RefreshCw, ExternalLink, Wifi, WifiOff, Loader2 } from 'lucide-react';
+import { CheckCircle2, AlertCircle, Clock, RefreshCw, ExternalLink, WifiOff, Loader2 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 
 const STATUS_CFG = {

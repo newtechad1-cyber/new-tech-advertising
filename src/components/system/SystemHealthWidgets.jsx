@@ -2,7 +2,7 @@
  * Reusable system health status widgets.
  * Import on any page: /nta/command-center, /agency, /agency/content, /nta/system-health
  */
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Link } from 'react-router-dom';
 import { AlertTriangle, Wifi, FileText, Users, ShieldAlert } from 'lucide-react';

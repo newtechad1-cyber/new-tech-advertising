@@ -1,6 +1,3 @@
-import React from 'react';
-import { Zap, ArrowRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 export default function NextBestOnboardingAction({ client }) {
   const actions = [];

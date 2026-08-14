@@ -1,5 +1,4 @@
-import React from 'react';
-import { Zap, MapPin, Users, Calendar, ChevronRight, ArrowUpRight } from 'lucide-react';
+import { Zap, MapPin, Users, Calendar, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const MONTH_SEASONS = {

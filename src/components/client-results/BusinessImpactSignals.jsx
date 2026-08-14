@@ -1,4 +1,3 @@
-import React from 'react';
 import { Phone, MapPin, FileText, Globe } from 'lucide-react';
 
 const signals = [

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Check, ArrowRight, Star, Zap, Crown } from 'lucide-react';
 
 const ICONS = {

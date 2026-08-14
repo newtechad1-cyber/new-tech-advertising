@@ -3,11 +3,8 @@
  * Visual workflow stepper + action buttons for state transitions.
  * Shows: Draft → Review → Approved → Queued → Published
  */
-import React from 'react';
 import * as LucideIcons from 'lucide-react';
-import {
-  ArrowRight, Archive, Eye, CheckCircle, Clock, Send, AlertTriangle
-} from 'lucide-react';
+
 import { WORKFLOW_STATES, WORKFLOW_ORDER, STATUS_COLORS } from './publishingData';
 
 function WorkflowStep({ state, isActive, isCompleted, isLast }) {

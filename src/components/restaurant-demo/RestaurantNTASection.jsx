@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, CheckCircle2, Loader2 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';

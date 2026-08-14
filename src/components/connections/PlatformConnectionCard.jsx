@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { CheckCircle2, XCircle, AlertTriangle, Loader2, RefreshCw, Settings, Wifi, WifiOff, Clock } from "lucide-react";
+import { CheckCircle2, XCircle, Loader2, RefreshCw, Settings, Wifi, WifiOff, Clock } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 
 const STATUS_CONFIG = {

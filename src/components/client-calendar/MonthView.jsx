@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import CalendarEventCard from './CalendarEventCard';
 import CalendarEventDetail from './CalendarEventDetail';
 

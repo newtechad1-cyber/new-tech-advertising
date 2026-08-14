@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { Calendar, Image, Video, FileText, CheckCircle, Clock, XCircle, Sparkles } from 'lucide-react';
+import { Image, Video, FileText, CheckCircle, Clock, XCircle, Sparkles } from 'lucide-react';
 
 export default function ContentSubmissionsView() {
   const [submissions, setSubmissions] = useState([]);

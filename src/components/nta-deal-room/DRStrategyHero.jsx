@@ -1,4 +1,3 @@
-import React from 'react';
 import { TrendingUp, Eye, Zap, ArrowRight } from 'lucide-react';
 
 const INDUSTRY_DATA = {

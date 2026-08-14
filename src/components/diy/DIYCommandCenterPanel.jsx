@@ -1,4 +1,3 @@
-import React from 'react';
 import { CheckCircle2, Target, TrendingUp, Lightbulb } from 'lucide-react';
 
 export default function DIYCommandCenterPanel({ subscription }) {

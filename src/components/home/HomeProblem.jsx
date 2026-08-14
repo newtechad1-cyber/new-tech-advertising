@@ -1,4 +1,3 @@
-import React from 'react';
 import { Clock, DollarSign, Globe, Video, LayoutDashboard } from 'lucide-react';
 
 const PAINS = [

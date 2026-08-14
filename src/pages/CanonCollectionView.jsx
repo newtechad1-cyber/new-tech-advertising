@@ -4,7 +4,7 @@
  * and estimated time. Fully entity-driven.
  * Route: /canon/collection/:slug
  */
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';

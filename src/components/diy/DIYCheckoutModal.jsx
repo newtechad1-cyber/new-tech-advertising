@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { X, CheckCircle2, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 

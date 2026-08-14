@@ -1,4 +1,3 @@
-import React from 'react';
 import { CheckCircle2, Star, Zap, Crown } from 'lucide-react';
 
 export const PACKAGES = {

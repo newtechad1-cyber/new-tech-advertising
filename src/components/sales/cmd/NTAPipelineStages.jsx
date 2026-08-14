@@ -1,5 +1,4 @@
-import React from 'react';
-import { ArrowRight, AlertCircle } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export default function NTAPipelineStages({ deals }) {
   const stages = [

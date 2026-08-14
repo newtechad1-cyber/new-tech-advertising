@@ -1,4 +1,3 @@
-import React from 'react';
 import { Facebook, Instagram, Globe, Calendar, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 

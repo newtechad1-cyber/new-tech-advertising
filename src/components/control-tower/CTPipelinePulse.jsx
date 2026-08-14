@@ -1,4 +1,3 @@
-import React from 'react';
 
 const PipelineStage = ({ label, count, value, color }) => (
   <div className="flex-1">

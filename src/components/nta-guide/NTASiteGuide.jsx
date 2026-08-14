@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { X, MessageCircle } from 'lucide-react';
-import { AnimatePresence } from 'framer-motion';
 import NTAGuideAvatar from './NTAGuideAvatar';
 import NTAGuidePanel from './NTAGuidePanel';
 

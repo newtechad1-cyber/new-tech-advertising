@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TrendingDown, AlertTriangle, Target, Eye, ChevronRight, Loader2 } from 'lucide-react';
 
 // Deterministic-ish "simulation" based on industry/city

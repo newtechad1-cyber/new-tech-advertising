@@ -1,4 +1,3 @@
-import React from 'react';
 import { X, Star, ChevronRight } from 'lucide-react';
 
 function fmt(n) {

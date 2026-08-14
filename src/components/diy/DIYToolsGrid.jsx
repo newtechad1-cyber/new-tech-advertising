@@ -1,4 +1,3 @@
-import React from 'react';
 import { Globe, Video, MessageSquare, BarChart3, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 

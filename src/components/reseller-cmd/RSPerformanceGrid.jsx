@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { TrendingUp, TrendingDown, Minus, ChevronRight, MoreHorizontal } from 'lucide-react';
+import { useState } from 'react';
+import { TrendingUp, TrendingDown, Minus, ChevronRight } from 'lucide-react';
 
 const TIER_CFG = {
   standard:  { color: '#64748b', label: 'Standard',  bg: '#1e293b' },

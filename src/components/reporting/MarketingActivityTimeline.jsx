@@ -1,5 +1,4 @@
-import React from 'react';
-import { CheckCircle2, Video, Zap, Users } from 'lucide-react';
+import { CheckCircle2, Video, Zap } from 'lucide-react';
 
 export default function MarketingActivityTimeline({ report }) {
   const activities = [

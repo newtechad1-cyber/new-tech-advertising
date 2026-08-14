@@ -1,4 +1,3 @@
-import React from 'react';
 import { Clock, CheckCircle, TrendingUp, Zap } from 'lucide-react';
 
 function SummaryCard({ icon: Icon, label, value, color }) {

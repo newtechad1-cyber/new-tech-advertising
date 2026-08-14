@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { CheckCircle2, ChevronRight, X, Loader2, AlertCircle, ExternalLink } from 'lucide-react';
 
 // Wizard step definitions per platform

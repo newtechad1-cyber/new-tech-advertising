@@ -6,10 +6,9 @@
  *
  * Reads from CanonCollection + PublishingArticle entities via Knowledge Graph.
  */
-import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  ChevronLeft, ChevronRight, CheckCircle2, Circle,
+  ChevronLeft, ChevronRight, CheckCircle2,
   Clock, BookOpen, ArrowRight, Play
 } from 'lucide-react';
 import { THEME_COLORS, ASSET_TYPE_META } from '@/lib/knowledgeGraph';

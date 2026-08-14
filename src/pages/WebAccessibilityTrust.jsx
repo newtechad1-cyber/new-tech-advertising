@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { CheckCircle2 } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import LCHeader from '@/components/learning-center/LCHeader';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { TrendingUp, Users, DollarSign, Zap, BarChart2 } from 'lucide-react';
 
 const TIER_MULTIPLIERS = { starter: 1.0, authority: 1.8, domination: 2.8 };

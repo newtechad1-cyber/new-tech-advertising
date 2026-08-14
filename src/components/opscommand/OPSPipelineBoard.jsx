@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { X, AlertTriangle, Flame, Clock, RefreshCw, Flag, Send, CheckCircle2, PauseCircle, Zap } from 'lucide-react';
 import { base44 } from '@/api/base44Client';

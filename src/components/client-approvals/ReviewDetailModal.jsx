@@ -1,8 +1,7 @@
-import React from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Facebook, Instagram, Youtube, Music, Globe, MessageSquare, Check, X } from 'lucide-react';
+import { Facebook, Instagram, Youtube, Music, Globe, MessageSquare, Check } from 'lucide-react';
 import { format } from 'date-fns';
 
 export default function ReviewDetailModal({ isOpen, video, onApprove, onRequestChanges, onClose }) {

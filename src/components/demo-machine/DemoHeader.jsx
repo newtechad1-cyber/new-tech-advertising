@@ -1,5 +1,4 @@
-import React from 'react';
-import { Building2, MapPin, DollarSign, Tag, ArrowRight, ExternalLink, FileText, CheckSquare, Calendar, Play } from 'lucide-react';
+import { Building2, MapPin, DollarSign, Tag, ExternalLink, FileText, CheckSquare, Calendar, Play } from 'lucide-react';
 
 const STAGE_LABELS = {
   new_lead: 'New Lead', contacted: 'Contacted', discovery: 'Discovery',

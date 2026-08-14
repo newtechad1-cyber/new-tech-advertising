@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { X, Send, Zap, CheckCircle2, ArrowUp } from 'lucide-react';
 
 const RISK_REASON_CONFIG = {

@@ -1,5 +1,4 @@
-import React from 'react';
-import { CheckCircle2, Circle, Lock, Zap } from 'lucide-react';
+import { CheckCircle2, Circle, Zap } from 'lucide-react';
 
 export default function OnboardingProgressExperience({ onboarding }) {
   const stages = [

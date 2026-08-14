@@ -1,4 +1,3 @@
-import React from 'react';
 import { Loader2, CheckCircle2, Clock, AlertCircle, Zap } from 'lucide-react';
 
 const FULFILLMENT_ITEMS = [

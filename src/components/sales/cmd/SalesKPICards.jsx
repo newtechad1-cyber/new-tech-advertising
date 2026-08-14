@@ -1,4 +1,3 @@
-import React from 'react';
 import { DollarSign, TrendingUp, Target, Zap, Percent, Calendar } from 'lucide-react';
 
 const KPI_CONFIG = [

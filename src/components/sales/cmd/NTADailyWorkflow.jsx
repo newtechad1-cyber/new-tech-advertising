@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Clock, CheckCircle, AlertCircle, Target } from 'lucide-react';
 
 export default function NTADailyWorkflow() {

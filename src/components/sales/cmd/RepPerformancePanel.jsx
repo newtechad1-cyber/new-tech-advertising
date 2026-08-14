@@ -1,5 +1,4 @@
-import React from 'react';
-import { Users, TrendingUp } from 'lucide-react';
+import { Users } from 'lucide-react';
 
 export default function RepPerformancePanel({ deals = [] }) {
   // Group by assigned rep

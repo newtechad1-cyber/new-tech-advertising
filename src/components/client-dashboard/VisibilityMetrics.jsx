@@ -1,4 +1,3 @@
-import React from 'react';
 import { Video, Clock, TrendingUp, Globe, Zap } from 'lucide-react';
 
 function MetricCard({ icon: Icon, label, value, trend, color }) {

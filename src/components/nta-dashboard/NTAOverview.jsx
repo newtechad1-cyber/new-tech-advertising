@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Film, FileText, CheckCircle, Send, Zap, Monitor, Mail, Plus } from 'lucide-react';
+import { Film, FileText, CheckCircle, Zap, Monitor, Mail, Plus } from 'lucide-react';
 
 export default function NTAOverview({ onNavigate }) {
   const [items, setItems] = useState([]);

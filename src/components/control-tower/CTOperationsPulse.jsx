@@ -1,4 +1,3 @@
-import React from 'react';
 
 const StatusBar = ({ label, count, color, urgency }) => (
   <div className="flex-1">

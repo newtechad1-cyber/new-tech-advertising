@@ -1,6 +1,4 @@
-import React from 'react';
 import { useSchoolRoute } from '@/components/school-tv/useSchoolRoute';
-import { Button } from '@/components/ui/button';
 import { Calendar, ArrowRight, BookOpen } from 'lucide-react';
 
 export default function BulldogTVStories() {

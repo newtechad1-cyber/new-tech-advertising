@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Upload, AlertCircle, CheckCircle, Loader } from 'lucide-react';
+import { Upload, AlertCircle, Loader } from 'lucide-react';
 
 export default function CalendarImportPanel({ businessProfileId, onImportComplete }) {
   const [isLoading, setIsLoading] = useState(false);

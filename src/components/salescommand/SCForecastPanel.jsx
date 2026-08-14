@@ -1,8 +1,6 @@
-import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { AreaChart, Area, LineChart, Line, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { TrendingUp, AlertTriangle, DollarSign, Zap } from 'lucide-react';
+import { AlertTriangle, DollarSign, Zap } from 'lucide-react';
 
 export default function SCForecastPanel({ forecasts = [], deals = [] }) {
   const monthlyData = forecasts.length > 0

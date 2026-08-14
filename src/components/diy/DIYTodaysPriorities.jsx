@@ -1,5 +1,4 @@
-import React from 'react';
-import { Clock, Zap, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Clock, CheckCircle2, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const TODAY_TASKS = [

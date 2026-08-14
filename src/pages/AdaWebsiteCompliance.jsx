@@ -1,9 +1,8 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
-import { Shield, AlertTriangle, CheckCircle, TrendingUp, Users, Zap } from 'lucide-react';
+import { Shield, AlertTriangle, TrendingUp, Users } from 'lucide-react';
 
 export default function AdaWebsiteCompliance() {
   return (

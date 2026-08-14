@@ -1,5 +1,4 @@
-import React from 'react';
-import { Plus, FileText, Link2, MessageSquare, Zap, Phone } from 'lucide-react';
+import { Plus, Link2, MessageSquare, Zap, Phone } from 'lucide-react';
 
 export default function QuickActionToolbar() {
   const actions = [

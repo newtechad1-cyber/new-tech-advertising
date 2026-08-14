@@ -1,4 +1,3 @@
-import React from 'react';
 import { CheckCircle, Circle, Clock } from 'lucide-react';
 
 const STEPS = [

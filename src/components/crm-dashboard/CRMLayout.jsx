@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Users, Archive, ChevronLeft, Menu, X, FileText, Building2 } from 'lucide-react';
+import { LayoutDashboard, Users, Archive, ChevronLeft, Menu, FileText, Building2 } from 'lucide-react';
 
 const NAV = [
   { label: 'Daily Command', href: '/dashboard', icon: LayoutDashboard },

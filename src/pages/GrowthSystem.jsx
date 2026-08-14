@@ -1,4 +1,3 @@
-import React from 'react';
 import { createPageUrl } from '@/utils';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';

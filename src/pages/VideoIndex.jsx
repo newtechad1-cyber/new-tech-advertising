@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { createPageUrl } from "@/utils";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Video, Clock, Plus } from "lucide-react";
+import { Video, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const statusColors = {

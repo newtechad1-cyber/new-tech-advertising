@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LayoutTemplate, ChevronRight, Activity, Zap, CheckCircle2, Lock, Unlock } from 'lucide-react';
+import { ChevronRight, Activity, Zap, CheckCircle2, Lock, Unlock } from 'lucide-react';
 import KnowledgeLibraryLayout from '@/components/knowledge/KnowledgeLibraryLayout';
 
 const PLAYBOOK_CATEGORIES = [

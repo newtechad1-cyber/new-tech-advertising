@@ -1,5 +1,4 @@
-import React from 'react';
-import { TrendingUp, DollarSign, Calendar, ArrowUpRight } from 'lucide-react';
+import { TrendingUp, ArrowUpRight } from 'lucide-react';
 
 export default function PSInvestmentSummary({ pricing, packageName, selectedAddons = [], addonMeta = {}, onSave, saving }) {
   if (!pricing) return null;

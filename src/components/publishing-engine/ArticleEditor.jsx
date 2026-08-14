@@ -2,10 +2,9 @@
  * P-001 Publishing Engine — Article Editor
  * Create/edit source article content with all metadata fields.
  */
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
-  FileEdit, Save, X, Tag, BookOpen, Image, Link as LinkIcon,
-  Clock, BarChart2, Sparkles
+  FileEdit, Save, X, Tag, Sparkles
 } from 'lucide-react';
 import { CONTENT_TYPES, THEMES, CHANNEL_LIST, CHANNELS, slugify } from './publishingData';
 

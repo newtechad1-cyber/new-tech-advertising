@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
-import { Flame, ThermometerSun, Snowflake, X, Phone, DollarSign, FileText, Star, User, Building2 } from 'lucide-react';
+import { Flame, ThermometerSun, Snowflake, X, Phone, DollarSign, FileText, Star } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const STAGES = [

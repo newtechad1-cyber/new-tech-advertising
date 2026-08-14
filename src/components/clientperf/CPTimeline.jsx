@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { CheckCircle2, Star, TrendingUp, Zap, RefreshCw, Flag, Award, AlertTriangle } from 'lucide-react';
 

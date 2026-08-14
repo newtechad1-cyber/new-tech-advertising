@@ -1,5 +1,3 @@
-import React from 'react';
-import { TrendingUp, Users, Calendar, DollarSign } from 'lucide-react';
 
 const CATEGORY_BADGE = {
   inbound:  'bg-blue-100 text-blue-700',

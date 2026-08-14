@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
-import { X, CheckCircle2, AlertTriangle, TrendingUp, Zap, Star, Activity, ChevronRight } from 'lucide-react';
+import { X, CheckCircle2, AlertTriangle, TrendingUp, Activity } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const STAGES = [

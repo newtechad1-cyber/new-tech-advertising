@@ -1,4 +1,3 @@
-import React from 'react';
 import { MapPin, Phone, Clock } from 'lucide-react';
 
 export default function RestaurantLocation({ config }) {

@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { DollarSign, TrendingUp, BarChart2, CheckCircle2 } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { DollarSign, TrendingUp, BarChart2 } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 const MOCK_REVENUE = [
   { name: 'Peak Media', gross: 28400, partnerPct: 20, deals: 12, trend: 18 },

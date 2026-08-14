@@ -1,7 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { ChevronRight, CheckCircle, HelpCircle, TrendingUp } from 'lucide-react';
+import { ChevronRight, CheckCircle, TrendingUp } from 'lucide-react';
 
 /**
  * LocalPageTemplate - Reusable SEO page template for city/service/industry pages

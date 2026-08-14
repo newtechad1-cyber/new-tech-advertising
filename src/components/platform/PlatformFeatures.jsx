@@ -1,4 +1,3 @@
-import React from 'react';
 import { CheckCircle, Sparkles, Calendar, Video, BarChart2, Tv } from 'lucide-react';
 
 const features = [

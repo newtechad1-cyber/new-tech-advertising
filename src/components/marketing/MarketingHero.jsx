@@ -1,4 +1,3 @@
-import React from 'react';
 
 const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
 

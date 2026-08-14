@@ -1,5 +1,4 @@
-import React from 'react';
-import { Plus, Check, Zap, TrendingUp, Star, MapPin, Tv, Video, Search } from 'lucide-react';
+import { Check, Zap, TrendingUp, Star, MapPin, Tv, Video, Search } from 'lucide-react';
 
 const ADDON_META = {
   seasonal_campaign:       { icon: Zap,        color: '#f59e0b', label: 'Seasonal Authority Campaign',   desc: 'Timed market-surge campaigns aligned to seasonal demand spikes in your vertical.' },

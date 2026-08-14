@@ -1,4 +1,3 @@
-import React from 'react';
 import { ShieldCheck, CheckCircle, ArrowRight, AlertTriangle } from 'lucide-react';
 import { createPageUrl } from '@/utils';
 

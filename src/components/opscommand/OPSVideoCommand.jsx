@@ -1,8 +1,6 @@
-import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Video, RefreshCw, Flag, Send, Copy, Mic, Palette, AlertCircle } from 'lucide-react';
+import { RefreshCw, Flag, Send, Copy, Mic, Palette, AlertCircle } from 'lucide-react';
 
 const STATUS_CONFIG = {
   queued: { badge: 'bg-slate-700 text-slate-300', dot: 'bg-slate-400' },

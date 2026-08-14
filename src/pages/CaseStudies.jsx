@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, Building2, MapPin, Wrench } from 'lucide-react';
 import MarketingNav from '../components/nav/MarketingNav';

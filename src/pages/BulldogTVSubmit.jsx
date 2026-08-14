@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useSchoolBranding } from '@/components/school-tv/useSchoolBranding';
 import SchoolTVHeader from '@/components/school-tv/SchoolTVHeader';
-import { Upload, CheckCircle, Camera, Video, Users, Music, Trophy, BookOpen, Star } from 'lucide-react';
+import { Upload, CheckCircle, Camera, Users, Music, Trophy, BookOpen, Star } from 'lucide-react';
 
 const ACTIVITY_TYPES = [
   { value: 'sports', label: 'Sports & Athletics', icon: Trophy },

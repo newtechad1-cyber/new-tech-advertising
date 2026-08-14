@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { createPageUrl } from '@/utils';
 import { Link } from 'react-router-dom';
-import { Home, Rocket, Settings, Globe, FolderInput, Wrench, ChevronDown, ChevronRight, ExternalLink, ArrowRight } from 'lucide-react';
+import { Rocket, Settings, Globe, FolderInput, Wrench, ChevronDown, ChevronRight, ExternalLink, ArrowRight } from 'lucide-react';
 
 // ── The 7 Core Operational Pages ────────────────────────────────────────────────
 const CORE_PAGES = [

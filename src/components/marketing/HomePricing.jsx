@@ -1,4 +1,3 @@
-import React from 'react';
 import { CheckCircle, ArrowRight, Zap } from 'lucide-react';
 
 const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';

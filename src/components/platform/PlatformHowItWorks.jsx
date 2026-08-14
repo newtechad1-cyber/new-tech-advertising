@@ -1,4 +1,3 @@
-import React from 'react';
 import { ArrowRight, PlayCircle, Building2, Sparkles, Rocket } from 'lucide-react';
 
 const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';

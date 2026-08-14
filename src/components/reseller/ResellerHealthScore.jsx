@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { TrendingUp, AlertCircle, CheckCircle } from 'lucide-react';

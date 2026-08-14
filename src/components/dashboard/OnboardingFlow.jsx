@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { CheckCircle2, ArrowRight, Target, Building2, BookOpen, Loader2, AlertCircle, ExternalLink } from 'lucide-react';
+import { CheckCircle2, ArrowRight, Target, Building2, BookOpen, Loader2, AlertCircle } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ONBOARDING_STEPS, getNextIncompleteStep, validateStepData } from '../onboarding/onboardingConfig';
 import { toast } from 'sonner';

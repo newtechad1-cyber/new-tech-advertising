@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Plus, Edit, Copy, CheckCircle, X } from 'lucide-react';
+import { useState } from 'react';
+import { Plus, Copy, CheckCircle, X } from 'lucide-react';
 import { PostStatusBadge, ApprovalBadge, PLATFORM_ICON } from './CampaignUtils';
 import { base44 } from '@/api/base44Client';
 

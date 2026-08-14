@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, AlertTriangle, Shield, TrendingUp } from 'lucide-react';
+import { useState } from 'react';
+import { X, Shield } from 'lucide-react';
 
 const CATEGORY_LABELS = {
   revenue: 'Revenue Risk',

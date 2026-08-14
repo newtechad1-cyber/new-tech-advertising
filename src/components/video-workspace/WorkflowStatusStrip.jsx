@@ -1,5 +1,4 @@
-import React from 'react';
-import { CheckCircle2, Circle, AlertCircle } from 'lucide-react';
+import { CheckCircle2, Circle } from 'lucide-react';
 
 const WORKFLOW_STAGES = [
   { key: 'uploaded', label: 'Uploaded', icon: Circle },

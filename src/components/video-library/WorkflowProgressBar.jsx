@@ -1,5 +1,3 @@
-import React from 'react';
-import { CheckCircle2, Circle } from 'lucide-react';
 
 export default function WorkflowProgressBar({ video }) {
   const steps = [

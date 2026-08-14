@@ -1,6 +1,5 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { Video, Clock, CheckCircle, Circle, Zap, ArrowRight } from 'lucide-react';
+import { Video, Clock, CheckCircle, Zap, ArrowRight } from 'lucide-react';
 
 const TYPE_COLORS = {
   Outreach: 'bg-blue-900/50 text-blue-300',

@@ -1,5 +1,4 @@
-import React from 'react';
-import { TrendingUp, Users, Zap } from 'lucide-react';
+import { TrendingUp } from 'lucide-react';
 
 export default function ProofLayer({ industry = 'HVAC' }) {
   const examples = {

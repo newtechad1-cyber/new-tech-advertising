@@ -1,4 +1,3 @@
-import React from 'react';
 import { Clock, DollarSign, Frown, TrendingDown } from 'lucide-react';
 
 const PROBLEMS = [

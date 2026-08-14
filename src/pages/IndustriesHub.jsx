@@ -1,6 +1,4 @@
-import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { ArrowRight, Building2, Wrench, Briefcase, Heart } from 'lucide-react';
 import Header from '../components/landing/Header';
 import Footer from '../components/landing/Footer';

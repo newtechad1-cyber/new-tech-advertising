@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Play, Eye, FileOutput, AlertCircle, Loader2 } from 'lucide-react';
+import { Play, Eye, FileOutput, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import {
   GenerateSchoolStoryContentModal,

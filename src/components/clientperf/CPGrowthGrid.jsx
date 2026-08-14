@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { TrendingUp, TrendingDown, Minus, X, ArrowUpRight, Zap, Users, Star, BarChart2, RefreshCw, MessageSquare, Calendar, Download, Award } from 'lucide-react';
+import { useState } from 'react';
+import { TrendingUp, TrendingDown, Minus, X, ArrowUpRight, Zap, Calendar, Download, Award } from 'lucide-react';
 import { LineChart, Line, AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { Badge } from '@/components/ui/badge';
 

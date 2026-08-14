@@ -1,4 +1,3 @@
-import React from 'react';
 import { X, Copy, CheckCircle } from 'lucide-react';
 import { getAssetMeta } from './AssetTypeIcon';
 import { Button } from '@/components/ui/button';

@@ -1,8 +1,7 @@
-import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
-import { TrendingUp, TrendingDown, Minus, Users, Target, DollarSign, Calendar } from 'lucide-react';
+import { Users, Target, DollarSign, Calendar } from 'lucide-react';
 
 const ENGAGEMENT_COLOR = (score) => score >= 70 ? 'text-emerald-300' : score >= 40 ? 'text-amber-300' : 'text-red-300';
 const SOURCE_BADGE = {

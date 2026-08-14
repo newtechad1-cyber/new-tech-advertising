@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { 
-  Users, Presentation, TrendingDown, Lightbulb, 
+  Users, TrendingDown, Lightbulb, 
   Map, Target, ArrowRight, ShieldCheck, 
-  ChevronRight, ChevronLeft, Handshake, BrainCircuit,
-  TrendingUp, Star, Building2, Repeat, CheckCircle2
+  ChevronRight, ChevronLeft, Handshake, BrainCircuit, Star, Building2, Repeat, CheckCircle2
 } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
 import MarketingNav from '@/components/nav/MarketingNav';

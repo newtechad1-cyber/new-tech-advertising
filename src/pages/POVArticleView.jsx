@@ -1,5 +1,3 @@
-import React from 'react';
-import { motion } from 'framer-motion';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { ArrowRight, ArrowLeft, BookOpen, Brain, PlayCircle, Library, Activity } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';

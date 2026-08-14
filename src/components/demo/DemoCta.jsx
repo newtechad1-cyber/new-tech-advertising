@@ -1,7 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { ArrowRight, Home } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export default function DemoCta() {
   return (

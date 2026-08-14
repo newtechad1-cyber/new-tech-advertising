@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ChevronUp, ChevronDown, ExternalLink } from 'lucide-react';
+import { useState } from 'react';
+import { ChevronUp, ChevronDown } from 'lucide-react';
 
 const STATUS_COLORS = {
   active:    'bg-green-100 text-green-700',

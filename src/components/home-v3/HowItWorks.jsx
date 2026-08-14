@@ -1,4 +1,3 @@
-import React from 'react';
 
 const steps = [
   { num: '1', text: 'Review what you already have' },

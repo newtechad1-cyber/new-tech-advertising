@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Upload, Play, AlertCircle, RotateCcw } from 'lucide-react';
 

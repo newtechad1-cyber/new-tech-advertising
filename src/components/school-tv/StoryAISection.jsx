@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import AIIntegrationPanel from './AIIntegrationPanel';
 import AIHistoryPanel from './AIHistoryPanel';
-import SubmissionAIDraftPanel from './SubmissionAIDraftPanel';
 import {
   Sparkles,
   Loader2,
-  RefreshCw,
 } from 'lucide-react';
 
 export default function StoryAISection({ 

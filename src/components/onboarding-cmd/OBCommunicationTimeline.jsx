@@ -1,4 +1,3 @@
-import React from 'react';
 import { Phone, BarChart2, Rocket, Calendar, Star } from 'lucide-react';
 
 const TIMELINE = [

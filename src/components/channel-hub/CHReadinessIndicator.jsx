@@ -1,4 +1,3 @@
-import React from 'react';
 import { CheckCircle2, Circle, Rocket, Zap } from 'lucide-react';
 
 const PLATFORM_WEIGHTS = {

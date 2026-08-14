@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { useState, useEffect } from 'react';
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { 
   PlusCircle, 
   Video, 
@@ -11,7 +10,6 @@ import {
   MessageSquare, 
   Sparkles, 
   Users, 
-  ClipboardCheck, 
   CalendarClock, 
   Palette, 
   BarChart3,

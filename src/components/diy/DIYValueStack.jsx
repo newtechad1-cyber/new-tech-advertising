@@ -1,4 +1,3 @@
-import React from 'react';
 import { Brain, MessageSquare, Video, BarChart3, Share2, Zap } from 'lucide-react';
 
 const VALUES = [

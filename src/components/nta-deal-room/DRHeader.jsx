@@ -1,4 +1,3 @@
-import React from 'react';
 import { Sparkles, MapPin, Tag } from 'lucide-react';
 
 export default function DRHeader({ company, industry, city, strategyTitle }) {

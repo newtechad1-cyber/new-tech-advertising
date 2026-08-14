@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
 
 export default function ClientOnboardingWidget() {
   const [workroom, setWorkroom] = useState(null);

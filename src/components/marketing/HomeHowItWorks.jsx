@@ -1,4 +1,3 @@
-import React from 'react';
 import { UserCheck, Wand2, CalendarCheck, Send, ArrowRight } from 'lucide-react';
 
 const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';

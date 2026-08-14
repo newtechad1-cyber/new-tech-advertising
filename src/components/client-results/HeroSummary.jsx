@@ -1,4 +1,3 @@
-import React from 'react';
 import { TrendingUp, Activity, Zap } from 'lucide-react';
 
 export default function HeroSummary() {

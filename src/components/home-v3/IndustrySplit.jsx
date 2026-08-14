@@ -1,4 +1,3 @@
-import React from 'react';
 import { Wrench, Store } from 'lucide-react';
 
 export default function IndustrySplit() {

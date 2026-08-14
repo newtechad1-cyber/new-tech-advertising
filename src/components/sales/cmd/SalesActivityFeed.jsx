@@ -1,5 +1,4 @@
-import React from 'react';
-import { Activity, Plus, CheckCircle, AlertCircle, FileText, Phone, TrendingUp, X } from 'lucide-react';
+import { Activity, Plus, CheckCircle, AlertCircle, FileText, Phone, X } from 'lucide-react';
 
 const ACTIVITY_ICONS = {
   deal_created: { icon: Plus, color: 'text-blue-400', bg: 'bg-blue-900/20' },

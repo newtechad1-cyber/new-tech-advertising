@@ -1,4 +1,3 @@
-import React from 'react';
 import { AlertCircle, Eye, Share2, TrendingUp, Zap, CheckCircle } from 'lucide-react';
 
 const narrativeSteps = {

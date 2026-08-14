@@ -1,4 +1,3 @@
-import React from 'react';
 import { Play, Instagram } from 'lucide-react';
 
 export default function RestaurantSocial({ config }) {

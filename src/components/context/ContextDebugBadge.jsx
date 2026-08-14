@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useGlobalContext } from './useGlobalContext.js';
 import { Card, CardContent } from '@/components/ui/card';
 import { X } from 'lucide-react';

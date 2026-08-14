@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Search, X, Plus, ChevronDown, Check } from 'lucide-react';
+import { Search, X, Plus, ChevronDown } from 'lucide-react';
 
 const SCRIPT_STATUS = ['Idea', 'Script Ready', 'In Production', 'Complete'];
 const POSTED_STATUS = ['Not Created', 'Created', 'Posted'];

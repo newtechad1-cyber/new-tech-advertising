@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { AlertCircle, AlertTriangle, Zap } from 'lucide-react';
+import { AlertCircle, AlertTriangle } from 'lucide-react';
 
 export default function StrongerVisualAlerts({ rules = [], health = [], executions = [], triggers = [] }) {
   const alerts = useMemo(() => {

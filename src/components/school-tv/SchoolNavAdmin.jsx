@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Tv2, Upload, FolderOpen, Film, Layers, Settings, BarChart2, ArrowLeft } from 'lucide-react';
+import { Tv2, Upload, FolderOpen, Film, Layers, Settings } from 'lucide-react';
 
 const NAV = [
   { label: 'Submissions', page: 'AdminSchoolSubmissions', icon: Upload },

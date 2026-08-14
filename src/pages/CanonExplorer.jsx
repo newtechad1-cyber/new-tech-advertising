@@ -4,17 +4,16 @@
  * 100% entity-driven — reads from PublishingArticle + CanonCollection.
  * Route: /canon
  */
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
-import { useKnowledgeGraph, THEME_COLORS, ASSET_TYPE_META, BUYER_STAGE_COLORS } from '@/lib/knowledgeGraph';
+import { useKnowledgeGraph, ASSET_TYPE_META, BUYER_STAGE_COLORS } from '@/lib/knowledgeGraph';
 import { CollectionCard } from '@/components/knowledge/ReaderJourney';
 import {
-  Search, BookOpen, Filter, X, ArrowRight,
-  Clock, Play, Loader2, Compass, FileText,
-  GraduationCap, BarChart3, Briefcase
+  Search, X,
+  Clock, Play, Loader2, Compass
 } from 'lucide-react';
 
 function AssetCard({ article }) {

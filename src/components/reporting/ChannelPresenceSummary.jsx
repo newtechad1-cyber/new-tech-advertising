@@ -1,5 +1,4 @@
-import React from 'react';
-import { Globe, Facebook, Instagram, Youtube, Zap } from 'lucide-react';
+import { Globe, Facebook, Instagram, Youtube } from 'lucide-react';
 
 export default function ChannelPresenceSummary({ report }) {
   const channels = [

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { DollarSign, Lock, Save, AlertCircle } from 'lucide-react';
 
 const VERTICALS = ['HVAC', 'Plumbing', 'Roofing', 'Landscaping', 'Electrical', 'Painting', 'Restaurant', 'Fitness', 'Real Estate'];

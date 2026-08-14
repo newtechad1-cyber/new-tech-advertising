@@ -1,4 +1,3 @@
-import React from 'react';
 
 /**
  * Intentionally retired from the homepage conversion flow.

@@ -1,4 +1,3 @@
-import React from 'react';
 import { UserCircle, Cpu, LayoutDashboard, Rocket } from 'lucide-react';
 
 const STEPS = [

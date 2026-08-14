@@ -1,8 +1,7 @@
-import React from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { CheckCircle, Sparkles, ArrowRight, Share2, Lightbulb } from 'lucide-react';
+import { CheckCircle, Sparkles, ArrowRight, Lightbulb } from 'lucide-react';
 import { useNextStepSuggestion, getNextActionLabel } from '@/components/diy/useNextStepSuggestion';
 
 const ACTION_SUCCESS_CONFIG = {

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { RotateCcw, Trash2 } from 'lucide-react';
+import { useState } from 'react';
+import { RotateCcw } from 'lucide-react';
 import { CQApprovalBadge } from './CQUtils';
 import { base44 } from '@/api/base44Client';
 

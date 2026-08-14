@@ -1,4 +1,3 @@
-import React from 'react';
 import { Clock, DollarSign, Calendar, BarChart2 } from 'lucide-react';
 
 const painPoints = [

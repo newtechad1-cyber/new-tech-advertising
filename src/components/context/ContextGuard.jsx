@@ -1,4 +1,3 @@
-import React from 'react';
 import { useGlobalContext } from './useGlobalContext.js';
 import { Card, CardContent } from '@/components/ui/card';
 import { AlertCircle } from 'lucide-react';

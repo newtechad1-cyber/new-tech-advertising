@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, Copy, Check, Download, ExternalLink } from 'lucide-react';
+import { useState } from 'react';
+import { X, Copy, Check, Download } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const PLATFORM_EMOJI = { facebook: '📘', instagram: '📷', linkedin: '💼', x: '𝕏', threads: '🧵', google_business_profile: '🟢', youtube: '▶️', tiktok: '🎵' };

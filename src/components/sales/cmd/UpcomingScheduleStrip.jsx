@@ -1,5 +1,4 @@
-import React from 'react';
-import { Calendar, Clock, CheckCircle, AlertCircle, Phone } from 'lucide-react';
+import { Calendar, Clock, Phone } from 'lucide-react';
 
 export default function UpcomingScheduleStrip() {
   const upcoming = [

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Clock, User, FileText, ThumbsUp, AlertCircle, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 

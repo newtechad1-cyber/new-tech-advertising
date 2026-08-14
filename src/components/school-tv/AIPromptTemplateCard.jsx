@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Eye,
   Edit,
-  Copy,
   BarChart3,
   Shield,
-  Zap,
 } from 'lucide-react';
 
 const promptTypeIcons = {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   ChevronLeft,
@@ -7,8 +7,6 @@ import {
   Users,
   Sparkles,
   CheckCircle2,
-  Target,
-  Zap,
 } from 'lucide-react';
 
 const slides = [

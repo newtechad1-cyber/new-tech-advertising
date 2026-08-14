@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Compass, Target, Activity, Map, ArrowRight, LayoutDashboard, CheckCircle2, RotateCcw, Briefcase } from 'lucide-react';

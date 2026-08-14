@@ -1,8 +1,7 @@
-import React from 'react';
 import SiteHeader from '../components/marketing/SiteHeader';
 import SiteFooter from '../components/marketing/SiteFooter';
 import MarketingHero from '../components/marketing/MarketingHero';
-import { VideoSection, FeaturesSection, HowItWorksSection, PricingSection, CtaBanner } from '../components/marketing/PlatformSections';
+import { VideoSection, HowItWorksSection, PricingSection, CtaBanner } from '../components/marketing/PlatformSections';
 import { CheckCircle } from 'lucide-react';
 
 const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';

@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle, Clock, BarChart2, Calendar, ChevronLeft, ChevronRight, ThumbsUp, X, Dna } from 'lucide-react';
+import { BarChart2, Calendar, ChevronLeft, ChevronRight, ThumbsUp, X, Dna } from 'lucide-react';
 
 const PANEL_DURATION = 5000;
 

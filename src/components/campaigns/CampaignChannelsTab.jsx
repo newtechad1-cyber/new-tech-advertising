@@ -1,7 +1,5 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink, AlertTriangle, CheckCircle, Clock } from 'lucide-react';
-import { PLATFORM_ICON } from './CampaignUtils';
+import { ExternalLink, AlertTriangle, Clock } from 'lucide-react';
 
 const STATUS_CONFIG = {
   connected:            { label: 'Connected',           color: 'bg-emerald-900/40 text-emerald-400 border-emerald-700' },

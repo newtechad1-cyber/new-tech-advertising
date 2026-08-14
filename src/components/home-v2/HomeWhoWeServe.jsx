@@ -1,4 +1,3 @@
-import React from 'react';
 
 const INDUSTRIES = [
   'HVAC and service businesses',

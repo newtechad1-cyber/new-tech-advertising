@@ -3,15 +3,15 @@
  * Per-channel content adaptation, scheduling, and status management.
  * Shows all 10 channels with their derivative content and publish state.
  */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import * as LucideIcons from 'lucide-react';
 import {
-  ChevronDown, ChevronRight, Calendar, Clock, Send,
+  ChevronDown, ChevronRight, Calendar, Clock,
   ExternalLink, SkipForward, RefreshCw, AlertCircle
 } from 'lucide-react';
 import {
   CHANNELS, CHANNEL_LIST, TARGET_STATES, STATUS_COLORS,
-  DEFAULT_SCHEDULE, formatDate, formatDateTime, getNextDefaultSchedule
+  DEFAULT_SCHEDULE, formatDateTime, getNextDefaultSchedule
 } from './publishingData';
 
 function ChannelRow({ channel, target, onUpdate, onSchedule, articleStatus }) {

@@ -1,8 +1,7 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
   PlayCircle, Layers, ChevronRight, BookOpen, 
-  MessageSquare, Compass, Tv, ArrowRight 
+  MessageSquare, Compass, Tv 
 } from 'lucide-react';
 
 export default function RelatedContent({ lesson }) {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Upload,
@@ -6,7 +5,6 @@ import {
   Video,
   Sparkles,
   CheckCircle2,
-  Users,
   ArrowRight,
   Play,
   BookOpen,

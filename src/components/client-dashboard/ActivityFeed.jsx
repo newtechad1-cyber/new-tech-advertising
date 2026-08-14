@@ -1,4 +1,3 @@
-import React from 'react';
 import { Video, FileText, Calendar, Zap, CheckCircle, ArrowRight } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 

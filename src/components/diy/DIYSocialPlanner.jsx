@@ -1,4 +1,3 @@
-import React from 'react';
 import { MessageSquare, Calendar, BarChart3 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 

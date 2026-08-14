@@ -1,6 +1,4 @@
-import React from 'react';
 import { AlertCircle, TrendingUp, Clock, Zap } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 export default function CommandStrip({ deals = [] }) {
   const now = new Date();

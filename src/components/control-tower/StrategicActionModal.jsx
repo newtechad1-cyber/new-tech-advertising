@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, Zap, CheckCircle2, AlertCircle, Play } from 'lucide-react';
+import { useState } from 'react';
+import { X, CheckCircle2, AlertCircle, Play } from 'lucide-react';
 
 const CATEGORY_LABELS = {
   expansion_activation: 'Expansion Activation',

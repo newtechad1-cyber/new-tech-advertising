@@ -1,4 +1,3 @@
-import React from 'react';
 import { AlertCircle, TrendingUp, CheckCircle2, Video, Star } from 'lucide-react';
 
 const GAPS = [

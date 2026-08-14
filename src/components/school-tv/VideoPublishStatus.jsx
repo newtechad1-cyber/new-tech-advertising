@@ -1,4 +1,3 @@
-import React from 'react';
 import { CheckCircle2, Clock, AlertCircle, Link as LinkIcon } from 'lucide-react';
 
 const PUBLISH_STATUS_CONFIG = {

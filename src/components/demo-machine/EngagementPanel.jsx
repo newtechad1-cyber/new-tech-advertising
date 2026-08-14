@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Activity, MessageSquare, Shield, TrendingUp, CheckCircle2, AlertCircle, Flame } from 'lucide-react';
+import { useState } from 'react';
+import { Activity, Shield, TrendingUp, CheckCircle2, AlertCircle, Flame } from 'lucide-react';
 
 const OBJECTIONS = [
   {

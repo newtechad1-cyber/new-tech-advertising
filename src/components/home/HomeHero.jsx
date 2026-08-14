@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { ArrowRight, Play, Zap, CheckCircle, BrainCircuit, Video, Tv, Share2 } from 'lucide-react';

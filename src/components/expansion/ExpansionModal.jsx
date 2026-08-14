@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { X, MessageSquare, Send, CheckCircle2, ThumbsDown } from 'lucide-react';
 
 const OPPORTUNITY_CONFIG = {

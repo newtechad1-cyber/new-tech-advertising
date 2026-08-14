@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, CheckCircle, RotateCcw, XCircle, Send, Archive, Copy } from 'lucide-react';
+import { useState } from 'react';
+import { X, CheckCircle, RotateCcw, XCircle, Send, Archive } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const APPROVAL_COLORS = {

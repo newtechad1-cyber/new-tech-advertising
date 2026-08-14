@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { X, Phone, Mail, Calendar, FileText, ExternalLink, ChevronRight, CheckCircle2, XCircle } from 'lucide-react';
 
 const STAGES = [

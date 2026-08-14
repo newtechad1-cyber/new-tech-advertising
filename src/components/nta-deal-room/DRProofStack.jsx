@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Globe, Tv, Video, TrendingUp, Star, ChevronRight } from 'lucide-react';
 
 const PROOF_TABS = [

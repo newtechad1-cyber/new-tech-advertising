@@ -1,4 +1,3 @@
-import React from 'react';
 import { CheckCircle2, Phone, MessageSquare, DollarSign, Calendar, Loader2 } from 'lucide-react';
 import { openSchedulingCalendar } from '@/components/config/bookingConfig';
 

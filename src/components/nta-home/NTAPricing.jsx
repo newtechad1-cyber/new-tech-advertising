@@ -1,4 +1,3 @@
-import React from 'react';
 import { Check, Shield, TrendingUp, Zap } from 'lucide-react';
 
 const PLANS = [

@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { Plus, Zap, Loader2, CheckCircle, AlertCircle, Clock, RefreshCw } from 'lucide-react';
+import { Plus, Zap, Loader2, CheckCircle, AlertCircle, Clock } from 'lucide-react';
 import { toast } from 'sonner';
 
 const STATUS_STYLES = {

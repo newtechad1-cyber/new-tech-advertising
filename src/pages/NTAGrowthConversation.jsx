@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, CheckCircle2, ChevronRight, ShieldCheck } from 'lucide-react';
 import { base44 } from '@/api/base44Client';

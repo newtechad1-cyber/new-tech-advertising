@@ -1,4 +1,3 @@
-import React from 'react';
 import { Plus, PauseCircle, Sliders, List, Activity, Cpu } from 'lucide-react';
 
 export default function AWHeader({ kpis, globalPaused, onDeploy, onPauseAll, onPriorityClick, onQueueClick }) {

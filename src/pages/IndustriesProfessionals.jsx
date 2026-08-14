@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, ArrowRight, Shield, Briefcase, Lock, ChevronDown } from 'lucide-react';
 import Header from '../components/landing/Header';

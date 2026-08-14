@@ -1,6 +1,5 @@
-import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { AlertCircle, Zap, TrendingUp, Eye, AlertTriangle, Clock } from 'lucide-react';
+import { AlertCircle, Zap, TrendingUp, AlertTriangle, Clock } from 'lucide-react';
 
 export default function AutomationKPICards({ rules = [], triggers = [], executions = [], health = [] }) {
   const activeRules = rules.filter(r => r.active).length;

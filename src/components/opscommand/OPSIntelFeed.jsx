@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
-import { TrendingUp, AlertTriangle, Zap, Users, Video, CheckCircle2, X } from 'lucide-react';
+import { TrendingUp, AlertTriangle, Zap, Users, CheckCircle2, X } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const TYPE_CONFIG = {

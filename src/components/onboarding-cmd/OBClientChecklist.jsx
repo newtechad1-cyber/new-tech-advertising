@@ -1,4 +1,3 @@
-import React from 'react';
 import { CheckSquare, Square, Upload, Globe, Share2, MapPin, FileText, Palette } from 'lucide-react';
 
 const CLIENT_TASKS = [

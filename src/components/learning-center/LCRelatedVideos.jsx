@@ -1,4 +1,3 @@
-import React from 'react';
 import LCVideoCard from './LCVideoCard';
 import { useLearningContent } from '@/hooks/useLearningContent';
 

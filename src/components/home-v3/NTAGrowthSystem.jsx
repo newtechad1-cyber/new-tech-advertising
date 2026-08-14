@@ -1,4 +1,3 @@
-import React from 'react';
 import { Search, Eye, FileText, RefreshCw } from 'lucide-react';
 
 const cards = [

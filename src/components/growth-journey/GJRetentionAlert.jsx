@@ -1,4 +1,3 @@
-import React from 'react';
 import { AlertTriangle, CheckCircle2, Clock, BarChart2, MessageSquare, Phone } from 'lucide-react';
 
 const SIGNAL_META = {

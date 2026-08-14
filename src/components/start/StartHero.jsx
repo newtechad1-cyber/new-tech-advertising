@@ -1,4 +1,3 @@
-import React from 'react';
 import { ArrowDown, CheckCircle, Zap } from 'lucide-react';
 
 const BULLETS = [

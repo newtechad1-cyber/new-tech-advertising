@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BookOpen, Download, ExternalLink, FileText, Video, Presentation, Megaphone } from 'lucide-react';
+import { useState } from 'react';
+import { BookOpen, Download, FileText, Video, Megaphone } from 'lucide-react';
 
 const ASSETS = [
   {

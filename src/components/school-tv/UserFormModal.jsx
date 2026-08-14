@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { X, Mail, User, Shield } from 'lucide-react';
 
 const ROLE_OPTIONS = [

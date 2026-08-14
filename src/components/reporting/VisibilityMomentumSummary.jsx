@@ -1,4 +1,3 @@
-import React from 'react';
 import { TrendingUp, Video, Zap, Calendar } from 'lucide-react';
 
 export default function VisibilityMomentumSummary({ report }) {

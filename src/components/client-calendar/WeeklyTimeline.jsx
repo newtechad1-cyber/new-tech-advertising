@@ -1,5 +1,3 @@
-import React from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import ChannelPills from './ChannelPills';
 
 export default function WeeklyTimeline({ events = [] }) {

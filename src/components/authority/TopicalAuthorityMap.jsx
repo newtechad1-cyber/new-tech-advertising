@@ -3,7 +3,7 @@
  * Visual display of topic clusters showing content depth and relationships.
  * Used in Canon Explorer and Editorial Dashboard to show authority structure.
  */
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import * as LucideIcons from 'lucide-react';
 import { TOPIC_CLUSTERS, getClusterDepth } from '../../data/topicClusters';

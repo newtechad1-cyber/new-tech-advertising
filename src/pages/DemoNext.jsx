@@ -3,7 +3,7 @@ import { createPageUrl } from '@/utils';
 import DemoProgressBar from '@/components/demo-machine/DemoProgressBar';
 import DemoAIPanel from '@/components/demo-machine/DemoAIPanel';
 import { useDemoPageView, useDemoTrack } from '@/components/demo-machine/useDemoSession';
-import { Zap, Calendar, ArrowRight, CheckCircle, Clock, Shield } from 'lucide-react';
+import { Zap, Calendar, CheckCircle, Clock, Shield } from 'lucide-react';
 
 const STEPS_AFTER = [
   { n: '1', title: 'Start Free Trial', desc: 'Get instant access to the platform. No credit card required.', time: '5 minutes' },

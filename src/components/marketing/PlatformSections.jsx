@@ -1,4 +1,3 @@
-import React from 'react';
 import { CheckCircle, Video, Image, Calendar, Bell, Zap, Layout } from 'lucide-react';
 
 const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';

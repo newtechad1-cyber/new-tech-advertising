@@ -1,6 +1,4 @@
-import React from 'react';
 import { Phone, Send, AlertTriangle, CheckCircle, Zap } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 export default function NextBestActionsPanel({ deals = [] }) {
   const now = new Date();

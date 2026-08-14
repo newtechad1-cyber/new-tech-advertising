@@ -1,4 +1,3 @@
-import React from 'react';
 import { AlertCircle, Clock, UserX, Zap, RefreshCw, CheckCircle2, Shield } from 'lucide-react';
 
 const ISSUE_TYPES = {

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import PublicShell from '@/components/school-tv/PublicShell';
-import { Mail, MapPin, Globe } from 'lucide-react';
+import { Mail, Globe } from 'lucide-react';
 
 export default function SchoolAbout() {
   const { schoolSlug } = useParams();

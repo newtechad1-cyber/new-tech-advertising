@@ -1,4 +1,3 @@
-import React from 'react';
 import { BarChart3, Calendar, Activity, TrendingUp } from 'lucide-react';
 
 const screens = {

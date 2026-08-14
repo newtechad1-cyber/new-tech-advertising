@@ -1,4 +1,3 @@
-import React from 'react';
 import { CheckCircle, Zap } from 'lucide-react';
 
 export default function ClientLaunchMilestone({ client }) {

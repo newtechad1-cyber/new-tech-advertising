@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Activity, Pause, Play, AlertCircle } from 'lucide-react';
+import { Pause, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const AGENT_CATEGORIES = [

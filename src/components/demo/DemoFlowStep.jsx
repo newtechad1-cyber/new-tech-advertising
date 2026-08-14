@@ -1,4 +1,3 @@
-import React from 'react';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 
 export default function DemoFlowStep({ step, title, subtitle, children, onNext, onBack, showNext = true, showBack = true, nextLabel = 'Next', backLabel = 'Back' }) {

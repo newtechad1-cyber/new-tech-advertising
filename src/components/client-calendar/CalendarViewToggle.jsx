@@ -1,5 +1,3 @@
-import React from 'react';
-import { Button } from '@/components/ui/button';
 import { Calendar, Clock, List } from 'lucide-react';
 
 export default function CalendarViewToggle({ currentView, onViewChange }) {

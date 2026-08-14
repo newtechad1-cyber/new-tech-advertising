@@ -1,4 +1,3 @@
-import React from 'react';
 import { Play, Zap } from 'lucide-react';
 
 const topPosts = [

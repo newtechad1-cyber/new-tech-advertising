@@ -1,5 +1,4 @@
-import React from 'react';
-import { TrendingUp, ExternalLink } from 'lucide-react';
+import { TrendingUp } from 'lucide-react';
 import CalendarEventCard from './CalendarEventCard';
 
 export default function RecentlyPublished({ events = [] }) {

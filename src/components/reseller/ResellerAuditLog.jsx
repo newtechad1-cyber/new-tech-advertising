@@ -1,4 +1,3 @@
-import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { History, Palette, Settings, Users, Link as LinkIcon, Check } from 'lucide-react';

@@ -1,4 +1,3 @@
-import React from 'react';
 
 const PLANS = [
   { value: '5',  label: '5 posts / month',  desc: 'Light presence — great for getting started', badge: 'Starter' },

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Share2, Video, Search, TrendingUp } from 'lucide-react';
 import { getWeeklyWinsSummary } from './ntaRetentionEngine';
 

@@ -1,5 +1,4 @@
-import React from 'react';
-import { ChevronDown, CheckCircle2, Circle, Zap } from 'lucide-react';
+import { ChevronDown, CheckCircle2, Zap } from 'lucide-react';
 
 const STEPS = [
   {

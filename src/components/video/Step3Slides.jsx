@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { base44 } from "@/api/base44Client";
-import { Wand2, Upload, RefreshCw, Loader2, ImagePlus, X } from "lucide-react";
+import { Wand2, Upload, Loader2, ImagePlus, X } from "lucide-react";
 import VoiceSelector from "@/components/video/VoiceSelector";
 import MusicTrackSelector from "@/components/video/MusicTrackSelector";
 import AvatarSelector from "@/components/video/AvatarSelector";

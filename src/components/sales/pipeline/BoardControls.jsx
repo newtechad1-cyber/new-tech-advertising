@@ -1,4 +1,3 @@
-import React from 'react';
 import { Plus, Search, BarChart2, Hash } from 'lucide-react';
 
 const OWNERS = ['all', 'Sarah Chen', 'Marcus Johnson', 'Alex Rivera', 'Jordan Kim'];

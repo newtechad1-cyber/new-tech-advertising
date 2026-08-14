@@ -1,4 +1,3 @@
-import React from 'react';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import BOScreenshotShowcase from '../components/backoffice/BOScreenshotShowcase';
@@ -11,7 +10,6 @@ import BOHowItWorks from '../components/backoffice/BOHowItWorks';
 import BOFAQ from '../components/backoffice/BOFAQ';
 import BOFinalCTA from '../components/backoffice/BOFinalCTA';
 import SEOHead from '../components/shared/SEOHead';
-import { Link } from 'react-router-dom';
 import { CheckCircle2 } from 'lucide-react';
 
 export default function BackOfficeSolutions() {

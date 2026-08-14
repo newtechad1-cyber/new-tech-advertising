@@ -1,4 +1,3 @@
-import React from 'react';
 
 import ADAComplianceBanner from '@/components/marketing/ADAComplianceBanner';
 import YourDigitalGrowthGuide from '@/components/nta-guide/YourDigitalGrowthGuide';

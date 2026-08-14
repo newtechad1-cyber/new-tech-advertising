@@ -1,4 +1,3 @@
-import React from 'react';
 import { Percent, TrendingUp } from 'lucide-react';
 
 const LEAD_SOURCE_LABELS = {

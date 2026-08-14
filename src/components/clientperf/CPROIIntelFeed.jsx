@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { TrendingUp, Zap, MapPin, DollarSign, Video, Users, AlertTriangle, X, CheckCircle2, ClipboardList, UserCheck, Paperclip } from 'lucide-react';
 import { base44 } from '@/api/base44Client';

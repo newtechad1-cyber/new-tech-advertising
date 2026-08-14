@@ -4,13 +4,10 @@
  * Migration Progress, Internal Link Health, Duplicate Resolution,
  * Relationship Coverage, Publishing Queue, Knowledge Graph Health.
  */
-import React from 'react';
-import { Link } from 'react-router-dom';
 import {
-  Heart, BookOpen, FolderOpen, Link2, Shield, Globe,
-  BarChart3, CheckCircle2, AlertTriangle, TrendingUp,
-  Youtube, FileText, MapPin, Building2, Briefcase,
-  ArrowRight, Database, Activity
+  Heart, BookOpen, FolderOpen, Globe,
+  BarChart3, AlertTriangle, TrendingUp,
+  Youtube, FileText, MapPin, Building2, Briefcase, Database
 } from 'lucide-react';
 
 // ─── Shared mini bar chart ──────────────────────────────────────────────────

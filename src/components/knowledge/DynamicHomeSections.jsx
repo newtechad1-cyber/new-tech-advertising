@@ -6,7 +6,6 @@
  * These are drop-in components — the homepage layout, messaging, branding,
  * and primary CTAs remain unchanged. Only content blocks update automatically.
  */
-import React from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight, BookOpen, Compass, Clock, Play,

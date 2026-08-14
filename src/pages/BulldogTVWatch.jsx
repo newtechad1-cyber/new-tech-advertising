@@ -5,7 +5,7 @@ import { useSchoolBranding } from '@/components/school-tv/useSchoolBranding';
 import SchoolTVHeader from '@/components/school-tv/SchoolTVHeader';
 import VideoCard from '@/components/school-tv/VideoCard';
 import { createPageUrl } from '@/utils';
-import { Play, Share2, Calendar, Tag } from 'lucide-react';
+import { Play, Share2, Calendar } from 'lucide-react';
 
 export default function BulldogTVWatch() {
   const { branding } = useSchoolBranding();

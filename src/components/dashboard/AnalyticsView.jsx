@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, AreaChart, Area } from 'recharts';
+import { useState, useEffect } from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowUpRight, ArrowDownRight, Users, MousePointerClick, PhoneCall } from 'lucide-react';
+import { ArrowUpRight, Users, MousePointerClick, PhoneCall } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import ActionCards from './ActionCards';
 import SubmitContentWizard from './SubmitContentWizard';

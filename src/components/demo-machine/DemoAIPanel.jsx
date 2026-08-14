@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { base44 } from '@/api/base44Client';
-import { MessageSquare, X, Send, Loader2, ChevronDown } from 'lucide-react';
+import { MessageSquare, X, Send, Loader2 } from 'lucide-react';
 import { useDemoTrack } from './useDemoSession';
 import ReactMarkdown from 'react-markdown';
 

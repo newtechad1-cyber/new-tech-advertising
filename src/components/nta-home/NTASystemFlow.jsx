@@ -1,4 +1,3 @@
-import React from 'react';
 import { Globe, Cpu, Tv, Send, BarChart2, ArrowRight } from 'lucide-react';
 
 const STEPS = [

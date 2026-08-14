@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrainCircuit, FileText, Megaphone, Eye } from 'lucide-react';
 
 const STEPS = [

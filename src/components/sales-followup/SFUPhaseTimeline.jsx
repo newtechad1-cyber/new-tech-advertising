@@ -1,5 +1,4 @@
-import React from 'react';
-import { CheckCircle2, Clock, Circle, Zap } from 'lucide-react';
+import { Zap } from 'lucide-react';
 
 const PHASES = [
   { num: 1, label: 'Recap', color: '#3b82f6', desc: 'Same-day recap + deal room link' },

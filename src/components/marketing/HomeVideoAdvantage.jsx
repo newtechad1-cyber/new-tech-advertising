@@ -1,4 +1,3 @@
-import React from 'react';
 import { Play, TrendingUp, Eye, MessageCircle, Star } from 'lucide-react';
 import { ArrowRight } from 'lucide-react';
 

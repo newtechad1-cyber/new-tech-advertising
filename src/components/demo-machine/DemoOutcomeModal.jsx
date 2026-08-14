@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { X, CheckCircle2, XCircle, Calendar, FileText, BookOpen, ArrowRight } from 'lucide-react';
 
 const OUTCOME_ACTIONS = [

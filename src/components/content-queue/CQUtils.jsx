@@ -1,4 +1,3 @@
-import React from 'react';
 
 export const QUEUE_STATUS_COLORS = {
   'Backlog':              'bg-slate-700 text-slate-400',

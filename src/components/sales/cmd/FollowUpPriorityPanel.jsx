@@ -1,4 +1,3 @@
-import React from 'react';
 import { AlertCircle, Clock, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 

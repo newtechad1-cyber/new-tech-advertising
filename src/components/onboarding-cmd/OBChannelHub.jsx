@@ -1,5 +1,4 @@
-import React from 'react';
-import { CheckCircle2, AlertCircle, ExternalLink, RefreshCw } from 'lucide-react';
+import { CheckCircle2, ExternalLink, RefreshCw } from 'lucide-react';
 
 const CHANNELS = [
   {

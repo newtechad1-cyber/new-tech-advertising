@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useState } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { CheckCircle2, Edit3, Send, Zap, Clock, AlertTriangle, X, Calendar } from 'lucide-react';
+import { CheckCircle2, Edit3, Send, Zap, AlertTriangle } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const STATUS_CONFIG = {

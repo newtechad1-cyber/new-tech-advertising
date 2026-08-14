@@ -1,4 +1,3 @@
-import React from 'react';
 import { CheckCircle2, Calendar, Clock, Mail, PlayCircle, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 

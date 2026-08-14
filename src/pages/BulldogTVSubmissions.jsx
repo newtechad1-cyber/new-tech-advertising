@@ -1,4 +1,3 @@
-import React from 'react';
 import { Upload, User, Calendar, FileText } from 'lucide-react';
 
 export default function BulldogTVSubmissions() {

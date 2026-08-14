@@ -1,4 +1,3 @@
-import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import PublicShell from '@/components/school-tv/PublicShell';

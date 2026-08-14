@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
-  CheckCircle2, XCircle, Circle, Loader2, ChevronDown, ChevronUp, AlertTriangle
+  CheckCircle2, XCircle, Circle, Loader2, ChevronDown, ChevronUp
 } from "lucide-react";
 
 const STEP_STATUS = {

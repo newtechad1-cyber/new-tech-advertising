@@ -1,5 +1,4 @@
-import React from 'react';
-import { TrendingUp, ChevronRight } from 'lucide-react';
+import { TrendingUp } from 'lucide-react';
 
 const STAGE_CONFIG = {
   stabilizing: { label: 'Stabilizing', color: 'text-amber-400', bg: 'bg-amber-600/20' },

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { AlertCircle, Loader, Check } from 'lucide-react';
+import { AlertCircle, Loader } from 'lucide-react';
 
 import DashboardWelcome from '@/components/trial-dashboard/DashboardWelcome';
 import DashboardSetupStatus from '@/components/trial-dashboard/DashboardSetupStatus';

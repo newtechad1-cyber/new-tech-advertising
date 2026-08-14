@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Copy,
   Eye,
-  Edit,
   BookOpen,
 } from 'lucide-react';
 

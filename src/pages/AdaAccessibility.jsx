@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Shield, CheckCircle, Building2, Wrench, Briefcase, Heart, ArrowRight, FileCheck, ChevronDown } from 'lucide-react';
+import { CheckCircle, Building2, Wrench, Briefcase, Heart, ArrowRight } from 'lucide-react';
 import Header from '../components/landing/Header';
 import Footer from '../components/landing/Footer';
 import SignupModal from '../components/landing/SignupModal';

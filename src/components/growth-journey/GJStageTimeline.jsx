@@ -1,5 +1,4 @@
-import React from 'react';
-import { CheckCircle2, Circle, Zap, TrendingUp, Rocket, Crown } from 'lucide-react';
+import { CheckCircle2, Zap, TrendingUp, Rocket, Crown } from 'lucide-react';
 
 const STAGE_CONFIG = {
   launch_confidence: {

@@ -1,5 +1,4 @@
-import React from 'react';
-import { Check, Clock, Zap } from 'lucide-react';
+import { Check, Clock } from 'lucide-react';
 
 const STEPS = [
   { key: 'trial_started', label: 'Trial Started', icon: Check },

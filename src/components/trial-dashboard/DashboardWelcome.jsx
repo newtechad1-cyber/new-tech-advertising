@@ -1,4 +1,3 @@
-import React from 'react';
 import { CheckCircle, Clock, Zap } from 'lucide-react';
 
 const stateMessages = {

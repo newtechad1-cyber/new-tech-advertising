@@ -1,4 +1,3 @@
-import React from 'react';
 import { Calendar, BrainCircuit, Video, FileText, Megaphone, BarChart2 } from 'lucide-react';
 
 const WEEK = [

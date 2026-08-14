@@ -1,4 +1,3 @@
-import React from 'react';
 import SiteHeader from '../components/marketing/SiteHeader';
 import SiteFooter from '../components/marketing/SiteFooter';
 import { CheckCircle, ShieldCheck, DollarSign } from 'lucide-react';

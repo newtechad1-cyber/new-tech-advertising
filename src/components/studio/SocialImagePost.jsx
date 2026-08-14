@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Badge } from '@/components/ui/badge';
 import { Facebook, Instagram, Loader2, CheckCircle, AlertCircle, ImageIcon, Sparkles } from 'lucide-react';
 
 const PLATFORMS = [

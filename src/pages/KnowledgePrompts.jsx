@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Copy, CheckCircle2, Lock, Unlock, Zap, FileText } from 'lucide-react';
 import KnowledgeLibraryLayout from '@/components/knowledge/KnowledgeLibraryLayout';
 

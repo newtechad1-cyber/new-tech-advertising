@@ -2,18 +2,16 @@
  * E-005 Editorial Dashboard — Widget Components
  * Reusable dashboard widgets for queues, performance metrics, and publishing actions.
  */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as LucideIcons from 'lucide-react';
-import {
-  FileEdit, Clock, Send, Mail, Youtube, Share2, BookOpen,
-  Calendar, TrendingUp, Search, Eye, Heart, Play,
-  ChevronRight, Zap, ArrowUpRight, BarChart2, Loader2,
-  CheckCircle2, Newspaper, Rss, MapPin, GraduationCap
+import { Send,
+  Calendar,
+  ChevronRight, Zap, BarChart2, Loader2
 } from 'lucide-react';
 import {
-  CHANNELS, CHANNEL_LIST, WORKFLOW_STATES, TARGET_STATES,
-  STATUS_COLORS, formatDate, formatDateTime
+  CHANNELS,
+  STATUS_COLORS, formatDate
 } from './publishingData';
 
 // ── Stat Widget ─────────────────────────────────────────────────────────────

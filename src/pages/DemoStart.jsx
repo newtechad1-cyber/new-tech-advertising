@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { useDemoTrack } from '@/components/demo-machine/useDemoSession';
 import { ArrowRight, Zap, TrendingUp, Users } from 'lucide-react';

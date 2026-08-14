@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,8 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from 'sonner';
 import {
-  Search, Plus, Phone, Mail, Globe, Calendar,
-  DollarSign, ChevronRight, Loader2, FileText, Briefcase, Pencil, Trash2
+  Search, Plus, Phone, Mail, Globe, Calendar, ChevronRight, Loader2, FileText, Briefcase, Pencil, Trash2
 } from 'lucide-react';
 import { createPageUrl } from '@/utils';
 import { Link } from 'react-router-dom';

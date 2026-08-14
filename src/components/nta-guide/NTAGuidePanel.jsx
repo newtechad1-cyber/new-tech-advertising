@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { X, ChevronRight, ChevronLeft, ExternalLink } from 'lucide-react';
 import NTAGuideAvatar from './NTAGuideAvatar';
 import { Link } from 'react-router-dom';

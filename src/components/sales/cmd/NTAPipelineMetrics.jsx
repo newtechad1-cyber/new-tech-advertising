@@ -1,6 +1,5 @@
-import React from 'react';
-import { TrendingUp, Target, Clock, Zap } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Target, Clock, Zap } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function NTAPipelineMetrics() {
   const conversionData = [

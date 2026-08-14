@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { ArrowRight, CheckCircle, Zap, Building2, Mail, Phone, User, Globe, Target } from 'lucide-react';

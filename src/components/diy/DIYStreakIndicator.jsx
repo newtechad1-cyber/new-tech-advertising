@@ -1,4 +1,3 @@
-import React from 'react';
 import { Flame, Trophy } from 'lucide-react';
 
 export default function DIYStreakIndicator({ metrics }) {

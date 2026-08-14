@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Bell, CheckCircle, AlertCircle } from 'lucide-react';
+import { useState } from 'react';
+import { Bell, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 /**

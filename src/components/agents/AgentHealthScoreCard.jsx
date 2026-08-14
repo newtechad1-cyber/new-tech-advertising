@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { AlertCircle, TrendingDown, Zap, Clock } from 'lucide-react';
+import { useMemo } from 'react';
+import { Zap } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function AgentHealthScoreCard({ snapshots = [], tasks = [] }) {

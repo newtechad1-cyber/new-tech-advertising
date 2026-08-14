@@ -1,4 +1,3 @@
-import React from 'react';
 import { PhoneIcon, Calendar, FileText, ArrowRight } from 'lucide-react';
 
 export default function DecisionPanel() {

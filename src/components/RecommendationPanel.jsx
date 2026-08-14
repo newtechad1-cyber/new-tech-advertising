@@ -19,11 +19,11 @@
  *   className        — Additional CSS classes (optional)
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { base44 } from '@/api/base44Client';
 import {
   Brain, Sparkles, ChevronRight, ChevronDown, ChevronUp,
-  Loader2, RefreshCw, ExternalLink, Star, Network,
+  Loader2, RefreshCw, Star, Network,
   FileText, BookOpen, Target, Phone, Briefcase, Video,
   MessageSquare, Zap, Heart, Search, Globe, Shield,
   MapPin, Bot, TrendingUp, AlertCircle, Eye, Lightbulb,

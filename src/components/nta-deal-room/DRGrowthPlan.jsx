@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { CheckCircle2, Calendar, DollarSign, Package } from 'lucide-react';
+import { useState } from 'react';
+import { CheckCircle2, Calendar, Package } from 'lucide-react';
 
 const PACKAGE_DATA = {
   starter: {

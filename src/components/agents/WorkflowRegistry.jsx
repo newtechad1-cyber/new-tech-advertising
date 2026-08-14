@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { GitBranch, CheckCircle, AlertCircle } from 'lucide-react';
+import { GitBranch } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function WorkflowRegistry({ onSelectWorkflow }) {

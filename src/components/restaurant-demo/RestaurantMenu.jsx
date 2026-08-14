@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 export default function RestaurantMenu({ config }) {
   const { menuCategories, primaryColor, name } = config;

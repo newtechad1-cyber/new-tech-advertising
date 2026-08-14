@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { ArrowRight, CheckCircle2, Zap, TrendingUp } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Zap } from 'lucide-react';
 
 export default function TrialActivation() {
   const [progress, setProgress] = useState(0);

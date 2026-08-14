@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Layers3, Compass, MessageCircleMore } from 'lucide-react';
 

@@ -1,5 +1,3 @@
-import React from 'react';
-import { AlertCircle, Zap, TrendingUp } from 'lucide-react';
 
 const urgencyIcons = {
   critical: '🚨',

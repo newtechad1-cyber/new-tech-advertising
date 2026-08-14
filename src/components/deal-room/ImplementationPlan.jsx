@@ -1,5 +1,4 @@
-import React from 'react';
-import { Calendar, CheckCircle, Zap } from 'lucide-react';
+import { Calendar, CheckCircle } from 'lucide-react';
 
 export default function ImplementationPlan() {
   const phases = [

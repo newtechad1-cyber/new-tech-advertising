@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Grid, List, X } from 'lucide-react';
+import { useState } from 'react';
+import { Grid, List } from 'lucide-react';
 import { CQApprovalBadge, CQAssetBadge } from './CQUtils';
 import ContentQueueDrawer from './ContentQueueDrawer';
 

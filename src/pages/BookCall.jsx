@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import SiteHeader from '@/components/landing/Header';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import BCHero from '@/components/book-call/BCHero';

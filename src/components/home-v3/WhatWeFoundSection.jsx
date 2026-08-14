@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { AlertTriangle, CheckCircle2 } from 'lucide-react';
 

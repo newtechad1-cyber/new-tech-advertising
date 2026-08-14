@@ -1,4 +1,3 @@
-import React from 'react';
 import { Lightbulb, ArrowRight, Sparkles } from 'lucide-react';
 
 export default function DashboardTopOpportunities({ opportunities, readinessState }) {

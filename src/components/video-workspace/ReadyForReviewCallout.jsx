@@ -1,6 +1,5 @@
-import React from "react";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Send, Eye, Type, Palette, Megaphone, Globe, Facebook, Instagram, Youtube, Smartphone, Building2 } from "lucide-react";
+import { CheckCircle2, Send, Type, Palette, Megaphone, Globe, Facebook, Instagram, Youtube, Smartphone, Building2 } from "lucide-react";
 
 const STYLE_LABELS = {
   clean_minimal: "Clean Minimal",

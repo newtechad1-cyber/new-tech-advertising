@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { CheckCircle, FileText, TrendingUp, MessageSquare, Clock, DollarSign } from 'lucide-react';
+import { CheckCircle, FileText, TrendingUp, DollarSign } from 'lucide-react';
 import AcceptModal from './viewer/AcceptModal';
 import { toast } from 'sonner';
 

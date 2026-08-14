@@ -1,4 +1,3 @@
-import React from 'react';
 import { DollarSign, TrendingUp, Target, Award, AlertTriangle } from 'lucide-react';
 
 const STAGE_PROBABILITY = {

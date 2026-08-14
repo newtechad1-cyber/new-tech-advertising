@@ -1,7 +1,6 @@
-import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { FileText, Send, AlertTriangle, Users, Clock } from 'lucide-react';
+import { FileText, Send, AlertTriangle, Clock } from 'lucide-react';
 
 export default function ReportingKPIStrip() {
   const { data: reports = [] } = useQuery({

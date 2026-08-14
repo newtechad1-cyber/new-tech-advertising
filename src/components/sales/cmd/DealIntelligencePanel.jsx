@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Eye, TrendingUp, FileText, AlertTriangle, ArrowRight } from 'lucide-react';
 
 export default function DealIntelligencePanel() {

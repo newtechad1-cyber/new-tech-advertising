@@ -1,4 +1,3 @@
-import React from 'react';
 import { Phone, MapPin, Clock, ShoppingBag, UtensilsCrossed } from 'lucide-react';
 
 export default function RestaurantHero({ config }) {

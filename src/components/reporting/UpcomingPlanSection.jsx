@@ -1,4 +1,3 @@
-import React from 'react';
 import { Calendar, Zap } from 'lucide-react';
 
 export default function UpcomingPlanSection({ report }) {

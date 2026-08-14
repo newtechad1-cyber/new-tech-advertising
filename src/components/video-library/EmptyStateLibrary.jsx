@@ -1,8 +1,7 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Button } from '@/components/ui/button';
-import { Film, Search, FilterX, AlertTriangle } from 'lucide-react';
+import { Film, Search, FilterX } from 'lucide-react';
 
 export default function EmptyStateLibrary({ hasFilters, onClearFilters }) {
   if (hasFilters) {

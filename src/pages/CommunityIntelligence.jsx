@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, 
+import { BarChart, Bar, PieChart, Pie, Cell, 
   XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, AreaChart, Area
 } from 'recharts';
 import { 
-  Activity, TrendingUp, Users, Target, Zap, Globe, 
-  Calendar, ArrowUpRight, BarChart2, ShieldCheck, MapPin, Briefcase
+  Activity, TrendingUp, Users, Zap, Globe, 
+  Calendar, MapPin, Briefcase
 } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Users, Target, Clock, Lightbulb } from 'lucide-react';
 
 export default function BCWhyChooseNTA() {

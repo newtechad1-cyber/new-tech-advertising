@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { CheckSquare, ArrowRight, Play, FileText, Video } from 'lucide-react';

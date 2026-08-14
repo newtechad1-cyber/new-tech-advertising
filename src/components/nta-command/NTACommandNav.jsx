@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Users, Share2, Bot, Building2, Target, DollarSign, Menu, X, Zap, Activity } from 'lucide-react';
 

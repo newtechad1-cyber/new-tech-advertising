@@ -2,11 +2,6 @@ import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import {
   calculateUpgradeReadinessAndSignals,
-  detectLowMomentumRisk,
-  detectHighEffortLowExecution,
-  detectLeadMomentum,
-  detectTimeConstraintPattern,
-  detectAggressiveGrowthIntent,
 } from './ntaUpgradeRecommendationEngine';
 
 /**

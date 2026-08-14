@@ -1,5 +1,4 @@
-import React from 'react';
-import { TrendingUp, ChevronRight } from 'lucide-react';
+import { TrendingUp } from 'lucide-react';
 
 const OPPORTUNITY_CONFIG = {
   premium_video: { label: 'Premium Video', icon: '🎥', color: '#f59e0b' },

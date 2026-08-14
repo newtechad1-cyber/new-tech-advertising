@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { TrendingUp, TrendingDown, ChevronDown, Plus, Video, RefreshCw, CheckSquare, PauseCircle, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { ChevronRight, Zap } from 'lucide-react';
 
 const CATEGORY_CONFIG = {

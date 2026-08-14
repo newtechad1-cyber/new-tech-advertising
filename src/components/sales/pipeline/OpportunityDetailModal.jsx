@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, ChevronRight } from 'lucide-react';
+import { useState } from 'react';
+import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 

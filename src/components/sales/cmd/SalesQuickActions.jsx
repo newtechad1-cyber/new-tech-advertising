@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
-import { UserPlus, CalendarCheck, Briefcase, FileText } from 'lucide-react';
+import { UserPlus, CalendarCheck, Briefcase } from 'lucide-react';
 
 function Field({ label, children }) {
   return <div><label className="text-xs text-gray-400 font-medium block mb-1">{label}</label>{children}</div>;

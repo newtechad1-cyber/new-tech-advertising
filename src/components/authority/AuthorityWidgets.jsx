@@ -2,7 +2,6 @@
  * R0.7 — Authority Dashboard Widgets
  * Reusable stat and display components for the Authority Dashboard.
  */
-import React from 'react';
 import * as LucideIcons from 'lucide-react';
 
 export function AuthorityStat({ label, value, sublabel, icon, color = 'blue', trend }) {

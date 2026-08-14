@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { X, Play, Search } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 

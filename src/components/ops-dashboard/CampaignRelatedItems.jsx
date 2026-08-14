@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Globe, FileText, Video, Share2, Users, BarChart2, ChevronDown, ChevronUp, ExternalLink } from 'lucide-react';
+import { useState } from 'react';
+import { Globe, FileText, Video, Share2, Users, BarChart2, ChevronDown, ChevronUp } from 'lucide-react';
 
 const STATUS_COLORS_ASSET = {
   draft: 'text-slate-500',

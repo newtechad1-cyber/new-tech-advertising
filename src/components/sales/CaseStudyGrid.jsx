@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { base44 } from '@/api/base44Client';
-import { ArrowRight, TrendingUp, Star } from 'lucide-react';
+import { useState } from 'react';
+import { TrendingUp } from 'lucide-react';
 
 const STATIC_CASES = [
   {

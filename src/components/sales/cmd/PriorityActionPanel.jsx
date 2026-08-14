@@ -1,4 +1,3 @@
-import React from 'react';
 import { AlertCircle, MapPin, Calendar, ArrowRight } from 'lucide-react';
 
 export default function PriorityActionPanel() {

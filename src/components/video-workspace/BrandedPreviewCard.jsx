@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Eye, Type, Image, Megaphone, Monitor, Square, Smartphone, CheckCircle2, XCircle } from "lucide-react";
 

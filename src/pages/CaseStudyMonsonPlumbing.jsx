@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, CheckCircle2, Clock3, Monitor, Workflow, Wrench } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';

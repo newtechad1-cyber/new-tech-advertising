@@ -1,5 +1,4 @@
-import React from 'react';
-import { XCircle, Cpu, AlertTriangle, Activity, ChevronRight } from 'lucide-react';
+import { XCircle, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 function HealthBar({ label, value, color, max = 100 }) {

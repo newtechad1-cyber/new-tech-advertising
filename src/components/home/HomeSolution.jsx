@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrainCircuit, Calendar, BarChart2, Video, Zap, Globe } from 'lucide-react';
 
 const FEATURES = [

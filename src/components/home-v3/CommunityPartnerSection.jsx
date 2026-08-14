@@ -1,6 +1,5 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { Handshake, ArrowRight, Building2, MapPin, PieChart, Users, Globe } from 'lucide-react';
+import { Handshake, ArrowRight, Building2, MapPin, PieChart, Users } from 'lucide-react';
 
 export default function CommunityPartnerSection() {
   return (

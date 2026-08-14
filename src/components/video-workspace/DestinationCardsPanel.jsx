@@ -1,7 +1,6 @@
-import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CheckCircle2, AlertCircle, LinkIcon } from 'lucide-react';
+import { AlertCircle, LinkIcon } from 'lucide-react';
 import { Globe, Facebook, Instagram, Youtube, Music, Briefcase } from 'lucide-react';
 
 const DESTINATIONS = [

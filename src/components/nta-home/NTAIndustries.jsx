@@ -1,4 +1,3 @@
-import React from 'react';
 
 const INDUSTRIES = [
   { name: 'HVAC',         emoji: '❄️',  desc: 'Seasonal campaigns, emergency visibility',        clients: '60+ clients' },

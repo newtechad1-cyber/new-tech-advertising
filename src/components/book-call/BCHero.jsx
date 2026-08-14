@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ArrowRight, Zap, CheckCircle } from 'lucide-react';
 
 const BOOKING_URL = 'https://calendar.app.google/p6ieYanvwhixXxZ67';

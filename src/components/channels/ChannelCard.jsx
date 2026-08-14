@@ -1,4 +1,3 @@
-import React from 'react';
 import { CheckCircle, AlertCircle, Circle } from 'lucide-react';
 
 export default function ChannelCard({ 

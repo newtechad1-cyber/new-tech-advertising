@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { CQStatusBadge } from './CQUtils';
 
 export default function CQScheduledTab({ items, posts, campaigns, clients }) {

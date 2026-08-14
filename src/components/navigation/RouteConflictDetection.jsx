@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { AlertTriangle, Link2, Copy, X } from 'lucide-react';
+import { AlertTriangle } from 'lucide-react';
 
 export default function RouteConflictDetection({ routes = [], pages = [] }) {
   const conflicts = useMemo(() => {

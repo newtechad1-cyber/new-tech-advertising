@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { MessageSquare, HeartHandshake, ShieldCheck, Phone, BookOpen, AlertCircle, Users, CheckCircle2, Unlock } from 'lucide-react';
+import { useState } from 'react';
+import { MessageSquare, ShieldCheck, AlertCircle, Unlock } from 'lucide-react';
 import KnowledgeLibraryLayout from '@/components/knowledge/KnowledgeLibraryLayout';
 
 const CONVERSATION_CATEGORIES = [

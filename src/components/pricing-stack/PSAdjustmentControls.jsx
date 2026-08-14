@@ -1,4 +1,3 @@
-import React from 'react';
 
 const MARKET_SIZE_OPTIONS = [
   { key: 0.9,  label: 'Small Market',  sub: 'Under 100k pop' },

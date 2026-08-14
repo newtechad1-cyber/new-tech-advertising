@@ -1,4 +1,3 @@
-import React from 'react';
 import { GripHorizontal, DollarSign, Calendar, AlertCircle } from 'lucide-react';
 
 export default function PipelineKanbanBoard() {

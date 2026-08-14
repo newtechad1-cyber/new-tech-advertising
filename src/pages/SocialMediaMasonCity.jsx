@@ -1,10 +1,8 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
 import MarketingNav from '../components/nav/MarketingNav';
 import SEOHead from '@/components/shared/SEOHead';
 import SiteFooter from '../components/marketing/SiteFooter';
-import { CheckCircle, ArrowRight, MapPin, Share2, BarChart2, Zap, Globe } from 'lucide-react';
+import { CheckCircle, ArrowRight, MapPin } from 'lucide-react';
 
 const INTENTS = [
   { title: 'Affordable Social Media for Mason City Businesses', desc: 'Transparent pricing designed for small business budgets — no agency overhead, no surprise fees. Get professional social media management at a cost that makes sense.' },

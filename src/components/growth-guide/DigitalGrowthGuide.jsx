@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { getJourneyMemory } from '@/lib/journeyMemory';
-import { X, Send, Loader2, User, FileText, CheckCircle2, AlertCircle, Clock, Zap, ChevronRight, MessageCircle, Map, Target, Compass, Sparkles, Navigation, BookOpen, Activity, ArrowRight, Users } from 'lucide-react';
+import { X, Send, Loader2, User, FileText, CheckCircle2, AlertCircle, Clock, Zap, ChevronRight, MessageCircle, Map, Target, Compass, Sparkles, BookOpen, Activity, ArrowRight, Users } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 const NTA_FAVICON = "https://media.base44.com/images/public/691f41a18de4a7f498c8f884/04e19b127_favicon_64x64.png";

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Play, Loader2, Square } from "lucide-react";
+import { Play, Square } from "lucide-react";
 
 export default function VoiceSelector({ voices, selectedVoiceId, onVoiceChange }) {
   const [playingId, setPlayingId] = useState(null);

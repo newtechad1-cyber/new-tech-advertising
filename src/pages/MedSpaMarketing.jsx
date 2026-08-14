@@ -1,6 +1,5 @@
-import React from 'react';
 import VerticalPageTemplate from '@/components/verticals/VerticalPageTemplate';
-import { Search, Share2, Star, BarChart2, Video, Zap } from 'lucide-react';
+import { Search, Share2, Star, BarChart2, Video } from 'lucide-react';
 
 const DATA = {
   industry: 'Med Spa',

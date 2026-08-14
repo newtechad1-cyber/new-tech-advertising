@@ -1,4 +1,3 @@
-import React from 'react';
 import { Building2, MapPin, Tag, DollarSign, TrendingUp, Users } from 'lucide-react';
 
 const INDUSTRY_MARKET = {

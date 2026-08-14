@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Palette, Lock, Eye, EyeOff, Image, Type, Save } from 'lucide-react';
 
 const LOCKED_ELEMENTS = [

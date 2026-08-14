@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { AlertCircle, RefreshCw, X, ChevronDown, Wifi, FileX, Cpu, Send } from 'lucide-react';
+import { useState } from 'react';
+import { AlertCircle, RefreshCw, ChevronDown, Wifi, FileX, Cpu, Send } from 'lucide-react';
 
 const ERROR_CATEGORIES = [
   { id: 'api_failure',    label: 'API Connection Errors',          icon: Wifi,  color: '#ef4444' },

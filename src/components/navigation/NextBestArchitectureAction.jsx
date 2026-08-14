@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Lightbulb, ArrowRight, AlertCircle } from 'lucide-react';
+import { Lightbulb, ArrowRight } from 'lucide-react';
 
 export default function NextBestArchitectureAction({ pages = [], routes = [], layouts = [], navItems = [] }) {
   const prioritizedActions = useMemo(() => {
