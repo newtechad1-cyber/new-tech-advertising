@@ -32,11 +32,11 @@ export default function KnowledgeLibrary() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
       <SEOHead
-        title="NTA Knowledge Library | Understand How Businesses Really Grow"
-        description="The NTA Knowledge Library is a connected learning journey for business owners. These are not ordinary blog posts. Learn principles of growth, trust, and AI."
+        title="AI Lessons for Small Business Owners | NTA Knowledge Library"
+        description="A connected library of practical AI, small-business growth, customer trust, and business-system lessons from Rick Hesse."
         collectionData={{
           name: "NTA Knowledge Library",
-          description: "The NTA Knowledge Library is a connected learning journey for business owners. These are not ordinary blog posts. Learn principles of growth, trust, and AI.",
+          description: "A connected library of practical AI, small-business growth, customer trust, and business-system lessons from Rick Hesse.",
           numberOfItems: 7,
           hasPart: collectionsOrder.map(col => ({
             name: col.title,
