@@ -59,11 +59,12 @@ function getSitemapPaths() {
 }
 
 const template = fs.readFileSync(path.join(distDir, "index.html"), "utf8");
-for (const pathname of getSitemapPaths()) {
+const paths = getSitemapPaths();
+for (const pathname of paths) {
   const metadata = getSeoMetadata(pathname);
   const outputDir = pathname === "/" ? distDir : path.join(distDir, pathname.slice(1));
   fs.mkdirSync(outputDir, { recursive: true });
   fs.writeFileSync(path.join(outputDir, "index.html"), renderHtml(template, metadata, pathname));
 }
 
-console.log("Generated route-aware SEO HTML for " + getSitemapPaths().length + " public URLs.");
+console.log("Generated route-aware SEO HTML for " + paths.length + " public URLs.");
