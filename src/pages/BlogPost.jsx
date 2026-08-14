@@ -68,7 +68,7 @@ export default function BlogPost() {
       <SEOHead
         title={post.search_title || `${post.title} | NTA Insights`}
         description={post.excerpt || post.content?.slice(0, 158)}
-        canonical={post.slug ? `https://newtechadvertising.com/insights/${post.slug}` : undefined}
+        canonical={post.slug ? `https://newtechadvertising.com/insights/${post.slug}/` : undefined}
         articleData={{
           title: post.title,
           description: post.excerpt || post.content?.slice(0, 158),
