@@ -9,7 +9,7 @@ export default function PracticalAI() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200">
       <SEOHead
-        title="Practical AI for Small Business | New Tech Advertising"
+        title="Practical AI for Small Business Owners | Free Guide"
         description="A plainspoken guide for business owners who want to understand AI without the hype, jargon, or confusion."
       />
       <MarketingNav />
