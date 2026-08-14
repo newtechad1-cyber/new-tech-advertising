@@ -13,6 +13,7 @@ on:
       - "src/**"
       - "scripts/generate-seo-pages.mjs"
       - "base44/functions/listPages/entry.ts"
+      - ".github/workflows/indexnow.yml"
   workflow_dispatch:
 
 permissions:
