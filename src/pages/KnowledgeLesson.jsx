@@ -6,6 +6,7 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import { getLessonBySlug, getCollectionBySlug, getConnectedLessonResources } from '@/data/masterCurriculum';
+import { getLessonSearchMetadata } from '@/config/seoMetadata';
 import { getJourneyMemory, updateJourneyMemory, addCompletedModule } from '@/lib/journeyMemory';
 
 export default function KnowledgeLesson() {
@@ -33,6 +34,7 @@ export default function KnowledgeLesson() {
   const lessonPosition = lessonIndex >= 0 ? lessonIndex + 1 : lesson.id;
   const totalLessons = collection.lessons.length;
   const connectedResources = getConnectedLessonResources(collectionSlug, lessonSlug);
+  const lessonSeo = getLessonSearchMetadata(collectionSlug, lesson);
 
   const markComplete = () => {
     addCompletedModule(lesson.id);
@@ -51,11 +53,12 @@ export default function KnowledgeLesson() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
       <SEOHead
-        title={lesson.searchTitle || `${lesson.title} | NTA Knowledge Library`}
-        description={lesson.searchDescription || lesson.description}
+        title={lessonSeo.title}
+        description={lessonSeo.description}
+        canonical={lessonSeo.canonical}
         articleData={{
           title: lesson.title,
-          description: lesson.searchDescription || lesson.description,
+          description: lessonSeo.description,
           author: "Rick Hesse",
           datePublished: lesson.publishedDate || "2026-07-15",
           dateModified: lesson.modifiedDate || "2026-07-23",
@@ -63,7 +66,7 @@ export default function KnowledgeLesson() {
         }}
         learningData={{
           name: lesson.title,
-          description: lesson.searchDescription || lesson.description,
+          description: lessonSeo.description,
           educationalLevel: lesson.level || "Beginner",
           learningResourceType: "lesson"
         }}
