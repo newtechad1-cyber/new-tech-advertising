@@ -13,8 +13,8 @@ export default function AIVisibilityBasics() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
       <SEOHead 
-        title="AI Visibility Basics for Small Business | New Tech Advertising"
-        description="Understanding AI search visibility for local businesses. How AI search engines find, evaluate, and recommend your business."
+        title="How to Get Found in AI Search | AI Visibility Basics"
+        description="Learn how Google AI Overviews, ChatGPT, and other answer engines understand and recommend local businesses."
       />
       <MarketingNav />
       <div className="flex-grow">
@@ -63,7 +63,7 @@ export default function AIVisibilityBasics() {
           </p>
 
           <LCInsightBlock type="nta_found" title="What NTA Has Found">
-            Businesses that actively manage their Google Business Profile and respond to reviews with context (e.g., "Thanks for trusting us with your AC repair in Mason City") appear in AI overviews up to 40% more frequently.
+            Consistent, specific review responses give customers and search systems more useful evidence about the work your business does and the people it serves.
           </LCInsightBlock>
 
         </article>
