@@ -123,6 +123,11 @@ import WebsiteRebuildsMasonCity from '@/pages/WebsiteRebuildsMasonCity';
 import WebsiteRebuildsRochesterMN from '@/pages/WebsiteRebuildsRochesterMN';
 import WhyNTA from '@/pages/WhyNTA';
 import WhatIsDigitalTrustCollection from '@/pages/WhatIsDigitalTrustCollection';
+import AiAdvertising from '@/pages/AiAdvertising';
+import AiSeo from '@/pages/AiSeo';
+import AiSocialMedia from '@/pages/AiSocialMedia';
+import AiVideos from '@/pages/AiVideos';
+import AiWebsites from '@/pages/AiWebsites';
 import AiVisibilityBasics from '@/pages/AIVisibilityBasics';
 
 const alias = (path, Page) => ({ path, Page });
@@ -210,6 +215,11 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/website-rebuilds', WebsiteRebuildService),
   alias('/services/social-media-management', SocialMediaManagement),
   alias('/social-media-content-system', SocialMediaContentSystem),
+  alias('/ai-seo', AiSeo),
+  alias('/ai-social-media', AiSocialMedia),
+  alias('/ai-websites', AiWebsites),
+  alias('/ai-advertising', AiAdvertising),
+  alias('/ai-videos', AiVideos),
   alias('/ai-video-marketing', AIVideoMarketing),
   alias('/back-office', BackOfficeSolutions),
   alias('/back-office-solutions', BackOfficeSolutions),
