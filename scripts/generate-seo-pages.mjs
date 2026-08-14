@@ -6,6 +6,7 @@ import { getSeoMetadata } from "../src/config/seoMetadata.js";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const distDir = path.join(root, "dist");
 const sourceSitemap = path.join(root, "public", "sitemap.xml");
+const sourceAiSitemap = path.join(root, "public", "ai-sitemap.json");
 
 function escapeHtml(value) {
   return String(value || "")
@@ -58,10 +59,30 @@ function getSitemapPaths() {
     .filter((value, index, values) => values.indexOf(value) === index);
 }
 
+function getContentByCanonical() {
+  if (!fs.existsSync(sourceAiSitemap)) return new Map();
+  const data = JSON.parse(fs.readFileSync(sourceAiSitemap, "utf8"));
+  const entries = [
+    ...(data.publicPages || []),
+    ...(data.knowledgeCollections || []),
+    ...(data.knowledgeCollections || []).flatMap(collection => collection.lessons || [])
+  ];
+  return new Map(entries.filter(entry => entry.canonicalUrl).map(entry => [entry.canonicalUrl, entry]));
+}
+
+const contentByCanonical = getContentByCanonical();
+function routeMetadata(pathname) {
+  const metadata = getSeoMetadata(pathname);
+  const content = contentByCanonical.get(metadata.canonical);
+  return content && content.description
+    ? { ...metadata, description: content.description }
+    : metadata;
+}
+
 const template = fs.readFileSync(path.join(distDir, "index.html"), "utf8");
 const paths = getSitemapPaths();
 for (const pathname of paths) {
-  const metadata = getSeoMetadata(pathname);
+  const metadata = routeMetadata(pathname);
   const outputDir = pathname === "/" ? distDir : path.join(distDir, pathname.slice(1));
   fs.mkdirSync(outputDir, { recursive: true });
   fs.writeFileSync(path.join(outputDir, "index.html"), renderHtml(template, metadata, pathname));
