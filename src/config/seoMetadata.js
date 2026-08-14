@@ -436,7 +436,6 @@ export function getSeoMetadata(pathname) {
         description: "A practical lesson for small-business owners about AI, growth, customer trust, and useful business systems.",
         canonical: canonicalUrl(canonicalPath),
         noIndex: false,
-        routeSpecific: true,
       };
     }
   }
