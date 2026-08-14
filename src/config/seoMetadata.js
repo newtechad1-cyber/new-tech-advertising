@@ -396,7 +396,7 @@ export function getLessonSearchMetadata(collectionSlug, lesson) {
     : (lesson && lesson.description) || DEFAULT_SEO.description;
   const path = "/knowledge/" + collectionKey + "/" + lessonSlug;
   return {
-    title: clip(title + " | NTA Knowledge Library", 78),
+    title: title + " | NTA Knowledge Library",
     description: clip(description, 158),
     canonical: canonicalUrl(path),
     noIndex: false,
@@ -430,7 +430,7 @@ export function getSeoMetadata(pathname) {
     if (segments.length === 3 && COLLECTION_SEARCH[segments[1]]) {
       const title = LESSON_SEARCH_TITLES[segments[2]] || "Small Business Lesson";
       return {
-        title: clip(title + " | NTA Knowledge Library", 78),
+        title: title + " | NTA Knowledge Library",
         description: "A practical lesson for small-business owners about AI, growth, customer trust, and useful business systems.",
         canonical: canonicalUrl(canonicalPath),
         noIndex: false,
