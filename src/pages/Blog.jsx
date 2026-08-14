@@ -49,7 +49,7 @@ export default function Blog() {
   return (
     <div className="min-h-screen bg-slate-950 text-white">
       <SEOHead
-        title="Small Business Insights | New Tech Advertising"
+        title="Small Business Growth and Practical AI Insights | NTA"
         description="Practical AI education, business growth, local visibility, and customer-trust insights for small-business owners from New Tech Advertising."
       />
       <MarketingNav />
