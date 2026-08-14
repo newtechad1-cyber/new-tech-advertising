@@ -32,7 +32,7 @@ export default function WhyNTA() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 pb-24">
       <SEOHead
-        title="Why I Do This Work | New Tech Advertising"
+        title="Why NTA Teaches Practical AI for Small Business Owners"
         description="Meet Rick Hesse and understand the human-centered philosophy connecting New Tech Advertising, practical AI, trust, and lifelong learning."
       />
 
