@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { CheckCircle2, Download, Loader2 } from 'lucide-react';
+import { BookOpen, CheckCircle2, Download, Loader2 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const accentClasses = {
@@ -20,7 +20,9 @@ export default function PublicationSignupForm({
   consentContext = '',
   consentCheckboxText,
   downloadUrl,
+  viewerUrl,
   downloadButtonLabel = 'Download now',
+  readOnlineLabel = 'Read online instead',
 }) {
   const [form, setForm] = useState({ name: '', email: '', business_name: '', consent: false, website: '' });
   const [submitting, setSubmitting] = useState(false);
@@ -29,6 +31,17 @@ export default function PublicationSignupForm({
   const startedAt = useRef(Date.now());
 
   const update = (field) => (event) => setForm((current) => ({ ...current, [field]: event.target.type === 'checkbox' ? event.target.checked : event.target.value }));
+
+  async function trackBookEvent(eventType) {
+    try {
+      await base44.functions.invoke('trackBookEvent', {
+        book_key: publicationTag,
+        event_type: eventType,
+      });
+    } catch (trackingError) {
+      console.warn('[book tracking] Event could not be recorded.', trackingError);
+    }
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -91,10 +104,31 @@ export default function PublicationSignupForm({
       <div className="mt-8 rounded-2xl border border-emerald-400/30 bg-emerald-400/10 p-6 text-left">
         <CheckCircle2 className="h-8 w-8 text-emerald-300" />
         <p className="mt-3 font-semibold text-white">{successMessage}</p>
-        {downloadUrl && (
-          <a href={downloadUrl} target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 font-bold text-slate-900 hover:bg-slate-100">
-            <Download className="h-4 w-4" /> {downloadButtonLabel}
-          </a>
+        {(downloadUrl || viewerUrl) && (
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            {downloadUrl && (
+              <a
+                href={downloadUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => { void trackBookEvent('download_click'); }}
+                className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 font-bold text-slate-900 hover:bg-slate-100"
+              >
+                <Download className="h-4 w-4" /> {downloadButtonLabel}
+              </a>
+            )}
+            {viewerUrl && (
+              <a
+                href={viewerUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => { void trackBookEvent('read_online_click'); }}
+                className="inline-flex items-center gap-2 rounded-xl border border-white/30 px-5 py-3 font-bold text-white hover:bg-white/10"
+              >
+                <BookOpen className="h-4 w-4" /> {readOnlineLabel}
+              </a>
+            )}
+          </div>
         )}
       </div>
     );
