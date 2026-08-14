@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-# Auto-generated Base44 page keys (case-sensitive crawler paths)
+# Legacy Base44 page keys that are not public content
 Disallow: /Admin
 Disallow: /Agency
 Disallow: /Client
@@ -18,6 +18,7 @@ Disallow: /Proposal
 Disallow: /Settings
 Disallow: /BusinessProfile
 Disallow: /IntelAdmin
+Disallow: /IndustryIntel
 Disallow: /LocalMarketIntel
 Disallow: /LocationPage
 Disallow: /OpportunitySignal
@@ -29,30 +30,27 @@ Disallow: /WeeklyPlan
 Disallow: /WebsiteVideo
 Disallow: /WorkflowMap
 Disallow: /YouTube
+Disallow: /FounderScorecard
 Disallow: /AIWorkforce
 Disallow: /AiOperations
 Disallow: /AgentArchitecture
 Disallow: /MarketingPlan
 Disallow: /ChatWidget
 Disallow: /OperationsHub
-Disallow: /FounderScorecard
+Disallow: /NTACommand
+Disallow: /NTAOperator
+Disallow: /NTASales
+Disallow: /NTADashboard
 
-# Explicit private route families
+# Private application route families
 Disallow: /admin
 Disallow: /admin-dashboard
+Disallow: /admin-center
 Disallow: /agency
 Disallow: /client
 Disallow: /client-dashboard
-Disallow: /Login
-Disallow: /login
 Disallow: /portal
 Disallow: /ops
-Disallow: /settings
-Disallow: /billing
-Disallow: /crm
-Disallow: /automations
-Disallow: /workflows
-Disallow: /approvals
 Disallow: /sales
 Disallow: /reseller
 Disallow: /dashboard
@@ -60,11 +58,20 @@ Disallow: /crm
 Disallow: /leads
 Disallow: /content-command
 Disallow: /content-center
-Disallow: /deal-room
-Disallow: /proposal
+Disallow: /billing
+Disallow: /settings
 Disallow: /workspace
 Disallow: /executive-dashboard
-Disallow: /admin-center
+Disallow: /automations
+Disallow: /workflows
+Disallow: /approvals
+Disallow: /proposal
+Disallow: /deal-room
+Disallow: /login
+Disallow: /Login
+Disallow: /signup
+Disallow: /start
+Disallow: /find-your-plan
 Disallow: /nta/operator-command
 Disallow: /nta/command-center
 Disallow: /nta/submissions
@@ -89,4 +96,3 @@ Disallow: /nta/content-dashboard
 Disallow: /nta/deal-room
 
 Sitemap: https://newtechadvertising.com/sitemap.xml
-Sitemap: https://newtechadvertising.com/ai-sitemap.json
