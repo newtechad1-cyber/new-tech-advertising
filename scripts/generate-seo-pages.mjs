@@ -42,7 +42,7 @@ function shellMarkup(metadata, pathname) {
 function renderHtml(template, metadata, pathname) {
   const shell = shellMarkup(metadata, pathname);
   let html = template;
-  html = html.replace(/<title>[\s\S]*?<\\/title>/i, "<title>" + shell.title + "</title>");
+  html = html.replace(/<title>[\s\S]*?<\/title>/i, "<title>" + shell.title + "</title>");
   html = html.replace(/<meta name="description"[^>]*>/i, '<meta name="description" content="' + shell.description + '" />');
   html = html.replace(/<meta name="robots"[^>]*>/i, "");
   html = html.replace(/<link rel="canonical"[^>]*>/i, '<link rel="canonical" href="' + shell.canonical + '" />');
@@ -53,7 +53,7 @@ function renderHtml(template, metadata, pathname) {
 
 function getSitemapPaths() {
   const xml = fs.readFileSync(sourceSitemap, "utf8");
-  return [...xml.matchAll(/<loc>([^<]+)<\\/loc>/g)]
+  return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)]
     .map(match => cleanPath(match[1]))
     .filter((value, index, values) => values.indexOf(value) === index);
 }
