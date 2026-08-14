@@ -134,7 +134,8 @@ export default function PracticalAI() {
               consentContext="Requested free download of Practical AI for Small Business and agreed to receive related NTA publication updates."
               consentCheckboxText="I want to download Practical AI for Small Business and receive related NTA publication updates. I can unsubscribe at any time."
               successMessage="Thanks. Your request has been saved. You can download Practical AI for Small Business below."
-              downloadUrl="https://drive.google.com/file/d/11nq430-bcstci_fuOP8Fm9g2xTk2n0yl/view?usp=sharing"
+              downloadUrl="https://drive.usercontent.google.com/download?id=11nq430-bcstci_fuOP8Fm9g2xTk2n0yl&export=download"
+              viewerUrl="https://drive.google.com/file/d/11nq430-bcstci_fuOP8Fm9g2xTk2n0yl/view?usp=sharing"
               downloadButtonLabel="Download Practical AI for Small Business"
             />
           </div>
