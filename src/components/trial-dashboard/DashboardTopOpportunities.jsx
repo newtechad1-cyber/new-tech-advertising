@@ -1,6 +1,6 @@
 import { Lightbulb, ArrowRight, Sparkles } from 'lucide-react';
 
-export default function DashboardTopOpportunities({ opportunities, readinessState }) {
+export default function DashboardTopOpportunities({ opportunities, readinessState: _readinessState }) {
   if (!opportunities || opportunities.length === 0) {
     return (
       <div className="bg-slate-900 border border-slate-700 rounded-2xl p-8 text-center">

@@ -37,7 +37,7 @@ const BENCHMARKS = [
   { vertical: 'Dental', avg_improvement: 11.2, top: 14 },
 ];
 
-export default function CPRankingAnalytics({ rankings = [] }) {
+export default function CPRankingAnalytics({ rankings: _rankings = [] }) {
   return (
     <div className="space-y-4">
       <h2 className="text-sm font-bold text-slate-400 uppercase tracking-widest">Ranking & Visibility Analytics</h2>

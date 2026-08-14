@@ -1,7 +1,7 @@
 import { Card } from '@/components/ui/card';
 import { Zap } from 'lucide-react';
 
-export default function HeroStatusStrip({ video, publishJobs }) {
+export default function HeroStatusStrip({ video, publishJobs: _publishJobs }) {
   // Calculate workflow completion %
   const completionChecks = [
     video.source_file_url ? 1 : 0,

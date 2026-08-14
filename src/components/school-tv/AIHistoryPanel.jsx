@@ -9,7 +9,7 @@ import {
   Copy,
 } from 'lucide-react';
 
-export default function AIHistoryPanel({ aiJobs = [], aiOutputs = [] }) {
+export default function AIHistoryPanel({ aiJobs = [], aiOutputs: _aiOutputs = [] }) {
   const [expanded, setExpanded] = useState(false);
 
   if (!aiJobs || aiJobs.length === 0) {

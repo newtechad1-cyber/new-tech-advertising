@@ -54,7 +54,7 @@ export default function DemoSchoolStoryDetail() {
     );
   }
 
-  const relatedContent = [];
+  const _relatedContent = [];
 
   return (
     <div className="bg-white">

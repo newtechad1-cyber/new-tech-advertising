@@ -61,7 +61,7 @@ export default function LessonArticle({ content, accent = 'blue', className = ''
         blockquote: ({ children }) => <blockquote className="my-8 rounded-r-xl border-l-4 border-blue-500 bg-blue-950/25 px-6 py-4 text-slate-200">{children}</blockquote>,
         hr: () => <hr className="my-14 border-slate-700" />,
         strong: ({ children }) => <strong className="font-bold text-white">{children}</strong>,
-        a: ({ node, href = '', children, ...props }) => (
+        a: ({ node: _node, href = '', children, ...props }) => (
           href.startsWith('/')
             ? <Link to={href} {...props}>{children}</Link>
             : <a href={href} {...props}>{children}</a>

@@ -3,7 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { TrendingUp } from 'lucide-react';
 
-export default function AutomationHealthScore({ rule, health, executions = [] }) {
+export default function AutomationHealthScore({ rule: _rule, health, executions: _executions = [] }) {
   const ruleHealth = useMemo(() => {
     if (!health) {
       return {

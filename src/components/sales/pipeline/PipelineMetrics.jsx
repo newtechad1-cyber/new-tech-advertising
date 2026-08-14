@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { TrendingUp, Target, DollarSign, CheckCircle } from 'lucide-react';
 
-export default function PipelineMetrics({ opportunities, timeFrame = '30days' }) {
+export default function PipelineMetrics({ opportunities, timeFrame: _timeFrame = '30days' }) {
   const metrics = useMemo(() => {
     const now = new Date();
     const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);

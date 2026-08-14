@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { formatDistanceToNow } from 'date-fns';
 
-function FeedItem({ icon, text, time, color }) {
+function FeedItem({ icon, text, time, color: _color }) {
   return (
     <div className="flex items-start gap-3 py-2.5">
       <span className={`text-base shrink-0 mt-0.5`}>{icon}</span>

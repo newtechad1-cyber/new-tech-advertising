@@ -311,7 +311,7 @@ export async function getPagesByType(pageType) {
 /**
  * Check if page is linked in the codebase (future: integrate with linter)
  */
-export async function checkPageIsLinked(pageKey) {
+export async function checkPageIsLinked(_pageKey) {
   // TODO: Integrate with build-time linter to check for actual usage
   // For now, return placeholder
   return { isLinked: null, linkedLocations: [] };

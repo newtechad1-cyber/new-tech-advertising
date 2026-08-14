@@ -165,7 +165,7 @@ export default function Autoresponder() {
     setSendResult(null);
     try {
       // Send Day 0 immediately
-      const res = await base44.functions.invoke('sendAutoresponderSequence', {
+      const _res = await base44.functions.invoke('sendAutoresponderSequence', {
         campaign_type: activeCampaign,
         day: 0,
         ...leadForm,

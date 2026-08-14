@@ -70,9 +70,9 @@ export const generateMonthlyReport = async (organizationId, snapshot, monthlyDat
     pagesPublished = 0,
     leadsLogged = 0,
     dealsClosedCount = 0,
-    revenueAttributed = 0,
+    revenueAttributed: _revenueAttributed = 0,
     campaignMetrics = [],
-    onboardingProgress = null
+    onboardingProgress: _onboardingProgress = null
   } = monthlyData;
 
   const report = {
@@ -169,7 +169,7 @@ const buildLeadsRevenueNarrative = (leads, deals, revenue) => {
   return "Your lead generation is building. With consistent content, leads will increase.";
 };
 
-const buildRecommendations = (snapshot, data) => {
+const buildRecommendations = (snapshot, _data) => {
   const recs = [];
 
   if (snapshot?.contentPublishedCount < 4) {
@@ -203,7 +203,7 @@ const buildRecommendations = (snapshot, data) => {
   return recs.length > 0 ? recs : [{ action: "Maintain Momentum", reason: "Continue execution of your current strategy" }];
 };
 
-const buildUpgradeOpportunity = (readinessScore, currentPlan) => {
+const buildUpgradeOpportunity = (readinessScore, _currentPlan) => {
   if (!readinessScore || readinessScore < 65) {
     return null;
   }
@@ -240,7 +240,7 @@ export const generateMilestoneMessage = (organizationId, milestoneType, data) =>
   return messages[milestoneType] || { subject: "Your Growth Update", body: "You're making progress." };
 };
 
-export const generateInactivityNudge = (organizationId, daysSinceActivity, lastActivity) => {
+export const generateInactivityNudge = (organizationId, daysSinceActivity, _lastActivity) => {
   if (daysSinceActivity < 7) {
     return null; // Don't nudge if active
   }

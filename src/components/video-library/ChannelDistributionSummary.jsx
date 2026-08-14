@@ -34,7 +34,7 @@ export default function ChannelDistributionSummary({ video, publishJobs }) {
       <p className="text-xs font-medium text-slate-700">Channel Distribution</p>
       <div className="flex gap-2 flex-wrap">
         {channels.map(ch => {
-          const { status, label, icon: Icon } = getChannelStatus(ch.key);
+          const { status, label: _label, icon: Icon } = getChannelStatus(ch.key);
           return (
             <div key={ch.key} className="flex items-center gap-1 px-2 py-1 bg-slate-100 rounded text-xs">
               <Icon className={`w-3 h-3 ${statusColors[status]}`} />

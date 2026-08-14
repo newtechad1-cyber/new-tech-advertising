@@ -16,7 +16,7 @@ export default function VerticalPageTemplate({ data }) {
     industry,
     headline,
     subheadline,
-    heroImage,
+    heroImage: _heroImage,
     stats,
     contentExamples,
     features,

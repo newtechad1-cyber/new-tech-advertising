@@ -5,7 +5,7 @@ import { Play, ArrowRight, Calendar, Eye, Tv, Star, ChevronRight, BookOpen, Trop
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 
-const SCHOOL = {
+const _SCHOOL = {
   name: 'North Valley High School',
   mascot: 'Falcons',
   tagline: 'Your School. Your Stories. Live on Air.',

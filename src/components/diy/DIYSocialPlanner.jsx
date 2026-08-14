@@ -1,7 +1,7 @@
 import { MessageSquare, Calendar, BarChart3 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export default function DIYSocialPlanner({ subscription }) {
+export default function DIYSocialPlanner({ subscription: _subscription }) {
   return (
     <div>
       <h2 className="text-2xl font-bold text-white mb-6">Social Media Planner</h2>

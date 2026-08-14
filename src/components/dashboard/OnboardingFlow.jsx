@@ -14,7 +14,7 @@ import { trackOnboardingStep, trackOnboardingComplete, saveUTMsToRecord } from '
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '../../utils';
 
-export default function OnboardingFlow({ onComplete, initialProfile }) {
+export default function OnboardingFlow({ onComplete: _onComplete, initialProfile }) {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);

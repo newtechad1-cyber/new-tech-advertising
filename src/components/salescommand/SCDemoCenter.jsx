@@ -19,7 +19,7 @@ const TrendIcon = ({ trend }) =>
 export default function SCDemoCenter({ reps = [], activities = [] }) {
   const demosThisWeek = activities.filter(a => a.activity_type === 'demo_completed').length || 7;
   const demosScheduled = activities.filter(a => a.activity_type === 'meeting_scheduled').length || 4;
-  const proposalsSent = activities.filter(a => a.activity_type === 'proposal_sent').length || 9;
+  const _proposalsSent = activities.filter(a => a.activity_type === 'proposal_sent').length || 9;
 
   const fallbackReps = [
     { rep_name: 'Jake M.', avatar_initial: 'J', deals_closed_month: 6, revenue_generated_month: 91200, demos_completed_month: 14, close_ratio: 43, avg_deal_size: 15200, quota: 100000, quota_attainment: 91, trend: 'improving' },

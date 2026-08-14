@@ -5,7 +5,7 @@ import { Play, Square } from "lucide-react";
 export default function VoiceSelector({ voices, selectedVoiceId, onVoiceChange }) {
   const [playingId, setPlayingId] = useState(null);
   const [audio, setAudio] = useState(null);
-  const [expandedId, setExpandedId] = useState(null);
+  const [_expandedId, _setExpandedId] = useState(null);
 
   const selectedVoice = voices.find(v => v.voice_id === selectedVoiceId);
 

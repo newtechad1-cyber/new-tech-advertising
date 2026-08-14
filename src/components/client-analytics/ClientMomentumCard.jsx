@@ -14,7 +14,7 @@ export default function ClientMomentumCard({ snapshot, previousSnapshot }) {
   const leadChange = getWeekOverWeekChange(snapshot.leadsLoggedCount, previousSnapshot?.leadsLoggedCount);
   const revenueChange = getWeekOverWeekChange(snapshot.revenueAttributed, previousSnapshot?.revenueAttributed);
 
-  const renderChange = (value, metric) => {
+  const renderChange = (value, _metric) => {
     if (value === null) return null;
     const isPositive = value >= 0;
     const arrow = isPositive ? '📈' : '📉';

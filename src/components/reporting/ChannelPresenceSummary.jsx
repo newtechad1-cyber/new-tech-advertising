@@ -1,6 +1,6 @@
 import { Globe, Facebook, Instagram, Youtube } from 'lucide-react';
 
-export default function ChannelPresenceSummary({ report }) {
+export default function ChannelPresenceSummary({ report: _report }) {
   const channels = [
     { name: 'Website', status: 'active', icon: Globe, color: 'text-blue-400' },
     { name: 'Facebook', status: 'active', icon: Facebook, color: 'text-blue-600' },

@@ -2,7 +2,7 @@ import { Tv2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 
-export default function SchoolTVHeader({ branding, variant = 'public' }) {
+export default function SchoolTVHeader({ branding, variant: _variant = 'public' }) {
   const bg = branding?.primary_color || '#1e3a5f';
   const accent = branding?.secondary_color || '#f59e0b';
 

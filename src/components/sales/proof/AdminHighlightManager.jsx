@@ -22,7 +22,7 @@ const VISIBILITY_ICONS = {
 export default function AdminHighlightManager({ organizationId }) {
   const [highlights, setHighlights] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [editingId, setEditingId] = useState(null);
+  const [_editingId, _setEditingId] = useState(null);
 
   useEffect(() => {
     fetchHighlights();

@@ -120,7 +120,7 @@ export default function TodaysLeadWork() {
     setLeads(prev => prev.map(l => l.id === id ? { ...l, ...updates } : l));
   };
 
-  const today = new Date().toISOString().split('T')[0];
+  const _today = new Date().toISOString().split('T')[0];
 
   const overdueFollowUps = leads.filter(l => isOverdue(l.next_follow_up) && !['closed_won', 'closed_lost'].includes(l.status));
   const dueTodayFollowUps = leads.filter(l => isDueToday(l.next_follow_up) && !['closed_won', 'closed_lost'].includes(l.status));

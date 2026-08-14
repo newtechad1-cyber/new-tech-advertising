@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { AlertCircle, TrendingDown, AlertTriangle } from 'lucide-react';
 
-export default function AutomationHealthOverview({ rules = [], health = [], executions = [] }) {
+export default function AutomationHealthOverview({ rules: _rules = [], health = [], executions: _executions = [] }) {
   const stats = useMemo(() => {
     const avgHealthScore = health.length > 0 
       ? Math.round(health.reduce((sum, h) => sum + h.health_score, 0) / health.length)

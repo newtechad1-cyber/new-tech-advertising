@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Clock, XCircle, Mail, Eye } from 'lucide-react';
 
-function Alert({ icon: Icon, label, items, emptyMsg, colorClass }) {
+function Alert({ icon: Icon, label, items, emptyMsg: _emptyMsg, colorClass }) {
   if (items.length === 0) return null;
   return (
     <div className={`rounded-xl border p-4 mb-3 ${colorClass}`}>

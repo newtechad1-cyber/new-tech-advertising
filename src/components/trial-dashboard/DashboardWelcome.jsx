@@ -23,7 +23,7 @@ const stateMessages = {
   },
 };
 
-export default function DashboardWelcome({ trial, businessProfile, readinessState }) {
+export default function DashboardWelcome({ trial: _trial, businessProfile, readinessState }) {
   const state = stateMessages[readinessState] || stateMessages.provisioning_queued;
   const Icon = state.icon;
 

@@ -37,7 +37,7 @@ export const useFirstValueTracking = (userId) => {
 
         if (profiles.length === 0) {
           // New user - create tracking record
-          const profile = await base44.entities.OnboardingProfile.create({
+          const _profile = await base44.entities.OnboardingProfile.create({
             userId,
             onboardingStatus: 'welcome_shown',
             firstActionAt: null,

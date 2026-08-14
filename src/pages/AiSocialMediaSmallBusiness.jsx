@@ -4,7 +4,7 @@ import MarketingHero from '../components/marketing/MarketingHero';
 import { VideoSection, HowItWorksSection, PricingSection, CtaBanner } from '../components/marketing/PlatformSections';
 import { CheckCircle } from 'lucide-react';
 
-const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
+const _TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
 
 export default function AiSocialMediaSmallBusiness() {
   return (

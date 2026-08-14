@@ -3,7 +3,7 @@ import CalendarEventCard from './CalendarEventCard';
 
 export default function UpcomingThisWeek({ events = [] }) {
   const now = new Date();
-  const weekStart = new Date(now);
+  const _weekStart = new Date(now);
   const weekEnd = new Date(now);
   weekEnd.setDate(weekEnd.getDate() + 7);
 

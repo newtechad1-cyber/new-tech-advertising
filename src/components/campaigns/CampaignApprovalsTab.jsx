@@ -3,7 +3,7 @@ import { CheckCircle, XCircle, RotateCcw } from 'lucide-react';
 import { PLATFORM_ICON, ApprovalBadge, PostStatusBadge } from './CampaignUtils';
 import { base44 } from '@/api/base44Client';
 
-export default function CampaignApprovalsTab({ posts, campaigns, clients, onRefresh }) {
+export default function CampaignApprovalsTab({ posts, campaigns, clients: _clients, onRefresh }) {
   const [saving, setSaving] = useState(null);
   const [notes, setNotes] = useState({});
 

@@ -15,7 +15,7 @@ const DEAL_STAGE_COLORS = {
 };
 
 export default function CTRevenueCommand({ deals = [], forecasts = [] }) {
-  const [selectedDeal, setSelectedDeal] = useState(null);
+  const [_selectedDeal, _setSelectedDeal] = useState(null);
 
   const topDeals = [...deals]
     .filter(d => d.stage !== 'closed_lost')

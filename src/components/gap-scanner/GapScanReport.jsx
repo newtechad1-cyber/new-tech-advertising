@@ -85,7 +85,7 @@ ${audit.internal_notes}
 
 function buildProspectVersion(audit, form) {
   const doingWell = (audit.doing_well || []).map(x => `• ${x}`).join('\n');
-  const fixes = (audit.recommended_fixes || []).map((x, i) => `${i + 1}. ${x}`).join('\n');
+  const _fixes = (audit.recommended_fixes || []).map((x, i) => `${i + 1}. ${x}`).join('\n');
   const wins = (audit.quick_wins || []).map(x => `• ${x}`).join('\n');
 
   return `Hi${form.contactName ? ' ' + form.contactName : ''},

@@ -29,7 +29,7 @@ export default function Blog() {
     queryFn: () => base44.entities.BlogPost.list('-published_date', 100),
   });
 
-  const featured = posts.filter(p => p.featured);
+  const _featured = posts.filter(p => p.featured);
   const services = [...new Set(posts.map(p => p.service).filter(Boolean))];
   const industries = [...new Set(posts.map(p => p.industry).filter(Boolean))];
 

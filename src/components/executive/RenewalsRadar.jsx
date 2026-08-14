@@ -7,7 +7,7 @@ import { createPageUrl } from '@/utils';
 export default function RenewalsRadar({ data }) {
   if (!data || !data.summary) return null;
 
-  const { summary } = data;
+  const { summary: _summary } = data;
 
   // Create sample renewal opportunities for now
   const renewals = [

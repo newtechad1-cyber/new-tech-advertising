@@ -23,7 +23,7 @@ const actionsByState = {
   ],
 };
 
-export default function DashboardFirstActions({ readinessState, businessProfile, weeklyPlan }) {
+export default function DashboardFirstActions({ readinessState, businessProfile: _businessProfile, weeklyPlan: _weeklyPlan }) {
   const actions = actionsByState[readinessState] || actionsByState.provisioning_queued;
 
   return (

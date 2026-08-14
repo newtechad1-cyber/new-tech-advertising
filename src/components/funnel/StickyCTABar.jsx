@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils';
 import { X } from 'lucide-react';
 
-export default function StickyCTABar({ message, serviceSlug }) {
+export default function StickyCTABar({ message, serviceSlug: _serviceSlug }) {
   const [visible, setVisible] = useState(false);
   const [dismissed, setDismissed] = useState(false);
 

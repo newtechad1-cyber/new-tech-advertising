@@ -14,7 +14,7 @@ const platformMeta = {
 };
 
 // Platforms that always need a destination selected before they are "ready"
-const NEEDS_DESTINATION = ['facebook', 'instagram', 'youtube', 'google_my_business'];
+const _NEEDS_DESTINATION = ['facebook', 'instagram', 'youtube', 'google_my_business'];
 
 export default function ConnectModal({ account, open, onClose, onSaved }) {
   const [step, setStep] = useState('idle'); // idle | loading | destination_select | syncing | success | error

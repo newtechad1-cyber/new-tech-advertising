@@ -159,7 +159,7 @@ function ROIModule() {
   );
 }
 
-function BeforeAfterModule({ company }) {
+function BeforeAfterModule({ company: _company }) {
   const rows = [
     { metric: 'Monthly Content', before: '0–2 posts', after: '63+ pieces', win: true },
     { metric: 'Google Rank (Primary KW)', before: 'Page 4+', after: 'Top 3', win: true },

@@ -18,7 +18,7 @@ export default function ChannelPills({ platforms = [], darkMode = false, size = 
   if (validPlatforms.length === 0) return null;
 
   const sizeClass = size === 'sm' ? 'px-2 py-1 text-xs' : 'px-2.5 py-1.5 text-sm';
-  const colorClass = darkMode ? 'bgDark' : 'color';
+  const _colorClass = darkMode ? 'bgDark' : 'color';
 
   return (
     <div className="flex flex-wrap gap-2">

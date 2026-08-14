@@ -11,7 +11,7 @@ const DEFAULT_FLOORS = {
 
 const TIER_COLORS = { starter: '#64748b', authority: '#3b82f6', domination: '#8b5cf6' };
 
-export default function RSPricingGovernance({ rules, onSave }) {
+export default function RSPricingGovernance({ rules: _rules, onSave }) {
   const [floors, setFloors] = useState(DEFAULT_FLOORS);
   const [vertMods, setVertMods] = useState({ Restaurant: 15, Fitness: 10 });
   const [saved, setSaved] = useState(false);

@@ -131,7 +131,7 @@ export default function CPGrowthGrid({ clients = [], filters = {} }) {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filtered.map((client, i) => {
           const cfg = MOMENTUM_CONFIG[client.growth_momentum] || MOMENTUM_CONFIG.stable;
-          const sparkData = (ROI_SPARK[client.growth_momentum] || ROI_SPARK.stable).map((v, idx) => ({ v }));
+          const sparkData = (ROI_SPARK[client.growth_momentum] || ROI_SPARK.stable).map((v, _idx) => ({ v }));
           const TrendIcon = client.ranking_trend === 'improving' || client.social_reach_trend === 'up' ? TrendingUp
             : client.growth_momentum === 'declining' ? TrendingDown : Minus;
           return (

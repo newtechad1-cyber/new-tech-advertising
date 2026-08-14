@@ -9,7 +9,7 @@ function addDays(n) {
   return d.toISOString().split('T')[0];
 }
 
-function fmtDate(d) {
+function _fmtDate(d) {
   if (!d) return '—';
   return new Date(d + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }

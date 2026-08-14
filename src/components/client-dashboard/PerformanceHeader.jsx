@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { CheckCircle, Calendar, HelpCircle } from 'lucide-react';
 import { createPageUrl } from '@/utils';
 
-export default function PerformanceHeader({ companyName, companyLogo, primaryColor }) {
+export default function PerformanceHeader({ companyName: _companyName, companyLogo: _companyLogo, primaryColor }) {
   const accentColor = primaryColor || '#3B82F6';
 
   return (

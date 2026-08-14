@@ -58,7 +58,7 @@ function StatusBadge({ status }) {
 export default function PublishJobsPanel({ video }) {
   const [jobs, setJobs] = useState([]);
   const [auditLogs, setAuditLogs] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [_loading, setLoading] = useState(true);
   const [retrying, setRetrying] = useState(null);
   const [creating, setCreating] = useState(false);
 

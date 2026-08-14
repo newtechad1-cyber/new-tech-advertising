@@ -153,7 +153,7 @@ export function PerformanceWidget({ title, icon: Icon, color = 'blue', items, me
 export function MonthlyThemesWidget({ articles }) {
   // Count themes from articles this month
   const now = new Date();
-  const thisMonth = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  const _thisMonth = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
 
   const themeCounts = {};
   articles.forEach(a => {

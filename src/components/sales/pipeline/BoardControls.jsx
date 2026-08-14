@@ -4,7 +4,7 @@ const OWNERS = ['all', 'Sarah Chen', 'Marcus Johnson', 'Alex Rivera', 'Jordan Ki
 const INDUSTRIES = ['all', 'hvac', 'plumbing', 'roofing', 'landscaping', 'electrical', 'painting', 'fitness', 'restaurant', 'real_estate', 'other'];
 const SOURCES = ['all', 'referral', 'website', 'cold_outreach', 'demo_request', 'paid_ad', 'partner', 'event', 'other'];
 
-export default function BoardControls({ filters, setFilters, valueView, setValueView, onNewLead, opportunities }) {
+export default function BoardControls({ filters, setFilters, valueView, setValueView, onNewLead, opportunities: _opportunities }) {
   return (
     <div className="bg-slate-950 border-b border-slate-800 px-6 py-4">
       <div className="flex items-center gap-4 flex-wrap">

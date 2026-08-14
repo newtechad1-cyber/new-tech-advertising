@@ -5,7 +5,7 @@ import { PLATFORM_ICON, PostStatusBadge, ApprovalBadge } from './CampaignUtils';
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const VIEWS = ['Month', 'Week', 'List'];
 
-export default function CampaignCalendarTab({ posts, clients, campaigns }) {
+export default function CampaignCalendarTab({ posts, clients, campaigns: _campaigns }) {
   const [view, setView] = useState('Month');
   const [current, setCurrent] = useState(new Date());
   const [selected, setSelected] = useState(null);

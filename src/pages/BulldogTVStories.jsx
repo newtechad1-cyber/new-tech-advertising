@@ -2,7 +2,7 @@ import { useSchoolRoute } from '@/components/school-tv/useSchoolRoute';
 import { Calendar, ArrowRight, BookOpen } from 'lucide-react';
 
 export default function BulldogTVStories() {
-  const { adminRoutes } = useSchoolRoute();
+  const { adminRoutes: _adminRoutes } = useSchoolRoute();
 
   const stories = [
     {

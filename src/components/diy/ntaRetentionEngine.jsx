@@ -52,7 +52,7 @@ export const calculateGrowthTrend = (scoreHistory) => {
 /**
  * Calculate streak based on last active date
  */
-export const calculateStreak = (lastActiveDate, streakDays, streakWeeks) => {
+export const calculateStreak = (lastActiveDate, streakDays, _streakWeeks) => {
   if (!lastActiveDate) {
     return { streakDays: 0, streakWeeks: 0 };
   }
@@ -230,7 +230,7 @@ export const calculateRetentionHealth = (metrics) => {
 /**
  * Generate weekly focus plan
  */
-export const generateWeeklyFocusPlan = (metrics, subscription) => {
+export const generateWeeklyFocusPlan = (metrics, _subscription) => {
   const tasks = [];
 
   // Base tasks for all users

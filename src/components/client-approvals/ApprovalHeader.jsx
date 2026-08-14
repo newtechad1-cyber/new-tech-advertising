@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Calendar, Eye, HelpCircle } from 'lucide-react';
 
-export default function ApprovalHeader({ company, user }) {
+export default function ApprovalHeader({ company, user: _user }) {
   return (
     <div className="bg-white border-b border-slate-200">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">

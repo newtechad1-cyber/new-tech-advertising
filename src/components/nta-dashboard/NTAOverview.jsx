@@ -80,8 +80,8 @@ export default function NTAOverview({ onNavigate }) {
       {/* Weekly plan grid */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
         <ContentList title="📅 This Week (High Priority)" items={thisWeek} emptyText="No high-priority items" badge={i => <Badge color="text-amber-400 bg-amber-400/10">{i.priority}</Badge>} />
-        <ContentList title="🎬 Ready to Create" items={readyCreate} emptyText="No scripts ready" badge={i => <Badge color="text-blue-400 bg-blue-400/10">Script Ready</Badge>} />
-        <ContentList title="📲 Ready to Post" items={readyPostList} emptyText="No videos ready to post" badge={i => <Badge color="text-violet-400 bg-violet-400/10">Created</Badge>} />
+        <ContentList title="🎬 Ready to Create" items={readyCreate} emptyText="No scripts ready" badge={_i => <Badge color="text-blue-400 bg-blue-400/10">Script Ready</Badge>} />
+        <ContentList title="📲 Ready to Post" items={readyPostList} emptyText="No videos ready to post" badge={_i => <Badge color="text-violet-400 bg-violet-400/10">Created</Badge>} />
         <ContentList title="✅ Recently Posted" items={recentPosted} emptyText="Nothing posted yet" badge={() => <Badge color="text-emerald-400 bg-emerald-400/10">Posted</Badge>} />
       </div>
     </div>

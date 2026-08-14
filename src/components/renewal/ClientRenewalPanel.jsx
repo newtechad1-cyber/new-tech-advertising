@@ -20,7 +20,7 @@ const RISK_COLORS = {
   critical: 'border-red-200 bg-red-50'
 };
 
-const RISK_TEXT = {
+const _RISK_TEXT = {
   healthy: 'text-green-800',
   moderate: 'text-yellow-800',
   at_risk: 'text-orange-800',

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { HelpCircle, Play, Home, Mail } from 'lucide-react';
 
-export default function DashboardHelp({ readinessState }) {
+export default function DashboardHelp({ readinessState: _readinessState }) {
   const options = [
     { icon: Play, label: 'Watch Demo', description: 'See how the platform works', link: 'Demo' },
     { icon: Home, label: 'Go to Homepage', description: 'Learn more about NTA', link: 'Home' },

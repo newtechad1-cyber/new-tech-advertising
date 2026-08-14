@@ -176,7 +176,7 @@ export default function SCProposalEngine({ proposals = [], onRefresh }) {
             <div className="divide-y divide-slate-700/50">
               {proposals.slice(0, 10).map((p, i) => {
                 const cfg = STATUS_CONFIG[p.status] || STATUS_CONFIG.draft;
-                const StatusIcon = cfg.icon;
+                const _StatusIcon = cfg.icon;
                 return (
                   <div key={i} className="flex items-center gap-3 px-4 py-3 hover:bg-slate-700/30 transition-colors">
                     <div className="flex-1 min-w-0">

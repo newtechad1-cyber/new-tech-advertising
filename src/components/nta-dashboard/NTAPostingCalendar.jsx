@@ -19,7 +19,7 @@ export default function NTAPostingCalendar() {
     base44.entities.NTAContent.list('-created_date', 500).then(d => { setItems(d); setLoading(false); });
   }, []);
 
-  const assignDay = (item) => {
+  const _assignDay = (item) => {
     const idx = items.indexOf(item);
     return DAYS[idx % 5];
   };

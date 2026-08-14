@@ -17,7 +17,7 @@ function generateDays() {
   return days;
 }
 
-export default function StepBooking({ data, onNext, onBack }) {
+export default function StepBooking({ data, onNext, onBack: _onBack }) {
   const days = generateDays();
   const [weekStart, setWeekStart] = useState(0);
   const [selectedDay, setSelectedDay] = useState(null);

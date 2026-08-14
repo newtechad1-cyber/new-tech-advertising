@@ -70,7 +70,7 @@ const AUTOMATIONS = [
 ];
 
 export default function AutomationsList() {
-  const [loading, setLoading] = useState(false);
+  const [_loading, _setLoading] = useState(false);
 
   return (
     <div className="space-y-3">

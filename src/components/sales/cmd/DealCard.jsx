@@ -8,7 +8,7 @@ const HEALTH_INDICATORS = {
   hot: { icon: Zap, label: 'Hot Lead', color: 'text-violet-400' },
 };
 
-export default function DealCard({ deal, onOpen, stageColor }) {
+export default function DealCard({ deal, onOpen, stageColor: _stageColor }) {
   const getHealthIndicators = () => {
     const indicators = [];
     if (!deal.next_followup_date) indicators.push('no_followup');

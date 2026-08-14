@@ -43,7 +43,7 @@ export default function GeneratedLibrary() {
     if (preview?.id === id) setPreview(p => ({ ...p, status }));
   };
 
-  const counts = {
+  const _counts = {
     all: content.length, draft: content.filter(c => c.status === 'draft').length,
     review: content.filter(c => c.status === 'review').length,
     approved: content.filter(c => c.status === 'approved').length,

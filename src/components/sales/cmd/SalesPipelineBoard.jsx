@@ -14,7 +14,7 @@ const PIPELINE_STAGES = [
   { id: 'closed_lost', label: 'Closed Lost', color: 'red' },
 ];
 
-export default function SalesPipelineBoard({ deals = [], onDealMove, onOpenDeal }) {
+export default function SalesPipelineBoard({ deals = [], onDealMove: _onDealMove, onOpenDeal }) {
   const [collapsedStages, setCollapsedStages] = useState({});
 
   const stageStats = PIPELINE_STAGES.map(stage => {

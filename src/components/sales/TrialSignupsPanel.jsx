@@ -25,7 +25,7 @@ export default function TrialSignupsPanel() {
   const needsAttention = trials.filter(t =>
     t.onboarding_status !== 'ready_for_dashboard' && t.trial_status !== 'draft'
   );
-  const completed = trials.filter(t => t.onboarding_status === 'ready_for_dashboard');
+  const _completed = trials.filter(t => t.onboarding_status === 'ready_for_dashboard');
 
   const sendEmail = async (trial) => {
     try {

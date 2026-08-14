@@ -1,7 +1,7 @@
 import { Layout, Zap, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export default function DIYWebsiteTools({ subscription }) {
+export default function DIYWebsiteTools({ subscription: _subscription }) {
   return (
     <div>
       <h2 className="text-2xl font-bold text-white mb-6">AI Website Tools</h2>

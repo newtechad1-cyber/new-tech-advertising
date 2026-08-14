@@ -38,7 +38,7 @@ const plans = [
   },
 ];
 
-export default function DealRoomPlans({ opportunity, onSelectPlan }) {
+export default function DealRoomPlans({ opportunity: _opportunity, onSelectPlan }) {
   return (
     <div>
       <h2 className="text-2xl font-bold text-white mb-2">Choose Your Plan</h2>

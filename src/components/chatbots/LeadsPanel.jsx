@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { base44 } from '@/api/base44Client';
 import { Mail, Phone, Building2, RefreshCw } from 'lucide-react';
 
-const statusColors = {
+const _statusColors = {
   new: 'bg-blue-100 text-blue-700',
   contacted: 'bg-amber-100 text-amber-700',
   converted: 'bg-green-100 text-green-700',

@@ -3,7 +3,7 @@ import { Flame, Trophy } from 'lucide-react';
 export default function DIYStreakIndicator({ metrics }) {
   if (!metrics) return null;
 
-  const { streak_days = 0, streak_weeks = 0, longest_streak_days = 0 } = metrics;
+  const { streak_days = 0, streak_weeks: _streak_weeks = 0, longest_streak_days = 0 } = metrics;
   const isActive = streak_days > 0;
 
   return (

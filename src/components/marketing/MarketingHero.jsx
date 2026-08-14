@@ -1,7 +1,7 @@
 
 const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
 
-export default function MarketingHero({ headline, subheadline, badge, videoBg = true }) {
+export default function MarketingHero({ headline, subheadline, badge, videoBg: _videoBg = true }) {
   return (
     <section className="relative bg-slate-900 overflow-hidden">
       {/* Background gradient */}

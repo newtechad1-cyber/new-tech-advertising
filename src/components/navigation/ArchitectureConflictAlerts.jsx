@@ -33,7 +33,7 @@ export default function ArchitectureConflictAlerts({ pages = [], routes = [], la
       ownerToPages[key].push(page);
     });
 
-    Object.entries(ownerToPages).forEach(([key, pageList]) => {
+    Object.entries(ownerToPages).forEach(([_key, pageList]) => {
       if (pageList.length > 2) {
         allAlerts.push({
           category: 'duplicate_ownership',

@@ -3,7 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { TrendingUp, AlertCircle, CheckCircle } from 'lucide-react';
 
 export default function ResellerHealthScore({ resellerId }) {
-  const { data: reseller } = useQuery({
+  const { data: _reseller } = useQuery({
     queryKey: ['reseller-health', resellerId],
     queryFn: () => base44.entities.ResellerAccount?.read?.(resellerId),
     enabled: !!resellerId,

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Calendar, ArrowRight, Zap } from 'lucide-react';
 
-export default function DashboardWeeklyPlanPreview({ weeklyPlan, readinessState }) {
+export default function DashboardWeeklyPlanPreview({ weeklyPlan, readinessState: _readinessState }) {
   if (!weeklyPlan) {
     return (
       <div className="bg-slate-900 border border-slate-700 rounded-2xl p-8 text-center">
@@ -15,7 +15,7 @@ export default function DashboardWeeklyPlanPreview({ weeklyPlan, readinessState 
     );
   }
 
-  const taskCount = [
+  const _taskCount = [
     weeklyPlan.content_tasks?.length || 0,
     weeklyPlan.video_tasks?.length || 0,
     weeklyPlan.social_tasks?.length || 0,

@@ -11,8 +11,8 @@ import {
   ArrowRight,
 } from 'lucide-react';
 
-export default function SubmissionAIDraftPanel({ submission }) {
-  const [loading, setLoading] = useState(false);
+export default function SubmissionAIDraftPanel({ submission: _submission }) {
+  const [_loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState('story');
   const [expanded, setExpanded] = useState(false);
   const [showEditor, setShowEditor] = useState(false);
@@ -48,7 +48,7 @@ During today's build day, team members collaborate to assemble, test, and improv
 Robotics isn't just about competition for these students. It's about teamwork, persistence, and learning together. It's about representing their school and their community with pride.`,
   };
 
-  const handleGenerateAI = async (contentType) => {
+  const _handleGenerateAI = async (_contentType) => {
     setLoading(true);
     try {
       // In real app, would call backend function

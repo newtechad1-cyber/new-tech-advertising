@@ -1,7 +1,7 @@
 import { Card } from '@/components/ui/card';
 import { AlertCircle, CheckCircle2 } from 'lucide-react';
 
-export default function OnboardingProgressPanel({ workroom, tasks, assets, forms }) {
+export default function OnboardingProgressPanel({ workroom, tasks, assets, forms: _forms }) {
   const requiredTasks = tasks.filter(t => t.required_for_launch);
   const completedRequired = requiredTasks.filter(t => t.status === 'completed' || t.status === 'approved');
   const blockedTasks = requiredTasks.filter(t => t.status === 'blocked');

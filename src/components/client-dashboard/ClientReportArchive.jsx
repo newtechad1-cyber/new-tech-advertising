@@ -18,7 +18,7 @@ const COMM_TYPE_CONFIG = {
 
 export default function ClientReportArchive({ organizationId }) {
   const [communications, setCommunications] = useState([]);
-  const [activeType, setActiveType] = useState('all');
+  const [activeType, _setActiveType] = useState('all');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

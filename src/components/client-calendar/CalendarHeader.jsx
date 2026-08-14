@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { CheckCircle, BarChart3, HelpCircle } from 'lucide-react';
 import { createPageUrl } from '@/utils';
 
-export default function CalendarHeader({ companyName, primaryColor = '#3B82F6' }) {
+export default function CalendarHeader({ companyName: _companyName, primaryColor = '#3B82F6' }) {
   const accentColor = primaryColor;
 
   return (

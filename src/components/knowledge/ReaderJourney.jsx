@@ -43,7 +43,7 @@ function getCollectionProgress(collectionSlug, totalEntries) {
 }
 
 // ─── Journey Navigation Bar (prev/next within a collection) ─────────────────
-export function JourneyNavBar({ position, collectionSlug, collectionTitle, color = 'blue' }) {
+export function JourneyNavBar({ position, collectionSlug: _collectionSlug, collectionTitle, color = 'blue' }) {
   if (!position) return null;
   const colors = THEME_COLORS[color] || THEME_COLORS.blue;
 

@@ -4,7 +4,7 @@ import { base44 } from '@/api/base44Client';
 
 const PLATFORMS = ['Facebook', 'Instagram', 'LinkedIn', 'X', 'YouTube', 'Google Business Profile', 'TikTok'];
 
-export default function AssignToCampaignModal({ items, campaigns, clients, onClose, onSaved }) {
+export default function AssignToCampaignModal({ items, campaigns, clients: _clients, onClose, onSaved }) {
   const [campaignId, setCampaignId] = useState('');
   const [platform, setPlatform] = useState('Facebook');
   const [createNew, setCreateNew] = useState(false);

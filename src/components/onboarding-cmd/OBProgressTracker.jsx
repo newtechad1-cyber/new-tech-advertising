@@ -27,7 +27,7 @@ export default function OBProgressTracker({ onboarding }) {
         />
 
         <div className="space-y-4">
-          {STAGES.map((stage, i) => {
+          {STAGES.map((stage, _i) => {
             const done = onboarding[stage.field];
             const active = onboarding.stage === stage.id;
             return (

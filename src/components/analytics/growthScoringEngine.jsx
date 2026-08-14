@@ -13,7 +13,7 @@ export function calculateGrowthScore(metrics) {
   const {
     contentPublishedCount = 0,
     leadsLoggedCount = 0,
-    dealsClosedCount = 0,
+    dealsClosedCount: _dealsClosedCount = 0,
     revenueAttributed = 0,
     planKey = 'diy',
     daysSinceLastAction = 999

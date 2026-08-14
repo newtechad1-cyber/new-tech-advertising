@@ -1,6 +1,6 @@
 import { CheckCircle, ArrowRight, Zap } from 'lucide-react';
 
-const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
+const _TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
 
 const PLANS = [
   {

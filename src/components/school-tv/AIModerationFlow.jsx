@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 
 export default function AIModerationFlow({ job, content, onApprove, onReject, onEdit }) {
-  const [showNotes, setShowNotes] = useState(false);
+  const [_showNotes, _setShowNotes] = useState(false);
   const [notes, setNotes] = useState('');
   const [action, setAction] = useState(null);
 

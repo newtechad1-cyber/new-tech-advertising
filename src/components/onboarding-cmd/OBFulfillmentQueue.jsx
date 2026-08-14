@@ -37,7 +37,7 @@ export default function OBFulfillmentQueue({ taskStatuses, onStatusChange }) {
         {FULFILLMENT_ITEMS.map((item) => {
           const status = taskStatuses[item.id] || 'pending';
           const cfg = STATUS_CONFIG[status];
-          const Icon = cfg.icon;
+          const _Icon = cfg.icon;
           return (
             <div key={item.id} className="flex items-center gap-3 px-5 py-3 hover:bg-slate-800/20 transition-colors">
               <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: CAT_COLORS[item.category] }} />

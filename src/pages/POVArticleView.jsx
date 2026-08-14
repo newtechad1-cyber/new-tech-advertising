@@ -29,7 +29,7 @@ export default function POVArticleView() {
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === pointOfViewArticles.length - 1;
   const nextArticle = !isLast ? pointOfViewArticles[currentIndex + 1] : null;
-  const prevArticle = !isFirst ? pointOfViewArticles[currentIndex - 1] : null;
+  const _prevArticle = !isFirst ? pointOfViewArticles[currentIndex - 1] : null;
 
   return (
     <div className="bg-slate-950 min-h-screen text-slate-200 font-sans selection:bg-blue-500/30">

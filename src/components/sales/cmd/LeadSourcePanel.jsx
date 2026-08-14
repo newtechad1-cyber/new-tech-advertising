@@ -41,7 +41,7 @@ export default function LeadSourcePanel({ deals = [] }) {
     .sort((a, b) => b.value - a.value);
 
   const totalValue = sources.reduce((sum, s) => sum + s.value, 0);
-  const totalClosed = sources.reduce((sum, s) => sum + s.closed, 0);
+  const _totalClosed = sources.reduce((sum, s) => sum + s.closed, 0);
 
   return (
     <div className="bg-slate-900 border border-slate-700 rounded-xl overflow-hidden">

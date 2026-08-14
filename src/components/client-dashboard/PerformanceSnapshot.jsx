@@ -1,7 +1,7 @@
 import { TrendingUp, MessageSquare, Users, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-export default function PerformanceSnapshot({ clientProfile }) {
+export default function PerformanceSnapshot({ clientProfile: _clientProfile }) {
   const navigate = useNavigate();
 
   const metrics = [

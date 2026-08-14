@@ -33,8 +33,8 @@ const DEFAULT_CONTEXT = {
  */
 export function GlobalContextProvider({ children }) {
   const [context, setContext] = useState(DEFAULT_CONTEXT);
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  const [_loading, setLoading] = useState(true);
+  const [_user, setUser] = useState(null);
 
   // Initialize context from Base44 or create default
   useEffect(() => {
@@ -102,7 +102,7 @@ export function GlobalContextProvider({ children }) {
       } catch (error) {
         console.error('[useGlobalContext] Error initializing:', error);
         // Fallback to default context with just the user role
-        setContext((prev) => ({
+        setContext((_prev) => ({
           ...DEFAULT_CONTEXT,
           loading: false,
           activeUserRole: 'viewer',

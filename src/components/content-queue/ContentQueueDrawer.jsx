@@ -19,7 +19,7 @@ const QUEUE_COLORS = {
   'Archived':             'bg-slate-800 text-slate-500',
 };
 
-export default function ContentQueueDrawer({ item, campaigns, clients, onClose, onUpdated, onAssign }) {
+export default function ContentQueueDrawer({ item, campaigns, clients: _clients, onClose, onUpdated, onAssign }) {
   const [saving, setSaving] = useState(null);
   const [notes, setNotes] = useState(item.notes || '');
 
@@ -28,7 +28,7 @@ export default function ContentQueueDrawer({ item, campaigns, clients, onClose, 
 
   const update = async (patch) => {
     setSaving(Object.keys(patch)[0]);
-    const updated = await base44.entities.ContentQueueItem.update(item.id, patch);
+    const _updated = await base44.entities.ContentQueueItem.update(item.id, patch);
     onUpdated({ ...item, ...patch });
     setSaving(null);
   };

@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { AlertCircle, Map, Target, Calendar, Zap, TrendingUp } from 'lucide-react';
 
-const MARKET_COLORS = {
+const _MARKET_COLORS = {
   'Mason City Market': 'bg-blue-100 border-blue-300',
   'Austin Minnesota Market': 'bg-green-100 border-green-300',
   'Rochester Minnesota Expansion Campaign': 'bg-purple-100 border-purple-300'

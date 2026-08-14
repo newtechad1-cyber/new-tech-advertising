@@ -8,7 +8,7 @@ import { getJourneyMemory } from '@/lib/journeyMemory';
 
 export default function DigitalGrowthGuide() {
   const [isOpen, setIsOpen] = useState(false);
-  const [memory, setMemory] = useState(null);
+  const [_memory, setMemory] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
 

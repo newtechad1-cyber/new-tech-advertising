@@ -293,7 +293,7 @@ export const reprioritizeJob = async (jobId, newPriority) => {
 /**
  * Update job progress
  */
-export const updateJobProgress = async (jobId, progressPercent, message = '') => {
+export const updateJobProgress = async (jobId, progressPercent, _message = '') => {
   try {
     await base44.entities.AIJobQueue.update(jobId, {
       progress_percent: progressPercent,

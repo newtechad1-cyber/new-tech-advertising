@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
  * Current State: Manual trigger UI
  * Future: Auto-schedule reminders via automation engine
  */
-export default function OnboardingReminderAutomation({ client }) {
+export default function OnboardingReminderAutomation({ client: _client }) {
   const [reminderSent, setReminderSent] = useState(false);
 
   const handleSendReminder = async () => {

@@ -9,7 +9,7 @@ const PLATFORMS = [
   { id: 'instagram', label: 'Instagram', icon: Instagram, color: 'bg-pink-600', textColor: 'text-pink-600', borderColor: 'border-pink-600' },
 ];
 
-export default function SocialImagePost({ initialImageUrl = null, onClose }) {
+export default function SocialImagePost({ initialImageUrl = null, onClose: _onClose }) {
   const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(initialImageUrl || null);
   const [caption, setCaption] = useState('');

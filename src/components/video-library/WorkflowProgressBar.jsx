@@ -10,7 +10,7 @@ export default function WorkflowProgressBar({ video }) {
   ];
 
   const completedCount = steps.filter(s => s.complete).length;
-  const progress = Math.round((completedCount / steps.length) * 100);
+  const _progress = Math.round((completedCount / steps.length) * 100);
 
   return (
     <div className="space-y-2">
@@ -19,7 +19,7 @@ export default function WorkflowProgressBar({ video }) {
         <span className="text-slate-500">{completedCount}/{steps.length}</span>
       </div>
       <div className="flex items-center gap-1.5">
-        {steps.map((step, idx) => (
+        {steps.map((step, _idx) => (
           <div key={step.key} className="flex-1">
             <div className={`h-1.5 rounded-full ${step.complete ? 'bg-green-500' : 'bg-slate-200'}`} />
             <div className="text-xs text-slate-600 mt-1 text-center">{step.label}</div>

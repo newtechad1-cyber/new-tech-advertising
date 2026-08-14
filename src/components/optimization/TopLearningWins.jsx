@@ -9,7 +9,7 @@ export default function TopLearningWins({ outcomes = [], experiments = [], candi
       .filter(o => o.outcome_direction === 'positive' && o.confidence_level >= 75)
       .map(outcome => {
         const exp = experiments.find(e => e.experiment_key === outcome.experiment_key);
-        const candidate = candidates.find(c => {
+        const _candidate = candidates.find(c => {
           const cExp = experiments.find(e => e.experiment_key === c.optimization_category);
           return cExp?.experiment_key === outcome.experiment_key;
         });

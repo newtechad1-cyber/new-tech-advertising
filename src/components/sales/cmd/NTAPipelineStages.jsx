@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 
-export default function NTAPipelineStages({ deals }) {
+export default function NTAPipelineStages({ deals: _deals }) {
   const stages = [
     { id: 'new', name: 'New Opportunity', color: 'bg-slate-100', textColor: 'text-slate-900' },
     { id: 'strategy', name: 'Strategy Scheduled', color: 'bg-blue-100', textColor: 'text-blue-900' },

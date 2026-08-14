@@ -18,7 +18,7 @@ const fmt = (n) => n >= 1000 ? `$${(n / 1000).toFixed(0)}k` : `$${n}`;
 export default function OpportunityContext({ opportunity, engagementScore }) {
   if (!opportunity) return null;
   const market = INDUSTRY_MARKET[opportunity.industry] || INDUSTRY_MARKET.other;
-  const compScore = { 'Low': 2, 'Medium': 5, 'High': 8, 'Very High': 10 }[market.competition] || 5;
+  const _compScore = { 'Low': 2, 'Medium': 5, 'High': 8, 'Very High': 10 }[market.competition] || 5;
   const compColor = { 'Low': '#10b981', 'Medium': '#f59e0b', 'High': '#ef4444', 'Very High': '#dc2626' }[market.competition] || '#94a3b8';
 
   return (

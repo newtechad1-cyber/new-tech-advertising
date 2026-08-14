@@ -288,7 +288,7 @@ function calculateProgress(project, clips, scripts, renders, publishing) {
   if (publishing.length > 0) {
     const publishedCount = publishing.filter(p => p.destination_status === 'published').length;
     progress += (publishedCount / publishing.length) * 30;
-    totalSteps += 30;
+    _totalSteps += 30;
   }
 
   return Math.round(progress);

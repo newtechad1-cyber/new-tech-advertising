@@ -52,9 +52,9 @@ const DealCard = ({ deal, onClick, onDragStart }) => (
   </div>
 );
 
-const DealModal = ({ deal, onClose, onSave }) => {
+const DealModal = ({ deal, onClose, onSave: _onSave }) => {
   const [note, setNote] = useState('');
-  const [priority, setPriority] = useState(deal.urgency === 'hot');
+  const [_priority, setPriority] = useState(deal.urgency === 'hot');
 
   const handleAction = async (action) => {
     if (action === 'priority') {

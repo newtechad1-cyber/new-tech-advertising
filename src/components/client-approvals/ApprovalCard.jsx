@@ -8,7 +8,7 @@ import { format } from 'date-fns';
 export default function ApprovalCard({ video, onViewDetails, onApprove, onRejectSwipe }) {
   const [swipeX, setSwipeX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
-  const platformIcons = {
+  const _platformIcons = {
     facebook: <Facebook className="w-4 h-4" />,
     instagram: <Instagram className="w-4 h-4" />,
     youtube: <Youtube className="w-4 h-4" />,

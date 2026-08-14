@@ -15,7 +15,7 @@ const INDUSTRY_DATA = {
 
 const OPP_COLOR = { High: '#f59e0b', 'Very High': '#ef4444', Medium: '#3b82f6', Low: '#10b981' };
 
-export default function DRStrategyHero({ company, industry, city, onScrollToProposal }) {
+export default function DRStrategyHero({ company: _company, industry, city, onScrollToProposal }) {
   const data = INDUSTRY_DATA[industry] || INDUSTRY_DATA.other;
   const color = OPP_COLOR[data.opportunity] || '#f59e0b';
 

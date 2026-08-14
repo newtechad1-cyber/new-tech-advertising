@@ -17,7 +17,7 @@ const STATUS_LABELS = {
 };
 
 export default function ExecutiveInsightModal({ insight, onClose }) {
-  const [newStatus, setNewStatus] = useState(insight?.status);
+  const [newStatus, _setNewStatus] = useState(insight?.status);
   const [owner, setOwner] = useState(insight?.assigned_owner || '');
   if (!insight) return null;
 

@@ -1,13 +1,13 @@
 import { Plus, Send, Eye, Calendar } from 'lucide-react';
 import { CQStatusBadge, CQApprovalBadge } from './CQUtils';
 
-export default function CQOverviewTab({ items, clients, campaigns, onNewContent, onTabChange, onAssign }) {
+export default function CQOverviewTab({ items, clients: _clients, campaigns: _campaigns, onNewContent, onTabChange, onAssign }) {
   const active = items.filter(i => i.queue_status !== 'Archived');
   const recent = [...active].slice(0, 6);
   const toReview = active.filter(i => i.approval_status === 'Pending' || i.review_status === 'Unreviewed').slice(0, 5);
   const readyToSchedule = active.filter(i => i.queue_status === 'Ready to Schedule').slice(0, 5);
   const needsRevision = active.filter(i => i.approval_status === 'Revision Needed').slice(0, 5);
-  const assigned = active.filter(i => i.queue_status === 'Assigned to Campaign').slice(0, 5);
+  const _assigned = active.filter(i => i.queue_status === 'Assigned to Campaign').slice(0, 5);
 
   const internal = active.filter(i => !i.client_id);
   const forClients = active.filter(i => !!i.client_id);

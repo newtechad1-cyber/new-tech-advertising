@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 // Shows only on mobile, after scrolling past hero, disappears near footer
 export default function MobileStickyBar({ onCTAClick, ctaLabel = "Start My 7-Day Free Trial" }) {
   const [visible, setVisible] = useState(false);
-  const heroRef = useRef(null);
+  const _heroRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => {

@@ -31,7 +31,7 @@ export default function CampaignPostsTab({ posts, campaigns, clients, onNewPost,
     } else if (action === 'cancel') {
       await base44.entities.CampaignPost.update(post.id, { publishing_status: 'Cancelled' });
     } else if (action === 'duplicate') {
-      const { id, created_date, updated_date, ...rest } = post;
+      const { id: _id, created_date: _created_date, updated_date: _updated_date, ...rest } = post;
       await base44.entities.CampaignPost.create({ ...rest, title: `${rest.title} (copy)`, publishing_status: 'Draft' });
     }
     onRefresh();

@@ -17,7 +17,7 @@ export default function TrialStatusBar({ status }) {
       <p className="text-sm font-semibold text-blue-900 mb-4 text-center">Your Trial Account Status</p>
       <div className="flex items-center justify-between relative">
         <div className="absolute left-0 right-0 top-4 h-0.5 bg-slate-200 z-0" />
-        {STEPS.map((step, i) => {
+        {STEPS.map((step, _i) => {
           const stepIndex = ORDER.indexOf(step.key);
           const done = currentIndex > stepIndex;
           const active = currentIndex === stepIndex;

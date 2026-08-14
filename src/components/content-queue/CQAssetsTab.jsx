@@ -10,7 +10,7 @@ export default function CQAssetsTab({ items, campaigns, clients, onRefresh, onAs
   const [clientF, setClientF] = useState('All');
   const [typeF, setTypeF] = useState('All');
   const [drawer, setDrawer] = useState(null);
-  const [preview, setPreview] = useState(null);
+  const [_preview, _setPreview] = useState(null);
 
   const mediaItems = items.filter(i =>
     (i.image_url || i.video_url || i.thumbnail_url) &&

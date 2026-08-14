@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import CalendarEventCard from './CalendarEventCard';
 import CalendarEventDetail from './CalendarEventDetail';
 
-export default function MonthView({ events = [], onEventClick = () => {} }) {
+export default function MonthView({ events = [], onEventClick: _onEventClick = () => {} }) {
   const [currentDate, setCurrentDate] = useState(new Date(2026, 2, 11)); // March 11, 2026
   const [selectedEvent, setSelectedEvent] = useState(null);
 
@@ -13,7 +13,7 @@ export default function MonthView({ events = [], onEventClick = () => {} }) {
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
   const firstDay = new Date(year, month, 1);
-  const lastDay = new Date(year, month + 1, 0);
+  const _lastDay = new Date(year, month + 1, 0);
   const startDate = new Date(firstDay);
   startDate.setDate(startDate.getDate() - firstDay.getDay());
 

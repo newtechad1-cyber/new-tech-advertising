@@ -57,7 +57,7 @@ export default function ClientNextBestActionPanel({ snapshot }) {
   };
 
   const config = getActionConfig(nextAction.action);
-  const Icon = config.icon;
+  const _Icon = config.icon;
 
   return (
     <Card className={`border-2 ${config.bg}`}>

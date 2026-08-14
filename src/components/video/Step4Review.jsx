@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Play, Loader2 } from "lucide-react";
 
 export default function Step4Review({ state, onBack, onSubmit, creating }) {
-  const { title, script, videoType, format, duration, avatarId, voiceId, slides, musicTrackUrl, captions, overlays } = state;
+  const { title, script, videoType, format, duration, avatarId: _avatarId, voiceId: _voiceId, slides, musicTrackUrl, captions, overlays } = state;
 
   return (
     <div className="space-y-6">

@@ -126,7 +126,7 @@ export const shouldShowUpgradeSuggestion = (subscription, signals, growthSnapsho
          growthSnapshot.growthScore > 50;
 };
 
-export const getRenewalMessage = (signals, subscription) => {
+export const getRenewalMessage = (signals, _subscription) => {
   const daysUntil = signals.daysUntilRenewal;
 
   if (daysUntil <= 0) {

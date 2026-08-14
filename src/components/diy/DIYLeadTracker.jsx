@@ -1,6 +1,6 @@
 import { TrendingUp, Users, DollarSign, Target } from 'lucide-react';
 
-export default function DIYLeadTracker({ subscription }) {
+export default function DIYLeadTracker({ subscription: _subscription }) {
   return (
     <div>
       <h2 className="text-2xl font-bold text-white mb-6">Lead & ROI Tracker</h2>

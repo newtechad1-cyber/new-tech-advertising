@@ -3,7 +3,7 @@ import { openSchedulingCalendar } from '@/components/config/bookingConfig';
 
 const fmt = (n) => n ? `$${Number(n).toLocaleString()}` : '—';
 
-export default function DRStickyFooter({ monthlyFee, setupFee, startDate, contractTerm, packageName, onAccept, onCallRequest, onChangeRequest, accepting }) {
+export default function DRStickyFooter({ monthlyFee, setupFee, startDate, contractTerm, packageName: _packageName, onAccept, onCallRequest, onChangeRequest, accepting }) {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur-xl border-t border-slate-700/80 shadow-2xl">
       <div className="max-w-5xl mx-auto px-6 py-4">

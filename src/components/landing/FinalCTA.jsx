@@ -3,7 +3,7 @@ import { ArrowRight, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { trackCTAClick } from '../analytics/trackingUtils';
 
-export default function FinalCTA({ onCTAClick }) {
+export default function FinalCTA({ onCTAClick: _onCTAClick }) {
   return (
     <section className="py-24 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 relative overflow-hidden">
       <div className="absolute inset-0 opacity-10">

@@ -21,7 +21,7 @@ export default function GlobalContextSwitcher() {
   const { context, isContextType, getContextLabel, switchContext, loading } = useGlobalContext();
   const [companies, setCompanies] = useState([]);
   const [schools, setSchools] = useState([]);
-  const [loadingData, setLoadingData] = useState(false);
+  const [_loadingData, setLoadingData] = useState(false);
 
   // Load available companies and schools
   useEffect(() => {

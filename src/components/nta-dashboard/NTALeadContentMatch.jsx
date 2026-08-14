@@ -224,7 +224,7 @@ export default function NTALeadContentMatch() {
 }
 
 // ── Lead Group ──
-function LeadGroup({ title, leads, videos, onEdit, onDel, onCopy, onMark, copied, suggestFn, buildOutreach, buildFollowUp, buildEmbed }) {
+function LeadGroup({ title, leads, videos: _videos, onEdit, onDel, onCopy, onMark, copied, suggestFn, buildOutreach, buildFollowUp, buildEmbed }) {
   if (leads.length === 0) return null;
   return (
     <div>

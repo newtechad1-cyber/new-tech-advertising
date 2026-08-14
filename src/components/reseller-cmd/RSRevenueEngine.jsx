@@ -8,7 +8,7 @@ const MOCK_REVENUE = [
   { name: 'NW Growth', gross: 9600, partnerPct: 20, deals: 5, trend: 45 },
 ];
 
-const STATUS_CFG = {
+const _STATUS_CFG = {
   calculated: { color: '#94a3b8', label: 'Calculated' },
   approved:   { color: '#3b82f6', label: 'Approved' },
   paid:       { color: '#10b981', label: 'Paid' },

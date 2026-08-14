@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Check, Zap } from 'lucide-react';
 
 export default function PricingOptions() {
-  const [selectedTier, setSelectedTier] = useState('growth');
+  const [_selectedTier, setSelectedTier] = useState('growth');
 
   const tiers = [
     {

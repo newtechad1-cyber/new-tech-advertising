@@ -14,7 +14,7 @@ import { AlertTriangle } from 'lucide-react';
  */
 export default function ResellerGuard({ children, requiredRole = 'analyst' }) {
   const [isAuthorized, setIsAuthorized] = useState(null);
-  const [user, setUser] = useState(null);
+  const [_user, setUser] = useState(null);
 
   useEffect(() => {
     const validateResellerAccess = async () => {

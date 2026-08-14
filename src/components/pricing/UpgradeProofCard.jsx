@@ -62,7 +62,7 @@ export default function UpgradeProofCard({
         </p>
       </div>
 
-      {highlights.slice(0, maxCards).map((highlight, idx) => (
+      {highlights.slice(0, maxCards).map((highlight, _idx) => (
         <Card key={highlight.id} className="border border-slate-200 bg-gradient-to-br from-white to-slate-50">
           <CardContent className="p-3 space-y-2">
             {/* Type + Industry */}

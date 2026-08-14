@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { ArrowRight, Calendar, ChevronRight } from 'lucide-react';
 
-export default function StickySalesCTA({ currentStep, onTrack }) {
+export default function StickySalesCTA({ currentStep: _currentStep, onTrack }) {
   const handleClick = (eventName) => {
     onTrack && onTrack(eventName);
   };

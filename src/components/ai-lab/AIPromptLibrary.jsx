@@ -103,7 +103,7 @@ Teachers review everything before it's published.`,
 
 export default function AIPromptLibrary() {
   const [selectedPrompt, setSelectedPrompt] = useState(null);
-  const [selectedGuideline, setSelectedGuideline] = useState(null);
+  const [_selectedGuideline, setSelectedGuideline] = useState(null);
 
   return (
     <div className="space-y-8">

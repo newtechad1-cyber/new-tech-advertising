@@ -13,7 +13,7 @@ function fmt(n) {
   return n >= 1000 ? `$${(n / 1000).toFixed(1)}k` : `$${n}`;
 }
 
-function getStageInsight(stage, retention, expansion) {
+function getStageInsight(stage, _retention, _expansion) {
   if (stage === 'mature') return `This mature client is a reliable long-term revenue foundation. Focus on expansion upsells and engagement to extend lifetime value.`;
   if (stage === 'growth') return `Strong growth trajectory. This client is expanding and shows high retention probability. Prioritize expansion conversations.`;
   if (stage === 'stabilizing') return `Client is stabilizing post-onboarding. Build reporting engagement to move toward growth phase.`;

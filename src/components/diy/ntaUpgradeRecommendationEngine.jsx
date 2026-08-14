@@ -4,7 +4,7 @@
  */
 
 // Signal scoring constants
-const SIGNAL_WEIGHTS = {
+const _SIGNAL_WEIGHTS = {
   momentum_score: 0.25,
   effort_to_outcome_ratio: 0.20,
   lead_momentum: 0.20,

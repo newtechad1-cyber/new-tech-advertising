@@ -6,7 +6,7 @@ import { createPageUrl } from '@/utils';
 
 export default function ResellerNav() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { reseller, branding } = useResellerContext();
+  const { reseller: _reseller, branding } = useResellerContext();
 
   const navItems = [
     { label: 'Dashboard', url: createPageUrl('ResellerDashboard') },

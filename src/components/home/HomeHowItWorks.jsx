@@ -52,7 +52,7 @@ export default function HomeHowItWorks() {
           <div className="absolute left-6 top-8 bottom-8 w-px bg-slate-800 hidden sm:block" />
 
           <div className="space-y-5">
-            {STEPS.map((step, i) => (
+            {STEPS.map((step, _i) => (
               <div key={step.number} className={`relative flex gap-6 bg-slate-950 border ${step.border} rounded-2xl p-6 hover:bg-slate-900 transition-colors`}>
                 <div className={`w-12 h-12 rounded-xl bg-slate-900 border ${step.border} flex items-center justify-center flex-shrink-0 font-black text-lg ${step.color}`}>
                   {step.number}

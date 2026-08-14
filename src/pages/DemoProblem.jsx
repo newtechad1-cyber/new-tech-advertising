@@ -16,7 +16,7 @@ const PROBLEMS = [
 
 export default function DemoProblem() {
   useDemoPageView('DemoProblem');
-  const industry = typeof window !== 'undefined' ? localStorage.getItem('nta_demo_industry') : '';
+  const _industry = typeof window !== 'undefined' ? localStorage.getItem('nta_demo_industry') : '';
 
   return (
     <div className="min-h-screen bg-slate-950 text-white pb-32">

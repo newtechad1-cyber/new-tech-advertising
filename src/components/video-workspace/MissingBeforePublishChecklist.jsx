@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCircle2, AlertCircle, Circle } from 'lucide-react';
 
-export default function MissingBeforePublishChecklist({ video, publishJobs }) {
+export default function MissingBeforePublishChecklist({ video, publishJobs: _publishJobs }) {
   const items = [
     {
       key: 'transcript',

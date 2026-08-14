@@ -10,7 +10,7 @@ export default function SchoolHome() {
   const { schoolSlug: paramSlug } = useParams();
   const searchParams = new URLSearchParams(window.location.search);
   const schoolSlug = paramSlug || searchParams.get('school') || 'hampton-dumont';
-  const schoolColors = getSchoolColors(schoolSlug);
+  const _schoolColors = getSchoolColors(schoolSlug);
   const [branding, setBranding] = useState(null);
   const [featuredStories, setFeaturedStories] = useState([]);
   const [featuredVideos, setFeaturedVideos] = useState([]);

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 
 export default function RestaurantReviews({ config }) {
-  const { reviews, rating, reviewCount, primaryColor, name } = config;
+  const { reviews, rating, reviewCount, primaryColor, name: _name } = config;
   const [index, setIndex] = useState(0);
 
   useEffect(() => {

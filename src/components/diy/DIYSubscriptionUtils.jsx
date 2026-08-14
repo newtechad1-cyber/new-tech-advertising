@@ -57,7 +57,7 @@ export const shouldShowUpgradePrompt = (subscription, activity = {}) => {
 };
 
 export const getUpgradeRecommendation = (subscription, activity = {}) => {
-  const triggerScore = calculateUpgradeTriggerScore(subscription, activity);
+  const _triggerScore = calculateUpgradeTriggerScore(subscription, activity);
 
   if (subscription.upsell_intent === 'wants_guidance') {
     return {

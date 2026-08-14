@@ -77,7 +77,7 @@ export default function RuleDetailModal({ rule, onClose, onSave }) {
   };
 
   const selectedTriggerEvent = formData.trigger_event;
-  const triggerCategory = triggerEvents
+  const _triggerCategory = triggerEvents
     .find(group => group.items.includes(selectedTriggerEvent))
     ?.group?.toLowerCase().replace(' ', '_');
 

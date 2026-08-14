@@ -36,7 +36,7 @@ export default function POVCollection() {
       {/* Articles List */}
       <section className="py-12 px-6">
         <div className="max-w-4xl mx-auto space-y-6">
-          {pointOfViewArticles.map((article, idx) => (
+          {pointOfViewArticles.map((article, _idx) => (
             <div key={article.id} className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row gap-8 items-start hover:border-slate-700 transition-colors">
               <div className="w-16 h-16 shrink-0 rounded-full bg-slate-950 border-4 border-slate-800 flex items-center justify-center text-xl font-bold text-blue-400 shadow-xl">
                 {article.order}

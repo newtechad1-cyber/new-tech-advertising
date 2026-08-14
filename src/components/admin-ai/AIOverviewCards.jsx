@@ -21,7 +21,7 @@ export default function AIOverviewCards() {
       try {
         const [
           functions,
-          automations,
+          _automations,
           pendingJobs,
           failedJobs,
           todayJobs,

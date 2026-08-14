@@ -71,7 +71,7 @@ function PanelOverview({ accountName }) {
 }
 
 // Panel 2: Approval Queue
-function PanelApprovals({ accountName }) {
+function PanelApprovals({ accountName: _accountName }) {
   const cards = [
     { platform: 'Facebook', text: 'Spring is here! Our team is ready to help you get ahead of the season. Call us today for a free estimate.', status: 'pending' },
     { platform: 'Instagram', text: "Hard work, clean results. Here's a look at what we do behind the scenes every single day.", status: 'pending' },

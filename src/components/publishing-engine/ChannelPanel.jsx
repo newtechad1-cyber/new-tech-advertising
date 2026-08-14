@@ -14,7 +14,7 @@ import {
   DEFAULT_SCHEDULE, formatDateTime, getNextDefaultSchedule
 } from './publishingData';
 
-function ChannelRow({ channel, target, onUpdate, onSchedule, articleStatus }) {
+function ChannelRow({ channel, target, onUpdate, onSchedule: _onSchedule, articleStatus }) {
   const [expanded, setExpanded] = useState(false);
   const cfg = CHANNELS[channel];
   const Icon = LucideIcons[cfg.icon] || LucideIcons.Circle;
@@ -26,7 +26,7 @@ function ChannelRow({ channel, target, onUpdate, onSchedule, articleStatus }) {
   const StatusIcon = LucideIcons[ts.icon] || LucideIcons.Circle;
 
   const canSchedule = articleStatus === 'Approved' || articleStatus === 'Queued';
-  const canPublish = status === 'Scheduled' || status === 'Adapted';
+  const _canPublish = status === 'Scheduled' || status === 'Adapted';
   const canRetry = status === 'Failed';
 
   return (
@@ -227,7 +227,7 @@ function ChannelRow({ channel, target, onUpdate, onSchedule, articleStatus }) {
 }
 
 export default function ChannelPanel({ article, targets, onUpdateTarget }) {
-  const [scheduleAll, setScheduleAll] = useState(false);
+  const [_scheduleAll, _setScheduleAll] = useState(false);
   const channels = article?.publish_to_channels || CHANNEL_LIST;
 
   function getTarget(channel) {
@@ -251,7 +251,7 @@ export default function ChannelPanel({ article, targets, onUpdateTarget }) {
     });
   }
 
-  const schedulable = channels.filter(ch => CHANNELS[ch]?.supportsSchedule);
+  const _schedulable = channels.filter(ch => CHANNELS[ch]?.supportsSchedule);
   const publishedCount = targets.filter(t => t.status === 'Published').length;
   const scheduledCount = targets.filter(t => t.status === 'Scheduled').length;
 

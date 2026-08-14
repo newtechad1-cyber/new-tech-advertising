@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-export default function StartSuccess({ trialId }) {
+export default function StartSuccess({ trialId: _trialId }) {
   return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center px-4 py-20 text-center">
       <motion.div 

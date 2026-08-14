@@ -29,7 +29,7 @@ const TYPE_COLORS = {
   email_campaign: 'text-emerald-300',
 };
 
-const ProgressRing = ({ pct }) => (
+const _ProgressRing = ({ pct }) => (
   <div className="relative w-8 h-8 flex-shrink-0">
     <svg className="w-8 h-8 -rotate-90" viewBox="0 0 32 32">
       <circle cx="16" cy="16" r="12" fill="none" stroke="#1e293b" strokeWidth="3" />

@@ -53,8 +53,8 @@ export default function ReviewApprovalPanel({ video, onChange, onImmediateSave }
 
   const runAction = async (action, updates) => {
     setActionLoading(action);
-    const now = new Date().toISOString();
-    const user = await base44.auth.me().catch(() => ({ email: "admin" }));
+    const _now = new Date().toISOString();
+    const _user = await base44.auth.me().catch(() => ({ email: "admin" }));
     await onImmediateSave({ ...updates, review_notes: reviewNotes });
     setActionLoading(null);
   };

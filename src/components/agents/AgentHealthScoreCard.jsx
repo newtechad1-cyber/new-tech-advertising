@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { Zap } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-export default function AgentHealthScoreCard({ snapshots = [], tasks = [] }) {
+export default function AgentHealthScoreCard({ snapshots = [], tasks: _tasks = [] }) {
   const metrics = useMemo(() => {
     if (!snapshots || snapshots.length === 0) return null;
 

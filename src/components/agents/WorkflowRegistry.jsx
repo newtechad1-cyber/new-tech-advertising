@@ -4,7 +4,7 @@ import { base44 } from '@/api/base44Client';
 import { GitBranch } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export default function WorkflowRegistry({ onSelectWorkflow }) {
+export default function WorkflowRegistry({ onSelectWorkflow: _onSelectWorkflow }) {
   const [expandedWorkflow, setExpandedWorkflow] = useState(null);
 
   const { data: workflows = [] } = useQuery({

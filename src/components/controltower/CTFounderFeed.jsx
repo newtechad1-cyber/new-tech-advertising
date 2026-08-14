@@ -21,7 +21,7 @@ const URGENCY_BADGE = {
   low: 'bg-slate-700 text-slate-400',
 };
 
-export default function CTFounderFeed({ insights = [], onRefresh }) {
+export default function CTFounderFeed({ insights = [], onRefresh: _onRefresh }) {
   const [localInsights, setLocalInsights] = useState(null);
   const active = (localInsights ?? insights).filter(i => i.status === 'active' || !i.status);
 

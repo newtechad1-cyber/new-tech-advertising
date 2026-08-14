@@ -7,7 +7,7 @@ import RouteFamilyBadge from '@/components/admin/RouteFamilyBadge';
 
 export default function AdminShell({ children, currentPath, schoolSlug: propSchoolSlug }) {
   const { schoolSlug: paramSchoolSlug } = useParams();
-  const location = useLocation();
+  const _location = useLocation();
   const querySlug = new URLSearchParams(window.location.search).get('schoolSlug');
   const schoolSlug = propSchoolSlug || paramSchoolSlug || querySlug || 'hampton-dumont';
   const [user, setUser] = useState(null);

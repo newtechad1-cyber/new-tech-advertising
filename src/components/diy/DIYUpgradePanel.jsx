@@ -1,7 +1,7 @@
 import { CheckCircle2, Zap, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export default function DIYUpgradePanel({ onUpgradeClick, subscription }) {
+export default function DIYUpgradePanel({ onUpgradeClick, subscription: _subscription }) {
   return (
     <section className="bg-gradient-to-r from-indigo-600/15 to-blue-600/15 border border-indigo-600/30 rounded-xl p-8 mb-8">
       <div className="grid lg:grid-cols-2 gap-8">

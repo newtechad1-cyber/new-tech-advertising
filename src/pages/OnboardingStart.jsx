@@ -10,7 +10,7 @@ import { ArrowLeft, ArrowRight, CheckCircle2, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function OnboardingStart() {
-  const navigate = useNavigate();
+  const _navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({

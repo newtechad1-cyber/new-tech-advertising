@@ -2,7 +2,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, DollarSign, User } from 'lucide-react';
 
-const stageColors = {
+const _stageColors = {
   new_lead: 'bg-slate-100 text-slate-700',
   contacted: 'bg-blue-100 text-blue-700',
   demo_scheduled: 'bg-purple-100 text-purple-700',

@@ -6,7 +6,7 @@ import { generateToken } from './ApprovalUtils';
 const STAGES = ['Internal Review', 'Client Review', 'Final Signoff'];
 const TYPES = ['Content Review', 'Post Approval', 'Campaign Approval', 'Asset Approval'];
 
-export default function SendForApprovalModal({ items, clients, preferences, onClose, onSaved }) {
+export default function SendForApprovalModal({ items, clients: _clients, preferences, onClose, onSaved }) {
   const [form, setForm] = useState({
     request_type: 'Post Approval',
     approval_stage: 'Internal Review',

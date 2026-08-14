@@ -25,7 +25,7 @@ const LEADERBOARD = [
   { client: 'Apex Law Partners', campaign: 'Legal Tips Series', reach: 18100, engagement: 3.9, conversion: 'moderate', platform: 'YouTube' },
 ];
 
-const PLATFORM_BREAKDOWN = [
+const _PLATFORM_BREAKDOWN = [
   { platform: 'Instagram', reach: 84200, eng: 5.4 },
   { platform: 'Facebook', reach: 62400, eng: 4.2 },
   { platform: 'TikTok', reach: 48900, eng: 6.8 },
@@ -34,7 +34,7 @@ const PLATFORM_BREAKDOWN = [
 
 const CONVERSION_COLOR = { strong: 'text-emerald-300', moderate: 'text-amber-300', weak: 'text-red-300' };
 
-export default function CPSocialDashboard({ signals = [] }) {
+export default function CPSocialDashboard({ signals: _signals = [] }) {
   return (
     <div className="space-y-4">
       <h2 className="text-sm font-bold text-slate-400 uppercase tracking-widest">Social & Video Engagement Dashboard</h2>

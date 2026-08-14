@@ -37,13 +37,13 @@ function EmptyRow({ label }) {
   return <p className="text-slate-600 text-xs px-4 py-3 italic">No {label} yet.</p>;
 }
 
-export default function CampaignRelatedItems({ data, campaignId }) {
+export default function CampaignRelatedItems({ data, campaignId: _campaignId }) {
   const { seoPages = [], assets = [], videos = [], socialPosts = [], leads = [], reports = [] } = data;
 
   // Separate assets by type
-  const landingPages = assets.filter(a => a.asset_type === 'landing_page');
-  const adCopy = assets.filter(a => a.asset_type === 'ad_copy');
-  const contentAssets = assets.filter(a => !['landing_page', 'ad_copy'].includes(a.asset_type));
+  const _landingPages = assets.filter(a => a.asset_type === 'landing_page');
+  const _adCopy = assets.filter(a => a.asset_type === 'ad_copy');
+  const _contentAssets = assets.filter(a => !['landing_page', 'ad_copy'].includes(a.asset_type));
 
   return (
     <div className="space-y-2">

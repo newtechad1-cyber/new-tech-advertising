@@ -9,7 +9,7 @@ const PLATFORMS = [
   { key: 'google', label: 'Google Business', icon: '🔍', desc: 'Coming soon', disabled: true },
 ];
 
-export default function OnboardingStep5({ data, accountId, metaConnected }) {
+export default function OnboardingStep5({ data: _data, accountId, metaConnected }) {
   const [connecting, setConnecting] = React.useState(null);
 
   const handleConnect = async (platform) => {

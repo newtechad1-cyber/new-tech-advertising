@@ -12,7 +12,7 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 
 export default function NTABusinessScore() {
-  const navigate = useNavigate();
+  const _navigate = useNavigate();
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(1);
   const [isCalculating, setIsCalculating] = useState(false);

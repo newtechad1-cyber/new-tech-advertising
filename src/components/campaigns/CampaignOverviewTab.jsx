@@ -1,7 +1,7 @@
 import { Plus, AlertTriangle, CheckSquare, Calendar } from 'lucide-react';
 import { CampaignStatusBadge, PostStatusBadge, ApprovalBadge, PLATFORM_ICON } from './CampaignUtils';
 
-export default function CampaignOverviewTab({ campaigns, posts, clients, connections, onNewCampaign, onNewPost, onTabChange }) {
+export default function CampaignOverviewTab({ campaigns, posts, clients, connections: _connections, onNewCampaign, onNewPost, onTabChange }) {
   const now = new Date();
   const weekEnd = new Date(now); weekEnd.setDate(weekEnd.getDate() + 7);
 

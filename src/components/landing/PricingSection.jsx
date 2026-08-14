@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Check, X, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export default function PricingSection({ onCTAClick }) {
+export default function PricingSection({ onCTAClick: _onCTAClick }) {
   const included = [
     "Professional website design",
     "Local SEO optimization",

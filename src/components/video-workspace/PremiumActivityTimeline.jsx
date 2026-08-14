@@ -9,7 +9,7 @@ const EVENT_GROUPS = {
   failures: { label: 'Failures & Retries', icon: AlertCircle, color: 'bg-red-100 text-red-700' },
 };
 
-export default function PremiumActivityTimeline({ auditLogs = [], video }) {
+export default function PremiumActivityTimeline({ auditLogs = [], video: _video }) {
   const groupedEvents = useMemo(() => {
     const events = [...(auditLogs || [])].sort((a, b) => 
       new Date(b.logged_at) - new Date(a.logged_at)

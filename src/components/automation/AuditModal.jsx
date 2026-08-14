@@ -58,7 +58,7 @@ function tryParseJSON(str) {
 export default function AuditModal({ rule, logs, onClose, onRuleUpdate }) {
   const [checks, setChecks] = useState([]);
   const [running, setRunning] = useState(true);
-  const [fixing, setFixing] = useState(false);
+  const [_fixing, setFixing] = useState(false);
 
   const ruleLogs = logs.filter(l => l.rule_id === rule.id).slice(0, 20);
   const latestLog = ruleLogs[0] || null;

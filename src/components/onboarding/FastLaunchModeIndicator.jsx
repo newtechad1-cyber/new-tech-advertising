@@ -1,6 +1,6 @@
 import { Zap } from 'lucide-react';
 
-export default function FastLaunchModeIndicator({ client, isHighPriority }) {
+export default function FastLaunchModeIndicator({ client: _client, isHighPriority }) {
   if (!isHighPriority) return null;
 
   return (

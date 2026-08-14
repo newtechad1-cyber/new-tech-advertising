@@ -33,7 +33,7 @@ export default function UnifiedRecommendationsPanel({ role = null, company_id = 
   }
 
   const critical = recommendations.filter(r => r.urgency_level === 'critical');
-  const urgent = recommendations.filter(r => r.urgency_level === 'urgent');
+  const _urgent = recommendations.filter(r => r.urgency_level === 'urgent');
 
   return (
     <Card>

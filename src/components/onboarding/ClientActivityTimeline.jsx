@@ -2,7 +2,7 @@ import { CheckCircle2, Clock, AlertCircle } from 'lucide-react';
 
 export default function ClientActivityTimeline({ client }) {
   const activities = [];
-  const now = new Date();
+  const _now = new Date();
 
   // Build activity timeline from client data
   if (client.created_date) {

@@ -36,7 +36,7 @@ const SIGNALS_TABLE = [
 const VELOCITY_BADGE = { accelerating: 'bg-emerald-950 text-emerald-300', stable: 'bg-amber-950 text-amber-300', slowing: 'bg-red-950 text-red-300' };
 const CONV_COLOR = { strong: 'text-emerald-300', moderate: 'text-amber-300', weak: 'text-red-300' };
 
-export default function CPLeadFlow({ signals = [] }) {
+export default function CPLeadFlow({ signals: _signals = [] }) {
   return (
     <div className="space-y-4">
       <h2 className="text-sm font-bold text-slate-400 uppercase tracking-widest">Lead Flow & Conversion Signals</h2>

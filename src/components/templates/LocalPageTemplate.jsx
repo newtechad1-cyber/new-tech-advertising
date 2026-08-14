@@ -24,10 +24,10 @@ export default function LocalPageTemplate({
   if (!page) return null;
 
   const faq = page.faq ? (typeof page.faq === 'string' ? JSON.parse(page.faq) : page.faq) : [];
-  const keywords = page.keywords || [];
+  const _keywords = page.keywords || [];
 
   // Extract state from canonical path or use page.state
-  const stateDisplay = page.state || 'the area';
+  const _stateDisplay = page.state || 'the area';
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">

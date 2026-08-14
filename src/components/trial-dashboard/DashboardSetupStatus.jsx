@@ -7,7 +7,7 @@ const STEPS = [
   { key: 'plan_ready', label: 'Weekly Plan Ready', icon: Check },
 ];
 
-export default function DashboardSetupStatus({ trial, businessProfile, intelProfile, weeklyPlan, readinessState }) {
+export default function DashboardSetupStatus({ trial: _trial, businessProfile, intelProfile, weeklyPlan, readinessState: _readinessState }) {
   const getStepStatus = (step) => {
     if (step === 'trial_started') return true;
     if (step === 'profile_created') return !!businessProfile;
@@ -21,7 +21,7 @@ export default function DashboardSetupStatus({ trial, businessProfile, intelProf
       <h3 className="text-lg font-bold text-white mb-6">Setup Progress</h3>
       
       <div className="space-y-3">
-        {STEPS.map((step, idx) => {
+        {STEPS.map((step, _idx) => {
           const isComplete = getStepStatus(step.key);
           const isActive = !isComplete && (
             (step.key === 'profile_created' && getStepStatus('trial_started')) ||

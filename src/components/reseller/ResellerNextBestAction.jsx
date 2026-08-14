@@ -1,7 +1,7 @@
 import { Zap, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export default function ResellerNextBestAction({ reseller, onboarding, domain, branding, features }) {
+export default function ResellerNextBestAction({ reseller: _reseller, onboarding, domain, branding: _branding, features: _features }) {
   const actions = [];
 
   // Determine next best actions

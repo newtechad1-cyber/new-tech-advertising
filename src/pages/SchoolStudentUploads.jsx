@@ -10,7 +10,7 @@ export default function SchoolStudentUploads() {
   const searchParams = new URLSearchParams(window.location.search);
   const schoolSlug = searchParams.get('school') || 'hampton-dumont';
 
-  const [student, setStudent] = useState(null);
+  const [_student, setStudent] = useState(null);
   const [uploads, setUploads] = useState([]);
   const [filteredUploads, setFilteredUploads] = useState([]);
   const [loading, setLoading] = useState(true);

@@ -23,7 +23,7 @@ export default function ProposalTracker() {
     queryFn: () => base44.entities.Proposal.list('-created_date', 50)
   });
 
-  const updateMutation = useMutation({
+  const _updateMutation = useMutation({
     mutationFn: ({ id, data }) => base44.entities.Proposal.update(id, data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['proposals-tracker'] });
@@ -41,7 +41,7 @@ export default function ProposalTracker() {
   if (isLoading) return <div className="p-8 text-center text-gray-400">Loading proposals...</div>;
 
   const active = proposals.filter(p => !['rejected', 'expired'].includes(p.status));
-  const archived = proposals.filter(p => ['rejected', 'expired'].includes(p.status));
+  const _archived = proposals.filter(p => ['rejected', 'expired'].includes(p.status));
 
   return (
     <div className="space-y-4">

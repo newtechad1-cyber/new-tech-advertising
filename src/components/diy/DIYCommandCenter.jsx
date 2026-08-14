@@ -1,6 +1,6 @@
 import { Target, Calendar } from 'lucide-react';
 
-export default function DIYCommandCenter({ subscription }) {
+export default function DIYCommandCenter({ subscription: _subscription }) {
   return (
     <div>
       <h2 className="text-2xl font-bold text-white mb-6">Marketing Command Center</h2>

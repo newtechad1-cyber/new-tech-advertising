@@ -29,7 +29,7 @@ export default function ChannelReadinessSidebar({ video, publishJobs }) {
       </CardHeader>
       <CardContent className="space-y-3">
         {channels.map(ch => {
-          const { status, label, icon: Icon, color } = getChannelStatus(ch.key);
+          const { status: _status, label, icon: Icon, color } = getChannelStatus(ch.key);
           return (
             <div key={ch.key} className="flex items-center justify-between">
               <span className="text-sm font-medium text-slate-700">{ch.name}</span>
