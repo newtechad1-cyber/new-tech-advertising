@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
+import { base44 } from '@/api/base44Client';
 
 export default function NewsletterPopup() {
   const [show, setShow] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('idle'); // idle, loading, success, error
+  const [errorMessage, setErrorMessage] = useState('');
+  const [consent, setConsent] = useState(false);
   // Anti-spam: honeypot + page-load timestamp
   const [_hp, setHp] = useState('');
   const [pageLoadTs] = useState(() => Date.now());
@@ -52,26 +55,46 @@ export default function NewsletterPopup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage('');
+
     if (!email.includes('@') || !email.includes('.')) {
+      setErrorMessage('Please enter a valid email address.');
+      setStatus('error');
+      return;
+    }
+
+    if (!consent) {
+      setErrorMessage('Please confirm that you want to receive The NTA Journal and related updates.');
       setStatus('error');
       return;
     }
 
     setStatus('loading');
     try {
-      const response = await fetch('https://grateful-lynx-44.convex.site/api/webhook/newsletter', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, source: 'Website Newsletter Popup', _hp, _ts: pageLoadTs })
+      const registration = await base44.functions.invoke('publicationSignup', {
+        name: name.trim(),
+        email: email.trim().toLowerCase(),
+        business_name: '',
+        source: 'website_newsletter_popup',
+        source_page: window.location.pathname,
+        source_url: window.location.href,
+        publication_title: 'The NTA Journal',
+        publication_tag: 'nta-journal',
+        consent_context: 'Subscribed to The NTA Journal from the website popup.',
+        tags: ['nta-newsletter', 'website-popup'],
+        create_delivery_request: false,
+        delivery_url: '',
+        anti_spam: { honeypot: _hp, form_started_at: pageLoadTs },
       });
 
-      if (response.ok) {
-        setStatus('success');
-        localStorage.setItem('nta_newsletter_subscribed', 'true');
-      } else {
-        setStatus('error');
+      if (registration?.data?.success === false) {
+        throw new Error(registration.data.error || 'We could not save your subscription.');
       }
-    } catch {
+
+      setStatus('success');
+      localStorage.setItem('nta_newsletter_subscribed', 'true');
+    } catch (error) {
+      setErrorMessage(error?.message || 'Something went wrong — please try again.');
       setStatus('error');
     }
   };
@@ -99,7 +122,7 @@ export default function NewsletterPopup() {
 
         {status === 'success' ? (
           <div className="flex items-center justify-center gap-2 text-[#10B981] font-medium py-6 bg-emerald-50 rounded-lg">
-            <span>🎉</span> You're in! Check your inbox Monday.
+            <span>🎉</span> You're in! The NTA Journal arrives by email on Mondays.
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -128,8 +151,20 @@ export default function NewsletterPopup() {
                 className="w-full rounded-lg border border-slate-200 px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-[#10B981] focus:outline-none focus:ring-1 focus:ring-[#10B981]"
               />
             </div>
+            <label className="flex items-start gap-2 text-xs leading-5 text-slate-500">
+              <input
+                type="checkbox"
+                required
+                checked={consent}
+                onChange={(e) => setConsent(e.target.checked)}
+                className="mt-1 h-3.5 w-3.5 rounded border-slate-300"
+              />
+              <span>
+                I want to receive The NTA Journal and related NTA publication updates by email. We never sell your information, and you can unsubscribe at any time.
+              </span>
+            </label>
             {status === 'error' && (
-              <p className="text-red-500 text-sm text-center">Something went wrong — please try again</p>
+              <p className="text-red-500 text-sm text-center">{errorMessage || 'Something went wrong — please try again.'}</p>
             )}
             <button
               type="submit"
