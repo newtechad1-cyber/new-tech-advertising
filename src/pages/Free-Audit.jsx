@@ -39,6 +39,7 @@ export default function FreeAudit() {
   const [step, setStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState('');
+  const [confirmationStatus, setConfirmationStatus] = useState('submitted');
   const [form, setForm] = useState({
     name: '', email: '', phone: '', business_name: '',
     website: '', industry: '',
@@ -53,7 +54,7 @@ export default function FreeAudit() {
     setFormError('');
     setSubmitting(true);
     try {
-      await base44.functions.invoke('ntaUnifiedIntake', {
+      const response = await base44.functions.invoke('ntaUnifiedIntake', {
         submission_type: 'free_audit_request',
         source_system: 'website',
         source_page: '/free-audit',
@@ -70,7 +71,9 @@ export default function FreeAudit() {
         },
       });
 
-      // The unified intake owns CRM storage and the Gmail notification.
+      // The unified intake owns CRM storage and reports the provider-level email state.
+      const result = response?.data || response;
+      setConfirmationStatus(result?.audit_delivery_status || 'submitted');
 
       setStep(2);
       setForm({ name: '', email: '', phone: '', business_name: '', website: '', industry: '' });
@@ -151,9 +154,11 @@ export default function FreeAudit() {
                 <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <CheckCircle2 className="w-10 h-10 text-emerald-600" />
                 </div>
-                <h2 className="text-3xl font-black text-slate-900 mb-4">Thank You. Your Free Audit Is On Its Way.</h2>
+                <h2 className="text-3xl font-black text-slate-900 mb-4">Thank You. Your Audit Request Was Received.</h2>
                 <p className="text-slate-600 text-lg mb-8 max-w-lg mx-auto">
-                  We have your starting information. When a website was included, the AI-assisted first-pass report is generated automatically and sent to your email within a few minutes. While you wait, choose how you would like to continue:
+                  {confirmationStatus === 'email_accepted'
+                    ? 'Your first-pass report was generated and the email service accepted the send request. Delivery to your mailbox is still being confirmed. If it does not appear within a few minutes, check Spam or contact Rick directly.'
+                    : 'We have your starting information. When a website was included, the AI-assisted first-pass report is generated automatically. We will send it when the email delivery step is confirmed. While you wait, choose how you would like to continue:'}
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
