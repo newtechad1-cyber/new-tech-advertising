@@ -52,6 +52,17 @@ Deno.serve(async (req) => {
         })
       : null;
 
+    let journalSyncStatus = null;
+    if (publicationTag === 'nta-journal') {
+      try {
+        const sync = await base44.asServiceRole.functions.invoke('syncJournalSubscriber', { email });
+        journalSyncStatus = sync?.data?.status || sync?.status || 'requested';
+      } catch (syncError) {
+        journalSyncStatus = 'needs_attention';
+        console.warn('[publicationSignup] Journal subscriber saved; Brevo sync needs attention:', syncError);
+      }
+    }
+
     try {
       const office = createClient({ appId: OFFICE_APP_ID });
       await office.functions.invoke('trackBookEvent', {
@@ -62,7 +73,7 @@ Deno.serve(async (req) => {
       console.warn('[publicationSignup] Book access event could not be recorded:', trackingError);
     }
 
-    return Response.json({ success: true, subscriber_id: subscriber.id, delivery_request_id: deliveryRequest?.id || null });
+    return Response.json({ success: true, subscriber_id: subscriber.id, delivery_request_id: deliveryRequest?.id || null, journal_sync_status: journalSyncStatus });
   } catch (error) {
     console.error('[publicationSignup]', error);
     return Response.json({ error: 'Unable to save the publication request.' }, { status: 500 });
