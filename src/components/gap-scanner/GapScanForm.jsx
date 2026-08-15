@@ -27,13 +27,22 @@ export default function GapScanForm({ onResult, initialData = {} }) {
     }
     setError(null);
     setLoading(true);
-    const { base44 } = await import('@/api/base44Client');
-    const res = await base44.functions.invoke('runAiGapScan', form);
-    setLoading(false);
-    if (res.data?.success) {
-      onResult(res.data.audit, form, res.data.websiteAccessible);
-    } else {
-      setError(res.data?.error || 'Scan failed. Please try again.');
+
+    try {
+      const { base44 } = await import('@/api/base44Client');
+      const res = await base44.functions.invoke('runAiGapScan', form);
+      const data = res?.data || res || {};
+
+      if (data.success && data.audit) {
+        onResult(data.audit, form, data.websiteAccessible);
+      } else {
+        setError(data.error || 'Scan failed. Please try again.');
+      }
+    } catch (scanError) {
+      console.error('[GapScanForm] AI Gap Scan failed:', scanError);
+      setError(scanError?.message || 'The AI Gap Scan could not run. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
