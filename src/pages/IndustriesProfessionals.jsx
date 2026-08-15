@@ -35,7 +35,7 @@ export default function IndustriesProfessionals() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/adaaccessibility">
+              <a href="/accessible-websites">
                 <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg">
                   Start Free ADA Scan
                   <ArrowRight className="ml-2 w-4 h-4" />
@@ -94,7 +94,7 @@ export default function IndustriesProfessionals() {
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold text-slate-900 mb-2">Primary: Free ADA Scan</h3>
                   <p className="text-slate-600 mb-4">Check if your site is accessible and compliant with legal standards.</p>
-                  <a href="/adaaccessibility">
+                  <a href="/accessible-websites">
                     <Button className="bg-blue-600 hover:bg-blue-700 text-white">Get Scanned</Button>
                   </a>
                 </div>
