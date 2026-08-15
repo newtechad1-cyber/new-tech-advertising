@@ -33,7 +33,7 @@ export default function IndustryNonprofits() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/adaaccessibility?nonprofit=true">
+              <a href="/accessible-websites?nonprofit=true">
                 <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg">
                   Nonprofit ADA Options
                   <ArrowRight className="ml-2 w-4 h-4" />
