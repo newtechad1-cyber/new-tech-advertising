@@ -357,10 +357,10 @@ export default function WebsiteRebuildsMasonCity() {
           <p className="text-slate-500 text-sm mb-4 font-medium">Also explore:</p>
           <div className="flex flex-wrap justify-center gap-4 text-sm">
             <Link to="/services/website-rebuilds" className="text-blue-600 hover:underline font-medium">→ Website Rebuild Services Overview</Link>
-            <Link to="/AdaWebsiteCompliance" className="text-blue-600 hover:underline font-medium">→ ADA Compliance Services</Link>
-            <Link to="/AiSeo" className="text-blue-600 hover:underline font-medium">→ AI SEO & Marketing</Link>
-            <Link to="/Contact" className="text-blue-600 hover:underline font-medium">→ Contact Us</Link>
-            <Link to="/Blog" className="text-blue-600 hover:underline font-medium">→ Read Our Blog</Link>
+            <Link to="/ada-website-compliance" className="text-blue-600 hover:underline font-medium">→ ADA Compliance Services</Link>
+            <Link to="/ai-seo" className="text-blue-600 hover:underline font-medium">→ AI SEO & Marketing</Link>
+            <Link to="/contact" className="text-blue-600 hover:underline font-medium">→ Contact Us</Link>
+            <Link to="/insights" className="text-blue-600 hover:underline font-medium">→ Read Our Blog</Link>
           </div>
         </div>
       </section>
