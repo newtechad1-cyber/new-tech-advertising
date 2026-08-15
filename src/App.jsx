@@ -119,6 +119,17 @@ function PublicRoutes() {
       ))}
       <Route path="/Login" element={<CoreHubRedirect />} />
       <Route path="/login" element={<CoreHubRedirect />} />
+      <Route path="/partner-portal/*" element={<CoreHubRedirect />} />
+      <Route path="/partner-quick-start/*" element={<CoreHubRedirect />} />
+      <Route path="/progress" element={<CoreHubRedirect />} />
+      <Route path="/my-growth-journey" element={<CoreHubRedirect />} />
+      <Route path="/my-growth-workspace" element={<CoreHubRedirect />} />
+      <Route path="/business-profile" element={<CoreHubRedirect />} />
+      <Route path="/support" element={<CoreHubRedirect />} />
+      <Route path="/admin-center/*" element={<CoreHubRedirect />} />
+      <Route path="/admin-dashboard/*" element={<CoreHubRedirect />} />
+      <Route path="/client-dashboard/*" element={<CoreHubRedirect />} />
+      <Route path="/nta/data-hub/*" element={<CoreHubRedirect />} />
       <Route path="/portal/*" element={<CoreHubRedirect />} />
       <Route path="/agency/*" element={<CoreHubRedirect />} />
       <Route path="/admin/*" element={<CoreHubRedirect />} />
