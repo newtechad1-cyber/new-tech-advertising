@@ -507,16 +507,16 @@ export default function SchoolTVDealRoom() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">Resources for Your Decision</h2>
           <div className="grid md:grid-cols-3 gap-8">
-            <a href="#" className="bg-slate-800 rounded-lg p-8 hover:bg-slate-700 transition text-center">
+            <Link to="/book-call" className="bg-slate-800 rounded-lg p-8 hover:bg-slate-700 transition text-center">
               <Download className="h-10 w-10 text-blue-400 mx-auto mb-4" />
-              <h3 className="font-bold text-lg mb-2">Download Case Study</h3>
-              <p className="text-slate-300 text-sm">See how schools have successfully launched their streaming platforms.</p>
-            </a>
-            <a href="#" className="bg-slate-800 rounded-lg p-8 hover:bg-slate-700 transition text-center">
+              <h3 className="font-bold text-lg mb-2">Request the Case Study</h3>
+              <p className="text-slate-300 text-sm">Ask us for examples of schools that have successfully launched their streaming platforms.</p>
+            </Link>
+            <Link to="/book-call" className="bg-slate-800 rounded-lg p-8 hover:bg-slate-700 transition text-center">
               <BookOpen className="h-10 w-10 text-blue-400 mx-auto mb-4" />
-              <h3 className="font-bold text-lg mb-2">Launch Guide</h3>
-              <p className="text-slate-300 text-sm">Step-by-step guide to launching your school's streaming TV network.</p>
-            </a>
+              <h3 className="font-bold text-lg mb-2">Request the Launch Guide</h3>
+              <p className="text-slate-300 text-sm">Ask us for the steps to launch your school's streaming TV network.</p>
+            </Link>
             <button onClick={() => goToBookingPage()} className="bg-slate-800 rounded-lg p-8 hover:bg-slate-700 transition text-center w-full text-left">
                <Users className="h-10 w-10 text-blue-400 mx-auto mb-4" />
                <h3 className="font-bold text-lg mb-2">Contact Sales</h3>
