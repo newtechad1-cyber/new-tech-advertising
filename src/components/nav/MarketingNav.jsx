@@ -34,6 +34,7 @@ const NAV_LINKS = [
     href: '/services',
     children: [
       { label: 'How NTA Helps', href: '/services', desc: 'Start with the business need, not a package' },
+      { label: 'Work With NTA', href: '/work-with-nta', desc: 'See what happens when NTA becomes part of your growth work' },
       { label: 'Websites', href: '/services/website-rebuilds', desc: 'Build a useful online business experience' },
       { label: 'Social Media', href: '/services/social-media-management', desc: 'Create consistent content that earns trust' },
       { label: 'Video', href: '/ai-video-marketing', desc: 'Turn knowledge and stories into useful video' },
@@ -195,6 +196,9 @@ export default function MarketingNav() {
               </Link>
             )}
 
+            <Link to="/free-audit" className="whitespace-nowrap rounded-lg border border-blue-500/50 px-3 py-2 text-sm font-semibold text-blue-200 transition-colors hover:border-blue-300 hover:bg-blue-500/10 hover:text-white">
+              Free Audit
+            </Link>
             <button
               type="button"
               onClick={() => window.dispatchEvent(new CustomEvent('nta:open-growth-guide', { detail: { source: 'main_navigation' } }))}
@@ -262,6 +266,10 @@ export default function MarketingNav() {
               >
                 Talk to My Office™
               </button>
+
+              <Link to="/free-audit" onClick={closeMobile} className="flex w-full items-center justify-center rounded-xl border border-blue-500/50 py-3 font-semibold text-blue-200 transition-colors hover:border-blue-300 hover:bg-blue-500/10 hover:text-white">
+                Start with the Free Business Gap Audit
+              </Link>
 
               <div className="pt-2">
                 {user ? (
