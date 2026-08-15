@@ -32,6 +32,18 @@ Deno.serve(async (req) => {
     const [firstName, ...remaining] = name.split(/\s+/).filter(Boolean);
     const existing = await base44.asServiceRole.entities.Subscriber.filter({ email });
     const current = existing?.[0];
+    const currentTags = uniqueTags(current?.tags || []);
+    const isUnsubscribed = ['unsubscribed', 'revoked', 'inactive'].includes(String(current?.status || '').toLowerCase())
+      || String(current?.consent_status || '').toLowerCase() === 'revoked';
+
+    if (current && currentTags.includes(publicationTag) && !isUnsubscribed) {
+      return Response.json({
+        success: false,
+        status: 'already_subscribed',
+        error: 'This email is already subscribed to ' + publicationTitle + '.',
+      }, { status: 409 });
+    }
+
     const subscriberData = {
       email, first_name: firstName || current?.first_name || '', last_name: remaining.join(' ') || current?.last_name || '',
       business_name: businessName || current?.business_name || '',
