@@ -46,6 +46,7 @@ Deno.serve(async (req) => {
       // Upgrade a legacy newsletter record to the canonical Journal tag when
       // the person confirms the current consent checkbox, then show the
       // duplicate notice instead of creating another subscription.
+      let duplicateJournalSyncStatus = null;
       if (alreadyHasJournalSubscription && publicationTag === 'nta-journal') {
         try {
           await base44.asServiceRole.entities.Subscriber.update(current.id, {
@@ -61,10 +62,21 @@ Deno.serve(async (req) => {
         }
       }
 
+      if (publicationTag === 'nta-journal') {
+        try {
+          const sync = await base44.asServiceRole.functions.invoke('syncJournalSubscriber', { email });
+          duplicateJournalSyncStatus = sync?.data?.status || sync?.status || 'requested';
+        } catch (syncError) {
+          duplicateJournalSyncStatus = 'needs_attention';
+          console.warn('[publicationSignup] Existing Journal subscriber sync needs attention:', syncError);
+        }
+      }
+
       return Response.json({
         success: false,
         status: 'already_subscribed',
         error: 'This email is already subscribed to ' + publicationTitle + '.',
+        journal_sync_status: duplicateJournalSyncStatus,
       }, { status: 409 });
     }
 
