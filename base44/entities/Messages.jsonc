@@ -108,9 +108,9 @@
     "message_body"
   ],
   "rls": {
-    "create": null,
-    "read": null,
-    "update": null,
-    "delete": null
+    "create": false,
+    "read": false,
+    "update": false,
+    "delete": false
   }
 }
