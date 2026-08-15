@@ -251,9 +251,9 @@ export default function WebsiteRebuildsAlbertLeaMN() {
             <Link to="/website-rebuilds/mason-city-ia" className="text-blue-600 hover:underline font-medium">→ Mason City, IA Website Rebuild Services</Link>
             <Link to="/website-rebuilds/rochester-mn" className="text-blue-600 hover:underline font-medium">→ Rochester, MN Website Rebuild Services</Link>
             <Link to="/website-rebuilds/austin-mn" className="text-blue-600 hover:underline font-medium">→ Austin, MN Website Rebuild Services</Link>
-            <Link to="/AdaWebsiteCompliance" className="text-blue-600 hover:underline font-medium">→ ADA Compliance Services</Link>
-            <Link to="/Contact" className="text-blue-600 hover:underline font-medium">→ Contact Us</Link>
-            <Link to="/Blog" className="text-blue-600 hover:underline font-medium">→ Read Our Blog</Link>
+            <Link to="/ada-website-compliance" className="text-blue-600 hover:underline font-medium">→ ADA Compliance Services</Link>
+            <Link to="/contact" className="text-blue-600 hover:underline font-medium">→ Contact Us</Link>
+            <Link to="/insights" className="text-blue-600 hover:underline font-medium">→ Read Our Blog</Link>
           </div>
         </div>
       </section>
