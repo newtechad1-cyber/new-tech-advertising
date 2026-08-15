@@ -29,7 +29,7 @@ function shellMarkup(metadata, pathname) {
   const canonical = escapeHtml(metadata.canonical);
   const heading = escapeHtml(metadata.title.replace(/\s+\|\s+.*$/, ""));
   const body = '<main data-prerendered="true" class="seo-shell"><article><p class="seo-kicker">New Tech Advertising</p><h1>' +
-    heading + '</h1><p>' + description + '</p><p>Practical AI education and small-business growth guidance from Rick Hesse and NTA.</p><nav aria-label="Public site links"><a href="/">Home</a><a href="/knowledge">AI Lessons</a><a href="/practical-ai-for-small-business">Practical AI Guide</a><a href="/free-audit">Free Gap Audit</a><a href="/contact">Contact NTA</a></nav></article></main>';
+    heading + '</h1><p>' + description + '</p><h2>Practical AI education for small businesses</h2><p>Based in North Iowa, New Tech Advertising helps small-business owners understand and use AI while keeping human judgment in control.</p><h2>Start with a useful next step</h2><p>The free Business Gap Audit identifies visible gaps, immediate priorities, and practical next steps without pressure.</p><p><a href="/free-audit">Start the Free Business Gap Audit</a></p><h2>Continue learning</h2><nav aria-label="Public site links"><a href="/">Home</a><a href="/knowledge">AI Lessons</a><a href="/practical-ai-for-small-business">Practical AI Guide</a><a href="/free-audit">Free Gap Audit</a><a href="/nta-journal#subscribe">NTA Journal</a><a href="/contact">Contact NTA</a></nav></article></main>';
   return {
     title,
     description,
