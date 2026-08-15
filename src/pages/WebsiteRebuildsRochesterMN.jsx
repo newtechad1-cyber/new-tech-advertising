@@ -344,8 +344,8 @@ export default function WebsiteRebuildsRochesterMN() {
           <div className="flex flex-wrap justify-center gap-4 text-sm">
             <Link to="/services/website-rebuilds" className="text-blue-600 hover:underline font-medium">→ Website Rebuild Services Overview</Link>
             <Link to="/website-rebuilds/mason-city-ia" className="text-blue-600 hover:underline font-medium">→ Mason City, IA Website Rebuilds</Link>
-            <Link to="/Contact" className="text-blue-600 hover:underline font-medium">→ Contact Us</Link>
-            <Link to="/Blog" className="text-blue-600 hover:underline font-medium">→ Marketing Blog</Link>
+            <Link to="/contact" className="text-blue-600 hover:underline font-medium">→ Contact Us</Link>
+            <Link to="/insights" className="text-blue-600 hover:underline font-medium">→ Marketing Blog</Link>
           </div>
         </div>
       </section>
