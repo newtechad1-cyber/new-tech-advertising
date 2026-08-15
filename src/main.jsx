@@ -3,7 +3,15 @@ import ReactDOM from 'react-dom/client'
 import App from '@/App.jsx'
 import '@/index.css'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+const rootElement = document.getElementById('root');
+
+if (!rootElement) {
+  throw new Error('NTA public app root element was not found.');
+}
+
+rootElement.querySelector('[data-prerendered="true"]')?.remove();
+
+ReactDOM.createRoot(rootElement).render(
   // <React.StrictMode>
   <App />
   // </React.StrictMode>,
