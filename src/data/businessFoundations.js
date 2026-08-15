@@ -1,4 +1,5 @@
 import { frontBackOfficeLesson } from './frontBackOfficeLesson';
+import { rightDecisionLesson } from './rightDecisionLesson';
 
 export const businessFoundationsLessons = [
   {
@@ -1537,19 +1538,13 @@ Before moving into the next collection, ask yourself:
 
 Sometimes those questions are more valuable than the answers.
 
-### Completing Business Foundations
+### Continue Learning
 
-Congratulations.
+These foundational lessons are designed to change the way you think about business.
 
-You've just completed the first collection in the NTA Knowledge Library.
+The next lesson shows how those principles apply to a real Digital Growth Office. After that, *The Right Decision Should Make Sense* explains why education, experience, and practical guidance are part of the value NTA provides.
 
-These seven lessons aren't meant to turn you into a marketing expert.
-
-They're meant to change the way you think about business.
-
-Because once you begin seeing business as a system built on understanding, trust, relationships, and continuous learning, the individual marketing tactics begin to make much more sense.
-
-In the next collection, we'll begin exploring how artificial intelligence fits into that picture—not as a replacement for people, but as a powerful set of tools that can help thoughtful business owners accomplish more than ever before.
+Once you have completed those lessons, you can move into the next collection and explore how artificial intelligence fits into the picture—not as a replacement for people, but as a powerful set of tools that can help thoughtful business owners accomplish more than ever before.
     `,
     relatedPrompts: [
       { label: "Trust Signal Audit", link: "/knowledge/prompts" }
@@ -1562,5 +1557,6 @@ In the next collection, we'll begin exploring how artificial intelligence fits i
     ],
     nextLessonSlug: "what-building-my-own-digital-growth-office-taught-me"
   },
-  frontBackOfficeLesson
+  frontBackOfficeLesson,
+  rightDecisionLesson
 ];
