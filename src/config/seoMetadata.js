@@ -66,6 +66,10 @@ const STATIC_SEO = {
     title: "Digital Growth Office for Small Business | NTA Operating System",
     description: "See how NTA connects website, visibility, customer relationships, business knowledge, and practical AI into one Digital Growth Office.",
   },
+  "/work-with-nta": {
+    title: "Work With New Tech Advertising | Digital Growth Office",
+    description: "See how NTA uses education, experience, and connected digital systems to help business owners understand the next useful step.",
+  },
   "/point-of-view": {
     title: "NTA Point of View: Practical AI and Small Business Growth",
     description: "Clear, experience-based perspectives on practical AI, digital trust, small-business growth, and the systems behind useful results.",
