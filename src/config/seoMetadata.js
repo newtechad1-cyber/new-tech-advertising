@@ -337,6 +337,7 @@ const LESSON_SEARCH_TITLES = {
   "ai-is-changing-how-customers-find-businesses": "How AI Is Changing How Customers Find Small Businesses",
   "relationships-are-your-greatest-competitive-advantage": "Why Relationships Are a Small Business Competitive Advantage",
   "the-connected-business-is-the-future": "What a Connected Small Business Looks Like",
+  "the-right-decision-should-make-sense": "Why the Right Small Business Growth Decision Should Make Sense",
 };
 
 const PRIVATE_PREFIXES = [
