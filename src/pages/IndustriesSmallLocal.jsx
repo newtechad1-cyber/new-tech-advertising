@@ -51,7 +51,7 @@ export default function IndustriesSmallLocal() {
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </a>
-            <a href="/adaaccessibility">
+            <a href="/accessible-websites">
               <Button variant="outline" className="w-full border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-4 text-lg">
                 Free ADA Scan
               </Button>
