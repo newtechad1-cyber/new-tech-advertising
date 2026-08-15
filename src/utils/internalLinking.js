@@ -32,7 +32,7 @@ const LINK_RULES = [
       /\bADA requirements\b/i,
       /\baccessibility standards\b/i,
     ],
-    url: '/AdaWebsiteCompliance',
+    url: '/ada-website-compliance',
     group: 'ada',
   },
   // Location: Mason City
@@ -112,7 +112,7 @@ const LINK_RULES = [
       /\bconnected TV\b/i,
       /\bOTT advertising\b/i,
     ],
-    url: '/StreamingTvAdvertising',
+    url: '/streaming-tv-advertising',
     group: 'streaming',
   },
   // Gap Audit / Free Audit
