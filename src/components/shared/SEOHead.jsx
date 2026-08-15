@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getSeoMetadata } from '@/config/seoMetadata';
+import { NTA_SOCIAL_PROFILE_URLS, RICK_SOCIAL_PROFILE_URLS } from '@/config/socialLinks';
 
 /**
  * SEOHead — Unified SEO & Structured Data management for every page.
@@ -60,7 +61,7 @@ const PERSON_SCHEMA = {
     "Video Marketing",
     "Social Media Automation"
   ],
-  "sameAs": []
+  "sameAs": RICK_SOCIAL_PROFILE_URLS
 };
 
 // ─── WebSite + SearchAction Schema (sitewide) ─────────────────────────────
@@ -203,6 +204,7 @@ export default function SEOHead({
       "telephone": "+1-641-420-8816",
       "email": "info@newtechadvertising.com",
       "url": SITE_ORIGIN,
+      "sameAs": NTA_SOCIAL_PROFILE_URLS,
       "description": "A practical AI education and business growth platform for small-business owners. NTA helps owners learn to collaborate with AI, preserve human judgment, and turn experience into useful processes, content, customer systems, and software.",
       "address": {
         "@type": "PostalAddress",
