@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 
+function getFunctionError(error, fallback) {
+  return error?.response?.data?.error || error?.data?.error || error?.message || fallback;
+}
+
 export default function NewsletterPopup() {
   const [show, setShow] = useState(false);
   const [name, setName] = useState('');
@@ -94,7 +98,7 @@ export default function NewsletterPopup() {
       setStatus('success');
       localStorage.setItem('nta_newsletter_subscribed', 'true');
     } catch (error) {
-      setErrorMessage(error?.message || 'Something went wrong — please try again.');
+      setErrorMessage(getFunctionError(error, 'Something went wrong — please try again.'));
       setStatus('error');
     }
   };
