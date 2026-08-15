@@ -316,7 +316,6 @@ Rules:
 
     const rawResult = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt,
-      model: 'gpt_5_4',
       add_context_from_internet: false,
     });
 
