@@ -305,7 +305,7 @@ export default function Services() {
                   <p className="text-slate-400 text-sm mb-3">Measure how your current operations and marketing stack up against industry standards.</p>
                   <span className="text-blue-400 text-sm font-medium flex items-center gap-1">See How It Works <ArrowRight className="w-4 h-4" /></span>
                 </Link>
-                <Link to="/LocalBusinessMarketing" className="block bg-slate-900 border border-slate-800 p-5 rounded-xl hover:border-slate-700 transition-colors group">
+                <Link to="/local-business-marketing" className="block bg-slate-900 border border-slate-800 p-5 rounded-xl hover:border-slate-700 transition-colors group">
                   <h4 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Local Industry Solutions</h4>
                   <p className="text-slate-400 text-sm mb-3">Specialized approaches for contractors, restaurants, health practices, and more.</p>
                   <span className="text-blue-400 text-sm font-medium flex items-center gap-1">Explore <ArrowRight className="w-4 h-4" /></span>
