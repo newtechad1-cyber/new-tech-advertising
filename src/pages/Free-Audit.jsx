@@ -250,6 +250,9 @@ export default function FreeAudit() {
                   <p className="text-center text-slate-500 text-sm mt-4">
                     Free · No credit card · No pressure
                   </p>
+                  <p className="text-center text-slate-500 text-xs mt-2 leading-relaxed">
+                    We never sell your information or business details. What you share is used to prepare your audit and communicate with you.
+                  </p>
                 </div>
               </form>
             )}
