@@ -3,8 +3,8 @@ const SITE_ORIGIN = "https://newtechadvertising.com";
 export { SITE_ORIGIN };
 
 const DEFAULT_SEO = {
-  title: "Practical AI Education for Small Business Owners | New Tech Advertising",
-  description: "Free, practical AI education for small-business owners. Learn how AI can support real work, keep human judgment in control, and help a business grow.",
+  title: "Practical AI Education and Digital Growth Systems | New Tech Advertising",
+  description: "Practical AI education and connected digital growth systems for small-business owners. Learn how NTA helps improve visibility, trust, customer relationships, follow-up, and everyday work.",
   noIndex: false,
 };
 
