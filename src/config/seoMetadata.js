@@ -223,6 +223,52 @@ const STATIC_SEO = {
     description: "Create an account for New Tech Advertising.",
     noIndex: true,
   },
+  "/growth-system": {
+    title: "The NTA Growth System | Connected Marketing for Small Business",
+    description: "See how NTA connects AI content, video, streaming TV, local SEO, reporting, and done-for-you marketing into one small-business growth system.",
+  },
+  "/local-business-marketing": {
+    title: "Local Business Marketing | AI Marketing for Small Business",
+    description: "AI-powered marketing for local businesses. Google Business Profile, social media, local SEO, and AI search optimization from New Tech Advertising.",
+  },
+  "/industries": {
+    title: "Industry Marketing Systems for Small Business | NTA",
+    description: "Explore practical marketing and digital growth systems built around the realities of local service businesses, restaurants, contractors, and other small businesses.",
+  },
+  "/ai-marketing-platform": {
+    title: "AI Marketing Platform for Small Businesses | NTA",
+    description: "Create content, schedule posts, produce videos, and manage campaigns from one AI marketing platform—or let NTA run it for you.",
+  },
+  "/ai-social-media-small-business": {
+    title: "AI Social Media for Small Business | NTA",
+    description: "Create consistent social media content for Facebook, Instagram, and LinkedIn without hiring a marketing agency.",
+  },
+  "/restaurant-social-media": {
+    title: "Restaurant Social Media Marketing Platform | NTA",
+    description: "Create menu highlights, daily specials, event announcements, and food promotion content for your restaurant.",
+  },
+  "/streaming-tv-advertising": {
+    title: "Streaming TV Advertising for Small Business | NTA",
+    description: "Reach local customers on Hulu, Roku, and other streaming platforms with targeted, measurable TV advertising.",
+  },
+  "/tv-commercial-script-generator": {
+    title: "Free TV Commercial Script Generator | NTA",
+    description: "Create a concise streaming TV commercial script for your local business in seconds.",
+    noIndex: true,
+  },
+  "/hvac-industry": {
+    title: "HVAC Marketing Systems for Small Business | NTA",
+    description: "Use practical AI, local SEO, social content, seasonal campaigns, and streaming TV to grow an HVAC business.",
+  },
+  "/ada-website-compliance": {
+    title: "ADA Website Compliance and Rebuild | NTA",
+    description: "Understand website accessibility risks and explore a practical ADA-focused website review or rebuild for your business.",
+  },
+  "/get-started": {
+    title: "Start Your Free Trial | New Tech Advertising",
+    description: "Start a free 14-day trial with New Tech Advertising. We set up a practical marketing system around your business, goals, and next steps.",
+    noIndex: true,
+  },
   "/start": {
     title: "Get Started With New Tech Advertising",
     description: "Choose a practical starting point for learning about AI and small-business growth.",
