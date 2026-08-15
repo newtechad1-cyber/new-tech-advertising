@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
+import { base44 } from '@/api/base44Client';
 
 export default function NewsletterFooterSection() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('idle'); // idle, loading, success, error
+  const [errorMessage, setErrorMessage] = useState('');
+  const [consent, setConsent] = useState(false);
   // Anti-spam: honeypot + page-load timestamp
   const [_hp, setHp] = useState('');
   const [pageLoadTs] = useState(() => Date.now());
@@ -15,26 +18,46 @@ export default function NewsletterFooterSection() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage('');
+
     if (!email.includes('@') || !email.includes('.')) {
+      setErrorMessage('Please enter a valid email address.');
+      setStatus('error');
+      return;
+    }
+
+    if (!consent) {
+      setErrorMessage('Please confirm that you want to receive The NTA Journal and related updates.');
       setStatus('error');
       return;
     }
 
     setStatus('loading');
     try {
-      const response = await fetch('https://grateful-lynx-44.convex.site/api/webhook/newsletter', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: '', email, source: 'Website Newsletter Footer', _hp, _ts: pageLoadTs })
+      const registration = await base44.functions.invoke('publicationSignup', {
+        name: '',
+        email: email.trim().toLowerCase(),
+        business_name: '',
+        source: 'website_newsletter_footer',
+        source_page: window.location.pathname,
+        source_url: window.location.href,
+        publication_title: 'The NTA Journal',
+        publication_tag: 'nta-journal',
+        consent_context: 'Subscribed to The NTA Journal from the website footer.',
+        tags: ['nta-newsletter', 'website-footer'],
+        create_delivery_request: false,
+        delivery_url: '',
+        anti_spam: { honeypot: _hp, form_started_at: pageLoadTs },
       });
 
-      if (response.ok) {
-        setStatus('success');
-        localStorage.setItem('nta_newsletter_subscribed', 'true');
-      } else {
-        setStatus('error');
+      if (registration?.data?.success === false) {
+        throw new Error(registration.data.error || 'We could not save your subscription.');
       }
-    } catch {
+
+      setStatus('success');
+      localStorage.setItem('nta_newsletter_subscribed', 'true');
+    } catch (error) {
+      setErrorMessage(error?.message || 'Something went wrong — please try again.');
       setStatus('error');
     }
   };
@@ -52,10 +75,11 @@ export default function NewsletterFooterSection() {
         <div className="w-full md:w-auto md:min-w-[400px]">
           {status === 'success' ? (
             <div className="flex h-12 items-center justify-center md:justify-start gap-2 text-[#10B981] font-semibold text-lg">
-              ✅ You're subscribed!
+              ✅ You're subscribed! The NTA Journal arrives by email on Mondays.
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row">
+            <form onSubmit={handleSubmit} className="space-y-3">
+              <div className="flex flex-col gap-3 sm:flex-row">
               {/* Anti-spam honeypot — hidden from real users */}
               <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
                 <label htmlFor="ft_company_url">Company URL</label>
@@ -80,11 +104,24 @@ export default function NewsletterFooterSection() {
                   'Subscribe'
                 )}
               </button>
+              </div>
+              <label className="flex items-start gap-2 text-xs leading-5 text-slate-400">
+                <input
+                  type="checkbox"
+                  required
+                  checked={consent}
+                  onChange={(e) => setConsent(e.target.checked)}
+                  className="mt-1 h-3.5 w-3.5 rounded border-slate-600"
+                />
+                <span>
+                  I want to receive The NTA Journal and related NTA publication updates by email. We never sell your information, and you can unsubscribe at any time.
+                </span>
+              </label>
             </form>
           )}
           {status === 'error' && (
             <p className="mt-2 text-center text-sm text-red-500 md:text-left">
-              Something went wrong — please try again
+              {errorMessage || 'Something went wrong — please try again.'}
             </p>
           )}
         </div>
