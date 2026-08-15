@@ -14,6 +14,9 @@ import AIFoundationsCollection from '@/pages/AIFoundationsCollection';
 import AIHumanityArticle from '@/pages/AIHumanityArticle';
 import AIHumanityCollection from '@/pages/AIHumanityCollection';
 import AIPolicy from '@/pages/AIPolicy';
+import AdaWebsiteCompliance from '@/pages/AdaWebsiteCompliance';
+import AiMarketingPlatform from '@/pages/AiMarketingPlatform';
+import AiSocialMediaSmallBusiness from '@/pages/AiSocialMediaSmallBusiness';
 import AIVideoMarketing from '@/pages/AIVideoMarketing';
 import AccessibleWebsites from '@/pages/AccessibleWebsites';
 import CanonArticleView from '@/pages/CanonArticleView';
@@ -43,18 +46,22 @@ import ContractorMarketingNorthIowa from '@/pages/ContractorMarketingNorthIowa';
 import DigitalRisks from '@/pages/DigitalRisks';
 import DemoSchoolChannel from '@/pages/DemoSchoolChannel';
 import FreeAudit from '@/pages/Free-Audit';
+import GetStarted from '@/pages/Get-Started';
 import FlagshipArticle from '@/legacy-page-components/FlagshipArticle';
 import GettingStarted from '@/pages/GettingStarted';
 import GrowthGuide from '@/pages/GrowthGuide';
 import GrowthShow from '@/pages/GrowthShow';
 import GrowthShowEpisode from '@/pages/GrowthShowEpisode';
+import GrowthSystem from '@/pages/GrowthSystem';
 import GrowthSystemsVsCampaigns from '@/pages/GrowthSystemsVsCampaigns';
 import HelpAndSupport from '@/pages/HelpAndSupport';
+import HvacIndustry from '@/pages/HvacIndustry';
 import Home from '@/pages/Home';
 import HVACMarketingNorthIowa from '@/pages/HVACMarketingNorthIowa';
 import HowBusinessesTurnTrustIntoLastingRelationshipsCollection from '@/pages/HowBusinessesTurnTrustIntoLastingRelationshipsCollection';
 import HowCustomersDecideWhoToTrustCollection from '@/pages/HowCustomersDecideWhoToTrustCollection';
 import IWasEarlyAgain from '@/pages/IWasEarlyAgain';
+import IndustriesHub from '@/pages/IndustriesHub';
 import JoinNTA from '@/pages/JoinNTA';
 import JournalIssueView from '@/pages/JournalIssueView';
 import JournalLanding from '@/pages/JournalLanding';
@@ -67,6 +74,7 @@ import LCVideoDetail from '@/legacy-page-components/LCVideoDetail';
 import LCVideoLibrary from '@/legacy-page-components/LCVideoLibrary';
 import LearningCenter from '@/pages/LearningCenter';
 import LocalLeadSystems from '@/pages/LocalLeadSystems';
+import LocalBusinessMarketing from '@/pages/LocalBusinessMarketing';
 import MarketingPlanGenerator from '@/legacy-page-components/MarketingPlanGenerator';
 import LocalVisibility from '@/pages/LocalVisibility';
 import NTAOperatingSystem from '@/pages/NTAOperatingSystem';
@@ -90,11 +98,14 @@ import RestaurantDemoBar from '@/pages/RestaurantDemoBar';
 import RestaurantDemoMexican from '@/pages/RestaurantDemoMexican';
 import RestaurantDemoPizza from '@/pages/RestaurantDemoPizza';
 import RestaurantSolutions from '@/pages/RestaurantSolutions';
+import RestaurantSocialMedia from '@/pages/RestaurantSocialMedia';
 import ReputationIsNowAGrowthEngine from '@/pages/ReputationIsNowAGrowthEngine';
 import RebuildIntake from '@/pages/RebuildIntake';
 import SalesConversations from '@/pages/SalesConversations';
 import SeasonalCampaigns from '@/pages/SeasonalCampaigns';
 import Services from '@/pages/Services';
+import StreamingTvAdvertising from '@/pages/StreamingTvAdvertising';
+import TvCommercialScriptGenerator from '@/pages/TvCommercialScriptGenerator';
 import SEOPageForLocalBusinesses from '@/pages/SEOPagesForLocalBusinesses';
 import SocialMediaContentSystem from '@/pages/SocialMediaContentSystem';
 import SocialMediaManagement from '@/pages/SocialMediaManagement';
@@ -104,6 +115,7 @@ import SocialMediaAustinMN from '@/pages/SocialMediaAustinMN';
 import SocialMediaAlbertLeaMN from '@/pages/SocialMediaAlbertLeaMN';
 import SchoolTVDealRoom from '@/pages/SchoolTVDealRoom';
 import SchoolTVDemo from '@/pages/SchoolTVDemo';
+import Start from '@/pages/Start';
 import SmallBusinessMarketingNorthIowa from '@/pages/SmallBusinessMarketingNorthIowa';
 import SmallBusinessesNationwide from '@/pages/SmallBusinessesNationwide';
 import TermsOfService from '@/pages/TermsOfService';
@@ -142,6 +154,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/contact', Contact),
   alias('/help-and-support', HelpAndSupport),
   alias('/operating-system', NTAOperatingSystem),
+  alias('/growth-system', GrowthSystem),
   alias('/digital-growth-office-preview', NTAOperatingSystem),
   alias('/point-of-view', POVCollection),
   alias('/point-of-view/:slug', POVArticleView),
@@ -200,6 +213,8 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/book-a-call', BookCall),
   alias('/channel-help', ChannelHelpCenter),
   alias('/getting-started', GettingStarted),
+  alias('/get-started', GetStarted),
+  alias('/start', Start),
   alias('/onboard/thank-you', OnboardThankYou),
   alias('/find-your-plan', Pricing),
   alias('/pricing', Pricing),
@@ -211,6 +226,8 @@ export const PUBLIC_ROUTE_ALIASES = [
 
   // Public solution and service destinations
   alias('/services', Services),
+  alias('/local-business-marketing', LocalBusinessMarketing),
+  alias('/industries', IndustriesHub),
   alias('/local-lead-systems', LocalLeadSystems),
   alias('/marketing-plan-generator', MarketingPlanGenerator),
   alias('/services/website-rebuilds', WebsiteRebuildService),
@@ -223,6 +240,11 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/ai-advertising', AiAdvertising),
   alias('/ai-videos', AiVideos),
   alias('/ai-video-marketing', AIVideoMarketing),
+  alias('/ai-marketing-platform', AiMarketingPlatform),
+  alias('/ai-social-media-small-business', AiSocialMediaSmallBusiness),
+  alias('/restaurant-social-media', RestaurantSocialMedia),
+  alias('/streaming-tv-advertising', StreamingTvAdvertising),
+  alias('/tv-commercial-script-generator', TvCommercialScriptGenerator),
   alias('/back-office', BackOfficeSolutions),
   alias('/back-office-solutions', BackOfficeSolutions),
   alias('/restaurants', RestaurantSolutions),
@@ -236,6 +258,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/seo-pages-for-local-businesses', SEOPageForLocalBusinesses),
   alias('/seasonal-campaigns', SeasonalCampaigns),
   alias('/hvac-marketing-north-iowa', HVACMarketingNorthIowa),
+  alias('/hvac-industry', HvacIndustry),
   alias('/contractor-marketing-north-iowa', ContractorMarketingNorthIowa),
   alias('/small-business-marketing-north-iowa', SmallBusinessMarketingNorthIowa),
   alias('/small-businesses-nationwide', SmallBusinessesNationwide),
@@ -259,6 +282,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/campaigns-vs-authority', CampaignsVsAuthority),
   alias('/the-future-belongs-to-market-leaders', TheFutureBelongsToMarketLeaders),
   alias('/accessible-websites', AccessibleWebsites),
+  alias('/ada-website-compliance', AdaWebsiteCompliance),
   alias('/local-visibility', LocalVisibility),
   alias('/web-accessibility-trust', WebAccessibilityTrust),
   alias('/websites-as-salespeople', WebsitesAsSalespeople),
