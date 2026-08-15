@@ -37,6 +37,7 @@ export default function SiteFooter() {
           <p className="text-white font-semibold mb-3 text-sm">How NTA Helps</p>
           <ul className="space-y-2 text-sm">
             <li><Link to="/operating-system" className="hover:text-white transition-colors">Digital Growth Office</Link></li>
+            <li><Link to="/work-with-nta" className="hover:text-white transition-colors">Work With NTA</Link></li>
             <li><Link to="/services" className="hover:text-white transition-colors">Services Overview</Link></li>
             <li><Link to="/services/website-rebuilds" className="hover:text-white transition-colors">Websites</Link></li>
             <li><Link to="/services/social-media-management" className="hover:text-white transition-colors">Social Media</Link></li>
@@ -55,7 +56,7 @@ export default function SiteFooter() {
             <li><Link to="/books" className="hover:text-white transition-colors">Free Business Books</Link></li>
             <li><a href="/Blog" className="hover:text-white transition-colors">All Articles</a></li>
             <li><Link to="/case-studies" className="hover:text-white transition-colors">Case Studies</Link></li>
-            <li><a href="/rebuild-intake" className="hover:text-white transition-colors">Free Website Audit</a></li>
+            <li><Link to="/free-audit" className="hover:text-white transition-colors">Free Business Gap Audit</Link></li>
           </ul>
         </div>
 
