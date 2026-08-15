@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 export default function LocalVisibility() {
   useEffect(() => {
-    window.location.href = '/streamingtv';
+    window.location.href = '/streaming-tv-advertising';
   }, []);
 
   return (
