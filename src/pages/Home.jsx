@@ -18,6 +18,10 @@ const HOMEPAGE_FAQS = [
     answer: 'New Tech Advertising is a practical AI education and business growth platform for small-business owners. Free AI Education is the public front door, the Free AI Guy is the friendly guide inside it, and Talk to My Office connects learning to practical business help when you want NTA involved.',
   },
   {
+    question: 'What happens when I work with NTA?',
+    answer: 'NTA starts by understanding your business, your goals, and what is getting in the way. We then help identify the next priority, create a practical Growth Roadmap when useful, connect the right systems, and improve the work over time. Scope, price, and the next step are explained before paid work begins.',
+  },
+  {
     question: 'What is Free AI Education?',
     answer: 'Free AI Education is NTA’s public teaching experience for business owners who want to understand AI without hype or technical language. The lessons are free to access; tools, implementation, and ongoing services are explained separately when they become useful.',
   },
@@ -107,8 +111,8 @@ export default function Home() {
   return (
     <div className="bg-slate-950 min-h-screen">
       <SEOHead
-        title="Practical AI Education for Small Business Owners | New Tech Advertising"
-        description="Free, practical AI education for small-business owners from New Tech Advertising. Learn how AI can support real work, keep human judgment in control, and help a business grow."
+        title="Practical AI Education and Digital Growth Systems | New Tech Advertising"
+        description="Practical AI education and connected digital growth systems for small-business owners. Learn how NTA helps improve visibility, trust, customer relationships, follow-up, and everyday work."
         faqs={HOMEPAGE_FAQS}
       />
       <MarketingNav />
@@ -156,6 +160,43 @@ export default function Home() {
                 </Link>
               </div>
               <p className="text-sm text-slate-500 mt-4 max-w-2xl mx-auto">The free audit provides a useful first-pass assessment. A deeper paid diagnostic is available only when more evidence and a detailed roadmap would help.</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-y border-blue-900/30 bg-blue-950/20 px-6 py-20">
+          <div className="mx-auto max-w-6xl">
+            <div className="mx-auto mb-12 max-w-4xl text-center">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300">When you want NTA involved</p>
+              <h2 className="mt-3 text-3xl font-bold text-white md:text-5xl">Here is what working with NTA looks like.</h2>
+              <p className="mt-5 text-lg leading-relaxed text-slate-300">
+                You do not need another disconnected package. You need someone who can understand the business, see what is getting in the way, and help build the right growth system in the right order.
+              </p>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-5">
+              {[
+                ['01', 'Discover', 'Understand the business and visible gaps.'],
+                ['02', 'Discuss', 'Talk through priorities and possibilities.'],
+                ['03', 'Plan', 'Create the next useful order of work.'],
+                ['04', 'Build', 'Connect the foundation and practical systems.'],
+                ['05', 'Improve', 'Review what is happening and keep moving forward.'],
+              ].map(([number, title, text]) => (
+                <div key={number} className="rounded-2xl border border-blue-900/50 bg-slate-950/60 p-5">
+                  <span className="text-xs font-black tracking-[0.2em] text-blue-300">{number}</span>
+                  <h3 className="mt-4 text-xl font-bold text-white">{title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-400">{text}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Link to="/work-with-nta" className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-7 py-4 font-bold text-white transition-colors hover:bg-blue-500">
+                See What Working With NTA Looks Like <ArrowRight className="h-5 w-5" />
+              </Link>
+              <a href="https://calendar.app.google/p6ieYanvwhixXxZ67" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl border border-slate-600 bg-slate-900/60 px-7 py-4 font-semibold text-white transition-colors hover:border-slate-400 hover:bg-slate-800">
+                Schedule a Discovery Meeting <ArrowRight className="h-5 w-5" />
+              </a>
             </div>
           </div>
         </section>
