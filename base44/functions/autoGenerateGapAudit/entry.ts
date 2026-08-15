@@ -18,7 +18,7 @@ function normalizeWebsite(value) {
 }
 
 function isPlausibleEmail(value) {
-  return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(String(value || '').trim());
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
 }
 
 function asText(value) {
@@ -30,7 +30,7 @@ function asList(value) {
     return value.map(item => asText(item)).filter(Boolean);
   }
   if (typeof value === 'string') {
-    return value.split(/\\n+/).map(item => item.replace(/^[-•*]\\s*/, '').trim()).filter(Boolean);
+    return value.split(/\n+/).map(item => item.replace(/^[-•*]\s*/, '').trim()).filter(Boolean);
   }
   return [];
 }
@@ -43,23 +43,23 @@ function scoreValue(...values) {
 }
 
 function firstName(contactName) {
-  return asText(contactName).split(/\\s+/)[0] || 'there';
+  return asText(contactName).split(/\s+/)[0] || 'there';
 }
 
 function appendNote(existing, note) {
-  return [asText(existing), `${AUDIT_NOTE_PREFIX} ${note}`].filter(Boolean).join('\\n');
+  return [asText(existing), `${AUDIT_NOTE_PREFIX} ${note}`].filter(Boolean).join('\n');
 }
 
 function extractWebsiteText(rawHtml) {
   return rawHtml
     .slice(0, 120000)
-    .replace(/<script[^>]*>[\\s\\S]*?<\\/script>/gi, ' ')
-    .replace(/<style[^>]*>[\\s\\S]*?<\\/style>/gi, ' ')
-    .replace(/<noscript[^>]*>[\\s\\S]*?<\\/noscript>/gi, ' ')
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<noscript[^>]*>[\s\S]*?<\/noscript>/gi, ' ')
     .replace(/<[^>]+>/g, ' ')
     .replace(/&nbsp;/gi, ' ')
     .replace(/&amp;/gi, '&')
-    .replace(/\\s+/g, ' ')
+    .replace(/\s+/g, ' ')
     .trim()
     .slice(0, MAX_WEBSITE_TEXT);
 }
@@ -79,11 +79,11 @@ async function inspectWebsite(websiteUrl) {
     const content = extractWebsiteText(rawHtml);
     const signals = [];
 
-    const imagesMissingAlt = (rawHtml.match(/<img(?![^>]*\\balt\\s*=)[^>]*>/gi) || []).length;
+    const imagesMissingAlt = (rawHtml.match(/<img(?![^>]*\balt\s*=)[^>]*>/gi) || []).length;
     if (imagesMissingAlt > 0) signals.push(`${imagesMissingAlt} image(s) appear to be missing alt text.`);
-    if (!/<h1[\\s>]/i.test(rawHtml)) signals.push('No H1 heading tag was detected.');
-    if (!/<h2[\\s>]/i.test(rawHtml)) signals.push('No H2 heading tags were detected.');
-    if (/<input/i.test(rawHtml) && !/<label[\\s>]/i.test(rawHtml)) signals.push('Form inputs may be missing visible labels.');
+    if (!/<h1[\s>]/i.test(rawHtml)) signals.push('No H1 heading tag was detected.');
+    if (!/<h2[\s>]/i.test(rawHtml)) signals.push('No H2 heading tags were detected.');
+    if (/<input/i.test(rawHtml) && !/<label[\s>]/i.test(rawHtml)) signals.push('Form inputs may be missing visible labels.');
 
     return { content, accessible: Boolean(content), signals };
   } catch (error) {
@@ -137,7 +137,7 @@ function buildClientEmail({ businessName, contactName, report }) {
     '641-420-8816',
   ];
 
-  return lines.filter((line, index, all) => line || (all[index - 1] && all[index + 1])).join('\\n');
+  return lines.filter((line, index, all) => line || (all[index - 1] && all[index + 1])).join('\n');
 }
 
 async function createRetryTask(base44, { lead, submissionId, errorMessage }) {
@@ -240,10 +240,10 @@ Deno.serve(async (req) => {
       `Market: ${asText(lead?.city || audit.city || 'the local market')}`,
       `Website: ${websiteUrl}`,
       website.content
-        ? `Website text extracted:\\n${website.content}`
+        ? `Website text extracted:\n${website.content}`
         : 'The website could not be read during this first pass. Use only cautious, clearly qualified observations based on the business and URL.',
-      website.signals.length ? `Technical signals:\\n${website.signals.join('\\n')}` : '',
-    ].filter(Boolean).join('\\n\\n');
+      website.signals.length ? `Technical signals:\n${website.signals.join('\n')}` : '',
+    ].filter(Boolean).join('\n\n');
 
     const prompt = `You are an expert local-business marketing analyst for New Tech Advertising in North Iowa.
 
@@ -373,7 +373,7 @@ Rules:
         audit_gap2: completedAudit.gap_2,
         audit_gap3: completedAudit.gap_3,
         audit_cost_to_them: completedAudit.costing_them,
-        audit_recommended_fix: recommendedFixes.join('\\n'),
+        audit_recommended_fix: recommendedFixes.join('\n'),
         audit_sent_date: new Date().toISOString().split('T')[0],
         audit_url: `/agency/gap-audits/${auditId}`,
         audit_notes: quickSummary,
