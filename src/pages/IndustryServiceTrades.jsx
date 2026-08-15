@@ -39,7 +39,7 @@ export default function IndustryServiceTrades() {
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </a>
-              <a href="/rebuild">
+              <a href="/services/website-rebuilds">
                 <Button variant="outline" className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-6 text-lg">
                   Website Rebuild
                 </Button>
