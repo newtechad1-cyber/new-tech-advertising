@@ -147,7 +147,6 @@ Guidelines:
 
     const result = await base44.integrations.Core.InvokeLLM({
       prompt,
-      model: 'gpt_5_4',
       add_context_from_internet: false,
     });
 
