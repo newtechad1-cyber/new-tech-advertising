@@ -35,8 +35,32 @@ Deno.serve(async (req) => {
     const currentTags = uniqueTags(current?.tags || []);
     const isUnsubscribed = ['unsubscribed', 'revoked', 'inactive'].includes(String(current?.status || '').toLowerCase())
       || String(current?.consent_status || '').toLowerCase() === 'revoked';
+    const legacyJournalTags = ['newsletter', 'nta-newsletter'];
+    const alreadyHasJournalSubscription = publicationTag === 'nta-journal'
+      && currentTags.some((tag) => tag === publicationTag || legacyJournalTags.includes(tag));
+    const alreadySubscribed = current
+      && (alreadyHasJournalSubscription || currentTags.includes(publicationTag))
+      && !isUnsubscribed;
 
-    if (current && currentTags.includes(publicationTag) && !isUnsubscribed) {
+    if (alreadySubscribed) {
+      // Upgrade a legacy newsletter record to the canonical Journal tag when
+      // the person confirms the current consent checkbox, then show the
+      // duplicate notice instead of creating another subscription.
+      if (alreadyHasJournalSubscription && publicationTag === 'nta-journal') {
+        try {
+          await base44.asServiceRole.entities.Subscriber.update(current.id, {
+            tags: uniqueTags([...currentTags, 'nta-publications', 'nta-journal']),
+            status: 'active',
+            consent_status: 'confirmed',
+            consent_date: new Date().toISOString().slice(0, 10),
+            consent_method: 'website_form',
+            consent_context: value(payload.consent_context, 1000) || current.consent_context || 'Confirmed The NTA Journal subscription from the NTA website.',
+          });
+        } catch (legacyUpgradeError) {
+          console.warn('[publicationSignup] Legacy newsletter record upgrade failed:', legacyUpgradeError.message);
+        }
+      }
+
       return Response.json({
         success: false,
         status: 'already_subscribed',
