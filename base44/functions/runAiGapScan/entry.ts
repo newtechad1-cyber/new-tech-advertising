@@ -1,4 +1,30 @@
+// Production runtime refresh: schema-free AI JSON parsing
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
+
+function parseJsonResult(value) {
+  const candidate = value?.data ?? value;
+  if (candidate && typeof candidate === 'object') return candidate;
+
+  const text = String(candidate || '').trim()
+    .replace(/^\`\`\`(?:json)?\s*/i, '')
+    .replace(/\s*\`\`\`$/i, '')
+    .trim();
+
+  try {
+    return JSON.parse(text);
+  } catch {
+    const start = text.indexOf('{');
+    const end = text.lastIndexOf('}');
+    if (start >= 0 && end > start) {
+      try {
+        return JSON.parse(text.slice(start, end + 1));
+      } catch {
+        // Fall through to a useful failure message below.
+      }
+    }
+    throw new Error('AI returned an invalid JSON audit report.');
+  }
+}
 
 Deno.serve(async (req) => {
   try {
@@ -121,32 +147,12 @@ Guidelines:
 
     const result = await base44.integrations.Core.InvokeLLM({
       prompt,
-      response_json_schema: {
-        type: 'object',
-        properties: {
-          quick_summary: { type: 'string' },
-          doing_well: { type: 'array', items: { type: 'string' } },
-          gap_1: { type: 'string' },
-          gap_1_why: { type: 'string' },
-          gap_2: { type: 'string' },
-          gap_2_why: { type: 'string' },
-          gap_3: { type: 'string' },
-          gap_3_why: { type: 'string' },
-          costing_them: { type: 'string' },
-          recommended_fixes: { type: 'array', items: { type: 'string' } },
-          quick_wins: { type: 'array', items: { type: 'string' } },
-          suggested_next_step: { type: 'string' },
-          internal_notes: { type: 'string' },
-          accessibility: { type: 'object' },
-          categories: { type: 'object' },
-          score: { type: 'object' },
-        }
-      },
       model: 'gpt_5_4',
       add_context_from_internet: false,
     });
 
-    return Response.json({ success: true, audit: result, websiteAccessible: !!websiteContent });
+    const audit = parseJsonResult(result);
+    return Response.json({ success: true, audit, websiteAccessible: !!websiteContent });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
   }
