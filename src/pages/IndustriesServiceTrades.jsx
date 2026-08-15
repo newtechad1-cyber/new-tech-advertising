@@ -121,7 +121,7 @@ export default function IndustriesServiceTrades() {
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold text-slate-900 mb-2">Optional: Free ADA Scan</h3>
                   <p className="text-slate-600 mb-4">Check accessibility and compliance—no cost to scan.</p>
-                  <a href="/adaaccessibility">
+                  <a href="/accessible-websites">
                     <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-50">Get Scanned</Button>
                   </a>
                 </div>
