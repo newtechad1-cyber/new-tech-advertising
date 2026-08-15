@@ -125,7 +125,7 @@ const RESOURCES = [
     categoryColor: 'text-emerald-600',
     title: 'ADA Compliance Guide for Business Websites',
     desc: 'Everything you need to know about ADA compliance for business websites and how to avoid lawsuits.',
-    href: '/AdaWebsiteCompliance',
+    href: '/ada-website-compliance',
   },
 ];
 
@@ -421,10 +421,10 @@ export default function WebsiteRebuildService() {
             ))}
           </div>
           <div className="mt-12 flex flex-wrap justify-center gap-4 text-sm">
-            <Link to="/AdaWebsiteCompliance" className="text-blue-600 hover:underline font-medium">ADA Compliance Services</Link>
-            <Link to="/AiSeo" className="text-blue-600 hover:underline font-medium">AI SEO &amp; Marketing</Link>
-            <Link to="/Contact" className="text-blue-600 hover:underline font-medium">Contact Us</Link>
-            <Link to="/Blog" className="text-blue-600 hover:underline font-medium">Read Our Blog</Link>
+            <Link to="/ada-website-compliance" className="text-blue-600 hover:underline font-medium">ADA Compliance Services</Link>
+            <Link to="/ai-seo" className="text-blue-600 hover:underline font-medium">AI SEO &amp; Marketing</Link>
+            <Link to="/contact" className="text-blue-600 hover:underline font-medium">Contact Us</Link>
+            <Link to="/insights" className="text-blue-600 hover:underline font-medium">Read Our Blog</Link>
           </div>
         </div>
       </section>
