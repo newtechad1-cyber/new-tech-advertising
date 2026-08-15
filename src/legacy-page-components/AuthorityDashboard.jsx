@@ -75,7 +75,7 @@ const SITEMAP_PAGES = [
   { url: '/DentistMarketing', title: 'Dentist Marketing', type: 'industry', cluster: null },
   { url: '/RoofingMarketing', title: 'Roofing Marketing', type: 'industry', cluster: null },
   { url: '/MedSpaMarketing', title: 'Med Spa Marketing', type: 'industry', cluster: null },
-  { url: '/LocalBusinessMarketing', title: 'Local Business Marketing', type: 'industry', cluster: null },
+  { url: '/local-business-marketing', title: 'Local Business Marketing', type: 'industry', cluster: null },
   // Case studies
   { url: '/case-studies/johnson-heating', title: 'Johnson Heating Case Study', type: 'case_study', cluster: 'industry-hvac' },
   { url: '/case-study/monson-plumbing', title: 'Monson Plumbing Case Study', type: 'case_study', cluster: 'industry-plumbing' },
