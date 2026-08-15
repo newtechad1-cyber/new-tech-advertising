@@ -365,21 +365,6 @@ Rules:
 
     await base44.asServiceRole.entities.GapAudit.update(auditId, completedAudit);
 
-    if (lead?.id) {
-      await base44.asServiceRole.entities.SalesLead.update(lead.id, {
-        status: ['closed_won', 'closed_lost'].includes(lead.status) ? lead.status : 'audit_sent',
-        audit_status: 'sent',
-        audit_gap1: completedAudit.gap_1,
-        audit_gap2: completedAudit.gap_2,
-        audit_gap3: completedAudit.gap_3,
-        audit_cost_to_them: completedAudit.costing_them,
-        audit_recommended_fix: recommendedFixes.join('\n'),
-        audit_sent_date: new Date().toISOString().split('T')[0],
-        audit_url: `/agency/gap-audits/${auditId}`,
-        audit_notes: quickSummary,
-      });
-    }
-
     await base44.asServiceRole.integrations.Core.SendEmail({
       from_name: 'Rick Hesse — New Tech Advertising',
       to: recipientEmail,
@@ -395,6 +380,21 @@ Rules:
         },
       }),
     });
+
+    if (lead?.id) {
+      await base44.asServiceRole.entities.SalesLead.update(lead.id, {
+        status: ['closed_won', 'closed_lost'].includes(lead.status) ? lead.status : 'audit_sent',
+        audit_status: 'sent',
+        audit_gap1: completedAudit.gap_1,
+        audit_gap2: completedAudit.gap_2,
+        audit_gap3: completedAudit.gap_3,
+        audit_cost_to_them: completedAudit.costing_them,
+        audit_recommended_fix: recommendedFixes.join('\n'),
+        audit_sent_date: new Date().toISOString().split('T')[0],
+        audit_url: `/agency/gap-audits/${auditId}`,
+        audit_notes: quickSummary,
+      });
+    }
 
     const deliveredNote = appendNote(internalNotes, `client email sent to ${recipientEmail} ${new Date().toISOString()}`);
     await base44.asServiceRole.entities.GapAudit.update(auditId, {
