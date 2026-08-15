@@ -91,19 +91,22 @@ export default function SiteFooter() {
         </div>
         <div className="flex items-center gap-4 pt-4 border-t border-slate-800">
           <span className="text-xs text-slate-500">Connect with NTA:</span>
-          <a href={NTA_SOCIAL_LINKS.facebook.url} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-blue-600 transition-colors">
+          <a href={NTA_SOCIAL_LINKS.facebook.url} target="_blank" rel="noopener noreferrer" aria-label="NTA on Facebook" title="NTA on Facebook" className="text-slate-400 hover:text-blue-600 transition-colors">
             <Facebook className="w-4 h-4" />
           </a>
-          <a href={NTA_SOCIAL_LINKS.linkedin.url} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-blue-400 transition-colors">
+          <a href={NTA_SOCIAL_LINKS.linkedin.url} target="_blank" rel="noopener noreferrer" aria-label="Rick Hesse on LinkedIn" title="Rick Hesse on LinkedIn" className="text-slate-400 hover:text-blue-400 transition-colors">
             <Linkedin className="w-4 h-4" />
           </a>
-          <a href={NTA_SOCIAL_LINKS.youtube.url} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-red-500 transition-colors">
+          <a href={NTA_SOCIAL_LINKS.googleBusiness.url} target="_blank" rel="noopener noreferrer" aria-label="New Tech Advertising on Google Business Profile" title="NTA on Google Business Profile" className="text-slate-400 hover:text-emerald-400 transition-colors">
+            <MapPin className="w-4 h-4" />
+          </a>
+          <a href={NTA_SOCIAL_LINKS.youtube.url} target="_blank" rel="noopener noreferrer" aria-label="New Tech Advertising on YouTube" title="NTA on YouTube" className="text-slate-400 hover:text-red-500 transition-colors">
             <Youtube className="w-4 h-4" />
           </a>
-          <a href="https://www.tiktok.com/@rick.hesse" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-slate-200 transition-colors">
+          <a href="https://www.tiktok.com/@rick.hesse" target="_blank" rel="noopener noreferrer" aria-label="Rick Hesse on TikTok" title="Rick Hesse on TikTok" className="text-slate-400 hover:text-slate-200 transition-colors">
             <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.68v13.67a2.4 2.4 0 0 1-2.4 2.4 2.4 2.4 0 0 1-2.4-2.4 2.4 2.4 0 0 1 2.4-2.4c.34 0 .67.05 1 .15V9.41a5.8 5.8 0 0 0-1-.08A5.8 5.8 0 0 0 5.5 19.35a5.8 5.8 0 0 0 5.8 5.8 5.8 5.8 0 0 0 5.81-5.8V11a7.7 7.7 0 0 0 4.58 1.53V9.86a4.77 4.77 0 0 1-1.3-.18Z"/></svg>
           </a>
-          <a href={NTA_SOCIAL_LINKS.instagram.url} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-pink-500 transition-colors">
+          <a href={NTA_SOCIAL_LINKS.instagram.url} target="_blank" rel="noopener noreferrer" aria-label="Rick Hesse on Instagram" title="Rick Hesse on Instagram" className="text-slate-400 hover:text-pink-500 transition-colors">
             <Instagram className="w-4 h-4" />
           </a>
         </div>
