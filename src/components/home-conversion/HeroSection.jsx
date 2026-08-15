@@ -89,6 +89,13 @@ export default function HeroSection() {
               </Button>
             </motion.div>
 
+            <div className="mt-5">
+              <Link to="/work-with-nta" className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 transition-colors hover:text-cyan-200">
+                Ready to work with NTA? See what happens next
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+
             <p className="mt-5 max-w-xl text-sm leading-relaxed text-slate-500">
               The education is free. Tools, implementation, and ongoing services may have a cost—but you will always know what you are choosing and why.
             </p>
