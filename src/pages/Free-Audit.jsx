@@ -147,9 +147,9 @@ export default function FreeAudit() {
                 <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <CheckCircle2 className="w-10 h-10 text-emerald-600" />
                 </div>
-                <h2 className="text-3xl font-black text-slate-900 mb-4">Thank You. Your Free Audit Request Is Ready.</h2>
+                <h2 className="text-3xl font-black text-slate-900 mb-4">Thank You. Your Free Audit Is On Its Way.</h2>
                 <p className="text-slate-600 text-lg mb-8 max-w-lg mx-auto">
-                  We have your starting information. Choose how you would like to continue:
+                  We have your starting information. When a website was included, the AI-assisted first-pass report is generated automatically and sent to your email within a few minutes. While you wait, choose how you would like to continue:
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
