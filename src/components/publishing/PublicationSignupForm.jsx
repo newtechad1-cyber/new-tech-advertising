@@ -2,6 +2,10 @@ import { useRef, useState } from 'react';
 import { BookOpen, CheckCircle2, Download, Loader2 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
+function getFunctionError(error, fallback) {
+  return error?.response?.data?.error || error?.data?.error || error?.message || fallback;
+}
+
 const accentClasses = {
   blue: 'bg-blue-600 hover:bg-blue-500 focus:ring-blue-400',
   indigo: 'bg-indigo-600 hover:bg-indigo-500 focus:ring-indigo-400',
@@ -68,21 +72,6 @@ export default function PublicationSignupForm({
         anti_spam: { honeypot: form.website, form_started_at: startedAt.current },
       };
 
-      const intake = await base44.functions.invoke('ntaUnifiedIntake', {
-        ...sharedPayload,
-        submission_type: 'publication_request',
-        offer_type: 'business_education',
-        mapping_confidence: 'hardcoded',
-        mapping_notes: `Public publication signup for ${publicationTitle}`,
-        detected_route: route,
-        detected_component: 'PublicationSignupForm',
-        source_system: 'website',
-        priority: 'low',
-        notes: `Requested ${publicationTitle}`,
-      });
-
-      if (intake?.data?.success === false) throw new Error(intake.data.error || 'We could not save your request.');
-
       const registration = await base44.functions.invoke('publicationSignup', {
         ...sharedPayload,
         tags: ['nta-publications', publicationTag, ...extraTags],
@@ -91,9 +80,24 @@ export default function PublicationSignupForm({
       });
 
       if (registration?.data?.success === false) throw new Error(registration.data.error || 'We could not complete your request.');
+
+      const intake = await base44.functions.invoke('ntaUnifiedIntake', {
+        ...sharedPayload,
+        submission_type: 'publication_request',
+        offer_type: 'business_education',
+        mapping_confidence: 'hardcoded',
+        mapping_notes: 'Public publication signup for ' + publicationTitle,
+        detected_route: route,
+        detected_component: 'PublicationSignupForm',
+        source_system: 'website',
+        priority: 'low',
+        notes: 'Requested ' + publicationTitle,
+      });
+
+      if (intake?.data?.success === false) throw new Error(intake.data.error || 'We could not save your request.');
       setSuccess(true);
     } catch (submissionError) {
-      setError(submissionError?.message || 'Something went wrong. Please call or text NTA at 641-420-8816.');
+      setError(getFunctionError(submissionError, 'Something went wrong. Please call or text NTA at 641-420-8816.'));
     } finally {
       setSubmitting(false);
     }
