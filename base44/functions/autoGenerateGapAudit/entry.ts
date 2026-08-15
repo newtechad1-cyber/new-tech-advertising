@@ -1,3 +1,4 @@
+// Production runtime refresh: schema-free AI JSON parsing
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
 
 const MAX_WEBSITE_TEXT = 5000;
@@ -23,6 +24,31 @@ function isPlausibleEmail(value) {
 
 function asText(value) {
   return String(value || '').trim();
+}
+
+function parseJsonResult(value) {
+  const candidate = value?.data ?? value;
+  if (candidate && typeof candidate === 'object') return candidate;
+
+  const text = String(candidate || '').trim()
+    .replace(/^\`\`\`(?:json)?\s*/i, '')
+    .replace(/\s*\`\`\`$/i, '')
+    .trim();
+
+  try {
+    return JSON.parse(text);
+  } catch {
+    const start = text.indexOf('{');
+    const end = text.lastIndexOf('}');
+    if (start >= 0 && end > start) {
+      try {
+        return JSON.parse(text.slice(start, end + 1));
+      } catch {
+        // Fall through to a useful failure message below.
+      }
+    }
+    throw new Error('AI returned an invalid JSON audit report.');
+  }
 }
 
 function asList(value) {
@@ -290,31 +316,11 @@ Rules:
 
     const rawResult = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt,
-      response_json_schema: {
-        type: 'object',
-        properties: {
-          quick_summary: { type: 'string' },
-          doing_well: { type: 'array', items: { type: 'string' } },
-          gap_1: { type: 'string' },
-          gap_1_why: { type: 'string' },
-          gap_2: { type: 'string' },
-          gap_2_why: { type: 'string' },
-          gap_3: { type: 'string' },
-          gap_3_why: { type: 'string' },
-          costing_them: { type: 'string' },
-          issues_found: { type: 'array', items: { type: 'string' } },
-          missed_opportunities: { type: 'array', items: { type: 'string' } },
-          recommended_fixes: { type: 'array', items: { type: 'string' } },
-          quick_wins: { type: 'array', items: { type: 'string' } },
-          internal_notes: { type: 'string' },
-          score: { type: 'object' },
-        },
-      },
       model: 'gpt_5_4',
       add_context_from_internet: false,
     });
 
-    const report = rawResult?.data || rawResult || {};
+    const report = parseJsonResult(rawResult);
     const recommendedFixes = asList(report.recommended_fixes || report.recommendations);
     const quickWins = asList(report.quick_wins);
     const issues = asList(report.issues_found);
