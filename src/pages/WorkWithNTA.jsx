@@ -283,6 +283,39 @@ export default function WorkWithNTA() {
           </div>
         </section>
 
+        <section className="border-b border-slate-800/70 bg-slate-950 px-6 py-20 md:py-24">
+          <div className="mx-auto max-w-6xl">
+            <div className="mx-auto mb-12 max-w-4xl text-center">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300">What you are really getting</p>
+              <h2 className="mt-3 text-3xl font-bold text-white md:text-5xl">Decades of experience, made available before the first conversation.</h2>
+              <p className="mt-5 text-lg leading-relaxed text-slate-300">
+                NTA is more than a brochure or a collection of AI tools. Rick has put years of business and sales experience into the website, the education, the questions, and the working processes so a prospect can begin with an informed conversation.
+              </p>
+              <p className="mt-4 text-lg leading-relaxed text-slate-400">
+                AI can help carry the knowledge and connect the work. It does not replace the judgment that comes from understanding a business owner, noticing what is not being said, and seeing the direction the business needs to take.
+              </p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-3">
+              <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-6">
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-300">Learn before you buy</p>
+                <h3 className="mt-3 text-xl font-semibold text-white">See how NTA thinks.</h3>
+                <p className="mt-3 leading-relaxed text-slate-300">The books, guides, lessons, and case studies make the approach understandable before a paid engagement begins.</p>
+              </div>
+              <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-6">
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-300">Arrive with context</p>
+                <h3 className="mt-3 text-xl font-semibold text-white">Start with the real business.</h3>
+                <p className="mt-3 leading-relaxed text-slate-300">The online path helps surface needs, strengths, and questions so the first conversation can move toward something useful.</p>
+              </div>
+              <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-6">
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-violet-300">Choose honestly</p>
+                <h3 className="mt-3 text-xl font-semibold text-white">Understand the work before you commit.</h3>
+                <p className="mt-3 leading-relaxed text-slate-300">NTA explains the next step, scope, and cost clearly. If the fit is not right, you should be able to walk away with more understanding than you started with.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="border-b border-slate-800/70 bg-slate-900/35 px-6 py-20 md:py-24">
           <div className="mx-auto max-w-6xl">
             <div className="mx-auto mb-12 max-w-3xl text-center">
