@@ -215,6 +215,45 @@ export default function WorkWithNTA() {
           </div>
         </section>
 
+        <section className="border-b border-slate-800/70 bg-slate-950 px-6 py-20 md:py-24">
+          <div className="mx-auto max-w-6xl">
+            <div className="mx-auto mb-12 max-w-4xl text-center">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300">Study the approach</p>
+              <h2 className="mt-3 text-3xl font-bold text-white md:text-5xl">The website is part of the working relationship.</h2>
+              <p className="mt-5 text-lg leading-relaxed text-slate-300">
+                NTA is not asking you to trust a polished promise. The books, lessons, conversations, case studies, and tools let you study how we think, how we explain the work, and what we can build around a real business before you decide to work with us.
+              </p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+              <Link to="/better-business-book" className="group rounded-2xl border border-slate-700/80 bg-slate-900/70 p-6 transition hover:-translate-y-1 hover:border-cyan-400/60">
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-300">New to business?</p>
+                <h3 className="mt-3 text-xl font-semibold text-white">Better Business Book</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-300">Start with practical business foundations and the questions that shape good decisions.</p>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white">Start reading <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span>
+              </Link>
+              <Link to="/practical-ai" className="group rounded-2xl border border-slate-700/80 bg-slate-900/70 p-6 transition hover:-translate-y-1 hover:border-blue-400/60">
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-300">Ready for AI?</p>
+                <h3 className="mt-3 text-xl font-semibold text-white">Practical AI Guide</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-300">Understand where AI fits in the real work before choosing tools or changing how you operate.</p>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white">Explore the guide <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span>
+              </Link>
+              <Link to="/knowledge" className="group rounded-2xl border border-slate-700/80 bg-slate-900/70 p-6 transition hover:-translate-y-1 hover:border-violet-400/60">
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-violet-300">Want depth?</p>
+                <h3 className="mt-3 text-xl font-semibold text-white">Knowledge Library</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-300">Study the ideas, examples, and lessons that make the NTA approach understandable.</p>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white">Keep learning <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span>
+              </Link>
+              <Link to="/case-studies" className="group rounded-2xl border border-slate-700/80 bg-slate-900/70 p-6 transition hover:-translate-y-1 hover:border-emerald-400/60">
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-300">Want to see the work?</p>
+                <h3 className="mt-3 text-xl font-semibold text-white">Case Studies</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-300">See how the system takes shape around actual businesses and real working situations.</p>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white">See the work <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         <section className="border-b border-slate-800/70 bg-slate-900/35 px-6 py-20 md:py-24">
           <div className="mx-auto max-w-6xl">
             <div className="mx-auto mb-12 max-w-3xl text-center">
