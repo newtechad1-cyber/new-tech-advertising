@@ -38,6 +38,7 @@ function TextMeButton() {
 export default function FreeAudit() {
   const [step, setStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState('');
   const [form, setForm] = useState({
     name: '', email: '', phone: '', business_name: '',
     website: '', industry: '',
@@ -49,6 +50,7 @@ export default function FreeAudit() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (_hp.trim()) return;
+    setFormError('');
     setSubmitting(true);
     try {
       await base44.functions.invoke('ntaUnifiedIntake', {
@@ -73,7 +75,9 @@ export default function FreeAudit() {
       setStep(2);
       setForm({ name: '', email: '', phone: '', business_name: '', website: '', industry: '' });
     } catch (err) {
-      toast.error('Something went wrong. Please call or text instead.');
+      const message = err?.response?.data?.error || err?.data?.error || err?.message || 'Something went wrong. Please call or text instead.';
+      setFormError(message);
+      toast.error(message);
       console.error(err);
     } finally {
       setSubmitting(false);
@@ -239,6 +243,11 @@ export default function FreeAudit() {
                 </div>
 
                 <div className="pt-4">
+                  {formError && (
+                    <p role="alert" className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-900">
+                      {formError}
+                    </p>
+                  )}
                   <Button
                     type="submit"
                     disabled={submitting}
