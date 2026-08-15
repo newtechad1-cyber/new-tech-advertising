@@ -6,7 +6,6 @@ import {
   Compass,
   Layers3,
   MessageCircle,
-  Phone,
   Route,
   SearchCheck,
   Users,
