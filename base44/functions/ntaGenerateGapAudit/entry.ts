@@ -1,4 +1,30 @@
+// Production runtime refresh: schema-free AI JSON parsing
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
+
+function parseJsonResult(value) {
+  const candidate = value?.data ?? value;
+  if (candidate && typeof candidate === 'object') return candidate;
+
+  const text = String(candidate || '').trim()
+    .replace(/^\`\`\`(?:json)?\s*/i, '')
+    .replace(/\s*\`\`\`$/i, '')
+    .trim();
+
+  try {
+    return JSON.parse(text);
+  } catch {
+    const start = text.indexOf('{');
+    const end = text.lastIndexOf('}');
+    if (start >= 0 && end > start) {
+      try {
+        return JSON.parse(text.slice(start, end + 1));
+      } catch {
+        // Fall through to a useful error below.
+      }
+    }
+    throw new Error('AI returned an invalid JSON audit report.');
+  }
+}
 
 Deno.serve(async (req) => {
   const base44 = createClientFromRequest(req);
@@ -63,19 +89,10 @@ Generate a comprehensive gap audit with:
 
 Return as JSON with keys: summary, issues (array of strings), missed_opportunities (array of strings), recommendations (array of strings), follow_up_email (string with subject and body separated by |||)`;
 
-  const result = await base44.asServiceRole.integrations.Core.InvokeLLM({
+  const rawResult = await base44.asServiceRole.integrations.Core.InvokeLLM({
     prompt,
-    response_json_schema: {
-      type: 'object',
-      properties: {
-        summary: { type: 'string' },
-        issues: { type: 'array', items: { type: 'string' } },
-        missed_opportunities: { type: 'array', items: { type: 'string' } },
-        recommendations: { type: 'array', items: { type: 'string' } },
-        follow_up_email: { type: 'string' },
-      },
-    },
   });
+  const result = parseJsonResult(rawResult);
 
   await base44.asServiceRole.entities.GapAudit.update(audit_id, {
     summary: result.summary,
