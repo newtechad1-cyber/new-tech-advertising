@@ -122,6 +122,7 @@ import WebsiteRebuildsAustinMN from '@/pages/WebsiteRebuildsAustinMN';
 import WebsiteRebuildsMasonCity from '@/pages/WebsiteRebuildsMasonCity';
 import WebsiteRebuildsRochesterMN from '@/pages/WebsiteRebuildsRochesterMN';
 import WhyNTA from '@/pages/WhyNTA';
+import WorkWithNTA from '@/pages/WorkWithNTA';
 import WhatIsDigitalTrustCollection from '@/pages/WhatIsDigitalTrustCollection';
 import AiAdvertising from '@/pages/AiAdvertising';
 import AiSeo from '@/pages/AiSeo';
@@ -180,6 +181,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/learning-center/videos/:id', LCVideoDetail),
   alias('/learning-center/category/:id', LCCategory),
   alias('/why-nta', WhyNTA),
+  alias('/work-with-nta', WorkWithNTA),
   alias('/i-was-early-again', IWasEarlyAgain),
   alias('/brand-book', NTABrandBook),
   alias('/community-partner', CommunityPartnerProgram),
