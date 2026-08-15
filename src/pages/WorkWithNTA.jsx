@@ -254,6 +254,36 @@ export default function WorkWithNTA() {
           </div>
         </section>
 
+        <section className="border-b border-slate-800/70 bg-blue-950/20 px-6 py-20 md:py-24">
+          <div className="mx-auto max-w-6xl">
+            <div className="mx-auto mb-12 max-w-4xl text-center">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-300">What makes the approach different</p>
+              <h2 className="mt-3 text-3xl font-bold text-white md:text-5xl">Prompting is a technique. Connected work is the point.</h2>
+              <p className="mt-5 text-lg leading-relaxed text-slate-300">
+                A prompt can help with one task. NTA looks at the larger system—the business, the customers, the website, the knowledge, the follow-up, the team, and the tools—and connects those pieces so AI supports the way the business already works.
+              </p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-3">
+              <div className="rounded-2xl border border-blue-900/60 bg-slate-950/60 p-6">
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-300">Start with the business</p>
+                <h3 className="mt-3 text-xl font-semibold text-white">Understand how the work really happens.</h3>
+                <p className="mt-3 leading-relaxed text-slate-300">We begin with the owner, customers, strengths, problems, and goals—not with a tool looking for a job.</p>
+              </div>
+              <div className="rounded-2xl border border-blue-900/60 bg-slate-950/60 p-6">
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-300">Connect the pieces</p>
+                <h3 className="mt-3 text-xl font-semibold text-white">Make the website part of the system.</h3>
+                <p className="mt-3 leading-relaxed text-slate-300">Website, education, customer relationships, business knowledge, operations, and practical AI can reinforce one another.</p>
+              </div>
+              <div className="rounded-2xl border border-blue-900/60 bg-slate-950/60 p-6">
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-violet-300">Keep it usable</p>
+                <h3 className="mt-3 text-xl font-semibold text-white">Work with AI without becoming a technician.</h3>
+                <p className="mt-3 leading-relaxed text-slate-300">You get clear explanations and useful next steps that fit the way you and your team already work.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="border-b border-slate-800/70 bg-slate-900/35 px-6 py-20 md:py-24">
           <div className="mx-auto max-w-6xl">
             <div className="mx-auto mb-12 max-w-3xl text-center">
