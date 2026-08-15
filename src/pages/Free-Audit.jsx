@@ -251,7 +251,10 @@ export default function FreeAudit() {
                     Free · No credit card · No pressure
                   </p>
                   <p className="text-center text-slate-500 text-xs mt-2 leading-relaxed">
-                    We never sell your information or business details. What you share is used to prepare your audit and communicate with you.
+                    By sharing your name and email, you're giving us an opportunity to begin a working relationship—not just request an audit. Our intent is to help local small businesses learn through free, practical AI and business education.
+                  </p>
+                  <p className="text-center text-slate-500 text-xs mt-2 leading-relaxed">
+                    If you choose to receive our weekly free information, we'll keep it coming until you say stop. We won't be pushy, and we never sell your information or business details.
                   </p>
                 </div>
               </form>
