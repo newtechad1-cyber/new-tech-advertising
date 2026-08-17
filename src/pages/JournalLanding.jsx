@@ -194,6 +194,55 @@ export default function JournalLanding() {
           </div>
         </header>
 
+        {issues.length > 0 && (
+          <section className="border-b border-slate-800 bg-slate-900/20 px-6 py-8" aria-labelledby="published-issues-heading">
+            <div className="max-w-6xl mx-auto">
+              <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-indigo-400">Published issues</p>
+                  <h2 id="published-issues-heading" className="mt-1 text-2xl font-black text-white">The NTA Journal, issue by issue</h2>
+                  <p className="mt-2 max-w-2xl text-sm text-slate-400">
+                    Browse the published issues and follow the Knowledge Library lesson behind each one.
+                  </p>
+                </div>
+                <Link
+                  to="/nta-journal#subscribe"
+                  className="inline-flex shrink-0 items-center gap-2 text-sm font-bold text-indigo-400 hover:text-indigo-300"
+                >
+                  Subscribe <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+
+              <div className="mt-6 grid grid-cols-1 gap-3 md:grid-cols-3">
+                {issues.map(issue => (
+                  <div key={issue.id || issue.issue_number} className="rounded-xl border border-slate-800 bg-slate-950/40 p-4">
+                    <Link
+                      to={`/journal/${issue.slug || `issue-${issue.issue_number}`}`}
+                      className="group block"
+                    >
+                      <span className="text-xs font-bold text-indigo-400">Issue #{issue.issue_number}</span>
+                      <span className="mt-1 block text-sm font-semibold leading-snug text-white group-hover:text-indigo-300">
+                        {issue.title}
+                      </span>
+                      <span className="mt-3 block text-xs font-bold text-slate-500 group-hover:text-slate-300">
+                        Read the issue <ArrowRight className="ml-1 inline h-3 w-3" />
+                      </span>
+                    </Link>
+                    {issue.cta_url?.startsWith('/canon/') && (
+                      <Link
+                        to={issue.cta_url}
+                        className="mt-4 flex items-center gap-1 border-t border-slate-800 pt-3 text-xs font-bold text-indigo-400 hover:text-indigo-300"
+                      >
+                        Related Knowledge Library lesson <ArrowRight className="h-3 w-3" />
+                      </Link>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         <div className="max-w-6xl mx-auto px-6 py-12">
           {/* ── Categories ───────────────────────────────────────────────── */}
           <div className="flex flex-wrap items-center gap-2 mb-8">
