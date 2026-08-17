@@ -160,6 +160,21 @@ export default function JournalIssueView() {
                   </div>
                 )}
 
+                {issue.cta_text && issue.cta_url && issue.cta_url.startsWith('/canon/') && (
+                  <div className="mt-8 mb-6 rounded-2xl border border-indigo-500/20 bg-indigo-500/10 p-5">
+                    <p className="text-xs font-bold uppercase tracking-wider text-indigo-400 mb-2">
+                      Related Knowledge Library lesson
+                    </p>
+                    <Link
+                      to={issue.cta_url}
+                      className="inline-flex items-center gap-2 text-base font-bold text-white hover:text-indigo-300 transition-colors"
+                    >
+                      {issue.cta_text}
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                )}
+
                 {/* Author + Stats */}
                 <div className="flex flex-wrap items-center gap-6 text-sm text-slate-500">
                   <span className="font-semibold text-white">{issue.author || 'Rick Hesse'}</span>
@@ -229,7 +244,7 @@ export default function JournalIssueView() {
               )}
 
               {/* CTA */}
-              {issue.cta_text && issue.cta_url && (
+              {issue.cta_text && issue.cta_url && !issue.cta_url.startsWith('/canon/') && (
                 <Link
                   to={issue.cta_url}
                   className="block p-6 rounded-2xl bg-gradient-to-r from-indigo-600/10 to-blue-600/10 border border-indigo-500/20 hover:border-indigo-500/40 transition-all text-center group"
@@ -269,6 +284,40 @@ export default function JournalIssueView() {
                   </Link>
                 )}
               </nav>
+
+              {/* ── Published Issue Archive ──────────────────────────────── */}
+              <section className="mt-10 pt-8 border-t border-slate-800" aria-labelledby="journal-archive-heading">
+                <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-4">
+                  <div>
+                    <p className="text-xs font-bold text-indigo-400 uppercase tracking-wider">The NTA Journal</p>
+                    <h2 id="journal-archive-heading" className="text-xl font-black text-white mt-1">Published issues</h2>
+                  </div>
+                  <Link
+                    to="/journal"
+                    className="inline-flex items-center gap-1 text-sm font-bold text-indigo-400 hover:text-indigo-300"
+                  >
+                    View full archive <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {published.map(archiveIssue => (
+                    <Link
+                      key={archiveIssue.id || archiveIssue.issue_number}
+                      to={`/journal/${archiveIssue.slug || `issue-${archiveIssue.issue_number}`}`}
+                      aria-current={archiveIssue.issue_number === issue.issue_number ? 'page' : undefined}
+                      className={`rounded-xl border p-4 transition-all ${
+                        archiveIssue.issue_number === issue.issue_number
+                          ? 'border-indigo-500/40 bg-indigo-500/10'
+                          : 'border-slate-800 bg-slate-900/30 hover:border-slate-700'
+                      }`}
+                    >
+                      <span className="text-xs font-bold text-indigo-400">Issue #{archiveIssue.issue_number}</span>
+                      <span className="mt-1 block text-sm font-semibold text-white line-clamp-2">{archiveIssue.title}</span>
+                    </Link>
+                  ))}
+                </div>
+              </section>
             </div>
 
             {/* ── Subscribe ──────────────────────────────────────────────── */}
