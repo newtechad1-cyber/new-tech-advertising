@@ -423,7 +423,7 @@ function clip(value, maxLength) {
 }
 
 function canonicalUrl(pathname) {
-  return SITE_ORIGIN + (pathname === "/" ? "/" : pathname);
+  return SITE_ORIGIN + (pathname === "/" ? "" : pathname);
 }
 
 export function getCollectionSearchMetadata(collectionSlug, collection) {
