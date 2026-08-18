@@ -175,6 +175,23 @@ export default function JournalIssueView() {
                   </div>
                 )}
 
+                {issue.related_video_url && (
+                  <div className="mb-6 rounded-2xl border border-blue-500/20 bg-blue-500/10 p-5">
+                    <p className="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">
+                      This week's video
+                    </p>
+                    <a
+                      href={issue.related_video_url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 text-base font-bold text-white hover:text-blue-300 transition-colors"
+                    >
+                      {issue.related_video_title || 'Meet the Free AI Guy'}
+                      <ArrowRight className="w-4 h-4" />
+                    </a>
+                  </div>
+                )}
+
                 {/* Author + Stats */}
                 <div className="flex flex-wrap items-center gap-6 text-sm text-slate-500">
                   <span className="font-semibold text-white">{issue.author || 'Rick Hesse'}</span>
