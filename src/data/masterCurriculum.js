@@ -9,6 +9,7 @@ import { lesson12 as aiFoundationsLesson12 } from './aiFoundationsLesson12';
 import { lesson13 as aiFoundationsLesson13 } from './aiFoundationsLesson13';
 import { lesson14 as aiFoundationsLesson14 } from './aiFoundationsLesson14';
 import { whatIsDigitalTrustLessons } from './whatIsDigitalTrust';
+import { buildingSmallBusinessAiSeriesLessons } from './buildingSmallBusinessAiSeries';
 
 const withDerivedLessonNavigation = (lessons) => lessons.map((lesson, index) => ({
   ...lesson,
@@ -342,17 +343,26 @@ const collectionDefinitions = [
     title: 'AI Foundations',
     description: 'A practical, hype-free introduction to using artificial intelligence in a local business.',
     lessons: completeAiFoundationsLessons,
-    nextCollectionSlug: 'what-is-digital-trust',
+    nextCollectionSlug: 'building-a-small-business-with-ai',
     previousCollectionSlug: 'turning-what-a-business-knows-into-an-asset'
   },
   {
     id: 7,
+    slug: 'building-a-small-business-with-ai',
+    title: 'Building a Small Business With AI',
+    description: 'Three connected lessons from Rick Hesse on using AI to give a small business more capability without losing its speed, humanity, or practical way of working.',
+    lessons: buildingSmallBusinessAiSeriesLessons,
+    nextCollectionSlug: 'what-is-digital-trust',
+    previousCollectionSlug: 'ai-foundations'
+  },
+  {
+    id: 8,
     slug: 'what-is-digital-trust',
     title: 'What Is Digital Trust?',
     description: 'Understand why the internet has changed, and how trust is built in an AI-assisted world.',
     lessons: whatIsDigitalTrustLessons,
     nextCollectionSlug: null,
-    previousCollectionSlug: 'ai-foundations'
+    previousCollectionSlug: 'building-a-small-business-with-ai'
   }
 ];
 
