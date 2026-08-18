@@ -49,6 +49,8 @@ function buildEmail(issue) {
         ${paragraphs(issue[key])}
       </section>`)
     .join('');
+  const videoUrl = plainText(issue.related_video_url, 2000);
+  const videoTitle = plainText(issue.related_video_title, 200) || 'Meet the Free AI Guy';
 
   const htmlContent = `<!doctype html>
 <html>
@@ -64,6 +66,12 @@ function buildEmail(issue) {
           </td></tr>
           <tr><td style="padding:36px 34px 20px;">
             ${sections}
+            ${videoUrl ? `
+            <section style="margin:0 0 34px;padding:22px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;">
+              <h2 style="color:#172554;font-size:22px;line-height:1.25;margin:0 0 10px;">Watch this week's video</h2>
+              <p style="margin:0 0 16px;line-height:1.7;">The Free AI Guy is back with a practical look at how AI can help small-business owners.</p>
+              <a href="${escapeHtml(videoUrl)}" style="display:inline-block;background:#2563eb;color:#ffffff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:8px;">Watch ${escapeHtml(videoTitle)} →</a>
+            </section>` : ''}
             ${issue.closing_message ? `<div style="border-top:1px solid #e2e8f0;padding-top:24px;">${paragraphs(issue.closing_message)}</div>` : ''}
             <p style="margin:26px 0;text-align:center;">
               <a href="${escapeHtml(issueUrl)}" style="display:inline-block;background:#2563eb;color:#ffffff;text-decoration:none;font-weight:700;padding:13px 22px;border-radius:9px;">Read this edition on the NTA website</a>
