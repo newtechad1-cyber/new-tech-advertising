@@ -1,7 +1,7 @@
 {
   "name": "JournalIssue",
   "type": "object",
-  "description": "NTA Journal — weekly publication documenting the public building of New Tech Advertising.",
+  "description": "NTA Journal \u2014 weekly publication documenting the public building of New Tech Advertising.",
   "properties": {
     "subtitle": {
       "type": "string"
@@ -28,15 +28,34 @@
       "items": {
         "type": "object",
         "properties": {
-          "source_type": { "type": "string" },
-          "source_id": { "type": "string" },
-          "title": { "type": "string" },
-          "url": { "type": "string" },
-          "excerpt": { "type": "string" },
-          "reading_time": { "type": "string" },
-          "featured_image_url": { "type": "string" },
-          "is_lead": { "type": "boolean", "default": false },
-          "display_order": { "type": "integer" }
+          "source_type": {
+            "type": "string"
+          },
+          "source_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "excerpt": {
+            "type": "string"
+          },
+          "reading_time": {
+            "type": "string"
+          },
+          "featured_image_url": {
+            "type": "string"
+          },
+          "is_lead": {
+            "type": "boolean",
+            "default": false
+          },
+          "display_order": {
+            "type": "integer"
+          }
         }
       }
     },
@@ -85,7 +104,7 @@
     "from_ricks_desk": {
       "type": "string",
       "format": "markdown",
-      "description": "Personal note from Rick — the opening section"
+      "description": "Personal note from Rick \u2014 the opening section"
     },
     "what_we_built": {
       "type": "string",
@@ -137,26 +156,44 @@
     },
     "tags": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "related_article_ids": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "FKs to related PublishingArticle entries"
     },
     "related_video_ids": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "FKs to related YouTubeKnowledge entries"
+    },
+    "related_video_url": {
+      "type": "string",
+      "description": "Direct public video URL to feature with the Journal issue"
+    },
+    "related_video_title": {
+      "type": "string",
+      "description": "Reader-facing title for the featured video"
     },
     "related_learning_lesson_ids": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "Related learning lesson page keys or IDs"
     },
     "related_service_slugs": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "Related service page slugs"
     },
     "publishing_article_id": {
