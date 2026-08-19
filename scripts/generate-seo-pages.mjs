@@ -395,7 +395,8 @@ fs.copyFileSync(sourceAiSitemap, path.join(distDir, "ai-sitemap.json"));
 fs.copyFileSync(sourceLlms, path.join(distDir, "llms.txt"));
 
 const template = fs.readFileSync(path.join(distDir, "index.html"), "utf8");
-const paths = getSitemapPaths();
+const publicPaths = getSitemapPaths();
+const paths = [...new Set([...publicPaths, ...LEGACY_SEARCH_CLEANUP_PATHS])];
 for (const pathname of paths) {
   const metadata = routeMetadata(pathname);
   const outputDir = pathname === "/" ? distDir : path.join(distDir, pathname.slice(1));
@@ -403,4 +404,4 @@ for (const pathname of paths) {
   fs.writeFileSync(path.join(outputDir, "index.html"), renderHtml(template, metadata, pathname));
 }
 
-console.log("Generated route-aware SEO HTML for " + paths.length + " public URLs.");
+console.log("Generated route-aware SEO HTML for " + publicPaths.length + " public URLs and " + (paths.length - publicPaths.length) + " legacy cleanup URLs.");
