@@ -37,3 +37,9 @@ test('auto-generated page keys cannot bypass page access governance', () => {
   assert.equal(classifyAppRoute('/leadpipelinekanban', pageKeys), 'admin_only');
   assert.equal(shouldNoIndex(classifyAppRoute('/AdminOptimizer', pageKeys)), true);
 });
+
+test('top-level client and workspace entry points remain outside the public search boundary', () => {
+  for (const route of ['/portal', '/workspace', '/agency', '/admin', '/content-command']) {
+    assert.equal(shouldNoIndex(classifyRoute(route)), true, route);
+  }
+});
