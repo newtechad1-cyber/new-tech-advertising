@@ -324,6 +324,14 @@ const COLLECTION_SEARCH = {
     title: "Practical AI Foundations for Small Business",
     description: "A plainspoken introduction to using AI for real small-business work while keeping context, responsibility, and human judgment in control.",
   },
+  "building-a-small-business-with-ai": {
+    title: "Building a Small Business With AI",
+    description: "Three connected lessons about using AI to give a small business more capability without losing its speed, humanity, or practical way of working.",
+  },
+  "ai-humanity": {
+    title: "AI, Humanity & Responsibility",
+    description: "Explore how artificial intelligence reflects human knowledge, wisdom, brokenness, power, faith, and responsibility.",
+  },
   "what-is-digital-trust": {
     title: "What Is Digital Trust for a Small Business?",
     description: "Understand how websites, reviews, content, relationships, and consistent information help customers trust a business before they call.",
@@ -338,7 +346,7 @@ const LESSON_SEARCH_TITLES = {
   "understanding-before-spending": "What to Understand Before Spending on Small Business Marketing",
   "ai-is-my-team-not-my-replacement": "How AI Can Support a Small Business Team Without Replacing People",
   "why-trust-comes-before-marketing": "Why Customer Trust Comes Before Small Business Marketing",
-  "what-building-my-own-digital-growth-office-taught-me": "What Building a Digital Growth Office Taught Me",
+  "what-building-my-own-digital-growth-office-taught-me": "Why Your Website Needs a Front Office and Back Office",
   "businesses-dont-need-more-marketing-they-need-a-better-growth-system": "Why More Marketing Does Not Fix a Weak Small Business Growth System",
   "marketing-doesnt-create-great-businesses": "Why Marketing Alone Does Not Create Small Business Growth",
   "every-business-is-already-perfectly-designed": "How a Small Business System Shapes Its Results",
@@ -388,6 +396,10 @@ const LESSON_SEARCH_TITLES = {
   "relationships-are-your-greatest-competitive-advantage": "Why Relationships Are a Small Business Competitive Advantage",
   "the-connected-business-is-the-future": "What a Connected Small Business Looks Like",
   "the-right-decision-should-make-sense": "Why the Right Small Business Growth Decision Should Make Sense",
+  "the-problems-we-learn-to-live-with": "The Problems Small Businesses Learn to Live With",
+  "ai-gives-small-business-its-speed-back": "How AI Gives Small Business Its Speed Back",
+  "you-dont-have-to-become-an-ai-expert": "You Don't Have to Become an AI Expert",
+  "ai-is-a-mirror-not-a-god": "AI Is a Mirror, Not a God",
 };
 
 const PRIVATE_PREFIXES = [
