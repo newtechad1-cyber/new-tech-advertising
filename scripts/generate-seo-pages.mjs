@@ -349,6 +349,25 @@ function getSitemapPaths() {
     .filter((value, index, values) => values.indexOf(value) === index);
 }
 
+// These URLs must never be added to the public sitemap, but they still need
+// deterministic server-rendered SEO directives. Base44 serves the root SPA
+// shell for unknown paths, which can otherwise expose the homepage's indexable
+// metadata until JavaScript runs. Pre-rendering these cleanup URLs gives
+// crawlers the correct canonical/noindex instruction in the first HTML response.
+const LEGACY_SEARCH_CLEANUP_PATHS = [
+  "/home",
+  "/Home",
+  "/HomePage",
+  "/index.html",
+  "/ContractorMarketingNorthIowa",
+  "/SmallBusinessMarketingNorthIowa",
+  "/ContentQueue",
+  "/contentqueue",
+  "/SiteMap",
+  "/site-map",
+  "/AdminAILab",
+];
+
 function getContentByCanonical() {
   if (!fs.existsSync(sourceAiSitemap)) return new Map();
   const data = JSON.parse(fs.readFileSync(sourceAiSitemap, "utf8"));
