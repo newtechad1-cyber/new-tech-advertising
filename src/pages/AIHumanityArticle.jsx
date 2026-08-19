@@ -4,7 +4,7 @@ import { ChevronRight, Clock, ArrowLeft } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
-import ReactMarkdown from 'react-markdown';
+import LessonArticle from '@/components/knowledge/LessonArticle';
 
 export default function AIHumanityArticle() {
   useEffect(() => {
@@ -285,9 +285,7 @@ Perhaps it is that AI is showing us what humanity has always contained.
           </header>
 
           {/* ARTICLE BODY */}
-          <div className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-h3:text-2xl prose-h3:mt-12 prose-p:text-slate-300 prose-p:leading-relaxed prose-a:text-indigo-400 hover:prose-a:text-indigo-300 mb-16">
-            <ReactMarkdown>{content}</ReactMarkdown>
-          </div>
+          <LessonArticle content={content} accent="purple" className="mb-16" />
 
           {/* KEY TAKEAWAY */}
           <div className="my-16 p-8 rounded-2xl bg-slate-900 border border-slate-800">
