@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { Toaster } from '@/components/ui/toaster';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { queryClientInstance } from '@/lib/query-client';
 import { pagesConfig } from './pages.config';
 import { PUBLIC_ROUTE_ALIASES } from '@/config/publicRoutes';
@@ -82,9 +82,47 @@ function LegacyPrivateRouteRedirect() {
   return isLegacyPrivatePageKey(firstSegment) ? <CoreHubRedirect /> : <PageNotFound />;
 }
 
+const LEGACY_PUBLIC_REDIRECTS = {
+  '/home': '/',
+  '/index.html': '/',
+  '/About': '/about',
+  '/Services': '/services',
+  '/Contact': '/contact',
+  '/Pricing': '/pricing',
+  '/PrivacyPolicy': '/privacy-policy',
+  '/TermsOfService': '/terms-of-service',
+  '/Free-Audit': '/free-audit',
+  '/Blog': '/insights',
+  '/Book-Call': '/book-call',
+  '/BookCall': '/book-call',
+  '/AiSeo': '/ai-seo',
+  '/AiSocialMedia': '/ai-social-media',
+  '/AiWebsites': '/ai-websites',
+  '/AiAdvertising': '/ai-advertising',
+  '/AiVideos': '/ai-videos',
+  '/LocalLeadSystems': '/local-lead-systems',
+  '/LocalVisibility': '/local-visibility',
+  '/NtaJournal': '/journal',
+  '/JournalLanding': '/journal',
+  '/GrowthShow': '/growth-show',
+  '/HelpAndSupport': '/help-and-support',
+  '/LearningCenter': '/learning-center',
+  '/KnowledgeLibrary': '/knowledge',
+  '/OurStory': '/our-story',
+  '/OurWork': '/our-work',
+  '/PracticalAI': '/practical-ai-for-small-business',
+  '/WhyNTA': '/why-nta',
+  '/CaseStudies': '/case-studies',
+  '/ContractorMarketingNorthIowa': '/contractor-marketing-north-iowa',
+  '/SmallBusinessMarketingNorthIowa': '/small-business-marketing-north-iowa',
+};
+
 function PublicRoutes() {
   return (
     <Routes>
+      {Object.entries(LEGACY_PUBLIC_REDIRECTS).map(([from, to]) => (
+        <Route key={`legacy-public:${from}`} path={from} element={<Navigate to={to} replace />} />
+      ))}
       <Route
         path="/"
         element={
