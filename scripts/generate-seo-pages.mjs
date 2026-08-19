@@ -449,17 +449,20 @@ const legacyPaths = [...new Set([
   ...getLegacyComponentPaths(),
 ])];
 const paths = [...new Set([...publicPaths, ...legacyPaths])];
+const legacyPathSet = new Set(legacyPaths);
 const rootIndexFile = path.join(distDir, "index.html");
 const renderedCleanupPaths = [];
 
 for (const pathname of paths) {
-  // Base44's static host falls back to the SPA shell when a clean route
-  // only has a nested /path/index.html file. Write an extensionless file at
-  // the exact clean URL path so the host serves route-aware HTML before the
-  // SPA fallback runs.
+  // Base44's static host falls back to the SPA shell when a clean legacy
+  // route only has a nested /path/index.html file. Write legacy cleanup and
+  // alias paths as extensionless files at their exact clean URL paths. Public
+  // sitemap paths retain nested index files so parent/child routes can coexist.
   const outputFile = pathname === "/" || pathname === "/index.html"
     ? rootIndexFile
-    : path.join(distDir, pathname.slice(1));
+    : legacyPathSet.has(pathname)
+      ? path.join(distDir, pathname.slice(1))
+      : path.join(distDir, pathname.slice(1), "index.html");
 
   if (outputFile === rootIndexFile && pathname !== "/") continue;
 
