@@ -366,6 +366,27 @@ const LEGACY_SEARCH_CLEANUP_PATHS = [
   "/SiteMap",
   "/site-map",
   "/AdminAILab",
+  // Top-level private route families also need a clean-URL fallback shell
+  // with noindex metadata before the client-side redirect runs.
+  "/portal",
+  "/workspace",
+  "/agency",
+  "/admin",
+  "/client",
+  "/ops",
+  "/sales",
+  "/reseller",
+  "/dashboard",
+  "/crm",
+  "/leads",
+  "/content-command",
+  "/content-center",
+  "/billing",
+  "/settings",
+  "/executive-dashboard",
+  "/nta",
+  "/Login",
+  "/login",
 ];
 
 const LEGACY_COMPONENT_DIRECTORIES = [
