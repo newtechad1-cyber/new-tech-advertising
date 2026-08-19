@@ -453,12 +453,13 @@ const rootIndexFile = path.join(distDir, "index.html");
 const renderedCleanupPaths = [];
 
 for (const pathname of paths) {
-  // /index.html is served by the same physical file as /. Do not try to
-  // create a directory named index.html; the root file already contains the
-  // correct canonical metadata for that alias.
+  // Base44's static host falls back to the SPA shell when a clean route
+  // only has a nested /path/index.html file. Write an extensionless file at
+  // the exact clean URL path so the host serves route-aware HTML before the
+  // SPA fallback runs.
   const outputFile = pathname === "/" || pathname === "/index.html"
     ? rootIndexFile
-    : path.join(distDir, pathname.slice(1), "index.html");
+    : path.join(distDir, pathname.slice(1));
 
   if (outputFile === rootIndexFile && pathname !== "/") continue;
 
