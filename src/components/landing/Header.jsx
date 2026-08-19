@@ -101,16 +101,16 @@ export default function Header({ onCTAClick }) {
                     <Button onClick={() => { setIsOpen(false); onCTAClick?.(); }} className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white">
                       Start Free Trial
                     </Button>
-                    <Link to={createPageUrl('Dashboard')} onClick={() => setIsOpen(false)} className="w-full">
+                    <a href="https://app.newtechadvertising.com/Login" onClick={() => setIsOpen(false)} className="w-full">
                       <Button variant="outline" className="w-full flex items-center gap-2">
                         <UserCircle className="w-4 h-4" /> Client Login
                       </Button>
-                    </Link>
-                    <Link to={createPageUrl('AdminDashboard')} onClick={() => setIsOpen(false)} className="w-full">
+                    </a>
+                    <a href="https://app.newtechadvertising.com/Login" onClick={() => setIsOpen(false)} className="w-full">
                       <Button variant="outline" className="w-full flex items-center gap-2">
                         <Lock className="w-4 h-4" /> Admin Login
                       </Button>
-                    </Link>
+                    </a>
                   </div>
                 </div>
               </SheetContent>
@@ -131,16 +131,16 @@ export default function Header({ onCTAClick }) {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
                 <DropdownMenuItem asChild>
-                  <Link to={createPageUrl('Dashboard')} className="cursor-pointer flex items-center gap-2">
+                  <a href="https://app.newtechadvertising.com/Login" className="cursor-pointer flex items-center gap-2">
                     <UserCircle className="w-4 h-4" />
                     Client Login
-                  </Link>
+                  </a>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to={createPageUrl('AdminDashboard')} className="cursor-pointer flex items-center gap-2">
+                  <a href="https://app.newtechadvertising.com/Login" className="cursor-pointer flex items-center gap-2">
                     <Lock className="w-4 h-4" />
                     Admin Login
-                  </Link>
+                  </a>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
