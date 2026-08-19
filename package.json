@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/generate-seo-pages.mjs",
+    "build": "vite build && node --experimental-loader=./scripts/resolve-extensionless-modules.mjs scripts/generate-seo-pages.mjs",
     "lint": "eslint .",
     "test:growth-guide": "node --test src/lib/growth-guide/*.test.js",
     "test:route-governance": "node --test tests/route-governance.test.mjs",
