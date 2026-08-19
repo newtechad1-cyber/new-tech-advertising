@@ -37,7 +37,7 @@ export default function KnowledgeLibrary() {
         collectionData={{
           name: "NTA Knowledge Library",
           description: "A connected library of practical AI, small-business growth, customer trust, and business-system lessons from Rick Hesse.",
-          numberOfItems: 7,
+          numberOfItems: collectionsOrder.length,
           hasPart: collectionsOrder.map(col => ({
             name: col.title,
             url: `/knowledge/${col.slug}`
@@ -158,6 +158,12 @@ export default function KnowledgeLibrary() {
                   icon: <BrainCircuit className="w-5 h-5 text-purple-400" />
                 },
                 { 
+                  q: "If you want to build a more capable small business with AI:",
+                  a: "Begin with Building a Small Business With AI.",
+                  link: "/knowledge/building-a-small-business-with-ai",
+                  icon: <BrainCircuit className="w-5 h-5 text-cyan-400" />
+                },
+                { 
                   q: "If your business feels digitally disconnected:", 
                   a: "Begin with What Is Digital Trust? (Building a Business Customers Can Find and Understand).", 
                   link: "/knowledge/what-is-digital-trust",
@@ -242,7 +248,7 @@ export default function KnowledgeLibrary() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-black text-white mb-4">The Complete Curriculum</h2>
-              <p className="text-slate-400">Seven collections. {totalLessons} lessons. One connected system.</p>
+              <p className="text-slate-400">{collectionsOrder.length} collections. {totalLessons} lessons. One connected system.</p>
             </div>
 
             <div className="space-y-6">
@@ -271,6 +277,11 @@ export default function KnowledgeLibrary() {
                           <h3 className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">
                             {collection.title}
                           </h3>
+                          {collection.slug === 'building-a-small-business-with-ai' && (
+                            <span className="bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider">
+                              New lesson series
+                            </span>
+                          )}
                           {isComplete && (
                             <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider flex items-center gap-1">
                               <CheckCircle className="w-3 h-3" /> Completed
