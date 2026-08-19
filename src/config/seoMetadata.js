@@ -282,6 +282,9 @@ const STATIC_SEO = {
 };
 
 const LEGACY_CANONICALS = {
+  "/home": "/",
+  "/homepage": "/",
+  "/index.html": "/",
   "/about": "/about",
   "/services": "/services",
   "/contact": "/contact",
@@ -297,6 +300,21 @@ const LEGACY_CANONICALS = {
   "/aiseo": "/ai-seo",
   "/restaurantmarketing": "/restaurants",
   "/hvacmarketing": "/hvac-marketing-north-iowa",
+  "/contractormarketingnorthiowa": "/contractor-marketing-north-iowa",
+  "/smallbusinessmarketingnorthiowa": "/small-business-marketing-north-iowa",
+  "/socialmediamanagement": "/services/social-media-management",
+  "/knowledgeprompts": "/knowledge/prompts",
+  "/aihumanitycollection": "/knowledge/ai-humanity",
+  "/ntajournal": "/journal",
+  "/journallanding": "/journal",
+  "/growthshow": "/growth-show",
+  "/helpandsupport": "/help-and-support",
+  "/learningcenter": "/learning-center",
+  "/ourstory": "/our-story",
+  "/ourwork": "/our-work",
+  "/practicalai": "/practical-ai-for-small-business",
+  "/whynta": "/why-nta",
+  "/casestudies": "/case-studies",
 };
 
 const COLLECTION_SEARCH = {
