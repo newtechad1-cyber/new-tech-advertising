@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { getSeoMetadata } from "../src/config/seoMetadata.js";
+import { collectionsOrder } from "../src/data/masterCurriculum.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const distDir = path.join(root, "dist");
@@ -37,7 +38,7 @@ const FEATURED_KNOWLEDGE_COLLECTION = {
 
 function latestDate(values, fallback = TODAY) {
   const dates = values
-    .filter(value => /^\\d{4}-\\d{2}-\\d{2}$/.test(value || ""))
+    .filter(value => /^\d{4}-\d{2}-\d{2}$/.test(value || ""))
     .sort();
   return dates[dates.length - 1] || fallback;
 }
@@ -138,15 +139,15 @@ function renderSitemapUrl(pathname, lastmod, changefreq = "monthly", priority = 
     "    <changefreq>" + changefreq + "</changefreq>",
     "    <priority>" + priority + "</priority>",
     "  </url>"
-  ].join("\\n");
+  ].join("\n");
 }
 
 function getPathFromSitemapBlock(block) {
-  const match = block.match(/<loc>([^<]+)<\\/loc>/);
+  const match = block.match(/<loc>([^<]+)<\/loc>/);
   if (!match) return null;
 
   const url = new URL(match[1]);
-  return url.pathname === "/" ? "/" : url.pathname.replace(/\\/+$/, "");
+  return url.pathname === "/" ? "/" : url.pathname.replace(/\/+$/, "");
 }
 
 function syncKnowledgeIndexes() {
@@ -155,7 +156,7 @@ function syncKnowledgeIndexes() {
 
   fs.writeFileSync(
     sourceAiSitemap,
-    JSON.stringify({ ...aiSitemap, knowledgeCollections }, null, 2) + "\\n"
+    JSON.stringify({ ...aiSitemap, knowledgeCollections }, null, 2) + "\n"
   );
 
   const generatedRoutes = new Map();
@@ -165,14 +166,14 @@ function syncKnowledgeIndexes() {
   );
 
   for (const collection of knowledgeCollections) {
-    const collectionPath = new URL(collection.canonicalUrl).pathname.replace(/\\/+$/, "");
+    const collectionPath = new URL(collection.canonicalUrl).pathname.replace(/\/+$/, "");
     generatedRoutes.set(
       collectionPath,
       renderSitemapUrl(collectionPath, collection.lastModified || TODAY, "monthly", "0.8")
     );
 
     for (const lesson of collection.lessons || []) {
-      const lessonPath = new URL(lesson.canonicalUrl).pathname.replace(/\\/+$/, "");
+      const lessonPath = new URL(lesson.canonicalUrl).pathname.replace(/\/+$/, "");
       generatedRoutes.set(
         lessonPath,
         renderSitemapUrl(lessonPath, lesson.lastModified || collection.lastModified || TODAY, "monthly", "0.7")
@@ -181,7 +182,7 @@ function syncKnowledgeIndexes() {
   }
 
   const existingXml = fs.readFileSync(sourceSitemap, "utf8");
-  const existingBlocks = [...existingXml.matchAll(/  <url>[\\s\\S]*?<\\/url>/g)].map(match => match[0]);
+  const existingBlocks = [...existingXml.matchAll(/  <url>[\s\S]*?<\/url>/g)].map(match => match[0]);
   const seenPaths = new Set();
 
   const updatedBlocks = existingBlocks.map(block => {
@@ -203,7 +204,7 @@ function syncKnowledgeIndexes() {
     ...updatedBlocks,
     "</urlset>",
     ""
-  ].join("\\n");
+  ].join("\n");
 
   fs.writeFileSync(sourceSitemap, updatedXml);
 }
@@ -298,36 +299,3 @@ function getSitemapPaths() {
 
 function getContentByCanonical() {
   if (!fs.existsSync(sourceAiSitemap)) return new Map();
-  const data = JSON.parse(fs.readFileSync(sourceAiSitemap, "utf8"));
-  const entries = [
-    ...(data.publicPages || []),
-    ...(data.knowledgeCollections || []),
-    ...(data.knowledgeCollections || []).flatMap(collection => collection.lessons || [])
-  ];
-  return new Map(entries.filter(entry => entry.canonicalUrl).map(entry => [entry.canonicalUrl, entry]));
-}
-
-const contentByCanonical = getContentByCanonical();
-function routeMetadata(pathname) {
-  const metadata = getSeoMetadata(pathname);
-  const content = contentByCanonical.get(metadata.canonical);
-  return content && content.description
-    ? { ...metadata, description: content.description }
-    : metadata;
-}
-
-syncKnowledgeIndexes();
-
-fs.copyFileSync(sourceSitemap, path.join(distDir, "sitemap.xml"));
-fs.copyFileSync(sourceAiSitemap, path.join(distDir, "ai-sitemap.json"));
-
-const template = fs.readFileSync(path.join(distDir, "index.html"), "utf8");
-const paths = getSitemapPaths();
-for (const pathname of paths) {
-  const metadata = routeMetadata(pathname);
-  const outputDir = pathname === "/" ? distDir : path.join(distDir, pathname.slice(1));
-  fs.mkdirSync(outputDir, { recursive: true });
-  fs.writeFileSync(path.join(outputDir, "index.html"), renderHtml(template, metadata, pathname));
-}
-
-console.log("Generated route-aware SEO HTML for " + paths.length + " public URLs.");
