@@ -84,13 +84,17 @@ function LegacyPrivateRouteRedirect() {
 
 const LEGACY_PUBLIC_REDIRECTS = {
   '/home': '/',
+  '/Home': '/',
+  '/HomePage': '/',
   '/index.html': '/',
   '/About': '/about',
   '/Services': '/services',
   '/Contact': '/contact',
   '/Pricing': '/pricing',
   '/PrivacyPolicy': '/privacy-policy',
+  '/privacypolicy': '/privacy-policy',
   '/TermsOfService': '/terms-of-service',
+  '/termsofservice': '/terms-of-service',
   '/Free-Audit': '/free-audit',
   '/Blog': '/insights',
   '/Book-Call': '/book-call',
@@ -99,6 +103,7 @@ const LEGACY_PUBLIC_REDIRECTS = {
   '/AiSocialMedia': '/ai-social-media',
   '/AiWebsites': '/ai-websites',
   '/AiAdvertising': '/ai-advertising',
+  '/aiadvertising': '/ai-advertising',
   '/AiVideos': '/ai-videos',
   '/LocalLeadSystems': '/local-lead-systems',
   '/LocalVisibility': '/local-visibility',
@@ -106,12 +111,19 @@ const LEGACY_PUBLIC_REDIRECTS = {
   '/JournalLanding': '/journal',
   '/GrowthShow': '/growth-show',
   '/HelpAndSupport': '/help-and-support',
+  '/MarketingPlanGenerator': '/marketing-plan-generator',
+  '/SocialMediaManagement': '/services/social-media-management',
+  '/socialmediamanagement': '/services/social-media-management',
   '/LearningCenter': '/learning-center',
   '/KnowledgeLibrary': '/knowledge',
+  '/KnowledgePrompts': '/knowledge/prompts',
+  '/AIHumanityCollection': '/knowledge/ai-humanity',
   '/OurStory': '/our-story',
   '/OurWork': '/our-work',
   '/PracticalAI': '/practical-ai-for-small-business',
   '/WhyNTA': '/why-nta',
+  '/IWasEarlyAgain': '/i-was-early-again',
+  '/aipolicy': '/ai-policy',
   '/CaseStudies': '/case-studies',
   '/ContractorMarketingNorthIowa': '/contractor-marketing-north-iowa',
   '/SmallBusinessMarketingNorthIowa': '/small-business-marketing-north-iowa',
@@ -121,7 +133,7 @@ function PublicRoutes() {
   return (
     <Routes>
       {Object.entries(LEGACY_PUBLIC_REDIRECTS).map(([from, to]) => (
-        <Route key={`legacy-public:${from}`} path={from} element={<Navigate to={to} replace />} />
+        <Route key={`legacy-public:${from}`} path={from} caseSensitive element={<Navigate to={to} replace />} />
       ))}
       <Route
         path="/"
