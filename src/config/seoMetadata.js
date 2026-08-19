@@ -322,6 +322,26 @@ const LEGACY_CANONICALS = {
   "/practicalai": "/practical-ai-for-small-business",
   "/whynta": "/why-nta",
   "/casestudies": "/case-studies",
+  // PascalCase page keys retained from the original public app.
+  "/growthshowepisode": "/growth-show",
+  "/aivisibilitybasics": "/ai-visibility-basics",
+  "/aifoundationscollection": "/knowledge/ai-foundations",
+  "/businessfoundationscollection": "/knowledge/business-foundations",
+  "/truthaboutbusinessgrowthcollection": "/knowledge/truth-about-business-growth",
+  "/howcustomersdecidewhotrustcollection": "/knowledge/how-customers-decide-who-to-trust",
+  "/howbusinessesturntrustintolastingrelationshipscollection": "/knowledge/how-businesses-turn-trust-into-lasting-relationships",
+  "/turningwhatabusinessknowsintoanassetcollection": "/knowledge/turning-what-a-business-knows-into-an-asset",
+  "/whatisdigitaltrustcollection": "/knowledge/what-is-digital-trust",
+  "/growthguide": "/growth-guide",
+  "/growthconversation": "/growth-conversation",
+  "/businessjourney": "/business-journey",
+  "/workwithnta": "/work-with-nta",
+  "/pointofview": "/point-of-view",
+  "/localbusinessmarketing": "/local-business-marketing",
+  "/socialmediacontentsystem": "/social-media-content-system",
+  "/aivideomarketing": "/ai-video-marketing",
+  "/backofficesolutions": "/back-office-solutions",
+  "/smallbusinessesnationwide": "/small-businesses-nationwide",
 };
 
 const COLLECTION_SEARCH = {
