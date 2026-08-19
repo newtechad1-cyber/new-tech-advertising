@@ -434,8 +434,11 @@ export function classifyRoute(pathname) {
     }
   }
 
-  // 3. Default: public
-  return 'public';
+  // 3. Fail closed. A route must be explicitly classified as public before
+  // it can participate in the public search footprint. Unknown/legacy routes
+  // remain reachable only through the router's explicit handling and should
+  // never become indexable merely because a file or old page key exists.
+  return 'noindex';
 }
 
 /**
