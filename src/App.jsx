@@ -57,7 +57,7 @@ function CoreHubRedirect() {
 // a public page. Send only these known private families to the private app.
 const LEGACY_PRIVATE_PAGE_PREFIXES = [
   'admin', 'agency', 'client', 'portal', 'ops', 'sales', 'reseller',
-  'dashboard', 'crm', 'lead', 'content', 'publishing', 'proposal',
+  'dashboard', 'crm', 'lead', 'content', 'publishing', 'proposal', 'sitemap',
   'setting', 'businessintel', 'businessprofile', 'inteladmin',
   'industryintel', 'localmarketintel', 'locationpage', 'opportunitysignal',
   'performancesignal', 'programmatic', 'scheduledqueue', 'socialaccounts',
