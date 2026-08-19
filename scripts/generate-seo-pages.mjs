@@ -8,6 +8,207 @@ const distDir = path.join(root, "dist");
 const sourceSitemap = path.join(root, "public", "sitemap.xml");
 const sourceAiSitemap = path.join(root, "public", "ai-sitemap.json");
 
+const SITE_ORIGIN = "https://newtechadvertising.com";
+const TODAY = new Date().toISOString().slice(0, 10);
+const KNOWLEDGE_AUTHOR = "Rick Hesse";
+const KNOWLEDGE_PUBLISHER = "New Tech Advertising";
+
+const FEATURED_KNOWLEDGE_COLLECTION = {
+  title: "AI, Humanity & Responsibility",
+  canonicalUrl: SITE_ORIGIN + "/knowledge/ai-humanity",
+  contentType: "LearningCollection",
+  description: "Artificial intelligence is more than a new business tool. It reflects the knowledge, contradictions, hopes, fears, wisdom, and brokenness of the people who created it. This collection explores how we can understand AI without worshiping it, fearing it blindly, or surrendering our responsibility to think.",
+  author: KNOWLEDGE_AUTHOR,
+  publisher: KNOWLEDGE_PUBLISHER,
+  lastModified: TODAY,
+  lessons: [
+    {
+      title: "AI Is a Mirror, Not a God",
+      canonicalUrl: SITE_ORIGIN + "/knowledge/ai-humanity/ai-is-a-mirror-not-a-god",
+      contentType: "LearningResource",
+      description: "AI did not appear from somewhere outside humanity. We created it from our accumulated knowledge, which means it reflects both our wisdom and our brokenness. The appropriate response is neither blind trust nor automatic fear, but understanding, discernment, and responsibility.",
+      author: KNOWLEDGE_AUTHOR,
+      publisher: KNOWLEDGE_PUBLISHER,
+      publicStatus: "published",
+      lastModified: TODAY
+    }
+  ]
+};
+
+function latestDate(values, fallback = TODAY) {
+  const dates = values
+    .filter(value => /^\\d{4}-\\d{2}-\\d{2}$/.test(value || ""))
+    .sort();
+  return dates[dates.length - 1] || fallback;
+}
+
+function buildKnowledgeCollection(collection, existingCollection) {
+  const existingLessons = new Map(
+    (existingCollection?.lessons || []).map(lesson => [lesson.canonicalUrl, lesson])
+  );
+
+  const lessons = collection.lessons.map(lesson => {
+    const canonicalUrl = SITE_ORIGIN + "/knowledge/" + collection.slug + "/" + lesson.slug;
+    const existingLesson = existingLessons.get(canonicalUrl) || {};
+
+    return {
+      ...existingLesson,
+      title: lesson.searchTitle || lesson.title,
+      canonicalUrl,
+      contentType: "LearningResource",
+      description: lesson.searchDescription || lesson.description || lesson.takeaway || existingLesson.description || "",
+      author: KNOWLEDGE_AUTHOR,
+      publisher: KNOWLEDGE_PUBLISHER,
+      publicStatus: "published",
+      lastModified: lesson.modifiedDate || lesson.publishedDate || existingLesson.lastModified || TODAY
+    };
+  });
+
+  return {
+    ...existingCollection,
+    title: collection.title,
+    canonicalUrl: SITE_ORIGIN + "/knowledge/" + collection.slug,
+    contentType: "LearningCollection",
+    description: collection.description,
+    author: KNOWLEDGE_AUTHOR,
+    publisher: KNOWLEDGE_PUBLISHER,
+    lastModified: latestDate([
+      ...lessons.map(lesson => lesson.lastModified),
+      existingCollection?.lastModified
+    ]),
+    lessons
+  };
+}
+
+function buildFeaturedKnowledgeCollection(existingCollection) {
+  const existingLessons = new Map(
+    (existingCollection?.lessons || []).map(lesson => [lesson.canonicalUrl, lesson])
+  );
+
+  const featuredLesson = FEATURED_KNOWLEDGE_COLLECTION.lessons[0];
+  const existingFeaturedLesson = existingLessons.get(featuredLesson.canonicalUrl);
+
+  return {
+    ...existingCollection,
+    ...FEATURED_KNOWLEDGE_COLLECTION,
+    lessons: [
+      ...(existingCollection?.lessons || []).filter(lesson => lesson.canonicalUrl !== featuredLesson.canonicalUrl),
+      { ...existingFeaturedLesson, ...featuredLesson }
+    ]
+  };
+}
+
+function buildKnowledgeCollections(existingAiSitemap) {
+  const existingCollections = existingAiSitemap.knowledgeCollections || [];
+  const existingByCanonical = new Map(
+    existingCollections.map(collection => [collection.canonicalUrl, collection])
+  );
+
+  const managedCollections = [];
+  for (const collection of collectionsOrder) {
+    managedCollections.push(
+      buildKnowledgeCollection(
+        collection,
+        existingByCanonical.get(SITE_ORIGIN + "/knowledge/" + collection.slug)
+      )
+    );
+
+    if (collection.slug === "ai-foundations") {
+      managedCollections.push(
+        buildFeaturedKnowledgeCollection(
+          existingByCanonical.get(FEATURED_KNOWLEDGE_COLLECTION.canonicalUrl)
+        )
+      );
+    }
+  }
+
+  const managedCanonicals = new Set(managedCollections.map(collection => collection.canonicalUrl));
+  const unmanagedCollections = existingCollections.filter(
+    collection => !managedCanonicals.has(collection.canonicalUrl)
+  );
+
+  return [...managedCollections, ...unmanagedCollections];
+}
+
+function renderSitemapUrl(pathname, lastmod, changefreq = "monthly", priority = "0.7") {
+  return [
+    "  <url>",
+    "    <loc>" + SITE_ORIGIN + pathname + "</loc>",
+    "    <lastmod>" + lastmod + "</lastmod>",
+    "    <changefreq>" + changefreq + "</changefreq>",
+    "    <priority>" + priority + "</priority>",
+    "  </url>"
+  ].join("\\n");
+}
+
+function getPathFromSitemapBlock(block) {
+  const match = block.match(/<loc>([^<]+)<\\/loc>/);
+  if (!match) return null;
+
+  const url = new URL(match[1]);
+  return url.pathname === "/" ? "/" : url.pathname.replace(/\\/+$/, "");
+}
+
+function syncKnowledgeIndexes() {
+  const aiSitemap = JSON.parse(fs.readFileSync(sourceAiSitemap, "utf8"));
+  const knowledgeCollections = buildKnowledgeCollections(aiSitemap);
+
+  fs.writeFileSync(
+    sourceAiSitemap,
+    JSON.stringify({ ...aiSitemap, knowledgeCollections }, null, 2) + "\\n"
+  );
+
+  const generatedRoutes = new Map();
+  generatedRoutes.set(
+    "/knowledge",
+    renderSitemapUrl("/knowledge", TODAY, "weekly", "0.8")
+  );
+
+  for (const collection of knowledgeCollections) {
+    const collectionPath = new URL(collection.canonicalUrl).pathname.replace(/\\/+$/, "");
+    generatedRoutes.set(
+      collectionPath,
+      renderSitemapUrl(collectionPath, collection.lastModified || TODAY, "monthly", "0.8")
+    );
+
+    for (const lesson of collection.lessons || []) {
+      const lessonPath = new URL(lesson.canonicalUrl).pathname.replace(/\\/+$/, "");
+      generatedRoutes.set(
+        lessonPath,
+        renderSitemapUrl(lessonPath, lesson.lastModified || collection.lastModified || TODAY, "monthly", "0.7")
+      );
+    }
+  }
+
+  const existingXml = fs.readFileSync(sourceSitemap, "utf8");
+  const existingBlocks = [...existingXml.matchAll(/  <url>[\\s\\S]*?<\\/url>/g)].map(match => match[0]);
+  const seenPaths = new Set();
+
+  const updatedBlocks = existingBlocks.map(block => {
+    const pathname = getPathFromSitemapBlock(block);
+    if (!pathname || !generatedRoutes.has(pathname)) return block;
+
+    seenPaths.add(pathname);
+    return generatedRoutes.get(pathname);
+  });
+
+  for (const [pathname, block] of generatedRoutes) {
+    if (!seenPaths.has(pathname)) updatedBlocks.push(block);
+  }
+
+  const urlsetOpen = existingXml.match(/<urlset[^>]*>/)?.[0] || '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+  const updatedXml = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    urlsetOpen,
+    ...updatedBlocks,
+    "</urlset>",
+    ""
+  ].join("\\n");
+
+  fs.writeFileSync(sourceSitemap, updatedXml);
+}
+
+
 function escapeHtml(value) {
   return String(value || "")
     .replace(/&/g, "&amp;")
@@ -114,6 +315,11 @@ function routeMetadata(pathname) {
     ? { ...metadata, description: content.description }
     : metadata;
 }
+
+syncKnowledgeIndexes();
+
+fs.copyFileSync(sourceSitemap, path.join(distDir, "sitemap.xml"));
+fs.copyFileSync(sourceAiSitemap, path.join(distDir, "ai-sitemap.json"));
 
 const template = fs.readFileSync(path.join(distDir, "index.html"), "utf8");
 const paths = getSitemapPaths();
