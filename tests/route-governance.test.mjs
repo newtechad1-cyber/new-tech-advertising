@@ -21,9 +21,11 @@ test('static public routes remain public and case-insensitive', () => {
   assert.equal(classifyRoute('/nta-journal'), 'public');
 });
 
-test('prefix rules use path boundaries', () => {
+test('prefix rules use path boundaries and unknown routes fail closed', () => {
   assert.equal(classifyRoute('/admin/reports'), 'admin_only');
-  assert.equal(classifyRoute('/administrator-guide'), 'public');
+  assert.equal(classifyRoute('/administrator-guide'), 'noindex');
+  assert.equal(classifyRoute('/contentqueue'), 'noindex');
+  assert.equal(classifyRoute('/SiteMap'), 'noindex');
 });
 
 test('auto-generated page keys cannot bypass page access governance', () => {
