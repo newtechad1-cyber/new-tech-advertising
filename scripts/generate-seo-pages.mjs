@@ -368,6 +368,38 @@ const LEGACY_SEARCH_CLEANUP_PATHS = [
   "/AdminAILab",
 ];
 
+const LEGACY_COMPONENT_DIRECTORIES = [
+  path.join(root, "src", "pages"),
+  path.join(root, "src", "legacy-page-components"),
+];
+
+function collectLegacyComponentPaths(directory) {
+  if (!fs.existsSync(directory)) return [];
+
+  const paths = [];
+  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+    const entryPath = path.join(directory, entry.name);
+
+    if (entry.isDirectory()) {
+      paths.push(...collectLegacyComponentPaths(entryPath));
+      continue;
+    }
+
+    if (!entry.isFile() || /\.(?:jsx?|tsx?)$/.test(entry.name) === false) continue;
+
+    const pageKey = entry.name.replace(/\.(?:jsx?|tsx?)$/, "");
+    if (pageKey && pageKey.toLowerCase() !== "index") {
+      paths.push("/" + pageKey);
+    }
+  }
+
+  return paths;
+}
+
+function getLegacyComponentPaths() {
+  return LEGACY_COMPONENT_DIRECTORIES.flatMap(collectLegacyComponentPaths);
+}
+
 function getContentByCanonical() {
   if (!fs.existsSync(sourceAiSitemap)) return new Map();
   const data = JSON.parse(fs.readFileSync(sourceAiSitemap, "utf8"));
@@ -388,6 +420,21 @@ function routeMetadata(pathname) {
     : metadata;
 }
 
+function getPrerenderMetadata(pathname, publicPathSet) {
+  const metadata = routeMetadata(pathname);
+  const canonicalPath = cleanPath(metadata.canonical);
+
+  // A route is allowed to stay indexable only when its canonical destination
+  // is part of the intentional public sitemap. Everything else receives
+  // deterministic noindex HTML, including legacy page keys that still exist
+  // in the source tree and unknown SPA fallback paths.
+  if (metadata.noIndex || !publicPathSet.has(canonicalPath)) {
+    return { ...metadata, noIndex: true };
+  }
+
+  return metadata;
+}
+
 syncKnowledgeIndexes();
 
 fs.copyFileSync(sourceSitemap, path.join(distDir, "sitemap.xml"));
@@ -396,12 +443,32 @@ fs.copyFileSync(sourceLlms, path.join(distDir, "llms.txt"));
 
 const template = fs.readFileSync(path.join(distDir, "index.html"), "utf8");
 const publicPaths = getSitemapPaths();
-const paths = [...new Set([...publicPaths, ...LEGACY_SEARCH_CLEANUP_PATHS])];
+const publicPathSet = new Set(publicPaths);
+const legacyPaths = [...new Set([
+  ...LEGACY_SEARCH_CLEANUP_PATHS,
+  ...getLegacyComponentPaths(),
+])];
+const paths = [...new Set([...publicPaths, ...legacyPaths])];
+const rootIndexFile = path.join(distDir, "index.html");
+const renderedCleanupPaths = [];
+
 for (const pathname of paths) {
-  const metadata = routeMetadata(pathname);
-  const outputDir = pathname === "/" ? distDir : path.join(distDir, pathname.slice(1));
-  fs.mkdirSync(outputDir, { recursive: true });
-  fs.writeFileSync(path.join(outputDir, "index.html"), renderHtml(template, metadata, pathname));
+  // /index.html is served by the same physical file as /. Do not try to
+  // create a directory named index.html; the root file already contains the
+  // correct canonical metadata for that alias.
+  const outputFile = pathname === "/" || pathname === "/index.html"
+    ? rootIndexFile
+    : path.join(distDir, pathname.slice(1), "index.html");
+
+  if (outputFile === rootIndexFile && pathname !== "/") continue;
+
+  const metadata = getPrerenderMetadata(pathname, publicPathSet);
+  fs.mkdirSync(path.dirname(outputFile), { recursive: true });
+  fs.writeFileSync(outputFile, renderHtml(template, metadata, pathname));
+
+  if (!publicPathSet.has(pathname)) {
+    renderedCleanupPaths.push(pathname);
+  }
 }
 
-console.log("Generated route-aware SEO HTML for " + publicPaths.length + " public URLs and " + (paths.length - publicPaths.length) + " legacy cleanup URLs.");
+console.log("Generated route-aware SEO HTML for " + publicPaths.length + " public URLs and " + renderedCleanupPaths.length + " legacy cleanup/alias URLs.");
