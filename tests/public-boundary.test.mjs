@@ -74,3 +74,20 @@ test('the public Journal page does not advertise an unimplemented RSS endpoint',
   assert.ok(!journal.includes('href="/rss"') && !journal.includes("href='/rss'"));
   assert.ok(journal.includes('to="/journal"') || journal.includes("to='/journal'"));
 });
+
+test('SEO cleanup prerendering covers private SPA fallbacks and public legacy equity', async () => {
+  const generator = await read('scripts/generate-seo-pages.mjs');
+  const seo = await read('src/config/seoMetadata.js');
+
+  for (const route of ['/portal', '/workspace', '/agency', '/admin', '/content-command']) {
+    assert.match(generator, new RegExp(`"${route}"`));
+  }
+
+  for (const mapping of [
+    '"/contractormarketingnorthiowa": "/contractor-marketing-north-iowa"',
+    '"/growthshowepisode": "/growth-show"',
+    '"/aifoundationscollection": "/knowledge/ai-foundations"',
+  ]) {
+    assert.ok(seo.includes(mapping), mapping);
+  }
+});
