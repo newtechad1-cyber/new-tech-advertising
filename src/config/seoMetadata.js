@@ -426,6 +426,15 @@ const PRIVATE_PREFIXES = [
   "/billing", "/settings", "/workspace", "/executive-dashboard", "/nta/",
   "/automations", "/workflows", "/approvals", "/proposal", "/deal-room",
   "/login", "/private", "/internal", "/contentqueue", "/site-map", "/sitemap",
+  "/adminai", "/businessintel", "/businessprofile", "/inteladmin", "/industryintel",
+  "/localmarketintel", "/locationpage", "/opportunitysignal", "/performancesignal",
+  "/programmatic", "/scheduledqueue", "/socialaccounts", "/weeklyplan", "/websitevideo",
+  "/workflowmap", "/youtube", "/founderscorecard", "/aiworkforce", "/aioperations",
+  "/agentarchitecture", "/chatwidget", "/operationshub", "/ntacommand", "/ntaoperator",
+  "/ntasales", "/ntadashboard", "/ntadeal", "/ntaonboarding", "/ntachannel", "/ntareseller",
+  "/ntaaiforce", "/ntaacquisition", "/ntasubmissions", "/ntacompany", "/ntaopportunit",
+  "/ntaclient", "/ntaproject", "/ntacampaign", "/ntatask", "/ntaactivity", "/ntasystem",
+  "/ntamigration", "/schoolstudentdashboard", "/schoolstudentprofile", "/schoolstudentupload",
 ];
 
 const PUBLIC_PREFIXES = [
