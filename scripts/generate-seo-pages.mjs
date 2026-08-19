@@ -9,6 +9,7 @@ const distDir = path.join(root, "dist");
 const sourceSitemap = path.join(root, "public", "sitemap.xml");
 const sourceAiSitemap = path.join(root, "public", "ai-sitemap.json");
 
+
 const SITE_ORIGIN = "https://newtechadvertising.com";
 const TODAY = new Date().toISOString().slice(0, 10);
 const KNOWLEDGE_AUTHOR = "Rick Hesse";
@@ -299,3 +300,36 @@ function getSitemapPaths() {
 
 function getContentByCanonical() {
   if (!fs.existsSync(sourceAiSitemap)) return new Map();
+  const data = JSON.parse(fs.readFileSync(sourceAiSitemap, "utf8"));
+  const entries = [
+    ...(data.publicPages || []),
+    ...(data.knowledgeCollections || []),
+    ...(data.knowledgeCollections || []).flatMap(collection => collection.lessons || [])
+  ];
+  return new Map(entries.filter(entry => entry.canonicalUrl).map(entry => [entry.canonicalUrl, entry]));
+}
+
+const contentByCanonical = getContentByCanonical();
+function routeMetadata(pathname) {
+  const metadata = getSeoMetadata(pathname);
+  const content = contentByCanonical.get(metadata.canonical);
+  return content && content.description
+    ? { ...metadata, description: content.description }
+    : metadata;
+}
+
+syncKnowledgeIndexes();
+
+fs.copyFileSync(sourceSitemap, path.join(distDir, "sitemap.xml"));
+fs.copyFileSync(sourceAiSitemap, path.join(distDir, "ai-sitemap.json"));
+
+const template = fs.readFileSync(path.join(distDir, "index.html"), "utf8");
+const paths = getSitemapPaths();
+for (const pathname of paths) {
+  const metadata = routeMetadata(pathname);
+  const outputDir = pathname === "/" ? distDir : path.join(distDir, pathname.slice(1));
+  fs.mkdirSync(outputDir, { recursive: true });
+  fs.writeFileSync(path.join(outputDir, "index.html"), renderHtml(template, metadata, pathname));
+}
+
+console.log("Generated route-aware SEO HTML for " + paths.length + " public URLs.");
