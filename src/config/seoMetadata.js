@@ -407,7 +407,7 @@ const PRIVATE_PREFIXES = [
   "/dashboard", "/crm", "/leads", "/content-command", "/content-center",
   "/billing", "/settings", "/workspace", "/executive-dashboard", "/nta/",
   "/automations", "/workflows", "/approvals", "/proposal", "/deal-room",
-  "/login", "/private", "/internal",
+  "/login", "/private", "/internal", "/contentqueue", "/site-map", "/sitemap",
 ];
 
 const PUBLIC_PREFIXES = [
