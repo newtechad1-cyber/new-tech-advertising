@@ -13,6 +13,8 @@ Disallow: /Dashboard
 Disallow: /CRM
 Disallow: /Lead
 Disallow: /Content
+Disallow: /ContentQueue
+Disallow: /SiteMap
 Disallow: /Publishing
 Disallow: /Proposal
 Disallow: /Settings
@@ -58,6 +60,8 @@ Disallow: /crm
 Disallow: /leads
 Disallow: /content-command
 Disallow: /content-center
+Disallow: /contentqueue
+Disallow: /site-map
 Disallow: /billing
 Disallow: /settings
 Disallow: /workspace
