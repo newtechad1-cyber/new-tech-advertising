@@ -8,6 +8,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const distDir = path.join(root, "dist");
 const sourceSitemap = path.join(root, "public", "sitemap.xml");
 const sourceAiSitemap = path.join(root, "public", "ai-sitemap.json");
+const sourceLlms = path.join(root, "public", "llms.txt");
 
 
 const SITE_ORIGIN = "https://newtechadvertising.com";
@@ -151,6 +152,55 @@ function getPathFromSitemapBlock(block) {
   return url.pathname === "/" ? "/" : url.pathname.replace(/\/+$/, "");
 }
 
+
+function buildLlmsKnowledgeSection(knowledgeCollections) {
+  const lines = [
+    "## Knowledge Library",
+    "",
+    "The NTA Knowledge Library is a connected set of practical lessons about small-business growth, trust, relationships, business knowledge, AI, and digital trust.",
+    ""
+  ];
+
+  for (const collection of knowledgeCollections) {
+    lines.push(
+      "### [" + collection.title + "](" + collection.canonicalUrl + ")",
+      "",
+      collection.description || "",
+      ""
+    );
+
+    for (const lesson of collection.lessons || []) {
+      const title = String(lesson.title || "").replace(" | NTA", "");
+      lines.push(
+        "- [" + title + "](" + lesson.canonicalUrl + "): " + (lesson.description || ""),
+        ""
+      );
+    }
+  }
+
+  return lines.join("\n");
+}
+
+function syncLlmsKnowledgeIndex(knowledgeCollections) {
+  if (!fs.existsSync(sourceLlms)) return;
+
+  const current = fs.readFileSync(sourceLlms, "utf8");
+  const knowledgeMarker = "\n## Knowledge Library";
+  const organizationMarker = "\n## Organization";
+  const start = current.indexOf(knowledgeMarker);
+  const end = current.indexOf(organizationMarker, start + knowledgeMarker.length);
+
+  if (start < 0 || end < 0) return;
+
+  const updated = [
+    current.slice(0, start),
+    "\n" + buildLlmsKnowledgeSection(knowledgeCollections),
+    current.slice(end)
+  ].join("");
+
+  fs.writeFileSync(sourceLlms, updated.trimEnd() + "\n");
+}
+
 function syncKnowledgeIndexes() {
   const aiSitemap = JSON.parse(fs.readFileSync(sourceAiSitemap, "utf8"));
   const knowledgeCollections = buildKnowledgeCollections(aiSitemap);
@@ -208,6 +258,7 @@ function syncKnowledgeIndexes() {
   ].join("\n");
 
   fs.writeFileSync(sourceSitemap, updatedXml);
+  syncLlmsKnowledgeIndex(knowledgeCollections);
 }
 
 
@@ -322,6 +373,7 @@ syncKnowledgeIndexes();
 
 fs.copyFileSync(sourceSitemap, path.join(distDir, "sitemap.xml"));
 fs.copyFileSync(sourceAiSitemap, path.join(distDir, "ai-sitemap.json"));
+fs.copyFileSync(sourceLlms, path.join(distDir, "llms.txt"));
 
 const template = fs.readFileSync(path.join(distDir, "index.html"), "utf8");
 const paths = getSitemapPaths();
