@@ -64,92 +64,159 @@ The NTA Knowledge Library is a connected set of practical lessons about small-bu
 
 Learn the core principles of building a business that grows through understanding rather than constant selling.
 
-- [Why Practical AI Education Matters for Small Business Owners](https://newtechadvertising.com/knowledge/business-foundations/why-nta-exists): Marketing is broken because it focuses on selling magic pills instead of building long-term systems. NTA exists to change that.
-- [How Small Businesses Really Grow: From Activity to Momentum](https://newtechadvertising.com/knowledge/business-foundations/how-businesses-really-grow): Understand the difference between unpredictable spikes in activity and compounded digital momentum.
-- [Why Small Business Marketing Is Not Magic](https://newtechadvertising.com/knowledge/business-foundations/marketing-isnt-magic): Demystifying the process of acquiring and retaining customers in the digital age.
-- [Why Small Business Results Reflect the System Behind Them](https://newtechadvertising.com/knowledge/business-foundations/every-system-produces-exactly-what-it-was-designed-to-produce): Why your current results are a direct reflection of your current operational structure.
-- [What to Understand Before Spending on Small Business Marketing](https://newtechadvertising.com/knowledge/business-foundations/understanding-before-spending): The importance of education and transparency before investing in growth.
-- [How AI Can Support a Small Business Team Without Replacing People](https://newtechadvertising.com/knowledge/business-foundations/ai-is-my-team-not-my-replacement): How to properly frame the role of Artificial Intelligence in a local service business.
-- [Why Customer Trust Comes Before Small Business Marketing](https://newtechadvertising.com/knowledge/business-foundations/why-trust-comes-before-marketing): The fundamental shift in how consumers choose who to hire in the AI era.
-- [What Building a Digital Growth Office Taught Me](https://newtechadvertising.com/knowledge/business-foundations/what-building-my-own-digital-growth-office-taught-me): Why a business's public website and private operating system should be connected—but built to do different jobs.
+- [Why NTA Exists](https://newtechadvertising.com/knowledge/business-foundations/why-nta-exists): Marketing is broken because it focuses on selling magic pills instead of building long-term systems. NTA exists to change that.
+
+- [How Businesses Really Grow](https://newtechadvertising.com/knowledge/business-foundations/how-businesses-really-grow): Understand the difference between unpredictable spikes in activity and compounded digital momentum.
+
+- [Marketing Isn't Magic](https://newtechadvertising.com/knowledge/business-foundations/marketing-isnt-magic): Demystifying the process of acquiring and retaining customers in the digital age.
+
+- [Every System Produces Exactly What It Was Designed to Produce](https://newtechadvertising.com/knowledge/business-foundations/every-system-produces-exactly-what-it-was-designed-to-produce): Why your current results are a direct reflection of your current operational structure.
+
+- [Understanding Before Spending](https://newtechadvertising.com/knowledge/business-foundations/understanding-before-spending): The importance of education and transparency before investing in growth.
+
+- [AI Is My Team, Not My Replacement](https://newtechadvertising.com/knowledge/business-foundations/ai-is-my-team-not-my-replacement): How to properly frame the role of Artificial Intelligence in a local service business.
+
+- [Why Trust Comes Before Marketing](https://newtechadvertising.com/knowledge/business-foundations/why-trust-comes-before-marketing): The fundamental shift in how consumers choose who to hire in the AI era.
+
+- [Why Your Website Needs a Front Office and Back Office](https://newtechadvertising.com/knowledge/business-foundations/what-building-my-own-digital-growth-office-taught-me): Rick Hesse explains why a public website and private business system should be separate, connected foundations that can grow with the business.
+
+- [Why the Right Small Business Growth Decision Should Make Sense](https://newtechadvertising.com/knowledge/business-foundations/the-right-decision-should-make-sense): NTA explains why good guidance teaches first, translates complexity into the owner's language, and helps the right business-growth decision become clear without pressure.
 
 ### [The Truth About Business Growth](https://newtechadvertising.com/knowledge/truth-about-business-growth)
 
 Understand the difference between unpredictable spikes in activity and compounded digital momentum.
 
-- [Why More Marketing Does Not Fix a Weak Small Business Growth System](https://newtechadvertising.com/knowledge/truth-about-business-growth/businesses-dont-need-more-marketing-they-need-a-better-growth-system): When a business isn’t growing, the first conclusion is usually pretty simple: “We need more marketing.” But bringing more people through the door doesn’t fix what happens after they arrive.
-- [Why Marketing Alone Does Not Create Small Business Growth](https://newtechadvertising.com/knowledge/truth-about-business-growth/marketing-doesnt-create-great-businesses): Marketing gets blamed for a lot of things. It also gets credit for things it cannot create. Discover why marketing works best as an amplifier for an already solid foundation.
-- [How a Small Business System Shapes Its Results](https://newtechadvertising.com/knowledge/truth-about-business-growth/every-business-is-already-perfectly-designed): When business results are frustrating, it can feel like a mystery. But results aren't accidents—they are the direct product of how your business currently operates.
-- [Small Business Activity vs. Progress: What Creates Growth?](https://newtechadvertising.com/knowledge/truth-about-business-growth/the-difference-between-activity-and-progress): A business can be extremely active without becoming stronger. Learn how to distinguish between merely doing work and actually building the systems that create meaningful, lasting growth.
-- [Why Small Business Growth Is a System](https://newtechadvertising.com/knowledge/truth-about-business-growth/why-growth-is-a-system): Lasting growth rarely comes from one isolated solution. It comes from several parts of the business working together.
-- [What Small Business Owners Really Buy](https://newtechadvertising.com/knowledge/truth-about-business-growth/what-business-owners-really-buy): Business owners buy websites, advertising, and software. But what they really want is clarity, confidence, progress, and better outcomes.
-- [Why Understanding Comes Before Small Business Advertising](https://newtechadvertising.com/knowledge/truth-about-business-growth/why-understanding-comes-before-advertising): When a business needs more customers, advertising feels like the logical first step. But spending money and creating growth are not the same thing.
+- [Businesses Don’t Need More Marketing. They Need a Better Growth System.](https://newtechadvertising.com/knowledge/truth-about-business-growth/businesses-dont-need-more-marketing-they-need-a-better-growth-system): When a business isn’t growing, the first conclusion is usually pretty simple: “We need more marketing.” But bringing more people through the door doesn’t fix what happens after they arrive.
+
+- [Marketing Doesn’t Create Great Businesses](https://newtechadvertising.com/knowledge/truth-about-business-growth/marketing-doesnt-create-great-businesses): Marketing gets blamed for a lot of things. It also gets credit for things it cannot create. Discover why marketing works best as an amplifier for an already solid foundation.
+
+- [Every Business Is Already Perfectly Designed](https://newtechadvertising.com/knowledge/truth-about-business-growth/every-business-is-already-perfectly-designed): When business results are frustrating, it can feel like a mystery. But results aren't accidents—they are the direct product of how your business currently operates.
+
+- [The Difference Between Activity and Progress](https://newtechadvertising.com/knowledge/truth-about-business-growth/the-difference-between-activity-and-progress): A business can be extremely active without becoming stronger. Learn how to distinguish between merely doing work and actually building the systems that create meaningful, lasting growth.
+
+- [Why Growth Is a System](https://newtechadvertising.com/knowledge/truth-about-business-growth/why-growth-is-a-system): Lasting growth rarely comes from one isolated solution. It comes from several parts of the business working together.
+
+- [What Business Owners Really Buy](https://newtechadvertising.com/knowledge/truth-about-business-growth/what-business-owners-really-buy): Business owners buy websites, advertising, and software. But what they really want is clarity, confidence, progress, and better outcomes.
+
+- [Why Understanding Comes Before Advertising](https://newtechadvertising.com/knowledge/truth-about-business-growth/why-understanding-comes-before-advertising): When a business needs more customers, advertising feels like the logical first step. But spending money and creating growth are not the same thing.
 
 ### [How Customers Decide Who to Trust](https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust)
 
 Explore the psychological and practical steps customers take before deciding to hire a business.
 
-- [How Customers Decide Whether to Trust a Small Business](https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/trust-begins-before-the-first-conversation): Business owners often believe trust begins when they finally speak with the customer. But by the time customers contact a business, many have already formed an opinion.
-- [Why Customers Trust What They Can Understand](https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/people-trust-what-they-can-understand): Customers do not have your experience. When they cannot quickly understand what a business does or how it can help, moving forward feels unsafe.
-- [Why Customer Evidence Matters More Than Marketing Claims](https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/customers-trust-evidence-more-than-claims): Businesses make a lot of claims. But customers have heard the same claims from nearly every business. Evidence is what helps them believe you.
-- [How Small Businesses Build Trust by Keeping Promises](https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/trust-is-built-through-kept-promises): Businesses often think of promises as the large commitments they make. But customers are also paying attention to many smaller promises that the business may not realize it is making.
-- [Why Customer Experience Matters to Small Business Growth](https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/people-remember-how-a-business-made-them-feel): The technical result can be correct while the relationship still feels wrong. Long after customers forget the details of the transaction, they often remember how the business made them feel.
-- [Why Relationships Matter More Than the Transaction](https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/trust-means-putting-the-relationship-before-the-transaction): A transaction can produce revenue today while weakening trust tomorrow. Trust reaches its deepest level when customers believe a business will protect their interests, even when doing so may cost an immediate sale.
+- [Trust Begins Before the First Conversation](https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/trust-begins-before-the-first-conversation): Business owners often believe trust begins when they finally speak with the customer. But by the time customers contact a business, many have already formed an opinion.
+
+- [People Trust What They Can Understand](https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/people-trust-what-they-can-understand): Customers do not have your experience. When they cannot quickly understand what a business does or how it can help, moving forward feels unsafe.
+
+- [Customers Trust Evidence More Than Claims](https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/customers-trust-evidence-more-than-claims): Businesses make a lot of claims. But customers have heard the same claims from nearly every business. Evidence is what helps them believe you.
+
+- [Trust Is Built Through Kept Promises](https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/trust-is-built-through-kept-promises): Businesses often think of promises as the large commitments they make. But customers are also paying attention to many smaller promises that the business may not realize it is making.
+
+- [People Remember How a Business Made Them Feel](https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/people-remember-how-a-business-made-them-feel): The technical result can be correct while the relationship still feels wrong. Long after customers forget the details of the transaction, they often remember how the business made them feel.
+
+- [Trust Means Putting the Relationship Before the Transaction](https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/trust-means-putting-the-relationship-before-the-transaction): A transaction can produce revenue today while weakening trust tomorrow. Trust reaches its deepest level when customers believe a business will protect their interests, even when doing so may cost an immediate sale.
 
 ### [How Businesses Turn Trust Into Lasting Relationships](https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships)
 
 Learn how to transform one-time transactions into lasting partnerships and ongoing referrals.
 
-- [How to Turn Small Business Customers Into Long-Term Relationships](https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/the-sale-is-the-beginning-not-the-end): Businesses put enormous effort into getting customers, but often treat them as though the relationship has ended once the sale is complete.
-- [How to Stay Connected With Customers Without Always Selling](https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/staying-connected-without-always-selling): Staying connected should not mean constantly selling. It should mean continuing to be useful. A healthy business relationship creates value between transactions, not only during them.
-- [Why Small Businesses Should Remember Their Customers](https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/a-business-should-remember-its-customers): A lasting relationship requires shared memory. Customers should not have to rebuild the relationship every time they contact the business. Memory turns a series of separate transactions into one continuing relationship.
-- [How Customer Relationships Improve a Small Business](https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/every-customer-relationship-should-teach-the-business-something): A healthy business should become more understanding with every customer relationship. Every customer relationship contains knowledge that can improve your systems, processes, and communication.
-- [How Customer Feedback Should Change a Small Business](https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/customer-feedback-should-change-the-business): Feedback becomes valuable when it influences a decision, explanation, process, priority, or behavior. Listening without learning—and learning without changing—does not improve anything.
-- [How Customer Participation Builds Small Business Loyalty](https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/customers-become-loyal-when-they-help-shape-the-business): Customers become more invested in a business when they are allowed to participate in its improvement. Loyalty grows when customers can see that the relationship has influence.
-- [How Relationships Create Sustainable Small Business Growth](https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/the-strongest-growth-comes-from-relationships-that-create-more-relationships): The strongest growth often begins with people who already know the business. One trusted relationship creates the beginning of another. This is more than word-of-mouth advertising. It is trust traveling from one person to the next.
+- [The Sale Is the Beginning, Not the End](https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/the-sale-is-the-beginning-not-the-end): Businesses put enormous effort into getting customers, but often treat them as though the relationship has ended once the sale is complete.
+
+- [Staying Connected Without Always Selling](https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/staying-connected-without-always-selling): Staying connected should not mean constantly selling. It should mean continuing to be useful. A healthy business relationship creates value between transactions, not only during them.
+
+- [A Business Should Remember Its Customers](https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/a-business-should-remember-its-customers): A lasting relationship requires shared memory. Customers should not have to rebuild the relationship every time they contact the business. Memory turns a series of separate transactions into one continuing relationship.
+
+- [Every Customer Relationship Should Teach the Business Something](https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/every-customer-relationship-should-teach-the-business-something): A healthy business should become more understanding with every customer relationship. Every customer relationship contains knowledge that can improve your systems, processes, and communication.
+
+- [Customer Feedback Should Change the Business](https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/customer-feedback-should-change-the-business): Feedback becomes valuable when it influences a decision, explanation, process, priority, or behavior. Listening without learning—and learning without changing—does not improve anything.
+
+- [Customers Become Loyal When They Help Shape the Business](https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/customers-become-loyal-when-they-help-shape-the-business): Customers become more invested in a business when they are allowed to participate in its improvement. Loyalty grows when customers can see that the relationship has influence.
+
+- [The Strongest Growth Comes From Relationships That Create More Relationships](https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/the-strongest-growth-comes-from-relationships-that-create-more-relationships): The strongest growth often begins with people who already know the business. One trusted relationship creates the beginning of another. This is more than word-of-mouth advertising. It is trust traveling from one person to the next.
 
 ### [Turning What a Business Knows Into an Asset](https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset)
 
 Discover how to document and share your expertise so it works for your business 24/7.
 
-- [How to Turn Small Business Knowledge Into a Business Asset](https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/your-business-knows-more-than-it-has-documented): When business owners think about the assets of their business, they usually think about things they can see. But many businesses overlook one of their most valuable assets: everything the business has learned.
-- [Why the Owner's Knowledge Is a Small Business Asset](https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/the-most-valuable-knowledge-usually-lives-in-the-owners-head): Many business owners assume the important knowledge of the business has already been documented. But those materials usually contain only part of the knowledge required. The rest, and often the most valuable part, is the judgment living in the owner's head.
-- [How Customer Questions Reveal What a Business Should Teach](https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/customer-questions-reveal-what-the-business-should-teach): Repeated customer questions aren't just customer service tasks; they reveal gaps in understanding and show what your business should be teaching.
-- [How Stories Turn Small Business Experience Into Understanding](https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/stories-turn-experience-into-understanding): Facts by themselves do not always create understanding. A good story helps the customer move from being told something to seeing it in action.
-- [How to Document a Small Business Process So It Can Be Repeated](https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/documenting-a-process-makes-knowledge-repeatable): A process captures how the business moves from one point to another. But a useful process should do more than list steps. It should preserve the thinking behind those steps.
-- [Why AI Works Better When It Learns From the Business](https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/ai-becomes-more-valuable-when-it-learns-from-the-business): Generic AI produces generic results. Documented experience gives AI the context it needs to become relevant, consistent, and genuinely helpful.
-- [How to Make Small Business Knowledge Keep Working Without the Owner](https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/knowledge-becomes-an-asset-when-it-can-keep-working-without-you): Knowledge becomes an asset when it can be found, trusted, used, shared, improved, and put to work repeatedly without depending on the owner to personally deliver it every time.
+- [Your Business Knows More Than It Has Documented](https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/your-business-knows-more-than-it-has-documented): When business owners think about the assets of their business, they usually think about things they can see. But many businesses overlook one of their most valuable assets: everything the business has learned.
+
+- [The Most Valuable Knowledge Usually Lives in the Owner’s Head](https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/the-most-valuable-knowledge-usually-lives-in-the-owners-head): Many business owners assume the important knowledge of the business has already been documented. But those materials usually contain only part of the knowledge required. The rest, and often the most valuable part, is the judgment living in the owner's head.
+
+- [Customer Questions Reveal What the Business Should Teach](https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/customer-questions-reveal-what-the-business-should-teach): Repeated customer questions aren't just customer service tasks; they reveal gaps in understanding and show what your business should be teaching.
+
+- [Stories Turn Experience Into Understanding](https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/stories-turn-experience-into-understanding): Facts by themselves do not always create understanding. A good story helps the customer move from being told something to seeing it in action.
+
+- [Documenting a Process Makes Knowledge Repeatable](https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/documenting-a-process-makes-knowledge-repeatable): A process captures how the business moves from one point to another. But a useful process should do more than list steps. It should preserve the thinking behind those steps.
+
+- [AI Becomes More Valuable When It Learns From the Business](https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/ai-becomes-more-valuable-when-it-learns-from-the-business): Generic AI produces generic results. Documented experience gives AI the context it needs to become relevant, consistent, and genuinely helpful.
+
+- [Knowledge Becomes an Asset When It Can Keep Working Without You](https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/knowledge-becomes-an-asset-when-it-can-keep-working-without-you): Knowledge becomes an asset when it can be found, trusted, used, shared, improved, and put to work repeatedly without depending on the owner to personally deliver it every time.
 
 ### [AI Foundations](https://newtechadvertising.com/knowledge/ai-foundations)
 
 A practical, hype-free introduction to using artificial intelligence in a local business.
 
-- [Is AI Magic? A Practical Introduction for Small Business](https://newtechadvertising.com/knowledge/ai-foundations/ai-isnt-magic-either): Artificial intelligence is powerful, but it is not magic. Understanding what it can and cannot do is the first step toward using it wisely.
-- [How to Start Using AI in a Small Business: Begin With the Work](https://newtechadvertising.com/knowledge/ai-foundations/start-with-the-work-not-the-tool): The best place to begin with AI is not by choosing a product. It is by understanding the work you are trying to accomplish.
-- [Why AI Needs Business Context to Be Useful](https://newtechadvertising.com/knowledge/ai-foundations/ai-needs-context-before-it-can-be-helpful): AI may know a great deal about business in general, but it does not automatically understand your business. Useful results begin by providing the right context.
-- [Using AI for Business Decisions Without Giving Up Human Judgment](https://newtechadvertising.com/knowledge/ai-foundations/ai-can-assist-judgment-it-cannot-own-it): AI can organize information, identify patterns, and suggest possible actions. But decisions involving people, values, risk, and responsibility still require human judgment.
-- [Why AI Gives Wrong Answers and How to Correct It](https://newtechadvertising.com/knowledge/ai-foundations/a-prompt-is-the-beginning-of-a-conversation): AI can sound confident and still be wrong. Learn how to question, correct, guide, and verify AI through conversation instead of trusting its first answer.
-- [When to Automate a Small Business Process: Start With Understanding](https://newtechadvertising.com/knowledge/ai-foundations/automation-comes-after-understanding): Automation can make good work faster and more consistent. But when we automate a process we do not understand, we often make confusion move faster too.
-- [How to Build Your First AI Teammate for Small Business](https://newtechadvertising.com/knowledge/ai-foundations/building-your-first-ai-teammate): Bring the principles of AI Foundations together by giving AI one clear, useful job with the right context, boundaries, and human oversight.
-- [How AI Can Help a Small Business Find Its Difference](https://newtechadvertising.com/knowledge/ai-foundations/when-ai-tells-you-youre-different): Artificial intelligence told me I was unusual. I wasn’t quite sure what to do with that.
-- [What AI Changes About Building a Small Business Team](https://newtechadvertising.com/knowledge/ai-foundations/the-team-i-spent-my-life-trying-to-build): For much of my life, I have tried to build things with other people. AI has helped me realize that some of the things I was trying to build were not impossible—they just required more consistent support.
-- [How to Turn AI Conversations Into a Working Business System](https://newtechadvertising.com/knowledge/ai-foundations/ai-makes-complicated-work-easier): See how an owner’s spoken knowledge can be clarified, approved, and turned into a practical business system without taking authority away from the owner.
-- [A Practical Way to Think About AI for Small Business](https://newtechadvertising.com/knowledge/ai-foundations/i-see-artificial-intelligence-differently): Why a useful approach to AI begins with people, purpose, trust, and the larger business system—not code, novelty, or another disconnected tool.
-- [How to Use AI Without Fear or Hype in a Small Business](https://newtechadvertising.com/knowledge/ai-foundations/ai-does-not-have-to-be-a-monster): A respectful way to help people move from fear and uncertainty about AI toward one small, safe, practical experience—without pressure or loss of control.
-- [How Small Business Owners Can Use AI Without Becoming Technicians](https://newtechadvertising.com/knowledge/ai-foundations/you-can-do-what-i-do-but-you-dont-have-to): AI makes complex work more accessible, but small-business owners should not have to spend years becoming experts in websites, software, automation, and AI just to keep up.
-- [How to Choose the Right AI Model for the Work](https://newtechadvertising.com/knowledge/ai-foundations/use-the-model-that-gets-the-job-done): The newest or most expensive AI model is not automatically the right choice. Match the capability and cost to the work you actually need done.
+- [AI Isn't Magic Either](https://newtechadvertising.com/knowledge/ai-foundations/ai-isnt-magic-either): Artificial intelligence is powerful, but it is not magic. Understanding what it can and cannot do is the first step toward using it wisely.
+
+- [Start With the Work, Not the Tool](https://newtechadvertising.com/knowledge/ai-foundations/start-with-the-work-not-the-tool): The best place to begin with AI is not by choosing a product. It is by understanding the work you are trying to accomplish.
+
+- [AI Needs Context Before It Can Be Helpful](https://newtechadvertising.com/knowledge/ai-foundations/ai-needs-context-before-it-can-be-helpful): AI may know a great deal about business in general, but it does not automatically understand your business. Useful results begin by providing the right context.
+
+- [AI Can Assist Judgment—It Cannot Own It](https://newtechadvertising.com/knowledge/ai-foundations/ai-can-assist-judgment-it-cannot-own-it): AI can organize information, identify patterns, and suggest possible actions. But decisions involving people, values, risk, and responsibility still require human judgment.
+
+- [Why AI Sometimes Gives You the Wrong Answer](https://newtechadvertising.com/knowledge/ai-foundations/a-prompt-is-the-beginning-of-a-conversation): AI can sound confident and still be wrong. Learn how to question, correct, guide, and verify AI instead of trusting its first answer.
+
+- [Automation Comes After Understanding](https://newtechadvertising.com/knowledge/ai-foundations/automation-comes-after-understanding): Automation can make good work faster and more consistent. But when we automate a process we do not understand, we often make confusion move faster too.
+
+- [Building Your First AI Teammate](https://newtechadvertising.com/knowledge/ai-foundations/building-your-first-ai-teammate): Bring the principles of AI Foundations together by giving AI one clear, useful job with the right context, boundaries, and human oversight.
+
+- [When Artificial Intelligence Tells You You’re Different](https://newtechadvertising.com/knowledge/ai-foundations/when-ai-tells-you-youre-different): Artificial intelligence told me I was unusual. I wasn’t quite sure what to do with that.
+
+- [The Team I Spent My Life Trying to Build](https://newtechadvertising.com/knowledge/ai-foundations/the-team-i-spent-my-life-trying-to-build): For much of my life, I have tried to build things with other people. AI has helped me realize that some of the things I was trying to build were not impossible—they just required more consistent support.
+
+- [From Conversation to a Working Business System](https://newtechadvertising.com/knowledge/ai-foundations/ai-makes-complicated-work-easier): See how an owner’s spoken knowledge can be clarified, approved, and turned into a practical business system without taking authority away from the owner.
+
+- [I See Artificial Intelligence Differently](https://newtechadvertising.com/knowledge/ai-foundations/i-see-artificial-intelligence-differently): Why a useful approach to AI begins with people, purpose, trust, and the larger business system—not code, novelty, or another disconnected tool.
+
+- [AI Does Not Have to Be a Monster](https://newtechadvertising.com/knowledge/ai-foundations/ai-does-not-have-to-be-a-monster): A respectful way to help people move from fear and uncertainty about AI toward one small, safe, practical experience—without pressure or loss of control.
+
+- [You Can Do What I Do—But You Don’t Have To](https://newtechadvertising.com/knowledge/ai-foundations/you-can-do-what-i-do-but-you-dont-have-to): AI makes complex work more accessible, but small-business owners should not have to spend years becoming experts in websites, software, automation, and AI just to keep up.
+
+- [Use the Model That Gets the Job Done](https://newtechadvertising.com/knowledge/ai-foundations/use-the-model-that-gets-the-job-done): The newest or most expensive AI model is not automatically the right choice. Match the capability and cost to the work you actually need done.
+
+### [AI, Humanity & Responsibility](https://newtechadvertising.com/knowledge/ai-humanity)
+
+Artificial intelligence is more than a new business tool. It reflects the knowledge, contradictions, hopes, fears, wisdom, and brokenness of the people who created it. This collection explores how we can understand AI without worshiping it, fearing it blindly, or surrendering our responsibility to think.
+
+- [AI Is a Mirror, Not a God](https://newtechadvertising.com/knowledge/ai-humanity/ai-is-a-mirror-not-a-god): AI did not appear from somewhere outside humanity. We created it from our accumulated knowledge, which means it reflects both our wisdom and our brokenness. The appropriate response is neither blind trust nor automatic fear, but understanding, discernment, and responsibility.
+
+### [Building a Small Business With AI](https://newtechadvertising.com/knowledge/building-a-small-business-with-ai)
+
+Three connected lessons from Rick Hesse on using AI to give a small business more capability without losing its speed, humanity, or practical way of working.
+
+- [The Problems Small Businesses Learn to Live With](https://newtechadvertising.com/knowledge/building-a-small-business-with-ai/the-problems-we-learn-to-live-with): Why small-business owners often live with known problems, and how AI changes the economics of adding capabilities once reserved for larger companies.
+
+- [How AI Gives Small Business Its Speed Back](https://newtechadvertising.com/knowledge/building-a-small-business-with-ai/ai-gives-small-business-its-speed-back): AI can give small businesses big-company capability while preserving small-company speed, flexibility, and the ability to change quickly.
+
+- [You Don't Have to Become an AI Expert](https://newtechadvertising.com/knowledge/building-a-small-business-with-ai/you-dont-have-to-become-an-ai-expert): Small-business owners do not need to become AI engineers. NTA builds practical AI systems around the business the owner already knows how to run.
 
 ### [What Is Digital Trust?](https://newtechadvertising.com/knowledge/what-is-digital-trust)
 
 Understand why the internet has changed, and how trust is built in an AI-assisted world.
 
-- [What Is Digital Trust for a Small Business?](https://newtechadvertising.com/knowledge/what-is-digital-trust/what-is-digital-trust): Digital trust is the confidence customers develop from everything they can find and understand about your business before speaking with you.
-- [Why a Small Business Website Is More Than a Brochure](https://newtechadvertising.com/knowledge/what-is-digital-trust/your-website-is-no-longer-just-a-website): A modern business website should help people find, understand, trust, and connect with the business. It is becoming the central connection point between what your business knows and the people who need that knowledge.
-- [Why Traditional Marketing Is No Longer Enough for Small Business](https://newtechadvertising.com/knowledge/what-is-digital-trust/why-traditional-marketing-is-no-longer-enough): Modern business growth requires a connected path from attention to understanding, understanding to trust, trust to conversation, and conversation to a lasting relationship.
-- [How Owned Digital Assets Support Small Business Growth](https://newtechadvertising.com/knowledge/what-is-digital-trust/digital-assets-keep-working): A digital asset is something the business builds, owns, and can continue using. Discover how to build long-term value instead of depending entirely on rented attention.
-- [How AI Is Changing How Customers Find Small Businesses](https://newtechadvertising.com/knowledge/what-is-digital-trust/ai-is-changing-how-customers-find-businesses): AI is changing business discovery from a search for links into a search for answers. Discover why being clearly understood is becoming just as important as being highly visible.
-- [Why Relationships Are a Small Business Competitive Advantage](https://newtechadvertising.com/knowledge/what-is-digital-trust/relationships-are-your-greatest-competitive-advantage): Relationships are your greatest competitive advantage because trust grows through repeated experiences. Discover why genuine human connection becomes more important in an AI-assisted world.
-- [What a Connected Small Business Looks Like](https://newtechadvertising.com/knowledge/what-is-digital-trust/the-connected-business-is-the-future): Having several tools does not make a business connected. The future belongs to businesses that learn how to connect their knowledge, people, processes, relationships, and technology around the customer.
+- [What Is Digital Trust?](https://newtechadvertising.com/knowledge/what-is-digital-trust/what-is-digital-trust): Digital trust is the confidence customers develop from everything they can find and understand about your business before speaking with you.
+
+- [Your Website Is No Longer Just a Website](https://newtechadvertising.com/knowledge/what-is-digital-trust/your-website-is-no-longer-just-a-website): A modern business website should help people find, understand, trust, and connect with the business. It is becoming the central connection point between what your business knows and the people who need that knowledge.
+
+- [Why Traditional Marketing Is No Longer Enough](https://newtechadvertising.com/knowledge/what-is-digital-trust/why-traditional-marketing-is-no-longer-enough): Modern business growth requires a connected path from attention to understanding, understanding to trust, trust to conversation, and conversation to a lasting relationship.
+
+- [Digital Assets Keep Working After the Advertising Stops](https://newtechadvertising.com/knowledge/what-is-digital-trust/digital-assets-keep-working): A digital asset is something the business builds, owns, and can continue using. Discover how to build long-term value instead of depending entirely on rented attention.
+
+- [AI Is Changing How Customers Find Businesses](https://newtechadvertising.com/knowledge/what-is-digital-trust/ai-is-changing-how-customers-find-businesses): AI is changing business discovery from a search for links into a search for answers. Discover why being clearly understood is becoming just as important as being highly visible.
+
+- [Relationships Are Your Greatest Competitive Advantage](https://newtechadvertising.com/knowledge/what-is-digital-trust/relationships-are-your-greatest-competitive-advantage): Relationships are your greatest competitive advantage because trust grows through repeated experiences. Discover why genuine human connection becomes more important in an AI-assisted world.
+
+- [The Connected Business Is the Future of Small Business Growth](https://newtechadvertising.com/knowledge/what-is-digital-trust/the-connected-business-is-the-future): Having several tools does not make a business connected. The future belongs to businesses that learn how to connect their knowledge, people, processes, relationships, and technology around the customer.
 
 ## Organization
 
