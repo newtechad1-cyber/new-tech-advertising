@@ -209,6 +209,9 @@ Deno.serve(async (req) => {
 
   try {
     base44 = createClientFromRequest(req);
+    const user = await base44.auth.me().catch(() => null);
+    if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!isTrustedInternalUser(user)) return Response.json({ error: 'Admin access required' }, { status: 403 });
     const payload = await req.json();
     auditId = payload?.audit_id || null;
     submissionId = payload?.submission_id || null;
