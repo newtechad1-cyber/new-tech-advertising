@@ -3,7 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Plus, Pencil, Trash2, RefreshCw, Users, Send, ChevronDown, ChevronUp, CheckCircle, Loader2 } from 'lucide-react';
-import ReactQuill from 'react-quill';
+import ReactQuill from 'react-quill-new';
 
 const CAMPAIGNS = [
   {
