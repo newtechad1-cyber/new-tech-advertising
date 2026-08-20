@@ -51,13 +51,8 @@ export default function LeadCaptureForm({
         throw new Error(intake?.error || 'Unable to save your request');
       }
 
-      // Keep the existing welcome email, but use the compatibility Lead record
-      // created by the same intake transaction.
-      if (intake.lead_record_id) {
-        base44.functions.invoke('sendLeadFollowUpEmail', { lead_id: intake.lead_record_id, step: 1 })
-          .catch(() => {}); // Fire and forget
-      }
-
+      // The canonical office intake owns lead delivery and follow-up.
+      // Do not call the admin-only follow-up endpoint from the public browser.
       setSubmitted(true);
       toast.success('Success! Check your email.');
       onSuccess?.();
