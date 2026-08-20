@@ -155,8 +155,8 @@ const STATIC_SEO = {
     description: "Rebuild a small-business website around clear messaging, search visibility, trust, accessibility, and useful customer action.",
   },
   "/services/social-media-management": {
-    title: "Social Media Management for Small Business | NTA",
-    description: "Organize consistent social media content around your business knowledge, customer questions, and practical growth priorities.",
+    title: "Social Media Marketing in Iowa & Southern Minnesota | NTA",
+    description: "Practical social media management for small businesses across Iowa, North Iowa, and Southern Minnesota—useful content, local visibility, and follow-up.",
   },
   "/social-media-content-system": {
     title: "Social Media Content System for Small Business | NTA",
@@ -191,12 +191,12 @@ const STATIC_SEO = {
     description: "Understand why short campaigns create activity while connected growth systems help a small business build momentum over time.",
   },
   "/small-business-marketing-north-iowa": {
-    title: "Small Business Marketing in North Iowa | NTA",
-    description: "Practical marketing, visibility, and AI education for small-business owners in Mason City, North Iowa, and surrounding communities.",
+    title: "Small Business Marketing in Iowa & Southern Minnesota | NTA",
+    description: "Practical marketing, AI education, local visibility, and follow-up systems for small businesses across Iowa, North Iowa, and Southern Minnesota.",
   },
   "/contractor-marketing-north-iowa": {
-    title: "Contractor Marketing in North Iowa | NTA",
-    description: "Practical marketing, local visibility, and customer follow-up systems for contractors serving North Iowa communities.",
+    title: "Contractor Marketing in Iowa & Southern Minnesota | NTA",
+    description: "Practical contractor marketing for Iowa, North Iowa, and Southern Minnesota: local SEO, useful content, social media, and follow-up systems.",
   },
   "/hvac-marketing-north-iowa": {
     title: "HVAC Marketing in North Iowa | NTA",
