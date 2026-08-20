@@ -1,8 +1,24 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 
+function isAdminUser(user) {
+  const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+    .split(',')
+    .map(value => value.trim().toLowerCase())
+    .filter(Boolean);
+
+  return Boolean(
+    user &&
+    (user.role === 'admin' || adminEmails.includes(String(user.email || '').toLowerCase()))
+  );
+}
+
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
+    const user = await base44.auth.me();
+    if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!isAdminUser(user)) return Response.json({ error: 'Admin access required' }, { status: 403 });
+
     const { lead_id } = await req.json();
 
     const leads = await base44.asServiceRole.entities.AdaLead.filter({ id: lead_id });
