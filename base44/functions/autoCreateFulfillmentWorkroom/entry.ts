@@ -1,12 +1,34 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 
+function isAdminUser(user) {
+  const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+    .split(',')
+    .map(value => value.trim().toLowerCase())
+    .filter(Boolean);
+
+  return Boolean(
+    user &&
+    (user.role === 'admin' || adminEmails.includes(String(user.email || '').toLowerCase()))
+  );
+}
+
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const { onboarding_workroom_id } = await req.json();
+    const user = await base44.auth.me().catch(() => null);
 
-    if (!onboarding_workroom_id) {
-      return Response.json({ error: 'onboarding_workroom_id required' }, { status: 400 });
+    if (!user) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    if (!isAdminUser(user)) {
+      return Response.json({ error: 'Admin access required' }, { status: 403 });
+    }
+
+    const body = await req.json().catch(() => ({}));
+    const onboarding_workroom_id = String(body?.onboarding_workroom_id || '').trim();
+
+    if (!/^[A-Za-z0-9_-]{1,128}$/.test(onboarding_workroom_id)) {
+      return Response.json({ error: 'Invalid onboarding_workroom_id' }, { status: 400 });
     }
 
     // Get onboarding workroom
@@ -42,6 +64,7 @@ Deno.serve(async (req) => {
 
     return Response.json(response);
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    console.error('[autoCreateFulfillmentWorkroom] failed:', error);
+    return Response.json({ error: 'Unable to create fulfillment workroom' }, { status: 500 });
   }
 });
