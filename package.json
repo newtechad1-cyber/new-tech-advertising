@@ -70,7 +70,7 @@
     "react-quill": "^2.0.0",
     "react-quill-new": "^3.8.3",
     "react-resizable-panels": "^2.1.7",
-    "react-router-dom": "^6.26.0",
+    "react-router-dom": "^7.18.2",
     "recharts": "^2.15.4",
     "rehype-raw": "^6.1.1",
     "remark-gfm": "^4.0.1",
