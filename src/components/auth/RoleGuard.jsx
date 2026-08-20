@@ -45,7 +45,7 @@ export function OpsGuard({ children }) {
 
   if (isLoadingAuth) return <><NoIndexMeta /><Spinner /></>;
   if (!user) return <><NoIndexMeta /><Navigate to="/Login" replace /></>;
-  if (!isOpsUser(user)) return <Navigate to="/portal" replace />;
+  if (!isOpsUser(user)) return <><NoIndexMeta /><Navigate to="/portal" replace /></>;
 
   return (
     <>
