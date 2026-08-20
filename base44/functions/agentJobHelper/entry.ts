@@ -7,20 +7,47 @@
  */
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 
+function isAdminUser(user) {
+  const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+    .split(',')
+    .map(value => value.trim().toLowerCase())
+    .filter(Boolean);
+
+  return Boolean(
+    user &&
+    (user.role === 'admin' || adminEmails.includes(String(user.email || '').toLowerCase()))
+  );
+}
+
+const ALLOWED_CHAIN_TARGETS = new Set(['runAiStep', 'processScheduledPosts']);
+
 Deno.serve(async (req) => {
   const base44 = createClientFromRequest(req);
+  const user = await base44.auth.me().catch(() => null);
 
-  const {
-    job_type,
-    trigger = 'entity_event',
-    company_id,
-    input_params,        // object — will be JSON.stringify'd
-    function_to_invoke,  // optional: if set, invoke another function after logging
-    function_payload,    // optional: payload to pass to that function
-  } = await req.json();
+  if (!user) {
+    return Response.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+  if (!isAdminUser(user)) {
+    return Response.json({ error: 'Admin access required' }, { status: 403 });
+  }
 
-  if (!job_type) {
-    return Response.json({ error: 'job_type required' }, { status: 400 });
+  const body = await req.json().catch(() => ({}));
+  const job_type = String(body?.job_type || '').trim();
+  const trigger = String(body?.trigger || 'entity_event').trim();
+  const company_id = body?.company_id ? String(body.company_id).trim() : null;
+  const input_params = body?.input_params;
+  const function_to_invoke = body?.function_to_invoke ? String(body.function_to_invoke).trim() : '';
+  const function_payload = body?.function_payload;
+
+  if (!/^[A-Za-z0-9_-]{1,128}$/.test(job_type)) {
+    return Response.json({ error: 'Invalid job_type' }, { status: 400 });
+  }
+  if (company_id && !/^[A-Za-z0-9_-]{1,128}$/.test(company_id)) {
+    return Response.json({ error: 'Invalid company_id' }, { status: 400 });
+  }
+  if (function_to_invoke && !ALLOWED_CHAIN_TARGETS.has(function_to_invoke)) {
+    return Response.json({ error: 'Unsupported chained function' }, { status: 400 });
   }
 
   // 1. Create the AgentJob record
