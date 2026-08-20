@@ -3,17 +3,29 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const { profileId, userEmail } = await req.json();
+    const user = await base44.auth.me().catch(() => null);
 
-    if (!profileId || !userEmail) {
-      return Response.json({ error: 'Missing required fields' }, { status: 400 });
+    if (!user) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Get profile details
+    const body = await req.json().catch(() => ({}));
+    const profileId = String(body?.profileId || '').trim();
+    const userEmail = String(user.email || '').trim().toLowerCase();
+
+    if (!/^[A-Za-z0-9_-]{1,128}$/.test(profileId) || !userEmail) {
+      return Response.json({ error: 'Invalid onboarding profile' }, { status: 400 });
+    }
+
+    // The authenticated user may notify only for their own profile. The
+    // browser no longer chooses the notification recipient.
     const profile = await base44.asServiceRole.entities.ClientProfile.get(profileId);
     
     if (!profile) {
       return Response.json({ error: 'Profile not found' }, { status: 404 });
+    }
+    if (String(profile.created_by || '').trim().toLowerCase() !== userEmail) {
+      return Response.json({ error: 'Forbidden' }, { status: 403 });
     }
 
     // Send confirmation email to user
@@ -134,7 +146,7 @@ New Tech Advertising Platform
     console.error('Onboarding notification error:', error);
     return Response.json({ 
       error: 'Failed to send notifications',
-      details: error.message 
+      details: 'Notification delivery failed' 
     }, { status: 500 });
   }
 });
