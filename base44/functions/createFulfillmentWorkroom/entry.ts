@@ -1,5 +1,17 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 
+function isAdminUser(user) {
+  const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+    .split(',')
+    .map(value => value.trim().toLowerCase())
+    .filter(Boolean);
+
+  return Boolean(
+    user &&
+    (user.role === 'admin' || adminEmails.includes(String(user.email || '').toLowerCase()))
+  );
+}
+
 const FULFILLMENT_TEMPLATES = {
   streaming_tv: {
     tasks: [
@@ -115,10 +127,34 @@ const FULFILLMENT_TEMPLATES = {
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const { onboarding_workroom_id, company_id, proposal_id, service_type, assigned_admin_user_id } = await req.json();
+    const user = await base44.auth.me().catch(() => null);
 
-    if (!onboarding_workroom_id || !company_id || !service_type || !assigned_admin_user_id) {
-      return Response.json({ error: 'Missing required fields' }, { status: 400 });
+    if (!user) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    if (!isAdminUser(user)) {
+      return Response.json({ error: 'Admin access required' }, { status: 403 });
+    }
+
+    const body = await req.json().catch(() => ({}));
+    const onboarding_workroom_id = String(body?.onboarding_workroom_id || '').trim();
+    const company_id = String(body?.company_id || '').trim();
+    const proposal_id = body?.proposal_id ? String(body.proposal_id).trim() : null;
+    const service_type = String(body?.service_type || '').trim();
+    const assigned_admin_user_id = String(body?.assigned_admin_user_id || '').trim();
+
+    if (
+      !/^[A-Za-z0-9_-]{1,128}$/.test(onboarding_workroom_id) ||
+      !/^[A-Za-z0-9_-]{1,128}$/.test(company_id) ||
+      !/^[A-Za-z0-9_-]{1,128}$/.test(assigned_admin_user_id)
+    ) {
+      return Response.json({ error: 'Invalid required identifier' }, { status: 400 });
+    }
+    if (proposal_id && !/^[A-Za-z0-9_-]{1,128}$/.test(proposal_id)) {
+      return Response.json({ error: 'Invalid proposal_id' }, { status: 400 });
+    }
+    if (!Object.prototype.hasOwnProperty.call(FULFILLMENT_TEMPLATES, service_type)) {
+      return Response.json({ error: 'Invalid service_type' }, { status: 400 });
     }
 
     // Check for existing active fulfillment workroom
@@ -222,6 +258,7 @@ Deno.serve(async (req) => {
       company_name: companyName,
     });
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    console.error('[createFulfillmentWorkroom] failed:', error);
+    return Response.json({ error: 'Unable to create fulfillment workroom' }, { status: 500 });
   }
 });
