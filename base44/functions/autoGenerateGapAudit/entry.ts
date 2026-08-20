@@ -68,6 +68,21 @@ function scoreValue(...values) {
   return Math.max(0, Math.min(100, Math.round(number)));
 }
 
+function isTrustedInternalUser(user) {
+  const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+    .split(',')
+    .map(value => value.trim().toLowerCase())
+    .filter(Boolean);
+
+  return Boolean(
+    user &&
+    (user.is_service === true ||
+      user.role === 'admin' ||
+      adminEmails.includes(String(user.email || '').toLowerCase()))
+  );
+}
+
+
 function firstName(contactName) {
   return asText(contactName).split(/\s+/)[0] || 'there';
 }
