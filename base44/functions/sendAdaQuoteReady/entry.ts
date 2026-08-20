@@ -1,6 +1,44 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 
-import { isAdminUser, trustedQuoteLink } from '../shared/security.ts';
+const TRUSTED_APP_ORIGINS = new Set([
+  'https://newtechadvertising.com',
+  'https://www.newtechadvertising.com',
+  'https://app.newtechadvertising.com',
+]);
+const TRUSTED_STRIPE_HOSTS = new Set(['checkout.stripe.com', 'buy.stripe.com']);
+
+function isAdminUser(user) {
+  const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+    .split(',')
+    .map(value => value.trim().toLowerCase())
+    .filter(Boolean);
+
+  return Boolean(
+    user &&
+    (user.role === 'admin' || adminEmails.includes(String(user.email || '').toLowerCase()))
+  );
+}
+
+function trustedQuoteLink(leadId, candidate) {
+  const safeLeadId = String(leadId || '').trim();
+  const fallback = `https://newtechadvertising.com/ada-quote?lead_id=${encodeURIComponent(safeLeadId)}`;
+  const raw = String(candidate || '').trim();
+  if (!raw) return fallback;
+
+  try {
+    const url = new URL(raw);
+    if (url.protocol !== 'https:' || url.username || url.password) return fallback;
+
+    const hostname = url.hostname.toLowerCase();
+    if (TRUSTED_STRIPE_HOSTS.has(hostname)) return url.toString();
+    if (!TRUSTED_APP_ORIGINS.has(url.origin)) return fallback;
+    if (!['/ada-quote', '/ada/quote'].includes(url.pathname)) return fallback;
+    if (url.searchParams.get('lead_id') !== safeLeadId) return fallback;
+    return url.toString();
+  } catch {
+    return fallback;
+  }
+}
 
 Deno.serve(async (req) => {
   try {
