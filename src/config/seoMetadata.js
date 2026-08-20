@@ -154,6 +154,22 @@ const STATIC_SEO = {
     title: "AI Website Rebuilds for Small Business | NTA",
     description: "Rebuild a small-business website around clear messaging, search visibility, trust, accessibility, and useful customer action.",
   },
+  "/website-rebuilds/mason-city-ia": {
+    title: "Website Rebuilds in Mason City, IA | NTA",
+    description: "Modern, mobile-first website rebuilds for Mason City businesses, built around local SEO, clearer messaging, and customer action.",
+  },
+  "/website-rebuilds/rochester-mn": {
+    title: "Website Rebuilds in Rochester, MN | NTA",
+    description: "Modern website rebuilds for Rochester businesses, built around local SEO, clearer messaging, and Southeast Minnesota customer action.",
+  },
+  "/website-rebuilds/austin-mn": {
+    title: "Website Rebuilds in Austin, MN | NTA",
+    description: "Modern website rebuilds for Austin businesses, built around local SEO, clearer messaging, and Southern Minnesota customer action.",
+  },
+  "/website-rebuilds/albert-lea-mn": {
+    title: "Website Rebuilds in Albert Lea, MN | NTA",
+    description: "Modern website rebuilds for Albert Lea businesses, built around local SEO, clearer messaging, and Southern Minnesota customer action.",
+  },
   "/services/social-media-management": {
     title: "Social Media Marketing in Iowa & Southern Minnesota | NTA",
     description: "Practical social media management for small businesses across Iowa, North Iowa, and Southern Minnesota—useful content, local visibility, and follow-up.",
