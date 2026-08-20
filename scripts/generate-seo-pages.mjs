@@ -486,7 +486,6 @@ const legacyPaths = [...new Set([
   ...getStaticPublicAliasPaths(),
 ])].filter(pathname => !publicPathSet.has(pathname));
 const paths = [...new Set([...publicPaths, ...legacyPaths])];
-const legacyPathSet = new Set(legacyPaths);
 const pathsWithDescendants = new Set(
   paths.filter(pathname =>
     paths.some(candidate => candidate !== pathname && candidate.startsWith(pathname + "/"))
@@ -496,18 +495,22 @@ const rootIndexFile = path.join(distDir, "index.html");
 const renderedCleanupPaths = [];
 
 for (const pathname of paths) {
-  // Base44's static host falls back to the SPA shell when a clean legacy
-  // route only has a nested /path/index.html file. Write legacy cleanup and
-  // alias paths as extensionless files at their exact clean URL paths when
-  // they have no child route. Use a nested index for parent cleanup paths so
-  // they can coexist with deeper public or cleanup paths.
+  // The production server must receive a file for the exact clean URL.
+  // Extensionless files handle leaf routes; parent routes use a sibling
+  // .html file so they can coexist with child-route directories. The
+  // production Vite appType setting prevents unknown paths from falling back
+  // to the root SPA shell before these files are checked.
   const outputFile = pathname === "/" || pathname === "/index.html"
     ? rootIndexFile
-    : legacyPathSet.has(pathname) && !pathsWithDescendants.has(pathname)
-      ? path.join(distDir, pathname.slice(1))
-      : path.join(distDir, pathname.slice(1), "index.html");
+    : pathsWithDescendants.has(pathname)
+      ? path.join(distDir, pathname.slice(1) + ".html")
+      : path.join(distDir, pathname.slice(1));
 
   if (outputFile === rootIndexFile && pathname !== "/") continue;
+
+  if (outputFile !== rootIndexFile && fs.existsSync(outputFile) && fs.statSync(outputFile).isDirectory()) {
+    fs.rmSync(outputFile, { recursive: true, force: true });
+  }
 
   const metadata = getPrerenderMetadata(pathname, publicPathSet);
   fs.mkdirSync(path.dirname(outputFile), { recursive: true });
