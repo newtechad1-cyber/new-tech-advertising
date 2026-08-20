@@ -14,14 +14,58 @@ const POINTS = {
   call_request: 8,
 };
 
+function isAdminUser(user) {
+  const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+    .split(',')
+    .map(value => value.trim().toLowerCase())
+    .filter(Boolean);
+
+  return Boolean(
+    user &&
+    (user.role === 'admin' || adminEmails.includes(String(user.email || '').toLowerCase()))
+  );
+}
+
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const body = await req.json();
-    const { lead_id, activity_type, details, page_visited, content_downloaded, video_watched, proposal_id, company_name } = body;
+    const user = await base44.auth.me().catch(() => null);
+    const isAdmin = isAdminUser(user);
+    const body = await req.json().catch(() => ({}));
 
-    if (!lead_id || !activity_type) {
-      return Response.json({ error: 'lead_id and activity_type required' }, { status: 400 });
+    const lead_id = String(body?.lead_id || '').trim();
+    const activity_type = String(body?.activity_type || '').trim();
+    const details = String(body?.details || '').slice(0, 2000);
+    const page_visited = String(body?.page_visited || '').slice(0, 500);
+    const content_downloaded = String(body?.content_downloaded || '').slice(0, 500);
+    const video_watched = String(body?.video_watched || '').slice(0, 500);
+    const proposal_id = body?.proposal_id ? String(body.proposal_id).trim() : '';
+    const public_token = body?.public_token ? String(body.public_token).trim() : '';
+    const company_name = String(body?.company_name || '').slice(0, 200);
+
+    if (!/^[A-Za-z0-9_-]{1,128}$/.test(lead_id)) {
+      return Response.json({ error: 'Invalid lead_id' }, { status: 400 });
+    }
+    if (!Object.prototype.hasOwnProperty.call(POINTS, activity_type)) {
+      return Response.json({ error: 'Invalid activity_type' }, { status: 400 });
+    }
+    if (proposal_id && !/^[A-Za-z0-9_-]{1,128}$/.test(proposal_id)) {
+      return Response.json({ error: 'Invalid proposal_id' }, { status: 400 });
+    }
+
+    // Internal callers use the signed-in admin context. The only public
+    // capability is a matching proposal token for proposal engagement.
+    if (!isAdmin) {
+      if (!proposal_id || !/^[A-Za-z0-9_-]{8,256}$/.test(public_token)) {
+        return Response.json({ error: 'Unauthorized' }, { status: 401 });
+      }
+      const proposals = await base44.asServiceRole.entities.Proposal.filter({
+        id: proposal_id,
+        public_token,
+      });
+      if (!proposals[0] || String(proposals[0].lead_id || '') !== lead_id) {
+        return Response.json({ error: 'Unauthorized' }, { status: 401 });
+      }
     }
 
     // 1. Record the activity
@@ -125,6 +169,7 @@ Deno.serve(async (req) => {
       hot_alert_created: justBecameHot && !alreadyNotified,
     });
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    console.error('[trackLeadActivity] failed:', error);
+    return Response.json({ error: 'Unable to record lead activity' }, { status: 500 });
   }
 });
