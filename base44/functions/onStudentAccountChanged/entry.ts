@@ -23,6 +23,9 @@ function isTrustedInternalUser(user) {
  */
 Deno.serve(async (req) => {
   const base44 = createClientFromRequest(req);
+  const user = await base44.auth.me().catch(() => null);
+  if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!isTrustedInternalUser(user)) return Response.json({ error: 'Admin access required' }, { status: 403 });
 
   try {
     const { event, data, old_data } = await req.json();
