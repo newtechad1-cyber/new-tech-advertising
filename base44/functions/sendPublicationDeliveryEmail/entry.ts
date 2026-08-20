@@ -28,9 +28,9 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Admin access required' }, { status: 403 });
     }
 
-    const body = await req.json().catch(() => ({}));
-    const request_id = String(body?.request_id || '').trim();
-    const delivery_url = String(body?.delivery_url || '').trim().slice(0, 2000);
+    const requestBody = await req.json().catch(() => ({}));
+    const request_id = String(requestBody?.request_id || '').trim();
+    const delivery_url = String(requestBody?.delivery_url || '').trim().slice(0, 2000);
 
     if (!/^[A-Za-z0-9_-]{1,128}$/.test(request_id)) {
       return Response.json({ error: 'Invalid request_id' }, { status: 400 });
@@ -67,7 +67,7 @@ Deno.serve(async (req) => {
     }
 
     const subject = `Your copy of ${deliveryRequest.publication_title}`;
-    const body = `Hi ${subscriber.first_name || 'there'},
+    const emailBody = `Hi ${subscriber.first_name || 'there'},
 
 Here is your requested copy of ${deliveryRequest.publication_title}.
 You can download or view it here:
@@ -82,7 +82,7 @@ New Tech Advertising`;
       await base44.asServiceRole.integrations.Core.SendEmail({
         to: subscriber.email,
         subject: subject,
-        body: body,
+        body: emailBody,
         from_name: 'New Tech Advertising Publications'
       });
 
