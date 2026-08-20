@@ -1,5 +1,19 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 
+function isTrustedInternalUser(user) {
+  const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+    .split(',')
+    .map(value => value.trim().toLowerCase())
+    .filter(Boolean);
+
+  return Boolean(
+    user &&
+    (user.is_service === true ||
+      user.role === 'admin' ||
+      adminEmails.includes(String(user.email || '').toLowerCase()))
+  );
+}
+
 /**
  * Automation handler: triggered on StudentUsers update.
  * Revokes all active sessions if:
