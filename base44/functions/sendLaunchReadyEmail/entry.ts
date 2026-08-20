@@ -1,9 +1,37 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 
+function isAdminUser(user) {
+  const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+    .split(',')
+    .map(value => value.trim().toLowerCase())
+    .filter(Boolean);
+
+  return Boolean(
+    user &&
+    (user.role === 'admin' || adminEmails.includes(String(user.email || '').toLowerCase()))
+  );
+}
+
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const { entity_id, old_data, data } = await req.json();
+    const user = await base44.auth.me().catch(() => null);
+
+    if (!user) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    if (!isAdminUser(user)) {
+      return Response.json({ error: 'Admin access required' }, { status: 403 });
+    }
+
+    const body = await req.json().catch(() => ({}));
+    const entity_id = String(body?.entity_id || '').trim();
+    const old_data = body?.old_data;
+    const data = body?.data;
+
+    if (!/^[A-Za-z0-9_-]{1,128}$/.test(entity_id)) {
+      return Response.json({ error: 'Invalid entity_id' }, { status: 400 });
+    }
 
     // Fetch the proposal
     const proposal = await base44.asServiceRole.entities.RebuildProposal.get(entity_id);
@@ -49,7 +77,7 @@ Once payment is received, we'll publish the site immediately.
   } catch (error) {
     console.error('Error sending launch ready email:', error);
     return Response.json({ 
-      error: error.message 
+      error: 'Unable to send launch-ready notification'
     }, { status: 500 });
   }
 });
