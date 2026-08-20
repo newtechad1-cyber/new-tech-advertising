@@ -2,6 +2,18 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 import Stripe from 'npm:stripe@17.5.0';
 
 const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY'), { apiVersion: '2024-12-18.acacia' });
+const ALLOWED_REDIRECT_ORIGINS = new Set([
+  'https://newtechadvertising.com',
+  'https://www.newtechadvertising.com',
+  'https://app.newtechadvertising.com',
+]);
+
+function getTrustedAppOrigin(req) {
+  const requestedOrigin = String(req.headers.get('origin') || '').replace(/\/$/, '');
+  return ALLOWED_REDIRECT_ORIGINS.has(requestedOrigin)
+    ? requestedOrigin
+    : 'https://app.newtechadvertising.com';
+}
 
 Deno.serve(async (req) => {
   try {
@@ -84,8 +96,8 @@ Deno.serve(async (req) => {
           customer: stripeCustomer.id,
           mode: 'subscription',
           line_items: [{ price: link.stripe_price_id, quantity: 1 }],
-          success_url: `${req.headers.get('origin') || 'https://app.base44.com'}/client/billing?signup=success`,
-          cancel_url: `${req.headers.get('origin') || 'https://app.base44.com'}/signup?link=${link_code}`,
+          success_url: `${getTrustedAppOrigin(req)}/client/billing?signup=success`,
+          cancel_url: `${getTrustedAppOrigin(req)}/signup?link=${encodeURIComponent(String(link_code || ''))}`,
           metadata: { reseller_id: reseller.id, link_code, reseller_client_id: resellerClient.id }
         });
         checkoutUrl = session.url;
