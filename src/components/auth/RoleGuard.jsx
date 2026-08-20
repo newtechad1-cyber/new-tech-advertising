@@ -25,9 +25,9 @@ const Spinner = () => (
 export function AdminGuard({ children }) {
   const { user, isLoadingAuth } = useAuth();
 
-  if (isLoadingAuth) return <Spinner />;
-  if (!user) return <Navigate to="/Login" replace />;
-  if (!isAdminUser(user)) return <Navigate to="/portal" replace />;
+  if (isLoadingAuth) return <><NoIndexMeta /><Spinner /></>;
+  if (!user) return <><NoIndexMeta /><Navigate to="/Login" replace /></>;
+  if (!isAdminUser(user)) return <><NoIndexMeta /><Navigate to="/portal" replace /></>;
 
   return (
     <>
@@ -43,8 +43,8 @@ export function AdminGuard({ children }) {
 export function OpsGuard({ children }) {
   const { user, isLoadingAuth } = useAuth();
 
-  if (isLoadingAuth) return <Spinner />;
-  if (!user) return <Navigate to="/Login" replace />;
+  if (isLoadingAuth) return <><NoIndexMeta /><Spinner /></>;
+  if (!user) return <><NoIndexMeta /><Navigate to="/Login" replace /></>;
   if (!isOpsUser(user)) return <Navigate to="/portal" replace />;
 
   return (
@@ -62,8 +62,8 @@ export function OpsGuard({ children }) {
 export function ClientGuard({ children }) {
   const { user, isLoadingAuth } = useAuth();
 
-  if (isLoadingAuth) return <Spinner />;
-  if (!user) return <Navigate to="/Login" replace />;
+  if (isLoadingAuth) return <><NoIndexMeta /><Spinner /></>;
+  if (!user) return <><NoIndexMeta /><Navigate to="/Login" replace /></>;
 
   return (
     <>
@@ -79,8 +79,8 @@ export function ClientGuard({ children }) {
 export function AuthGuard({ children }) {
   const { user, isLoadingAuth } = useAuth();
 
-  if (isLoadingAuth) return <Spinner />;
-  if (!user) return <Navigate to="/Login" replace />;
+  if (isLoadingAuth) return <><NoIndexMeta /><Spinner /></>;
+  if (!user) return <><NoIndexMeta /><Navigate to="/Login" replace /></>;
 
   return (
     <>
