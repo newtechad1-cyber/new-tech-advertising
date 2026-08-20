@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Plus, Pencil, Trash2, Send } from 'lucide-react';
-import ReactQuill from 'react-quill';
+import ReactQuill from 'react-quill-new';
 
 export default function EmailMarketing() {
   const [emails, setEmails] = useState([]);
