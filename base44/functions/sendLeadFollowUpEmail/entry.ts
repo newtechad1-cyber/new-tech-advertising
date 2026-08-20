@@ -1,5 +1,17 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 
+function isAdminUser(user) {
+  const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+    .split(',')
+    .map(value => value.trim().toLowerCase())
+    .filter(Boolean);
+
+  return Boolean(
+    user &&
+    (user.role === 'admin' || adminEmails.includes(String(user.email || '').toLowerCase()))
+  );
+}
+
 const EMAIL_SEQUENCES = {
   default: [
     {
@@ -113,14 +125,37 @@ Founder, New Tech Advertising`
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const { lead_id, step } = await req.json();
+    const user = await base44.auth.me().catch(() => null);
+
+    if (!user) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    if (!isAdminUser(user)) {
+      return Response.json({ error: 'Admin access required' }, { status: 403 });
+    }
+
+    const body = await req.json().catch(() => ({}));
+    const lead_id = String(body?.lead_id || '').trim();
+    const step = Number(body?.step);
+
+    if (!/^[A-Za-z0-9_-]{1,128}$/.test(lead_id)) {
+      return Response.json({ error: 'Invalid lead_id' }, { status: 400 });
+    }
+    if (!Number.isInteger(step) || step < 1 || step > 4) {
+      return Response.json({ error: 'Invalid step' }, { status: 400 });
+    }
 
     const lead = (await base44.asServiceRole.entities.Lead.filter({ id: lead_id }))[0];
     if (!lead) return Response.json({ error: 'Lead not found' }, { status: 404 });
+    if (!lead.email) return Response.json({ error: 'Lead has no email address' }, { status: 422 });
 
     const sequence = EMAIL_SEQUENCES.default;
     const emailStep = sequence.find(s => s.step === step);
     if (!emailStep) return Response.json({ error: 'Invalid step' }, { status: 400 });
+
+    if (Number(lead.follow_up_sequence_step || 0) >= step) {
+      return Response.json({ success: true, step, skipped: 'already_sent' });
+    }
 
     await base44.asServiceRole.integrations.Core.SendEmail({
       to: lead.email,
@@ -133,8 +168,9 @@ Deno.serve(async (req) => {
       last_contacted: new Date().toISOString().split('T')[0]
     });
 
-    return Response.json({ success: true, step, email: lead.email });
+    return Response.json({ success: true, step });
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    console.error('Lead follow-up email failed:', error);
+    return Response.json({ error: 'Unable to send lead follow-up' }, { status: 500 });
   }
 });
