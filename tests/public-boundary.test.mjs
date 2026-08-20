@@ -90,4 +90,8 @@ test('SEO cleanup prerendering covers private SPA fallbacks and public legacy eq
   ]) {
     assert.ok(seo.includes(mapping), mapping);
   }
+
+  assert.match(generator, /function getStaticPublicAliasPaths\(\)/);
+  assert.match(generator, /\.\.\.getStaticPublicAliasPaths\(\)/);
+  assert.match(generator, /pathsWithDescendants/);
 });
