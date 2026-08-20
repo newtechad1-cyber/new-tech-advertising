@@ -1,5 +1,17 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 
+function isAdminUser(user) {
+  const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+    .split(',')
+    .map(value => value.trim().toLowerCase())
+    .filter(Boolean);
+
+  return Boolean(
+    user &&
+    (user.role === 'admin' || adminEmails.includes(String(user.email || '').toLowerCase()))
+  );
+}
+
 const TASK_TEMPLATES = {
   streaming_tv: [
     { title: 'Complete Campaign Intake Form', type: 'intake_form', visible: true, required: true },
@@ -67,12 +79,20 @@ const TASK_TEMPLATES = {
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const body = await req.json();
-    const { proposal_id, onboarding_type } = body;
+    const body = await req.json().catch(() => ({}));
+    const proposal_id = String(body?.proposal_id || '').trim();
+    const onboarding_type = String(body?.onboarding_type || '').trim();
+    const public_token = String(body?.public_token || '').trim();
 
-    if (!proposal_id || !onboarding_type) {
-      return Response.json({ error: 'proposal_id and onboarding_type required' }, { status: 400 });
+    if (!/^[A-Za-z0-9_-]{1,128}$/.test(proposal_id)) {
+      return Response.json({ error: 'Invalid proposal_id' }, { status: 400 });
     }
+    if (!Object.prototype.hasOwnProperty.call(TASK_TEMPLATES, onboarding_type)) {
+      return Response.json({ error: 'Invalid onboarding_type' }, { status: 400 });
+    }
+
+    const user = await base44.auth.me().catch(() => null);
+    const isAdmin = isAdminUser(user);
 
     // Fetch proposal
     const proposals = await base44.asServiceRole.entities.Proposal.filter({ id: proposal_id });
@@ -80,6 +100,12 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Proposal not found' }, { status: 404 });
     }
     const proposal = proposals[0];
+
+    // Public creation is allowed only through the proposal's bearer token.
+    // Admins may create a workroom from the private office without that token.
+    if (!isAdmin && (!public_token || public_token !== String(proposal.public_token || ''))) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
 
     // Check for existing workroom
     const existing = await base44.asServiceRole.entities.OnboardingWorkrooms.filter({
@@ -89,9 +115,6 @@ Deno.serve(async (req) => {
     if (existing.length > 0) {
       return Response.json({ success: false, workroom_id: existing[0].id, message: 'Workroom already exists' });
     }
-
-    // Get current user for admin assignment
-    const user = await base44.auth.me();
 
     // Create workroom
     const workroom = await base44.asServiceRole.entities.OnboardingWorkrooms.create({
@@ -177,6 +200,7 @@ Deno.serve(async (req) => {
 
     return Response.json({ success: true, workroom_id: workroom.id });
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    console.error('[createOnboardingWorkroom] failed:', error);
+    return Response.json({ error: 'Unable to create onboarding workroom' }, { status: 500 });
   }
 });
