@@ -5,6 +5,9 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   logLevel: 'error', // Suppress warnings, only show errors
+  // Keep the editor/dev server as an SPA, but let production serve the
+  // route-aware HTML files generated after the Vite build.
+  appType: process.env.NODE_ENV === 'production' ? 'mpa' : 'spa',
   plugins: [
     base44({
       // Support for legacy code that imports the base44 SDK with @/integrations, @/entities, etc.
