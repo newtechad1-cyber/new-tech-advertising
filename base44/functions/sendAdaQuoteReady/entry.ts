@@ -1,20 +1,34 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 
+import { isAdminUser, trustedQuoteLink } from '../shared/security.ts';
+
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const { lead_id, stripe_link } = await req.json();
+    const user = await base44.auth.me();
 
-    const leads = await base44.asServiceRole.entities.AdaLead.filter({ id: lead_id });
+    if (!user) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    if (!isAdminUser(user)) {
+      return Response.json({ error: 'Admin access required' }, { status: 403 });
+    }
+
+    const { lead_id: leadId, stripe_link: candidateLink } = await req.json().catch(() => ({}));
+    if (!/^[A-Za-z0-9_-]{1,128}$/.test(String(leadId || ''))) {
+      return Response.json({ error: 'Invalid lead_id' }, { status: 400 });
+    }
+
+    const leads = await base44.asServiceRole.entities.AdaLead.filter({ id: leadId });
     if (leads.length === 0) {
       return Response.json({ error: 'Lead not found' }, { status: 404 });
     }
 
     const lead = leads[0];
-    const firstName = lead.full_name.split(' ')[0];
-    const monthlyText = lead.monthly_price > 0 ? `\nMonthly monitoring: $${lead.monthly_price}/mo` : '';
+    const firstName = String(lead.full_name || 'there').trim().split(/\s+/)[0] || 'there';
+    const monthlyText = Number(lead.monthly_price) > 0 ? `\nMonthly monitoring: $${lead.monthly_price}/mo` : '';
+    const safeLink = trustedQuoteLink(leadId, candidateLink);
 
-    // Send email
     await base44.asServiceRole.integrations.Core.SendEmail({
       from_name: 'Rick - New Tech Advertising',
       to: lead.email,
@@ -29,10 +43,10 @@ Setup: $${lead.setup_price}${monthlyText}
 What you'll get:
 • Accessibility remediation plan
 • Priority fixes
-• Verification review${lead.monthly_price > 0 ? '\n• Ongoing monitoring' : ''}
+• Verification review${Number(lead.monthly_price) > 0 ? '\\n• Ongoing monitoring' : ''}
 
 To get started, use this secure link:
-${stripe_link || 'https://newtechadvertising.com/ada-quote?lead_id=' + lead_id}
+${safeLink}
 
 Questions? Reply here or call/text me at 641-420-8816.
 
@@ -41,21 +55,20 @@ New Tech Advertising
 rick@newtechadvertising.com`
     });
 
-    // SMS
     const twilioSid = Deno.env.get('TWILIO_ACCOUNT_SID');
     const twilioToken = Deno.env.get('TWILIO_AUTH_TOKEN');
     const twilioFrom = Deno.env.get('TWILIO_PHONE_NUMBER');
 
     if (twilioSid && twilioToken && twilioFrom && lead.phone) {
-      const monthlyShort = lead.monthly_price > 0 ? ` + $${lead.monthly_price}/mo` : '';
-      const smsBody = `Your ADA quote is ready: ${lead.package} — Setup $${lead.setup_price}${monthlyShort}. Start here: ${stripe_link || 'https://newtechadvertising.com'}`;
-      
+      const monthlyShort = Number(lead.monthly_price) > 0 ? ` + $${lead.monthly_price}/mo` : '';
+      const smsBody = `Your ADA quote is ready: ${lead.package} — Setup $${lead.setup_price}${monthlyShort}. Start here: ${safeLink}`;
+
       try {
         const twilioAuth = btoa(`${twilioSid}:${twilioToken}`);
         await fetch(`https://api.twilio.com/2010-04-01/Accounts/${twilioSid}/Messages.json`, {
           method: 'POST',
           headers: {
-            'Authorization': `Basic ${twilioAuth}`,
+            Authorization: `Basic ${twilioAuth}`,
             'Content-Type': 'application/x-www-form-urlencoded'
           },
           body: new URLSearchParams({
@@ -70,9 +83,8 @@ rick@newtechadvertising.com`
     }
 
     return Response.json({ success: true, message: 'Quote notification sent' });
-
   } catch (error) {
     console.error('Send quote error:', error);
-    return Response.json({ error: error.message }, { status: 500 });
+    return Response.json({ error: 'Unable to send quote notification' }, { status: 500 });
   }
 });
