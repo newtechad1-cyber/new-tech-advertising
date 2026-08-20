@@ -15,7 +15,9 @@ function isAdminUser(user) {
 
   return Boolean(
     user &&
-    (user.role === 'admin' || adminEmails.includes(String(user.email || '').toLowerCase()))
+    (user.is_service === true ||
+      user.role === 'admin' ||
+      adminEmails.includes(String(user.email || '').toLowerCase()))
   );
 }
 
