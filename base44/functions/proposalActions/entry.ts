@@ -3,20 +3,24 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const body = await req.json();
-    const { action, token, proposal_id, viewer_name, viewer_email, section, time_spent } = body;
+    const body = await req.json().catch(() => ({}));
+    const action = String(body?.action || '').trim();
+    const token = String(body?.token || '').trim();
+    const viewer_name = String(body?.viewer_name || '').trim().slice(0, 120);
+    const viewer_email = String(body?.viewer_email || '').trim().slice(0, 254);
+    const section = String(body?.section || '').trim().slice(0, 80);
+    const time_spent = Number(body?.time_spent || 0);
 
-    // Find proposal by token or ID (no auth required — public endpoint)
+    // Public proposal actions require the opaque bearer token. Never accept a
+    // bare proposal ID because that would turn the whole proposal entity into
+    // an unauthenticated lookup and mutation surface.
+    if (!/^[A-Za-z0-9_-]{8,256}$/.test(token)) {
+      return Response.json({ error: 'Proposal token required' }, { status: 401 });
+    }
+
     const findProposal = async () => {
-      if (token) {
-        const results = await base44.asServiceRole.entities.Proposal.filter({ public_token: token });
-        return results[0] || null;
-      }
-      if (proposal_id) {
-        const results = await base44.asServiceRole.entities.Proposal.list('-created_date', 500);
-        return results.find(p => p.id === proposal_id) || null;
-      }
-      return null;
+      const results = await base44.asServiceRole.entities.Proposal.filter({ public_token: token });
+      return results[0] || null;
     };
 
     const proposal = await findProposal();
@@ -36,7 +40,7 @@ Deno.serve(async (req) => {
         'roi_inputs', 'roi_projection_summary', 'proposal_video_url', 'proposal_thumbnail_url',
         'monthly_fee', 'one_time_fee', 'contract_term', 'estimated_value',
         'cta_text', 'acceptance_terms', 'accepted_online', 'rejected_online',
-        'last_action_taken', 'public_token', 'views',
+        'last_action_taken', 'views',
       ];
       const safeProposal = {};
       safe.forEach(f => { if (proposal[f] !== undefined) safeProposal[f] = proposal[f]; });
@@ -129,6 +133,7 @@ Deno.serve(async (req) => {
         await base44.asServiceRole.functions.invoke('createOnboardingWorkroom', {
           proposal_id: proposal.id,
           onboarding_type: proposal.service_type || 'general_marketing',
+          public_token: token,
         });
       } catch (e) {
         console.log('Workroom creation failed:', e.message);
@@ -201,6 +206,7 @@ Deno.serve(async (req) => {
     return Response.json({ error: 'Unknown action' }, { status: 400 });
 
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    console.error('[proposalActions] failed:', error);
+    return Response.json({ error: 'Unable to process proposal action' }, { status: 500 });
   }
 });
