@@ -98,12 +98,16 @@ Deno.serve(async (req) => {
         }
 
         const pdfBytes = doc.output('arraybuffer');
+        const safeFilename = String(agreement.title || 'agreement')
+            .replace(/[^a-z0-9]+/gi, '_')
+            .replace(/^_+|_+$/g, '')
+            .toLowerCase() || 'agreement';
 
         return new Response(pdfBytes, {
             status: 200,
             headers: {
                 'Content-Type': 'application/pdf',
-                'Content-Disposition': `attachment; filename="${agreement.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf"`
+                'Content-Disposition': `attachment; filename="${safeFilename}.pdf"`
             }
         });
     } catch (error) {
