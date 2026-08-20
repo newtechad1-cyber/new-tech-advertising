@@ -421,6 +421,21 @@ function getLegacyComponentPaths() {
   return LEGACY_COMPONENT_DIRECTORIES.flatMap(collectLegacyComponentPaths);
 }
 
+// Static aliases are real URLs in the public router, but they are not all
+// intentional search destinations. Include them in the generated cleanup set
+// so an alias outside the curated sitemap cannot fall back to generic,
+// indexable SPA metadata before the client router runs. Dynamic aliases with
+// parameters are handled by their concrete sitemap or cleanup paths.
+function getStaticPublicAliasPaths() {
+  const routesFile = path.join(root, "src", "config", "publicRoutes.js");
+  if (!fs.existsSync(routesFile)) return [];
+
+  const source = fs.readFileSync(routesFile, "utf8");
+  return [...source.matchAll(/alias[(]['"]([^'"]+)['"]/g)]
+    .map(match => match[1])
+    .filter(pathname => pathname && !pathname.includes(":"));
+}
+
 function getContentByCanonical() {
   if (!fs.existsSync(sourceAiSitemap)) return new Map();
   const data = JSON.parse(fs.readFileSync(sourceAiSitemap, "utf8"));
@@ -468,6 +483,7 @@ const publicPathSet = new Set(publicPaths);
 const legacyPaths = [...new Set([
   ...LEGACY_SEARCH_CLEANUP_PATHS,
   ...getLegacyComponentPaths(),
+  ...getStaticPublicAliasPaths(),
 ])];
 const paths = [...new Set([...publicPaths, ...legacyPaths])];
 const legacyPathSet = new Set(legacyPaths);
