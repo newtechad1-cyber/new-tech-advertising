@@ -1,5 +1,17 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
 
+function isAdminUser(user) {
+  const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+    .split(',')
+    .map(value => value.trim().toLowerCase())
+    .filter(Boolean);
+
+  return Boolean(
+    user &&
+    (user.role === 'admin' || adminEmails.includes(String(user.email || '').toLowerCase()))
+  );
+}
+
 Deno.serve(async (req) => {
   if (req.method !== 'POST') {
     return Response.json({ error: 'Method not allowed' }, { status: 405 });
@@ -7,10 +19,31 @@ Deno.serve(async (req) => {
 
   try {
     const base44 = createClientFromRequest(req);
-    const { request_id, delivery_url } = await req.json();
+    const user = await base44.auth.me().catch(() => null);
 
-    if (!request_id || !delivery_url) {
-      return Response.json({ error: 'Missing request_id or delivery_url' }, { status: 400 });
+    if (!user) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    if (!isAdminUser(user)) {
+      return Response.json({ error: 'Admin access required' }, { status: 403 });
+    }
+
+    const body = await req.json().catch(() => ({}));
+    const request_id = String(body?.request_id || '').trim();
+    const delivery_url = String(body?.delivery_url || '').trim().slice(0, 2000);
+
+    if (!/^[A-Za-z0-9_-]{1,128}$/.test(request_id)) {
+      return Response.json({ error: 'Invalid request_id' }, { status: 400 });
+    }
+
+    let parsedDeliveryUrl;
+    try {
+      parsedDeliveryUrl = new URL(delivery_url);
+    } catch {
+      return Response.json({ error: 'Invalid delivery_url' }, { status: 400 });
+    }
+    if (parsedDeliveryUrl.protocol !== 'https:' || parsedDeliveryUrl.username || parsedDeliveryUrl.password) {
+      return Response.json({ error: 'Invalid delivery_url' }, { status: 400 });
     }
 
     const requests = await base44.asServiceRole.entities.PublicationDeliveryRequest.filter({ id: request_id });
@@ -71,12 +104,12 @@ New Tech Advertising`;
         error_details: errMsg
       });
       
-      return Response.json({ error: 'Email delivery failed', details: errMsg }, { status: 500 });
+      return Response.json({ error: 'Email delivery failed' }, { status: 500 });
     }
 
   } catch (error) {
     const errMsg = error instanceof Error ? error.message : String(error);
     console.error('[sendPublicationDeliveryEmail] Error:', errMsg);
-    return Response.json({ error: errMsg }, { status: 500 });
+    return Response.json({ error: 'Unable to deliver publication email' }, { status: 500 });
   }
 });
