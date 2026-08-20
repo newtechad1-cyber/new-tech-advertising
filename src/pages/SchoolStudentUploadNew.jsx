@@ -112,6 +112,7 @@ export default function SchoolStudentUploadNew() {
       const uploadResponse = await base44.functions.invoke('createStudentUploadSecure', {
         student_user_id: session.student_user_id,
         school_slug: schoolSlug,
+        session_token: session.session_token,
         title: formData.title.trim(),
         description: formData.description.trim(),
         category: formData.category,
