@@ -1,9 +1,35 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 
+function isAdminUser(user) {
+  const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+    .split(',')
+    .map(value => value.trim().toLowerCase())
+    .filter(Boolean);
+
+  return Boolean(
+    user &&
+    (user.role === 'admin' || adminEmails.includes(String(user.email || '').toLowerCase()))
+  );
+}
+
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const { lead_id, onboarding_link } = await req.json();
+    const user = await base44.auth.me().catch(() => null);
+
+    if (!user) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    if (!isAdminUser(user)) {
+      return Response.json({ error: 'Admin access required' }, { status: 403 });
+    }
+
+    const body = await req.json().catch(() => ({}));
+    const lead_id = String(body?.lead_id || '').trim();
+
+    if (!/^[A-Za-z0-9_-]{1,128}$/.test(lead_id)) {
+      return Response.json({ error: 'Invalid lead_id' }, { status: 400 });
+    }
 
     const leads = await base44.asServiceRole.entities.AdaLead.filter({ id: lead_id });
     if (leads.length === 0) {
@@ -11,13 +37,14 @@ Deno.serve(async (req) => {
     }
 
     const lead = leads[0];
-    const firstName = lead.full_name.split(' ')[0];
-    const onboardingUrl = onboarding_link || `https://newtechadvertising.com/ada-onboarding?lead_id=${lead_id}`;
+    const firstName = String(lead.full_name || 'there').trim().split(/\s+/)[0] || 'there';
+    const onboardingUrl = `https://newtechadvertising.com/ada-onboarding?lead_id=${encodeURIComponent(lead_id)}`;
 
-    // Update lead status
-    await base44.asServiceRole.entities.AdaLead.update(lead_id, {
-      status: 'paid'
-    });
+    // Stripe's signed webhook is the only source that may establish paid status.
+    // This notification function may run only after that verified transition.
+    if (lead.status !== 'paid') {
+      return Response.json({ error: 'Payment has not been verified' }, { status: 409 });
+    }
 
     // Send webhook to CRM and Agent
     const webhookPayload = {
@@ -121,6 +148,6 @@ rick@newtechadvertising.com`
 
   } catch (error) {
     console.error('Send payment success error:', error);
-    return Response.json({ error: error.message }, { status: 500 });
+    return Response.json({ error: 'Unable to send payment success notification' }, { status: 500 });
   }
 });
