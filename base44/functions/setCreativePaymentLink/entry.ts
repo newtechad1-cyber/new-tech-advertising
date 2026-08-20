@@ -1,10 +1,35 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 
+function isAdminUser(user) {
+  const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+    .split(',')
+    .map(value => value.trim().toLowerCase())
+    .filter(Boolean);
+
+  return Boolean(
+    user &&
+    (user.role === 'admin' || adminEmails.includes(String(user.email || '').toLowerCase()))
+  );
+}
+
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    
-    const { event, data, old_data } = await req.json();
+    const user = await base44.auth.me().catch(() => null);
+
+    if (!user) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    if (!isAdminUser(user)) {
+      return Response.json({ error: 'Admin access required' }, { status: 403 });
+    }
+
+    const { event, data, old_data } = await req.json().catch(() => ({}));
+    const proposalId = String(event?.entity_id || '').trim();
+
+    if (!/^[A-Za-z0-9_-]{1,128}$/.test(proposalId)) {
+      return Response.json({ error: 'Invalid proposal ID' }, { status: 400 });
+    }
 
     // Only process update events for streaming_tv proposals
     if (event.type !== 'update' || data.service !== 'streaming_tv') {
@@ -16,7 +41,6 @@ Deno.serve(async (req) => {
       return Response.json({ message: 'creative_option unchanged, skipping' });
     }
 
-    const proposalId = event.entity_id;
     const creativeOption = data.creative_option;
 
     let updateData = {};
@@ -62,7 +86,7 @@ Deno.serve(async (req) => {
     console.error('[setCreativePaymentLink] Error:', error);
     return Response.json({ 
       error: 'Internal server error',
-      details: error.message 
+      details: 'Unable to update creative payment settings'
     }, { status: 500 });
   }
 });
