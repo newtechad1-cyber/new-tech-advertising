@@ -1,14 +1,35 @@
 import { createClientFromRequest } from "npm:@base44/sdk@0.8.6";
 
+function isAdminUser(user) {
+  const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+    .split(',')
+    .map(value => value.trim().toLowerCase())
+    .filter(Boolean);
+
+  return Boolean(
+    user &&
+    (user.role === 'admin' || adminEmails.includes(String(user.email || '').toLowerCase()))
+  );
+}
+
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const { data } = await req.json();
+    const user = await base44.auth.me().catch(() => null);
 
-    const leadActivityId = data?.entity_id;
+    if (!user) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    if (!isAdminUser(user)) {
+      return Response.json({ error: 'Admin access required' }, { status: 403 });
+    }
+
+    const body = await req.json().catch(() => ({}));
+    const data = body?.data;
+    const leadActivityId = String(data?.entity_id || '').trim();
     
-    if (!leadActivityId) {
-      return Response.json({ error: "Missing entity_id" }, { status: 400 });
+    if (!/^[A-Za-z0-9_-]{1,128}$/.test(leadActivityId)) {
+      return Response.json({ error: "Invalid entity_id" }, { status: 400 });
     }
 
     const activity = await base44.asServiceRole.entities.LeadActivity.get(leadActivityId);
@@ -64,7 +85,7 @@ Deno.serve(async (req) => {
   } catch (error) {
     console.error("Error creating streaming proposal:", error);
     return Response.json({ 
-      error: error.message 
+      error: 'Unable to create streaming proposal'
     }, { status: 500 });
   }
 });
