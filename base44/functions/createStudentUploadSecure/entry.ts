@@ -15,6 +15,7 @@ Deno.serve(async (req) => {
     const {
       student_user_id,
       school_slug,
+      session_token,
       title,
       description,
       category,
@@ -23,8 +24,30 @@ Deno.serve(async (req) => {
       upload_type,
     } = await req.json();
 
-    if (!student_user_id || !school_slug || !title || !file_url) {
+    if (!student_user_id || !school_slug || !session_token || !title || !file_url) {
       return Response.json({ error: 'Missing required fields' }, { status: 400 });
+    }
+
+    if (String(session_token).length > 512) {
+      return Response.json({ error: 'Invalid session' }, { status: 401 });
+    }
+
+    const tokenBuffer = new TextEncoder().encode(String(session_token));
+    const hashBuffer = await crypto.subtle.digest('SHA-256', tokenBuffer);
+    const sessionTokenHash = Array.from(new Uint8Array(hashBuffer))
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('');
+
+    const sessions = await base44.asServiceRole.entities.StudentSessions.filter({
+      student_user_id,
+      school_slug,
+      session_token_hash: sessionTokenHash,
+      is_active: true,
+    });
+
+    const session = sessions?.[0];
+    if (!session || (session.expires_at && new Date(session.expires_at) <= new Date()) || session.revoked_at) {
+      return Response.json({ error: 'Invalid or expired session' }, { status: 401 });
     }
 
     // CRITICAL: Validate student exists and is active
