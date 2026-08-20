@@ -484,7 +484,7 @@ const legacyPaths = [...new Set([
   ...LEGACY_SEARCH_CLEANUP_PATHS,
   ...getLegacyComponentPaths(),
   ...getStaticPublicAliasPaths(),
-])];
+])].filter(pathname => !publicPathSet.has(pathname));
 const paths = [...new Set([...publicPaths, ...legacyPaths])];
 const legacyPathSet = new Set(legacyPaths);
 const rootIndexFile = path.join(distDir, "index.html");
