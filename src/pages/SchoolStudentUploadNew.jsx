@@ -40,16 +40,20 @@ export default function SchoolStudentUploadNew() {
     const loadStudent = async () => {
       try {
         const session = JSON.parse(sessionStr);
-        const students = await base44.entities.StudentUsers.filter({
-          id: session.student_user_id,
-          is_active: true,
+        const validation = await base44.functions.invoke('validateStudentSessionSecure', {
+          student_user_id: session.student_user_id,
+          school_slug: schoolSlug,
+          session_token: session.session_token,
         });
-
-        if (!students || students.length === 0 || !students[0].can_upload) {
+        const validatedStudent = validation.data?.student;
+        if (!validation.data?.valid || !validatedStudent?.can_upload) {
           throw new Error('Upload access not available');
         }
 
-        setStudent(students[0]);
+        setStudent({
+          ...validatedStudent,
+          full_name: validatedStudent.student_name,
+        });
       } catch (err) {
         console.error('Error loading student:', err);
         navigate(`${createPageUrl('SchoolStudentLogin')}?school=${schoolSlug}`);
