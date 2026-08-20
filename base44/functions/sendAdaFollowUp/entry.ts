@@ -1,5 +1,33 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 
+const TRUSTED_APP_ORIGINS = new Set([
+  'https://newtechadvertising.com',
+  'https://www.newtechadvertising.com',
+  'https://app.newtechadvertising.com',
+]);
+const TRUSTED_STRIPE_HOSTS = new Set(['checkout.stripe.com', 'buy.stripe.com']);
+
+function trustedQuoteLink(leadId, candidate) {
+  const safeLeadId = String(leadId || '').trim();
+  const fallback = `https://newtechadvertising.com/ada-quote?lead_id=${encodeURIComponent(safeLeadId)}`;
+  const raw = String(candidate || '').trim();
+  if (!raw) return fallback;
+
+  try {
+    const url = new URL(raw);
+    if (url.protocol !== 'https:' || url.username || url.password) return fallback;
+
+    const hostname = url.hostname.toLowerCase();
+    if (TRUSTED_STRIPE_HOSTS.has(hostname)) return url.toString();
+    if (!TRUSTED_APP_ORIGINS.has(url.origin)) return fallback;
+    if (!['/ada-quote', '/ada/quote'].includes(url.pathname)) return fallback;
+    if (url.searchParams.get('lead_id') !== safeLeadId) return fallback;
+    return url.toString();
+  } catch {
+    return fallback;
+  }
+}
+
 function isAdminUser(user) {
   const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
     .split(',')
@@ -19,7 +47,13 @@ Deno.serve(async (req) => {
     if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
     if (!isAdminUser(user)) return Response.json({ error: 'Admin access required' }, { status: 403 });
 
-    const { lead_id, stripe_link } = await req.json();
+    const body = await req.json().catch(() => ({}));
+    const lead_id = String(body?.lead_id || '').trim();
+    const stripe_link = body?.stripe_link;
+
+    if (!/^[A-Za-z0-9_-]{1,128}$/.test(lead_id)) {
+      return Response.json({ error: 'Invalid lead_id' }, { status: 400 });
+    }
 
     const leads = await base44.asServiceRole.entities.AdaLead.filter({ id: lead_id });
     if (leads.length === 0) {
@@ -27,7 +61,8 @@ Deno.serve(async (req) => {
     }
 
     const lead = leads[0];
-    const firstName = lead.full_name.split(' ')[0];
+    const firstName = String(lead.full_name || 'there').trim().split(/\s+/)[0] || 'there';
+    const safeLink = trustedQuoteLink(lead_id, stripe_link);
 
     // Send email
     await base44.asServiceRole.integrations.Core.SendEmail({
@@ -39,7 +74,7 @@ Deno.serve(async (req) => {
 Just checking in — do you want to move forward with your ADA fixes and monitoring?
 
 If yes, here's your start link again:
-${stripe_link || 'https://newtechadvertising.com/ada-quote?lead_id=' + lead_id}
+${safeLink}
 
 If not, tell me "later" and I'll follow up next month.
 
@@ -55,7 +90,7 @@ rick@newtechadvertising.com`
     const twilioFrom = Deno.env.get('TWILIO_PHONE_NUMBER');
 
     if (twilioSid && twilioToken && twilioFrom && lead.phone) {
-      const smsBody = `Quick follow-up — want to proceed with ADA fixes? Start here: ${stripe_link || 'https://newtechadvertising.com'} (or reply "later")`;
+      const smsBody = `Quick follow-up — want to proceed with ADA fixes? Start here: ${safeLink} (or reply "later")`;
       
       try {
         const twilioAuth = btoa(`${twilioSid}:${twilioToken}`);
