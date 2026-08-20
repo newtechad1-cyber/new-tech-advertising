@@ -86,28 +86,34 @@ async function fetchPublicWebsite(input) {
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const user = await base44.auth.me();
+    // This is a public checker, so anonymous visitors are allowed. We still
+    // resolve the auth context so the function never assumes a caller is trusted.
+    const user = await base44.auth.me().catch(() => null);
 
-    const payload = await req.json();
+    const payload = await req.json().catch(() => ({}));
     const { website_url, lead_email, lead_phone, business_profile_id, lead_id, sales_lead_id } = payload;
 
     if (!website_url) {
       return Response.json({ error: 'website_url required' }, { status: 400 });
     }
 
-    // Validate URL
     let urlObj;
     try {
-      urlObj = new URL(website_url.startsWith('http') ? website_url : `https://${website_url}`);
-    } catch (err) {
-      return Response.json({ error: 'Invalid website URL' }, { status: 400 });
+      urlObj = validatePublicWebsiteUrl(website_url);
+    } catch (error) {
+      return Response.json({ error: error.message }, { status: 400 });
     }
 
-    // Perform basic accessibility scan
+    const normalizedLeadEmail = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(String(lead_email || '').trim())
+      ? String(lead_email).trim()
+      : null;
+    const normalizedLeadPhone = String(lead_phone || '').trim().slice(0, 40) || null;
+
+    // Perform a public-only accessibility scan with redirect validation.
     const auditResult = await performAccessibilityScan(urlObj.toString());
 
     // Create audit record
-    const audit = await base44.entities.WebsiteAudit.create({
+    const audit = await base44.asServiceRole.entities.WebsiteAudit.create({
       website_url: urlObj.toString(),
       audit_type: 'accessibility',
       accessibility_issues: auditResult.issues,
@@ -125,8 +131,8 @@ Deno.serve(async (req) => {
       audit_report: auditResult.report,
       estimated_remediation_cost: auditResult.remediationCost,
       lawsuit_risk: auditResult.lawsuitRisk,
-      lead_email,
-      lead_phone,
+      lead_email: normalizedLeadEmail,
+      lead_phone: normalizedLeadPhone,
       lead_source: 'ada-checker-tool',
       audit_date: new Date().toISOString(),
       business_profile_id,
@@ -179,10 +185,7 @@ async function performAccessibilityScan(url) {
 
   try {
     // Fetch webpage
-    const response = await fetch(url, {
-      headers: { 'User-Agent': 'Mozilla/5.0' },
-      signal: AbortSignal.timeout(10000),
-    });
+    const { response } = await fetchPublicWebsite(url);
 
     if (!response.ok) {
       return {
