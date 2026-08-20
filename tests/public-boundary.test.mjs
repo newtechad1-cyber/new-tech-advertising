@@ -94,4 +94,9 @@ test('SEO cleanup prerendering covers private SPA fallbacks and public legacy eq
   assert.match(generator, /function getStaticPublicAliasPaths\(\)/);
   assert.match(generator, /\.\.\.getStaticPublicAliasPaths\(\)/);
   assert.match(generator, /pathsWithDescendants/);
+  assert.match(generator, /pathname\.slice\(1\) \+ ".html"/);
+  assert.match(generator, /fs\.rmSync\(outputFile/);
+
+  const vite = await read('vite.config.js');
+  assert.match(vite, /appType: process\.env\.NODE_ENV === 'production' \? 'mpa' : 'spa'/);
 });
