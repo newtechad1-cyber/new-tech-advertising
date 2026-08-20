@@ -38,15 +38,18 @@ export default function AdminGuard({ children }) {
 
   if (isLoadingAuth || !authChecked || isVerifying) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+      <>
+        <NoIndexMeta />
+        <div className="min-h-screen bg-slate-950 flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-slate-800 border-t-violet-500 rounded-full animate-spin"></div>
-      </div>
+        </div>
+      </>
     );
   }
 
   if (!user) {
     navigateToLogin();
-    return null;
+    return <NoIndexMeta />;
   }
 
   if (!isAdmin) {
