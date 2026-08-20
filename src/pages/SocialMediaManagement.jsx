@@ -25,22 +25,21 @@ const LOCAL_MARKETS = [
 ];
 
 const WHAT_YOU_GET = [
-  'Weekly content calendar built for your business',
-  'AI-written posts optimized for each platform',
+  'Regional content calendar built around your Iowa or Southern Minnesota service area',
+  'AI-assisted posts reviewed for your business and each platform',
   'Consistent publishing — no gaps or dark periods',
   'Content designed to drive calls and website traffic',
   'Performance reporting so you see what\'s working',
-  'Strategy aligned with your local SEO goals',
+  'Strategy aligned with Iowa, North Iowa, and Southern Minnesota local SEO goals',
 ];
 
 export default function SocialMediaManagement() {
   return (
     <div className="bg-white min-h-screen">
       <SEOHead 
-        title="Social Media Management | AI-Powered Social Media Marketing"
-        description="AI-powered social media management for small businesses. Automated posting, content creation, and engagement tracking across all platforms."
+        title="Social Media Marketing in Iowa & Southern Minnesota | NTA"
+        description="Practical social media management for small businesses across Iowa, North Iowa, and Southern Minnesota—useful content, local visibility, and follow-up."
       />
-      <title>Social Media Management for Small Businesses | NTA</title>
 
       <MarketingNav />
 
@@ -48,13 +47,13 @@ export default function SocialMediaManagement() {
       <section className="bg-gradient-to-br from-slate-900 via-violet-950 to-slate-900 text-white pt-24 pb-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <span className="inline-block bg-violet-500/20 border border-violet-400/30 text-violet-300 text-xs font-semibold px-4 py-1.5 rounded-full mb-6 uppercase tracking-widest">
-            Social Media Management
+            Social Media Marketing · Iowa & Southern Minnesota
           </span>
           <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-6">
-            Turn Your Social Media Into a Growth Engine for Your Business
+            Social Media Marketing and Management for Iowa & Southern Minnesota Small Businesses
           </h1>
           <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">
-            We manage, create, and publish content that drives real business results — not just likes. Built for local businesses who want more customers, not more followers.
+            We manage, create, and publish useful content for contractors, restaurants, retailers, professional services, and other small businesses—connecting social media to local search, your website, and the next customer action.
           </p>
           <Link
             to="/book-a-call"
@@ -169,12 +168,12 @@ export default function SocialMediaManagement() {
         <div className="max-w-4xl mx-auto text-center">
           <MapPin className="w-10 h-10 text-violet-300 mx-auto mb-4" />
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Serving Local Businesses Across North Iowa and Southern Minnesota
+            Social Media Marketing for Small Businesses Across Iowa and Southern Minnesota
           </h2>
           <p className="text-slate-300 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-            We work directly with small businesses in Mason City, Rochester, Austin, Albert Lea, and surrounding communities. Local market knowledge built into every content strategy.
+            Whether you serve one community or a wider area, we build content around the places, customers, seasons, and questions that matter to your business. Start with Iowa statewide visibility, then make North Iowa and Southern Minnesota priorities where they fit.
           </p>
-          <div className="flex flex-wrap justify-center gap-3 mb-10">
+          <div className="flex flex-wrap justify-center gap-3 mb-6">
             {LOCAL_MARKETS.map(({ city, state, href }) => (
               <Link
                 key={city}
@@ -185,6 +184,14 @@ export default function SocialMediaManagement() {
               </Link>
             ))}
           </div>
+          <div className="flex flex-wrap justify-center gap-4 text-sm">
+            <Link to="/small-business-marketing-north-iowa" className="text-violet-200 hover:text-white hover:underline font-medium">
+              Small business marketing in Iowa and Southern Minnesota
+            </Link>
+            <Link to="/contractor-marketing-north-iowa" className="text-violet-200 hover:text-white hover:underline font-medium">
+              Contractor marketing in Iowa and Southern Minnesota
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -192,10 +199,10 @@ export default function SocialMediaManagement() {
       <section className="py-24 px-6 bg-gradient-to-br from-slate-900 via-violet-950 to-slate-900 text-white text-center">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-4xl sm:text-5xl font-extrabold mb-6 leading-tight">
-            Get Your Social Media Growth Plan
+            Build Your Iowa & Southern Minnesota Social Media Growth Plan
           </h2>
           <p className="text-slate-300 text-lg mb-10 max-w-xl mx-auto">
-            Let's build a consistent, strategic social presence that actually drives customers to your business.
+            Let's connect your social content, local visibility, website, and follow-up around the customers and communities you want to reach.
           </p>
           <Link
             to="/book-a-call"
