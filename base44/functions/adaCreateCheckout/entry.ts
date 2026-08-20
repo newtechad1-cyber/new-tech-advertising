@@ -1,51 +1,127 @@
-import Stripe from "npm:stripe";
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.39';
+import Stripe from 'npm:stripe';
 
 Deno.serve(async (req) => {
   try {
-    const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY"), {
-      apiVersion: "2023-10-16",
-    });
+    const base44 = createClientFromRequest(req);
+    const user = await base44.auth.me();
+    const body = await req.json().catch(() => ({}));
+    const leadId = String(body?.lead_id || '').trim();
+    const paymentPlan = String(body?.payment_plan || '').trim();
 
-    const { lead_id, payment_plan, amount } = await req.json();
-
-    if (!amount) {
-      return Response.json({ error: "Missing amount" }, { status: 400 });
+    if (!/^[A-Za-z0-9_-]{1,128}$/.test(leadId)) {
+      return Response.json({ error: 'Invalid lead_id' }, { status: 400 });
+    }
+    if (!['full', 'split'].includes(paymentPlan)) {
+      return Response.json({ error: 'Invalid payment plan' }, { status: 400 });
     }
 
+    // The quote page is intentionally public. Authentication is still read
+    // when present, but payment amounts never come from the browser.
+    const leads = await base44.asServiceRole.entities.AdaLead.filter({ id: leadId });
+    const lead = leads[0];
+
+    if (!lead) {
+      return Response.json({ error: 'Quote not found' }, { status: 404 });
+    }
+
+    const setupPrice = calculateAuthoritativeSetupPrice(lead);
+    if (!Number.isFinite(setupPrice) || setupPrice <= 0) {
+      return Response.json({ error: 'Quote is not ready for checkout' }, { status: 409 });
+    }
+
+    const secretKey = Deno.env.get('STRIPE_SECRET_KEY');
+    if (!secretKey) {
+      return Response.json({ error: 'Stripe is not configured' }, { status: 503 });
+    }
+
+    const stripe = new Stripe(secretKey, { apiVersion: '2023-10-16' });
+    const unitAmount = paymentPlan === 'split'
+      ? Math.round(setupPrice * 100 * 0.5)
+      : Math.round(setupPrice * 100);
+
     const session = await stripe.checkout.sessions.create({
-      mode: "payment",
-      payment_method_types: ["card"],
-      line_items: [
-        {
-          price_data: {
-            currency: "usd",
-            product_data: {
-              name:
-                payment_plan === "split"
-                  ? "ADA Compliance – Split Payment (50%)"
-                  : "ADA Compliance – Full Payment",
-            },
-            unit_amount:
-              payment_plan === "split"
-                ? Math.round(amount * 100 * 0.5)
-                : Math.round(amount * 100),
+      mode: 'payment',
+      payment_method_types: ['card'],
+      line_items: [{
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: paymentPlan === 'split'
+              ? 'ADA Compliance – Split Payment (50%)'
+              : 'ADA Compliance – Full Payment',
           },
-          quantity: 1,
+          unit_amount: unitAmount,
         },
-      ],
-      success_url:
-        "https://newtechadvertising.com/ada/success?session_id={CHECKOUT_SESSION_ID}",
-      cancel_url:
-        "https://newtechadvertising.com/ada/cancel",
+        quantity: 1,
+      }],
+      success_url: 'https://newtechadvertising.com/ada/success?session_id={CHECKOUT_SESSION_ID}',
+      cancel_url: 'https://newtechadvertising.com/ada/cancel',
       metadata: {
-        lead_id,
-        payment_plan,
+        lead_id: leadId,
+        payment_plan: paymentPlan,
+        authenticated_user_id: user?.id || '',
       },
     });
 
     return Response.json({ url: session.url });
-  } catch (err) {
-    console.error(err);
-    return Response.json({ error: err.message }, { status: 500 });
+  } catch (error) {
+    console.error('ADA checkout error:', error);
+    return Response.json({ error: 'Unable to create ADA checkout' }, { status: 500 });
   }
 });
+
+function calculateAuthoritativeSetupPrice(lead) {
+  const packageName = String(lead?.package || '');
+  if (!['Starter', 'Growth', 'Authority'].includes(packageName)) return 0;
+
+  const nonprofit = Boolean(lead.nonprofit);
+  const baseSetup = nonprofit
+    ? (packageName === 'Starter' ? 500 : packageName === 'Growth' ? 900 : 1750)
+    : (packageName === 'Starter' ? 750 : packageName === 'Growth' ? 1250 : 2500);
+
+  const bounds = nonprofit
+    ? {
+        Starter: [500, 1000],
+        Growth: [900, 900],
+        Authority: [1750, 1750],
+      }[packageName]
+    : {
+        Starter: [750, 1500],
+        Growth: [1250, 2500],
+        Authority: [2500, 5000],
+      }[packageName];
+
+  let setupPrice = baseSetup;
+  const pages = String(lead.approximate_pages || '');
+  const siteType = String(lead.site_type || '').toLowerCase();
+  const locations = String(lead.number_of_locations || '');
+  const industry = String(lead.industry || '').toLowerCase();
+  const city = String(lead.city || '').toLowerCase();
+
+  if (pages === '16-30') setupPrice += 250;
+  if (pages === '31+') setupPrice += 500;
+  if (siteType === 'ecommerce' || siteType === 'booking') setupPrice += 750;
+  if (['healthcare', 'finance', 'education', 'government'].some(term => industry.includes(term))) {
+    setupPrice += 500;
+  }
+  if (locations === '2-3') setupPrice += 150;
+  if (locations === '4-10') setupPrice += 300;
+  if (locations === '11+') setupPrice += 500;
+
+  const multiplier = (
+    city.includes('des moines') ||
+    city.includes('cedar rapids') ||
+    city.includes('minneapolis')
+  )
+    ? 1.6
+    : (
+      city.includes('iowa city') ||
+      city.includes('waterloo') ||
+      city.includes('rochester')
+    )
+      ? 1.25
+      : 1.0;
+
+  return Math.max(bounds[0], Math.min(bounds[1], Math.round(setupPrice * multiplier)));
+}
