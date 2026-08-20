@@ -1,10 +1,20 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.39';
 import Stripe from 'npm:stripe';
 
-import { isAdminUser } from '../shared/security.ts';
-
 const CHECKOUT_PRICE_ID = 'price_1TtaOoGjzSQJmBIKNRCU71GG';
 const PUBLIC_ORIGIN = 'https://newtechadvertising.com';
+
+function isAdminUser(user) {
+  const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+    .split(',')
+    .map(value => value.trim().toLowerCase())
+    .filter(Boolean);
+
+  return Boolean(
+    user &&
+    (user.role === 'admin' || adminEmails.includes(String(user.email || '').toLowerCase()))
+  );
+}
 
 Deno.serve(async (req) => {
   try {
@@ -32,8 +42,8 @@ Deno.serve(async (req) => {
 
     const stripe = new Stripe(secretKey);
 
-    // Return URLs are deliberately fixed to NTA-owned paths. The caller
-    // cannot send a checkout session to an arbitrary origin.
+    // Return URLs are fixed to NTA-owned paths. The caller cannot send a
+    // checkout session to an arbitrary origin.
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [{ price: CHECKOUT_PRICE_ID, quantity: 1 }],
