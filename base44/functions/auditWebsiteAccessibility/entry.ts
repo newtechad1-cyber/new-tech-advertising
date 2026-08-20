@@ -104,7 +104,7 @@ Deno.serve(async (req) => {
       return Response.json({ error: error.message }, { status: 400 });
     }
 
-    const normalizedLeadEmail = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(String(lead_email || '').trim())
+    const normalizedLeadEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(lead_email || '').trim())
       ? String(lead_email).trim()
       : null;
     const normalizedLeadPhone = String(lead_phone || '').trim().slice(0, 40) || null;
@@ -141,9 +141,9 @@ Deno.serve(async (req) => {
     });
 
     // If no lead_id was provided but we have an email, try to link to an existing SalesLead
-    if (!lead_id && lead_email) {
+    if (!lead_id && normalizedLeadEmail) {
       try {
-        const matchingLeads = await base44.asServiceRole.entities.SalesLead.filter({ email: lead_email });
+        const matchingLeads = await base44.asServiceRole.entities.SalesLead.filter({ email: normalizedLeadEmail });
         if (matchingLeads.length > 0) {
           const foundLeadId = matchingLeads[0].id;
           await base44.asServiceRole.entities.WebsiteAudit.update(audit.id, {
