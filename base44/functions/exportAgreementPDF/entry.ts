@@ -1,20 +1,41 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.27';
 import { jsPDF } from 'npm:jspdf@2.5.1';
 
+function isAdminUser(user) {
+    const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+        .split(',')
+        .map(value => value.trim().toLowerCase())
+        .filter(Boolean);
+
+    return Boolean(
+        user &&
+        (user.role === 'admin' || adminEmails.includes(String(user.email || '').toLowerCase()))
+    );
+}
+
 Deno.serve(async (req) => {
     try {
+        if (req.method !== 'GET') {
+            return Response.json({ error: 'Method not allowed' }, { status: 405 });
+        }
+
         const url = new URL(req.url);
-        const agreementId = url.searchParams.get('id');
-        
-        if (!agreementId) {
-            return Response.json({ error: 'Agreement ID required' }, { status: 400 });
+        const agreementId = String(url.searchParams.get('id') || '').trim();
+
+        if (!/^[A-Za-z0-9_-]{1,128}$/.test(agreementId)) {
+            return Response.json({ error: 'Invalid agreement ID' }, { status: 400 });
         }
 
         const base44 = createClientFromRequest(req);
-        
-        // We'll use service role since this might be accessed via a public secure link 
-        // or by a client without a full NTA user account (using client portal magic link).
-        // For production, we should pass a secure token, but for now we'll allow fetching by ID.
+        const user = await base44.auth.me().catch(() => null);
+
+        if (!user) {
+            return Response.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+        if (!isAdminUser(user)) {
+            return Response.json({ error: 'Admin access required' }, { status: 403 });
+        }
+
         const agreement = await base44.asServiceRole.entities.ClientAgreement.get(agreementId);
         
         if (!agreement) {
@@ -86,6 +107,7 @@ Deno.serve(async (req) => {
             }
         });
     } catch (error) {
-        return Response.json({ error: error.message }, { status: 500 });
+        console.error('Agreement PDF export failed:', error);
+        return Response.json({ error: 'Unable to export agreement' }, { status: 500 });
     }
 });
