@@ -9,7 +9,7 @@ import { createPageUrl } from '@/utils';
 export default function StreamingCreativePayment() {
   const [proposal, setProposal] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [paymentPending, setPaymentPending] = useState(false);
   const [user, setUser] = useState(null);
   const [proposalId, setProposalId] = useState(null);
 
@@ -19,8 +19,9 @@ export default function StreamingCreativePayment() {
   }, []);
 
   useEffect(() => {
-    handleReturnFromStripe();
-  }, [proposal]);
+    const paidReturn = new URLSearchParams(window.location.search).get('paid');
+    if (paidReturn === '1') setPaymentPending(true);
+  }, []);
 
   const loadUser = async () => {
     try {
@@ -73,42 +74,8 @@ export default function StreamingCreativePayment() {
     }
   };
 
-  const handleReturnFromStripe = async () => {
-    if (!proposal) return;
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const paid = urlParams.get('paid');
-
-    if (paid === '1' && proposal.creative_payment_status !== 'paid') {
-      try {
-        await base44.entities.Proposal.update(proposal.id, {
-          creative_payment_status: 'paid',
-          creative_paid_at: new Date().toISOString()
-        });
-
-        await base44.asServiceRole.entities.ActivityLog.create({
-          event_type: 'creative_paid',
-          summary: 'Creative payment completed via Stripe link',
-          metadata: {
-            proposal_id: proposal.id,
-            creative_option: proposal.creative_option,
-            creative_fee: proposal.creative_fee
-          },
-          user_email: proposal.created_by || 'system'
-        });
-
-        setShowConfirmation(true);
-        setProposal({
-          ...proposal,
-          creative_payment_status: 'paid',
-          creative_paid_at: new Date().toISOString()
-        });
-      } catch (error) {
-        console.error('Error updating payment status:', error);
-      }
-    }
-  };
-
+  // A return URL is only a customer-facing hint. Stripe's signed webhook
+  // and the admin workflow establish payment status on the server.
   const handlePaymentClick = () => {
     if (proposal?.creative_payment_link) {
       window.open(proposal.creative_payment_link, '_blank');
@@ -185,10 +152,10 @@ export default function StreamingCreativePayment() {
           </div>
         )}
 
-        {showConfirmation && (
-          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3">
-            <CheckCircle2 className="w-6 h-6 text-green-600" />
-            <p className="text-green-800 font-medium">Payment received</p>
+        {paymentPending && (
+          <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-center gap-3">
+            <CheckCircle2 className="w-6 h-6 text-amber-600" />
+            <p className="text-amber-800 font-medium">Thanks. Payment status is being verified securely.</p>
           </div>
         )}
 
