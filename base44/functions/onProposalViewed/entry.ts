@@ -1,12 +1,34 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 
+function isAdminUser(user) {
+  const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+    .split(',')
+    .map(value => value.trim().toLowerCase())
+    .filter(Boolean);
+
+  return Boolean(
+    user &&
+    (user.role === 'admin' || adminEmails.includes(String(user.email || '').toLowerCase()))
+  );
+}
+
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const { proposal_id } = await req.json();
+    const user = await base44.auth.me().catch(() => null);
 
-    if (!proposal_id) {
-      return Response.json({ error: 'proposal_id required' }, { status: 400 });
+    if (!user) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    if (!isAdminUser(user)) {
+      return Response.json({ error: 'Admin access required' }, { status: 403 });
+    }
+
+    const body = await req.json().catch(() => ({}));
+    const proposal_id = String(body?.proposal_id || '').trim();
+
+    if (!/^[A-Za-z0-9_-]{1,128}$/.test(proposal_id)) {
+      return Response.json({ error: 'Invalid proposal_id' }, { status: 400 });
     }
 
     const proposals = await base44.asServiceRole.entities.Proposal.filter({ id: proposal_id });
@@ -114,6 +136,7 @@ Deno.serve(async (req) => {
 
     return Response.json({ success: true, views: newViews, notification_created: true });
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    console.error('[onProposalViewed] failed:', error);
+    return Response.json({ error: 'Unable to record proposal view' }, { status: 500 });
   }
 });
