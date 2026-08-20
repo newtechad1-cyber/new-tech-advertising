@@ -92,6 +92,7 @@ Deno.serve(async (req) => {
             lead_id: leads[0].id,
             activity_type: isRepeatView ? 'proposal_viewed' : 'proposal_viewed',
             proposal_id,
+            public_token: proposal.public_token || '',
             company_name: proposal.business_name || '',
             details: `View #${newViews}`,
           });
