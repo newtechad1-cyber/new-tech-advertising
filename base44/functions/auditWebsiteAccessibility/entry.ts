@@ -1,5 +1,88 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 
+function isPrivateOrLocalHostname(input) {
+  const hostname = String(input || '').replace(/^\[|\]$/g, '').toLowerCase();
+  if (!hostname) return true;
+  if (hostname === 'localhost' || hostname === 'metadata.google.internal' || hostname === 'instance-data') return true;
+  if (['.localhost', '.local', '.internal', '.lan', '.home'].some(suffix => hostname.endsWith(suffix))) return true;
+
+  const ipv4 = hostname.split('.').map(Number);
+  if (ipv4.length === 4 && ipv4.every(part => Number.isInteger(part) && part >= 0 && part <= 255)) {
+    const [a, b] = ipv4;
+    if (
+      a === 0 || a === 10 || a === 127 ||
+      (a === 100 && b >= 64 && b <= 127) ||
+      (a === 169 && b === 254) ||
+      (a === 172 && b >= 16 && b <= 31) ||
+      (a === 192 && (b === 0 || b === 168)) ||
+      (a === 198 && (b === 18 || b === 19)) ||
+      (a === 203 && b === 0) ||
+      a >= 224
+    ) return true;
+  }
+
+  const ipv6 = hostname.replace(/^::ffff:/i, '');
+  return ipv6 === '::' ||
+    ipv6 === '::1' ||
+    ipv6.startsWith('fc') ||
+    ipv6.startsWith('fd') ||
+    ipv6.startsWith('fe8') ||
+    ipv6.startsWith('fe9') ||
+    ipv6.startsWith('fea') ||
+    ipv6.startsWith('feb');
+}
+
+function validatePublicWebsiteUrl(value) {
+  const raw = String(value || '').trim();
+  if (!raw || raw.length > 2048) throw new Error('A valid public website URL is required.');
+
+  const candidate = /^[a-z][a-z0-9+.-]*:\/\//i.test(raw) ? raw : `https://${raw}`;
+  let url;
+  try {
+    url = new URL(candidate);
+  } catch {
+    throw new Error('Invalid website URL.');
+  }
+
+  if (!['http:', 'https:'].includes(url.protocol)) {
+    throw new Error('Only HTTP and HTTPS website URLs are allowed.');
+  }
+  if (url.username || url.password) {
+    throw new Error('Website URLs may not contain credentials.');
+  }
+  if (url.port && !['80', '443'].includes(url.port)) {
+    throw new Error('Website URLs may only use ports 80 or 443.');
+  }
+  if (isPrivateOrLocalHostname(url.hostname)) {
+    throw new Error('Private and local network addresses are not allowed.');
+  }
+  return url;
+}
+
+async function fetchPublicWebsite(input) {
+  let current = validatePublicWebsiteUrl(input);
+
+  for (let redirectCount = 0; redirectCount <= 3; redirectCount += 1) {
+    const response = await fetch(current, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; NTA-AuditBot/1.0)' },
+      signal: AbortSignal.timeout(10000),
+      redirect: 'manual',
+    });
+
+    if (![301, 302, 303, 307, 308].includes(response.status)) {
+      return { response, url: current };
+    }
+
+    const location = response.headers.get('location');
+    if (!location || redirectCount === 3) {
+      throw new Error('The website redirected too many times or returned an invalid redirect.');
+    }
+    current = validatePublicWebsiteUrl(new URL(location, current).toString());
+  }
+
+  throw new Error('The website redirected too many times.');
+}
+
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
