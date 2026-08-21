@@ -73,13 +73,13 @@ Deno.serve(async (req) => {
         const customer = await customerResponse.json();
 
         // Update DIY subscription with Stripe subscription ID
-        const subs = await base44.entities.DIYSubscription.filter({
+        const subs = await base44.asServiceRole.entities.DIYSubscription.filter({
           user_email: customer.email,
           status: 'pending',
         });
 
         if (subs.length > 0) {
-          await base44.entities.DIYSubscription.update(subs[0].id, {
+          await base44.asServiceRole.entities.DIYSubscription.update(subs[0].id, {
             stripe_subscription_id: session.subscription,
             status: 'active',
             billing_status: 'active',
@@ -93,13 +93,13 @@ Deno.serve(async (req) => {
       case 'customer.subscription.created': {
         const subscription = event.data.object;
 
-        const subs = await base44.entities.DIYSubscription.filter({
+        const subs = await base44.asServiceRole.entities.DIYSubscription.filter({
           stripe_subscription_id: subscription.id,
         });
 
         if (subs.length > 0) {
           const currentPeriodEnd = new Date(subscription.current_period_end * 1000);
-          await base44.entities.DIYSubscription.update(subs[0].id, {
+          await base44.asServiceRole.entities.DIYSubscription.update(subs[0].id, {
             billing_status: subscription.status,
             next_renewal_date: currentPeriodEnd.toISOString().split('T')[0],
           });
@@ -112,13 +112,13 @@ Deno.serve(async (req) => {
         const subscription = event.data.object;
 
         // Update status and renewal date
-        const subs = await base44.entities.DIYSubscription.filter({
+        const subs = await base44.asServiceRole.entities.DIYSubscription.filter({
           stripe_subscription_id: subscription.id,
         });
 
         if (subs.length > 0) {
           const currentPeriodEnd = new Date(subscription.current_period_end * 1000);
-          await base44.entities.DIYSubscription.update(subs[0].id, {
+          await base44.asServiceRole.entities.DIYSubscription.update(subs[0].id, {
             billing_status: subscription.status,
             status: subscription.status === 'active' || subscription.status === 'trialing' ? 'active' : 'paused',
             next_renewal_date: currentPeriodEnd.toISOString().split('T')[0],
@@ -132,12 +132,12 @@ Deno.serve(async (req) => {
         const subscription = event.data.object;
 
         // Cancel DIY subscription
-        const subs = await base44.entities.DIYSubscription.filter({
+        const subs = await base44.asServiceRole.entities.DIYSubscription.filter({
           stripe_subscription_id: subscription.id,
         });
 
         if (subs.length > 0) {
-          await base44.entities.DIYSubscription.update(subs[0].id, {
+          await base44.asServiceRole.entities.DIYSubscription.update(subs[0].id, {
             status: 'cancelled',
             billing_status: 'cancelled',
           });
@@ -149,12 +149,12 @@ Deno.serve(async (req) => {
       case 'invoice.payment_failed': {
         const invoice = event.data.object;
 
-        const subs = await base44.entities.DIYSubscription.filter({
+        const subs = await base44.asServiceRole.entities.DIYSubscription.filter({
           stripe_subscription_id: invoice.subscription,
         });
 
         if (subs.length > 0) {
-          await base44.entities.DIYSubscription.update(subs[0].id, {
+          await base44.asServiceRole.entities.DIYSubscription.update(subs[0].id, {
             billing_status: 'past_due',
           });
         }
