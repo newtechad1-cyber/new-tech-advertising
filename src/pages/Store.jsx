@@ -98,7 +98,7 @@ export default function Store() {
                         ) : (
                           <Button
                             className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-                            onClick={() => window.open('mailto:rick@newtechadvertising.com?subject=Order: ' + encodeURIComponent(product.name), '_blank')}
+                            onClick={() => window.open('mailto:info@newtechadvertising.com?subject=Order: ' + encodeURIComponent(product.name), '_blank')}
                           >
                             <ExternalLink className="w-4 h-4 mr-2" /> Order Now
                           </Button>

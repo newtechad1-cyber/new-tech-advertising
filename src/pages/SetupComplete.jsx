@@ -136,7 +136,7 @@ export default function SetupComplete() {
             <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
           <p className="text-sm text-slate-500 mt-4">
-            Need help? Call us at 641-420-8816 or email rick@newtechadvertising.com
+            Need help? Call us at 641-420-8816 or email info@newtechadvertising.com
           </p>
         </div>
       </motion.div>

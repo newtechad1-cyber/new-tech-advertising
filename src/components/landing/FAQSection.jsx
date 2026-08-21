@@ -113,8 +113,8 @@ export default function FAQSection() {
             </p>
             <p className="text-slate-600">
               We're here to help. Reach out to us at{' '}
-              <a href="mailto:rick@newtechadvertising.com" className="text-blue-600 font-semibold hover:text-blue-700">
-                rick@newtechadvertising.com
+              <a href="mailto:info@newtechadvertising.com" className="text-blue-600 font-semibold hover:text-blue-700">
+                info@newtechadvertising.com
               </a>
             </p>
           </div>

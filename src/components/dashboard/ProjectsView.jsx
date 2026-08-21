@@ -87,7 +87,7 @@ export default function ProjectsView() {
           title="No Active Projects Yet"
           description="Your projects and campaigns will appear here once your account manager sets them up. This typically happens within 48 hours of onboarding."
           actionLabel="Contact Support"
-          onAction={() => toast.info('Call us at 641-420-8816 or email rick@newtechadvertising.com')}
+          onAction={() => toast.info('Call us at 641-420-8816 or email info@newtechadvertising.com')}
         />
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

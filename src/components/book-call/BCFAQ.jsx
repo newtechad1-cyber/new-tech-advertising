@@ -23,7 +23,7 @@ export default function BCFAQ() {
     },
     {
       q: 'What if I have questions before the call?',
-      a: 'Email us at rick@newtechadvertising.com or call 641-420-8816. We\'re here to help.'
+      a: 'Email us at info@newtechadvertising.com or call 641-420-8816. We\'re here to help.'
     },
     {
       q: 'Do you work with businesses like mine?',

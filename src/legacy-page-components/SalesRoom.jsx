@@ -146,7 +146,7 @@ export default function SalesRoom() {
       </section>
 
       <div className="py-8 text-center border-t border-slate-800">
-        <p className="text-slate-600 text-sm">New Tech Advertising · <a href="tel:6414208816" className="text-violet-400 hover:text-violet-300">641-420-8816</a> · <a href="mailto:rick@newtechadvertising.com" className="text-violet-400 hover:text-violet-300">rick@newtechadvertising.com</a></p>
+        <p className="text-slate-600 text-sm">New Tech Advertising · <a href="tel:6414208816" className="text-violet-400 hover:text-violet-300">641-420-8816</a> · <a href="mailto:info@newtechadvertising.com" className="text-violet-400 hover:text-violet-300">info@newtechadvertising.com</a></p>
       </div>
     </div>
   );

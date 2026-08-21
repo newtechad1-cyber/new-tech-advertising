@@ -189,7 +189,7 @@ export default function FreeAudit() {
                     </p>
                     <div className="mt-auto">
                       <a
-                        href="mailto:rick@newtechadvertising.com?subject=My%20Free%20Business%20Gap%20Audit"
+                        href="mailto:info@newtechadvertising.com?subject=My%20Free%20Business%20Gap%20Audit"
                         className="block w-full text-center bg-transparent hover:bg-slate-800 border border-slate-700 text-white font-semibold py-3 rounded-xl transition-colors mb-3"
                       >
                         Continue by Email →

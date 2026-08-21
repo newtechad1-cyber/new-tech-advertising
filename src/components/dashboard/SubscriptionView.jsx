@@ -56,13 +56,13 @@ export default function SubscriptionView() {
         <CardFooter className="flex justify-between border-t px-6 py-4">
           <Button 
             variant="outline"
-            onClick={() => toast.info('To cancel or modify your subscription, please contact rick@newtechadvertising.com or call 641-420-8816')}
+            onClick={() => toast.info('To cancel or modify your subscription, please contact info@newtechadvertising.com or call 641-420-8816')}
           >
             Cancel Subscription
           </Button>
           <Button 
             className="bg-gradient-to-r from-blue-600 to-purple-600 text-white"
-            onClick={() => toast.info('To upgrade your plan, please contact rick@newtechadvertising.com or call 641-420-8816')}
+            onClick={() => toast.info('To upgrade your plan, please contact info@newtechadvertising.com or call 641-420-8816')}
           >
             Upgrade Plan
           </Button>
@@ -88,7 +88,7 @@ export default function SubscriptionView() {
             <Button 
               variant="ghost" 
               className="text-blue-600"
-              onClick={() => toast.info('To update payment method, please contact rick@newtechadvertising.com or call 641-420-8816')}
+              onClick={() => toast.info('To update payment method, please contact info@newtechadvertising.com or call 641-420-8816')}
             >
               Edit
             </Button>
@@ -119,7 +119,7 @@ export default function SubscriptionView() {
                     variant="ghost" 
                     size="sm" 
                     className="h-8 w-8 p-0"
-                    onClick={() => toast.info('For invoice copies, please contact rick@newtechadvertising.com')}
+                    onClick={() => toast.info('For invoice copies, please contact info@newtechadvertising.com')}
                   >
                     <ArrowDownRight className="h-4 w-4" />
                   </Button>

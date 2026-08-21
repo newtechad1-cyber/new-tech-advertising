@@ -96,7 +96,7 @@ export default function SignupModal({ isOpen, onClose, submissionType, offerType
       setShowSuccess(true);
     } catch (error) {
       console.error('SIGNUP_FAIL', error);
-      toast.error(error.message || 'Something went wrong. Please call us at 641-420-8816 or email rick@newtechadvertising.com');
+      toast.error(error.message || 'Something went wrong. Please call us at 641-420-8816 or email info@newtechadvertising.com');
     } finally {
       setIsSubmitting(false);
     }

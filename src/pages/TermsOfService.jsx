@@ -98,7 +98,7 @@ export default function TermsOfService() {
 
           <section>
             <h2 className="text-xl font-semibold mb-3">15. Contact Us</h2>
-            <p>For questions about these Terms, contact us at <a href="mailto:rick@newtechadvertising.com" className="text-blue-600 hover:underline">rick@newtechadvertising.com</a> or call <a href="tel:641-420-8816" className="text-blue-600 hover:underline">641-420-8816</a>.</p>
+            <p>For questions about these Terms, contact us at <a href="mailto:info@newtechadvertising.com" className="text-blue-600 hover:underline">info@newtechadvertising.com</a> or call <a href="tel:641-420-8816" className="text-blue-600 hover:underline">641-420-8816</a>.</p>
           </section>
         </div>
       </div>

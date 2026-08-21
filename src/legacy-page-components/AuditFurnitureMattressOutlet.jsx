@@ -253,7 +253,7 @@ export default function AuditFurnitureMattressOutlet() {
             </a>
           </div>
           <p className="text-slate-500 text-xs mt-10">
-            New Tech Advertising · 641-420-8816 · rick@newtechadvertising.com
+            New Tech Advertising · 641-420-8816 · info@newtechadvertising.com
           </p>
         </div>
       </section>

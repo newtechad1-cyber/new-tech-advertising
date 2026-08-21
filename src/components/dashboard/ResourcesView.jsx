@@ -34,14 +34,14 @@ export default function ResourcesView() {
           <Button 
             variant="secondary" 
             className="bg-white text-purple-600 hover:bg-purple-50"
-            onClick={() => toast.info('Video tutorials coming soon! Contact rick@newtechadvertising.com for personalized training.')}
+            onClick={() => toast.info('Video tutorials coming soon! Contact info@newtechadvertising.com for personalized training.')}
           >
             <PlayCircle className="mr-2 h-4 w-4" /> Watch Tutorials
           </Button>
           <Button 
             variant="outline" 
             className="bg-transparent text-white border-white hover:bg-white/10"
-            onClick={() => toast.info('Guides coming soon! Contact rick@newtechadvertising.com for support materials.')}
+            onClick={() => toast.info('Guides coming soon! Contact info@newtechadvertising.com for support materials.')}
           >
             <FileText className="mr-2 h-4 w-4" /> Read Guides
           </Button>
@@ -73,7 +73,7 @@ export default function ResourcesView() {
                       variant="ghost" 
                       size="sm" 
                       className="opacity-0 group-hover:opacity-100 transition-opacity"
-                      onClick={() => toast.info('Resource coming soon! Contact rick@newtechadvertising.com for assistance.')}
+                      onClick={() => toast.info('Resource coming soon! Contact info@newtechadvertising.com for assistance.')}
                     >
                       {item.type === 'template' ? 'Download' : 'View'} <ExternalLink className="ml-2 h-3 w-3" />
                     </Button>

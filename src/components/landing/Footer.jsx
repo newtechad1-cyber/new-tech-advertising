@@ -51,9 +51,9 @@ export default function Footer() {
                   <Phone className="w-4 h-4" />
                   641-420-8816
                 </a>
-                <a href="mailto:rick@newtechadvertising.com" className="flex items-center gap-2 hover:text-blue-400 transition-colors">
+                <a href="mailto:info@newtechadvertising.com" className="flex items-center gap-2 hover:text-blue-400 transition-colors">
                   <Mail className="w-4 h-4" />
-                  rick@newtechadvertising.com
+                  info@newtechadvertising.com
                 </a>
               </div>
             </div>
@@ -133,7 +133,7 @@ export default function Footer() {
 
             <h3 className="font-semibold text-lg mt-6 mb-3">8. Contact</h3>
             <p className="text-slate-700">
-              For questions about these terms, contact us at rick@newtechadvertising.com or call 641-420-8816.
+              For questions about these terms, contact us at info@newtechadvertising.com or call 641-420-8816.
             </p>
           </div>
         </DialogContent>
@@ -197,7 +197,7 @@ export default function Footer() {
 
             <h3 className="font-semibold text-lg mt-6 mb-3">9. Contact Us</h3>
             <p className="text-slate-700">
-              If you have questions about this privacy policy, please contact us at rick@newtechadvertising.com 
+              If you have questions about this privacy policy, please contact us at info@newtechadvertising.com 
               or call 641-420-8816.
             </p>
           </div>

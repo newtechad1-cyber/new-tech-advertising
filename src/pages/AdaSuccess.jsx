@@ -68,8 +68,8 @@ export default function AdaSuccess() {
                     641-420-8816
                   </a>
                   {' '}or{' '}
-                  <a href="mailto:rick@newtechadvertising.com" className="text-blue-600 hover:underline">
-                    rick@newtechadvertising.com
+                  <a href="mailto:info@newtechadvertising.com" className="text-blue-600 hover:underline">
+                    info@newtechadvertising.com
                   </a>
                 </p>
               </div>

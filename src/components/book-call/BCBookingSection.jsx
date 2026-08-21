@@ -77,8 +77,8 @@ export default function BCBookingSection() {
           Questions? Call{' '}
           <a href="tel:6414208816" className="text-blue-400 hover:text-blue-300">641-420-8816</a>{' '}
           or email{' '}
-          <a href="mailto:rick@newtechadvertising.com" className="text-blue-400 hover:text-blue-300">
-            rick@newtechadvertising.com
+          <a href="mailto:info@newtechadvertising.com" className="text-blue-400 hover:text-blue-300">
+            info@newtechadvertising.com
           </a>
         </p>
       </div>

@@ -101,7 +101,7 @@ export default function Proposal() {
       // Notify team
       await base44.integrations.Core.SendEmail({
         from_name: 'NTA — Proposal Accepted',
-        to: 'rick@newtechadvertising.com',
+        to: 'info@newtechadvertising.com',
         subject: `Proposal Accepted: ${proposal.title}`,
         body: `Proposal "${proposal.title}" has been accepted.\nSigned by: ${signerName}\nCompany: ${company?.business_name || proposal.company_id}\nDate: ${new Date().toLocaleDateString()}`,
       });
@@ -263,7 +263,7 @@ export default function Proposal() {
         <div className="text-center py-4 text-sm text-slate-500">
           Questions? <a href="tel:6414208816" className="text-blue-600 font-semibold">641-420-8816</a>
           {' '}or{' '}
-          <a href="mailto:rick@newtechadvertising.com" className="text-blue-600 font-semibold">rick@newtechadvertising.com</a>
+          <a href="mailto:info@newtechadvertising.com" className="text-blue-600 font-semibold">info@newtechadvertising.com</a>
         </div>
       </div>
     </div>
