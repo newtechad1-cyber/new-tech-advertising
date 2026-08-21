@@ -1,5 +1,19 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 
+function isTrustedInternalUser(user) {
+  const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+    .split(',')
+    .map(value => value.trim().toLowerCase())
+    .filter(Boolean);
+
+  return Boolean(
+    user &&
+    (user.is_service === true ||
+      user.role === 'admin' ||
+      adminEmails.includes(String(user.email || '').toLowerCase()))
+  );
+}
+
 function computeReadinessScore(bp) {
   const serviceAvail = bp.core_services?.length > 0 ? 80 : 30;
   const contentCap = bp.content_capacity ?? 30;
@@ -27,8 +41,9 @@ function computeOverallOpportunityScore({ demandScore, competitionScore, readine
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const user = await base44.auth.me();
+    const user = await base44.auth.me().catch(() => null);
     if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!isTrustedInternalUser(user)) return Response.json({ error: 'Admin access required' }, { status: 403 });
 
     const { business_profile_id } = await req.json();
     if (!business_profile_id) return Response.json({ error: 'business_profile_id required' }, { status: 400 });
