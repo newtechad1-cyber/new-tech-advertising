@@ -2,11 +2,7 @@ const TRUSTED_APP_ORIGINS = new Set([
   'https://newtechadvertising.com',
   'https://www.newtechadvertising.com',
   'https://app.newtechadvertising.com',
-  'https://new-tech-advertising.base44.app',
 ]);
-
-const RATE_LIMIT_BUCKETS = new Map();
-const MAX_TRACKED_REQUEST_BUCKETS = 2000;
 
 const TRUSTED_STRIPE_HOSTS = new Set([
   'checkout.stripe.com',
@@ -171,66 +167,6 @@ export function isAdminUser(user) {
     user &&
     (user.role === 'admin' || adminEmails.includes(String(user.email || '').toLowerCase()))
   );
-}
-
-/**
- * Browser requests to public functions must originate from one of the known
- * NTA application domains. This is an anti-abuse boundary, not user login:
- * direct callers are additionally constrained by per-client rate limits.
- */
-export function isTrustedPublicOrigin(req) {
-  const rawOrigin = req.headers.get('origin') || req.headers.get('referer');
-  if (!rawOrigin) return false;
-
-  try {
-    return TRUSTED_APP_ORIGINS.has(new URL(rawOrigin).origin);
-  } catch {
-    return false;
-  }
-}
-
-function requestClientIdentity(req) {
-  const forwarded = req.headers.get('cf-connecting-ip')
-    || req.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
-    || req.headers.get('x-real-ip')
-    || 'unknown';
-
-  return String(forwarded).slice(0, 128);
-}
-
-/**
- * Best-effort, per-edge-instance throttle for deliberately public endpoints.
- * It prevents one client from repeatedly consuming provider quota or creating
- * unlimited intake records while leaving legitimate public forms login-free.
- */
-export function checkRequestRateLimit(req, scope, { limit = 10, windowMs = 10 * 60 * 1000 } = {}) {
-  const now = Date.now();
-  const safeLimit = Math.max(1, Math.min(Number(limit) || 10, 1000));
-  const safeWindowMs = Math.max(1000, Math.min(Number(windowMs) || 600000, 24 * 60 * 60 * 1000));
-  const key = String(scope || 'public') + ':' + requestClientIdentity(req);
-  let bucket = RATE_LIMIT_BUCKETS.get(key);
-
-  if (!bucket || now >= bucket.resetAt) {
-    bucket = { count: 0, resetAt: now + safeWindowMs };
-    RATE_LIMIT_BUCKETS.set(key, bucket);
-  }
-
-  if (bucket.count >= safeLimit) {
-    return {
-      allowed: false,
-      retryAfterSeconds: Math.max(1, Math.ceil((bucket.resetAt - now) / 1000)),
-    };
-  }
-
-  bucket.count += 1;
-
-  if (RATE_LIMIT_BUCKETS.size > MAX_TRACKED_REQUEST_BUCKETS) {
-    for (const [bucketKey, entry] of RATE_LIMIT_BUCKETS) {
-      if (entry.resetAt <= now) RATE_LIMIT_BUCKETS.delete(bucketKey);
-    }
-  }
-
-  return { allowed: true, retryAfterSeconds: 0 };
 }
 
 export function trustedQuoteLink(leadId, candidate) {
