@@ -11,15 +11,15 @@ const EXPECTED_INTERVALS = {
 
 const DEFAULT_INTERVAL_HOURS = 48;
 
+function isTrustedInternalUser(user) {
+  return Boolean(user && (user.is_service === true || user.role === 'admin'));
+}
+
 Deno.serve(async (req) => {
   const base44 = createClientFromRequest(req);
-
-  // Allow scheduled (no user) or admin-triggered
-  let user = null;
-  try { user = await base44.auth.me(); } catch (_) {}
-  if (user && user.role !== 'admin') {
-    return Response.json({ error: 'Forbidden' }, { status: 403 });
-  }
+  const user = await base44.auth.me().catch(() => null);
+  if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!isTrustedInternalUser(user)) return Response.json({ error: 'Admin access required' }, { status: 403 });
 
   const rules = await base44.asServiceRole.entities.AutomationRule.list('-last_executed_at');
   const logs = await base44.asServiceRole.entities.AutomationRuleLog.list('-created_date', 500);
