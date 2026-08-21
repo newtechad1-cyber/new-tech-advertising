@@ -73,17 +73,9 @@ export default function BookCall() {
         throw new Error(intakeResponse?.data?.error || 'Unable to save your request');
       }
 
-      // STEP 4 — Create Google Calendar event
-      base44.functions.invoke('createDemoCalendarEvent', {
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-        business_name: form.business_name,
-        website_url: form.website_url,
-        service_interest: form.service_interest,
-        best_time: form.best_time,
-        message: form.message,
-      }).catch(err => console.warn('[BookCall] Calendar event creation failed:', err.message));
+      // The public request is saved by ntaUnifiedIntake. Calendar placement is
+      // handled internally after review; public visitors must never be able to
+      // write directly to the admin Google Calendar.
 
       // ntaUnifiedIntake sends the internal notification through info@newtechadvertising.com Gmail.
 
