@@ -5,6 +5,44 @@ const CALLBACK_URL = 'https://new-tech-advertising.base44.app/api/functions/chan
 const APP_BASE = 'https://new-tech-advertising.base44.app';
 const RETURN_PAGE = `${APP_BASE}/agency/channel-connections`;
 
+const STATE_MAX_AGE_MS = 10 * 60 * 1000;
+const encoder = new TextEncoder();
+
+function stateSigningSecret() {
+  return Deno.env.get('OAUTH_STATE_SECRET')
+    || Deno.env.get('GOOGLE_CLIENT_SECRET')
+    || Deno.env.get('META_APP_SECRET');
+}
+
+function base64UrlBytes(value) {
+  const base64 = value.replace(/-/g, '+').replace(/_/g, '/')
+    + '='.repeat((4 - (value.length % 4)) % 4);
+  return Uint8Array.from(atob(base64), char => char.charCodeAt(0));
+}
+
+async function verifySignedState(stateRaw) {
+  const [encoded, signature, extra] = String(stateRaw || '').split('.');
+  if (!encoded || !signature || extra) throw new Error('invalid_state');
+
+  const secret = stateSigningSecret();
+  if (!secret) throw new Error('state_signing_unavailable');
+
+  const key = await crypto.subtle.importKey(
+    'raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['verify'],
+  );
+  const valid = await crypto.subtle.verify('HMAC', key, base64UrlBytes(signature), encoder.encode(encoded));
+  if (!valid) throw new Error('invalid_state_signature');
+
+  const state = JSON.parse(atob(encoded));
+  if (!state.nonce || !state.initiated_by || !Number.isFinite(state.issued_at)) {
+    throw new Error('invalid_state_payload');
+  }
+  if (Date.now() - state.issued_at < 0 || Date.now() - state.issued_at > STATE_MAX_AGE_MS) {
+    throw new Error('expired_state');
+  }
+  return state;
+}
+
 async function log(base44, data) {
   try {
     await base44.asServiceRole.entities.PostingLog.create({
@@ -225,13 +263,15 @@ Deno.serve(async (req) => {
     });
   }
 
-  // --- Decode state ---
+  // --- Verify signed state before exchanging any provider code ---
   let stateData = {};
   try {
-    stateData = JSON.parse(atob(stateRaw));
-  } catch (e) {
-    // fallback: treat state as raw provider string (legacy)
-    stateData = { provider: stateRaw, client_id: null, client_name: '' };
+    stateData = await verifySignedState(stateRaw);
+  } catch (error) {
+    return new Response(null, {
+      status: 302,
+      headers: { Location: `${RETURN_PAGE}?oauth_error=${encodeURIComponent(error.message || 'invalid_state')}` },
+    });
   }
 
   const { provider, client_id, client_name } = stateData;
