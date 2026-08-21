@@ -8,6 +8,32 @@ const OAUTH_SCOPE_VERSION = '2026-05-04-reduced-scopes';
 // HARDCODED — META_OAUTH_SCOPES env var is intentionally NOT read here.
 const SCOPE = 'public_profile,email,pages_show_list';
 
+const encoder = new TextEncoder();
+
+function stateSigningSecret() {
+  return Deno.env.get('OAUTH_STATE_SECRET')
+    || Deno.env.get('GOOGLE_CLIENT_SECRET')
+    || Deno.env.get('META_APP_SECRET');
+}
+
+async function createSignedState(payload) {
+  const secret = stateSigningSecret();
+  if (!secret) throw new Error('OAuth state signing is not configured');
+
+  const encoded = btoa(JSON.stringify({
+    ...payload,
+    nonce: crypto.randomUUID(),
+    issued_at: Date.now(),
+  }));
+  const key = await crypto.subtle.importKey(
+    'raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign'],
+  );
+  const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(encoded));
+  const signatureB64 = btoa(String.fromCharCode(...new Uint8Array(signature)))
+    .replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+  return encoded + '.' + signatureB64;
+}
+
 async function log(base44, data) {
   try {
     await base44.asServiceRole.entities.PostingLog.create({
@@ -25,8 +51,11 @@ Deno.serve(async (req) => {
   }
 
   const base44 = createClientFromRequest(req);
-  const user = await base44.auth.me();
+  const user = await base44.auth.me().catch(() => null);
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+  if (user.role !== 'admin' && user.is_service !== true) {
+    return Response.json({ error: 'Admin access required' }, { status: 403 });
+  }
 
   let body = {};
   try { body = await req.json(); } catch (_) {}
@@ -42,8 +71,13 @@ Deno.serve(async (req) => {
   }
 
   const nonce = crypto.randomUUID();
-  const statePayload = { provider: 'facebook', client_id, client_name: client_name || '', nonce, initiated_at: new Date().toISOString() };
-  const state = btoa(JSON.stringify(statePayload));
+  const state = await createSignedState({
+    provider: 'facebook',
+    client_id,
+    client_name: client_name || '',
+    initiated_by: user.id,
+    request_nonce: nonce,
+  });
 
   const params = new URLSearchParams({
     client_id: appId,
