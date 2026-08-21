@@ -52,7 +52,7 @@ function nextMonday() {
 }
 
 function isTrustedInternalUser(user) {
-  const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+  const adminEmails = String('' || '')
     .split(',')
     .map(value => value.trim().toLowerCase())
     .filter(Boolean);

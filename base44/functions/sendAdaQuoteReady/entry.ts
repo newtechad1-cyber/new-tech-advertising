@@ -8,7 +8,7 @@ const TRUSTED_APP_ORIGINS = new Set([
 const TRUSTED_STRIPE_HOSTS = new Set(['checkout.stripe.com', 'buy.stripe.com']);
 
 function isAdminUser(user) {
-  const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+  const adminEmails = String('' || '')
     .split(',')
     .map(value => value.trim().toLowerCase())
     .filter(Boolean);

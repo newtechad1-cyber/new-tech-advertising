@@ -5,7 +5,7 @@ const CHECKOUT_PRICE_ID = 'price_1TtaOoGjzSQJmBIKNRCU71GG';
 const PUBLIC_ORIGIN = 'https://newtechadvertising.com';
 
 function isAdminUser(user) {
-  const adminEmails = String(Deno.env.get('ADMIN_EMAILS') || '')
+  const adminEmails = String('' || '')
     .split(',')
     .map(value => value.trim().toLowerCase())
     .filter(Boolean);
