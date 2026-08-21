@@ -98,8 +98,13 @@ Deno.serve(async (req) => {
       valid: true,
       student: {
         student_user_id: student.id,
+        full_name: student.full_name,
         student_name: student.full_name,
         email: student.email,
+        role: student.role,
+        grade: student.grade,
+        team_or_club: student.team_or_club,
+        is_active: student.is_active,
         can_upload: student.can_upload,
         school_slug: school_slug,
       },
