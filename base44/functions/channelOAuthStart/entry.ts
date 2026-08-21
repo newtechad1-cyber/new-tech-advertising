@@ -5,6 +5,33 @@ const CALLBACK_URL = 'https://new-tech-advertising.base44.app/api/functions/chan
 const APP_BASE = 'https://new-tech-advertising.base44.app';
 const OAUTH_SCOPE_VERSION = '2026-05-04-reduced-scopes';
 
+const STATE_MAX_AGE_MS = 10 * 60 * 1000;
+const encoder = new TextEncoder();
+
+function stateSigningSecret() {
+  return Deno.env.get('OAUTH_STATE_SECRET')
+    || Deno.env.get('GOOGLE_CLIENT_SECRET')
+    || Deno.env.get('META_APP_SECRET');
+}
+
+async function createSignedState(payload) {
+  const secret = stateSigningSecret();
+  if (!secret) throw new Error('OAuth state signing is not configured');
+
+  const encoded = btoa(JSON.stringify({
+    ...payload,
+    nonce: crypto.randomUUID(),
+    issued_at: Date.now(),
+  }));
+  const key = await crypto.subtle.importKey(
+    'raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign'],
+  );
+  const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(encoded));
+  const signatureB64 = btoa(String.fromCharCode(...new Uint8Array(signature)))
+    .replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+  return encoded + '.' + signatureB64;
+}
+
 // HARDCODED — META_OAUTH_SCOPES env var is intentionally NOT read here.
 const META_SCOPES_FACEBOOK = 'public_profile,email,pages_show_list';
 const META_SCOPES_INSTAGRAM = 'public_profile,email,pages_show_list,instagram_basic,instagram_content_publish';
@@ -15,8 +42,11 @@ Deno.serve(async (req) => {
   }
 
   const base44 = createClientFromRequest(req);
-  const user = await base44.auth.me();
+  const user = await base44.auth.me().catch(() => null);
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+  if (user.role !== 'admin' && user.is_service !== true) {
+    return Response.json({ error: 'Admin access required' }, { status: 403 });
+  }
 
   const body = await req.json();
   const { provider, client_id, client_name } = body;
@@ -25,8 +55,12 @@ Deno.serve(async (req) => {
     return Response.json({ error: 'provider and client_id are required' }, { status: 400 });
   }
 
-  const statePayload = JSON.stringify({ provider, client_id, client_name: client_name || '' });
-  const state = btoa(statePayload);
+  const state = await createSignedState({
+    provider,
+    client_id,
+    client_name: client_name || '',
+    initiated_by: user.id,
+  });
 
   await base44.asServiceRole.entities.PostingLog.create({
     client_id,
