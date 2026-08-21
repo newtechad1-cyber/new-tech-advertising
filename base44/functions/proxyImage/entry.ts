@@ -1,4 +1,5 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
+import { assertPublicDns } from '../shared/security.ts';
 
 const ALLOWED_IMAGE_HOSTS = new Set([
   'base44.app',
@@ -53,8 +54,39 @@ Deno.serve(async (req) => {
     return Response.json({ error: 'Image host is not allowed' }, { status: 400 });
   }
 
-  const response = await fetch(imageUrl.toString(), { redirect: 'follow' });
-  if (!response.ok) {
+  let current = imageUrl;
+  let response: Response | null = null;
+
+  for (let redirectCount = 0; redirectCount <= 3; redirectCount += 1) {
+    await assertPublicDns(current.hostname);
+    response = await fetch(current.toString(), { redirect: 'manual' });
+
+    if (![301, 302, 303, 307, 308].includes(response.status)) break;
+
+    const location = response.headers.get('location');
+    if (!location || redirectCount === 3) {
+      return Response.json({ error: 'Image redirected too many times' }, { status: 502 });
+    }
+
+    let next: URL;
+    try {
+      next = new URL(location, current);
+    } catch {
+      return Response.json({ error: 'Invalid image redirect' }, { status: 502 });
+    }
+
+    if (
+      next.protocol !== 'https:' ||
+      next.username ||
+      next.password ||
+      !ALLOWED_IMAGE_HOSTS.has(next.hostname.toLowerCase())
+    ) {
+      return Response.json({ error: 'Image redirect host is not allowed' }, { status: 400 });
+    }
+    current = next;
+  }
+
+  if (!response || !response.ok) {
     return Response.json({ error: 'Failed to fetch image' }, { status: 502 });
   }
 
