@@ -1,77 +1,156 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
+const PLAYLIST_ID = Deno.env.get('YOUTUBE_PLAYLIST_ID') || 'UUdGaYoTxcO-W6wuC3iDqFDg';
+const CACHE_TTL_MS = 15 * 60 * 1000;
+const REQUEST_WINDOW_MS = 10 * 60 * 1000;
+const REQUEST_LIMIT = 60;
+const TRUSTED_PUBLIC_ORIGINS = new Set([
+  'https://newtechadvertising.com',
+  'https://www.newtechadvertising.com',
+  'https://app.newtechadvertising.com',
+  'https://new-tech-advertising.base44.app',
+]);
+
+let cachedPlaylist = { expiresAt: 0, videos: [] };
+const requestBuckets = new Map();
+
+function isTrustedPublicOrigin(req) {
+  const rawOrigin = req.headers.get('origin') || req.headers.get('referer');
+  if (!rawOrigin) return false;
+
+  try {
+    return TRUSTED_PUBLIC_ORIGINS.has(new URL(rawOrigin).origin);
+  } catch {
+    return false;
+  }
+}
+
+function requestClientIdentity(req) {
+  const forwarded = req.headers.get('cf-connecting-ip')
+    || req.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+    || req.headers.get('x-real-ip')
+    || 'unknown';
+
+  return String(forwarded).slice(0, 128);
+}
+
+function isRateLimited(req) {
+  const now = Date.now();
+  const key = requestClientIdentity(req);
+  let bucket = requestBuckets.get(key);
+
+  if (!bucket || now >= bucket.resetAt) {
+    bucket = { count: 0, resetAt: now + REQUEST_WINDOW_MS };
+    requestBuckets.set(key, bucket);
+  }
+
+  if (bucket.count >= REQUEST_LIMIT) {
+    return Math.max(1, Math.ceil((bucket.resetAt - now) / 1000));
+  }
+
+  bucket.count += 1;
+
+  if (requestBuckets.size > 2000) {
+    for (const [bucketKey, entry] of requestBuckets) {
+      if (entry.resetAt <= now) requestBuckets.delete(bucketKey);
+    }
+  }
+
+  return 0;
+}
+
+function entryText(entry, tagName) {
+  return entry.getElementsByTagName(tagName)[0]?.textContent?.trim() || '';
+}
+
+function slugify(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
+
+function parsePlaylistFeed(xml) {
+  if (typeof DOMParser === 'undefined') {
+    throw new Error('XML parsing is unavailable');
+  }
+
+  const document = new DOMParser().parseFromString(xml, 'application/xml');
+  if (!document || document.querySelector('parsererror')) {
+    throw new Error('Invalid YouTube playlist feed');
+  }
+
+  return Array.from(document.getElementsByTagName('entry'))
+    .slice(0, 50)
+    .map((entry) => {
+      const youtubeId = entryText(entry, 'yt:videoId');
+      if (!/^[A-Za-z0-9_-]{6,128}$/.test(youtubeId)) return null;
+
+      const title = entryText(entry, 'title').slice(0, 500);
+      const description = entryText(entry, 'media:description').slice(0, 5000);
+      const thumbnail = entry.getElementsByTagName('media:thumbnail')[0];
+      const thumbnailUrl = thumbnail?.getAttribute('url') || null;
+
+      return {
+        title,
+        description,
+        youtubeId,
+        youtubeUrl: 'https://youtu.be/' + youtubeId,
+        embedUrl: 'https://www.youtube.com/embed/' + youtubeId,
+        thumbnailUrl,
+        publishedAt: entryText(entry, 'published'),
+        duration: '',
+        slug: slugify(title),
+      };
+    })
+    .filter(Boolean);
+}
 
 Deno.serve(async (req) => {
-    try {
-        const apiKey = Deno.env.get("YOUTUBE_API_KEY");
-        const playlistId = Deno.env.get("YOUTUBE_PLAYLIST_ID") || "UUdGaYoTxcO-W6wuC3iDqFDg";
+  if (req.method !== 'POST') {
+    return Response.json({ error: 'POST required' }, { status: 405 });
+  }
 
-        if (!apiKey || !playlistId) {
-            return Response.json({ error: 'YouTube credentials not configured' }, { status: 500 });
-        }
+  if (!isTrustedPublicOrigin(req)) {
+    return Response.json({ error: 'Untrusted request origin' }, { status: 403 });
+  }
 
-        const headers = {
-            "Referer": "https://www.newtechadvertising.com/"
-        };
+  const retryAfterSeconds = isRateLimited(req);
+  if (retryAfterSeconds) {
+    return Response.json(
+      { error: 'Too many playlist requests. Please try again shortly.' },
+      { status: 429, headers: { 'Retry-After': String(retryAfterSeconds) } },
+    );
+  }
 
-        // 1. Get playlist items
-        const playlistUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&maxResults=50&playlistId=${playlistId}&key=${apiKey}`;
-        const playlistResponse = await fetch(playlistUrl, { headers });
-        const playlistData = await playlistResponse.json();
-
-        if (playlistData.error) {
-            return Response.json({ error: playlistData.error.message }, { status: 500 });
-        }
-
-        if (!playlistData.items || playlistData.items.length === 0) {
-            return Response.json({ videos: [] });
-        }
-
-        const videoIds = playlistData.items.map(item => item.contentDetails.videoId).join(',');
-
-        // 2. Get video details (for duration and better snippets)
-        const videosUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${videoIds}&key=${apiKey}`;
-        const videosResponse = await fetch(videosUrl, { headers });
-        const videosData = await videosResponse.json();
-
-        if (videosData.error) {
-            return Response.json({ error: videosData.error.message }, { status: 500 });
-        }
-
-        const videos = videosData.items.map(video => {
-            // parse ISO 8601 duration
-            const durationIso = video.contentDetails.duration;
-            const match = durationIso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
-            let durationStr = '';
-            if (match) {
-                const h = parseInt(match[1] || 0);
-                const m = parseInt(match[2] || 0);
-                const s = parseInt(match[3] || 0);
-                if (h > 0) durationStr += `${h}:`;
-                durationStr += `${h > 0 ? m.toString().padStart(2, '0') : m}:${s.toString().padStart(2, '0')}`;
-            }
-
-            // Slugify the title
-            const slug = video.snippet.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-
-            // find max resolution thumbnail
-            const thumbnails = video.snippet.thumbnails;
-            const thumbnailUrl = thumbnails?.maxres?.url || thumbnails?.standard?.url || thumbnails?.high?.url || thumbnails?.medium?.url || thumbnails?.default?.url || null;
-
-            return {
-                title: video.snippet.title,
-                description: video.snippet.description,
-                youtubeId: video.id,
-                youtubeUrl: `https://youtu.be/${video.id}`,
-                embedUrl: `https://www.youtube.com/embed/${video.id}`,
-                thumbnailUrl: thumbnailUrl,
-                publishedAt: video.snippet.publishedAt,
-                duration: durationStr,
-                slug: slug
-            };
-        });
-
-        return Response.json({ videos });
-    } catch (error) {
-        return Response.json({ error: error.message }, { status: 500 });
+  try {
+    if (cachedPlaylist.expiresAt > Date.now()) {
+      return Response.json(
+        { videos: cachedPlaylist.videos },
+        { headers: { 'Cache-Control': 'public, max-age=900' } },
+      );
     }
+
+    const playlistUrl = 'https://www.youtube.com/feeds/videos.xml?playlist_id=' + encodeURIComponent(PLAYLIST_ID);
+    const response = await fetch(playlistUrl, {
+      headers: { Accept: 'application/atom+xml' },
+      signal: AbortSignal.timeout(10000),
+    });
+
+    if (!response.ok) {
+      throw new Error('YouTube returned ' + response.status);
+    }
+
+    const videos = parsePlaylistFeed(await response.text());
+    cachedPlaylist = {
+      videos,
+      expiresAt: Date.now() + CACHE_TTL_MS,
+    };
+
+    return Response.json(
+      { videos },
+      { headers: { 'Cache-Control': 'public, max-age=900' } },
+    );
+  } catch (error) {
+    console.error('[getYouTubePlaylist] failed:', error?.message || error);
+    return Response.json({ error: 'Unable to load videos right now' }, { status: 502 });
+  }
 });
