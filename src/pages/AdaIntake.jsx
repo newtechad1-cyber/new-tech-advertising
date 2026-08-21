@@ -67,61 +67,19 @@ export default function AdaIntake() {
     setIsSubmitting(true);
 
     try {
-      // Mirror to NTA Unified Intake (non-blocking)
-      base44.functions.invoke('ntaUnifiedIntake', {
-        submission_type: 'ada_intake_form',
-        offer_type: 'ada_compliance',
-        mapping_confidence: 'hardcoded',
-        mapping_notes: 'AdaIntake.jsx /ada-intake hardcoded',
-        detected_route: '/ada-intake',
-        detected_component: 'AdaIntake',
-        source_system: 'ada_funnel',
-        source_page: '/ada-intake',
-        name: formData.full_name,
-        business_name: formData.business_name,
-        email: formData.email,
-        phone: formData.phone,
-        website: formData.website_url,
-        city: formData.city,
-        state: formData.state,
-        notes: formData.notes || '',
-        selected_package: formData.package,
-        priority: 'high',
-        is_high_intent: true,
-      }).catch(err => console.warn('[AdaIntake] NTA mirror failed:', err.message));
-
-      const lead = await base44.entities.AdaLead.create({
+      // All public ADA forms now use the validated server endpoint. It owns
+      // lead creation, activity tracking, webhook delivery, and CRM mirroring.
+      const response = await base44.functions.invoke('adaIntake', {
         ...formData,
-        status: 'new',
-        setup_price: 0,
-        monthly_price: 0,
-        multiplier: 1.0
+        selected_package: formData.package,
+        detected_route: '/ada-intake',
       });
-
-      // Track form submission activity
-      try {
-        await base44.entities.LeadActivity.create({
-          lead_id: lead.id,
-          activity_type: 'form_submission',
-          page_url: window.location.href,
-          details: `Submitted intake form for ${formData.package} package`,
-          metadata: {
-            package: formData.package,
-            nonprofit: formData.nonprofit,
-            test_mode: isTestMode
-          }
-        });
-      } catch (e) {
-        console.log('Activity tracking failed:', e);
+      const leadId = response.data?.lead_id;
+      if (!leadId) {
+        throw new Error('The intake response did not include a lead ID.');
       }
 
-      await base44.functions.invoke('adaIntakeWebhook', {
-        event: 'ada_intake_submitted',
-        lead_id: lead.id,
-        ...formData
-      });
-
-      navigate(createPageUrl('AdaQuote') + `?lead_id=${lead.id}`);
+      navigate(createPageUrl('AdaQuote') + '?lead_id=' + encodeURIComponent(leadId));
     } catch (error) {
       console.error('Intake submission error:', error);
       toast.error('Something went wrong. Please try again or call 641-420-8816');
