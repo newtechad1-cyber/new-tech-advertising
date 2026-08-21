@@ -6,8 +6,11 @@ const openai = new OpenAI({ apiKey: Deno.env.get('OPENAI_API_KEY') || Deno.env.g
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const user = await base44.auth.me();
+    const user = await base44.auth.me().catch(() => null);
     if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    if (user.role !== 'admin' && user.is_service !== true) {
+      return Response.json({ error: 'Admin access required' }, { status: 403 });
+    }
 
     const { topic, context, category, client_id } = await req.json();
 
