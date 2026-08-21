@@ -38,14 +38,22 @@ export default function MetaConnect() {
     if (select && acctId) {
       // Load available pages for selection
       const loadPages = async () => {
-        const connections = await base44.entities.MetaConnection.filter({ account_id: acctId });
-        const conn = connections?.[0];
-        if (conn?.available_pages?.length > 0) {
-          setAvailablePages(conn.available_pages);
-          setStatus('select');
-          setShowSelector(true);
-        } else {
-          setErrorMessage('No pages found to select.');
+        try {
+          const response = await base44.functions.invoke('getMetaConnectionSummary', {
+            accountId: acctId,
+          });
+          const connection = response.data?.connection;
+          if (connection?.available_pages?.length > 0) {
+            setAvailablePages(connection.available_pages);
+            setStatus('select');
+            setShowSelector(true);
+          } else {
+            setErrorMessage('No pages found to select.');
+            setStatus('error');
+          }
+        } catch (error) {
+          console.error('Unable to load Meta pages:', error);
+          setErrorMessage('Unable to load pages for selection.');
           setStatus('error');
         }
       };
