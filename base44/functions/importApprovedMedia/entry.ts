@@ -1,4 +1,5 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
+import { assertPublicDns } from '../shared/security.ts';
 
 const ALLOWED_MIME = {
   image: new Set(['image/png', 'image/jpeg', 'image/gif', 'image/webp']),
@@ -64,10 +65,27 @@ Deno.serve(async (req) => {
   await base44.asServiceRole.entities.MediaImportRequest.update(requestId, { status: 'processing', error_message: null });
 
   try {
-    const response = await fetch(source, { redirect: 'follow' });
+    let current = source;
+    let response: Response | null = null;
+
+    for (let redirectCount = 0; redirectCount <= 3; redirectCount += 1) {
+      await assertPublicDns(current.hostname);
+      response = await fetch(current, { redirect: 'manual' });
+
+      if (![301, 302, 303, 307, 308].includes(response.status)) break;
+
+      const location = response.headers.get('location');
+      if (!location || redirectCount === 3) {
+        throw new Error('Source redirected too many times or returned an invalid redirect');
+      }
+
+      const next = trustedHttpsUrl(new URL(location, current).toString());
+      if (!next) throw new Error('Source redirected outside approved storage');
+      current = next;
+    }
+
+    if (!response) throw new Error('Source download failed');
     if (!response.ok) throw new Error('Source download failed with HTTP ' + response.status);
-    const finalUrl = trustedHttpsUrl(response.url);
-    if (!finalUrl) throw new Error('Source redirected outside approved storage');
 
     const contentType = (response.headers.get('content-type') || '').split(';')[0].trim().toLowerCase();
     if (!ALLOWED_MIME[item.asset_type]?.has(contentType)) {
