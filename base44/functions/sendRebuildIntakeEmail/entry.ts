@@ -138,19 +138,10 @@ Deno.serve(async (req) => {
       }
     }
 
-    // ── STEP 3: Send visitor confirmation (non-critical, best-effort) ─────
-    try {
-      await base44.asServiceRole.integrations.Core.SendEmail({
-        from_name: 'New Tech Advertising',
-        to: email,
-        subject: `We received your website audit request — ${business_name}`,
-        body: `Hi ${name},\n\nThanks for reaching out! We received your website rebuild and audit request for ${business_name}.\n\nOur team will review your site and get back to you within 1–2 business days.\n\nWhat you submitted:\n- Service: ${service_type}\n- Website: ${website}\n- Pages: ${page_count}\n- Location: ${city}, ${state}\n\nQuestions? Call us: 641-420-8816\n\n— New Tech Advertising Team\nnewtechadvertising.com`,
-      });
-      console.log('[sendRebuildIntakeEmail] Visitor confirmation sent to:', email);
-    } catch (_) {
-      // Non-critical — visitor may not be a registered app user
-      console.log('[sendRebuildIntakeEmail] Visitor confirmation skipped (not a registered user)');
-    }
+    // Visitor confirmations are intentionally omitted here. This public endpoint
+    // must never dispatch email to an arbitrary caller-supplied address. The
+    // canonical intake record and fixed internal notification remain the source
+    // of truth for follow-up.
 
     // ── FINAL: Determine overall success ─────────────────────────────────
     // Success if at least CRM or email succeeded
