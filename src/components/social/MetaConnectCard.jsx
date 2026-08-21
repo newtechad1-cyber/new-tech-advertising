@@ -21,9 +21,15 @@ export default function MetaConnectCard({ accountId }) {
 
   const load = async () => {
     setLoading(true);
-    const rows = await base44.entities.MetaConnection.filter({ account_id: accountId });
-    setConnection(rows?.[0] || null);
-    setLoading(false);
+    try {
+      const response = await base44.functions.invoke('getMetaConnectionSummary', { accountId });
+      setConnection(response.data?.connection || null);
+    } catch (error) {
+      console.error('Unable to load Meta connection:', error);
+      setConnection(null);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => { if (accountId) load(); }, [accountId]);
@@ -39,16 +45,7 @@ export default function MetaConnectCard({ accountId }) {
 
   const handleDisconnect = async () => {
     if (!connection) return;
-    await base44.entities.MetaConnection.update(connection.id, {
-      status: 'not_connected',
-      facebook_page_id: null,
-      facebook_page_name: null,
-      instagram_business_account_id: null,
-      instagram_username: null,
-      page_access_token: null,
-      available_pages: [],
-      last_error: null,
-    });
+    await base44.functions.invoke('disconnectMetaConnection', { accountId });
     load();
   };
 
