@@ -1,19 +1,31 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
 
-function isTrustedInternalUser(user) {
-  return Boolean(user && (user.is_service === true || user.role === 'admin'));
+function hasValidDriveWebhookToken(req) {
+  const expected = Deno.env.get('GOOGLE_DRIVE_WEBHOOK_TOKEN');
+  const received = req.headers.get('x-goog-channel-token');
+  return Boolean(expected && received && expected === received);
 }
 
 Deno.serve(async (req) => {
+  if (req.method !== 'POST') {
+    return Response.json({ error: 'POST required' }, { status: 405 });
+  }
+
   try {
-    const body = await req.json();
     const base44 = createClientFromRequest(req);
     const user = await base44.auth.me().catch(() => null);
-    if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
-    if (!isTrustedInternalUser(user)) return Response.json({ error: 'Admin access required' }, { status: 403 });
-    
-    // Webhook metadata
-    const state = body.data?._provider_meta?.['x-goog-resource-state'];
+    const trustedInternal = user?.role === 'admin' || user?.is_service === true;
+    const trustedDriveWebhook = hasValidDriveWebhookToken(req);
+    if (!trustedInternal && !trustedDriveWebhook) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    let body = {};
+    try { body = await req.json(); } catch (_) {}
+
+    // Google Drive sends notification metadata as headers. The body fallback
+    // keeps trusted internal invocations compatible.
+    const state = req.headers.get('x-goog-resource-state') || body.data?._provider_meta?.['x-goog-resource-state'];
     if (state === 'sync') return Response.json({ status: 'sync_ack' });
 
     const { accessToken } = await base44.asServiceRole.connectors.getConnection('googledrive');
