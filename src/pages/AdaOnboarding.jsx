@@ -83,19 +83,8 @@ export default function AdaOnboarding() {
         details: 'Onboarding form completed'
       });
 
-      // Emit webhook event
-      await base44.functions.invoke('adaWebhookHandler', {
-        event: 'onboarding_completed',
-        lead_id: lead.id,
-        contact: {
-          name: lead.full_name,
-          email: lead.email,
-          phone: lead.phone,
-          business: lead.business_name
-        },
-        onboarding: formData,
-        package: lead.package
-      });
+      // Downstream webhook dispatch is server-only. Do not forward onboarding
+      // information from an unauthenticated browser session.
 
       setShowSuccess(true);
     } catch (error) {
