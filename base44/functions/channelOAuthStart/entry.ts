@@ -5,7 +5,6 @@ const CALLBACK_URL = 'https://new-tech-advertising.base44.app/api/functions/chan
 const APP_BASE = 'https://new-tech-advertising.base44.app';
 const OAUTH_SCOPE_VERSION = '2026-05-04-reduced-scopes';
 
-const STATE_MAX_AGE_MS = 10 * 60 * 1000;
 const encoder = new TextEncoder();
 
 function stateSigningSecret() {
