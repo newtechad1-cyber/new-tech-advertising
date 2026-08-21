@@ -22,7 +22,7 @@ Deno.serve(async (req) => {
     }
 
     // Check if user already has active DIY subscription
-    const existingSubs = await base44.entities.DIYSubscription.filter(
+    const existingSubs = await base44.asServiceRole.entities.DIYSubscription.filter(
       { user_email: user.email, status: 'active' }
     );
 
@@ -101,7 +101,7 @@ Deno.serve(async (req) => {
     }
 
     // Store initial subscription record with pending status
-    const subscription = await base44.entities.DIYSubscription.create({
+    const subscription = await base44.asServiceRole.entities.DIYSubscription.create({
       user_email: user.email,
       stripe_customer_id: customer.id,
       stripe_subscription_id: '',
