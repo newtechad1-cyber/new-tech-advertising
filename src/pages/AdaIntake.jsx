@@ -18,7 +18,6 @@ import TestModeBanner from '../components/TestModeBanner';
 export default function AdaIntake() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isTestMode, setIsTestMode] = useState(false);
   const [formData, setFormData] = useState({
     full_name: '',
     business_name: '',
@@ -48,19 +47,7 @@ export default function AdaIntake() {
       setFormData(prev => ({ ...prev, nonprofit: true }));
     }
 
-    checkTestMode();
   }, []);
-
-  const checkTestMode = async () => {
-    try {
-      const settings = await base44.entities.AppSettings.list();
-      if (settings.length > 0 && settings[0].test_mode_enabled) {
-        setIsTestMode(true);
-      }
-    } catch (error) {
-      console.log('Error checking test mode:', error);
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
