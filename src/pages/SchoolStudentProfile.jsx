@@ -36,14 +36,9 @@ export default function SchoolStudentProfile() {
           throw new Error('Session invalid');
         }
 
-        // Load full student record
-        const students = await base44.entities.StudentUsers.filter({
-          id: session.student_user_id,
-        });
-
-        if (students?.length > 0) {
-          setStudent(students[0]);
-        }
+        // The session validator returns the safe profile projection. Do not
+        // query StudentUsers directly from the browser (it contains access codes).
+        setStudent(validation.data.student);
 
         // Load school info
         const schools = await base44.entities.SchoolBranding.filter({
