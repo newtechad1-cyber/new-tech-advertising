@@ -4,6 +4,44 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 const FACEBOOK_REDIRECT_URI = 'https://new-tech-advertising.base44.app/api/functions/facebookOAuthCallback';
 const RETURN_PAGE = 'https://new-tech-advertising.base44.app/agency/channel-connections';
 
+const STATE_MAX_AGE_MS = 10 * 60 * 1000;
+const encoder = new TextEncoder();
+
+function stateSigningSecret() {
+  return Deno.env.get('OAUTH_STATE_SECRET')
+    || Deno.env.get('GOOGLE_CLIENT_SECRET')
+    || Deno.env.get('META_APP_SECRET');
+}
+
+function base64UrlBytes(value) {
+  const base64 = value.replace(/-/g, '+').replace(/_/g, '/')
+    + '='.repeat((4 - (value.length % 4)) % 4);
+  return Uint8Array.from(atob(base64), char => char.charCodeAt(0));
+}
+
+async function verifySignedState(stateRaw) {
+  const [encoded, signature, extra] = String(stateRaw || '').split('.');
+  if (!encoded || !signature || extra) throw new Error('invalid_state');
+
+  const secret = stateSigningSecret();
+  if (!secret) throw new Error('state_signing_unavailable');
+
+  const key = await crypto.subtle.importKey(
+    'raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['verify'],
+  );
+  const valid = await crypto.subtle.verify('HMAC', key, base64UrlBytes(signature), encoder.encode(encoded));
+  if (!valid) throw new Error('invalid_state_signature');
+
+  const state = JSON.parse(atob(encoded));
+  if (!state.nonce || !state.initiated_by || !Number.isFinite(state.issued_at)) {
+    throw new Error('invalid_state_payload');
+  }
+  if (Date.now() - state.issued_at < 0 || Date.now() - state.issued_at > STATE_MAX_AGE_MS) {
+    throw new Error('expired_state');
+  }
+  return state;
+}
+
 if (FACEBOOK_REDIRECT_URI.split('https://').length - 1 > 1) {
   throw new Error(`[facebookOAuthCallback] FATAL: FACEBOOK_REDIRECT_URI is malformed: ${FACEBOOK_REDIRECT_URI}`);
 }
@@ -126,14 +164,14 @@ Deno.serve(async (req) => {
 
   let stateData = {};
   try {
-    stateData = JSON.parse(atob(stateRaw));
-  } catch (e) {
+    stateData = await verifySignedState(stateRaw);
+  } catch (error) {
     await log(base44, {
       provider: 'facebook', event_type: 'oauth_callback', status: 'failed',
-      message: 'State decode failed — invalid base64 or JSON',
-      error_details: e.message,
+      message: 'State verification failed',
+      error_details: error.message,
     });
-    return errorRedirect('invalid_state_parameter');
+    return errorRedirect(error.message || 'invalid_state_parameter');
   }
 
   const { provider, client_id, client_name, nonce } = stateData;
