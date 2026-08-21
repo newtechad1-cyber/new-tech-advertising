@@ -26,18 +26,20 @@ export default function SchoolStudentDashboard() {
       try {
         const session = JSON.parse(sessionStr);
 
-        // Verify student still exists and is active
-        const students = await base44.entities.StudentUsers.filter({
-          id: session.student_user_id,
-          is_active: true,
+        // Validate the opaque session server-side and use only its safe
+        // profile projection. StudentUsers contains credentials and is never
+        // queried directly from the browser.
+        const validation = await base44.functions.invoke('validateStudentSessionSecure', {
+          student_user_id: session.student_user_id,
+          school_slug: schoolSlug,
+          session_token: session.session_token,
         });
 
-        if (!students || students.length === 0) {
-          throw new Error('Account no longer active');
+        if (!validation.data?.valid || !validation.data?.student) {
+          throw new Error('Session invalid');
         }
 
-        const studentData = students[0];
-        setStudent(studentData);
+        setStudent(validation.data.student);
 
         // Load uploads
         const studentUploads = await base44.entities.StudentUploads.filter({
