@@ -57,17 +57,8 @@ const [_checkoutPlan, _setCheckoutPlan] = useState(null);
         details: `Quote viewed: ${pricing.setupPrice} setup, ${pricing.monthlyPrice}/mo`
       });
 
-      // Emit webhook
-      await base44.functions.invoke('adaWebhookHandler', {
-        event: 'quote_generated',
-        lead_id: leadId,
-        package: leadData.package,
-        pricing: {
-          setup_price: pricing.setupPrice,
-          monthly_price: pricing.monthlyPrice,
-          multiplier: pricing.multiplier
-        }
-      });
+      // Downstream webhook dispatch is server-only. Do not forward quote data
+      // from an unauthenticated browser session.
 
     } catch (error) {
       toast.error('Failed to load quote');
