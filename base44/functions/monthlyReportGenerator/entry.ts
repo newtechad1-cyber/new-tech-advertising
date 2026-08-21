@@ -5,6 +5,10 @@
  */
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 
+function isTrustedInternalUser(user) {
+  return Boolean(user && (user.is_service === true || user.role === 'admin'));
+}
+
 function getPreviousMonthLabel() {
   const now = new Date();
   const year = now.getMonth() === 0 ? now.getFullYear() - 1 : now.getFullYear();
@@ -14,6 +18,10 @@ function getPreviousMonthLabel() {
 
 Deno.serve(async (req) => {
   const base44 = createClientFromRequest(req);
+  const user = await base44.auth.me().catch(() => null);
+  if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!isTrustedInternalUser(user)) return Response.json({ error: 'Admin access required' }, { status: 403 });
+
   const reportPeriod = getPreviousMonthLabel();
 
   // Fetch all active client companies
