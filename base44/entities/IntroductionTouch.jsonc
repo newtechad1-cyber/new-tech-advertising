@@ -20,5 +20,11 @@
     "channel": { "type": "string", "enum": ["email", "phone", "linkedin", "facebook", "in_person"], "default": "email" },
     "personalization_notes": { "type": "string" }
   },
-  "required": ["campaign_id", "sales_lead_id", "touch_number", "touch_type"]
+  "required": ["campaign_id", "sales_lead_id", "touch_number", "touch_type"],
+  "rls": {
+    "create": { "user_condition": { "role": "admin" } },
+    "read": { "user_condition": { "role": "admin" } },
+    "update": { "user_condition": { "role": "admin" } },
+    "delete": { "user_condition": { "role": "admin" } }
+  }
 }
