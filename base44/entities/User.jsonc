@@ -18,5 +18,11 @@
       "type": "string",
       "description": "Optional: Links to the Company or SalesLead entity for data scoping"
     }
+  },
+  "rls": {
+    "create": { "user_condition": { "role": "admin" } },
+    "read": { "user_condition": { "role": "admin" } },
+    "update": { "user_condition": { "role": "admin" } },
+    "delete": { "user_condition": { "role": "admin" } }
   }
 }
