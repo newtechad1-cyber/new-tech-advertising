@@ -18,7 +18,7 @@ function isTrustedPublicOrigin(req) {
   }
 }
 
-export default async function (req) {
+Deno.serve(async (req) => {
   if (req.method !== 'POST') {
     return Response.json({ error: 'POST required' }, { status: 405 });
   }
@@ -32,4 +32,4 @@ export default async function (req) {
   }
 
   return Response.json({ error: 'Guide setup in progress' }, { status: 503 });
-}
+});
