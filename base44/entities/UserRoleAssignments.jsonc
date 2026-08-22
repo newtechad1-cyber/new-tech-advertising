@@ -12,11 +12,11 @@
     },
     "company_id": {
       "type": "string",
-      "description": "Reference to ClientCompanies ID \u2014 null for platform-wide roles"
+      "description": "Reference to ClientCompanies ID — null for platform-wide roles"
     },
     "reseller_id": {
       "type": "string",
-      "description": "Reference to ResellerAccounts ID \u2014 null for non-reseller roles"
+      "description": "Reference to ResellerAccounts ID — null for non-reseller roles"
     },
     "granted_by": {
       "type": "string",
@@ -41,5 +41,27 @@
     "user_id",
     "role_id",
     "active"
-  ]
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
 }
