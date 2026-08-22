@@ -450,17 +450,20 @@ Deno.serve(async (req) => {
   // ── POST: get auth URL, exchange Google code, or sync destinations ──────────
   if (req.method === 'POST') {
     const base44 = createClientFromRequest(req);
-    const user = await base44.auth.me();
+    const user = await base44.auth.me().catch(() => null);
     if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!isAdminOrService(user)) return Response.json({ error: 'Admin access required' }, { status: 403 });
 
     const body = await req.json();
     const { platform, provider, state: bodyState, code: bodyCode, scope: bodyScope, action, account_id } = body;
 
     // ── POST: exchange Google code from /OauthCallback page ─────────────────
     if (provider === 'google' && bodyCode) {
-      const requestId = crypto.randomUUID();
-      console.log(`[socialOAuth] POST code exchange — state=${bodyState} request_id=${requestId}`);
-      let providerLabel = bodyState === 'youtube' ? 'youtube' : 'google_my_business';
+      const verifiedState = await verifySignedState(bodyState);
+      if (!verifiedState || verifiedState.initiated_by !== user.id || !['youtube', 'google_my_business'].includes(verifiedState.provider)) {
+        return Response.json({ error: 'Invalid or expired OAuth state' }, { status: 400 });
+      }
+      const providerLabel = verifiedState.provider;
 
       const tokenData = await exchangeGoogleCode(bodyCode);
       console.log(`[socialOAuth] POST token exchange — has_access_token=${!!tokenData.access_token} error=${tokenData.error || 'none'}`);
@@ -548,15 +551,17 @@ Deno.serve(async (req) => {
     }
 
     // ── POST: get auth URL for a platform ────────────────────────────────────
+    if (!['youtube', 'google_my_business', 'facebook', 'instagram', 'tiktok'].includes(platform)) {
+      return Response.json({ error: 'Unsupported platform' }, { status: 400 });
+    }
+    const state = await createSignedState(platform, user.id);
     let authUrl = '';
     if (platform === 'youtube' || platform === 'google_my_business') {
-      authUrl = getGoogleAuthUrl(platform);
+      authUrl = getGoogleAuthUrl(platform, state);
     } else if (platform === 'facebook' || platform === 'instagram') {
-      authUrl = getMetaAuthUrl(platform);
-    } else if (platform === 'tiktok') {
-      authUrl = getTikTokAuthUrl();
+      authUrl = getMetaAuthUrl(platform, state);
     } else {
-      return Response.json({ error: 'Unsupported platform' }, { status: 400 });
+      authUrl = getTikTokAuthUrl(state);
     }
 
     console.log(`[socialOAuth] auth URL requested for platform=${platform}`);
