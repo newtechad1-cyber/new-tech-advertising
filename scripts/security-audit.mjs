@@ -150,9 +150,22 @@ function functionProfile(name) {
   const usesExpensiveOrExternal = /(?:InvokeLLM|GenerateImage|SendEmail|connectors\.getConnection|await\s+fetch\s*\(|\.fetch\s*\()/i.test(source);
   const providerNamed = /(?:oauthcallback|stripewebhook|webhookhandler|drivewatch|drivesync)/i.test(name);
   const automation = /"automations"\s*:\s*\[/.test(config);
+  const isHttpEndpoint = /Deno\.serve\s*\(/.test(source);
+  const hasCustomSessionGuard = (
+    (/public_session_key/i.test(source) && /public_session_key\s*!?={2,3}/i.test(source))
+    || (/session_token_hash/i.test(source) && /StudentSessions\.filter/i.test(source))
+    || (/access_code/i.test(source) && /StudentUsers\.filter/i.test(source))
+  );
+  const hasCustomSecretGuard = (
+    /AGENT_WEBHOOK_KEY/i.test(source)
+    && /authorization/i.test(source)
+    && /Bearer/i.test(source)
+  );
+  const hasCustomBoundary = hasCustomSessionGuard || hasCustomSecretGuard;
 
   return {
     name,
+    isHttpEndpoint,
     hasAuth,
     hasServiceRole,
     hasAdminOrServiceGuard,
@@ -161,6 +174,7 @@ function functionProfile(name) {
     hasRateLimit,
     hasSpamCheck,
     hasPublicBoundary: (hasOriginGuard && hasRateLimit) || (hasRateLimit && hasSpamCheck),
+    hasCustomBoundary,
     usesExpensiveOrExternal,
     providerNamed,
     automation,
@@ -225,11 +239,13 @@ const findings = [];
 
 for (const name of functionNames) {
   const profile = functionProfile(name);
+  if (!profile.isHttpEndpoint) continue;
+
   const publicCallers = browserReferences.functionFiles.get(name);
   const publicCallerFiles = publicCallers ? displayFiles(publicCallers) : '';
   const externallyCalled = Boolean(publicCallers);
 
-  if (profile.providerNamed && !profile.hasAuth && !profile.hasProviderGuard) {
+  if (profile.providerNamed && !profile.hasAuth && !profile.hasProviderGuard && !profile.hasCustomBoundary) {
     findings.push(finding(
       'critical',
       'EXTERNAL_PROVIDER_ENDPOINT_WITHOUT_VERIFICATION',
@@ -240,7 +256,7 @@ for (const name of functionNames) {
     continue;
   }
 
-  if (externallyCalled && profile.hasServiceRole && !profile.hasAdminOrServiceGuard && !profile.hasPublicBoundary) {
+  if (externallyCalled && profile.hasServiceRole && !profile.hasAdminOrServiceGuard && !profile.hasPublicBoundary && !profile.hasCustomBoundary) {
     findings.push(finding(
       'critical',
       'PUBLIC_SERVICE_ROLE_ENDPOINT_WITHOUT_BOUNDARY',
@@ -251,7 +267,7 @@ for (const name of functionNames) {
     continue;
   }
 
-  if (!externallyCalled && profile.hasServiceRole && !profile.hasAuth && !profile.hasProviderGuard) {
+  if (!externallyCalled && profile.hasServiceRole && !profile.hasAuth && !profile.hasProviderGuard && !profile.hasCustomBoundary) {
     findings.push(finding(
       'critical',
       'SERVICE_ROLE_ENDPOINT_WITHOUT_AUTH',
@@ -262,7 +278,7 @@ for (const name of functionNames) {
     continue;
   }
 
-  if (!externallyCalled && profile.hasServiceRole && profile.hasAuth && !profile.hasAdminOrServiceGuard && !profile.hasProviderGuard) {
+  if (!externallyCalled && profile.hasServiceRole && profile.hasAuth && !profile.hasAdminOrServiceGuard && !profile.hasProviderGuard && !profile.hasCustomBoundary) {
     findings.push(finding(
       'high',
       'AUTHENTICATED_SERVICE_ROLE_ENDPOINT_WITHOUT_PRIVILEGED_BOUNDARY',
@@ -271,7 +287,7 @@ for (const name of functionNames) {
     ));
   }
 
-  if (externallyCalled && profile.usesExpensiveOrExternal && !profile.hasAdminOrServiceGuard && !profile.hasPublicBoundary && !profile.hasProviderGuard) {
+  if (externallyCalled && profile.usesExpensiveOrExternal && !profile.hasAdminOrServiceGuard && !profile.hasPublicBoundary && !profile.hasProviderGuard && !profile.hasCustomBoundary) {
     findings.push(finding(
       'high',
       'PUBLIC_EXPENSIVE_ENDPOINT_WITHOUT_ABUSE_CONTROLS',
