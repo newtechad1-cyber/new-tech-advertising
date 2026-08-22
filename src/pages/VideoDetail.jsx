@@ -207,10 +207,13 @@ export default function VideoDetail() {
         </div>
       )}
 
-      {/* Distribution & publishing */}
-      <div className="mb-8">
-        <PublishJobsPanel video={video} />
-      </div>
+      {/* Publishing operations are internal. Public viewers never receive job,
+          credential, provider-response, or retry details. */}
+      {user?.role === 'admin' && (
+        <div className="mb-8">
+          <PublishJobsPanel video={video} />
+        </div>
+      )}
 
       {/* Details */}
       <div className="grid gap-4 mb-8">
