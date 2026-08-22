@@ -1,3 +1,5 @@
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.38';
+
 // Deployment stamp for the registered production transcription service.
 const FUNCTION_VERSION = 'v1-direct-2026-08-05-production-sync-r3';
 const MAX_BASE64_LENGTH = 8_000_000;
@@ -10,6 +12,32 @@ const ALLOWED_AUDIO_TYPES: Record<string, string> = {
   'audio/x-wav': 'wav',
   'audio/mpeg': 'mp3'
 };
+const TRUSTED_PUBLIC_ORIGINS = new Set([
+  'https://newtechadvertising.com',
+  'https://www.newtechadvertising.com',
+  'https://app.newtechadvertising.com',
+  'https://new-tech-advertising.base44.app',
+]);
+const requestBuckets = new Map<string, { count: number; resetAt: number }>();
+
+function isTrustedPublicOrigin(req: Request) {
+  const rawOrigin = req.headers.get('origin') || req.headers.get('referer');
+  if (!rawOrigin) return false;
+  try { return TRUSTED_PUBLIC_ORIGINS.has(new URL(rawOrigin).origin); } catch { return false; }
+}
+
+function rateLimit(req: Request) {
+  const key = String(req.headers.get('cf-connecting-ip') || req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown').slice(0, 128);
+  const now = Date.now();
+  let bucket = requestBuckets.get(key);
+  if (!bucket || now >= bucket.resetAt) {
+    bucket = { count: 0, resetAt: now + 15 * 60 * 1000 };
+    requestBuckets.set(key, bucket);
+  }
+  if (bucket.count >= 6) return Math.max(1, Math.ceil((bucket.resetAt - now) / 1000));
+  bucket.count += 1;
+  return 0;
+}
 
 type FailureStage =
   | 'REQUEST_DECODING'
@@ -76,6 +104,15 @@ const transcriptionFailure = (status: number, providerMessage = '') => {
 };
 
 Deno.serve(async (req: Request): Promise<Response> => {
+  if (req.method !== 'POST') return Response.json({ error: 'Method not allowed' }, { status: 405 });
+  const base44 = createClientFromRequest(req);
+  const user = await base44.auth.me().catch(() => null);
+  const trustedService = user?.role === 'admin' || user?.is_service === true;
+  if (!trustedService && !isTrustedPublicOrigin(req)) return Response.json({ error: 'Untrusted request origin' }, { status: 403 });
+  if (!trustedService) {
+    const retryAfter = rateLimit(req);
+    if (retryAfter) return Response.json({ error: 'Too many transcription requests' }, { status: 429, headers: { 'Retry-After': String(retryAfter) } });
+  }
   let stage: FailureStage = 'REQUEST_DECODING';
 
   try {
