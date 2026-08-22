@@ -1,15 +1,110 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 import { fetchPublicUrl, validatePublicHttpUrl } from '../shared/security.ts';
 
+const TRUSTED_PUBLIC_ORIGINS = new Set([
+  'https://newtechadvertising.com',
+  'https://www.newtechadvertising.com',
+  'https://app.newtechadvertising.com',
+  'https://new-tech-advertising.base44.app',
+]);
+const REQUEST_WINDOW_MS = 60 * 60 * 1000;
+const REQUEST_LIMIT = 6;
+const MAX_BODY_LENGTH = 12000;
+const requestBuckets = new Map();
+
+function isTrustedPublicOrigin(req: Request) {
+  const rawOrigin = req.headers.get('origin') || req.headers.get('referer');
+  if (!rawOrigin) return false;
+
+  try {
+    return TRUSTED_PUBLIC_ORIGINS.has(new URL(rawOrigin).origin);
+  } catch {
+    return false;
+  }
+}
+
+function requestClientIdentity(req: Request) {
+  return String(
+    req.headers.get('cf-connecting-ip')
+    || req.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+    || req.headers.get('x-real-ip')
+    || 'unknown',
+  ).slice(0, 128);
+}
+
+function isRateLimited(req: Request) {
+  const now = Date.now();
+  const key = requestClientIdentity(req);
+  let bucket = requestBuckets.get(key);
+
+  if (!bucket || now >= bucket.resetAt) {
+    bucket = { count: 0, resetAt: now + REQUEST_WINDOW_MS };
+    requestBuckets.set(key, bucket);
+  }
+
+  if (bucket.count >= REQUEST_LIMIT) {
+    return Math.max(1, Math.ceil((bucket.resetAt - now) / 1000));
+  }
+
+  bucket.count += 1;
+  return 0;
+}
+
+
 Deno.serve(async (req) => {
+  if (req.method !== 'POST') {
+    return Response.json({ error: 'POST required' }, { status: 405 });
+  }
+
   try {
     const base44 = createClientFromRequest(req);
-    // This is a public checker, so anonymous visitors are allowed. We still
-    // resolve the auth context so the function never assumes a caller is trusted.
+    // This public checker permits normal visitors but only from NTA's own
+    // website, with a bounded per-client rate. Trusted server work is exempt.
     const user = await base44.auth.me().catch(() => null);
+    const trustedService = user?.role === 'admin' || user?.is_service === true;
 
-    const payload = await req.json().catch(() => ({}));
-    const { website_url, lead_email, lead_phone, business_profile_id, lead_id, sales_lead_id } = payload;
+    if (!trustedService && !isTrustedPublicOrigin(req)) {
+      return Response.json({ error: 'Untrusted request origin' }, { status: 403 });
+    }
+
+    if (!trustedService) {
+      const retryAfterSeconds = isRateLimited(req);
+      if (retryAfterSeconds) {
+        return Response.json(
+          { error: 'Too many requests. Please try again shortly.' },
+          { status: 429, headers: { 'Retry-After': String(retryAfterSeconds) } },
+        );
+      }
+    }
+
+    const contentLength = Number(req.headers.get('content-length') || 0);
+    if (contentLength > MAX_BODY_LENGTH) {
+      return Response.json({ error: 'Request is too large' }, { status: 413 });
+    }
+
+    const rawBody = await req.text();
+    if (rawBody.length > MAX_BODY_LENGTH) {
+      return Response.json({ error: 'Request is too large' }, { status: 413 });
+    }
+
+    let payload;
+    try {
+      payload = JSON.parse(rawBody || '{}');
+    } catch {
+      return Response.json({ error: 'Invalid request body' }, { status: 400 });
+    }
+    if (!payload || Array.isArray(payload) || typeof payload !== 'object') {
+      return Response.json({ error: 'Invalid request body' }, { status: 400 });
+    }
+
+    const antiSpam = payload.anti_spam && typeof payload.anti_spam === 'object'
+      ? payload.anti_spam
+      : {};
+    if (String(antiSpam.honeypot || '').trim()) {
+      return Response.json({ success: true, accepted: false });
+    }
+
+    const { website_url, lead_email, lead_phone } = payload;
 
     if (!website_url) {
       return Response.json({ error: 'website_url required' }, { status: 400 });
@@ -53,31 +148,15 @@ Deno.serve(async (req) => {
       lead_phone: normalizedLeadPhone,
       lead_source: 'ada-checker-tool',
       audit_date: new Date().toISOString(),
-      business_profile_id,
-      lead_id: lead_id || null,
-      sales_lead_id: sales_lead_id || null,
+      // Public callers may not bind an audit to internal lead, profile, or
+      // sales records. NTA staff can link records later from the back office.
+      business_profile_id: null,
+      lead_id: null,
+      sales_lead_id: null,
     });
-
-    // If no lead_id was provided but we have an email, try to link to an existing SalesLead
-    if (!lead_id && normalizedLeadEmail) {
-      try {
-        const matchingLeads = await base44.asServiceRole.entities.SalesLead.filter({ email: normalizedLeadEmail });
-        if (matchingLeads.length > 0) {
-          const foundLeadId = matchingLeads[0].id;
-          await base44.asServiceRole.entities.WebsiteAudit.update(audit.id, {
-            lead_id: foundLeadId,
-            sales_lead_id: foundLeadId,
-          });
-          console.log(`[auditWebsiteAccessibility] Linked audit ${audit.id} to SalesLead ${foundLeadId} via email`);
-        }
-      } catch (linkErr) {
-        console.warn('[auditWebsiteAccessibility] SalesLead email lookup failed (non-critical):', linkErr.message);
-      }
-    }
 
     return Response.json({
       success: true,
-      audit_id: audit.id,
       result: {
         compliance_score: auditResult.complianceScore,
         risk_level: auditResult.riskLevel,
@@ -90,7 +169,7 @@ Deno.serve(async (req) => {
     });
   } catch (error) {
     console.error('[auditWebsiteAccessibility] Error:', error);
-    return Response.json({ error: error.message }, { status: 500 });
+    return Response.json({ error: 'Unable to complete the accessibility audit right now.' }, { status: 500 });
   }
 });
 
@@ -285,7 +364,7 @@ Next Steps:
   } catch (err) {
     console.error('[performAccessibilityScan] Error:', err);
     return {
-      issues: [`Error scanning website: ${err.message}`],
+      issues: ['The website could not be scanned.'],
       complianceScore: 0,
       riskLevel: 'critical',
       riskScore: 100,
@@ -297,7 +376,7 @@ Next Steps:
       formLabelIssues: false,
       videoCaptionIssues: false,
       recommendations: ['Unable to complete scan. Please verify website URL and try again.'],
-      report: `Audit failed: ${err.message}`,
+      report: 'The accessibility audit could not be completed.',
       remediationCost: 'high',
       lawsuitRisk: 'Website could not be fully analyzed.',
     };
