@@ -30,19 +30,19 @@
     },
     "market_size_modifier": {
       "type": "number",
-      "default": 1.0
+      "default": 1
     },
     "competition_modifier": {
       "type": "number",
-      "default": 1.0
+      "default": 1
     },
     "content_velocity_modifier": {
       "type": "number",
-      "default": 1.0
+      "default": 1
     },
     "video_intensity_modifier": {
       "type": "number",
-      "default": 1.0
+      "default": 1
     },
     "base_setup_fee": {
       "type": "number",
@@ -106,5 +106,27 @@
   "required": [
     "opportunity_id",
     "recommended_package_key"
-  ]
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
 }
