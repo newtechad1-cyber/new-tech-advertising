@@ -1,22 +1,7 @@
 {
-  // K-001 Knowledge Assetization System
-  // Entity: KnowledgeCapture
-  // Department: 90 Knowledge Library
-  // Version: v1.1 — Release 0.4 (A-006 Knowledge Capture Automation)
-  //
-  // Purpose: Captures Rick's ideas, lessons, frameworks, sales insights,
-  // client observations, wisdom, and OS improvements — turning them into
-  // reusable NTA intellectual property.
-  //
-  // NOT a notes app. This is the system that turns thinking into company assets.
-  //
-  // R0.4 additions: Automation trigger tracking, AI suggestions for cross-links,
-  // content derivatives, and knowledge domain classification.
-
   "name": "KnowledgeCapture",
   "type": "object",
   "properties": {
-    // ── Core Capture Fields ──
     "title": {
       "type": "string",
       "description": "Title of the knowledge capture (AI-generated or manual)"
@@ -47,8 +32,6 @@
       "type": "string",
       "description": "Where this came from — Slack, phone call, meeting, shower thought, etc."
     },
-
-    // ── Classification ──
     "department": {
       "type": "string",
       "enum": [
@@ -97,8 +80,6 @@
       "type": "string",
       "description": "Comma-separated list of related asset IDs or names"
     },
-
-    // ── AI-Organized Fields ──
     "summary": {
       "type": "string",
       "maxLength": 2000,
@@ -114,8 +95,6 @@
       "maxLength": 2000,
       "description": "How this knowledge can be applied across NTA"
     },
-
-    // ── R0.4: Automation Trigger Fields ──
     "source_trigger": {
       "type": "string",
       "enum": [
@@ -145,8 +124,6 @@
       "default": false,
       "description": "R0.4: Whether this was automatically captured by the system"
     },
-
-    // ── R0.4: AI Suggestion Fields ──
     "ai_suggested_cross_links": {
       "type": "string",
       "maxLength": 2000,
@@ -172,8 +149,6 @@
       "maxLength": 500,
       "description": "R0.4: AI suggestion for a FAQ entry derived from this capture"
     },
-
-    // ── Workflow ──
     "status": {
       "type": "string",
       "enum": [
@@ -206,8 +181,6 @@
       "format": "date",
       "description": "Date this asset was approved"
     },
-
-    // ── Source Tracking ──
     "created_from_voice": {
       "type": "boolean",
       "default": false,
@@ -228,8 +201,6 @@
       "default": false,
       "description": "Was this captured from a client interaction"
     },
-
-    // ── AI Organization Output ──
     "ai_suggested_document_type": {
       "type": "string",
       "description": "AI suggestion: SOP, article, framework doc, training module, etc."
@@ -241,5 +212,27 @@
   },
   "required": [
     "raw_capture"
-  ]
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
 }
