@@ -1,5 +1,4 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
-import { assertPublicDns } from '../shared/security.ts';
 
 const ALLOWED_MIME = {
   image: new Set(['image/png', 'image/jpeg', 'image/gif', 'image/webp']),
@@ -7,32 +6,81 @@ const ALLOWED_MIME = {
 };
 const MAX_BYTES = { image: 25 * 1024 * 1024, video: 500 * 1024 * 1024 };
 
-function reply(body: unknown, status = 200) { return Response.json(body, { status }); }
+function reply(body, status = 200) {
+  return Response.json(body, { status });
+}
 
-function eventId(body: any): string | null {
+function eventId(body) {
   const event = body?.event;
   if (!event || !['create', 'update'].includes(event.type)) return null;
   if (event.entity_name !== 'MediaImportRequest') return null;
   return typeof event.entity_id === 'string' && event.entity_id ? event.entity_id : null;
 }
 
-function isTrustedHost(hostname: string): boolean {
-  const host = hostname.toLowerCase();
-  return host === 'base44.app' ||
-    host.endsWith('.oaiusercontent.com') ||
-    /^oaisdmntpr[^.]*\.blob\.core\.windows\.net$/.test(host) ||
-    /^oaisdmntpr[^.]*\.s3\.[a-z0-9-]+\.amazonaws\.com$/.test(host);
+function isPrivateIpv4(hostname) {
+  const parts = String(hostname || '').split('.').map(Number);
+  if (parts.length !== 4 || parts.some(part => !Number.isInteger(part) || part < 0 || part > 255)) return false;
+
+  const [a, b] = parts;
+  return a === 0 || a === 10 || a === 127
+    || (a === 100 && b >= 64 && b <= 127)
+    || (a === 169 && b === 254)
+    || (a === 172 && b >= 16 && b <= 31)
+    || (a === 192 && (b === 0 || b === 168))
+    || (a === 198 && (b === 18 || b === 19 || b === 51))
+    || (a === 203 && b === 0)
+    || a >= 224;
 }
 
-function trustedHttpsUrl(value: unknown): URL | null {
+function isPrivateOrLocalHostname(input) {
+  const hostname = String(input || '').replace(/^\[|\]$/g, '').toLowerCase();
+  if (!hostname || hostname === 'localhost' || hostname === 'metadata.google.internal' || hostname === 'instance-data') return true;
+  if (['.localhost', '.local', '.internal', '.lan', '.home'].some(suffix => hostname.endsWith(suffix))) return true;
+  if (isPrivateIpv4(hostname)) return true;
+
+  const ipv6 = hostname.replace(/^::ffff:/i, '');
+  return ipv6 === '::' || ipv6 === '::1' || ipv6.startsWith('fc') || ipv6.startsWith('fd')
+    || ipv6.startsWith('fe8') || ipv6.startsWith('fe9') || ipv6.startsWith('fea') || ipv6.startsWith('feb');
+}
+
+async function assertPublicDns(hostname) {
+  const normalized = String(hostname || '').replace(/^\[|\]$/g, '').toLowerCase();
+  if (isPrivateOrLocalHostname(normalized)) throw new Error('Private and local network addresses are not allowed.');
+  if (/^[0-9a-f:.]+$/i.test(normalized) || typeof Deno.resolveDns !== 'function') return;
+
+  let addresses = [];
+  for (const recordType of ['A', 'AAAA']) {
+    try {
+      addresses = addresses.concat(await Deno.resolveDns(normalized, recordType));
+    } catch {
+      // A hostname can legitimately have only A or only AAAA records.
+    }
+  }
+
+  if (!addresses.length || addresses.some(address => isPrivateOrLocalHostname(address))) {
+    throw new Error('Source hostname could not be safely resolved.');
+  }
+}
+
+function isTrustedHost(hostname) {
+  const host = String(hostname || '').toLowerCase();
+  return host === 'base44.app'
+    || host.endsWith('.oaiusercontent.com')
+    || /^oaisdmntpr[^.]*\.blob\.core\.windows\.net$/.test(host)
+    || /^oaisdmntpr[^.]*\.s3\.[a-z0-9-]+\.amazonaws\.com$/.test(host);
+}
+
+function trustedHttpsUrl(value) {
   try {
     const url = new URL(String(value || ''));
     return url.protocol === 'https:' && isTrustedHost(url.hostname) ? url : null;
-  } catch { return null; }
+  } catch {
+    return null;
+  }
 }
 
-function extensionFor(type: string) {
-  const map: Record<string, string> = {
+function extensionFor(type) {
+  const map = {
     'image/png': 'png', 'image/jpeg': 'jpg', 'image/gif': 'gif', 'image/webp': 'webp',
     'video/mp4': 'mp4', 'video/quicktime': 'mov', 'video/webm': 'webm'
   };
@@ -41,14 +89,19 @@ function extensionFor(type: string) {
 
 Deno.serve(async (req) => {
   if (req.method !== 'POST') return reply({ error: 'METHOD_NOT_ALLOWED' }, 405);
+
   const base44 = createClientFromRequest(req);
   const user = await base44.auth.me().catch(() => null);
   const trustedService = user?.role === 'admin' || user?.is_service === true;
   if (!user) return reply({ error: 'UNAUTHORIZED' }, 401);
   if (!trustedService) return reply({ error: 'ADMIN_ACCESS_REQUIRED' }, 403);
 
-  let body: any;
-  try { body = await req.json(); } catch { return reply({ error: 'INVALID_PAYLOAD' }, 400); }
+  let body;
+  try {
+    body = await req.json();
+  } catch {
+    return reply({ error: 'INVALID_PAYLOAD' }, 400);
+  }
 
   const requestId = eventId(body);
   if (!requestId) return reply({ success: true, skipped: true, reason: 'not_media_import_event' });
@@ -56,80 +109,102 @@ Deno.serve(async (req) => {
   const item = await base44.asServiceRole.entities.MediaImportRequest.get(requestId);
   if (!item) return reply({ error: 'IMPORT_REQUEST_NOT_FOUND' }, 404);
   if (!item.approved || !['queued', 'awaiting_approval'].includes(item.status)) {
-    return reply({ success: true, skipped: true, reason: item.status === 'ready' ? 'already_ready' : 'not_approved_or_not_queued' });
+    return reply({
+      success: true,
+      skipped: true,
+      reason: item.status === 'ready' ? 'already_ready' : 'not_approved_or_not_queued'
+    });
   }
 
   const source = trustedHttpsUrl(item.source_url);
   if (!source) {
     await base44.asServiceRole.entities.MediaImportRequest.update(requestId, {
-      status: 'failed', error_message: 'Source must be an approved ChatGPT or Base44 HTTPS storage URL.', processed_at: new Date().toISOString()
+      status: 'failed',
+      error_message: 'Source must be an approved ChatGPT or Base44 HTTPS storage URL.',
+      processed_at: new Date().toISOString()
     });
     return reply({ error: 'UNTRUSTED_SOURCE_URL' }, 400);
   }
 
-  await base44.asServiceRole.entities.MediaImportRequest.update(requestId, { status: 'processing', error_message: null });
+  await base44.asServiceRole.entities.MediaImportRequest.update(requestId, {
+    status: 'processing',
+    error_message: null
+  });
 
   try {
     let current = source;
-    let response: Response | null = null;
+    let response = null;
 
     for (let redirectCount = 0; redirectCount <= 3; redirectCount += 1) {
       await assertPublicDns(current.hostname);
       response = await fetch(current, { redirect: 'manual' });
-
       if (![301, 302, 303, 307, 308].includes(response.status)) break;
 
       const location = response.headers.get('location');
       if (!location || redirectCount === 3) {
-        throw new Error('Source redirected too many times or returned an invalid redirect');
+        throw new Error('Source redirected too many times or returned an invalid redirect.');
       }
 
       const next = trustedHttpsUrl(new URL(location, current).toString());
-      if (!next) throw new Error('Source redirected outside approved storage');
+      if (!next) throw new Error('Source redirected outside approved storage.');
       current = next;
     }
 
-    if (!response) throw new Error('Source download failed');
-    if (!response.ok) throw new Error('Source download failed with HTTP ' + response.status);
-
+    if (!response || !response.ok) throw new Error('Source download failed.');
     const contentType = (response.headers.get('content-type') || '').split(';')[0].trim().toLowerCase();
     if (!ALLOWED_MIME[item.asset_type]?.has(contentType)) {
       throw new Error('Unsupported ' + item.asset_type + ' format: ' + (contentType || 'unknown'));
     }
+
     const limit = MAX_BYTES[item.asset_type];
     const declaredSize = Number(response.headers.get('content-length') || 0);
-    if (declaredSize && declaredSize > limit) throw new Error('File exceeds the import size limit');
+    if (declaredSize && declaredSize > limit) throw new Error('File exceeds the import size limit.');
 
     const bytes = new Uint8Array(await response.arrayBuffer());
-    if (!bytes.length) throw new Error('Source returned an empty file');
-    if (bytes.length > limit) throw new Error('File exceeds the import size limit');
+    if (!bytes.length) throw new Error('Source returned an empty file.');
+    if (bytes.length > limit) throw new Error('File exceeds the import size limit.');
 
     const safeName = String(item.name || 'approved-media').replace(/[^a-zA-Z0-9._-]+/g, '-').slice(0, 100);
     const file = new File([bytes], safeName + '.' + extensionFor(contentType), { type: contentType });
     const uploaded = await base44.asServiceRole.integrations.Core.UploadFile({ file });
-    if (!uploaded?.file_url) throw new Error('Base44 storage did not return a public URL');
+    if (!uploaded?.file_url) throw new Error('Base44 storage did not return a public URL.');
 
     const asset = await base44.asServiceRole.entities.MediaAsset.create({
-      name: item.name, url: uploaded.file_url, asset_type: item.asset_type,
+      name: item.name,
+      url: uploaded.file_url,
+      asset_type: item.asset_type,
       description: item.description || '',
       tags: Array.from(new Set([...(item.tags || []), 'approved-import', item.source_system || 'chatgpt'])),
       used_for: item.used_for || [],
-      client_id: item.client_id || '', brand_name: item.brand_name || '',
+      client_id: item.client_id || '',
+      brand_name: item.brand_name || '',
       metricool_brand_id: item.metricool_brand_id || '',
-      approval_status: 'approved', approved_by: item.approved_by || '',
+      approval_status: 'approved',
+      approved_by: item.approved_by || '',
       approved_at: item.approved_at || new Date().toISOString(),
-      source_type: item.source_system || 'chatgpt', source_reference: item.source_url
+      source_type: item.source_system || 'chatgpt',
+      source_reference: item.source_url
     });
 
     await base44.asServiceRole.entities.MediaImportRequest.update(requestId, {
-      status: 'ready', media_asset_id: asset.id, permanent_url: uploaded.file_url,
-      error_message: null, processed_at: new Date().toISOString()
+      status: 'ready',
+      media_asset_id: asset.id,
+      permanent_url: uploaded.file_url,
+      error_message: null,
+      processed_at: new Date().toISOString()
     });
-    return reply({ success: true, request_id: requestId, media_asset_id: asset.id, permanent_url: uploaded.file_url });
+    return reply({
+      success: true,
+      request_id: requestId,
+      media_asset_id: asset.id,
+      permanent_url: uploaded.file_url
+    });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Media import failed';
     await base44.asServiceRole.entities.MediaImportRequest.update(requestId, {
-      status: 'failed', error_message: message, processed_at: new Date().toISOString()
+      status: 'failed',
+      error_message: message,
+      processed_at: new Date().toISOString()
     });
     return reply({ error: 'MEDIA_IMPORT_FAILED', message }, 500);
   }
