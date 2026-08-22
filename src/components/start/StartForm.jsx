@@ -124,56 +124,39 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
         },
       });
 
-      // STEP 3 — Create TrialAccount record
-      const slug = form.business_name.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + Date.now();
-      const trialData = {
-        name: form.business_name,
-        slug,
+      // Trial and business-profile records are intentionally created only by
+      // the protected server bridge. The public browser never receives direct
+      // entity write access to contact or onboarding data.
+      const trialResponse = await base44.functions.invoke('submitPublicTrialSignup', {
+        business_name: form.business_name,
         full_name: form.full_name,
         email: form.email,
         phone: form.phone,
         industry: form.industry,
-        location_city: form.city,
-        location_state: form.state,
-        website_url: form.website_url,
+        city: form.city,
+        state: form.state,
         primary_goal: form.primary_goal,
+        website_url: form.website_url,
         how_did_you_find_us: form.how_did_you_find_us || 'other',
-        source_page: sourceData.source_page || 'start',
+        source_page: sourceData.source_page || '/start',
         source_tool: sourceData.source_tool || '',
         source_campaign: sourceData.source_campaign || '',
         notes: form.notes,
-        trial_status: 'submitted',
-        trial_start_at: new Date().toISOString(),
-        trial_end_at: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
-      };
-      const trial = await base44.entities.TrialAccount.create(trialData);
-
-      // 3. Create BusinessProfile
-      const bp = await base44.entities.BusinessProfile.create({
-        business_name: form.business_name,
-        business_slug: slug,
-        website_url: form.website_url,
-        industry_slug: form.industry.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-        city: form.city,
-        state: form.state,
-        primary_goal: form.primary_goal === 'leads' ? 'leads'
-          : form.primary_goal === 'visibility' ? 'visibility'
-          : form.primary_goal === 'consistency' ? 'retention'
-          : 'traffic',
-        status: 'active',
+        anti_spam: {
+          honeypot: _hp,
+          form_started_at: pageLoadTs,
+        },
       });
+      const trialResult = trialResponse?.data ?? trialResponse;
+      if (!trialResult?.success || !trialResult?.trial_id) {
+        throw new Error(trialResult?.error || 'We could not begin your trial.');
+      }
 
-      // 4. Update TrialAccount with BusinessProfile ID
-      await base44.entities.TrialAccount.update(trial.id, { business_profile_id: bp.id });
-
-      // ntaUnifiedIntake already sent the internal notification through info@newtechadvertising.com Gmail.
-
-      // 6. Kick off the intelligence + provisioning pipeline
-      base44.functions.invoke('onTrialSubmitted', { trial_id: trial.id }).catch(err =>
-        console.warn('[StartForm] onTrialSubmitted background call failed:', err.message)
-      );
-
-      onSuccess({ trialId: trial.id, businessProfileId: bp.id, provisioningStatus: 'queued' });
+      onSuccess({
+        trialId: trialResult.trial_id,
+        businessProfileId: trialResult.business_profile_id,
+        provisioningStatus: trialResult.provisioning_status || 'queued',
+      });
     } catch (err) {
       console.error('Trial submission error:', err);
       setSubmitting(false);
