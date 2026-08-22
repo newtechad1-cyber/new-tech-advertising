@@ -26,14 +26,14 @@ export default function ProjectDetail({ project, onBack }) {
 
   const loadProjectData = async () => {
     try {
-      const [fetchedTasks, fetchedFiles, fetchedComments] = await Promise.all([
-        base44.entities.ProjectTask.list({ project_id: project.id }, { created_date: 1 }),
-        base44.entities.ProjectFile.list({ project_id: project.id }, { created_date: -1 }),
-        base44.entities.ProjectComment.list({ project_id: project.id }, { created_date: 1 })
-      ]);
-      setTasks(fetchedTasks);
-      setFiles(fetchedFiles);
-      setComments(fetchedComments);
+      const response = await base44.functions.invoke('manageProjectWorkspace', {
+        action: 'read',
+        project_id: project.id,
+      });
+      const data = response?.data ?? response;
+      setTasks(data.tasks || []);
+      setFiles(data.files || []);
+      setComments(data.comments || []);
     } catch (error) {
       console.error("Failed to load project data", error);
       toast.error("Failed to load project details");
@@ -47,14 +47,13 @@ export default function ProjectDetail({ project, onBack }) {
     if (!newMessage.trim()) return;
 
     try {
-      const user = await base44.auth.me();
-      const comment = await base44.entities.ProjectComment.create({
+      const response = await base44.functions.invoke('manageProjectWorkspace', {
+        action: 'comment',
         project_id: project.id,
         content: newMessage,
-        sender_name: user.full_name || 'User',
-        is_manager: false
       });
-      setComments([...comments, comment]);
+      const data = response?.data ?? response;
+      setComments([...comments, data.comment]);
       setNewMessage('');
     } catch {
       toast.error("Failed to send message");
@@ -68,13 +67,15 @@ export default function ProjectDetail({ project, onBack }) {
     setIsUploading(true);
     try {
       const { file_url } = await base44.integrations.Core.UploadFile({ file });
-      const newFile = await base44.entities.ProjectFile.create({
+      const response = await base44.functions.invoke('manageProjectWorkspace', {
+        action: 'file',
         project_id: project.id,
         name: file.name,
         url: file_url,
-        type: file.name.split('.').pop()
+        type: file.name.split('.').pop(),
       });
-      setFiles([newFile, ...files]);
+      const data = response?.data ?? response;
+      setFiles([data.file, ...files]);
       toast.success("File uploaded successfully");
     } catch (error) {
       console.error("Upload failed", error);
