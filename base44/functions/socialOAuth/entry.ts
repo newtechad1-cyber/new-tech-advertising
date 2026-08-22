@@ -278,35 +278,37 @@ Deno.serve(async (req) => {
     const error = url.searchParams.get('error');
 
     if (error) {
-      return new Response(
-        `<html><body><script>window.opener?.postMessage({type:'oauth_error',platform:'${state}',error:'${error}'},'*');window.close();</script></body></html>`,
-        { headers: { 'Content-Type': 'text/html' } }
-      );
+      return new Response('<html><body><script>window.opener?.postMessage({type:"oauth_error"},"*");window.close();</script></body></html>', {
+        status: 400,
+        headers: { 'Content-Type': 'text/html' },
+      });
     }
 
     if (url.searchParams.get('debug') === '1') {
-      return Response.json({
-        tiktok_client_key_set: !!Deno.env.get('TIKTOK_CLIENT_KEY'),
-        meta_app_id_set: !!Deno.env.get('META_APP_ID'),
-        google_client_id_set: !!Deno.env.get('GOOGLE_CLIENT_ID'),
-        redirect_uri: REDIRECT_URI,
-      });
+      return Response.json({ error: 'Not found' }, { status: 404 });
     }
 
     if (!code || !state) {
       return Response.json({ error: 'Missing code or state' }, { status: 400 });
     }
 
-    const requestId = crypto.randomUUID();
-    console.log(`[socialOAuth] GET callback — state=${state} request_id=${requestId}`);
+    const base44 = createClientFromRequest(req);
+    const user = await base44.auth.me().catch(() => null);
+    if (!isAdminOrService(user)) {
+      return Response.json({ error: 'Admin access required' }, { status: 403 });
+    }
 
-    let provider = state;
-    if (state === 'google_my_business') provider = 'google_my_business';
+    const verifiedState = await verifySignedState(state);
+    if (!verifiedState || verifiedState.initiated_by !== user.id) {
+      return Response.json({ error: 'Invalid or expired OAuth state' }, { status: 400 });
+    }
+
+    const provider = verifiedState.provider;
+    const requestId = crypto.randomUUID();
     const isGoogle = provider === 'google_my_business' || provider === 'youtube';
     const isMeta = provider === 'facebook' || provider === 'instagram';
 
     try {
-      const base44 = createClientFromRequest(req);
       let destinations = [];
       let accountName = provider;
       let platformUserId = '';
