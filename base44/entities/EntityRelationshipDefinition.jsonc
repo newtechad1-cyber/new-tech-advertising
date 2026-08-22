@@ -50,5 +50,11 @@
     "parent_entity_key",
     "child_entity_key",
     "relationship_type"
-  ]
+  ],
+  "rls": {
+    "create": { "user_condition": { "role": "admin" } },
+    "read": { "user_condition": { "role": "admin" } },
+    "update": { "user_condition": { "role": "admin" } },
+    "delete": { "user_condition": { "role": "admin" } }
+  }
 }
