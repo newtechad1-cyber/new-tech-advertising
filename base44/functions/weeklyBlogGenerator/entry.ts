@@ -22,6 +22,10 @@ Deno.serve(async (req) => {
     let isAuthorized = false;
     try {
       const user = await base44.auth.me();
+    if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
+    if (user.role !== "admin" && user.is_service !== true) {
+      return Response.json({ error: "Admin access required" }, { status: 403 });
+    }
       isAuthorized = user?.role === 'admin';
     } catch {
       // Scheduled call — no user session

@@ -152,6 +152,10 @@ Deno.serve(async (req) => {
   const isInternal = !!runnerSecret && internal_token === runnerSecret;
   if (!isInternal) {
     const user = await base44.auth.me();
+    if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
+    if (user.role !== "admin" && user.is_service !== true) {
+      return Response.json({ error: "Admin access required" }, { status: 403 });
+    }
     const isAdmin = user?.role === 'admin' || ['info@newtechadvertising.com', 'newtechad1@gmail.com'].includes(user?.email?.toLowerCase());
     if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
     if (!isAdmin) return Response.json({ error: 'Admin only' }, { status: 403 });

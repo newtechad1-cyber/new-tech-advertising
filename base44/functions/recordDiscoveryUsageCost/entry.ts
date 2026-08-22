@@ -15,6 +15,10 @@ export default async function(req, res) {
     // but the prompt says "Require an authenticated internal workflow or an authorized NTA administrator."
     // Let's assume an admin token is provided, or internal secret.
     const user = await base44.auth.me().catch(() => null);
+    if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
+    if (user.role !== "admin" && user.is_service !== true) {
+      return Response.json({ error: "Admin access required" }, { status: 403 });
+    }
     if (!user || user.role !== 'admin') {
       if (!internalSecret || authHeader !== `Bearer ${internalSecret}`) {
         return res.status(403).json({ error: 'Forbidden. Internal or admin use only.' });
