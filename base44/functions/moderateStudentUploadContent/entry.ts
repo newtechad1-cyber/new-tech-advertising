@@ -16,6 +16,13 @@ Deno.serve(async (req) => {
   }
 
   const base44 = createClientFromRequest(req);
+    const authUser = await base44.auth.me().catch(() => null);
+    if (!authUser) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    if (authUser.role !== 'admin' && authUser.is_service !== true) {
+      return Response.json({ error: 'Admin access required' }, { status: 403 });
+    }
 
   try {
     const { upload_id, file_url, upload_type, school_slug } = await req.json();

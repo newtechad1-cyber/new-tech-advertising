@@ -8,6 +8,13 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
+    const authUser = await base44.auth.me().catch(() => null);
+    if (!authUser) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    if (authUser.role !== 'admin' && authUser.is_service !== true) {
+      return Response.json({ error: 'Admin access required' }, { status: 403 });
+    }
     const { publish_job_id, status, destination_url, error_message } = await req.json();
 
     if (!publish_job_id) {

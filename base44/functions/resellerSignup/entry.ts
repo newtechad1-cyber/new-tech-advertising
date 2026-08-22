@@ -18,6 +18,13 @@ function getTrustedAppOrigin(req) {
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
+    const authUser = await base44.auth.me().catch(() => null);
+    if (!authUser) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    if (authUser.role !== 'admin' && authUser.is_service !== true) {
+      return Response.json({ error: 'Admin access required' }, { status: 403 });
+    }
     const { action, ...params } = await req.json();
 
     // ── TRACK CLICK ──────────────────────────────────────────────
