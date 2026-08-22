@@ -18,12 +18,9 @@ const TRUSTED_PUBLIC_ORIGINS = new Set([
 const REQUEST_WINDOW_MS = 15 * 60 * 1000;
 const REQUEST_LIMIT = 24;
 const MAX_BODY_LENGTH = 36000;
-const requestBuckets = new Map<string, { count: number; resetAt: number }>();
+const requestBuckets = new Map();
 
-type ChatMessage = { role: 'user' | 'assistant'; content: string };
-type KnowledgeItem = { collection: string; title: string; takeaway: string; excerpt: string; url: string };
-
-function isTrustedPublicOrigin(req: Request): boolean {
+function isTrustedPublicOrigin(req) {
   const rawOrigin = req.headers.get('origin') || req.headers.get('referer');
   if (!rawOrigin) return false;
 
@@ -34,7 +31,7 @@ function isTrustedPublicOrigin(req: Request): boolean {
   }
 }
 
-function requestClientIdentity(req: Request): string {
+function requestClientIdentity(req) {
   const forwarded = req.headers.get('cf-connecting-ip')
     || req.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
     || req.headers.get('x-real-ip')
@@ -43,7 +40,7 @@ function requestClientIdentity(req: Request): string {
   return String(forwarded).slice(0, 128);
 }
 
-function isRateLimited(req: Request): number {
+function isRateLimited(req) {
   const now = Date.now();
   const key = requestClientIdentity(req);
   let bucket = requestBuckets.get(key);
@@ -68,7 +65,7 @@ function isRateLimited(req: Request): number {
   return 0;
 }
 
-async function readJsonBody(req: Request): Promise<{ body?: Record<string, unknown>; error?: Response }> {
+async function readJsonBody(req) {
   const contentLength = Number(req.headers.get('content-length') || 0);
   if (contentLength > MAX_BODY_LENGTH) {
     return { error: Response.json({ error: 'Request is too large' }, { status: 413 }) };
@@ -79,25 +76,25 @@ async function readJsonBody(req: Request): Promise<{ body?: Record<string, unkno
     return { error: Response.json({ error: 'Request is too large' }, { status: 413 }) };
   }
 
-  let parsed: unknown;
+  let body;
   try {
-    parsed = JSON.parse(rawBody || '{}');
+    body = JSON.parse(rawBody || '{}');
   } catch {
     return { error: Response.json({ error: 'Invalid request body' }, { status: 400 }) };
   }
 
-  if (!parsed || Array.isArray(parsed) || typeof parsed !== 'object') {
+  if (!body || Array.isArray(body) || typeof body !== 'object') {
     return { error: Response.json({ error: 'Invalid request body' }, { status: 400 }) };
   }
 
-  return { body: parsed as Record<string, unknown> };
+  return { body };
 }
 
-const cleanMessages = (value: unknown): ChatMessage[] => {
+function cleanMessages(value) {
   if (!Array.isArray(value)) return [];
 
   return value
-    .filter((message): message is ChatMessage => (
+    .filter(message => (
       message &&
       typeof message === 'object' &&
       (message.role === 'user' || message.role === 'assistant') &&
@@ -109,13 +106,13 @@ const cleanMessages = (value: unknown): ChatMessage[] => {
       content: message.content.trim().slice(0, 1200)
     }))
     .filter(message => message.content.length > 0);
-};
+}
 
-const cleanKnowledgeContext = (value: unknown): KnowledgeItem[] => {
+function cleanKnowledgeContext(value) {
   if (!Array.isArray(value)) return [];
 
   return value
-    .filter((item): item is Record<string, unknown> => Boolean(item) && typeof item === 'object')
+    .filter(item => Boolean(item) && typeof item === 'object')
     .slice(0, 4)
     .map(item => ({
       collection: String(item.collection || '').trim().slice(0, 120),
@@ -130,14 +127,14 @@ const cleanKnowledgeContext = (value: unknown): KnowledgeItem[] => {
       item.takeaway &&
       /^\/knowledge\/[a-z0-9-]+\/[a-z0-9-]+$/.test(item.url)
     ));
-};
+}
 
-function cleanPagePath(value: unknown): string {
+function cleanPagePath(value) {
   const path = typeof value === 'string' ? value.trim().slice(0, 160) : '/';
   return path.startsWith('/') && !path.startsWith('//') ? path : '/';
 }
 
-export default async function (req: Request): Promise<Response> {
+export default async function (req) {
   if (req.method !== 'POST') {
     return Response.json({ error: 'POST required' }, { status: 405 });
   }
@@ -164,10 +161,9 @@ export default async function (req: Request): Promise<Response> {
     const parsed = await readJsonBody(req);
     if (parsed.error) return parsed.error;
 
-    const body = parsed.body as Record<string, unknown>;
-    const messages = cleanMessages(body.messages);
-    const knowledgeContext = cleanKnowledgeContext(body.knowledge_context);
-    const pagePath = cleanPagePath(body.page_path);
+    const messages = cleanMessages(parsed.body.messages);
+    const knowledgeContext = cleanKnowledgeContext(parsed.body.knowledge_context);
+    const pagePath = cleanPagePath(parsed.body.page_path);
 
     if (!messages.some(message => message.role === 'user')) {
       return Response.json({ error: 'A message is required' }, { status: 400 });
