@@ -27,33 +27,8 @@ export default function ProjectsView() {
     fetchProjects();
   }, []);
 
-  const handleCreateDemoProject = async () => {
-    setLoading(true);
-    try {
-      // Create a demo project for the user
-      const project = await base44.entities.Project.create({
-        name: "Website Redesign 2025",
-        description: "Complete overhaul of the company website with AI integration.",
-        status: "active",
-        start_date: new Date().toISOString(),
-        due_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), // 30 days
-        progress: 15
-      });
-
-      // Add some tasks
-      await base44.entities.ProjectTask.bulkCreate([
-        { project_id: project.id, title: "Initial Requirements Gathering", status: "done", due_date: new Date().toISOString() },
-        { project_id: project.id, title: "Design Mockups", status: "in_progress", due_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString() },
-        { project_id: project.id, title: "Content Strategy", status: "todo", due_date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString() }
-      ]);
-
-      setProjects([project, ...projects]);
-      setSelectedProject(project);
-    } catch (error) {
-      console.error("Failed to create demo project", error);
-    } finally {
-      setLoading(false);
-    }
+  const handleCreateDemoProject = () => {
+    toast.info('Please contact your NTA account manager to request a new project.');
   };
 
   if (selectedProject) {
