@@ -7,6 +7,13 @@ Deno.serve(async (req) => {
   if (req.method !== 'POST') return Response.json({ error: 'Method not allowed' }, { status: 405 });
 
   const base44 = createClientFromRequest(req);
+    const adminBoundaryUser = await base44.auth.me().catch(() => null);
+    if (!adminBoundaryUser) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    if (adminBoundaryUser.role !== 'admin' && adminBoundaryUser.is_service !== true) {
+      return Response.json({ error: 'Admin access required' }, { status: 403 });
+    }
   const user = await base44.auth.me();
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
 
