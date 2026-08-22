@@ -3,10 +3,67 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
 const REDIRECT_URI = 'https://new-tech-advertising.base44.app/api/functions/socialOAuth';
 const GOOGLE_REDIRECT_URI = 'https://new-tech-advertising.base44.app/OauthCallback';
+const STATE_MAX_AGE_MS = 10 * 60 * 1000;
+const STATE_ENCODER = new TextEncoder();
+
+function isAdminOrService(user) {
+  return Boolean(user && (user.role === 'admin' || user.is_service === true));
+}
+
+function stateSigningSecret() {
+  return Deno.env.get('OAUTH_STATE_SECRET')
+    || Deno.env.get('GOOGLE_CLIENT_SECRET')
+    || Deno.env.get('META_APP_SECRET')
+    || Deno.env.get('TIKTOK_CLIENT_SECRET');
+}
+
+function base64UrlEncode(value) {
+  return btoa(value).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+}
+
+function base64UrlDecode(value) {
+  const normalized = String(value || '').replace(/-/g, '+').replace(/_/g, '/');
+  return atob(normalized + '='.repeat((4 - (normalized.length % 4)) % 4));
+}
+
+async function createSignedState(provider, userId) {
+  const secret = stateSigningSecret();
+  if (!secret) throw new Error('OAuth state signing is not configured');
+  const payload = base64UrlEncode(JSON.stringify({
+    provider,
+    initiated_by: userId,
+    issued_at: Date.now(),
+    nonce: crypto.randomUUID(),
+  }));
+  const key = await crypto.subtle.importKey('raw', STATE_ENCODER.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  const signature = new Uint8Array(await crypto.subtle.sign('HMAC', key, STATE_ENCODER.encode(payload)));
+  return `${payload}.${base64UrlEncode(String.fromCharCode(...signature))}`;
+}
+
+async function verifySignedState(rawState) {
+  const separator = String(rawState || '').lastIndexOf('.');
+  if (separator < 1) return null;
+  const payload = rawState.slice(0, separator);
+  const suppliedSignature = rawState.slice(separator + 1);
+  const secret = stateSigningSecret();
+  if (!secret) return null;
+  try {
+    const key = await crypto.subtle.importKey('raw', STATE_ENCODER.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['verify']);
+    const valid = await crypto.subtle.verify('HMAC', key, Uint8Array.from(base64UrlDecode(suppliedSignature), char => char.charCodeAt(0)), STATE_ENCODER.encode(payload));
+    if (!valid) return null;
+    const decoded = JSON.parse(base64UrlDecode(payload));
+    if (!['youtube', 'google_my_business', 'facebook', 'instagram', 'tiktok'].includes(decoded.provider)) return null;
+    if (!decoded.initiated_by || !decoded.nonce || !Number.isFinite(decoded.issued_at)) return null;
+    if (Date.now() - decoded.issued_at < 0 || Date.now() - decoded.issued_at > STATE_MAX_AGE_MS) return null;
+    return decoded;
+  } catch {
+    return null;
+  }
+}
 
 // ─── Auth URL builders ────────────────────────────────────────────────────────
 
-function getGoogleAuthUrl(platform) {
+function getGoogleAuthUrl(platform, state) {
   const scopes = platform === 'youtube'
     ? 'https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.readonly openid email profile'
     : 'https://www.googleapis.com/auth/business.manage https://www.googleapis.com/auth/userinfo.profile';
@@ -17,7 +74,7 @@ function getGoogleAuthUrl(platform) {
     scope: scopes,
     access_type: 'offline',
     prompt: 'consent',
-    state: platform,
+    state,
   });
   return `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
 }
@@ -25,7 +82,7 @@ function getGoogleAuthUrl(platform) {
 // HARDCODED — META_OAUTH_SCOPES env var is intentionally NOT read here.
 const OAUTH_SCOPE_VERSION = '2026-05-04-reduced-scopes';
 
-function getMetaAuthUrl(platform) {
+function getMetaAuthUrl(platform, state) {
   const scopes = platform === 'instagram'
     ? 'public_profile,email,pages_show_list,instagram_basic,instagram_content_publish'
     : 'public_profile,email,pages_show_list';
@@ -35,7 +92,7 @@ function getMetaAuthUrl(platform) {
     scope: scopes,
     response_type: 'code',
     oauth_scope_version: OAUTH_SCOPE_VERSION,
-    state: platform,
+    state,
   });
   const url = `https://www.facebook.com/v21.0/dialog/oauth?${params}`;
   console.log(`[socialOAuth] ===== DEBUG =====`);
@@ -48,13 +105,13 @@ function getMetaAuthUrl(platform) {
   return url;
 }
 
-function getTikTokAuthUrl() {
+function getTikTokAuthUrl(state) {
   const params = new URLSearchParams({
     client_key: Deno.env.get('TIKTOK_CLIENT_KEY'),
     redirect_uri: REDIRECT_URI,
     response_type: 'code',
     scope: 'user.info.basic,video.upload,video.publish',
-    state: 'tiktok',
+    state,
   });
   return `https://www.tiktok.com/v2/auth/authorize/?${params}`;
 }
