@@ -10,102 +10,28 @@ import { Users, TrendingUp, AlertCircle, Zap, Link as LinkIcon, Activity } from 
 
 export default function ResellerDashboard() {
   const navigate = useNavigate();
-  const [resellerTenant, setResellerTenant] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const {
+    data: dashboard,
+    isLoading,
+  } = useQuery({
+    queryKey: ['reseller-dashboard'],
+    queryFn: async () => {
+      const response = await base44.functions.invoke('getResellerDashboard', {});
+      return response?.data ?? response;
+    },
+    retry: false,
+  });
 
-  // Load current user's reseller tenant
   useEffect(() => {
-    const loadTenant = async () => {
-      try {
-        const user = await base44.auth.me();
-        if (!user) {
-          navigate('/');
-          return;
-        }
-
-        // Get user's tenant assignments
-        const assignments = await base44.entities.TenantUserAssignment.filter({
-          userId: user.id,
-          status: 'active'
-        });
-
-        if (!assignments || assignments.length === 0) {
-          navigate('/');
-          return;
-        }
-
-        // Get the tenant
-        const tenant = await base44.entities.Tenant.read(assignments[0].tenantId);
-        if (!tenant || tenant.tenantType !== 'reseller') {
-          navigate('/');
-          return;
-        }
-
-        setResellerTenant(tenant);
-      } catch (error) {
-        console.error('Error loading tenant:', error);
-        navigate('/');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    loadTenant();
-  }, [navigate]);
-
-  // Fetch reseller data
-  const { data: stats } = useQuery({
-    queryKey: ['reseller-stats', resellerTenant?.tenantId],
-    enabled: !!resellerTenant,
-    queryFn: async () => {
-      const [maps, reseller, brand] = await Promise.all([
-        base44.entities.TenantOrganizationMap.filter({ tenantId: resellerTenant.tenantId }),
-        base44.entities.ResellerProfile.filter({ tenantId: resellerTenant.tenantId }, null, 1),
-        base44.entities.BrandProfile.filter({ tenantId: resellerTenant.tenantId }, null, 1)
-      ]);
-
-      const clientOrgIds = maps?.map(m => m.organizationId) || [];
-      const subscriptions = clientOrgIds.length > 0 
-        ? await base44.entities.DIYSubscription.filter({ user_email: { $exists: true } })
-        : [];
-
-      return {
-        clientCount: maps?.length || 0,
-        subscriptionCount: subscriptions?.length || 0,
-        reseller: reseller?.[0],
-        brand: brand?.[0],
-        maps
-      };
+    if (!isLoading && !dashboard?.tenant) {
+      navigate('/');
     }
-  });
+  }, [dashboard, isLoading, navigate]);
 
-  // Fetch clients
-  const { data: clients } = useQuery({
-    queryKey: ['reseller-clients', resellerTenant?.tenantId],
-    enabled: !!stats?.maps,
-    queryFn: async () => {
-      const clientOrgIds = stats.maps.map(m => m.organizationId);
-      if (clientOrgIds.length === 0) return [];
-      
-      const orgs = await Promise.all(
-        clientOrgIds.map(id => base44.entities.Organization.read(id))
-      );
-      return orgs.filter(o => o);
-    }
-  });
-
-  // Fetch recent activity
-  const { data: recentActivity } = useQuery({
-    queryKey: ['reseller-activity', resellerTenant?.tenantId],
-    enabled: !!resellerTenant,
-    queryFn: async () => {
-      return await base44.entities.ActivityEvent.filter(
-        { organizationId: { $in: stats?.maps?.map(m => m.organizationId) || [] } },
-        '-timestamp',
-        20
-      );
-    }
-  });
+  const resellerTenant = dashboard?.tenant;
+  const stats = dashboard?.stats;
+  const clients = dashboard?.clients || [];
+  const recentActivity = dashboard?.recent_activity || [];
 
   if (isLoading) {
     return (
