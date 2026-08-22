@@ -3,6 +3,49 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 
 const REDIRECT_URI = 'https://new-tech-advertising.base44.app/api/functions/metaOAuthCallback';
 const APP_BASE = 'https://new-tech-advertising.base44.app';
+const STATE_MAX_AGE_MS = 10 * 60 * 1000;
+const encoder = new TextEncoder();
+
+function stateSigningSecret() {
+  return Deno.env.get('OAUTH_STATE_SECRET')
+    || Deno.env.get('GOOGLE_CLIENT_SECRET')
+    || Deno.env.get('META_APP_SECRET');
+}
+
+function base64UrlBytes(value) {
+  const base64 = value.replace(/-/g, '+').replace(/_/g, '/')
+    + '='.repeat((4 - (value.length % 4)) % 4);
+  return Uint8Array.from(atob(base64), char => char.charCodeAt(0));
+}
+
+async function verifySignedState(stateRaw) {
+  const [encoded, signature, extra] = String(stateRaw || '').split('.');
+  if (!encoded || !signature || extra) throw new Error('invalid_state');
+
+  const secret = stateSigningSecret();
+  if (!secret) throw new Error('state_signing_unavailable');
+
+  const key = await crypto.subtle.importKey(
+    'raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['verify'],
+  );
+  const valid = await crypto.subtle.verify('HMAC', key, base64UrlBytes(signature), encoder.encode(encoded));
+  if (!valid) throw new Error('invalid_state_signature');
+
+  const state = JSON.parse(atob(encoded));
+  if (
+    state.provider !== 'meta'
+    || !state.account_id
+    || !state.nonce
+    || !state.initiated_by
+    || !Number.isFinite(state.issued_at)
+  ) {
+    throw new Error('invalid_state_payload');
+  }
+  if (Date.now() - state.issued_at < 0 || Date.now() - state.issued_at > STATE_MAX_AGE_MS) {
+    throw new Error('expired_state');
+  }
+  return state;
+}
 
 async function exchangeCodeForToken(code) {
   const res = await fetch('https://graph.facebook.com/v19.0/oauth/access_token', {
@@ -55,26 +98,32 @@ Deno.serve(async (req) => {
   }
 
   const code = url.searchParams.get('code');
-  const state = url.searchParams.get('state'); // accountId
+  const stateRaw = url.searchParams.get('state');
   const error = url.searchParams.get('error');
   const errorDesc = url.searchParams.get('error_description');
 
+  // A provider denial does not exchange a code or mutate a connection. Do not
+  // reflect an untrusted state value back into the application URL.
   if (error) {
     return new Response(null, {
       status: 302,
-      headers: { Location: `${APP_BASE}/meta-connect?error=${encodeURIComponent(errorDesc || error)}&account_id=${state}` },
+      headers: { Location: `${APP_BASE}/meta-connect?error=${encodeURIComponent(errorDesc || error)}` },
     });
   }
 
-  if (!code || !state) {
+  if (!code || !stateRaw) {
     return new Response(null, {
       status: 302,
       headers: { Location: `${APP_BASE}/meta-connect?error=missing_params` },
     });
   }
 
+  let accountId = '';
+
   try {
     const base44 = createClientFromRequest(req);
+    const stateData = await verifySignedState(stateRaw);
+    accountId = String(stateData.account_id);
 
     // Exchange code for short-lived token
     const tokenData = await exchangeCodeForToken(code);
@@ -93,10 +142,10 @@ Deno.serve(async (req) => {
     if (!pages.length) throw new Error('No Facebook Pages found. Make sure you manage at least one Facebook Page.');
 
     // Store temporarily with available_pages for selection step
-    const existing = await base44.asServiceRole.entities.MetaConnection.filter({ account_id: state });
+    const existing = await base44.asServiceRole.entities.MetaConnection.filter({ account_id: accountId });
 
     const payload = {
-      account_id: state,
+      account_id: accountId,
       status: 'not_connected', // will become connected after page selection
       fb_user_id: null,
       available_pages: pages.map(p => ({ id: p.id, name: p.name, access_token: p.access_token, category: p.category })),
@@ -126,26 +175,26 @@ Deno.serve(async (req) => {
         last_error: null,
       };
 
-      const conn = existing.length > 0 ? existing[0] : (await base44.asServiceRole.entities.MetaConnection.filter({ account_id: state }))[0];
+      const conn = existing.length > 0 ? existing[0] : (await base44.asServiceRole.entities.MetaConnection.filter({ account_id: accountId }))[0];
       await base44.asServiceRole.entities.MetaConnection.update(conn.id, finalPayload);
 
       return new Response(null, {
         status: 302,
-        headers: { Location: `${APP_BASE}/meta-connect?success=1&account_id=${state}&page=${encodeURIComponent(page.name)}` },
+        headers: { Location: `${APP_BASE}/meta-connect?success=1&account_id=${accountId}&page=${encodeURIComponent(page.name)}` },
       });
     }
 
     // Multiple pages: redirect to selector
     return new Response(null, {
       status: 302,
-      headers: { Location: `${APP_BASE}/meta-connect?select=1&account_id=${state}` },
+      headers: { Location: `${APP_BASE}/meta-connect?select=1&account_id=${accountId}` },
     });
 
   } catch (err) {
     console.error('[metaOAuthCallback] error:', err.message);
     return new Response(null, {
       status: 302,
-      headers: { Location: `${APP_BASE}/meta-connect?error=${encodeURIComponent(err.message)}&account_id=${state}` },
+      headers: { Location: `${APP_BASE}/meta-connect?error=${encodeURIComponent(err.message)}&account_id=${accountId}` },
     });
   }
 });
