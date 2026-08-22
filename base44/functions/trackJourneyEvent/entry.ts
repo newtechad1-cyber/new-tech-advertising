@@ -7,6 +7,53 @@ const ALLOWED_EVENTS = new Set([
   'growth_conversation_submitted',
   'booking_page_viewed',
 ]);
+const TRUSTED_PUBLIC_ORIGINS = new Set([
+  'https://newtechadvertising.com',
+  'https://www.newtechadvertising.com',
+  'https://app.newtechadvertising.com',
+  'https://new-tech-advertising.base44.app',
+]);
+const REQUEST_WINDOW_MS = 15 * 60 * 1000;
+const REQUEST_LIMIT = 120;
+const requestBuckets = new Map();
+
+function isTrustedPublicOrigin(req) {
+  const rawOrigin = req.headers.get('origin') || req.headers.get('referer');
+  if (!rawOrigin) return false;
+
+  try {
+    return TRUSTED_PUBLIC_ORIGINS.has(new URL(rawOrigin).origin);
+  } catch {
+    return false;
+  }
+}
+
+function requestClientIdentity(req) {
+  return String(
+    req.headers.get('cf-connecting-ip')
+    || req.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+    || req.headers.get('x-real-ip')
+    || 'unknown',
+  ).slice(0, 128);
+}
+
+function isRateLimited(req) {
+  const now = Date.now();
+  const key = requestClientIdentity(req);
+  let bucket = requestBuckets.get(key);
+
+  if (!bucket || now >= bucket.resetAt) {
+    bucket = { count: 0, resetAt: now + REQUEST_WINDOW_MS };
+    requestBuckets.set(key, bucket);
+  }
+
+  if (bucket.count >= REQUEST_LIMIT) {
+    return Math.max(1, Math.ceil((bucket.resetAt - now) / 1000));
+  }
+
+  bucket.count += 1;
+  return 0;
+}
 
 Deno.serve(async (req) => {
   if (req.method !== 'POST') {
@@ -15,8 +62,45 @@ Deno.serve(async (req) => {
 
   try {
     const base44 = createClientFromRequest(req);
-    const payload = await req.json();
-    const eventName = String(payload?.event_name || '').trim();
+    const user = await base44.auth.me().catch(() => null);
+    const trustedService = user?.role === 'admin' || user?.is_service === true;
+
+    if (!trustedService && !isTrustedPublicOrigin(req)) {
+      return Response.json({ error: 'Untrusted request origin' }, { status: 403 });
+    }
+
+    if (!trustedService) {
+      const retryAfterSeconds = isRateLimited(req);
+      if (retryAfterSeconds) {
+        return Response.json(
+          { error: 'Too many requests. Please try again shortly.' },
+          { status: 429, headers: { 'Retry-After': String(retryAfterSeconds) } },
+        );
+      }
+    }
+
+    const contentLength = Number(req.headers.get('content-length') || 0);
+    if (contentLength > 4096) {
+      return Response.json({ error: 'Request is too large' }, { status: 413 });
+    }
+
+    const rawBody = await req.text();
+    if (rawBody.length > 4096) {
+      return Response.json({ error: 'Request is too large' }, { status: 413 });
+    }
+
+    let payload;
+    try {
+      payload = JSON.parse(rawBody || '{}');
+    } catch {
+      return Response.json({ error: 'Invalid request body' }, { status: 400 });
+    }
+
+    if (!payload || Array.isArray(payload) || typeof payload !== 'object') {
+      return Response.json({ error: 'Invalid request body' }, { status: 400 });
+    }
+
+    const eventName = String(payload.event_name || '').trim();
 
     if (!ALLOWED_EVENTS.has(eventName)) {
       return Response.json({ error: 'Unsupported event' }, { status: 400 });
