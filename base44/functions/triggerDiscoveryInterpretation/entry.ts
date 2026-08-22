@@ -24,6 +24,13 @@ function entryIdFromAutomation(payload: any): string | null {
 Deno.serve(async (req) => {
   if (req.method !== 'POST') return json('METHOD_NOT_ALLOWED', 405);
 
+  const base44 = createClientFromRequest(req);
+  const user = await base44.auth.me().catch(() => null);
+  if (!user) return json('UNAUTHORIZED', 401);
+  if (user.role !== 'admin' && user.is_service !== true) {
+    return json('ADMIN_ACCESS_REQUIRED', 403);
+  }
+
   let payload: any;
   try {
     payload = await req.json();
@@ -36,8 +43,6 @@ Deno.serve(async (req) => {
 
   const secret = Deno.env.get('AGENT_WEBHOOK_KEY');
   if (!secret) return json('AUTOMATION_BRIDGE_NOT_CONFIGURED', 503);
-
-  const base44 = createClientFromRequest(req);
 
   try {
     // The adapter accepts no caller-supplied session or run ID. It derives scope
