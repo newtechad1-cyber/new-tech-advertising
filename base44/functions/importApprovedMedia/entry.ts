@@ -42,6 +42,11 @@ function extensionFor(type: string) {
 Deno.serve(async (req) => {
   if (req.method !== 'POST') return reply({ error: 'METHOD_NOT_ALLOWED' }, 405);
   const base44 = createClientFromRequest(req);
+  const user = await base44.auth.me().catch(() => null);
+  const trustedService = user?.role === 'admin' || user?.is_service === true;
+  if (!user) return reply({ error: 'UNAUTHORIZED' }, 401);
+  if (!trustedService) return reply({ error: 'ADMIN_ACCESS_REQUIRED' }, 403);
+
   let body: any;
   try { body = await req.json(); } catch { return reply({ error: 'INVALID_PAYLOAD' }, 400); }
 
