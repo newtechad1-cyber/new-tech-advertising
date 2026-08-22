@@ -1,9 +1,7 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
 
-function hasValidDriveWebhookToken(req) {
-  const expected = Deno.env.get('GOOGLE_DRIVE_WEBHOOK_TOKEN');
-  const received = req.headers.get('x-goog-channel-token');
-  return Boolean(expected && received && expected === received);
+function isTrustedInternalUser(user) {
+  return Boolean(user && (user.is_service === true || user.role === 'admin'));
 }
 
 Deno.serve(async (req) => {
@@ -14,10 +12,11 @@ Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
     const user = await base44.auth.me().catch(() => null);
-    const trustedInternal = user?.role === 'admin' || user?.is_service === true;
-    const trustedDriveWebhook = hasValidDriveWebhookToken(req);
-    if (!trustedInternal && !trustedDriveWebhook) {
+    if (!user) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    if (!isTrustedInternalUser(user)) {
+      return Response.json({ error: 'Admin access required' }, { status: 403 });
     }
 
     let body = {};
