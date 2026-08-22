@@ -5,9 +5,33 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
 
 Deno.serve(async (req) => {
+  if (req.method !== 'POST') {
+    return Response.json({ error: 'POST required' }, { status: 405 });
+  }
+
   try {
     const base44 = createClientFromRequest(req);
-    const submission = (await req.json())?.data || {};
+    const user = await base44.auth.me().catch(() => null);
+    const trustedService = user?.role === 'admin' || user?.is_service === true;
+
+    if (!user) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    if (!trustedService) {
+      return Response.json({ error: 'Admin access required' }, { status: 403 });
+    }
+
+    let body;
+    try {
+      body = await req.json();
+    } catch {
+      return Response.json({ error: 'Invalid request body' }, { status: 400 });
+    }
+
+    const submission = body?.data || {};
+    if (!submission || Array.isArray(submission) || typeof submission !== 'object') {
+      return Response.json({ error: 'Invalid submission' }, { status: 400 });
+    }
     if (!Object.keys(submission).length) {
       return Response.json({ success: true, message: 'No data' });
     }
