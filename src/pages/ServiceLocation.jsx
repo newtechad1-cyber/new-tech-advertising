@@ -135,17 +135,21 @@ export default function ServiceLocation() {
           .map(word => word.charAt(0).toUpperCase() + word.slice(1))
           .join(' ');
 
-        const [pages, related] = await Promise.all([
-          base44.entities.LocationPage.filter({ service_slug: service, city: cityName }),
+        const [locationResponse, related] = await Promise.all([
+          base44.functions.invoke('getPublicLocationPage', {
+            service_slug: service,
+            location_slug: location,
+          }),
           base44.entities.Page.filter({ section: 'learn', status: 'published' }, '-publish_date', 4),
         ]);
 
-        if (pages.length === 0) {
-          setError(`No page found for ${service} in ${cityName}`);
+        const publicLocationPage = locationResponse.data?.page;
+        if (!publicLocationPage) {
+          setError(`No published page found for ${service} in ${cityName}`);
           return;
         }
 
-        setPage(pages[0]);
+        setPage(publicLocationPage);
         setRelatedPages(related);
       } catch (err) {
         setError(err.message);
