@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build && node --experimental-loader=./scripts/resolve-extensionless-modules.mjs scripts/generate-seo-pages.mjs",
     "lint": "eslint .",
+    "audit:security": "node scripts/security-audit.mjs",
     "test:growth-guide": "node --test src/lib/growth-guide/*.test.js",
     "test:route-governance": "node --test tests/route-governance.test.mjs",
     "lint:fix": "eslint . --fix",
