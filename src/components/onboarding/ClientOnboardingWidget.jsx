@@ -16,27 +16,10 @@ export default function ClientOnboardingWidget() {
 
   const load = async () => {
     try {
-      const user = await base44.auth.me();
-      if (user?.company_id) {
-        const workrooms = await base44.entities.OnboardingWorkrooms.filter({
-          company_id: user.company_id,
-          status: { $nin: ['launched', 'paused'] },
-        });
-
-        if (workrooms.length > 0) {
-          setWorkroom(workrooms[0]);
-
-          // Find next pending visible task
-          const tasks = await base44.entities.OnboardingTasks.filter({
-            workroom_id: workrooms[0].id,
-            visible_to_client: true,
-            status: 'pending',
-          });
-          if (tasks.length > 0) {
-            setNextTask(tasks[0]);
-          }
-        }
-      }
+      const response = await base44.functions.invoke('getClientOnboardingSummary', {});
+      const data = response?.data ?? response;
+      setWorkroom(data.workroom || null);
+      setNextTask(data.nextTask || null);
     } finally {
       setLoading(false);
     }
