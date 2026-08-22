@@ -13,13 +13,13 @@ export default function PortalAccount() {
     if (!client?.id) return;
     Promise.all([
       base44.entities.ClientApprovalPreference.filter({ client_id: client.id }),
-      base44.entities.ClientPortalUser.filter({ client_id: client.id }),
+      Promise.resolve(portalUser ? [portalUser] : []),
     ]).then(([prefs, users]) => {
       setPref(prefs[0] || null);
       setPortalUsers(users);
       setLoading(false);
     });
-  }, [client?.id]);
+  }, [client?.id, portalUser?.id]);
 
   if (authLoading || loading) return <Loader />;
 
