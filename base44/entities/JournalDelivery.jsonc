@@ -17,11 +17,18 @@
     },
     "delivery_mode": {
       "type": "string",
-      "enum": ["test", "subscribers"]
+      "enum": [
+        "test",
+        "subscribers"
+      ]
     },
     "status": {
       "type": "string",
-      "enum": ["preparing", "sent", "failed"],
+      "enum": [
+        "preparing",
+        "sent",
+        "failed"
+      ],
       "default": "preparing"
     },
     "brevo_campaign_id": {
@@ -42,5 +49,33 @@
       "type": "string"
     }
   },
-  "required": ["issue_slug", "issue_number", "issue_title", "delivery_mode", "status"]
+  "required": [
+    "issue_slug",
+    "issue_number",
+    "issue_title",
+    "delivery_mode",
+    "status"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
 }

@@ -4,7 +4,7 @@
   "properties": {
     "company_id": {
       "type": "string",
-      "description": "Reference to ClientCompanies ID \u2014 required"
+      "description": "Reference to ClientCompanies ID — required"
     },
     "date": {
       "type": "string",
@@ -72,5 +72,27 @@
     "date",
     "period",
     "platform"
-  ]
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
 }
