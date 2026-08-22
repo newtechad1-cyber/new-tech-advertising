@@ -178,11 +178,15 @@ function entityProfile(file) {
     ]),
   );
 
-  // These are the kinds of fields that should never rely on accidental public
-  // defaults. The broader personal-data group is reported separately because
-  // some public content legitimately has an author email or a contact CTA.
-  const hasCredentialOrFinanceData = /(?:access[_ ]?token|refresh[_ ]?token|oauth|secret|password|auth[_ ]?pin|access[_ ]?code|session|stripe|freshbooks|payment[_ ]?method|billing|payout|finance|expense|receipt)/i.test(source);
-  const hasPersonalOrOperationalData = /(?:email|phone|address|lead|contact|admin[_ ]?note|audit[_ ]?log|subscriber|customer|client[_ ]?id|subscription)/i.test(source);
+  // Inspect actual schema field names rather than free-text descriptions. That
+  // avoids false alarms from ordinary words such as "session" in documentation.
+  const fieldNames = [...source.matchAll(/^\s{4}"([^"]+)"\s*:\s*\{/gm)].map(match => match[1]);
+  const hasCredentialOrFinanceData = fieldNames.some(field =>
+    /(?:token|secret|password|(?:auth|access)[_-]?(?:pin|code)|session|oauth|stripe|freshbooks|payment|billing|payout|finance|expense|receipt|bank|card|tax)/i.test(field),
+  );
+  const hasPersonalOrOperationalData = fieldNames.some(field =>
+    /(?:email|phone|address|lead|contact|admin[_ ]?note|audit[_ ]?log|subscriber|customer|client[_ ]?id|subscription)/i.test(field),
+  );
 
   return {
     name,
