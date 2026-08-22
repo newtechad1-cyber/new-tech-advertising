@@ -2,9 +2,18 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.39';
 import Stripe from 'npm:stripe';
 
 Deno.serve(async (req) => {
+  if (req.method !== 'POST') {
+    return Response.json({ error: 'POST required' }, { status: 405 });
+  }
+
   try {
     const base44 = createClientFromRequest(req);
-    const user = await base44.auth.me();
+    const user = await base44.auth.me().catch(() => null);
+    if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    if (user.role !== 'admin' && user.is_service !== true) {
+      return Response.json({ error: 'Admin access required' }, { status: 403 });
+    }
+
     const body = await req.json().catch(() => ({}));
     const leadId = String(body?.lead_id || '').trim();
     const paymentPlan = String(body?.payment_plan || '').trim();
@@ -16,8 +25,9 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Invalid payment plan' }, { status: 400 });
     }
 
-    // The quote page is intentionally public. Authentication is still read
-    // when present, but payment amounts never come from the browser.
+    // This legacy checkout can only be initiated by NTA staff or a trusted
+    // server workflow. Public quote links no longer expose a lead ID as a
+    // payment authority.
     const leads = await base44.asServiceRole.entities.AdaLead.filter({ id: leadId });
     const lead = leads[0];
 
