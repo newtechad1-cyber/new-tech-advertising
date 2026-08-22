@@ -142,7 +142,7 @@ function functionProfile(name) {
 
   const hasAuth = /\.auth\.me\s*\(/.test(source);
   const hasServiceRole = /\.asServiceRole\b/.test(source);
-  const hasAdminOrServiceGuard = /(?:role\s*={2,3}\s*["']admin["']|is_service\s*={2,3}\s*true|isTrusted(?:Internal)?(?:User|Service)|isAdmin(?:User)?|requireAdmin(?:OrService)?)/i.test(source);
+  const hasAdminOrServiceGuard = /(?:role\s*(?:={2,3}|!={2,3})\s*["']admin["']|is_service\s*(?:={2,3}|!={2,3})\s*true|isTrusted(?:Internal)?(?:User|Service)|isAdmin(?:User)?|requireAdmin(?:OrService)?)/i.test(source);
   const hasProviderGuard = /(?:stripe-signature|x-goog-channel-token|verify(?:Webhook|Signature)|verify.*state|signed.*state|hmac|WEBHOOK_(?:SECRET|TOKEN)|isValid(?:Webhook|Signature))/i.test(source);
   const hasOriginGuard = /(?:isTrustedPublicOrigin|isAllowedOrigin|trusted.*origin|allowed.*origin|origin.*(?:allow|trust))/i.test(source);
   const hasRateLimit = /(?:isRateLimited|rateLimit|REQUEST_LIMIT|rate.?limit)/i.test(source);
