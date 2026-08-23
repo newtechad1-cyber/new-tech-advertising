@@ -4,7 +4,7 @@ import { base44 } from '@/api/base44Client';
 import { appParams } from '@/lib/app-params';
 import { X, Send, Loader2, AlertCircle, Zap, ChevronRight, Brain, Mic, MicOff, RotateCcw, Phone, MessageSquare } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import growthGuideSurfer from "@/assets/brand/nta-growth-guide-surfer.webp";
+import FreeAIGuyAvatar from "./FreeAIGuyAvatar";
 
 const RICK_PHONE_DISPLAY = '641-420-8816';
 const RICK_PHONE_DIGITS = '16414208816';
@@ -30,6 +30,8 @@ import {
   buildPublicKnowledgeContext,
   buildPublicKnowledgeFallback
 } from '@/lib/growth-guide/publicKnowledge';
+
+const GUIDE_POSTER_URL = '/brand/free-ai-guy-approved-portrait.webp';
 
 const FunctionDisplay = ({ toolCall }) => {
     const [expanded, setExpanded] = useState(false);
@@ -107,7 +109,7 @@ const MessageBubble = ({ message }) => {
         <div className={cn("flex gap-3", isUser ? "justify-end" : "justify-start")}>
             {!isUser && (
                 <div className="h-8 w-8 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm overflow-hidden">
-                    <img src={growthGuideSurfer} alt="NTA Growth Guide" className="w-7 h-7 object-contain" />
+                    <img src={GUIDE_POSTER_URL} alt="Your Digital Growth Guide" className="w-7 h-7 object-cover object-[center_16%]" />
                 </div>
             )}
             <div className={cn("max-w-[85%]", isUser && "flex flex-col items-end")}>
@@ -150,6 +152,7 @@ export default function YourDigitalGrowthGuide() {
   }]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [avatarMotion, setAvatarMotion] = useState('idle');
   const [discoveryMode, setDiscoveryMode] = useState(false);
   const [discoveryCreds, setDiscoveryCreds] = useState(null);
   const [pendingSubmission, setPendingSubmission] = useState(false);
@@ -162,6 +165,8 @@ export default function YourDigitalGrowthGuide() {
   const [voiceStatus, setVoiceStatus] = useState('idle');
   const [voiceError, setVoiceError] = useState('');
   const submissionLockRef = useRef(false);
+  const avatarMotionTimerRef = useRef(null);
+  const lastAssistantMessageRef = useRef('welcome');
   const mediaRecorderRef = useRef(null);
   const mediaStreamRef = useRef(null);
   const recordingChunksRef = useRef([]);
@@ -178,11 +183,44 @@ export default function YourDigitalGrowthGuide() {
   const navigate = useNavigate();
   const dragControls = useDragControls();
 
+  const playAvatarMotion = (motionName, duration = 0) => {
+    clearTimeout(avatarMotionTimerRef.current);
+    setAvatarMotion(motionName);
+    if (duration) {
+      avatarMotionTimerRef.current = window.setTimeout(() => setAvatarMotion('idle'), duration);
+    }
+  };
+
   useEffect(() => {
     const openGuide = () => setIsOpen(true);
     window.addEventListener('nta:open-growth-guide', openGuide);
     return () => window.removeEventListener('nta:open-growth-guide', openGuide);
   }, []);
+
+  useEffect(() => {
+    if (!isOpen) {
+      clearTimeout(avatarMotionTimerRef.current);
+      setAvatarMotion('idle');
+      return;
+    }
+    playAvatarMotion('hello', 4300);
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    if (isListening || isLoading) {
+      playAvatarMotion('listening');
+      return;
+    }
+
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage?.role === 'assistant' && lastMessage.id !== lastAssistantMessageRef.current) {
+      lastAssistantMessageRef.current = lastMessage.id;
+      playAvatarMotion('explaining', 4200);
+    }
+  }, [isOpen, isListening, isLoading, messages]);
+
+  useEffect(() => () => clearTimeout(avatarMotionTimerRef.current), []);
 
   useEffect(() => {
     inputRef.current = input;
@@ -683,7 +721,7 @@ export default function YourDigitalGrowthGuide() {
             <div className="flex items-center gap-3">
                 <div className="hidden sm:block bg-slate-900/95 backdrop-blur-sm border border-slate-700/50 shadow-lg px-4 py-2 rounded-2xl pointer-events-none">
                     <p className="text-xs font-medium text-slate-200 flex items-center gap-2">
-                        <img src={growthGuideSurfer} alt="" className="w-7 h-7 object-contain" />
+                        <img src={GUIDE_POSTER_URL} alt="" className="w-7 h-7 rounded-full object-cover object-[center_16%]" />
                         Talk to My Office™
                     </p>
                 </div>
@@ -691,7 +729,7 @@ export default function YourDigitalGrowthGuide() {
                   onClick={() => setIsOpen(true)}
                   className="w-16 h-16 rounded-full shadow-2xl flex items-center justify-center hover:scale-105 transition-transform overflow-hidden border border-blue-300/30 bg-slate-900 cursor-grab active:cursor-grabbing"
                 >
-                  <img src={growthGuideSurfer} alt="Open the Digital Growth Guide" className="w-14 h-14 object-contain pointer-events-none" />
+                  <FreeAIGuyAvatar motion="idle" decorative className="w-14 h-14 rounded-full pointer-events-none" />
                 </button>
             </div>
           </motion.div>
@@ -718,7 +756,7 @@ export default function YourDigitalGrowthGuide() {
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 blur-[50px] rounded-full pointer-events-none" />
               <div className="flex items-center gap-4 relative z-10">
                 <div className="w-14 h-14 bg-slate-950 border border-slate-700 rounded-xl flex items-center justify-center shadow-inner overflow-hidden">
-                  <img src={growthGuideSurfer} alt="NTA Growth Guide" className="w-12 h-12 object-contain" />
+                  <FreeAIGuyAvatar motion={avatarMotion} decorative className="w-12 h-12 rounded-lg" />
                 </div>
                 <div>
                   <h3 className="text-white font-bold tracking-wide">Your Digital Growth Guide™</h3>
@@ -758,6 +796,7 @@ export default function YourDigitalGrowthGuide() {
                 <div className="flex gap-2 shrink-0">
                   <a
                     href={`tel:${RICK_PHONE_DIGITS}`}
+                    onClick={() => playAvatarMotion('next_step', 4000)}
                     className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-emerald-500"
                   >
                     <Phone className="w-3.5 h-3.5" />
@@ -765,7 +804,10 @@ export default function YourDigitalGrowthGuide() {
                   </a>
                   <button
                     type="button"
-                    onClick={() => setShowContactOptions(current => !current)}
+                    onClick={() => {
+                      playAvatarMotion('next_step', 4000);
+                      setShowContactOptions(current => !current);
+                    }}
                     aria-expanded={showContactOptions}
                     className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-blue-600 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-blue-500"
                   >
@@ -809,7 +851,10 @@ export default function YourDigitalGrowthGuide() {
                     </div>
                     <a
                       href={textLink}
-                      onClick={() => setShowContactOptions(false)}
+                      onClick={() => {
+                        playAvatarMotion('next_step', 4000);
+                        setShowContactOptions(false);
+                      }}
                       className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-blue-500"
                     >
                       <MessageSquare className="w-3.5 h-3.5" />
