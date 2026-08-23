@@ -372,6 +372,7 @@ const LEGACY_SEARCH_CLEANUP_PATHS = [
   "/workspace",
   "/agency",
   "/admin",
+  "/admin/meshy",
   "/client",
   "/ops",
   "/sales",
