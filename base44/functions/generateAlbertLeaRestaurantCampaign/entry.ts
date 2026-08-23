@@ -8,6 +8,9 @@ Deno.serve(async (req) => {
     if (!user) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
+    if (user.role !== 'admin') {
+      return Response.json({ error: 'Forbidden: admin only' }, { status: 403 });
+    }
 
     // Generate Albert Lea restaurant-specific visibility campaign
     const restaurantResponse = await base44.integrations.Core.InvokeLLM({
