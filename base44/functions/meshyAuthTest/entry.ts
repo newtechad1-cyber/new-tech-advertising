@@ -23,8 +23,8 @@ Deno.serve(async (req) => {
   }
 
   try {
-    // A read-only request is enough to verify that Meshy accepts the key.
-    const response = await fetch('https://api.meshy.ai/openapi/v2/text-to-3d?limit=1', {
+    // Meshy's documented animation-list endpoint is a safe read-only auth probe.
+    const response = await fetch('https://api.meshy.ai/openapi/v1/animations?page_num=1&page_size=1', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${apiKey}`,
@@ -32,17 +32,14 @@ Deno.serve(async (req) => {
       },
     });
 
-    const body = await response.text();
-
     return Response.json({
       ok: response.ok,
       secret_configured: true,
       meshy_status: response.status,
       meshy_authenticated: response.status !== 401 && response.status !== 403,
       note: response.ok
-        ? 'Meshy API key is available and the API request succeeded.'
-        : 'The secret reached Meshy; inspect the status to distinguish authentication from endpoint/permission issues.',
-      response_preview: body.slice(0, 300),
+        ? 'Meshy API key is available and the documented animation-list request succeeded.'
+        : 'The secret reached Meshy; inspect the status to distinguish authentication from endpoint or permission issues.',
     }, { status: response.ok ? 200 : 502 });
   } catch (error) {
     return Response.json({
