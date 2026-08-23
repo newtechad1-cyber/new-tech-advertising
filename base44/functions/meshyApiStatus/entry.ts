@@ -184,8 +184,7 @@ Deno.serve(async (req) => {
         meshyRequest(apiKey, '/animations?page_num=1&page_size=20'),
       ]);
 
-      const meshyAuthenticated = ![401, 403].includes(rigging.status)
-        && ![401, 403].includes(animations.status);
+      const meshyAuthenticated = rigging.ok && animations.ok;
 
       return Response.json({
         ok: rigging.ok && animations.ok,
