@@ -11,6 +11,7 @@ import { AuthProvider } from '@/lib/AuthContext';
 import { NTADataProvider } from '@/lib/NTADataContext';
 import { ExperienceProvider } from '@/lib/ExperienceLayer';
 import RouteMeta from '@/components/shared/RouteMeta';
+import MeshyConnectionConsole from './private-tools/MeshyConnectionConsole.jsx';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 // pages.config.js is intentionally public-only. Keeping this as a direct
@@ -167,6 +168,7 @@ function PublicRoutes() {
           }
         />
       ))}
+      <Route path="/admin/meshy" element={<MeshyConnectionConsole />} />
       <Route path="/Login" element={<CoreHubRedirect />} />
       <Route path="/login" element={<CoreHubRedirect />} />
       <Route path="/partner-portal/*" element={<CoreHubRedirect />} />
