@@ -32,6 +32,7 @@ export default function FreeAIGuyAvatar({
   const motionRef = useRef(motion);
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   motionRef.current = motion;
 
@@ -109,10 +110,12 @@ export default function FreeAIGuyAvatar({
       const clipName = CLIP_BY_MOTION[nextMotion];
       const clip = clipName ? runtime.clips.get(clipName) : null;
       if (!clip) {
+        setIsAnimating(false);
         render();
         return;
       }
 
+      setIsAnimating(true);
       const action = runtime.mixer.clipAction(clip);
       action.reset();
       action.enabled = true;
@@ -164,11 +167,11 @@ export default function FreeAIGuyAvatar({
 
         const fittedBox = new THREE.Box3().setFromObject(model);
         const fittedSize = fittedBox.getSize(new THREE.Vector3());
-        const focusHeight = fittedBox.min.y + fittedSize.y * 0.56;
-        const distance = Math.max(
-          fittedSize.y / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2))) * 1.17,
-          2.65,
-        );
+
+        // Keep active gestures at a useful upper-body distance instead of
+        // framing the whole character from head to shoes.
+        const focusHeight = fittedBox.min.y + fittedSize.y * 0.62;
+        const distance = Math.max(fittedSize.y * 1.42, 2.42);
         camera.position.set(0, focusHeight, distance);
         camera.lookAt(0, focusHeight, 0);
 
@@ -179,6 +182,7 @@ export default function FreeAIGuyAvatar({
           if (runtime.action !== event.action) return;
           event.action.stop();
           runtime.action = null;
+          setIsAnimating(false);
           render();
         });
 
@@ -188,7 +192,10 @@ export default function FreeAIGuyAvatar({
       },
       undefined,
       () => {
-        if (!cancelled) setFailed(true);
+        if (!cancelled) {
+          setFailed(true);
+          setIsAnimating(false);
+        }
       },
     );
 
@@ -215,6 +222,7 @@ export default function FreeAIGuyAvatar({
   }, [motion]);
 
   const rootClass = ['relative overflow-hidden', className].filter(Boolean).join(' ');
+  const showAnimatedModel = ready && !failed && isAnimating;
 
   return (
     <div
@@ -228,9 +236,15 @@ export default function FreeAIGuyAvatar({
         src={POSTER_URL}
         alt=""
         aria-hidden="true"
-        className={['absolute inset-0 h-full w-full object-cover object-[center_16%] transition-opacity duration-200', ready && !failed ? 'opacity-0' : 'opacity-100'].join(' ')}
+        className={['absolute inset-0 h-full w-full origin-top scale-125 object-cover object-[center_15%] transition-opacity duration-200', showAnimatedModel ? 'opacity-0' : 'opacity-100'].join(' ')}
       />
-      {!failed && <div ref={mountRef} className="absolute inset-0" aria-hidden="true" />}
+      {!failed && (
+        <div
+          ref={mountRef}
+          className={['pointer-events-none absolute inset-0 transition-opacity duration-150', showAnimatedModel ? 'opacity-100' : 'opacity-0'].join(' ')}
+          aria-hidden="true"
+        />
+      )}
     </div>
   );
 }
