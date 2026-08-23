@@ -161,7 +161,27 @@ function functionProfile(name) {
     && /authorization/i.test(source)
     && /Bearer/i.test(source)
   );
-  const hasCustomBoundary = hasCustomSessionGuard || hasCustomSecretGuard;
+  // Explicit user-scoped boundaries that do not use a platform-admin role.
+  // Keep these structural checks narrow so the preflight does not hide an
+  // endpoint that only happens to mention a user or tenant field.
+  const hasSelfScopedCheckoutBoundary = (
+    /const\s+checkoutUserId\s*=\s*String\(user\.id\s*\|\|\s*['"]{2}\)/.test(source)
+    && /const\s+checkoutUserEmail\s*=\s*String\(user\.email\s*\|\|\s*['"]{2}\)/.test(source)
+    && /DIYSubscription\.filter\s*\(\s*\{\s*user_email:\s*checkoutUserEmail,\s*status:\s*\{\s*\$in:\s*\[\s*['"]active['"]\s*,\s*['"]pending['"]\s*\]\s*\}\s*\}\s*\)/s.test(source)
+    && /DIYSubscription\.create\s*\(\s*\{\s*user_email:\s*checkoutUserEmail,/s.test(source)
+  );
+  const hasActiveTenantMembershipBoundary = (
+    /TenantUserAssignment\.filter\s*\(\s*\{\s*userId:\s*user\.id,\s*status:\s*['"]active['"]\s*\}\s*\)/s.test(source)
+    && /const\s+assignment\s*=\s*assignments\.find\s*\(/.test(source)
+    && /candidate\.expiresAt/.test(source)
+    && /tenant\.tenantType\s*!==\s*['"]reseller['"]/.test(source)
+  );
+  const hasCustomBoundary = (
+    hasCustomSessionGuard
+    || hasCustomSecretGuard
+    || hasSelfScopedCheckoutBoundary
+    || hasActiveTenantMembershipBoundary
+  );
 
   return {
     name,
