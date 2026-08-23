@@ -11,7 +11,6 @@ import { AuthProvider } from '@/lib/AuthContext';
 import { NTADataProvider } from '@/lib/NTADataContext';
 import { ExperienceProvider } from '@/lib/ExperienceLayer';
 import RouteMeta from '@/components/shared/RouteMeta';
-import MeshyConnectionConsole from './private-tools/MeshyConnectionConsole.jsx';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 // pages.config.js is intentionally public-only. Keeping this as a direct
@@ -24,7 +23,7 @@ const MainPage = mainPageKey ? PublicPages[mainPageKey] : null;
 const LayoutWrapper = ({ children, currentPageName }) =>
   Layout ? <Layout currentPageName={currentPageName}>{children}</Layout> : <>{children}</>;
 
-function CoreHubRedirect() {
+function CoreHubRedirect({ destination = '/Login' }) {
   useEffect(() => {
     const existingRobotsMeta = document.querySelector('meta[name="robots"]');
     const previousRobotsContent = existingRobotsMeta?.getAttribute('content');
@@ -38,7 +37,7 @@ function CoreHubRedirect() {
 
     robotsMeta.setAttribute('content', 'noindex, nofollow');
     document.title = 'Redirecting to NTA';
-    window.location.replace('https://app.newtechadvertising.com/Login');
+    window.location.replace('https://app.newtechadvertising.com' + destination);
 
     return () => {
       if (previousRobotsContent === null || previousRobotsContent === undefined) {
@@ -48,7 +47,7 @@ function CoreHubRedirect() {
       }
       document.title = previousTitle;
     };
-  }, []);
+  }, [destination]);
 
   return null;
 }
@@ -168,7 +167,7 @@ function PublicRoutes() {
           }
         />
       ))}
-      <Route path="/admin/meshy" element={<MeshyConnectionConsole />} />
+      <Route path="/admin/meshy" element={<CoreHubRedirect destination="/admin/meshy" />} />
       <Route path="/Login" element={<CoreHubRedirect />} />
       <Route path="/login" element={<CoreHubRedirect />} />
       <Route path="/partner-portal/*" element={<CoreHubRedirect />} />
