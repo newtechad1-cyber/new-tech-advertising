@@ -21,8 +21,22 @@ Deno.serve(async (req) => {
       status: 'active',
     });
 
-    const assignment = assignments[0];
-    if (!assignment?.tenantId) {
+    // Membership boundary: access is granted only through an active, unexpired
+    // reseller-tenant assignment, never merely because the caller is signed in.
+    const now = Date.now();
+    const allowedResellerRoles = new Set([
+      'tenant_admin',
+      'tenant_manager',
+      'tenant_member',
+      'tenant_viewer',
+    ]);
+    const assignment = assignments.find((candidate) => {
+      if (!candidate?.tenantId || !allowedResellerRoles.has(candidate.tenantRole)) return false;
+      if (!candidate.expiresAt) return true;
+      const expiresAt = Date.parse(candidate.expiresAt);
+      return Number.isFinite(expiresAt) && expiresAt > now;
+    });
+    if (!assignment) {
       return Response.json({ error: 'No active reseller assignment found.' }, { status: 403 });
     }
 
