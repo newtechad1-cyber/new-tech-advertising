@@ -6,7 +6,7 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
  * It deliberately exposes only:
  * - a compact list of completed rig candidates,
  * - four approved website-guide actions,
- * - task status and the GLB URL after success.
+ * - a GLB URL only after an explicit successful asset request.
  *
  * The Meshy key is never returned or logged.
  */
@@ -101,6 +101,18 @@ function rigSummary(task: JsonObject): JsonObject {
     ),
     ...(taskError ? { task_error: taskError } : {}),
   };
+}
+
+function rigAssetSummary(task: JsonObject): JsonObject {
+  const summary = rigSummary(task);
+  const result = asObject(task.result);
+  const riggedCharacterGlbUrl = pickString(result?.rigged_character_glb_url);
+
+  if (pickString(task.status) === 'SUCCEEDED' && riggedCharacterGlbUrl?.startsWith('https://')) {
+    summary.rigged_character_glb_url = riggedCharacterGlbUrl;
+  }
+
+  return summary;
 }
 
 async function meshyRequest(
@@ -255,6 +267,37 @@ Deno.serve(async (req) => {
       }, { status: 202 });
     }
 
+    if (action === 'get_rig_asset') {
+      const rigTaskId = asObject(body)?.rig_task_id;
+
+      if (!validTaskId(rigTaskId)) {
+        return Response.json({ ok: false, error: 'A valid rig_task_id is required.' }, { status: 400 });
+      }
+
+      const rigging = await meshyRequest(apiKey, '/rigging/' + encodeURIComponent(rigTaskId));
+      if (!rigging.ok) return upstreamFailure('rigging lookup', rigging);
+
+      const rig = asObject(rigging.data) || {};
+      if (pickString(rig.status) !== 'SUCCEEDED') {
+        return Response.json({
+          ok: false,
+          error: 'The selected rig task is not complete yet.',
+          rig: rigSummary(rig),
+        }, { status: 409 });
+      }
+
+      const summary = rigAssetSummary(rig);
+      if (!pickString(summary.rigged_character_glb_url)) {
+        return Response.json({
+          ok: false,
+          error: 'Meshy did not return a rigged-character GLB for this completed rig.',
+          rig: summary,
+        }, { status: 502 });
+      }
+
+      return Response.json({ ok: true, rig: summary });
+    }
+
     if (action === 'get_animation') {
       const animationTaskId = asObject(body)?.animation_task_id;
 
@@ -279,7 +322,7 @@ Deno.serve(async (req) => {
     return Response.json({
       ok: false,
       error: 'Unsupported Meshy workflow action.',
-      supported_actions: ['status', 'start_animation', 'get_animation'],
+      supported_actions: ['status', 'start_animation', 'get_rig_asset', 'get_animation'],
     }, { status: 400 });
   } catch {
     return Response.json({
