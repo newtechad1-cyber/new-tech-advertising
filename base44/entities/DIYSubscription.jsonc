@@ -17,6 +17,7 @@
     "status": {
       "type": "string",
       "enum": [
+        "pending",
         "active",
         "cancelled",
         "past_due",
