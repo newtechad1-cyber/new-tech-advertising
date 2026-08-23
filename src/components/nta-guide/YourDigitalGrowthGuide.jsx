@@ -729,7 +729,12 @@ export default function YourDigitalGrowthGuide() {
                   onClick={() => setIsOpen(true)}
                   className="w-16 h-16 rounded-full shadow-2xl flex items-center justify-center hover:scale-105 transition-transform overflow-hidden border border-blue-300/30 bg-slate-900 cursor-grab active:cursor-grabbing"
                 >
-                  <FreeAIGuyAvatar motion="idle" decorative className="w-14 h-14 rounded-full pointer-events-none" />
+                  <img
+                    src={GUIDE_POSTER_URL}
+                    alt=""
+                    aria-hidden="true"
+                    className="h-full w-full origin-top scale-125 object-cover object-[center_15%] pointer-events-none"
+                  />
                 </button>
             </div>
           </motion.div>
@@ -755,8 +760,12 @@ export default function YourDigitalGrowthGuide() {
             >
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 blur-[50px] rounded-full pointer-events-none" />
               <div className="flex items-center gap-4 relative z-10">
-                <div className="w-14 h-14 bg-slate-950 border border-slate-700 rounded-xl flex items-center justify-center shadow-inner overflow-hidden">
-                  <FreeAIGuyAvatar motion={avatarMotion} decorative className="w-12 h-12 rounded-lg" />
+                <div className="w-14 h-14 sm:w-28 sm:h-24 bg-slate-950 border border-slate-700 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-inner overflow-hidden">
+                  <FreeAIGuyAvatar
+                    motion={avatarMotion}
+                    decorative
+                    className="w-12 h-12 sm:w-[6.5rem] sm:h-[5.5rem] rounded-lg sm:rounded-xl"
+                  />
                 </div>
                 <div>
                   <h3 className="text-white font-bold tracking-wide">Your Digital Growth Guide™</h3>
