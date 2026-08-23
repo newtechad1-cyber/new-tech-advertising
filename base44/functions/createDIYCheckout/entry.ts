@@ -7,28 +7,41 @@ Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
     const user = await base44.auth.me();
+    if (!user) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Self-service billing boundary: every privileged operation below is tied to
+    // the authenticated caller's immutable Base44 user ID and email.
+    const checkoutUserId = String(user.id || '').trim();
+    const checkoutUserEmail = String(user.email || '').trim().toLowerCase();
+    if (!checkoutUserId || !checkoutUserEmail) {
+      return Response.json({ error: 'A signed-in account with an email is required.' }, { status: 403 });
+    }
+
     const body = await req.json().catch(() => ({}));
-    const plan = body.plan || 'diy_social';
+    const plan = typeof body.plan === 'string' ? body.plan : 'diy_social';
 
     const planPrices = {
       diy_social: { amount: 9700, name: 'DIY Social', label: 'DIY Social', monthly_price: 97 },
       diy_suite: { amount: 19700, name: 'DIY Marketing Suite', label: 'DIY Marketing Suite', monthly_price: 197 },
     };
 
-    const selectedPlan = planPrices[plan] || planPrices['diy_social'];
-
-    if (!user) {
-      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!Object.prototype.hasOwnProperty.call(planPrices, plan)) {
+      return Response.json({ error: 'Invalid plan selection.' }, { status: 400 });
     }
 
-    // Check if user already has active DIY subscription
+    const selectedPlan = plan === 'diy_social' ? planPrices.diy_social : planPrices.diy_suite;
+    const stripeIdempotencyBase = `diy-checkout:${checkoutUserId}:${plan}`;
+
+    // Do not create duplicate paid checkout sessions for the same account.
     const existingSubs = await base44.asServiceRole.entities.DIYSubscription.filter(
-      { user_email: user.email, status: 'active' }
+      { user_email: checkoutUserEmail, status: { $in: ['active', 'pending'] } }
     );
 
     if (existingSubs.length > 0) {
       return Response.json({
-        error: 'You already have an active DIY subscription',
+        error: 'You already have an active DIY subscription or checkout in progress.',
       }, { status: 400 });
     }
 
@@ -38,13 +51,14 @@ Deno.serve(async (req) => {
       headers: {
         'Authorization': `Bearer ${STRIPE_SECRET_KEY}`,
         'Content-Type': 'application/x-www-form-urlencoded',
+        'Idempotency-Key': `${stripeIdempotencyBase}:customer`,
       },
       body: new URLSearchParams({
-        email: user.email,
+        email: checkoutUserEmail,
         name: user.full_name || 'DIY Customer',
         metadata: JSON.stringify({
-          app_user_email: user.email,
-          app_user_id: user.id,
+          app_user_email: checkoutUserEmail,
+          app_user_id: checkoutUserId,
         }),
       }),
     });
@@ -63,6 +77,7 @@ Deno.serve(async (req) => {
         headers: {
           'Authorization': `Bearer ${STRIPE_SECRET_KEY}`,
           'Content-Type': 'application/x-www-form-urlencoded',
+          'Idempotency-Key': `${stripeIdempotencyBase}:session`,
         },
         body: new URLSearchParams({
           customer: customer.id,
@@ -102,7 +117,7 @@ Deno.serve(async (req) => {
 
     // Store initial subscription record with pending status
     const subscription = await base44.asServiceRole.entities.DIYSubscription.create({
-      user_email: user.email,
+      user_email: checkoutUserEmail,
       stripe_customer_id: customer.id,
       stripe_subscription_id: '',
       status: 'pending',
