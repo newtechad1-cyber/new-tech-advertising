@@ -36,7 +36,7 @@ Deno.serve(async (req) => {
       ok: response.ok,
       secret_configured: true,
       meshy_status: response.status,
-      meshy_authenticated: response.status !== 401 && response.status !== 403,
+      meshy_authenticated: response.ok,
       note: response.ok
         ? 'Meshy API key is available and the documented animation-list request succeeded.'
         : 'The secret reached Meshy; inspect the status to distinguish authentication from endpoint or permission issues.',
