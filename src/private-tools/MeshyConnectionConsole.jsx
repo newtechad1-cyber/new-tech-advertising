@@ -28,7 +28,9 @@ export default function MeshyConnectionConsole() {
   const [selectedRigId, setSelectedRigId] = useState('');
   const [selectedBehavior, setSelectedBehavior] = useState('hello');
   const [activeTask, setActiveTask] = useState(null);
+  const [rigAsset, setRigAsset] = useState(null);
   const [loadingStatus, setLoadingStatus] = useState(false);
+  const [loadingRigAsset, setLoadingRigAsset] = useState(false);
   const [startingAnimation, setStartingAnimation] = useState(false);
   const [error, setError] = useState('');
 
@@ -77,6 +79,25 @@ export default function MeshyConnectionConsole() {
       setError(caught?.message || 'Meshy status check failed.');
     } finally {
       setLoadingStatus(false);
+    }
+  }
+
+  async function prepareRigAsset() {
+    if (!selectedRigId || loadingRigAsset) return;
+
+    setLoadingRigAsset(true);
+    setError('');
+
+    try {
+      const result = await invoke('get_rig_asset', { rig_task_id: selectedRigId });
+      if (!result?.ok || !result?.rig?.rigged_character_glb_url) {
+        throw new Error(result?.error || 'Meshy did not return the selected rig GLB.');
+      }
+      setRigAsset(result.rig);
+    } catch (caught) {
+      setError(caught?.message || 'Could not prepare the source rig download.');
+    } finally {
+      setLoadingRigAsset(false);
     }
   }
 
@@ -245,7 +266,10 @@ export default function MeshyConnectionConsole() {
               <select
                 className="mt-2 w-full rounded border border-slate-600 bg-slate-800 p-3 text-white disabled:opacity-50"
                 value={selectedRigId}
-                onChange={event => setSelectedRigId(event.target.value)}
+                onChange={event => {
+                  setSelectedRigId(event.target.value);
+                  setRigAsset(null);
+                }}
                 disabled={!rigCandidates.length}
               >
                 {!rigCandidates.length && <option value="">No completed rig returned yet</option>}
@@ -273,6 +297,29 @@ export default function MeshyConnectionConsole() {
               </select>
             </label>
           </div>
+
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <button
+              className="rounded border border-emerald-400 px-4 py-2 text-sm font-medium text-emerald-200 hover:bg-emerald-400/10 disabled:opacity-50"
+              disabled={!selectedRigId || loadingRigAsset}
+              onClick={prepareRigAsset}
+            >
+              {loadingRigAsset ? 'Preparing source rig…' : 'Prepare source rig GLB'}
+            </button>
+            {rigAsset?.rigged_character_glb_url && (
+              <a
+                className="rounded bg-emerald-600 px-4 py-2 text-sm font-medium hover:bg-emerald-500"
+                href={rigAsset.rigged_character_glb_url}
+                rel="noreferrer"
+                target="_blank"
+              >
+                Download selected source rig GLB
+              </a>
+            )}
+          </div>
+          <p className="mt-3 text-xs text-slate-400">
+            This is a read-only download for material and texture inspection; it does not regenerate or change Free AI Guy.
+          </p>
 
           <button
             className="mt-5 rounded bg-blue-600 px-4 py-2 font-medium hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
