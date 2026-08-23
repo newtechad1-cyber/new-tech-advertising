@@ -171,7 +171,7 @@ function functionProfile(name) {
     && /DIYSubscription\.create\s*\(\s*\{\s*user_email:\s*checkoutUserEmail,/s.test(source)
   );
   const hasActiveTenantMembershipBoundary = (
-    /TenantUserAssignment\.filter\s*\(\s*\{\s*userId:\s*user\.id,\s*status:\s*['"]active['"]\s*\}\s*\)/s.test(source)
+    /TenantUserAssignment\.filter\s*\(\s*\{\s*userId:\s*user\.id,\s*status:\s*['"]active['"]\s*,?\s*\}\s*\)/s.test(source)
     && /const\s+assignment\s*=\s*assignments\.find\s*\(/.test(source)
     && /candidate\.expiresAt/.test(source)
     && /tenant\.tenantType\s*!==\s*['"]reseller['"]/.test(source)
