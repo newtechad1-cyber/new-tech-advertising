@@ -161,11 +161,11 @@ export default function JournalLanding() {
               </div>
               <div className="flex items-center gap-2 text-slate-500">
                 <Calendar className="w-4 h-4" />
-                <span>Every <strong className="text-white">Monday</strong></span>
+                <span>Every <strong className="text-white">Tuesday</strong></span>
               </div>
               <div className="flex items-center gap-2 text-slate-500">
                 <Clock className="w-4 h-4" />
-                <span><strong className="text-white">7:00 AM</strong> CT</span>
+                <span><strong className="text-white">Morning</strong> CT</span>
               </div>
             </div>
 
