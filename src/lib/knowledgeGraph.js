@@ -62,7 +62,13 @@ function mergeJournalIssues(entities, seedData) {
     if (!isCompleteJournalIssue(issue)) continue;
 
     const existing = byIssue.get(issue.issue_number);
-    if (!existing || issue.status === 'Published') {
+    const issueTime = Date.parse(issue.date || issue.created_date || '1970-01-01');
+    const existingTime = Date.parse(existing?.date || existing?.created_date || '1970-01-01');
+
+    // Multiple historical records may share an old issue number. Prefer the
+    // newest published edition so a current Journal link never resolves to
+    // a stale legacy record.
+    if (!existing || (issue.status === 'Published' && issueTime >= existingTime)) {
       byIssue.set(issue.issue_number, issue);
     }
   }
