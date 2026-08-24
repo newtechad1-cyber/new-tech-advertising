@@ -341,6 +341,119 @@ I am still learning the system while I build it. That is the point of this Journ
   "related_video_title": "This Week's NTA Video",
   "cta_text": "Read Lesson 3: “The Work You Don’t See: Why Setup Matters”",
   "cta_url": "/canon/the-work-you-dont-see-why-setup-matters"
+},
+{
+  id: 'seed-journal-issue-4',
+  issue_number: 4,
+  volume: 1,
+  title: 'The Free AI Guy Comes to Life',
+  slug: 'the-free-ai-guy-comes-to-life',
+  subtitle: 'Why New Tech Advertising still begins with advertising.',
+  summary: 'Rick Hesse brings the Free AI Guy to life in the NTA Growth Show and explains why New Tech Advertising combines modern technology with the full advertising mix—rather than replacing one with the other.',
+  date: '2026-08-24',
+  scheduled_date: '2026-08-24',
+  scheduled_time: '07:00',
+  status: 'Published',
+  category: 'Building NTA',
+  series: 'Building in Public',
+  tags: ['New Tech Advertising', 'advertising', 'television', 'radio', 'video', 'connected system', 'Digital Growth Office'],
+  author: 'Rick Hesse',
+  editor_signature: 'Rick Hesse',
+  featured: true,
+  featured_image_url: null,
+  estimated_reading_time: '7 min read',
+  views: 0,
+  newsletter_sent: false,
+  newsletter_subject: 'The NTA Journal — Issue #4: The Free AI Guy Comes to Life',
+  introduction_headline: 'New Tech Is Changing. Advertising Still Matters.',
+  introductory_message: 'The Free AI Guy is a new way to make NTA’s guidance easier to approach. The bigger point is that modern technology should strengthen the full advertising system—not make a business forget the channels and relationships that already work.',
+  from_ricks_desk: `One of the most exciting things I built this week was not another website page, form, or dashboard.
+
+I took the Free AI Guy—the friendly guide we have been shaping—and brought him to life. He can now help welcome people into the NTA experience and sit with me in the NTA Growth Show.
+
+That is exciting to me because it feels like a new kind of television production. Years ago, I sold television advertising. Today, with the technology available to us, I can build a show, a character, a visual experience, and a conversation without a traditional studio or production crew.
+
+But this is not just an AI story.
+
+I have been thinking again about the name New Tech Advertising. “New Tech” reflects the technology that keeps changing: websites, digital systems, social media, AI, and whatever comes next. But “Advertising” is equally important. It is the history I come from, and it is still the work of helping a business reach real people.
+
+Years ago, when a business owner told me, “I do radio,” I did not tell him to quit radio and do television instead. I said, “Great. Add TV to it. You get further reach.”
+
+That is still how I think.
+
+Good advertising is not about throwing away a channel simply because something newer arrives. It is about understanding what is already working, then adding the right next piece.`,
+  what_we_built: `This week, the Free AI Guy moved from being an idea and a picture into an animated guide. He is part of the NTA website experience and joins me in the Growth Show.
+
+The first finished show is called “You Don’t Need More Marketing—You Need a Connected System.” That title gets to the heart of what I am trying to build.
+
+A business does not usually need another disconnected tool, another random subscription, or another person promising a shortcut. It needs the pieces it already has—and the new pieces it chooses—to work together.
+
+The animated guide is not meant to replace a real conversation. It is a more approachable front door into one. He can help make technology feel less intimidating while pointing people back toward the real questions: What is your business trying to accomplish? How do customers experience it? Where is the confusion? What should work together better?`,
+  what_we_learned: `Technology can be exciting. I love what it makes possible.
+
+But technology by itself does not build a business. It has to serve a purpose. It has to fit into a system. And it has to make life clearer for the owner, the employee, and the customer.
+
+That is why I do not want NTA to drift into being known as only an AI company, only a website company, or only a digital company.
+
+**New technology should strengthen advertising—not replace the idea of advertising.**
+
+The same principles that mattered when I sold television still matter now: know who you are trying to reach, understand what they need to hear, show up where they are paying attention, and give them a reason to trust you.`,
+  what_it_means_for_your_business: `You do not have to abandon the things that are already helping your business.
+
+If referrals work, protect them. If radio works, keep using it. If television, print, events, social media, Google, video, or email fit your audience, use them wisely.
+
+Then ask a better question than, “What new tool should I buy?”
+
+Ask: **What is one useful piece we could add that would help the whole system work better?**
+
+Maybe it is a better website experience. Maybe it is a simple follow-up process. Maybe it is video that lets people meet you before they call. Maybe it is clearer information in Google. Maybe it is a better connection between the advertising you are already paying for and what happens after someone responds.
+
+The answer will not be the same for every business. That is why discovery comes before recommendations.`,
+  this_weeks_challenge: `Pick one part of your advertising that is already working.
+
+Then ask yourself:
+
+- Who is it reaching?
+- What happens after someone sees or hears the message?
+- What is one additional piece that could help it reach farther or work better?
+- Does that new piece connect to the rest of the business—or is it just another disconnected tool?
+
+Do not throw away what works. Build on it.`,
+  closing_message: `The NTA Journal will continue with a plainspoken look at what we are building and what small-business owners can use from it.
+
+No hype. No pretending every experiment works the first time. Just practical lessons from doing the work.
+
+Watch the NTA Growth Show: [“You Don’t Need More Marketing—You Need a Connected System”](https://www.youtube.com/watch?v=S-hRkzo6_3M).`,
+  related_service_slugs: [],
+  related_learning_lesson_ids: [],
+  related_article_ids: ['6a7dda8bf03620556ea6570f'],
+  related_video_ids: ['S-hRkzo6_3M'],
+  related_video_url: 'https://www.youtube.com/watch?v=S-hRkzo6_3M',
+  related_video_title: 'You Don’t Need More Marketing—You Need a Connected System | NTA Growth Show',
+  featured_video: {
+    source_id: 'S-hRkzo6_3M',
+    source_type: 'YouTubeKnowledge',
+    title: 'You Don’t Need More Marketing—You Need a Connected System | NTA Growth Show',
+    url: 'https://www.youtube.com/watch?v=S-hRkzo6_3M',
+    duration: '7:56',
+    description: 'Rick Hesse and Free AI Guy discuss why more ads, software, or AI will not fix a business without a clear customer journey.',
+    cta_text: 'Watch the NTA Growth Show'
+  },
+  selected_articles: [
+    {
+      source_type: 'KnowledgeLesson',
+      source_id: '6a7dda8bf03620556ea6570f',
+      title: 'The Work You Don’t See: Why Setup Matters',
+      url: '/canon/the-work-you-dont-see-why-setup-matters',
+      excerpt: 'Simple results usually depend on thoughtful setup. The work behind a website, form, dashboard, or AI experience matters because a good system absorbs complexity so the owner does not have to.',
+      reading_time: '5 min read',
+      featured_image_url: '',
+      is_lead: true,
+      display_order: 1
+    }
+  ],
+  cta_text: 'Watch the NTA Growth Show',
+  cta_url: 'https://www.youtube.com/watch?v=S-hRkzo6_3M'
 }];
 
 // ─── Combined seed ────────────────────────────────────────────────────────
