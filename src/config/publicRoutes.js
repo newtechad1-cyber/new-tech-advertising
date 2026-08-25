@@ -63,6 +63,7 @@ import HowCustomersDecideWhoToTrustCollection from '@/pages/HowCustomersDecideWh
 import IWasEarlyAgain from '@/pages/IWasEarlyAgain';
 import IndustriesHub from '@/pages/IndustriesHub';
 import JoinNTA from '@/pages/JoinNTA';
+import RegionalAccountManager from '@/pages/RegionalAccountManager';
 import JournalIssueView from '@/pages/JournalIssueView';
 import JournalLanding from '@/pages/JournalLanding';
 import KnowledgeCollection from '@/pages/KnowledgeCollection';
@@ -221,6 +222,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/gap-audit', FreeAudit),
   alias('/free-audit', FreeAudit),
   alias('/tools', FreeAudit),
+  alias('/regional-account-manager', RegionalAccountManager),
   alias('/join-nta', JoinNTA),
   alias('/rebuild-intake', RebuildIntake),
 
