@@ -143,8 +143,8 @@ const STATIC_SEO = {
     description: "Help local business owners understand practical AI, digital visibility, and connected growth through the NTA community partner approach.",
   },
   "/regional-account-manager": {
-    title: "Regional Account Manager Opportunity | Rochester & Southern Minnesota | NTA",
-    description: "A relationship-driven opportunity for someone who knows Rochester and Southern Minnesota business communities. NTA provides the knowledge, tools, and support.",
+    title: "Regional Account Manager Opportunity | North Iowa & Southern Minnesota | NTA",
+    description: "A relationship-driven opportunity in North Iowa and Southern Minnesota, with Rochester as an important early focus. NTA provides the knowledge, tools, and support.",
   },
   "/local-lead-systems": {
     title: "Local Lead Generation Systems for Small Business | NTA",
