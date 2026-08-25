@@ -8,6 +8,21 @@
     "city": {
       "type": "string"
     },
+    "territory": {
+      "type": "string"
+    },
+    "campaign_source": {
+      "type": "string"
+    },
+    "campaign_medium": {
+      "type": "string"
+    },
+    "campaign_name": {
+      "type": "string"
+    },
+    "landing_path": {
+      "type": "string"
+    },
     "phone": {
       "type": "string"
     },
@@ -49,9 +64,25 @@
     "email"
   ],
   "rls": {
-    "create": { "user_condition": { "role": "admin" } },
-    "read": { "user_condition": { "role": "admin" } },
-    "update": { "user_condition": { "role": "admin" } },
-    "delete": { "user_condition": { "role": "admin" } }
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
   }
 }
