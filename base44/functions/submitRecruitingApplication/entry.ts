@@ -116,6 +116,11 @@ Deno.serve(async (req) => {
     const email = cleanText(body.email, 320).toLowerCase();
     const phone = cleanText(body.phone, 100);
     const city = cleanText(body.city, 200);
+    const territory = cleanText(body.territory, 200);
+    const campaign_source = cleanText(body.campaign_source, 200);
+    const campaign_medium = cleanText(body.campaign_medium, 200);
+    const campaign_name = cleanText(body.campaign_name, 300);
+    const landing_path = cleanText(body.landing_path, 1000);
     const current_role = cleanText(body.current_role, 300);
     const business_relationships = cleanText(body.business_relationships, 3000);
     const interest_reason = cleanText(body.interest_reason, 4000);
@@ -129,6 +134,11 @@ Deno.serve(async (req) => {
       email,
       phone,
       city,
+      territory,
+      campaign_source,
+      campaign_medium,
+      campaign_name,
+      landing_path,
       current_role,
       business_relationships,
       interest_reason,
