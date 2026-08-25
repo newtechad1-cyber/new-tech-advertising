@@ -235,6 +235,19 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="border-y border-slate-800 bg-slate-950 px-6 py-16">
+          <div className="mx-auto flex max-w-5xl flex-col items-start justify-between gap-6 rounded-3xl border border-slate-800 bg-slate-900/60 p-7 md:flex-row md:items-center md:p-9">
+            <div className="max-w-3xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-300">Rochester &amp; Southern Minnesota</p>
+              <h2 className="mt-3 text-2xl font-bold text-white md:text-3xl">Know someone who is good with people and local business relationships?</h2>
+              <p className="mt-3 leading-relaxed text-slate-300">NTA is building a relationship-driven Regional Account Manager opportunity—with the knowledge, tools, and support behind the conversation.</p>
+            </div>
+            <Link onClick={() => trackJourneyEvent('regional_account_manager_home_click', { route: '/', source: 'homepage' })} to="/regional-account-manager" className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-bold text-white transition-colors hover:bg-blue-500">
+              Explore the Opportunity <ArrowRight className="h-5 w-5" />
+            </Link>
+          </div>
+        </section>
+
         <SolutionSection />
         <PublicationsSection />
         <CombinedReviewsSection />
