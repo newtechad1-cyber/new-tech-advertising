@@ -8,6 +8,7 @@ import {
   Handshake,
   MapPin,
   MessageCircle,
+  Play,
   ShieldCheck,
   UsersRound,
 } from 'lucide-react';
@@ -17,7 +18,53 @@ import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import { trackJourneyEvent } from '@/lib/journeyAnalytics';
 
-const TERRITORY = 'Rochester & Southern Minnesota';
+const TERRITORY = 'North Iowa & Southern Minnesota';
+const RECRUITING_PLAYLIST_ID = 'PLbPNsoazKwmw';
+const RECRUITING_PLAYLIST_URL = `https://www.youtube.com/playlist?list=${RECRUITING_PLAYLIST_ID}`;
+const RECRUITING_OVERVIEW_ID = 'Ka4nUG4wiGI';
+
+const RECRUITING_VIDEOS = [
+  {
+    id: RECRUITING_OVERVIEW_ID,
+    title: 'Regional Account Manager Opportunity',
+    description: 'Start here for the overall opportunity and the kind of relationship NTA is building.',
+  },
+  {
+    id: 'fNfR6irzzcE',
+    title: 'A Flexible Opportunity That Fits Real Life',
+    description: 'How the opportunity can fit alongside a real life and community.',
+  },
+  {
+    id: 'oB-5tXy2phs',
+    title: 'Great Selling Starts With Listening',
+    description: 'Why useful conversations begin by understanding the business owner.',
+  },
+  {
+    id: 'AZuVbZFSFl4',
+    title: 'You Don’t Need to Be an AI Expert',
+    description: 'Why NTA’s system carries the technical depth behind the conversation.',
+  },
+  {
+    id: 'fsWQtvrFf5E',
+    title: 'Commission Paid Within Two Business Days',
+    description: 'A direct explanation of the upfront commission timing.',
+  },
+  {
+    id: 'N0lexmbF7TI',
+    title: 'Build Relationships Without Driving All Day',
+    description: 'How local relationship-building can be thoughtful and practical.',
+  },
+  {
+    id: 'fcNw60WEa4A',
+    title: 'Know Someone in Rochester?',
+    description: 'Why Rochester is an important early focus for this opportunity.',
+  },
+  {
+    id: 'S_0cPb4TJz4',
+    title: 'Media Sales Reps: You Already Know How to Start the Conversation',
+    description: 'For people who already understand local-business conversations.',
+  },
+];
 
 const roleActions = [
   'Meet business owners and start useful conversations.',
@@ -62,7 +109,7 @@ const resources = [
 
 const rightFor = [
   'You like meeting people and taking a genuine interest in their businesses.',
-  'You know Rochester, Southern Minnesota, or the communities and business owners around them.',
+  'You know North Iowa, Southern Minnesota, or the communities and business owners around them.',
   'You are comfortable starting a conversation and following up thoughtfully.',
   'You want to keep learning without pretending to have every answer on day one.',
   'You can represent NTA with good judgment, patience, and respect for the person across the table.',
@@ -178,8 +225,8 @@ export default function RegionalAccountManager() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="Regional Account Manager Opportunity | Rochester & Southern Minnesota | NTA"
-        description="A relationship-driven opportunity for someone who knows Rochester and Southern Minnesota business communities. NTA provides the knowledge, tools, and support."
+        title="Regional Account Manager Opportunity | North Iowa & Southern Minnesota | NTA"
+        description="A relationship-driven opportunity in North Iowa and Southern Minnesota, with Rochester as an important early focus. NTA provides the knowledge, tools, and support."
       />
       <MarketingNav />
 
@@ -197,14 +244,14 @@ export default function RegionalAccountManager() {
               </p>
               <p className="mt-4 flex items-center gap-2 text-base font-medium text-slate-300">
                 <MapPin className="h-5 w-5 text-cyan-300" />
-                Rochester &amp; Southern Minnesota
+                North Iowa &amp; Southern Minnesota
               </p>
               <h1 className="mt-5 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
                 Help local businesses grow—without having to be every kind of expert.
               </h1>
               <div className="mt-7 max-w-2xl space-y-5 text-lg leading-relaxed text-slate-300">
                 <p>
-                  New Tech Advertising is looking for a Regional Account Manager for Rochester and Southern Minnesota.
+                  New Tech Advertising is looking for a Regional Account Manager to help build business relationships across North Iowa and Southern Minnesota, with Rochester as an important early focus.
                 </p>
                 <p>
                   This is a relationship-driven opportunity for someone who enjoys people, useful conversations, and helping business owners make sense of what comes next.
@@ -231,17 +278,87 @@ export default function RegionalAccountManager() {
             </div>
 
             <aside className="rounded-3xl border border-slate-700 bg-slate-900/80 p-7 shadow-2xl shadow-cyan-950/20 backdrop-blur-sm md:p-9">
-              <Handshake className="h-10 w-10 text-cyan-300" />
-              <p className="mt-6 text-sm font-semibold uppercase tracking-[0.18em] text-cyan-300">The central idea</p>
-              <p className="mt-4 text-2xl font-bold leading-snug text-white">
+              <div className="flex items-center gap-3">
+                <Handshake className="h-9 w-9 text-cyan-300" />
+                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-300">Watch the overview</p>
+              </div>
+              <div className="mt-5 overflow-hidden rounded-2xl border border-slate-700 bg-black">
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${RECRUITING_OVERVIEW_ID}?rel=0`}
+                  title="Regional Account Manager Opportunity overview"
+                  className="aspect-video w-full"
+                  loading="eager"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
+              <p className="mt-6 text-xl font-bold leading-snug text-white">
                 You focus on the person across the table. The NTA system can help with the rest.
               </p>
-              <div className="mt-7 space-y-4 border-t border-slate-700 pt-6 text-sm leading-relaxed text-slate-300">
-                <p>Start a conversation.</p>
-                <p>Listen for what matters.</p>
-                <p>Bring in the right knowledge, tools, and people when they are useful.</p>
-              </div>
+              <a
+                href={RECRUITING_PLAYLIST_URL}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => trackJourneyEvent('regional_account_manager_video_playlist_clicked', { route: '/regional-account-manager', source: 'hero_overview' })}
+                className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 transition-colors hover:text-cyan-200"
+              >
+                Watch the full eight-video series on YouTube <ArrowRight className="h-4 w-4" />
+              </a>
             </aside>
+          </div>
+        </section>
+
+        <section className="border-y border-slate-200 bg-slate-50 px-6 py-20 md:py-24">
+          <div className="mx-auto max-w-6xl">
+            <SectionHeading eyebrow="The recruiting video series" title="Eight short videos. One clear picture of the opportunity.">
+              <p>
+                Start with the overview above, choose a question below, or open the complete YouTube playlist when you are ready to watch the full series.
+              </p>
+            </SectionHeading>
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {RECRUITING_VIDEOS.map((video) => (
+                <a
+                  key={video.id}
+                  href={`https://www.youtube.com/watch?v=${video.id}&list=${RECRUITING_PLAYLIST_ID}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => trackJourneyEvent('regional_account_manager_video_clicked', { route: '/regional-account-manager', video_id: video.id, source: 'video_series' })}
+                  className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:-translate-y-1 hover:border-blue-300 hover:shadow-lg"
+                >
+                  <div className="relative aspect-video overflow-hidden bg-slate-900">
+                    <img
+                      src={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`}
+                      alt=""
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <span className="absolute inset-0 flex items-center justify-center bg-slate-950/20">
+                      <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/95 text-blue-700 shadow-lg">
+                        <Play className="ml-0.5 h-5 w-5 fill-current" aria-hidden="true" />
+                      </span>
+                    </span>
+                  </div>
+                  <div className="p-5">
+                    <h3 className="text-lg font-bold leading-snug text-slate-900">{video.title}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-slate-600">{video.description}</p>
+                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-blue-700 transition-colors group-hover:text-blue-600">
+                      Watch on YouTube <ArrowRight className="h-4 w-4" />
+                    </span>
+                  </div>
+                </a>
+              ))}
+            </div>
+            <div className="mt-10 text-center">
+              <a
+                href={RECRUITING_PLAYLIST_URL}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => trackJourneyEvent('regional_account_manager_video_playlist_clicked', { route: '/regional-account-manager', source: 'video_series' })}
+                className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-6 py-3.5 font-bold text-white transition-colors hover:bg-slate-800"
+              >
+                Open the complete YouTube playlist <ArrowRight className="h-5 w-5" />
+              </a>
+            </div>
           </div>
         </section>
 
@@ -272,9 +389,9 @@ export default function RegionalAccountManager() {
 
         <section className="border-y border-blue-100 bg-blue-50/70 px-6 py-20 md:py-24">
           <div className="mx-auto max-w-6xl">
-            <SectionHeading eyebrow="Your territory" title="Rochester & Southern Minnesota">
+            <SectionHeading eyebrow="Your territory" title="North Iowa & Southern Minnesota">
               <p>
-                The first focus is Rochester and the Southern Minnesota business communities around it. Start by becoming known for useful conversations, good follow-up, and a thoughtful connection to NTA.
+                NTA is rooted in Mason City, and North Iowa remains a core territory. Southern Minnesota is part of the opportunity too, with Rochester as an important early focus—not the only market.
               </p>
             </SectionHeading>
             <div className="mx-auto mt-10 max-w-4xl rounded-3xl border border-blue-100 bg-white p-7 shadow-sm md:p-9">
@@ -285,7 +402,7 @@ export default function RegionalAccountManager() {
                 <div>
                   <h3 className="text-xl font-bold text-slate-900">Build a local presence the right way.</h3>
                   <p className="mt-3 leading-relaxed text-slate-600">
-                    There is room to meet owners, join business conversations, and develop appropriate relationships with local organizations. Territory details will be discussed together as the opportunity develops.
+                    There is room to meet owners, join business conversations, and develop appropriate relationships with local organizations throughout North Iowa and Southern Minnesota. Territory details will be discussed together as the opportunity develops.
                   </p>
                 </div>
               </div>
@@ -476,7 +593,7 @@ export default function RegionalAccountManager() {
                   </div>
                   <div>
                     <label htmlFor="ram-city" className="mb-2 block text-sm font-semibold text-slate-100">City or community you know best *</label>
-                    <input id="ram-city" name="city" value={form.city} onChange={handleChange} required placeholder="Rochester, MN" className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30" />
+                    <input id="ram-city" name="city" value={form.city} onChange={handleChange} required placeholder="Mason City, IA or Rochester, MN" className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30" />
                   </div>
                 </div>
 
