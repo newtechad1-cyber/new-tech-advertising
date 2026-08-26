@@ -1,4 +1,6 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.21';
+import { createClient, createClientFromRequest } from 'npm:@base44/sdk@0.8.21';
+
+const OFFICE_APP_ID = '6a7215451eb90dc843a94546';
 
 const TRUSTED_PUBLIC_ORIGINS = new Set([
   'https://newtechadvertising.com',
@@ -129,7 +131,8 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'A name and valid email are required.' }, { status: 400 });
     }
 
-    await base44.asServiceRole.entities.RecruitingCandidate.create({
+    const office = createClient({ appId: OFFICE_APP_ID });
+    const response = await office.functions.invoke('submitRecruitingApplication', {
       full_name,
       email,
       phone,
@@ -142,11 +145,22 @@ Deno.serve(async (req) => {
       current_role,
       business_relationships,
       interest_reason,
-      status: 'New Lead',
-      submitted_at: new Date().toISOString(),
     });
+    const data = response?.data ?? response;
 
-    return Response.json({ success: true, accepted: true });
+    if (data?.error) {
+      return Response.json({ error: data.error }, { status: 502 });
+    }
+
+    return Response.json({
+      success: true,
+      accepted: true,
+      candidate_id: data?.candidate_id || null,
+      email_delivery: data?.email_delivery || {
+        internal: 'unknown',
+        applicant: 'unknown',
+      },
+    });
   } catch (error) {
     console.error('submitRecruitingApplication error:', error?.message || error);
     return Response.json({ error: 'Unable to save your application right now.' }, { status: 500 });
