@@ -66,6 +66,29 @@ const RECRUITING_VIDEOS = [
   },
 ];
 
+const REGIONAL_ACCOUNT_MANAGER_FAQS = [
+  {
+    question: 'Is this a traditional sales job?',
+    answer: 'No. This is a relationship-driven account-management and business-development opportunity. The work begins with meeting business owners, listening well, and helping the right NTA conversation begin.',
+  },
+  {
+    question: 'Do I need expertise in AI, websites, advertising, or marketing?',
+    answer: 'No. NTA provides the website, Knowledge Library, videos, Your Digital Growth Guide™, and Digital Growth Office behind the relationship. You can keep learning and use those same resources with business owners.',
+  },
+  {
+    question: 'Where is the opportunity focused?',
+    answer: 'NTA is rooted in Mason City. The territory includes North Iowa and Southern Minnesota, with Rochester as an important early focus. People who know Mason City, Clear Lake, Rochester, and the surrounding business communities are welcome to start a conversation.',
+  },
+  {
+    question: 'How does compensation work?',
+    answer: 'This is performance-based work. When a new NTA client gets started and NTA receives the setup fee, the agreed upfront commission is paid within two business days. The complete arrangement is discussed privately before either side makes a commitment.',
+  },
+  {
+    question: 'Can I explore the opportunity before I apply?',
+    answer: 'Yes. Watch the eight-video recruiting series, explore the NTA website and Knowledge Library, then begin a private first conversation when it feels appropriate.',
+  },
+];
+
 const roleActions = [
   'Meet business owners and start useful conversations.',
   'Listen for what a business is trying to accomplish and what may be getting in the way.',
@@ -123,7 +146,7 @@ function SectionHeading({ eyebrow, title, children, light = false }) {
           {eyebrow}
         </p>
       )}
-      <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">{title}</h2>
+      <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">{title}</h2>
       {children && <div className={`mt-5 text-lg leading-relaxed ${light ? 'text-slate-300' : 'text-slate-600'}`}>{children}</div>}
     </div>
   );
@@ -225,13 +248,14 @@ export default function RegionalAccountManager() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="Regional Account Manager Opportunity | North Iowa & Southern Minnesota | NTA"
-        description="A relationship-driven opportunity in North Iowa and Southern Minnesota, with Rochester as an important early focus. NTA provides the knowledge, tools, and support."
+        title="Regional Account Manager Opportunity | Rochester & North Iowa | NTA"
+        description="Explore a relationship-driven Regional Account Manager opportunity in Mason City, North Iowa, Rochester, and Southern Minnesota. NTA provides knowledge, videos, tools, and support."
+        faqs={REGIONAL_ACCOUNT_MANAGER_FAQS}
       />
       <MarketingNav />
 
       <main>
-        <section className="relative overflow-hidden bg-slate-950 px-6 py-20 text-white md:py-28">
+        <section className="relative overflow-hidden bg-slate-950 px-5 py-16 text-white sm:px-6 md:py-28">
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute -left-24 top-12 h-80 w-80 rounded-full bg-blue-600/20 blur-3xl" />
             <div className="absolute right-0 top-0 h-96 w-96 rounded-full bg-cyan-500/10 blur-3xl" />
@@ -246,12 +270,12 @@ export default function RegionalAccountManager() {
                 <MapPin className="h-5 w-5 text-cyan-300" />
                 North Iowa &amp; Southern Minnesota
               </p>
-              <h1 className="mt-5 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-                Help local businesses grow—without having to be every kind of expert.
+              <h1 className="mt-5 text-3xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+                Regional Account Manager opportunity—built around relationships, not memorizing every answer.
               </h1>
               <div className="mt-7 max-w-2xl space-y-5 text-lg leading-relaxed text-slate-300">
                 <p>
-                  New Tech Advertising is looking for a Regional Account Manager to help build business relationships across North Iowa and Southern Minnesota, with Rochester as an important early focus.
+                  New Tech Advertising is looking for a relationship-driven Regional Account Manager to help build business relationships from Mason City and North Iowa through Rochester and Southern Minnesota.
                 </p>
                 <p>
                   This is a relationship-driven opportunity for someone who enjoys people, useful conversations, and helping business owners make sense of what comes next.
@@ -264,20 +288,20 @@ export default function RegionalAccountManager() {
                 <button
                   type="button"
                   onClick={() => scrollToForm('hero')}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-7 py-4 text-lg font-bold text-white shadow-[0_0_24px_rgba(37,99,235,0.32)] transition-colors hover:bg-blue-500"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-7 py-4 text-lg font-bold text-white shadow-[0_0_24px_rgba(37,99,235,0.32)] transition-colors hover:bg-blue-500 sm:w-auto"
                 >
                   Start the Conversation <ArrowRight className="h-5 w-5" />
                 </button>
                 <Link
                   to="/work-with-nta"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-600 bg-slate-900/60 px-7 py-4 text-lg font-semibold text-white transition-colors hover:border-slate-400 hover:bg-slate-800"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-600 bg-slate-900/60 px-7 py-4 text-lg font-semibold text-white transition-colors hover:border-slate-400 hover:bg-slate-800 sm:w-auto"
                 >
                   See How NTA Works <ArrowRight className="h-5 w-5" />
                 </Link>
               </div>
             </div>
 
-            <aside className="rounded-3xl border border-slate-700 bg-slate-900/80 p-7 shadow-2xl shadow-cyan-950/20 backdrop-blur-sm md:p-9">
+            <aside className="rounded-3xl border border-slate-700 bg-slate-900/80 p-5 shadow-2xl shadow-cyan-950/20 backdrop-blur-sm sm:p-7 md:p-9">
               <div className="flex items-center gap-3">
                 <Handshake className="h-9 w-9 text-cyan-300" />
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-300">Watch the overview</p>
@@ -308,7 +332,7 @@ export default function RegionalAccountManager() {
           </div>
         </section>
 
-        <section className="border-y border-slate-200 bg-slate-50 px-6 py-20 md:py-24">
+        <section className="border-y border-slate-200 bg-slate-50 px-5 py-16 sm:px-6 md:py-24">
           <div className="mx-auto max-w-6xl">
             <SectionHeading eyebrow="The recruiting video series" title="Eight short videos. One clear picture of the opportunity.">
               <p>
@@ -354,7 +378,7 @@ export default function RegionalAccountManager() {
                 target="_blank"
                 rel="noreferrer"
                 onClick={() => trackJourneyEvent('regional_account_manager_video_playlist_clicked', { route: '/regional-account-manager', source: 'video_series' })}
-                className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-6 py-3.5 font-bold text-white transition-colors hover:bg-slate-800"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-6 py-3.5 font-bold text-white transition-colors hover:bg-slate-800 sm:w-auto"
               >
                 Open the complete YouTube playlist <ArrowRight className="h-5 w-5" />
               </a>
@@ -391,7 +415,7 @@ export default function RegionalAccountManager() {
           <div className="mx-auto max-w-6xl">
             <SectionHeading eyebrow="Your territory" title="North Iowa & Southern Minnesota">
               <p>
-                NTA is rooted in Mason City, and North Iowa remains a core territory. Southern Minnesota is part of the opportunity too, with Rochester as an important early focus—not the only market.
+                NTA is rooted in Mason City, and North Iowa—including Clear Lake and surrounding communities—remains a core territory. Southern Minnesota is part of the opportunity too, with Rochester as an important early focus—not the only market.
               </p>
             </SectionHeading>
             <div className="mx-auto mt-10 max-w-4xl rounded-3xl border border-blue-100 bg-white p-7 shadow-sm md:p-9">
@@ -560,7 +584,25 @@ export default function RegionalAccountManager() {
           </div>
         </section>
 
-        <section id="start-conversation" ref={formRef} className="bg-slate-950 px-6 py-20 text-white md:py-24">
+        <section className="border-y border-slate-200 bg-slate-50 px-5 py-16 sm:px-6 md:py-24">
+          <div className="mx-auto max-w-4xl">
+            <SectionHeading eyebrow="Questions candidates ask" title="A few straightforward answers before you reach out.">
+              <p>The details matter. These answers can help you decide whether a private first conversation makes sense.</p>
+            </SectionHeading>
+            <div className="mt-10 space-y-3">
+              {REGIONAL_ACCOUNT_MANAGER_FAQS.map((faq) => (
+                <details key={faq.question} className="rounded-2xl border border-slate-200 bg-white px-5 py-1 shadow-sm">
+                  <summary className="cursor-pointer py-4 pr-8 text-lg font-bold text-slate-900 marker:text-blue-700">
+                    {faq.question}
+                  </summary>
+                  <p className="pb-5 leading-relaxed text-slate-600">{faq.answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="start-conversation" ref={formRef} className="scroll-mt-24 bg-slate-950 px-5 py-16 text-white sm:px-6 md:py-24">
           <div className="mx-auto max-w-3xl">
             <SectionHeading eyebrow="Start the conversation" title="You do not need a perfect résumé to begin." light>
               <p>
