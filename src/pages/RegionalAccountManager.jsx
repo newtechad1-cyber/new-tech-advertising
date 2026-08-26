@@ -77,7 +77,7 @@ const REGIONAL_ACCOUNT_MANAGER_FAQS = [
   },
   {
     question: 'Where is the opportunity focused?',
-    answer: 'NTA is rooted in Mason City. The territory includes North Iowa and Southern Minnesota, with Rochester as an important early focus. People who know Mason City, Clear Lake, Rochester, and the surrounding business communities are welcome to start a conversation.',
+    answer: 'NTA is rooted in Mason City, Iowa. The territory includes North Iowa and Southern Minnesota, with Rochester, Minnesota, as an important early focus. People who know Mason City, Clear Lake, Rochester, and the surrounding business communities are welcome to start a conversation.',
   },
   {
     question: 'How does compensation work?',
@@ -248,8 +248,8 @@ export default function RegionalAccountManager() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="Regional Account Manager Opportunity | Rochester & North Iowa | NTA"
-        description="Explore a relationship-driven Regional Account Manager opportunity in Mason City, North Iowa, Rochester, and Southern Minnesota. NTA provides knowledge, videos, tools, and support."
+        title="Regional Account Manager Opportunity | Rochester, MN & North Iowa | NTA"
+        description="Explore a relationship-driven Regional Account Manager opportunity serving Mason City and North Iowa, Rochester, Minnesota, and Southern Minnesota. NTA provides knowledge, videos, tools, and support."
         faqs={REGIONAL_ACCOUNT_MANAGER_FAQS}
       />
       <MarketingNav />
@@ -275,7 +275,7 @@ export default function RegionalAccountManager() {
               </h1>
               <div className="mt-7 max-w-2xl space-y-5 text-lg leading-relaxed text-slate-300">
                 <p>
-                  New Tech Advertising is looking for a relationship-driven Regional Account Manager to help build business relationships from Mason City and North Iowa through Rochester and Southern Minnesota.
+                  New Tech Advertising is looking for a relationship-driven Regional Account Manager to help build business relationships from Mason City, Iowa, and North Iowa through Rochester, Minnesota, and Southern Minnesota.
                 </p>
                 <p>
                   This is a relationship-driven opportunity for someone who enjoys people, useful conversations, and helping business owners make sense of what comes next.
@@ -415,7 +415,7 @@ export default function RegionalAccountManager() {
           <div className="mx-auto max-w-6xl">
             <SectionHeading eyebrow="Your territory" title="North Iowa & Southern Minnesota">
               <p>
-                NTA is rooted in Mason City, and North Iowa—including Clear Lake and surrounding communities—remains a core territory. Southern Minnesota is part of the opportunity too, with Rochester as an important early focus—not the only market.
+                NTA is rooted in Mason City, Iowa, and North Iowa—including Clear Lake and surrounding communities—remains a core territory. Southern Minnesota is part of the opportunity too, with Rochester, Minnesota, as an important early focus—not the only market.
               </p>
             </SectionHeading>
             <div className="mx-auto mt-10 max-w-4xl rounded-3xl border border-blue-100 bg-white p-7 shadow-sm md:p-9">
