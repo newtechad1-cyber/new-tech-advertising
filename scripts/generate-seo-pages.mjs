@@ -282,7 +282,7 @@ function regionalAccountManagerStaticBody() {
     <article>
       <p class="seo-kicker">Regional Account Manager Opportunity</p>
       <h1>Regional Account Manager Opportunity in North Iowa &amp; Southern Minnesota</h1>
-      <p>New Tech Advertising is looking for a relationship-driven Regional Account Manager to help local business owners across North Iowa and Southern Minnesota. NTA is rooted in Mason City, Iowa, and Rochester, Minnesota, is an important early focus.</p>
+      <p>New Tech Advertising is looking for a relationship-driven Regional Account Manager to help local business owners across North Iowa and Southern Minnesota. NTA is rooted in Mason City, Iowa, with Rochester, Minnesota, as an important early focus.</p>
       <h2>A relationship-driven account-management opportunity</h2>
       <p>This is not a traditional corporate sales job. The work starts with meeting business owners, listening well, and helping the right NTA conversation begin.</p>
       <h2>You do not have to be every kind of expert</h2>
