@@ -1,4 +1,4 @@
-import { createClient, createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
+import { createClient, createClientFromRequest } from 'npm:@base44/sdk@0.8.21';
 
 const OFFICE_APP_ID = '6a7215451eb90dc843a94546';
 
