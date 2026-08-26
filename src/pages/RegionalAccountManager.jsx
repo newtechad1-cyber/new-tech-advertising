@@ -630,7 +630,7 @@ export default function RegionalAccountManager() {
                     We received your inquiry, but the confirmation email could not be requested. Your information is safely in the NTA recruiting inbox.
                   </p>
                 )}
-                {!emailDelivery && (
+                {(!emailDelivery || emailDelivery?.applicant === 'unknown') && (
                   <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-slate-400">
                     Your inquiry is safely in the NTA recruiting inbox. A confirmation email is also being checked.
                   </p>
