@@ -277,12 +277,43 @@ function cleanPath(value) {
   return pathname || "/";
 }
 
+function regionalAccountManagerStaticBody() {
+  return `<main data-prerendered="true" class="seo-shell">
+    <article>
+      <p class="seo-kicker">Regional Account Manager Opportunity</p>
+      <h1>Regional Account Manager Opportunity in North Iowa &amp; Southern Minnesota</h1>
+      <p>New Tech Advertising is looking for a relationship-driven Regional Account Manager to help local business owners across North Iowa and Southern Minnesota. NTA is rooted in Mason City, and Rochester is an important early focus.</p>
+      <h2>A relationship-driven account-management opportunity</h2>
+      <p>This is not a traditional corporate sales job. The work starts with meeting business owners, listening well, and helping the right NTA conversation begin.</p>
+      <h2>You do not have to be every kind of expert</h2>
+      <p>NTA provides recruiting videos, the Knowledge Library, Your Digital Growth Guide™ and the Digital Growth Office behind the relationship. You can keep learning and use those same resources with business owners.</p>
+      <h2>Where the opportunity is focused</h2>
+      <p>The territory includes Mason City, North Iowa, Clear Lake, Rochester, and Southern Minnesota business communities. Territory details are discussed together as the opportunity develops.</p>
+      <h2>Questions candidates often ask</h2>
+      <p><strong>Is this a traditional sales job?</strong> No. It is a relationship-driven account-management and business-development opportunity.</p>
+      <p><strong>Do I need to be an AI or marketing expert?</strong> No. NTA’s website and systems provide the learning, tools, and support behind the conversation.</p>
+      <p><strong>How does compensation work?</strong> This is performance-based work. The complete arrangement is discussed privately before either side makes a commitment.</p>
+      <h2>Explore the opportunity</h2>
+      <p><a href="https://www.youtube.com/playlist?list=PLbPNsoazKwmw">Watch the eight-video recruiting series on YouTube</a></p>
+      <p><a href="/regional-account-manager#start-conversation">Start a private conversation with NTA</a></p>
+      <nav aria-label="Related NTA resources">
+        <a href="/knowledge">Knowledge Library</a>
+        <a href="/growth-guide">Your Digital Growth Guide™</a>
+        <a href="/growth-show">NTA Growth Show</a>
+        <a href="/community-partner">Community Partners</a>
+      </nav>
+    </article>
+  </main>`;
+}
+
 function shellMarkup(metadata, pathname) {
   const title = escapeHtml(metadata.title);
   const description = escapeHtml(metadata.description);
   const canonical = escapeHtml(metadata.canonical);
   const heading = escapeHtml(metadata.title.replace(/\s+\|\s+.*$/, ""));
-  const body = `<main data-prerendered="true" class="seo-shell">
+  const body = pathname === "/regional-account-manager"
+    ? regionalAccountManagerStaticBody()
+    : `<main data-prerendered="true" class="seo-shell">
     <article>
       <p class="seo-kicker">New Tech Advertising</p>
       <h1>${heading}</h1>
