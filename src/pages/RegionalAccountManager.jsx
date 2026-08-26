@@ -215,24 +215,55 @@ export default function RegionalAccountManager() {
     setError('');
 
     try {
-      const response = await base44.functions.invoke('submitRecruitingApplication', {
-        ...form,
-        territory: TERRITORY,
-        campaign_source: campaign.source,
-        campaign_medium: campaign.medium,
-        campaign_name: campaign.name,
-        landing_path: campaign.path,
+      const response = await base44.functions.invoke('ntaUnifiedIntake', {
+        submission_type: 'contact',
+        offer_type: 'consultation',
+        mapping_confidence: 'hardcoded',
+        mapping_notes: 'Regional Account Manager opportunity inquiry.',
+        source_system: 'website',
+        source_page: campaign.path,
+        source_campaign: 'regional_account_manager',
+        name: form.full_name,
+        business_name: 'Regional Account Manager Opportunity',
+        email: form.email,
+        phone: form.phone,
+        city: form.city,
+        notes: [
+          'Regional Account Manager opportunity inquiry.',
+          `Territory: ${TERRITORY}`,
+          form.current_role ? `Current role/background: ${form.current_role}` : '',
+          form.business_relationships ? `Business and community relationships: ${form.business_relationships}` : '',
+          form.interest_reason ? `Why this opportunity: ${form.interest_reason}` : '',
+          campaign.source ? `Campaign source: ${campaign.source}` : '',
+          campaign.medium ? `Campaign medium: ${campaign.medium}` : '',
+          campaign.name ? `Campaign: ${campaign.name}` : '',
+        ].filter(Boolean).join('\n'),
+        detected_route: campaign.path,
+        detected_component: 'RegionalAccountManager',
+        priority: 'high',
+        is_high_intent: true,
+        skip_webhook: true,
         anti_spam: {
           honeypot: form.website,
           form_started_at: formStartedAt,
         },
       });
+      const data = response?.data ?? response;
 
-      if (response.data?.error) {
-        throw new Error(response.data.error);
+      if (data?.error) {
+        throw new Error(data.error);
       }
 
-      setEmailDelivery(response.data?.email_delivery || null);
+      const emailStatus = String(data?.email_status || 'unknown');
+      const emailRequestStatus = emailStatus === 'sent'
+        ? 'accepted'
+        : ['failed', 'not_configured'].includes(emailStatus)
+          ? 'failed'
+          : 'unknown';
+      setEmailDelivery({
+        internal: emailRequestStatus,
+        applicant: emailRequestStatus,
+      });
 
       trackJourneyEvent('regional_account_manager_form_submitted', {
         route: '/regional-account-manager',
