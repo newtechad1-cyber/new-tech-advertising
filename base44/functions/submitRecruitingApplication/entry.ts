@@ -1,4 +1,4 @@
-import { createClient, createClientFromRequest } from 'npm:@base44/sdk@0.8.21';
+import { createClient, createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
 
 const OFFICE_APP_ID = '6a7215451eb90dc843a94546';
 
@@ -132,7 +132,7 @@ Deno.serve(async (req) => {
     }
 
     const office = createClient({ appId: OFFICE_APP_ID });
-    const response = await office.functions.invoke('submitRecruitingApplication', {
+    const response = await office.asServiceRole.functions.invoke('submitRecruitingApplication', {
       full_name,
       email,
       phone,
