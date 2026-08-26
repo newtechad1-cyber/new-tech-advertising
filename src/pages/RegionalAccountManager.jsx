@@ -167,6 +167,7 @@ export default function RegionalAccountManager() {
   });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [emailDelivery, setEmailDelivery] = useState(null);
   const [error, setError] = useState('');
 
   const campaign = useMemo(() => {
@@ -230,6 +231,8 @@ export default function RegionalAccountManager() {
       if (response.data?.error) {
         throw new Error(response.data.error);
       }
+
+      setEmailDelivery(response.data?.email_delivery || null);
 
       trackJourneyEvent('regional_account_manager_form_submitted', {
         route: '/regional-account-manager',
@@ -617,6 +620,21 @@ export default function RegionalAccountManager() {
                 <p className="mx-auto mt-3 max-w-xl leading-relaxed text-slate-300">
                   Thank you for reaching out. Rick or the NTA team will review your note and follow up about a private conversation.
                 </p>
+                {emailDelivery?.applicant === 'accepted' && (
+                  <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-slate-400">
+                    We also asked our email service to send a confirmation to {form.email}. If you do not see it shortly, check Spam or Junk before reaching out.
+                  </p>
+                )}
+                {emailDelivery?.applicant === 'failed' && (
+                  <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-amber-200">
+                    We received your inquiry, but the confirmation email could not be requested. Your information is safely in the NTA recruiting inbox.
+                  </p>
+                )}
+                {!emailDelivery && (
+                  <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-slate-400">
+                    Your inquiry is safely in the NTA recruiting inbox. A confirmation email is also being checked.
+                  </p>
+                )}
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="mt-10 rounded-3xl border border-slate-700 bg-slate-900/75 p-6 shadow-2xl md:p-8">
