@@ -257,7 +257,7 @@ export default function RegionalAccountManager() {
       const emailStatus = String(data?.email_status || 'unknown');
       const emailRequestStatus = emailStatus === 'sent'
         ? 'accepted'
-        : ['failed', 'not_configured'].includes(emailStatus)
+        : ['failed', 'not_configured', 'disabled'].includes(emailStatus)
           ? 'failed'
           : 'unknown';
       setEmailDelivery({
