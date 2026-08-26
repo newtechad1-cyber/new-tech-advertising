@@ -282,13 +282,13 @@ function regionalAccountManagerStaticBody() {
     <article>
       <p class="seo-kicker">Regional Account Manager Opportunity</p>
       <h1>Regional Account Manager Opportunity in North Iowa &amp; Southern Minnesota</h1>
-      <p>New Tech Advertising is looking for a relationship-driven Regional Account Manager to help local business owners across North Iowa and Southern Minnesota. NTA is rooted in Mason City, and Rochester is an important early focus.</p>
+      <p>New Tech Advertising is looking for a relationship-driven Regional Account Manager to help local business owners across North Iowa and Southern Minnesota. NTA is rooted in Mason City, Iowa, and Rochester, Minnesota, is an important early focus.</p>
       <h2>A relationship-driven account-management opportunity</h2>
       <p>This is not a traditional corporate sales job. The work starts with meeting business owners, listening well, and helping the right NTA conversation begin.</p>
       <h2>You do not have to be every kind of expert</h2>
       <p>NTA provides recruiting videos, the Knowledge Library, Your Digital Growth Guide™ and the Digital Growth Office behind the relationship. You can keep learning and use those same resources with business owners.</p>
       <h2>Where the opportunity is focused</h2>
-      <p>The territory includes Mason City, North Iowa, Clear Lake, Rochester, and Southern Minnesota business communities. Territory details are discussed together as the opportunity develops.</p>
+      <p>The territory includes Mason City, Iowa, North Iowa, Clear Lake, Rochester, Minnesota, and Southern Minnesota business communities. Territory details are discussed together as the opportunity develops.</p>
       <h2>Questions candidates often ask</h2>
       <p><strong>Is this a traditional sales job?</strong> No. It is a relationship-driven account-management and business-development opportunity.</p>
       <p><strong>Do I need to be an AI or marketing expert?</strong> No. NTA’s website and systems provide the learning, tools, and support behind the conversation.</p>
