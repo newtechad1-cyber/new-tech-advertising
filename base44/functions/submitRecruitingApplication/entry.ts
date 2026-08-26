@@ -131,20 +131,37 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'A name and valid email are required.' }, { status: 400 });
     }
 
+    // Route through NTA Core's established public-intake workflow. That flow
+    // already owns verified CRM creation and the applicant/internal email path.
     const office = createClient({ appId: OFFICE_APP_ID });
-    const response = await office.asServiceRole.functions.invoke('submitRecruitingApplication', {
-      full_name,
+    const response = await office.functions.invoke('ntaUnifiedIntake', {
+      submission_type: 'contact',
+      offer_type: 'consultation',
+      mapping_confidence: 'hardcoded',
+      mapping_notes: 'Regional Account Manager opportunity inquiry.',
+      source_system: 'website',
+      source_page: landing_path || '/regional-account-manager',
+      source_campaign: 'regional_account_manager',
+      name: full_name,
+      business_name: 'Regional Account Manager Opportunity',
       email,
       phone,
       city,
-      territory,
-      campaign_source,
-      campaign_medium,
-      campaign_name,
-      landing_path,
-      current_role,
-      business_relationships,
-      interest_reason,
+      notes: [
+        'Regional Account Manager opportunity inquiry.',
+        territory ? `Territory: ${territory}` : '',
+        current_role ? `Current role/background: ${current_role}` : '',
+        business_relationships ? `Business and community relationships: ${business_relationships}` : '',
+        interest_reason ? `Why this opportunity: ${interest_reason}` : '',
+        campaign_source ? `Campaign source: ${campaign_source}` : '',
+        campaign_medium ? `Campaign medium: ${campaign_medium}` : '',
+        campaign_name ? `Campaign: ${campaign_name}` : '',
+      ].filter(Boolean).join('\n'),
+      detected_route: landing_path || '/regional-account-manager',
+      detected_component: 'RegionalAccountManager',
+      priority: 'high',
+      is_high_intent: true,
+      skip_webhook: true,
     });
     const data = response?.data ?? response;
 
@@ -152,17 +169,30 @@ Deno.serve(async (req) => {
       return Response.json({ error: data.error }, { status: 502 });
     }
 
+    const emailStatus = String(data?.email_status || 'unknown');
+    const emailRequestStatus = emailStatus === 'sent'
+      ? 'accepted'
+      : ['failed', 'not_configured'].includes(emailStatus)
+        ? 'failed'
+        : 'unknown';
+
     return Response.json({
       success: true,
       accepted: true,
-      candidate_id: data?.candidate_id || null,
-      email_delivery: data?.email_delivery || {
-        internal: 'unknown',
-        applicant: 'unknown',
+      candidate_id: data?.submission_id || null,
+      email_delivery: {
+        internal: emailRequestStatus,
+        applicant: emailRequestStatus,
       },
     });
   } catch (error) {
-    console.error('submitRecruitingApplication error:', error?.message || error);
-    return Response.json({ error: 'Unable to save your application right now.' }, { status: 500 });
+    const upstreamStatus = Number(error?.response?.status || 0);
+    const status = upstreamStatus >= 400 && upstreamStatus < 500 ? upstreamStatus : 502;
+    const detail = status < 500
+      ? (error?.response?.data || { error: error?.message || 'Unable to save your inquiry.' })
+      : { error: 'Unable to save your inquiry right now.' };
+
+    console.error('submitRecruitingApplication intake error:', error?.message || detail);
+    return Response.json(detail, { status });
   }
 });
