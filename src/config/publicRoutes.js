@@ -222,6 +222,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/gap-audit', FreeAudit),
   alias('/free-audit', FreeAudit),
   alias('/tools', FreeAudit),
+  alias('/account-manager', RegionalAccountManager),
   alias('/regional-account-manager', RegionalAccountManager),
   alias('/join-nta', JoinNTA),
   alias('/rebuild-intake', RebuildIntake),
