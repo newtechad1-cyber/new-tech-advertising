@@ -81,7 +81,7 @@ const REGIONAL_ACCOUNT_MANAGER_FAQS = [
   },
   {
     question: 'How does compensation work?',
-    answer: 'This is performance-based work. There is no salary or draw. When a new NTA client gets started and NTA receives the setup fee, the agreed upfront commission is paid within two business days. The complete arrangement is discussed privately before either side makes a commitment.',
+    answer: 'This is performance-based work. There is no salary or draw. When a new NTA client gets started and NTA receives the setup fee, the agreed upfront commission is paid within two business days. As active clients continue with NTA, ongoing residual compensation can be part of the written agreement. The complete arrangement is discussed privately before either side makes a commitment.',
   },
   {
     question: 'Do I have to make a big commitment before I know whether this fits?',
@@ -306,17 +306,17 @@ export default function RegionalAccountManager() {
                 Remote • United States • Build your own market
               </p>
               <h1 className="mt-5 text-3xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-                Build business relationships where you are—with the NTA system behind you.
+                Curious about AI? Learn it by helping business owners understand it.
               </h1>
               <div className="mt-7 max-w-2xl space-y-5 text-lg leading-relaxed text-slate-300">
                 <p>
-                  New Tech Advertising is looking for people anywhere in the United States who want to build meaningful relationships with business owners in their own communities, industries, or networks.
+                  New Tech Advertising is building a network of curious, people-oriented learners who can sit down with business owners in their own communities, industries, or networks and explore what AI and digital growth could mean for that business.
                 </p>
                 <p>
-                  This is not a generic remote sales job or a link-and-leave affiliate program. You build the relationship. NTA helps you understand the conversation, find the right resource, and decide what comes next.
+                  This is not a generic remote sales job or a link-and-leave affiliate program. You do not need to walk in as the expert or purchase a system to learn it. You start the relationship and the conversation; NTA helps you understand what comes next.
                 </p>
                 <p>
-                  You do not need to memorize everything NTA does. You bring the relationship and the conversation. NTA gives you the knowledge, tools, and support behind it.
+                  The knowledge is free to explore. You do not need to memorize everything NTA does. You bring curiosity, the relationship, and the conversation. NTA gives you the knowledge, tools, and support behind it.
                 </p>
               </div>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -440,7 +440,7 @@ export default function RegionalAccountManager() {
                 “That’s a good question. Let’s look at it together.”
               </blockquote>
               <p>
-                The NTA website is part of the sales and training system. It can do much of the explaining and teaching while you focus on the relationship.
+                The NTA website is part of the learning and conversation system. It can do much of the explaining and teaching while you focus on the relationship.
               </p>
             </div>
           </div>
@@ -552,7 +552,7 @@ export default function RegionalAccountManager() {
                     When you help a new NTA client get started and NTA receives the setup fee, your agreed upfront commission is paid within two business days.
                   </p>
                   <p>
-                    There is no salary, draw, or call quota. Ongoing compensation is established in the agreement for the work and relationships you build.
+                    There is no salary, draw, or call quota. The goal is to build a book of active client relationships; residual compensation can continue under the written agreement while the clients you introduced remain active.
                   </p>
                   <p className="text-sm text-slate-500">
                     This is not an income guarantee. The complete arrangement, responsibilities, and agreement details are discussed privately before either side makes a commitment.
@@ -595,7 +595,7 @@ export default function RegionalAccountManager() {
               The goal is to become a trusted connector in your community: someone who knows how to begin a useful conversation, understands when to bring in help, and stays interested in whether the business owner is moving forward.
             </p>
             <p className="mt-5 text-lg leading-relaxed text-blue-100">
-              That kind of work can build relationships that last longer than a single campaign or transaction.
+              That kind of work can build relationships that last longer than a single campaign or transaction—and a relationship-based residual income over time when active-client terms are part of the written agreement.
             </p>
           </div>
         </section>
