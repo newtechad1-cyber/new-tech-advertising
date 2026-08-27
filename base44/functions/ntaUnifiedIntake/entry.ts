@@ -123,6 +123,7 @@ function normalizePublicPayload(payload) {
     'hvac_funnel_lead',
     'service_location_inquiry',
     'case_study_inquiry',
+    'community_partner_inquiry',
   ]);
   const highIntent = highIntentTypes.has(submissionType);
   const sourcePage = cleanText(payload.source_page || payload.detected_route, 500) || '/';
