@@ -139,16 +139,20 @@ const STATIC_SEO = {
     description: "See the kind of website, visibility, content, customer, and practical AI work New Tech Advertising helps small businesses connect.",
   },
   "/community-partner": {
-    title: "Practical AI Education for Community Business Partners | NTA",
-    description: "Help local business owners understand practical AI, digital visibility, and connected growth through the NTA community partner approach.",
+    title: "Community Partner Opportunity | Free AI Education & Residual Income | NTA",
+    description: "For people, Chambers, and organizations that share free practical AI education with business owners. Build relationship-based income personally and, when representing an organization, for it too—under a written NTA agreement.",
+  },
+  "/community-growth-conversation": {
+    title: "Community Growth Conversation | Free AI Learning Partnership | NTA",
+    description: "Explore how a trusted person, Chamber, or community organization can share free practical AI learning, help local business owners, and build relationship-based value together.",
   },
   "/account-manager": {
-    title: "NTA Account Manager Opportunity | Remote | Build Your Own Market",
-    description: "A national, relationship-driven NTA Account Manager opportunity. Build your own market or industry from anywhere in the United States with NTA’s website, resources, strategy, and support behind you.",
+    title: "NTA Account Manager | Learn AI & Build Relationship-Based Income",
+    description: "A remote opportunity for curious people who enjoy business conversations. Learn practical AI for free, help owners understand it, and build relationship-based income over time under a written agreement.",
   },
   "/regional-account-manager": {
-    title: "NTA Account Manager Opportunity | Remote | Build Your Own Market",
-    description: "A national, relationship-driven NTA Account Manager opportunity. Build your own market or industry from anywhere in the United States with NTA’s website, resources, strategy, and support behind you.",
+    title: "NTA Account Manager | Learn AI & Build Relationship-Based Income",
+    description: "A remote opportunity for curious people who enjoy business conversations. Learn practical AI for free, help owners understand it, and build relationship-based income over time under a written agreement.",
     canonical: "https://newtechadvertising.com/account-manager",
   },
   "/local-lead-systems": {
