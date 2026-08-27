@@ -122,15 +122,21 @@ export default function Home() {
         <ProblemSection />
 
         <section className="border-y border-slate-800 bg-slate-950 px-6 py-14">
-          <div className="mx-auto flex max-w-5xl flex-col items-start justify-between gap-6 rounded-3xl border border-slate-800 bg-slate-900/60 p-7 md:flex-row md:items-center md:p-9">
+          <div className="mx-auto flex max-w-5xl flex-col items-start justify-between gap-7 rounded-3xl border border-slate-800 bg-slate-900/60 p-7 md:flex-row md:items-center md:p-9">
             <div className="max-w-3xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-300">Remote • United States</p>
-              <h2 className="mt-3 text-2xl font-bold text-white md:text-3xl">Know someone who is good with business relationships?</h2>
-              <p className="mt-3 leading-relaxed text-slate-300">NTA is building a national Account Manager network. The right person can start in their own community, industry, or professional network—with the NTA system behind them.</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-300">Free AI learning • United States</p>
+              <h2 className="mt-3 text-2xl font-bold text-white md:text-3xl">Curious about AI? Learn it by helping business owners understand it.</h2>
+              <p className="mt-3 leading-relaxed text-slate-300">NTA is building a network of curious people, trusted community connectors, and organizations. Start with free learning—not a course to buy or a sales script to memorize—and build useful relationships in the community or market you know.</p>
+              <p className="mt-3 text-sm leading-relaxed text-slate-400">Those relationships can create ongoing residual income under a clear written agreement while the clients involved remain active.</p>
             </div>
-            <Link onClick={() => trackJourneyEvent('regional_account_manager_home_click', { route: '/', source: 'homepage_upper_third' })} to="/account-manager" className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-bold text-white transition-colors hover:bg-blue-500">
-              Explore the Opportunity <ArrowRight className="h-5 w-5" />
-            </Link>
+            <div className="flex w-full shrink-0 flex-col gap-3 sm:w-auto">
+              <Link onClick={() => trackJourneyEvent('regional_account_manager_home_click', { route: '/', source: 'homepage_upper_third' })} to="/account-manager" className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-bold text-white transition-colors hover:bg-blue-500">
+                Explore Account Manager <ArrowRight className="h-5 w-5" />
+              </Link>
+              <Link onClick={() => trackJourneyEvent('community_partner_home_click', { route: '/', source: 'homepage_upper_third' })} to="/community-partner" className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-600 px-6 py-3.5 font-bold text-slate-100 transition-colors hover:border-cyan-300 hover:bg-slate-800">
+                Explore Community Partners <ArrowRight className="h-5 w-5" />
+              </Link>
+            </div>
           </div>
         </section>
 
