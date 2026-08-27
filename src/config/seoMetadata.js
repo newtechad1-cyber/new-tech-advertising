@@ -142,9 +142,14 @@ const STATIC_SEO = {
     title: "Practical AI Education for Community Business Partners | NTA",
     description: "Help local business owners understand practical AI, digital visibility, and connected growth through the NTA community partner approach.",
   },
+  "/account-manager": {
+    title: "NTA Account Manager Opportunity | Remote | Build Your Own Market",
+    description: "A national, relationship-driven NTA Account Manager opportunity. Build your own market or industry from anywhere in the United States with NTA’s website, resources, strategy, and support behind you.",
+  },
   "/regional-account-manager": {
-    title: "Regional Account Manager Opportunity | Rochester, MN & North Iowa | NTA",
-    description: "Explore a relationship-driven Regional Account Manager opportunity serving Mason City and North Iowa, Rochester, Minnesota, and Southern Minnesota. NTA provides knowledge, videos, tools, and support.",
+    title: "NTA Account Manager Opportunity | Remote | Build Your Own Market",
+    description: "A national, relationship-driven NTA Account Manager opportunity. Build your own market or industry from anywhere in the United States with NTA’s website, resources, strategy, and support behind you.",
+    canonical: "https://newtechadvertising.com/account-manager",
   },
   "/local-lead-systems": {
     title: "Local Lead Generation Systems for Small Business | NTA",
