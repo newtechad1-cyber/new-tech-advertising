@@ -76,12 +76,24 @@ const REGIONAL_ACCOUNT_MANAGER_FAQS = [
     answer: 'No. NTA provides the website, Knowledge Library, videos, Your Digital Growth Guide™, Digital Growth Office, and direct support behind the relationship. You can keep learning and use those same resources with business owners.',
   },
   {
+    question: 'Do I have to buy training, a course, or a system to begin?',
+    answer: 'No. The Knowledge Library, videos, and Your Digital Growth Guide™ are free to explore. You bring curiosity and honest effort; NTA gives you a place to keep learning as you talk with business owners.',
+  },
+  {
     question: 'Where can I build this?',
     answer: 'Anywhere in the United States. NTA is rooted in Mason City, Iowa, but you do not need to live there or relocate. Start in your own community, an industry you understand, or the business relationships you already have.',
   },
   {
+    question: 'Can this fit alongside another job or after retirement?',
+    answer: 'It can be explored by people at different stages of life, including working professionals and retired or semi-retired people with strong business relationships. It starts with a real conversation; actual time, activity, and income depend on the work you choose to do and the written agreement.',
+  },
+  {
     question: 'How does compensation work?',
     answer: 'This is performance-based work. There is no salary or draw. When a new NTA client gets started and NTA receives the setup fee, the agreed upfront commission is paid within two business days. As active clients continue with NTA, ongoing residual compensation can be part of the written agreement. The complete arrangement is discussed privately before either side makes a commitment.',
+  },
+  {
+    question: 'Can I build residual income with NTA?',
+    answer: 'The goal is to build a book of active client relationships rather than start from zero each month. Under the written agreement, ongoing residual compensation can continue while clients you introduced remain active. It is performance-based and not guaranteed.',
   },
   {
     question: 'Do I have to make a big commitment before I know whether this fits?',
@@ -282,10 +294,16 @@ export default function RegionalAccountManager() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="NTA Account Manager Opportunity | Remote | Build Your Own Market"
-        description="A national, relationship-driven NTA Account Manager opportunity. Build your own market or industry from anywhere in the United States with NTA’s website, resources, strategy, and support behind you."
+        title="NTA Account Manager | Learn AI & Build Relationship-Based Income"
+        description="A remote opportunity for curious people who enjoy business conversations. Learn practical AI for free, help owners understand it, and build relationship-based income over time under a written agreement."
         canonical="https://newtechadvertising.com/account-manager"
         faqs={REGIONAL_ACCOUNT_MANAGER_FAQS}
+        learningData={{
+          name: 'NTA Account Manager Learning Path',
+          description: 'Free practical AI learning and relationship-centered guidance for people helping business owners understand what comes next.',
+          educationalLevel: 'Beginner',
+          learningResourceType: 'guided learning',
+        }}
       />
       <MarketingNav />
 
