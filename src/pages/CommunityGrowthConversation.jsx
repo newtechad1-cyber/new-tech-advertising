@@ -11,6 +11,8 @@ import NextStepEngine from '@/components/recommendations/NextStepEngine';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 
+const NTA_LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png';
+
 export default function CommunityGrowthConversation() {
   const [step, setStep] = useState(0);
 
@@ -70,8 +72,15 @@ export default function CommunityGrowthConversation() {
   return (
     <div className="bg-slate-950 min-h-screen text-slate-200 font-sans flex flex-col relative selection:bg-blue-500/30">
       <SEOHead 
-        title="Community Growth Conversation™ | New Tech Advertising"
-        description="Strengthen local businesses and your community through partnership."
+        title="Community Growth Conversation | Free AI Learning Partnership | NTA"
+        description="Explore how a trusted person, Chamber, or community organization can share free practical AI learning, help local business owners, and build relationship-based value together."
+        canonical="https://newtechadvertising.com/community-growth-conversation"
+        learningData={{
+          name: 'Community Growth Conversation',
+          description: 'A guided conversation about sharing free practical AI learning through a trusted community relationship.',
+          educationalLevel: 'Beginner',
+          learningResourceType: 'guided learning',
+        }}
       />
       <MarketingNav />
 
@@ -86,9 +95,9 @@ export default function CommunityGrowthConversation() {
           />
         </div>
         <div className="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
-          <div className="text-white font-bold text-lg tracking-tight flex items-center gap-2">
-            <span className="w-6 h-6 rounded bg-blue-600 flex items-center justify-center text-xs">N</span>
-            Community Growth Conversation™
+          <div className="text-white font-bold text-lg tracking-tight flex items-center gap-3">
+            <img src={NTA_LOGO_URL} alt="New Tech Advertising" className="h-7 w-auto object-contain" />
+            <span>Community Growth Conversation™</span>
           </div>
           <Link to="/" className="text-slate-400 hover:text-white transition-colors p-2 rounded-full hover:bg-slate-800">
             <X className="w-6 h-6" />
