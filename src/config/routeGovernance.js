@@ -201,6 +201,7 @@ export const ROUTE_OVERRIDES = {
   '/':                           'public',
   '/Login':                      'public',
   '/signup':                     'public',
+  '/account-manager':            'public',
   '/regional-account-manager':   'public',
   '/join-nta':                   'public',
   '/find-your-plan':             'public',
