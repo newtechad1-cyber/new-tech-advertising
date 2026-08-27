@@ -59,7 +59,7 @@ const NAV_LINKS = [
       { label: 'Why NTA Exists', href: '/why-nta', desc: 'The purpose behind the Digital Growth Office' },
       { label: 'Rick’s Story', href: '/i-was-early-again', desc: 'The experience behind NTA' },
       { label: 'Community Partners', href: '/community-partner', desc: 'Working with people who help businesses grow' },
-      { label: 'Regional Account Manager Opportunity', href: '/regional-account-manager', desc: 'A relationship-driven opportunity in North Iowa & Southern Minnesota' },
+      { label: 'NTA Account Manager Opportunity', href: '/account-manager', desc: 'Remote, relationship-driven, and built around your market' },
       { label: 'Contact', href: '/contact', desc: 'Call, text, or send NTA a message' },
     ],
   },
