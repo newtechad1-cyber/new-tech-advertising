@@ -18,7 +18,7 @@ import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import { trackJourneyEvent } from '@/lib/journeyAnalytics';
 
-const TERRITORY = 'North Iowa & Southern Minnesota';
+const TERRITORY = 'United States — build your own market';
 const RECRUITING_PLAYLIST_ID = 'PLbPNsoazKwmw';
 const RECRUITING_PLAYLIST_URL = `https://www.youtube.com/playlist?list=${RECRUITING_PLAYLIST_ID}`;
 const RECRUITING_OVERVIEW_ID = 'Ka4nUG4wiGI';
@@ -68,24 +68,24 @@ const RECRUITING_VIDEOS = [
 
 const REGIONAL_ACCOUNT_MANAGER_FAQS = [
   {
-    question: 'Is this a traditional sales job?',
-    answer: 'No. This is a relationship-driven account-management and business-development opportunity. The work begins with meeting business owners, listening well, and helping the right NTA conversation begin.',
+    question: 'Is this a traditional sales job or affiliate program?',
+    answer: 'No. This is a relationship-driven Account Manager opportunity. You are not handed a link and left on your own. You build the relationship, and NTA helps you understand the conversation, use the right resources, and decide what makes sense next.',
   },
   {
     question: 'Do I need expertise in AI, websites, advertising, or marketing?',
-    answer: 'No. NTA provides the website, Knowledge Library, videos, Your Digital Growth Guide™, and Digital Growth Office behind the relationship. You can keep learning and use those same resources with business owners.',
+    answer: 'No. NTA provides the website, Knowledge Library, videos, Your Digital Growth Guide™, Digital Growth Office, and direct support behind the relationship. You can keep learning and use those same resources with business owners.',
   },
   {
-    question: 'Where is the opportunity focused?',
-    answer: 'NTA is rooted in Mason City, Iowa. The territory includes North Iowa and Southern Minnesota, with Rochester, Minnesota, as an important early focus. People who know Mason City, Clear Lake, Rochester, and the surrounding business communities are welcome to start a conversation.',
+    question: 'Where can I build this?',
+    answer: 'Anywhere in the United States. NTA is rooted in Mason City, Iowa, but you do not need to live there or relocate. Start in your own community, an industry you understand, or the business relationships you already have.',
   },
   {
     question: 'How does compensation work?',
-    answer: 'This is performance-based work. When a new NTA client gets started and NTA receives the setup fee, the agreed upfront commission is paid within two business days. The complete arrangement is discussed privately before either side makes a commitment.',
+    answer: 'This is performance-based work. There is no salary or draw. When a new NTA client gets started and NTA receives the setup fee, the agreed upfront commission is paid within two business days. The complete arrangement is discussed privately before either side makes a commitment.',
   },
   {
-    question: 'Can I explore the opportunity before I apply?',
-    answer: 'Yes. Watch the eight-video recruiting series, explore the NTA website and Knowledge Library, then begin a private first conversation when it feels appropriate.',
+    question: 'Do I have to make a big commitment before I know whether this fits?',
+    answer: 'No. Start with a private conversation. If the vision makes sense, you can try five real business conversations—without a sales script or pressure—and bring back what you learn. Then you and NTA decide whether to keep building.',
   },
 ];
 
@@ -96,7 +96,7 @@ const roleActions = [
   'Help an owner find the right NTA resource, lesson, video, guide, or next conversation.',
   'Use the NTA website and Knowledge Library as part of the conversation when a question comes up.',
   'Keep thoughtful follow-up moving after a conversation begins.',
-  'Develop appropriate relationships with community partners in your territory when that helps local businesses.',
+  'Build your market in the community, industry, or professional network you know best.',
 ];
 
 const resources = [
@@ -132,7 +132,7 @@ const resources = [
 
 const rightFor = [
   'You like meeting people and taking a genuine interest in their businesses.',
-  'You know North Iowa, Southern Minnesota, or the communities and business owners around them.',
+  'You have relationships in a community, industry, or professional network and want to build them the right way.',
   'You are comfortable starting a conversation and following up thoughtfully.',
   'You want to keep learning without pretending to have every answer on day one.',
   'You can represent NTA with good judgment, patience, and respect for the person across the table.',
@@ -219,17 +219,17 @@ export default function RegionalAccountManager() {
         submission_type: 'contact',
         offer_type: 'consultation',
         mapping_confidence: 'hardcoded',
-        mapping_notes: 'Regional Account Manager opportunity inquiry.',
+        mapping_notes: 'NTA Account Manager opportunity inquiry.',
         source_system: 'website',
         source_page: campaign.path,
         source_campaign: 'regional_account_manager',
         name: form.full_name,
-        business_name: 'Regional Account Manager Opportunity',
+        business_name: 'NTA Account Manager Opportunity',
         email: form.email,
         phone: form.phone,
         city: form.city,
         notes: [
-          'Regional Account Manager opportunity inquiry.',
+          'NTA Account Manager opportunity inquiry.',
           `Territory: ${TERRITORY}`,
           form.current_role ? `Current role/background: ${form.current_role}` : '',
           form.business_relationships ? `Business and community relationships: ${form.business_relationships}` : '',
@@ -272,7 +272,7 @@ export default function RegionalAccountManager() {
       });
       setSubmitted(true);
     } catch (submitError) {
-      console.error('Regional Account Manager inquiry error:', submitError);
+      console.error('NTA Account Manager inquiry error:', submitError);
       setError(submitError?.message || 'Something went wrong. Please try again in a moment.');
     } finally {
       setSubmitting(false);
@@ -282,8 +282,9 @@ export default function RegionalAccountManager() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="Regional Account Manager Opportunity | Rochester, MN & North Iowa | NTA"
-        description="Explore a relationship-driven Regional Account Manager opportunity serving Mason City and North Iowa, Rochester, Minnesota, and Southern Minnesota. NTA provides knowledge, videos, tools, and support."
+        title="NTA Account Manager Opportunity | Remote | Build Your Own Market"
+        description="A national, relationship-driven NTA Account Manager opportunity. Build your own market or industry from anywhere in the United States with NTA’s website, resources, strategy, and support behind you."
+        canonical="https://newtechadvertising.com/account-manager"
         faqs={REGIONAL_ACCOUNT_MANAGER_FAQS}
       />
       <MarketingNav />
@@ -298,21 +299,21 @@ export default function RegionalAccountManager() {
           <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.1fr_.9fr]">
             <div className="max-w-3xl">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300">
-                Regional Account Manager Opportunity
+                NTA Account Manager Opportunity
               </p>
               <p className="mt-4 flex items-center gap-2 text-base font-medium text-slate-300">
                 <MapPin className="h-5 w-5 text-cyan-300" />
-                North Iowa &amp; Southern Minnesota
+                Remote • United States • Build your own market
               </p>
               <h1 className="mt-5 text-3xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-                Regional Account Manager opportunity—built around relationships, not memorizing every answer.
+                Build business relationships where you are—with the NTA system behind you.
               </h1>
               <div className="mt-7 max-w-2xl space-y-5 text-lg leading-relaxed text-slate-300">
                 <p>
-                  New Tech Advertising is looking for a relationship-driven Regional Account Manager to help build business relationships from Mason City, Iowa, and North Iowa through Rochester, Minnesota, and Southern Minnesota.
+                  New Tech Advertising is looking for people anywhere in the United States who want to build meaningful relationships with business owners in their own communities, industries, or networks.
                 </p>
                 <p>
-                  This is a relationship-driven opportunity for someone who enjoys people, useful conversations, and helping business owners make sense of what comes next.
+                  This is not a generic remote sales job or a link-and-leave affiliate program. You build the relationship. NTA helps you understand the conversation, find the right resource, and decide what comes next.
                 </p>
                 <p>
                   You do not need to memorize everything NTA does. You bring the relationship and the conversation. NTA gives you the knowledge, tools, and support behind it.
@@ -343,7 +344,7 @@ export default function RegionalAccountManager() {
               <div className="mt-5 overflow-hidden rounded-2xl border border-slate-700 bg-black">
                 <iframe
                   src={`https://www.youtube-nocookie.com/embed/${RECRUITING_OVERVIEW_ID}?rel=0`}
-                  title="Regional Account Manager Opportunity overview"
+                  title="NTA Account Manager opportunity overview"
                   className="aspect-video w-full"
                   loading="eager"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -370,7 +371,7 @@ export default function RegionalAccountManager() {
           <div className="mx-auto max-w-6xl">
             <SectionHeading eyebrow="The recruiting video series" title="Eight short videos. One clear picture of the opportunity.">
               <p>
-                Start with the overview above, choose a question below, or open the complete YouTube playlist when you are ready to watch the full series.
+                These videos show the relationship-first model behind the opportunity. A few were created when Rochester was an early focus; today, an NTA Account Manager can build a market anywhere in the United States.
               </p>
             </SectionHeading>
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -447,9 +448,9 @@ export default function RegionalAccountManager() {
 
         <section className="border-y border-blue-100 bg-blue-50/70 px-6 py-20 md:py-24">
           <div className="mx-auto max-w-6xl">
-            <SectionHeading eyebrow="Your territory" title="North Iowa & Southern Minnesota">
+            <SectionHeading eyebrow="Your starting point" title="Build your own market. Start with people you can genuinely talk with.">
               <p>
-                NTA is rooted in Mason City, Iowa, and North Iowa—including Clear Lake and surrounding communities—remains a core territory. Southern Minnesota is part of the opportunity too, with Rochester, Minnesota, as an important early focus—not the only market.
+                NTA is rooted in Mason City, Iowa, but this opportunity is national. You can work remotely from anywhere in the United States, build in your own community, focus on an industry you understand, or begin with the business relationships you already have.
               </p>
             </SectionHeading>
             <div className="mx-auto mt-10 max-w-4xl rounded-3xl border border-blue-100 bg-white p-7 shadow-sm md:p-9">
@@ -458,9 +459,9 @@ export default function RegionalAccountManager() {
                   <MapPin className="h-6 w-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900">Build a local presence the right way.</h3>
+                  <h3 className="text-xl font-bold text-slate-900">You do not have to move—or decide everything up front.</h3>
                   <p className="mt-3 leading-relaxed text-slate-600">
-                    There is room to meet owners, join business conversations, and develop appropriate relationships with local organizations throughout North Iowa and Southern Minnesota. Territory details will be discussed together as the opportunity develops.
+                    Start with a short conversation with Rick. If the vision feels right, try five real business conversations—no pitch required—and bring back what you learn. You and NTA decide the next step together.
                   </p>
                 </div>
               </div>
@@ -551,7 +552,7 @@ export default function RegionalAccountManager() {
                     When you help a new NTA client get started and NTA receives the setup fee, your agreed upfront commission is paid within two business days.
                   </p>
                   <p>
-                    There is no draw. Ongoing compensation is established in the agreement for the work and relationships you build.
+                    There is no salary, draw, or call quota. Ongoing compensation is established in the agreement for the work and relationships you build.
                   </p>
                   <p className="text-sm text-slate-500">
                     This is not an income guarantee. The complete arrangement, responsibilities, and agreement details are discussed privately before either side makes a commitment.
@@ -611,7 +612,7 @@ export default function RegionalAccountManager() {
                 “That is why I am building NTA this way. The knowledge should be on the website, in the library, in the videos, in the books, and in the tools—not locked inside one salesperson’s head.”
               </p>
               <p>
-                “A Regional Account Manager should be able to focus on the person across the table. The system behind them can help with the rest.”
+                “An NTA Account Manager should be able to focus on the person across the table. The system behind them can help with the rest.”
               </p>
               <p className="font-semibold text-slate-900">— Rick Hesse, New Tech Advertising</p>
             </div>
@@ -640,7 +641,7 @@ export default function RegionalAccountManager() {
           <div className="mx-auto max-w-3xl">
             <SectionHeading eyebrow="Start the conversation" title="You do not need a perfect résumé to begin." light>
               <p>
-                Tell us a little about yourself and the community you know. This is simply a private first conversation—not a commitment.
+                Tell us a little about yourself and the relationships, community, market, or industry you know. This is simply a private first conversation—not a commitment.
               </p>
             </SectionHeading>
 
@@ -683,8 +684,8 @@ export default function RegionalAccountManager() {
                     <input id="ram-phone" name="phone" value={form.phone} onChange={handleChange} type="tel" autoComplete="tel" placeholder="(507) 000-0000" className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30" />
                   </div>
                   <div>
-                    <label htmlFor="ram-city" className="mb-2 block text-sm font-semibold text-slate-100">City or community you know best *</label>
-                    <input id="ram-city" name="city" value={form.city} onChange={handleChange} required placeholder="Mason City, IA or Rochester, MN" className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30" />
+                    <label htmlFor="ram-city" className="mb-2 block text-sm font-semibold text-slate-100">Where are you based? *</label>
+                    <input id="ram-city" name="city" value={form.city} onChange={handleChange} required placeholder="Dallas, TX" className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30" />
                   </div>
                 </div>
 
@@ -694,8 +695,8 @@ export default function RegionalAccountManager() {
                 </div>
 
                 <div className="mt-5">
-                  <label htmlFor="ram-relationships" className="mb-2 block text-sm font-semibold text-slate-100">Tell us about the businesses and communities you know</label>
-                  <textarea id="ram-relationships" name="business_relationships" value={form.business_relationships} onChange={handleChange} rows={4} placeholder="What types of businesses or community groups are you connected with? How have you built those relationships?" className="w-full resize-y rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30" />
+                  <label htmlFor="ram-relationships" className="mb-2 block text-sm font-semibold text-slate-100">Tell us about the business relationships, market, or industry you know</label>
+                  <textarea id="ram-relationships" name="business_relationships" value={form.business_relationships} onChange={handleChange} rows={4} placeholder="Who do you already know, what business community do you understand, or what kind of conversations could you naturally begin?" className="w-full resize-y rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30" />
                 </div>
 
                 <div className="mt-5">
@@ -727,6 +728,16 @@ export default function RegionalAccountManager() {
               <Link to="/community-partner" className="mt-4 inline-flex items-center gap-2 font-semibold text-cyan-300 transition-colors hover:text-cyan-200">
                 Explore Community Partners <ArrowRight className="h-4 w-4" />
               </Link>
+            </div>
+
+            <div className="mt-4 rounded-2xl border border-cyan-300/20 bg-cyan-400/10 p-6">
+              <h3 className="text-lg font-bold text-white">Already invited to try the opportunity?</h3>
+              <p className="mt-2 leading-relaxed text-slate-200">
+                Open your private Account Manager workspace to explore NTA, bring back what you learn from your first conversations, and work with Rick on the next step.
+              </p>
+              <a href="https://app.newtechadvertising.com/account-manager" className="mt-4 inline-flex items-center gap-2 font-semibold text-cyan-200 transition-colors hover:text-white">
+                Open my Account Manager workspace <ArrowRight className="h-4 w-4" />
+              </a>
             </div>
           </div>
         </section>
