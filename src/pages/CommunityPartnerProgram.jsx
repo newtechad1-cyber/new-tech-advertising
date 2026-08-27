@@ -11,7 +11,6 @@ import {
   Lightbulb,
   MapPin,
   MessageCircle,
-  Users,
 } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import MarketingNav from "@/components/nav/MarketingNav";
