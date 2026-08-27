@@ -124,7 +124,7 @@ export default function CommunityGrowthConversation() {
                   initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.8 }}
                   className="text-xl md:text-2xl text-slate-400 leading-relaxed mb-12 max-w-3xl mx-auto"
                 >
-                  New Tech Advertising helps community partners bring practical digital visibility education, business growth tools, and relationship-building systems to the businesses they serve.
+                  New Tech Advertising helps community partners give local business owners a place to understand AI, technology, and digital growth without a hard sell. The knowledge is free to explore. The work begins by opening an honest conversation.
                 </motion.p>
                 <motion.button 
                   initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.6, duration: 0.5 }}
@@ -236,11 +236,11 @@ export default function CommunityGrowthConversation() {
 
                 <div className="space-y-4">
                   {[
-                    "Introducing local businesses to NTA",
-                    "Sharing Digital Visibility Audits",
-                    "Hosting educational workshops",
-                    "Promoting the AI Learning Center",
-                    "Helping businesses understand their next step",
+                    "Starting useful conversations with local business owners",
+                    "Sharing free NTA lessons, videos, and practical examples",
+                    "Hosting educational workshops or community learning sessions",
+                    "Introducing the Knowledge Library and Your Digital Growth Guide™",
+                    "Helping businesses understand a useful next step",
                     "Strengthening the local business community"
                   ].map((item, i) => (
                     <motion.div 
@@ -296,17 +296,17 @@ export default function CommunityGrowthConversation() {
                   <Share2 className="w-10 h-10 text-emerald-400" />
                 </div>
                 <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 tracking-tight leading-tight">
-                  Create Value & Revenue
+                  Create Value—and Residual Income
                 </h2>
                 <div className="space-y-6 text-xl md:text-2xl text-slate-300 leading-relaxed max-w-3xl mx-auto mb-12">
                   <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
-                    Community partners can create immense local value while also creating a recurring revenue opportunity.
+                    Community partners can create meaningful local value by helping business owners learn, ask better questions, and find the right next step—while building a book of active client relationships.
                   </motion.p>
                   <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="text-slate-200 font-medium">
-                    When a business becomes an NTA client through your referral or program, your organization or partnership can participate in ongoing revenue sharing.
+                    As the clients you introduce remain active with NTA, those relationships can produce residual commissions under the written agreement. The goal is not to start over from zero every month.
                   </motion.p>
                   <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.0 }} className="text-emerald-400 font-bold">
-                    Focus on impact first, revenue second.
+                    Bring an organization to NTA, and it can be both: you can participate personally while the organization also shares in the agreed relationship-based revenue. Terms are discussed plainly and put in writing first.
                   </motion.p>
                 </div>
               </div>
@@ -381,7 +381,7 @@ export default function CommunityGrowthConversation() {
                   >
                     <div>
                       <h3 className="text-2xl font-bold mb-2">View Community Partner Program</h3>
-                      <p className="text-slate-400 text-lg">Learn more about our program for organizations and influencers.</p>
+                      <p className="text-slate-400 text-lg">See how people and organizations can share free learning before choosing a next step.</p>
                     </div>
                     <ArrowRight className="w-8 h-8 text-slate-500 group-hover:text-white transform group-hover:translate-x-2 transition-transform" />
                   </Link>
