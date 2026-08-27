@@ -54,6 +54,25 @@ const ORGANIZATION_FIT = [
   "Any organization that wants to give local businesses practical, free learning before asking them to make a decision",
 ];
 
+const COMMUNITY_PARTNER_FAQS = [
+  {
+    question: "Who can become an NTA Community Partner?",
+    answer: "This path is for people with trusted business relationships and organizations such as Chambers, business associations, Main Street groups, banks, media, nonprofits, and similar community connectors. It can fit curious people early in a career, working professionals, and retired or semi-retired people who want to stay involved.",
+  },
+  {
+    question: "Do I have to buy training, a course, or a system?",
+    answer: "No. The Knowledge Library, books, Growth Show, Free AI Guy, and Your Digital Growth Guide™ are free to explore. The point is to understand the material and begin useful conversations, not to purchase information.",
+  },
+  {
+    question: "Is this a hard-sell program?",
+    answer: "No. A community partner helps people learn, ask better questions, and decide whether a next step would genuinely help. NTA remains responsible for listening carefully and recommending only what fits.",
+  },
+  {
+    question: "Can the individual and the organization both participate in the income?",
+    answer: "Yes. When someone brings an organization to NTA, the arrangement can include personal participation for the connector and relationship-based revenue for the organization. Exact commissions, residuals, and responsibilities are discussed plainly and put in writing before a commitment is made.",
+  },
+];
+
 const EMPTY_FORM = {
   full_name: "",
   email: "",
@@ -152,9 +171,16 @@ export default function CommunityPartnerProgram() {
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
       <SEOHead
-        title="Community Partnership | Practical AI Learning for Local Businesses | New Tech Advertising"
-        description="Help your community explore practical AI and digital-growth learning through a relationship built on education, trust, and shared value."
+        title="Community Partner Opportunity | Free AI Education & Residual Income | NTA"
+        description="For people, Chambers, and organizations that share free practical AI education with business owners. Build relationship-based income personally and, when representing an organization, for it too—under a written NTA agreement."
         canonical="https://newtechadvertising.com/community-partner"
+        faqs={COMMUNITY_PARTNER_FAQS}
+        learningData={{
+          name: "NTA Community Partner Learning Path",
+          description: "Free practical AI learning for people and organizations helping local business owners understand technology and digital growth.",
+          educationalLevel: "Beginner",
+          learningResourceType: "guided learning",
+        }}
       />
       <MarketingNav />
 
@@ -347,6 +373,23 @@ export default function CommunityPartnerProgram() {
             <p className="mt-4 leading-relaxed text-slate-600">
               A Chamber, organization, or individual can help introduce the learning. NTA remains responsible for listening carefully, deciding whether it can genuinely help, and supporting the work that follows.
             </p>
+          </div>
+        </section>
+
+        <section className="border-y border-slate-200 bg-white px-6 py-20">
+          <div className="mx-auto max-w-4xl">
+            <p className="text-center text-sm font-bold uppercase tracking-[0.18em] text-blue-700">Questions people ask</p>
+            <h2 className="mt-3 text-center text-3xl font-bold text-slate-900 md:text-4xl">A few clear answers before you begin.</h2>
+            <div className="mt-10 space-y-3">
+              {COMMUNITY_PARTNER_FAQS.map((faq) => (
+                <details key={faq.question} className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-1 shadow-sm">
+                  <summary className="cursor-pointer py-4 pr-8 text-lg font-bold text-slate-900 marker:text-blue-700">
+                    {faq.question}
+                  </summary>
+                  <p className="pb-5 leading-relaxed text-slate-600">{faq.answer}</p>
+                </details>
+              ))}
+            </div>
           </div>
         </section>
 
