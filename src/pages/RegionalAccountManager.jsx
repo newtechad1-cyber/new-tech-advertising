@@ -103,9 +103,11 @@ const REGIONAL_ACCOUNT_MANAGER_FAQS = [
 
 const roleActions = [
   'Meet business owners and start useful conversations.',
-  'Listen for what a business is trying to accomplish and what may be getting in the way.',
+  'With the owner’s permission, build relationships with the receptionist, office staff, managers, technicians, salespeople, and others who do the work.',
+  'Listen for what the owner and employees know, the questions customers ask, and where time or opportunity may be getting lost.',
   'Ask good questions instead of rushing toward a product or pitch.',
-  'Help an owner find the right NTA resource, lesson, video, guide, or next conversation.',
+  'Help the owner teach the team to use AI in everyday work and contribute their knowledge.',
+  'Help the business find the right NTA resource, lesson, video, guide, or next conversation.',
   'Use the NTA website and Knowledge Library as part of the conversation when a question comes up.',
   'Keep thoughtful follow-up moving after a conversation begins.',
   'Build your market in the community, industry, or professional network you know best.',
@@ -143,7 +145,7 @@ const resources = [
 ];
 
 const rightFor = [
-  'You like meeting people and taking a genuine interest in their businesses.',
+  'You naturally talk with everyone in the business and treat the receptionist or gatekeeper as an important relationship—not an obstacle to get past.',
   'You have relationships in a community, industry, or professional network and want to build them the right way.',
   'You are comfortable starting a conversation and following up thoughtfully.',
   'You want to keep learning without pretending to have every answer on day one.',
@@ -304,7 +306,7 @@ export default function RegionalAccountManager() {
               </h1>
               <div className="mt-7 max-w-2xl space-y-5 text-lg leading-relaxed text-slate-300">
                 <p>
-                  New Tech Advertising is building a network of curious, people-oriented learners who can sit down with business owners in their own communities, industries, or networks and explore what AI and digital growth could mean for that business.
+                  New Tech Advertising is building a network of curious, people-oriented learners who can sit down with business owners, get to know the people throughout the company, and explore what AI and digital growth could mean for the whole business.
                 </p>
                 <p>
                   This is not a generic remote sales job or a link-and-leave affiliate program. You do not need to walk in as the expert or purchase a system to learn it. You start the relationship and the conversation; NTA helps you understand what comes next.
@@ -428,13 +430,13 @@ export default function RegionalAccountManager() {
                 This is not a traditional corporate sales job, and it is not a role where you have to become an expert in websites, AI, advertising, SEO, social media, video, or business systems.
               </p>
               <p>
-                Your role is to build trust, understand the business owner, and help the right NTA conversation begin. When an owner has a question, you can use the same NTA resources they can see.
+                Your role is to build trust throughout the business—not only with the owner. With the owner’s permission, you get to know the receptionist or gatekeeper, office staff, managers, technicians, salespeople, and others who understand how the work really happens.
               </p>
               <blockquote className="rounded-2xl border-l-4 border-blue-600 bg-blue-50 px-6 py-5 text-xl font-semibold leading-relaxed text-slate-800">
                 “That’s a good question. Let’s look at it together.”
               </blockquote>
               <p>
-                The NTA website is part of the learning and conversation system. It can do much of the explaining and teaching while you focus on the relationship.
+                The NTA website is part of the learning and conversation system. It can do much of the explaining and teaching while you help the owner bring the team into the AI process and focus on the relationships.
               </p>
             </div>
           </div>
