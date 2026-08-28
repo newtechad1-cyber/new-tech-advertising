@@ -4,7 +4,7 @@ import { base44 } from '@/api/base44Client';
 import { appParams } from '@/lib/app-params';
 import { X, Send, Loader2, AlertCircle, Zap, ChevronRight, Brain, Mic, MicOff, RotateCcw, Phone, MessageSquare, Volume2, VolumeX } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import FreeAIGuyAvatar from "./FreeAIGuyAvatar";
+import RickGrowthGuideAvatar from "./RickGrowthGuideAvatar";
 
 const RICK_PHONE_DISPLAY = '641-420-8816';
 const RICK_PHONE_DIGITS = '16414208816';
@@ -31,8 +31,8 @@ import {
   buildPublicKnowledgeFallback
 } from '@/lib/growth-guide/publicKnowledge';
 
-const GUIDE_POSTER_URL = '/brand/free-ai-guy-approved-portrait.webp';
-const RICK_WELCOME_TEXT = `Hi, I’m Rick Hesse, founder of New Tech Advertising. I built this place to help business owners make sense of technology, marketing, and AI without making it complicated. You don’t have to know all the answers before you begin. Take a look around, ask the guide a question, or tell me what is going on in your business. We’ll start with a practical next step, and if you want to talk it through personally, I’m right here.`;
+const GUIDE_POSTER_URL = '/brand/rick-animated-digital-growth-guide.webp';
+const RICK_WELCOME_TEXT = `Hi, I’m Rick Hesse, founder of New Tech Advertising. I built this place to help business owners make sense of technology, marketing, and AI without making it complicated. You don’t need to have all the answers before you begin. Take a look around, ask Your Digital Growth Guide a question, or tell me what is going on in your business. We can start with a practical next step. Whenever you want to talk, call, text, or email me—whichever way works best for you.`;
 const WELCOME_SEEN_KEY = 'nta_rick_welcome_seen';
 
 const FunctionDisplay = ({ toolCall }) => {
@@ -839,10 +839,10 @@ export default function YourDigitalGrowthGuide() {
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 blur-[50px] rounded-full pointer-events-none" />
               <div className="flex items-center gap-4 relative z-10">
                 <div className="w-14 h-14 sm:w-28 sm:h-24 bg-slate-950 border border-slate-700 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-inner overflow-hidden">
-                  <FreeAIGuyAvatar
-                    motion={avatarMotion}
+                  <RickGrowthGuideAvatar
+                    guideMotion={avatarMotion}
                     decorative
-                    className="w-12 h-12 sm:w-[6.5rem] sm:h-[5.5rem] rounded-lg sm:rounded-xl"
+                    className="w-12 h-12 sm:w-[6.5rem] sm:h-[5.5rem]"
                   />
                 </div>
                 <div>
