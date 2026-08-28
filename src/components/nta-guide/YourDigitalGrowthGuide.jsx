@@ -805,13 +805,13 @@ export default function YourDigitalGrowthGuide() {
                 </div>
                 <button
                   onClick={() => setIsOpen(true)}
-                  className="w-16 h-16 rounded-full shadow-2xl flex items-center justify-center hover:scale-105 transition-transform overflow-hidden border border-blue-300/30 bg-slate-900 cursor-grab active:cursor-grabbing"
+                  className="h-32 w-24 sm:h-40 sm:w-28 rounded-2xl shadow-2xl flex items-end justify-center hover:scale-105 transition-transform overflow-hidden border border-blue-300/30 bg-slate-900/90 cursor-grab active:cursor-grabbing"
                 >
                   <img
                     src={GUIDE_POSTER_URL}
                     alt=""
                     aria-hidden="true"
-                    className="h-full w-full origin-top scale-125 object-cover object-[center_15%] pointer-events-none"
+                    className="h-full w-full object-contain object-bottom pointer-events-none"
                   />
                 </button>
             </div>
