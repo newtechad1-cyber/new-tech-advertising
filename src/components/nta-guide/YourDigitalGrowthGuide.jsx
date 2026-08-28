@@ -34,6 +34,7 @@ import {
 const GUIDE_POSTER_URL = '/brand/rick-animated-digital-growth-guide.webp';
 const RICK_WELCOME_TEXT = `Hi, I’m Rick Hesse, founder of New Tech Advertising. I built this place to help business owners make sense of technology, marketing, and AI without making it complicated. You don’t need to have all the answers before you begin. Take a look around, ask Your Digital Growth Guide a question, or tell me what is going on in your business. We can start with a practical next step. Whenever you want to talk, call, text, or email me—whichever way works best for you.`;
 const WELCOME_SEEN_KEY = 'nta_rick_welcome_seen';
+const RICK_WELCOME_VIDEO_URL = '/brand/rick-digital-growth-guide-welcome.webm';
 
 const FunctionDisplay = ({ toolCall }) => {
     const [expanded, setExpanded] = useState(false);
@@ -189,6 +190,7 @@ export default function YourDigitalGrowthGuide() {
   const audioContextRef = useRef(null);
   const audioAnimationRef = useRef(null);
   const guideAudioRef = useRef(null);
+  const guideWelcomeVideoRef = useRef(null);
   const recordingStartTextRef = useRef('');
   const inputRef = useRef('');
   const messagesEndRef = useRef(null);
@@ -254,6 +256,11 @@ export default function YourDigitalGrowthGuide() {
   }, [input]);
 
   const stopGuideVoice = () => {
+    const welcomeVideo = guideWelcomeVideoRef.current;
+    if (welcomeVideo) {
+      welcomeVideo.pause();
+      welcomeVideo.currentTime = 0;
+    }
     const audio = guideAudioRef.current;
     if (audio) {
       audio.onended = null;
@@ -264,6 +271,31 @@ export default function YourDigitalGrowthGuide() {
     guideAudioRef.current = null;
     setSpeakingMessageId(null);
     playAvatarMotion('idle');
+  };
+
+  const playRickWelcomeVideo = async () => {
+    if (speakingMessageId === 'rick-welcome') {
+      stopGuideVoice();
+      return;
+    }
+
+    stopGuideVoice();
+    const video = guideWelcomeVideoRef.current;
+    if (!video) {
+      speakGuideText(RICK_WELCOME_TEXT, 'rick-welcome');
+      return;
+    }
+
+    setVoicePlaybackError('');
+    try {
+      video.muted = false;
+      video.currentTime = 0;
+      await video.play();
+      setSpeakingMessageId('rick-welcome');
+      playAvatarMotion('explaining');
+    } catch {
+      speakGuideText(RICK_WELCOME_TEXT, 'rick-welcome');
+    }
   };
 
   const speakGuideText = async (text, messageId) => {
@@ -877,13 +909,27 @@ export default function YourDigitalGrowthGuide() {
             {!discoveryMode && messages.length === 1 && (
               <div className="px-4 py-3 bg-blue-950/35 border-b border-blue-900/50 shrink-0">
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                  <div>
-                    <p className="text-xs font-semibold text-blue-100">New here? Meet Rick first.</p>
-                    <p className="text-[11px] leading-relaxed text-blue-200/80">A brief welcome, then you can ask a question in your own words.</p>
+                  <div className="flex min-w-0 items-center gap-3">
+                    <video
+                      ref={guideWelcomeVideoRef}
+                      src={RICK_WELCOME_VIDEO_URL}
+                      preload="metadata"
+                      playsInline
+                      aria-label="Rick Hesse animated welcome"
+                      onEnded={() => {
+                        setSpeakingMessageId(null);
+                        playAvatarMotion('idle');
+                      }}
+                      className="h-20 w-16 shrink-0 object-contain object-bottom"
+                    />
+                    <div>
+                      <p className="text-xs font-semibold text-blue-100">New here? Meet Rick first.</p>
+                      <p className="text-[11px] leading-relaxed text-blue-200/80">A brief welcome, then you can ask a question in your own words.</p>
+                    </div>
                   </div>
                   <button
                     type="button"
-                    onClick={() => speakGuideText(RICK_WELCOME_TEXT, 'rick-welcome')}
+                    onClick={playRickWelcomeVideo}
                     className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-lg bg-blue-600 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-blue-500"
                   >
                     {speakingMessageId === 'rick-welcome' ? <VolumeX className="h-3.5 w-3.5" /> : <Volume2 className="h-3.5 w-3.5" />}
