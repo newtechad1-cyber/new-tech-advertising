@@ -561,8 +561,8 @@ function renderHtml(template, metadata, pathname) {
   html = html.replace(/<meta name="robots"[^>]*>/i, "");
   html = html.replace(/<link rel="canonical"[^>]*>/i, '<link rel="canonical" href="' + shell.canonical + '" />');
   const criticalStyles = `<style id="seo-shell-critical">
-    body:has(#root > .seo-shell) { margin: 0; min-width: 320px; background: #020617; }
-    #root:has(> .seo-shell) { min-height: 100vh; }
+    body:has(#root > .seo-shell) { margin: 0; min-width: 0; max-width: 100%; background: #020617; overflow-x: hidden; }
+    #root:has(> .seo-shell) { min-height: 100vh; max-width: 100%; overflow-x: hidden; }
     .seo-shell { box-sizing: border-box; min-height: 100vh; padding: clamp(1rem, 6vw, 4rem) 1.25rem; display: flex; justify-content: center; background: radial-gradient(ellipse at top right, rgb(37 99 235 / 0.25), transparent 52%), linear-gradient(135deg, #0f172a, #020617); color: #e2e8f0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
     .seo-shell article { box-sizing: border-box; width: min(100%, 760px); padding: clamp(1.25rem, 4vw, 3rem); border: 1px solid rgb(103 232 249 / 0.2); border-top: 4px solid #22d3ee; border-radius: 1.5rem; background: rgb(15 23 42 / 0.94); box-shadow: 0 20px 50px rgb(2 6 23 / 0.45); }
     .seo-kicker { margin: 0 0 0.75rem; color: #67e8f9; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
