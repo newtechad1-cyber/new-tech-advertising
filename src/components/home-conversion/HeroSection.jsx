@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { ArrowRight, BookOpen, Check, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -42,25 +41,18 @@ export default function HeroSection() {
       <div className="container relative z-10 mx-auto max-w-6xl px-4">
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_.95fr] lg:gap-16">
           <div className="max-w-3xl">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+          <p
             className="mb-5 text-sm font-semibold uppercase tracking-[0.2em] text-blue-400"
           >
             Free AI Education · From New Tech Advertising
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+          </p>
+          <h1
             className="mb-7 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl"
           >
             Understand AI. Use it in the real world.
-          </motion.h1>
+          </h1>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+          <div
             className="max-w-2xl space-y-5 text-lg leading-relaxed text-slate-300 md:text-xl"
           >
             <p>
@@ -69,12 +61,9 @@ export default function HeroSection() {
             <p>
               Start with a free lesson. When you want to talk it through, meet the Free AI Guy inside the experience. When a human conversation would help, Talk to My Office™.
             </p>
-          </motion.div>
+          </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
+            <div
               className="mt-9 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center"
             >
               <Button asChild size="lg" className="bg-blue-600 px-7 text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:bg-blue-500">
@@ -87,7 +76,7 @@ export default function HeroSection() {
                 <MessageCircle className="mr-2 h-5 w-5" />
                 Ask the Free AI Guy
               </Button>
-            </motion.div>
+            </div>
 
             <div className="mt-5">
               <Link to="/work-with-nta" className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 transition-colors hover:text-cyan-200">
@@ -101,10 +90,7 @@ export default function HeroSection() {
             </p>
           </div>
 
-          <motion.aside
-            initial={{ opacity: 0, x: 24 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.15 }}
+          <aside
             className="relative overflow-hidden rounded-3xl border border-slate-700/80 bg-slate-900/80 p-6 shadow-2xl shadow-cyan-950/20 backdrop-blur-sm sm:p-8"
             id="free-ai-guy-video"
             aria-label="Meet the Free AI Guy"
@@ -145,13 +131,10 @@ export default function HeroSection() {
               Talk to My Office™
               <ArrowRight className="h-4 w-4" />
             </button>
-          </motion.aside>
+          </aside>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
+        <div
           className="mt-16 border-t border-slate-800/80 pt-8"
         >
           <div className="mb-6 text-center">
@@ -171,7 +154,7 @@ export default function HeroSection() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
