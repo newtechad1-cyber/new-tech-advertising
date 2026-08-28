@@ -131,37 +131,23 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'A name and valid email are required.' }, { status: 400 });
     }
 
-    // Route through NTA Core's established public-intake workflow. That flow
-    // already owns verified CRM creation and the applicant/internal email path.
+    // Route this opportunity form into the dedicated recruiting workflow in
+    // NTA Core so the candidate record, Rick notification, and applicant
+    // acknowledgement stay together.
     const office = createClient({ appId: OFFICE_APP_ID });
-    const response = await office.functions.invoke('ntaUnifiedIntake', {
-      submission_type: 'contact',
-      offer_type: 'consultation',
-      mapping_confidence: 'hardcoded',
-      mapping_notes: 'Regional Account Manager opportunity inquiry.',
-      source_system: 'website',
-      source_page: landing_path || '/regional-account-manager',
-      source_campaign: 'regional_account_manager',
-      name: full_name,
-      business_name: 'Regional Account Manager Opportunity',
+    const response = await office.functions.invoke('submitRecruitingApplication', {
+      full_name,
       email,
       phone,
       city,
-      notes: [
-        'Regional Account Manager opportunity inquiry.',
-        territory ? `Territory: ${territory}` : '',
-        current_role ? `Current role/background: ${current_role}` : '',
-        business_relationships ? `Business and community relationships: ${business_relationships}` : '',
-        interest_reason ? `Why this opportunity: ${interest_reason}` : '',
-        campaign_source ? `Campaign source: ${campaign_source}` : '',
-        campaign_medium ? `Campaign medium: ${campaign_medium}` : '',
-        campaign_name ? `Campaign: ${campaign_name}` : '',
-      ].filter(Boolean).join('\n'),
-      detected_route: landing_path || '/regional-account-manager',
-      detected_component: 'RegionalAccountManager',
-      priority: 'high',
-      is_high_intent: true,
-      skip_webhook: true,
+      territory,
+      campaign_source,
+      campaign_medium,
+      campaign_name,
+      landing_path: landing_path || '/account-manager',
+      current_role,
+      business_relationships,
+      interest_reason,
     });
     const data = response?.data ?? response;
 
@@ -169,20 +155,14 @@ Deno.serve(async (req) => {
       return Response.json({ error: data.error }, { status: 502 });
     }
 
-    const emailStatus = String(data?.email_status || 'unknown');
-    const emailRequestStatus = emailStatus === 'sent'
-      ? 'accepted'
-      : ['failed', 'not_configured'].includes(emailStatus)
-        ? 'failed'
-        : 'unknown';
-
     return Response.json({
       success: true,
       accepted: true,
-      candidate_id: data?.submission_id || null,
-      email_delivery: {
-        internal: emailRequestStatus,
-        applicant: emailRequestStatus,
+      candidate_id: data?.candidate_id || null,
+      duplicate: Boolean(data?.duplicate),
+      email_delivery: data?.email_delivery || {
+        internal: 'unknown',
+        applicant: 'unknown',
       },
     });
   } catch (error) {
