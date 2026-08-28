@@ -22,7 +22,7 @@ const EXPECTATIONS = [
   {
     icon: Compass,
     title: 'We understand the business first',
-    text: 'We start with the owner, the customers, the current situation, the goals, and the places where time or opportunity is getting lost.',
+    text: 'We start with the owner and, with the owner’s permission, learn from the employees who know the customers, the work, and the places where time or opportunity is getting lost.',
   },
   {
     icon: Route,
@@ -87,7 +87,7 @@ const AREAS = [
   {
     icon: Layers3,
     title: 'Operations and knowledge',
-    text: 'Processes, files, tasks, reporting, team responsibilities, scheduling, and the knowledge already inside the business.',
+    text: 'Processes, files, tasks, reporting, team responsibilities, scheduling, and a practical way for employees to contribute the knowledge already inside the business.',
   },
   {
     icon: Compass,
@@ -99,7 +99,7 @@ const AREAS = [
 const FAQS = [
   {
     question: 'What does NTA do for a business?',
-    answer: 'NTA helps business owners understand where growth is getting stuck, decide what deserves attention first, and build the connected foundation, visibility, relationships, content, and practical AI support the business is ready for.',
+    answer: 'NTA helps business owners understand where growth is getting stuck, involve the people who actually do the work, and build the connected foundation, visibility, relationships, knowledge, content, and practical AI support the business is ready for.',
   },
   {
     question: 'What happens after I contact NTA?',
@@ -259,7 +259,7 @@ export default function WorkWithNTA() {
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-300">What makes the approach different</p>
               <h2 className="mt-3 text-3xl font-bold text-white md:text-5xl">Prompting is a technique. Connected work is the point.</h2>
               <p className="mt-5 text-lg leading-relaxed text-slate-300">
-                A prompt can help with one task. NTA looks at the larger system—the business, the customers, the website, the knowledge, the follow-up, the team, and the tools—and connects those pieces so AI supports the way the business already works.
+                A prompt can help with one task. NTA looks at the larger system—the owner, employees, customers, website, knowledge, follow-up, and tools—and helps the business build AI into the way the whole team already works.
               </p>
             </div>
 
@@ -267,7 +267,7 @@ export default function WorkWithNTA() {
               <div className="rounded-2xl border border-blue-900/60 bg-slate-950/60 p-6">
                 <p className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-300">Start with the business</p>
                 <h3 className="mt-3 text-xl font-semibold text-white">Understand how the work really happens.</h3>
-                <p className="mt-3 leading-relaxed text-slate-300">We begin with the owner, customers, strengths, problems, and goals—not with a tool looking for a job.</p>
+                <p className="mt-3 leading-relaxed text-slate-300">We begin with the owner and, with permission, talk with the people throughout the company. The receptionist, office staff, technicians, managers, and salespeople each know part of how the business works.</p>
               </div>
               <div className="rounded-2xl border border-blue-900/60 bg-slate-950/60 p-6">
                 <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-300">Connect the pieces</p>
@@ -277,7 +277,7 @@ export default function WorkWithNTA() {
               <div className="rounded-2xl border border-blue-900/60 bg-slate-950/60 p-6">
                 <p className="text-sm font-semibold uppercase tracking-[0.16em] text-violet-300">Keep it usable</p>
                 <h3 className="mt-3 text-xl font-semibold text-white">Work with AI without becoming a technician.</h3>
-                <p className="mt-3 leading-relaxed text-slate-300">You get clear explanations and useful next steps that fit the way you and your team already work.</p>
+                <p className="mt-3 leading-relaxed text-slate-300">We help the owner teach the team to use AI in everyday work, contribute what they know, and keep improving the system together.</p>
               </div>
             </div>
           </div>
