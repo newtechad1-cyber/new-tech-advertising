@@ -254,15 +254,21 @@
   </url>
   <url>
     <loc>https://newtechadvertising.com/community-partner</loc>
-    <lastmod>2026-08-14</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-08-28</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://newtechadvertising.com/regional-account-manager</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://newtechadvertising.com/community-growth-conversation</loc>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://newtechadvertising.com/account-manager</loc>
+    <lastmod>2026-08-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://newtechadvertising.com/local-lead-systems</loc>
