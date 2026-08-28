@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useDragControls } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import { appParams } from '@/lib/app-params';
-import { X, Send, Loader2, AlertCircle, Zap, ChevronRight, Brain, Mic, MicOff, RotateCcw, Phone, MessageSquare } from 'lucide-react';
+import { X, Send, Loader2, AlertCircle, Zap, ChevronRight, Brain, Mic, MicOff, RotateCcw, Phone, MessageSquare, Volume2, VolumeX } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import FreeAIGuyAvatar from "./FreeAIGuyAvatar";
 
@@ -32,6 +32,8 @@ import {
 } from '@/lib/growth-guide/publicKnowledge';
 
 const GUIDE_POSTER_URL = '/brand/free-ai-guy-approved-portrait.webp';
+const RICK_WELCOME_TEXT = `Hi, I’m Rick Hesse, founder of New Tech Advertising. I built this place to help business owners make sense of technology, marketing, and AI without making it complicated. You don’t have to know all the answers before you begin. Take a look around, ask the guide a question, or tell me what is going on in your business. We’ll start with a practical next step, and if you want to talk it through personally, I’m right here.`;
+const WELCOME_SEEN_KEY = 'nta_rick_welcome_seen';
 
 const FunctionDisplay = ({ toolCall }) => {
     const [expanded, setExpanded] = useState(false);
@@ -97,7 +99,7 @@ const FunctionDisplay = ({ toolCall }) => {
     );
 };
 
-const MessageBubble = ({ message }) => {
+const MessageBubble = ({ message, onSpeak, isSpeaking }) => {
     const isUser = message.role === 'user';
     
     // Strip trailing "(Context: ...)" from user messages if present for display
@@ -134,6 +136,16 @@ const MessageBubble = ({ message }) => {
                         )}
                     </div>
                 )}
+                {!isUser && displayContent && (
+                    <button
+                        type="button"
+                        onClick={() => onSpeak?.(displayContent, message.id)}
+                        className="mt-2 inline-flex items-center gap-1.5 rounded-lg border border-slate-600 bg-slate-900 px-2.5 py-1.5 text-[11px] font-medium text-slate-200 transition-colors hover:border-blue-400 hover:text-white"
+                    >
+                        {isSpeaking ? <VolumeX className="h-3.5 w-3.5" /> : <Volume2 className="h-3.5 w-3.5" />}
+                        {isSpeaking ? 'Stop Rick’s voice' : 'Hear Rick explain'}
+                    </button>
+                )}
                 {message.tool_calls?.map((toolCall, idx) => (
                     <FunctionDisplay key={idx} toolCall={toolCall} />
                 ))}
@@ -164,6 +176,8 @@ export default function YourDigitalGrowthGuide() {
   const [audioLevel, setAudioLevel] = useState(0);
   const [voiceStatus, setVoiceStatus] = useState('idle');
   const [voiceError, setVoiceError] = useState('');
+  const [speakingMessageId, setSpeakingMessageId] = useState(null);
+  const [voicePlaybackError, setVoicePlaybackError] = useState('');
   const submissionLockRef = useRef(false);
   const avatarMotionTimerRef = useRef(null);
   const lastAssistantMessageRef = useRef('welcome');
@@ -174,6 +188,7 @@ export default function YourDigitalGrowthGuide() {
   const recordingClockRef = useRef(null);
   const audioContextRef = useRef(null);
   const audioAnimationRef = useRef(null);
+  const guideAudioRef = useRef(null);
   const recordingStartTextRef = useRef('');
   const inputRef = useRef('');
   const messagesEndRef = useRef(null);
@@ -220,11 +235,74 @@ export default function YourDigitalGrowthGuide() {
     }
   }, [isOpen, isListening, isLoading, messages]);
 
-  useEffect(() => () => clearTimeout(avatarMotionTimerRef.current), []);
+  useEffect(() => () => {
+    clearTimeout(avatarMotionTimerRef.current);
+    guideAudioRef.current?.pause();
+  }, []);
+
+  useEffect(() => {
+    if (location.pathname !== '/' || sessionStorage.getItem(WELCOME_SEEN_KEY)) return undefined;
+    const timer = window.setTimeout(() => {
+      sessionStorage.setItem(WELCOME_SEEN_KEY, 'true');
+      setIsOpen(true);
+    }, 700);
+    return () => window.clearTimeout(timer);
+  }, [location.pathname]);
 
   useEffect(() => {
     inputRef.current = input;
   }, [input]);
+
+  const stopGuideVoice = () => {
+    const audio = guideAudioRef.current;
+    if (audio) {
+      audio.onended = null;
+      audio.onerror = null;
+      audio.pause();
+      audio.currentTime = 0;
+    }
+    guideAudioRef.current = null;
+    setSpeakingMessageId(null);
+    playAvatarMotion('idle');
+  };
+
+  const speakGuideText = async (text, messageId) => {
+    if (speakingMessageId === messageId) {
+      stopGuideVoice();
+      return;
+    }
+
+    stopGuideVoice();
+    setVoicePlaybackError('');
+    try {
+      const response = await base44.functions.invoke('speakGrowthGuideAnswer', { text });
+      const result = response?.data ?? response;
+      if (!result?.audio_url) throw new Error(result?.error || 'No audio was returned');
+
+      const audio = new Audio(result.audio_url);
+      guideAudioRef.current = audio;
+      audio.onplay = () => {
+        setSpeakingMessageId(messageId);
+        playAvatarMotion('explaining');
+      };
+      audio.onended = () => {
+        guideAudioRef.current = null;
+        setSpeakingMessageId(null);
+        playAvatarMotion('idle');
+      };
+      audio.onerror = () => {
+        guideAudioRef.current = null;
+        setSpeakingMessageId(null);
+        setVoicePlaybackError('Rick’s voice could not play right now. You can still read the answer.');
+        playAvatarMotion('idle');
+      };
+      await audio.play();
+    } catch (error) {
+      setSpeakingMessageId(null);
+      setVoicePlaybackError(error?.response?.data?.error || error?.message || 'Rick’s voice is temporarily unavailable. You can still read the answer.');
+      playAvatarMotion('idle');
+    }
+  };
 
   const releaseMicrophone = () => {
     clearTimeout(recordingTimerRef.current);
