@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && node --experimental-loader=./scripts/resolve-extensionless-modules.mjs scripts/generate-seo-pages.mjs",
+    "seo:indexnow": "node scripts/submit-indexnow.mjs",
     "lint": "eslint .",
     "audit:security": "node scripts/security-audit.mjs",
     "test:growth-guide": "node --test src/lib/growth-guide/*.test.js",
