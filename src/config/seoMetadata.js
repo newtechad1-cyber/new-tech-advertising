@@ -140,19 +140,19 @@ const STATIC_SEO = {
   },
   "/community-partner": {
     title: "Community Partner Opportunity | Free AI Education & Residual Income | NTA",
-    description: "For people, Chambers, and organizations that share free practical AI education with business owners. Build relationship-based income personally and, when representing an organization, for it too—under a written NTA agreement.",
+    description: "Help business owners learn practical AI for free. NTA partners build relationships; representatives and organizations can earn together under a written agreement.",
   },
   "/community-growth-conversation": {
-    title: "Community Growth Conversation | Free AI Learning Partnership | NTA",
-    description: "Explore how a trusted person, Chamber, or community organization can share free practical AI learning, help local business owners, and build relationship-based value together.",
+    title: "Community Growth Conversation | Free AI Education Partnership | NTA",
+    description: "A free practical-AI education partnership for trusted people, Chambers, and organizations helping local owners learn and build relationships together.",
   },
   "/account-manager": {
-    title: "NTA Account Manager | Learn AI & Build Relationship-Based Income",
-    description: "A remote opportunity for curious people who enjoy business conversations. Learn practical AI for free, help owners understand it, and build relationship-based income over time under a written agreement.",
+    title: "NTA Account Manager Opportunity | Free AI Education & Residual Income",
+    description: "Free practical-AI education for curious people who enjoy business conversations. Help owners learn, build relationships, and pursue residual income under a written agreement.",
   },
   "/regional-account-manager": {
-    title: "NTA Account Manager | Learn AI & Build Relationship-Based Income",
-    description: "A remote opportunity for curious people who enjoy business conversations. Learn practical AI for free, help owners understand it, and build relationship-based income over time under a written agreement.",
+    title: "NTA Account Manager Opportunity | Free AI Education & Residual Income",
+    description: "Free practical-AI education for curious people who enjoy business conversations. Help owners learn, build relationships, and pursue residual income under a written agreement.",
     canonical: "https://newtechadvertising.com/account-manager",
   },
   "/local-lead-systems": {
@@ -371,6 +371,7 @@ const LEGACY_CANONICALS = {
   "/aivideomarketing": "/ai-video-marketing",
   "/backofficesolutions": "/back-office-solutions",
   "/smallbusinessesnationwide": "/small-businesses-nationwide",
+  "/regional-account-manager": "/account-manager",
 };
 
 const COLLECTION_SEARCH = {
@@ -562,7 +563,7 @@ export function getSeoMetadata(pathname) {
     return {
       ...DEFAULT_SEO,
       ...STATIC_SEO[canonicalPath],
-      canonical: canonicalUrl(canonicalPath),
+      canonical: STATIC_SEO[canonicalPath].canonical || canonicalUrl(canonicalPath),
       routeSpecific: true,
     };
   }
