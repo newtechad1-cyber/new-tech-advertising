@@ -162,3 +162,44 @@ body.mobile-nav-open #nta-guide-container,
 body.mobile-nav-open .nta-guide-widget {
   display: none !important;
 }
+
+/*
+ * Keep decorative glows, wide media, and transformed elements from making
+ * a phone page slide sideways. This must live in index.css because it is
+ * the stylesheet loaded by the app; globals.css is not part of the bundle.
+ */
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+}
+
+html {
+  background: #020617;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  min-width: 0;
+  min-height: 100vh;
+  background: #020617;
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
+}
+
+#root {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+img,
+picture,
+video,
+canvas,
+svg,
+iframe {
+  max-width: 100%;
+}
