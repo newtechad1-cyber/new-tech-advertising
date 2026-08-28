@@ -227,34 +227,19 @@ export default function RegionalAccountManager() {
     setError('');
 
     try {
-      const response = await base44.functions.invoke('ntaUnifiedIntake', {
-        submission_type: 'contact',
-        offer_type: 'consultation',
-        mapping_confidence: 'hardcoded',
-        mapping_notes: 'NTA Account Manager opportunity inquiry.',
-        source_system: 'website',
-        source_page: campaign.path,
-        source_campaign: 'regional_account_manager',
-        name: form.full_name,
-        business_name: 'NTA Account Manager Opportunity',
+      const response = await base44.functions.invoke('submitRecruitingApplication', {
+        full_name: form.full_name,
         email: form.email,
         phone: form.phone,
         city: form.city,
-        notes: [
-          'NTA Account Manager opportunity inquiry.',
-          `Territory: ${TERRITORY}`,
-          form.current_role ? `Current role/background: ${form.current_role}` : '',
-          form.business_relationships ? `Business and community relationships: ${form.business_relationships}` : '',
-          form.interest_reason ? `Why this opportunity: ${form.interest_reason}` : '',
-          campaign.source ? `Campaign source: ${campaign.source}` : '',
-          campaign.medium ? `Campaign medium: ${campaign.medium}` : '',
-          campaign.name ? `Campaign: ${campaign.name}` : '',
-        ].filter(Boolean).join('\n'),
-        detected_route: campaign.path,
-        detected_component: 'RegionalAccountManager',
-        priority: 'high',
-        is_high_intent: true,
-        skip_webhook: true,
+        territory: TERRITORY,
+        current_role: form.current_role,
+        business_relationships: form.business_relationships,
+        interest_reason: form.interest_reason,
+        campaign_source: campaign.source,
+        campaign_medium: campaign.medium,
+        campaign_name: campaign.name,
+        landing_path: campaign.path,
         anti_spam: {
           honeypot: form.website,
           form_started_at: formStartedAt,
@@ -266,16 +251,7 @@ export default function RegionalAccountManager() {
         throw new Error(data.error);
       }
 
-      const emailStatus = String(data?.email_status || 'unknown');
-      const emailRequestStatus = emailStatus === 'sent'
-        ? 'accepted'
-        : ['failed', 'not_configured', 'disabled'].includes(emailStatus)
-          ? 'failed'
-          : 'unknown';
-      setEmailDelivery({
-        internal: emailRequestStatus,
-        applicant: emailRequestStatus,
-      });
+      setEmailDelivery(data?.email_delivery || null);
 
       trackJourneyEvent('regional_account_manager_form_submitted', {
         route: '/regional-account-manager',
@@ -666,25 +642,13 @@ export default function RegionalAccountManager() {
             {submitted ? (
               <div className="mt-10 rounded-3xl border border-emerald-400/30 bg-emerald-400/10 p-8 text-center">
                 <CheckCircle2 className="mx-auto h-12 w-12 text-emerald-300" />
-                <h3 className="mt-5 text-2xl font-bold text-white">Conversation started.</h3>
+                <h3 className="mt-5 text-2xl font-bold text-white">Thanks, {form.full_name.split(/\s+/)[0] || 'there'}. I’ve got it.</h3>
                 <p className="mx-auto mt-3 max-w-xl leading-relaxed text-slate-300">
-                  Thank you for reaching out. Rick or the NTA team will review your note and follow up about a private conversation.
+                  I’ll read what you shared personally. If it looks like there may be a fit, I’ll follow up and we’ll continue the conversation from there.
                 </p>
-                {emailDelivery?.applicant === 'accepted' && (
-                  <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-slate-400">
-                    We also asked our email service to send a confirmation to {form.email}. If you do not see it shortly, check Spam or Junk before reaching out.
-                  </p>
-                )}
-                {emailDelivery?.applicant === 'failed' && (
-                  <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-amber-200">
-                    We received your inquiry, but the confirmation email could not be requested. Your information is safely in the NTA recruiting inbox.
-                  </p>
-                )}
-                {(!emailDelivery || emailDelivery?.applicant === 'unknown') && (
-                  <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-slate-400">
-                    Your inquiry is safely in the NTA recruiting inbox. A confirmation email is also being checked.
-                  </p>
-                )}
+                <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-slate-400">
+                  There’s nothing else you need to fill out right now. Keep exploring NTA if you’d like, and watch for a note from me.
+                </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="mt-10 rounded-3xl border border-slate-700 bg-slate-900/75 p-6 shadow-2xl md:p-8">
