@@ -19,7 +19,7 @@ const HOMEPAGE_FAQS = [
   },
   {
     question: 'What happens when I work with NTA?',
-    answer: 'NTA starts by understanding your business, your goals, and what is getting in the way. We then help identify the next priority, create a practical Growth Roadmap when useful, connect the right systems, and improve the work over time. Scope, price, and the next step are explained before paid work begins.',
+    answer: 'NTA starts by understanding your business, your goals, and what is getting in the way. With the owner’s permission, that includes learning from the employees who know the customers and everyday work. We help the owner teach the team to use AI, capture what people know, connect the right systems, and improve the work over time. Scope, price, and the next step are explained before paid work begins.',
   },
   {
     question: 'What is Free AI Education?',
@@ -147,7 +147,7 @@ export default function Home() {
                 From education to action
               </div>
               <h2 className="text-3xl md:text-5xl font-bold text-white mb-5">When you are ready to apply what you learn, NTA can help.</h2>
-              <p className="text-lg md:text-xl text-slate-300 leading-relaxed">Free AI Education helps you understand the possibilities. The NTA Digital Growth Office™ helps connect the parts of your business so your website, customer relationships, knowledge, everyday work, and practical AI support move in the same direction.</p>
+              <p className="text-lg md:text-xl text-slate-300 leading-relaxed">Free AI Education helps you understand the possibilities. The NTA Digital Growth Office™ helps the owner involve the team, capture what employees know, and connect the website, customer relationships, everyday work, and practical AI support in one direction.</p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6 mb-10">
@@ -198,8 +198,8 @@ export default function Home() {
 
             <div className="grid gap-4 md:grid-cols-5">
               {[
-                ['01', 'Discover', 'Understand the business and visible gaps.'],
-                ['02', 'Discuss', 'Talk through priorities and possibilities.'],
+                ['01', 'Discover', 'Learn from the owner and, with permission, the people doing the work.'],
+                ['02', 'Involve', 'Help the owner bring the team into practical AI learning.'],
                 ['03', 'Plan', 'Create the next useful order of work.'],
                 ['04', 'Build', 'Connect the foundation and practical systems.'],
                 ['05', 'Improve', 'Review what is happening and keep moving forward.'],
