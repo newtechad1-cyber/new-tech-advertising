@@ -306,14 +306,223 @@ function regionalAccountManagerStaticBody() {
   </main>`;
 }
 
+const OPPORTUNITY_PAGE_DATA = {
+  "/account-manager": {
+    learning: {
+      name: "NTA Account Manager Learning Path",
+      description: "Free practical AI education and guided business-conversation resources for people building relationship-based client work with NTA.",
+    },
+    faqs: [
+      {
+        question: "Do I need to buy a course, training, or system to begin?",
+        answer: "No. NTA's Knowledge Library, videos, Free AI Guy, and Your Digital Growth Guide are free to explore. You bring curiosity and honest effort.",
+      },
+      {
+        question: "Do I need to be an AI, advertising, or marketing expert?",
+        answer: "No. NTA provides learning resources and support behind the conversation. The work begins with listening well and helping a business owner find a useful next step.",
+      },
+      {
+        question: "Can I build residual income with NTA?",
+        answer: "The goal is to build active client relationships over time. Under a written NTA agreement, ongoing residual compensation can apply while clients you introduced remain active. Earnings are performance-based and not guaranteed.",
+      },
+      {
+        question: "Who can explore this opportunity?",
+        answer: "It can fit curious people at different stages of life, including working professionals and retired or semi-retired people with strong business relationships.",
+      },
+    ],
+  },
+  "/community-partner": {
+    learning: {
+      name: "NTA Community Partner Learning Path",
+      description: "Free practical AI education for trusted people, Chambers, and organizations helping local business owners understand technology and digital growth.",
+    },
+    faqs: [
+      {
+        question: "Does a Community Partner have to buy a program or a course?",
+        answer: "No. NTA gives people a place to learn first through free practical AI resources. A partner is not asked to pressure people into a purchase.",
+      },
+      {
+        question: "How does a Community Partner earn income?",
+        answer: "The work is relationship-based. Under a written NTA agreement, a partner can be compensated for eligible client relationships they help introduce. Compensation is performance-based and not guaranteed.",
+      },
+      {
+        question: "Can a representative and an organization participate together?",
+        answer: "Yes. When a person represents a Chamber or other organization, the written NTA agreement can provide for both the representative and the organization to participate in eligible compensation.",
+      },
+      {
+        question: "Does this only fit a Chamber of Commerce?",
+        answer: "No. It can be explored by trusted people, professional groups, associations, local organizations, and community-minded business connectors.",
+      },
+    ],
+  },
+  "/community-growth-conversation": {
+    learning: {
+      name: "Community Growth Conversation",
+      description: "A guided conversation for trusted people and organizations exploring how free practical AI education can help local business owners learn.",
+    },
+    faqs: [],
+  },
+};
+
+function opportunityDataForPath(pathname) {
+  if (pathname === "/regional-account-manager") {
+    return OPPORTUNITY_PAGE_DATA["/account-manager"];
+  }
+
+  return OPPORTUNITY_PAGE_DATA[pathname] || null;
+}
+
+function accountManagerStaticBody() {
+  return [
+    '<main data-prerendered="true" class="seo-shell">',
+    '  <article>',
+    '    <p class="seo-kicker">Free AI Education &bull; NTA Account Manager Opportunity</p>',
+    '    <h1>Learn practical AI. Help business owners understand it. Build relationship-based residual income.</h1>',
+    '    <p>NTA is for curious people who enjoy talking with business owners and want a better way to learn than buying another course. The Knowledge Library, Free AI Guy, videos, and Your Digital Growth Guide&trade; are free to explore.</p>',
+    '    <h2>Start the conversation, not the sales pitch</h2>',
+    '    <p>You do not need to arrive as the expert. Listen to what a business owner is trying to accomplish, use NTA&rsquo;s resources to learn together, and help bring the right next conversation forward.</p>',
+    '    <h2>What you are building toward</h2>',
+    '    <p>This is relationship-based work. Under a written NTA agreement, ongoing residual compensation can apply while clients you introduce remain active. It is performance-based work, and earnings are not guaranteed.</p>',
+    '    <h2>Who it can fit</h2>',
+    '    <p>It can fit people at different stages of life, including working professionals and retired or semi-retired people who have real business relationships and want to keep learning.</p>',
+    '    <h2>Questions people ask</h2>',
+    '    <p><strong>Do I have to buy training?</strong> No. The practical-AI learning resources are free.</p>',
+    '    <p><strong>Do I need to be an AI expert?</strong> No. NTA supplies the learning and support behind the conversation.</p>',
+    '    <p><strong>Can I build residual income?</strong> Under the written agreement, it can apply to active client relationships you introduced. It is not guaranteed.</p>',
+    '    <p><a href="/account-manager#start-conversation">Start a private opportunity conversation</a></p>',
+    '    <nav aria-label="Related NTA resources">',
+    '      <a href="/knowledge">Knowledge Library</a>',
+    '      <a href="/growth-guide">Your Digital Growth Guide&trade;</a>',
+    '      <a href="/growth-show">NTA Growth Show</a>',
+    '      <a href="/community-partner">Community Partner opportunity</a>',
+    '    </nav>',
+    '  </article>',
+    '</main>',
+  ].join("\n");
+}
+
+function communityPartnerStaticBody() {
+  return [
+    '<main data-prerendered="true" class="seo-shell">',
+    '  <article>',
+    '    <p class="seo-kicker">Free AI Education &bull; NTA Community Partner Opportunity</p>',
+    '    <h1>Help your community learn practical AI &mdash; and build relationship-based income together.</h1>',
+    '    <p>New Tech Advertising helps trusted people, Chambers, and organizations give local business owners a place to understand AI, technology, and digital growth without a hard sell. The knowledge is free to explore.</p>',
+    '    <h2>Give away the understanding first</h2>',
+    '    <p>There is no course to buy, script to memorize, or decision required before people learn what they are looking at. NTA was built as a different answer to the shiny-object programs that leave people alone after the sale.</p>',
+    '    <h2>Build value for yourself and your organization</h2>',
+    '    <p>When a representative brings an organization to NTA, the relationship can build value for both the representative and the organization. Under a written NTA agreement, both can participate in eligible compensation. It is performance-based and not guaranteed.</p>',
+    '    <h2>Who can help</h2>',
+    '    <p>Chambers, associations, professional groups, trusted connectors, and community-minded people can begin with the relationships they already have.</p>',
+    '    <p><a href="/community-partner#start-conversation">Start a community partnership conversation</a></p>',
+    '    <nav aria-label="Related NTA resources">',
+    '      <a href="/community-growth-conversation">Community Growth Conversation</a>',
+    '      <a href="/knowledge">Knowledge Library</a>',
+    '      <a href="/growth-guide">Your Digital Growth Guide&trade;</a>',
+    '      <a href="/account-manager">Account Manager opportunity</a>',
+    '    </nav>',
+    '  </article>',
+    '</main>',
+  ].join("\n");
+}
+
+function communityGrowthConversationStaticBody() {
+  return [
+    '<main data-prerendered="true" class="seo-shell">',
+    '  <article>',
+    '    <p class="seo-kicker">Free AI Education &bull; Community Growth Conversation</p>',
+    '    <h1>See how free practical-AI learning can strengthen local business relationships.</h1>',
+    '    <p>This guided NTA conversation helps trusted people, Chambers, and organizations explore how they can help local business owners understand AI, technology, and digital growth without a hard sell.</p>',
+    '    <h2>Explore before you commit</h2>',
+    '    <p>The purpose is understanding, not pressure. Use the conversation to see what local owners are trying, where they are stuck, and what free NTA learning resources could help.</p>',
+    '    <h2>Build community value together</h2>',
+    '    <p>When the partnership is a fit, NTA can help a representative and their organization build relationships around useful education. Any compensation is governed by a written NTA agreement and is performance-based.</p>',
+    '    <p><a href="/community-partner#start-conversation">Talk with NTA about a community partnership</a></p>',
+    '    <nav aria-label="Related NTA resources">',
+    '      <a href="/community-partner">Community Partner opportunity</a>',
+    '      <a href="/knowledge">Knowledge Library</a>',
+    '      <a href="/account-manager">Account Manager opportunity</a>',
+    '    </nav>',
+    '  </article>',
+    '</main>',
+  ].join("\n");
+}
+
+function opportunityStaticBody(pathname) {
+  if (pathname === "/account-manager" || pathname === "/regional-account-manager") {
+    return accountManagerStaticBody();
+  }
+
+  if (pathname === "/community-partner") {
+    return communityPartnerStaticBody();
+  }
+
+  if (pathname === "/community-growth-conversation") {
+    return communityGrowthConversationStaticBody();
+  }
+
+  return "";
+}
+
+function opportunitySchemaMarkup(pathname, metadata) {
+  const opportunity = opportunityDataForPath(pathname);
+  if (!opportunity) return "";
+
+  const canonical = metadata.canonical;
+  const schemas = [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": canonical + "#webpage",
+      "url": canonical,
+      "name": metadata.title,
+      "description": metadata.description,
+      "isPartOf": { "@id": SITE_ORIGIN + "/#website" },
+      "publisher": { "@id": SITE_ORIGIN + "/#organization" },
+      "inLanguage": "en-US",
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "LearningResource",
+      "@id": canonical + "#learning-resource",
+      "name": opportunity.learning.name,
+      "description": opportunity.learning.description,
+      "url": canonical,
+      "learningResourceType": "Guided learning",
+      "educationalLevel": "Beginner",
+      "isAccessibleForFree": true,
+      "inLanguage": "en-US",
+      "provider": { "@id": SITE_ORIGIN + "/#organization" },
+    },
+  ];
+
+  if (opportunity.faqs.length) {
+    schemas.push({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": opportunity.faqs.map((faq) => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer,
+        },
+      })),
+    });
+  }
+
+  return schemas
+    .map((schema) => '<script type="application/ld+json">' + JSON.stringify(schema).replace(/</g, "\\u003c") + '</script>')
+    .join("\n");
+}
+
 function shellMarkup(metadata, pathname) {
   const title = escapeHtml(metadata.title);
   const description = escapeHtml(metadata.description);
   const canonical = escapeHtml(metadata.canonical);
   const heading = escapeHtml(metadata.title.replace(/\s+\|\s+.*$/, ""));
-  const body = pathname === "/regional-account-manager"
-    ? regionalAccountManagerStaticBody()
-    : `<main data-prerendered="true" class="seo-shell">
+  const body = opportunityStaticBody(pathname)
+    || `<main data-prerendered="true" class="seo-shell">
     <article>
       <p class="seo-kicker">New Tech Advertising</p>
       <h1>${heading}</h1>
@@ -352,15 +561,15 @@ function renderHtml(template, metadata, pathname) {
   html = html.replace(/<meta name="robots"[^>]*>/i, "");
   html = html.replace(/<link rel="canonical"[^>]*>/i, '<link rel="canonical" href="' + shell.canonical + '" />');
   const criticalStyles = `<style id="seo-shell-critical">
-    body:has(#root > .seo-shell) { margin: 0; min-width: 320px; background: #f8fafc; }
+    body:has(#root > .seo-shell) { margin: 0; min-width: 320px; background: #020617; }
     #root:has(> .seo-shell) { min-height: 100vh; }
-    .seo-shell { box-sizing: border-box; min-height: 100vh; padding: clamp(1rem, 6vw, 4rem) 1.25rem; display: flex; justify-content: center; background: linear-gradient(180deg, #f8fafc 0%, #eff6ff 100%); color: #0f172a; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    .seo-shell article { box-sizing: border-box; width: min(100%, 760px); padding: clamp(1.25rem, 4vw, 3rem); border: 1px solid #dbeafe; border-top: 4px solid #2563eb; border-radius: 1.5rem; background: #ffffff; box-shadow: 0 20px 50px rgb(15 23 42 / 0.08); }
-    .seo-kicker { margin: 0 0 0.75rem; color: #1d4ed8; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
-    .seo-shell h1 { margin: 0; color: #0f172a; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.08; letter-spacing: -0.03em; }
-    .seo-shell h2 { margin: 2rem 0 0.5rem; color: #1e293b; font-size: 1.25rem; line-height: 1.2; }
-    .seo-shell p { margin: 0.85rem 0; color: #475569; font-size: 1rem; line-height: 1.7; }
-    .seo-shell a { color: #1d4ed8; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+    .seo-shell { box-sizing: border-box; min-height: 100vh; padding: clamp(1rem, 6vw, 4rem) 1.25rem; display: flex; justify-content: center; background: radial-gradient(ellipse at top right, rgb(37 99 235 / 0.25), transparent 52%), linear-gradient(135deg, #0f172a, #020617); color: #e2e8f0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .seo-shell article { box-sizing: border-box; width: min(100%, 760px); padding: clamp(1.25rem, 4vw, 3rem); border: 1px solid rgb(103 232 249 / 0.2); border-top: 4px solid #22d3ee; border-radius: 1.5rem; background: rgb(15 23 42 / 0.94); box-shadow: 0 20px 50px rgb(2 6 23 / 0.45); }
+    .seo-kicker { margin: 0 0 0.75rem; color: #67e8f9; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+    .seo-shell h1 { margin: 0; color: #f8fafc; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.08; letter-spacing: -0.03em; }
+    .seo-shell h2 { margin: 2rem 0 0.5rem; color: #f1f5f9; font-size: 1.25rem; line-height: 1.2; }
+    .seo-shell p { margin: 0.85rem 0; color: #cbd5e1; font-size: 1rem; line-height: 1.7; }
+    .seo-shell a { color: #67e8f9; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
     .seo-shell nav { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; margin-top: 0.75rem; }
     .seo-shell nav a { font-size: 0.95rem; }
     @media (max-width: 640px) {
@@ -368,7 +577,7 @@ function renderHtml(template, metadata, pathname) {
       .seo-shell article { border-radius: 1rem; }
     }
   </style>`;
-  html = html.replace("</head>", criticalStyles + '<meta name="robots" content="' + shell.robots + '" />\n    <meta property="og:title" content="' + shell.title + '" />\n    <meta property="og:description" content="' + shell.description + '" />\n    <meta property="og:url" content="' + shell.canonical + '" />\n  </head>');
+  html = html.replace("</head>", criticalStyles + opportunitySchemaMarkup(pathname, metadata) + '<meta name="robots" content="' + shell.robots + '" />\n    <meta property="og:title" content="' + shell.title + '" />\n    <meta property="og:description" content="' + shell.description + '" />\n    <meta property="og:url" content="' + shell.canonical + '" />\n  </head>');
   html = html.replace('<div id="root"></div>', '<div id="root">' + shell.body + '</div>');
   return html;
 }
