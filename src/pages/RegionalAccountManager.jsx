@@ -444,6 +444,33 @@ export default function RegionalAccountManager() {
 
         <section className="border-y border-blue-100 bg-blue-50/70 px-6 py-20 md:py-24">
           <div className="mx-auto max-w-6xl">
+            <SectionHeading eyebrow="A team-building role" title="Help businesses build AI with the whole team.">
+              <p>
+                The relationship is with the business—not only with the owner. With the owner’s permission, you help people throughout the company learn, contribute what they know, and make AI useful in everyday work.
+              </p>
+            </SectionHeading>
+            <div className="mx-auto mt-12 grid max-w-5xl gap-5 md:grid-cols-3">
+              <div className="rounded-2xl border border-blue-100 bg-white p-6 shadow-sm">
+                <Handshake className="h-7 w-7 text-blue-600" />
+                <h3 className="mt-5 text-xl font-bold text-slate-900">Build trust across the company</h3>
+                <p className="mt-3 leading-relaxed text-slate-600">With permission, get to know the receptionist or gatekeeper, office staff, technicians, managers, salespeople, and others who understand how the work really happens.</p>
+              </div>
+              <div className="rounded-2xl border border-blue-100 bg-white p-6 shadow-sm">
+                <UsersRound className="h-7 w-7 text-blue-600" />
+                <h3 className="mt-5 text-xl font-bold text-slate-900">Bring the team into the learning</h3>
+                <p className="mt-3 leading-relaxed text-slate-600">Help the owner teach the team practical ways AI can help with the work they already do. You are not expected to arrive with every answer.</p>
+              </div>
+              <div className="rounded-2xl border border-blue-100 bg-white p-6 shadow-sm">
+                <BookOpen className="h-7 w-7 text-blue-600" />
+                <h3 className="mt-5 text-xl font-bold text-slate-900">Put the company’s knowledge to work</h3>
+                <p className="mt-3 leading-relaxed text-slate-600">Customer questions, procedures, stories, photos, voice notes, and lessons learned can become useful knowledge the whole company can use.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-y border-blue-100 bg-blue-50/70 px-6 py-20 md:py-24">
+          <div className="mx-auto max-w-6xl">
             <SectionHeading eyebrow="Your starting point" title="Build your own market. Start with people you can genuinely talk with.">
               <p>
                 NTA is rooted in Mason City, Iowa, but this opportunity is national. You can work remotely from anywhere in the United States, build in your own community, focus on an industry you understand, or begin with the business relationships you already have.
