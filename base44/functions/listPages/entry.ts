@@ -1,3 +1,5 @@
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
+
 // Explicit public page discovery manifest.
 // Do not scan ./src/pages: that directory contains implementation files
 // that must not become public route inventory merely because they exist.
@@ -749,7 +751,25 @@ const PUBLIC_ROUTE_METADATA = [
   }
 ];
 
-Deno.serve(async () => Response.json({
-  files: PUBLIC_PAGE_FILES,
-  routes: PUBLIC_ROUTE_METADATA
-}));
+Deno.serve(async (req) => {
+  try {
+    const base44 = createClientFromRequest(req);
+    const user = await base44.auth.me();
+
+    if (!user) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const isAdmin = user.role === 'admin' || user.email === 'info@newtechadvertising.com';
+    if (!isAdmin) {
+      return Response.json({ error: 'Forbidden' }, { status: 403 });
+    }
+
+    return Response.json({
+      files: PUBLIC_PAGE_FILES,
+      routes: PUBLIC_ROUTE_METADATA
+    });
+  } catch {
+    return Response.json({ error: 'Internal server error' }, { status: 500 });
+  }
+});
