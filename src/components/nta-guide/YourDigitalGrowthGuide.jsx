@@ -913,6 +913,7 @@ export default function YourDigitalGrowthGuide() {
                     <video
                       ref={guideWelcomeVideoRef}
                       src={RICK_WELCOME_VIDEO_URL}
+                      poster={GUIDE_POSTER_URL}
                       preload="metadata"
                       playsInline
                       aria-label="Rick Hesse animated welcome"
