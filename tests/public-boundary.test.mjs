@@ -8,6 +8,7 @@ test('public router is fail-closed and does not import private page registries',
   const app = await read('src/App.jsx');
   const registry = await read('src/pages.config.js');
   const discovery = await read('base44/functions/listPages/entry.ts');
+  const clientDeals = await read('base44/functions/getClientDeals/entry.ts');
 
   assert.match(app, /const PublicPages = Pages;/);
   assert.match(app, /LegacyPrivateRouteRedirect/);
@@ -17,6 +18,14 @@ test('public router is fail-closed and does not import private page registries',
   assert.doesNotMatch(registry, /SchoolStudentDashboard|SchoolStudentProfile|SchoolStudentUpload/);
   assert.match(discovery, /PUBLIC_PAGE_FILES/);
   assert.doesNotMatch(discovery, /Deno\.readDir/);
+  assert.match(discovery, /createClientFromRequest\(req\)/);
+  assert.match(discovery, /base44\.auth\.me\(\)/);
+  assert.match(discovery, /status: 401/);
+  assert.match(discovery, /status: 403/);
+
+  assert.match(clientDeals, /base44\.auth\.me\(\)/);
+  assert.match(clientDeals, /company_id: user\.client_id/);
+  assert.doesNotMatch(clientDeals, /Admin access required/);
 });
 
 test('public compatibility aliases cover legacy links without exposing private prefixes', async () => {
