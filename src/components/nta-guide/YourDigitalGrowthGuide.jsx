@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useDragControls } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import { appParams } from '@/lib/app-params';
-import { X, Send, Loader2, AlertCircle, Zap, ChevronRight, Brain, Mic, MicOff, RotateCcw, Phone, MessageSquare, Volume2, VolumeX } from 'lucide-react';
+import { X, Send, Loader2, AlertCircle, Zap, ChevronRight, Brain, Mic, MicOff, RotateCcw, Phone, MessageSquare, Mail, Volume2, VolumeX } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import RickGrowthGuideAvatar from "./RickGrowthGuideAvatar";
 
@@ -31,10 +31,10 @@ import {
   buildPublicKnowledgeFallback
 } from '@/lib/growth-guide/publicKnowledge';
 
-const GUIDE_POSTER_URL = '/brand/rick-animated-digital-growth-guide.webp';
+const RICK_WELCOME_VIDEO_URL = 'https://resource2.heygen.ai/aws_pacific/avatar_tmp/2b9c0382ad664e3990529d134833aa24/377fbc146ee193dd88f63e03cdea7abd.webm';
 const RICK_WELCOME_TEXT = `Hi, I’m Rick Hesse, founder of New Tech Advertising. I built this place to help business owners make sense of technology, marketing, and AI without making it complicated. You don’t need to have all the answers before you begin. Take a look around, ask Your Digital Growth Guide a question, or tell me what is going on in your business. We can start with a practical next step. Whenever you want to talk, call, text, or email me—whichever way works best for you.`;
 const WELCOME_SEEN_KEY = 'nta_rick_welcome_seen';
-const RICK_WELCOME_VIDEO_URL = '/brand/rick-digital-growth-guide-welcome.webm';
+const RICK_EMAIL = 'info@newtechadvertising.com';
 
 const FunctionDisplay = ({ toolCall }) => {
     const [expanded, setExpanded] = useState(false);
@@ -112,7 +112,7 @@ const MessageBubble = ({ message, onSpeak, isSpeaking }) => {
         <div className={cn("flex gap-3", isUser ? "justify-end" : "justify-start")}>
             {!isUser && (
                 <div className="h-8 w-8 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm overflow-hidden">
-                    <img src={GUIDE_POSTER_URL} alt="Your Digital Growth Guide" className="w-7 h-7 object-cover object-[center_16%]" />
+                    <video src={RICK_WELCOME_VIDEO_URL} muted autoPlay loop playsInline aria-hidden="true" className="h-7 w-7 object-cover object-center" />
                 </div>
             )}
             <div className={cn("max-w-[85%]", isUser && "flex flex-col items-end")}>
@@ -828,24 +828,24 @@ export default function YourDigitalGrowthGuide() {
             id="nta-guide-container"
             className="fixed bottom-8 right-6 z-50 flex flex-col items-end"
           >
-            <div className="flex items-center gap-3">
-                <div className="hidden sm:block bg-slate-900/95 backdrop-blur-sm border border-slate-700/50 shadow-lg px-4 py-2 rounded-2xl pointer-events-none">
-                    <p className="text-xs font-medium text-slate-200 flex items-center gap-2">
-                        <img src={GUIDE_POSTER_URL} alt="" className="w-7 h-7 rounded-full object-cover object-[center_16%]" />
-                        Talk to My Office™
-                    </p>
-                </div>
-                <button
-                  onClick={() => setIsOpen(true)}
-                  className="h-32 w-24 sm:h-40 sm:w-28 rounded-2xl shadow-2xl flex items-end justify-center hover:scale-105 transition-transform overflow-hidden border border-blue-300/30 bg-slate-900/90 cursor-grab active:cursor-grabbing"
-                >
-                  <img
-                    src={GUIDE_POSTER_URL}
-                    alt=""
-                    aria-hidden="true"
-                    className="h-full w-full object-contain object-bottom pointer-events-none"
-                  />
-                </button>
+            <div className="flex flex-col items-end">
+              <span className="mb-1 pr-2 text-xs font-semibold tracking-wide text-slate-100 drop-shadow-[0_2px_3px_rgba(0,0,0,0.95)]">Talk to My Office™</span>
+              <button
+                type="button"
+                onClick={() => setIsOpen(true)}
+                aria-label="Open Talk to My Office"
+                className="h-56 w-40 sm:h-72 sm:w-52 overflow-visible bg-transparent text-left transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 cursor-grab active:cursor-grabbing"
+              >
+                <video
+                  src={RICK_WELCOME_VIDEO_URL}
+                  muted
+                  autoPlay
+                  loop
+                  playsInline
+                  aria-hidden="true"
+                  className="h-full w-full object-cover object-center drop-shadow-[0_18px_22px_rgba(0,0,0,0.48)] pointer-events-none"
+                />
+              </button>
             </div>
           </motion.div>
         )}
@@ -913,7 +913,6 @@ export default function YourDigitalGrowthGuide() {
                     <video
                       ref={guideWelcomeVideoRef}
                       src={RICK_WELCOME_VIDEO_URL}
-                      poster={GUIDE_POSTER_URL}
                       preload="metadata"
                       playsInline
                       aria-label="Rick Hesse animated welcome"
@@ -967,6 +966,14 @@ export default function YourDigitalGrowthGuide() {
                     <MessageSquare className="w-3.5 h-3.5" />
                     Text Rick
                   </button>
+                  <a
+                    href={`mailto:${RICK_EMAIL}`}
+                    onClick={() => playAvatarMotion('next_step', 4000)}
+                    className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-slate-700 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-slate-600"
+                  >
+                    <Mail className="w-3.5 h-3.5" />
+                    Email Rick
+                  </a>
                 </div>
               </div>
               <AnimatePresence>
