@@ -12,7 +12,7 @@ import {
   ShieldCheck,
   UsersRound,
 } from 'lucide-react';
-import { base44 } from '@/api/base44Client';
+import { createClient } from '@base44/sdk';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
@@ -22,6 +22,8 @@ const TERRITORY = 'United States — build your own market';
 const RECRUITING_PLAYLIST_ID = 'PLbPNsoazKwmw';
 const RECRUITING_PLAYLIST_URL = `https://www.youtube.com/playlist?list=${RECRUITING_PLAYLIST_ID}`;
 const RECRUITING_OVERVIEW_ID = 'Ka4nUG4wiGI';
+const NTA_CORE_APP_ID = '6a7215451eb90dc843a94546';
+const recruitingIntake = createClient({ appId: NTA_CORE_APP_ID });
 
 const RECRUITING_VIDEOS = [
   {
@@ -229,7 +231,7 @@ export default function RegionalAccountManager() {
     setError('');
 
     try {
-      const response = await base44.functions.invoke('submitRecruitingApplication', {
+      const response = await recruitingIntake.functions.invoke('submitRecruitingApplication', {
         full_name: form.full_name,
         email: form.email,
         phone: form.phone,
