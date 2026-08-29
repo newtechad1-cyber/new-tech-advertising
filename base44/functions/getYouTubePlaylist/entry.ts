@@ -1,3 +1,5 @@
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
+
 const PLAYLIST_ID = Deno.env.get('YOUTUBE_PLAYLIST_ID') || 'UUdGaYoTxcO-W6wuC3iDqFDg';
 const CACHE_TTL_MS = 15 * 60 * 1000;
 const REQUEST_WINDOW_MS = 10 * 60 * 1000;
@@ -109,8 +111,14 @@ Deno.serve(async (req) => {
     return Response.json({ error: 'POST required' }, { status: 405 });
   }
 
-  if (!isTrustedPublicOrigin(req)) {
-    return Response.json({ error: 'Untrusted request origin' }, { status: 403 });
+  const base44 = createClientFromRequest(req);
+  const authUser = await base44.auth.me().catch(() => null);
+
+  // Signed-in callers are identified by Base44. Anonymous callers are allowed
+  // only from the public NTA properties because this endpoint returns public
+  // YouTube metadata used by the Learning Center.
+  if (!authUser && !isTrustedPublicOrigin(req)) {
+    return Response.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   const retryAfterSeconds = isRateLimited(req);
