@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-const POSTER_URL = '/brand/rick-animated-digital-growth-guide.webp';
+const RICK_WELCOME_VIDEO_URL = 'https://resource2.heygen.ai/aws_pacific/avatar_tmp/2b9c0382ad664e3990529d134833aa24/377fbc146ee193dd88f63e03cdea7abd.webm';
 
 export default function RickGrowthGuideAvatar({
   guideMotion = 'idle',
@@ -24,12 +24,15 @@ export default function RickGrowthGuideAvatar({
       aria-hidden={decorative || undefined}
     >
       {!decorative && <span className="sr-only">{label}</span>}
-      <motion.img
-        src={POSTER_URL}
-        alt=""
+      <motion.video
+        src={RICK_WELCOME_VIDEO_URL}
+        muted
+        autoPlay
+        loop
+        playsInline
         aria-hidden="true"
         animate={motionByState[guideMotion] || motionByState.idle}
-        className="h-full w-full object-contain object-bottom drop-shadow-[0_14px_18px_rgba(0,0,0,0.38)]"
+        className="h-full w-full object-cover object-center drop-shadow-[0_14px_18px_rgba(0,0,0,0.38)]"
       />
     </div>
   );
