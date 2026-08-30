@@ -115,17 +115,17 @@ const MessageBubble = ({ message, onSpeak, isSpeaking }) => {
                     <span className="text-[10px] font-bold tracking-tight text-white">RH</span>
                 </div>
             )}
-            <div className={cn("max-w-[85%]", isUser && "flex flex-col items-end")}>
+            <div className={cn("max-w-[min(92%,58rem)]", isUser && "flex flex-col items-end")}>
                 {displayContent && (
                     <div className={cn(
-                        "rounded-2xl px-4 py-3 shadow-sm text-sm",
+                        "rounded-2xl px-4 py-3 shadow-sm text-base leading-relaxed",
                         isUser ? "bg-blue-600 text-white" : "bg-slate-800 border border-slate-700 text-slate-200"
                     )}>
                         {isUser ? (
                             <p className="leading-relaxed">{displayContent}</p>
                         ) : (
                             <ReactMarkdown 
-                                className="prose prose-sm max-w-none prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5 text-slate-200 prose-a:text-blue-400 hover:prose-a:text-blue-300 prose-strong:text-white"
+                                className="prose prose-base max-w-none prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5 text-slate-200 prose-a:text-blue-400 hover:prose-a:text-blue-300 prose-strong:text-white"
                                 components={{
                                     a: ({ children, ...props }) => (
                                         <a {...props} className="font-medium underline decoration-blue-500/30 underline-offset-2" target="_blank" rel="noopener noreferrer">{children}</a>
@@ -259,8 +259,12 @@ export default function YourDigitalGrowthGuide() {
   const stopGuideVoice = () => {
     const welcomeVideo = guideWelcomeVideoRef.current;
     if (welcomeVideo) {
+      welcomeVideo.onended = null;
+      welcomeVideo.onerror = null;
+      welcomeVideo.loop = false;
       welcomeVideo.pause();
       welcomeVideo.currentTime = 0;
+      welcomeVideo.muted = true;
     }
     const audio = guideAudioRef.current;
     if (audio) {
@@ -290,14 +294,18 @@ export default function YourDigitalGrowthGuide() {
 
     setVoicePlaybackError('');
     try {
-      // Play one locally hosted media stream. The former setup made the browser
-      // download and decode this large WebM twice—once for the picture and again
-      // as audio—which led to intermittent voice break-up.
+      // This is the only stream that is allowed to play the spoken welcome.
+      // Explicitly disabling loop and leaving the stream at its final frame
+      // prevents a completed welcome from restarting in browsers that retain
+      // media state while the Guide is open.
       video.pause();
-      video.muted = false;
+      video.loop = false;
+      video.autoplay = false;
+      video.removeAttribute('loop');
       video.currentTime = 0;
+      video.muted = false;
       video.onended = () => {
-        video.currentTime = 0;
+        video.pause();
         video.muted = true;
         setIsRickWelcomePlaying(false);
         setSpeakingMessageId(null);
@@ -887,23 +895,23 @@ export default function YourDigitalGrowthGuide() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed inset-2 sm:inset-auto sm:bottom-4 sm:right-4 z-50 sm:w-[min(680px,calc(100vw-2rem))] sm:h-[min(900px,calc(100vh-2rem))] bg-slate-950 backdrop-blur-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden border border-slate-700/50"
+            className="fixed inset-1 sm:inset-3 lg:inset-5 z-50 bg-slate-950 backdrop-blur-2xl rounded-2xl sm:rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden border border-slate-700/50"
           >
             {/* Header */}
             <div 
               onPointerDown={(e) => dragControls.start(e)}
-              className="bg-slate-900 border-b border-slate-800 p-3 sm:p-4 flex items-center justify-between shadow-sm z-10 relative overflow-hidden cursor-move touch-none"
+              className="bg-slate-900 border-b border-slate-800 p-2.5 sm:p-3 flex items-center justify-between shadow-sm z-10 relative overflow-hidden cursor-move touch-none"
             >
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 blur-[50px] rounded-full pointer-events-none" />
-              <div className="flex items-center gap-4 relative z-10">
-                <div className="w-12 h-12 sm:w-20 sm:h-16 bg-slate-950 border border-slate-700 rounded-xl flex items-center justify-center shadow-inner overflow-hidden">
+              <div className="flex items-center gap-3 relative z-10">
+                <div className="w-11 h-11 sm:w-16 sm:h-14 bg-slate-950 border border-slate-700 rounded-xl flex items-center justify-center shadow-inner overflow-hidden">
                   {isRickWelcomePlaying ? (
                     <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-cyan-700 text-sm font-bold text-white sm:h-[3.5rem] sm:w-[4.5rem]" aria-label="Rick Hesse">RH</div>
                   ) : (
                     <RickGrowthGuideAvatar
                       guideMotion={avatarMotion}
                       decorative
-                      className="w-11 h-11 sm:w-[4.5rem] sm:h-[3.5rem]"
+                      className="w-10 h-10 sm:w-16 sm:h-14"
                     />
                   )}
                 </div>
@@ -950,8 +958,10 @@ export default function YourDigitalGrowthGuide() {
                     <video
                       ref={guideWelcomeVideoRef}
                       src={RICK_WELCOME_VIDEO_URL}
-                      preload="auto"
+                      preload="metadata"
                       muted={!isRickWelcomePlaying}
+                      autoPlay={false}
+                      loop={false}
                       playsInline
                       aria-label="Rick Hesse animated welcome"
                       className="h-20 w-16 shrink-0 object-contain object-bottom"
@@ -1083,7 +1093,7 @@ export default function YourDigitalGrowthGuide() {
                     <div 
                       ref={scrollContainerRef}
                       onScroll={handleScroll}
-                      className="flex-1 overflow-y-auto p-5 space-y-5 bg-slate-950 custom-scrollbar"
+                      className="flex-1 min-h-0 overflow-y-auto p-5 sm:p-7 space-y-5 bg-slate-950 custom-scrollbar"
                     >
                       {isLoading && messages.length === 0 && (
                         <div className="flex flex-col items-center justify-center h-full text-slate-400">
@@ -1179,7 +1189,7 @@ export default function YourDigitalGrowthGuide() {
                       )}
 
                       {/* Input */}
-                      <div className="p-4 pt-2">
+                      <div className="p-3 pt-2 sm:p-4 sm:pt-2">
                           {messages.length === 1 && (
                             <p className="mb-2 text-xs text-slate-300">
                               Talk or type your question below—or choose one of the suggestions to get started.
@@ -1191,7 +1201,7 @@ export default function YourDigitalGrowthGuide() {
                                 onChange={(e) => setInput(e.target.value)}
                                 placeholder={discoveryMode ? "Answer the next audit question..." : "Ask about growth, websites, AI, trust, or your next step…"}
                                 disabled={isLoading || isTranscribing || pendingSubmission || Boolean(failedSubmission) || Boolean(pendingAIResponse)}
-                                className="w-full pr-24 pl-4 py-6 rounded-2xl border-slate-700 bg-slate-800 text-white placeholder:text-slate-400 focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:bg-slate-800 transition-all shadow-sm text-sm"
+                                className="w-full pr-24 pl-4 py-5 rounded-2xl border-slate-700 bg-slate-800 text-white placeholder:text-slate-400 focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:bg-slate-800 transition-all shadow-sm text-sm"
                             />
                             <Button
                                 type="button"
