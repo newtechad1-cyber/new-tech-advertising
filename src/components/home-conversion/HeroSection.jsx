@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ArrowRight, BookOpen, Check, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -24,6 +25,8 @@ const entrySteps = [
 ];
 
 export default function HeroSection() {
+  const [isIntroVideoLoaded, setIsIntroVideoLoaded] = useState(false);
+
   const openGrowthGuide = () => {
     window.dispatchEvent(new CustomEvent('nta:open-growth-guide', {
       detail: { source: 'homepage_hero' }
@@ -108,12 +111,18 @@ export default function HeroSection() {
             </div>
 
             <div className="relative my-7 overflow-hidden rounded-2xl border border-slate-700 bg-black shadow-xl">
+              {!isIntroVideoLoaded && (
+                <div aria-hidden="true" className="absolute inset-0 z-10 flex items-center justify-center bg-slate-950 text-xs font-medium text-slate-400">
+                  Loading the Free AI Guy…
+                </div>
+              )}
               <iframe
                 src="https://www.youtube-nocookie.com/embed/hjYvPeBcaxk?rel=0"
                 title="Meet the Free AI Guy — Practical AI Education"
                 loading="eager"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
+                onLoad={() => setIsIntroVideoLoaded(true)}
                 className="aspect-video w-full"
               />
             </div>
