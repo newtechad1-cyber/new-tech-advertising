@@ -241,6 +241,7 @@ export default function YourDigitalGrowthGuide() {
   useEffect(() => () => {
     clearTimeout(avatarMotionTimerRef.current);
     guideAudioRef.current?.pause();
+    guideWelcomeVideoRef.current?.pause();
   }, []);
 
   useEffect(() => {
@@ -942,7 +943,7 @@ export default function YourDigitalGrowthGuide() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => { cancelVoiceInput(); setIsOpen(false); }}
+                  onClick={() => { stopGuideVoice(); cancelVoiceInput(); setIsOpen(false); }}
                   aria-label="Close Talk to My Office"
                   className="text-slate-400 hover:text-white transition-colors bg-slate-800/50 p-2 rounded-full"
                 >
