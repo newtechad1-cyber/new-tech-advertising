@@ -75,7 +75,7 @@ const REGIONAL_ACCOUNT_MANAGER_FAQS = [
   },
   {
     question: 'Do I need expertise in AI, websites, advertising, or marketing?',
-    answer: 'No. NTA provides the website, Knowledge Library, videos, Your Digital Growth Guide™, Digital Growth Office, and direct support behind the relationship. You can keep learning and use those same resources with business owners.',
+    answer: 'No. NTA provides the website, Knowledge Library, Rick’s books, videos, Your Digital Growth Guide™, Digital Growth Office, and direct support behind the relationship. You can keep learning and use those same resources with business owners, nonprofits, churches, and other organizations.',
   },
   {
     question: 'Do I have to buy training, a course, or a system to begin?',
@@ -104,7 +104,7 @@ const REGIONAL_ACCOUNT_MANAGER_FAQS = [
 ];
 
 const roleActions = [
-  'Meet business owners and start useful conversations.',
+  'Meet business owners, nonprofit leaders, church leaders, and other community organizations and start useful conversations.',
   'With the owner’s permission, build relationships with the receptionist, office staff, managers, technicians, salespeople, and others who do the work.',
   'Listen for what the owner and employees know, the questions customers ask, and where time or opportunity may be getting lost.',
   'Ask good questions instead of rushing toward a product or pitch.',
@@ -119,9 +119,16 @@ const resources = [
   {
     icon: BookOpen,
     title: 'Knowledge Library',
-    text: 'Learn from articles, lessons, and books built around real business questions.',
+    text: 'Learn from articles and lessons built around real questions from businesses and organizations.',
     href: '/knowledge',
     label: 'Explore the Knowledge Library',
+  },
+  {
+    icon: BookOpen,
+    title: 'Rick’s books',
+    text: 'If you learn best by reading, use the books Rick has written from decades of business, advertising, and practical technology experience.',
+    href: '/books',
+    label: 'Explore Rick’s books',
   },
   {
     icon: MessageCircle,
@@ -432,13 +439,13 @@ export default function RegionalAccountManager() {
                 This is not a traditional corporate sales job, and it is not a role where you have to become an expert in websites, AI, advertising, SEO, social media, video, or business systems.
               </p>
               <p>
-                Your role is to build trust throughout the business—not only with the owner. With the owner’s permission, you get to know the receptionist or gatekeeper, office staff, managers, technicians, salespeople, and others who understand how the work really happens.
+                Your role is to build trust throughout the organization—not only with the person in charge. In a business, nonprofit, church, or community organization, you get to know the people who understand how the work really happens and how the organization communicates with the people it serves.
               </p>
               <blockquote className="rounded-2xl border-l-4 border-blue-600 bg-blue-50 px-6 py-5 text-xl font-semibold leading-relaxed text-slate-800">
                 “That’s a good question. Let’s look at it together.”
               </blockquote>
               <p>
-                The NTA website is part of the learning and conversation system. It can do much of the explaining and teaching while you help the owner bring the team into the AI process and focus on the relationships.
+                The NTA website is part of the learning and conversation system. It can do much of the explaining and teaching while you help the organization bring its people into the AI process. NTA helps people communicate better with customers, employees, members, supporters, congregations, communities—and now with technology itself.
               </p>
             </div>
           </div>
@@ -446,16 +453,16 @@ export default function RegionalAccountManager() {
 
         <section className="border-y border-blue-100 bg-blue-50/70 px-6 py-20 md:py-24">
           <div className="mx-auto max-w-6xl">
-            <SectionHeading eyebrow="A team-building role" title="Help businesses build AI with the whole team.">
+            <SectionHeading eyebrow="A team-building role" title="Help organizations build AI with the whole team.">
               <p>
-                The relationship is with the business—not only with the owner. With the owner’s permission, you help people throughout the company learn, contribute what they know, and make AI useful in everyday work.
+                The relationship can be with a business, nonprofit, church, or other organization—not only with one leader. With permission, you help people throughout the organization learn, contribute what they know, communicate more clearly, and make AI useful in everyday work.
               </p>
             </SectionHeading>
             <div className="mx-auto mt-12 grid max-w-5xl gap-5 md:grid-cols-3">
               <div className="rounded-2xl border border-blue-100 bg-white p-6 shadow-sm">
                 <Handshake className="h-7 w-7 text-blue-600" />
-                <h3 className="mt-5 text-xl font-bold text-slate-900">Build trust across the company</h3>
-                <p className="mt-3 leading-relaxed text-slate-600">With permission, get to know the receptionist or gatekeeper, office staff, technicians, managers, salespeople, and others who understand how the work really happens.</p>
+                <h3 className="mt-5 text-xl font-bold text-slate-900">Build trust across the organization</h3>
+                <p className="mt-3 leading-relaxed text-slate-600">With permission, get to know the staff, volunteers, team members, and leaders who understand how the work really happens and how people need to hear from the organization.</p>
               </div>
               <div className="rounded-2xl border border-blue-100 bg-white p-6 shadow-sm">
                 <UsersRound className="h-7 w-7 text-blue-600" />
@@ -464,8 +471,8 @@ export default function RegionalAccountManager() {
               </div>
               <div className="rounded-2xl border border-blue-100 bg-white p-6 shadow-sm">
                 <BookOpen className="h-7 w-7 text-blue-600" />
-                <h3 className="mt-5 text-xl font-bold text-slate-900">Put the company’s knowledge to work</h3>
-                <p className="mt-3 leading-relaxed text-slate-600">Customer questions, procedures, stories, photos, voice notes, and lessons learned can become useful knowledge the whole company can use.</p>
+                <h3 className="mt-5 text-xl font-bold text-slate-900">Put the organization’s knowledge to work</h3>
+                <p className="mt-3 leading-relaxed text-slate-600">Customer or member questions, procedures, stories, photos, voice notes, and lessons learned can become useful knowledge the whole organization can use.</p>
               </div>
             </div>
           </div>
