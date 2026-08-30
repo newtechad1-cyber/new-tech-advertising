@@ -894,20 +894,20 @@ export default function YourDigitalGrowthGuide() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed inset-2 sm:inset-auto sm:bottom-5 sm:right-5 z-50 sm:w-[min(560px,calc(100vw-2.5rem))] sm:h-[min(780px,calc(100vh-2.5rem))] bg-slate-950 backdrop-blur-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden border border-slate-700/50"
+            className="fixed inset-2 sm:inset-auto sm:bottom-4 sm:right-4 z-50 sm:w-[min(680px,calc(100vw-2rem))] sm:h-[min(900px,calc(100vh-2rem))] bg-slate-950 backdrop-blur-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden border border-slate-700/50"
           >
             {/* Header */}
             <div 
               onPointerDown={(e) => dragControls.start(e)}
-              className="bg-slate-900 border-b border-slate-800 p-4 sm:p-5 flex items-center justify-between shadow-sm z-10 relative overflow-hidden cursor-move touch-none"
+              className="bg-slate-900 border-b border-slate-800 p-3 sm:p-4 flex items-center justify-between shadow-sm z-10 relative overflow-hidden cursor-move touch-none"
             >
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 blur-[50px] rounded-full pointer-events-none" />
               <div className="flex items-center gap-4 relative z-10">
-                <div className="w-14 h-14 sm:w-28 sm:h-24 bg-slate-950 border border-slate-700 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-inner overflow-hidden">
+                <div className="w-12 h-12 sm:w-20 sm:h-16 bg-slate-950 border border-slate-700 rounded-xl flex items-center justify-center shadow-inner overflow-hidden">
                   <RickGrowthGuideAvatar
                     guideMotion={avatarMotion}
                     decorative
-                    className="w-12 h-12 sm:w-[6.5rem] sm:h-[5.5rem]"
+                    className="w-11 h-11 sm:w-[4.5rem] sm:h-[3.5rem]"
                   />
                 </div>
                 <div>
@@ -919,6 +919,13 @@ export default function YourDigitalGrowthGuide() {
                 </div>
               </div>
               <div className="relative z-10 flex items-center gap-1">
+                {messages.length > 1 && (
+                  <div className="hidden sm:flex items-center gap-1 mr-1" aria-label="Contact Rick">
+                    <a href={`tel:${RICK_PHONE_DIGITS}`} className="rounded-lg bg-emerald-600 p-2 text-white hover:bg-emerald-500" aria-label="Call Rick"><Phone className="h-4 w-4" /></a>
+                    <a href={`sms:${RICK_PHONE_DIGITS}`} className="rounded-lg bg-blue-600 p-2 text-white hover:bg-blue-500" aria-label="Text Rick"><MessageSquare className="h-4 w-4" /></a>
+                    <a href={`mailto:${RICK_EMAIL}`} className="rounded-lg bg-slate-700 p-2 text-white hover:bg-slate-600" aria-label="Email Rick"><Mail className="h-4 w-4" /></a>
+                  </div>
+                )}
                 <button
                   type="button"
                   onClick={startFreshConversation}
@@ -970,6 +977,7 @@ export default function YourDigitalGrowthGuide() {
               </div>
             )}
 
+            {messages.length === 1 && (
             <div className="px-4 py-3 bg-slate-900/95 border-b border-slate-800 shrink-0">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                 <div>
@@ -1055,6 +1063,15 @@ export default function YourDigitalGrowthGuide() {
                 )}
               </AnimatePresence>
             </div>
+            )}
+
+            {messages.length > 1 && (
+              <div className="flex shrink-0 items-center justify-center gap-2 border-b border-slate-800 bg-slate-900 px-3 py-2 sm:hidden">
+                <a href={`tel:${RICK_PHONE_DIGITS}`} className="inline-flex items-center gap-1 rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white"><Phone className="h-3.5 w-3.5" /> Call</a>
+                <a href={`sms:${RICK_PHONE_DIGITS}`} className="inline-flex items-center gap-1 rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white"><MessageSquare className="h-3.5 w-3.5" /> Text</a>
+                <a href={`mailto:${RICK_EMAIL}`} className="inline-flex items-center gap-1 rounded-lg bg-slate-700 px-3 py-1.5 text-xs font-semibold text-white"><Mail className="h-3.5 w-3.5" /> Email</a>
+              </div>
+            )}
 
             {authStep === 'chat' ? (
                 discoveryMode && discoveryCreds ? (
@@ -1116,7 +1133,7 @@ export default function YourDigitalGrowthGuide() {
                     {/* Footer Area */}
                     <div className="bg-slate-900 border-t border-slate-800 flex flex-col shrink-0">
                       {/* Expandable Knowledge Base Info */}
-                      <div className="px-4 py-2 border-b border-slate-800">
+                      <div className={cn("px-4 border-b border-slate-800", messages.length > 1 ? "py-1" : "py-2")}>
                         <button 
                           onClick={() => setShowKnowledgeBase(!showKnowledgeBase)}
                           className="flex items-center gap-1.5 text-[11px] font-medium text-slate-400 hover:text-blue-400 transition-colors"
@@ -1167,9 +1184,11 @@ export default function YourDigitalGrowthGuide() {
 
                       {/* Input */}
                       <div className="p-4 pt-2">
-                          <p className="mb-2 text-xs text-slate-300">
-                            Talk or type your question below—or choose one of the suggestions to get started.
-                          </p>
+                          {messages.length === 1 && (
+                            <p className="mb-2 text-xs text-slate-300">
+                              Talk or type your question below—or choose one of the suggestions to get started.
+                            </p>
+                          )}
                           <form onSubmit={(e) => handleSend(e)} className="relative">
                             <Input
                                 value={input}
