@@ -31,7 +31,7 @@ import {
   buildPublicKnowledgeFallback
 } from '@/lib/growth-guide/publicKnowledge';
 
-const RICK_WELCOME_VIDEO_URL = 'https://resource2.heygen.ai/aws_pacific/avatar_tmp/2b9c0382ad664e3990529d134833aa24/377fbc146ee193dd88f63e03cdea7abd.webm';
+const RICK_WELCOME_VIDEO_URL = '/brand/rick-digital-growth-guide-welcome.webm';
 const RICK_WELCOME_TEXT = `Hi, I’m Rick Hesse, founder of New Tech Advertising. I built this place to help business owners make sense of technology, marketing, and AI without making it complicated. You don’t need to have all the answers before you begin. Take a look around, ask Your Digital Growth Guide a question, or tell me what is going on in your business. We can start with a practical next step. Whenever you want to talk, call, text, or email me—whichever way works best for you.`;
 const WELCOME_SEEN_KEY = 'nta_rick_welcome_seen';
 const RICK_EMAIL = 'info@newtechadvertising.com';
@@ -179,6 +179,7 @@ export default function YourDigitalGrowthGuide() {
   const [voiceError, setVoiceError] = useState('');
   const [speakingMessageId, setSpeakingMessageId] = useState(null);
   const [voicePlaybackError, setVoicePlaybackError] = useState('');
+  const [isRickWelcomePlaying, setIsRickWelcomePlaying] = useState(false);
   const submissionLockRef = useRef(false);
   const avatarMotionTimerRef = useRef(null);
   const lastAssistantMessageRef = useRef('welcome');
@@ -190,7 +191,6 @@ export default function YourDigitalGrowthGuide() {
   const audioContextRef = useRef(null);
   const audioAnimationRef = useRef(null);
   const guideAudioRef = useRef(null);
-  const guideWelcomeAudioRef = useRef(null);
   const guideWelcomeVideoRef = useRef(null);
   const recordingStartTextRef = useRef('');
   const inputRef = useRef('');
@@ -241,7 +241,6 @@ export default function YourDigitalGrowthGuide() {
   useEffect(() => () => {
     clearTimeout(avatarMotionTimerRef.current);
     guideAudioRef.current?.pause();
-    guideWelcomeAudioRef.current?.pause();
   }, []);
 
   useEffect(() => {
@@ -263,13 +262,6 @@ export default function YourDigitalGrowthGuide() {
       welcomeVideo.pause();
       welcomeVideo.currentTime = 0;
     }
-    const welcomeAudio = guideWelcomeAudioRef.current;
-    if (welcomeAudio) {
-      welcomeAudio.onended = null;
-      welcomeAudio.onerror = null;
-      welcomeAudio.pause();
-      welcomeAudio.currentTime = 0;
-    }
     const audio = guideAudioRef.current;
     if (audio) {
       audio.onended = null;
@@ -278,6 +270,7 @@ export default function YourDigitalGrowthGuide() {
       audio.currentTime = 0;
     }
     guideAudioRef.current = null;
+    setIsRickWelcomePlaying(false);
     setSpeakingMessageId(null);
     playAvatarMotion('idle');
   };
@@ -295,37 +288,37 @@ export default function YourDigitalGrowthGuide() {
       return;
     }
 
-    const welcomeAudio = guideWelcomeAudioRef.current;
-    if (!welcomeAudio) {
-      speakGuideText(RICK_WELCOME_TEXT, 'rick-welcome');
-      return;
-    }
-
     setVoicePlaybackError('');
     try {
-      // Keep the animation muted. A dedicated audio element avoids decoding the
-      // same remote WebM's picture and sound together, which was causing speech
-      // to stutter while the guide was animating.
-      video.muted = true;
+      // Play one locally hosted media stream. The former setup made the browser
+      // download and decode this large WebM twice—once for the picture and again
+      // as audio—which led to intermittent voice break-up.
+      video.pause();
+      video.muted = false;
       video.currentTime = 0;
-      welcomeAudio.currentTime = 0;
-      welcomeAudio.onended = () => {
-        video.pause();
+      video.onended = () => {
         video.currentTime = 0;
+        video.muted = true;
+        setIsRickWelcomePlaying(false);
         setSpeakingMessageId(null);
         playAvatarMotion('idle');
       };
-      welcomeAudio.onerror = () => {
+      video.onerror = () => {
         video.pause();
+        video.muted = true;
+        setIsRickWelcomePlaying(false);
         setSpeakingMessageId(null);
-        setVoicePlaybackError('Rick’s welcome could not play smoothly. You can still read it below.');
+        setVoicePlaybackError('Rick’s welcome could not play right now. You can still read it below.');
         playAvatarMotion('idle');
       };
-      await Promise.all([video.play(), welcomeAudio.play()]);
+      setIsRickWelcomePlaying(true);
+      await video.play();
       setSpeakingMessageId('rick-welcome');
       playAvatarMotion('explaining');
     } catch {
       video.pause();
+      video.muted = true;
+      setIsRickWelcomePlaying(false);
       speakGuideText(RICK_WELCOME_TEXT, 'rick-welcome');
     }
   };
@@ -953,13 +946,12 @@ export default function YourDigitalGrowthGuide() {
                     <video
                       ref={guideWelcomeVideoRef}
                       src={RICK_WELCOME_VIDEO_URL}
-                      preload="metadata"
-                      muted
+                      preload="auto"
+                      muted={!isRickWelcomePlaying}
                       playsInline
                       aria-label="Rick Hesse animated welcome"
                       className="h-20 w-16 shrink-0 object-contain object-bottom"
                     />
-                    <audio ref={guideWelcomeAudioRef} src={RICK_WELCOME_VIDEO_URL} preload="auto" />
                     <div>
                       <p className="text-xs font-semibold text-blue-100">New here? Meet Rick first.</p>
                       <p className="text-[11px] leading-relaxed text-blue-200/80">A brief welcome, then you can ask a question in your own words.</p>
