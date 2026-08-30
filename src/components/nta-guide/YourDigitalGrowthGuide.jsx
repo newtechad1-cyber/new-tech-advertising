@@ -111,8 +111,8 @@ const MessageBubble = ({ message, onSpeak, isSpeaking }) => {
     return (
         <div className={cn("flex gap-3", isUser ? "justify-end" : "justify-start")}>
             {!isUser && (
-                <div className="h-8 w-8 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm overflow-hidden">
-                    <video src={RICK_WELCOME_VIDEO_URL} muted autoPlay loop playsInline aria-hidden="true" className="h-7 w-7 object-cover object-center" />
+                <div className="h-8 w-8 rounded-xl border border-blue-400/30 bg-gradient-to-br from-blue-600 to-cyan-700 flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm" aria-label="Rick Hesse">
+                    <span className="text-[10px] font-bold tracking-tight text-white">RH</span>
                 </div>
             )}
             <div className={cn("max-w-[85%]", isUser && "flex flex-col items-end")}>
@@ -897,11 +897,15 @@ export default function YourDigitalGrowthGuide() {
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 blur-[50px] rounded-full pointer-events-none" />
               <div className="flex items-center gap-4 relative z-10">
                 <div className="w-12 h-12 sm:w-20 sm:h-16 bg-slate-950 border border-slate-700 rounded-xl flex items-center justify-center shadow-inner overflow-hidden">
-                  <RickGrowthGuideAvatar
-                    guideMotion={avatarMotion}
-                    decorative
-                    className="w-11 h-11 sm:w-[4.5rem] sm:h-[3.5rem]"
-                  />
+                  {isRickWelcomePlaying ? (
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-cyan-700 text-sm font-bold text-white sm:h-[3.5rem] sm:w-[4.5rem]" aria-label="Rick Hesse">RH</div>
+                  ) : (
+                    <RickGrowthGuideAvatar
+                      guideMotion={avatarMotion}
+                      decorative
+                      className="w-11 h-11 sm:w-[4.5rem] sm:h-[3.5rem]"
+                    />
+                  )}
                 </div>
                 <div>
                   <h3 className="text-white font-bold tracking-wide">Your Digital Growth Guide™</h3>
