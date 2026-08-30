@@ -6,9 +6,38 @@
     <link href="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/b2db6d82d_favicon_192x192.png" rel="apple-touch-icon" sizes="192x192"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-      html { background: #020617; overflow-x: hidden; }
-      body { margin: 0; min-width: 0; min-height: 100vh; background: #020617; overflow-x: hidden; }
-      #root { min-height: 100vh; overflow-x: hidden; }
+      html {
+        background: #020617 !important;
+        color-scheme: dark;
+        overflow-x: hidden;
+      }
+      body {
+        margin: 0;
+        min-width: 0;
+        min-height: 100vh;
+        background: #020617 !important;
+        overflow-x: hidden;
+      }
+      #root {
+        min-height: 100vh;
+        background: #020617 !important;
+        overflow-x: hidden;
+      }
+      /* A short-lived startup surface prevents the browser's default white
+         canvas from showing before the public app takes over. */
+      #nta-public-startup-cover {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        background: #020617;
+        opacity: 1;
+        pointer-events: none;
+        transition: opacity 120ms ease-out, visibility 0s linear 120ms;
+      }
+      #nta-public-startup-cover.nta-public-startup-cover--done {
+        opacity: 0;
+        visibility: hidden;
+      }
     </style>
     <link rel="manifest" href="/manifest.json" />
     <link rel="canonical" href="https://newtechadvertising.com" />
@@ -70,7 +99,26 @@
     </script>
   </head>
   <body>
+    <div id="nta-public-startup-cover" aria-hidden="true"></div>
     <div id="root"></div>
+    <script>
+      (function () {
+        function dismissStartupCover() {
+          var cover = document.getElementById('nta-public-startup-cover');
+          if (!cover) return;
+          cover.classList.add('nta-public-startup-cover--done');
+          window.setTimeout(function () { cover.remove(); }, 160);
+        }
+        window.addEventListener('DOMContentLoaded', function () {
+          window.requestAnimationFrame(function () {
+            window.requestAnimationFrame(dismissStartupCover);
+          });
+        }, { once: true });
+        // A hard timeout makes the startup surface self-removing even if a
+        // browser extension interrupts the normal startup sequence.
+        window.setTimeout(dismissStartupCover, 3000);
+      }());
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
