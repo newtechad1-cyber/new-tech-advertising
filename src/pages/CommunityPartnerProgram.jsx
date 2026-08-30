@@ -50,14 +50,15 @@ const INDIVIDUAL_FIT = [
 const ORGANIZATION_FIT = [
   "Chambers of Commerce and business associations",
   "Economic-development and Main Street organizations",
-  "Local media, banks, professional groups, and community nonprofits",
+  "Local media, banks, professional groups, community nonprofits, and churches",
+  "Any organization that wants to help its members, supporters, congregation, customers, employees, or community communicate and learn more effectively",
   "Any organization that wants to give local businesses practical, free learning before asking them to make a decision",
 ];
 
 const COMMUNITY_PARTNER_FAQS = [
   {
     question: "Who can become an NTA Community Partner?",
-    answer: "This path is for people with trusted business relationships and organizations such as Chambers, business associations, Main Street groups, banks, media, nonprofits, and similar community connectors. It can fit curious people early in a career, working professionals, and retired or semi-retired people who want to stay involved.",
+    answer: "This path is for people with trusted relationships and organizations such as Chambers, business associations, Main Street groups, banks, media, nonprofits, churches, and similar community connectors. It can fit curious people early in a career, working professionals, and retired or semi-retired people who want to stay involved.",
   },
   {
     question: "Do I have to buy training, a course, or a system?",
@@ -267,7 +268,7 @@ export default function CommunityPartnerProgram() {
                 </div>
                 <h3 className="mt-6 text-2xl font-bold text-slate-900">Community organization</h3>
                 <p className="mt-3 leading-relaxed text-slate-600">
-                  This is for groups that want to create practical member value and help businesses respond to changing technology together. The individual who brings the organization can participate personally, and the organization can also receive agreed relationship-based revenue.
+                  This is for groups that want to help people communicate and respond to changing technology together. A business may need to reach customers and employees; a nonprofit may need to reach supporters and the community; a church may need to stay connected with its congregation and the people it hopes to serve. The individual who brings the organization can participate personally, and the organization can also receive agreed relationship-based revenue.
                 </p>
                 <ul className="mt-6 space-y-3 text-slate-700">
                   {ORGANIZATION_FIT.map((item) => (
@@ -312,12 +313,13 @@ export default function CommunityPartnerProgram() {
               <p className="text-sm font-bold uppercase tracking-[0.18em] text-cyan-300">What NTA brings</p>
               <h2 className="mt-3 text-3xl font-bold md:text-4xl">You bring the trust. NTA brings the learning and support system.</h2>
               <p className="mt-5 text-lg leading-relaxed text-slate-300">
-                You do not have to become an AI or marketing expert. NTA has been built to help people learn, ask better questions, and find a realistic path forward.
+                You do not have to become an AI or marketing expert. NTA has been built to help people learn, ask better questions, and communicate more clearly—with each other, with the people their organization serves, and with technology itself.
               </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
               {[
                 "Free Knowledge Library lessons and videos",
+                "Rick’s books for people who prefer to learn by reading",
                 "The Free AI Guy and Your Digital Growth Guide™ for questions and learning",
                 "The NTA Growth Show and practical examples",
                 "Discovery conversations that listen before recommending",
