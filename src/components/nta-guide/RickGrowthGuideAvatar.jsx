@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-const RICK_WELCOME_VIDEO_URL = 'https://resource2.heygen.ai/aws_pacific/avatar_tmp/2b9c0382ad664e3990529d134833aa24/377fbc146ee193dd88f63e03cdea7abd.webm';
+const RICK_WELCOME_VIDEO_URL = '/brand/rick-digital-growth-guide-welcome.webm';
 
 export default function RickGrowthGuideAvatar({
   guideMotion = 'idle',
