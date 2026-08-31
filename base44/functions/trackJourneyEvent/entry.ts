@@ -6,6 +6,12 @@ const ALLOWED_EVENTS = new Set([
   'growth_conversation_started',
   'growth_conversation_submitted',
   'booking_page_viewed',
+  'regional_account_manager_home_click',
+  'regional_account_manager_cta_clicked',
+  'regional_account_manager_form_submitted',
+  'regional_account_manager_video_clicked',
+  'regional_account_manager_video_playlist_clicked',
+  'community_partner_home_click',
 ]);
 const TRUSTED_PUBLIC_ORIGINS = new Set([
   'https://newtechadvertising.com',
