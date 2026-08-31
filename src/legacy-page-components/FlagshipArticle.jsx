@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
+import LessonArticle from '@/components/knowledge/LessonArticle';
 import { ChevronRight, Clock, User, BookOpen, ArrowLeft } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -75,11 +75,11 @@ export default function FlagshipArticle() {
           </div>
         </header>
 
-        <article className="py-12 px-6">
-          <div className="max-w-3xl mx-auto prose prose-invert prose-indigo max-w-none prose-headings:font-black prose-p:leading-relaxed prose-a:text-indigo-400 hover:prose-a:text-indigo-300">
-            <ReactMarkdown>{article.content}</ReactMarkdown>
+        <section className="py-12 px-6">
+          <div className="max-w-3xl mx-auto">
+            <LessonArticle content={article.content} accent="purple" />
           </div>
-        </article>
+        </section>
 
         <section className="py-16 px-6 bg-slate-900 border-t border-slate-800">
           <div className="max-w-3xl mx-auto text-center">
