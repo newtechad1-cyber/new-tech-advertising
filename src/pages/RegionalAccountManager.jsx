@@ -57,11 +57,6 @@ const RECRUITING_VIDEOS = [
     description: 'How local relationship-building can be thoughtful and practical.',
   },
   {
-    id: 'fcNw60WEa4A',
-    title: 'Know Someone in Rochester?',
-    description: 'Why Rochester is an important early focus for this opportunity.',
-  },
-  {
     id: 'S_0cPb4TJz4',
     title: 'Media Sales Reps: You Already Know How to Start the Conversation',
     description: 'For people who already understand local-business conversations.',
@@ -83,7 +78,7 @@ const REGIONAL_ACCOUNT_MANAGER_FAQS = [
   },
   {
     question: 'Where can I build this?',
-    answer: 'Anywhere in the United States. NTA is rooted in Mason City, Iowa, but you do not need to live there or relocate. Start in your own community, an industry you understand, or the business relationships you already have.',
+    answer: 'Anywhere in the United States. This is a remote opportunity, so you do not need to relocate. Build in your own community, an industry you understand, or through the business relationships you already have.',
   },
   {
     question: 'Can this fit alongside another job or after retirement?',
@@ -374,9 +369,9 @@ export default function RegionalAccountManager() {
 
         <section className="border-y border-slate-200 bg-slate-50 px-5 py-16 sm:px-6 md:py-24">
           <div className="mx-auto max-w-6xl">
-            <SectionHeading eyebrow="The recruiting video series" title="Eight short videos. One clear picture of the opportunity.">
+            <SectionHeading eyebrow="The recruiting video series" title="Short videos. One clear picture of the opportunity.">
               <p>
-                These videos show the relationship-first model behind the opportunity. A few were created when Rochester was an early focus; today, an NTA Account Manager can build a market anywhere in the United States.
+                These videos explain the relationship-first model behind the opportunity: learn, start useful conversations, and build a market that fits the people and places you know.
               </p>
             </SectionHeading>
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -482,7 +477,7 @@ export default function RegionalAccountManager() {
           <div className="mx-auto max-w-6xl">
             <SectionHeading eyebrow="Your starting point" title="Build your own market. Start with people you can genuinely talk with.">
               <p>
-                NTA is rooted in Mason City, Iowa, but this opportunity is national. You can work remotely from anywhere in the United States, build in your own community, focus on an industry you understand, or begin with the business relationships you already have.
+                This is a national opportunity. You can work remotely from anywhere in the United States, build in your own community, focus on an industry you understand, or begin with the business relationships you already have.
               </p>
             </SectionHeading>
             <div className="mx-auto mt-10 max-w-4xl rounded-3xl border border-blue-100 bg-white p-7 shadow-sm md:p-9">
