@@ -950,7 +950,7 @@ export default function YourDigitalGrowthGuide() {
               className="bg-slate-900 border-b border-slate-800 p-2.5 sm:p-3 flex items-center justify-between shadow-sm z-10 relative overflow-hidden cursor-move touch-none"
             >
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 blur-[50px] rounded-full pointer-events-none" />
-              <div className="flex items-center gap-3 relative z-10">
+              <div className="flex min-w-0 flex-1 items-center gap-3 relative z-10">
                 <div className="w-11 h-11 sm:w-16 sm:h-14 bg-slate-950 border border-slate-700 rounded-xl flex items-center justify-center shadow-inner overflow-hidden">
                   {isRickWelcomePlaying ? (
                     <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-cyan-700 text-sm font-bold text-white sm:h-[3.5rem] sm:w-[4.5rem]" aria-label="Rick Hesse">RH</div>
@@ -962,15 +962,15 @@ export default function YourDigitalGrowthGuide() {
                     />
                   )}
                 </div>
-                <div>
-                  <h3 className="text-white font-bold tracking-wide">Your Digital Growth Guide™</h3>
+                <div className="min-w-0">
+                  <h3 className="truncate text-white font-bold tracking-wide">Your Digital Growth Guide™</h3>
                   <div className="flex items-center gap-1.5 mt-0.5">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.5)]"></span>
                     <span className="text-slate-300 text-xs font-medium">Ready to assist</span>
                   </div>
                 </div>
               </div>
-              <div className="relative z-10 flex items-center gap-1">
+              <div className="relative z-10 flex shrink-0 items-center gap-1">
                 {messages.length > 1 && (
                   <div className="hidden sm:flex items-center gap-1 mr-1" aria-label="Contact Rick">
                     <a href={`tel:${RICK_PHONE_DIGITS}`} className="rounded-lg bg-emerald-600 p-2 text-white hover:bg-emerald-500" aria-label="Call Rick"><Phone className="h-4 w-4" /></a>
