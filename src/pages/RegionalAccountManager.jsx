@@ -277,7 +277,7 @@ export default function RegionalAccountManager() {
     <div className="min-h-screen bg-white">
       <SEOHead
         title="NTA Account Manager | Learn AI & Build Relationship-Based Income"
-        description="A remote opportunity for curious people who enjoy business conversations. Learn practical AI for free, help owners understand it, and build relationship-based income over time under a written agreement."
+        description="A remote opportunity for curious people who want to explore NTA's practical AI and digital-growth learning experience, then help business owners understand it and build relationship-based income over time under a written agreement."
         canonical="https://newtechadvertising.com/account-manager"
         faqs={REGIONAL_ACCOUNT_MANAGER_FAQS}
         learningData={{
@@ -320,13 +320,13 @@ export default function RegionalAccountManager() {
                 </p>
               </div>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <button
-                  type="button"
-                  onClick={() => scrollToForm('hero')}
+                <a
+                  href="#explore-first"
+                  onClick={() => trackJourneyEvent('regional_account_manager_explore_first_clicked', { route: '/regional-account-manager', source: 'hero' })}
                   className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-7 py-4 text-lg font-bold text-white shadow-[0_0_24px_rgba(37,99,235,0.32)] transition-colors hover:bg-blue-500 sm:w-auto"
                 >
-                  Start the Conversation <ArrowRight className="h-5 w-5" />
-                </button>
+                  Explore the Opportunity First <ArrowRight className="h-5 w-5" />
+                </a>
                 <Link
                   to="/work-with-nta"
                   className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-600 bg-slate-900/60 px-7 py-4 text-lg font-semibold text-white transition-colors hover:border-slate-400 hover:bg-slate-800 sm:w-auto"
@@ -364,6 +364,48 @@ export default function RegionalAccountManager() {
                 Watch the full eight-video series on YouTube <ArrowRight className="h-4 w-4" />
               </a>
             </aside>
+          </div>
+        </section>
+
+        <section id="explore-first" className="scroll-mt-24 border-y border-cyan-100 bg-cyan-50/60 px-5 py-16 sm:px-6 md:py-20">
+          <div className="mx-auto max-w-6xl">
+            <SectionHeading eyebrow="First: explore NTA" title="Spend some time with the vision before you decide whether to apply.">
+              <p>
+                This is not a test, and you do not need to understand everything at once. Read a few pages, watch a few videos, or follow a question that interests you. The point is to see what NTA is building and whether the opportunity genuinely excites you.
+              </p>
+            </SectionHeading>
+
+            <div className="mx-auto mt-10 grid max-w-5xl gap-5 md:grid-cols-3">
+              <a href={RECRUITING_PLAYLIST_URL} target="_blank" rel="noreferrer" className="rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md">
+                <p className="text-sm font-bold uppercase tracking-[0.16em] text-blue-700">Start with the story</p>
+                <h3 className="mt-3 text-xl font-bold text-slate-900">Watch the opportunity overview.</h3>
+                <p className="mt-3 leading-relaxed text-slate-600">See why this is built around learning, useful conversations, and long-term relationships—not a traditional sales script.</p>
+                <span className="mt-5 inline-flex items-center gap-2 font-semibold text-blue-700">Watch the video series <ArrowRight className="h-4 w-4" /></span>
+              </a>
+
+              <Link to="/work-with-nta" className="rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md">
+                <p className="text-sm font-bold uppercase tracking-[0.16em] text-blue-700">See the bigger picture</p>
+                <h3 className="mt-3 text-xl font-bold text-slate-900">Read how NTA works.</h3>
+                <p className="mt-3 leading-relaxed text-slate-600">Explore the Digital Growth Office and the connected way NTA helps business owners understand what to do next.</p>
+                <span className="mt-5 inline-flex items-center gap-2 font-semibold text-blue-700">See how NTA works <ArrowRight className="h-4 w-4" /></span>
+              </Link>
+
+              <Link to="/knowledge" className="rounded-2xl border border-cyan-100 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md">
+                <p className="text-sm font-bold uppercase tracking-[0.16em] text-blue-700">Follow your curiosity</p>
+                <h3 className="mt-3 text-xl font-bold text-slate-900">Explore the Knowledge Library.</h3>
+                <p className="mt-3 leading-relaxed text-slate-600">Find a subject that matters to you and see how NTA teaches rather than simply throws another service at a business owner.</p>
+                <span className="mt-5 inline-flex items-center gap-2 font-semibold text-blue-700">Explore the library <ArrowRight className="h-4 w-4" /></span>
+              </Link>
+            </div>
+
+            <div className="mx-auto mt-9 max-w-3xl rounded-2xl border border-blue-200 bg-white px-6 py-5 text-center shadow-sm">
+              <p className="leading-relaxed text-slate-700">
+                When something begins to make sense—or simply makes you more curious—come back and tell Rick what caught your attention. That is the right place to begin a real conversation.
+              </p>
+              <button type="button" onClick={() => scrollToForm('explore_first')} className="mt-5 inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 font-bold text-white transition hover:bg-slate-800">
+                Tell Us What Caught Your Attention <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
           </div>
         </section>
 
@@ -666,9 +708,9 @@ export default function RegionalAccountManager() {
 
         <section id="start-conversation" ref={formRef} className="scroll-mt-24 bg-slate-950 px-5 py-16 text-white sm:px-6 md:py-24">
           <div className="mx-auto max-w-3xl">
-            <SectionHeading eyebrow="Start the conversation" title="You do not need a perfect résumé to begin." light>
+            <SectionHeading eyebrow="When the vision starts to make sense" title="Tell us what caught your attention." light>
               <p>
-                Tell us a little about yourself and the relationships, community, market, or industry you know. This is simply a private first conversation—not a commitment.
+                After you have spent some time exploring NTA, tell us a little about yourself, the relationships or market you know, and what made you curious to continue. This is simply a private first conversation—not a commitment.
               </p>
             </SectionHeading>
 
@@ -715,8 +757,8 @@ export default function RegionalAccountManager() {
                 </div>
 
                 <div className="mt-5">
-                  <label htmlFor="ram-interest" className="mb-2 block text-sm font-semibold text-slate-100">What interests you about this opportunity?</label>
-                  <textarea id="ram-interest" name="interest_reason" value={form.interest_reason} onChange={handleChange} rows={4} placeholder="A few sentences are enough." className="w-full resize-y rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30" />
+                  <label htmlFor="ram-interest" className="mb-2 block text-sm font-semibold text-slate-100">What caught your attention as you explored NTA? *</label>
+                  <textarea id="ram-interest" name="interest_reason" value={form.interest_reason} onChange={handleChange} required rows={4} placeholder="What did you read or watch? What made sense, raised a question, or made you curious to continue?" className="w-full resize-y rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30" />
                 </div>
 
                 <div className="sr-only" aria-hidden="true">
@@ -727,7 +769,7 @@ export default function RegionalAccountManager() {
                 {error && <p className="mt-5 rounded-xl border border-red-400/40 bg-red-400/10 px-4 py-3 text-sm text-red-100">{error}</p>}
 
                 <button type="submit" disabled={submitting} className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-7 py-4 text-lg font-bold text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-60">
-                  {submitting ? 'Sending…' : <>Start the Conversation <ArrowRight className="h-5 w-5" /></>}
+                  {submitting ? 'Sending…' : <>Share Your Perspective <ArrowRight className="h-5 w-5" /></>}
                 </button>
                 <p className="mt-4 text-center text-sm leading-relaxed text-slate-400">
                   Your information is used to respond to this opportunity inquiry. Please do not share confidential information from a current or former employer.
