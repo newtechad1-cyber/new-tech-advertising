@@ -17,6 +17,25 @@ test('homepage opens the existing Digital Growth Guide as its conversational fro
   assert.match(guide, /addEventListener\('nta:open-growth-guide'/);
 });
 
+test('public guide stays closed until a visitor opens it and keeps close controls reachable', async () => {
+  const guide = await read('src/components/nta-guide/YourDigitalGrowthGuide.jsx');
+
+  assert.doesNotMatch(guide, /nta_rick_welcome_seen/);
+  assert.doesNotMatch(guide, /WELCOME_SEEN_KEY/);
+  assert.match(guide, /sm:w-\[min\(680px,calc\(100vw-2\.5rem\)\)\]/);
+  assert.match(guide, /aria-label="Close Talk to My Office"/);
+  assert.match(guide, /aria-label="Minimize Talk to My Office"/);
+});
+
+test('main navigation uses a horizontal row without blocking page scrolling', async () => {
+  const nav = await read('src/components/nav/MarketingNav.jsx');
+
+  assert.match(nav, /overflow-x-auto/);
+  assert.match(nav, /h-\[108px\]/);
+  assert.doesNotMatch(nav, /mobile-nav-open/);
+  assert.doesNotMatch(nav, /fixed inset-0 top-16/);
+});
+
 test('public guide has a working response path instead of a silent agent-loading state', async () => {
   const guide = await read('src/components/nta-guide/YourDigitalGrowthGuide.jsx');
 
