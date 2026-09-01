@@ -16,6 +16,32 @@ const TODAY = new Date().toISOString().slice(0, 10);
 const KNOWLEDGE_AUTHOR = "Rick Hesse";
 const KNOWLEDGE_PUBLISHER = "New Tech Advertising";
 
+function getPublishedJournalIssues() {
+  if (!fs.existsSync(sourceAiSitemap)) return [];
+
+  const data = JSON.parse(fs.readFileSync(sourceAiSitemap, "utf8"));
+  return (data.journalIssues || [])
+    .filter(issue =>
+      issue?.publicStatus === "published" &&
+      issue?.canonicalUrl &&
+      issue?.title
+    )
+    .map(issue => ({
+      ...issue,
+      pathname: new URL(issue.canonicalUrl).pathname.replace(/\/+$/, "")
+    }));
+}
+
+const PUBLISHED_JOURNAL_ISSUES = getPublishedJournalIssues();
+const JOURNAL_METADATA_BY_PATH = new Map(
+  PUBLISHED_JOURNAL_ISSUES.map(issue => [issue.pathname, {
+    title: issue.title,
+    description: issue.description || "The latest practical update from New Tech Advertising.",
+    canonical: issue.canonicalUrl,
+    noIndex: false,
+  }])
+);
+
 const FEATURED_KNOWLEDGE_COLLECTION = {
   title: "AI, Humanity & Responsibility",
   canonicalUrl: SITE_ORIGIN + "/knowledge/ai-humanity",
@@ -259,6 +285,44 @@ function syncKnowledgeIndexes() {
 
   fs.writeFileSync(sourceSitemap, updatedXml);
   syncLlmsKnowledgeIndex(knowledgeCollections);
+}
+
+function syncJournalIssueRoutes() {
+  const generatedRoutes = new Map(
+    PUBLISHED_JOURNAL_ISSUES.map(issue => [
+      issue.pathname,
+      renderSitemapUrl(issue.pathname, issue.lastModified || TODAY, "weekly", "0.7")
+    ])
+  );
+
+  if (!generatedRoutes.size) return;
+
+  const existingXml = fs.readFileSync(sourceSitemap, "utf8");
+  const existingBlocks = [...existingXml.matchAll(/  <url>[\s\S]*?<\/url>/g)].map(match => match[0]);
+  const seenPaths = new Set();
+
+  const updatedBlocks = existingBlocks.map(block => {
+    const pathname = getPathFromSitemapBlock(block);
+    if (!pathname || !generatedRoutes.has(pathname)) return block;
+
+    seenPaths.add(pathname);
+    return generatedRoutes.get(pathname);
+  });
+
+  for (const [pathname, block] of generatedRoutes) {
+    if (!seenPaths.has(pathname)) updatedBlocks.push(block);
+  }
+
+  const urlsetOpen = existingXml.match(/<urlset[^>]*>/)?.[0] || '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+  const updatedXml = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    urlsetOpen,
+    ...updatedBlocks,
+    "</urlset>",
+    ""
+  ].join("\n");
+
+  fs.writeFileSync(sourceSitemap, updatedXml);
 }
 
 
@@ -690,6 +754,9 @@ function getContentByCanonical() {
 
 const contentByCanonical = getContentByCanonical();
 function routeMetadata(pathname) {
+  const journalMetadata = JOURNAL_METADATA_BY_PATH.get(pathname);
+  if (journalMetadata) return journalMetadata;
+
   const metadata = getSeoMetadata(pathname);
   const content = contentByCanonical.get(metadata.canonical);
   return content && content.description
@@ -713,6 +780,7 @@ function getPrerenderMetadata(pathname, publicPathSet) {
 }
 
 syncKnowledgeIndexes();
+syncJournalIssueRoutes();
 
 fs.copyFileSync(sourceSitemap, path.join(distDir, "sitemap.xml"));
 fs.copyFileSync(sourceAiSitemap, path.join(distDir, "ai-sitemap.json"));
