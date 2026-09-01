@@ -131,6 +131,104 @@ export const DUPLICATE_GROUPS = [
 // Keeping the launch edition here guarantees that the public archive remains
 // available even before Base44 contains its first JournalIssue record.
 export const SEED_JOURNAL_ENTRIES = [{
+  id: 'seed-journal-issue-5',
+  issue_number: 5,
+  volume: 1,
+  title: 'Build With the Budget You Have',
+  subtitle: 'Why the first dollars should build a foundation, not disappear into a one-time campaign',
+  slug: 'issue-5-build-with-the-budget-you-have',
+  summary: 'This week at NTA, Rick Hesse reflects on a practical lesson for small businesses: the first dollars you invest in marketing should strengthen a foundation that keeps working, not disappear into another one-time campaign.',
+  date: '2026-09-01',
+  status: 'Published',
+  category: 'Marketing Strategy',
+  series: 'NTA Journal',
+  tags: ['small business marketing', 'marketing budget', 'growth systems', 'customer experience', 'NTA Point of View'],
+  author: 'Rick Hesse',
+  editor_signature: 'Rick Hesse',
+  featured: false,
+  featured_image_url: null,
+  views: 0,
+  newsletter_sent: false,
+  newsletter_subject: 'The NTA Journal #5: Build With the Budget You Have',
+  estimated_reading_time: '5 min read',
+  introduction_headline: 'A practical thought for the first $500 a month',
+  introductory_message: `Not every business starts with a big marketing budget. Most do not. That does not mean it has to wait until it can afford everything. It means the first few decisions need to make the next ones easier.`,
+  from_ricks_desk: `All my life in advertising, small-business owners have asked some version of the same question: “I have a limited budget. What should I do with it?”
+
+There is never one answer for every business. A restaurant, a contractor, a retailer, and a professional service do not all need the same thing. But last week, while we were building NTA and talking through how a business can use a modest budget well, I kept coming back to one simple belief:
+
+**You do not build confidence by spending a little money everywhere. You begin by helping people understand who you are, why they should trust you, and what to do next.**
+
+That does not mean throwing away something that is already working. If referrals, radio, events, print, television, social media, or Google are helping you, build on them.
+
+But when there is only so much money to begin with, the work should leave something useful behind for next month—not just create a flash of activity that disappears when the campaign ends.`,
+  what_we_built: `This week at NTA, we kept connecting pieces instead of adding unrelated ones.
+
+We worked on the public NTA experience and the working/onboarding side of the system, while continuing to connect the website, Knowledge Library, video, real conversations, and follow-up into a clearer path.
+
+Part of that work is making the doorway simpler. A visitor should be able to slow down, read, watch, ask questions, and understand the vision before being pressured into a decision. That applies to a prospective client, a new team member, and the customer visiting one of our clients’ sites.
+
+The pages and tools will keep improving. But the purpose is steady: every new piece should make the whole experience clearer and more useful.`,
+  what_we_learned: `A campaign and a system are not the same thing.
+
+A campaign can create attention. A system knows what should happen next.
+
+The first $500 a month should not be asked to do every marketing job at once. It should begin answering a few important questions:
+
+- Can a person quickly understand the business?
+- Do they see reasons to trust it?
+- Is there a clear next step when they are ready?
+- Is the business learning what is working so it can make the next decision better?
+
+The exact starting point will be different for every business. It may be a clearer website message, better Google information, more visible reviews, a stronger offer, or a simple way to respond and follow up. The important thing is that the next investment strengthens what came before it.
+
+You do not have to buy every new tool to begin. Start by understanding the job the system needs to do.`,
+  what_it_means_for_your_business: `Do not worry if you are not ready to do everything at once.
+
+Start with a clear outcome. Decide how the right customer should find you, what that person needs to understand, and what should happen after they respond. Then choose the next piece that makes the rest of the system more useful.
+
+Good advertising builds equity. Each month should leave something behind: clearer information, stronger trust, better visibility, a useful piece of content, a better customer experience, or a better understanding of what to do next.
+
+That is how a small budget can become a foundation instead of a string of disconnected expenses.`,
+  this_weeks_challenge: `Before your next marketing decision, do one simple check:
+
+1. Write one sentence that says why a customer should choose your business.
+2. Look at your website and Google presence as if you had never heard of the business before.
+3. Notice one point of confusion, uncertainty, or friction.
+4. Decide on one improvement that would help the next marketing dollar work better.
+
+You do not need to solve every part of the business this week. Just make sure the next step can build on the last one.`,
+  selected_articles: [{
+    source_type: 'PublishingArticle',
+    source_id: '6a4bddcad0069f62d8bd3fa3',
+    title: 'Growth Systems vs. Campaigns',
+    url: 'https://newtechadvertising.com/growth-systems-vs-campaigns',
+    excerpt: 'One-off campaigns can create a burst of attention. A growth system gives each step somewhere useful to lead and keeps building value over time.',
+    reading_time: '5 min read',
+    featured_image_url: '',
+    is_lead: true,
+    display_order: 1,
+  }],
+  featured_video: {
+    source_id: '6kB55gnGGHo',
+    source_type: 'YouTubeKnowledge',
+    title: 'Growth Systems vs. Campaigns',
+    url: 'https://www.youtube.com/watch?v=6kB55gnGGHo',
+    duration: '',
+    description: 'A practical companion to this week’s Journal: why steady growth systems create more lasting value than disconnected campaigns.',
+    cta_text: 'Watch Growth Systems vs. Campaigns',
+  },
+  related_video_ids: ['6kB55gnGGHo'],
+  related_video_url: 'https://www.youtube.com/watch?v=6kB55gnGGHo',
+  related_video_title: 'Growth Systems vs. Campaigns',
+  cta_text: 'Read Growth Systems vs. Campaigns',
+  cta_url: 'https://newtechadvertising.com/growth-systems-vs-campaigns',
+  closing_message: `A modest budget is not a reason to wait for the perfect plan. It is a reason to start with the next useful piece and let it grow.
+
+That is what we are building at New Tech Advertising: not a long list of tools, and not a promise that business owners must become technology experts, but a connected Digital Growth Office that helps people understand what to do next.
+
+Read [“Growth Systems vs. Campaigns”](https://newtechadvertising.com/growth-systems-vs-campaigns) and watch [“Growth Systems vs. Campaigns”](https://www.youtube.com/watch?v=6kB55gnGGHo).`,
+}, {
   id: 'seed-journal-issue-1',
   issue_number: 1,
   volume: 1,
