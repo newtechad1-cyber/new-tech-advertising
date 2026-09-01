@@ -33,6 +33,9 @@ function getPublishedJournalIssues() {
 }
 
 const PUBLISHED_JOURNAL_ISSUES = getPublishedJournalIssues();
+const JOURNAL_ISSUES_BY_PATH = new Map(
+  PUBLISHED_JOURNAL_ISSUES.map(issue => [issue.pathname, issue])
+);
 const JOURNAL_METADATA_BY_PATH = new Map(
   PUBLISHED_JOURNAL_ISSUES.map(issue => [issue.pathname, {
     title: issue.title,
@@ -528,6 +531,81 @@ function opportunityStaticBody(pathname) {
   return "";
 }
 
+function journalInline(value) {
+  return escapeHtml(value).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+}
+
+function journalContentHtml(value) {
+  return String(value || "")
+    .trim()
+    .split(/\n{2,}/)
+    .filter(Boolean)
+    .map(block => {
+      const lines = block.split("\n").map(line => line.trim()).filter(Boolean);
+      const isList = lines.every(line => /^[-*]\s+|^\d+\.\s+/.test(line));
+
+      if (isList) {
+        return "<ul>" + lines
+          .map(line => "<li>" + journalInline(line.replace(/^[-*]\s+|^\d+\.\s+/, "")) + "</li>")
+          .join("") + "</ul>";
+      }
+
+      return "<p>" + journalInline(lines.join(" ")) + "</p>";
+    })
+    .join("");
+}
+
+function journalStaticBody(pathname) {
+  const issue = JOURNAL_ISSUES_BY_PATH.get(pathname);
+  if (!issue?.sections?.length) return "";
+
+  const article = issue.primaryArticle || {};
+  const video = issue.featuredVideo || {};
+  const articleCard = article.url && article.title
+    ? `<section class="journal-static-card">
+        <p class="seo-kicker">Continue reading</p>
+        <h2>${escapeHtml(article.title)}</h2>
+        <p>${escapeHtml(article.excerpt || "")}</p>
+        <p><a href="${escapeHtml(article.url)}">Read this article on NTA's website</a></p>
+      </section>`
+    : "";
+  const videoCard = video.url && video.title
+    ? `<section class="journal-static-card">
+        <p class="seo-kicker">This week's video</p>
+        <h2>${escapeHtml(video.title)}</h2>
+        <p>${escapeHtml(video.description || "")}</p>
+        <p><a href="${escapeHtml(video.url)}">Watch the video on YouTube</a></p>
+      </section>`
+    : "";
+
+  return `<main data-prerendered="true" data-static-journal="true" class="seo-shell journal-static">
+    <article>
+      <nav aria-label="NTA Journal navigation">
+        <a href="/">New Tech Advertising</a>
+        <a href="/journal">Journal archive</a>
+        <a href="/nta-journal#subscribe">Subscribe</a>
+      </nav>
+      <p class="seo-kicker">The NTA Journal · Issue #${escapeHtml(issue.issueNumber)}</p>
+      <h1>${escapeHtml(issue.title)}</h1>
+      ${issue.subtitle ? `<p class="journal-static-subtitle">${escapeHtml(issue.subtitle)}</p>` : ""}
+      <p class="journal-static-byline">${escapeHtml(issue.author || "Rick Hesse")} · ${escapeHtml(issue.lastModified || "")} · ${escapeHtml(issue.estimatedReadingTime || "")}</p>
+      ${issue.introductoryMessage ? `<div class="journal-static-intro">${journalContentHtml(issue.introductoryMessage)}</div>` : ""}
+      ${issue.sections.map(section => `<section class="journal-static-section">
+        <h2>${escapeHtml(section.heading)}</h2>
+        ${journalContentHtml(section.body)}
+      </section>`).join("")}
+      ${articleCard}
+      ${videoCard}
+      ${issue.closingMessage ? `<div class="journal-static-closing">${journalContentHtml(issue.closingMessage)}</div>` : ""}
+      <nav aria-label="Continue with NTA">
+        <a href="/journal">Read the Journal archive</a>
+        <a href="/nta-journal#subscribe">Subscribe to the NTA Journal</a>
+        <a href="/contact">Contact NTA</a>
+      </nav>
+    </article>
+  </main>`;
+}
+
 function opportunitySchemaMarkup(pathname, metadata) {
   const opportunity = opportunityDataForPath(pathname);
   if (!opportunity) return "";
@@ -585,7 +663,8 @@ function shellMarkup(metadata, pathname) {
   const description = escapeHtml(metadata.description);
   const canonical = escapeHtml(metadata.canonical);
   const heading = escapeHtml(metadata.title.replace(/\s+\|\s+.*$/, ""));
-  const body = opportunityStaticBody(pathname)
+  const body = journalStaticBody(pathname)
+    || opportunityStaticBody(pathname)
     || `<main data-prerendered="true" class="seo-shell">
     <article>
       <p class="seo-kicker">New Tech Advertising</p>
@@ -636,6 +715,15 @@ function renderHtml(template, metadata, pathname) {
     .seo-shell a { color: #67e8f9; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
     .seo-shell nav { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; margin-top: 0.75rem; }
     .seo-shell nav a { font-size: 0.95rem; }
+    .journal-static article { max-width: 760px; }
+    .journal-static nav:first-child { margin: 0 0 2rem; }
+    .journal-static-subtitle { color: #cbd5e1; font-size: 1.15rem; }
+    .journal-static-byline { color: #94a3b8; font-size: 0.9rem; }
+    .journal-static-intro { margin: 2rem 0; padding: 1.25rem; border-left: 3px solid #22d3ee; background: rgb(8 47 73 / 0.35); }
+    .journal-static-section, .journal-static-card, .journal-static-closing { margin: 1.5rem 0; padding: 1.25rem; border: 1px solid rgb(148 163 184 / 0.18); border-radius: 1rem; background: rgb(15 23 42 / 0.65); }
+    .journal-static-section h2, .journal-static-card h2 { margin-top: 0; }
+    .journal-static ul { margin: 0.85rem 0; padding-left: 1.35rem; color: #cbd5e1; line-height: 1.7; }
+    .journal-static li { margin: 0.45rem 0; }
     @media (max-width: 640px) {
       .seo-shell { padding: 1rem; }
       .seo-shell article { border-radius: 1rem; }
