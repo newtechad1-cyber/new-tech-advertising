@@ -1109,13 +1109,48 @@
     {
       "issueNumber": 5,
       "title": "NTA Journal #5: Build With the Budget You Have",
+      "subtitle": "Why the first dollars should build a foundation, not disappear into a one-time campaign",
       "canonicalUrl": "https://newtechadvertising.com/journal/issue-5-build-with-the-budget-you-have",
       "contentType": "Newsletter",
       "description": "This week at NTA, Rick Hesse reflects on a practical lesson for small businesses: the first dollars you invest in marketing should strengthen a foundation that keeps working, not disappear into another one-time campaign.",
       "author": "Rick Hesse",
       "publisher": "New Tech Advertising",
       "publicStatus": "published",
-      "lastModified": "2026-09-01"
+      "lastModified": "2026-09-01",
+      "estimatedReadingTime": "5 min read",
+      "introductoryMessage": "Not every business starts with a big marketing budget. Most do not. That does not mean it has to wait until it can afford everything. It means the first few decisions need to make the next ones easier.",
+      "sections": [
+        {
+          "heading": "From Rick's Desk",
+          "body": "All my life in advertising, small-business owners have asked some version of the same question: “I have a limited budget. What should I do with it?”\n\nThere is never one answer for every business. A restaurant, a contractor, a retailer, and a professional service do not all need the same thing. But last week, while we were building NTA and talking through how a business can use a modest budget well, I kept coming back to one simple belief:\n\n**You do not build confidence by spending a little money everywhere. You begin by helping people understand who you are, why they should trust you, and what to do next.**\n\nThat does not mean throwing away something that is already working. If referrals, radio, events, print, television, social media, or Google are helping you, build on them.\n\nBut when there is only so much money to begin with, the work should leave something useful behind for next month—not just create a flash of activity that disappears when the campaign ends."
+        },
+        {
+          "heading": "What We Built",
+          "body": "This week at NTA, we kept connecting pieces instead of adding unrelated ones.\n\nWe worked on the public NTA experience and the working/onboarding side of the system, while continuing to connect the website, Knowledge Library, video, real conversations, and follow-up into a clearer path.\n\nPart of that work is making the doorway simpler. A visitor should be able to slow down, read, watch, ask questions, and understand the vision before being pressured into a decision. That applies to a prospective client, a new team member, and the customer visiting one of our clients’ sites.\n\nThe pages and tools will keep improving. But the purpose is steady: every new piece should make the whole experience clearer and more useful."
+        },
+        {
+          "heading": "What We Learned",
+          "body": "A campaign and a system are not the same thing.\n\nA campaign can create attention. A system knows what should happen next.\n\nThe first $500 a month should not be asked to do every marketing job at once. It should begin answering a few important questions:\n\n- Can a person quickly understand the business?\n- Do they see reasons to trust it?\n- Is there a clear next step when they are ready?\n- Is the business learning what is working so it can make the next decision better?\n\nThe exact starting point will be different for every business. It may be a clearer website message, better Google information, more visible reviews, a stronger offer, or a simple way to respond and follow up. The important thing is that the next investment strengthens what came before it.\n\nYou do not have to buy every new tool to begin. Start by understanding the job the system needs to do."
+        },
+        {
+          "heading": "What It Means for Your Business",
+          "body": "Do not worry if you are not ready to do everything at once.\n\nStart with a clear outcome. Decide how the right customer should find you, what that person needs to understand, and what should happen after they respond. Then choose the next piece that makes the rest of the system more useful.\n\nGood advertising builds equity. Each month should leave something behind: clearer information, stronger trust, better visibility, a useful piece of content, a better customer experience, or a better understanding of what to do next.\n\nThat is how a small budget can become a foundation instead of a string of disconnected expenses."
+        },
+        {
+          "heading": "This Week's Challenge",
+          "body": "Before your next marketing decision, do one simple check:\n\n1. Write one sentence that says why a customer should choose your business.\n2. Look at your website and Google presence as if you had never heard of the business before.\n3. Notice one point of confusion, uncertainty, or friction.\n4. Decide on one improvement that would help the next marketing dollar work better.\n\nYou do not need to solve every part of the business this week. Just make sure the next step can build on the last one."
+        }
+      ],
+      "primaryArticle": {
+        "title": "Growth Systems vs. Campaigns",
+        "url": "https://newtechadvertising.com/growth-systems-vs-campaigns",
+        "excerpt": "One-off campaigns can create a burst of attention. A growth system gives each step somewhere useful to lead and keeps building value over time."
+      },
+      "featuredVideo": {
+        "title": "Growth Systems vs. Campaigns",
+        "url": "https://www.youtube.com/watch?v=6kB55gnGGHo",
+        "description": "A practical companion to this week’s Journal: why steady growth systems create more lasting value than disconnected campaigns."
+      },
+      "closingMessage": "A modest budget is not a reason to wait for the perfect plan. It is a reason to start with the next useful piece and let it grow.\n\nThat is what we are building at New Tech Advertising: not a long list of tools, and not a promise that business owners must become technology experts, but a connected Digital Growth Office that helps people understand what to do next."
     }
   ]
-}
